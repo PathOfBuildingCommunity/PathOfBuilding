@@ -8791,8 +8791,8 @@ return {
 			width=210
 		},
 		[7]={
-			list=false,
-			name="",
+			list=true,
+			name="StartIndices",
 			refTo="",
 			type="Int",
 			width=150
@@ -10753,6 +10753,132 @@ return {
 	summonedspecificbarrels={
 	},
 	summonedspecificmonsters={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[2]={
+			list=false,
+			name="MonsterVarietiesKey",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=550
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=80
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=80
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=80
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=80
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=80
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=80
+		},
+		[12]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=80
+		},
+		[14]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[15]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=80
+		},
+		[16]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=80
+		},
+		[17]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=80
+		},
+		[18]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		}
 	},
 	summonedspecificmonstersondeath={
 	},

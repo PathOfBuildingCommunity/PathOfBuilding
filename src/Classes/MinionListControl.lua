@@ -49,17 +49,15 @@ function MinionListClass:AddValueTooltip(tooltip, index, minionId)
 	if tooltip:CheckForUpdate(minionId) then
 		local minion = self.data.minions[minionId]
 		tooltip:AddLine(18, "^7"..minion.name)
-
-		if minion.monsterCategory then
-			tooltip:AddLine(14, "^7Monster Category: "..minion.monsterCategory)
-		end
-
 		tooltip:AddLine(14, s_format("^7Life Multiplier: x%.2f", minion.life))
 		if minion.energyShield then
 			tooltip:AddLine(14, s_format("^7Energy Shield: %d%% of base Life", minion.energyShield * 100))
 		end
 		if minion.armour then
-			tooltip:AddLine(14, s_format("^7Armour Multiplier: x%.2f", minion.armour))
+			tooltip:AddLine(14, s_format("^7Armour Multiplier: x%.2f", 1 + minion.armour))
+		end
+		if minion.evasion then
+			tooltip:AddLine(14, s_format("^7Evasion Multiplier: x%.2f", 1 + minion.evasion))
 		end
 		tooltip:AddLine(14, s_format("^7Resistances: %s%d^7/%s%d^7/%s%d^7/%s%d", 
 			colorCodes.FIRE, minion.fireResist, 

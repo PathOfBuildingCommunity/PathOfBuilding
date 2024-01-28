@@ -499,7 +499,7 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 	end
 	self.x = self.x - self.controls.scrollBarH.offset
 
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if event.key == "z" and IsKeyDown("CTRL") then
 				self:Undo()
@@ -513,11 +513,11 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 		end
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyUp" then
-			if event.key == "WHEELDOWN" or event.key == "PAGEDOWN" then
+			if self.controls.scrollBarH:IsScrollDownKey(event.key) then
 				self.controls.scrollBarH:Scroll(1)
-			elseif event.key == "WHEELUP" or event.key == "PAGEUP" then
+			elseif self.controls.scrollBarH:IsScrollUpKey(event.key) then
 				self.controls.scrollBarH:Scroll(-1)
 			end
 		end
@@ -1221,7 +1221,7 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 		end
 	end
 	local showOtherHeader = true
-	for _, gemInstance in ipairs(socketGroup.gemList) do
+	for _, gemInstance in ipairs(socketGroup.displayGemList or socketGroup.gemList) do
 		if not gemShown[gemInstance] then
 			if showOtherHeader then
 				showOtherHeader = false

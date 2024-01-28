@@ -152,6 +152,9 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 		local rowList = copyTable(breakdown.rowList, true)
 		local colKey = breakdown.colList[1].key
 		table.sort(rowList, function(a, b)
+			if a.reqNum then
+				return a.reqNum > b.reqNum
+			end
 			return a[colKey] > b[colKey]
 		end)
 		
@@ -300,28 +303,18 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 	}
 	t_insert(self.sectionList, section)
 
-	table.sort(rowList, function(a, b)
-		-- Sort Modifiers by descending value
-		if type(a.value) == 'number' and type(b.value) == 'number' then
-			return b.value < a.value
-		end
-		if type(a.value) == 'boolean' and type(b.value) == 'boolean' then
-			return a.value and not b.value
-		end
-		return false
-	end)
-
 	if not modList and not sectionData.modType then
 		-- Sort modifiers by type
-		for i, row in ipairs(rowList) do
-			row.index = i
-		end
 		table.sort(rowList, function(a, b)
 			if a.mod.type == b.mod.type then
-				return a.index < b.index
+				return a.mod.name > b.mod.name or (a.mod.name == b.mod.name and type(a.value) == "number" and type(b.value) == "number") and a.value > b.value
 			else
 				return a.mod.type < b.mod.type
 			end
+		end)
+	else -- Sort modifiers by value
+		table.sort(rowList, function(a, b)
+			return a.mod.name > b.mod.name or (a.mod.name == b.mod.name and type(a.value) == "number" and type(b.value) == "number") and a.value > b.value
 		end)
 	end
 
@@ -480,8 +473,8 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 					desc = self:FormatModName(tag.effectType)
 				elseif tag.type == "Limit" then
 					desc = "Limited to "..(tag.limitVar and self:FormatModName(tag.limitVar) or self:FormatModBase(row.mod, tag.limit))
-				elseif tag.type == "MonsterCategory" then
-					desc = "Monster Category: "..(tag.monsterCategoryList and table.concat(tag.monsterCategoryList, "/") or tag.monsterCategory)
+				elseif tag.type == "MonsterTag" then
+					desc = "Monster Tag: "..(tag.monsterTagList and table.concat(tag.monsterTagList, "/") or tag.monsterTag)
 				else
 					desc = self:FormatModName(tag.type)
 				end
@@ -742,9 +735,9 @@ function CalcBreakdownClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
-	if key == "WHEELDOWN" then
+	if self.controls.scrollBar:IsScrollDownKey(key) then
 		self.controls.scrollBar:Scroll(1)
-	elseif key == "WHEELUP" then
+	elseif self.controls.scrollBar:IsScrollUpKey(key) then
 		self.controls.scrollBar:Scroll(-1)
 	end
 	return self

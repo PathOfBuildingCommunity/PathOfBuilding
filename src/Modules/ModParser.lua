@@ -434,7 +434,7 @@ local modNameList = {
 	["aspect of the avian buff effect"] = { "BuffEffect", tag = { type = "SkillName", skillName = "Aspect of the Avian" } },
 	["maximum rage"] = "MaximumRage",
 	["maximum fortification"] = "MaximumFortification",
-	["fortification"] = "FortificationStacks",
+	["fortification"] = "MinimumFortification",
 	-- Charges
 	["maximum power charge"] = "PowerChargesMax",
 	["maximum power charges"] = "PowerChargesMax",
@@ -2222,7 +2222,7 @@ local specialModList = {
 	["cannot be stunned while fortified"] = { flag("StunImmune", { type = "Condition", var = "Fortified" }) },
 	["you cannot be stunned while at maximum endurance charges"] = { flag("StunImmune", { type = "StatThreshold", stat = "EnduranceCharges", thresholdStat = "EnduranceChargesMax" }) },
 	["fortify"] = { flag("Condition:Fortified") },
-	["you have (%d+) fortification"] = { flag("Condition:Fortified") },
+	["you have (%d+) fortification"] = function(num) return { mod("MinimumFortification", "BASE", num) } end,
 	["enemies taunted by you cannot evade attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("CannotEvade", { type = "Condition", var = "Taunted" }) }) },
 	["if you've impaled an enemy recently, you and nearby allies have %+(%d+) to armour"] = function (num) return { mod("ExtraAura", "LIST", { mod = mod("Armour", "BASE", num) }, { type = "Condition", var = "ImpaledRecently" }) } end,
 	["your hits permanently intimidate enemies that are on full life"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }) },
@@ -2235,7 +2235,7 @@ local specialModList = {
 		mod("EnemyModifier", "LIST", { mod = mod("FireDamageTaken", "INC", num) }),
 	} end,
 	["every (%d+) seconds, gain (%d+)%% of physical damage as extra fire damage for (%d+) seconds"] = function(frequency, _, num, duration) return {
-		mod("PhysicalDamageGainAsFire", "BASE", num, { type = "Condition", var = "NgamahuFlamesAdvance" }),
+		mod("PhysicalDamageGainAsFire", "BASE", tonumber(num), { type = "Condition", var = "NgamahuFlamesAdvance" }),
 	} end,
 	["(%d+)%% more damage for each endurance charge lost recently, up to (%d+)%%"] = function(num, _, limit) return {
 		mod("Damage", "MORE", num, { type = "Multiplier", var = "EnduranceChargesLostRecently", limit = tonumber(limit), limitTotal = true }),
@@ -2248,7 +2248,7 @@ local specialModList = {
 	["non%-unique jewels cause small and notable passive skills in a (%a+) radius to also grant %+(%d+) to (%a+)"] = function(_, radius, val, attr) return {
 		mod("ExtraJewelFunc", "LIST", {radius = (radius:gsub("^%l", string.upper)), type = "Other", func = function(node, out, data)
 		if node and (node.type == "Notable" or node.type == "Normal") then
-			out:NewMod(firstToUpper(attr):match("^%a%l%l"), "BASE", val, data.modSource)
+			out:NewMod(firstToUpper(attr):match("^%a%l%l"), "BASE", tonumber(val), data.modSource)
 		end
 	end}, {type = "ItemCondition", itemSlot = "{SlotName}", rarityCond = "UNIQUE", neg = true}),
 	} end,
@@ -2814,7 +2814,6 @@ local specialModList = {
 	end,
 	["socketed hex curse skills are triggered by doedre's effigy when summoned"] = { mod("ExtraSupport", "LIST", { skillId = "SupportCursePillarTriggerCurses", level = 20 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["socketed projectile spells have %+([%d%.]+) seconds to cooldown"] = function(num) return {
-		mod("ExtraSkillMod", "LIST", { mod = mod("SkillData", "LIST", { key = "cooldown", value = 0 }) }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "SkillType", skillType= SkillType.Projectile }, { type = "SkillType", skillType = SkillType.Spell }),
 		mod("CooldownRecovery", "BASE", num, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "SkillType", skillType= SkillType.Projectile }, { type = "SkillType", skillType = SkillType.Spell })
 	} end,
 	["trigger level (%d+) (.+) every (%d+) seconds"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
@@ -2864,8 +2863,8 @@ local specialModList = {
 		mod((resFrom:gsub("^%l", string.upper)).."MaxResConvertTo"..(resTo2:gsub("^%l", string.upper)), "BASE", 100),
 	} end,
 	["modifiers to (%a+) resistance also apply to (%a+) and (%a+) resistances at (%d+)%% of their value"] = function(_, resFrom, resTo1, resTo2, rate) return {
-		mod((resFrom:gsub("^%l", string.upper)).."ResConvertTo"..(resTo1:gsub("^%l", string.upper)), "BASE", rate),
-		mod((resFrom:gsub("^%l", string.upper)).."ResConvertTo"..(resTo2:gsub("^%l", string.upper)), "BASE", rate),
+		mod((resFrom:gsub("^%l", string.upper)).."ResConvertTo"..(resTo1:gsub("^%l", string.upper)), "BASE", tonumber(rate)),
+		mod((resFrom:gsub("^%l", string.upper)).."ResConvertTo"..(resTo2:gsub("^%l", string.upper)), "BASE", tonumber(rate)),
 	} end,
 	["gain (%d+)%% of bow physical damage as extra damage of each element"] = function(num) return {
 		mod("PhysicalDamageGainAsLightning", "BASE", num, nil, ModFlag.Bow),
@@ -3887,7 +3886,7 @@ local specialModList = {
 	["gain (%d+) energy shield for each enemy you hit which is affected by a spider's web"] = function(num) return { mod("EnergyShieldOnHit", "BASE", num, nil, ModFlag.Hit, { type = "MultiplierThreshold", actor = "enemy", var = "Spider's WebStack", threshold = 1 }) } end,
 	["(%d+)%% chance to gain (%d+) life on hit with attacks"] = function (chance, _, amount) return {
 		mod("LifeOnHit", "BASE", amount * chance / 100, nil, bor(ModFlag.Attack, ModFlag.Hit), { type = "Condition", var = "AverageResourceGain" }),
-		mod("LifeOnHit", "BASE", amount, nil, bor(ModFlag.Attack, ModFlag.Hit), { type = "Condition", var = "MaxResourceGain" }),
+		mod("LifeOnHit", "BASE", tonumber(amount), nil, bor(ModFlag.Attack, ModFlag.Hit), { type = "Condition", var = "MaxResourceGain" }),
 	} end,
 	["(%d+) life gained for each cursed enemy hit by your attacks"] = function(num) return { mod("LifeOnHit", "BASE", num, nil, bor(ModFlag.Attack, ModFlag.Hit), { type = "ActorCondition", actor = "enemy", var = "Cursed" }) } end,
 	["gain (%d+) life per cursed enemy hit with attacks"] = function(num) return { mod("LifeOnHit", "BASE", num, nil, bor(ModFlag.Attack, ModFlag.Hit), { type = "ActorCondition", actor = "enemy", var = "Cursed" }) } end,

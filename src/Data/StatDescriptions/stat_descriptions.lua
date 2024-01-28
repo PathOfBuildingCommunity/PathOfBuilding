@@ -161670,7 +161670,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Herald of Thunder's Storms Hit Enemies with {0}% increased Frequency"
+					text="Storms Hit Enemies with {0}% increased Frequency"
 				},
 				[2]={
 					limit={
@@ -161679,7 +161679,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Herald of Thunder's Storms Hit Enemies with {0}% reduced Frequency"
+					text="Storms Hit Enemies with {0}% reduced Frequency"
 				}
 			}
 		},

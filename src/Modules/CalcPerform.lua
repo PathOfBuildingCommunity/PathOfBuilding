@@ -215,11 +215,11 @@ local function doActorAttribsConditions(env, actor)
 			end
 		end
 	end
-	if env.mode_combat then		
+	if env.mode_combat then
 		if not modDB:Flag(env.player.mainSkill.skillCfg, "NeverCrit") then
 			condList["CritInPast8Sec"] = true
 		end
-		if not actor.mainSkill.skillData.triggered and not actor.mainSkill.skillFlags.trap and not actor.mainSkill.skillFlags.mine and not actor.mainSkill.skillFlags.totem then 
+		if not actor.mainSkill.skillData.triggered and not actor.mainSkill.skillFlags.trap and not actor.mainSkill.skillFlags.mine and not actor.mainSkill.skillFlags.totem then
 			if actor.mainSkill.skillFlags.attack then
 				condList["AttackedRecently"] = true
 			elseif actor.mainSkill.skillFlags.spell then
@@ -309,12 +309,12 @@ local function doActorAttribsConditions(env, actor)
 					breakdown[stat] = breakdown.simple(nil, nil, output[stat], stat)
 				end
 			end
-			
+
 			local stats = { output.Str, output.Dex, output.Int }
 			table.sort(stats)
 			output.LowestAttribute = stats[1]
 			condList["TwoHighestAttributesEqual"] = stats[2] == stats[3]
-		
+
 			condList["DexHigherThanInt"] = output.Dex > output.Int
 			condList["StrHigherThanInt"] = output.Str > output.Int
 			condList["IntHigherThanDex"] = output.Int > output.Dex
@@ -361,7 +361,7 @@ local function doActorAttribsConditions(env, actor)
 				modDB:NewMod("Omni", "INC", -reduction["INC"], "Reduction from Double/Triple Dipped attributes to Omniscience")
 				modDB:NewMod("Omni", "MORE", -reduction["MORE"], "Reduction from Double/Triple Dipped attributes to Omniscience")
 			end
-				
+
 			for _, stat in pairs({"Str","Dex","Int"}) do
 				local base = classStats["base_"..stat:lower()]
 				output[stat] = base
@@ -376,7 +376,7 @@ local function doActorAttribsConditions(env, actor)
 			table.sort(stats)
 			output.LowestAttribute = stats[1]
 			condList["TwoHighestAttributesEqual"] = stats[2] == stats[3]
-		
+
 			condList["DexHigherThanInt"] = output.Dex > output.Int
 			condList["StrHigherThanInt"] = output.Str > output.Int
 			condList["IntHigherThanDex"] = output.Int > output.Dex
@@ -392,7 +392,7 @@ local function doActorAttribsConditions(env, actor)
 
 	if modDB:Flag(nil, "Omniscience") then
 		calculateOmniscience()
-	else 
+	else
 		calculateAttributes()
 	end
 
@@ -448,7 +448,7 @@ local function doActorLifeManaReservation(actor)
 		if max > 0 then
 			local lowPerc = modDB:Sum("BASE", nil, "Low" .. pool .. "Percentage")
 			reserved = (actor["reserved_"..pool.."Base"] or 0) + m_ceil(max * (actor["reserved_"..pool.."Percent"] or 0) / 100)
-			uncancellableReservation = actor["uncancellable_"..pool.."Reservation"] or 0 
+			uncancellableReservation = actor["uncancellable_"..pool.."Reservation"] or 0
 			output[pool.."Reserved"] = m_min(reserved, max)
 			output[pool.."ReservedPercent"] = m_min(reserved / max * 100, 100)
 			output[pool.."Unreserved"] = max - reserved
@@ -509,7 +509,7 @@ local function doActorMisc(env, actor)
 	local output = actor.output
 	local condList = modDB.conditions
 
-	-- Process enemy modifiers 
+	-- Process enemy modifiers
 	for _, value in ipairs(modDB:Tabulate(nil, nil, "EnemyModifier")) do
 		enemyDB:AddMod(modLib.setSource(value.value.mod, value.value.mod.source or value.mod.source))
 	end
@@ -519,10 +519,15 @@ local function doActorMisc(env, actor)
 		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
 			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
 		end
-		-- Fortify from a mod, or minions getting stacks from Kingmaker
+		-- Minimum Fortification from King Maker of Perfect Naval Officer spectres
+		if modDB:Sum("BASE", nil, "MinimumFortification") > 0 then
+			condList["Fortified"] = true
+		end
+		-- Fortify
 		if modDB:Flag(nil, "Fortified") or modDB:Sum("BASE", nil, "Multiplier:Fortification") > 0 then
 			local maxStacks = modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification")
-			local stacks = modDB:Override(nil, "FortificationStacks") or maxStacks
+			local minStacks = m_min(modDB:Sum("BASE", nil, "MinimumFortification"), maxStacks)
+			local stacks = modDB:Override(nil, "FortificationStacks") or (minStacks > 0 and minStacks) or maxStacks
 			output.FortificationStacks = stacks
 			if not modDB:Flag(nil,"Condition:NoFortificationMitigation") then
 				local effectScale = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
@@ -539,7 +544,7 @@ local function doActorMisc(env, actor)
 			--Loop detects if a Silver flask is used to grant Onslaught. If statement adds flask effect to calculation if one is being used
 			local onslaughtFromFlask
 			--This value is set to negative and not 0 or else reduced effect would not properly apply
-			local flaskEffectInc = -100			
+			local flaskEffectInc = -100
 			for item in pairs(env.flasks) do
 				if item.baseName:match("Silver Flask") then
 					onslaughtFromFlask = true
@@ -549,7 +554,7 @@ local function doActorMisc(env, actor)
 						curFlaskEffectInc = curFlaskEffectInc + modDB:Sum("INC", { actor = "player" }, "MagicUtilityFlaskEffect")
 					end
 
-					if flaskEffectInc < curFlaskEffectInc / 100 then 
+					if flaskEffectInc < curFlaskEffectInc / 100 then
 						flaskEffectInc = curFlaskEffectInc / 100
 					end
 				end
@@ -637,7 +642,7 @@ local function doActorMisc(env, actor)
 		end
 		if modDB:Max(nil, "WitherEffectStack") then
 			modDB:NewMod("Condition:CanWither", "FLAG", true, "Config")
-			local effect = modDB:Max(nil, "WitherEffectStack") 	
+			local effect = modDB:Max(nil, "WitherEffectStack")
 			enemyDB:NewMod("ChaosDamageTaken", "INC", effect, "Withered", { type = "Multiplier", var = "WitheredStack", limit = 15 } )
 		end
 		if modDB:Flag(nil, "Condition:CanBeWithered") then
@@ -647,8 +652,8 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "Blind") and not modDB:Flag(nil, "CannotBeBlinded") then
 			if not modDB:Flag(nil, "IgnoreBlindHitChance") then
 				local effect = 1 + modDB:Sum("INC", nil, "BlindEffect", "BuffEffectOnSelf") / 100
-				-- Override Blind effect if set.			
-				if modDB:Override(nil, "BlindEffect") then 
+				-- Override Blind effect if set.
+				if modDB:Override(nil, "BlindEffect") then
 					effect = m_min(modDB:Override(nil, "BlindEffect") / 100, effect)
 				end
 				modDB:NewMod("Accuracy", "MORE", m_floor(-20 * effect), "Blind")
@@ -745,10 +750,13 @@ local function doActorCharges(env, actor)
 	-- Calculate current and maximum charges
 	output.PowerChargesMin = m_max(modDB:Sum("BASE", nil, "PowerChargesMin"), 0)
 	output.PowerChargesMax = m_max(modDB:Sum("BASE", nil, "PowerChargesMax"), 0)
+    output.PowerChargesDuration = m_floor(modDB:Sum("BASE", nil, "ChargeDuration") * (1 + modDB:Sum("INC", nil, "PowerChargesDuration", "ChargeDuration") / 100))
 	output.FrenzyChargesMin = m_max(modDB:Sum("BASE", nil, "FrenzyChargesMin"), 0)
 	output.FrenzyChargesMax = m_max(modDB:Flag(nil, "MaximumFrenzyChargesIsMaximumPowerCharges") and output.PowerChargesMax or modDB:Sum("BASE", nil, "FrenzyChargesMax"), 0)
+	output.FrenzyChargesDuration = m_floor(modDB:Sum("BASE", nil, "ChargeDuration") * (1 + modDB:Sum("INC", nil, "FrenzyChargesDuration", "ChargeDuration") / 100))
 	output.EnduranceChargesMin = m_max(modDB:Sum("BASE", nil, "EnduranceChargesMin"), 0)
 	output.EnduranceChargesMax = m_max(env.partyMembers.modDB:Flag(nil, "PartyMemberMaximumEnduranceChargesEqualToYours") and env.partyMembers.output.EnduranceChargesMax or (modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or modDB:Sum("BASE", nil, "EnduranceChargesMax")), 0)
+	output.EnduranceChargesDuration = m_floor(modDB:Sum("BASE", nil, "ChargeDuration") * (1 + modDB:Sum("INC", nil, "EnduranceChargesDuration", "ChargeDuration") / 100))
 	output.SiphoningChargesMax = m_max(modDB:Sum("BASE", nil, "SiphoningChargesMax"), 0)
 	output.ChallengerChargesMax = m_max(modDB:Sum("BASE", nil, "ChallengerChargesMax"), 0)
 	output.BlitzChargesMax = m_max(modDB:Sum("BASE", nil, "BlitzChargesMax"), 0)
@@ -874,24 +882,6 @@ local function doActorCharges(env, actor)
 	modDB.multipliers["AfflictionCharge"] = output.AfflictionCharges
 	modDB.multipliers["BloodCharge"] = output.BloodCharges
 	modDB.multipliers["SpiritCharge"] = output.SpiritCharges
-
-	if env.mode_combat then
-		if modDB:Flag(nil, "UseEnduranceCharges") and modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
-			local tripleDmgChancePerEndurance = modDB:Sum("BASE", nil, "PerBrutalTripleDamageChance")
-			modDB:NewMod("TripleDamageChance", "BASE", tripleDmgChancePerEndurance, { type = "Multiplier", var = "BrutalCharge" } )
-		end
-		if modDB:Flag(nil, "UseFrenzyCharges") and modDB:Flag(nil, "FrenzyChargesConvertToAfflictionCharges") then
-			local dmgPerAffliction = modDB:Sum("BASE", nil, "PerAfflictionAilmentDamage")
-			local effectPerAffliction = modDB:Sum("BASE", nil, "PerAfflictionNonDamageEffect")
-			modDB:NewMod("Damage", "MORE", dmgPerAffliction, "Affliction Charges", 0, KeywordFlag.Ailment, { type = "Multiplier", var = "AfflictionCharge" } )
-			modDB:NewMod("EnemyChillEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
-			modDB:NewMod("EnemyShockEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
-			modDB:NewMod("EnemyFreezeEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
-			modDB:NewMod("EnemyScorchEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
-			modDB:NewMod("EnemyBrittleEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
-			modDB:NewMod("EnemySapEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
-		end
-	end
 end
 
 function calcs.actionSpeedMod(actor)
@@ -921,7 +911,7 @@ end
 function calcs.perform(env, fullDPSSkipEHP)
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
-	
+
 	local fullDPSSkipEHP = fullDPSSkipEHP or false
 
 	-- Merge keystone modifiers
@@ -942,7 +932,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 	env.player.output = { }
 	env.enemy.output = { }
 	local output = env.player.output
-	
+
 	env.partyMembers = env.build.partyTab.actor
 	env.player.partyMembers = env.partyMembers
 	local partyTabEnableExportBuffs = env.build.partyTab.enableExportBuffs
@@ -1040,7 +1030,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 
 	local hasGuaranteedBonechill = false
 
-	
+
 	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "WarcryPower") < 10 then
 		modDB:NewMod("WarcryPower", "OVERRIDE", 10, "Minimum Warcry Power from CryWolf")
 	end
@@ -1502,7 +1492,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 
 	-- Calculate skill life and mana reservations
 	env.player.reserved_LifeBase = 0
-	env.player.reserved_LifePercent = modDB:Sum("BASE", nil, "ExtraLifeReserved") 
+	env.player.reserved_LifePercent = modDB:Sum("BASE", nil, "ExtraLifeReserved")
 	env.player.reserved_ManaBase = 0
 	env.player.reserved_ManaPercent = 0
 	env.player.uncancellable_LifeReservation = modDB:Sum("BASE", nil, "ExtraLifeReserved")
@@ -1607,7 +1597,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 			end
 		end
 	end
-	
+
 	-- Set the life/mana reservations
 	doActorLifeManaReservation(env.player)
 
@@ -1663,7 +1653,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 				out = 0
 			end
 			output["Req"..attr.."String"] = 0
-			if out > (output["Req"..breakdownAttr] or 0) then 
+			if out > (output["Req"..breakdownAttr] or 0) then
 				output["Req"..breakdownAttr.."String"] = out
 				output["Req"..breakdownAttr] = out
 				if breakdown then
@@ -1746,6 +1736,15 @@ function calcs.perform(env, fullDPSSkipEHP)
 			if modData.name == "EnemyCurseLimit" then
 				minionCurses.limit = modData.value + 1
 				break
+			elseif modData.name == "AllyModifier" and modData.type == "LIST" then
+				buffs["Spectre"] = buffs["Spectre"] or new("ModList")
+				minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
+				for _, modValue in pairs(modData.value) do
+					local copyModValue = copyTable(modValue)
+					copyModValue.source = "Spectre:"..spectreData.name
+					t_insert(minionBuffs["Spectre"], copyModValue)
+					t_insert(buffs["Spectre"], copyModValue)
+				end
 			elseif modData.name == "MinionModifier" and modData.type == "LIST" then
 				minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
 				for _, modValue in pairs(modData.value) do
@@ -1889,7 +1888,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 						local lists = {extraAuraModList, buff.modList}
 						local scale = (1 + inc / 100) * more
 						scale = m_max(scale, 0)
-						
+
 						for _, modList in ipairs(lists) do
 							for _, mod in ipairs(modList) do
 								if mod.name == "EnergyShield" or mod.name == "Armour" or mod.name == "Evasion" or mod.name:match("Resist?M?a?x?$") then
@@ -1997,10 +1996,10 @@ function calcs.perform(env, fullDPSSkipEHP)
 							curse.minionBuffModList:ScaleAddList(temp, (1 + buffInc / 100) * buffMore)
 						end
 					end
-					t_insert(curses, curse)	
+					t_insert(curses, curse)
 				end
 			elseif buff.type == "Link" then
-				local linksApplyToMinions = env.minion and modDB:Flag(nil, "Condition:CanLinkToMinions") and modDB:Flag(nil, "Condition:LinkedToMinion") 
+				local linksApplyToMinions = env.minion and modDB:Flag(nil, "Condition:CanLinkToMinions") and modDB:Flag(nil, "Condition:LinkedToMinion")
 						and not env.minion.modDB:Flag(nil, "Condition:CannotBeDamaged") and not env.minion.mainSkill.summonSkill.skillTypes[SkillType.MinionsAreUndamageable]
 				if env.mode_buffs and (#linkSkills < 1) and (env.build.partyTab.enableExportBuffs or linksApplyToMinions) then
 					-- Check for extra modifiers to apply to link skills
@@ -2182,7 +2181,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 									local lists = {extraAuraModList, buff.modList}
 									local scale = (1 + inc / 100) * more
 									scale = m_max(scale, 0)
-									
+
 									for _, modList in ipairs(lists) do
 										for _, mod in ipairs(modList) do
 											if mod.name == "EnergyShield" or mod.name == "Armour" or mod.name == "Evasion" or mod.name:match("Resist?M?a?x?$") then
@@ -2215,14 +2214,14 @@ function calcs.perform(env, fullDPSSkipEHP)
 							curse.modList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 							t_insert(minionCurses, curse)
 						end
-					elseif buff.type == "Debuff" then
+					elseif buff.type == "Debuff" or buff.type == "AuraDebuff" then
 						local stackCount
 						if buff.stackVar then
-							stackCount = modDB:Sum("BASE", skillCfg, "Multiplier:"..buff.stackVar)
+							stackCount = skillModList:Sum("BASE", skillCfg, "Multiplier:"..buff.stackVar)
 							if buff.stackLimit then
 								stackCount = m_min(stackCount, buff.stackLimit)
 							elseif buff.stackLimitVar then
-								stackCount = m_min(stackCount, modDB:Sum("BASE", skillCfg, "Multiplier:"..buff.stackLimitVar))
+								stackCount = m_min(stackCount, skillModList:Sum("BASE", skillCfg, "Multiplier:"..buff.stackLimitVar))
 							end
 						else
 							stackCount = activeMinionSkill.skillData.stackCount or 1
@@ -2230,8 +2229,34 @@ function calcs.perform(env, fullDPSSkipEHP)
 						if env.mode_effective and stackCount > 0 then
 							activeMinionSkill.debuffSkill = true
 							local srcList = new("ModList")
-							srcList:ScaleAddList(buff.modList, stackCount)
-							if activeMinionSkill.skillData.stackCount then
+							local mult = 1
+							if buff.type == "AuraDebuff" then
+								mult = 0
+								if not skillModList:Flag(nil, "SelfAurasOnlyAffectYou") then
+									local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
+									local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
+									mult = (1 + inc / 100) * more
+									if not enemyDB.conditions["AffectedBy"..buff.name:gsub(" ","")] then
+										buffExports["Aura"][buff.name..(buffExports["Aura"][buff.name] and "_Debuff" or "")] = { effectMult = mult, modList = buff.modList }
+										if allyBuffs["AuraDebuff"] and allyBuffs["AuraDebuff"][buff.name] and allyBuffs["AuraDebuff"][buff.name].effectMult / 100 > mult then
+											mult = 0
+										end
+									else
+										mult = 0
+									end
+								end
+							end
+							enemyDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+							if env.minion and env.minion == activeSkill.minion then
+								env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+							end
+							if buff.type == "Debuff" then
+								local inc = skillModList:Sum("INC", skillCfg, "DebuffEffect")
+								local more = skillModList:More(skillCfg, "DebuffEffect")
+								mult = (1 + inc / 100) * more
+							end
+							srcList:ScaleAddList(buff.modList, mult * stackCount)
+							if activeMinionSkill.skillData.stackCount or buff.stackVar then
 								srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", activeMinionSkill.skillData.stackCount, buff.name)
 							end
 							mergeBuff(srcList, debuffs, buff.name)
@@ -2348,6 +2373,25 @@ function calcs.perform(env, fullDPSSkipEHP)
 	-- Calculate charges early to enable usage of stats that depend on charge count
 	doActorCharges(env, env.player)
 
+	-- Process stats from alternate charges
+	if env.mode_combat then
+		if modDB:Flag(nil, "UseEnduranceCharges") and modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
+			local tripleDmgChancePerEndurance = modDB:Sum("BASE", nil, "PerBrutalTripleDamageChance")
+			modDB:NewMod("TripleDamageChance", "BASE", tripleDmgChancePerEndurance, { type = "Multiplier", var = "BrutalCharge" } )
+		end
+		if modDB:Flag(nil, "UseFrenzyCharges") and modDB:Flag(nil, "FrenzyChargesConvertToAfflictionCharges") then
+			local dmgPerAffliction = modDB:Sum("BASE", nil, "PerAfflictionAilmentDamage")
+			local effectPerAffliction = modDB:Sum("BASE", nil, "PerAfflictionNonDamageEffect")
+			modDB:NewMod("Damage", "MORE", dmgPerAffliction, "Affliction Charges", 0, KeywordFlag.Ailment, { type = "Multiplier", var = "AfflictionCharge" } )
+			modDB:NewMod("EnemyChillEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+			modDB:NewMod("EnemyShockEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+			modDB:NewMod("EnemyFreezeEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+			modDB:NewMod("EnemyScorchEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+			modDB:NewMod("EnemyBrittleEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+			modDB:NewMod("EnemySapEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+		end
+	end
+
 	-- Check for extra curses
 	for dest, modDB in pairs({[curses] = modDB, [minionCurses] = env.minion and env.minion.modDB}) do
 		for _, value in ipairs(modDB:List(nil, "ExtraCurse")) do
@@ -2396,7 +2440,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 	local allyPartyCurses = env.partyMembers["Curse"]
 	if allyPartyCurses["Curse"] then
 		allyCurses.limit = allyPartyCurses.limit
-	else	
+	else
 		allyPartyCurses = { Curse = {} }
 	end
 	for curseName, curse in pairs(allyPartyCurses["Curse"]) do
@@ -2417,7 +2461,6 @@ function calcs.perform(env, fullDPSSkipEHP)
 
 
 	-- Set curse limit
-	output.PowerChargesMax = m_max(modDB:Sum("BASE", nil, "PowerChargesMax"), 0) -- precalculate max charges for this.
 	output.EnemyCurseLimit = modDB:Flag(nil, "CurseLimitIsMaximumPowerCharges") and output.PowerChargesMax or modDB:Sum("BASE", nil, "EnemyCurseLimit")
 	curses.limit = output.EnemyCurseLimit
 	buffExports["CurseLimit"] = curses.limit
@@ -2480,7 +2523,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 
 	for _, source in ipairs({curses, minionCurses}) do
 		for _, curse in ipairs(source) do
-			if curse.ignoreHexLimit then 	
+			if curse.ignoreHexLimit then
 				local skipAddingCurse = false
 				for i = 1, #curseSlots do
 					if curseSlots[i].name == curse.name then
@@ -2496,7 +2539,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 					curseSlots[#curseSlots + 1] = curse
 				end
 			end
-			if curse.socketedCursesHexLimit then 	
+			if curse.socketedCursesHexLimit then
 				local socketedCursesHexLimitValue = modDB:Sum("BASE", nil, "SocketedCursesHexLimitValue")
 				local skipAddingCurse = false
 				for i = 1, #curseSlots do
@@ -2582,7 +2625,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 			env.minion.modDB:AddList(slot.minionBuffModList)
 		end
 	end
-	
+
 	local function processBuffDebuff(activeSkill)
 		local skillModList = activeSkill.skillModList
 		local skillCfg = activeSkill.skillCfg
@@ -2719,7 +2762,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 			end
 		end
 	end
-	
+
 	-- Fix the configured impale stacks on the enemy
 	-- 		If the config is missing (blank), then use the maximum number of stacks
 	--		If the config is larger than the maximum number of stacks, replace it with the correct maximum
@@ -2921,7 +2964,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 			or not modDB:Flag(nil, "ElementalEquilibrium") -- if Elemental Equilibrium isn't active we just process Exposure normally
 			or element == "Fire" and not enemyDB:Flag(nil, "Condition:HitByFireDamage")
 			or element == "Cold" and not enemyDB:Flag(nil, "Condition:HitByColdDamage")
-			or element == "Lightning" and not enemyDB:Flag(nil, "Condition:HitByLightningDamage") then	
+			or element == "Lightning" and not enemyDB:Flag(nil, "Condition:HitByLightningDamage") then
 			local min = math.huge
 			local source = ""
 			for _, mod in ipairs(enemyDB:Tabulate("BASE", nil, element.."Exposure")) do
@@ -2953,9 +2996,11 @@ function calcs.perform(env, fullDPSSkipEHP)
 	if not fullDPSSkipEHP then
 		calcs.buildDefenceEstimations(env, env.player)
 	end
+
 	calcs.triggers(env, env.player)
-	calcs.mirages(env)
-	calcs.offence(env, env.player, env.player.mainSkill)
+	if not calcs.mirages(env) then
+		calcs.offence(env, env.player, env.player.mainSkill)
+	end
 
 	if env.minion then
 		doActorLifeMana(env.minion)
@@ -2985,7 +3030,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 							end
 						end
                         if not skipValue and (not v[1] or (
-								(v[1].type ~= "Condition" or (v[1].var and (enemyDB.mods["Condition:"..v[1].var] and enemyDB.mods["Condition:"..v[1].var][1].value) or v[1].varList and (enemyDB.mods["Condition:"..v[1].varList[1]] and enemyDB.mods["Condition:"..v[1].varList[1]][1].value))) 
+								(v[1].type ~= "Condition" or (v[1].var and (enemyDB.mods["Condition:"..v[1].var] and enemyDB.mods["Condition:"..v[1].var][1].value) or v[1].varList and (enemyDB.mods["Condition:"..v[1].varList[1]] and enemyDB.mods["Condition:"..v[1].varList[1]][1].value)))
 								and (v[1].type ~= "Multiplier" or (enemyDB.mods["Multiplier:"..v[1].var] and enemyDB.mods["Multiplier:"..v[1].var][1].value)))) then
                             if buffExports["EnemyMods"][k] then
 								if not buffExports["EnemyMods"][k].MultiStat then
@@ -3000,7 +3045,7 @@ function calcs.perform(env, fullDPSSkipEHP)
                 end
             end
         end
-		
+
 		for _, damageType in ipairs({"Physical", "Lightning", "Cold", "Fire", "Chaos"}) do
 			if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") and output[damageType.."Resist"] then
 				buffExports.PlayerMods["Enemy"..damageType.."ResistEqualToYours"] = true
@@ -3011,9 +3056,9 @@ function calcs.perform(env, fullDPSSkipEHP)
 			buffExports.PlayerMods["PartyMemberMaximumEnduranceChargesEqualToYours"] = true
 			buffExports.PlayerMods["EnduranceChargesMax="..tostring(output["EnduranceChargesMax"])] = true
 		end
-		
+
 		buffExports.PlayerMods["MovementSpeedMod|percent|max="..tostring(output["MovementSpeedMod"] * 100)] = true
-		
+
 		-- preStack Mine auras
 		for auraName, aura in pairs(buffExports["Aura"]) do
 			if auraName:match("Mine") and not auraName:match(" Limit") then
@@ -3053,7 +3098,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 				end
 			end
 		end
-		
+
 		for linkName, link in pairs(buffExports["Link"]) do
 			if linkName == "Flame Link" then
 				buffExports.PlayerMods["Life="..tostring(output["Life"])] = true

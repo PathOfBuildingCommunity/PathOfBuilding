@@ -2134,14 +2134,14 @@ skills["AvengingFlame"] = {
 	baseTypeName = "Avenging Flame",
 	color = 1,
 	description = "Launches a fiery projectile high into the air, to drop on a target and deal area damage where it lands.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Fire] = true, [SkillType.ProjectileNumber] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Triggerable] = true, [SkillType.SkillGrantedBySupport] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.SummonsTotem] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Fire] = true, [SkillType.ProjectileNumber] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Triggerable] = true, [SkillType.SkillGrantedBySupport] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.SummonsTotem] = true, [SkillType.Projectile] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
 	preDamageFunc = function(activeSkill, output)
 		local uuid = activeSkill.skillData.triggerSourceUUID
 		local cache = uuid and GlobalCache.cachedData["CACHE"][uuid]
 		local totemLife = cache and cache.Env.player.output.TotemLife or 0
-		
+
 		local add = totemLife * activeSkill.skillData.lifeDealtAsFire / 100
 		activeSkill.skillData.FireMax = (activeSkill.skillData.FireMax or 0) + add
 		activeSkill.skillData.FireMin = (activeSkill.skillData.FireMin or 0) + add

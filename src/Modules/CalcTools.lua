@@ -194,12 +194,16 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 					end
 				end
 
-				local nextLevelIndex = m_min(currentLevelIndex + 1, #orderedLevels)
-				local nextReq = grantedEffect.levels[orderedLevels[nextLevelIndex]].levelRequirement
-				local prevReq = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]].levelRequirement
-				local nextStat = grantedEffect.levels[orderedLevels[nextLevelIndex]][index]
-				local prevStat = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]][index]
-				statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
+				if #orderedLevels > 1 then
+					local nextLevelIndex = m_min(currentLevelIndex + 1, #orderedLevels)
+					local nextReq = grantedEffect.levels[orderedLevels[nextLevelIndex]].levelRequirement
+					local prevReq = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]].levelRequirement
+					local nextStat = grantedEffect.levels[orderedLevels[nextLevelIndex]][index]
+					local prevStat = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]][index]
+					statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
+				else
+					statValue = round(grantedEffect.levels[orderedLevels[currentLevelIndex]][index])
+				end
 			end
 		end
 		stats[stat] = (stats[stat] or 0) + statValue
@@ -244,8 +248,12 @@ function calcLib.getGameIdFromGemName(gemName, dropVaal)
 	end
 	local gemId = data.gemForBaseName[gemName:lower()]
 	if not gemId then return end
-	local gameId = data.gems[gemId].gameId
-	if gameId and dropVaal then gameId = gameId:gsub("SkillGemVaal","SkillGem") end
+	local gameId 
+	if dropVaal and data.gems[gemId].vaalGem then
+		gameId = data.gems[data.gemVaalGemIdForBaseGemId[gemId]].gameId
+	else
+		gameId = data.gems[gemId].gameId
+	end
 	return gameId
 end
 

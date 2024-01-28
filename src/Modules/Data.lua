@@ -603,6 +603,15 @@ data.itemTagSpecialExclusionPattern = {
 			"Life From You",
 			"^Socketed Gems are Supported by Level"
 		},
+		["boots"] = {
+			"Enemy's Life", -- Legacy of Fury
+		},
+		["belt"] = {
+			"Life as Extra Maximum Energy Shield", -- Soul Tether
+		},
+		["helmet"] = {
+			"Recouped as Life", -- Flame Exarch
+		},
 	},
 	["evasion"] = {
 		["ring"] = {
@@ -803,6 +812,9 @@ data.gems = LoadModule("Data/Gems")
 data.gemForSkill = { }
 data.gemForBaseName = { }
 data.gemsByGameId = { }
+-- Lookup table - [Gem.grantedEffectId] = VaalGemId
+data.gemGrantedEffectIdForVaalGemId = { }
+data.gemVaalGemIdForBaseGemId = { }
 local function setupGem(gem, gemId)
 	gem.id = gemId
 	gem.grantedEffect = data.skills[gem.grantedEffectId]
@@ -831,8 +843,19 @@ for gemId, gem in pairs(data.gems) do
     gem.name = sanitiseText(gem.name)
     setupGem(gem, gemId)
     local loc, _ = gemId:find('Vaal')
+	if loc then
+		data.gemGrantedEffectIdForVaalGemId[gem.secondaryGrantedEffectId] = gemId
+		for otherGemId, otherGem in pairs(data.gems) do
+			if otherGem.grantedEffectId == gem.secondaryGrantedEffectId then
+				data.gemVaalGemIdForBaseGemId[gemId] = otherGemId 
+				break
+			end
+		end
+	end
     for _, alt in ipairs{"AltX", "AltY"} do
         if loc and data.skills[gem.secondaryGrantedEffectId..alt] then
+			data.gemGrantedEffectIdForVaalGemId[gem.secondaryGrantedEffectId..alt] = gemId..alt
+			data.gemVaalGemIdForBaseGemId[gemId..alt] = data.gemVaalGemIdForBaseGemId[gemId]..alt
             local newGem = { name, gameId, variantId, grantedEffectId, secondaryGrantedEffectId, vaalGem, tags = {}, tagString, reqStr, reqDex, reqInt, naturalMaxLevel }
 			-- Hybrid gems (e.g. Vaal gems) use the display name of the active skill e.g. Vaal Summon Skeletons of Sorcery
             newGem.name = "Vaal " .. data.skills[gem.secondaryGrantedEffectId..alt].baseTypeName
@@ -858,9 +881,9 @@ end
 
 -- Load minions
 data.minions = { }
-LoadModule("Data/Minions", data.minions, makeSkillMod)
+LoadModule("Data/Minions", data.minions, makeSkillMod, makeFlagMod)
 data.spectres = { }
-LoadModule("Data/Spectres", data.spectres, makeSkillMod)
+LoadModule("Data/Spectres", data.spectres, makeSkillMod, makeFlagMod)
 for name, spectre in pairs(data.spectres) do
 	spectre.limit = "ActiveSpectreLimit"
 	data.minions[name] = spectre
