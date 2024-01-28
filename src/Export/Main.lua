@@ -235,6 +235,10 @@ function main:Init()
 	end) {
 		shown = function()
 			return self.curSpecCol
+		end,
+		tooltipFunc = function(tooltip)
+			tooltip:Clear()
+			tooltip:AddLine(16, "^7Field name in the dat file")
 		end
 	}
 
@@ -242,7 +246,7 @@ function main:Init()
 		self.curSpecCol.type = value
 		self.curDatFile:OnSpecChanged()
 		self:UpdateCol()
-	end)
+	end, "^7Field type in the dat file")
 
 	self.controls.colIsList = new("CheckBoxControl", {"TOPLEFT",self.controls.colType,"BOTTOMLEFT"}, 30, 4, 18, "List:", function(state)
 		self.curSpecCol.list = state
@@ -253,17 +257,34 @@ function main:Init()
 	self.controls.colRefTo = new("EditControl", {"TOPLEFT",self.controls.colType,"BOTTOMLEFT"}, 0, 26, 150, 18, nil, nil, nil, nil, function(buf)
 		self.curSpecCol.refTo = buf
 		self.curDatFile:OnSpecChanged()
-	end)
+	end) {
+		tooltipFunc = function(tooltip)
+			tooltip:Clear()
+			tooltip:AddLine(16, "^7Reference to another dat file")
+		end
+	}
 
 	self.controls.colWidth = new("EditControl", {"TOPLEFT",self.controls.colRefTo,"BOTTOMLEFT"}, 0, 4, 100, 18, nil, nil, "%D", nil, function(buf)
 		self.curSpecCol.width = m_max(tonumber(buf) or 150, 20)
 		self.controls.rowList:BuildColumns()
-	end) { numberInc = 10 }
+	end) { 
+		numberInc = 10, 
+		tooltipFunc = function(tooltip)
+			tooltip:Clear()
+			tooltip:AddLine(16, "^7Column width in the grid")
+		end
+	}
 
 	self.controls.enumBase = new("EditControl", {"TOPLEFT",self.controls.colWidth,"BOTTOMLEFT"}, 0, 4, 100, 18, nil, nil, "%D", nil, function(buf)
 		self.curSpecCol.enumBase = tonumber(buf) or 0
 		self.curDatFile:OnSpecChanged()
-	end) { numberInc = 1 }
+	end) { 
+		numberInc = 1,
+		tooltipFunc = function(tooltip)
+			tooltip:Clear()
+			tooltip:AddLine(16, "^7Base value for enum types")
+		end
+	}
 
 	self.controls.colDelete = new("ButtonControl", {"BOTTOMRIGHT",self.controls.colName,"TOPRIGHT"}, 0, -4, 18, 18, "x", function()
 		t_remove(self.curDatFile.spec, self.curSpecColIndex)
