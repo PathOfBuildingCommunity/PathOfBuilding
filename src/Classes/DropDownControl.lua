@@ -428,7 +428,7 @@ function DropDownClass:OnKeyUp(key)
 			self:SetSel(math.floor((cursorY - dropY + self.controls.scrollBar.offset) / (height - 4)) + 1)
 			self.dropped = false
 		end
-	elseif key == "WHEELDOWN" then
+	elseif self.controls.scrollBar:IsScrollDownKey(key) then
 		if self.dropped and self.controls.scrollBar.enabled then
 			self.controls.scrollBar:Scroll(1)
 		else
@@ -439,7 +439,7 @@ function DropDownClass:OnKeyUp(key)
 		self:SetSel(self:ListIndexToDropIndex(self.selIndex, 0) + 1)
 		self:ScrollSelIntoView()
 		return self
-	elseif key == "WHEELUP" then
+	elseif self.controls.scrollBar:IsScrollUpKey(key) then
 		if self.dropped and self.controls.scrollBar.enabled then
 			self.controls.scrollBar:Scroll(-1)
 		else
@@ -480,7 +480,7 @@ function DropDownClass:CheckDroppedWidth(enable)
 		local dWidth = self.width
 		for _, line in ipairs(self.list) do
 			if type(line) == "table" then
-				line = line.label
+				line = line.label or ""
 			end
 			  -- +10 to stop clipping
 			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", line) + 10)

@@ -333,6 +333,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "LightningMaximumHitTaken", label = "Lightning Max Hit", fmt = ".0f", color = colorCodes.LIGHTNING, compPercent = true, condFunc = function(v,o) return o.LightningMaximumHitTaken ~= o.ColdMaximumHitTaken or o.LightningMaximumHitTaken ~= o.FireMaximumHitTaken end },
 		{ stat = "ChaosMaximumHitTaken", label = "Chaos Max Hit", fmt = ".0f", color = colorCodes.CHAOS, compPercent = true },
 		{ },
+		{ stat = "MainHand", childStat = "Accuracy", label = "MH Accuracy", fmt = "d", condFunc = function(v,o) return o.PreciseTechnique end, warnFunc = function(v,o) return v < o.Life and "You do not have enough Accuracy for Precise Technique" end, warnColor = true },
+		{ stat = "OffHand", childStat = "Accuracy", label = "OH Accuracy", fmt = "d", condFunc = function(v,o) return o.PreciseTechnique end, warnFunc = function(v,o) return v < o.Life and "You do not have enough Accuracy for Precise Technique" end, warnColor = true },
 		{ stat = "Life", label = "Total Life", fmt = "d", color = colorCodes.LIFE, compPercent = true },
 		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", color = colorCodes.LIFE, condFunc = function(v,o) return v > 0 and o.Life > 1 end },
 		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", color = colorCodes.LIFE, condFunc = function(v,o) return v < o.Life end, compPercent = true, warnFunc = function(v) return v <= 0 and "Your unreserved Life is below 1" end },
@@ -1355,11 +1357,15 @@ function buildMode:AddDisplayStatList(statList, actor)
 	for index, statData in ipairs(statList) do
 		if not statData.flag or actor.mainSkill.skillFlags[statData.flag] then
 			local labelColor = "^7"
-				if statData.color then
-					labelColor = statData.color
-				end
+			if statData.color then
+				labelColor = statData.color
+			end
 			if statData.stat then
 				local statVal = actor.output[statData.stat]
+				-- access output values that are one node deeper (statData.stat is a table e.g. output.MainHand.Accuracy vs output.Life)
+				if statVal and statData.childStat then
+					statVal = statVal[statData.childStat]
+				end
 				if statVal and ((statData.condFunc and statData.condFunc(statVal,actor.output)) or (not statData.condFunc and statVal ~= 0)) then
 					local overCapStatVal = actor.output[statData.overCapStat] or nil
 					if statData.stat == "SkillDPS" then
@@ -1408,6 +1414,9 @@ function buildMode:AddDisplayStatList(statList, actor)
 								colorOverride = colorCodes.NEGATIVE
 							end
 						end
+						if statData.warnFunc and statData.warnFunc(statVal, actor.output) and statData.warnColor then
+							colorOverride = colorCodes.NEGATIVE
+						end
 						t_insert(statBoxList, {
 							height = 16,
 							labelColor..statData.label..":",
@@ -1452,6 +1461,9 @@ function buildMode:AddDisplayStatList(statList, actor)
 	end
 	if actor.output.VixensTooMuchCastSpeedWarn then
 		InsertIfNew(self.controls.warnings.lines, "You may have too much cast speed or too little cooldown reduction to effectively use Vixen's Curse replacement")
+	end
+	if actor.output.VixenModeNoVixenGlovesWarn then
+		InsertIfNew(self.controls.warnings.lines, "Vixen's calculation mode for Doom Blast is selected but you do not have Vixen's Entrapment Embroidered Gloves equipped")
 	end
 end
 
@@ -1501,7 +1513,7 @@ end
 function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compareOutput, header, nodeCount)
 	local count = 0
 	for _, statData in ipairs(statList) do
-		if statData.stat and (not statData.flag or actor.mainSkill.skillFlags[statData.flag]) and statData.stat ~= "SkillDPS" then
+		if statData.stat and (not statData.flag or actor.mainSkill.skillFlags[statData.flag]) and not statData.childStat and statData.stat ~= "SkillDPS" then
 			local statVal1 = compareOutput[statData.stat] or 0
 			local statVal2 = baseOutput[statData.stat] or 0
 			local diff = statVal1 - statVal2

@@ -446,9 +446,23 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				end))
 			end
 			if varData.ifSkill then
-				t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkill, function(ifOption)
-					return self.build.calcsTab.mainEnv.skillsUsed[ifOption]
-				end))
+				if varData.includeTransfigured then
+					t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkill, function(ifOption)
+						if not calcLib.getGameIdFromGemName(ifOption, true) then
+							return false
+						end
+						for skill,_ in pairs(self.build.calcsTab.mainEnv.skillsUsed) do
+							if calcLib.isGemIdSame(skill, ifOption, true) then
+								return true
+							end
+						end
+						return false
+					end))
+				else
+					t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkill, function(ifOption)
+						return self.build.calcsTab.mainEnv.skillsUsed[ifOption]
+					end))
+				end
 			end
 			if varData.ifSkillFlag then
 				t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkillFlag, function(ifOption)
@@ -678,7 +692,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	self.width = viewPort.width
 	self.height = viewPort.height
 
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then	
 			if event.key == "z" and IsKeyDown("CTRL") then
 				self:Undo()
@@ -693,11 +707,11 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	end
 
 	self:ProcessControlsInput(inputEvents, viewPort)
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyUp" then
-			if event.key == "WHEELDOWN" then
+			if self.controls.scrollBar:IsScrollDownKey(event.key) then
 				self.controls.scrollBar:Scroll(1)
-			elseif event.key == "WHEELUP" then
+			elseif self.controls.scrollBar:IsScrollUpKey(event.key) then
 				self.controls.scrollBar:Scroll(-1)
 			end
 		end
@@ -705,7 +719,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 
 	local maxCol = m_floor((viewPort.width - 10) / 370)
 	local maxColY = 0
-	local colY = { }
+	local colY = { 0 }
 	for _, section in ipairs(self.sectionList) do
 		local y = 14
 		section.shown = true

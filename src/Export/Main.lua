@@ -172,7 +172,10 @@ function main:Init()
 			self:LoadDatFiles()
 		end
 	end, nil)
-	self.controls.datSource:SelByValue(self.datSource.label, "label")
+
+	if self.datSource and self.datSource.label then
+		self.controls.datSource:SelByValue(self.datSource.label, "label")
+	end
 
 	self.controls.scripts = new("ButtonControl", nil, 160, 30, 100, 18, "Scripts >>", function()
 		self:SetCurrentDat()
@@ -674,8 +677,8 @@ function main:CopyFolder(srcName, dstName)
 	end
 end
 
-function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl)
-	local popup = new("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl)
+function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl, scrollBarFunc)
+	local popup = new("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl, scrollBarFunc)
 	t_insert(self.popups, 1, popup)
 	return popup
 end

@@ -286,13 +286,13 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#addSkillTypes SummonsTotem
+#addSkillTypes SummonsTotem Projectile
 #skill AvengingFlame
 	preDamageFunc = function(activeSkill, output)
 		local uuid = activeSkill.skillData.triggerSourceUUID
 		local cache = uuid and GlobalCache.cachedData["CACHE"][uuid]
 		local totemLife = cache and cache.Env.player.output.TotemLife or 0
-		
+
 		local add = totemLife * activeSkill.skillData.lifeDealtAsFire / 100
 		activeSkill.skillData.FireMax = (activeSkill.skillData.FireMax or 0) + add
 		activeSkill.skillData.FireMin = (activeSkill.skillData.FireMin or 0) + add
@@ -614,9 +614,6 @@ local skills, mod, flag, skill = ...
 		},
 		["attack_maximum_added_physical_damage_with_weapons_per_trauma"] = {
 			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "TraumaStacks" })
-		},
-		["trauma_strike_self_damage_per_trauma"] = {
-			mod("TraumaSelfDamageTakenLife", "BASE", nil),
 		},
 		["support_trauma_stun_duration_+%_per_trauma"] = {
 			mod("EnemyStunDuration", "INC", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),

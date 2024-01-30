@@ -601,6 +601,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	if self.controls.charImportTreeClearJewels.state then
 		for _, slot in pairs(self.build.itemsTab.slots) do
 			if slot.selItemId ~= 0 and slot.nodeId then
+				self.build.itemsTab.build.spec.ignoreAllocatingSubgraph = true -- ignore allocated cluster nodes on Import when Delete Jewel is true, clean slate
 				self.build.itemsTab:DeleteItem(self.build.itemsTab.items[slot.selItemId])
 			end
 		end
@@ -988,14 +989,14 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			abyssalSocketId = abyssalSocketId + 1
 		else
 			local normalizedBasename, qualityType = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.typeLine, nil)
-			local gemId = self.build.data.gemForBaseName[normalizedBasename]
+			local gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 			if socketedItem.hybrid then
 				-- Used by transfigured gems and dual-skill gems (currently just Stormbind) 
 				normalizedBasename, qualityType  = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.hybrid.baseTypeName, nil)
-				if socketedItem.hybrid.isVaalGem then
-					normalizedBasename = "Vaal " .. normalizedBasename
+				gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
+				if gemId and socketedItem.hybrid.isVaalGem then
+					gemId = self.build.data.gemGrantedEffectIdForVaalGemId[self.build.data.gems[gemId].grantedEffectId]
 				end
-				gemId = self.build.data.gemForBaseName[normalizedBasename]
 			end
 			if gemId then
 				local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true, gemId = gemId }

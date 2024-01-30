@@ -11,6 +11,7 @@ local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local m_ceil = math.ceil
 local m_sqrt = math.sqrt
 local m_modf = math.modf
 local m_huge = math.huge
@@ -289,15 +290,25 @@ function calcs.defence(env, actor)
 			end
 			armourBase = armourData.Armour or 0
 			if armourBase > 0 then
-				if slot == "Body Armour" and (modDB:Flag(nil, "Unbreakable") or modDB:Flag(nil, "DoubleBodyArmourDefence")) then
-					armourBase = armourBase * 2
+				if slot == "Body Armour" then 
+					if modDB:Flag(nil, "DoubleBodyArmourDefence") then
+						armourBase = armourBase * 2
+					end
+					if modDB:Flag(nil, "Unbreakable") then
+						armourBase = armourBase * 2
+					end
 				end
 				output["ArmourOn"..slot] = armourBase
 			end
 			evasionBase = armourData.Evasion or 0
 			if evasionBase > 0 then
-				if slot == "Body Armour" and ((modDB:Flag(nil, "Unbreakable") and modDB:Flag(nil, "IronReflexes")) or modDB:Flag(nil, "DoubleBodyArmourDefence")) then
-					evasionBase = evasionBase * 2
+				if slot == "Body Armour" then
+					if modDB:Flag(nil, "DoubleBodyArmourDefence") then
+						evasionBase = evasionBase * 2
+					end
+				 	if modDB:Flag(nil, "Unbreakable") and modDB:Flag(nil, "IronReflexes") then
+						evasionBase = evasionBase * 2
+					end
 				end
 				output["EvasionOn"..slot] = evasionBase
 			end
@@ -343,6 +354,12 @@ function calcs.defence(env, actor)
 				end
 				if res ~= 0 then
 					modDB:NewMod(resTo.."Resist", "BASE", res * conversionRate, resFrom.." To "..resTo.." Resistance Conversion")
+				end
+				for _, mod in ipairs(modDB:Tabulate("INC", nil, resFrom.."Resist")) do
+					modDB:NewMod(resTo.."Resist", "INC", mod.value * conversionRate, mod.mod.source)
+				end
+				for _, mod in ipairs(modDB:Tabulate("MORE", nil, resFrom.."Resist")) do
+					modDB:NewMod(resTo.."Resist", "MORE", mod.value * conversionRate, mod.mod.source)
 				end
 			end
 		end
@@ -613,8 +630,13 @@ function calcs.defence(env, actor)
 				end
 				armourBase = armourData.Armour or 0
 				if armourBase > 0 then
-					if slot == "Body Armour" and (modDB:Flag(nil, "Unbreakable") or modDB:Flag(nil, "DoubleBodyArmourDefence")) then
-						armourBase = armourBase * 2
+					if slot == "Body Armour" then
+						if modDB:Flag(nil, "DoubleBodyArmourDefence") then
+							armourBase = armourBase * 2
+						end
+						if modDB:Flag(nil, "Unbreakable") then 
+							armourBase = armourBase * 2
+						end
 					end
 					armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
 					gearArmour = gearArmour + armourBase
@@ -624,8 +646,13 @@ function calcs.defence(env, actor)
 				end
 				evasionBase = armourData.Evasion or 0
 				if evasionBase > 0 then
-					if slot == "Body Armour" and ((modDB:Flag(nil, "Unbreakable") and ironReflexes) or modDB:Flag(nil, "DoubleBodyArmourDefence")) then
-						evasionBase = evasionBase * 2
+					if slot == "Body Armour" then
+						if modDB:Flag(nil, "DoubleBodyArmourDefence") then
+							evasionBase = evasionBase * 2
+						end
+						if modDB:Flag(nil, "Unbreakable") and ironReflexes then
+							evasionBase = evasionBase * 2
+						end
 					end
 					gearEvasion = gearEvasion + evasionBase
 					if breakdown then
@@ -1780,8 +1807,8 @@ function calcs.buildDefenceEstimations(env, actor)
 			local baseStunDuration = data.misc.StunBaseDuration
 			local stunRecovery = (1 + modDB:Sum("INC", nil, "StunRecovery") / 100)
 			local stunAndBlockRecovery = (1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100)
-			output.StunDuration = baseStunDuration * stunDuration / stunRecovery
-			output.BlockDuration = baseStunDuration * stunDuration / stunAndBlockRecovery
+			output.StunDuration = m_ceil(baseStunDuration * stunDuration / stunRecovery * data.misc.ServerTickRate) / data.misc.ServerTickRate
+			output.BlockDuration = m_ceil(baseStunDuration * stunDuration / stunAndBlockRecovery * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			if breakdown then
 				breakdown.StunDuration = {s_format("%.2fs ^8(base)", baseStunDuration)}
 				breakdown.BlockDuration = {s_format("%.2fs ^8(base)", baseStunDuration)}
@@ -1795,12 +1822,11 @@ function calcs.buildDefenceEstimations(env, actor)
 				if stunAndBlockRecovery ~= 1 then
 					t_insert(breakdown.BlockDuration, s_format("/ %.2f ^8(increased/reduced block recovery)", stunAndBlockRecovery))
 				end
-				if output.StunDuration ~= baseStunDuration then
-					t_insert(breakdown.StunDuration, s_format("= %.2fs", output.StunDuration))
-				end
-				if output.BlockDuration ~= baseStunDuration then
-					t_insert(breakdown.BlockDuration, s_format("= %.2fs", output.BlockDuration))
-				end
+				t_insert(breakdown.StunDuration, s_format("rounded up to nearest server tick"))
+				t_insert(breakdown.StunDuration, s_format("= %.2fs", output.StunDuration))
+				
+				t_insert(breakdown.BlockDuration, s_format("rounded up to nearest server tick"))
+				t_insert(breakdown.BlockDuration, s_format("= %.2fs", output.BlockDuration))
 			end
 		end
 		output.InterruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInterruptStun"), 100)

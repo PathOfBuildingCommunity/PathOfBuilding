@@ -31,6 +31,7 @@ function PassiveSpecClass:Init(treeVersion, convert)
 	self.treeVersion = treeVersion
 	self.tree = main:LoadTree(treeVersion)
 	self.ignoredNodes = { }
+	self.ignoreAllocatingSubgraph = false
 	local previousTreeNodes = { }
 	if convert then
 		previousTreeNodes = self.build.spec.nodes
@@ -1293,7 +1294,9 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 				if self.allocNodes[node.id] then
 					-- Reserve the allocation in case the node is regenerated
 					self.allocNodes[node.id] = nil
-					t_insert(self.allocSubgraphNodes, node.id)
+					if not self.ignoreAllocatingSubgraph then -- do not carry over alloc nodes, e.g. cluster jewels on Import when Delete Jewel is true
+						t_insert(self.allocSubgraphNodes, node.id)
+					end
 				end
 			end
 		end
@@ -1302,6 +1305,7 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 		t_remove(subGraph.parentSocket.linked, index)
 	end
 	wipeTable(self.subGraphs)
+	self.ignoreAllocatingSubgraph = false -- reset after subGraph logic
 
 	local importedGroups = { }
 	local importedNodes = { }

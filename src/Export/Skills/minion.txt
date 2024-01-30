@@ -401,9 +401,9 @@ skills["GuardianSentinelFireAura"] = {
 
 #skill ReaperConsumeMinionForBuff Consume
 #flags spell
-#baseMod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 40) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" })
-#baseMod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" })
-#baseMod mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" })
+#baseMod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 40) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff" })
+#baseMod mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 40) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff" })
+#baseMod mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", 30) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff" })
 #baseMod skill("buffAllies", true)
 #mods
 
@@ -413,6 +413,16 @@ skills["GuardianSentinelFireAura"] = {
 
 #skill BlinkMirrorArrowMelee Projectile Attack
 #flags attack projectile
+#mods
+
+#skill RainOfArrowsCloneShot Rain of Arrow
+#flags attack projectile area
+#baseMod skill("radius", 10)
+#baseMod flag("OneShotProj")
+#mods
+
+#skill ElementalHitCloneShot Elemental Hit
+#flags attack projectile melee area
 #mods
 
 #skill SumonRagingSpiritMelee Melee

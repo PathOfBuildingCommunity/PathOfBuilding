@@ -8,6 +8,7 @@ local skills, mod, flag, skill = ...
 
 skills["AlchemistsMark"] = {
 	name = "Alchemist's Mark",
+	baseTypeName = "Alchemist's Mark",
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Curses a single enemy, granting flask charges when you hit them and creating Burning Ground under them if your hit Ignites them, and Caustic Ground if it Poisons them. Damage modifiers do not apply to these ground effects. You can only have one Mark at a time.",
@@ -99,6 +100,7 @@ skills["AlchemistsMark"] = {
 }
 skills["Ambush"] = {
 	name = "Ambush",
+	baseTypeName = "Ambush",
 	color = 2,
 	description = "Teleports you to a nearby enemy, applying a buff to you for a short duration and blinding the enemy for a secondary duration. Performing a melee attack with a One-Handed Weapon removes the buff to exert that attack.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Duration] = true, [SkillType.Travel] = true, [SkillType.Triggerable] = true, [SkillType.Cooldown] = true, [SkillType.LateConsumeCooldown] = true, },
@@ -170,6 +172,7 @@ skills["Ambush"] = {
 }
 skills["AnimateWeapon"] = {
 	name = "Animate Weapon",
+	baseTypeName = "Animate Weapon",
 	color = 2,
 	baseEffectiveness = 0.21999999880791,
 	incrementalEffectiveness = 0.029999999329448,
@@ -273,6 +276,7 @@ skills["AnimateWeapon"] = {
 }
 skills["AnimateWeaponAltX"] = {
 	name = "Animate Weapon of Self Reflection",
+	baseTypeName = "Animate Weapon of Self Reflection",
 	color = 2,
 	baseEffectiveness = 0.21999999880791,
 	incrementalEffectiveness = 0.029999999329448,
@@ -373,6 +377,7 @@ skills["AnimateWeaponAltX"] = {
 }
 skills["AnimateWeaponAltY"] = {
 	name = "Animate Weapon of Ranged Arms",
+	baseTypeName = "Animate Weapon of Ranged Arms",
 	color = 2,
 	baseEffectiveness = 0.21999999880791,
 	incrementalEffectiveness = 0.029999999329448,
@@ -477,6 +482,7 @@ skills["AnimateWeaponAltY"] = {
 }
 skills["VaalAnimateWeapon"] = {
 	name = "Vaal Animate Weapon",
+	baseTypeName = "Vaal Animate Weapon",
 	color = 2,
 	baseEffectiveness = 0.21999999880791,
 	incrementalEffectiveness = 0.029999999329448,
@@ -571,6 +577,7 @@ skills["VaalAnimateWeapon"] = {
 }
 skills["ArcticArmour"] = {
 	name = "Arctic Armour",
+	baseTypeName = "Arctic Armour",
 	color = 2,
 	incrementalEffectiveness = 0.029999999329448,
 	description = "Conjures an icy barrier that chills enemies when they hit you. You drop chilled ground while moving, and take less Fire and Physical damage while stationary.",
@@ -652,6 +659,7 @@ skills["ArcticArmour"] = {
 }
 skills["VaalArcticArmour"] = {
 	name = "Vaal Arctic Armour",
+	baseTypeName = "Vaal Arctic Armour",
 	color = 2,
 	description = "Immediately encases you in ice, protecting you for a duration or until you take damage from a number of hits, and also grants a buff once the cast time has finished. You cannot move or perform non-instant actions while in the ice. When the ice breaks, the buff is also removed.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Cold] = true, [SkillType.Vaal] = true, },
@@ -737,6 +745,7 @@ skills["VaalArcticArmour"] = {
 }
 skills["ArtilleryBallista"] = {
 	name = "Artillery Ballista",
+	baseTypeName = "Artillery Ballista",
 	color = 2,
 	description = "Summons a ballista totem that propels a sequence of fiery arrows into the air. The arrows impact the ground in a line, each dealing area damage to enemies around it. Requires a Bow.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.SummonsTotem] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.ProjectileNumber] = true, [SkillType.ProjectileSpeed] = true, [SkillType.AttackInPlaceIsDefault] = true, [SkillType.TotemsAreBallistae] = true, },
@@ -822,6 +831,7 @@ skills["ArtilleryBallista"] = {
 }
 skills["Barrage"] = {
 	name = "Barrage",
+	baseTypeName = "Barrage",
 	color = 2,
 	description = "After a short preparation time, you fire individual projectiles repeatedly with a Bow or Wand. These projectiles have a small randomised spread. This skill cannot be Triggered.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, },
@@ -911,6 +921,7 @@ skills["Barrage"] = {
 }
 skills["BarrageAltX"] = {
 	name = "Barrage of Volley Fire",
+	baseTypeName = "Barrage of Volley Fire",
 	color = 2,
 	description = "After a short preparation time, you fire projectiles repeatedly with a Bow or Wand. These projectiles have a small randomised spread. This skill cannot be Triggered.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, },
@@ -1001,6 +1012,7 @@ skills["BarrageAltX"] = {
 }
 skills["BearTrap"] = {
 	name = "Bear Trap",
+	baseTypeName = "Bear Trap",
 	color = 2,
 	baseEffectiveness = 2.8499999046326,
 	incrementalEffectiveness = 0.042500000447035,
@@ -1086,6 +1098,7 @@ skills["BearTrap"] = {
 }
 skills["BearTrapAltX"] = {
 	name = "Bear Trap of Skewers",
+	baseTypeName = "Bear Trap of Skewers",
 	color = 2,
 	baseEffectiveness = 1.3999999761581,
 	incrementalEffectiveness = 0.042500000447035,
@@ -1166,6 +1179,7 @@ skills["BearTrapAltX"] = {
 }
 skills["BladeBlast"] = {
 	name = "Blade Blast",
+	baseTypeName = "Blade Blast",
 	color = 2,
 	baseEffectiveness = 0.82349997758865,
 	incrementalEffectiveness = 0.041299998760223,
@@ -1255,6 +1269,7 @@ skills["BladeBlast"] = {
 }
 skills["BladeBlastAltX"] = {
 	name = "Blade Blast of Unloading",
+	baseTypeName = "Blade Blast of Unloading",
 	color = 2,
 	baseEffectiveness = 2.9500000476837,
 	incrementalEffectiveness = 0.041299998760223,
@@ -1345,6 +1360,7 @@ skills["BladeBlastAltX"] = {
 }
 skills["BladeBlastAltY"] = {
 	name = "Blade Blast of Dagger Detonation",
+	baseTypeName = "Blade Blast of Dagger Detonation",
 	color = 2,
 	baseEffectiveness = 0.82349997758865,
 	incrementalEffectiveness = 0.041299998760223,
@@ -1420,6 +1436,7 @@ skills["BladeBlastAltY"] = {
 }
 skills["BladeTrap"] = {
 	name = "Blade Trap",
+	baseTypeName = "Blade Trap",
 	color = 2,
 	description = "Throws a trap which, once triggered, swings two copies of your equipped Dagger, Claw or One Handed Sword around it in circles, each repeatedly damaging enemies it spins through.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Area] = true, },
@@ -1506,6 +1523,7 @@ skills["BladeTrap"] = {
 }
 skills["BladeTrapAltX"] = {
 	name = "Blade Trap of Greatswords",
+	baseTypeName = "Blade Trap of Greatswords",
 	color = 2,
 	description = "Throws a trap which, once triggered, swings two copies of your equipped Two Handed Sword around it in circles for a duration, each repeatedly damaging enemies it spins through",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Area] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, },
@@ -1585,6 +1603,7 @@ skills["BladeTrapAltX"] = {
 }
 skills["BladeTrapAltY"] = {
 	name = "Blade Trap of Laceration",
+	baseTypeName = "Blade Trap of Laceration",
 	color = 2,
 	description = "Throws a trap which, once triggered, swings two copies of your equipped Dagger, Claw or One Handed Sword around it in a circle, each damaging enemies it spins through.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Area] = true, [SkillType.Physical] = true, },
@@ -1676,6 +1695,7 @@ skills["BladeTrapAltY"] = {
 }
 skills["ChargedAttack"] = {
 	name = "Blade Flurry",
+	baseTypeName = "Blade Flurry",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -1795,6 +1815,7 @@ skills["ChargedAttack"] = {
 }
 skills["ChargedAttackAltX"] = {
 	name = "Blade Flurry of Incision",
+	baseTypeName = "Blade Flurry of Incision",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -1914,6 +1935,7 @@ skills["ChargedAttackAltX"] = {
 }
 skills["VaalChargedAttack"] = {
 	name = "Vaal Blade Flurry",
+	baseTypeName = "Vaal Blade Flurry",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -2001,6 +2023,7 @@ skills["VaalChargedAttack"] = {
 }
 skills["BladeVortex"] = {
 	name = "Blade Vortex",
+	baseTypeName = "Blade Vortex",
 	color = 2,
 	baseEffectiveness = 0.33660000562668,
 	incrementalEffectiveness = 0.042899999767542,
@@ -2122,6 +2145,7 @@ skills["BladeVortex"] = {
 }
 skills["BladeVortexAltX"] = {
 	name = "Blade Vortex of the Scythe",
+	baseTypeName = "Blade Vortex of the Scythe",
 	color = 2,
 	baseEffectiveness = 1.7310999631882,
 	incrementalEffectiveness = 0.042899999767542,
@@ -2212,6 +2236,7 @@ skills["BladeVortexAltX"] = {
 }
 skills["VaalBladeVortex"] = {
 	name = "Vaal Blade Vortex",
+	baseTypeName = "Vaal Blade Vortex",
 	color = 2,
 	baseEffectiveness = 1.25,
 	incrementalEffectiveness = 0.033300001174212,
@@ -2309,6 +2334,7 @@ skills["VaalBladeVortex"] = {
 }
 skills["Bladefall"] = {
 	name = "Bladefall",
+	baseTypeName = "Bladefall",
 	color = 2,
 	baseEffectiveness = 1.2013000249863,
 	incrementalEffectiveness = 0.045499999076128,
@@ -2393,6 +2419,7 @@ skills["Bladefall"] = {
 }
 skills["BladefallAltX"] = {
 	name = "Bladefall of Volleys",
+	baseTypeName = "Bladefall of Volleys",
 	color = 2,
 	baseEffectiveness = 0.89999997615814,
 	incrementalEffectiveness = 0.045499999076128,
@@ -2479,6 +2506,7 @@ skills["BladefallAltX"] = {
 }
 skills["BladefallAltY"] = {
 	name = "Bladefall of Impaling",
+	baseTypeName = "Bladefall of Impaling",
 	color = 2,
 	baseEffectiveness = 1.2013000249863,
 	incrementalEffectiveness = 0.045499999076128,
@@ -2557,6 +2585,7 @@ skills["BladefallAltY"] = {
 }
 skills["BlastRain"] = {
 	name = "Blast Rain",
+	baseTypeName = "Blast Rain",
 	color = 2,
 	description = "Fires arrows up in the air, to rain down in an area. Each arrow deals area damage around where it lands, and they will all overlap on the targeted location.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Fire] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.ProjectileNumber] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Rain] = true, },
@@ -2649,6 +2678,7 @@ skills["BlastRain"] = {
 }
 skills["BlinkArrow"] = {
 	name = "Blink Arrow",
+	baseTypeName = "Blink Arrow",
 	color = 2,
 	description = "Fires an arrow at the target destination. When the arrow lands, you are teleported to it and a clone is summoned at your old location. The clone is a minion that uses your bow and quiver.",
 	skillTypes = { [SkillType.ProjectileSpeed] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.RangedAttack] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Movement] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.Travel] = true, [SkillType.Cooldown] = true, [SkillType.Rain] = true, },
@@ -2732,6 +2762,7 @@ skills["BlinkArrow"] = {
 }
 skills["BlinkArrowAltX"] = {
 	name = "Blink Arrow of Bombarding Clones",
+	baseTypeName = "Blink Arrow of Bombarding Clones",
 	color = 2,
 	description = "Fires an arrow at the target destination. When the arrow lands, you are teleported to it and a clone is summoned at your old location. The clone is a minion that uses your bow and quiver to fire arrows into the air to land around a target.",
 	skillTypes = { [SkillType.ProjectileSpeed] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.RangedAttack] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Movement] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.Travel] = true, [SkillType.Cooldown] = true, [SkillType.Rain] = true, },
@@ -2742,7 +2773,7 @@ skills["BlinkArrowAltX"] = {
 	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
-		"ArrowClone",
+		"ArrowCloneRoA",
 	},
 	baseFlags = {
 		attack = true,
@@ -2815,6 +2846,7 @@ skills["BlinkArrowAltX"] = {
 }
 skills["BlinkArrowAltY"] = {
 	name = "Blink Arrow of Prismatic Clones",
+	baseTypeName = "Blink Arrow of Prismatic Clones",
 	color = 2,
 	description = "Fires an arrow at the target destination. When the arrow lands, you are teleported to it and a clone is summoned at your old location. The clone is a minion that uses your bow and quiver to fire random elemental arrows.",
 	skillTypes = { [SkillType.ProjectileSpeed] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.RangedAttack] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Movement] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.Travel] = true, [SkillType.Cooldown] = true, [SkillType.Rain] = true, [SkillType.RandomElement] = true, },
@@ -2825,7 +2857,7 @@ skills["BlinkArrowAltY"] = {
 	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
-		"ArrowClone",
+		"ArrowCloneEle",
 	},
 	baseFlags = {
 		attack = true,
@@ -2898,6 +2930,7 @@ skills["BlinkArrowAltY"] = {
 }
 skills["BloodRage"] = {
 	name = "Blood Rage",
+	baseTypeName = "Blood Rage",
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Adds a buff that deals Physical Damage over time, while increasing Attack Speed and Life Leech. Killing an enemy while this buff is active refreshes the buff duration, and can grant a Frenzy Charge.",
@@ -2991,6 +3024,7 @@ skills["BloodRage"] = {
 }
 skills["BurningArrow"] = {
 	name = "Burning Arrow",
+	baseTypeName = "Burning Arrow",
 	color = 2,
 	baseEffectiveness = 0.86650002002716,
 	incrementalEffectiveness = 0.034099999815226,
@@ -3064,6 +3098,7 @@ skills["BurningArrow"] = {
 }
 skills["BurningArrowAltX"] = {
 	name = "Burning Arrow of Vigour",
+	baseTypeName = "Burning Arrow of Vigour",
 	color = 2,
 	baseEffectiveness = 0.86650002002716,
 	incrementalEffectiveness = 0.034099999815226,
@@ -3142,6 +3177,7 @@ skills["BurningArrowAltX"] = {
 }
 skills["VaalBurningArrow"] = {
 	name = "Vaal Burning Arrow",
+	baseTypeName = "Vaal Burning Arrow",
 	color = 2,
 	baseEffectiveness = 0.86650002002716,
 	incrementalEffectiveness = 0.034099999815226,
@@ -3224,6 +3260,7 @@ skills["VaalBurningArrow"] = {
 }
 skills["PoisonArrow"] = {
 	name = "Caustic Arrow",
+	baseTypeName = "Caustic Arrow",
 	color = 2,
 	baseEffectiveness = 8.1670999526978,
 	incrementalEffectiveness = 0.050299998372793,
@@ -3314,6 +3351,7 @@ skills["PoisonArrow"] = {
 }
 skills["PoisonArrowAltX"] = {
 	name = "Caustic Arrow of Poison",
+	baseTypeName = "Caustic Arrow of Poison",
 	color = 2,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Fires a poisonous arrow which deals chaos damage in an area on impact.",
@@ -3398,6 +3436,7 @@ skills["PoisonArrowAltX"] = {
 }
 skills["VaalCausticArrow"] = {
 	name = "Vaal Caustic Arrow",
+	baseTypeName = "Vaal Caustic Arrow",
 	color = 2,
 	baseEffectiveness = 19.590000152588,
 	incrementalEffectiveness = 0.050299998372793,
@@ -3510,6 +3549,7 @@ skills["ImpactingSteelReload"] = {
 }
 skills["ChargedDash"] = {
 	name = "Charged Dash",
+	baseTypeName = "Charged Dash",
 	color = 2,
 	description = "Channel to project an illusion which you steer. You gain stages while it moves, until it stops at a maximum total distance. Waves of area damage frequently pulse along its path, based on your attack speed. Stop channelling to teleport to the illusion, dealing a final wave of damage. Requires a Melee Weapon.",
 	skillTypes = { [SkillType.Movement] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Channel] = true, [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Lightning] = true, },
@@ -3636,6 +3676,7 @@ skills["ChargedDash"] = {
 }
 skills["CobraLash"] = {
 	name = "Cobra Lash",
+	baseTypeName = "Cobra Lash",
 	color = 2,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Fires a poisonous projectile based on your weapon that will chain between enemies. Requires a Dagger or Claw.",
@@ -3720,6 +3761,7 @@ skills["CobraLash"] = {
 }
 skills["CorpseEruption"] = {
 	name = "Cremation",
+	baseTypeName = "Cremation",
 	color = 2,
 	baseEffectiveness = 1.8178999423981,
 	incrementalEffectiveness = 0.034499999135733,
@@ -3834,6 +3876,7 @@ skills["CorpseEruption"] = {
 }
 skills["CorpseEruptionAltX"] = {
 	name = "Cremation of Exhuming",
+	baseTypeName = "Cremation of Exhuming",
 	color = 2,
 	baseEffectiveness = 1.8178999423981,
 	incrementalEffectiveness = 0.034499999135733,
@@ -3949,6 +3992,7 @@ skills["CorpseEruptionAltX"] = {
 }
 skills["CorpseEruptionAltY"] = {
 	name = "Cremation of the Volcano",
+	baseTypeName = "Cremation of the Volcano",
 	color = 2,
 	baseEffectiveness = 1.2669999599457,
 	incrementalEffectiveness = 0.034499999135733,
@@ -4045,6 +4089,7 @@ skills["CorpseEruptionAltY"] = {
 }
 skills["Cyclone"] = {
 	name = "Cyclone",
+	baseTypeName = "Cyclone",
 	color = 2,
 	baseEffectiveness = 0.25,
 	incrementalEffectiveness = 0.023299999535084,
@@ -4156,6 +4201,7 @@ skills["Cyclone"] = {
 }
 skills["CycloneAltX"] = {
 	name = "Cyclone of Tumult",
+	baseTypeName = "Cyclone of Tumult",
 	color = 2,
 	baseEffectiveness = 0.25,
 	incrementalEffectiveness = 0.023299999535084,
@@ -4281,6 +4327,7 @@ skills["CycloneAltX"] = {
 }
 skills["VaalCyclone"] = {
 	name = "Vaal Cyclone",
+	baseTypeName = "Vaal Cyclone",
 	color = 2,
 	baseEffectiveness = 0.25,
 	incrementalEffectiveness = 0.023299999535084,
@@ -4394,6 +4441,7 @@ skills["VaalCyclone"] = {
 }
 skills["QuickDodge"] = {
 	name = "Dash",
+	baseTypeName = "Dash",
 	color = 2,
 	description = "Performs a series of quick teleports towards a targeted location. If using the \"Attack in Place\" option, the direction is reversed. Shares a cooldown with other Blink skills.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Blink] = true, [SkillType.Cooldown] = true, [SkillType.FixedCastTime] = true, },
@@ -4461,6 +4509,7 @@ skills["QuickDodge"] = {
 }
 skills["Desecrate"] = {
 	name = "Desecrate",
+	baseTypeName = "Desecrate",
 	color = 2,
 	baseEffectiveness = 1.6000000238419,
 	incrementalEffectiveness = 0.046500001102686,
@@ -4537,6 +4586,7 @@ skills["Desecrate"] = {
 }
 skills["DetonateDead"] = {
 	name = "Detonate Dead",
+	baseTypeName = "Detonate Dead",
 	color = 2,
 	baseEffectiveness = 4.0300002098083,
 	incrementalEffectiveness = 0.031700000166893,
@@ -4631,6 +4681,7 @@ skills["DetonateDead"] = {
 }
 skills["DetonateDeadAltX"] = {
 	name = "Detonate Dead of Scavenging",
+	baseTypeName = "Detonate Dead of Scavenging",
 	color = 2,
 	baseEffectiveness = 4.0300002098083,
 	incrementalEffectiveness = 0.031700000166893,
@@ -4703,11 +4754,12 @@ skills["DetonateDeadAltX"] = {
 }
 skills["DetonateDeadAltY"] = {
 	name = "Detonate Dead of Chain Reaction",
+	baseTypeName = "Detonate Dead of Chain Reaction",
 	color = 2,
 	baseEffectiveness = 2.3699998855591,
 	incrementalEffectiveness = 0.031700000166893,
-	description = "Targets a corpse, and deals spell damage to enemies around the corpse, as well as causing the corpse to explode, dealing fire damage. The explosion is not affected by modifiers to spell damage and cannot be reflected. This will continue to target other corpses in the area, with a shorter delay between each one, until it runs out of corpses or has destroyed 8 corpses.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.DestroysCorpse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	description = "Targets a corpse, and deals spell damage to enemies around the corpse, as well as causing the corpse to explode, dealing fire damage. The explosion is not affected by modifiers to spell damage and cannot be reflected. This will continue to target other corpses in the area, with a shorter delay between each one, until it runs out of corpses or has destroyed 8 corpses. Cannot be supported by Spell Cascade.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.DestroysCorpse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	parts = {
@@ -4797,6 +4849,7 @@ skills["DetonateDeadAltY"] = {
 }
 skills["VaalDetonateDead"] = {
 	name = "Vaal Detonate Dead",
+	baseTypeName = "Vaal Detonate Dead",
 	color = 2,
 	baseEffectiveness = 6.039999961853,
 	incrementalEffectiveness = 0.034000001847744,
@@ -4891,6 +4944,7 @@ skills["VaalDetonateDead"] = {
 }
 skills["DoubleStrike"] = {
 	name = "Double Strike",
+	baseTypeName = "Double Strike",
 	color = 2,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Performs two fast strikes with a melee weapon.",
@@ -4976,6 +5030,7 @@ skills["DoubleStrike"] = {
 }
 skills["DoubleStrikeAltX"] = {
 	name = "Double Strike of Impaling",
+	baseTypeName = "Double Strike of Impaling",
 	color = 2,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Performs two fast strikes with a melee weapon.",
@@ -5060,6 +5115,7 @@ skills["DoubleStrikeAltX"] = {
 }
 skills["DoubleStrikeAltY"] = {
 	name = "Double Strike of Momentum",
+	baseTypeName = "Double Strike of Momentum",
 	color = 2,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Performs two fast strikes with a melee weapon, gaining stages which cause this skill to attack faster. All stages are lost when you move.",
@@ -5152,6 +5208,7 @@ skills["DoubleStrikeAltY"] = {
 }
 skills["VaalDoubleStrike"] = {
 	name = "Vaal Double Strike",
+	baseTypeName = "Vaal Double Strike",
 	color = 2,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Performs two fast strikes with a melee weapon, each of which summons a double of you for a duration to continuously attack monsters in this fashion.",
@@ -5242,6 +5299,7 @@ skills["VaalDoubleStrike"] = {
 }
 skills["DualStrike"] = {
 	name = "Dual Strike",
+	baseTypeName = "Dual Strike",
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Attacks with both weapons, dealing the damage of both in one strike. Dual wield only. Does not work with wands.",
@@ -5331,6 +5389,7 @@ skills["DualStrike"] = {
 }
 skills["DualStrikeAltX"] = {
 	name = "Dual Strike of Ambidexterity",
+	baseTypeName = "Dual Strike of Ambidexterity",
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Attacks with both weapons, dealing the damage of both in one strike. Requires dual-wielding two different melee weapon types to use.",
@@ -5413,6 +5472,7 @@ skills["DualStrikeAltX"] = {
 }
 skills["ElementalHit"] = {
 	name = "Elemental Hit",
+	baseTypeName = "Elemental Hit",
 	color = 2,
 	baseEffectiveness = 2.8241999149323,
 	incrementalEffectiveness = 0.031399998813868,
@@ -5551,6 +5611,7 @@ skills["ElementalHit"] = {
 }
 skills["EnsnaringArrow"] = {
 	name = "Ensnaring Arrow",
+	baseTypeName = "Ensnaring Arrow",
 	color = 2,
 	baseEffectiveness = 6.5,
 	incrementalEffectiveness = 0.052000001072884,
@@ -5631,6 +5692,7 @@ skills["EnsnaringArrow"] = {
 }
 skills["EtherealKnives"] = {
 	name = "Ethereal Knives",
+	baseTypeName = "Ethereal Knives",
 	color = 2,
 	baseEffectiveness = 2.1717000007629,
 	incrementalEffectiveness = 0.043600000441074,
@@ -5703,6 +5765,7 @@ skills["EtherealKnives"] = {
 }
 skills["EtherealKnivesAltX"] = {
 	name = "Ethereal Knives of Lingering Blades",
+	baseTypeName = "Ethereal Knives of Lingering Blades",
 	color = 2,
 	baseEffectiveness = 2.1717000007629,
 	incrementalEffectiveness = 0.043600000441074,
@@ -5778,6 +5841,7 @@ skills["EtherealKnivesAltX"] = {
 }
 skills["EtherealKnivesAltY"] = {
 	name = "Ethereal Knives of the Massacre",
+	baseTypeName = "Ethereal Knives of the Massacre",
 	color = 2,
 	baseEffectiveness = 2.1717000007629,
 	incrementalEffectiveness = 0.043600000441074,
@@ -5851,6 +5915,7 @@ skills["EtherealKnivesAltY"] = {
 }
 skills["ExplosiveArrow"] = {
 	name = "Explosive Arrow",
+	baseTypeName = "Explosive Arrow",
 	color = 2,
 	baseEffectiveness = 1.4859000444412,
 	incrementalEffectiveness = 0.040300000458956,
@@ -6065,6 +6130,7 @@ skills["ExplosiveArrow"] = {
 }
 skills["ExplosiveConcoction"] = {
 	name = "Explosive Concoction",
+	baseTypeName = "Explosive Concoction",
 	color = 2,
 	baseEffectiveness = 3.1761000156403,
 	incrementalEffectiveness = 0.038699999451637,
@@ -6191,6 +6257,7 @@ skills["ExplosiveConcoction"] = {
 }
 skills["ExplosiveConcoctionAltX"] = {
 	name = "Explosive Concoction of Destruction",
+	baseTypeName = "Explosive Concoction of Destruction",
 	color = 2,
 	baseEffectiveness = 2.5299999713898,
 	incrementalEffectiveness = 0.038699999451637,
@@ -6317,6 +6384,7 @@ skills["ExplosiveConcoctionAltX"] = {
 }
 skills["ShrapnelTrap"] = {
 	name = "Explosive Trap",
+	baseTypeName = "Explosive Trap",
 	color = 2,
 	baseEffectiveness = 1.6990000009537,
 	incrementalEffectiveness = 0.035599999129772,
@@ -6477,6 +6545,7 @@ skills["ShrapnelTrap"] = {
 }
 skills["ShrapnelTrapAltX"] = {
 	name = "Explosive Trap of Shrapnel",
+	baseTypeName = "Explosive Trap of Shrapnel",
 	color = 2,
 	baseEffectiveness = 2.2086999416351,
 	incrementalEffectiveness = 0.035599999129772,
@@ -6637,6 +6706,7 @@ skills["ShrapnelTrapAltX"] = {
 }
 skills["ShrapnelTrapAltY"] = {
 	name = "Explosive Trap of Magnitude",
+	baseTypeName = "Explosive Trap of Magnitude",
 	color = 2,
 	baseEffectiveness = 5.75,
 	incrementalEffectiveness = 0.035599999129772,
@@ -6716,6 +6786,7 @@ skills["ShrapnelTrapAltY"] = {
 }
 skills["FireTrap"] = {
 	name = "Fire Trap",
+	baseTypeName = "Fire Trap",
 	color = 2,
 	baseEffectiveness = 2.1289000511169,
 	incrementalEffectiveness = 0.057300001382828,
@@ -6802,6 +6873,7 @@ skills["FireTrap"] = {
 }
 skills["FireTrapAltX"] = {
 	name = "Fire Trap of Blasting",
+	baseTypeName = "Fire Trap of Blasting",
 	color = 2,
 	baseEffectiveness = 0.85159999132156,
 	incrementalEffectiveness = 0.057300001382828,
@@ -6884,6 +6956,7 @@ skills["FireTrapAltX"] = {
 }
 skills["FlamethrowerTrap"] = {
 	name = "Flamethrower Trap",
+	baseTypeName = "Flamethrower Trap",
 	color = 2,
 	baseEffectiveness = 0.11810000240803,
 	incrementalEffectiveness = 0.058899998664856,
@@ -7013,6 +7086,7 @@ skills["FlamethrowerTrap"] = {
 }
 skills["FlickerStrike"] = {
 	name = "Flicker Strike",
+	baseTypeName = "Flicker Strike",
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Teleports the character to a nearby monster and attacks with a melee weapon. If no specific monster is targeted, one is picked at random. Grants a buff that increases movement speed for a duration. The cooldown can be bypassed by expending a Frenzy Charge.",
@@ -7105,6 +7179,7 @@ skills["FlickerStrike"] = {
 }
 skills["FlickerStrikeAltX"] = {
 	name = "Flicker Strike of Power",
+	baseTypeName = "Flicker Strike of Power",
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Teleports the character to a nearby monster and attacks with a melee weapon. If no specific monster is targeted, one is picked at random. Grants a buff that increases movement speed for a duration. The cooldown can be bypassed by expending a Power Charge.",
@@ -7198,6 +7273,7 @@ skills["FlickerStrikeAltX"] = {
 }
 skills["VaalFlickerStrike"] = {
 	name = "Vaal Flicker Strike",
+	baseTypeName = "Vaal Flicker Strike",
 	color = 2,
 	description = "Repeatedly teleports to enemies and hits them, inflicting a wound but dealing no damage. After the repeating finishes, each enemy is hit by the total damage of their wounds, which are removed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Movement] = true, [SkillType.Vaal] = true, },
@@ -7298,6 +7374,7 @@ skills["VaalFlickerStrike"] = {
 }
 skills["Frenzy"] = {
 	name = "Frenzy",
+	baseTypeName = "Frenzy",
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Performs an attack that gives the character a frenzy charge if it hits. Frenzy charges increase your attack speed.",
@@ -7384,6 +7461,7 @@ skills["Frenzy"] = {
 }
 skills["FrenzyAltX"] = {
 	name = "Frenzy of Onslaught",
+	baseTypeName = "Frenzy of Onslaught",
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Performs an attack that gives the character a frenzy charge if it hits. Frenzy charges increase your attack speed.",
@@ -7471,6 +7549,7 @@ skills["FrenzyAltX"] = {
 }
 skills["FrostBlades"] = {
 	name = "Frost Blades",
+	baseTypeName = "Frost Blades",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -7571,6 +7650,7 @@ skills["FrostBlades"] = {
 }
 skills["FrostBladesAltX"] = {
 	name = "Frost Blades of Katabasis",
+	baseTypeName = "Frost Blades of Katabasis",
 	color = 2,
 	baseEffectiveness = 2.2339000701904,
 	incrementalEffectiveness = 0.057500001043081,
@@ -7691,6 +7771,7 @@ skills["FrostBladesAltX"] = {
 }
 skills["ShrapnelShot"] = {
 	name = "Galvanic Arrow",
+	baseTypeName = "Galvanic Arrow",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -7782,6 +7863,7 @@ skills["ShrapnelShot"] = {
 }
 skills["ShrapnelShotAltX"] = {
 	name = "Galvanic Arrow of Energy",
+	baseTypeName = "Galvanic Arrow of Energy",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -7859,6 +7941,7 @@ skills["ShrapnelShotAltX"] = {
 }
 skills["ShrapnelShotAltY"] = {
 	name = "Galvanic Arrow of Surging",
+	baseTypeName = "Galvanic Arrow of Surging",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -7948,6 +8031,7 @@ skills["ShrapnelShotAltY"] = {
 }
 skills["Grace"] = {
 	name = "Grace",
+	baseTypeName = "Grace",
 	color = 2,
 	description = "Casts an aura that grants evasion to you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -8025,6 +8109,7 @@ skills["Grace"] = {
 }
 skills["VaalGrace"] = {
 	name = "Vaal Grace",
+	baseTypeName = "Vaal Grace",
 	color = 2,
 	description = "Casts a temporary aura that grants you and your allies additional chance to evade attacks, and makes suppressed spell damage unlucky against you.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -8105,6 +8190,7 @@ skills["VaalGrace"] = {
 }
 skills["Haste"] = {
 	name = "Haste",
+	baseTypeName = "Haste",
 	color = 2,
 	description = "Casts an aura that increases the movement speed, attack speed and cast speed of you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -8186,6 +8272,7 @@ skills["Haste"] = {
 }
 skills["VaalHaste"] = {
 	name = "Vaal Haste",
+	baseTypeName = "Vaal Haste",
 	color = 2,
 	description = "Casts a temporary aura that increases the movement speed, attack speed and cast speed of you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -8273,6 +8360,7 @@ skills["VaalHaste"] = {
 }
 skills["Hatred"] = {
 	name = "Hatred",
+	baseTypeName = "Hatred",
 	color = 2,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.025000000372529,
@@ -8352,6 +8440,7 @@ skills["Hatred"] = {
 }
 skills["HeraldOfAgony"] = {
 	name = "Herald of Agony",
+	baseTypeName = "Herald of Agony",
 	color = 2,
 	baseEffectiveness = 0.10999999940395,
 	incrementalEffectiveness = 0.044700000435114,
@@ -8460,6 +8549,7 @@ skills["HeraldOfAgony"] = {
 }
 skills["HeraldOfIce"] = {
 	name = "Herald of Ice",
+	baseTypeName = "Herald of Ice",
 	color = 2,
 	baseEffectiveness = 1.3636000156403,
 	incrementalEffectiveness = 0.023000000044703,
@@ -8552,6 +8642,7 @@ skills["HeraldOfIce"] = {
 }
 skills["IceShot"] = {
 	name = "Ice Shot",
+	baseTypeName = "Ice Shot",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -8641,6 +8732,7 @@ skills["IceShot"] = {
 }
 skills["VaalIceShot"] = {
 	name = "Vaal Ice Shot",
+	baseTypeName = "Vaal Ice Shot",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -8720,6 +8812,7 @@ skills["VaalIceShot"] = {
 }
 skills["IceTrap"] = {
 	name = "Ice Trap",
+	baseTypeName = "Ice Trap",
 	color = 2,
 	baseEffectiveness = 2.3310000896454,
 	incrementalEffectiveness = 0.046999998390675,
@@ -8802,6 +8895,7 @@ skills["IceTrap"] = {
 }
 skills["IceTrapAltX"] = {
 	name = "Ice Trap of Hollowness",
+	baseTypeName = "Ice Trap of Hollowness",
 	color = 2,
 	baseEffectiveness = 2.7999999523163,
 	incrementalEffectiveness = 0.046999998390675,
@@ -8882,6 +8976,7 @@ skills["IceTrapAltX"] = {
 }
 skills["DoubleSlash"] = {
 	name = "Lacerate",
+	baseTypeName = "Lacerate",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -8980,6 +9075,7 @@ skills["DoubleSlash"] = {
 }
 skills["DoubleSlashAltX"] = {
 	name = "Lacerate of Butchering",
+	baseTypeName = "Lacerate of Butchering",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -9066,6 +9162,7 @@ skills["DoubleSlashAltX"] = {
 	},
 }skills["DoubleSlashAltY"] = {
 	name = "Lacerate of Haemorrhage",
+	baseTypeName = "Lacerate of Haemorrhage",
 	color = 2,
 	baseEffectiveness = 1.039999961853,
 	incrementalEffectiveness = 0.023299999535084,
@@ -9156,6 +9253,7 @@ skills["DoubleSlashAltX"] = {
 }
 skills["LancingSteel"] = {
 	name = "Lancing Steel",
+	baseTypeName = "Lancing Steel",
 	color = 2,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Thrust an Axe or Sword forward, consuming your Steel Shards to form a cluster of shards in front of you. The cluster will fire a number of projectiles in sequence, aiming at enemies in front of or close to it. Steel Shards are gained with the Call of Steel Skill.",
@@ -9263,6 +9361,7 @@ skills["LancingSteel"] = {
 }
 skills["LancingSteelAltX"] = {
 	name = "Lancing Steel of Spraying",
+	baseTypeName = "Lancing Steel of Spraying",
 	color = 2,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Thrust an Axe or Sword forward to form a cluster of shards in front of you. The cluster will fire a number of projectiles in sequence, aiming at enemies in front of or close to it.",
@@ -9362,6 +9461,7 @@ skills["LancingSteelAltX"] = {
 }
 skills["LightningArrow"] = {
 	name = "Lightning Arrow",
+	baseTypeName = "Lightning Arrow",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -9372,11 +9472,6 @@ skills["LightningArrow"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	statMap = {
-		["quality_display_lightning_arrow_is_gem"] = {
-			-- Display only
-		},
-	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -9398,7 +9493,6 @@ skills["LightningArrow"] = {
 		"attack_maximum_added_lightning_damage",
 		"active_skill_shock_as_though_damage_+%_final",
 		"skill_can_fire_arrows",
-		"quality_display_lightning_arrow_is_gem",
 	},
 	levels = {
 		[1] = { 0.10000000149012, 1.8999999761581, 100, damageEffectiveness = 1.3, baseMultiplier = 1.3, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { Mana = 7, }, },
@@ -9445,6 +9539,7 @@ skills["LightningArrow"] = {
 }
 skills["LightningArrowAltX"] = {
 	name = "Lightning Arrow of Electrocution",
+	baseTypeName = "Lightning Arrow of Electrocution",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -9486,7 +9581,6 @@ skills["LightningArrowAltX"] = {
 		"attack_minimum_added_lightning_damage",
 		"attack_maximum_added_lightning_damage",
 		"skill_can_fire_arrows",
-		"quality_display_lightning_arrow_is_gem",
 	},
 	levels = {
 		[1] = { 0.10000000149012, 1.8999999761581, damageEffectiveness = 0.65, baseMultiplier = 0.65, levelRequirement = 12, statInterpolation = { 3, 3, }, cost = { Mana = 7, }, },
@@ -9533,6 +9627,7 @@ skills["LightningArrowAltX"] = {
 }
 skills["VaalLightningArrow"] = {
 	name = "Vaal Lightning Arrow",
+	baseTypeName = "Vaal Lightning Arrow",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -9560,9 +9655,6 @@ skills["VaalLightningArrow"] = {
 		["projectiles_barrage"] = {
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
-		},
-		["quality_display_lightning_arrow_is_gem"] = {
-			-- Display only
 		},
 		["quality_display_base_additional_arrows_is_gem"] = {
 			-- Display only
@@ -9598,7 +9690,6 @@ skills["VaalLightningArrow"] = {
 		"projectiles_barrage",
 		"cannot_cancel_skill_before_contact_point",
 		"skill_can_add_multiple_charges_per_action",
-		"quality_display_lightning_arrow_is_gem",
 		"quality_display_base_additional_arrows_is_gem",
 	},
 	levels = {
@@ -9646,6 +9737,7 @@ skills["VaalLightningArrow"] = {
 }
 skills["LightningStrike"] = {
 	name = "Lightning Strike",
+	baseTypeName = "Lightning Strike",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -9746,6 +9838,7 @@ skills["LightningStrike"] = {
 }
 skills["LightningStrikeAltX"] = {
 	name = "Lightning Strike of Arcing",
+	baseTypeName = "Lightning Strike of Arcing",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -9850,6 +9943,7 @@ skills["LightningStrikeAltX"] = {
 }
 skills["VaalLightningStrike"] = {
 	name = "Vaal Lightning Strike",
+	baseTypeName = "Vaal Lightning Strike",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -9959,6 +10053,7 @@ skills["VaalLightningStrike"] = {
 }
 skills["MirrorArrow"] = {
 	name = "Mirror Arrow",
+	baseTypeName = "Mirror Arrow",
 	color = 2,
 	description = "Fires an arrow at the target destination. When the arrow lands, a clone is summoned. The clone is a minion that uses your bow and quiver.",
 	skillTypes = { [SkillType.ProjectileSpeed] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.RangedAttack] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Movement] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.Travel] = true, [SkillType.Cooldown] = true, [SkillType.Rain] = true, },
@@ -10042,6 +10137,7 @@ skills["MirrorArrow"] = {
 }
 skills["MirrorArrowAltX"] = {
 	name = "Mirror Arrow of Bombarding Clones",
+	baseTypeName = "Mirror Arrow of Bombarding Clones",
 	color = 2,
 	description = "Fires an arrow at the target destination. When the arrow lands, a clone is summoned. The clone is a minion that uses your bow and quiver to fire arrows into the air to land around a target.",
 	skillTypes = { [SkillType.ProjectileSpeed] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.RangedAttack] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Movement] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.Travel] = true, [SkillType.Cooldown] = true, [SkillType.Rain] = true, },
@@ -10052,7 +10148,7 @@ skills["MirrorArrowAltX"] = {
 	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
-		"ArrowClone",
+		"ArrowCloneRoA",
 	},
 	baseFlags = {
 		attack = true,
@@ -10125,6 +10221,7 @@ skills["MirrorArrowAltX"] = {
 }
 skills["MirrorArrowAltY"] = {
 	name = "Mirror Arrow of Prismatic Clones",
+	baseTypeName = "Mirror Arrow of Prismatic Clones",
 	color = 2,
 	description = "Fires an arrow at the target destination. When the arrow lands, a clone is summoned. The clone is a minion that uses your bow and quiver to fire random elemental arrows.",
 	skillTypes = { [SkillType.ProjectileSpeed] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.RangedAttack] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Movement] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.Travel] = true, [SkillType.Cooldown] = true, [SkillType.Rain] = true, [SkillType.RandomElement] = true, },
@@ -10135,7 +10232,7 @@ skills["MirrorArrowAltY"] = {
 	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
-		"ArrowClone",
+		"ArrowCloneEle",
 	},
 	baseFlags = {
 		attack = true,
@@ -10208,6 +10305,7 @@ skills["MirrorArrowAltY"] = {
 }
 skills["MambaStrike"] = {
 	name = "Pestilent Strike",
+	baseTypeName = "Pestilent Strike",
 	color = 2,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Attacks with your weapon, inflicting a debuff on enemies hit by the strike. If a debuffed enemy dies while poisoned, Pestilent Strike inflicts a secondary chaos damage over time debuff on enemies around them, based on the poisons on the slain enemy. This damage is not affected by your damage modifiers. Requires a Claw or Dagger.",
@@ -10290,6 +10388,7 @@ skills["MambaStrike"] = {
 }
 skills["NewPhaseRun"] = {
 	name = "Phase Run",
+	baseTypeName = "Phase Run",
 	color = 2,
 	description = "Gain a buff that makes you faster, harder to detect, and grants Phasing, letting you pass through enemies. Performing any skill replaces this buff with one that boosts melee physical damage of skills you use yourself (it will not apply to your melee skills used by totems). Consumes Frenzy Charges to increase duration.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Movement] = true, [SkillType.Instant] = true, [SkillType.Physical] = true, [SkillType.Travel] = true, [SkillType.Cooldown] = true, },
@@ -10369,6 +10468,7 @@ skills["NewPhaseRun"] = {
 }
 skills["CorrosiveShroud"] = {
 	name = "Plague Bearer",
+	baseTypeName = "Plague Bearer",
 	color = 2,
 	baseEffectiveness = 31.920000076294,
 	incrementalEffectiveness = 0.10670000314713,
@@ -10449,6 +10549,7 @@ skills["CorrosiveShroud"] = {
 }
 skills["PoachersMark"] = {
 	name = "Poacher's Mark",
+	baseTypeName = "Poacher's Mark",
 	color = 2,
 	baseEffectiveness = 0.25170001387596,
 	incrementalEffectiveness = 0.024100000038743,
@@ -10543,6 +10644,7 @@ skills["PoachersMark"] = {
 }
 skills["AccuracyAndCritsAura"] = {
 	name = "Precision",
+	baseTypeName = "Precision",
 	color = 2,
 	description = "Casts an aura that grants accuracy and critical strike chance to you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -10620,6 +10722,7 @@ skills["AccuracyAndCritsAura"] = {
 }
 skills["SnipersMark"] = {
 	name = "Sniper's Mark",
+	baseTypeName = "Sniper's Mark",
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Curses a single enemy, increasing the damage they take from projectiles, and making projectiles split when hitting them, to hit other targets around them. You can only have one Mark at a time.",
@@ -10698,6 +10801,7 @@ skills["SnipersMark"] = {
 }
 skills["StormRain"] = {
 	name = "Storm Rain",
+	baseTypeName = "Storm Rain",
 	color = 2,
 	description = "Fires an arrow into the air to land at a targeted location, dealing area damage. The arrow sticks in the ground where it lands, and periodically fires a beam of lightning to another arrow near it, dealing area damage between them.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Rain] = true, [SkillType.Lightning] = true, [SkillType.ProjectileNumber] = true, [SkillType.Damage] = true, },
@@ -10811,6 +10915,7 @@ skills["StormRain"] = {
 }
 skills["StormRainAltX"] = {
 	name = "Storm Rain of the Conduit",
+	baseTypeName = "Storm Rain of the Conduit",
 	color = 2,
 	description = "Fires an arrow into the air to land at a targeted location, dealing area damage. The arrow sticks in the ground where it lands, and periodically fires a beam of lightning to you, dealing area damage between the arrow and you.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Rain] = true, [SkillType.Lightning] = true, [SkillType.ProjectileNumber] = true, [SkillType.Damage] = true, },
@@ -10918,6 +11023,7 @@ skills["StormRainAltX"] = {
 }
 skills["StormRainAltY"] = {
 	name = "Storm Rain of the Fence",
+	baseTypeName = "Storm Rain of the Fence",
 	color = 2,
 	description = "Fires an arrow into the air to land at a targeted location, dealing area damage. The arrow sticks in the ground where it lands, and periodically fires a beam of lightning to another arrow near it, dealing area damage between them.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Rain] = true, [SkillType.Lightning] = true, [SkillType.ProjectileNumber] = true, [SkillType.Damage] = true, [SkillType.ProjectilesNotFired] = true, },
@@ -11028,6 +11134,7 @@ skills["StormRainAltY"] = {
 }
 skills["Puncture"] = {
 	name = "Puncture",
+	baseTypeName = "Puncture",
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -11119,6 +11226,7 @@ skills["Puncture"] = {
 }
 skills["ColdResistAura"] = {
 	name = "Purity of Ice",
+	baseTypeName = "Purity of Ice",
 	color = 2,
 	description = "Casts an aura that grants cold resistance to you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Cold] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -11196,6 +11304,7 @@ skills["ColdResistAura"] = {
 }
 skills["ColdImpurity"] = {
 	name = "Vaal Impurity of Ice",
+	baseTypeName = "Vaal Impurity of Ice",
 	color = 2,
 	description = "Casts an aura that reduces cold damage taken and provides freeze and chill immunity to you and nearby allies, and makes hits against nearby enemies ignore their cold resistance. ",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Cold] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -11284,6 +11393,7 @@ skills["ColdImpurity"] = {
 }
 skills["RainOfArrows"] = {
 	name = "Rain of Arrows",
+	baseTypeName = "Rain of Arrows",
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Fires multiple arrows into the air, to land in sequence after a delay, starting at the targeted location and spreading outwards in all directions. Each arrow deals damage in an area around it. Half of the arrows will land directly on targets if there are targets in their range.",
@@ -11360,6 +11470,7 @@ skills["RainOfArrows"] = {
 }
 skills["RainOfArrowsAltX"] = {
 	name = "Rain of Arrows of Artillery",
+	baseTypeName = "Rain of Arrows of Artillery",
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Fires multiple arrows into the air, to land in sequence after a delay, starting in front of you and proceeding in a line in the direction of the target. Each arrow deals damage in an area around it.",
@@ -11435,6 +11546,7 @@ skills["RainOfArrowsAltX"] = {
 }
 skills["RainOfArrowsAltY"] = {
 	name = "Rain of Arrows of Saturation",
+	baseTypeName = "Rain of Arrows of Saturation",
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Fires multiple arrows into the air, to slowly land in sequence after a delay, starting at the targeted location and spreading outwards in all directions. Each arrow deals damage in an area around it. Half of the arrows will land directly on targets if there are targets in their range.",
@@ -11510,6 +11622,7 @@ skills["RainOfArrowsAltY"] = {
 }
 skills["VaalRainOfArrows"] = {
 	name = "Vaal Rain of Arrows",
+	baseTypeName = "Vaal Rain of Arrows",
 	color = 2,
 	description = "Fires multiple arrows into the air, to land in multiple sequences after a delay, each starting at the targeted location and spreading outwards in all directions. Each arrow deals damage in an area around it. Half of the arrows will land directly on targets if there are targets in their range.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.ProjectileNumber] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Vaal] = true, [SkillType.Rain] = true, },
@@ -11594,6 +11707,7 @@ skills["VaalRainOfArrows"] = {
 }
 skills["Reave"] = {
 	name = "Reave",
+	baseTypeName = "Reave",
 	color = 2,
 	description = "Attacks an area in front of you. Each Reave that hits an enemy grants stages, which you will begin to lose after a short period without hitting anything. Only works with Daggers, Claws, and One-Handed Swords.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, },
@@ -11681,6 +11795,7 @@ skills["Reave"] = {
 }
 skills["ReaveAltX"] = {
 	name = "Reave of Refraction",
+	baseTypeName = "Reave of Refraction",
 	color = 2,
 	description = "Attacks an area in front of you. Each Reave that hits an enemy grants stages, which you will begin to lose after a short period without hitting anything. Only works with Daggers, Claws, and One-Handed Swords.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, },
@@ -11769,6 +11884,7 @@ skills["ReaveAltX"] = {
 }
 skills["VaalReave"] = {
 	name = "Vaal Reave",
+	baseTypeName = "Vaal Reave",
 	color = 2,
 	description = "Repeatedly attacks a large area in different directions. Each Vaal Reave that hits an enemy grants stages, which you will begin to lose after a short period without hitting anything. Only works with Daggers, Claws, and One-Handed Swords.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Vaal] = true, },
@@ -11861,6 +11977,7 @@ skills["VaalReave"] = {
 }
 skills["Riposte"] = {
 	name = "Riposte",
+	baseTypeName = "Riposte",
 	color = 2,
 	baseEffectiveness = 0.5,
 	incrementalEffectiveness = 0.023299999535084,
@@ -11946,6 +12063,7 @@ skills["Riposte"] = {
 }
 skills["ScourgeArrow"] = {
 	name = "Scourge Arrow",
+	baseTypeName = "Scourge Arrow",
 	color = 2,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Channel to infuse an arrow with chaos, gaining stages while it is held. Release to fire it, leaving spore pods in its wake. Each spore pod blooms, firing thorn arrows, which travel for a short time before dissipating. Modifiers that cause additional projectiles to be fired will only apply to the initial arrows, and the spore pods will be divided between those arrows.",
@@ -12052,6 +12170,7 @@ skills["ScourgeArrow"] = {
 }
 skills["ScourgeArrowAltX"] = {
 	name = "Scourge Arrow of Menace",
+	baseTypeName = "Scourge Arrow of Menace",
 	color = 2,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Fire an arrow that leaves a spore pod in its wake. The spore pod blooms, firing thorn arrows, which travel for a short time before dissipating. Modifiers that cause additional projectiles to be fired will only apply to the initial arrows, each of which leaves its own spore pod.",
@@ -12149,6 +12268,7 @@ skills["ScourgeArrowAltX"] = {
 }
 skills["ShatteringSteel"] = {
 	name = "Shattering Steel",
+	baseTypeName = "Shattering Steel",
 	color = 2,
 	baseEffectiveness = 0.52929997444153,
 	incrementalEffectiveness = 0.034099999815226,
@@ -12243,6 +12363,7 @@ skills["ShatteringSteel"] = {
 }
 skills["ShatteringSteelAltX"] = {
 	name = "Shattering Steel of Ammunition",
+	baseTypeName = "Shattering Steel of Ammunition",
 	color = 2,
 	baseEffectiveness = 0.52929997444153,
 	incrementalEffectiveness = 0.034099999815226,
@@ -12356,6 +12477,7 @@ skills["ShatteringSteelAltX"] = {
 }
 skills["PhysCascadeTrap"] = {
 	name = "Seismic Trap",
+	baseTypeName = "Seismic Trap",
 	color = 2,
 	baseEffectiveness = 1.3999999761581,
 	incrementalEffectiveness = 0.044399999082088,
@@ -12594,6 +12716,7 @@ skills["PhysCascadeTrap"] = {
 }
 skills["PhysCascadeTrapAltX"] = {
 	name = "Seismic Trap of Swells",
+	baseTypeName = "Seismic Trap of Swells",
 	color = 2,
 	baseEffectiveness = 2.2999999523163,
 	incrementalEffectiveness = 0.044399999082088,
@@ -12746,6 +12869,7 @@ skills["PhysCascadeTrapAltX"] = {
 }
 skills["ShrapnelBallista"] = {
 	name = "Shrapnel Ballista",
+	baseTypeName = "Shrapnel Ballista",
 	color = 2,
 	baseEffectiveness = 0.5,
 	incrementalEffectiveness = 0.023299999535084,
@@ -12839,6 +12963,7 @@ skills["ShrapnelBallista"] = {
 }
 skills["ShrapnelBallistaAltX"] = {
 	name = "Shrapnel Ballista of Steel",
+	baseTypeName = "Shrapnel Ballista of Steel",
 	color = 2,
 	baseEffectiveness = 0.5,
 	incrementalEffectiveness = 0.023299999535084,
@@ -12941,6 +13066,7 @@ skills["ShrapnelBallistaAltX"] = {
 }
 skills["SiegeBallista"] = {
 	name = "Siege Ballista",
+	baseTypeName = "Siege Ballista",
 	color = 2,
 	description = "Summons a ballista totem that attacks with piercing arrows. Requires a Bow.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.RangedAttack] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.SummonsTotem] = true, [SkillType.AttackInPlaceIsDefault] = true, [SkillType.TotemsAreBallistae] = true, },
@@ -13027,6 +13153,7 @@ skills["SiegeBallista"] = {
 }
 skills["SiegeBallistaAltX"] = {
 	name = "Siege Ballista of Splintering",
+	baseTypeName = "Siege Ballista of Splintering",
 	color = 2,
 	description = "Summons a ballista totem that attacks with forking arrows.\nRequires a Bow.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.RangedAttack] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.SummonsTotem] = true, [SkillType.AttackInPlaceIsDefault] = true, [SkillType.TotemsAreBallistae] = true, },
@@ -13109,6 +13236,7 @@ skills["SiegeBallistaAltX"] = {
 }
 skills["SmokeMine"] = {
 	name = "Smoke Mine",
+	baseTypeName = "Smoke Mine",
 	color = 2,
 	description = "Throws a mine that will teleport you to it when detonated. It covers both your escape and arrival with a cloud of smoke that blinds enemies, and gives you a temporary buff to movement speed. Shares a cooldown with other Blink skills.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Movement] = true, [SkillType.RemoteMined] = true, [SkillType.AreaSpell] = true, [SkillType.Travel] = true, [SkillType.HasReservation] = true, [SkillType.Blink] = true, [SkillType.Cooldown] = true, },
@@ -13194,6 +13322,7 @@ skills["SmokeMine"] = {
 }
 skills["ThrownShield"] = {
 	name = "Spectral Shield Throw",
+	baseTypeName = "Spectral Shield Throw",
 	color = 2,
 	baseEffectiveness = 2.6982998847961,
 	incrementalEffectiveness = 0.017300000414252,
@@ -13285,6 +13414,7 @@ skills["ThrownShield"] = {
 }
 skills["ThrownShieldAltX"] = {
 	name = "Spectral Shield Throw of Shattering",
+	baseTypeName = "Spectral Shield Throw of Shattering",
 	color = 2,
 	baseEffectiveness = 3.2999999523163,
 	incrementalEffectiveness = 0.017300000414252,
@@ -13373,6 +13503,7 @@ skills["ThrownShieldAltX"] = {
 }
 skills["ThrownWeapon"] = {
 	name = "Spectral Throw",
+	baseTypeName = "Spectral Throw",
 	color = 2,
 	description = "Throws a spectral copy of your melee weapon. It flies out and then returns to you, in a spinning attack that damages enemies in its path.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, },
@@ -13454,6 +13585,7 @@ skills["ThrownWeapon"] = {
 }
 skills["VaalThrownWeapon"] = {
 	name = "Vaal Spectral Throw",
+	baseTypeName = "Vaal Spectral Throw",
 	color = 2,
 	description = "Throws several spectral copies of your melee weapon. They fly out and then return to you, in a spinning attack that damages enemies in their path.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Vaal] = true, },
@@ -13546,6 +13678,7 @@ skills["VaalThrownWeapon"] = {
 }
 skills["RainOfSpores"] = {
 	name = "Toxic Rain",
+	baseTypeName = "Toxic Rain",
 	color = 2,
 	baseEffectiveness = 2.0385999679565,
 	incrementalEffectiveness = 0.036899998784065,
@@ -13639,6 +13772,7 @@ skills["RainOfSpores"] = {
 }
 skills["RainOfSporesAltX"] = {
 	name = "Toxic Rain of Sporeburst",
+	baseTypeName = "Toxic Rain of Sporeburst",
 	color = 2,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Fire arrows into the air that rain down around the targeted area, dealing damage to enemies they hit and creating spore pods where they land. Each spore pod slows the movement speed of nearby enemies. The pods last for a duration before bursting, dealing area damage.",
@@ -13730,6 +13864,7 @@ skills["RainOfSporesAltX"] = {
 }
 skills["RainOfSporesAltY"] = {
 	name = "Toxic Rain of Withering",
+	baseTypeName = "Toxic Rain of Withering",
 	color = 2,
 	baseEffectiveness = 2.0385999679565,
 	incrementalEffectiveness = 0.036899998784065,
@@ -13827,6 +13962,7 @@ skills["RainOfSporesAltY"] = {
 }
 skills["SpectralHelix"] = {
 	name = "Spectral Helix",
+	baseTypeName = "Spectral Helix",
 	color = 2,
 	description = "Throws a spectral copy of your melee weapon. It spins around while flying in a large spiral, damaging enemies in its path, and bouncing if it collides with walls.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, },
@@ -13918,6 +14054,7 @@ skills["SpectralHelix"] = {
 }
 skills["SplitArrow"] = {
 	name = "Split Arrow",
+	baseTypeName = "Split Arrow",
 	color = 2,
 	baseEffectiveness = 0.5,
 	incrementalEffectiveness = 0.023299999535084,
@@ -13992,6 +14129,7 @@ skills["SplitArrow"] = {
 }
 skills["SplitArrowAltX"] = {
 	name = "Split Arrow of Splitting",
+	baseTypeName = "Split Arrow of Splitting",
 	color = 2,
 	baseEffectiveness = 0.5,
 	incrementalEffectiveness = 0.023299999535084,
@@ -14067,6 +14205,7 @@ skills["SplitArrowAltX"] = {
 }
 skills["ImpactingSteel"] = {
 	name = "Splitting Steel",
+	baseTypeName = "Splitting Steel",
 	color = 2,
 	baseEffectiveness = 0.39730000495911,
 	incrementalEffectiveness = 0.035399999469519,
@@ -14151,6 +14290,7 @@ skills["ImpactingSteel"] = {
 }
 skills["ImpactingSteelAltX"] = {
 	name = "Splitting Steel of Ammunition",
+	baseTypeName = "Splitting Steel of Ammunition",
 	color = 2,
 	baseEffectiveness = 0.39730000495911,
 	incrementalEffectiveness = 0.035399999469519,
@@ -14238,6 +14378,7 @@ skills["ImpactingSteelAltX"] = {
 }
 skills["SummonIceGolem"] = {
 	name = "Summon Ice Golem",
+	baseTypeName = "Summon Ice Golem",
 	color = 2,
 	description = "Summons an Ice Golem that grants you increased Critical Strike Chance and Accuracy. The Ice Golem can use an icy barrage spell and a chilling spinning attack in addition to its melee attack.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -14326,6 +14467,7 @@ skills["SummonIceGolem"] = {
 }
 skills["SummonIceGolemAltX"] = {
 	name = "Summon Ice Golem of Hordes",
+	baseTypeName = "Summon Ice Golem of Hordes",
 	color = 2,
 	description = "Summons an Ice Golem. The Ice Golem can use an icy barrage spell and a chilling spinning attack in addition to its melee attack.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -14405,6 +14547,7 @@ skills["SummonIceGolemAltX"] = {
 }
 skills["SummonIceGolemAltY"] = {
 	name = "Summon Ice Golem of Shattering",
+	baseTypeName = "Summon Ice Golem of Shattering",
 	color = 2,
 	description = "Summons an Ice Golem. The Ice Golem can use an icy barrage spell and a chilling spinning attack in addition to its melee attack. If reduced to low life it will trigger a spell that destroys itself to deal area damage and fire icy projectiles in a circle.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -14485,6 +14628,7 @@ skills["SummonIceGolemAltY"] = {
 }
 skills["TemporalChains"] = {
 	name = "Temporal Chains",
+	baseTypeName = "Temporal Chains",
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Curses all enemies in an area, lowering their action speed and making other effects on them expire more slowly.",
@@ -14577,6 +14721,7 @@ skills["TemporalChains"] = {
 }
 skills["TornadoShot"] = {
 	name = "Tornado Shot",
+	baseTypeName = "Tornado Shot",
 	color = 2,
 	description = "Fires a piercing shot that travels until it reaches the targeted location. It will then fire projectiles out in all directions from that point, which will travel for a short time before disappearing.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Triggerable] = true, },
@@ -14647,6 +14792,7 @@ skills["TornadoShot"] = {
 }
 skills["TornadoShotAltX"] = {
 	name = "Tornado Shot of Cloudburst",
+	baseTypeName = "Tornado Shot of Cloudburst",
 	color = 2,
 	description = "Fires a single payload arrow into the air to land at a targeted location. It will then fire arrows out in all directions from that point.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Rain] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Triggerable] = true, },
@@ -14720,6 +14866,7 @@ skills["TornadoShotAltX"] = {
 }
 skills["BoneLance"] = {
 	name = "Unearth",
+	baseTypeName = "Unearth",
 	color = 2,
 	baseEffectiveness = 1.8234000205994,
 	incrementalEffectiveness = 0.039500001817942,
@@ -14800,6 +14947,7 @@ skills["BoneLance"] = {
 }
 skills["SnappingAdder"] = {
 	name = "Venom Gyre",
+	baseTypeName = "Venom Gyre",
 	color = 2,
 	description = "Fires a returning projectile that can be caught. Caught projectiles spiral outwards when you use Whirling Blades and do not return. Requires a Dagger or Claw.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.Chaos] = true, [SkillType.Duration] = true, [SkillType.ProjectilesFromUser] = true, },
@@ -14892,6 +15040,7 @@ skills["SnappingAdder"] = {
 }
 skills["VaalSnappingAdder"] = {
 	name = "Vaal Venom Gyre",
+	baseTypeName = "Vaal Venom Gyre",
 	color = 2,
 	description = "Creates already-caught projectiles without firing them first, both immediately and over a secondary duration. Caught projectiles spiral outwards when you use Whirling Blades and do not return. Requires a Dagger or Claw.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.Chaos] = true, [SkillType.Duration] = true, [SkillType.ProjectilesNotFired] = true, [SkillType.Vaal] = true, },
@@ -14975,6 +15124,7 @@ skills["VaalSnappingAdder"] = {
 }
 skills["ViperStrike"] = {
 	name = "Viper Strike",
+	baseTypeName = "Viper Strike",
 	color = 2,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.023299999535084,
@@ -15069,6 +15219,7 @@ skills["ViperStrike"] = {
 }
 skills["ViperStrikeAltX"] = {
 	name = "Viper Strike of the Mamba",
+	baseTypeName = "Viper Strike of the Mamba",
 	color = 2,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.023299999535084,
@@ -15164,6 +15315,7 @@ skills["ViperStrikeAltX"] = {
 }
 skills["VolatileDead"] = {
 	name = "Volatile Dead",
+	baseTypeName = "Volatile Dead",
 	color = 2,
 	baseEffectiveness = 2.0460000038147,
 	incrementalEffectiveness = 0.041000001132488,
@@ -15264,6 +15416,7 @@ skills["VolatileDead"] = {
 }
 skills["VolatileDeadAltX"] = {
 	name = "Volatile Dead of Confinement",
+	baseTypeName = "Volatile Dead of Confinement",
 	color = 2,
 	baseEffectiveness = 2.5499999523163,
 	incrementalEffectiveness = 0.041000001132488,
@@ -15365,6 +15518,7 @@ skills["VolatileDeadAltX"] = {
 }
 skills["VolatileDeadAltY"] = {
 	name = "Volatile Dead of Seething",
+	baseTypeName = "Volatile Dead of Seething",
 	color = 2,
 	baseEffectiveness = 2.0460000038147,
 	incrementalEffectiveness = 0.041000001132488,
@@ -15465,6 +15619,7 @@ skills["VolatileDeadAltY"] = {
 }
 skills["WhirlingBlades"] = {
 	name = "Whirling Blades",
+	baseTypeName = "Whirling Blades",
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords. Cannot be supported by Multistrike.",
@@ -15541,6 +15696,7 @@ skills["WhirlingBlades"] = {
 }
 skills["WildStrike"] = {
 	name = "Wild Strike",
+	baseTypeName = "Wild Strike",
 	color = 2,
 	description = "Your melee weapon strikes enemies, converting physical damage to a random element. Then, depending on the element chosen, it releases a fiery explosion, an arcing bolt of lightning, or an icy wave. It will avoid choosing the same element twice in a row.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Lightning] = true, [SkillType.Cold] = true, [SkillType.Fire] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Chains] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.RandomElement] = true, },
@@ -15683,6 +15839,7 @@ skills["WildStrike"] = {
 }
 skills["WildStrikeAltX"] = {
 	name = "Wild Strike of Extremes",
+	baseTypeName = "Wild Strike of Extremes",
 	color = 2,
 	description = "Your melee weapon strikes enemies, converting physical damage to a random element. Then, depending on the element chosen, it releases a fiery explosion, an arcing bolt of lightning, or an icy wave. It will avoid choosing the same element twice in a row.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Lightning] = true, [SkillType.Cold] = true, [SkillType.Fire] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Chains] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.RandomElement] = true, },
@@ -15826,6 +15983,7 @@ skills["WildStrikeAltX"] = {
 }
 skills["Slither"] = {
 	name = "Withering Step",
+	baseTypeName = "Withering Step",
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Grants Elusive and a buff that grants Phasing. While you have this buff, monsters that enter an area around you will be Withered. Using a skill or losing the Elusive buff ends this skill's effects. Shares a cooldown with other Blink skills. Cannot be used while already Elusive.",
@@ -15911,6 +16069,7 @@ skills["Slither"] = {
 }
 skills["PoisonousConcoction"] = {
 	name = "Poisonous Concoction",
+	baseTypeName = "Poisonous Concoction",
 	color = 2,
 	baseEffectiveness = 2.860100030899,
 	incrementalEffectiveness = 0.033100001513958,
@@ -16012,6 +16171,7 @@ skills["PoisonousConcoction"] = {
 }
 skills["ChannelledSnipe"] = {
 	name = "Snipe",
+	baseTypeName = "Snipe",
 	color = 2,
 	description = "Channel to charge up your bow, gaining stages. Release to trigger one supported bow skill for each stage gained. If there are no supported skills, but at least one stage was gained, this skill will fire its own arrow instead. Cannot be used by Totems.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Channel] = true, [SkillType.Physical] = true, },
@@ -16168,6 +16328,7 @@ skills["ChannelledSnipeSupport"] = {
 }
 skills["TemporalRift"] = {
 	name = "Temporal Rift",
+	baseTypeName = "Temporal Rift",
 	color = 2,
 	description = "Reserves mana to apply a buff and leave afterimages of your recent past. Cast the spell again to return to the oldest afterimage, teleporting to that location as well as resetting your Life, Mana and Energy Shield to the values they had then.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.Cooldown] = true, },
@@ -16238,6 +16399,7 @@ skills["TemporalRift"] = {
 }
 skills["Tornado"] = {
 	name = "Tornado",
+	baseTypeName = "Tornado",
 	color = 2,
 	baseEffectiveness = 0.39250001311302,
 	incrementalEffectiveness = 0.057000000029802,
@@ -16328,6 +16490,7 @@ skills["Tornado"] = {
 }
 skills["IntuitiveLink"] = {
 	name = "Intuitive Link",
+	baseTypeName = "Intuitive Link",
 	color = 2,
 	description = "Targets an allied player to apply a buff which links you to them for a duration. While linked, their hits can trigger your supported spells. If the target dies while linked, you will also die. This skill cannot be triggered, or used by Totems, Traps, or Mines.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
@@ -16468,6 +16631,7 @@ skills["SupportIntuitiveLink"] = {
 }
 skills["VampiricLink"] = {
 	name = "Vampiric Link",
+	baseTypeName = "Vampiric Link",
 	color = 2,
 	description = "Targets an allied player to apply a buff which links you to them for a duration. While linked, they get recovery from your life leech instead of you. If the target dies while linked, you will also die. This skill cannot be triggered, or used by Totems, Traps, or Mines.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
@@ -16544,6 +16708,7 @@ skills["VampiricLink"] = {
 }
 skills["QuickstepHardMode"] = {
 	name = "Quickstep",
+	baseTypeName = "Quickstep",
 	color = 4,
 	description = "Performs a series of quick teleports towards a targeted location, stopping if you would overlap with monsters or terrain. If using the \"Attack in Place\" option, the direction is reversed. Shares a cooldown with other Blink skills. Cannot be supported.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Blink] = true, [SkillType.Cooldown] = true, [SkillType.FixedCastTime] = true, },

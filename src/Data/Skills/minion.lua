@@ -1787,9 +1787,9 @@ skills["ReaperConsumeMinionForBuff"] = {
 		spell = true,
 	},
 	baseMods = {
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 40) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
-		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
-		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
+		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 40) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff" }),
+		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 40) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff" }),
+		mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", 30) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff" }),
 		skill("buffAllies", true),
 	},
 	constantStats = {
@@ -1842,6 +1842,65 @@ skills["BlinkMirrorArrowMelee"] = {
 	},
 	levels = {
 		[1] = { damageEffectiveness = 1.75, baseMultiplier = 1.75, levelRequirement = 0, },
+	},
+}
+skills["RainOfArrowsCloneShot"] = {
+	name = "Rain of Arrow",
+	hidden = true,
+	color = 2,
+	description = "Fires multiple arrows into the air, to land in sequence after a delay, starting at the targeted location and spreading outwards in all directions. Each arrow deals damage in an area around it. Half of the arrows will land directly on targets if there are targets in their range.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.ProjectileNumber] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Rain] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+	},
+	baseMods = {
+		skill("radius", 10),
+		flag("OneShotProj"),
+	},
+	constantStats = {
+		{ "number_of_additional_arrows", 10 },
+	},
+	stats = {
+		"base_is_projectile",
+		"is_area_damage",
+		"skill_can_fire_arrows",
+		"cannot_pierce",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 1.5, baseMultiplier = 1.5, levelRequirement = 0, },
+	},
+}
+skills["ElementalHitCloneShot"] = {
+	name = "Elemental Hit",
+	hidden = true,
+	color = 2,
+	description = "Each attack with this skill will choose an element at random, and will only be able to deal damage of that element. If the attack hits an enemy, it will also deal damage in an area around them, with the radius being larger if that enemy is suffering from an ailment of the chosen element. It will avoid choosing the same element twice in a row.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Fire] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.RandomElement] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		melee = true,
+		area = true,
+	},
+	constantStats = {
+		{ "chance_to_freeze_shock_ignite_%", 20 },
+	},
+	stats = {
+		"is_area_damage",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 5.5, baseMultiplier = 5.5, levelRequirement = 0, },
 	},
 }
 skills["SumonRagingSpiritMelee"] = {

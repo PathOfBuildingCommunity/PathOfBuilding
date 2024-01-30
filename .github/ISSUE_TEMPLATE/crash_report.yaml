@@ -19,7 +19,7 @@ body:
     attributes:
       label: Check for duplicates
       options:
-        - label: I've checked for duplicate issues by using the search function of the [issue tracker](https://github.com/PathOfBuildingCommunity/PathOfBuilding/issues)
+        - label: I've checked for duplicate open **and closed** issues by using the search function of the [issue tracker](https://github.com/PathOfBuildingCommunity/PathOfBuilding/issues?q=is%3Aissue)
           required: true
   - type: textarea
     id: context
