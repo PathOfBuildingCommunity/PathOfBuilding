@@ -482,11 +482,6 @@ Highest Weight - Displays the order retrieved from trade]]
 		return scrollBarShown
 	end
 
-	
-	local effective_row_count = row_count + 2 + 2 -- Two top menu rows, two bottom rows
-	local pane_height = (row_height + row_vertical_padding) * effective_row_count + 2 * pane_margins_vertical + row_height / 2
-	local pane_width = 850
-	
 	self.controls.fullPrice = new("LabelControl", {"BOTTOM", nil, "BOTTOM"}, 0, -row_height - pane_margins_vertical - row_vertical_padding, pane_width - 2 * pane_margins_horizontal, row_height, "")
 	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 	self.controls.close = new("ButtonControl", {"BOTTOM", nil, "BOTTOM"}, 0, -pane_margins_vertical, 90, row_height, "Done", function()
