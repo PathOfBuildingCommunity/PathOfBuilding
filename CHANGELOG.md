@@ -12,7 +12,7 @@
 - Fix crash when hovering over Buffs section [\#7315](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7315) ([Wires77](https://github.com/Wires77))
 
 ### Fixed Bugs
-- Fix Utula's Hunger not working with Soultether, Legacy of Fury and Exarch Helmet implicit [\#7313](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7313) ([Peechey](https://github.com/Peechey))
+- Fix Utula's Hunger not working with Soul Tether, Legacy of Fury and Exarch Helmet implicit [\#7313](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7313) ([Peechey](https://github.com/Peechey))
 
 
 
