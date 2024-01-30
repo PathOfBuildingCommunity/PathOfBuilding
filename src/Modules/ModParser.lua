@@ -4840,6 +4840,28 @@ local specialModList = {
 	["nearby allies have (%d+)%% chance to block attack damage per (%d+) strength you have"] = function(block, _, str) return {
 		mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("BlockChance", "BASE", block) }, { type = "PerStat", stat = "Str", div = tonumber(str) }),
 	} end,
+	-- Watcher's Eye special cases
+	["immune to ignite while affected by purity of fire"] = { flag("IgniteImmune", { type = "Condition", var = "AffectedByPurityofFire" }) },
+	["immune to freeze while affected by purity of ice"] = { flag("FreezeImmune", { type = "Condition", var = "AffectedByPurityofIce" }) },
+	["immune to shock while affected by purity of lightning"] = { flag("ShockImmune", { type = "Condition", var = "AffectedByPurityofLightning" }) },
+	["unaffected by vulnerability while affected by determination"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "SkillName", var = "Vulnerability" }, { type = "Condition", var = "AffectedByDetermination" }) },
+	["unaffected by enfeeble while affected by grace"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "SkillName", var = "Enfeeble" }, { type = "Condition", var = "AffectedByGrace" }) },
+	["unaffected by temporal chains while affected by haste"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "SkillName", skillName = "Temporal Chains" }, { type = "Condition", var = "AffectedByHaste" }) },
+	["unaffected by bleeding while affected by malevolence"] = { mod("SelfBleedEffect", "MORE", -100, { type = "Condition", var = "AffectedByMalevolence" }) },
+	["unaffected by poison while affected by malevolence"] = { mod("SelfPoisonEffect", "MORE", -100, { type = "Condition", var = "AffectedByMalevolence" }) },
+	["unaffected by elemental weakness while affected by purity of elements"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "SkillName", var = "Elemental Weakness" },  { type = "Condition", var = "AffectedByPurityofElements" }) },
+	["unaffected by flammability while affected by purity of fire"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "SkillName", var = "Flammability" }, { type = "Condition", var = "AffectedByPurityofFire" }) },
+	["unaffected by frostbite while affected by purity of ice"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "SkillName", var = "Frostbite" }, { type = "Condition", var = "AffectedByPurityofIce" }) },
+	["unaffected by conductivity while affected by purity of lightning"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "SkillName", var = "Conductivity" }, { type = "Condition", var = "AffectedByPurityofLightning" }) },
+	["cannot be blinded while affected by precision"] = { flag("Condition:CannotBeBlinded",{type = "Condition", var = "AffectedByPrecision"}) },
+	["your hits intimidate enemies for 4 seconds while you are using pride"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, { type = "Condition", var = "AffectedByPride" }) },
+	["(%d+)%% chance to blind enemies which hit you while affected by grace"] = function(num) return { mod("EnemyModifier","LIST",{mod=flag("Condition:Blinded")},{type="Condition",var="AffectedByGrace"}) } end,
+	["debuffs on you expire (%d+)%% faster while affected by haste"] = function(num) return { mod("SelfDebuffExpirationRate", "BASE", num, {type = "Condition", var = "AffectedByHaste"}) } end,
+	["(%d+)%% chance to recover 10%% of mana when you use a skill while affected by clarity"] = { mod("","", 0,{type="Condition",var="AffectedByClarity"})},
+	["effects of consecrated ground you create while affected by zealotry linger for 2 seconds"] = { mod("","", 0,{type="Condition",var="AffectedByZealotry"})},
+	["unaffected by shocked ground while affected by purity of lightning"] = { mod("","", 0,{type="Condition",var="AffectedByPurityofLightning"}) },
+	["unaffected by chilled ground while affected by purity of ice"] = { mod("","", 0,{type="Condition",var="AffectedByPurityofIce"}) },
+	["unaffected by burning ground while affected by purity of fire"] = { mod("","", 0,{type="Condition",var="AffectedByPurityofFire"}) },
 }
 for _, name in pairs(data.keystones) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }

@@ -686,6 +686,28 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 				calcNodesInsteadOfMods = true,
 			}
 		end
+		if options.special.itemName == "Watcher's Eye" then
+			special={
+				queryExtra = {
+					name = "Watcher's Eye"
+				},
+				queryFilters = {
+					type_filters = {
+						filters = {
+							category = {
+								option = "jewel"
+							},
+							rarity = {
+								option = "unique"
+							}
+						}
+					}
+				},
+				watchersEye = true
+			}
+			itemCategory = "AnyJewel"
+			itemCategoryQueryStr = "jewel"
+		end
 	elseif slot.slotName == "Weapon 2" or slot.slotName == "Weapon 1" then
 		if existingItem then
 			if existingItem.type == "Shield" then
@@ -770,35 +792,12 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 		itemCategoryQueryStr = "jewel.abyss"
 		itemCategory = "AbyssJewel"
 	elseif slot.slotName:find("Jewel") ~= nil then
-		if options.jewelType == "Watcher's Eye" then
-			special={
-				queryExtra = {
-					name = "Watcher's Eye"
-				},
-				queryFilters = {
-					type_filters = {
-						filters = {
-							category = {
-								option = "jewel"
-							},
-							rarity = {
-								option = "unique"
-							}
-						}
-					}
-				},
-				watchersEye = true
-			}
-			itemCategory = "AnyJewel"
-			itemCategoryQueryStr = "jewel"
-		else
-			itemCategoryQueryStr = "jewel"
-			itemCategory = options.jewelType .. "Jewel"
-			if itemCategory == "AbyssJewel" then
-				itemCategoryQueryStr = "jewel.abyss"
-			elseif itemCategory == "BaseJewel" then
-				itemCategoryQueryStr = "jewel.base"
-			end
+		itemCategoryQueryStr = "jewel"
+		itemCategory = options.jewelType .. "Jewel"
+		if itemCategory == "AbyssJewel" then
+			itemCategoryQueryStr = "jewel.abyss"
+		elseif itemCategory == "BaseJewel" then
+			itemCategoryQueryStr = "jewel.base"
 		end
 	elseif slot.slotName:find("Flask") ~= nil then
 		itemCategoryQueryStr = "flask"
@@ -877,6 +876,28 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 	end
 end
 
+function TradeQueryGeneratorClass:addMoreWEMods()
+	local function getTableOfTradeModIds(tbl)
+		local tmpTable={}
+		for _,val in ipairs(tbl) do
+			table.insert(tmpTable,val.tradeModId)
+		end
+		return tmpTable
+	end
+	for _,skillGroup in ipairs(self.itemsTab.build.skillsTab.socketGroupList) do
+		for _,gem in ipairs(skillGroup.gemList) do
+			if gem.gemData.tags.aura and gem.enabled and gem.enableGlobal2 then
+				local tmpAura=gem.nameSpec:gsub("Vaal ",""):gsub("Impurity","Purity"):gsub("of","Of"):gsub(" ","")
+				for id,mod in pairs(self.modData.WatchersEye) do
+					if id:find(tmpAura) and not isValueInTable(getTableOfTradeModIds(self.modWeights),mod.tradeMod.id) then
+						table.insert(self.modWeights,{invert=false,meanStatDiff=0,weight=0,tradeModId=mod.tradeMod.id})
+					end
+				end
+			end
+		end
+	end
+end
+
 function TradeQueryGeneratorClass:FinishQuery()
 	-- Calc original item Stats without anoint or enchant, and use that diff as a basis for default min sum.
 	local originalItem = self.calcContext.slot and self.itemsTab.items[self.calcContext.slot.selItemId]
@@ -900,6 +921,10 @@ function TradeQueryGeneratorClass:FinishQuery()
 	local originalOutput = originalItem and self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, { nodeAlloc = true }) or self.calcContext.baseOutput
 	local currentStatDiff = TradeQueryGeneratorClass.WeightedRatioOutputs(self.calcContext.baseOutput, originalOutput, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
 	
+	if self.calcContext.options.includeAllWEMods then
+		self:addMoreWEMods()
+	end
+
 	-- Sort by mean Stat diff rather than weight to more accurately prioritize stats that can contribute more
 	table.sort(self.modWeights, function(a, b)
 		return a.meanStatDiff > b.meanStatDiff
@@ -1056,14 +1081,14 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		popupHeight = popupHeight + 23
 	end
 
-	if isJewelSlot then
-		controls.jewelType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 110, 18, { "Any", "Base", "Abyss", "Watcher's Eye" }, function(index, value) end)
+	if isJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
+		controls.jewelType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, { "Any", "Base", "Abyss" }, function(index, value) end)
 		controls.jewelType.selIndex = self.lastJewelType or 1
 		controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, -5, 0, 0, 16, "Jewel Type:")
 
 		lastItemAnchor = controls.jewelType
 		popupHeight = popupHeight + 23
-	elseif slot and not isAbyssalJewelSlot then
+	elseif slot and not isAbyssalJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
 		controls.influence1 = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, influenceDropdownNames, function(index, value) end)
 		controls.influence1.selIndex = self.lastInfluence1 or 1
 		controls.influence1Label = new("LabelControl", {"RIGHT",controls.influence1,"LEFT"}, -5, 0, 0, 16, "Influence 1:")
@@ -1136,6 +1161,13 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	end
 	popupHeight = popupHeight + 4
 
+	if context.slotTbl.slotName == "Watcher's Eye" then
+		controls.includeAllWEMods = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, 0, 5, 18, "Include all Watcher's Eye mods:", function(state) end)
+		controls.includeAllWEMods.tooltipText = "Include all Watcher's Eye mods in the generated query for which weights couldn't be calculated"
+		lastItemAnchor = controls.includeAllWEMods
+		popupHeight = popupHeight + 23
+	end
+
 	controls.generateQuery = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -45, -10, 80, 20, "Execute", function()
 		main:ClosePopup()
 
@@ -1174,6 +1206,9 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		if controls.maxPrice.buf then
 			options.maxPrice = tonumber(controls.maxPrice.buf)
 			options.maxPriceType = currencyTable[controls.maxPriceType.selIndex].id
+		end
+		if controls.includeAllWEMods then
+			options.includeAllWEMods = controls.includeAllWEMods.state
 		end
 		options.statWeights = statWeights
 

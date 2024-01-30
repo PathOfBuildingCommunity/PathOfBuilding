@@ -425,8 +425,14 @@ Highest Weight - Displays the order retrieved from trade]]
 	local row_count = #slotTables + 1
 	self.slotTables[row_count] = { slotName = "Megalomaniac", unique = true, alreadyCorrupted = true }
 	self:PriceItemRowDisplay(row_count, top_pane_alignment_ref, row_vertical_padding, row_height)
+	top_pane_alignment_ref[2] = self.controls["name"..row_count]
 	row_count = row_count + 1
-	
+	-- Watcher's Eye
+	if self:findValidSlotForWatchersEye() then
+		self.slotTables[row_count] = { slotName = "Watcher's Eye", unique = true }
+		self:PriceItemRowDisplay(row_count, top_pane_alignment_ref, row_vertical_padding, row_height)
+		row_count = row_count + 1
+	end
 	local effective_row_count = row_count + 2 + 2 -- Two top menu rows, two bottom rows
 	local pane_height = (row_height + row_vertical_padding) * effective_row_count + 2 * pane_margins_vertical + row_height / 2
 	local pane_width = 850
@@ -784,13 +790,30 @@ function TradeQueryClass:addChaosEquivalentPriceToItems(items)
 	return outputItems
 end
 
+-- return valid slot for Watcher's Eye
+function TradeQueryClass:findValidSlotForWatchersEye()
+	local tmpWE=nil
+	for _,v in ipairs(data.uniques.generated) do
+		if v:find("Watcher's Eye") then
+			tmpWE= new("Item",v)
+			break
+		end
+	end
+	for _,v in pairs(self.itemsTab.sockets) do
+		if not v.inactive then
+			if self.itemsTab:IsItemValidForSlot(tmpWE,v.slotName,self.itemsTab.activeItemSet) then
+				return self.itemsTab.sockets[v.nodeId]
+			end
+		end
+	end
+end
 
 -- Method to generate pane elements for each item slot
 function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, row_vertical_padding, row_height)
 	local controls = self.controls
 	local slotTbl = self.slotTables[row_idx]
 	local activeSlotRef = slotTbl.nodeId and self.itemsTab.activeItemSet[slotTbl.nodeId] or self.itemsTab.activeItemSet[slotTbl.slotName]
-	local activeSlot = slotTbl.nodeId and self.itemsTab.sockets[slotTbl.nodeId] or slotTbl.slotName and self.itemsTab.slots[slotTbl.slotName]
+	local activeSlot = slotTbl.nodeId and self.itemsTab.sockets[slotTbl.nodeId] or slotTbl.slotName and self.itemsTab.slots[slotTbl.slotName] or slotTbl.slotName == "Watcher's Eye" and self:findValidSlotForWatchersEye()
 	local nameColor = slotTbl.unique and colorCodes.UNIQUE or "^7"
 	controls["name"..row_idx] = new("LabelControl", top_pane_alignment_ref, 0, row_height + row_vertical_padding, 100, row_height - 4, nameColor..slotTbl.slotName)
 	controls["bestButton"..row_idx] = new("ButtonControl", { "LEFT", controls["name"..row_idx], "LEFT"}, 100 + 8, 0, 80, row_height, "Find best", function()
