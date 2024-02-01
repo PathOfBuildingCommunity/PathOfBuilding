@@ -883,7 +883,8 @@ function buildMode:Save(xml)
 	local addedStatNames = { }
 	for index, statData in ipairs(self.displayStats) do
 		if not statData.flag or self.calcsTab.mainEnv.player.mainSkill.skillFlags[statData.flag] then
-			if statData.stat and not addedStatNames[statData.stat] then
+			local statName = statData.stat and statData.stat..(statData.childStat or "")
+			if statName and not addedStatNames[statName] then
 				if statData.stat == "SkillDPS" then
 					local statVal = self.calcsTab.mainOutput[statData.stat]
 					for _, skillData in ipairs(statVal) do
@@ -897,12 +898,15 @@ function buildMode:Save(xml)
 						end
 						t_insert(xml, { elem = "FullDPSSkill", attrib = { stat = lhsString, value = tostring(skillData.dps * skillData.count), skillPart = skillData.skillPart or "", source = skillData.source or skillData.trigger or "" } })
 					end
-					addedStatNames[statData.stat] = true
+					addedStatNames[statName] = true
 				else
 					local statVal = self.calcsTab.mainOutput[statData.stat]
+					if statVal and statData.childStat then
+						statVal = statVal[statData.childStat]
+					end
 					if statVal and (statData.condFunc and statData.condFunc(statVal, self.calcsTab.mainOutput) or true) then
-						t_insert(xml, { elem = "PlayerStat", attrib = { stat = statData.stat, value = tostring(statVal) } })
-						addedStatNames[statData.stat] = true
+						t_insert(xml, { elem = "PlayerStat", attrib = { stat = statName, value = tostring(statVal) } })
+						addedStatNames[statName] = true
 					end
 				end
 			end
