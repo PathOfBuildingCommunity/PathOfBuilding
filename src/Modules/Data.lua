@@ -611,6 +611,7 @@ data.itemTagSpecialExclusionPattern = {
 		},
 		["helmet"] = {
 			"Recouped as Life", -- Flame Exarch
+			"Life when you Suppress", -- Elevore
 		},
 	},
 	["evasion"] = {
