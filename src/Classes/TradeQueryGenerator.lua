@@ -887,14 +887,22 @@ function TradeQueryGeneratorClass:addMoreWEMods()
 	end
 	for _,skillGroup in ipairs(self.itemsTab.build.skillsTab.socketGroupList) do
 		for _,gem in ipairs(skillGroup.gemList) do
-			if gem.gemData.tags.aura and gem.enabled and gem.enableGlobal2 then
-				local tmpAura=gem.nameSpec:gsub("Vaal ",""):gsub("Impurity","Purity"):gsub("of","Of"):gsub(" ","")
-				for id,mod in pairs(self.modData.WatchersEye) do
-					if id:find(tmpAura) and not isValueInTable(getTableOfTradeModIds(self.modWeights),mod.tradeMod.id) then
-						table.insert(self.modWeights,{invert=false,meanStatDiff=0,weight=0,tradeModId=mod.tradeMod.id})
-					end
+			local tmpAura=""
+			if not gem.enabled then
+				goto continue
+			elseif gem.nameSpec:find("Vaal") and gem.enableGlobal2 then
+				tmpAura=gem.nameSpec:gsub("Vaal ",""):gsub("Impurity","Purity"):gsub("of","Of"):gsub(" ","")
+			elseif gem.gemData and gem.gemData.tags.aura or gem.fromItem then
+				tmpAura=gem.nameSpec:gsub("of","Of"):gsub(" ","")
+			else
+				goto continue
+			end
+			for id,mod in pairs(self.modData.WatchersEye) do
+				if id:find(tmpAura) and not isValueInTable(getTableOfTradeModIds(self.modWeights),mod.tradeMod.id) then
+					table.insert(self.modWeights,{invert=false,meanStatDiff=0,weight=0,tradeModId=mod.tradeMod.id})
 				end
 			end
+			::continue::
 		end
 	end
 end
