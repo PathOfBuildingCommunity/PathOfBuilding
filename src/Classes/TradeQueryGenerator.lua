@@ -858,6 +858,9 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 	end
 	if self.calcContext.special.watchersEye then
 		self:GenerateModWeights(self.modData.WatchersEye)
+		if self.calcContext.options.includeCorrupted then
+			self:GenerateModWeights(self.modData["Corrupted"])
+		end
 		return
 	end
 	self:GenerateModWeights(self.modData["Explicit"])
