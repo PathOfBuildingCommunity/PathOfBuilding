@@ -634,7 +634,7 @@ data.itemTagSpecialExclusionPattern = {
 			"Energy Shield instead of Life", -- Valyrium
 		},
 		["weapon 1"] = {
-			"Supported by Level 1 Lifetap", -- Hiltless
+			"^Socketed Gems are Supported by Level", -- Hiltless, etc
 			"maximum Life as Chaos Damage", -- Obliteration
 			"total Maximum Life and Energy Shield as Fire Damage", -- Oni-Goroshi
 		},
