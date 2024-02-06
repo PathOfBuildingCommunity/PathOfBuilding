@@ -625,6 +625,7 @@ data.itemTagSpecialExclusionPattern = {
 			"Life when you Suppress", -- Elevore
 			"Leech when on Low Life", -- Deidbell
 			"while no Life is Reserved", -- Malachai's Awakening
+			"^Socketed Gems are Supported by Level", -- Shako
 		},
 		["ring 1"] = {
 			"Energy Shield instead of Life", -- Valyrium
