@@ -473,7 +473,7 @@ function ImportTabClass:DownloadCharacterList()
 				self.controls.charSelectLeague.selIndex = 1
 			end
 			self.lastCharList = charList
-			self:BuildCharacterList(self.controls.charSelectLeague:GetSelValue("league"))
+			self:BuildCharacterList(self.controls.charSelectLeague:GetSelValueByKey("league"))
 
 			-- We only get here if the accountname was correct, found, and not private, so add it to the account history.
 			self:SaveAccountHistory()

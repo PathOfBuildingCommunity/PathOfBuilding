@@ -135,8 +135,12 @@ function DropDownClass:SelByValue(value, key)
 	end
 end
 
-function DropDownClass:GetSelValue(key)
+function DropDownClass:GetSelValueByKey(key)
 	return self.list[self.selIndex][key]
+end
+
+function DropDownClass:GetSelValue()
+	return self.list[self.selIndex]
 end
 
 function DropDownClass:SetSel(newSel, noCallSelFunc)
