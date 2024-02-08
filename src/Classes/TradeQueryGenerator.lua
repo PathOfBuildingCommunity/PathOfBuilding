@@ -1059,6 +1059,11 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		controls.influence2.selIndex = self.lastInfluence2 or 1
 		controls.influence2Label = new("LabelControl", {"RIGHT",controls.influence2,"LEFT"}, -5, 0, 0, 16, "Influence 2:")
 		updateLastAnchor(controls.influence2, 46)
+	elseif isAbyssalJewelSlot then
+		controls.jewelType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, { "Abyss" }, nil)
+		controls.jewelType.selIndex = 1
+		controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, -5, 0, 0, 16, "Jewel Type:")
+		updateLastAnchor(controls.jewelType)
 	end
 
 	-- Add max price limit selection dropbox
@@ -1095,7 +1100,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	updateLastAnchor(controls.maxLevel)
 
 	-- basic filtering by slot for sockets and links, Megalomaniac does not have slot and Sockets use "Jewel nodeId"
-	if slot and not slot.slotName:find("Jewel") and not slot.slotName:find("Flask") then
+	if slot and not isJewelSlot and not isAbyssalJewelSlot and not slot.slotName:find("Flask") then
 		controls.sockets = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, nil, nil, "%D")
 		controls.socketsLabel = new("LabelControl", {"RIGHT",controls.sockets,"LEFT"}, -5, 0, 0, 16, "# of Sockets:")
 		updateLastAnchor(controls.sockets)
