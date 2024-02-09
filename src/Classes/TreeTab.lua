@@ -111,13 +111,32 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.compareSelect.maxDroppedWidth = 1000
 	self.controls.compareSelect.enableDroppedWidth = true
 	self.controls.compareSelect.enableChangeBoxWidth = true
-	self.controls.reset = new("ButtonControl", { "LEFT", self.controls.compareCheck, "RIGHT" }, 8, 0, 60, 20, "Reset", function()
-		main:OpenConfirmPopup("Reset Tree", "Are you sure you want to reset your passive tree?", "Reset", function()
+	self.controls.reset = new("ButtonControl", { "LEFT", self.controls.compareCheck, "RIGHT" }, 8, 0, 145, 20, "Reset Tree/Tattoos", function()
+		local controls = { }
+		local buttonY = 65
+		controls.warningLabel = new("LabelControl", nil, 0, 30, 0, 16, "^7Warning: resetting your passive tree or removing all tattoos cannot be undone.\n")
+		controls.reset = new("ButtonControl", nil, -130, buttonY, 100, 20, "Reset Tree", function()
 			self.build.spec:ResetNodes()
 			self.build.spec:BuildAllDependsAndPaths()
 			self.build.spec:AddUndoState()
 			self.build.buildFlag = true
+			main:ClosePopup()
 		end)
+		controls.removeTattoo = new("ButtonControl", nil, 0, buttonY, 144, 20, "Remove All Tattoos", function()
+			local hashOverridesCopy = copyTable(self.build.spec.hashOverrides, true) -- updating hashOverrides in RemoveTattooFromNode
+			for _, node in pairs(hashOverridesCopy) do
+				if node.isTattoo then
+					self:RemoveTattooFromNode(node)
+				end
+			end
+			self.modFlag = true
+			self.build.buildFlag = true
+			main:ClosePopup()
+		end)
+		controls.cancel = new("ButtonControl", nil, 130, buttonY, 100, 20, "Cancel", function()
+			main:ClosePopup()
+		end)
+		main:OpenPopup(570, 100, "Reset Tree/Tattoos", controls, nil, "edit", "cancel")
 	end)
 
 	-- Tree Version Dropdown
@@ -243,6 +262,13 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.jumpToX = 0
 	self.jumpToY = 0
 end)
+
+function TreeTabClass:RemoveTattooFromNode(node)
+	self.build.spec.tree.nodes[node.id].isTattoo = false
+	self.build.spec.hashOverrides[node.id] = nil
+	self.build.spec:ReplaceNode(node, self.build.spec.tree.nodes[node.id])
+	self.build.spec:BuildAllDependsAndPaths()
+end
 
 function TreeTabClass:Draw(viewPort, inputEvents)
 	self.anchorControls.x = viewPort.x + 4
@@ -774,10 +800,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		main:ClosePopup()
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
-		self.build.spec.tree.nodes[selectedNode.id].isTattoo = false
-		self.build.spec.hashOverrides[selectedNode.id] = nil
-		self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
-		self.build.spec:BuildAllDependsAndPaths()
+		self:RemoveTattooFromNode(selectedNode)
 		self.modFlag = true
 		self.build.buildFlag = true
 		main:ClosePopup()
