@@ -312,6 +312,7 @@ SkillType = {
 	InnateTrauma = 129,
 	DualWieldRequiresDifferentTypes = 130,
 	NoVolley = 131,
+	Skeleton = 132
 }
 
 GlobalCache = { 
