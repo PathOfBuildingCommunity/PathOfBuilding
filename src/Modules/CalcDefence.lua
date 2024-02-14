@@ -49,6 +49,67 @@ function calcs.armourReduction(armour, raw)
 	return round(calcs.armourReductionF(armour, raw))
 end
 
+-- Based on code from FR and BS found in act_*.txt
+function calcs.applyDmgTakenConversion(activeSkill, output, breakdown, sourceType, baseDmg)
+	local damageBreakdown = {}
+	local totalDamageTaken = 0
+	local totalTakenAs = activeSkill.skillModList:Sum("BASE", nil, "PhysicalDamageTakenAsLightning","PhysicalDamageTakenAsCold","PhysicalDamageTakenAsFire","PhysicalDamageTakenAsChaos") / 100
+	for _, damageType in ipairs(dmgTypeList) do
+		local damageTakenAs = 1
+
+		if damageType ~= sourceType then
+			damageTakenAs = (activeSkill.skillModList:Sum("BASE", nil, sourceType.."DamageTakenAs"..damageType) or 0) / 100
+		else
+			damageTakenAs = math.max(1 - totalTakenAs, 0)
+		end
+
+		if damageTakenAs ~= 0 then
+			if(totalTakenAs > 1) then
+				damageTakenAs = damageTakenAs / totalTakenAs
+			end
+			local damage = baseDmg * damageTakenAs
+
+			local baseTakenInc = activeSkill.skillModList:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
+			local baseTakenMore = activeSkill.skillModList:More(nil, "DamageTaken", damageType.."DamageTaken","DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
+			if (damageType == "Lightning" or damageType == "Cold" or damageType == "Fire") then
+				baseTakenInc = baseTakenInc + activeSkill.skillModList:Sum("INC", nil, "ElementalDamageTaken", "ElementalDamageTakenWhenHit")
+				baseTakenMore = baseTakenMore * activeSkill.skillModList:More(nil, "ElementalDamageTaken", "ElementalDamageTakenWhenHit")
+			end
+			local damageTakenMods = math.max((1 + baseTakenInc / 100) * baseTakenMore, 0)
+			local reduction = activeSkill.skillModList:Flag(nil, "SelfIgnore".."Base"..damageType.."DamageReduction") and 0 or output["Base"..damageType.."DamageReductionWhenHit"] or output["Base"..damageType.."DamageReduction"]
+			local resist = activeSkill.skillModList:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."Resist"]
+			local armourReduct = 0
+			local resMult = 1 - resist / 100
+			local reductMult = 1
+
+			local percentOfArmourApplies = math.min((not activeSkill.skillModList:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") and activeSkill.skillModList:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
+			if percentOfArmourApplies > 0 then
+				local effArmour = (output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense)
+				local effDamage = damage * resMult
+				armourReduct = round(effArmour ~= 0 and damage * resMult ~= 0 and (effArmour / (effArmour + effDamage * 5) * 100) or 0)
+				armourReduct = math.min(output.DamageReductionMax, armourReduct)
+			end
+			reductMult = (1 - math.max(math.min(output.DamageReductionMax, armourReduct + reduction), 0) / 100) * damageTakenMods
+			local combinedMult = resMult * reductMult
+			local finalDamage = damage * combinedMult
+			totalDamageTaken = totalDamageTaken + finalDamage
+
+			if breakdown then
+				t_insert(damageBreakdown, damageType.." Damage Taken")
+				if damageTakenAs ~= 1 then
+					t_insert(damageBreakdown, s_format("^8=^7 %d^8 (Base Damage)^7 * %.2f^8 (Damage taken as %s)", baseDmg, damageTakenAs, damageType))
+				end
+				if combinedMult ~= 1 then
+					t_insert(damageBreakdown, s_format("^8=^7 %d^8 (%s Damage)^7 * %.4f^8 (Damage taken multi)", damage, damageType, combinedMult))
+				end
+				t_insert(damageBreakdown, s_format("^8=^7 %d^8 (%s Damage taken)", finalDamage, damageType))
+				t_insert(damageBreakdown, s_format(""))
+			end
+		end
+	end
+	return damageBreakdown, totalDamageTaken
+end
+
 ---Calculates the taken damages from enemy outgoing damage
 ---@param rawDamage number raw incoming damage number, after enemy damage multiplier
 ---@param damageType string type of incoming damage - it will be converted (taken as) from this type if applicable
