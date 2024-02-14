@@ -50,6 +50,10 @@ function calcs.armourReduction(armour, raw)
 end
 
 -- Based on code from FR and BS found in act_*.txt
+---@param activeSkill/output/breakdown references table passed in from calc offence
+---@param sourceType string type of incoming damage - it will be converted (taken as) from this type if applicable
+---@param baseDmg for which to calculate the damage
+---@return table of taken damage parts, and number, sum of damages
 function calcs.applyDmgTakenConversion(activeSkill, output, breakdown, sourceType, baseDmg)
 	local damageBreakdown = { }
 	local totalDamageTaken = 0
