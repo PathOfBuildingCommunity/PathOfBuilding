@@ -69,9 +69,6 @@ function calcs.applyDmgTakenConversion(activeSkill, output, breakdown, sourceTyp
 		end
 
 		if damageTakenAs ~= 0 then
-			if(totalTakenAs / 100 > 1) then
-				damageTakenAs = damageTakenAs / (totalTakenAs / 100)
-			end
 			local damage = baseDmg * damageTakenAs
 
 			local baseTakenInc = activeSkill.skillModList:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
