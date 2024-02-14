@@ -60,13 +60,7 @@ function calcs.applyDmgTakenConversion(activeSkill, output, breakdown, sourceTyp
 		totalTakenAs = totalTakenAs + shiftTable[damageType]
 	end
 	for _, damageType in ipairs(dmgTypeList) do
-		local damageTakenAs = 1
-
-		if damageType ~= sourceType then
-			damageTakenAs = shiftTable[damageType] / 100
-		else
-			damageTakenAs = math.max(1 - totalTakenAs / 100, 0)
-		end
+		local damageTakenAs = (damageType == sourceType) and m_max(1 - totalTakenAs / 100, 0) or shiftTable[damageType] / 100
 
 		if damageTakenAs ~= 0 then
 			local damage = baseDmg * damageTakenAs
@@ -77,21 +71,21 @@ function calcs.applyDmgTakenConversion(activeSkill, output, breakdown, sourceTyp
 				baseTakenInc = baseTakenInc + activeSkill.skillModList:Sum("INC", nil, "ElementalDamageTaken", "ElementalDamageTakenWhenHit")
 				baseTakenMore = baseTakenMore * activeSkill.skillModList:More(nil, "ElementalDamageTaken", "ElementalDamageTakenWhenHit")
 			end
-			local damageTakenMods = math.max((1 + baseTakenInc / 100) * baseTakenMore, 0)
+			local damageTakenMods = m_max((1 + baseTakenInc / 100) * baseTakenMore, 0)
 			local reduction = activeSkill.skillModList:Flag(nil, "SelfIgnore".."Base"..damageType.."DamageReduction") and 0 or output["Base"..damageType.."DamageReductionWhenHit"] or output["Base"..damageType.."DamageReduction"]
 			local resist = activeSkill.skillModList:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."Resist"]
 			local armourReduct = 0
 			local resMult = 1 - resist / 100
 			local reductMult = 1
 
-			local percentOfArmourApplies = math.min((not activeSkill.skillModList:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") and activeSkill.skillModList:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
+			local percentOfArmourApplies = m_min((not activeSkill.skillModList:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") and activeSkill.skillModList:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
 			if percentOfArmourApplies > 0 then
 				local effArmour = (output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense)
 				local effDamage = damage * resMult
 				armourReduct = round(effArmour ~= 0 and damage * resMult ~= 0 and (effArmour / (effArmour + effDamage * 5) * 100) or 0)
-				armourReduct = math.min(output.DamageReductionMax, armourReduct)
+				armourReduct = m_min(output.DamageReductionMax, armourReduct)
 			end
-			reductMult = (1 - math.max(math.min(output.DamageReductionMax, armourReduct + reduction), 0) / 100) * damageTakenMods
+			reductMult = (1 - m_max(m_min(output.DamageReductionMax, armourReduct + reduction), 0) / 100) * damageTakenMods
 			local combinedMult = resMult * reductMult
 			local finalDamage = damage * combinedMult
 			totalDamageTaken = totalDamageTaken + finalDamage
