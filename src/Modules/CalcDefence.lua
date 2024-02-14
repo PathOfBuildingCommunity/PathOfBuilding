@@ -51,21 +51,26 @@ end
 
 -- Based on code from FR and BS found in act_*.txt
 function calcs.applyDmgTakenConversion(activeSkill, output, breakdown, sourceType, baseDmg)
-	local damageBreakdown = {}
+	local damageBreakdown = { }
 	local totalDamageTaken = 0
-	local totalTakenAs = activeSkill.skillModList:Sum("BASE", nil, "PhysicalDamageTakenAsLightning","PhysicalDamageTakenAsCold","PhysicalDamageTakenAsFire","PhysicalDamageTakenAsChaos") / 100
+	local shiftTable = { }
+	local totalTakenAs = 0
+	for _, damageType in ipairs(dmgTypeList) do
+		shiftTable[damageType] = activeSkill.skillModList:Sum("BASE", nil, sourceType.."DamageTakenAs"..damageType, sourceType.."DamageFromHitsTakenAs"..damageType, isElemental[sourceType] and "ElementalDamageTakenAs"..damageType or nil, isElemental[sourceType] and "ElementalDamageFromHitsTakenAs"..damageType or nil)
+		totalTakenAs = totalTakenAs + shiftTable[damageType]
+	end
 	for _, damageType in ipairs(dmgTypeList) do
 		local damageTakenAs = 1
 
 		if damageType ~= sourceType then
-			damageTakenAs = (activeSkill.skillModList:Sum("BASE", nil, sourceType.."DamageTakenAs"..damageType) or 0) / 100
+			damageTakenAs = shiftTable[damageType] / 100
 		else
-			damageTakenAs = math.max(1 - totalTakenAs, 0)
+			damageTakenAs = math.max(1 - totalTakenAs / 100, 0)
 		end
 
 		if damageTakenAs ~= 0 then
-			if(totalTakenAs > 1) then
-				damageTakenAs = damageTakenAs / totalTakenAs
+			if(totalTakenAs / 100 > 1) then
+				damageTakenAs = damageTakenAs / (totalTakenAs / 100)
 			end
 			local damage = baseDmg * damageTakenAs
 
