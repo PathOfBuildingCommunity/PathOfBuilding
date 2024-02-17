@@ -1897,7 +1897,7 @@ skills["UniqueAnimateWeapon"] = {
 	baseMods = {
 		mod("DisableWeapons", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		mod("Condition:Onslaught", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		skill("minionLevel", 59),
+		skill("minionLevel", 65),
 	},
 	constantStats = {
 		{ "attack_speed_+%", 25 },
