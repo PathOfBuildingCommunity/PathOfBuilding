@@ -298,7 +298,7 @@ return {
 			"Bladestorm deals 25% increased Damage",
 		},
 		["ENDGAME"] = {
-			"+1 to maximum number of Bladestorms",
+			"+1 to Maximum number of Bladestorms at a time",
 			"Sand Bladestorms move with 75% increased speed",
 			"Bladestorm deals 40% increased Damage",
 		},
@@ -1376,12 +1376,12 @@ return {
 		["MERCILESS"] = {
 			"Hexblast deals 25% increased Damage",
 			"Hexblast has 16% increased Area of Effect",
-			"Hexblast has 10% chance to not remove a Hex",
+			"Hexblast has +10% chance to remove a Hex",
 		},
 		["ENDGAME"] = {
 			"Hexblast deals 40% increased Damage",
 			"Hexblast has 24% increased Area of Effect",
-			"Hexblast has 15% chance to not remove a Hex",
+			"Hexblast has +15% chance to remove a Hex",
 		},
 	},
 	["Holy Flame Totem"] = {
@@ -1611,7 +1611,7 @@ return {
 		["MERCILESS"] = {
 			"25% increased Lightning Arrow Damage",
 			"16% increased Lightning Arrow Area of Effect",
-			"Lightning Arrow hits an additional Enemy",
+			"Lightning Arrow hits 1 additional Enemy",
 		},
 		["ENDGAME"] = {
 			"40% increased Lightning Arrow Damage",
@@ -1851,13 +1851,13 @@ return {
 			"25% increased Power Siphon Damage",
 			"30% Chance to gain an additional Power Charge on Kill with Power Siphon",
 			"10% increased Power Siphon Attack Speed",
-			"Power Siphon fires an additional Projectile",
+			"Power Siphon fires at up to 1 additional target",
 		},
 		["ENDGAME"] = {
 			"40% increased Power Siphon Damage",
 			"45% Chance to gain an additional Power Charge on Kill with Power Siphon",
 			"15% increased Power Siphon Attack Speed",
-			"Power Siphon fires 2 additional Projectiles",
+			"Power Siphon fires at up to 2 additional targets",
 		},
 	},
 	["Precision"] = {
@@ -2114,7 +2114,7 @@ return {
 		["ENDGAME"] = {
 			"Scourge Arrow deals 40% increased Damage",
 			"Scourge Arrow has 8% chance to Poison per Stage",
-			"Scourge Arrow creates an additional spore pod at Maximum Stages",
+			"Scourge Arrow creates +1 Spore Pod",
 		},
 	},
 	["Searing Bond"] = {
@@ -2306,11 +2306,11 @@ return {
 	["Soulrend"] = {
 		["MERCILESS"] = {
 			"Soulrend deals 25% increased Damage",
-			"Soulrend also Hinders Enemies, with 25% reduced Movement Speed",
+			"Soulrend also Hinders Enemies when applying its Debuff, with 25% reduced Movement Speed",
 		},
 		["ENDGAME"] = {
 			"Soulrend deals 40% increased Damage",
-			"Soulrend also Hinders Enemies, with 40% reduced Movement Speed",
+			"Soulrend also Hinders Enemies when applying its Debuff, with 40% reduced Movement Speed",
 			"Soulrend fires an additional Projectile",
 		},
 	},

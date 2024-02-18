@@ -1,3 +1,234 @@
+VERSION[2.39.3][2024/01/26]
+
+--- Fixed Crashes ---
+* Fix crash when sorting gems on a disabled socket group (Paliak)
+* Fix crash when hovering over Buffs section (Wires77)
+
+--- Fixed Bugs ---
+* Fix Utula's Hunger not working with Soul Tether, Legacy of Fury and Exarch Helmet implicit (Peechey)
+
+VERSION[2.39.2][2024/01/25]
+
+--- Fixed Crashes ---
+* Fix crash when using opening wiki for skills granted by items (Peechey)
+* Fix crash when mousing over Strength breakdown when using Flame's Advance (Paliak)
+* Fix crash when hovering over some breakdowns (LocalIdentity)
+
+
+VERSION[2.39.1][2024/01/24]
+
+--- Fixed Crashes ---
+* Fix crash when opening old builds by reverting Cluster Jewel import fix
+* Fix crash when hovering attribute requirements (Wires77)
+
+--- User Interface ---
+* Fix breakdown sorting for unrelated stats (Wires77)
+* Fix charge duration not displaying in breakdown (Wires77)
+
+--- Fixed Bugs ---
+* Fix mods not applying to Vaal gems correctly (sida-wang)
+
+
+VERSION[2.39.0][2024/01/23]
+
+--- New to Path of Building ---
+* Add all new 3.23 Spectres (LocalIdentity)
+* Fix longstanding issues with minion stats (more fixes will come in future updates) (LocalIdentity, ifnjeff)
+  * Some Minion Attacks will reduce by 10-30% DPS
+  * Life values of some minions will change
+  * Spectre DPS values will reduce for some monsters
+  * Armour and Evasion values will drastically increase
+* Add support gem DPS sorting for Skills granted by Items (e.g. Arakaali's Fang, Whispering Ice etc.) (Paliak, sida-wang)
+* Add That Which Was Taken jewel to unique list (justjuangui)
+* Add support for filtering on number of Sockets and Links in Item Trader (Peechey)
+* Add config to set the effect of Ruthless Support (LocalIdentity)
+* Add support for resetting Search Weights in Item Trader (Peechey)
+* Add support for Spectre buffs (justjuangui)
+* Show Accuracy above Life when using Precise Technique (Peechey)
+* Add support for converting all trees to latest version (Peechey)
+* Add breakdown for Endurance, Frenzy and Power charges (duiker101)
+
+--- Fixed Crashes ---
+* Fix Crash on Beta branch when using trade search (secondfry)
+* Fix Crash on clicking "Show All Configurations" in new build (Paliak)
+* Fix Crash when skills granting buffs that rely on buffs are disabled (Paliak)
+
+--- User Interface ---
+* Sort the Calculations Tab breakdown lists by value (duiker101)
+* Add scrollbar to Item Trader when large number of sockets are allocated (Peechey)
+* Fix Boneshatter missing self damage breakdown (Paliak)
+* Fix Rage Cost of Vaal Skills not displaying correctly for Hateforge (sida-wang)
+* Fix Powerful/Frenzied Faith displaying incorrectly in the Timeless Jewel search (sida-wang)
+
+--- Fixed Bugs ---
+* Fix Law of the Wilds using the wrong minion data (LocalIdentity)
+* Fix Blink/Mirror Arrow of Bombarding/Prismatic using wrong Minion Skills (LocalIdentity)
+* Fix Cluster Jewel import not allocating nodes correctly by (sida-wang, Peechey)
+* Fix importing of Vaal Impurity Skills and Transfigured Vaal Summon Skeletons (sida-wang)
+* Fix mods that apply to skill gems, not applying to their Transfigured versions by (sida-wang, Paliak)
+* Fix loading of Passive Tree dropdown in Items Tab (Peechey)
+* Cap Doom Blast expiration mode and use charge based calcs for skills that ignore tick rate (Paliak)
+* Fix bug where Precursor's Emblem's curse mod was not working (Drox346)
+* Fix Flask effect increasing the Culling strike threshold from Voranas Preparation (Paliak)
+* Fix Ngamahu, Flame's Advance adding Strength to Unique jewels (Paliak)
+* Fix Vortex of Projection damage when cast on Frostbolt from increased to more (sida-wang)
+* Fix Brand duration incorrectly affecting Duration of skills cast by Arcanist Brand (Paliak)
+* Fix Trigger rate calculations when dual wielding 1h weapons (Paliak)
+* Fixes Effective Trigger rate not accounting for Evasion roll for on Crit Triggers (Paliak)
+* Fix Ruthless Support applying to Tawhoa's Chosen (Paliak)
+* Fix Inspiration Charges not applying to Minion Skills (sida-wang)
+* Fix skill effect duration from buffs not applying to Earthquake of Amplification Aftershock (sida-wang)
+* Fix Poison Duration from Charms stacking with Noxious Strike (sida-wang)
+* Fix Base Damage from Transfigured shield skills not being applied (sida-wang)
+* Fix added Cooldown and added Cast Time not working correctly (Paliak)
+* Fix Kalandra's Touch not adding to influenced items multiplier (Paliak)
+* Fix resistance calculations when using Glimpse of Chaos and Chieftain Tasalio node (sida-wang)
+* Fix Oath of the Maji not stacking with Juggernaut's Unbreakable (wkingston1248)
+
+--- Accuracy Improvements ---
+* Fix mod parsing for Militant Faith Cloistered Notable (Peechey)
+* Fix incorrect base Mana cost of Toxic Rain with Mirage Archer (Paliak)
+* Fix Unnatural Instinct incorrectly working with Pure Talent (Paliak)
+* Fix Stun and Block Duration not rounding to server ticks (LocalIdentity)
+
+
+VERSION[2.38.4][2023/12/20]
+
+--- Fixed Crashes ---
+* Fix occasional crash when loading build on Beta branch (Nostrademous)
+
+VERSION[2.38.3][2023/12/19]
+
+--- Fixed Crashes ---
+* Fix crash when checking the breakdown for Transfigured Eye of Winter and Infernal Blow (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix Oath of the Magi not working for Body Armour slot (sida-wang)
+* Fix Lancing Steel less damage multiplier only applying to Hits (deathbeam)
+
+--- Other Changes ---
+* Update The Adorned to work in Cluster Jewel sockets (LocalIdentity)
+
+
+VERSION[2.38.2][2023/12/19]
+
+--- Fixed Bugs ---
+* Fix Bodyswap of Sacrifice explosion not scaling correctly (LocalIdentity)
+
+
+VERSION[2.38.1][2023/12/18]
+
+--- User Interface ---
+* Fix tooltip for Summon Chaos Golem of the Maelstrom (QuickStick123)
+* Fix Blade Blast of Dagger Detonation having a stages box (LocalIdentity)
+* Fix "Cast on Frostbolt" config not showing for Ice Nova of Frostbolts (LocalIdentity)
+
+--- Fixed Crashes ---
+* Fix crash when importing some builds (Paliak)
+
+--- Fixed Bugs ---
+* Fix Flicker Strike DPS being limited by cooldown (sida-wang)
+* Fix Replica Dragonfang's Flight not affecting Transfigured gems (Paliak)
+* Fix Lacerate of Haemorrhage "more damage with Bleeding" using increased (sida-wang)
+* Fix The Adorned not applying to jewels in outer tree sockets (LocalIdentity)
+* Fix The Adorned applying to abyss jewels in gear (LocalIdentity)
+* Fix Frost Blades of Katabasis DoT not being scaled by area damage (LocalIdentity)
+* Fix Dual Strike of Ambidexterity not using offhand attack time (LocalIdentity)
+* Fix Vaal gems loading incorrect variant after reopening a build (sida-wang)
+* Fix Pyroclast Mine aura not affecting the damage of other skills (sida-wang)
+* Fix gem mods on Forbidden Shako not working correctly with Utula's Hunger (sida-wang)
+* Fix "damage taken by at least x%" Ailment mods not stacking (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Fix Devouring Diadem using legacy Ailment duration mod (sida-wang)
+* Fix Catalysts not working correctly on Replica Dragonfang's Flight (sida-wang)
+* Revert preferred slot for Unseen Strike (Paliak)
+
+
+VERSION[2.38.0][2023/12/18]
+
+--- New to Path of Building ---
+* Add support for new transfigured gems (LocalIdentity, Nostrademous, markoleptic, jopotochny, Lilylicious)
+  * Pretty much every new gem should be supported, with a select few still needing a bit more work
+* Add support for selecting league for Timeless Jewel search (Peechey)
+
+--- Fixed Crashes ---
+* Fix Crash when using the Adorned and items with Abyssal sockets (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix Tinctures when using Micro-Distillery Belt (Peechey)
+* Fix Lord of Drought increasing curse limit (Paliak)
+* Fix Hidden Blade not using main weapon and its Supports (Paliak)
+* Fix Rigwald's Curse damage conversion with specific Claw mods (Peechey)
+* Fix Ascendancy class not resetting when changing base class (Lilylicious)
+
+--- Accuracy Improvements ---
+* Fix Minion Instability to now use player Summon speed instead of Minion Hit speed (Regisle)
+* Fix Oath of the Maji applying when gear slot is empty (LocalIdentity)
+* Fix Rage not working when using Warlord's Mark (LocalIdentity)
+* Fix Deadly Ailments less hit damage multiplier not working (LocalIdentity)
+* Fix Forbidden Shako and Megalomaniac display error if added from the uniques list (sida-wang)
+
+--- Other changes ---
+* Add additional attributes to save data (asvanberg)
+
+VERSION[2.37.0][2023/12/13]
+
+--- New to Path of Building ---
+* Add support for new Uniques (LocalIdentity)
+  * The Adorned
+  * The Burden of Shadows
+  * Nametaker
+
+--- User Interface ---
+* Change Manastorm config option to not overrun options box (Ivniinvi)
+
+--- Fixed Bugs ---
+* Fix parsing for changed mod names (LocalIdentity)
+  * Storm Secret
+  * Umbilicus Immortalis
+  * Replica Infractem
+  * Dead Reckoning
+* Fix Projectile count being 1 higher on all skills (LocalIdentity)
+* Fix Ascendant nodes counting towards allocated passive skill total (Regisle)
+* Fix Pyroclast Mine Aura Effect scaling Maximum Added Flat Damage (LocalIdentity)
+* Fix Herald of Agony quality not working (LocalIdentity)
+* Fix error when using Trader making you unable to search for item (LocalIdentity)
+* Fix parsing for Necromancer Offering charm not working (LocalIdentity)
+* Fix ES from Tricksters Escape Artist when using Oath of the Maji (LocalIdentity)
+
+
+VERSION[2.36.1][2023/12/11]
+
+--- Fixed Crashes ---
+* Fix Crash when opening Timeless Jewel search (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix crash when hovering over Masteries (Wires77)
+* Fix negative bypass being ignored (mortentc)
+
+VERSION[2.36.0][2023/12/11]
+
+--- New to Path of Building ---
+* Update all base skill gems + minions with 3.23 changes by (Wires77, LocalIdentity)
+* Add support for new Ascendancy skills by (Wires77, LocalIdentity)
+* Add support for Charms (Regisle)
+* Add support for Tinctures by (Regisle, LocalIdentity, Wires77)
+* Adding new 3.23 uniques (Wires77)
+* Add support for importing new Ascendancies (Wires77)
+* Save trade search weights to build file (Peechey)
+* Remove Pastebin as a build export option (LocalIdentity)
+
+--- User Interface ---
+* Add support for search Configuration tab (deathbeam)
+* Add support for toggling ineligible configurations in Configuration tab (Peechey)
+* Add warning when allocating too many Azmeri Ascendancy nodes (Regisle)
+
+--- Fixed Bugs ---
+* Fix ES bypass Mastery overriding Divine Flesh ES bypass (mortentc, Wires77)
+* Fix Sin Trek and Legacy of Fury disabling life mod on Utula's Hunger (Lilylicious)
+* Fix Eldritch Battery with Replica Covenant cost calculations (sida-wang)
+
 VERSION[2.35.5][2023/12/07]
 
 --- Fixed Bugs ---

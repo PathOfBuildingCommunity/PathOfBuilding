@@ -52,7 +52,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		if mode ~= "OUT" then
 			local spec = self.specList[selIndex]
 			if spec then
-				local used, ascUsed, sockets = spec:CountAllocNodes()
+				local used, ascUsed, secondaryAscUsed, sockets = spec:CountAllocNodes()
 				tooltip:AddLine(16, "Class: "..spec.curClassName)
 				tooltip:AddLine(16, "Ascendancy: "..spec.curAscendClassName)
 				tooltip:AddLine(16, "Points used: "..used)
@@ -128,7 +128,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.reset, "RIGHT" }, 8, 0, 0, 16, "Version:")
 	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 100, 20, self.treeVersions, function(index, value)
 		if value ~= self.build.spec.treeVersion then
-			self:OpenVersionConvertPopup(value:gsub("[%(%)]", ""):gsub("[%.%s]", "_"))
+			self:OpenVersionConvertPopup(value:gsub("[%(%)]", ""):gsub("[%.%s]", "_"), true)
 		end
 	end)
 	self.controls.versionSelect.maxDroppedWidth = 1000
@@ -143,6 +143,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end, nil, nil, true)
 	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
 
+	self.tradeLeaguesList = { }
 	-- Find Timeless Jewel Button
 	self.controls.findTimelessJewel = new("ButtonControl", { "LEFT", self.controls.treeSearch, "RIGHT" }, 8, 0, 150, 20, "Find Timeless Jewel", function()
 		self:FindTimelessJewel()
@@ -227,10 +228,16 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		return latestTreeVersion .. (self.specList[self.activeSpec].treeVersion:match("^" .. latestTreeVersion .. "(.*)") or "")
 	end
 	local function buildConvertButtonLabel()
-		return "^2Convert to "..treeVersions[getLatestTreeVersion()].display
+		return colorCodes.POSITIVE.."Convert to "..treeVersions[getLatestTreeVersion()].display
+	end
+	local function buildConvertAllButtonLabel()
+		return colorCodes.POSITIVE.."Convert all trees to "..treeVersions[getLatestTreeVersion()].display
 	end
 	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, function() return DrawStringWidth(16, "VAR", buildConvertButtonLabel()) + 20 end, 20, buildConvertButtonLabel, function()
 		self:ConvertToVersion(getLatestTreeVersion(), false, true)
+	end)
+	self.controls.specConvertAll = new("ButtonControl", { "LEFT", self.controls.specConvert, "RIGHT" }, 8, 0, function() return DrawStringWidth(16, "VAR", buildConvertAllButtonLabel()) + 20 end, 20, buildConvertAllButtonLabel, function()
+		self:OpenVersionConvertAllPopup(getLatestTreeVersion())
 	end)
 	self.jumpToNode = false
 	self.jumpToX = 0
@@ -270,6 +277,17 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 		self.controls.treeSearch:SetAnchor("TOPLEFT", self.controls.specSelect, "BOTTOMLEFT", 0, 4)
 		self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.treeSearch, "BOTTOMLEFT", 0, self.controls.treeHeatMap.y + self.controls.treeHeatMap.height + 4)
 	end
+	-- determine positions for convert line of controls
+	local convertTwoLineHeight = 24
+	local convertMaxWidth = 900
+	if viewPort.width >= convertMaxWidth then
+		convertTwoLineHeight = 0
+		self.controls.specConvert:SetAnchor("LEFT", self.controls.specConvertText, "RIGHT", 8, 0)
+		self.controls.specConvertText:SetAnchor("BOTTOMLEFT", self.controls.specSelect, "TOPLEFT", 0, -14)
+	else
+		self.controls.specConvert:SetAnchor("TOPLEFT", self.controls.specConvertText, "BOTTOMLEFT", 0, 4)
+		self.controls.specConvertText:SetAnchor("BOTTOMLEFT", self.controls.specSelect, "TOPLEFT", 0, -38)
+	end
 
 	local bottomDrawerHeight = self.controls.powerReportList.shown and 194 or 0
 	self.controls.specSelect.y = -bottomDrawerHeight - twoLineHeight
@@ -282,20 +300,11 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self.viewer.compareSpec = self.isComparing and self.specList[self.activeCompareSpec] or nil
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
-	local newSpecList = { }
+	local newSpecList = self:GetSpecList()
 	self.controls.compareSelect.selIndex = self.activeCompareSpec
-	for id, spec in ipairs(self.specList) do
-		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
-	end
 	self.controls.compareSelect:SetList(newSpecList)
-
-	self.controls.specSelect.selIndex = self.activeSpec
-	wipeTable(newSpecList)
-	for id, spec in ipairs(self.specList) do
-		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
-	end
-	self.build.itemsTab.controls.specSelect:SetList(copyTable(newSpecList)) -- Update the passive tree dropdown control in itemsTab
 	t_insert(newSpecList, "Manage trees... (ctrl-m)")
+	self.controls.specSelect.selIndex = self.activeSpec
 	self.controls.specSelect:SetList(newSpecList)
 
 	if not self.controls.treeSearch.hasFocus then
@@ -315,17 +324,26 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 	SetDrawColor(0.05, 0.05, 0.05)
 	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (28 + bottomDrawerHeight + twoLineHeight), viewPort.width, 28 + bottomDrawerHeight + twoLineHeight)
+	if self.showConvert then
+		local height = viewPort.width < convertMaxWidth and (bottomDrawerHeight + twoLineHeight) or 0
+		SetDrawColor(0.05, 0.05, 0.05)
+		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (60 + bottomDrawerHeight + twoLineHeight + convertTwoLineHeight), viewPort.width, 28 + height)
+		SetDrawColor(0.85, 0.85, 0.85)
+		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (64 + bottomDrawerHeight + twoLineHeight + convertTwoLineHeight), viewPort.width, 4)
+	end
+	-- let white lines overwrite the black sections, regardless of showConvert
 	SetDrawColor(0.85, 0.85, 0.85)
 	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (32 + bottomDrawerHeight + twoLineHeight), viewPort.width, 4)
 
-	if self.showConvert then
-		SetDrawColor(0.05, 0.05, 0.05)
-		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (60 + bottomDrawerHeight + twoLineHeight), viewPort.width, 28)
-		SetDrawColor(0.85, 0.85, 0.85)
-		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (64 + bottomDrawerHeight + twoLineHeight), viewPort.width, 4)
-	end
-
 	self:DrawControls(viewPort)
+end
+
+function TreeTabClass:GetSpecList()
+	local newSpecList = { }
+	for _, spec in ipairs(self.specList) do
+		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
+	end
+	return newSpecList
 end
 
 function TreeTabClass:Load(xml, dbFileName)
@@ -419,7 +437,12 @@ function TreeTabClass:SetCompareSpec(specId)
 	self.compareSpec = curSpec
 end
 
-function TreeTabClass:ConvertToVersion(version, remove, success)
+function TreeTabClass:ConvertToVersion(version, remove, success, ignoreRuthlessCheck)
+	if not ignoreRuthlessCheck and self.build.spec.treeVersion:match("ruthless") and not version:match("ruthless") then
+		if isValueInTable(treeVersionList, version.."_ruthless") then
+			version = version.."_ruthless"
+		end
+	end
 	local newSpec = new("PassiveSpec", self.build, version)
 	newSpec.title = self.build.spec.title
 	newSpec.jewels = copyTable(self.build.spec.jewels)
@@ -437,6 +460,21 @@ function TreeTabClass:ConvertToVersion(version, remove, success)
 	if success then
 		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[version].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
 	end
+end
+
+function TreeTabClass:ConvertAllToVersion(version)
+	local currActiveSpec = self.activeSpec
+	local specVersionList = { }
+	for _, spec in ipairs(self.specList) do
+		t_insert(specVersionList, spec.treeVersion)
+	end
+	for index, specVersion in ipairs(specVersionList) do
+		if specVersion ~= version then
+			self:SetActiveSpec(index)
+			self:ConvertToVersion(version, true, false)
+		end
+	end
+	self:SetActiveSpec(currActiveSpec)
 end
 
 function TreeTabClass:OpenSpecManagePopup()
@@ -459,22 +497,36 @@ function TreeTabClass:OpenSpecManagePopup()
 	})
 end
 
-function TreeTabClass:OpenVersionConvertPopup(version)
+function TreeTabClass:OpenVersionConvertPopup(version, ignoreRuthlessCheck)
 	local controls = { }
 	controls.warningLabel = new("LabelControl", nil, 0, 20, 0, 16, "^7Warning: some or all of the passives may be de-allocated due to changes in the tree.\n\n" ..
 		"Convert will replace your current tree.\nCopy + Convert will backup your current tree.\n")
-	controls.convert = new("ButtonControl", nil, -125, 110, 100, 20, "Convert", function()
-		self:ConvertToVersion(version, true, false)
+	controls.convert = new("ButtonControl", nil, -125, 105, 100, 20, "Convert", function()
+		self:ConvertToVersion(version, true, false, ignoreRuthlessCheck)
 		main:ClosePopup()
 	end)
-	controls.convertCopy = new("ButtonControl", nil, 0, 110, 125, 20, "Copy + Convert", function()
-		self:ConvertToVersion(version, false, false)
+	controls.convertCopy = new("ButtonControl", nil, 0, 105, 125, 20, "Copy + Convert", function()
+		self:ConvertToVersion(version, false, false, ignoreRuthlessCheck)
 		main:ClosePopup()
 	end)
-	controls.cancel = new("ButtonControl", nil, 125, 110, 100, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 125, 105, 100, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(570, 140, "Convert to Version "..treeVersions[version].display, controls, "convert", "edit")
+end
+
+function TreeTabClass:OpenVersionConvertAllPopup(version)
+	local controls = { }
+	controls.warningLabel = new("LabelControl", nil, 0, 20, 0, 16, "^7Warning: some or all of the passives may be de-allocated due to changes in the tree.\n\n" ..
+		"Convert will replace all trees that are not Version "..treeVersions[version].display..".\nThis action cannot be undone.\n")
+	controls.convert = new("ButtonControl", nil, -58, 105, 100, 20, "Convert", function()
+		self:ConvertAllToVersion(version)
+		main:ClosePopup()
+	end)
+	controls.cancel = new("ButtonControl", nil, 58, 105, 100, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(570, 140, "Convert all to Version "..treeVersions[version].display, controls, "convert", "edit")
 end
 
 function TreeTabClass:OpenImportPopup()
@@ -1014,7 +1066,7 @@ function TreeTabClass:FindTimelessJewel()
 	}
 	local jewelSockets = { }
 	for socketId, socketData in pairs(self.build.spec.nodes) do
-		if socketData.isJewelSocket then
+		if socketData.isJewelSocket and socketData.name ~= "Charm Socket"then
 			local keystone = "Unknown"
 			if socketId == 26725 then
 				keystone = "Marauder"
@@ -1723,7 +1775,41 @@ function TreeTabClass:FindTimelessJewel()
 
 	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 250, 0, 16, "^7Search Results:")
 	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 275, 438, 200, self.build)
-
+	controls.searchTradeLeagueSelect = new("DropDownControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, -175, -5, 140, 20, nil, function(_, value)
+		self.timelessJewelLeagueSelect = value
+	end)
+	self.tradeQueryRequests = new("TradeQueryRequests")
+	controls.msg = new("LabelControl", nil, -280, 5, 0, 16, "")
+	if #self.tradeLeaguesList > 0 then
+		controls.searchTradeLeagueSelect:SetList(self.tradeLeaguesList)
+	else
+		self.tradeQueryRequests:FetchLeagues("pc", function(leagues, errMsg)
+			if errMsg then
+				controls.msg.label = "^1Error fetching league list, default league will be used\n"..errMsg.."^7"
+				return
+			end
+			local tempLeagueTable = { }
+			for _, league in ipairs(leagues) do
+				if league ~= "Standard" and  league ~= "Ruthless" and league ~= "Hardcore" and league ~= "Hardcore Ruthless" then
+					if not (league:find("Hardcore") or league:find("Ruthless")) then
+						-- set the dynamic, base league name to index 1 to sync league shown in dropdown on load with default/old behavior of copy trade url
+						t_insert(tempLeagueTable, league)
+						for _, val in ipairs(self.tradeLeaguesList) do
+							t_insert(tempLeagueTable, val)
+						end
+						self.tradeLeaguesList = copyTable(tempLeagueTable)
+					else
+						t_insert(self.tradeLeaguesList, league)
+					end
+				end
+			end
+			t_insert(self.tradeLeaguesList, "Standard")
+			t_insert(self.tradeLeaguesList, "Hardcore")
+			t_insert(self.tradeLeaguesList, "Ruthless")
+			t_insert(self.tradeLeaguesList, "Hardcore Ruthless")
+			controls.searchTradeLeagueSelect:SetList(self.tradeLeaguesList)
+		end)
+	end
 	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, 0, -5, 170, 20, "Copy Trade URL", function()
 		local seedTrades = {}
 		local startRow = controls.searchResults.selIndex or 1
@@ -1806,7 +1892,7 @@ function TreeTabClass:FindTimelessJewel()
 			end
 		end
 
-		Copy("https://www.pathofexile.com/trade/search/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
+		Copy("https://www.pathofexile.com/trade/search/"..(self.timelessJewelLeagueSelect or "").."/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
 			return s_format("%%%02X", s_byte(a))
 		end)))
 

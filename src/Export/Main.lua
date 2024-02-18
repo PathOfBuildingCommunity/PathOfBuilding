@@ -173,6 +173,10 @@ function main:Init()
 		end
 	end, nil)
 
+	if self.datSource and self.datSource.label then
+		self.controls.datSource:SelByValue(self.datSource.label, "label")
+	end
+
 	self.controls.scripts = new("ButtonControl", nil, 160, 30, 100, 18, "Scripts >>", function()
 		self:SetCurrentDat()
 	end)
@@ -386,7 +390,7 @@ function main:InitGGPK()
 		return
 	else
 		local now = GetTime()
-		local ggpkPath = self.datSource.ggpkPath or self.datSource.path
+		local ggpkPath = self.datSource.ggpkPath or self.datSource.datFilePath
 		if ggpkPath then
 			self.ggpk = new("GGPKData", ggpkPath)
 			ConPrintf("GGPK: %d ms", GetTime() - now)
@@ -673,8 +677,8 @@ function main:CopyFolder(srcName, dstName)
 	end
 end
 
-function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl)
-	local popup = new("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl)
+function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl, scrollBarFunc)
+	local popup = new("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl, scrollBarFunc)
 	t_insert(self.popups, 1, popup)
 	return popup
 end

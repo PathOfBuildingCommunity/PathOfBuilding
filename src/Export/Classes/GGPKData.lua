@@ -174,7 +174,6 @@ function GGPKClass:GetNeededFiles()
 		"Data/StatInterpolationTypes.dat",
 		"Data/Tags.dat",
 		"Data/GemTags.dat",
-		"Data/gemitemvisualeffect.dat",
 		"Data/ItemVisualIdentity.dat",
 		"Data/AchievementItems.dat",
 		"Data/MultiPartAchievements.dat",
@@ -182,7 +181,6 @@ function GGPKClass:GetNeededFiles()
 		"Data/AlternatePassiveAdditions.dat",
 		"Data/AlternatePassiveSkills.dat",
 		"Data/AlternateTreeVersions.dat",
-		"Data/GrantedEffectQualityTypes.dat",
 		"Data/GrantedEffectQualityStats.dat",
 		"Data/GrantedEffectGroups.dat",
 		"Data/AegisVariations.dat",
@@ -218,6 +216,16 @@ function GGPKClass:GetNeededFiles()
 		"Data/actiontypes.dat",
 		"Data/azmerilifescalingperlevel.dat",
 		"Data/azmerifeaturerooms.dat",
+		"Data/corpsetypetags.dat",
+		"Data/itemisedcorpse.dat",
+		"Data/indexableskillgems.dat",
+		"Data/indexablesupportgems.dat",
+		"Data/itemclasscategories.dat",
+		"Data/miniontype.dat",
+		"Data/summonedspecificmonsters.dat",
+		"Data/gameconstants.dat",
+		"Data/alternatequalitytypes.dat",
+		"Data/weaponclasses.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
@@ -287,6 +295,7 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/Items/Equipment.it",
 		"Metadata/Items/Weapons/AbstractWeapon.it",
 		"Metadata/Items/Tinctures/AbstractTincture.it",
+		"Metadata/Items/Jewels/AbstractAnimalCharm.it",
 	}
 	return datFiles, txtFiles, itFiles
 end

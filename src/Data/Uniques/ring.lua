@@ -1073,7 +1073,7 @@ Implicits: 1
 {tags:jewellery_elemental}(20-30)% increased Lightning Damage
 (10-15)% chance to Shock
 Herald of Thunder also creates a storm when you Shock an Enemy
-Herald of Thunder's Storms Hit Enemies with (30-50)% increased Frequency
+Storms Hit Enemies with (30-50)% increased Frequency
 {tags:jewellery_elemental}Take 250 Lightning Damage when Herald of Thunder Hits an Enemy
 ]],[[
 The Taming

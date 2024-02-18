@@ -11,6 +11,7 @@ local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local m_ceil = math.ceil
 local m_sqrt = math.sqrt
 local m_modf = math.modf
 local m_huge = math.huge
@@ -275,18 +276,40 @@ function calcs.defence(env, actor)
 		if armourData then
 			wardBase = armourData.Ward or 0
 			if wardBase > 0 then
+				if slot == "Body Armour" and modDB:Flag(nil, "DoubleBodyArmourDefence") then
+					wardBase = wardBase * 2
+				end
 				output["WardOn"..slot] = wardBase
 			end
 			energyShieldBase = armourData.EnergyShield or 0
 			if energyShieldBase > 0 then
+				if slot == "Body Armour" and modDB:Flag(nil, "DoubleBodyArmourDefence") then
+					energyShieldBase = energyShieldBase * 2
+				end
 				output["EnergyShieldOn"..slot] = energyShieldBase
 			end
 			armourBase = armourData.Armour or 0
 			if armourBase > 0 then
+				if slot == "Body Armour" then 
+					if modDB:Flag(nil, "DoubleBodyArmourDefence") then
+						armourBase = armourBase * 2
+					end
+					if modDB:Flag(nil, "Unbreakable") then
+						armourBase = armourBase * 2
+					end
+				end
 				output["ArmourOn"..slot] = armourBase
 			end
 			evasionBase = armourData.Evasion or 0
 			if evasionBase > 0 then
+				if slot == "Body Armour" then
+					if modDB:Flag(nil, "DoubleBodyArmourDefence") then
+						evasionBase = evasionBase * 2
+					end
+				 	if modDB:Flag(nil, "Unbreakable") and modDB:Flag(nil, "IronReflexes") then
+						evasionBase = evasionBase * 2
+					end
+				end
 				output["EvasionOn"..slot] = evasionBase
 			end
 		end
@@ -331,6 +354,12 @@ function calcs.defence(env, actor)
 				end
 				if res ~= 0 then
 					modDB:NewMod(resTo.."Resist", "BASE", res * conversionRate, resFrom.." To "..resTo.." Resistance Conversion")
+				end
+				for _, mod in ipairs(modDB:Tabulate("INC", nil, resFrom.."Resist")) do
+					modDB:NewMod(resTo.."Resist", "INC", mod.value * conversionRate, mod.mod.source)
+				end
+				for _, mod in ipairs(modDB:Tabulate("MORE", nil, resFrom.."Resist")) do
+					modDB:NewMod(resTo.."Resist", "MORE", mod.value * conversionRate, mod.mod.source)
 				end
 			end
 		end
@@ -601,8 +630,13 @@ function calcs.defence(env, actor)
 				end
 				armourBase = armourData.Armour or 0
 				if armourBase > 0 then
-					if slot == "Body Armour" and (modDB:Flag(nil, "Unbreakable") or modDB:Flag(nil, "DoubleBodyArmourDefence")) then
-						armourBase = armourBase * 2
+					if slot == "Body Armour" then
+						if modDB:Flag(nil, "DoubleBodyArmourDefence") then
+							armourBase = armourBase * 2
+						end
+						if modDB:Flag(nil, "Unbreakable") then 
+							armourBase = armourBase * 2
+						end
 					end
 					armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
 					gearArmour = gearArmour + armourBase
@@ -612,8 +646,13 @@ function calcs.defence(env, actor)
 				end
 				evasionBase = armourData.Evasion or 0
 				if evasionBase > 0 then
-					if slot == "Body Armour" and ((modDB:Flag(nil, "Unbreakable") and ironReflexes) or modDB:Flag(nil, "DoubleBodyArmourDefence")) then
-						evasionBase = evasionBase * 2
+					if slot == "Body Armour" then
+						if modDB:Flag(nil, "DoubleBodyArmourDefence") then
+							evasionBase = evasionBase * 2
+						end
+						if modDB:Flag(nil, "Unbreakable") and ironReflexes then
+							evasionBase = evasionBase * 2
+						end
 					end
 					gearEvasion = gearEvasion + evasionBase
 					if breakdown then
@@ -772,6 +811,10 @@ function calcs.defence(env, actor)
 			output.EvadeChance = 0
 			output.MeleeEvadeChance = 0
 			output.ProjectileEvadeChance = 0
+		elseif modDB:Flag(nil, "AlwaysEvade") then
+			output.EvadeChance = 100
+			output.MeleeEvadeChance = 100
+			output.ProjectileEvadeChance = 100
 		else
 			local enemyAccuracy = round(calcLib.val(enemyDB, "Accuracy"))
 			local evadeChance = modDB:Sum("BASE", nil, "EvadeChance")
@@ -1299,7 +1342,7 @@ function calcs.buildDefenceEstimations(env, actor)
 				},
 			}
 		end
-		local enemyCritChance = enemyDB:Flag(nil, "NeverCrit") and 0 or (m_max(m_min((modDB:Override(nil, "enemyCritChance") or env.configInput["enemyCritChance"] or env.configPlaceholder["enemyCritChance"] or 0) * (1 + modDB:Sum("INC", nil, "EnemyCritChance") / 100 + enemyDB:Sum("INC", nil, "CritChance") / 100) * (1 - output["ConfiguredEvadeChance"] / 100), 100), 0))
+		local enemyCritChance = enemyDB:Flag(nil, "NeverCrit") and 0 or enemyDB:Flag(nil, "AlwaysCrit") and 100 or (m_max(m_min((modDB:Override(nil, "enemyCritChance") or env.configInput["enemyCritChance"] or env.configPlaceholder["enemyCritChance"] or 0) * (1 + modDB:Sum("INC", nil, "EnemyCritChance") / 100 + enemyDB:Sum("INC", nil, "CritChance") / 100) * (1 - output["ConfiguredEvadeChance"] / 100), 100), 0))
 		local enemyCritDamage = m_max((env.configInput["enemyCritDamage"] or env.configPlaceholder["enemyCritDamage"] or 0) + enemyDB:Sum("BASE", nil, "CritMultiplier"), 0)
 		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
 		local enemyCfg = {keywordFlags = bit.bnot(KeywordFlag.MatchAll)} -- Match all keywordFlags parameter for enemy min-max damage mods
@@ -1764,8 +1807,8 @@ function calcs.buildDefenceEstimations(env, actor)
 			local baseStunDuration = data.misc.StunBaseDuration
 			local stunRecovery = (1 + modDB:Sum("INC", nil, "StunRecovery") / 100)
 			local stunAndBlockRecovery = (1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100)
-			output.StunDuration = baseStunDuration * stunDuration / stunRecovery
-			output.BlockDuration = baseStunDuration * stunDuration / stunAndBlockRecovery
+			output.StunDuration = m_ceil(baseStunDuration * stunDuration / stunRecovery * data.misc.ServerTickRate) / data.misc.ServerTickRate
+			output.BlockDuration = m_ceil(baseStunDuration * stunDuration / stunAndBlockRecovery * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			if breakdown then
 				breakdown.StunDuration = {s_format("%.2fs ^8(base)", baseStunDuration)}
 				breakdown.BlockDuration = {s_format("%.2fs ^8(base)", baseStunDuration)}
@@ -1779,12 +1822,11 @@ function calcs.buildDefenceEstimations(env, actor)
 				if stunAndBlockRecovery ~= 1 then
 					t_insert(breakdown.BlockDuration, s_format("/ %.2f ^8(increased/reduced block recovery)", stunAndBlockRecovery))
 				end
-				if output.StunDuration ~= baseStunDuration then
-					t_insert(breakdown.StunDuration, s_format("= %.2fs", output.StunDuration))
-				end
-				if output.BlockDuration ~= baseStunDuration then
-					t_insert(breakdown.BlockDuration, s_format("= %.2fs", output.BlockDuration))
-				end
+				t_insert(breakdown.StunDuration, s_format("rounded up to nearest server tick"))
+				t_insert(breakdown.StunDuration, s_format("= %.2fs", output.StunDuration))
+				
+				t_insert(breakdown.BlockDuration, s_format("rounded up to nearest server tick"))
+				t_insert(breakdown.BlockDuration, s_format("= %.2fs", output.BlockDuration))
 			end
 		end
 		output.InterruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInterruptStun"), 100)
@@ -1886,7 +1928,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			output[damageType.."EnergyShieldBypass"] = 100
 			output.AnyBypass = true
 		else
-			output[damageType.."EnergyShieldBypass"] = modDB:Sum("BASE", nil, damageType.."EnergyShieldBypass") or 0
+			output[damageType.."EnergyShieldBypass"] = modDB:Override(nil, damageType.."EnergyShieldBypass") or modDB:Sum("BASE", nil, damageType.."EnergyShieldBypass") or 0
 			if output[damageType.."EnergyShieldBypass"] ~= 0 then
 				output.AnyBypass = true
 			end
