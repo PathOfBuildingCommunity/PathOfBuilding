@@ -2225,7 +2225,7 @@ local specialModList = {
 	["you have (%d+) fortification"] = function(num) return { mod("MinimumFortification", "BASE", num) } end,
 	["enemies taunted by you cannot evade attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("CannotEvade", { type = "Condition", var = "Taunted" }) }) },
 	["if you've impaled an enemy recently, you and nearby allies have %+(%d+) to armour"] = function (num) return { mod("ExtraAura", "LIST", { mod = mod("Armour", "BASE", num) }, { type = "Condition", var = "ImpaledRecently" }) } end,
-	["your hits permanently intimidate enemies that are on full life"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }) },
+	["your hits permanently intimidate enemies that are on full life"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated", { type = "Condition", var = "FullLife" }) }) },
 	["you and allies affected by your placed banners regenerate ([%d%.]+)%% of life per second for each stage"] = function(num) return {
 		mod("ExtraAura", "LIST", { mod = mod("LifeRegenPercent", "BASE", num, { type = "Condition", var = "AffectedByPlacedBanner" }, { type = "Multiplier", var = "BannerStage" }) })
 	} end,
