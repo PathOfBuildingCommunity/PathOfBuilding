@@ -11446,7 +11446,7 @@ c["Your Hits are always Critical Strikes"]={{[1]={flags=0,keywordFlags=0,name="C
 c["Your Hits can only Kill Frozen enemies"]={nil,"Your Hits can only Kill Frozen enemies "}
 c["Your Hits can't be Evaded by Blinded Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Blinded"},flags=0,keywordFlags=0,name="CannotBeEvaded",type="FLAG",value=true}},nil}
 c["Your Hits cannot Penetrate or ignore Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="CannotElePenIgnore",type="FLAG",value=true}},nil}
-c["Your Hits permanently Intimidate Enemies that are on Full Life"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="FullLife"},flags=0,keywordFlags=0,name="Condition:Intimidated",type="FLAG",value=true}}}},nil}
+c["Your Hits permanently Intimidate Enemies that are on Full Life"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="ChampionIntimidate"},flags=0,keywordFlags=0,name="Condition:Intimidated",type="FLAG",value=true}}}},nil}
 c["Your Hits treat Cold Resistance as 10% higher than actual value"]={{[1]={flags=0,keywordFlags=262144,name="ColdPenetration",type="BASE",value=-10}},nil}
 c["Your Lightning Damage can Freeze but not Shock"]={{[1]={flags=0,keywordFlags=0,name="LightningCanFreeze",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="LightningCannotShock",type="FLAG",value=true}},nil}
 c["Your Lightning Damage can Ignite"]={{[1]={flags=0,keywordFlags=0,name="LightningCanIgnite",type="FLAG",value=true}},nil}
