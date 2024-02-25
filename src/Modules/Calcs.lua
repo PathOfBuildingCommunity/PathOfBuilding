@@ -580,19 +580,29 @@ function calcs.buildOutput(build, mode)
 			end
 		end
 		for _, activeSkill in pairs(env.player.activeSkillList) do
+			local uuid = cacheSkillUUID(activeSkill, env)
+			if not GlobalCache.cachedData["CACHE"][uuid] then
+				calcs.buildActiveSkill(env, "CACHE", activeSkill)
+			end
+
 			for _, mod in ipairs(activeSkill.baseSkillModList) do
 				addModTags(env.player, mod)
 			end
-			for _, mod in ipairs(activeSkill.skillModList) do
-				addTo(env.modsUsed, mod.name, mod)
-				for _, tag in ipairs(mod) do
-					addTo(env.tagTypesUsed, tag.type, mod)
-				end
-			end
+
 			if activeSkill.minion then
 				for _, activeSkill in pairs(activeSkill.minion.activeSkillList) do
 					for _, mod in ipairs(activeSkill.baseSkillModList) do
 						addModTags(env.minion, mod)
+					end
+				end
+			end
+
+			if GlobalCache.cachedData["CACHE"][uuid] then
+				skillModList = GlobalCache.cachedData["CACHE"][uuid].ActiveSkill.skillModList
+				for _, mod in ipairs(skillModList) do
+					addTo(env.modsUsed, mod.name, mod)
+					for _, tag in ipairs(mod) do
+						addTo(env.tagTypesUsed, tag.type, mod)
 					end
 				end
 			end
