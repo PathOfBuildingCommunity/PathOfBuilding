@@ -438,6 +438,11 @@ function calcs.defence(env, actor)
 		end
 	end
 
+	if actor == env.minion then
+		doActorLifeMana(env.minion)
+		doActorLifeManaReservation(env.minion)
+	end
+
 	-- Block
 	output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
 	if modDB:Flag(nil, "MaximumBlockAttackChanceIsEqualToParent") then
