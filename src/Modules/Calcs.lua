@@ -271,7 +271,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 				if activeSkill.mirage then
 					local mirageCount = (activeSkill.mirage.count or 1) * activeSkillCount
 					if activeSkill.mirage.output.TotalDPS and activeSkill.mirage.output.TotalDPS > 0 then
-						t_insert(fullDPS.skills, { name = activeSkill.mirage.name, dps = activeSkill.mirage.output.TotalDPS, count = mirageCount, trigger = activeSkill.mirage.infoTrigger, skillPart = activeSkill.mirage.skillPartName })
+						t_insert(fullDPS.skills, { name = activeSkill.mirage.name .. " (Mirage)", dps = activeSkill.mirage.output.TotalDPS, count = mirageCount, trigger = activeSkill.mirage.infoTrigger, skillPart = activeSkill.mirage.skillPartName })
 						fullDPS.combinedDPS = fullDPS.combinedDPS + activeSkill.mirage.output.TotalDPS * mirageCount
 					end
 					if activeSkill.mirage.output.BleedDPS and activeSkill.mirage.output.BleedDPS > fullDPS.bleedDPS then
@@ -296,6 +296,14 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					end
 					if activeSkill.mirage.output.CullMultiplier and activeSkill.mirage.output.CullMultiplier > 1 and activeSkill.mirage.output.CullMultiplier > fullDPS.cullingMulti then
 						fullDPS.cullingMulti = activeSkill.mirage.output.CullMultiplier
+					end
+					if activeSkill.mirage.output.BurningGroundDPS and activeSkill.mirage.output.BurningGroundDPS > fullDPS.burningGroundDPS then
+						fullDPS.burningGroundDPS = activeSkill.mirage.output.BurningGroundDPS
+						burningGroundSource = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
+					end
+					if activeSkill.mirage.output.CausticGroundDPS and activeSkill.mirage.output.CausticGroundDPS > fullDPS.causticGroundDPS then
+						fullDPS.causticGroundDPS = activeSkill.mirage.output.CausticGroundDPS
+						causticGroundSource = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
 					end
 				end
 
