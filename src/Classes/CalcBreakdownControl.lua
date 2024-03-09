@@ -151,13 +151,15 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 		-- sort by the first column (the value)
 		local rowList = copyTable(breakdown.rowList, true)
 		local colKey = breakdown.colList[1].key
-		table.sort(rowList, function(a, b)
-			if a.reqNum then
-				return a.reqNum > b.reqNum
-			end
-			return a[colKey] > b[colKey]
-		end)
-		
+		-- avoid sorting ailment breakdowns
+		if breakdown.source then
+			table.sort(rowList, function(a, b)
+				if a.reqNum then
+					return a.reqNum > b.reqNum
+				end
+				return a[colKey] > b[colKey]
+			end)
+		end
 		-- Generic table
 		local section = {
 			type = "TABLE",
