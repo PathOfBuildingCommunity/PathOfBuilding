@@ -513,6 +513,11 @@ minions["UniqueAnimatedWeapon"] = {
 		"DancingDervishCycloneChannelled",
 	},
 	modList = {
+		mod("Life", "MORE", 698), -- MonsterUnique2,
+		mod("Damage", "MORE", 70), -- MonsterUnique5,
+		mod("Speed", "MORE", 33, ModFlag.Attack), -- MonsterUnique8,
+		mod("Damage", "MORE", -33, ModFlag.Attack), -- MonsterUnique8,
+		mod("DamageTaken", "MORE", -95), -- monster_inherent_damage_taken_+%_final : UniqueAnimatedWeapon.ot,
 	},
 }
 
