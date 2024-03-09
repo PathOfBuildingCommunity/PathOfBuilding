@@ -2716,6 +2716,10 @@ local specialModList = {
 	--Doomsower, Lion Sword
 	["attack skills gain (%d+)%% of physical damage as extra fire damage per socketed red gem"] = function(num) return { mod("SocketProperty", "LIST", { value = mod("PhysicalDamageGainAsFire", "BASE", num, nil, ModFlag.Attack) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "strength", sockets = {1,2,3,4,5,6} }) } end,
 	["you have vaal pact while all socketed gems are red"] = { mod("GroupProperty", "LIST", { value = mod("Keystone", "LIST", "Vaal Pact") }, { type = "SocketedIn", slotName = "{SlotName}", socketColor = "R", sockets = "all" }) },
+	-- Mahuxotl's Machination Steel Kite Shield
+	["everlasting sacrifice"] = { 
+		flag("Condition:EverlastingSacrifice")
+	},
 	 -- Self hit dmg
 	["take (%d+) (.+) damage when you ignite an enemy"] = function(dmg, _, dmgType) return {
 		mod("EyeOfInnocenceSelfDamage", "LIST", {baseDamage = dmg, damageType = dmgType})

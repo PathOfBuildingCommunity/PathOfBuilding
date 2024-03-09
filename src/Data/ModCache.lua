@@ -7704,8 +7704,7 @@ c["Eternal Youth"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",val
 c["Evasion Rating is Doubled against Projectile Attacks"]={{[1]={flags=0,keywordFlags=0,name="ProjectileEvasion",type="MORE",value=100}},nil}
 c["Evasion Rating is increased by Overcapped Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="EvasionRatingIncreasedByOvercappedColdRes",type="FLAG",value=true}},nil}
 c["Evasion Rating is increased by Uncapped Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="EvasionRatingIncreasedByUncappedColdRes",type="FLAG",value=true}},nil}
-c["Everlasting Sacrifice"]={nil,"Everlasting Sacrifice "}
-c["Everlasting Sacrifice Immortal Ambition"]={nil,"Everlasting Sacrifice Immortal Ambition "}
+c["Everlasting Sacrifice"]={{[1]={flags=0,keywordFlags=0,name="Condition:EverlastingSacrifice",type="FLAG",value=true}},nil}
 c["Every 10 seconds, gain 30% of Physical Damage"]={nil,"Every 10 seconds, gain 30% of Physical Damage "}
 c["Every 10 seconds, gain 30% of Physical Damage as Extra Fire Damage for 4 seconds"]={{[1]={[1]={type="Condition",var="NgamahuFlamesAdvance"},flags=0,keywordFlags=0,name="PhysicalDamageGainAsFire",type="BASE",value=30}},nil}
 c["Every 10 seconds:"]={{},nil}
