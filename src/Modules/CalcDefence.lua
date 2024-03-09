@@ -675,8 +675,8 @@ function calcs.defence(env, actor)
 
 		if wardBase > 0 then
 			if modDB:Flag(nil, "EnergyShieldToWard") then
-				local inc = modDB:Sum("INC", slotCfg, "Ward", "Defences", "EnergyShield")
-				local more = modDB:More(slotCfg, "Ward", "Defences")
+				local inc = modDB:Sum("INC", nil, "Ward", "Defences", "EnergyShield")
+				local more = modDB:More(nil, "Ward", "Defences")
 				ward = ward + wardBase * (1 + inc / 100) * more
 				if breakdown then
 					t_insert(breakdown["Ward"].slots, {
@@ -698,13 +698,13 @@ function calcs.defence(env, actor)
 		energyShieldBase = modDB:Sum("BASE", nil, "EnergyShield")
 		if energyShieldBase > 0 then
 			if modDB:Flag(nil, "EnergyShieldToWard") then
-				energyShield = energyShield + energyShieldBase * modDB:More(slotCfg, "EnergyShield", "Defences")
+				energyShield = energyShield + energyShieldBase * modDB:More(nil, "EnergyShield", "Defences")
 			else
 				energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, nil, "EnergyShield", "Defences")
 			end
 			if breakdown then
-				local inc = modDB:Sum("INC", slotCfg, "Defences", "EnergyShield")
-				local more = modDB:More(slotCfg, "EnergyShield", "Defences")
+				local inc = modDB:Sum("INC", nil, "Defences", "EnergyShield")
+				local more = modDB:More(nil, "EnergyShield", "Defences")
 				t_insert(breakdown["EnergyShield"].slots, {
 					base = energyShieldBase,
 					inc = (inc ~= 0) and s_format(" x %.2f", 1 + inc/100),
