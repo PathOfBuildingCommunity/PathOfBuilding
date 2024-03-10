@@ -1060,6 +1060,6 @@ Requires Level 48, 31 Str, 31 Dex, 31 Int
 +(17-23)% to Chaos Resistance
 {variant:1}Gain Added Chaos Damage equal to 25% of Ward
 {variant:2}Gain Added Chaos Damage equal to 20% of Ward
-75% of Damage bypasses Ward
+75% of Damage taken bypasses Ward
 ]],
 }
