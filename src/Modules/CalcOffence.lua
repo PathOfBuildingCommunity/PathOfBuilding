@@ -5344,14 +5344,6 @@ function calcs.offence(env, actor, activeSkill)
 	else
 		output.WithBleedDPS = baseDPS
 	end
-	local TotalDotDPS = (output.TotalDot or 0) + (output.TotalPoisonDPS or 0) + (output.CausticGroundDPS or 0) + (output.TotalIgniteDPS or output.IgniteDPS or 0) + (output.BurningGroundDPS  or 0) + (output.BleedDPS or 0) + (output.CorruptingBloodDPS or 0) + (output.DecayDPS or 0)
-	output.TotalDotDPS = m_min(TotalDotDPS, data.misc.DotDpsCap)
-	if output.TotalDotDPS ~= TotalDotDPS then
-		output.showTotalDotDPS = true
-	end
-	if not skillData.showAverage then
-		output.CombinedDPS = output.CombinedDPS + output.TotalDotDPS
-	end
 	if skillFlags.impale then
 		if skillFlags.attack then
 			output.ImpaleHit = ((output.MainHand.PhysicalHitAverage or output.OffHand.PhysicalHitAverage) + (output.OffHand.PhysicalHitAverage or output.MainHand.PhysicalHitAverage)) / 2 * (1-output.CritChance/100) + ((output.MainHand.PhysicalCritAverage or output.OffHand.PhysicalCritAverage) + (output.OffHand.PhysicalCritAverage or output.MainHand.PhysicalCritAverage)) / 2 * (output.CritChance/100)
@@ -5397,6 +5389,8 @@ function calcs.offence(env, actor, activeSkill)
 		local mirageCount = activeSkill.mirage.count or 1
 		output.MirageDPS = activeSkill.mirage.output.TotalDPS * mirageCount
 		output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDPS * mirageCount
+		output.MirageBurningGroundDPS = activeSkill.mirage.output.BurningGroundDPS
+		output.MirageCausticGroundDPS = activeSkill.mirage.output.CausticGroundDPS
 
 		if activeSkill.mirage.output.IgniteDPS and activeSkill.mirage.output.IgniteDPS > (output.IgniteDPS or 0) then
 			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.IgniteDPS
@@ -5426,6 +5420,16 @@ function calcs.offence(env, actor, activeSkill)
 		if activeSkill.mirage.output.CullMultiplier > 1 then
 			bestCull = activeSkill.mirage.output.CullMultiplier
 		end
+	end
+
+	local TotalDotDPS = (output.TotalDot or 0) + (output.TotalPoisonDPS or 0) + (m_max(output.CausticGroundDPS or 0, output.MirageCausticGroundDPS or 0 )) + (output.TotalIgniteDPS or output.IgniteDPS or 0) + (m_max(output.BurningGroundDPS or 0, output.MirageBurningGroundDPS or 0)) + (output.BleedDPS or 0) + (output.CorruptingBloodDPS or 0) + (output.DecayDPS or 0)
+	output.TotalDotDPS = m_min(TotalDotDPS, data.misc.DotDpsCap)
+	ConPrintf(tostring(output.TotalDotDPS) .. "~=" .. TotalDotDPS .. ": " .. tostring(output.TotalDotDPS ~= TotalDotDPS))
+	if output.TotalDotDPS ~= TotalDotDPS then
+		output.showTotalDotDPS = true
+	end
+	if not skillData.showAverage then
+		output.CombinedDPS = output.CombinedDPS + output.TotalDotDPS
 	end
 
 	bestCull = m_max(bestCull, output.CullMultiplier)

@@ -57,7 +57,7 @@ local function mergeKeystones(env)
 	end
 end
 
-local function doActorLifeMana(actor)
+function doActorLifeMana(actor)
 	local modDB = actor.modDB
 	local output = actor.output
 	local breakdown = actor.breakdown
@@ -437,7 +437,7 @@ end
 
 -- Calculate life/mana reservation
 ---@param actor table
-local function doActorLifeManaReservation(actor)
+function doActorLifeManaReservation(actor)
 	local modDB = actor.modDB
 	local output = actor.output
 	local condList = modDB.conditions
@@ -3015,9 +3015,6 @@ function calcs.perform(env, fullDPSSkipEHP)
 	end
 
 	if env.minion then
-		doActorLifeMana(env.minion)
-		doActorLifeManaReservation(env.minion)
-
 		calcs.defence(env, env.minion)
 		if not fullDPSSkipEHP then -- main.build.calcsTab.input.showMinion and -- should be disabled unless "calcsTab.input.showMinion" is true
 			calcs.buildDefenceEstimations(env, env.minion)

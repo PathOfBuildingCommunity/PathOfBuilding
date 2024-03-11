@@ -4778,6 +4778,9 @@ skills["GeneralsCrySupport"] = {
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, SkillType.Spell, SkillType.Triggered, SkillType.InbuiltTrigger, SkillType.OwnerCannotUse, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	addFlags = {
+		forceMainHand = true,
+	},
 	statMap = {
 		["support_spiritual_cry_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
