@@ -29,8 +29,8 @@ local function applyPantheonDescription(tooltip, mode, index, value)
 	end
 end
 
-local function pantheonTooltip(modList, build, selectedGod, selectedSouls)
-	local tooltip = ''
+local function pantheonTooltip(modList, build, selectedGod, selectedSouls, tooltip)
+	tooltip:Clear()
 	local souls = data.pantheons[selectedGod].souls
 	for i, soul in ipairs(souls) do
 		local name = soul.name
@@ -41,18 +41,15 @@ local function pantheonTooltip(modList, build, selectedGod, selectedSouls)
 			table.insert(mods, mod.line)
 		end
 
-		if not selectedSouls[i] then --if the slectedSoul[i] hasn't been captured both the colours will be dark grey
+		if not selectedSouls[i] then --if the selectedSoul[i] hasn't been captured both the colours will be dark grey
 			nameColour, modColour = '^9', '^9'
 		end
 
-		tooltip = tooltip..nameColour..name
-		tooltip = tooltip..'\n'..modColour..table.concat(mods, '\n')
-		
-		if i ~= #souls then --avoid newline at the bottom of the tooltip
-			tooltip = tooltip..'\n\n' 
-		end
+		tooltip:AddLine(20, nameColour..name)
+		tooltip:AddLine(14, modColour..table.concat(mods, '\n'))
+		tooltip:AddSeparator(10)
 	end
-	return tooltip
+	return nil
 end
 
 local function pantheonMajorGodTooltip(modList, build)
@@ -68,7 +65,8 @@ local function pantheonMajorGodTooltip(modList, build)
 		input.pantheonMajorGodSoul2,
 		input.pantheonMajorGodSoul3
 	}
-	return pantheonTooltip(modList, build, majorGod, majorGodSouls)
+	local majorGodTooltip = build.configTab.varControls.pantheonMajorGod.tooltip
+	return pantheonTooltip(modList, build, majorGod, majorGodSouls, majorGodTooltip)
 end
 
 local function pantheonMinorGodTooltip(modList, build)
@@ -82,7 +80,8 @@ local function pantheonMinorGodTooltip(modList, build)
 		true,
 		input.pantheonMinorGodSoul1
 	}
-	return pantheonTooltip(modList, build, minorGod, minorGodSouls)
+	local minorGodTooltip = build.configTab.varControls.pantheonMinorGod.tooltip
+	return pantheonTooltip(modList, build, minorGod, minorGodSouls, minorGodTooltip)
 end
 
 local function banditTooltip(tooltip, mode, index, value)
