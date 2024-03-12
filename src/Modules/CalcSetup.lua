@@ -528,7 +528,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 		-- Major Gods
 		if env.configInput.pantheonMajorGod ~= "None" then
 			local majorGod = env.data.pantheons[env.configInput.pantheonMajorGod]
-			pantheon.applySoulMod(modDB, parser, majorGod)
+			local majorGodSouls = { --table containing selected souls checkboxes state (booleans)
+				true, --forcing to true the major god, since it has been selected for sure (make applySelectedSoulMod cleaner)
+				env.configInput.pantheonMajorGodSoul1,
+				env.configInput.pantheonMajorGodSoul2,
+				env.configInput.pantheonMajorGodSoul3
+			}
+			pantheon.applySelectedSoulMod(modDB, parser, majorGod, majorGodSouls)
 		end
 		-- Minor Gods
 		if env.configInput.pantheonMinorGod ~= "None" then

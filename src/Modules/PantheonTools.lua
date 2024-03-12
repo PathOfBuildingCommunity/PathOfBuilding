@@ -17,3 +17,20 @@ function pantheon.applySoulMod(db, modParser, god)
 		end
 	end
 end
+
+function pantheon.applySelectedSoulMod(db, modParser, god, selectedSouls)
+	for i, soul in pairs(god.souls) do
+		if selectedSouls[i] then --only parse the mods of selected souls
+			for _, soulMod in pairs(soul.mods) do
+				local modList, extra = modParser(soulMod.line)
+				if modList and not extra then
+					for _, mod in pairs(modList) do
+						local godName = god.souls[1].name 
+						mod.source = "Pantheon:"..godName
+					end
+					db:AddList(modList)
+				end
+			end
+		end
+	end
+end
