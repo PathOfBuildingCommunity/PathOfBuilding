@@ -71,6 +71,20 @@ local function pantheonMajorGodTooltip(modList, build)
 	return pantheonTooltip(modList, build, majorGod, majorGodSouls)
 end
 
+local function pantheonMinorGodTooltip(modList, build)
+	local input = build.configTab.input
+	local minorGod = input.pantheonMinorGod
+	if minorGod == "None" then
+		return nil
+	end
+
+	local minorGodSouls = {
+		true,
+		input.pantheonMinorGodSoul1
+	}
+	return pantheonTooltip(modList, build, minorGod, minorGodSouls)
+end
+
 local function banditTooltip(tooltip, mode, index, value)
 	local banditBenefits = {
 		["None"] = "Grants 2 Passive Skill Points",
@@ -186,7 +200,7 @@ return {
 	{ var = "pantheonMajorGodSoul1", type = "check", label = "1", defaultState = true },
 	{ var = "pantheonMajorGodSoul2", type = "check", label = "2", defaultState = true },
 	{ var = "pantheonMajorGodSoul3", type = "check", label = "3", defaultState = true },
-	{ var = "pantheonMinorGod", type = "list", label = "Minor God:", tooltipFunc = applyPantheonDescription, list = {
+	{ var = "pantheonMinorGod", type = "list", label = "Minor God:", tooltip = pantheonMinorGodTooltip, list = {
 		{ label = "Nothing", val = "None" },
 		{ label = "Soul of Gruthkul", val = "Gruthkul" },
 		{ label = "Soul of Yugul", val = "Yugul" },
@@ -197,8 +211,7 @@ return {
 		{ label = "Soul of Ryslatha", val = "Ryslatha" },
 		{ label = "Soul of Shakari", val = "Shakari" },
 	} },
-	{ var = "pantheonMinorGodSoul1", type = "check", label = "1" },
-	{ var = "pantheonMinorGodSoul2", type = "check", label = "2" },
+	{ var = "pantheonMinorGodSoul1", type = "check", label = "1", defaultState = true },
 	{ var = "detonateDeadCorpseLife", type = "count", label = "Enemy Corpse ^xE05030Life:", ifSkillData = "explodeCorpse", tooltip = "Sets the maximum ^xE05030life ^7of the target corpse for Detonate Dead and similar skills.\nFor reference, a level 70 monster has "..data.monsterLifeTable[70].." base ^xE05030life^7, and a level 80 monster has "..data.monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config")
 	end },

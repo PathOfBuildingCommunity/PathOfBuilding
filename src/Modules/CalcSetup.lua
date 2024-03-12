@@ -539,7 +539,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		-- Minor Gods
 		if env.configInput.pantheonMinorGod ~= "None" then
 			local minorGod = env.data.pantheons[env.configInput.pantheonMinorGod]
-			pantheon.applySoulMod(modDB, parser, minorGod)
+			local minorGodSouls = { 
+				true, 
+				env.configInput.pantheonMinorGodSoul1
+			}
+			pantheon.applySelectedSoulMod(modDB, parser, minorGod, minorGodSouls)
 		end
 
 		-- Initialise enemy modifier database
