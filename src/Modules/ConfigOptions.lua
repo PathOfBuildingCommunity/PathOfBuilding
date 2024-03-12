@@ -29,14 +29,9 @@ local function applyPantheonDescription(tooltip, mode, index, value)
 	end
 end
 
-local function pantheonTooltip(modList, build)
-	local selectedPantheon = build.configTab.varControls['pantheonMajorGod'].list[build.configTab.varControls['pantheonMajorGod'].selIndex].val
-	if selectedPantheon == "None" then
-		return nil --tooltip not generated if pantheon is not selected
-	end
-
+local function pantheonTooltip(modList, build, selectedGod, selectedSouls)
 	local tooltip = ''
-	local souls = data.pantheons[selectedPantheon].souls
+	local souls = data.pantheons[selectedGod].souls
 	for i, soul in ipairs(souls) do
 		local name = soul.name
 		local mods = { }
@@ -46,14 +41,8 @@ local function pantheonTooltip(modList, build)
 			table.insert(mods, mod.line)
 		end
 
-		--i goes from 1 to 4, souls[1] refer to the boss that unock the pantheon and is not displayed in the checkboxes
-		--index is used for checkboxes because there are 3 of them, so 'pantheonMajorGodSoul4' does not exist
-		local index = i - 1 
-		if index ~= 0 then
-			local hasBeenCaptured = build.configTab.varControls['pantheonMajorGodSoul'..tostring(index)].state
-			if not hasBeenCaptured then --if the soul hasn't been captured both the colours will be dark grey
-				nameColour, modColour = '^9', '^9'
-			end
+		if not selectedSouls[i] then --if the slectedSoul[i] hasn't been captured both the colours will be dark grey
+			nameColour, modColour = '^9', '^9'
 		end
 
 		tooltip = tooltip..nameColour..name
@@ -64,6 +53,22 @@ local function pantheonTooltip(modList, build)
 		end
 	end
 	return tooltip
+end
+
+local function pantheonMajorGodTooltip(modList, build)
+	local input = build.configTab.input
+	local majorGod = input.pantheonMajorGod
+	if majorGod == "None" then
+		return nil --tooltip not generated if god is not selected
+	end
+
+	local majorGodSouls = { --table containing selected souls checkboxes state (booleans)
+		true, --forcing to true the major god, since it has been selected for sure (make applySelectedSoulMod cleaner)
+		input.pantheonMajorGodSoul1,
+		input.pantheonMajorGodSoul2,
+		input.pantheonMajorGodSoul3
+	}
+	return pantheonTooltip(modList, build, majorGod, majorGodSouls)
 end
 
 local function banditTooltip(tooltip, mode, index, value)
@@ -171,7 +176,7 @@ return {
 	{ section = "General", col = 1 },
 	{ var = "resistancePenalty", type = "list", label = "Resistance penalty:", list = {{val=0,label="None"},{val=-30,label="Act 5 (-30%)"},{val=-60,label="Act 10 (-60%)"}}, defaultIndex = 3 },
 	{ var = "bandit", type = "list", label = "Bandit quest:", tooltipFunc = banditTooltip, list = {{val="None",label="Kill all"},{val="Oak",label="Help Oak"},{val="Kraityn",label="Help Kraityn"},{val="Alira",label="Help Alira"}} },
-	{ var = "pantheonMajorGod", type = "list", label = "Major God:", tooltip = pantheonTooltip, list = {
+	{ var = "pantheonMajorGod", type = "list", label = "Major God:", tooltip = pantheonMajorGodTooltip, list = {
 		{ label = "Nothing", val = "None" },
 		{ label = "Soul of the Brine King", val = "TheBrineKing" },
 		{ label = "Soul of Lunaris", val = "Lunaris" },
