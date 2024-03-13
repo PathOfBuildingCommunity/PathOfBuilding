@@ -79,6 +79,31 @@ local function pantheonMinorGodTooltip(modList, build)
 	end
 end
 
+local function pantheonSoulToolTip(godSource, soulSource)
+	return function(_, build)
+		local input = build.configTab.input
+		local god = input[godSource]
+		local soulSourceControl = build.configTab.varControls[soulSource]
+		local tooltip = soulSourceControl.tooltip
+		local souls = data.pantheons[god].souls
+		for i, soul in ipairs(souls) do
+			if soul.name == soulSourceControl.label then
+		        tooltip:Clear()
+				local mods = { }
+	
+				for _, mod in ipairs(soul.mods) do
+					table.insert(mods, mod.line)
+				end
+	
+				tooltip:AddLine(20, '^8'..soul.name) --light grey
+				tooltip:AddLine(14, '^6'..table.concat(mods, '\n')) -- electric blue
+				tooltip:AddSeparator(10)
+				return
+	        end
+		end
+	end
+end
+
 local function banditTooltip(tooltip, mode, index, value)
 	local banditBenefits = {
 		["None"] = "Grants 2 Passive Skill Points",
@@ -184,6 +209,7 @@ return {
 	{ section = "General", col = 1 },
 	{ var = "resistancePenalty", type = "list", label = "Resistance penalty:", list = {{val=0,label="None"},{val=-30,label="Act 5 (-30%)"},{val=-60,label="Act 10 (-60%)"}}, defaultIndex = 3 },
 	{ var = "bandit", type = "list", label = "Bandit quest:", tooltipFunc = banditTooltip, list = {{val="None",label="Kill all"},{val="Oak",label="Help Oak"},{val="Kraityn",label="Help Kraityn"},{val="Alira",label="Help Alira"}} },
+	{ label = "Pantheon Gods:" },
 	{ var = "pantheonMajorGod", type = "list", label = "Major God:", tooltip = pantheonMajorGodTooltip, list = {
 		{ label = "Nothing", val = "None" },
 		{ label = "Soul of the Brine King", val = "TheBrineKing" },
@@ -197,9 +223,9 @@ return {
             build.configTab.varControls["pantheonMajorGodSoul"..tostring(i-1)].label = god and god.souls[i].name or tostring(i-1) --soul name if god ~= nil
         end
 	end },
-	{ var = "pantheonMajorGodSoul1", type = "check", label = "1", defaultState = true },
-	{ var = "pantheonMajorGodSoul2", type = "check", label = "2", defaultState = true },
-	{ var = "pantheonMajorGodSoul3", type = "check", label = "3", defaultState = true },
+	{ var = "pantheonMajorGodSoul1", type = "check", label = "1", defaultState = true, defaultHidden = true, tooltip = pantheonSoulToolTip("pantheonMajorGod", "pantheonMajorGodSoul1") },
+	{ var = "pantheonMajorGodSoul2", type = "check", label = "2", defaultState = true, defaultHidden = true, tooltip = pantheonSoulToolTip("pantheonMajorGod", "pantheonMajorGodSoul2") },
+	{ var = "pantheonMajorGodSoul3", type = "check", label = "3", defaultState = true, defaultHidden = true, tooltip = pantheonSoulToolTip("pantheonMajorGod", "pantheonMajorGodSoul3") },
 	{ var = "pantheonMinorGod", type = "list", label = "Minor God:", tooltip = pantheonMinorGodTooltip, list = {
 		{ label = "Nothing", val = "None" },
 		{ label = "Soul of Gruthkul", val = "Gruthkul" },
@@ -215,7 +241,7 @@ return {
 		build.configTab.varControls["pantheonMinorGodSoul1"].shown = val ~= "None"
         build.configTab.varControls["pantheonMinorGodSoul1"].label = god and god.souls[2].name or '1'
 	end  },
-	{ var = "pantheonMinorGodSoul1", type = "check", label = "1", defaultState = true },
+	{ var = "pantheonMinorGodSoul1", type = "check", label = "1", defaultState = true, defaultHidden = true, tooltip = pantheonSoulToolTip("pantheonMinorGod", "pantheonMinorGodSoul1") },
 	{ var = "detonateDeadCorpseLife", type = "count", label = "Enemy Corpse ^xE05030Life:", ifSkillData = "explodeCorpse", tooltip = "Sets the maximum ^xE05030life ^7of the target corpse for Detonate Dead and similar skills.\nFor reference, a level 70 monster has "..data.monsterLifeTable[70].." base ^xE05030life^7, and a level 80 monster has "..data.monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config")
 	end },
