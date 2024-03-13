@@ -49,39 +49,34 @@ local function pantheonTooltip(modList, build, selectedGod, selectedSouls, toolt
 		tooltip:AddLine(14, modColour..table.concat(mods, '\n'))
 		tooltip:AddSeparator(10)
 	end
-	return nil
 end
 
 local function pantheonMajorGodTooltip(modList, build)
 	local input = build.configTab.input
 	local majorGod = input.pantheonMajorGod
-	if majorGod == "None" then
-		return nil --tooltip not generated if god is not selected
+	if majorGod ~= "None" then --tooltip not generated if god is not selected
+		local majorGodSouls = { --table containing selected souls checkboxes state (booleans)
+			true, --forcing to true the major god, since it has been selected for sure (make pantheonTooltip cleaner)
+			input.pantheonMajorGodSoul1,
+			input.pantheonMajorGodSoul2,
+			input.pantheonMajorGodSoul3
+		}
+		local majorGodTooltip = build.configTab.varControls.pantheonMajorGod.tooltip
+		pantheonTooltip(modList, build, majorGod, majorGodSouls, majorGodTooltip)
 	end
-
-	local majorGodSouls = { --table containing selected souls checkboxes state (booleans)
-		true, --forcing to true the major god, since it has been selected for sure (make applySelectedSoulMod cleaner)
-		input.pantheonMajorGodSoul1,
-		input.pantheonMajorGodSoul2,
-		input.pantheonMajorGodSoul3
-	}
-	local majorGodTooltip = build.configTab.varControls.pantheonMajorGod.tooltip
-	return pantheonTooltip(modList, build, majorGod, majorGodSouls, majorGodTooltip)
 end
 
 local function pantheonMinorGodTooltip(modList, build)
 	local input = build.configTab.input
 	local minorGod = input.pantheonMinorGod
-	if minorGod == "None" then
-		return nil
+	if minorGod ~= "None" then
+		local minorGodSouls = {
+			true,
+			input.pantheonMinorGodSoul1
+		}
+		local minorGodTooltip = build.configTab.varControls.pantheonMinorGod.tooltip
+		pantheonTooltip(modList, build, minorGod, minorGodSouls, minorGodTooltip)
 	end
-
-	local minorGodSouls = {
-		true,
-		input.pantheonMinorGodSoul1
-	}
-	local minorGodTooltip = build.configTab.varControls.pantheonMinorGod.tooltip
-	return pantheonTooltip(modList, build, minorGod, minorGodSouls, minorGodTooltip)
 end
 
 local function banditTooltip(tooltip, mode, index, value)
@@ -195,7 +190,13 @@ return {
 		{ label = "Soul of Lunaris", val = "Lunaris" },
 		{ label = "Soul of Solaris", val = "Solaris" },
 		{ label = "Soul of Arakaali", val = "Arakaali" },
-	} },
+	}, apply = function(val, modList, enemyModList, build)
+		local god = data.pantheons[val] --nil if val == "None"
+		for i=2, 4 do
+			build.configTab.varControls["pantheonMajorGodSoul"..tostring(i-1)].shown = val ~= "None" --hide checkbox if "Nothing" is selected
+            build.configTab.varControls["pantheonMajorGodSoul"..tostring(i-1)].label = god and god.souls[i].name or tostring(i-1) --soul name if god ~= nil
+        end
+	end },
 	{ var = "pantheonMajorGodSoul1", type = "check", label = "1", defaultState = true },
 	{ var = "pantheonMajorGodSoul2", type = "check", label = "2", defaultState = true },
 	{ var = "pantheonMajorGodSoul3", type = "check", label = "3", defaultState = true },
@@ -209,7 +210,11 @@ return {
 		{ label = "Soul of Ralakesh", val = "Ralakesh" },
 		{ label = "Soul of Ryslatha", val = "Ryslatha" },
 		{ label = "Soul of Shakari", val = "Shakari" },
-	} },
+	}, apply = function(val, modList, enemyModList, build)
+		local god = data.pantheons[val]
+		build.configTab.varControls["pantheonMinorGodSoul1"].shown = val ~= "None"
+        build.configTab.varControls["pantheonMinorGodSoul1"].label = god and god.souls[2].name or '1'
+	end  },
 	{ var = "pantheonMinorGodSoul1", type = "check", label = "1", defaultState = true },
 	{ var = "detonateDeadCorpseLife", type = "count", label = "Enemy Corpse ^xE05030Life:", ifSkillData = "explodeCorpse", tooltip = "Sets the maximum ^xE05030life ^7of the target corpse for Detonate Dead and similar skills.\nFor reference, a level 70 monster has "..data.monsterLifeTable[70].." base ^xE05030life^7, and a level 80 monster has "..data.monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config")
