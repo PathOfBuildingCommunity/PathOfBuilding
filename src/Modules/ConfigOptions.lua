@@ -38,62 +38,52 @@ local function getHoveredListItemIndex(control) --returns the index of the hover
 	end
 end
 
-local function pantheonGodTooltip(selectedGod, selectedSouls, tooltip)
-	local souls = data.pantheons[selectedGod].souls
+-- draws the tooltip of a single soul if soulSource is given, otherwise draws all souls tooltips
+-- if all tooltips are drawn, the colour of the soul name and its mod depends on selectedSouls, which contains checkboxes state
+local function drawPantheonTooltip(godName, soulName, selectedSouls, tooltip)
+	local souls = data.pantheons[godName].souls
 	for i, soul in ipairs(souls) do
 		local name = soul.name
 		local mods = { }
 		local nameColour, modColour = '^8', '^6' --light grey, electric blue
+		
+		-- if soulName is nil, then this is always true and every soul tooltip is drawn, 
+		-- otherwise only the given soulName tooltip is drawn
+		if (not soulName) or name == soulName then 
+			for _, mod in ipairs(soul.mods) do
+				table.insert(mods, mod.line)
+			end
 
-		for _, mod in ipairs(soul.mods) do
-			table.insert(mods, mod.line)
-		end
+			-- if selectedSouls is nil, this is always false, otherwise
+			-- if the selectedSoul[i] hasn't been captured both the colours will be dark grey
+			if selectedSouls and (not selectedSouls[i]) then 
+				nameColour, modColour = '^9', '^9'
+			end
 
-		if not selectedSouls[i] then --if the selectedSoul[i] hasn't been captured both the colours will be dark grey
-			nameColour, modColour = '^9', '^9'
-		end
+			tooltip:AddLine(20, nameColour..name)
+			tooltip:AddLine(14, modColour..table.concat(mods, '\n'))
+			tooltip:AddSeparator(10)
 
-		tooltip:AddLine(20, nameColour..name)
-		tooltip:AddLine(14, modColour..table.concat(mods, '\n'))
-		tooltip:AddSeparator(10)
-	end
-end
-
-local function pantheonTooltip(godSource)
-	return function(_, build)
-		local input = build.configTab.input
-		local godControl = build.configTab.varControls[godSource]
-		local index = getHoveredListItemIndex(godControl)
-		local god = godControl.list[index]
-		godControl.tooltip:Clear()
-		if god and god.val ~= "None" then --tooltip not generated if god is not selected
-			local godSouls = pantheon.getGodSouls(input, godSource, god.val)
-			pantheonGodTooltip(god.val, godSouls, godControl.tooltip)
+			if soulName then 
+				return --if soulName is not nil, the function end as soon as the given soulName tooltip has been drawn
+			end
 		end
 	end
 end
 
-local function pantheonSoulToolTip(godSource, soulSource)
+-- handles the tooltip of a single soul if soulSource is given, otherwise handles all souls tooltips
+local function pantheonTooltip(godSource, soulSource)
 	return function(_, build)
 		local input = build.configTab.input
-		local god = input[godSource]
-		local soulSourceControl = build.configTab.varControls[soulSource]
-		local tooltip = soulSourceControl.tooltip
-		local souls = data.pantheons[god].souls
-		for i, soul in ipairs(souls) do
-			if soul.name == soulSourceControl.label then
-		        tooltip:Clear()
-				local mods = { }
-	
-				for _, mod in ipairs(soul.mods) do
-					table.insert(mods, mod.line)
-				end
-	
-				tooltip:AddLine(20, '^8'..soul.name) --light grey
-				tooltip:AddLine(14, '^6'..table.concat(mods, '\n')) -- electric blue
-				tooltip:AddSeparator(10)
-				return
-	        end
+		local control = soulSource and build.configTab.varControls[soulSource] or build.configTab.varControls[godSource]
+		local index = (not soulSource) and getHoveredListItemIndex(control)
+		local godName = index and control.list[index].val or input[godSource]
+		local soulName = soulSource and control.label
+		local tooltip = control.tooltip
+		tooltip:Clear()
+		if godName ~= "None" then --tooltip not generated if god is not selected
+			local godSouls = (not soulSource) and pantheon.getGodSouls(input, godSource, godName)
+			drawPantheonTooltip(godName, soulName, godSouls, tooltip)
 		end
 	end
 end
@@ -217,9 +207,9 @@ return {
             build.configTab.varControls["pantheonMajorGodSoul"..tostring(i-1)].label = god and god.souls[i].name or tostring(i-1) --soul name if god ~= nil
         end
 	end },
-	{ var = "pantheonMajorGodSoul1", type = "check", label = "1", defaultState = true, defaultHidden = true, tooltip = pantheonSoulToolTip("pantheonMajorGod", "pantheonMajorGodSoul1") },
-	{ var = "pantheonMajorGodSoul2", type = "check", label = "2", defaultState = true, defaultHidden = true, tooltip = pantheonSoulToolTip("pantheonMajorGod", "pantheonMajorGodSoul2") },
-	{ var = "pantheonMajorGodSoul3", type = "check", label = "3", defaultState = true, defaultHidden = true, tooltip = pantheonSoulToolTip("pantheonMajorGod", "pantheonMajorGodSoul3") },
+	{ var = "pantheonMajorGodSoul1", type = "check", label = "1", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul1") },
+	{ var = "pantheonMajorGodSoul2", type = "check", label = "2", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul2") },
+	{ var = "pantheonMajorGodSoul3", type = "check", label = "3", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul3") },
 	{ var = "pantheonMinorGod", type = "list", label = "Minor God:", tooltip = pantheonTooltip("pantheonMinorGod"), list = {
 		{ label = "Nothing", val = "None" },
 		{ label = "Soul of Gruthkul", val = "Gruthkul" },
@@ -235,7 +225,7 @@ return {
 		build.configTab.varControls["pantheonMinorGodSoul1"].shown = val ~= "None"
         build.configTab.varControls["pantheonMinorGodSoul1"].label = god and god.souls[2].name or '1'
 	end  },
-	{ var = "pantheonMinorGodSoul1", type = "check", label = "1", defaultState = true, defaultHidden = true, tooltip = pantheonSoulToolTip("pantheonMinorGod", "pantheonMinorGodSoul1") },
+	{ var = "pantheonMinorGodSoul1", type = "check", label = "1", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMinorGod", "pantheonMinorGodSoul1") },
 	{ var = "detonateDeadCorpseLife", type = "count", label = "Enemy Corpse ^xE05030Life:", ifSkillData = "explodeCorpse", tooltip = "Sets the maximum ^xE05030life ^7of the target corpse for Detonate Dead and similar skills.\nFor reference, a level 70 monster has "..data.monsterLifeTable[70].." base ^xE05030life^7, and a level 80 monster has "..data.monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config")
 	end },
