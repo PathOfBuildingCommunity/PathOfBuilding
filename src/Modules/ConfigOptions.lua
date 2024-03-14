@@ -30,7 +30,6 @@ local function applyPantheonDescription(tooltip, mode, index, value)
 end
 
 local function pantheonTooltip(modList, build, selectedGod, selectedSouls, tooltip)
-	tooltip:Clear()
 	local souls = data.pantheons[selectedGod].souls
 	for i, soul in ipairs(souls) do
 		local name = soul.name
@@ -53,29 +52,45 @@ end
 
 local function pantheonMajorGodTooltip(modList, build)
 	local input = build.configTab.input
-	local majorGod = input.pantheonMajorGod
-	if majorGod ~= "None" then --tooltip not generated if god is not selected
+	local majorGodControl = build.configTab.varControls.pantheonMajorGod
+	local mOver, mOverComp = majorGodControl:IsMouseOver()
+	local index
+	if mOver and mOverComp ~= "DROP" then
+		index = majorGodControl.selIndex
+	elseif mOver and majorGodControl.dropped and majorGodControl.hoverSel then
+		index = majorGodControl.hoverSel
+	end
+	local majorGod = majorGodControl.list[index]
+	majorGodControl.tooltip:Clear()
+	if majorGod and majorGod.val ~= "None" then --tooltip not generated if god is not selected
 		local majorGodSouls = { --table containing selected souls checkboxes state (booleans)
 			true, --forcing to true the major god, since it has been selected for sure (make pantheonTooltip cleaner)
 			input.pantheonMajorGodSoul1,
 			input.pantheonMajorGodSoul2,
 			input.pantheonMajorGodSoul3
 		}
-		local majorGodTooltip = build.configTab.varControls.pantheonMajorGod.tooltip
-		pantheonTooltip(modList, build, majorGod, majorGodSouls, majorGodTooltip)
+		pantheonTooltip(modList, build, majorGod.val, majorGodSouls, majorGodControl.tooltip)
 	end
 end
 
 local function pantheonMinorGodTooltip(modList, build)
 	local input = build.configTab.input
-	local minorGod = input.pantheonMinorGod
-	if minorGod ~= "None" then
+	local minorGodControl = build.configTab.varControls.pantheonMinorGod
+	local mOver, mOverComp = minorGodControl:IsMouseOver()
+	local index
+	if mOver and mOverComp ~= "DROP" then
+		index = minorGodControl.selIndex
+	elseif mOver and minorGodControl.dropped and minorGodControl.hoverSel then
+		index = minorGodControl.hoverSel
+	end
+	local minorGod = minorGodControl.list[index]
+	minorGodControl.tooltip:Clear()
+	if minorGod and minorGod.val ~= "None" then
 		local minorGodSouls = {
 			true,
 			input.pantheonMinorGodSoul1
 		}
-		local minorGodTooltip = build.configTab.varControls.pantheonMinorGod.tooltip
-		pantheonTooltip(modList, build, minorGod, minorGodSouls, minorGodTooltip)
+		pantheonTooltip(modList, build, minorGod.val, minorGodSouls, minorGodControl.tooltip)
 	end
 end
 
