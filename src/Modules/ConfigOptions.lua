@@ -29,7 +29,16 @@ local function applyPantheonDescription(tooltip, mode, index, value)
 	end
 end
 
-local function pantheonTooltip(modList, build, selectedGod, selectedSouls, tooltip)
+local function getHoveredListItemIndex(control) --returns the index of the hovered item of a list
+	local mOver, mOverComp = control:IsMouseOver()
+	if mOver and mOverComp ~= "DROP" then 
+		return control.selIndex -- index of the selected item of a list (when the list is closed)
+	elseif mOver and control.dropped and control.hoverSel then
+		return control.hoverSel -- index of the hovered item of a list (when the list is opened) 
+	end
+end
+
+local function pantheonGodTooltip(selectedGod, selectedSouls, tooltip)
 	local souls = data.pantheons[selectedGod].souls
 	for i, soul in ipairs(souls) do
 		local name = soul.name
@@ -50,47 +59,17 @@ local function pantheonTooltip(modList, build, selectedGod, selectedSouls, toolt
 	end
 end
 
-local function pantheonMajorGodTooltip(modList, build)
-	local input = build.configTab.input
-	local majorGodControl = build.configTab.varControls.pantheonMajorGod
-	local mOver, mOverComp = majorGodControl:IsMouseOver()
-	local index
-	if mOver and mOverComp ~= "DROP" then
-		index = majorGodControl.selIndex
-	elseif mOver and majorGodControl.dropped and majorGodControl.hoverSel then
-		index = majorGodControl.hoverSel
-	end
-	local majorGod = majorGodControl.list[index]
-	majorGodControl.tooltip:Clear()
-	if majorGod and majorGod.val ~= "None" then --tooltip not generated if god is not selected
-		local majorGodSouls = { --table containing selected souls checkboxes state (booleans)
-			true, --forcing to true the major god, since it has been selected for sure (make pantheonTooltip cleaner)
-			input.pantheonMajorGodSoul1,
-			input.pantheonMajorGodSoul2,
-			input.pantheonMajorGodSoul3
-		}
-		pantheonTooltip(modList, build, majorGod.val, majorGodSouls, majorGodControl.tooltip)
-	end
-end
-
-local function pantheonMinorGodTooltip(modList, build)
-	local input = build.configTab.input
-	local minorGodControl = build.configTab.varControls.pantheonMinorGod
-	local mOver, mOverComp = minorGodControl:IsMouseOver()
-	local index
-	if mOver and mOverComp ~= "DROP" then
-		index = minorGodControl.selIndex
-	elseif mOver and minorGodControl.dropped and minorGodControl.hoverSel then
-		index = minorGodControl.hoverSel
-	end
-	local minorGod = minorGodControl.list[index]
-	minorGodControl.tooltip:Clear()
-	if minorGod and minorGod.val ~= "None" then
-		local minorGodSouls = {
-			true,
-			input.pantheonMinorGodSoul1
-		}
-		pantheonTooltip(modList, build, minorGod.val, minorGodSouls, minorGodControl.tooltip)
+local function pantheonTooltip(godSource)
+	return function(_, build)
+		local input = build.configTab.input
+		local godControl = build.configTab.varControls[godSource]
+		local index = getHoveredListItemIndex(godControl)
+		local god = godControl.list[index]
+		godControl.tooltip:Clear()
+		if god and god.val ~= "None" then --tooltip not generated if god is not selected
+			local godSouls = pantheon.getGodSouls(input, godSource, god.val)
+			pantheonGodTooltip(god.val, godSouls, godControl.tooltip)
+		end
 	end
 end
 
@@ -225,7 +204,7 @@ return {
 	{ var = "resistancePenalty", type = "list", label = "Resistance penalty:", list = {{val=0,label="None"},{val=-30,label="Act 5 (-30%)"},{val=-60,label="Act 10 (-60%)"}}, defaultIndex = 3 },
 	{ var = "bandit", type = "list", label = "Bandit quest:", tooltipFunc = banditTooltip, list = {{val="None",label="Kill all"},{val="Oak",label="Help Oak"},{val="Kraityn",label="Help Kraityn"},{val="Alira",label="Help Alira"}} },
 	{ label = "Pantheon Gods:" },
-	{ var = "pantheonMajorGod", type = "list", label = "Major God:", tooltip = pantheonMajorGodTooltip, list = {
+	{ var = "pantheonMajorGod", type = "list", label = "Major God:", tooltip = pantheonTooltip("pantheonMajorGod"), list = {
 		{ label = "Nothing", val = "None" },
 		{ label = "Soul of the Brine King", val = "TheBrineKing" },
 		{ label = "Soul of Lunaris", val = "Lunaris" },
@@ -241,7 +220,7 @@ return {
 	{ var = "pantheonMajorGodSoul1", type = "check", label = "1", defaultState = true, defaultHidden = true, tooltip = pantheonSoulToolTip("pantheonMajorGod", "pantheonMajorGodSoul1") },
 	{ var = "pantheonMajorGodSoul2", type = "check", label = "2", defaultState = true, defaultHidden = true, tooltip = pantheonSoulToolTip("pantheonMajorGod", "pantheonMajorGodSoul2") },
 	{ var = "pantheonMajorGodSoul3", type = "check", label = "3", defaultState = true, defaultHidden = true, tooltip = pantheonSoulToolTip("pantheonMajorGod", "pantheonMajorGodSoul3") },
-	{ var = "pantheonMinorGod", type = "list", label = "Minor God:", tooltip = pantheonMinorGodTooltip, list = {
+	{ var = "pantheonMinorGod", type = "list", label = "Minor God:", tooltip = pantheonTooltip("pantheonMinorGod"), list = {
 		{ label = "Nothing", val = "None" },
 		{ label = "Soul of Gruthkul", val = "Gruthkul" },
 		{ label = "Soul of Yugul", val = "Yugul" },

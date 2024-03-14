@@ -526,23 +526,17 @@ function calcs.initEnv(build, mode, override, specEnv)
 		-- Add Pantheon mods
 		local parser = modLib.parseMod
 		-- Major Gods
-		if env.configInput.pantheonMajorGod ~= "None" then
-			local majorGod = env.data.pantheons[env.configInput.pantheonMajorGod]
-			local majorGodSouls = { --table containing selected souls checkboxes state (booleans)
-				true, --forcing to true the major god, since it has been selected for sure (make applySelectedSoulMod cleaner)
-				env.configInput.pantheonMajorGodSoul1,
-				env.configInput.pantheonMajorGodSoul2,
-				env.configInput.pantheonMajorGodSoul3
-			}
+		local majorGodName = env.configInput.pantheonMajorGod
+		if majorGodName ~= "None" then
+			local majorGod = env.data.pantheons[majorGodName]
+			local majorGodSouls = pantheon.getGodSouls(env.configInput, "pantheonMajorGod", majorGodName)
 			pantheon.applySelectedSoulMod(modDB, parser, majorGod, majorGodSouls)
 		end
 		-- Minor Gods
-		if env.configInput.pantheonMinorGod ~= "None" then
-			local minorGod = env.data.pantheons[env.configInput.pantheonMinorGod]
-			local minorGodSouls = { 
-				true, 
-				env.configInput.pantheonMinorGodSoul1
-			}
+		local minorGodName = env.configInput.pantheonMinorGod
+		if minorGodName ~= "None" then
+			local minorGod = env.data.pantheons[minorGodName]
+			local minorGodSouls = pantheon.getGodSouls(env.configInput, "pantheonMinorGod", minorGodName)
 			pantheon.applySelectedSoulMod(modDB, parser, minorGod, minorGodSouls)
 		end
 
