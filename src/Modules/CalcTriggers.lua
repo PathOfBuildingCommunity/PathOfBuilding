@@ -1226,7 +1226,11 @@ local configTable = {
 				end
 			else
 				-- Snipe is being used as a trigger source, it triggers other skills but does no damage it self
-				env.player.mainSkill.skillData.baseMultiplier = 0
+				env.player.mainSkill.skillModList:NewMod("DealNoLightning", "FLAG", true, { type = "SkillName", skillName = "Snipe", includeTransfigured = true })
+				env.player.mainSkill.skillModList:NewMod("DealNoCold", "FLAG", true, { type = "SkillName", skillName = "Snipe", includeTransfigured = true })
+				env.player.mainSkill.skillModList:NewMod("DealNoFire", "FLAG", true, { type = "SkillName", skillName = "Snipe", includeTransfigured = true })
+				env.player.mainSkill.skillModList:NewMod("DealNoChaos", "FLAG", true, { type = "SkillName", skillName = "Snipe", includeTransfigured = true })
+				env.player.mainSkill.skillModList:NewMod("DealNoPhysical", "FLAG", true, { type = "SkillName", skillName = "Snipe", includeTransfigured = true })
 			end
 		else
 			-- Does snipe have enough stages to trigger this skill?
