@@ -1192,18 +1192,10 @@ local configTable = {
 		local snipeHitMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeHitMulti")
 		local snipeAilmentMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeAilmentMulti")
 		local triggeredSkills = {}
-		local currentSkillSnipeIndex
 
 		for _, skill in ipairs(env.player.activeSkillList) do
 			if skill.skillData.triggeredBySnipe and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
 				t_insert(triggeredSkills, skill)
-			end
-		end
-
-		for index, skill in ipairs(triggeredSkills) do
-			if skill == env.player.mainSkill then
-				currentSkillSnipeIndex = index
-				break
 			end
 		end
 
@@ -1226,11 +1218,19 @@ local configTable = {
 				env.player.mainSkill.skillData.baseMultiplier = 0
 			end
 		else
-			local source
-			local trigRate
-			local mode = env.mode == "CALCS" and "CALCS" or "MAIN"
+			local currentSkillSnipeIndex
+			for index, skill in ipairs(triggeredSkills) do
+				if skill == env.player.mainSkill then
+					currentSkillSnipeIndex = index
+					break
+				end
+			end
+
 			-- Does snipe have enough stages to trigger this skill?
 			if currentSkillSnipeIndex and currentSkillSnipeIndex <= snipeStages then
+				local source
+				local trigRate
+				local mode = env.mode == "CALCS" and "CALCS" or "MAIN"
 				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeHitMulti * snipeStages , "Snipe", ModFlag.Hit, 0)
 				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeAilmentMulti * snipeStages , "Snipe", ModFlag.Ailment, 0)
 				for _, skill in ipairs(env.player.activeSkillList) do
