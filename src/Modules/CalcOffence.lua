@@ -388,12 +388,15 @@ function calcs.offence(env, actor, activeSkill)
 					-- Calculate the modified radius for each base radius
 					local sumOfRandomRadii = 0
 					local radiusForBaseRadius = {}
+					local radiiOccurrences = {}
 					for adjustedBaseRadius, occurrenceCount in pairs(baseRadiiOccurrences) do
 						local radiusForDeviation = calcRadius(adjustedBaseRadius, output.AreaOfEffectModTertiary)
 						radiusForBaseRadius[adjustedBaseRadius] = radiusForDeviation
 						sumOfRandomRadii = sumOfRandomRadii + radiusForDeviation * occurrenceCount
+						radiiOccurrences[radiusForDeviation] = occurrenceCount
 					end
 					output.AreaOfEffectRadiusTertiary = sumOfRandomRadii / marginWidth
+					output.AreaOfEffectRadiusTertiaryOccurrences = radiiOccurrences
 					if breakdown then
 						local out = {}
 						local incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary = math.huge, math.huge, math.huge, math.huge

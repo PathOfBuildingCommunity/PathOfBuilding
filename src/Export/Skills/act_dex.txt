@@ -1330,9 +1330,12 @@ local skills, mod, flag, skill = ...
 			return math.min(damagingAreaRadius * damagingAreaRadius / (areaSpreadRadius * areaSpreadRadius), 1)
 		end
 		local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
-		local waveRadius = output.AreaOfEffectRadiusTertiary
 		local fullRadius = output.AreaOfEffectRadiusSecondary
-		local overlapChance = hitChance(enemyRadius, waveRadius, fullRadius)
+		local overlapChance = 0
+		local marginWidth = skillData.radiusTertiaryBaseMargin * 2 + 1
+		for smallRadius, occurrenceCount in pairs(output.AreaOfEffectRadiusTertiaryOccurrences) do
+			overlapChance = overlapChance + hitChance(enemyRadius, smallRadius, fullRadius) * occurrenceCount / marginWidth
+		end
 		output.OverlapChance = overlapChance * 100
 		local smallExplosionsPerTrap = skillModList:Sum("BASE", skillCfg, "SmallExplosions")
 		output.SmallExplosionsPerTrap = smallExplosionsPerTrap
@@ -1341,8 +1344,11 @@ local skills, mod, flag, skill = ...
 			t_insert(breakdown.OverlapChance, "Chance for individual small explosion to land within range to damage enemy:")
 			t_insert(breakdown.OverlapChance, "^8= (area where a small explosion can spawn to damage enemy) / (total area)")
 			t_insert(breakdown.OverlapChance, "^8= (^7tertiary radius^8 + ^7enemy radius^8 - 1) ^ 2 / ^7secondary radius^8 ^ 2")
-			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2", waveRadius, enemyRadius, fullRadius))
-			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.3f^8%%", overlapChance * 100))
+			t_insert(breakdown.OverlapChance, "^8Result is the weighted sum of overlap chances for each possible tertiary radius")
+			for smallRadius, occurrenceCount in pairs(output.AreaOfEffectRadiusTertiaryOccurrences) do
+				t_insert(breakdown.OverlapChance, s_format("^8(^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2 * ^7%d^8/^7%d^8 +", smallRadius, enemyRadius, fullRadius, occurrenceCount, marginWidth))
+			end
+			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.3f^8%%", output.OverlapChance))
 		end
 		local dpsMultiplier = 1
 		if skillPart == 2 then
