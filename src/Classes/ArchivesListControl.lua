@@ -464,12 +464,15 @@ function ArchivesListClass:GetBuilds()
 			return
 		end
 
+
 		for _, value in pairs(obj.builds) do
 			local build = {}
 			build.buildName = value.build_info.title
 			build.author = value.build_info.author
 			build.mainSkill = value.build_info.mainSkill
-			build.ascendancy = value.build_info.ascendancy
+			if value.build_info.ascendancy ~= "None" then
+				build.ascendancy = value.build_info.ascendancy
+			end
 			build.short_uuid = value.build_info.short_uuid
 			build.build_link = value.build_info.build_link
 			build.ehp = value.stats.TotalEHP
