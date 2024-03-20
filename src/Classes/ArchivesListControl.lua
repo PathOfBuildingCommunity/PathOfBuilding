@@ -53,22 +53,24 @@ local ArchivesListClass = newClass("ArchivesListControl", "ControlHost", "Contro
 			self.controls.latest.x = function()
 				return -self.width() / 2 + 30
 			end
-			self.controls.trending = new("ButtonControl", { "LEFT", self.controls.latest, "RIGHT" }, 0, 0, 80, 20, "Trending", function()
-				if not self.mode ~= "trending" then
-					self.mode = "trending"
-					self:GetBuilds()
-					self.controls.latest.enabled = true
-					self.controls.trending.enabled = false
-				end
-			end)
+			self.controls.trending = new("ButtonControl", { "LEFT", self.controls.latest, "RIGHT" }, 0, 0, 80, 20,
+				"Trending", function()
+					if not self.mode ~= "trending" then
+						self.mode = "trending"
+						self:GetBuilds()
+						self.controls.latest.enabled = true
+						self.controls.trending.enabled = false
+					end
+				end)
 			self.controls.trending.enabled = self.mode ~= "trending"
 		end
-		self.controls.all = new("ButtonControl", { "BOTTOM", self, "BOTTOM" }, 0, 1, self.width, 20, "See All", function()
-			local url = self:GetPageUrl()
-			if url then
-				OpenURL(url)
-			end
-		end)
+		self.controls.all = new("ButtonControl", { "BOTTOM", self, "BOTTOM" }, 0, 1, self.width, 20, "See All",
+			function()
+				local url = self:GetPageUrl()
+				if url then
+					OpenURL(url)
+				end
+			end)
 	end)
 
 function ArchivesListClass:IsMouseOver()
@@ -306,11 +308,18 @@ function ArchivesListClass:Draw(viewPort, noTooltip)
 				self:DrawImage(image, x + self.width() - 114, currentHeight, 80, 80)
 			end
 
+			local lineCount = 0
 			if build.buildName then
 				for _, line in pairs(self:splitStringByWidth(build.buildName, self.width() - 125)) do
+					lineCount = lineCount + 1
 					self:DrawString(x, currentHeight, "LEFT", 16, self.font, line)
 					currentHeight = currentHeight + 16
 				end
+			end
+			-- add at least 32 height to title row so that the ascendancy picture
+			-- does not overlap with other lines
+			if lineCount < 2 then
+				currentHeight = currentHeight + (16 * (2 - lineCount))
 			end
 
 			-- decorator line
@@ -335,6 +344,20 @@ function ArchivesListClass:Draw(viewPort, noTooltip)
 			currentHeight = currentHeight + 8
 			SetDrawColor(1, 1, 1)
 
+			-- author
+			if build.author then
+				self:DrawString(x, currentHeight, "LEFT", 14, self.font, s_format('%s', build.author))
+			end
+
+
+			currentHeight = currentHeight + 20
+
+			-- decorator line
+			SetDrawColor(0.5, 0.5, 0.5)
+			self:DrawImage(nil, x - 10, currentHeight, self.width(), 1)
+			currentHeight = currentHeight + 8
+			SetDrawColor(1, 1, 1)
+
 			-- stats
 			if build.dps then
 				-- SetDrawColor(1, 0, 0)
@@ -342,32 +365,19 @@ function ArchivesListClass:Draw(viewPort, noTooltip)
 			end
 			if build.life then
 				-- SetDrawColor(0, 1, 0)
-				self:DrawString(x + (self.width() - 100) / 3, currentHeight, "LEFT", 14, self.font,
+				self:DrawString(x + (self.width()) / 3, currentHeight, "LEFT", 14, self.font,
 					s_format('Life: %0.f', build.life))
 			else
 				if build.es then
 					-- SetDrawColor(0, 1, 0)
-					self:DrawString(x + (self.width() - 100) / 3, currentHeight, "LEFT", 14, self.font,
+					self:DrawString(x + (self.width()) / 3, currentHeight, "LEFT", 14, self.font,
 						s_format('ES: %0.f', build.es))
 				end
 			end
 			if build.ehp then
 				-- SetDrawColor(0, 0, 1)
-				self:DrawString(x + 2 * (self.width() - 100) / 3, currentHeight, "LEFT", 14, self.font,
+				self:DrawString(x + 2 * (self.width()) / 3, currentHeight, "LEFT", 14, self.font,
 					s_format('EHP: %0.f', build.ehp))
-			end
-
-			currentHeight = currentHeight + 20
-
-			-- decorator line
-			SetDrawColor(0.5, 0.5, 0.5)
-			self:DrawImage(nil, x - 10, currentHeight, self.width() - 115, 1)
-			currentHeight = currentHeight + 8
-			SetDrawColor(1, 1, 1)
-
-			-- author
-			if build.author then
-				self:DrawString(x, currentHeight, "LEFT", 14, self.font, s_format('%s', build.author))
 			end
 
 			currentHeight = currentHeight + 20
