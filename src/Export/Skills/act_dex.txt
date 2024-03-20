@@ -1345,8 +1345,15 @@ local skills, mod, flag, skill = ...
 			t_insert(breakdown.OverlapChance, "^8= (area where a small explosion can spawn to damage enemy) / (total area)")
 			t_insert(breakdown.OverlapChance, "^8= (^7tertiary radius^8 + ^7enemy radius^8 - 1) ^ 2 / ^7secondary radius^8 ^ 2")
 			t_insert(breakdown.OverlapChance, "^8Result is the weighted sum of overlap chances for each possible tertiary radius")
-			for smallRadius, occurrenceCount in pairs(output.AreaOfEffectRadiusTertiaryOccurrences) do
-				t_insert(breakdown.OverlapChance, s_format("^8(^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2 * ^7%d^8/^7%d^8 +", smallRadius, enemyRadius, fullRadius, occurrenceCount, marginWidth))
+			local radii = {}
+			for radius in pairs(output.AreaOfEffectRadiusTertiaryOccurrences) do
+				t_insert(radii, radius)
+			end
+			table.sort(radii)
+			for i, smallRadius in ipairs(radii) do
+				t_insert(breakdown.OverlapChance, s_format("^8(^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2 *^7 %d/%d" ..
+						(i == #radii and "" or " ^8+"),
+						smallRadius, enemyRadius, fullRadius, output.AreaOfEffectRadiusTertiaryOccurrences[smallRadius], marginWidth))
 			end
 			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.3f^8%%", output.OverlapChance))
 		end
