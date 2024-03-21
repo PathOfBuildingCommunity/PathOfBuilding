@@ -58,10 +58,10 @@ Implicits: 2
 {variant:1,2}(30-50)% increased Mana Regeneration Rate
 {variant:1,2}When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage
 {variant:1,2}equal to 25% of Sacrificed Mana for 4 seconds
-{variant:3}+(17-17) to maximum Mana 
-{variant:3}(3-3)% Increased Mana Regeneration Rate
-{variant:3}Gain 99 Mana per Enemy Killed
-{variant:3}(81-81)% Increased Mana Recovery from Flasks
+{variant:3}+(1-100) to maximum Mana 
+{variant:3}(1-100)% Increased Mana Regeneration Rate
+{variant:3}Gain (1-100) Mana per Enemy Killed
+{variant:3}(1-100)% Increased Mana Recovery from Flasks
 {variant:3}When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage
 {variant:3}equal to 50% of Sacrificed Mana for 4 seconds
 ]],[[
@@ -71,7 +71,8 @@ Variant: Pre 3.19.0
 Variant: Pre 3.24.0
 Variant: Current
 Requires Level: 34, 73 Int
-+2 to Level of Socketed Minion Gems
+{variant:1,2}+2 to Level of Socketed Minion Gems
+{variant:3}+(1-2) to Level of Socketed Minion Gems
 (120-150)% increased Energy Shield
 {variant:1}Minions Regenerate 1% Life per second
 {variant:1}+1000 to Spectre maximum Life
