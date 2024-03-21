@@ -233,6 +233,16 @@ Requires Level 20, 46 Dex
 {variant:3}Gain 100% of Cold Damage as Extra Fire Damage against Frozen Enemies
 {variant:4}Gain 30% of Cold Damage as Extra Fire Damage against Frozen Enemies
 ]],[[
+Replica Heatshiver
+Leather Hood
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+(80–100)% increased Evasion Rating
+60% increased Mana Regeneration Rate
++(20–30)% to Cold Resistance
++(20–30)% to Lightning Resistance
+Gain 1% of Lightning Damage as Extra Cold Damage per 2% Shock Effect on Enemy
+]],[[
 Frostferno
 Leather Hood
 Source: No longer obtainable
@@ -687,18 +697,6 @@ Requires Level 59, 122 Int
 Cannot inflict Shock
 {variant:1}10% increased Elemental Damage per Sextant affecting the area
 ]],[[
-Wraithlord
-Bone Circlet
-Variant: Pre 3.19.0
-Variant: Current
-Requires Level: 34, 73 Int
-+2 to Level of Socketed Minion Gems
-(120-150)% increased Energy Shield
-{variant:1}Minions Regenerate 1% Life per second
-{variant:1}+1000 to Spectre maximum Life
-{variant:2}+2 to maximum number of Spectres
-{variant:2}You cannot have Non-Spectre Minions
-]],[[
 Wreath of Phrecia
 Iron Circlet
 League: Legion
@@ -869,6 +867,16 @@ League: Crucible
 (15-25)% increased Rarity of Items found
 Has a Crucible Passive Skill Tree
 Crucible Passive Skill Tree is removed if this Modifier is removed
+]],[[
+The Trickster's Smile
+Visored Sallet
+League: Affliction
+Requires Level 23, 28 Str, 28 Dex
+(60-100)% increased Armour and Evasion
+Reflects 100 Cold Damage to Melee Attackers
+Reflects 100 Fire Damage to Melee Attackers
+Reflects 100 Lightning Damage to Melee Attackers
+When an Enemy Hit deals Elemental Damage to you, their Resistance to those Elements becomes zero for 4 seconds
 ]],
 -- Helmet: Armour/Energy Shield
 [[

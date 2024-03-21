@@ -520,6 +520,26 @@ Implicits: 1
 Minions have 10% increased Area of Effect
 {tags:physical_damage}350 Physical Damage taken on Minion Death
 ]],[[
+Ixchel's Temptation
+Gold Ring
+League: Affliction
+Requires Level 20
+Implicits: 1
+(6-15)% increased Rarity of Items found
+{tags:jewellery_attribute}+(10-15) to all Attributes
+{tags:attack,chaos_damage}Adds (7-10) to (15-18) Chaos Damage to Attacks
+{tags:caster,jewellery_elemental}Adds (9-12) to (19-22) Fire Damage to Spells
+{tags:jewellery_defense}+(80-100) to Armour
+{tags:jewellery_defense}+(80-100) to Evasion Rating
+{tags:jewellery_defense}+(30-35) to maximum Energy Shield
+{tags:life}+(25-30) to maximum Life
+{tags:critical}+(15-20)% to Global Critical Strike Multiplier
+{tags:mana}+(20-25) to maximum Mana
+{tags:jewellery_resistance}+(8-10)% to all Elemental Resistances
+{tags:attack,caster,speed}(6-8)% increased Attack and Cast Speed
+Maximum Quality is 200%
+Corrupted
+]],[[
 Anathema
 Moonstone Ring
 LevelReq: 49

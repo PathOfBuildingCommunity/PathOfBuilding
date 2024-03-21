@@ -1390,6 +1390,13 @@ Source: Use currency{Vaal Orb} on normal{Crimson Jewel}
 -1 to Maximum Endurance Charges
 Corrupted
 ]],[[
+Replica Fragility
+Crimson Jewel
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Lose an Endurance Charge each second
+Corrupted
+]],[[
 Healthy Mind
 Cobalt Jewel
 Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
@@ -1440,10 +1447,24 @@ Viridian Jewel
 Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 Corrupted
 ]],[[
+Replica Pacifism
+Viridian Jewel
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Lose a Frenzy Charge each second
+Corrupted
+]],[[
 Powerlessness
 Cobalt Jewel
 Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 -1 to Maximum Power Charges
+Corrupted
+]],[[
+Replica Powerlessness
+Cobalt Jewel
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Lose a Power Charge each second
 Corrupted
 ]],[[
 Quickening Covenant
@@ -1665,6 +1686,11 @@ Limited to: 1
 {variant:1}+0.1 metres to Melee Strike Range
 {variant:2}10% increased Attack Damage
 {variant:2}+0.2 metres to Melee Strike Range
+]],[[
+The Adorned
+Crimson Jewel
+League: Affliction
+(50–150)% increased Effect of Jewel Socket Passive Skills containing Corrupted Magic Jewels
 ]],
 -- Jewel: Labyrinth rewards
 [[

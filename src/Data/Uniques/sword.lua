@@ -655,6 +655,18 @@ Grants 2 Life per Enemy Hit
 {variant:3}(15-20)% chance to Shock
 {variant:3}Herald of Thunder has 50% increased Buff Effect
 ]],[[
+Nametaker
+Graceful Sword
+League: Affliction
+Requires Level 50, 78 Str, 94 Dex
+Implicits: 1
++350 to Accuracy Rating
+(20-40)% increased Critical Strike Chance
+2% of Physical Attack Damage Leeched as Life
+2% of Physical Attack Damage Leeched as Mana
+Hits with this Weapon have +10% to Critical Strike Multiplier per Enemy Power
+5% of Leech from Hits with this Weapon is Instant per Enemy Power
+]],[[
 The Goddess Bound
 Whalebone Rapier
 Variant: Pre 2.2.0

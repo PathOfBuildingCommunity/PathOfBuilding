@@ -712,6 +712,15 @@ Cannot be Frozen
 Gain Adrenaline when you become Flame-Touched
 Lose Adrenaline when you cease to be Flame-Touched
 ]],[[
+Gamblesprint
+Hydrascale Boots
+League: Affliction
+Requires Level 59, 56 Str, 56 Dex
++(30-40) to Dexterity
+(100-150)% increased Armour and Evasion
++(20-40)% to Lightning Resistance
+When Hit, gain a random Movement Speed modifier from 40% reduced to 100% increased until Hit again
+]],[[
 Lioneye's Paws
 Bronzescale Boots
 League: Legion

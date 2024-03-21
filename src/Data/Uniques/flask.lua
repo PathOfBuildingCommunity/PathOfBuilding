@@ -463,6 +463,14 @@ Creates a Smoke Cloud on Use
 {variant:1}(50-70)% increased Damage Over Time during Effect
 {variant:2}(25-40)% increased Damage Over Time during Effect
 Grants Level 21 Despair Curse Aura during Effect
+]],[[
+Replica Witchfire Brew
+Stibnite Flask
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Creates a Smoke Cloud on Use
+(-10–10)% reduced Charges per use
+Grants Level 21 Vulnerability Curse Aura during Effect
 ]],
 -- Flask: Ward
 [[

@@ -218,6 +218,20 @@ League: Blight
 (20-25)% chance to lose a Frenzy Charge when you use a Travel Skill
 (20-25)% chance to lose a Power Charge when you gain Elusive
 Your Maximum Frenzy Charges is equal to your Maximum Power Charges
+]],
+[[
+Replica Badge of the Brotherhood
+Turquoise Amulet
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Requires Level: 60
+Implicits: 1
+{tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
+Your Maximum Endurance Charges is equal to your Maximum Frenzy Charges
+(20-25)% chance to lose a Frenzy Charge when you use a Travel Skill
+(7-10)% increased Cooldown Recovery of Travel Skills per Frenzy Charge
++1 to Maximum Fortification per Endurance Charge
+(20-25)% chance to lose an Endurance Charge when you gain Fortification
 ]],[[
 Bisco's Collar
 Gold Amulet
@@ -342,6 +356,17 @@ Implicits: 1
 {tags:critical}+(30-40)% to Critical Strike Multiplier if you've gained a Power Charge Recently
 {tags:jewellery_elemental}(1-2) to (36-40) Lightning Damage per Power Charge
 90% less Power Charge Duration
+]],[[
+The Untouched Soul
+Gold Amulet
+League: Affliction
+Requires Level 48
+Implicits: 1
+(12-20)% increased Rarity of Items found
+{tags:life}+40 to maximum Life for each Empty Red Socket on any Equipped Item
+{tags:attack}+225 to Accuracy Rating for each Empty Green Socket on any Equipped Item
+{tags:mana}+40 to maximum Mana for each Empty Blue Socket on any Equipped Item
+{tags:jewellery_resistance}+18% to all Elemental Resistances for each Empty White Socket on any Equipped Item
 ]],[[
 Doedre's Tongue
 Lapis Amulet
@@ -558,6 +583,16 @@ Implicits: 1
 {variant:1}(12-20)% chance to Suppress Spell Damage
 {variant:2}Prevent +3% of Suppressed Spell Damage
 Cannot be Blinded
+]],[[
+Replica Hinekora's Sight
+Onyx Amulet
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+{tags:jewellery_attribute}+(10–16) to all Attributes
+{tags:attack}+(600–1000) to Accuracy Rating
+{tags:jewellery_defense}+(600–1000) to Armour
+{tags:jewellery_resistance}+1% to all maximum Elemental Resistances
+You cannot be Maimed
 ]],[[
 Hyrri's Truth
 Jade Amulet
