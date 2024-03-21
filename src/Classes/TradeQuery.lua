@@ -474,14 +474,21 @@ Highest Weight - Displays the order retrieved from trade]]
 		return scrollBarShown
 	end
 
+	local function wipeItemControls()
+		for index, _ in pairs(self.controls) do
+			if index:match("%d") then
+				self.controls[index] = nil
+			end
+		end
+	end
 	self.controls.fullPrice = new("LabelControl", {"BOTTOM", nil, "BOTTOM"}, 0, -row_height - pane_margins_vertical - row_vertical_padding, pane_width - 2 * pane_margins_horizontal, row_height, "")
 	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 	self.controls.close = new("ButtonControl", {"BOTTOM", nil, "BOTTOM"}, 0, -pane_margins_vertical, 90, row_height, "Done", function()
 		GlobalCache.useFullDPS = self.storedGlobalCacheDPSView
 		main:ClosePopup()
 		-- there's a case where if you have a socket(s) allocated, open TradeQuery, close it, dealloc, then open TradeQuery again
-		-- the deallocated socket controls were still showing, so this will give us a clean slate of controls every time
-		wipeTable(self.controls)
+		-- the deallocated socket controls were still showing, so this will remove all dynamically created controls from items
+		wipeItemControls()
 	end)
 
 	self.controls.updateCurrencyConversion = new("ButtonControl", {"BOTTOMLEFT", nil, "BOTTOMLEFT"}, pane_margins_horizontal, -pane_margins_vertical, 240, row_height, "Get Currency Conversion Rates", function()
@@ -495,7 +502,7 @@ Highest Weight - Displays the order retrieved from trade]]
 		self.controls.scrollBar:SetContentDimension(self.pane_height-100, self.effective_rows_height)
 		self.controls.sectionAnchor.y = -self.controls.scrollBar.offset
 	end
-	main:OpenPopup(pane_width, self.pane_height, "Trader", self.controls, nil, nil, "close", scrollBarFunc)
+	main:OpenPopup(pane_width, self.pane_height, "Trader", self.controls, nil, nil, "close", (scrollBarShown and scrollBarFunc or nil))
 end
 
 -- Popup to set stat weight multipliers for sorting

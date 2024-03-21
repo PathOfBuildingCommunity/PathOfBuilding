@@ -1080,7 +1080,7 @@ local configTable = {
 	["cast when stunned"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
 		return {triggerChance =  env.player.mainSkill.skillData.chanceToTriggerOnStun,
-				triggeredSkillCond = function(env, skill) return skill.skillData.chanceToTriggerOnStun and slotMatch(env, skill) end}
+				source = env.player.mainSkill}
 	end,
 	["spellslinger"] = function()
 		return {triggerName = "Spellslinger",

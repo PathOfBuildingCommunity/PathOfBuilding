@@ -364,7 +364,7 @@ Implicits: 2
 (10-20)% increased Attack Speed
 +(80-100) to maximum Mana
 Hits can't be Evaded
-{variant:4,5}Far Shot
+{variant:4,5,6}Far Shot
 ]],[[
 Null's Inclination
 Ranger Bow
