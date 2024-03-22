@@ -1377,35 +1377,73 @@ function buildMode:AddDisplayStatList(statList, actor)
 					if statData.stat == "SkillDPS" then
 						labelColor = colorCodes.CUSTOM
 						table.sort(actor.output.SkillDPS, function(a,b) return (a.dps * a.count) > (b.dps * b.count) end)
-						for _, skillData in ipairs(actor.output.SkillDPS) do
-							local triggerStr = ""
-							if skillData.trigger and skillData.trigger ~= "" then
-								triggerStr = colorCodes.WARNING.." ("..skillData.trigger..")"..labelColor
-							end
-							local lhsString = labelColor..skillData.name..triggerStr..":"
-							if skillData.count >= 2 then
-								lhsString = labelColor..tostring(skillData.count).."x "..skillData.name..triggerStr..":"
-							end
-							t_insert(statBoxList, {
-								height = 16,
-								lhsString,
-								self:FormatStat({fmt = "1.f"}, skillData.dps * skillData.count, overCapStatVal),
-							})
-							if skillData.skillPart then
-								t_insert(statBoxList, {
-									height = 14,
-									align = "CENTER_X", x = 140,
-									"^8"..skillData.skillPart,
-								})
-							end
-							if skillData.source then
-								t_insert(statBoxList, {
-									height = 14,
-									align = "CENTER_X", x = 140,
-									colorCodes.WARNING.."from " ..skillData.source,
-								})
-							end
-						end
+                        separator = false
+                        for indexSDPS, skillData in ipairs(actor.output.SkillDPS) do
+
+                            if skillData.skillPart then
+                                labelColor = colorCodes.RARE
+                            else
+                                labelColor = colorCodes.CUSTOM
+                            end
+
+                            local triggerStr = ""
+                            if skillData.trigger and skillData.trigger ~= "" then
+                                triggerStr = colorCodes.WARNING.." ("..skillData.trigger..")"..labelColor
+                            end
+                            local lhsString = labelColor..skillData.name..triggerStr
+                            if skillData.count >= 2 then
+                                lhsString = labelColor..tostring(skillData.count).."x "..skillData.name..triggerStr
+                            end
+
+                            -- skill
+
+                            if skillData.skillPart then
+                                i = string.find(skillData.skillPart, ":")
+                                np = string.sub(skillData.skillPart, 0, i - 1)
+                                sp = string.sub(skillData.skillPart, i + 1, #skillData.skillPart)
+
+                                fmtDmg = self:FormatStat({fmt = "1.f"}, skillData.dps * skillData.count, overCapStatVal)
+
+                                t_insert(statBoxList, {
+                                    height = 14,
+                                    align = "CENTER_X", x = 140,
+                                    colorCodes.RARE .. "- " .. lhsString .. " -",
+                                })
+                                t_insert(statBoxList, {
+                                    height = 14,
+                                    align = "CENTER_X", x = 140,
+                                    "^x9c9c9c".. np
+                                })
+                                t_insert(statBoxList, {
+                                    height = 16,
+                                    colorCodes.CUSTOM ..sp .. ":", fmtDmg
+                                })
+
+                            else
+                                separator = true
+                                t_insert(statBoxList, {
+                                    height = 16,
+                                    lhsString .. ":",
+                                    self:FormatStat({fmt = "1.f"}, skillData.dps * skillData.count, overCapStatVal),
+                                })
+                            end
+                            if skillData.source then
+                                separator = true
+                                t_insert(statBoxList, {
+                                    height = 14,
+                                    align = "CENTER_X", x = 140,
+                                    colorCodes.WARNING.."from " ..skillData.source,
+                                })
+                            end
+
+                            if separator and indexSDPS < #actor.output.SkillDPS then
+                                t_insert(statBoxList, {
+                                    height = 8,
+                                    align = "CENTER_X", x = 140,
+                                    colorCodes.NORMAL..""
+                                })
+                            end
+                        end
 					elseif not (statData.hideStat) then
 						-- Change the color of the stat label to red if cost exceeds pool
 						local output = actor.output
