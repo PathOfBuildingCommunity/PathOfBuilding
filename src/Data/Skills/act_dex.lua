@@ -6417,19 +6417,32 @@ skills["ShrapnelTrap"] = {
 			return math.min(damagingAreaRadius * damagingAreaRadius / (areaSpreadRadius * areaSpreadRadius), 1)
 		end
 		local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
-		local waveRadius = output.AreaOfEffectRadiusTertiary
-		local fullRadius = output.AreaOfEffectRadius
-		local overlapChance = hitChance(enemyRadius, waveRadius, fullRadius)
+		local fullRadius = output.AreaOfEffectRadiusSecondary
+		local overlapChance = 0
+		local marginWidth = skillData.radiusTertiaryBaseMargin * 2 + 1
+		for smallRadius, occurrenceCount in pairs(output.AreaOfEffectRadiusTertiaryOccurrences) do
+			overlapChance = overlapChance + hitChance(enemyRadius, smallRadius, fullRadius) * occurrenceCount / marginWidth
+		end
 		output.OverlapChance = overlapChance * 100
 		local smallExplosionsPerTrap = skillModList:Sum("BASE", skillCfg, "SmallExplosions")
 		output.SmallExplosionsPerTrap = smallExplosionsPerTrap
 		if breakdown then
 			breakdown.OverlapChance = { }
-			t_insert(breakdown.OverlapChance, "Chance for individual wave to land within range to damage enemy:")
-			t_insert(breakdown.OverlapChance, "^8= (area where wave can spawn to damage enemy) / (total area)")
-			t_insert(breakdown.OverlapChance, "^8= (^7secondary radius^8 + ^7enemy radius^8 - 1) ^ 2 / ^7radius^8 ^ 2")
-			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2", waveRadius, enemyRadius, fullRadius))
-			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.3f^8%%", overlapChance * 100))
+			t_insert(breakdown.OverlapChance, "Chance for individual small explosion to land within range to damage enemy:")
+			t_insert(breakdown.OverlapChance, "^8= (area where a small explosion can spawn to damage enemy) / (total area)")
+			t_insert(breakdown.OverlapChance, "^8= (^7tertiary radius^8 + ^7enemy radius^8 - 1) ^ 2 / ^7secondary radius^8 ^ 2")
+			t_insert(breakdown.OverlapChance, "^8Result is the weighted sum of overlap chances for each possible tertiary radius")
+			local radii = {}
+			for radius in pairs(output.AreaOfEffectRadiusTertiaryOccurrences) do
+				t_insert(radii, radius)
+			end
+			table.sort(radii)
+			for i, smallRadius in ipairs(radii) do
+				t_insert(breakdown.OverlapChance, s_format("^8(^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2 *^7 %d/%d" ..
+						(i == #radii and "" or " ^8+"),
+						smallRadius, enemyRadius, fullRadius, output.AreaOfEffectRadiusTertiaryOccurrences[smallRadius], marginWidth))
+			end
+			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.3f^8%%", output.OverlapChance))
 		end
 		local dpsMultiplier = 1
 		if skillPart == 2 then
@@ -6471,6 +6484,7 @@ skills["ShrapnelTrap"] = {
 		skill("radiusLabel", "Primary Explosion:"),
 		skill("radiusSecondaryLabel", "Secondary Area:"),
 		skill("radiusTertiaryLabel", "Secondary Explosion:"),
+		skill("radiusTertiaryBaseMargin", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -6553,85 +6567,14 @@ skills["ShrapnelTrapAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	parts = {
-		{
-			name = "One explosion hitting",
-		},
-		{
-			name = "Average explosions hitting",
-		},
-		{
-			name = "All explosions hitting",
-		},
-	},
-	preDamageFunc = function(activeSkill, output, breakdown)
-		local skillCfg = activeSkill.skillCfg
-		local skillData = activeSkill.skillData
-		local skillPart = activeSkill.skillPart
-		local skillModList = activeSkill.skillModList
-		local t_insert = table.insert
-		local s_format = string.format
-
-		local function hitChance(enemyRadius, areaDamageRadius, areaSpreadRadius) -- not to be confused with attack hit chance
-			local damagingAreaRadius = areaDamageRadius + enemyRadius - 1	-- radius where area damage can land to hit the enemy;
-			-- -1 because of two assumptions: PoE coordinates are integers and damage is not registered if the two areas only share a point or vertex. If either is not correct, then -1 is not needed.
-			return math.min(damagingAreaRadius * damagingAreaRadius / (areaSpreadRadius * areaSpreadRadius), 1)
-		end
-		local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
-		local waveRadius = output.AreaOfEffectRadiusTertiary
-		local fullRadius = output.AreaOfEffectRadius
-		local overlapChance = hitChance(enemyRadius, waveRadius, fullRadius)
-		output.OverlapChance = overlapChance * 100
-		local smallExplosionsPerTrap = skillModList:Sum("BASE", skillCfg, "SmallExplosions")
-		output.SmallExplosionsPerTrap = smallExplosionsPerTrap
-		if breakdown then
-			breakdown.OverlapChance = { }
-			t_insert(breakdown.OverlapChance, "Chance for individual wave to land within range to damage enemy:")
-			t_insert(breakdown.OverlapChance, "^8= (area where wave can spawn to damage enemy) / (total area)")
-			t_insert(breakdown.OverlapChance, "^8= (^7secondary radius^8 + ^7enemy radius^8 - 1) ^ 2 / ^7radius^8 ^ 2")
-			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2", waveRadius, enemyRadius, fullRadius))
-			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.3f^8%%", overlapChance * 100))
-		end
-		local dpsMultiplier = 1
-		if skillPart == 2 then
-			dpsMultiplier = 1 + smallExplosionsPerTrap * overlapChance
-			if breakdown then
-				breakdown.SkillDPSMultiplier = {}
-				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
-				t_insert(breakdown.SkillDPSMultiplier, "^8= 1 + ^7small explosions^8 * ^7overlap chance^8")
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= 1 +^7 %d^8 *^7 %.2f^8", smallExplosionsPerTrap, overlapChance))
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMultiplier))
-			end
-		elseif skillPart == 3 then
-			dpsMultiplier = 1 + smallExplosionsPerTrap
-			if breakdown then
-				breakdown.SkillDPSMultiplier = {}
-				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= 1 +^7 %d (small explosions)", dpsMultiplier))
-			end
-		end
-		if dpsMultiplier ~= 1 then
-			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * dpsMultiplier
-			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
-		end
-	end,
-	statMap = {
-		["shrapnel_trap_number_of_secondary_explosions"] = {
-			mod("SmallExplosions", "BASE", nil),
-		},
-		["quality_display_explosive_trap_is_gem"] = {
-			-- Display only
-		},
-	},
+	parts = skills.ShrapnelTrap.parts,
+	preDamageFunc = skills.ShrapnelTrap.preDamageFunc,
+	statMap = skills.ShrapnelTrap.statMap,
+	baseMods = skills.ShrapnelTrap.baseMods,
 	baseFlags = {
 		spell = true,
 		trap = true,
 		area = true,
-	},
-	baseMods = {
-		skill("radiusLabel", "Primary Explosion:"),
-		skill("radiusSecondaryLabel", "Secondary Area:"),
-		skill("radiusTertiaryLabel", "Secondary Explosion:"),
 	},
 	qualityStats = {
 		Default = {
