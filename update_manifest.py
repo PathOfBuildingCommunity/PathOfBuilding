@@ -84,7 +84,7 @@ def create_manifest(version: str | None = None, replace: bool = False) -> None:
         url = base_url + config[part]["path"]
         url_with_trailing_slash = url if url.endswith("/") else url + "/"
         attributes = (
-            {"part": part, "platform": "win32", "url": url_with_trailing_slash}
+            {"part": part, "platform": "win64", "url": url_with_trailing_slash}
             if part == "runtime"
             else {"part": part, "url": url_with_trailing_slash}
         )
@@ -111,7 +111,7 @@ def create_manifest(version: str | None = None, replace: bool = False) -> None:
             sha1 = hashlib.sha1(data).hexdigest()
             name = path.relative_to(config[section]["path"]).as_posix()
             attributes = (
-                {"name": name, "part": section, "runtime": "win32", "sha1": sha1}
+                {"name": name, "part": section, "runtime": "win64", "sha1": sha1}
                 if path.suffix in [".dll", ".exe"]
                 else {"name": name, "part": section, "sha1": sha1}
             )
