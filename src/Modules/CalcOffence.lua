@@ -370,21 +370,64 @@ function calcs.offence(env, actor, activeSkill)
 					local incSpeedTertiary, moreSpeedTertiary = calcLib.mods(skillModList, skillCfg, "ProjectileSpeed")
 					output.SpeedModTertiary = round(round(incSpeedTertiary * moreSpeedTertiary, 10), 2)
 					output.AreaOfEffectRadiusTertiary = calcMoltenStrikeTertiaryRadius(baseRadius, skillData.radiusSecondary, output.AreaOfEffectModTertiary, output.SpeedModTertiary)
-					output.AreaOfEffectRadiusMetres = output.AreaOfEffectRadius / 10
 					if breakdown then
 						setMoltenStrikeTertiaryRadiusBreakdown(
 							breakdown, skillData.radiusSecondary, baseRadius, skillData.radiusTertiaryLabel,
 							incAreaTertiary, moreAreaTertiary, incSpeedTertiary, moreSpeedTertiary
 						)
 					end
+				elseif skillData.radiusTertiaryBaseMargin then -- Currently only on explosive trap in the form of "Smaller explosions have between 30% reduced and 30% increased base radius at random"
+					local margin = skillData.radiusTertiaryBaseMargin / 100
+					local marginWidth = skillData.radiusTertiaryBaseMargin * 2 + 1
+					-- Calculate all the possible base radii
+					local baseRadiiOccurrences = {}
+					for deviation = 1 - margin, 1 + margin + 0.01, 0.01 do
+						local radiusForDeviation = math.floor(baseRadius * deviation)
+						baseRadiiOccurrences[radiusForDeviation] = (baseRadiiOccurrences[radiusForDeviation] or 0) + 1
+					end
+					-- Calculate the modified radius for each base radius
+					local sumOfRandomRadii = 0
+					local radiusForBaseRadius = {}
+					local radiiOccurrences = {}
+					for adjustedBaseRadius, occurrenceCount in pairs(baseRadiiOccurrences) do
+						local radiusForDeviation = calcRadius(adjustedBaseRadius, output.AreaOfEffectModTertiary)
+						radiusForBaseRadius[adjustedBaseRadius] = radiusForDeviation
+						sumOfRandomRadii = sumOfRandomRadii + radiusForDeviation * occurrenceCount
+						radiiOccurrences[radiusForDeviation] = (radiiOccurrences[radiusForDeviation] or 0) + occurrenceCount
+					end
+					output.AreaOfEffectRadiusTertiary = sumOfRandomRadii / marginWidth
+					output.AreaOfEffectRadiusTertiaryOccurrences = radiiOccurrences
+					if breakdown then
+						local out = {}
+						local incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary = math.huge, math.huge, math.huge, math.huge
+						t_insert(out, skillData.radiusTertiaryLabel)
+						t_insert(out, s_format("R ^8(base radius)^7 x %.2f ^8(square root of area of effect modifier)", m_floor(100 * m_sqrt(output.AreaOfEffectModTertiary)) / 100))
+						local baseRadii = {}
+						for adjustedBaseRadius in pairs(baseRadiiOccurrences) do
+							t_insert(baseRadii, adjustedBaseRadius)
+						end
+						table.sort(baseRadii, function(a,b) return a < b end)
+						for _, adjustedBaseRadius in ipairs(baseRadii) do
+							t_insert(out, s_format("%.1f%% ^8chance of^7 %.1fm ^8base radius resulting in^7 %.1fm ^8final radius", baseRadiiOccurrences[adjustedBaseRadius] / marginWidth * 100, adjustedBaseRadius / 10, radiusForBaseRadius[adjustedBaseRadius] / 10))
+							local incAreaBreakpointTertiaryIntermediate, moreAreaBreakpointTertiaryIntermediate, redAreaBreakpointTertiaryIntermediate, lessAreaBreakpointTertiaryIntermediate = calcRadiusBreakpoints(adjustedBaseRadius, incAreaTertiary, moreAreaTertiary)
+							incAreaBreakpointTertiary = math.min(incAreaBreakpointTertiary, incAreaBreakpointTertiaryIntermediate)
+							moreAreaBreakpointTertiary = math.min(moreAreaBreakpointTertiary, moreAreaBreakpointTertiaryIntermediate)
+							redAreaBreakpointTertiary = math.min(redAreaBreakpointTertiary, redAreaBreakpointTertiaryIntermediate)
+							lessAreaBreakpointTertiary = math.min(lessAreaBreakpointTertiary, lessAreaBreakpointTertiaryIntermediate)
+						end
+						t_insert(out, s_format("^8Next closest 0.1m breakpoint: %d%% increased AoE / a %d%% more AoE multiplier", incAreaBreakpointTertiary, moreAreaBreakpointTertiary))
+						t_insert(out, s_format("^8Previous closest 0.1m breakpoint: %d%% reduced AoE / a %d%% less AoE multiplier", redAreaBreakpointTertiary, lessAreaBreakpointTertiary))
+						t_insert(out, s_format("On average, the radius is %.2fm", output.AreaOfEffectRadiusTertiary / 10))
+						breakdown.AreaOfEffectRadiusTertiary = out
+					end
 				else
 					output.AreaOfEffectRadiusTertiary = calcRadius(baseRadius, output.AreaOfEffectModTertiary)
-					output.AreaOfEffectRadiusTertiaryMetres = output.AreaOfEffectRadiusTertiary / 10
 					if breakdown then
 						local incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary = calcRadiusBreakpoints(baseRadius, incAreaTertiary, moreAreaTertiary)
 						breakdown.AreaOfEffectRadiusTertiary = breakdown.area(baseRadius, output.AreaOfEffectModTertiary, output.AreaOfEffectRadiusTertiary, incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary, skillData.radiusTertiaryLabel)
 					end
 				end
+				output.AreaOfEffectRadiusTertiaryMetres = output.AreaOfEffectRadiusTertiary / 10
 			end
 		end
 		if breakdown then
@@ -5143,67 +5186,6 @@ function calcs.offence(env, actor, activeSkill)
 
 	-- Self hit dmg calcs
 	do
-		-- Based on code from FR and BS found in act_*.txt
-		local function applyDmgTakenConversion(sourceType, baseDmg)
-			local damageBreakdown = {}
-			local totalDamageTaken = 0
-			local totalTakenAs = activeSkill.skillModList:Sum("BASE", nil, "PhysicalDamageTakenAsLightning","PhysicalDamageTakenAsCold","PhysicalDamageTakenAsFire","PhysicalDamageTakenAsChaos") / 100
-			for _, damageType in ipairs(dmgTypeList) do
-				local damageTakenAs = 1
-
-				if damageType ~= sourceType then
-					damageTakenAs = (activeSkill.skillModList:Sum("BASE", nil, sourceType.."DamageTakenAs"..damageType) or 0) / 100
-				else
-					damageTakenAs = math.max(1 - totalTakenAs, 0)
-				end
-
-				if damageTakenAs ~= 0 then
-					if(totalTakenAs > 1) then
-						damageTakenAs = damageTakenAs / totalTakenAs
-					end
-					local damage = baseDmg * damageTakenAs
-
-					local baseTakenInc = activeSkill.skillModList:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
-					local baseTakenMore = activeSkill.skillModList:More(nil, "DamageTaken", damageType.."DamageTaken","DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
-					if (damageType == "Lightning" or damageType == "Cold" or damageType == "Fire") then
-						baseTakenInc = baseTakenInc + activeSkill.skillModList:Sum("INC", nil, "ElementalDamageTaken", "ElementalDamageTakenWhenHit")
-						baseTakenMore = baseTakenMore * activeSkill.skillModList:More(nil, "ElementalDamageTaken", "ElementalDamageTakenWhenHit")
-					end
-					local damageTakenMods = math.max((1 + baseTakenInc / 100) * baseTakenMore, 0)
-					local reduction = activeSkill.skillModList:Flag(nil, "SelfIgnore".."Base"..damageType.."DamageReduction") and 0 or output["Base"..damageType.."DamageReductionWhenHit"] or output["Base"..damageType.."DamageReduction"]
-					local resist = activeSkill.skillModList:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."Resist"]
-					local armourReduct = 0
-					local resMult = 1 - resist / 100
-					local reductMult = 1
-
-					local percentOfArmourApplies = math.min((not activeSkill.skillModList:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") and activeSkill.skillModList:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
-					if percentOfArmourApplies > 0 then
-						local effArmour = (output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense)
-						local effDamage = damage * resMult
-						armourReduct = round(effArmour ~= 0 and damage * resMult ~= 0 and (effArmour / (effArmour + effDamage * 5) * 100) or 0)
-						armourReduct = math.min(output.DamageReductionMax, armourReduct)
-					end
-					reductMult = (1 - math.max(math.min(output.DamageReductionMax, armourReduct + reduction), 0) / 100) * damageTakenMods
-					local combinedMult = resMult * reductMult
-					local finalDamage = damage * combinedMult
-					totalDamageTaken = totalDamageTaken + finalDamage
-
-					if breakdown then
-						t_insert(damageBreakdown, damageType.." Damage Taken")
-						if damageTakenAs ~= 1 then
-							t_insert(damageBreakdown, s_format("^8=^7 %d^8 (Base Damage)^7 * %.2f^8 (Damage taken as %s)", baseDmg, damageTakenAs, damageType))
-						end
-						if combinedMult ~= 1 then
-							t_insert(damageBreakdown, s_format("^8=^7 %d^8 (%s Damage)^7 * %.4f^8 (Damage taken multi)", damage, damageType, combinedMult))
-						end
-						t_insert(damageBreakdown, s_format("^8=^7 %d^8 (%s Damage taken)", finalDamage, damageType))
-						t_insert(damageBreakdown, s_format(""))
-					end
-				end
-			end
-			return damageBreakdown, totalDamageTaken
-		end
-
 		-- Handler functions for self hit sources
 		local nameToHandler = {
 			["Heartbound Loop"] = function(activeSkill, output, breakdown)
@@ -5213,7 +5195,7 @@ function calcs.offence(env, actor, activeSkill)
 					dmgType = string.gsub(" "..value.damageType, "%W%l", string.upper):sub(2) -- This assumes both rings deal the same damage type
 				end
 				if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" and dmgType and dmgVal then
-					local dmgBreakdown, totalDmgTaken = applyDmgTakenConversion(dmgType, dmgVal)
+					local dmgBreakdown, totalDmgTaken = calcs.applyDmgTakenConversion(activeSkill, output, breakdown, dmgType, dmgVal)
 					t_insert(dmgBreakdown, 1, s_format("Heartbound Loop base damage: %d", dmgVal))
 					t_insert(dmgBreakdown, 2, s_format(""))
 					t_insert(dmgBreakdown, s_format("Total Heartbound Loop damage taken per cast/attack: %.2f * %d ^8(minions per cast)^7 = %.2f",totalDmgTaken, output.SummonedMinionsPerCast, totalDmgTaken * output.SummonedMinionsPerCast))
@@ -5228,7 +5210,7 @@ function calcs.offence(env, actor, activeSkill)
 					break -- Only one mod of this kind is expected here
 				end
 				if activeSkill.skillFlags.ignite and dmgType and dmgVal then
-					local dmgBreakdown, totalDmgTaken = applyDmgTakenConversion(dmgType, dmgVal)
+					local dmgBreakdown, totalDmgTaken = calcs.applyDmgTakenConversion(activeSkill, output, breakdown, dmgType, dmgVal)
 					t_insert(dmgBreakdown, 1, s_format("Eye of Innocence base damage: %d", dmgVal))
 					t_insert(dmgBreakdown, 2, s_format(""))
 					t_insert(dmgBreakdown, s_format("Total Eye of Innocence damage taken per cast/attack: %.2f ", totalDmgTaken))
@@ -5243,7 +5225,7 @@ function calcs.offence(env, actor, activeSkill)
 					break -- Only one mod of this kind is expected here
 				end
 				if output.ManaHasCost and dmgType and dmgMult then
-					local dmgBreakdown, totalDmgTaken = applyDmgTakenConversion(dmgType, (output.ManaCost or 0) * dmgMult/100)
+					local dmgBreakdown, totalDmgTaken = calcs.applyDmgTakenConversion(activeSkill, output, breakdown, dmgType, (output.ManaCost or 0) * dmgMult/100)
 					t_insert(dmgBreakdown, 1, s_format("Scold's Bridle base damage: %d ^8(Mana Cost)^7 * %d%% = %.2f", (output.ManaCost or 0), dmgMult, (output.ManaCost or 0) * dmgMult/100))
 					t_insert(dmgBreakdown, 2, s_format(""))
 					t_insert(dmgBreakdown, s_format("Total Scold's Bridle damage taken per cast/attack: %.2f ", totalDmgTaken))
@@ -5256,7 +5238,7 @@ function calcs.offence(env, actor, activeSkill)
 				local damagePerTrauma = activeSkill.skillModList:Sum("BASE", nil, "TraumaSelfDamageTakenLife")
 				local dmgVal = activeSkill.baseSkillModList:Flag(nil, "HasTrauma") and damagePerTrauma * currentTraumaStacks
 				if dmgType and dmgVal then
-					local dmgBreakdown, totalDmgTaken = applyDmgTakenConversion(dmgType, dmgVal)
+					local dmgBreakdown, totalDmgTaken = calcs.applyDmgTakenConversion(activeSkill, output, breakdown, dmgType, dmgVal)
 					t_insert(dmgBreakdown, 1, s_format("%d ^8(base %s damage)^7 * %.2f ^8(%s trauma)^7 = %.2f %s damage", damagePerTrauma, dmgType, currentTraumaStacks, activeSkill.skillModList:Sum("BASE", skillCfg, "Multiplier:SustainableTraumaStacks") == currentTraumaStacks and "sustainable" or "current", dmgVal, dmgType))
 					t_insert(dmgBreakdown, 2, s_format(""))
 					t_insert(dmgBreakdown, s_format("Total Trauma damage taken per cast/attack: %.2f ", totalDmgTaken))
