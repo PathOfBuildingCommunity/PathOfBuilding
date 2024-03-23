@@ -1,21 +1,21 @@
-VERSION[2.40.0][2024/03/23]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
+VERSION[2.40.0][2024/03/24]
 
+--- New to Path of Building ---
 * Overhaul graphics engine to v2.0 (Zao)
-  * Should have a noticable increase in performance and fix many obscure crashes
+  * Should have a noticeable increase in performance and fix many obscure crashes
 * 3.24 Changes:
-  * Add 3.24 Trees by @Regisle in (https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7397, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7398)
-  * Add support for new 3.24 Uniques by (@learn2draw, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7396
-  * Update existing uniques from 3.24 patch notes by (@learn2draw, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7396
-  * Update existing skill gems from 3.24 patch notes by (@Wires77, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7404
-  * Update Tattoos, Flasks and item mods with 3.24 changes by @LocalIdentity in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7408
-* Add a config option for disabling Champion Intimidate effect. (Paliak)
+  * Add 3.24 Trees by (Regisle)
+  * Add support for new 3.24 Uniques by (learn2draw, LocalIdentity)
+  * Update existing uniques from 3.24 patch notes by (learn2draw, LocalIdentity)
+  * Update existing skill gems from 3.24 patch notes by (Wires77, LocalIdentity)
+  * Update Tattoos, Flasks and item mods with 3.24 changes by (LocalIdentity)
+* Add a config option for disabling Champion Intimidate effect (Paliak)
 * Add support for Everlasting Sacrifice Keystone (sida-wang)
 * Fix import of Taiwan realm to use Hotcool (Chuanhsing)
 
 --- Fixed Crashes ---
 * Fix crash when opening Item Trader after selecting a different league (Peechey)
-* Fix snipe precalculation using wrong calc mode (Paliak)
+* Fix snipe pre-calculation using wrong calc mode (Paliak)
 
 --- User Interface ---
 * Reduce clutter in Import character selection list (ryuukk)
@@ -24,7 +24,7 @@ VERSION[2.40.0][2024/03/23]
 
 --- Fixed Bugs ---
 * Fix Dancing Dervish stats (Life, Damage and Damage reduction) (LocalIdentity)
-* Fix self hit damage conversion (Regisle)
+* Fix self-hit damage conversion (Regisle)
 * Fix Formless Inferno not increasing Minion Life (Paliak)
 * Fix Utula's Hunger interaction with multiple uniques (Peechey)
 * Fix Summon Skeletons Duration when using To Dust jewels (mart-mihkel)
