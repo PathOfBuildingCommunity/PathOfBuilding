@@ -485,8 +485,17 @@ function ImportTabClass:BuildCharacterList(league)
 	wipeTable(self.controls.charSelect.list)
 	for i, char in ipairs(self.lastCharList) do
 		if not league or char.league == league then
+			charLvl = char.level or 0
+			charLeague = char.league or "?"
+			charName = char.name or "?"
+			charClass = char.class or "?"
+			lbl = (league == nil and
+				string.format("%s: Level %d %s in %s", charName, charLvl, charClass, charLeague)
+			or
+				string.format("%s: Level %d %s", charName, charLvl, charClass)
+			)
 			t_insert(self.controls.charSelect.list, {
-				label = string.format("%s: Level %d %s in %s", char.name or "?", char.level or 0, char.class or "?", char.league or "?"),
+				label = lbl,
 				char = char,
 			})
 		end
