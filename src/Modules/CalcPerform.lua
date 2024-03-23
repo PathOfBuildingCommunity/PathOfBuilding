@@ -741,7 +741,7 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("BuffExpireFaster", "MORE", -20, "Shapers Presence")
 		end
 		if modDB:Flag(nil, "Condition:CanHaveSoulEater") then
-			local max = modDB:Override(nil, "SoulEaterMax")
+			local max = modDB:Override(nil, "SoulEaterMax") or modDB:Sum("BASE", nil, "SoulEaterMax")
 			modDB:NewMod("Multiplier:SoulEater", "BASE", 1, "Base", { type = "Multiplier", var = "SoulEaterStack", limit = max })
 		end
 	end
