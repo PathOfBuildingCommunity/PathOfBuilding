@@ -926,13 +926,15 @@ Adds (8-10) to (13-15) Chaos Damage for each Spider's Web on the Enemy
 ]],[[
 Soul Ascension
 Carnal Mitts
+Variant: Pre 3.24.0
+Variant: Current
 Elder Item
 Source: Drops from unique{The Elder} (Uber Uber)
 (120-150)% increased Evasion and Energy Shield
 +(17-29)% to Chaos Resistance
-Eat a Soul when you Hit a Unique Enemy, no more than once every second
-Lose an Eaten Soul every 3 seconds while no Unique Enemy is in your Presence
-Maximum 50 Eaten Souls
+{variant:1}Eat a Soul when you Hit a Unique Enemy, no more than once every second
+{variant:2}Eat a Soul when you Hit a Rare or Unique Enemy, no more than once every 0.5 seconds
++(-10-10) to maximum number of Eaten Souls
 ]],[[
 Machina Mitts
 Murder Mitts
@@ -1003,7 +1005,6 @@ Requires Level 58, 45 Dex, 45 Int
 Storm's Gift
 Assassin's Mitts
 League: Synthesis
-Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 58, 45 Dex, 45 Int
 (20-30)% increased Damage over Time
 (250-300)% increased Evasion and Energy Shield
@@ -1060,6 +1061,6 @@ Requires Level 48, 31 Str, 31 Dex, 31 Int
 +(17-23)% to Chaos Resistance
 {variant:1}Gain Added Chaos Damage equal to 25% of Ward
 {variant:2}Gain Added Chaos Damage equal to 20% of Ward
-75% of Damage bypasses Ward
+75% of Damage taken bypasses Ward
 ]],
 }

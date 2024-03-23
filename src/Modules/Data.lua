@@ -155,6 +155,7 @@ data.misc = { -- magic numbers
 	MaxResistCap = 90,
 	EvadeChanceCap = 95,
 	DodgeChanceCap = 75,
+	BlockChanceCap = 90,
 	SuppressionChanceCap = 100,
 	SuppressionEffect = 50,
 	AvoidChanceCap = 75,
@@ -593,25 +594,79 @@ data.itemTagSpecial = {
 }
 data.itemTagSpecialExclusionPattern = {
 	["life"] = {
+		["amulet"] = {
+			"lower Life on Hit", -- The Eternal Struggle
+			"your Spectres' Life", -- The Jinxed Juju
+			"when on Full Life",
+			"when on Low Life",
+		},
 		["body armour"] = {
-			"increased Damage while Leeching Life",
 			"Life as Physical Damage",
 			"Life as Extra Maximum Energy Shield",
 			"maximum Life as Fire Damage",
 			"when on Full Life",
-			"Enemy's life",
-			"Life From You",
+			"when on Low Life",
 			"^Socketed Gems are Supported by Level"
 		},
 		["boots"] = {
 			"Enemy's Life", -- Legacy of Fury
+			"^Enemies Cannot Leech Life", -- Sin Trek
+			"when on Full Life",
+			"when on Low Life",
 		},
 		["belt"] = {
 			"Life as Extra Maximum Energy Shield", -- Soul Tether
+			"Life Recovery from Flasks", -- The Druggery
+			"Life Flasks gain", -- The Druggery
+			"when on Full Life",
+			"when on Low Life",
+		},
+		["gloves"] = {
+			"maximum Life as Physical Damage", -- Haemophilia
+			"Traps Cost Life", -- Slavedriver's Hand
+			"when on Full Life",
+			"when on Low Life",
 		},
 		["helmet"] = {
 			"Recouped as Life", -- Flame Exarch
+			"Life when you Suppress", -- Elevore
+			"Leech when on Low Life", -- Deidbell
+			"while no Life is Reserved", -- Malachai's Awakening
+			"^Socketed Gems are Supported by Level", -- Shako
+			"when on Full Life",
+			"when on Low Life",
 		},
+		["ring 1"] = {
+			"Energy Shield instead of Life", -- Valyrium
+			"increased Damage while Leeching Life", -- Synthesis Implicit
+			"when on Full Life",
+			"when on Low Life",
+		},
+		["ring 2"] = {
+			"Energy Shield instead of Life", -- Valyrium
+			"increased Damage while Leeching Life", -- Synthesis Implicit
+			"when on Full Life",
+			"when on Low Life",
+		},
+		["weapon 1"] = {
+			"^Socketed Gems are Supported by Level", -- Hiltless, etc
+			"maximum Life as Chaos Damage", -- Obliteration
+			"total Maximum Life and Energy Shield as Fire Damage", -- Oni-Goroshi
+			"Life as Physical Damage", -- Crucible/Synthesis
+			"maximum Life as Fire Damage", -- Crucible
+			"when on Full Life",
+			"when on Low Life",
+
+		},
+		["weapon 2"] = {
+			"maximum Life as Chaos Damage", -- Obliteration
+			"^Socketed Gems Cost and Reserve Life", -- Prism Guardian
+			"increased Damage while Leeching Life", -- Synthesis Implicit ~ Quivers
+			"Life as Physical Damage", -- Crucible/Synthesis
+			"maximum Life as Fire Damage", -- Crucible
+			"when on Full Life",
+			"when on Low Life",
+		}
 	},
 	["evasion"] = {
 		["ring"] = {

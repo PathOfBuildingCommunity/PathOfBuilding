@@ -1,5 +1,55 @@
 # Changelog
 
+## [v2.40.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.40.0) (2024/03/24)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.39.3...v2.40.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- Overhaul graphics engine to v2.0 [\#7399](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7399) ([Zao](https://github.com/Zao))
+  * Should have a noticeable increase in performance and fix many obscure crashes
+* 3.24 Changes:
+  * Add 3.24 Trees [\#7396](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7397), [\#7398](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7398) ([Regisle](https://github.com/Regisle))
+  * Add support for new 3.24 Uniques [\#7396](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7396) ([Lexy](https://github.com/learn2draw), [LocalIdentity](https://github.com/LocalIdentity))
+  * Update existing uniques from 3.24 patch notes [\#7396](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7396) ([Lexy](https://github.com/learn2draw), [LocalIdentity](https://github.com/LocalIdentity))
+  * Update existing skill gems from 3.24 patch notes [\#7404](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7404) ([Wires77](https://github.com/Wires77), [LocalIdentity](https://github.com/LocalIdentity))
+  * Update Tattoos, Flasks and item mods with 3.24 changes [\#7408](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7408) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add a config option for disabling Champion Intimidate effect [\#7356](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7356) ([Paliak](https://github.com/Paliak))
+- Add support for Everlasting Sacrifice Keystone [\#7327](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7327) ([sida-wang](https://github.com/sida-wang))
+- Fix import of Taiwan realm to use Hotcool [\#7366](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7366) ([Chuanhsing](https://github.com/Chuanhsing))
+
+### Fixed Crashes
+- Fix crash when opening Item Trader after selecting a different league [\#7338](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7338) ([Peechey](https://github.com/Peechey))
+- Fix snipe pre-calculation using wrong calc mode [\#7390](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7390) ([Paliak](https://github.com/Paliak))
+
+### User Interface
+- Reduce clutter in Import character selection list [\#7401](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7401) ([ryuukk](https://github.com/ryuukk))
+- Adjust Totem Labels and Duration in Calc Sections [\#7335](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7335) ([Peechey](https://github.com/Peechey))
+- Minor improvements to DPS display for mirages [\#7375](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7375) ([Paliak](https://github.com/Paliak))
+
+### Fixed Bugs
+- Fix Dancing Dervish stats (Life, Damage and Damage reduction) [\#7353](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7353) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix self-hit damage conversion [\#7351](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7351) ([Regisle](https://github.com/Regisle))
+- Fix Formless Inferno not increasing Minion Life [\#7370](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7370) ([Paliak](https://github.com/Paliak))
+- Fix Utula's Hunger interaction with multiple uniques [\#7330)]((https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7341, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7330)) ([Peechey](https://github.com/Peechey))
+- Fix Summon Skeletons Duration when using To Dust jewels [\#7352](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7352) ([mart-mihkel](https://github.com/mart-mihkel))
+- Disable skill rotation for Cast when Stunned [\#7355](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7355) ([Paliak](https://github.com/Paliak))
+- Fix Snipe doing damage when in trigger mode [\#7391](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7391) ([Paliak](https://github.com/Paliak))
+
+### Accuracy Improvements
+- Fix tooltip for Maximum Charges when using Badge of the Brotherhood or Masterful Form [\#7328](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7328) ([sida-wang](https://github.com/sida-wang))
+- Force Main Hand for Skills used by General's Cry mirages [\#7369](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7369) ([Paliak](https://github.com/Paliak))
+- Fix sorting of Ailment breakdown sections [\#7336](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7336) ([Peechey](https://github.com/Peechey))
+- Fix Armour and ES breakdowns for "100% increased..." Armour and ES Mastery [\#7387](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7387) ([Peechey](https://github.com/Peechey))
+- Implement explosive trap +-30% base tertiary radius, fix overlap chance for transfigured version [\#7384](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7384) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
+- Fix Life Leech and Block missing from current version of Essentia Sanguis [\#7377](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7377) ([Paliak](https://github.com/Paliak))
+- Fix current variant of Lioneye's Glare missing Far Shot [\#7376](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7376) ([Paliak](https://github.com/Paliak))
+- Fix Nightgrip missing "taken" keyword in description [\#7383](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7383) ([MattiaCiccone](https://github.com/MattiaCiccone))
+
+
+
 ## [v2.39.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.39.3) (2024/01/26)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.39.2...v2.39.3)
@@ -12,7 +62,7 @@
 - Fix crash when hovering over Buffs section [\#7315](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7315) ([Wires77](https://github.com/Wires77))
 
 ### Fixed Bugs
-- Fix Utula's Hunger not working with Soultether, Legacy of Fury and Exarch Helmet implicit [\#7313](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7313) ([Peechey](https://github.com/Peechey))
+- Fix Utula's Hunger not working with Soul Tether, Legacy of Fury and Exarch Helmet implicit [\#7313](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7313) ([Peechey](https://github.com/Peechey))
 
 
 

@@ -33532,14 +33532,6 @@ return {
 			}, 
 		}, 
 		["1724_ManaCostReductionForJewel"] = {
-			["AnyJewel"] = {
-				["max"] = 5, 
-				["min"] = 3, 
-			}, 
-			["BaseJewel"] = {
-				["max"] = 5, 
-				["min"] = 3, 
-			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -44819,7 +44811,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2355615476", 
+				["id"] = "explicit.stat_3735443206", 
 				["text"] = "+#% to Critical Strike Multiplier against Enemies that are on Full Life", 
 				["type"] = "explicit", 
 			}, 
@@ -54577,8 +54569,8 @@ return {
 		}, 
 		["811_FlaskBuffResistancesWhileHealing"] = {
 			["Flask"] = {
-				["max"] = 40, 
-				["min"] = 21, 
+				["max"] = 20, 
+				["min"] = 10, 
 			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
@@ -54807,7 +54799,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_1619168299", 
+				["id"] = "explicit.stat_1053326368", 
 				["text"] = "#% chance to Avoid being Chilled during Effect", 
 				["type"] = "explicit", 
 			}, 
@@ -54841,7 +54833,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_475518267", 
+				["id"] = "explicit.stat_2872815301", 
 				["text"] = "#% chance to Avoid being Frozen during Effect", 
 				["type"] = "explicit", 
 			}, 

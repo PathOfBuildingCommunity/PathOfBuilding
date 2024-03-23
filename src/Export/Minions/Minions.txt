@@ -83,6 +83,11 @@ local minions, mod = ...
 #emit
 
 #monster Metadata/Monsters/AnimatedItem/UniqueAnimatedWeapon UniqueAnimatedWeapon
+#mod mod("Life", "MORE", 698), -- MonsterUnique2
+#mod mod("Damage", "MORE", 70), -- MonsterUnique5
+#mod mod("Speed", "MORE", 33, ModFlag.Attack), -- MonsterUnique8
+#mod mod("Damage", "MORE", -33, ModFlag.Attack), -- MonsterUnique8
+#mod mod("DamageTaken", "MORE", -95), -- monster_inherent_damage_taken_+%_final : UniqueAnimatedWeapon.ot
 #emit
 
 #monster Metadata/Monsters/SummonedPhantasm/SummonedPhantasm SummonedPhantasm

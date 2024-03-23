@@ -563,7 +563,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod mod("DisableWeapons", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
 #baseMod mod("Condition:Onslaught", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
-#baseMod skill("minionLevel", 59)
+#baseMod skill("minionLevel", 65)
 #mods
 
 #skill SupportUniqueMjolnerLightningSpellsCastOnHit Mjolner

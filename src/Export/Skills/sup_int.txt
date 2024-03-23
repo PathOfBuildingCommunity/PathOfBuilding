@@ -34,12 +34,11 @@ local skills, mod, flag, skill = ...
 #skill SupportArchmage
 	statMap = {
 		["manaweave_cost_equals_%_unreserved_mana"] = {
-			skill("baseManaCostIsAtLeastPercentUnreservedMana", nil),
+			mod("ManaCost", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaUnreserved" , percent = 1 }),
 		},
 		["manaweave_added_lightning_damage_%_cost_if_payable"] = {
-			mod("LightningMin", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
-			mod("LightningMax", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
-			div = 100,
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaUnreserved" , percent = 1 }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaUnreserved" , percent = 1 }),
 		},
 	},
 #mods

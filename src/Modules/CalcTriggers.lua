@@ -1080,7 +1080,7 @@ local configTable = {
 	["cast when stunned"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
 		return {triggerChance =  env.player.mainSkill.skillData.chanceToTriggerOnStun,
-				triggeredSkillCond = function(env, skill) return skill.skillData.chanceToTriggerOnStun and slotMatch(env, skill) end}
+				source = env.player.mainSkill}
 	end,
 	["spellslinger"] = function()
 		return {triggerName = "Spellslinger",
@@ -1192,21 +1192,10 @@ local configTable = {
 		local snipeHitMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeHitMulti")
 		local snipeAilmentMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeAilmentMulti")
 		local triggeredSkills = {}
-		local source
-		local trigRate
-		local uuid
-		local currentSkillSnipeIndex
 
 		for _, skill in ipairs(env.player.activeSkillList) do
 			if skill.skillData.triggeredBySnipe and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
 				t_insert(triggeredSkills, skill)
-			end
-		end
-
-		for index, skill in ipairs(triggeredSkills) do
-			if skill == env.player.mainSkill then
-				currentSkillSnipeIndex = index
-				break
 			end
 		end
 
@@ -1226,19 +1215,41 @@ local configTable = {
 				end
 			else
 				-- Snipe is being used as a trigger source, it triggers other skills but does no damage it self
-				env.player.mainSkill.skillData.baseMultiplier = 0
+				env.player.mainSkill.skillModList:NewMod("DealNoLightning", "FLAG", true, { type = "SkillName", skillName = "Snipe", includeTransfigured = true })
+				env.player.mainSkill.skillModList:NewMod("DealNoCold", "FLAG", true, { type = "SkillName", skillName = "Snipe", includeTransfigured = true })
+				env.player.mainSkill.skillModList:NewMod("DealNoFire", "FLAG", true, { type = "SkillName", skillName = "Snipe", includeTransfigured = true })
+				env.player.mainSkill.skillModList:NewMod("DealNoChaos", "FLAG", true, { type = "SkillName", skillName = "Snipe", includeTransfigured = true })
+				env.player.mainSkill.skillModList:NewMod("DealNoPhysical", "FLAG", true, { type = "SkillName", skillName = "Snipe", includeTransfigured = true })
 			end
 		else
+			local currentSkillSnipeIndex
+			for index, skill in ipairs(triggeredSkills) do
+				if skill == env.player.mainSkill then
+					currentSkillSnipeIndex = index
+					break
+				end
+			end
+
 			-- Does snipe have enough stages to trigger this skill?
 			if currentSkillSnipeIndex and currentSkillSnipeIndex <= snipeStages then
+				local source
+				local trigRate
+				local mode = env.mode == "CALCS" and "CALCS" or "MAIN"
 				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeHitMulti * snipeStages , "Snipe", ModFlag.Hit, 0)
 				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeAilmentMulti * snipeStages , "Snipe", ModFlag.Ailment, 0)
 				for _, skill in ipairs(env.player.activeSkillList) do
 					if skill.activeEffect.grantedEffect.name == "Snipe" and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
 						skill.skillData.hitTimeMultiplier = snipeStages - 0.5
-						source, _, uuid = findTriggerSkill(env, skill, source)
-						trigRate = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.HitSpeed
-						env.player.output.ChannelTimeToTrigger = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.HitTime
+						local uuid = cacheSkillUUID(skill, env)
+						if not GlobalCache.cachedData[mode][uuid] or GlobalCache.noCache then
+							calcs.buildActiveSkill(env, mode, skill)
+						end
+						local cachedSpeed = GlobalCache.cachedData[mode][uuid].Env.player.output.HitSpeed
+						if (skill.skillFlags and not skill.skillFlags.disable) and (skill.skillCfg and not skill.skillCfg.skillCond["usedByMirage"]) and not skill.skillTypes[SkillType.OtherThingUsesSkill] and ((not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (trigRate or 0))) then
+							trigRate = cachedSpeed
+							env.player.output.ChannelTimeToTrigger = GlobalCache.cachedData[mode][uuid].Env.player.output.HitTime
+							source = skill
+						end
 					end
 				end
 

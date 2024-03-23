@@ -165,7 +165,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/WarCryCooldown.png", 
 			["sd"] = {
-				[1] = "10% increased Warcry Cooldown Recovery Rate", 
+				[1] = "8% increased Warcry Cooldown Recovery Rate",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TukohamaTribePassiveBG.png", 
 			["targetType"] = "Small Strength", 
@@ -221,7 +221,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/colddamage.png", 
 			["sd"] = {
-				[1] = "Adds 3 to 5 Cold Damage", 
+				[1] = "5% increased Cold Damage",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/ArohonguiTribePassiveBG.png", 
 			["targetType"] = "Small Dexterity", 
@@ -269,7 +269,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/MarkNode.png", 
 			["sd"] = {
-				[1] = "5% increased Effect of your Marks", 
+				[1] = "4% increased Effect of your Marks",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TasalioTribePassiveBG.png", 
 			["targetType"] = "Small Dexterity", 
@@ -327,7 +327,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/firedamage.png", 
 			["sd"] = {
-				[1] = "Adds 3 to 5 Fire Damage", 
+				[1] = "5% increased Fire Damage",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/NgamahuTribePassiveBG.png", 
 			["targetType"] = "Small Strength", 
@@ -351,7 +351,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/firedamage.png", 
 			["sd"] = {
-				[1] = "Enemies you Kill have a 2% chance to Explode, dealing a tenth of their maximum Life as Fire Damage", 
+				[1] = "5% chance to Ignite",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/NgamahuTribePassiveBG.png", 
 			["targetType"] = "Small Strength", 
@@ -375,7 +375,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ShieldNodeOffensive.png", 
 			["sd"] = {
-				[1] = "1% Chance to Block Spell Damage", 
+				[1] = "5% chance to Shock",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/ValakoTribePassiveBG.png", 
 			["targetType"] = "Small Intelligence", 
@@ -399,7 +399,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/stunstr.png", 
 			["sd"] = {
-				[1] = "15% increased Stun Threshold", 
+				[1] = "10% increased Stun Threshold",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/RongokuraiTribePassiveBG.png", 
 			["targetType"] = "Small Strength", 
@@ -451,7 +451,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/Poison.png", 
 			["sd"] = {
-				[1] = "15% chance to Avoid being Poisoned", 
+				[1] = "10% chance to Avoid being Poisoned",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TawhoaTribePassiveBG.png", 
 			["targetType"] = "Small Dexterity", 
@@ -562,7 +562,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/lifepercentage.png", 
 			["sd"] = {
-				[1] = "Regenerate 15 Life per second", 
+				[1] = "0.3% Life Regeneration per Second",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TukohamaTribePassiveBG.png", 
 			["targetType"] = "Small Strength", 
@@ -863,7 +863,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/projectilespeed.png", 
 			["sd"] = {
-				[1] = "8% increased Projectile Speed", 
+				[1] = "5% increased Projectile Speed",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/RamakoTribePassiveBG.png", 
 			["targetType"] = "Small Dexterity", 
@@ -1047,7 +1047,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/evade.png", 
 			["sd"] = {
-				[1] = "+80 to Evasion Rating", 
+				[1] = "6% increased Evasion Rating",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/RamakoTribePassiveBG.png", 
 			["targetType"] = "Small Dexterity", 
@@ -1177,7 +1177,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/dmgreduction.png", 
 			["sd"] = {
-				[1] = "8% increased Armour", 
+				[1] = "6% increased Armour",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/RongokuraiTribePassiveBG.png", 
 			["targetType"] = "Small Strength", 
@@ -1291,7 +1291,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/Poison.png", 
 			["sd"] = {
-				[1] = "Adds 2 to 3 Chaos Damage", 
+				[1] = "5% increased Chaos Damage",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TawhoaTribePassiveBG.png", 
 			["targetType"] = "Small Intelligence", 
@@ -1315,7 +1315,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/minionlife.png", 
 			["sd"] = {
-				[1] = "Minions have 6% increased maximum Life", 
+				[1] = "Minions have 5% increased maximum Life",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/HinekoraTribePassiveBG.png", 
 			["targetType"] = "Small Intelligence", 
@@ -1446,7 +1446,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/dmgreduction.png", 
 			["sd"] = {
-				[1] = "You take 10% reduced Extra Damage from Critical Strikes", 
+				[1] = "You take 5% reduced Extra Damage from Critical Strikes",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/RongokuraiTribePassiveBG.png", 
 			["targetType"] = "Small Intelligence", 
@@ -1519,7 +1519,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
 			["sd"] = {
-				[1] = "+8% to Fire Resistance", 
+				[1] = "+6% to Fire Resistance",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/NgamahuTribePassiveBG.png", 
 			["targetType"] = "Small Strength", 
@@ -1595,7 +1595,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/mana.png", 
 			["sd"] = {
-				[1] = "Regenerate 3 Mana per second", 
+				[1] = "8% increased Mana Regeneration Rate",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/HinekoraTribePassiveBG.png", 
 			["targetType"] = "Small Intelligence", 
@@ -1619,7 +1619,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/totemandbrandlife.png", 
 			["sd"] = {
-				[1] = "6% increased Totem Life", 
+				[1] = "5% increased Totem Life",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/NgamahuTribePassiveBG.png", 
 			["targetType"] = "Small Strength", 
@@ -1670,7 +1670,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
 			["sd"] = {
-				[1] = "+8% to Lightning Resistance", 
+				[1] = "+6% to Lightning Resistance",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/ValakoTribePassiveBG.png", 
 			["targetType"] = "Small Intelligence", 
@@ -1838,8 +1838,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/flaskstr.png", 
 			["sd"] = {
-				[1] = "8% increased Life Recovery from Flasks", 
-				[2] = "8% increased Mana Recovery from Flasks", 
+				[1] = "8% increased Life Recovery from Flasks",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TawhoaTribePassiveBG.png", 
 			["targetType"] = "Small Dexterity", 
@@ -2045,7 +2044,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/flaskdex.png", 
 			["sd"] = {
-				[1] = "6% increased Flask Effect Duration", 
+				[1] = "4% increased Flask Effect Duration",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TawhoaTribePassiveBG.png", 
 			["targetType"] = "Small Dexterity", 
@@ -2126,7 +2125,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
 			["sd"] = {
-				[1] = "+8% to Cold Resistance", 
+				[1] = "+6% to Cold Resistance",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/ArohonguiTribePassiveBG.png", 
 			["targetType"] = "Small Dexterity", 
@@ -2317,7 +2316,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/colddamage.png", 
 			["sd"] = {
-				[1] = "Killing Blows have 10% chance to Shatter Enemies as though Frozen", 
+				[1] = "5% chance to Freeze",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/ArohonguiTribePassiveBG.png", 
 			["targetType"] = "Small Intelligence", 
@@ -2341,7 +2340,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LifeRecoupNode.png", 
 			["sd"] = {
-				[1] = "2% of Damage taken Recouped as Life", 
+				[1] = "5% chance to Poison on Hit",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TawhoaTribePassiveBG.png", 
 			["targetType"] = "Small Intelligence", 
@@ -2570,7 +2569,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/SkillscostingLifenode.png", 
 			["sd"] = {
-				[1] = "4% increased Life Reservation Efficiency of Skills", 
+				[1] = "5% chance to Bleed on Hit with Attacks",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/KitavaTribePassiveBG.png", 
 			["targetType"] = "Small Strength", 
@@ -2789,8 +2788,8 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
 			["sd"] = {
-				[1] = "15% chance to Avoid being Chilled", 
-				[2] = "15% chance to Avoid being Frozen", 
+				[1] = "10% chance to Avoid being Chilled",
+				[2] = "10% chance to Avoid being Frozen",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/ArohonguiTribePassiveBG.png", 
 			["targetType"] = "Small Dexterity", 
@@ -2842,7 +2841,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/Blood2.png", 
 			["sd"] = {
-				[1] = "15% chance to Avoid Bleeding", 
+				[1] = "10% chance to Avoid Bleeding",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/KitavaTribePassiveBG.png", 
 			["targetType"] = "Small Strength", 
@@ -2921,7 +2920,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
 			["sd"] = {
-				[1] = "15% reduced Ignite Duration on you", 
+				[1] = "10% reduced Ignite Duration on you",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/NgamahuTribePassiveBG.png", 
 			["targetType"] = "Small Strength", 
@@ -2945,7 +2944,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/stundex.png", 
 			["sd"] = {
-				[1] = "15% chance to Avoid being Stunned", 
+				[1] = "10% chance to Avoid being Stunned",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TasalioTribePassiveBG.png", 
 			["targetType"] = "Small Dexterity", 
@@ -3025,7 +3024,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/energyshield.png", 
 			["sd"] = {
-				[1] = "10% increased Energy Shield Recharge Rate", 
+				[1] = "3% increased maximum Energy Shield",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/HinekoraTribePassiveBG.png", 
 			["targetType"] = "Small Intelligence", 
@@ -3077,7 +3076,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/StancesNode.png", 
 			["sd"] = {
-				[1] = "+0.1 metres to Melee Strike Range", 
+				[1] = "5% increased Melee Damage",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TukohamaTribePassiveBG.png", 
 			["targetType"] = "Small Strength", 
@@ -3214,7 +3213,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
 			["sd"] = {
-				[1] = "15% reduced Effect of Shock on you", 
+				[1] = "10% reduced Effect of Shock on you",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/ValakoTribePassiveBG.png", 
 			["targetType"] = "Small Intelligence", 
@@ -3291,7 +3290,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/damage.png", 
 			["sd"] = {
-				[1] = "Adds 2 to 3 Physical Damage", 
+				[1] = "5% increased Physical Damage",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/KitavaTribePassiveBG.png", 
 			["targetType"] = "Small Strength", 
@@ -3660,7 +3659,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/lightningint.png", 
 			["sd"] = {
-				[1] = "Adds 1 to 7 Lightning Damage", 
+				[1] = "5% increased Lightning Damage",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/ValakoTribePassiveBG.png", 
 			["targetType"] = "Small Intelligence", 
@@ -3711,7 +3710,7 @@ return {
 			["not"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/skillduration.png", 
 			["sd"] = {
-				[1] = "3% increased Skill Effect Duration", 
+				[1] = "+3% to Chaos Resistance",
 			}, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/HinekoraTribePassiveBG.png", 
 			["targetType"] = "Small Intelligence", 

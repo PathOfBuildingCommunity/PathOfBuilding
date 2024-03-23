@@ -57,7 +57,7 @@ local function mergeKeystones(env)
 	end
 end
 
-local function doActorLifeMana(actor)
+function doActorLifeMana(actor)
 	local modDB = actor.modDB
 	local output = actor.output
 	local breakdown = actor.breakdown
@@ -437,7 +437,7 @@ end
 
 -- Calculate life/mana reservation
 ---@param actor table
-local function doActorLifeManaReservation(actor)
+function doActorLifeManaReservation(actor)
 	local modDB = actor.modDB
 	local output = actor.output
 	local condList = modDB.conditions
@@ -584,8 +584,13 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("AreaOfEffect", "INC", effect, "Fanaticism", ModFlag.Cast)
 		end
 		if modDB:Flag(nil, "UnholyMight") then
+			local effect = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
+			modDB:NewMod("PhysicalDamageConvertToChaos", "BASE", m_floor(100 * effect), "Unholy Might")
+			modDB:NewMod("Condition:CanWither", "FLAG", true, "Unholy Might")
+		end
+		if modDB:Flag(nil, "ChaoticMight") then
 			local effect = m_floor(30 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
-			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", effect, "Unholy Might")
+			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", effect, "Chaotic Might")
 		end
 		if modDB:Flag(nil, "Tailwind") then
 			local effect = m_floor(8 * (1 + modDB:Sum("INC", nil, "TailwindEffectOnSelf", "BuffEffectOnSelf") / 100))
@@ -736,7 +741,7 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("BuffExpireFaster", "MORE", -20, "Shapers Presence")
 		end
 		if modDB:Flag(nil, "Condition:CanHaveSoulEater") then
-			local max = modDB:Override(nil, "SoulEaterMax")
+			local max = modDB:Override(nil, "SoulEaterMax") or modDB:Sum("BASE", nil, "SoulEaterMax")
 			modDB:NewMod("Multiplier:SoulEater", "BASE", 1, "Base", { type = "Multiplier", var = "SoulEaterStack", limit = max })
 		end
 	end
@@ -751,9 +756,21 @@ local function doActorCharges(env, actor)
 	output.PowerChargesMin = m_max(modDB:Sum("BASE", nil, "PowerChargesMin"), 0)
 	output.PowerChargesMax = m_max(modDB:Sum("BASE", nil, "PowerChargesMax"), 0)
     output.PowerChargesDuration = m_floor(modDB:Sum("BASE", nil, "ChargeDuration") * (1 + modDB:Sum("INC", nil, "PowerChargesDuration", "ChargeDuration") / 100))
+	if modDB:Flag(nil, "MaximumFrenzyChargesIsMaximumPowerCharges") then
+		local source = modDB.mods["MaximumFrenzyChargesIsMaximumPowerCharges"][1].source
+		if not modDB:HasMod("OVERRIDE", {source = source:match("[^:]+")}, "FrenzyChargesMax") then
+			modDB:NewMod("FrenzyChargesMax", "OVERRIDE", output.PowerChargesMax, source)
+		end
+	end
 	output.FrenzyChargesMin = m_max(modDB:Sum("BASE", nil, "FrenzyChargesMin"), 0)
 	output.FrenzyChargesMax = m_max(modDB:Flag(nil, "MaximumFrenzyChargesIsMaximumPowerCharges") and output.PowerChargesMax or modDB:Sum("BASE", nil, "FrenzyChargesMax"), 0)
 	output.FrenzyChargesDuration = m_floor(modDB:Sum("BASE", nil, "ChargeDuration") * (1 + modDB:Sum("INC", nil, "FrenzyChargesDuration", "ChargeDuration") / 100))
+	if modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") then
+		local source = modDB.mods["MaximumEnduranceChargesIsMaximumFrenzyCharges"][1].source
+		if not modDB:HasMod("OVERRIDE", {source = source:match("[^:]+")}, "EnduranceChargesMax") then
+			modDB:NewMod("EnduranceChargesMax", "OVERRIDE", output.FrenzyChargesMax, source)
+		end
+	end
 	output.EnduranceChargesMin = m_max(modDB:Sum("BASE", nil, "EnduranceChargesMin"), 0)
 	output.EnduranceChargesMax = m_max(env.partyMembers.modDB:Flag(nil, "PartyMemberMaximumEnduranceChargesEqualToYours") and env.partyMembers.output.EnduranceChargesMax or (modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or modDB:Sum("BASE", nil, "EnduranceChargesMax")), 0)
 	output.EnduranceChargesDuration = m_floor(modDB:Sum("BASE", nil, "ChargeDuration") * (1 + modDB:Sum("INC", nil, "EnduranceChargesDuration", "ChargeDuration") / 100))
@@ -3003,9 +3020,6 @@ function calcs.perform(env, fullDPSSkipEHP)
 	end
 
 	if env.minion then
-		doActorLifeMana(env.minion)
-		doActorLifeManaReservation(env.minion)
-
 		calcs.defence(env, env.minion)
 		if not fullDPSSkipEHP then -- main.build.calcsTab.input.showMinion and -- should be disabled unless "calcsTab.input.showMinion" is true
 			calcs.buildDefenceEstimations(env, env.minion)
