@@ -1900,7 +1900,7 @@ skills["ElementalHitCloneShot"] = {
 		"skill_can_fire_wand_projectiles",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 5.5, baseMultiplier = 5.5, levelRequirement = 0, },
+		[1] = { damageEffectiveness = 6.875, baseMultiplier = 6.875, levelRequirement = 0, },
 	},
 }
 skills["SumonRagingSpiritMelee"] = {

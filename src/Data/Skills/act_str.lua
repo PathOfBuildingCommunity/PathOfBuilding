@@ -9105,7 +9105,7 @@ skills["ShieldCrushAltX"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "shield_crush_damage_+%_final_from_distance", 0.5 },
+			{ "shield_crush_helmet_enchantment_aoe_+%_final", 2 },
 		},
 	},
 	stats = {
@@ -9139,7 +9139,7 @@ skills["ShieldCrushAltX"] = {
 		[18] = { 0.80000001192093, 1.2000000476837, 7, 9, 84, attackTime = 1000, critChance = 5, levelRequirement = 64, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
 		[19] = { 0.80000001192093, 1.2000000476837, 7, 9, 86, attackTime = 1000, critChance = 5, levelRequirement = 67, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
 		[20] = { 0.80000001192093, 1.2000000476837, 7, 9, 88, attackTime = 1000, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[21] = { 0.80000001192093, 1.2000000476837, 8, 10, 90, attackTime = 1000, critChance = 5, levelRequirement = 72, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, 8, 12, 90, attackTime = 1000, critChance = 5, levelRequirement = 72, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
 		[22] = { 0.80000001192093, 1.2000000476837, 8, 10, 92, attackTime = 1000, critChance = 5, levelRequirement = 74, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
 		[23] = { 0.80000001192093, 1.2000000476837, 8, 10, 94, attackTime = 1000, critChance = 5, levelRequirement = 76, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
 		[24] = { 0.80000001192093, 1.2000000476837, 8, 10, 96, attackTime = 1000, critChance = 5, levelRequirement = 78, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
@@ -10423,7 +10423,7 @@ skills["SummonRockGolemAltY"] = {
 		{ "base_number_of_golems_allowed", 1 },
 		{ "display_minion_monster_type", 10 },
 		{ "active_skill_minion_from_alternate_gem_index", 2 },
-		{ "stone_golem_grants_melee_damage_removed_from_stone_golem_before_life_or_es_%", 10 },
+		{ "stone_golem_grants_melee_damage_removed_from_stone_golem_before_life_or_es_%", 15 },
 		{ "active_skill_minion_life_+%_final", -50 },
 	},
 	stats = {
