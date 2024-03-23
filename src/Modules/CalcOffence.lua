@@ -1547,9 +1547,6 @@ function calcs.offence(env, actor, activeSkill)
 					--Divine Blessing / Totem aura skills that have a percent reservation, round instead of floor the value. This corrects the final result if it would round up
 					divineBlessingCorrection = round((output[resource] or 0) * reservedPercent / 100 * mult) - m_floor((output[resource] or 0) * reservedPercent / 100 * mult)
 				end
-				if resource == "Mana" and skillData.baseManaCostIsAtLeastPercentUnreservedMana then -- Archmage
-					baseCost = m_max(baseCost, m_max(m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100)), 1)
-				end
 			end
 			val.baseCost = val.baseCost + baseCost
 			val.baseCostNoMult = val.baseCostNoMult + baseCostNoMult
