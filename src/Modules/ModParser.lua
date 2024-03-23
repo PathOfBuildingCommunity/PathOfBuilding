@@ -4319,6 +4319,7 @@ local specialModList = {
 	["primordial"] = { mod("Multiplier:PrimordialItem", "BASE", 1) },
 	["spectres have a base duration of (%d+) seconds"] = { mod("SkillData", "LIST", { key = "duration", value = 6 }, { type = "SkillName", skillName = "Raise Spectre", includeTransfigured = true }) },
 	["flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("FlaskEffect", "INC", num, { type = "ActorCondition", actor = "player"}) } end,
+	["flasks applied to you have (%d+)%% increased effect per level"] = function(num) return { mod("FlaskEffect", "INC", num, { type = "ActorCondition", actor = "player"}, { type = "Multiplier", var = "Level" }) } end,
 	["while a unique enemy is in your presence, flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("FlaskEffect", "INC", num, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }, { type = "ActorCondition", actor = "player"}) } end,
 	["while a pinnacle atlas boss is in your presence, flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("FlaskEffect", "INC", num, { type = "ActorCondition", actor = "enemy", var = "PinnacleBoss" }, { type = "ActorCondition", actor = "player"}) } end,
 	["magic utility flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("MagicUtilityFlaskEffect", "INC", num, { type = "ActorCondition", actor = "player"}) } end,
@@ -4517,6 +4518,7 @@ local specialModList = {
 	["your hits can't be evaded by blinded enemies"] = { flag("CannotBeEvaded", { type = "ActorCondition", actor = "enemy", var = "Blinded" }) },
 	["blind does not affect your chance to hit"] = { flag("IgnoreBlindHitChance") },
 	["enemies blinded by you while you are blinded have malediction"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "Condition", var = "Blinded" }) }, { type = "Condition", var = "Blinded" }, { type = "Condition", var = "CannotBeBlinded", neg = true }) },
+	["enemies blinded by you have malediction"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "Condition", var = "Blinded" }) }) },
 	["skills which throw traps have blood magic"] = { flag("CostLifeInsteadOfMana", { type = "SkillType", skillType = SkillType.Trapped }) },
 	["skills which throw traps cost life instead of mana"] = { flag("CostLifeInsteadOfMana", { type = "SkillType", skillType = SkillType.Trapped }) },
 	["strength provides no bonus to maximum life"] = { flag("NoStrBonusToLife") },
@@ -5140,6 +5142,20 @@ local jewelOtherFuncs = {
 		return function(node, out, data)
 			if node and node.type ~= "Keystone" then
 				out:NewMod("Speed", "INC", num, data.modSource, bor(ModFlag.Unarmed, ModFlag.Attack, ModFlag.Melee))
+			end
+		end
+	end,
+	["Passive Skills in Radius also grant (%d+)%% increased Global Critical Strike Chance"] = function(num)
+		return function(node, out, data)
+			if node and node.type ~= "Keystone" then
+				out:NewMod("CritChance", "INC", num, data.modSource)
+			end
+		end
+	end,
+	["Passive Skills in Radius also grant %+(%d+) to Maximum Life"] = function(num)
+		return function(node, out, data)
+			if node and node.type ~= "Keystone" then
+				out:NewMod("Life", "BASE", num, data.modSource)
 			end
 		end
 	end,
