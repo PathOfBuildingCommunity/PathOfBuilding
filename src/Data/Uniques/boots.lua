@@ -850,6 +850,7 @@ Ralakesh's Impatience
 Riveted Boots
 Variant: Pre 3.19.0
 Variant: Pre 3.23.0
+Variant: Pre 3.24.0
 Variant: Current
 Requires Level 36, 35 Str, 35 Int
 +(15-25)% to Cold Resistance
@@ -861,9 +862,9 @@ Requires Level 36, 35 Str, 35 Int
 {variant:2}Minimum Endurance Charges equal to Maximum while stationary
 {variant:2}Minimum Frenzy Charges equal to Maximum while stationary
 {variant:2}Minimum Power Charges equal to Maximum while stationary
-{variant:3}Count as having maximum number of Endurance Charges
-{variant:3}Count as having maximum number of Frenzy Charges
-{variant:3}Count as having maximum number of Power Charges
+{variant:3,4}Count as having maximum number of Endurance Charges
+{variant:3,4}Count as having maximum number of Frenzy Charges
+{variant:3,4}Count as having maximum number of Power Charges
 ]],[[
 Wake of Destruction
 Mesh Boots

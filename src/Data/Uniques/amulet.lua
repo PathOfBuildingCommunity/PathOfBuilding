@@ -387,8 +387,8 @@ Implicits: 1
 {tags:jewellery_attribute}+(30-50) to Strength
 5% chance to grant Unholy Might to nearby Enemies on Kill
 5% chance to grant Onslaught to nearby Enemies on Kill
-{variant:1}5% chance to gain Unholy Might for 10 seconds on Kill
-{variant:2}10% chance to gain Unholy Might for 10 seconds on Kill
+{variant:1}5% chance to gain Chaotic Might for 10 seconds on Kill
+{variant:2}10% chance to gain Chaotic Might for 10 seconds on Kill
 {variant:1}5% chance to gain Onslaught for 10 seconds on Kill
 {variant:2}10% chance to gain Onslaught for 10 seconds on Kill
 {tags:life}Recover 1% of Life on Kill
@@ -1294,6 +1294,8 @@ Avatar of Fire
 ]],[[
 Yoke of Suffering
 Onyx Amulet
+Variant: Pre 3.24.0
+Variant: Current
 Requires Level 70
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
@@ -1302,7 +1304,8 @@ Implicits: 1
 {tags:jewellery_resistance}+(20-40)% to Lightning Resistance
 30% reduced Duration of Ailments on Enemies
 (5-10)% chance to Shock
-Enemies take 5% increased Damage for each type of Ailment you have inflicted on them
+{variant:1}Enemies take 5% increased Damage for each type of Ailment you have inflicted on them
+{variant:2}Enemies take (5-10)% increased Damage for each type of Ailment you have inflicted on them
 Your Elemental Damage can Shock
 ]],[[
 The Eternal Struggle

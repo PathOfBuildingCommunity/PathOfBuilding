@@ -697,6 +697,22 @@ Requires Level 59, 122 Int
 Cannot inflict Shock
 {variant:1}10% increased Elemental Damage per Sextant affecting the area
 ]],[[
+Wraithlord
+Bone Circlet
+Variant: Pre 3.19.0
+Variant: Pre 3.24.0
+Variant: Current
+Requires Level: 34, 73 Int
+{variant:3}Has 4 Abyssal Sockets
+{variant:1,2}+2 to Level of Socketed Minion Gems
+{variant:3}+(1-2) to Level of Socketed Minion Gems
+(120-150)% increased Energy Shield
+{variant:1}Minions Regenerate 1% Life per second
+{variant:1}+1000 to Spectre maximum Life
+{variant:2}+2 to maximum number of Spectres
+{variant:3}+1 to maximum number of Spectres per Socketed Ghastly Eye Jewel
+{variant:2,3}You cannot have Non-Spectre Minions
+]],[[
 Wreath of Phrecia
 Iron Circlet
 League: Legion

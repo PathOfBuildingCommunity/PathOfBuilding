@@ -200,14 +200,16 @@ Inflict Withered for 2 seconds on Hit with this Weapon
 ]],[[
 The Iron Mass
 Gladius
+Variant: Pre 3.24.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 40% increased Global Accuracy Rating
-(140-175)% increased Physical Damage
+{variant:1}(140-175)% increased Physical Damage
+{variant:2}(175-200)% increased Physical Damage
 (14-18)% increased Attack Speed
 Unholy Might
-(20-25)% chance to inflict Withered for 2 seconds on Hit with this Weapon
 Summoned Skeleton Warriors and Soldiers wield this Weapon while in your Main Hand
 Summoned Skeleton Warriors and Soldiers deal Triple Damage with this
 Weapon if you've Hit with this Weapon Recently

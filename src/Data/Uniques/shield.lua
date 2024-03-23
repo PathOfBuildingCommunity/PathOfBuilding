@@ -610,6 +610,27 @@ Implicits: 2
 Lose all Power Charges on reaching Maximum Power Charges
 Shocks you when you reach Maximum Power Charges
 ]],[[
+Manastorm
+{variant:1}Fossilised Spirit Shield
+{variant:2,3}Lacewood Spirit Shield
+Variant: Pre 3.19.0
+Variant: Pre 3.24.0
+Variant: Current
+Implicits: 2
+{variant:1}(15-20)% increased Spell Damage
+{variant:2,3}(5-10)% increased Spell Damage
+{variant:1,2}(80-120)% increased Energy Shield
+{variant:1,2}+(50-70) to maximum Mana
+{variant:1,2}(30-50)% increased Mana Regeneration Rate
+{variant:1,2}When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage
+{variant:1,2}equal to 25% of Sacrificed Mana for 4 seconds
+{variant:3}+(1-100) to maximum Mana
+{variant:3}(1-100)% Increased Mana Regeneration Rate
+{variant:3}Gain (1-100) Mana per Enemy Killed
+{variant:3}(1-100)% Increased Mana Recovery from Flasks
+{variant:3}When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage
+{variant:3}equal to 50% of Sacrificed Mana for 4 seconds
+]],[[
 Matua Tupuna
 Tarnished Spirit Shield
 Variant: Pre 3.0.0

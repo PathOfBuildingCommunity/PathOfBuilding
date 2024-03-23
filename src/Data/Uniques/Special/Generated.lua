@@ -830,7 +830,7 @@ end
 
 local perandusPactIndex = 1
 for _, line in pairs(thePerandusPactMods) do
-	table.insert(thePerandusPact, "{variant:"..perandusPactIndex.."}"..line)
+	table.insert(thePerandusPact, "{variant:"..perandusPactIndex.."}Passive Skills in Radius also grant "..line)
 	perandusPactIndex = perandusPactIndex + 1
 end
 
