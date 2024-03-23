@@ -200,14 +200,16 @@ Inflict Withered for 2 seconds on Hit with this Weapon
 ]],[[
 The Iron Mass
 Gladius
+Variant: Pre 3.24.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 40% increased Global Accuracy Rating
-(140-175)% increased Physical Damage
+{variant:1}(140-175)% increased Physical Damage
+{variant:2}(175-200)% increased Physical Damage
 (14-18)% increased Attack Speed
 Unholy Might
-(20-25)% chance to inflict Withered for 2 seconds on Hit with this Weapon
 Summoned Skeleton Warriors and Soldiers wield this Weapon while in your Main Hand
 Summoned Skeleton Warriors and Soldiers deal Triple Damage with this
 Weapon if you've Hit with this Weapon Recently
@@ -654,6 +656,18 @@ Grants 2 Life per Enemy Hit
 {variant:1,2}5% Chance to Shock
 {variant:3}(15-20)% chance to Shock
 {variant:3}Herald of Thunder has 50% increased Buff Effect
+]],[[
+Nametaker
+Graceful Sword
+League: Affliction
+Requires Level 50, 78 Str, 94 Dex
+Implicits: 1
++350 to Accuracy Rating
+(20-40)% increased Critical Strike Chance
+2% of Physical Attack Damage Leeched as Life
+2% of Physical Attack Damage Leeched as Mana
+Hits with this Weapon have +10% to Critical Strike Multiplier per Enemy Power
+5% of Leech from Hits with this Weapon is Instant per Enemy Power
 ]],[[
 The Goddess Bound
 Whalebone Rapier

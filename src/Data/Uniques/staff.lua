@@ -294,6 +294,17 @@ Socketed Gems are Supported by Level 1 Multiple Totems
 (10-20)% increased maximum Life
 (10-20)% increased maximum Mana
 ]],[[
+The Burden of Shadows
+Primordial Staff
+League: Affliction
+Requires Level 58, 99 Str, 99 Int
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
+Socketed Gems are Supported by Level 1 Lifetap
+(20-30)% increased Cast Speed
+Lose 500 Life per second
+Spells deal added Chaos Damage equal to (15-20)% of your maximum Life
+]],[[
 The Fulcrum
 Ezomyte Staff
 League: Heist
