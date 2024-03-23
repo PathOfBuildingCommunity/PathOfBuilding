@@ -2725,6 +2725,11 @@ local skills, mod, flag, skill = ...
 #baseMod mod("PierceChance", "BASE", 100)
 #mods
 
+#skill ThrownWeaponAltX
+#flags attack projectile
+#baseMod mod("PierceChance", "BASE", 100)
+#mods
+
 #skill VaalThrownWeapon
 #flags attack projectile vaal
 	statMap = {
