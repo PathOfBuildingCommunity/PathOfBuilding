@@ -5406,7 +5406,6 @@ function calcs.offence(env, actor, activeSkill)
 
 	local TotalDotDPS = (output.TotalDot or 0) + (output.TotalPoisonDPS or 0) + (m_max(output.CausticGroundDPS or 0, output.MirageCausticGroundDPS or 0 )) + (output.TotalIgniteDPS or output.IgniteDPS or 0) + (m_max(output.BurningGroundDPS or 0, output.MirageBurningGroundDPS or 0)) + (output.BleedDPS or 0) + (output.CorruptingBloodDPS or 0) + (output.DecayDPS or 0)
 	output.TotalDotDPS = m_min(TotalDotDPS, data.misc.DotDpsCap)
-	ConPrintf(tostring(output.TotalDotDPS) .. "~=" .. TotalDotDPS .. ": " .. tostring(output.TotalDotDPS ~= TotalDotDPS))
 	if output.TotalDotDPS ~= TotalDotDPS then
 		output.showTotalDotDPS = true
 	end
