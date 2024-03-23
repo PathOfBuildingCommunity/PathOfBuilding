@@ -250,7 +250,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 	if not enabled then
 		SetDrawColor(0, 0, 0)
 	elseif self.dropped then
-		SetDrawColor(0.5, 0.5, 0.5)
+		SetDrawColor(0.1, 0.1, 0.1)
 	elseif mOver then
 		SetDrawColor(0.33, 0.33, 0.33)
 	else
