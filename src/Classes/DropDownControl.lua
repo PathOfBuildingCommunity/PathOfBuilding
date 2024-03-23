@@ -247,10 +247,10 @@ function DropDownClass:Draw(viewPort, noTooltip)
 		DrawImage(nil, x, dropY, self.droppedWidth, dropExtra)
 		SetDrawLayer(nil, 0)
 	end
-	if not enabled then
+	if not enabled or self.dropped then
 		SetDrawColor(0, 0, 0)
 	elseif self.dropped then
-		SetDrawColor(0.1, 0.1, 0.1)
+		SetDrawColor(0.0, 0.0, 0.0)
 	elseif mOver then
 		SetDrawColor(0.33, 0.33, 0.33)
 	else
