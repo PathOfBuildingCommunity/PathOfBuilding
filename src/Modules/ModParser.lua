@@ -4543,6 +4543,9 @@ local specialModList = {
 	} end,
 	["when you lose temporal chains you gain maximum rage"] = { flag("Condition:CanGainRage") },
 	["with a murderous eye jewel socketed, melee attacks grant (%d+) rage on hit, no more than once every second"] = { flag("Condition:CanGainRage", { type = "Condition", var = "HaveMurderousEyeJewelIn{SlotName}" }) },
+	["gain %d+ rage after spending a total of %d+ mana"] = { flag("Condition:CanGainRage") },
+	["rage grants cast speed instead of attack speed"] = { flag("Condition:RageCastSpeed") },
+	["rage grants spell damage instead of attack damage"] = { flag("Condition:RageSpellDamage") },
 	["your critical strike multiplier is (%d+)%%"] = function(num) return { mod("CritMultiplier", "OVERRIDE", num) } end,
 	["base critical strike chance for attacks with weapons is ([%d%.]+)%%"] = function(num) return { mod("WeaponBaseCritChance", "OVERRIDE", num) } end,
 	["base critical strike chance of spells is the critical strike chance of y?o?u?r? ?main hand weapon"] = { flag("BaseCritFromMainHand", nil, ModFlag.Spell) }, -- old wordings
