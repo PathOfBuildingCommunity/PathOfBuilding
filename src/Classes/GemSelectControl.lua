@@ -242,7 +242,6 @@ end
 function GemSelectClass:UpdateSortCache()
 	--local start = GetTime()
 	local sortCache = self.sortCache
-
 	-- Don't update the cache if no settings have changed that would impact the ordering
 	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index]
 		and sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
@@ -500,9 +499,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 		end
 		if mOver and (not self.skillsTab.selControl or self.skillsTab.selControl._className ~= "GemSelectControl" or not self.skillsTab.selControl.dropped) and (not noTooltip or self.forceTooltip) then
 			local gemInstance = self.skillsTab.displayGroup.gemList[self.index]
-
 			local cursorX, cursorY = GetCursorPos()
-
 			self.tooltip:Clear()
 			if gemInstance and gemInstance.gemData then
 				-- Check valid qualityId, set to 'Default' if missing
@@ -753,7 +750,7 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 		return
 	end
 
-	-- for filter overlays overlays
+	-- for filter overlay buttons
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
