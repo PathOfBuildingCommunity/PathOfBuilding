@@ -41,6 +41,7 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	self.list = { }
 	self.skillsTab = skillsTab
 	self.cached = false
+	self.mode = ""
 	self.changeFunc = function()
 		if not self.dropped then
 			self.dropped = true
@@ -148,7 +149,8 @@ function GemSelectClass:BuildList(buf)
 
 	self.controls.scrollBar.offset = 0
 	wipeTable(self.list)
-	self.searchStr = buf
+	self.searchStr = buf .. self.mode
+	self.mode = ""
 	if #self.searchStr > 0 then
 		local added = { }
 
@@ -515,6 +517,28 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 		end
 		if mOver and (not self.skillsTab.selControl or self.skillsTab.selControl._className ~= "GemSelectControl" or not self.skillsTab.selControl.dropped) and (not noTooltip or self.forceTooltip) then
 			local gemInstance = self.skillsTab.displayGroup.gemList[self.index]
+
+			local cursorX, cursorY = GetCursorPos()
+			-- if cursorX > (x + width - 20) then
+
+			-- active shortcut
+			sx = x + width - 16 - 2
+			SetDrawColor(1,1,1)
+			DrawImage(nil, sx, y, 16, height)
+			SetDrawColor(0,0,0)
+			DrawImage(nil, sx+1, y+1, 16-2, height-2)
+			SetDrawColor(1,1,1)
+			DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "[S]")
+
+			-- support shortcut
+			sx = x + width - (16*2) - (2*2)
+			SetDrawColor(1,1,1)
+			DrawImage(nil, sx, y, 16, height)
+			SetDrawColor(0,0,0)
+			DrawImage(nil, sx+1, y+1, 16-2, height-2)
+			SetDrawColor(1,1,1)
+			DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "[A]")
+
 			SetDrawLayer(nil, 10)
 			self.tooltip:Clear()
 			if gemInstance and gemInstance.gemData then
@@ -732,6 +756,17 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
+
+	-- for filter overlays overlays
+	local x, y = self:GetPos()
+	local width, height = self:GetSize()
+	local cursorX, cursorY = GetCursorPos()
+	if cursorX > (x + width - 18) then
+		self.mode = ":support:"
+	elseif (cursorX > (x + width - 40) and cursorX < (cursorX + width - 20)) then
+		self.mode = ":active:"
+	end
+
 	local mOverControl = self:GetMouseOverControl()
 	if mOverControl and mOverControl.OnKeyDown then
 		self.selControl = mOverControl
