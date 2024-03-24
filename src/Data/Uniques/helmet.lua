@@ -705,7 +705,7 @@ Variant: Current
 Requires Level: 34, 73 Int
 {variant:3}Has 4 Abyssal Sockets
 {variant:1,2}+2 to Level of Socketed Minion Gems
-{variant:3}+(1-2) to Level of Socketed Minion Gems
+{variant:3}+(1-2) to Level of all Minion Skill Gems
 (120-150)% increased Energy Shield
 {variant:1}Minions Regenerate 1% Life per second
 {variant:1}+1000 to Spectre maximum Life
