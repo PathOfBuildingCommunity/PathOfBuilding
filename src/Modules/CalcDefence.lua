@@ -1841,6 +1841,11 @@ function calcs.buildDefenceEstimations(env, actor)
 			stunThresholdBase = output.Life
 			stunThresholdSource = "Life"
 		end
+		if modDB:Flag(nil, "AddESToStunThreshold") then
+			local ESMult = modDB:Sum("BASE", nil, "ESToStunThresholdPercent")
+			stunThresholdBase = stunThresholdBase + output.EnergyShield * ESMult / 100
+			stunThresholdSource = stunThresholdSource.." and "..ESMult.."% of Energy Shield"
+		end
 		local StunThresholdMod = (1 + modDB:Sum("INC", nil, "StunThreshold") / 100)
 		output.StunThreshold = stunThresholdBase * StunThresholdMod
 		
