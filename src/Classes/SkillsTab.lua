@@ -319,30 +319,18 @@ will automatically apply to the skill.]]
             rows = rows + 1
         end
         self.controls["tags_"..index] = new("FlagControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, 10 + (x*width) + (x*4), bankInputsY + 50 + y + (rows*4), width, 20, it, function(state)
-
             s = {}
             s.tag = it
             s.state = state
             self.tagState[it] = s
-            ConPrintf("clicked flag control: ".. it .. " state: ".. state)
-
             self.gemFilter = ""
             for k, v in pairs(self.tagState) do
-                ConPrintf("state: ".. v.tag .. " -> ".. v.state)
                 if v.state ~= 0 then
                     self.gemFilter = self.gemFilter .. ":" .. (v.state == 1 and "" or "-") .. v.tag .. ":"
                 end
             end
-            ConPrintf("gemFilter: ".. self.gemFilter)
         end, nil, true)
     end
-
-    -- local i = 0
-    -- for gemId, gemData in pairs(self.build.data.gems) do
-    --     self.controls[gemData.name] = new("FlagControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, bankInputsX, bankInputsY + 70 + (20 * i), 60, 20, gemData.name, function(state)
-    --     end, nil, true)
-    --     i = i+1
-    -- end
 end)
 
 -- parse real gem name and quality by omitting the first word if alt qual is set
