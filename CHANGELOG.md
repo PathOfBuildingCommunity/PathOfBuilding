@@ -1,5 +1,27 @@
 # Changelog
 
+## [v2.41.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.41.0) (2024/03/24)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.40.1...v2.41.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- Add buttons to filter Active and Support gems in Skills tab [\#7442](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7442) ([ryuukk](https://github.com/ryuukk))
+- Add support for new ES Stun mastery [\#7429](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7429) ([LocalIdentity](https://github.com/LocalIdentity))
+
+### Fixed Bugs
+- Stop sorting unique item list when added item isn't equipped [\#7418](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7418) ([Wires77](https://github.com/Wires77))
+- Fix Wither stacks not working with Unholy Might [\#7427](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7427) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Shield Crush of the Chieftain gem scaling [\#7430](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7430) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Replica Replica Hyrri's Ire not appearing in unique list [\#7426](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7426) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Devouring Diadem missing Mana Reservation mod [\#7423](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7423) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Wraithlord not giving global Minion levels [\#7425](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7425) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
+
+
 ## [v2.40.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.40.1) (2024/03/24)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.40.0...v2.40.1)
