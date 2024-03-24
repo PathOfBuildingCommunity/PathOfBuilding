@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <PoBVersion>
-	<Version number="2.40.0" />
+	<Version number="2.40.1" />
 	<Source part="default" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
-	<File name="changelog.txt" part="default" sha1="2fdb17d3313029be58fe07e1bd6c1f36751987fd" />
+	<File name="changelog.txt" part="default" sha1="1d59fad9257e423d845a5a99c7290bb8c3bc56fb" />
 	<File name="help.txt" part="default" sha1="3343967a2d5f374228fd217a7a3f9612ee046bde" />
 	<File name="LICENSE.md" part="default" sha1="eacedd00e9707defe051bd7151466d223376afa6" />
 	<File name="Assets/game_ui_small.png" part="program" sha1="3e3f01a7c21ffe5ee7dfb644e9f3b7188c319d4d" />
@@ -151,7 +151,7 @@
 	<File name="Data/Skills/other.lua" part="program" sha1="5a5d36e4683f6dcdc004b19124e10d496cc466e9" />
 	<File name="Data/Skills/spectre.lua" part="program" sha1="afb9f98e1cfd035279291e99fa328ca9e882490a" />
 	<File name="Data/Skills/sup_dex.lua" part="program" sha1="5bdfa4ff05ed27b2fd45d29ba3b9af38a74fedef" />
-	<File name="Data/Skills/sup_int.lua" part="program" sha1="506b256763e9ee18dfb2a87cf85b1b9f215b7639" />
+	<File name="Data/Skills/sup_int.lua" part="program" sha1="b4f292a12b1b7f64ac91d71f1005c27763d09df9" />
 	<File name="Data/Skills/sup_str.lua" part="program" sha1="adbae2d48a5b2e348fbd1452620337d882c976ab" />
 	<File name="Data/SkillStatMap.lua" part="program" sha1="8349018f0e844d1f0e97fdeb6f4ba8c87f1759e7" />
 	<File name="Data/Spectres.lua" part="program" sha1="bafe6f48ecbc005eae16bc0d1552a1af9eba2d44" />

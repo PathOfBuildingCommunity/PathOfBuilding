@@ -313,7 +313,7 @@ skills["SupportArchmage"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["manaweave_cost_equals_%_unreserved_mana"] = {
-			mod("ManaCost", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaUnreserved" , percent = 1 }),
+			mod("ManaCostBase", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaUnreserved" , percent = 1 }),
 		},
 		["manaweave_added_lightning_damage_%_cost_if_payable"] = {
 			mod("LightningMin", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaUnreserved" , percent = 1 }),

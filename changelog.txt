@@ -1,3 +1,8 @@
+VERSION[2.40.1][2024/03/24]
+
+--- Fixed Bugs ---
+* Fix Archmage added Mana cost not scaling correctly (LocalIdentity)
+
 VERSION[2.40.0][2024/03/24]
 
 --- New to Path of Building ---
@@ -5,8 +10,8 @@ VERSION[2.40.0][2024/03/24]
   * Should have a noticeable increase in performance and fix many obscure crashes
 * 3.24 Changes:
   * Add 3.24 Trees by (Regisle)
-  * Add support for new 3.24 Uniques by (learn2draw, LocalIdentity)
-  * Update existing uniques from 3.24 patch notes by (learn2draw, LocalIdentity)
+  * Add support for new 3.24 Uniques by (Lexy, LocalIdentity)
+  * Update existing uniques from 3.24 patch notes by (Lexy, LocalIdentity)
   * Update existing skill gems from 3.24 patch notes by (Wires77, LocalIdentity)
   * Update Tattoos, Flasks and item mods with 3.24 changes by (LocalIdentity)
 * Add a config option for disabling Champion Intimidate effect (Paliak)
