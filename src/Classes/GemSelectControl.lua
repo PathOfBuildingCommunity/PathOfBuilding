@@ -503,13 +503,27 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 
 			local cursorX, cursorY = GetCursorPos()
 
+			self.tooltip:Clear()
+			if gemInstance and gemInstance.gemData then
+				-- Check valid qualityId, set to 'Default' if missing
+				if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
+					gemInstance.qualityId = "Default"
+				end
+				self:AddGemTooltip(gemInstance)
+			else
+				self.tooltip:AddLine(16, toolTipText)
+			end
 
 			colorS = 0.5
 			colorA = 0.5
 			if cursorX > (x + width - 18) then
 				colorS = 1
+				self.tooltip:Clear()
+				self.tooltip:AddLine(16, "Only show Support gems")
 			elseif (cursorX > (x + width - 40) and cursorX < (cursorX + width - 20)) then
 				colorA = 1
+				self.tooltip:Clear()
+				self.tooltip:AddLine(16, "Only show Active gems")
 			end
 
 			-- support shortcut
@@ -530,17 +544,8 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			SetDrawColor(colorA,colorA,colorA)
 			DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "A")
 
+
 			SetDrawLayer(nil, 10)
-			self.tooltip:Clear()
-			if gemInstance and gemInstance.gemData then
-				-- Check valid qualityId, set to 'Default' if missing
-				if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
-					gemInstance.qualityId = "Default"
-				end
-				self:AddGemTooltip(gemInstance)
-			else
-				self.tooltip:AddLine(16, toolTipText)
-			end
 			self.tooltip:Draw(x, y, width, height, viewPort)
 			SetDrawLayer(nil, 0)
 		end
