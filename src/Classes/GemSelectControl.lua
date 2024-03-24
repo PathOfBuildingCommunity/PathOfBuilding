@@ -502,23 +502,23 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			local gemInstance = self.skillsTab.displayGroup.gemList[self.index]
 
 			local cursorX, cursorY = GetCursorPos()
-			-- active shortcut
+			-- support shortcut
 			sx = x + width - 16 - 2
 			SetDrawColor(1,1,1)
 			DrawImage(nil, sx, y, 16, height)
 			SetDrawColor(0,0,0)
-			DrawImage(nil, sx+1, y+1, 16-2, height-2)
+			DrawImage(nil, sx+1, y+2, 16-2, height-4)
 			SetDrawColor(1,1,1)
-			DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "[S]")
+			DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "S")
 
-			-- support shortcut
+			-- active shortcut
 			sx = x + width - (16*2) - (2*2)
 			SetDrawColor(1,1,1)
 			DrawImage(nil, sx, y, 16, height)
 			SetDrawColor(0,0,0)
-			DrawImage(nil, sx+1, y+1, 16-2, height-2)
+			DrawImage(nil, sx+1, y+2, 16-2, height-4)
 			SetDrawColor(1,1,1)
-			DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "[A]")
+			DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "A")
 
 			SetDrawLayer(nil, 10)
 			self.tooltip:Clear()
