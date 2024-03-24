@@ -111,18 +111,23 @@ function GemSelectClass:PopulateGemList()
 	local showNormal = self.skillsTab.showSupportGemTypes == "NORMAL"
 	local matchLevel = self.skillsTab.defaultGemLevel == "characterLevel"
 	local characterLevel = self.skillsTab.build and self.skillsTab.build.characterLevel or 1
+	local sortActive = self.sortGemsBy and self.sortGemsBy == "active" or not self.sortGemsBy
+	local sortSupport = self.sortGemsBy and self.sortGemsBy == "support" or not self.sortGemsBy
+
 	for gemId, gemData in pairs(self.skillsTab.build.data.gems) do
-		local levelRequirement = gemData.grantedEffect.levels[1].levelRequirement or 1
-		if characterLevel >= levelRequirement or not matchLevel then
-			if (showAwakened or showAll) and gemData.grantedEffect.plusVersionOf then
-				self.gems["Default:" .. gemId] = gemData
-			elseif showNormal or showAll then
-				if self.skillsTab.showAltQualityGems and (self.skillsTab.defaultGemQuality or 0) > 0 then
-					for _, altQual in ipairs(self.skillsTab:getGemAltQualityList(gemData)) do
-						self.gems[altQual.type .. ":" .. gemId] = gemData
-					end
-				else
+		if (gemData.tags["support"] and sortSupport) or (not gemData.tags["support"] and sortActive) then
+			local levelRequirement = gemData.grantedEffect.levels[1].levelRequirement or 1
+			if characterLevel >= levelRequirement or not matchLevel then
+				if (showAwakened or showAll) and gemData.grantedEffect.plusVersionOf then
 					self.gems["Default:" .. gemId] = gemData
+				elseif showNormal or showAll then
+					if self.skillsTab.showAltQualityGems and (self.skillsTab.defaultGemQuality or 0) > 0 then
+						for _, altQual in ipairs(self.skillsTab:getGemAltQualityList(gemData)) do
+							self.gems[altQual.type .. ":" .. gemId] = gemData
+						end
+					else
+						self.gems["Default:" .. gemId] = gemData
+					end
 				end
 			end
 		end
@@ -765,11 +770,19 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
 	if cursorX > (x + width - 18) then
-		self.mode = ":support:"
-		self.bypassSort = true
+		-- clear cache if last sort was not Support
+		if self.sortGemsBy ~= "support" then
+			self.sortCache = nil
+		end
+		self.sortGemsBy = "support"
+		self.bypassSort = false
 	elseif (cursorX > (x + width - 40) and cursorX < (cursorX + width - 20)) then
-		self.mode = ":active:"
-		self.bypassSort = true
+		-- clear cache if last sort was not Active
+		if self.sortGemsBy ~= "active" then
+			self.sortCache = nil
+		end
+		self.sortGemsBy = "active"
+		self.bypassSort = false
 	else
 		self.bypassSort = false
 	end
