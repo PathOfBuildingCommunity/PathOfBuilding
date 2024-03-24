@@ -40,6 +40,7 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	self.forceTooltip = forceTooltip
 	self.list = { }
 	self.mode = ""
+	self.bypassSort = false
 	self.changeFunc = function()
 		if not self.dropped then
 			self.dropped = true
@@ -217,7 +218,9 @@ function GemSelectClass:BuildList(buf)
 					end
 				end
 			end
-			self:SortGemList(matchList)
+			if self.bypassSort == false then
+				self:SortGemList(matchList)
+			end
 			for _, gemId in ipairs(matchList) do
 				t_insert(self.list, gemId)
 			end
@@ -229,7 +232,9 @@ function GemSelectClass:BuildList(buf)
 				t_insert(self.list, gemId)
 			end
 		end
-		self:SortGemList(self.list)
+		if self.bypassSort == false then
+			self:SortGemList(self.list)
+		end
 	end
 	if not self.list[1] then
 		self.list[1] = ""
@@ -240,6 +245,9 @@ function GemSelectClass:BuildList(buf)
 end
 
 function GemSelectClass:UpdateSortCache()
+	if self.bypassSort then
+		return
+	end
 	--local start = GetTime()
 	local sortCache = self.sortCache
 	-- Don't update the cache if no settings have changed that would impact the ordering
@@ -458,11 +466,13 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			end
 			DrawString(0, y, "LEFT", height - 4, "VAR", gemText)
 			if gemData then
-				if gemData.grantedEffect.support and self.sortCache.canSupport[gemId] then
+				if self.bypassSort == false and gemData.grantedEffect.support and self.sortCache.canSupport[gemId] then
 					SetDrawColor(self.sortCache.dpsColor[gemId])
 					main:DrawCheckMark(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y + (height - 4) / 2, (height - 4) * 0.8)
 				elseif gemData.grantedEffect.hasGlobalEffect then
-					SetDrawColor(self.sortCache.dpsColor[gemId])
+					if self.bypassSort == false then
+						SetDrawColor(self.sortCache.dpsColor[gemId])
+					end
 					DrawString(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y - 2, "CENTER_X", height, "VAR", "+")
 				end
 			end
@@ -756,8 +766,12 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 	local cursorX, cursorY = GetCursorPos()
 	if cursorX > (x + width - 18) then
 		self.mode = ":support:"
+		self.bypassSort = true
 	elseif (cursorX > (x + width - 40) and cursorX < (cursorX + width - 20)) then
 		self.mode = ":active:"
+		self.bypassSort = true
+	else
+		self.bypassSort = false
 	end
 
 	local mOverControl = self:GetMouseOverControl()
