@@ -226,6 +226,8 @@ function GGPKClass:GetNeededFiles()
 		"Data/gameconstants.dat",
 		"Data/alternatequalitytypes.dat",
 		"Data/weaponclasses.dat",
+		"Data/monsterconditions.dat",
+		"Data/rarity.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

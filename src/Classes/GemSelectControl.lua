@@ -39,6 +39,8 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	self.gemChangeFunc = changeFunc
 	self.forceTooltip = forceTooltip
 	self.list = { }
+	self.mode = ""
+	self.bypassSort = false
 	self.changeFunc = function()
 		if not self.dropped then
 			self.dropped = true
@@ -146,7 +148,8 @@ function GemSelectClass:BuildList(buf)
 
 	self.controls.scrollBar.offset = 0
 	wipeTable(self.list)
-	self.searchStr = buf
+	self.searchStr = buf .. self.mode
+	self.mode = ""
 	if #self.searchStr > 0 then
 		local added = { }
 
@@ -215,7 +218,9 @@ function GemSelectClass:BuildList(buf)
 					end
 				end
 			end
-			self:SortGemList(matchList)
+			if self.bypassSort == false then
+				self:SortGemList(matchList)
+			end
 			for _, gemId in ipairs(matchList) do
 				t_insert(self.list, gemId)
 			end
@@ -227,7 +232,9 @@ function GemSelectClass:BuildList(buf)
 				t_insert(self.list, gemId)
 			end
 		end
-		self:SortGemList(self.list)
+		if self.bypassSort == false then
+			self:SortGemList(self.list)
+		end
 	end
 	if not self.list[1] then
 		self.list[1] = ""
@@ -238,6 +245,9 @@ function GemSelectClass:BuildList(buf)
 end
 
 function GemSelectClass:UpdateSortCache()
+	if self.bypassSort then
+		return
+	end
 	--local start = GetTime()
 	local sortCache = self.sortCache
 	-- Don't update the cache if no settings have changed that would impact the ordering
@@ -341,6 +351,7 @@ function GemSelectClass:UpdateSortCache()
 			sortCache.dpsColor[gemId] = "^xFFFF66"
 		end
 	end
+
 	--ConPrintf("Gem Selector time: %d ms", GetTime() - start)
 end
 
@@ -455,11 +466,13 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			end
 			DrawString(0, y, "LEFT", height - 4, "VAR", gemText)
 			if gemData then
-				if gemData.grantedEffect.support and self.sortCache.canSupport[gemId] then
+				if self.bypassSort == false and gemData.grantedEffect.support and self.sortCache.canSupport[gemId] then
 					SetDrawColor(self.sortCache.dpsColor[gemId])
 					main:DrawCheckMark(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y + (height - 4) / 2, (height - 4) * 0.8)
 				elseif gemData.grantedEffect.hasGlobalEffect then
-					SetDrawColor(self.sortCache.dpsColor[gemId])
+					if self.bypassSort == false then
+						SetDrawColor(self.sortCache.dpsColor[gemId])
+					end
 					DrawString(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y - 2, "CENTER_X", height, "VAR", "+")
 				end
 			end
@@ -496,7 +509,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 		end
 		if mOver and (not self.skillsTab.selControl or self.skillsTab.selControl._className ~= "GemSelectControl" or not self.skillsTab.selControl.dropped) and (not noTooltip or self.forceTooltip) then
 			local gemInstance = self.skillsTab.displayGroup.gemList[self.index]
-			SetDrawLayer(nil, 10)
+			local cursorX, cursorY = GetCursorPos()
 			self.tooltip:Clear()
 			if gemInstance and gemInstance.gemData then
 				-- Check valid qualityId, set to 'Default' if missing
@@ -507,6 +520,39 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			else
 				self.tooltip:AddLine(16, toolTipText)
 			end
+
+			colorS = 0.5
+			colorA = 0.5
+			if cursorX > (x + width - 18) then
+				colorS = 1
+				self.tooltip:Clear()
+				self.tooltip:AddLine(16, "Only show Support gems")
+			elseif (cursorX > (x + width - 40) and cursorX < (cursorX + width - 20)) then
+				colorA = 1
+				self.tooltip:Clear()
+				self.tooltip:AddLine(16, "Only show Active gems")
+			end
+
+			-- support shortcut
+			sx = x + width - 16 - 2
+			SetDrawColor(colorS,colorS,colorS)
+			DrawImage(nil, sx, y, 16, height)
+			SetDrawColor(0,0,0)
+			DrawImage(nil, sx+1, y+2, 16-2, height-4)
+			SetDrawColor(colorS,colorS,colorS)
+			DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "S")
+
+			-- active shortcut
+			sx = x + width - (16*2) - (2*2)
+			SetDrawColor(colorA,colorA,colorA)
+			DrawImage(nil, sx, y, 16, height)
+			SetDrawColor(0,0,0)
+			DrawImage(nil, sx+1, y+2, 16-2, height-4)
+			SetDrawColor(colorA,colorA,colorA)
+			DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "A")
+
+
+			SetDrawLayer(nil, 10)
 			self.tooltip:Draw(x, y, width, height, viewPort)
 			SetDrawLayer(nil, 0)
 		end
@@ -713,6 +759,21 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
+
+	-- for filter overlay buttons
+	local x, y = self:GetPos()
+	local width, height = self:GetSize()
+	local cursorX, cursorY = GetCursorPos()
+	if cursorX > (x + width - 18) then
+		self.mode = ":support:"
+		self.bypassSort = true
+	elseif (cursorX > (x + width - 40) and cursorX < (cursorX + width - 20)) then
+		self.mode = ":active:"
+		self.bypassSort = true
+	else
+		self.bypassSort = false
+	end
+
 	local mOverControl = self:GetMouseOverControl()
 	if mOverControl and mOverControl.OnKeyDown then
 		self.selControl = mOverControl

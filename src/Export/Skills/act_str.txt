@@ -389,8 +389,8 @@ local skills, mod, flag, skill = ...
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["chain_strike_cone_radius_+_per_x_rage"] = {
-			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "Rage", div = 3 }),
-			div = 3,
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "Rage", div = 5 }),
+			div = 5,
 		},
 		["quality_display_chain_hook_is_gem"] = {
 			-- Display only
@@ -885,6 +885,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill GeneralsCrySupport
+	addFlags = {
+		forceMainHand = true,
+	},
 	statMap = {
 		["support_spiritual_cry_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
