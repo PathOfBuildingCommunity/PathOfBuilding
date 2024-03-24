@@ -505,7 +505,7 @@ function calcs.defence(env, actor)
 	end
 
 	-- Block
-	output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
+	output.BlockChanceMax = m_min(modDB:Sum("BASE", nil, "BlockChanceMax"), data.misc.BlockChanceCap)
 	if modDB:Flag(nil, "MaximumBlockAttackChanceIsEqualToParent") then
 		output.BlockChanceMax = actor.parent.output.BlockChanceMax
 	elseif modDB:Flag(nil, "MaximumBlockAttackChanceIsEqualToPartyMember") then
@@ -536,7 +536,7 @@ function calcs.defence(env, actor)
 	if modDB:Flag(nil, "SpellBlockChanceMaxIsBlockChanceMax") then
 		output.SpellBlockChanceMax = output.BlockChanceMax
 	else
-		output.SpellBlockChanceMax = modDB:Sum("BASE", nil, "SpellBlockChanceMax")
+		output.SpellBlockChanceMax = m_min(modDB:Sum("BASE", nil, "SpellBlockChanceMax"), data.misc.BlockChanceCap)
 	end
 	if modDB:Flag(nil, "MaxSpellBlockIfNotBlockedRecently") then 
 		output.SpellBlockChance = output.SpellBlockChanceMax
