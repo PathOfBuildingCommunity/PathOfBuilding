@@ -108,10 +108,11 @@ function GemSelectClass:PopulateGemList()
 	local showAwakened = self.skillsTab.showSupportGemTypes == "AWAKENED"
 	local showNormal = self.skillsTab.showSupportGemTypes == "NORMAL"
 	local matchLevel = self.skillsTab.defaultGemLevel == "characterLevel"
+	local showOnlySupportGems = self.skillsTab.showOnlySupportGems == true
 	local characterLevel = self.skillsTab.build and self.skillsTab.build.characterLevel or 1
 	for gemId, gemData in pairs(self.skillsTab.build.data.gems) do
 		local levelRequirement = gemData.grantedEffect.levels[1].levelRequirement or 1
-		if characterLevel >= levelRequirement or not matchLevel then
+		if (showOnlySupportGems and (gemData.tags["support"] == true) or not showOnlySupportGems) and (characterLevel >= levelRequirement or not matchLevel) then
 			if (showAwakened or showAll) and gemData.grantedEffect.plusVersionOf then
 				self.gems["Default:" .. gemId] = gemData
 			elseif showNormal or showAll then
@@ -245,6 +246,7 @@ function GemSelectClass:UpdateSortCache()
 		and sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
 		and (sortCache.characterLevel == self.skillsTab.build.characterLevel or self.skillsTab.defaultGemLevel ~= "characterLevel")
 		and sortCache.defaultQuality == self.skillsTab.defaultGemQuality and sortCache.sortType == self.skillsTab.sortGemsByDPSField
+		and sortCache.showOnlySupportGems == self.skillsTab.showOnlySupportGems
 		and sortCache.considerAlternates == self.skillsTab.showAltQualityGems and sortCache.considerGemType == self.skillsTab.showSupportGemTypes then
 		return
 	end
@@ -252,6 +254,7 @@ function GemSelectClass:UpdateSortCache()
 	if not sortCache or (sortCache.considerAlternates ~= self.skillsTab.showAltQualityGems or sortCache.considerGemType ~= self.skillsTab.showSupportGemTypes
 		or sortCache.defaultQuality ~= self.skillsTab.defaultGemQuality
 		or sortCache.defaultLevel ~= self.skillsTab.defaultGemLevel
+		or sortCache.showOnlySupportGems ~= self.skillsTab.showOnlySupportGems
 		or (sortCache.characterLevel ~= self.skillsTab.build.characterLevel and self.skillsTab.defaultGemLevel == "characterLevel")) then
 		self:PopulateGemList()
 	end
@@ -265,6 +268,7 @@ function GemSelectClass:UpdateSortCache()
 		outputRevision = self.skillsTab.build.outputRevision,
 		defaultLevel = self.skillsTab.defaultGemLevel,
 		defaultQuality = self.skillsTab.defaultGemQuality,
+		showOnlySupportGems = self.skillsTab.showOnlySupportGems,
 		characterLevel = self.skillsTab.build and self.skillsTab.build.characterLevel or 1,
 		canSupport = { },
 		dps = { },
