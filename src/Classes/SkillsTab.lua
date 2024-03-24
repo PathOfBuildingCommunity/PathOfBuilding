@@ -280,7 +280,7 @@ will automatically apply to the skill.]]
 
     -- TODO: improve filter system to include these custom tags
     -- local header_a = { "Awakened", "Transfigured", "Transfigurable", "Mana Reservation", "Have Jewel", "Have Unique", "Cost Mana", "Instant", "Have Cooldown", "New" }
-    local tags = { "active" }
+    local tags = { "active", "support", "int", "dex", "str"}
     function table_contains(tbl, x)
         found = false
         for _, v in pairs(tbl) do
