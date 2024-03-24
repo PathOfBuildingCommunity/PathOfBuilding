@@ -19,6 +19,9 @@ local altQualMap = {
 	["Alternate3"] = "Phantasmal ",
 }
 
+local icon_sort_disabled
+local icon_sort_disabled_hover
+
 local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, x, y, width, height, skillsTab, index, changeFunc, forceTooltip)
 	self.EditControl(anchor, x, y, width, height, nil, nil, "^ %a':-")
 	self.controls.scrollBar = new("ScrollBarControl", { "TOPRIGHT", self, "TOPRIGHT" }, -1, 0, 18, 0, (height - 4) * 4)
@@ -57,6 +60,12 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 		lifeReservationFlat = "Life",
 		lifeReservationPercent = "LifePercent",
 	}
+    if icon_sort_disabled == nil then
+        icon_sort_disabled = NewImageHandle()
+        icon_sort_disabled_hover = NewImageHandle()
+        icon_sort_disabled:Load("Assets/ui_sort_disabled.png")
+        icon_sort_disabled_hover:Load("Assets/ui_sort_disabled_hover.png")
+    end
 end)
 
 function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId)
@@ -471,11 +480,11 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			end
 			DrawString(0, y, "LEFT", height - 4, "VAR", gemText)
 			if gemData then
-				if self.bypassSort == false and gemData.grantedEffect.support and self.sortCache.canSupport[gemId] then
+				if self.bypassSort == false and gemData.grantedEffect.support and self.sortCache and self.sortCache.canSupport[gemId] then
 					SetDrawColor(self.sortCache.dpsColor[gemId])
 					main:DrawCheckMark(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y + (height - 4) / 2, (height - 4) * 0.8)
 				elseif gemData.grantedEffect.hasGlobalEffect then
-					if self.bypassSort == false then
+					if self.bypassSort == false and self.sortCache then
 						SetDrawColor(self.sortCache.dpsColor[gemId])
 					end
 					DrawString(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y - 2, "CENTER_X", height, "VAR", "+")
@@ -526,17 +535,23 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 				self.tooltip:AddLine(16, toolTipText)
 			end
 
-			colorS = 0.5
-			colorA = 0.5
-			if cursorX > (x + width - 18) then
-				colorS = 1
-				self.tooltip:Clear()
-				self.tooltip:AddLine(16, "Only show Support gems")
-			elseif (cursorX > (x + width - 40) and cursorX < (cursorX + width - 20)) then
-				colorA = 1
-				self.tooltip:Clear()
-				self.tooltip:AddLine(16, "Only show Active gems")
-			end
+
+            colorS = 0.5
+            colorA = 0.5
+            allHover = false
+            if cursorX > (x + width - 18) then
+                colorS = 1
+                self.tooltip:Clear()
+                self.tooltip:AddLine(16, "Only show Support gems")
+            elseif (cursorX > (x + width - 40) and cursorX < (cursorX + width - 20)) then
+                colorA = 1
+                self.tooltip:Clear()
+                self.tooltip:AddLine(16, "Only show Active gems")
+            elseif (cursorX > (x + width - 64) and cursorX < (cursorX + width - 42)) then
+                allHover = true
+                self.tooltip:Clear()
+                self.tooltip:AddLine(16, "Show all gems without doing DPS sorting (faster)")
+            end
 
 			-- support shortcut
 			sx = x + width - 16 - 2
@@ -555,6 +570,15 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			DrawImage(nil, sx+1, y+2, 16-2, height-4)
 			SetDrawColor(colorA,colorA,colorA)
 			DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "A")
+
+            -- all shortcut
+            sx = x + width - (16*3) - (2*3)
+            SetDrawColor(1,1,1)
+            if allHover then
+                DrawImage(icon_sort_disabled_hover, sx, y, 16, height)
+            else
+                DrawImage(icon_sort_disabled, sx, y, 16, height)
+            end
 
 
 			SetDrawLayer(nil, 10)
@@ -783,6 +807,9 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 		end
 		self.sortGemsBy = "active"
 		self.bypassSort = false
+    elseif (cursorX > (x + width - 60) and cursorX < (cursorX + width - 40)) then
+    	self.sortGemsBy = ""
+		self.bypassSort = true
 	else
 		self.bypassSort = false
 	end
