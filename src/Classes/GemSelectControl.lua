@@ -39,6 +39,8 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	self.gemChangeFunc = changeFunc
 	self.forceTooltip = forceTooltip
 	self.list = { }
+	self.skillsTab = skillsTab
+	self.cached = false
 	self.changeFunc = function()
 		if not self.dropped then
 			self.dropped = true
@@ -215,7 +217,9 @@ function GemSelectClass:BuildList(buf)
 					end
 				end
 			end
-			self:SortGemList(matchList)
+			if self.skillsTab.sortGemsByDPS then
+				self:SortGemList(matchList)
+			end
 			for _, gemId in ipairs(matchList) do
 				t_insert(self.list, gemId)
 			end
@@ -227,7 +231,9 @@ function GemSelectClass:BuildList(buf)
 				t_insert(self.list, gemId)
 			end
 		end
-		self:SortGemList(self.list)
+		if self.skillsTab.sortGemsByDPS then
+			self:SortGemList(self.list)
+		end
 	end
 	if not self.list[1] then
 		self.list[1] = ""
@@ -240,6 +246,11 @@ end
 function GemSelectClass:UpdateSortCache()
 	--local start = GetTime()
 	local sortCache = self.sortCache
+
+	if self.cached == false and self.skillsTab.sortGemsByDPS then
+		sortCache = {}
+	end
+
 	-- Don't update the cache if no settings have changed that would impact the ordering
 	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index]
 		and sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
@@ -272,6 +283,10 @@ function GemSelectClass:UpdateSortCache()
 		sortType = self.skillsTab.sortGemsByDPSField
 	}
 	self.sortCache = sortCache
+
+	if self.skillsTab.sortGemsByDPS == false then
+		return
+	end
 
 	-- Determine supports that affect the active skill
 	if self.skillsTab.displayGroup.displaySkillList and self.skillsTab.displayGroup.displaySkillList[1] then
@@ -341,6 +356,8 @@ function GemSelectClass:UpdateSortCache()
 			sortCache.dpsColor[gemId] = "^xFFFF66"
 		end
 	end
+
+	self.cached = true
 	--ConPrintf("Gem Selector time: %d ms", GetTime() - start)
 end
 
@@ -459,7 +476,9 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 					SetDrawColor(self.sortCache.dpsColor[gemId])
 					main:DrawCheckMark(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y + (height - 4) / 2, (height - 4) * 0.8)
 				elseif gemData.grantedEffect.hasGlobalEffect then
-					SetDrawColor(self.sortCache.dpsColor[gemId])
+					if self.sortCache.dpsColor[gemId] then
+						SetDrawColor(self.sortCache.dpsColor[gemId])
+					end
 					DrawString(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y - 2, "CENTER_X", height, "VAR", "+")
 				end
 			end
