@@ -39,6 +39,7 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	self.gemChangeFunc = changeFunc
 	self.forceTooltip = forceTooltip
 	self.list = { }
+	self.mode = ""
 	self.changeFunc = function()
 		if not self.dropped then
 			self.dropped = true
@@ -146,7 +147,8 @@ function GemSelectClass:BuildList(buf)
 
 	self.controls.scrollBar.offset = 0
 	wipeTable(self.list)
-	self.searchStr = buf
+	self.searchStr = buf .. self.mode
+	self.mode = ""
 	if #self.searchStr > 0 then
 		local added = { }
 
@@ -240,6 +242,7 @@ end
 function GemSelectClass:UpdateSortCache()
 	--local start = GetTime()
 	local sortCache = self.sortCache
+
 	-- Don't update the cache if no settings have changed that would impact the ordering
 	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index]
 		and sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
@@ -341,6 +344,7 @@ function GemSelectClass:UpdateSortCache()
 			sortCache.dpsColor[gemId] = "^xFFFF66"
 		end
 	end
+
 	--ConPrintf("Gem Selector time: %d ms", GetTime() - start)
 end
 
@@ -496,6 +500,28 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 		end
 		if mOver and (not self.skillsTab.selControl or self.skillsTab.selControl._className ~= "GemSelectControl" or not self.skillsTab.selControl.dropped) and (not noTooltip or self.forceTooltip) then
 			local gemInstance = self.skillsTab.displayGroup.gemList[self.index]
+
+			local cursorX, cursorY = GetCursorPos()
+			-- if cursorX > (x + width - 20) then
+
+			-- active shortcut
+			sx = x + width - 16 - 2
+			SetDrawColor(1,1,1)
+			DrawImage(nil, sx, y, 16, height)
+			SetDrawColor(0,0,0)
+			DrawImage(nil, sx+1, y+1, 16-2, height-2)
+			SetDrawColor(1,1,1)
+			DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "[S]")
+
+			-- support shortcut
+			sx = x + width - (16*2) - (2*2)
+			SetDrawColor(1,1,1)
+			DrawImage(nil, sx, y, 16, height)
+			SetDrawColor(0,0,0)
+			DrawImage(nil, sx+1, y+1, 16-2, height-2)
+			SetDrawColor(1,1,1)
+			DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "[A]")
+
 			SetDrawLayer(nil, 10)
 			self.tooltip:Clear()
 			if gemInstance and gemInstance.gemData then
@@ -713,6 +739,17 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
+
+	-- for filter overlays overlays
+	local x, y = self:GetPos()
+	local width, height = self:GetSize()
+	local cursorX, cursorY = GetCursorPos()
+	if cursorX > (x + width - 18) then
+		self.mode = ":support:"
+	elseif (cursorX > (x + width - 40) and cursorX < (cursorX + width - 20)) then
+		self.mode = ":active:"
+	end
+
 	local mOverControl = self:GetMouseOverControl()
 	if mOverControl and mOverControl.OnKeyDown then
 		self.selControl = mOverControl
