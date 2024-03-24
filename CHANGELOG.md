@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.40.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.40.1) (2024/03/24)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.40.0...v2.40.1)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Bugs
+- Fix Archmage added Mana cost not scaling correctly ([LocalIdentity](https://github.com/LocalIdentity))
+
+
+
 ## [v2.40.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.40.0) (2024/03/24)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.39.3...v2.40.0)
