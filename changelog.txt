@@ -1,3 +1,19 @@
+VERSION[2.41.0][2024/03/25]
+
+--- New to Path of Building ---
+* Add buttons to filter Active and Support gems in Skills tab (ryuukk)
+* Add support for new ES Stun mastery (LocalIdentity)
+
+--- Fixed Bugs ---
+* Stop sorting unique item list when added item isn't equipped (Wires77)
+* Fix Wither stacks not working with Unholy Might (LocalIdentity)
+* Fix Shield Crush of the Chieftain gem scaling (LocalIdentity)
+* Fix Replica Hyrri's Ire not appearing in unique list (LocalIdentity)
+* Fix Devouring Diadem missing Mana Reservation mod (LocalIdentity)
+* Fix Wraithlord not giving global Minion levels (LocalIdentity)
+
+
+
 VERSION[2.40.1][2024/03/24]
 
 --- Fixed Bugs ---
