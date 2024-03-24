@@ -4169,6 +4169,10 @@ local specialModList = {
 		flag("StunThresholdBasedOnManaInsteadOfLife"),
 		mod("StunThresholdManaPercent", "BASE", num),
 	} end,
+	["(%d+)%% of your energy shield is added to your stun threshold"] = function(num) return {
+		flag("AddESToStunThreshold"),
+		mod("ESToStunThresholdPercent", "BASE", num),
+	} end,
 	["(%d+)%% increased armour per second you've been stationary, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
 		mod("Armour", "INC", num, { type = "Multiplier", var = "StationarySeconds", limit = tonumber(limit / num) }, { type = "Condition", var = "Stationary" }),
 	} end,
