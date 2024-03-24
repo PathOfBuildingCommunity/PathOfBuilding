@@ -1,7 +1,7 @@
 -- Path of Building
 --
--- Class: Button Control
--- Basic button control.
+-- Class: Glag Control
+-- Basic flag control.
 --
 local FlagClass = newClass("FlagControl", "Control", "TooltipHost",
     function(self, anchor, x, y, width, height, label, onClick, onHover, forceTooltip)
@@ -88,7 +88,7 @@ function FlagClass:OnKeyDown(key)
     if not self:IsShown() or not self:IsEnabled() then
         return
     end
-    if key == "LEFTBUTTON" then
+    if key == "LEFTBUTTON" or key == "RIGHTBUTTON" then
         self.clicked = true
     elseif self.enterFunc then
         self.enterFunc()
@@ -103,14 +103,23 @@ function FlagClass:OnKeyUp(key)
     if key == "LEFTBUTTON" and self.clicked then
         self.clicked = false
         if self:IsMouseOver() then
-            if self.state == 0 then
+            if self.state ~= 1 then
                 self.state = 1
             elseif self.state == 1 then
-                self.state = -1
-            else
                 self.state = 0
             end
-            return self.onClick()
+            return self.onClick(self.state)
+        end
+    end
+    if key == "RIGHTBUTTON" and self.clicked then
+        self.clicked = false
+        if self:IsMouseOver() then
+            if self.state ~= -1 then
+                self.state = -1
+            elseif self.state == -1 then
+                self.state = 0
+            end
+            return self.onClick(self.state)
         end
     end
     self.clicked = false

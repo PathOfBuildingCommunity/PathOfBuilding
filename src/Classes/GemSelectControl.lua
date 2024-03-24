@@ -146,7 +146,7 @@ function GemSelectClass:BuildList(buf)
 
 	self.controls.scrollBar.offset = 0
 	wipeTable(self.list)
-	self.searchStr = buf
+	self.searchStr = buf .. self.skillsTab.gemFilter
 	if #self.searchStr > 0 then
 		local added = { }
 

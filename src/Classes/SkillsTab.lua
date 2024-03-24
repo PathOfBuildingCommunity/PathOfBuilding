@@ -91,6 +91,8 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.showAltQualityGems = false
 	self.defaultGemLevel = "normalMaximum"
 	self.defaultGemQuality = main.defaultGemQuality
+    self.gemFilter = ""
+    self.tagState = {}
 
 	-- Set selector
 	self.controls.setSelect = new("DropDownControl", { "TOPLEFT", self, "TOPLEFT" }, 76, 8, 210, 20, nil, function(index, value)
@@ -273,16 +275,16 @@ will automatically apply to the skill.]]
     local bankInputsX = 170
     local bankInputsY = 220
     local bankW = 1260
-    local bankH = 360
-    self.controls.bankSection = new("SectionControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, 0, bankInputsY + 50, bankW, bankH, "Gem Bank")
+    local bankH = 200
+    self.controls.bankSection = new("SectionControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, 0, bankInputsY + 50, bankW, bankH, "Gem Tags Filter (Left/Right Click to Toggle)")
 
-
-    local header_a = { "Awakened", "Transfigured", "Transfigurable", "Mana Reservation", "Have Jewel", "Have Unique", "Cost Mana", "Instant", "Have Cooldown", "New" }
+    -- TODO: improve filter system to include these custom tags
+    -- local header_a = { "Awakened", "Transfigured", "Transfigurable", "Mana Reservation", "Have Jewel", "Have Unique", "Cost Mana", "Instant", "Have Cooldown", "New" }
     local tags = {  }
     function table_contains(tbl, x)
         found = false
         for _, v in pairs(tbl) do
-            if v == x then 
+            if v == x then
                 found = true 
             end
         end
@@ -297,15 +299,16 @@ will automatically apply to the skill.]]
         end
     end
 
-    for i, it in ipairs(header_a) do
-        local index = i - 1
-        local width = 120
-        self.controls["header_"..index] = new("FlagControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, 10 + (index*width) + (index*4), bankInputsY + 70, width, 20, it, function(state)
-            
-        end, nil, true)
-    end
+    -- for i, it in ipairs(header_a) do
+    --     local index = i - 1
+    --     local width = 120
+    --     self.controls["header_"..index] = new("FlagControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, 10 + (index*width) + (index*4), bankInputsY + 70, width, 20, it, function(state)
+
+    --     end, nil, true)
+    -- end
 
     local y = 0
+    local rows = 0
     for i, it in ipairs(tags) do
         local index = i - 1
         local width = 120
@@ -313,9 +316,24 @@ will automatically apply to the skill.]]
         local x = index % 10
         if x == 0 then
             y = y + 20
+            rows = rows + 1
         end
-        self.controls["tags_"..index] = new("FlagControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, 10 + (x*width) + (x*4), bankInputsY + 70 + 20 + y, width, 20, it, function(state)
-            
+        self.controls["tags_"..index] = new("FlagControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, 10 + (x*width) + (x*4), bankInputsY + 50 + y + (rows*4), width, 20, it, function(state)
+
+            s = {}
+            s.tag = it
+            s.state = state
+            self.tagState[it] = s
+            ConPrintf("clicked flag control: ".. it .. " state: ".. state)
+
+            self.gemFilter = ""
+            for k, v in pairs(self.tagState) do
+                ConPrintf("state: ".. v.tag .. " -> ".. v.state)
+                if v.state ~= 0 then
+                    self.gemFilter = self.gemFilter .. ":" .. (v.state == 1 and "" or "-") .. v.tag .. ":"
+                end
+            end
+            ConPrintf("gemFilter: ".. self.gemFilter)
         end, nil, true)
     end
 
