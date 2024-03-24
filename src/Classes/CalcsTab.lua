@@ -500,24 +500,13 @@ function CalcsTabClass:PowerBuilder()
 							node.power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ addNodes = pathNodes }, { requirementsItems = true, requirementsGems = true, skills = true }), calcBase)
 						end
 					end
-				else
-					if calcBase.Minion then
-						node.power.offence = (output.Minion.CombinedDPS - calcBase.Minion.CombinedDPS) / calcBase.Minion.CombinedDPS
-					else
-						node.power.offence = (output.CombinedDPS - calcBase.CombinedDPS) / calcBase.CombinedDPS
-					end
-					node.power.defence = (output.LifeUnreserved - calcBase.LifeUnreserved) / m_max(3000, calcBase.Life) +
-									(output.Armour - calcBase.Armour) / m_max(10000, calcBase.Armour) +
-									((output.EnergyShieldRecoveryCap or output.EnergyShield) - (calcBase.EnergyShieldRecoveryCap or calcBase.EnergyShield)) / m_max(3000, (calcBase.EnergyShieldRecoveryCap or calcBase.EnergyShield)) +
-									(output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
-									(output.LifeRegenRecovery - calcBase.LifeRegenRecovery) / 500 +
-									(output.EnergyShieldRegenRecovery - calcBase.EnergyShieldRegenRecovery) / 1000
+				elseif not self.powerStat or not self.powerStat.ignoreForNodes then
+					node.power.offence, node.power.defence = self:CalculateCombinedOffDefStat(output, calcBase)
 					if node.path and not node.ascendancyName then
 						newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
 						newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
 						newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, node.power.offence / node.pathDist)
 						newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, node.power.defence / node.pathDist)
-
 					end
 				end
 			elseif node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
@@ -581,6 +570,19 @@ function CalcsTabClass:CalculatePowerStat(selection, original, modified)
 		modifiedValue = selection.transform(modifiedValue)
 	end
 	return originalValue - modifiedValue
+end
+
+function CalcsTabClass:CalculateCombinedOffDefStat(original, modified)
+	local defence = (original.LifeUnreserved - modified.LifeUnreserved) / m_max(3000, modified.Life) +
+					(original.Armour - modified.Armour) / m_max(10000, modified.Armour) +
+					((original.EnergyShieldRecoveryCap or original.EnergyShield) - (modified.EnergyShieldRecoveryCap or modified.EnergyShield)) / m_max(3000, (modified.EnergyShieldRecoveryCap or modified.EnergyShield)) +
+					(original.Evasion - modified.Evasion) / m_max(10000, modified.Evasion) +
+					(original.LifeRegenRecovery - modified.LifeRegenRecovery) / 500 +
+					(original.EnergyShieldRegenRecovery - modified.EnergyShieldRegenRecovery) / 1000
+	if modified.Minion then
+		return (original.Minion.CombinedDPS - modified.Minion.CombinedDPS) / modified.Minion.CombinedDPS, defence
+	end
+	return (original.CombinedDPS - modified.CombinedDPS) / modified.CombinedDPS, defence
 end
 
 function CalcsTabClass:GetNodeCalculator()
