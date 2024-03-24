@@ -502,8 +502,6 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			local gemInstance = self.skillsTab.displayGroup.gemList[self.index]
 
 			local cursorX, cursorY = GetCursorPos()
-			-- if cursorX > (x + width - 20) then
-
 			-- active shortcut
 			sx = x + width - 16 - 2
 			SetDrawColor(1,1,1)
