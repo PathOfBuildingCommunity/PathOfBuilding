@@ -60,12 +60,12 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 		lifeReservationFlat = "Life",
 		lifeReservationPercent = "LifePercent",
 	}
-    if icon_sort_disabled == nil then
-        icon_sort_disabled = NewImageHandle()
-        icon_sort_disabled_hover = NewImageHandle()
-        icon_sort_disabled:Load("Assets/ui_sort_disabled.png")
-        icon_sort_disabled_hover:Load("Assets/ui_sort_disabled_hover.png")
-    end
+	if icon_sort_disabled == nil then
+		icon_sort_disabled = NewImageHandle()
+		icon_sort_disabled_hover = NewImageHandle()
+		icon_sort_disabled:Load("Assets/ui_sort_disabled.png")
+		icon_sort_disabled_hover:Load("Assets/ui_sort_disabled_hover.png")
+	end
 end)
 
 function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId)
@@ -265,7 +265,7 @@ function GemSelectClass:UpdateSortCache()
 	--local start = GetTime()
 	local sortCache = self.sortCache
 	-- Don't update the cache if no settings have changed that would impact the ordering
-	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index]
+	if sortCache and not self.forceNewCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index]
 		and sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
 		and (sortCache.characterLevel == self.skillsTab.build.characterLevel or self.skillsTab.defaultGemLevel ~= "characterLevel")
 		and sortCache.defaultQuality == self.skillsTab.defaultGemQuality and sortCache.sortType == self.skillsTab.sortGemsByDPSField
@@ -273,11 +273,12 @@ function GemSelectClass:UpdateSortCache()
 		return
 	end
 
-	if not sortCache or (sortCache.considerAlternates ~= self.skillsTab.showAltQualityGems or sortCache.considerGemType ~= self.skillsTab.showSupportGemTypes
+	if not sortCache or self.forceNewCache or (sortCache.considerAlternates ~= self.skillsTab.showAltQualityGems or sortCache.considerGemType ~= self.skillsTab.showSupportGemTypes
 		or sortCache.defaultQuality ~= self.skillsTab.defaultGemQuality
 		or sortCache.defaultLevel ~= self.skillsTab.defaultGemLevel
 		or (sortCache.characterLevel ~= self.skillsTab.build.characterLevel and self.skillsTab.defaultGemLevel == "characterLevel")) then
 		self:PopulateGemList()
+		self.forceNewCache = false
 	end
 
 	-- Initialize a new sort cache
@@ -371,6 +372,9 @@ end
 
 function GemSelectClass:SortGemList(gemList)
 	local sortCache = self.sortCache
+	if sortCache == nil then
+		return
+	end
 	t_sort(gemList, function(a, b)
 		if sortCache.canSupport[a] == sortCache.canSupport[b] then
 			if self.skillsTab.sortGemsByDPS and sortCache.dps[a] ~= sortCache.dps[b] then
@@ -536,22 +540,22 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			end
 
 
-            colorS = 0.5
-            colorA = 0.5
-            allHover = false
-            if cursorX > (x + width - 18) then
-                colorS = 1
-                self.tooltip:Clear()
-                self.tooltip:AddLine(16, "Only show Support gems")
-            elseif (cursorX > (x + width - 40) and cursorX < (cursorX + width - 20)) then
-                colorA = 1
-                self.tooltip:Clear()
-                self.tooltip:AddLine(16, "Only show Active gems")
-            elseif (cursorX > (x + width - 64) and cursorX < (cursorX + width - 42)) then
-                allHover = true
-                self.tooltip:Clear()
-                self.tooltip:AddLine(16, "Show all gems without doing DPS sorting (faster)")
-            end
+			colorS = 0.5
+			colorA = 0.5
+			allHover = false
+			if cursorX > (x + width - 18) then
+				colorS = 1
+				self.tooltip:Clear()
+				self.tooltip:AddLine(16, "Only show Support gems")
+			elseif (cursorX > (x + width - 40) and cursorX < (cursorX + width - 20)) then
+				colorA = 1
+				self.tooltip:Clear()
+				self.tooltip:AddLine(16, "Only show Active gems")
+			elseif (cursorX > (x + width - 64) and cursorX < (cursorX + width - 42)) then
+				allHover = true
+				self.tooltip:Clear()
+				self.tooltip:AddLine(16, "Show all gems without doing DPS sorting (faster)")
+			end
 
 			-- support shortcut
 			sx = x + width - 16 - 2
@@ -571,14 +575,14 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			SetDrawColor(colorA,colorA,colorA)
 			DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "A")
 
-            -- all shortcut
-            sx = x + width - (16*3) - (2*3)
-            SetDrawColor(1,1,1)
-            if allHover then
-                DrawImage(icon_sort_disabled_hover, sx, y, 16, height)
-            else
-                DrawImage(icon_sort_disabled, sx, y, 16, height)
-            end
+			-- all shortcut
+			sx = x + width - (16*3) - (2*3)
+			SetDrawColor(1,1,1)
+			if allHover then
+				DrawImage(icon_sort_disabled_hover, sx, y, 16, height)
+			else
+				DrawImage(icon_sort_disabled, sx, y, 16, height)
+			end
 
 
 			SetDrawLayer(nil, 10)
@@ -794,21 +798,24 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
 	if cursorX > (x + width - 18) then
-		-- clear cache if last sort was not Support
+		-- force new cache if last sort was not Support
 		if self.sortGemsBy ~= "support" then
 			self.sortCache = nil
+			self.forceNewCache = true
 		end
 		self.sortGemsBy = "support"
 		self.bypassSort = false
 	elseif (cursorX > (x + width - 40) and cursorX < (cursorX + width - 20)) then
-		-- clear cache if last sort was not Active
+		-- force new cache if last sort was not Active
 		if self.sortGemsBy ~= "active" then
 			self.sortCache = nil
+			self.forceNewCache = true
 		end
 		self.sortGemsBy = "active"
 		self.bypassSort = false
-    elseif (cursorX > (x + width - 60) and cursorX < (cursorX + width - 40)) then
-    	self.sortGemsBy = ""
+	elseif (cursorX > (x + width - 60) and cursorX < (cursorX + width - 40)) then
+		self.sortGemsBy = nil
+		self:PopulateGemList()
 		self.bypassSort = true
 	else
 		self.bypassSort = false
