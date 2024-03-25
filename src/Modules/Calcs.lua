@@ -204,7 +204,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	-- calc defences extra part should only run on the last skill of FullDPS
 	local numActiveSkillInFullDPS = 0
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
-		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not GlobalCache.excludeFullDpsList[cacheSkillUUID(activeSkill, fullEnv)] then
+		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
 			if enabled then
 				numActiveSkillInFullDPS = numActiveSkillInFullDPS + 1
@@ -214,7 +214,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	
 	GlobalCache.numActiveSkillInFullDPS = 0
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
-		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not GlobalCache.excludeFullDpsList[cacheSkillUUID(activeSkill, fullEnv)] then
+		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
 			if enabled then
 				GlobalCache.numActiveSkillInFullDPS = GlobalCache.numActiveSkillInFullDPS + 1
