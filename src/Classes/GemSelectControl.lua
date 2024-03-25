@@ -793,6 +793,14 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 		return
 	end
 
+	local mOverControl = self:GetMouseOverControl()
+	if mOverControl and mOverControl.OnKeyDown then
+		self.selControl = mOverControl
+		return mOverControl:OnKeyDown(key) and self
+	else
+		self.selControl = nil
+	end
+
 	-- for filter overlay buttons
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -821,13 +829,6 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 		self.bypassSort = false
 	end
 
-	local mOverControl = self:GetMouseOverControl()
-	if mOverControl and mOverControl.OnKeyDown then
-		self.selControl = mOverControl
-		return mOverControl:OnKeyDown(key) and self
-	else
-		self.selControl = nil
-	end
 	if self.dropped then
 		if key:match("BUTTON") and not self:IsMouseOver() then
 			return
