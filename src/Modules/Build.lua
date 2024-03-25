@@ -1379,10 +1379,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 						table.sort(actor.output.SkillDPS, function(a,b) return (a.dps * a.count) > (b.dps * b.count) end)
 						-- put skills with parts together
 						table.sort(actor.output.SkillDPS, function(a,b)
-							if string.find(a.name, "DPS:") and a.skillPart == nil then
-								return true
-							end
-							if a.skillPart ~= nil or b.skillPart ~= nil then
+							if a.skillPart ~= nil and b.skillPart ~= nil then
 								return true
 							else
 								return false
