@@ -8,8 +8,11 @@
 
 ## What's Changed
 ### New to Path of Building
-- Add buttons to filter Active and Support gems in Skills tab [\#7442](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7442) ([ryuukk](https://github.com/ryuukk))
 - Add support for new ES Stun mastery [\#7429](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7429) ([LocalIdentity](https://github.com/LocalIdentity))
+* 3.24 Changes:
+  * Convocation updated to only have 1 level ([LocalIdentity](https://github.com/LocalIdentity))
+  * Add Convocation mod to Minion Wands and Shields ([LocalIdentity](https://github.com/LocalIdentity))
+  * Add new Mechanical Belt base from Heist ([LocalIdentity](https://github.com/LocalIdentity))
 
 ### Fixed Bugs
 - Stop sorting unique item list when added item isn't equipped [\#7418](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7418) ([Wires77](https://github.com/Wires77))
@@ -18,7 +21,6 @@
 - Fix Replica Hyrri's Ire not appearing in unique list [\#7426](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7426) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Devouring Diadem missing Mana Reservation mod [\#7423](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7423) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Wraithlord not giving global Minion levels [\#7425](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7425) ([LocalIdentity](https://github.com/LocalIdentity))
-
 
 
 
