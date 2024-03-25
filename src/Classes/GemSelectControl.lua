@@ -40,7 +40,6 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	self.forceTooltip = forceTooltip
 	self.list = { }
 	self.mode = ""
-	self.bypassSort = false
 	self.changeFunc = function()
 		if not self.dropped then
 			self.dropped = true
@@ -111,11 +110,9 @@ function GemSelectClass:PopulateGemList()
 	local showNormal = self.skillsTab.showSupportGemTypes == "NORMAL"
 	local matchLevel = self.skillsTab.defaultGemLevel == "characterLevel"
 	local characterLevel = self.skillsTab.build and self.skillsTab.build.characterLevel or 1
-	local sortActive = self.sortGemsBy and self.sortGemsBy == "active" or not self.sortGemsBy
-	local sortSupport = self.sortGemsBy and self.sortGemsBy == "support" or not self.sortGemsBy
 
 	for gemId, gemData in pairs(self.skillsTab.build.data.gems) do
-		if (gemData.tags["support"] and sortSupport) or (not gemData.tags["support"] and sortActive) then
+		if (self.sortGemsBy and gemData.tags[self.sortGemsBy] == true or not self.sortGemsBy) then
 			local levelRequirement = gemData.grantedEffect.levels[1].levelRequirement or 1
 			if characterLevel >= levelRequirement or not matchLevel then
 				if (showAwakened or showAll) and gemData.grantedEffect.plusVersionOf then
@@ -223,9 +220,7 @@ function GemSelectClass:BuildList(buf)
 					end
 				end
 			end
-			if self.bypassSort == false then
-				self:SortGemList(matchList)
-			end
+			self:SortGemList(matchList)
 			for _, gemId in ipairs(matchList) do
 				t_insert(self.list, gemId)
 			end
@@ -237,9 +232,7 @@ function GemSelectClass:BuildList(buf)
 				t_insert(self.list, gemId)
 			end
 		end
-		if self.bypassSort == false then
-			self:SortGemList(self.list)
-		end
+		self:SortGemList(self.list)
 	end
 	if not self.list[1] then
 		self.list[1] = ""
@@ -250,13 +243,10 @@ function GemSelectClass:BuildList(buf)
 end
 
 function GemSelectClass:UpdateSortCache()
-	if self.bypassSort then
-		return
-	end
 	--local start = GetTime()
 	local sortCache = self.sortCache
 	-- Don't update the cache if no settings have changed that would impact the ordering
-	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index]
+	if self.sortGemsBy == self.lastSortGemsBy and sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index]
 		and sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
 		and (sortCache.characterLevel == self.skillsTab.build.characterLevel or self.skillsTab.defaultGemLevel ~= "characterLevel")
 		and sortCache.defaultQuality == self.skillsTab.defaultGemQuality and sortCache.sortType == self.skillsTab.sortGemsByDPSField
@@ -264,10 +254,11 @@ function GemSelectClass:UpdateSortCache()
 		return
 	end
 
-	if not sortCache or (sortCache.considerAlternates ~= self.skillsTab.showAltQualityGems or sortCache.considerGemType ~= self.skillsTab.showSupportGemTypes
+	if self.sortGemsBy ~= self.lastSortGemsBy or not sortCache or (sortCache.considerAlternates ~= self.skillsTab.showAltQualityGems or sortCache.considerGemType ~= self.skillsTab.showSupportGemTypes
 		or sortCache.defaultQuality ~= self.skillsTab.defaultGemQuality
 		or sortCache.defaultLevel ~= self.skillsTab.defaultGemLevel
 		or (sortCache.characterLevel ~= self.skillsTab.build.characterLevel and self.skillsTab.defaultGemLevel == "characterLevel")) then
+		self.lastSortGemsBy = self.sortGemsBy
 		self:PopulateGemList()
 	end
 
@@ -471,13 +462,11 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			end
 			DrawString(0, y, "LEFT", height - 4, "VAR", gemText)
 			if gemData then
-				if self.bypassSort == false and gemData.grantedEffect.support and self.sortCache.canSupport[gemId] then
+				if gemData.grantedEffect.support and self.sortCache.canSupport[gemId] then
 					SetDrawColor(self.sortCache.dpsColor[gemId])
 					main:DrawCheckMark(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y + (height - 4) / 2, (height - 4) * 0.8)
 				elseif gemData.grantedEffect.hasGlobalEffect then
-					if self.bypassSort == false then
-						SetDrawColor(self.sortCache.dpsColor[gemId])
-					end
+					SetDrawColor(self.sortCache.dpsColor[gemId])
 					DrawString(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y - 2, "CENTER_X", height, "VAR", "+")
 				end
 			end
@@ -769,22 +758,16 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
-	if cursorX > (x + width - 18) then
-		-- clear cache if last sort was not Support
-		if self.sortGemsBy ~= "support" then
-			self.sortCache = nil
+	-- constrain cursor to the height of the control
+	if key == "LEFTBUTTON" and (cursorY > y and cursorY < (y + height)) then
+		-- no need to constrain right side of the S overlay as that's outside hover
+		if cursorX > (x + width - 18) then
+			self.sortGemsBy = "support" -- only need to change sortBy, code will continue to UpdateSortCache
+		elseif (cursorX > (x + width - 40) and cursorX < (cursorX + width - 20)) then
+			self.sortGemsBy = "grants_active_skill"
+		else
+			self.sortGemsBy = nil
 		end
-		self.sortGemsBy = "support"
-		self.bypassSort = false
-	elseif (cursorX > (x + width - 40) and cursorX < (cursorX + width - 20)) then
-		-- clear cache if last sort was not Active
-		if self.sortGemsBy ~= "active" then
-			self.sortCache = nil
-		end
-		self.sortGemsBy = "active"
-		self.bypassSort = false
-	else
-		self.bypassSort = false
 	end
 
 	local mOverControl = self:GetMouseOverControl()
