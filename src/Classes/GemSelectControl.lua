@@ -98,7 +98,6 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId)
 		gemInstance.displayEffect = oldGem.displayEffect
 	else
 		gemList[self.index] = nil
-		calcFunc({ }, { allocNodes = true, requirementsItems = true })
 	end
 
 	return output, gemInstance

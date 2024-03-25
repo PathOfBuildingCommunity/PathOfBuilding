@@ -75,9 +75,7 @@ local function getCalculator(build, fullInit, modFunc)
 
 	-- Run base calculation pass
 	calcs.perform(env)
-	GlobalCache.noCache = true
 	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
-	GlobalCache.noCache = nil
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
 	env.player.output.FullDotDPS = fullDPS.TotalDotDPS
@@ -134,7 +132,6 @@ function calcs.getMiscCalculator(build)
 
 	return function(override, accelerate)
 		local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
-		GlobalCache.noCache = true
 		-- we need to preserve the override somewhere for use by possible trigger-based build-outs with overrides
 		env.override = override
 		calcs.perform(env)
@@ -148,7 +145,6 @@ function calcs.getMiscCalculator(build)
 			env.player.output.FullDPS = fullDPS.combinedDPS
 			env.player.output.FullDotDPS = fullDPS.TotalDotDPS
 		end
-		GlobalCache.noCache = nil
 		return env.player.output
 	end, baseOutput	
 end
@@ -222,15 +218,9 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
 			if enabled then
 				GlobalCache.numActiveSkillInFullDPS = GlobalCache.numActiveSkillInFullDPS + 1
-				local cachedData = GlobalCache.cachedData[mode][cacheSkillUUID(activeSkill, fullEnv)]
-				if cachedData and next(override) == nil and not GlobalCache.noCache then
-					usedEnv = cachedData.Env
-					activeSkill = usedEnv.player.mainSkill
-				else
-					fullEnv.player.mainSkill = activeSkill
-					calcs.perform(fullEnv, (GlobalCache.numActiveSkillInFullDPS ~= numActiveSkillInFullDPS))
-					usedEnv = fullEnv
-				end
+				fullEnv.player.mainSkill = activeSkill
+				calcs.perform(fullEnv, (GlobalCache.numActiveSkillInFullDPS ~= numActiveSkillInFullDPS))
+				usedEnv = fullEnv
 				local minionName = nil
 				if activeSkill.minion or usedEnv.minion then
 					if usedEnv.minion.output.TotalDPS and usedEnv.minion.output.TotalDPS > 0 then
@@ -417,7 +407,7 @@ function calcs.buildActiveSkill(env, mode, skill, limitedProcessingFlags)
 		if cacheSkillUUID(activeSkill, fullEnv) == cacheSkillUUID(skill, env) then
 			fullEnv.player.mainSkill = activeSkill
 			fullEnv.player.mainSkill.skillData.limitedProcessing = limitedProcessingFlags and limitedProcessingFlags[cacheSkillUUID(activeSkill, fullEnv)]
-			calcs.perform(fullEnv)
+			calcs.perform(fullEnv, true)
 			return
 		end
 	end
@@ -433,9 +423,7 @@ function calcs.buildOutput(build, mode)
 	local output = env.player.output
 
 	-- Build output across all skills added to FullDPS skills
-	GlobalCache.noCache = true
-	local fullDPS = calcs.calcFullDPS(build, "CACHE", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
-	GlobalCache.noCache = nil
+	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
 
 	-- Add Full DPS data to main `env`
 	env.player.output.SkillDPS = fullDPS.skills
@@ -445,13 +433,13 @@ function calcs.buildOutput(build, mode)
 	if mode == "MAIN" then
 		for _, skill in ipairs(env.player.activeSkillList) do
 			local uuid = cacheSkillUUID(skill, env)
-			if not GlobalCache.cachedData["CACHE"][uuid] then
-				calcs.buildActiveSkill(env, "CACHE", skill)
+			if not GlobalCache.cachedData[mode][uuid] then
+				calcs.buildActiveSkill(env, mode, skill)
 			end
-			if GlobalCache.cachedData["CACHE"][uuid] then
+			if GlobalCache.cachedData[mode][uuid] then
 				output.EnergyShieldProtectsMana = env.modDB:Flag(nil, "EnergyShieldProtectsMana")
 				for pool, costResource in pairs({["LifeUnreserved"] = "LifeCost", ["ManaUnreserved"] = "ManaCost", ["Rage"] = "RageCost", ["EnergyShield"] = "ESCost"}) do
-					local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
+					local cachedCost = GlobalCache.cachedData[mode][uuid].Env.player.output[costResource]
 					if cachedCost then
 						local totalPool = (output.EnergyShieldProtectsMana and costResource == "ManaCost" and output["EnergyShield"] or 0) + (output[pool] or 0)
 						if totalPool < cachedCost then
@@ -461,7 +449,7 @@ function calcs.buildOutput(build, mode)
 					end
 				end
 				for pool, costResource in pairs({["LifeUnreservedPercent"] = "LifePercentCost", ["ManaUnreservedPercent"] = "ManaPercentCost"}) do
-					local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
+					local cachedCost = GlobalCache.cachedData[mode][uuid].Env.player.output[costResource]
 					if cachedCost then
 						if (output[pool] or 0) < cachedCost then
 							output[costResource.."PercentCostWarning"] = output[costResource.."PercentCostWarning"] or {}

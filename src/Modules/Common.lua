@@ -769,15 +769,7 @@ end
 
 -- Global Cache related
 function cacheData(uuid, env)
-	local mode = env.mode
-	if mode == "CALCULATOR" then return end
-
-	-- If we previously had global data, we are about to over-ride it, set tables to `nil` for Lua Garbage Collection
-	if GlobalCache.cachedData[mode][uuid] then
-		GlobalCache.cachedData[mode][uuid].ActiveSkill = nil
-		GlobalCache.cachedData[mode][uuid].Env = nil
-	end
-	GlobalCache.cachedData[mode][uuid] = {
+	GlobalCache.cachedData[env.mode][uuid] = {
 		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
 		Speed = env.player.output.Speed,
 		HitSpeed = env.player.output.HitSpeed,
@@ -795,49 +787,13 @@ function cacheData(uuid, env)
 	}
 end
 
--- Add an entry for a fabricated skill (e.g., Mirage Archers)
---   to be deleted if it's not longer needed
-function addDeleteGroupEntry(name)
-	if not GlobalCache.deleteGroup[name] then
-		GlobalCache.deleteGroup[name] = true
-	end
-end
-
--- Remove an entry from the "to be deleted" list
---   because it is still needed
-function removeDeleteGroupEntry(name)
-	if GlobalCache.deleteGroup[name] then
-		GlobalCache.deleteGroup[name] = nil
-	end
-end
-
--- Delete a skill-group entry from the skill list if it has
---   been marked for deletion and nothing over-wrote that
-function deleteFabricatedGroup(skillsTab)
-	for index, socketGroup in ipairs(skillsTab.controls.groupList.list) do
-		if GlobalCache.deleteGroup[socketGroup.label] then
-			t_remove(skillsTab.controls.groupList.list, index)
-			if skillsTab.displayGroup == socketGroup then
-				skillsTab:SetDisplayGroup()
-			end
-			skillsTab:AddUndoState()
-			skillsTab.build.buildFlag = true
-			skillsTab.controls.groupList.selValue = nil
-			wipeTable(GlobalCache.deleteGroup)
-			break
-		end
-	end
-end
-
 -- Wipe all the tables associated with Global Cache
 function wipeGlobalCache()
 	wipeTable(GlobalCache.cachedData.MAIN)
 	wipeTable(GlobalCache.cachedData.CALCS)
 	wipeTable(GlobalCache.cachedData.CALCULATOR)
-	wipeTable(GlobalCache.cachedData.CACHE)
 	wipeTable(GlobalCache.excludeFullDpsList)
 	wipeTable(GlobalCache.deleteGroup)
-	GlobalCache.noCache = nil
 end
 
 -- Check if a specific named gem is enabled in a socket group belonging to a skill
