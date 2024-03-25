@@ -560,7 +560,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			-- support shortcut
 			sx = x + width - 16 - 2
 			SetDrawColor(colorS,colorS,colorS)
-			DrawImage(nil, sx, y, 16, height)
+			DrawImage(nil, sx, y+2, 16, height-4)
 			SetDrawColor(0,0,0)
 			DrawImage(nil, sx+1, y+2, 16-2, height-4)
 			SetDrawColor(colorS,colorS,colorS)
@@ -569,7 +569,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			-- active shortcut
 			sx = x + width - (16*2) - (2*2)
 			SetDrawColor(colorA,colorA,colorA)
-			DrawImage(nil, sx, y, 16, height)
+			DrawImage(nil, sx, y+2, 16, height-4)
 			SetDrawColor(0,0,0)
 			DrawImage(nil, sx+1, y+2, 16-2, height-4)
 			SetDrawColor(colorA,colorA,colorA)
@@ -579,9 +579,9 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			sx = x + width - (16*3) - (2*3)
 			SetDrawColor(1,1,1)
 			if allHover then
-				DrawImage(icon_sort_disabled_hover, sx, y, 16, height)
+				DrawImage(icon_sort_disabled_hover, sx, y+2, 16, height-4)
 			else
-				DrawImage(icon_sort_disabled, sx, y, 16, height)
+				DrawImage(icon_sort_disabled, sx, y+2, 16, height-4)
 			end
 
 
