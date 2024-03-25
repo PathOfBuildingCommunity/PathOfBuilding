@@ -459,7 +459,7 @@ Variant: Focus Ailment Duration
 Variant: Avoid Elemental Damage
 +1 to Level of Socketed Gems
 {variant:1,2,3,4,5,6,7,8,9,10,11,12,13}Socketed Gems have 40% increased Mana Reservation Efficiency
-{variant:14,15,16,17,18,19,20,21,22,23,24}Socketed Gems have 25% increased Reservation Efficiency
+{variant:14,15,16,17,18,19,20,21,22,23,24,25}Socketed Gems have 25% increased Reservation Efficiency
 Trigger Level 15 Feast of Flesh every 5 seconds
 (180-220)% increased Energy Shield
 10% chance for Energy Shield Recharge to start when you use a Skill
@@ -705,7 +705,7 @@ Variant: Current
 Requires Level: 34, 73 Int
 {variant:3}Has 4 Abyssal Sockets
 {variant:1,2}+2 to Level of Socketed Minion Gems
-{variant:3}+(1-2) to Level of Socketed Minion Gems
+{variant:3}+(1-2) to Level of all Minion Skill Gems
 (120-150)% increased Energy Shield
 {variant:1}Minions Regenerate 1% Life per second
 {variant:1}+1000 to Spectre maximum Life
