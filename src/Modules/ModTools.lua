@@ -217,3 +217,122 @@ function modLib.setSource(mod, source)
 	end
 	return mod
 end
+
+function modLib.getModTagsFromModList(modList)
+	if not modList then
+		return
+	end
+	local modTags = { }
+	for _, mod in ipairs(modList) do
+		if mod.name == "MinionModifier" then
+			mod = mod.value.mod
+		end
+		if isValueInArray({"Str", "Dex", "Int", "StrDex", "StrInt", "DexInt", "All"}, mod.name) then
+			table.insert(modTags, "attribute")
+		elseif isValueInArray( {
+			"Life", 
+			"LifeRegen", 
+			"LifeRecoup",
+			"LifeOnKill",
+			"LifeOnHit",
+			"LifeLeech",
+			"LifeLeechRate",
+			"FlaskLifeRecovery",
+			"LifeReservationEfficiency",
+			"LifeRecoveryRate",
+		}, mod.name) then
+			table.insert(modTags, "life")
+		elseif isValueInArray({
+			"Mana", 
+			"ManaRegen", 
+			"ManaCost", 
+			"ManaRecoup",
+			"ManaOnKill",
+			"ManaOnHit",
+			"ManaLeech",
+			"ManaRecoveryRate",
+			"ManaReservationEfficiency",
+			"FlaskManaRecoveryRate",
+		}, mod.name) then
+			table.insert(modTags, "mana")
+		elseif isValueInArray({
+			"EnergyShield", 
+			"EnergyShieldRegenPercent",
+			"EnergyShieldRecoveryRate",
+			"EnergyShieldLeech",
+			"MaxEnergyShieldLeechRate",
+			"Armour", 
+			"ArmourDefense",
+			"Evasion", 
+			"EvadeChance",
+			"ArmourAndEvasion",
+			"ArmourAndEnergyShield",
+			"EvasionAndEnergyShield",
+		}, mod.name) then
+			table.insert(modTags, "defences")
+		elseif isValueInArray({
+			"FireResist",
+			"ColdResist", 
+			"LightningResist", 
+			"ChaosResist",
+			"ElementalResist",
+		}, mod.name) then
+			table.insert(modTags, "resistance")
+		elseif isValueInArray({
+			"PhysicalDamage",
+			"HeartboundLoopSelfDamage",
+		}, mod.name) then
+			table.insert(modTags, "physical_damage")
+		-- TODO Figure out Poison Damage
+		-- Figure out gain as
+		elseif isValueInArray({
+			"ChaosDamage",
+			"EnemyPoisonDuration",
+		}, mod.name) then
+			table.insert(modTags, "chaos_damage")
+		-- TODO Figure out elemental leech
+		--  Figure out Gain as 
+		elseif isValueInArray({
+			"ElementalDamage",
+			"FireDamage",
+			"ColdDamage",
+			"LightningDamage",
+		}, mod.name) then
+			table.insert(modTags, "elemental_damage")
+		elseif mod.flags == ModFlag.Attack or mod.flags == ModFlag.Melee 
+			or mod.keywordFlags == KeywordFlag.Attack or mod.keywordFlags == KeywordFlag.Bleed
+			or isValueInArray({
+			"Accuracy",
+			"MeleeWeaponRange",
+			"MeleeWeaponRangeMetre",
+			"UnarmedRange",
+			"UnarmedRangeMetre",
+			"ImpaleChance",
+		}, mod.name) then
+			table.insert(modTags, "attack")
+		elseif mod.flags == ModFlag.Spell or mod.Flags == ModFlag.Cast 
+			or mod.keywordFlags == KeywordFlag.Spell or mod.keywordFlags == KeywordFlag.Curse
+			or isValueInArray({
+			"BrandAttachmentRange",
+			"CurseEffectOnSelf",
+		}, mod.name) then
+			table.insert(modTags, "caster")
+		elseif isValueInArray({
+			"ProjectileSpeed",
+			"Speed",
+			"TrapThrowingSpeed",
+			"MineLayingSpeed",
+			"TotemPlacementSpeed",
+			"MovementSpeed",
+			"WarcrySpeed",
+		}, mod.name) then
+			table.insert(modTags, "speed")
+		elseif isValueInArray({
+			"CritChance",
+			"CritMultiplier",
+		}, mod.name) then
+			table.insert(modTags, "critical")
+		end
+	end
+	return modTags
+end

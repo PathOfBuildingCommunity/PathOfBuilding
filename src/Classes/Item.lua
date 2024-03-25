@@ -11,22 +11,10 @@ local m_max = math.max
 local m_floor = math.floor
 
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
-local catalystList = {"Abrasive", "Accelerating", "Fertile", "Imbued", "Intrinsic", "Noxious", "Prismatic", "Tempering", "Turbulent", "Unstable"}
-local catalystTags = {
-	{ "attack" },
-	{ "speed" },
-	{ "life", "mana", "resource" },
-	{ "caster" },
-	{ "jewellery_attribute", "attribute" },
-	{ "physical_damage", "chaos_damage" },
-	{ "jewellery_resistance", "resistance" },
-	{ "jewellery_defense", "defences" },
-	{ "jewellery_elemental" ,"elemental_damage" },
-	{ "critical" },
-}
 
+local catalysts = itemLib.catalysts
 local function getCatalystScalar(catalystId, tags, quality)
-	if not catalystId or type(catalystId) ~= "number" or not catalystTags[catalystId] or not tags or type(tags) ~= "table" or #tags == 0 then
+	if not catalystId or type(catalystId) ~= "number" or not catalysts[catalystId] or not tags or type(tags) ~= "table" or #tags == 0 then
 		return 1
 	end
 	if not quality then
@@ -40,7 +28,7 @@ local function getCatalystScalar(catalystId, tags, quality)
 	end
 
 	-- Find if any of the catalyst's tags match the provided tags
-	for _, catalystTag in ipairs(catalystTags[catalystId]) do
+	for _, catalystTag in ipairs(catalysts[catalystId].tags) do
 		if tagLookup[catalystTag] then
 			return (100 + quality) / 100
 		end
@@ -557,11 +545,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						self.clusterJewelNodeCount = m_min(m_max(num, self.clusterJewel.minNodes), self.clusterJewel.maxNodes)
 					end
 				elseif specName == "Catalyst" then
-					for i=1, #catalystList do
-						if specVal == catalystList[i] then
-							self.catalyst = i
-						end
-					end
+						self.catalyst = itemLib.getCatalystId("name", specVal)
 				elseif specName == "CatalystQuality" then
 					self.catalystQuality = specToNumber(specVal)
 				elseif specName == "Note" then
@@ -977,7 +961,7 @@ function ItemClass:BuildRaw()
 		end
 	end
 	if self.catalyst and self.catalyst > 0 then
-		t_insert(rawLines, "Catalyst: " .. catalystList[self.catalyst])
+		t_insert(rawLines, "Catalyst: " .. catalysts[self.catalyst].name)
 	end
 	if self.catalystQuality then
 		t_insert(rawLines, "CatalystQuality: " .. self.catalystQuality)
