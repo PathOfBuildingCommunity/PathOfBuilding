@@ -348,7 +348,7 @@ return {
 		modList:NewMod("Condition:ChannellingCyclone", "FLAG", true, "Config")
 	end },
 	{ label = "Arcane Cloak:", ifSkill = "Arcane Cloak"},
-	{ var = "arcaneCloakUsedRecentlyCheck", type = "check", label = "Arcane Cloak used Recently?", ifSkill = "Arcane Cloak", apply = function(val, modList, enemyModList)
+	{ var = "arcaneCloakUsedRecentlyCheck", type = "check", label = "Include in ^x7070FFMana ^7spent Recently?", ifSkill = "Arcane Cloak", tooltip = "When enabled, the mana spent by Arcane Cloak used at full mana will be added to the value provided in # of ^x7070FFMana ^7spent Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ArcaneCloakUsedRecently", "FLAG", true, "Config")
 	end },
 	{ label = "Dark Pact:", ifSkill = "Dark Pact" },
