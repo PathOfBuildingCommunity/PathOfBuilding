@@ -1416,7 +1416,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 
 								fmtDmg = self:FormatStat({fmt = "1.f"}, skillData.dps * skillData.count, overCapStatVal)
 
-								-- display the skill name wiuth the count 'Nx Skill_Name'
+								-- display the skill name with the count 'Nx Skill_Name'
 								t_insert(statBoxList, {
 									height = 14,
 									align = "CENTER_X", x = 140,
