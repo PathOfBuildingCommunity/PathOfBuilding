@@ -641,7 +641,7 @@ Suffix: BeltReducedFlaskChargesUsed1
 Suffix: BeltIncreasedFlaskDuration1
 ]],[[
 Belt
-Mechalarm Belt
+Mechanical Belt
 Crafted: true
 ]],
 -- Quivers

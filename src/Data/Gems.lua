@@ -5669,7 +5669,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
-		naturalMaxLevel = 20,
+		naturalMaxLevel = 1,
 	},
 	["Metadata/Items/Gems/SkillGemFireNovaMine"] = {
 		name = "Pyroclast Mine",
