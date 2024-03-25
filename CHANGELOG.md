@@ -9,6 +9,10 @@
 ## What's Changed
 ### New to Path of Building
 - Add support for new ES Stun mastery [\#7429](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7429) ([LocalIdentity](https://github.com/LocalIdentity))
+* 3.24 Changes:
+  * Convocation updated to only have 1 level ([LocalIdentity](https://github.com/LocalIdentity))
+  * Add Convocation mod to Minion Wands and Shields ([LocalIdentity](https://github.com/LocalIdentity))
+  * Add new Mechanical Belt base from Heist ([LocalIdentity](https://github.com/LocalIdentity))
 
 ### Fixed Bugs
 - Stop sorting unique item list when added item isn't equipped [\#7418](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7418) ([Wires77](https://github.com/Wires77))

@@ -2,6 +2,10 @@ VERSION[2.41.0][2024/03/25]
 
 --- New to Path of Building ---
 * Add support for new ES Stun mastery (LocalIdentity)
+* 3.24 Changes:
+  * Convocation updated to only have 1 level (LocalIdentity)
+  * Add Convocation mod to Minion Wands and Shields (LocalIdentity)
+  * Add new Mechanical Belt base from Heist (LocalIdentity)
 
 --- Fixed Bugs ---
 * Stop sorting unique item list when added item isn't equipped (Wires77)
