@@ -826,6 +826,12 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 		self:PopulateGemList()
 		self.bypassSort = true
 	else
+		if self.sortGemsBy ~= nil then
+			self.sortGemsBy = nil
+			self.sortCache = nil
+			self.forceNewCache = true
+			self:PopulateGemList()
+		end
 		self.bypassSort = false
 	end
 
