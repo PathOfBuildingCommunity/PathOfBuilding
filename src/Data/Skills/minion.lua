@@ -93,7 +93,7 @@ skills["SandstormChaosElementalSummonedEmpowered"] = {
 		"sandstorm_applies_withered_to_enemies_within",
 	},
 	levels = {
-		[1] = { 16.666667039196, storedUses = 1, levelRequirement = 3, cooldown = 8, statInterpolation = { 3, }, },
+		[1] = { 21.666667039196, storedUses = 1, levelRequirement = 3, cooldown = 8, statInterpolation = { 3, }, },
 	},
 }
 skills["FireElementalFlameRedSummoned"] = {
@@ -232,7 +232,7 @@ skills["FireElementalMeteorSummoned"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 16.666667039196, damageEffectiveness = 3.5, baseMultiplier = 3.5, levelRequirement = 1, statInterpolation = { 3, }, },
+		[1] = { 21.666667039196, damageEffectiveness = 5.25, baseMultiplier = 5.25, levelRequirement = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["IceElementalIceCyclone"] = {
@@ -309,7 +309,7 @@ skills["IceElementalSpearSummonedDeathNova"] = {
 	name = "Death Nova",
 	hidden = true,
 	color = 3,
-	baseEffectiveness = 4.5626001358032,
+	baseEffectiveness = 5.7825001358032,
 	incrementalEffectiveness = 0.034600000828505,
 	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -321,7 +321,7 @@ skills["IceElementalSpearSummonedDeathNova"] = {
 	},
 	constantStats = {
 		{ "monster_reverse_point_blank_damage_-%_at_minimum_range", 25 },
-		{ "number_of_additional_projectiles", 11 },
+		{ "number_of_additional_projectiles", 13 },
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
@@ -1900,7 +1900,7 @@ skills["ElementalHitCloneShot"] = {
 		"skill_can_fire_wand_projectiles",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 5.5, baseMultiplier = 5.5, levelRequirement = 0, },
+		[1] = { damageEffectiveness = 6.875, baseMultiplier = 6.875, levelRequirement = 0, },
 	},
 }
 skills["SumonRagingSpiritMelee"] = {
@@ -1916,13 +1916,9 @@ skills["SumonRagingSpiritMelee"] = {
 		melee = true,
 	},
 	stats = {
-		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0, levelRequirement = 1, statInterpolation = { 2, }, },
-		[2] = { 0, levelRequirement = 4, statInterpolation = { 2, }, },
-		[3] = { 1, levelRequirement = 5, statInterpolation = { 2, }, },
-		[4] = { 45, levelRequirement = 84, statInterpolation = { 2, }, },
+		[1] = { levelRequirement = 0, },
 	},
 }
 skills["AnimateGuardianSmite"] = {
@@ -1963,6 +1959,6 @@ skills["AnimateGuardianSmite"] = {
 		"visual_hit_effect_elemental_is_holy",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 2.5, baseMultiplier = 2.5, levelRequirement = 1, },
+		[1] = { damageEffectiveness = 3.25, baseMultiplier = 3.25, levelRequirement = 1, },
 	},
 }

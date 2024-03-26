@@ -2098,10 +2098,6 @@ local skills, mod, flag, skill = ...
 #skill KineticBoltAltX
 #flags attack projectile
 	statMap = {
-		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
-			flag("SpellDamageAppliesToAttacks"),
-			mod("ImprovedSpellDamageAppliesToAttacks", "MAX", nil),
-		},
 		["quality_display_spell_damage_to_attack_damage_is_gem"] = {
 			--Display Only
 		},

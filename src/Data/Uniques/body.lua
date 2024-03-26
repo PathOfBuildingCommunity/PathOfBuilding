@@ -177,6 +177,15 @@ Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second
 {variant:2}Dread Banner grants an additional +(2-4) to maximum Fortification when placing the Banner
 {variant:3}Defiance Banner has (100-200)% increased Taunt duration
 ]],[[
+Pragmatism
+Colosseum Plate
+League: Affliction
+Requires Level 49, 134 Str
++12 to Level of Socketed Skill Gems
+(80-120)% increased Armour
++(60-100) to maximum Mana
+-2 to Level of Socketed Skill Gems per Socketed Gem
+]],[[
 Solaris Lorica
 Copper Plate
 Variant: Pre 2.6.0
@@ -328,6 +337,16 @@ Implicits: 0
 {variant:6}Adds (100-145) to (160-200) Cold Damage to Bow Attacks
 {variant:1,2}Acrobatics
 {variant:3,4,5,6}30% chance to Suppress Spell Damage
+]],[[
+Replica Hyrri's Ire
+Zodiac Leather
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
++30% chance to Suppress Spell Damage
++(40–50) to Dexterity
+(140–220)% increased Evasion Rating
+25% increased Shock Duration on Enemies
+(12–18) to (231–347) Added Lightning Damage with Wand Attacks
 ]],[[
 Kintsugi
 Exquisite Leather
@@ -540,6 +559,16 @@ Implicits: 0
 {variant:4,5,6}10% increased maximum Life
 {variant:1,2,3}Blood Magic
 {variant:6}Skills gain a Base Life Cost equal to 100% of Base Mana Cost
+]],[[
+Replica Covenant
+Spidersilk Robe
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Socketed Gems are Supported by Level 29 Added Cold Damage
++(20-30) to Intelligence
+(210-250)% increased Energy Shield
+10% increased maximum Life
+Skills gain a Base Energy Shield Cost equal to 200% of Base Mana Cost
 ]],[[
 Dialla's Malefaction
 Sage's Robe

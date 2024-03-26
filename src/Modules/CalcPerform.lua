@@ -584,8 +584,13 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("AreaOfEffect", "INC", effect, "Fanaticism", ModFlag.Cast)
 		end
 		if modDB:Flag(nil, "UnholyMight") then
+			local effect = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
+			modDB:NewMod("PhysicalDamageConvertToChaos", "BASE", m_floor(100 * effect), "Unholy Might")
+			modDB:NewMod("Condition:CanWither", "FLAG", true, "Unholy Might")
+		end
+		if modDB:Flag(nil, "ChaoticMight") then
 			local effect = m_floor(30 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
-			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", effect, "Unholy Might")
+			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", effect, "Chaotic Might")
 		end
 		if modDB:Flag(nil, "Tailwind") then
 			local effect = m_floor(8 * (1 + modDB:Sum("INC", nil, "TailwindEffectOnSelf", "BuffEffectOnSelf") / 100))
@@ -736,7 +741,7 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("BuffExpireFaster", "MORE", -20, "Shapers Presence")
 		end
 		if modDB:Flag(nil, "Condition:CanHaveSoulEater") then
-			local max = modDB:Override(nil, "SoulEaterMax")
+			local max = modDB:Override(nil, "SoulEaterMax") or modDB:Sum("BASE", nil, "SoulEaterMax")
 			modDB:NewMod("Multiplier:SoulEater", "BASE", 1, "Base", { type = "Multiplier", var = "SoulEaterStack", limit = max })
 		end
 	end

@@ -232,6 +232,8 @@ function GGPKClass:GetNeededFiles()
 		"Data/gameconstants.dat",
 		"Data/alternatequalitytypes.dat",
 		"Data/weaponclasses.dat",
+		"Data/monsterconditions.dat",
+		"Data/rarity.dat",
 		"Data/trademarketcategory.dat",
 		"Data/trademarketcategorygroups.dat",
 		"Data/PlayerTradeWhisperFormats.dat",

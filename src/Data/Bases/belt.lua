@@ -66,6 +66,14 @@ itemBases["Mechalarm Belt"] = {
 	implicitModTypes = { {  }, },
 	req = { level = 56, },
 }
+itemBases["Mechanical Belt"] = {
+	type = "Belt",
+	tags = { experimental_base = true, default = true, belt = true, },
+	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
+	implicit = "Has 1 Socket",
+	implicitModTypes = { {  }, },
+	req = { level = 56, },
+}
 itemBases["Vanguard Belt"] = {
 	type = "Belt",
 	tags = { not_for_sale = true, atlas_base_type = true, beltatlas1 = true, belt = true, default = true, },

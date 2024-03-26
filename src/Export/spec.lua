@@ -7011,17 +7011,17 @@ return {
 		},
 		[23]={
 			list=true,
-			name="",
-			refTo="",
+			name="MonsterKillAchievements",
+			refTo="AchievementItems",
 			type="Key",
 			width=150
 		},
 		[24]={
 			list=true,
-			name="",
+			name="ArchnemesisType",
 			refTo="ModType",
 			type="Key",
-			width=150
+			width=240
 		},
 		[25]={
 			list=false,
@@ -7049,28 +7049,28 @@ return {
 			name="AchievementItemsKey",
 			refTo="AchievementItems",
 			type="Key",
-			width=100
+			width=130
 		},
 		[29]={
 			list=true,
 			name="GenerationWeightTags",
 			refTo="Tags",
 			type="Key",
-			width=120
+			width=130
 		},
 		[30]={
 			list=true,
 			name="GenerationWeightValues",
 			refTo="Tags",
 			type="Int",
-			width=120
+			width=130
 		},
 		[31]={
 			list=true,
-			name="",
-			refTo="",
+			name="ModifyMapsAchievements",
+			refTo="AchievementItems",
 			type="Key",
-			width=100
+			width=150
 		},
 		[32]={
 			list=false,
@@ -7109,7 +7109,7 @@ return {
 		},
 		[37]={
 			list=true,
-			name="",
+			name="CraftingClassRestrictions",
 			refTo="ItemClasses",
 			type="Key",
 			width=150
@@ -7130,14 +7130,14 @@ return {
 		},
 		[40]={
 			list=true,
-			name="",
-			refTo="HeistEnchant",
+			name="HeistAchievements",
+			refTo="AchievementItems",
 			type="Key",
-			width=150
+			width=230
 		},
 		[41]={
 			list=false,
-			name="",
+			name="Heist_SubStatValue1",
 			refTo="Heist_SubStatValue1",
 			type="Int",
 			width=150
@@ -7147,7 +7147,7 @@ return {
 			name="Heist_SubStatValue2",
 			refTo="GrantedEffectsPerLevel",
 			type="Int",
-			width=240
+			width=150
 		},
 		[43]={
 			list=false,
@@ -7161,7 +7161,7 @@ return {
 			name="Heist_StatsKey1",
 			refTo="Stats",
 			type="Key",
-			width=250
+			width=150
 		},
 		[45]={
 			list=false,
@@ -7277,8 +7277,8 @@ return {
 		},
 		[61]={
 			list=true,
-			name="",
-			refTo="",
+			name="BuffTemplate",
+			refTo="BuffTemplates",
 			type="Key",
 			width=150
 		},
@@ -7353,6 +7353,97 @@ return {
 	monsterconditionaleffectpacks={
 	},
 	monsterconditions={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=200
+		},
+		[2]={
+			list=false,
+			name="Rarity",
+			refTo="Rarity",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="Stat",
+			refTo="Stats",
+			type="Key",
+			width=400
+		},
+		[4]={
+			list=false,
+			name="NotRarity",
+			refTo="Rarity",
+			type="Key",
+			width=150
+		},
+		[5]={
+			list=true,
+			name="NotStat",
+			refTo="Stats",
+			type="Key",
+			width=300
+		},
+		[6]={
+			list=false,
+			name="MapBoss",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="NotMapBoss",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[8]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=400
+		},
+		[9]={
+			list=true,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="HASH32",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	monsterdeathachievements={
 	},
@@ -7782,21 +7873,21 @@ return {
 			name="Actor",
 			refTo="",
 			type="String",
-			width=150
+			width=360
 		},
 		[8]={
 			list=true,
 			name="AnimatedObject",
 			refTo="",
 			type="String",
-			width=150
+			width=390
 		},
 		[9]={
 			list=false,
 			name="ObjectType",
 			refTo="",
 			type="String",
-			width=150
+			width=370
 		},
 		[10]={
 			list=true,
@@ -7957,7 +8048,7 @@ return {
 			name="",
 			refTo="",
 			type="Key",
-			width=50
+			width=120
 		},
 		[33]={
 			list=false,
@@ -9931,6 +10022,62 @@ return {
 	raremonsterlifescalingperlevel={
 	},
 	rarity={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MinMods",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[3]={
+			list=false,
+			name="MaxMods",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[5]={
+			list=false,
+			name="MaxPrefix",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[7]={
+			list=false,
+			name="MaxSuffix",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[8]={
+			list=false,
+			name="Colour",
+			refTo="",
+			type="String",
+			width=80
+		}
 	},
 	raritymask={
 	},

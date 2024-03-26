@@ -694,6 +694,9 @@ function calcs.buildOutput(build, mode)
 		if env.modDB:Flag(nil, "UnholyMight") then
 			t_insert(combatList, "Unholy Might")
 		end
+		if env.modDB:Flag(nil, "ChaoticMight") then
+			t_insert(combatList, "Chaotic Might")
+		end
 		if env.modDB:Flag(nil, "Tailwind") then
 			t_insert(combatList, "Tailwind")
 		end
@@ -794,6 +797,9 @@ function calcs.buildOutput(build, mode)
 			end
 			if env.minion.modDB:Flag(nil, "UnholyMight") then
 				t_insert(combatList, "Unholy Might")
+			end
+			if env.minion.modDB:Flag(nil, "ChaoticMight") then
+				t_insert(combatList, "Chaotic Might")
 			end
 			if env.minion.modDB:Flag(nil, "Tailwind") then
 				t_insert(combatList, "Tailwind")

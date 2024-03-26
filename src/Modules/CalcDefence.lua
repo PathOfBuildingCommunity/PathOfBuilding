@@ -49,6 +49,67 @@ function calcs.armourReduction(armour, raw)
 	return round(calcs.armourReductionF(armour, raw))
 end
 
+-- Based on code from FR and BS found in act_*.txt
+---@param activeSkill/output/breakdown references table passed in from calc offence
+---@param sourceType string type of incoming damage - it will be converted (taken as) from this type if applicable
+---@param baseDmg for which to calculate the damage
+---@return table of taken damage parts, and number, sum of damages
+function calcs.applyDmgTakenConversion(activeSkill, output, breakdown, sourceType, baseDmg)
+	local damageBreakdown = { }
+	local totalDamageTaken = 0
+	local shiftTable = { }
+	local totalTakenAs = 0
+	for _, damageType in ipairs(dmgTypeList) do
+		shiftTable[damageType] = activeSkill.skillModList:Sum("BASE", nil, sourceType.."DamageTakenAs"..damageType, sourceType.."DamageFromHitsTakenAs"..damageType, isElemental[sourceType] and "ElementalDamageTakenAs"..damageType or nil, isElemental[sourceType] and "ElementalDamageFromHitsTakenAs"..damageType or nil)
+		totalTakenAs = totalTakenAs + shiftTable[damageType]
+	end
+	for _, damageType in ipairs(dmgTypeList) do
+		local damageTakenAs = (damageType == sourceType) and m_max(1 - totalTakenAs / 100, 0) or shiftTable[damageType] / 100
+
+		if damageTakenAs ~= 0 then
+			local damage = baseDmg * damageTakenAs
+
+			local baseTakenInc = activeSkill.skillModList:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
+			local baseTakenMore = activeSkill.skillModList:More(nil, "DamageTaken", damageType.."DamageTaken","DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
+			if (damageType == "Lightning" or damageType == "Cold" or damageType == "Fire") then
+				baseTakenInc = baseTakenInc + activeSkill.skillModList:Sum("INC", nil, "ElementalDamageTaken", "ElementalDamageTakenWhenHit")
+				baseTakenMore = baseTakenMore * activeSkill.skillModList:More(nil, "ElementalDamageTaken", "ElementalDamageTakenWhenHit")
+			end
+			local damageTakenMods = m_max((1 + baseTakenInc / 100) * baseTakenMore, 0)
+			local reduction = activeSkill.skillModList:Flag(nil, "SelfIgnore".."Base"..damageType.."DamageReduction") and 0 or output["Base"..damageType.."DamageReductionWhenHit"] or output["Base"..damageType.."DamageReduction"]
+			local resist = activeSkill.skillModList:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."Resist"]
+			local armourReduct = 0
+			local resMult = 1 - resist / 100
+			local reductMult = 1
+
+			local percentOfArmourApplies = m_min((not activeSkill.skillModList:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") and activeSkill.skillModList:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
+			if percentOfArmourApplies > 0 then
+				local effArmour = (output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense)
+				local effDamage = damage * resMult
+				armourReduct = round(effArmour ~= 0 and damage * resMult ~= 0 and (effArmour / (effArmour + effDamage * 5) * 100) or 0)
+				armourReduct = m_min(output.DamageReductionMax, armourReduct)
+			end
+			reductMult = (1 - m_max(m_min(output.DamageReductionMax, armourReduct + reduction), 0) / 100) * damageTakenMods
+			local combinedMult = resMult * reductMult
+			local finalDamage = damage * combinedMult
+			totalDamageTaken = totalDamageTaken + finalDamage
+
+			if breakdown then
+				t_insert(damageBreakdown, damageType.." Damage Taken")
+				if damageTakenAs ~= 1 then
+					t_insert(damageBreakdown, s_format("^8=^7 %d^8 (Base Damage)^7 * %.2f^8 (Damage taken as %s)", baseDmg, damageTakenAs, damageType))
+				end
+				if combinedMult ~= 1 then
+					t_insert(damageBreakdown, s_format("^8=^7 %d^8 (%s Damage)^7 * %.4f^8 (Damage taken multi)", damage, damageType, combinedMult))
+				end
+				t_insert(damageBreakdown, s_format("^8=^7 %d^8 (%s Damage taken)", finalDamage, damageType))
+				t_insert(damageBreakdown, s_format(""))
+			end
+		end
+	end
+	return damageBreakdown, totalDamageTaken
+end
+
 ---Calculates the taken damages from enemy outgoing damage
 ---@param rawDamage number raw incoming damage number, after enemy damage multiplier
 ---@param damageType string type of incoming damage - it will be converted (taken as) from this type if applicable
@@ -444,7 +505,7 @@ function calcs.defence(env, actor)
 	end
 
 	-- Block
-	output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
+	output.BlockChanceMax = m_min(modDB:Sum("BASE", nil, "BlockChanceMax"), data.misc.BlockChanceCap)
 	if modDB:Flag(nil, "MaximumBlockAttackChanceIsEqualToParent") then
 		output.BlockChanceMax = actor.parent.output.BlockChanceMax
 	elseif modDB:Flag(nil, "MaximumBlockAttackChanceIsEqualToPartyMember") then
@@ -475,7 +536,7 @@ function calcs.defence(env, actor)
 	if modDB:Flag(nil, "SpellBlockChanceMaxIsBlockChanceMax") then
 		output.SpellBlockChanceMax = output.BlockChanceMax
 	else
-		output.SpellBlockChanceMax = modDB:Sum("BASE", nil, "SpellBlockChanceMax")
+		output.SpellBlockChanceMax = m_min(modDB:Sum("BASE", nil, "SpellBlockChanceMax"), data.misc.BlockChanceCap)
 	end
 	if modDB:Flag(nil, "MaxSpellBlockIfNotBlockedRecently") then 
 		output.SpellBlockChance = output.SpellBlockChanceMax
@@ -629,7 +690,7 @@ function calcs.defence(env, actor)
 						energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, slotCfg, "EnergyShield", "Defences", slot.."ESAndArmour")
 						gearEnergyShield = gearEnergyShield + energyShieldBase
 						if breakdown then
-							breakdown.slot(slot, nil, slotCfg, energyShieldBase, nil, "EnergyShield", "Defences")
+							breakdown.slot(slot, nil, slotCfg, energyShieldBase, nil, "EnergyShield", "Defences", slot.."ESAndArmour")
 						end
 					end
 				end
@@ -646,7 +707,7 @@ function calcs.defence(env, actor)
 					armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
 					gearArmour = gearArmour + armourBase
 					if breakdown then
-						breakdown.slot(slot, nil, slotCfg, armourBase, nil, "Armour", "ArmourAndEvasion", "Defences")
+						breakdown.slot(slot, nil, slotCfg, armourBase, nil, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
 					end
 				end
 				evasionBase = armourData.Evasion or 0
@@ -1779,6 +1840,11 @@ function calcs.buildDefenceEstimations(env, actor)
 		else
 			stunThresholdBase = output.Life
 			stunThresholdSource = "Life"
+		end
+		if modDB:Flag(nil, "AddESToStunThreshold") then
+			local ESMult = modDB:Sum("BASE", nil, "ESToStunThresholdPercent")
+			stunThresholdBase = stunThresholdBase + output.EnergyShield * ESMult / 100
+			stunThresholdSource = stunThresholdSource.." and "..ESMult.."% of Energy Shield"
 		end
 		local StunThresholdMod = (1 + modDB:Sum("INC", nil, "StunThreshold") / 100)
 		output.StunThreshold = stunThresholdBase * StunThresholdMod
