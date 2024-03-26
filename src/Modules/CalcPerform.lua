@@ -1352,6 +1352,14 @@ function calcs.perform(env, fullDPSSkipEHP)
 		local flaskTotal = base * (1 - instPerc / 100) * (1 + flaskRecInc / 100) * flaskRecMore * (1 + flaskDurInc / 100)
 		local flaskDur = dur * (1 + flaskDurInc / 100) / (1 + flaskTotalRateInc / 100) / (1 + flaskRateInc / 100)
 
+		-- More life recovery while on low life is not affected by flask effect (verified ingame).
+		-- Since this will be multiplied by the flask effect value below we have to counteract this by removing the flask effect from the value beforehand.
+		-- This is also the reason why this value needs a separate multiplier and cannot just be calculated into FlaskLifeRecovery.
+		local lowLifeFlaskRecMore = modDB:More(nil, "FlaskLifeRecoveryLowLife")
+		if lowLifeFlaskRecMore > 1 then
+			flaskTotal = flaskTotal * (lType == "life" and ((lowLifeFlaskRecMore - 1) / (1 + (effectInc) / 100)) + 1 or 1)
+		end
+
 		t_insert(out, modLib.createMod(type.."Recovery", "BASE", flaskTotal / flaskDur, name))
 
 		if (modDB:Flag(nil, type.."FlaskAppliesToEnergyShield")) then
