@@ -8,6 +8,26 @@ local m_min = math.min
 local m_max = math.max
 local s_format = string.format
 
+---Generate and return `pantheonList` table based on the given `godSource`. 
+---
+---This table contains `label` and `val` fields needed in both Minor and Major God lists.
+---@param godSource string God list control name
+---@return table
+local function generatePantheonList(godSource)
+	local isMajorGod = godSource == "pantheonMajorGod" and true or false
+	local pantheonList = {{ label = "Nothing", val = "None"}}
+
+	for godKey, godInfo in pairs(data.pantheons) do
+		if godInfo.isMajorGod == isMajorGod then
+			local godName = godInfo.souls[1].name
+			local pantheonListItem = { label = godName, val = godKey}
+			table.insert(pantheonList, pantheonListItem)
+		end
+	end
+
+	return pantheonList
+end
+
 ---Return the index of the hovered item of a list.
 ---@param control table
 ---@return number
@@ -280,13 +300,7 @@ return {
 	
 	-- Section: Pantheon Gods
 	{ section = "Pantheon Gods", col = 1 },
-	{ var = "pantheonMajorGod", type = "list", label = "Major God:", tooltip = pantheonTooltip("pantheonMajorGod"), list = {
-		{ label = "Nothing", val = "None" },
-		{ label = "Soul of the Brine King", val = "TheBrineKing" },
-		{ label = "Soul of Lunaris", val = "Lunaris" },
-		{ label = "Soul of Solaris", val = "Solaris" },
-		{ label = "Soul of Arakaali", val = "Arakaali" },
-	}, apply = function(val, modList, enemyModList, build)
+	{ var = "pantheonMajorGod", type = "list", label = "Major God:", tooltip = pantheonTooltip("pantheonMajorGod"), list = generatePantheonList("pantheonMajorGod"), apply = function(val, modList, enemyModList, build)
 		local god = data.pantheons[val] --nil if val == "None"
 		for i=2, 4 do -- range based on Data/Pantheons
 			build.configTab.varControls["pantheonMajorGodSoul"..tostring(i-1)].shown = val ~= "None" --hide checkbox if "Nothing" is selected
@@ -296,22 +310,11 @@ return {
 	{ var = "pantheonMajorGodSoul1", type = "check", label = "pantheonMajorGodSoul1", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul1") },
 	{ var = "pantheonMajorGodSoul2", type = "check", label = "pantheonMajorGodSoul2", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul2") },
 	{ var = "pantheonMajorGodSoul3", type = "check", label = "pantheonMajorGodSoul3", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul3") },
-	{ var = "pantheonMinorGod", type = "list", label = "Minor God:", tooltip = pantheonTooltip("pantheonMinorGod"), list = {
-		{ label = "Nothing", val = "None" },
-		{ label = "Soul of Gruthkul", val = "Gruthkul" },
-		{ label = "Soul of Yugul", val = "Yugul" },
-		{ label = "Soul of Abberath", val = "Abberath" },
-		{ label = "Soul of Tukohama", val = "Tukohama" },
-		{ label = "Soul of Garukhan", val = "Garukhan" },
-		{ label = "Soul of Ralakesh", val = "Ralakesh" },
-		{ label = "Soul of Ryslatha", val = "Ryslatha" },
-		{ label = "Soul of Shakari", val = "Shakari" },
-	}, apply = function(val, modList, enemyModList, build)
+	{ var = "pantheonMinorGod", type = "list", label = "Minor God:", tooltip = pantheonTooltip("pantheonMinorGod"), list = generatePantheonList("pantheonMinorGod"), apply = function(val, modList, enemyModList, build)
 		local god = data.pantheons[val]
 		build.configTab.varControls["pantheonMinorGodSoul1"].shown = val ~= "None"
 		build.configTab.varControls["pantheonMinorGodSoul1"].label = god and god.souls[2].name or "pantheonMinorGodSoul1"
-	end
-	},
+	end },
 	{ var = "pantheonMinorGodSoul1", type = "check", label = "pantheonMinorGodSoul1", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMinorGod", "pantheonMinorGodSoul1") },
 
 	-- Section: Skill-specific options
