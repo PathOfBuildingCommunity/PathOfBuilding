@@ -186,40 +186,6 @@ return {
 	{ section = "General", col = 1 },
 	{ var = "resistancePenalty", type = "list", label = "Resistance penalty:", list = {{val=0,label="None"},{val=-30,label="Act 5 (-30%)"},{val=-60,label="Act 10 (-60%)"}}, defaultIndex = 3 },
 	{ var = "bandit", type = "list", label = "Bandit quest:", tooltipFunc = banditTooltip, list = {{val="None",label="Kill all"},{val="Oak",label="Help Oak"},{val="Kraityn",label="Help Kraityn"},{val="Alira",label="Help Alira"}} },
-	{ label = "Pantheon Gods:" },
-	{ var = "pantheonMajorGod", type = "list", label = "Major God:", tooltip = pantheonTooltip("pantheonMajorGod"), list = {
-		{ label = "Nothing", val = "None" },
-		{ label = "Soul of the Brine King", val = "TheBrineKing" },
-		{ label = "Soul of Lunaris", val = "Lunaris" },
-		{ label = "Soul of Solaris", val = "Solaris" },
-		{ label = "Soul of Arakaali", val = "Arakaali" },
-	}, apply = function(val, modList, enemyModList, build)
-		local god = data.pantheons[val] --nil if val == "None"
-		for i=2, 4 do -- range based on Data/Pantheons
-			build.configTab.varControls["pantheonMajorGodSoul"..tostring(i-1)].shown = val ~= "None" --hide checkbox if "Nothing" is selected
-			build.configTab.varControls["pantheonMajorGodSoul"..tostring(i-1)].label = god and god.souls[i].name or "pantheonMajorGodSoul"..tostring(i-1) --soul name if god ~= nil
-		end
-	end },
-	{ var = "pantheonMajorGodSoul1", type = "check", label = "pantheonMajorGodSoul1", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul1") },
-	{ var = "pantheonMajorGodSoul2", type = "check", label = "pantheonMajorGodSoul2", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul2") },
-	{ var = "pantheonMajorGodSoul3", type = "check", label = "pantheonMajorGodSoul3", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul3") },
-	{ var = "pantheonMinorGod", type = "list", label = "Minor God:", tooltip = pantheonTooltip("pantheonMinorGod"), list = {
-		{ label = "Nothing", val = "None" },
-		{ label = "Soul of Gruthkul", val = "Gruthkul" },
-		{ label = "Soul of Yugul", val = "Yugul" },
-		{ label = "Soul of Abberath", val = "Abberath" },
-		{ label = "Soul of Tukohama", val = "Tukohama" },
-		{ label = "Soul of Garukhan", val = "Garukhan" },
-		{ label = "Soul of Ralakesh", val = "Ralakesh" },
-		{ label = "Soul of Ryslatha", val = "Ryslatha" },
-		{ label = "Soul of Shakari", val = "Shakari" },
-	}, apply = function(val, modList, enemyModList, build)
-		local god = data.pantheons[val]
-		build.configTab.varControls["pantheonMinorGodSoul1"].shown = val ~= "None"
-		build.configTab.varControls["pantheonMinorGodSoul1"].label = god and god.souls[2].name or "pantheonMinorGodSoul1"
-	end
-	},
-	{ var = "pantheonMinorGodSoul1", type = "check", label = "pantheonMinorGodSoul1", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMinorGod", "pantheonMinorGodSoul1") },
 	{ var = "detonateDeadCorpseLife", type = "count", label = "Enemy Corpse ^xE05030Life:", ifSkillData = "explodeCorpse", tooltip = "Sets the maximum ^xE05030life ^7of the target corpse for Detonate Dead and similar skills.\nFor reference, a level 70 monster has "..data.monsterLifeTable[70].." base ^xE05030life^7, and a level 80 monster has "..data.monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config")
 	end },
@@ -311,6 +277,42 @@ return {
 	{ var = "overrideEmptyGreenSockets", type = "count", label = "# of Empty ^x70FF70Green^7 Sockets", ifMult = "EmptyGreenSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty ^x70FF70Green^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
 	{ var = "overrideEmptyBlueSockets", type = "count", label = "# of Empty ^x7070FFBlue^7 Sockets", ifMult = "EmptyBlueSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty ^x7070FFBlue^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
 	{ var = "overrideEmptyWhiteSockets", type = "count", label = "# of Empty White Sockets", ifMult = "EmptyWhiteSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty White Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
+	
+	-- Section: Pantheon Gods
+	{ section = "Pantheon Gods", col = 1 },
+	{ var = "pantheonMajorGod", type = "list", label = "Major God:", tooltip = pantheonTooltip("pantheonMajorGod"), list = {
+		{ label = "Nothing", val = "None" },
+		{ label = "Soul of the Brine King", val = "TheBrineKing" },
+		{ label = "Soul of Lunaris", val = "Lunaris" },
+		{ label = "Soul of Solaris", val = "Solaris" },
+		{ label = "Soul of Arakaali", val = "Arakaali" },
+	}, apply = function(val, modList, enemyModList, build)
+		local god = data.pantheons[val] --nil if val == "None"
+		for i=2, 4 do -- range based on Data/Pantheons
+			build.configTab.varControls["pantheonMajorGodSoul"..tostring(i-1)].shown = val ~= "None" --hide checkbox if "Nothing" is selected
+			build.configTab.varControls["pantheonMajorGodSoul"..tostring(i-1)].label = god and god.souls[i].name or "pantheonMajorGodSoul"..tostring(i-1) --soul name if god ~= nil
+		end
+	end },
+	{ var = "pantheonMajorGodSoul1", type = "check", label = "pantheonMajorGodSoul1", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul1") },
+	{ var = "pantheonMajorGodSoul2", type = "check", label = "pantheonMajorGodSoul2", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul2") },
+	{ var = "pantheonMajorGodSoul3", type = "check", label = "pantheonMajorGodSoul3", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul3") },
+	{ var = "pantheonMinorGod", type = "list", label = "Minor God:", tooltip = pantheonTooltip("pantheonMinorGod"), list = {
+		{ label = "Nothing", val = "None" },
+		{ label = "Soul of Gruthkul", val = "Gruthkul" },
+		{ label = "Soul of Yugul", val = "Yugul" },
+		{ label = "Soul of Abberath", val = "Abberath" },
+		{ label = "Soul of Tukohama", val = "Tukohama" },
+		{ label = "Soul of Garukhan", val = "Garukhan" },
+		{ label = "Soul of Ralakesh", val = "Ralakesh" },
+		{ label = "Soul of Ryslatha", val = "Ryslatha" },
+		{ label = "Soul of Shakari", val = "Shakari" },
+	}, apply = function(val, modList, enemyModList, build)
+		local god = data.pantheons[val]
+		build.configTab.varControls["pantheonMinorGodSoul1"].shown = val ~= "None"
+		build.configTab.varControls["pantheonMinorGodSoul1"].label = god and god.souls[2].name or "pantheonMinorGodSoul1"
+	end
+	},
+	{ var = "pantheonMinorGodSoul1", type = "check", label = "pantheonMinorGodSoul1", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMinorGod", "pantheonMinorGodSoul1") },
 
 	-- Section: Skill-specific options
 	{ section = "Skill Options", col = 2 },
