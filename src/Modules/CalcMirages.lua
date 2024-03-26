@@ -115,6 +115,63 @@ function calcs.mirages(env)
 				end
 			end
 		}
+	elseif env.player.mainSkill.skillData.triggeredBySacredWisp then 
+		config = {
+			calcMainSkillOffence = true,
+			compareFunc = function(skill, env, config, mirageSkill)
+				if not env.player.mainSkill.skillCfg.skillCond["usedByMirage"] and env.player.weaponData1.type == "Wand" then
+					return env.player.mainSkill
+				end
+			end,
+			preCalcFunc = function(env, newSkill, newEnv)
+				local moreDamage =  newSkill.skillModList:Sum("BASE", newSkill.skillCfg, "SacredWispsLessDamage")
+				local wispProcChance = newSkill.skillModList:Sum("BASE", newSkill.skillCfg, "SacredWispsLessAttackSpeed")
+				local wispCount = newSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SacredWispsMaxCount")
+				
+				env.player.mainSkill.mirage = { }
+				env.player.mainSkill.mirage.name = newSkill.activeEffect.grantedEffect.name
+				env.player.mainSkill.mirage.count = wispCount
+
+				if not env.player.mainSkill.infoMessage then
+					env.player.mainSkill.infoMessage = tostring(wispCount) .. " Sacred Wisps using " .. newSkill.activeEffect.grantedEffect.name
+				end
+
+				-- Add new modifiers to new skill (which already has all the old skill's modifiers)
+				newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "Sacred Wisp", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
+				newSkill.skillModList:NewMod("Speed", "MORE", wispProcChance, "Sacred Wisp", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
+
+
+				-- Does not use player resources
+				newSkill.skillModList:NewMod("HasNoCost", "FLAG", true, "Used by wisps")
+
+				if newSkill.skillPartName then
+					env.player.mainSkill.mirage.skillPart = newSkill.skillPart
+					env.player.mainSkill.mirage.skillPartName = newSkill.skillPartName
+					env.player.mainSkill.mirage.infoMessage2 = newSkill.activeEffect.grantedEffect.name
+				else
+					env.player.mainSkill.mirage.skillPartName = nil
+				end
+			end,
+			postCalcFunc = function(env, newSkill, newEnv)
+				env.player.mainSkill.mirage.output = newEnv.player.output
+				if newSkill.minion then
+					env.player.mainSkill.mirage.minion = {}
+					env.player.mainSkill.mirage.minion.output = newEnv.minion.output
+				end
+
+				if newEnv.player.breakdown then
+					env.player.mainSkill.mirage.breakdown = newEnv.player.breakdown
+					if newSkill.minion then
+						env.player.mainSkill.mirage.minion.breakdown = newEnv.minion.breakdown
+					end
+				end
+			end,
+			mirageSkillNotFoundFunc = function(env, config)
+				if not env.player.mainSkill.infoMessage2 then
+					env.player.mainSkill.infoMessage2 = "No sacred wisp active skill found"
+				end
+			end
+		}
 	elseif env.player.mainSkill.activeEffect.grantedEffect.name == "Reflection" then
 		local usedSkillBestDps
 		local maxMirageWarriors = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SaviourMirageWarriorMaxCount")

@@ -247,6 +247,9 @@ return {
 ["skill_can_own_mirage_archers"] = {
 	skill("triggeredByMirageArcher", true, { type = "SkillType", skillType = SkillType.MirageArcherCanUse }),
 },
+["skill_can_own_sacred_wisps"] = {
+	skill("triggeredBySacredWisp", true, { type = "SkillType", skillType = SkillType.SacredWispsCanUse }),
+},
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),
 },
