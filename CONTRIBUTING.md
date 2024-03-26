@@ -152,11 +152,11 @@ To do this in VSCode find the Java installation folder on your computer as displ
 
 1. Create a new "Debug Configuration" of type "EmmyLua New Debug"
 2. Open the Visual Studio Code extensions folder. On Windows, this defaults to `%USERPROFILE%/.vscode/extensions`.
-3. Find the sub-folder that contains `emmy_core.dll`. You should find both x86 and x64; pick x86. For example, `C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.3.28/debugger/emmy/windows/x86`.
+3. Find the sub-folder that contains `emmy_core.dll`. You should find both x86 and x64; pick x64. For example, `C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.5.19/debugger/emmy/windows/x64`.
 4. Paste the following code snippet directly below `function launch:OnInit()` in `./src/Launch.lua`:
   ```lua
 -- This is the path to emmy_core.dll. The ?.dll at the end is intentional.
-package.cpath = package.cpath .. ";C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.3.28/debugger/emmy/windows/x86/?.dll"
+package.cpath = package.cpath .. ";C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.5.19/debugger/emmy/windows/x64/?.dll"
 local dbg = require("emmy_core")
 -- This port must match the Visual Studio Code configuration. Default is 9966.
 dbg.tcpListen("localhost", 9966)
