@@ -138,7 +138,7 @@ function calcs.mirages(env)
 
 				-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 				newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "Sacred Wisp", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
-				newSkill.skillModList:NewMod("Speed", "MORE", wispProcChance, "Sacred Wisp", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
+				newSkill.skillModList:NewMod("DPS", "MORE", wispProcChance, "Sacred Wisp", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
 
 
 				-- Does not use player resources
