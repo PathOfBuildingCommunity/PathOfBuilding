@@ -50,16 +50,23 @@ function main:Init()
 	self.modes["LIST"] = LoadModule("Modules/BuildList")
 	self.modes["BUILD"] = LoadModule("Modules/Build")
 
-	if launch.devMode or (GetScriptPath() == GetRuntimePath() and not launch.installedMode) then
-		-- If running in dev mode or standalone mode, put user data in the script path
-		self.userPath = GetScriptPath().."/"
+	self.popups = { }
+	--if launch.devMode or (GetScriptPath() == GetRuntimePath() and not launch.installedMode) then
+	--	-- If running in dev mode or standalone mode, put user data in the script path
+	--	self.userPath = GetScriptPath().."/"
+	--else
+	local invalidPath
+	self.userPath, invalidPath = GetUserPath()
+	if not self.userPath then
+		self:OpenPathPopup(invalidPath)
 	else
-		self.userPath = GetUserPath().."/Path of Building/"
+		self.userPath = self.userPath.."/Path of Building/"
 		MakeDir(self.userPath)
+		--end
+		self.defaultBuildPath = self.userPath.."Builds/"
+		self.buildPath = self.defaultBuildPath
+		MakeDir(self.buildPath)
 	end
-	self.defaultBuildPath = self.userPath.."Builds/"
-	self.buildPath = self.defaultBuildPath
-	MakeDir(self.buildPath)
 
 	if launch.devMode and IsKeyDown("CTRL") then
 		-- If modLib.parseMod doesn't find a cache entry it generates it.
@@ -76,7 +83,6 @@ function main:Init()
 
 
 	self.inputEvents = { }
-	self.popups = { }
 	self.tooltipLines = { }
 
 	self.gameAccounts = { }
@@ -114,7 +120,9 @@ function main:Init()
 	if not ignoreBuild then
 		self:SetMode("BUILD", false, "Unnamed build")
 	end
-	self:LoadSettings(ignoreBuild)
+	if self.userPath then
+		self:LoadSettings(ignoreBuild)
+	end
 
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
@@ -160,7 +168,7 @@ function main:Init()
 		self.rareDB.loading = nil
 		ConPrintf("Rares loaded")
 	end
-	
+
 	if self.saveNewModCache then
 		local saved = self.defaultItemAffixQuality
 		self.defaultItemAffixQuality = 0.5
@@ -235,7 +243,9 @@ please reinstall using one of the installers from
 the "Releases" section of the GitHub page.]])
 	end
 
-	self:LoadSharedItems()
+	if self.userPath then
+		self:LoadSharedItems()
+	end
 
 	self.onFrameFuncs = {
 		["FirstFrame"] = function()
@@ -249,7 +259,7 @@ the "Releases" section of the GitHub page.]])
 
 	if not self.saveNewModCache then
 		local itemsCoroutine = coroutine.create(loadItemDBs)
-		
+
 		self.onFrameFuncs["LoadItems"] = function()
 			local res, errMsg = coroutine.resume(itemsCoroutine)
 			if coroutine.status(itemsCoroutine) == "dead" then
@@ -715,6 +725,37 @@ function main:SaveSettings()
 		launch:ShowErrMsg("Error saving 'Settings.xml': %s", errMsg)
 		return true
 	end
+end
+
+function main:OpenPathPopup(invalidPath)
+	local controls = { }
+	local defaultLabelPlacementX = 8
+
+	controls.label = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, 20, 206, 16, function()
+		return "^7User settings path contains unicode characters and cannot be loaded."..
+		"\nCurrent Path: "..invalidPath:gsub("?", "^1?^7").."/Path of Building/"..
+		"\nSpecify a new location for your Settings.xml:"
+	end)
+	controls.userPath = new("EditControl", { "TOPLEFT", controls.label, "TOPLEFT" }, 0, 60, 206, 20, invalidPath, nil, nil, nil, function(buf)
+		invalidPath = sanitiseText(buf)
+		if not invalidPath:match("?") then
+			controls.save.enabled = true
+		else
+			controls.save.enabled = false
+		end
+	end)
+	controls.save = new("ButtonControl", { "TOPLEFT", controls.userPath, "TOPLEFT" }, 0, 26, 206, 20, "Save", function()
+		local res, msg = MakeDir(controls.userPath.buf)
+		if not res then
+			main:OpenMessagePopup("Error", "Couldn't create '"..controls.userPath.buf.."' : "..msg)
+		end
+		self.userPath = controls.userPath.buf
+	end)
+	controls.save.enabled = false
+	controls.cancel = new("ButtonControl", nil, 0, 0, 0, 0, "Cancel", function()
+		-- Do nothing, require user to enter a location
+	end)
+	self:OpenPopup(600, 150, "Change Settings Path", controls, "save", nil, "cancel")
 end
 
 function main:OpenOptionsPopup()
