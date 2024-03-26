@@ -35,7 +35,7 @@ LoadModule("Modules/BuildSiteTools")
 end]]
 
 require("jit").off() -- temp to fix issues for now
-if arg
+if arg then
 	if isValueInTable(arg, "--force-jit") then
 		require("jit").on()
 		ConPrintf("JIT Enabled")
