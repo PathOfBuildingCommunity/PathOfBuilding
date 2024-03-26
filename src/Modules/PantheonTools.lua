@@ -35,10 +35,16 @@ function pantheon.applySelectedSoulMod(db, modParser, god, selectedSouls)
 	end
 end
 
-function pantheon.getGodSouls(input, godSource, godName) -- return a table which contains selected souls checkboxes state
+---Return a table which contains selected souls checkboxes state
+---@param input table
+---@param godSource string God list control name
+---@param godName string
+---@return table
+function pantheon.getGodSouls(input, godSource, godName)
 	local godSouls = { true } --forcing to true the god, since it has been selected for sure
 	local soulSource = godSource..'Soul' -- building checkbox name based on godSource (pantheonMajorGodSoul/pantheonMinorGodSoul)
-	for i = 2, #data.pantheons[godName].souls do
+	local indexEnd = data.pantheons[godName].isMajorGod and 4 or 2 -- keep the same logic as the for loop in Modules/ConfigOption
+	for i = 2, indexEnd do
 		table.insert(godSouls, input[soulSource..tostring(i-1)]) -- (i-1) because checkboxes names are numbered starting by 1
 	end
 	return godSouls

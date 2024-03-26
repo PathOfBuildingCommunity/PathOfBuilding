@@ -547,7 +547,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 						shown = innerShown()
 					else
 						shown = innerShown
-					end					local cur = self.input[varData.var]
+					end
+					local cur = self.input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					return not shown and cur ~= nil and cur ~= def or shown
 				end
@@ -558,7 +559,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 						shown = innerShown()
 					else
 						shown = innerShown
-					end					local cur = self.input[varData.var]
+					end
+					local cur = self.input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if not shown and cur ~= nil and cur ~= def then
 						return colorCodes.NEGATIVE..StripEscapes(innerLabel)
@@ -583,7 +585,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 						shown = innerShown()
 					else
 						shown = innerShown
-					end					local cur = self.input[varData.var]
+					end
+					local cur = self.input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if not shown and cur ~= nil and cur ~= def then
 						tooltip:AddLine(14, colorCodes.NEGATIVE.."This config option is conditional with missing source and is invalid.")

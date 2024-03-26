@@ -8,28 +8,10 @@ local m_min = math.min
 local m_max = math.max
 local s_format = string.format
 
-local function applyPantheonDescription(tooltip, mode, index, value)
-	tooltip:Clear()
-	if value.val == "None" then
-		return
-	end
-	local applyModes = { BODY = true, HOVER = true }
-	if applyModes[mode] then
-		local god = data.pantheons[value.val]
-		for _, soul in ipairs(god.souls) do
-			local name = soul.name
-			local lines = { }
-			for _, mod in ipairs(soul.mods) do
-				table.insert(lines, mod.line)
-			end
-			tooltip:AddLine(20, '^8'..name)
-			tooltip:AddLine(14, '^6'..table.concat(lines, '\n'))
-			tooltip:AddSeparator(10)
-		end
-	end
-end
-
-local function getHoveredListItemIndex(control) --returns the index of the hovered item of a list
+---Return the index of the hovered item of a list.
+---@param control table
+---@return number
+local function getHoveredListItemIndex(control)
 	local mOver, mOverComp = control:IsMouseOver()
 	if mOver and mOverComp ~= "DROP" then 
 		return control.selIndex -- index of the selected item of a list (when the list is closed)
@@ -38,8 +20,13 @@ local function getHoveredListItemIndex(control) --returns the index of the hover
 	end
 end
 
--- draws the tooltip of a single soul if soulSource is given, otherwise draws all souls tooltips
--- if all tooltips are drawn, the colour of the soul name and its mod depends on selectedSouls, which contains checkboxes state
+---Draws the tooltip of a single soul if `soulSource` is given, otherwise draws all souls tooltips.
+--- 
+---If all tooltips are drawn, the colour of the soul name and its mod depends on `selectedSouls`.
+---@param godName string 
+---@param soulName string 
+---@param selectedSouls table Contains checkboxes state
+---@param tooltip table
 local function drawPantheonTooltip(godName, soulName, selectedSouls, tooltip)
 	local souls = data.pantheons[godName].souls
 	for i, soul in ipairs(souls) do
@@ -71,7 +58,13 @@ local function drawPantheonTooltip(godName, soulName, selectedSouls, tooltip)
 	end
 end
 
--- handles the tooltip of a single soul if soulSource is given, otherwise handles all souls tooltips
+---Generates the arguments that will be used in the `drawPantheonTooltip` function call.
+---
+---Different arguments are generated based on `soulSource` value, to handle both `drawPantheonTooltip` behaviours.
+---
+---Handles a single Soul tooltip if `soulSource` is given, otherwise it handles the tooltip of all God's Souls.
+---@param godSource string God list control name
+---@param soulSource string Soul checkbox control name
 local function pantheonTooltip(godSource, soulSource)
 	return function(_, build)
 		local input = build.configTab.input
@@ -202,14 +195,14 @@ return {
 		{ label = "Soul of Arakaali", val = "Arakaali" },
 	}, apply = function(val, modList, enemyModList, build)
 		local god = data.pantheons[val] --nil if val == "None"
-		for i=2, 4 do
+		for i=2, 4 do -- range based on Data/Pantheons
 			build.configTab.varControls["pantheonMajorGodSoul"..tostring(i-1)].shown = val ~= "None" --hide checkbox if "Nothing" is selected
-            build.configTab.varControls["pantheonMajorGodSoul"..tostring(i-1)].label = god and god.souls[i].name or tostring(i-1) --soul name if god ~= nil
-        end
+			build.configTab.varControls["pantheonMajorGodSoul"..tostring(i-1)].label = god and god.souls[i].name or "pantheonMajorGodSoul"..tostring(i-1) --soul name if god ~= nil
+		end
 	end },
-	{ var = "pantheonMajorGodSoul1", type = "check", label = "1", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul1") },
-	{ var = "pantheonMajorGodSoul2", type = "check", label = "2", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul2") },
-	{ var = "pantheonMajorGodSoul3", type = "check", label = "3", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul3") },
+	{ var = "pantheonMajorGodSoul1", type = "check", label = "pantheonMajorGodSoul1", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul1") },
+	{ var = "pantheonMajorGodSoul2", type = "check", label = "pantheonMajorGodSoul2", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul2") },
+	{ var = "pantheonMajorGodSoul3", type = "check", label = "pantheonMajorGodSoul3", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul3") },
 	{ var = "pantheonMinorGod", type = "list", label = "Minor God:", tooltip = pantheonTooltip("pantheonMinorGod"), list = {
 		{ label = "Nothing", val = "None" },
 		{ label = "Soul of Gruthkul", val = "Gruthkul" },
@@ -223,9 +216,10 @@ return {
 	}, apply = function(val, modList, enemyModList, build)
 		local god = data.pantheons[val]
 		build.configTab.varControls["pantheonMinorGodSoul1"].shown = val ~= "None"
-        build.configTab.varControls["pantheonMinorGodSoul1"].label = god and god.souls[2].name or '1'
-	end  },
-	{ var = "pantheonMinorGodSoul1", type = "check", label = "1", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMinorGod", "pantheonMinorGodSoul1") },
+		build.configTab.varControls["pantheonMinorGodSoul1"].label = god and god.souls[2].name or "pantheonMinorGodSoul1"
+	end
+	},
+	{ var = "pantheonMinorGodSoul1", type = "check", label = "pantheonMinorGodSoul1", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMinorGod", "pantheonMinorGodSoul1") },
 	{ var = "detonateDeadCorpseLife", type = "count", label = "Enemy Corpse ^xE05030Life:", ifSkillData = "explodeCorpse", tooltip = "Sets the maximum ^xE05030life ^7of the target corpse for Detonate Dead and similar skills.\nFor reference, a level 70 monster has "..data.monsterLifeTable[70].." base ^xE05030life^7, and a level 80 monster has "..data.monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config")
 	end },
