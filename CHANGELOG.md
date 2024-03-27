@@ -1,5 +1,37 @@
 # Changelog
 
+## [v2.41.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.41.1) (2024/03/27)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.41.0...v2.41.1)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- Add buttons to filter Active and Support gems in Skills tab [\#7442](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7442) ([ryuukk](https://github.com/ryuukk), [Peechey](https://github.com/Peechey))
+- Add config option to bypass Vigilant Strike cooldown [\#7464](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7464) ([rexfox147](https://github.com/rexfox147))
+- Add Grace of the Goddess unique wand [\#7470](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7470) ([Lexy](https://github.com/learn2draw))
+- Add Spectral Throw of Materialising skill [\#7480](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7480) ([Ciccooz](https://github.com/Ciccooz))
+
+### Fixed Bugs
+- Fix slowness caused by certain versions of LuaJIT [\#48](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/48) ([zao](https://github.com/zao))
+- Fix several calculation issues for triggers and mirages [\#7458](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7458) ([Paliak](https://github.com/Paliak)]
+- Fix excessive GPU load while minimized by stopping rendering [\#47](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/47) ([ryuukk](https://github.com/ryuukk))
+
+### Fixed Crashes
+- Add workaround popup to specify new user path if default one fails [\#7476](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7476) ([Wires77](https://github.com/Wires77))
+- Harden UserPath against unusable folders [\#46](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/46) ([zao](https://github.com/zao))
+- Clamp saved window size to minimum size [\#49](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/49) ([zao](https://github.com/zao))
+- Include licences of new third-party dependencies [\#7483](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7483) ([ppoelzl](https://github.com/ppoelzl))
+
+### User Interface
+- Fix blurriness for certain DPI factors [\#45](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/45) ([zao](https://github.com/zao))
+- Make file searches case-insensitive [\#50](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/50) ([zao](https://github.com/zao))
+  
+### Documentation
+- Update developer documentation for 64-bit executable [\#7474](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7474) ([justjuangui](https://github.com/justjuangui))
+- Include licences of new third-party dependencies [\#7483](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7483) ([ppoelzl](https://github.com/ppoelzl))
+
 ## [v2.41.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.41.0) (2024/03/25)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.40.1...v2.41.0)
