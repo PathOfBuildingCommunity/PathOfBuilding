@@ -1,0 +1,40 @@
+name: Run Tests
+on:
+  pull_request:
+    branches:
+      - dev
+concurrency:
+  group: '${{ github.workflow }}-${{ github.ref }}'
+  cancel-in-progress: true
+jobs:
+  run_build_diff:
+    if: github.repository == 'PathOfBuildingCommunity/PathOfBuilding'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout HEAD
+        uses: actions/checkout@v4
+      - name: Fetch Dev branch
+        run: git fetch --depth=1
+      - name: Get Dev branch HEAD hash
+        id: get-dev-ref
+        run: echo "devref=$(git rev-parse origin/dev)" >> $GITHUB_OUTPUT
+      - name: Create cache folder
+        run: mkdir /tmp/cache/
+      - name: Check if build cache exists
+        uses: actions/cache@v4
+        with:
+          path: /tmp/cache/
+          key: '${{ steps.get-dev-ref.outputs.devref }}'
+      - name: Make sure cache is readable by docker
+        run: chmod -R 777 /tmp/cache
+      - name: Run build diff
+        run: docker compose run -v '/tmp/cache/:/cache' -e 'CACHEDIR=/cache' busted-diff | tee /tmp/dockerlog
+      - name: Generate artefact
+        run: |
+          sed -n '/Savefile Diff for/, $p' /tmp/dockerlog | tee /tmp/artefact
+          [ -s /tmp/artefact ] || rm /tmp/artefact
+      - name: Upload artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-diff-output
+          path: /tmp/artefact

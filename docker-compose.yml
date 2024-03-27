@@ -1,19 +1,31 @@
-version: "3.8"
 services:
-
   busted-tests:
-    image: summ1else/poe-busted-image
+    #build: .
+    image: ghcr.io/paliak/busted-tests
+    environment:
+      HOME: /tmp
     container_name: busted-tests
-    command: bash -c "rm -f spec/test_results.log && busted --lua=luajit | tee spec/test_results.log"
+    user: nobody:nobody
+    command: busted --lua=luajit
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "9966:9966"
+    working_dir: /workdir
     volumes:
-      - ./:/root
-    depends_on:
-      - busted-generate-build
-
-  busted-generate-build:
-    image: summ1else/poe-busted-image
-    container_name: busted-generate-build
-    command: bash -c "rm -f spec/test_generation.log && busted --lua=luajit -r generate | tee spec/test_generation.log"
-    restart: "no"
+      - ./:/workdir:ro
+  busted-diff:
+    #build: .
+    image: ghcr.io/paliak/busted-tests
+    environment: #Where in the container the folders are stored
+      WORKDIR: /workdir
+      HOME: /tmp
+    container_name: busted-diff
+    tty: true
+    user: nobody:nobody
+    command: /bin/sh -c "dos2unix < /workdir/spec/buildDiff.sh | /bin/sh"
+    security_opt:
+      - no-new-privileges:true
+    working_dir: /workdir
     volumes:
-      - ./:/root
+      - ./:/workdir:ro

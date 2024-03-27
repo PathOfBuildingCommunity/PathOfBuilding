@@ -194,7 +194,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 				end
 				if mult > 0.01 then
 					local line = level
-					if level >= 68 then 
+					if level >= 68 then
 						line = line .. string.format(" (Tier %d)", level - 67)
 					end
 					line = line .. string.format(": %.1f%%", mult * 100)
@@ -215,7 +215,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 					self.spec:SelectClass(value.classId)
 					self.spec:AddUndoState()
 					self.spec:SetWindowTitleWithBuildClass()
-					self.buildFlag = true					
+					self.buildFlag = true
 				end)
 			end
 		end
@@ -641,7 +641,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.legacyLoaders = { -- Special loaders for legacy sections
 		["Spec"] = self.treeTab,
 	}
-	
+
 	--special rebuild to properly initialise boss placeholders
 	self.configTab:BuildModList()
 
@@ -741,10 +741,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.abortSave = false
 end
 
-local acts = { 
-	[1] = { level = 1, questPoints = 0 }, 
-	[2] = { level = 12, questPoints = 2 }, 
-	[3] = { level = 22, questPoints = 3 }, 
+local acts = {
+	[1] = { level = 1, questPoints = 0 },
+	[2] = { level = 12, questPoints = 2 },
+	[3] = { level = 22, questPoints = 3 },
 	[4] = { level = 32, questPoints = 5 },
 	[5] = { level = 40, questPoints = 6 },
 	[6] = { level = 44, questPoints = 8 },
@@ -769,7 +769,7 @@ function buildMode:EstimatePlayerProgress()
 		act = act + 1
 		level = m_min(m_max(PointsUsed + 1 - acts[act].questPoints - actExtra(act, extra), acts[act].level), 100)
 	until act == 11 or level <= acts[act + 1].level
-	
+
 	if self.characterLevelAutoMode and self.characterLevel ~= level then
 		self.characterLevel = level
 		self.controls.characterLevel:SetText(self.characterLevel)
@@ -783,12 +783,12 @@ function buildMode:EstimatePlayerProgress()
 		or level < 75 and "\nLabyrinth: Merciless Lab"
 		or level < 90 and "\nLabyrinth: Uber Lab"
 		or ""
-	
+
 	if PointsUsed > usedMax then InsertIfNew(self.controls.warnings.lines, "You have too many passive points allocated") end
 	if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
 	if SecondaryAscUsed > secondaryAscMax then InsertIfNew(self.controls.warnings.lines, "You have too many secondary ascendancy points allocated") end
 	self.Act = level < 90 and act <= 10 and act or "Endgame"
-	
+
 	return string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and colorCodes.NEGATIVE or "^7", PointsUsed, usedMax, AscUsed > ascMax and colorCodes.NEGATIVE or "^7", AscUsed, ascMax),
 		"Required Level: "..level.."\nEstimated Progress:\nAct: "..self.Act.."\nQuestpoints: "..acts[act].questPoints.."\nExtra Skillpoints: "..actExtra(act, extra)..labSuggest
 end
@@ -805,7 +805,7 @@ function buildMode:Shutdown()
 	if launch.devMode and (not main.disableDevAutoSave) and self.targetVersion and not self.abortSave then
 		if self.dbFileName then
 			self:SaveDBFile()
-		elseif self.unsaved then		
+		elseif self.unsaved then
 			self.dbFileName = main.buildPath.."~~temp~~.xml"
 			self.buildName = "~~temp~~"
 			self.dbFileSubPath = ""
@@ -866,7 +866,7 @@ function buildMode:Load(xml, fileName)
 	end
 end
 
-function buildMode:Save(xml)
+function buildMode:Save(xml, options)
 	xml.attrib = {
 		targetVersion = self.targetVersion,
 		viewMode = self.viewMode,
@@ -883,7 +883,7 @@ function buildMode:Save(xml)
 		t_insert(xml, { elem = "Spectre", attrib = { id = id } })
 	end
 	local addedStatNames = { }
-	for index, statData in ipairs(self.displayStats) do
+	for _, statData in ipairs(self.displayStats) do
 		if not statData.flag or self.calcsTab.mainEnv.player.mainSkill.skillFlags[statData.flag] then
 			local statName = statData.stat and statData.stat..(statData.childStat or "")
 			if statName and not addedStatNames[statName] then
@@ -914,22 +914,56 @@ function buildMode:Save(xml)
 			end
 		end
 	end
-	for index, stat in ipairs(self.extraSaveStats) do
-		local statVal = self.calcsTab.mainOutput[stat]
-		if statVal then
-			t_insert(xml, { elem = "PlayerStat", attrib = { stat = stat, value = tostring(statVal) } })
+
+	if options and options.fullPlayerStat then -- Save all of output
+		local q = {{value = self.calcsTab.mainOutput}}
+		while #q > 0 do
+			local current = table.remove(q)
+			for key, val in pairs(current.value) do
+				if not addedStatNames[key] then
+					if type(val) ~= "table"  then
+						t_insert(xml, { elem = "PlayerStat", attrib = { stat = (current.key or "")..key, value = tostring(val) } })
+					elseif key ~= "Minion" then -- Minion stats are processed lower with the MinionStat elem name
+						table.insert(q,{key = key, value = val})
+					end
+					addedStatNames[key] = true
+				end
+			end
+		end
+	else
+		for _, stat in ipairs(self.extraSaveStats) do
+			local statVal = self.calcsTab.mainOutput[stat]
+			if statVal then
+				t_insert(xml, { elem = "PlayerStat", attrib = { stat = stat, value = tostring(statVal) } })
+			end
 		end
 	end
+
 	if self.calcsTab.mainEnv.minion then
-		for index, statData in ipairs(self.minionDisplayStats) do
-			if statData.stat then
-				local statVal = self.calcsTab.mainOutput.Minion[statData.stat]
-				if statVal then
-					t_insert(xml, { elem = "MinionStat", attrib = { stat = statData.stat, value = tostring(statVal) } })
+		if options and options.fullMinionStat then
+			local q = {{value = self.calcsTab.mainOutput.Minion}}
+			while #q > 0 do
+				local current = table.remove(q)
+				for key, val in pairs(current.value) do
+					if type(val) ~= "table" then
+						t_insert(xml, { elem = "MinionStat", attrib = { stat = (current.key or "")..key, value = tostring(val) } })
+					else
+						table.insert(q,{key = key, value = val})
+					end
+				end
+			end
+		else
+			for _, statData in ipairs(self.minionDisplayStats) do
+				if statData.stat then
+					local statVal = self.calcsTab.mainOutput.Minion[statData.stat]
+					if statVal then
+						t_insert(xml, { elem = "MinionStat", attrib = { stat = statData.stat, value = tostring(statVal) } })
+					end
 				end
 			end
 		end
 	end
+
 	local timelessData = {
 		elem = "TimelessData",
 		attrib = {
@@ -1054,7 +1088,7 @@ function buildMode:OnFrame(inputEvents)
 		height = main.screenH - 32
 	}
 	if self.viewMode == "IMPORT" then
-		self.importTab:Draw(tabViewPort, inputEvents)  
+		self.importTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "NOTES" then
 		self.notesTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "PARTY" then
@@ -1203,7 +1237,7 @@ function buildMode:OpenSpectreLibrary()
 	for id in pairs(self.data.spectres) do
 		t_insert(sourceList, id)
 	end
-	table.sort(sourceList, function(a,b) 
+	table.sort(sourceList, function(a,b)
 		if self.data.minions[a].name == self.data.minions[b].name then
 			return a < b
 		else
@@ -1335,7 +1369,7 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 	if statData.label == "Unreserved Life" and statVal == 0 then
 		color = colorCodes.NEGATIVE
 	end
-	
+
 	local valStr = s_format("%"..statData.fmt, val)
 	valStr:gsub("%.", main.decimalSeparator)
 	valStr = color .. formatNumSep(valStr)
@@ -1430,8 +1464,8 @@ function buildMode:AddDisplayStatList(statList, actor)
 					end
 				end
 			elseif statData.label and statData.condFunc and statData.condFunc(actor.output) then
-				t_insert(statBoxList, { 
-					height = 16, labelColor..statData.label..":", 
+				t_insert(statBoxList, {
+					height = 16, labelColor..statData.label..":",
 					"^7"..actor.output[statData.labelStat].."%^x808080" .. " (" .. statData.val  .. ")",})
 			elseif not statBoxList[#statBoxList] or statBoxList[#statBoxList][1] then
 				t_insert(statBoxList, { height = 6 })
@@ -1586,7 +1620,7 @@ do
 			if omni and (omni > 0 or omni > self.calcsTab.mainOutput.Omni) then
 				t_insert(req, s_format("%s%d ^x7F7F7FOmni", main:StatColor(omni, 0, self.calcsTab.mainOutput.Omni), omni))
 			end
-		else 
+		else
 			if str and (str > 14 or str > self.calcsTab.mainOutput.Str) then
 				t_insert(req, s_format("%s%d ^x7F7F7FStr", main:StatColor(str, strBase, self.calcsTab.mainOutput.Str), str))
 			end
@@ -1596,11 +1630,11 @@ do
 			if int and (int > 14 or int > self.calcsTab.mainOutput.Int) then
 				t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
 			end
-		end	
+		end
 		if req[1] then
 			tooltip:AddLine(16, "^x7F7F7FRequires "..table.concat(req, "^x7F7F7F, "))
 			tooltip:AddSeparator(10)
-		end	
+		end
 		wipeTable(req)
 	end
 end
@@ -1647,20 +1681,20 @@ function buildMode:LoadDBFile()
 	return self:LoadDB(xmlText, self.dbFileName)
 end
 
-function buildMode:SaveDB(fileName)
+function buildMode:SaveDB(fileName, options)
 	local dbXML = { elem = "PathOfBuilding" }
 
 	-- Save Build section first
 	do
 		local node = { elem = "Build" }
-		self:Save(node)
+		self:Save(node, options)
 		t_insert(dbXML, node)
 	end
 
 	-- Call on all savers to save their data in their respective sections
 	for elem, saver in pairs(self.savers) do
 		local node = { elem = elem }
-		saver:Save(node)
+		saver:Save(node, options)
 		t_insert(dbXML, node)
 	end
 
@@ -1672,7 +1706,6 @@ function buildMode:SaveDB(fileName)
 		return xmlText
 	end
 end
-
 
 function buildMode:SaveDBFile()
 	if not self.dbFileName then

@@ -1,53 +1,77 @@
-local function fetchBuilds(path, buildList)
-    buildList = buildList or {}
-    for file in lfs.dir(path) do
-        if file ~= "." and file ~= ".." then
-            local f = path..'/'..file
-            local attr = lfs.attributes (f)
-            assert(type(attr) == "table")
-            if attr.mode == "directory" then
-                fetchBuilds(f, buildList)
-            else
-                if file:match("^.+(%..+)$") == ".xml" then
-                    local fileHnd, errMsg = io.open(f, "r")
-                    if not fileHnd then
-                        return nil, errMsg
+local function fetchBuilds(path)
+    local lastDLtime = GetTime()
+    local co = coroutine.create(function(path)
+        if os.getenv("BUILDLINKS") then
+            local fileHnd, errMsg = io.open(os.getenv("BUILDLINKS"), "r")
+            if not fileHnd then error(errMsg) end
+            local fileText = fileHnd:read("*a")
+            fileHnd:close()
+            for line in splitLines(fileText) do
+                if line ~= "" then
+                    for j = 1, #buildSites.websiteList do
+                        if line:match(buildSites.websiteList[j].matchURL) then
+                            local filename = line:gsub('%W', '')
+
+                            -- Load from cache if downloaded already
+                            local fileHnd = io.open( (os.getenv("CACHEDIR") or "/tmp") .. "/" .. filename .. ".xml", "r")
+                            if fileHnd then
+                                coroutine.yield({ xml = fileHnd:read("*a"), filename = filename, link = line })
+                                fileHnd:close()
+                            else
+                                -- Throttle build downloads to 15 per 10 seconds
+                                local timeSinceLastDL = GetTime() - lastDLtime
+                                if timeSinceLastDL < 666 then
+                                    posix.nanosleep(0, (666 - timeSinceLastDL) * 1000000)
+                                end
+                                buildSites.DownloadBuild(line, buildSites.websiteList[j], function(isSuccess, data)
+                                    lastDLtime = GetTime()
+                                    if isSuccess then
+                                        local xml = Inflate(common.base64.decode(data:gsub("-", "+"):gsub("_", "/")))
+                                        local xmlHnd = io.open((os.getenv("CACHEDIR") or "/tmp") .. "/" .. filename .. ".xml", "w")
+                                        xmlHnd:write(xml)
+                                        xmlHnd:close()
+                                        coroutine.yield({ xml = xml, filename = filename, link = line })
+                                    else
+                                        print("Failed to download build: " .. line)
+                                    end
+                                end)
+                            end
+                            break
+                        elseif j == #buildSites.websiteList then
+                            print("Failed to match provider for: " .. line)
+                        end
                     end
-                    local fileText = fileHnd:read("*a")
-                    fileHnd:close()
-                    buildList[f] = fileText
+                end
+            end
+        else
+            for file in lfs.dir(path) do
+                if file ~= "." and file ~= ".." then
+                    local f = path .. '/' .. file
+                    local attr = lfs.attributes(f)
+                    assert(type(attr) == "table")
+                    if attr.mode ~= "directory" and file:match("^.+(%..+)$") == ".xml" then
+                        local fileHnd, errMsg = io.open(f, "r")
+                        if not fileHnd then error(errMsg) end
+                        local fileText = fileHnd:read("*a")
+                        fileHnd:close()
+                        coroutine.yield({ xml = fileText, filename = file })
+                    end
                 end
             end
         end
+    end)
+    return function()
+        local ok, result = coroutine.resume(co, path)
+        if not ok then error(result) end
+        return result
     end
-    return buildList
 end
 
-function buildTable(tableName, values, string)
-    string = string or ""
-    string = string .. tableName .. " = {"
-    for key, value in pairs(values) do
-        if type(value) == "table" then
-            buildTable(key, value, string)
-        elseif type(value) == "boolean" then
-            string = string .. "[\"" .. key .. "\"] = " .. (value and "true" or "false") .. ",\n"
-        elseif type(value) == "string" then
-            string = string .. "[\"" .. key .. "\"] = \"" .. value .. "\",\n"
-        else
-            string = string .. "[\"" .. key .. "\"] = " .. round(value, 4) .. ",\n"
-        end
-    end
-    string = string .. "}\n"
-    return string
-end
-
-local buildList = fetchBuilds("../spec/TestBuilds")
-for filename, testBuild in pairs(buildList) do
-    loadBuildFromXML(testBuild)
-    local fileHnd, errMsg = io.open(filename:gsub("^(.+)%..+$", "%1.lua"), "w+")
-    fileHnd:write("return {\n   xml = [[")
-    fileHnd:write(testBuild)
-    fileHnd:write("]],\n    ")
-    fileHnd:write(buildTable("output", build.calcsTab.mainOutput) .. "\n}")
-    fileHnd:close()
+for testBuild in fetchBuilds("../spec/TestBuilds") do
+    local filepath = (os.getenv("BUILDCACHEPREFIX") or "/tmp") .. "/" .. testBuild.filename
+    print("[+] Computing " .. filepath)
+    loadBuildFromXML(testBuild.xml)
+    local buildHnd = io.open(filepath .. ".build", "w+")
+    buildHnd:write(build:SaveDB("Cache", {fullPlayerStat = true, fullMinionStat = true} ))
+    buildHnd:close()
 end
