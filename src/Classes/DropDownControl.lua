@@ -292,17 +292,23 @@ function DropDownClass:Draw(viewPort, noTooltip)
 		SetDrawColor(0.66, 0.66, 0.66)
 	end
 	-- draw selected label or search term
-	local selLabel
+	local selLabel = nil
+	local selDetail = nil
 	if self:IsSearchActive() then
 		selLabel = "Search: " .. self:GetSearchTermPretty()
 	else
-		selLabel = self.list[self.selIndex]
-		if type(selLabel) == "table" then
-			selLabel = selLabel.label
+		local selItem = self.list[self.selIndex]
+		if type(selItem) == "table" then
+			selLabel = selItem.label
+			selDetail = selItem.detail
 		end
 	end
 	SetViewport(x + 2, y + 2, width - height, lineHeight)
 	DrawString(0, 0, "LEFT", lineHeight, "VAR", selLabel or "")
+	if selDetail ~= nil then
+		local dx = DrawStringWidth(lineHeight, "VAR", selDetail)
+		DrawString(width - dx - 22, 0, "LEFT", lineHeight, "VAR", selDetail)
+	end
 	SetViewport()
 
 	-- draw dropped down part with items
@@ -351,6 +357,11 @@ function DropDownClass:Draw(viewPort, noTooltip)
 				-- draw actual item label with search match highlight if available
 				local label = type(listVal) == "table" and listVal.label or listVal
 				DrawString(0, y, "LEFT", lineHeight, "VAR", label)
+				if selDetail ~= nil then
+					local detail = listVal.detail
+					dx = DrawStringWidth(lineHeight, "VAR", detail)
+					DrawString(width - dx - 4 - 22, y, "LEFT", lineHeight, "VAR", detail)
+				end
 				self:DrawSearchHighlights(label, searchInfo, 0, y, width - 4, lineHeight)
 			end
 		end
