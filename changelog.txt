@@ -1,3 +1,26 @@
+VERSION[2.41.1][2024/03/27]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Add buttons to filter Active and Support gems in Skills tab (ryuukk)
+* Add config option to bypass Vigilant Strike cooldown (rexfox147)
+* Add Grace of the Goddess unique wand (Lexy)
+* Added Spectral Throw of Materialising skill (Ciccooz)
+* Update Active and Support Gem Filtering (Peechey)
+--- Fixed Crashes ---
+* Add workaround popup to specify new user path if default one fails (Wires77)
+* Harden UserPath against unusable folders (zao)
+* Clamp saved window size to minimum size (zao)
+--- User Interface ---
+* Evolve renderer backend and API surface (zao)
+* Fix blurriness for certain DPI factors (zao)
+* Make file searches case-insensitive (zao)
+--- Fixed Bugs ---
+* Fix excessive GPU load while minimized by stopping rendering (ryuukk)
+--- Other changes ---
+* Fix slowness caused by certain versions of LuaJIT (zao)
+* Update developer documentation for 64-bit executable (justjuangui)
+* Include licences of new third-party dependencies (ppoelzl)
+
 VERSION[2.41.0][2024/03/25]
 
 --- New to Path of Building ---
