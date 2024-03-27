@@ -353,19 +353,19 @@ function ArchivesListClass:Draw(viewPort, noTooltip)
 			currentHeight = currentHeight + 8
 			SetDrawColor(1, 1, 1)
 
-			-- author
-			if build.author then
-				self:DrawString(x, currentHeight, "LEFT", 14, self.font, s_format('%s', build.author))
-			end
+			-- -- author
+			-- if build.author then
+			-- 	self:DrawString(x, currentHeight, "LEFT", 14, self.font, s_format('%s', build.author))
+			-- end
 
 
-			currentHeight = currentHeight + 20
+			-- currentHeight = currentHeight + 20
 
-			-- decorator line
-			SetDrawColor(0.5, 0.5, 0.5)
-			self:DrawImage(nil, x - 10, currentHeight, self.width(), 1)
-			currentHeight = currentHeight + 8
-			SetDrawColor(1, 1, 1)
+			-- -- decorator line
+			-- SetDrawColor(0.5, 0.5, 0.5)
+			-- self:DrawImage(nil, x - 10, currentHeight, self.width(), 1)
+			-- currentHeight = currentHeight + 8
+			-- SetDrawColor(1, 1, 1)
 
 			-- stats
 			local dpsText = "DPS:"
