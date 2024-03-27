@@ -301,6 +301,8 @@ function DropDownClass:Draw(viewPort, noTooltip)
 		if type(selItem) == "table" then
 			selLabel = selItem.label
 			selDetail = selItem.detail
+		else
+			selLabel = selItem
 		end
 	end
 	SetViewport(x + 2, y + 2, width - height, lineHeight)
