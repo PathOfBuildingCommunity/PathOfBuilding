@@ -519,7 +519,12 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			local innerShown = control.shown
 			if not varData.doNotHighlight then
 				control.borderFunc = function()
-					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+					local shown
+					if type(innerShown) == "function" then
+						shown = innerShown()
+					else
+						shown = innerShown
+					end
 					local cur = self.input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if cur ~= nil and cur ~= def then
@@ -537,14 +542,24 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					if not searchMatch(varData) then
 						return false
 					end
-					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+					local shown
+					if type(innerShown) == "function" then
+						shown = innerShown()
+					else
+						shown = innerShown
+					end
 					local cur = self.input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					return not shown and cur ~= nil and cur ~= def or shown
 				end
 				local innerLabel = labelControl.label
 				labelControl.label = function()
-					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+					local shown
+					if type(innerShown) == "function" then
+						shown = innerShown()
+					else
+						shown = innerShown
+					end
 					local cur = self.input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if not shown and cur ~= nil and cur ~= def then
@@ -565,13 +580,22 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 						end
 					end
 
-					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+					local shown
+					if type(innerShown) == "function" then
+						shown = innerShown()
+					else
+						shown = innerShown
+					end
 					local cur = self.input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if not shown and cur ~= nil and cur ~= def then
 						tooltip:AddLine(14, colorCodes.NEGATIVE.."This config option is conditional with missing source and is invalid.")
 					end
 				end
+			end
+
+			if varData.defaultHidden then
+			    control.shown = false
 			end
 
 			t_insert(self.controls, control)

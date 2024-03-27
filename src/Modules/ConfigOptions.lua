@@ -8,23 +8,95 @@ local m_min = math.min
 local m_max = math.max
 local s_format = string.format
 
-local function applyPantheonDescription(tooltip, mode, index, value)
-	tooltip:Clear()
-	if value.val == "None" then
-		return
+---Generate and return `pantheonList` table based on the given `godSource`. 
+---
+---This table contains `label` and `val` fields needed in both Minor and Major God lists.
+---@param godSource string God list control name
+---@return table
+local function generatePantheonList(godSource)
+	local isMajorGod = godSource == "pantheonMajorGod" and true or false
+	local pantheonList = {{ label = "Nothing", val = "None"}}
+
+	for godKey, godInfo in pairs(data.pantheons) do
+		if godInfo.isMajorGod == isMajorGod then
+			local godName = godInfo.souls[1].name
+			local pantheonListItem = { label = godName, val = godKey}
+			table.insert(pantheonList, pantheonListItem)
+		end
 	end
-	local applyModes = { BODY = true, HOVER = true }
-	if applyModes[mode] then
-		local god = data.pantheons[value.val]
-		for _, soul in ipairs(god.souls) do
-			local name = soul.name
-			local lines = { }
+
+	return pantheonList
+end
+
+---Return the index of the hovered item of a list.
+---@param control table
+---@return number
+local function getHoveredListItemIndex(control)
+	local mOver, mOverComp = control:IsMouseOver()
+	if mOver and mOverComp ~= "DROP" then 
+		return control.selIndex -- index of the selected item of a list (when the list is closed)
+	elseif mOver and control.dropped and control.hoverSel then
+		return control.hoverSel -- index of the hovered item of a list (when the list is opened) 
+	end
+end
+
+---Draws the tooltip of a single soul if `soulSource` is given, otherwise draws all souls tooltips.
+--- 
+---If all tooltips are drawn, the colour of the soul name and its mod depends on `selectedSouls`.
+---@param godName string 
+---@param soulName string 
+---@param selectedSouls table Contains checkboxes state
+---@param tooltip table
+local function drawPantheonTooltip(godName, soulName, selectedSouls, tooltip)
+	local souls = data.pantheons[godName].souls
+	for i, soul in ipairs(souls) do
+		local name = soul.name
+		local mods = { }
+		local nameColour, modColour = '^8', '^6' --light grey, electric blue
+		
+		-- if soulName is nil, then this is always true and every soul tooltip is drawn, 
+		-- otherwise only the given soulName tooltip is drawn
+		if (not soulName) or name == soulName then 
 			for _, mod in ipairs(soul.mods) do
-				table.insert(lines, mod.line)
+				table.insert(mods, mod.line)
 			end
-			tooltip:AddLine(20, '^8'..name)
-			tooltip:AddLine(14, '^6'..table.concat(lines, '\n'))
+
+			-- if selectedSouls is nil, this is always false, otherwise
+			-- if the selectedSoul[i] hasn't been captured both the colours will be dark grey
+			if selectedSouls and (not selectedSouls[i]) then 
+				nameColour, modColour = '^9', '^9'
+			end
+
+			tooltip:AddLine(20, nameColour..name)
+			tooltip:AddLine(14, modColour..table.concat(mods, '\n'))
 			tooltip:AddSeparator(10)
+
+			if soulName then 
+				return --if soulName is not nil, the function end as soon as the given soulName tooltip has been drawn
+			end
+		end
+	end
+end
+
+---Generates the arguments that will be used in the `drawPantheonTooltip` function call.
+---
+---Different arguments are generated based on `soulSource` value, to handle both `drawPantheonTooltip` behaviours.
+---
+---Handles a single Soul tooltip if `soulSource` is given, otherwise it handles the tooltip of all God's Souls.
+---@param godSource string God list control name
+---@param soulSource string Soul checkbox control name
+local function pantheonTooltip(godSource, soulSource)
+	return function(_, build)
+		local input = build.configTab.input
+		local control = soulSource and build.configTab.varControls[soulSource] or build.configTab.varControls[godSource]
+		local index = (not soulSource) and getHoveredListItemIndex(control)
+		local godName = index and control.list[index].val or input[godSource]
+		local soulName = soulSource and control.label
+		local tooltip = control.tooltip
+		tooltip:Clear()
+		if godName ~= "None" then --tooltip not generated if god is not selected
+			local godSouls = (not soulSource) and pantheon.getGodSouls(input, godSource, godName)
+			drawPantheonTooltip(godName, soulName, godSouls, tooltip)
 		end
 	end
 end
@@ -134,24 +206,6 @@ return {
 	{ section = "General", col = 1 },
 	{ var = "resistancePenalty", type = "list", label = "Resistance penalty:", list = {{val=0,label="None"},{val=-30,label="Act 5 (-30%)"},{val=-60,label="Act 10 (-60%)"}}, defaultIndex = 3 },
 	{ var = "bandit", type = "list", label = "Bandit quest:", tooltipFunc = banditTooltip, list = {{val="None",label="Kill all"},{val="Oak",label="Help Oak"},{val="Kraityn",label="Help Kraityn"},{val="Alira",label="Help Alira"}} },
-	{ var = "pantheonMajorGod", type = "list", label = "Major God:", tooltipFunc = applyPantheonDescription, list = {
-		{ label = "Nothing", val = "None" },
-		{ label = "Soul of the Brine King", val = "TheBrineKing" },
-		{ label = "Soul of Lunaris", val = "Lunaris" },
-		{ label = "Soul of Solaris", val = "Solaris" },
-		{ label = "Soul of Arakaali", val = "Arakaali" },
-	} },
-	{ var = "pantheonMinorGod", type = "list", label = "Minor God:", tooltipFunc = applyPantheonDescription, list = {
-		{ label = "Nothing", val = "None" },
-		{ label = "Soul of Gruthkul", val = "Gruthkul" },
-		{ label = "Soul of Yugul", val = "Yugul" },
-		{ label = "Soul of Abberath", val = "Abberath" },
-		{ label = "Soul of Tukohama", val = "Tukohama" },
-		{ label = "Soul of Garukhan", val = "Garukhan" },
-		{ label = "Soul of Ralakesh", val = "Ralakesh" },
-		{ label = "Soul of Ryslatha", val = "Ryslatha" },
-		{ label = "Soul of Shakari", val = "Shakari" },
-	} },
 	{ var = "detonateDeadCorpseLife", type = "count", label = "Enemy Corpse ^xE05030Life:", ifSkillData = "explodeCorpse", tooltip = "Sets the maximum ^xE05030life ^7of the target corpse for Detonate Dead and similar skills.\nFor reference, a level 70 monster has "..data.monsterLifeTable[70].." base ^xE05030life^7, and a level 80 monster has "..data.monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config")
 	end },
@@ -243,6 +297,25 @@ return {
 	{ var = "overrideEmptyGreenSockets", type = "count", label = "# of Empty ^x70FF70Green^7 Sockets", ifMult = "EmptyGreenSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty ^x70FF70Green^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
 	{ var = "overrideEmptyBlueSockets", type = "count", label = "# of Empty ^x7070FFBlue^7 Sockets", ifMult = "EmptyBlueSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty ^x7070FFBlue^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
 	{ var = "overrideEmptyWhiteSockets", type = "count", label = "# of Empty White Sockets", ifMult = "EmptyWhiteSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty White Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
+	
+	-- Section: Pantheon Gods
+	{ section = "Pantheon Gods", col = 1 },
+	{ var = "pantheonMajorGod", type = "list", label = "Major God:", tooltip = pantheonTooltip("pantheonMajorGod"), list = generatePantheonList("pantheonMajorGod"), apply = function(val, modList, enemyModList, build)
+		local god = data.pantheons[val] --nil if val == "None"
+		for i=2, 4 do -- range based on Data/Pantheons
+			build.configTab.varControls["pantheonMajorGodSoul"..tostring(i-1)].shown = val ~= "None" --hide checkbox if "Nothing" is selected
+			build.configTab.varControls["pantheonMajorGodSoul"..tostring(i-1)].label = god and god.souls[i].name or "pantheonMajorGodSoul"..tostring(i-1) --soul name if god ~= nil
+		end
+	end },
+	{ var = "pantheonMajorGodSoul1", type = "check", label = "pantheonMajorGodSoul1", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul1") },
+	{ var = "pantheonMajorGodSoul2", type = "check", label = "pantheonMajorGodSoul2", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul2") },
+	{ var = "pantheonMajorGodSoul3", type = "check", label = "pantheonMajorGodSoul3", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMajorGod", "pantheonMajorGodSoul3") },
+	{ var = "pantheonMinorGod", type = "list", label = "Minor God:", tooltip = pantheonTooltip("pantheonMinorGod"), list = generatePantheonList("pantheonMinorGod"), apply = function(val, modList, enemyModList, build)
+		local god = data.pantheons[val]
+		build.configTab.varControls["pantheonMinorGodSoul1"].shown = val ~= "None"
+		build.configTab.varControls["pantheonMinorGodSoul1"].label = god and god.souls[2].name or "pantheonMinorGodSoul1"
+	end },
+	{ var = "pantheonMinorGodSoul1", type = "check", label = "pantheonMinorGodSoul1", defaultState = true, defaultHidden = true, tooltip = pantheonTooltip("pantheonMinorGod", "pantheonMinorGodSoul1") },
 
 	-- Section: Skill-specific options
 	{ section = "Skill Options", col = 2 },
