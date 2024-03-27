@@ -335,12 +335,17 @@ function ArchivesListClass:Draw(viewPort, noTooltip)
 			-- main skill, ascendancy
 			SetDrawColor(1, 1, 1)
 			if build.mainSkill then
-				self:DrawString(x, currentHeight, "LEFT", 14, self.font, s_format('%s', build.mainSkill))
+				for _, line in pairs(self:splitStringByWidth(build.mainSkill, self.width() - 125)) do
+					lineCount = lineCount + 1
+					self:DrawString(x, currentHeight, "LEFT", 16, self.font, line)
+					currentHeight = currentHeight + 16
+				end
+				currentHeight = currentHeight + 4
 			else
 				self:DrawString(x, currentHeight, "LEFT", 14, self.font, s_format('%s', '-'))
+				currentHeight = currentHeight + 20
 			end
 
-			currentHeight = currentHeight + 20
 
 			-- decorator line
 			SetDrawColor(0.5, 0.5, 0.5)
