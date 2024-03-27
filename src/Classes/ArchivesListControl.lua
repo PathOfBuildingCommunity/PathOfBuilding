@@ -360,25 +360,36 @@ function ArchivesListClass:Draw(viewPort, noTooltip)
 			SetDrawColor(1, 1, 1)
 
 			-- stats
+			local dpsText = "DPS:"
+			local lifeText = "Life: "
+			local ehpText = "EHP: "
 			if build.dps then
 				-- SetDrawColor(1, 0, 0)
-				self:DrawString(x, currentHeight, "LEFT", 14, self.font, s_format('DPS: %0.f', build.dps))
+				dpsText = s_format('DPS: %0.f', build.dps)
 			end
 			if build.life or build.es then
 				-- SetDrawColor(0, 1, 0)
-				self:DrawString(x + (self.width()) / 3, currentHeight, "LEFT", 14, self.font,
-					s_format('%s: %0.f', build.life > build.es and "Life" or "ES" , math.max(build.life, build.es)))
+				lifeText = s_format('%s: %0.f', build.life > build.es and "Life" or "ES" , math.max(build.life, build.es))
 			end
 			if build.ehp then
 				-- SetDrawColor(0, 0, 1)
-				self:DrawString(x + 2 * (self.width()) / 3, currentHeight, "LEFT", 14, self.font,
-					s_format('EHP: %0.f', build.ehp))
+				ehpText = s_format('EHP: %0.f', build.ehp)
 			end
 
-			currentHeight = currentHeight + 20
-			-- decorator line
-			SetDrawColor(0.5, 0.5, 0.5)
-			self:DrawImage(nil, x - 10, currentHeight, self.width(), 1)
+			-- prevent overlapping on smaller screens.
+			local dpsWidth = DrawStringWidth(16, self.font, dpsText)
+			local lifeWidth = DrawStringWidth(16, self.font, lifeText)
+			local ehpWidth = DrawStringWidth(16, self.font, ehpText)
+			if (dpsWidth + lifeWidth + ehpWidth < self.width() - 30) then
+				self:DrawString(x, currentHeight, "LEFT", 14, self.font, dpsText)
+				self:DrawString(x + dpsWidth, currentHeight, "LEFT", 14, self.font, lifeText)
+				self:DrawString(x + dpsWidth + lifeWidth, currentHeight, "LEFT", 14, self.font, ehpText)
+				currentHeight = currentHeight + 20
+				-- decorator line
+				SetDrawColor(0.5, 0.5, 0.5)
+				self:DrawImage(nil, x - 10, currentHeight, self.width(), 1)
+			end
+
 
 			-- import button
 			local importButton = {
