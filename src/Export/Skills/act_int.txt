@@ -2696,10 +2696,15 @@ local skills, mod, flag, skill = ...
 
 #skill Manabond
 #flags spell area arcane
+	preDamageFunc = function(activeSkill, output)
+		local missingUnreservedManaPercentage = activeSkill.skillData.ManabondMissingUnreservedManaPercentage or 100
+		local manaGainedAsBaseLightningDamage =  math.floor((activeSkill.skillData.ManabondMissingManaGainPercent / 100) * (missingUnreservedManaPercentage / 100) * output.ManaUnreserved)
+		activeSkill.skillModList:NewMod("LightningMin", "BASE", manaGainedAsBaseLightningDamage, "Manabond gain % missing unreserved mana as base lightning damage")
+		activeSkill.skillModList:NewMod("LightningMax", "BASE", manaGainedAsBaseLightningDamage, "Manabond gain % missing unreserved mana as base lightning damage")
+	end,
 	statMap = {
 		["mana_void_gain_%_missing_unreserved_mana_as_base_lightning_damage"] = {
-			mod("Multiplier:ManabondUnreservedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }),
-			div = 100,
+			skill("ManabondMissingManaGainPercent", nil),
 		},
 		["quality_display_manabond_is_gem"] = {
 			-- Display Only
@@ -2709,8 +2714,6 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusLabel", "Circle area:")
 #baseMod skill("radiusSecondary", 23)
 #baseMod skill("radiusSecondaryLabel", "Rectangle area:")
-#baseMod mod("LightningMin", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" })
-#baseMod mod("LightningMax", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" })
 #mods
 
 #skill OrbOfStorms
