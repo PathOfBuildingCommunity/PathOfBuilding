@@ -2139,7 +2139,7 @@ skills["AvengingFlame"] = {
 	castTime = 1,
 	preDamageFunc = function(activeSkill, output)
 		local uuid = activeSkill.skillData.triggerSourceUUID
-		local cache = uuid and GlobalCache.cachedData["CACHE"][uuid]
+		local cache = uuid and (GlobalCache.cachedData["MAIN"][uuid] or GlobalCache.cachedData["CALCS"][uuid])
 		local totemLife = cache and cache.Env.player.output.TotemLife or 0
 
 		local add = totemLife * activeSkill.skillData.lifeDealtAsFire / 100

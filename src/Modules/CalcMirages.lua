@@ -35,7 +35,7 @@ local function calculateMirage(env, config)
 	end
 
 	if mirageSkill then
-		local newSkill, newEnv = calcs.copyActiveSkill(env, env.mode == "CALCS" and "CALCS" or "MAIN", mirageSkill)
+		local newSkill, newEnv = calcs.copyActiveSkill(env, env.mode, mirageSkill)
 		newSkill.skillCfg.skillCond["usedByMirage"] = true
 		newSkill.skillData.limitedProcessing = true
 		newSkill.skillData.mirageUses = env.player.mainSkill.skillData.storedUses
@@ -122,17 +122,17 @@ function calcs.mirages(env)
 			compareFunc = function(skill, env, config, mirageSkill)
 				if skill ~= env.player.mainSkill and skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Totem] and not skill.skillTypes[SkillType.SummonsTotem] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) == bor(ModFlag.Sword, ModFlag.Weapon1H) and not skill.skillCfg.skillCond["usedByMirage"] then
 					local uuid = cacheSkillUUID(skill, env)
-					if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.noCache then
-						calcs.buildActiveSkill(env, "CACHE", skill)
+					if not GlobalCache.cachedData[env.mode][uuid] then
+						calcs.buildActiveSkill(env, env.mode, skill)
 					end
 
-					if GlobalCache.cachedData["CACHE"][uuid] and GlobalCache.cachedData["CACHE"][uuid].CritChance and GlobalCache.cachedData["CACHE"][uuid].CritChance > 0 then
+					if GlobalCache.cachedData[env.mode][uuid] and GlobalCache.cachedData[env.mode][uuid].CritChance and GlobalCache.cachedData[env.mode][uuid].CritChance > 0 then
 						if not mirageSkill then
-							usedSkillBestDps = GlobalCache.cachedData["CACHE"][uuid].TotalDPS
-							return GlobalCache.cachedData["CACHE"][uuid].ActiveSkill
-						elseif GlobalCache.cachedData["CACHE"][uuid].TotalDPS > usedSkillBestDps then
-							usedSkillBestDps = GlobalCache.cachedData["CACHE"][uuid].TotalDPS
-							return GlobalCache.cachedData["CACHE"][uuid].ActiveSkill
+							usedSkillBestDps = GlobalCache.cachedData[env.mode][uuid].TotalDPS
+							return GlobalCache.cachedData[env.mode][uuid].ActiveSkill
+						elseif GlobalCache.cachedData[env.mode][uuid].TotalDPS > usedSkillBestDps then
+							usedSkillBestDps = GlobalCache.cachedData[env.mode][uuid].TotalDPS
+							return GlobalCache.cachedData[env.mode][uuid].ActiveSkill
 						end
 					end
 				end
@@ -191,21 +191,21 @@ function calcs.mirages(env)
 				local isDisabled = skill.skillFlags and skill.skillFlags.disable
 				if skill ~= env.player.mainSkill and (skill.skillTypes[SkillType.Slam] or skill.skillTypes[SkillType.Melee]) and skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Vaal] and not isTriggered(skill) and not isDisabled and not skill.skillTypes[SkillType.Totem] and not skill.skillTypes[SkillType.SummonsTotem] and not skill.skillCfg.skillCond["usedByMirage"] then
 					local uuid = cacheSkillUUID(skill, env)
-					if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.noCache then
-						calcs.buildActiveSkill(env, "CACHE", skill)
+					if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
+						calcs.buildActiveSkill(env, env.mode, skill)
 					end
 
-					if GlobalCache.cachedData["CACHE"][uuid] then
+					if GlobalCache.cachedData[env.mode][uuid] then
 						if not mirageSkill then
-							usedSkillBestDps = GlobalCache.cachedData["CACHE"][uuid].TotalDPS
-							EffectiveSourceRate = GlobalCache.cachedData["CACHE"][uuid].Speed
-							return  GlobalCache.cachedData["CACHE"][uuid].ActiveSkill
+							usedSkillBestDps = GlobalCache.cachedData[env.mode][uuid].TotalDPS
+							EffectiveSourceRate = GlobalCache.cachedData[env.mode][uuid].Speed
+							return  GlobalCache.cachedData[env.mode][uuid].ActiveSkill
 
 						else
-							if GlobalCache.cachedData["CACHE"][uuid].TotalDPS > usedSkillBestDps then
-								usedSkillBestDps = GlobalCache.cachedData["CACHE"][uuid].TotalDPS
-								EffectiveSourceRate = GlobalCache.cachedData["CACHE"][uuid].Speed
-								return GlobalCache.cachedData["CACHE"][uuid].ActiveSkill
+							if GlobalCache.cachedData[env.mode][uuid].TotalDPS > usedSkillBestDps then
+								usedSkillBestDps = GlobalCache.cachedData[env.mode][uuid].TotalDPS
+								EffectiveSourceRate = GlobalCache.cachedData[env.mode][uuid].Speed
+								return GlobalCache.cachedData[env.mode][uuid].ActiveSkill
 							end
 						end
 					end

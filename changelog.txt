@@ -1,3 +1,29 @@
+VERSION[2.41.1][2024/03/27]
+
+--- New to Path of Building ---
+* Add buttons to filter Active and Support gems in Skills tab (ryuukk, Peechey)
+* Add config option to bypass Vigilant Strike cooldown (rexfox147)
+* Add Grace of the Goddess unique wand (Lexy)
+* Add Spectral Throw of Materialising skill (Ciccooz)
+
+--- Fixed Bugs ---
+* Fix slowness caused by certain versions of LuaJIT (zao)
+* Fix several calculation issues for triggers and mirages (Paliak)
+* Fix excessive GPU load while minimized by stopping rendering (ryuukk)
+
+--- Fixed Crashes ---
+* Add workaround popup to specify new user path if default one fails (Wires77)
+* Harden UserPath against unusable folders (zao)
+* Clamp saved window size to minimum size (zao)
+
+--- User Interface ---
+* Fix blurriness for certain DPI factors (zao)
+* Make file searches case-insensitive (zao)
+
+--- Documentation ---
+* Update developer documentation for 64-bit executable (justjuangui)
+* Include licences of new third-party dependencies (ppoelzl)
+
 VERSION[2.41.0][2024/03/25]
 
 --- New to Path of Building ---

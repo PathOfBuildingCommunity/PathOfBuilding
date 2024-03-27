@@ -41,6 +41,16 @@ Cloth Belt
 Flasks applied to you have 60% Reduced Effect
 2% Reduced Flask Effect Duration per Level
 Flasks applied to you have 1% Increased Effect per Level
-]],
+]],[[
+Grace of the Goddess
+Prophecy Wand
+Implicits: 1
+(36-40)% increased Spell Damage
+339% Increased Physical Damage
+Gain 16% of Physical Damage as Extra Fire Damage
+Gain 21% of Physical Damage as Extra Cold Damage
+Gain 16% of Physical Damage as Extra Lightning Damage
++1 to Maximum number of Sacred Wisps
+]]
 
 }
