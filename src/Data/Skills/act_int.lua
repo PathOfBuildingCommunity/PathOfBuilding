@@ -347,6 +347,7 @@ skills["ArcaneCloak"] = {
 	},
 	baseMods = {
 		mod("GuardAbsorbLimit", "BASE", 100, 0, 0, { type = "PercentStat", stat = "ManaUnreserved", percentVar = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
+		mod("Multiplier:ManaSpentRecently", "BASE", 100, 0, 0, { type = "PercentStat", stat = "ManaUnreserved", percentVar = "ArcaneCloakConsumedMana" }, { type = "Condition", var = "ArcaneCloakUsedRecently"}, { type = "GlobalEffect", effectType = "Buff", unscalable = true}),
 	},
 	qualityStats = {
 		Default = {
