@@ -51,56 +51,9 @@ function main:Init()
 	self.modes["BUILD"] = LoadModule("Modules/Build")
 
 	self.popups = { }
-	--if launch.devMode or (GetScriptPath() == GetRuntimePath() and not launch.installedMode) then
-	--	-- If running in dev mode or standalone mode, put user data in the script path
-	--	self.userPath = GetScriptPath().."/"
-	--else
-	local invalidPath
-	self.userPath, invalidPath = GetUserPath()
-	if not self.userPath then
-		self:OpenPathPopup(invalidPath)
-	else
-		self.userPath = self.userPath.."/Path of Building/"
-		MakeDir(self.userPath)
-		--end
-		self.defaultBuildPath = self.userPath.."Builds/"
-		self.buildPath = self.defaultBuildPath
-		MakeDir(self.buildPath)
-	end
-
-	if launch.devMode and IsKeyDown("CTRL") then
-		-- If modLib.parseMod doesn't find a cache entry it generates it.
-		-- Not loading pre-generated cache causes it to be rebuilt
-		self.saveNewModCache = true
-	else
-		-- Load mod cache
-		LoadModule("Data/ModCache", modLib.parseModCache)
-	end
-
-	if launch.devMode and IsKeyDown("CTRL") and IsKeyDown("SHIFT") then
-		self.allowTreeDownload = true
-	end
-
-
-	self.inputEvents = { }
-	self.tooltipLines = { }
-
+	self.sharedItemList = { }
+	self.sharedItemSetList = { }
 	self.gameAccounts = { }
-
-	self.buildSortMode = "NAME"
-	self.connectionProtocol = 0
-	self.nodePowerTheme = "RED/BLUE"
-	self.colorPositive = defaultColorCodes.POSITIVE
-	self.colorNegative = defaultColorCodes.NEGATIVE
-	self.colorHighlight = defaultColorCodes.HIGHLIGHT
-	self.showThousandsSeparators = true
-	self.thousandsSeparator = ","
-	self.decimalSeparator = "."
-	self.defaultItemAffixQuality = 0.5
-	self.showTitlebarName = true
-	self.showWarnings = true
-	self.slotOnlyTooltips = true
-	self.POESESSID = ""
 
 	local ignoreBuild
 	if arg[1] then
@@ -120,9 +73,53 @@ function main:Init()
 	if not ignoreBuild then
 		self:SetMode("BUILD", false, "Unnamed build")
 	end
-	if self.userPath then
-		self:LoadSettings(ignoreBuild)
+	if launch.devMode or (GetScriptPath() == GetRuntimePath() and not launch.installedMode) then
+		-- If running in dev mode or standalone mode, put user data in the script path
+		self.userPath = GetScriptPath().."/"
+	else
+		local invalidPath
+		self.userPath, invalidPath = GetUserPath()
+		if not self.userPath then
+			self:OpenPathPopup(invalidPath)
+		else
+			self.userPath = self.userPath.."/Path of Building/"
+		end
 	end
+	if self.userPath then
+		self:ChangeUserPath(self.userPath, ignoreBuild)
+	end
+
+	if launch.devMode and IsKeyDown("CTRL") then
+		-- If modLib.parseMod doesn't find a cache entry it generates it.
+		-- Not loading pre-generated cache causes it to be rebuilt
+		self.saveNewModCache = true
+	else
+		-- Load mod cache
+		LoadModule("Data/ModCache", modLib.parseModCache)
+	end
+
+	if launch.devMode and IsKeyDown("CTRL") and IsKeyDown("SHIFT") then
+		self.allowTreeDownload = true
+	end
+
+
+	self.inputEvents = { }
+	self.tooltipLines = { }
+
+	self.buildSortMode = "NAME"
+	self.connectionProtocol = 0
+	self.nodePowerTheme = "RED/BLUE"
+	self.colorPositive = defaultColorCodes.POSITIVE
+	self.colorNegative = defaultColorCodes.NEGATIVE
+	self.colorHighlight = defaultColorCodes.HIGHLIGHT
+	self.showThousandsSeparators = true
+	self.thousandsSeparator = ","
+	self.decimalSeparator = "."
+	self.defaultItemAffixQuality = 0.5
+	self.showTitlebarName = true
+	self.showWarnings = true
+	self.slotOnlyTooltips = true
+	self.POESESSID = ""
 
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
@@ -176,9 +173,6 @@ function main:Init()
 		self:SaveModCache()
 		self.defaultItemAffixQuality = saved
 	end
-
-	self.sharedItemList = { }
-	self.sharedItemSetList = { }
 
 	self.anchorMain = new("Control", nil, 4, 0, 0, 0)
 	self.anchorMain.y = function()
@@ -241,10 +235,6 @@ set up the program from the source .zip instead
 of using one of the installers. If that is the case,
 please reinstall using one of the installers from
 the "Releases" section of the GitHub page.]])
-	end
-
-	if self.userPath then
-		self:LoadSharedItems()
 	end
 
 	self.onFrameFuncs = {
@@ -746,16 +736,28 @@ function main:OpenPathPopup(invalidPath)
 	end)
 	controls.save = new("ButtonControl", { "TOPLEFT", controls.userPath, "TOPLEFT" }, 0, 26, 206, 20, "Save", function()
 		local res, msg = MakeDir(controls.userPath.buf)
-		if not res then
-			main:OpenMessagePopup("Error", "Couldn't create '"..controls.userPath.buf.."' : "..msg)
+		if not res and msg ~= "No error" then
+			self:OpenMessagePopup("Error", "Couldn't create '"..controls.userPath.buf.."' : "..msg)
+		else
+			self:ChangeUserPath(controls.userPath.buf)
+			self:ClosePopup()
 		end
-		self.userPath = controls.userPath.buf
 	end)
 	controls.save.enabled = false
 	controls.cancel = new("ButtonControl", nil, 0, 0, 0, 0, "Cancel", function()
 		-- Do nothing, require user to enter a location
 	end)
 	self:OpenPopup(600, 150, "Change Settings Path", controls, "save", nil, "cancel")
+end
+
+function main:ChangeUserPath(newUserPath, ignoreBuild)
+	self.userPath = newUserPath
+	MakeDir(self.userPath)
+	self.defaultBuildPath = self.userPath.."Builds/"
+	self.buildPath = self.defaultBuildPath
+	MakeDir(self.buildPath)
+	self:LoadSettings(ignoreBuild)
+	self:LoadSharedItems()
 end
 
 function main:OpenOptionsPopup()
