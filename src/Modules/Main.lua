@@ -73,10 +73,10 @@ function main:Init()
 	if not ignoreBuild then
 		self:SetMode("BUILD", false, "Unnamed build")
 	end
-	--if launch.devMode or (GetScriptPath() == GetRuntimePath() and not launch.installedMode) then
-	--	-- If running in dev mode or standalone mode, put user data in the script path
-	--	self.userPath = GetScriptPath().."/"
-	--else
+	if launch.devMode or (GetScriptPath() == GetRuntimePath() and not launch.installedMode) then
+		-- If running in dev mode or standalone mode, put user data in the script path
+		self.userPath = GetScriptPath().."/"
+	else
 		local invalidPath
 		self.userPath, invalidPath = GetUserPath()
 		if not self.userPath then
@@ -84,7 +84,7 @@ function main:Init()
 		else
 			self.userPath = self.userPath.."/Path of Building/"
 		end
-	--end
+	end
 	if self.userPath then
 		self:ChangeUserPath(self.userPath, ignoreBuild)
 	end
