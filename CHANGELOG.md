@@ -11,10 +11,11 @@
 - Add buttons to filter Active and Support gems in Skills tab [\#7442](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7442) ([ryuukk](https://github.com/ryuukk), [Peechey](https://github.com/Peechey))
 - Add config option to bypass Vigilant Strike cooldown [\#7464](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7464) ([rexfox147](https://github.com/rexfox147))
 - Add Grace of the Goddess unique wand [\#7470](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7470) ([Lexy](https://github.com/learn2draw))
-- Added Spectral Throw of Materialising skill [\#7480](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7480) ([Ciccooz](https://github.com/Ciccooz))
+- Add Spectral Throw of Materialising skill [\#7480](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7480) ([Ciccooz](https://github.com/Ciccooz))
 
 ### Fixed Bugs
 - Fix slowness caused by certain versions of LuaJIT [\#48](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/48) ([zao](https://github.com/zao))
+- Fix several calculation issues for triggers and mirages [\#7458](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7458) ([Paliak](https://github.com/Paliak)]
 - Fix excessive GPU load while minimized by stopping rendering [\#47](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/47) ([ryuukk](https://github.com/ryuukk))
 
 ### Fixed Crashes

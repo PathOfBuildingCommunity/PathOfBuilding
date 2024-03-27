@@ -9,6 +9,7 @@ Peechey)
 
 --- Fixed Bugs ---
 * Fix slowness caused by certain versions of LuaJIT (zao)
+* Fix several calculation issues for triggers and mirages (Paliak)
 * Fix excessive GPU load while minimized by stopping rendering (ryuukk)
 
 --- Fixed Crashes ---
