@@ -22,7 +22,6 @@
 - Add workaround popup to specify new user path if default one fails [\#7476](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7476) ([Wires77](https://github.com/Wires77))
 - Harden UserPath against unusable folders [\#46](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/46) ([zao](https://github.com/zao))
 - Clamp saved window size to minimum size [\#49](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/49) ([zao](https://github.com/zao))
-- Include licences of new third-party dependencies [\#7483](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7483) ([ppoelzl](https://github.com/ppoelzl))
 
 ### User Interface
 - Fix blurriness for certain DPI factors [\#45](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/45) ([zao](https://github.com/zao))
