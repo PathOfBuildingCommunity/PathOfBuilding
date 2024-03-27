@@ -8,7 +8,7 @@ local s_format = string.format
 local t_insert = table.insert
 local dkjson = require "dkjson"
 
-local ArchivesListClass = newClass("ArchivesListControl", "ControlHost", "Control",
+local ExtBuildListControlClass = newClass("ExtBuildListControl", "ControlHost", "Control",
 	function(self, anchor, x, y, width, height, mode)
 		self.Control(anchor, x, y, width, height)
 		self.ControlHost()
@@ -77,14 +77,14 @@ local ArchivesListClass = newClass("ArchivesListControl", "ControlHost", "Contro
 		end
 	end)
 
-function ArchivesListClass:IsMouseOver()
+function ExtBuildListControlClass:IsMouseOver()
 	if not self:IsShown() then
 		return
 	end
 	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
-function ArchivesListClass:OnKeyDown(key, doubleClick)
+function ExtBuildListControlClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
@@ -97,7 +97,7 @@ function ArchivesListClass:OnKeyDown(key, doubleClick)
 	end
 end
 
-function ArchivesListClass:OnKeyUp(key)
+function ExtBuildListControlClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
@@ -113,7 +113,7 @@ function ArchivesListClass:OnKeyUp(key)
 	end
 end
 
-function ArchivesListClass:GetHoveredButton()
+function ExtBuildListControlClass:GetHoveredButton()
 	if self.inTransition then
 		return
 	end
@@ -144,13 +144,13 @@ function ArchivesListClass:GetHoveredButton()
 	end
 end
 
-function ArchivesListClass:GetApiUrl()
+function ExtBuildListControlClass:GetApiUrl()
 	local archivesUrl = 'https://pobarchives.com'
 	local apiPath = '/api/builds'
 	return archivesUrl .. apiPath .. '?q=' .. self.mode
 end
 
-function ArchivesListClass:GetPageUrl()
+function ExtBuildListControlClass:GetPageUrl()
 	local archivesUrl = 'https://pobarchives.com'
 	local buildsPath = '/builds'
 	if self.mode == "latest" then
@@ -166,7 +166,7 @@ function ArchivesListClass:GetPageUrl()
 	return nil
 end
 
-function ArchivesListClass:GetAscendancyImageHandle(ascendancy)
+function ExtBuildListControlClass:GetAscendancyImageHandle(ascendancy)
 	local image = nil
 	if ascendancy then
 		image = NewImageHandle()
@@ -176,7 +176,7 @@ function ArchivesListClass:GetAscendancyImageHandle(ascendancy)
 	return image
 end
 
-function ArchivesListClass:HandleButtonClick(button, buttonType)
+function ExtBuildListControlClass:HandleButtonClick(button, buttonType)
 	if button then
 		self.inTransition = true
 		if buttonType == "import" then
@@ -205,7 +205,7 @@ function ArchivesListClass:HandleButtonClick(button, buttonType)
 	end
 end
 
-function ArchivesListClass:CheckButtons()
+function ExtBuildListControlClass:CheckButtons()
 	if self.inTransition then
 		return
 	end
@@ -233,7 +233,7 @@ function ArchivesListClass:CheckButtons()
 end
 
 -- splits strings by word and maxWidth
-function ArchivesListClass:splitStringByWidth(str, maxWidth)
+function ExtBuildListControlClass:splitStringByWidth(str, maxWidth)
 	local words = {}
 	for word in str:gmatch("%S+") do
 		table.insert(words, word)
@@ -256,21 +256,21 @@ function ArchivesListClass:splitStringByWidth(str, maxWidth)
 end
 
 -- wrappers for Drawing tools to apply scrolling
-function ArchivesListClass:DrawImage(imgHandle, left, top, width, height)
+function ExtBuildListControlClass:DrawImage(imgHandle, left, top, width, height)
 	local _, y = self:GetPos()
 	if top - self.controls.scrollBarV.offset >= y then
 		DrawImage(imgHandle, left, top - self.controls.scrollBarV.offset, width, height)
 	end
 end
 
-function ArchivesListClass:DrawString(left, top, align, height, font, text)
+function ExtBuildListControlClass:DrawString(left, top, align, height, font, text)
 	local _, y = self:GetPos()
 	if top - self.controls.scrollBarV.offset >= y then
 		DrawString(left, top - self.controls.scrollBarV.offset, align, height, font, text)
 	end
 end
 
-function ArchivesListClass:Draw(viewPort, noTooltip)
+function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 	-- clear button states
 	wipeTable(self.previewButtons)
 	wipeTable(self.importButtons)
@@ -476,7 +476,7 @@ function ArchivesListClass:Draw(viewPort, noTooltip)
 	self:DrawControls(viewPort, (noTooltip and not self.forceTooltip) and self)
 end
 
-function ArchivesListClass:GetBuilds()
+function ExtBuildListControlClass:GetBuilds()
 	self.errMsg = "Loading.."
 	wipeTable(self.list)
 	self.contentHeight = nil

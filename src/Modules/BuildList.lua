@@ -67,7 +67,7 @@ function listMode:Init(selBuildName, subPath)
 	self.controls.buildList.width = function ()
 		return (main.screenW / 2)
 	end
-	self.controls.archiveList = new("ArchivesListControl", {"LEFT",self.controls.buildList,"RIGHT"}, 25, 0, main.screenW * 1 / 4 - 50, 0, "latest")
+	self.controls.archiveList = new("ExtBuildListControl", {"LEFT",self.controls.buildList,"RIGHT"}, 25, 0, main.screenW * 1 / 4 - 50, 0, "latest")
 	self.controls.archiveList.height = function()
 		return main.screenH - 80
 	end
