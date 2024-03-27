@@ -364,16 +364,10 @@ function ArchivesListClass:Draw(viewPort, noTooltip)
 				-- SetDrawColor(1, 0, 0)
 				self:DrawString(x, currentHeight, "LEFT", 14, self.font, s_format('DPS: %0.f', build.dps))
 			end
-			if build.life then
+			if build.life or build.es then
 				-- SetDrawColor(0, 1, 0)
 				self:DrawString(x + (self.width()) / 3, currentHeight, "LEFT", 14, self.font,
-					s_format('Life: %0.f', build.life))
-			else
-				if build.es then
-					-- SetDrawColor(0, 1, 0)
-					self:DrawString(x + (self.width()) / 3, currentHeight, "LEFT", 14, self.font,
-						s_format('ES: %0.f', build.es))
-				end
+					s_format('%s: %0.f', build.life > build.es and "Life" or "ES" , math.max(build.life, build.es)))
 			end
 			if build.ehp then
 				-- SetDrawColor(0, 0, 1)
