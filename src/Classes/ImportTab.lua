@@ -513,7 +513,7 @@ function ImportTabClass:BuildCharacterList(league)
 				end
 			end
 
-			local lbl = string.format("^xFFFFFF%s", charName)
+			local lbl = string.format("%s", charName)
 			local detail
 			if league == nil then
 				detail = string.format("%s%s ^x808080lvl %d in %s", classColor, charClass, charLvl, charLeague)
