@@ -72,6 +72,9 @@ local ArchivesListClass = newClass("ArchivesListControl", "ControlHost", "Contro
 					OpenURL(url)
 				end
 			end)
+		self.controls.all.width = function()
+			return self.width()
+		end
 	end)
 
 function ArchivesListClass:IsMouseOver()
