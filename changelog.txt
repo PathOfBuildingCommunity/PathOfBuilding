@@ -1,8 +1,7 @@
 VERSION[2.41.1][2024/03/27]
 
 --- New to Path of Building ---
-* Add buttons to filter Active and Support gems in Skills tab (ryuukk,
-Peechey)
+* Add buttons to filter Active and Support gems in Skills tab (ryuukk, Peechey)
 * Add config option to bypass Vigilant Strike cooldown (rexfox147)
 * Add Grace of the Goddess unique wand (Lexy)
 * Add Spectral Throw of Materialising skill (Ciccooz)
