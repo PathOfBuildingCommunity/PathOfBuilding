@@ -73,18 +73,18 @@ function main:Init()
 	if not ignoreBuild then
 		self:SetMode("BUILD", false, "Unnamed build")
 	end
-	if launch.devMode or (GetScriptPath() == GetRuntimePath() and not launch.installedMode) then
-		-- If running in dev mode or standalone mode, put user data in the script path
-		self.userPath = GetScriptPath().."/"
-	else
+	--if launch.devMode or (GetScriptPath() == GetRuntimePath() and not launch.installedMode) then
+	--	-- If running in dev mode or standalone mode, put user data in the script path
+	--	self.userPath = GetScriptPath().."/"
+	--else
 		local invalidPath
 		self.userPath, invalidPath = GetUserPath()
 		if not self.userPath then
-			self:OpenPathPopup(invalidPath)
+			self:OpenPathPopup(invalidPath, ignoreBuild)
 		else
 			self.userPath = self.userPath.."/Path of Building/"
 		end
-	end
+	--end
 	if self.userPath then
 		self:ChangeUserPath(self.userPath, ignoreBuild)
 	end
@@ -717,7 +717,7 @@ function main:SaveSettings()
 	end
 end
 
-function main:OpenPathPopup(invalidPath)
+function main:OpenPathPopup(invalidPath, ignoreBuild)
 	local controls = { }
 	local defaultLabelPlacementX = 8
 
@@ -725,6 +725,9 @@ function main:OpenPathPopup(invalidPath)
 		return "^7User settings path contains unicode characters and cannot be loaded."..
 		"\nCurrent Path: "..invalidPath:gsub("?", "^1?^7").."/Path of Building/"..
 		"\nSpecify a new location for your Settings.xml:"
+	end)
+	controls.explainButton = new("ButtonControl", { "LEFT", controls.label, "RIGHT" }, 4, 0, 20, 20, "?", function()
+		OpenURL("https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/Why-do-I-have-to-change-my-Settings-path%3F")
 	end)
 	controls.userPath = new("EditControl", { "TOPLEFT", controls.label, "TOPLEFT" }, 0, 60, 206, 20, invalidPath, nil, nil, nil, function(buf)
 		invalidPath = sanitiseText(buf)
@@ -739,7 +742,7 @@ function main:OpenPathPopup(invalidPath)
 		if not res and msg ~= "No error" then
 			self:OpenMessagePopup("Error", "Couldn't create '"..controls.userPath.buf.."' : "..msg)
 		else
-			self:ChangeUserPath(controls.userPath.buf)
+			self:ChangeUserPath(controls.userPath.buf, ignoreBuild)
 			self:ClosePopup()
 		end
 	end)
