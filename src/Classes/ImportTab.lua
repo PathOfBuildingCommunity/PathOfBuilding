@@ -513,7 +513,6 @@ function ImportTabClass:BuildCharacterList(league)
 				end
 			end
 
-			local lbl = string.format("%s", charName)
 			local detail
 			if league == nil then
 				detail = string.format("%s%s ^x808080lvl %d in %s", classColor, charClass, charLvl, charLeague)
@@ -521,7 +520,7 @@ function ImportTabClass:BuildCharacterList(league)
 				detail = string.format("%s%s ^x808080lvl %d", classColor, charClass, charLvl)
 			end
 			t_insert(self.controls.charSelect.list, {
-				label = lbl,
+				label = charName,
 				char = char,
 				detail = detail
 			})
