@@ -80,6 +80,7 @@ local tradeStatCategoryIndices = {
 	["Exarch"] = 3,
 	["Synthesis"] = 3,
 	["PassiveNode"] = 2,
+	["WatchersEye"] = 2,
 }
 
 local influenceSuffixes = { "_shaper", "_elder", "_adjudicator", "_basilisk", "_crusader", "_eyrie"}
@@ -402,6 +403,7 @@ function TradeQueryGeneratorClass:InitMods()
 		["Exarch"] = { },
 		["Synthesis"] = { },
 		["PassiveNode"] = { },
+		["WatchersEye"] = { },
 	}
 
 	-- originates from: https://www.pathofexile.com/api/trade/data/stats
@@ -460,6 +462,17 @@ function TradeQueryGeneratorClass:InitMods()
 	end
 	self:GenerateModData(clusterNotableMods, tradeQueryStatsParsed)
 
+	-- Watcher's Eye
+	local watchersEyeMods = {}
+	for _,v in pairs(data.uniqueMods["Watcher's Eye"]) do
+		if v.Id:find("SublimeVision") or v.Id:find("SummonArbalist") then
+			goto continue
+		end
+		watchersEyeMods[v.Id] = v.mod
+		watchersEyeMods[v.Id].type = "WatchersEye"
+		::continue::
+	end
+	self:GenerateModData(watchersEyeMods,tradeQueryStatsParsed,{ ["BaseJewel"] = true, ["AnyJewel"] = true },{["AnyJewel"]="AnyJewel"})
 	-- Base item implicit mods. A lot of this code is duplicated from generateModData(), but with important small logical flow changes to handle the format differences
 	for baseName, entry in pairs(data.itemBases) do
 		if entry.implicit ~= nil then
@@ -674,6 +687,28 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 				calcNodesInsteadOfMods = true,
 			}
 		end
+		if options.special.itemName == "Watcher's Eye" then
+			special={
+				queryExtra = {
+					name = "Watcher's Eye"
+				},
+				queryFilters = {
+					type_filters = {
+						filters = {
+							category = {
+								option = "jewel"
+							},
+							rarity = {
+								option = "unique"
+							}
+						}
+					}
+				},
+				watchersEye = true
+			}
+			itemCategory = "AnyJewel"
+			itemCategoryQueryStr = "jewel"
+		end
 	elseif slot.slotName == "Weapon 2" or slot.slotName == "Weapon 1" then
 		if existingItem then
 			if existingItem.type == "Shield" then
@@ -821,6 +856,13 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 		self:GeneratePassiveNodeWeights(self.modData.PassiveNode)
 		return
 	end
+	if self.calcContext.special.watchersEye then
+		self:GenerateModWeights(self.modData.WatchersEye)
+		if self.calcContext.options.includeCorrupted then
+			self:GenerateModWeights(self.modData["Corrupted"])
+		end
+		return
+	end
 	self:GenerateModWeights(self.modData["Explicit"])
 	self:GenerateModWeights(self.modData["Implicit"])
 	if self.calcContext.options.includeCorrupted then
@@ -835,6 +877,36 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 	end
 	if self.calcContext.options.includeSynthesis then
 		self:GenerateModWeights(self.modData["Synthesis"])
+	end
+end
+
+function TradeQueryGeneratorClass:addMoreWEMods()
+	local function getTableOfTradeModIds(tbl)
+		local tmpTable={}
+		for _,val in ipairs(tbl) do
+			table.insert(tmpTable,val.tradeModId)
+		end
+		return tmpTable
+	end
+	for _,skillGroup in ipairs(self.itemsTab.build.skillsTab.socketGroupList) do
+		for _,gem in ipairs(skillGroup.gemList) do
+			local tmpAura=""
+			if not gem.enabled then
+				goto continue
+			elseif gem.nameSpec:find("Vaal") and gem.enableGlobal2 then
+				tmpAura=gem.nameSpec:gsub("Vaal ",""):gsub("Impurity","Purity"):gsub("of","Of"):gsub(" ","")
+			elseif gem.gemData and gem.gemData.tags.aura or gem.fromItem then
+				tmpAura=gem.nameSpec:gsub("of","Of"):gsub(" ","")
+			else
+				goto continue
+			end
+			for id,mod in pairs(self.modData.WatchersEye) do
+				if id:find(tmpAura) and not isValueInTable(getTableOfTradeModIds(self.modWeights),mod.tradeMod.id) then
+					table.insert(self.modWeights,{invert=false,meanStatDiff=0,weight=0,tradeModId=mod.tradeMod.id})
+				end
+			end
+			::continue::
+		end
 	end
 end
 
@@ -861,6 +933,10 @@ function TradeQueryGeneratorClass:FinishQuery()
 	local originalOutput = originalItem and self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, { nodeAlloc = true }) or self.calcContext.baseOutput
 	local currentStatDiff = TradeQueryGeneratorClass.WeightedRatioOutputs(self.calcContext.baseOutput, originalOutput, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
 	
+	if self.calcContext.options.includeAllWEMods then
+		self:addMoreWEMods()
+	end
+
 	-- Sort by mean Stat diff rather than weight to more accurately prioritize stats that can contribute more
 	table.sort(self.modWeights, function(a, b)
 		return a.meanStatDiff > b.meanStatDiff
@@ -1045,12 +1121,12 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		updateLastAnchor(controls.includeEldritch)
 	end
 
-	if isJewelSlot then
+	if isJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
 		controls.jewelType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, { "Any", "Base", "Abyss" }, function(index, value) end)
 		controls.jewelType.selIndex = self.lastJewelType or 1
 		controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, -5, 0, 0, 16, "Jewel Type:")
 		updateLastAnchor(controls.jewelType)
-	elseif slot and not isAbyssalJewelSlot then
+	elseif slot and not isAbyssalJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
 		controls.influence1 = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, influenceDropdownNames, function(index, value) end)
 		controls.influence1.selIndex = self.lastInfluence1 or 1
 		controls.influence1Label = new("LabelControl", {"RIGHT",controls.influence1,"LEFT"}, -5, 0, 0, 16, "Influence 1:")
@@ -1130,6 +1206,13 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	end
 	popupHeight = popupHeight + 4
 
+	if context.slotTbl.slotName == "Watcher's Eye" then
+		controls.includeAllWEMods = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, 0, 5, 18, "Include all Watcher's Eye mods:", function(state) end)
+		controls.includeAllWEMods.tooltipText = "Include all Watcher's Eye mods in the generated query for which weights couldn't be calculated"
+		lastItemAnchor = controls.includeAllWEMods
+		popupHeight = popupHeight + 23
+	end
+
 	controls.generateQuery = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -45, -10, 80, 20, "Execute", function()
 		main:ClosePopup()
 
@@ -1174,6 +1257,9 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		end
 		if controls.links and controls.links.buf then
 			options.links = tonumber(controls.links.buf)
+		end
+		if controls.includeAllWEMods then
+			options.includeAllWEMods = controls.includeAllWEMods.state
 		end
 		options.statWeights = statWeights
 
