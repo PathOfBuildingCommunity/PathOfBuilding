@@ -24,7 +24,7 @@ local ArchivesListClass = newClass("ArchivesListControl", "ControlHost", "Contro
 		self.previewButtons = {}
 		self.mode = mode
 		self.inTransition = false
-		self.contentHeight = nil
+		self.contentHeight = 0
 		self:GetBuilds()
 
 		self.controls.scrollBarV = new("ScrollBarControl", { "RIGHT", self, "RIGHT" }, -1, 0, self.scroll and 16 or 0, 0,
@@ -468,11 +468,11 @@ function ArchivesListClass:Draw(viewPort, noTooltip)
 	end
 
 	-- set scroll bar height
-	if not self.contentHeight and next(self.list) ~= nil then
-		print('setting new content dimension', currentHeight, self.height(), x)
-		scrollBarV:SetContentDimension(currentHeight - y - 10, self.height())
+	-- if not self.contentHeight and next(self.list) ~= nil then
+	print(currentHeight, self.scrollOffsetV, self.height())
+	self.controls.scrollBarV:SetContentDimension(currentHeight + self.scrollOffsetV - y, self.height())
 		self.contentHeight = currentHeight
-	end
+	-- end
 	self:DrawControls(viewPort, (noTooltip and not self.forceTooltip) and self)
 end
 
