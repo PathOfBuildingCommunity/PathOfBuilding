@@ -312,6 +312,7 @@ SkillType = {
 	InnateTrauma = 129,
 	DualWieldRequiresDifferentTypes = 130,
 	NoVolley = 131,
+	SacredWispsCanUse = 132, -- Skill can be supported by Sacred Wisps
 }
 
 GlobalCache = { 

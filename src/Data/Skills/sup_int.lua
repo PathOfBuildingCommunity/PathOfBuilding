@@ -6,6 +6,97 @@
 --
 local skills, mod, flag, skill = ...
 
+
+skills["SupportGemSacredWisps"] = {
+	name = "Sacred Wisps",
+	description = "Supports attack skills that can be used with wands. Supported skills can only be used with wands. Cannot support Vaal skills, minion skills, movement skills, or skills used by totems, traps, or mines.",
+	color = 3,
+	support = true,
+	requireSkillTypes = { SkillType.SacredWispsCanUse, },
+	addSkillTypes = { SkillType.Duration, },
+	excludeSkillTypes = { SkillType.Vaal, SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Minion, },
+	ignoreMinionTypes = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_sacred_wisps_base_duration"] = {
+			mod("SacredWispsDuration", "BASE", nil),
+			div = 1000,
+		},
+		["support_sacred_wisps_damage_+%_final"] = {
+			mod("SacredWispsLessDamage", "BASE", nil),
+		},
+		["support_sacred_wisps_attack_speed_+%_final"] = {
+			mod("SacredWispsLessAttackSpeed", "BASE", nil),
+		},
+		["summon_sacred_wisps_on_hit_chance"] = {
+			mod("SacredWispsChance", "BASE", 25),
+		},
+		["summon_sacred_wisps_on_hit_chance_rare_unique_nearby"] = {
+			mod("SacredWispsChance", "BASE", 25),
+		},
+		["summon_sacred_wisps_on_hit"] = {
+			mod("SacredWispsMaxCount", "BASE", 2),
+		},
+	},
+	qualityStats = {
+		Default = {
+			{ "support_sacred_wisps_base_duration+%", 0.5 },
+		},
+	},
+	constantStats = {
+		{ "support_sacred_wisps_base_duration", 4000 },
+		{ "support_sacred_wisps_attack_speed_+%_final", -50 },
+		{ "sacred_wisps_projectile_additional_height_offset", -138 },
+	},
+	stats = {
+		"support_sacred_wisps_damage_+%_final",
+		"skill_can_own_sacred_wisps",
+		"summon_sacred_wisps_on_hit",
+		"disable_skill_if_weapon_not_wand",
+	},
+	levels = {
+		[1] = { -51, levelRequirement = 4, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[2] = { -51, levelRequirement = 6, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[3] = { -51, levelRequirement = 9, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[4] = { -51, levelRequirement = 12, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[5] = { -51, levelRequirement = 16, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[6] = { -51, levelRequirement = 20, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[7] = { -51, levelRequirement = 24, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[8] = { -51, levelRequirement = 28, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[9] = { -51, levelRequirement = 32, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[10] = { -51, levelRequirement = 36, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[11] = { -51, levelRequirement = 40, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[12] = { -51, levelRequirement = 44, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[13] = { -51, levelRequirement = 48, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[14] = { -51, levelRequirement = 52, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[15] = { -51, levelRequirement = 55, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[16] = { -51, levelRequirement = 58, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[17] = { -51, levelRequirement = 61, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[18] = { -51, levelRequirement = 64, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[19] = { -51, levelRequirement = 67, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[20] = { -51, levelRequirement = 70, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[21] = { -51, levelRequirement = 72, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[22] = { -51, levelRequirement = 74, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[23] = { -51, levelRequirement = 76, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[24] = { -51, levelRequirement = 78, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[25] = { -51, levelRequirement = 80, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[26] = { -51, levelRequirement = 82, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[27] = { -51, levelRequirement = 84, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[28] = { -51, levelRequirement = 86, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[29] = { -51, levelRequirement = 88, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[30] = { -51, levelRequirement = 90, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[31] = { -51, levelRequirement = 91, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[32] = { -51, levelRequirement = 92, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[33] = { -51, levelRequirement = 93, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[34] = { -51, levelRequirement = 94, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[35] = { -51, levelRequirement = 95, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[36] = { -51, levelRequirement = 96, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[37] = { -51, levelRequirement = 97, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[38] = { -51, levelRequirement = 98, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[39] = { -51, levelRequirement = 99, manaMultiplier = 40, statInterpolation = { 1, }, },
+		[40] = { -51, levelRequirement = 100, manaMultiplier = 40, statInterpolation = { 1, }, },
+	},
+}
 skills["SupportAddedChaosDamage"] = {
 	name = "Added Chaos Damage",
 	description = "Supports any skill that hits enemies.",
