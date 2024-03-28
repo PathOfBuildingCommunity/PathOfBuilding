@@ -120,6 +120,8 @@ function main:Init()
 	self.showWarnings = true
 	self.slotOnlyTooltips = true
 	self.POESESSID = ""
+	
+	self.displayStatList = nil
 
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
@@ -532,6 +534,27 @@ function main:LoadSettings(ignoreBuild)
 						}
 					end
 				end
+			elseif node.elem == "StatList" then
+				for _, child in ipairs(node) do
+					if child.elem == "statGroup" and tonumber(child.attrib.index) then
+						self.displayStatList = self.displayStatList or {}
+						local index = tonumber(child.attrib.index)
+						self.displayStatList[index] = {}
+						for _, child2 in ipairs(child) do
+							if child2.elem == "stat" then
+								local stat = {}
+								for k, v in pairs(child2.attrib) do 
+									if (v == "true") then
+										stat[k] = true
+									else
+										stat[k] = v	
+									end	
+								end
+								t_insert(self.displayStatList[index], stat)
+							end
+						end
+					end
+				end
 			elseif node.elem == "Misc" then
 				if node.attrib.buildSortMode then
 					self.buildSortMode = node.attrib.buildSortMode
@@ -686,6 +709,21 @@ function main:SaveSettings()
 		t_insert(sharedItemList, set)
 	end
 	t_insert(setXML, sharedItemList)
+	local displayStatList = { elem = "StatList" }
+	if self.displayStatList then
+		for i, statGroup in ipairs(self.displayStatList) do
+			local set = { elem = "statGroup", attrib = { index = tostring(i) } }
+			for _, stat in ipairs(statGroup) do
+				local subset = { elem = "stat", attrib = { } }
+				for k, v in pairs(stat) do
+					subset.attrib[k] = tostring(v)
+				end
+				t_insert(set, subset)
+			end
+			t_insert(displayStatList, set)
+		end
+	end
+	t_insert(setXML, displayStatList)
 	t_insert(setXML, { elem = "Misc", attrib = {
 		buildSortMode = self.buildSortMode,
 		connectionProtocol = tostring(launch.connectionProtocol),
