@@ -1310,6 +1310,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						if grantedEffect and not grantedEffect.support then
 							grantedEffect = env.data.skills["Support"..value.skillId]
 						end
+						grantedEffect.fromItem = true
 						if grantedEffect then
 							for _, targetList in ipairs(targetListList) do
 								t_insert(targetList, {
