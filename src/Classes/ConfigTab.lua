@@ -177,6 +177,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					end
 					self.build.buildFlag = true
 				end, 16)
+				if varData.dynHeight then
+					control.dynHeight = varData.dynHeight
+				end
 			else
 				control = new("Control", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 16, 16)
 			end
