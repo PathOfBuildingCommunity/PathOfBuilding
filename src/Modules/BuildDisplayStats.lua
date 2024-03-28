@@ -171,7 +171,7 @@ local StatList = {
 		{ stat = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%", overCapStat = "SpellBlockChanceOverCap", displayStat = true },
 		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%", overCapStat = "AttackDodgeChanceOverCap", displayStat = true },
 		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%", overCapStat = "SpellDodgeChanceOverCap", displayStat = true },
-		{ stat = "SpellSuppressionChance", label = "Spell Suppression Chance", fmt = "d%%", overCapStat = "SpellSuppressionChanceOverCap", displayStat = true },
+		{ stat = "EffectiveSpellSuppressionChance", label = "Spell Suppression Chance", fmt = "d%%", overCapStat = "SpellSuppressionChanceOverCap", displayStat = true },
 	}, {
 		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", color = colorCodes.FIRE, condFunc = function() return true end, overCapStat = "FireResistOverCap", displayStat = true},
 		{ stat = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%", hideStat = true, displayStat = true },
