@@ -973,6 +973,9 @@ function calcs.offence(env, actor, activeSkill)
 			output.ChainMaxString = "Cannot chain"
 		else
 			output.ChainMax = skillModList:Sum("BASE", skillCfg, "ChainCountMax", not skillFlags.projectile and "BeamChainCountMax" or nil)
+			if skillModList:Flag(skillCfg, "AdditionalProjectilesAddChainsInstead") then
+				output.ChainMax = output.ChainMax + m_floor((skillModList:Sum("BASE", skillCfg, "ProjectileCount") - 1) * skillModList:More(skillCfg, "ProjectileCount"))
+			end
 			output.ChainMaxString = output.ChainMax
 			output.Chain = m_min(output.ChainMax, skillModList:Sum("BASE", skillCfg, "ChainCount"))
 			output.ChainRemaining = m_max(0, output.ChainMax - output.Chain)

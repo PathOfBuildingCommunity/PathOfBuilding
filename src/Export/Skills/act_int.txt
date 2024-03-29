@@ -53,6 +53,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod mod("GuardAbsorbLimit", "BASE", 100, 0, 0, { type = "PercentStat", stat = "ManaUnreserved", percentVar = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Guard", unscalable = true })
+#baseMod mod("Multiplier:ManaSpentRecently", "BASE", 100, 0, 0, { type = "PercentStat", stat = "ManaUnreserved", percentVar = "ArcaneCloakConsumedMana" }, { type = "Condition", var = "ArcaneCloakUsedRecently"}, { type = "GlobalEffect", effectType = "Buff", unscalable = true})
 #mods
 
 #skill BrandSupport
@@ -695,7 +696,7 @@ local skills, mod, flag, skill = ...
 #flags spell duration trap
 #mods
 
-#skill Convocation
+#skill ConvocationNew
 #flags spell duration
 	statMap = {
 		["base_life_regeneration_rate_per_minute"] = {
@@ -2067,6 +2068,99 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "Flame Width:")
 #mods
 
+#skill ExpandingFireConeAltX
+#flags spell area
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeMultiplier = math.max(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateofExpanseStage") - activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateMinimumStage") - 0.4175, 0.5825) --First stage takes 0.5825x time to channel compared to subsequent stages
+		end
+	end,
+	parts = {
+		{
+			name = "Channelling",
+			stages = true,
+		},
+		{
+			name = "Release",
+			stages = true,
+			channelRelease = true,
+		},
+	},
+	statMap = {
+		["grant_expanding_fire_cone_release_ignite_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPart = 2 }),
+		},
+		["expanding_fire_cone_release_hit_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["flamethrower_damage_+%_per_stage_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "IncinerateofExpanseStage" }),
+		},
+		["expanding_fire_cone_radius_+_per_stage"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "IncinerateofExpanseStage", limitVar = "IncinerateofExpanseRadiusLimit", limitTotal = true }),
+		},
+		["expanding_fire_cone_final_wave_always_ignite"] = {
+			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			value = 100,
+		},
+		["expanding_fire_cone_radius_limit"] = {
+			mod("Multiplier:IncinerateofExpanseRadiusLimit", "BASE", nil),
+		},
+		["expanding_fire_cone_maximum_number_of_stages"] = {
+			mod("Multiplier:IncinerateofExpanseMaxStages", "BASE", nil),
+		},
+		["quality_display_incinerate_is_gem_hit"] = {
+			--Display Only
+		},
+		["quality_display_incinerate_is_gem_ingite"] = {
+			--Display Only
+		},
+		["quality_display_incinerate_is_gem_stages"] = {
+			--Display Only
+		},
+	},
+#baseMod skill("radius", 25)
+#baseMod skill("radiusLabel", "Flame Length:")
+#baseMod skill("radiusSecondary", 20)
+#baseMod skill("radiusSecondaryLabel", "Flame Width:")
+#mods
+
+#skill ExpandingFireConeAltY
+#flags spell area
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeMultiplier = math.max(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateofVentingStage") - activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateMinimumStage") - 0.4175, 0.5825) --First stage takes 0.5825x time to channel compared to subsequent stages
+		end
+	end,
+	statMap = {
+		["flamethrower_damage_+%_per_stage_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "IncinerateofVentingStage" }),
+		},
+		["expanding_fire_cone_radius_+_per_stage"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "IncinerateofVentingStage", limitVar = "IncinerateofVentingRadiusLimit", limitTotal = true }),
+		},
+		["expanding_fire_cone_radius_limit"] = {
+			mod("Multiplier:IncinerateofVentingRadiusLimit", "BASE", nil),
+		},
+		["expanding_fire_cone_maximum_number_of_stages"] = {
+			mod("Multiplier:IncinerateofVentingMaxStages", "BASE", nil),
+		},
+		["quality_display_incinerate_is_gem_hit"] = {
+			--Display Only
+		},
+		["quality_display_incinerate_is_gem_ingite"] = {
+			--Display Only
+		},
+		["quality_display_incinerate_is_gem_stages"] = {
+			--Display Only
+		},
+	},
+#baseMod skill("radius", 25)
+#baseMod skill("radiusLabel", "Flame Length:")
+#baseMod skill("radiusSecondary", 20)
+#baseMod skill("radiusSecondaryLabel", "Flame Width:")
+#mods
+
 #skill ClusterBurst
 #flags attack projectile area
 	parts = {
@@ -2079,7 +2173,29 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 	},
-#baseMod skill("radius", 14)
+#mods
+
+#skill ClusterBurstAltX
+#flags attack projectile area
+	parts = {
+		{
+			name = "Projectile",
+			area = false,
+		},
+		{
+			name = "Explosions",
+			area = true,
+		},
+	},
+	statMap = {
+		["added_physical_damage_to_attacks_equal_to_%_maximum_mana"] = {
+			mod("PhysicalMin", "BASE", nil, ModFlag.Attack, 0, { type = "PercentStat", stat = "Mana", percent = 1 }),
+			mod("PhysicalMax", "BASE", nil, ModFlag.Attack, 0, { type = "PercentStat", stat = "Mana", percent = 1 }),
+		},
+		["kinetic_blast_modifiers_to_number_of_projectiles_instead_apply_to_number_of_clusters"] = {
+			flag("NoAdditionalProjectiles"),
+		},
+	},
 #mods
 
 #skill KineticBolt
@@ -2696,10 +2812,15 @@ local skills, mod, flag, skill = ...
 
 #skill Manabond
 #flags spell area arcane
+	preDamageFunc = function(activeSkill, output)
+		local missingUnreservedManaPercentage = activeSkill.skillData.ManabondMissingUnreservedManaPercentage or 100
+		local manaGainedAsBaseLightningDamage =  math.floor((activeSkill.skillData.ManabondMissingManaGainPercent / 100) * (missingUnreservedManaPercentage / 100) * output.ManaUnreserved)
+		activeSkill.skillModList:NewMod("LightningMin", "BASE", manaGainedAsBaseLightningDamage, "Manabond gain % missing unreserved mana as base lightning damage")
+		activeSkill.skillModList:NewMod("LightningMax", "BASE", manaGainedAsBaseLightningDamage, "Manabond gain % missing unreserved mana as base lightning damage")
+	end,
 	statMap = {
 		["mana_void_gain_%_missing_unreserved_mana_as_base_lightning_damage"] = {
-			mod("Multiplier:ManabondUnreservedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }),
-			div = 100,
+			skill("ManabondMissingManaGainPercent", nil),
 		},
 		["quality_display_manabond_is_gem"] = {
 			-- Display Only
@@ -2709,8 +2830,6 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusLabel", "Circle area:")
 #baseMod skill("radiusSecondary", 23)
 #baseMod skill("radiusSecondaryLabel", "Rectangle area:")
-#baseMod mod("LightningMin", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" })
-#baseMod mod("LightningMax", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" })
 #mods
 
 #skill OrbOfStorms
@@ -3601,6 +3720,18 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SummonRelicAltX
+#flags spell minion permanentMinion
+	minionList = {
+		"HolyLivingRelic",
+	},
+	statMap = {
+		["base_number_of_relics_allowed"] = {
+			mod("ActiveHolyRelicLimit", "BASE", nil)
+		},
+	},
+#mods
+
 #skill SummonLightningGolem
 #flags spell minion golem permanentMinion
 	minionList = {
@@ -3729,9 +3860,9 @@ local skills, mod, flag, skill = ...
 #skill VaalSummonSkeletons
 #flags spell minion duration
 	minionList = {
-		"RaisedSkeleton",
+		"RaisedSkeletonMeleeVaal",
 		"RaisedSkeletonCaster",
-		"RaisedSkeletonArcher",
+		"RaisedSkeletonArcherVaal",
 	},
 	statMap = {
 		["quality_display_summon_skeleton_is_gem"] = {

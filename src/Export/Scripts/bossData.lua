@@ -275,6 +275,18 @@ local function getStat(state, stat)
 						AdditionalStats.uber.CannotBeEvaded = '"flag"'
 						AdditionalStats.uber.count = AdditionalStats.uber.count + 1
 					end
+				elseif additionalStat.Id == "cannot_be_blocked_or_dodged_or_suppressed" then
+					if level == 1 then
+						AdditionalStats.base.CannotBeBlocked = '"flag"'
+						AdditionalStats.base.CannotBeDodged = '"flag"'
+						AdditionalStats.base.CannotBeSuppressed = '"flag"'
+						AdditionalStats.base.count = AdditionalStats.base.count + 3
+					else
+						AdditionalStats.uber.CannotBeBlocked = '"flag"'
+						AdditionalStats.uber.CannotBeDodged = '"flag"'
+						AdditionalStats.uber.CannotBeSuppressed = '"flag"'
+						AdditionalStats.uber.count = AdditionalStats.base.count + 3
+					end
 				end
 			end
 		end
@@ -287,7 +299,7 @@ local function getStat(state, stat)
 				AdditionalStats.uber.CannotBeBlocked = '"flag"'
 				AdditionalStats.uber.CannotBeDodged = '"flag"'
 				AdditionalStats.uber.CannotBeSuppressed = '"flag"'
-				AdditionalStats.uber.count = AdditionalStats.base.count + 3
+				AdditionalStats.uber.count = AdditionalStats.uber.count + 3
 			end
 		end
 		for i, constStat in ipairs(skill.GrantedEffectStatSets.ConstantStats) do

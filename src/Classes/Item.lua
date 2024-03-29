@@ -929,6 +929,19 @@ function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
 	return weight
 end
 
+function ItemClass:GetNecropolisModSpawnWeight(mod)
+	local weight = 0
+	if self.base then
+		for i, key in ipairs(mod.weightKey) do
+			if self.base.tags[key:gsub("necropolis_", "")] then
+				weight = mod.weightVal[i]
+				break
+			end
+		end
+	end
+	return weight
+end
+
 function ItemClass:CheckIfModIsDelve(mod)
 	return mod.affix == "Subterranean" or mod.affix == "of the Underground"
 end

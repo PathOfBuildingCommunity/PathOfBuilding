@@ -1275,12 +1275,19 @@ return {
 ["projectile_behaviour_only_explode"] = {
 	flag("CannotSplit"),
 },
+["projectiles_cannot_split"] = {
+	flag("CannotSplit"),
+},
 ["projectile_number_to_split"] = {
 	mod("SplitCount", "BASE")
 },
 ["modifiers_to_number_of_projectiles_instead_apply_to_splitting"] = {
 	flag("NoAdditionalProjectiles"),
 	flag("AdditionalProjectilesAddSplitsInstead")
+},
+["modifiers_to_number_of_projectiles_instead_apply_to_chaining"] = {
+	flag("NoAdditionalProjectiles"),
+	flag("AdditionalProjectilesAddChainsInstead")
 },
 ["active_skill_beam_splits_instead_of_chaining"] = {
 	flag("NoAdditionalChains"),

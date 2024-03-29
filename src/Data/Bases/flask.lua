@@ -258,7 +258,7 @@ itemBases["Ruby Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "+40% to Fire Resistance", "+5% to maximum Fire Resistance" }, },
+	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "+5% to maximum Fire Resistance", "+40% to Fire Resistance" }, },
 	req = { level = 18, },
 }
 itemBases["Sapphire Flask"] = {
@@ -266,7 +266,7 @@ itemBases["Sapphire Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "+40% to Cold Resistance", "+5% to maximum Cold Resistance" }, },
+	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "+5% to maximum Cold Resistance", "+40% to Cold Resistance" }, },
 	req = { level = 18, },
 }
 itemBases["Topaz Flask"] = {
@@ -274,7 +274,7 @@ itemBases["Topaz Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "+40% to Lightning Resistance", "+5% to maximum Lightning Resistance" }, },
+	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "+5% to maximum Lightning Resistance", "+40% to Lightning Resistance" }, },
 	req = { level = 18, },
 }
 itemBases["Granite Flask"] = {
