@@ -246,6 +246,10 @@ return {
 
 	-- Section: Skill-specific options
 	{ section = "Skill Options", col = 2 },
+	{ label = "Arcane Cloak:", ifSkill = "Arcane Cloak"},
+	{ var = "arcaneCloakUsedRecentlyCheck", type = "check", label = "Include in ^x7070FFMana ^7spent Recently?", ifSkill = "Arcane Cloak", tooltip = "When enabled, the mana spent by Arcane Cloak used at full mana \nwill be added to the value provided in # of ^x7070FFMana ^7spent Recently.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:ArcaneCloakUsedRecently", "FLAG", true, "Config")
+	end },
 	{ label = "Aspect of the Avian:", ifSkill = "Aspect of the Avian" },
 	{ var = "aspectOfTheAvianAviansMight", type = "check", label = "Is Avian's Might active?", ifSkill = "Aspect of the Avian", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AviansMightActive", "FLAG", true, "Config")
