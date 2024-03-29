@@ -1,3 +1,24 @@
+VERSION[2.42.0][2024/03/29]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Add support for new 3.24 gems by @LocalIdentity
+* Add support for Necropolis mods (LocalIdentity)
+* Add config option to control the missing Unreserved Mana % for Manabond (Devlin1991)
+* Add config toggle to add Arcane Cloak's mana spend to Mana spent recently modifier (Devlin1991)
+
+--- User Interface ---
+* Don't scale UI if user overrides scaling mode (Zao)
+
+--- Fixed Bugs ---
+* Fix settings not saving for certain users (Lothrik)
+* Disallow delve mods on cluster jewels (Wires77)
+* Fix Replica Hyrri's Ire granting Dex instead of Int (zebben)
+* Fix Tree export to PoE Planner (pHiney)
+
+--- Other changes ---
+
+* Save resources when window is minimized (ryuuk)
+
 VERSION[2.41.1][2024/03/27]
 
 --- New to Path of Building ---
