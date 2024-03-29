@@ -695,7 +695,7 @@ local skills, mod, flag, skill = ...
 #flags spell duration trap
 #mods
 
-#skill Convocation
+#skill ConvocationNew
 #flags spell duration
 	statMap = {
 		["base_life_regeneration_rate_per_minute"] = {
@@ -3729,9 +3729,9 @@ local skills, mod, flag, skill = ...
 #skill VaalSummonSkeletons
 #flags spell minion duration
 	minionList = {
-		"RaisedSkeleton",
+		"RaisedSkeletonMeleeVaal",
 		"RaisedSkeletonCaster",
-		"RaisedSkeletonArcher",
+		"RaisedSkeletonArcherVaal",
 	},
 	statMap = {
 		["quality_display_summon_skeleton_is_gem"] = {

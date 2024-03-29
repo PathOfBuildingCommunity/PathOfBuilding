@@ -51,7 +51,15 @@ local minions, mod = ...
 #skill SkeletonMinionProjectileLightning
 #emit
 
-#monster Metadata/Monsters/RaisedSkeletons/RaisedSkeletonRanged1Army RaisedSkeletonArcher
+#monster Metadata/Monsters/RaisedSkeletons/RaisedSkeletonMelee1Army RaisedSkeletonMeleeVaal
+#limit ActiveSkeletonLimit
+#emit
+
+#monster Metadata/Monsters/RaisedSkeletons/RaisedSkeletonRanged1Army RaisedSkeletonArcherVaal
+#limit ActiveSkeletonLimit
+#emit
+
+#monster Metadata/Monsters/RaisedSkeletons/RaisedSkeletonRanged1Quality RaisedSkeletonArcher
 #limit ActiveSkeletonLimit
 #emit
 

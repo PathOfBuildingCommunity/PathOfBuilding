@@ -1037,6 +1037,9 @@ local skills, mod, flag, skill = ...
 			flag("DealNoLightning", { type = "SkillPart", skillPartList = { 1, 2 } }),
 			flag("DealNoLightning", { type = "SkillPart", skillPartList = { 3, 4 } }),
 		},
+		["active_skill_base_area_of_effect_radius"] = {
+			skill("radius", nil, { type = "SkillPart", skillPartList = { 2, 4, 6 } }),
+		},
 		["quality_display_elemental_hit_is_gem"] = {
 			-- Display only
 		},
@@ -1051,7 +1054,6 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Scorched" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Brittle" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Sapped" })
-#baseMod skill("radius", 10, { type = "SkillPart", skillPartList = { 2, 4, 6 } })
 #mods
 
 #skill EnsnaringArrow
@@ -1755,7 +1757,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod mod("SkillPhysicalDamageConvertToCold", "BASE", 40, 0, 0, { type = "SkillPart", skillPart = 2 })
-#baseMod skill("radius", 23)
 #mods
 
 #skill VaalIceShot
