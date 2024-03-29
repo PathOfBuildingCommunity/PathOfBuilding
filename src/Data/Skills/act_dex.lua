@@ -6741,6 +6741,7 @@ skills["ShrapnelTrap"] = {
 			table.sort(radii)
 			for i, smallRadius in ipairs(radii) do
 				t_insert(breakdown.OverlapChance, s_format("^8(^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2 *^7 %d/%d" ..
+						(i == #radii and "" or " ^8+"),
 						smallRadius, enemyRadius, fullRadius, output.AreaOfEffectRadiusTertiaryOccurrences[smallRadius], marginWidth))
 			end
 			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.3f^8%%", output.OverlapChance))
