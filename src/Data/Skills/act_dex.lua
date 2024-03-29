@@ -5609,7 +5609,7 @@ skills["ElementalHit"] = {
 		[40] = { 0.69999998807907, 1.2999999523163, 0.56999999284744, 1.0599999427795, 0.10999999940395, 2.1400001049042, 64, levelRequirement = 100, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, }, cost = { Mana = 14, }, },
 	},
 }
-skills["ElementalHitOfTheSpectrum"] = {
+skills["ElementalHitoftheSpectrum"] = {
 	name = "Elemental Hit of the Spectrum",
 	baseTypeName = "Elemental Hit of the Spectrum",
 	color = 2,

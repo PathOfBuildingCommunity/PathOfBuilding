@@ -568,12 +568,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemElementalHitOfTheSpectrum"] = {
+	["Metadata/Items/Gems/SkillGemElementalHitoftheSpectrum"] = {
 		name = "Elemental Hit of the Spectrum",
 		baseTypeName = "Elemental Hit of the Spectrum",
-		gameId = "Metadata/Items/Gems/SkillGemElementalHitOfTheSpectrum",
-		variantId = "ElementalHitOfTheSpectrum",
-		grantedEffectId = "ElementalHitOfTheSpectrum",
+		gameId = "Metadata/Items/Gems/SkillGemElementalHitoftheSpectrum",
+		variantId = "ElementalHitoftheSpectrum",
+		grantedEffectId = "ElementalHitoftheSpectrum",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
