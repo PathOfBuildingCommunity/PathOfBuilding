@@ -1,7 +1,7 @@
-VERSION[2.42.0][2024/03/29]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
+VERSION[2.42.0][2024/03/30]
 
-* Add support for new 3.24 gems by @LocalIdentity
+--- New to Path of Building ---
+* Add support for new 3.24 gems (LocalIdentity)
 * Add support for Necropolis mods (LocalIdentity)
 * Add config option to control the missing Unreserved Mana % for Manabond (Devlin1991)
 * Add config toggle to add Arcane Cloak's mana spend to Mana spent recently modifier (Devlin1991)
