@@ -1275,6 +1275,9 @@ return {
 ["projectile_behaviour_only_explode"] = {
 	flag("CannotSplit"),
 },
+["projectiles_cannot_split"] = {
+	flag("CannotSplit"),
+},
 ["projectile_number_to_split"] = {
 	mod("SplitCount", "BASE")
 },

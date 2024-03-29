@@ -43,6 +43,16 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill Automation
+	statMap = {
+	},
+#mods
+
+#skill SupportAutomation
+	statMap = {
+	},
+#mods
+
 #skill SupportBlasphemy
 	statMap = {
 		["curse_apply_as_aura"] = {
@@ -590,6 +600,16 @@ local skills, mod, flag, skill = ...
 		["support_gem_mine_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+	},
+#mods
+
+#skill SupportSacredWisps
+	statMap = {
+	},
+#mods
+
+#skill SummonSacredWisp
+	statMap = {
 	},
 #mods
 

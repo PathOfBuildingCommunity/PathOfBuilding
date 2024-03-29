@@ -90,6 +90,12 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill CallToArms
+#mods
+
+#skill SupportCallToArms
+#mods
+
 #skill SupportCastOnMeleeKill
 	statMap = {
 		["support_cast_on_melee_kill_spell_damage_+%_final"] = {

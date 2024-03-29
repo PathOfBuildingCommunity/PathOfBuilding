@@ -3288,11 +3288,34 @@ local skills, mod, flag, skill = ...
 #flags spell duration physical area
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.damageInterval
+		activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:TornadoofElementalTurbulenceStage")
 	end,
+	parts = {
+		{
+			name = "Fire",
+			stages = true,
+		},
+		{
+			name = "Lightning",
+			stages = true,
+		},
+		{
+			name = "Cold",
+			stages = true,
+		},
+	},
 	statMap = {
 		["tornado_base_damage_interval_ms"] = {
 			skill("damageInterval", nil ),
 			div = 1000,
+		},
+		["elemental_strike_physical_damage_%_to_convert"] = {
+			mod("SkillPhysicalDamageConvertToFire", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		},
+		["number_of_tornados_allowed"] = {
+			mod("Multiplier:TornadoofElementalTurbulenceMaxStages", "BASE", nil),
 		},
 	},
 #mods
