@@ -2639,6 +2639,8 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Essence", sourceId = "ESSENCE" })
 		t_insert(sourceList, { label = "Veiled", sourceId = "VEILED"})
+	end
+	if (self.displayItem.rarity ~= "UNIQUE" and self.displayItem.rarity ~= "RELIC") and (self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots") then
 		t_insert(sourceList, { label = "Necropolis", sourceId = "NECROPOLIS"})
 	end
 	if not self.displayItem.clusterJewel and self.displayItem.type ~= "Flask" then
