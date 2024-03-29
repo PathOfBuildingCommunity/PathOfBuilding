@@ -684,7 +684,7 @@ end
 
 function ConfigTabClass:UpdateControls()
 	for var, control in pairs(self.varControls) do
-		if control._className == "EditControl" then
+		if control._className == "EditControl" or control._className == "ResizableEditControl" then
 			control:SetText(tostring(self.input[var] or ""))
 			if self.placeholder[var] then
 				control:SetPlaceholder(tostring(self.placeholder[var]))
