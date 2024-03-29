@@ -47,6 +47,51 @@ end
 
 modLib.parseMod, modLib.parseModCache = LoadModule("Modules/ModParser", launch)
 
+function modLib.parseTags(line)
+	if not line or line == "-" then
+		return {}
+	end
+	local Tags = {}
+	for tagGroup in line:gmatch("([^,]*),?") do
+		if tagGroup ~= "" then
+			local tagSet = {}
+			for tag in tagGroup:gmatch("([^/]*)/?") do
+				if tag ~= "" then
+					local tagName, tagValue = tag:match("^(%a+)=(.+)")
+					if tagName then
+						tagSet[tagName] = tagValue == "true" and true or tagValue
+					else
+						ConPrintf("Error tag invalid: "..tag)
+					end
+				end
+			end
+			t_insert(Tags, tagSet)
+		end
+	end
+	return Tags
+end
+
+function modLib.parseFormattedSourceMod(line)
+	local modStrings = {}
+	for line2 in line:gmatch("([^|]*)|?") do
+		t_insert(modStrings, line2)
+	end
+	if #modStrings >= 4 then
+		local mod = {
+			value = (modStrings[1] == "true" and true) or tonumber(modStrings[1]) or 0,
+			source = modStrings[2],
+			name = modStrings[3],
+			type = modStrings[4],
+			flags = ModFlag[modStrings[5]] or 0,
+			keywordFlags = KeywordFlag[modStrings[6]] or 0,
+		}
+		for _, tag in ipairs(modLib.parseTags(modStrings[7])) do
+			t_insert(mod, tag)
+		end
+		return mod
+	end
+end
+
 function modLib.compareModParams(modA, modB)
 	if modA.name ~= modB.name or modA.type ~= modB.type or modA.flags ~= modB.flags or modA.keywordFlags ~= modB.keywordFlags or #modA ~= #modB then
 		return false
@@ -159,6 +204,10 @@ end
 
 function modLib.formatMod(mod)
 	return modLib.formatValue(mod.value) .. " = " .. modLib.formatModParams(mod)
+end
+
+function modLib.formatSourceMod(mod)
+    return s_format("%s|%s|%s", modLib.formatValue(mod.value), mod.source, modLib.formatModParams(mod))
 end
 
 function modLib.setSource(mod, source)

@@ -1,7 +1,7 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
-loadStatFile("stat_descriptions.txt")
+loadStatFile("tincture_stat_descriptions.txt")
 
 local directiveTable = { }
 
@@ -13,11 +13,8 @@ directiveTable.subType = function(state, args, out)
 	state.subType = args
 end
 
-directiveTable.baseTags = function(state, args, out)
-	state.baseTags = { "default" }
-	for tag in args:gmatch("[%w_]+") do
-		table.insert(state.baseTags, tag)
-	end
+directiveTable.influenceBaseTag = function(state, args, out)
+	state.influenceBaseTag = args
 end
 
 directiveTable.forceShow = function(state, args, out)
@@ -33,7 +30,7 @@ directiveTable.socketLimit = function(state, args, out)
 end
 
 directiveTable.base = function(state, args, out)
-	local baseTypeId, displayName = args:match("([%w/]+) (.+)")
+	local baseTypeId, displayName = args:match("([%w/_]+) (.+)")
 	if not baseTypeId then
 		baseTypeId = args
 	end
@@ -46,7 +43,7 @@ directiveTable.base = function(state, args, out)
 		if baseItemType == "nothing" then -- base case
 			return {}
 		end
-		local file = getFile(baseItemType .. ".ot")
+		local file = getFile(baseItemType .. ".it")
 		if not file then return nil end
 		local text = convertUTF16to8(file)
 		local tags = {}
@@ -59,6 +56,8 @@ directiveTable.base = function(state, args, out)
 						table.insert(tags, tag)
 					end
 				end
+			elseif line:match("remove_tag") then
+				table.remove(tags, isValueInTable(tags, line:match("remove_tag = \"(.+)\"")))
 			elseif line:match("tag") then
 				table.insert(tags, line:match("tag = \"(.+)\""))
 			end
@@ -85,10 +84,7 @@ directiveTable.base = function(state, args, out)
 	end
 	out:write('\ttags = { ')
 	local combinedTags = { }
-	for _, tag in ipairs(state.baseTags) do
-		combinedTags[tag] = tag
-	end
-	for _, tag in ipairs(baseItemTags) do
+	for _, tag in ipairs(baseItemTags or {}) do
 		combinedTags[tag] = tag
 	end
 	for _, tag in ipairs(baseItemType.Tags) do
@@ -98,7 +94,15 @@ directiveTable.base = function(state, args, out)
 		out:write(tag, ' = true, ')
 	end
 	out:write('},\n')
-	local movementPenalty
+	local influencePrefix = state.influenceBaseTag
+	if influencePrefix then
+		out:write('\tinfluenceTags = { ')
+		for i, influenceSuffix in ipairs({ "shaper", "elder", "adjudicator", "basilisk", "crusader", "eyrie", "cleansing", "tangle" }) do
+			if i ~= 1 then out:write(", ") end
+			out:write(influenceSuffix, ' = "', influencePrefix, "_", influenceSuffix, '"')
+		end
+		out:write(' },\n')
+	end
 	local implicitLines = { }
 	local implicitModTypes = { }
 	for _, mod in ipairs(baseItemType.ImplicitMods) do
@@ -170,6 +174,9 @@ directiveTable.base = function(state, args, out)
 			local stats = { }
 			for i, stat in ipairs(flask.Buff.Stats) do
 				stats[stat.Id] = { min = flask.BuffMagnitudes[i], max = flask.BuffMagnitudes[i] }
+			end
+			for i, stat in ipairs(flask.Buff.GrantedFlags) do
+				stats[stat.Id] = { min = 1, max = 1 }
 			end
 			out:write('buff = { "', table.concat(describeStats(stats), '", "'), '" }, ')
 		end
@@ -249,6 +256,7 @@ local itemTypes = {
 	"belt",
 	"jewel",
 	"flask",
+	"tincture",
 }
 for _, name in pairs(itemTypes) do
 	processTemplateFile(name, "Bases/", "../Data/Bases/", directiveTable)

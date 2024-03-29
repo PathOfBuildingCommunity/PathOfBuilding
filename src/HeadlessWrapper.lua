@@ -62,7 +62,7 @@ function DrawStringCursorIndex(height, font, text, cursorX, cursorY)
 	return 0
 end
 function StripEscapes(text)
-	return text:gsub("^%d",""):gsub("^x%x%x%x%x%x%x","")
+	return text:gsub("%^%d",""):gsub("%^x%x%x%x%x%x%x","")
 end
 function GetAsyncCount()
 	return 0
@@ -165,6 +165,11 @@ end
 
 
 dofile("Launch.lua")
+
+-- Prevents loading of ModCache
+-- Allows running mod parsing related tests without pushing ModCache
+-- The CI env var will be true when run from github workflows but should be false for other tools using the headless wrapper 
+mainObject.continuousIntegrationMode = os.getenv("CI")
 
 runCallback("OnInit")
 runCallback("OnFrame") -- Need at least one frame for everything to initialise

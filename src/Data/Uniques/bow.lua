@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Weapon: Bow
@@ -11,7 +11,7 @@ Variant: Pre 3.11.0
 Variant: Pre 3.17.0
 Variant: Current
 Requires Level 62, 212 Dex
-Source: Vendor recipe
+Source: Vendor Recipe
 Implicits: 1
 {variant:3}+(15-25)% to Global Critical Strike Multiplier
 {variant:1}Adds (60-70) to (180-210) Physical Damage
@@ -59,6 +59,7 @@ Bow Knockback at Close Range
 The Crimson Storm
 Steelwood Bow
 League: Betrayal
+Source: Drops from unique{Fortification Leaders} in normal{Safehouses}
 Variant: Crit Multi while Rare/Unique Nearby (Pre 3.17.0)
 Variant: Attack Speed while Rare/Unique Nearby (Pre 3.17.0)
 Variant: Damage per Power Charge (Pre 3.17.0)
@@ -78,47 +79,72 @@ Variant: Attack Speed while Rare/Unique Nearby (Current)
 Variant: Damage per Power Charge (Current)
 Variant: Damage per Frenzy Charge (Current)
 Variant: Damage per Endurance Charge (Current)
-Variant: Accuracy and Quality (Current)
-Variant: Attack Speed and Quality (Current)
-Variant: Attack Speed/Trigger Blood Rage on Kill (Current)
+Variant: Accuracy and Str/Dex (Current)
+Variant: Attack Speed and Dex/Int (Current)
+Variant: Critical Strike Chance and Str/Int (Current)
 Variant: Cast Speed/Trigger Arcane Surge on Kill (Current)
 Variant: Minion Attack and Cast Speed (Current)
 Variant: Double Damage (Current)
 Variant: Double Damage while Focused (Current)
 Variant: Socketed Spell Trigger (Current)
+Variant: Fire Damage over Time (Current)
+Variant: Physical Damage over Time (Current)
+Variant: Chaos Damage over Time (Current)
 Variant: Current
 Requires Level 57, 190 Dex
 Implicits: 1
-(4-6)% increased Movement Speed
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14}(4-6)% increased Movement Speed
+{variant:15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31}6% increased Movement Speed
 {variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14}(140-170)% increased Physical Damage
-{variant:15,16,17,18,19,20,21,22,23,24,25,26,27,28}(60-80)% increased Physical Damage
+{variant:15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31}(60-80)% increased Physical Damage
 (25-35)% increased Critical Strike Chance
 50% chance to inflict Bleeding on Critical Strike with Attacks
 Enemies you inflict Bleeding on grant (60-100)% increased Flask Charges
 Adds (100-120) to (150-165) Physical Damage against Bleeding Enemies
 50% chance to Maim Enemies on Critical Strike with Attacks
-{variant:1,15}{crafted}+(18-45)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
-{variant:2,16}{crafted}(11-22)% increased Attack Speed while a Rare or Unique Enemy is Nearby
-{variant:3,17}{crafted}(5-6)% increased Damage per Power Charge
-{variant:4,18}{crafted}(5-6)% increased Damage per Frenzy Charge
-{variant:5,19}{crafted}(5-6)% increased Damage per Endurance Charge
-{variant:6,20}{crafted}+(30-250) to Accuracy Rating
-{variant:7,21}{crafted}(8-16)% increased Attack Speed
-{variant:6,7,20,21}{crafted}+(7-18)% to Quality
-{variant:8,22}{crafted}(8-16)% increased Attack Speed
-{variant:8,22}{crafted}10% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
-{variant:9,23}{crafted}(7-13)% increased Cast Speed
-{variant:9,23}{crafted}10% chance to gain Arcane Surge when you Kill an Enemy
-{variant:10,24}{crafted}Minions have (16-28)% increased Attack Speed
-{variant:10,24}{crafted}Minions have (16-28)% increased Cast Speed
-{variant:11,25}{crafted}(4-12)% chance to deal Double Damage
-{variant:12,26}{crafted}(13-36)% chance to deal Double Damage while Focused
-{variant:13,27}{crafted}Trigger a Socketed Spell when you Use a Skill, with a 8 second Cooldown
+{variant:1}{crafted}+(18-45)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
+{variant:2}{crafted}(11-22)% increased Attack Speed while a Rare or Unique Enemy is Nearby
+{variant:3}{crafted}(5-6)% increased Damage per Power Charge
+{variant:4}{crafted}(5-6)% increased Damage per Frenzy Charge
+{variant:5}{crafted}(5-6)% increased Damage per Endurance Charge
+{variant:6}{crafted}+(30-250) to Accuracy Rating
+{variant:7}{crafted}(8-16)% increased Attack Speed
+{variant:6,7}{crafted}+(7-18)% to Quality
+{variant:8}{crafted}(8-16)% increased Attack Speed
+{variant:8}{crafted}10% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
+{variant:9}{crafted}(7-13)% increased Cast Speed
+{variant:9}{crafted}10% chance to gain Arcane Surge when you Kill an Enemy
+{variant:10}{crafted}Minions have (16-28)% increased Attack Speed
+{variant:10}{crafted}Minions have (16-28)% increased Cast Speed
+{variant:11}{crafted}(4-12)% chance to deal Double Damage
+{variant:12}{crafted}(13-36)% chance to deal Double Damage while Focused
+{variant:13}{crafted}Trigger a Socketed Spell when you Use a Skill, with a 8 second Cooldown
+{variant:15}{crafted}+(54-60)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
+{variant:16}{crafted}(27-30)% increased Attack Speed while a Rare or Unique Enemy is Nearby
+{variant:17}{crafted}(7-8)% increased Damage per Power Charge
+{variant:18}{crafted}(7-8)% increased Damage per Frenzy Charge
+{variant:19}{crafted}(7-8)% increased Damage per Endurance Charge
+{variant:20}{crafted}+(311-350) to Accuracy Rating
+{variant:20}{crafted}+(25-28) to Strength and Dexterity
+{variant:21}{crafted}(18-22)% increased Attack Speed
+{variant:21}{crafted}+(25-28) to Dexterity and Intelligence
+{variant:22}{crafted}(28-32)% increased Critical Strike Chance
+{variant:22}{crafted}+(25-28) to Strength and Intelligence
+{variant:23}{crafted}(26-31)% increased Cast Speed
+{variant:23}{crafted}15% chance to gain Arcane Surge when you Kill an Enemy
+{variant:24}{crafted}Minions have (34-38)% increased Attack Speed
+{variant:24}{crafted}Minions have (34-38)% increased Cast Speed
+{variant:25}{crafted}(12-14)% chance to deal Double Damage
+{variant:26}{crafted}(36-40)% chance to deal Double Damage while Focused
+{variant:27}{crafted}Trigger a Socketed Spell when you Use a Skill, with a 4 second Cooldown
+{variant:27}{crafted}Spells Triggered this way have 150% more Cost
+{variant:28}{crafted}+(24-28)% to Fire Damage over Time Multiplier
+{variant:29}{crafted}+(24-28)% to Physical Damage over Time Multiplier
+{variant:30}{crafted}+(24-28)% to Chaos Damage over Time Multiplier
 ]],[[
 Darkscorn
 Assassin Bow
 League: Legion
-Source: Drops from Maraketh Legion
 Variant: Pre 1.2.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
@@ -201,9 +227,9 @@ Implicits: 2
 (10-14)% increased Attack Speed
 {variant:1,2,3}(30-40)% increased Critical Strike Chance
 60% increased Mana Regeneration Rate
-{variant:1,2,3}Gain 110% of Bow Physical Damage as Extra Damage of an Element
-{variant:4}Gain 100% of Bow Physical Damage as Extra Damage of an Element
-{variant:5}Gain 100% of Bow Physical Damage as Extra Damage of each Element
+{variant:1,2,3}Gain 110% of Weapon Physical Damage as Extra Damage of a random Element
+{variant:4}Gain 100% of Weapon Physical Damage as Extra Damage of a random Element
+{variant:5}Gain 100% of Weapon Physical Damage as Extra Damage of each Element
 ]],[[
 Doomfletch's Prism
 Royal Bow
@@ -221,8 +247,8 @@ Implicits: 2
 (10-14)% increased Attack Speed
 {variant:1,2,3}(30-40)% increased Critical Strike Chance
 60% increased Mana Regeneration Rate
-{variant:1,2,3}Gain 110% of Bow Physical Damage as Extra Damage of each Element
-{variant:4}Gain 100% of Bow Physical Damage as Extra Damage of each Element
+{variant:1,2,3}Gain 110% of Weapon Physical Damage as Extra Damage of each Element
+{variant:4}Gain 100% of Weapon Physical Damage as Extra Damage of each Element
 ]],[[
 The Gluttonous Tide
 Citadel Bow
@@ -236,7 +262,8 @@ Lose all Frenzy Charges on reaching Maximum Frenzy Charges to make the next Bow 
 ]],[[
 Hopeshredder
 Ranger Bow
-Source: Drops from unique{The Elder} (Tier 6+)
+Elder Item
+Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 60, 212 Dex
@@ -249,7 +276,6 @@ Adds (130-150) to (270-300) Cold Damage
 0.5% of Attack Damage Leeched as Life per Frenzy Charge
 {variant:1}400 Cold Damage taken per second per Frenzy Charge while moving
 {variant:2}200 Cold Damage taken per second per Frenzy Charge while moving
-Elder Item
 ]],[[
 Infractem
 Decimation Bow
@@ -278,6 +304,7 @@ Decimation Bow
 Variant: Pre 3.17.0
 Variant: Current
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 53, 170 Dex
 Implicits: 1
 (30-50)% increased Critical Strike Chance
@@ -289,7 +316,7 @@ Adds (25-35) to (36-45) Physical Damage
 +(350-400) to Accuracy Rating
 Cannot Leech Mana
 Projectiles from Attacks Fork
-Projectiles from Attacks Fork an additional time
+Projectiles from Attacks can Fork 1 additional time
 ]],[[
 Iron Commander
 Death Bow
@@ -306,6 +333,7 @@ Adds 1 to 3 Physical Damage to Attacks per 25 Dexterity
 Replica Iron Commander
 Death Bow
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 32, 107 Dex
 Implicits: 1
 (30-50)% increased Critical Strike Chance
@@ -322,18 +350,21 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
+Variant: Pre 3.20.0
 Variant: Current
 Requires Level 66, 212 Dex
 Implicits: 2
 {variant:2}(6-12)% increased Elemental Damage with Attack Skills
-{variant:3,4,5}(20-24)% increased Elemental Damage with Attack Skills
+{variant:3,4,5,6}(20-24)% increased Elemental Damage with Attack Skills
 {variant:1,2,3,4}(150-175)% increased Physical Damage
 {variant:5}(90-105)% increased Physical Damage
-Adds (6-12) to (20-32) Physical Damage
+{variant:6}(180-200)% increased Physical Damage
+{variant:1,2,3,4,5}Adds (6-12) to (20-32) Physical Damage
+{variant:6}Adds (7-14) to (24-34) Physical Damage
 (10-20)% increased Attack Speed
 +(80-100) to maximum Mana
 Hits can't be Evaded
-{variant:4,5}Far Shot
+{variant:4,5,6}Far Shot
 ]],[[
 Null's Inclination
 Ranger Bow
@@ -377,17 +408,18 @@ Requires Level 5, 26 Dex
 {variant:1}50% less Damage
 {variant:2}40% less Damage
 {variant:3}30% less Damage
-{variant:2,3}+2 Mana gained for each Enemy hit by Attacks
+{variant:2,3}Gain 2 Mana per Enemy Hit with Attacks
 ]],[[
 Replica Quill Rain
 Short Bow
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 5, 26 Dex
 Socketed Gems are Supported by Level 1 Arrow Nova
 +(10-20) to Dexterity
 100% increased Physical Damage
 (25-30)% increased Attack Speed
-+2 Mana gained for each Enemy hit by Attacks
+Gain 2 Mana per Enemy Hit with Attacks
 (50-100)% increased Projectile Speed
 +(25-50) to Accuracy Rating
 ]],[[
@@ -399,7 +431,6 @@ Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 64, 212 Dex
 {variant:4,5,6}Socketed Gems are Supported by Level 20 Greater Volley
 {variant:1}(50-70)% increased Physical Damage
 {variant:2,3}(40-50)% increased Physical Damage
@@ -425,12 +456,12 @@ Requires Level 18, 71 Dex
 Implicits: 1
 {variant:2,3}+(15-25)% to Global Critical Strike Multiplier
 (60-80)% increased Physical Damage
-{variant:1,2}(20-40)% increased Elemental Damage with Attack Skills
-{variant:3}(60-80)% increased Elemental Damage with Attack Skills
 {variant:1,2}(4-8)% increased Attack Speed
 {variant:1,2}Skills Chain +1 times
 {variant:3}Skills Chain +2 times
 30% increased Projectile Speed
+{variant:1,2}(20-40)% increased Elemental Damage with Attack Skills
+{variant:3}(60-80)% increased Elemental Damage with Attack Skills
 ]],[[
 Silverbranch
 Crude Bow
@@ -442,7 +473,7 @@ Requires Level 2
 {variant:2}(80-100)% increased Physical Damage
 10% increased Attack Speed
 +30 to Accuracy Rating
-+10 Mana gained on Kill
+Gain 10 Mana per Enemy Killed
 ]],[[
 Silverbough
 Crude Bow
@@ -454,11 +485,14 @@ Requires Level 36
 Adds (15-25) to (50-60) Physical Damage
 10% increased Attack Speed
 +30 to Accuracy Rating
-+10 Mana gained on Kill
+Gain 10 Mana per Enemy Killed
+]],[[
+Widowhail
+Crude Bow
+(150-250)% increased bonuses gained from Equipped Quiver
 ]],[[
 Slivertongue
 Harbinger Bow
-Source: Drops from unique{Guardian of the Hydra}
 Variant: Pre 3.5.0
 Variant: Pre 3.17.0
 Variant: Current
@@ -497,15 +531,17 @@ Adds 1 to 85 Lightning Damage
 Voltaxic Rift
 Spine Bow
 Variant: Pre 3.9.0
+Variant: Pre 3.20.0
 Variant: Current
-Requires Level 64, 212 Dex
-Adds 1 to (275-325) Lightning Damage
+{variant:1,2}Adds 1 to (275-325) Lightning Damage
+{variant:3}Adds 1 to (600-750) Lightning Damage
 (10-15)% increased Attack Speed
-60% of Lightning Damage Converted to Chaos Damage
-10% Chance to Shock
+{variant:1,2}60% of Lightning Damage Converted to Chaos Damage
+{variant:3}100% of Lightning Damage Converted to Chaos Damage
+{variant:1,2}10% chance to Shock
 Your Chaos Damage can Shock
-{variant:2}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
-{variant:2}+40% to maximum Effect of Shock
+{variant:2,3}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
+{variant:2,3}+40% to Maximum Effect of Shock
 ]],[[
 Windripper
 Imperial Bow
@@ -536,6 +572,7 @@ Implicits: 2
 Replica Windripper
 Imperial Bow
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 66, 212 Dex
 Implicits: 1
 (20-24)% increased Elemental Damage with Attack Skills
@@ -547,15 +584,22 @@ Enemies Frozen by you take 20% increased Damage
 +(90-120) Energy Shield gained on Killing a Shocked Enemy
 ]],[[
 Xoph's Inception
-Bone Bow
+{variant:1}Bone Bow
+{variant:2}Citadel Bow
+Variant: Pre 3.21.0
+Variant: Current
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{Xoph's Nurture} using currency{Blessing of Xoph}
 Requires Level 23, 80 Dex
-(70-90)% increased Physical Damage
-+(20-30) Life gained on Killing Ignited Enemies
+{variant:1}(70-90)% increased Physical Damage
+{variant:2}(160-190)% increased Physical Damage
+{variant:1}Gain (20-30) Life per Ignited Enemy Killed
+{variant:2}Gain (200-300) Life per Ignited Enemy Killed
 Gain 20% of Physical Damage as Extra Fire Damage
 10% chance to Ignite
+{variant:2}Projectiles Pierce all Burning Enemies
+{variant:2}Arrows deal 30 to 50 Added Fire Damage for each time they've Pierced
 ]],[[
 Xoph's Nurture
 Citadel Bow

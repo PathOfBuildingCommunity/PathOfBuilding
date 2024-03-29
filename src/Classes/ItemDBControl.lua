@@ -23,33 +23,9 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 	self.sortDropList = { }
 	self.sortOrder = { }
 	self.sortMode = "NAME"
-	local leagueFlag = { }
-	local typeFlag = { }
-	for _, item in pairs(db.list) do
-		if item.league then
-			for leagueName in item.league:gmatch(" ?([%w ]+),?") do
-				leagueFlag[leagueName] = true
-			end
-		end
-		typeFlag[item.type] = true
-	end
-	self.leagueList = { }
-	for leagueName in pairs(leagueFlag) do
-		t_insert(self.leagueList, leagueName)
-	end
-	table.sort(self.leagueList)
-	t_insert(self.leagueList, 1, "Any league")
-	t_insert(self.leagueList, 2, "No league")
-	self.typeList = { }
-	for type in pairs(typeFlag) do
-		t_insert(self.typeList, type)
-	end
-	table.sort(self.typeList)
-	t_insert(self.typeList, 1, "Any type")
-	t_insert(self.typeList, 2, "Armour")
-	t_insert(self.typeList, 3, "Jewellery")
-	t_insert(self.typeList, 4, "One Handed Melee")
-	t_insert(self.typeList, 5, "Two Handed Melee")
+	self.leaguesAndTypesLoaded = false
+	self.leagueList = { "Any league", "No league" }
+	self.typeList = { "Any type", "Armour", "Jewellery", "One Handed Melee", "Two Handed Melee" }
 	self.slotList = { "Any slot", "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring", "Belt", "Jewel" }
 	local baseY = dbType == "RARE" and -22 or -62
 	self.controls.slot = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, baseY, 179, 18, self.slotList, function(index, value)
@@ -69,16 +45,39 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 		self.controls.requirement = new("DropDownControl", {"LEFT",self.controls.sort,"BOTTOMLEFT"}, 0, 11, 179, 18, { "Any requirements", "Current level", "Current attributes", "Current useable" }, function(index, value)
 			self.listBuildFlag = true
 		end)
+		self.controls.obtainable = new("DropDownControl", {"LEFT",self.controls.requirement,"RIGHT"}, 2, 0, 179, 18, { "Obtainable", "Any source", "Unobtainable", "Vendor Recipe", "Upgraded", "Boss Item", "Corruption"}, function(index, value)
+			self.listBuildFlag = true
+		end)
 	end
 	self.controls.search = new("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -2, 258, 18, "", "Search", "%c", 100, function()
 		self.listBuildFlag = true
-	end)
+	end, nil, nil, true)
 	self.controls.searchMode = new("DropDownControl", {"LEFT",self.controls.search,"RIGHT"}, 2, 0, 100, 18, { "Anywhere", "Names", "Modifiers" }, function(index, value)
 		self.listBuildFlag = true
 	end)
 	self:BuildSortOrder()
 	self.listBuildFlag = true
 end)
+
+function ItemDBClass:LoadLeaguesAndTypes()
+	local leagueFlag = { }
+	local typeFlag = { }
+	for _, item in pairs(self.db.list) do
+		if item.league then
+			for leagueName in item.league:gmatch(" ?([%w ]+),?") do
+				leagueFlag[leagueName] = true
+			end
+		end
+		typeFlag[item.type] = true
+	end
+	for leagueName in pairsSortByKey(leagueFlag) do
+		t_insert(self.leagueList, leagueName)
+	end
+	for type in pairsSortByKey(typeFlag) do
+		t_insert(self.typeList, type)
+	end
+	self.leaguesAndTypesLoaded = true
+end
 
 function ItemDBClass:DoesItemMatchFilters(item)
 	if self.controls.slot.selIndex > 1 then
@@ -111,6 +110,21 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			return false
 		end
 	end
+	if self.dbType == "UNIQUE" and self.controls.obtainable.selIndex ~= 2 then
+		local source = item.source or ""
+		local obtainable = not (source == "No longer obtainable" or (item.league and item.league == "Race Events"))
+		if (self.controls.obtainable.selIndex == 1 and not obtainable) or (self.controls.obtainable.selIndex == 3 and obtainable) then
+			return false
+		elseif (self.controls.obtainable.selIndex == 4 and not (source == "Vendor Recipe")) then
+			return false
+		elseif (self.controls.obtainable.selIndex == 5 and not (string.match(source, "Upgraded from"))) then
+			return false
+		elseif (self.controls.obtainable.selIndex == 6 and not (string.match(source, "Drops from unique"))) then
+			return false
+		elseif (self.controls.obtainable.selIndex == 7 and not (string.match(source, "Vaal Orb"))) then
+			return false
+		end
+	end
 	if self.dbType == "UNIQUE" and self.controls.requirement.selIndex > 1 then
 		if (self.controls.requirement.selIndex == 2 or self.controls.requirement.selIndex == 4) and item.requirements.level and item.requirements.level > self.itemsTab.build.characterLevel then
 			return false
@@ -119,30 +133,34 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			return false
 		end
 	end
-	local searchStr = self.controls.search.buf:lower()
+	local searchStr = self.controls.search.buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
 	if searchStr:match("%S") then
 		local found = false
 		local mode = self.controls.searchMode.selIndex
 		if mode == 1 or mode == 2 then
-			if item.name:lower():find(searchStr, 1, true) then
+			local err, match = PCall(string.matchOrPattern, item.name:lower(), searchStr)
+			if not err and match then
 				found = true
 			end
 		end
 		if mode == 1 or mode == 3 then
 			for _, line in pairs(item.enchantModLines) do
-				if line.line:lower():find(searchStr, 1, true) then
+				local err, match = PCall(string.matchOrPattern, line.line:lower(), searchStr)
+				if not err and match then
 					found = true
 					break
 				end
 			end
 			for _, line in pairs(item.implicitModLines) do
-				if line.line:lower():find(searchStr, 1, true) then
+				local err, match = PCall(string.matchOrPattern, line.line:lower(), searchStr)
+				if not err and match then
 					found = true
 					break
 				end
 			end
 			for _, line in pairs(item.explicitModLines) do
-				if line.line:lower():find(searchStr, 1, true) then
+				local err, match = PCall(string.matchOrPattern, line.line:lower(), searchStr)
+				if not err and match then
 					found = true
 					break
 				end
@@ -150,7 +168,8 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			if not found then
 				searchStr = searchStr:gsub(" ","")
 				for i, mod in ipairs(item.baseModList) do
-					if mod.name:lower():find(searchStr, 1, true) then
+					local err, match = PCall(string.matchOrPattern, mod.name:lower(), searchStr)
+					if not err and match then
 						found = true
 						break
 					end
@@ -207,6 +226,8 @@ function ItemDBClass:ListBuilder()
 	if self.sortDetail and self.sortDetail.stat then -- stat-based
 		local start = GetTime()
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
+		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		for itemIndex, item in ipairs(list) do
 			item.measuredPower = 0
 			for slotName, slot in pairs(self.itemsTab.slots) do
@@ -226,6 +247,7 @@ function ItemDBClass:ListBuilder()
 				start = now
 			end
 		end
+		GlobalCache.useFullDPS = storedGlobalCacheDPSView
 	end
 
 	table.sort(list, function(a, b)
@@ -264,7 +286,7 @@ function ItemDBClass:Draw(viewPort)
 		self.listBuilder = coroutine.create(self.ListBuilder)
 		self.listOutputRevision = self.itemsTab.build.outputRevision
 	end
-	if self.listBuilder then
+	if self.listBuilder and not self.db.loading then
 		local res, errMsg = coroutine.resume(self.listBuilder, self)
 		if launch.devMode and not res then
 			error(errMsg)
@@ -272,6 +294,11 @@ function ItemDBClass:Draw(viewPort)
 		if coroutine.status(self.listBuilder) == "dead" then
 			self.listBuilder = nil
 		end
+	end
+	if self.db.loading then
+		self.defaultText = "^7Loading..."
+	elseif not self.leaguesAndTypesLoaded then
+		self:LoadLeaguesAndTypes()
 	end
 	self.ListControl.Draw(self, viewPort)
 end

@@ -1,4 +1,4 @@
-﻿--
+--
 -- Upcoming uniques will live here until their mods/rolls are finalised
 --
 
@@ -6,54 +6,51 @@ data.uniques.new = {
 
 -- New
 [[
-Soul Ascension
-Carnal Mitts
-137% increased Evasion and Energy Shield
-+26% to Chaos Resistance
-Eat a Soul when you Hit a unique Enemy, no more than once every second
-Lose an Eaten Soul every 3 seconds while no Unique Enemy is in your Presence
-Maximum 50 Eaten Souls
-]],[[
-Ghostwrithe
-Silken Vest
-+137 to maximum Energy Shield
-+96 to maximum Life
-+50% to Chaos Resistance
-50% of Maximum Life Converted to Energy Shield
-]],[[
-Kalandra's Touch
-Iron Ring
-League: Kalandra
-Reflects your other Ring
-Mirrored
-]],[[
-Kaom's Spirit
-Titan Gauntlets
-League: Kalandra
-+(50-70) to Maximum Life
-+(20-30)% to Fire Resistance
-0.44% of Physical Attack Damage Leeched as Life
-Life Recovery from Regeneration is not applied
-Regenerate 1 Rage per second for every 100 Life Recovery per second from Regeneration
-]],[[
-The Poised Prism
-Primal Arrow Quiver
+The Tides of Time
+Vanguard Belt
 Implicits: 1
-(20-30)% increased Elemental Damage with Attack Skills
-+(15-25)% to Fire Resistance
-+(15-25)% to Cold Resistance
-+(15-25)% to Lightning Resistance
-Adds 1 to 2 Cold Damage to Attacks per 10 Dexterity
-Adds 1 to 2 Fire Damage to Attacks per 10 Strength
-Adds 0 to 3 Lightning Damage to Attacks per 10 Intelligence
+{tags:jewellery_defense}+(260-320) to Armour and Evasion Rating
+{tags:life,mana}100% Increased Life Recovery from Flasks
+{tags:life,mana}100% Increased Mana Recovery from Flasks
+Flasks applied to you have 25% Increased Effect
+Life Flasks gain (1-3) charges every 3 seconds
+Mana Flasks gain (1-3) charges every 3 seconds
+Utility Flasks gain (1-3) charges every 3 seconds
 ]],[[
-Elevore
-Wolf Pelt
-+23% chance to Suppress Spell Damage
-85% increased Evasion Rating
-22% chance to Avoid Elemental Ailments
-Recover 176 Life when you Suppress Spell Damage
+Ravenous Passion
+Zealot Helmet
+Requires Level: 44, 50 Str, 50 Int
++34 to Strength
+120% Increased Armour and Energy Shield
+Gain 13 Rage after Spending a total of 200 Mana
+Rage grants Cast Speed instead of Attack Speed
+Rage grants Spell Damage instead of Attack Damage
+]],[[
+The Celestial Brace
+Goliath Gauntlets
+Requires Level: 53, 77 Str
+144% Increased Armour
+1% Increased Attack Speed per Fortification
++8 to Maximum Fortification
+Melee Hits from Strike Skills Fortify
+]],[[
+Nevalius Inheritance
+Cloth Belt
++21 to Dexterity
+150% Increased Flask Effect Duration
+Flasks applied to you have 60% Reduced Effect
+2% Reduced Flask Effect Duration per Level
+Flasks applied to you have 1% Increased Effect per Level
+]],[[
+Grace of the Goddess
+Prophecy Wand
+Implicits: 1
+(36-40)% increased Spell Damage
+339% Increased Physical Damage
+Gain 16% of Physical Damage as Extra Fire Damage
+Gain 21% of Physical Damage as Extra Cold Damage
+Gain 16% of Physical Damage as Extra Lightning Damage
++1 to Maximum number of Sacred Wisps
 ]]
--- Reworked
 
 }

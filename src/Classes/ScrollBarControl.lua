@@ -306,9 +306,18 @@ function ScrollBarClass:OnKeyUp(key)
 			self.holdRepeating = nil
 			self.holdPauseTime = nil
 		end
-	elseif key == "WHEELDOWN" then
+
+	elseif self:IsScrollDownKey(key) then
 		self:Scroll(1)
-	elseif key == "WHEELUP" then
+	elseif self:IsScrollUpKey(key) then
 		self:Scroll(-1)
 	end
+end
+
+-- Centralize inputs allowed to keep consistent scroll behavior for all scrollBars
+function ScrollBarClass:IsScrollDownKey(key)
+	return isValueInTable({"WHEELDOWN", "PAGEDOWN"}, key)
+end
+function ScrollBarClass:IsScrollUpKey(key)
+	return isValueInTable({"WHEELUP", "PAGEUP"}, key)
 end

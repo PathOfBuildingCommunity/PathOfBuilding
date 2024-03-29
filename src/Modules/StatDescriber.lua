@@ -51,6 +51,8 @@ end
 local function applySpecial(val, spec)
 	if spec.k == "negate" then
 		val[spec.v].max, val[spec.v].min = -val[spec.v].min, -val[spec.v].max
+	elseif spec.k == "invert_chance" then
+		val[spec.v].max, val[spec.v].min = 100 - val[spec.v].min, 100 - val[spec.v].max
 	elseif spec.k == "negate_and_double" then
 		val[spec.v].max, val[spec.v].min = -2 * val[spec.v].min, -2 * val[spec.v].max
 	elseif spec.k == "divide_by_two_0dp" then
@@ -78,9 +80,17 @@ local function applySpecial(val, spec)
 		val[spec.v].min = val[spec.v].min / 12
 		val[spec.v].max = val[spec.v].max / 12
 		val[spec.v].fmt = "g"
+	elseif spec.k == "divide_by_twenty" then
+		val[spec.v].min = val[spec.v].min / 20
+		val[spec.v].max = val[spec.v].max / 20
+		val[spec.v].fmt = "g"
 	elseif spec.k == "divide_by_one_hundred" then
 		val[spec.v].min = val[spec.v].min / 100
 		val[spec.v].max = val[spec.v].max / 100
+		val[spec.v].fmt = "g"
+	elseif spec.k == "divide_by_one_hundred_1dp" then
+		val[spec.v].min = round(val[spec.v].min / 100, 1)
+		val[spec.v].max = round(val[spec.v].max / 100, 1)
 		val[spec.v].fmt = "g"
 	elseif spec.k == "divide_by_one_hundred_2dp_if_required" or spec.k == "divide_by_one_hundred_2dp" then
 		val[spec.v].min = round(val[spec.v].min / 100, 2)
@@ -93,6 +103,10 @@ local function applySpecial(val, spec)
 	elseif spec.k == "divide_by_twenty_then_double_0dp" then -- O_O
 		val[spec.v].min = round(val[spec.v].min / 20) * 2
 		val[spec.v].max = round(val[spec.v].max / 20) * 2
+	elseif spec.k == "divide_by_one_thousand" then
+		val[spec.v].min = val[spec.v].min / 1000
+		val[spec.v].max = val[spec.v].max / 1000
+		val[spec.v].fmt = "g"
 	elseif spec.k == "per_minute_to_per_second" then
 		val[spec.v].min = round(val[spec.v].min / 60, 1)
 		val[spec.v].max = round(val[spec.v].max / 60, 1)
@@ -135,6 +149,10 @@ local function applySpecial(val, spec)
 		val[spec.v].min = val[spec.v].min / 10
 		val[spec.v].max = val[spec.v].max / 10
 		val[spec.v].fmt = ".2f"
+	elseif spec.k == "locations_to_metres" then
+		val[spec.v].min = val[spec.v].min / 10
+		val[spec.v].max = val[spec.v].max / 10
+		val[spec.v].fmt = "g"
 	elseif spec.k == "30%_of_value" then
 		val[spec.v].min = val[spec.v].min * 0.3
 		val[spec.v].max = val[spec.v].max * 0.3

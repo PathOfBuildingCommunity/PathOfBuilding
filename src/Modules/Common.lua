@@ -12,6 +12,7 @@ local m_abs = math.abs
 local m_floor = math.floor
 local m_min = math.min
 local m_max = math.max
+local m_ceil = math.ceil
 local s_format = string.format
 local s_char = string.char
 local b_rshift = bit.rshift
@@ -26,8 +27,19 @@ common.xml = require("xml")
 common.base64 = require("base64")
 common.sha1 = require("sha1")
 
--- Uncomment if you need to perform in-depth profiling
--- profiler = require("lua-profiler")
+-- Try to load a library return nil if failed. https://stackoverflow.com/questions/34965863/lua-require-fallback-error-handling
+function prerequire(...)
+	local status, lib = pcall(require, ...)
+	if(status) then return lib end
+	return nil
+end
+
+profiler = prerequire("lua-profiler")
+profiling = false
+
+if launch.devMode and profiler == nil then
+	ConPrintf("Unable to Load Profiler")
+end
 
 -- Class library
 common.classes = { }
@@ -219,6 +231,34 @@ function convertUTF8to16(text, offset)
 	return table.concat(out)
 end
 
+--- Clean item text by removing or replacing unsupported or redundant characters or sequences
+---@param text string
+---@return string
+function sanitiseText(text)
+	if not text then return nil end
+	-- Something something unicode support something grumble
+	-- Only do these replacements if a char from 128-255 or '<' is found first
+	return text:find("[\128-\255<]") and text
+		:gsub("%b<>", "")
+		:gsub("\226\128\144", "-") -- U+2010 HYPHEN
+		:gsub("\226\128\145", "-") -- U+2011 NON-BREAKING HYPHEN
+		:gsub("\226\128\146", "-") -- U+2012 FIGURE DASH
+		:gsub("\226\128\147", "-") -- U+2013 EN DASH
+		:gsub("\226\128\148", "-") -- U+2014 EM DASH
+		:gsub("\226\128\149", "-") -- U+2015 HORIZONTAL BAR
+		:gsub("\226\136\146", "-") -- U+2212 MINUS SIGN
+		:gsub("\195\164", "a") -- U+00E4 LATIN SMALL LETTER A WITH DIAERESIS
+		:gsub("\195\182", "o") -- U+00F6 LATIN SMALL LETTER O WITH DIAERESIS
+		-- single-byte: Windows-1252 and similar
+		:gsub("\150", "-") -- U+2013 EN DASH
+		:gsub("\151", "-") -- U+2014 EM DASH
+		:gsub("\228", "a") -- U+00E4 LATIN SMALL LETTER A WITH DIAERESIS
+		:gsub("\246", "o") -- U+00F6 LATIN SMALL LETTER O WITH DIAERESIS
+		-- unsupported
+		:gsub("[\128-\255]", "?")
+		or text
+end
+
 do
 	local function toUnsigned(val)
 		return val < 0 and val + 0x100000000 or val
@@ -331,7 +371,11 @@ function writeLuaTable(out, t, indent)
 		elseif type(v) == "string" then
 			out:write(qFmt(v))
 		else
-			out:write(tostring(v))
+			if v == math.huge then
+				out:write("math.huge")
+			else
+				out:write(tostring(v))
+			end
 		end
 		if i < #keyList then
 			out:write(',')
@@ -457,7 +501,7 @@ function isValueInArrayPred(table, predicate)
 end
 
 -- Pretty-prints a table
-function prettyPrintTable(tbl, pre)
+function prettyPrintTable(tbl, pre, outFile)
 	pre = pre or ""
 	local outNames = { }
 	for name in pairs(tbl) do
@@ -466,9 +510,13 @@ function prettyPrintTable(tbl, pre)
 	table.sort(outNames)
 	for _, name in ipairs(outNames) do
 		if type(tbl[name]) == "table" then
-			prettyPrintTable(tbl[name], pre .. name .. ".")
+			prettyPrintTable(tbl[name], pre .. name .. ".", outFile)
 		else
-			ConPrintf("%s%s = %s", pre, name, tostring(tbl[name]))
+			if outFile then
+				outFile:write(pre .. name .. " = " .. tostring(tbl[name]) .. "\n")
+			else
+				ConPrintf("%s%s = %s", pre, name, tostring(tbl[name]))
+			end
 		end
 	end
 end
@@ -476,12 +524,63 @@ end
 function tableConcat(t1,t2)
 	local t3 = {}
 	for i=1,#t1 do
-        t3[#t3+1] = t1[i]
-    end
-    for i=1,#t2 do
-        t3[#t3+1] = t2[i]
-    end
-    return t3
+		t3[#t3+1] = t1[i]
+	end
+	for i=1,#t2 do
+		t3[#t3+1] = t2[i]
+	end
+	return t3
+end
+
+--- Simple table value equality
+---@param t1 table
+---@param t2 table
+---@return boolean
+function tableDeepEquals(t1, t2)
+	if t1 == t2 then
+		return true
+	end
+	if not t1 or not t2 or #t1 ~= #t2 then
+		return false
+	end
+	for k, v1 in pairs(t1) do
+		local v2 = t2[k]
+		local typeV1 = type(v1)
+		if not (typeV1 == type(v2) and (typeV1 == "table" and tableDeepEquals(v1, v2) or v1 == v2)) then
+			return false
+		end
+	end
+	return true
+end
+
+function pairsYield(t)
+	local k
+	local start = GetTime()
+	return function() -- iterator function
+		if coroutine.running() and GetTime() - start > 20 then
+			coroutine.yield()
+			start = GetTime()
+		end
+		local v
+		k, v = next(t, k)
+		return k, v
+	end
+end
+
+-- Based on https://www.lua.org/pil/19.3.html
+function pairsSortByKey(t, f)
+	local sortedKeys = {}
+	for key in pairs(t) do t_insert(sortedKeys, key) end
+	table.sort(sortedKeys, f)
+	local i = 0
+	return function() -- iterator function
+		i = i + 1
+		if sortedKeys[i] == nil then
+			return nil
+		else
+			return sortedKeys[i], t[sortedKeys[i]]
+		end
+	end
 end
 
 -- Natural sort comparator
@@ -550,24 +649,29 @@ end
 
 -- Formats "1234.56" -> "1,234.5"
 function formatNumSep(str)
-	return string.gsub(str, "(-?%d+%.?%d+)", function(m)
-	    local x, y, minus, integer, fraction = m:find("(-?)(%d+)(%.?%d*)")
-        if main.showThousandsSeparators then
-            integer = integer:reverse():gsub("(%d%d%d)", "%1"..main.thousandsSeparator):reverse()
-            -- There will be leading separators if the number of digits are divisible by 3
-            -- This checks for their presence and removes them
-            -- Don't use patterns here because thousandsSeparator can be a pattern control character, and will crash if used
-            if main.thousandsSeparator ~= "" then
-                local thousandsSeparator = string.find(integer, main.thousandsSeparator, 1, 2)
-                if thousandsSeparator and thousandsSeparator == 1 then
-                    integer = integer:sub(2)
-                end
-            end
-        else
-            integer = integer:reverse():gsub("(%d%d%d)", "%1"):reverse()
-        end
-        return minus..integer..fraction:gsub("%.", main.decimalSeparator)
-    end)
+	return string.gsub(str, "(%^?x?%x?%x?%x?%x?%x?%x?-?%d+%.?%d+)", function(m)
+		local colour = m:match("(^x%x%x%x%x%x%x)") or m:match("(%^%d)") or ""
+		local str = m:gsub("(^x%x%x%x%x%x%x)", ""):gsub("(%^%d)", "")
+		if str == "" or (colour == "" and m:match("%^")) then  -- return if we have an invalid color code or a completely stripped number.
+			return m
+		end
+		local x, y, minus, integer, fraction = str:find("(-?)(%d+)(%.?%d*)")
+		if main.showThousandsSeparators then
+			integer = integer:reverse():gsub("(%d%d%d)", "%1"..main.thousandsSeparator):reverse()
+			-- There will be leading separators if the number of digits are divisible by 3
+			-- This checks for their presence and removes them
+			-- Don't use patterns here because thousandsSeparator can be a pattern control character, and will crash if used
+			if main.thousandsSeparator ~= "" then
+				local thousandsSeparator = string.find(integer, main.thousandsSeparator, 1, 2)
+				if thousandsSeparator and thousandsSeparator == 1 then
+					integer = integer:sub(2)
+				end
+			end
+		else
+			integer = integer:reverse():gsub("(%d%d%d)", "%1"):reverse()
+		end
+		return colour..minus..integer..fraction:gsub("%.", main.decimalSeparator)
+	end)
 end
 
 function getFormatNumSep(dec)
@@ -629,46 +733,52 @@ function copyFile(srcName, dstName)
 end
 
 function zip(a, b)
-    local zipped = { }
+	local zipped = { }
 	for i, _ in pairs(a) do
 		table.insert(zipped, { a[i], b[i] })
-    end
-    return zipped
+	end
+	return zipped
 end
 
 -- Generate a UUID for a skill
-function cacheSkillUUID(skill)
+function cacheSkillUUID(skill, env)
 	local strName = skill.activeEffect.grantedEffect.name:gsub("%s+", "") -- strip spaces
-	local strSlotName = (skill.slotName or "NO_SLOT"):gsub("%s+", "") -- strip spaces
-	local indx = 1
+	local strSlotName = (skill.socketGroup and skill.socketGroup.slot and skill.socketGroup.slot:upper() or "NO_SLOT"):gsub("%s+", "") -- strip spaces
+	local slotIndx = 1
+	local groupIdx = 1
 	if skill.socketGroup and skill.socketGroup.gemList and skill.activeEffect.srcInstance then
 		for idx, gem in ipairs(skill.socketGroup.gemList) do
 			-- we compare table addresses rather than names since two of the same gem
 			-- can be socketed in the same slot
 			if gem == skill.activeEffect.srcInstance then
-				indx = idx
+				slotIndx = idx
 				break
 			end
 		end
 	end
-	return strName.."_"..strSlotName.."_"..tostring(indx)
+
+	for i, group in ipairs(env.build.skillsTab.socketGroupList) do
+		if skill.socketGroup == group then
+			groupIdx = i
+			break
+		end
+	end
+
+	return strName.."_"..strSlotName.."_"..tostring(slotIndx) .. "_" .. tostring(groupIdx)
 end
 
 -- Global Cache related
 function cacheData(uuid, env)
-	local mode = env.mode
-	if mode == "CALCULATOR" then return end
-
-	-- If we previously had global data, we are about to over-ride it, set tables to `nil` for Lua Garbage Collection
-	if GlobalCache.cachedData[mode][uuid] then
-		GlobalCache.cachedData[mode][uuid].ActiveSkill = nil
-		GlobalCache.cachedData[mode][uuid].Env = nil
-	end
-	GlobalCache.cachedData[mode][uuid] = {
+	GlobalCache.cachedData[env.mode][uuid] = {
 		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
 		Speed = env.player.output.Speed,
+		HitSpeed = env.player.output.HitSpeed,
 		ManaCost = env.player.output.ManaCost,
+		LifeCost = env.player.output.LifeCost,
+		ESCost = env.player.output.ESCost,
+		RageCost = env.player.output.RageCost,
 		HitChance = env.player.output.HitChance,
+		AccuracyHitChance = env.player.output.AccuracyHitChance,
 		PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
 		CritChance = env.player.output.CritChance,
 		TotalDPS = env.player.output.TotalDPS,
@@ -677,68 +787,11 @@ function cacheData(uuid, env)
 	}
 end
 
--- Obtain a stored cached processed skill identified by
---   its UUID and pulled from an appropriate env mode (e.g., MAIN)
-function getCachedData(skill, mode)
-	local uuid = cacheSkillUUID(skill)
-	return GlobalCache.cachedData[mode][uuid]
-end
-
--- Add an entry for a fabricated skill (e.g., Mirage Archers)
---   to be deleted if it's not longer needed
-function addDeleteGroupEntry(name)
-	if not GlobalCache.deleteGroup[name] then
-		GlobalCache.deleteGroup[name] = true
-	end
-end
-
--- Remove an entry from the "to be deleted" list
---   because it is still needed
-function removeDeleteGroupEntry(name)
-	if GlobalCache.deleteGroup[name] then
-		GlobalCache.deleteGroup[name] = nil
-	end
-end
-
--- Delete a skill-group entry from the skill list if it has
---   been marked for deletion and nothing over-wrote that
-function deleteFabricatedGroup(skillsTab)
-	for index, socketGroup in ipairs(skillsTab.controls.groupList.list) do
-		if GlobalCache.deleteGroup[socketGroup.label] then
-			t_remove(skillsTab.controls.groupList.list, index)
-			if skillsTab.displayGroup == socketGroup then
-				skillsTab:SetDisplayGroup()
-			end
-			skillsTab:AddUndoState()
-			skillsTab.build.buildFlag = true
-			skillsTab.controls.groupList.selValue = nil
-			wipeTable(GlobalCache.deleteGroup)
-			break
-		end
-	end
-end
-
 -- Wipe all the tables associated with Global Cache
 function wipeGlobalCache()
 	wipeTable(GlobalCache.cachedData.MAIN)
 	wipeTable(GlobalCache.cachedData.CALCS)
 	wipeTable(GlobalCache.cachedData.CALCULATOR)
-	wipeTable(GlobalCache.cachedData.CACHE)
-	wipeTable(GlobalCache.excludeFullDpsList)
-	wipeTable(GlobalCache.deleteGroup)
-	GlobalCache.dontUseCache = nil
-end
-
--- Full DPS related: add to roll-up exclusion list
--- this is for skills that are used by Mirage Warriors for example
-function addToFullDpsExclusionList(skill)
-	--ConPrintf("ADDING TO FULL DPS EXCLUDE: " .. cacheSkillUUID(skill))
-	GlobalCache.excludeFullDpsList[cacheSkillUUID(skill)] = true
-end
-
--- Full DPS related: check if skill is in roll-up exclusion list
-function isExcludedFromFullDps(skill)
-	return GlobalCache.excludeFullDpsList[cacheSkillUUID(skill)]
 end
 
 -- Check if a specific named gem is enabled in a socket group belonging to a skill
@@ -749,6 +802,41 @@ function supportEnabled(skillName, activeSkill)
 		end
 	end
 	return true
+end
+
+function stringify(thing)
+	if type(thing) == 'string' then
+		return thing
+	elseif type(thing) == 'number' then
+		return ""..thing;
+	elseif type(thing) == 'table' then
+		local s = "{";
+		local keys = { }
+		for key in pairs(thing) do table.insert(keys, key) end
+		table.sort(keys)
+		for _, k in ipairs(keys) do
+			local v = thing[k]
+			s = s.."\n\t"
+			if type(k) == 'number' then
+				s = s.."["..k.."] = "
+			else
+				s = s.."[\""..k.."\"] = "
+			end
+			if type(v) == 'string' then
+				s = s.."\""..stringify(v).."\", "
+			else
+				if type(v) == "boolean" then
+					v = v and "true" or "false"
+				end
+				val = stringify(v)..", "
+				if type(v) == "table" then
+					val = string.gsub(val, "\n", "\n\t")
+				end
+				s = s..val;
+			end
+		end
+		return s.."\n}"
+	end
 end
 
 -- Class function to split a string on a single character (??) separator.
@@ -766,3 +854,71 @@ function string:split(sep)
 	return fields
 end
 
+-- Ceil function with optional base parameter
+function ceil_b(x, base)
+	base = base or 1
+	return base * m_ceil(x/base)
+end
+
+-- Ceil function with optional base parameter
+function floor_b(x, base)
+	base = base or 1
+	return base * m_floor(x/base)
+end
+
+function urlEncode(str)
+	local charToHex = function(c)
+		return s_format("%%%02X", string.byte(c))
+	end
+	return str:gsub("([^%w_%-.~])", charToHex)
+end
+
+function urlDecode(str)
+	local hexToChar = function(x)
+		return s_char(tonumber(x, 16))
+	end
+	return str:gsub("%%(%x%x)", hexToChar)
+end
+
+function string:matchOrPattern(pattern)
+	local function generateOrPatterns(pattern)
+		local subGroups = {}
+		local index = 1
+		-- find and call generate patterns on all subGroups
+		for subGroup in pattern:gmatch("%b()") do
+			local open, close = pattern:find(subGroup, (subGroups[index] and subGroups[index].close or 1), true)
+			t_insert(subGroups, { open = open, close = close, patterns = generateOrPatterns(subGroup:sub(2,-2)) })
+			index = index + 1
+		end
+
+		-- generate complete patterns from the subGroup patterns
+		local generatedPatterns = { pattern:sub(1, (subGroups[1] and subGroups[1].open or 0) - 1) }
+		for i, subGroup in ipairs(subGroups) do
+			local regularNextString = pattern:sub(subGroup.close + 1, (subGroups[i+1] and subGroups[i+1].open or 0) - 1)
+			local tempPatterns = {}
+			for _, subPattern in ipairs(generatedPatterns) do
+				for subGroupPattern in pairs(subGroup.patterns) do
+					t_insert(tempPatterns, subPattern..subGroupPattern..regularNextString)
+				end
+			end
+			generatedPatterns = tempPatterns
+		end
+
+		-- apply | operators
+		local orPatterns = { }
+		for _, generatedPattern in ipairs(generatedPatterns) do
+			for orPattern in generatedPattern:gmatch("[^|]+") do
+				orPatterns[orPattern] = true -- store string as key to avoid duplicates.
+			end
+		end
+		return orPatterns
+	end
+
+	local orPatterns = generateOrPatterns(pattern)
+	for orPattern in pairs(orPatterns) do
+		if self:match(orPattern) then
+			return true
+		end
+	end
+	return false
+end

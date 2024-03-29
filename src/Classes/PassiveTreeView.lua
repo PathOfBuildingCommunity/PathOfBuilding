@@ -57,6 +57,7 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.zoomY = 0
 
 	self.searchStr = ""
+	self.searchStrSaved = ""
 	self.searchStrCached = ""
 	self.searchStrResults = {}
 	self.showStatDifferences = true
@@ -74,9 +75,7 @@ function PassiveTreeViewClass:Load(xml, fileName)
 	end
 	if xml.attrib.searchStr then
 		self.searchStr = xml.attrib.searchStr
-	end
-	if xml.attrib.showHeatMap then
-		self.showHeatMap = xml.attrib.showHeatMap == "true"
+		self.searchStrSaved = xml.attrib.searchStr
 	end
 	if xml.attrib.showStatDifferences then
 		self.showStatDifferences = xml.attrib.showStatDifferences == "true"
@@ -84,12 +83,12 @@ function PassiveTreeViewClass:Load(xml, fileName)
 end
 
 function PassiveTreeViewClass:Save(xml)
+	self.searchStrSaved = self.searchStr
 	xml.attrib = {
 		zoomLevel = tostring(self.zoomLevel),
 		zoomX = tostring(self.zoomX),
 		zoomY = tostring(self.zoomY),
 		searchStr = self.searchStr,
-		showHeatMap = tostring(self.showHeatMap),
 		showStatDifferences = tostring(self.showStatDifferences),
 	}
 end
@@ -292,6 +291,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				build.itemsTab:SelectControl(slot)
 				build.viewMode = "ITEMS"
 			end
+		elseif hoverNode and (hoverNode.isTattoo
+			or (hoverNode.type == "Normal" and (hoverNode.dn == "Strength" or hoverNode.dn == "Dexterity" or hoverNode.dn == "Intelligence"))
+			or (hoverNode.type == "Notable" and #hoverNode.sd > 0 and (hoverNode.sd[1]:match("+30 to Dexterity") or hoverNode.sd[1]:match("+30 to Strength") or hoverNode.sd[1]:match("+30 to Intelligence")))
+			or hoverNode.type == "Keystone")
+		then
+			build.treeTab:ModifyNodePopup(hoverNode, viewPort)
+			build.buildFlag = true
 		elseif hoverNode and hoverNode.alloc and hoverNode.type == "Mastery" and hoverNode.masteryEffects then
 			build.treeTab:OpenMasteryPopup(hoverNode, viewPort)
 			build.buildFlag = true
@@ -334,7 +340,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		local scrX, scrY = treeToScreen(group.x, group.y)
 		if group.ascendancyName then
 			if group.isAscendancyStart then
-				if group.ascendancyName ~= spec.curAscendClassName then
+				if group.ascendancyName ~= spec.curAscendClassName and (not spec.curSecondaryAscendClass or group.ascendancyName ~= spec.curSecondaryAscendClass.id) then
 					SetDrawColor(1, 1, 1, 0.25)
 				end
 				self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
@@ -440,7 +446,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			local searchWords = {}
 			for matchstring, v in search:gmatch('"([^"]*)"') do
 				searchWords[#searchWords+1] = matchstring
-				search = search:gsub('"'..matchstring..'"', "")
+				search = search:gsub('"'..matchstring:gsub("([%(%)])", "%%%1")..'"', "")
 			end
 			for matchstring, v in search:gmatch("(%S*)") do
 				if matchstring:match("%S") ~= nil then
@@ -468,6 +474,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			overlay = isAlloc and node.startArt or "PSStartNodeBackgroundInactive"
 		elseif node.type == "AscendClassStart" then
 			overlay = treeVersions[tree.treeVersion].num >= 3.10 and "AscendancyMiddle" or "PassiveSkillScreenAscendancyMiddle"
+			if node.ascendancyName and tree.secondaryAscendNameMap and tree.secondaryAscendNameMap[node.ascendancyName] then
+				overlay = "Azmeri"..overlay
+			end
 		else
 			local state
 			if self.showHeatMap or isAlloc or node == hoverNode or (self.traceMode and node == self.tracePath[#self.tracePath])then
@@ -481,7 +490,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			end
 			if node.type == "Socket" then
 				-- Node is a jewel socket, retrieve the socketed jewel (if present) so we can display the correct art
-				base = tree.assets[node.overlay[state .. (node.expansionJewel and "Alt" or "")]]
+				base = tree.assets[(node.name == "Charm Socket" and "Azmeri" or "" ) .. node.overlay[state .. (node.expansionJewel and "Alt" or "")]]
 				local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
 				if isAlloc and jewel then
 					if jewel.baseName == "Crimson Jewel" then
@@ -494,6 +503,14 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						overlay = node.expansionJewel and "JewelSocketActivePrismaticAlt" or "JewelSocketActivePrismatic"
 					elseif jewel.base.subType == "Abyss" then
 						overlay = node.expansionJewel and "JewelSocketActiveAbyssAlt" or "JewelSocketActiveAbyss"
+					elseif jewel.base.subType == "Charm" then
+						if jewel.baseName == "Ursine Charm" then
+							overlay = "CharmSocketActiveStr"
+						elseif jewel.baseName == "Corvine Charm" then
+							overlay = "CharmSocketActiveInt"
+						elseif jewel.baseName == "Lupine Charm" then
+							overlay = "CharmSocketActiveDex"
+						end
 					elseif jewel.baseName == "Timeless Jewel" then
 						overlay = node.expansionJewel and "JewelSocketActiveLegionAlt" or "JewelSocketActiveLegion"
 					elseif jewel.baseName == "Large Cluster Jewel" then
@@ -521,8 +538,14 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				SetDrawLayer(nil, 15)
 			else
 				-- Normal node (includes keystones and notables)
+				if node.isTattoo and node.effectSprites then -- trees < 3.22.0 don't have effectSprites
+					effect = node.effectSprites["tattooActiveEffect"]
+				end
 				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
 				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")]
+				if node.ascendancyName and tree.secondaryAscendNameMap and tree.secondaryAscendNameMap[node.ascendancyName] then
+					overlay = "Azmeri"..overlay
+				end
 			end
 		end
 
@@ -610,9 +633,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			end
 		end
 
-		-- Draw master effect artwork
+		-- Draw mastery/tattoo effect artwork
 		if effect then
+			SetDrawLayer(nil, 15)
 			self:DrawAsset(effect, scrX, scrY, scale)
+			SetDrawLayer(nil, 25)
 		end
 
 		-- Draw base artwork
@@ -664,7 +689,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		if self.searchStrResults[nodeId] then
 			-- Node matches the search string, show the highlight circle
 			SetDrawLayer(nil, 30)
-			SetDrawColor(1, 0, 0)
+			local rgbColor = rgbColor or {1, 0, 0}
+			SetDrawColor(rgbColor[1], rgbColor[2], rgbColor[3])
 			local size = 175 * scale / self.zoom ^ 0.4
 			DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
 		end
@@ -683,7 +709,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	SetDrawLayer(nil, 25)
 	for nodeId in pairs(tree.sockets) do
 		local node = spec.nodes[nodeId]
-		if node and (not node.expansionJewel or node.expansionJewel.size == 2) then
+		if node and node.name ~= "Charm Socket" and (not node.expansionJewel or node.expansionJewel.size == 2) then
 			local scrX, scrY = treeToScreen(node.x, node.y)
 			local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
 			if node == hoverNode then
@@ -716,6 +742,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					local radData = build.data.jewelRadius[jewel.jewelRadiusIndex]
 					local outerSize = radData.outer * scale
 					local innerSize = radData.inner * scale * 1.06
+					SetDrawColor(1,1,1,0.7)
 					if jewel.title == "Impossible Escape" then
 						-- Impossible Escape ring shows on the allocated Keystone
 						for keystoneName, _ in pairs(jewel.jewelData.impossibleEscapeKeystones) do
@@ -723,30 +750,28 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 							if keystone and keystone.x and keystone.y then
 								innerSize = 150 * scale
 								local keyX, keyY = treeToScreen(keystone.x, keystone.y)
-								SetDrawColor(0.9,0.9,1,0.7)
 								DrawImage(self.jewelShadedOuterRing, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
 								DrawImage(self.jewelShadedOuterRingFlipped, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
 								DrawImage(self.jewelShadedInnerRing, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
 								DrawImage(self.jewelShadedInnerRingFlipped, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
 							end
 						end
-					elseif jewel.title == "Brutal Restraint" then
+					elseif jewel.title:match("^Brutal Restraint") then
 						DrawImage(self.maraketh1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.maraketh2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
-					elseif jewel.title == "Elegant Hubris" then
+					elseif jewel.title:match("^Elegant Hubris") then
 						DrawImage(self.eternal1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.eternal2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
-					elseif jewel.title == "Glorious Vanity" then
+					elseif jewel.title:match("^Glorious Vanity") then
 						DrawImage(self.vaal1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.vaal2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
-					elseif jewel.title == "Lethal Pride" then
+					elseif jewel.title:match("^Lethal Pride") then
 						DrawImage(self.karui1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.karui2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
-					elseif jewel.title == "Militant Faith" then
+					elseif jewel.title:match("^Militant Faith") then
 						DrawImage(self.templar1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.templar2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 					else
-						SetDrawColor(0.9,0.9,1,0.7)
 						DrawImage(self.jewelShadedOuterRing, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.jewelShadedOuterRingFlipped, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.jewelShadedInnerRing, scrX - innerSize, scrY - innerSize, innerSize * 2, innerSize * 2)
@@ -816,7 +841,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 
 	local function search(haystack, need)
 		for i=#need, 1, -1 do
-			if haystack:match(need[i]) then
+			if haystack:matchOrPattern(need[i]) then
 				table.remove(need, i)
 			end
 		end
@@ -855,6 +880,15 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 	if err then return false end
 	if #needMatches == 0 then
 		return true
+	end
+
+	-- Check node id for devs
+	if launch.devMode then
+		err, needMatches = PCall(search, tostring(node.id), needMatches)
+		if err then return false end
+		if #needMatches == 0 then
+			return true
+		end
 	end
 end
 
@@ -934,7 +968,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 					modStr = (modStr and modStr..", " or "^2") .. modLib.formatMod(mod)
 				end
 				if node.mods[i].extra then
-					modStr = (modStr and modStr.."  " or "") .. "^1" .. node.mods[i].extra
+					modStr = (modStr and modStr.."  " or "") .. colorCodes.NEGATIVE .. node.mods[i].extra
 				end
 				if modStr then
 					line = line .. "  " .. modStr
@@ -975,17 +1009,20 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 
 	if mNode.sd[1] and mNode.allMasteryOptions then
 		tooltip:AddSeparator(14)
-		tooltip:AddLine(14, "^7Mastery node options are:")
+		tooltip:AddLine(14, "^7Available Mastery node options are:")
 		tooltip:AddLine(6, "")
 		local lineCount = 0
 		for n, effect in ipairs(mNode.masteryEffects) do
-			effect = build.spec.tree.masteryEffects[effect.effect]
-			for _, line in ipairs(effect.sd) do
-				lineCount = lineCount + 1
-				addModInfoToTooltip(mNode, lineCount, line)
-			end
-			if n < #mNode.masteryEffects then
-				tooltip:AddLine(6, "")
+			local existingMastery = isValueInTable(build.spec.masterySelections, effect.effect)
+			if not existingMastery then
+				effect = build.spec.tree.masteryEffects[effect.effect]
+				for _, line in ipairs(effect.sd) do
+					lineCount = lineCount + 1
+					addModInfoToTooltip(mNode, lineCount, line)
+				end
+				if n < #mNode.masteryEffects then
+					tooltip:AddLine(6, "")
+				end
 			end
 		end
 		tooltip:AddSeparator(24)
@@ -1012,6 +1049,16 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
+	-- Tattoo Editing
+	if node and (node.isTattoo
+			or (node.type == "Normal" and (node.dn == "Strength" or node.dn == "Dexterity" or node.dn == "Intelligence"))
+			or (node.type == "Notable" and #node.sd > 0 and (node.sd[1]:match("+30 to Dexterity") or node.sd[1]:match("+30 to Strength") or node.sd[1]:match("+30 to Intelligence")))
+			or node.type == "Keystone")
+	then
+		tooltip:AddSeparator(14)
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Right click to edit the tattoo for this node")
+	end
+
 	-- Mod differences
 	if self.showStatDifferences then
 		local calcFunc, calcBase = build.calcsTab:GetMiscCalculator(build)
@@ -1031,7 +1078,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		elseif node.alloc then
 			-- Calculate the differences caused by deallocating this node and its dependent nodes
 			nodeOutput = calcFunc({ removeNodes = { [node] = true } })
-			if pathLength > 1 then
+			if not node.dependsOnIntuitiveLeapLike and pathLength > 1 then
 				pathOutput = calcFunc({ removeNodes = pathNodes })
 			end
 		elseif isGranted then
@@ -1045,19 +1092,19 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			else
 				nodeOutput = calcFunc({ addNodes = { [node] = true } })
 			end
-			if pathLength > 1 then
+			if not node.dependsOnIntuitiveLeapLike and pathLength > 1 then
 				pathOutput = calcFunc({ addNodes = pathNodes })
 			end
 		end
 		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, realloc and "^7Reallocating this node will give you:" or node.alloc and "^7Unallocating this node will give you:" or isGranted and "^7This node is granted by an item. Removing it will give you:" or "^7Allocating this node will give you:")
-		if pathLength > 1 and not isGranted then
+		if not node.dependsOnIntuitiveLeapLike and pathLength > 1 and not isGranted then
 			count = count + build:AddStatComparesToTooltip(tooltip, calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:", pathLength)
 		end
 		if count == 0 then
 			if isGranted then
 				tooltip:AddLine(14, string.format("^7This node is granted by an item. Removing it will cause no changes"))
 			else
-				tooltip:AddLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
+				tooltip:AddLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", not node.dependsOnIntuitiveLeapLike and pathLength > 1 and " or the nodes leading to it" or ""))
 			end
 		end
 		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to disable the display of stat differences.")
@@ -1073,7 +1120,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			tooltip:AddLine(14, "^7"..#self.tracePath .. " nodes in trace path")
 			tooltip:AddLine(14, colorCodes.TIP)
 		else
-			tooltip:AddLine(14, "^7"..#node.path .. " points to node")
+			tooltip:AddLine(14, "^7"..#node.path .. " points to node" .. (node.dependsOnIntuitiveLeapLike and " ^8(Can be allocated without pathing to it)" or ""))
 			tooltip:AddLine(14, colorCodes.TIP)
 			if #node.path > 1 then
 				-- Handy hint!

@@ -3,7 +3,38 @@ if not loadStatFile then
 end
 loadStatFile("passive_skill_stat_descriptions.txt")
 
-local out = io.open("../Data/LegionPassives.lua", "w")
+-- This table lists errors in the ggpk dat files
+local datErrors = {
+	["templar_notable_minimum_frenzy_charge"] = {
+		["match"] = {
+			["Name"] = "Powerful Faith",
+		},
+		["replace"] = {
+			["Id"] = "templar_notable_minimum_power_charge",
+		},
+	},
+	["templar_notable_minimum_power_charge"] = {
+		["match"] = {
+			["Name"] = "Frenzied Faith",
+		},
+		["replace"] = {
+			["Id"] = "templar_notable_minimum_frenzy_charge",
+		},
+	},
+}
+
+local fixDatErrors = function(row)
+	if datErrors[row.Id] then
+		for field, value in pairs(datErrors[row.Id].match) do
+			if row[field] ~= value then return end
+		end
+		for field, value in pairs(datErrors[row.Id].replace) do
+			row[field] = value
+		end
+	end
+end
+
+local out = io.open("../Data/TimelessJewelData/LegionPassives.lua", "w")
 
 local stats = dat("Stats")
 local alternatePassiveSkillDat = dat("AlternatePassiveSkills")
@@ -76,7 +107,7 @@ function parseStats(datFileRow, legionPassive)
 	legionPassive.sortedStats = sortedStats
 end
 
----@type table <string, table> @this is the structure used to generate the final data file Data/LegionPassives
+---@type table <string, table> @this is the structure used to generate the final data file Data/TimelessJewelData/LegionPassives
 local data = { }
 data.nodes = { }
 data.groups = { }
@@ -90,6 +121,7 @@ for i=1, alternatePassiveSkillDat.rowCount do
 		local key = alternatePassiveSkillDat.spec[j].name
 		datFileRow[key] = alternatePassiveSkillDat:ReadCell(i, j)
 	end
+	fixDatErrors(datFileRow)
 	---@type table<string, boolean|string|number|table>
 	local legionPassiveNode = {}
 	-- id

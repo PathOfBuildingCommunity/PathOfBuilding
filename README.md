@@ -28,9 +28,6 @@ This is a fork of Openarl's Path Of Building that includes many extra features n
 * Withered now shows on the configuration screen
 * Support for Ryslatha's Coil, Vaal Arc Lucky Buff, Perquil's Toe and more
 
-## Feature Requests
-[![Feature Requests](https://feathub.com/LocalIdentity/PathOfBuilding?format=svg)](https://feathub.com/LocalIdentity/PathOfBuilding)
-
 ## Download
 Head over to the [Releases](https://github.com/PathOfBuildingCommunity/PathOfBuilding/releases) page to download the install wizard or portable zip.
 

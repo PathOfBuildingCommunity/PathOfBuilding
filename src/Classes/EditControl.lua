@@ -6,6 +6,7 @@
 local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
+local protected_replace = "*"
 
 local function lastLine(str)
 	local lastLineIndex = 1
@@ -34,14 +35,14 @@ local function newlineCount(str)
 	end
 end
 
-local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom)
+local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
 	self.ControlHost()
 	self.Control(anchor, x, y, width, height)
 	self.UndoHandler()
 	self.TooltipHost()
 	self:SetText(init or "")
 	self.prompt = prompt
-	self.filter = filter or "^%w%p "
+	self.filter = filter or (main.unicode and "%c" or "^%w%p ")
 	self.filterPattern = "["..self.filter.."]"
 	self.limit = limit
 	self.changeFunc = changeFunc
@@ -55,19 +56,24 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 	self.selBGCol = "^xBBBBBB"
 	self.blinkStart = GetTime()
 	self.allowZoom = allowZoom
+	local function buttonSize()
+		local _, height = self:GetSize()
+		return height - 4
+	end
 	if self.filter == "%D" or self.filter == "^%-%d" then
 		-- Add +/- buttons for integer number edits
 		self.isNumeric = true
-		local function buttonSize()
-			local width, height = self:GetSize()
-			return height - 4
-		end
 		self.controls.buttonDown = new("ButtonControl", {"RIGHT",self,"RIGHT"}, -2, 0, buttonSize, buttonSize, "-", function()
 			self:OnKeyUp("DOWN")
 		end)
 		self.controls.buttonUp = new("ButtonControl", {"RIGHT",self.controls.buttonDown,"LEFT"}, -1, 0, buttonSize, buttonSize, "+", function()
 			self:OnKeyUp("UP")
 		end)
+	elseif clearable then
+		self.controls.buttonClear = new("ButtonControl", {"RIGHT",self,"RIGHT"}, -2, 0, buttonSize, buttonSize, "x", function()
+			self:SetText("", true)
+		end)
+		self.controls.buttonClear.shown = function() return #self.buf > 0 and self:IsMouseInBounds() end
 	end
 	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOMLEFT",self,"BOTTOMLEFT"}, 1, -1, 0, 14, 60, "HORIZONTAL", true)
 	self.controls.scrollBarH.width = function()
@@ -83,6 +89,7 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 		self.controls.scrollBarH.shown = false
 		self.controls.scrollBarV.shown = false
 	end
+	self.protected = false
 end)
 
 function EditClass:SetText(text, notify)
@@ -100,6 +107,13 @@ function EditClass:SetPlaceholder(text, notify)
 	if notify and self.changeFunc then
 		self.changeFunc(self.placeholder, true)
 	end
+end
+
+function EditClass:SetProtected(bool)
+	self.protected = bool or true
+	-- set the font to be fixed to prevent strange
+	-- spacing
+	self.font = "FIXED"
 end
 
 function EditClass:IsMouseOver()
@@ -232,6 +246,9 @@ function EditClass:Draw(viewPort, noTooltip)
 		SetDrawColor(0.33, 0.33, 0.33)
 	elseif mOver then
 		SetDrawColor(1, 1, 1)
+	elseif self.borderFunc then
+		local r, g, b = self.borderFunc()
+		SetDrawColor(r, g, b)
 	else
 		SetDrawColor(0.5, 0.5, 0.5)
 	end
@@ -278,7 +295,14 @@ function EditClass:Draw(viewPort, noTooltip)
 			DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.placeholder)
 		else
 			SetDrawColor(self.inactiveCol)
-			DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.buf)
+			if self.inactiveText then
+				local inactiveText = type(inactiveText) == "string" and self.inactiveText or self.inactiveText(self.buf)
+				DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, inactiveText)
+			elseif self.protected then
+				DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, string.rep(protected_replace, #self.buf))
+			else
+				DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.buf)
+			end
 		end
 		SetViewport()
 		self:DrawControls(viewPort, noTooltip and self)
@@ -351,13 +375,25 @@ function EditClass:Draw(viewPort, noTooltip)
 		local pre = self.textCol .. self.buf:sub(1, left - 1)
 		local sel = self.selCol .. StripEscapes(self.buf:sub(left, right - 1))
 		local post = self.textCol .. self.buf:sub(right)
-		DrawString(textX, textY, "LEFT", textHeight, self.font, pre)
+		if self.protected then
+			DrawString(textX, textY, "LEFT", textHeight, self.font, self.textCol .. string.rep(protected_replace, #pre-#self.textCol))
+		else
+			DrawString(textX, textY, "LEFT", textHeight, self.font, pre)
+		end
 		textX = textX + DrawStringWidth(textHeight, self.font, pre)
 		local selWidth = DrawStringWidth(textHeight, self.font, sel)
 		SetDrawColor(self.selBGCol)
 		DrawImage(nil, textX, textY, selWidth, textHeight)
-		DrawString(textX, textY, "LEFT", textHeight, self.font, sel)
-		DrawString(textX + selWidth, textY, "LEFT", textHeight, self.font, post)
+		if self.protected then
+			DrawString(textX, textY, "LEFT", textHeight, self.font, self.selCol .. string.rep(protected_replace, #sel-#self.selCol))
+		else
+			DrawString(textX, textY, "LEFT", textHeight, self.font, sel)
+		end
+		if self.protected and #post > 0 then
+			DrawString(textX + selWidth, textY, "LEFT", textHeight, self.font, self.textCol .. string.rep(protected_replace, #post-#self.textCol))
+		else
+			DrawString(textX + selWidth, textY, "LEFT", textHeight, self.font, post)
+		end
 		if (GetTime() - self.blinkStart) % 1000 < 500 then
 			local caretX = (self.caret > self.sel) and textX + selWidth or textX
 			SetDrawColor(self.textCol)
@@ -366,9 +402,17 @@ function EditClass:Draw(viewPort, noTooltip)
 	else
 		local pre = self.textCol .. self.buf:sub(1, self.caret - 1)
 		local post = self.buf:sub(self.caret)
-		DrawString(textX, textY, "LEFT", textHeight, self.font, pre)
+		if self.protected then
+			DrawString(textX, textY, "LEFT", textHeight, self.font, self.textCol .. string.rep(protected_replace, #pre-#self.textCol))
+		else
+			DrawString(textX, textY, "LEFT", textHeight, self.font, pre)
+		end
 		textX = textX + DrawStringWidth(textHeight, self.font, pre)
-		DrawString(textX, textY, "LEFT", textHeight, self.font, post)
+		if self.protected and #post > 0 then
+			DrawString(textX, textY, "LEFT", textHeight, self.font, string.rep(protected_replace, #post))
+		else
+			DrawString(textX, textY, "LEFT", textHeight, self.font, post)
+		end
 		if (GetTime() - self.blinkStart) % 1000 < 500 then
 			SetDrawColor(self.textCol)
 			DrawImage(nil, textX, textY, 1, textHeight)
@@ -434,6 +478,8 @@ function EditClass:OnKeyDown(key, doubleClick)
 			end
 			self.lastUndoState.caret = self.caret
 			self:ScrollCaretIntoView()
+		elseif ctrl and string.match(self.buf, '[a-z]*://[^ >,;]*') then
+			OpenURL(self.buf)
 		else
 			self.drag = true
 			local x, y = self:GetPos()
@@ -464,7 +510,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 		end
 	elseif key == "a" and ctrl then
 		self:SelectAll()
-	elseif (key == "c" or key == "x") and ctrl then
+	elseif (key == "c" or key == "x") and ctrl and not self.protected then
 		if self.sel and self.sel ~= self.caret then
 			local left = m_min(self.caret, self.sel)
 			local right = m_max(self.caret, self.sel)
@@ -665,7 +711,7 @@ function EditClass:OnKeyUp(key)
 				end
 			end
 		end
-	elseif key == "WHEELUP" then
+	elseif self.controls.scrollBarV:IsScrollUpKey(key) then
 		if ctrl and self.allowZoom then
 			self:ZoomText("+")
 		elseif self.controls.scrollBarV.enabled then
@@ -673,7 +719,7 @@ function EditClass:OnKeyUp(key)
 		else
 			self.controls.scrollBarH:Scroll(-1)
 		end
-	elseif key == "WHEELDOWN" then
+	elseif self.controls.scrollBarV:IsScrollDownKey(key) then
 		if ctrl and self.allowZoom then
 			self:ZoomText("-")
 		elseif self.controls.scrollBarV.enabled then

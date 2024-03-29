@@ -2,7 +2,7 @@
 local itemBases = ...
 
 #type Helmet
-#baseTags armour helmet
+#influenceBaseTag helmet
 #socketLimit 4
 
 #subType Armour

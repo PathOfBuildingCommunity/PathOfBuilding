@@ -106,6 +106,25 @@ return {
 				[1]={
 					limit={
 						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Activates once when Attached, then is Destroyed"
+				}
+			}
+		},
+		name="brand_removed_after_activating",
+		stats={
+			[1]="brand_removed_after_activating"
+		}
+	},
+	[7]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
 							[1]=1,
 							[2]=1
 						}
@@ -128,7 +147,7 @@ return {
 			[1]="brands_per_target_limit"
 		}
 	},
-	[7]={
+	[8]={
 		lang={
 			English={
 				[1]={
@@ -136,15 +155,49 @@ return {
 						[1]={
 							[1]=1,
 							[2]=1
+						},
+						[2]={
+							[1]=0,
+							[2]=0
 						}
 					},
-					text="Sends beam to the Branded Enemy"
+					text="Sends beams to {0:+d} Enemy"
 				},
 				[2]={
 					limit={
 						[1]={
 							[1]=2,
 							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="Sends beams to {0:+d} Enemies"
+				},
+				[3]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]="!",
+							[2]=0
+						}
+					},
+					text="Sends a beam to the Branded Enemy"
+				},
+				[4]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						},
+						[2]={
+							[1]="!",
+							[2]=0
 						}
 					},
 					text="Sends beams to {0} Enemies, including the Branded Enemy"
@@ -153,10 +206,11 @@ return {
 		},
 		name="storm_brand_beam_num",
 		stats={
-			[1]="conduit_sigil_number_of_beam_targets"
+			[1]="conduit_sigil_number_of_beam_targets",
+			[2]="quality_display_storm_brand_is_gem"
 		}
 	},
-	[8]={
+	[9]={
 		lang={
 			English={
 				[1]={
@@ -179,19 +233,36 @@ return {
 			[1]="secondary_skill_effect_duration"
 		}
 	},
-	[9]={
+	[10]={
 		lang={
 			English={
 				[1]={
 					limit={
 						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="Deals {0:+d}% more Damage with Hits against Branded Enemy"
+				},
+				[2]={
+					limit={
+						[1]={
 							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
 							[2]="#"
 						}
 					},
 					text="Deals {0}% more Damage with Hits against Branded Enemy"
 				},
-				[2]={
+				[3]={
 					[1]={
 						k="negate",
 						v=1
@@ -200,6 +271,10 @@ return {
 						[1]={
 							[1]="#",
 							[2]=-1
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
 						}
 					},
 					text="Deals {0}% less Damage with Hits against Branded Enemy"
@@ -208,10 +283,11 @@ return {
 		},
 		name="sigil_attached_target_damage_final",
 		stats={
-			[1]="sigil_attached_target_hit_damage_+%_final"
+			[1]="sigil_attached_target_hit_damage_+%_final",
+			[2]="quality_display_sigil_attached_target_damage_is_gem"
 		}
 	},
-	[10]={
+	[11]={
 		lang={
 			English={
 				[1]={
@@ -225,7 +301,7 @@ return {
 							[2]=1000
 						}
 					},
-					text="Activates every {0} second while Attached"
+					text="Activates every second while Attached"
 				},
 				[2]={
 					[1]={
@@ -247,7 +323,7 @@ return {
 			[1]="sigil_repeat_frequency_ms"
 		}
 	},
-	[11]={
+	[12]={
 		lang={
 			English={
 				[1]={
@@ -270,7 +346,7 @@ return {
 			[1]="skill_effect_duration"
 		}
 	},
-	[12]={
+	[13]={
 		lang={
 			English={
 				[1]={
@@ -298,13 +374,16 @@ return {
 	["base_secondary_skill_effect_duration"]=3,
 	["base_skill_effect_duration"]=4,
 	["base_tertiary_skill_effect_duration"]=5,
-	["brands_per_target_limit"]=6,
-	["conduit_sigil_number_of_beam_targets"]=7,
+	["brand_removed_after_activating"]=6,
+	["brands_per_target_limit"]=7,
+	["conduit_sigil_number_of_beam_targets"]=8,
 	parent="skill_stat_descriptions",
 	["quality_display_base_duration_is_quality"]=4,
-	["secondary_skill_effect_duration"]=8,
-	["sigil_attached_target_hit_damage_+%_final"]=9,
-	["sigil_repeat_frequency_ms"]=10,
-	["skill_effect_duration"]=11,
-	["tertiary_buff_effect_duration"]=12
+	["quality_display_sigil_attached_target_damage_is_gem"]=10,
+	["quality_display_storm_brand_is_gem"]=8,
+	["secondary_skill_effect_duration"]=9,
+	["sigil_attached_target_hit_damage_+%_final"]=10,
+	["sigil_repeat_frequency_ms"]=11,
+	["skill_effect_duration"]=12,
+	["tertiary_buff_effect_duration"]=13
 }

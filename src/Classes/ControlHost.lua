@@ -13,6 +13,9 @@ function ControlHostClass:SelectControl(newSelControl)
 		return
 	end
 	if self.selControl then
+		if self.selControl.selDragActive and self.selControl.dragTargetList then
+			return
+		end
 		self.selControl:SetFocus(false)
 	end
 	self.selControl = newSelControl

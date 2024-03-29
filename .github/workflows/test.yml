@@ -25,4 +25,4 @@ jobs:
       - name: Run tests
         run: busted --lua=/home/runner/work/PathOfBuilding/PathOfBuilding/.lua/bin/luajit
       - name: Report coverage
-        run: cd src; luacov-coveralls --repo-token=${{ secrets.github_token }}
+        run: cd src; luacov-coveralls --repo-token=${{ secrets.github_token }} -e TestData -e Data -e runtime

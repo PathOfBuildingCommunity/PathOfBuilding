@@ -3,11 +3,11 @@
 
 return {
 	["ENKINDLING"] = {
-		"(60-70)% increased effect/Gains no Charges during Flask Effect",
-		"(80-100)% increased Duration/Gains no Charges during Flask Effect",
-		"(60-80)% increased Charge Recovery/Gains no Charges during Flask Effect",
-		"(25-35)% reduced Charges per use/Gains no Charges during Flask Effect",
-		"+(40-60) to Maximum Charges/Gains no Charges during Flask Effect",
+		"(60-70)% increased effect/Gains no Charges during Effect",
+		"(80-100)% increased Duration/Gains no Charges during Effect",
+		"(60-80)% increased Charge Recovery/Gains no Charges during Effect",
+		"(25-35)% reduced Charges per use/Gains no Charges during Effect",
+		"+(40-60) to Maximum Charges/Gains no Charges during Effect",
 	},
 	["INSTILLING"] = {
 		"Used when an adjacent Flask is used",

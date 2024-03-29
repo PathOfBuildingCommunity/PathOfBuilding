@@ -61,6 +61,8 @@ end
 
 local tempTable1 = { }
 local tempTable2 = { }
+local remainingScripts = { }
+
 
 function main:Init()
 	self.inputEvents = { }
@@ -120,6 +122,7 @@ function main:Init()
 		out:close()
 	end
 	function dat(name)
+		name = name:lower()
 		if #self.datFileList == 0 then
 			error("No .dat files loaded; set GGPK path first")
 		end
@@ -129,6 +132,7 @@ function main:Init()
 		return self.datFileByName[name]
 	end
 	function getFile(name)
+		name = name:lower()
 		if not self.ggpk then
 			error("GGPK not loaded; set path first")
 		end
@@ -169,11 +173,33 @@ function main:Init()
 		end
 	end, nil)
 
+	if self.datSource and self.datSource.label then
+		self.controls.datSource:SelByValue(self.datSource.label, "label")
+	end
+
 	self.controls.scripts = new("ButtonControl", nil, 160, 30, 100, 18, "Scripts >>", function()
 		self:SetCurrentDat()
 	end)
+	
+	self.controls.scriptAll = new("ButtonControl", nil, 270, 10, 100, 18, "Run All", function()
+		do -- run stat desc first
+			local errMsg = PLoadModule("Scripts/".."statdesc"..".lua")
+			if errMsg then
+				print(errMsg)
+			end
+		end
+		for _, script in ipairs(self.scriptList) do
+			if script ~= "statdesc" then
+				t_insert(remainingScripts, script)
+			end
+		end
+	end) {
+		shown = function()
+			return not self.curDatFile
+		end
+	}
 
-	self.controls.scriptList = new("ScriptListControl", nil, 270, 10, 100, 300) {
+	self.controls.scriptList = new("ScriptListControl", nil, 270, 35, 100, 300) {
 		shown = function()
 			return not self.curDatFile
 		end
@@ -241,7 +267,7 @@ function main:Init()
 		self:SetCurrentCol()
 	end)
 	
-	self.controls.filter = new("EditControl", nil, 270, 0, 300, 18, nil, "^8Filter") {
+	self.controls.filter = new("EditControl", nil, 270, 0, 800, 18, nil, "^8Filter") {
 		y = function()
 			return self.editSpec and 240 or 30
 		end,
@@ -329,6 +355,17 @@ function main:OnFrame()
 	end
 
 	wipeTable(self.inputEvents)
+	
+	if #remainingScripts > 0 then
+		local startTime = GetTime()
+		repeat
+			local script = t_remove(remainingScripts)
+			local errMsg = PLoadModule("Scripts/"..script..".lua")
+			if errMsg then
+				print(errMsg)
+			end
+		until ((#remainingScripts == 0) or (GetTime() - startTime > 100))
+	end
 end
 
 function main:OnKeyDown(key, doubleClick)
@@ -353,8 +390,8 @@ function main:InitGGPK()
 		return
 	else
 		local now = GetTime()
-		local ggpkPath = self.datSource.ggpkPath or self.datSource.path
-		if ggpkPath and (ggpkPath:match("%.ggpk") or ggpkPath:match("steamapps[/\\].+[/\\]Path of Exile")) then
+		local ggpkPath = self.datSource.ggpkPath or self.datSource.datFilePath
+		if ggpkPath then
 			self.ggpk = new("GGPKData", ggpkPath)
 			ConPrintf("GGPK: %d ms", GetTime() - now)
 		elseif self.datSource.datFilePath then
@@ -640,8 +677,8 @@ function main:CopyFolder(srcName, dstName)
 	end
 end
 
-function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl)
-	local popup = new("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl)
+function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl, scrollBarFunc)
+	local popup = new("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl, scrollBarFunc)
 	t_insert(self.popups, 1, popup)
 	return popup
 end

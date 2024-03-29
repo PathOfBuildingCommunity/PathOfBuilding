@@ -11,19 +11,19 @@ return {
 					[1] = { line = "You cannot be Stunned if you've been Stunned or Blocked a Stunning Hit in the past 2 seconds", value = { 1 }, },
 				},
 			},
-			[2] = { name = "Captain Clayborne, The Accursed",
+			[2] = { name = "Blood Progenitor",
 				mods = {
 					-- base_stun_recovery_+%
 					[1] = { line = "30% increased Stun and Block Recovery", value = { 30 }, },
 				},
 			},
-			[3] = { name = "Ara, Sister of Light",
+			[3] = { name = "Merveil, the Returned",
 				mods = {
 					-- base_avoid_freeze_%
-					[1] = { line = "Cannot be Frozen", value = { 100 }, },
+					[1] = { line = "100% chance to Avoid being Frozen", value = { 100 }, },
 				},
 			},
-			[4] = { name = "Merveil, the Returned",
+			[4] = { name = "Nassar, Lion of the Seas",
 				mods = {
 					-- chill_effectiveness_on_self_+%
 					[1] = { line = "50% reduced Effect of Chill on you", value = { -50 }, },
@@ -40,19 +40,19 @@ return {
 					[1] = { line = "10% reduced Damage taken from Damage Over Time", value = { -10 }, },
 				},
 			},
-			[2] = { name = "The Primal One",
+			[2] = { name = "Maligaro the Mutilator",
 				mods = {
 					-- life_and_energy_shield_recovery_rate_+%_if_stopped_taking_damage_over_time_recently
 					[1] = { line = "20% increased Recovery rate of Life and Energy Shield if you've stopped taking Damage Over Time Recently", value = { 20 }, },
 				},
 			},
-			[3] = { name = "Queen of the Great Tangle",
+			[3] = { name = "Spinner of False Hope",
 				mods = {
 					-- debuff_time_passed_+%
 					[1] = { line = "Debuffs on you expire 20% faster", value = { 20 }, },
 				},
 			},
-			[4] = { name = "Void Anomaly",
+			[4] = { name = "Queen of the Great Tangle",
 				mods = {
 					-- additional_chaos_resistance_against_damage_over_time_%
 					[1] = { line = "+40% Chaos Resistance against Damage Over Time", value = { 40 }, },
@@ -71,19 +71,19 @@ return {
 					[2] = { line = "20% chance to take 50% less Area Damage from Hits", value = { 20 }, },
 				},
 			},
-			[2] = { name = "Megaera",
+			[2] = { name = "Lord of the Ashen Arrow",
 				mods = {
 					-- elemental_damage_taken_+%_if_not_hit_recently
 					[1] = { line = "8% reduced Elemental Damage taken if you haven't been Hit Recently", value = { -8 }, },
 				},
 			},
-			[3] = { name = "Fire and Fury",
+			[3] = { name = "Megaera",
 				mods = {
 					-- self_take_no_extra_damage_from_critical_strikes_if_have_been_crit_recently
 					[1] = { line = "Take no Extra Damage from Critical Strikes if you have taken a Critical Strike Recently", value = { 1 }, },
 				},
 			},
-			[4] = { name = "Kitava, The Destroyer",
+			[4] = { name = "Jorus, Sky's Edge",
 				mods = {
 					-- avoid_ailments_%_from_crit
 					[1] = { line = "50% chance to avoid Ailments from Critical Strikes", value = { 50 }, },
@@ -108,28 +108,18 @@ return {
 					[1] = { line = "10% chance to avoid Projectiles", value = { 10 }, },
 				},
 			},
-			[3] = { name = "Burtok, Conjurer of Bones",
+			[3] = { name = "Captain Clayborne, The Accursed",
 				mods = {
 					-- elemental_damage_taken_+%_if_been_hit_recently
 					[1] = { line = "6% reduced Elemental Damage taken if you have been Hit Recently", value = { -6 }, },
 				},
 			},
-			[4] = { name = "Titan of the Grove",
+			[4] = { name = "It That Fell",
 				mods = {
 					-- avoid_chained_projectile_%_chance
 					[1] = { line = "Avoid Projectiles that have Chained", value = { 100 }, },
 				},
 			},
-		},
-	},
-	["Minor God 1"] = {
-		isMajorGod = false,
-		souls = {
-		},
-	},
-	["Minor God 2"] = {
-		isMajorGod = false,
-		souls = {
 		},
 	},
 	["Abberath"] = {
@@ -149,11 +139,6 @@ return {
 					[2] = { line = "10% increased Movement Speed while on Burning Ground", value = { 10 }, },
 				},
 			},
-		},
-	},
-	["Minor God 4"] = {
-		isMajorGod = false,
-		souls = {
 		},
 	},
 	["Gruthkul"] = {
@@ -184,7 +169,7 @@ return {
 					[2] = { line = "50% chance to Reflect Hexes", value = { 50 }, },
 				},
 			},
-			[2] = { name = "Pagan Bishop of Agony",
+			[2] = { name = "Tunneltrap",
 				mods = {
 					-- curse_effect_on_self_+%
 					[1] = { line = "30% reduced Effect of Curses on you", value = { -30 }, },
@@ -203,7 +188,7 @@ return {
 					[2] = { line = "You cannot be Poisoned while there are at least 3 Poisons on you", value = { 3 }, },
 				},
 			},
-			[2] = { name = "The Restless Shade",
+			[2] = { name = "Preethi, Eye-Pecker",
 				mods = {
 					-- chaos_damage_taken_+%
 					[1] = { line = "5% reduced Chaos Damage taken", value = { -5 }, },
@@ -219,20 +204,15 @@ return {
 			[1] = { name = "Soul of Tukohama",
 				mods = {
 					-- while_stationary_gain_additional_physical_damage_reduction_%
-					[1] = { line = "While stationary, gain 3% additional Physical Damage Reduction every second, up to a maximum of 9%", value = { 3 }, },
+					[1] = { line = "3% additional Physical Damage Reduction per second you've been stationary, up to a maximum of 9%", value = { 3 }, },
 				},
 			},
-			[2] = { name = "The Cursed King",
+			[2] = { name = "Tahsin, Warmaker",
 				mods = {
 					-- life_regeneration_rate_per_minute_%_while_stationary
 					[1] = { line = "Regenerate 2% of Life per second while stationary", value = { 120 }, },
 				},
 			},
-		},
-	},
-	["Minor God 9"] = {
-		isMajorGod = false,
-		souls = {
 		},
 	},
 	["Ralakesh"] = {
@@ -246,7 +226,7 @@ return {
 					[2] = { line = "Moving while Bleeding doesn't cause you to take extra Damage", value = { 1 }, },
 				},
 			},
-			[2] = { name = "The Sanguine Siren",
+			[2] = { name = "Drek, Apex Hunter",
 				mods = {
 					-- cannot_gain_corrupted_blood_while_you_have_at_least_5_stacks
 					[1] = { line = "Corrupted Blood cannot be inflicted on you if you have at least 5 Corrupted Blood Debuffs on you", value = { 1 }, },
@@ -263,7 +243,7 @@ return {
 					[1] = { line = "60% reduced Effect of Shock on you", value = { -60 }, },
 				},
 			},
-			[2] = { name = "Visceris",
+			[2] = { name = "Stalker of the Endless Dunes",
 				mods = {
 					-- cannot_be_blinded
 					[1] = { line = "Cannot be Blinded", value = { 1 }, },
@@ -280,12 +260,14 @@ return {
 				mods = {
 					-- life_flasks_gain_X_charges_every_3_seconds_if_you_have_not_used_a_life_flask_recently
 					[1] = { line = "Life Flasks gain 3 Charges every 3 seconds if you haven't used a Life Flask Recently", value = { 3 }, },
+					-- life_recovery_+%_from_flasks_while_on_low_life
+					[2] = { line = "60% increased Life Recovery from Flasks used when on Low Life", value = { 60 }, },
 				},
 			},
-			[2] = { name = "Lycius, Midnight's Howl",
+			[2] = { name = "Gorulis, Will-Thief",
 				mods = {
-					-- life_recovery_+%_from_flasks_while_on_low_life
-					[1] = { line = "60% increased Life Recovery from Flasks used when on Low Life", value = { 60 }, },
+					-- enemy_life_regeneration_rate_+%_for_4_seconds_on_hit
+					[1] = { line = "Enemies you've Hit Recently have 50% reduced Life Regeneration rate", value = { -50 }, },
 				},
 			},
 		},

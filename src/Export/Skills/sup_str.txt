@@ -110,6 +110,9 @@ local skills, mod, flag, skill = ...
 		["cast_on_damage_taken_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["cast_when_damage_taken_trigger_threshold_+%"] = {
+			mod("CWDTThreshold", "MORE", nil)
+		}
 	},
 #mods
 
@@ -122,6 +125,49 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportColdToFire
+#mods
+
+#skill SupportControlledBlaze
+	statMap = {
+		["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "Multiplier", var = "IgniteAppliedRecently", limitVar = "ControlledBlazeRecentIgniteLimitMax", limitTotal = true }),
+		},
+		["support_recent_ignites_damage_per_recent_ignite_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "IgniteAppliedRecently", limitVar = "ControlledBlazeRecentIgniteLimitMin", limitNegTotal = true }),
+		},
+		["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final_maximum"] = {
+			mod("Multiplier:ControlledBlazeRecentIgniteLimitMax", "BASE", nil),
+		},
+		["support_recent_ignites_damage_per_recent_ignite_+%_final_minimum"] = {
+			mod("Multiplier:ControlledBlazeRecentIgniteLimitMin", "BASE", nil),
+		},
+	},
+#mods
+
+#skill SupportCorruptingCry
+	statMap = {
+		["support_corrupting_cry_corrupted_blood_base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil),
+			div = 60,
+		},
+		["support_corrupting_cry_warcry_applies_X_stacks_of_corrupted_blood"] = {
+			mod("CorruptingCryStagesFromWarcry", nil, 0, KeywordFlag.Warcry)
+		},
+		["support_corrupting_cry_exerted_attack_applies_X_stacks_of_corrupted_blood_on_first_hit"] = {
+			mod("CorruptingCryStagesFromExerted", nil, 0, KeywordFlag.Attack)
+		},
+		["support_corrupting_cry_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "INC", nil, 0, KeywordFlag.Warcry)
+		},
+		["support_corrupting_cry_warcry_and_first_exerted_attack_applies_corrupted_blood_for_X_ms"] = {
+			skill("durationSecondary", nil),
+			div = 1000,
+		}
+	},
+#baseMod skill("debuff", true)
+#baseMod flag("dotIsCorruptingBlood")
+#baseMod mod("Multiplier:CorruptingCryMaxStages", "BASE", 10)
+#baseMod mod("Damage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "CorruptingCryStageAfterFirst"})
 #mods
 
 #skill SupportCruelty
@@ -197,9 +243,6 @@ local skills, mod, flag, skill = ...
 		["endurance_charge_on_melee_stun_damage_+%_final_per_endurance_charge"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 		},
-		["damage_+%_if_lost_endurance_charge_in_past_8_seconds"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LostEnduranceChargeInPast8Sec" }),
-		}
 	},
 #mods
 
@@ -223,19 +266,49 @@ local skills, mod, flag, skill = ...
 #skill AncestralSlamSupport
 	statMap = {
 		["support_ancestral_slam_big_hit_hit_damage_+%_final"] = {
-			mod("FistOfWarHitMultiplier", "BASE", nil, ModFlag.Melee),
+			mod("FistOfWarHitMultiplier", "BASE", nil),
 		},
 		["support_ancestral_slam_big_hit_ailment_damage_+%_final"] = {
-			mod("FistOfWarAilmentMultiplier", "BASE", nil, bit.band(ModFlag.Melee, ModFlag.Ailment)),
+			mod("FistOfWarAilmentMultiplier", "BASE", nil),
 		},
 		["ancestral_slam_interval_duration"] = {
 			mod("FistOfWarCooldown", "BASE", nil),
 			div = 1000,
 		},
-		["ancestral_slam_stun_threshold_reduction_+%"] = {
-			mod("EnemyStunThreshold", "INC", nil, ModFlag.Attack)
-		},
 	},
+#mods
+
+#skill SupportFlamewood
+	statMap = {
+		["support_flamewood_totems_trigger_infernal_bolt_when_hit"] = {
+			-- Display only
+		}
+	},
+#mods
+
+#addSkillTypes SummonsTotem Projectile
+#skill AvengingFlame
+	preDamageFunc = function(activeSkill, output)
+		local uuid = activeSkill.skillData.triggerSourceUUID
+		local cache = uuid and GlobalCache.cachedData["CACHE"][uuid]
+		local totemLife = cache and cache.Env.player.output.TotemLife or 0
+
+		local add = totemLife * activeSkill.skillData.lifeDealtAsFire / 100
+		activeSkill.skillData.FireMax = (activeSkill.skillData.FireMax or 0) + add
+		activeSkill.skillData.FireMin = (activeSkill.skillData.FireMin or 0) + add
+	end,
+	statMap = {
+		["active_skill_base_area_of_effect_radius"] = {
+			skill("radius", nil),
+		},
+		["infernal_bolt_base_fire_damage_%_maximum_life"] = {
+			skill("lifeDealtAsFire", nil),
+		},
+		["infernal_bolt_triggered_when_totem_with_this_skill_hit_by_enemy"] = {
+			-- Display only
+		}
+	},
+#flags area totem spell projectile
 #mods
 
 #skill SupportFortify
@@ -248,10 +321,6 @@ local skills, mod, flag, skill = ...
 		},
 		["fortify_effect_+%"] = {
 			mod("FortifyEffectOnSelf", "INC", nil)
-		},
-		["overwhelm_%_physical_damage_reduction_while_max_fortification"] = {
-			mod("EnemyPhysicalDamageReduction", "BASE", nil, ModFlag.Hit, 0, { type = "Condition", var = "HaveMaximumFortification"}),
-			mult = -1,
 		},
 	},
 #mods
@@ -268,6 +337,29 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["aura_cannot_affect_self"] = {
 			skill("auraCannotAffectSelf", true),
+		},
+	},
+#mods
+
+#skill SupportGuardiansBlessing
+	statMap = {
+		["aura_skill_no_reservation"] = {
+		},
+		["support_guardians_blessing_minion_physical_damage_%_of_maximum_life_and_ES_taken_per_minute"] = {
+		},
+	},
+#baseMod skill("manaReservationFlat", 0, { type = "SkillType", skillType = SkillType.Aura })
+#baseMod skill("lifeReservationFlat", 0, { type = "SkillType", skillType = SkillType.Aura })
+#baseMod skill("manaReservationPercent", 0, { type = "SkillType", skillType = SkillType.Aura })
+#baseMod skill("lifeReservationPercent", 0, { type = "SkillType", skillType = SkillType.Aura })
+#mods
+
+#skill SupportGuardiansBlessingMinion
+	statMap = {
+		["support_guardians_blessing_minion_physical_damage_%_of_maximum_life_and_ES_taken_per_minute"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PercentStat", stat = "Life", percent = 1 }) }),
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PercentStat", stat = "EnergyShield", percent = 1 }) }),
+			div = 60,
 		},
 	},
 #mods
@@ -302,11 +394,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportLifeLeech
-	statMap = {
-		["maximum_life_leech_amount_per_leech_+%"] = {
-			mod("MaxLifeLeechRate", "INC", nil)
-		}
-	},
 #mods
 
 #skill SupportLifetap
@@ -325,9 +412,6 @@ local skills, mod, flag, skill = ...
 		["support_maimed_enemies_physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Maim" }, { type = "Condition", var = "Maimed" }),
 		},
-		["chance_to_bleed_on_hit_%_vs_maimed"] = {
-			mod("BleedChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Maimed" })
-		}
 	},
 #mods
 
@@ -368,21 +452,20 @@ local skills, mod, flag, skill = ...
 #skill SupportMultistrike
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
-			mod("Damage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
-			mod("Damage", "MORE", nil, nil, nil, { type = "SkillName", skillName = "Shield Crush" }),
+			mod("RepeatOneDamage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
+			mod("RepeatOneDamage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
 		},
 		["multistrike_damage_+%_final_on_second_repeat"] = {
+			mod("RepeatTwoDamage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+			mod("RepeatTwoDamage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 		["support_multiple_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),
 		},
 		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
-			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillName", skillName = "Shield Crush" }),
+			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
-		["multistrike_area_of_effect_+%_per_repeat"] = {
-			mod("AreaOfEffect", "INC", nil)
-		}
 	},
 #baseMod flag("SupportedByMultistrike")
 #mods
@@ -390,20 +473,23 @@ local skills, mod, flag, skill = ...
 #skill SupportMultistrikePlus
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
+			mod("RepeatOneDamage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
+			mod("RepeatOneDamage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
 		},
 		["multistrike_damage_+%_final_on_second_repeat"] = {
+			mod("RepeatTwoDamage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+			mod("RepeatTwoDamage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 		["multistrike_damage_+%_final_on_third_repeat"] = {
-			mod("Damage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
-			mod("Damage", "MORE", nil, nil, nil, { type = "SkillName", skillName = "Shield Crush" }),
-			div = 2,
+			mod("RepeatThreeDamage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+			mod("RepeatThreeDamage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 		["support_multiple_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),
 		},
 		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
-			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillName", skillName = "Shield Crush" }),
+			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 	},
 #mods
@@ -444,9 +530,6 @@ local skills, mod, flag, skill = ...
 		["attack_maximum_added_physical_damage_per_10_rage"] = {
 			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10 })
 		},
-		["attack_speed_+%_with_atleast_20_rage"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "MultiplierThreshold", var = "Rage", threshold = 20 })
-		}
 	},
 #mods
 
@@ -488,8 +571,8 @@ local skills, mod, flag, skill = ...
 		["support_ruthless_big_hit_damage_+%_final"] = {
 			mod("RuthlessBlowHitMultiplier", "BASE", nil, ModFlag.Melee),
 		},
-		["support_ruthless_blow_bleeding_damage_from_melee_hits_+%_final"] = {
-			mod("RuthlessBlowBleedMultiplier", "BASE", nil, ModFlag.Melee),
+		["support_ruthless_blow_ailment_damage_from_melee_hits_+%_final"] = {
+			mod("RuthlessBlowAilmentMultiplier", "BASE", nil, ModFlag.Melee),
 		},
 	},
 #mods
@@ -505,9 +588,6 @@ local skills, mod, flag, skill = ...
 
 #skill SupportBluntWeaponShockwave
 #flags attack melee area
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = output.Cooldown
-	end,
 #mods
 
 #skill SupportSpellTotem
@@ -527,11 +607,37 @@ local skills, mod, flag, skill = ...
 #skill SupportStun
 #mods
 
-#skill SupportUrgentOrders
+#skill SupportTrauma
 	statMap = {
-		["base_cooldown_modifier_ms"] = {
-			mod("CooldownRecovery", "BASE", nil),
+		["attack_minimum_added_physical_damage_with_weapons_per_trauma"] = {
+			mod("PhysicalMin", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "TraumaStacks" })
+		},
+		["attack_maximum_added_physical_damage_with_weapons_per_trauma"] = {
+			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "TraumaStacks" })
+		},
+		["support_trauma_stun_duration_+%_per_trauma"] = {
+			mod("EnemyStunDuration", "INC", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),
+		},
+		["support_trauma_base_duration_ms"] = {
+			mod("TraumaDuration", "BASE", nil),
 			div = 1000,
+		},
+		["supported_skill_can_only_use_axe_mace_and_staff"] = {
+		},
+	},
+#baseMod flag("HasTrauma")
+#mods
+
+#skill SupportUrgentOrders
+#mods
+
+#skill SupportVolatility
+	statMap = {
+		["minimum_attack_damage_+%_final_from_volatility_support"] = {
+			mod("MinDamage", "MORE", nil),
+		},
+		["maximum_attack_damage_+%_final_from_volatility_support"] = {
+			mod("MaxDamage", "MORE", nil),
 		},
 	},
 #mods

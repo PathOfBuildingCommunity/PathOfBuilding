@@ -96,7 +96,7 @@ function ModDBClass:SumInternal(context, modType, cfg, flags, keywordFlags, sour
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or ( mod.source and mod.source:match("[^:]+") == source )) then
 					if mod[1] then
 						local value = context:EvalMod(mod, cfg) or 0
 						if mod[1].globalLimit and mod[1].globalLimitKey then
@@ -122,6 +122,7 @@ end
 
 function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 	local result = 1
+	local modPrecision = nil
 	for i = 1, select('#', ...) do
 		local modList = self.mods[select(i, ...)]
 		local modResult = 1 --The more multipliers for each mod are computed to the nearest percent then applied.
@@ -134,10 +135,20 @@ function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 					else
 						modResult = modResult * (1 + mod.value / 100)
 					end
+					if modPrecision then
+						modPrecision = m_max(modPrecision, (data.highPrecisionMods[mod.name] and data.highPrecisionMods[mod.name][mod.type]) or modPrecision)
+					else
+						modPrecision = (data.highPrecisionMods[mod.name] and data.highPrecisionMods[mod.name][mod.type]) or nil
+					end
 				end
 			end
 		end
-		result = result * round(modResult,2)
+		if modPrecision then
+			local power = 10 ^ modPrecision
+			result = math.floor(result * modResult * power) / power
+		else
+			result = result * round(modResult, 2)
+		end
 	end
 	if self.parent then
 		result = result * self.parent:MoreInternal(context, cfg, flags, keywordFlags, source, ...)

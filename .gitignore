@@ -23,10 +23,16 @@ src/luacov.stats.out
 manifest-updated.xml
 
 # GGPK Export
-src/Export/ggpk/Metadata/
-src/Export/ggpk/Data/
+src/Export/ggpk/metadata/
+src/Export/ggpk/data/
 src/Export/ggpk/*.exe
 src/Export/ggpk/*.dll
 
+# PoB Trader
+*_currency_values.json
+
 # Timeless Jewels
 src/Data/TimelessJewelData/*.bin
+
+# Simplegraphic Debugging
+runtime/imgui.ini

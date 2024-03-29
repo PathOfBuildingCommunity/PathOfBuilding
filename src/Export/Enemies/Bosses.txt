@@ -1,0 +1,34 @@
+-- Path of Building
+--
+-- Boss Data
+-- Boss data (c) Grinding Gear Games
+--
+local bosses = ...
+
+#boss Venarius SynthesisVenarius {Uber}
+#boss EaterOfWorlds AtlasInvadersConsumeBoss {Uber}
+#boss SearingExarch AtlasInvadersCleansingBoss {Uber}
+#boss Maven TheMaven {Uber}
+#boss Sirus AtlasExiles5 {Uber}
+#boss Shaper TheShaperBoss {Uber}
+#boss Elder TheElder {Uber}
+
+#boss BlackStar AtlasInvadersBlackStarBoss
+#boss InfiniteHunger AtlasInvadersDoomBoss
+
+#boss Atziri Atziri
+
+#boss Phoenix AtlasBossPhoenix
+#boss Hydra AtlasBossHydra
+#boss Minotaur AtlasBossMinotaur
+#boss Chimera AtlasBossChimera
+
+#boss Enslaver ElderGuardian1
+#boss Eradicator ElderGuardian2
+#boss Constrictor ElderGuardian3
+#boss Purifier ElderGuardian4
+
+#boss Baran AtlasExiles1
+#boss Veritania AtlasExiles2
+#boss AlHezmin AtlasExiles3
+#boss Drox AtlasExiles4

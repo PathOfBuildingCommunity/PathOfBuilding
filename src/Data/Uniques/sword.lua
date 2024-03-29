@@ -50,6 +50,7 @@ Implicits: 2
 Replica Dreamfeather
 Eternal Sword
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 +475 to Accuracy Rating
 Adds (40-65) to (70-100) Physical Damage
@@ -64,20 +65,22 @@ Dusk Blade
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
+Variant: Pre 3.23.0
 Variant: Current
 Implicits: 2
 {variant:1,2}18% increased Global Accuracy Rating
-{variant:3,4}40% increased Global Accuracy Rating
+{variant:3,4,5}40% increased Global Accuracy Rating
 +10 to Intelligence
 {variant:1}100% increased Physical Damage
 {variant:2,3}150% increased Physical Damage
-{variant:4}Adds 1 to 75 Lightning Damage
+{variant:4,5}Adds 1 to 75 Lightning Damage
 50% increased Global Critical Strike Chance
 (40-50)% increased maximum Energy Shield
 {variant:1,2,3}10% reduced maximum Life
-{variant:4}25% reduced maximum Life
+{variant:4,5}25% reduced maximum Life
 {variant:1,2,3}(0.6-1)% of Physical Attack Damage Leeched as Mana
-{variant:4}Attacks with this Weapon have Added maximum Lightning Damage equal to 20% of your Energy Shield
+{variant:4}Attacks with this Weapon have Added Maximum Lightning Damage equal to 20% of your Maximum Energy Shield
+{variant:5}Attacks with this Weapon have Added Maximum Lightning Damage equal to 20% of player Maximum Energy Shield
 ]],[[
 The Goddess Scorned
 Elegant Sword
@@ -115,7 +118,7 @@ Adds (3-6) to (33-66) Physical Damage
 Gain (66-99)% of Sword Physical Damage as Extra Fire Damage
 Gain Her Blessing for 3 seconds when you Ignite an Enemy
 33% chance to Blind nearby Enemies when gaining Her Blessing
-Cannot be Frozen, Chilled or Ignited with Her Blessing
+100% chance to Avoid being Ignited, Chilled or Frozen with Her Blessing
 20% increased Attack and Movement Speed with Her Blessing
 ]],[[
 Grelwood Shank
@@ -151,7 +154,7 @@ Implicits: 2
 {variant:5,6}1% increased Damage taken per Frenzy Charge
 {variant:1,2,3,4,5}12% increased Lightning Damage per Frenzy Charge
 {variant:6}(15-20)% increased Lightning Damage per Frenzy Charge
-+20 Life gained on Kill per Frenzy Charge
+20 Life gained on Kill per Frenzy Charge
 ]],[[
 Ichimonji
 Corsair Sword
@@ -186,6 +189,7 @@ Attacks with this Weapon Maim on hit
 Replica Innsbury Edge
 Elder Sword
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 +330 to Accuracy Rating
 (100-140)% increased Physical Damage
@@ -196,15 +200,18 @@ Inflict Withered for 2 seconds on Hit with this Weapon
 ]],[[
 The Iron Mass
 Gladius
+Variant: Pre 3.24.0
+Variant: Current
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 40% increased Global Accuracy Rating
-(140-175)% increased Physical Damage
+{variant:1}(140-175)% increased Physical Damage
+{variant:2}(175-200)% increased Physical Damage
 (14-18)% increased Attack Speed
 Unholy Might
-(20-25)% chance to inflict Withered for 2 seconds on Hit with this Weapon
-Summoned Skeleton Warriors wield a copy of this Weapon while in your Main Hand
-Summoned Skeleton Warriors deal Triple Damage with this
+Summoned Skeleton Warriors and Soldiers wield this Weapon while in your Main Hand
+Summoned Skeleton Warriors and Soldiers deal Triple Damage with this
 Weapon if you've Hit with this Weapon Recently
 ]],[[
 Lakishu's Blade
@@ -264,7 +271,7 @@ Implicits: 2
 25% increased Global Physical Damage with Weapons per Red Socket
 12% increased Global Attack Speed per Green Socket
 0.4% of Physical Attack Damage Leeched as Mana per Blue Socket
-+2 to Melee Strike Range per White Socket
++0.2 metres to Melee Strike Range per White Socket
 ]],[[
 Razor of the Seventh Sun
 Midnight Blade
@@ -323,7 +330,7 @@ Implicits: 2
 Adds 2 to 6 Physical Damage
 10% increased Attack Speed
 +(20-30) to maximum Life
-+2 Life Gained for each Enemy hit by Attacks
+Grants 2 Life per Enemy Hit
 ]],[[
 Dreadbeak
 Rusted Sword
@@ -341,7 +348,7 @@ Implicits: 2
 {variant:3}Adds (83-91) to (123-130) Physical Damage
 10% increased Attack Speed
 +(20-30) to maximum Life
-+2 Life gained for each Enemy hit by Attacks
+Grants 2 Life per Enemy Hit
 You have Onslaught while on Low Life
 ]],[[
 Rigwald's Command
@@ -364,6 +371,7 @@ Adds (60-80) to (150-180) Physical Damage
 The Rippling Thoughts
 Legion Sword
 League: Harbinger
+Source: Created from item parts obtained from Boss in The Beachhead
 Upgrade: Upgrades to unique{The Surging Thoughts} via currency{Electroshock Scroll}
 Implicits: 1
 40% increased Global Accuracy Rating
@@ -391,11 +399,14 @@ Adds 1 to (60-70) Lightning Damage to Spells
 ]],[[
 The Saviour
 Legion Sword
+Variant: Pre 3.20.0
+Variant: Current
 Source: Drops from unique{Sirus, Awakener of Worlds}
 Implicits: 1
 40% increased Global Accuracy Rating
 Triggers Level 20 Reflection when Equipped
-(40-50)% increased Physical Damage
+{variant:1}(40-50)% increased Physical Damage
+{variant:2}(130-150)% increased Physical Damage
 Adds (16-22) to (40-45) Physical Damage
 (8-12)% increased Attack Speed
 (8-12)% increased Critical Strike Chance
@@ -416,23 +427,40 @@ Adds (75-92) to (125-154) Physical Damage
 (60-80)% increased Global Critical Strike Chance when in Main Hand
 +8% Chance to Block Attack Damage when in Off Hand
 ]],[[
+The Redblade
+Gladius
+League: Crucible
+Implicits: 1
+40% increased Global Accuracy Rating
+(150-180)% increased Physical Damage
+Adds (20-25) to (40-50) Physical Damage
+Gain 100 Life per Enemy Killed
++(400-500) to Accuracy Rating
+Has a Two Handed Sword Crucible Passive Skill Tree
+Crucible Passive Skill Tree is removed if this Modifier is removed
+]],[[
 Severed in Sleep
 Cutlass
 Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{United in Dream} using currency{Blessing of Chayula}
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.21.0
 Variant: Current
 League: Breach
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
-{variant:2,3}40% increased Global Accuracy Rating
-+(10-20) to all Attributes
-Minions deal (20-30)% increased Damage
-Minions have +17% to Chaos Resistance
+{variant:2,3,4}40% increased Global Accuracy Rating
+{variant:4}Grants Level 25 Envy Skill
+{variant:1,2,3}+(10-20) to all Attributes
+{variant:1,2,3}Minions deal (20-30)% increased Damage
+{variant:1,2,3}Minions have +17% to Chaos Resistance
+{variant:4}Minions have +29% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit
 {variant:3}Minions have 60% chance to Poison Enemies on Hit
-Minions Recover 20% of Life on Killing a Poisoned Enemy
+{variant:4}Minions have 60% chance to inflict Withered on Hit
+{variant:1,2,3}Minions Recover 20% of Life on Killing a Poisoned Enemy
+{variant:4}Minions have +5% to Critical Strike Multiplier per Withered Debuff on Enemy
 ]],[[
 United in Dream
 Cutlass
@@ -440,26 +468,30 @@ Source: Upgraded from unique{Severed in Sleep} using currency{Blessing of Chayul
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.16.0
+Variant: Pre 3.21.0
 Variant: Current
 League: Breach
+LevelReq: 69
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
-{variant:2,3,4}40% increased Global Accuracy Rating
-{variant:1,2,3}Grants level 15 Envy Skill
-{variant:4}Grants Level 25 Envy Skill
+{variant:2,3,4,5}40% increased Global Accuracy Rating
+{variant:1,2,3}Grants Level 15 Envy Skill
+{variant:4,5}Grants Level 25 Envy Skill
 {variant:1,2,3}Minions deal (30-40)% increased Damage
 {variant:4}Minions deal (60-80)% increased Damage
 Minions have +29% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit
-{variant:3,4}Minions have 60% chance to Poison Enemies on Hit
-Minions Leech 5% of Damage as Life against Poisoned Enemies
+{variant:3,4,5}Minions have 60% chance to Poison Enemies on Hit
+{variant:1,2,3,4}Minions Leech 5% of Damage as Life against Poisoned Enemies
+{variant:5}Minions Recover 10% of Life on Killing a Poisoned Enemy
 ]],[[
 Story of the Vaal
-Variant: Pre 3.14.0
-Variant: Current
 {variant:1}Variscite Blade
 {variant:2}Gemstone Sword
+Variant: Pre 3.14.0
+Variant: Current
 League: Incursion
+Source: Opening normal{Fireproof Chest} in normal{Crucible of Flame}
 Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
 Implicits: 2
 {variant:1}+240 to Accuracy Rating
@@ -467,7 +499,7 @@ Implicits: 2
 {variant:1}(110-120)% increased Physical Damage
 {variant:2}(180-210)% increased Physical Damage
 (10-15)% increased Attack Speed
-{variant:1}+(20-30) Life gained on Kill
+{variant:1}Gain (20-30) Life per Enemy Killed
 50% of Physical Damage from Hits with this Weapon is Converted to a random Element
 Hits with this Weapon always Ignite, Freeze, and Shock
 {variant:2}Hits with this Weapon Freeze Enemies as though dealing (150-200)% more Damage
@@ -508,6 +540,7 @@ Gain 15% of Physical Attack Damage as Extra Lightning Damage
 Replica Tempestuous Steel
 War Sword
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 40% increased Global Accuracy Rating
 Adds (5-8) to (15-20) Physical Damage
@@ -522,13 +555,15 @@ Varunastra
 Vaal Blade
 League: Perandus
 Variant: Pre 2.6.0
+Variant: Pre 3.20.0
 Variant: Current
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
-{variant:2}+460 to Accuracy Rating
-(40-60)% increased Physical Damage
+{variant:2,3}+460 to Accuracy Rating
+{variant:1,2}(40-60)% increased Physical Damage
+{variant:3}(80-100)% increased Physical Damage
 Adds (30-45) to (80-100) Physical Damage
-+(2-3) Mana gained for each Enemy hit by Attacks
+Gain (2-3) Mana per Enemy Hit with Attacks
 Counts as all One Handed Melee Weapon Types
 ]],
 -- Weapon: Thrusting Sword
@@ -545,7 +580,7 @@ Implicits: 3
 (120-150)% increased Physical Damage
 20% reduced Rarity of Items found
 +(40-60)% to all Elemental Resistances
-+3 Life gained for each Enemy hit by Attacks
+Grants 3 Life per Enemy Hit
 ]],[[
 Chitus' Needle
 Elegant Foil
@@ -617,10 +652,22 @@ Implicits: 3
 No Physical Damage
 Adds 1 to (40-50) Lightning Damage
 (25-30)% increased Attack Speed
-+2 Life gained for each Enemy hit by Attacks
+Grants 2 Life per Enemy Hit
 {variant:1,2}5% Chance to Shock
 {variant:3}(15-20)% chance to Shock
 {variant:3}Herald of Thunder has 50% increased Buff Effect
+]],[[
+Nametaker
+Graceful Sword
+League: Affliction
+Requires Level 50, 78 Str, 94 Dex
+Implicits: 1
++350 to Accuracy Rating
+(20-40)% increased Critical Strike Chance
+2% of Physical Attack Damage Leeched as Life
+2% of Physical Attack Damage Leeched as Mana
+Hits with this Weapon have +10% to Critical Strike Multiplier per Enemy Power
+5% of Leech from Hits with this Weapon is Instant per Enemy Power
 ]],[[
 The Goddess Bound
 Whalebone Rapier
@@ -667,7 +714,7 @@ The Dancing Duo
 Reaver Sword
 Source: No longer obtainable
 Variant: Pre 3.11.0
-Variant: Pre 3.17.0
+Variant: Current
 Implicits: 2
 {variant:1}40% increased Global Accuracy Rating
 {variant:2}60% increased Global Accuracy Rating
@@ -675,10 +722,10 @@ Implicits: 2
 {variant:2}(130-160)% increased Physical Damage
 (25-30)% increased Attack Speed
 5% increased Movement Speed
-Rampage
 Triggers Level 15 Manifest Dancing Dervishes on Rampage
 Manifested Dancing Dervish disables both weapon slots
 Manifested Dancing Dervish dies when Rampage ends
+Rampage
 ]],[[
 Doomsower
 Lion Sword
@@ -716,7 +763,7 @@ Implicits: 3
 {variant:2,3,4}(40-60)% increased Physical Damage
 {variant:1}(60-80)% increased Physical Damage
 Adds (60-68) to (90-102) Chaos Damage
-{variant:1}+1 Life gained on Kill per Level
+{variant:1}Gain 1 Life on Kill per Level
 {variant:1,2,4}1% increased Chaos Damage per Level
 {variant:1}1% increased Elemental Damage per Level
 {variant:2,3,4}Adds 1 to 2 Physical Damage to Attacks per Level
@@ -774,17 +821,33 @@ Gain a Frenzy Charge if an Attack Ignites an Enemy
 ]],[[
 Replica Oro's Sacrifice
 Infernal Sword
+Variant: Pre 3.23.0
+Variant: Current
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 30% increased Elemental Damage with Attack Skills
 No Physical Damage
 Adds (385-440) to (490-545) Cold Damage
 (10-15)% increased Attack Speed
-1% of Damage against Frozen Enemies Leeched as Life
+{variant:1}1% of Damage against Frozen Enemies Leeched as Life
 20% chance to Freeze
 10% increased Physical Damage taken
 10% increased Cold Damage taken
 Gain an Endurance Charge if an Attack Freezes an Enemy
+{variant:2}Culling Strike against Frozen Enemies
+]],[[
+Echoforge
+Infernal Sword
+Source: Drops from unique{The Maven} (Uber)
+Implicits: 1
+30% increased Chaos Damage
+Adds (600-650) to (750-800) Chaos Damage
+(-16-16)% increased Attack Speed
++(-200-200) to maximum Life
+Your Chaos Damage can Shock
+(-40-40)% increased Area of Effect for Attacks
+Deal no Physical or Elemental Damage
 ]],[[
 Queen's Decree
 Ornate Sword
@@ -826,6 +889,16 @@ Minions have (80-100)% increased Movement Speed
 +1 to maximum number of Skeletons
 25% increased Strength Requirement
 ]],[[
+Rakiata's Dance
+Engraved Greatsword
+Requires Level 48, 91 Str, 76 Dex
+Implicits: 1
+60% increased Global Accuracy Rating
+Adds (150-200) to (300-350) Cold Damage
+Adds 1 to (550-600) Lightning Damage
+(15-20)% increased Attack Speed
+Treats Enemy Monster Elemental Resistance values as inverted
+]],[[
 Rigwald's Charge
 Highland Blade
 Variant: Pre 1.0.0
@@ -835,7 +908,7 @@ Variant: Pre 3.19.0
 Variant: Current
 Implicits: 2
 {variant:1,2}18% increased Global Accuracy Rating
-{variant:3,4}+305 to Accuracy Rating
+{variant:3,4,5}+305 to Accuracy Rating
 (120-150)% increased Physical Damage
 {variant:1}10% increased Attack Speed
 {variant:2,3,4,5}20% increased Attack Speed
@@ -861,20 +934,22 @@ Cannot be Frozen
 ]],[[
 Starforge
 Infernal Sword
+Shaper Item
 Source: Drops from unique{The Shaper}
 Variant: Pre 3.11.0
+Variant: Pre 3.20.0
 Variant: Current
 Implicits: 2
 {variant:1}30% increased Global Accuracy Rating
-{variant:2}30% increased Global Physical Damage
+{variant:2,3}30% increased Global Physical Damage
 {variant:1}(400-500)% increased Physical Damage
 {variant:2}(200-300)% increased Physical Damage
+{variant:3}(400-450)% increased Physical Damage
 (5-8)% increased Attack Speed
 +(90-100) to maximum Life
 Your Physical Damage can Shock
 20% increased Area of Effect for Attacks
 Deal no Elemental Damage
-Shaper Item
 ]],[[
 Terminus Est
 Tiger Sword
@@ -889,26 +964,29 @@ Implicits: 2
 {variant:3}(180-220)% increased Physical Damage
 20% increased Attack Speed
 {variant:2,3}(50-75)% increased Critical Strike Chance
-+10 Mana gained on Kill
+Gain 10 Mana per Enemy Killed
 10% increased Movement Speed
 Gain a Frenzy Charge on Critical Strike
 ]],[[
 Voidforge
 Infernal Sword
+Shaper Item
+Elder Item
 Source: Drops from unique{The Elder} (Uber)
 Variant: Pre 3.11.0
+Variant: Pre 3.20.0
 Variant: Current
 Implicits: 2
 {variant:1}30% increased Global Accuracy Rating
-{variant:2}30% increased Elemental Damage with Attack Skills
+{variant:2,3}30% increased Elemental Damage with Attack Skills
 {variant:1}(50-100)% increased Physical Damage
 {variant:2}(30-60)% increased Physical Damage
 (5-8)% increased Attack Speed
 +(90-100) to maximum Life
 Your Elemental Damage can Shock
-Gain 300% of Weapon Physical Damage as Extra Damage of a random Element
+{variant:1,2}Gain 300% of Weapon Physical Damage as Extra Damage of a random Element
+{variant:3}Gain 700% of Weapon Physical Damage as Extra Damage of a random Element
 20% increased Area of Effect for Attacks
 Deal no Non-Elemental Damage
-Elder Item
 ]],
 }

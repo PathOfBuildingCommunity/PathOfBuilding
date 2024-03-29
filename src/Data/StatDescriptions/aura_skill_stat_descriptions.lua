@@ -254,9 +254,9 @@ return {
 				}
 			}
 		},
-		name="critical_strike_chance_incr",
+		name="grants_critical_strike_chance_incr",
 		stats={
-			[1]="critical_strike_chance_+%"
+			[1]="skill_buff_grants_critical_strike_chance_+%"
 		}
 	},
 	[10]={
@@ -983,19 +983,10 @@ return {
 					limit={
 						[1]={
 							[1]=1,
-							[2]=99
-						}
-					},
-					text="You and nearby Allies have {0}% chance to Avoid being Stunned"
-				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
 							[2]="#"
 						}
 					},
-					text="You and nearby Allies Cannot be Stunned"
+					text="You and nearby Allies have {0}% chance to Avoid being Stunned"
 				}
 			}
 		},
@@ -1583,7 +1574,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="You and nearby Allies gain {0}% increased Energy Shield Recharge rate"
+					text="You and nearby Allies gain {0}% increased Energy Shield Recharge Rate"
 				},
 				[2]={
 					[1]={
@@ -1596,7 +1587,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="You and nearby Allies gain {0}% reduced Energy Shield Recharge rate"
+					text="You and nearby Allies gain {0}% reduced Energy Shield Recharge Rate"
 				}
 			}
 		},
@@ -1789,7 +1780,7 @@ return {
 				[1]={
 					[1]={
 						k="reminderstring",
-						v="ReminderTextElementalStatusAilments"
+						v="ReminderTextElementalAilments"
 					},
 					limit={
 						[1]={
@@ -2219,6 +2210,25 @@ return {
 			[1]="summon_totem_cast_speed_+%"
 		}
 	},
+	[91]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Aura cannot be applied unless you have a Minion from a Supported Skill"
+				}
+			}
+		},
+		name="guartdians_blessing_aura_only_while_minion",
+		stats={
+			[1]="support_guardians_blessing_aura_only_enabled_while_support_minion_is_summoned"
+		}
+	},
 	["accuracy_rating"]=31,
 	["accuracy_rating_+%"]=8,
 	["attack_maximum_added_chaos_damage"]=32,
@@ -2268,7 +2278,6 @@ return {
 	["chill_and_freeze_duration_+%"]=54,
 	["cold_damage_taken_+%"]=55,
 	["create_consecrated_ground_on_hit_%_vs_rare_or_unique_enemy"]=56,
-	["critical_strike_chance_+%"]=9,
 	["damage_+%_if_changed_stances_recently"]=57,
 	["damage_+%_on_full_energy_shield"]=59,
 	["damage_+%_on_full_mana"]=58,
@@ -2308,6 +2317,7 @@ return {
 	["reduce_enemy_elemental_resistance_%"]=84,
 	["skill_aura_also_disables_non_blessing_mana_reservation_skills"]=85,
 	["skill_buff_grant_critical_strike_multiplier_+"]=86,
+	["skill_buff_grants_critical_strike_chance_+%"]=9,
 	["spell_critical_strike_chance_+%"]=87,
 	["spell_damage_aura_spell_damage_+%_final"]=88,
 	["spell_maximum_added_chaos_damage"]=89,
@@ -2315,5 +2325,6 @@ return {
 	["spell_minimum_added_chaos_damage"]=89,
 	["spell_minimum_added_fire_damage"]=29,
 	["summon_totem_cast_speed_+%"]=90,
+	["support_guardians_blessing_aura_only_enabled_while_support_minion_is_summoned"]=91,
 	["wrath_aura_spell_lightning_damage_+%_final"]=30
 }

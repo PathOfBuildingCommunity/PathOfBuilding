@@ -48,8 +48,8 @@ function calcLib.validateGemLevel(gemInstance)
 			gemInstance.level = m_min(#grantedEffect.levels, gemInstance.level)
 		end
 	end
-	if not grantedEffect.levels[gemInstance.level] and gemInstance.gemData and gemInstance.gemData.defaultLevel then
-		gemInstance.level = gemInstance.gemData.defaultLevel
+	if not grantedEffect.levels[gemInstance.level] and gemInstance.gemData and gemInstance.gemData.naturalMaxLevel then
+		gemInstance.level = gemInstance.gemData.naturalMaxLevel
 	end
 	if not grantedEffect.levels[gemInstance.level] then
 		-- That failed, so just grab any level
@@ -89,25 +89,29 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 	if grantedEffect.supportGemsOnly and not activeSkill.activeEffect.gemData then
 		return false
 	end
-	if activeSkill.summonSkill then
-		return calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill.summonSkill)
+	-- if the activeSkill is a Minion's skill like "Default Attack", use minion's skillTypes instead for exclusions
+	-- otherwise compare support to activeSkill directly
+	if grantedEffect.excludeSkillTypes[1] and calcLib.doesTypeExpressionMatch(grantedEffect.excludeSkillTypes, (activeSkill.summonSkill and activeSkill.summonSkill.skillTypes) or activeSkill.skillTypes) then
+		return false
 	end
-	if grantedEffect.excludeSkillTypes[1] and calcLib.doesTypeExpressionMatch(grantedEffect.excludeSkillTypes, activeSkill.skillTypes) then
+	if grantedEffect.isTrigger and (activeSkill.triggeredBy or activeSkill.actor.enemy.player ~= activeSkill.actor) then
 		return false
 	end
 	return not grantedEffect.requireSkillTypes[1] or calcLib.doesTypeExpressionMatch(grantedEffect.requireSkillTypes, activeSkill.skillTypes, not grantedEffect.ignoreMinionTypes and activeSkill.minionSkillTypes)
 end
 
 -- Check if given gem is of the given type ("all", "strength", "melee", etc)
-function calcLib.gemIsType(gem, type)
+function calcLib.gemIsType(gem, type, includeTransfigured)
 	return (type == "all" or 
 			(type == "elemental" and (gem.tags.fire or gem.tags.cold or gem.tags.lightning)) or 
 			(type == "aoe" and gem.tags.area) or
 			(type == "trap or mine" and (gem.tags.trap or gem.tags.mine)) or
-			(type == "active skill" and gem.tags.active_skill) or
+			((type == "active skill" or type == "grants_active_skill" or type == "skill") and gem.tags.grants_active_skill and not gem.tags.support) or
 			(type == "non-vaal" and not gem.tags.vaal) or
 			(type == gem.name:lower()) or
-			gem.tags[type])
+			(type == gem.name:lower():gsub("^vaal ", "")) or
+			(includeTransfigured and calcLib.isGemIdSame(gem.name, type, true)) or
+			((type ~= "active skill" and type ~= "grants_active_skill" and type ~= "skill") and gem.tags[type]))
 end
 
 -- From PyPoE's formula.py
@@ -159,9 +163,9 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 			stats[stat[1]] = (stats[stat[1]] or 0) + math.modf(stat[2] * skillInstance.quality)
 		end
 	end
-	local level = grantedEffect.levels[skillInstance.level]
+	local level = grantedEffect.levels[skillInstance.level] or { }
 	local availableEffectiveness
-	local actorLevel = skillInstance.actorLevel or level.levelRequirement
+	local actorLevel = skillInstance.actorLevel or level.levelRequirement or 1
 	for index, stat in ipairs(grantedEffect.stats) do
 		-- Static value used as default (assumes statInterpolation == 1)
 		local statValue = level[index] or 1
@@ -169,19 +173,37 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 			if level.statInterpolation[index] == 3 then
 				-- Effectiveness interpolation
 				if not availableEffectiveness then
-					availableEffectiveness = 
-						(3.885209 + 0.360246 * (actorLevel - 1)) * (grantedEffect.baseEffectiveness or 1)
-						* (1 + (grantedEffect.incrementalEffectiveness or 0)) ^ (actorLevel - 1)
+					availableEffectiveness =
+					(data.gameConstants["SkillDamageBaseEffectiveness"] + data.gameConstants["SkillDamageIncrementalEffectiveness"] * (actorLevel - 1)) * (grantedEffect.baseEffectiveness or 1)
+							* (1 + (grantedEffect.incrementalEffectiveness or 0)) ^ (actorLevel - 1)
 				end
 				statValue = round(availableEffectiveness * level[index])
 			elseif level.statInterpolation[index] == 2 then
 				-- Linear interpolation; I'm actually just guessing how this works
-				local nextLevel = m_min(skillInstance.level + 1, #grantedEffect.levels)
-				local nextReq = grantedEffect.levels[nextLevel].levelRequirement
-				local prevReq = grantedEffect.levels[nextLevel - 1].levelRequirement
-				local nextStat = grantedEffect.levels[nextLevel][index]
-				local prevStat = grantedEffect.levels[nextLevel - 1][index]
-				statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
+
+				-- Order the levels, since sometimes they skip around
+				local orderedLevels = { }
+				local currentLevelIndex
+				for level, _ in pairs(grantedEffect.levels) do
+					t_insert(orderedLevels, level)
+				end
+				table.sort(orderedLevels)
+				for idx, level in ipairs(orderedLevels) do
+					if skillInstance.level == level then
+						currentLevelIndex = idx
+					end
+				end
+
+				if #orderedLevels > 1 then
+					local nextLevelIndex = m_min(currentLevelIndex + 1, #orderedLevels)
+					local nextReq = grantedEffect.levels[orderedLevels[nextLevelIndex]].levelRequirement
+					local prevReq = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]].levelRequirement
+					local nextStat = grantedEffect.levels[orderedLevels[nextLevelIndex]][index]
+					local prevStat = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]][index]
+					statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
+				else
+					statValue = round(grantedEffect.levels[orderedLevels[currentLevelIndex]][index])
+				end
 			end
 		end
 		stats[stat] = (stats[stat] or 0) + statValue
@@ -214,4 +236,34 @@ function calcLib.getConvertedModTags(mod, multiplier, minionMods)
 		end
 	end
 	return modifiers
+end
+
+--- Get the gameId from the gemName which will be the same as the base gem for transfigured gems
+--- @param gemName string
+--- @param dropVaal boolean
+--- @return string
+function calcLib.getGameIdFromGemName(gemName, dropVaal)
+	if type(gemName) ~= "string" then
+		return
+	end
+	local gemId = data.gemForBaseName[gemName:lower()]
+	if not gemId then return end
+	local gameId 
+	if dropVaal and data.gems[gemId].vaalGem then
+		gameId = data.gems[data.gemVaalGemIdForBaseGemId[gemId]].gameId
+	else
+		gameId = data.gems[gemId].gameId
+	end
+	return gameId
+end
+
+--- Use getGameIdFromGemName to get gameId from the gemName and passed in type. Return true if they're the same and not nil
+--- @param gemName string
+--- @param type string
+--- @param dropVaal boolean 
+--- @return boolean
+function calcLib.isGemIdSame(gemName, typeName, dropVaal)
+	local gemNameId = calcLib.getGameIdFromGemName(gemName, dropVaal)
+	local typeId = calcLib.getGameIdFromGemName(typeName, dropVaal)
+	return gemNameId and typeId and gemNameId == typeId
 end

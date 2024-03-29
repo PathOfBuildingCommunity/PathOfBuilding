@@ -75,6 +75,23 @@ return {
 						[1]={
 							[1]="#",
 							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="Applies beams to the closest {0:+d} Enemies"
+				},
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
 						}
 					},
 					text="Applies beams to the closest {0} Enemies"
@@ -83,7 +100,8 @@ return {
 		},
 		name="ice_siphon_trap_max_targets",
 		stats={
-			[1]="ice_siphon_trap_max_beam_targets"
+			[1]="ice_siphon_trap_max_beam_targets",
+			[2]="quality_display_ice_siphon_trap_is_gem"
 		}
 	},
 	[5]={
@@ -671,6 +689,7 @@ return {
 	["modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration"]=1,
 	parent="skill_stat_descriptions",
 	["physical_damage_%_to_add_as_fire"]=12,
+	["quality_display_ice_siphon_trap_is_gem"]=4,
 	["rain_of_spores_vines_movement_speed_+%_final"]=25,
 	["resist_all_%"]=26,
 	["secondary_buff_effect_duration"]=3,

@@ -1183,75 +1183,6 @@ return {
 		lang={
 			English={
 				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Creates a Hexed Area\nCurse does not expire while in the Hexed Area\nCurses in the Hexed Area gain up to maximum Doom when the Hexed Area ends"
-				}
-			}
-		},
-		name="curse_zone",
-		stats={
-			[1]="curse_apply_as_curse_zone"
-		}
-	},
-	[51]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Curses inflicted by this Skill have {0:+d} to maximum Doom"
-				}
-			}
-		},
-		name="max_doom",
-		stats={
-			[1]="curse_maximum_doom"
-		}
-	},
-	[52]={
-		lang={
-			English={
-				[1]={
-					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					[2]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					[3]={
-						k="reminderstring",
-						v="ReminderTextDoom"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Curse gains {0} Doom per second"
-				}
-			}
-		},
-		name="curse_skill_doom",
-		stats={
-			[1]="curse_skill_doom_gain_per_minute"
-		}
-	},
-	[53]={
-		lang={
-			English={
-				[1]={
 					[1]={
 						k="reminderstring",
 						v="ReminderTextLowLife"
@@ -1288,10 +1219,27 @@ return {
 			[1]="damage_taken_+%_on_low_life"
 		}
 	},
-	[54]={
+	[51]={
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="Cursed Enemies are Debilitated for {0:+d} Seconds when they Hit"
+				},
+				[2]={
 					[1]={
 						k="milliseconds_to_seconds_2dp",
 						v=1
@@ -1304,6 +1252,10 @@ return {
 						[1]={
 							[1]="#",
 							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
 						}
 					},
 					text="Cursed Enemies are Debilitated for {0} Seconds when they Hit"
@@ -1312,10 +1264,30 @@ return {
 		},
 		name="debilitated_when_hit",
 		stats={
-			[1]="debilitate_self_for_x_milliseconds_on_hit"
+			[1]="debilitate_self_for_x_milliseconds_on_hit",
+			[2]="quality_display_debilitate_self_for_x_milliseconds_on_hit_is_gem"
 		}
 	},
-	[55]={
+	[52]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Curse expiry rate cannot be modified"
+				}
+			}
+		},
+		name="display_fixed_duration_buff",
+		stats={
+			[1]="display_skill_fixed_duration_buff"
+		}
+	},
+	[53]={
 		lang={
 			English={
 				[1]={
@@ -1334,7 +1306,7 @@ return {
 			[1]="enemy_chance_to_double_stun_duration_%_vs_self"
 		}
 	},
-	[56]={
+	[54]={
 		lang={
 			English={
 				[1]={
@@ -1357,7 +1329,7 @@ return {
 			[1]="enemy_damaging_ailments_deal_damage_+%_faster_against_self"
 		}
 	},
-	[57]={
+	[55]={
 		lang={
 			English={
 				[1]={
@@ -1376,7 +1348,7 @@ return {
 			[1]="enemy_rage_regeneration_on_stun"
 		}
 	},
-	[58]={
+	[56]={
 		lang={
 			English={
 				[1]={
@@ -1403,7 +1375,7 @@ return {
 			[1]="energy_shield_leech_on_any_damage_when_hit_permyriad"
 		}
 	},
-	[59]={
+	[57]={
 		lang={
 			English={
 				[1]={
@@ -1435,7 +1407,7 @@ return {
 			[1]="enfeeble_damage_+%_vs_rare_or_unique_final"
 		}
 	},
-	[60]={
+	[58]={
 		lang={
 			English={
 				[1]={
@@ -1463,7 +1435,7 @@ return {
 			[1]="grant_attacker_endurance_charge_when_hit_%_chance"
 		}
 	},
-	[61]={
+	[59]={
 		lang={
 			English={
 				[1]={
@@ -1491,7 +1463,7 @@ return {
 			[1]="grant_attacker_frenzy_charge_when_hit_%_chance"
 		}
 	},
-	[62]={
+	[60]={
 		lang={
 			English={
 				[1]={
@@ -1519,7 +1491,7 @@ return {
 			[1]="grant_attacker_power_charge_when_hit_%_chance"
 		}
 	},
-	[63]={
+	[61]={
 		lang={
 			English={
 				[1]={
@@ -1547,7 +1519,7 @@ return {
 			[1]="grant_attacker_x_life_flask_charges_when_hit_once_per_500ms"
 		}
 	},
-	[64]={
+	[62]={
 		lang={
 			English={
 				[1]={
@@ -1575,7 +1547,7 @@ return {
 			[1]="grant_attacker_x_mana_flask_charges_when_hit_once_per_500ms"
 		}
 	},
-	[65]={
+	[63]={
 		lang={
 			English={
 				[1]={
@@ -1607,7 +1579,7 @@ return {
 			[1]="mark_skills_curse_effect_+%"
 		}
 	},
-	[66]={
+	[64]={
 		lang={
 			English={
 				[1]={
@@ -1631,7 +1603,7 @@ return {
 			[2]="maximum_added_chaos_damage_taken"
 		}
 	},
-	[67]={
+	[65]={
 		lang={
 			English={
 				[1]={
@@ -1655,7 +1627,7 @@ return {
 			[2]="maximum_added_physical_damage_taken"
 		}
 	},
-	[68]={
+	[66]={
 		lang={
 			English={
 				[1]={
@@ -1687,7 +1659,7 @@ return {
 			[1]="base_physical_damage_over_time_taken_+%"
 		}
 	},
-	[69]={
+	[67]={
 		lang={
 			English={
 				[1]={
@@ -1706,7 +1678,7 @@ return {
 			[1]="projectiles_hitting_self_split_into_x"
 		}
 	},
-	[70]={
+	[68]={
 		lang={
 			English={
 				[1]={
@@ -1729,7 +1701,7 @@ return {
 			[1]="receive_bleeding_chance_%_when_hit_by_attack"
 		}
 	},
-	[71]={
+	[69]={
 		lang={
 			English={
 				[1]={
@@ -1752,13 +1724,45 @@ return {
 			[1]="punishment_reflect_%_overkill_damage_to_nearby_allies_on_death"
 		}
 	},
-	[72]={
+	[70]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Duration of Bleeding on Cursed Enemies"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Duration of Bleeding on Cursed Enemies"
+				}
+			}
+		},
+		name="self_bleeding_duration_incr",
+		stats={
+			[1]="self_bleed_duration_+%"
+		}
+	},
+	[71]={
 		lang={
 			English={
 				[1]={
 					[1]={
 						k="reminderstring",
-						v="ReminderTextElementalStatusAilments"
+						v="ReminderTextElementalAilments"
 					},
 					limit={
 						[1]={
@@ -1775,7 +1779,7 @@ return {
 					},
 					[2]={
 						k="reminderstring",
-						v="ReminderTextElementalStatusAilments"
+						v="ReminderTextElementalAilments"
 					},
 					limit={
 						[1]={
@@ -1792,7 +1796,103 @@ return {
 			[1]="self_elemental_status_duration_-%"
 		}
 	},
+	[72]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Effect of Curse"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Effect of Curse"
+				}
+			}
+		},
+		name="bane_curse_effect",
+		stats={
+			[1]="support_bane_curse_effect_+%_final"
+		}
+	},
 	[73]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Effect of Curse"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Effect of Curse"
+				}
+			}
+		},
+		name="blasphemy_curse_effect",
+		stats={
+			[1]="support_blasphemy_curse_effect_+%_final"
+		}
+	},
+	[74]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Effect of Curse"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Effect of Curse"
+				}
+			}
+		},
+		name="hextouch_curse_effect",
+		stats={
+			[1]="support_hextouch_curse_effect_+%_final"
+		}
+	},
+	[75]={
 		lang={
 			English={
 				[1]={
@@ -1824,7 +1924,7 @@ return {
 			[1]="temporal_chains_action_speed_+%_vs_rare_or_unique_final"
 		}
 	},
-	[74]={
+	[76]={
 		lang={
 			English={
 				[1]={
@@ -1861,7 +1961,7 @@ return {
 	["base_damage_taken_+%"]=47,
 	["base_fire_damage_resistance_%"]=5,
 	["base_lightning_damage_resistance_%"]=7,
-	["base_physical_damage_over_time_taken_+%"]=68,
+	["base_physical_damage_over_time_taken_+%"]=66,
 	["base_resist_all_elements_%"]=4,
 	["base_self_critical_strike_multiplier_-%"]=26,
 	["base_self_freeze_duration_-%"]=36,
@@ -1883,27 +1983,25 @@ return {
 	["chance_to_grant_power_charge_on_death_%"]=19,
 	["critical_strike_chance_+%"]=21,
 	["curse_apply_as_aura"]=44,
-	["curse_apply_as_curse_zone"]=50,
 	["curse_area_of_effect_+%"]=43,
-	["curse_maximum_doom"]=51,
-	["curse_skill_doom_gain_per_minute"]=52,
-	["damage_taken_+%_on_low_life"]=53,
-	["debilitate_self_for_x_milliseconds_on_hit"]=54,
+	["damage_taken_+%_on_low_life"]=50,
+	["debilitate_self_for_x_milliseconds_on_hit"]=51,
 	["degen_effect_+%"]=34,
+	["display_skill_fixed_duration_buff"]=52,
 	["enemy_additional_critical_strike_chance_against_self"]=24,
 	["enemy_additional_critical_strike_multiplier_against_self"]=25,
-	["enemy_chance_to_double_stun_duration_%_vs_self"]=55,
-	["enemy_damaging_ailments_deal_damage_+%_faster_against_self"]=56,
-	["enemy_rage_regeneration_on_stun"]=57,
-	["energy_shield_leech_on_any_damage_when_hit_permyriad"]=58,
+	["enemy_chance_to_double_stun_duration_%_vs_self"]=53,
+	["enemy_damaging_ailments_deal_damage_+%_faster_against_self"]=54,
+	["enemy_rage_regeneration_on_stun"]=55,
+	["energy_shield_leech_on_any_damage_when_hit_permyriad"]=56,
 	["enfeeble_damage_+%_final"]=23,
-	["enfeeble_damage_+%_vs_rare_or_unique_final"]=59,
+	["enfeeble_damage_+%_vs_rare_or_unique_final"]=57,
 	["evasion_rating_+%_final_from_poachers_mark"]=29,
-	["grant_attacker_endurance_charge_when_hit_%_chance"]=60,
-	["grant_attacker_frenzy_charge_when_hit_%_chance"]=61,
-	["grant_attacker_power_charge_when_hit_%_chance"]=62,
-	["grant_attacker_x_life_flask_charges_when_hit_once_per_500ms"]=63,
-	["grant_attacker_x_mana_flask_charges_when_hit_once_per_500ms"]=64,
+	["grant_attacker_endurance_charge_when_hit_%_chance"]=58,
+	["grant_attacker_frenzy_charge_when_hit_%_chance"]=59,
+	["grant_attacker_power_charge_when_hit_%_chance"]=60,
+	["grant_attacker_x_life_flask_charges_when_hit_once_per_500ms"]=61,
+	["grant_attacker_x_mana_flask_charges_when_hit_once_per_500ms"]=62,
 	["life_granted_when_hit_by_attacks"]=39,
 	["life_granted_when_killed"]=41,
 	["life_leech_on_any_damage_when_hit_by_attack_permyriad"]=13,
@@ -1912,21 +2010,26 @@ return {
 	["mana_granted_when_killed"]=42,
 	["mana_leech_on_any_damage_when_hit_by_attack_permyriad"]=15,
 	["mana_leech_on_any_damage_when_hit_permyriad"]=16,
-	["mark_skills_curse_effect_+%"]=65,
-	["maximum_added_chaos_damage_taken"]=66,
-	["maximum_added_physical_damage_taken"]=67,
-	["minimum_added_chaos_damage_taken"]=66,
-	["minimum_added_physical_damage_taken"]=67,
+	["mark_skills_curse_effect_+%"]=63,
+	["maximum_added_chaos_damage_taken"]=64,
+	["maximum_added_physical_damage_taken"]=65,
+	["minimum_added_chaos_damage_taken"]=64,
+	["minimum_added_physical_damage_taken"]=65,
 	["monster_slain_flask_charges_granted_+%"]=12,
 	parent="skill_stat_descriptions",
 	["physical_damage_taken_+%"]=33,
 	["projectile_damage_taken_+%"]=30,
 	["projectiles_always_pierce_you"]=27,
-	["projectiles_hitting_self_split_into_x"]=69,
-	["punishment_reflect_%_overkill_damage_to_nearby_allies_on_death"]=71,
-	["receive_bleeding_chance_%_when_hit_by_attack"]=70,
-	["self_elemental_status_duration_-%"]=72,
+	["projectiles_hitting_self_split_into_x"]=67,
+	["punishment_reflect_%_overkill_damage_to_nearby_allies_on_death"]=69,
+	["quality_display_debilitate_self_for_x_milliseconds_on_hit_is_gem"]=51,
+	["receive_bleeding_chance_%_when_hit_by_attack"]=68,
+	["self_bleed_duration_+%"]=70,
+	["self_elemental_status_duration_-%"]=71,
+	["support_bane_curse_effect_+%_final"]=72,
+	["support_blasphemy_curse_effect_+%_final"]=73,
+	["support_hextouch_curse_effect_+%_final"]=74,
 	["temporal_chains_action_speed_+%_final"]=2,
-	["temporal_chains_action_speed_+%_vs_rare_or_unique_final"]=73,
-	["trigger_vicious_hex_explosion_when_curse_ends"]=74
+	["temporal_chains_action_speed_+%_vs_rare_or_unique_final"]=75,
+	["trigger_vicious_hex_explosion_when_curse_ends"]=76
 }

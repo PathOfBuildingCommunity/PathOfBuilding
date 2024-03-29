@@ -7,7 +7,7 @@ liveTargetVersion = "3_0"
 -- Skill tree versions
 ---Added for convenient indexing of skill tree versions.
 ---@type string[]
-treeVersionList = { "2_6", "3_6", "3_7", "3_8", "3_9", "3_10", "3_11", "3_12", "3_13", "3_14", "3_15", "3_16", "3_17", "3_18", "3_19", }
+treeVersionList = { "2_6", "3_6", "3_7", "3_8", "3_9", "3_10", "3_11", "3_12", "3_13", "3_14", "3_15", "3_16", "3_17", "3_18", "3_19", "3_20", "3_21", "3_22_ruthless", "3_22", "3_23_ruthless", "3_23", "3_24_ruthless", "3_24", }
 --- Always points to the latest skill tree version.
 latestTreeVersion = treeVersionList[#treeVersionList]
 ---Tree version where multiple skill trees per build were introduced to PoBC.
@@ -89,5 +89,45 @@ treeVersions = {
 		display = "3.19",
 		num = 3.19,
 		url = "https://www.pathofexile.com/passive-skill-tree/3.19.0/",
+	},
+	["3_20"] = {
+		display = "3.20",
+		num = 3.20,
+		url = "https://www.pathofexile.com/passive-skill-tree/3.20.0/",
+	},
+	["3_21"] = {
+		display = "3.21",
+		num = 3.21,
+		url = "https://www.pathofexile.com/passive-skill-tree/3.21.0/",
+	},
+	["3_22_ruthless"] = {
+		display = "3.22 (ruthless)",
+		num = 3.22,
+		url = "https://www.pathofexile.com/passive-skill-tree/ruthless/",
+	},
+	["3_22"] = {
+		display = "3.22",
+		num = 3.22,
+		url = "https://www.pathofexile.com/passive-skill-tree/3.22.0/",
+	},
+	["3_23_ruthless"] = {
+		display = "3.23 (ruthless)",
+		num = 3.23,
+		url = "https://www.pathofexile.com/passive-skill-tree/ruthless/",
+	},
+	["3_23"] = {
+		display = "3.23",
+		num = 3.23,
+		url = "https://www.pathofexile.com/passive-skill-tree/3.23.0/",
+	},
+	["3_24_ruthless"] = {
+		display = "3.24 (ruthless)",
+		num = 3.24,
+		url = "https://www.pathofexile.com/passive-skill-tree/ruthless/",
+	},
+	["3_24"] = {
+		display = "3.24",
+		num = 3.24,
+		url = "https://www.pathofexile.com/passive-skill-tree/3.24.0/",
 	},
 }

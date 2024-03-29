@@ -373,6 +373,38 @@ return {
 			[1]="minion_life_regeneration_rate_per_minute_%_if_blocked_recently"
 		}
 	},
+	[16]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Effect of Offering"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Effect of Offering"
+				}
+			}
+		},
+		name="offering_effect",
+		stats={
+			[1]="offering_spells_effect_+%"
+		}
+	},
 	["attack_speed_+%_granted_from_skill"]=3,
 	["base_chaos_damage_resistance_%"]=12,
 	["base_movement_velocity_+%"]=6,
@@ -387,6 +419,7 @@ return {
 	["minion_life_regeneration_rate_per_minute_%_if_blocked_recently"]=15,
 	["minion_recover_X_life_on_block"]=9,
 	["monster_base_block_%"]=7,
+	["offering_spells_effect_+%"]=16,
 	parent="skill_stat_descriptions",
 	["physical_damage_%_to_add_as_chaos"]=10,
 	["spirit_offering_life_%_added_as_base_maximum_energy_shield_per_corpse_consumed"]=11
