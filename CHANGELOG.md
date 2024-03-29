@@ -23,7 +23,6 @@
 - Fix Tree export to PoE Planner [\#7455](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7455) ([pHiney](https://github.com/pHiney))
 
 ### Other changes
-
 - Save resources when window is minimized [\#53](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/53) ([ryuuk](https://github.com/ryuuk))
 
 
