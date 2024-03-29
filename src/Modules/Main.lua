@@ -85,6 +85,22 @@ function main:Init()
 			self.userPath = self.userPath.."/Path of Building/"
 		end
 	end
+
+	self.buildSortMode = "NAME"
+	self.connectionProtocol = 0
+	self.nodePowerTheme = "RED/BLUE"
+	self.colorPositive = defaultColorCodes.POSITIVE
+	self.colorNegative = defaultColorCodes.NEGATIVE
+	self.colorHighlight = defaultColorCodes.HIGHLIGHT
+	self.showThousandsSeparators = true
+	self.thousandsSeparator = ","
+	self.decimalSeparator = "."
+	self.defaultItemAffixQuality = 0.5
+	self.showTitlebarName = true
+	self.showWarnings = true
+	self.slotOnlyTooltips = true
+	self.POESESSID = ""
+
 	if self.userPath then
 		self:ChangeUserPath(self.userPath, ignoreBuild)
 	end
@@ -102,24 +118,8 @@ function main:Init()
 		self.allowTreeDownload = true
 	end
 
-
 	self.inputEvents = { }
 	self.tooltipLines = { }
-
-	self.buildSortMode = "NAME"
-	self.connectionProtocol = 0
-	self.nodePowerTheme = "RED/BLUE"
-	self.colorPositive = defaultColorCodes.POSITIVE
-	self.colorNegative = defaultColorCodes.NEGATIVE
-	self.colorHighlight = defaultColorCodes.HIGHLIGHT
-	self.showThousandsSeparators = true
-	self.thousandsSeparator = ","
-	self.decimalSeparator = "."
-	self.defaultItemAffixQuality = 0.5
-	self.showTitlebarName = true
-	self.showWarnings = true
-	self.slotOnlyTooltips = true
-	self.POESESSID = ""
 
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
