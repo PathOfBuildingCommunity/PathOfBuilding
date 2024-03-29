@@ -87,6 +87,8 @@ function main:Init()
 	end
 	if self.userPath then
 		self:ChangeUserPath(self.userPath, ignoreBuild)
+	else
+		self:LoadSettings(ignoreBuild)
 	end
 
 	if launch.devMode and IsKeyDown("CTRL") then
@@ -768,6 +770,8 @@ function main:OpenOptionsPopup()
 
 	local currentY = 20
 	local popupWidth = 600
+
+	self:LoadSettings(true)
 
 	-- local func to make a new line with a heightModifier
 	local function nextRow(heightModifier)
