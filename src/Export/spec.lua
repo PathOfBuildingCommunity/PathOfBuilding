@@ -4304,17 +4304,17 @@ return {
 		},
 		[2]={
 			list=false,
-			name="",
+			name="TypeTier",
 			refTo="",
 			type="Int",
-			width=50
+			width=60
 		},
 		[3]={
 			list=false,
-			name="",
+			name="CorruptOnly",
 			refTo="",
 			type="Bool",
-			width=50
+			width=100
 		},
 		[4]={
 			list=false,
@@ -4325,7 +4325,7 @@ return {
 		},
 		[5]={
 			list=false,
-			name="",
+			name="PartyMods",
 			refTo="Stats",
 			type="Key",
 			width=300
