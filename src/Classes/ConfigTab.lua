@@ -166,8 +166,19 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self:BuildModList()
 					self.build.buildFlag = true
 				end)
-			elseif varData.type == "text" then
+			elseif varData.type == "text" and not varData.resizable then
 				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, 344, 118, "", nil, "^%C\t\n", nil, function(buf, placeholder)
+					if placeholder then
+						self.placeholder[varData.var] = tostring(buf)
+					else
+						self.input[varData.var] = tostring(buf)
+						self:AddUndoState()
+						self:BuildModList()
+					end
+					self.build.buildFlag = true
+				end, 16)
+			elseif varData.type == "text" and varData.resizable then
+				control = new("ResizableEditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, nil, 344, nil, nil, 118, 118 + 16 * 40, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
 						self.placeholder[varData.var] = tostring(buf)
 					else
