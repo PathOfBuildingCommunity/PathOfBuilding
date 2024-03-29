@@ -2623,7 +2623,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Veiled", sourceId = "VEILED"})
 	end
-	if self.displayItem.type ~= "Flask" then
+	if not self.displayItem.clusterJewel and self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Delve", sourceId = "DELVE"})
 	end
 	if not self.displayItem.crafted then
