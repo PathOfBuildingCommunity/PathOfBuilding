@@ -299,7 +299,7 @@ local function getStat(state, stat)
 				AdditionalStats.uber.CannotBeBlocked = '"flag"'
 				AdditionalStats.uber.CannotBeDodged = '"flag"'
 				AdditionalStats.uber.CannotBeSuppressed = '"flag"'
-				AdditionalStats.uber.count = AdditionalStats.base.count + 3
+				AdditionalStats.uber.count = AdditionalStats.uber.count + 3
 			end
 		end
 		for i, constStat in ipairs(skill.GrantedEffectStatSets.ConstantStats) do
