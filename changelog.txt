@@ -16,7 +16,6 @@ VERSION[2.42.0][2024/03/30]
 * Fix Tree export to PoE Planner (pHiney)
 
 --- Other changes ---
-
 * Save resources when window is minimized (ryuuk)
 
 VERSION[2.41.1][2024/03/27]
