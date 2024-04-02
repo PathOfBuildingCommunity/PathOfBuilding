@@ -36,10 +36,20 @@ local skills, mod, flag, skill = ...
 		["manaweave_cost_equals_%_unreserved_mana"] = {
 			mod("ManaCostBase", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaUnreserved" , percent = 1 }),
 		},
-		["manaweave_added_lightning_damage_%_cost_if_payable"] = {
+		["archmage_gain_lightning_damage_%_of_max_unreserved_mana"] = {
 			mod("LightningMin", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaUnreserved" , percent = 1 }),
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaUnreserved" , percent = 1 }),
 		},
+	},
+#mods
+
+#skill Automation
+	statMap = {
+	},
+#mods
+
+#skill SupportAutomation
+	statMap = {
 	},
 #mods
 
@@ -590,6 +600,16 @@ local skills, mod, flag, skill = ...
 		["support_gem_mine_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+	},
+#mods
+
+#skill SupportSacredWisps
+	statMap = {
+	},
+#mods
+
+#skill SummonSacredWisp
+	statMap = {
 	},
 #mods
 

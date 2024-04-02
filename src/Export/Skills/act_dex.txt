@@ -161,6 +161,16 @@ local skills, mod, flag, skill = ...
 #baseMod flag("OneShotProj")
 #mods
 
+#skill ArtilleryBallistaAltX
+#flags attack projectile area totem ballista
+#baseMod flag("OneShotProj")
+#mods
+
+#skill ArtilleryBallistaAltY
+#flags attack projectile area totem ballista
+#baseMod flag("OneShotProj")
+#mods
+
 #skill Barrage
 #flags attack projectile
 	parts = {
@@ -1037,13 +1047,19 @@ local skills, mod, flag, skill = ...
 			flag("DealNoLightning", { type = "SkillPart", skillPartList = { 1, 2 } }),
 			flag("DealNoLightning", { type = "SkillPart", skillPartList = { 3, 4 } }),
 		},
+		["active_skill_base_area_of_effect_radius"] = {
+			skill("radius", nil, { type = "SkillPart", skillPartList = { 2, 4, 6 } }),
+		},
+		["deal_no_non_elemental_damage"] = {
+			-- Display only
+		},
+		["elemental_hit_no_damage_of_unchosen_elemental_type"] = {
+			-- Display only
+		},
 		["quality_display_elemental_hit_is_gem"] = {
 			-- Display only
 		},
 	},
-#baseMod mod("AreaOfEffect", "MORE", 224, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Scorched" } }, { type = "SkillPart", skillPart = 2 })
-#baseMod mod("AreaOfEffect", "MORE", 224, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Chilled", "Frozen", "Brittle" } }, { type = "SkillPart", skillPart = 4 })
-#baseMod mod("AreaOfEffect", "MORE", 224, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Shocked", "Sapped" } }, { type = "SkillPart", skillPart = 6 })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" })
@@ -1051,7 +1067,45 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Scorched" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Brittle" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Sapped" })
-#baseMod skill("radius", 10, { type = "SkillPart", skillPartList = { 2, 4, 6 } })
+#mods
+
+#skill ElementalHitAltX
+#flags attack projectile
+	parts = {
+		{
+			name = "Attack",
+			area = false,
+		},
+		{
+			name = "AoE Explosion",
+			area = true,
+		},
+	},
+	statMap = {
+		["elemental_hit_damage_+%_final_per_enemy_elemental_ailment"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
+		},
+		["elemental_hit_no_physical_chaos_damage"] = {
+			flag("DealNoPhysical"),
+			flag("DealNoChaos"),
+		},
+		["active_skill_base_area_of_effect_radius"] = {
+			skill("radius", nil, { type = "SkillPart", skillPart = 2 }),
+		},
+		["deal_no_non_elemental_damage"] = {
+			-- Display only
+		},
+		["quality_display_elemental_hit_is_gem"] = {
+			-- Display only
+		},
+	},
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Scorched" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Brittle" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Sapped" })
 #mods
 
 #skill EnsnaringArrow
@@ -1346,14 +1400,16 @@ local skills, mod, flag, skill = ...
 			t_insert(breakdown.OverlapChance, "^8= (^7tertiary radius^8 + ^7enemy radius^8 - 1) ^ 2 / ^7secondary radius^8 ^ 2")
 			t_insert(breakdown.OverlapChance, "^8Result is the weighted sum of overlap chances for each possible tertiary radius")
 			local radii = {}
+			local numRadii = 0
 			for radius in pairs(output.AreaOfEffectRadiusTertiaryOccurrences) do
 				t_insert(radii, radius)
+				numRadii = numRadii + 1
 			end
 			table.sort(radii)
 			for i, smallRadius in ipairs(radii) do
-				t_insert(breakdown.OverlapChance, s_format("^8(^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2 *^7 %d/%d" ..
-						(i == #radii and "" or " ^8+"),
-						smallRadius, enemyRadius, fullRadius, output.AreaOfEffectRadiusTertiaryOccurrences[smallRadius], marginWidth))
+				t_insert(breakdown.OverlapChance, s_format("^8(^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2 *^7 %d/%d%s",
+					smallRadius, enemyRadius, fullRadius, output.AreaOfEffectRadiusTertiaryOccurrences[smallRadius],
+					marginWidth, i == numRadii and "" or " ^8+"))
 			end
 			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.3f^8%%", output.OverlapChance))
 		end
@@ -1755,7 +1811,21 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod mod("SkillPhysicalDamageConvertToCold", "BASE", 40, 0, 0, { type = "SkillPart", skillPart = 2 })
-#baseMod skill("radius", 23)
+#mods
+
+#skill IceShotAltX
+#flags attack projectile area duration
+	parts = {
+		{
+			name = "Arrow",
+			area = false,
+		},
+		{
+			name = "Cone",
+			area = true,
+		},
+	},
+#baseMod mod("SkillPhysicalDamageConvertToCold", "BASE", 40, 0, 0, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill VaalIceShot
@@ -3054,9 +3124,9 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["elemental_strike_physical_damage_%_to_convert"] = {
-			mod("PhysicalDamageConvertToFire", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 1, 2 } }),
-			mod("PhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 3, 4 } }),
-			mod("PhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 5, 6 } }),
+			mod("SkillPhysicalDamageConvertToFire", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 1, 2 } }),
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 3, 4 } }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 5, 6 } }),
 		},
 	},
 #baseMod skill("radius", 24, { type = "SkillPart", skillPart = 2 })
@@ -3110,9 +3180,9 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["elemental_strike_physical_damage_%_to_convert"] = {
-			mod("PhysicalDamageConvertToFire", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 1, 2 } }),
-			mod("PhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 3, 4 } }),
-			mod("PhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 5, 6 } }),
+			mod("SkillPhysicalDamageConvertToFire", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 1, 2 } }),
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 3, 4 } }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 5, 6 } }),
 		},
 	},
 #baseMod skill("radius", 24, { type = "SkillPart", skillPart = 2 })
@@ -3133,6 +3203,29 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill PoisonousConcoction
+#flags attack area projectile
+	parts = {
+		{
+			name = "No Flask",
+		},
+		{
+			name = "Life",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local multiplier = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ChaosPerLifeFlaskPercent") or 0
+		local addedFromFlask = (output.LifeFlaskRecovery or 0) * (multiplier / 100)
+		activeSkill.skillModList:NewMod("ChaosMin", "BASE", addedFromFlask, "Life Flask charges consumed")
+		activeSkill.skillModList:NewMod("ChaosMax", "BASE", addedFromFlask, "Life Flask charges consumed")
+	end,
+	statMap = {
+		["flask_throw_added_chaos_damage_%_of_flask_life_to_recover"] = {
+			mod("ChaosPerLifeFlaskPercent", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#mods
+
+#skill PoisonousConcoctionAltX
 #flags attack area projectile
 	parts = {
 		{
@@ -3189,6 +3282,42 @@ local skills, mod, flag, skill = ...
 		["tornado_base_damage_interval_ms"] = {
 			skill("damageInterval", nil ),
 			div = 1000,
+		},
+	},
+#mods
+
+#skill TornadoAltY
+#flags spell duration physical area
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.damageInterval
+		activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:TornadoofElementalTurbulenceStage")
+	end,
+	parts = {
+		{
+			name = "Fire",
+			stages = true,
+		},
+		{
+			name = "Lightning",
+			stages = true,
+		},
+		{
+			name = "Cold",
+			stages = true,
+		},
+	},
+	statMap = {
+		["tornado_base_damage_interval_ms"] = {
+			skill("damageInterval", nil ),
+			div = 1000,
+		},
+		["elemental_strike_physical_damage_%_to_convert"] = {
+			mod("SkillPhysicalDamageConvertToFire", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		},
+		["number_of_tornados_allowed"] = {
+			mod("Multiplier:TornadoofElementalTurbulenceMaxStages", "BASE", nil),
 		},
 	},
 #mods

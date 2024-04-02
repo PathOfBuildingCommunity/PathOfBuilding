@@ -47,9 +47,10 @@ return {
 		critChance = 0,
 		additionalStats = {
 			uber = {
-				reduceEnemyBlock = 1000,
+				CannotBeDodged = "flag",
 				CannotBeEvaded = "flag",
-				reduceEnemyDodge = 1000
+				CannotBeSuppressed = "flag",
+				CannotBeBlocked = "flag"
 			}
 		},
 		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds increases Damage by a further 100% (Applied on Uber) and cannot be blocked or dodged"

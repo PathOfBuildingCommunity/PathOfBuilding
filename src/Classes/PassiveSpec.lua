@@ -346,7 +346,7 @@ function PassiveSpecClass:DecodePoePlannerURL(url, return_tree_version_only)
 		-- Translates internal tree version to GGG version.
 		-- Limit poeplanner tree imports to recent versions.
 		tree_versions = { -- poeplanner ID: GGG version
-			[27] = 22, [26] = 21, [25] = 20, [24] = 19, [23] = 18,
+			[31] = 24, [29] = 23, [27] = 22, [26] = 21, [25] = 20, [24] = 19, [23] = 18,
 			}
 		if tree_versions[minor] then
 			return tree_versions[minor]

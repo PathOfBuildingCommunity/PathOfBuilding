@@ -2612,6 +2612,25 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					return a.defaultOrder < b.defaultOrder
 				end
 			end)
+		elseif sourceId == "NECROPOLIS" then
+			for i, mod in pairs(self.build.data.necropolisMods) do
+				if self.displayItem:GetNecropolisModSpawnWeight(mod) > 0 then
+					t_insert(modList, {
+						label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						mod = mod,
+						affixType = mod.type,
+						type = "custom",
+						defaultOrder = i,
+					})
+				end
+			end
+			table.sort(modList, function(a, b)
+				if a.affixType ~= b.affixType then
+					return a.affixType == "Prefix" and b.affixType == "Suffix"
+				else
+					return a.defaultOrder < b.defaultOrder
+				end
+			end)
 		end
 	end
 	if self.displayItem.type ~= "Jewel" then
@@ -2619,11 +2638,12 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	end
 	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Essence", sourceId = "ESSENCE" })
-	end
-	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Veiled", sourceId = "VEILED"})
 	end
-	if self.displayItem.type ~= "Flask" then
+	if self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots" then
+		t_insert(sourceList, { label = "Necropolis", sourceId = "NECROPOLIS"})
+	end
+	if not self.displayItem.clusterJewel and self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Delve", sourceId = "DELVE"})
 	end
 	if not self.displayItem.crafted then

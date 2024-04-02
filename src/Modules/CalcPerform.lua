@@ -925,11 +925,9 @@ end
 -- 8. Processes buffs and debuffs
 -- 9. Processes charges and misc buffs (doActorCharges, doActorMisc)
 -- 10. Calculates defence and offence stats (calcs.defence, calcs.offence)
-function calcs.perform(env, fullDPSSkipEHP)
+function calcs.perform(env, skipEHP)
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
-
-	local fullDPSSkipEHP = fullDPSSkipEHP or false
 
 	-- Merge keystone modifiers
 	env.keystonesAdded = { }
@@ -952,7 +950,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 
 	env.partyMembers = env.build.partyTab.actor
 	env.player.partyMembers = env.partyMembers
-	local partyTabEnableExportBuffs = env.build.partyTab.enableExportBuffs
+	local partyTabEnableExportBuffs = env.build.partyTab.enableExportBuffs and env.mode ~= "CALCULATOR"
 
 	env.minion = env.player.mainSkill.minion
 	if env.minion then
@@ -3010,7 +3008,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 
 	-- Defence/offence calculations
 	calcs.defence(env, env.player)
-	if not fullDPSSkipEHP then
+	if not skipEHP then
 		calcs.buildDefenceEstimations(env, env.player)
 	end
 
@@ -3021,7 +3019,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 
 	if env.minion then
 		calcs.defence(env, env.minion)
-		if not fullDPSSkipEHP then -- main.build.calcsTab.input.showMinion and -- should be disabled unless "calcsTab.input.showMinion" is true
+		if not skipEHP then -- main.build.calcsTab.input.showMinion and -- should be disabled unless "calcsTab.input.showMinion" is true
 			calcs.buildDefenceEstimations(env, env.minion)
 		end
 		calcs.triggers(env, env.minion)

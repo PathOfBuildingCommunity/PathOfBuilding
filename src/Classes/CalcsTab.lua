@@ -442,6 +442,7 @@ end
 function CalcsTabClass:BuildPower()
 	if self.powerBuildFlag then
 		self.powerBuildFlag = false
+		self.powerMax = nil
 		self.powerBuilder = coroutine.create(self.PowerBuilder)
 	end
 	if self.powerBuilder then
