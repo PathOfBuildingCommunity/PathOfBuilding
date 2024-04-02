@@ -349,9 +349,9 @@ function calcs.mirages(env)
 				SkillTriggerRate = EffectiveSourceRate ~= 0 and calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(env.player.mainSkill, env), cd = triggeredCD, icdr = icdrSkill }}, EffectiveSourceRate, triggerCD) or 0
 				SkillTriggerRate = SkillTriggerRate * wispsMaxCount
 
-				local lessDamage = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SacredWispsLessDamage")
+				local lessDamage = newSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SacredWispsLessDamage")
 				-- Add new modifiers to new skill (which already has all the old skill's modifiers)
-				newSkill.skillModList:NewMod("Damage", "MORE", -lessDamage, "Summon Sacred Wisps", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
+				newSkill.skillModList:NewMod("Damage", "MORE", lessDamage, "Summon Sacred Wisps", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
 
 				-- Override attack speed with trigger rate
 				newSkill.skillData.triggerRate = SkillTriggerRate
