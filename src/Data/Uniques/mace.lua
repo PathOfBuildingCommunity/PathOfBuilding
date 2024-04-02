@@ -186,7 +186,7 @@ Skills Chain +1 times
 Nebulis
 Void Sceptre
 League: Synthesis
-Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
+Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage

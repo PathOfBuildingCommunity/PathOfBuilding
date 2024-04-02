@@ -78,7 +78,7 @@ Ashes of the Stars
 Onyx Amulet
 Variant: Pre 3.23.0
 Variant: Current
-Source: Drops from unique{The Eater of Worlds}
+Source: Drops from unique{The Eater of Worlds} (Uber)
 Requires Level 60
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
@@ -312,7 +312,7 @@ Extra Gore
 ]],[[
 Crystallised Omniscience
 Onyx Amulet
-Source: Drops from unique{The Searing Exarch}
+Source: Drops from unique{The Searing Exarch} (Uber)
 Requires Level 61
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes

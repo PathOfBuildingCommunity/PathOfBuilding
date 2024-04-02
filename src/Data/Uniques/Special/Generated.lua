@@ -510,7 +510,7 @@ local impossibleEscape = {
 	"Impossible Escape",
 	"Viridian Jewel",
 	"League: Sentinel",
-	"Source: Drops from unique{The Maven}",
+	"Source: Drops from unique{The Maven} (Uber)",
 	"Limited to: 1",
 	"Radius: Small"
 }
