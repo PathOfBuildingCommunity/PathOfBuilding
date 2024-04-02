@@ -4728,6 +4728,9 @@ skills["SupportSacredWisps"] = {
 		["supported_skill_can_only_use_wand"] = {
 			-- Display only
 		},
+		["summon_sacred_wisps_on_hit"] = {
+			-- Display only
+		},
 	},
 	qualityStats = {
 		Default = {
