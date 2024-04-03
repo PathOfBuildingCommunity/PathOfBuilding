@@ -106,7 +106,7 @@ Requires Level 65, 148 Str
 Echoes of Creation
 Shaper Item
 Royal Burgonet
-Source: Drops from unique{The Shaper}
+Source: Drops from unique{The Shaper} (Uber)
 Requires Level 65, 148 Str
 Socketed Warcry Skills have +1 Cooldown Use
 (80-120)% increased Armour
@@ -1499,7 +1499,7 @@ Socketed Gems have 50% reduced Mana Cost
 Viridi's Veil
 Praetor Crown
 League: Ritual
-Source: Drops from unique{The Maven}
+Source: Drops from unique{The Maven} (Uber)
 Requires Level 68, 62 Str, 91 Int
 +(1-2) to Level of Socketed Gems
 (120-160)% increased Armour and Energy Shield

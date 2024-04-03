@@ -1452,7 +1452,7 @@ Call of the Void
 Sapphire Ring
 Shaper Item
 Elder Item
-Source: Drops from unique{The Elder} (Uber)
+Source: Drops from unique{The Elder} (Uber Uber)
 Requires Level 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance

@@ -69,7 +69,7 @@ Damage Penetrates 20% Lightning Resistance
 ]],[[
 The Annihilating Light
 Quarterstaff
-Source: Drops from unique{The Searing Exarch}
+Source: Drops from unique{The Searing Exarch} (Uber)
 Requires Level 68, 78 Str, 78 Int
 Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff
