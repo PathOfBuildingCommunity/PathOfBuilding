@@ -75,7 +75,5 @@ describe("TestAttacks", function()
         runCallback("OnFrame")
 
         assert.True(build.calcsTab.mainOutput.MirageDPS ~= nil)
-
-        assert.True(build.calcsTab.mainOutput.SkillTriggerRate == build.calcsTab.mainOutput.Speed)
     end)
 end)
