@@ -97,6 +97,7 @@ function calcs.mirages(env)
 			end,
 			postCalcFunc = function(env, newSkill, newEnv)
 				env.player.mainSkill.mirage.output = newEnv.player.output
+				env.player.mainSkill.skillFlags.mirage = true
 				if newSkill.minion then
 					env.player.mainSkill.mirage.minion = {}
 					env.player.mainSkill.mirage.minion.output = newEnv.minion.output
@@ -338,6 +339,7 @@ function calcs.mirages(env)
 			end,
 			postCalcFunc = function(env, newSkill, newEnv)
 				env.player.mainSkill.mirage.output = newEnv.player.output
+				env.player.mainSkill.skillFlags.wisp = true
 				if newSkill.minion then
 					env.player.mainSkill.mirage.minion = {}
 					env.player.mainSkill.mirage.minion.output = newEnv.minion.output
