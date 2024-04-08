@@ -146,7 +146,7 @@ function PassiveSpecClass:Load(xml, dbFileName)
 							return true
 						end
 						
-						-- In case a tatoo has been replaced by a different one attampt to find the new name for it
+						-- In case a tattoo has been replaced by a different one attempt to find the new name for it
 						if not self.tree.tattoo.nodes[child.attrib.dn] then
 							for name ,data in pairs(self.tree.tattoo.nodes) do
 								if data["activeEffectImage"] == child.attrib["activeEffectImage"] and data["icon"] == child.attrib["icon"] then
@@ -156,7 +156,7 @@ function PassiveSpecClass:Load(xml, dbFileName)
 							end
 						end
 
-						-- If the above failed remove the tatoo to avoid crashing
+						-- If the above failed remove the tattoo to avoid crashing
 						if self.tree.tattoo.nodes[child.attrib.dn] then
 							local nodeId = tonumber(child.attrib.nodeId)
 							self.hashOverrides[nodeId] = copyTable(self.tree.tattoo.nodes[child.attrib.dn], true)
