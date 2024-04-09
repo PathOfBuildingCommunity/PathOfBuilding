@@ -74,7 +74,7 @@ local function findTriggerSkill(env, skill, source, triggerRate, comparer)
 
 	local uuid = cacheSkillUUID(skill, env)
 	if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-		calcs.buildActiveSkill(env, env.mode, skill)
+		calcs.buildActiveSkill(env, env.mode, skill, uuid)
 	end
 
 	if GlobalCache.cachedData[env.mode][uuid] and comparer(uuid, source, triggerRate) and (skill.skillFlags and not skill.skillFlags.disable) and (skill.skillCfg and not skill.skillCfg.skillCond["usedByMirage"]) and not skill.skillTypes[SkillType.OtherThingUsesSkill] then
@@ -530,7 +530,7 @@ local function defaultTriggerHandler(env, config)
 			if actor.mainSkill.skillData.triggeredByManaforged and trigRate > 0 then
 				local triggeredUUID = cacheSkillUUID(actor.mainSkill, env)
 				if not GlobalCache.cachedData[env.mode][triggeredUUID] then
-					calcs.buildActiveSkill(env, env.mode, actor.mainSkill, {[triggeredUUID] = true})
+					calcs.buildActiveSkill(env, env.mode, actor.mainSkill, triggeredUUID, {[triggeredUUID] = true})
 				end
 				local triggeredManaCost = GlobalCache.cachedData[env.mode][triggeredUUID].Env.player.output.ManaCost or 0
 				if triggeredManaCost > 0 then
@@ -1240,7 +1240,7 @@ local configTable = {
 						skill.skillData.hitTimeMultiplier = snipeStages - 0.5
 						local uuid = cacheSkillUUID(skill, env)
 						if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-							calcs.buildActiveSkill(env, env.mode, skill)
+							calcs.buildActiveSkill(env, env.mode, skill, uuid)
 						end
 						local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].Env.player.output.HitSpeed
 						if (skill.skillFlags and not skill.skillFlags.disable) and (skill.skillCfg and not skill.skillCfg.skillCond["usedByMirage"]) and not skill.skillTypes[SkillType.OtherThingUsesSkill] and ((not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (trigRate or 0))) then
