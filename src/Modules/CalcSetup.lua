@@ -12,6 +12,8 @@ local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 
+local tempTable1 = { }
+
 -- Initialise modifier database with stats and conditions common to all actors
 function calcs.initModDB(env, modDB)
 	modDB:NewMod("FireResistMax", "BASE", 75, "Base")
@@ -1145,65 +1147,80 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 	if not accelerate.skills then
 		if env.mode == "MAIN" then
-			-- Remove any socket groups coming from items
-			local i = 1
-			while build.skillsTab.socketGroupList[i] do
-				local socketGroup = build.skillsTab.socketGroupList[i]
-				if socketGroup.source then
-					t_remove(build.skillsTab.socketGroupList, i)
-					if build.skillsTab.displayGroup == socketGroup then
-						build.skillsTab.displayGroup = nil
-					end
-				else
-					i = i + 1
-				end
-			end
-
 			-- Process extra skills granted by items or tree nodes
+			local markList = wipeTable(tempTable1)
 			for _, grantedSkill in ipairs(env.grantedSkills) do
-				local group = {
-					label = "",
-					enabled = true,
-					gemList = { {
-						skillId = grantedSkill.skillId,
-						nameSpec = grantedSkill.nameSpec,
-						quality = 0,
-						enabled = true,
-						fromItem = grantedSkill.sourceItem ~= nil,
-						level = grantedSkill.level,
-						enableGlobal1 = true,
-						noSupports = grantedSkill.noSupports,
-						triggered = grantedSkill.triggered,
-						triggerChance = grantedSkill.triggerChance
-						} },
-					source = grantedSkill.source,
-					slot = grantedSkill.slotName,
-					sourceItem = grantedSkill.sourceItem,
-					sourceNode = grantedSkill.sourceNode,
-					noSupports = grantedSkill.noSupports,
-					}
+				-- Levels in socketGroup.gemList[1].level are normalized
+				-- grantedSkill.level is not causing group match miss which causes all things that rely on group order to fail
+				local normalizedGrantedSkill = {
+					grantedEffect = data.skills[grantedSkill.skillId],
+					level = grantedSkill.level
+				}
+				calcLib.validateGemLevel(normalizedGrantedSkill)
 
+				-- Check if a matching group already exists
+				local group
+				for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
+					if socketGroup.source == grantedSkill.source and socketGroup.slot == grantedSkill.slotName then
+						if socketGroup.gemList[1] and socketGroup.gemList[1].skillId == grantedSkill.skillId and socketGroup.gemList[1].level == normalizedGrantedSkill.level then
+							group = socketGroup
+							markList[socketGroup] = true
+							break
+						end
+					end
+				end
+				if not group then
+					-- Create a new group for this skill
+					group = { label = "", enabled = true, gemList = { }, source = grantedSkill.source, slot = grantedSkill.slotName }
+					t_insert(build.skillsTab.socketGroupList, group)
+					markList[group] = true
+				end
+
+				-- Update the group
+				group.sourceItem = grantedSkill.sourceItem
+				group.sourceNode = grantedSkill.sourceNode
+				local activeGemInstance = group.gemList[1] or {
+					skillId = grantedSkill.skillId,
+					nameSpec = grantedSkill.nameSpec,
+					quality = 0,
+					enabled = true,
+				}
+				activeGemInstance.fromItem = grantedSkill.sourceItem ~= nil
+				activeGemInstance.gemId = nil
+				activeGemInstance.level = grantedSkill.level
+				activeGemInstance.enableGlobal1 = true
+				activeGemInstance.noSupports = grantedSkill.noSupports
+				group.noSupports = grantedSkill.noSupports
+				activeGemInstance.triggered = grantedSkill.triggered
+				activeGemInstance.triggerChance = grantedSkill.triggerChance
+				wipeTable(group.gemList)
+				t_insert(group.gemList, activeGemInstance)
 				build.skillsTab:ProcessSocketGroup(group)
-				t_insert(build.skillsTab.socketGroupList, group)
 			end
 
 			if #env.explodeSources ~= 0 then
-				local group = {
-					label = "On Kill Monster Explosion",
-					enabled = true,
-					gemList = { },
-					source = "Explode",
-					noSupports = true,
-					explodeSources = env.explodeSources,
-				}
-
+				-- Check if a matching group already exists
+				local group
+				for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
+					if socketGroup.source == "Explode" then
+						group = socketGroup
+						break
+					end
+				end
+				if not group then
+					-- Create a new group for this skill
+					group = { label = "On Kill Monster Explosion", enabled = true, gemList = { }, source = "Explode", noSupports = true }
+					t_insert(build.skillsTab.socketGroupList, group)
+				end
+				-- Update the group
+				group.explodeSources = env.explodeSources
 				local gemsBySource = { }
 				for _, gem in ipairs(group.gemList) do
 					if gem.explodeSource then
 						gemsBySource[gem.explodeSource.modSource or gem.explodeSource.id] = gem
 					end
 				end
-
+				wipeTable(group.gemList)
 				for _, explodeSource in ipairs(env.explodeSources) do
 					local activeGemInstance
 					if gemsBySource[explodeSource.modSource or explodeSource.id] then
@@ -1220,8 +1237,22 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 					t_insert(group.gemList, activeGemInstance)
 				end
+				markList[group] = true
 				build.skillsTab:ProcessSocketGroup(group)
-				t_insert(build.skillsTab.socketGroupList, group)
+			end
+
+			-- Remove any socket groups that no longer have a matching item
+			local i = 1
+			while build.skillsTab.socketGroupList[i] do
+				local socketGroup = build.skillsTab.socketGroupList[i]
+				if socketGroup.source and not markList[socketGroup] then
+					t_remove(build.skillsTab.socketGroupList, i)
+					if build.skillsTab.displayGroup == socketGroup then
+						build.skillsTab.displayGroup = nil
+					end
+				else
+					i = i + 1
+				end
 			end
 		end
 
