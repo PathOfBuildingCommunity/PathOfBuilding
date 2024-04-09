@@ -744,8 +744,7 @@ end
 function cacheSkillUUID(skill, env)
 	local strName = skill.activeEffect.grantedEffect.name:gsub("%s+", "") -- strip spaces
 	local strSlotName = (skill.socketGroup and skill.socketGroup.slot and skill.socketGroup.slot:upper() or "NO_SLOT"):gsub("%s+", "") -- strip spaces
-	local slotIndx = 1
-	local groupIdx = 1
+	local slotIndx
 	if skill.socketGroup and skill.socketGroup.gemList and skill.activeEffect.srcInstance then
 		for idx, gem in ipairs(skill.socketGroup.gemList) do
 			-- we compare table addresses rather than names since two of the same gem
@@ -757,14 +756,23 @@ function cacheSkillUUID(skill, env)
 		end
 	end
 
-	for i, group in ipairs(env.build.skillsTab.socketGroupList) do
-		if skill.socketGroup == group then
-			groupIdx = i
-			break
-		end
-	end
+	local uuid = {
+		strName,
+		skill.activeEffect.level or -1,
+		skill.activeEffect.quality or -1,
+		(skill.activeEffect.qualityId or "Default"),
+		strSlotName,
+		slotIndx,
+	}
 
-	return strName.."_"..strSlotName.."_"..tostring(slotIndx) .. "_" .. tostring(groupIdx)
+	-- Add supports in case there are two groups with the same main skill but different supports and therefore stats
+	for _, support in ipairs(skill.supportList) do
+		t_insert(uuid, support.grantedEffect.id)
+		t_insert(uuid, support.level or -1)
+		t_insert(uuid, support.quality)
+		t_insert(uuid, support.quality or "Default")
+	end
+	return table.concat(uuid, "_")
 end
 
 -- Global Cache related
