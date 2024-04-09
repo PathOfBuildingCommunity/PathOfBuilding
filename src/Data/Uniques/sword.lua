@@ -401,7 +401,7 @@ The Saviour
 Legion Sword
 Variant: Pre 3.20.0
 Variant: Current
-Source: Drops from unique{Sirus, Awakener of Worlds}
+Source: Drops from unique{Sirus, Awakener of Worlds} (Uber)
 Implicits: 1
 40% increased Global Accuracy Rating
 Triggers Level 20 Reflection when Equipped
@@ -839,7 +839,7 @@ Gain an Endurance Charge if an Attack Freezes an Enemy
 ]],[[
 Echoforge
 Infernal Sword
-Source: Drops from unique{The Maven} (Uber)
+Source: Drops from unique{The Maven}
 Implicits: 1
 30% increased Chaos Damage
 Adds (600-650) to (750-800) Chaos Damage
@@ -935,7 +935,7 @@ Cannot be Frozen
 Starforge
 Infernal Sword
 Shaper Item
-Source: Drops from unique{The Shaper}
+Source: Drops from unique{The Shaper} (Uber)
 Variant: Pre 3.11.0
 Variant: Pre 3.20.0
 Variant: Current
@@ -972,7 +972,7 @@ Voidforge
 Infernal Sword
 Shaper Item
 Elder Item
-Source: Drops from unique{The Elder} (Uber)
+Source: Drops from unique{The Elder} (Uber Uber)
 Variant: Pre 3.11.0
 Variant: Pre 3.20.0
 Variant: Current

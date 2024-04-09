@@ -23,7 +23,7 @@
 - Fix Tree export to PoE Planner [\#7455](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7455) ([pHiney](https://github.com/pHiney))
 
 ### Other changes
-- Save resources when window is minimized [\#53](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/53) ([ryuuk](https://github.com/ryuuk))
+- Save resources when window is minimized [\#53](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/53) ([ryuukk](https://github.com/ryuukk))
 
 
 ## [v2.41.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.41.1) (2024/03/27)
@@ -139,7 +139,7 @@
 - Implement explosive trap +-30% base tertiary radius, fix overlap chance for transfigured version [\#7384](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7384) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
 - Fix Life Leech and Block missing from current version of Essentia Sanguis [\#7377](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7377) ([Paliak](https://github.com/Paliak))
 - Fix current variant of Lioneye's Glare missing Far Shot [\#7376](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7376) ([Paliak](https://github.com/Paliak))
-- Fix Nightgrip missing "taken" keyword in description [\#7383](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7383) ([MattiaCiccone](https://github.com/MattiaCiccone))
+- Fix Nightgrip missing "taken" keyword in description [\#7383](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7383) ([Ciccooz](https://github.com/Ciccooz))
 
 
 
@@ -252,7 +252,7 @@
 - Fix added Cooldown and added Cast Time not working correctly [\#6728](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6728) ([Paliak](https://github.com/Paliak))
 - Fix Kalandra's Touch not adding to influenced items multiplier [\#7182](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7182) ([Paliak](https://github.com/Paliak))
 - Fix resistance calculations when using Glimpse of Chaos and Chieftain Tasalio node [\#7201](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7201) ([sida-wang](https://github.com/sida-wang))
-- Fix Oath of the Maji not stacking with Juggernaut's Unbreakable [\#7225](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7225) ([wkingston1248](https://github.com/wkingston1248))
+- Fix Oath of the Maji not stacking with Juggernaut's Unbreakable [\#7225](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7225) ([Random-Panda](https://github.com/Random-Panda))
 
 ### Accuracy Improvements
 - Fix mod parsing for Militant Faith Cloistered Notable [\#7197](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7197) ([Peechey](https://github.com/Peechey))
