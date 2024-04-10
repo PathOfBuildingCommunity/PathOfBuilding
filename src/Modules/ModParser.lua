@@ -5220,7 +5220,7 @@ local jewelOtherFuncs = {
 			end
 		end
 	end,
-	["Passive Skills in Radius also grant (%d+)%% increased (%w+) Damage"] = function(num, _, type)
+	["Passive Skills in Radius also grant (%d+)%% increased (%w+) Damage"] = function(num, type)
 		return function(node, out, data)
 			if node and node.type ~= "Keystone" then
 				out:NewMod(firstToUpper(type).."Damage", "INC", num, data.modSource)
