@@ -105,6 +105,8 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.compareSelect = new("DropDownControl", { "LEFT", self.controls.compareCheck, "RIGHT" }, 8, 0, 190, 20, nil, function(index, value)
 		if self.specList[index] then
 			self:SetCompareSpec(index)
+		else
+			self:OpenSpecManagePopup()
 		end
 	end)
 	self.controls.compareSelect.shown = false
