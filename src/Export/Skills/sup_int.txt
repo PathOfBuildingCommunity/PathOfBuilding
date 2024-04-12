@@ -45,6 +45,9 @@ local skills, mod, flag, skill = ...
 
 #skill Automation
 	statMap = {
+		["automation_behaviour"] ={
+			-- Display only
+		}
 	},
 #mods
 

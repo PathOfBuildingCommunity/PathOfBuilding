@@ -574,6 +574,7 @@ local function defaultTriggerHandler(env, config)
 			local cooldownOverride = actor.mainSkill.skillModList:Override(actor.mainSkill.skillCfg, "CooldownRecovery")
 			local triggerCD = actor.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
 			triggerCD = triggerCD or source.triggeredBy and source.triggeredBy.grantedEffect.levels[source.triggeredBy.level].cooldown
+			triggerCD = triggerCD or env.player.mainSkill.skillFlags.globalTrigger and env.player.mainSkill.triggeredBy.srcInstance.displayEffect.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
 			local triggeredCD = actor.mainSkill.skillData.cooldown
 			
 			if actor.mainSkill.skillData.triggeredByBrand then
@@ -1080,6 +1081,12 @@ local configTable = {
         env.player.mainSkill.skillFlags.globalTrigger = true
 		return {triggerChance =  env.player.mainSkill.skillData.chanceToTriggerOnStun,
 				source = env.player.mainSkill}
+	end,
+	["automation"] = function(env)
+		if not env.player.mainSkill.activeEffect.grantedEffect.name ~= "Automation" and env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.supportGemsOnly and env.player.mainSkill.activeEffect.gemData then
+			env.player.mainSkill.skillFlags.globalTrigger = true
+			return {source = env.player.mainSkill}
+		end
 	end,
 	["spellslinger"] = function()
 		return {triggerName = "Spellslinger",

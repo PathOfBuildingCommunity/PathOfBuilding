@@ -381,6 +381,9 @@ skills["Automation"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
+		["automation_behaviour"] ={
+			-- Display only
+		}
 	},
 	baseFlags = {
 	},
