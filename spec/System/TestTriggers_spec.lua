@@ -1395,4 +1395,11 @@ describe("TestTriggers", function()
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
     end)
+	
+	it("Trigger Automation", function()
+		build.skillsTab:PasteSocketGroup("Steelskin 20/0 Default  1\nAutomation 20/0 Default  1\n")
+        runCallback("OnFrame")
+
+		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
+    end)
 end)
