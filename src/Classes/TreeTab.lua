@@ -1782,6 +1782,13 @@ function TreeTabClass:FindTimelessJewel()
 	controls.msg = new("LabelControl", nil, -280, 5, 0, 16, "")
 	if #self.tradeLeaguesList > 0 then
 		controls.searchTradeLeagueSelect:SetList(self.tradeLeaguesList)
+		-- restore the last league selected
+		for i, league in ipairs(self.tradeLeaguesList) do
+			if league == self.timelessJewelLeagueSelect then
+				controls.searchTradeLeagueSelect:SetSel(i)
+				break
+			end
+		end
 	else
 		self.tradeQueryRequests:FetchLeagues("pc", function(leagues, errMsg)
 			if errMsg then
