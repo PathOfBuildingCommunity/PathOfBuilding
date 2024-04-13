@@ -989,7 +989,7 @@ return {
 ["chill_effect_+%"] = {
 	mod("EnemyChillEffect", "INC", nil),
 },
-["chill_effect_+%_final"] = {
+["active_skill_chill_effect_+%_final"] = {
 	mod("EnemyChillEffect", "MORE", nil),
 },
 ["shock_effect_+%"] = {
