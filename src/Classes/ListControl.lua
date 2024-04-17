@@ -210,14 +210,24 @@ function ListClass:Draw(viewPort, noTooltip)
 		for index = minIndex, maxIndex do
 			local lineY = rowHeight * (index - 1) - scrollOffsetV + (self.colLabels and 18 or 0)
 			local value = list[index]
-			local text = self:GetRowValue(colIndex, index, value)
+			local value = self:GetRowValue(colIndex, index, value)
+			local text = nil
 			local icon = nil
-			if self.GetRowIcon then 
+			local detail = nil
+			local detailWidth = 0
+			if type(value) == "table" then
+				text = value.label
+				detail = value.detail
+				detailWidth = DrawStringWidth(textHeight, colFont, detail)
+			else
+				text = value
+			end
+			if self.GetRowIcon then
 				icon = self:GetRowIcon(colIndex, index, value)
 			end
 			local textWidth = DrawStringWidth(textHeight, colFont, text)
 			if textWidth > colWidth - 2 then
-				local clipIndex = DrawStringCursorIndex(textHeight, colFont, text, colWidth - clipWidth - 2, 0)
+				local clipIndex = DrawStringCursorIndex(textHeight, colFont, text, colWidth - clipWidth - 2 - detailWidth, 0)
 				text = text:sub(1, clipIndex - 1) .. "..."
 				textWidth = DrawStringWidth(textHeight, colFont, text)
 			end
@@ -270,11 +280,18 @@ function ListClass:Draw(viewPort, noTooltip)
 			end
 			-- TODO: handle icon size properly, for now assume they are 16x16
 			if icon == nil then
+				if detail ~= nil then
+					DrawString(colOffset + colWidth - detailWidth, lineY + textOffsetY, "LEFT", textHeight, colFont, detail)
+				end
 				DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
 			else
 				DrawImage(icon, colOffset, lineY, 16, 16)
+				if detail ~= nil then
+					DrawString(colOffset + colWidth - detailWidth, lineY + textOffsetY, "LEFT", textHeight, colFont, detail)
+				end
 				DrawString(colOffset + 16 + 2, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
 			end
+
 		end
 		if self.colLabels then
 			local mOver = relX >= colOffset and relX <= colOffset + colWidth and relY >= 0 and relY <= 18

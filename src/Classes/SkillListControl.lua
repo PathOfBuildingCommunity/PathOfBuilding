@@ -69,21 +69,23 @@ end)
 
 function SkillListClass:GetRowValue(column, index, socketGroup)
 	if column == 1 then
+		local gemList = socketGroup.gemList
 		local label = socketGroup.displayLabel or "?"
 		local currentMainSkill = self.skillsTab.build.mainSocketGroup == index
 		local disabled = not socketGroup.enabled or not socketGroup.slotEnabled
+		local detail = ""
 		if disabled then
 			local colour = currentMainSkill and "" or "^x7F7F7F"
-			label = colour .. label .. " (Disabled)"
+			detail = colour .. "(Disabled)"
 		end
 		if currentMainSkill then 
 			local activeLabel = disabled and " (Forced Active)" or " (Active)"
-			label = label .. colorCodes.RELIC .. activeLabel
+			detail = detail .. colorCodes.RELIC .. activeLabel
 		end
 		if socketGroup.includeInFullDPS then 
-			label = label .. colorCodes.CUSTOM .. " (FullDPS)"
+			detail = detail .. colorCodes.CUSTOM .. " (FullDPS)"
 		end
-		return label
+		return {label = label, detail = detail .. " #" .. tostring(#gemList)}
 	end
 end
 
