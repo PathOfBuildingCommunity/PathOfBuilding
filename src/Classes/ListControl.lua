@@ -7,8 +7,7 @@
 -- .label  [Adds a label above the top left corner]
 -- .dragTargetList  [List of controls that can receive drag events from this list control]
 -- .showRowSeparators  [Shows separators between rows]
--- :GetRowValue(column, index, value)  [Required; called to retrieve the text for the given column of the given list value]
--- :GetRowIcon(column, index, value)  [Called to retrieve the icon for the given column of the given list value]
+-- :GetRowValue(column, index, value)  [Required; called to retrieve the text for the given column of the given list value, if value is a table, it can hold (label#required, detail#optional, icon#optional)]
 -- :AddValueTooltip(index, value)  [Called to add the tooltip for the given list value]
 -- :GetDragValue(index, value)  [Called to retrieve the drag type and object for the given list value]
 -- :CanReceiveDrag(type, value)  [Called on drag target to determine if it can receive this value]
@@ -219,11 +218,9 @@ function ListClass:Draw(viewPort, noTooltip)
 				text = value.label
 				detail = value.detail
 				detailWidth = DrawStringWidth(textHeight, colFont, detail)
+				icon = value.icon
 			else
 				text = value
-			end
-			if self.GetRowIcon then
-				icon = self:GetRowIcon(colIndex, index, value)
 			end
 			local textWidth = DrawStringWidth(textHeight, colFont, text)
 			if textWidth > colWidth - 2 then
