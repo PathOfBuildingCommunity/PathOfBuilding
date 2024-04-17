@@ -110,6 +110,7 @@ function SkillListClass:GetRowValue(column, index, socketGroup)
 		if slot == "Weapon 2 Swap" and (weapon2SwapType == "Quiver" or weapon2SwapType == "Shield") then
 			slot = weapon2SwapType.." Swap"
 		end
+
 		return {label = label, detail = detail .. " #" .. tostring(#gemList), icon= slot_map[slot] and slot_map[slot].icon}
 	end
 end
@@ -228,8 +229,6 @@ function SkillListClass:OnHoverKeyUp(key)
 	end
 end
 
-
 function SkillListClass:Draw(viewPort)
 	self.ListControl.Draw(self, viewPort)
 end
-
