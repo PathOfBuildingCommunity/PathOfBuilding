@@ -280,16 +280,16 @@ function ListClass:Draw(viewPort, noTooltip)
 			end
 			-- TODO: handle icon size properly, for now assume they are 16x16
 			if icon == nil then
+				DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
 				if detail ~= nil then
 					DrawString(colOffset + colWidth - detailWidth, lineY + textOffsetY, "LEFT", textHeight, colFont, detail)
 				end
-				DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
 			else
 				DrawImage(icon, colOffset, lineY, 16, 16)
+				DrawString(colOffset + 16 + 2, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
 				if detail ~= nil then
 					DrawString(colOffset + colWidth - detailWidth, lineY + textOffsetY, "LEFT", textHeight, colFont, detail)
 				end
-				DrawString(colOffset + 16 + 2, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
 			end
 
 		end

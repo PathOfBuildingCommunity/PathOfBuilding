@@ -77,6 +77,7 @@ function SkillListClass:GetRowValue(column, index, socketGroup)
 		if disabled then
 			local colour = currentMainSkill and "" or "^x7F7F7F"
 			detail = colour .. "(Disabled)"
+			label = colour .. label
 		end
 		if currentMainSkill then 
 			local activeLabel = disabled and " (Forced Active)" or " (Active)"
