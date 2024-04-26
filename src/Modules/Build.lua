@@ -1484,7 +1484,14 @@ function buildMode:RefreshStatList()
 	self.controls.warnings.lines = {}
 	local statBoxList = wipeTable(self.controls.statBox.list)
 	if self.calcsTab.mainEnv.player.mainSkill.infoMessage then
-		t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. self.calcsTab.mainEnv.player.mainSkill.infoMessage})
+			if #self.calcsTab.mainEnv.player.mainSkill.infoMessage > 40 then
+				for line in string.gmatch(self.calcsTab.mainEnv.player.mainSkill.infoMessage, "([^:]+)") do
+					t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. line})
+				end
+			else
+				t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. self.calcsTab.mainEnv.player.mainSkill.infoMessage})
+			end
+		-- t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. self.calcsTab.mainEnv.player.mainSkill.infoMessage})
 		if self.calcsTab.mainEnv.player.mainSkill.infoMessage2 then
 			t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, "^8" .. self.calcsTab.mainEnv.player.mainSkill.infoMessage2})
 		end
