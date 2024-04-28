@@ -376,18 +376,20 @@ League: Warbands
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
+Variant: Pre 3.24.0
 Variant: Current
 Implicits: 1
-{variant:3,4}6% increased Movement Speed
+{variant:3,4,5}6% increased Movement Speed
 {variant:1}+1 to Level of Socketed Warcry Gems
 {variant:1}(20-30)% increased Chaos Damage
-{variant:2,3,4}(80-100)% Increased Evasion Rating
+{variant:2,3,4,5}(80-100)% Increased Evasion Rating
 +(20-40)% to Cold Resistance
 10% increased Area of Effect
 {variant:1}You gain Onslaught for 2 seconds on Killing Taunted Enemies
-{variant:2,3,4}Gain Onslaught for 4 seconds when you Warcry
-{variant:2,3,4}25% increased Warcry Buff Effect
+{variant:2,3,4,5}Gain Onslaught for 4 seconds when you Warcry
+{variant:2,3,4,5}25% increased Warcry Buff Effect
 {variant:4}Call to Arms
+{variant:5}Warlord's Call
 ]],[[
 Thousand Teeth Temu
 Vaal Buckler
