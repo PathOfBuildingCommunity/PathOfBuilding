@@ -497,7 +497,7 @@ function CalcBreakdownClass:FormatVarNameOrList(var, varList)
 end
 
 function CalcBreakdownClass:FormatModBase(mod, base)
-	return mod.type == "BASE" and string.format("%+g", math.abs(base)) or math.abs(base).."%"
+	return mod.type == "BASE" and string.format("%+g", math.abs(base)) or mod.name == "ElementalAegisValue" and math.abs(base) or math.abs(base).."%"
 end
 
 function CalcBreakdownClass:FormatModValue(value, modType)
