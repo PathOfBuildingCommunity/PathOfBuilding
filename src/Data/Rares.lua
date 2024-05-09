@@ -1321,4 +1321,224 @@ Cluster Jewel
 Small Cluster Jewel
 Crafted: true
 ]],
+-- Utility flasks
+[[
+Rarity: MAGIC
+Aquamarine Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 27
+Implicits: 1
+{tags:flask}Creates Chilled Ground on Use
+]],[[
+Rarity: MAGIC
+Basalt Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 27
+Implicits: 1
+{tags:flask}Taunts nearby Enemies on use
+]],[[
+Rarity: MAGIC
+Corundum Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 27
+Implicits: 0
+]],[[
+Rarity: MAGIC
+Diamond Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 27
+Implicits: 0
+]],[[
+Rarity: MAGIC
+Gold Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 27
+Implicits: 0
+]],[[
+Rarity: MAGIC
+Granite Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 27
+Implicits: 0
+]],[[
+Rarity: MAGIC
+Iron Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 27
+Implicits: 1
+{tags:flask}Restores Ward on use
+]],[[
+Rarity: MAGIC
+Jade Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 27
+Implicits: 0
+]],[[
+Rarity: MAGIC
+Quartz Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 27
+Implicits: 0
+]],[[
+Rarity: MAGIC
+Silver Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 27
+Implicits: 0
+]],[[
+Rarity: MAGIC
+Stibnite Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 27
+Implicits: 1
+{tags:flask}Creates a Smoke Cloud on Use
+]],[[
+Rarity: MAGIC
+Sulphur Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 27
+Implicits: 1
+{tags:flask}Creates Consecrated Ground on Use
+]],[[
+Rarity: MAGIC
+Amethyst Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 18
+Implicits: 0
+]],[[
+Rarity: MAGIC
+Ruby Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 18
+Implicits: 0
+]],[[
+Rarity: MAGIC
+Sapphire Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 18
+Implicits: 0
+]],[[
+Rarity: MAGIC
+Topaz Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 18
+Implicits: 0
+]],[[
+Rarity: MAGIC
+Bismuth Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 8
+Implicits: 0
+]],[[
+Rarity: MAGIC
+Quicksilver Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 4
+Implicits: 0
+]],
+-- Eternal and Divine Life flasks
+[[
+Rarity: MAGIC
+Eternal Life Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 65
+Implicits: 0
+]],[[
+Rarity: MAGIC
+Divine Life Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 60
+Implicits: 0
+]],
+-- Eternal and Divine Mana flasks
+[[
+Rarity: MAGIC
+Eternal Mana Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 65
+Implicits: 0
+]],[[
+Rarity: MAGIC
+Divine Mana Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 60
+Implicits: 0
+]],
+-- Hybrid flask
+[[
+Rarity: MAGIC
+Hallowed Hybrid Flask
+Crafted: true
+Prefix: None
+Suffix: None
+Quality: 20
+LevelReq: 60
+Implicits: 0
+]]
 }
