@@ -7,6 +7,7 @@ local ipairs = ipairs
 local s_format = string.format
 local t_insert = table.insert
 local m_max = math.max
+local m_min = math.min
 local dkjson = require "dkjson"
 
 local ExtBuildListControlClass = newClass("ExtBuildListControl", "ControlHost", "Control",
@@ -41,8 +42,6 @@ local ExtBuildListControlClass = newClass("ExtBuildListControl", "ControlHost", 
 			t_insert(self.buildProvidersList, provider.name)
 		end
 
-		ConPrintTable(self.buildProvidersList)
-
 		-- set default
 		self:SetProvider("PoB Archives")
 	end)
@@ -54,18 +53,15 @@ function ExtBuildListControlClass:SetProvider(providerName)
 	self.controls.sort = new("DropDownControl", { "TOP", self, "TOP" }, 0, -20, self.providerMaxLength, 20,
 		self.buildProvidersList, function(index, value)
 			self:SetProvider(value)
-		end) {
-		x = function()
-			return self.width() / 2 - self.providerMaxLength / 2
-		end
-	}
+		end)
 
 	self.controls.sort:SelByValue(providerName)
 
 	self.activeListProvider = nil
 
+	local tabWidth = 0
+
 	for _, provider in ipairs(self.buildProviders) do
-		ConPrintf("provider:", provider)
 		if provider.name == providerName then
 			self.activeListProvider = provider.impl
 		end
@@ -98,6 +94,8 @@ function ExtBuildListControlClass:SetProvider(providerName)
 
 		button.locked = index == 1
 
+		tabWidth = tabWidth + stringWidth + 10
+
 		-- button.enabled = self.mode ~= "latest"
 		if not lastControl then
 			button.x = function()
@@ -107,6 +105,14 @@ function ExtBuildListControlClass:SetProvider(providerName)
 		t_insert(self.controls, button)
 		t_insert(self.tabs, button)
 		lastControl = button
+	end
+
+	-- responsiveness
+	self.controls.sort.width = function ()
+		return m_min(150, self.width() - tabWidth)
+	end
+	self.controls.sort.x = function()
+		return (self.width() - self.controls.sort.width()) / 2
 	end
 
 	self.controls.scrollBarV = new("ScrollBarControl", { "RIGHT", self, "RIGHT" }, -1, 0, self.scroll and 16 or 0, 0,
@@ -510,9 +516,6 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 		end
 	end
 
-	-- set scroll bar height
-	-- if not self.contentHeight and next(self.activeListProvider.buildList) ~= nil then
-	-- print(currentHeight, self.scrollOffsetV, self.height())
 	self.controls.scrollBarV:SetContentDimension(currentHeight + self.scrollOffsetV - y, self.height())
 	self.contentHeight = currentHeight
 	-- end
