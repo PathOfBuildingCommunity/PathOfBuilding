@@ -40,6 +40,10 @@ function ExtBuildListProviderClass:SetActiveList(activeList)
     end
 end
 
+function ExtBuildListProviderClass:GetActiveList()
+    return self.activeList
+end
+
 function ExtBuildListProviderClass:GetListTitles()
     return self.listTitles
 end

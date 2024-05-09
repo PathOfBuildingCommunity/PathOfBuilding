@@ -26,6 +26,7 @@ local ExtBuildListControlClass = newClass("ExtBuildListControl", "ControlHost", 
 		self.contentHeight = 0
 		self.buildProviders = {}
 		self.activeListProvider = nil
+		self.tabs = {}
 
 		self.buildProviders = {
 			{
@@ -48,6 +49,7 @@ local ExtBuildListControlClass = newClass("ExtBuildListControl", "ControlHost", 
 
 function ExtBuildListControlClass:SetProvider(providerName)
 	wipeTable(self.controls)
+	wipeTable(self.tabs)
 
 	self.controls.sort = new("DropDownControl", { "TOP", self, "TOP" }, 0, -20, self.providerMaxLength, 20,
 		self.buildProvidersList, function(index, value)
@@ -78,15 +80,24 @@ function ExtBuildListControlClass:SetProvider(providerName)
 	self.activeListProvider.buildListTitles = self.activeListProvider:GetListTitles()
 
 	local lastControl = nil
-	for _, title in ipairs(self.activeListProvider:GetListTitles()) do
+	for index, title in ipairs(self.activeListProvider:GetListTitles()) do
 		local stringWidth = DrawStringWidth(16, self.font, title)
 		local anchor = { "TOP", self, "TOP" }
 		if lastControl then
 			anchor = { "LEFT", lastControl, "RIGHT" }
 		end
 		local button = new("ButtonControl", anchor, 0, lastControl and 0 or -20, stringWidth + 10, 20, title, function()
+			if self.activeListProvider:GetActiveList() == title then
+				return
+			end
 			self.activeListProvider:SetActiveList(title)
+			for _, _button in ipairs(self.tabs) do
+				_button.locked = (_button.label == title)
+			end
 		end)
+
+		button.locked = index == 1
+
 		-- button.enabled = self.mode ~= "latest"
 		if not lastControl then
 			button.x = function()
@@ -94,6 +105,7 @@ function ExtBuildListControlClass:SetProvider(providerName)
 			end
 		end
 		t_insert(self.controls, button)
+		t_insert(self.tabs, button)
 		lastControl = button
 	end
 
@@ -308,7 +320,8 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 	local width, height = self:GetSize()
 
 	-- drawing area
-	SetDrawColor(0.5, 0.5, 0.5)
+	-- SetDrawColor(0.5, 0.5, 0.5)
+	SetDrawColor(1, 1, 1)
 	DrawImage(nil, x, y, width, height)
 	-- borders
 	SetDrawColor(0, 0, 0)
@@ -335,8 +348,10 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 	for _, build in pairs(self.activeListProvider.buildList) do
 		if build.buildName then
 			if build.ascendancy then
+				SetDrawColor(0.5, 0.5, 0.5)
 				self:DrawImage(nil, x + self.width() - 115, currentHeight - 1, 82, 82)
 				local image = self:GetAscendancyImageHandle(build.ascendancy)
+				SetDrawColor(1, 1, 1)
 				self:DrawImage(image, x + self.width() - 114, currentHeight, 80, 80)
 			end
 
@@ -357,7 +372,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			-- decorator line
 			currentHeight = currentHeight + 4
 			SetDrawColor(0.5, 0.5, 0.5)
-			self:DrawImage(nil, x - 10, currentHeight, self.width() - 115, 1)
+			self:DrawImage(nil, x - 9, currentHeight, self.width() - 115, 1)
 			currentHeight = currentHeight + 4
 
 			-- main skill, ascendancy
@@ -377,7 +392,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 
 			-- decorator line
 			SetDrawColor(0.5, 0.5, 0.5)
-			self:DrawImage(nil, x - 10, currentHeight, self.width() - 115, 1)
+			self:DrawImage(nil, x - 9, currentHeight, self.width() - 115, 1)
 			currentHeight = currentHeight + 8
 			SetDrawColor(1, 1, 1)
 
@@ -391,7 +406,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 
 			-- -- decorator line
 			-- SetDrawColor(0.5, 0.5, 0.5)
-			-- self:DrawImage(nil, x - 10, currentHeight, self.width(), 1)
+			-- self:DrawImage(nil, x - 9, currentHeight, self.width(), 1)
 			-- currentHeight = currentHeight + 8
 			-- SetDrawColor(1, 1, 1)
 
@@ -423,7 +438,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 				currentHeight = currentHeight + 20
 				-- decorator line
 				SetDrawColor(0.5, 0.5, 0.5)
-				self:DrawImage(nil, x - 10, currentHeight, self.width(), 1)
+				self:DrawImage(nil, x - 9, currentHeight, self.width(), 1)
 			end
 
 
@@ -490,7 +505,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			-- bottom border
 			SetDrawColor(1, 1, 1)
 			currentHeight = currentHeight + 36
-			self:DrawImage(nil, x - 10, currentHeight, self.width() - 1, 1)
+			self:DrawImage(nil, x - 9, currentHeight, self.width() - 1, 1)
 			currentHeight = currentHeight + 16
 		end
 	end
