@@ -1,11 +1,12 @@
 -- Path of Building
 --
--- Class: ArchivesListControl
--- Archives list control.
+-- Class: ExtBuildListControl
+-- List control class for external build providers.
 --
 local ipairs = ipairs
 local s_format = string.format
 local t_insert = table.insert
+local m_max = math.max
 local dkjson = require "dkjson"
 
 local ExtBuildListControlClass = newClass("ExtBuildListControl", "ControlHost", "Control",
@@ -13,69 +14,114 @@ local ExtBuildListControlClass = newClass("ExtBuildListControl", "ControlHost", 
 		self.Control(anchor, x, y, width, height)
 		self.ControlHost()
 		self:SelectControl()
-		self.list = {}
+
 		self.rowHeight = 200
 		self.scroll = "VERTICAL"
 		self.forceTooltip = false
 		self.font = "VAR"
-		self.errMsg = nil
-		self.listMode = "VERTICAL"
 		self.importButtons = {}
 		self.previewButtons = {}
 		self.mode = mode
 		self.inTransition = false
 		self.contentHeight = 0
-		self:GetBuilds()
+		self.buildProviders = {}
+		self.activeListProvider = nil
 
-		self.controls.scrollBarV = new("ScrollBarControl", { "RIGHT", self, "RIGHT" }, -1, 0, self.scroll and 16 or 0, 0,
-			40, "VERTICAL") {
-			y = function()
-				return (self.scrollH and -8 or 0)
-			end,
-			height = function()
-				local width, height = self:GetSize()
-				return height - 2 - (self.scrollH and 16 or 0)
-			end
+		self.buildProviders = {
+			{
+				name = "PoB Archives",
+				impl = new("PoBArchivesProvider")
+			}
 		}
-		if not self.scroll then
-			self.controls.scrollBarV.shown = false
+		self.buildProvidersList = {}
+		self.providerMaxLength = 150
+		for _, provider in ipairs(self.buildProviders) do
+			self.providerMaxLength = m_max(self.providerMaxLength, DrawStringWidth(16, self.font, provider.name) + 30)
+			t_insert(self.buildProvidersList, provider.name)
 		end
 
-		if self.mode ~= "similar" then
-			self.controls.latest = new("ButtonControl", { "TOP", self, "TOP" }, 0, -20, 60, 20, "Latest", function()
-				if self.mode ~= "latest" then
-					self.mode = "latest"
-					self:GetBuilds()
-					self.controls.latest.enabled = false
-					self.controls.trending.enabled = true
-				end
-			end)
-			self.controls.latest.enabled = self.mode ~= "latest"
-			self.controls.latest.x = function()
-				return -self.width() / 2 + 30
-			end
-			self.controls.trending = new("ButtonControl", { "LEFT", self.controls.latest, "RIGHT" }, 0, 0, 80, 20,
-				"Trending", function()
-					if not self.mode ~= "trending" then
-						self.mode = "trending"
-						self:GetBuilds()
-						self.controls.latest.enabled = true
-						self.controls.trending.enabled = false
-					end
-				end)
-			self.controls.trending.enabled = self.mode ~= "trending"
-		end
-		self.controls.all = new("ButtonControl", { "BOTTOM", self, "BOTTOM" }, 0, 1, self.width, 20, "See All",
-			function()
-				local url = self:GetPageUrl()
-				if url then
-					OpenURL(url)
-				end
-			end)
-		self.controls.all.width = function()
-			return self.width()
-		end
+		ConPrintTable(self.buildProvidersList)
+
+		-- set default
+		self:SetProvider("PoB Archives")
 	end)
+
+function ExtBuildListControlClass:SetProvider(providerName)
+	wipeTable(self.controls)
+
+	self.controls.sort = new("DropDownControl", { "TOP", self, "TOP" }, 0, -20, self.providerMaxLength, 20,
+		self.buildProvidersList, function(index, value)
+			self:SetProvider(value)
+		end) {
+		x = function()
+			return self.width() / 2 - self.providerMaxLength / 2
+		end
+	}
+
+	self.controls.sort:SelByValue(providerName)
+
+	self.activeListProvider = nil
+
+	for _, provider in ipairs(self.buildProviders) do
+		ConPrintf("provider:", provider)
+		if provider.name == providerName then
+			self.activeListProvider = provider.impl
+		end
+	end
+
+	if self.activeListProvider == nil then
+		printf("Build provider not found: %s", providerName)
+		return
+	end
+
+	self.activeListProvider:Activate()
+	self.activeListProvider.buildListTitles = self.activeListProvider:GetListTitles()
+
+	local lastControl = nil
+	for _, title in ipairs(self.activeListProvider:GetListTitles()) do
+		local stringWidth = DrawStringWidth(16, self.font, title)
+		local anchor = { "TOP", self, "TOP" }
+		if lastControl then
+			anchor = { "LEFT", lastControl, "RIGHT" }
+		end
+		local button = new("ButtonControl", anchor, 0, lastControl and 0 or -20, stringWidth + 10, 20, title, function()
+			self.activeListProvider:SetActiveList(title)
+		end)
+		-- button.enabled = self.mode ~= "latest"
+		if not lastControl then
+			button.x = function()
+				return (stringWidth + 10 - self.width()) / 2
+			end
+		end
+		t_insert(self.controls, button)
+		lastControl = button
+	end
+
+	self.controls.scrollBarV = new("ScrollBarControl", { "RIGHT", self, "RIGHT" }, -1, 0, self.scroll and 16 or 0, 0,
+		40, "VERTICAL") {
+		-- y = function()
+		-- 	return (self.scrollH and -8 or 0)
+		-- end,
+		height = function()
+			local _, height = self:GetSize()
+			return height - 2 - (self.scrollH and 16 or 0)
+		end
+	}
+	if not self.scroll then
+		self.controls.scrollBarV.shown = false
+	end
+
+	self.controls.all = new("ButtonControl", { "BOTTOM", self, "BOTTOM" }, 0, 1, self.width, 20, "See All",
+		function()
+			local url = self.activeListProvider:GetPageUrl()
+			if url then
+				OpenURL(url)
+			end
+		end)
+	self.controls.all.width = function()
+		return self.width()
+	end
+end
 
 function ExtBuildListControlClass:IsMouseOver()
 	if not self:IsShown() then
@@ -144,28 +190,6 @@ function ExtBuildListControlClass:GetHoveredButton()
 	end
 end
 
-function ExtBuildListControlClass:GetApiUrl()
-	local archivesUrl = 'https://pobarchives.com'
-	local apiPath = '/api/builds'
-	return archivesUrl .. apiPath .. '?q=' .. self.mode
-end
-
-function ExtBuildListControlClass:GetPageUrl()
-	local archivesUrl = 'https://pobarchives.com'
-	local buildsPath = '/builds'
-	if self.mode == "latest" then
-		return archivesUrl .. buildsPath .. '/yenTGNDb'
-	end
-	if self.mode == "trending" then
-		return archivesUrl .. buildsPath .. '/7U8QXU8m?sort=popularity'
-	end
-	if self.mode == "similar" then
-		return archivesUrl .. buildsPath .. '/?similar=' .. self.similarTo
-	end
-
-	return nil
-end
-
 function ExtBuildListControlClass:GetAscendancyImageHandle(ascendancy)
 	local image = nil
 	if ascendancy then
@@ -180,7 +204,7 @@ function ExtBuildListControlClass:HandleButtonClick(button, buttonType)
 	if button then
 		self.inTransition = true
 		if buttonType == "import" then
-			local urlText = button.build_link:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
+			local urlText = button.buildLink:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
 			local websiteInfo = nil
 			for j = 1, #buildSites.websiteList do
 				if urlText:match(buildSites.websiteList[j].matchURL) then
@@ -189,7 +213,7 @@ function ExtBuildListControlClass:HandleButtonClick(button, buttonType)
 			end
 
 			if websiteInfo then
-				buildSites.DownloadBuild(button.build_link, websiteInfo, function(isSuccess, data)
+				buildSites.DownloadBuild(button.buildLink, websiteInfo, function(isSuccess, data)
 					if isSuccess then
 						local xmlText = Inflate(common.base64.decode(data:gsub("-", "+"):gsub("_", "/")))
 						if xmlText then
@@ -199,7 +223,7 @@ function ExtBuildListControlClass:HandleButtonClick(button, buttonType)
 				end)
 			end
 		elseif buttonType == "preview" then
-			OpenURL(s_format('https://pobarchives.com/build/%s', button.short_uuid))
+			OpenURL(button.previewLink)
 		end
 		self.inTransition = false
 	end
@@ -236,21 +260,21 @@ end
 function ExtBuildListControlClass:splitStringByWidth(str, maxWidth)
 	local words = {}
 	for word in str:gmatch("%S+") do
-		table.insert(words, word)
+		t_insert(words, word)
 	end
 
 	local lines = {}
 	local currentLine = ""
-	for i, word in ipairs(words) do
-		local wordWidth = DrawStringWidth(16, self.font, word)
-		if DrawStringWidth(16, self.font, currentLine .. " " .. word) <= maxWidth then
+	for _, word in ipairs(words) do
+		local wordWidth = DrawStringWidth(16, self.font, currentLine .. " " .. word)
+		if wordWidth <= maxWidth then
 			currentLine = currentLine .. (currentLine == "" and "" or " ") .. word
 		else
-			table.insert(lines, currentLine)
+			t_insert(lines, currentLine)
 			currentLine = word
 		end
 	end
-	table.insert(lines, currentLine)
+	t_insert(lines, currentLine)
 
 	return lines
 end
@@ -271,6 +295,10 @@ function ExtBuildListControlClass:DrawString(left, top, align, height, font, tex
 end
 
 function ExtBuildListControlClass:Draw(viewPort, noTooltip)
+	if self.activeListProvider == nil then
+		return
+	end
+
 	-- clear button states
 	wipeTable(self.previewButtons)
 	wipeTable(self.importButtons)
@@ -294,8 +322,8 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 	local currentHeight = y
 
 	-- write status message
-	if self.errMsg then
-		self:DrawString(x, currentHeight, "LEFT", 16, self.font, self.errMsg)
+	if self.activeListProvider.statusMsg then
+		self:DrawString(x, currentHeight, "LEFT", 16, self.font, self.activeListProvider.statusMsg)
 	end
 
 	local scrollBarV = self.controls.scrollBarV
@@ -304,8 +332,8 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 	currentHeight = y - self.scrollOffsetV
 
 	-- loop through builds
-	for _, build in pairs(self.list) do
-		if build.buildName and build.short_uuid then
+	for _, build in pairs(self.activeListProvider.buildList) do
+		if build.buildName then
 			if build.ascendancy then
 				self:DrawImage(nil, x + self.width() - 115, currentHeight - 1, 82, 82)
 				local image = self:GetAscendancyImageHandle(build.ascendancy)
@@ -322,15 +350,15 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			end
 			-- add at least 32 height to title row so that the ascendancy picture
 			-- does not overlap with other lines
-			if lineCount < 2 then
-				currentHeight = currentHeight + (16 * (2 - lineCount))
+			if lineCount < 3 then
+				currentHeight = currentHeight + (16 * (3 - lineCount))
 			end
 
 			-- decorator line
-			currentHeight = currentHeight + 8
+			currentHeight = currentHeight + 4
 			SetDrawColor(0.5, 0.5, 0.5)
 			self:DrawImage(nil, x - 10, currentHeight, self.width() - 115, 1)
-			currentHeight = currentHeight + 8
+			currentHeight = currentHeight + 4
 
 			-- main skill, ascendancy
 			SetDrawColor(1, 1, 1)
@@ -377,7 +405,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			end
 			if build.life or build.es then
 				-- SetDrawColor(0, 1, 0)
-				lifeText = s_format('%s: %0.f', build.life > build.es and "Life" or "ES" , math.max(build.life, build.es))
+				lifeText = s_format('%s: %0.f', build.life > build.es and "Life" or "ES", math.max(build.life, build.es))
 			end
 			if build.ehp then
 				-- SetDrawColor(0, 0, 1)
@@ -401,27 +429,27 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 
 			-- import button
 			local importButton = {
-				build_link = build.build_link,
+				buildLink = build.buildLink,
 				buildName = build.buildName,
 				x0 = x,
 				y0 = currentHeight + 6,
 				x1 = x + 47,
 				y1 = currentHeight + 26
 			}
-			table.insert(self.importButtons, importButton)
+			t_insert(self.importButtons, importButton)
 			-- preview button
 			local previewButton = {
-				short_uuid = build.short_uuid,
+				previewLink = build.previewLink,
 				x0 = x + 50,
 				y0 = currentHeight + 6,
 				x1 = x + 115,
 				y1 = currentHeight + 26
 			}
-			table.insert(self.previewButtons, previewButton)
+			t_insert(self.previewButtons, previewButton)
 			local hButton = self:GetHoveredButton()
 
 			-- highlight if hovered
-			if hButton and hButton.type == "import" and hButton.button.build_link == importButton.build_link then
+			if hButton and hButton.type == "import" and hButton.button.buildLink == importButton.buildLink then
 				SetDrawColor(1, 1, 1)
 				self:DrawImage(nil, x, currentHeight + 6, 47, 20)
 				SetDrawColor(0.5, 0.5, 0.5)
@@ -430,7 +458,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 				SetDrawColor(0, 0, 0)
 			end
 
-			-- draw the button
+			-- draw the import button
 			self:DrawImage(nil, x + 1, currentHeight + 7, 45, 18)
 			if self.inTransition then
 				SetDrawColor(0.5, 0.5, 0.5)
@@ -441,7 +469,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 
 
 			-- highlight if hovered
-			if hButton and hButton.type == "preview" and hButton.button.short_uuid == previewButton.short_uuid then
+			if hButton and hButton.type == "preview" and hButton.button.previewLink == previewButton.previewLink then
 				SetDrawColor(1, 1, 1)
 				self:DrawImage(nil, x + 50, currentHeight + 6, 55, 20)
 				SetDrawColor(0.5, 0.5, 0.5)
@@ -468,48 +496,10 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 	end
 
 	-- set scroll bar height
-	-- if not self.contentHeight and next(self.list) ~= nil then
-	print(currentHeight, self.scrollOffsetV, self.height())
+	-- if not self.contentHeight and next(self.activeListProvider.buildList) ~= nil then
+	-- print(currentHeight, self.scrollOffsetV, self.height())
 	self.controls.scrollBarV:SetContentDimension(currentHeight + self.scrollOffsetV - y, self.height())
-		self.contentHeight = currentHeight
+	self.contentHeight = currentHeight
 	-- end
 	self:DrawControls(viewPort, (noTooltip and not self.forceTooltip) and self)
-end
-
-function ExtBuildListControlClass:GetBuilds()
-	self.errMsg = "Loading.."
-	wipeTable(self.list)
-	self.contentHeight = nil
-	launch:DownloadPage(self:GetApiUrl(), function(response, errMsg)
-		if errMsg then
-			self.errMsg = errMsg
-			return
-		end
-
-		local obj = dkjson.decode(response.body)
-		if not obj or not obj.builds or next(obj.builds) == nil then
-			self.errMsg = "No builds found."
-			return
-		end
-
-
-		for _, value in pairs(obj.builds) do
-			local build = {}
-			build.buildName = value.build_info.title
-			build.author = value.build_info.author
-			build.mainSkill = value.build_info.mainSkill
-			if value.build_info.ascendancy ~= "None" then
-				build.ascendancy = value.build_info.ascendancy
-			end
-			build.short_uuid = value.build_info.short_uuid
-			build.build_link = value.build_info.build_link
-			build.ehp = value.stats.TotalEHP
-			build.life = value.stats.LifeUnreserved
-			build.es = value.stats.EnergyShield
-			build.dps = value.fullDPS
-			t_insert(self.list, build)
-		end
-
-		self.errMsg = nil
-	end, {})
 end
