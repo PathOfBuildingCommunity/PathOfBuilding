@@ -1321,224 +1321,148 @@ Cluster Jewel
 Small Cluster Jewel
 Crafted: true
 ]],
--- Utility flasks
+-- Flasks
+-- Instant CB/Bleed immune Divine Life Flask
 [[
 Rarity: MAGIC
-Aquamarine Flask
+Seething Divine Life Flask of Allaying
 Crafted: true
-Prefix: None
+Prefix: {range:0.5}FlaskFullInstantRecovery1
+Suffix: {range:0.028}FlaskBleedCorruptingBloodImmunity3______
+Quality: 20
+LevelReq: 60
+Implicits: 0
+66% reduced Amount Recovered
+Instant Recovery
+Grants Immunity to Bleeding for 12 seconds if used while Bleeding
+Grants Immunity to Corrupted Blood for 12 seconds if used while affected by Corrupted Blood
+]],
+-- Mageblood Flasks
+[[
+Rarity: MAGIC
+Alchemist's Diamond Flask
+Crafted: true
+Prefix: {range:0}FlaskEffectReducedDuration3
 Suffix: None
 Quality: 20
-LevelReq: 27
-Implicits: 1
-{tags:flask}Creates Chilled Ground on Use
+LevelReq: 64
+Implicits: 2
+{crafted}{range:1}(60-70)% increased effect
+{crafted}Gains no Charges during Effect
+23% reduced Duration
+25% increased effect
 ]],[[
 Rarity: MAGIC
-Basalt Flask
+Alchemist's Granite Flask
 Crafted: true
-Prefix: None
+Prefix: {range:0}FlaskEffectReducedDuration3
 Suffix: None
 Quality: 20
-LevelReq: 27
-Implicits: 1
+LevelReq: 64
+Implicits: 2
+{crafted}{range:1}(60-70)% increased effect
+{crafted}Gains no Charges during Effect
+23% reduced Duration
+25% increased effect
+]],[[
+Rarity: MAGIC
+Alchemist's Basalt Flask
+Crafted: true
+Prefix: {range:0}FlaskEffectReducedDuration3
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 3
+{crafted}{range:1}(60-70)% increased effect
+{crafted}Gains no Charges during Effect
 {tags:flask}Taunts nearby Enemies on use
+23% reduced Duration
+25% increased effect
 ]],[[
 Rarity: MAGIC
-Corundum Flask
+Alchemist's Jade Flask
 Crafted: true
-Prefix: None
+Prefix: {range:0}FlaskEffectReducedDuration3
 Suffix: None
 Quality: 20
-LevelReq: 27
-Implicits: 0
+LevelReq: 64
+Implicits: 2
+{crafted}{range:1}(60-70)% increased effect
+{crafted}Gains no Charges during Effect
+23% reduced Duration
+25% increased effect
 ]],[[
 Rarity: MAGIC
-Diamond Flask
+Alchemist's Stibnite Flask
 Crafted: true
-Prefix: None
+Prefix: {range:0}FlaskEffectReducedDuration3
 Suffix: None
 Quality: 20
-LevelReq: 27
-Implicits: 0
-]],[[
-Rarity: MAGIC
-Gold Flask
-Crafted: true
-Prefix: None
-Suffix: None
-Quality: 20
-LevelReq: 27
-Implicits: 0
-]],[[
-Rarity: MAGIC
-Granite Flask
-Crafted: true
-Prefix: None
-Suffix: None
-Quality: 20
-LevelReq: 27
-Implicits: 0
-]],[[
-Rarity: MAGIC
-Iron Flask
-Crafted: true
-Prefix: None
-Suffix: None
-Quality: 20
-LevelReq: 27
-Implicits: 1
-{tags:flask}Restores Ward on use
-]],[[
-Rarity: MAGIC
-Jade Flask
-Crafted: true
-Prefix: None
-Suffix: None
-Quality: 20
-LevelReq: 27
-Implicits: 0
-]],[[
-Rarity: MAGIC
-Quartz Flask
-Crafted: true
-Prefix: None
-Suffix: None
-Quality: 20
-LevelReq: 27
-Implicits: 0
-]],[[
-Rarity: MAGIC
-Silver Flask
-Crafted: true
-Prefix: None
-Suffix: None
-Quality: 20
-LevelReq: 27
-Implicits: 0
-]],[[
-Rarity: MAGIC
-Stibnite Flask
-Crafted: true
-Prefix: None
-Suffix: None
-Quality: 20
-LevelReq: 27
-Implicits: 1
+LevelReq: 64
+Implicits: 3
+{crafted}{range:1}(60-70)% increased effect
+{crafted}Gains no Charges during Effect
 {tags:flask}Creates a Smoke Cloud on Use
-]],[[
+23% reduced Duration
+25% increased effect
+]],
+-- Auto-use gain on hit Utility Flasks
+[[
 Rarity: MAGIC
-Sulphur Flask
+Flagellant's Basalt Flask
 Crafted: true
-Prefix: None
+Prefix: {range:1}FlaskFullRechargeOnHit5___
 Suffix: None
 Quality: 20
-LevelReq: 27
+LevelReq: 64
+Implicits: 2
+{crafted}Used when Charges reach full
+{tags:flask}Taunts nearby Enemies on use
+Gain 3 Charges when you are Hit by an Enemy
+]],[[
+Rarity: MAGIC
+Flagellant's Granite Flask
+Crafted: true
+Prefix: {range:1}FlaskFullRechargeOnHit5___
+Suffix: None
+Quality: 20
+LevelReq: 64
 Implicits: 1
-{tags:flask}Creates Consecrated Ground on Use
+{crafted}Used when Charges reach full
+Gain 3 Charges when you are Hit by an Enemy
 ]],[[
 Rarity: MAGIC
-Amethyst Flask
+Flagellant's Jade Flask
 Crafted: true
-Prefix: None
+Prefix: {range:1}FlaskFullRechargeOnHit5___
 Suffix: None
 Quality: 20
-LevelReq: 18
-Implicits: 0
+LevelReq: 64
+Implicits: 1
+{crafted}Used when Charges reach full
+Gain 3 Charges when you are Hit by an Enemy
 ]],[[
 Rarity: MAGIC
-Ruby Flask
+Flagellant's Stibnite Flask
 Crafted: true
-Prefix: None
+Prefix: {range:1}FlaskFullRechargeOnHit5___
 Suffix: None
 Quality: 20
-LevelReq: 18
-Implicits: 0
+LevelReq: 64
+Implicits: 2
+{crafted}Used when Charges reach full
+{tags:flask}Creates a Smoke Cloud on Use
+Gain 3 Charges when you are Hit by an Enemy
 ]],[[
 Rarity: MAGIC
-Sapphire Flask
+Flagellant's Quicksilver Flask
 Crafted: true
-Prefix: None
+Prefix: {range:1}FlaskFullRechargeOnHit5___
 Suffix: None
 Quality: 20
-LevelReq: 18
-Implicits: 0
-]],[[
-Rarity: MAGIC
-Topaz Flask
-Crafted: true
-Prefix: None
-Suffix: None
-Quality: 20
-LevelReq: 18
-Implicits: 0
-]],[[
-Rarity: MAGIC
-Bismuth Flask
-Crafted: true
-Prefix: None
-Suffix: None
-Quality: 20
-LevelReq: 8
-Implicits: 0
-]],[[
-Rarity: MAGIC
-Quicksilver Flask
-Crafted: true
-Prefix: None
-Suffix: None
-Quality: 20
-LevelReq: 4
-Implicits: 0
-]],
--- Eternal and Divine Life flasks
-[[
-Rarity: MAGIC
-Eternal Life Flask
-Crafted: true
-Prefix: None
-Suffix: None
-Quality: 20
-LevelReq: 65
-Implicits: 0
-]],[[
-Rarity: MAGIC
-Divine Life Flask
-Crafted: true
-Prefix: None
-Suffix: None
-Quality: 20
-LevelReq: 60
-Implicits: 0
-]],
--- Eternal and Divine Mana flasks
-[[
-Rarity: MAGIC
-Eternal Mana Flask
-Crafted: true
-Prefix: None
-Suffix: None
-Quality: 20
-LevelReq: 65
-Implicits: 0
-]],[[
-Rarity: MAGIC
-Divine Mana Flask
-Crafted: true
-Prefix: None
-Suffix: None
-Quality: 20
-LevelReq: 60
-Implicits: 0
-]],
--- Hybrid flask
-[[
-Rarity: MAGIC
-Hallowed Hybrid Flask
-Crafted: true
-Prefix: None
-Suffix: None
-Quality: 20
-LevelReq: 60
-Implicits: 0
+LevelReq: 64
+Implicits: 1
+{crafted}Used when Charges reach full
+Gain 3 Charges when you are Hit by an Enemy
 ]]
 }
