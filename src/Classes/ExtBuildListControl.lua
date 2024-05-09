@@ -516,7 +516,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 		end
 	end
 
-	self.controls.scrollBarV:SetContentDimension(currentHeight + self.scrollOffsetV - y, self.height())
+	self.controls.scrollBarV:SetContentDimension(currentHeight - y + 30, self.height())
 	self.contentHeight = currentHeight
 	-- end
 	self:DrawControls(viewPort, (noTooltip and not self.forceTooltip) and self)
