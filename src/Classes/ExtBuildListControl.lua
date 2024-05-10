@@ -235,7 +235,7 @@ function ExtBuildListControlClass:HandleButtonClick(button, buttonType)
 					if isSuccess then
 						local xmlText = Inflate(common.base64.decode(data:gsub("-", "+"):gsub("_", "/")))
 						if xmlText then
-							main:SetMode("BUILD", false, button.buildName, xmlText, nil, "skdglsdg")
+							main:SetMode("BUILD", false, button.buildName, xmlText, false, urlText)
 						end
 					end
 				end)

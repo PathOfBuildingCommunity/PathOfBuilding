@@ -23,9 +23,10 @@ local function InsertIfNew(t, val)
 	table.insert(t, val)
 end
 
-function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
+function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLink)
 	self.dbFileName = dbFileName
 	self.buildName = buildName
+	self.importLink = importLink
 	if dbFileName then
 		self.dbFileSubPath = self.dbFileName:sub(#main.buildPath + 1, -#self.buildName - 5)
 	else

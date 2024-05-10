@@ -357,6 +357,7 @@ function ImportTabClass:Load(xml, fileName)
 	self.lastRealm = xml.attrib.lastRealm
 	self.controls.accountRealm:SelByValue( self.lastRealm or main.lastRealm or "PC", "id" )
 	self.lastAccountHash = xml.attrib.lastAccountHash
+	self.importLink = xml.attrib.importLink
 	self.controls.enablePartyExportBuffs.state = xml.attrib.exportParty == "true"
 	self.build.partyTab.enableExportBuffs = self.controls.enablePartyExportBuffs.state
 	if self.lastAccountHash then
@@ -375,7 +376,12 @@ function ImportTabClass:Save(xml)
 		lastAccountHash = self.lastAccountHash,
 		lastCharacterHash = self.lastCharacterHash,
 		exportParty = tostring(self.controls.enablePartyExportBuffs.state),
+		importLink = self.importLink
 	}
+
+	if self.build.importLink then
+		xml.attrib.importLink = self.build.importLink
+	end
 end
 
 function ImportTabClass:Draw(viewPort, inputEvents)

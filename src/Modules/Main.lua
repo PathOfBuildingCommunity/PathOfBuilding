@@ -103,7 +103,7 @@ function main:Init()
 				self:SetMode("BUILD", false, data)
 			else
 				local xmlText = Inflate(common.base64.decode(data:gsub("-","+"):gsub("_","/")))
-				self:SetMode("BUILD", false, "Imported Build", xmlText)
+				self:SetMode("BUILD", false, "Imported Build", xmlText, false, arg[1])
 				self.newModeChangeToTree = true
 			end
 		end)
