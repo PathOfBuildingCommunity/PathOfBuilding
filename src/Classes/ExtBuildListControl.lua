@@ -211,24 +211,12 @@ function ExtBuildListControlClass:HandleButtonClick(button, buttonType)
 	if button then
 		self.inTransition = true
 		if buttonType == "import" then
-			local urlText = button.buildLink:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
-			local websiteInfo = nil
-			for j = 1, #buildSites.websiteList do
-				if urlText:match(buildSites.websiteList[j].matchURL) then
-					websiteInfo = buildSites.websiteList[j]
+			ImportBuild(button.buildLink, function (xmlText, urlText)
+				print(xmlText, urlText)
+				if xmlText then
+					main:SetMode("BUILD", false, button.buildName, xmlText, false, urlText)
 				end
-			end
-
-			if websiteInfo then
-				buildSites.DownloadBuild(button.buildLink, websiteInfo, function(isSuccess, data)
-					if isSuccess then
-						local xmlText = Inflate(common.base64.decode(data:gsub("-", "+"):gsub("_", "/")))
-						if xmlText then
-							main:SetMode("BUILD", false, button.buildName, xmlText, false, urlText)
-						end
-					end
-				end)
-			end
+			end)
 		elseif buttonType == "preview" then
 			OpenURL(button.previewLink)
 		end
