@@ -234,6 +234,32 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		self.buildFlag = true
 	end)
 
+	-- local width, height = self:GetSize()
+	if self.importLink then
+		local buildProviders = {
+			{
+				name = "PoB Archives",
+				impl = new("PoBArchivesProvider", self.importLink)
+			}
+		}
+
+		self.controls.similarBuildList = new("ExtBuildListControl", nil, main.screenW - 410, 100, 410, main.screenH - 500, buildProviders)
+		self.controls.similarBuildList.shown = false
+		self.controls.similarBuildList.height = function()
+			return main.screenH - 200
+		end
+		self.controls.similarBuildList.width = function ()
+			return 400
+		end
+
+		self.controls.similarBuilds = new("ButtonControl", {"LEFT",self.controls.secondaryAscendDrop,"RIGHT"}, 8, 0, 100, 20, "Similar Builds", function()
+			self.controls.similarBuildList:Init("PoB Archives")
+			self.controls.similarBuildList.shown = not self.controls.similarBuildList:IsShown()
+			-- self.controls.similarBuilds.locked = self.controls.similarBuildList:IsShown()
+		end)
+
+	end
+
 	-- List of display stats
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
 	-- This may be user-customisable in the future
@@ -1628,6 +1654,16 @@ function buildMode:LoadDB(xmlText, fileName)
 	for _, node in ipairs(dbXML[1]) do
 		if type(node) == "table" and node.elem == "Build" then
 			self:Load(node, self.dbFileName)
+			break
+		end
+	end
+
+	-- Check if xml has an import link
+	for _, node in ipairs(dbXML[1]) do
+		if type(node) == "table" and node.elem == "Import" then
+			if node.attrib.importLink and not self.importLink then
+				self.importLink = node.attrib.importLink
+			end
 			break
 		end
 	end

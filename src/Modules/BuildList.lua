@@ -67,11 +67,19 @@ function listMode:Init(selBuildName, subPath)
 	self.controls.buildList.width = function ()
 		return (main.screenW / 2)
 	end
-	self.controls.archiveList = new("ExtBuildListControl", {"LEFT",self.controls.buildList,"RIGHT"}, 25, 0, main.screenW * 1 / 4 - 50, 0, "latest")
-	self.controls.archiveList.height = function()
+
+	local buildProviders = {
+		{
+			name = "PoB Archives",
+			impl = new("PoBArchivesProvider")
+		}
+	}
+	self.controls.extBuildList = new("ExtBuildListControl", {"LEFT",self.controls.buildList,"RIGHT"}, 25, 0, main.screenW * 1 / 4 - 50, 0, buildProviders)
+	self.controls.extBuildList:Init("PoB Archives")
+	self.controls.extBuildList.height = function()
 		return main.screenH - 80
 	end
-	self.controls.archiveList.width = function ()
+	self.controls.extBuildList.width = function ()
 		return (main.screenW / 4 - 50)
 	end
 	self.controls.searchText = new("EditControl", {"TOP",self.anchor,"TOP"}, 0, 25, 640, 20, self.filterBuildList, "Search", "%c%(%)", 100, function(buf)

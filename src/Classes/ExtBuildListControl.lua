@@ -11,7 +11,7 @@ local m_min = math.min
 local dkjson = require "dkjson"
 
 local ExtBuildListControlClass = newClass("ExtBuildListControl", "ControlHost", "Control",
-	function(self, anchor, x, y, width, height, mode)
+	function(self, anchor, x, y, width, height, providers)
 		self.Control(anchor, x, y, width, height)
 		self.ControlHost()
 		self:SelectControl()
@@ -22,37 +22,26 @@ local ExtBuildListControlClass = newClass("ExtBuildListControl", "ControlHost", 
 		self.font = "VAR"
 		self.importButtons = {}
 		self.previewButtons = {}
-		self.mode = mode
 		self.inTransition = false
 		self.contentHeight = 0
-		self.buildProviders = {}
-		self.activeListProvider = nil
 		self.tabs = {}
-
-		self.buildProviders = {
-			{
-				name = "PoB Archives",
-				impl = new("PoBArchivesProvider")
-			}
-		}
+		self.activeListProvider = nil
+		self.buildProviders = providers
 		self.buildProvidersList = {}
 		self.providerMaxLength = 150
 		for _, provider in ipairs(self.buildProviders) do
 			self.providerMaxLength = m_max(self.providerMaxLength, DrawStringWidth(16, self.font, provider.name) + 30)
 			t_insert(self.buildProvidersList, provider.name)
 		end
-
-		-- set default
-		self:SetProvider("PoB Archives")
 	end)
 
-function ExtBuildListControlClass:SetProvider(providerName)
+function ExtBuildListControlClass:Init(providerName)
 	wipeTable(self.controls)
 	wipeTable(self.tabs)
 
 	self.controls.sort = new("DropDownControl", { "TOP", self, "TOP" }, 0, -20, self.providerMaxLength, 20,
 		self.buildProvidersList, function(index, value)
-			self:SetProvider(value)
+			self:Init(value)
 		end)
 
 	self.controls.sort:SelByValue(providerName)

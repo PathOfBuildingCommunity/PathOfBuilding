@@ -8,17 +8,27 @@ local t_insert = table.insert
 local dkjson = require "dkjson"
 
 local archivesUrl = 'https://pobarchives.com'
+-- local archivesUrl = "http://localhost:3000"
 
 local PoBArchivesProviderClass = newClass("PoBArchivesProvider", "ExtBuildListProvider",
-	function(self)
-		self.ExtBuildListProvider({"Latest", "Trending"})
+	function(self, importLink)
+		if not importLink then
+			self.ExtBuildListProvider({"Latest", "Trending"})
+		else
+			self.ExtBuildListProvider({"Similar"})
+			self.importLink = importLink
+		end
 		self.buildList = {}
 	end
 )
 
 function PoBArchivesProviderClass:GetApiUrl()
 	local apiPath = '/api/builds'
-	return archivesUrl .. apiPath .. '?q=' .. string.lower(self.activeList)
+	if self.importLink then
+		return archivesUrl .. apiPath .. '?similar=' .. self.importLink
+	else
+		return archivesUrl .. apiPath .. '?q=' .. string.lower(self.activeList)
+	end
 end
 
 function PoBArchivesProviderClass:GetPageUrl()
@@ -29,8 +39,9 @@ function PoBArchivesProviderClass:GetPageUrl()
 	if self.activeList == "Trending" then
 		return archivesUrl .. buildsPath .. '/7U8QXU8m?sort=popularity'
 	end
-	if self.activeList == "similar" then
-		return archivesUrl .. buildsPath .. '/?similar=' .. self.similarTo
+	-- TODO extract id and page
+	if self.activeList == "Similar" then
+		return archivesUrl .. buildsPath .. '/?similar=' .. self.importLink
 	end
 
 	return nil
@@ -61,7 +72,7 @@ function PoBArchivesProviderClass:GetBuilds()
 			if value.build_info.ascendancy ~= "None" then
 				build.ascendancy = value.build_info.ascendancy
 			end
-			build.previewLink = "https://pobarchives.com/build/" .. value.build_info.short_uuid
+			build.previewLink = archivesUrl .. "/build/" .. value.build_info.short_uuid
 			build.buildLink = value.build_info.build_link
 			build.ehp = value.stats.TotalEHP
 			build.life = value.stats.LifeUnreserved
