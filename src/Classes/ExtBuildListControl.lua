@@ -289,14 +289,14 @@ end
 -- wrappers for Drawing tools to apply scrolling
 function ExtBuildListControlClass:DrawImage(imgHandle, left, top, width, height)
 	local _, y = self:GetPos()
-	if top - self.controls.scrollBarV.offset >= y then
+	if top - self.controls.scrollBarV.offset >= y and top + height - self.controls.scrollBarV.offset < self.height() + y then
 		DrawImage(imgHandle, left, top - self.controls.scrollBarV.offset, width, height)
 	end
 end
 
 function ExtBuildListControlClass:DrawString(left, top, align, height, font, text)
 	local _, y = self:GetPos()
-	if top - self.controls.scrollBarV.offset >= y then
+	if top - self.controls.scrollBarV.offset >= y and top + height - self.controls.scrollBarV.offset < self.height() + y then
 		DrawString(left, top - self.controls.scrollBarV.offset, align, height, font, text)
 	end
 end
