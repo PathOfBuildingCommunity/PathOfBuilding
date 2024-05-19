@@ -19,7 +19,7 @@ jobs:
       - name: Install busted
         run: luarocks install busted
       - name: Install cluacov
-        run: luarocks install cluacov
+        run: luarocks install cluacov 0.1.2-1
       - name: Install coveralls integration
         run: luarocks install luacov-coveralls
       - name: Run tests
