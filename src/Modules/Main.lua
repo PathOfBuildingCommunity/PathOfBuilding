@@ -98,12 +98,13 @@ function main:Init()
 
 	local ignoreBuild
 	if arg[1] then
-		buildSites.DownloadBuild(arg[1], nil, function(isSuccess, data)
+		local importLink = buildSites.ParseImportLinkFromURI(arg[1])
+		buildSites.DownloadBuild(arg[1], nil, function(isSuccess, data, importLink)
 			if not isSuccess then
 				self:SetMode("BUILD", false, data)
 			else
 				local xmlText = Inflate(common.base64.decode(data:gsub("-","+"):gsub("_","/")))
-				self:SetMode("BUILD", false, "Imported Build", xmlText, false, arg[1])
+				self:SetMode("BUILD", false, "Imported Build", xmlText, false, importLink)
 				self.newModeChangeToTree = true
 			end
 		end)
