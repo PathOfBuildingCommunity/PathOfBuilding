@@ -212,7 +212,6 @@ function ExtBuildListControlClass:HandleButtonClick(button, buttonType)
 		self.inTransition = true
 		if buttonType == "import" then
 			ImportBuild(button.buildLink, function (xmlText, urlText)
-				print(xmlText, urlText)
 				if xmlText then
 					main:SetMode("BUILD", false, button.buildName, xmlText, false, urlText)
 				end
