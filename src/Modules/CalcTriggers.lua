@@ -1096,6 +1096,7 @@ local configTable = {
 
 		-- This basically does min(trigger rate of steelskin assuming no trigger cooldown, trigger rate of Automation)
 		return {triggerOnUse = true,
+				useCastRate = true,
 				triggerSkillCond = function(env, skill)
 					return skill.activeEffect.grantedEffect.name == "Automation"
 				end}
