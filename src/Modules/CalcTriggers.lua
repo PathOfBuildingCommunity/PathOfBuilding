@@ -574,7 +574,6 @@ local function defaultTriggerHandler(env, config)
 			local cooldownOverride = actor.mainSkill.skillModList:Override(actor.mainSkill.skillCfg, "CooldownRecovery")
 			local triggerCD = actor.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
 			triggerCD = triggerCD or source.triggeredBy and source.triggeredBy.grantedEffect.levels[source.triggeredBy.level].cooldown
-			triggerCD = triggerCD or env.player.mainSkill.skillFlags.globalTrigger and env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.srcInstance.displayEffect.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
 			local triggeredCD = actor.mainSkill.skillData.cooldown
 			
 			if actor.mainSkill.skillData.triggeredByBrand then
@@ -1083,10 +1082,23 @@ local configTable = {
 				source = env.player.mainSkill}
 	end,
 	["automation"] = function(env)
-		if not env.player.mainSkill.activeEffect.grantedEffect.name ~= "Automation" and env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.supportGemsOnly and env.player.mainSkill.activeEffect.gemData then
+		if env.player.mainSkill.activeEffect.grantedEffect.name == "Automation" then
+			-- This calculated the trigger rate of the Automation gem it self
 			env.player.mainSkill.skillFlags.globalTrigger = true
 			return {source = env.player.mainSkill}
 		end
+		env.player.mainSkill.skillData.sourceRateIsFinal = true
+
+		-- Trigger rate of the triggered skill is capped by the cooldown of Automation
+		-- which will likely be different from the cooldown of the triggered skill
+		-- and is affected by different cooldown modifiers
+		env.player.mainSkill.skillData.ignoresTickRate = true
+
+		-- This basically does min(trigger rate of steelskin assuming no trigger cooldown, trigger rate of Automation)
+		return {triggerOnUse = true,
+				triggerSkillCond = function(env, skill)
+					return skill.activeEffect.grantedEffect.name == "Automation"
+				end}
 	end,
 	["spellslinger"] = function()
 		return {triggerName = "Spellslinger",
@@ -1152,7 +1164,6 @@ local configTable = {
 			env.player.mainSkill.triggeredBy.activationFreqInc = activationFreqInc
 			env.player.mainSkill.triggeredBy.activationFreqMore = activationFreqMore
 			env.player.mainSkill.triggeredBy.ignoresTickRate = true
-			env.player.output.EffectiveSourceRate = trigRate
 			return {trigRate = env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency * activationFreqInc * activationFreqMore,
 					source = env.player.mainSkill.triggeredBy.mainSkill,
 					triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBrand and slotMatch(env, skill) end}
