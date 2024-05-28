@@ -295,7 +295,34 @@ minions["RaisedSkeletonCaster"] = {
 	},
 }
 
-minions["RaisedSkeletonArcher"] = {
+minions["RaisedSkeletonMeleeVaal"] = {
+	name = "Summoned Skeleton Soldier",
+	monsterTags = { "bone_armour", "bones", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "slow_movement", "undead", },
+	life = 1.05,
+	armour = 0.25,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1.37,
+	damageSpread = 0.4,
+	attackTime = 0.8,
+	attackRange = 8,
+	accuracy = 3.4,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	limit = "ActiveSkeletonLimit",
+	skillList = {
+		"Melee",
+	},
+	modList = {
+		mod("BlockChance", "BASE", 30, 0, 0), -- MonsterAttackBlock30Bypass15 [monster_base_block_% = 30]
+		mod("BlockEffect", "BASE", 15, 0, 0), -- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
+		-- SummonSkeletonsSkeletonIsWarrior [summoned_skeleton_is_warrior = 1]
+	},
+}
+
+minions["RaisedSkeletonArcherVaal"] = {
 	name = "Summoned Skeleton Archer",
 	monsterTags = { "bone_armour", "bones", "has_bow", "humanoid", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
 	life = 1.05,
@@ -304,10 +331,33 @@ minions["RaisedSkeletonArcher"] = {
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 1.13,
+	damage = 0.98,
 	damageSpread = 0.16,
 	attackTime = 1.33,
 	attackRange = 40,
+	accuracy = 3.4,
+	weaponType1 = "Bow",
+	limit = "ActiveSkeletonLimit",
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+
+minions["RaisedSkeletonArcher"] = {
+	name = "Summoned Skeleton Archer",
+	monsterTags = { "bone_armour", "bones", "has_bow", "humanoid", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
+	life = 1.05,
+	evasion = 0.25,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2.25,
+	damageSpread = 0.16,
+	attackTime = 1.33,
+	attackRange = 60,
 	accuracy = 3.4,
 	weaponType1 = "Bow",
 	limit = "ActiveSkeletonLimit",
@@ -733,7 +783,7 @@ minions["AbsolutionTemplarJudgeVaal"] = {
 
 minions["RhoaUniqueSummoned"] = {
 	name = "Summoned Rhoa",
-	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "fast_movement", "has_claw", "has_one_handed_melee", "light_armour", "lightning_affinity", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", },
+	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "fast_movement", "has_claw", "has_one_handed_melee", "large_model", "light_armour", "lightning_affinity", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", },
 	life = 9,
 	armour = 0.2,
 	fireResist = 40,

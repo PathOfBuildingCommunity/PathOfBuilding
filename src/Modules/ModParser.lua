@@ -1492,6 +1492,7 @@ local modTagList = {
 	["while you have at least (%d+) total endurance, frenzy and power charges"] = function(num) return { tag = { type = "MultiplierThreshold", var = "TotalCharges", threshold = num } } end,
 	["while you have a totem"] = { tag = { type = "Condition", var = "HaveTotem" } },
 	["while you have at least one nearby ally"] = { tag = { type = "MultiplierThreshold", var = "NearbyAlly", threshold = 1 } },
+	["while you have a linked target"] = { tag = { type = "MultiplierThreshold", var = "LinkedTargets", threshold = 1 } },
 	["while you have fortify"] = { tag = { type = "Condition", var = "Fortified" } },
 	["while you have phasing"] = { tag = { type = "Condition", var = "Phasing" } },
 	["if you[' ]h?a?ve suppressed spell damage recently"] = { tag = { type = "Condition", var = "SuppressedRecently" } },
@@ -2039,6 +2040,10 @@ local specialModList = {
 	["energy shield protects mana instead of life"] = { flag("EnergyShieldProtectsMana") },
 	["modifiers to critical strike multiplier also apply to damage over time multiplier for ailments from critical strikes at (%d+)%% of their value"] = function(num) return { mod("CritMultiplierAppliesToDegen", "BASE", num) } end,
 	["your bleeding does not deal extra damage while the enemy is moving"] = { flag("Condition:NoExtraBleedDamageToMovingEnemy") },
+	["you and enemies in your presence count as moving while affected by elemental ailments"] = {
+		mod("EnemyModifier", "LIST", { mod = flag("Condition:Moving", { type = "Condition", varList = { "Frozen","Chilled","Shocked","Ignited","Scorched","Brittle","Sapped" } }) }),
+		flag("Condition:Moving", { type = "Condition", varList = { "Frozen","Chilled","Shocked","Ignited","Scorched","Brittle","Sapped" } }),
+	},
 	["you can inflict bleeding on an enemy up to (%d+) times?"] = function(num) return {
 		mod("BleedStacksMax", "OVERRIDE", num),
 		flag("Condition:HaveCrimsonDance"),
@@ -4142,6 +4147,9 @@ local specialModList = {
 	["action speed cannot be slowed below base value if you've cast (.-) in the past (%d+) seconds"] = function (_, curse) return {
 		mod("MinimumActionSpeed", "MAX", 100, { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") })
 	} end,
+	["action speed cannot be modified to below base value if you've cast (.-) in the past (%d+) seconds"] = function (_, curse) return {
+		mod("MinimumActionSpeed", "MAX", 100, { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") })
+	} end,
 	["nearby allies' action speed cannot be modified to below base value"] = { mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("MinimumActionSpeed", "MAX", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }) }) },
 	["armour also applies to lightning damage taken from hits"] = { mod("ArmourAppliesToLightningDamageTaken", "BASE", 100), },
 	["lightning resistance does not affect lightning damage taken"] = { flag("SelfIgnoreLightningResistance") },
@@ -4181,6 +4189,7 @@ local specialModList = {
 	} end,
 	["(%d+)%% of damage from hits is taken from your spectres' life before you"] = function(num) return { mod("takenFromSpectresBeforeYou", "BASE", num) } end,
 	["(%d+)%% of damage from hits is taken from your nearest totem's life before you"] = function(num) return { mod("takenFromTotemsBeforeYou", "BASE", num, { type = "Condition", var = "HaveTotem" }) } end,
+	["(%a+) resistance cannot be penetrated"] = function(_, res) return { flag("EnemyCannotPen"..(res:gsub("^%l", string.upper)).."Resistance") } end,
 	-- Knockback
 	["cannot knock enemies back"] = { flag("CannotKnockback") },
 	["knocks back enemies if you get a critical strike with a staff"] = { mod("EnemyKnockbackChance", "BASE", 100, nil, ModFlag.Staff, { type = "Condition", var = "CriticalStrike" }) },
@@ -5163,6 +5172,58 @@ local jewelOtherFuncs = {
 		return function(node, out, data)
 			if node and node.type ~= "Keystone" then
 				out:NewMod("Life", "BASE", num, data.modSource)
+			end
+		end
+	end,
+	["Passive Skills in Radius also grant %+(%d+) to Maximum Mana"] = function(num)
+		return function(node, out, data)
+			if node and node.type ~= "Keystone" then
+				out:NewMod("Mana", "BASE", num, data.modSource)
+			end
+		end
+	end,
+	["Passive Skills in Radius also grant (%d+)%% increased Energy Shield"] = function(num)
+		return function(node, out, data)
+			if node and node.type ~= "Keystone" then
+				out:NewMod("EnergyShield", "INC", num, data.modSource)
+			end
+		end
+	end,
+	["Passive Skills in Radius also grant (%d+)%% increased Armour"] = function(num)
+		return function(node, out, data)
+			if node and node.type ~= "Keystone" then
+				out:NewMod("Armour", "INC", num, data.modSource)
+			end
+		end
+	end,
+	["Passive Skills in Radius also grant (%d+)%% increased Evasion Rating"] = function(num)
+		return function(node, out, data)
+			if node and node.type ~= "Keystone" then
+				out:NewMod("Evasion", "INC", num, data.modSource)
+			end
+		end
+	end,
+	["Passive Skills in Radius also grant %+(%d+) to all Attributes"] = function(num)
+		return function(node, out, data)
+			if node and node.type ~= "Keystone" then
+				out:NewMod("Str", "BASE", num, data.modSource)
+				out:NewMod("Dex", "BASE", num, data.modSource)
+				out:NewMod("Int", "BASE", num, data.modSource)
+				out:NewMod("All", "BASE", num, data.modSource)
+			end
+		end
+	end,
+	["Passive Skills in Radius also grant %+(%d+)%% to Chaos Resistance"] = function(num)
+		return function(node, out, data)
+			if node and node.type ~= "Keystone" then
+				out:NewMod("ChaosResist", "BASE", num, data.modSource)
+			end
+		end
+	end,
+	["Passive Skills in Radius also grant (%d+)%% increased (%w+) Damage"] = function(num, type)
+		return function(node, out, data)
+			if node and node.type ~= "Keystone" then
+				out:NewMod(firstToUpper(type).."Damage", "INC", num, data.modSource)
 			end
 		end
 	end,

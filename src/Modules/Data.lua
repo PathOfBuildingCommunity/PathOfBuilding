@@ -554,6 +554,7 @@ data.enchantments = {
 }
 data.essences = LoadModule("Data/Essence")
 data.veiledMods = LoadModule("Data/ModVeiled")
+data.necropolisMods = LoadModule("Data/ModNecropolis")
 data.crucible = LoadModule("Data/Crucible")
 data.pantheons = LoadModule("Data/Pantheons")
 data.costs = LoadModule("Data/Costs")
@@ -953,7 +954,7 @@ data.printMissingMinionSkills = function()
 	for _, minion in pairs(data.minions) do
 		for _, skillId in ipairs(minion.skillList) do
 			if not data.skills[skillId] and not missing[skillId] then
-				ConPrintf("'%s' missing skill '%s'", minion.name, skillId)
+				--ConPrintf("'%s' missing skill '%s'", minion.name, skillId)
 				missing[skillId] = true
 			end
 		end

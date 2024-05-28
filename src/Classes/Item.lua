@@ -929,6 +929,19 @@ function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
 	return weight
 end
 
+function ItemClass:GetNecropolisModSpawnWeight(mod)
+	local weight = 0
+	if self.base then
+		for i, key in ipairs(mod.weightKey) do
+			if self.base.tags[key:gsub("necropolis_", "")] then
+				weight = mod.weightVal[i]
+				break
+			end
+		end
+	end
+	return weight
+end
+
 function ItemClass:CheckIfModIsDelve(mod)
 	return mod.affix == "Subterranean" or mod.affix == "of the Underground"
 end
@@ -1591,6 +1604,11 @@ function ItemClass:BuildModList()
 	for _, modLine in ipairs(self.crucibleModLines) do
 		processModLine(modLine)
 	end
+	if self.name == "Tabula Rasa, Simple Robe" or self.name == "Skin of the Loyal, Simple Robe" or self.name == "Skin of the Lords, Simple Robe" or self.name == "The Apostate, Cabalist Regalia" then
+		-- Hack to remove the energy shield and base int requirement
+		baseList:NewMod("ArmourData", "LIST", { key = "EnergyShield", value = 0 })
+		self.requirements.int = 0
+	end
 	if calcLocal(baseList, "NoAttributeRequirements", "FLAG", 0) then
 		self.requirements.strMod = 0
 		self.requirements.dexMod = 0
@@ -1661,10 +1679,6 @@ function ItemClass:BuildModList()
 		self.sockets = newSockets
 	end
 	self.socketedJewelEffectModifier = 1 + calcLocal(baseList, "SocketedJewelEffect", "INC", 0) / 100
-	if self.name == "Tabula Rasa, Simple Robe" or self.name == "Skin of the Loyal, Simple Robe" or self.name == "Skin of the Lords, Simple Robe" then
-		-- Hack to remove the energy shield
-		baseList:NewMod("ArmourData", "LIST", { key = "EnergyShield", value = 0 })
-	end
 	if self.base.weapon or self.type == "Ring" then
 		self.slotModList = { }
 		for i = 1, 2 do

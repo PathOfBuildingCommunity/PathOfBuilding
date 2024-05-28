@@ -343,7 +343,7 @@ Zodiac Leather
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 +30% chance to Suppress Spell Damage
-+(40–50) to Dexterity
++(40–50) to Intelligence
 (140–220)% increased Evasion Rating
 25% increased Shock Duration on Enemies
 (12–18) to (231–347) Added Lightning Damage with Wand Attacks
