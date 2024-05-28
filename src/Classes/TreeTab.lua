@@ -258,6 +258,18 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 				self.build.spec:Redo()
 				self.build.buildFlag = true
 				inputEvents[id] = nil
+			elseif event.key == "UP" then
+				index = self.activeSpec - 1
+				if self.specList[index] then
+					self.build.modFlag = true
+					self:SetActiveSpec(index)
+				end
+			elseif event.key == "DOWN" then
+				index = self.activeSpec + 1
+				if self.specList[index] then
+					self.build.modFlag = true
+					self:SetActiveSpec(index)
+				end
 			elseif event.key == "f" and IsKeyDown("CTRL") then
 				self:SelectControl(self.controls.treeSearch)
 			elseif event.key == "m" and IsKeyDown("CTRL") then
