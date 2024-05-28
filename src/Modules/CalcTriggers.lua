@@ -1091,7 +1091,6 @@ local configTable = {
 				end}
 		end
 		env.player.mainSkill.skillData.sourceRateIsFinal = true
-		env.player.mainSkill.skillData.ignoresTickRate = true
 		return {triggerOnUse = true,
 				useCastRate = true,
 				triggerSkillCond = function(env, skill)
