@@ -103,8 +103,8 @@ function main:Init()
 
 	if self.userPath then
 		self:ChangeUserPath(self.userPath, ignoreBuild)
-		if self.main.language then
-			dofile('Languages/'..self.main.language..'.lua')
+		if self.language then
+			dofile('Languages/'..self.language..'.lua')
 		end
 	end
 
