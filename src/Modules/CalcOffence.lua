@@ -1596,33 +1596,26 @@ function calcs.offence(env, actor, activeSkill)
 			local inc = 0
 			if not val.unaffectedByGenericCostMults then
 				output[costName] = val.finalBaseCost
-				output[costNameRaw] = val.baseCostRaw and val.baseCostRaw
 				moreType = skillModList:More(skillCfg, val.type.."Cost")
 				moreCost = skillModList:More(skillCfg, "Cost")
 				inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
+				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * val.baseCostRaw * moreType * moreCost) + val.totalCost)
 				if inc < 0 then
 					output[costName] = m_max(0, m_ceil((1 + inc / 100) * output[costName]))
-					output[costNameRaw] = output[costNameRaw] and m_max(0, (1 + inc / 100) * output[costNameRaw])
 				else
 					output[costName] = m_max(0, m_floor((1 + inc / 100) * output[costName]))
-					output[costNameRaw] = output[costNameRaw] and m_max(0, (1 + inc / 100) * output[costNameRaw])
 				end
 				if moreType < 1 then
 					output[costName] = m_max(0, m_ceil(moreType * output[costName]))
-					output[costNameRaw] = output[costNameRaw] and m_max(0, moreType * output[costNameRaw])
 				else
 					output[costName] = m_max(0, m_floor(moreType * output[costName]))
-					output[costNameRaw] = output[costNameRaw] and m_max(0, moreType * output[costNameRaw])
 				end
 				if moreCost < 1 then
 					output[costName] = m_max(0, m_ceil(moreCost * output[costName]))
-					output[costNameRaw] = output[costNameRaw] and m_max(0, moreCost * output[costNameRaw])
 				else
 					output[costName] = m_max(0, m_floor(moreCost * output[costName]))
-					output[costNameRaw] = output[costNameRaw] and m_max(0, moreCost * output[costNameRaw])
 				end
 				output[costName] = m_max(0, output[costName] + val.totalCost)
-				output[costNameRaw] = output[costNameRaw] and m_max(0, output[costNameRaw] + val.totalCost)
 				if val.type == "Mana" and hybridLifeCost > 0 then -- Life/Mana Mastery
 					output[costName] = m_max(0, m_floor((1 - hybridLifeCost) * output[costName]))
 					output[costNameRaw] = output[costNameRaw] and m_max(0, (1 - hybridLifeCost) * output[costNameRaw])
@@ -1634,6 +1627,7 @@ function calcs.offence(env, actor, activeSkill)
 				output[costName] = m_max(0, (1 + inc / 100) * output[costName])
 				output[costName] = m_max(0, moreType * output[costName])
 				output[costName] = m_max(0, output[costName] + val.totalCost)
+				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * (val.baseCostRaw + val.baseCostNoMult) * moreType) + val.totalCost)
 			end
 			if breakdown and hasCost then
 				breakdown[costName] = {
