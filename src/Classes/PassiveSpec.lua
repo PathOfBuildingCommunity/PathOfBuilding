@@ -655,7 +655,7 @@ function PassiveSpecClass:AllocNode(node, altPath)
 	end
 
 	-- Allocate all nodes along the path
-	if node.dependsOnIntuitiveLeapLike then
+	if node.affectedByIntuitiveLeapLike then
 		node.alloc = true
 		self.allocNodes[node.id] = node
 	else
@@ -774,7 +774,7 @@ function PassiveSpecClass:BuildPathFromNode(root)
 		-- All nodes that are 1 node away from the root will be processed first, then all nodes that are 2 nodes away, etc
 		local node = queue[o]
 		o = o + 1
-		local curDist = node.pathDist + 1
+		local curDist = node.pathDist
 		-- Iterate through all nodes that are connected to this one
 		for _, other in ipairs(node.linked) do
 			-- Paths must obey these rules:
@@ -789,6 +789,10 @@ function PassiveSpecClass:BuildPathFromNode(root)
 			if node.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 1 and not other.ascendancyName)) then
 				-- The shortest path to the other node is through the current node
 				other.pathDist = curDist
+				-- Increment distance unless other is already allocated via intuitive-leap-like mechanic
+				if not other.alloc then
+					other.pathDist = other.pathDist + 1
+				end
 				other.path = wipeTable(other.path)
 				other.path[1] = other
 				for i, n in ipairs(node.path) do
@@ -806,7 +810,7 @@ end
 -- Only allocated nodes can be traversed
 function PassiveSpecClass:SetNodeDistanceToClassStart(root)
 	root.distanceToClassStart = 0
-	if not root.alloc or root.dependsOnIntuitiveLeapLike then
+	if not root.alloc or root.affectedByIntuitiveLeapLike then
 		return
 	end
 
@@ -870,8 +874,9 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	-- Check all nodes for other nodes which depend on them (i.e. are only connected to the tree through that node)
 	for id, node in pairs(self.nodes) do
 		node.depends = wipeTable(node.depends)
-		node.dependsOnIntuitiveLeapLike = false
+		node.affectedByIntuitiveLeapLike = false
 		node.conqueredBy = nil
+		node.connectedToStart = false
 
 		-- ignore cluster jewel nodes that don't have an id in the tree
 		if self.tree.nodes[id] then
@@ -891,7 +896,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 								-- 1. Prevents generation of paths from this node
 								-- 2. Prevents this node from being deallocted via dependency
 								-- 3. Prevents allocation of path nodes when this node is being allocated
-								node.dependsOnIntuitiveLeapLike = true
+								node.affectedByIntuitiveLeapLike = true
 							end
 							if item.jewelData.conqueredBy then
 								node.conqueredBy = item.jewelData.conqueredBy
@@ -903,7 +908,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						for keyName, keyNode in pairs(self.tree.keystoneMap) do
 							if item.jewelData.impossibleEscapeKeystones[keyName:lower()] and keyNode.nodesInRadius then
 								if keyNode.nodesInRadius[radiusIndex][node.id] then
-									node.dependsOnIntuitiveLeapLike = true
+									node.affectedByIntuitiveLeapLike = true
 								end
 							end
 						end
@@ -1153,9 +1158,11 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				if other.type == "ClassStart" or other.type == "AscendClassStart" then
 					-- Well that was easy!
 					anyStartFound = true
+					node.connectedToStart = true
 				elseif self:FindStartFromNode(other, visited) then
 					-- We found a path through the other node, therefore the other node cannot be dependent on this node
 					anyStartFound = true
+					node.connectedToStart = true;
 					for i, n in ipairs(visited) do
 						n.visited = false
 						visited[i] = nil
@@ -1165,12 +1172,12 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					-- except for mastery nodes that have linked allocated nodes that weren't visited
 					local depIds = { }
 					for _, n in ipairs(visited) do
-						if not n.dependsOnIntuitiveLeapLike then
+						if not n.affectedByIntuitiveLeapLike then
 							depIds[n.id] = true
 						end
 					end
 					for i, n in ipairs(visited) do
-						if not n.dependsOnIntuitiveLeapLike then
+						if not n.affectedByIntuitiveLeapLike then
 							if n.type == "Mastery" then
 								local otherPath = false
 								local allocatedLinkCount = 0
@@ -1236,14 +1243,15 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 
 	-- Reset and rebuild all node paths
 	for id, node in pairs(self.nodes) do
-		node.pathDist = (node.alloc and not node.dependsOnIntuitiveLeapLike) and 0 or 1000
+		node.pathDist = (node.alloc and not node.affectedByIntuitiveLeapLike) and 0 or 1000
 		node.path = nil
 		if node.isJewelSocket or node.expansionJewel then
 			node.distanceToClassStart = 0
 		end
 	end
 	for id, node in pairs(self.allocNodes) do
-		if not node.dependsOnIntuitiveLeapLike then
+		-- We can't path from a node affected by intuitive-leap-like mechanics, unless it's also connected to start
+		if not node.affectedByIntuitiveLeapLike or node.connectedToStart then
 			self:BuildPathFromNode(node)
 			if node.isJewelSocket or node.expansionJewel then
 				self:SetNodeDistanceToClassStart(node)
