@@ -1094,6 +1094,19 @@ local configTable = {
 					return isWandAttack and not skill.skillData.triggeredBySpellSlinger
 				end}
 	end,
+	["call to arms"] = function(env)
+		if env.player.mainSkill.activeEffect.grantedEffect.name == "Call to Arms" then
+			env.player.mainSkill.skillFlags.globalTrigger = true
+			return {source = env.player.mainSkill}
+		end
+		env.player.mainSkill.skillData.sourceRateIsFinal = true
+		env.player.mainSkill.skillData.ignoresTickRate = true
+		return {triggerOnUse = true,
+				useCastRate = true,
+				triggerSkillCond = function(env, skill)
+					return skill.activeEffect.grantedEffect.name == "Call to Arms"
+				end}
+	end,
 	["mark on hit"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] end}
 	end,

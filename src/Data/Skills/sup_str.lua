@@ -735,6 +735,11 @@ skills["CallToArms"] = {
 	description = "While this skill is active, a supported warcry will be repeatedly triggered, and all your warcry skills will share cooldowns.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.HasReservation] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
+	statMap = {
+		["call_to_arms_behaviour"] = {
+			-- Display only
+		}
+	},
 	castTime = 0,
 	baseFlags = {
 	},

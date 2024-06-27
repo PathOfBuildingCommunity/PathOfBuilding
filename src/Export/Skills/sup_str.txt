@@ -91,6 +91,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill CallToArms
+statMap = {
+		["call_to_arms_behaviour"] = {
+			-- Display only
+		}
+	},
 #mods
 
 #skill SupportCallToArms
