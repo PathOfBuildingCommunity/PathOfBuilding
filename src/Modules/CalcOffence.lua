@@ -1155,9 +1155,14 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		local baseCooldown = skillData.trapCooldown or skillData.cooldown
-		if baseCooldown then
-			output.TrapCooldown = baseCooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
-			output.TrapCooldown = m_ceil(output.TrapCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+		if baseCooldown or skillModList:Sum("BASE", skillCfg, "CooldownRecovery") ~= 0 then
+			if baseCooldown then
+				output.TrapCooldown = baseCooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
+				output.TrapCooldown = m_ceil(output.TrapCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+			else -- Assign Trap Cooldown if the trap/skill does not have cooldown but gain cooldown elsewhere
+				local cooldown, _, _ = calcSkillCooldown(skillModList, skillCfg, skillData)
+				output.TrapCooldown = cooldown;
+			end
 			if breakdown then
 				breakdown.TrapCooldown = {
 					s_format("%.2fs ^8(base)", skillData.trapCooldown or skillData.cooldown or 4),
