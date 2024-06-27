@@ -1086,12 +1086,20 @@ local configTable = {
 		return {triggerChance =  env.player.mainSkill.skillData.chanceToTriggerOnStun,
 				source = env.player.mainSkill}
 	end,
-	["spellslinger"] = function()
-		return {triggerName = "Spellslinger",
+	["spellslinger"] = function(env)
+		if env.player.mainSkill.activeEffect.grantedEffect.name == "Spellslinger" then
+			return {triggerName = "Spellslinger",
 				triggerOnUse = true,
 				triggerSkillCond = function(env, skill)
 					local isWandAttack = (not skill.weaponTypes or (skill.weaponTypes and skill.weaponTypes["Wand"])) and skill.skillTypes[SkillType.Attack]
 					return isWandAttack and not skill.skillData.triggeredBySpellSlinger
+				end}
+		end
+		env.player.mainSkill.skillData.sourceRateIsFinal = true
+		return {triggerOnUse = true,
+				useCastRate = true,
+				triggerSkillCond = function(env, skill)
+					return skill.activeEffect.grantedEffect.name == "Spellslinger"
 				end}
 	end,
 	["call to arms"] = function(env)
