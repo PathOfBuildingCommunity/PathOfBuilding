@@ -532,23 +532,28 @@ local function defaultTriggerHandler(env, config)
 				if not GlobalCache.cachedData[env.mode][triggeredUUID] then
 					calcs.buildActiveSkill(env, env.mode, actor.mainSkill, {[triggeredUUID] = true})
 				end
-				local triggeredManaCost = GlobalCache.cachedData[env.mode][triggeredUUID].Env.player.output.ManaCost or 0
+				local triggeredManaCost = GlobalCache.cachedData[env.mode][triggeredUUID].Env.player.output.ManaCostRaw or 0
 				if triggeredManaCost > 0 then
 					local manaSpentThreshold = triggeredManaCost * actor.mainSkill.skillData.ManaForgedArrowsPercentThreshold
-					local sourceManaCost = GlobalCache.cachedData[env.mode][uuid].Env.player.output.ManaCost or 0
+					local sourceManaCost = GlobalCache.cachedData[env.mode][uuid].Env.player.output.ManaCostRaw or 0
 					if sourceManaCost > 0 then
 						if breakdown then
-							t_insert(breakdown.EffectiveSourceRate, s_format("* %.2f ^8(Mana cost of trigger source)", sourceManaCost))
-							t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f ^8(Mana spent per second)", (trigRate * sourceManaCost)))
-							t_insert(breakdown.EffectiveSourceRate, s_format(""))
-							t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Mana Cost of triggered)", triggeredManaCost))
-							t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Manaforged threshold multiplier)", actor.mainSkill.skillData.ManaForgedArrowsPercentThreshold))
-							t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f ^8(Manaforged trigger threshold)", manaSpentThreshold))
-							t_insert(breakdown.EffectiveSourceRate, s_format(""))
-							t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Mana spent per second)", (trigRate * sourceManaCost)))
-							t_insert(breakdown.EffectiveSourceRate, s_format("/ %.2f ^8(Manaforged trigger threshold)", manaSpentThreshold))
+							breakdown.EffectiveSourceRate = {
+								s_format("%.4f ^8(Mana cost of trigger source)", sourceManaCost),
+								s_format(""),
+								s_format("%.4f ^8(Mana Cost of triggered)", triggeredManaCost),
+								s_format("%.2f ^8(Manaforged threshold multiplier)", actor.mainSkill.skillData.ManaForgedArrowsPercentThreshold),
+								s_format("= %.4f ^8(Manaforged trigger threshold)", manaSpentThreshold),
+								s_format(""),
+								s_format("%.4f ^8(Manaforged trigger threshold)", manaSpentThreshold),
+								s_format("/ %.4f ^8(Mana cost of trigger source)", sourceManaCost),
+								s_format("= %.2f ^8(Skill usages required)", manaSpentThreshold / sourceManaCost),
+								s_format(""),
+								breakdown.EffectiveSourceRate[1],
+								s_format("/ ceil(%.2f) ^8(%d Skill usages required)", manaSpentThreshold / sourceManaCost, m_ceil(manaSpentThreshold / sourceManaCost)),
+							}
 						end
-						trigRate = (trigRate * sourceManaCost) / manaSpentThreshold
+						trigRate = trigRate / m_ceil(manaSpentThreshold / sourceManaCost)
 					else
 						trigRate = 0
 					end
