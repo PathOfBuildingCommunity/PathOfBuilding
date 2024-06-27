@@ -504,13 +504,13 @@ function CalcBreakdownClass:FormatModValue(value, modType)
 	if modType == "BASE" then
 		return string.format("%+g base", value)
 	elseif modType == "INC" then
-		if tonumber(value) >= 0 then
+		if value >= 0 then
 			return value.."% increased"
 		else
 			return -value.."% reduced"
 		end
 	elseif modType == "MORE" then
-		if tonumber(value) >= 0 then
+		if value >= 0 then
 			return value.."% more"
 		else
 			return -value.."% less"
