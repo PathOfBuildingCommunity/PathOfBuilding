@@ -967,6 +967,17 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				elseif item.name:match("Kalandra's Touch") then
+					-- Reset mult counters since they don't work for kalandra
+					for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder"}) do
+						if item[property] then
+							env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) - 1
+						else
+							env.itemModDB.multipliers["Non"..mult] = (env.itemModDB.multipliers["Non"..mult] or 0) + 1
+						end
+					end
+					if item.shaper or item.elder then
+						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) - 1
+					end
 					local otherRing = (slotName == "Ring 1" and build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId]) or (slotName == "Ring 2" and build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId])
 					if otherRing and not otherRing.name:match("Kalandra's Touch") then
 						local otherRingList = otherRing and copyTable(otherRing.modList or otherRing.slotModList[slot.slotNum]) or {}
@@ -980,17 +991,24 @@ function calcs.initEnv(build, mode, override, specEnv)
 							end
 						end
 						env.itemModDB:ScaleAddList(otherRingList, scale)
+						-- Adjust multipliers based on other ring
 						for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder"}) do
-							if otherRing[property] and not item[property] then
+							if otherRing[property] then
 								env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) + 1
 								env.itemModDB.multipliers["Non"..mult] = (env.itemModDB.multipliers["Non"..mult] or 0) - 1
 							end
 						end
-						if (otherRing.elder or otherRing.shaper) and not (item.elder or item.shaper) then
+						if otherRing.elder or otherRing.shaper then
 							env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
 						end
 					end
-					env.itemModDB:ScaleAddList(srcList, scale)
+
+					-- Only ExtraSkill implicit mods work (none should but this is likely an in game bug)
+					for _, mod in ipairs(srcList) do
+						if mod.name == "ExtraSkill" then
+							env.itemModDB:ScaleAddMod(mod, scale)
+						end
+					end
 				elseif item.type == "Quiver" and items["Weapon 1"] and items["Weapon 1"].name:match("Widowhail") then
 					scale = scale * (1 + (items["Weapon 1"].baseModList:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
 					local combinedList = new("ModList")
