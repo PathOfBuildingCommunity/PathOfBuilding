@@ -647,7 +647,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			elseif override.repItem and override.repSlotName:match("^Weapon 1") and slotName:match("^Weapon 2") and
 			(override.repItem.base.type == "Staff" or override.repItem.base.type == "Two Handed Sword" or override.repItem.base.type == "Two Handed Axe" or override.repItem.base.type == "Two Handed Mace"
 			or (override.repItem.base.type == "Bow" and item and item.base.type ~= "Quiver")) then
-				item = nil
+				goto continue
 			elseif slot.nodeId and override.spec then
 				item = build.itemsTab.items[env.spec.jewels[slot.nodeId]]
 			else
@@ -668,7 +668,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				t_insert(env.explodeSources, item)
 			end
 			if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then
-				item = nil
+				goto continue
 			end
 			if slot.weaponSet == 2 and build.itemsTab.activeItemSet.useSecondWeaponSet then
 				slotName = slotName:gsub(" Swap","")
@@ -676,7 +676,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if slot.nodeId then
 				-- Slot is a jewel socket, check if socket is allocated
 				if not env.allocNodes[slot.nodeId] then
-					item = nil
+					goto continue
 				elseif item then
 					if item.jewelData then
 						item.jewelData.limitDisabled = nil
@@ -692,7 +692,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 							end
 							env.itemWarnings.jewelLimitWarning = env.itemWarnings.jewelLimitWarning or { }
 							t_insert(env.itemWarnings.jewelLimitWarning, limitKey)
-							item = nil
+							goto continue
 						else
 							jewelLimits[limitKey] = (jewelLimits[limitKey] or 0) + 1
 						end
@@ -758,6 +758,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 			end
 			items[slotName] = item
+			::continue::
 		end
 
 		if not env.configInput.ignoreItemDisablers then
