@@ -1170,6 +1170,17 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 	if not accelerate.skills then
 		if env.mode == "MAIN" then
+			local function getNormalizedSkillLevel(grantedSkill)
+				-- Levels in socketGroup.gemList[1].level are normalized
+				-- grantedSkill.level is not causing group match miss which causes all things that rely on group order to fail
+				local normalizedGrantedSkill = {
+					grantedEffect = data.skills[grantedSkill.skillId],
+					level = grantedSkill.level
+				}
+				calcLib.validateGemLevel(normalizedGrantedSkill)
+				return normalizedGrantedSkill.level
+			end
+
 			-- Process extra skills granted by items or tree nodes
 			local markList = wipeTable(tempTable1)
 			for _, grantedSkill in ipairs(env.grantedSkills) do
@@ -1177,7 +1188,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				local group
 				for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
 					if socketGroup.source == grantedSkill.source and socketGroup.slot == grantedSkill.slotName then
-						if socketGroup.gemList[1] and socketGroup.gemList[1].skillId == grantedSkill.skillId and socketGroup.gemList[1].level == grantedSkill.level then
+						if socketGroup.gemList[1] and socketGroup.gemList[1].skillId == grantedSkill.skillId and (socketGroup.gemList[1].level == grantedSkill.level or socketGroup.gemList[1].level == getNormalizedSkillLevel(grantedSkill)) then
 							group = socketGroup
 							markList[socketGroup] = true
 							break
