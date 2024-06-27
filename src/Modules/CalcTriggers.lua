@@ -575,7 +575,7 @@ local function defaultTriggerHandler(env, config)
 
 			local icdr = calcLib.mod(actor.mainSkill.skillModList, actor.mainSkill.skillCfg, "CooldownRecovery") or 1
 			local addedCooldown = actor.mainSkill.skillModList:Sum("BASE", actor.mainSkill.skillCfg, "CooldownRecovery")
-			addedCooldown = addedCooldown ~= 0 and addedCooldown
+			addedCooldown = addedCooldown ~= 0 and addedCooldown or nil
 			local cooldownOverride = actor.mainSkill.skillModList:Override(actor.mainSkill.skillCfg, "CooldownRecovery")
 			local triggerCD = actor.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
 			triggerCD = triggerCD or source.triggeredBy and source.triggeredBy.grantedEffect.levels[source.triggeredBy.level].cooldown
@@ -1136,6 +1136,18 @@ local configTable = {
 	end,
 	["shattershard"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
+		local uuid = cacheSkillUUID(env.player.mainSkill, env)
+		if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
+			calcs.buildActiveSkill(env, env.mode, env.player.mainSkill, {[uuid] = true})
+		end
+		env.player.mainSkill.skillData.triggerRateCapOverride = 1 / GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration
+		if env.player.breakdown then
+			env.player.breakdown.SkillTriggerRate = {
+				s_format("Shattershard uses duration as pseudo cooldown"),
+				s_format("1 / %.2f ^8(Shattershard duration)", GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration),
+				s_format("= %.2f ^8per second", env.player.mainSkill.skillData.triggerRateCapOverride),
+			}
+		end
 		return {source = env.player.mainSkill}
 	end,
 	["riposte"] = function(env)
