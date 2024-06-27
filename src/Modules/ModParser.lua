@@ -5160,7 +5160,7 @@ local jewelOtherFuncs = {
 	["Passive Skills in Radius also grant (%d+)%% increased Global Critical Strike Chance"] = function(num)
 		return function(node, out, data)
 			if node and node.type ~= "Keystone" then
-				out:NewMod("CritChance", "INC", num, data.modSource)
+				out:NewMod("CritChance", "INC", tonumber(num), data.modSource)
 			end
 		end
 	end,
