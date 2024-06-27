@@ -97,6 +97,7 @@ function calcs.mirages(env)
 			end,
 			postCalcFunc = function(env, newSkill, newEnv)
 				env.player.mainSkill.mirage.output = newEnv.player.output
+				env.player.mainSkill.skillFlags.mirageArcher = true
 				if newSkill.minion then
 					env.player.mainSkill.mirage.minion = {}
 					env.player.mainSkill.mirage.minion.output = newEnv.minion.output
@@ -290,6 +291,72 @@ function calcs.mirages(env)
 			mirageSkillNotFoundFunc = function(env, config)
 				env.player.mainSkill.disableReason = "No Tawhoa's Chosen active skill found"
 				env.player.mainSkill.skillFlags.disable = true
+			end
+		}
+	elseif env.player.mainSkill.skillData.triggeredBySacredWisps then
+		config = {
+			calcMainSkillOffence = true,
+			compareFunc = function(skill, env, config, mirageSkill)
+				if not env.player.mainSkill.skillCfg.skillCond["usedByMirage"] and env.player.weaponData1.type == "Wand" then
+					return env.player.mainSkill
+				end
+			end,
+			preCalcFunc = function(env, newSkill, newEnv)
+				local lessDamage =  newSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SacredWispsLessDamage")
+				local wispsMaxCount
+				local wispsCastChance
+				
+				-- Find Wisps summoning skill for cast chance and wisp count
+				for _, skill in ipairs(env.player.activeSkillList) do
+					if skill.activeEffect.grantedEffect.name == "Summon Sacred Wisps" then
+							wispsCastChance = skill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SacredWispsChance")
+							wispsMaxCount = skill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SacredWispsMaxCount")
+						break
+					end
+				end
+
+				env.player.mainSkill.mirage = { }
+				env.player.mainSkill.mirage.name = newSkill.activeEffect.grantedEffect.name
+				env.player.mainSkill.mirage.count = wispsMaxCount
+
+				if not env.player.mainSkill.infoMessage then
+					env.player.mainSkill.infoMessage = tostring(wispsMaxCount) .. " Sacred Wisps using " .. newSkill.activeEffect.grantedEffect.name
+				end
+
+				-- Add new modifiers to new skill (which already has all the old skill's modifiers)
+				newSkill.skillModList:NewMod("Damage", "MORE", lessDamage, "Used by Sacred Wisps", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
+				newSkill.skillModList:NewMod("Speed", "MORE", wispsCastChance - 100, "Sacred Wisps cast chance", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
+
+				-- Does not use player resources
+				newSkill.skillModList:NewMod("HasNoCost", "FLAG", true, "Used by Sacred Wisps")
+
+				if newSkill.skillPartName then
+					env.player.mainSkill.mirage.skillPart = newSkill.skillPart
+					env.player.mainSkill.mirage.skillPartName = newSkill.skillPartName
+					env.player.mainSkill.mirage.infoMessage2 = newSkill.activeEffect.grantedEffect.name
+				else
+					env.player.mainSkill.mirage.skillPartName = nil
+				end
+			end,
+			postCalcFunc = function(env, newSkill, newEnv)
+				env.player.mainSkill.mirage.output = newEnv.player.output
+				env.player.mainSkill.skillFlags.wisp = true
+				if newSkill.minion then
+					env.player.mainSkill.mirage.minion = {}
+					env.player.mainSkill.mirage.minion.output = newEnv.minion.output
+				end
+
+				if newEnv.player.breakdown then
+					env.player.mainSkill.mirage.breakdown = newEnv.player.breakdown
+					if newSkill.minion then
+						env.player.mainSkill.mirage.minion.breakdown = newEnv.minion.breakdown
+					end
+				end
+			end,
+			mirageSkillNotFoundFunc = function(env, config)
+				if not env.player.mainSkill.infoMessage2 then
+					env.player.mainSkill.infoMessage2 = "No active skill for Sacred Wisps found"
+				end
 			end
 		}
 	elseif env.player.mainSkill.skillData.triggeredByGeneralsCry then

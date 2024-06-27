@@ -4722,6 +4722,12 @@ skills["SupportSacredWisps"] = {
 	},
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
+		["skill_used_by_sacred_wisp_damage_+%_final"] = {
+			mod("SacredWispsLessDamage", "BASE", nil),
+		},
+		["supported_skill_can_only_use_wand"] = {
+			-- Display only
+		},
 	},
 	qualityStats = {
 		Default = {
@@ -4785,6 +4791,15 @@ skills["SummonSacredWisp"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
+		["support_sacred_wisps_wisp_%_chance_to_attack"] = {
+			mod("SacredWispsChance", "BASE", 25),
+		},
+		["support_sacred_wisps_wisp_additional_%_chance_to_attack_when_rare_or_unique_enemy_in_presence"] = {
+			mod("SacredWispsChance", "BASE", 25, nil, nil, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }),
+		},
+		["base_number_of_sacred_wisps_allowed"] = {
+			mod("SacredWispsMaxCount", "BASE", 2),
+		},
 	},
 	baseFlags = {
 	},
