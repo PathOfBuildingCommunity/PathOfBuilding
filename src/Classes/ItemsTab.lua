@@ -534,9 +534,27 @@ holding Shift will put it in the second.]])
 		return self.displayItem and self.displayItem.canBeInfluenced
 	end
 
+	-- Section: Item Quality
+	self.controls.displayItemSectionQuality = new("Control", {"TOPLEFT",self.controls.displayItemSectionInfluence,"BOTTOMLEFT"}, 0, 0, 0, function()
+		return (self.controls.displayItemQuality:IsShown() and self.controls.displayItemQualityEdit:IsShown()) and 28 or 0
+	end)
+	self.controls.displayItemQuality = new("LabelControl", {"TOPLEFT",self.controls.displayItemSectionQuality,"TOPRIGHT"}, -4, 0, 0, 16, "^7Quality:")
+	self.controls.displayItemQuality.shown = function()
+		return self.displayItem and self.displayItem.quality and (self.displayItem.base.type ~= "Amulet" or self.displayItem.base.type ~= "Belt" or self.displayItem.base.type ~= "Jewel" or self.displayItem.base.type ~= "Quiver" or self.displayItem.base.type ~= "Ring")
+	end
+
+	self.controls.displayItemQualityEdit = new("EditControl", {"LEFT",self.controls.displayItemQuality,"RIGHT"},2,0,60,20,nil,nil,"%D",2,function(buf)
+		self.displayItem.quality = tonumber(buf)
+		self.displayItem:BuildAndParseRaw()
+		self:UpdateDisplayItemTooltip()
+	end)
+	self.controls.displayItemQualityEdit.shown = function()
+		return self.displayItem and self.displayItem.quality and (self.displayItem.base.type ~= "Amulet" or self.displayItem.base.type ~= "Belt" or self.displayItem.base.type ~= "Jewel" or self.displayItem.base.type ~= "Quiver" or self.displayItem.base.type ~= "Ring")
+	end
+
 	-- Section: Catalysts
-	self.controls.displayItemSectionCatalyst = new("Control", {"TOPLEFT",self.controls.displayItemSectionInfluence,"BOTTOMLEFT"}, 0, 0, 0, function()
-		return (self.controls.displayItemCatalyst:IsShown() or self.controls.displayItemCatalystQualitySlider:IsShown()) and 28 or 0
+	self.controls.displayItemSectionCatalyst = new("Control", {"TOPLEFT",self.controls.displayItemSectionQuality,"BOTTOMLEFT"}, 0, 0, 0, function()
+		return (self.controls.displayItemCatalyst:IsShown() or self.controls.displayItemCatalystQualityEdit:IsShown()) and 28 or 0
 	end)
 	self.controls.displayItemCatalyst = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionCatalyst,"TOPRIGHT"}, 0, 0, 250, 20,
 		{"Catalyst","Abrasive (Attack)","Accelerating (Speed)","Fertile (Life & Mana)","Imbued (Caster)","Intrinsic (Attribute)","Noxious (Physical & Chaos Damage)",
@@ -545,6 +563,7 @@ holding Shift will put it in the second.]])
 			self.displayItem.catalyst = index - 1
 			if not self.displayItem.catalystQuality then
 				self.displayItem.catalystQuality = 20
+				self.controls.displayItemCatalystQualityEdit:SetText(self.displayItem.catalystQuality)
 			end
 			if self.displayItem.crafted then
 				for i = 1, self.displayItem.affixLimit do
@@ -559,8 +578,8 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemCatalyst.shown = function()
 		return self.displayItem and (self.displayItem.crafted or self.displayItem.hasModTags) and (self.displayItem.base.type == "Amulet" or self.displayItem.base.type == "Ring" or self.displayItem.base.type == "Belt")
 	end
-	self.controls.displayItemCatalystQualitySlider = new("SliderControl", {"LEFT",self.controls.displayItemCatalyst,"RIGHT",true}, 8, 0, 200, 20, function(val)
-		self.displayItem.catalystQuality = round(val * 20)
+	self.controls.displayItemCatalystQualityEdit = new("EditControl", {"LEFT",self.controls.displayItemCatalyst,"RIGHT"},2,0,60,20,nil,nil,"%D",2,function(buf)
+		self.displayItem.catalystQuality = tonumber(buf)
 		if self.displayItem.crafted then
 			for i = 1, self.displayItem.affixLimit do
 				-- Force affix selectors to update
@@ -571,13 +590,8 @@ holding Shift will put it in the second.]])
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
 	end)
-	self.controls.displayItemCatalystQualitySlider.shown = function()
+	self.controls.displayItemCatalystQualityEdit.shown = function()
 		return self.displayItem and (self.displayItem.crafted or self.displayItem.hasModTags) and self.displayItem.catalyst and self.displayItem.catalyst > 0
-	end
-	self.controls.displayItemCatalystQualitySlider.tooltipFunc = function(tooltip, val)
-		local quality = round(val * 20)
-		tooltip:Clear()
-		tooltip:AddLine(16, "^7Quality: "..quality.."%")
 	end
 
 	-- Section: Cluster Jewel
@@ -1547,11 +1561,12 @@ function ItemsTabClass:SetDisplayItem(item)
 		end
 		self.controls.displayItemInfluence:SetSel(influence1, true) -- Don't call the selection function for the first influence dropdown as the second dropdown isn't properly set yet.
 		self.controls.displayItemInfluence2:SetSel(influence2) -- The selection function for the second dropdown properly handles everything for both dropdowns
+		self.controls.displayItemQualityEdit:SetText(item.quality)
 		self.controls.displayItemCatalyst:SetSel((item.catalyst or 0) + 1)
 		if item.catalystQuality then
-			self.controls.displayItemCatalystQualitySlider.val = m_min(item.catalystQuality / 20, 1)
+			self.controls.displayItemCatalystQualityEdit:SetText(m_min(item.catalystQuality / 20, 1))
 		else
-			self.controls.displayItemCatalystQualitySlider.val = 1
+			self.controls.displayItemCatalystQualityEdit:SetText(1)
 		end
 		self:UpdateCustomControls()
 		self:UpdateDisplayItemRangeLines()
@@ -1930,7 +1945,11 @@ function ItemsTabClass:CraftItem()
 		item.implicitModLines = { }
 		item.explicitModLines = { }
 		item.crucibleModLines = { }
-		item.quality = 0
+		if base.base.type ~= "Amulet" or base.base.type ~= "Belt" or base.base.type ~= "Jewel" or base.base.type ~= "Quiver" or base.base.type ~= "Ring" then
+			item.quality = nil
+		else
+			item.quality = 0
+		end
 		local raritySel = controls.rarity.selIndex
 		if base.base.flask
 				or (base.base.type == "Jewel" and base.base.subType == "Charm")
