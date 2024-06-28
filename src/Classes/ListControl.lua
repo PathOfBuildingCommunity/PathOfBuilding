@@ -7,8 +7,7 @@
 -- .label  [Adds a label above the top left corner]
 -- .dragTargetList  [List of controls that can receive drag events from this list control]
 -- .showRowSeparators  [Shows separators between rows]
--- :GetRowValue(column, index, value)  [Required; called to retrieve the text for the given column of the given list value]
--- :GetRowIcon(column, index, value)  [Called to retrieve the icon for the given column of the given list value]
+-- :GetRowValue(column, index, value)  [Required; called to retrieve the text for the given column of the given list value, if value is a table, it can hold (label#required, detail#optional, icon#optional)]
 -- :AddValueTooltip(index, value)  [Called to add the tooltip for the given list value]
 -- :GetDragValue(index, value)  [Called to retrieve the drag type and object for the given list value]
 -- :CanReceiveDrag(type, value)  [Called on drag target to determine if it can receive this value]
@@ -210,14 +209,22 @@ function ListClass:Draw(viewPort, noTooltip)
 		for index = minIndex, maxIndex do
 			local lineY = rowHeight * (index - 1) - scrollOffsetV + (self.colLabels and 18 or 0)
 			local value = list[index]
-			local text = self:GetRowValue(colIndex, index, value)
+			local value = self:GetRowValue(colIndex, index, value)
+			local text = nil
 			local icon = nil
-			if self.GetRowIcon then 
-				icon = self:GetRowIcon(colIndex, index, value)
+			local detail = nil
+			local detailWidth = 0
+			if type(value) == "table" then
+				text = value.label
+				detail = value.detail
+				detailWidth = DrawStringWidth(textHeight, colFont, detail)
+				icon = value.icon
+			else
+				text = value
 			end
 			local textWidth = DrawStringWidth(textHeight, colFont, text)
 			if textWidth > colWidth - 2 then
-				local clipIndex = DrawStringCursorIndex(textHeight, colFont, text, colWidth - clipWidth - 2, 0)
+				local clipIndex = DrawStringCursorIndex(textHeight, colFont, text, colWidth - clipWidth - 2 - detailWidth, 0)
 				text = text:sub(1, clipIndex - 1) .. "..."
 				textWidth = DrawStringWidth(textHeight, colFont, text)
 			end
@@ -271,10 +278,17 @@ function ListClass:Draw(viewPort, noTooltip)
 			-- TODO: handle icon size properly, for now assume they are 16x16
 			if icon == nil then
 				DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
+				if detail ~= nil then
+					DrawString(colOffset + colWidth - detailWidth, lineY + textOffsetY, "LEFT", textHeight, colFont, detail)
+				end
 			else
 				DrawImage(icon, colOffset, lineY, 16, 16)
 				DrawString(colOffset + 16 + 2, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
+				if detail ~= nil then
+					DrawString(colOffset + colWidth - detailWidth, lineY + textOffsetY, "LEFT", textHeight, colFont, detail)
+				end
 			end
+
 		end
 		if self.colLabels then
 			local mOver = relX >= colOffset and relX <= colOffset + colWidth and relY >= 0 and relY <= 18
