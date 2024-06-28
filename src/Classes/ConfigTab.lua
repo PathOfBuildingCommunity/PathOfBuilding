@@ -21,6 +21,12 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	self.input = { }
 	self.placeholder = { }
 	self.defaultState = { }
+
+	-- Initialise config sets
+	self.configSets = { }
+	self.configSetOrderList = { 1 }
+	self:NewConfigSet(1)
+	self:SetActiveConfigSet(1, true)
 	
 	self.enemyLevel = 1
 
@@ -32,7 +38,22 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	self.toggleConfigs = false
 
 	self.controls.sectionAnchor = new("LabelControl", { "TOPLEFT", self, "TOPLEFT" }, 0, 20, 0, 0, "")
-	self.controls.search = new("EditControl", { "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, 8, -15, 360, 20, "", "Search", "%c", 100, function()
+
+	-- Set selector
+	self.controls.setSelect = new("DropDownControl", { "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, 76, -12, 210, 20, nil, function(index, value)
+		self:SetActiveConfigSet(self.configSetOrderList[index])
+		self:AddUndoState()
+	end)
+	self.controls.setSelect.enableDroppedWidth = true
+	self.controls.setSelect.enabled = function()
+		return #self.configSetOrderList > 1
+	end
+	self.controls.setLabel = new("LabelControl", { "RIGHT", self.controls.setSelect, "LEFT" }, -2, 0, 0, 16, "^7Config set:")
+	self.controls.setManage = new("ButtonControl", { "LEFT", self.controls.setSelect, "RIGHT" }, 4, 0, 90, 20, "Manage...", function()
+		self:OpenConfigSetManagePopup()
+	end)
+
+	self.controls.search = new("EditControl", { "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, 8, 15, 360, 20, "", "Search", "%c", 100, function()
 		self:UpdateControls()
 	end, nil, nil, true)
 	self.controls.toggleConfigs = new("ButtonControl", { "LEFT", self.controls.search, "RIGHT" }, 10, 0, 200, 20, function()
@@ -125,7 +146,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	local lastSection
 	for _, varData in ipairs(varList) do
 		if varData.section then
-			lastSection = new("SectionControl", {"TOPLEFT",self.controls.sectionAnchor,"TOPLEFT"}, 0, 0, 360, 0, varData.section)
+			lastSection = new("SectionControl", {"TOPLEFT",self.controls.search,"BOTTOMLEFT"}, 0, 0, 360, 0, varData.section)
 			lastSection.varControlList = { }
 			lastSection.col = varData.col
 			lastSection.height = function(self)
@@ -144,6 +165,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			if varData.type == "check" then
 				control = new("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 18, varData.label, function(state)
 					self.input[varData.var] = state
+					self.configSets[self.activeConfigSetId].input[varData.var] = state
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
@@ -152,8 +174,10 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, (varData.type == "integer" and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 7, function(buf, placeholder)
 					if placeholder then
 						self.placeholder[varData.var] = tonumber(buf)
+						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tonumber(buf)
 					else
 						self.input[varData.var] = tonumber(buf)
+						self.configSets[self.activeConfigSetId].input[varData.var] = tonumber(buf)
 						self:AddUndoState()
 						self:BuildModList()
 					end
@@ -162,6 +186,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			elseif varData.type == "list" then
 				control = new("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 118, 16, varData.list, function(index, value)
 					self.input[varData.var] = value.val
+					self.configSets[self.activeConfigSetId].input[varData.var] = value.val
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
@@ -170,8 +195,10 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, 344, 118, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
 						self.placeholder[varData.var] = tostring(buf)
+						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tostring(buf)
 					else
 						self.input[varData.var] = tostring(buf)
+						self.configSets[self.activeConfigSetId].input[varData.var] = tostring(buf)
 						self:AddUndoState()
 						self:BuildModList()
 					end
@@ -495,12 +522,15 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			end
 			if varData.var then
 				self.input[varData.var] = varData.defaultState
+				self.configSets[self.activeConfigSetId].input[varData.var] = varData.defaultState
 				control.state = varData.defaultState
 				self.varControls[varData.var] = control
 				self.placeholder[varData.var] = varData.defaultPlaceholderState
+				self.configSets[self.activeConfigSetId].placeholder[varData.var] = varData.defaultPlaceholderState
 				control.placeholder = varData.defaultPlaceholderState
 				if varData.defaultIndex then
 					self.input[varData.var] = varData.list[varData.defaultIndex].val
+					self.configSets[self.activeConfigSetId].input[varData.var] = varData.list[varData.defaultIndex].val
 					control.selIndex = varData.defaultIndex
 				end
 				if varData.type == "check" then
@@ -582,26 +612,30 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 end)
 
 function ConfigTabClass:Load(xml, fileName)
-	for _, node in ipairs(xml) do
+	self.activeConfigSetId = 1
+	self.configSets = { }
+	self.configSetOrderList = { 1 }
+
+	local function setInputAndPlaceholder(node, configSetId)
 		if node.elem == "Input" then
 			if not node.attrib.name then
 				launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing name attribute", fileName)
 				return true
 			end
 			if node.attrib.number then
-				self.input[node.attrib.name] = tonumber(node.attrib.number)
+				self.configSets[configSetId].input[node.attrib.name] = tonumber(node.attrib.number)
 			elseif node.attrib.string then
 				if node.attrib.name == "enemyIsBoss" then
-					self.input[node.attrib.name] = node.attrib.string:lower():gsub("(%l)(%w*)", function(a,b) return s_upper(a)..b end)
+					self.configSets[configSetId].input[node.attrib.name] = node.attrib.string:lower():gsub("(%l)(%w*)", function(a,b) return s_upper(a)..b end)
 					:gsub("Uber Atziri", "Boss"):gsub("Shaper", "Pinnacle"):gsub("Sirus", "Pinnacle")
 				-- backwards compat <=3.20, Uber Atziri Flameblast -> Atziri Flameblast
 				elseif node.attrib.name == "presetBossSkills" then
-					self.input[node.attrib.name] = node.attrib.string:gsub("^Uber ", "")
+					self.configSets[configSetId].input[node.attrib.name] = node.attrib.string:gsub("^Uber ", "")
 				else
-					self.input[node.attrib.name] = node.attrib.string
+					self.configSets[configSetId].input[node.attrib.name] = node.attrib.string
 				end
 			elseif node.attrib.boolean then
-				self.input[node.attrib.name] = node.attrib.boolean == "true"
+				self.configSets[configSetId].input[node.attrib.name] = node.attrib.boolean == "true"
 			else
 				launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing number, string or boolean attribute", fileName)
 				return true
@@ -612,17 +646,33 @@ function ConfigTabClass:Load(xml, fileName)
 				return true
 			end
 			if node.attrib.number then
-				self.placeholder[node.attrib.name] = tonumber(node.attrib.number)
+				self.configSets[configSetId].placeholder[node.attrib.name] = tonumber(node.attrib.number)
 			elseif node.attrib.string then
-				self.input[node.attrib.name] = node.attrib.string
+				self.configSets[configSetId].input[node.attrib.name] = node.attrib.string
 			else
 				launch:ShowErrMsg("^1Error parsing '%s': 'Placeholder' element missing number", fileName)
 				return true
 			end
 		end
 	end
+	for index, node in ipairs(xml) do
+		if node.elem ~= "ConfigSet" then
+			if not self.configSets[1] then
+				self:NewConfigSet(1, "Default")
+			end
+			setInputAndPlaceholder(node, 1)
+		else
+			local configSetId = tonumber(node.attrib.id)
+			self:NewConfigSet(configSetId, node.attrib.title or "Default")
+			self.configSetOrderList[index] = configSetId
+			for _, child in ipairs(node) do
+				setInputAndPlaceholder(child, configSetId)
+			end
+		end
+	end
+
+	self:SetActiveConfigSet(tonumber(xml.attrib.activeConfigSet) or 1)
 	self:BuildModList()
-	self:UpdateControls()
 	self:ResetUndo()
 end
 
@@ -647,27 +697,36 @@ function ConfigTabClass:GetDefaultState(var, varType)
 end
 
 function ConfigTabClass:Save(xml)
-	for k, v in pairs(self.input) do
-		if v ~= self:GetDefaultState(k, type(v)) then
-			local child = { elem = "Input", attrib = { name = k } }
-			if type(v) == "number" then
-				child.attrib.number = tostring(v)
-			elseif type(v) == "boolean" then
-				child.attrib.boolean = tostring(v)
-			else
-				child.attrib.string = tostring(v)
-			end
-			t_insert(xml, child)
-		end
-	end
-	for k, v in pairs(self.placeholder) do
-		local child = { elem = "Placeholder", attrib = { name = k } }
-		if type(v) == "number" then
-			child.attrib.number = tostring(v)
-		else
-			child.attrib.string = tostring(v)
-		end
+	xml.attrib = {
+		activeConfigSet = tostring(self.activeConfigSetId)
+	}
+	for _, configSetId in ipairs(self.configSetOrderList) do
+		local configSet = self.configSets[configSetId]
+		local child = { elem = "ConfigSet", attrib = { id = tostring(configSetId), title = configSet.title } }
 		t_insert(xml, child)
+
+		for k, v in pairs(configSet.input) do
+			if v ~= self:GetDefaultState(k, type(v)) then
+				local node = { elem = "Input", attrib = { name = k } }
+				if type(v) == "number" then
+					node.attrib.number = tostring(v)
+				elseif type(v) == "boolean" then
+					node.attrib.boolean = tostring(v)
+				else
+					node.attrib.string = tostring(v)
+				end
+				t_insert(child, node)
+			end
+		end
+		for k, v in pairs(configSet.placeholder) do
+			local node = { elem = "Placeholder", attrib = { name = k } }
+			if type(v) == "number" then
+				node.attrib.number = tostring(v)
+			else
+				node.attrib.string = tostring(v)
+			end
+			t_insert(child, node)
+		end
 	end
 end
 
@@ -724,7 +783,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 		local y = 14
 		section.shown = true
 		local doShow = false
-		for _, varControl in ipairs(section.varControlList) do
+		for _, varControl in pairs(section.varControlList) do
 			if varControl:IsShown() then
 				doShow = true
 				local width, height = varControl:GetSize()
@@ -755,6 +814,16 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 			maxColY = m_max(maxColY, colY[col])
 		end
 	end
+	
+	local newSetList = { }
+	for index, configSetId in ipairs(self.configSetOrderList) do
+		local configSet = self.configSets[configSetId]
+		t_insert(newSetList, configSet.title or "Default")
+		if configSetId == self.activeConfigSetId then
+			self.controls.setSelect.selIndex = index
+		end
+	end
+	self.controls.setSelect:SetList(newSetList)
 
 	self.controls.scrollBar.height = viewPort.height
 	self.controls.scrollBar:SetContentDimension(maxColY + 30, viewPort.height)
@@ -858,4 +927,62 @@ function ConfigTabClass:RestoreUndoState(state)
 	end
 	self:UpdateControls()
 	self:BuildModList()
+end
+
+function ConfigTabClass:OpenConfigSetManagePopup()
+	main:OpenPopup(370, 290, "Manage Config Sets", {
+		new("ConfigSetListControl", nil, 0, 50, 350, 200, self),
+		new("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
+			main:ClosePopup()
+		end),
+	})
+end
+
+-- Creates a new config set
+function ConfigTabClass:NewConfigSet(configSetId, title)
+	local configSet = { id = configSetId, title = title, input = { }, placeholder = { } }
+	if not configSetId then
+		configSet.id = 1
+		while self.configSets[configSet.id] do
+			configSet.id = configSet.id + 1
+		end
+	end
+	-- there are default values for input and placeholder that every new config set needs to have
+	for _, varData in ipairs(varList) do
+		if varData.var then
+			configSet.input[varData.var] = varData.defaultState
+			configSet.placeholder[varData.var] = varData.defaultPlaceholderState
+			if varData.defaultIndex then
+				configSet.input[varData.var] = varData.list[varData.defaultIndex].val
+			end
+		end
+	end
+	self.configSets[configSet.id] = configSet
+	return configSet
+end
+
+-- Changes the active config set
+function ConfigTabClass:SetActiveConfigSet(configSetId, init)
+	-- Initialize config sets if needed
+	if not self.configSetOrderList[1] then
+		self.configSetOrderList[1] = 1
+		self:NewConfigSet(1)
+	end
+
+	if not configSetId then
+		configSetId = self.activeConfigSetId
+	end
+
+	if not self.configSets[configSetId] then
+		configSetId = self.configSetOrderList[1]
+	end
+
+	if not init then
+		self.input = copyTable(self.configSets[configSetId].input, true)
+		self.placeholder = copyTable(self.configSets[configSetId].placeholder, true)
+		self:UpdateControls()
+		self:BuildModList()
+	end
+	self.activeConfigSetId = configSetId
+	self.build.buildFlag = true
 end
