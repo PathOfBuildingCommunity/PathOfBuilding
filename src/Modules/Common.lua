@@ -26,6 +26,7 @@ common.curl = require("lcurl.safe")
 common.xml = require("xml")
 common.base64 = require("base64")
 common.sha1 = require("sha1")
+local utf8 = require('lua-utf8')
 
 -- Try to load a library return nil if failed. https://stackoverflow.com/questions/34965863/lua-require-fallback-error-handling
 function prerequire(...)
@@ -657,20 +658,21 @@ function formatNumSep(str)
 		end
 		local x, y, minus, integer, fraction = str:find("(-?)(%d+)(%.?%d*)")
 		if main.showThousandsSeparators then
-			integer = integer:reverse():gsub("(%d%d%d)", "%1"..main.thousandsSeparator):reverse()
+			rev1kSep = utf8.reverse(main.thousandsSeparator)
+			integer = utf8.reverse(utf8.gsub(utf8.reverse(integer), "(%d%d%d)", "%1"..rev1kSep))
 			-- There will be leading separators if the number of digits are divisible by 3
 			-- This checks for their presence and removes them
 			-- Don't use patterns here because thousandsSeparator can be a pattern control character, and will crash if used
 			if main.thousandsSeparator ~= "" then
-				local thousandsSeparator = string.find(integer, main.thousandsSeparator, 1, 2)
+				local thousandsSeparator = utf8.find(integer, rev1kSep, 1, 2)
 				if thousandsSeparator and thousandsSeparator == 1 then
-					integer = integer:sub(2)
+					integer = utf8.sub(integer, 2)
 				end
 			end
 		else
-			integer = integer:reverse():gsub("(%d%d%d)", "%1"):reverse()
+			integer = utf8.reverse(utf8.gsub(utf8.reverse(integer), "(%d%d%d)", "%1"))
 		end
-		return colour..minus..integer..fraction:gsub("%.", main.decimalSeparator)
+		return colour..minus..integer..utf8.gsub(fraction, "%.", main.decimalSeparator)
 	end)
 end
 

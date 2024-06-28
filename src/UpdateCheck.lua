@@ -78,8 +78,8 @@ end
 
 ConPrintf("Checking for update...")
 
-local scriptPath = GetScriptPath()
-local runtimePath = GetRuntimePath()
+local scriptPath = "."
+local runtimePath = "."
 
 -- Load and process local manifest
 local localVer

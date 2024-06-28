@@ -427,7 +427,7 @@ Highest Weight - Displays the order retrieved from trade]]
 		t_insert(slotTables, { slotName = self.itemsTab.sockets[nodeId].label, nodeId = nodeId })
 	end
 
-	self.controls.sectionAnchor = new("LabelControl", { "LEFT", self.controls.poesessidButton, "LEFT" }, 0, 0, 0, 0, "")
+	self.controls.sectionAnchor = new("Control", { "LEFT", self.controls.poesessidButton, "LEFT" }, 0, 0, 0, 0)
 	top_pane_alignment_ref = {"TOPLEFT", self.controls.sectionAnchor, "TOPLEFT"}
 	local scrollBarShown = #activeSocketList > 6 -- clipping start at Socket 7
 	-- dynamically hide rows that are above or below the scrollBar

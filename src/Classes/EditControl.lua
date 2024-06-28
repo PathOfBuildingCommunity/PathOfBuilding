@@ -7,6 +7,7 @@ local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
 local protected_replace = "*"
+local utf8 = require('lua-utf8')
 
 local function lastLine(str)
 	local lastLineIndex = 1
@@ -541,18 +542,10 @@ function EditClass:OnKeyDown(key, doubleClick)
 		if self.caret > 1 then
 			if ctrl then
 			-- Skip leading space, then jump word
-				while self.buf:sub(self.caret-1, self.caret-1):match("[%s%p]") do
-					if self.caret > 1 then
-						self.caret = self.caret - 1
-					end
-				end
-				while self.buf:sub(self.caret-1, self.caret-1):match("%w") do
-					if self.caret > 1 then
-						self.caret = self.caret - 1
-					end
-				end
+				self.caret = self.caret - #utf8.match(self.buf:sub(1, self.caret-1), "[%s%p]*$")
+				self.caret = self.caret - #utf8.match(self.buf:sub(1, self.caret-1), "%w*$")
 			else
-				self.caret = self.caret - 1
+				self.caret = utf8.next(self.buf, self.caret, -1) or 0
 			end
 			self.lastUndoState.caret = self.caret
 			self:ScrollCaretIntoView()
@@ -562,19 +555,11 @@ function EditClass:OnKeyDown(key, doubleClick)
 		self.sel = shift and (self.sel or self.caret) or nil
 		if self.caret <= #self.buf then
 			if ctrl then
-			-- Jump word, then skip trailing space, 
-				while self.buf:sub(self.caret, self.caret):match("%w") do
-					if self.caret <= #self.buf then
-						self.caret = self.caret + 1
-					end
-				end
-				while self.buf:sub(self.caret, self.caret):match("[%s%p]") do
-					if self.caret <= #self.buf then
-						self.caret = self.caret + 1
-					end
-				end
+			-- Jump word, then skip trailing space,
+				self.caret = self.caret + #utf8.match(self.buf:sub(self.caret), "^%w*")
+				self.caret = self.caret + #utf8.match(self.buf:sub(self.caret), "^[%s%p]*")
 			else
-				self.caret = self.caret + 1
+				self.caret = utf8.next(self.buf, self.caret, 1) or #self.buf + 1
 			end
 			self.lastUndoState.caret = self.caret
 			self:ScrollCaretIntoView()
