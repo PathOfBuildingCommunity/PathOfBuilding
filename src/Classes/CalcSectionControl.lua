@@ -269,7 +269,7 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 					if rowData.label then
 						-- Draw row label with background
 						SetDrawColor(rowData.bgCol or "^0")
-						DrawImage(nil, x + 2, lineY, 130, 18)
+						DrawImage(nil, x + 2, lineY, 8, 18)
 						DrawString(x + 132, lineY + 1, "RIGHT_X", 16, "VAR", textColor..rowData.label.."^7:")
 					end
 					for colour, colData in ipairs(rowData) do
@@ -283,11 +283,6 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 					if self.calcsTab.displayData == colData then
 						-- This is the display stat, draw a green border around this cell
 						SetDrawColor(0.25, 1, 0.25)
-						DrawImage(nil, colData.x + 2, colData.y, colData.width - 2, colData.height)
-						SetDrawColor(rowData.bgCol or "^0")
-						DrawImage(nil, colData.x + 3, colData.y + 1, colData.width - 4, colData.height - 2)
-					else
-						SetDrawColor(rowData.bgCol or "^0")
 						DrawImage(nil, colData.x + 2, colData.y, colData.width - 2, colData.height)
 					end
 					local textSize = rowData.textSize or 14
