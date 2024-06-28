@@ -1010,7 +1010,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				elseif item.type == "Quiver" and items["Weapon 1"] and items["Weapon 1"].name:match("Widowhail") then
-					scale = scale * (1 + (items["Weapon 1"].baseModList:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
+					local widowHailMod=(1 + (items["Weapon 1"].baseModList:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
+					scale = scale * widowHailMod
+					env.widowHailModifier = widowHailMod
 					local combinedList = new("ModList")
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
