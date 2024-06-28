@@ -2249,11 +2249,16 @@ local specialModList = {
 	["(%d+)%% more damage if you've lost an endurance charge in the past 8 seconds"] = function(num) return { mod("Damage", "MORE", num, { type = "Condition", var = "LostEnduranceChargeInPast8Sec" })	} end,
 	["trigger level (%d+) (.+) when you attack with a non%-vaal slam or strike skill near an enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["non%-unique jewels cause increases and reductions to other damage types in a (%a+) radius to be transformed to apply to (%a+) damage"] = function(_, radius, dmgType) return {
-		mod("ExtraJewelFunc", "LIST", {radius = firstToUpper(radius), type = "Other", func = getSimpleConv({ "PhysicalDamage","FireDamage","ColdDamage","LightningDamage","ChaosDamage","ElementalDamage" }, (dmgType:gsub("^%l", string.upper)).."Damage", "INC", true)}, {type = "ItemCondition", itemSlot = "{SlotName}", rarityCond = "UNIQUE", neg = true}),
+		mod("ExtraJewelFunc", "LIST", {radius = firstToUpper(radius), type = "Other", func = function(node, out, data)
+			-- Ignore Timeless Jewels
+			if node and not node.conqueredBy then 
+				return getSimpleConv({ "PhysicalDamage","FireDamage","ColdDamage","LightningDamage","ChaosDamage","ElementalDamage" }, (dmgType:gsub("^%l", string.upper)).."Damage", "INC", true)
+			end
+		end}, {type = "ItemCondition", itemSlot = "{SlotName}", rarityCond = "UNIQUE", neg = true}),
 	} end,
 	["non%-unique jewels cause small and notable passive skills in a (%a+) radius to also grant %+(%d+) to (%a+)"] = function(_, radius, val, attr) return {
 		mod("ExtraJewelFunc", "LIST", {radius = (radius:gsub("^%l", string.upper)), type = "Other", func = function(node, out, data)
-		if node and (node.type == "Notable" or node.type == "Normal") then
+		if node and not node.conqueredBy and (node.type == "Notable" or node.type == "Normal") then
 			out:NewMod(firstToUpper(attr):match("^%a%l%l"), "BASE", tonumber(val), data.modSource)
 		end
 	end}, {type = "ItemCondition", itemSlot = "{SlotName}", rarityCond = "UNIQUE", neg = true}),
@@ -2279,6 +2284,7 @@ local specialModList = {
 	["far shot"] = { flag("FarShot") },
 	["(%d+)%% increased mirage archer duration"] = function(num) return { mod("MirageArcherDuration", "INC", num), } end,
 	["([%-%+]%d+) to maximum number of summoned mirage archers"] = function(num) return { mod("MirageArcherMaxCount", "BASE", num),	} end,
+	["([%-%+]%d+) to maximum number of sacred wisps"] = function(num) return { mod("SacredWispsMaxCount", "BASE", num),	} end,
 	-- Elementalist
 	["gain (%d+)%% increased area of effect for %d+ seconds"] = function(num) return { mod("AreaOfEffect", "INC", num, { type = "Condition", var = "PendulumOfDestructionAreaOfEffect" }) } end,
 	["gain (%d+)%% increased elemental damage for %d+ seconds"] = function(num) return { mod("ElementalDamage", "INC", num, { type = "Condition", var = "PendulumOfDestructionElementalDamage" }) } end,
@@ -2339,12 +2345,8 @@ local specialModList = {
 	["immun[ei]t?y? to elemental ailments while affected by glorious madness"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "AffectedByGloriousMadness" }), },
 	["immun[ei]t?y? to elemental ailments while focus?sed"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "Focused" }), },
 	["summoned golems are immune to elemental damage"] = {
-		mod("MinionModifier", "LIST", { mod = mod("FireResist", "OVERRIDE", 100) }, { type = "SkillType", skillType = SkillType.Golem }),
-		mod("MinionModifier", "LIST", { mod = mod("FireResistMax", "OVERRIDE", 100) }, { type = "SkillType", skillType = SkillType.Golem }),
-		mod("MinionModifier", "LIST", { mod = mod("ColdResist", "OVERRIDE", 100) }, { type = "SkillType", skillType = SkillType.Golem }),
-		mod("MinionModifier", "LIST", { mod = mod("ColdResistMax", "OVERRIDE", 100) }, { type = "SkillType", skillType = SkillType.Golem }),
-		mod("MinionModifier", "LIST", { mod = mod("LightningResist", "OVERRIDE", 100) }, { type = "SkillType", skillType = SkillType.Golem }),
-		mod("MinionModifier", "LIST", { mod = mod("LightningResistMax", "OVERRIDE", 100) }, { type = "SkillType", skillType = SkillType.Golem }),
+		mod("MinionModifier", "LIST", { mod = flag("Elemancer") }, { type = "SkillType", skillType = SkillType.Golem }),
+		mod("MinionModifier", "LIST", { mod = mod("ElementalDamageTaken", "MORE", -100) }, { type = "SkillType", skillType = SkillType.Golem }),
 	},
 	["(%d+)%% increased golem damage per summoned golem"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "SkillType", skillType = SkillType.Golem }, { type = "PerStat", stat = "ActiveGolemLimit" }) } end,
 	["shocks from your hits always increase damage taken by at least (%d+)%%"] = function(num) return { mod("ShockMinimum", "BASE", num) } end,
@@ -4550,7 +4552,7 @@ local specialModList = {
 	},
 	["warcry skills' cooldown time is (%d+) seconds"] = function(num) return { mod("CooldownRecovery", "OVERRIDE", num, nil, 0, KeywordFlag.Warcry) } end,
 	["warcry skills have (%+%d+) seconds to cooldown"] = function(num) return { mod("CooldownRecovery", "BASE", num, nil, 0, KeywordFlag.Warcry) } end,
-	["stance skills have (%+%d+) seconds to cooldown"] = function(num) return { mod("CooldownRecovery", "BASE", num, nil, { type = "SkillType", skillType = SkillType.Stance }) } end,
+	["stance skills have (%+%d+) seconds to cooldown"] = function(num) return { mod("CooldownRecovery", "BASE", num, { type = "SkillType", skillType = SkillType.Stance }) } end,
 	["using warcries is instant"] = { flag("InstantWarcry") },
 	["attacks with axes or swords grant (%d+) rage on hit, no more than once every second"] = {
 		flag("Condition:CanGainRage", { type = "Condition", varList = { "UsingAxe", "UsingSword" } }),
@@ -5164,7 +5166,7 @@ local jewelOtherFuncs = {
 	["Passive Skills in Radius also grant (%d+)%% increased Global Critical Strike Chance"] = function(num)
 		return function(node, out, data)
 			if node and node.type ~= "Keystone" then
-				out:NewMod("CritChance", "INC", num, data.modSource)
+				out:NewMod("CritChance", "INC", tonumber(num), data.modSource)
 			end
 		end
 	end,
@@ -5220,7 +5222,7 @@ local jewelOtherFuncs = {
 			end
 		end
 	end,
-	["Passive Skills in Radius also grant (%d+)%% increased (%w+) Damage"] = function(num, _, type)
+	["Passive Skills in Radius also grant (%d+)%% increased (%w+) Damage"] = function(num, type)
 		return function(node, out, data)
 			if node and node.type ~= "Keystone" then
 				out:NewMod(firstToUpper(type).."Damage", "INC", num, data.modSource)

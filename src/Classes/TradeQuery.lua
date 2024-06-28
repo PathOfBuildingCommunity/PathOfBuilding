@@ -345,12 +345,12 @@ Lowest Price - Sorts from lowest to highest price of retrieved items
 Highest Weight - Displays the order retrieved from trade]]
 	self.controls.itemSortSelection:SetSel(self.pbItemSortSelectionIndex)
 	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16	, "^7Sort By:")
-	
+
 	-- Use Enchant in DPS sorting
 	self.controls.enchantInSort = new("CheckBoxControl", {"TOPRIGHT",self.controls.fetchCountEdit,"TOPLEFT"}, -8, 0, row_height, "Include Enchants:", function(state)
 		self.enchantInSort = state
-		for index, _ in pairs(self.resultTbl) do
-			self:UpdateControlsWithItems({name = baseSlots[index]}, index)
+		for row_idx, _ in pairs(self.resultTbl) do
+			self:UpdateControlsWithItems(row_idx)
 		end
 	end)
 	self.controls.enchantInSort.tooltipText = "This includes enchants in sorting that occurs after trade results have been retrieved"

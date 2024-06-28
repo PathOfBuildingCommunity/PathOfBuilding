@@ -1321,4 +1321,148 @@ Cluster Jewel
 Small Cluster Jewel
 Crafted: true
 ]],
+-- Flasks
+-- Instant CB/Bleed immune Divine Life Flask
+[[
+Rarity: MAGIC
+Seething Divine Life Flask of Allaying
+Crafted: true
+Prefix: {range:0.5}FlaskFullInstantRecovery1
+Suffix: {range:0.028}FlaskBleedCorruptingBloodImmunity3______
+Quality: 20
+LevelReq: 60
+Implicits: 0
+66% reduced Amount Recovered
+Instant Recovery
+Grants Immunity to Bleeding for 12 seconds if used while Bleeding
+Grants Immunity to Corrupted Blood for 12 seconds if used while affected by Corrupted Blood
+]],
+-- Mageblood Flasks
+[[
+Rarity: MAGIC
+Alchemist's Diamond Flask
+Crafted: true
+Prefix: {range:0}FlaskEffectReducedDuration3
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 2
+{crafted}{range:1}(60-70)% increased effect
+{crafted}Gains no Charges during Effect
+23% reduced Duration
+25% increased effect
+]],[[
+Rarity: MAGIC
+Alchemist's Granite Flask
+Crafted: true
+Prefix: {range:0}FlaskEffectReducedDuration3
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 2
+{crafted}{range:1}(60-70)% increased effect
+{crafted}Gains no Charges during Effect
+23% reduced Duration
+25% increased effect
+]],[[
+Rarity: MAGIC
+Alchemist's Basalt Flask
+Crafted: true
+Prefix: {range:0}FlaskEffectReducedDuration3
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 3
+{crafted}{range:1}(60-70)% increased effect
+{crafted}Gains no Charges during Effect
+{tags:flask}Taunts nearby Enemies on use
+23% reduced Duration
+25% increased effect
+]],[[
+Rarity: MAGIC
+Alchemist's Jade Flask
+Crafted: true
+Prefix: {range:0}FlaskEffectReducedDuration3
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 2
+{crafted}{range:1}(60-70)% increased effect
+{crafted}Gains no Charges during Effect
+23% reduced Duration
+25% increased effect
+]],[[
+Rarity: MAGIC
+Alchemist's Stibnite Flask
+Crafted: true
+Prefix: {range:0}FlaskEffectReducedDuration3
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 3
+{crafted}{range:1}(60-70)% increased effect
+{crafted}Gains no Charges during Effect
+{tags:flask}Creates a Smoke Cloud on Use
+23% reduced Duration
+25% increased effect
+]],
+-- Auto-use gain on hit Utility Flasks
+[[
+Rarity: MAGIC
+Flagellant's Basalt Flask
+Crafted: true
+Prefix: {range:1}FlaskFullRechargeOnHit5___
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 2
+{crafted}Used when Charges reach full
+{tags:flask}Taunts nearby Enemies on use
+Gain 3 Charges when you are Hit by an Enemy
+]],[[
+Rarity: MAGIC
+Flagellant's Granite Flask
+Crafted: true
+Prefix: {range:1}FlaskFullRechargeOnHit5___
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 1
+{crafted}Used when Charges reach full
+Gain 3 Charges when you are Hit by an Enemy
+]],[[
+Rarity: MAGIC
+Flagellant's Jade Flask
+Crafted: true
+Prefix: {range:1}FlaskFullRechargeOnHit5___
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 1
+{crafted}Used when Charges reach full
+Gain 3 Charges when you are Hit by an Enemy
+]],[[
+Rarity: MAGIC
+Flagellant's Stibnite Flask
+Crafted: true
+Prefix: {range:1}FlaskFullRechargeOnHit5___
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 2
+{crafted}Used when Charges reach full
+{tags:flask}Creates a Smoke Cloud on Use
+Gain 3 Charges when you are Hit by an Enemy
+]],[[
+Rarity: MAGIC
+Flagellant's Quicksilver Flask
+Crafted: true
+Prefix: {range:1}FlaskFullRechargeOnHit5___
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 1
+{crafted}Used when Charges reach full
+Gain 3 Charges when you are Hit by an Enemy
+]]
 }

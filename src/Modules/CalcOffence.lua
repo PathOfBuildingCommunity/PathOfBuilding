@@ -1155,9 +1155,14 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		local baseCooldown = skillData.trapCooldown or skillData.cooldown
-		if baseCooldown then
-			output.TrapCooldown = baseCooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
-			output.TrapCooldown = m_ceil(output.TrapCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+		if baseCooldown or skillModList:Sum("BASE", skillCfg, "CooldownRecovery") ~= 0 then
+			if baseCooldown then
+				output.TrapCooldown = baseCooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
+				output.TrapCooldown = m_ceil(output.TrapCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+			else -- Assign Trap Cooldown if the trap/skill does not have cooldown but gain cooldown elsewhere
+				local cooldown, _, _ = calcSkillCooldown(skillModList, skillCfg, skillData)
+				output.TrapCooldown = cooldown;
+			end
 			if breakdown then
 				breakdown.TrapCooldown = {
 					s_format("%.2fs ^8(base)", skillData.trapCooldown or skillData.cooldown or 4),
@@ -1512,7 +1517,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	-- Calculate costs (may be slightly off due to rounding differences)
 	local costs = {
-		["Mana"] = { type = "Mana", upfront = true, percent = false, text = "mana", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
+		["Mana"] = { type = "Mana", upfront = true, percent = false, text = "mana", baseCost = 0, baseCostRaw = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
 		["Life"] = { type = "Life", upfront = true, percent = false, text = "life", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
 		["ES"] = { type = "ES", upfront = true, percent = false, text = "ES", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
 		["Soul"] = { type = "Soul", upfront = true, percent = false, unaffectedByGenericCostMults = true, text = "soul", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
@@ -1554,6 +1559,7 @@ function calcs.offence(env, actor, activeSkill)
 			val.baseCost = val.baseCost + baseCost
 			val.baseCostNoMult = val.baseCostNoMult + baseCostNoMult
 			val.finalBaseCost = (m_floor(val.baseCost * mult) + val.baseCostNoMult) + divineBlessingCorrection
+			val.baseCostRaw = val.baseCostRaw and (val.baseCost * mult + val.baseCostNoMult + divineBlessingCorrection)
 			if val.type == "Life" then
 				local manaType = resource:gsub("Life", "Mana")
 				if skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then -- Blood Magic / Lifetap
@@ -1589,6 +1595,7 @@ function calcs.offence(env, actor, activeSkill)
 			local hasCost = val.baseCost > 0 or val.totalCost > 0 or val.baseCostNoMult > 0 or val.finalBaseCost > 0
 			output[resource.."HasCost"] = hasCost
 			local costName = resource.."Cost"
+			local costNameRaw = costName.."Raw"
 			local moreType = 1
 			local moreCost = 1
 			local inc = 0
@@ -1597,6 +1604,7 @@ function calcs.offence(env, actor, activeSkill)
 				moreType = skillModList:More(skillCfg, val.type.."Cost")
 				moreCost = skillModList:More(skillCfg, "Cost")
 				inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
+				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * val.baseCostRaw * moreType * moreCost) + val.totalCost)
 				if inc < 0 then
 					output[costName] = m_max(0, m_ceil((1 + inc / 100) * output[costName]))
 				else
@@ -1615,6 +1623,7 @@ function calcs.offence(env, actor, activeSkill)
 				output[costName] = m_max(0, output[costName] + val.totalCost)
 				if val.type == "Mana" and hybridLifeCost > 0 then -- Life/Mana Mastery
 					output[costName] = m_max(0, m_floor((1 - hybridLifeCost) * output[costName]))
+					output[costNameRaw] = output[costNameRaw] and m_max(0, (1 - hybridLifeCost) * output[costNameRaw])
 				end
 			else
 				moreType = skillModList:More(skillCfg, val.type.."Cost")
@@ -1623,6 +1632,7 @@ function calcs.offence(env, actor, activeSkill)
 				output[costName] = m_max(0, (1 + inc / 100) * output[costName])
 				output[costName] = m_max(0, moreType * output[costName])
 				output[costName] = m_max(0, output[costName] + val.totalCost)
+				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * (val.baseCostRaw + val.baseCostNoMult) * moreType) + val.totalCost)
 			end
 			if breakdown and hasCost then
 				breakdown[costName] = {
@@ -4642,15 +4652,18 @@ function calcs.offence(env, actor, activeSkill)
 		}
 		if activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.NonHitChill] then
 			skillFlags.chill = true
-			output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
+			local incChill = skillModList:Sum("INC", cfg, "EnemyChillEffect")
+			local moreChill = skillModList:More(cfg, "EnemyChillEffect")
+			output.ChillEffectMod = (1 + incChill / 100) * moreChill
 			output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration") / 100
-			output.ChillSourceEffect = m_min(skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max, m_floor(ailmentData.Chill.default * (1 + output.ChillEffectMod / 100)))
+			output.ChillSourceEffect = m_min(skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max, m_floor(ailmentData.Chill.default * output.ChillEffectMod))
 			if breakdown then
 				breakdown.DotChill = { }
 				breakdown.multiChain(breakdown.DotChill, {
 					label = s_format("Effect of Chill: ^8(capped at %d%%)", skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max),
 					base = s_format("%d%% ^8(base)", ailmentData.Chill.default),
-					{ "%.2f ^8(increased effect of chill)", 1 + output.ChillEffectMod / 100},
+					{ "%.2f ^8(increased/reduced effect of chill)", 1 + incChill / 100 },
+					{ "%.2f ^8(more/less effect of chill)", moreChill },
 					total = s_format("= %.0f%%", output.ChillSourceEffect)
 				})
 			end

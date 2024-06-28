@@ -105,6 +105,8 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.compareSelect = new("DropDownControl", { "LEFT", self.controls.compareCheck, "RIGHT" }, 8, 0, 190, 20, nil, function(index, value)
 		if self.specList[index] then
 			self:SetCompareSpec(index)
+		else
+			self:OpenSpecManagePopup()
 		end
 	end)
 	self.controls.compareSelect.shown = false
@@ -258,6 +260,18 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 				self.build.spec:Redo()
 				self.build.buildFlag = true
 				inputEvents[id] = nil
+			elseif event.key == "UP" then
+				index = self.activeSpec - 1
+				if self.specList[index] then
+					self.build.modFlag = true
+					self:SetActiveSpec(index)
+				end
+			elseif event.key == "DOWN" then
+				index = self.activeSpec + 1
+				if self.specList[index] then
+					self.build.modFlag = true
+					self:SetActiveSpec(index)
+				end
 			elseif event.key == "f" and IsKeyDown("CTRL") then
 				self:SelectControl(self.controls.treeSearch)
 			elseif event.key == "m" and IsKeyDown("CTRL") then
@@ -1782,6 +1796,13 @@ function TreeTabClass:FindTimelessJewel()
 	controls.msg = new("LabelControl", nil, -280, 5, 0, 16, "")
 	if #self.tradeLeaguesList > 0 then
 		controls.searchTradeLeagueSelect:SetList(self.tradeLeaguesList)
+		-- restore the last league selected
+		for i, league in ipairs(self.tradeLeaguesList) do
+			if league == self.timelessJewelLeagueSelect then
+				controls.searchTradeLeagueSelect:SetSel(i)
+				break
+			end
+		end
 	else
 		self.tradeQueryRequests:FetchLeagues("pc", function(leagues, errMsg)
 			if errMsg then
@@ -1892,7 +1913,10 @@ function TreeTabClass:FindTimelessJewel()
 			end
 		end
 
-		Copy("https://www.pathofexile.com/trade/search/"..(self.timelessJewelLeagueSelect or "").."/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
+		-- if the league was not selected via dropdown, then default to the first league in the dropdown or "" if the leagues could not be read
+		self.timelessJewelLeagueSelect = self.timelessJewelLeagueSelect or (self.tradeLeaguesList and #self.tradeLeaguesList > 0 and self.tradeLeaguesList[1]) or ""
+
+		Copy("https://www.pathofexile.com/trade/search/"..(self.timelessJewelLeagueSelect).."/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
 			return s_format("%%%02X", s_byte(a))
 		end)))
 
