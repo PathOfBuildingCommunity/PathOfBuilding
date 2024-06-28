@@ -2346,12 +2346,14 @@ function calcs.buildDefenceEstimations(env, actor)
 
 		local iterationMultiplier = 1
 		local damageTotal = 0
+		local lastPositiveLife = poolTable.Life
 		local maxDamage = data.misc.ehpCalcMaxDamage
 		local maxIterations = data.misc.ehpCalcMaxIterationsToCalc
 		while poolTable.Life > 0 and DamageIn["iterations"] < maxIterations do
 			DamageIn["iterations"] = DamageIn["iterations"] + 1
 			local Damage = { }
 			damageTotal = 0
+			lastPositiveLife = poolTable.Life
 			local VaalArcticArmourMultiplier = VaalArcticArmourHitsLeft > 0 and (( 1 - output["VaalArcticArmourMitigation"] * m_min(VaalArcticArmourHitsLeft / iterationMultiplier, 1))) or 1
 			VaalArcticArmourHitsLeft = VaalArcticArmourHitsLeft - iterationMultiplier
 			for _, damageType in ipairs(dmgTypeList) do
@@ -2412,7 +2414,7 @@ function calcs.buildDefenceEstimations(env, actor)
 		end
 		
 		if poolTable.Life < 0 and DamageIn["cycles"] == 1 then -- Don't count overkill damage and only on final pass as to not break speedup.
-			numHits = numHits + poolTable.Life / damageTotal
+			numHits = numHits + poolTable.Life / (lastPositiveLife - poolTable.Life)
 			poolTable.Life = 0
 		end
 		-- Recalculate total hit damage
