@@ -1138,7 +1138,7 @@ local configTable = {
         env.player.mainSkill.skillFlags.globalTrigger = true
 		local uuid = cacheSkillUUID(env.player.mainSkill, env)
 		if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-			calcs.buildActiveSkill(env, env.mode, env.player.mainSkill, {[uuid] = true})
+			calcs.buildActiveSkill(env, env.mode, env.player.mainSkill, uuid, {[uuid] = true})
 		end
 		env.player.mainSkill.skillData.triggerRateCapOverride = 1 / GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration
 		if env.player.breakdown then
