@@ -1348,7 +1348,7 @@ local function getUniqueItemTriggerName(skill)
 		return skill.skillData.triggerSource
 	elseif skill.supportList and #skill.supportList >= 1 then
 		for _, gemInstance in ipairs(skill.supportList) do
-			if gemInstance.grantedEffect and gemInstance.grantedEffect.fromItem then
+			if gemInstance.grantedEffect and gemInstance.grantedEffect.fromItem and not gemInstance.grantedEffect.support then
 				return gemInstance.grantedEffect.name
 			end
 		end
@@ -1375,7 +1375,7 @@ function calcs.triggers(env, actor)
         config = config or uniqueNameLower and configTable[uniqueNameLower] and configTable[uniqueNameLower](env)
 		if config then
 		    config.actor = config.actor or actor
-			config.triggerName = config.triggerName or triggerName or uniqueName or skillName
+			config.triggerName = config.triggerName or triggerName or skillName or uniqueName
 			config.triggerChance = config.triggerChance or (actor.mainSkill.activeEffect.srcInstance and actor.mainSkill.activeEffect.srcInstance.triggerChance)
 			local triggerHandler = config.customHandler or defaultTriggerHandler
 		    triggerHandler(env, config)
