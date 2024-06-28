@@ -60,6 +60,7 @@ function PopupDialogClass:Draw(viewPort)
 end
 
 function PopupDialogClass:ProcessInput(inputEvents, viewPort)
+	self:ProcessControlsInput(inputEvents, viewPort)
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if event.key == "ESCAPE" then
@@ -83,5 +84,4 @@ function PopupDialogClass:ProcessInput(inputEvents, viewPort)
 			end
 		end
 	end
-	self:ProcessControlsInput(inputEvents, viewPort)
 end
