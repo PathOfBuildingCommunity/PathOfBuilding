@@ -14,8 +14,10 @@
 	<File name="Assets/icon_body_armour.png" part="program" sha1="c5237359ed6ea5b81772b1d35029b757c87041cc" />
 	<File name="Assets/icon_boots.png" part="program" sha1="7e52b33f4c72802cf6b63056abe21e26719b857c" />
 	<File name="Assets/icon_bow.png" part="program" sha1="c0a5e9c8b8030b0f3f331782a0a161b901be0999" />
+	<File name="Assets/icon_flask.png" part="program" sha1="9d6784b5bb521417351f9837bce0d39e9cacc4e5"/>
 	<File name="Assets/icon_gloves.png" part="program" sha1="9fe16986f5c2858b40149416e89f036a9e9582a0" />
 	<File name="Assets/icon_helmet.png" part="program" sha1="eb3271f3e9e94e2523ce2d0b90c6fd2b1c3e0435" />
+	<File name="Assets/icon_jewel.png" part="program" sha1="527958248b8f211f8f8df702b9d444afca746514"/>
 	<File name="Assets/icon_quiver.png" part="program" sha1="719bd6edc05f655ff5c7ec4a047dde34b6006e0e" />
 	<File name="Assets/icon_ring_left.png" part="program" sha1="01b88d06e8e505af62a776e818b77fb20a8661d6" />
 	<File name="Assets/icon_ring_right.png" part="program" sha1="dc1ab4a69f7199970a28cac489b0ba9aeeff028b" />
