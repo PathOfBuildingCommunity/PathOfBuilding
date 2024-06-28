@@ -675,7 +675,38 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 			}
 		end
 	elseif slot.slotName == "Weapon 2" or slot.slotName == "Weapon 1" then
-		if existingItem then
+		if slot.slotName == "Weapon 1" and options.itemType and options.itemType > 1 then
+			--"Match", "1H Melee", "2H Melee", "Bow", "Wand"
+			if options.itemType == 2 then
+				itemCategoryQueryStr = "weapon.onemelee"
+				itemCategory = "1HWeapon"
+			elseif options.itemType == 3 then
+				itemCategoryQueryStr = "weapon.twomelee"
+				itemCategory = "2HWeapon"
+			elseif options.itemType == 4 then
+				itemCategoryQueryStr = "weapon.bow"
+				itemCategory = "Bow"
+			elseif options.itemType == 5 then
+				itemCategoryQueryStr = "weapon.wand"
+				itemCategory = "Wand"
+			end
+		-- "Match", "Shield", "1H Melee", "Quiver", "Wand"
+		elseif slot.slotName == "Weapon 2" and options.itemType and options.itemType > 1 then
+			if options.itemType == 2 then
+				itemCategoryQueryStr = "armour.shield"
+				itemCategory = "Shield"
+			elseif options.itemType == 3 then
+				itemCategoryQueryStr = "weapon.onemelee"
+				itemCategory = "1HWeapon"
+			elseif options.itemType == 4 then
+				itemCategoryQueryStr = "armour.quiver"
+				itemCategory = "Quiver"
+			elseif options.itemType == 5 then
+				itemCategoryQueryStr = "weapon.wand"
+				itemCategory = "Wand"
+			end
+
+		elseif existingItem then
 			if existingItem.type == "Shield" then
 				itemCategoryQueryStr = "armour.shield"
 				itemCategory = "Shield"
@@ -1006,6 +1037,8 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	local isAbyssalJewelSlot = slot and slot.slotName:find("Abyssal") ~= nil
 	local isAmuletSlot = slot and slot.slotName == "Amulet"
 	local isEldritchModSlot = slot and eldritchModSlots[slot.slotName] == true
+	local isWeapon1 = slot and slot.slotName:find("Weapon 1") ~= nil
+	local isWeapon2 = slot and slot.slotName:find("Weapon 2") ~= nil
 
 	controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, -40, 30, 18, "Corrupted Mods:", function(state) end)
 	controls.includeCorrupted.state = not context.slotTbl.alreadyCorrupted and (self.lastIncludeCorrupted == nil or self.lastIncludeCorrupted == true)
@@ -1060,6 +1093,19 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		controls.influence2Label = new("LabelControl", {"RIGHT",controls.influence2,"LEFT"}, -5, 0, 0, 16, "Influence 2:")
 		updateLastAnchor(controls.influence2, 46)
 	end
+
+	if isWeapon1 then 
+		controls.itemType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, { "Match", "1H Melee", "2H Melee", "Bow", "Wand"}, function(index, value) end)
+		controls.itemType.selIndex = self.lastItemType or 1
+		controls.itemTypeLabel = new("LabelControl", {"RIGHT",controls.itemType,"LEFT"}, -5, 0, 0, 16, "Item Type:")
+		updateLastAnchor(controls.itemType)
+	elseif isWeapon2 then
+		controls.itemType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, { "Match", "Shield", "1H Melee","Quiver", "Wand" }, function(index, value) end)
+		controls.itemType.selIndex = self.lastItemType or 1		
+		controls.itemTypeLabel = new("LabelControl", {"RIGHT",controls.itemType,"LEFT"}, -5, 0, 0, 16, "Item Type:")
+		updateLastAnchor(controls.itemType)
+	end
+
 
 	-- Add max price limit selection dropbox
 	local currencyTable = {
@@ -1158,6 +1204,13 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		else
 			options.influence2 = 1
 		end
+
+		if controls.itemType then
+			self.lastItemType, options.itemType = controls.itemType.selIndex, controls.itemType.selIndex
+		else
+			options.itemType = 1
+		end
+
 		if controls.jewelType then
 			self.lastJewelType = controls.jewelType.selIndex
 			options.jewelType = controls.jewelType.list[controls.jewelType.selIndex]
