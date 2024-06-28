@@ -103,6 +103,9 @@ function main:Init()
 
 	if self.userPath then
 		self:ChangeUserPath(self.userPath, ignoreBuild)
+		if self.language then
+			dofile('Languages/'..self.language..'.lua')
+		end
 	end
 
 	if launch.devMode and IsKeyDown("CTRL") then
@@ -606,6 +609,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.disableDevAutoSave then
 					self.disableDevAutoSave = node.attrib.disableDevAutoSave == "true"
 				end
+				if node.attrib.language then
+					self.language = node.attrib.language
+				end
 			end
 		end
 	end
@@ -687,6 +693,7 @@ function main:SaveSettings()
 	end
 	t_insert(setXML, sharedItemList)
 	t_insert(setXML, { elem = "Misc", attrib = {
+		language = self.language,
 		buildSortMode = self.buildSortMode,
 		connectionProtocol = tostring(launch.connectionProtocol),
 		proxyURL = launch.proxyURL,
@@ -789,6 +796,17 @@ function main:OpenOptionsPopup()
 	local defaultLabelPlacementX = 240
 
 	drawSectionHeader("app", "Application options")
+
+	controls.language = new("DropDownControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 100, 18, {
+		{ label = "English", protocol = 'en_us' },
+		{ label = "简体中文", protocol = 'zh_cn' },
+	}, function(index, value)
+		self.language = value.protocol or 'en_us'
+	end)
+	controls.languageLabel = new("LabelControl", { "RIGHT", controls.language, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Language:")
+	controls.language.tooltipText = "Changes language. (Must Restart)"
+	controls.language:SelByValue(self.language, "protocol")
+	nextRow()
 
 	controls.connectionProtocol = new("DropDownControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 100, 18, {
 		{ label = "Auto", protocol = 0 },
