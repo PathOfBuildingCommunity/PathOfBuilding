@@ -21,6 +21,7 @@ Ctrl + 7	Jump to party tab
 Ctrl + I	Jump to import tab
 Ctrl + A	Select all
 Ctrl + C	Copy
+Ctrl + D	Toggle stat diff display (Passive Tree tab / Items tab)
 Ctrl + F	Show find / search box (e.g. unique item / tree)
 Ctrl + M	Manage Trees (Tree tab only)
 Ctrl + N	New build (in build selection menu)
@@ -52,7 +53,6 @@ Passive Tree Shortcuts:
 
 Ctrl	Hide tooltips while held
 P	Toggle node power
-Ctrl + D	Toggle stat diff display
 PgUp/PgDn/MWheel	Zoom in / out (hold with shift to increase the amount of zoom x 3)
 Ctrl + LMB	Zoom in on mouse cursor position
 Hold Shift	Enable "path trace mode" 

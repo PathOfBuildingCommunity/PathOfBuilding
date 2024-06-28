@@ -59,6 +59,8 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.items = { }
 	self.itemOrderList = { }
 
+	self.showStatDifferences = true
+
 	-- PoB Trader class initialization
 	self.tradeQuery = new("TradeQuery", self)
 
@@ -1011,6 +1013,9 @@ function ItemsTabClass:Load(xml, dbFileName)
 		self.itemSetOrderList[1] = 1
 	end
 	self:SetActiveItemSet(tonumber(xml.attrib.activeItemSet) or 1)
+	if xml.attrib.showStatDifferences then
+		self.showStatDifferences = xml.attrib.showStatDifferences == "true"
+	end
 	self:ResetUndo()
 end
 
@@ -1018,6 +1023,7 @@ function ItemsTabClass:Save(xml)
 	xml.attrib = {
 		activeItemSet = tostring(self.activeItemSetId),
 		useSecondWeaponSet = tostring(self.activeItemSet.useSecondWeaponSet),
+		showStatDifferences = tostring(self.showStatDifferences),
 	}
 	for _, id in ipairs(self.itemOrderList) do
 		local item = self.items[id]
@@ -1172,6 +1178,9 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 					self:SelectControl(self.controls.uniqueDB.controls.search)
 					self.controls.selectDB.selIndex = 1
 				end
+			elseif event.key == "d" and IsKeyDown("CTRL") then
+				self.showStatDifferences = not self.showStatDifferences
+				self.build.buildFlag = true
 			end
 		end
 	end
@@ -3387,6 +3396,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	tooltip:AddSeparator(14)
 
 	-- Stat differences
+	if not self.showStatDifferences then
+		tooltip:AddSeparator(14)
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to enable the display of stat differences.")
+		return
+	end
 	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 	if base.flask then
 		-- Special handling for flasks
@@ -3637,6 +3651,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			end
 		end
 	end
+	tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to disable the display of stat differences.")
 
 	if launch.devModeAlt then
 		-- Modifier debugging info
