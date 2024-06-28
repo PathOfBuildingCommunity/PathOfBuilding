@@ -297,6 +297,9 @@ holding Shift will put it in the second.]])
 	self.controls.removeDisplayItem = new("ButtonControl", {"LEFT",self.controls.editDisplayItem,"RIGHT"}, 8, 0, 60, 20, "Cancel", function()
 		self:SetDisplayItem()
 	end)
+	self.controls.openTradeDisplay = new("ButtonControl", {"LEFT",self.controls.editDisplayItem,"RIGHT"}, 75, 0, 140, 20, "Open Trade Link...", function()
+		 self:OpenTradeLink()
+	end)
 
 	-- Section: Variant(s)
 
@@ -2051,6 +2054,14 @@ function ItemsTabClass:EditDisplayItemText(alsoAddItem)
 		main:ClosePopup()
 	end)
 	main:OpenPopup(500, 500, self.displayItem and "Edit Item Text" or "Create Custom Item from Text", controls, nil, "edit")
+end
+
+-- Opens trade site link for selected item
+function ItemsTabClass:OpenTradeLink()
+	local item = new("Item", self.displayItem:BuildRaw())
+	local tradeQuery = new("TradeQueryCurItem",item)
+	local url = tradeQuery:ParseItem()
+	OpenURL(url)
 end
 
 -- Opens the item enchanting popup
