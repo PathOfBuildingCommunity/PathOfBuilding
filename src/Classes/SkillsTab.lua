@@ -97,6 +97,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self:SetActiveSkillSet(self.skillSetOrderList[index])
 		self:SetDisplayGroup(self.socketGroupList[1])
 		self:AddUndoState()
+		self.build.linkedSetsTab:LoadSetLinks("skill", value)
 	end)
 	self.controls.setSelect.enableDroppedWidth = true
 	self.controls.setSelect.enabled = function()
@@ -1343,4 +1344,12 @@ function SkillsTabClass:SetActiveSkillSet(skillSetId)
 	self.controls.groupList.list = self.socketGroupList
 	self.activeSkillSetId = skillSetId
 	self.build.buildFlag = true
+end
+
+function SkillsTabClass:SetActiveSkillSetByVal(skillSetTitle)
+	for _, set in pairs(self.skillSets) do
+		if set.title == skillSetTitle or (skillSetTitle == "Default" and not set.title) then
+			self:SetActiveSkillSet(set.id)
+		end
+	end
 end

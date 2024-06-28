@@ -66,6 +66,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.controls.setSelect = new("DropDownControl", {"TOPLEFT",self,"TOPLEFT"}, 96, 8, 216, 20, nil, function(index, value)
 		self:SetActiveItemSet(self.itemSetOrderList[index])
 		self:AddUndoState()
+		self.build.linkedSetsTab:LoadSetLinks("item", value)
 	end)
 	self.controls.setSelect.enableDroppedWidth = true
 	self.controls.setSelect.enabled = function()
@@ -153,6 +154,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		if self.build.treeTab.specList[index] then
 			self.build.modFlag = true
 			self.build.treeTab:SetActiveSpec(index)
+			self.build.linkedSetsTab:LoadSetLinks("tree", value)
 		end
 	end)
 	self.controls.specSelect.enabled = function()
@@ -1268,6 +1270,14 @@ function ItemsTabClass:SetActiveItemSet(itemSetId)
 	end
 	self.build.buildFlag = true
 	self:PopulateSlots()
+end
+
+function ItemsTabClass:SetActiveItemSetByVal(itemSetTitle)
+	for _, set in pairs(self.itemSets) do
+		if set.title == itemSetTitle or (itemSetTitle == "Default" and not set.title) then
+			self:SetActiveItemSet(set.id)
+		end
+	end
 end
 
 -- Equips the given item in the given item set
