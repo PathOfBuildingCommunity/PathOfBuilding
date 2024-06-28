@@ -616,13 +616,11 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if minionList[1] and not activeSkill.actor.minionData then
 		local minionType
 		if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
-			local index = isValueInArray(minionList, activeEffect.srcInstance.skillMinionCalcs) or 1
+			local index = activeEffect.srcInstance.skillMinionCalcs and isValueInArray(minionList, activeEffect.srcInstance.skillMinionCalcs) or 1
 			minionType = minionList[index]
-			activeEffect.srcInstance.skillMinionCalcs = minionType
 		else
-			local index = isValueInArray(minionList, activeEffect.srcInstance.skillMinion) or 1
+			local index = activeEffect.srcInstance.skillMinion and isValueInArray(minionList, activeEffect.srcInstance.skillMinion) or 1
 			minionType = minionList[index]
-			activeEffect.srcInstance.skillMinion = minionType
 		end
 		if minionType then
 			local minion = { }
@@ -830,12 +828,8 @@ function calcs.createMinionSkills(env, activeSkill)
 	local skillIndex 
 	if env.mode == "CALCS" then
 		skillIndex = m_max(m_min(activeEffect.srcInstance.skillMinionSkillCalcs or 1, #minion.activeSkillList), 1)
-		activeEffect.srcInstance.skillMinionSkillCalcs = skillIndex
 	else
 		skillIndex = m_max(m_min(activeEffect.srcInstance.skillMinionSkill or 1, #minion.activeSkillList), 1)
-		if env.mode == "MAIN" then
-			activeEffect.srcInstance.skillMinionSkill = skillIndex
-		end
 	end
 	minion.mainSkill = minion.activeSkillList[skillIndex]
 end
