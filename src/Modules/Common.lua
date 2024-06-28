@@ -922,3 +922,29 @@ function string:matchOrPattern(pattern)
 	end
 	return false
 end
+
+function ImportBuild(importLink, callback)
+	local urlText = importLink:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
+	if urlText:match("youtube%.com/redirect%?") or urlText:match("google%.com/url%?") then
+		local nested_url = urlText:gsub(".*[?&]q=([^&]+).*", "%1")
+		urlText = UrlDecode(nested_url)
+	end
+	local websiteInfo = nil
+	for j = 1, #buildSites.websiteList do
+		if urlText and urlText:match(buildSites.websiteList[j].matchURL) then
+			websiteInfo = buildSites.websiteList[j]
+		end
+	end
+
+	-- its an import link
+	if websiteInfo then
+		buildSites.DownloadBuild(urlText, websiteInfo, function(isSuccess, data)
+			if isSuccess then
+				callback(Inflate(common.base64.decode(data:gsub("-", "+"):gsub("_", "/"))), urlText)
+			end
+		end)
+	else
+		-- try to decode input buffer
+		callback(Inflate(common.base64.decode(importLink:gsub("-", "+"):gsub("_", "/"))), nil)
+	end
+end

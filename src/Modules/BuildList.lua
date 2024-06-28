@@ -60,14 +60,35 @@ function listMode:Init(selBuildName, subPath)
 		self:SortList()
 	end)
 	self.controls.sort:SelByValue(main.buildSortMode, "sortMode")
-	self.controls.buildList = new("BuildListControl", {"TOP",self.anchor,"TOP"}, 0, 75, 900, 0, self)
+	self.controls.buildList = new("BuildListControl", {"TOP",self.anchor,"TOP"}, 0, 75, main.screenW / 2, 0, self)
 	self.controls.buildList.height = function()
 		return main.screenH - 80
+	end
+	self.controls.buildList.width = function ()
+		return (main.screenW / 2)
+	end
+
+	local buildProviders = {
+		{
+			name = "PoB Archives",
+			impl = new("PoBArchivesProvider")
+		}
+	}
+	self.controls.extBuildList = new("ExtBuildListControl", {"LEFT",self.controls.buildList,"RIGHT"}, 25, 0, main.screenW * 1 / 4 - 50, 0, buildProviders)
+	self.controls.extBuildList:Init("PoB Archives")
+	self.controls.extBuildList.height = function()
+		return main.screenH - 80
+	end
+	self.controls.extBuildList.width = function ()
+		return (main.screenW / 4 - 50)
 	end
 	self.controls.searchText = new("EditControl", {"TOP",self.anchor,"TOP"}, 0, 25, 640, 20, self.filterBuildList, "Search", "%c%(%)", 100, function(buf)
 		main.filterBuildList = buf
 		self:BuildList()
 	end, nil, nil, true)
+	self.controls.searchText.width = function ()
+		return (main.screenW / 2 - 100)
+	end
 
 	self:BuildList()
 	self.controls.buildList:SelByFileName(selBuildName and selBuildName..".xml")
