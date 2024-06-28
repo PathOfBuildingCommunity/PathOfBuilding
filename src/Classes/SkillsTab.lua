@@ -386,7 +386,7 @@ function SkillsTabClass:Load(xml, fileName)
 	else
 		self.controls.defaultLevel:SelByValue("normalMaximum", "gemLevel")
 	end
-	self.defaultGemLevel = self.controls.defaultLevel:GetSelValue("gemLevel")
+	self.defaultGemLevel = self.controls.defaultLevel:GetSelValueByKey("gemLevel")
 	self.defaultGemQuality = m_max(m_min(tonumber(xml.attrib.defaultGemQuality) or 0, 23), 0)
 	self.controls.defaultQuality:SetText(self.defaultGemQuality or "")
 	if xml.attrib.sortGemsByDPS then
@@ -399,8 +399,8 @@ function SkillsTabClass:Load(xml, fileName)
 	self.controls.showAltQualityGems.state = self.showAltQualityGems
 	self.controls.showSupportGemTypes:SelByValue(xml.attrib.showSupportGemTypes or "ALL", "show")
 	self.controls.sortGemsByDPSFieldControl:SelByValue(xml.attrib.sortGemsByDPSField or "CombinedDPS", "type") 
-	self.showSupportGemTypes = self.controls.showSupportGemTypes:GetSelValue("show")
-	self.sortGemsByDPSField = self.controls.sortGemsByDPSFieldControl:GetSelValue("type")
+	self.showSupportGemTypes = self.controls.showSupportGemTypes:GetSelValueByKey("show")
+	self.sortGemsByDPSField = self.controls.sortGemsByDPSFieldControl:GetSelValueByKey("type")
 	for _, node in ipairs(xml) do
 		if node.elem == "Skill" then
 			-- Old format, initialize skill sets if needed
