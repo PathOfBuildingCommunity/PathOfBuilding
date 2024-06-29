@@ -229,6 +229,12 @@ return {
 ["cast_on_damage_taken_threshold"] = {
 	skill("triggeredByDamageTaken", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
+["support_autocast_instant_spells"] = {
+	skill("triggeredByAutomation", nil, { type = "SkillType", skillTypeList = {SkillType.Triggerable, SkillType.Spell, SkillType.Instant} }),
+},
+["support_autocast_warcries"] = {
+	skill("triggeredByAutoCry", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Warcry }),
+},
 ["cast_on_stunned_%"] = {
 	skill("chanceToTriggerOnStun", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
@@ -246,6 +252,9 @@ return {
 },
 ["skill_can_own_mirage_archers"] = {
 	skill("triggeredByMirageArcher", true, { type = "SkillType", skillType = SkillType.MirageArcherCanUse }),
+},
+["summon_sacred_wisps_on_hit"] = {
+	skill("triggeredBySacredWisps", true,  { type = "SkillType", skillTypeList = {SkillType.Spell, SkillType.RangedAttack}}),
 },
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),
@@ -989,7 +998,7 @@ return {
 ["chill_effect_+%"] = {
 	mod("EnemyChillEffect", "INC", nil),
 },
-["chill_effect_+%_final"] = {
+["active_skill_chill_effect_+%_final"] = {
 	mod("EnemyChillEffect", "MORE", nil),
 },
 ["shock_effect_+%"] = {

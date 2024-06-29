@@ -74,7 +74,7 @@ local function findTriggerSkill(env, skill, source, triggerRate, comparer)
 
 	local uuid = cacheSkillUUID(skill, env)
 	if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-		calcs.buildActiveSkill(env, env.mode, skill)
+		calcs.buildActiveSkill(env, env.mode, skill, uuid)
 	end
 
 	if GlobalCache.cachedData[env.mode][uuid] and comparer(uuid, source, triggerRate) and (skill.skillFlags and not skill.skillFlags.disable) and (skill.skillCfg and not skill.skillCfg.skillCond["usedByMirage"]) and not skill.skillTypes[SkillType.OtherThingUsesSkill] then
@@ -530,25 +530,30 @@ local function defaultTriggerHandler(env, config)
 			if actor.mainSkill.skillData.triggeredByManaforged and trigRate > 0 then
 				local triggeredUUID = cacheSkillUUID(actor.mainSkill, env)
 				if not GlobalCache.cachedData[env.mode][triggeredUUID] then
-					calcs.buildActiveSkill(env, env.mode, actor.mainSkill, {[triggeredUUID] = true})
+					calcs.buildActiveSkill(env, env.mode, actor.mainSkill, triggeredUUID, {[triggeredUUID] = true})
 				end
-				local triggeredManaCost = GlobalCache.cachedData[env.mode][triggeredUUID].Env.player.output.ManaCost or 0
+				local triggeredManaCost = GlobalCache.cachedData[env.mode][triggeredUUID].Env.player.output.ManaCostRaw or 0
 				if triggeredManaCost > 0 then
 					local manaSpentThreshold = triggeredManaCost * actor.mainSkill.skillData.ManaForgedArrowsPercentThreshold
-					local sourceManaCost = GlobalCache.cachedData[env.mode][uuid].Env.player.output.ManaCost or 0
+					local sourceManaCost = GlobalCache.cachedData[env.mode][uuid].Env.player.output.ManaCostRaw or 0
 					if sourceManaCost > 0 then
 						if breakdown then
-							t_insert(breakdown.EffectiveSourceRate, s_format("* %.2f ^8(Mana cost of trigger source)", sourceManaCost))
-							t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f ^8(Mana spent per second)", (trigRate * sourceManaCost)))
-							t_insert(breakdown.EffectiveSourceRate, s_format(""))
-							t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Mana Cost of triggered)", triggeredManaCost))
-							t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Manaforged threshold multiplier)", actor.mainSkill.skillData.ManaForgedArrowsPercentThreshold))
-							t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f ^8(Manaforged trigger threshold)", manaSpentThreshold))
-							t_insert(breakdown.EffectiveSourceRate, s_format(""))
-							t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Mana spent per second)", (trigRate * sourceManaCost)))
-							t_insert(breakdown.EffectiveSourceRate, s_format("/ %.2f ^8(Manaforged trigger threshold)", manaSpentThreshold))
+							breakdown.EffectiveSourceRate = {
+								s_format("%.4f ^8(Mana cost of trigger source)", sourceManaCost),
+								s_format(""),
+								s_format("%.4f ^8(Mana Cost of triggered)", triggeredManaCost),
+								s_format("%.2f ^8(Manaforged threshold multiplier)", actor.mainSkill.skillData.ManaForgedArrowsPercentThreshold),
+								s_format("= %.4f ^8(Manaforged trigger threshold)", manaSpentThreshold),
+								s_format(""),
+								s_format("%.4f ^8(Manaforged trigger threshold)", manaSpentThreshold),
+								s_format("/ %.4f ^8(Mana cost of trigger source)", sourceManaCost),
+								s_format("= %.2f ^8(Skill usages required)", manaSpentThreshold / sourceManaCost),
+								s_format(""),
+								breakdown.EffectiveSourceRate[1],
+								s_format("/ ceil(%.2f) ^8(%d Skill usages required)", manaSpentThreshold / sourceManaCost, m_ceil(manaSpentThreshold / sourceManaCost)),
+							}
 						end
-						trigRate = (trigRate * sourceManaCost) / manaSpentThreshold
+						trigRate = trigRate / m_ceil(manaSpentThreshold / sourceManaCost)
 					else
 						trigRate = 0
 					end
@@ -570,7 +575,7 @@ local function defaultTriggerHandler(env, config)
 
 			local icdr = calcLib.mod(actor.mainSkill.skillModList, actor.mainSkill.skillCfg, "CooldownRecovery") or 1
 			local addedCooldown = actor.mainSkill.skillModList:Sum("BASE", actor.mainSkill.skillCfg, "CooldownRecovery")
-			addedCooldown = addedCooldown ~= 0 and addedCooldown
+			addedCooldown = addedCooldown ~= 0 and addedCooldown or nil
 			local cooldownOverride = actor.mainSkill.skillModList:Override(actor.mainSkill.skillCfg, "CooldownRecovery")
 			local triggerCD = actor.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
 			triggerCD = triggerCD or source.triggeredBy and source.triggeredBy.grantedEffect.levels[source.triggeredBy.level].cooldown
@@ -1081,12 +1086,53 @@ local configTable = {
 		return {triggerChance =  env.player.mainSkill.skillData.chanceToTriggerOnStun,
 				source = env.player.mainSkill}
 	end,
-	["spellslinger"] = function()
-		return {triggerName = "Spellslinger",
+	["automation"] = function(env)
+		if env.player.mainSkill.activeEffect.grantedEffect.name == "Automation" then
+			-- This calculated the trigger rate of the Automation gem it self
+			env.player.mainSkill.skillFlags.globalTrigger = true
+			return {source = env.player.mainSkill}
+		end
+		env.player.mainSkill.skillData.sourceRateIsFinal = true
+
+		-- Trigger rate of the triggered skill is capped by the cooldown of Automation
+		-- which will likely be different from the cooldown of the triggered skill
+		-- and is affected by different cooldown modifiers
+		env.player.mainSkill.skillData.ignoresTickRate = true
+
+		-- This basically does min(trigger rate of steelskin assuming no trigger cooldown, trigger rate of Automation)
+		return {triggerOnUse = true,
+				useCastRate = true,
+				triggerSkillCond = function(env, skill)
+					return skill.activeEffect.grantedEffect.name == "Automation"
+				end}
+	end,
+	["spellslinger"] = function(env)
+		if env.player.mainSkill.activeEffect.grantedEffect.name == "Spellslinger" then
+			return {triggerName = "Spellslinger",
 				triggerOnUse = true,
 				triggerSkillCond = function(env, skill)
 					local isWandAttack = (not skill.weaponTypes or (skill.weaponTypes and skill.weaponTypes["Wand"])) and skill.skillTypes[SkillType.Attack]
 					return isWandAttack and not skill.skillData.triggeredBySpellSlinger
+				end}
+		end
+		env.player.mainSkill.skillData.sourceRateIsFinal = true
+		return {triggerOnUse = true,
+				useCastRate = true,
+				triggerSkillCond = function(env, skill)
+					return skill.activeEffect.grantedEffect.name == "Spellslinger"
+				end}
+	end,
+	["call to arms"] = function(env)
+		if env.player.mainSkill.activeEffect.grantedEffect.name == "Call to Arms" then
+			env.player.mainSkill.skillFlags.globalTrigger = true
+			return {source = env.player.mainSkill}
+		end
+		env.player.mainSkill.skillData.sourceRateIsFinal = true
+		env.player.mainSkill.skillData.ignoresTickRate = true
+		return {triggerOnUse = true,
+				useCastRate = true,
+				triggerSkillCond = function(env, skill)
+					return skill.activeEffect.grantedEffect.name == "Call to Arms"
 				end}
 	end,
 	["mark on hit"] = function()
@@ -1110,6 +1156,18 @@ local configTable = {
 	end,
 	["shattershard"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
+		local uuid = cacheSkillUUID(env.player.mainSkill, env)
+		if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
+			calcs.buildActiveSkill(env, env.mode, env.player.mainSkill, uuid, {[uuid] = true})
+		end
+		env.player.mainSkill.skillData.triggerRateCapOverride = 1 / GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration
+		if env.player.breakdown then
+			env.player.breakdown.SkillTriggerRate = {
+				s_format("Shattershard uses duration as pseudo cooldown"),
+				s_format("1 / %.2f ^8(Shattershard duration)", GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration),
+				s_format("= %.2f ^8per second", env.player.mainSkill.skillData.triggerRateCapOverride),
+			}
+		end
 		return {source = env.player.mainSkill}
 	end,
 	["riposte"] = function(env)
@@ -1145,7 +1203,6 @@ local configTable = {
 			env.player.mainSkill.triggeredBy.activationFreqInc = activationFreqInc
 			env.player.mainSkill.triggeredBy.activationFreqMore = activationFreqMore
 			env.player.mainSkill.triggeredBy.ignoresTickRate = true
-			env.player.output.EffectiveSourceRate = trigRate
 			return {trigRate = env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency * activationFreqInc * activationFreqMore,
 					source = env.player.mainSkill.triggeredBy.mainSkill,
 					triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBrand and slotMatch(env, skill) end}
@@ -1240,7 +1297,7 @@ local configTable = {
 						skill.skillData.hitTimeMultiplier = snipeStages - 0.5
 						local uuid = cacheSkillUUID(skill, env)
 						if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-							calcs.buildActiveSkill(env, env.mode, skill)
+							calcs.buildActiveSkill(env, env.mode, skill, uuid)
 						end
 						local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].Env.player.output.HitSpeed
 						if (skill.skillFlags and not skill.skillFlags.disable) and (skill.skillCfg and not skill.skillCfg.skillCond["usedByMirage"]) and not skill.skillTypes[SkillType.OtherThingUsesSkill] and ((not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (trigRate or 0))) then

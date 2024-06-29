@@ -401,12 +401,14 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 end
 
 -- Process active skill
-function calcs.buildActiveSkill(env, mode, skill, limitedProcessingFlags)
+function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingFlags)
 	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
+	targetUUID = targetUUID or cacheSkillUUID(skill, env)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
-		if cacheSkillUUID(activeSkill, fullEnv) == cacheSkillUUID(skill, env) then
+		local activeSkillUUID = cacheSkillUUID(activeSkill, fullEnv)
+		if activeSkillUUID == targetUUID then
 			fullEnv.player.mainSkill = activeSkill
-			fullEnv.player.mainSkill.skillData.limitedProcessing = limitedProcessingFlags and limitedProcessingFlags[cacheSkillUUID(activeSkill, fullEnv)]
+			fullEnv.player.mainSkill.skillData.limitedProcessing = limitedProcessingFlags and limitedProcessingFlags[activeSkillUUID]
 			calcs.perform(fullEnv, true)
 			return
 		end
@@ -434,7 +436,7 @@ function calcs.buildOutput(build, mode)
 		for _, skill in ipairs(env.player.activeSkillList) do
 			local uuid = cacheSkillUUID(skill, env)
 			if not GlobalCache.cachedData[mode][uuid] then
-				calcs.buildActiveSkill(env, mode, skill)
+				calcs.buildActiveSkill(env, mode, skill, uuid)
 			end
 			if GlobalCache.cachedData[mode][uuid] then
 				output.EnergyShieldProtectsMana = env.modDB:Flag(nil, "EnergyShieldProtectsMana")

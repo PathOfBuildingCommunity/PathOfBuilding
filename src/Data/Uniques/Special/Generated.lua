@@ -727,6 +727,7 @@ function buildForbidden(classNotables)
 	local forbidden = { }
 	for _, name in pairs({"Flame", "Flesh"}) do
 		forbidden[name] = { }
+		table.insert(forbidden[name], "Rarity: UNIQUE")
 		table.insert(forbidden[name], "Forbidden " .. name)
 		table.insert(forbidden[name], (name == "Flame" and "Crimson" or "Cobalt") .. " Jewel")
 		local index = 1
