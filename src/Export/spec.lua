@@ -2965,6 +2965,48 @@ return {
 	colours={
 	},
 	commands={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=300
+		},
+		[2]={
+			list=false,
+			name="Command",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="EnglishCommand",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="Description",
+			refTo="",
+			type="String",
+			width=600
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		}
 	},
 	componentarmour={
 		[1]={
@@ -5528,8 +5570,38 @@ return {
 	influencemodupgrades={
 	},
 	influencetags={
+		[1]={
+			list=false,
+			name="ItemClass",
+			refTo="ItemClasses",
+			type="Key",
+			width=150
+		},
+		[2]={
+			enumBase=1,
+			list=false,
+			name="InfluenceType",
+			refTo="influencetypes",
+			type="Enum",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="tags",
+			refTo="Tags",
+			type="Key",
+			width=150
+		}
 	},
 	influencetypes={
+		[1]={
+			enumBase=0,
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	invasionmonstergroups={
 	},
@@ -9311,10 +9383,11 @@ return {
 			width=60
 		},
 		[30]={
+			enumBase=1,
 			list=false,
 			name="Type",
 			refTo="PassiveSkillTypes",
-			type="Int",
+			type="Enum",
 			width=80
 		},
 		[31]={
@@ -9508,6 +9581,13 @@ return {
 	passiveskilltreeuiart={
 	},
 	passiveskilltypes={
+		[1]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	passivetreeexpansionjewels={
 		[1]={
@@ -11238,16 +11318,121 @@ return {
 	tormentspirits={
 	},
 	trademarketcategory={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=200
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=300
+		},
+		[3]={
+			list=false,
+			name="StyleFlag",
+			refTo="",
+			type="Enum",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="Group",
+			refTo="TradeMarketCategoryGroups",
+			type="Key",
+			width=200
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="IsDisabled",
+			refTo="",
+			type="Bool",
+			width=150
+		}
 	},
 	trademarketcategorygroups={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=200
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=200
+		}
 	},
 	trademarketcategorylistallclass={
+		[1]={
+			list=false,
+			name="TradeCategory",
+			refTo="TradeMarketCategory",
+			type="Key",
+			width=200
+		},
+		[2]={
+			list=false,
+			name="ItemClass",
+			refTo="ItemClasses",
+			type="Key",
+			width=200
+		}
 	},
 	trademarketcategorystyleflag={
 	},
 	trademarketimplicitmoddisplay={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=200
+		}
 	},
 	trademarketindexitemas={
+		[1]={
+			list=false,
+			name="Item",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="IndexAs",
+			refTo="",
+			type="Key",
+			width=150
+		}
 	},
 	treasurehuntermissions={
 	},
