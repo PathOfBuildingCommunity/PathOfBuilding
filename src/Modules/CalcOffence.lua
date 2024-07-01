@@ -1213,6 +1213,13 @@ function calcs.offence(env, actor, activeSkill)
 			baseSpeed = baseSpeed * (1 / timeMod)
 		end
 		output.MineLayingSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "MineLayingSpeed") * output.ActionSpeedMod
+		-- Calculate additional mine throw
+		local mineThrowCount = calcLib.val(skillModList, "MineThrowCount", skillCfg)
+		output.MineThrowCount = mineThrowCount
+		if mineThrowCount >= 1 then
+			-- Throwing Mines takes 10% more time for each *additional* Mine thrown
+			output.MineLayingSpeed = output.MineLayingSpeed / (1 + (mineThrowCount - 1) * 0.1)
+		end
 		output.MineLayingSpeed = m_min(output.MineLayingSpeed, data.misc.ServerTickRate)
 		output.MineLayingTime = 1 / output.MineLayingSpeed
 		skillData.timeOverride = output.MineLayingTime
@@ -1224,6 +1231,7 @@ function calcs.offence(env, actor, activeSkill)
 				{ "%.2f ^8(increased/reduced throwing speed)", 1 + skillModList:Sum("INC", skillCfg, "MineLayingSpeed") / 100 },
 				{ "%.2f ^8(more/less throwing speed)", skillModList:More(skillCfg, "MineLayingSpeed") },
 				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
+				{ "%.2f ^8(additional mine thrown)", 1 / ((output.MineThrowCount - 1) * 0.1)},
 				total = s_format("= %.2f ^8per second", output.MineLayingSpeed),
 			})
 		end

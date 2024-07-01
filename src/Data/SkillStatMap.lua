@@ -1710,6 +1710,9 @@ return {
 ["mine_projectile_speed_+%_per_frenzy_charge"] = {
 	mod("ProjectileSpeed", "INC", nil, 0, KeywordFlag.Mine, { type = "Multiplier", var = "FrenzyCharge" })
 },
+["number_of_additional_mines_to_place"] = {
+	mod("MineThrowCount", "BASE", nil, 0, KeywordFlag.Mine)
+},
 -- Totem
 ["totem_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Totem),

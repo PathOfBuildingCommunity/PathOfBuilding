@@ -735,6 +735,7 @@ return {
 	}, },
 	{ label = "Mine Throw Time", flag = "mine", { format = "{2:output:MineLayingTime}s", { breakdown = "MineThrowingTime" }, }, },
 	{ label = "Active Mine Limit", flag = "mine", { format = "{0:output:ActiveMineLimit}", { modName = "ActiveMineLimit", cfg = "skill" }, }, },
+	{ label = "Mines per Throw", flag = "mine", { format = "{0:output:MineThrowCount}", { modName = "MineThrowCount", cfg = "skill"}, }, },
 	{ label = "Mine Deton. Radius", flag = "mine", { format = "{1:output:MineDetonationRadiusMetre}m",
 		{ breakdown = "MineDetonationRadius" },
 		{ label = "Area of Effect modifiers", modName = "MineDetonationAreaOfEffect", cfg = "skill" },
