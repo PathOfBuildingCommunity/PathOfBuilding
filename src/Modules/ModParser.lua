@@ -3609,7 +3609,7 @@ local specialModList = {
 	["curses are inflicted on you instead of linked targets"] = { mod("ExtraLinkEffect", "LIST", { mod = flag("CurseImmune"), }), },
 	["elemental ailments are inflicted on you instead of linked targets"] = { mod("ExtraLinkEffect", "LIST", { mod = flag("ElementalAilmentImmune") }) },
 	["non%-unique utility flasks you use apply to linked targets"] = { mod("ExtraLinkEffect", "LIST", { mod = mod("ParentNonUniqueFlasksAppliedToYou", "FLAG", true, { type = "GlobalEffect", effectType = "Global", unscalable = true } ), }) },
-	-- Traps, Mines and Totems
+	-- Traps, Mines
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["traps and mines deal (%d+) to (%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["each mine applies (%d+)%% increased damage taken to enemies near it, up to (%d+)%%"] = function(num, _, limit) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Multiplier", var = "ActiveMineCount", limit = limit / num }) }) } end,
@@ -3627,17 +3627,20 @@ local specialModList = {
 	["can have up to (%d+) additional traps? placed at a time"] = function(num) return { mod("ActiveTrapLimit", "BASE", num) } end,
 	["can have (%d+) fewer traps placed at a time"] = function(num) return { mod("ActiveTrapLimit", "BASE", -num) } end,
 	["can have up to (%d+) additional remote mines? placed at a time"] = function(num) return { mod("ActiveMineLimit", "BASE", num) } end,
-	-- Additional mine throw
+	-- Additional trap & mine throw
+	["throw an additional trap"] = { mod("TrapThrowCount", "BASE", 1) },
+	["skills? which throw traps? throw up to (%d+) additional traps?"] = function(num) return { mod("TrapThrowCount", "BASE", num) } end,
+	["(%d+)%% chance to throw up to (%d+) additional traps?"] = function(chance, _, num) return { mod("TrapThrowCount", "BASE", tonumber(num) * tonumber(chance) / 100.0) } end,
 	["skills? which throw mines? throw up to (%d+) additional mines?"] = function(num) return { mod("MineThrowCount", "BASE", num) } end,
 	["throw an additional mine"] = { mod("MineThrowCount", "BASE", 1) },
 	["skills? which throw mines? throw up to (%d+) additional mines? if you have at least (%d+) strength"] = function(num, _, attr) return { mod("MineThrowCount", "BASE", num, nil, 0, KeywordFlag.Mine, { type = "StatThreshold", stat = "Str", threshold = tonumber(attr) }) } end,
 	["skills? which throw mines? throw up to (%d+) additional mines? if you have at least (%d+) dexterity"] = function(num, _, attr) return { mod("MineThrowCount", "BASE", num, nil, 0, KeywordFlag.Mine, { type = "StatThreshold", stat = "Dex", threshold = tonumber(attr) }) } end,
 	["skills? which throw mines? throw up to (%d+) additional mines? if you have at least (%d+) intelligence"] = function(num, _, attr) return { mod("MineThrowCount", "BASE", num, nil, 0, KeywordFlag.Mine, { type = "StatThreshold", stat = "Int", threshold = tonumber(attr) }) } end,
 	["(%d+)%% chance to throw up to (%d+) additional mines?"] = function(chance, _, num) return { mod("MineThrowCount", "BASE", tonumber(num) * tonumber(chance) / 100.0) } end,
-	-- Additional trap throw
-	["throw an additional trap"] = { mod("TrapThrowCount", "BASE", 1) },
-	["skills? which throw traps? throw up to (%d+) additional traps?"] = function(num) return { mod("TrapThrowCount", "BASE", num) } end,
-	["(%d+)%% chance to throw up to (%d+) additional traps?"] = function(chance, _, num) return { mod("TrapThrowCount", "BASE", tonumber(num) * tonumber(chance) / 100.0) } end,
+	["(%d+)%% chance to throw up to (%d+) additional traps? or mines?"] = function(chance, _, num) return { 
+		mod("TrapThrowCount", "BASE", tonumber(num) * tonumber(chance) / 100.0),
+		mod("MineThrowCount", "BASE", tonumber(num) * tonumber(chance) / 100.0),
+	} end,
 	-- Totems
 	["can have up to (%d+) additional totems? summoned at a time"] = function(num) return { mod("ActiveTotemLimit", "BASE", num) } end,
 	["attack skills can have (%d+) additional totems? summoned at a time"] = function(num) return { mod("ActiveTotemLimit", "BASE", num, nil, 0, KeywordFlag.Attack) } end,
