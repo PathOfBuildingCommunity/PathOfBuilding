@@ -1681,6 +1681,9 @@ return {
 ["trap_trigger_radius_+%"] = {
 	mod("TrapTriggerAreaOfEffect", "INC", nil),
 },
+["number_of_additional_traps_to_throw"] = {
+	mod("TrapThrowCount", "BASE", nil, 0, KeywordFlag.Trap)
+},
 -- Mine
 ["number_of_additional_remote_mines_allowed"] = {
 	mod("ActiveMineLimit", "BASE", nil),
@@ -1712,6 +1715,19 @@ return {
 },
 ["number_of_additional_mines_to_place"] = {
 	mod("MineThrowCount", "BASE", nil, 0, KeywordFlag.Mine)
+},
+-- Swift Assembly (mine & trap)
+["support_additional_trap_mine_%_chance_for_1_additional_trap_mine"] = {
+	mod("MineThrowCount", "BASE", nil, 0, KeywordFlag.Mine),
+	div = 100
+},
+["support_additional_trap_mine_%_chance_for_2_additional_trap_mine"] = {
+	mod("MineThrowCount", "BASE", nil, 0, KeywordFlag.Mine),
+	div = 100 / 2
+},
+["support_additional_trap_mine_%_chance_for_3_additional_trap_mine"] = {
+	mod("MineThrowCount", "BASE", nil, 0, KeywordFlag.Mine),
+	div = 100 / 3
 },
 -- Totem
 ["totem_damage_+%"] = {
