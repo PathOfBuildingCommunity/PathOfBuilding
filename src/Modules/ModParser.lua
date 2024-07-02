@@ -3628,6 +3628,7 @@ local specialModList = {
 	["can have (%d+) fewer traps placed at a time"] = function(num) return { mod("ActiveTrapLimit", "BASE", -num) } end,
 	["can have up to (%d+) additional remote mines? placed at a time"] = function(num) return { mod("ActiveMineLimit", "BASE", num) } end,
 	["skills? which throw mines? throw up to (%d+) additional mines?"] = function(num) return { mod("MineThrowCount", "BASE", num) } end,
+	["throw an additional mine"] = { mod("MineThrowCount", "BASE", 1) },
 	["skills? which throw mines? throw up to (%d+) additional mines? if you have at least (%d+) strength"] = function(num, _, attr) return { mod("MineThrowCount", "BASE", num, nil, 0, KeywordFlag.Mine, { type = "StatThreshold", stat = "Str", threshold = tonumber(attr) }) } end,
 	["skills? which throw mines? throw up to (%d+) additional mines? if you have at least (%d+) dexterity"] = function(num, _, attr) return { mod("MineThrowCount", "BASE", num, nil, 0, KeywordFlag.Mine, { type = "StatThreshold", stat = "Dex", threshold = tonumber(attr) }) } end,
 	["skills? which throw mines? throw up to (%d+) additional mines? if you have at least (%d+) intelligence"] = function(num, _, attr) return { mod("MineThrowCount", "BASE", num, nil, 0, KeywordFlag.Mine, { type = "StatThreshold", stat = "Int", threshold = tonumber(attr) }) } end,
