@@ -1253,8 +1253,8 @@ Requires Level 20
 +23 to maximum Life
 (15-10)% reduced Mine Throwing Speed
 Mines have (40-50)% increased Detonation Speed
-Skills which Place Mines place up to 1 additional Mine if you have at least 800 Dexterity
-Skills which Place Mines place up to 1 additional Mine if you have at least 800 Intelligence
+Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Dexterity
+Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Intelligence
 ]],[[
 Eye of Malice
 Callous Mask
