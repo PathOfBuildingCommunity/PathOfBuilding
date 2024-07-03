@@ -1234,7 +1234,7 @@ function calcs.offence(env, actor, activeSkill)
 				{ "%.2f ^8(increased/reduced throwing speed)", 1 + skillModList:Sum("INC", skillCfg, "MineLayingSpeed") / 100 },
 				{ "%.2f ^8(more/less throwing speed)", skillModList:More(skillCfg, "MineLayingSpeed") },
 				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
-				{ "%.2f ^8(additional mine thrown)", 1 / ((output.MineThrowCount - 1) * 0.1)},
+				{ "%.2f ^8(additional mine thrown)", 1 / (1 + (output.MineThrowCount - 1) * 0.1)},
 				total = s_format("= %.2f ^8per second", output.MineLayingSpeed),
 			})
 		end

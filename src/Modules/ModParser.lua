@@ -3633,9 +3633,9 @@ local specialModList = {
 	["(%d+)%% chance to throw up to (%d+) additional traps?"] = function(chance, _, num) return { mod("TrapThrowCount", "BASE", tonumber(num) * tonumber(chance) / 100.0) } end,
 	["skills? which throw mines? throw up to (%d+) additional mines?"] = function(num) return { mod("MineThrowCount", "BASE", num) } end,
 	["throw an additional mine"] = { mod("MineThrowCount", "BASE", 1) },
-	["skills? which throw mines? throw up to (%d+) additional mines? if you have at least (%d+) strength"] = function(num, _, attr) return { mod("MineThrowCount", "BASE", num, nil, 0, KeywordFlag.Mine, { type = "StatThreshold", stat = "Str", threshold = tonumber(attr) }) } end,
-	["skills? which throw mines? throw up to (%d+) additional mines? if you have at least (%d+) dexterity"] = function(num, _, attr) return { mod("MineThrowCount", "BASE", num, nil, 0, KeywordFlag.Mine, { type = "StatThreshold", stat = "Dex", threshold = tonumber(attr) }) } end,
-	["skills? which throw mines? throw up to (%d+) additional mines? if you have at least (%d+) intelligence"] = function(num, _, attr) return { mod("MineThrowCount", "BASE", num, nil, 0, KeywordFlag.Mine, { type = "StatThreshold", stat = "Int", threshold = tonumber(attr) }) } end,
+	["skills? which throw mines? throw up to (%d+) additional mines? if you have at least (%d+) strength"] = function(num, _, attr) return { mod("MineThrowCount", "BASE", num, { type = "StatThreshold", stat = "Str", threshold = tonumber(attr) }) } end,
+	["skills? which throw mines? throw up to (%d+) additional mines? if you have at least (%d+) dexterity"] = function(num, _, attr) return { mod("MineThrowCount", "BASE", num, { type = "StatThreshold", stat = "Dex", threshold = tonumber(attr) }) } end,
+	["skills? which throw mines? throw up to (%d+) additional mines? if you have at least (%d+) intelligence"] = function(num, _, attr) return { mod("MineThrowCount", "BASE", num, { type = "StatThreshold", stat = "Int", threshold = tonumber(attr) }) } end,
 	["(%d+)%% chance to throw up to (%d+) additional mines?"] = function(chance, _, num) return { mod("MineThrowCount", "BASE", tonumber(num) * tonumber(chance) / 100.0) } end,
 	["(%d+)%% chance to throw up to (%d+) additional traps? or mines?"] = function(chance, _, num) return { 
 		mod("TrapThrowCount", "BASE", tonumber(num) * tonumber(chance) / 100.0),
