@@ -33,9 +33,9 @@ body:
     attributes:
       label: What platform are you running Path of Building on?
       options: 
-        - Native
-        - Wine
-        - pobfrontend
+        - Windows
+        - Linux
+        - MacOS
       default: 0
     validations:
       required: true
