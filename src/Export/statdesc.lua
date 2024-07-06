@@ -274,6 +274,8 @@ function describeStats(stats)
 					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
 			end):gsub("{(%d?):(%+?)d?}", function(n, fmt)
+				-- Most forms are {0:1}, however Chain Hook enchantment is {0:}
+				-- the above pattern supports both cases.
 				n = n ~= "" and n or "0"
 				local v = val[tonumber(n)+1]
 				if v.min == v.max then
