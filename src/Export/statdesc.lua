@@ -273,7 +273,7 @@ function describeStats(stats)
 				else
 					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("{(%d?):(%+?)d}", function(n, fmt)
+			end):gsub("{(%d?):(%+?)d?}", function(n, fmt)
 				n = n ~= "" and n or "0"
 				local v = val[tonumber(n)+1]
 				if v.min == v.max then
