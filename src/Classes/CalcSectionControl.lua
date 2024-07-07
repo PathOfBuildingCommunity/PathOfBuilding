@@ -258,10 +258,12 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 				primary = false
 			end
 		else
-			lineY = lineY + 22
+			lineY = lineY + 20
 			primary = false
+			local rows = 0;
 			for _, rowData in ipairs(subSec.data) do
 				if rowData.enabled then
+					rows = rows + 1
 					local textColor = "^7"
 					if rowData.color then
 						textColor = rowData.color
@@ -269,35 +271,39 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 					if rowData.label then
 						-- Draw row label with background
 						SetDrawColor(rowData.bgCol or "^0")
-						DrawImage(nil, x + 2, lineY, 130, 18)
-						DrawString(x + 132, lineY + 1, "RIGHT_X", 16, "VAR", textColor..rowData.label.."^7:")
+						DrawImage(nil, x + 2, lineY + 2, 130, 18)
+						DrawString(x + 132, lineY + 2, "RIGHT_X", 16, "VAR", textColor..rowData.label.."^7:")
 					end
 					for colour, colData in ipairs(rowData) do
 						-- Draw column separator at the left end of the cell
 						SetDrawColor(self.colour)
-						DrawImage(nil, colData.x, lineY, 2, colData.height)
+						DrawImage(nil, colData.x, lineY + 2, 2, colData.height)
 						if colData.format and self.calcsTab:CheckFlag(colData) then
 							if cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height and cursorX >= colData.x and cursorY >= colData.y and cursorX < colData.x + colData.width and cursorY < colData.y + colData.height then
-						self.calcsTab:SetDisplayStat(colData)
+								self.calcsTab:SetDisplayStat(colData)
+							end
+							if self.calcsTab.displayData == colData then
+								-- This is the display stat, draw a green border around this cell
+								SetDrawColor(0.25, 1, 0.25)
+								DrawImage(nil, colData.x + 2, colData.y, colData.width - 2, colData.height)
+								SetDrawColor(rowData.bgCol or "^0")
+								DrawImage(nil, colData.x + 3, colData.y + 1, colData.width - 4, colData.height - 2)
+							else
+								SetDrawColor(rowData.bgCol or "^0")
+								DrawImage(nil, colData.x + 2, colData.y, colData.width - 2, colData.height)
+							end
+							local textSize = rowData.textSize or 14
+							SetViewport(colData.x + 3, colData.y, colData.width - 4, colData.height)
+							DrawString(1, 9 - textSize/2, "LEFT", textSize, "VAR", "^7"..self:FormatStr(colData.format, actor, colData))
+							SetViewport()
+						end
 					end
-					if self.calcsTab.displayData == colData then
-						-- This is the display stat, draw a green border around this cell
-						SetDrawColor(0.25, 1, 0.25)
-						DrawImage(nil, colData.x + 2, colData.y, colData.width - 2, colData.height)
-						SetDrawColor(rowData.bgCol or "^0")
-						DrawImage(nil, colData.x + 3, colData.y + 1, colData.width - 4, colData.height - 2)
-					else
-						SetDrawColor(rowData.bgCol or "^0")
-						DrawImage(nil, colData.x + 2, colData.y, colData.width - 2, colData.height)
-					end
-					local textSize = rowData.textSize or 14
-					SetViewport(colData.x + 3, colData.y, colData.width - 4, colData.height)
-					DrawString(1, 9 - textSize/2, "LEFT", textSize, "VAR", "^7"..self:FormatStr(colData.format, actor, colData))
-					SetViewport()
+					lineY = lineY + 18
 				end
 			end
-			lineY = lineY + 18
-				end
+			-- If there's at least one enabled row in this subsection, offset by the border for the subsection label
+			if rows > 0 then
+				lineY = lineY + 2
 			end
 		end
 	end
