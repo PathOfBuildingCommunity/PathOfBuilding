@@ -226,17 +226,14 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.spec:SetWindowTitleWithBuildClass()
 		self.buildFlag = true
 	end)
-	self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
-		self.spec:SelectSecondaryAscendClass(value.ascendClassId)
-		self.spec:AddUndoState()
-		self.spec:SetWindowTitleWithBuildClass()
-		self.buildFlag = true
-	end)
+	--self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
+	--	self.spec:SelectSecondaryAscendClass(value.ascendClassId)
+	--	self.spec:AddUndoState()
+	--	self.spec:SetWindowTitleWithBuildClass()
+	--	self.buildFlag = true
+	--end)
 
 	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 190, 20, {}, function(index, value)
-		-- Sync again just in case we're out of date
-		local treeList, itemList, skillList = self:SyncLoadouts()
-
 		if value == "Loadouts:" or value == "-----" then
 			self.controls.buildLoadouts:SetSel(1)
 			return
@@ -283,28 +280,38 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			return
 		end
 
-		if treeList == nil or itemList == nil or skillList == nil then
-			return
-		end
-
+		local treeList = self.treeTab:GetSpecList()
 		local newSpecId = nil
 		for id, spec in ipairs(treeList) do
 			if value == spec then
 				newSpecId = id
+			else
+				local linkMatch = string.match(value, "%{(%w+)%}")
+				if linkMatch then
+					newSpecId = self.treeListSpecialLinks[linkMatch]["setId"]
+				end
 			end
 		end
-
 		local newItemId = nil
 		for _, itemOrder in ipairs(self.itemsTab.itemSetOrderList) do
 			if value == self.itemsTab.itemSets[itemOrder].title then
 				newItemId = itemOrder
+			else
+				local linkMatch = string.match(value, "%{(%w+)%}")
+				if linkMatch then
+					newItemId = self.itemListSpecialLinks[linkMatch]["setId"]
+				end
 			end
 		end
-
 		local newSkillId = nil
 		for _, skillOrder in ipairs(self.skillsTab.skillSetOrderList) do
 			if value == self.skillsTab.skillSets[skillOrder].title then
 				newSkillId = skillOrder
+			else
+				local linkMatch = string.match(value, "%{(%w+)%}")
+				if linkMatch then
+					newSkillId = self.skillListSpecialLinks[linkMatch]["setId"]
+				end
 			end
 		end
 
@@ -851,20 +858,55 @@ end
 function buildMode:SyncLoadouts(reset)
 	self.controls.buildLoadouts.list = {"No Loadouts"}
 
+	count = count + 1
+	ConPrintf("sync load out call #"..count)
+
 	local filteredList = {"Loadouts:"}
 	local treeList = {}
 	local itemList = {}
 	local skillList = {}
+	self.treeListSpecialLinks, self.itemListSpecialLinks, self.skillListSpecialLinks = {}, {}, {}
 
 	if self.treeTab ~= nil and self.itemsTab ~= nil and self.skillsTab ~= nil then
-		treeList = self.treeTab:GenerateSpecNameList()
-
-		for id, item in ipairs(self.itemsTab.itemSets) do
-			t_insert(itemList, item.title)
+		local transferTable = {}
+		for id, spec in ipairs(self.treeTab.specList) do
+			local specTitle = spec.title or "Default"
+			t_insert(treeList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(specTitle))
+			local linkIdentifier = string.match(specTitle, "%{(.+)%}")
+			if (linkIdentifier) then
+				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
+					transferTable["setId"] = id
+					transferTable["setName"] = string.match(specTitle, "(.+)% {")
+					self.treeListSpecialLinks[linkId] = transferTable
+					transferTable = {}
+				end
+			end
 		end
-
-		for id, skill in ipairs(self.skillsTab.skillSets) do
-			t_insert(skillList, skill.title)
+		for id, item in ipairs(self.itemsTab.itemSetOrderList) do
+			local itemTitle = self.itemsTab.itemSets[item].title or "Default"
+			t_insert(itemList, itemTitle)
+			local linkIdentifier = string.match(itemTitle, "%{(.+)%}")
+			if (linkIdentifier) then
+				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
+					transferTable["setId"] = item
+					transferTable["setName"] = string.match(itemTitle, "(.+)% {")
+					self.itemListSpecialLinks[linkId] = transferTable
+					transferTable = {}
+				end
+			end
+		end
+		for id, skill in ipairs(self.skillsTab.skillSetOrderList) do
+			local skillTitle = self.skillsTab.skillSets[skill].title or "Default"
+			t_insert(skillList, skillTitle)
+			local linkIdentifier = string.match(skillTitle, "%{(.+)%}")
+			if (linkIdentifier) then
+				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
+					transferTable["setId"] = skill
+					transferTable["setName"] = string.match(skillTitle, "(.+)% {")
+					self.skillListSpecialLinks[linkId] = transferTable
+					transferTable = {}
+				end
+			end
 		end
 
 		for id, tree in ipairs(treeList) do
@@ -872,6 +914,15 @@ function buildMode:SyncLoadouts(reset)
 				for id, item in ipairs(itemList) do
 					if (tree == skill and tree == item) then
 						t_insert(filteredList, tree)
+					end
+				end
+			end
+		end
+		for treeLinkId, tree in pairs(self.treeListSpecialLinks) do
+			for itemLinkId, item in pairs(self.itemListSpecialLinks) do
+				for skillLinkId, skill in pairs(self.skillListSpecialLinks) do
+					if (treeLinkId == skillLinkId and treeLinkId == itemLinkId) then
+						t_insert(filteredList, tree["setName"].." {"..treeLinkId.."}")
 					end
 				end
 			end
@@ -1150,11 +1201,8 @@ function buildMode:OnFrame(inputEvents)
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
 	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendancies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
-	self.controls.secondaryAscendDrop.list = {{label = "None", ascendClassId = 0}, {label = "Warden", ascendClassId = 1}, {label = "Warlock", ascendClassId = 2}, {label = "Primalist", ascendClassId = 3}}
-	self.controls.secondaryAscendDrop:SelByValue(self.spec.curSecondaryAscendClassId, "ascendClassId")
-
-	-- ensure loadouts are up to date
-	self:SyncLoadouts()
+	--self.controls.secondaryAscendDrop.list = {{label = "None", ascendClassId = 0}, {label = "Warden", ascendClassId = 1}, {label = "Warlock", ascendClassId = 2}, {label = "Primalist", ascendClassId = 3}}
+	--self.controls.secondaryAscendDrop:SelByValue(self.spec.curSecondaryAscendClassId, "ascendClassId")
 
 	local checkFabricatedGroups = self.buildFlag
 	if self.buildFlag then
