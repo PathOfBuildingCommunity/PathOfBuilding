@@ -870,7 +870,7 @@ function buildMode:SyncLoadouts(reset)
 			local specTitle = spec.title or "Default"
 			t_insert(treeList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(specTitle))
 			local linkIdentifier = string.match(specTitle, "%{(.+)%}")
-			if (linkIdentifier) then
+			if linkIdentifier then
 				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 					transferTable["setId"] = id
 					transferTable["setName"] = string.match(specTitle, "(.+)% {")
@@ -883,7 +883,7 @@ function buildMode:SyncLoadouts(reset)
 			local itemTitle = self.itemsTab.itemSets[item].title or "Default"
 			t_insert(itemList, itemTitle)
 			local linkIdentifier = string.match(itemTitle, "%{(.+)%}")
-			if (linkIdentifier) then
+			if linkIdentifier then
 				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 					transferTable["setId"] = item
 					transferTable["setName"] = string.match(itemTitle, "(.+)% {")
@@ -896,7 +896,7 @@ function buildMode:SyncLoadouts(reset)
 			local skillTitle = self.skillsTab.skillSets[skill].title or "Default"
 			t_insert(skillList, skillTitle)
 			local linkIdentifier = string.match(skillTitle, "%{(.+)%}")
-			if (linkIdentifier) then
+			if linkIdentifier then
 				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 					transferTable["setId"] = skill
 					transferTable["setName"] = string.match(skillTitle, "(.+)% {")
