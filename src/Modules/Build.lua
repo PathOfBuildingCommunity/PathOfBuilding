@@ -283,9 +283,11 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		local treeList = self.treeTab:GetSpecList()
 		local newSpecId = nil
 		for id, spec in ipairs(treeList) do
-			if value == spec then
+			if value == spec then -- exact match
 				newSpecId = id
 			else
+				-- we set the value as the Set title without the braces and then manually add the single group it matched
+				-- this grabs the single link identifier so we can find the setId with respect to setOrder needed for SetActive
 				local linkMatch = string.match(value, "%{(%w+)%}")
 				if linkMatch then
 					newSpecId = self.treeListSpecialLinks[linkMatch]["setId"]
@@ -315,6 +317,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			end
 		end
 
+		-- if exact match nor special grouping cannot find setIds, bail
 		if newSpecId == nil or newItemId == nil or newSkillId == nil then
 			return
 		end
@@ -862,6 +865,7 @@ function buildMode:SyncLoadouts(reset)
 	local treeList = {}
 	local itemList = {}
 	local skillList = {}
+	-- used when clicking on the dropdown to set the correct setId for each SetActiveSet()
 	self.treeListSpecialLinks, self.itemListSpecialLinks, self.skillListSpecialLinks = {}, {}, {}
 
 	if self.treeTab ~= nil and self.itemsTab ~= nil and self.skillsTab ~= nil then
@@ -869,8 +873,12 @@ function buildMode:SyncLoadouts(reset)
 		for id, spec in ipairs(self.treeTab.specList) do
 			local specTitle = spec.title or "Default"
 			t_insert(treeList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(specTitle))
+			-- grab everything within { }
 			local linkIdentifier = string.match(specTitle, "%{(.+)%}")
 			if linkIdentifier then
+				-- iterate over each identifier, delimited by comma, and set the index so we can grab it later
+				-- setId index is the id of the set in the global list needed for SetActive
+				-- setName is only used for Tree currently and we strip the braces to get the plain name of the set, this is used as the name of the loadout
 				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 					transferTable["setId"] = id
 					transferTable["setName"] = string.match(specTitle, "(.+)% {")
@@ -905,7 +913,7 @@ function buildMode:SyncLoadouts(reset)
 				end
 			end
 		end
-
+		-- loop over all for exact match loadouts
 		for id, tree in ipairs(treeList) do
 			for id, skill in ipairs(skillList) do
 				for id, item in ipairs(itemList) do
@@ -915,6 +923,7 @@ function buildMode:SyncLoadouts(reset)
 				end
 			end
 		end
+		-- loop over the identifiers found within braces and set the loadout name to the TreeSet
 		for treeLinkId, tree in pairs(self.treeListSpecialLinks) do
 			for itemLinkId, item in pairs(self.itemListSpecialLinks) do
 				for skillLinkId, skill in pairs(self.skillListSpecialLinks) do
