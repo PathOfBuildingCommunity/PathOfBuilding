@@ -858,9 +858,6 @@ end
 function buildMode:SyncLoadouts(reset)
 	self.controls.buildLoadouts.list = {"No Loadouts"}
 
-	count = count + 1
-	ConPrintf("sync load out call #"..count)
-
 	local filteredList = {"Loadouts:"}
 	local treeList = {}
 	local itemList = {}
@@ -1204,7 +1201,6 @@ function buildMode:OnFrame(inputEvents)
 	--self.controls.secondaryAscendDrop.list = {{label = "None", ascendClassId = 0}, {label = "Warden", ascendClassId = 1}, {label = "Warlock", ascendClassId = 2}, {label = "Primalist", ascendClassId = 3}}
 	--self.controls.secondaryAscendDrop:SelByValue(self.spec.curSecondaryAscendClassId, "ascendClassId")
 
-	local checkFabricatedGroups = self.buildFlag
 	if self.buildFlag then
 		-- Wipe Global Cache
 		wipeGlobalCache()
