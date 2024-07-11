@@ -329,7 +329,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.controls.buildLoadouts:SelByValue(value)
 	end)
 	self.controls.buildLoadouts.tooltipText = "Loadouts are identically named sets of Passives/Items/Skills"
-	self:SyncLoadouts()
 
 	-- List of display stats
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
@@ -838,6 +837,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	--]]
 
 	self.abortSave = false
+	self:SyncLoadouts()
 end
 
 local acts = { 
