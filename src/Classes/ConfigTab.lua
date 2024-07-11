@@ -989,7 +989,9 @@ function ConfigTabClass:SetActiveConfigSet(configSetId, init)
 	end
 
 	if not init then
+		self.input = {}
 		self.input = copyTable(self.configSets[configSetId].input, true)
+		self.placeholder = {}
 		self.placeholder = copyTable(self.configSets[configSetId].placeholder, true)
 		self:UpdateControls()
 		self:BuildModList()
