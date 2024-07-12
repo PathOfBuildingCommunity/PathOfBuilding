@@ -114,7 +114,7 @@ function main:Init()
 		LoadModule("Data/ModCache", modLib.parseModCache)
 	end
 
-	--[[ this doesnt work properly anymore see PR #7675
+	--[[ this does not work properly anymore see PR #7675
 	if launch.devMode and IsKeyDown("CTRL") and IsKeyDown("SHIFT") then
 		self.allowTreeDownload = true
 	end
