@@ -123,6 +123,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	
 	-- hide alternate_ascendancies as they are unobtainable but still in tree data
 	if self.alternate_ascendancies then
+		if launch.devMode then
+			ConPrintf("WARNING! alternate_ascendancies exist but are being hidden")
+		end
 		local tempMap = {}
 		local temp_groups = {}
 		for ascendClassId, ascendClass in pairs(self.alternate_ascendancies) do
