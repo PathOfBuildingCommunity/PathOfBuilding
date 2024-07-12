@@ -121,6 +121,26 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 	
+	-- hide alternate_ascendancies as they are unobtainable but still in tree data
+	if self.alternate_ascendancies then
+		local tempMap = {}
+		local temp_groups = {}
+		for ascendClassId, ascendClass in pairs(self.alternate_ascendancies) do
+			tempMap[ascendClass.id] = true
+		end
+		for i, node in pairs(self.nodes) do
+			if node.ascendancyName and tempMap[node.ascendancyName] then
+				self.nodes[i] = nil
+				temp_groups[node.group] = true
+			end
+		end
+		for i, group in pairs(temp_groups) do
+			self.groups[i] = nil
+		end
+			
+		self.alternate_ascendancies = nil
+	end
+	
 	if self.alternate_ascendancies then
 		self.secondaryAscendNameMap = { }
 		local alternate_ascendancies_class = { 
