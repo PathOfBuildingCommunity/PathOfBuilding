@@ -27,7 +27,7 @@ local function getCachedOutputValue(env, uuid, ...)
 	local tempValues = {}
 	for i,v in ipairs({...}) do
 		tempValues[i] = GlobalCache.cachedData[env.mode][uuid].Env.player.output[v]
-    end
+	end
 	return unpack(tempValues)
 end
 
