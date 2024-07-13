@@ -19,6 +19,13 @@ local m_huge = math.huge
 local bor = bit.bor
 local band = bit.band
 
+--- getCachedOutputValue
+---  retrieves a value specified by key from a cached version of skill
+---  specified by @uuid or if not found in cache computes teh cache.
+--- @param env table
+--- @param uuid string uuid identifier of the skill whose value to be returned
+--- @param ... table keys to values to be returned (Note: EmmyLua does not natively support documenting variadic parameters)
+--- @return table unpacked table containing the desired values
 local function getCachedOutputValue(env, uuid, ...)
 	if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
 		calcs.buildActiveSkill(env, env.mode, env.player.mainSkill, uuid, {[uuid] = true})
