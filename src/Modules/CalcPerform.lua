@@ -1790,7 +1790,7 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 
-	-- To support maximum sutstainable stages for the following skills we need to get the data from already
+	-- To support maximum sustainable stages for the following skills we need to get the data from already
 	-- computed cached versions to satisfy the order of operations.
 	-- See: https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5164
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
