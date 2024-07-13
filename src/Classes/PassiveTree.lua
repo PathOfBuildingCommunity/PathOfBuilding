@@ -170,17 +170,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 
 	if not self.assets then
-		local treeTextOLD
-		local treeFileOLD = io.open("TreeData/".. "3_18" .."/tree.lua", "r")
-		if treeFileOLD then
-			treeTextOLD = treeFileOLD:read("*a")
-			treeFileOLD:close()
-		end
-		local temp = {}
-		for k, v in pairs(assert(loadstring(treeTextOLD))()) do
-			temp[k] = v
-		end
-		self.assets = temp.assets
+		self.assets = LoadModule("TreeData/3_19/Assets.lua")
+		self.assets = self.assets.assets
 		if self.alternate_ascendancies then
 			-- backgrounds
 			self.assets["ClassesPrimalist"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/ClassesPrimalist.png"}
