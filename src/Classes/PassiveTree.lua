@@ -90,8 +90,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		self[k] = v
 	end
 
-	local cdnRoot = versionNum >= 3.08 and versionNum <= 3.09 and "https://web.poecdn.com" or ""
-
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
 
 	if versionNum >= 3.10 then
@@ -171,7 +169,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		self.orbitAnglesByOrbit[orbit] = self:CalcOrbitAngles(skillsInOrbit)
 	end
 
-	if versionNum >= 3.19 then
+	if not self.assets then
 		local treeTextOLD
 		local treeFileOLD = io.open("TreeData/".. "3_18" .."/tree.lua", "r")
 		if treeFileOLD then
@@ -183,7 +181,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			temp[k] = v
 		end
 		self.assets = temp.assets
-		self.skillSprites = self.sprites
 		if self.alternate_ascendancies then
 			-- backgrounds
 			self.assets["ClassesPrimalist"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/ClassesPrimalist.png"}
@@ -206,6 +203,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			self.assets["CharmSocketActiveDex"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/CharmSocketActiveDex.png"}
 		end
 	end
+
+	local cdnRoot = versionNum >= 3.08 and versionNum <= 3.09 and "https://web.poecdn.com" or ""
 	ConPrintf("Loading passive tree assets...")
 	for name, data in pairs(self.assets) do
 		self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
@@ -214,6 +213,33 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	-- Load sprite sheets and build sprite map
 	self.spriteMap = { }
 	local spriteSheets = { }
+	if not self.skillSprites then
+		if not self.sprites then
+			ConPrintf("Loading passive tree sprite data for version '%s'...", treeVersions[treeVersion].display)
+			local spriteText
+			local spriteFile = io.open("TreeData/"..treeVersion.."/sprites.lua", "r")
+			if spriteFile then
+				spriteText = spriteFile:read("*a")
+				spriteFile:close()
+			else
+				local page
+				local pageFile = io.open("TreeData/"..treeVersion.."/sprites.json", "r")
+				if pageFile then
+					ConPrintf("Converting passive tree sprites json")
+					page = pageFile:read("*a")
+					pageFile:close()
+					spriteText = "return " .. jsonToLua(page)
+				end
+				spriteFile = io.open("TreeData/"..treeVersion.."/sprites.lua", "w")
+				spriteFile:write(spriteText)
+				spriteFile:close()
+			end
+			for k, v in pairs(assert(loadstring(spriteText))()) do
+				self[k] = v
+			end
+		end
+		self.skillSprites = self.sprites
+	end
 	for type, data in pairs(self.skillSprites) do
 		local maxZoom
 		if not self.imageZoomLevels then
