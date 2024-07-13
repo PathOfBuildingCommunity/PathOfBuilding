@@ -215,9 +215,13 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.spriteMap = { }
 	local spriteSheets = { }
 	for type, data in pairs(self.skillSprites) do
-		local maxZoom = data[#data]
-		if versionNum >= 3.19 then
+		local maxZoom
+		if not self.imageZoomLevels then
+			maxZoom = data
+		elseif versionNum >= 3.19 then
 			maxZoom = data[0.3835] or data[1]
+		else
+			maxZoom = data[#data]
 		end
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then

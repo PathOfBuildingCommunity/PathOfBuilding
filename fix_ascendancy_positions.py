@@ -120,6 +120,13 @@ def fix_ascendancy_positions(path: os.PathLike) -> None:
             if node["Node"]["name"] in EXTRA_NODES_STATS:
                 data["nodes"][node["Node"]["skill"]]["stats"] = EXTRA_NODES_STATS[node["Node"]["name"]]["stats"]
                 data["nodes"][node["Node"]["skill"]]["reminderText"] = EXTRA_NODES_STATS[node["Node"]["name"]]["reminderText"]
+    # Remove unused image zoom levels and data around them
+    for sprite in data["sprites"]:
+        if "1" in data["sprites"][sprite]:
+            data["sprites"][sprite] = data["sprites"][sprite]["1"]
+        elif "0.3835" in data["sprites"][sprite]:
+            data["sprites"][sprite] = data["sprites"][sprite]["0.3835"]
+    del data["imageZoomLevels"]
     with open(path, "w", encoding="utf-8") as o:
         json.dump(data, o, indent=4)
 
