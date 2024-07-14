@@ -115,7 +115,14 @@ Advanced tricks:
 	
 ---[Build Tab]
 
-Loadouts can be selected from the dropdown in the top middle of the Build Tab. These are identically named sets of your Passive Tree, Items, and Skills. A set with that name has to exist across all three for it to register as a Loadout. When the user selects a Loadout it will switch to these dropdowns in all three locations. The "New Loadout" option allows the user to create all three sets from a single popup for convenience. the "Sync" option is a backup option to force the UI to update in case the user has changed this data behind the scenes.
+Loadouts can be selected from the dropdown in the top middle of the Build Tab. These are automatically registered based on one of two conditions:
+    1) All three sets share the same name, e.g. "Leveling"
+    2) All three sets have the same alphanumeric identifier inside of braces { } at the end of the name, e.g. "Leveling Tree {1}", "Leveling Items {1}", "Leveling Skills {1}"
+        - If you would like a single set to be used in multiple Loadouts, you can put the identifiers in the braces separated by commas. For example, an Item Set could be named "Early Game {1,2}" and this would be recognized as a loadout given there's a Tree and Skill Set with {1}, {2}, or {1,2} in their names as well
+        - Lastly, the name of the Loadout in the dropdown is based on the name of the Tree Set, identifiers are shown for clarity when using sets multiple times
+When the user selects a Loadout it will switch to these dropdowns in all three locations. The "New Loadout" option allows the user to create all three sets from a single popup for convenience.
+The "Sync" option is a backup option to force the UI to update in case the user has changed this data behind the scenes.
+
 
 ---[Party Tab]
 
