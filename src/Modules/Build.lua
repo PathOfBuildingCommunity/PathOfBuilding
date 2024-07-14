@@ -745,42 +745,42 @@ end
 local acts = {
 	-- https://www.poewiki.net/wiki/Passive_skill
 	[1] = { level = 1, questPoints = 0 },
-	-- Act 1 : The Dweller of the Deep
-	-- Act 1 : The Marooned Mariner
-	-- Act 1 : The Way Forward (Fellshrine Reward 3.25)
-	[2] = { level = 12, questPoints = 3 },
-	-- Act 2 : Deal With The Bandits (+1 if the player kills all bandits)
-	-- Act 2 : Through Sacred Ground
+	-- Act 1   : The Dweller of the Deep
+	-- Act 1   : The Marooned Mariner
+	[2] = { level = 12, questPoints = 2 },
+	-- Act 1,2 : The Way Forward (Reward after reaching Act 2)
+	-- Act 2   : Through Sacred Ground (Fellshrine Reward 3.25)
 	[3] = { level = 22, questPoints = 4 },
-	-- Act 3 : Victario's Secrets
-	-- Act 3 : Piety's Pets
+	-- Act 3   : Victario's Secrets
+	-- Act 3   : Piety's Pets
 	[4] = { level = 32, questPoints = 6 },
-	-- Act 4 : An Indomitable Spirit
+	-- Act 4   : An Indomitable Spirit
 	[5] = { level = 40, questPoints = 7 },
-	-- Act 5 : In Service to Science
-	-- Act 5 : Kitava's Torments
+	-- Act 5   : In Service to Science
+	-- Act 5   : Kitava's Torments
 	[6] = { level = 44, questPoints = 9 },
-	-- Act 6 : The Father of War
-	-- Act 6 : The Puppet Mistress
-	-- Act 6 : The Cloven One
+	-- Act 6   : The Father of War
+	-- Act 6   : The Puppet Mistress
+	-- Act 6   : The Cloven One
 	[7] = { level = 50, questPoints = 12 },
-	-- Act 7 : The Master of a Million Faces
-	-- Act 7 : Queen of Despair
-	-- Act 7 : Kishara's Star
+	-- Act 7   : The Master of a Million Faces
+	-- Act 7   : Queen of Despair
+	-- Act 7   : Kishara's Star
 	[8] = { level = 54, questPoints = 15 },
-	-- Act 8 : Love is Dead
-	-- Act 8 : Reflection of Terror
-	-- Act 8 : The Gemling Legion
+	-- Act 8   : Love is Dead
+	-- Act 8   : Reflection of Terror
+	-- Act 8   : The Gemling Legion
 	[9] = { level = 60, questPoints = 18 },
-	-- Act 9 : Queen of the Sands
-	-- Act 9 : The Ruler of Highgate
+	-- Act 9   : Queen of the Sands
+	-- Act 9   : The Ruler of Highgate
 	[10] = { level = 64, questPoints = 20 },
-	-- Act 10 : Vilenta's Vengeance
-	-- Act 10 : An End to Hunger (+2)
+	-- Act 10  : Vilenta's Vengeance
+	-- Act 10  : An End to Hunger (+2)
 	[11] = { level = 67, questPoints = 23 },
 }
 
 local function actExtra(act, extra)
+	-- Act 2 : Deal With The Bandits (+1 if the player kills all bandits)
 	return act > 2 and extra or 0
 end
 
