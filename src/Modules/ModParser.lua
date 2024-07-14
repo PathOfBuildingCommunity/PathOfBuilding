@@ -2169,6 +2169,7 @@ local specialModList = {
 			{ type = "StatThreshold", stat = "EnergyShieldOnBoots", threshold = 1}
 		)
 	} end,
+	["brands have (%d+)%% increased area of effect if (%d+)%% of attached duration expired"] = function(num) return { mod("BrandIncAreaOfEffect", "INC", num, { type = "Condition", var = "BrandLastHalf" }) } end,
 	-- Exerted Attacks
 	["exerted attacks deal (%d+)%% increased damage"] = function(num) return { mod("ExertIncrease", "INC", num, nil, ModFlag.Attack, 0) } end,
 	["exerted attacks have (%d+)%% chance to deal double damage"] = function(num) return { mod("ExertDoubleDamageChance", "BASE", num, nil, ModFlag.Attack, 0) } end,

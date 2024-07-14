@@ -328,6 +328,11 @@ function calcs.offence(env, actor, activeSkill)
 
 	local function calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, breakdown)
 		local incArea, moreArea = calcLib.mods(skillModList, skillCfg, "AreaOfEffect", "AreaOfEffectPrimary")
+		-- Brand specific AoE handling
+		if skillFlags.brand then
+			local brandIncArea = calcLib.mods(skillModList, skillCfg, "BrandIncAreaOfEffect") - 1
+			incArea = incArea + brandIncArea
+		end
 		output.AreaOfEffectMod = round(round(incArea * moreArea, 10), 2)
 		if skillData.radiusIsWeaponRange then
 			local range = 0
@@ -349,22 +354,22 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.AreaOfEffectRadius = breakdown.area(baseRadius, output.AreaOfEffectMod, output.AreaOfEffectRadius, incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint, skillData.radiusLabel)
 			end
 			if skillData.radiusSecondary then
-				local incAreaSecondary, moreAreaSecondary = calcLib.mods(skillModList, skillCfg, "AreaOfEffect", "AreaOfEffectSecondary")
-				output.AreaOfEffectModSecondary = round(round(incAreaSecondary * moreAreaSecondary, 10), 2)
+				local moreAreaSecondary = calcLib.mods(skillModList, skillCfg, "AreaOfEffectSecondary")
+				output.AreaOfEffectModSecondary = round(round(incArea * moreAreaSecondary, 10), 2)
 				baseRadius = skillData.radiusSecondary + (skillData.radiusExtra or 0)
 				output.AreaOfEffectRadiusSecondary = calcRadius(baseRadius, output.AreaOfEffectModSecondary)
 				output.AreaOfEffectRadiusSecondaryMetres = output.AreaOfEffectRadiusSecondary / 10
 				if breakdown then
 					local incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary
 					if not skillData.projectileSpeedAppliesToMSAreaOfEffect then
-						incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary = calcRadiusBreakpoints(baseRadius, incAreaSecondary, moreAreaSecondary)
+						incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary = calcRadiusBreakpoints(baseRadius, incArea, moreAreaSecondary)
 					end
 					breakdown.AreaOfEffectRadiusSecondary = breakdown.area(baseRadius, output.AreaOfEffectModSecondary, output.AreaOfEffectRadiusSecondary, incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary, skillData.radiusSecondaryLabel)
 				end
 			end
 			if skillData.radiusTertiary then
-				local incAreaTertiary, moreAreaTertiary = calcLib.mods(skillModList, skillCfg, "AreaOfEffect", "AreaOfEffectTertiary")
-				output.AreaOfEffectModTertiary = round(round(incAreaTertiary * moreAreaTertiary, 10), 2)
+				local moreAreaTertiary = calcLib.mods(skillModList, skillCfg, "AreaOfEffectTertiary")
+				output.AreaOfEffectModTertiary = round(round(incArea * moreAreaTertiary, 10), 2)
 				baseRadius = skillData.radiusTertiary + (skillData.radiusExtra or 0)
 				if skillData.projectileSpeedAppliesToMSAreaOfEffect then
 					local incSpeedTertiary, moreSpeedTertiary = calcLib.mods(skillModList, skillCfg, "ProjectileSpeed")
@@ -373,7 +378,7 @@ function calcs.offence(env, actor, activeSkill)
 					if breakdown then
 						setMoltenStrikeTertiaryRadiusBreakdown(
 							breakdown, skillData.radiusSecondary, baseRadius, skillData.radiusTertiaryLabel,
-							incAreaTertiary, moreAreaTertiary, incSpeedTertiary, moreSpeedTertiary
+							incArea, moreAreaTertiary, incSpeedTertiary, moreSpeedTertiary
 						)
 					end
 				elseif skillData.radiusTertiaryBaseMargin then -- Currently only on explosive trap in the form of "Smaller explosions have between 30% reduced and 30% increased base radius at random"
@@ -434,7 +439,7 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.AreaOfEffectMod = { }
 			if output.AreaOfEffectMod ~= 1 then
 				breakdown.multiChain(breakdown.AreaOfEffectMod, {
-					{ "%.2f ^8(increased/reduced)", 1 + skillModList:Sum("INC", skillCfg, "AreaOfEffect") / 100 },
+					{ "%.2f ^8(increased/reduced)", 1 + (skillModList:Sum("INC", skillCfg, "AreaOfEffect") + (skillFlags.brand and skillModList:Sum("INC", skillCfg, "BrandIncAreaOfEffect") or 0 )) / 100 },
 					{ "%.2f ^8(more/less)", skillModList:More(skillCfg, "AreaOfEffect") },
 					total = s_format("= %.2f", output.AreaOfEffectMod),
 				})
