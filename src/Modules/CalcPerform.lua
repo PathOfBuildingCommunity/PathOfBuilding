@@ -26,9 +26,10 @@ local band = bit.band
 --- @param uuid string uuid identifier of the skill whose value to be returned
 --- @param ... table keys to values to be returned (Note: EmmyLua does not natively support documenting variadic parameters)
 --- @return table unpacked table containing the desired values
-local function getCachedOutputValue(env, uuid, ...)
+local function getCachedOutputValue(env, activeSkill, ...)
+	local uuid = cacheSkillUUID(activeSkill, env)
 	if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-		calcs.buildActiveSkill(env, env.mode, env.player.mainSkill, uuid, {[uuid] = true})
+		calcs.buildActiveSkill(env, env.mode, activeSkill, uuid, {[uuid] = true})
 	end
 
 	local tempValues = {}
@@ -1803,14 +1804,14 @@ function calcs.perform(env, skipEHP)
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if not activeSkill.skillFlags.disable and not activeSkill.skillData.limitedProcessing then
 			if (activeSkill.activeEffect.grantedEffect.name == "Blight" or activeSkill.activeEffect.grantedEffect.name == "Blight of Contagion" or activeSkill.activeEffect.grantedEffect.name == "Blight of Atrophy") and activeSkill.skillPart == 2 then
-				local rate, duration = getCachedOutputValue(env, cacheSkillUUID(activeSkill, env), "Speed", "Duration")
+				local rate, duration = getCachedOutputValue(env, activeSkill, "Speed", "Duration")
 				local baseMaxStages = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BlightBaseMaxStages")
 				local maximum = m_min((m_floor(rate * duration) - 1), baseMaxStages - 1)
 				activeSkill.skillModList:NewMod("Multiplier:"..activeSkill.activeEffect.grantedEffect.name:gsub("%s+", "").."MaxStages", "BASE", maximum, "Base")
 				activeSkill.skillModList:NewMod("Multiplier:"..activeSkill.activeEffect.grantedEffect.name:gsub("%s+", "").."StageAfterFirst", "BASE", maximum, "Base")
 			end
 			if activeSkill.activeEffect.grantedEffect.name == "Penance Brand of Dissipation" and activeSkill.skillPart == 2 then
-				local rate, duration = getCachedOutputValue(env, cacheSkillUUID(activeSkill, env), "Speed", "Duration")
+				local rate, duration = getCachedOutputValue(env, activeSkill, "Speed", "Duration")
 				local ticks = m_min((m_floor(rate * duration) - 1), 19)
 				activeSkill.skillModList:NewMod("Multiplier:PenanceBrandofDissipationMaxStages", "BASE", ticks, "Base")
 				activeSkill.skillModList:NewMod("Multiplier:PenanceBrandofDissipationStageAfterFirst", "BASE", ticks, "Base")
@@ -1821,7 +1822,7 @@ function calcs.perform(env, skipEHP)
 				activeSkill.skillModList:NewMod("Multiplier:"..activeSkill.activeEffect.grantedEffect.name:gsub("%s+", "").."StageAfterFirst", "BASE", maximum, "Base")
 			end
 			if (activeSkill.activeEffect.grantedEffect.name == "Earthquake of Amplification")  and activeSkill.skillPart == 2 then
-				local duration = getCachedOutputValue(env, cacheSkillUUID(activeSkill, env), "Duration")
+				local duration = getCachedOutputValue(env, activeSkill, "Duration")
 				local durationMulti = m_floor(duration * 10)
 				activeSkill.skillModList:NewMod("Multiplier:100msEarthquakeDuration", "BASE", durationMulti, "Skill:EarthquakeAltX")
 			end
