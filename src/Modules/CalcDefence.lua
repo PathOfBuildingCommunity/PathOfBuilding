@@ -1288,6 +1288,7 @@ function calcs.defence(env, actor)
 	output.AvoidAllDamageFromHitsChance = m_min(modDB:Sum("BASE", nil, "AvoidAllDamageFromHitsChance"), data.misc.AvoidChanceCap)
 	-- other avoidances etc
 	output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
+	output.ImpaleAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidImpale"), 100)
 
 	if modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") then
 		local spellSuppressionToAilmentPercent = (modDB:Sum("BASE", nil, "SpellSuppressionAppliesToAilmentAvoidancePercent") or 0) / 100

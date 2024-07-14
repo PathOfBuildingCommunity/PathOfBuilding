@@ -356,6 +356,7 @@ local modNameList = {
 	["to avoid status ailments"] = "AvoidAilments",
 	["to avoid bleeding"] = "AvoidBleed",
 	["to avoid being poisoned"] = "AvoidPoison",
+	["to avoid being impaled"] = "AvoidImpale",
 	["damage is taken from mana before life"] = "DamageTakenFromManaBeforeLife",
 	["lightning damage is taken from mana before life"] = "LightningDamageTakenFromManaBeforeLife",
 	["damage taken from mana before life"] = "DamageTakenFromManaBeforeLife",
