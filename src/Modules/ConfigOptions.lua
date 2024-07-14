@@ -31,10 +31,10 @@ end
 
 local function banditTooltip(tooltip, mode, index, value)
 	local banditBenefits = {
-		["None"] = "Grants 2 Passive Skill Points",
-		["Oak"] = "Regenerate 1% of Life per second\n2% additional Physical Damage Reduction\n20% increased Physical Damage",
-		["Kraityn"] = "6% increased Attack and Cast Speed\n10% chance to Avoid Elemental Ailments\n6% increased Movement Speed",
-		["Alira"] = "Regenerate 5 Mana per second\n+20% to Critical Strike Multiplier\n+15% to all Elemental Resistances",
+		["None"] = "Grants 1 Passive Skill Point",
+		["Oak"] = "+40 to Maximum Life",
+		["Kraityn"] = "8% increased Movement Speed",
+		["Alira"] = "+15% to all Elemental Resistances",
 	}
 	local applyModes = { BODY = true, HOVER = true }
 	tooltip:Clear()
