@@ -875,8 +875,8 @@ function buildMode:SyncLoadouts(reset)
 		for id, spec in ipairs(self.treeTab.specList) do
 			local specTitle = spec.title or "Default"
 			t_insert(treeList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(specTitle))
-			-- grab everything within { }
-			local linkIdentifier = string.match(specTitle, "%{(.+)%}")
+			-- only alphanumeric and comma are allowed in the braces { }
+			local linkIdentifier = string.match(specTitle, "%{([%w,]+)%}")
 			if linkIdentifier then
 				-- iterate over each identifier, delimited by comma, and set the index so we can grab it later
 				-- setId index is the id of the set in the global list needed for SetActive
@@ -892,7 +892,7 @@ function buildMode:SyncLoadouts(reset)
 		for id, item in ipairs(self.itemsTab.itemSetOrderList) do
 			local itemTitle = self.itemsTab.itemSets[item].title or "Default"
 			t_insert(itemList, itemTitle)
-			local linkIdentifier = string.match(itemTitle, "%{(.+)%}")
+			local linkIdentifier = string.match(itemTitle, "%{([%w,]+)%}")
 			if linkIdentifier then
 				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 					transferTable["setId"] = item
@@ -905,7 +905,7 @@ function buildMode:SyncLoadouts(reset)
 		for id, skill in ipairs(self.skillsTab.skillSetOrderList) do
 			local skillTitle = self.skillsTab.skillSets[skill].title or "Default"
 			t_insert(skillList, skillTitle)
-			local linkIdentifier = string.match(skillTitle, "%{(.+)%}")
+			local linkIdentifier = string.match(skillTitle, "%{([%w,]+)%}")
 			if linkIdentifier then
 				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 					transferTable["setId"] = skill
