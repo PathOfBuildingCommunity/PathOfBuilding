@@ -238,13 +238,16 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			self.controls.buildLoadouts:SetSel(1)
 			return
 		end
-
 		if value == "Sync" then
 			self:SyncLoadouts()
 			self.controls.buildLoadouts:SetSel(1)
 			return
 		end
-
+		if value == "^7Help >>" then
+			main:OpenAboutPopup(7)
+			self.controls.buildLoadouts:SetSel(1)
+			return
+		end
 		if value == "New Loadout" then
 			local controls = { }
 			controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter name for this loadout:")
@@ -328,7 +331,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 
 		self.controls.buildLoadouts:SelByValue(value)
 	end)
-	self.controls.buildLoadouts.tooltipText = "Loadouts are identically named sets of Passives/Items/Skills"
 
 	-- List of display stats
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
@@ -913,12 +915,17 @@ function buildMode:SyncLoadouts(reset)
 				end
 			end
 		end
+		local duplicateCheck = { }
 		-- loop over all for exact match loadouts
 		for id, tree in ipairs(treeList) do
 			for id, skill in ipairs(skillList) do
 				for id, item in ipairs(itemList) do
 					if (tree == skill and tree == item) then
+						if duplicateCheck[tree] then -- if already seen, re-colour NEGATIVE to alert user of duplicate
+							tree = colorCodes.NEGATIVE..tree
+						end
 						t_insert(filteredList, tree)
+						duplicateCheck[tree] = true
 					end
 				end
 			end
@@ -928,7 +935,12 @@ function buildMode:SyncLoadouts(reset)
 			for itemLinkId, item in pairs(self.itemListSpecialLinks) do
 				for skillLinkId, skill in pairs(self.skillListSpecialLinks) do
 					if (treeLinkId == skillLinkId and treeLinkId == itemLinkId) then
-						t_insert(filteredList, tree["setName"].." {"..treeLinkId.."}")
+						local loadoutName = tree["setName"].." {"..treeLinkId.."}"
+						if duplicateCheck[loadoutName] then
+							loadoutName = colorCodes.NEGATIVE..loadoutName
+						end
+						t_insert(filteredList, loadoutName)
+						duplicateCheck[loadoutName] = true
 					end
 				end
 			end
@@ -938,6 +950,7 @@ function buildMode:SyncLoadouts(reset)
 	t_insert(filteredList, "-----")
 	t_insert(filteredList, "New Loadout")
 	t_insert(filteredList, "Sync")
+	t_insert(filteredList, "^7Help >>")
 
 	if #filteredList > 0 then
 		self.controls.buildLoadouts.list = filteredList
