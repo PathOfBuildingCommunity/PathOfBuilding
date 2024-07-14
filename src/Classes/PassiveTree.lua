@@ -34,6 +34,8 @@ local legacySkillsPerOrbit = { 1, 6, 12, 12, 40 }
 local legacyOrbitRadii = { 0, 82, 162, 335, 493 }
 
 -- Retrieve the file at the given URL
+-- This is currently disabled as it does not work due to issues
+-- its possible to fix this but its never used due to us performing preprocessing on tree
 local function getFile(URL)
 	local page = ""
 	local easy = common.curl.easy()
@@ -63,13 +65,14 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		treeText = treeFile:read("*a")
 		treeFile:close()
 	else
-		ConPrintf("Downloading passive tree data...")
 		local page
 		local pageFile = io.open("TreeData/"..treeVersion.."/data.json", "r")
 		if pageFile then
+			ConPrintf("Converting passive tree data json")
 			page = pageFile:read("*a")
 			pageFile:close()
-		else
+		elseif main.allowTreeDownload then  -- Enable downloading with Ctrl+Shift+F5 (currently disabled)
+			ConPrintf("Downloading passive tree data...")
 			page = getFile("https://www.pathofexile.com/passive-skill-tree")
 		end
 		local treeData = page:match("var passiveSkillTreeData = (%b{})")
@@ -694,7 +697,7 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 		if imgFile then
 			imgFile:close()
 			imgName = self.treeVersion.."/"..imgName
-		elseif main.allowTreeDownload then -- Enable downloading with Ctrl+Shift+F5
+		elseif main.allowTreeDownload then -- Enable downloading with Ctrl+Shift+F5 (currently disabled)
 			ConPrintf("Downloading '%s'...", imgName)
 			local data = getFile(url)
 			if data and not data:match("<!DOCTYPE html>") then
