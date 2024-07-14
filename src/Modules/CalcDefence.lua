@@ -1353,6 +1353,9 @@ function calcs.defence(env, actor)
 	for _, ailment in ipairs(data.ailmentTypeList) do
 		output["Self"..ailment.."Effect"] = calcLib.mod(modDB, nil, "Self"..ailment.."Effect") * (modDB:Flag(nil, "Condition:"..ailment.."edSelf") and calcLib.mod(modDB, nil, "Enemy"..ailment.."Effect") or calcLib.mod(enemyDB, nil, "Enemy"..ailment.."Effect")) * 100
 	end
+
+	-- Required for correct calc.offence calculation
+	calcs.buildDefenceEstimations(env, actor)
 end
 
 -- Performs all extra defensive calculations ( eg EHP, maxHit )

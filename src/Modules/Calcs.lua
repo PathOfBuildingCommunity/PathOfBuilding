@@ -219,7 +219,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 			if enabled then
 				GlobalCache.numActiveSkillInFullDPS = GlobalCache.numActiveSkillInFullDPS + 1
 				fullEnv.player.mainSkill = activeSkill
-				calcs.perform(fullEnv, (GlobalCache.numActiveSkillInFullDPS ~= numActiveSkillInFullDPS))
+				calcs.perform(fullEnv)
 				usedEnv = fullEnv
 				local minionName = nil
 				if activeSkill.minion or usedEnv.minion then
@@ -409,7 +409,7 @@ function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingF
 		if activeSkillUUID == targetUUID then
 			fullEnv.player.mainSkill = activeSkill
 			fullEnv.player.mainSkill.skillData.limitedProcessing = limitedProcessingFlags and limitedProcessingFlags[activeSkillUUID]
-			calcs.perform(fullEnv, true)
+			calcs.perform(fullEnv)
 			return
 		end
 	end

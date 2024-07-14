@@ -516,6 +516,16 @@ local function doActorMisc(env, actor)
 
 	-- Add misc buffs/debuffs
 	if env.mode_combat then
+		local cfg
+		if not env.player.mainSkill.skillData.limitedProcessing then
+			local uuid = cacheSkillUUID(env.player.mainSkill, env)
+			if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
+				calcs.buildActiveSkill(env, env.mode, env.player.mainSkill, uuid, {[uuid] = true})
+			end
+			cfg = {
+				skillStats = GlobalCache.cachedData[env.mode][uuid].Env.player.output
+			}
+		end
 		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
 			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
 		end
@@ -599,7 +609,7 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "Condition:TotemTailwind") then
 			modDB:NewMod("TotemActionSpeed", "INC", 8, "Tailwind")
 		end
-		if modDB:Flag(nil, "Adrenaline") then
+		if modDB:Flag(cfg, "Adrenaline") then
 			local effectMod = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
 			modDB:NewMod("Damage", "INC", m_floor(100 * effectMod), "Adrenaline")
 			modDB:NewMod("Speed", "INC", m_floor(25 * effectMod), "Adrenaline", ModFlag.Attack)
@@ -925,7 +935,7 @@ end
 -- 8. Processes buffs and debuffs
 -- 9. Processes charges and misc buffs (doActorCharges, doActorMisc)
 -- 10. Calculates defence and offence stats (calcs.defence, calcs.offence)
-function calcs.perform(env, skipEHP)
+function calcs.perform(env)
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
 
@@ -3008,20 +3018,15 @@ function calcs.perform(env, skipEHP)
 
 	-- Defence/offence calculations
 	calcs.defence(env, env.player)
-	if not skipEHP then
-		calcs.buildDefenceEstimations(env, env.player)
-	end
-
 	calcs.triggers(env, env.player)
+
+	-- Mirage calculations include calc.offence
 	if not calcs.mirages(env) then
 		calcs.offence(env, env.player, env.player.mainSkill)
 	end
 
 	if env.minion then
 		calcs.defence(env, env.minion)
-		if not skipEHP then -- main.build.calcsTab.input.showMinion and -- should be disabled unless "calcsTab.input.showMinion" is true
-			calcs.buildDefenceEstimations(env, env.minion)
-		end
 		calcs.triggers(env, env.minion)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 	end
