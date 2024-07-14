@@ -683,7 +683,7 @@ return {
 	}, },
 	{ label = "Area of Effect Mod", haveOutput = "AreaOfEffectMod", { format = "x {2:output:AreaOfEffectMod}", 
 		{ breakdown = "AreaOfEffectMod" }, 
-		{ modName = {"AreaOfEffect", "BrandIncAreaOfEffect"}, cfg = "skill" },
+		{ modName = "AreaOfEffect", cfg = "skill" },
 	}, },
 	{ label = "Radius", haveOutput = "AreaOfEffectRadius", { format = "{1:output:AreaOfEffectRadiusMetres}m", { breakdown = "AreaOfEffectRadius" }, }, },
 	{ label = "Secondary Radius", haveOutput = "AreaOfEffectRadiusSecondary", { format = "{1:output:AreaOfEffectRadiusSecondaryMetres}m",
