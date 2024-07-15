@@ -103,6 +103,9 @@ function PoBArchivesProviderClass:ParseBuilds(message)
 		if value.build_info.ascendancy ~= "None" then
 			build.ascendancy = value.build_info.ascendancy
 		end
+		if value.build_info.class ~= "None" then
+			build.class = value.build_info.class
+		end
 		build.previewLink = archivesUrl .. "/build/" .. value.build_info.short_uuid
 		build.buildLink = value.build_info.build_link
 		build.ehp = value.stats.TotalEHP
