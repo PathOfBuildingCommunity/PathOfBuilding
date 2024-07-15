@@ -255,6 +255,7 @@ local modNameList = {
 	["physical damage taken from attacks"] = "PhysicalDamageTakenFromAttacks",
 	["physical damage taken from attack hits"] = "PhysicalDamageTakenFromAttacks",
 	["physical damage taken from projectile attacks"] = "PhysicalDamageTakenFromProjectileAttacks",
+	["physical damage taken from projectile attack hits"] = "PhysicalDamageTakenFromProjectileAttacks",
 	["physical damage taken over time"] = "PhysicalDamageTakenOverTime",
 	["physical damage over time taken"] = "PhysicalDamageTakenOverTime",
 	["physical damage over time damage taken"] = "PhysicalDamageTakenOverTime",
