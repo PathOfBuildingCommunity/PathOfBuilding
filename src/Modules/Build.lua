@@ -234,28 +234,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		self.buildFlag = true
 	end)
 
-	-- local width, height = self:GetSize()
-	local buildProviders = {
-		{
-			name = "PoB Archives",
-			impl = new("PoBArchivesProvider", "similar")
-		}
-	}
-
-	self.controls.similarBuildList = new("ExtBuildListControl", nil, main.screenW - 410, 100, 410, main.screenH - 500, buildProviders)
-	self.controls.similarBuildList.shown = false
-	self.controls.similarBuildList.height = function()
-		return main.screenH - 200
-	end
-	self.controls.similarBuildList.width = function ()
-		return 400
-	end
-
 	self.controls.similarBuilds = new("ButtonControl", {"LEFT",self.controls.secondaryAscendDrop,"RIGHT"}, 8, 0, 100, 20, "Similar Builds", function()
-		self.controls.similarBuildList:SetImportCode(common.base64.encode(Deflate(self:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
-		self.controls.similarBuildList:Init("PoB Archives")
-
-		self.controls.similarBuildList.shown = not self.controls.similarBuildList:IsShown()
+		self:OpenSimilarPopup()
 		-- self.controls.similarBuilds.locked = self.controls.similarBuildList:IsShown()
 	end)
 
@@ -1258,6 +1238,39 @@ function buildMode:OpenSpectreLibrary()
 	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 24, 2, 0, 16, "Spectres in your Library must be assigned to an active")
 	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 20, 18, 0, 16, "Raise Spectre gem for their buffs and curses to activate")
 	main:OpenPopup(410, 360, "Spectre Library", controls)
+end
+
+function buildMode:OpenSimilarPopup()
+	local controls = { }
+	-- local width, height = self:GetSize()
+	local buildProviders = {
+		{
+			name = "PoB Archives",
+			impl = new("PoBArchivesProvider", "similar")
+		}
+	}
+	local width = 600
+	local height = function()
+		return main.screenH * 0.8
+	end
+	local padding = 50
+	controls.similarBuildList = new("ExtBuildListControl", nil, 0, padding, width, height() - 2 * padding, buildProviders)
+	controls.similarBuildList.shown = true
+	controls.similarBuildList.height = function()
+		return height() - 2 * padding
+	end
+	controls.similarBuildList.width = function ()
+		return width - padding
+	end
+	controls.similarBuildList:SetImportCode(common.base64.encode(Deflate(self:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
+	controls.similarBuildList:Init("PoB Archives")
+
+	-- controls.similarBuildList.shown = not controls.similarBuildList:IsShown()
+
+	controls.close = new("ButtonControl", nil, 0, height() - (padding + 20) / 2, 80, 20, "Close", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(width, height(), "Similar Builds", controls)
 end
 
 -- Refresh the set of controls used to select main group/skill/minion
