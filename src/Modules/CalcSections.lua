@@ -1702,7 +1702,7 @@ return {
 	{ label = "Curse Avoid Ch.", haveOutput = "CurseAvoidChance", { format = "{0:output:CurseAvoidChance}%", { modName = { "AvoidCurse", "CurseImmune" } }, }, },
 	{ label = "Silence Avoid Ch.", haveOutput = "SilenceAvoidChance", { format = "{0:output:SilenceAvoidChance}%", { modName = { "SilenceImmune", "AvoidCurse", "CurseImmune" } }, }, },
 	{ label = "Crit Reduction", haveOutput = "CritExtraDamageReduction", { format = "{0:output:CritExtraDamageReduction}%", { modName = "ReduceCritExtraDamage" }, }, },
-	{ label = "CB Immune", haveOutput = "CorruptedBloodImmunity", { format = "True", { modName = "CorruptedBloodImmune" }, }, },
+	{ label = "Corr Blood Immune", haveOutput = "CorruptedBloodImmunity", { format = "True", { modName = "CorruptedBloodImmune" }, }, },
 	{ label = "Maim Immune", haveOutput = "MaimImmunity", { format = "True", { modName = "MaimImmune" }, }, },
 	{ label = "Hinder Immune", haveOutput = "HinderImmunity", { format = "True", { modName = "HinderImmune" }, }, },
 	{ label = "Knockback Immune", haveOutput = "KnockbackImmunity", { format = "True", { modName = "KnockbackImmune" }, }, },
