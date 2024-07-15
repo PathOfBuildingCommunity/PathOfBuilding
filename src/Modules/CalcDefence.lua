@@ -1289,9 +1289,11 @@ function calcs.defence(env, actor)
 	-- other avoidances etc
 	output.BlindAvoidChance = modDB:Flag(nil, "BlindImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
 	output.ImpaleAvoidChance = modDB:Flag(nil, "ImpaleImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidImpale"), 100)
-	output.CorruptedBloodAvoidChance = modDB:Flag(nil, "CorruptedBloodImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidCorruptedBlood"), 100)
-	output.MaimAvoidChance = modDB:Flag(nil, "MaimImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidMaim"), 100)
-	output.HinderAvoidChance = modDB:Flag(nil, "HinderImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidHinder"), 100)
+	-- Status effect / ailment immunities
+	output.CorruptedBloodImmunity = modDB:Flag(nil, "CorruptedBloodImmune")
+	output.MaimImmunity = modDB:Flag(nil, "MaimImmune")
+	output.HinderImmunity = modDB:Flag(nil, "HinderImmune")
+	output.KnockbackImmunity = modDB:Flag(nil, "KnockbackImmune")
 
 	if modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") then
 		local spellSuppressionToAilmentPercent = (modDB:Sum("BASE", nil, "SpellSuppressionAppliesToAilmentAvoidancePercent") or 0) / 100
