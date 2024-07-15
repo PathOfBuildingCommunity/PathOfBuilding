@@ -4088,6 +4088,7 @@ local specialModList = {
 	["cannot be chilled while burning"] = { flag("ChillImmune", { type = "Condition", var = "Burning" }) },
 	["cannot be chilled while you have onslaught"] = { flag("ChillImmune", { type = "Condition", var = "Onslaught" }) },
 	["cannot be chilled during onslaught"] = { flag("ChillImmune", { type = "Condition", var = "Onslaught" }) },
+	["cannot be frozen or chilled if you've used a fire skill recently"] = { flag("FreezeImmune", {type = "Condition", var = "UsedFireSkillRecently"}), flag("ChillImmune", {type = "Condition", var = "UsedFireSkillRecently"}) },
 	["cannot be inflicted with bleeding"] = { flag("BleedImmune") },
 	["bleeding cannot be inflicted on you"] = { flag("BleedImmune") },
 	["you are immune to bleeding"] = { flag("BleedImmune") },
