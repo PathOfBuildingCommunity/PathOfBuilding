@@ -1287,7 +1287,7 @@ function calcs.defence(env, actor)
 	-- hit avoidance
 	output.AvoidAllDamageFromHitsChance = m_min(modDB:Sum("BASE", nil, "AvoidAllDamageFromHitsChance"), data.misc.AvoidChanceCap)
 	-- other avoidances etc
-	output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
+	output.BlindAvoidChance = modDB:Flag(nil, "BlindImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
 	output.ImpaleAvoidChance = modDB:Flag(nil, "ImpaleImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidImpale"), 100)
 	output.CorruptedBloodAvoidChance = modDB:Flag(nil, "CorruptedBloodImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidCorruptedBlood"), 100)
 	output.MaimAvoidChance = modDB:Flag(nil, "MaimImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidMaim"), 100)

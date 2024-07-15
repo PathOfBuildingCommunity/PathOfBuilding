@@ -1688,7 +1688,7 @@ return {
 		{ modName = { "StunDuration", "StunRecovery", "BlockRecovery" }, }, 
 	}, },
 } }, { defaultCollapsed = true, label = "Other Avoidance", data = {
-	{ label = "Blind Avoid Ch.", haveOutput = "BlindAvoidChance", { format = "{0:output:BlindAvoidChance}%", { modName = "AvoidBlind" }, }, },
+	{ label = "Blind Avoid Ch.", haveOutput = "BlindAvoidChance", { format = "{0:output:BlindAvoidChance}%", { modName = {"AvoidBlind", "BlindImmune"} }, }, },
 	{ label = "Shock Avoid Ch.", haveOutput = "ShockAvoidChance", { format = "{0:output:ShockAvoidChance}%", { modName = { "AvoidShock", "AvoidElementalAilments", "AvoidAilments", "ShockImmune", "ElementalAilmentImmune" } }, }, },
 	{ label = "Freeze Avoid Ch.", haveOutput = "FreezeAvoidChance", { format = "{0:output:FreezeAvoidChance}%", { modName = { "AvoidFreeze", "AvoidElementalAilments", "AvoidAilments", "AvoidShockAppliesToElementalAilments", "FreezeImmune", "ElementalAilmentImmune" } }, }, },
 	{ label = "Chill Avoid Ch.", haveOutput = "ChillAvoidChance", { format = "{0:output:ChillAvoidChance}%", { modName = { "AvoidChill", "AvoidElementalAilments", "AvoidAilments", "AvoidShockAppliesToElementalAilments", "ChillImmune", "ElementalAilmentImmune" } }, }, },
