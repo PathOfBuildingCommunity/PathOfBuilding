@@ -61,6 +61,7 @@ function ExtBuildListControlClass:Init(providerName)
 		return
 	end
 
+	self.activeListProvider:SetImportCode(self.importCode)
 	self.activeListProvider:Activate()
 	self.activeListProvider.buildListTitles = self.activeListProvider:GetListTitles()
 
@@ -118,16 +119,22 @@ function ExtBuildListControlClass:Init(providerName)
 		self.controls.scrollBarV.shown = false
 	end
 
-	self.controls.all = new("ButtonControl", { "BOTTOM", self, "BOTTOM" }, 0, 1, self.width, 20, "See All",
-		function()
-			local url = self.activeListProvider:GetPageUrl()
-			if url then
-				OpenURL(url)
-			end
-		end)
-	self.controls.all.width = function()
-		return self.width()
+	if self.activeListProvider:GetPageUrl() then
+		self.controls.all = new("ButtonControl", { "BOTTOM", self, "BOTTOM" }, 0, 1, self.width, 20, "See All",
+			function()
+				local url = self.activeListProvider:GetPageUrl()
+				if url then
+					OpenURL(url)
+				end
+			end)
+		self.controls.all.width = function()
+			return self.width()
+		end
 	end
+end
+
+function ExtBuildListControlClass:SetImportCode(importCode)
+	self.importCode = importCode
 end
 
 function ExtBuildListControlClass:IsMouseOver()
@@ -378,19 +385,19 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			currentHeight = currentHeight + 8
 			SetDrawColor(1, 1, 1)
 
-			-- -- author
-			-- if build.author then
-			-- 	self:DrawString(x, currentHeight, "LEFT", 14, self.font, s_format('%s', build.author))
-			-- end
+			-- author
+			if build.author then
+				self:DrawString(x, currentHeight, "LEFT", 14, self.font, s_format('%s', build.author))
+			end
 
 
-			-- currentHeight = currentHeight + 20
+			currentHeight = currentHeight + 20
 
-			-- -- decorator line
-			-- SetDrawColor(0.5, 0.5, 0.5)
-			-- self:DrawImage(nil, x - 9, currentHeight, self.width(), 1)
-			-- currentHeight = currentHeight + 8
-			-- SetDrawColor(1, 1, 1)
+			-- decorator line
+			SetDrawColor(0.5, 0.5, 0.5)
+			self:DrawImage(nil, x - 9, currentHeight, self.width(), 1)
+			currentHeight = currentHeight + 8
+			SetDrawColor(1, 1, 1)
 
 			-- stats
 			local dpsText = "DPS:"
@@ -421,6 +428,19 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 				-- decorator line
 				SetDrawColor(0.5, 0.5, 0.5)
 				self:DrawImage(nil, x - 9, currentHeight, self.width(), 1)
+			end
+
+			if build.metadata then
+				currentHeight = currentHeight + 4
+				for _, metadata in pairs(build.metadata) do
+					SetDrawColor(1, 1, 1)
+					self:DrawString(x, currentHeight, "LEFT", 16, self.font, metadata.key .. ": " .. metadata.value)
+					currentHeight = currentHeight + 20
+					SetDrawColor(0.5, 0.5, 0.5)
+					self:DrawImage(nil, x - 9, currentHeight, self.width(), 1)
+					currentHeight = currentHeight + 4
+				end
+
 			end
 
 

@@ -55,3 +55,7 @@ end
 function ExtBuildListProviderClass:GetBuilds()
     return {}
 end
+
+function ExtBuildListProviderClass:SetImportCode(importCode)
+    self.importCode = importCode
+end

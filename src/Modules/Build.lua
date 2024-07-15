@@ -235,30 +235,29 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	end)
 
 	-- local width, height = self:GetSize()
-	if self.importLink then
-		local buildProviders = {
-			{
-				name = "PoB Archives",
-				impl = new("PoBArchivesProvider", self.importLink)
-			}
+	local buildProviders = {
+		{
+			name = "PoB Archives",
+			impl = new("PoBArchivesProvider", "similar")
 		}
+	}
 
-		self.controls.similarBuildList = new("ExtBuildListControl", nil, main.screenW - 410, 100, 410, main.screenH - 500, buildProviders)
-		self.controls.similarBuildList.shown = false
-		self.controls.similarBuildList.height = function()
-			return main.screenH - 200
-		end
-		self.controls.similarBuildList.width = function ()
-			return 400
-		end
-
-		self.controls.similarBuilds = new("ButtonControl", {"LEFT",self.controls.secondaryAscendDrop,"RIGHT"}, 8, 0, 100, 20, "Similar Builds", function()
-			self.controls.similarBuildList:Init("PoB Archives")
-			self.controls.similarBuildList.shown = not self.controls.similarBuildList:IsShown()
-			-- self.controls.similarBuilds.locked = self.controls.similarBuildList:IsShown()
-		end)
-
+	self.controls.similarBuildList = new("ExtBuildListControl", nil, main.screenW - 410, 100, 410, main.screenH - 500, buildProviders)
+	self.controls.similarBuildList.shown = false
+	self.controls.similarBuildList.height = function()
+		return main.screenH - 200
 	end
+	self.controls.similarBuildList.width = function ()
+		return 400
+	end
+
+	self.controls.similarBuilds = new("ButtonControl", {"LEFT",self.controls.secondaryAscendDrop,"RIGHT"}, 8, 0, 100, 20, "Similar Builds", function()
+		self.controls.similarBuildList:SetImportCode(common.base64.encode(Deflate(self:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
+		self.controls.similarBuildList:Init("PoB Archives")
+
+		self.controls.similarBuildList.shown = not self.controls.similarBuildList:IsShown()
+		-- self.controls.similarBuilds.locked = self.controls.similarBuildList:IsShown()
+	end)
 
 	-- List of display stats
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons

@@ -71,7 +71,7 @@ function listMode:Init(selBuildName, subPath)
 	local buildProviders = {
 		{
 			name = "PoB Archives",
-			impl = new("PoBArchivesProvider")
+			impl = new("PoBArchivesProvider", "builds")
 		}
 	}
 	self.controls.extBuildList = new("ExtBuildListControl", {"LEFT",self.controls.buildList,"RIGHT"}, 25, 0, main.screenW * 1 / 4 - 50, 0, buildProviders)
