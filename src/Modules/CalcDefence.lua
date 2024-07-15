@@ -1288,7 +1288,10 @@ function calcs.defence(env, actor)
 	output.AvoidAllDamageFromHitsChance = m_min(modDB:Sum("BASE", nil, "AvoidAllDamageFromHitsChance"), data.misc.AvoidChanceCap)
 	-- other avoidances etc
 	output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
-	output.ImpaleAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidImpale"), 100)
+	output.ImpaleAvoidChance = modDB:Flag(nil, "ImpaleImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidImpale"), 100)
+	output.CorruptedBloodAvoidChance = modDB:Flag(nil, "CorruptedBloodImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidCorruptedBlood"), 100)
+	output.MaimAvoidChance = modDB:Flag(nil, "MaimImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidMaim"), 100)
+	output.HinderAvoidChance = modDB:Flag(nil, "HinderImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidHinder"), 100)
 
 	if modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") then
 		local spellSuppressionToAilmentPercent = (modDB:Sum("BASE", nil, "SpellSuppressionAppliesToAilmentAvoidancePercent") or 0) / 100
@@ -1313,6 +1316,7 @@ function calcs.defence(env, actor)
 	end
 
 	output.CurseAvoidChance = modDB:Flag(nil, "CurseImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidCurse"), 100)
+	output.SilenceAvoidChance = modDB:Flag(nil, "SilenceImmune") and 100 or output.CurseAvoidChance
 	output.CritExtraDamageReduction = m_min(modDB:Sum("BASE", nil, "ReduceCritExtraDamage"), 100)
 	output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
 	if breakdown then
