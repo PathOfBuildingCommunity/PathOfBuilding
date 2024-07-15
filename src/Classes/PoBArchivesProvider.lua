@@ -79,7 +79,7 @@ function PoBArchivesProviderClass:GetRecommendations(buildCode, postURL)
 				self:ParseBuilds(response)
 				return
 			else
-				self.errorMsg = "Error: " .. errMsg
+				self.statusMsg = "Error while fetching similar builds: " .. errMsg
 				return
 			end
 		end)
