@@ -1653,6 +1653,10 @@ return {
 --
 -- Skill type modifier
 --
+-- MeleeSingleTarget
+["melee_attack_number_of_spirit_strikes"] = {
+	mod("AdditionalStrikeTarget", "BASE", nil)
+},
 -- Trap
 ["support_trap_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, KeywordFlag.Trap),

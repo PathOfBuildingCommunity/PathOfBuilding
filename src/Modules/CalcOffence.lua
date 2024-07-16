@@ -1075,6 +1075,9 @@ function calcs.offence(env, actor, activeSkill)
 					radius = output.WeaponRange
 				}
 			end
+
+			local baseStrikeCount = 1
+			output.StrikeTargets = baseStrikeCount + skillModList:Sum("BASE", skillCfg, "AdditionalStrikeTarget")
 		end
 	end
 	if skillFlags.area or skillData.radius or (skillFlags.mine and activeSkill.skillTypes[SkillType.Aura]) then
