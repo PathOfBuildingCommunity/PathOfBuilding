@@ -695,6 +695,10 @@ return {
 		{ label = "Area of Effect modifiers", modName = "AreaOfEffectTertiary", cfg = "skill" },
 	}, },
 	{ label = "Weapon Range", haveOutput = "WeaponRange", { format = "{1:output:WeaponRangeMetre}m", { breakdown = "WeaponRange" }, }, },
+	{ label = "Strike Targets", haveOutput = "StrikeTargets", { format = "{1:output:StrikeTargets}",
+		{ breakdown = "StrikeTargets" }, 
+		{ modName = "AdditionalStrikeTarget", cfg = "skill" }
+	}, },
 	{ label = "Attachment Range", flag = "brand", { format = "{1:output:BrandAttachmentRangeMetre}m",
 		{ breakdown = "BrandAttachmentRange" },
 		{ modName = "BrandAttachmentRange", cfg = "skill"},

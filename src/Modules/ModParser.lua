@@ -3866,6 +3866,8 @@ local specialModList = {
 	["projectiles deal (%d+)%% increased damage with hits and ailments for each time they have chained"] = function(num) return { mod("Damage", "INC", num, nil, 0, bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "PerStat", stat = "Chain" }, { type = "SkillType", skillType = SkillType.Projectile }) } end,
 	["projectiles deal (%d+)%% increased damage with hits and ailments for each enemy pierced"] = function(num) return { mod("Damage", "INC", num, nil, 0, bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "PerStat", stat = "PiercedCount" }, { type = "SkillType", skillType = SkillType.Projectile }) } end,
 	["(%d+)%% increased bonuses gained from equipped quiver"] = function(num) return {mod("EffectOfBonusesFromQuiver", "INC", num)} end,
+	-- Strike Skills
+	["non%-vaal strike skills target (%d+) additional nearby enem[yi]e?s?"] = function(num) return { mod("AdditionalStrikeTarget", "BASE", num, { type = "SkillType", skillType = SkillType.MeleeSingleTarget}, { type = "SkillType", skillType = SkillType.Vaal, neg = true}) } end,
 	-- Leech/Gain on Hit/Kill
 	["cannot leech life"] = { flag("CannotLeechLife") },
 	["cannot leech mana"] = { flag("CannotLeechMana") },
