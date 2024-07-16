@@ -106,7 +106,7 @@ Requires Level 65, 148 Str
 Echoes of Creation
 Shaper Item
 Royal Burgonet
-Source: Drops from unique{The Shaper}
+Source: Drops from unique{The Shaper} (Uber)
 Requires Level 65, 148 Str
 Socketed Warcry Skills have +1 Cooldown Use
 (80-120)% increased Armour
@@ -1253,8 +1253,8 @@ Requires Level 20
 +23 to maximum Life
 (15-10)% reduced Mine Throwing Speed
 Mines have (40-50)% increased Detonation Speed
-Skills which Place Mines place up to 1 additional Mine if you have at least 800 Dexterity
-Skills which Place Mines place up to 1 additional Mine if you have at least 800 Intelligence
+Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Dexterity
+Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Intelligence
 ]],[[
 Eye of Malice
 Callous Mask
@@ -1499,7 +1499,7 @@ Socketed Gems have 50% reduced Mana Cost
 Viridi's Veil
 Praetor Crown
 League: Ritual
-Source: Drops from unique{The Maven}
+Source: Drops from unique{The Maven} (Uber)
 Requires Level 68, 62 Str, 91 Int
 +(1-2) to Level of Socketed Gems
 (120-160)% increased Armour and Energy Shield

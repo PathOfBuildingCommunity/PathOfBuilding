@@ -28,6 +28,18 @@ body:
       options: 
         - label: I've checked that the behaviour is supposed to be supported. If it isn't please open a feature request instead (Red text is a feature request).
           required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: What platform are you running Path of Building on?
+      options: 
+        - Windows
+        - Linux - Wine
+        - Linux - PoB Frontend
+        - MacOS
+      default: 0
+    validations:
+      required: true
   - type: textarea
     id: expected
     attributes:

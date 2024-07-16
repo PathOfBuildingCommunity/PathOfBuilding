@@ -186,7 +186,7 @@ Skills Chain +1 times
 Nebulis
 Void Sceptre
 League: Synthesis
-Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
+Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage
@@ -380,7 +380,8 @@ Blind does not affect your Chance to Hit
 Enemies Blinded by you have Malediction
 {variant:1,2}Gain 1 Mana on Kill per Level
 {variant:1,2}Gain 1 Energy Shield on Kill per Level
-{variant:3,4,6,7,9,10}+1 to maximum Life per Level
+{variant:3,4,6,7}+1 to maximum Life per Level
+{variant:9,10}+(1-2) to maximum Life per Level
 {variant:3,5,6,8}+1 to maximum Mana per Level
 {variant:9,11}+(1-2) to maximum Mana per Level
 {variant:4,5,7,8}+1 to maximum Energy Shield per Level

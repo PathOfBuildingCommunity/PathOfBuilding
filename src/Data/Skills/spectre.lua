@@ -549,7 +549,7 @@ skills["ElementalHitSkeletonKnight"] = {
 	color = 2,
 	baseEffectiveness = 1.1667000055313,
 	incrementalEffectiveness = 0.04280000180006,
-	description = "Each attack with this skill will choose an element at random, and will only be able to deal damage of that element. If the attack hits an enemy, it will also deal damage in an area around them, with the radius being larger if that enemy is suffering from an ailment of the chosen element. It will avoid choosing the same element twice in a row.",
+	description = "Each attack with this skill will choose an element at random, and will only be able to deal damage of that element. If the attack hits an enemy, it will deal damage in an area around them, with the radius being larger if that enemy is suffering from an ailment of the chosen element. It will avoid choosing the same element twice in a row.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Fire] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.RandomElement] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -575,6 +575,7 @@ skills["ElementalHitSkeletonKnight"] = {
 	},
 	constantStats = {
 		{ "chance_to_freeze_shock_ignite_%", 50 },
+		{ "active_skill_base_area_of_effect_radius", 10 },
 	},
 	stats = {
 		"active_skill_damage_+%_final",
@@ -595,7 +596,7 @@ skills["ElementalHitSkeletonKnightIncursion"] = {
 	name = "Elemental Hit",
 	hidden = true,
 	color = 2,
-	description = "Each attack with this skill will choose an element at random, and will only be able to deal damage of that element. If the attack hits an enemy, it will also deal damage in an area around them, with the radius being larger if that enemy is suffering from an ailment of the chosen element. It will avoid choosing the same element twice in a row.",
+	description = "Each attack with this skill will choose an element at random, and will only be able to deal damage of that element. If the attack hits an enemy, it will deal damage in an area around them, with the radius being larger if that enemy is suffering from an ailment of the chosen element. It will avoid choosing the same element twice in a row.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Fire] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.RandomElement] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -606,6 +607,7 @@ skills["ElementalHitSkeletonKnightIncursion"] = {
 	},
 	constantStats = {
 		{ "chance_to_freeze_shock_ignite_%", 25 },
+		{ "active_skill_base_area_of_effect_radius", 10 },
 	},
 	stats = {
 		"active_skill_damage_+%_final",

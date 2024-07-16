@@ -57,6 +57,7 @@ PgUp/PgDn/MWheel	Zoom in / out (hold with shift to increase the amount of zoom x
 Ctrl + LMB	Zoom in on mouse cursor position
 Hold Shift	Enable "path trace mode" 
 	(highlighted nodes will stay highlighted, and will be allocated when a node is clicked on the tree)
+Up/Down arrow	Select previous/next tree respectively
 
 Developer Use
 

@@ -4019,46 +4019,46 @@ return {
 			width=100
 		},
 		[25]={
-			list=false,
-			name="DropLevelMinimum",
+			list=true,
+			name="DropLevel",
 			refTo="",
 			type="Int",
 			width=100
 		},
 		[26]={
-			list=false,
-			name="DropLevelMaximum",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[27]={
 			list=true,
 			name="MonsterMods",
 			refTo="Mods",
 			type="Key",
 			width=300
 		},
-		[28]={
+		[27]={
 			list=false,
 			name="Type",
 			refTo="EssenceType",
 			type="Key",
 			width=150
 		},
-		[29]={
+		[28]={
 			list=false,
 			name="Tier",
 			refTo="",
 			type="Int",
 			width=80
 		},
-		[30]={
-			list=false,
+		[29]={
+			list=true,
 			name="",
 			refTo="",
 			type="Int",
-			width=50
+			width=120
+		},
+		[30]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
 		},
 		[31]={
 			list=false,
@@ -4104,126 +4104,126 @@ return {
 		},
 		[37]={
 			list=false,
-			name="",
+			name="HelmetMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[38]={
 			list=false,
-			name="HelmetMod",
+			name="BodyArmourMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[39]={
 			list=false,
-			name="BodyArmourMod",
+			name="BootsMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[40]={
 			list=false,
-			name="BootsMod",
+			name="GlovesMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[41]={
 			list=false,
-			name="GlovesMod",
+			name="BowMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[42]={
 			list=false,
-			name="BowMod",
+			name="WandMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[43]={
 			list=false,
-			name="WandMod",
+			name="StaffMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[44]={
 			list=false,
-			name="StaffMod",
+			name="TwoHandSwordMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[45]={
 			list=false,
-			name="TwoHandSwordMod",
+			name="TwoHandAxeMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[46]={
 			list=false,
-			name="TwoHandAxeMod",
+			name="TwoHandMaceMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[47]={
 			list=false,
-			name="TwoHandMaceMod",
+			name="ClawMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[48]={
 			list=false,
-			name="ClawMod",
+			name="DaggerMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[49]={
 			list=false,
-			name="DaggerMod",
+			name="OneHandSwordMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[50]={
 			list=false,
-			name="OneHandSwordMod",
+			name="ThrustingOneHandSwordMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[51]={
 			list=false,
-			name="ThrustingOneHandSwordMod",
+			name="OneHandAxeMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[52]={
 			list=false,
-			name="OneHandAxeMod",
+			name="OneHandMaceMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[53]={
 			list=false,
-			name="OneHandMaceMod",
+			name="SceptreMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[54]={
 			list=false,
-			name="SceptreMod",
+			name="",
 			refTo="Mods",
 			type="Key",
 			width=150
@@ -4232,64 +4232,50 @@ return {
 			list=false,
 			name="",
 			refTo="Mods",
-			type="Key",
-			width=150
-		},
-		[56]={
-			list=false,
-			name="",
-			refTo="Mods",
 			type="Int",
 			width=50
 		},
-		[57]={
+		[56]={
 			list=false,
 			name="BeltMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
-		[58]={
+		[57]={
 			list=false,
 			name="AmuletMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
-		[59]={
+		[58]={
 			list=false,
 			name="RingMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
-		[60]={
+		[59]={
 			list=false,
 			name="",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
-		[61]={
+		[60]={
 			list=false,
 			name="ShieldMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
-		[62]={
+		[61]={
 			list=false,
 			name="",
 			refTo="Mods",
 			type="Key",
 			width=150
-		},
-		[63]={
-			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=50
 		}
 	},
 	essencestashtablayout={
@@ -4297,24 +4283,24 @@ return {
 	essencetype={
 		[1]={
 			list=false,
-			name="",
+			name="Name",
 			refTo="",
 			type="String",
 			width=90
 		},
 		[2]={
 			list=false,
-			name="",
+			name="TypeTier",
 			refTo="",
 			type="Int",
-			width=50
+			width=60
 		},
 		[3]={
 			list=false,
-			name="",
+			name="CorruptOnly",
 			refTo="",
 			type="Bool",
-			width=50
+			width=100
 		},
 		[4]={
 			list=false,
@@ -4322,6 +4308,13 @@ return {
 			refTo="",
 			type="Key",
 			width=150
+		},
+		[5]={
+			list=false,
+			name="PartyMods",
+			refTo="Stats",
+			type="Key",
+			width=300
 		}
 	},
 	eventseason={
@@ -11265,6 +11258,8 @@ return {
 	trythenewleagueversions={
 	},
 	tutorial={
+	},
+	typetags={
 	},
 	uitalkcategories={
 	},

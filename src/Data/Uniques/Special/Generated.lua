@@ -510,7 +510,7 @@ local impossibleEscape = {
 	"Impossible Escape",
 	"Viridian Jewel",
 	"League: Sentinel",
-	"Source: Drops from unique{The Maven}",
+	"Source: Drops from unique{The Maven} (Uber)",
 	"Limited to: 1",
 	"Radius: Small"
 }
@@ -727,6 +727,7 @@ function buildForbidden(classNotables)
 	local forbidden = { }
 	for _, name in pairs({"Flame", "Flesh"}) do
 		forbidden[name] = { }
+		table.insert(forbidden[name], "Rarity: UNIQUE")
 		table.insert(forbidden[name], "Forbidden " .. name)
 		table.insert(forbidden[name], (name == "Flame" and "Crimson" or "Cobalt") .. " Jewel")
 		local index = 1
@@ -812,26 +813,3 @@ for _, modId in ipairs(sortedCharmsMods) do
 end
 
 table.insert(data.uniques.generated, table.concat(thatWhichWasTaken, "\n"))
-
-local thePerandusPactMods = {
-	["Life"] = "+5 to Maximum Life",
-	["Global Crit Chance"] = "5% Increased Global Critical Strike Chance",
-}
-
-local thePerandusPact = {
-	"The Perandus Pact",
-	"Prismatic Jewel",
-	"Limited to: 1",
-}
-
-for name, _ in pairs(thePerandusPactMods) do
-	table.insert(thePerandusPact, "Variant: "..name)
-end
-
-local perandusPactIndex = 1
-for _, line in pairs(thePerandusPactMods) do
-	table.insert(thePerandusPact, "{variant:"..perandusPactIndex.."}Passive Skills in Radius also grant "..line)
-	perandusPactIndex = perandusPactIndex + 1
-end
-
-table.insert(data.uniques.generated, table.concat(thePerandusPact, "\n"))

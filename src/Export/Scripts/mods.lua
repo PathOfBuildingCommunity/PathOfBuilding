@@ -144,6 +144,9 @@ end)
 writeMods("../Data/ModVeiled.lua", function(mod)
 	return mod.Domain == 28 and (mod.GenerationType == 1 or mod.GenerationType == 2)
 end)
+writeMods("../Data/ModNecropolis.lua", function(mod)
+	return mod.Domain == 1 and mod.Id:match("^NecropolisCrafting")
+end)
 
 
 print("Mods exported.")

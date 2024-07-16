@@ -292,7 +292,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		{ stat = "WithImpaleDPS", label = "Damage inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end  },
 		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage" },
 		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
-		{ stat = "MirageDPS", label = "Total Mirage DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "MirageDPS", label = "Total Mirage DPS", fmt = ".1f", compPercent = true, flag = "mirageArcher", condFunc = function(v,o) return v > 0 end },
+		{ stat = "MirageDPS", label = "Total Wisp DPS", fmt = ".1f", compPercent = true, flag = "wisp", condFunc = function(v,o) return v > 0 end },
 		{ stat = "CullingDPS", label = "Culling DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.CullingDPS or 0) > 0 end },
 		{ stat = "ReservationDPS", label = "Reservation DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.ReservationDPS or 0) > 0 end },
 		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and ( o.showTotalDotDPS or ( v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS ) ) end },
@@ -747,28 +748,52 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.abortSave = false
 end
 
-local acts = { 
-	[1] = { level = 1, questPoints = 0 }, 
-	[2] = { level = 12, questPoints = 2 }, 
-	[3] = { level = 22, questPoints = 3 }, 
-	[4] = { level = 32, questPoints = 5 },
-	[5] = { level = 40, questPoints = 6 },
-	[6] = { level = 44, questPoints = 8 },
-	[7] = { level = 50, questPoints = 11 },
-	[8] = { level = 54, questPoints = 14 },
-	[9] = { level = 60, questPoints = 17 },
-	[10] = { level = 64, questPoints = 19 },
-	[11] = { level = 67, questPoints = 22 },
+local acts = {
+	-- https://www.poewiki.net/wiki/Passive_skill
+	[1] = { level = 1, questPoints = 0 },
+	-- Act 1   : The Dweller of the Deep
+	-- Act 1   : The Marooned Mariner
+	[2] = { level = 12, questPoints = 2 },
+	-- Act 1,2 : The Way Forward (Reward after reaching Act 2)
+	-- Act 2   : Through Sacred Ground (Fellshrine Reward 3.25)
+	[3] = { level = 22, questPoints = 4 },
+	-- Act 3   : Victario's Secrets
+	-- Act 3   : Piety's Pets
+	[4] = { level = 32, questPoints = 6 },
+	-- Act 4   : An Indomitable Spirit
+	[5] = { level = 40, questPoints = 7 },
+	-- Act 5   : In Service to Science
+	-- Act 5   : Kitava's Torments
+	[6] = { level = 44, questPoints = 9 },
+	-- Act 6   : The Father of War
+	-- Act 6   : The Puppet Mistress
+	-- Act 6   : The Cloven One
+	[7] = { level = 50, questPoints = 12 },
+	-- Act 7   : The Master of a Million Faces
+	-- Act 7   : Queen of Despair
+	-- Act 7   : Kishara's Star
+	[8] = { level = 54, questPoints = 15 },
+	-- Act 8   : Love is Dead
+	-- Act 8   : Reflection of Terror
+	-- Act 8   : The Gemling Legion
+	[9] = { level = 60, questPoints = 18 },
+	-- Act 9   : Queen of the Sands
+	-- Act 9   : The Ruler of Highgate
+	[10] = { level = 64, questPoints = 20 },
+	-- Act 10  : Vilenta's Vengeance
+	-- Act 10  : An End to Hunger (+2)
+	[11] = { level = 67, questPoints = 23 },
 }
 
 local function actExtra(act, extra)
+	-- Act 2 : Deal With The Bandits (+1 if the player kills all bandits)
 	return act > 2 and extra or 0
 end
 
 function buildMode:EstimatePlayerProgress()
 	local PointsUsed, AscUsed, SecondaryAscUsed = self.spec:CountAllocNodes()
 	local extra = self.calcsTab.mainOutput and self.calcsTab.mainOutput.ExtraPoints or 0
-	local usedMax, ascMax, secondaryAscMax, level, act = 99 + 22 + extra, 8, 8, 1, 0
+	local usedMax, ascMax, secondaryAscMax, level, act = 99 + 23 + extra, 8, 8, 1, 0
 
 	-- Find estimated act and level based on points used
 	repeat
@@ -779,6 +804,7 @@ function buildMode:EstimatePlayerProgress()
 	if self.characterLevelAutoMode and self.characterLevel ~= level then
 		self.characterLevel = level
 		self.controls.characterLevel:SetText(self.characterLevel)
+		self.configTab:BuildModList()
 	end
 
 	-- Ascendancy points for lab
@@ -1025,7 +1051,6 @@ function buildMode:OnFrame(inputEvents)
 	self.controls.secondaryAscendDrop.list = {{label = "None", ascendClassId = 0}, {label = "Warden", ascendClassId = 1}, {label = "Warlock", ascendClassId = 2}, {label = "Primalist", ascendClassId = 3}}
 	self.controls.secondaryAscendDrop:SelByValue(self.spec.curSecondaryAscendClassId, "ascendClassId")
 
-	local checkFabricatedGroups = self.buildFlag
 	if self.buildFlag then
 		-- Wipe Global Cache
 		wipeGlobalCache()
@@ -1051,12 +1076,6 @@ function buildMode:OnFrame(inputEvents)
 
 	-- Update contents of main skill dropdowns
 	self:RefreshSkillSelectControls(self.controls, self.mainSocketGroup, "")
-
-	-- Delete any possible fabricated groups
-	if checkFabricatedGroups then
-		deleteFabricatedGroup(self.skillsTab)
-		checkFabricatedGroups = false
-	end
 
 	-- Draw contents of current tab
 	local sideBarWidth = 312
@@ -1530,7 +1549,13 @@ function buildMode:RefreshStatList()
 	self.controls.warnings.lines = {}
 	local statBoxList = wipeTable(self.controls.statBox.list)
 	if self.calcsTab.mainEnv.player.mainSkill.infoMessage then
-		t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. self.calcsTab.mainEnv.player.mainSkill.infoMessage})
+			if #self.calcsTab.mainEnv.player.mainSkill.infoMessage > 40 then
+				for line in string.gmatch(self.calcsTab.mainEnv.player.mainSkill.infoMessage, "([^:]+)") do
+					t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. line})
+				end
+			else
+				t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. self.calcsTab.mainEnv.player.mainSkill.infoMessage})
+			end
 		if self.calcsTab.mainEnv.player.mainSkill.infoMessage2 then
 			t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, "^8" .. self.calcsTab.mainEnv.player.mainSkill.infoMessage2})
 		end
@@ -1538,7 +1563,14 @@ function buildMode:RefreshStatList()
 	if self.calcsTab.mainEnv.minion then
 		t_insert(statBoxList, { height = 18, "^7Minion:" })
 		if self.calcsTab.mainEnv.minion.mainSkill.infoMessage then
-			t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. self.calcsTab.mainEnv.minion.mainSkill.infoMessage})
+			-- Split the line if too long
+			if #self.calcsTab.mainEnv.minion.mainSkill.infoMessage > 40 then
+				for line in string.gmatch(self.calcsTab.mainEnv.minion.mainSkill.infoMessage, "([^:]+)") do
+					t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. line})
+				end
+			else
+				t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. self.calcsTab.mainEnv.minion.mainSkill.infoMessage})
+			end
 			if self.calcsTab.mainEnv.minion.mainSkill.infoMessage2 then
 				t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, "^8" .. self.calcsTab.mainEnv.minion.mainSkill.infoMessage2})
 			end

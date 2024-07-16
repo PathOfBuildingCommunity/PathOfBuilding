@@ -146,10 +146,24 @@ function PassiveSpecClass:Load(xml, dbFileName)
 							return true
 						end
 						
-						local nodeId = tonumber(child.attrib.nodeId)
+						-- In case a tattoo has been replaced by a different one attempt to find the new name for it
+						if not self.tree.tattoo.nodes[child.attrib.dn] then
+							for name ,data in pairs(self.tree.tattoo.nodes) do
+								if data["activeEffectImage"] == child.attrib["activeEffectImage"] and data["icon"] == child.attrib["icon"] then
+									self.tree.tattoo.nodes[child.attrib.dn] = data
+									ConPrintf("[PassiveSpecClass:Load] " .. child.attrib.dn .. " tattoo has been substituted with " .. name)
+								end
+							end
+						end
 
-						self.hashOverrides[nodeId] = copyTable(self.tree.tattoo.nodes[child.attrib.dn], true)
-						self.hashOverrides[nodeId].id = nodeId
+						-- If the above failed remove the tattoo to avoid crashing
+						if self.tree.tattoo.nodes[child.attrib.dn] then
+							local nodeId = tonumber(child.attrib.nodeId)
+							self.hashOverrides[nodeId] = copyTable(self.tree.tattoo.nodes[child.attrib.dn], true)
+							self.hashOverrides[nodeId].id = nodeId
+						else
+							ConPrintf("[PassiveSpecClass:Load] Failed to find a tattoo with dn of: " .. child.attrib.dn)
+						end
 					end
 				end
 			end
@@ -346,7 +360,7 @@ function PassiveSpecClass:DecodePoePlannerURL(url, return_tree_version_only)
 		-- Translates internal tree version to GGG version.
 		-- Limit poeplanner tree imports to recent versions.
 		tree_versions = { -- poeplanner ID: GGG version
-			[27] = 22, [26] = 21, [25] = 20, [24] = 19, [23] = 18,
+			[31] = 24, [29] = 23, [27] = 22, [26] = 21, [25] = 20, [24] = 19, [23] = 18,
 			}
 		if tree_versions[minor] then
 			return tree_versions[minor]
