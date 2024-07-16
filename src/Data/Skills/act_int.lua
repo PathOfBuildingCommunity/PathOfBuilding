@@ -14975,6 +14975,21 @@ skills["Spark"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.65,
+	parts = {
+		{
+			name = "1 Hit",
+		},
+		{
+			name = "Maximum Hits",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local skillData = activeSkill.skillData
+		if activeSkill.skillPart == 2 then
+			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+			output.SkillDPSMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+		end
+	end,
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -15048,6 +15063,21 @@ skills["SparkAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
+	parts = {
+		{
+			name = "1 Hit",
+		},
+		{
+			name = "Maximum Hits",
+		},
+	},
+	preDamageFunc = function(activeSkill, output) 
+		local skillData = activeSkill.skillData
+		if activeSkill.skillPart == 2 then
+			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+			output.SkillDPSMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+		end
+	end,
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -15123,6 +15153,21 @@ skills["SparkAltY"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.65,
+	parts = {
+		{
+			name = "1 Hit",
+		},
+		{
+			name = "Maximum Hits",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local skillData = activeSkill.skillData
+		if activeSkill.skillPart == 2 then
+			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+			output.SkillDPSMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+		end
+	end,
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -18530,7 +18575,7 @@ skills["FrostBoltNova"] = {
 	baseEffectiveness = 1.2086000442505,
 	incrementalEffectiveness = 0.049499999731779,
 	description = "An icy blast explodes around the caster, dealing cold damage to enemies, and leaving behind a whirling vortex which deals cold damage over time and chills enemies caught in it.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Cold] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Cold] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	preDamageFunc = function(activeSkill, output)
@@ -18614,7 +18659,7 @@ skills["FrostBoltNovaAltX"] = {
 	baseEffectiveness = 1.2086000442505,
 	incrementalEffectiveness = 0.049499999731779,
 	description = "An icy blast explodes around the caster, dealing cold damage to enemies, and leaving behind a whirling vortex which deals cold damage over time and chills enemies caught in it. If the caster targets near their Frostbolt projectiles, it will explode from a number of those projectiles instead, destroying them.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Cold] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Cold] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	preDamageFunc = function(activeSkill, output)
