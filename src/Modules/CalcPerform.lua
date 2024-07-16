@@ -1252,6 +1252,12 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 
+	-- Special Rarity / Quantity Calc for Bisco's
+	local lootQuantityNormalEnemies = modDB:Sum("INC", nil, "LootQuantityNormalEnemies")
+	output.LootQuantityNormalEnemies = (lootQuantityNormalEnemies > 0) and lootQuantityNormalEnemies + modDB:Sum("INC", nil, "LootQuantity") or 0
+	local lootRarityMagicEnemies = modDB:Sum("INC", nil, "LootRarityMagicEnemies")
+	output.LootRarityMagicEnemies = (lootRarityMagicEnemies > 0) and lootRarityMagicEnemies + modDB:Sum("INC", nil, "LootRarity") or 0
+
 	local breakdown = nil
 	if env.mode == "CALCS" then
 		-- Initialise breakdown module
