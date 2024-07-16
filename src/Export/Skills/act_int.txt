@@ -3384,7 +3384,7 @@ local skills, mod, flag, skill = ...
 		local skillData = activeSkill.skillData
 		if activeSkill.skillPart == 2 then
 			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
-			output.SkillDPSMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+			output.SkillDPSMultiplier = ( skillData.dpsMultiplier or 1 )
 		end
 	end,
 #mods
@@ -3403,7 +3403,7 @@ local skills, mod, flag, skill = ...
 		local skillData = activeSkill.skillData
 		if activeSkill.skillPart == 2 then
 			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
-			output.SkillDPSMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+			output.SkillDPSMultiplier = ( skillData.dpsMultiplier or 1 )
 		end
 	end,
 #mods
@@ -3422,7 +3422,7 @@ local skills, mod, flag, skill = ...
 		local skillData = activeSkill.skillData
 		if activeSkill.skillPart == 2 then
 			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
-			output.SkillDPSMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+			output.SkillDPSMultiplier = ( skillData.dpsMultiplier or 1 )
 		end
 	end,
 #mods
