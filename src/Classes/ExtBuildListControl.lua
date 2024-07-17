@@ -443,6 +443,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 				-- decorator line
 				SetDrawColor(0.5, 0.5, 0.5)
 				self:DrawImage(nil, x - 9, currentHeight, self.width(), 1)
+				currentHeight = currentHeight + 3
 			end
 
 			if build.metadata then
