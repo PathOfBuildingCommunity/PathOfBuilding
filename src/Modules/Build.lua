@@ -1270,13 +1270,20 @@ function buildMode:OpenSimilarPopup()
 	}
 	local width = 600
 	local height = function()
-		return main.screenH * 0.8
-	end
-	local padding = 50
-	controls.similarBuildList = new("ExtBuildListControl", nil, 0, padding, width, height() - 2 * padding, buildProviders)
-	controls.similarBuildList.shown = true
-	controls.similarBuildList.height = function()
-		return height() - 2 * padding
+        return main.viewPort.height * 0.8
+    end
+    local padding = 50
+    controls.similarBuildList = new("ExtBuildListControl", nil, 0, padding, width, height() - 2 * padding, buildProviders)
+    controls.similarBuildList.shown = true
+    controls.similarBuildList.height = function()
+        if main.popups[1] then
+            main.popups[1].height = height()
+            main.popups[1].y = function()
+                return m_floor((main.screenH - height()) / 2)
+            end
+            controls.close.y = height() - 35
+        end
+        return height() - 2 * padding
 	end
 	controls.similarBuildList.width = function ()
 		return width - padding
