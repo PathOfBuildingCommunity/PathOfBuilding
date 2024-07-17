@@ -85,16 +85,13 @@ end
 
 -- Calculate the impact other skills and source rate to trigger cooldown alignment have on the trigger rate
 -- for more details regarding the implementation see comments of #4599 and #5428
-function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD, actor)
-	local SIM_TIME = 100.0
-	local TIME_STEP = 0.0001
+function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD, chance, actor)
 	local index = 1
-	local time = 0
-	local tick = 0
-	local currTick = 0
 	local next_trigger = 0
 	local trigger_increment = 1 / sourceRate
-	local wasted = 0
+	local SIM_TIME = trigger_increment * 1000 -- Simulate 1000 attacks
+	local chance = chance or 100
+	local skillCount = #skillRotation
 	local actor = actor or env.player
 
 	for _, skill in ipairs(skillRotation) do
@@ -103,51 +100,27 @@ function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD,
 		skill.count = 0
 	end
 
-	while time < SIM_TIME do
-		local currIndex = index
-
-		if time >= next_trigger then
-			while skillRotation[index].next_trig > time do
-				index = (index % #skillRotation) + 1
-				if index == currIndex then
-					wasted = wasted + 1
-					-- Triggers are free from the server tick so cooldown starts at current time
-					next_trigger = time + trigger_increment
-					break
-				end
-			end
-
-			if skillRotation[index].next_trig <= time then
+	while next_trigger < SIM_TIME do
+		for i=1,skillCount do
+			local index = (index + i - 2) % skillCount + 1 
+			if skillRotation[index].next_trig <= next_trigger then
 				skillRotation[index].count = skillRotation[index].count + 1
-				-- Cooldown starts at the beginning of current tick
-				skillRotation[index].next_trig = currTick + skillRotation[index].cd
-				local tempTick = tick
-
-				while skillRotation[index].next_trig > tempTick do
-					tempTick = tempTick + (1/data.misc.ServerTickRate)
-				end
-				-- Cooldown ends at the start of the next tick. Price is right rules.
-				skillRotation[index].next_trig = tempTick
-				index = (index % #skillRotation) + 1
-				next_trigger = time + trigger_increment
+				-- Cooldown starts at the beginning of current tick and ends at the next tick after cooldown expiration
+				skillRotation[index].next_trig = ceil_b(floor_b(next_trigger, 0.033) + skillRotation[index].cd, 0.033)
+				break
 			end
 		end
-		-- Increment time by smallest reasonable amount to attempt to hit every trigger event and every server tick. Frees attacks from the server tick.
-		time = time + TIME_STEP
-		-- Keep track of the server tick as the trigger cooldown is still bound by it
-		if tick < time then
-			currTick = tick
-			tick = tick + (1/data.misc.ServerTickRate)
-		end
+		index = (index % skillCount) + 1
+		next_trigger = next_trigger + trigger_increment
 	end
 
-	local mainRate = 0
 	local trigRateTable = { simTime = SIM_TIME, rates = {}, }
+	local mainRate = 0
 	for _, sd in ipairs(skillRotation) do
+		t_insert(trigRateTable.rates, { name = sd.uuid, rate = 1 / (SIM_TIME / sd.count + (trigger_increment / chance * 100) - trigger_increment) })
 		if cacheSkillUUID(actor.mainSkill, env) == sd.uuid then
-			mainRate = sd.count / SIM_TIME
+			mainRate = trigRateTable.rates[#trigRateTable.rates].rate
 		end
-		t_insert(trigRateTable.rates, { name = sd.uuid, rate = sd.count / SIM_TIME })
 	end
 
 	return mainRate, trigRateTable
@@ -497,25 +470,6 @@ local function defaultTriggerHandler(env, config)
 				end
 			end
 
-			--Accuracy and crit chance
-			if source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and GlobalCache.cachedData[env.mode][uuid] and not config.triggerOnUse then
-				local sourceHitChance = GlobalCache.cachedData[env.mode][uuid].HitChance
-				trigRate = trigRate * (sourceHitChance or 0) / 100
-				if breakdown then
-					t_insert(breakdown.EffectiveSourceRate, s_format("x %.0f%% ^8(%s hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name))
-				end
-				if actor.mainSkill.skillData.triggerOnCrit then
-					local onCritChance = actor.mainSkill.skillData.chanceToTriggerOnCrit or (GlobalCache.cachedData[env.mode][uuid] and GlobalCache.cachedData[env.mode][uuid].Env.player.mainSkill.skillData.chanceToTriggerOnCrit)
-					config.triggerChance = config.triggerChance or actor.mainSkill.skillData.chanceToTriggerOnCrit or onCritChance
-
-					local sourceCritChance = GlobalCache.cachedData[env.mode][uuid].CritChance
-					trigRate = trigRate * (sourceCritChance or 0) / 100
-					if breakdown then
-						t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f%% ^8(%s effective crit chance)", sourceCritChance, source.activeEffect.grantedEffect.name))
-					end
-				end
-			end
-
 			--Special handling for Kitava's Thirst
 			-- Repeated hits do not consume mana and do not trigger Kitava's thirst
 			if actor.mainSkill.skillData.triggeredByManaSpent then
@@ -557,19 +511,6 @@ local function defaultTriggerHandler(env, config)
 					else
 						trigRate = 0
 					end
-				end
-			end
-
-			--Trigger chance
-			if config.triggerChance and config.triggerChance ~= 100 and trigRate then
-				trigRate = trigRate * config.triggerChance / 100
-				if breakdown and breakdown.EffectiveSourceRate then
-					t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f%% ^8(chance to trigger)", config.triggerChance))
-				elseif breakdown then
-					breakdown.EffectiveSourceRate = {
-						s_format("%.2f ^8(adjusted trigger rate)", trigRate),
-						s_format("x %.2f%% ^8(chance to trigger)", config.triggerChance),
-					}
 				end
 			end
 
@@ -743,6 +684,40 @@ local function defaultTriggerHandler(env, config)
 			local skillName = (source and source.activeEffect.grantedEffect.name) or (actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name) or actor.mainSkill.activeEffect.grantedEffect.name
 
 			if output.EffectiveSourceRate ~= 0 then
+				local triggerChance = 100
+				local triggerChanceBreakdown = {}
+
+				--Accuracy and crit chance
+				if source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and GlobalCache.cachedData[env.mode][uuid] and not config.triggerOnUse then
+					local sourceHitChance = GlobalCache.cachedData[env.mode][uuid].HitChance
+					if sourceHitChance ~= 100 then
+						triggerChance = triggerChance * (sourceHitChance or 0) / 100
+						if breakdown then
+							t_insert(triggerChanceBreakdown, s_format("x %d%% ^8(%s hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name))
+						end
+					end
+					if actor.mainSkill.skillData.triggerOnCrit then
+						local onCritChance = actor.mainSkill.skillData.chanceToTriggerOnCrit or (GlobalCache.cachedData[env.mode][uuid] and GlobalCache.cachedData[env.mode][uuid].Env.player.mainSkill.skillData.chanceToTriggerOnCrit)
+						config.triggerChance = config.triggerChance or actor.mainSkill.skillData.chanceToTriggerOnCrit or onCritChance
+
+						local sourceCritChance = GlobalCache.cachedData[env.mode][uuid].CritChance
+						if sourceCritChance ~= 100 then
+							triggerChance = triggerChance * (sourceCritChance or 0) / 100
+							if breakdown then
+								t_insert(triggerChanceBreakdown, s_format("x %d%% ^8(%s effective crit chance)", sourceCritChance, source.activeEffect.grantedEffect.name))
+							end
+						end
+					end
+				end
+
+				--Trigger chance
+				if config.triggerChance and config.triggerChance ~= 100 then
+					triggerChance = triggerChance * config.triggerChance / 100
+					if breakdown then
+						t_insert(triggerChanceBreakdown, s_format("x %.2f%% ^8(chance to trigger)", config.triggerChance))
+					end
+				end
+
 				-- If the current triggered skill ignores tick rate and is the only triggered skill by this trigger use charge based calcs
 				if actor.mainSkill.skillData.ignoresTickRate and ( not config.triggeredSkillCond or (triggeredSkills and #triggeredSkills == 1 and triggeredSkills[1] == packageSkillDataForSimulation(actor.mainSkill, env)) ) then
 					local overlaps = config.stagesAreOverlaps and env.player.mainSkill.skillPart == config.stagesAreOverlaps and env.player.mainSkill.activeEffect.srcInstance.skillStageCount or config.overlaps
@@ -759,9 +734,9 @@ local function defaultTriggerHandler(env, config)
 						end
 					end
 				elseif actor.mainSkill.skillFlags.globalTrigger and not config.triggeredSkillCond then -- Trigger does not use source rate breakpoints for one reason or another
-					output.SkillTriggerRate = output.EffectiveSourceRate
+					output.SkillTriggerRate = output.EffectiveSourceRate * triggerChance
 				else -- Triggers like Cast on Crit go through simulation to calculate the trigger rate of each skill in the trigger group
-					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill, env)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0), actor)
+					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill, env)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0), triggerChance, actor)
 					local triggerBotsEffective = actor.modDB:Flag(nil, "HaveTriggerBots") and actor.mainSkill.skillTypes[SkillType.Spell]
 					if triggerBotsEffective then
 						output.SkillTriggerRate = 2 * output.SkillTriggerRate
@@ -770,12 +745,20 @@ local function defaultTriggerHandler(env, config)
 					-- stagesAreOverlaps is the skill part which makes the stages behave as overlaps
 					local hits_per_cast = config.stagesAreOverlaps and env.player.mainSkill.skillPart == config.stagesAreOverlaps and env.player.mainSkill.activeEffect.srcInstance.skillStageCount or 1
 					output.SkillTriggerRate = hits_per_cast * output.SkillTriggerRate
-					if breakdown and (#triggeredSkills > 1 or triggerBotsEffective or hits_per_cast > 1) then
+					if breakdown then
 						breakdown.SkillTriggerRate = {
 							s_format("%.2f ^8(%s)", output.EffectiveSourceRate, (actor.mainSkill.skillData.triggeredByBrand and s_format("%s activations per second", source.activeEffect.grantedEffect.name)) or (not trigRate and s_format("%s triggers per second", skillName)) or "Effective source rate"),
-							s_format("/ %.2f ^8(Estimated impact of skill rotation and cooldown alignment)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
+							s_format("/ %.2f ^8(Estimated impact of skill rotation, cooldown alignment and trigger chance)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
 							s_format("= %.2f ^8per second", output.SkillTriggerRate),
 						}
+						if triggerChance ~= 100 then
+							t_insert(breakdown.SkillTriggerRate, 1, "")
+							t_insert(breakdown.SkillTriggerRate, 1, s_format("= %d%%", triggerChance))
+							for _, line in ipairs(triggerChanceBreakdown) do
+								t_insert(breakdown.SkillTriggerRate, 1, line)
+							end
+							t_insert(breakdown.SkillTriggerRate, 1, "100% ^8(Base chance)")
+						end
 						if triggerBotsEffective then
 							t_insert(breakdown.SkillTriggerRate, 3, "x 2 ^8(Trigger bots effectively cause the skill to trigger twice)")
 						end
@@ -809,6 +792,7 @@ local function defaultTriggerHandler(env, config)
 							}
 							t_insert(breakdown.SimData.rowList, row)
 						end
+						t_insert(breakdown.SimData, s_format("Simulation duration: %.2f ^8(In game source skill usage duration in seconds)", simBreakdown.simTime, simBreakdown.simTime))
 					end
 				end
 			else
