@@ -363,16 +363,16 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 
 			local lineCount = 0
 			if build.buildName then
-				for _, line in pairs(self:splitStringByWidth(build.buildName, self.width() - 125)) do
+				for _, line in pairs(self:splitStringByWidth(build.buildName, self.width() - 180)) do
 					lineCount = lineCount + 1
-					self:DrawString(x, currentHeight, "LEFT", 16, self.font, line)
-					currentHeight = currentHeight + 16
+					self:DrawString(x, currentHeight, "LEFT", 18, "VAR BOLD", line)
+					currentHeight = currentHeight + 18
 				end
 			end
 			-- add at least 32 height to title row so that the ascendancy picture
 			-- does not overlap with other lines
 			if lineCount < 3 then
-				currentHeight = currentHeight + (16 * (3 - lineCount))
+				currentHeight = currentHeight + (16 * (2 - lineCount))
 			end
 
 			-- decorator line
@@ -422,15 +422,15 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			local ehpText = "EHP: "
 			if build.dps then
 				-- SetDrawColor(1, 0, 0)
-				dpsText = s_format('DPS: %0.f', build.dps)
+				dpsText = formatNumSep(s_format('DPS: %0.f      ', build.dps))
 			end
 			if build.life or build.es then
 				-- SetDrawColor(0, 1, 0)
-				lifeText = s_format('%s: %0.f', build.life > build.es and "Life" or "ES", math.max(build.life, build.es))
+				lifeText = formatNumSep(s_format('%s^7: %0.f      ', build.life > build.es and "^xE05030Life" or "^x88FFFFES", math.max(build.life, build.es)))
 			end
 			if build.ehp then
 				-- SetDrawColor(0, 0, 1)
-				ehpText = s_format('EHP: %0.f', build.ehp)
+				ehpText = formatNumSep(s_format('EHP: %0.f', build.ehp))
 			end
 
 			-- prevent overlapping on smaller screens.
@@ -524,7 +524,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			-- bottom border
 			SetDrawColor(1, 1, 1)
 			currentHeight = currentHeight + 36
-			self:DrawImage(nil, x - 9, currentHeight, self.width() - 1, 1)
+			self:DrawImage(nil, x - 9, currentHeight, self.width() - 1, 3)
 			currentHeight = currentHeight + 16
 		end
 	end
