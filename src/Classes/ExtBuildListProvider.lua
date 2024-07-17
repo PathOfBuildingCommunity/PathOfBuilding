@@ -11,51 +11,51 @@
 -- .statusMsg [This can be used to print status message on the screen. Builds will not be listed if it has a value other than nil.]
 
 local ExtBuildListProviderClass = newClass("ExtBuildListProvider",
-    function(self, listTitles)
-        self.listTitles = listTitles
-        self.buildList = {}
-        self.activeList = nil
-        self.statusMsg = nil
-    end
+	function(self, listTitles)
+		self.listTitles = listTitles
+		self.buildList = {}
+		self.activeList = nil
+		self.statusMsg = nil
+	end
 )
 
 function ExtBuildListProviderClass:GetPageUrl()
-    return nil
+	return nil
 end
 
 function ExtBuildListProviderClass:Activate()
-    if self.listTitles and next(self.listTitles) then
-        self:SetActiveList(self.listTitles[1])
-    end
+	if self.listTitles and next(self.listTitles) then
+		self:SetActiveList(self.listTitles[1])
+	end
 end
 
 function ExtBuildListProviderClass:SetActiveList(activeList)
-    if self.listTitles then
-        for _, value in ipairs(self.listTitles) do
-            if value == activeList then
-                self.activeList = activeList
-                self:GetBuilds()
-            end
-        end
-    end
+	if self.listTitles then
+		for _, value in ipairs(self.listTitles) do
+			if value == activeList then
+				self.activeList = activeList
+				self:GetBuilds()
+			end
+		end
+	end
 end
 
 function ExtBuildListProviderClass:GetActiveList()
-    return self.activeList
+	return self.activeList
 end
 
 function ExtBuildListProviderClass:GetListTitles()
-    return self.listTitles
+	return self.listTitles
 end
 
 function ExtBuildListProviderClass:GetActivePageUrl()
-    return nil
+	return nil
 end
 
 function ExtBuildListProviderClass:GetBuilds()
-    return {}
+	return {}
 end
 
 function ExtBuildListProviderClass:SetImportCode(importCode)
-    self.importCode = importCode
+	self.importCode = importCode
 end
