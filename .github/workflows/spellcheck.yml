@@ -18,7 +18,7 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ inputs.ref }}
 
@@ -33,7 +33,7 @@ jobs:
             ${{ env.CONFIG_URL }}/contribs-dict.txt
 
       - name: Run cspell
-        uses: streetsidesoftware/cspell-action@v2.4.0
+        uses: streetsidesoftware/cspell-action@v5
         with:
           files: '**' # needed as workaround for non-incremental runs (overrides in config still work ok)
           config: "cspell.json"

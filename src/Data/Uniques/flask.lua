@@ -168,7 +168,6 @@ Has Alt Variant: true
 Variant: Crit Chance
 Variant: Damage Taken is Leeched as Life
 Variant: Item Rarity
-Variant: Reduced Mana Cost
 Variant: Movement Speed/Stun Avoidance
 Variant: Life Regen
 Variant: Reduced Reflected Damage Taken
@@ -177,24 +176,23 @@ Variant: Pre 3.16.0 Crit Chance
 Variant: Current
 LevelReq: 48
 Implicits: 0
-{variant:10}+90 to maximum Charges
-{variant:8}Recharges 1 Charge when you Consume an Ignited corpse
-{variant:10}Recharges 5 Charges when you Consume an Ignited corpse
-{variant:8}Enemies Ignited by you during Effect take 10% increased Damage
-{variant:10}Enemies Ignited by you during Effect take (7-10)% increased Damage
-{variant:8,10}Recover (1-3)% of Life when you Kill an Enemy during Effect
-{variant:8,10}Recover (1-3)% of Mana when you Kill an Enemy during Effect
-{variant:8,10}Recover (1-3)% of Energy Shield when you Kill an Enemy during Effect
-{variant:10}(175-200)% increased Charges per use
+{variant:9}+90 to maximum Charges
+{variant:7}Recharges 1 Charge when you Consume an Ignited corpse
+{variant:9}Recharges 5 Charges when you Consume an Ignited corpse
+{variant:7}Enemies Ignited by you during Effect take 10% increased Damage
+{variant:8}Enemies Ignited by you during Effect take (7-10)% increased Damage
+{variant:7,9}Recover (1-3)% of Life when you Kill an Enemy during Effect
+{variant:7,9}Recover (1-3)% of Mana when you Kill an Enemy during Effect
+{variant:7,9}Recover (1-3)% of Energy Shield when you Kill an Enemy during Effect
+{variant:9}(175-200)% increased Charges per use
 {variant:9}{crafted}(60-80)% increased Critical Strike Chance during Effect
 {variant:1}{crafted}(45-55)% increased Critical Strike Chance during Effect
 {variant:2}{crafted}15% of Damage Taken from Hits is Leeched as Life during Effect
 {variant:3}{crafted}(20-30)% increased Rarity of Items found during Effect
-{variant:4}{crafted}(20-25)% reduced Mana Cost of Skills during Effect
-{variant:5}{crafted}(8-12)% increased Movement Speed during Effect
-{variant:5}{crafted}50% Chance to avoid being Stunned during Effect
-{variant:6}{crafted}Regenerate 3% of Life per second during Effect
-{variant:7}{crafted}(60-80)% reduced Reflected Damage taken during Effect
+{variant:4}{crafted}(8-12)% increased Movement Speed during Effect
+{variant:4}{crafted}50% Chance to avoid being Stunned during Effect
+{variant:5}{crafted}Regenerate 3% of Life per second during Effect
+{variant:6}{crafted}(60-80)% reduced Reflected Damage taken during Effect
 ]],[[
 Dying Sun
 Ruby Flask
@@ -463,6 +461,14 @@ Creates a Smoke Cloud on Use
 {variant:1}(50-70)% increased Damage Over Time during Effect
 {variant:2}(25-40)% increased Damage Over Time during Effect
 Grants Level 21 Despair Curse Aura during Effect
+]],[[
+Replica Witchfire Brew
+Stibnite Flask
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Creates a Smoke Cloud on Use
+(-10–10)% reduced Charges per use
+Grants Level 21 Vulnerability Curse Aura during Effect
 ]],
 -- Flask: Ward
 [[

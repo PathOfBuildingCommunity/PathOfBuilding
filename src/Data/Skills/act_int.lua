@@ -8,6 +8,7 @@ local skills, mod, flag, skill = ...
 
 skills["Arc"] = {
 	name = "Arc",
+	baseTypeName = "Arc",
 	color = 3,
 	baseEffectiveness = 1.584900021553,
 	incrementalEffectiveness = 0.039500001817942,
@@ -85,6 +86,7 @@ skills["Arc"] = {
 }
 skills["ArcAltX"] = {
 	name = "Arc of Surging",
+	baseTypeName = "Arc of Surging",
 	color = 3,
 	baseEffectiveness = 3.0499999523163,
 	incrementalEffectiveness = 0.039500001817942,
@@ -157,6 +159,7 @@ skills["ArcAltX"] = {
 }
 skills["ArcAltY"] = {
 	name = "Arc of Oscillating",
+	baseTypeName = "Arc of Oscillating",
 	color = 3,
 	baseEffectiveness = 0.75,
 	incrementalEffectiveness = 0.039500001817942,
@@ -234,6 +237,7 @@ skills["ArcAltY"] = {
 }
 skills["VaalArcChain"] = {
 	name = "Vaal Arc",
+	baseTypeName = "Vaal Arc",
 	color = 3,
 	baseEffectiveness = 4.5599999427795,
 	incrementalEffectiveness = 0.032999999821186,
@@ -318,6 +322,7 @@ skills["VaalArcChain"] = {
 }
 skills["ArcaneCloak"] = {
 	name = "Arcane Cloak",
+	baseTypeName = "Arcane Cloak",
 	color = 3,
 	description = "Spends a portion of your mana to grant a buff that takes some of the damage from hits for you until depleted. The buff grants added lightning damage based on the amount of mana spent by this skill. Shares a cooldown with other Guard skills.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Guard] = true, [SkillType.Lightning] = true, [SkillType.Cooldown] = true, [SkillType.Arcane] = true, },
@@ -342,6 +347,7 @@ skills["ArcaneCloak"] = {
 	},
 	baseMods = {
 		mod("GuardAbsorbLimit", "BASE", 100, 0, 0, { type = "PercentStat", stat = "ManaUnreserved", percentVar = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
+		mod("Multiplier:ManaSpentRecently", "BASE", 100, 0, 0, { type = "PercentStat", stat = "ManaUnreserved", percentVar = "ArcaneCloakConsumedMana" }, { type = "Condition", var = "ArcaneCloakUsedRecently"}, { type = "GlobalEffect", effectType = "Buff", unscalable = true}),
 	},
 	qualityStats = {
 		Default = {
@@ -403,6 +409,7 @@ skills["ArcaneCloak"] = {
 }
 skills["BrandSupport"] = {
 	name = "Arcanist Brand",
+	baseTypeName = "Arcanist Brand",
 	color = 3,
 	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, triggering linked spells. The brand will detach if the enemy dies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, },
@@ -485,9 +492,6 @@ skills["SupportBrandSupport"] = {
 	isTrigger = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
-	addFlags = {
-		brand = true,
-	},
 	statMap = {
 		["support_brand_damage_+%_final"] = {
 			mod("TriggeredDamage", "MORE", nil),
@@ -499,7 +503,6 @@ skills["SupportBrandSupport"] = {
 			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
-	addSkillTypes = { SkillType.Brand, },
 	baseMods = {
 		skill("triggeredByBrand", true),
 	},
@@ -564,6 +567,7 @@ skills["SupportBrandSupport"] = {
 }
 skills["ArcticBreath"] = {
 	name = "Creeping Frost",
+	baseTypeName = "Creeping Frost",
 	color = 3,
 	baseEffectiveness = 1.1953999996185,
 	incrementalEffectiveness = 0.047100000083447,
@@ -647,6 +651,7 @@ skills["ArcticBreath"] = {
 }
 skills["CataclysmSigil"] = {
 	name = "Armageddon Brand",
+	baseTypeName = "Armageddon Brand",
 	color = 3,
 	baseEffectiveness = 1.9400000572205,
 	incrementalEffectiveness = 0.044900000095367,
@@ -738,6 +743,7 @@ skills["CataclysmSigil"] = {
 }
 skills["CataclysmSigilAltX"] = {
 	name = "Armageddon Brand of Volatility",
+	baseTypeName = "Armageddon Brand of Volatility",
 	color = 3,
 	baseEffectiveness = 3.5199999809265,
 	incrementalEffectiveness = 0.044900000095367,
@@ -820,6 +826,7 @@ skills["CataclysmSigilAltX"] = {
 }
 skills["CataclysmSigilAltY"] = {
 	name = "Armageddon Brand of Recall",
+	baseTypeName = "Armageddon Brand of Recall",
 	color = 3,
 	baseEffectiveness = 2.8499999046326,
 	incrementalEffectiveness = 0.044900000095367,
@@ -908,6 +915,7 @@ skills["CataclysmSigilAltY"] = {
 }
 skills["AssassinsMark"] = {
 	name = "Assassin's Mark",
+	baseTypeName = "Assassin's Mark",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Curses a single enemy, making them more vulnerable to Critical Strikes. Killing the cursed enemy will grant life and mana, and a power charge. You can only have one Mark at a time.",
@@ -998,6 +1006,7 @@ skills["AssassinsMark"] = {
 }
 skills["BallLightning"] = {
 	name = "Ball Lightning",
+	baseTypeName = "Ball Lightning",
 	color = 3,
 	baseEffectiveness = 0.56800001859665,
 	incrementalEffectiveness = 0.044300001114607,
@@ -1168,6 +1177,7 @@ skills["BallLightning"] = {
 }
 skills["BallLightningAltX"] = {
 	name = "Ball Lightning of Orbiting",
+	baseTypeName = "Ball Lightning of Orbiting",
 	color = 3,
 	baseEffectiveness = 0.46999999880791,
 	incrementalEffectiveness = 0.044300001114607,
@@ -1288,11 +1298,12 @@ skills["BallLightningAltX"] = {
 }
 skills["BallLightningAltY"] = {
 	name = "Ball Lightning of Static",
+	baseTypeName = "Ball Lightning of Static",
 	color = 3,
 	baseEffectiveness = 0.87000000476837,
 	incrementalEffectiveness = 0.044300001114607,
-	description = "Creates a ball of lightning at a location that damages each enemy in an area around it repeatedly with bolts of lightning. Cannot be supported by Spell Echo.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.Orb] = true, },
+	description = "Creates a ball of lightning at a location that damages each enemy in an area around it repeatedly with bolts of lightning. Cannot be supported by Spell Echo or used by Totems.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
 	preDamageFunc = function(activeSkill, output, breakdown)
@@ -1380,6 +1391,7 @@ skills["BallLightningAltY"] = {
 }
 skills["DarkRitual"] = {
 	name = "Bane",
+	baseTypeName = "Bane",
 	color = 3,
 	baseEffectiveness = 4.6849999427795,
 	incrementalEffectiveness = 0.047100000083447,
@@ -1561,6 +1573,7 @@ skills["SupportDarkRitual"] = {
 }
 skills["DarkRitualAltX"] = {
 	name = "Bane of Condemnation",
+	baseTypeName = "Bane of Condemnation",
 	color = 3,
 	baseEffectiveness = 4.6849999427795,
 	incrementalEffectiveness = 0.047100000083447,
@@ -1736,6 +1749,7 @@ skills["SupportDarkRitualAltX"] = {
 }
 skills["Ember"] = {
 	name = "Blazing Salvo",
+	baseTypeName = "Blazing Salvo",
 	color = 3,
 	baseEffectiveness = 0.6952999830246,
 	incrementalEffectiveness = 0.041799999773502,
@@ -1825,6 +1839,7 @@ skills["Ember"] = {
 }
 skills["Blight"] = {
 	name = "Blight",
+	baseTypeName = "Blight",
 	color = 3,
 	baseEffectiveness = 3.6366999149323,
 	incrementalEffectiveness = 0.033599998801947,
@@ -1919,6 +1934,7 @@ skills["Blight"] = {
 }
 skills["BlightAltX"] = {
 	name = "Blight of Contagion",
+	baseTypeName = "Blight of Contagion",
 	color = 3,
 	baseEffectiveness = 7.8400001525879,
 	incrementalEffectiveness = 0.033599998801947,
@@ -2013,6 +2029,7 @@ skills["BlightAltX"] = {
 }
 skills["BlightAltY"] = {
 	name = "Blight of Atrophy",
+	baseTypeName = "Blight of Atrophy",
 	color = 3,
 	baseEffectiveness = 3.6366999149323,
 	incrementalEffectiveness = 0.033599998801947,
@@ -2108,6 +2125,7 @@ skills["BlightAltY"] = {
 }
 skills["VaalBlight"] = {
 	name = "Vaal Blight",
+	baseTypeName = "Vaal Blight",
 	color = 3,
 	baseEffectiveness = 4,
 	incrementalEffectiveness = 0.041400000452995,
@@ -2195,6 +2213,7 @@ skills["VaalBlight"] = {
 }
 skills["CorpseWarp"] = {
 	name = "Bodyswap",
+	baseTypeName = "Bodyswap",
 	color = 3,
 	baseEffectiveness = 0.40259999036789,
 	incrementalEffectiveness = 0.046300001442432,
@@ -2306,6 +2325,7 @@ skills["CorpseWarp"] = {
 }
 skills["CorpseWarpAltX"] = {
 	name = "Bodyswap of Sacrifice",
+	baseTypeName = "Bodyswap of Sacrifice",
 	color = 3,
 	baseEffectiveness = 0.40259999036789,
 	incrementalEffectiveness = 0.046300001442432,
@@ -2343,6 +2363,14 @@ skills["CorpseWarpAltX"] = {
 		},
 		["spell_maximum_base_fire_damage"] = {
 			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["spell_base_fire_damage_%_maximum_life"] = {
+			skill("selfFireExplosionLifeMultiplier", nil, { type = "SkillPart", skillPart = 1 }),
+			div = 100,
+		},
+		["skill_minion_explosion_life_%"] = {
+			skill("selfFireExplosionLifeMultiplier", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 100,
 		},
 		["corpse_warp_area_of_effect_+%_final_when_consuming_minion"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
@@ -2418,6 +2446,7 @@ skills["CorpseWarpAltX"] = {
 }
 skills["BoneOffering"] = {
 	name = "Bone Offering",
+	baseTypeName = "Bone Offering",
 	color = 3,
 	description = "Consumes a corpse, granting all of your minions the power to block both attacks and spells. The skill consumes other nearby corpses, increasing the duration for each corpse consumed.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, },
@@ -2499,6 +2528,7 @@ skills["BoneOffering"] = {
 }
 skills["SigilRecall"] = {
 	name = "Brand Recall",
+	baseTypeName = "Brand Recall",
 	color = 3,
 	description = "Recall your brands to you, detaching them from enemies and increasing attachment range until they next attach to an enemy. Spends a portion of each recalled brand's cost to cause it to activate.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, },
@@ -2556,6 +2586,7 @@ skills["SigilRecall"] = {
 }
 skills["Clarity"] = {
 	name = "Clarity",
+	baseTypeName = "Clarity",
 	color = 3,
 	description = "Casts an aura that grants mana regeneration to you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -2630,6 +2661,7 @@ skills["Clarity"] = {
 }
 skills["VaalClarity"] = {
 	name = "Vaal Clarity",
+	baseTypeName = "Vaal Clarity",
 	color = 3,
 	description = "Casts a temporary aura that lets you and your allies cast skills without paying their mana costs.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -2709,6 +2741,7 @@ skills["VaalClarity"] = {
 }
 skills["ColdSnap"] = {
 	name = "Cold Snap",
+	baseTypeName = "Cold Snap",
 	color = 3,
 	baseEffectiveness = 2.2339000701904,
 	incrementalEffectiveness = 0.049499999731779,
@@ -2794,6 +2827,7 @@ skills["ColdSnap"] = {
 }
 skills["ColdSnapAltX"] = {
 	name = "Cold Snap of Power",
+	baseTypeName = "Cold Snap of Power",
 	color = 3,
 	baseEffectiveness = 2.2339000701904,
 	incrementalEffectiveness = 0.049499999731779,
@@ -2868,6 +2902,7 @@ skills["ColdSnapAltX"] = {
 }
 skills["VaalColdSnap"] = {
 	name = "Vaal Cold Snap",
+	baseTypeName = "Vaal Cold Snap",
 	color = 3,
 	baseEffectiveness = 3.1500000953674,
 	incrementalEffectiveness = 0.0456000007689,
@@ -2955,6 +2990,7 @@ skills["VaalColdSnap"] = {
 }
 skills["Conductivity"] = {
 	name = "Conductivity",
+	baseTypeName = "Conductivity",
 	color = 3,
 	description = "Curses all targets in an area, lowering their lightning resistance and giving them a chance to be shocked when hit.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
@@ -3042,6 +3078,7 @@ skills["Conductivity"] = {
 }
 skills["Contagion"] = {
 	name = "Contagion",
+	baseTypeName = "Contagion",
 	color = 3,
 	baseEffectiveness = 2.2532999515533,
 	incrementalEffectiveness = 0.037999998778105,
@@ -3117,6 +3154,7 @@ skills["Contagion"] = {
 }
 skills["ContagionAltX"] = {
 	name = "Contagion of Subsiding",
+	baseTypeName = "Contagion of Subsiding",
 	color = 3,
 	baseEffectiveness = 6.5177001953125,
 	incrementalEffectiveness = 0.047499999403954,
@@ -3192,6 +3230,7 @@ skills["ContagionAltX"] = {
 }
 skills["ContagionAltY"] = {
 	name = "Contagion of Transference",
+	baseTypeName = "Contagion of Transference",
 	color = 3,
 	baseEffectiveness = 3.5,
 	incrementalEffectiveness = 0.047499999403954,
@@ -3267,6 +3306,7 @@ skills["ContagionAltY"] = {
 }
 skills["ConversionTrap"] = {
 	name = "Conversion Trap",
+	baseTypeName = "Conversion Trap",
 	color = 3,
 	description = "Throws a trap that, when triggered by an enemy, converts that enemy to your side for a short duration. Does not affect unique monsters or players.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Mineable] = true, [SkillType.Trapped] = true, [SkillType.Cooldown] = true, },
@@ -3336,8 +3376,9 @@ skills["ConversionTrap"] = {
 		[40] = { 13800, storedUses = 3, levelRequirement = 100, cooldown = 8, statInterpolation = { 1, }, cost = { Mana = 33, }, },
 	},
 }
-skills["Convocation"] = {
+skills["ConvocationNew"] = {
 	name = "Convocation",
+	baseTypeName = "Convocation",
 	color = 3,
 	description = "Recalls all minions that are following you to your location, and grants them a temporary life regeneration effect.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, },
@@ -3365,56 +3406,27 @@ skills["Convocation"] = {
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 2000 },
+		{ "life_regeneration_rate_per_minute_%", 120 },
 	},
 	stats = {
-		"life_regeneration_rate_per_minute_%",
 		"base_deal_no_damage",
 	},
 	levels = {
-		[1] = { 42, storedUses = 1, levelRequirement = 24, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 6, }, },
-		[2] = { 45, storedUses = 1, levelRequirement = 27, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 7, }, },
-		[3] = { 48, storedUses = 1, levelRequirement = 30, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 7, }, },
-		[4] = { 51, storedUses = 1, levelRequirement = 33, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 8, }, },
-		[5] = { 54, storedUses = 1, levelRequirement = 36, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 8, }, },
-		[6] = { 57, storedUses = 1, levelRequirement = 39, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 9, }, },
-		[7] = { 60, storedUses = 1, levelRequirement = 42, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 9, }, },
-		[8] = { 63, storedUses = 1, levelRequirement = 45, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 10, }, },
-		[9] = { 66, storedUses = 1, levelRequirement = 48, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 10, }, },
-		[10] = { 69, storedUses = 1, levelRequirement = 50, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 10, }, },
-		[11] = { 72, storedUses = 1, levelRequirement = 52, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 11, }, },
-		[12] = { 75, storedUses = 1, levelRequirement = 54, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 11, }, },
-		[13] = { 78, storedUses = 1, levelRequirement = 56, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 11, }, },
-		[14] = { 81, storedUses = 1, levelRequirement = 58, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 11, }, },
-		[15] = { 84, storedUses = 1, levelRequirement = 60, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 12, }, },
-		[16] = { 87, storedUses = 1, levelRequirement = 62, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 12, }, },
-		[17] = { 90, storedUses = 1, levelRequirement = 64, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 12, }, },
-		[18] = { 93, storedUses = 1, levelRequirement = 66, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 13, }, },
-		[19] = { 96, storedUses = 1, levelRequirement = 68, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 13, }, },
-		[20] = { 99, storedUses = 1, levelRequirement = 70, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 13, }, },
-		[21] = { 102, storedUses = 1, levelRequirement = 72, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 13, }, },
-		[22] = { 105, storedUses = 1, levelRequirement = 74, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 14, }, },
-		[23] = { 108, storedUses = 1, levelRequirement = 76, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 14, }, },
-		[24] = { 111, storedUses = 1, levelRequirement = 78, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 14, }, },
-		[25] = { 114, storedUses = 1, levelRequirement = 80, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 15, }, },
-		[26] = { 117, storedUses = 1, levelRequirement = 82, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 15, }, },
-		[27] = { 120, storedUses = 1, levelRequirement = 84, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 15, }, },
-		[28] = { 123, storedUses = 1, levelRequirement = 86, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 15, }, },
-		[29] = { 126, storedUses = 1, levelRequirement = 88, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 16, }, },
-		[30] = { 129, storedUses = 1, levelRequirement = 90, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 16, }, },
-		[31] = { 131, storedUses = 1, levelRequirement = 91, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 16, }, },
-		[32] = { 132, storedUses = 1, levelRequirement = 92, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 16, }, },
-		[33] = { 134, storedUses = 1, levelRequirement = 93, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 16, }, },
-		[34] = { 135, storedUses = 1, levelRequirement = 94, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 17, }, },
-		[35] = { 137, storedUses = 1, levelRequirement = 95, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 17, }, },
-		[36] = { 138, storedUses = 1, levelRequirement = 96, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 17, }, },
-		[37] = { 140, storedUses = 1, levelRequirement = 97, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 17, }, },
-		[38] = { 141, storedUses = 1, levelRequirement = 98, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 17, }, },
-		[39] = { 143, storedUses = 1, levelRequirement = 99, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 17, }, },
-		[40] = { 144, storedUses = 1, levelRequirement = 100, cooldown = 3, statInterpolation = { 1, }, cost = { Mana = 17, }, },
+		[1] = { storedUses = 1, levelRequirement = 31, cooldown = 3, cost = { Mana = 6, }, },
+		[2] = { storedUses = 1, levelRequirement = 31, cooldown = 3, cost = { Mana = 6, }, },
+		[3] = { storedUses = 1, levelRequirement = 31, cooldown = 3, cost = { Mana = 6, }, },
+		[4] = { storedUses = 1, levelRequirement = 31, cooldown = 3, cost = { Mana = 6, }, },
+		[5] = { storedUses = 1, levelRequirement = 31, cooldown = 3, cost = { Mana = 6, }, },
+		[6] = { storedUses = 1, levelRequirement = 31, cooldown = 3, cost = { Mana = 6, }, },
+		[7] = { storedUses = 1, levelRequirement = 31, cooldown = 3, cost = { Mana = 6, }, },
+		[8] = { storedUses = 1, levelRequirement = 31, cooldown = 3, cost = { Mana = 6, }, },
+		[9] = { storedUses = 1, levelRequirement = 31, cooldown = 3, cost = { Mana = 6, }, },
+		[10] = { storedUses = 1, levelRequirement = 31, cooldown = 3, cost = { Mana = 6, }, },
 	},
 }
 skills["Disintegrate"] = {
 	name = "Crackling Lance",
+	baseTypeName = "Crackling Lance",
 	color = 3,
 	baseEffectiveness = 1.1079000234604,
 	incrementalEffectiveness = 0.049899999052286,
@@ -3502,6 +3514,7 @@ skills["Disintegrate"] = {
 }
 skills["DisintegrateAltX"] = {
 	name = "Crackling Lance of Branching",
+	baseTypeName = "Crackling Lance of Branching",
 	color = 3,
 	baseEffectiveness = 1.75,
 	incrementalEffectiveness = 0.049899999052286,
@@ -3574,6 +3587,7 @@ skills["DisintegrateAltX"] = {
 }
 skills["DisintegrateAltY"] = {
 	name = "Crackling Lance of Disintegration",
+	baseTypeName = "Crackling Lance of Disintegration",
 	color = 3,
 	baseEffectiveness = 2.039999961853,
 	incrementalEffectiveness = 0.049899999052286,
@@ -3647,6 +3661,7 @@ skills["DisintegrateAltY"] = {
 }
 skills["DarkPact"] = {
 	name = "Dark Pact",
+	baseTypeName = "Dark Pact",
 	color = 3,
 	baseEffectiveness = 0.80000001192093,
 	incrementalEffectiveness = 0.037999998778105,
@@ -3761,6 +3776,7 @@ skills["DarkPact"] = {
 }
 skills["Despair"] = {
 	name = "Despair",
+	baseTypeName = "Despair",
 	color = 3,
 	description = "Curses all targets in an area, lowering their chaos resistance.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.Chaos] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
@@ -3844,6 +3860,7 @@ skills["Despair"] = {
 }
 skills["DestructiveLink"] = {
 	name = "Destructive Link",
+	baseTypeName = "Destructive Link",
 	color = 3,
 	description = "Targets an allied player to apply a buff which links you to them for a duration. While linked, they use your main hand critical strike chance. If the target dies while linked, you will also die. This skill cannot be triggered, or used by Totems, Traps, or Mines.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
@@ -3921,6 +3938,7 @@ skills["DestructiveLink"] = {
 }
 skills["Discharge"] = {
 	name = "Discharge",
+	baseTypeName = "Discharge",
 	color = 3,
 	baseEffectiveness = 3.876699924469,
 	incrementalEffectiveness = 0.035999998450279,
@@ -3997,6 +4015,7 @@ skills["Discharge"] = {
 }
 skills["DischargeAltX"] = {
 	name = "Discharge of Misery",
+	baseTypeName = "Discharge of Misery",
 	color = 3,
 	baseEffectiveness = 1.1799999475479,
 	incrementalEffectiveness = 0.035999998450279,
@@ -4071,6 +4090,7 @@ skills["DischargeAltX"] = {
 }
 skills["Discipline"] = {
 	name = "Discipline",
+	baseTypeName = "Discipline",
 	color = 3,
 	description = "Casts an aura that grants additional energy shield and increased energy shield recharge rate to you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -4150,6 +4170,7 @@ skills["Discipline"] = {
 }
 skills["VaalDiscipline"] = {
 	name = "Vaal Discipline",
+	baseTypeName = "Vaal Discipline",
 	color = 3,
 	description = "Casts a temporary aura that prevents energy shield recharge being delayed by damage taken for you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -4228,6 +4249,7 @@ skills["VaalDiscipline"] = {
 }
 skills["DivineTempest"] = {
 	name = "Divine Ire",
+	baseTypeName = "Divine Ire",
 	color = 3,
 	baseEffectiveness = 0.49039998650551,
 	incrementalEffectiveness = 0.04280000180006,
@@ -4335,6 +4357,7 @@ skills["DivineTempest"] = {
 }
 skills["DivineTempestAltX"] = {
 	name = "Divine Ire of Holy Lightning",
+	baseTypeName = "Divine Ire of Holy Lightning",
 	color = 3,
 	baseEffectiveness = 0.65299999713898,
 	incrementalEffectiveness = 0.04280000180006,
@@ -4385,10 +4408,10 @@ skills["DivineTempestAltX"] = {
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
-		{ "divine_tempest_hit_damage_+%_final_per_stage", 100 },
-		{ "divine_tempest_ailment_damage_+%_final_per_stage", 60 },
+		{ "divine_tempest_hit_damage_+%_final_per_stage", 120 },
+		{ "divine_tempest_ailment_damage_+%_final_per_stage", 80 },
 		{ "shock_art_variation", 2 },
-		{ "active_skill_area_of_effect_+%_final", -30 },
+		{ "active_skill_area_of_effect_+%_final", -20 },
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -4443,6 +4466,7 @@ skills["DivineTempestAltX"] = {
 }
 skills["DivineTempestAltY"] = {
 	name = "Divine Ire of Disintegration",
+	baseTypeName = "Divine Ire of Disintegration",
 	color = 3,
 	baseEffectiveness = 0.94999998807907,
 	incrementalEffectiveness = 0.04280000180006,
@@ -4546,6 +4570,7 @@ skills["DivineTempestAltY"] = {
 }
 skills["ElementalWeakness"] = {
 	name = "Elemental Weakness",
+	baseTypeName = "Elemental Weakness",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Curses all targets in an area, lowering their elemental resistances.",
@@ -4628,6 +4653,7 @@ skills["ElementalWeakness"] = {
 }
 skills["EnergyBlade"] = {
 	name = "Energy Blade",
+	baseTypeName = "Energy Blade",
 	color = 3,
 	baseEffectiveness = 1.088700056076,
 	incrementalEffectiveness = 0.020099999383092,
@@ -4733,6 +4759,7 @@ skills["EnergyBlade"] = {
 }
 skills["Enfeeble"] = {
 	name = "Enfeeble",
+	baseTypeName = "Enfeeble",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Curses all targets in an area, reducing their accuracy and making them deal less damage.",
@@ -4819,6 +4846,7 @@ skills["Enfeeble"] = {
 }
 skills["EssenceDrain"] = {
 	name = "Essence Drain",
+	baseTypeName = "Essence Drain",
 	color = 3,
 	baseEffectiveness = 4.0479998588562,
 	incrementalEffectiveness = 0.052700001746416,
@@ -4898,6 +4926,7 @@ skills["EssenceDrain"] = {
 }
 skills["EssenceDrainAltX"] = {
 	name = "Essence Drain of Desperation",
+	baseTypeName = "Essence Drain of Desperation",
 	color = 3,
 	baseEffectiveness = 4.0479998588562,
 	incrementalEffectiveness = 0.052700001746416,
@@ -4922,7 +4951,7 @@ skills["EssenceDrainAltX"] = {
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 3800 },
-		{ "essence_drain_lose_life_from_damage_permyriad", 20 },
+		{ "essence_drain_lose_life_from_damage_permyriad", 30 },
 	},
 	stats = {
 		"base_chaos_damage_to_deal_per_minute",
@@ -4934,50 +4963,51 @@ skills["EssenceDrainAltX"] = {
 		"quality_display_essence_drain_is_gem",
 	},
 	levels = {
-		[1] = { 33.500000589838, 0.15999999642372, 0.23999999463558, 14.999999937912, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 8, }, },
-		[2] = { 32.833334544053, 0.15999999642372, 0.23999999463558, 14.833333426466, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 15, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 9, }, },
-		[3] = { 32, 0.15999999642372, 0.23999999463558, 14.333333892127, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 19, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 10, }, },
-		[4] = { 31.000000931323, 0.15999999642372, 0.23999999463558, 13.999999875824, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 23, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 11, }, },
-		[5] = { 30.16666638727, 0.15999999642372, 0.23999999463558, 13.500000341485, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 27, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 12, }, },
-		[6] = { 29.333333830039, 0.15999999642372, 0.23999999463558, 13.166667318592, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 31, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 13, }, },
-		[7] = { 28.666667784254, 0.15999999642372, 0.23999999463558, 12.833333302289, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 35, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 14, }, },
-		[8] = { 27.999999751647, 0.15999999642372, 0.23999999463558, 12.666666790843, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 38, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 15, }, },
-		[9] = { 27.500000217309, 0.15999999642372, 0.23999999463558, 12.333333767951, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 41, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 16, }, },
-		[10] = { 26.833334171524, 0.15999999642372, 0.23999999463558, 12.000000745058, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 44, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 16, }, },
-		[11] = { 26.333334637185, 0.15999999642372, 0.23999999463558, 11.833333240201, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 47, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 17, }, },
-		[12] = { 25.833333116025, 0.15999999642372, 0.23999999463558, 11.666666728755, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 50, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 18, }, },
-		[13] = { 25.16666707024, 0.15999999642372, 0.23999999463558, 11.333333705862, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 53, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 19, }, },
-		[14] = { 24.666667535901, 0.15999999642372, 0.23999999463558, 11.166667194416, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 56, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 19, }, },
-		[15] = { 24.166668001562, 0.15999999642372, 0.23999999463558, 10.833333178113, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 59, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 20, }, },
-		[16] = { 23.666666480402, 0.15999999642372, 0.23999999463558, 10.666666666667, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 62, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 21, }, },
-		[17] = { 23.33333345751, 0.15999999642372, 0.23999999463558, 10.50000015522, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 64, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 21, }, },
-		[18] = { 23.000000434617, 0.15999999642372, 0.23999999463558, 10.333333643774, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 66, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 22, }, },
-		[19] = { 22.666667411725, 0.15999999642372, 0.23999999463558, 10.166667132328, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 22, }, },
-		[20] = { 22.500000900279, 0.15999999642372, 0.23999999463558, 10.166667132328, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 23, }, },
-		[21] = { 22.166667877386, 0.15999999642372, 0.23999999463558, 10.000000620882, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 72, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 24, }, },
-		[22] = { 21.833332867672, 0.15999999642372, 0.23999999463558, 9.8333331160247, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 74, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 24, }, },
-		[23] = { 21.49999984478, 0.15999999642372, 0.23999999463558, 9.6666666045785, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 76, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 25, }, },
-		[24] = { 21.166666821887, 0.15999999642372, 0.23999999463558, 9.5000000931323, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 78, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 25, }, },
-		[25] = { 21.000000310441, 0.15999999642372, 0.23999999463558, 9.5000000931323, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 80, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 26, }, },
-		[26] = { 20.666667287548, 0.15999999642372, 0.23999999463558, 9.333333581686, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 26, }, },
-		[27] = { 20.333334264656, 0.15999999642372, 0.23999999463558, 9.1666670702398, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 27, }, },
-		[28] = { 20.000001241763, 0.15999999642372, 0.23999999463558, 9.0000005587936, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 86, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 27, }, },
-		[29] = { 19.833334730317, 0.15999999642372, 0.23999999463558, 9.0000005587936, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 88, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 28, }, },
-		[30] = { 19.499999720603, 0.15999999642372, 0.23999999463558, 8.8333330539366, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 90, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 28, }, },
-		[31] = { 19.333333209157, 0.15999999642372, 0.23999999463558, 8.6666665424903, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 91, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 28, }, },
-		[32] = { 19.166666697711, 0.15999999642372, 0.23999999463558, 8.6666665424903, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 92, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 29, }, },
-		[33] = { 19.166666697711, 0.15999999642372, 0.23999999463558, 8.6666665424903, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 93, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 29, }, },
-		[34] = { 19.000000186265, 0.15999999642372, 0.23999999463558, 8.5000000310441, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 94, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 29, }, },
-		[35] = { 18.833333674818, 0.15999999642372, 0.23999999463558, 8.5000000310441, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 95, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 29, }, },
-		[36] = { 18.666667163372, 0.15999999642372, 0.23999999463558, 8.3333335195979, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 96, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 30, }, },
-		[37] = { 18.500000651926, 0.15999999642372, 0.23999999463558, 8.3333335195979, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 97, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 30, }, },
-		[38] = { 18.500000651926, 0.15999999642372, 0.23999999463558, 8.3333335195979, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 98, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 30, }, },
-		[39] = { 18.33333414048, 0.15999999642372, 0.23999999463558, 8.3333335195979, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 99, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 30, }, },
-		[40] = { 18.166667629033, 0.15999999642372, 0.23999999463558, 8.1666670081516, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 100, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 31, }, },
+		[1] = { 33.500000589838, 0.15999999642372, 0.23999999463558, 39.166665952653, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 8, }, },
+		[2] = { 32.833334544053, 0.15999999642372, 0.23999999463558, 38.83333292976, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 15, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 9, }, },
+		[3] = { 32, 0.15999999642372, 0.23999999463558, 37.333334326744, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 19, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 10, }, },
+		[4] = { 31.000000931323, 0.15999999642372, 0.23999999463558, 36.333335258067, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 23, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 11, }, },
+		[5] = { 30.16666638727, 0.15999999642372, 0.23999999463558, 35.1666657043, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 27, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 12, }, },
+		[6] = { 29.333333830039, 0.15999999642372, 0.23999999463558, 34.499999658515, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 31, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 13, }, },
+		[7] = { 28.666667784254, 0.15999999642372, 0.23999999463558, 33.500000589838, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 35, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 14, }, },
+		[8] = { 27.999999751647, 0.15999999642372, 0.23999999463558, 33.000001055499, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 38, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 15, }, },
+		[9] = { 27.500000217309, 0.15999999642372, 0.23999999463558, 32.166666511446, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 41, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 16, }, },
+		[10] = { 26.833334171524, 0.15999999642372, 0.23999999463558, 31.333333954215, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 44, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 16, }, },
+		[11] = { 26.333334637185, 0.15999999642372, 0.23999999463558, 30.833334419876, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 47, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 17, }, },
+		[12] = { 25.833333116025, 0.15999999642372, 0.23999999463558, 30.333334885538, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 50, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 18, }, },
+		[13] = { 25.16666707024, 0.15999999642372, 0.23999999463558, 29.500000341485, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 53, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 19, }, },
+		[14] = { 24.666667535901, 0.15999999642372, 0.23999999463558, 29.166667318592, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 56, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 19, }, },
+		[15] = { 24.166668001562, 0.15999999642372, 0.23999999463558, 28.500001272808, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 59, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 20, }, },
+		[16] = { 23.666666480402, 0.15999999642372, 0.23999999463558, 27.666666728755, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 62, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 21, }, },
+		[17] = { 23.33333345751, 0.15999999642372, 0.23999999463558, 27.500000217309, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 64, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 21, }, },
+		[18] = { 23.000000434617, 0.15999999642372, 0.23999999463558, 27.00000068297, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 66, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 22, }, },
+		[19] = { 22.666667411725, 0.15999999642372, 0.23999999463558, 26.500001148631, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 22, }, },
+		[20] = { 22.500000900279, 0.15999999642372, 0.23999999463558, 26.500001148631, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 23, }, },
+		[21] = { 22.166667877386, 0.15999999642372, 0.23999999463558, 25.999999627471, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 72, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 24, }, },
+		[22] = { 21.833332867672, 0.15999999642372, 0.23999999463558, 25.833333116025, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 74, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 24, }, },
+		[23] = { 21.49999984478, 0.15999999642372, 0.23999999463558, 25.16666707024, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 76, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 25, }, },
+		[24] = { 21.166666821887, 0.15999999642372, 0.23999999463558, 24.833334047347, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 78, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 25, }, },
+		[25] = { 21.000000310441, 0.15999999642372, 0.23999999463558, 24.833334047347, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 80, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 26, }, },
+		[26] = { 20.666667287548, 0.15999999642372, 0.23999999463558, 24.333334513009, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 26, }, },
+		[27] = { 20.333334264656, 0.15999999642372, 0.23999999463558, 24.000001490116, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 27, }, },
+		[28] = { 20.000001241763, 0.15999999642372, 0.23999999463558, 23.33333345751, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 86, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 27, }, },
+		[29] = { 19.833334730317, 0.15999999642372, 0.23999999463558, 23.33333345751, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 88, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 28, }, },
+		[30] = { 19.499999720603, 0.15999999642372, 0.23999999463558, 23.166666946063, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 90, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 28, }, },
+		[31] = { 19.333333209157, 0.15999999642372, 0.23999999463558, 22.666667411725, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 91, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 28, }, },
+		[32] = { 19.166666697711, 0.15999999642372, 0.23999999463558, 22.666667411725, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 92, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 29, }, },
+		[33] = { 19.166666697711, 0.15999999642372, 0.23999999463558, 22.666667411725, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 93, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 29, }, },
+		[34] = { 19.000000186265, 0.15999999642372, 0.23999999463558, 22.166667877386, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 94, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 29, }, },
+		[35] = { 18.833333674818, 0.15999999642372, 0.23999999463558, 22.166667877386, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 95, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 29, }, },
+		[36] = { 18.666667163372, 0.15999999642372, 0.23999999463558, 21.666666356226, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 96, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 30, }, },
+		[37] = { 18.500000651926, 0.15999999642372, 0.23999999463558, 21.666666356226, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 97, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 30, }, },
+		[38] = { 18.500000651926, 0.15999999642372, 0.23999999463558, 21.666666356226, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 98, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 30, }, },
+		[39] = { 18.33333414048, 0.15999999642372, 0.23999999463558, 21.666666356226, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 99, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 30, }, },
+		[40] = { 18.166667629033, 0.15999999642372, 0.23999999463558, 21.49999984478, damageEffectiveness = 1.4, critChance = 5, levelRequirement = 100, statInterpolation = { 3, 3, 3, 3, }, cost = { Mana = 31, }, },
 	},
 }
 skills["EssenceDrainAltY"] = {
 	name = "Essence Drain of Wickedness",
+	baseTypeName = "Essence Drain of Wickedness",
 	color = 3,
 	baseEffectiveness = 4.0479998588562,
 	incrementalEffectiveness = 0.052700001746416,
@@ -5058,6 +5088,7 @@ skills["EssenceDrainAltY"] = {
 }
 skills["EyeOfWinter"] = {
 	name = "Eye of Winter",
+	baseTypeName = "Eye of Winter",
 	color = 3,
 	baseEffectiveness = 0.42770001292229,
 	incrementalEffectiveness = 0.047699999064207,
@@ -5148,6 +5179,7 @@ skills["EyeOfWinter"] = {
 }
 skills["EyeOfWinterAltX"] = {
 	name = "Eye of Winter of Finality",
+	baseTypeName = "Eye of Winter of Finality",
 	color = 3,
 	baseEffectiveness = 0.55000001192093,
 	incrementalEffectiveness = 0.047699999064207,
@@ -5156,7 +5188,7 @@ skills["EyeOfWinterAltX"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillModList:NewMod("Damage", "MORE", activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "EyeOfWinterRamp"), "Skill:EyeOfWinterofFinality", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
+		activeSkill.skillModList:NewMod("Damage", "MORE", activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "EyeOfWinterRamp"), "Skill:EyeOfWinterAltX", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
 	end,
 	statMap = {
 		["freezing_pulse_damage_+%_final_at_long_range"] = {
@@ -5238,6 +5270,7 @@ skills["EyeOfWinterAltX"] = {
 }
 skills["EyeOfWinterAltY"] = {
 	name = "Eye of Winter of Transience",
+	baseTypeName = "Eye of Winter of Transience",
 	color = 3,
 	baseEffectiveness = 0.80000001192093,
 	incrementalEffectiveness = 0.047699999064207,
@@ -5246,7 +5279,7 @@ skills["EyeOfWinterAltY"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillModList:NewMod("Damage", "MORE", activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "EyeOfWinterRamp"), "Skill:EyeOfWinterofTransience", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
+		activeSkill.skillModList:NewMod("Damage", "MORE", activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "EyeOfWinterRamp"), "Skill:EyeOfWinterAltY", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
 	end,
 	statMap = {
 		["freezing_pulse_damage_+%_final_at_long_range"] = {
@@ -5329,6 +5362,7 @@ skills["EyeOfWinterAltY"] = {
 }
 skills["Fireball"] = {
 	name = "Fireball",
+	baseTypeName = "Fireball",
 	color = 3,
 	baseEffectiveness = 2.9210000038147,
 	incrementalEffectiveness = 0.047400001436472,
@@ -5410,6 +5444,7 @@ skills["Fireball"] = {
 }
 skills["VaalFireballSpiralNova"] = {
 	name = "Vaal Fireball",
+	baseTypeName = "Vaal Fireball",
 	color = 3,
 	baseEffectiveness = 2.9384000301361,
 	incrementalEffectiveness = 0.041200000792742,
@@ -5494,6 +5529,7 @@ skills["VaalFireballSpiralNova"] = {
 }
 skills["Firestorm"] = {
 	name = "Firestorm",
+	baseTypeName = "Firestorm",
 	color = 3,
 	baseEffectiveness = 0.59009999036789,
 	incrementalEffectiveness = 0.048700001090765,
@@ -5593,6 +5629,7 @@ skills["Firestorm"] = {
 }
 skills["FirestormAltX"] = {
 	name = "Firestorm of Meteors",
+	baseTypeName = "Firestorm of Meteors",
 	color = 3,
 	baseEffectiveness = 2.710000038147,
 	incrementalEffectiveness = 0.048700001090765,
@@ -5663,6 +5700,7 @@ skills["FirestormAltX"] = {
 }
 skills["FirestormAltY"] = {
 	name = "Firestorm of Pelting",
+	baseTypeName = "Firestorm of Pelting",
 	color = 3,
 	baseEffectiveness = 0.89999997615814,
 	incrementalEffectiveness = 0.048700001090765,
@@ -5687,7 +5725,7 @@ skills["FirestormAltY"] = {
 	constantStats = {
 		{ "fire_storm_fireball_delay_ms", 150 },
 		{ "skill_override_pvp_scaling_time_ms", 450 },
-		{ "firestorm_max_number_of_storms", 8 },
+		{ "firestorm_max_number_of_storms", 10 },
 		{ "base_skill_effect_duration", 2000 },
 		{ "active_skill_base_area_of_effect_radius", 12 },
 	},
@@ -5742,6 +5780,7 @@ skills["FirestormAltY"] = {
 }
 skills["VaalFirestorm"] = {
 	name = "Vaal Firestorm",
+	baseTypeName = "Vaal Firestorm",
 	color = 3,
 	baseEffectiveness = 5.6999998092651,
 	incrementalEffectiveness = 0.048700001090765,
@@ -5833,6 +5872,7 @@ skills["VaalFirestorm"] = {
 }
 skills["FlameDash"] = {
 	name = "Flame Dash",
+	baseTypeName = "Flame Dash",
 	color = 3,
 	baseEffectiveness = 0.82279998064041,
 	incrementalEffectiveness = 0.052799999713898,
@@ -5910,6 +5950,7 @@ skills["FlameDash"] = {
 }
 skills["FlameDashAltY"] = {
 	name = "Flame Dash of Return",
+	baseTypeName = "Flame Dash of Return",
 	color = 3,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.052799999713898,
@@ -5988,6 +6029,7 @@ skills["FlameDashAltY"] = {
 }
 skills["Firewall"] = {
 	name = "Flame Wall",
+	baseTypeName = "Flame Wall",
 	color = 3,
 	baseEffectiveness = 4.3292999267578,
 	incrementalEffectiveness = 0.0625,
@@ -6026,7 +6068,7 @@ skills["Firewall"] = {
 		["quality_display_firewall_is_gem"] = {
 			-- Display only
 		},
-		["quality_display_alt_flame_wall_is_gem"] = {
+		["quality_display_wall_length_is_gem"] = {
 			-- Display only
 		},
 	},
@@ -6061,7 +6103,7 @@ skills["Firewall"] = {
 		"spell_damage_modifiers_apply_to_skill_dot",
 		"console_skill_dont_chase",
 		"quality_display_firewall_is_gem",
-		"quality_display_alt_flame_wall_is_gem",
+		"quality_display_wall_length_is_gem",
 	},
 	levels = {
 		[1] = { 5.0000003104409, 16.666667039196, 3, 5, 1000, 40, 3000, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 4, }, },
@@ -6108,6 +6150,7 @@ skills["Firewall"] = {
 }
 skills["FlameWhip"] = {
 	name = "Flame Surge",
+	baseTypeName = "Flame Surge",
 	color = 3,
 	baseEffectiveness = 2.7952001094818,
 	incrementalEffectiveness = 0.037799999117851,
@@ -6201,6 +6244,7 @@ skills["FlameWhip"] = {
 }
 skills["FlameWhipAltX"] = {
 	name = "Flame Surge of Combusting",
+	baseTypeName = "Flame Surge of Combusting",
 	color = 3,
 	baseEffectiveness = 4.1999998092651,
 	incrementalEffectiveness = 0.037799999117851,
@@ -6234,7 +6278,7 @@ skills["FlameWhipAltX"] = {
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 4000 },
-		{ "flame_surge_burning_ground_on_ignite_damage_%", 25 },
+		{ "flame_surge_burning_ground_on_ignite_damage_%", 35 },
 		{ "base_chance_to_ignite_%", 25 },
 	},
 	stats = {
@@ -6289,6 +6333,7 @@ skills["FlameWhipAltX"] = {
 }
 skills["Flameblast"] = {
 	name = "Flameblast",
+	baseTypeName = "Flameblast",
 	color = 3,
 	baseEffectiveness = 0.86769998073578,
 	incrementalEffectiveness = 0.044599998742342,
@@ -6391,6 +6436,7 @@ skills["Flameblast"] = {
 }
 skills["FlameblastAltX"] = {
 	name = "Flameblast of Celerity",
+	baseTypeName = "Flameblast of Celerity",
 	color = 3,
 	baseEffectiveness = 0.94999998807907,
 	incrementalEffectiveness = 0.044599998742342,
@@ -6491,6 +6537,7 @@ skills["FlameblastAltX"] = {
 }
 skills["FlameblastAltY"] = {
 	name = "Flameblast of Contraction",
+	baseTypeName = "Flameblast of Contraction",
 	color = 3,
 	baseEffectiveness = 0.30000001192093,
 	incrementalEffectiveness = 0.044599998742342,
@@ -6596,6 +6643,7 @@ skills["FlameblastAltY"] = {
 }
 skills["VaalFlameblast"] = {
 	name = "Vaal Flameblast",
+	baseTypeName = "Vaal Flameblast",
 	color = 3,
 	baseEffectiveness = 1.1175999641418,
 	incrementalEffectiveness = 0.035199999809265,
@@ -6685,6 +6733,7 @@ skills["VaalFlameblast"] = {
 }
 skills["Flammability"] = {
 	name = "Flammability",
+	baseTypeName = "Flammability",
 	color = 3,
 	description = "Curses all targets in an area, lowering their fire resistance and giving them a chance to be ignited when hit.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
@@ -6772,6 +6821,7 @@ skills["Flammability"] = {
 }
 skills["FleshOffering"] = {
 	name = "Flesh Offering",
+	baseTypeName = "Flesh Offering",
 	color = 3,
 	description = "Consumes a corpse, which temporarily empowers your minions with swiftness. The skill consumes other nearby corpses, increasing the duration for each corpse consumed.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, },
@@ -6856,6 +6906,7 @@ skills["FleshOffering"] = {
 }
 skills["ForbiddenRite"] = {
 	name = "Forbidden Rite",
+	baseTypeName = "Forbidden Rite",
 	color = 3,
 	baseEffectiveness = 1.0389000177383,
 	incrementalEffectiveness = 0.045000001788139,
@@ -7012,6 +7063,7 @@ skills["ForbiddenRite"] = {
 }
 skills["ForbiddenRiteAltX"] = {
 	name = "Forbidden Rite of Soul Sacrifice",
+	baseTypeName = "Forbidden Rite of Soul Sacrifice",
 	color = 3,
 	baseEffectiveness = 1.0389000177383,
 	incrementalEffectiveness = 0.045000001788139,
@@ -7154,6 +7206,7 @@ skills["ForbiddenRiteAltX"] = {
 }
 skills["FreezingPulse"] = {
 	name = "Freezing Pulse",
+	baseTypeName = "Freezing Pulse",
 	color = 3,
 	baseEffectiveness = 2.8482000827789,
 	incrementalEffectiveness = 0.046000000089407,
@@ -7230,6 +7283,7 @@ skills["FreezingPulse"] = {
 }
 skills["FrostBomb"] = {
 	name = "Frost Bomb",
+	baseTypeName = "Frost Bomb",
 	color = 3,
 	baseEffectiveness = 1.8422000408173,
 	incrementalEffectiveness = 0.051899999380112,
@@ -7317,6 +7371,7 @@ skills["FrostBomb"] = {
 }
 skills["FrostBombAltX"] = {
 	name = "Frost Bomb of Instability",
+	baseTypeName = "Frost Bomb of Instability",
 	color = 3,
 	baseEffectiveness = 1.5599999427795,
 	incrementalEffectiveness = 0.051899999380112,
@@ -7389,6 +7444,7 @@ skills["FrostBombAltX"] = {
 }
 skills["FrostBombAltY"] = {
 	name = "Frost Bomb of Forthcoming",
+	baseTypeName = "Frost Bomb of Forthcoming",
 	color = 3,
 	baseEffectiveness = 1.8422000408173,
 	incrementalEffectiveness = 0.051899999380112,
@@ -7398,7 +7454,7 @@ skills["FrostBombAltY"] = {
 	castTime = 0.5,
 	preDamageFunc = function(activeSkill, output)
 		local duration = math.floor(activeSkill.skillData.duration * output.DurationMod * 10)
-		activeSkill.skillModList:NewMod("Multiplier:100msFrostBombDuration", "BASE", duration, "Skill:FrostBombofForthcoming")
+		activeSkill.skillModList:NewMod("Multiplier:100msFrostBombDuration", "BASE", duration, "Skill:FrostBombAltY")
 	end,
 	statMap = {
 		["active_skill_hit_damage_+%_final_per_100ms_duration"] = {
@@ -7476,6 +7532,7 @@ skills["FrostBombAltY"] = {
 }
 skills["FrostGlobe"] = {
 	name = "Frost Shield",
+	baseTypeName = "Frost Shield",
 	color = 3,
 	description = "Place a Frost Shield that drains your energy shield for one second or until you run out, gaining stages while this drain occurs. The Frost Shield takes some damage from hits in place of you and allies while in its area. Enemies in the area are Chilled. You can only have one Frost Shield active at once.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.Cold] = true, [SkillType.Totemable] = true, [SkillType.ChillingArea] = true, [SkillType.NonHitChill] = true, [SkillType.ElementalStatus] = true, [SkillType.TotemCastsAlone] = true, },
@@ -7573,6 +7630,7 @@ skills["FrostGlobe"] = {
 }
 skills["FrostWall"] = {
 	name = "Frost Wall",
+	baseTypeName = "Frost Wall",
 	color = 3,
 	baseEffectiveness = 2,
 	incrementalEffectiveness = 0.034000001847744,
@@ -7580,6 +7638,11 @@ skills["FrostWall"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Cascadable] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
+    statMap = {
+        ["quality_display_wall_length_is_gem"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -7598,6 +7661,7 @@ skills["FrostWall"] = {
 		"base_skill_effect_duration",
 		"wall_maximum_length",
 		"base_skill_show_average_damage_instead_of_dps",
+		"quality_display_wall_length_is_gem",
 	},
 	levels = {
 		[1] = { 0.69999998807907, 1.1000000238419, 3000, 28, storedUses = 3, levelRequirement = 4, cooldown = 3, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 9, }, },
@@ -7644,6 +7708,7 @@ skills["FrostWall"] = {
 }
 skills["Frostbite"] = {
 	name = "Frostbite",
+	baseTypeName = "Frostbite",
 	color = 3,
 	description = "Curses all targets in an area, lowering their cold resistance and giving them a chance to be frozen when hit.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
@@ -7731,6 +7796,7 @@ skills["Frostbite"] = {
 }
 skills["IceDash"] = {
 	name = "Frostblink",
+	baseTypeName = "Frostblink",
 	color = 3,
 	baseEffectiveness = 2.0243999958038,
 	incrementalEffectiveness = 0.047499999403954,
@@ -7776,55 +7842,56 @@ skills["IceDash"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 15, 80, 0, 0, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 3, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 12, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, 15, 81, 2, 0, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 3, levelRequirement = 6, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 12, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, 15, 82, 4, 0, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.95, levelRequirement = 9, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 13, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, 15, 83, 6, 0, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.95, levelRequirement = 12, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 13, }, },
-		[5] = { 0.80000001192093, 1.2000000476837, 16, 84, 8, 0, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.9, levelRequirement = 16, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 14, }, },
-		[6] = { 0.80000001192093, 1.2000000476837, 16, 85, 10, 1, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.9, levelRequirement = 20, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 14, }, },
-		[7] = { 0.80000001192093, 1.2000000476837, 16, 86, 12, 1, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.9, levelRequirement = 24, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 15, }, },
-		[8] = { 0.80000001192093, 1.2000000476837, 16, 87, 14, 1, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.85, levelRequirement = 28, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 15, }, },
-		[9] = { 0.80000001192093, 1.2000000476837, 17, 88, 16, 1, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.85, levelRequirement = 32, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 16, }, },
-		[10] = { 0.80000001192093, 1.2000000476837, 17, 89, 18, 1, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.8, levelRequirement = 36, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 17, }, },
-		[11] = { 0.80000001192093, 1.2000000476837, 17, 90, 20, 2, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.8, levelRequirement = 40, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 17, }, },
-		[12] = { 0.80000001192093, 1.2000000476837, 17, 91, 22, 2, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.8, levelRequirement = 44, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 18, }, },
-		[13] = { 0.80000001192093, 1.2000000476837, 18, 92, 24, 2, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.75, levelRequirement = 48, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 18, }, },
-		[14] = { 0.80000001192093, 1.2000000476837, 18, 93, 26, 2, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.75, levelRequirement = 52, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 19, }, },
-		[15] = { 0.80000001192093, 1.2000000476837, 18, 94, 28, 2, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.7, levelRequirement = 55, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 20, }, },
-		[16] = { 0.80000001192093, 1.2000000476837, 18, 95, 30, 3, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.7, levelRequirement = 58, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 20, }, },
-		[17] = { 0.80000001192093, 1.2000000476837, 19, 96, 32, 3, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.7, levelRequirement = 61, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 21, }, },
-		[18] = { 0.80000001192093, 1.2000000476837, 19, 97, 34, 3, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.65, levelRequirement = 64, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 21, }, },
-		[19] = { 0.80000001192093, 1.2000000476837, 19, 98, 36, 3, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.65, levelRequirement = 67, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 22, }, },
-		[20] = { 0.80000001192093, 1.2000000476837, 19, 99, 38, 3, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.6, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 22, }, },
-		[21] = { 0.80000001192093, 1.2000000476837, 20, 100, 40, 4, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.6, levelRequirement = 72, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 23, }, },
-		[22] = { 0.80000001192093, 1.2000000476837, 20, 101, 42, 4, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.6, levelRequirement = 74, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 24, }, },
-		[23] = { 0.80000001192093, 1.2000000476837, 20, 102, 44, 4, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.55, levelRequirement = 76, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 25, }, },
-		[24] = { 0.80000001192093, 1.2000000476837, 20, 103, 46, 4, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.55, levelRequirement = 78, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 25, }, },
-		[25] = { 0.80000001192093, 1.2000000476837, 21, 104, 48, 4, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.5, levelRequirement = 80, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 26, }, },
-		[26] = { 0.80000001192093, 1.2000000476837, 21, 105, 50, 5, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 26, }, },
-		[27] = { 0.80000001192093, 1.2000000476837, 21, 106, 52, 5, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.5, levelRequirement = 84, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 27, }, },
-		[28] = { 0.80000001192093, 1.2000000476837, 21, 107, 54, 5, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.45, levelRequirement = 86, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 27, }, },
-		[29] = { 0.80000001192093, 1.2000000476837, 22, 108, 56, 5, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.45, levelRequirement = 88, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 28, }, },
-		[30] = { 0.80000001192093, 1.2000000476837, 22, 109, 58, 5, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.4, levelRequirement = 90, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 28, }, },
-		[31] = { 0.80000001192093, 1.2000000476837, 22, 109, 59, 5, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.4, levelRequirement = 91, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 28, }, },
-		[32] = { 0.80000001192093, 1.2000000476837, 22, 110, 60, 6, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.4, levelRequirement = 92, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 29, }, },
-		[33] = { 0.80000001192093, 1.2000000476837, 22, 110, 61, 6, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.4, levelRequirement = 93, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 29, }, },
-		[34] = { 0.80000001192093, 1.2000000476837, 22, 111, 62, 6, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.4, levelRequirement = 94, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 29, }, },
-		[35] = { 0.80000001192093, 1.2000000476837, 22, 111, 63, 6, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.35, levelRequirement = 95, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 29, }, },
-		[36] = { 0.80000001192093, 1.2000000476837, 23, 112, 64, 6, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.35, levelRequirement = 96, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 30, }, },
-		[37] = { 0.80000001192093, 1.2000000476837, 23, 112, 65, 6, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.35, levelRequirement = 97, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 30, }, },
-		[38] = { 0.80000001192093, 1.2000000476837, 23, 113, 66, 6, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.35, levelRequirement = 98, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 30, }, },
-		[39] = { 0.80000001192093, 1.2000000476837, 23, 113, 67, 6, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.3, levelRequirement = 99, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 30, }, },
-		[40] = { 0.80000001192093, 1.2000000476837, 23, 114, 68, 6, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 2.3, levelRequirement = 100, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 31, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, 15, 80, 0, 0, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 3, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 12, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 15, 81, 2, 0, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 3, levelRequirement = 6, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 12, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 15, 82, 4, 0, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.95, levelRequirement = 9, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 13, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, 15, 83, 6, 0, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.95, levelRequirement = 12, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 13, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, 16, 84, 8, 0, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.9, levelRequirement = 16, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 14, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, 16, 85, 10, 1, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.9, levelRequirement = 20, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 14, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, 16, 86, 12, 1, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.9, levelRequirement = 24, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 15, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, 16, 87, 14, 1, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.85, levelRequirement = 28, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 15, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, 17, 88, 16, 1, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.85, levelRequirement = 32, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 16, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, 17, 89, 18, 1, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.8, levelRequirement = 36, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 17, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, 17, 90, 20, 2, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.8, levelRequirement = 40, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 17, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, 17, 91, 22, 2, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.8, levelRequirement = 44, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 18, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, 18, 92, 24, 2, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.75, levelRequirement = 48, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 18, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, 18, 93, 26, 2, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.75, levelRequirement = 52, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 19, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, 18, 94, 28, 2, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.7, levelRequirement = 55, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 20, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, 18, 95, 30, 3, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.7, levelRequirement = 58, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 20, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, 19, 96, 32, 3, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.7, levelRequirement = 61, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 21, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, 19, 97, 34, 3, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.65, levelRequirement = 64, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 21, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, 19, 98, 36, 3, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.65, levelRequirement = 67, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 22, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, 19, 99, 38, 3, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.6, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 22, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, 20, 100, 40, 4, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.6, levelRequirement = 72, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 23, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, 20, 101, 42, 4, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.6, levelRequirement = 74, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 24, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, 20, 102, 44, 4, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.55, levelRequirement = 76, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 25, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, 20, 103, 46, 4, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.55, levelRequirement = 78, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 25, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, 21, 104, 48, 4, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.5, levelRequirement = 80, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 26, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, 21, 105, 50, 5, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 26, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, 21, 106, 52, 5, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.5, levelRequirement = 84, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 27, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, 21, 107, 54, 5, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.45, levelRequirement = 86, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 27, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, 22, 108, 56, 5, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.45, levelRequirement = 88, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 28, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, 22, 109, 58, 5, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.4, levelRequirement = 90, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 28, }, },
+		[31] = { 0.80000001192093, 1.2000000476837, 22, 109, 59, 5, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.4, levelRequirement = 91, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 28, }, },
+		[32] = { 0.80000001192093, 1.2000000476837, 22, 110, 60, 6, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.4, levelRequirement = 92, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 29, }, },
+		[33] = { 0.80000001192093, 1.2000000476837, 22, 110, 61, 6, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.4, levelRequirement = 93, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 29, }, },
+		[34] = { 0.80000001192093, 1.2000000476837, 22, 111, 62, 6, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.4, levelRequirement = 94, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 29, }, },
+		[35] = { 0.80000001192093, 1.2000000476837, 22, 111, 63, 6, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.35, levelRequirement = 95, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 29, }, },
+		[36] = { 0.80000001192093, 1.2000000476837, 23, 112, 64, 6, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.35, levelRequirement = 96, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 30, }, },
+		[37] = { 0.80000001192093, 1.2000000476837, 23, 112, 65, 6, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.35, levelRequirement = 97, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 30, }, },
+		[38] = { 0.80000001192093, 1.2000000476837, 23, 113, 66, 6, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.35, levelRequirement = 98, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 30, }, },
+		[39] = { 0.80000001192093, 1.2000000476837, 23, 113, 67, 6, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.3, levelRequirement = 99, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 30, }, },
+		[40] = { 0.80000001192093, 1.2000000476837, 23, 114, 68, 6, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 2.3, levelRequirement = 100, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 31, }, },
 	},
 }
 skills["IceDashAltX"] = {
 	name = "Frostblink of Wintry Blast",
+	baseTypeName = "Frostblink of Wintry Blast",
 	color = 3,
-	baseEffectiveness = 2.0243999958038,
+	baseEffectiveness = 1.6200000047684,
 	incrementalEffectiveness = 0.047499999403954,
 	description = "Teleport to a location, damaging enemies in an area at both ends of the teleport. Deals higher damage to chilled enemies, then removes chill from them. Cannot be supported by Unleash.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Travel] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Travel] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.DynamicCooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.85,
 	statMap = {
@@ -7855,52 +7922,54 @@ skills["IceDashAltX"] = {
 		"is_area_damage",
 		"remove_chill_on_enemy_when_you_hit",
 		"never_chill",
+		"spell_cast_time_added_to_cooldown_if_triggered",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 0, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, 1, }, cost = { Mana = 12, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, 0, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 6, statInterpolation = { 3, 3, 1, }, cost = { Mana = 13, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, 0, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 9, statInterpolation = { 3, 3, 1, }, cost = { Mana = 14, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, 0, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { Mana = 15, }, },
-		[5] = { 0.80000001192093, 1.2000000476837, 0, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 16, statInterpolation = { 3, 3, 1, }, cost = { Mana = 16, }, },
-		[6] = { 0.80000001192093, 1.2000000476837, 1, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 20, statInterpolation = { 3, 3, 1, }, cost = { Mana = 17, }, },
-		[7] = { 0.80000001192093, 1.2000000476837, 1, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 24, statInterpolation = { 3, 3, 1, }, cost = { Mana = 18, }, },
-		[8] = { 0.80000001192093, 1.2000000476837, 1, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 28, statInterpolation = { 3, 3, 1, }, cost = { Mana = 19, }, },
-		[9] = { 0.80000001192093, 1.2000000476837, 1, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 32, statInterpolation = { 3, 3, 1, }, cost = { Mana = 20, }, },
-		[10] = { 0.80000001192093, 1.2000000476837, 1, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 36, statInterpolation = { 3, 3, 1, }, cost = { Mana = 21, }, },
-		[11] = { 0.80000001192093, 1.2000000476837, 2, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 40, statInterpolation = { 3, 3, 1, }, cost = { Mana = 21, }, },
-		[12] = { 0.80000001192093, 1.2000000476837, 2, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 44, statInterpolation = { 3, 3, 1, }, cost = { Mana = 22, }, },
-		[13] = { 0.80000001192093, 1.2000000476837, 2, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 48, statInterpolation = { 3, 3, 1, }, cost = { Mana = 23, }, },
-		[14] = { 0.80000001192093, 1.2000000476837, 2, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 52, statInterpolation = { 3, 3, 1, }, cost = { Mana = 24, }, },
-		[15] = { 0.80000001192093, 1.2000000476837, 2, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 55, statInterpolation = { 3, 3, 1, }, cost = { Mana = 25, }, },
-		[16] = { 0.80000001192093, 1.2000000476837, 3, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 58, statInterpolation = { 3, 3, 1, }, cost = { Mana = 26, }, },
-		[17] = { 0.80000001192093, 1.2000000476837, 3, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 61, statInterpolation = { 3, 3, 1, }, cost = { Mana = 27, }, },
-		[18] = { 0.80000001192093, 1.2000000476837, 3, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 64, statInterpolation = { 3, 3, 1, }, cost = { Mana = 28, }, },
-		[19] = { 0.80000001192093, 1.2000000476837, 3, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 67, statInterpolation = { 3, 3, 1, }, cost = { Mana = 29, }, },
-		[20] = { 0.80000001192093, 1.2000000476837, 3, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, 1, }, cost = { Mana = 30, }, },
-		[21] = { 0.80000001192093, 1.2000000476837, 4, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 72, statInterpolation = { 3, 3, 1, }, cost = { Mana = 31, }, },
-		[22] = { 0.80000001192093, 1.2000000476837, 4, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 74, statInterpolation = { 3, 3, 1, }, cost = { Mana = 32, }, },
-		[23] = { 0.80000001192093, 1.2000000476837, 4, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 76, statInterpolation = { 3, 3, 1, }, cost = { Mana = 33, }, },
-		[24] = { 0.80000001192093, 1.2000000476837, 4, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 78, statInterpolation = { 3, 3, 1, }, cost = { Mana = 34, }, },
-		[25] = { 0.80000001192093, 1.2000000476837, 4, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 80, statInterpolation = { 3, 3, 1, }, cost = { Mana = 35, }, },
-		[26] = { 0.80000001192093, 1.2000000476837, 5, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, }, cost = { Mana = 36, }, },
-		[27] = { 0.80000001192093, 1.2000000476837, 5, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, 1, }, cost = { Mana = 37, }, },
-		[28] = { 0.80000001192093, 1.2000000476837, 5, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 86, statInterpolation = { 3, 3, 1, }, cost = { Mana = 38, }, },
-		[29] = { 0.80000001192093, 1.2000000476837, 5, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 88, statInterpolation = { 3, 3, 1, }, cost = { Mana = 39, }, },
-		[30] = { 0.80000001192093, 1.2000000476837, 5, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 90, statInterpolation = { 3, 3, 1, }, cost = { Mana = 39, }, },
-		[31] = { 0.80000001192093, 1.2000000476837, 5, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 91, statInterpolation = { 3, 3, 1, }, cost = { Mana = 40, }, },
-		[32] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 92, statInterpolation = { 3, 3, 1, }, cost = { Mana = 40, }, },
-		[33] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 93, statInterpolation = { 3, 3, 1, }, cost = { Mana = 41, }, },
-		[34] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 94, statInterpolation = { 3, 3, 1, }, cost = { Mana = 41, }, },
-		[35] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 95, statInterpolation = { 3, 3, 1, }, cost = { Mana = 42, }, },
-		[36] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 96, statInterpolation = { 3, 3, 1, }, cost = { Mana = 42, }, },
-		[37] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 97, statInterpolation = { 3, 3, 1, }, cost = { Mana = 43, }, },
-		[38] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 98, statInterpolation = { 3, 3, 1, }, cost = { Mana = 43, }, },
-		[39] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 99, statInterpolation = { 3, 3, 1, }, cost = { Mana = 44, }, },
-		[40] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 1.8, critChance = 5, levelRequirement = 100, statInterpolation = { 3, 3, 1, }, cost = { Mana = 44, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, 1, }, cost = { Mana = 12, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 6, statInterpolation = { 3, 3, 1, }, cost = { Mana = 13, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 9, statInterpolation = { 3, 3, 1, }, cost = { Mana = 14, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { Mana = 15, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, 0, damageEffectiveness = 2, critChance = 5, levelRequirement = 16, statInterpolation = { 3, 3, 1, }, cost = { Mana = 16, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, 1, damageEffectiveness = 2, critChance = 5, levelRequirement = 20, statInterpolation = { 3, 3, 1, }, cost = { Mana = 17, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, 1, damageEffectiveness = 2, critChance = 5, levelRequirement = 24, statInterpolation = { 3, 3, 1, }, cost = { Mana = 18, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, 1, damageEffectiveness = 2, critChance = 5, levelRequirement = 28, statInterpolation = { 3, 3, 1, }, cost = { Mana = 19, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, 1, damageEffectiveness = 2, critChance = 5, levelRequirement = 32, statInterpolation = { 3, 3, 1, }, cost = { Mana = 20, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, 1, damageEffectiveness = 2, critChance = 5, levelRequirement = 36, statInterpolation = { 3, 3, 1, }, cost = { Mana = 21, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, 2, damageEffectiveness = 2, critChance = 5, levelRequirement = 40, statInterpolation = { 3, 3, 1, }, cost = { Mana = 21, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, 2, damageEffectiveness = 2, critChance = 5, levelRequirement = 44, statInterpolation = { 3, 3, 1, }, cost = { Mana = 22, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, 2, damageEffectiveness = 2, critChance = 5, levelRequirement = 48, statInterpolation = { 3, 3, 1, }, cost = { Mana = 23, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, 2, damageEffectiveness = 2, critChance = 5, levelRequirement = 52, statInterpolation = { 3, 3, 1, }, cost = { Mana = 24, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, 2, damageEffectiveness = 2, critChance = 5, levelRequirement = 55, statInterpolation = { 3, 3, 1, }, cost = { Mana = 25, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, 3, damageEffectiveness = 2, critChance = 5, levelRequirement = 58, statInterpolation = { 3, 3, 1, }, cost = { Mana = 26, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, 3, damageEffectiveness = 2, critChance = 5, levelRequirement = 61, statInterpolation = { 3, 3, 1, }, cost = { Mana = 27, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, 3, damageEffectiveness = 2, critChance = 5, levelRequirement = 64, statInterpolation = { 3, 3, 1, }, cost = { Mana = 28, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, 3, damageEffectiveness = 2, critChance = 5, levelRequirement = 67, statInterpolation = { 3, 3, 1, }, cost = { Mana = 29, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, 3, damageEffectiveness = 2, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, 1, }, cost = { Mana = 30, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, 4, damageEffectiveness = 2, critChance = 5, levelRequirement = 72, statInterpolation = { 3, 3, 1, }, cost = { Mana = 31, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, 4, damageEffectiveness = 2, critChance = 5, levelRequirement = 74, statInterpolation = { 3, 3, 1, }, cost = { Mana = 32, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, 4, damageEffectiveness = 2, critChance = 5, levelRequirement = 76, statInterpolation = { 3, 3, 1, }, cost = { Mana = 33, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, 4, damageEffectiveness = 2, critChance = 5, levelRequirement = 78, statInterpolation = { 3, 3, 1, }, cost = { Mana = 34, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, 4, damageEffectiveness = 2, critChance = 5, levelRequirement = 80, statInterpolation = { 3, 3, 1, }, cost = { Mana = 35, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, 5, damageEffectiveness = 2, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, }, cost = { Mana = 36, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, 5, damageEffectiveness = 2, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, 1, }, cost = { Mana = 37, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, 5, damageEffectiveness = 2, critChance = 5, levelRequirement = 86, statInterpolation = { 3, 3, 1, }, cost = { Mana = 38, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, 5, damageEffectiveness = 2, critChance = 5, levelRequirement = 88, statInterpolation = { 3, 3, 1, }, cost = { Mana = 39, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, 5, damageEffectiveness = 2, critChance = 5, levelRequirement = 90, statInterpolation = { 3, 3, 1, }, cost = { Mana = 39, }, },
+		[31] = { 0.80000001192093, 1.2000000476837, 5, damageEffectiveness = 2, critChance = 5, levelRequirement = 91, statInterpolation = { 3, 3, 1, }, cost = { Mana = 40, }, },
+		[32] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 2, critChance = 5, levelRequirement = 92, statInterpolation = { 3, 3, 1, }, cost = { Mana = 40, }, },
+		[33] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 2, critChance = 5, levelRequirement = 93, statInterpolation = { 3, 3, 1, }, cost = { Mana = 41, }, },
+		[34] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 2, critChance = 5, levelRequirement = 94, statInterpolation = { 3, 3, 1, }, cost = { Mana = 41, }, },
+		[35] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 2, critChance = 5, levelRequirement = 95, statInterpolation = { 3, 3, 1, }, cost = { Mana = 42, }, },
+		[36] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 2, critChance = 5, levelRequirement = 96, statInterpolation = { 3, 3, 1, }, cost = { Mana = 42, }, },
+		[37] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 2, critChance = 5, levelRequirement = 97, statInterpolation = { 3, 3, 1, }, cost = { Mana = 43, }, },
+		[38] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 2, critChance = 5, levelRequirement = 98, statInterpolation = { 3, 3, 1, }, cost = { Mana = 43, }, },
+		[39] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 2, critChance = 5, levelRequirement = 99, statInterpolation = { 3, 3, 1, }, cost = { Mana = 44, }, },
+		[40] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 2, critChance = 5, levelRequirement = 100, statInterpolation = { 3, 3, 1, }, cost = { Mana = 44, }, },
 	},
 }
 skills["FrostBolt"] = {
 	name = "Frostbolt",
+	baseTypeName = "Frostbolt",
 	color = 3,
 	baseEffectiveness = 2.8582999706268,
 	incrementalEffectiveness = 0.0472999997437,
@@ -7968,6 +8037,7 @@ skills["FrostBolt"] = {
 }
 skills["GalvanicField"] = {
 	name = "Galvanic Field",
+	baseTypeName = "Galvanic Field",
 	color = 3,
 	baseEffectiveness = 0.61500000953674,
 	incrementalEffectiveness = 0.051399998366833,
@@ -8085,6 +8155,7 @@ skills["GalvanicField"] = {
 }
 skills["GalvanicFieldAltX"] = {
 	name = "Galvanic Field of Intensity",
+	baseTypeName = "Galvanic Field of Intensity",
 	color = 3,
 	baseEffectiveness = 1.9312000274658,
 	incrementalEffectiveness = 0.051399998366833,
@@ -8139,7 +8210,7 @@ skills["GalvanicFieldAltX"] = {
 		{ "base_chance_to_shock_%_from_skill", 20 },
 		{ "galvanic_field_maximum_number_of_spheres", 1 },
 		{ "galvanic_field_retargeting_delay_ms", 800 },
-		{ "base_galvanic_field_beam_delay_ms", 400 },
+		{ "base_galvanic_field_beam_delay_ms", 300 },
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -8194,6 +8265,7 @@ skills["GalvanicFieldAltX"] = {
 }
 skills["GlacialCascade"] = {
 	name = "Glacial Cascade",
+	baseTypeName = "Glacial Cascade",
 	color = 3,
 	baseEffectiveness = 0.57099997997284,
 	incrementalEffectiveness = 0.046399999409914,
@@ -8288,6 +8360,7 @@ skills["GlacialCascade"] = {
 }
 skills["GlacialCascadeAltX"] = {
 	name = "Glacial Cascade of the Fissure",
+	baseTypeName = "Glacial Cascade of the Fissure",
 	color = 3,
 	baseEffectiveness = 1.0800000429153,
 	incrementalEffectiveness = 0.046399999409914,
@@ -8362,6 +8435,7 @@ skills["GlacialCascadeAltX"] = {
 }
 skills["WaterSphere"] = {
 	name = "Hydrosphere",
+	baseTypeName = "Hydrosphere",
 	color = 3,
 	baseEffectiveness = 0.45919999480247,
 	incrementalEffectiveness = 0.057799998670816,
@@ -8485,6 +8559,7 @@ skills["WaterSphere"] = {
 }
 skills["DoomBlast"] = {
 	name = "Hexblast",
+	baseTypeName = "Hexblast",
 	color = 3,
 	baseEffectiveness = 3.0564000606537,
 	incrementalEffectiveness = 0.045499999076128,
@@ -8586,6 +8661,7 @@ skills["DoomBlast"] = {
 }
 skills["DoomBlastAltX"] = {
 	name = "Hexblast of Contradiction",
+	baseTypeName = "Hexblast of Contradiction",
 	color = 3,
 	baseEffectiveness = 3.0564000606537,
 	incrementalEffectiveness = 0.045499999076128,
@@ -8687,6 +8763,7 @@ skills["DoomBlastAltX"] = {
 }
 skills["DoomBlastAltY"] = {
 	name = "Hexblast of Havoc",
+	baseTypeName = "Hexblast of Havoc",
 	color = 3,
 	baseEffectiveness = 2.75,
 	incrementalEffectiveness = 0.045499999076128,
@@ -8767,6 +8844,7 @@ skills["DoomBlastAltY"] = {
 }
 skills["HeraldOfThunder"] = {
 	name = "Herald of Thunder",
+	baseTypeName = "Herald of Thunder",
 	color = 3,
 	baseEffectiveness = 1.375,
 	incrementalEffectiveness = 0.023000000044703,
@@ -8796,9 +8874,6 @@ skills["HeraldOfThunder"] = {
 		},
 		["herald_of_thunder_bolt_frequency_+%"] = {
 			mod("HeraldStormFrequency", "INC", nil),
-		},
-		["quality_display_herald_of_thunder_is_gem"] = {
-			-- Display Only
 		},
 	},
 	baseFlags = {
@@ -8831,7 +8906,6 @@ skills["HeraldOfThunder"] = {
 		"skill_can_add_multiple_charges_per_action",
 		"display_herald_of_thunder_storm",
 		"herald_of_thunder_pvp_scaling_time_uses_bolt_frequency",
-		"quality_display_herald_of_thunder_is_gem",
 	},
 	levels = {
 		[1] = { 0.10000000149012, 0.40000000596046, 0.10000000149012, 0.40000000596046, 1, 31, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 16, statInterpolation = { 3, 3, 3, 3, 1, 1, }, },
@@ -8878,6 +8952,7 @@ skills["HeraldOfThunder"] = {
 }
 skills["IceNova"] = {
 	name = "Ice Nova",
+	baseTypeName = "Ice Nova",
 	color = 3,
 	baseEffectiveness = 2.2599999904633,
 	incrementalEffectiveness = 0.043600000441074,
@@ -8948,6 +9023,7 @@ skills["IceNova"] = {
 }
 skills["IceNovaAltX"] = {
 	name = "Ice Nova of Frostbolts",
+	baseTypeName = "Ice Nova of Frostbolts",
 	color = 3,
 	baseEffectiveness = 1.3500000238419,
 	incrementalEffectiveness = 0.043600000441074,
@@ -9026,6 +9102,7 @@ skills["IceNovaAltX"] = {
 }
 skills["IceNovaAltY"] = {
 	name = "Ice Nova of Deep Freeze",
+	baseTypeName = "Ice Nova of Deep Freeze",
 	color = 3,
 	baseEffectiveness = 1.4689999818802,
 	incrementalEffectiveness = 0.043600000441074,
@@ -9103,6 +9180,7 @@ skills["IceNovaAltY"] = {
 }
 skills["VaalIceNova"] = {
 	name = "Vaal Ice Nova",
+	baseTypeName = "Vaal Ice Nova",
 	color = 3,
 	baseEffectiveness = 1.7986999750137,
 	incrementalEffectiveness = 0.036400001496077,
@@ -9175,6 +9253,7 @@ skills["VaalIceNova"] = {
 }
 skills["IceSpear"] = {
 	name = "Ice Spear",
+	baseTypeName = "Ice Spear",
 	color = 3,
 	baseEffectiveness = 2.4416000843048,
 	incrementalEffectiveness = 0.034099999815226,
@@ -9282,6 +9361,7 @@ skills["IceSpear"] = {
 }
 skills["IceSpearAltX"] = {
 	name = "Ice Spear of Splitting",
+	baseTypeName = "Ice Spear of Splitting",
 	color = 3,
 	baseEffectiveness = 6.3000001907349,
 	incrementalEffectiveness = 0.034099999815226,
@@ -9382,6 +9462,7 @@ skills["IceSpearAltX"] = {
 }
 skills["ColdProjectileMine"] = {
 	name = "Icicle Mine",
+	baseTypeName = "Icicle Mine",
 	color = 3,
 	baseEffectiveness = 1.6928999423981,
 	incrementalEffectiveness = 0.038100000470877,
@@ -9468,6 +9549,7 @@ skills["ColdProjectileMine"] = {
 }
 skills["ColdProjectileMineAltX"] = {
 	name = "Icicle Mine of Fanning",
+	baseTypeName = "Icicle Mine of Fanning",
 	color = 3,
 	baseEffectiveness = 1.9459999799728,
 	incrementalEffectiveness = 0.038100000470877,
@@ -9553,6 +9635,7 @@ skills["ColdProjectileMineAltX"] = {
 }
 skills["ColdProjectileMineAltY"] = {
 	name = "Icicle Mine of Sabotage",
+	baseTypeName = "Icicle Mine of Sabotage",
 	color = 3,
 	baseEffectiveness = 1.2799999713898,
 	incrementalEffectiveness = 0.038100000470877,
@@ -9639,6 +9722,7 @@ skills["ColdProjectileMineAltY"] = {
 }
 skills["ExpandingFireCone"] = {
 	name = "Incinerate",
+	baseTypeName = "Incinerate",
 	color = 3,
 	baseEffectiveness = 0.28540000319481,
 	incrementalEffectiveness = 0.051300000399351,
@@ -9772,10 +9856,260 @@ skills["ExpandingFireCone"] = {
 		[40] = { 0.80000001192093, 1.2000000476837, 6, 24, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 100, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 6, }, },
 	},
 }
+skills["ExpandingFireConeAltX"] = {
+	name = "Incinerate of Expanse",
+	baseTypeName = "Incinerate of Expanse",
+	color = 3,
+	baseEffectiveness = 0.28540000319481,
+	incrementalEffectiveness = 0.051300000399351,
+	description = "Continuously launches a torrent of fire from your hand, repeatedly damaging enemies. As you channel this spell longer, the flames spread wider close to you and spread longer directly in front of you. When you stop channelling you release a slow-moving wave of fire damage over a very large area that will apply a powerful Ignite.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Totemable] = true, [SkillType.Fire] = true, [SkillType.Channel] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.3,
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeMultiplier = math.max(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateofExpanseStage") - activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateMinimumStage") - 0.4175, 0.5825) --First stage takes 0.5825x time to channel compared to subsequent stages
+		end
+	end,
+	parts = {
+		{
+			name = "Channelling",
+			stages = true,
+		},
+		{
+			name = "Release",
+			stages = true,
+			channelRelease = true,
+		},
+	},
+	statMap = {
+		["grant_expanding_fire_cone_release_ignite_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPart = 2 }),
+		},
+		["expanding_fire_cone_release_hit_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["flamethrower_damage_+%_per_stage_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "IncinerateofExpanseStage" }),
+		},
+		["expanding_fire_cone_radius_+_per_stage"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "IncinerateofExpanseStage", limitVar = "IncinerateofExpanseRadiusLimit", limitTotal = true }),
+		},
+		["expanding_fire_cone_final_wave_always_ignite"] = {
+			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			value = 100,
+		},
+		["expanding_fire_cone_radius_limit"] = {
+			mod("Multiplier:IncinerateofExpanseRadiusLimit", "BASE", nil),
+		},
+		["expanding_fire_cone_maximum_number_of_stages"] = {
+			mod("Multiplier:IncinerateofExpanseMaxStages", "BASE", nil),
+		},
+		["quality_display_incinerate_is_gem_hit"] = {
+			--Display Only
+		},
+		["quality_display_incinerate_is_gem_ingite"] = {
+			--Display Only
+		},
+		["quality_display_incinerate_is_gem_stages"] = {
+			--Display Only
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+		skill("radius", 25),
+		skill("radiusLabel", "Flame Length:"),
+		skill("radiusSecondary", 20),
+		skill("radiusSecondaryLabel", "Flame Width:"),
+	},
+	qualityStats = {
+		Default = {
+			{ "expanding_fire_cone_release_hit_damage_+%_final", 5 },
+			{ "grant_expanding_fire_cone_release_ignite_damage_+%_final", 2.5 },
+		},
+	},
+	constantStats = {
+		{ "expanding_fire_cone_maximum_number_of_stages", 4 },
+		{ "grant_expanding_fire_cone_release_ignite_damage_+%_final", 400 },
+		{ "expanding_fire_cone_release_hit_damage_+%_final", 700 },
+		{ "flamethrower_damage_+%_per_stage_final", 25 },
+		{ "expanding_fire_cone_angle_+%_per_stage", 100 },
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"expanding_fire_cone_radius_+_per_stage",
+		"expanding_fire_cone_radius_limit",
+		"is_area_damage",
+		"skill_can_add_multiple_charges_per_action",
+		"expanding_fire_cone_final_wave_always_ignite",
+		"quality_display_incinerate_is_gem_hit",
+		"quality_display_incinerate_is_gem_ingite",
+		"quality_display_incinerate_is_gem_stages",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 4, 15, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 3, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 4, 15, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 15, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 3, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 4, 15, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 19, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 3, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, 4, 15, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 23, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 3, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, 4, 16, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 27, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, 4, 16, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 31, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, 4, 16, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 35, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, 4, 16, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 38, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, 5, 17, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 41, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, 5, 17, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 44, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, 5, 17, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 47, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, 5, 17, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 50, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, 5, 18, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 53, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, 5, 18, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 56, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, 5, 18, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 59, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, 5, 18, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 62, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, 5, 19, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 64, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, 5, 19, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 66, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, 5, 19, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, 5, 19, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, 5, 20, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 72, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, 5, 20, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 74, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, 5, 20, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 76, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, 5, 20, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 78, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 7, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, 6, 21, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 80, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 7, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, 6, 21, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 7, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, 6, 21, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 7, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, 6, 21, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 86, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 7, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, 6, 22, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 88, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 7, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, 6, 22, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 90, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 8, }, },
+		[31] = { 0.80000001192093, 1.2000000476837, 6, 22, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 91, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 8, }, },
+		[32] = { 0.80000001192093, 1.2000000476837, 6, 22, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 92, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 8, }, },
+		[33] = { 0.80000001192093, 1.2000000476837, 6, 23, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 93, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 8, }, },
+		[34] = { 0.80000001192093, 1.2000000476837, 6, 23, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 94, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 8, }, },
+		[35] = { 0.80000001192093, 1.2000000476837, 6, 23, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 95, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 8, }, },
+		[36] = { 0.80000001192093, 1.2000000476837, 6, 23, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 96, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 8, }, },
+		[37] = { 0.80000001192093, 1.2000000476837, 6, 24, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 97, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 8, }, },
+		[38] = { 0.80000001192093, 1.2000000476837, 6, 24, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 98, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 8, }, },
+		[39] = { 0.80000001192093, 1.2000000476837, 6, 24, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 99, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 8, }, },
+		[40] = { 0.80000001192093, 1.2000000476837, 6, 24, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 100, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 8, }, },
+	},
+}
+skills["ExpandingFireConeAltY"] = {
+	name = "Incinerate of Venting",
+	baseTypeName = "Incinerate of Venting",
+	color = 3,
+	baseEffectiveness = 0.28540000319481,
+	incrementalEffectiveness = 0.051300000399351,
+	description = "Continuously launches a torrent of fire from your hand, repeatedly damaging enemies. As you channel this spell longer, the flames spread wider close to you and spread longer directly in front of you.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Totemable] = true, [SkillType.Fire] = true, [SkillType.Channel] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.17,
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeMultiplier = math.max(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateofVentingStage") - activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateMinimumStage") - 0.4175, 0.5825) --First stage takes 0.5825x time to channel compared to subsequent stages
+		end
+	end,
+	statMap = {
+		["flamethrower_damage_+%_per_stage_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "IncinerateofVentingStage" }),
+		},
+		["expanding_fire_cone_radius_+_per_stage"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "IncinerateofVentingStage", limitVar = "IncinerateofVentingRadiusLimit", limitTotal = true }),
+		},
+		["expanding_fire_cone_radius_limit"] = {
+			mod("Multiplier:IncinerateofVentingRadiusLimit", "BASE", nil),
+		},
+		["expanding_fire_cone_maximum_number_of_stages"] = {
+			mod("Multiplier:IncinerateofVentingMaxStages", "BASE", nil),
+		},
+		["quality_display_incinerate_is_gem_hit"] = {
+			--Display Only
+		},
+		["quality_display_incinerate_is_gem_ingite"] = {
+			--Display Only
+		},
+		["quality_display_incinerate_is_gem_stages"] = {
+			--Display Only
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+		skill("radius", 25),
+		skill("radiusLabel", "Flame Length:"),
+		skill("radiusSecondary", 20),
+		skill("radiusSecondaryLabel", "Flame Width:"),
+	},
+	qualityStats = {
+		Default = {
+			{ "expanding_fire_cone_maximum_number_of_stages", 0.1 },
+		},
+	},
+	constantStats = {
+		{ "expanding_fire_cone_maximum_number_of_stages", 12 },
+		{ "flamethrower_damage_+%_per_stage_final", 25 },
+		{ "expanding_fire_cone_angle_+%_per_stage", 100 },
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"expanding_fire_cone_radius_+_per_stage",
+		"expanding_fire_cone_radius_limit",
+		"is_area_damage",
+		"skill_can_add_multiple_charges_per_action",
+		"quality_display_incinerate_is_gem_hit",
+		"quality_display_incinerate_is_gem_ingite",
+		"quality_display_incinerate_is_gem_stages",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 4, 24, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 2, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 4, 24, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 15, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 2, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 19, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 2, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 23, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 2, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, 4, 25, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 27, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 2, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, 4, 26, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 31, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 2, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, 4, 26, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 35, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 2, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, 4, 26, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 38, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 2, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, 5, 27, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 41, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 2, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, 5, 27, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 44, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 3, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, 5, 27, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 47, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 3, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, 5, 27, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 50, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 3, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, 5, 28, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 53, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 3, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, 5, 28, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 56, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 3, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, 5, 28, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 59, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 3, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, 5, 29, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 62, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 3, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, 5, 29, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 64, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, 5, 29, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 66, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, 5, 30, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, 5, 30, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, 5, 30, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 72, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, 5, 31, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 74, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, 5, 31, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 76, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, 5, 31, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 78, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, 6, 32, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 80, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 4, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, 6, 32, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, 6, 32, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, 6, 33, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 86, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, 6, 33, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 88, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, 6, 33, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 90, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[31] = { 0.80000001192093, 1.2000000476837, 6, 33, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 91, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[32] = { 0.80000001192093, 1.2000000476837, 6, 33, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 92, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[33] = { 0.80000001192093, 1.2000000476837, 6, 34, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 93, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[34] = { 0.80000001192093, 1.2000000476837, 6, 34, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 94, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[35] = { 0.80000001192093, 1.2000000476837, 6, 34, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 95, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[36] = { 0.80000001192093, 1.2000000476837, 6, 34, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 96, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[37] = { 0.80000001192093, 1.2000000476837, 6, 34, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 97, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[38] = { 0.80000001192093, 1.2000000476837, 6, 34, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 98, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[39] = { 0.80000001192093, 1.2000000476837, 6, 35, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 99, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+		[40] = { 0.80000001192093, 1.2000000476837, 6, 35, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 100, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
+	},
+}
 skills["ClusterBurst"] = {
 	name = "Kinetic Blast",
+	baseTypeName = "Kinetic Blast",
 	color = 3,
-	description = "Fires a projectile from a Wand that causes a series of small explosions surrounding its point of impact, each damaging enemies caught in the area.",
+	description = "Fires a projectile from a Wand that causes a series of area explosions in a secondary radius around its point of impact, each damaging enemies.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["Wand"] = true,
@@ -9797,9 +10131,6 @@ skills["ClusterBurst"] = {
 		projectile = true,
 		area = true,
 	},
-	baseMods = {
-		skill("radius", 14),
-	},
 	qualityStats = {
 		Default = {
 			{ "cluster_burst_spawn_amount", 0.05 },
@@ -9808,6 +10139,9 @@ skills["ClusterBurst"] = {
 	constantStats = {
 		{ "cluster_burst_spawn_amount", 4 },
 		{ "active_skill_area_damage_+%_final", -35 },
+		{ "active_skill_base_area_of_effect_radius", 14 },
+		{ "active_skill_base_secondary_area_of_effect_radius", 20 },
+		{ "active_skill_area_of_effect_description_mode", 1 },
 	},
 	stats = {
 		"base_is_projectile",
@@ -9857,8 +10191,106 @@ skills["ClusterBurst"] = {
 		[40] = { damageEffectiveness = 1.67, PvPDamageMultiplier = -30, baseMultiplier = 1.668, levelRequirement = 100, cost = { Mana = 18, }, },
 	},
 }
+skills["ClusterBurstAltX"] = {
+	name = "Kinetic Blast of Clustering",
+	baseTypeName = "Kinetic Blast of Clustering",
+	color = 3,
+	description = "Fires a projectile from a Wand that causes a series of area explosions in a secondary radius around its point of impact, each damaging enemies.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Physical] = true, },
+	weaponTypes = {
+		["Wand"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	parts = {
+		{
+			name = "Projectile",
+			area = false,
+		},
+		{
+			name = "Explosions",
+			area = true,
+		},
+	},
+	statMap = {
+		["added_physical_damage_to_attacks_equal_to_%_maximum_mana"] = {
+			mod("PhysicalMin", "BASE", nil, ModFlag.Attack, 0, { type = "PercentStat", stat = "Mana", percent = 1 }),
+			mod("PhysicalMax", "BASE", nil, ModFlag.Attack, 0, { type = "PercentStat", stat = "Mana", percent = 1 }),
+		},
+		["kinetic_blast_modifiers_to_number_of_projectiles_instead_apply_to_number_of_clusters"] = {
+			flag("NoAdditionalProjectiles"),
+		},
+	},
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+	},
+	qualityStats = {
+		Default = {
+			{ "cluster_burst_spawn_amount", 0.05 },
+		},
+	},
+	constantStats = {
+		{ "active_skill_base_area_of_effect_radius", 19 },
+		{ "active_skill_base_secondary_area_of_effect_radius", 28 },
+		{ "active_skill_area_of_effect_description_mode", 1 },
+		{ "cluster_burst_spawn_amount", 3 },
+	},
+	stats = {
+		"added_physical_damage_to_attacks_equal_to_%_maximum_mana",
+		"base_is_projectile",
+		"skill_can_fire_wand_projectiles",
+		"quality_display_active_skill_area_damage_is_gem",
+		"kinetic_blast_modifiers_to_number_of_projectiles_instead_apply_to_number_of_clusters",
+		"projectiles_cannot_split",
+	},
+	levels = {
+		[1] = { 8, PvPDamageMultiplier = -30, levelRequirement = 28, statInterpolation = { 1, }, cost = { Mana = 15, }, },
+		[2] = { 8, PvPDamageMultiplier = -30, levelRequirement = 31, statInterpolation = { 1, }, cost = { Mana = 15, }, },
+		[3] = { 9, PvPDamageMultiplier = -30, levelRequirement = 34, statInterpolation = { 1, }, cost = { Mana = 15, }, },
+		[4] = { 9, PvPDamageMultiplier = -30, levelRequirement = 37, statInterpolation = { 1, }, cost = { Mana = 15, }, },
+		[5] = { 10, PvPDamageMultiplier = -30, levelRequirement = 40, statInterpolation = { 1, }, cost = { Mana = 15, }, },
+		[6] = { 10, PvPDamageMultiplier = -30, levelRequirement = 42, statInterpolation = { 1, }, cost = { Mana = 15, }, },
+		[7] = { 10, PvPDamageMultiplier = -30, levelRequirement = 44, statInterpolation = { 1, }, cost = { Mana = 15, }, },
+		[8] = { 11, PvPDamageMultiplier = -30, levelRequirement = 46, statInterpolation = { 1, }, cost = { Mana = 15, }, },
+		[9] = { 11, PvPDamageMultiplier = -30, levelRequirement = 48, statInterpolation = { 1, }, cost = { Mana = 16, }, },
+		[10] = { 11, PvPDamageMultiplier = -30, levelRequirement = 50, statInterpolation = { 1, }, cost = { Mana = 16, }, },
+		[11] = { 12, PvPDamageMultiplier = -30, levelRequirement = 52, statInterpolation = { 1, }, cost = { Mana = 16, }, },
+		[12] = { 12, PvPDamageMultiplier = -30, levelRequirement = 54, statInterpolation = { 1, }, cost = { Mana = 16, }, },
+		[13] = { 13, PvPDamageMultiplier = -30, levelRequirement = 56, statInterpolation = { 1, }, cost = { Mana = 16, }, },
+		[14] = { 13, PvPDamageMultiplier = -30, levelRequirement = 58, statInterpolation = { 1, }, cost = { Mana = 16, }, },
+		[15] = { 13, PvPDamageMultiplier = -30, levelRequirement = 60, statInterpolation = { 1, }, cost = { Mana = 16, }, },
+		[16] = { 14, PvPDamageMultiplier = -30, levelRequirement = 62, statInterpolation = { 1, }, cost = { Mana = 16, }, },
+		[17] = { 14, PvPDamageMultiplier = -30, levelRequirement = 64, statInterpolation = { 1, }, cost = { Mana = 16, }, },
+		[18] = { 15, PvPDamageMultiplier = -30, levelRequirement = 66, statInterpolation = { 1, }, cost = { Mana = 16, }, },
+		[19] = { 15, PvPDamageMultiplier = -30, levelRequirement = 68, statInterpolation = { 1, }, cost = { Mana = 16, }, },
+		[20] = { 15, PvPDamageMultiplier = -30, levelRequirement = 70, statInterpolation = { 1, }, cost = { Mana = 16, }, },
+		[21] = { 16, PvPDamageMultiplier = -30, levelRequirement = 72, statInterpolation = { 1, }, cost = { Mana = 16, }, },
+		[22] = { 16, PvPDamageMultiplier = -30, levelRequirement = 74, statInterpolation = { 1, }, cost = { Mana = 16, }, },
+		[23] = { 16, PvPDamageMultiplier = -30, levelRequirement = 76, statInterpolation = { 1, }, cost = { Mana = 16, }, },
+		[24] = { 17, PvPDamageMultiplier = -30, levelRequirement = 78, statInterpolation = { 1, }, cost = { Mana = 16, }, },
+		[25] = { 17, PvPDamageMultiplier = -30, levelRequirement = 80, statInterpolation = { 1, }, cost = { Mana = 17, }, },
+		[26] = { 18, PvPDamageMultiplier = -30, levelRequirement = 82, statInterpolation = { 1, }, cost = { Mana = 17, }, },
+		[27] = { 18, PvPDamageMultiplier = -30, levelRequirement = 84, statInterpolation = { 1, }, cost = { Mana = 17, }, },
+		[28] = { 18, PvPDamageMultiplier = -30, levelRequirement = 86, statInterpolation = { 1, }, cost = { Mana = 17, }, },
+		[29] = { 19, PvPDamageMultiplier = -30, levelRequirement = 88, statInterpolation = { 1, }, cost = { Mana = 17, }, },
+		[30] = { 19, PvPDamageMultiplier = -30, levelRequirement = 90, statInterpolation = { 1, }, cost = { Mana = 17, }, },
+		[31] = { 19, PvPDamageMultiplier = -30, levelRequirement = 91, statInterpolation = { 1, }, cost = { Mana = 17, }, },
+		[32] = { 20, PvPDamageMultiplier = -30, levelRequirement = 92, statInterpolation = { 1, }, cost = { Mana = 17, }, },
+		[33] = { 20, PvPDamageMultiplier = -30, levelRequirement = 93, statInterpolation = { 1, }, cost = { Mana = 17, }, },
+		[34] = { 20, PvPDamageMultiplier = -30, levelRequirement = 94, statInterpolation = { 1, }, cost = { Mana = 17, }, },
+		[35] = { 20, PvPDamageMultiplier = -30, levelRequirement = 95, statInterpolation = { 1, }, cost = { Mana = 17, }, },
+		[36] = { 20, PvPDamageMultiplier = -30, levelRequirement = 96, statInterpolation = { 1, }, cost = { Mana = 17, }, },
+		[37] = { 20, PvPDamageMultiplier = -30, levelRequirement = 97, statInterpolation = { 1, }, cost = { Mana = 17, }, },
+		[38] = { 21, PvPDamageMultiplier = -30, levelRequirement = 98, statInterpolation = { 1, }, cost = { Mana = 18, }, },
+		[39] = { 21, PvPDamageMultiplier = -30, levelRequirement = 99, statInterpolation = { 1, }, cost = { Mana = 18, }, },
+		[40] = { 21, PvPDamageMultiplier = -30, levelRequirement = 100, statInterpolation = { 1, }, cost = { Mana = 18, }, },
+	},
+}
 skills["KineticBolt"] = {
 	name = "Kinetic Bolt",
+	baseTypeName = "Kinetic Bolt",
 	color = 3,
 	description = "Fire a projectile from your wand that changes direction in a zig-zag pattern at regular intervals or when hitting enemies. Each time it changes direction, a secondary projectile breaks off, flying in the direction it changed away from.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.RangedAttack] = true, [SkillType.Triggerable] = true, },
@@ -9940,6 +10372,7 @@ skills["KineticBolt"] = {
 }
 skills["KineticBoltAltX"] = {
 	name = "Kinetic Bolt of Fragmentation",
+	baseTypeName = "Kinetic Bolt of Fragmentation",
 	color = 3,
 	description = "Fire a projectile from your wand that changes direction in a zig-zag pattern at regular intervals or when hitting enemies. Each time it changes direction, a secondary projectile breaks off, flying in the direction it changed away from. Multiple of these projectiles can hit the same target.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.RangedAttack] = true, [SkillType.Triggerable] = true, },
@@ -9949,10 +10382,6 @@ skills["KineticBoltAltX"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
-		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
-			flag("SpellDamageAppliesToAttacks"),
-			mod("ImprovedSpellDamageAppliesToAttacks", "MAX", nil),
-		},
 		["quality_display_spell_damage_to_attack_damage_is_gem"] = {
 			--Display Only
 		},
@@ -9963,11 +10392,10 @@ skills["KineticBoltAltX"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value", 2.5 },
+			{ "kinetic_wand_base_number_of_zig_zags", 0.05 },
 		},
 	},
 	constantStats = {
-		{ "active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value", 200 },
 		{ "kinetic_wand_base_number_of_zig_zags", 2 },
 		{ "number_of_additional_projectiles", 2 },
 	},
@@ -9975,54 +10403,54 @@ skills["KineticBoltAltX"] = {
 		"base_is_projectile",
 		"skill_can_fire_wand_projectiles",
 		"kinetic_bolt_forks_apply_to_zig_zags",
-		"quality_display_spell_damage_to_attack_damage_is_gem",
 		"projectiles_can_shotgun",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 0.65, baseMultiplier = 0.65, levelRequirement = 1, cost = { Mana = 6, }, },
-		[2] = { damageEffectiveness = 0.661, baseMultiplier = 0.661, levelRequirement = 2, cost = { Mana = 6, }, },
-		[3] = { damageEffectiveness = 0.671, baseMultiplier = 0.671, levelRequirement = 4, cost = { Mana = 6, }, },
-		[4] = { damageEffectiveness = 0.682, baseMultiplier = 0.682, levelRequirement = 7, cost = { Mana = 7, }, },
-		[5] = { damageEffectiveness = 0.692, baseMultiplier = 0.692, levelRequirement = 11, cost = { Mana = 7, }, },
-		[6] = { damageEffectiveness = 0.703, baseMultiplier = 0.703, levelRequirement = 16, cost = { Mana = 7, }, },
-		[7] = { damageEffectiveness = 0.713, baseMultiplier = 0.713, levelRequirement = 20, cost = { Mana = 7, }, },
-		[8] = { damageEffectiveness = 0.724, baseMultiplier = 0.724, levelRequirement = 24, cost = { Mana = 8, }, },
-		[9] = { damageEffectiveness = 0.734, baseMultiplier = 0.734, levelRequirement = 28, cost = { Mana = 8, }, },
-		[10] = { damageEffectiveness = 0.745, baseMultiplier = 0.745, levelRequirement = 32, cost = { Mana = 8, }, },
-		[11] = { damageEffectiveness = 0.755, baseMultiplier = 0.755, levelRequirement = 36, cost = { Mana = 8, }, },
-		[12] = { damageEffectiveness = 0.766, baseMultiplier = 0.766, levelRequirement = 40, cost = { Mana = 8, }, },
-		[13] = { damageEffectiveness = 0.776, baseMultiplier = 0.776, levelRequirement = 44, cost = { Mana = 9, }, },
-		[14] = { damageEffectiveness = 0.787, baseMultiplier = 0.787, levelRequirement = 48, cost = { Mana = 9, }, },
-		[15] = { damageEffectiveness = 0.797, baseMultiplier = 0.797, levelRequirement = 52, cost = { Mana = 9, }, },
-		[16] = { damageEffectiveness = 0.808, baseMultiplier = 0.808, levelRequirement = 56, cost = { Mana = 9, }, },
-		[17] = { damageEffectiveness = 0.818, baseMultiplier = 0.818, levelRequirement = 60, cost = { Mana = 9, }, },
-		[18] = { damageEffectiveness = 0.829, baseMultiplier = 0.829, levelRequirement = 64, cost = { Mana = 10, }, },
-		[19] = { damageEffectiveness = 0.839, baseMultiplier = 0.839, levelRequirement = 67, cost = { Mana = 10, }, },
-		[20] = { damageEffectiveness = 0.85, baseMultiplier = 0.85, levelRequirement = 70, cost = { Mana = 10, }, },
-		[21] = { damageEffectiveness = 0.861, baseMultiplier = 0.861, levelRequirement = 72, cost = { Mana = 10, }, },
-		[22] = { damageEffectiveness = 0.871, baseMultiplier = 0.871, levelRequirement = 74, cost = { Mana = 10, }, },
-		[23] = { damageEffectiveness = 0.882, baseMultiplier = 0.882, levelRequirement = 76, cost = { Mana = 11, }, },
-		[24] = { damageEffectiveness = 0.892, baseMultiplier = 0.892, levelRequirement = 78, cost = { Mana = 11, }, },
-		[25] = { damageEffectiveness = 0.903, baseMultiplier = 0.903, levelRequirement = 80, cost = { Mana = 11, }, },
-		[26] = { damageEffectiveness = 0.913, baseMultiplier = 0.913, levelRequirement = 82, cost = { Mana = 11, }, },
-		[27] = { damageEffectiveness = 0.924, baseMultiplier = 0.924, levelRequirement = 84, cost = { Mana = 11, }, },
-		[28] = { damageEffectiveness = 0.934, baseMultiplier = 0.934, levelRequirement = 86, cost = { Mana = 12, }, },
-		[29] = { damageEffectiveness = 0.945, baseMultiplier = 0.945, levelRequirement = 88, cost = { Mana = 12, }, },
-		[30] = { damageEffectiveness = 0.955, baseMultiplier = 0.955, levelRequirement = 90, cost = { Mana = 12, }, },
-		[31] = { damageEffectiveness = 0.961, baseMultiplier = 0.961, levelRequirement = 91, cost = { Mana = 12, }, },
-		[32] = { damageEffectiveness = 0.966, baseMultiplier = 0.966, levelRequirement = 92, cost = { Mana = 12, }, },
-		[33] = { damageEffectiveness = 0.971, baseMultiplier = 0.971, levelRequirement = 93, cost = { Mana = 13, }, },
-		[34] = { damageEffectiveness = 0.976, baseMultiplier = 0.976, levelRequirement = 94, cost = { Mana = 13, }, },
-		[35] = { damageEffectiveness = 0.982, baseMultiplier = 0.982, levelRequirement = 95, cost = { Mana = 13, }, },
-		[36] = { damageEffectiveness = 0.987, baseMultiplier = 0.987, levelRequirement = 96, cost = { Mana = 13, }, },
-		[37] = { damageEffectiveness = 0.992, baseMultiplier = 0.992, levelRequirement = 97, cost = { Mana = 13, }, },
-		[38] = { damageEffectiveness = 0.997, baseMultiplier = 0.997, levelRequirement = 98, cost = { Mana = 14, }, },
-		[39] = { damageEffectiveness = 1.003, baseMultiplier = 1.003, levelRequirement = 99, cost = { Mana = 14, }, },
-		[40] = { damageEffectiveness = 1.008, baseMultiplier = 1.008, levelRequirement = 100, cost = { Mana = 14, }, },
+		[1] = { damageEffectiveness = 0.55, baseMultiplier = 0.55, levelRequirement = 1, cost = { Mana = 6, }, },
+		[2] = { damageEffectiveness = 0.558, baseMultiplier = 0.558, levelRequirement = 2, cost = { Mana = 6, }, },
+		[3] = { damageEffectiveness = 0.566, baseMultiplier = 0.566, levelRequirement = 4, cost = { Mana = 6, }, },
+		[4] = { damageEffectiveness = 0.574, baseMultiplier = 0.574, levelRequirement = 7, cost = { Mana = 7, }, },
+		[5] = { damageEffectiveness = 0.582, baseMultiplier = 0.582, levelRequirement = 11, cost = { Mana = 7, }, },
+		[6] = { damageEffectiveness = 0.589, baseMultiplier = 0.589, levelRequirement = 16, cost = { Mana = 7, }, },
+		[7] = { damageEffectiveness = 0.597, baseMultiplier = 0.597, levelRequirement = 20, cost = { Mana = 7, }, },
+		[8] = { damageEffectiveness = 0.605, baseMultiplier = 0.605, levelRequirement = 24, cost = { Mana = 8, }, },
+		[9] = { damageEffectiveness = 0.613, baseMultiplier = 0.613, levelRequirement = 28, cost = { Mana = 8, }, },
+		[10] = { damageEffectiveness = 0.621, baseMultiplier = 0.621, levelRequirement = 32, cost = { Mana = 8, }, },
+		[11] = { damageEffectiveness = 0.629, baseMultiplier = 0.629, levelRequirement = 36, cost = { Mana = 8, }, },
+		[12] = { damageEffectiveness = 0.637, baseMultiplier = 0.637, levelRequirement = 40, cost = { Mana = 8, }, },
+		[13] = { damageEffectiveness = 0.645, baseMultiplier = 0.645, levelRequirement = 44, cost = { Mana = 9, }, },
+		[14] = { damageEffectiveness = 0.653, baseMultiplier = 0.653, levelRequirement = 48, cost = { Mana = 9, }, },
+		[15] = { damageEffectiveness = 0.661, baseMultiplier = 0.661, levelRequirement = 52, cost = { Mana = 9, }, },
+		[16] = { damageEffectiveness = 0.668, baseMultiplier = 0.668, levelRequirement = 56, cost = { Mana = 9, }, },
+		[17] = { damageEffectiveness = 0.676, baseMultiplier = 0.676, levelRequirement = 60, cost = { Mana = 9, }, },
+		[18] = { damageEffectiveness = 0.684, baseMultiplier = 0.684, levelRequirement = 64, cost = { Mana = 10, }, },
+		[19] = { damageEffectiveness = 0.692, baseMultiplier = 0.692, levelRequirement = 67, cost = { Mana = 10, }, },
+		[20] = { damageEffectiveness = 0.7, baseMultiplier = 0.7, levelRequirement = 70, cost = { Mana = 10, }, },
+		[21] = { damageEffectiveness = 0.708, baseMultiplier = 0.708, levelRequirement = 72, cost = { Mana = 10, }, },
+		[22] = { damageEffectiveness = 0.716, baseMultiplier = 0.716, levelRequirement = 74, cost = { Mana = 10, }, },
+		[23] = { damageEffectiveness = 0.724, baseMultiplier = 0.724, levelRequirement = 76, cost = { Mana = 11, }, },
+		[24] = { damageEffectiveness = 0.732, baseMultiplier = 0.732, levelRequirement = 78, cost = { Mana = 11, }, },
+		[25] = { damageEffectiveness = 0.739, baseMultiplier = 0.739, levelRequirement = 80, cost = { Mana = 11, }, },
+		[26] = { damageEffectiveness = 0.747, baseMultiplier = 0.747, levelRequirement = 82, cost = { Mana = 11, }, },
+		[27] = { damageEffectiveness = 0.755, baseMultiplier = 0.755, levelRequirement = 84, cost = { Mana = 11, }, },
+		[28] = { damageEffectiveness = 0.763, baseMultiplier = 0.763, levelRequirement = 86, cost = { Mana = 12, }, },
+		[29] = { damageEffectiveness = 0.771, baseMultiplier = 0.771, levelRequirement = 88, cost = { Mana = 12, }, },
+		[30] = { damageEffectiveness = 0.779, baseMultiplier = 0.779, levelRequirement = 90, cost = { Mana = 12, }, },
+		[31] = { damageEffectiveness = 0.783, baseMultiplier = 0.783, levelRequirement = 91, cost = { Mana = 12, }, },
+		[32] = { damageEffectiveness = 0.787, baseMultiplier = 0.787, levelRequirement = 92, cost = { Mana = 12, }, },
+		[33] = { damageEffectiveness = 0.791, baseMultiplier = 0.791, levelRequirement = 93, cost = { Mana = 13, }, },
+		[34] = { damageEffectiveness = 0.795, baseMultiplier = 0.795, levelRequirement = 94, cost = { Mana = 13, }, },
+		[35] = { damageEffectiveness = 0.799, baseMultiplier = 0.799, levelRequirement = 95, cost = { Mana = 13, }, },
+		[36] = { damageEffectiveness = 0.803, baseMultiplier = 0.803, levelRequirement = 96, cost = { Mana = 13, }, },
+		[37] = { damageEffectiveness = 0.807, baseMultiplier = 0.807, levelRequirement = 97, cost = { Mana = 13, }, },
+		[38] = { damageEffectiveness = 0.811, baseMultiplier = 0.811, levelRequirement = 98, cost = { Mana = 14, }, },
+		[39] = { damageEffectiveness = 0.814, baseMultiplier = 0.814, levelRequirement = 99, cost = { Mana = 14, }, },
+		[40] = { damageEffectiveness = 0.818, baseMultiplier = 0.818, levelRequirement = 100, cost = { Mana = 14, }, },
 	},
 }
 skills["LightningTowerTrap"] = {
 	name = "Lightning Spire Trap",
+	baseTypeName = "Lightning Spire Trap",
 	color = 3,
 	baseEffectiveness = 0.61379998922348,
 	incrementalEffectiveness = 0.048900000751019,
@@ -10265,6 +10693,7 @@ skills["LightningTowerTrap"] = {
 }
 skills["LightningTowerTrapAltX"] = {
 	name = "Lightning Spire Trap of Zapping",
+	baseTypeName = "Lightning Spire Trap of Zapping",
 	color = 3,
 	baseEffectiveness = 0.75,
 	incrementalEffectiveness = 0.048900000751019,
@@ -10500,6 +10929,7 @@ skills["LightningTowerTrapAltX"] = {
 }
 skills["LightningTowerTrapAltY"] = {
 	name = "Lightning Spire Trap of Overloading",
+	baseTypeName = "Lightning Spire Trap of Overloading",
 	color = 3,
 	baseEffectiveness = 1.25,
 	incrementalEffectiveness = 0.048900000751019,
@@ -10671,7 +11101,7 @@ skills["LightningTowerTrapAltY"] = {
 	constantStats = {
 		{ "base_trap_duration", 4000 },
 		{ "base_skill_effect_duration", 3500 },
-		{ "lightning_tower_trap_number_of_beams", 6 },
+		{ "lightning_tower_trap_number_of_beams", 8 },
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -10729,6 +11159,7 @@ skills["LightningTowerTrapAltY"] = {
 }
 skills["LightningConduit"] = {
 	name = "Lightning Conduit",
+	baseTypeName = "Lightning Conduit",
 	color = 3,
 	baseEffectiveness = 1.5749000310898,
 	incrementalEffectiveness = 0.041999999433756,
@@ -10811,6 +11242,7 @@ skills["LightningConduit"] = {
 }
 skills["LightningConduitAltX"] = {
 	name = "Lightning Conduit of the Heavens",
+	baseTypeName = "Lightning Conduit of the Heavens",
 	color = 3,
 	baseEffectiveness = 3.0499999523163,
 	incrementalEffectiveness = 0.041999999433756,
@@ -10879,6 +11311,7 @@ skills["LightningConduitAltX"] = {
 }
 skills["LightningTendrilsChannelled"] = {
 	name = "Lightning Tendrils",
+	baseTypeName = "Lightning Tendrils",
 	color = 3,
 	baseEffectiveness = 0.83469998836517,
 	incrementalEffectiveness = 0.051100000739098,
@@ -10969,6 +11402,7 @@ skills["LightningTendrilsChannelled"] = {
 }
 skills["LightningTendrilsChannelledAltX"] = {
 	name = "Lightning Tendrils of Eccentricity",
+	baseTypeName = "Lightning Tendrils of Eccentricity",
 	color = 3,
 	baseEffectiveness = 0.37000000476837,
 	incrementalEffectiveness = 0.051100000739098,
@@ -11065,6 +11499,7 @@ skills["LightningTendrilsChannelledAltX"] = {
 }
 skills["LightningTendrilsChannelledAltY"] = {
 	name = "Lightning Tendrils of Escalation",
+	baseTypeName = "Lightning Tendrils of Escalation",
 	color = 3,
 	baseEffectiveness = 0.95999997854233,
 	incrementalEffectiveness = 0.051100000739098,
@@ -11143,6 +11578,7 @@ skills["LightningTendrilsChannelledAltY"] = {
 }
 skills["LightningTrap"] = {
 	name = "Lightning Trap",
+	baseTypeName = "Lightning Trap",
 	color = 3,
 	baseEffectiveness = 2.4788999557495,
 	incrementalEffectiveness = 0.043200001120567,
@@ -11223,6 +11659,7 @@ skills["LightningTrap"] = {
 }
 skills["LightningTrapAltX"] = {
 	name = "Lightning Trap of Sparking",
+	baseTypeName = "Lightning Trap of Sparking",
 	color = 3,
 	baseEffectiveness = 2.9746999740601,
 	incrementalEffectiveness = 0.043200001120567,
@@ -11305,6 +11742,7 @@ skills["LightningTrapAltX"] = {
 }
 skills["VaalLightningTrap"] = {
 	name = "Vaal Lightning Trap",
+	baseTypeName = "Vaal Lightning Trap",
 	color = 3,
 	baseEffectiveness = 4.6251997947693,
 	incrementalEffectiveness = 0.034400001168251,
@@ -11394,6 +11832,7 @@ skills["VaalLightningTrap"] = {
 }
 skills["LightningWarp"] = {
 	name = "Lightning Warp",
+	baseTypeName = "Lightning Warp",
 	color = 3,
 	baseEffectiveness = 0.94830000400543,
 	incrementalEffectiveness = 0.043299999088049,
@@ -11471,6 +11910,7 @@ skills["LightningWarp"] = {
 }
 skills["VaalLightningWarpInstant"] = {
 	name = "Vaal Lightning Warp",
+	baseTypeName = "Vaal Lightning Warp",
 	color = 3,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Casts a delayed teleport for nearby enemies to a target destination. When the teleport occurs, lightning damage is dealt to the enemies both before and after they teleport.",
@@ -11546,6 +11986,7 @@ skills["VaalLightningWarpInstant"] = {
 }
 skills["MagmaOrb"] = {
 	name = "Rolling Magma",
+	baseTypeName = "Rolling Magma",
 	color = 3,
 	baseEffectiveness = 2.5980000495911,
 	incrementalEffectiveness = 0.045000001788139,
@@ -11570,6 +12011,7 @@ skills["MagmaOrb"] = {
 	},
 	constantStats = {
 		{ "monster_projectile_variation", 1 },
+		{ "display_projectiles_chain_when_impacting_ground", 1 },
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -11578,7 +12020,6 @@ skills["MagmaOrb"] = {
 		"active_skill_base_radius_+",
 		"is_area_damage",
 		"base_is_projectile",
-		"display_projectiles_chain_when_impacting_ground",
 		"console_skill_dont_chase",
 	},
 	levels = {
@@ -11626,6 +12067,7 @@ skills["MagmaOrb"] = {
 }
 skills["DamageOverTimeAura"] = {
 	name = "Malevolence",
+	baseTypeName = "Malevolence",
 	color = 3,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.025000000372529,
@@ -11705,6 +12147,7 @@ skills["DamageOverTimeAura"] = {
 }
 skills["Manabond"] = {
 	name = "Manabond",
+	baseTypeName = "Manabond",
 	color = 3,
 	baseEffectiveness = 1.8538000583649,
 	incrementalEffectiveness = 0.041400000452995,
@@ -11712,10 +12155,15 @@ skills["Manabond"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.AreaSpell] = true, [SkillType.Lightning] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Trappable] = true, [SkillType.Cascadable] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, [SkillType.Triggerable] = true, [SkillType.Arcane] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	preDamageFunc = function(activeSkill, output)
+		local missingUnreservedManaPercentage = activeSkill.skillData.ManabondMissingUnreservedManaPercentage or 100
+		local manaGainedAsBaseLightningDamage =  math.floor((activeSkill.skillData.ManabondMissingManaGainPercent / 100) * (missingUnreservedManaPercentage / 100) * output.ManaUnreserved)
+		activeSkill.skillModList:NewMod("LightningMin", "BASE", manaGainedAsBaseLightningDamage, "Manabond gain % missing unreserved mana as base lightning damage")
+		activeSkill.skillModList:NewMod("LightningMax", "BASE", manaGainedAsBaseLightningDamage, "Manabond gain % missing unreserved mana as base lightning damage")
+	end,
 	statMap = {
 		["mana_void_gain_%_missing_unreserved_mana_as_base_lightning_damage"] = {
-			mod("Multiplier:ManabondUnreservedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }),
-			div = 100,
+			skill("ManabondMissingManaGainPercent", nil),
 		},
 		["quality_display_manabond_is_gem"] = {
 			-- Display Only
@@ -11731,8 +12179,6 @@ skills["Manabond"] = {
 		skill("radiusLabel", "Circle area:"),
 		skill("radiusSecondary", 23),
 		skill("radiusSecondaryLabel", "Rectangle area:"),
-		mod("LightningMin", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" }),
-		mod("LightningMax", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" }),
 	},
 	qualityStats = {
 		Default = {
@@ -11793,6 +12239,7 @@ skills["Manabond"] = {
 }
 skills["OrbOfStorms"] = {
 	name = "Orb of Storms",
+	baseTypeName = "Orb of Storms",
 	color = 3,
 	baseEffectiveness = 0.93900001049042,
 	incrementalEffectiveness = 0.04619999974966,
@@ -11879,10 +12326,11 @@ skills["OrbOfStorms"] = {
 }
 skills["MagmaSigil"] = {
 	name = "Penance Brand",
+	baseTypeName = "Penance Brand",
 	color = 3,
 	baseEffectiveness = 4.731999874115,
 	incrementalEffectiveness = 0.046720001846552,
-	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, adding energy to the branded enemy. When the branded enemy reaches 20 energy, a large explosion occurs and the brand is removed.",
+	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, adding energy to the branded enemy. When the branded enemy reaches 20 energy, a large explosion occurs and the brand is removed. All energy is removed from the enemy when the brand is detached.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.75,
@@ -11969,10 +12417,11 @@ skills["MagmaSigil"] = {
 }
 skills["MagmaSigilAltX"] = {
 	name = "Penance Brand of Dissipation",
+	baseTypeName = "Penance Brand of Dissipation",
 	color = 3,
-	baseEffectiveness = 0.53680002689362,
+	baseEffectiveness = 0.43079999089241,
 	incrementalEffectiveness = 0.046720001846552,
-	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, adding energy to the branded enemy and causing a pulse that deals damage to the branded enemy and other nearby enemies. The pulse gains area of effect and damage for each energy on the branded enemy.",
+	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, adding energy to the branded enemy and causing a pulse that deals damage to the branded enemy and other nearby enemies. The pulse gains area of effect and damage for each energy on the branded enemy, up to 20. All energy is removed from the enemy when the brand is detached.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.75,
@@ -12019,10 +12468,10 @@ skills["MagmaSigilAltX"] = {
 		{ "base_number_of_sigils_allowed_per_target", 1 },
 		{ "base_secondary_skill_effect_duration", 6000 },
 		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
-		{ "magma_brand_ailment_damage_+%_final_per_additional_pustule", 40 },
-		{ "magma_brand_hit_damage_+%_final_per_additional_pustule", 60 },
+		{ "magma_brand_ailment_damage_+%_final_per_additional_pustule", 30 },
+		{ "magma_brand_hit_damage_+%_final_per_additional_pustule", 30 },
 		{ "base_skill_effect_duration", 5000 },
-		{ "base_sigil_repeat_frequency_ms", 600 },
+		{ "base_sigil_repeat_frequency_ms", 750 },
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -12035,50 +12484,51 @@ skills["MagmaSigilAltX"] = {
 		"skill_can_add_multiple_charges_per_action",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 28, statInterpolation = { 3, 3, }, cost = { Mana = 15, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 31, statInterpolation = { 3, 3, }, cost = { Mana = 15, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 34, statInterpolation = { 3, 3, }, cost = { Mana = 16, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 37, statInterpolation = { 3, 3, }, cost = { Mana = 17, }, },
-		[5] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 40, statInterpolation = { 3, 3, }, cost = { Mana = 18, }, },
-		[6] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 42, statInterpolation = { 3, 3, }, cost = { Mana = 19, }, },
-		[7] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 44, statInterpolation = { 3, 3, }, cost = { Mana = 19, }, },
-		[8] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 46, statInterpolation = { 3, 3, }, cost = { Mana = 20, }, },
-		[9] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 48, statInterpolation = { 3, 3, }, cost = { Mana = 21, }, },
-		[10] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 50, statInterpolation = { 3, 3, }, cost = { Mana = 21, }, },
-		[11] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 52, statInterpolation = { 3, 3, }, cost = { Mana = 22, }, },
-		[12] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 54, statInterpolation = { 3, 3, }, cost = { Mana = 22, }, },
-		[13] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 56, statInterpolation = { 3, 3, }, cost = { Mana = 23, }, },
-		[14] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 58, statInterpolation = { 3, 3, }, cost = { Mana = 24, }, },
-		[15] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 60, statInterpolation = { 3, 3, }, cost = { Mana = 24, }, },
-		[16] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 62, statInterpolation = { 3, 3, }, cost = { Mana = 25, }, },
-		[17] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 64, statInterpolation = { 3, 3, }, cost = { Mana = 25, }, },
-		[18] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 66, statInterpolation = { 3, 3, }, cost = { Mana = 26, }, },
-		[19] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 68, statInterpolation = { 3, 3, }, cost = { Mana = 27, }, },
-		[20] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 70, statInterpolation = { 3, 3, }, cost = { Mana = 27, }, },
-		[21] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 72, statInterpolation = { 3, 3, }, cost = { Mana = 28, }, },
-		[22] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 74, statInterpolation = { 3, 3, }, cost = { Mana = 28, }, },
-		[23] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 76, statInterpolation = { 3, 3, }, cost = { Mana = 29, }, },
-		[24] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 78, statInterpolation = { 3, 3, }, cost = { Mana = 30, }, },
-		[25] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 80, statInterpolation = { 3, 3, }, cost = { Mana = 30, }, },
-		[26] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 82, statInterpolation = { 3, 3, }, cost = { Mana = 31, }, },
-		[27] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 84, statInterpolation = { 3, 3, }, cost = { Mana = 31, }, },
-		[28] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 86, statInterpolation = { 3, 3, }, cost = { Mana = 32, }, },
-		[29] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 88, statInterpolation = { 3, 3, }, cost = { Mana = 32, }, },
-		[30] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 90, statInterpolation = { 3, 3, }, cost = { Mana = 33, }, },
-		[31] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 91, statInterpolation = { 3, 3, }, cost = { Mana = 33, }, },
-		[32] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 92, statInterpolation = { 3, 3, }, cost = { Mana = 34, }, },
-		[33] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 93, statInterpolation = { 3, 3, }, cost = { Mana = 34, }, },
-		[34] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 94, statInterpolation = { 3, 3, }, cost = { Mana = 34, }, },
-		[35] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 95, statInterpolation = { 3, 3, }, cost = { Mana = 35, }, },
-		[36] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 96, statInterpolation = { 3, 3, }, cost = { Mana = 35, }, },
-		[37] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 97, statInterpolation = { 3, 3, }, cost = { Mana = 35, }, },
-		[38] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 98, statInterpolation = { 3, 3, }, cost = { Mana = 35, }, },
-		[39] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 99, statInterpolation = { 3, 3, }, cost = { Mana = 36, }, },
-		[40] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.65, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 100, statInterpolation = { 3, 3, }, cost = { Mana = 36, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 28, statInterpolation = { 3, 3, }, cost = { Mana = 15, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 31, statInterpolation = { 3, 3, }, cost = { Mana = 15, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 34, statInterpolation = { 3, 3, }, cost = { Mana = 16, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 37, statInterpolation = { 3, 3, }, cost = { Mana = 17, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 40, statInterpolation = { 3, 3, }, cost = { Mana = 18, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 42, statInterpolation = { 3, 3, }, cost = { Mana = 19, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 44, statInterpolation = { 3, 3, }, cost = { Mana = 19, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 46, statInterpolation = { 3, 3, }, cost = { Mana = 20, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 48, statInterpolation = { 3, 3, }, cost = { Mana = 21, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 50, statInterpolation = { 3, 3, }, cost = { Mana = 21, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 52, statInterpolation = { 3, 3, }, cost = { Mana = 22, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 54, statInterpolation = { 3, 3, }, cost = { Mana = 22, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 56, statInterpolation = { 3, 3, }, cost = { Mana = 23, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 58, statInterpolation = { 3, 3, }, cost = { Mana = 24, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 60, statInterpolation = { 3, 3, }, cost = { Mana = 24, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 62, statInterpolation = { 3, 3, }, cost = { Mana = 25, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 64, statInterpolation = { 3, 3, }, cost = { Mana = 25, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 66, statInterpolation = { 3, 3, }, cost = { Mana = 26, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 68, statInterpolation = { 3, 3, }, cost = { Mana = 27, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 70, statInterpolation = { 3, 3, }, cost = { Mana = 27, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 72, statInterpolation = { 3, 3, }, cost = { Mana = 28, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 74, statInterpolation = { 3, 3, }, cost = { Mana = 28, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 76, statInterpolation = { 3, 3, }, cost = { Mana = 29, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 78, statInterpolation = { 3, 3, }, cost = { Mana = 30, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 80, statInterpolation = { 3, 3, }, cost = { Mana = 30, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 82, statInterpolation = { 3, 3, }, cost = { Mana = 31, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 84, statInterpolation = { 3, 3, }, cost = { Mana = 31, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 86, statInterpolation = { 3, 3, }, cost = { Mana = 32, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 88, statInterpolation = { 3, 3, }, cost = { Mana = 32, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 90, statInterpolation = { 3, 3, }, cost = { Mana = 33, }, },
+		[31] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 91, statInterpolation = { 3, 3, }, cost = { Mana = 33, }, },
+		[32] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 92, statInterpolation = { 3, 3, }, cost = { Mana = 34, }, },
+		[33] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 93, statInterpolation = { 3, 3, }, cost = { Mana = 34, }, },
+		[34] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 94, statInterpolation = { 3, 3, }, cost = { Mana = 34, }, },
+		[35] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 95, statInterpolation = { 3, 3, }, cost = { Mana = 35, }, },
+		[36] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 96, statInterpolation = { 3, 3, }, cost = { Mana = 35, }, },
+		[37] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 97, statInterpolation = { 3, 3, }, cost = { Mana = 35, }, },
+		[38] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 98, statInterpolation = { 3, 3, }, cost = { Mana = 35, }, },
+		[39] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 99, statInterpolation = { 3, 3, }, cost = { Mana = 36, }, },
+		[40] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.5, PvPDamageMultiplier = -70, critChance = 6, levelRequirement = 100, statInterpolation = { 3, 3, }, cost = { Mana = 36, }, },
 	},
 }
 skills["MagmaSigilAltY"] = {
 	name = "Penance Brand of Conduction",
+	baseTypeName = "Penance Brand of Conduction",
 	color = 3,
 	baseEffectiveness = 0.94859999418259,
 	incrementalEffectiveness = 0.046720001846552,
@@ -12167,6 +12617,7 @@ skills["MagmaSigilAltY"] = {
 }
 skills["PowerSiphon"] = {
 	name = "Power Siphon",
+	baseTypeName = "Power Siphon",
 	color = 3,
 	description = "Fires your wand to fire a single projectile each at a number of nearby enemies, granting you a power charge if an enemy is killed by, or soon after, the hit.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, },
@@ -12250,9 +12701,10 @@ skills["PowerSiphon"] = {
 }
 skills["PowerSiphonAltX"] = {
 	name = "Power Siphon of the Archmage",
+	baseTypeName = "Power Siphon of the Archmage",
 	color = 3,
 	description = "Fires your wand to fire a single projectile each at a number of nearby enemies, granting you a power charge if an enemy is killed by, or soon after, the hit.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Lightning] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 	},
@@ -12285,50 +12737,51 @@ skills["PowerSiphonAltX"] = {
 		"skill_can_add_multiple_charges_per_action",
 	},
 	levels = {
-		[1] = { 4, 10, levelRequirement = 12, statInterpolation = { 1, 1, }, cost = { Mana = 7, }, },
-		[2] = { 4, 10, levelRequirement = 15, statInterpolation = { 1, 1, }, cost = { Mana = 7, }, },
-		[3] = { 4, 10, levelRequirement = 19, statInterpolation = { 1, 1, }, cost = { Mana = 7, }, },
-		[4] = { 4, 11, levelRequirement = 23, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
-		[5] = { 4, 11, levelRequirement = 27, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
-		[6] = { 5, 11, levelRequirement = 31, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
-		[7] = { 5, 12, levelRequirement = 35, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
-		[8] = { 5, 12, levelRequirement = 38, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
-		[9] = { 5, 13, levelRequirement = 41, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
-		[10] = { 5, 13, levelRequirement = 44, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
-		[11] = { 6, 13, levelRequirement = 47, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
-		[12] = { 6, 14, levelRequirement = 50, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
-		[13] = { 6, 14, levelRequirement = 53, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
-		[14] = { 6, 15, levelRequirement = 56, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
-		[15] = { 6, 15, levelRequirement = 59, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
-		[16] = { 7, 15, levelRequirement = 62, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
-		[17] = { 7, 16, levelRequirement = 64, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
-		[18] = { 7, 16, levelRequirement = 66, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
-		[19] = { 7, 17, levelRequirement = 68, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
-		[20] = { 7, 17, levelRequirement = 70, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
-		[21] = { 8, 17, levelRequirement = 72, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
-		[22] = { 8, 18, levelRequirement = 74, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
-		[23] = { 8, 18, levelRequirement = 76, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
-		[24] = { 8, 19, levelRequirement = 78, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
-		[25] = { 8, 19, levelRequirement = 80, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
-		[26] = { 9, 19, levelRequirement = 82, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
-		[27] = { 9, 20, levelRequirement = 84, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
-		[28] = { 9, 20, levelRequirement = 86, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
-		[29] = { 9, 21, levelRequirement = 88, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
-		[30] = { 9, 21, levelRequirement = 90, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
-		[31] = { 10, 21, levelRequirement = 91, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
-		[32] = { 10, 22, levelRequirement = 92, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
-		[33] = { 10, 22, levelRequirement = 93, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
-		[34] = { 10, 22, levelRequirement = 94, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
-		[35] = { 10, 22, levelRequirement = 95, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
-		[36] = { 11, 22, levelRequirement = 96, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
-		[37] = { 11, 23, levelRequirement = 97, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
-		[38] = { 11, 23, levelRequirement = 98, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
-		[39] = { 11, 23, levelRequirement = 99, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
-		[40] = { 11, 23, levelRequirement = 100, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
+		[1] = { 4, 15, levelRequirement = 12, statInterpolation = { 1, 1, }, cost = { Mana = 7, }, },
+		[2] = { 4, 15, levelRequirement = 15, statInterpolation = { 1, 1, }, cost = { Mana = 7, }, },
+		[3] = { 4, 16, levelRequirement = 19, statInterpolation = { 1, 1, }, cost = { Mana = 7, }, },
+		[4] = { 4, 16, levelRequirement = 23, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
+		[5] = { 4, 17, levelRequirement = 27, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
+		[6] = { 5, 17, levelRequirement = 31, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
+		[7] = { 5, 18, levelRequirement = 35, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
+		[8] = { 5, 18, levelRequirement = 38, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
+		[9] = { 5, 19, levelRequirement = 41, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
+		[10] = { 5, 19, levelRequirement = 44, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
+		[11] = { 6, 20, levelRequirement = 47, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
+		[12] = { 6, 20, levelRequirement = 50, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
+		[13] = { 6, 21, levelRequirement = 53, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
+		[14] = { 6, 21, levelRequirement = 56, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
+		[15] = { 6, 22, levelRequirement = 59, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
+		[16] = { 7, 22, levelRequirement = 62, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
+		[17] = { 7, 23, levelRequirement = 64, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
+		[18] = { 7, 23, levelRequirement = 66, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
+		[19] = { 7, 24, levelRequirement = 68, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
+		[20] = { 7, 24, levelRequirement = 70, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
+		[21] = { 8, 25, levelRequirement = 72, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
+		[22] = { 8, 25, levelRequirement = 74, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
+		[23] = { 8, 26, levelRequirement = 76, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
+		[24] = { 8, 26, levelRequirement = 78, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
+		[25] = { 8, 27, levelRequirement = 80, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
+		[26] = { 9, 27, levelRequirement = 82, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
+		[27] = { 9, 28, levelRequirement = 84, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
+		[28] = { 9, 28, levelRequirement = 86, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
+		[29] = { 9, 29, levelRequirement = 88, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
+		[30] = { 9, 29, levelRequirement = 90, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
+		[31] = { 10, 29, levelRequirement = 91, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
+		[32] = { 10, 30, levelRequirement = 92, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
+		[33] = { 10, 30, levelRequirement = 93, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
+		[34] = { 10, 30, levelRequirement = 94, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
+		[35] = { 10, 30, levelRequirement = 95, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
+		[36] = { 11, 31, levelRequirement = 96, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
+		[37] = { 11, 31, levelRequirement = 97, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
+		[38] = { 11, 31, levelRequirement = 98, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
+		[39] = { 11, 31, levelRequirement = 99, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
+		[40] = { 11, 32, levelRequirement = 100, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
 	},
 }
 skills["VaalPowerSiphon"] = {
 	name = "Vaal Power Siphon",
+	baseTypeName = "Vaal Power Siphon",
 	color = 3,
 	description = "Fires your wand simultaneously at all nearby enemies, culling those close to death and granting you a power charge for each. Cannot be supported by Volley.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Vaal] = true, [SkillType.ProjectilesNotFromUser] = true, },
@@ -12415,6 +12868,7 @@ skills["VaalPowerSiphon"] = {
 }
 skills["Sanctify"] = {
 	name = "Purifying Flame",
+	baseTypeName = "Purifying Flame",
 	color = 3,
 	baseEffectiveness = 2.4525001049042,
 	incrementalEffectiveness = 0.046799998730421,
@@ -12515,6 +12969,7 @@ skills["Sanctify"] = {
 }
 skills["SanctifyAltX"] = {
 	name = "Purifying Flame of Revelations",
+	baseTypeName = "Purifying Flame of Revelations",
 	color = 3,
 	baseEffectiveness = 1.5940999984741,
 	incrementalEffectiveness = 0.046799998730421,
@@ -12614,6 +13069,7 @@ skills["SanctifyAltX"] = {
 }
 skills["Purity"] = {
 	name = "Purity of Elements",
+	baseTypeName = "Purity of Elements",
 	color = 3,
 	description = "Casts an aura that grants elemental resistances and elemental ailment immunity to you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -12691,6 +13147,7 @@ skills["Purity"] = {
 }
 skills["LightningResistAura"] = {
 	name = "Purity of Lightning",
+	baseTypeName = "Purity of Lightning",
 	color = 3,
 	description = "Casts an aura that grants lightning resistance to you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Lightning] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -12768,6 +13225,7 @@ skills["LightningResistAura"] = {
 }
 skills["LightningImpurity"] = {
 	name = "Vaal Impurity of Lightning",
+	baseTypeName = "Vaal Impurity of Lightning",
 	color = 3,
 	description = "Casts an aura that reduces lightning damage taken and provides shock immunity to you and nearby allies, and makes hits against nearby enemies ignore their lightning resistance. ",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Lightning] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -12852,6 +13310,7 @@ skills["LightningImpurity"] = {
 }
 skills["MortarBarrageMine"] = {
 	name = "Pyroclast Mine",
+	baseTypeName = "Pyroclast Mine",
 	color = 3,
 	baseEffectiveness = 0.90490001440048,
 	incrementalEffectiveness = 0.036100000143051,
@@ -12861,16 +13320,16 @@ skills["MortarBarrageMine"] = {
 	castTime = 0.18,
 	statMap = {
 		["mortar_barrage_mine_minimum_added_fire_damage_taken"] = {
-			mod("SelfFireMin", "BASE", nil, 0, 0, { type = "SkillName", skillName = "Pyroclast Mine" }, { type = "Limit", limitVar = "PyroclastSelfFireMinLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
+			mod("SelfFireMin", "BASE", nil, 0, 0, { type = "Limit", limitVar = "PyroclastSelfFireMinLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
 		},
 		["mortar_barrage_mine_maximum_added_fire_damage_taken"] = {
-			mod("SelfFireMax", "BASE", nil, 0, 0, { type = "SkillName", skillName = "Pyroclast Mine" }, { type = "Limit", limitVar = "PyroclastSelfFireMaxLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
+			mod("SelfFireMax", "BASE", nil, 0, 0, { type = "Limit", limitVar = "PyroclastSelfFireMaxLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
 		},
 		["mortar_barrage_mine_minimum_added_fire_damage_taken_limit"] = {
-			mod("Multiplier:PyroclastSelfFireMinLimit", "BASE", nil, 0, 0, { type = "SkillName", skillName = "Pyroclast Mine" }, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
+			mod("Multiplier:PyroclastSelfFireMinLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
 		},
 		["mortar_barrage_mine_maximum_added_fire_damage_taken_limit"] = {
-			mod("Multiplier:PyroclastSelfFireMaxLimit", "BASE", nil, 0, 0, { type = "SkillName", skillName = "Pyroclast Mine" }, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
+			mod("Multiplier:PyroclastSelfFireMaxLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
 		},
 	},
 	baseFlags = {
@@ -12958,6 +13417,7 @@ skills["MortarBarrageMine"] = {
 }
 skills["MortarBarrageMineAltX"] = {
 	name = "Pyroclast Mine of Sabotage",
+	baseTypeName = "Pyroclast Mine of Sabotage",
 	color = 3,
 	baseEffectiveness = 0.23499999940395,
 	incrementalEffectiveness = 0.036100000143051,
@@ -12967,16 +13427,16 @@ skills["MortarBarrageMineAltX"] = {
 	castTime = 0.18,
 	statMap = {
 		["mortar_barrage_mine_minimum_added_fire_damage_taken"] = {
-			mod("SelfFireMin", "BASE", nil, 0, 0, { type = "SkillName", skillName = "Pyroclast Mine of Sabotage" }, { type = "Limit", limitVar = "PyroclastSelfFireMinLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
+			mod("SelfFireMin", "BASE", nil, 0, 0, { type = "Limit", limitVar = "PyroclastSelfFireMinLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
 		},
 		["mortar_barrage_mine_maximum_added_fire_damage_taken"] = {
-			mod("SelfFireMax", "BASE", nil, 0, 0, { type = "SkillName", skillName = "Pyroclast Mine of Sabotage" }, { type = "Limit", limitVar = "PyroclastSelfFireMaxLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
+			mod("SelfFireMax", "BASE", nil, 0, 0, { type = "Limit", limitVar = "PyroclastSelfFireMaxLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
 		},
 		["mortar_barrage_mine_minimum_added_fire_damage_taken_limit"] = {
-			mod("Multiplier:PyroclastSelfFireMinLimit", "BASE", nil, 0, 0, { type = "SkillName", skillName = "Pyroclast Mine of Sabotage" }, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
+			mod("Multiplier:PyroclastSelfFireMinLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
 		},
 		["mortar_barrage_mine_maximum_added_fire_damage_taken_limit"] = {
-			mod("Multiplier:PyroclastSelfFireMaxLimit", "BASE", nil, 0, 0, { type = "SkillName", skillName = "Pyroclast Mine of Sabotage" }, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
+			mod("Multiplier:PyroclastSelfFireMaxLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
 		},
 	},
 	baseFlags = {
@@ -13064,6 +13524,7 @@ skills["MortarBarrageMineAltX"] = {
 }
 skills["RaiseSpectre"] = {
 	name = "Raise Spectre",
+	baseTypeName = "Raise Spectre",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Raises a spectral version of a defeated foe as a minion to fight for you in battle.",
@@ -13149,6 +13610,7 @@ skills["RaiseSpectre"] = {
 }
 skills["RaiseSpectreAltX"] = {
 	name = "Raise Spectre of Transience",
+	baseTypeName = "Raise Spectre of Transience",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Raises a spectral version of a defeated foe as a temporary minion to fight for you in battle for a duration.",
@@ -13187,58 +13649,58 @@ skills["RaiseSpectreAltX"] = {
 		{ "minion_elemental_resistance_%", 30 },
 		{ "minion_critical_strike_chance_+%", 1000 },
 		{ "spectres_have_base_duration_ms", 30000 },
-		{ "base_number_of_spectres_allowed", 2 },
 	},
 	stats = {
-		"base_number_of_spectres_allowed",
 		"raised_spectre_level",
 		"accuracy_rating",
+		"base_number_of_spectres_allowed",
 	},
 	levels = {
-		[1] = { 1, 28, 105, levelRequirement = 28, statInterpolation = { 1, 1, 1, }, cost = { Mana = 12, }, },
-		[2] = { 1, 31, 119, levelRequirement = 31, statInterpolation = { 1, 1, 1, }, cost = { Mana = 13, }, },
-		[3] = { 1, 34, 136, levelRequirement = 34, statInterpolation = { 1, 1, 1, }, cost = { Mana = 14, }, },
-		[4] = { 1, 37, 155, levelRequirement = 37, statInterpolation = { 1, 1, 1, }, cost = { Mana = 15, }, },
-		[5] = { 1, 40, 183, levelRequirement = 40, statInterpolation = { 1, 1, 1, }, cost = { Mana = 15, }, },
-		[6] = { 1, 42, 200, levelRequirement = 42, statInterpolation = { 1, 1, 1, }, cost = { Mana = 16, }, },
-		[7] = { 1, 44, 227, levelRequirement = 44, statInterpolation = { 1, 1, 1, }, cost = { Mana = 16, }, },
-		[8] = { 1, 46, 245, levelRequirement = 46, statInterpolation = { 1, 1, 1, }, cost = { Mana = 17, }, },
-		[9] = { 1, 48, 267, levelRequirement = 48, statInterpolation = { 1, 1, 1, }, cost = { Mana = 17, }, },
-		[10] = { 1, 50, 301, levelRequirement = 50, statInterpolation = { 1, 1, 1, }, cost = { Mana = 18, }, },
-		[11] = { 1, 52, 328, levelRequirement = 52, statInterpolation = { 1, 1, 1, }, cost = { Mana = 18, }, },
-		[12] = { 1, 54, 370, levelRequirement = 54, statInterpolation = { 1, 1, 1, }, cost = { Mana = 19, }, },
-		[13] = { 2, 56, 400, levelRequirement = 56, statInterpolation = { 1, 1, 1, }, cost = { Mana = 19, }, },
-		[14] = { 2, 58, 432, levelRequirement = 58, statInterpolation = { 1, 1, 1, }, cost = { Mana = 20, }, },
-		[15] = { 2, 60, 487, levelRequirement = 60, statInterpolation = { 1, 1, 1, }, cost = { Mana = 20, }, },
-		[16] = { 2, 62, 528, levelRequirement = 62, statInterpolation = { 1, 1, 1, }, cost = { Mana = 21, }, },
-		[17] = { 2, 64, 592, levelRequirement = 64, statInterpolation = { 1, 1, 1, }, cost = { Mana = 21, }, },
-		[18] = { 2, 66, 640, levelRequirement = 66, statInterpolation = { 1, 1, 1, }, cost = { Mana = 22, }, },
-		[19] = { 2, 68, 692, levelRequirement = 68, statInterpolation = { 1, 1, 1, }, cost = { Mana = 22, }, },
-		[20] = { 2, 70, 776, levelRequirement = 70, statInterpolation = { 1, 1, 1, }, cost = { Mana = 23, }, },
-		[21] = { 2, 72, 806, levelRequirement = 72, statInterpolation = { 1, 1, 1, }, cost = { Mana = 24, }, },
-		[22] = { 2, 73, 839, levelRequirement = 74, statInterpolation = { 1, 1, 1, }, cost = { Mana = 24, }, },
-		[23] = { 2, 74, 870, levelRequirement = 76, statInterpolation = { 1, 1, 1, }, cost = { Mana = 25, }, },
-		[24] = { 2, 75, 904, levelRequirement = 78, statInterpolation = { 1, 1, 1, }, cost = { Mana = 25, }, },
-		[25] = { 3, 76, 939, levelRequirement = 80, statInterpolation = { 1, 1, 1, }, cost = { Mana = 26, }, },
-		[26] = { 3, 77, 974, levelRequirement = 82, statInterpolation = { 1, 1, 1, }, cost = { Mana = 26, }, },
-		[27] = { 3, 78, 1013, levelRequirement = 84, statInterpolation = { 1, 1, 1, }, cost = { Mana = 27, }, },
-		[28] = { 3, 79, 1051, levelRequirement = 86, statInterpolation = { 1, 1, 1, }, cost = { Mana = 27, }, },
-		[29] = { 3, 80, 1092, levelRequirement = 88, statInterpolation = { 1, 1, 1, }, cost = { Mana = 28, }, },
-		[30] = { 3, 81, 1134, levelRequirement = 90, statInterpolation = { 1, 1, 1, }, cost = { Mana = 28, }, },
-		[31] = { 3, 82, 1177, levelRequirement = 91, statInterpolation = { 1, 1, 1, }, cost = { Mana = 28, }, },
-		[32] = { 3, 83, 1223, levelRequirement = 92, statInterpolation = { 1, 1, 1, }, cost = { Mana = 29, }, },
-		[33] = { 3, 84, 1268, levelRequirement = 93, statInterpolation = { 1, 1, 1, }, cost = { Mana = 29, }, },
-		[34] = { 3, 85, 1317, levelRequirement = 94, statInterpolation = { 1, 1, 1, }, cost = { Mana = 29, }, },
-		[35] = { 3, 86, 1368, levelRequirement = 95, statInterpolation = { 1, 1, 1, }, cost = { Mana = 29, }, },
-		[36] = { 3, 87, 1420, levelRequirement = 96, statInterpolation = { 1, 1, 1, }, cost = { Mana = 30, }, },
-		[37] = { 3, 88, 1474, levelRequirement = 97, statInterpolation = { 1, 1, 1, }, cost = { Mana = 30, }, },
-		[38] = { 3, 89, 1529, levelRequirement = 98, statInterpolation = { 1, 1, 1, }, cost = { Mana = 30, }, },
-		[39] = { 3, 90, 1588, levelRequirement = 99, statInterpolation = { 1, 1, 1, }, cost = { Mana = 30, }, },
-		[40] = { 3, 91, 1646, levelRequirement = 100, statInterpolation = { 1, 1, 1, }, cost = { Mana = 31, }, },
+		[1] = { 28, 105, 4, levelRequirement = 28, statInterpolation = { 1, 1, 1, }, cost = { Mana = 12, }, },
+		[2] = { 31, 119, 4, levelRequirement = 31, statInterpolation = { 1, 1, 1, }, cost = { Mana = 13, }, },
+		[3] = { 34, 136, 4, levelRequirement = 34, statInterpolation = { 1, 1, 1, }, cost = { Mana = 14, }, },
+		[4] = { 37, 155, 4, levelRequirement = 37, statInterpolation = { 1, 1, 1, }, cost = { Mana = 15, }, },
+		[5] = { 40, 183, 4, levelRequirement = 40, statInterpolation = { 1, 1, 1, }, cost = { Mana = 15, }, },
+		[6] = { 42, 200, 4, levelRequirement = 42, statInterpolation = { 1, 1, 1, }, cost = { Mana = 16, }, },
+		[7] = { 44, 227, 4, levelRequirement = 44, statInterpolation = { 1, 1, 1, }, cost = { Mana = 16, }, },
+		[8] = { 46, 245, 4, levelRequirement = 46, statInterpolation = { 1, 1, 1, }, cost = { Mana = 17, }, },
+		[9] = { 48, 267, 4, levelRequirement = 48, statInterpolation = { 1, 1, 1, }, cost = { Mana = 17, }, },
+		[10] = { 50, 301, 4, levelRequirement = 50, statInterpolation = { 1, 1, 1, }, cost = { Mana = 18, }, },
+		[11] = { 52, 328, 5, levelRequirement = 52, statInterpolation = { 1, 1, 1, }, cost = { Mana = 18, }, },
+		[12] = { 54, 370, 5, levelRequirement = 54, statInterpolation = { 1, 1, 1, }, cost = { Mana = 19, }, },
+		[13] = { 56, 400, 5, levelRequirement = 56, statInterpolation = { 1, 1, 1, }, cost = { Mana = 19, }, },
+		[14] = { 58, 432, 5, levelRequirement = 58, statInterpolation = { 1, 1, 1, }, cost = { Mana = 20, }, },
+		[15] = { 60, 487, 5, levelRequirement = 60, statInterpolation = { 1, 1, 1, }, cost = { Mana = 20, }, },
+		[16] = { 62, 528, 5, levelRequirement = 62, statInterpolation = { 1, 1, 1, }, cost = { Mana = 21, }, },
+		[17] = { 64, 592, 5, levelRequirement = 64, statInterpolation = { 1, 1, 1, }, cost = { Mana = 21, }, },
+		[18] = { 66, 640, 5, levelRequirement = 66, statInterpolation = { 1, 1, 1, }, cost = { Mana = 22, }, },
+		[19] = { 68, 692, 5, levelRequirement = 68, statInterpolation = { 1, 1, 1, }, cost = { Mana = 22, }, },
+		[20] = { 70, 776, 6, levelRequirement = 70, statInterpolation = { 1, 1, 1, }, cost = { Mana = 23, }, },
+		[21] = { 72, 806, 6, levelRequirement = 72, statInterpolation = { 1, 1, 1, }, cost = { Mana = 24, }, },
+		[22] = { 73, 839, 6, levelRequirement = 74, statInterpolation = { 1, 1, 1, }, cost = { Mana = 24, }, },
+		[23] = { 74, 870, 6, levelRequirement = 76, statInterpolation = { 1, 1, 1, }, cost = { Mana = 25, }, },
+		[24] = { 75, 904, 6, levelRequirement = 78, statInterpolation = { 1, 1, 1, }, cost = { Mana = 25, }, },
+		[25] = { 76, 939, 6, levelRequirement = 80, statInterpolation = { 1, 1, 1, }, cost = { Mana = 26, }, },
+		[26] = { 77, 974, 6, levelRequirement = 82, statInterpolation = { 1, 1, 1, }, cost = { Mana = 26, }, },
+		[27] = { 78, 1013, 6, levelRequirement = 84, statInterpolation = { 1, 1, 1, }, cost = { Mana = 27, }, },
+		[28] = { 79, 1051, 6, levelRequirement = 86, statInterpolation = { 1, 1, 1, }, cost = { Mana = 27, }, },
+		[29] = { 80, 1092, 7, levelRequirement = 88, statInterpolation = { 1, 1, 1, }, cost = { Mana = 28, }, },
+		[30] = { 81, 1134, 7, levelRequirement = 90, statInterpolation = { 1, 1, 1, }, cost = { Mana = 28, }, },
+		[31] = { 82, 1177, 7, levelRequirement = 91, statInterpolation = { 1, 1, 1, }, cost = { Mana = 28, }, },
+		[32] = { 83, 1223, 7, levelRequirement = 92, statInterpolation = { 1, 1, 1, }, cost = { Mana = 29, }, },
+		[33] = { 84, 1268, 7, levelRequirement = 93, statInterpolation = { 1, 1, 1, }, cost = { Mana = 29, }, },
+		[34] = { 85, 1317, 7, levelRequirement = 94, statInterpolation = { 1, 1, 1, }, cost = { Mana = 29, }, },
+		[35] = { 86, 1368, 7, levelRequirement = 95, statInterpolation = { 1, 1, 1, }, cost = { Mana = 29, }, },
+		[36] = { 87, 1420, 7, levelRequirement = 96, statInterpolation = { 1, 1, 1, }, cost = { Mana = 30, }, },
+		[37] = { 88, 1474, 7, levelRequirement = 97, statInterpolation = { 1, 1, 1, }, cost = { Mana = 30, }, },
+		[38] = { 89, 1529, 7, levelRequirement = 98, statInterpolation = { 1, 1, 1, }, cost = { Mana = 30, }, },
+		[39] = { 90, 1588, 7, levelRequirement = 99, statInterpolation = { 1, 1, 1, }, cost = { Mana = 30, }, },
+		[40] = { 91, 1646, 7, levelRequirement = 100, statInterpolation = { 1, 1, 1, }, cost = { Mana = 31, }, },
 	},
 }
 skills["RaiseZombie"] = {
 	name = "Raise Zombie",
+	baseTypeName = "Raise Zombie",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Raises a zombie minion from a corpse, which will follow you and attack enemies with a melee strike.",
@@ -13319,6 +13781,7 @@ skills["RaiseZombie"] = {
 }
 skills["RaiseZombieAltX"] = {
 	name = "Raise Zombie of Slamming",
+	baseTypeName = "Raise Zombie of Slamming",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Raises a zombie minion from a corpse, which will follow you and attack enemies with a melee strike and an area of effect slam which cannot be evaded.",
@@ -13407,9 +13870,10 @@ skills["RaiseZombieAltX"] = {
 }
 skills["RaiseZombieAltY"] = {
 	name = "Raise Zombie of Falling",
+	baseTypeName = "Raise Zombie of Falling",
 	color = 3,
 	baseEffectiveness = 0,
-	description = "Raises necromantic energies into the sky above a targeted location, where they coalese into a zombie minion. The minion then attacks by falling to the ground, causing an impact that deals damage in an area and kills the zombie.",
+	description = "Raises necromantic energies into the sky above a targeted location, where they coalesce into a zombie minion. The minion then attacks by falling to the ground, causing an impact that deals damage in an area and kills the zombie.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
@@ -13494,6 +13958,7 @@ skills["RaiseZombieAltY"] = {
 }
 skills["RighteousFire"] = {
 	name = "Righteous Fire",
+	baseTypeName = "Righteous Fire",
 	color = 3,
 	baseEffectiveness = 1.6399999856949,
 	incrementalEffectiveness = 0.057300001382828,
@@ -13600,6 +14065,7 @@ skills["RighteousFire"] = {
 }
 skills["RighteousFireAltX"] = {
 	name = "Righteous Fire of Arcane Devotion",
+	baseTypeName = "Righteous Fire of Arcane Devotion",
 	color = 3,
 	baseEffectiveness = 1.6399999856949,
 	incrementalEffectiveness = 0.057300001382828,
@@ -13686,6 +14152,7 @@ skills["RighteousFireAltX"] = {
 }
 skills["VaalRighteousFire"] = {
 	name = "Vaal Righteous Fire",
+	baseTypeName = "Vaal Righteous Fire",
 	color = 3,
 	description = "Sacrifices a portion of your Life and Energy Shield to engulf you in magical fire that rapidly burns nearby enemies for a duration. Your spell damage is increased while under this effect.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.CausesBurning] = true, [SkillType.DamageOverTime] = true, [SkillType.Fire] = true, [SkillType.Totemable] = true, [SkillType.Vaal] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -13779,6 +14246,7 @@ skills["VaalRighteousFire"] = {
 }
 skills["FireBeam"] = {
 	name = "Scorching Ray",
+	baseTypeName = "Scorching Ray",
 	color = 3,
 	baseEffectiveness = 3.6275000572205,
 	incrementalEffectiveness = 0.048900000751019,
@@ -13879,6 +14347,7 @@ skills["FireBeam"] = {
 }
 skills["FireBeamAltX"] = {
 	name = "Scorching Ray of Immolation",
+	baseTypeName = "Scorching Ray of Immolation",
 	color = 3,
 	baseEffectiveness = 8.8000001907349,
 	incrementalEffectiveness = 0.048900000751019,
@@ -13975,6 +14444,7 @@ skills["FireBeamAltX"] = {
 }
 skills["ShockNova"] = {
 	name = "Shock Nova",
+	baseTypeName = "Shock Nova",
 	color = 3,
 	baseEffectiveness = 1.3489999771118,
 	incrementalEffectiveness = 0.049300000071526,
@@ -14061,6 +14531,7 @@ skills["ShockNova"] = {
 }
 skills["CircleOfPower"] = {
 	name = "Sigil of Power",
+	baseTypeName = "Sigil of Power",
 	color = 3,
 	baseEffectiveness = 0.38400000333786,
 	incrementalEffectiveness = 0.028000000864267,
@@ -14162,6 +14633,7 @@ skills["CircleOfPower"] = {
 }
 skills["IceSiphonTrap"] = {
 	name = "Siphoning Trap",
+	baseTypeName = "Siphoning Trap",
 	color = 3,
 	baseEffectiveness = 5.9548997879028,
 	incrementalEffectiveness = 0.041000001132488,
@@ -14259,6 +14731,7 @@ skills["IceSiphonTrap"] = {
 }
 skills["Soulrend"] = {
 	name = "Soulrend",
+	baseTypeName = "Soulrend",
 	color = 3,
 	baseEffectiveness = 4.2814998626709,
 	incrementalEffectiveness = 0.056699998676777,
@@ -14338,6 +14811,7 @@ skills["Soulrend"] = {
 }
 skills["SoulrendAltX"] = {
 	name = "Soulrend of Reaping",
+	baseTypeName = "Soulrend of Reaping",
 	color = 3,
 	baseEffectiveness = 8.6300001144409,
 	incrementalEffectiveness = 0.056699998676777,
@@ -14411,6 +14885,7 @@ skills["SoulrendAltX"] = {
 }
 skills["SoulrendAltY"] = {
 	name = "Soulrend of the Spiral",
+	baseTypeName = "Soulrend of the Spiral",
 	color = 3,
 	baseEffectiveness = 4.2814998626709,
 	incrementalEffectiveness = 0.056699998676777,
@@ -14492,6 +14967,7 @@ skills["SoulrendAltY"] = {
 }
 skills["Spark"] = {
 	name = "Spark",
+	baseTypeName = "Spark",
 	color = 3,
 	baseEffectiveness = 3.8399000167847,
 	incrementalEffectiveness = 0.033100001513958,
@@ -14564,6 +15040,7 @@ skills["Spark"] = {
 }
 skills["SparkAltX"] = {
 	name = "Spark of the Nova",
+	baseTypeName = "Spark of the Nova",
 	color = 3,
 	baseEffectiveness = 4.0900001525879,
 	incrementalEffectiveness = 0.033100001513958,
@@ -14638,8 +15115,9 @@ skills["SparkAltX"] = {
 }
 skills["SparkAltY"] = {
 	name = "Spark of Unpredictability",
+	baseTypeName = "Spark of Unpredictability",
 	color = 3,
-	baseEffectiveness = 3.2999999523163,
+	baseEffectiveness = 3.8399000167847,
 	incrementalEffectiveness = 0.033100001513958,
 	description = "Launches unpredictable sparks with that move randomly with large differences in speed and distance until they hit an enemy or expire.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, },
@@ -14666,50 +15144,51 @@ skills["SparkAltY"] = {
 		"quality_display_base_number_of_projectiles_is_gem",
 	},
 	levels = {
-		[1] = { 0.10000000149012, 1.8999999761581, 3, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { Mana = 5, }, },
-		[2] = { 0.10000000149012, 1.8999999761581, 3, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 2, statInterpolation = { 3, 3, 1, }, cost = { Mana = 5, }, },
-		[3] = { 0.10000000149012, 1.8999999761581, 3, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 4, statInterpolation = { 3, 3, 1, }, cost = { Mana = 6, }, },
-		[4] = { 0.10000000149012, 1.8999999761581, 4, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 7, statInterpolation = { 3, 3, 1, }, cost = { Mana = 7, }, },
-		[5] = { 0.10000000149012, 1.8999999761581, 4, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 11, statInterpolation = { 3, 3, 1, }, cost = { Mana = 7, }, },
-		[6] = { 0.10000000149012, 1.8999999761581, 4, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 16, statInterpolation = { 3, 3, 1, }, cost = { Mana = 9, }, },
-		[7] = { 0.10000000149012, 1.8999999761581, 4, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 20, statInterpolation = { 3, 3, 1, }, cost = { Mana = 10, }, },
-		[8] = { 0.10000000149012, 1.8999999761581, 4, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 24, statInterpolation = { 3, 3, 1, }, cost = { Mana = 11, }, },
-		[9] = { 0.10000000149012, 1.8999999761581, 4, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 28, statInterpolation = { 3, 3, 1, }, cost = { Mana = 11, }, },
-		[10] = { 0.10000000149012, 1.8999999761581, 5, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 32, statInterpolation = { 3, 3, 1, }, cost = { Mana = 12, }, },
-		[11] = { 0.10000000149012, 1.8999999761581, 5, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 36, statInterpolation = { 3, 3, 1, }, cost = { Mana = 13, }, },
-		[12] = { 0.10000000149012, 1.8999999761581, 5, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 40, statInterpolation = { 3, 3, 1, }, cost = { Mana = 14, }, },
-		[13] = { 0.10000000149012, 1.8999999761581, 5, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 44, statInterpolation = { 3, 3, 1, }, cost = { Mana = 15, }, },
-		[14] = { 0.10000000149012, 1.8999999761581, 5, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 48, statInterpolation = { 3, 3, 1, }, cost = { Mana = 16, }, },
-		[15] = { 0.10000000149012, 1.8999999761581, 6, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 52, statInterpolation = { 3, 3, 1, }, cost = { Mana = 17, }, },
-		[16] = { 0.10000000149012, 1.8999999761581, 6, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 56, statInterpolation = { 3, 3, 1, }, cost = { Mana = 18, }, },
-		[17] = { 0.10000000149012, 1.8999999761581, 6, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 60, statInterpolation = { 3, 3, 1, }, cost = { Mana = 19, }, },
-		[18] = { 0.10000000149012, 1.8999999761581, 6, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 64, statInterpolation = { 3, 3, 1, }, cost = { Mana = 20, }, },
-		[19] = { 0.10000000149012, 1.8999999761581, 6, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 67, statInterpolation = { 3, 3, 1, }, cost = { Mana = 21, }, },
-		[20] = { 0.10000000149012, 1.8999999761581, 6, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 70, statInterpolation = { 3, 3, 1, }, cost = { Mana = 21, }, },
-		[21] = { 0.10000000149012, 1.8999999761581, 7, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 72, statInterpolation = { 3, 3, 1, }, cost = { Mana = 22, }, },
-		[22] = { 0.10000000149012, 1.8999999761581, 7, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 74, statInterpolation = { 3, 3, 1, }, cost = { Mana = 22, }, },
-		[23] = { 0.10000000149012, 1.8999999761581, 7, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 76, statInterpolation = { 3, 3, 1, }, cost = { Mana = 23, }, },
-		[24] = { 0.10000000149012, 1.8999999761581, 7, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 78, statInterpolation = { 3, 3, 1, }, cost = { Mana = 23, }, },
-		[25] = { 0.10000000149012, 1.8999999761581, 7, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 80, statInterpolation = { 3, 3, 1, }, cost = { Mana = 24, }, },
-		[26] = { 0.10000000149012, 1.8999999761581, 7, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 82, statInterpolation = { 3, 3, 1, }, cost = { Mana = 24, }, },
-		[27] = { 0.10000000149012, 1.8999999761581, 8, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 84, statInterpolation = { 3, 3, 1, }, cost = { Mana = 25, }, },
-		[28] = { 0.10000000149012, 1.8999999761581, 8, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 86, statInterpolation = { 3, 3, 1, }, cost = { Mana = 25, }, },
-		[29] = { 0.10000000149012, 1.8999999761581, 8, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 88, statInterpolation = { 3, 3, 1, }, cost = { Mana = 26, }, },
-		[30] = { 0.10000000149012, 1.8999999761581, 8, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 90, statInterpolation = { 3, 3, 1, }, cost = { Mana = 26, }, },
-		[31] = { 0.10000000149012, 1.8999999761581, 8, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 91, statInterpolation = { 3, 3, 1, }, cost = { Mana = 26, }, },
-		[32] = { 0.10000000149012, 1.8999999761581, 8, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 92, statInterpolation = { 3, 3, 1, }, cost = { Mana = 27, }, },
-		[33] = { 0.10000000149012, 1.8999999761581, 8, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 93, statInterpolation = { 3, 3, 1, }, cost = { Mana = 27, }, },
-		[34] = { 0.10000000149012, 1.8999999761581, 9, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 94, statInterpolation = { 3, 3, 1, }, cost = { Mana = 27, }, },
-		[35] = { 0.10000000149012, 1.8999999761581, 9, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 95, statInterpolation = { 3, 3, 1, }, cost = { Mana = 27, }, },
-		[36] = { 0.10000000149012, 1.8999999761581, 9, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 96, statInterpolation = { 3, 3, 1, }, cost = { Mana = 27, }, },
-		[37] = { 0.10000000149012, 1.8999999761581, 9, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 97, statInterpolation = { 3, 3, 1, }, cost = { Mana = 28, }, },
-		[38] = { 0.10000000149012, 1.8999999761581, 9, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 98, statInterpolation = { 3, 3, 1, }, cost = { Mana = 28, }, },
-		[39] = { 0.10000000149012, 1.8999999761581, 9, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 99, statInterpolation = { 3, 3, 1, }, cost = { Mana = 28, }, },
-		[40] = { 0.10000000149012, 1.8999999761581, 9, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 100, statInterpolation = { 3, 3, 1, }, cost = { Mana = 28, }, },
+		[1] = { 0.10000000149012, 1.8999999761581, 3, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { Mana = 5, }, },
+		[2] = { 0.10000000149012, 1.8999999761581, 3, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 2, statInterpolation = { 3, 3, 1, }, cost = { Mana = 5, }, },
+		[3] = { 0.10000000149012, 1.8999999761581, 3, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 4, statInterpolation = { 3, 3, 1, }, cost = { Mana = 6, }, },
+		[4] = { 0.10000000149012, 1.8999999761581, 4, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 7, statInterpolation = { 3, 3, 1, }, cost = { Mana = 7, }, },
+		[5] = { 0.10000000149012, 1.8999999761581, 4, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 11, statInterpolation = { 3, 3, 1, }, cost = { Mana = 7, }, },
+		[6] = { 0.10000000149012, 1.8999999761581, 4, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 16, statInterpolation = { 3, 3, 1, }, cost = { Mana = 9, }, },
+		[7] = { 0.10000000149012, 1.8999999761581, 4, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 20, statInterpolation = { 3, 3, 1, }, cost = { Mana = 10, }, },
+		[8] = { 0.10000000149012, 1.8999999761581, 4, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 24, statInterpolation = { 3, 3, 1, }, cost = { Mana = 11, }, },
+		[9] = { 0.10000000149012, 1.8999999761581, 4, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 28, statInterpolation = { 3, 3, 1, }, cost = { Mana = 11, }, },
+		[10] = { 0.10000000149012, 1.8999999761581, 5, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 32, statInterpolation = { 3, 3, 1, }, cost = { Mana = 12, }, },
+		[11] = { 0.10000000149012, 1.8999999761581, 5, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 36, statInterpolation = { 3, 3, 1, }, cost = { Mana = 13, }, },
+		[12] = { 0.10000000149012, 1.8999999761581, 5, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 40, statInterpolation = { 3, 3, 1, }, cost = { Mana = 14, }, },
+		[13] = { 0.10000000149012, 1.8999999761581, 5, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 44, statInterpolation = { 3, 3, 1, }, cost = { Mana = 15, }, },
+		[14] = { 0.10000000149012, 1.8999999761581, 5, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 48, statInterpolation = { 3, 3, 1, }, cost = { Mana = 16, }, },
+		[15] = { 0.10000000149012, 1.8999999761581, 6, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 52, statInterpolation = { 3, 3, 1, }, cost = { Mana = 17, }, },
+		[16] = { 0.10000000149012, 1.8999999761581, 6, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 56, statInterpolation = { 3, 3, 1, }, cost = { Mana = 18, }, },
+		[17] = { 0.10000000149012, 1.8999999761581, 6, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 60, statInterpolation = { 3, 3, 1, }, cost = { Mana = 19, }, },
+		[18] = { 0.10000000149012, 1.8999999761581, 6, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 64, statInterpolation = { 3, 3, 1, }, cost = { Mana = 20, }, },
+		[19] = { 0.10000000149012, 1.8999999761581, 6, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 67, statInterpolation = { 3, 3, 1, }, cost = { Mana = 21, }, },
+		[20] = { 0.10000000149012, 1.8999999761581, 6, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 70, statInterpolation = { 3, 3, 1, }, cost = { Mana = 21, }, },
+		[21] = { 0.10000000149012, 1.8999999761581, 7, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 72, statInterpolation = { 3, 3, 1, }, cost = { Mana = 22, }, },
+		[22] = { 0.10000000149012, 1.8999999761581, 7, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 74, statInterpolation = { 3, 3, 1, }, cost = { Mana = 22, }, },
+		[23] = { 0.10000000149012, 1.8999999761581, 7, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 76, statInterpolation = { 3, 3, 1, }, cost = { Mana = 23, }, },
+		[24] = { 0.10000000149012, 1.8999999761581, 7, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 78, statInterpolation = { 3, 3, 1, }, cost = { Mana = 23, }, },
+		[25] = { 0.10000000149012, 1.8999999761581, 7, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 80, statInterpolation = { 3, 3, 1, }, cost = { Mana = 24, }, },
+		[26] = { 0.10000000149012, 1.8999999761581, 7, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 82, statInterpolation = { 3, 3, 1, }, cost = { Mana = 24, }, },
+		[27] = { 0.10000000149012, 1.8999999761581, 8, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 84, statInterpolation = { 3, 3, 1, }, cost = { Mana = 25, }, },
+		[28] = { 0.10000000149012, 1.8999999761581, 8, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 86, statInterpolation = { 3, 3, 1, }, cost = { Mana = 25, }, },
+		[29] = { 0.10000000149012, 1.8999999761581, 8, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 88, statInterpolation = { 3, 3, 1, }, cost = { Mana = 26, }, },
+		[30] = { 0.10000000149012, 1.8999999761581, 8, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 90, statInterpolation = { 3, 3, 1, }, cost = { Mana = 26, }, },
+		[31] = { 0.10000000149012, 1.8999999761581, 8, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 91, statInterpolation = { 3, 3, 1, }, cost = { Mana = 26, }, },
+		[32] = { 0.10000000149012, 1.8999999761581, 8, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 92, statInterpolation = { 3, 3, 1, }, cost = { Mana = 27, }, },
+		[33] = { 0.10000000149012, 1.8999999761581, 8, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 93, statInterpolation = { 3, 3, 1, }, cost = { Mana = 27, }, },
+		[34] = { 0.10000000149012, 1.8999999761581, 9, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 94, statInterpolation = { 3, 3, 1, }, cost = { Mana = 27, }, },
+		[35] = { 0.10000000149012, 1.8999999761581, 9, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 95, statInterpolation = { 3, 3, 1, }, cost = { Mana = 27, }, },
+		[36] = { 0.10000000149012, 1.8999999761581, 9, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 96, statInterpolation = { 3, 3, 1, }, cost = { Mana = 27, }, },
+		[37] = { 0.10000000149012, 1.8999999761581, 9, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 97, statInterpolation = { 3, 3, 1, }, cost = { Mana = 28, }, },
+		[38] = { 0.10000000149012, 1.8999999761581, 9, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 98, statInterpolation = { 3, 3, 1, }, cost = { Mana = 28, }, },
+		[39] = { 0.10000000149012, 1.8999999761581, 9, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 99, statInterpolation = { 3, 3, 1, }, cost = { Mana = 28, }, },
+		[40] = { 0.10000000149012, 1.8999999761581, 9, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 100, statInterpolation = { 3, 3, 1, }, cost = { Mana = 28, }, },
 	},
 }
 skills["VaalSparkSpiralNova"] = {
 	name = "Vaal Spark",
+	baseTypeName = "Vaal Spark",
 	color = 3,
 	baseEffectiveness = 1.4524999856949,
 	incrementalEffectiveness = 0.02559999935329,
@@ -14784,6 +15263,7 @@ skills["VaalSparkSpiralNova"] = {
 }
 skills["Spellslinger"] = {
 	name = "Spellslinger",
+	baseTypeName = "Spellslinger",
 	color = 3,
 	description = "Reserves mana based on the supported spells to cause those spells to trigger when you fire projectiles from a wand attack.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.HasReservation] = true, [SkillType.Cooldown] = true, },
@@ -14937,6 +15417,7 @@ skills["SupportSpellslinger"] = {
 }
 skills["SoulLink"] = {
 	name = "Soul Link",
+	baseTypeName = "Soul Link",
 	color = 3,
 	description = "Targets an allied player to apply a buff which links you to them for a duration. While linked, your Energy Shield will intercept some of the damage they would take. If the target dies while linked, you will also die. This skill cannot be triggered, or used by Totems, Traps, or Mines.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
@@ -15016,6 +15497,7 @@ skills["SoulLink"] = {
 }
 skills["SpiritOffering"] = {
 	name = "Spirit Offering",
+	baseTypeName = "Spirit Offering",
 	color = 3,
 	description = "Consumes a corpse, granting increased critical strike chance and additional critical strike multiplier to your minions. The skill consumes other nearby corpses, increasing the duration for each corpse consumed.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, },
@@ -15096,6 +15578,7 @@ skills["SpiritOffering"] = {
 }
 skills["ConduitSigil"] = {
 	name = "Storm Brand",
+	baseTypeName = "Storm Brand",
 	color = 3,
 	baseEffectiveness = 0.41819998621941,
 	incrementalEffectiveness = 0.040399998426437,
@@ -15189,13 +15672,14 @@ skills["ConduitSigil"] = {
 }
 skills["ConduitSigilAltX"] = {
 	name = "Storm Brand of Indecision",
+	baseTypeName = "Storm Brand of Indecision",
 	color = 3,
-	baseEffectiveness = 1.0349999666214,
+	baseEffectiveness = 0.77630001306534,
 	incrementalEffectiveness = 0.040399998426437,
 	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, firing a beam which deals damage to the branded enemy and those around it. The brand will detach if the enemy dies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Lightning] = true, [SkillType.Chains] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
-	castTime = 0.35,
+	castTime = 0.75,
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
 	end,
@@ -15215,7 +15699,7 @@ skills["ConduitSigilAltX"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "sigil_attached_target_hit_damage_+%_final", 1 },
+			{ "sigil_attached_target_hit_damage_+%_final", 0.5 },
 		},
 	},
 	constantStats = {
@@ -15238,50 +15722,51 @@ skills["ConduitSigilAltX"] = {
 		"brands_reattach_on_activation",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 12, statInterpolation = { 3, 3, }, cost = { Mana = 8, }, },
-		[2] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 15, statInterpolation = { 3, 3, }, cost = { Mana = 8, }, },
-		[3] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 19, statInterpolation = { 3, 3, }, cost = { Mana = 9, }, },
-		[4] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 23, statInterpolation = { 3, 3, }, cost = { Mana = 10, }, },
-		[5] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 27, statInterpolation = { 3, 3, }, cost = { Mana = 11, }, },
-		[6] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 31, statInterpolation = { 3, 3, }, cost = { Mana = 12, }, },
-		[7] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 35, statInterpolation = { 3, 3, }, cost = { Mana = 13, }, },
-		[8] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 38, statInterpolation = { 3, 3, }, cost = { Mana = 14, }, },
-		[9] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 41, statInterpolation = { 3, 3, }, cost = { Mana = 15, }, },
-		[10] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 44, statInterpolation = { 3, 3, }, cost = { Mana = 15, }, },
-		[11] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 47, statInterpolation = { 3, 3, }, cost = { Mana = 16, }, },
-		[12] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 50, statInterpolation = { 3, 3, }, cost = { Mana = 17, }, },
-		[13] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 53, statInterpolation = { 3, 3, }, cost = { Mana = 17, }, },
-		[14] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 56, statInterpolation = { 3, 3, }, cost = { Mana = 18, }, },
-		[15] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 59, statInterpolation = { 3, 3, }, cost = { Mana = 19, }, },
-		[16] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 62, statInterpolation = { 3, 3, }, cost = { Mana = 19, }, },
-		[17] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 64, statInterpolation = { 3, 3, }, cost = { Mana = 20, }, },
-		[18] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 66, statInterpolation = { 3, 3, }, cost = { Mana = 20, }, },
-		[19] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 68, statInterpolation = { 3, 3, }, cost = { Mana = 21, }, },
-		[20] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 70, statInterpolation = { 3, 3, }, cost = { Mana = 21, }, },
-		[21] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 72, statInterpolation = { 3, 3, }, cost = { Mana = 22, }, },
-		[22] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 74, statInterpolation = { 3, 3, }, cost = { Mana = 22, }, },
-		[23] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 76, statInterpolation = { 3, 3, }, cost = { Mana = 23, }, },
-		[24] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 78, statInterpolation = { 3, 3, }, cost = { Mana = 23, }, },
-		[25] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 80, statInterpolation = { 3, 3, }, cost = { Mana = 24, }, },
-		[26] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 82, statInterpolation = { 3, 3, }, cost = { Mana = 24, }, },
-		[27] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 84, statInterpolation = { 3, 3, }, cost = { Mana = 25, }, },
-		[28] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 86, statInterpolation = { 3, 3, }, cost = { Mana = 25, }, },
-		[29] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 88, statInterpolation = { 3, 3, }, cost = { Mana = 26, }, },
-		[30] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 90, statInterpolation = { 3, 3, }, cost = { Mana = 26, }, },
-		[31] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 91, statInterpolation = { 3, 3, }, cost = { Mana = 26, }, },
-		[32] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 92, statInterpolation = { 3, 3, }, cost = { Mana = 27, }, },
-		[33] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 93, statInterpolation = { 3, 3, }, cost = { Mana = 27, }, },
-		[34] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 94, statInterpolation = { 3, 3, }, cost = { Mana = 27, }, },
-		[35] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 95, statInterpolation = { 3, 3, }, cost = { Mana = 27, }, },
-		[36] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 96, statInterpolation = { 3, 3, }, cost = { Mana = 27, }, },
-		[37] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 97, statInterpolation = { 3, 3, }, cost = { Mana = 28, }, },
-		[38] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 98, statInterpolation = { 3, 3, }, cost = { Mana = 28, }, },
-		[39] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 99, statInterpolation = { 3, 3, }, cost = { Mana = 28, }, },
-		[40] = { 0.5, 1.5, damageEffectiveness = 0.85, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 100, statInterpolation = { 3, 3, }, cost = { Mana = 28, }, },
+		[1] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 12, statInterpolation = { 3, 3, }, cost = { Mana = 8, }, },
+		[2] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 15, statInterpolation = { 3, 3, }, cost = { Mana = 8, }, },
+		[3] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 19, statInterpolation = { 3, 3, }, cost = { Mana = 9, }, },
+		[4] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 23, statInterpolation = { 3, 3, }, cost = { Mana = 10, }, },
+		[5] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 27, statInterpolation = { 3, 3, }, cost = { Mana = 11, }, },
+		[6] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 31, statInterpolation = { 3, 3, }, cost = { Mana = 12, }, },
+		[7] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 35, statInterpolation = { 3, 3, }, cost = { Mana = 13, }, },
+		[8] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 38, statInterpolation = { 3, 3, }, cost = { Mana = 14, }, },
+		[9] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 41, statInterpolation = { 3, 3, }, cost = { Mana = 15, }, },
+		[10] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 44, statInterpolation = { 3, 3, }, cost = { Mana = 15, }, },
+		[11] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 47, statInterpolation = { 3, 3, }, cost = { Mana = 16, }, },
+		[12] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 50, statInterpolation = { 3, 3, }, cost = { Mana = 17, }, },
+		[13] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 53, statInterpolation = { 3, 3, }, cost = { Mana = 17, }, },
+		[14] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 56, statInterpolation = { 3, 3, }, cost = { Mana = 18, }, },
+		[15] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 59, statInterpolation = { 3, 3, }, cost = { Mana = 19, }, },
+		[16] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 62, statInterpolation = { 3, 3, }, cost = { Mana = 19, }, },
+		[17] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 64, statInterpolation = { 3, 3, }, cost = { Mana = 20, }, },
+		[18] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 66, statInterpolation = { 3, 3, }, cost = { Mana = 20, }, },
+		[19] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 68, statInterpolation = { 3, 3, }, cost = { Mana = 21, }, },
+		[20] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 70, statInterpolation = { 3, 3, }, cost = { Mana = 21, }, },
+		[21] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 72, statInterpolation = { 3, 3, }, cost = { Mana = 22, }, },
+		[22] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 74, statInterpolation = { 3, 3, }, cost = { Mana = 22, }, },
+		[23] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 76, statInterpolation = { 3, 3, }, cost = { Mana = 23, }, },
+		[24] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 78, statInterpolation = { 3, 3, }, cost = { Mana = 23, }, },
+		[25] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 80, statInterpolation = { 3, 3, }, cost = { Mana = 24, }, },
+		[26] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 82, statInterpolation = { 3, 3, }, cost = { Mana = 24, }, },
+		[27] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 84, statInterpolation = { 3, 3, }, cost = { Mana = 25, }, },
+		[28] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 86, statInterpolation = { 3, 3, }, cost = { Mana = 25, }, },
+		[29] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 88, statInterpolation = { 3, 3, }, cost = { Mana = 26, }, },
+		[30] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 90, statInterpolation = { 3, 3, }, cost = { Mana = 26, }, },
+		[31] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 91, statInterpolation = { 3, 3, }, cost = { Mana = 26, }, },
+		[32] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 92, statInterpolation = { 3, 3, }, cost = { Mana = 27, }, },
+		[33] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 93, statInterpolation = { 3, 3, }, cost = { Mana = 27, }, },
+		[34] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 94, statInterpolation = { 3, 3, }, cost = { Mana = 27, }, },
+		[35] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 95, statInterpolation = { 3, 3, }, cost = { Mana = 27, }, },
+		[36] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 96, statInterpolation = { 3, 3, }, cost = { Mana = 27, }, },
+		[37] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 97, statInterpolation = { 3, 3, }, cost = { Mana = 28, }, },
+		[38] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 98, statInterpolation = { 3, 3, }, cost = { Mana = 28, }, },
+		[39] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 99, statInterpolation = { 3, 3, }, cost = { Mana = 28, }, },
+		[40] = { 0.5, 1.5, damageEffectiveness = 0.6, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 100, statInterpolation = { 3, 3, }, cost = { Mana = 28, }, },
 	},
 }
 skills["LightningExplosionMine"] = {
 	name = "Stormblast Mine",
+	baseTypeName = "Stormblast Mine",
 	color = 3,
 	baseEffectiveness = 1.3094999790192,
 	incrementalEffectiveness = 0.043999999761581,
@@ -15370,6 +15855,7 @@ skills["LightningExplosionMine"] = {
 }
 skills["Stormbind"] = {
 	name = "Stormbind",
+	baseTypeName = "Stormbind",
 	color = 3,
 	baseEffectiveness = 1.6692999601364,
 	incrementalEffectiveness = 0.043200001120567,
@@ -15490,6 +15976,7 @@ skills["Stormbind"] = {
 }
 skills["RuneBlast"] = {
 	name = "Rune Blast",
+	baseTypeName = "Rune Blast",
 	color = 3,
 	description = "Channel to improve runes placed by Stormbind based on the mana you spend channelling this skill. Release to detonate the targeted rune, which will cause other runes to detonate in a chain reaction.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Channel] = true, [SkillType.Arcane] = true, },
@@ -15550,6 +16037,7 @@ skills["RuneBlast"] = {
 }
 skills["StormbindAltX"] = {
 	name = "Stormbind of Teleportation",
+	baseTypeName = "Stormbind of Teleportation",
 	color = 3,
 	baseEffectiveness = 1.6692999601364,
 	incrementalEffectiveness = 0.043200001120567,
@@ -15669,7 +16157,8 @@ skills["StormbindAltX"] = {
 	},
 }
 skills["RuneBlastAltX"] = {
-	name = "Stormbind of Teleportation",
+	name = "Rune Blast of Teleportation",
+	baseTypeName = "Rune Blast of Teleportation",
 	color = 3,
 	description = "Channel to improve runes placed by Stormbind based on the mana you spend channelling this skill. Release to detonate the targeted rune, which will cause other runes to detonate in a chain reaction. Detonation can teleport you to the targeted Rune.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Channel] = true, [SkillType.Arcane] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Blink] = true, },
@@ -15732,6 +16221,7 @@ skills["RuneBlastAltX"] = {
 }
 skills["StormBurstNew"] = {
 	name = "Storm Burst",
+	baseTypeName = "Storm Burst",
 	color = 3,
 	baseEffectiveness = 0.58840000629425,
 	incrementalEffectiveness = 0.037200000137091,
@@ -15838,6 +16328,7 @@ skills["StormBurstNew"] = {
 }
 skills["StormCall"] = {
 	name = "Storm Call",
+	baseTypeName = "Storm Call",
 	color = 3,
 	baseEffectiveness = 2.4012999534607,
 	incrementalEffectiveness = 0.044100001454353,
@@ -15918,6 +16409,7 @@ skills["StormCall"] = {
 }
 skills["VaalStormCall"] = {
 	name = "Vaal Storm Call",
+	baseTypeName = "Vaal Storm Call",
 	color = 3,
 	baseEffectiveness = 2.6089999675751,
 	incrementalEffectiveness = 0.033500000834465,
@@ -15999,6 +16491,7 @@ skills["VaalStormCall"] = {
 }
 skills["SummonBoneGolem"] = {
 	name = "Summon Carrion Golem",
+	baseTypeName = "Summon Carrion Golem",
 	color = 3,
 	baseEffectiveness = 0.28000000119209,
 	incrementalEffectiveness = 0.020999999716878,
@@ -16097,6 +16590,7 @@ skills["SummonBoneGolem"] = {
 }
 skills["SummonBoneGolemAltX"] = {
 	name = "Summon Carrion Golem of Hordes",
+	baseTypeName = "Summon Carrion Golem of Hordes",
 	color = 3,
 	baseEffectiveness = 0.28000000119209,
 	incrementalEffectiveness = 0.020999999716878,
@@ -16178,6 +16672,7 @@ skills["SummonBoneGolemAltX"] = {
 }
 skills["SummonBoneGolemAltY"] = {
 	name = "Summon Carrion Golem of Scavenging",
+	baseTypeName = "Summon Carrion Golem of Scavenging",
 	color = 3,
 	baseEffectiveness = 0.28000000119209,
 	incrementalEffectiveness = 0.020999999716878,
@@ -16270,6 +16765,7 @@ skills["SummonBoneGolemAltY"] = {
 }
 skills["SummonChaosGolem"] = {
 	name = "Summon Chaos Golem",
+	baseTypeName = "Summon Chaos Golem",
 	color = 3,
 	description = "Summons a Chaos Golem that grants you Physical Damage Reduction. The Chaos Golem can cast a damage over time Chaos aura and a cascade of Chaos spikes in addition to its melee attack.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Chaos] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -16354,6 +16850,7 @@ skills["SummonChaosGolem"] = {
 }
 skills["SummonChaosGolemAltX"] = {
 	name = "Summon Chaos Golem of Hordes",
+	baseTypeName = "Summon Chaos Golem of Hordes",
 	color = 3,
 	description = "Summons a Chaos Golem. The Chaos Golem can cast a damage over time Chaos aura and a cascade of Chaos spikes in addition to its melee attack.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Chaos] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -16433,6 +16930,7 @@ skills["SummonChaosGolemAltX"] = {
 }
 skills["SummonChaosGolemAltY"] = {
 	name = "Summon Chaos Golem of the Maelström",
+	baseTypeName = "Summon Chaos Golem of the Maelström",
 	color = 3,
 	description = "Summons a Chaos Golem. The Chaos Golem can cast a powerful damage over time Chaos aura that Withers enemies in addition to its melee attack.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Chaos] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -16513,10 +17011,11 @@ skills["SummonChaosGolemAltY"] = {
 }
 skills["SummonRelic"] = {
 	name = "Summon Holy Relic",
+	baseTypeName = "Summon Holy Relic",
 	color = 3,
-	description = "Summon a Holy Relic that stays near you. When you hit an enemy with an attack, the Holy Relic triggers a nova spell, with a very short cooldown, that deals physical damage to enemies and grants life regeneration to allies. This life regeneration is higher when applied to minions.",
+	description = "Summon a Holy Relic that stays near you. When you hit an enemy with an attack, the Holy Relic triggers a nova spell with a short cooldown, that deals physical damage to enemies and grants life regeneration to allies in an area around it. This life regeneration is higher when applied to minions.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
-	minionSkillTypes = { [SkillType.Damage] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, },
+	minionSkillTypes = { [SkillType.Damage] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, [SkillType.Nova] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
@@ -16599,8 +17098,91 @@ skills["SummonRelic"] = {
 		[40] = { 136, 16293, 815, 100, storedUses = 1, levelRequirement = 100, cooldown = 2, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 35, }, },
 	},
 }
+skills["SummonRelicAltX"] = {
+	name = "Summon Holy Relic of Conviction",
+	baseTypeName = "Summon Holy Relic of Conviction",
+	color = 3,
+	description = "Summon a Holy Relic that stays near you. When you hit an enemy with an attack, the Holy Relic triggers a spell with a short cooldown, that deals physical damage to enemies in an area around a nearby enemy.",
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	minionSkillTypes = { [SkillType.Damage] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Triggered] = true, [SkillType.Physical] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	minionList = {
+		"HolyLivingRelic",
+	},
+	statMap = {
+		["base_number_of_relics_allowed"] = {
+			mod("ActiveHolyRelicLimit", "BASE", nil)
+		},
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+		permanentMinion = true,
+	},
+	qualityStats = {
+		Default = {
+			{ "minion_cooldown_recovery_+%", 1 },
+		},
+	},
+	constantStats = {
+		{ "base_number_of_relics_allowed", 2 },
+		{ "display_minion_monster_type", 16 },
+		{ "active_skill_minion_from_alternate_gem_index", 1 },
+	},
+	stats = {
+		"active_skill_minion_movement_velocity_+%_final",
+		"base_display_minion_actor_level",
+		"minions_cannot_taunt_enemies",
+		"infinite_minion_duration",
+		"holy_relic_targets_nearest_enemy",
+	},
+	levels = {
+		[1] = { 0, 4, storedUses = 1, levelRequirement = 4, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
+		[2] = { 4, 6, storedUses = 1, levelRequirement = 6, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
+		[3] = { 8, 9, storedUses = 1, levelRequirement = 9, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
+		[4] = { 12, 12, storedUses = 1, levelRequirement = 12, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 14, }, },
+		[5] = { 16, 16, storedUses = 1, levelRequirement = 16, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 15, }, },
+		[6] = { 20, 20, storedUses = 1, levelRequirement = 20, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 16, }, },
+		[7] = { 24, 24, storedUses = 1, levelRequirement = 24, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 17, }, },
+		[8] = { 28, 28, storedUses = 1, levelRequirement = 28, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 18, }, },
+		[9] = { 32, 32, storedUses = 1, levelRequirement = 32, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 19, }, },
+		[10] = { 36, 36, storedUses = 1, levelRequirement = 36, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 20, }, },
+		[11] = { 40, 40, storedUses = 1, levelRequirement = 40, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 21, }, },
+		[12] = { 44, 44, storedUses = 1, levelRequirement = 44, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 22, }, },
+		[13] = { 48, 48, storedUses = 1, levelRequirement = 48, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
+		[14] = { 52, 52, storedUses = 1, levelRequirement = 52, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 24, }, },
+		[15] = { 56, 55, storedUses = 1, levelRequirement = 55, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 25, }, },
+		[16] = { 60, 58, storedUses = 1, levelRequirement = 58, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 26, }, },
+		[17] = { 64, 61, storedUses = 1, levelRequirement = 61, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 26, }, },
+		[18] = { 68, 64, storedUses = 1, levelRequirement = 64, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 27, }, },
+		[19] = { 72, 67, storedUses = 1, levelRequirement = 67, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 27, }, },
+		[20] = { 76, 70, storedUses = 1, levelRequirement = 70, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 28, }, },
+		[21] = { 80, 72, storedUses = 1, levelRequirement = 72, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 28, }, },
+		[22] = { 84, 74, storedUses = 1, levelRequirement = 74, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 29, }, },
+		[23] = { 88, 76, storedUses = 1, levelRequirement = 76, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 29, }, },
+		[24] = { 92, 78, storedUses = 1, levelRequirement = 78, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 30, }, },
+		[25] = { 96, 80, storedUses = 1, levelRequirement = 80, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 30, }, },
+		[26] = { 100, 82, storedUses = 1, levelRequirement = 82, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 30, }, },
+		[27] = { 104, 84, storedUses = 1, levelRequirement = 84, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 30, }, },
+		[28] = { 108, 86, storedUses = 1, levelRequirement = 86, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 31, }, },
+		[29] = { 112, 88, storedUses = 1, levelRequirement = 88, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 31, }, },
+		[30] = { 116, 90, storedUses = 1, levelRequirement = 90, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 32, }, },
+		[31] = { 118, 91, storedUses = 1, levelRequirement = 91, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 33, }, },
+		[32] = { 120, 92, storedUses = 1, levelRequirement = 92, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 33, }, },
+		[33] = { 122, 93, storedUses = 1, levelRequirement = 93, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 33, }, },
+		[34] = { 124, 94, storedUses = 1, levelRequirement = 94, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 33, }, },
+		[35] = { 126, 95, storedUses = 1, levelRequirement = 95, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 34, }, },
+		[36] = { 128, 96, storedUses = 1, levelRequirement = 96, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 34, }, },
+		[37] = { 130, 97, storedUses = 1, levelRequirement = 97, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 34, }, },
+		[38] = { 132, 98, storedUses = 1, levelRequirement = 98, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 34, }, },
+		[39] = { 134, 99, storedUses = 1, levelRequirement = 99, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 35, }, },
+		[40] = { 136, 100, storedUses = 1, levelRequirement = 100, cooldown = 2, statInterpolation = { 1, 1, }, cost = { Mana = 35, }, },
+	},
+}
 skills["SummonLightningGolem"] = {
 	name = "Summon Lightning Golem",
+	baseTypeName = "Summon Lightning Golem",
 	color = 3,
 	description = "Summons a Lightning Golem that grants you increased Attack and Cast speed. The Lightning Golem fires a projectile spell, creates orbs of Lightning that zap nearby enemies, and casts a temporary aura that grants added Lightning Damage to spells and attacks used by the Golem and its nearby allies.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -16685,6 +17267,7 @@ skills["SummonLightningGolem"] = {
 }
 skills["SummonLightningGolemAltX"] = {
 	name = "Summon Lightning Golem of Hordes",
+	baseTypeName = "Summon Lightning Golem of Hordes",
 	color = 3,
 	description = "Summons a Lightning Golem. The Lightning Golem fires a projectile spell, creates orbs of Lightning that zap nearby enemies, and casts a temporary aura that grants added Lightning Damage to spells and attacks used by the Golem and its nearby allies.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -16764,6 +17347,7 @@ skills["SummonLightningGolemAltX"] = {
 }
 skills["SummonRagingSpirit"] = {
 	name = "Summon Raging Spirit",
+	baseTypeName = "Summon Raging Spirit",
 	color = 3,
 	description = "Summons a short-lived flaming skull that rushes at nearby enemies and attacks them rapidly, converting all its physical damage to fire. Enemies will not directly engage these spirits, and can pass through them.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
@@ -16837,6 +17421,7 @@ skills["SummonRagingSpirit"] = {
 }
 skills["SummonRagingSpiritAltX"] = {
 	name = "Summon Raging Spirit of Enormity",
+	baseTypeName = "Summon Raging Spirit of Enormity",
 	color = 3,
 	description = "Summons a short-lived flaming skull that rushes at nearby enemies and attacks them rapidly, converting all its physical damage to fire. Enemies will not directly engage these spirits, and can pass through them.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
@@ -16913,6 +17498,7 @@ skills["SummonRagingSpiritAltX"] = {
 }
 skills["SummonReaper"] = {
 	name = "Summon Reaper",
+	baseTypeName = "Summon Reaper",
 	color = 3,
 	description = "Summons a powerful Reaper which uses a variety of slashing area attacks. The Reaper's presence weakens your other minions, and it will consume them to temporarily empower and heal itself. Using this skill while the Reaper is already summoned causes it to dash to the targeted location and perform a powerful attack.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Physical] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -16927,10 +17513,10 @@ skills["SummonReaper"] = {
 			mod("MinionModifier", "LIST", { mod = mod("BleedChance", "BASE", nil, ModFlag.Attack) })
 		},
 		["active_skill_non_reaper_minion_damage_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 		["active_skill_non_reaper_minion_maximum_life_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -16999,6 +17585,7 @@ skills["SummonReaper"] = {
 }
 skills["SummonReaperAltX"] = {
 	name = "Summon Reaper of Revenants",
+	baseTypeName = "Summon Reaper of Revenants",
 	color = 3,
 	description = "Summons a Reaper which uses a variety of slashing area attacks. The presence of any Reapers weakens your other non-Reaper minions, and Reapers will consume them to temporarily empower and heal themselves.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, },
@@ -17010,10 +17597,10 @@ skills["SummonReaperAltX"] = {
 	},
 	statMap = {
 		["active_skill_non_reaper_minion_damage_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 		["active_skill_non_reaper_minion_maximum_life_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -17082,6 +17669,7 @@ skills["SummonReaperAltX"] = {
 }
 skills["SummonReaperAltY"] = {
 	name = "Summon Reaper of Eviscerating",
+	baseTypeName = "Summon Reaper of Eviscerating",
 	color = 3,
 	description = "Summons a powerful Reaper which passively follows you without attacking enemies. The Reaper's presence weakens your other minions, and it will consume them to temporarily empower and heal itself. Using this skill while the Reaper is already summoned causes it to dash to the targeted location and perform a powerful attack. Cannot be triggered, supported by Spell Echo or Unleash, or used by Totems, Traps, or Mines. ",
 	skillTypes = { [SkillType.Physical] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Spell] = true, [SkillType.CreatesMinion] = true, },
@@ -17096,10 +17684,10 @@ skills["SummonReaperAltY"] = {
 			mod("MinionModifier", "LIST", { mod = mod("BleedChance", "BASE", nil, ModFlag.Attack) })
 		},
 		["active_skill_non_reaper_minion_damage_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 		["active_skill_non_reaper_minion_maximum_life_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -17169,6 +17757,7 @@ skills["SummonReaperAltY"] = {
 }
 skills["SummonSkeletons"] = {
 	name = "Summon Skeletons",
+	baseTypeName = "Summon Skeletons",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Summon Skeleton Warrior minions at the targeted location. They use a melee attack and die after a duration. If made aggressive, Skeleton Warriors will also dash towards nearby enemies.",
@@ -17250,6 +17839,7 @@ skills["SummonSkeletons"] = {
 }
 skills["SummonSkeletonsAltX"] = {
 	name = "Summon Skeletons of Archers",
+	baseTypeName = "Summon Skeletons of Archery",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Summon Skeleton Archer minions at the targeted location. They fire arrows and die after a duration.",
@@ -17330,6 +17920,7 @@ skills["SummonSkeletonsAltX"] = {
 }
 skills["SummonSkeletonsAltY"] = {
 	name = "Summon Skeletons of Mages",
+	baseTypeName = "Summon Skeletons of Sorcery",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Summon Skeleton Mage minions of random elemental types at the targeted location. They cast projectile spells based on their element, and die after a duration.",
@@ -17410,6 +18001,7 @@ skills["SummonSkeletonsAltY"] = {
 }
 skills["VaalSummonSkeletons"] = {
 	name = "Vaal Summon Skeletons",
+	baseTypeName = "Vaal Summon Skeletons",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Summons an army of skeletal soldiers, archers and mages, led by a powerful general.",
@@ -17418,9 +18010,9 @@ skills["VaalSummonSkeletons"] = {
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.8,
 	minionList = {
-		"RaisedSkeleton",
+		"RaisedSkeletonMeleeVaal",
 		"RaisedSkeletonCaster",
-		"RaisedSkeletonArcher",
+		"RaisedSkeletonArcherVaal",
 	},
 	statMap = {
 		["quality_display_summon_skeleton_is_gem"] = {
@@ -17497,6 +18089,7 @@ skills["VaalSummonSkeletons"] = {
 }
 skills["Skitterbots"] = {
 	name = "Summon Skitterbots",
+	baseTypeName = "Summon Skitterbots",
 	color = 3,
 	description = "Summon a Chilling Skitterbot and a Shocking Skitterbot, which will trigger your traps and detonate your mines. Mines detonated by Skitterbots will re-arm and can then be detonated again. The Skitterbots grant you more trap and mine damage, and cannot be targeted or damaged.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.HasReservation] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, [SkillType.NonHitChill] = true, [SkillType.ElementalStatus] = true, [SkillType.Area] = true, [SkillType.Aura] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.AuraNotOnCaster] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -17581,6 +18174,7 @@ skills["Skitterbots"] = {
 }
 skills["TempestShield"] = {
 	name = "Tempest Shield",
+	baseTypeName = "Tempest Shield",
 	color = 3,
 	baseEffectiveness = 4.6932997703552,
 	incrementalEffectiveness = 0.038199998438358,
@@ -17602,7 +18196,7 @@ skills["TempestShield"] = {
 		chaining = true,
 	},
 	baseMods = {
-		skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell }),
+		skill("chanceToTriggerCounterattackOnBlock", 100, { type = "SkillType", skillType = SkillType.Spell }),
 	},
 	qualityStats = {
 		Default = {
@@ -17666,6 +18260,7 @@ skills["TempestShield"] = {
 }
 skills["BlackHole"] = {
 	name = "Void Sphere",
+	baseTypeName = "Void Sphere",
 	color = 3,
 	baseEffectiveness = 0.35989999771118,
 	incrementalEffectiveness = 0.055500000715256,
@@ -17751,6 +18346,7 @@ skills["BlackHole"] = {
 }
 skills["BlackHoleAltX"] = {
 	name = "Void Sphere of Rending",
+	baseTypeName = "Void Sphere of Rending",
 	color = 3,
 	baseEffectiveness = 0.89999997615814,
 	incrementalEffectiveness = 0.055500000715256,
@@ -17779,7 +18375,7 @@ skills["BlackHoleAltX"] = {
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_chaos", 40 },
-		{ "base_blackhole_tick_rate_ms", 400 },
+		{ "base_blackhole_tick_rate_ms", 300 },
 		{ "base_skill_effect_duration", 2000 },
 		{ "active_skill_base_area_of_effect_radius", 22 },
 	},
@@ -17836,6 +18432,7 @@ skills["BlackHoleAltX"] = {
 }
 skills["VoltaxicBurst"] = {
 	name = "Voltaxic Burst",
+	baseTypeName = "Voltaxic Burst",
 	color = 3,
 	baseEffectiveness = 2.3076000213623,
 	incrementalEffectiveness = 0.043999999761581,
@@ -17928,6 +18525,7 @@ skills["VoltaxicBurst"] = {
 }
 skills["FrostBoltNova"] = {
 	name = "Vortex",
+	baseTypeName = "Vortex",
 	color = 3,
 	baseEffectiveness = 1.2086000442505,
 	incrementalEffectiveness = 0.049499999731779,
@@ -17938,11 +18536,6 @@ skills["FrostBoltNova"] = {
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = output.Cooldown
 	end,
-	statMap = {
-		["active_skill_damage_+%_when_cast_on_frostbolt"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
-		},
-	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -18016,6 +18609,7 @@ skills["FrostBoltNova"] = {
 }
 skills["FrostBoltNovaAltX"] = {
 	name = "Vortex of Projection",
+	baseTypeName = "Vortex of Projection",
 	color = 3,
 	baseEffectiveness = 1.2086000442505,
 	incrementalEffectiveness = 0.049499999731779,
@@ -18028,7 +18622,7 @@ skills["FrostBoltNovaAltX"] = {
 	end,
 	statMap = {
 		["active_skill_if_used_through_frostbolt_damage_+%_final"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
 		},
 	},
 	baseFlags = {
@@ -18108,6 +18702,7 @@ skills["FrostBoltNovaAltX"] = {
 }
 skills["Purge"] = {
 	name = "Wave of Conviction",
+	baseTypeName = "Wave of Conviction",
 	color = 3,
 	baseEffectiveness = 2.2590000629425,
 	incrementalEffectiveness = 0.049699999392033,
@@ -18196,6 +18791,7 @@ skills["Purge"] = {
 }
 skills["FrostFury"] = {
 	name = "Winter Orb",
+	baseTypeName = "Winter Orb",
 	color = 3,
 	baseEffectiveness = 1.0566999912262,
 	incrementalEffectiveness = 0.035500001162291,
@@ -18325,6 +18921,7 @@ skills["FrostFury"] = {
 }
 skills["ImmolationSigil"] = {
 	name = "Wintertide Brand",
+	baseTypeName = "Wintertide Brand",
 	color = 3,
 	baseEffectiveness = 4.5808000564575,
 	incrementalEffectiveness = 0.028899999335408,
@@ -18427,6 +19024,7 @@ skills["ImmolationSigil"] = {
 }
 skills["Wither"] = {
 	name = "Wither",
+	baseTypeName = "Wither",
 	color = 3,
 	description = "Casts a debilitating debuff on enemies in an area, hindering their movement and also inflicts the Withered debuff, which increases the Chaos Damage they take and can stack up to 15 times.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Chaos] = true, [SkillType.Channel] = true, [SkillType.AreaSpell] = true, },
@@ -18514,6 +19112,7 @@ skills["Wither"] = {
 }
 skills["Wrath"] = {
 	name = "Wrath",
+	baseTypeName = "Wrath",
 	color = 3,
 	baseEffectiveness = 2.25,
 	incrementalEffectiveness = 0.023000000044703,
@@ -18597,6 +19196,7 @@ skills["Wrath"] = {
 }
 skills["SpellDamageAura"] = {
 	name = "Zealotry",
+	baseTypeName = "Zealotry",
 	color = 3,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.025000000372529,

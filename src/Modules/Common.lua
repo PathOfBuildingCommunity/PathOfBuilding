@@ -231,6 +231,34 @@ function convertUTF8to16(text, offset)
 	return table.concat(out)
 end
 
+--- Clean item text by removing or replacing unsupported or redundant characters or sequences
+---@param text string
+---@return string
+function sanitiseText(text)
+	if not text then return nil end
+	-- Something something unicode support something grumble
+	-- Only do these replacements if a char from 128-255 or '<' is found first
+	return text:find("[\128-\255<]") and text
+		:gsub("%b<>", "")
+		:gsub("\226\128\144", "-") -- U+2010 HYPHEN
+		:gsub("\226\128\145", "-") -- U+2011 NON-BREAKING HYPHEN
+		:gsub("\226\128\146", "-") -- U+2012 FIGURE DASH
+		:gsub("\226\128\147", "-") -- U+2013 EN DASH
+		:gsub("\226\128\148", "-") -- U+2014 EM DASH
+		:gsub("\226\128\149", "-") -- U+2015 HORIZONTAL BAR
+		:gsub("\226\136\146", "-") -- U+2212 MINUS SIGN
+		:gsub("\195\164", "a") -- U+00E4 LATIN SMALL LETTER A WITH DIAERESIS
+		:gsub("\195\182", "o") -- U+00F6 LATIN SMALL LETTER O WITH DIAERESIS
+		-- single-byte: Windows-1252 and similar
+		:gsub("\150", "-") -- U+2013 EN DASH
+		:gsub("\151", "-") -- U+2014 EM DASH
+		:gsub("\228", "a") -- U+00E4 LATIN SMALL LETTER A WITH DIAERESIS
+		:gsub("\246", "o") -- U+00F6 LATIN SMALL LETTER O WITH DIAERESIS
+		-- unsupported
+		:gsub("[\128-\255]", "?")
+		or text
+end
+
 do
 	local function toUnsigned(val)
 		return val < 0 and val + 0x100000000 or val
@@ -741,15 +769,7 @@ end
 
 -- Global Cache related
 function cacheData(uuid, env)
-	local mode = env.mode
-	if mode == "CALCULATOR" then return end
-
-	-- If we previously had global data, we are about to over-ride it, set tables to `nil` for Lua Garbage Collection
-	if GlobalCache.cachedData[mode][uuid] then
-		GlobalCache.cachedData[mode][uuid].ActiveSkill = nil
-		GlobalCache.cachedData[mode][uuid].Env = nil
-	end
-	GlobalCache.cachedData[mode][uuid] = {
+	GlobalCache.cachedData[env.mode][uuid] = {
 		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
 		Speed = env.player.output.Speed,
 		HitSpeed = env.player.output.HitSpeed,
@@ -767,49 +787,11 @@ function cacheData(uuid, env)
 	}
 end
 
--- Add an entry for a fabricated skill (e.g., Mirage Archers)
---   to be deleted if it's not longer needed
-function addDeleteGroupEntry(name)
-	if not GlobalCache.deleteGroup[name] then
-		GlobalCache.deleteGroup[name] = true
-	end
-end
-
--- Remove an entry from the "to be deleted" list
---   because it is still needed
-function removeDeleteGroupEntry(name)
-	if GlobalCache.deleteGroup[name] then
-		GlobalCache.deleteGroup[name] = nil
-	end
-end
-
--- Delete a skill-group entry from the skill list if it has
---   been marked for deletion and nothing over-wrote that
-function deleteFabricatedGroup(skillsTab)
-	for index, socketGroup in ipairs(skillsTab.controls.groupList.list) do
-		if GlobalCache.deleteGroup[socketGroup.label] then
-			t_remove(skillsTab.controls.groupList.list, index)
-			if skillsTab.displayGroup == socketGroup then
-				skillsTab:SetDisplayGroup()
-			end
-			skillsTab:AddUndoState()
-			skillsTab.build.buildFlag = true
-			skillsTab.controls.groupList.selValue = nil
-			wipeTable(GlobalCache.deleteGroup)
-			break
-		end
-	end
-end
-
 -- Wipe all the tables associated with Global Cache
 function wipeGlobalCache()
 	wipeTable(GlobalCache.cachedData.MAIN)
 	wipeTable(GlobalCache.cachedData.CALCS)
 	wipeTable(GlobalCache.cachedData.CALCULATOR)
-	wipeTable(GlobalCache.cachedData.CACHE)
-	wipeTable(GlobalCache.excludeFullDpsList)
-	wipeTable(GlobalCache.deleteGroup)
-	GlobalCache.noCache = nil
 end
 
 -- Check if a specific named gem is enabled in a socket group belonging to a skill

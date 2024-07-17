@@ -271,6 +271,7 @@ end)
 
 -- parse real gem name and quality by omitting the first word if alt qual is set
 function SkillsTabClass:GetBaseNameAndQuality(gemTypeLine, quality)
+	gemTypeLine = sanitiseText(gemTypeLine)
 	-- if quality is default or nil check the gem type line if we have alt qual by comparing to the existing list
 	if gemTypeLine and (quality == nil or quality == "" or quality == "Default") then
 		local firstword, otherwords = gemTypeLine:match("(%w+)%s(.+)")
@@ -307,12 +308,12 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 	socketGroup.gemList = { }
 	for _, child in ipairs(node) do
 		local gemInstance = { }
-		gemInstance.nameSpec = child.attrib.nameSpec or ""
+		gemInstance.nameSpec = sanitiseText(child.attrib.nameSpec or "")
 		if child.attrib.gemId then
 			local gemData
 			local possibleVariants = self.build.data.gemsByGameId[child.attrib.gemId]
 			if possibleVariants then
-				-- If it is a known game, try to determine which variant is used
+				-- If it is a known gem, try to determine which variant is used
 				if child.attrib.variantId then
 					-- New save format from 3.23 that stores the specific variation (transfiguration)
 					gemData = possibleVariants[child.attrib.variantId]
@@ -498,7 +499,7 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 	end
 	self.x = self.x - self.controls.scrollBarH.offset
 
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if event.key == "z" and IsKeyDown("CTRL") then
 				self:Undo()
@@ -512,11 +513,11 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 		end
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyUp" then
-			if event.key == "WHEELDOWN" or event.key == "PAGEDOWN" then
+			if self.controls.scrollBarH:IsScrollDownKey(event.key) then
 				self.controls.scrollBarH:Scroll(1)
-			elseif event.key == "WHEELUP" or event.key == "PAGEUP" then
+			elseif self.controls.scrollBarH:IsScrollUpKey(event.key) then
 				self.controls.scrollBarH:Scroll(-1)
 			end
 		end
@@ -560,7 +561,7 @@ function SkillsTabClass:CopySocketGroup(socketGroup)
 end
 
 function SkillsTabClass:PasteSocketGroup(testInput)
-	local skillText = Paste() or testInput
+	local skillText = sanitiseText(Paste() or testInput)
 	if skillText then
 		local newGroup = { label = "", enabled = true, gemList = { } }
 		local label = skillText:match("Label: (%C+)")
@@ -1220,7 +1221,7 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 		end
 	end
 	local showOtherHeader = true
-	for _, gemInstance in ipairs(socketGroup.gemList) do
+	for _, gemInstance in ipairs(socketGroup.displayGemList or socketGroup.gemList) do
 		if not gemShown[gemInstance] then
 			if showOtherHeader then
 				showOtherHeader = false

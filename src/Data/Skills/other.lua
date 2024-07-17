@@ -222,17 +222,18 @@ skills["BirdAspect"] = {
 		duration = true,
 	},
 	constantStats = {
-		{ "chance_to_deal_double_damage_%", 10 },
-		{ "minion_chance_to_deal_double_damage_%", 10 },
-		{ "base_movement_velocity_+%", 10 },
-		{ "minion_movement_speed_+%", 10 },
 		{ "base_skill_effect_duration", 4000 },
 		{ "base_secondary_skill_effect_duration", 4000 },
 	},
 	stats = {
+		"chance_to_deal_double_damage_%",
+		"minion_chance_to_deal_double_damage_%",
+		"base_movement_velocity_+%",
+		"minion_movement_speed_+%",
 	},
 	levels = {
-		[20] = { storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, },
+		[20] = { 10, 10, 10, 10, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, }, },
+		[30] = { 12, 12, 14, 14, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, }, },
 	},
 }
 skills["CatAspect"] = {
@@ -263,18 +264,19 @@ skills["CatAspect"] = {
 		duration = true,
 	},
 	constantStats = {
-		{ "skill_buff_grants_critical_strike_chance_+%", 100 },
-		{ "avoid_damage_%", 15 },
-		{ "stealth_+%", 100 },
-		{ "attack_speed_+%_granted_from_skill", 10 },
-		{ "cast_speed_+%_granted_from_skill", 10 },
 		{ "base_skill_effect_duration", 4000 },
 		{ "base_secondary_skill_effect_duration", 6000 },
 	},
 	stats = {
+		"skill_buff_grants_critical_strike_chance_+%",
+		"avoid_damage_%",
+		"stealth_+%",
+		"attack_speed_+%_granted_from_skill",
+		"cast_speed_+%_granted_from_skill",
 	},
 	levels = {
-		[20] = { storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, },
+		[20] = { 100, 15, 100, 10, 10, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[30] = { 120, 15, 100, 16, 16, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["CrabAspect"] = {
@@ -299,12 +301,13 @@ skills["CrabAspect"] = {
 	},
 	constantStats = {
 		{ "physical_damage_reduction_%_per_crab_aspect_stack", 2 },
-		{ "max_crab_aspect_stacks", 10 },
 	},
 	stats = {
+		"max_crab_aspect_stacks",
 	},
 	levels = {
-		[20] = { storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, },
+		[20] = { 10, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, }, },
+		[30] = { 12, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["SpiderAspect"] = {
@@ -336,12 +339,13 @@ skills["SpiderAspect"] = {
 		{ "base_damage_taken_+%", 5 },
 		{ "base_skill_effect_duration", 6000 },
 		{ "spider_aspect_web_interval_ms", 1000 },
-		{ "spider_aspect_max_web_count", 3 },
 	},
 	stats = {
+		"spider_aspect_max_web_count",
 	},
 	levels = {
-		[20] = { storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, },
+		[20] = { 3, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, }, },
+		[30] = { 4, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["SupportBloodMagicUniquePrismGuardian"] = {
@@ -944,6 +948,7 @@ skills["MeleeUseContactPoint"] = {
 }
 skills["GemDetonateMines"] = {
 	name = "Detonate Mines",
+	baseTypeName = "Detonate Mines",
 	color = 4,
 	description = "Detonates a Mine, starting a Detonation Sequence which will detonate other Mines around it.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, },
@@ -1896,7 +1901,7 @@ skills["UniqueAnimateWeapon"] = {
 	baseMods = {
 		mod("DisableWeapons", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		mod("Condition:Onslaught", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		skill("minionLevel", 59),
+		skill("minionLevel", 65),
 	},
 	constantStats = {
 		{ "attack_speed_+%", 25 },
@@ -2046,6 +2051,7 @@ skills["SupportTriggerSpellOnAttack"] = {
 }
 skills["Portal"] = {
 	name = "Portal",
+	baseTypeName = "Portal",
 	color = 4,
 	baseEffectiveness = 0,
 	description = "Creates a portal to the current area's town.",
@@ -3207,7 +3213,7 @@ skills["SummonRadiantSentinel"] = {
 		"radiant_sentinel_minion_fire_%_of_life_to_deal_nearby_per_minute",
 	},
 	levels = {
-		[20] = { 45, 1800, damageEffectiveness = 2, critChance = 6, levelRequirement = 12, statInterpolation = { 1, 1, }, cost = { Mana = 40, }, },
+		[20] = { 40, 1200, damageEffectiveness = 2, critChance = 6, levelRequirement = 12, statInterpolation = { 1, 1, }, cost = { Mana = 40, }, },
 	},
 }
 skills["SummonRigwaldsPack"] = {
@@ -3513,7 +3519,6 @@ skills["HiddenBlade"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
-	preferredSlotName = "Weapon 1",
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -3530,6 +3535,7 @@ skills["HiddenBlade"] = {
 }
 skills["VaalBreach"] = {
 	name = "Vaal Breach",
+	baseTypeName = "Vaal Breach",
 	color = 4,
 	baseEffectiveness = 0,
 	description = "Creates a breach, making you vulnerable to its powerful inhabitants.",

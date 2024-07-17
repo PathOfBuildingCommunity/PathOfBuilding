@@ -728,6 +728,132 @@ skills["SupportBurningDamagePlus"] = {
 		[20] = { 47, 1, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
+skills["CallToArms"] = {
+	name = "Call to Arms",
+	baseTypeName = "Call to Arms",
+	color = 1,
+	description = "While this skill is active, a supported warcry will be repeatedly triggered, and all your warcry skills will share cooldowns.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.HasReservation] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	statMap = {
+		["call_to_arms_behaviour"] = {
+			-- Display only
+		}
+	},
+	castTime = 0,
+	baseFlags = {
+	},
+	stats = {
+		"call_to_arms_behaviour",
+		"warcry_skills_share_cooldowns",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 24, cooldown = 0.6, },
+		[2] = { storedUses = 1, levelRequirement = 27, cooldown = 0.6, },
+		[3] = { storedUses = 1, levelRequirement = 30, cooldown = 0.6, },
+		[4] = { storedUses = 1, levelRequirement = 33, cooldown = 0.6, },
+		[5] = { storedUses = 1, levelRequirement = 36, cooldown = 0.6, },
+		[6] = { storedUses = 1, levelRequirement = 39, cooldown = 0.6, },
+		[7] = { storedUses = 1, levelRequirement = 42, cooldown = 0.6, },
+		[8] = { storedUses = 1, levelRequirement = 45, cooldown = 0.6, },
+		[9] = { storedUses = 1, levelRequirement = 48, cooldown = 0.6, },
+		[10] = { storedUses = 1, levelRequirement = 50, cooldown = 0.6, },
+		[11] = { storedUses = 1, levelRequirement = 52, cooldown = 0.6, },
+		[12] = { storedUses = 1, levelRequirement = 54, cooldown = 0.6, },
+		[13] = { storedUses = 1, levelRequirement = 56, cooldown = 0.6, },
+		[14] = { storedUses = 1, levelRequirement = 58, cooldown = 0.6, },
+		[15] = { storedUses = 1, levelRequirement = 60, cooldown = 0.6, },
+		[16] = { storedUses = 1, levelRequirement = 62, cooldown = 0.6, },
+		[17] = { storedUses = 1, levelRequirement = 64, cooldown = 0.6, },
+		[18] = { storedUses = 1, levelRequirement = 66, cooldown = 0.6, },
+		[19] = { storedUses = 1, levelRequirement = 68, cooldown = 0.6, },
+		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 0.6, },
+		[21] = { storedUses = 1, levelRequirement = 72, cooldown = 0.6, },
+		[22] = { storedUses = 1, levelRequirement = 74, cooldown = 0.6, },
+		[23] = { storedUses = 1, levelRequirement = 76, cooldown = 0.6, },
+		[24] = { storedUses = 1, levelRequirement = 78, cooldown = 0.6, },
+		[25] = { storedUses = 1, levelRequirement = 80, cooldown = 0.6, },
+		[26] = { storedUses = 1, levelRequirement = 82, cooldown = 0.6, },
+		[27] = { storedUses = 1, levelRequirement = 84, cooldown = 0.6, },
+		[28] = { storedUses = 1, levelRequirement = 86, cooldown = 0.6, },
+		[29] = { storedUses = 1, levelRequirement = 88, cooldown = 0.6, },
+		[30] = { storedUses = 1, levelRequirement = 90, cooldown = 0.6, },
+		[31] = { storedUses = 1, levelRequirement = 91, cooldown = 0.6, },
+		[32] = { storedUses = 1, levelRequirement = 92, cooldown = 0.6, },
+		[33] = { storedUses = 1, levelRequirement = 93, cooldown = 0.6, },
+		[34] = { storedUses = 1, levelRequirement = 94, cooldown = 0.6, },
+		[35] = { storedUses = 1, levelRequirement = 95, cooldown = 0.6, },
+		[36] = { storedUses = 1, levelRequirement = 96, cooldown = 0.6, },
+		[37] = { storedUses = 1, levelRequirement = 97, cooldown = 0.6, },
+		[38] = { storedUses = 1, levelRequirement = 98, cooldown = 0.6, },
+		[39] = { storedUses = 1, levelRequirement = 99, cooldown = 0.6, },
+		[40] = { storedUses = 1, levelRequirement = 100, cooldown = 0.6, },
+	},
+}
+skills["SupportCallToArms"] = {
+	name = "Call to Arms",
+	description = "Supports warcry skills. Cannot modify the skills of minions.",
+	color = 1,
+	support = true,
+	requireSkillTypes = { SkillType.Warcry, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.HasReservation, SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped, SkillType.Vaal, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	supportGemsOnly = true,
+	ignoreMinionTypes = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	qualityStats = {
+		Default = {
+			{ "base_cooldown_speed_+%", 0.25 },
+		},
+	},
+	stats = {
+		"base_cooldown_speed_+%",
+		"support_autocast_warcries",
+	},
+	levels = {
+		[1] = { -30, storedUses = 1, cooldown = 0.2, levelRequirement = 24, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[2] = { -29, storedUses = 1, cooldown = 0.2, levelRequirement = 27, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[3] = { -28, storedUses = 1, cooldown = 0.2, levelRequirement = 30, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[4] = { -27, storedUses = 1, cooldown = 0.2, levelRequirement = 33, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[5] = { -26, storedUses = 1, cooldown = 0.2, levelRequirement = 36, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[6] = { -25, storedUses = 1, cooldown = 0.2, levelRequirement = 39, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[7] = { -24, storedUses = 1, cooldown = 0.2, levelRequirement = 42, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[8] = { -23, storedUses = 1, cooldown = 0.2, levelRequirement = 45, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[9] = { -22, storedUses = 1, cooldown = 0.2, levelRequirement = 48, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[10] = { -21, storedUses = 1, cooldown = 0.2, levelRequirement = 50, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[11] = { -20, storedUses = 1, cooldown = 0.2, levelRequirement = 52, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[12] = { -19, storedUses = 1, cooldown = 0.2, levelRequirement = 54, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[13] = { -18, storedUses = 1, cooldown = 0.2, levelRequirement = 56, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[14] = { -17, storedUses = 1, cooldown = 0.2, levelRequirement = 58, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[15] = { -16, storedUses = 1, cooldown = 0.2, levelRequirement = 60, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[16] = { -15, storedUses = 1, cooldown = 0.2, levelRequirement = 62, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[17] = { -14, storedUses = 1, cooldown = 0.2, levelRequirement = 64, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[18] = { -13, storedUses = 1, cooldown = 0.2, levelRequirement = 66, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[19] = { -12, storedUses = 1, cooldown = 0.2, levelRequirement = 68, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[20] = { -11, storedUses = 1, cooldown = 0.2, levelRequirement = 70, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[21] = { -10, storedUses = 1, cooldown = 0.2, levelRequirement = 72, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[22] = { -9, storedUses = 1, cooldown = 0.2, levelRequirement = 74, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[23] = { -8, storedUses = 1, cooldown = 0.2, levelRequirement = 76, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[24] = { -7, storedUses = 1, cooldown = 0.2, levelRequirement = 78, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[25] = { -6, storedUses = 1, cooldown = 0.2, levelRequirement = 80, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[26] = { -5, storedUses = 1, cooldown = 0.2, levelRequirement = 82, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[27] = { -4, storedUses = 1, cooldown = 0.2, levelRequirement = 84, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[28] = { -3, storedUses = 1, cooldown = 0.2, levelRequirement = 86, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[29] = { -2, storedUses = 1, cooldown = 0.2, levelRequirement = 88, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[30] = { -1, storedUses = 1, cooldown = 0.2, levelRequirement = 90, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[31] = { -1, storedUses = 1, cooldown = 0.2, levelRequirement = 91, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[32] = { 0, storedUses = 1, cooldown = 0.2, levelRequirement = 92, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[33] = { 0, storedUses = 1, cooldown = 0.2, levelRequirement = 93, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[34] = { 1, storedUses = 1, cooldown = 0.2, levelRequirement = 94, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[35] = { 1, storedUses = 1, cooldown = 0.2, levelRequirement = 95, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[36] = { 2, storedUses = 1, cooldown = 0.2, levelRequirement = 96, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[37] = { 2, storedUses = 1, cooldown = 0.2, levelRequirement = 97, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[38] = { 3, storedUses = 1, cooldown = 0.2, levelRequirement = 98, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[39] = { 3, storedUses = 1, cooldown = 0.2, levelRequirement = 99, manaMultiplier = 50, statInterpolation = { 1, }, },
+		[40] = { 4, storedUses = 1, cooldown = 0.2, levelRequirement = 100, manaMultiplier = 50, statInterpolation = { 1, }, },
+	},
+}
 skills["SupportCastOnMeleeKill"] = {
 	name = "Cast on Melee Kill",
 	description = "Must support both a melee attack skill and a spell skill to work. The attack skill will trigger a spell when it kills an enemy. Cannot support totems, traps, or mines. Vaal skills, channelling skills, and skills with a reservation cannot be triggered.",
@@ -2131,16 +2257,17 @@ skills["SupportFlamewood"] = {
 }
 skills["AvengingFlame"] = {
 	name = "Avenging Flame",
+	baseTypeName = "Avenging Flame",
 	color = 1,
 	description = "Launches a fiery projectile high into the air, to drop on a target and deal area damage where it lands.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Fire] = true, [SkillType.ProjectileNumber] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Triggerable] = true, [SkillType.SkillGrantedBySupport] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.SummonsTotem] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Fire] = true, [SkillType.ProjectileNumber] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Triggerable] = true, [SkillType.SkillGrantedBySupport] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.SummonsTotem] = true, [SkillType.Projectile] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
 	preDamageFunc = function(activeSkill, output)
 		local uuid = activeSkill.skillData.triggerSourceUUID
-		local cache = uuid and GlobalCache.cachedData["CACHE"][uuid]
+		local cache = uuid and (GlobalCache.cachedData["MAIN"][uuid] or GlobalCache.cachedData["CALCS"][uuid])
 		local totemLife = cache and cache.Env.player.output.TotemLife or 0
-		
+
 		local add = totemLife * activeSkill.skillData.lifeDealtAsFire / 100
 		activeSkill.skillData.FireMax = (activeSkill.skillData.FireMax or 0) + add
 		activeSkill.skillData.FireMin = (activeSkill.skillData.FireMin or 0) + add
@@ -2300,12 +2427,13 @@ skills["SupportFortify"] = {
 }
 skills["SupportGenerosity"] = {
 	name = "Generosity",
-	description = "Supports aura skills that affect you and allies, increasing the aura's effect on allies, but preventing it from affecting you at all. Cannot support curse auras, or other auras that only affect enemies. Cannot support skills used by totems.",
+	description = "Supports aura skills that affect you and allies, increasing the aura's effect on allies, but preventing it from affecting you at all. Cannot support curse auras, or other auras that only affect enemies. Cannot support skills used by totems. Cannot modify the skills of minions.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.Aura, },
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.AppliesCurse, SkillType.AuraAffectsEnemies, },
+	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["aura_cannot_affect_self"] = {
@@ -2366,12 +2494,13 @@ skills["SupportGenerosity"] = {
 }
 skills["SupportGenerosityPlus"] = {
 	name = "Awakened Generosity",
-	description = "Supports aura skills that affect you and allies, increasing the aura's effect on allies, but preventing it from affecting you at all. Cannot support curse auras, or other auras that only affect enemies. Cannot support skills used by totems.",
+	description = "Supports aura skills that affect you and allies, increasing the aura's effect on allies, but preventing it from affecting you at all. Cannot support curse auras, or other auras that only affect enemies. Cannot support skills used by totems. Cannot modify the skills of minions.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.Aura, },
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.AppliesCurse, SkillType.AuraAffectsEnemies, },
+	ignoreMinionTypes = true,
 	plusVersionOf = "SupportGenerosity",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -3560,7 +3689,7 @@ skills["SupportMultistrikePlus"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "melee_physical_damage_+%", 0.5 },
+			{ "melee_damage_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -4146,6 +4275,7 @@ skills["SupportBluntWeapon"] = {
 }
 skills["SupportBluntWeaponShockwave"] = {
 	name = "Shockwave",
+	baseTypeName = "Shockwave",
 	color = 1,
 	description = "Deals attack damage in an area.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Melee] = true, [SkillType.SkillGrantedBySupport] = true, },
@@ -4383,9 +4513,6 @@ skills["SupportTrauma"] = {
 		},
 		["attack_maximum_added_physical_damage_with_weapons_per_trauma"] = {
 			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "TraumaStacks" })
-		},
-		["trauma_strike_self_damage_per_trauma"] = {
-			mod("TraumaSelfDamageTakenLife", "BASE", nil),
 		},
 		["support_trauma_stun_duration_+%_per_trauma"] = {
 			mod("EnemyStunDuration", "INC", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),

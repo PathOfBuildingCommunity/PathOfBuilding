@@ -403,13 +403,13 @@ function ListClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
-	if key == "WHEELDOWN" then
+	if self.controls.scrollBarV:IsScrollDownKey(key) then
 		if self.scroll and self.scrollH and IsKeyDown("SHIFT") then
 			self.controls.scrollBarH:Scroll(1)
 		else
 			self.controls.scrollBarV:Scroll(1)
 		end
-	elseif key == "WHEELUP" then
+	elseif self.controls.scrollBarV:IsScrollUpKey(key) then
 		if self.scroll and self.scrollH and IsKeyDown("SHIFT") then
 			self.controls.scrollBarH:Scroll(-1)
 		else

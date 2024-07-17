@@ -4,6 +4,7 @@
 return {
 	["Metadata/Items/Gems/SkillGemFireball"] = {
 		name = "Fireball",
+		baseTypeName = "Fireball",
 		gameId = "Metadata/Items/Gems/SkillGemFireball",
 		variantId = "Fireball",
 		grantedEffectId = "Fireball",
@@ -23,6 +24,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalFireball"] = {
 		name = "Vaal Fireball",
+		baseTypeName = "Vaal Fireball",
 		gameId = "Metadata/Items/Gems/SkillGemVaalFireball",
 		variantId = "VaalFireball",
 		grantedEffectId = "VaalFireballSpiralNova",
@@ -45,6 +47,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemIceNova"] = {
 		name = "Ice Nova",
+		baseTypeName = "Ice Nova",
 		gameId = "Metadata/Items/Gems/SkillGemIceNova",
 		variantId = "IceNova",
 		grantedEffectId = "IceNova",
@@ -64,6 +67,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemIceNovaAltX"] = {
 		name = "Ice Nova of Frostbolts",
+		baseTypeName = "Ice Nova of Frostbolts",
 		gameId = "Metadata/Items/Gems/SkillGemIceNova",
 		variantId = "IceNovaAltX",
 		grantedEffectId = "IceNovaAltX",
@@ -83,6 +87,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemIceNovaAltY"] = {
 		name = "Ice Nova of Deep Freeze",
+		baseTypeName = "Ice Nova of Deep Freeze",
 		gameId = "Metadata/Items/Gems/SkillGemIceNova",
 		variantId = "IceNovaAltY",
 		grantedEffectId = "IceNovaAltY",
@@ -102,6 +107,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalIceNova"] = {
 		name = "Vaal Ice Nova",
+		baseTypeName = "Vaal Ice Nova",
 		gameId = "Metadata/Items/Gems/SkillGemVaalIceNova",
 		variantId = "VaalIceNova",
 		grantedEffectId = "VaalIceNova",
@@ -124,6 +130,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLeapSlam"] = {
 		name = "Leap Slam",
+		baseTypeName = "Leap Slam",
 		gameId = "Metadata/Items/Gems/SkillGemLeapSlam",
 		variantId = "LeapSlam",
 		grantedEffectId = "LeapSlam",
@@ -145,6 +152,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLeapSlamAltX"] = {
 		name = "Leap Slam of Groundbreaking",
+		baseTypeName = "Leap Slam of Groundbreaking",
 		gameId = "Metadata/Items/Gems/SkillGemLeapSlam",
 		variantId = "LeapSlamAltX",
 		grantedEffectId = "LeapSlamAltX",
@@ -166,6 +174,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemChargedDash"] = {
 		name = "Charged Dash",
+		baseTypeName = "Charged Dash",
 		gameId = "Metadata/Items/Gems/SkillGemChargedDash",
 		variantId = "ChargedDash",
 		grantedEffectId = "ChargedDash",
@@ -187,6 +196,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemChargedAttack"] = {
 		name = "Blade Flurry",
+		baseTypeName = "Blade Flurry",
 		gameId = "Metadata/Items/Gems/SkillGemChargedAttack",
 		variantId = "ChargedAttack",
 		grantedEffectId = "ChargedAttack",
@@ -207,6 +217,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemChargedAttackAltX"] = {
 		name = "Blade Flurry of Incision",
+		baseTypeName = "Blade Flurry of Incision",
 		gameId = "Metadata/Items/Gems/SkillGemChargedAttack",
 		variantId = "ChargedAttackAltX",
 		grantedEffectId = "ChargedAttackAltX",
@@ -228,6 +239,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSweep"] = {
 		name = "Sweep",
+		baseTypeName = "Sweep",
 		gameId = "Metadata/Items/Gems/SkillGemSweep",
 		variantId = "Sweep",
 		grantedEffectId = "Sweep",
@@ -247,6 +259,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemGroundSlam"] = {
 		name = "Ground Slam",
+		baseTypeName = "Ground Slam",
 		gameId = "Metadata/Items/Gems/SkillGemGroundSlam",
 		variantId = "GroundSlam",
 		grantedEffectId = "GroundSlam",
@@ -266,6 +279,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemGroundSlamAltX"] = {
 		name = "Ground Slam of Earthshaking",
+		baseTypeName = "Ground Slam of Earthshaking",
 		gameId = "Metadata/Items/Gems/SkillGemGroundSlam",
 		variantId = "GroundSlamAltX",
 		grantedEffectId = "GroundSlamAltX",
@@ -285,6 +299,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalGroundSlam"] = {
 		name = "Vaal Ground Slam",
+		baseTypeName = "Vaal Ground Slam",
 		gameId = "Metadata/Items/Gems/SkillGemVaalGroundSlam",
 		variantId = "VaalGroundSlam",
 		grantedEffectId = "VaalGroundSlam",
@@ -307,6 +322,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemCleave"] = {
 		name = "Cleave",
+		baseTypeName = "Cleave",
 		gameId = "Metadata/Items/Gems/SkillGemCleave",
 		variantId = "Cleave",
 		grantedEffectId = "Cleave",
@@ -326,6 +342,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemCleaveAltX"] = {
 		name = "Cleave of Rage",
+		baseTypeName = "Cleave of Rage",
 		gameId = "Metadata/Items/Gems/SkillGemCleave",
 		variantId = "CleaveAltX",
 		grantedEffectId = "CleaveAltX",
@@ -344,6 +361,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemShieldCharge"] = {
 		name = "Shield Charge",
+		baseTypeName = "Shield Charge",
 		gameId = "Metadata/Items/Gems/SkillGemShieldCharge",
 		variantId = "ShieldCharge",
 		grantedEffectId = "NewShieldCharge",
@@ -365,6 +383,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEnduringCry"] = {
 		name = "Enduring Cry",
+		baseTypeName = "Enduring Cry",
 		gameId = "Metadata/Items/Gems/SkillGemEnduringCry",
 		variantId = "EnduringCry",
 		grantedEffectId = "EnduringCry",
@@ -383,6 +402,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDoubleStrike"] = {
 		name = "Double Strike",
+		baseTypeName = "Double Strike",
 		gameId = "Metadata/Items/Gems/SkillGemDoubleStrike",
 		variantId = "DoubleStrike",
 		grantedEffectId = "DoubleStrike",
@@ -402,6 +422,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDoubleStrikeAltX"] = {
 		name = "Double Strike of Impaling",
+		baseTypeName = "Double Strike of Impaling",
 		gameId = "Metadata/Items/Gems/SkillGemDoubleStrike",
 		variantId = "DoubleStrikeAltX",
 		grantedEffectId = "DoubleStrikeAltX",
@@ -421,6 +442,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDoubleStrikeAltY"] = {
 		name = "Double Strike of Momentum",
+		baseTypeName = "Double Strike of Momentum",
 		gameId = "Metadata/Items/Gems/SkillGemDoubleStrike",
 		variantId = "DoubleStrikeAltY",
 		grantedEffectId = "DoubleStrikeAltY",
@@ -439,6 +461,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalDoubleStrike"] = {
 		name = "Vaal Double Strike",
+		baseTypeName = "Vaal Double Strike",
 		gameId = "Metadata/Items/Gems/SkillGemVaalDoubleStrike",
 		variantId = "VaalDoubleStrike",
 		grantedEffectId = "VaalDoubleStrike",
@@ -462,6 +485,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLacerate"] = {
 		name = "Lacerate",
+		baseTypeName = "Lacerate",
 		gameId = "Metadata/Items/Gems/SkillGemLacerate",
 		variantId = "Lacerate",
 		grantedEffectId = "DoubleSlash",
@@ -481,6 +505,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLacerateAltX"] = {
 		name = "Lacerate of Butchering",
+		baseTypeName = "Lacerate of Butchering",
 		gameId = "Metadata/Items/Gems/SkillGemLacerate",
 		variantId = "LacerateAltX",
 		grantedEffectId = "DoubleSlashAltX",
@@ -499,6 +524,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLacerateAltY"] = {
 		name = "Lacerate of Haemorrhage",
+		baseTypeName = "Lacerate of Haemorrhage",
 		gameId = "Metadata/Items/Gems/SkillGemLacerate",
 		variantId = "LacerateAltY",
 		grantedEffectId = "DoubleSlashAltY",
@@ -518,6 +544,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemElementalHit"] = {
 		name = "Elemental Hit",
+		baseTypeName = "Elemental Hit",
 		gameId = "Metadata/Items/Gems/SkillGemElementalHit",
 		variantId = "ElementalHit",
 		grantedEffectId = "ElementalHit",
@@ -541,8 +568,32 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
+	["Metadata/Items/Gems/SkillGemElementalHitAltX"] = {
+		name = "Elemental Hit of the Spectrum",
+		baseTypeName = "Elemental Hit of the Spectrum",
+		gameId = "Metadata/Items/Gems/SkillGemElementalHit",
+		variantId = "ElementalHitAltX",
+		grantedEffectId = "ElementalHitAltX",
+		tags = {
+			dexterity = true,
+			grants_active_skill = true,
+			attack = true,
+			projectile = true,
+			fire = true,
+			cold = true,
+			lightning = true,
+			area = true,
+			bow = true,
+		},
+		tagString = "Attack, Projectile, Fire, Cold, Lightning, AoE, Bow",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
 	["Metadata/Items/Gems/SkillGemImmortalCall"] = {
 		name = "Immortal Call",
+		baseTypeName = "Immortal Call",
 		gameId = "Metadata/Items/Gems/SkillGemImmortalCall",
 		variantId = "ImmortalCall",
 		grantedEffectId = "ImmortalCall",
@@ -561,6 +612,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalImmortalCall"] = {
 		name = "Vaal Immortal Call",
+		baseTypeName = "Vaal Immortal Call",
 		gameId = "Metadata/Items/Gems/SkillGemVaalImmortalCall",
 		variantId = "VaalImmortalCall",
 		grantedEffectId = "VaalImmortalCall",
@@ -582,6 +634,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDualStrike"] = {
 		name = "Dual Strike",
+		baseTypeName = "Dual Strike",
 		gameId = "Metadata/Items/Gems/SkillGemDualStrike",
 		variantId = "DualStrike",
 		grantedEffectId = "DualStrike",
@@ -601,6 +654,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDualStrikeAltX"] = {
 		name = "Dual Strike of Ambidexterity",
+		baseTypeName = "Dual Strike of Ambidexterity",
 		gameId = "Metadata/Items/Gems/SkillGemDualStrike",
 		variantId = "DualStrikeAltX",
 		grantedEffectId = "DualStrikeAltX",
@@ -619,6 +673,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemWhirlingBlades"] = {
 		name = "Whirling Blades",
+		baseTypeName = "Whirling Blades",
 		gameId = "Metadata/Items/Gems/SkillGemWhirlingBlades",
 		variantId = "WhirlingBlades",
 		grantedEffectId = "WhirlingBlades",
@@ -638,6 +693,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrenzy"] = {
 		name = "Frenzy",
+		baseTypeName = "Frenzy",
 		gameId = "Metadata/Items/Gems/SkillGemFrenzy",
 		variantId = "Frenzy",
 		grantedEffectId = "Frenzy",
@@ -658,6 +714,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrenzyAltX"] = {
 		name = "Frenzy of Onslaught",
+		baseTypeName = "Frenzy of Onslaught",
 		gameId = "Metadata/Items/Gems/SkillGemFrenzy",
 		variantId = "FrenzyAltX",
 		grantedEffectId = "FrenzyAltX",
@@ -678,6 +735,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDetonateDead"] = {
 		name = "Detonate Dead",
+		baseTypeName = "Detonate Dead",
 		gameId = "Metadata/Items/Gems/SkillGemDetonateDead",
 		variantId = "DetonateDead",
 		grantedEffectId = "DetonateDead",
@@ -696,6 +754,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDetonateDeadAltX"] = {
 		name = "Detonate Dead of Scavenging",
+		baseTypeName = "Detonate Dead of Scavenging",
 		gameId = "Metadata/Items/Gems/SkillGemDetonateDead",
 		variantId = "DetonateDeadAltX",
 		grantedEffectId = "DetonateDeadAltX",
@@ -714,6 +773,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDetonateDeadAltY"] = {
 		name = "Detonate Dead of Chain Reaction",
+		baseTypeName = "Detonate Dead of Chain Reaction",
 		gameId = "Metadata/Items/Gems/SkillGemDetonateDead",
 		variantId = "DetonateDeadAltY",
 		grantedEffectId = "DetonateDeadAltY",
@@ -732,6 +792,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalDetonateDead"] = {
 		name = "Vaal Detonate Dead",
+		baseTypeName = "Vaal Detonate Dead",
 		gameId = "Metadata/Items/Gems/SkillGemVaalDetonateDead",
 		variantId = "VaalDetonateDead",
 		grantedEffectId = "VaalDetonateDead",
@@ -753,6 +814,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVolatileDead"] = {
 		name = "Volatile Dead",
+		baseTypeName = "Volatile Dead",
 		gameId = "Metadata/Items/Gems/SkillGemVolatileDead",
 		variantId = "VolatileDead",
 		grantedEffectId = "VolatileDead",
@@ -771,6 +833,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVolatileDeadAltX"] = {
 		name = "Volatile Dead of Confinement",
+		baseTypeName = "Volatile Dead of Confinement",
 		gameId = "Metadata/Items/Gems/SkillGemVolatileDead",
 		variantId = "VolatileDeadAltX",
 		grantedEffectId = "VolatileDeadAltX",
@@ -790,6 +853,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVolatileDeadAltY"] = {
 		name = "Volatile Dead of Seething",
+		baseTypeName = "Volatile Dead of Seething",
 		gameId = "Metadata/Items/Gems/SkillGemVolatileDead",
 		variantId = "VolatileDeadAltY",
 		grantedEffectId = "VolatileDeadAltY",
@@ -808,6 +872,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBoneLance"] = {
 		name = "Unearth",
+		baseTypeName = "Unearth",
 		gameId = "Metadata/Items/Gems/SkillGemBoneLance",
 		variantId = "BoneLance",
 		grantedEffectId = "BoneLance",
@@ -827,6 +892,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSplitArrow"] = {
 		name = "Split Arrow",
+		baseTypeName = "Split Arrow",
 		gameId = "Metadata/Items/Gems/SkillGemSplitArrow",
 		variantId = "SplitArrow",
 		grantedEffectId = "SplitArrow",
@@ -846,6 +912,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSplitArrowAltX"] = {
 		name = "Split Arrow of Splitting",
+		baseTypeName = "Split Arrow of Splitting",
 		gameId = "Metadata/Items/Gems/SkillGemSplitArrow",
 		variantId = "SplitArrowAltX",
 		grantedEffectId = "SplitArrowAltX",
@@ -1009,6 +1076,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemColdSnap"] = {
 		name = "Cold Snap",
+		baseTypeName = "Cold Snap",
 		gameId = "Metadata/Items/Gems/SkillGemColdSnap",
 		variantId = "ColdSnap",
 		grantedEffectId = "ColdSnap",
@@ -1028,6 +1096,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemColdSnapAltX"] = {
 		name = "Cold Snap of Power",
+		baseTypeName = "Cold Snap of Power",
 		gameId = "Metadata/Items/Gems/SkillGemColdSnap",
 		variantId = "ColdSnapAltX",
 		grantedEffectId = "ColdSnapAltX",
@@ -1047,6 +1116,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalColdSnap"] = {
 		name = "Vaal Cold Snap",
+		baseTypeName = "Vaal Cold Snap",
 		gameId = "Metadata/Items/Gems/SkillGemVaalColdSnap",
 		variantId = "VaalColdSnap",
 		grantedEffectId = "VaalColdSnap",
@@ -1069,6 +1139,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemRaiseZombie"] = {
 		name = "Raise Zombie",
+		baseTypeName = "Raise Zombie",
 		gameId = "Metadata/Items/Gems/SkillGemRaiseZombie",
 		variantId = "RaiseZombie",
 		grantedEffectId = "RaiseZombie",
@@ -1086,6 +1157,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemRaiseZombieAltX"] = {
 		name = "Raise Zombie of Slamming",
+		baseTypeName = "Raise Zombie of Slamming",
 		gameId = "Metadata/Items/Gems/SkillGemRaiseZombie",
 		variantId = "RaiseZombieAltX",
 		grantedEffectId = "RaiseZombieAltX",
@@ -1103,6 +1175,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemRaiseZombieAltY"] = {
 		name = "Raise Zombie of Falling",
+		baseTypeName = "Raise Zombie of Falling",
 		gameId = "Metadata/Items/Gems/SkillGemRaiseZombie",
 		variantId = "RaiseZombieAltY",
 		grantedEffectId = "RaiseZombieAltY",
@@ -1120,6 +1193,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPoisonArrow"] = {
 		name = "Caustic Arrow",
+		baseTypeName = "Caustic Arrow",
 		gameId = "Metadata/Items/Gems/SkillGemPoisonArrow",
 		variantId = "PoisonArrow",
 		grantedEffectId = "PoisonArrow",
@@ -1141,6 +1215,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPoisonArrowAltX"] = {
 		name = "Caustic Arrow of Poison",
+		baseTypeName = "Caustic Arrow of Poison",
 		gameId = "Metadata/Items/Gems/SkillGemPoisonArrow",
 		variantId = "PoisonArrowAltX",
 		grantedEffectId = "PoisonArrowAltX",
@@ -1161,6 +1236,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBloodRage"] = {
 		name = "Blood Rage",
+		baseTypeName = "Blood Rage",
 		gameId = "Metadata/Items/Gems/SkillGemBloodRage",
 		variantId = "BloodRage",
 		grantedEffectId = "BloodRage",
@@ -1179,6 +1255,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemRighteousFire"] = {
 		name = "Righteous Fire",
+		baseTypeName = "Righteous Fire",
 		gameId = "Metadata/Items/Gems/SkillGemRighteousFire",
 		variantId = "RighteousFire",
 		grantedEffectId = "RighteousFire",
@@ -1197,6 +1274,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemRighteousFireAltX"] = {
 		name = "Righteous Fire of Arcane Devotion",
+		baseTypeName = "Righteous Fire of Arcane Devotion",
 		gameId = "Metadata/Items/Gems/SkillGemRighteousFire",
 		variantId = "RighteousFireAltX",
 		grantedEffectId = "RighteousFireAltX",
@@ -1215,6 +1293,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalRighteousFire"] = {
 		name = "Vaal Righteous Fire",
+		baseTypeName = "Vaal Righteous Fire",
 		gameId = "Metadata/Items/Gems/SkillGemVaalRighteousFire",
 		variantId = "VaalRighteousFire",
 		grantedEffectId = "VaalRighteousFire",
@@ -1237,6 +1316,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDischarge"] = {
 		name = "Discharge",
+		baseTypeName = "Discharge",
 		gameId = "Metadata/Items/Gems/SkillGemDischarge",
 		variantId = "Discharge",
 		grantedEffectId = "Discharge",
@@ -1258,6 +1338,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDischargeAltX"] = {
 		name = "Discharge of Misery",
+		baseTypeName = "Discharge of Misery",
 		gameId = "Metadata/Items/Gems/SkillGemDischarge",
 		variantId = "DischargeAltX",
 		grantedEffectId = "DischargeAltX",
@@ -1279,6 +1360,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPortal"] = {
 		name = "Portal",
+		baseTypeName = "Portal",
 		gameId = "Metadata/Items/Gems/SkillGemPortal",
 		variantId = "Portal",
 		grantedEffectId = "Portal",
@@ -1295,6 +1377,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalPortal"] = {
 		name = "Vaal Breach",
+		baseTypeName = "Vaal Breach",
 		gameId = "Metadata/Items/Gems/SkillGemVaalPortal",
 		variantId = "VaalPortal",
 		grantedEffectId = "VaalBreach",
@@ -1423,6 +1506,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFlickerStrike"] = {
 		name = "Flicker Strike",
+		baseTypeName = "Flicker Strike",
 		gameId = "Metadata/Items/Gems/SkillGemFlickerStrike",
 		variantId = "FlickerStrike",
 		grantedEffectId = "FlickerStrike",
@@ -1443,6 +1527,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFlickerStrikeAltX"] = {
 		name = "Flicker Strike of Power",
+		baseTypeName = "Flicker Strike of Power",
 		gameId = "Metadata/Items/Gems/SkillGemFlickerStrike",
 		variantId = "FlickerStrikeAltX",
 		grantedEffectId = "FlickerStrikeAltX",
@@ -1464,6 +1549,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalFlickerStrike"] = {
 		name = "Vaal Flicker Strike",
+		baseTypeName = "Vaal Flicker Strike",
 		gameId = "Metadata/Items/Gems/SkillGemVaalFlickerStrike",
 		variantId = "VaalFlickerStrike",
 		grantedEffectId = "VaalFlickerStrike",
@@ -1487,6 +1573,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSpark"] = {
 		name = "Spark",
+		baseTypeName = "Spark",
 		gameId = "Metadata/Items/Gems/SkillGemSpark",
 		variantId = "Spark",
 		grantedEffectId = "Spark",
@@ -1506,6 +1593,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSparkAltX"] = {
 		name = "Spark of the Nova",
+		baseTypeName = "Spark of the Nova",
 		gameId = "Metadata/Items/Gems/SkillGemSpark",
 		variantId = "SparkAltX",
 		grantedEffectId = "SparkAltX",
@@ -1525,6 +1613,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSparkAltY"] = {
 		name = "Spark of Unpredictability",
+		baseTypeName = "Spark of Unpredictability",
 		gameId = "Metadata/Items/Gems/SkillGemSpark",
 		variantId = "SparkAltY",
 		grantedEffectId = "SparkAltY",
@@ -1544,6 +1633,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalSpark"] = {
 		name = "Vaal Spark",
+		baseTypeName = "Vaal Spark",
 		gameId = "Metadata/Items/Gems/SkillGemVaalSpark",
 		variantId = "VaalSpark",
 		grantedEffectId = "VaalSparkSpiralNova",
@@ -1581,6 +1671,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemIceSpear"] = {
 		name = "Ice Spear",
+		baseTypeName = "Ice Spear",
 		gameId = "Metadata/Items/Gems/SkillGemIceSpear",
 		variantId = "IceSpear",
 		grantedEffectId = "IceSpear",
@@ -1600,6 +1691,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemIceSpearAltX"] = {
 		name = "Ice Spear of Splitting",
+		baseTypeName = "Ice Spear of Splitting",
 		gameId = "Metadata/Items/Gems/SkillGemIceSpear",
 		variantId = "IceSpearAltX",
 		grantedEffectId = "IceSpearAltX",
@@ -1650,6 +1742,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemRaiseSpectre"] = {
 		name = "Raise Spectre",
+		baseTypeName = "Raise Spectre",
 		gameId = "Metadata/Items/Gems/SkillGemRaiseSpectre",
 		variantId = "RaiseSpectre",
 		grantedEffectId = "RaiseSpectre",
@@ -1667,6 +1760,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemRaiseSpectreAltX"] = {
 		name = "Raise Spectre of Transience",
+		baseTypeName = "Raise Spectre of Transience",
 		gameId = "Metadata/Items/Gems/SkillGemRaiseSpectre",
 		variantId = "RaiseSpectreAltX",
 		grantedEffectId = "RaiseSpectreAltX",
@@ -1685,6 +1779,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemInfernalBlow"] = {
 		name = "Infernal Blow",
+		baseTypeName = "Infernal Blow",
 		gameId = "Metadata/Items/Gems/SkillGemInfernalBlow",
 		variantId = "InfernalBlow",
 		grantedEffectId = "InfernalBlow",
@@ -1706,6 +1801,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemInfernalBlowAltX"] = {
 		name = "Infernal Blow of Immolation",
+		baseTypeName = "Infernal Blow of Immolation",
 		gameId = "Metadata/Items/Gems/SkillGemInfernalBlow",
 		variantId = "InfernalBlowAltX",
 		grantedEffectId = "InfernalBlowAltX",
@@ -1727,6 +1823,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemGlacialHammer"] = {
 		name = "Glacial Hammer",
+		baseTypeName = "Glacial Hammer",
 		gameId = "Metadata/Items/Gems/SkillGemGlacialHammer",
 		variantId = "GlacialHammer",
 		grantedEffectId = "GlacialHammer",
@@ -1746,6 +1843,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemGlacialHammerAltX"] = {
 		name = "Glacial Hammer of Shattering",
+		baseTypeName = "Glacial Hammer of Shattering",
 		gameId = "Metadata/Items/Gems/SkillGemGlacialHammer",
 		variantId = "GlacialHammerAltX",
 		grantedEffectId = "GlacialHammerAltX",
@@ -1766,6 +1864,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalGlacialHammer"] = {
 		name = "Vaal Glacial Hammer",
+		baseTypeName = "Vaal Glacial Hammer",
 		gameId = "Metadata/Items/Gems/SkillGemVaalGlacialHammer",
 		variantId = "VaalGlacialHammer",
 		grantedEffectId = "VaalGlacialHammer",
@@ -1790,6 +1889,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrostWall"] = {
 		name = "Frost Wall",
+		baseTypeName = "Frost Wall",
 		gameId = "Metadata/Items/Gems/SkillGemFrostWall",
 		variantId = "FrostWall",
 		grantedEffectId = "FrostWall",
@@ -1808,6 +1908,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFreezingPulse"] = {
 		name = "Freezing Pulse",
+		baseTypeName = "Freezing Pulse",
 		gameId = "Metadata/Items/Gems/SkillGemFreezingPulse",
 		variantId = "FreezingPulse",
 		grantedEffectId = "FreezingPulse",
@@ -1826,6 +1927,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemShockNova"] = {
 		name = "Shock Nova",
+		baseTypeName = "Shock Nova",
 		gameId = "Metadata/Items/Gems/SkillGemShockNova",
 		variantId = "ShockNova",
 		grantedEffectId = "ShockNova",
@@ -1845,6 +1947,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemViperStrike"] = {
 		name = "Viper Strike",
+		baseTypeName = "Viper Strike",
 		gameId = "Metadata/Items/Gems/SkillGemViperStrike",
 		variantId = "ViperStrike",
 		grantedEffectId = "ViperStrike",
@@ -1865,6 +1968,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemViperStrikeAltX"] = {
 		name = "Viper Strike of the Mamba",
+		baseTypeName = "Viper Strike of the Mamba",
 		gameId = "Metadata/Items/Gems/SkillGemViperStrike",
 		variantId = "ViperStrikeAltX",
 		grantedEffectId = "ViperStrikeAltX",
@@ -1885,6 +1989,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemNewPhaseRun"] = {
 		name = "Phase Run",
+		baseTypeName = "Phase Run",
 		gameId = "Metadata/Items/Gems/SkillGemNewPhaseRun",
 		variantId = "NewPhaseRun",
 		grantedEffectId = "NewPhaseRun",
@@ -1969,6 +2074,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemExplosiveArrow"] = {
 		name = "Explosive Arrow",
+		baseTypeName = "Explosive Arrow",
 		gameId = "Metadata/Items/Gems/SkillGemExplosiveArrow",
 		variantId = "ExplosiveArrow",
 		grantedEffectId = "ExplosiveArrow",
@@ -1990,6 +2096,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemTemporalChains"] = {
 		name = "Temporal Chains",
+		baseTypeName = "Temporal Chains",
 		gameId = "Metadata/Items/Gems/SkillGemTemporalChains",
 		variantId = "TemporalChains",
 		grantedEffectId = "TemporalChains",
@@ -2010,6 +2117,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemElementalWeakness"] = {
 		name = "Elemental Weakness",
+		baseTypeName = "Elemental Weakness",
 		gameId = "Metadata/Items/Gems/SkillGemElementalWeakness",
 		variantId = "ElementalWeakness",
 		grantedEffectId = "ElementalWeakness",
@@ -2030,6 +2138,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemWarlordsMark"] = {
 		name = "Warlord's Mark",
+		baseTypeName = "Warlord's Mark",
 		gameId = "Metadata/Items/Gems/SkillGemWarlordsMark",
 		variantId = "WarlordsMark",
 		grantedEffectId = "WarlordsMark",
@@ -2048,6 +2157,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPunishment"] = {
 		name = "Punishment",
+		baseTypeName = "Punishment",
 		gameId = "Metadata/Items/Gems/SkillGemPunishment",
 		variantId = "Punishment",
 		grantedEffectId = "Punishment",
@@ -2068,6 +2178,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEnfeeble"] = {
 		name = "Enfeeble",
+		baseTypeName = "Enfeeble",
 		gameId = "Metadata/Items/Gems/SkillGemEnfeeble",
 		variantId = "Enfeeble",
 		grantedEffectId = "Enfeeble",
@@ -2088,6 +2199,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemCriticalWeakness"] = {
 		name = "Assassin's Mark",
+		baseTypeName = "Assassin's Mark",
 		gameId = "Metadata/Items/Gems/SkillGemCriticalWeakness",
 		variantId = "CriticalWeakness",
 		grantedEffectId = "AssassinsMark",
@@ -2107,6 +2219,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemProjectileWeakness"] = {
 		name = "Sniper's Mark",
+		baseTypeName = "Sniper's Mark",
 		gameId = "Metadata/Items/Gems/SkillGemProjectileWeakness",
 		variantId = "ProjectileWeakness",
 		grantedEffectId = "SnipersMark",
@@ -2125,6 +2238,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVulnerability"] = {
 		name = "Despair",
+		baseTypeName = "Despair",
 		gameId = "Metadata/Items/Gems/SkillGemVulnerability",
 		variantId = "Vulnerability",
 		grantedEffectId = "Despair",
@@ -2146,6 +2260,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLightningWarp"] = {
 		name = "Lightning Warp",
+		baseTypeName = "Lightning Warp",
 		gameId = "Metadata/Items/Gems/SkillGemLightningWarp",
 		variantId = "LightningWarp",
 		grantedEffectId = "LightningWarp",
@@ -2167,6 +2282,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalLightningWarp"] = {
 		name = "Vaal Lightning Warp",
+		baseTypeName = "Vaal Lightning Warp",
 		gameId = "Metadata/Items/Gems/SkillGemVaalLightningWarp",
 		variantId = "VaalLightningWarp",
 		grantedEffectId = "VaalLightningWarpInstant",
@@ -2191,6 +2307,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonSkeletons"] = {
 		name = "Summon Skeletons",
+		baseTypeName = "Summon Skeletons",
 		gameId = "Metadata/Items/Gems/SkillGemSummonSkeletons",
 		variantId = "SummonSkeletons",
 		grantedEffectId = "SummonSkeletons",
@@ -2209,6 +2326,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonSkeletonsAltX"] = {
 		name = "Summon Skeletons of Archers",
+		baseTypeName = "Summon Skeletons of Archery",
 		gameId = "Metadata/Items/Gems/SkillGemSummonSkeletons",
 		variantId = "SummonSkeletonsAltX",
 		grantedEffectId = "SummonSkeletonsAltX",
@@ -2227,6 +2345,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonSkeletonsAltY"] = {
 		name = "Summon Skeletons of Mages",
+		baseTypeName = "Summon Skeletons of Sorcery",
 		gameId = "Metadata/Items/Gems/SkillGemSummonSkeletons",
 		variantId = "SummonSkeletonsAltY",
 		grantedEffectId = "SummonSkeletonsAltY",
@@ -2246,6 +2365,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalSummonSkeletons"] = {
 		name = "Vaal Summon Skeletons",
+		baseTypeName = "Vaal Summon Skeletons",
 		gameId = "Metadata/Items/Gems/SkillGemVaalSummonSkeletons",
 		variantId = "VaalSummonSkeletons",
 		grantedEffectId = "VaalSummonSkeletons",
@@ -2267,6 +2387,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemHeavyStrike"] = {
 		name = "Heavy Strike",
+		baseTypeName = "Heavy Strike",
 		gameId = "Metadata/Items/Gems/SkillGemHeavyStrike",
 		variantId = "HeavyStrike",
 		grantedEffectId = "HeavyStrike",
@@ -2285,6 +2406,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDominatingBlow"] = {
 		name = "Dominating Blow",
+		baseTypeName = "Dominating Blow",
 		gameId = "Metadata/Items/Gems/SkillGemDominatingBlow",
 		variantId = "DominatingBlow",
 		grantedEffectId = "DominatingBlow",
@@ -2305,6 +2427,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDominatingBlowAltX"] = {
 		name = "Dominating Blow of Inspiring",
+		baseTypeName = "Dominating Blow of Inspiring",
 		gameId = "Metadata/Items/Gems/SkillGemDominatingBlow",
 		variantId = "DominatingBlowAltX",
 		grantedEffectId = "DominatingBlowAltX",
@@ -2325,6 +2448,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemRainOfArrows"] = {
 		name = "Rain of Arrows",
+		baseTypeName = "Rain of Arrows",
 		gameId = "Metadata/Items/Gems/SkillGemRainOfArrows",
 		variantId = "RainOfArrows",
 		grantedEffectId = "RainOfArrows",
@@ -2344,6 +2468,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemRainOfArrowsAltX"] = {
 		name = "Rain of Arrows of Artillery",
+		baseTypeName = "Rain of Arrows of Artillery",
 		gameId = "Metadata/Items/Gems/SkillGemRainOfArrows",
 		variantId = "RainOfArrowsAltX",
 		grantedEffectId = "RainOfArrowsAltX",
@@ -2363,6 +2488,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemRainOfArrowsAltY"] = {
 		name = "Rain of Arrows of Saturation",
+		baseTypeName = "Rain of Arrows of Saturation",
 		gameId = "Metadata/Items/Gems/SkillGemRainOfArrows",
 		variantId = "RainOfArrowsAltY",
 		grantedEffectId = "RainOfArrowsAltY",
@@ -2382,6 +2508,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalRainOfArrows"] = {
 		name = "Vaal Rain of Arrows",
+		baseTypeName = "Vaal Rain of Arrows",
 		gameId = "Metadata/Items/Gems/SkillGemVaalRainOfArrows",
 		variantId = "VaalRainOfArrows",
 		grantedEffectId = "VaalRainOfArrows",
@@ -2568,6 +2695,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFirestorm"] = {
 		name = "Firestorm",
+		baseTypeName = "Firestorm",
 		gameId = "Metadata/Items/Gems/SkillGemFirestorm",
 		variantId = "Firestorm",
 		grantedEffectId = "Firestorm",
@@ -2587,6 +2715,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFirestormAltX"] = {
 		name = "Firestorm of Meteors",
+		baseTypeName = "Firestorm of Meteors",
 		gameId = "Metadata/Items/Gems/SkillGemFirestorm",
 		variantId = "FirestormAltX",
 		grantedEffectId = "FirestormAltX",
@@ -2605,6 +2734,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFirestormAltY"] = {
 		name = "Firestorm of Pelting",
+		baseTypeName = "Firestorm of Pelting",
 		gameId = "Metadata/Items/Gems/SkillGemFirestorm",
 		variantId = "FirestormAltY",
 		grantedEffectId = "FirestormAltY",
@@ -2624,6 +2754,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLightningStrike"] = {
 		name = "Lightning Strike",
+		baseTypeName = "Lightning Strike",
 		gameId = "Metadata/Items/Gems/SkillGemLightningStrike",
 		variantId = "LightningStrike",
 		grantedEffectId = "LightningStrike",
@@ -2644,6 +2775,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLightningStrikeAltX"] = {
 		name = "Lightning Strike of Arcing",
+		baseTypeName = "Lightning Strike of Arcing",
 		gameId = "Metadata/Items/Gems/SkillGemLightningStrike",
 		variantId = "LightningStrikeAltX",
 		grantedEffectId = "LightningStrikeAltX",
@@ -2665,6 +2797,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalLightningStrike"] = {
 		name = "Vaal Lightning Strike",
+		baseTypeName = "Vaal Lightning Strike",
 		gameId = "Metadata/Items/Gems/SkillGemVaalLightningStrike",
 		variantId = "VaalLightningStrike",
 		grantedEffectId = "VaalLightningStrike",
@@ -2689,6 +2822,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemTempestShield"] = {
 		name = "Tempest Shield",
+		baseTypeName = "Tempest Shield",
 		gameId = "Metadata/Items/Gems/SkillGemTempestShield",
 		variantId = "TempestShield",
 		grantedEffectId = "TempestShield",
@@ -2707,6 +2841,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemMoltenShell"] = {
 		name = "Molten Shell",
+		baseTypeName = "Molten Shell",
 		gameId = "Metadata/Items/Gems/SkillGemMoltenShell",
 		variantId = "MoltenShell",
 		grantedEffectId = "MoltenShell",
@@ -2728,6 +2863,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalMoltenShell"] = {
 		name = "Vaal Molten Shell",
+		baseTypeName = "Vaal Molten Shell",
 		gameId = "Metadata/Items/Gems/SkillGemVaalMoltenShell",
 		variantId = "VaalMoltenShell",
 		grantedEffectId = "VaalMoltenShell",
@@ -2752,6 +2888,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPowerSiphon"] = {
 		name = "Power Siphon",
+		baseTypeName = "Power Siphon",
 		gameId = "Metadata/Items/Gems/SkillGemPowerSiphon",
 		variantId = "PowerSiphon",
 		grantedEffectId = "PowerSiphon",
@@ -2770,17 +2907,18 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPowerSiphonAltX"] = {
 		name = "Power Siphon of the Archmage",
+		baseTypeName = "Power Siphon of the Archmage",
 		gameId = "Metadata/Items/Gems/SkillGemPowerSiphon",
 		variantId = "PowerSiphonAltX",
 		grantedEffectId = "PowerSiphonAltX",
 		tags = {
-			critical = true,
 			intelligence = true,
 			grants_active_skill = true,
 			attack = true,
 			projectile = true,
+			lightning = true,
 		},
-		tagString = "Critical, Attack, Projectile",
+		tagString = "Attack, Projectile, Lightning",
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
@@ -2788,6 +2926,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalPowerSiphon"] = {
 		name = "Vaal Power Siphon",
+		baseTypeName = "Vaal Power Siphon",
 		gameId = "Metadata/Items/Gems/SkillGemVaalPowerSiphon",
 		variantId = "VaalPowerSiphon",
 		grantedEffectId = "VaalPowerSiphon",
@@ -2809,6 +2948,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPuncture"] = {
 		name = "Puncture",
+		baseTypeName = "Puncture",
 		gameId = "Metadata/Items/Gems/SkillGemPuncture",
 		variantId = "Puncture",
 		grantedEffectId = "Puncture",
@@ -2831,6 +2971,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLightningArrow"] = {
 		name = "Lightning Arrow",
+		baseTypeName = "Lightning Arrow",
 		gameId = "Metadata/Items/Gems/SkillGemLightningArrow",
 		variantId = "LightningArrow",
 		grantedEffectId = "LightningArrow",
@@ -2851,6 +2992,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLightningArrowAltX"] = {
 		name = "Lightning Arrow of Electrocution",
+		baseTypeName = "Lightning Arrow of Electrocution",
 		gameId = "Metadata/Items/Gems/SkillGemLightningArrow",
 		variantId = "LightningArrowAltX",
 		grantedEffectId = "LightningArrowAltX",
@@ -2870,6 +3012,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemHaste"] = {
 		name = "Haste",
+		baseTypeName = "Haste",
 		gameId = "Metadata/Items/Gems/SkillGemHaste",
 		variantId = "Haste",
 		grantedEffectId = "Haste",
@@ -2888,6 +3031,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalHaste"] = {
 		name = "Vaal Haste",
+		baseTypeName = "Vaal Haste",
 		gameId = "Metadata/Items/Gems/SkillGemVaalHaste",
 		variantId = "VaalHaste",
 		grantedEffectId = "VaalHaste",
@@ -2910,6 +3054,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPurity"] = {
 		name = "Purity of Elements",
+		baseTypeName = "Purity of Elements",
 		gameId = "Metadata/Items/Gems/SkillGemPurity",
 		variantId = "Purity",
 		grantedEffectId = "Purity",
@@ -2928,6 +3073,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVitality"] = {
 		name = "Vitality",
+		baseTypeName = "Vitality",
 		gameId = "Metadata/Items/Gems/SkillGemVitality",
 		variantId = "Vitality",
 		grantedEffectId = "Vitality",
@@ -2946,6 +3092,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDiscipline"] = {
 		name = "Discipline",
+		baseTypeName = "Discipline",
 		gameId = "Metadata/Items/Gems/SkillGemDiscipline",
 		variantId = "Discipline",
 		grantedEffectId = "Discipline",
@@ -2964,6 +3111,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalDiscipline"] = {
 		name = "Vaal Discipline",
+		baseTypeName = "Vaal Discipline",
 		gameId = "Metadata/Items/Gems/SkillGemVaalDiscipline",
 		variantId = "VaalDiscipline",
 		grantedEffectId = "VaalDiscipline",
@@ -2986,6 +3134,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemGrace"] = {
 		name = "Grace",
+		baseTypeName = "Grace",
 		gameId = "Metadata/Items/Gems/SkillGemGrace",
 		variantId = "Grace",
 		grantedEffectId = "Grace",
@@ -3004,6 +3153,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalGrace"] = {
 		name = "Vaal Grace",
+		baseTypeName = "Vaal Grace",
 		gameId = "Metadata/Items/Gems/SkillGemVaalGrace",
 		variantId = "VaalGrace",
 		grantedEffectId = "VaalGrace",
@@ -3026,6 +3176,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDetermination"] = {
 		name = "Determination",
+		baseTypeName = "Determination",
 		gameId = "Metadata/Items/Gems/SkillGemDetermination",
 		variantId = "Determination",
 		grantedEffectId = "Determination",
@@ -3045,6 +3196,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemAnger"] = {
 		name = "Anger",
+		baseTypeName = "Anger",
 		gameId = "Metadata/Items/Gems/SkillGemAnger",
 		variantId = "Anger",
 		grantedEffectId = "Anger",
@@ -3064,6 +3216,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemHatred"] = {
 		name = "Hatred",
+		baseTypeName = "Hatred",
 		gameId = "Metadata/Items/Gems/SkillGemHatred",
 		variantId = "Hatred",
 		grantedEffectId = "Hatred",
@@ -3083,6 +3236,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemWrath"] = {
 		name = "Wrath",
+		baseTypeName = "Wrath",
 		gameId = "Metadata/Items/Gems/SkillGemWrath",
 		variantId = "Wrath",
 		grantedEffectId = "Wrath",
@@ -3102,6 +3256,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBurningArrow"] = {
 		name = "Burning Arrow",
+		baseTypeName = "Burning Arrow",
 		gameId = "Metadata/Items/Gems/SkillGemBurningArrow",
 		variantId = "BurningArrow",
 		grantedEffectId = "BurningArrow",
@@ -3121,6 +3276,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBurningArrowAltX"] = {
 		name = "Burning Arrow of Vigour",
+		baseTypeName = "Burning Arrow of Vigour",
 		gameId = "Metadata/Items/Gems/SkillGemBurningArrow",
 		variantId = "BurningArrowAltX",
 		grantedEffectId = "BurningArrowAltX",
@@ -3140,6 +3296,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalBurningArrow"] = {
 		name = "Vaal Burning Arrow",
+		baseTypeName = "Vaal Burning Arrow",
 		gameId = "Metadata/Items/Gems/SkillGemVaalBurningArrow",
 		variantId = "VaalBurningArrow",
 		grantedEffectId = "VaalBurningArrow",
@@ -3198,6 +3355,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemClarity"] = {
 		name = "Clarity",
+		baseTypeName = "Clarity",
 		gameId = "Metadata/Items/Gems/SkillGemClarity",
 		variantId = "Clarity",
 		grantedEffectId = "Clarity",
@@ -3216,6 +3374,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalClarity"] = {
 		name = "Vaal Clarity",
+		baseTypeName = "Vaal Clarity",
 		gameId = "Metadata/Items/Gems/SkillGemVaalClarity",
 		variantId = "VaalClarity",
 		grantedEffectId = "VaalClarity",
@@ -3352,6 +3511,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDetonateMines"] = {
 		name = "Detonate Mines",
+		baseTypeName = "Detonate Mines",
 		gameId = "Metadata/Items/Gems/SkillGemDetonateMines",
 		variantId = "DetonateMines",
 		grantedEffectId = "GemDetonateMines",
@@ -3369,6 +3529,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemShockwaveTotem"] = {
 		name = "Shockwave Totem",
+		baseTypeName = "Shockwave Totem",
 		gameId = "Metadata/Items/Gems/SkillGemShockwaveTotem",
 		variantId = "ShockwaveTotem",
 		grantedEffectId = "ShockwaveTotem",
@@ -3389,6 +3550,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemRejuvenationTotem"] = {
 		name = "Rejuvenation Totem",
+		baseTypeName = "Rejuvenation Totem",
 		gameId = "Metadata/Items/Gems/SkillGemRejuvenationTotem",
 		variantId = "RejuvenationTotem",
 		grantedEffectId = "RejuvenationTotem",
@@ -3408,6 +3570,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFreezeMine"] = {
 		name = "Icicle Mine",
+		baseTypeName = "Icicle Mine",
 		gameId = "Metadata/Items/Gems/SkillGemFreezeMine",
 		variantId = "FreezeMine",
 		grantedEffectId = "ColdProjectileMine",
@@ -3430,6 +3593,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFreezeMineAltX"] = {
 		name = "Icicle Mine of Fanning",
+		baseTypeName = "Icicle Mine of Fanning",
 		gameId = "Metadata/Items/Gems/SkillGemFreezeMine",
 		variantId = "FreezeMineAltX",
 		grantedEffectId = "ColdProjectileMineAltX",
@@ -3452,6 +3616,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFreezeMineAltY"] = {
 		name = "Icicle Mine of Sabotage",
+		baseTypeName = "Icicle Mine of Sabotage",
 		gameId = "Metadata/Items/Gems/SkillGemFreezeMine",
 		variantId = "FreezeMineAltY",
 		grantedEffectId = "ColdProjectileMineAltY",
@@ -3474,6 +3639,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemConversionTrap"] = {
 		name = "Conversion Trap",
+		baseTypeName = "Conversion Trap",
 		gameId = "Metadata/Items/Gems/SkillGemConversionTrap",
 		variantId = "ConversionTrap",
 		grantedEffectId = "ConversionTrap",
@@ -3492,6 +3658,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBearTrap"] = {
 		name = "Bear Trap",
+		baseTypeName = "Bear Trap",
 		gameId = "Metadata/Items/Gems/SkillGemBearTrap",
 		variantId = "BearTrap",
 		grantedEffectId = "BearTrap",
@@ -3511,6 +3678,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBearTrapAltX"] = {
 		name = "Bear Trap of Skewers",
+		baseTypeName = "Bear Trap of Skewers",
 		gameId = "Metadata/Items/Gems/SkillGemBearTrap",
 		variantId = "BearTrapAltX",
 		grantedEffectId = "BearTrapAltX",
@@ -3545,6 +3713,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFireTrap"] = {
 		name = "Fire Trap",
+		baseTypeName = "Fire Trap",
 		gameId = "Metadata/Items/Gems/SkillGemFireTrap",
 		variantId = "FireTrap",
 		grantedEffectId = "FireTrap",
@@ -3565,6 +3734,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFireTrapAltX"] = {
 		name = "Fire Trap of Blasting",
+		baseTypeName = "Fire Trap of Blasting",
 		gameId = "Metadata/Items/Gems/SkillGemFireTrap",
 		variantId = "FireTrapAltX",
 		grantedEffectId = "FireTrapAltX",
@@ -3585,6 +3755,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDecoyTotem"] = {
 		name = "Decoy Totem",
+		baseTypeName = "Decoy Totem",
 		gameId = "Metadata/Items/Gems/SkillGemDecoyTotem",
 		variantId = "DecoyTotem",
 		grantedEffectId = "DecoyTotem",
@@ -3603,6 +3774,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDevouringTotem"] = {
 		name = "Devouring Totem",
+		baseTypeName = "Devouring Totem",
 		gameId = "Metadata/Items/Gems/SkillGemDevouringTotem",
 		variantId = "DevouringTotem",
 		grantedEffectId = "DevouringTotem",
@@ -3620,6 +3792,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEtherealKnives"] = {
 		name = "Ethereal Knives",
+		baseTypeName = "Ethereal Knives",
 		gameId = "Metadata/Items/Gems/SkillGemEtherealKnives",
 		variantId = "EtherealKnives",
 		grantedEffectId = "EtherealKnives",
@@ -3638,6 +3811,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEtherealKnivesAltX"] = {
 		name = "Ethereal Knives of Lingering Blades",
+		baseTypeName = "Ethereal Knives of Lingering Blades",
 		gameId = "Metadata/Items/Gems/SkillGemEtherealKnives",
 		variantId = "EtherealKnivesAltX",
 		grantedEffectId = "EtherealKnivesAltX",
@@ -3657,6 +3831,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEtherealKnivesAltY"] = {
 		name = "Ethereal Knives of the Massacre",
+		baseTypeName = "Ethereal Knives of the Massacre",
 		gameId = "Metadata/Items/Gems/SkillGemEtherealKnives",
 		variantId = "EtherealKnivesAltY",
 		grantedEffectId = "EtherealKnivesAltY",
@@ -3690,6 +3865,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemIceShot"] = {
 		name = "Ice Shot",
+		baseTypeName = "Ice Shot",
 		gameId = "Metadata/Items/Gems/SkillGemIceShot",
 		variantId = "IceShot",
 		grantedEffectId = "IceShot",
@@ -3708,8 +3884,30 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
+	["Metadata/Items/Gems/SkillGemIceShotAltX"] = {
+		name = "Ice Shot of Penetration",
+		baseTypeName = "Ice Shot of Penetration",
+		gameId = "Metadata/Items/Gems/SkillGemIceShot",
+		variantId = "IceShotAltX",
+		grantedEffectId = "IceShotAltX",
+		tags = {
+			dexterity = true,
+			grants_active_skill = true,
+			attack = true,
+			projectile = true,
+			area = true,
+			cold = true,
+			bow = true,
+		},
+		tagString = "Attack, Projectile, AoE, Cold, Bow",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
 	["Metadata/Items/Gems/SkillGemArcticBreath"] = {
 		name = "Creeping Frost",
+		baseTypeName = "Creeping Frost",
 		gameId = "Metadata/Items/Gems/SkillGemArcticBreath",
 		variantId = "ArcticBreath",
 		grantedEffectId = "ArcticBreath",
@@ -3730,6 +3928,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemArc"] = {
 		name = "Arc",
+		baseTypeName = "Arc",
 		gameId = "Metadata/Items/Gems/SkillGemArc",
 		variantId = "Arc",
 		grantedEffectId = "Arc",
@@ -3748,6 +3947,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemArcAltX"] = {
 		name = "Arc of Surging",
+		baseTypeName = "Arc of Surging",
 		gameId = "Metadata/Items/Gems/SkillGemArc",
 		variantId = "ArcAltX",
 		grantedEffectId = "ArcAltX",
@@ -3765,6 +3965,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemArcAltY"] = {
 		name = "Arc of Oscillating",
+		baseTypeName = "Arc of Oscillating",
 		gameId = "Metadata/Items/Gems/SkillGemArc",
 		variantId = "ArcAltY",
 		grantedEffectId = "ArcAltY",
@@ -3783,6 +3984,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalArc"] = {
 		name = "Vaal Arc",
+		baseTypeName = "Vaal Arc",
 		gameId = "Metadata/Items/Gems/SkillGemVaalArc",
 		variantId = "VaalArc",
 		grantedEffectId = "VaalArcChain",
@@ -3805,6 +4007,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemNewArcticArmour"] = {
 		name = "Arctic Armour",
+		baseTypeName = "Arctic Armour",
 		gameId = "Metadata/Items/Gems/SkillGemNewArcticArmour",
 		variantId = "NewArcticArmour",
 		grantedEffectId = "ArcticArmour",
@@ -3823,6 +4026,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalArcticArmour"] = {
 		name = "Vaal Arctic Armour",
+		baseTypeName = "Vaal Arctic Armour",
 		gameId = "Metadata/Items/Gems/SkillGemVaalArcticArmour",
 		variantId = "VaalArcticArmour",
 		grantedEffectId = "VaalArcticArmour",
@@ -3844,6 +4048,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFlameTotem"] = {
 		name = "Holy Flame Totem",
+		baseTypeName = "Holy Flame Totem",
 		gameId = "Metadata/Items/Gems/SkillGemFlameTotem",
 		variantId = "FlameTotem",
 		grantedEffectId = "FlameTotem",
@@ -3865,6 +4070,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFlameTotemAltX"] = {
 		name = "Holy Flame Totem of Ire",
+		baseTypeName = "Holy Flame Totem of Ire",
 		gameId = "Metadata/Items/Gems/SkillGemFlameTotem",
 		variantId = "FlameTotemAltX",
 		grantedEffectId = "FlameTotemAltX",
@@ -4016,6 +4222,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFlammability"] = {
 		name = "Flammability",
+		baseTypeName = "Flammability",
 		gameId = "Metadata/Items/Gems/SkillGemFlammability",
 		variantId = "Flammability",
 		grantedEffectId = "Flammability",
@@ -4037,6 +4244,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrostbite"] = {
 		name = "Frostbite",
+		baseTypeName = "Frostbite",
 		gameId = "Metadata/Items/Gems/SkillGemFrostbite",
 		variantId = "Frostbite",
 		grantedEffectId = "Frostbite",
@@ -4058,6 +4266,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemConductivity"] = {
 		name = "Conductivity",
+		baseTypeName = "Conductivity",
 		gameId = "Metadata/Items/Gems/SkillGemConductivity",
 		variantId = "Conductivity",
 		grantedEffectId = "Conductivity",
@@ -4079,6 +4288,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemStormBurst"] = {
 		name = "Storm Burst",
+		baseTypeName = "Storm Burst",
 		gameId = "Metadata/Items/Gems/SkillGemStormBurst",
 		variantId = "StormBurst",
 		grantedEffectId = "StormBurstNew",
@@ -4100,6 +4310,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemIncinerate"] = {
 		name = "Incinerate",
+		baseTypeName = "Incinerate",
 		gameId = "Metadata/Items/Gems/SkillGemIncinerate",
 		variantId = "Incinerate",
 		grantedEffectId = "ExpandingFireCone",
@@ -4117,8 +4328,49 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
+	["Metadata/Items/Gems/SkillGemIncinerateAltX"] = {
+		name = "Incinerate of Expanse",
+		baseTypeName = "Incinerate of Expanse",
+		gameId = "Metadata/Items/Gems/SkillGemIncinerate",
+		variantId = "IncinerateAltX",
+		grantedEffectId = "ExpandingFireConeAltX",
+		tags = {
+			intelligence = true,
+			grants_active_skill = true,
+			spell = true,
+			fire = true,
+			channelling = true,
+			area = true,
+		},
+		tagString = "Spell, Fire, Channelling, AoE",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemIncinerateAltY"] = {
+		name = "Incinerate of Venting",
+		baseTypeName = "Incinerate of Venting",
+		gameId = "Metadata/Items/Gems/SkillGemIncinerate",
+		variantId = "IncinerateAltY",
+		grantedEffectId = "ExpandingFireConeAltY",
+		tags = {
+			intelligence = true,
+			grants_active_skill = true,
+			spell = true,
+			fire = true,
+			channelling = true,
+			area = true,
+		},
+		tagString = "Spell, Fire, Channelling, AoE",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		naturalMaxLevel = 20,
+	},
 	["Metadata/Items/Gems/SkillGemCyclone"] = {
 		name = "Cyclone",
+		baseTypeName = "Cyclone",
 		gameId = "Metadata/Items/Gems/SkillGemCyclone",
 		variantId = "Cyclone",
 		grantedEffectId = "Cyclone",
@@ -4140,6 +4392,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemCycloneAltX"] = {
 		name = "Cyclone of Tumult",
+		baseTypeName = "Cyclone of Tumult",
 		gameId = "Metadata/Items/Gems/SkillGemCyclone",
 		variantId = "CycloneAltX",
 		grantedEffectId = "CycloneAltX",
@@ -4161,6 +4414,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalCyclone"] = {
 		name = "Vaal Cyclone",
+		baseTypeName = "Vaal Cyclone",
 		gameId = "Metadata/Items/Gems/SkillGemVaalCyclone",
 		variantId = "VaalCyclone",
 		grantedEffectId = "VaalCyclone",
@@ -4254,6 +4508,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSearingBond"] = {
 		name = "Searing Bond",
+		baseTypeName = "Searing Bond",
 		gameId = "Metadata/Items/Gems/SkillGemSearingBond",
 		variantId = "SearingBond",
 		grantedEffectId = "SearingBond",
@@ -4322,6 +4577,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemReave"] = {
 		name = "Reave",
+		baseTypeName = "Reave",
 		gameId = "Metadata/Items/Gems/SkillGemReave",
 		variantId = "Reave",
 		grantedEffectId = "Reave",
@@ -4340,6 +4596,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemReaveAltX"] = {
 		name = "Reave of Refraction",
+		baseTypeName = "Reave of Refraction",
 		gameId = "Metadata/Items/Gems/SkillGemReave",
 		variantId = "ReaveAltX",
 		grantedEffectId = "ReaveAltX",
@@ -4358,6 +4615,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalReave"] = {
 		name = "Vaal Reave",
+		baseTypeName = "Vaal Reave",
 		gameId = "Metadata/Items/Gems/SkillGemVaalReave",
 		variantId = "VaalReave",
 		grantedEffectId = "VaalReave",
@@ -4451,6 +4709,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLightningTrap"] = {
 		name = "Lightning Trap",
+		baseTypeName = "Lightning Trap",
 		gameId = "Metadata/Items/Gems/SkillGemLightningTrap",
 		variantId = "LightningTrap",
 		grantedEffectId = "LightningTrap",
@@ -4471,6 +4730,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLightningTrapAltX"] = {
 		name = "Lightning Trap of Sparking",
+		baseTypeName = "Lightning Trap of Sparking",
 		gameId = "Metadata/Items/Gems/SkillGemLightningTrap",
 		variantId = "LightningTrapAltX",
 		grantedEffectId = "LightningTrapAltX",
@@ -4491,6 +4751,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalLightningTrap"] = {
 		name = "Vaal Lightning Trap",
+		baseTypeName = "Vaal Lightning Trap",
 		gameId = "Metadata/Items/Gems/SkillGemVaalLightningTrap",
 		variantId = "VaalLightningTrap",
 		grantedEffectId = "VaalLightningTrap",
@@ -4515,6 +4776,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSmokeMine"] = {
 		name = "Smoke Mine",
+		baseTypeName = "Smoke Mine",
 		gameId = "Metadata/Items/Gems/SkillGemSmokeMine",
 		variantId = "SmokeMine",
 		grantedEffectId = "SmokeMine",
@@ -4554,6 +4816,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemAnimateArmour"] = {
 		name = "Animate Guardian",
+		baseTypeName = "Animate Guardian",
 		gameId = "Metadata/Items/Gems/SkillGemAnimateArmour",
 		variantId = "AnimateArmour",
 		grantedEffectId = "AnimateArmour",
@@ -4571,6 +4834,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemAnimateArmourAltX"] = {
 		name = "Animate Guardian of Smiting",
+		baseTypeName = "Animate Guardian of Smiting",
 		gameId = "Metadata/Items/Gems/SkillGemAnimateArmour",
 		variantId = "AnimateArmourAltX",
 		grantedEffectId = "AnimateArmourAltX",
@@ -4589,6 +4853,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemThrownShieldProjectile"] = {
 		name = "Spectral Shield Throw",
+		baseTypeName = "Spectral Shield Throw",
 		gameId = "Metadata/Items/Gems/SkillGemThrownShieldProjectile",
 		variantId = "ThrownShieldProjectile",
 		grantedEffectId = "ThrownShield",
@@ -4607,6 +4872,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemThrownShieldProjectileAltX"] = {
 		name = "Spectral Shield Throw of Shattering",
+		baseTypeName = "Spectral Shield Throw of Shattering",
 		gameId = "Metadata/Items/Gems/SkillGemThrownShieldProjectile",
 		variantId = "ThrownShieldProjectileAltX",
 		grantedEffectId = "ThrownShieldAltX",
@@ -4625,6 +4891,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemThrownWeapon"] = {
 		name = "Spectral Throw",
+		baseTypeName = "Spectral Throw",
 		gameId = "Metadata/Items/Gems/SkillGemThrownWeapon",
 		variantId = "ThrownWeapon",
 		grantedEffectId = "ThrownWeapon",
@@ -4640,8 +4907,27 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
+	["Metadata/Items/Gems/SkillGemThrownWeaponAltX"] = {
+		name = "Spectral Throw of Materialising",
+		baseTypeName = "Spectral Throw of Materialising",
+		gameId = "Metadata/Items/Gems/SkillGemThrownWeapon",
+		variantId = "ThrownWeaponAltX",
+		grantedEffectId = "ThrownWeaponAltX",
+		tags = {
+			dexterity = true,
+			grants_active_skill = true,
+			attack = true,
+			projectile = true,
+		},
+		tagString = "Attack, Projectile",
+		reqStr = 40,
+		reqDex = 60,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
 	["Metadata/Items/Gems/SkillGemVaalThrownWeapon"] = {
 		name = "Vaal Spectral Throw",
+		baseTypeName = "Vaal Spectral Throw",
 		gameId = "Metadata/Items/Gems/SkillGemVaalThrownWeapon",
 		variantId = "VaalThrownWeapon",
 		grantedEffectId = "VaalThrownWeapon",
@@ -4745,6 +5031,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemAnimateWeapon"] = {
 		name = "Animate Weapon",
+		baseTypeName = "Animate Weapon",
 		gameId = "Metadata/Items/Gems/SkillGemAnimateWeapon",
 		variantId = "AnimateWeapon",
 		grantedEffectId = "AnimateWeapon",
@@ -4764,6 +5051,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemAnimateWeaponAltX"] = {
 		name = "Animate Weapon of Self Reflection",
+		baseTypeName = "Animate Weapon of Self Reflection",
 		gameId = "Metadata/Items/Gems/SkillGemAnimateWeapon",
 		variantId = "AnimateWeaponAltX",
 		grantedEffectId = "AnimateWeaponAltX",
@@ -4782,6 +5070,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemAnimateWeaponAltY"] = {
 		name = "Animate Weapon of Ranged Arms",
+		baseTypeName = "Animate Weapon of Ranged Arms",
 		gameId = "Metadata/Items/Gems/SkillGemAnimateWeapon",
 		variantId = "AnimateWeaponAltY",
 		grantedEffectId = "AnimateWeaponAltY",
@@ -4818,6 +5107,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFireResistAura"] = {
 		name = "Purity of Fire",
+		baseTypeName = "Purity of Fire",
 		gameId = "Metadata/Items/Gems/SkillGemFireResistAura",
 		variantId = "FireResistAura",
 		grantedEffectId = "FireResistAura",
@@ -4837,6 +5127,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalFireResistAura"] = {
 		name = "Vaal Impurity of Fire",
+		baseTypeName = "Vaal Impurity of Fire",
 		gameId = "Metadata/Items/Gems/SkillGemVaalFireResistAura",
 		variantId = "VaalFireResistAura",
 		grantedEffectId = "FireImpurity",
@@ -4860,6 +5151,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemColdResistAura"] = {
 		name = "Purity of Ice",
+		baseTypeName = "Purity of Ice",
 		gameId = "Metadata/Items/Gems/SkillGemColdResistAura",
 		variantId = "ColdResistAura",
 		grantedEffectId = "ColdResistAura",
@@ -4879,6 +5171,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalColdResistAura"] = {
 		name = "Vaal Impurity of Ice",
+		baseTypeName = "Vaal Impurity of Ice",
 		gameId = "Metadata/Items/Gems/SkillGemVaalColdResistAura",
 		variantId = "VaalColdResistAura",
 		grantedEffectId = "ColdImpurity",
@@ -4902,6 +5195,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLightningResistAura"] = {
 		name = "Purity of Lightning",
+		baseTypeName = "Purity of Lightning",
 		gameId = "Metadata/Items/Gems/SkillGemLightningResistAura",
 		variantId = "LightningResistAura",
 		grantedEffectId = "LightningResistAura",
@@ -4921,6 +5215,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalLightningResistAura"] = {
 		name = "Vaal Impurity of Lightning",
+		baseTypeName = "Vaal Impurity of Lightning",
 		gameId = "Metadata/Items/Gems/SkillGemVaalLightningResistAura",
 		variantId = "VaalLightningResistAura",
 		grantedEffectId = "LightningImpurity",
@@ -4944,6 +5239,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemStormCall"] = {
 		name = "Storm Call",
+		baseTypeName = "Storm Call",
 		gameId = "Metadata/Items/Gems/SkillGemStormCall",
 		variantId = "StormCall",
 		grantedEffectId = "StormCall",
@@ -4963,6 +5259,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalStormCall"] = {
 		name = "Vaal Storm Call",
+		baseTypeName = "Vaal Storm Call",
 		gameId = "Metadata/Items/Gems/SkillGemVaalStormCall",
 		variantId = "VaalStormCall",
 		grantedEffectId = "VaalStormCall",
@@ -4985,6 +5282,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFlameblast"] = {
 		name = "Flameblast",
+		baseTypeName = "Flameblast",
 		gameId = "Metadata/Items/Gems/SkillGemFlameblast",
 		variantId = "Flameblast",
 		grantedEffectId = "Flameblast",
@@ -5004,6 +5302,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFlameblastAltX"] = {
 		name = "Flameblast of Celerity",
+		baseTypeName = "Flameblast of Celerity",
 		gameId = "Metadata/Items/Gems/SkillGemFlameblast",
 		variantId = "FlameblastAltX",
 		grantedEffectId = "FlameblastAltX",
@@ -5023,6 +5322,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFlameblastAltY"] = {
 		name = "Flameblast of Contraction",
+		baseTypeName = "Flameblast of Contraction",
 		gameId = "Metadata/Items/Gems/SkillGemFlameblast",
 		variantId = "FlameblastAltY",
 		grantedEffectId = "FlameblastAltY",
@@ -5042,6 +5342,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalFlameblast"] = {
 		name = "Vaal Flameblast",
+		baseTypeName = "Vaal Flameblast",
 		gameId = "Metadata/Items/Gems/SkillGemVaalFlameblast",
 		variantId = "VaalFlameblast",
 		grantedEffectId = "VaalFlameblast",
@@ -5064,6 +5365,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBarrage"] = {
 		name = "Barrage",
+		baseTypeName = "Barrage",
 		gameId = "Metadata/Items/Gems/SkillGemBarrage",
 		variantId = "Barrage",
 		grantedEffectId = "Barrage",
@@ -5082,6 +5384,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBarrageAltX"] = {
 		name = "Barrage of Volley Fire",
+		baseTypeName = "Barrage of Volley Fire",
 		gameId = "Metadata/Items/Gems/SkillGemBarrage",
 		variantId = "BarrageAltX",
 		grantedEffectId = "BarrageAltX",
@@ -5100,6 +5403,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBallLightning"] = {
 		name = "Ball Lightning",
+		baseTypeName = "Ball Lightning",
 		gameId = "Metadata/Items/Gems/SkillGemBallLightning",
 		variantId = "BallLightning",
 		grantedEffectId = "BallLightning",
@@ -5119,6 +5423,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBallLightningAltX"] = {
 		name = "Ball Lightning of Orbiting",
+		baseTypeName = "Ball Lightning of Orbiting",
 		gameId = "Metadata/Items/Gems/SkillGemBallLightning",
 		variantId = "BallLightningAltX",
 		grantedEffectId = "BallLightningAltX",
@@ -5138,6 +5443,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBallLightningAltY"] = {
 		name = "Ball Lightning of Static",
+		baseTypeName = "Ball Lightning of Static",
 		gameId = "Metadata/Items/Gems/SkillGemBallLightning",
 		variantId = "BallLightningAltY",
 		grantedEffectId = "BallLightningAltY",
@@ -5176,6 +5482,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonRagingSpirit"] = {
 		name = "Summon Raging Spirit",
+		baseTypeName = "Summon Raging Spirit",
 		gameId = "Metadata/Items/Gems/SkillGemSummonRagingSpirit",
 		variantId = "SummonRagingSpirit",
 		grantedEffectId = "SummonRagingSpirit",
@@ -5195,6 +5502,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonRagingSpiritAltX"] = {
 		name = "Summon Raging Spirit of Enormity",
+		baseTypeName = "Summon Raging Spirit of Enormity",
 		gameId = "Metadata/Items/Gems/SkillGemSummonRagingSpirit",
 		variantId = "SummonRagingSpiritAltX",
 		grantedEffectId = "SummonRagingSpiritAltX",
@@ -5214,6 +5522,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFlameWhip"] = {
 		name = "Flame Surge",
+		baseTypeName = "Flame Surge",
 		gameId = "Metadata/Items/Gems/SkillGemFlameWhip",
 		variantId = "FlameWhip",
 		grantedEffectId = "FlameWhip",
@@ -5233,6 +5542,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFlameWhipAltX"] = {
 		name = "Flame Surge of Combusting",
+		baseTypeName = "Flame Surge of Combusting",
 		gameId = "Metadata/Items/Gems/SkillGemFlameWhip",
 		variantId = "FlameWhipAltX",
 		grantedEffectId = "FlameWhipAltX",
@@ -5269,6 +5579,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDesecrate"] = {
 		name = "Desecrate",
+		baseTypeName = "Desecrate",
 		gameId = "Metadata/Items/Gems/SkillGemDesecrate",
 		variantId = "Desecrate",
 		grantedEffectId = "Desecrate",
@@ -5288,6 +5599,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFleshOffering"] = {
 		name = "Flesh Offering",
+		baseTypeName = "Flesh Offering",
 		gameId = "Metadata/Items/Gems/SkillGemFleshOffering",
 		variantId = "FleshOffering",
 		grantedEffectId = "FleshOffering",
@@ -5306,6 +5618,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBoneOffering"] = {
 		name = "Bone Offering",
+		baseTypeName = "Bone Offering",
 		gameId = "Metadata/Items/Gems/SkillGemBoneOffering",
 		variantId = "BoneOffering",
 		grantedEffectId = "BoneOffering",
@@ -5324,6 +5637,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSpiritOffering"] = {
 		name = "Spirit Offering",
+		baseTypeName = "Spirit Offering",
 		gameId = "Metadata/Items/Gems/SkillGemSpiritOffering",
 		variantId = "SpiritOffering",
 		grantedEffectId = "SpiritOffering",
@@ -5342,6 +5656,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemGlacialCascade"] = {
 		name = "Glacial Cascade",
+		baseTypeName = "Glacial Cascade",
 		gameId = "Metadata/Items/Gems/SkillGemGlacialCascade",
 		variantId = "GlacialCascade",
 		grantedEffectId = "GlacialCascade",
@@ -5361,6 +5676,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemGlacialCascadeAltX"] = {
 		name = "Glacial Cascade of the Fissure",
+		baseTypeName = "Glacial Cascade of the Fissure",
 		gameId = "Metadata/Items/Gems/SkillGemGlacialCascade",
 		variantId = "GlacialCascadeAltX",
 		grantedEffectId = "GlacialCascadeAltX",
@@ -5396,6 +5712,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemMoltenStrike"] = {
 		name = "Molten Strike",
+		baseTypeName = "Molten Strike",
 		gameId = "Metadata/Items/Gems/SkillGemMoltenStrike",
 		variantId = "MoltenStrike",
 		grantedEffectId = "MoltenStrike",
@@ -5417,6 +5734,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemMoltenStrikeAltX"] = {
 		name = "Molten Strike of the Zenith",
+		baseTypeName = "Molten Strike of the Zenith",
 		gameId = "Metadata/Items/Gems/SkillGemMoltenStrike",
 		variantId = "MoltenStrikeAltX",
 		grantedEffectId = "MoltenStrikeAltX",
@@ -5436,26 +5754,28 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemConvocation"] = {
+	["Metadata/Items/Gems/SkillGemConvocationNew"] = {
 		name = "Convocation",
-		gameId = "Metadata/Items/Gems/SkillGemConvocation",
-		variantId = "Convocation",
-		grantedEffectId = "Convocation",
+		baseTypeName = "Convocation",
+		gameId = "Metadata/Items/Gems/SkillGemConvocationNew",
+		variantId = "ConvocationNew",
+		grantedEffectId = "ConvocationNew",
 		tags = {
-			minion = true,
 			intelligence = true,
 			grants_active_skill = true,
 			spell = true,
 			duration = true,
+			minion = true,
 		},
-		tagString = "Minion, Spell, Duration",
+		tagString = "Spell, Duration, Minion",
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
-		naturalMaxLevel = 20,
+		naturalMaxLevel = 1,
 	},
 	["Metadata/Items/Gems/SkillGemFireNovaMine"] = {
 		name = "Pyroclast Mine",
+		baseTypeName = "Pyroclast Mine",
 		gameId = "Metadata/Items/Gems/SkillGemFireNovaMine",
 		variantId = "FireNovaMine",
 		grantedEffectId = "MortarBarrageMine",
@@ -5478,6 +5798,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFireNovaMineAltX"] = {
 		name = "Pyroclast Mine of Sabotage",
+		baseTypeName = "Pyroclast Mine of Sabotage",
 		gameId = "Metadata/Items/Gems/SkillGemFireNovaMine",
 		variantId = "FireNovaMineAltX",
 		grantedEffectId = "MortarBarrageMineAltX",
@@ -5500,6 +5821,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemTornadoShot"] = {
 		name = "Tornado Shot",
+		baseTypeName = "Tornado Shot",
 		gameId = "Metadata/Items/Gems/SkillGemTornadoShot",
 		variantId = "TornadoShot",
 		grantedEffectId = "TornadoShot",
@@ -5518,6 +5840,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemTornadoShotAltX"] = {
 		name = "Tornado Shot of Cloudburst",
+		baseTypeName = "Tornado Shot of Cloudburst",
 		gameId = "Metadata/Items/Gems/SkillGemTornadoShot",
 		variantId = "TornadoShotAltX",
 		grantedEffectId = "TornadoShotAltX",
@@ -5552,6 +5875,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemHeraldOfAsh"] = {
 		name = "Herald of Ash",
+		baseTypeName = "Herald of Ash",
 		gameId = "Metadata/Items/Gems/SkillGemHeraldOfAsh",
 		variantId = "HeraldOfAsh",
 		grantedEffectId = "HeraldOfAsh",
@@ -5572,6 +5896,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemHeraldOfIce"] = {
 		name = "Herald of Ice",
+		baseTypeName = "Herald of Ice",
 		gameId = "Metadata/Items/Gems/SkillGemHeraldOfIce",
 		variantId = "HeraldOfIce",
 		grantedEffectId = "HeraldOfIce",
@@ -5591,6 +5916,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemHeraldOfThunder"] = {
 		name = "Herald of Thunder",
+		baseTypeName = "Herald of Thunder",
 		gameId = "Metadata/Items/Gems/SkillGemHeraldOfThunder",
 		variantId = "HeraldOfThunder",
 		grantedEffectId = "HeraldOfThunder",
@@ -5611,6 +5937,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemHeraldOfAgony"] = {
 		name = "Herald of Agony",
+		baseTypeName = "Herald of Agony",
 		gameId = "Metadata/Items/Gems/SkillGemHeraldOfAgony",
 		variantId = "HeraldOfAgony",
 		grantedEffectId = "HeraldOfAgony",
@@ -5631,6 +5958,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemHeraldOfPurity"] = {
 		name = "Herald of Purity",
+		baseTypeName = "Herald of Purity",
 		gameId = "Metadata/Items/Gems/SkillGemHeraldOfPurity",
 		variantId = "HeraldOfPurity",
 		grantedEffectId = "HeraldOfPurity",
@@ -5651,6 +5979,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPoachersMark"] = {
 		name = "Poacher's Mark",
+		baseTypeName = "Poacher's Mark",
 		gameId = "Metadata/Items/Gems/SkillGemPoachersMark",
 		variantId = "PoachersMark",
 		grantedEffectId = "PoachersMark",
@@ -5670,6 +5999,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLightningTendrils"] = {
 		name = "Lightning Tendrils",
+		baseTypeName = "Lightning Tendrils",
 		gameId = "Metadata/Items/Gems/SkillGemLightningTendrils",
 		variantId = "LightningTendrils",
 		grantedEffectId = "LightningTendrilsChannelled",
@@ -5690,6 +6020,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLightningTendrilsAltX"] = {
 		name = "Lightning Tendrils of Eccentricity",
+		baseTypeName = "Lightning Tendrils of Eccentricity",
 		gameId = "Metadata/Items/Gems/SkillGemLightningTendrils",
 		variantId = "LightningTendrilsAltX",
 		grantedEffectId = "LightningTendrilsChannelledAltX",
@@ -5710,6 +6041,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLightningTendrilsAltY"] = {
 		name = "Lightning Tendrils of Escalation",
+		baseTypeName = "Lightning Tendrils of Escalation",
 		gameId = "Metadata/Items/Gems/SkillGemLightningTendrils",
 		variantId = "LightningTendrilsAltY",
 		grantedEffectId = "LightningTendrilsChannelledAltY",
@@ -5729,6 +6061,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemKineticBlast"] = {
 		name = "Kinetic Blast",
+		baseTypeName = "Kinetic Blast",
 		gameId = "Metadata/Items/Gems/SkillGemKineticBlast",
 		variantId = "KineticBlast",
 		grantedEffectId = "ClusterBurst",
@@ -5745,8 +6078,29 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
+	["Metadata/Items/Gems/SkillGemKineticBlastAltX"] = {
+		name = "Kinetic Blast of Clustering",
+		baseTypeName = "Kinetic Blast of Clustering",
+		gameId = "Metadata/Items/Gems/SkillGemKineticBlast",
+		variantId = "KineticBlastAltX",
+		grantedEffectId = "ClusterBurstAltX",
+		tags = {
+			intelligence = true,
+			grants_active_skill = true,
+			attack = true,
+			projectile = true,
+			area = true,
+			physical = true,
+		},
+		tagString = "Attack, Projectile, AoE, Physical",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		naturalMaxLevel = 20,
+	},
 	["Metadata/Items/Gems/SkillGemBlinkArrow"] = {
 		name = "Blink Arrow",
+		baseTypeName = "Blink Arrow",
 		gameId = "Metadata/Items/Gems/SkillGemBlinkArrow",
 		variantId = "BlinkArrow",
 		grantedEffectId = "BlinkArrow",
@@ -5768,6 +6122,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBlinkArrowAltX"] = {
 		name = "Blink Arrow of Bombarding Clones",
+		baseTypeName = "Blink Arrow of Bombarding Clones",
 		gameId = "Metadata/Items/Gems/SkillGemBlinkArrow",
 		variantId = "BlinkArrowAltX",
 		grantedEffectId = "BlinkArrowAltX",
@@ -5789,6 +6144,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBlinkArrowAltY"] = {
 		name = "Blink Arrow of Prismatic Clones",
+		baseTypeName = "Blink Arrow of Prismatic Clones",
 		gameId = "Metadata/Items/Gems/SkillGemBlinkArrow",
 		variantId = "BlinkArrowAltY",
 		grantedEffectId = "BlinkArrowAltY",
@@ -5811,6 +6167,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemMirrorArrow"] = {
 		name = "Mirror Arrow",
+		baseTypeName = "Mirror Arrow",
 		gameId = "Metadata/Items/Gems/SkillGemMirrorArrow",
 		variantId = "MirrorArrow",
 		grantedEffectId = "MirrorArrow",
@@ -5832,6 +6189,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemMirrorArrowAltX"] = {
 		name = "Mirror Arrow of Bombarding Clones",
+		baseTypeName = "Mirror Arrow of Bombarding Clones",
 		gameId = "Metadata/Items/Gems/SkillGemMirrorArrow",
 		variantId = "MirrorArrowAltX",
 		grantedEffectId = "MirrorArrowAltX",
@@ -5853,6 +6211,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemMirrorArrowAltY"] = {
 		name = "Mirror Arrow of Prismatic Clones",
+		baseTypeName = "Mirror Arrow of Prismatic Clones",
 		gameId = "Metadata/Items/Gems/SkillGemMirrorArrow",
 		variantId = "MirrorArrowAltY",
 		grantedEffectId = "MirrorArrowAltY",
@@ -5875,6 +6234,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemRiposte"] = {
 		name = "Riposte",
+		baseTypeName = "Riposte",
 		gameId = "Metadata/Items/Gems/SkillGemRiposte",
 		variantId = "Riposte",
 		grantedEffectId = "Riposte",
@@ -5895,6 +6255,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemReckoning"] = {
 		name = "Reckoning",
+		baseTypeName = "Reckoning",
 		gameId = "Metadata/Items/Gems/SkillGemReckoning",
 		variantId = "Reckoning",
 		grantedEffectId = "Reckoning",
@@ -5915,6 +6276,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemStaticStrike"] = {
 		name = "Static Strike",
+		baseTypeName = "Static Strike",
 		gameId = "Metadata/Items/Gems/SkillGemStaticStrike",
 		variantId = "StaticStrike",
 		grantedEffectId = "StaticStrike",
@@ -5954,6 +6316,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVengeance"] = {
 		name = "Vengeance",
+		baseTypeName = "Vengeance",
 		gameId = "Metadata/Items/Gems/SkillGemVengeance",
 		variantId = "Vengeance",
 		grantedEffectId = "Vengeance",
@@ -5974,6 +6337,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonChaosGolem"] = {
 		name = "Summon Chaos Golem",
+		baseTypeName = "Summon Chaos Golem",
 		gameId = "Metadata/Items/Gems/SkillGemSummonChaosGolem",
 		variantId = "SummonChaosGolem",
 		grantedEffectId = "SummonChaosGolem",
@@ -5993,6 +6357,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonChaosGolemAltX"] = {
 		name = "Summon Chaos Golem of Hordes",
+		baseTypeName = "Summon Chaos Golem of Hordes",
 		gameId = "Metadata/Items/Gems/SkillGemSummonChaosGolem",
 		variantId = "SummonChaosGolemAltX",
 		grantedEffectId = "SummonChaosGolemAltX",
@@ -6012,6 +6377,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonChaosGolemAltY"] = {
 		name = "Summon Chaos Golem of the Maelström",
+		baseTypeName = "Summon Chaos Golem of the Maelström",
 		gameId = "Metadata/Items/Gems/SkillGemSummonChaosGolem",
 		variantId = "SummonChaosGolemAltY",
 		grantedEffectId = "SummonChaosGolemAltY",
@@ -6031,6 +6397,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonIceGolem"] = {
 		name = "Summon Ice Golem",
+		baseTypeName = "Summon Ice Golem",
 		gameId = "Metadata/Items/Gems/SkillGemSummonIceGolem",
 		variantId = "SummonIceGolem",
 		grantedEffectId = "SummonIceGolem",
@@ -6051,6 +6418,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonIceGolemAltX"] = {
 		name = "Summon Ice Golem of Hordes",
+		baseTypeName = "Summon Ice Golem of Hordes",
 		gameId = "Metadata/Items/Gems/SkillGemSummonIceGolem",
 		variantId = "SummonIceGolemAltX",
 		grantedEffectId = "SummonIceGolemAltX",
@@ -6070,6 +6438,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonIceGolemAltY"] = {
 		name = "Summon Ice Golem of Shattering",
+		baseTypeName = "Summon Ice Golem of Shattering",
 		gameId = "Metadata/Items/Gems/SkillGemSummonIceGolem",
 		variantId = "SummonIceGolemAltY",
 		grantedEffectId = "SummonIceGolemAltY",
@@ -6089,6 +6458,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonFlameGolem"] = {
 		name = "Summon Flame Golem",
+		baseTypeName = "Summon Flame Golem",
 		gameId = "Metadata/Items/Gems/SkillGemSummonFlameGolem",
 		variantId = "SummonFlameGolem",
 		grantedEffectId = "SummonFireGolem",
@@ -6108,6 +6478,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonFlameGolemAltX"] = {
 		name = "Summon Flame Golem of Hordes",
+		baseTypeName = "Summon Flame Golem of Hordes",
 		gameId = "Metadata/Items/Gems/SkillGemSummonFlameGolem",
 		variantId = "SummonFlameGolemAltX",
 		grantedEffectId = "SummonFireGolemAltX",
@@ -6127,6 +6498,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonFlameGolemAltY"] = {
 		name = "Summon Flame Golem of the Meteor",
+		baseTypeName = "Summon Flame Golem of the Meteor",
 		gameId = "Metadata/Items/Gems/SkillGemSummonFlameGolem",
 		variantId = "SummonFlameGolemAltY",
 		grantedEffectId = "SummonFireGolemAltY",
@@ -6146,6 +6518,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonLightningGolem"] = {
 		name = "Summon Lightning Golem",
+		baseTypeName = "Summon Lightning Golem",
 		gameId = "Metadata/Items/Gems/SkillGemSummonLightningGolem",
 		variantId = "SummonLightningGolem",
 		grantedEffectId = "SummonLightningGolem",
@@ -6165,6 +6538,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonLightningGolemAltX"] = {
 		name = "Summon Lightning Golem of Hordes",
+		baseTypeName = "Summon Lightning Golem of Hordes",
 		gameId = "Metadata/Items/Gems/SkillGemSummonLightningGolem",
 		variantId = "SummonLightningGolemAltX",
 		grantedEffectId = "SummonLightningGolemAltX",
@@ -6201,6 +6575,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemIceCrash"] = {
 		name = "Ice Crash",
+		baseTypeName = "Ice Crash",
 		gameId = "Metadata/Items/Gems/SkillGemIceCrash",
 		variantId = "IceCrash",
 		grantedEffectId = "IceCrash",
@@ -6221,6 +6596,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemIceCrashAltX"] = {
 		name = "Ice Crash of Cadence",
+		baseTypeName = "Ice Crash of Cadence",
 		gameId = "Metadata/Items/Gems/SkillGemIceCrash",
 		variantId = "IceCrashAltX",
 		grantedEffectId = "IceCrashAltX",
@@ -6241,6 +6617,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemRallyingCry"] = {
 		name = "Rallying Cry",
+		baseTypeName = "Rallying Cry",
 		gameId = "Metadata/Items/Gems/SkillGemRallyingCry",
 		variantId = "RallyingCry",
 		grantedEffectId = "RallyingCry",
@@ -6259,6 +6636,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemAbyssalCry"] = {
 		name = "Infernal Cry",
+		baseTypeName = "Infernal Cry",
 		gameId = "Metadata/Items/Gems/SkillGemAbyssalCry",
 		variantId = "AbyssalCry",
 		grantedEffectId = "AbyssalCry",
@@ -6282,6 +6660,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFlameDash"] = {
 		name = "Flame Dash",
+		baseTypeName = "Flame Dash",
 		gameId = "Metadata/Items/Gems/SkillGemFlameDash",
 		variantId = "FlameDash",
 		grantedEffectId = "FlameDash",
@@ -6303,6 +6682,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFlameDashAltY"] = {
 		name = "Flame Dash of Return",
+		baseTypeName = "Flame Dash of Return",
 		gameId = "Metadata/Items/Gems/SkillGemFlameDash",
 		variantId = "FlameDashAltY",
 		grantedEffectId = "FlameDashAltY",
@@ -6322,6 +6702,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVigilantStrike"] = {
 		name = "Vigilant Strike",
+		baseTypeName = "Vigilant Strike",
 		gameId = "Metadata/Items/Gems/SkillGemVigilantStrike",
 		variantId = "VigilantStrike",
 		grantedEffectId = "VigilantStrike",
@@ -6357,6 +6738,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrostBlades"] = {
 		name = "Frost Blades",
+		baseTypeName = "Frost Blades",
 		gameId = "Metadata/Items/Gems/SkillGemFrostBlades",
 		variantId = "FrostBlades",
 		grantedEffectId = "FrostBlades",
@@ -6377,6 +6759,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrostBladesAltX"] = {
 		name = "Frost Blades of Katabasis",
+		baseTypeName = "Frost Blades of Katabasis",
 		gameId = "Metadata/Items/Gems/SkillGemFrostBlades",
 		variantId = "FrostBladesAltX",
 		grantedEffectId = "FrostBladesAltX",
@@ -6447,6 +6830,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemMagmaOrb"] = {
 		name = "Rolling Magma",
+		baseTypeName = "Rolling Magma",
 		gameId = "Metadata/Items/Gems/SkillGemMagmaOrb",
 		variantId = "MagmaOrb",
 		grantedEffectId = "MagmaOrb",
@@ -6484,6 +6868,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemWildStrike"] = {
 		name = "Wild Strike",
+		baseTypeName = "Wild Strike",
 		gameId = "Metadata/Items/Gems/SkillGemWildStrike",
 		variantId = "WildStrike",
 		grantedEffectId = "WildStrike",
@@ -6509,6 +6894,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemWildStrikeAltX"] = {
 		name = "Wild Strike of Extremes",
+		baseTypeName = "Wild Strike of Extremes",
 		gameId = "Metadata/Items/Gems/SkillGemWildStrike",
 		variantId = "WildStrikeAltX",
 		grantedEffectId = "WildStrikeAltX",
@@ -6534,6 +6920,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemIceTrap"] = {
 		name = "Ice Trap",
+		baseTypeName = "Ice Trap",
 		gameId = "Metadata/Items/Gems/SkillGemIceTrap",
 		variantId = "IceTrap",
 		grantedEffectId = "IceTrap",
@@ -6553,6 +6940,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemIceTrapAltX"] = {
 		name = "Ice Trap of Hollowness",
+		baseTypeName = "Ice Trap of Hollowness",
 		gameId = "Metadata/Items/Gems/SkillGemIceTrap",
 		variantId = "IceTrapAltX",
 		grantedEffectId = "IceTrapAltX",
@@ -6572,6 +6960,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBlastRain"] = {
 		name = "Blast Rain",
+		baseTypeName = "Blast Rain",
 		gameId = "Metadata/Items/Gems/SkillGemBlastRain",
 		variantId = "BlastRain",
 		grantedEffectId = "BlastRain",
@@ -6592,6 +6981,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemShrapnelShot"] = {
 		name = "Galvanic Arrow",
+		baseTypeName = "Galvanic Arrow",
 		gameId = "Metadata/Items/Gems/SkillGemShrapnelShot",
 		variantId = "ShrapnelShot",
 		grantedEffectId = "ShrapnelShot",
@@ -6612,6 +7002,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemShrapnelShotAltX"] = {
 		name = "Galvanic Arrow of Energy",
+		baseTypeName = "Galvanic Arrow of Energy",
 		gameId = "Metadata/Items/Gems/SkillGemShrapnelShot",
 		variantId = "ShrapnelShotAltX",
 		grantedEffectId = "ShrapnelShotAltX",
@@ -6631,6 +7022,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemShrapnelShotAltY"] = {
 		name = "Galvanic Arrow of Surging",
+		baseTypeName = "Galvanic Arrow of Surging",
 		gameId = "Metadata/Items/Gems/SkillGemShrapnelShot",
 		variantId = "ShrapnelShotAltY",
 		grantedEffectId = "ShrapnelShotAltY",
@@ -6651,6 +7043,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBladefall"] = {
 		name = "Bladefall",
+		baseTypeName = "Bladefall",
 		gameId = "Metadata/Items/Gems/SkillGemBladefall",
 		variantId = "Bladefall",
 		grantedEffectId = "Bladefall",
@@ -6670,6 +7063,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBladefallAltX"] = {
 		name = "Bladefall of Volleys",
+		baseTypeName = "Bladefall of Volleys",
 		gameId = "Metadata/Items/Gems/SkillGemBladefall",
 		variantId = "BladefallAltX",
 		grantedEffectId = "BladefallAltX",
@@ -6689,6 +7083,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBladefallAltY"] = {
 		name = "Bladefall of Impaling",
+		baseTypeName = "Bladefall of Impaling",
 		gameId = "Metadata/Items/Gems/SkillGemBladefall",
 		variantId = "BladefallAltY",
 		grantedEffectId = "BladefallAltY",
@@ -6708,6 +7103,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBladeVortex"] = {
 		name = "Blade Vortex",
+		baseTypeName = "Blade Vortex",
 		gameId = "Metadata/Items/Gems/SkillGemBladeVortex",
 		variantId = "BladeVortex",
 		grantedEffectId = "BladeVortex",
@@ -6727,6 +7123,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBladeVortexAltX"] = {
 		name = "Blade Vortex of the Scythe",
+		baseTypeName = "Blade Vortex of the Scythe",
 		gameId = "Metadata/Items/Gems/SkillGemBladeVortex",
 		variantId = "BladeVortexAltX",
 		grantedEffectId = "BladeVortexAltX",
@@ -6746,6 +7143,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalBladeVortex"] = {
 		name = "Vaal Blade Vortex",
+		baseTypeName = "Vaal Blade Vortex",
 		gameId = "Metadata/Items/Gems/SkillGemVaalBladeVortex",
 		variantId = "VaalBladeVortex",
 		grantedEffectId = "VaalBladeVortex",
@@ -6769,6 +7167,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrostBomb"] = {
 		name = "Frost Bomb",
+		baseTypeName = "Frost Bomb",
 		gameId = "Metadata/Items/Gems/SkillGemFrostBomb",
 		variantId = "FrostBomb",
 		grantedEffectId = "FrostBomb",
@@ -6789,6 +7188,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrostBombAltX"] = {
 		name = "Frost Bomb of Instability",
+		baseTypeName = "Frost Bomb of Instability",
 		gameId = "Metadata/Items/Gems/SkillGemFrostBomb",
 		variantId = "FrostBombAltX",
 		grantedEffectId = "FrostBombAltX",
@@ -6808,6 +7208,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrostBombAltY"] = {
 		name = "Frost Bomb of Forthcoming",
+		baseTypeName = "Frost Bomb of Forthcoming",
 		gameId = "Metadata/Items/Gems/SkillGemFrostBomb",
 		variantId = "FrostBombAltY",
 		grantedEffectId = "FrostBombAltY",
@@ -6827,6 +7228,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSiegeBallista"] = {
 		name = "Siege Ballista",
+		baseTypeName = "Siege Ballista",
 		gameId = "Metadata/Items/Gems/SkillGemSiegeBallista",
 		variantId = "SiegeBallista",
 		grantedEffectId = "SiegeBallista",
@@ -6846,6 +7248,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSiegeBallistaAltX"] = {
 		name = "Siege Ballista of Splintering",
+		baseTypeName = "Siege Ballista of Splintering",
 		gameId = "Metadata/Items/Gems/SkillGemSiegeBallista",
 		variantId = "SiegeBallistaAltX",
 		grantedEffectId = "SiegeBallistaAltX",
@@ -6865,6 +7268,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemOrbOfStorms"] = {
 		name = "Orb of Storms",
+		baseTypeName = "Orb of Storms",
 		gameId = "Metadata/Items/Gems/SkillGemOrbOfStorms",
 		variantId = "OrbOfStorms",
 		grantedEffectId = "OrbOfStorms",
@@ -6885,6 +7289,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonRockGolem"] = {
 		name = "Summon Stone Golem",
+		baseTypeName = "Summon Stone Golem",
 		gameId = "Metadata/Items/Gems/SkillGemSummonRockGolem",
 		variantId = "SummonRockGolem",
 		grantedEffectId = "SummonRockGolem",
@@ -6904,6 +7309,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonRockGolemAltX"] = {
 		name = "Summon Stone Golem of Hordes",
+		baseTypeName = "Summon Stone Golem of Hordes",
 		gameId = "Metadata/Items/Gems/SkillGemSummonRockGolem",
 		variantId = "SummonRockGolemAltX",
 		grantedEffectId = "SummonRockGolemAltX",
@@ -6923,6 +7329,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonRockGolemAltY"] = {
 		name = "Summon Stone Golem of Safeguarding",
+		baseTypeName = "Summon Stone Golem of Safeguarding",
 		gameId = "Metadata/Items/Gems/SkillGemSummonRockGolem",
 		variantId = "SummonRockGolemAltY",
 		grantedEffectId = "SummonRockGolemAltY",
@@ -6942,6 +7349,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEarthquake"] = {
 		name = "Earthquake",
+		baseTypeName = "Earthquake",
 		gameId = "Metadata/Items/Gems/SkillGemEarthquake",
 		variantId = "Earthquake",
 		grantedEffectId = "Earthquake",
@@ -6962,6 +7370,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEarthquakeAltX"] = {
 		name = "Earthquake of Amplification",
+		baseTypeName = "Earthquake of Amplification",
 		gameId = "Metadata/Items/Gems/SkillGemEarthquake",
 		variantId = "EarthquakeAltX",
 		grantedEffectId = "EarthquakeAltX",
@@ -6998,6 +7407,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemContagion"] = {
 		name = "Contagion",
+		baseTypeName = "Contagion",
 		gameId = "Metadata/Items/Gems/SkillGemContagion",
 		variantId = "Contagion",
 		grantedEffectId = "Contagion",
@@ -7017,6 +7427,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemContagionAltX"] = {
 		name = "Contagion of Subsiding",
+		baseTypeName = "Contagion of Subsiding",
 		gameId = "Metadata/Items/Gems/SkillGemContagion",
 		variantId = "ContagionAltX",
 		grantedEffectId = "ContagionAltX",
@@ -7036,6 +7447,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemContagionAltY"] = {
 		name = "Contagion of Transference",
+		baseTypeName = "Contagion of Transference",
 		gameId = "Metadata/Items/Gems/SkillGemContagion",
 		variantId = "ContagionAltY",
 		grantedEffectId = "ContagionAltY",
@@ -7055,6 +7467,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemWither"] = {
 		name = "Wither",
+		baseTypeName = "Wither",
 		gameId = "Metadata/Items/Gems/SkillGemWither",
 		variantId = "Wither",
 		grantedEffectId = "Wither",
@@ -7075,6 +7488,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBlight"] = {
 		name = "Blight",
+		baseTypeName = "Blight",
 		gameId = "Metadata/Items/Gems/SkillGemBlight",
 		variantId = "Blight",
 		grantedEffectId = "Blight",
@@ -7095,6 +7509,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBlightAltX"] = {
 		name = "Blight of Contagion",
+		baseTypeName = "Blight of Contagion",
 		gameId = "Metadata/Items/Gems/SkillGemBlight",
 		variantId = "BlightAltX",
 		grantedEffectId = "BlightAltX",
@@ -7115,6 +7530,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBlightAltY"] = {
 		name = "Blight of Atrophy",
+		baseTypeName = "Blight of Atrophy",
 		gameId = "Metadata/Items/Gems/SkillGemBlight",
 		variantId = "BlightAltY",
 		grantedEffectId = "BlightAltY",
@@ -7135,6 +7551,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEssenceDrain"] = {
 		name = "Essence Drain",
+		baseTypeName = "Essence Drain",
 		gameId = "Metadata/Items/Gems/SkillGemEssenceDrain",
 		variantId = "EssenceDrain",
 		grantedEffectId = "EssenceDrain",
@@ -7155,6 +7572,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEssenceDrainAltX"] = {
 		name = "Essence Drain of Desperation",
+		baseTypeName = "Essence Drain of Desperation",
 		gameId = "Metadata/Items/Gems/SkillGemEssenceDrain",
 		variantId = "EssenceDrainAltX",
 		grantedEffectId = "EssenceDrainAltX",
@@ -7175,6 +7593,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEssenceDrainAltY"] = {
 		name = "Essence Drain of Wickedness",
+		baseTypeName = "Essence Drain of Wickedness",
 		gameId = "Metadata/Items/Gems/SkillGemEssenceDrain",
 		variantId = "EssenceDrainAltY",
 		grantedEffectId = "EssenceDrainAltY",
@@ -7260,6 +7679,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemMeleeTotem"] = {
 		name = "Ancestral Protector",
+		baseTypeName = "Ancestral Protector",
 		gameId = "Metadata/Items/Gems/SkillGemMeleeTotem",
 		variantId = "MeleeTotem",
 		grantedEffectId = "TotemMelee",
@@ -7279,6 +7699,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemAncestralWarchief"] = {
 		name = "Ancestral Warchief",
+		baseTypeName = "Ancestral Warchief",
 		gameId = "Metadata/Items/Gems/SkillGemAncestralWarchief",
 		variantId = "AncestralWarchief",
 		grantedEffectId = "AncestorTotemSlam",
@@ -7299,6 +7720,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSunder"] = {
 		name = "Sunder",
+		baseTypeName = "Sunder",
 		gameId = "Metadata/Items/Gems/SkillGemSunder",
 		variantId = "Sunder",
 		grantedEffectId = "NewSunder",
@@ -7318,6 +7740,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSunderAltX"] = {
 		name = "Sunder of Earthbreaking",
+		baseTypeName = "Sunder of Earthbreaking",
 		gameId = "Metadata/Items/Gems/SkillGemSunder",
 		variantId = "SunderAltX",
 		grantedEffectId = "NewSunderAltX",
@@ -7337,6 +7760,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrostBolt"] = {
 		name = "Frostbolt",
+		baseTypeName = "Frostbolt",
 		gameId = "Metadata/Items/Gems/SkillGemFrostBolt",
 		variantId = "FrostBolt",
 		grantedEffectId = "FrostBolt",
@@ -7355,6 +7779,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrostBoltNova"] = {
 		name = "Vortex",
+		baseTypeName = "Vortex",
 		gameId = "Metadata/Items/Gems/SkillGemFrostBoltNova",
 		variantId = "FrostBoltNova",
 		grantedEffectId = "FrostBoltNova",
@@ -7375,6 +7800,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrostBoltNovaAltX"] = {
 		name = "Vortex of Projection",
+		baseTypeName = "Vortex of Projection",
 		gameId = "Metadata/Items/Gems/SkillGemFrostBoltNova",
 		variantId = "FrostBoltNovaAltX",
 		grantedEffectId = "FrostBoltNovaAltX",
@@ -7442,6 +7868,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDarkPact"] = {
 		name = "Dark Pact",
+		baseTypeName = "Dark Pact",
 		gameId = "Metadata/Items/Gems/SkillGemDarkPact",
 		variantId = "DarkPact",
 		grantedEffectId = "DarkPact",
@@ -7463,6 +7890,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFireBeam"] = {
 		name = "Scorching Ray",
+		baseTypeName = "Scorching Ray",
 		gameId = "Metadata/Items/Gems/SkillGemFireBeam",
 		variantId = "FireBeam",
 		grantedEffectId = "FireBeam",
@@ -7482,6 +7910,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFireBeamAltX"] = {
 		name = "Scorching Ray of Immolation",
+		baseTypeName = "Scorching Ray of Immolation",
 		gameId = "Metadata/Items/Gems/SkillGemFireBeam",
 		variantId = "FireBeamAltX",
 		grantedEffectId = "FireBeamAltX",
@@ -7750,6 +8179,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemCorpseEruption"] = {
 		name = "Cremation",
+		baseTypeName = "Cremation",
 		gameId = "Metadata/Items/Gems/SkillGemCorpseEruption",
 		variantId = "CorpseEruption",
 		grantedEffectId = "CorpseEruption",
@@ -7771,6 +8201,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemCorpseEruptionAltX"] = {
 		name = "Cremation of Exhuming",
+		baseTypeName = "Cremation of Exhuming",
 		gameId = "Metadata/Items/Gems/SkillGemCorpseEruption",
 		variantId = "CorpseEruptionAltX",
 		grantedEffectId = "CorpseEruptionAltX",
@@ -7792,6 +8223,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemCorpseEruptionAltY"] = {
 		name = "Cremation of the Volcano",
+		baseTypeName = "Cremation of the Volcano",
 		gameId = "Metadata/Items/Gems/SkillGemCorpseEruption",
 		variantId = "CorpseEruptionAltY",
 		grantedEffectId = "CorpseEruptionAltY",
@@ -7813,6 +8245,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemCorpseWarp"] = {
 		name = "Bodyswap",
+		baseTypeName = "Bodyswap",
 		gameId = "Metadata/Items/Gems/SkillGemCorpseWarp",
 		variantId = "CorpseWarp",
 		grantedEffectId = "CorpseWarp",
@@ -7833,6 +8266,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemCorpseWarpAltX"] = {
 		name = "Bodyswap of Sacrifice",
+		baseTypeName = "Bodyswap of Sacrifice",
 		gameId = "Metadata/Items/Gems/SkillGemCorpseWarp",
 		variantId = "CorpseWarpAltX",
 		grantedEffectId = "CorpseWarpAltX",
@@ -7854,6 +8288,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemTectonicSlam"] = {
 		name = "Tectonic Slam",
+		baseTypeName = "Tectonic Slam",
 		gameId = "Metadata/Items/Gems/SkillGemTectonicSlam",
 		variantId = "TectonicSlam",
 		grantedEffectId = "EnduranceChargeSlam",
@@ -7874,6 +8309,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemTectonicSlamAltX"] = {
 		name = "Tectonic Slam of Cataclysm",
+		baseTypeName = "Tectonic Slam of Cataclysm",
 		gameId = "Metadata/Items/Gems/SkillGemTectonicSlam",
 		variantId = "TectonicSlamAltX",
 		grantedEffectId = "EnduranceChargeSlamAltX",
@@ -7996,6 +8432,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemNewVulnerability"] = {
 		name = "Vulnerability",
+		baseTypeName = "Vulnerability",
 		gameId = "Metadata/Items/Gems/SkillGemNewVulnerability",
 		variantId = "NewVulnerability",
 		grantedEffectId = "Vulnerability",
@@ -8017,6 +8454,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemShrapnelTrap"] = {
 		name = "Explosive Trap",
+		baseTypeName = "Explosive Trap",
 		gameId = "Metadata/Items/Gems/SkillGemShrapnelTrap",
 		variantId = "ShrapnelTrap",
 		grantedEffectId = "ShrapnelTrap",
@@ -8037,6 +8475,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemShrapnelTrapAltX"] = {
 		name = "Explosive Trap of Shrapnel",
+		baseTypeName = "Explosive Trap of Shrapnel",
 		gameId = "Metadata/Items/Gems/SkillGemShrapnelTrap",
 		variantId = "ShrapnelTrapAltX",
 		grantedEffectId = "ShrapnelTrapAltX",
@@ -8057,6 +8496,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemShrapnelTrapAltY"] = {
 		name = "Explosive Trap of Magnitude",
+		baseTypeName = "Explosive Trap of Magnitude",
 		gameId = "Metadata/Items/Gems/SkillGemShrapnelTrap",
 		variantId = "ShrapnelTrapAltY",
 		grantedEffectId = "ShrapnelTrapAltY",
@@ -8076,6 +8516,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemIceSiphonTrap"] = {
 		name = "Siphoning Trap",
+		baseTypeName = "Siphoning Trap",
 		gameId = "Metadata/Items/Gems/SkillGemIceSiphonTrap",
 		variantId = "IceSiphonTrap",
 		grantedEffectId = "IceSiphonTrap",
@@ -8096,6 +8537,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFlamethrowerTrap"] = {
 		name = "Flamethrower Trap",
+		baseTypeName = "Flamethrower Trap",
 		gameId = "Metadata/Items/Gems/SkillGemFlamethrowerTrap",
 		variantId = "FlamethrowerTrap",
 		grantedEffectId = "FlamethrowerTrap",
@@ -8116,6 +8558,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLightningTowerTrap"] = {
 		name = "Lightning Spire Trap",
+		baseTypeName = "Lightning Spire Trap",
 		gameId = "Metadata/Items/Gems/SkillGemLightningTowerTrap",
 		variantId = "LightningTowerTrap",
 		grantedEffectId = "LightningTowerTrap",
@@ -8137,6 +8580,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLightningTowerTrapAltX"] = {
 		name = "Lightning Spire Trap of Zapping",
+		baseTypeName = "Lightning Spire Trap of Zapping",
 		gameId = "Metadata/Items/Gems/SkillGemLightningTowerTrap",
 		variantId = "LightningTowerTrapAltX",
 		grantedEffectId = "LightningTowerTrapAltX",
@@ -8157,6 +8601,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLightningTowerTrapAltY"] = {
 		name = "Lightning Spire Trap of Overloading",
+		baseTypeName = "Lightning Spire Trap of Overloading",
 		gameId = "Metadata/Items/Gems/SkillGemLightningTowerTrap",
 		variantId = "LightningTowerTrapAltY",
 		grantedEffectId = "LightningTowerTrapAltY",
@@ -8177,6 +8622,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPhysCascadeTrap"] = {
 		name = "Seismic Trap",
+		baseTypeName = "Seismic Trap",
 		gameId = "Metadata/Items/Gems/SkillGemPhysCascadeTrap",
 		variantId = "PhysCascadeTrap",
 		grantedEffectId = "PhysCascadeTrap",
@@ -8197,6 +8643,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPhysCascadeTrapAltX"] = {
 		name = "Seismic Trap of Swells",
+		baseTypeName = "Seismic Trap of Swells",
 		gameId = "Metadata/Items/Gems/SkillGemPhysCascadeTrap",
 		variantId = "PhysCascadeTrapAltX",
 		grantedEffectId = "PhysCascadeTrapAltX",
@@ -8216,6 +8663,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalEarthquake"] = {
 		name = "Vaal Earthquake",
+		baseTypeName = "Vaal Earthquake",
 		gameId = "Metadata/Items/Gems/SkillGemVaalEarthquake",
 		variantId = "VaalEarthquake",
 		grantedEffectId = "VaalEarthquake",
@@ -8239,6 +8687,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalBlight"] = {
 		name = "Vaal Blight",
+		baseTypeName = "Vaal Blight",
 		gameId = "Metadata/Items/Gems/SkillGemVaalBlight",
 		variantId = "VaalBlight",
 		grantedEffectId = "VaalBlight",
@@ -8297,6 +8746,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalAncestralWarchief"] = {
 		name = "Vaal Ancestral Warchief",
+		baseTypeName = "Vaal Ancestral Warchief",
 		gameId = "Metadata/Items/Gems/SkillGemVaalAncestralWarchief",
 		variantId = "VaalAncestralWarchief",
 		grantedEffectId = "VaalAncestralWarchief",
@@ -8320,6 +8770,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemConsecratedPath"] = {
 		name = "Consecrated Path",
+		baseTypeName = "Consecrated Path",
 		gameId = "Metadata/Items/Gems/SkillGemConsecratedPath",
 		variantId = "ConsecratedPath",
 		grantedEffectId = "ConsecratedPath",
@@ -8342,6 +8793,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemConsecratedPathAltX"] = {
 		name = "Consecrated Path of Endurance",
+		baseTypeName = "Consecrated Path of Endurance",
 		gameId = "Metadata/Items/Gems/SkillGemConsecratedPath",
 		variantId = "ConsecratedPathAltX",
 		grantedEffectId = "ConsecratedPathAltX",
@@ -8364,6 +8816,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSmite"] = {
 		name = "Smite",
+		baseTypeName = "Smite",
 		gameId = "Metadata/Items/Gems/SkillGemSmite",
 		variantId = "Smite",
 		grantedEffectId = "Smite",
@@ -8386,6 +8839,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSmiteAltX"] = {
 		name = "Smite of Divine Judgement",
+		baseTypeName = "Smite of Divine Judgement",
 		gameId = "Metadata/Items/Gems/SkillGemSmite",
 		variantId = "SmiteAltX",
 		grantedEffectId = "SmiteAltX",
@@ -8406,6 +8860,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemScourgeArrow"] = {
 		name = "Scourge Arrow",
+		baseTypeName = "Scourge Arrow",
 		gameId = "Metadata/Items/Gems/SkillGemScourgeArrow",
 		variantId = "ScourgeArrow",
 		grantedEffectId = "ScourgeArrow",
@@ -8426,6 +8881,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemScourgeArrowAltX"] = {
 		name = "Scourge Arrow of Menace",
+		baseTypeName = "Scourge Arrow of Menace",
 		gameId = "Metadata/Items/Gems/SkillGemScourgeArrow",
 		variantId = "ScourgeArrowAltX",
 		grantedEffectId = "ScourgeArrowAltX",
@@ -8445,6 +8901,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemToxicRain"] = {
 		name = "Toxic Rain",
+		baseTypeName = "Toxic Rain",
 		gameId = "Metadata/Items/Gems/SkillGemToxicRain",
 		variantId = "ToxicRain",
 		grantedEffectId = "RainOfSpores",
@@ -8466,6 +8923,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemToxicRainAltX"] = {
 		name = "Toxic Rain of Sporeburst",
+		baseTypeName = "Toxic Rain of Sporeburst",
 		gameId = "Metadata/Items/Gems/SkillGemToxicRain",
 		variantId = "ToxicRainAltX",
 		grantedEffectId = "RainOfSporesAltX",
@@ -8487,6 +8945,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemToxicRainAltY"] = {
 		name = "Toxic Rain of Withering",
+		baseTypeName = "Toxic Rain of Withering",
 		gameId = "Metadata/Items/Gems/SkillGemToxicRain",
 		variantId = "ToxicRainAltY",
 		grantedEffectId = "RainOfSporesAltY",
@@ -8508,9 +8967,28 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonRelic"] = {
 		name = "Summon Holy Relic",
+		baseTypeName = "Summon Holy Relic",
 		gameId = "Metadata/Items/Gems/SkillGemSummonRelic",
 		variantId = "SummonRelic",
 		grantedEffectId = "SummonRelic",
+		tags = {
+			intelligence = true,
+			grants_active_skill = true,
+			minion = true,
+			spell = true,
+		},
+		tagString = "Minion, Spell",
+		reqStr = 40,
+		reqDex = 0,
+		reqInt = 60,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemSummonRelicAltX"] = {
+		name = "Summon Holy Relic of Conviction",
+		baseTypeName = "Summon Holy Relic of Conviction",
+		gameId = "Metadata/Items/Gems/SkillGemSummonRelic",
+		variantId = "SummonRelicAltX",
+		grantedEffectId = "SummonRelicAltX",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -8560,6 +9038,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemWinterOrb"] = {
 		name = "Winter Orb",
+		baseTypeName = "Winter Orb",
 		gameId = "Metadata/Items/Gems/SkillGemWinterOrb",
 		variantId = "WinterOrb",
 		grantedEffectId = "FrostFury",
@@ -8582,6 +9061,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLancingSteel"] = {
 		name = "Lancing Steel",
+		baseTypeName = "Lancing Steel",
 		gameId = "Metadata/Items/Gems/SkillGemLancingSteel",
 		variantId = "LancingSteel",
 		grantedEffectId = "LancingSteel",
@@ -8600,6 +9080,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLancingSteelAltX"] = {
 		name = "Lancing Steel of Spraying",
+		baseTypeName = "Lancing Steel of Spraying",
 		gameId = "Metadata/Items/Gems/SkillGemLancingSteel",
 		variantId = "LancingSteelAltX",
 		grantedEffectId = "LancingSteelAltX",
@@ -8618,6 +9099,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemStormBrand"] = {
 		name = "Storm Brand",
+		baseTypeName = "Storm Brand",
 		gameId = "Metadata/Items/Gems/SkillGemStormBrand",
 		variantId = "StormBrand",
 		grantedEffectId = "ConduitSigil",
@@ -8639,6 +9121,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemStormBrandAltX"] = {
 		name = "Storm Brand of Indecision",
+		baseTypeName = "Storm Brand of Indecision",
 		gameId = "Metadata/Items/Gems/SkillGemStormBrand",
 		variantId = "StormBrandAltX",
 		grantedEffectId = "ConduitSigilAltX",
@@ -8660,6 +9143,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemWarBanner"] = {
 		name = "War Banner",
+		baseTypeName = "War Banner",
 		gameId = "Metadata/Items/Gems/SkillGemWarBanner",
 		variantId = "WarBanner",
 		grantedEffectId = "BloodstainedBanner",
@@ -8681,6 +9165,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDreadBanner"] = {
 		name = "Dread Banner",
+		baseTypeName = "Dread Banner",
 		gameId = "Metadata/Items/Gems/SkillGemDreadBanner",
 		variantId = "DreadBanner",
 		grantedEffectId = "PuresteelBanner",
@@ -8702,6 +9187,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemShatteringSteel"] = {
 		name = "Shattering Steel",
+		baseTypeName = "Shattering Steel",
 		gameId = "Metadata/Items/Gems/SkillGemShatteringSteel",
 		variantId = "ShatteringSteel",
 		grantedEffectId = "ShatteringSteel",
@@ -8721,6 +9207,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemShatteringSteelAltX"] = {
 		name = "Shattering Steel of Ammunition",
+		baseTypeName = "Shattering Steel of Ammunition",
 		gameId = "Metadata/Items/Gems/SkillGemShatteringSteel",
 		variantId = "ShatteringSteelAltX",
 		grantedEffectId = "ShatteringSteelAltX",
@@ -8757,6 +9244,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemArmageddonBrand"] = {
 		name = "Armageddon Brand",
+		baseTypeName = "Armageddon Brand",
 		gameId = "Metadata/Items/Gems/SkillGemArmageddonBrand",
 		variantId = "ArmageddonBrand",
 		grantedEffectId = "CataclysmSigil",
@@ -8777,6 +9265,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemArmageddonBrandAltX"] = {
 		name = "Armageddon Brand of Volatility",
+		baseTypeName = "Armageddon Brand of Volatility",
 		gameId = "Metadata/Items/Gems/SkillGemArmageddonBrand",
 		variantId = "ArmageddonBrandAltX",
 		grantedEffectId = "CataclysmSigilAltX",
@@ -8797,6 +9286,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemArmageddonBrandAltY"] = {
 		name = "Armageddon Brand of Recall",
+		baseTypeName = "Armageddon Brand of Recall",
 		gameId = "Metadata/Items/Gems/SkillGemArmageddonBrand",
 		variantId = "ArmageddonBrandAltY",
 		grantedEffectId = "CataclysmSigilAltY",
@@ -8817,6 +9307,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemRecallBrands"] = {
 		name = "Brand Recall",
+		baseTypeName = "Brand Recall",
 		gameId = "Metadata/Items/Gems/SkillGemRecallBrands",
 		variantId = "RecallBrands",
 		grantedEffectId = "SigilRecall",
@@ -8834,6 +9325,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSanctify"] = {
 		name = "Purifying Flame",
+		baseTypeName = "Purifying Flame",
 		gameId = "Metadata/Items/Gems/SkillGemSanctify",
 		variantId = "Sanctify",
 		grantedEffectId = "Sanctify",
@@ -8854,6 +9346,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSanctifyAltX"] = {
 		name = "Purifying Flame of Revelations",
+		baseTypeName = "Purifying Flame of Revelations",
 		gameId = "Metadata/Items/Gems/SkillGemSanctify",
 		variantId = "SanctifyAltX",
 		grantedEffectId = "SanctifyAltX",
@@ -8874,6 +9367,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSoulrend"] = {
 		name = "Soulrend",
+		baseTypeName = "Soulrend",
 		gameId = "Metadata/Items/Gems/SkillGemSoulrend",
 		variantId = "Soulrend",
 		grantedEffectId = "Soulrend",
@@ -8894,6 +9388,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSoulrendAltX"] = {
 		name = "Soulrend of Reaping",
+		baseTypeName = "Soulrend of Reaping",
 		gameId = "Metadata/Items/Gems/SkillGemSoulrend",
 		variantId = "SoulrendAltX",
 		grantedEffectId = "SoulrendAltX",
@@ -8912,6 +9407,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSoulrendAltY"] = {
 		name = "Soulrend of the Spiral",
+		baseTypeName = "Soulrend of the Spiral",
 		gameId = "Metadata/Items/Gems/SkillGemSoulrend",
 		variantId = "SoulrendAltY",
 		grantedEffectId = "SoulrendAltY",
@@ -8932,6 +9428,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDarkRitual"] = {
 		name = "Bane",
+		baseTypeName = "Bane",
 		gameId = "Metadata/Items/Gems/SkillGemDarkRitual",
 		variantId = "DarkRitual",
 		grantedEffectId = "DarkRitual",
@@ -8954,6 +9451,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDarkRitualAltX"] = {
 		name = "Bane of Condemnation",
+		baseTypeName = "Bane of Condemnation",
 		gameId = "Metadata/Items/Gems/SkillGemDarkRitual",
 		variantId = "DarkRitualAltX",
 		grantedEffectId = "DarkRitualAltX",
@@ -8991,6 +9489,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPurge"] = {
 		name = "Wave of Conviction",
+		baseTypeName = "Wave of Conviction",
 		gameId = "Metadata/Items/Gems/SkillGemPurge",
 		variantId = "Purge",
 		grantedEffectId = "Purge",
@@ -9012,6 +9511,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSpellDamageAura"] = {
 		name = "Zealotry",
+		baseTypeName = "Zealotry",
 		gameId = "Metadata/Items/Gems/SkillGemSpellDamageAura",
 		variantId = "SpellDamageAura",
 		grantedEffectId = "SpellDamageAura",
@@ -9031,6 +9531,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDivineTempest"] = {
 		name = "Divine Ire",
+		baseTypeName = "Divine Ire",
 		gameId = "Metadata/Items/Gems/SkillGemDivineTempest",
 		variantId = "DivineTempest",
 		grantedEffectId = "DivineTempest",
@@ -9051,6 +9552,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDivineTempestAltX"] = {
 		name = "Divine Ire of Holy Lightning",
+		baseTypeName = "Divine Ire of Holy Lightning",
 		gameId = "Metadata/Items/Gems/SkillGemDivineTempest",
 		variantId = "DivineTempestAltX",
 		grantedEffectId = "DivineTempestAltX",
@@ -9071,6 +9573,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDivineTempestAltY"] = {
 		name = "Divine Ire of Disintegration",
+		baseTypeName = "Divine Ire of Disintegration",
 		gameId = "Metadata/Items/Gems/SkillGemDivineTempest",
 		variantId = "DivineTempestAltY",
 		grantedEffectId = "DivineTempestAltY",
@@ -9091,6 +9594,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDamageOverTimeAura"] = {
 		name = "Malevolence",
+		baseTypeName = "Malevolence",
 		gameId = "Metadata/Items/Gems/SkillGemDamageOverTimeAura",
 		variantId = "DamageOverTimeAura",
 		grantedEffectId = "DamageOverTimeAura",
@@ -9142,6 +9646,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSteelskin"] = {
 		name = "Steelskin",
+		baseTypeName = "Steelskin",
 		gameId = "Metadata/Items/Gems/SkillGemSteelskin",
 		variantId = "Steelskin",
 		grantedEffectId = "QuickGuard",
@@ -9160,6 +9665,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDash"] = {
 		name = "Dash",
+		baseTypeName = "Dash",
 		gameId = "Metadata/Items/Gems/SkillGemDash",
 		variantId = "Dash",
 		grantedEffectId = "QuickDodge",
@@ -9179,6 +9685,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBladestorm"] = {
 		name = "Bladestorm",
+		baseTypeName = "Bladestorm",
 		gameId = "Metadata/Items/Gems/SkillGemBladestorm",
 		variantId = "Bladestorm",
 		grantedEffectId = "Bladestorm",
@@ -9198,6 +9705,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBladestormAltX"] = {
 		name = "Bladestorm of Uncertainty",
+		baseTypeName = "Bladestorm of Uncertainty",
 		gameId = "Metadata/Items/Gems/SkillGemBladestorm",
 		variantId = "BladestormAltX",
 		grantedEffectId = "BladestormAltX",
@@ -9217,6 +9725,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBloodAndSand"] = {
 		name = "Blood and Sand",
+		baseTypeName = "Blood and Sand",
 		gameId = "Metadata/Items/Gems/SkillGemBloodAndSand",
 		variantId = "BloodAndSand",
 		grantedEffectId = "BloodSandStance",
@@ -9235,6 +9744,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBerserk"] = {
 		name = "Berserk",
+		baseTypeName = "Berserk",
 		gameId = "Metadata/Items/Gems/SkillGemBerserk",
 		variantId = "Berserk",
 		grantedEffectId = "Berserk",
@@ -9251,6 +9761,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPerforate"] = {
 		name = "Perforate",
+		baseTypeName = "Perforate",
 		gameId = "Metadata/Items/Gems/SkillGemPerforate",
 		variantId = "Perforate",
 		grantedEffectId = "BloodSpears",
@@ -9271,6 +9782,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPerforateAltX"] = {
 		name = "Perforate of Duality",
+		baseTypeName = "Perforate of Duality",
 		gameId = "Metadata/Items/Gems/SkillGemPerforate",
 		variantId = "PerforateAltX",
 		grantedEffectId = "BloodSpearsAltX",
@@ -9291,6 +9803,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPerforateAltY"] = {
 		name = "Perforate of Bloodshed",
+		baseTypeName = "Perforate of Bloodshed",
 		gameId = "Metadata/Items/Gems/SkillGemPerforate",
 		variantId = "PerforateAltY",
 		grantedEffectId = "BloodSpearsAltY",
@@ -9311,6 +9824,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemChainHook"] = {
 		name = "Chain Hook",
+		baseTypeName = "Chain Hook",
 		gameId = "Metadata/Items/Gems/SkillGemChainHook",
 		variantId = "ChainHook",
 		grantedEffectId = "ChainStrike",
@@ -9368,6 +9882,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrostblink"] = {
 		name = "Frostblink",
+		baseTypeName = "Frostblink",
 		gameId = "Metadata/Items/Gems/SkillGemFrostblink",
 		variantId = "Frostblink",
 		grantedEffectId = "IceDash",
@@ -9390,6 +9905,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrostblinkAltX"] = {
 		name = "Frostblink of Wintry Blast",
+		baseTypeName = "Frostblink of Wintry Blast",
 		gameId = "Metadata/Items/Gems/SkillGemFrostblink",
 		variantId = "FrostblinkAltX",
 		grantedEffectId = "IceDashAltX",
@@ -9410,6 +9926,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPrecision"] = {
 		name = "Precision",
+		baseTypeName = "Precision",
 		gameId = "Metadata/Items/Gems/SkillGemPrecision",
 		variantId = "Precision",
 		grantedEffectId = "AccuracyAndCritsAura",
@@ -9429,6 +9946,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFleshAndStone"] = {
 		name = "Flesh and Stone",
+		baseTypeName = "Flesh and Stone",
 		gameId = "Metadata/Items/Gems/SkillGemFleshAndStone",
 		variantId = "FleshAndStone",
 		grantedEffectId = "BloodSandArmour",
@@ -9465,6 +9983,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPride"] = {
 		name = "Pride",
+		baseTypeName = "Pride",
 		gameId = "Metadata/Items/Gems/SkillGemPride",
 		variantId = "Pride",
 		grantedEffectId = "PhysicalDamageAura",
@@ -9519,6 +10038,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemCobraLash"] = {
 		name = "Cobra Lash",
+		baseTypeName = "Cobra Lash",
 		gameId = "Metadata/Items/Gems/SkillGemCobraLash",
 		variantId = "CobraLash",
 		grantedEffectId = "CobraLash",
@@ -9537,6 +10057,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonCarrionGolem"] = {
 		name = "Summon Carrion Golem",
+		baseTypeName = "Summon Carrion Golem",
 		gameId = "Metadata/Items/Gems/SkillGemSummonCarrionGolem",
 		variantId = "SummonCarrionGolem",
 		grantedEffectId = "SummonBoneGolem",
@@ -9556,6 +10077,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonCarrionGolemAltX"] = {
 		name = "Summon Carrion Golem of Hordes",
+		baseTypeName = "Summon Carrion Golem of Hordes",
 		gameId = "Metadata/Items/Gems/SkillGemSummonCarrionGolem",
 		variantId = "SummonCarrionGolemAltX",
 		grantedEffectId = "SummonBoneGolemAltX",
@@ -9575,6 +10097,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonCarrionGolemAltY"] = {
 		name = "Summon Carrion Golem of Scavenging",
+		baseTypeName = "Summon Carrion Golem of Scavenging",
 		gameId = "Metadata/Items/Gems/SkillGemSummonCarrionGolem",
 		variantId = "SummonCarrionGolemAltY",
 		grantedEffectId = "SummonBoneGolemAltY",
@@ -9594,6 +10117,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemWitheringStep"] = {
 		name = "Withering Step",
+		baseTypeName = "Withering Step",
 		gameId = "Metadata/Items/Gems/SkillGemWitheringStep",
 		variantId = "WitheringStep",
 		grantedEffectId = "Slither",
@@ -9616,6 +10140,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPlagueBearer"] = {
 		name = "Plague Bearer",
+		baseTypeName = "Plague Bearer",
 		gameId = "Metadata/Items/Gems/SkillGemPlagueBearer",
 		variantId = "PlagueBearer",
 		grantedEffectId = "CorrosiveShroud",
@@ -9704,6 +10229,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemStormblastMine"] = {
 		name = "Stormblast Mine",
+		baseTypeName = "Stormblast Mine",
 		gameId = "Metadata/Items/Gems/SkillGemStormblastMine",
 		variantId = "StormblastMine",
 		grantedEffectId = "LightningExplosionMine",
@@ -9725,6 +10251,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonSkitterbots"] = {
 		name = "Summon Skitterbots",
+		baseTypeName = "Summon Skitterbots",
 		gameId = "Metadata/Items/Gems/SkillGemSummonSkitterbots",
 		variantId = "SummonSkitterbots",
 		grantedEffectId = "Skitterbots",
@@ -9784,6 +10311,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPestilentStrike"] = {
 		name = "Pestilent Strike",
+		baseTypeName = "Pestilent Strike",
 		gameId = "Metadata/Items/Gems/SkillGemPestilentStrike",
 		variantId = "PestilentStrike",
 		grantedEffectId = "MambaStrike",
@@ -9805,6 +10333,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVenomGyre"] = {
 		name = "Venom Gyre",
+		baseTypeName = "Venom Gyre",
 		gameId = "Metadata/Items/Gems/SkillGemVenomGyre",
 		variantId = "VenomGyre",
 		grantedEffectId = "SnappingAdder",
@@ -9841,6 +10370,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemShrapnelBallista"] = {
 		name = "Shrapnel Ballista",
+		baseTypeName = "Shrapnel Ballista",
 		gameId = "Metadata/Items/Gems/SkillGemShrapnelBallista",
 		variantId = "ShrapnelBallista",
 		grantedEffectId = "ShrapnelBallista",
@@ -9861,6 +10391,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemShrapnelBallistaAltX"] = {
 		name = "Shrapnel Ballista of Steel",
+		baseTypeName = "Shrapnel Ballista of Steel",
 		gameId = "Metadata/Items/Gems/SkillGemShrapnelBallista",
 		variantId = "ShrapnelBallistaAltX",
 		grantedEffectId = "ShrapnelBallistaAltX",
@@ -9917,6 +10448,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEnsnaringArrow"] = {
 		name = "Ensnaring Arrow",
+		baseTypeName = "Ensnaring Arrow",
 		gameId = "Metadata/Items/Gems/SkillGemEnsnaringArrow",
 		variantId = "EnsnaringArrow",
 		grantedEffectId = "EnsnaringArrow",
@@ -9936,9 +10468,54 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemArtilleryBallista"] = {
 		name = "Artillery Ballista",
+		baseTypeName = "Artillery Ballista",
 		gameId = "Metadata/Items/Gems/SkillGemArtilleryBallista",
 		variantId = "ArtilleryBallista",
 		grantedEffectId = "ArtilleryBallista",
+		tags = {
+			dexterity = true,
+			grants_active_skill = true,
+			attack = true,
+			totem = true,
+			area = true,
+			fire = true,
+			projectile = true,
+			bow = true,
+		},
+		tagString = "Attack, Totem, AoE, Fire, Projectile, Bow",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemArtilleryBallistaAltX"] = {
+		name = "Artillery Ballista of Cross Strafe",
+		baseTypeName = "Artillery Ballista of Cross Strafe",
+		gameId = "Metadata/Items/Gems/SkillGemArtilleryBallista",
+		variantId = "ArtilleryBallistaAltX",
+		grantedEffectId = "ArtilleryBallistaAltX",
+		tags = {
+			dexterity = true,
+			grants_active_skill = true,
+			attack = true,
+			totem = true,
+			area = true,
+			fire = true,
+			projectile = true,
+			bow = true,
+		},
+		tagString = "Attack, Totem, AoE, Fire, Projectile, Bow",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemArtilleryBallistaAltY"] = {
+		name = "Artillery Ballista of Focus Fire",
+		baseTypeName = "Artillery Ballista of Focus Fire",
+		gameId = "Metadata/Items/Gems/SkillGemArtilleryBallista",
+		variantId = "ArtilleryBallistaAltY",
+		grantedEffectId = "ArtilleryBallistaAltY",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -10645,6 +11222,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemArcaneCloak"] = {
 		name = "Arcane Cloak",
+		baseTypeName = "Arcane Cloak",
 		gameId = "Metadata/Items/Gems/SkillGemArcaneCloak",
 		variantId = "ArcaneCloak",
 		grantedEffectId = "ArcaneCloak",
@@ -10665,6 +11243,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemStormBind"] = {
 		name = "Stormbind",
+		baseTypeName = "Stormbind",
 		gameId = "Metadata/Items/Gems/SkillGemStormBind",
 		variantId = "StormBind",
 		grantedEffectId = "Stormbind",
@@ -10687,6 +11266,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemStormBindAltX"] = {
 		name = "Stormbind of Teleportation",
+		baseTypeName = "Stormbind of Teleportation",
 		gameId = "Metadata/Items/Gems/SkillGemStormBind",
 		variantId = "StormBindAltX",
 		grantedEffectId = "StormbindAltX",
@@ -10712,6 +11292,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemKineticBolt"] = {
 		name = "Kinetic Bolt",
+		baseTypeName = "Kinetic Bolt",
 		gameId = "Metadata/Items/Gems/SkillGemKineticBolt",
 		variantId = "KineticBolt",
 		grantedEffectId = "KineticBolt",
@@ -10729,6 +11310,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemKineticBoltAltX"] = {
 		name = "Kinetic Bolt of Fragmentation",
+		baseTypeName = "Kinetic Bolt of Fragmentation",
 		gameId = "Metadata/Items/Gems/SkillGemKineticBolt",
 		variantId = "KineticBoltAltX",
 		grantedEffectId = "KineticBoltAltX",
@@ -10746,6 +11328,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBladeBlast"] = {
 		name = "Blade Blast",
+		baseTypeName = "Blade Blast",
 		gameId = "Metadata/Items/Gems/SkillGemBladeBlast",
 		variantId = "BladeBlast",
 		grantedEffectId = "BladeBlast",
@@ -10764,6 +11347,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBladeBlastAltX"] = {
 		name = "Blade Blast of Unloading",
+		baseTypeName = "Blade Blast of Unloading",
 		gameId = "Metadata/Items/Gems/SkillGemBladeBlast",
 		variantId = "BladeBlastAltX",
 		grantedEffectId = "BladeBlastAltX",
@@ -10783,6 +11367,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBladeBlastAltY"] = {
 		name = "Blade Blast of Dagger Detonation",
+		baseTypeName = "Blade Blast of Dagger Detonation",
 		gameId = "Metadata/Items/Gems/SkillGemBladeBlast",
 		variantId = "BladeBlastAltY",
 		grantedEffectId = "BladeBlastAltY",
@@ -10802,6 +11387,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSpellslinger"] = {
 		name = "Spellslinger",
+		baseTypeName = "Spellslinger",
 		gameId = "Metadata/Items/Gems/SkillGemSpellslinger",
 		variantId = "Spellslinger",
 		grantedEffectId = "Spellslinger",
@@ -10854,6 +11440,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemArcanistBrand"] = {
 		name = "Arcanist Brand",
+		baseTypeName = "Arcanist Brand",
 		gameId = "Metadata/Items/Gems/SkillGemArcanistBrand",
 		variantId = "ArcanistBrand",
 		grantedEffectId = "BrandSupport",
@@ -10875,6 +11462,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemIntimidatingCry"] = {
 		name = "Intimidating Cry",
+		baseTypeName = "Intimidating Cry",
 		gameId = "Metadata/Items/Gems/SkillGemIntimidatingCry",
 		variantId = "IntimidatingCry",
 		grantedEffectId = "IntimidatingCry",
@@ -10894,6 +11482,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSeismicCry"] = {
 		name = "Seismic Cry",
+		baseTypeName = "Seismic Cry",
 		gameId = "Metadata/Items/Gems/SkillGemSeismicCry",
 		variantId = "SeismicCry",
 		grantedEffectId = "SeismicCry",
@@ -10912,6 +11501,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemAncestralCry"] = {
 		name = "Ancestral Cry",
+		baseTypeName = "Ancestral Cry",
 		gameId = "Metadata/Items/Gems/SkillGemAncestralCry",
 		variantId = "AncestralCry",
 		grantedEffectId = "AncestralCry",
@@ -10930,6 +11520,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPenanceBrand"] = {
 		name = "Penance Brand",
+		baseTypeName = "Penance Brand",
 		gameId = "Metadata/Items/Gems/SkillGemPenanceBrand",
 		variantId = "PenanceBrand",
 		grantedEffectId = "MagmaSigil",
@@ -10951,6 +11542,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPenanceBrandAltX"] = {
 		name = "Penance Brand of Dissipation",
+		baseTypeName = "Penance Brand of Dissipation",
 		gameId = "Metadata/Items/Gems/SkillGemPenanceBrand",
 		variantId = "PenanceBrandAltX",
 		grantedEffectId = "MagmaSigilAltX",
@@ -10972,6 +11564,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPenanceBrandAltY"] = {
 		name = "Penance Brand of Conduction",
+		baseTypeName = "Penance Brand of Conduction",
 		gameId = "Metadata/Items/Gems/SkillGemPenanceBrand",
 		variantId = "PenanceBrandAltY",
 		grantedEffectId = "MagmaSigilAltY",
@@ -10993,6 +11586,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemWintertideBrand"] = {
 		name = "Wintertide Brand",
+		baseTypeName = "Wintertide Brand",
 		gameId = "Metadata/Items/Gems/SkillGemWintertideBrand",
 		variantId = "WintertideBrand",
 		grantedEffectId = "ImmolationSigil",
@@ -11013,6 +11607,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEarthshatter"] = {
 		name = "Earthshatter",
+		baseTypeName = "Earthshatter",
 		gameId = "Metadata/Items/Gems/SkillGemEarthshatter",
 		variantId = "Earthshatter",
 		grantedEffectId = "SpikeSlam",
@@ -11033,6 +11628,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEarthshatterAltX"] = {
 		name = "Earthshatter of Fragility",
+		baseTypeName = "Earthshatter of Fragility",
 		gameId = "Metadata/Items/Gems/SkillGemEarthshatter",
 		variantId = "EarthshatterAltX",
 		grantedEffectId = "SpikeSlamAltX",
@@ -11053,6 +11649,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEarthshatterAltY"] = {
 		name = "Earthshatter of Prominence",
+		baseTypeName = "Earthshatter of Prominence",
 		gameId = "Metadata/Items/Gems/SkillGemEarthshatter",
 		variantId = "EarthshatterAltY",
 		grantedEffectId = "SpikeSlamAltY",
@@ -11073,6 +11670,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemGeneralsCry"] = {
 		name = "General's Cry",
+		baseTypeName = "General's Cry",
 		gameId = "Metadata/Items/Gems/SkillGemGeneralsCry",
 		variantId = "GeneralsCry",
 		grantedEffectId = "GeneralsCry",
@@ -11144,6 +11742,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBlazingSalvo"] = {
 		name = "Blazing Salvo",
+		baseTypeName = "Blazing Salvo",
 		gameId = "Metadata/Items/Gems/SkillGemBlazingSalvo",
 		variantId = "BlazingSalvo",
 		grantedEffectId = "Ember",
@@ -11163,6 +11762,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVoidSphere"] = {
 		name = "Void Sphere",
+		baseTypeName = "Void Sphere",
 		gameId = "Metadata/Items/Gems/SkillGemVoidSphere",
 		variantId = "VoidSphere",
 		grantedEffectId = "BlackHole",
@@ -11184,6 +11784,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVoidSphereAltX"] = {
 		name = "Void Sphere of Rending",
+		baseTypeName = "Void Sphere of Rending",
 		gameId = "Metadata/Items/Gems/SkillGemVoidSphere",
 		variantId = "VoidSphereAltX",
 		grantedEffectId = "BlackHoleAltX",
@@ -11205,6 +11806,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemCracklingLance"] = {
 		name = "Crackling Lance",
+		baseTypeName = "Crackling Lance",
 		gameId = "Metadata/Items/Gems/SkillGemCracklingLance",
 		variantId = "CracklingLance",
 		grantedEffectId = "Disintegrate",
@@ -11223,6 +11825,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemCracklingLanceAltX"] = {
 		name = "Crackling Lance of Branching",
+		baseTypeName = "Crackling Lance of Branching",
 		gameId = "Metadata/Items/Gems/SkillGemCracklingLance",
 		variantId = "CracklingLanceAltX",
 		grantedEffectId = "DisintegrateAltX",
@@ -11241,6 +11844,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemCracklingLanceAltY"] = {
 		name = "Crackling Lance of Disintegration",
+		baseTypeName = "Crackling Lance of Disintegration",
 		gameId = "Metadata/Items/Gems/SkillGemCracklingLance",
 		variantId = "CracklingLanceAltY",
 		grantedEffectId = "DisintegrateAltY",
@@ -11259,6 +11863,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrostShield"] = {
 		name = "Frost Shield",
+		baseTypeName = "Frost Shield",
 		gameId = "Metadata/Items/Gems/SkillGemFrostShield",
 		variantId = "FrostShield",
 		grantedEffectId = "FrostGlobe",
@@ -11279,6 +11884,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSplittingSteel"] = {
 		name = "Splitting Steel",
+		baseTypeName = "Splitting Steel",
 		gameId = "Metadata/Items/Gems/SkillGemSplittingSteel",
 		variantId = "SplittingSteel",
 		grantedEffectId = "ImpactingSteel",
@@ -11298,6 +11904,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSplittingSteelAltX"] = {
 		name = "Splitting Steel of Ammunition",
+		baseTypeName = "Splitting Steel of Ammunition",
 		gameId = "Metadata/Items/Gems/SkillGemSplittingSteel",
 		variantId = "SplittingSteelAltX",
 		grantedEffectId = "ImpactingSteelAltX",
@@ -11317,6 +11924,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSigilOfPower"] = {
 		name = "Sigil of Power",
+		baseTypeName = "Sigil of Power",
 		gameId = "Metadata/Items/Gems/SkillGemSigilOfPower",
 		variantId = "SigilOfPower",
 		grantedEffectId = "CircleOfPower",
@@ -11337,6 +11945,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFlameWall"] = {
 		name = "Flame Wall",
+		baseTypeName = "Flame Wall",
 		gameId = "Metadata/Items/Gems/SkillGemFlameWall",
 		variantId = "FlameWall",
 		grantedEffectId = "Firewall",
@@ -11378,6 +11987,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemHexblast"] = {
 		name = "Hexblast",
+		baseTypeName = "Hexblast",
 		gameId = "Metadata/Items/Gems/SkillGemHexblast",
 		variantId = "Hexblast",
 		grantedEffectId = "DoomBlast",
@@ -11397,6 +12007,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemHexblastAltX"] = {
 		name = "Hexblast of Contradiction",
+		baseTypeName = "Hexblast of Contradiction",
 		gameId = "Metadata/Items/Gems/SkillGemHexblast",
 		variantId = "HexblastAltX",
 		grantedEffectId = "DoomBlastAltX",
@@ -11416,6 +12027,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemHexblastAltY"] = {
 		name = "Hexblast of Havoc",
+		baseTypeName = "Hexblast of Havoc",
 		gameId = "Metadata/Items/Gems/SkillGemHexblast",
 		variantId = "HexblastAltY",
 		grantedEffectId = "DoomBlastAltY",
@@ -11452,6 +12064,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemHydrosphere"] = {
 		name = "Hydrosphere",
+		baseTypeName = "Hydrosphere",
 		gameId = "Metadata/Items/Gems/SkillGemHydrosphere",
 		variantId = "Hydrosphere",
 		grantedEffectId = "WaterSphere",
@@ -11489,6 +12102,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemExsanguinate"] = {
 		name = "Exsanguinate",
+		baseTypeName = "Exsanguinate",
 		gameId = "Metadata/Items/Gems/SkillGemExsanguinate",
 		variantId = "Exsanguinate",
 		grantedEffectId = "Exsanguinate",
@@ -11508,6 +12122,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemExsanguinateAltX"] = {
 		name = "Exsanguinate of Transmission",
+		baseTypeName = "Exsanguinate of Transmission",
 		gameId = "Metadata/Items/Gems/SkillGemExsanguinate",
 		variantId = "ExsanguinateAltX",
 		grantedEffectId = "ExsanguinateAltX",
@@ -11527,6 +12142,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemCorruptingFever"] = {
 		name = "Corrupting Fever",
+		baseTypeName = "Corrupting Fever",
 		gameId = "Metadata/Items/Gems/SkillGemCorruptingFever",
 		variantId = "CorruptingFever",
 		grantedEffectId = "CorruptingFever",
@@ -11562,6 +12178,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBloodreap"] = {
 		name = "Reap",
+		baseTypeName = "Reap",
 		gameId = "Metadata/Items/Gems/SkillGemBloodreap",
 		variantId = "Bloodreap",
 		grantedEffectId = "Bloodreap",
@@ -11581,6 +12198,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPetrifiedBlood"] = {
 		name = "Petrified Blood",
+		baseTypeName = "Petrified Blood",
 		gameId = "Metadata/Items/Gems/SkillGemPetrifiedBlood",
 		variantId = "PetrifiedBlood",
 		grantedEffectId = "PetrifiedBlood",
@@ -11629,6 +12247,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDefianceBanner"] = {
 		name = "Defiance Banner",
+		baseTypeName = "Defiance Banner",
 		gameId = "Metadata/Items/Gems/SkillGemDefianceBanner",
 		variantId = "DefianceBanner",
 		grantedEffectId = "DefianceBanner",
@@ -11650,6 +12269,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVoltaxicBurst"] = {
 		name = "Voltaxic Burst",
+		baseTypeName = "Voltaxic Burst",
 		gameId = "Metadata/Items/Gems/SkillGemVoltaxicBurst",
 		variantId = "VoltaxicBurst",
 		grantedEffectId = "VoltaxicBurst",
@@ -11671,6 +12291,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemRageVortex"] = {
 		name = "Rage Vortex",
+		baseTypeName = "Rage Vortex",
 		gameId = "Metadata/Items/Gems/SkillGemRageVortex",
 		variantId = "RageVortex",
 		grantedEffectId = "RageVortex",
@@ -11690,6 +12311,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemRageVortexAltX"] = {
 		name = "Rage Vortex of Berserking",
+		baseTypeName = "Rage Vortex of Berserking",
 		gameId = "Metadata/Items/Gems/SkillGemRageVortex",
 		variantId = "RageVortexAltX",
 		grantedEffectId = "RageVortexAltX",
@@ -11708,6 +12330,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSpectralHelix"] = {
 		name = "Spectral Helix",
+		baseTypeName = "Spectral Helix",
 		gameId = "Metadata/Items/Gems/SkillGemSpectralHelix",
 		variantId = "SpectralHelix",
 		grantedEffectId = "SpectralHelix",
@@ -11725,6 +12348,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBattlemagesCry"] = {
 		name = "Battlemage's Cry",
+		baseTypeName = "Battlemage's Cry",
 		gameId = "Metadata/Items/Gems/SkillGemBattlemagesCry",
 		variantId = "BattlemagesCry",
 		grantedEffectId = "BattlemagesCry",
@@ -11767,6 +12391,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemAbsolution"] = {
 		name = "Absolution",
+		baseTypeName = "Absolution",
 		gameId = "Metadata/Items/Gems/SkillGemAbsolution",
 		variantId = "Absolution",
 		grantedEffectId = "Absolution",
@@ -11788,6 +12413,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemAbsolutionAltX"] = {
 		name = "Absolution of Inspiring",
+		baseTypeName = "Absolution of Inspiring",
 		gameId = "Metadata/Items/Gems/SkillGemAbsolution",
 		variantId = "AbsolutionAltX",
 		grantedEffectId = "AbsolutionAltX",
@@ -11809,6 +12435,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemForbiddenRite"] = {
 		name = "Forbidden Rite",
+		baseTypeName = "Forbidden Rite",
 		gameId = "Metadata/Items/Gems/SkillGemForbiddenRite",
 		variantId = "ForbiddenRite",
 		grantedEffectId = "ForbiddenRite",
@@ -11828,6 +12455,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemForbiddenRiteAltX"] = {
 		name = "Forbidden Rite of Soul Sacrifice",
+		baseTypeName = "Forbidden Rite of Soul Sacrifice",
 		gameId = "Metadata/Items/Gems/SkillGemForbiddenRite",
 		variantId = "ForbiddenRiteAltX",
 		grantedEffectId = "ForbiddenRiteAltX",
@@ -11847,6 +12475,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemAmbush"] = {
 		name = "Ambush",
+		baseTypeName = "Ambush",
 		gameId = "Metadata/Items/Gems/SkillGemAmbush",
 		variantId = "Ambush",
 		grantedEffectId = "Ambush",
@@ -11867,6 +12496,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemManabond"] = {
 		name = "Manabond",
+		baseTypeName = "Manabond",
 		gameId = "Metadata/Items/Gems/SkillGemManabond",
 		variantId = "Manabond",
 		grantedEffectId = "Manabond",
@@ -11886,6 +12516,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBladeTrap"] = {
 		name = "Blade Trap",
+		baseTypeName = "Blade Trap",
 		gameId = "Metadata/Items/Gems/SkillGemBladeTrap",
 		variantId = "BladeTrap",
 		grantedEffectId = "BladeTrap",
@@ -11904,6 +12535,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBladeTrapAltX"] = {
 		name = "Blade Trap of Greatswords",
+		baseTypeName = "Blade Trap of Greatswords",
 		gameId = "Metadata/Items/Gems/SkillGemBladeTrap",
 		variantId = "BladeTrapAltX",
 		grantedEffectId = "BladeTrapAltX",
@@ -11923,6 +12555,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBladeTrapAltY"] = {
 		name = "Blade Trap of Laceration",
+		baseTypeName = "Blade Trap of Laceration",
 		gameId = "Metadata/Items/Gems/SkillGemBladeTrap",
 		variantId = "BladeTrapAltY",
 		grantedEffectId = "BladeTrapAltY",
@@ -11942,6 +12575,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemStormRain"] = {
 		name = "Storm Rain",
+		baseTypeName = "Storm Rain",
 		gameId = "Metadata/Items/Gems/SkillGemStormRain",
 		variantId = "StormRain",
 		grantedEffectId = "StormRain",
@@ -11962,6 +12596,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemStormRainAltX"] = {
 		name = "Storm Rain of the Conduit",
+		baseTypeName = "Storm Rain of the Conduit",
 		gameId = "Metadata/Items/Gems/SkillGemStormRain",
 		variantId = "StormRainAltX",
 		grantedEffectId = "StormRainAltX",
@@ -11982,6 +12617,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemStormRainAltY"] = {
 		name = "Storm Rain of the Fence",
+		baseTypeName = "Storm Rain of the Fence",
 		gameId = "Metadata/Items/Gems/SkillGemStormRain",
 		variantId = "StormRainAltY",
 		grantedEffectId = "StormRainAltY",
@@ -12002,6 +12638,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemShieldCrush"] = {
 		name = "Shield Crush",
+		baseTypeName = "Shield Crush",
 		gameId = "Metadata/Items/Gems/SkillGemShieldCrush",
 		variantId = "ShieldCrush",
 		grantedEffectId = "ShieldCrush",
@@ -12021,6 +12658,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemShieldCrushAltX"] = {
 		name = "Shield Crush of the Chieftain",
+		baseTypeName = "Shield Crush of the Chieftain",
 		gameId = "Metadata/Items/Gems/SkillGemShieldCrush",
 		variantId = "ShieldCrushAltX",
 		grantedEffectId = "ShieldCrushAltX",
@@ -12057,6 +12695,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonReaper"] = {
 		name = "Summon Reaper",
+		baseTypeName = "Summon Reaper",
 		gameId = "Metadata/Items/Gems/SkillGemSummonReaper",
 		variantId = "SummonReaper",
 		grantedEffectId = "SummonReaper",
@@ -12075,6 +12714,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonReaperAltX"] = {
 		name = "Summon Reaper of Revenants",
+		baseTypeName = "Summon Reaper of Revenants",
 		gameId = "Metadata/Items/Gems/SkillGemSummonReaper",
 		variantId = "SummonReaperAltX",
 		grantedEffectId = "SummonReaperAltX",
@@ -12092,6 +12732,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonReaperAltY"] = {
 		name = "Summon Reaper of Eviscerating",
+		baseTypeName = "Summon Reaper of Eviscerating",
 		gameId = "Metadata/Items/Gems/SkillGemSummonReaper",
 		variantId = "SummonReaperAltY",
 		grantedEffectId = "SummonReaperAltY",
@@ -12128,6 +12769,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBoneshatter"] = {
 		name = "Boneshatter",
+		baseTypeName = "Boneshatter",
 		gameId = "Metadata/Items/Gems/SkillGemBoneshatter",
 		variantId = "Boneshatter",
 		grantedEffectId = "Boneshatter",
@@ -12149,6 +12791,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBoneshatterAltX"] = {
 		name = "Boneshatter of Complex Trauma",
+		baseTypeName = "Boneshatter of Complex Trauma",
 		gameId = "Metadata/Items/Gems/SkillGemBoneshatter",
 		variantId = "BoneshatterAltX",
 		grantedEffectId = "BoneshatterAltX",
@@ -12170,6 +12813,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemBoneshatterAltY"] = {
 		name = "Boneshatter of Carnage",
+		baseTypeName = "Boneshatter of Carnage",
 		gameId = "Metadata/Items/Gems/SkillGemBoneshatter",
 		variantId = "BoneshatterAltY",
 		grantedEffectId = "BoneshatterAltY",
@@ -12190,6 +12834,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemExplosiveConcoction"] = {
 		name = "Explosive Concoction",
+		baseTypeName = "Explosive Concoction",
 		gameId = "Metadata/Items/Gems/SkillGemExplosiveConcoction",
 		variantId = "ExplosiveConcoction",
 		grantedEffectId = "ExplosiveConcoction",
@@ -12211,6 +12856,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemExplosiveConcoctionAltX"] = {
 		name = "Explosive Concoction of Destruction",
+		baseTypeName = "Explosive Concoction of Destruction",
 		gameId = "Metadata/Items/Gems/SkillGemExplosiveConcoction",
 		variantId = "ExplosiveConcoctionAltX",
 		grantedEffectId = "ExplosiveConcoctionAltX",
@@ -12233,6 +12879,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEyeOfWinter"] = {
 		name = "Eye of Winter",
+		baseTypeName = "Eye of Winter",
 		gameId = "Metadata/Items/Gems/SkillGemEyeOfWinter",
 		variantId = "EyeOfWinter",
 		grantedEffectId = "EyeOfWinter",
@@ -12251,6 +12898,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEyeOfWinterAltX"] = {
 		name = "Eye of Winter of Finality",
+		baseTypeName = "Eye of Winter of Finality",
 		gameId = "Metadata/Items/Gems/SkillGemEyeOfWinter",
 		variantId = "EyeOfWinterAltX",
 		grantedEffectId = "EyeOfWinterAltX",
@@ -12269,6 +12917,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemEyeOfWinterAltY"] = {
 		name = "Eye of Winter of Transience",
+		baseTypeName = "Eye of Winter of Transience",
 		gameId = "Metadata/Items/Gems/SkillGemEyeOfWinter",
 		variantId = "EyeOfWinterAltY",
 		grantedEffectId = "EyeOfWinterAltY",
@@ -12287,6 +12936,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemPoisonousConcoction"] = {
 		name = "Poisonous Concoction",
+		baseTypeName = "Poisonous Concoction",
 		gameId = "Metadata/Items/Gems/SkillGemPoisonousConcoction",
 		variantId = "PoisonousConcoction",
 		grantedEffectId = "PoisonousConcoction",
@@ -12304,8 +12954,30 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
+	["Metadata/Items/Gems/SkillGemPoisonousConcoctionAltX"] = {
+		name = "Poisonous Concoction of Bouncing",
+		baseTypeName = "Poisonous Concoction of Bouncing",
+		gameId = "Metadata/Items/Gems/SkillGemPoisonousConcoction",
+		variantId = "PoisonousConcoctionAltX",
+		grantedEffectId = "PoisonousConcoctionAltX",
+		tags = {
+			dexterity = true,
+			grants_active_skill = true,
+			attack = true,
+			area = true,
+			chaos = true,
+			projectile = true,
+			chaining = true,
+		},
+		tagString = "Attack, AoE, Chaos, Projectile, Chaining",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
 	["Metadata/Items/Gems/SkillGemTemporalRift"] = {
 		name = "Temporal Rift",
+		baseTypeName = "Temporal Rift",
 		gameId = "Metadata/Items/Gems/SkillGemTemporalRift",
 		variantId = "TemporalRift",
 		grantedEffectId = "TemporalRift",
@@ -12322,6 +12994,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemTornado"] = {
 		name = "Tornado",
+		baseTypeName = "Tornado",
 		gameId = "Metadata/Items/Gems/SkillGemTornado",
 		variantId = "Tornado",
 		grantedEffectId = "Tornado",
@@ -12340,8 +13013,34 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
+	["Metadata/Items/Gems/SkillGemTornadoAltY"] = {
+		name = "Tornado of Elemental Turbulence",
+		baseTypeName = "Tornado of Elemental Turbulence",
+		gameId = "Metadata/Items/Gems/SkillGemTornado",
+		variantId = "TornadoAltY",
+		grantedEffectId = "TornadoAltY",
+		tags = {
+			dexterity = true,
+			grants_active_skill = true,
+			spell = true,
+			duration = true,
+			physical = true,
+			area = true,
+			orb = true,
+			fire = true,
+			cold = true,
+			lightning = true,
+			random_element = true,
+		},
+		tagString = "Spell, Duration, Physical, AoE, Orb, Fire, Cold, Lightning, Prismatic",
+		reqStr = 0,
+		reqDex = 60,
+		reqInt = 40,
+		naturalMaxLevel = 20,
+	},
 	["Metadata/Items/Gems/SkillGemEnergyBlade"] = {
 		name = "Energy Blade",
+		baseTypeName = "Energy Blade",
 		gameId = "Metadata/Items/Gems/SkillGemEnergyBlade",
 		variantId = "EnergyBlade",
 		grantedEffectId = "EnergyBlade",
@@ -12359,6 +13058,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSoulLink"] = {
 		name = "Soul Link",
+		baseTypeName = "Soul Link",
 		gameId = "Metadata/Items/Gems/SkillGemSoulLink",
 		variantId = "SoulLink",
 		grantedEffectId = "SoulLink",
@@ -12377,6 +13077,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFlameLink"] = {
 		name = "Flame Link",
+		baseTypeName = "Flame Link",
 		gameId = "Metadata/Items/Gems/SkillGemFlameLink",
 		variantId = "FlameLink",
 		grantedEffectId = "FlameLink",
@@ -12396,6 +13097,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVampiricLink"] = {
 		name = "Vampiric Link",
+		baseTypeName = "Vampiric Link",
 		gameId = "Metadata/Items/Gems/SkillGemVampiricLink",
 		variantId = "VampiricLink",
 		grantedEffectId = "VampiricLink",
@@ -12414,6 +13116,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemProtectiveLink"] = {
 		name = "Protective Link",
+		baseTypeName = "Protective Link",
 		gameId = "Metadata/Items/Gems/SkillGemProtectiveLink",
 		variantId = "ProtectiveLink",
 		grantedEffectId = "ProtectiveLink",
@@ -12432,6 +13135,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemIntuitiveLink"] = {
 		name = "Intuitive Link",
+		baseTypeName = "Intuitive Link",
 		gameId = "Metadata/Items/Gems/SkillGemIntuitiveLink",
 		variantId = "IntuitiveLink",
 		grantedEffectId = "IntuitiveLink",
@@ -12453,6 +13157,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemDestructiveLink"] = {
 		name = "Destructive Link",
+		baseTypeName = "Destructive Link",
 		gameId = "Metadata/Items/Gems/SkillGemDestructiveLink",
 		variantId = "DestructiveLink",
 		grantedEffectId = "DestructiveLink",
@@ -12540,6 +13245,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLightningConduit"] = {
 		name = "Lightning Conduit",
+		baseTypeName = "Lightning Conduit",
 		gameId = "Metadata/Items/Gems/SkillGemLightningConduit",
 		variantId = "LightningConduit",
 		grantedEffectId = "LightningConduit",
@@ -12558,6 +13264,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemLightningConduitAltX"] = {
 		name = "Lightning Conduit of the Heavens",
+		baseTypeName = "Lightning Conduit of the Heavens",
 		gameId = "Metadata/Items/Gems/SkillGemLightningConduit",
 		variantId = "LightningConduitAltX",
 		grantedEffectId = "LightningConduitAltX",
@@ -12576,6 +13283,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemGalvanicField"] = {
 		name = "Galvanic Field",
+		baseTypeName = "Galvanic Field",
 		gameId = "Metadata/Items/Gems/SkillGemGalvanicField",
 		variantId = "GalvanicField",
 		grantedEffectId = "GalvanicField",
@@ -12597,6 +13305,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemGalvanicFieldAltX"] = {
 		name = "Galvanic Field of Intensity",
+		baseTypeName = "Galvanic Field of Intensity",
 		gameId = "Metadata/Items/Gems/SkillGemGalvanicField",
 		variantId = "GalvanicFieldAltX",
 		grantedEffectId = "GalvanicFieldAltX",
@@ -12618,6 +13327,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemAlchemistsMark"] = {
 		name = "Alchemist's Mark",
+		baseTypeName = "Alchemist's Mark",
 		gameId = "Metadata/Items/Gems/SkillGemAlchemistsMark",
 		variantId = "AlchemistsMark",
 		grantedEffectId = "AlchemistsMark",
@@ -12640,6 +13350,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVolcanicFissure"] = {
 		name = "Volcanic Fissure",
+		baseTypeName = "Volcanic Fissure",
 		gameId = "Metadata/Items/Gems/SkillGemVolcanicFissure",
 		variantId = "VolcanicFissure",
 		grantedEffectId = "VolcanicFissure",
@@ -12661,6 +13372,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVolcanicFissureAltX"] = {
 		name = "Volcanic Fissure of Snaking",
+		baseTypeName = "Volcanic Fissure of Snaking",
 		gameId = "Metadata/Items/Gems/SkillGemVolcanicFissure",
 		variantId = "VolcanicFissureAltX",
 		grantedEffectId = "VolcanicFissureAltX",
@@ -12681,6 +13393,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalVolcanicFissure"] = {
 		name = "Vaal Volcanic Fissure",
+		baseTypeName = "Vaal Volcanic Fissure",
 		gameId = "Metadata/Items/Gems/SkillGemVaalVolcanicFissure",
 		variantId = "VaalVolcanicFissure",
 		grantedEffectId = "VaalVolcanicFissure",
@@ -12705,6 +13418,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrozenLegion"] = {
 		name = "Frozen Legion",
+		baseTypeName = "Frozen Legion",
 		gameId = "Metadata/Items/Gems/SkillGemFrozenLegion",
 		variantId = "FrozenLegion",
 		grantedEffectId = "FrozenLegion",
@@ -12726,6 +13440,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemFrozenLegionAltX"] = {
 		name = "Frozen Legion of Rallying",
+		baseTypeName = "Frozen Legion of Rallying",
 		gameId = "Metadata/Items/Gems/SkillGemFrozenLegion",
 		variantId = "FrozenLegionAltX",
 		grantedEffectId = "FrozenLegionAltX",
@@ -12747,6 +13462,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalCleave"] = {
 		name = "Vaal Cleave",
+		baseTypeName = "Vaal Cleave",
 		gameId = "Metadata/Items/Gems/SkillGemVaalCleave",
 		variantId = "VaalCleave",
 		grantedEffectId = "VaalCleave",
@@ -12770,6 +13486,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalCausticArrow"] = {
 		name = "Vaal Caustic Arrow",
+		baseTypeName = "Vaal Caustic Arrow",
 		gameId = "Metadata/Items/Gems/SkillGemVaalCausticArrow",
 		variantId = "VaalCausticArrow",
 		grantedEffectId = "VaalCausticArrow",
@@ -12794,6 +13511,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalMoltenStrike"] = {
 		name = "Vaal Molten Strike",
+		baseTypeName = "Vaal Molten Strike",
 		gameId = "Metadata/Items/Gems/SkillGemVaalMoltenStrike",
 		variantId = "VaalMoltenStrike",
 		grantedEffectId = "VaalMoltenStrike",
@@ -12853,6 +13571,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalVenomGyre"] = {
 		name = "Vaal Venom Gyre",
+		baseTypeName = "Vaal Venom Gyre",
 		gameId = "Metadata/Items/Gems/SkillGemVaalVenomGyre",
 		variantId = "VaalVenomGyre",
 		grantedEffectId = "VaalSnappingAdder",
@@ -12875,6 +13594,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalSmite"] = {
 		name = "Vaal Smite",
+		baseTypeName = "Vaal Smite",
 		gameId = "Metadata/Items/Gems/SkillGemVaalSmite",
 		variantId = "VaalSmite",
 		grantedEffectId = "VaalSmite",
@@ -12900,6 +13620,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalChargedAttack"] = {
 		name = "Vaal Blade Flurry",
+		baseTypeName = "Vaal Blade Flurry",
 		gameId = "Metadata/Items/Gems/SkillGemVaalChargedAttack",
 		variantId = "VaalChargedAttack",
 		grantedEffectId = "VaalChargedAttack",
@@ -12923,6 +13644,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalReap"] = {
 		name = "Vaal Reap",
+		baseTypeName = "Vaal Reap",
 		gameId = "Metadata/Items/Gems/SkillGemVaalReap",
 		variantId = "VaalReap",
 		grantedEffectId = "VaalReap",
@@ -12945,6 +13667,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalAnimateWeapon"] = {
 		name = "Vaal Animate Weapon",
+		baseTypeName = "Vaal Animate Weapon",
 		gameId = "Metadata/Items/Gems/SkillGemVaalAnimateWeapon",
 		variantId = "VaalAnimateWeapon",
 		grantedEffectId = "VaalAnimateWeapon",
@@ -12967,6 +13690,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalLightningArrow"] = {
 		name = "Vaal Lightning Arrow",
+		baseTypeName = "Vaal Lightning Arrow",
 		gameId = "Metadata/Items/Gems/SkillGemVaalLightningArrow",
 		variantId = "VaalLightningArrow",
 		grantedEffectId = "VaalLightningArrow",
@@ -12990,6 +13714,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalAbsolution"] = {
 		name = "Vaal Absolution",
+		baseTypeName = "Vaal Absolution",
 		gameId = "Metadata/Items/Gems/SkillGemVaalAbsolution",
 		variantId = "VaalAbsolution",
 		grantedEffectId = "VaalAbsolution",
@@ -13014,6 +13739,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalDomination"] = {
 		name = "Vaal Domination",
+		baseTypeName = "Vaal Domination",
 		gameId = "Metadata/Items/Gems/SkillGemVaalDomination",
 		variantId = "VaalDomination",
 		grantedEffectId = "VaalDomination",
@@ -13038,6 +13764,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalIceShot"] = {
 		name = "Vaal Ice Shot",
+		baseTypeName = "Vaal Ice Shot",
 		gameId = "Metadata/Items/Gems/SkillGemVaalIceShot",
 		variantId = "VaalIceShot",
 		grantedEffectId = "VaalIceShot",
@@ -13062,6 +13789,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalFirestorm"] = {
 		name = "Vaal Firestorm",
+		baseTypeName = "Vaal Firestorm",
 		gameId = "Metadata/Items/Gems/SkillGemVaalFirestorm",
 		variantId = "VaalFirestorm",
 		grantedEffectId = "VaalFirestorm",
@@ -13084,6 +13812,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemVaalRejuvenationTotem"] = {
 		name = "Vaal Rejuvenation Totem",
+		baseTypeName = "Vaal Rejuvenation Totem",
 		gameId = "Metadata/Items/Gems/SkillGemVaalRejuvenationTotem",
 		variantId = "VaalRejuvenationTotem",
 		grantedEffectId = "VaalRejuvenationTotem",
@@ -13147,6 +13876,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemChannelledSnipe"] = {
 		name = "Snipe",
+		baseTypeName = "Snipe",
 		gameId = "Metadata/Items/Gems/SkillGemChannelledSnipe",
 		variantId = "ChannelledSnipe",
 		grantedEffectId = "ChannelledSnipe",
@@ -13169,6 +13899,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemQuickstep"] = {
 		name = "Quickstep",
+		baseTypeName = "Quickstep",
 		gameId = "Metadata/Items/Gems/SkillGemQuickstep",
 		variantId = "Quickstep",
 		grantedEffectId = "QuickstepHardMode",
@@ -13415,6 +14146,68 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemAutomation"] = {
+		name = "Automation",
+		baseTypeName = "Automation",
+		gameId = "Metadata/Items/Gems/SkillGemAutomation",
+		variantId = "Automation",
+		grantedEffectId = "Automation",
+		secondaryGrantedEffectId = "SupportAutomation",
+		secondaryEffectName = "Automation Support",
+		tags = {
+			trigger = true,
+			intelligence = true,
+			grants_active_skill = true,
+			spell = true,
+		},
+		tagString = "Trigger, Spell",
+		reqStr = 0,
+		reqDex = 40,
+		reqInt = 60,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemCallToArms"] = {
+		name = "Call to Arms",
+		baseTypeName = "Call to Arms",
+		gameId = "Metadata/Items/Gems/SkillGemCallToArms",
+		variantId = "CallToArms",
+		grantedEffectId = "CallToArms",
+		secondaryGrantedEffectId = "SupportCallToArms",
+		secondaryEffectName = "Call to Arms Support",
+		tags = {
+			warcry = true,
+			trigger = true,
+			strength = true,
+			grants_active_skill = true,
+			spell = true,
+		},
+		tagString = "Warcry, Trigger, Spell",
+		reqStr = 100,
+		reqDex = 0,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemSacredWispsSupport"] = {
+		name = "Sacred Wisps",
+		gameId = "Metadata/Items/Gems/SupportGemSacredWisps",
+		variantId = "SacredWispsSupport",
+		grantedEffectId = "SupportSacredWisps",
+		secondaryGrantedEffectId = "SummonSacredWisp",
+		tags = {
+			attack = true,
+			intelligence = true,
+			support = true,
+			grants_active_skill = true,
+			trigger = true,
+			duration = true,
+			spell = true,
+		},
+		tagString = "Attack, Support, Trigger, Duration, Spell",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
 }

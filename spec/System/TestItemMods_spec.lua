@@ -171,7 +171,7 @@ describe("TetsItemMods", function()
 
         assert.are_not.equals(farDPS, build.calcsTab.mainOutput.TotalDPS)
     end)
-    
+
     it("Kalandra's Touch mod copy", function()
         local initialInt = build.calcsTab.mainOutput.Int
 
@@ -196,5 +196,317 @@ describe("TetsItemMods", function()
         runCallback("OnFrame")
 
         assert.are.equals(genericRingInt - initialInt, build.calcsTab.mainOutput.Int - genericRingInt)
+    end)
+	
+	it("Kalandra's Touch influence copy", function()
+
+        build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nSmite 20/0 Default  1\n")
+        runCallback("OnFrame")
+
+        local dmg = build.calcsTab.mainOutput.AverageDamage
+
+        build.configTab.input.customMods = "\z
+        Gain 5% of Elemental Damage as Extra Chaos Damage per Shaper Item Equipped\n\z
+        "
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+
+        assert.are.equals(build.calcsTab.mainOutput.AverageDamage, dmg)
+
+        build.itemsTab:CreateDisplayItemFromRaw([[New Item
+        Cerulean Ring
+        Shaper Item
+        Crafted: true
+        Prefix: None
+        Prefix: None
+        Prefix: None
+        Suffix: None
+        Suffix: None
+        Suffix: None
+        Quality: 0
+        LevelReq: 80
+        Implicits: 0]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        assert.is_true(build.calcsTab.mainOutput.AverageDamage > dmg)
+
+        local dmgOneRing = build.calcsTab.mainOutput.AverageDamage
+
+        build.itemsTab:CreateDisplayItemFromRaw([[Kalandra's Touch
+        Ring
+        League: Kalandra
+        Implicits: 0
+        Reflects your other Ring
+        Mirrored]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        assert.is_true(build.calcsTab.mainOutput.AverageDamage > dmgOneRing)
+    end)
+
+    it("Both slots mod (evasion and es mastery)", function()
+
+        build.configTab.input.customMods = "\z
+        20% increased Maximum Energy Shield if both Equipped Rings have an Evasion Modifier\n\z
+        "
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+
+        build.itemsTab:CreateDisplayItemFromRaw([[Energy Shield Boots
+        Sorcerer Boots
+        Energy Shield: 114
+        EnergyShieldBasePercentile: 1
+        Crafted: true
+        Prefix: {range:0.5}IncreasedLife6
+        Prefix: {range:0.5}LocalIncreasedEnergyShieldPercent5
+        Prefix: {range:0.5}MovementVelocity5
+        Suffix: None
+        Suffix: None
+        Suffix: None
+        Quality: 20
+        Sockets: B-B-B-B
+        LevelReq: 67
+        Implicits: 0
+        74% increased Energy Shield
+        +65 to maximum Life
+        30% increased Movement Speed]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        local baseEs = build.calcsTab.mainOutput.EnergyShield
+
+        build.itemsTab:CreateDisplayItemFromRaw([[Chaos Resistance Ring
+        Amethyst Ring
+        LevelReq: 33
+        Implicits: 1
+        +71 to Evasion Rating
+        {tags:chaos,resistance}{range:0.5}+(17-23)% to Chaos Resistance]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        assert.are.equals(baseEs, build.calcsTab.mainOutput.EnergyShield) -- No change in es with just one ring.
+
+        build.itemsTab:CreateDisplayItemFromRaw([[Chaos Resistance Ring
+        Amethyst Ring
+        Crafted: true
+        Prefix: {range:0.5}IncreasedEvasionRating4
+        Prefix: None
+        Prefix: None
+        Suffix: None
+        Suffix: None
+        Suffix: None
+        LevelReq: 33
+        Implicits: 1
+        {tags:chaos,resistance}{range:0.5}+(17-23)% to Chaos Resistance
+        +71 to Evasion Rating]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        assert.are_not.equals(baseEs, build.calcsTab.mainOutput.EnergyShield)
+        -- Es changes after adding another ring with mod. Regardless of the evasion mod on the first ring being implicit.
+    end)
+
+    it("Both slots explicit mod with mixed mod rings (evasion and es mastery)", function()
+	
+        build.configTab.input.customMods = "\z
+        20% increased Maximum Energy Shield if both Equipped Rings have an Explicit Evasion Modifier\n\z
+        "
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+
+        build.itemsTab:CreateDisplayItemFromRaw([[Energy Shield Boots
+        Sorcerer Boots
+        Energy Shield: 114
+        EnergyShieldBasePercentile: 1
+        Crafted: true
+        Prefix: {range:0.5}IncreasedLife6
+        Prefix: {range:0.5}LocalIncreasedEnergyShieldPercent5
+        Prefix: {range:0.5}MovementVelocity5
+        Suffix: None
+        Suffix: None
+        Suffix: None
+        Quality: 20
+        Sockets: B-B-B-B
+        LevelReq: 67
+        Implicits: 0
+        74% increased Energy Shield
+        +65 to maximum Life
+        30% increased Movement Speed]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        local baseEs = build.calcsTab.mainOutput.EnergyShield
+
+        build.itemsTab:CreateDisplayItemFromRaw([[Chaos Resistance Ring
+        Amethyst Ring
+        LevelReq: 33
+        Implicits: 1
+        +71 to Evasion Rating
+        {tags:chaos,resistance}{range:0.5}+(17-23)% to Chaos Resistance]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        assert.are.equals(baseEs, build.calcsTab.mainOutput.EnergyShield) -- No change in es with just one ring.
+
+        build.itemsTab:CreateDisplayItemFromRaw([[Chaos Resistance Ring
+        Amethyst Ring
+        Crafted: true
+        Prefix: {range:0.5}IncreasedEvasionRating4
+        Prefix: None
+        Prefix: None
+        Suffix: None
+        Suffix: None
+        Suffix: None
+        LevelReq: 33
+        Implicits: 1
+        {tags:chaos,resistance}{range:0.5}+(17-23)% to Chaos Resistance
+        +71 to Evasion Rating]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        assert.are.equals(baseEs, build.calcsTab.mainOutput.EnergyShield)
+        -- Es does not change after adding another ring with mod due to the first ring having an implicit evasion mod.
+    end)
+
+    it("Both slots explicit mod (evasion and es mastery)", function()
+
+        build.configTab.input.customMods = "\z
+        20% increased Maximum Energy Shield if both Equipped Rings have an Explicit Evasion Modifier\n\z
+        "
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+
+        build.itemsTab:CreateDisplayItemFromRaw([[Energy Shield Boots
+        Sorcerer Boots
+        Energy Shield: 114
+        EnergyShieldBasePercentile: 1
+        Crafted: true
+        Prefix: {range:0.5}IncreasedLife6
+        Prefix: {range:0.5}LocalIncreasedEnergyShieldPercent5
+        Prefix: {range:0.5}MovementVelocity5
+        Suffix: None
+        Suffix: None
+        Suffix: None
+        Quality: 20
+        Sockets: B-B-B-B
+        LevelReq: 67
+        Implicits: 0
+        74% increased Energy Shield
+        +65 to maximum Life
+        30% increased Movement Speed]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        local baseEs = build.calcsTab.mainOutput.EnergyShield
+
+        build.itemsTab:CreateDisplayItemFromRaw([[Chaos Resistance Ring
+        Amethyst Ring
+        Crafted: true
+        Prefix: {range:0.5}IncreasedEvasionRating4
+        Prefix: None
+        Prefix: None
+        Suffix: None
+        Suffix: None
+        Suffix: None
+        LevelReq: 33
+        Implicits: 1
+        {tags:chaos,resistance}{range:0.5}+(17-23)% to Chaos Resistance
+        +71 to Evasion Rating]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        assert.are.equals(baseEs, build.calcsTab.mainOutput.EnergyShield) -- No change in es with just one ring.
+
+        build.itemsTab:CreateDisplayItemFromRaw([[Chaos Resistance Ring
+        Amethyst Ring
+        Crafted: true
+        Prefix: {range:0.5}IncreasedEvasionRating4
+        Prefix: None
+        Prefix: None
+        Suffix: None
+        Suffix: None
+        Suffix: None
+        LevelReq: 33
+        Implicits: 1
+        {tags:chaos,resistance}{range:0.5}+(17-23)% to Chaos Resistance
+        +71 to Evasion Rating]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        assert.are_not.equals(baseEs, build.calcsTab.mainOutput.EnergyShield)
+        -- Es changes after adding two rings with explicit mods.
+    end)
+
+    it("Both slots explicit mod no rings (evasion and es mastery)", function()
+        build.itemsTab:CreateDisplayItemFromRaw([[Energy Shield Boots
+        Sorcerer Boots
+        Energy Shield: 114
+        EnergyShieldBasePercentile: 1
+        Crafted: true
+        Prefix: {range:0.5}IncreasedLife6
+        Prefix: {range:0.5}LocalIncreasedEnergyShieldPercent5
+        Prefix: {range:0.5}MovementVelocity5
+        Suffix: None
+        Suffix: None
+        Suffix: None
+        Quality: 20
+        Sockets: B-B-B-B
+        LevelReq: 67
+        Implicits: 0
+        74% increased Energy Shield
+        +65 to maximum Life
+        30% increased Movement Speed]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        local baseEs = build.calcsTab.mainOutput.EnergyShield
+
+        build.configTab.input.customMods = "\z
+        20% increased Maximum Energy Shield if both Equipped Rings have an Explicit Evasion Modifier\n\z
+        "
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+
+        assert.are.equals(baseEs, build.calcsTab.mainOutput.EnergyShield) -- No change in es with no rings.
+
+    end)
+
+    it("mod if no mod on x slot", function()
+        local baseLife = build.calcsTab.mainOutput.Life
+
+        build.configTab.input.customMods = "\z
+        15% increased maximum Life if there are no Life Modifiers on Equipped Body Armour\n\z
+        "
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+
+        assert.are_not.equals(baseLife, build.calcsTab.mainOutput.Life)
+
+        baseLife = build.calcsTab.mainOutput.Life
+
+        build.itemsTab:CreateDisplayItemFromRaw([[Armour Chest
+        Astral Plate
+        Armour: 1696
+        ArmourBasePercentile: 1
+        Crafted: true
+        Prefix: {range:0.5}LocalIncreasedPhysicalDamageReductionRating5
+        Prefix: {range:0.5}LocalIncreasedPhysicalDamageReductionRatingPercent5
+        Prefix: {range:0.5}IncreasedLife9
+        Suffix: None
+        Suffix: None
+        Suffix: None
+        Quality: 20
+        Sockets: R-R-R-R-R-R
+        LevelReq: 62
+        Implicits: 1
+        {tags:elemental,resistance}{range:0.5}+(8-12)% to all Elemental Resistances
+        +92 to Armour
+        74% increased Armour
+        +95 to maximum Life]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        assert.are_not.equals(baseLife, build.calcsTab.mainOutput.Life)
     end)
 end)

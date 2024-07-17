@@ -712,6 +712,15 @@ Cannot be Frozen
 Gain Adrenaline when you become Flame-Touched
 Lose Adrenaline when you cease to be Flame-Touched
 ]],[[
+Gamblesprint
+Hydrascale Boots
+League: Affliction
+Requires Level 59, 56 Str, 56 Dex
++(30-40) to Dexterity
+(100-150)% increased Armour and Evasion
++(20-40)% to Lightning Resistance
+When Hit, gain a random Movement Speed modifier from 40% reduced to 100% increased until Hit again
+]],[[
 Lioneye's Paws
 Bronzescale Boots
 League: Legion
@@ -841,6 +850,7 @@ Ralakesh's Impatience
 Riveted Boots
 Variant: Pre 3.19.0
 Variant: Pre 3.23.0
+Variant: Pre 3.24.0
 Variant: Current
 Requires Level 36, 35 Str, 35 Int
 +(15-25)% to Cold Resistance
@@ -852,9 +862,9 @@ Requires Level 36, 35 Str, 35 Int
 {variant:2}Minimum Endurance Charges equal to Maximum while stationary
 {variant:2}Minimum Frenzy Charges equal to Maximum while stationary
 {variant:2}Minimum Power Charges equal to Maximum while stationary
-{variant:3}Count as having maximum number of Endurance Charges
-{variant:3}Count as having maximum number of Frenzy Charges
-{variant:3}Count as having maximum number of Power Charges
+{variant:3,4}Count as having maximum number of Endurance Charges
+{variant:3,4}Count as having maximum number of Frenzy Charges
+{variant:3,4}Count as having maximum number of Power Charges
 ]],[[
 Wake of Destruction
 Mesh Boots

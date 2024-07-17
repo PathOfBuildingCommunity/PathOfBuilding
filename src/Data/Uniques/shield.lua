@@ -376,18 +376,20 @@ League: Warbands
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
+Variant: Pre 3.24.0
 Variant: Current
 Implicits: 1
-{variant:3,4}6% increased Movement Speed
+{variant:3,4,5}6% increased Movement Speed
 {variant:1}+1 to Level of Socketed Warcry Gems
 {variant:1}(20-30)% increased Chaos Damage
-{variant:2,3,4}(80-100)% Increased Evasion Rating
+{variant:2,3,4,5}(80-100)% Increased Evasion Rating
 +(20-40)% to Cold Resistance
 10% increased Area of Effect
 {variant:1}You gain Onslaught for 2 seconds on Killing Taunted Enemies
-{variant:2,3,4}Gain Onslaught for 4 seconds when you Warcry
-{variant:2,3,4}25% increased Warcry Buff Effect
+{variant:2,3,4,5}Gain Onslaught for 4 seconds when you Warcry
+{variant:2,3,4,5}25% increased Warcry Buff Effect
 {variant:4}Call to Arms
+{variant:5}Warlord's Call
 ]],[[
 Thousand Teeth Temu
 Vaal Buckler
@@ -612,17 +614,24 @@ Shocks you when you reach Maximum Power Charges
 ]],[[
 Manastorm
 {variant:1}Fossilised Spirit Shield
-{variant:2}Lacewood Spirit Shield
+{variant:2,3}Lacewood Spirit Shield
 Variant: Pre 3.19.0
+Variant: Pre 3.24.0
 Variant: Current
 Implicits: 2
 {variant:1}(15-20)% increased Spell Damage
-{variant:2}(5-10)% increased Spell Damage
-(80-120)% increased Energy Shield
-+(50-70) to maximum Mana
-(30-50)% increased Mana Regeneration Rate
-When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage
-equal to 25% of Sacrificed Mana for 4 seconds
+{variant:2,3}(5-10)% increased Spell Damage
+{variant:1,2}(80-120)% increased Energy Shield
+{variant:1,2}+(50-70) to maximum Mana
+{variant:1,2}(30-50)% increased Mana Regeneration Rate
+{variant:1,2}When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage
+{variant:1,2}equal to 25% of Sacrificed Mana for 4 seconds
+{variant:3}+(1-100) to maximum Mana
+{variant:3}(1-100)% Increased Mana Regeneration Rate
+{variant:3}Gain (1-100) Mana per Enemy Killed
+{variant:3}(1-100)% Increased Mana Recovery from Flasks
+{variant:3}When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage
+{variant:3}equal to 50% of Sacrificed Mana for 4 seconds
 ]],[[
 Matua Tupuna
 Tarnished Spirit Shield
@@ -704,6 +713,17 @@ Curse Enemies with Elemental Weakness when you Block their Spell Damage, ignorin
 ]],
 -- Shield: Armour/Evasion
 [[
+The Flawed Refuge
+Maple Round Shield
+League: Affliction
+Requires Level 39, 52 Str, 52 Dex
+Implicits: 1
+180% increased Block Recovery
+(100–150)% increased Armour and Evasion
++15% Chance to Block
+You take 100% of Elemental Damage from Blocked Hits
+40% of Elemental Damage from Hits taken as Physical Damage
+]],[[
 Daresso's Courage
 Baroque Round Shield
 Variant: Pre 2.6.0

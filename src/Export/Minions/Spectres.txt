@@ -3,7 +3,7 @@
 -- Spectre Data
 -- Monster data (c) Grinding Gear Games
 --
-local minions, mod = ...
+local minions, mod, flag = ...
 
 -- Blackguard
 #spectre Metadata/Monsters/Axis/AxisCaster
@@ -228,3 +228,204 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith # DelveMonsterEnfeebleOnHit
 -- Forged Frostbearer
 #spectre Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac
+
+	-- Affliction Corpses
+-- Frozen Cannibal
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeHigh
+-- Fiery Cannibal
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryHigh_
+-- Hydra
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraHigh_
+-- Dark Marionette
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinMid # DarkMarionetteExplode
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinHigh_ # DarkMarionetteExplodePerfect
+-- Hulking Miscreation
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusLow
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusMid
+#mod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterTag", monsterTag = "Construct" })})
+#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterTag", monsterTag = "Construct" })})
+#emit
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusHigh__
+#mod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterTag", monsterTag = "Construct" })})
+#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterTag", monsterTag = "Construct" })})
+#mod mod("AllyModifier", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true })})
+#emit
+-- Spirit of Fortune
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh
+#mod mod("AllyModifier", "LIST", { mod = flag("LightningLuckHits") })
+#emit
+-- Naval Officer
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralMid__
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_
+#mod mod("AllyModifier", "LIST", { mod = mod("MinimumFortification", "BASE", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PerfectNavalOfficer", unscaleable = true })})
+#emit
+-- Dancing Sword
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordLow
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordMid
+#mod mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
+#emit
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_
+#mod mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
+#mod mod("AllyModifier", "LIST", { mod = mod("ImpaleStacksMax", "BASE", 1, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
+#emit
+-- Needle Horror
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonMid
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonHigh_
+#mod mod("PlayerModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "NeedleHorror", unscaleable = true })})
+#emit
+-- Serpent Warrior
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskLow
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskMid
+#mod mod("AllyModifier", "LIST", { mod = flag("Condition:CanWither") })
+#emit
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskHigh
+#mod mod("AllyModifier", "LIST", { mod = flag("Condition:CanWither") })
+#emit
+-- Pain Artist
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonLow
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonMid
+#mod mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscaleable = true })})
+#emit
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonHigh
+#mod mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscaleable = true })})
+#emit
+-- Sawblade Horror
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonHigh
+-- Restless Knight
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightHigh
+-- Slashing Horror
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonLow
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonMid
+#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage" }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
+#mod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 2 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
+#mod mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 1, 0, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 5 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
+#emit
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonHigh
+#mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageGainAsFire", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SlashingHorror", unscaleable = true })})
+#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage" }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
+#mod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 2 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
+#mod mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 1, 0, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 5 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
+#emit
+-- Druidic Alchemist
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverLow__
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverMid
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverHigh
+#mod mod("PlayerModifier", "LIST", { mod = mod("LifeFlaskChargesGenerated", "BASE", 1/3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "RestlessKnight", unscaleable = true })})
+#emit
+-- Escaped Prototype
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundHigh_
+-- Blasphemer
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriLow # TalismanT1TemporalChains TalismanT2EnfeebleAura TalismanT1Vulnerability
+#mod mod("EnemyCurseLimit", "BASE", 3)
+#emit
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriMid_ # TalismanT1TemporalChains TalismanT2EnfeebleAura TalismanT1Vulnerability
+#mod mod("EnemyCurseLimit", "BASE", 3)
+#emit
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriHigh # TalismanT1TemporalChains TalismanT2EnfeebleAura TalismanT1Vulnerability
+#mod mod("EnemyCurseLimit", "BASE", 3)
+#emit
+-- Judgemental Spirit
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessHigh
+-- Primal Thunderbird
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdHigh
+-- Primal Demiurge
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmLow__
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmHigh
+-- Runic Skeleton
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonMid
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonHigh
+#mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamage", "MORE", 5, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PrimalDemiurge", unscaleable = true })})
+#emit
+-- Warlord
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakHigh
+-- Dark Reaper
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperMid
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperHigh
+#mod flag("Condition:NoExtraBleedDamageToMovingEnemy"), --This mod is not currently working correctly
+#emit
+-- Sanguimancer Demon
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdMid_
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdHigh
+-- Spider Matriarch
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderMid
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderHigh_
+#mod mod("PlayerModifier", "LIST", { mod = mod("WitherEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SpiderMatriarch", unscaleable = true })}) --Does not work
+#emit
+-- Meatsack
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieMid
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieHigh
+#mod mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 40, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Meatsack", unscaleable = true })})
+#emit
+-- Eldritch Eye
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionHigh
+-- Forest Tiger
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerHigh
+-- Guardian Turtle
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleLow
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleMid_
+#mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscaleable = true })})
+#emit
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleHigh
+#mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscaleable = true })})
+#emit
+-- Shadow Construct
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulHigh
+-- Forest Warrior
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingMid
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingHigh
+#mod mod("AllyModifier", "LIST", { mod = flag("Condition:Onslaught", { type = "GlobalEffect", effectType = "Buff", effectName = "ForestWarrior", unscaleable = true })})
+#emit
+-- Shadow Berserker
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonHigh
+-- Riftcaster
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterLow_
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterMid_
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterHigh_
+-- Blood Demon
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossHigh
+-- Half-remembered Goliath
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemMid
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh
+#mod mod("PlayerModifier", "LIST", { mod = mod("Duration", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HalfRememberedGoliath", unscaleable = true })})
+#emit

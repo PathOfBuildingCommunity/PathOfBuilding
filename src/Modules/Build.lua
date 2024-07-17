@@ -272,19 +272,22 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Ignite DPS exceeds in game limit" end },
 		{ stat = "IgniteDamage", label = "Total Damage per Ignite", fmt = ".1f", compPercent = true, flag = "showAverage" },
 		{ stat = "BurningGroundDPS", label = "Burning Ground DPS", fmt = ".1f", compPercent = true, warnFunc = function(v,o) return v >= data.misc.DotDpsCap and "Burning Ground DPS exceeds in game limit" end },
+		{ stat = "MirageBurningGroundDPS", label = "Mirage Burning Ground DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.BurningGroundDPS end, warnFunc = function(v,o) return v >= data.misc.DotDpsCap and "Mirage Burning Ground DPS exceeds in game limit" end },
 		{ stat = "WithIgniteDPS", label = "Total DPS inc. Ignite", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "WithIgniteAverageDamage", label = "Average Dmg. inc. Ignite", fmt = ".1f", compPercent = true },
 		{ stat = "PoisonDPS", label = "Poison DPS", fmt = ".1f", compPercent = true, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Poison DPS exceeds in game limit" end },
 		{ stat = "CausticGroundDPS", label = "Caustic Ground DPS", fmt = ".1f", compPercent = true, warnFunc = function(v,o) return v >= data.misc.DotDpsCap and "Caustic Ground DPS exceeds in game limit" end },
+		{ stat = "MirageCausticGroundDPS", label = "Mirage Caustic Ground DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.CausticGroundDPS end, warnFunc = function(v,o) return v >= data.misc.DotDpsCap and "Mirage Caustic Ground DPS exceeds in game limit" end },
 		{ stat = "PoisonDamage", label = "Total Damage per Poison", fmt = ".1f", compPercent = true },
 		{ stat = "WithPoisonDPS", label = "Total DPS inc. Poison", fmt = ".1f", compPercent = true, flag = "poison", flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "DecayDPS", label = "Decay DPS", fmt = ".1f", compPercent = true },
-		{ stat = "TotalDotDPS", label = "Total DoT DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return o.showTotalDotDPS or ( v ~= o.TotalDot and v ~= o.TotalPoisonDPS and v ~= o.CausticGroundDPS and v ~= (o.TotalIgniteDPS or o.IgniteDPS) and v ~= o.BurningGroundDPS and v ~= o.BleedDPS and v~= o.CorruptingBloodDPS ) end, warnFunc = function(v) return v >= data.misc.DotDpsCap and "DoT DPS exceeds in game limit" end },
+		{ stat = "TotalDotDPS", label = "Total DoT DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return o.showTotalDotDPS or ( v ~= o.TotalDot and v ~= o.TotalPoisonDPS and v ~= o.CausticGroundDPS and v ~= (o.TotalIgniteDPS or o.IgniteDPS) and v ~= o.BurningGroundDPS and v ~= o.BleedDPS and v~= o.CorruptingBloodDPS and v ~= o.MirageCausticGroundDPS and v ~= o.MirageBurningGroundDPS) end, warnFunc = function(v) return v >= data.misc.DotDpsCap and "DoT DPS exceeds in game limit" end },
 		{ stat = "ImpaleDPS", label = "Impale Damage", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage" },
 		{ stat = "WithImpaleDPS", label = "Damage inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end  },
 		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage" },
 		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
-		{ stat = "MirageDPS", label = "Total Mirage DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "MirageDPS", label = "Total Mirage DPS", fmt = ".1f", compPercent = true, flag = "mirageArcher", condFunc = function(v,o) return v > 0 end },
+		{ stat = "MirageDPS", label = "Total Wisp DPS", fmt = ".1f", compPercent = true, flag = "wisp", condFunc = function(v,o) return v > 0 end },
 		{ stat = "CullingDPS", label = "Culling DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.CullingDPS or 0) > 0 end },
 		{ stat = "ReservationDPS", label = "Reservation DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.ReservationDPS or 0) > 0 end },
 		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and ( o.showTotalDotDPS or ( v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS ) ) end },
@@ -333,6 +336,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "LightningMaximumHitTaken", label = "Lightning Max Hit", fmt = ".0f", color = colorCodes.LIGHTNING, compPercent = true, condFunc = function(v,o) return o.LightningMaximumHitTaken ~= o.ColdMaximumHitTaken or o.LightningMaximumHitTaken ~= o.FireMaximumHitTaken end },
 		{ stat = "ChaosMaximumHitTaken", label = "Chaos Max Hit", fmt = ".0f", color = colorCodes.CHAOS, compPercent = true },
 		{ },
+		{ stat = "MainHand", childStat = "Accuracy", label = "MH Accuracy", fmt = "d", condFunc = function(v,o) return o.PreciseTechnique end, warnFunc = function(v,o) return v < o.Life and "You do not have enough Accuracy for Precise Technique" end, warnColor = true },
+		{ stat = "OffHand", childStat = "Accuracy", label = "OH Accuracy", fmt = "d", condFunc = function(v,o) return o.PreciseTechnique end, warnFunc = function(v,o) return v < o.Life and "You do not have enough Accuracy for Precise Technique" end, warnColor = true },
 		{ stat = "Life", label = "Total Life", fmt = "d", color = colorCodes.LIFE, compPercent = true },
 		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", color = colorCodes.LIFE, condFunc = function(v,o) return v > 0 and o.Life > 1 end },
 		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", color = colorCodes.LIFE, condFunc = function(v,o) return v < o.Life end, compPercent = true, warnFunc = function(v) return v <= 0 and "Your unreserved Life is below 1" end },
@@ -737,28 +742,52 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.abortSave = false
 end
 
-local acts = { 
-	[1] = { level = 1, questPoints = 0 }, 
-	[2] = { level = 12, questPoints = 2 }, 
-	[3] = { level = 22, questPoints = 3 }, 
-	[4] = { level = 32, questPoints = 5 },
-	[5] = { level = 40, questPoints = 6 },
-	[6] = { level = 44, questPoints = 8 },
-	[7] = { level = 50, questPoints = 11 },
-	[8] = { level = 54, questPoints = 14 },
-	[9] = { level = 60, questPoints = 17 },
-	[10] = { level = 64, questPoints = 19 },
-	[11] = { level = 67, questPoints = 22 },
+local acts = {
+	-- https://www.poewiki.net/wiki/Passive_skill
+	[1] = { level = 1, questPoints = 0 },
+	-- Act 1   : The Dweller of the Deep
+	-- Act 1   : The Marooned Mariner
+	[2] = { level = 12, questPoints = 2 },
+	-- Act 1,2 : The Way Forward (Reward after reaching Act 2)
+	-- Act 2   : Through Sacred Ground (Fellshrine Reward 3.25)
+	[3] = { level = 22, questPoints = 4 },
+	-- Act 3   : Victario's Secrets
+	-- Act 3   : Piety's Pets
+	[4] = { level = 32, questPoints = 6 },
+	-- Act 4   : An Indomitable Spirit
+	[5] = { level = 40, questPoints = 7 },
+	-- Act 5   : In Service to Science
+	-- Act 5   : Kitava's Torments
+	[6] = { level = 44, questPoints = 9 },
+	-- Act 6   : The Father of War
+	-- Act 6   : The Puppet Mistress
+	-- Act 6   : The Cloven One
+	[7] = { level = 50, questPoints = 12 },
+	-- Act 7   : The Master of a Million Faces
+	-- Act 7   : Queen of Despair
+	-- Act 7   : Kishara's Star
+	[8] = { level = 54, questPoints = 15 },
+	-- Act 8   : Love is Dead
+	-- Act 8   : Reflection of Terror
+	-- Act 8   : The Gemling Legion
+	[9] = { level = 60, questPoints = 18 },
+	-- Act 9   : Queen of the Sands
+	-- Act 9   : The Ruler of Highgate
+	[10] = { level = 64, questPoints = 20 },
+	-- Act 10  : Vilenta's Vengeance
+	-- Act 10  : An End to Hunger (+2)
+	[11] = { level = 67, questPoints = 23 },
 }
 
 local function actExtra(act, extra)
+	-- Act 2 : Deal With The Bandits (+1 if the player kills all bandits)
 	return act > 2 and extra or 0
 end
 
 function buildMode:EstimatePlayerProgress()
 	local PointsUsed, AscUsed, SecondaryAscUsed = self.spec:CountAllocNodes()
 	local extra = self.calcsTab.mainOutput and self.calcsTab.mainOutput.ExtraPoints or 0
-	local usedMax, ascMax, secondaryAscMax, level, act = 99 + 22 + extra, 8, 8, 1, 0
+	local usedMax, ascMax, secondaryAscMax, level, act = 99 + 23 + extra, 8, 8, 1, 0
 
 	-- Find estimated act and level based on points used
 	repeat
@@ -769,6 +798,7 @@ function buildMode:EstimatePlayerProgress()
 	if self.characterLevelAutoMode and self.characterLevel ~= level then
 		self.characterLevel = level
 		self.controls.characterLevel:SetText(self.characterLevel)
+		self.configTab:BuildModList()
 	end
 
 	-- Ascendancy points for lab
@@ -881,7 +911,8 @@ function buildMode:Save(xml)
 	local addedStatNames = { }
 	for index, statData in ipairs(self.displayStats) do
 		if not statData.flag or self.calcsTab.mainEnv.player.mainSkill.skillFlags[statData.flag] then
-			if statData.stat and not addedStatNames[statData.stat] then
+			local statName = statData.stat and statData.stat..(statData.childStat or "")
+			if statName and not addedStatNames[statName] then
 				if statData.stat == "SkillDPS" then
 					local statVal = self.calcsTab.mainOutput[statData.stat]
 					for _, skillData in ipairs(statVal) do
@@ -895,12 +926,15 @@ function buildMode:Save(xml)
 						end
 						t_insert(xml, { elem = "FullDPSSkill", attrib = { stat = lhsString, value = tostring(skillData.dps * skillData.count), skillPart = skillData.skillPart or "", source = skillData.source or skillData.trigger or "" } })
 					end
-					addedStatNames[statData.stat] = true
+					addedStatNames[statName] = true
 				else
 					local statVal = self.calcsTab.mainOutput[statData.stat]
+					if statVal and statData.childStat then
+						statVal = statVal[statData.childStat]
+					end
 					if statVal and (statData.condFunc and statData.condFunc(statVal, self.calcsTab.mainOutput) or true) then
-						t_insert(xml, { elem = "PlayerStat", attrib = { stat = statData.stat, value = tostring(statVal) } })
-						addedStatNames[statData.stat] = true
+						t_insert(xml, { elem = "PlayerStat", attrib = { stat = statName, value = tostring(statVal) } })
+						addedStatNames[statName] = true
 					end
 				end
 			end
@@ -1011,7 +1045,6 @@ function buildMode:OnFrame(inputEvents)
 	self.controls.secondaryAscendDrop.list = {{label = "None", ascendClassId = 0}, {label = "Warden", ascendClassId = 1}, {label = "Warlock", ascendClassId = 2}, {label = "Primalist", ascendClassId = 3}}
 	self.controls.secondaryAscendDrop:SelByValue(self.spec.curSecondaryAscendClassId, "ascendClassId")
 
-	local checkFabricatedGroups = self.buildFlag
 	if self.buildFlag then
 		-- Wipe Global Cache
 		wipeGlobalCache()
@@ -1037,12 +1070,6 @@ function buildMode:OnFrame(inputEvents)
 
 	-- Update contents of main skill dropdowns
 	self:RefreshSkillSelectControls(self.controls, self.mainSocketGroup, "")
-
-	-- Delete any possible fabricated groups
-	if checkFabricatedGroups then
-		deleteFabricatedGroup(self.skillsTab)
-		checkFabricatedGroups = false
-	end
 
 	-- Draw contents of current tab
 	local sideBarWidth = 312
@@ -1355,11 +1382,15 @@ function buildMode:AddDisplayStatList(statList, actor)
 	for index, statData in ipairs(statList) do
 		if not statData.flag or actor.mainSkill.skillFlags[statData.flag] then
 			local labelColor = "^7"
-				if statData.color then
-					labelColor = statData.color
-				end
+			if statData.color then
+				labelColor = statData.color
+			end
 			if statData.stat then
 				local statVal = actor.output[statData.stat]
+				-- access output values that are one node deeper (statData.stat is a table e.g. output.MainHand.Accuracy vs output.Life)
+				if statVal and statData.childStat then
+					statVal = statVal[statData.childStat]
+				end
 				if statVal and ((statData.condFunc and statData.condFunc(statVal,actor.output)) or (not statData.condFunc and statVal ~= 0)) then
 					local overCapStatVal = actor.output[statData.overCapStat] or nil
 					if statData.stat == "SkillDPS" then
@@ -1408,6 +1439,9 @@ function buildMode:AddDisplayStatList(statList, actor)
 								colorOverride = colorCodes.NEGATIVE
 							end
 						end
+						if statData.warnFunc and statData.warnFunc(statVal, actor.output) and statData.warnColor then
+							colorOverride = colorCodes.NEGATIVE
+						end
 						t_insert(statBoxList, {
 							height = 16,
 							labelColor..statData.label..":",
@@ -1453,6 +1487,9 @@ function buildMode:AddDisplayStatList(statList, actor)
 	if actor.output.VixensTooMuchCastSpeedWarn then
 		InsertIfNew(self.controls.warnings.lines, "You may have too much cast speed or too little cooldown reduction to effectively use Vixen's Curse replacement")
 	end
+	if actor.output.VixenModeNoVixenGlovesWarn then
+		InsertIfNew(self.controls.warnings.lines, "Vixen's calculation mode for Doom Blast is selected but you do not have Vixen's Entrapment Embroidered Gloves equipped")
+	end
 end
 
 function buildMode:InsertItemWarnings()
@@ -1473,7 +1510,13 @@ function buildMode:RefreshStatList()
 	self.controls.warnings.lines = {}
 	local statBoxList = wipeTable(self.controls.statBox.list)
 	if self.calcsTab.mainEnv.player.mainSkill.infoMessage then
-		t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. self.calcsTab.mainEnv.player.mainSkill.infoMessage})
+			if #self.calcsTab.mainEnv.player.mainSkill.infoMessage > 40 then
+				for line in string.gmatch(self.calcsTab.mainEnv.player.mainSkill.infoMessage, "([^:]+)") do
+					t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. line})
+				end
+			else
+				t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. self.calcsTab.mainEnv.player.mainSkill.infoMessage})
+			end
 		if self.calcsTab.mainEnv.player.mainSkill.infoMessage2 then
 			t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, "^8" .. self.calcsTab.mainEnv.player.mainSkill.infoMessage2})
 		end
@@ -1481,7 +1524,14 @@ function buildMode:RefreshStatList()
 	if self.calcsTab.mainEnv.minion then
 		t_insert(statBoxList, { height = 18, "^7Minion:" })
 		if self.calcsTab.mainEnv.minion.mainSkill.infoMessage then
-			t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. self.calcsTab.mainEnv.minion.mainSkill.infoMessage})
+			-- Split the line if too long
+			if #self.calcsTab.mainEnv.minion.mainSkill.infoMessage > 40 then
+				for line in string.gmatch(self.calcsTab.mainEnv.minion.mainSkill.infoMessage, "([^:]+)") do
+					t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. line})
+				end
+			else
+				t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. self.calcsTab.mainEnv.minion.mainSkill.infoMessage})
+			end
 			if self.calcsTab.mainEnv.minion.mainSkill.infoMessage2 then
 				t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, "^8" .. self.calcsTab.mainEnv.minion.mainSkill.infoMessage2})
 			end
@@ -1501,7 +1551,7 @@ end
 function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compareOutput, header, nodeCount)
 	local count = 0
 	for _, statData in ipairs(statList) do
-		if statData.stat and (not statData.flag or actor.mainSkill.skillFlags[statData.flag]) and statData.stat ~= "SkillDPS" then
+		if statData.stat and (not statData.flag or actor.mainSkill.skillFlags[statData.flag]) and not statData.childStat and statData.stat ~= "SkillDPS" then
 			local statVal1 = compareOutput[statData.stat] or 0
 			local statVal2 = baseOutput[statData.stat] or 0
 			local diff = statVal1 - statVal2

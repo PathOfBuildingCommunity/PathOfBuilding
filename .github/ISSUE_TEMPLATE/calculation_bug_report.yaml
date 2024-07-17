@@ -19,7 +19,7 @@ body:
     attributes:
       label: Check for duplicates
       options:
-        - label: I've checked for duplicate issues by using the search function of the [issue tracker](https://github.com/PathOfBuildingCommunity/PathOfBuilding/issues)
+        - label: I've checked for duplicate open **and closed** issues by using the search function of the [issue tracker](https://github.com/PathOfBuildingCommunity/PathOfBuilding/issues?q=is%3Aissue)
           required: true
   - type: checkboxes
     id: validity
@@ -28,6 +28,18 @@ body:
       options:
         - label: I've checked that the calculation is supposed to be supported. If it isn't please open a feature request instead (Red text is a feature request).
           required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: What platform are you running Path of Building on?
+      options: 
+        - Windows
+        - Linux - Wine
+        - Linux - PoB Frontend
+        - MacOS
+      default: 0
+    validations:
+      required: true
   - type: textarea
     id: expected
     attributes:

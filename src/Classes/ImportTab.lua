@@ -13,7 +13,7 @@ local realmList = {
 	{ label = "PC", id = "PC", realmCode = "pc", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
 	{ label = "Xbox", id = "XBOX", realmCode = "xbox", hostName = "https://www.pathofexile.com/", profileURL = "account/xbox/view-profile/" },
 	{ label = "PS4", id = "SONY", realmCode = "sony", hostName = "https://www.pathofexile.com/", profileURL = "account/sony/view-profile/" },
-	{ label = "Garena", id = "PC", realmCode = "pc", hostName = "https://web.poe.garena.tw/", profileURL = "account/view-profile/" },
+	{ label = "Hotcool", id = "PC", realmCode = "pc", hostName = "https://pathofexile.tw/", profileURL = "account/view-profile/" },
 	{ label = "Tencent", id = "PC", realmCode = "pc", hostName = "https://poe.game.qq.com/", profileURL = "account/view-profile/" },
 }
 
@@ -485,9 +485,44 @@ function ImportTabClass:BuildCharacterList(league)
 	wipeTable(self.controls.charSelect.list)
 	for i, char in ipairs(self.lastCharList) do
 		if not league or char.league == league then
+			charLvl = char.level or 0
+			charLeague = char.league or "?"
+			charName = char.name or "?"
+			charClass = char.class or "?"
+
+			classColor = colorCodes.DEFAULT
+			if charClass ~= "?" then
+				classColor = colorCodes[charClass:upper()]
+
+				if classColor == nil then
+					if (charClass == "Elementalist" or charClass == "Necromancer" or charClass == "Occultist") then
+						classColor = colorCodes["WITCH"]
+					elseif (charClass == "Guardian" or charClass == "Inquisitor" or charClass == "Hierophant") then
+						classColor = colorCodes["TEMPLAR"]
+					elseif (charClass == "Assassin" or charClass == "Trickster" or charClass == "Saboteur") then
+						classColor = colorCodes["SHADOW"]
+					elseif (charClass == "Gladiator" or charClass == "Slayer" or charClass == "Champion") then
+						classColor = colorCodes["DUELIST"]
+					elseif (charClass == "Raider" or charClass == "Pathfinder" or charClass == "Deadeye") then
+						classColor = colorCodes["RANGER"]
+					elseif (charClass == "Juggernaut" or charClass == "Berserker" or charClass == "Chieftain") then
+						classColor = colorCodes["MARAUDER"]
+					elseif (charClass == "Ascendant") then
+						classColor = colorCodes["SCION"]
+					end
+				end
+			end
+
+			local detail
+			if league == nil then
+				detail = string.format("%s%s ^x808080lvl %d in %s", classColor, charClass, charLvl, charLeague)
+			else
+				detail = string.format("%s%s ^x808080lvl %d", classColor, charClass, charLvl)
+			end
 			t_insert(self.controls.charSelect.list, {
-				label = string.format("%s: Level %d %s in %s", char.name or "?", char.level or 0, char.class or "?", char.league or "?"),
+				label = charName,
 				char = char,
+				detail = detail
 			})
 		end
 	end
@@ -601,6 +636,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	if self.controls.charImportTreeClearJewels.state then
 		for _, slot in pairs(self.build.itemsTab.slots) do
 			if slot.selItemId ~= 0 and slot.nodeId then
+				self.build.itemsTab.build.spec.ignoreAllocatingSubgraph = true -- ignore allocated cluster nodes on Import when Delete Jewel is true, clean slate
 				self.build.itemsTab:DeleteItem(self.build.itemsTab.items[slot.selItemId])
 			end
 		end
@@ -740,8 +776,8 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	-- Determine rarity, display name and base type of the item
 	item.rarity = rarityMap[itemData.frameType]
 	if #itemData.name > 0 then
-		item.title = itemLib.sanitiseItemText(itemData.name)
-		item.baseName = itemLib.sanitiseItemText(itemData.typeLine):gsub("Synthesised ","")
+		item.title = sanitiseText(itemData.name)
+		item.baseName = sanitiseText(itemData.typeLine):gsub("Synthesised ","")
 		item.name = item.title .. ", " .. item.baseName
 		if item.baseName == "Two-Toned Boots" then
 			-- Hack for Two-Toned Boots
@@ -754,7 +790,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			ConPrintf("Unrecognised base in imported item: %s", item.baseName)
 		end
 	else
-		item.name = itemLib.sanitiseItemText(itemData.typeLine)
+		item.name = sanitiseText(itemData.typeLine)
 		if item.name:match("Energy Blade") then
 			local oneHanded = false
 			for _, p in ipairs(itemData.properties) do
@@ -988,14 +1024,14 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			abyssalSocketId = abyssalSocketId + 1
 		else
 			local normalizedBasename, qualityType = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.typeLine, nil)
-			local gemId = self.build.data.gemForBaseName[normalizedBasename]
+			local gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 			if socketedItem.hybrid then
 				-- Used by transfigured gems and dual-skill gems (currently just Stormbind) 
 				normalizedBasename, qualityType  = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.hybrid.baseTypeName, nil)
-				if socketedItem.hybrid.isVaalGem then
-					normalizedBasename = "Vaal " .. normalizedBasename
+				gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
+				if gemId and socketedItem.hybrid.isVaalGem then
+					gemId = self.build.data.gemGrantedEffectIdForVaalGemId[self.build.data.gems[gemId].grantedEffectId]
 				end
-				gemId = self.build.data.gemForBaseName[normalizedBasename]
 			end
 			if gemId then
 				local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true, gemId = gemId }

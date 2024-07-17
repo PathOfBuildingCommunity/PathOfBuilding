@@ -3050,7 +3050,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Maximum {0} Summoned Skeleton"
+					text="Maximum {0} Summoned Skeletons"
 				}
 			}
 		},

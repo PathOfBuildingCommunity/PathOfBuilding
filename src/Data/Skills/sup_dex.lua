@@ -2065,7 +2065,7 @@ skills["SupportGreaterMultipleProjectilesPlus"] = {
 }
 skills["SupportGreaterVolley"] = {
 	name = "Greater Volley",
-	description = "Supports skills that fire projectiles from the user. Does not affect projectiles fired from other locations as secondary effects.",
+	description = "Supports skills that fire projectiles from the user. Does not affect projectiles fired from other locations as secondary effects. Does not support skills that fire projectiles in a spiral.",
 	color = 2,
 	support = true,
 	requireSkillTypes = { SkillType.ProjectilesFromUser, },
@@ -4115,7 +4115,7 @@ skills["SupportVoidManipulationPlus"] = {
 }
 skills["SupportParallelProjectiles"] = {
 	name = "Volley",
-	description = "Supports skills that fire projectiles from the user. Does not affect projectiles fired from other locations as secondary effects.",
+	description = "Supports skills that fire projectiles from the user. Does not affect projectiles fired from other locations as secondary effects. Does not support skills that fire projectiles in a spiral.",
 	color = 2,
 	support = true,
 	requireSkillTypes = { SkillType.ProjectilesFromUser, },

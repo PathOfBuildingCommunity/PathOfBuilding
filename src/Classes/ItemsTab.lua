@@ -1143,7 +1143,7 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 	self.x = self.x - self.controls.scrollBarH.offset
 	self.y = self.y - self.controls.scrollBarV.offset
 	
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then	
 			if event.key == "v" and IsKeyDown("CTRL") then
 				local newItem = Paste()
@@ -1176,15 +1176,15 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 		end
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyUp" then
-			if event.key == "WHEELDOWN" or event.key == "PAGEDOWN" then
+			if self.controls.scrollBarV:IsScrollDownKey(event.key) then
 				if self.controls.scrollBarV:IsMouseOver() or not self.controls.scrollBarH:IsShown() then
 					self.controls.scrollBarV:Scroll(1)
 				else
 					self.controls.scrollBarH:Scroll(1)
 				end
-			elseif event.key == "WHEELUP" or event.key == "PAGEUP" then
+			elseif self.controls.scrollBarV:IsScrollUpKey(event.key) then
 				if self.controls.scrollBarV:IsMouseOver() or not self.controls.scrollBarH:IsShown() then
 					self.controls.scrollBarV:Scroll(-1)
 				else
@@ -1220,6 +1220,8 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 	if self.controls.scrollBarV:IsShown() then
 		self.controls.scrollBarV:Draw(viewPort)
 	end
+
+	self.controls.specSelect:SetList(self.build.treeTab:GetSpecList())
 end
 
 -- Creates a new item set
@@ -2016,7 +2018,7 @@ function ItemsTabClass:EditDisplayItemText(alsoAddItem)
 		controls.rarity.selIndex = 3
 	end
 	controls.edit.font = "FIXED"
-	controls.edit.pasteFilter = itemLib.sanitiseItemText
+	controls.edit.pasteFilter = sanitiseText
 	controls.save = new("ButtonControl", nil, -45, 470, 80, 20, self.displayItem and "Save" or "Create", function()
 		local id = self.displayItem and self.displayItem.id
 		self:CreateDisplayItemFromRaw(buildRaw(), not self.displayItem)
@@ -2610,6 +2612,25 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					return a.defaultOrder < b.defaultOrder
 				end
 			end)
+		elseif sourceId == "NECROPOLIS" then
+			for i, mod in pairs(self.build.data.necropolisMods) do
+				if self.displayItem:GetNecropolisModSpawnWeight(mod) > 0 then
+					t_insert(modList, {
+						label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						mod = mod,
+						affixType = mod.type,
+						type = "custom",
+						defaultOrder = i,
+					})
+				end
+			end
+			table.sort(modList, function(a, b)
+				if a.affixType ~= b.affixType then
+					return a.affixType == "Prefix" and b.affixType == "Suffix"
+				else
+					return a.defaultOrder < b.defaultOrder
+				end
+			end)
 		end
 	end
 	if self.displayItem.type ~= "Jewel" then
@@ -2617,11 +2638,12 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	end
 	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Essence", sourceId = "ESSENCE" })
-	end
-	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Veiled", sourceId = "VEILED"})
 	end
-	if self.displayItem.type ~= "Flask" then
+	if self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots" then
+		t_insert(sourceList, { label = "Necropolis", sourceId = "NECROPOLIS"})
+	end
+	if not self.displayItem.clusterJewel and self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Delve", sourceId = "DELVE"})
 	end
 	if not self.displayItem.crafted then
@@ -3388,8 +3410,15 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				local lifeMore = modDB:More(nil, "FlaskLifeRecovery")
 				local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
 				local instantPerc = flaskData.instantPerc + modDB:Sum("BASE", nil, "LifeFlaskInstantRecovery")
-				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100)
-				local base = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * (1 + durInc / 100)
+
+				-- More life recovery while on low life is not affected by flask effect (verified ingame).
+				-- Since this will be multiplied by the flask effect value below we have to counteract this by removing the flask effect from the value beforehand.
+				-- This is also the reason why this value needs a separate multiplier and cannot just be calculated into FlaskLifeRecovery.
+				local lifeMoreOnLowLife = modDB:More(nil, "FlaskLifeRecoveryLowLife")
+				local lowLifeMulti = (lifeMoreOnLowLife > 1 and ((lifeMoreOnLowLife - 1) / (1 + effectInc / 100)) + 1 or 1)
+
+				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * lowLifeMulti
+				local base = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * (1 + durInc / 100) * lowLifeMulti
 				local grad = base * output.LifeRecoveryRateMod
 				local esGrad = base * output.EnergyShieldRecoveryRateMod
 				lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
