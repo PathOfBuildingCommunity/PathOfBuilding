@@ -268,7 +268,7 @@ function ExtBuildListControlClass:CheckButtons()
 end
 
 -- splits strings by word and maxWidth
-function ExtBuildListControlClass:splitStringByWidth(str, maxWidth)
+function ExtBuildListControlClass:splitStringByWidth(str, maxWidth, font)
 	local words = {}
 	for word in str:gmatch("%S+") do
 		t_insert(words, word)
@@ -277,7 +277,7 @@ function ExtBuildListControlClass:splitStringByWidth(str, maxWidth)
 	local lines = {}
 	local currentLine = ""
 	for _, word in ipairs(words) do
-		local wordWidth = DrawStringWidth(16, self.font, currentLine .. " " .. word)
+		local wordWidth = DrawStringWidth(16, font, currentLine .. " " .. word)
 		if wordWidth <= maxWidth then
 			currentLine = currentLine .. (currentLine == "" and "" or " ") .. word
 		else
@@ -363,7 +363,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 
 			local lineCount = 0
 			if build.buildName then
-				for _, line in pairs(self:splitStringByWidth(build.buildName, self.width() - 180)) do
+				for _, line in pairs(self:splitStringByWidth(build.buildName, self.width() - 180, "VAR BOLD")) do
 					lineCount = lineCount + 1
 					self:DrawString(x, currentHeight, "LEFT", 18, "VAR BOLD", line)
 					currentHeight = currentHeight + 18
@@ -384,7 +384,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			-- main skill, ascendancy
 			SetDrawColor(1, 1, 1)
 			if build.mainSkill then
-				for _, line in pairs(self:splitStringByWidth(build.mainSkill, self.width() - 125)) do
+				for _, line in pairs(self:splitStringByWidth(build.mainSkill, self.width() - 125, self.font)) do
 					lineCount = lineCount + 1
 					self:DrawString(x, currentHeight, "LEFT", 16, self.font, line)
 					currentHeight = currentHeight + 16
