@@ -106,7 +106,7 @@ function ExtBuildListControlClass:Init(providerName)
 	end
 
 	self.controls.scrollBarV = new("ScrollBarControl", { "RIGHT", self, "RIGHT" }, -1, 0, self.scroll and 16 or 0, 0,
-		40, "VERTICAL") {
+		80, "VERTICAL") {
 		-- y = function()
 		-- 	return (self.scrollH and -8 or 0)
 		-- end,
@@ -341,8 +341,6 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 	local scrollBarV = self.controls.scrollBarV
 	self.scrollOffsetV = scrollBarV.offset
 
-	currentHeight = y - self.scrollOffsetV
-
 	-- loop through builds
 	for _, build in pairs(self.activeListProvider.buildList) do
 		if build.buildName then
@@ -455,7 +453,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 					currentHeight = currentHeight + 20
 					SetDrawColor(0.5, 0.5, 0.5)
 					self:DrawImage(nil, x - 9, currentHeight, self.width(), 1)
-					currentHeight = currentHeight + 4
+					currentHeight = currentHeight + 3
 				end
 
 			end
@@ -499,7 +497,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			else
 				SetDrawColor(1, 1, 1)
 			end
-			self:DrawString(x + 5, currentHeight + 8, "LEFT", 14, self.font, 'Import')
+			self:DrawString(x + 5, currentHeight + 9, "LEFT", 14, self.font, 'Import')
 
 
 			-- highlight if hovered
@@ -519,17 +517,17 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			else
 				SetDrawColor(1, 1, 1)
 			end
-			self:DrawString(x + 55, currentHeight + 8, "LEFT", 14, self.font, 'Preview')
+			self:DrawString(x + 55, currentHeight + 9, "LEFT", 14, self.font, 'Preview')
 
 			-- bottom border
 			SetDrawColor(1, 1, 1)
-			currentHeight = currentHeight + 36
+			currentHeight = currentHeight + 34
 			self:DrawImage(nil, x - 9, currentHeight, self.width() - 1, 3)
 			currentHeight = currentHeight + 16
 		end
 	end
 
-	self.controls.scrollBarV:SetContentDimension(currentHeight - y + 30, self.height())
+	self.controls.scrollBarV:SetContentDimension(currentHeight - y - 3, self.height())
 	self.contentHeight = currentHeight
 	-- end
 	self:DrawControls(viewPort, (noTooltip and not self.forceTooltip) and self)
