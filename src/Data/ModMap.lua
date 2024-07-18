@@ -59,7 +59,8 @@ return {
 		},
 		["Unstoppable"] = {
 			type = "check",
-			tooltipLines = { "Monsters cannot be Taunted", "Monsters' Action Speed cannot be modified to below base value" },
+			tooltipLines = { "Monsters cannot be Taunted", "Monsters' Action Speed cannot be modified to below Base Value", "Monsters' Movement Speed cannot be modified to below Base Value" },
+			values = { { 0 } },
 			apply = function(val, mapModEffect, modList, enemyModList)
 				-- MISSING: Monsters cannot be Taunted
 				enemyModList:NewMod("MinimumActionSpeed", "MAX", 100, "Map mod Unstoppable")
@@ -135,7 +136,7 @@ return {
 		},
 		["Profane"] = {
 			type = "count",
-			tooltipLines = { "Monsters deal (%d to %d)%% extra Physical Damage as Chaos", "Monsters Inflict Withered for %d seconds on Hit" },
+			tooltipLines = { "Monsters gain (%d to %d)%% of their Physical Damage as Extra Chaos Damage", "Monsters Inflict Withered for %d seconds on Hit" },
 			values = { { { 0, 0 }, { 0, 0 } }, { { 21, 25 }, { 100 } }, { { 31, 35 }, { 100 } },  },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("PhysicalDamageGainAsChaos", "BASE", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100) * mapModEffect, "Map mod Profane")
@@ -159,7 +160,7 @@ return {
 		},
 		["Impaling"] = {
 			type = "list",
-			tooltipLines = { "Monsters have %d%% chance to Impale with Attacks" },
+			tooltipLines = { "Monsters' Attacks have %d%% chance to Impale on Hit" },
 			values = { 25, 40, 60 },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("ImpaleChance", "BASE", values[val] * mapModEffect, "Map mod Impaling", ModFlag.Attack)
@@ -167,7 +168,7 @@ return {
 		},
 		["Empowered"] = {
 			type = "list",
-			tooltipLines = { "Monsters have a %d%% chance to cause Elemental Ailments on Hit" },
+			tooltipLines = { "Monsters have a %d%% chance to Ignite, Freeze and Shock on Hit" },
 			values = { 0, 15, 20 },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 			end
@@ -209,7 +210,7 @@ return {
 		["of Congealment"] = {
 			type = "check",
 			label = "Cannot Leech ^xE05030Life ^7/ ^x7070FFMana?",
-			tooltipLines = { "Cannot Leech from Monsters" },
+			tooltipLines = { "Monsters cannot be Leeched from" },
 			apply = function(val, mapModEffect, modList, enemyModList)
 				enemyModList:NewMod("CannotLeechLifeFromSelf", "FLAG", true, "Map mod of Congealment")
 				enemyModList:NewMod("CannotLeechManaFromSelf", "FLAG", true, "Map mod of Congealment")
@@ -229,7 +230,7 @@ return {
 			type = "count",
 			label = "-X% maximum Resistances:",
 			tooltip = "Mid tier: 5-8%\nHigh tier: 9-12%",
-			tooltipLines = { "minus (%d to %d)%% maximum Player Resistances" },
+			tooltipLines = { "Players have minus (%d to %d)%% to all maximum Resistances" },
 			values = { { 0, 0 }, { 5, 8 }, { 9, 12 } },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				if values[val][2] ~= 0 then
@@ -278,14 +279,6 @@ return {
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				modList:NewMod("BlockChance", "INC", -values[val][1] * mapModEffect, "Map mod of Rust")
 				modList:NewMod("Armour", "MORE", -values[val][2] * mapModEffect, "Map mod of Rust")
-			end
-		},
-		["of Skirmishing"] = {
-			-- old map mod, doesn't exist anymore?
-			type = "check",
-			tooltipLines = { },
-			apply = function(val, mapModEffect, modList, enemyModList)
-				modList:NewMod("Keystone", "LIST", "Point Blank", "Map mod of Skirmishing")
 			end
 		},
 		["of Smothering"] = {
@@ -371,7 +364,6 @@ return {
 		},
 		-- other prefixes
 		["Antagonist's"] = {}, -- (20-30)% increased number of Rare Monsters
-		["Anarchic"] = {}, -- Area is inhabited by 2 additional Rogue Exiles
 		["Ceremonial"] = {}, -- Area contains many Totems
 		["Skeletal"] = {}, -- Area is inhabited by Skeletons
 		["Capricious"] = {}, -- Area is inhabited by Goatmen
@@ -387,7 +379,6 @@ return {
 		["Feasting"] = {}, -- Area is inhabited by Cultists of Kitava
 		["Multifarious"] = {}, -- Area has increased monster variety
 		["Abhorrent"] = {}, -- Area is inhabited by Abominations
-		["Otherworldly"] = {}, -- Slaying Enemies close together can attract monsters from Beyond this realm
 		["Twinned"] = {}, -- Area contains two Unique Bosses
 		["Enthralled"] = {}, -- Unique Bosses are Possessed
 		["Chaining"] = {}, -- Monsters' skills Chain 2 additional times
