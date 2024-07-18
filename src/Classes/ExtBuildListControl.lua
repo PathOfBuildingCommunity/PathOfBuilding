@@ -230,7 +230,9 @@ function ExtBuildListControlClass:HandleButtonClick(button, buttonType)
 		if buttonType == "import" then
 			ImportBuild(button.buildLink, function (xmlText, urlText)
 				if xmlText then
-					main:SetMode("BUILD", false, button.buildName, xmlText, false, urlText)
+					main:SetMode("BUILD", false,
+					button.buildName .. (button.authorName and (" - " .. button.authorName) or ""),
+					 xmlText, false, urlText)
 				end
 			end)
 		elseif buttonType == "preview" then
@@ -464,6 +466,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			local importButton = {
 				buildLink = build.buildLink,
 				buildName = build.buildName,
+				authorName = build.author,
 				x0 = x,
 				y0 = currentHeight + 6,
 				x1 = x + 47,
