@@ -410,7 +410,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 				SetDrawColor(0.5, 0.5, 0.5)
 				if authorWidth then
 					self:DrawImage(nil, x + authorWidth + 10, currentHeight - 7, 1, 28)
-					self:DrawImage(nil, x + authorWidth + DrawStringWidth(14, self.font, build.version) + 40, currentHeight - 7, 1, 28)
+					self:DrawImage(nil, x + authorWidth + DrawStringWidth(14, self.font, build.version) + 30, currentHeight - 7, 1, 28)
 				end
 			end
 
