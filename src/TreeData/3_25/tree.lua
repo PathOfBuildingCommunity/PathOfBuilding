@@ -49346,7 +49346,13 @@ return {
                 "VioletOil",
                 "OpalescentOil"
             },
-            ["stats"]= {},
+            ["stats"]= {
+				"10% increased Effect of Non-Damaging Ailments per Elemental Ailment\nyou've inflicted Recently"
+			},
+			["reminderText"]= {
+				"(Recently refers to the past 4 seconds)",
+                "(Elemental Ailments are Ignited, Scorched, Chilled, Frozen, Brittle, Shocked, and Sapped)"
+			},
             ["group"]= 400,
             ["orbit"]= 0,
             ["orbitIndex"]= 0,

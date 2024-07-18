@@ -325,7 +325,10 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			artWidth = 84,
 			alloc = "KeystoneFrameAllocated",
 			path = "KeystoneFrameCanAllocate",
-			unalloc = "KeystoneFrameUnallocated"
+			unalloc = "KeystoneFrameUnallocated",
+			allocBlighted = "KeystoneFrameAllocated",
+			pathBlighted = "KeystoneFrameCanAllocate",
+			unallocBlighted = "KeystoneFrameUnallocated",
 		},
 		Socket = {
 			artWidth = 58,
