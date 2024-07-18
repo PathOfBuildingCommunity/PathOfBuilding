@@ -101,6 +101,7 @@ function main:Init()
 	self.showWarnings = true
 	self.slotOnlyTooltips = true
 	self.POESESSID = ""
+	self.showPublicBuilds = true
 
 	if self.userPath then
 		self:ChangeUserPath(self.userPath, ignoreBuild)
@@ -609,6 +610,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.disableDevAutoSave then
 					self.disableDevAutoSave = node.attrib.disableDevAutoSave == "true"
 				end
+				if node.attrib.showPublicBuilds then
+					self.showPublicBuilds = node.attrib.showPublicBuilds == "true"
+				end
 			end
 		end
 	end
@@ -712,6 +716,7 @@ function main:SaveSettings()
 		POESESSID = self.POESESSID,
 		invertSliderScrollDirection = tostring(self.invertSliderScrollDirection),
 		disableDevAutoSave = tostring(self.disableDevAutoSave),
+		showPublicBuilds = tostring(self.showPublicBuilds)
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -874,10 +879,15 @@ function main:OpenOptionsPopup()
 	controls.colorHighlightLabel = new("LabelControl", { "RIGHT", controls.colorHighlight, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Hex colour for highlight nodes:")
 	controls.colorHighlight.tooltipText = "Overrides the default hex colour for highlighting nodes in passive tree search. \nExpected format is 0x000000. " ..
 		"The default value is " .. tostring(defaultColorCodes.HIGHLIGHT:gsub('^(^)', '0')) .."\nIf updating while inside a build, please re-load the build after saving."
-			
+
 	nextRow()
 	controls.betaTest = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Opt-in to weekly beta test builds:", function(state)
 		self.betaTest = state
+	end)
+
+	nextRow()
+	controls.showPublicBuilds = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Show public build list:", function(state)
+		self.showPublicBuilds = state
 	end)
 
 	nextRow()
@@ -959,6 +969,7 @@ function main:OpenOptionsPopup()
 
 	controls.betaTest.state = self.betaTest
 	controls.titlebarName.state = self.showTitlebarName
+	controls.showPublicBuilds.state = self.showPublicBuilds
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialColorPositive = self.colorPositive
 	local initialColorNegative = self.colorNegative
@@ -975,6 +986,7 @@ function main:OpenOptionsPopup()
 	local initialSlotOnlyTooltips = self.slotOnlyTooltips
 	local initialInvertSliderScrollDirection = self.invertSliderScrollDirection
 	local initialDisableDevAutoSave = self.disableDevAutoSave
+	local initialShowPublicBuilds = self.showPublicBuilds
 
 	-- last line with buttons has more spacing
 	nextRow(1.5)
@@ -1023,6 +1035,7 @@ function main:OpenOptionsPopup()
 		self.slotOnlyTooltips = initialSlotOnlyTooltips
 		self.invertSliderScrollDirection = initialInvertSliderScrollDirection
 		self.disableDevAutoSave = initialDisableDevAutoSave
+		self.showPublicBuilds = initialShowPublicBuilds
 		main:ClosePopup()
 	end)
 	nextRow(1.5)

@@ -20,6 +20,11 @@ function listMode:Init(selBuildName, subPath)
 		self.subPath = subPath or self.subPath
 		self.controls.buildList.controls.path:SetSubPath(self.subPath)
 		self.controls.buildList:SelByFileName(selBuildName and selBuildName..".xml")
+		if main.showPublicBuilds then
+			self.controls.ExtBuildList = self:getPublicBuilds()
+		else
+			self.controls.ExtBuildList = nil
+		end
 		self:BuildList()
 		self:SelectControl(self.controls.buildList)
 		return
@@ -68,20 +73,10 @@ function listMode:Init(selBuildName, subPath)
 		return (main.screenW / 2)
 	end
 
-	local buildProviders = {
-		{
-			name = "PoB Archives",
-			impl = new("PoBArchivesProvider", "builds")
-		}
-	}
-	self.controls.extBuildList = new("ExtBuildListControl", {"LEFT",self.controls.buildList,"RIGHT"}, 25, 0, main.screenW * 1 / 4 - 50, 0, buildProviders)
-	self.controls.extBuildList:Init("PoB Archives")
-	self.controls.extBuildList.height = function()
-		return main.screenH - 80
+	if main.showPublicBuilds then
+		self.controls.ExtBuildList = self:getPublicBuilds()
 	end
-	self.controls.extBuildList.width = function ()
-		return (main.screenW / 4 - 50)
-	end
+
 	self.controls.searchText = new("EditControl", {"TOP",self.anchor,"TOP"}, 0, 25, 640, 20, self.filterBuildList, "Search", "%c%(%)", 100, function(buf)
 		main.filterBuildList = buf
 		self:BuildList()
@@ -97,6 +92,23 @@ function listMode:Init(selBuildName, subPath)
 	self.initialised = true
 end
 
+function listMode:getPublicBuilds()
+	local buildProviders = {
+		{
+			name = "PoB Archives",
+			impl = new("PoBArchivesProvider", "builds")
+		}
+	}
+	local extBuildList = new("ExtBuildListControl", {"LEFT",self.controls.buildList,"RIGHT"}, 25, 0, main.screenW * 1 / 4 - 50, 0, buildProviders)
+	extBuildList:Init("PoB Archives")
+	extBuildList.height = function()
+		return main.screenH - 80
+	end
+	extBuildList.width = function ()
+		return (main.screenW / 4 - 50)
+	end
+	return extBuildList
+end
 function listMode:Shutdown()
 end
 
