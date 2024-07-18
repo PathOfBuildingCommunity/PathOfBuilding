@@ -236,8 +236,12 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 
 	self.controls.similarBuilds = new("ButtonControl", {"LEFT",self.controls.secondaryAscendDrop,"RIGHT"}, 8, 0, 100, 20, "Similar Builds", function()
 		self:OpenSimilarPopup()
-		-- self.controls.similarBuilds.locked = self.controls.similarBuildList:IsShown()
 	end)
+	self.controls.similarBuilds.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "Search for builds similar to your current character.")
+		tooltip:AddLine(16, "For best results, make sure to select your main item set, tree, and skills before opening the popup.")
+	end
 
 	-- List of display stats
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
