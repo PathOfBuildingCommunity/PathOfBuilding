@@ -362,41 +362,41 @@ return {
 				enemyModList:NewMod("CritMultiplier", "BASE", (values[val][2][1] + (values[val][2][2] - values[val][2][1]) * rollRange / 100) * mapModEffect, "Map mod of Deadliness")
 			end
 		},
-		-- other prefixes
-		["Antagonist's"] = {}, -- (20-30)% increased number of Rare Monsters
-		["Ceremonial"] = {}, -- Area contains many Totems
-		["Skeletal"] = {}, -- Area is inhabited by Skeletons
-		["Capricious"] = {}, -- Area is inhabited by Goatmen
-		["Slithering"] = {}, -- Area is inhabited by Sea Witches and their Spawn
-		["Undead"] = {}, -- Area is inhabited by Undead
-		["Emanant"] = {}, -- Area is inhabited by ranged monsters
-		["Feral"] = {}, -- Area is inhabited by Animals
-		["Demonic"] = {}, -- Area is inhabited by Demons
-		["Bipedal"] = {}, -- Area is inhabited by Humanoids
-		["Solar"] = {}, -- Area is inhabited by Solaris fanatics
-		["Lunar"] = {}, -- Area is inhabited by Lunaris fanatics
-		["Haunting"] = {}, -- Area is inhabited by Ghosts
-		["Feasting"] = {}, -- Area is inhabited by Cultists of Kitava
-		["Multifarious"] = {}, -- Area has increased monster variety
-		["Abhorrent"] = {}, -- Area is inhabited by Abominations
-		["Twinned"] = {}, -- Area contains two Unique Bosses
-		["Enthralled"] = {}, -- Unique Bosses are Possessed
-		["Chaining"] = {}, -- Monsters' skills Chain 2 additional times
-		["Splitting"] = {}, -- Monsters fire 2 additional Projectiles
-		-- other suffixes
-		["of Bloodlines"] = {}, -- (20-30)% more Magic Monsters
-		["of Giants"] = {}, --  Monsters have 45|70|100% increased Area of Effect
-		["of Flames"] = {}, -- Area has patches of Burning Ground
-		["of Ice"] = {}, -- Area has patches of Chilled Ground
-		["of Lightning"] = {}, -- Area has patches of Shocked Ground which increase Damage taken by 20|35|50%
-		["of Desecration"] = {}, -- Area has patches of desecrated ground
-		["of Consecration"] = {}, -- Area has patches of Consecrated Ground
-		["of Frenzy"] = {}, -- Monsters gain a Frenzy Charge on Hit
-		["of Endurance"] = {}, -- Monsters gain an Endurance Charge on Hit
-		["of Power"] = {}, -- Monsters gain a Power Charge on Hit
-		["of Carnage"] = {}, -- Monsters Maim on Hit with Attacks
-		["of Impedance"] = {}, -- Monsters Hinder on Hit with Spells
-		["of Enervation"] = {}, -- Monsters steal Power, Frenzy and Endurance charges on Hit
+		-- other Prefixes
+		["Abhorrent"] = { }, -- Area is inhabited by Abominations
+		["Antagonist's"] = { }, -- (20-30)% increased number of Rare Monsters
+		["Bipedal"] = { }, -- Area is inhabited by Humanoids
+		["Capricious"] = { }, -- Area is inhabited by Goatmen
+		["Ceremonial"] = { }, -- Area contains many Totems
+		["Chaining"] = { }, -- Monsters' skills Chain 2 additional times
+		["Demonic"] = { }, -- Area is inhabited by Demons
+		["Emanant"] = { }, -- Area is inhabited by ranged monsters
+		["Enthralled"] = { }, -- Unique Bosses are Possessed
+		["Feasting"] = { }, -- Area is inhabited by Cultists of Kitava
+		["Feral"] = { }, -- Area is inhabited by Animals
+		["Haunting"] = { }, -- Area is inhabited by Ghosts
+		["Lunar"] = { }, -- Area is inhabited by Lunaris fanatics
+		["Multifarious"] = { }, -- Area has increased monster variety
+		["Skeletal"] = { }, -- Area is inhabited by Skeletons
+		["Slithering"] = { }, -- Area is inhabited by Sea Witches and their Spawn
+		["Solar"] = { }, -- Area is inhabited by Solaris fanatics
+		["Splitting"] = { }, -- Monsters fire 2 additional Projectiles
+		["Twinned"] = { }, -- Area contains two Unique Bosses
+		["Undead"] = { }, -- Area is inhabited by Undead
+		-- other Suffixes
+		["of Bloodlines"] = { }, -- (20-30)% more Magic Monsters
+		["of Carnage"] = { }, -- Monsters Maim on Hit with Attacks
+		["of Consecration"] = { }, -- Area has patches of Consecrated Ground
+		["of Desecration"] = { }, -- Area has patches of desecrated ground
+		["of Endurance"] = { }, -- Monsters gain an Endurance Charge on Hit
+		["of Enervation"] = { }, -- Monsters steal Power, Frenzy and Endurance charges on Hit
+		["of Flames"] = { }, -- Area has patches of Burning Ground
+		["of Frenzy"] = { }, -- Monsters gain a Frenzy Charge on Hit
+		["of Giants"] = { }, -- Monsters have 45% increased Area of Effect
+		["of Ice"] = { }, -- Area has patches of Chilled Ground
+		["of Impedance"] = { }, -- Monsters Hinder on Hit with Spells
+		["of Lightning"] = { }, -- Area has patches of Shocked Ground which increase Damage taken by 20%
+		["of Power"] = { }, -- Monsters gain a Power Charge on Hit
 	},
 	Prefix = {
 		{ val = "NONE", label = "None" },
