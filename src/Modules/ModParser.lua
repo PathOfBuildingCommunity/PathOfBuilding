@@ -256,6 +256,7 @@ local modNameList = {
 	["physical damage taken from attack hits"] = "PhysicalDamageTakenFromAttacks",
 	["physical damage taken from projectile attacks"] = "PhysicalDamageTakenFromProjectileAttacks",
 	["physical damage taken from projectile attack hits"] = "PhysicalDamageTakenFromProjectileAttacks",
+	["fire, cold and lightning damage taken from spell hits"] = { "FireDamageTakenFromSpells", "ColdDamageTakenFromSpells", "LightningDamageTakenFromSpells" },
 	["physical damage taken over time"] = "PhysicalDamageTakenOverTime",
 	["physical damage over time taken"] = "PhysicalDamageTakenOverTime",
 	["physical damage over time damage taken"] = "PhysicalDamageTakenOverTime",
@@ -3303,6 +3304,9 @@ local specialModList = {
 	["prevent %+(%d+)%% of suppressed spell damage"] = function(num) return { mod("SpellSuppressionEffect", "BASE", num) } end,
 	["prevent %+(%d+)%% of suppressed spell damage per hit suppressed recently"] = function(num) return {
 	    mod("SpellSuppressionEffect", "BASE", num, { type = "Multiplier", var = "HitsSuppressedRecently" })
+	} end,
+	["prevent %+(%d+)%% of suppressed spell damage per bark below maximum"] = function(num) return {
+	    mod("SpellSuppressionEffect", "BASE", num, { type = "Multiplier", var = "MissingBarkskinStacks" })
 	} end,
 	["inflict fire, cold and lightning exposure on enemies when you suppress their spell damage"] = {
 	    mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", -10) }, { type = "Condition", var = "Effective" }, { type = "Condition", var = "SuppressedRecently" }),
