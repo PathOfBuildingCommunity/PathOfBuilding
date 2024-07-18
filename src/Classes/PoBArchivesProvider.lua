@@ -112,6 +112,7 @@ function PoBArchivesProviderClass:ParseBuilds(message)
 		build.life = value.stats.LifeUnreserved
 		build.es = value.stats.EnergyShield
 		build.dps = value.fullDPS
+		build.version = value.tree and value.tree.version
 
 		if value.similarity_score then
 			build.metadata = {

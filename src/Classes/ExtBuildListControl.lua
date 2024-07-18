@@ -369,44 +369,50 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 					currentHeight = currentHeight + 18
 				end
 			end
+
 			-- add at least 32 height to title row so that the ascendancy picture
 			-- does not overlap with other lines
 			if lineCount < 3 then
-				currentHeight = currentHeight + (16 * (2 - lineCount))
+				currentHeight = currentHeight + (16 * (2 + (build.mainSkill and 1 or 0) - lineCount))
 			end
 
 			-- decorator line
 			currentHeight = currentHeight + 4
-			SetDrawColor(0.5, 0.5, 0.5)
-			self:DrawImage(nil, x - 9, currentHeight, self.width() - 115, 1)
-			currentHeight = currentHeight + 4
-
-			-- main skill, ascendancy
-			SetDrawColor(1, 1, 1)
-			if build.mainSkill then
-				for _, line in pairs(self:splitStringByWidth(build.mainSkill, self.width() - 125, self.font)) do
-					lineCount = lineCount + 1
-					self:DrawString(x, currentHeight, "LEFT", 16, self.font, line)
-					currentHeight = currentHeight + 16
-				end
-				currentHeight = currentHeight + 4
-			else
-				self:DrawString(x, currentHeight, "LEFT", 14, self.font, s_format('%s', '-'))
-				currentHeight = currentHeight + 20
-			end
-
-
-			-- decorator line
 			SetDrawColor(0.5, 0.5, 0.5)
 			self:DrawImage(nil, x - 9, currentHeight, self.width() - 115, 1)
 			currentHeight = currentHeight + 8
+
+			-- main skill, ascendancy
 			SetDrawColor(1, 1, 1)
+			if build.mainSkill and build.mainSkill ~= "" then
+				for _, line in pairs(self:splitStringByWidth(build.mainSkill, self.width() - 125, self.font)) do
+					lineCount = lineCount + 1
+					self:DrawString(x, currentHeight, "LEFT", 16, self.font, line)
+					currentHeight = currentHeight + 20
+				end
+				currentHeight = currentHeight + 4
+				-- decorator line
+				SetDrawColor(0.5, 0.5, 0.5)
+				self:DrawImage(nil, x - 9, currentHeight, self.width() - 115, 1)
+				currentHeight = currentHeight + 8
+				SetDrawColor(1, 1, 1)
+			end
 
 			-- author
 			if build.author then
 				self:DrawString(x, currentHeight, "LEFT", 14, self.font, s_format('%s', build.author))
 			end
 
+			-- version
+			if build.version then
+				local authorWidth = build.author and DrawStringWidth(14, self.font, s_format('%s', build.author)) or 0
+				self:DrawString(x + authorWidth + 20, currentHeight, "LEFT", 14, self.font, s_format('%s', build.version))
+				SetDrawColor(0.5, 0.5, 0.5)
+				if authorWidth then
+					self:DrawImage(nil, x + authorWidth + 10, currentHeight - 7, 1, 28)
+					self:DrawImage(nil, x + authorWidth + DrawStringWidth(14, self.font, build.version) + 40, currentHeight - 7, 1, 28)
+				end
+			end
 
 			currentHeight = currentHeight + 20
 
@@ -417,16 +423,16 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			SetDrawColor(1, 1, 1)
 
 			-- stats
-			local dpsText = "DPS:"
-			local lifeText = "Life: "
-			local ehpText = "EHP: "
+			local dpsText = "DPS: 0"
+			local lifeText = "Life: 0"
+			local ehpText = "EHP: 0"
 			if build.dps then
 				-- SetDrawColor(1, 0, 0)
-				dpsText = formatNumSep(s_format('DPS: %0.f      ', build.dps))
+				dpsText = formatNumSep(s_format('DPS: %0.f', build.dps))
 			end
 			if build.life or build.es then
 				-- SetDrawColor(0, 1, 0)
-				lifeText = formatNumSep(s_format('%s^7: %0.f      ', build.life > build.es and "^xE05030Life" or "^x88FFFFES", math.max(build.life, build.es)))
+				lifeText = formatNumSep(s_format('%s: %0.f', build.life > build.es and "Life" or "ES", math.max(build.life, build.es)))
 			end
 			if build.ehp then
 				-- SetDrawColor(0, 0, 1)
@@ -434,13 +440,20 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			end
 
 			-- prevent overlapping on smaller screens.
-			local dpsWidth = DrawStringWidth(16, self.font, dpsText)
-			local lifeWidth = DrawStringWidth(16, self.font, lifeText)
-			local ehpWidth = DrawStringWidth(16, self.font, ehpText)
+			local dpsWidth = DrawStringWidth(14, self.font, dpsText)
+			local lifeWidth = DrawStringWidth(14, self.font, lifeText)
+			local ehpWidth = DrawStringWidth(14, self.font, ehpText)
 			if (dpsWidth + lifeWidth + ehpWidth < self.width() - 30) then
 				self:DrawString(x, currentHeight, "LEFT", 14, self.font, dpsText)
-				self:DrawString(x + dpsWidth, currentHeight, "LEFT", 14, self.font, lifeText)
-				self:DrawString(x + dpsWidth + lifeWidth, currentHeight, "LEFT", 14, self.font, ehpText)
+				SetDrawColor(0.5, 0.5, 0.5)
+				self:DrawImage(nil, x + dpsWidth + 10, currentHeight - 7, 1, 28)
+				SetDrawColor(1, 1, 1)
+				self:DrawString(x + dpsWidth + 20, currentHeight, "LEFT", 14, self.font, lifeText)
+				SetDrawColor(0.5, 0.5, 0.5)
+				self:DrawImage(nil, x + dpsWidth + lifeWidth + 30, currentHeight - 7, 1, 28)
+				self:DrawImage(nil, x + dpsWidth + lifeWidth + ehpWidth + 50, currentHeight - 7, 1, 28)
+				SetDrawColor(1, 1, 1)
+				self:DrawString(x + dpsWidth + lifeWidth + 40, currentHeight, "LEFT", 14, self.font, ehpText)
 				currentHeight = currentHeight + 20
 				-- decorator line
 				SetDrawColor(0.5, 0.5, 0.5)
@@ -448,19 +461,19 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 				currentHeight = currentHeight + 3
 			end
 
+			-- SetDrawColor(1, 1, 1)
+
 			if build.metadata then
 				currentHeight = currentHeight + 4
 				for _, metadata in pairs(build.metadata) do
 					SetDrawColor(1, 1, 1)
-					self:DrawString(x, currentHeight, "LEFT", 16, self.font, metadata.key .. ": " .. metadata.value)
+					self:DrawString(x, currentHeight, "LEFT", 14, self.font, metadata.key .. ": " .. metadata.value)
 					currentHeight = currentHeight + 20
 					SetDrawColor(0.5, 0.5, 0.5)
 					self:DrawImage(nil, x - 9, currentHeight, self.width(), 1)
-					currentHeight = currentHeight + 3
 				end
 
 			end
-
 
 			-- import button
 			local importButton = {
