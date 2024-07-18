@@ -1085,6 +1085,7 @@ local preFlagList = {
 	["^area skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.Area } },
 	["^aura skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.Aura } },
 	["^prismatic skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.RandomElement } },
+	["^retaliation skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.Retaliation } },
 	["^warcry skills have "] = { tag = { type = "SkillType", skillType = SkillType.Warcry } },
 	["^non%-curse aura skills have "] = { tagList = { { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true } } },
 	["^non%-channelling skills have "] = { tag = { type = "SkillType", skillType = SkillType.Channel, neg = true } },
@@ -1672,6 +1673,7 @@ local modTagList = {
 	["when you use a vaal skill"] = { tag = { type = "Condition", var = "UsedVaalSkillRecently" } },
 	["if you haven't used a brand skill recently"] = { tag = { type = "Condition", var = "UsedBrandRecently", neg = true } },
 	["if you[' ]h?a?ve used a brand skill recently"] = { tag = { type = "Condition", var = "UsedBrandRecently" } },
+	["if you[' ]h?a?ve used a retaliation skill recently"] = { tag = { type = "Condition", var = "UsedRetaliationRecently" } },
 	["if you[' ]h?a?ve spent (%d+) total mana recently"] = function(num) return { tag = { type = "MultiplierThreshold", var = "ManaSpentRecently", threshold = num } } end,
 	["if you[' ]h?a?ve spent life recently"] = { tag = { type = "MultiplierThreshold", var = "LifeSpentRecently", threshold = 1 } },
 	["for %d+ seconds after spending a total of (%d+) mana"] = function(num) return { tag = { type = "MultiplierThreshold", var = "ManaSpentRecently", threshold = num } } end,
@@ -2217,6 +2219,9 @@ local specialModList = {
 	["gain %d+ rage on hit with attacks, no more than once every [%d%.]+ seconds"] = {
 		flag("Condition:CanGainRage"),
 	},
+	["gain %d+ rage on hit with retaliation skills"] = {
+		flag("Condition:CanGainRage"),
+	},
 	["while a unique enemy is in your presence, gain %d+ rage on hit with attacks, no more than once every [%d%.]+ seconds"] = {
 		flag("Condition:CanGainRage", { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }),
 	},
@@ -2452,6 +2457,9 @@ local specialModList = {
 	} end,
 	["(%d+)%% more damage with hits and ailments against enemies that are on low life while you are wielding an axe"] = function(num) return {
 		mod("Damage", "MORE", num, nil, 0, bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "LowLife" }, { type = "Condition", var = "UsingAxe" }),
+	} end,
+	["retaliation skills have (%d+)%% increased speed"] = function(num) return {
+		mod("Speed", "INC", num),
 	} end,
     -- Guardian
 	["grants armour equal to (%d+)%% of your reserved life to you and nearby allies"] = function(num) return { mod("GrantReservedLifeAsAura", "LIST", { mod = mod("Armour", "BASE", num / 100) }) } end,
