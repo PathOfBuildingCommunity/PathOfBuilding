@@ -886,7 +886,7 @@ function main:OpenOptionsPopup()
 	end)
 
 	nextRow()
-	controls.showPublicBuilds = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Show public build list:", function(state)
+	controls.showPublicBuilds = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Show Latest/Trending builds:", function(state)
 		self.showPublicBuilds = state
 	end)
 
