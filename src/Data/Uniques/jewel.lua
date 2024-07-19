@@ -1561,7 +1561,6 @@ Variant: Current
 League: Legion
 Requires Level: 20
 Limited to: 1
-Radius: Medium
 (10-15)% increased Attack Damage while holding a Shield
 {variant:1}+0.2% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
 {variant:2,3}+0.15% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
