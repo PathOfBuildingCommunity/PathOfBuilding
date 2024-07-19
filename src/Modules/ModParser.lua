@@ -4441,6 +4441,9 @@ local specialModList = {
 	},
 	["attacks have blood magic"] = { flag("CostLifeInsteadOfMana", nil, ModFlag.Attack) },
 	["attacks cost life instead of mana"] = { flag("CostLifeInsteadOfMana", nil, ModFlag.Attack) },
+	["attack skills cost life instead of (%d+)%% of mana cost"] = function(num) return { 
+		mod("HybridManaAndLifeCost_Life", "BASE", num, nil, ModFlag.Attack) 
+	} end,
 	["(%d+)%% chance to cast a? ?socketed lightning spells? on hit"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueMjolnerLightningSpellsCastOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["cast a socketed lightning spell on hit"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueMjolnerLightningSpellsCastOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger a socketed lightning spell on hit"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueMjolnerLightningSpellsCastOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
