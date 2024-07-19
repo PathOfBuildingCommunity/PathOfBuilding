@@ -113,6 +113,17 @@ Militant Faith jewels also have the option to select the other mods on the jewel
 Advanced tricks:
     For Militant Faith, if you don't want any nodes to change, you can just sort by devotion. As unchanged nodes add devotion, the ones with the most devotion will be the ones with unchanged nodes
 	
+---[Loadouts]
+
+Loadouts can be selected from the dropdown in the top middle of the Build Tab. Selecting a Loadout will load all three sets at once. These are automatically registered based on one of two conditions:
+    1) All three sets share the same name, e.g. "Leveling"
+    2) All three sets have the same alphanumeric identifier inside of braces { } at the end of the name, e.g. "Leveling Tree {1}", "Leveling Items {1}", "Leveling Skills {1}"
+        - If you would like a single set to be used in multiple Loadouts, you can put the identifiers in the braces separated by commas. For example, an Item Set could be named "Early Game {1,2}" and this would be recognized as a loadout given there's a Tree and Skill Set with {1}, {2}, or {1,2} in their names as well
+        - Lastly, the name of the Loadout in the dropdown is based on the name of the Tree Set, identifiers are shown for clarity when using sets multiple times
+The "New Loadout" option allows the user to create all three sets from a single popup for convenience.
+The "Sync" option is a backup option to force the UI to update in case the user has changed this data behind the scenes.
+
+
 ---[Party Tab]
 
 The Party tab Allows you to import support characters and have their auras and curses apply
