@@ -104,6 +104,7 @@ function PassiveSpecListClass:OnSelDelete(index, spec)
 			end
 			self.treeTab.modFlag = true
 			self:UpdateItemsTabPassiveTreeDropdown()
+			self.treeTab.build:SyncLoadouts()
 		end)
 	end
 end
