@@ -2984,11 +2984,19 @@ function calcs.offence(env, actor, activeSkill)
 							end
 							local enemyArmour = m_max(calcLib.val(enemyDB, "Armour"), 0)
 							local armourReduction = calcs.armourReductionF(enemyArmour, damageTypeHitAvg * skillModList:More(cfg, "CalcArmourAsThoughDealing"))
-							if skillModList:Flag(cfg, "IgnoreEnemyPhysicalDamageReduction") then
+							local ChanceToIgnoreEnemyPhysicalDamageReduction = m_min(skillModList:Sum("BASE", cfg, "ChanceToIgnoreEnemyPhysicalDamageReduction"), 100)
+							if ChanceToIgnoreEnemyPhysicalDamageReduction > 0 and ChanceToIgnoreEnemyPhysicalDamageReduction < 100 then
+								if env.configInput.ChanceToIgnoreEnemyPhysicalDamageReductionMode == "MAX" then
+									ChanceToIgnoreEnemyPhysicalDamageReduction = 100
+								elseif env.configInput.ChanceToIgnoreEnemyPhysicalDamageReductionMode == "MIN" then
+									ChanceToIgnoreEnemyPhysicalDamageReduction = 0
+								end
+							end
+							if skillModList:Flag(cfg, "IgnoreEnemyPhysicalDamageReduction") or ChanceToIgnoreEnemyPhysicalDamageReduction >= 100 then
 								resist = 0
 							else
 								resist = m_min(m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction") + armourReduction), data.misc.DamageReductionCap)
-								resist = resist > 0 and resist * (1 - (skillModList:Sum("BASE", nil, "PartialIgnoreEnemyPhysicalDamageReduction") / 100)) or resist
+								resist = resist > 0 and resist * (1 - (skillModList:Sum("BASE", nil, "PartialIgnoreEnemyPhysicalDamageReduction") / 100 + ChanceToIgnoreEnemyPhysicalDamageReduction / 100)) or resist
 							end
 						else
 							resist = calcResistForType(damageType, dotCfg)
@@ -4878,6 +4886,9 @@ function calcs.offence(env, actor, activeSkill)
 			local enemyArmour = m_max(calcLib.val(enemyDB, "Armour"), 0)
 			local impaleArmourReduction = calcs.armourReductionF(enemyArmour, impaleHitDamageMod * output.impaleStoredHitAvg)
 			local impaleResist = m_min(m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyImpalePhysicalDamageReduction") + impaleArmourReduction), data.misc.DamageReductionCap)
+			if skillModList:Flag(cfg, "IgnoreEnemyImpalePhysicalDamageReduction") then
+				impaleResist = 0
+			end
 
 			local impaleDMGModifier = impaleHitDamageMod * (1 - impaleResist / 100) * impaleChance
 
