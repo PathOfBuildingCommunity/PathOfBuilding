@@ -1874,7 +1874,7 @@ skills["ChargedAttack"] = {
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Repeatedly hit enemies in a circle in front of you while channelling, dealing damage to and around the enemy. The damage is continually boosted while channelling. You unleash an additional hit for each stage reached once the channelling ends. Requires a Dagger, Claw or One-Handed Sword.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Channel] = true, [SkillType.Melee] = true, [SkillType.Physical] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Channel] = true, [SkillType.Melee] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
 		["One Handed Sword"] = true,
@@ -1994,7 +1994,7 @@ skills["ChargedAttackAltX"] = {
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Repeatedly hit enemies in a circle in front of you while channelling, dealing damage to and around the enemy. The critical strike chance is continually boosted while channelling. You unleash an additional hit for each stage reached once the channelling ends. Requires a Dagger, Claw or One-Handed Sword.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Channel] = true, [SkillType.Melee] = true, [SkillType.Physical] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Channel] = true, [SkillType.Melee] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
 		["One Handed Sword"] = true,
@@ -2114,7 +2114,7 @@ skills["VaalChargedAttack"] = {
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Channel to create an expanding circle area around you that blinds enemies within it. When you stop channelling, deals damage in a smaller area around each enemy in the circle. Requires a Dagger, Claw or One-Handed Sword.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Channel] = true, [SkillType.Melee] = true, [SkillType.Physical] = true, [SkillType.Vaal] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Channel] = true, [SkillType.Melee] = true, [SkillType.Vaal] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
 		["One Handed Sword"] = true,
@@ -4268,7 +4268,7 @@ skills["Cyclone"] = {
 	baseEffectiveness = 0.25,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Channel this skill to move towards a targeted location while spinning constantly attacking enemies in an area around you. While channelling this skill, you cannot be knocked back.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Channel] = true, [SkillType.Physical] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Channel] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -4380,7 +4380,7 @@ skills["CycloneAltX"] = {
 	baseEffectiveness = 0.25,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Channel this skill to move towards a targeted location while spinning constantly attacking enemies in an area around you. While channelling this skill, you cannot be knocked back.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Channel] = true, [SkillType.Physical] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Channel] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -9705,7 +9705,7 @@ skills["LancingSteelAltX"] = {
 	color = 2,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Thrust an Axe or Sword forward to form a cluster of shards in front of you. The cluster will fire a number of projectiles in sequence, aiming at enemies in front of or close to it.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Damage] = true, [SkillType.ProjectileSpeed] = true, [SkillType.RangedAttack] = true, [SkillType.Physical] = true, [SkillType.ProjectilesNotFromUser] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Damage] = true, [SkillType.ProjectileSpeed] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -13214,7 +13214,7 @@ skills["ShrapnelBallista"] = {
 	baseEffectiveness = 0.5,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Summons a ballista totem that fires multiple arrows with extreme force, breaking them apart into shrapnel. Enemies can be hit by multiple arrows from the same attack. Requires a Bow.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.RangedAttack] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.SummonsTotem] = true, [SkillType.AttackInPlaceIsDefault] = true, [SkillType.Physical] = true, [SkillType.TotemsAreBallistae] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.RangedAttack] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.SummonsTotem] = true, [SkillType.AttackInPlaceIsDefault] = true, [SkillType.TotemsAreBallistae] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},

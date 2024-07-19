@@ -1974,7 +1974,7 @@ skills["Cleave"] = {
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "The character swings their weapon (or both weapons if dual wielding) in an arc, damaging monsters in an area in front of them. Only works with Axes and Swords.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ThresholdJewelArea] = true, [SkillType.Physical] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ThresholdJewelArea] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -2157,7 +2157,7 @@ skills["VaalCleave"] = {
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "The character swings their weapon (or both weapons if dual wielding) in an arc, damaging monsters in an area in front of them. Killing Blows on Rare or Unique enemies grant a buff that improves Cleave for a duration. Killing Blows on Rare Enemies also steal their modifiers for a secondary duration. Only works with Axes and Swords.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.ThresholdJewelArea] = true, [SkillType.Physical] = true, [SkillType.Vaal] = true, [SkillType.Duration] = true, [SkillType.Buff] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.ThresholdJewelArea] = true, [SkillType.Vaal] = true, [SkillType.Duration] = true, [SkillType.Buff] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -10692,7 +10692,7 @@ skills["Sweep"] = {
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Swings a two handed melee weapon in a circle, knocking back monsters around the character.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Physical] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, },
 	weaponTypes = {
 		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
