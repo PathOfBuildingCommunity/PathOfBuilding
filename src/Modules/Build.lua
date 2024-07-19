@@ -234,21 +234,21 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	--	self.buildFlag = true
 	--end)
 	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 190, 20, {}, function(index, value)
-		if value == "Loadouts:" or value == "-----" then
+		if value == "^7^7Loadouts:" or value == "^7^7-----" then
 			self.controls.buildLoadouts:SetSel(1)
 			return
 		end
-		if value == "Sync" then
+		if value == "^7^7Sync" then
 			self:SyncLoadouts()
 			self.controls.buildLoadouts:SetSel(1)
 			return
 		end
-		if value == "^7Help >>" then
+		if value == "^7^7Help >>" then
 			main:OpenAboutPopup(7)
 			self.controls.buildLoadouts:SetSel(1)
 			return
 		end
-		if value == "New Loadout" then
+		if value == "^7^7New Loadout" then
 			local controls = { }
 			controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter name for this loadout:")
 			controls.edit = new("EditControl", nil, 0, 40, 350, 20, "New Loadout", nil, nil, 100, function(buf)
@@ -889,7 +889,7 @@ end
 function buildMode:SyncLoadouts(reset)
 	self.controls.buildLoadouts.list = {"No Loadouts"}
 
-	local filteredList = {"Loadouts:"}
+	local filteredList = {"^7^7Loadouts:"}
 	local treeList = {}
 	local itemList = {}
 	local skillList = {}
@@ -973,10 +973,11 @@ function buildMode:SyncLoadouts(reset)
 		end
 	end
 
-	t_insert(filteredList, "-----")
-	t_insert(filteredList, "New Loadout")
-	t_insert(filteredList, "Sync")
-	t_insert(filteredList, "^7Help >>")
+	-- givng the options unique formatting so it can not match with user-created sets
+	t_insert(filteredList, "^7^7-----")
+	t_insert(filteredList, "^7^7New Loadout")
+	t_insert(filteredList, "^7^7Sync")
+	t_insert(filteredList, "^7^7Help >>")
 
 	if #filteredList > 0 then
 		self.controls.buildLoadouts.list = filteredList
