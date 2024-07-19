@@ -194,6 +194,26 @@ skills["Barkskin"] = {
 		[20] = { storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 70, },
 	},
 }
+
+skills["UnboundAvatar"] = {
+	name = "Unbound Avatar",
+	hidden = true,
+	color = 2,
+	description = "",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromTree = true,
+	baseFlags = {
+		spell = true,
+	},
+	stats = {
+	},
+	levels = {
+		[20] = { storedUses = 1, levelRequirement = 1, cooldown = 1, },
+	},
+}
+
 skills["BirdAspect"] = {
 	name = "Aspect of the Avian",
 	hidden = true,
