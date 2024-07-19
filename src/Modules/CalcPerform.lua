@@ -2895,21 +2895,31 @@ function calcs.perform(env, skipEHP)
 		["Shock"] = {
 			condition = "Shocked",
 			mods = function(num)
-				local shockStacks = enemyDB:Sum("BASE", nil, "ShockStacks")
-				local maxShockStacks = modDB:Sum("BASE", nil, "MaxShockStacks")
-				shockStacks = maxShockStacks < 1 and 1 or shockStacks > maxShockStacks and maxShockStacks or shockStacks < 1 and 1 or shockStacks
-				output.ShockStacks = shockStacks < maxShockStacks and shockStacks or maxShockStacks
-				return { modLib.createMod("DamageTaken", "INC", num * shockStacks, "Shock", { type = "Condition", var = "Shocked" }) }
+				local mods = { }
+				if modDB:Flag(nil, "ShockCanStack") then
+					t_insert(mods, modLib.createMod("DamageTaken", "INC", num, "Shock", { type = "Condition", var = "Shocked" }, { type = "Multiplier", var = "ShockStacks", limit = modDB:Override(nil, "ShockStacksMax") or modDB:Sum("BASE", nil, "ShockStacksMax")}))
+					if breakdown then
+						t_insert(mods, modLib.createMod("DamageTakenByShock", "INC", num, "Shock Stacks", { type = "Condition", var = "Shocked" }, { type = "Multiplier", var = "ShockStacks", limit = modDB:Override(nil, "ShockStacksMax") or modDB:Sum("BASE", nil, "ShockStacksMax")}))
+					end
+				else 
+					t_insert(mods, modLib.createMod("DamageTaken", "INC", num, "Shock", { type = "Condition", var = "Shocked" }))
+				end
+				return mods 
 			end
 		},
 		["Scorch"] = {
 			condition = "Scorched",
 			mods = function(num)
-				local scorchStacks = enemyDB:Sum("BASE", nil, "ScorchStacks")
-				local maxScorchStacks = modDB:Sum("BASE", nil, "MaxScorchStacks")
-				scorchStacks = maxScorchStacks < 1 and 1 or scorchStacks > maxScorchStacks and maxScorchStacks or scorchStacks < 1 and 1 or scorchStacks
-				output.ScorchStacks = scorchStacks < maxScorchStacks and scorchStacks or maxScorchStacks
-				return { modLib.createMod("ElementalResist", "BASE", -num * scorchStacks, "Scorch", { type = "Condition", var = "Scorched" }) }
+				local mods = { }
+				if modDB:Flag(nil, "ScorchCanStack") then
+					t_insert(mods, modLib.createMod("ElementalResist", "BASE", -num, "Scorch", { type = "Condition", var = "Scorched" }, { type = "Multiplier", var = "ScorchStacks", limit = modDB:Override(nil, "ScorchStacksMax") or modDB:Sum("BASE", nil, "ScorchStacksMax")}))
+					if breakdown then
+						t_insert(mods, modLib.createMod("TotalScorchValue", "BASE", -num, "Scorch Stacks", { type = "Condition", var = "Scorched" }, { type = "Multiplier", var = "ScorchStacks", limit = modDB:Override(nil, "ScorchStacksMax") or modDB:Sum("BASE", nil, "ScorchStacksMax")}))
+					end
+				else 
+					t_insert(mods, modLib.createMod("ElementalResist", "BASE", -num, "Scorch", { type = "Condition", var = "Scorched" }))
+				end
+				return mods 
 			end
 		},
 		["Brittle"] = {
