@@ -490,6 +490,14 @@ Projectile Attack Skills have (40-60)% increased Critical Strike Chance
 ]],
 -- Body: Energy Shield
 [[
+The Apostate
+Cabalist Regalia
+Requires Level 35
+Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
++(30–50) to Strength
++(20–30)% to all Elemental Resistances
+Gain Maximum Life instead of Maximum Energy Shield from Equipped Armour Items
+]],[[
 The Beast Fur Shawl
 Vaal Regalia
 Variant: Pre 3.0.0

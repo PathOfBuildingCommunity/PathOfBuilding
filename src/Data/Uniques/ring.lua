@@ -218,6 +218,70 @@ Implicits: 1
 {variant:2}{tags:jewellery_elemental}40% of Lightning Damage Converted to Cold Damage
 Your spells have 100% chance to Shock against Frozen enemies
 ]],[[
+Circle of Ambition
+Prismatic Ring
+Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
+Requires Level 20
+Variant: Thunder: Skill Reservation
+Variant: Thunder: Lightning Damage
+Variant: Thunder: Buff Effect
+Variant: Thunder: Max Resistance
+Variant: Thunder: Lightning Resistance
+Variant: Ash: Ash: Skill Reservation
+Variant: Ash: Fire Damage
+Variant: Ash: Buff Effect
+Variant: Ash: Max Resistance
+Variant: Ash: Fire Resistance
+Variant: Ice: Skill Reservation
+Variant: Ice: Cold Damage
+Variant: Ice: Buff Effect
+Variant: Ice: Max Resistance
+Variant: Ice: Cold Resistance
+Variant: Purity: Skill Reservation
+Variant: Purity: Physical Damage
+Variant: Purity: Buff Effect
+Variant: Purity: Sentinel Damage
+Variant: Purity: Damage Reduction
+Variant: Agony: Skill Reservationwatcher
+Variant: Agony: Chaos Damage
+Variant: Agony: Buff Effect
+Variant: Agony: Agony Damage
+Variant: Agony: Chaos Resistance
+Selected Variant: 1
+Has Alt Variant: true
+Selected Alt Variant: 2
+Has Alt Variant Two: true
+Selected Alt Variant Two: 3
+Implicits: 0
+{tags:jewellery_attribute}+(10–20) to all Attributes
+{tags:jewellery_resistance}+(10–20)% to all Elemental Resistances
+10% increased Mana Reservation Efficiency of Herald Skills
+{variant:1}{tags:mana}Herald of Thunder has (30-40)% increased Mana Reservation Efficiency
+{variant:2}{tags:jewellery_elemental}(40-60)% increased Lightning Damage while affected by Herald of Thunder
+{variant:3}Herald of Thunder has (40-60)% increased Buff Effect
+{variant:4}{tags:jewellery_resistance}+1% to maximum Lightning Resistance while affected by Herald of Thunder
+{variant:5}{tags:jewellery_resistance}+(50-60)% to Lightning Resistance while affected by Herald of Thunder
+{variant:6}{tags:mana}Herald of Ash has (30-40)% increased Mana Reservation Efficiency
+{variant:7}{tags:jewellery_elemental}(40-60)% increased Fire Damage while affected by Herald of Ash
+{variant:8}Herald of Ash has (40-60)% increased Buff Effect
+{variant:9}{tags:jewellery_resistance}+1% to maximum Fire Resistance while affected by Herald of Ash
+{variant:10}{tags:jewellery_resistance}+(50-60)% to Fire Resistance while affected by Herald of Ash
+{variant:11}{tags:mana}Herald of Ice has (30-40)% increased Mana Reservation Efficiency
+{variant:12}{tags:jewellery_elemental}(40-60)% increased Cold Damage while affected by Herald of Ice
+{variant:13}Herald of Ice has (40-60)% increased Buff Effect
+{variant:14}{tags:jewellery_resistance}+1% to maximum Cold Resistance while affected by Herald of Ice
+{variant:15}{tags:jewellery_resistance}+(50-60)% to Cold Resistance while affected by Herald of Ice
+{variant:16}{tags:mana}Herald of Purity has (30-40)% increased Mana Reservation Efficiency
+{variant:17}{tags:physical_damage}(40-60)% increased Physical Damage while affected by Herald of Purity
+{variant:18}Herald of Purity has (40-60)% increased Buff Effect
+{variant:19}Sentinels of Purity deal (70-100)% increased Damage
+{variant:20}{tags:physical}4% additional Physical Damage Reduction while affected by Herald of Purity
+{variant:21}{tags:mana}Herald of Agony has (30-40)% increased Mana Reservation Efficiency
+{variant:22}{tags:chaos_damage}(40-60)% increased Chaos Damage while affected by Herald of Agony
+{variant:23}Herald of Agony has (40-60)% increased Buff Effect
+{variant:24}Agony Crawler deals (70-100)% increased Damage
+{variant:25}{tags:jewellery_resistance}+(31-43)% to Chaos Resistance while affected by Herald of Agony
+]],[[
 Circle of Anguish
 Ruby Ring
 League: Synthesis
@@ -368,16 +432,6 @@ Implicits: 1
 {variant:3}Recover 5% of Life on Kill
 {variant:3}Gain Adrenaline for 3 seconds on kill
 ]],[[
-Original Sin
-Amethyst Ring
-League: Sanctum
-Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond} while unique{The Original Scripture} is active in the normal{Relic Altar}
-LevelReq: 52
-Implicits: 1
-{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
-All Elemental Damage Converted to Chaos Damage
-Nearby Enemies' Chaos Resistance is 0
-]],[[
 Doedre's Damning
 Paua Ring
 Variant: Pre 3.19.0
@@ -412,17 +466,6 @@ Implicits: 1
 {variant:1}{tags:caster}(25-35)% increased Effect of your Curses
 {variant:2,3}{tags:caster}(15-25)% increased Effect of your Curses
 {variant:4}{tags:caster}(10-15)% increased Effect of your Curses
-]],[[
-Soulbound
-Paua Ring
-LevelReq: 44
-Implicits: 1
-{tags:mana}+(20-30) to maximum Mana
-{tags:jewellery_attribute}+(10-20) to all Attributes
-Link Skills have (10-15)% increased Cast Speed
-Link Skills have (10-15)% increased Skill Effect Duration
-Linked Targets Cannot Die for 2 seconds after you Die
-Lose no Experience when you die because a Linked target died
 ]],[[
 Dream Fragments
 Sapphire Ring
@@ -508,6 +551,19 @@ Implicits: 1
 {tags:critical}(40-50)% increased Rarity of Items Dropped by Enemies killed with a Critical Strike
 {variant:2}50% increased Damage while on Consecrated Ground
 {variant:2}5% additional Block Chance while on Consecrated Ground
+]],[[
+Grattus Signet
+Diamond Ring
+League: Necropolis
+Source: Created from 4 different unique{Grattus} family corpses in the normal{Necropolis}
+Requires Level 64
+{tags:critical}(20–30)% increased Global Critical Strike Chance
+{tags:attack,speed}(5–10)% increased Attack Speed
+{tags:caster,speed}(5–10)% increased Cast Speed
+{tags:jewellery_defense}+(40–60) to maximum Energy Shield
+{tags:life}+(30–50) to maximum Life
+Attacks inflict Unnerve on Critical Strike for 4 seconds
+Spells inflict Intimidate on Critical Strike for 4 seconds
 ]],[[
 Heartbound Loop
 Moonstone Ring
@@ -831,6 +887,16 @@ Implicits: 1
 {variant:2,3}10% chance to Ignite
 {variant:2,3}{tags:life}Recover (20-30) Life when you Ignite an Enemy
 ]],[[
+Original Sin
+Amethyst Ring
+League: Sanctum
+Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond} while unique{The Original Scripture} is active in the normal{Relic Altar}
+LevelReq: 52
+Implicits: 1
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
+All Elemental Damage Converted to Chaos Damage
+Nearby Enemies' Chaos Resistance is 0
+]],[[
 The Pariah
 Unset Ring
 Variant: Pre 3.25.0
@@ -1071,6 +1137,17 @@ Implicits: 1
 {variant:2}Right ring slot: Projectiles from Spells Chain +1 times
 {variant:2}Right ring slot: Projectiles from Spells cannot Fork
 {variant:2}Projectiles from Spells cannot Pierce
+]],[[
+Soulbound
+Paua Ring
+LevelReq: 44
+Implicits: 1
+{tags:mana}+(20-30) to maximum Mana
+{tags:jewellery_attribute}+(10-20) to all Attributes
+Link Skills have (10-15)% increased Cast Speed
+Link Skills have (10-15)% increased Skill Effect Duration
+Linked Targets Cannot Die for 2 seconds after you Die
+Lose no Experience when you die because a Linked target died
 ]],[[
 Stormfire
 Opal Ring

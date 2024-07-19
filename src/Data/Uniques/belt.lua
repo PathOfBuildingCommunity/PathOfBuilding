@@ -589,6 +589,16 @@ Your Minions use your Flasks when summoned
 Minions have (40-25)% reduced Flask Charges used
 Minions have (50-80)% increased Flask Effect Duration
 ]],[[
+Nevalius Inheritance
+Cloth Belt
+League: Necropolis
+Requires Level 16
++(20-30) to Dexterity
+150% Increased Flask Effect Duration
+Flasks applied to you have 60% Reduced Effect
+2% Reduced Flask Effect Duration per Level
+Flasks applied to you have 1% Increased Effect per Level
+]],[[
 Olesya's Delight
 Cloth Belt
 Variant: Pre 3.17.0
@@ -876,6 +886,19 @@ Implicits: 1
 20% increased Stun Threshold
 {tags:jewellery_defense}10% reduced Armour per 50 Strength
 Imbalanced Guard
+]],[[
+The Tides of Time
+Vanguard Belt
+Source: Drops from unique{The Shaper} (Uber)
+Requires Level 78
+Implicits: 1
+{tags:jewellery_defense}+(260-320) to Armour and Evasion Rating
+{tags:life,mana}100% Increased Life Recovery from Flasks
+{tags:life,mana}100% Increased Mana Recovery from Flasks
+Flasks applied to you have 25% Increased Effect
+Life Flasks gain (0-3) charges every 3 seconds
+Mana Flasks gain (0-3) charges every 3 seconds
+Utility Flasks gain (0-3) charges every 3 seconds
 ]],[[
 Umbilicus Immortalis
 Leather Belt
