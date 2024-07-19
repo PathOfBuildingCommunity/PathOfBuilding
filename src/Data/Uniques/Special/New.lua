@@ -38,6 +38,67 @@ Radius: Large
 {variant:11}Passive Skills in Radius also grant 6% increased Fire Damage
 {variant:12}Passive Skills in Radius also grant 6% increased Chaos Damage
 {variant:13}Passive Skills in Radius also grant +4% to Chaos Resistance
+]],[[
+The Queller of Minds Nameless 
+Ring
+League: Ritual
+Requires Level 50
+Implicits: 2
+50% increased Elemental Ailment Duration on You
+{tags:caster}50% reduced Effect of Curses on You
+Grants Level 20 Pacify
+{tags:caster,speed}(6-10)% increased Cast Speed
+{tags:mana}+30 to maximum Mana
+{tags:jewellery_resistance}+(7-11)% to Chaos Resistance
+]],[[
+The Selfish Shepherd Nameless 
+Ring
+League: Ritual
+Requires Level 50
+Implicits: 2
+50% increased Elemental Ailment Duration on You
+{tags:caster}50% reduced Effect of Curses on You
+Grants Level 20 Affliction
+{tags:caster,speed}(6-10)% increased Cast Speed
+{tags:jewellery_defense}+30 to maximum Energy Shield
+{tags:jewellery_resistance}+(7-11)% to Chaos Resistance
+]],[[
+The Hateful Accuser Nameless 
+Ring
+League: Ritual
+Requires Level 50
+Implicits: 2
+50% increased Elemental Ailment Duration on You
+{tags:caster}50% reduced Effect of Curses on You
+Grants Level 20 Penance Mark
+{tags:caster,speed}(6-10)% increased Cast Speed
+{tags:life}+(30-60) to maximum Life
+{tags:jewellery_resistance}+(7-11)% to Chaos Resistance
+]],[[
+Svalinn Girded 
+Colossal Tower Shield
+League: Settlers of Kalguur
+Requires Level 50
+Implicits: 1
++(10-20) to maximum Life
+13% Chance to Block Spell Damage
++136 to Ward
+-10% to maximum Chance to Block Attack Damage
+-10% to maximum Chance to Block Spell Damage
+Chance To Block is Lucky
+Trigger a Socketed Elemental Spell on Block, with a 0.25 Second Cooldown
+]],[[
+Ynda's Stand
+Studded Belt
+League: Settlers of Kalguur
+Requires Level 52
+Implicits: 1
+(20-30)% increased Stun Duration on Enemies
+{tags:life}Regenerate 44 Life per second
+{tags:jewellery_resistance}+21% to Fire Resistance
+{tags:jewellery_resistance}+21% to Cold Resistance
+Gain Ward Instead of 50% of Armour and Evasion Rating From Equipped Body Armour
 ]]
+
 
 }
