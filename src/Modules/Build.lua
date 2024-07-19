@@ -973,7 +973,7 @@ function buildMode:SyncLoadouts(reset)
 		end
 	end
 
-	-- givng the options unique formatting so it can not match with user-created sets
+	-- giving the options unique formatting so it can not match with user-created sets
 	t_insert(filteredList, "^7^7-----")
 	t_insert(filteredList, "^7^7New Loadout")
 	t_insert(filteredList, "^7^7Sync")
