@@ -833,6 +833,8 @@ Implicits: 1
 ]],[[
 The Pariah
 Unset Ring
+Variant: Pre 3.25.0
+Variant: Current
 League: Warbands
 Requires Level 60
 Implicits: 1
@@ -842,7 +844,8 @@ Has 1 Socket
 {tags:life}+100 to Maximum Life per Red Socket
 {tags:jewellery_defense}+100 to Maximum Energy Shield per Blue Socket
 {tags:mana}+100 to Maximum Mana per Green Socket
-15% increased Item Quantity per White Socket
+{variant:1}15% increased Item Quantity per White Socket
+{variant:2}60% increased Rarity of Items found per White Socket
 ]],[[
 Perandus Signet
 Paua Ring
@@ -1161,21 +1164,23 @@ Variant: Pre 1.0.0
 Variant: Pre 1.1.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
+Variant: Pre 3.25.0
 Variant: Current
 Requires Level 30
 Implicits: 2
 {variant:1}{tags:jewellery_resistance}+(8-12) to all Elemental Resistances
-{variant:2,3,4,5}{tags:jewellery_resistance}+(8-10)% to all Elemental Resistances
+{variant:2,3,4,5,6}{tags:jewellery_resistance}+(8-10)% to all Elemental Resistances
 {variant:1,2}(15-25)% increased Quantity of Items found
 {variant:3,4,5}(10-16)% increased Quantity of Items found
+{variant:6}(20-30)% increased Rarity of Items found
 Can't use other Rings
 {variant:1,2,3}{tags:jewellery_resistance}+(8-12)% to all Elemental Resistances
 {variant:4}{tags:jewellery_resistance}+(16-24)% to all Elemental Resistances
-{variant:5}{tags:jewellery_resistance}+(25-40)% to all Elemental Resistances
+{variant:5,6}{tags:jewellery_resistance}+(25-40)% to all Elemental Resistances
 {variant:1,2,3}{tags:attack,life}Gain (20-30) Life per Enemy Hit with Attacks
-{variant:4,5}{tags:attack,life}Gain (40-60) Life per Enemy Hit with Attacks
+{variant:4,5,6}{tags:attack,life}Gain (40-60) Life per Enemy Hit with Attacks
 {variant:1,2,3}{tags:attack,mana}Gain 15 Mana per Enemy Hit with Attacks
-{variant:4,5}{tags:attack,mana}Gain 30 Mana per Enemy Hit with Attacks
+{variant:4,5,6}{tags:attack,mana}Gain 30 Mana per Enemy Hit with Attacks
 {tags:caster}50% reduced Effect of Curses on you
 ]],[[
 Timeclasp
@@ -1341,15 +1346,18 @@ Bleeding Enemies you Kill with Hits Shatter
 ]],[[
 Ventor's Gamble
 Gold Ring
+Variant: Pre 3.25.0
+Variant: Current
 Requires Level 65
 Implicits: 1
 (6-15)% increased Rarity of Items found
 {tags:life}+(0-60) to maximum Life
-(-10-10)% increased Quantity of Items found
+{variant:1}(-10-10)% increased Quantity of Items found
 (-40-40)% increased Rarity of Items found
 {tags:jewellery_resistance}+(-25-50)% to Fire Resistance
 {tags:jewellery_resistance}+(-25-50)% to Cold Resistance
 {tags:jewellery_resistance}+(-25-50)% to Lightning Resistance
+{variant:2}{tags:mana}(-15-15)% increased Mana Reservation Efficiency of Skills
 ]],[[
 Vivinsect
 Unset Ring

@@ -186,12 +186,17 @@ You can apply an additional Curse
 ]],[[
 Dawnstrider
 Vaal Greaves
+Variant: Pre 3.25.0
+Variant: Current
 Source: Drops from unique{The Searing Exarch}
 +(80-100) to maximum Life
 30% increased Movement Speed
-100% increased Effect of Buffs your Ancestor Totems grant while Active
-Buffs from Active Ancestor Totems Linger for 4 seconds
-Maximum 1 Buff from an Active Ancestor Totem at a time
+{variant:1}100% increased Effect of Buffs your Ancestor Totems grant while Active
+{variant:1}Buffs from Active Ancestor Totems Linger for 4 seconds
+{variant:1}Maximum 1 Buff from an Active Ancestor Totem at a time
+{variant:2}Socketed Slam Gems are Supported by Level 25 Earthbreaker
+{variant:2}Ancestral Bond
+{variant:2}(3-5)% of Damage from hits is taken from your nearest Totem's Life before you
 ]],
 -- Boots: Evasion
 [[
@@ -300,11 +305,13 @@ Trigger Level 20 Intimidating Cry when you lose Cat's Stealth
 Goldwyrm
 Nubuck Boots
 Variant: Pre 1.1.0
+Variant: Pre 3.25.0
 Variant: Current
 Requires Level 34, 62 Dex
 60% increased Mana Regeneration Rate
 {variant:1}(20-30)% increased Quantity of Items Found
 {variant:2}(14-20)% increased Quantity of Items Found
+{variant:3}(20-40)% increased Rarity of Items Found
 +(40-50)% to Fire Resistance
 10% increased Movement Speed
 ]],[[

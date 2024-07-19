@@ -127,6 +127,7 @@ Royal Axe
 League: Talisman Standard, Talisman Hardcore
 Source: Drops from unique{Rigwald, the Wolven King} (Level 75+)
 Variant: Pre 3.11.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
 Adds (50-70) to (135-165) Physical Damage
@@ -135,6 +136,7 @@ Adds (50-70) to (135-165) Physical Damage
 {variant:1}35% increased Attack Speed with Swords
 {variant:1}25% chance to cause Bleeding on Hit
 {variant:2}+25 to Maximum Rage while wielding a Sword
+{variant:3}+10 to Maximum Rage while wielding a Sword
 ]],[[
 Soul Taker
 Siege Axe
@@ -246,17 +248,19 @@ League: Legion
 Variant: Pre 1.0.0
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
 {variant:1}(120-150)% increased Physical Damage
 {variant:2,3}(160-220)% increased Physical Damage
-{variant:4}(100-140)% increased Physical Damage
+{variant:4,5}(100-140)% increased Physical Damage
 {variant:1,2}Adds (16-21) to (32-38) Fire Damage
 Gain 20 Life per Enemy Killed
 +(150-250) to Accuracy Rating
 Culling Strike
 {variant:3,4}Gain 1 Rage on Critical Hit with attacks, no more than once every 0.5 seconds
-{variant:3,4}Gain 1% of Physical Damage as Extra Fire Damage per 1 Rage
+{variant:5}Gain 5 Rage on Melee Hit
+{variant:3,4,5}Gain 1% of Physical Damage as Extra Fire Damage per 1 Rage
 ]],[[
 Kingmaker
 Despot Axe

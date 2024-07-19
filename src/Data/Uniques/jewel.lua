@@ -545,9 +545,13 @@ Scion: 30% increased Damage
 ]],[[
 Replica Reckless Defence
 Cobalt Jewel
+Variant: Pre 3.25.0
+Variant: Current
 League: Heist
-+(2-4)% Chance to Block Spell Damage
-+(2-4)% Chance to Block Attack Damage
+{variant:1}+(2-4)% Chance to Block Spell Damage
+{variant:2}+(2-6)% Chance to Block Spell Damage
+{variant:1}+(2-4)% Chance to Block Attack Damage
+{variant:2}+(2-6)% Chance to Block Attack Damage
 +10% chance to be Frozen, Shocked and Ignited
 ]],[[
 The Red Dream
@@ -1496,10 +1500,13 @@ Cobalt Jewel
 Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 Variant: Pre 3.4.0
 Variant: Pre 3.20.0
+Variant: Pre 3.25.0
 Variant: Current
 {variant:1}+6% Chance to Block Spell Damage
 {variant:2,3}+(2-4)% Chance to Block Spell Damage
-(2-4)% Chance to Block Attack Damage
+{variant:4}+(2-6)% Chance to Block Spell Damage
+{variant:1,2,3}(2-4)% Chance to Block Attack Damage
+{variant:4}(2-6)% Chance to Block Attack Damage
 Hits have (140-200)% increased Critical Strike Chance against you
 {variant:3}Corrupted
 ]],[[
@@ -1689,8 +1696,12 @@ Limited to: 1
 ]],[[
 The Adorned
 Crimson Jewel
+Variant: Pre 3.25.0
+Variant: Current
 League: Affliction
-(50–150)% increased Effect of Jewel Socket Passive Skills containing Corrupted Magic Jewels
+Source: Vaal Aspect Combination
+{variant:1}(50–150)% increased Effect of Jewel Socket Passive Skills containing Corrupted Magic Jewels
+{variant:2}(0–100)% increased Effect of Jewel Socket Passive Skills containing Corrupted Magic Jewels
 ]],
 -- Jewel: Labyrinth rewards
 [[
