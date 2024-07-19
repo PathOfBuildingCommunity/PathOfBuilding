@@ -1132,6 +1132,18 @@ Implicits: 1
 40% increased Stun and Block Recovery
 Your Critical Strikes do not deal extra Damage
 ]],[[
+The Utmost
+Gold Amulet
+Source: Created from unique{Primordial Fragments} obtained from Uber bosses
+Requires Level 8
+Implicits: 1
+(12–20)% increased Rarity of Items found
++(0–30)% chance to Suppress Spell Damage
+{tags:jewellery_resistance}+(0–5)% to all maximum Elemental Resistances
+{tags:caster,attack,speed}(0–40)% increased Attack and Cast Speed
+{tags:jewellery_elemental}Damage Penetrates (0–20)% Elemental Resistances
+Corrupted
+]],[[
 Uul-Netol's Vow
 Unset Amulet
 Source: Drops from unique{Breachlord} in a normal{Flawless Breachstone}

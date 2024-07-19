@@ -41,6 +41,15 @@ Adds (2-3) to (22-26) Physical Damage to Attacks
 (20-30)% chance to gain an Endurance Charge on Hitting an Enemy with no Armour
 (20-30)% chance to gain a Frenzy Charge on Hitting an Enemy with no Evasion Rating
 ]],[[
+The Celestial Brace
+Goliath Gauntlets
+Source: Drops from unique{The Searing Exarch} (Uber)
+Requires Level: 53, 77 Str
+(80-120)% Increased Armour
+1% Increased Attack Speed per Fortification
++(1-10) to Maximum Fortification
+Melee Hits from Strike Skills Fortify
+]],[[
 Craiceann's Pincers
 Titan Gauntlets
 League: Bestiary
@@ -637,6 +646,16 @@ Requires Level 37, 29 Str, 29 Int
 (4-6)% increased maximum Life
 With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
 With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
+]],[[
+The Hand of Phrecia
+Mesh Gloves
+League: Necropolis
+Requires Level 32, 26 Str, 26 Int
+(50–70)% increased Armour and Energy Shield
++(10–15)% to all Elemental Resistances
+(20–40)% increased Effect of Non-Curse Auras from your Skills while you have a Linked Target
+Linked Targets always count as in range of Non-Curse Auras from your Skills
+Non-Curse Auras from your Skills only apply to you and Linked Targets
 ]],[[
 Hand of the Fervent
 Zealot Gloves

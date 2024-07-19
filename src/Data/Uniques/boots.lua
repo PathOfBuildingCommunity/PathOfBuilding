@@ -145,6 +145,16 @@ Variant: Current
 {variant:2}(1-50)% increased Effect of Lightning Ailments
 {variant:2}Unaffected by Shocked Ground
 ]],[[
+The Tempest Rising
+Goliath Greaves
+Source: Drops from unique{Sirus, Awakener of Worlds} (Uber)
+Requires Level 54, 95 Str
+(80–120)% increased Armour
+30% increased Movement Speed
+(5–25)% increased Duration of Ailments on Enemies
+Damaging Ailments deal damage (5–25)% faster
+You and Enemies in your Presence count as moving while affected by Elemental Ailments
+]],[[
 Torchoak Step
 Antique Greaves
 Variant: Pre 3.16.0
@@ -1062,6 +1072,16 @@ Requires Level 59, 27 Dex, 27 Int
 (10-20)% increased Movement Speed while Ignited
 +25% chance to be Ignited
 Regenerate (75-125) Life per second while Ignited
+]],[[
+Veruso's Ambition
+Shackled Boots
+League: Necropolis
+Requires Level 34, 34 Dex, 34 Int
+Grants Level 20 Ravenous Skill
+(80–120)% increased Evasion and Energy Shield
++(13–23)% to Chaos Resistance
+(20–30)% increased Movement Speed
+Enemies display their Monster Category
 ]],[[
 Voidwalker
 Murder Boots
