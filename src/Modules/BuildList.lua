@@ -72,6 +72,14 @@ function listMode:Init(selBuildName, subPath)
 	self.controls.buildList.width = function ()
 		return (main.screenW / 2)
 	end
+	self.controls.buildList.x = function ()
+		if main.showPublicBuilds then
+			local offset = math.min(450, main.screenW / 4)
+			return offset - 450
+		else
+			return 0
+		end
+	end
 
 	if main.showPublicBuilds then
 		self.controls.ExtBuildList = self:getPublicBuilds()
@@ -105,7 +113,7 @@ function listMode:getPublicBuilds()
 		return main.screenH - 80
 	end
 	extBuildList.width = function ()
-		return (main.screenW / 4 - 50)
+		return math.max((main.screenW / 4 - 50), 400)
 	end
 	return extBuildList
 end
