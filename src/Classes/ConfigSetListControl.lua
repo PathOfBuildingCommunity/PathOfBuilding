@@ -55,6 +55,7 @@ function ConfigSetListClass:RenameSet(configSet, addOnName)
 			self.selValue = configSet
 		end
 		self.configTab:AddUndoState()
+		self.configTab.build:SyncLoadouts()
 		main:ClosePopup()
 	end)
 	controls.save.enabled = false
