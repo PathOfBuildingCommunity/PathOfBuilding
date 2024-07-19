@@ -344,6 +344,16 @@ local skills, mod, flag, skill = ...
 #flags spell
 #mods
 
+#skill SupportAuraDuration
+	fromItem = true,
+	statMap = {
+		["support_aura_duration_base_buff_duration"] = {
+			skill("auraDuration", nil),
+			div = 1000,
+		},
+	},
+#mods
+
 #noGem
 #skill TouchOfGod
 #flags attack area melee

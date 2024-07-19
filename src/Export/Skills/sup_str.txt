@@ -201,15 +201,6 @@ statMap = {
 	},
 #mods
 
-#skill SupportAuraDuration
-	statMap = {
-		["support_aura_duration_base_buff_duration"] = {
-			skill("auraDuration", nil),
-			div = 1000,
-		},
-	},
-#mods
-
 #skill SupportEarthbreaker
 	addFlags = {
 		totem = true,
