@@ -269,6 +269,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 				t_insert(self.skillsTab.skillSetOrderList, skillSet.id)
 				skillSet.title = loadout
 
+				local configSet = self.configTab:NewConfigSet(#self.configTab.configSets + 1)
+				t_insert(self.configTab.configSetOrderList, configSet.id)
+				configSet.title = loadout
+
 				self:SyncLoadouts()
 				self.modFlag = true
 				main:ClosePopup()
@@ -297,37 +301,35 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 				end
 			end
 		end
-		local newItemId = nil
-		for _, itemOrder in ipairs(self.itemsTab.itemSetOrderList) do
-			if value == self.itemsTab.itemSets[itemOrder].title then
-				newItemId = itemOrder
-			else
-				local linkMatch = string.match(value, "%{(%w+)%}")
-				if linkMatch then
-					newItemId = self.itemListSpecialLinks[linkMatch]["setId"]
+
+		-- item, skill, and config sets have identical structure
+		-- return id as soon as it's found
+		local function findSetId(setOrderList, value, sets, setSpecialLinks)
+			for _, setOrder in ipairs(setOrderList) do
+				if value == sets[setOrder].title then
+					return setOrder
+				else
+					local linkMatch = string.match(value, "%{(%w+)%}")
+					if linkMatch then
+						return setSpecialLinks[linkMatch]["setId"]
+					end
 				end
 			end
+			return nil
 		end
-		local newSkillId = nil
-		for _, skillOrder in ipairs(self.skillsTab.skillSetOrderList) do
-			if value == self.skillsTab.skillSets[skillOrder].title then
-				newSkillId = skillOrder
-			else
-				local linkMatch = string.match(value, "%{(%w+)%}")
-				if linkMatch then
-					newSkillId = self.skillListSpecialLinks[linkMatch]["setId"]
-				end
-			end
-		end
+		local newItemId = findSetId(self.itemsTab.itemSetOrderList, value, self.itemsTab.itemSets, self.itemListSpecialLinks)
+		local newSkillId = findSetId(self.skillsTab.skillSetOrderList, value, self.skillsTab.skillSets, self.skillListSpecialLinks)
+		local newConfigId = findSetId(self.configTab.configSetOrderList, value, self.configTab.configSets, self.configListSpecialLinks)
 
 		-- if exact match nor special grouping cannot find setIds, bail
-		if newSpecId == nil or newItemId == nil or newSkillId == nil then
+		if newSpecId == nil or newItemId == nil or newSkillId == nil or newConfigId == nil then
 			return
 		end
 
 		self.treeTab:SetActiveSpec(newSpecId)
 		self.itemsTab:SetActiveItemSet(newItemId)
 		self.skillsTab:SetActiveSkillSet(newSkillId)
+		self.configTab:SetActiveConfigSet(newConfigId)
 
 		self.controls.buildLoadouts:SelByValue(value)
 	end)
@@ -891,10 +893,11 @@ function buildMode:SyncLoadouts(reset)
 	local treeList = {}
 	local itemList = {}
 	local skillList = {}
+	local configList = {}
 	-- used when clicking on the dropdown to set the correct setId for each SetActiveSet()
-	self.treeListSpecialLinks, self.itemListSpecialLinks, self.skillListSpecialLinks = {}, {}, {}
+	self.treeListSpecialLinks, self.itemListSpecialLinks, self.skillListSpecialLinks, self.configListSpecialLinks = {}, {}, {}, {}
 
-	if self.treeTab ~= nil and self.itemsTab ~= nil and self.skillsTab ~= nil then
+	if self.treeTab ~= nil and self.itemsTab ~= nil and self.skillsTab ~= nil and self.configTab ~= nil then
 		local transferTable = {}
 		for id, spec in ipairs(self.treeTab.specList) do
 			local specTitle = spec.title or "Default"
@@ -913,43 +916,40 @@ function buildMode:SyncLoadouts(reset)
 				end
 			end
 		end
-		for id, item in ipairs(self.itemsTab.itemSetOrderList) do
-			local itemTitle = self.itemsTab.itemSets[item].title or "Default"
-			t_insert(itemList, itemTitle)
-			local linkIdentifier = string.match(itemTitle, "%{([%w,]+)%}")
-			if linkIdentifier then
-				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
-					transferTable["setId"] = item
-					transferTable["setName"] = string.match(itemTitle, "(.+)% {")
-					self.itemListSpecialLinks[linkId] = transferTable
-					transferTable = {}
+
+		-- item, skill, and config sets have identical structure
+		local function identifyLinks(setOrderList, tabSets, setList, specialLinks)
+			for id, set in ipairs(setOrderList) do
+				local setTitle = tabSets[set].title or "Default"
+				t_insert(setList, setTitle)
+				local linkIdentifier = string.match(setTitle, "%{([%w,]+)%}")
+				if linkIdentifier then
+					for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
+						transferTable["setId"] = set
+						transferTable["setName"] = string.match(setTitle, "(.+)% {")
+						specialLinks[linkId] = transferTable
+						transferTable = {}
+					end
 				end
 			end
 		end
-		for id, skill in ipairs(self.skillsTab.skillSetOrderList) do
-			local skillTitle = self.skillsTab.skillSets[skill].title or "Default"
-			t_insert(skillList, skillTitle)
-			local linkIdentifier = string.match(skillTitle, "%{([%w,]+)%}")
-			if linkIdentifier then
-				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
-					transferTable["setId"] = skill
-					transferTable["setName"] = string.match(skillTitle, "(.+)% {")
-					self.skillListSpecialLinks[linkId] = transferTable
-					transferTable = {}
-				end
-			end
-		end
+		identifyLinks(self.itemsTab.itemSetOrderList, self.itemsTab.itemSets, itemList, self.itemListSpecialLinks)
+		identifyLinks(self.skillsTab.skillSetOrderList, self.skillsTab.skillSets, skillList, self.skillListSpecialLinks)
+		identifyLinks(self.configTab.configSetOrderList, self.configTab.configSets, configList, self.configListSpecialLinks)
+
 		local duplicateCheck = { }
 		-- loop over all for exact match loadouts
 		for id, tree in ipairs(treeList) do
 			for id, skill in ipairs(skillList) do
 				for id, item in ipairs(itemList) do
-					if (tree == skill and tree == item) then
-						if duplicateCheck[tree] then -- if already seen, re-colour NEGATIVE to alert user of duplicate
-							tree = colorCodes.NEGATIVE..tree
+					for id, config in ipairs(configList) do
+						if (tree == skill and tree == item and tree == config) then
+							if duplicateCheck[tree] then -- if already seen, re-colour NEGATIVE to alert user of duplicate
+								tree = colorCodes.NEGATIVE..tree
+							end
+							t_insert(filteredList, tree)
+							duplicateCheck[tree] = true
 						end
-						t_insert(filteredList, tree)
-						duplicateCheck[tree] = true
 					end
 				end
 			end
@@ -958,13 +958,15 @@ function buildMode:SyncLoadouts(reset)
 		for treeLinkId, tree in pairs(self.treeListSpecialLinks) do
 			for itemLinkId, item in pairs(self.itemListSpecialLinks) do
 				for skillLinkId, skill in pairs(self.skillListSpecialLinks) do
-					if (treeLinkId == skillLinkId and treeLinkId == itemLinkId) then
-						local loadoutName = tree["setName"].." {"..treeLinkId.."}"
-						if duplicateCheck[loadoutName] then
-							loadoutName = colorCodes.NEGATIVE..loadoutName
+					for configLinkId, config in pairs(self.configListSpecialLinks) do
+						if (treeLinkId == skillLinkId and treeLinkId == itemLinkId and treeLinkId == configLinkId) then
+							local loadoutName = tree["setName"].." {"..treeLinkId.."}"
+							if duplicateCheck[loadoutName] then
+								loadoutName = colorCodes.NEGATIVE..loadoutName
+							end
+							t_insert(filteredList, loadoutName)
+							duplicateCheck[loadoutName] = true
 						end
-						t_insert(filteredList, loadoutName)
-						duplicateCheck[loadoutName] = true
 					end
 				end
 			end
@@ -984,7 +986,7 @@ function buildMode:SyncLoadouts(reset)
 		self.controls.buildLoadouts:SetSel(1)
 	end
 
-	return treeList, itemList, skillList
+	return treeList, itemList, skillList, configList
 end
 
 function buildMode:EstimatePlayerProgress()

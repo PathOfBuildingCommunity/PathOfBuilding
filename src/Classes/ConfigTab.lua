@@ -685,6 +685,7 @@ function ConfigTabClass:Load(xml, fileName)
 	self:SetActiveConfigSet(tonumber(xml.attrib.activeConfigSet) or 1)
 	self:BuildModList()
 	self:ResetUndo()
+	self.build:SyncLoadouts()
 end
 
 function ConfigTabClass:GetDefaultState(var, varType)

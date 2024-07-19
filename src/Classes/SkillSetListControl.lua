@@ -12,7 +12,7 @@ local SkillSetListClass = newClass("SkillSetListControl", "ListControl", functio
 	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, skillsTab.skillSetOrderList)
 	self.skillsTab = skillsTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, 2, -4, 60, 18, "Copy", function()
-		local skillSet = skillsTab.skillSets[self.selValue]
+		local skillSet = skillsTab.skillSets[self.selIndex]
 		local newSkillSet = copyTable(skillSet, true)
 		newSkillSet.socketGroupList = { }
 		for socketGroupIndex, socketGroup in pairs(skillSet.socketGroupList) do
@@ -40,7 +40,7 @@ local SkillSetListClass = newClass("SkillSetListControl", "ListControl", functio
 		return self.selValue ~= nil and #self.list > 1
 	end
 	self.controls.rename = new("ButtonControl", {"BOTTOMRIGHT",self,"TOP"}, -2, -4, 60, 18, "Rename", function()
-		self:RenameSet(skillsTab.skillSets[self.selValue])
+		self:RenameSet(skillsTab.skillSets[self.selIndex])
 	end)
 	self.controls.rename.enabled = function()
 		return self.selValue ~= nil
@@ -97,7 +97,7 @@ function SkillSetListClass:OnSelClick(index, skillSetId, doubleClick)
 end
 
 function SkillSetListClass:OnSelDelete(index, skillSetId)
-	local skillSet = self.skillsTab.skillSets[skillSetId]
+	local skillSet = self.skillsTab.skillSets[index]
 	if #self.list > 1 then
 		main:OpenConfirmPopup("Delete Item Set", "Are you sure you want to delete '"..(skillSet.title or "Default").."'?", "Delete", function()
 			t_remove(self.list, index)
@@ -108,6 +108,7 @@ function SkillSetListClass:OnSelDelete(index, skillSetId)
 				self.skillsTab:SetActiveSkillSet(self.list[m_max(1, index - 1)])
 			end
 			self.skillsTab:AddUndoState()
+			self.skillsTab.build:SyncLoadouts()
 		end)
 	end
 end
