@@ -1300,6 +1300,9 @@ Huge sets the radius to 11.
 	{ var = "multiplierNonInstantSpellCastRecently", type = "count", label = "# of Non-Instant Spells Cast Recently:", ifMult = "NonInstantSpellCastRecently", implyCond = "CastSpellRecently", tooltip = "Only the number of different spells you cast count", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NonInstantSpellCastRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "multiplierAppliedAilementsRecently", type = "count", label = "# of Recently Applied Ailments:", ifMult = "AppliedAilementsRecently", tooltip = "Number of recently applied ailments", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:AppliedAilementsRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionLinkedRecently", type = "check", label = "Have you Linked recently?", ifCond = "LinkedRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LinkedRecently", "FLAG", true, "Config")
 	end },
