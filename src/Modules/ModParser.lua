@@ -4629,12 +4629,18 @@ local specialModList = {
 	["overwhelm (%d+)%% physical damage reduction"] = function(num) return {
 		mod("EnemyPhysicalDamageReduction", "BASE", -num)
 	} end,
+	["hits have (%d+)%% chance to ignore enemy physical damage reduction"] = function(num) return {
+		mod("ChanceToIgnoreEnemyPhysicalDamageReduction", "BASE", num)
+	} end,
 	["hits against you overwhelm (%d+)%% of physical damage reduction"] = function(num) return {
 		mod("EnemyPhysicalOverwhelm", "BASE", num)
 	} end,
 	["impale damage dealt to enemies impaled by you overwhelms (%d+)%% physical damage reduction"] = function(num) return {
 		mod("EnemyImpalePhysicalDamageReduction", "BASE", -num)
 	} end,
+	["impale damage dealt to enemies impaled by you ignores enemy physical damage reduction"] =  {
+		flag("IgnoreEnemyImpalePhysicalDamageReduction")
+	},
 	["nearby enemies are crushed while you have ?a?t? least (%d+) rage"] = function(num) return {
 		-- MultiplierThreshold is on RageStacks because Rage is only set in CalcPerform if Condition:CanGainRage is true, Bear's Girdle does not flag CanGainRage
 		mod("EnemyModifier", "LIST", { mod = flag("Condition:Crushed") }, { type = "MultiplierThreshold", var = "RageStack", threshold = num })
@@ -4717,8 +4723,14 @@ local specialModList = {
 	["hits overwhelm (%d+)%% of physical damage reduction while you have sacrificial zeal"] = function(num) return {
 		mod("EnemyPhysicalDamageReduction", "BASE", -num, nil, { type = "Condition", var = "SacrificialZeal" }),
 	} end,
+	["(%d+)%% chance for hits to ignore enemy physical damage reduction while you have sacrificial zeal"] = function(num) return {
+		mod("ChanceToIgnoreEnemyPhysicalDamageReduction", "BASE", num, nil, { type = "Condition", var = "SacrificialZeal" }),
+	} end,
 	["minions attacks overwhelm (%d+)%% physical damage reduction"] = function(num) return {
 		mod("MinionModifier", "LIST", { mod = mod("EnemyPhysicalDamageReduction", "BASE", -num, { type = "SkillType", skillType = SkillType.Attack }) })
+	} end,
+	["minions hits have (%d+)%% chance to ignore enemy physical damage reduction"] = function(num) return {
+		mod("MinionModifier", "LIST", { mod = mod("ChanceToIgnoreEnemyPhysicalDamageReduction", "BASE", num) })
 	} end,
 	["focus has (%d+)%% increased cooldown recovery rate"] = function(num) return { mod("FocusCooldownRecovery", "INC", num, { type = "Condition", var = "Focused" }) } end,
 	["focus has (%d+)%% reduced cooldown recovery rate"] = function(num) return { mod("FocusCooldownRecovery", "INC", -num, { type = "Condition", var = "Focused" }) } end,
