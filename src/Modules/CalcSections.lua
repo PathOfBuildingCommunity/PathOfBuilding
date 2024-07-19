@@ -1180,7 +1180,7 @@ return {
 		{ breakdown = "OffHand.FreezeDPS" },
 		{ breakdown = "FreezeDPS" },
 		{ label = "Player modifiers", modName = { "EnemyFreezeDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration", "FreezeAsThoughDealing" }, cfg = "skill" },
-		{ label = "Enemy modifiers", modName = { "SelfFreezeDuration", "SelfAilmentDuration", "SelfElementalAilmentDuration", "BuffExpireFaster" }, enemy = true },
+		{ label = "Enemy modifiers", modName = { "SelfFreezeDuration", "SelfAilmentDuration", "SelfElementalAilmentDuration", "BuffExpireFaster", "HoarfrostFreezeDuration" }, enemy = true },
 	}, },
 	{ label = "Brittle Effect Mod", bgCol = colorCodes.BRITTLEBG, flag = "brittle", { format = "x {2:output:BrittleEffectMod}",
 		{ breakdown = "BrittleEffectMod" },
