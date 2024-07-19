@@ -454,7 +454,7 @@ Variant: Chance to Freeze, Shock and Ignite
 Variant: Crit Chance
 Variant: Area of Effect
 Variant: Attack/Cast Speed
-Variant: Item Quantity
+Variant: Item Quantity (Pre 3.25.0)
 Variant: Life
 Variant: Crit Multiplier
 Variant: Maximum number of Raised Zombies
@@ -470,6 +470,7 @@ Variant: Lightning taken as Cold
 Variant: Lightning taken as Fire
 Variant: Gain Physical as random Element
 Variant: Extra Pierces
+Variant: Damage over Time Multiplier
 Implicits: 32
 {variant:1}(24-32)% increased Attributes
 {variant:2}(30-50)% increased Global Defences
@@ -503,6 +504,7 @@ Implicits: 32
 {variant:30}100% of Lightning Damage from Hits taken as Fire Damage
 {variant:31}Gain (12-24)% of Physical Damage as Extra Damage of a random Element
 {variant:32}Projectiles Pierce (4-6) additional Targets
+{variant:33}(24-36)% Damage over Time Multiplier
 Implicit Modifier magnitudes are doubled
 ]],[[
 The Felbog Fang
