@@ -3606,6 +3606,11 @@ function calcs.offence(env, actor, activeSkill)
 			if ailment == "Chill" then
 				chance = 100
 			end
+			-- Warden's Oath of Summer Scorch Chance
+			if ailment == "Ignite" and env.modDB:Flag(nil, "IgniteCanScorch") then
+				output["ScorchChance"] = m_min(100, chance)
+				skillModList:NewMod("EnemyScorchChance", "BASE", chance, "Ignite Chance")
+			end
 			if skillFlags.hit and not skillModList:Flag(cfg, "Cannot"..ailment) then
 				output[ailment.."ChanceOnHit"] = m_min(100, chance)
 				if skillModList:Flag(cfg, "CritsDontAlways"..ailment) -- e.g. Painseeker

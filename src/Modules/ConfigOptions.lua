@@ -1588,6 +1588,9 @@ Huge sets the radius to 11.
 		enemyModList:NewMod("ScorchVal", "BASE", val, "Config", { type = "Condition", var = "ScorchedConfig" })
 		enemyModList:NewMod("DesiredScorchVal", "BASE", val, "Scorch", { type = "Condition", var = "ScorchedConfig", neg = true })
 	end },
+	{ var = "ScorchStacks", type = "count", label = "Scorch Stacks", ifFlag = "ScorchCanStack", ifOption = "conditionEnemyScorched", tooltip = "Amount of scorches you have applied on the target. Both Scorches use the same effect.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("ScorchStacks", "BASE", val, "Scorch", { type = "Condition", var = "ScorchedConfig" })
+	end },
 	{ var = "conditionEnemyOnScorchedGround", type = "check", label = "Is the enemy on ^xB97123Scorched ^7Ground?", tooltip = "This also implies that the enemy is ^xB97123Scorched.", ifEnemyCond = "OnScorchedGround", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Scorched", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:OnScorchedGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1634,6 +1637,9 @@ Huge sets the radius to 11.
 	{ var = "conditionShockEffect", type = "count", label = "Effect of ^xADAA47Shock:", ifOption = "conditionEnemyShocked", tooltip = "If you have a guaranteed source of ^xADAA47Shock^7,\nthe strongest one will apply instead unless this option would apply a stronger ^xADAA47Shock.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ShockVal", "BASE", val, "Shock", { type = "Condition", var = "ShockedConfig" })
 		enemyModList:NewMod("DesiredShockVal", "BASE", val, "Shock", { type = "Condition", var = "ShockedConfig", neg = true })
+	end },
+	{ var = "ShockStacks", type = "count", label = "Shock Stacks", ifFlag = "ShockCanStack", ifOption = "conditionEnemyShocked", tooltip = "Amount of shocks you have applied on the target. All Shocks use the same effect.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("ShockStacks", "BASE", val, "Shock", { type = "Condition", var = "ShockedConfig" })
 	end },
 	{ var = "conditionEnemyOnShockedGround", type = "check", label = "Is the enemy on ^xADAA47Shocked ^7Ground?", tooltip = "This also implies that the enemy is ^xADAA47Shocked.", ifEnemyCond = "OnShockedGround", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Shocked", "FLAG", true, "Config", { type = "Condition", var = "Effective" })

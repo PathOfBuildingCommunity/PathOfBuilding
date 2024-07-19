@@ -260,7 +260,7 @@ local function doActorAttribsConditions(env, actor)
 		if actor.mainSkill.skillFlags.trap then
 			condList["TriggeredTrapsRecently"] = true
 		end
-		if modDB:Sum("BASE", nil, "EnemyScorchChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(env.player.mainSkill.skillCfg, "NeverCrit") then
+		if modDB:Sum("BASE", nil, "EnemyScorchChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(env.player.mainSkill.skillCfg, "NeverCrit") or modDB:Flag(nil, "IgniteCanScorch") then
 			condList["CanInflictScorch"] = true
 		end
 		if modDB:Sum("BASE", nil, "EnemyBrittleChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(env.player.mainSkill.skillCfg, "NeverCrit") then
@@ -2895,13 +2895,21 @@ function calcs.perform(env, skipEHP)
 		["Shock"] = {
 			condition = "Shocked",
 			mods = function(num)
-				return { modLib.createMod("DamageTaken", "INC", num, "Shock", { type = "Condition", var = "Shocked" }) }
+				local shockStacks = enemyDB:Sum("BASE", nil, "ShockStacks")
+				local maxShockStacks = modDB:Sum("BASE", nil, "MaxShockStacks")
+				shockStacks = maxShockStacks < 1 and 1 or shockStacks > maxShockStacks and maxShockStacks or shockStacks < 1 and 1 or shockStacks
+				output.ShockStacks = shockStacks < maxShockStacks and shockStacks or maxShockStacks
+				return { modLib.createMod("DamageTaken", "INC", num * shockStacks, "Shock", { type = "Condition", var = "Shocked" }) }
 			end
 		},
 		["Scorch"] = {
 			condition = "Scorched",
 			mods = function(num)
-				return { modLib.createMod("ElementalResist", "BASE", -num, "Scorch", { type = "Condition", var = "Scorched" }) }
+				local scorchStacks = enemyDB:Sum("BASE", nil, "ScorchStacks")
+				local maxScorchStacks = modDB:Sum("BASE", nil, "MaxScorchStacks")
+				scorchStacks = maxScorchStacks < 1 and 1 or scorchStacks > maxScorchStacks and maxScorchStacks or scorchStacks < 1 and 1 or scorchStacks
+				output.ScorchStacks = scorchStacks < maxScorchStacks and scorchStacks or maxScorchStacks
+				return { modLib.createMod("ElementalResist", "BASE", -num * scorchStacks, "Scorch", { type = "Condition", var = "Scorched" }) }
 			end
 		},
 		["Brittle"] = {
