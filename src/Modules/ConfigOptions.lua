@@ -281,6 +281,10 @@ return {
 		modList:NewMod("Multiplier:BarkskinStacks", "BASE",  m_min(val, 10), "Config")
 		modList:NewMod("Multiplier:MissingBarkskinStacks", "BASE", m_max(-val, -10), "Config")
 	end },
+	{ label = "Unbound Avatar:", ifSkill = "Unbound Avatar" },
+	{ var = "Unbound", type = "check", label = "Are you Unbound?", ifSkill = "Unbound Avatar", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:Unbound", "FLAG", true, "Config")
+	end },
 	{ label = "Bladestorm:", ifSkill = "Bladestorm", includeTransfigured = true },
 	{ var = "bladestormInBloodstorm", type = "check", label = "Are you in a Bloodstorm?", ifSkill = "Bladestorm", includeTransfigured = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BladestormInBloodstorm", "FLAG", true, "Config", { type = "SkillName", skillName = "Bladestorm", includeTransfigured = true })
