@@ -1562,7 +1562,7 @@ return {
 	extra = "{0:output:BlockChance}%/{0:output:SpellBlockChance}%",
 	{ label = "Block Chance", { format = "{0:output:BlockChance}% (+{0:output:BlockChanceOverCap}%)",
 		{ breakdown = "BlockChance" },
-		{ modName = "BlockChance" }, 
+		{ modName = { "BlockChance", "ReplaceShieldBlock" } }, 
 	}, },
 	{ label = "Spell Block Chance", { format = "{0:output:SpellBlockChance}% (+{0:output:SpellBlockChanceOverCap}%)", 
 		{ breakdown = "SpellBlockChance" }, 
