@@ -608,6 +608,7 @@ data.itemTagSpecialExclusionPattern = {
 			"maximum Life as Fire Damage",
 			"when on Full Life",
 			"when on Low Life",
+			"Gain Maximum Life instead of Maximum Energy Shield",
 			"^Socketed Gems are Supported by Level",
 			"^Allocates",
 		},
