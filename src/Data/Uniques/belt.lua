@@ -98,6 +98,8 @@ Implicits: 1
 ]],[[
 Bear's Girdle
 Leather Belt
+Variant: Pre 3.25.0
+Variant: Current
 League: Harvest
 Source: Drops from unique{Ersi, Mother of Thorns} in normal{The Sacred Grove}
 LevelReq: 68
@@ -106,8 +108,9 @@ Implicits: 1
 {tags:attack,physical_damage}Adds (5-7) to (11-12) Physical Damage to Attacks
 (20-30)% increased Stun Duration on Enemies
 Nearby Enemies are Crushed while you have at least 25 Rage
-{tags:physical_damage}(4-6)% increased Physical Damage per 10 Rage
-+20 to Maximum Rage
+{variant:1}{tags:physical_damage}(4-6)% increased Physical Damage per 10 Rage
+{variant:1}+20 to Maximum Rage
+{variant:2}+10 to Maximum Rage
 ]],[[
 Belt of the Deceiver
 Heavy Belt
