@@ -13882,7 +13882,7 @@ return {
             ["isMultipleChoiceOption"]= true,
             ["stats"]= {
                 "25% chance to Aggravate Bleeding on targets you Hit with Attacks",
-                "Gain 50% Base Chance to Block from Equipped Shield instead of the Shield's value",
+                "Gain 50% Chance to Block from Equipped Shield instead of the Shield's value",
                 "Inherent Bonuses from Dual Wielding are doubled"
             },
             ["reminderText"]= {
@@ -15363,7 +15363,7 @@ return {
                 {
                     ["effect"]= 9143,
                     ["stats"]= {
-                        "Gain Unholy Might on block for 3 seconds"
+                        "Gain Unholy Might on Block for 3 seconds"
                     },
                     ["reminderText"]= {
                         "(Unholy Might grants 100% of Physical Damage converted to Chaos Damage and 25% chance to apply Withered on Hit)"
@@ -21917,7 +21917,7 @@ return {
                 {
                     ["effect"]= 9143,
                     ["stats"]= {
-                        "Gain Unholy Might on block for 3 seconds"
+                        "Gain Unholy Might on Block for 3 seconds"
                     },
                     ["reminderText"]= {
                         "(Unholy Might grants 100% of Physical Damage converted to Chaos Damage and 25% chance to apply Withered on Hit)"
@@ -24878,7 +24878,7 @@ return {
                 {
                     ["effect"]= 9143,
                     ["stats"]= {
-                        "Gain Unholy Might on block for 3 seconds"
+                        "Gain Unholy Might on Block for 3 seconds"
                     },
                     ["reminderText"]= {
                         "(Unholy Might grants 100% of Physical Damage converted to Chaos Damage and 25% chance to apply Withered on Hit)"
@@ -29978,7 +29978,7 @@ return {
                 {
                     ["effect"]= 9143,
                     ["stats"]= {
-                        "Gain Unholy Might on block for 3 seconds"
+                        "Gain Unholy Might on Block for 3 seconds"
                     },
                     ["reminderText"]= {
                         "(Unholy Might grants 100% of Physical Damage converted to Chaos Damage and 25% chance to apply Withered on Hit)"
@@ -31764,7 +31764,7 @@ return {
                 {
                     ["effect"]= 9143,
                     ["stats"]= {
-                        "Gain Unholy Might on block for 3 seconds"
+                        "Gain Unholy Might on Block for 3 seconds"
                     },
                     ["reminderText"]= {
                         "(Unholy Might grants 100% of Physical Damage converted to Chaos Damage and 25% chance to apply Withered on Hit)"
@@ -36180,7 +36180,7 @@ return {
             ["isNotable"]= true,
             ["ascendancyName"]= "Gladiator",
             ["stats"]= {
-                "Gain 50% Base Chance to Block from Equipped Shield instead of the Shield's value",
+                "Gain 50% Chance to Block from Equipped Shield instead of the Shield's value",
                 "Inherent Bonuses from Dual Wielding are doubled"
             },
             ["reminderText"]= {
@@ -69204,6 +69204,7 @@ return {
             ["name"]= "Physical Damage and Ignore Physical Damage Reduction",
             ["icon"]= "Art/2DArt/SkillIcons/passives/GreenPhysicalDamageNode.png",
             ["stats"]= {
+                "Hits have 10% chance to ignore Enemy Physical Damage Reduction",
                 "14% increased Physical Damage"
             },
             ["group"]= 637,
