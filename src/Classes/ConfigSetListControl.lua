@@ -11,7 +11,7 @@ local ConfigSetListClass = newClass("ConfigSetListControl", "ListControl", funct
 	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, configTab.configSetOrderList)
 	self.configTab = configTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, 2, -4, 60, 18, "Copy", function()
-		local configSet = configTab.configSets[self.selIndex]
+		local configSet = configTab.configSets[self.selvalue]
 		local newConfigSet = copyTable(configSet, true)
 		newConfigSet.id = 1
 		while configTab.configSets[newConfigSet.id] do
@@ -30,7 +30,7 @@ local ConfigSetListClass = newClass("ConfigSetListControl", "ListControl", funct
 		return self.selValue ~= nil and #self.list > 1
 	end
 	self.controls.rename = new("ButtonControl", {"BOTTOMRIGHT",self,"TOP"}, -2, -4, 60, 18, "Rename", function()
-		self:RenameSet(configTab.configSets[self.selIndex])
+		self:RenameSet(configTab.configSets[self.selValue])
 	end)
 	self.controls.rename.enabled = function()
 		return self.selValue ~= nil
@@ -87,7 +87,7 @@ function ConfigSetListClass:OnSelClick(index, configSetId, doubleClick)
 end
 
 function ConfigSetListClass:OnSelDelete(index, configSetId)
-	local configSet = self.configTab.configSets[index]
+	local configSet = self.configTab.configSets[configSetId]
 	if #self.list > 1 then
 		main:OpenConfirmPopup("Delete Config Set", "Are you sure you want to delete '"..(configSet.title or "Default").."'?", "Delete", function()
 			t_remove(self.list, index)

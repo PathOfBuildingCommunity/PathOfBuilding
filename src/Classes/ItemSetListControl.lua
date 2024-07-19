@@ -12,7 +12,7 @@ local ItemSetListClass = newClass("ItemSetListControl", "ListControl", function(
 	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, itemsTab.itemSetOrderList)
 	self.itemsTab = itemsTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, 2, -4, 60, 18, "Copy", function()
-		local newSet = copyTable(itemsTab.itemSets[self.selIndex])
+		local newSet = copyTable(itemsTab.itemSets[self.selValue])
 		newSet.id = 1
 		while itemsTab.itemSets[newSet.id] do
 			newSet.id = newSet.id + 1
@@ -30,7 +30,7 @@ local ItemSetListClass = newClass("ItemSetListControl", "ListControl", function(
 		return self.selValue ~= nil and #self.list > 1
 	end
 	self.controls.rename = new("ButtonControl", {"BOTTOMRIGHT",self,"TOP"}, -2, -4, 60, 18, "Rename", function()
-		self:RenameSet(itemsTab.itemSets[self.selIndex])
+		self:RenameSet(itemsTab.itemSets[self.selValue])
 	end)
 	self.controls.rename.enabled = function()
 		return self.selValue ~= nil
@@ -117,7 +117,7 @@ function ItemSetListClass:OnSelClick(index, itemSetId, doubleClick)
 end
 
 function ItemSetListClass:OnSelDelete(index, itemSetId)
-	local itemSet = self.itemsTab.itemSets[index]
+	local itemSet = self.itemsTab.itemSets[itemSetId]
 	if #self.list > 1 then
 		main:OpenConfirmPopup("Delete Item Set", "Are you sure you want to delete '"..(itemSet.title or "Default").."'?\nThis will not delete any items used by the set.", "Delete", function()
 			t_remove(self.list, index)
