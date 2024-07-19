@@ -845,7 +845,7 @@ Has 1 Socket
 {tags:jewellery_defense}+100 to Maximum Energy Shield per Blue Socket
 {tags:mana}+100 to Maximum Mana per Green Socket
 {variant:1}15% increased Item Quantity per White Socket
-{variant:2}60% increased Item Rarity of Items found per White Socket
+{variant:2}60% increased Rarity of Items found per White Socket
 ]],[[
 Perandus Signet
 Paua Ring
