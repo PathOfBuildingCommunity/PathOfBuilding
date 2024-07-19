@@ -638,13 +638,16 @@ With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
 ]],[[
 Hand of the Fervent
 Zealot Gloves
+Variant: Pre 3.25.0
+Variant: Current
 League: Ritual
 Source: Purchase from Ritual Reward
 Requires Level 43, 34 Str, 34 Int
 (70-130)% increased Armour and Energy Shield
 +(50-70) to maximum Life
 Gain Sacrificial Zeal when you use a Skill, dealing you 150% of the Skill's Mana Cost as Physical Damage per Second
-Hits Overwhelm (10-15)% of Physical Damage Reduction while you have Sacrificial Zeal
+{variant:1}Hits Overwhelm (10-15)% of Physical Damage Reduction while you have Sacrificial Zeal
+{variant:2}(35-50)% chance for Hits to ignore Enemy Physical Damage Reduction while you have Sacrificial Zeal
 ]],[[
 Hands of the High Templar
 Crusader Gloves
@@ -1054,6 +1057,7 @@ Flasks gain 1 Charge per second if you've Hit a Unique Enemy Recently
 Nightgrip
 Runic Gages
 Variant: Pre 3.16.0
+Variant: Pre 3.25.0
 Variant: Current
 League: Expedition
 Requires Level 48, 31 Str, 31 Dex, 31 Int
@@ -1061,6 +1065,7 @@ Requires Level 48, 31 Str, 31 Dex, 31 Int
 +(17-23)% to Chaos Resistance
 {variant:1}Gain Added Chaos Damage equal to 25% of Ward
 {variant:2}Gain Added Chaos Damage equal to 20% of Ward
+{variant:3}Gain Added Chaos Damage equal to 10% of Ward
 75% of Damage taken bypasses Ward
 ]],
 }

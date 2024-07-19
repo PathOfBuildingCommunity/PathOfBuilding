@@ -197,6 +197,8 @@ Implicits: 1
 ]],[[
 Eternal Damnation
 Agate Amulet
+Variant: Pre 3.25.0
+Variant: Current
 League: Sanctum
 Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
 LevelReq: 52
@@ -206,6 +208,8 @@ Implicits: 1
 {tags:jewellery_resistance}+(-13-13)% to Chaos Resistance
 {tags:jewellery_resistance}-5% to all maximum Resistances
 Gain additional Elemental Damage Reduction equal to half your Chaos Resistance
+{variant:2}Cannot gain Endurance Charges
+{variant:2}Cannot gain Power Charges
 ]],[[
 Badge of the Brotherhood
 Turquoise Amulet
@@ -336,6 +340,8 @@ Implicits: 1
 ]],[[
 Defiance of Destiny
 Paua Amulet
+Variant: Pre 3.25.0
+Variant: Current
 LevelReq: 49
 Implicits: 1
 {tags:mana}(20-30)% increased Mana Regeneration Rate
@@ -343,7 +349,8 @@ Implicits: 1
 {tags:jewellery_resistance}+(10-40)% to Fire Resistance
 {tags:jewellery_resistance}+(10-40)% to Cold Resistance
 {tags:jewellery_resistance}+(10-40)% to Lightning Resistance
-{tags:life}Gain (25-35)% of Missing Unreserved Life before being Hit by an Enemy
+{variant:1}{tags:life}Gain (25-35)% of Missing Unreserved Life before being Hit by an Enemy
+{variant:2}{tags:life}Gain (10-20)% of Missing Unreserved Life before being Hit by an Enemy
 ]],[[
 The Ephemeral Bond
 Lapis Amulet

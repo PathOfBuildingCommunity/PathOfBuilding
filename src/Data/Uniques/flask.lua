@@ -364,13 +364,15 @@ Sapphire Flask
 Variant: Pre 2.2.0
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
+Variant: Pre 3.25.0
 Variant: Current
 {variant:1}30% of Physical Damage from Hits taken as Cold Damage during Effect
 {variant:2,3}20% of Physical Damage from Hits taken as Cold Damage during Effect
 {variant:4}(10-15)% of Physical Damage from Hits taken as Cold Damage during Effect
+{variant:5}(20-30)% of Fire and Lightning Damage from Hits taken as Cold Damage during Effect
 {variant:1,2}Gain (20-30)% of Physical Damage as Extra Cold Damage during effect
 {variant:3}Gain (15-20)% of Physical Damage as Extra Cold Damage during effect
-{variant:4}Gain (10-15)% of Physical Damage as Extra Cold Damage during effect
+{variant:4,5}Gain (10-15)% of Physical Damage as Extra Cold Damage during effect
 30% chance to Avoid being Chilled during Effect
 30% chance to Avoid being Frozen during Effect
 ]],[[
@@ -474,24 +476,30 @@ Grants Level 21 Vulnerability Curse Aura during Effect
 [[
 Elixir of the Unbroken Circle
 Iron Flask
+Variant: Pre 3.25.0
+Variant: Current
 League: Expedition
 Source: Drops from unique{Medved, Feller of Heroes} in normal{Expedition Logbook}
 Implicits: 1
 Restores Ward on use
-(20-40)% increased Duration
+{variant:1}(20-40)% increased Duration
+{variant:2}(50-80)% increased Duration
 Recover 4% of Life per Endurance Charge on use
 Lose all Endurance Charges on use
 Gain 1 Endurance Charge per Second during Effect
 ]],[[
 Olroth's Resolve
 Iron Flask
+Variant: Pre 3.25.0
+Variant: Current
 League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 Implicits: 1
 Restores Ward on use
 (50-40)% increased Charges per use
 Ward does not Break during Effect
-70% less Ward during Effect
+{variant:1}70% less Ward during Effect
+{variant:2}85% less Ward during Effect
 ]],[[
 Starlight Chalice
 Iron Flask

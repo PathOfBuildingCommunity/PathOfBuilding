@@ -113,11 +113,12 @@ Implicits: 0
 Kaom's Heart
 Glorious Plate
 Variant: Pre 1.0.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
 Has no Sockets
 {variant:2}(20-40)% increased Fire Damage
-{variant:1}+1000 to maximum Life
+{variant:1,3}+1000 to maximum Life
 {variant:2}+500 to maximum Life
 ]],[[
 Replica Kaom's Heart
