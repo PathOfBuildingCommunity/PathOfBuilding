@@ -632,7 +632,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 		-- Draw base artwork
 		if base then
-			self:DrawAsset(base, scrX, scrY, scale)
+			if node.type == "Socket" and hoverDep and hoverDep[node] then
+				SetDrawColor(1, 0, 0);
+				self:DrawAsset(base, scrX, scrY, scale)
+				SetDrawColor(1, 1, 1);
+			else
+				self:DrawAsset(base, scrX, scrY, scale)
+			end
 		end
 
 		if overlay then
