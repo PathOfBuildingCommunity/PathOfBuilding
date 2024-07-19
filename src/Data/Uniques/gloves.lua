@@ -426,6 +426,7 @@ Sadima's Touch
 Wool Gloves
 Variant: Pre 1.1.0
 Variant: Pre 3.5.0
+Variant: Pre 3.25.0
 Variant: Current
 Requires Level 11
 Adds 4 to 8 Fire Damage to Attacks
@@ -434,6 +435,7 @@ Adds 1 to 13 Lightning Damage to Attacks
 {variant:1}(18-24)% increased Quantity of Items found
 {variant:2}(12-16)% increased Quantity of Items found
 {variant:3}(5-10)% increased Quantity of Items found
+{variant:4}(10-15)% increased Rarity of Items found
 ]],[[
 Voidbringer
 Conjurer Gloves

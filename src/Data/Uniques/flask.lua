@@ -75,6 +75,7 @@ Variant: Pre 1.1.0
 Variant: Pre 2.2.0
 Variant: Pre 3.5.0
 Variant: Pre 3.15.0
+Variant: Pre 3.25.0
 Variant: Current
 {variant:1,2}+6% to all maximum Elemental Resistances during Effect
 {variant:3}+4% to all maximum Elemental Resistances during Effect
@@ -83,8 +84,10 @@ Variant: Current
 {variant:1,2,3,4}(40-60)% increased Rarity of Items found during Effect
 {variant:5}(20-30)% increased Rarity of Items found during Effect
 {variant:5}(8-12)% increased Quantity of Items found during Effect
+{variant:6}(30-50)% increased Rarity of Items found during Effect
 25% increased Light Radius during Effect
 {variant:4,5}+50% to Elemental Resistances during Effect
+{variant:6}+10% to Elemental Resistances during Effect
 ]],[[
 The Writhing Jar
 Hallowed Hybrid Flask

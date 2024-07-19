@@ -300,11 +300,13 @@ Trigger Level 20 Intimidating Cry when you lose Cat's Stealth
 Goldwyrm
 Nubuck Boots
 Variant: Pre 1.1.0
+Variant: Pre 3.25.0
 Variant: Current
 Requires Level 34, 62 Dex
 60% increased Mana Regeneration Rate
 {variant:1}(20-30)% increased Quantity of Items Found
 {variant:2}(14-20)% increased Quantity of Items Found
+{variant:3}(20-40)% increased Rarity of Items Found
 +(40-50)% to Fire Resistance
 10% increased Movement Speed
 ]],[[

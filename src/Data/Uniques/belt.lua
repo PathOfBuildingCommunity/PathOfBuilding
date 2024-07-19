@@ -126,10 +126,13 @@ Implicits: 1
 ]],[[
 Bisco's Leash
 Heavy Belt
+Variant: Pre 3.25.0
+Variant: Current
 LevelReq: 30
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
-5% increased Quantity of Items found
+{variant:1}5% increased Quantity of Items found
+{variant:2}{tags:jewellery_attribute}+(10-15) to all Attributes
 {tags:jewellery_resistance}+(20-40)% to Cold Resistance
 1% increased Rarity of Items found per 15 Rampage Kills
 Rampage
@@ -603,12 +606,14 @@ Gain Affliction Charges instead of Frenzy Charges
 Perandus Blazon
 Cloth Belt
 Variant: Pre 1.1.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:jewellery_attribute}+(20-30) to all Attributes
 {variant:1}(8-12)% increased Quantity of Items found
 {variant:2}(6-8)% increased Quantity of Items found
+{variant:3}(10-12)% increased Rarity of Items found
 {tags:jewellery_resistance}+20% to Fire Resistance
 20% increased Flask Effect Duration
 {tags:physical_damage}-2 Physical Damage taken from Attack Hits

@@ -101,12 +101,16 @@ Regenerate 10% Life over one second when Hit while Sane
 ]],[[
 Greed's Embrace
 Golden Plate
+Variant: Pre 3.25.0
+Variant: Current
 Implicits: 0
-(10-15)% increased Quantity of Items found
-(30-50)% increased Rarity of Items found
+{variant:1}(10-15)% increased Quantity of Items found
+{variant:1}(30-50)% increased Rarity of Items found
+{variant:2}100% increased Rarity of Items found
 -10% to Fire Resistance
 +(20-30)% to Cold Resistance
--20% to Lightning Resistance
+{variant:1}-20% to Lightning Resistance
+{variant:2}(-20--10)% to Lightning Resistance
 20% reduced Movement Speed
 30% reduced Strength Requirement
 ]],[[

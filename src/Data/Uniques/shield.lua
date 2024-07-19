@@ -703,12 +703,13 @@ Unaffected by Ignite or Shock if Maximum Life and Maximum Mana are within 500
 Sentari's Answer
 Brass Spirit Shield
 Variant: Pre 3.4.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
 {variant:1}7% Chance to Block Spell Damage
-{variant:2}10% Chance to Block Spell Damage
+{variant:2,3}10% Chance to Block Spell Damage
 +(20-30) to Intelligence
-(4-8)% increased Quantity of Items found
+{variant:1,2}(4-8)% increased Quantity of Items found
 +5% Chance to Block
 Curse Enemies with Punishment when you Block their Melee Damage, ignoring Curse Limit
 Curse Enemies with Temporal Chains when you Block their Projectile Attack Damage, ignoring Curse Limit

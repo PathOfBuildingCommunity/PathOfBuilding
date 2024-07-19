@@ -68,6 +68,7 @@ Implicits: 1
 ]],[[
 The Ascetic
 Gold Amulet
+Source: No longer obtainable
 Requires Level 8
 Implicits: 1
 (12-20)% increased Rarity of Items found
@@ -242,6 +243,7 @@ Gold Amulet
 Variant: Pre 3.0.0
 Variant: Pre 3.2.0
 Variant: Current
+Source: No longer obtainable
 Requires Level 30
 Implicits: 1
 (12-20)% increased Rarity of Items found
