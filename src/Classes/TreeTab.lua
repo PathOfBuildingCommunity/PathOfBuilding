@@ -809,8 +809,11 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 				count = count + 1
 			end
 		end
-		if count > 50 then
+		if count >= 50 then
 			count = colorCodes.NEGATIVE..count
+			controls.save.enabled = false
+		else
+			controls.save.enabled = true
 		end
 		return count
 	end
