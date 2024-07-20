@@ -1284,6 +1284,17 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 
+	if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
+		local ward
+		local armourData = env.player.itemList["Body Armour"] and env.player.itemList["Body Armour"].armourData
+		if armourData then
+			ward = armourData.Evasion + armourData.Armour
+			if ward > 0 then
+				modDB:NewMod("Ward", "BASE", ward * 0.5 , "Body Armour Armour And Evasion Rating to Ward Conversion")
+			end
+		end
+	end
+
 	-- Special handling of Mageblood
 	local maxActiveMagicUtilityCount = modDB:Sum("BASE", nil, "ActiveMagicUtilityFlasks")
 	if maxActiveMagicUtilityCount > 0 then
