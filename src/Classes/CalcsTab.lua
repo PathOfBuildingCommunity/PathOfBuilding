@@ -503,6 +503,7 @@ function CalcsTabClass:PowerBuilder()
 					end
 				elseif not self.powerStat or not self.powerStat.ignoreForNodes then
 					node.power.offence, node.power.defence = self:CalculateCombinedOffDefStat(output, calcBase)
+					node.power.singleStat = node.power.offence
 					if node.path and not node.ascendancyName then
 						newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
 						newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
@@ -511,7 +512,10 @@ function CalcsTabClass:PowerBuilder()
 					end
 				end
 			elseif node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
-				local output = calcFunc({ removeNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+				if not cache[node.modKey.."_remove"] then
+					cache[node.modKey.."_remove"] = calcFunc({ removeNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+				end
+				local output = cache[node.modKey.."_remove"]
 				if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 					node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 					if node.depends and not node.ascendancyName then
