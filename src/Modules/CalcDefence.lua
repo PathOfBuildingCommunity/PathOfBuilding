@@ -922,21 +922,6 @@ function calcs.defence(env, actor)
 		end
 	end
 
-	local weaponsCfg = {
-		flags = env.player.weaponData1.countsAsAll1H and bit.bor( ModFlag.Sword, ModFlag.Axe, ModFlag.Claw, ModFlag.Dagger, ModFlag.Mace ) or
-				bit.bor(env.player.weaponData1 and env.player.weaponData1.type and ModFlag[env.data.weaponTypeInfo[actor.weaponData1.type].flag] or 0,
-						 env.player.weaponData2 and env.player.weaponData2.type and ModFlag[env.data.weaponTypeInfo[actor.weaponData2.type].flag] or 0)
-	}
-
-	-- Add weapon dependent mods as unflagged mods if the correct weapons are equipped
-	for _, value in ipairs(modDB:Tabulate("BASE",  weaponsCfg, "SpellSuppressionChance")) do
-		if value.mod.flags ~= 0 and bit.band(value.mod.flags and weaponsCfg.flags) == value.mod.flags then
-			local mod = copyTable(value.mod)
-			mod.flags = 0
-			modDB:AddMod(mod)
-		end
-	end
-
 	local spellSuppressionChance =  modDB:Sum("BASE", nil, "SpellSuppressionChance")
 	local totalSpellSuppressionChance = modDB:Override(nil, "SpellSuppressionChance") or spellSuppressionChance
 
