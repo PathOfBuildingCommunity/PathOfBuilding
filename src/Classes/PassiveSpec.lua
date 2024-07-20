@@ -573,7 +573,7 @@ function PassiveSpecClass:SelectAscendClass(ascendClassId)
 	local ascendClass = self.curClass.classes[ascendClassId] or self.curClass.classes[0]
 	self.curAscendClass = ascendClass
 	self.curAscendClassName = ascendClass.name
-	self.curAscendClassId = ascendClass.id
+	self.curAscendClassBaseName = ascendClass.id
 
 	if ascendClass.startNodeId then
 		-- Allocate the new ascendancy class's start node
