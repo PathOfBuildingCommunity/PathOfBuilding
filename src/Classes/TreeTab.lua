@@ -105,19 +105,40 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.compareSelect = new("DropDownControl", { "LEFT", self.controls.compareCheck, "RIGHT" }, 8, 0, 190, 20, nil, function(index, value)
 		if self.specList[index] then
 			self:SetCompareSpec(index)
+		else
+			self:OpenSpecManagePopup()
 		end
 	end)
 	self.controls.compareSelect.shown = false
 	self.controls.compareSelect.maxDroppedWidth = 1000
 	self.controls.compareSelect.enableDroppedWidth = true
 	self.controls.compareSelect.enableChangeBoxWidth = true
-	self.controls.reset = new("ButtonControl", { "LEFT", self.controls.compareCheck, "RIGHT" }, 8, 0, 60, 20, "Reset", function()
-		main:OpenConfirmPopup("Reset Tree", "Are you sure you want to reset your passive tree?", "Reset", function()
+	self.controls.reset = new("ButtonControl", { "LEFT", self.controls.compareCheck, "RIGHT" }, 8, 0, 145, 20, "Reset Tree/Tattoos", function()
+		local controls = { }
+		local buttonY = 65
+		controls.warningLabel = new("LabelControl", nil, 0, 30, 0, 16, "^7Warning: resetting your passive tree or removing all tattoos cannot be undone.\n")
+		controls.reset = new("ButtonControl", nil, -130, buttonY, 100, 20, "Reset Tree", function()
 			self.build.spec:ResetNodes()
 			self.build.spec:BuildAllDependsAndPaths()
 			self.build.spec:AddUndoState()
 			self.build.buildFlag = true
+			main:ClosePopup()
 		end)
+		controls.removeTattoo = new("ButtonControl", nil, 0, buttonY, 144, 20, "Remove All Tattoos", function()
+			local hashOverridesCopy = copyTable(self.build.spec.hashOverrides, true) -- updating hashOverrides in RemoveTattooFromNode
+			for _, node in pairs(hashOverridesCopy) do
+				if node.isTattoo then
+					self:RemoveTattooFromNode(node)
+				end
+			end
+			self.modFlag = true
+			self.build.buildFlag = true
+			main:ClosePopup()
+		end)
+		controls.cancel = new("ButtonControl", nil, 130, buttonY, 100, 20, "Cancel", function()
+			main:ClosePopup()
+		end)
+		main:OpenPopup(570, 100, "Reset Tree/Tattoos", controls, nil, "edit", "cancel")
 	end)
 
 	-- Tree Version Dropdown
@@ -244,6 +265,13 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.jumpToY = 0
 end)
 
+function TreeTabClass:RemoveTattooFromNode(node)
+	self.build.spec.tree.nodes[node.id].isTattoo = false
+	self.build.spec.hashOverrides[node.id] = nil
+	self.build.spec:ReplaceNode(node, self.build.spec.tree.nodes[node.id])
+	self.build.spec:BuildAllDependsAndPaths()
+end
+
 function TreeTabClass:Draw(viewPort, inputEvents)
 	self.anchorControls.x = viewPort.x + 4
 	self.anchorControls.y = viewPort.y + viewPort.height - 24
@@ -258,6 +286,18 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 				self.build.spec:Redo()
 				self.build.buildFlag = true
 				inputEvents[id] = nil
+			elseif event.key == "UP" then
+				index = self.activeSpec - 1
+				if self.specList[index] then
+					self.build.modFlag = true
+					self:SetActiveSpec(index)
+				end
+			elseif event.key == "DOWN" then
+				index = self.activeSpec + 1
+				if self.specList[index] then
+					self.build.modFlag = true
+					self:SetActiveSpec(index)
+				end
 			elseif event.key == "f" and IsKeyDown("CTRL") then
 				self:SelectControl(self.controls.treeSearch)
 			elseif event.key == "m" and IsKeyDown("CTRL") then
@@ -373,6 +413,7 @@ function TreeTabClass:Load(xml, dbFileName)
 		self.specList[1] = new("PassiveSpec", self.build, latestTreeVersion)
 	end
 	self:SetActiveSpec(tonumber(xml.attrib.activeSpec) or 1)
+	self.build:SyncLoadouts()
 end
 
 function TreeTabClass:PostLoad()
@@ -428,6 +469,9 @@ function TreeTabClass:SetActiveSpec(specId)
 	if self.controls.versionSelect then
 		self.controls.versionSelect:SelByValue(curSpec.treeVersion:gsub("%_", "."):gsub(".ruthless", " (ruthless)"))
 	end
+
+	-- set the loadout option to the dummy option since it is now dirty
+	self.build.controls.buildLoadouts:SetSel(1)
 end
 
 function TreeTabClass:SetCompareSpec(specId)
@@ -750,10 +794,12 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			controls[idx] = new("LabelControl", {"TOPLEFT", controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "^7"..desc)
 			totalHeight = totalHeight + 20
 		end
-		main.popups[1].height = totalHeight + 30
-		controls.save.y = totalHeight
-		controls.reset.y = totalHeight
-		controls.close.y = totalHeight
+		main.popups[1].height = totalHeight + 75
+		local buttonHeight = totalHeight + 15
+		controls.save.y = buttonHeight
+		controls.reset.y = buttonHeight
+		controls.close.y = buttonHeight
+		controls.totalTattoos.y = buttonHeight + 30
 	end
 
 	buildMods(selectedNode)
@@ -774,10 +820,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		main:ClosePopup()
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
-		self.build.spec.tree.nodes[selectedNode.id].isTattoo = false
-		self.build.spec.hashOverrides[selectedNode.id] = nil
-		self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
-		self.build.spec:BuildAllDependsAndPaths()
+		self:RemoveTattooFromNode(selectedNode)
 		self.modFlag = true
 		self.build.buildFlag = true
 		main:ClosePopup()
@@ -785,6 +828,20 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	controls.close = new("ButtonControl", nil, 90, 75, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
+
+	local function getTattooCount()
+		local count = 0
+		for _, node in pairs(self.build.spec.hashOverrides) do
+			if node.isTattoo then
+				count = count + 1
+			end
+		end
+		if count > 50 then
+			count = colorCodes.NEGATIVE..count
+		end
+		return count
+	end
+	controls.totalTattoos = new("LabelControl", nil, 0, 95, 0, 16, "^7Tattoo Count: ".. getTattooCount() .."/50" )
 	main:OpenPopup(600, 105, "Replace Modifier of Node", controls, "save")
 	constructUI(modGroups[1])
 end
@@ -1782,6 +1839,13 @@ function TreeTabClass:FindTimelessJewel()
 	controls.msg = new("LabelControl", nil, -280, 5, 0, 16, "")
 	if #self.tradeLeaguesList > 0 then
 		controls.searchTradeLeagueSelect:SetList(self.tradeLeaguesList)
+		-- restore the last league selected
+		for i, league in ipairs(self.tradeLeaguesList) do
+			if league == self.timelessJewelLeagueSelect then
+				controls.searchTradeLeagueSelect:SetSel(i)
+				break
+			end
+		end
 	else
 		self.tradeQueryRequests:FetchLeagues("pc", function(leagues, errMsg)
 			if errMsg then
@@ -1892,7 +1956,10 @@ function TreeTabClass:FindTimelessJewel()
 			end
 		end
 
-		Copy("https://www.pathofexile.com/trade/search/"..(self.timelessJewelLeagueSelect or "").."/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
+		-- if the league was not selected via dropdown, then default to the first league in the dropdown or "" if the leagues could not be read
+		self.timelessJewelLeagueSelect = self.timelessJewelLeagueSelect or (self.tradeLeaguesList and #self.tradeLeaguesList > 0 and self.tradeLeaguesList[1]) or ""
+
+		Copy("https://www.pathofexile.com/trade/search/"..(self.timelessJewelLeagueSelect).."/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
 			return s_format("%%%02X", s_byte(a))
 		end)))
 

@@ -85,26 +85,6 @@ function main:Init()
 			self.userPath = self.userPath.."/Path of Building/"
 		end
 	end
-	if self.userPath then
-		self:ChangeUserPath(self.userPath, ignoreBuild)
-	end
-
-	if launch.devMode and IsKeyDown("CTRL") then
-		-- If modLib.parseMod doesn't find a cache entry it generates it.
-		-- Not loading pre-generated cache causes it to be rebuilt
-		self.saveNewModCache = true
-	else
-		-- Load mod cache
-		LoadModule("Data/ModCache", modLib.parseModCache)
-	end
-
-	if launch.devMode and IsKeyDown("CTRL") and IsKeyDown("SHIFT") then
-		self.allowTreeDownload = true
-	end
-
-
-	self.inputEvents = { }
-	self.tooltipLines = { }
 
 	self.buildSortMode = "NAME"
 	self.connectionProtocol = 0
@@ -120,6 +100,28 @@ function main:Init()
 	self.showWarnings = true
 	self.slotOnlyTooltips = true
 	self.POESESSID = ""
+
+	if self.userPath then
+		self:ChangeUserPath(self.userPath, ignoreBuild)
+	end
+
+	if launch.devMode and IsKeyDown("CTRL") then
+		-- If modLib.parseMod doesn't find a cache entry it generates it.
+		-- Not loading pre-generated cache causes it to be rebuilt
+		self.saveNewModCache = true
+	else
+		-- Load mod cache
+		LoadModule("Data/ModCache", modLib.parseModCache)
+	end
+
+	--[[ this does not work properly anymore see PR #7675
+	if launch.devMode and IsKeyDown("CTRL") and IsKeyDown("SHIFT") then
+		self.allowTreeDownload = true
+	end
+	--]]
+
+	self.inputEvents = { }
+	self.tooltipLines = { }
 
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)

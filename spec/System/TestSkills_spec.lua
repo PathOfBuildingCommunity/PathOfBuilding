@@ -53,4 +53,27 @@ describe("TestAttacks", function()
 
         assert.True(build.calcsTab.mainOutput.SkillTriggerRate == build.calcsTab.mainOutput.Speed)
     end)
+	
+	it("Test Sacred wisps using current skill", function()
+        build.itemsTab:CreateDisplayItemFromRaw([[Elemental Wand
+			Imbued Wand
+			Crafted: true
+			Prefix: None
+			Prefix: None
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			Quality: 0
+			Sockets: B-B-B
+			LevelReq: 59
+			Implicits: 0]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        build.skillsTab:PasteSocketGroup("Power Siphon 20/0 Default  1\nSacred Wisps 20/0 Default  1\n")
+        runCallback("OnFrame")
+
+        assert.True(build.calcsTab.mainOutput.MirageDPS ~= nil)
+    end)
 end)

@@ -97,6 +97,7 @@ function calcs.mirages(env)
 			end,
 			postCalcFunc = function(env, newSkill, newEnv)
 				env.player.mainSkill.mirage.output = newEnv.player.output
+				env.player.mainSkill.skillFlags.mirageArcher = true
 				if newSkill.minion then
 					env.player.mainSkill.mirage.minion = {}
 					env.player.mainSkill.mirage.minion.output = newEnv.minion.output
@@ -123,7 +124,7 @@ function calcs.mirages(env)
 				if skill ~= env.player.mainSkill and skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Totem] and not skill.skillTypes[SkillType.SummonsTotem] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) == bor(ModFlag.Sword, ModFlag.Weapon1H) and not skill.skillCfg.skillCond["usedByMirage"] then
 					local uuid = cacheSkillUUID(skill, env)
 					if not GlobalCache.cachedData[env.mode][uuid] then
-						calcs.buildActiveSkill(env, env.mode, skill)
+						calcs.buildActiveSkill(env, env.mode, skill, uuid)
 					end
 
 					if GlobalCache.cachedData[env.mode][uuid] and GlobalCache.cachedData[env.mode][uuid].CritChance and GlobalCache.cachedData[env.mode][uuid].CritChance > 0 then
@@ -177,59 +178,63 @@ function calcs.mirages(env)
 		local usedSkillBestDps
 		local EffectiveSourceRate
 
-		local triggerCD = env.player.mainSkill.skillData.cooldown
+		local triggerCD
+		local triggerCDAdjusted
+		local triggerCDTickRounded
 		local triggeredCD
+		local triggeredCDAdjusted
+		local triggeredCDTickRounded
 		local icdrSkill
-		local effectiveTriggerCD
-		local modActionCooldown
-		local rateCapAdjusted
-		local triggerRateCap = m_huge
+		local TriggerRateCap
+		local actionCooldown
 		local SkillTriggerRate
 
 		config = {
 			compareFunc = function(skill, env, config, mirageSkill)
 				local isDisabled = skill.skillFlags and skill.skillFlags.disable
-				if skill ~= env.player.mainSkill and (skill.skillTypes[SkillType.Slam] or skill.skillTypes[SkillType.Melee]) and skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Vaal] and not isTriggered(skill) and not isDisabled and not skill.skillTypes[SkillType.Totem] and not skill.skillTypes[SkillType.SummonsTotem] and not skill.skillCfg.skillCond["usedByMirage"] then
+				local skillTypeMatch = (skill.skillTypes[SkillType.Slam] or skill.skillTypes[SkillType.Melee]) and skill.skillTypes[SkillType.Attack] 
+				local skillTypeExcludes = skill.skillTypes[SkillType.Vaal] or skill.skillTypes[SkillType.Totem] or skill.skillTypes[SkillType.SummonsTotem]
+				if skill ~= env.player.mainSkill and not isTriggered(skill) and not isDisabled and skillTypeMatch and not skillTypeExcludes and not skill.skillCfg.skillCond["usedByMirage"] then
 					local uuid = cacheSkillUUID(skill, env)
 					if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-						calcs.buildActiveSkill(env, env.mode, skill)
+						calcs.buildActiveSkill(env, env.mode, skill, uuid)
 					end
 
-					if GlobalCache.cachedData[env.mode][uuid] then
-						if not mirageSkill then
-							usedSkillBestDps = GlobalCache.cachedData[env.mode][uuid].TotalDPS
-							EffectiveSourceRate = GlobalCache.cachedData[env.mode][uuid].Speed
-							return  GlobalCache.cachedData[env.mode][uuid].ActiveSkill
-
-						else
-							if GlobalCache.cachedData[env.mode][uuid].TotalDPS > usedSkillBestDps then
-								usedSkillBestDps = GlobalCache.cachedData[env.mode][uuid].TotalDPS
-								EffectiveSourceRate = GlobalCache.cachedData[env.mode][uuid].Speed
-								return GlobalCache.cachedData[env.mode][uuid].ActiveSkill
-							end
-						end
+					if not mirageSkill or (GlobalCache.cachedData[env.mode][uuid] and GlobalCache.cachedData[env.mode][uuid].TotalDPS > usedSkillBestDps) then
+						usedSkillBestDps = GlobalCache.cachedData[env.mode][uuid].TotalDPS
+						EffectiveSourceRate = GlobalCache.cachedData[env.mode][uuid].Speed
+						return GlobalCache.cachedData[env.mode][uuid].ActiveSkill
 					end
 				end
 				return mirageSkill
 			end,
 			preCalcFunc = function(env, newSkill, newEnv)
-				triggeredCD = newSkill.skillData.cooldown
 				icdrSkill = calcLib.mod(newSkill.skillModList, newSkill.skillCfg, "CooldownRecovery")
+				
+				triggeredCD = newSkill.skillData.cooldown or 0
+				triggeredCDAdjusted = triggeredCD / icdrSkill
+				triggeredCDTickRounded = m_ceil(triggeredCDAdjusted * data.misc.ServerTickRate) / data.misc.ServerTickRate
 
-				effectiveTriggerCD = triggerCD / icdrSkill
-				modActionCooldown = m_max( triggeredCD or 0, effectiveTriggerCD or 0 ) / icdrSkill
-				rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
-				if modActionCooldown ~= 0 then
-					triggerRateCap = 1 / modActionCooldown
+				triggerCD = env.player.mainSkill.skillData.cooldown or  0
+				triggerCDAdjusted = triggerCD / icdrSkill
+				triggerCDTickRounded = m_ceil(triggerCDAdjusted * data.misc.ServerTickRate) / data.misc.ServerTickRate
+				
+				actionCooldown = m_max( triggeredCDTickRounded or 0, triggerCDTickRounded or 0 )
+				
+				TriggerRateCap = m_huge
+				if actionCooldown ~= 0 then
+					TriggerRateCap = 1 / actionCooldown
 				end
 
-				SkillTriggerRate = EffectiveSourceRate ~= 0 and calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(env.player.mainSkill, env), cd = triggeredCD }}, EffectiveSourceRate, effectiveTriggerCD) or 0
+				SkillTriggerRate = EffectiveSourceRate ~= 0 and calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(env.player.mainSkill, env), cd = triggeredCD, icdr = icdrSkill }}, EffectiveSourceRate, triggerCD) or 0
 
 				-- Override attack speed with trigger rate
 				newSkill.skillData.triggerRate = SkillTriggerRate
+				newSkill.skillData.triggered = true
+				newSkill.skillFlags.triggered = true
 
 				-- Does not use player resources
-				newSkill.skillModList:NewMod("HasNoCost", "FLAG", true, "Used by mirage")
+				newSkill.skillModList:NewMod("HasNoCost", "FLAG", true, "Used by Tawhoa's Chosen")
 
 				local moreDamage = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ChieftainMirageChieftainMoreDamage")
 				-- Add new modifiers to new skill (which already has all the old skill's modifiers)
@@ -241,30 +246,28 @@ function calcs.mirages(env)
 
 				env.player.output = newEnv.player.output
 				env.player.output.Speed = SkillTriggerRate
-				env.player.mainSkill.skillData.triggerRate = SkillTriggerRate
-				env.player.mainSkill.skillData.triggered = true
-				env.player.output.TriggerRateCap = triggerRateCap
+				env.player.output.TriggerRateCap = TriggerRateCap
 				env.player.output.EffectiveSourceRate = EffectiveSourceRate
 				env.player.output.SkillTriggerRate = SkillTriggerRate
 
 				if newEnv.player.breakdown then
-					if triggeredCD then
+					if triggeredCD ~= 0 then
 						newEnv.player.breakdown.TriggerRateCap = {
 							s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD),
 							s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrSkill),
-							s_format("= %.2f ^8(final cooldown of triggered skill)", triggeredCD / icdrSkill),
+							s_format("= %.2f ^8(final cooldown of triggered skill)", triggeredCDAdjusted),
 							"",
 							s_format("%.2f ^8(Tawhoa's Chosen base cooldown)", triggerCD),
 							s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrSkill),
-							s_format("= %.2f ^8(effective trigger cooldown)", effectiveTriggerCD),
+							s_format("= %.2f ^8(effective trigger cooldown)", triggerCDAdjusted),
 							"",
-							s_format("%.2f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
+							s_format("%.2f ^8(biggest of trigger cooldown and triggered skill cooldown)", m_max(triggerCDAdjusted, triggeredCDAdjusted)),
 							"",
-							s_format("%.2f ^8(adjusted for server tick rate)", rateCapAdjusted),
+							s_format("%.2f ^8(adjusted for server tick rate)", actionCooldown),
 							"",
 							"Trigger rate:",
-							s_format("1 / %.3f", rateCapAdjusted),
-							s_format("= %.2f ^8per second", triggerRateCap),
+							s_format("1 / %.3f", actionCooldown),
+							s_format("= %.2f ^8per second", TriggerRateCap),
 						}
 					else
 						newEnv.player.breakdown.TriggerRateCap = {
@@ -272,23 +275,88 @@ function calcs.mirages(env)
 							"",
 							s_format("%.2f ^8(Tawhoa's Chosen base cooldown)", triggerCD),
 							s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrSkill),
-							s_format("= %.2f ^8(effective trigger cooldown)", effectiveTriggerCD),
+							s_format("= %.2f ^8(effective trigger cooldown)", triggerCDAdjusted),
 							"",
-							s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+							s_format("%.2f ^8(adjusted for server tick rate)", actionCooldown),
 							"",
 							"Trigger rate:",
-							s_format("1 / %.2f", rateCapAdjusted),
-							s_format("= %.2f ^8per second", triggerRateCap),
+							s_format("1 / %.3f", actionCooldown),
+							s_format("= %.2f ^8per second", TriggerRateCap),
 						}
 					end
 
 					env.player.breakdown = newEnv.player.breakdown
-					env.player.mainSkill.skillData.triggered = true
 				end
 			end,
 			mirageSkillNotFoundFunc = function(env, config)
 				env.player.mainSkill.disableReason = "No Tawhoa's Chosen active skill found"
 				env.player.mainSkill.skillFlags.disable = true
+			end
+		}
+	elseif env.player.mainSkill.skillData.triggeredBySacredWisps then
+		config = {
+			calcMainSkillOffence = true,
+			compareFunc = function(skill, env, config, mirageSkill)
+				if not env.player.mainSkill.skillCfg.skillCond["usedByMirage"] and env.player.weaponData1.type == "Wand" then
+					return env.player.mainSkill
+				end
+			end,
+			preCalcFunc = function(env, newSkill, newEnv)
+				local lessDamage =  newSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SacredWispsLessDamage")
+				local wispsMaxCount
+				local wispsCastChance
+				
+				-- Find Wisps summoning skill for cast chance and wisp count
+				for _, skill in ipairs(env.player.activeSkillList) do
+					if skill.activeEffect.grantedEffect.name == "Summon Sacred Wisps" then
+							wispsCastChance = skill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SacredWispsChance")
+							wispsMaxCount = skill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SacredWispsMaxCount")
+						break
+					end
+				end
+
+				env.player.mainSkill.mirage = { }
+				env.player.mainSkill.mirage.name = newSkill.activeEffect.grantedEffect.name
+				env.player.mainSkill.mirage.count = wispsMaxCount
+
+				if not env.player.mainSkill.infoMessage then
+					env.player.mainSkill.infoMessage = tostring(wispsMaxCount) .. " Sacred Wisps using " .. newSkill.activeEffect.grantedEffect.name
+				end
+
+				-- Add new modifiers to new skill (which already has all the old skill's modifiers)
+				newSkill.skillModList:NewMod("Damage", "MORE", lessDamage, "Used by Sacred Wisps", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
+				newSkill.skillModList:NewMod("Speed", "MORE", wispsCastChance - 100, "Sacred Wisps cast chance", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
+
+				-- Does not use player resources
+				newSkill.skillModList:NewMod("HasNoCost", "FLAG", true, "Used by Sacred Wisps")
+
+				if newSkill.skillPartName then
+					env.player.mainSkill.mirage.skillPart = newSkill.skillPart
+					env.player.mainSkill.mirage.skillPartName = newSkill.skillPartName
+					env.player.mainSkill.mirage.infoMessage2 = newSkill.activeEffect.grantedEffect.name
+				else
+					env.player.mainSkill.mirage.skillPartName = nil
+				end
+			end,
+			postCalcFunc = function(env, newSkill, newEnv)
+				env.player.mainSkill.mirage.output = newEnv.player.output
+				env.player.mainSkill.skillFlags.wisp = true
+				if newSkill.minion then
+					env.player.mainSkill.mirage.minion = {}
+					env.player.mainSkill.mirage.minion.output = newEnv.minion.output
+				end
+
+				if newEnv.player.breakdown then
+					env.player.mainSkill.mirage.breakdown = newEnv.player.breakdown
+					if newSkill.minion then
+						env.player.mainSkill.mirage.minion.breakdown = newEnv.minion.breakdown
+					end
+				end
+			end,
+			mirageSkillNotFoundFunc = function(env, config)
+				if not env.player.mainSkill.infoMessage2 then
+					env.player.mainSkill.infoMessage2 = "No active skill for Sacred Wisps found"
+				end
 			end
 		}
 	elseif env.player.mainSkill.skillData.triggeredByGeneralsCry then

@@ -43,15 +43,16 @@ League: Breach
 Source: Upgraded from unique{The Anticipation} using currency{Blessing of Uul-Netol}
 Variant: Pre 3.0.0
 Variant: Pre 3.21.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 1
-{variant:2,3}+(30-40) to maximum Life
-Grants Level 30 Reckoning Skill
+{variant:2,3,4}+(30-40) to maximum Life
+{variant:1,2,3}Grants Level 30 Reckoning Skill
 {variant:1,2}(130-170)% increased Armour
-{variant:3}(165-205)% increased Armour
+{variant:3,4}(165-205)% increased Armour
 +(65-80) to maximum Life
 {variant:1,2}Recover 250 Life when you Block
-{variant:3}Recover (250-500) Life when you Block
+{variant:3,4}Recover (250-500) Life when you Block
 +6% Chance to Block
 {variant:1,2}+1500 Armour if you've Blocked Recently
 ]],[[
@@ -106,14 +107,16 @@ Implicits: 1
 Lycosidae
 Rawhide Tower Shield
 Variant: Pre 3.0.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 1
-{variant:2}+(10-20) to maximum Life
+{variant:2,3}+(10-20) to maximum Life
 +(120-160) to Armour
 +(30-40) to maximum Life
 Your hits can't be Evaded
 +(3-5)% Chance to Block
-Adds 250 to 300 Cold Damage to Counterattacks
+{variant:1,2}Adds 250 to 300 Cold Damage to Counterattacks
+{variant:3}Adds 250 to 300 Cold Damage to Retaliation Skills
 ]],[[
 Magna Eclipsis
 Pinnacle Tower Shield
@@ -376,18 +379,20 @@ League: Warbands
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
+Variant: Pre 3.24.0
 Variant: Current
 Implicits: 1
-{variant:3,4}6% increased Movement Speed
+{variant:3,4,5}6% increased Movement Speed
 {variant:1}+1 to Level of Socketed Warcry Gems
 {variant:1}(20-30)% increased Chaos Damage
-{variant:2,3,4}(80-100)% Increased Evasion Rating
+{variant:2,3,4,5}(80-100)% Increased Evasion Rating
 +(20-40)% to Cold Resistance
 10% increased Area of Effect
 {variant:1}You gain Onslaught for 2 seconds on Killing Taunted Enemies
-{variant:2,3,4}Gain Onslaught for 4 seconds when you Warcry
-{variant:2,3,4}25% increased Warcry Buff Effect
+{variant:2,3,4,5}Gain Onslaught for 4 seconds when you Warcry
+{variant:2,3,4,5}25% increased Warcry Buff Effect
 {variant:4}Call to Arms
+{variant:5}Warlord's Call
 ]],[[
 Thousand Teeth Temu
 Vaal Buckler
@@ -698,12 +703,13 @@ Unaffected by Ignite or Shock if Maximum Life and Maximum Mana are within 500
 Sentari's Answer
 Brass Spirit Shield
 Variant: Pre 3.4.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
 {variant:1}7% Chance to Block Spell Damage
-{variant:2}10% Chance to Block Spell Damage
+{variant:2,3}10% Chance to Block Spell Damage
 +(20-30) to Intelligence
-(4-8)% increased Quantity of Items found
+{variant:1,2}(4-8)% increased Quantity of Items found
 +5% Chance to Block
 Curse Enemies with Punishment when you Block their Melee Damage, ignoring Curse Limit
 Curse Enemies with Temporal Chains when you Block their Projectile Attack Damage, ignoring Curse Limit

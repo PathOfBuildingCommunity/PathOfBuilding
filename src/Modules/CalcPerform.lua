@@ -633,7 +633,7 @@ local function doActorMisc(env, actor)
 			end
 			inc = inc + maxSkillInc
 			local elusiveEffectMod = (1 + inc / 100) * modDB:More(nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
-			output.ElusiveEffectMod = elusiveEffectMod / 2
+			output.ElusiveEffectMod = (elusiveEffectMod + (modDB:Override(nil, "ElusiveEffectMinThreshold") or 0)) / 2
 			-- if we want the max skill to not be noted as its own breakdown table entry, comment out below
 			modDB:NewMod("ElusiveEffect", "INC", maxSkillInc, "Max Skill Effect")
 			-- Override elusive effect if set.
@@ -1101,7 +1101,7 @@ function calcs.perform(env, skipEHP)
 				end
 			end
 		elseif activeSkill.skillTypes[SkillType.ChillingArea] or (activeSkill.skillTypes[SkillType.NonHitChill] and not activeSkill.skillModList:Flag(nil, "CannotChill")) then
-			local effect = data.nonDamagingAilment.Chill.default * (1 + activeSkill.skillModList:Sum("INC", nil, "EnemyChillEffect") / 100)
+			local effect = data.nonDamagingAilment.Chill.default * calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "EnemyChillEffect")
 			modDB:NewMod("ChillOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
 			enemyDB:NewMod("Condition:Chilled", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
 			if activeSkill.skillData.supportBonechill then
@@ -1252,6 +1252,12 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 
+	-- Special Rarity / Quantity Calc for Bisco's
+	local lootQuantityNormalEnemies = modDB:Sum("INC", nil, "LootQuantityNormalEnemies")
+	output.LootQuantityNormalEnemies = (lootQuantityNormalEnemies > 0) and lootQuantityNormalEnemies + modDB:Sum("INC", nil, "LootQuantity") or 0
+	local lootRarityMagicEnemies = modDB:Sum("INC", nil, "LootRarityMagicEnemies")
+	output.LootRarityMagicEnemies = (lootRarityMagicEnemies > 0) and lootRarityMagicEnemies + modDB:Sum("INC", nil, "LootRarity") or 0
+
 	local breakdown = nil
 	if env.mode == "CALCS" then
 		-- Initialise breakdown module
@@ -1349,6 +1355,14 @@ function calcs.perform(env, skipEHP)
 		local flaskRateInc = modDB:Sum("INC", nil, "Flask"..type.."RecoveryRate")
 		local flaskTotal = base * (1 - instPerc / 100) * (1 + flaskRecInc / 100) * flaskRecMore * (1 + flaskDurInc / 100)
 		local flaskDur = dur * (1 + flaskDurInc / 100) / (1 + flaskTotalRateInc / 100) / (1 + flaskRateInc / 100)
+
+		-- More life recovery while on low life is not affected by flask effect (verified ingame).
+		-- Since this will be multiplied by the flask effect value below we have to counteract this by removing the flask effect from the value beforehand.
+		-- This is also the reason why this value needs a separate multiplier and cannot just be calculated into FlaskLifeRecovery.
+		local lowLifeFlaskRecMore = modDB:More(nil, "FlaskLifeRecoveryLowLife")
+		if lowLifeFlaskRecMore > 1 then
+			flaskTotal = flaskTotal * (lType == "life" and ((lowLifeFlaskRecMore - 1) / (1 + (effectInc) / 100)) + 1 or 1)
+		end
 
 		t_insert(out, modLib.createMod(type.."Recovery", "BASE", flaskTotal / flaskDur, name))
 

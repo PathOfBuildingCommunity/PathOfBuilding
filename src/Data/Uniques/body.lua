@@ -101,23 +101,28 @@ Regenerate 10% Life over one second when Hit while Sane
 ]],[[
 Greed's Embrace
 Golden Plate
+Variant: Pre 3.25.0
+Variant: Current
 Implicits: 0
-(10-15)% increased Quantity of Items found
-(30-50)% increased Rarity of Items found
+{variant:1}(10-15)% increased Quantity of Items found
+{variant:1}(30-50)% increased Rarity of Items found
+{variant:2}100% increased Rarity of Items found
 -10% to Fire Resistance
 +(20-30)% to Cold Resistance
--20% to Lightning Resistance
+{variant:1}-20% to Lightning Resistance
+{variant:2}(-20--10)% to Lightning Resistance
 20% reduced Movement Speed
 30% reduced Strength Requirement
 ]],[[
 Kaom's Heart
 Glorious Plate
 Variant: Pre 1.0.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
 Has no Sockets
 {variant:2}(20-40)% increased Fire Damage
-{variant:1}+1000 to maximum Life
+{variant:1,3}+1000 to maximum Life
 {variant:2}+500 to maximum Life
 ]],[[
 Replica Kaom's Heart
@@ -343,7 +348,7 @@ Zodiac Leather
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 +30% chance to Suppress Spell Damage
-+(40–50) to Dexterity
++(40–50) to Intelligence
 (140–220)% increased Evasion Rating
 25% increased Shock Duration on Enemies
 (12–18) to (231–347) Added Lightning Damage with Wand Attacks
@@ -485,6 +490,14 @@ Projectile Attack Skills have (40-60)% increased Critical Strike Chance
 ]],
 -- Body: Energy Shield
 [[
+The Apostate
+Cabalist Regalia
+Requires Level 35
+Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
++(30–50) to Strength
++(20–30)% to all Elemental Resistances
+Gain Maximum Life instead of Maximum Energy Shield from Equipped Armour Items
+]],[[
 The Beast Fur Shawl
 Vaal Regalia
 Variant: Pre 3.0.0

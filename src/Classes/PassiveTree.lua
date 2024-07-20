@@ -34,6 +34,8 @@ local legacySkillsPerOrbit = { 1, 6, 12, 12, 40 }
 local legacyOrbitRadii = { 0, 82, 162, 335, 493 }
 
 -- Retrieve the file at the given URL
+-- This is currently disabled as it does not work due to issues
+-- its possible to fix this but its never used due to us performing preprocessing on tree
 local function getFile(URL)
 	local page = ""
 	local easy = common.curl.easy()
@@ -63,13 +65,14 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		treeText = treeFile:read("*a")
 		treeFile:close()
 	else
-		ConPrintf("Downloading passive tree data...")
 		local page
 		local pageFile = io.open("TreeData/"..treeVersion.."/data.json", "r")
 		if pageFile then
+			ConPrintf("Converting passive tree data json")
 			page = pageFile:read("*a")
 			pageFile:close()
-		else
+		elseif main.allowTreeDownload then  -- Enable downloading with Ctrl+Shift+F5 (currently disabled)
+			ConPrintf("Downloading passive tree data...")
 			page = getFile("https://www.pathofexile.com/passive-skill-tree")
 		end
 		local treeData = page:match("var passiveSkillTreeData = (%b{})")
@@ -86,8 +89,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	for k, v in pairs(assert(loadstring(treeText))()) do
 		self[k] = v
 	end
-
-	local cdnRoot = versionNum >= 3.08 and versionNum <= 3.09 and "https://web.poecdn.com" or ""
 
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
 
@@ -112,13 +113,36 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		class.classes[0] = { name = "None" }
 		self.classNameMap[class.name] = classId
 		for ascendClassId, ascendClass in pairs(class.classes) do
-			self.ascendNameMap[ascendClass.name] = {
+			self.ascendNameMap[ascendClass.id or ascendClass.name] = {
 				classId = classId,
 				class = class,
 				ascendClassId = ascendClassId,
 				ascendClass = ascendClass
 			}
 		end
+	end
+	
+	-- hide alternate_ascendancies as they are unobtainable in the newest versions and will cause a crash if an older version is loaded with it at the moment
+	if self.alternate_ascendancies then
+		if launch.devMode then
+			ConPrintf("WARNING! alternate_ascendancies exist but are being hidden")
+		end
+		local tempMap = {}
+		local temp_groups = {}
+		for ascendClassId, ascendClass in pairs(self.alternate_ascendancies) do
+			tempMap[ascendClass.id] = true
+		end
+		for i, node in pairs(self.nodes) do
+			if node.ascendancyName and tempMap[node.ascendancyName] then
+				self.nodes[i] = nil
+				temp_groups[node.group] = true
+			end
+		end
+		for i, group in pairs(temp_groups) do
+			self.groups[i] = nil
+		end
+			
+		self.alternate_ascendancies = nil
 	end
 	
 	if self.alternate_ascendancies then
@@ -145,19 +169,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		self.orbitAnglesByOrbit[orbit] = self:CalcOrbitAngles(skillsInOrbit)
 	end
 
-	if versionNum >= 3.19 then
-		local treeTextOLD
-		local treeFileOLD = io.open("TreeData/".. "3_18" .."/tree.lua", "r")
-		if treeFileOLD then
-			treeTextOLD = treeFileOLD:read("*a")
-			treeFileOLD:close()
-		end
-		local temp = {}
-		for k, v in pairs(assert(loadstring(treeTextOLD))()) do
-			temp[k] = v
-		end
-		self.assets = temp.assets
-		self.skillSprites = self.sprites
+	if not self.assets then
+		self.assets = LoadModule("TreeData/3_19/Assets.lua")
+		self.assets = self.assets.assets
 		if self.alternate_ascendancies then
 			-- backgrounds
 			self.assets["ClassesPrimalist"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/ClassesPrimalist.png"}
@@ -180,6 +194,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			self.assets["CharmSocketActiveDex"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/CharmSocketActiveDex.png"}
 		end
 	end
+
+	local cdnRoot = versionNum >= 3.08 and versionNum <= 3.09 and "https://web.poecdn.com" or ""
 	ConPrintf("Loading passive tree assets...")
 	for name, data in pairs(self.assets) do
 		self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
@@ -188,10 +204,41 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	-- Load sprite sheets and build sprite map
 	self.spriteMap = { }
 	local spriteSheets = { }
+	if not self.skillSprites then
+		if not self.sprites then
+			ConPrintf("Loading passive tree sprite data for version '%s'...", treeVersions[treeVersion].display)
+			local spriteText
+			local spriteFile = io.open("TreeData/"..treeVersion.."/sprites.lua", "r")
+			if spriteFile then
+				spriteText = spriteFile:read("*a")
+				spriteFile:close()
+			else
+				local page
+				local pageFile = io.open("TreeData/"..treeVersion.."/sprites.json", "r")
+				if pageFile then
+					ConPrintf("Converting passive tree sprites json")
+					page = pageFile:read("*a")
+					pageFile:close()
+					spriteText = "return " .. jsonToLua(page)
+				end
+				spriteFile = io.open("TreeData/"..treeVersion.."/sprites.lua", "w")
+				spriteFile:write(spriteText)
+				spriteFile:close()
+			end
+			for k, v in pairs(assert(loadstring(spriteText))()) do
+				self[k] = v
+			end
+		end
+		self.skillSprites = self.sprites
+	end
 	for type, data in pairs(self.skillSprites) do
-		local maxZoom = data[#data]
-		if versionNum >= 3.19 then
+		local maxZoom
+		if not self.imageZoomLevels then
+			maxZoom = data
+		elseif versionNum >= 3.19 then
 			maxZoom = data[0.3835] or data[1]
+		else
+			maxZoom = data[#data]
 		end
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
@@ -278,7 +325,10 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			artWidth = 84,
 			alloc = "KeystoneFrameAllocated",
 			path = "KeystoneFrameCanAllocate",
-			unalloc = "KeystoneFrameUnallocated"
+			unalloc = "KeystoneFrameUnallocated",
+			allocBlighted = "KeystoneFrameAllocated",
+			pathBlighted = "KeystoneFrameCanAllocate",
+			unallocBlighted = "KeystoneFrameUnallocated",
 		},
 		Socket = {
 			artWidth = 58,
@@ -694,7 +744,7 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 		if imgFile then
 			imgFile:close()
 			imgName = self.treeVersion.."/"..imgName
-		elseif main.allowTreeDownload then -- Enable downloading with Ctrl+Shift+F5
+		elseif main.allowTreeDownload then -- Enable downloading with Ctrl+Shift+F5 (currently disabled)
 			ConPrintf("Downloading '%s'...", imgName)
 			local data = getFile(url)
 			if data and not data:match("<!DOCTYPE html>") then

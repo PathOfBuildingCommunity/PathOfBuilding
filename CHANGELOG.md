@@ -1,5 +1,31 @@
 # Changelog
 
+## [v2.42.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.42.0) (2024/03/30)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.41.1...v2.42.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- Add support for new 3.24 gems ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Necropolis mods [\#7518](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7518) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add config option to control the missing Unreserved Mana % for Manabond [\#7467](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7467) ([Devlin1991](https://github.com/Devlin1991))
+- Add config toggle to add Arcane Cloak's mana spend to Mana spent recently modifier [\#7454](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7454) ([Devlin1991](https://github.com/Devlin1991))
+
+### User Interface
+- Don't scale UI if user overrides scaling mode [\#54](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/54) ([Zao](https://github.com/Zao))
+
+### Fixed Bugs
+- Fix settings not saving for certain users [\#7505](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7505) ([Lothrik](https://github.com/Lothrik))
+- Disallow delve mods on cluster jewels [\#7517](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7517) ([Wires77](https://github.com/Wires77))
+- Fix Replica Hyrri's Ire granting Dex instead of Int [\#7513](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7513) ([zebben](https://github.com/zebben))
+- Fix Tree export to PoE Planner [\#7455](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7455) ([pHiney](https://github.com/pHiney))
+
+### Other changes
+- Save resources when window is minimized [\#53](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/53) ([ryuukk](https://github.com/ryuukk))
+
+
 ## [v2.41.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.41.1) (2024/03/27)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.41.0...v2.41.1)
@@ -40,10 +66,10 @@
 ## What's Changed
 ### New to Path of Building
 - Add support for new ES Stun mastery [\#7429](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7429) ([LocalIdentity](https://github.com/LocalIdentity))
-* 3.24 Changes:
-  * Convocation updated to only have 1 level ([LocalIdentity](https://github.com/LocalIdentity))
-  * Add Convocation mod to Minion Wands and Shields ([LocalIdentity](https://github.com/LocalIdentity))
-  * Add new Mechanical Belt base from Heist ([LocalIdentity](https://github.com/LocalIdentity))
+- 3.24 Changes:
+  - Convocation updated to only have 1 level ([LocalIdentity](https://github.com/LocalIdentity))
+  - Add Convocation mod to Minion Wands and Shields ([LocalIdentity](https://github.com/LocalIdentity))
+  - Add new Mechanical Belt base from Heist ([LocalIdentity](https://github.com/LocalIdentity))
 
 ### Fixed Bugs
 - Stop sorting unique item list when added item isn't equipped [\#7418](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7418) ([Wires77](https://github.com/Wires77))
@@ -113,7 +139,7 @@
 - Implement explosive trap +-30% base tertiary radius, fix overlap chance for transfigured version [\#7384](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7384) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
 - Fix Life Leech and Block missing from current version of Essentia Sanguis [\#7377](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7377) ([Paliak](https://github.com/Paliak))
 - Fix current variant of Lioneye's Glare missing Far Shot [\#7376](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7376) ([Paliak](https://github.com/Paliak))
-- Fix Nightgrip missing "taken" keyword in description [\#7383](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7383) ([MattiaCiccone](https://github.com/MattiaCiccone))
+- Fix Nightgrip missing "taken" keyword in description [\#7383](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7383) ([Ciccooz](https://github.com/Ciccooz))
 
 
 
@@ -226,7 +252,7 @@
 - Fix added Cooldown and added Cast Time not working correctly [\#6728](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6728) ([Paliak](https://github.com/Paliak))
 - Fix Kalandra's Touch not adding to influenced items multiplier [\#7182](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7182) ([Paliak](https://github.com/Paliak))
 - Fix resistance calculations when using Glimpse of Chaos and Chieftain Tasalio node [\#7201](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7201) ([sida-wang](https://github.com/sida-wang))
-- Fix Oath of the Maji not stacking with Juggernaut's Unbreakable [\#7225](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7225) ([wkingston1248](https://github.com/wkingston1248))
+- Fix Oath of the Maji not stacking with Juggernaut's Unbreakable [\#7225](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7225) ([Random-Panda](https://github.com/Random-Panda))
 
 ### Accuracy Improvements
 - Fix mod parsing for Militant Faith Cloistered Notable [\#7197](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7197) ([Peechey](https://github.com/Peechey))

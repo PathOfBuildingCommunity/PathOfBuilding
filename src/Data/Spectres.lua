@@ -269,7 +269,7 @@ minions["Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaul"] = {
 }
 minions["Metadata/Monsters/Bandit/DockworkerChampion_"] = {
 	name = "Foreman",
-	monsterTags = { "bandit", "bludgeoning_weapon", "ghost_blood", "has_two_hand_mace", "has_two_handed_melee", "human", "humanoid", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "slow_movement", },
+	monsterTags = { "bandit_area", "bludgeoning_weapon", "ghost_blood", "has_two_hand_mace", "has_two_handed_melee", "human", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "slow_movement", "undead", },
 	life = 2.1,
 	armour = 0.5,
 	fireResist = 0,
@@ -409,7 +409,7 @@ minions["Metadata/Monsters/Beasts/BeastCleaveEnduringCry"] = {
 -- Blood Apes
 minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"] = {
 	name = "Carnage Chieftain",
-	monsterTags = { "beast", "bludgeoning_weapon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "mammal_beast", "medium_height", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "primate_beast", "red_blood", },
+	monsterTags = { "beast", "bludgeoning_weapon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "primate_beast", "red_blood", },
 	life = 2.4,
 	armour = 0.2,
 	fireResist = 75,
@@ -434,7 +434,7 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"] = {
 }
 minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodParasite"] = {
 	name = "Host Chieftain",
-	monsterTags = { "beast", "bludgeoning_weapon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "mammal_beast", "medium_height", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "primate_beast", "red_blood", },
+	monsterTags = { "beast", "bludgeoning_weapon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "primate_beast", "red_blood", },
 	life = 2.4,
 	armour = 0.2,
 	fireResist = 75,
@@ -483,7 +483,7 @@ minions["Metadata/Monsters/BoneStalker/BoneStalker"] = {
 -- Bull
 minions["Metadata/Monsters/Bull/Bull"] = {
 	name = "Fighting Bull",
-	monsterTags = { "beast", "bludgeoning_weapon", "demon", "flesh_armour", "gladiator", "has_one_hand_mace", "has_one_handed_melee", "large_model", "medium_height", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", },
+	monsterTags = { "beast", "bludgeoning_weapon", "flesh_armour", "gladiator", "has_one_hand_mace", "has_one_handed_melee", "large_model", "medium_height", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2.38,
 	armour = 1,
@@ -866,7 +866,7 @@ minions["Metadata/Monsters/DemonModular/DemonModularFire"] = {
 -- Maw
 minions["Metadata/Monsters/Frog/Frog"] = {
 	name = "Fetid Maw",
-	monsterTags = { "amphibian_beast", "beast", "has_one_hand_mace", "has_one_handed_melee", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", "small_height", },
+	monsterTags = { "amphibian_beast", "beast", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", "small_height", },
 	life = 1,
 	evasion = 0.2,
 	fireResist = 0,
@@ -888,7 +888,7 @@ minions["Metadata/Monsters/Frog/Frog"] = {
 }
 minions["Metadata/Monsters/Frog/Frog2"] = {
 	name = "Murk Fiend",
-	monsterTags = { "amphibian_beast", "beast", "has_one_hand_mace", "has_one_handed_melee", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", "small_height", },
+	monsterTags = { "amphibian_beast", "beast", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", "small_height", },
 	life = 1,
 	evasion = 0.2,
 	fireResist = 0,
@@ -911,7 +911,7 @@ minions["Metadata/Monsters/Frog/Frog2"] = {
 -- Chimeral
 minions["Metadata/Monsters/GemMonster/Iguana"] = {
 	name = "Plumed Chimeral",
-	monsterTags = { "beast", "has_one_hand_sword", "has_one_handed_melee", "light_armour", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", "slow_movement", "small_height", },
+	monsterTags = { "beast", "has_one_hand_sword", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", "slow_movement", "small_height", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.25,
 	energyShield = 0.2,
@@ -935,7 +935,7 @@ minions["Metadata/Monsters/GemMonster/Iguana"] = {
 }
 minions["Metadata/Monsters/GemMonster/IguanaChrome"] = {
 	name = "Chrome-infused Chimeral",
-	monsterTags = { "beast", "cold_affinity", "has_one_hand_sword", "has_one_handed_melee", "light_armour", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", "slow_movement", "small_height", },
+	monsterTags = { "beast", "cold_affinity", "has_one_hand_sword", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", "slow_movement", "small_height", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.54,
 	energyShield = 0.2,
@@ -1104,7 +1104,7 @@ minions["Metadata/Monsters/Grappler/GrapplerLabyrinth"] = {
 -- Ribbon
 minions["Metadata/Monsters/Guardians/GuardianFire"] = {
 	name = "Flame Sentinel",
-	monsterTags = { "caster", "construct", "fire_affinity", "ghost_armour", "has_claw", "has_one_handed_melee", "large_height", "mud_blood", "not_str", "ranged", "slow_movement", },
+	monsterTags = { "caster", "construct", "fire_affinity", "ghost_armour", "has_claw", "has_one_handed_melee", "large_height", "large_model", "mud_blood", "not_str", "ranged", "slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.8,
 	energyShield = 0.4,
@@ -1131,7 +1131,7 @@ minions["Metadata/Monsters/Guardians/GuardianFire"] = {
 }
 minions["Metadata/Monsters/Guardians/GuardianFire_BlueMaps"] = {
 	name = "Frost Sentinel",
-	monsterTags = { "caster", "cold_affinity", "construct", "ghost_armour", "has_claw", "has_one_handed_melee", "large_height", "mud_blood", "not_str", "ranged", "slow_movement", },
+	monsterTags = { "caster", "cold_affinity", "construct", "ghost_armour", "has_claw", "has_one_handed_melee", "large_height", "large_model", "mud_blood", "not_str", "ranged", "slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.8,
 	energyShield = 0.4,
@@ -1155,7 +1155,7 @@ minions["Metadata/Monsters/Guardians/GuardianFire_BlueMaps"] = {
 }
 minions["Metadata/Monsters/Guardians/GuardianLightning"] = {
 	name = "Galvanic Ribbon",
-	monsterTags = { "caster", "construct", "ghost_armour", "has_claw", "has_one_handed_melee", "large_height", "lightning_affinity", "mud_blood", "not_str", "slow_movement", },
+	monsterTags = { "caster", "construct", "ghost_armour", "has_claw", "has_one_handed_melee", "large_height", "large_model", "lightning_affinity", "mud_blood", "not_str", "slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.8,
 	energyShield = 0.4,
@@ -1346,7 +1346,7 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior7"] = {
 -- Kitava's Cultist
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodDelve"] = {
 	name = "Risen Vaal Fanatic",
-	monsterTags = { "caster", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "caster", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
 	life = 2.88,
 	lifeScaling = "AltLife2",
 	armour = 0.2,
@@ -1370,7 +1370,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodDelve"] = {
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve"] = {
 	name = "Risen Vaal Advocate",
-	monsterTags = { "caster", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "caster", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
 	life = 4.05,
 	lifeScaling = "AltLife2",
 	armour = 0.2,
@@ -1395,7 +1395,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve"] = 
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosDelve"] = {
 	name = "Risen Vaal Fanatic",
-	monsterTags = { "caster", "chaos_affinity", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "caster", "chaos_affinity", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
 	life = 2.88,
 	lifeScaling = "AltLife2",
 	armour = 0.2,
@@ -1419,7 +1419,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosDelve"] = {
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve"] = {
 	name = "Risen Vaal Advocate",
-	monsterTags = { "caster", "chaos_affinity", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "caster", "chaos_affinity", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
 	life = 4.05,
 	lifeScaling = "AltLife2",
 	armour = 0.2,
@@ -1445,7 +1445,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve"] = 
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireDelve"] = {
 	name = "Risen Vaal Fanatic",
-	monsterTags = { "caster", "cultist", "delve_monster", "fire_affinity", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "caster", "cultist", "delve_monster", "fire_affinity", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
 	life = 2.88,
 	lifeScaling = "AltLife2",
 	armour = 0.2,
@@ -1469,7 +1469,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireDelve"] = {
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_"] = {
 	name = "Risen Vaal Advocate",
-	monsterTags = { "caster", "cultist", "delve_monster", "fire_affinity", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "caster", "cultist", "delve_monster", "fire_affinity", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
 	life = 4.05,
 	lifeScaling = "AltLife2",
 	armour = 0.2,
@@ -1494,7 +1494,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_"] = 
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningDelve"] = {
 	name = "Risen Vaal Fanatic",
-	monsterTags = { "caster", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "caster", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
 	life = 2.88,
 	lifeScaling = "AltLife2",
 	armour = 0.2,
@@ -1518,7 +1518,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningDelve"] = {
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_"] = {
 	name = "Risen Vaal Advocate",
-	monsterTags = { "caster", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "caster", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
 	life = 4.05,
 	lifeScaling = "AltLife2",
 	armour = 0.2,
@@ -1628,7 +1628,7 @@ minions["Metadata/Monsters/Kiweth/KiwethSeagull"] = {
 -- Delve League
 minions["Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite"] = {
 	name = "Stoneskin Flayer",
-	monsterTags = { "delve_monster", "fast_movement", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "large_height", "melee", "mud_blood", "not_int", "physical_affinity", "slashing_weapon", "stone_armour", },
+	monsterTags = { "delve_monster", "fast_movement", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "large_height", "melee", "mud_blood", "no_pantheon_mod", "not_int", "physical_affinity", "slashing_weapon", "stone_armour", },
 	life = 8,
 	lifeScaling = "AltLife2",
 	armour = 1,
@@ -1655,7 +1655,7 @@ minions["Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite"] = {
 -- Hellion
 minions["Metadata/Monsters/Lion/LionDesertSkinPuncture"] = {
 	name = "Dune Hellion",
-	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "small_height", },
+	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "large_model", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "small_height", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1,
 	armour = 0.1,
@@ -2495,7 +2495,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse"] = {
 }
 minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampion"] = {
 	name = "Enhanced Vaal Fallen",
-	monsterTags = { "bone_armour", "bones", "construct", "has_two_hand_sword", "has_two_handed_melee", "incursion_monster", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
+	monsterTags = { "bone_armour", "bones", "construct", "has_two_hand_sword", "has_two_handed_melee", "medium_height", "melee", "no_pantheon_mod", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2.25,
 	lifeScaling = "AltLife2",
@@ -2572,7 +2572,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance"] = {
 }
 minions["Metadata/Monsters/SkeletonCannon/SkeletonCannon1"] = {
 	name = "Bone Husk",
-	monsterTags = { "bludgeoning_weapon", "bone_armour", "caster", "extra_small_height", "is_unarmed", "medium_movement", "not_int", "physical_affinity", "ranged", "skeleton", "undead", },
+	monsterTags = { "bludgeoning_weapon", "bone_armour", "caster", "extra_small_height", "is_unarmed", "large_model", "medium_movement", "not_int", "physical_affinity", "ranged", "skeleton", "undead", },
 	life = 2.07,
 	armour = 0.25,
 	evasion = 0.25,
@@ -3017,7 +3017,7 @@ minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderTemplar
 -- Scale of Esh
 minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
 	name = "Scale of Esh",
-	monsterTags = { "animal_claw_weapon", "beast", "breach_commander", "caster", "demon", "flesh_armour", "insect", "is_unarmed", "lightning_affinity", "melee", "no_bloodlines", "not_int", "not_str", "physical_affinity", "red_blood", "very_fast_movement", },
+	monsterTags = { "animal_claw_weapon", "beast", "breach_commander", "caster", "demon", "flesh_armour", "insect", "is_unarmed", "lightning_affinity", "melee", "no_bloodlines", "no_pantheon_mod", "not_int", "not_str", "physical_affinity", "red_blood", "very_fast_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3,
 	evasion = 0.5,
@@ -3099,7 +3099,7 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighter
 -- Primal Crushclaw
 minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
 	name = "Primal Crushclaw",
-	monsterTags = { "animal_claw_weapon", "beast", "cold_affinity", "crustacean_beast", "hard_armour", "is_unarmed", "melee", "not_dex", "not_int", "red_blood", "slow_movement", },
+	monsterTags = { "animal_claw_weapon", "beast", "cold_affinity", "crustacean_beast", "hard_armour", "is_unarmed", "large_model", "melee", "not_dex", "not_int", "red_blood", "slow_movement", },
 	life = 3.6,
 	lifeScaling = "AltLife2",
 	armour = 1,
@@ -3160,7 +3160,7 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre"] = {
 -- Templar Tactician
 minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
 	name = "Templar Tactician",
-	monsterTags = { "bludgeoning_weapon", "caster", "flesh_armour", "humanoid", "is_unarmed", "legion_monster", "lightning_affinity", "medium_movement", "melee", "not_dex", "physical_affinity", "ranged", "red_blood", },
+	monsterTags = { "bludgeoning_weapon", "caster", "flesh_armour", "humanoid", "is_unarmed", "legion_monster", "lightning_affinity", "medium_movement", "melee", "no_pantheon_mod", "not_dex", "physical_affinity", "ranged", "red_blood", },
 	life = 3.45,
 	lifeScaling = "AltLife1",
 	energyShield = 0.4,
@@ -3189,7 +3189,7 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
 -- Frost Auto-Scout
 minions["Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre"] = {
 	name = "Frost Auto-Scout",
-	monsterTags = { "caster", "cold_affinity", "construct", "golem", "is_unarmed", "metal_armour", "not_dex", "not_int", "ranged", "slow_movement", },
+	monsterTags = { "caster", "cold_affinity", "construct", "golem", "is_unarmed", "metal_armour", "no_pantheon_mod", "not_dex", "not_int", "ranged", "slow_movement", },
 	life = 3.6,
 	lifeScaling = "AltLife1",
 	armour = 1,
@@ -3214,7 +3214,7 @@ minions["Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre"] = 
 -- Syndicate Operative
 minions["Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_"] = {
 	name = "Syndicate Operative",
-	monsterTags = { "fast_movement", "flesh_armour", "human", "humanoid", "is_unarmed", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "slashing_weapon", "templar", },
+	monsterTags = { "fast_movement", "flesh_armour", "human", "humanoid", "is_unarmed", "melee", "no_cannot_die_aura", "no_pantheon_mod", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "templar", },
 	life = 2.1,
 	lifeScaling = "AltLife2",
 	energyShield = 0.08,
@@ -3267,7 +3267,7 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre
 -- Artless Assassin
 minions["Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre"] = {
 	name = "Artless Assassin",
-	monsterTags = { "fast_movement", "fire_affinity", "has_bow", "human", "humanoid", "light_armour", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "fast_movement", "fire_affinity", "has_bow", "human", "humanoid", "light_armour", "no_pantheon_mod", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
 	life = 3.58,
 	lifeScaling = "AltLife2",
 	evasion = 1,
@@ -3299,7 +3299,7 @@ minions["Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre"] = {
 -- Ashblessed Warden
 minions["Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre"] = {
 	name = "Ashblessed Warden",
-	monsterTags = { "caster", "construct", "fire_affinity", "humanoid", "is_unarmed", "medium_movement", "metal_armour", "not_str", },
+	monsterTags = { "caster", "construct", "fire_affinity", "humanoid", "is_unarmed", "medium_movement", "metal_armour", "no_pantheon_mod", "not_str", },
 	life = 3.6,
 	lifeScaling = "AltLife2",
 	energyShield = 0.2,
@@ -3433,7 +3433,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdSpectre"] = {
 -- Hyrri's Watch
 minions["Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre"] = {
 	name = "Hyrri's Watch",
-	monsterTags = { "cold_affinity", "fast_movement", "flesh_armour", "has_bow", "humanoid", "legion_monster", "not_int", "not_str", "puncturing_weapon", "ranged", "red_blood", },
+	monsterTags = { "cold_affinity", "fast_movement", "flesh_armour", "has_bow", "humanoid", "legion_monster", "no_pantheon_mod", "not_int", "not_str", "puncturing_weapon", "ranged", "red_blood", },
 	life = 2.25,
 	lifeScaling = "AltLife1",
 	evasion = 0.5,
@@ -3632,7 +3632,7 @@ minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre"] = {
 -- Ruins Hellion
 minions["Metadata/Monsters/Hellion/Hellion3Spectre"] = {
 	name = "Ruins Hellion",
-	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", },
+	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "large_model", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1,
 	armour = 0.1,
@@ -3685,7 +3685,7 @@ minions["Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorG
 -- They of Tul
 minions["Metadata/Monsters/MinerLarge/MinerLargeCommanderBreachSpectre"] = {
 	name = "They of Tul",
-	monsterTags = { "bludgeoning_weapon", "breach_commander", "caster", "demon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "large_model", "melee", "no_bloodlines", "not_dex", "not_int", "physical_affinity", "red_blood", "very_slow_movement", },
+	monsterTags = { "bludgeoning_weapon", "breach_commander", "caster", "demon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "large_model", "melee", "no_bloodlines", "no_pantheon_mod", "not_dex", "not_int", "physical_affinity", "red_blood", "very_slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3,
 	armour = 0.5,
@@ -3712,7 +3712,7 @@ minions["Metadata/Monsters/MinerLarge/MinerLargeCommanderBreachSpectre"] = {
 -- Ancient Suffering
 minions["Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple"] = {
 	name = "Ancient Suffering",
-	monsterTags = { "caster", "chaos_affinity", "delve_monster", "ghost_armour", "ghost_blood", "is_unarmed", "medium_height", "medium_movement", "not_dex", "not_str", "undead", },
+	monsterTags = { "caster", "chaos_affinity", "delve_monster", "ghost_armour", "ghost_blood", "is_unarmed", "medium_height", "medium_movement", "no_pantheon_mod", "not_dex", "not_str", "undead", },
 	life = 1.68,
 	energyShield = 0.2,
 	fireResist = 0,
@@ -3737,7 +3737,7 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple"] = {
 -- Ancient Wraith
 minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
 	name = "Ancient Wraith",
-	monsterTags = { "caster", "delve_monster", "ghost_armour", "ghost_blood", "is_unarmed", "medium_height", "medium_movement", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "undead", },
+	monsterTags = { "caster", "delve_monster", "ghost_armour", "ghost_blood", "is_unarmed", "medium_height", "medium_movement", "melee", "no_pantheon_mod", "not_dex", "not_str", "physical_affinity", "ranged", "undead", },
 	life = 1.68,
 	energyShield = 0.2,
 	fireResist = 0,
@@ -4182,7 +4182,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusHigh__"] = {
 -- Spirit of Fortune
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuLow"] = {
 	name = "Imperfect Spirit of Fortune",
-	monsterTags = { "caster", "construct", "immobile", "is_unarmed", "lightning_affinity", "medium_height", "mud_blood", "not_dex", "not_int", "ranged", "stone_armour", },
+	monsterTags = { "caster", "construct", "immobile", "is_unarmed", "large_model", "lightning_affinity", "medium_height", "mud_blood", "not_dex", "not_int", "ranged", "stone_armour", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 4.28,
 	armour = 2,
@@ -4205,7 +4205,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuLow"] = {
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid"] = {
 	name = "Spirit of Fortune",
-	monsterTags = { "caster", "construct", "immobile", "is_unarmed", "lightning_affinity", "medium_height", "mud_blood", "not_dex", "not_int", "ranged", "stone_armour", },
+	monsterTags = { "caster", "construct", "immobile", "is_unarmed", "large_model", "lightning_affinity", "medium_height", "mud_blood", "not_dex", "not_int", "ranged", "stone_armour", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 4.28,
 	armour = 2,
@@ -4229,7 +4229,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid"] = {
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh"] = {
 	name = "Perfect Spirit of Fortune",
-	monsterTags = { "caster", "construct", "immobile", "is_unarmed", "lightning_affinity", "medium_height", "mud_blood", "not_dex", "not_int", "ranged", "stone_armour", },
+	monsterTags = { "caster", "construct", "immobile", "is_unarmed", "large_model", "lightning_affinity", "medium_height", "mud_blood", "not_dex", "not_int", "ranged", "stone_armour", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 4.28,
 	armour = 2,
@@ -4525,7 +4525,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonHigh_"] = {
 -- Serpent Warrior
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskLow"] = {
 	name = "Imperfect Serpent Warrior",
-	monsterTags = { "caster", "chaos_affinity", "eldritch", "energy_armour", "exile", "fast_movement", "human", "humanoid", "is_unarmed", "melee", "not_dex", "ranged", "red_blood", "slashing_weapon", },
+	monsterTags = { "caster", "chaos_affinity", "eldritch", "energy_armour", "exile", "fast_movement", "human", "humanoid", "is_unarmed", "large_model", "melee", "not_dex", "ranged", "red_blood", "slashing_weapon", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.5,
 	energyShield = 0.4,
@@ -4567,7 +4567,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskLow"] = {
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskMid"] = {
 	name = "Serpent Warrior",
-	monsterTags = { "caster", "chaos_affinity", "eldritch", "energy_armour", "exile", "fast_movement", "human", "humanoid", "is_unarmed", "melee", "not_dex", "ranged", "red_blood", "slashing_weapon", },
+	monsterTags = { "caster", "chaos_affinity", "eldritch", "energy_armour", "exile", "fast_movement", "human", "humanoid", "is_unarmed", "large_model", "melee", "not_dex", "ranged", "red_blood", "slashing_weapon", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.5,
 	energyShield = 0.4,
@@ -4611,7 +4611,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskMid"] = {
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskHigh"] = {
 	name = "Perfect Serpent Warrior",
-	monsterTags = { "caster", "chaos_affinity", "eldritch", "energy_armour", "exile", "fast_movement", "human", "humanoid", "is_unarmed", "melee", "not_dex", "ranged", "red_blood", "slashing_weapon", },
+	monsterTags = { "caster", "chaos_affinity", "eldritch", "energy_armour", "exile", "fast_movement", "human", "humanoid", "is_unarmed", "large_model", "melee", "not_dex", "ranged", "red_blood", "slashing_weapon", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.5,
 	energyShield = 0.4,
@@ -5060,7 +5060,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverHigh"] = {
 -- Escaped Prototype
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundLow"] = {
 	name = "Imperfect Escaped Prototype",
-	monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "is_unarmed", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", },
+	monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "is_unarmed", "large_model", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", },
 	life = 16,
 	lifeScaling = "AltLife2",
 	armour = 1,
@@ -5085,7 +5085,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundLow"] = {
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundMid"] = {
 	name = "Escaped Prototype",
-	monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "is_unarmed", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", },
+	monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "is_unarmed", "large_model", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", },
 	life = 16,
 	lifeScaling = "AltLife2",
 	armour = 1,
@@ -5110,7 +5110,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundMid"] = {
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundHigh_"] = {
 	name = "Perfect Escaped Prototype",
-	monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "is_unarmed", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", },
+	monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "is_unarmed", "large_model", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", },
 	life = 16,
 	lifeScaling = "AltLife2",
 	armour = 1,
@@ -5302,7 +5302,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessHigh"] = {
 -- Primal Thunderbird
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdLow"] = {
 	name = "Imperfect Primal Thunderbird",
-	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
+	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.88,
 	energyShield = 0.24,
@@ -5332,7 +5332,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdLow"] = {
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdMid"] = {
 	name = "Primal Thunderbird",
-	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
+	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.88,
 	energyShield = 0.24,
@@ -5362,7 +5362,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdMid"] = {
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdHigh"] = {
 	name = "Perfect Primal Thunderbird",
-	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
+	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.88,
 	energyShield = 0.24,
@@ -5823,7 +5823,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdHigh"] = {
 -- Spider Matriarch
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderLow"] = {
 	name = "Imperfect Spider Matriarch",
-	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "not_int", "physical_affinity", "small_height", "spider", },
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "large_model", "melee", "not_int", "physical_affinity", "small_height", "spider", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.73,
 	armour = 0.5,
@@ -5847,7 +5847,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderLow"] = {
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderMid"] = {
 	name = "Spider Matriarch",
-	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "not_int", "physical_affinity", "small_height", "spider", },
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "large_model", "melee", "not_int", "physical_affinity", "small_height", "spider", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.73,
 	armour = 0.5,
@@ -5872,7 +5872,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderMid"] = {
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderHigh_"] = {
 	name = "Perfect Spider Matriarch",
-	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "not_int", "physical_affinity", "small_height", "spider", },
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "large_model", "melee", "not_int", "physical_affinity", "small_height", "spider", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.73,
 	armour = 0.5,
@@ -6145,7 +6145,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerHigh"] = {
 -- Guardian Turtle
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleLow"] = {
 	name = "Imperfect Guardian Turtle",
-	monsterTags = { "beast", "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "reptile_beast", "very_slow_movement", },
+	monsterTags = { "beast", "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "reptile_beast", "very_slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 4.88,
 	armour = 3,
@@ -6167,7 +6167,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleLow"] = {
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleMid_"] = {
 	name = "Guardian Turtle",
-	monsterTags = { "beast", "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "reptile_beast", "very_slow_movement", },
+	monsterTags = { "beast", "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "reptile_beast", "very_slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 4.88,
 	armour = 3,
@@ -6190,7 +6190,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleMid_"] = {
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleHigh"] = {
 	name = "Perfect Guardian Turtle",
-	monsterTags = { "beast", "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "reptile_beast", "very_slow_movement", },
+	monsterTags = { "beast", "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "reptile_beast", "very_slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 4.88,
 	armour = 3,
@@ -6559,7 +6559,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterHigh_"] = {
 -- Blood Demon
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossLow"] = {
 	name = "Imperfect Blood Demon",
-	monsterTags = { "beyond_demon", "caster", "cleaving_weapon", "demon", "fire_affinity", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "hellscape_demon_boss", "melee", "not_dex", "not_int", "ranged", "red_blood", "very_fast_movement", },
+	monsterTags = { "beyond_demon", "caster", "cleaving_weapon", "demon", "fire_affinity", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "hellscape_demon_boss", "large_model", "melee", "not_dex", "not_int", "ranged", "red_blood", "very_fast_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 4.2,
 	armour = 1,
@@ -6594,7 +6594,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossLow"] = {
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossMid"] = {
 	name = "Blood Demon",
-	monsterTags = { "beyond_demon", "caster", "cleaving_weapon", "demon", "fire_affinity", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "hellscape_demon_boss", "melee", "not_dex", "not_int", "ranged", "red_blood", "very_fast_movement", },
+	monsterTags = { "beyond_demon", "caster", "cleaving_weapon", "demon", "fire_affinity", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "hellscape_demon_boss", "large_model", "melee", "not_dex", "not_int", "ranged", "red_blood", "very_fast_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 4.2,
 	armour = 1,
@@ -6630,7 +6630,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossMid"] = {
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossHigh"] = {
 	name = "Perfect Blood Demon",
-	monsterTags = { "beyond_demon", "caster", "cleaving_weapon", "demon", "fire_affinity", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "hellscape_demon_boss", "melee", "not_dex", "not_int", "ranged", "red_blood", "very_fast_movement", },
+	monsterTags = { "beyond_demon", "caster", "cleaving_weapon", "demon", "fire_affinity", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "hellscape_demon_boss", "large_model", "melee", "not_dex", "not_int", "ranged", "red_blood", "very_fast_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 4.2,
 	armour = 1,
