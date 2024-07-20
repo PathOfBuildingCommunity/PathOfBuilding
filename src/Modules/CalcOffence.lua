@@ -862,6 +862,10 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	if skillModList:Flag(nil, "DotMultiplierIsCritMultiplier") then
+		skillModList:NewMod("DotMultiplier", "OVERRIDE", skillModList:Sum("BASE", skillCfg, "CritMultiplier"), "Perfect Agony", ModFlag.Ailment)
+	end
+
 	if skillModList:Flag(nil, "HasSeals") and activeSkill.skillTypes[SkillType.CanRapidFire] and not skillModList:Flag(nil, "NoRepeatBonuses") then
 		-- Applies DPS multiplier based on seals count
 		output.SealCooldown = skillModList:Sum("BASE", skillCfg, "SealGainFrequency") / calcLib.mod(skillModList, skillCfg, "SealGainFrequency")
@@ -3656,8 +3660,8 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 
-		local igniteMode = env.configInput.igniteMode or "AVERAGE"
-		if igniteMode == "CRIT" then
+		local ailmentMode = env.configInput.ailmentMode or "AVERAGE"
+		if ailmentMode == "CRIT" or modDB:Flag(nil, "AilmentsOnlyFromCrit") then
 			for _, ailment in ipairs(ailmentTypeList) do
 				output[ailment.."ChanceOnHit"] = 0
 			end
@@ -3868,11 +3872,11 @@ function calcs.offence(env, actor, activeSkill)
 				output.BleedPhysicalMin = min
 				output.BleedPhysicalMax = max
 				if sub_pass == 2 then
-					output.CritBleedDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "PhysicalDotMultiplier") / 100
+					output.CritBleedDotMulti = 1 + (skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier")) / 100
 					sourceCritDmg = (max - (max - min) / (bleedStacks + 1)) * output.CritBleedDotMulti
 					sourceMaxCritDmg = max * output.CritBleedDotMulti
 				else
-					output.BleedDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "PhysicalDotMultiplier") / 100
+					output.BleedDotMulti = 1 + (skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier")) / 100
 					sourceHitDmg = (max - (max - min) / (bleedStacks + 1)) * output.BleedDotMulti
 					sourceMinHitDmg = min * output.BleedDotMulti
 					sourceMaxHitDmg = max * output.BleedDotMulti
@@ -4123,11 +4127,11 @@ function calcs.offence(env, actor, activeSkill)
 					totalMax = totalMax + max * nonChaosMult
 				end
 				if sub_pass == 2 then
-					output.CritPoisonDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "ChaosDotMultiplier") / 100
+					output.CritPoisonDotMulti = 1 + (skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "ChaosDotMultiplier")) / 100
 					sourceCritDmg = (totalMin + totalMax) / 2 * output.CritPoisonDotMulti
 					sourceMaxCritDmg = totalMax * output.CritPoisonDotMulti
 				else
-					output.PoisonDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "ChaosDotMultiplier") / 100
+					output.PoisonDotMulti = 1 + (skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "ChaosDotMultiplier")) / 100
 					sourceHitDmg = (totalMin + totalMax) / 2 * output.PoisonDotMulti
 					sourceMinHitDmg = totalMin * output.PoisonDotMulti
 					sourceMaxHitDmg = totalMax * output.PoisonDotMulti
@@ -4135,7 +4139,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			if globalBreakdown then
 				globalBreakdown.PoisonDPS = {
-					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", ailmentMode == "CRIT" and "Crits Only" or "Average Damage")
 				}
 			end
 			local baseMinVal = calcAilmentDamage("Poison", output.CritChance, sourceMinHitDmg, 0, true) * data.misc.PoisonPercentBase
@@ -4425,11 +4429,11 @@ function calcs.offence(env, actor, activeSkill)
 					totalMax = totalMax + max
 				end
 				if sub_pass == 2 then
-					output.CritIgniteDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "FireDotMultiplier") / 100
+					output.CritIgniteDotMulti = 1 + (skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "FireDotMultiplier")) / 100
 					sourceCritDmg = (totalMax - (totalMax - totalMin) / (igniteStacks + 1)) * output.CritIgniteDotMulti
 					sourceMaxCritDmg = totalMax * output.CritIgniteDotMulti
 				else
-					output.IgniteDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "FireDotMultiplier") / 100
+					output.IgniteDotMulti = 1 + (skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "FireDotMultiplier")) / 100
 					sourceHitDmg = (totalMax - (totalMax - totalMin) / (igniteStacks + 1)) * output.IgniteDotMulti
 					sourceMinHitDmg = totalMin * output.IgniteDotMulti
 					sourceMaxHitDmg = totalMax * output.IgniteDotMulti
@@ -4682,7 +4686,7 @@ function calcs.offence(env, actor, activeSkill)
 		if (output.FreezeChanceOnHit + output.FreezeChanceOnCrit) > 0 then
 			if globalBreakdown then
 				globalBreakdown.FreezeDurationMod = {
-					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", ailmentMode == "CRIT" and "Crits Only" or "Average Damage")
 				}
 			end
 			local baseVal = calcAilmentDamage("Freeze", output.CritChance, calcAverageSourceDamage("Freeze")) * skillModList:More(cfg, "FreezeAsThoughDealing")
@@ -4699,7 +4703,7 @@ function calcs.offence(env, actor, activeSkill)
 			if (output[ailment.."ChanceOnHit"] + output[ailment.."ChanceOnCrit"]) > 0 then
 				if globalBreakdown then
 					globalBreakdown[ailment.."EffectMod"] = {
-						s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+						s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", ailmentMode == "CRIT" and "Crits Only" or "Average Damage")
 					}
 				end
 				local damage = calcAilmentDamage(ailment, output.CritChance, calcAverageSourceDamage(ailment)) * skillModList:More(cfg, ailment.."AsThoughDealing")
@@ -4988,7 +4992,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		local inc = skillModList:Sum("INC", dotCfg, "Damage", "ChaosDamage")
 		local more = skillModList:More(dotCfg, "Damage", "ChaosDamage")
-		local mult = skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier", "ChaosDotMultiplier")
+		local mult = skillModList:Override(dotTypeCfg, "DotMultiplier") or skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier") + skillModList:Sum("BASE", dotTypeCfg, "ChaosDotMultiplier")
 		output.DecayDPS = skillData.decay * (1 + inc/100) * more * (1 + mult/100) * effMult
 		output.DecayDuration = 8 * debuffDurationMult
 		if breakdown then
@@ -5025,7 +5029,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			local inc = modDB:Sum("INC", dotTypeCfg, "Damage", "FireDamage", "ElementalDamage")
 			local more = modDB:More(dotTypeCfg, "Damage", "FireDamage", "ElementalDamage")
-			local mult = modDB:Sum("BASE", dotTypeCfg, "DotMultiplier", "FireDotMultiplier")
+			local mult = modDB:Override(dotTypeCfg, "DotMultiplier") or modDB:Sum("BASE", dotTypeCfg, "DotMultiplier") + modDB:Sum("BASE", dotTypeCfg, "FireDotMultiplier")
 			local total = baseDropsBurningGround * (1 + inc/100) * more * (1 + mult/100) * effMult
 			if not output.BurningGroundDPS or output.BurningGroundDPS < total then
 				output.BurningGroundDPS = total
@@ -5101,7 +5105,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			local inc = skillModList:Sum("INC", dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
 			local more = skillModList:More(dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
-			local mult = skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier", damageType.."DotMultiplier")
+			local mult = skillModList:Override(dotTypeCfg, "DotMultiplier") or skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier") + skillModList:Sum("BASE", dotTypeCfg, damageType.."DotMultiplier")
 			local aura = activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillTypes[SkillType.RemoteMined] and calcLib.mod(skillModList, dotTypeCfg, "AuraEffect")
 			local total = baseVal * (1 + inc/100) * more * (1 + mult/100) * (aura or 1) * effMult
 			if output[damageType.."Dot"] == 0 or output[damageType.."Dot"] == nil then

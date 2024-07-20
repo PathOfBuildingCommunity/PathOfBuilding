@@ -2049,6 +2049,7 @@ local specialModList = {
 	["you have perfect agony if you've dealt a critical strike recently"] = { mod("Keystone", "LIST", "Perfect Agony", { type = "Condition", var = "CritRecently" }) },
 	["energy shield protects mana instead of life"] = { flag("EnergyShieldProtectsMana") },
 	["modifiers to critical strike multiplier also apply to damage over time multiplier for ailments from critical strikes at (%d+)%% of their value"] = function(num) return { mod("CritMultiplierAppliesToDegen", "BASE", num) } end,
+	["damage over time multiplier for ailments is equal to critical strike multiplier"] = { flag("DotMultiplierIsCritMultiplier") },
 	["your bleeding does not deal extra damage while the enemy is moving"] = { flag("Condition:NoExtraBleedDamageToMovingEnemy") },
 	["you and enemies in your presence count as moving while affected by elemental ailments"] = {
 		mod("EnemyModifier", "LIST", { mod = flag("Condition:Moving", { type = "Condition", varList = { "Frozen","Chilled","Shocked","Ignited","Scorched","Brittle","Sapped" } }) }),
@@ -2959,6 +2960,7 @@ local specialModList = {
 	["your critical strike chance is lucky while on low life"] = { flag("CritChanceLucky", { type = "Condition", var = "LowLife" }) },
 	["your critical strike chance is lucky while focus?sed"] = { flag("CritChanceLucky", { type = "Condition", var = "Focused" }) },
 	["your critical strikes do not deal extra damage"] = { flag("NoCritMultiplier") },
+	["critical strikes do not deal extra damage"] = { flag("NoCritMultiplier") },
 	["minion critical strikes do not deal extra damage"] = { mod("MinionModifier", "LIST", { mod = flag("NoCritMultiplier") }) },
 	["lightning damage with non%-critical strikes is lucky"] = { flag("LightningNoCritLucky") },
 	["your damage with critical strikes is lucky"] = { flag("CritLucky") },
@@ -3056,6 +3058,7 @@ local specialModList = {
 		flag("CannotBrittle"),
 		flag("CannotSap"),
 	},
+	["non%-critical strikes cannot inflict ailments"] = { flag("AilmentsOnlyFromCrit") },
 	["flameblast and incinerate cannot inflict elemental ailments"] = {
 		flag("CannotIgnite", { type = "SkillName", skillNameList = { "Flameblast", "Incinerate" }, includeTransfigured = true }),
 		flag("CannotChill", { type = "SkillName", skillNameList = { "Flameblast", "Incinerate" }, includeTransfigured = true }),
