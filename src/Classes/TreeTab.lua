@@ -768,10 +768,12 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			controls[idx] = new("LabelControl", {"TOPLEFT", controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "^7"..desc)
 			totalHeight = totalHeight + 20
 		end
-		main.popups[1].height = totalHeight + 30
-		controls.save.y = totalHeight
-		controls.reset.y = totalHeight
-		controls.close.y = totalHeight
+		main.popups[1].height = totalHeight + 75
+		local buttonHeight = totalHeight + 15
+		controls.save.y = buttonHeight
+		controls.reset.y = buttonHeight
+		controls.close.y = buttonHeight
+		controls.totalTattoos.y = buttonHeight + 30
 	end
 
 	buildMods(selectedNode)
@@ -803,6 +805,20 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	controls.close = new("ButtonControl", nil, 90, 75, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
+
+	local function getTattooCount()
+		local count = 0
+		for _, node in pairs(self.build.spec.hashOverrides) do
+			if node.isTattoo then
+				count = count + 1
+			end
+		end
+		if count > 50 then
+			count = colorCodes.NEGATIVE..count
+		end
+		return count
+	end
+	controls.totalTattoos = new("LabelControl", nil, 0, 95, 0, 16, "^7Tattoo Count: ".. getTattooCount() .."/50" )
 	main:OpenPopup(600, 105, "Replace Modifier of Node", controls, "save")
 	constructUI(modGroups[1])
 end
