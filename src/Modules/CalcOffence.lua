@@ -3719,9 +3719,9 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdownChance, s_format("Chance on Crit: %d%%", chanceOnCrit))
 				if chanceOnHit ~= chanceOnCrit then
 					t_insert(breakdownChance, "Combined chance:")
-					t_insert(breakdownChance, s_format("%d x (1 - %.4f) ^8(chance from non-crits)", chanceOnHit, output.CritChance/100))
-					t_insert(breakdownChance, s_format("+ %d x %.4f ^8(chance from crits)", chanceOnCrit, output.CritChance/100))
-					local chancePerHit = chanceOnHit * (1 - output.CritChance / 100) + chanceOnCrit * output.CritChance / 100
+					t_insert(breakdownChance, s_format("%d x (1 - %.4f) ^8(chance from non-crits)", chanceOnHit, sourceCritChance/100))
+					t_insert(breakdownChance, s_format("+ %d x %.4f ^8(chance from crits)", chanceOnCrit, sourceCritChance/100))
+					local chancePerHit = chanceOnHit * (1 - sourceCritChance / 100) + chanceOnCrit * sourceCritChance / 100
 					t_insert(breakdownChance, s_format("= %.2f", chancePerHit))
 				end
 			end
