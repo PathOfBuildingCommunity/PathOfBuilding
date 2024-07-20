@@ -41612,7 +41612,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Gain 1 Rage on Melee Hit, no more than once every {0} seconds"
+					text="Gain 3 Rage on Melee Hit"
 				}
 			}
 		},
