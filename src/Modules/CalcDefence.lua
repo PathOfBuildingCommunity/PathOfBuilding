@@ -922,9 +922,10 @@ function calcs.defence(env, actor)
 		end
 	end
 
-	-- Spell Suppression
 	local weaponsCfg = {
-		flags = bit.bor(env.player.weaponData1 and env.player.weaponData1.type and ModFlag[env.player.weaponData1.type] or 0, env.player.weaponData2 and env.player.weaponData2.type and ModFlag[env.player.weaponData2.type] or 0)
+		flags = env.player.weaponData1.countsAsAll1H and bit.bor( ModFlag.Sword, ModFlag.Axe, ModFlag.Claw, ModFlag.Dagger, ModFlag.Mace ) or
+				bit.bor(env.player.weaponData1 and env.player.weaponData1.type and ModFlag[env.data.weaponTypeInfo[actor.weaponData1.type].flag] or 0,
+						 env.player.weaponData2 and env.player.weaponData2.type and ModFlag[env.data.weaponTypeInfo[actor.weaponData2.type].flag] or 0)
 	}
 
 	-- Add weapon dependent mods as unflagged mods if the correct weapons are equipped
