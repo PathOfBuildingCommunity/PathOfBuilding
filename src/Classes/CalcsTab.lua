@@ -496,7 +496,7 @@ function CalcsTabClass:PowerBuilder()
 	table.sort(distanceList, function(a, b) return a[1] < b[1] end)
 	for _, data in ipairs(distanceList) do
 		local distance, nodes = data[1], data[2]
-		if self.nodePowerMaxDepth and self.nodePowerMaxDepth >= distance then
+		if self.nodePowerMaxDepth and self.nodePowerMaxDepth < distance then
 			break
 		end
 		for nodeId, node in pairs(nodes) do
