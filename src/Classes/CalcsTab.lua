@@ -466,6 +466,7 @@ function CalcsTabClass:PowerBuilder()
 	local calcFunc, calcBase = self:GetMiscCalculator()
 	local cache = { }
 	local distanceMap = { }
+	local distanceList = { }
 	local newPowerMax = {
 		singleStat = 0,
 		offence = 0,
@@ -489,6 +490,11 @@ function CalcsTabClass:PowerBuilder()
 		end
 	end
 	for distance, nodes in pairs(distanceMap) do
+		t_insert(distanceList, { distance, nodes })
+	end
+	table.sort(distanceList, function(a, b) return a[1] < b[1] end)
+	for _, data in ipairs(distanceList) do
+		local distance, nodes = data[1], data[2]
 		if self.nodePowerMaxDepth and self.nodePowerMaxDepth >= distance then
 			break
 		end
