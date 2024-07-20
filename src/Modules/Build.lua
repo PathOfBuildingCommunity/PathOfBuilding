@@ -924,7 +924,7 @@ function buildMode:SyncLoadouts(reset)
 				local setTitle = tabSets[set].title or "Default"
 				local linkIdentifier = string.match(setTitle, "%{([%w,]+)%}")
 				-- this if/else prioritizes group identifier in case the user creates sets with same name AND same identifiers
-				-- result is only the group is recogized and one loadout is created rather than a duplicate from each condition met
+				-- result is only the group is recognized and one loadout is created rather than a duplicate from each condition met
 				if linkIdentifier then
 					for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 						transferTable["setId"] = set
