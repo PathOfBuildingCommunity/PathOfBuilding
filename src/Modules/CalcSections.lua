@@ -933,7 +933,7 @@ return {
 { 1, "Ignite", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Ignite", data = {	
 	extra = "{0:output:IgniteChancePerHit}% {1:output:IgniteDPS} {2:output:IgniteDuration}s",
 	flag = "ignite",
-	{ label = "Max Ignite Stacks", flag = "igniteCanStack", { format = "{1:output:IgniteStacksMax}", { modName = "IgniteStacks" }, }, },
+	{ label = "Max Ignite Stacks", { format = "{1:output:IgniteStacksMax}", { modName = "IgniteStacks" }, }, },
 	{ label = "Stack Potential", { format = "{2:output:IgniteStackPotential}", { breakdown = "IgniteStackPotential" } }},
 	{ label = "Average Ignite Roll", { format = "{2:output:IgniteRollAverage}%", { breakdown = "IgniteRollAverage" } }},
 	{ label = "Chance to Ignite", { format = "{0:output:IgniteChancePerHit}%", 
