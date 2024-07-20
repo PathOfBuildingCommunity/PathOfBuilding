@@ -193,17 +193,7 @@ local skills, mod, flag, skill = ...
 #skill Berserk
 #flags spell
 	statMap = {
-		["berserk_attack_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-		["berserk_attack_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-		["berserk_movement_speed_+%_final"] = {
-			mod("MovementSpeed", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-		["berserk_base_damage_taken_+%_final"] = {
-			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		["berserk_rage_effect_+%"] = {
 		},
 	},
 #mods

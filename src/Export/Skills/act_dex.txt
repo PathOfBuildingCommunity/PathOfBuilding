@@ -1740,9 +1740,6 @@ local skills, mod, flag, skill = ...
 		["physical_damage_%_to_add_as_cold"] = {
 			mod("PhysicalDamageGainAsCold", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["hatred_aura_cold_damage_+%_final"] = {
-			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
 	},
 #baseMod skill("radius", 40)
 #mods
