@@ -306,7 +306,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		-- return id as soon as it's found
 		local function findSetId(setOrderList, value, sets, setSpecialLinks)
 			for _, setOrder in ipairs(setOrderList) do
-				if value == sets[setOrder].title then
+				if value == (sets[setOrder].title or "Default") then
 					return setOrder
 				else
 					local linkMatch = string.match(value, "%{(%w+)%}")

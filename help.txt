@@ -116,10 +116,15 @@ Advanced tricks:
 ---[Loadouts]
 
 Loadouts can be selected from the dropdown in the top middle of the screen. Selecting a Loadout will load all four sets at once. These are automatically registered based on one of two conditions:
-    1) All four sets share the same name, e.g. "Leveling"
+
+    1) All four sets share the same name and colour formatting, e.g. "Leveling"
+        - If you have a set named ^4Leveling^7, it will not match to other sets named Leveling
+
     2) All four sets have the same alphanumeric identifier inside of braces { } at the end of the name, e.g. "Leveling Tree {1}", "Leveling Items {1}", "Leveling Skills {1}", "Leveling Config {1}"
-        - If you would like a single set to be used in multiple Loadouts, you can put the identifiers in the braces separated by commas. For example, an Item Set could be named "Early Game {1,2}" and this would be recognized as a loadout given there's a Tree, Skill, and Config Set with {1}, {2}, or {1,2} in their names as well
-        - Lastly, the name of the Loadout in the dropdown is based on the name of the Tree Set, identifiers are shown for clarity when using sets multiple times
+        - If you would like a single set to be used in multiple Loadouts, you can put the identifiers in the braces separated by commas. For example, an Item Set could be named "Early Game {1,2}" and there could be Tree, Skill, and Config Sets with {1} and {2}, resulting in two loadouts linked to the same Item Set
+        - The name of the Loadout in the dropdown is based on the name of the Tree Set, identifiers are shown for clarity when using sets multiple times
+        - These sets can have differing colour formatting so long as the identifier texts match
+
 The "New Loadout" option allows the user to create all four sets from a single popup for convenience.
 The "Sync" option is a backup option to force the UI to update in case the user has changed this data behind the scenes.
 
