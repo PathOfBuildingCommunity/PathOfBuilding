@@ -14987,7 +14987,7 @@ skills["Spark"] = {
 		local skillData = activeSkill.skillData
 		if activeSkill.skillPart == 2 then
 			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
-			output.SkillDPSMultiplier = ( skillData.dpsMultiplier or 1 )
+			output.SkillDPSMultiplier = skillData.dpsMultiplier
 		end
 	end,
 	baseFlags = {
@@ -15075,7 +15075,7 @@ skills["SparkAltX"] = {
 		local skillData = activeSkill.skillData
 		if activeSkill.skillPart == 2 then
 			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
-			output.SkillDPSMultiplier = ( skillData.dpsMultiplier or 1 )
+			output.SkillDPSMultiplier = skillData.dpsMultiplier
 		end
 	end,
 	baseFlags = {
@@ -15165,7 +15165,7 @@ skills["SparkAltY"] = {
 		local skillData = activeSkill.skillData
 		if activeSkill.skillPart == 2 then
 			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
-			output.SkillDPSMultiplier = ( skillData.dpsMultiplier or 1 )
+			output.SkillDPSMultiplier = skillData.dpsMultiplier
 		end
 	end,
 	baseFlags = {
