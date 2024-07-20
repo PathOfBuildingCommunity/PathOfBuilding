@@ -18099,13 +18099,32 @@ return {
 							[2]=-1
 						}
 					},
-					text="Nearby Enemies are Blinded while in Sand Stance\nYou take {0}% less Damage from Attacks from Enemies that aren't nearby while in Sand Stance\nNearby Enemies are Maimed while in Blood Stance"
+					text="You take up to {0}% less Damage from Nearby Enemies while in Sand Stance"
 				}
 			}
 		},
 		name="sand_armour_damage_taken",
 		stats={
 			[1]="attack_damage_taken_+%_final_from_enemies_unaffected_by_sand_armour"
+		}
+	},
+	[1520]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Nearby Enemies take up to {0}% more Physical Damage from Hits while in Blood Stance"
+				},
+			}
+		},
+		name="blood_armour_damage_taken",
+		stats={
+			[1]="enemy_hit_damage_taken_+%_final_in_blood_armour"
 		}
 	},
 	[532]={
@@ -47763,6 +47782,7 @@ return {
 	["attack_and_cast_speed_+%"]=529,
 	["attack_damage_+%"]=530,
 	["attack_damage_taken_+%_final_from_enemies_unaffected_by_sand_armour"]=531,
+	["enemy_hit_damage_taken_+%_final_in_blood_armour"]=1520,
 	["attack_maximum_added_physical_damage_with_weapons_per_trauma"]=532,
 	["attack_minimum_added_physical_damage_with_weapons_per_trauma"]=532,
 	["attack_repeat_count"]=266,

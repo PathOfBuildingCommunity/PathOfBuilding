@@ -747,12 +747,13 @@ local skills, mod, flag, skill = ...
 #flags spell area aura
 	statMap = {
 		["support_maimed_enemies_physical_damage_taken_+%"] = {
-			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Maim", effectCond = "BloodStance" }, { type = "Condition", var = "Maimed" }),
+			mod("PhysicalDamageTaken", "MORE", nil, ModFlag.Hit, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectCond = "BloodStance" }),
+		},
+		["attack_damage_taken_+%_final_from_enemies_unaffected_by_sand_armour"] = {
+			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura", effectCond = "SandStance" }),
 		},
 	},
 #baseMod skill("radius", 28)
-#baseMod mod("Condition:Maimed", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Flesh", effectCond = "BloodStance" })
-#baseMod mod("Condition:Blinded", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Stone", effectCond = "SandStance" })
 #mods
 
 #skill FrozenLegion
