@@ -901,12 +901,11 @@ function buildMode:SyncLoadouts(reset)
 		local transferTable = {}
 		for id, spec in ipairs(self.treeTab.specList) do
 			local specTitle = spec.title or "Default"
-			t_insert(treeList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(specTitle))
 			-- only alphanumeric and comma are allowed in the braces { }
 			local linkIdentifier = string.match(specTitle, "%{([%w,]+)%}")
 			if linkIdentifier then
 				-- iterate over each identifier, delimited by comma, and set the index so we can grab it later
-				-- setId index is the id of the set in the global list needed for SetActive
+				-- setId index is the id of the set in the global list needed for SetActiveSet
 				-- setName is only used for Tree currently and we strip the braces to get the plain name of the set, this is used as the name of the loadout
 				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 					transferTable["setId"] = id
@@ -914,6 +913,8 @@ function buildMode:SyncLoadouts(reset)
 					self.treeListSpecialLinks[linkId] = transferTable
 					transferTable = {}
 				end
+			else
+				t_insert(treeList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(specTitle))
 			end
 		end
 
@@ -921,8 +922,9 @@ function buildMode:SyncLoadouts(reset)
 		local function identifyLinks(setOrderList, tabSets, setList, specialLinks)
 			for id, set in ipairs(setOrderList) do
 				local setTitle = tabSets[set].title or "Default"
-				t_insert(setList, setTitle)
 				local linkIdentifier = string.match(setTitle, "%{([%w,]+)%}")
+				-- this if/else prioritizes group identifier in case the user creates sets with same name AND same identifiers
+				-- result is only the group is recogized and one loadout is created rather than a duplicate from each condition met
 				if linkIdentifier then
 					for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 						transferTable["setId"] = set
@@ -930,6 +932,8 @@ function buildMode:SyncLoadouts(reset)
 						specialLinks[linkId] = transferTable
 						transferTable = {}
 					end
+				else
+					t_insert(setList, setTitle)
 				end
 			end
 		end
@@ -937,18 +941,13 @@ function buildMode:SyncLoadouts(reset)
 		identifyLinks(self.skillsTab.skillSetOrderList, self.skillsTab.skillSets, skillList, self.skillListSpecialLinks)
 		identifyLinks(self.configTab.configSetOrderList, self.configTab.configSets, configList, self.configListSpecialLinks)
 
-		local duplicateCheck = { }
 		-- loop over all for exact match loadouts
 		for id, tree in ipairs(treeList) do
 			for id, skill in ipairs(skillList) do
 				for id, item in ipairs(itemList) do
 					for id, config in ipairs(configList) do
 						if (tree == skill and tree == item and tree == config) then
-							if duplicateCheck[tree] then -- if already seen, re-colour NEGATIVE to alert user of duplicate
-								tree = colorCodes.NEGATIVE..tree
-							end
 							t_insert(filteredList, tree)
-							duplicateCheck[tree] = true
 						end
 					end
 				end
@@ -960,12 +959,7 @@ function buildMode:SyncLoadouts(reset)
 				for skillLinkId, skill in pairs(self.skillListSpecialLinks) do
 					for configLinkId, config in pairs(self.configListSpecialLinks) do
 						if (treeLinkId == skillLinkId and treeLinkId == itemLinkId and treeLinkId == configLinkId) then
-							local loadoutName = tree["setName"].." {"..treeLinkId.."}"
-							if duplicateCheck[loadoutName] then
-								loadoutName = colorCodes.NEGATIVE..loadoutName
-							end
-							t_insert(filteredList, loadoutName)
-							duplicateCheck[loadoutName] = true
+							t_insert(filteredList, tree["setName"].." {"..treeLinkId.."}")
 						end
 					end
 				end
