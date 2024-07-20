@@ -2039,7 +2039,7 @@ skills["TriggeredMoltenStrike"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 	},
 	levels = {
-		[16] = { baseMultiplier = 1.15, storedUses = 1, damageEffectiveness = 1.15, cooldown = 0.15, levelRequirement = 1, },
+		[16] = { baseMultiplier = 1.15, storedUses = 1, damageEffectiveness = 1.7, cooldown = 0.15, levelRequirement = 1, },
 	},
 }
 skills["PenanceMark"] = {
