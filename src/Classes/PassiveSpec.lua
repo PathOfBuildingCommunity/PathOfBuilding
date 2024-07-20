@@ -895,7 +895,7 @@ function PassiveSpecClass:NodesInIntuitiveLeapLikeRadius(node)
 
 		if item.jewelData and item.jewelData.impossibleEscapeKeystone then
 			for keyName, keyNode in pairs(item.jewelData.impossibleEscapeKeystones) do
-				if self.tree.keystoneMap[keyName].nodesInRadius then
+				if self.tree.keystoneMap[keyName] and self.tree.keystoneMap[keyName].nodesInRadius then
 					for affectedNodeId in pairs(self.tree.keystoneMap[keyName].nodesInRadius[radiusIndex]) do
 						if self.nodes[affectedNodeId].alloc then
 							t_insert(result, self.nodes[affectedNodeId])
