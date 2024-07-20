@@ -33,8 +33,6 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	self.sectionList = { }
 	self.varControls = { }
 	
-	self:BuildModList()
-	
 	self.toggleConfigs = false
 
 	self.controls.sectionAnchor = new("LabelControl", { "TOPLEFT", self, "TOPLEFT" }, 0, 20, 0, 0, "")
@@ -96,7 +94,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 
 	local function implyCond(varData)
 		local mainEnv = self.build.calcsTab.mainEnv
-		if self.input[varData.var] then
+		if self.configSets[self.activeConfigSetId].input[varData.var] then
 			if varData.implyCondList then
 				for _, implyCond in ipairs(varData.implyCondList) do
 					if (implyCond and mainEnv.conditionsUsed[implyCond]) then
@@ -164,7 +162,6 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			local control
 			if varData.type == "check" then
 				control = new("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 18, varData.label, function(state)
-					self.input[varData.var] = state
 					self.configSets[self.activeConfigSetId].input[varData.var] = state
 					self:AddUndoState()
 					self:BuildModList()
@@ -173,10 +170,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
 				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, (varData.type == "integer" and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 7, function(buf, placeholder)
 					if placeholder then
-						self.placeholder[varData.var] = tonumber(buf)
 						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tonumber(buf)
 					else
-						self.input[varData.var] = tonumber(buf)
 						self.configSets[self.activeConfigSetId].input[varData.var] = tonumber(buf)
 						self:AddUndoState()
 						self:BuildModList()
@@ -185,7 +180,6 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				end)
 			elseif varData.type == "list" then
 				control = new("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 118, 16, varData.list, function(index, value)
-					self.input[varData.var] = value.val
 					self.configSets[self.activeConfigSetId].input[varData.var] = value.val
 					self:AddUndoState()
 					self:BuildModList()
@@ -194,10 +188,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			elseif varData.type == "text" and not varData.resizable then
 				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, 344, 118, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
-						self.placeholder[varData.var] = tostring(buf)
 						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tostring(buf)
 					else
-						self.input[varData.var] = tostring(buf)
 						self.configSets[self.activeConfigSetId].input[varData.var] = tostring(buf)
 						self:AddUndoState()
 						self:BuildModList()
@@ -207,9 +199,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			elseif varData.type == "text" and varData.resizable then
 				control = new("ResizableEditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, nil, 344, nil, nil, 118, 118 + 16 * 40, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
-						self.placeholder[varData.var] = tostring(buf)
+						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tostring(buf)
 					else
-						self.input[varData.var] = tostring(buf)
+						self.configSets[self.activeConfigSetId].input[varData.var] = tostring(buf)
 						self:AddUndoState()
 						self:BuildModList()
 					end
@@ -269,7 +261,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			end
 			if varData.ifOption then
 				t_insert(shownFuncs, listOrSingleIfOption(varData.ifOption, function(ifOption)
-					return self.input[ifOption]
+					return self.configSets[self.activeConfigSetId].input[ifOption]
 				end))
 			end
 			if varData.ifCond then
@@ -532,15 +524,12 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				t_insert(self.controls, labelControl)
 			end
 			if varData.var then
-				self.input[varData.var] = varData.defaultState
 				self.configSets[self.activeConfigSetId].input[varData.var] = varData.defaultState
 				control.state = varData.defaultState
 				self.varControls[varData.var] = control
-				self.placeholder[varData.var] = varData.defaultPlaceholderState
 				self.configSets[self.activeConfigSetId].placeholder[varData.var] = varData.defaultPlaceholderState
 				control.placeholder = varData.defaultPlaceholderState
 				if varData.defaultIndex then
-					self.input[varData.var] = varData.list[varData.defaultIndex].val
 					self.configSets[self.activeConfigSetId].input[varData.var] = varData.list[varData.defaultIndex].val
 					control.selIndex = varData.defaultIndex
 				end
@@ -561,7 +550,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			if not varData.doNotHighlight then
 				control.borderFunc = function()
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
-					local cur = self.input[varData.var]
+					local cur = self.configSets[self.activeConfigSetId].input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if cur ~= nil and cur ~= def then
 						if not shown then
@@ -579,14 +568,14 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 						return false
 					end
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
-					local cur = self.input[varData.var]
+					local cur = self.configSets[self.activeConfigSetId].input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					return not shown and cur ~= nil and cur ~= def or shown
 				end
 				local innerLabel = labelControl.label
 				labelControl.label = function()
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
-					local cur = self.input[varData.var]
+					local cur = self.configSets[self.activeConfigSetId].input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if not shown and cur ~= nil and cur ~= def then
 						return colorCodes.NEGATIVE..StripEscapes(innerLabel)
@@ -607,7 +596,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					end
 
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
-					local cur = self.input[varData.var]
+					local cur = self.configSets[self.activeConfigSetId].input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if not shown and cur ~= nil and cur ~= def then
 						tooltip:AddLine(14, colorCodes.NEGATIVE.."This config option is conditional with missing source and is invalid.")
@@ -683,14 +672,13 @@ function ConfigTabClass:Load(xml, fileName)
 	end
 
 	self:SetActiveConfigSet(tonumber(xml.attrib.activeConfigSet) or 1)
-	self:BuildModList()
 	self:ResetUndo()
 	self.build:SyncLoadouts()
 end
 
 function ConfigTabClass:GetDefaultState(var, varType)
-	if self.placeholder[var] ~= nil then
-		return self.placeholder[var]
+	if self.configSets[self.activeConfigSetId].placeholder[var] ~= nil then
+		return self.configSets[self.activeConfigSetId].placeholder[var]
 	end
 
 	if self.defaultState[var] ~= nil then
@@ -745,14 +733,14 @@ end
 function ConfigTabClass:UpdateControls()
 	for var, control in pairs(self.varControls) do
 		if control._className == "EditControl" or control._className == "ResizableEditControl" then
-			control:SetText(tostring(self.input[var] or ""))
-			if self.placeholder[var] then
-				control:SetPlaceholder(tostring(self.placeholder[var]))
+			control:SetText(tostring(self.configSets[self.activeConfigSetId].input[var] or ""))
+			if self.configSets[self.activeConfigSetId].placeholder[var] then
+				control:SetPlaceholder(tostring(self.configSets[self.activeConfigSetId].placeholder[var]))
 			end
 		elseif control._className == "CheckBoxControl" then
-			control.state = self.input[var]
+			control.state = self.configSets[self.activeConfigSetId].input[var]
 		elseif control._className == "DropDownControl" then
-			control:SelByValue(self.input[var], "val")
+			control:SelByValue(self.configSets[self.activeConfigSetId].input[var], "val")
 		end
 	end
 end
@@ -847,8 +835,8 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 end
 
 function ConfigTabClass:UpdateLevel()
-	local input = self.input
-	local placeholder = self.placeholder
+	local input = self.configSets[self.activeConfigSetId].input
+	local placeholder = self.configSets[self.activeConfigSetId].placeholder
 	if input.enemyLevel and input.enemyLevel > 0 then
 		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, input.enemyLevel)
 	elseif placeholder.enemyLevel and placeholder.enemyLevel > 0 then
@@ -863,8 +851,8 @@ function ConfigTabClass:BuildModList()
 	self.modList = modList
 	local enemyModList = new("ModList")
 	self.enemyModList = enemyModList
-	local input = self.input
-	local placeholder = self.placeholder
+	local input = self.configSets[self.activeConfigSetId].input
+	local placeholder = self.configSets[self.activeConfigSetId].placeholder
 	self:UpdateLevel() -- enemy level handled here because it's needed to correctly set boss stats
 	for _, varData in ipairs(varList) do
 		if varData.apply then
@@ -892,7 +880,7 @@ function ConfigTabClass:BuildModList()
 end
 
 function ConfigTabClass:ImportCalcSettings()
-	local input = self.input
+	local input = self.configSets[self.activeConfigSetId].input
 	local calcsInput = self.build.calcsTab.input
 	local function import(old, new)
 		input[new] = calcsInput[old]
@@ -929,13 +917,13 @@ function ConfigTabClass:ImportCalcSettings()
 end
 
 function ConfigTabClass:CreateUndoState()
-	return copyTable(self.input)
+	return copyTable(self.configSets[self.activeConfigSetId].input)
 end
 
 function ConfigTabClass:RestoreUndoState(state)
-	wipeTable(self.input)
+	wipeTable(self.configSets[self.activeConfigSetId].input)
 	for k, v in pairs(state) do
-		self.input[k] = v
+		self.configSets[self.activeConfigSetId].input[k] = v
 	end
 	self:UpdateControls()
 	self:BuildModList()
@@ -989,14 +977,13 @@ function ConfigTabClass:SetActiveConfigSet(configSetId, init)
 		configSetId = self.configSetOrderList[1]
 	end
 
+	self.input = self.configSets[configSetId].input
+	self.placeholder = self.configSets[configSetId].placeholder
+	self.activeConfigSetId = configSetId
+
 	if not init then
-		self.input = {}
-		self.input = copyTable(self.configSets[configSetId].input, true)
-		self.placeholder = {}
-		self.placeholder = copyTable(self.configSets[configSetId].placeholder, true)
 		self:UpdateControls()
 		self:BuildModList()
 	end
-	self.activeConfigSetId = configSetId
 	self.build.buildFlag = true
 end
