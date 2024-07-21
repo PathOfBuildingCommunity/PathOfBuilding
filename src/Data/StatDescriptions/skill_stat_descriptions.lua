@@ -45484,17 +45484,17 @@ return {
 				[1]={
 					limit={
 						[1]={
-							[1]=1,
+							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Regenerate {0} Life over 1 second"
+					text="Buff grants 2% Life Regenerated per Second per 5 Power, up to a maximum of 25 Power"
 				}
 			}
 		},
 		name="regen_second_life",
 		stats={
-			[1]="virtual_regenerate_x_life_over_1_second_on_skill_use_or_trigger"
+			[1]="enduring_cry_life_regenerated_percentage_per_5_power"
 		}
 	},
 	[1449]={
@@ -49303,7 +49303,7 @@ return {
 	["virtual_plague_bearer_maximum_stored_poison_damage"]=404,
 	["virtual_projectile_number_to_split"]=250,
 	["virtual_projectiles_cannot_pierce"]=100,
-	["virtual_regenerate_x_life_over_1_second_on_skill_use_or_trigger"]=1448,
+	["enduring_cry_life_regenerated_percentage_per_5_power"]=1448,
 	["virtual_skill_gains_intensity"]=212,
 	["virtual_spider_aspect_web_interval_ms"]=1449,
 	["virtual_static_strike_base_zap_frequency_ms"]=1450,
