@@ -1,4 +1,4 @@
--- This file is currently manualy edited, data will be wrong!
+-- This file is currently manually edited, data will be wrong!
 -- Item data (c) Grinding Gear Games
 
 return {
