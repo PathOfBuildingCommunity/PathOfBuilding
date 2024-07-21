@@ -148,7 +148,7 @@ Onslaught
 ]],[[
 Blood Price
 Reaver Helmet
-(20-30)% reduced maximum Life
+24% reduced maximum Life
 Regenerate (200-250) Life per second
 100% increased Stun and Block Recovery
 Nearby Enemy Monsters have at least 8% of Life Reserved

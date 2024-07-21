@@ -31,7 +31,7 @@ Radius: Large
 {variant:4}Passive Skills in Radius also grant 7% increased Armour
 {variant:5}Passive Skills in Radius also grant 5% increased Evasion Rating
 {variant:6}Passive Skills in Radius also grant +2 to all Attributes
-{variant:7}Passive Skills in Radius also grant 7% Increased Global Critical Strike Chance
+{variant:7}Passive Skills in Radius also grant 5% Increased Global Critical Strike Chance
 {variant:8}Passive Skills in Radius also grant 6% increased Physical Damage
 {variant:9}Passive Skills in Radius also grant 6% increased Lightning Damage
 {variant:10}Passive Skills in Radius also grant 6% increased Cold Damage
