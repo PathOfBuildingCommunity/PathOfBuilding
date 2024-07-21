@@ -1595,12 +1595,16 @@ local skills, mod, flag, skill = ...
 			mod("SeismicExertedAttacks", "BASE", nil),
 		},
 		["seismic_cry_slam_skill_area_+%_increase_per_repeat"] = {
-			mod("SeismicAoEMultiplier", "BASE", nil),
+			mod("SeismicAoEIncMultiplier", "BASE", nil),
 		},
 		["seismic_cry_base_slam_skill_area_+%"] = {
+			mod("SeismicAoEMoreMultiplier", "BASE", nil),
 		},
-		["seismic_cry_+%_enemy_stun_threshold_per_5_MP"] = {
+		["seismic_cry_+%_stun_threshold_per_5_MP"] = {
 			mod("SeismicStunThresholdPer5MP", "BASE", nil),
+		},
+		["seismic_cry_+%_physical_damamge_reduction_per_5_MP"] = {
+			mod("SeismicArmourPer5MP", "BASE", nil),
 		},
 	},
 #baseMod skill("radius", 60)

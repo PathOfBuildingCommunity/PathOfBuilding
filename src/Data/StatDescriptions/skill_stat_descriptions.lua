@@ -46282,13 +46282,36 @@ return {
 							[2]="#"
 						}
 					},
-					text="Buff grants {0}% reduced Enemy Stun Threshold per 5 Power, up to a maximum of 30%"
+					text="Buff grants {0}% increased Stun Threshold per 5 Power, up to a maximum of 25 Power"
 				}
 			}
 		},
 		name="grant_stun_threshold_reduction_per_power",
 		stats={
-			[1]="seismic_cry_+%_enemy_stun_threshold_per_5_MP"
+			[1]="seismic_cry_+%_stun_threshold_per_5_MP"
+		}
+	},
+	[1521]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="reminderstring",
+						v="ReminderTextStunThreshold"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Buff grants {0}% more Armour per 5 Power, up to a maximum of 25 Power"
+				}
+			}
+		},
+		name="grant_stun_threshold_reduction_per_power",
+		stats={
+			[1]="seismic_cry_+%_physical_damamge_reduction_per_5_MP"
 		}
 	},
 	[1472]={
@@ -46700,7 +46723,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Exerted Attacks have {0}% increased Area of Effect"
+					text="Exerted Attacks have {0}% more Area of Effect"
 				},
 				[2]={
 					[1]={
@@ -48829,7 +48852,8 @@ return {
 	["secondary_minimum_physical_damage"]=18,
 	["secondary_minion_duration"]=95,
 	["secondary_skill_effect_duration"]=90,
-	["seismic_cry_+%_enemy_stun_threshold_per_5_MP"]=1471,
+	["seismic_cry_+%_stun_threshold_per_5_MP"]=1471,
+	["seismic_cry_+%_physical_damamge_reduction_per_5_MP"]=1521,
 	["seismic_cry_base_slam_skill_area_+%"]=1486,
 	["seismic_cry_base_slam_skill_damage_+%_final"]=1484,
 	["seismic_cry_slam_skill_area_+%_increase_per_repeat"]=1487,
