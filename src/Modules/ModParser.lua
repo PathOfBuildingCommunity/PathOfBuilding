@@ -2442,7 +2442,7 @@ local specialModList = {
 		mod("MovementSpeed", "MORE", num, { type = "Multiplier", var = "ChallengerCharge" }),
 	} end,
 	["gain (%d+)%% chance to block from equipped shield instead of the shield's value"] = function(num) return {
-		mod("ReplaceShieldBlock", "OVERRIDE", num)
+		mod("ReplaceShieldBlock", "OVERRIDE", num, { type = "Condition", var = "UsingShield" } )
 	} end,
 	["deal (%d+)%% more damage with hits and ailments to rare and unique enemies for each second they've ever been in your presence, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
 		mod("Damage", "MORE", num, nil, 0, bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "EnemyPresenceSeconds", actor = "enemy", limit = tonumber(limit) }, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }),
