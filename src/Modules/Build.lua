@@ -973,6 +973,21 @@ function buildMode:SyncLoadouts(reset)
 		end
 	end
 
+	table.sort(filteredList, function(a, b)
+		local aText, aNum = a:match("^(.+) {%d+}$"), tonumber(a:match("{(%d+)}"))
+		local bText, bNum = b:match("^(.+) {%d+}$"), tonumber(b:match("{(%d+)}"))
+		if not aText then
+			aText, aNum = a, 0
+		end
+		if not bText then
+			bText, bNum = b, 0
+		end
+		if aText ~= bText then
+			return aText < bText
+		end
+		return aNum < bNum
+	end)
+
 	t_insert(filteredList, "-----")
 	t_insert(filteredList, "New Loadout")
 	t_insert(filteredList, "Sync")
