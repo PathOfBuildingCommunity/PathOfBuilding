@@ -11,6 +11,7 @@ local buildSortDropList = {
 	{ label = "Sort by Name", sortMode = "NAME" },
 	{ label = "Sort by Class", sortMode = "CLASS" },
 	{ label = "Sort by Last Edited", sortMode = "EDITED"},
+	{ label = "Sort by Level", sortMode = "LEVEL"},
 }
 
 local listMode = new("ControlHost")
@@ -216,6 +217,8 @@ function listMode:SortList()
 			elseif a.ascendClassName ~= b.ascendClassName then
 				return a.ascendClassName < b.ascendClassName
 			end
+		elseif main.buildSortMode == "LEVEL" then
+				return a.level < b.level
 		end
 		return naturalSortCompare(a.fileName, b.fileName)
 	end)
