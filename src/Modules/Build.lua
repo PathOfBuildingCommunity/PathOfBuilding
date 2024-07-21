@@ -287,21 +287,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			return
 		end
 
-		local treeList = self.treeTab:GetSpecList()
-		local newSpecId = nil
-		for id, spec in ipairs(treeList) do
-			if value == spec then -- exact match
-				newSpecId = id
-			else
-				-- we set the value as the Set title without the braces and then manually add the single group it matched
-				-- this grabs the single link identifier so we can find the setId with respect to setOrder needed for SetActive
-				local linkMatch = string.match(value, "%{(%w+)%}")
-				if linkMatch then
-					newSpecId = self.treeListSpecialLinks[linkMatch]["setId"]
-				end
-			end
-		end
-
 		-- item, skill, and config sets have identical structure
 		-- return id as soon as it's found
 		local function findSetId(setOrderList, value, sets, setSpecialLinks)
@@ -317,6 +302,24 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			end
 			return nil
 		end
+
+		-- trees have a different structure with id/name pairs
+		-- return id as soon as it's found
+		local function findNamedSetId(treeList, value, setSpecialLinks)
+			for id, spec in ipairs(treeList) do
+				if value == spec then
+					return id
+				else
+					local linkMatch = string.match(value, "%{(%w+)%}")
+					if linkMatch then
+						return setSpecialLinks[linkMatch]["setId"]
+					end
+				end
+			end
+			return nil
+		end
+
+		local newSpecId = findNamedSetId(self.treeTab:GetSpecList(), value, self.treeListSpecialLinks)
 		local newItemId = findSetId(self.itemsTab.itemSetOrderList, value, self.itemsTab.itemSets, self.itemListSpecialLinks)
 		local newSkillId = findSetId(self.skillsTab.skillSetOrderList, value, self.skillsTab.skillSets, self.skillListSpecialLinks)
 		local newConfigId = findSetId(self.configTab.configSetOrderList, value, self.configTab.configSets, self.configListSpecialLinks)
@@ -979,6 +982,21 @@ function buildMode:SyncLoadouts(reset)
 
 	if reset then
 		self.controls.buildLoadouts:SetSel(1)
+    else
+		-- Try to select loadout in dropdown based on currently selected tree
+		local treeName = self.treeTab.specList[self.treeTab.activeSpec].title or "Default"
+		for i, loadout in ipairs(filteredList) do
+			if loadout == treeName then
+				local skillName = self.skillsTab.skillSets[self.skillsTab.activeSkillSetId].title or "Default"
+				local itemName = self.itemsTab.itemSets[self.itemsTab.activeItemSetId].title or "Default"
+				local configName = self.configTab.configSets[self.configTab.activeConfigSetId].title or "Default"
+				local linkMatch = string.match(treeName, "%{(%w+)%}")
+				if linkMatch and skillName:find(linkMatch) and itemName:find(linkMatch) and configName:find(linkMatch) then
+					self.controls.buildLoadouts:SetSel(i)
+				end
+				break
+			end
+		end
 	end
 
 	return treeList, itemList, skillList, configList
