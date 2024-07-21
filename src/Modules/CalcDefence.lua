@@ -358,6 +358,9 @@ function calcs.defence(env, actor)
 					if modDB:Flag(nil, "Unbreakable") then
 						armourBase = armourBase * 2
 					end
+					if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
+						armourBase = armourBase / 2
+					end
 				end
 				output["ArmourOn"..slot] = armourBase
 			end
@@ -369,6 +372,9 @@ function calcs.defence(env, actor)
 					end
 				 	if modDB:Flag(nil, "Unbreakable") and modDB:Flag(nil, "IronReflexes") then
 						evasionBase = evasionBase * 2
+					end
+					if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
+						evasionBase = evasionBase / 2
 					end
 				end
 				output["EvasionOn"..slot] = evasionBase
@@ -728,6 +734,9 @@ function calcs.defence(env, actor)
 						if modDB:Flag(nil, "Unbreakable") then 
 							armourBase = armourBase * 2
 						end
+						if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
+							armourBase = armourBase / 2
+						end
 					end
 					armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
 					gearArmour = gearArmour + armourBase
@@ -743,6 +752,9 @@ function calcs.defence(env, actor)
 						end
 						if modDB:Flag(nil, "Unbreakable") and ironReflexes then
 							evasionBase = evasionBase * 2
+						end
+						if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
+							evasionBase = evasionBase / 2
 						end
 					end
 					gearEvasion = gearEvasion + evasionBase
