@@ -1782,8 +1782,8 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("IntimidatingExertedAttacks", "BASE", nil),
 		},
-		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
-			mod("IntimidatingPDRPer5MP", "BASE", nil),
+		["intimidating_cry_movement_speed_per_5_MP"] = {
+			mod("IntimidatingMovementSpeedPer5MP", "BASE", nil),
 		},
 	},
 	baseFlags = {
@@ -1795,7 +1795,7 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 		skill("radius", 60),
 	},
 	constantStats = {
-		{ "intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP", 5 },
+		{ "intimidating_cry_movement_speed_per_5_MP", 3 },
 		{ "skill_empowers_next_x_melee_attacks", 2 },
 		{ "warcry_speed_+%", 38 },
 		{ "base_skill_effect_duration", 4900 },

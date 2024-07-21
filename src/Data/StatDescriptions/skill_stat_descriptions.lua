@@ -46295,23 +46295,19 @@ return {
 		lang={
 			English={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextOverwhelm"
-					},
 					limit={
 						[1]={
-							[1]=1,
+							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Buff causes your Hits to Overwhelm {0}% Physical Damage Reduction per 5 Power, up to 30%"
+					text="Buff grants {0}% increased Movement Speed per 5 Power, up to 30 Power"
 				}
 			}
 		},
 		name="intimidating_cry_buff",
 		stats={
-			[1]="intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"
+			[1]="intimidating_cry_movement_speed_per_5_MP"
 		}
 	},
 	[1473]={
@@ -48424,7 +48420,7 @@ return {
 	["intermediary_physical_skill_dot_damage_to_deal_per_minute"]=161,
 	["intimidate_nearby_enemies_on_use_for_ms"]=956,
 	["intimidating_cry_empowerd_attacks_deal_double_damage_display"]=1492,
-	["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"]=1472,
+	["intimidating_cry_movement_speed_per_5_MP"]=1472,
 	["is_ranged_attack_totem"]=44,
 	["is_remote_mine"]=41,
 	["is_snipe_default_projectile"]=1198,

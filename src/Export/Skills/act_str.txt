@@ -1154,8 +1154,8 @@ local skills, mod, flag, skill = ...
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("IntimidatingExertedAttacks", "BASE", nil),
 		},
-		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
-			mod("IntimidatingPDRPer5MP", "BASE", nil),
+		["intimidating_cry_movement_speed_per_5_MP"] = {
+			mod("IntimidatingMovementSpeedPer5MP", "BASE", nil),
 		},
 		["intimidating_cry_empowerd_attacks_deal_double_damage_display"] = {
 		},
