@@ -1635,8 +1635,9 @@ return {
 } }, { defaultCollapsed = true, label = "Tinctures", data = {
 	extra = "+{0:output:TinctureEffect}%",
 	{ label = "Inc. Effect", { format = "{0:mod:1}%", { modName = "TinctureEffect", modType = "INC", actor = "player"}, }, },
-	{ label = "Mana Burn inc Rate", { format = "{0:mod:1}%", { modName = "TinctureManaBurnRate", modType = "INC", actor = "player"}, }, },
-	{ label = "Mana Burn more Rate", { format = "{0:mod:1}%", { modName = "TinctureManaBurnRate", modType = "MORE", actor = "player"}, }, },
+	{ label = "ManaBurn inc Rate", { format = "{0:mod:1}%", { modName = "TinctureManaBurnRate", modType = "INC", actor = "player"}, }, },
+	{ label = "ManaBurn more Rate", { format = "{0:mod:1}%", { modName = "TinctureManaBurnRate", modType = "MORE", actor = "player"}, }, },
+	{ label = "% Not Inflict ManaBurn", { format = "{0:mod:1}%", { modName = "TincturesNotInflictManaBurn", modType = "BASE" }, }, },
 	{ label = "Cooldown Recovery", { format = "{0:mod:1}%", { modName = "TinctureCooldownRecovery", modType = "INC", actor = "player"}, }, },
 } }
 } },
