@@ -2265,7 +2265,7 @@ local specialModList = {
 		mod("ExtraJewelFunc", "LIST", {radius = firstToUpper(radius), type = "Other", func = function(node, out, data)
 			-- Ignore Timeless Jewels
 			if node and not node.conqueredBy then 
-				return getSimpleConv({ "PhysicalDamage","FireDamage","ColdDamage","LightningDamage","ChaosDamage","ElementalDamage" }, (dmgType:gsub("^%l", string.upper)).."Damage", "INC", true)
+				getSimpleConv({ "PhysicalDamage","FireDamage","ColdDamage","LightningDamage","ChaosDamage","ElementalDamage" }, (dmgType:gsub("^%l", string.upper)).."Damage", "INC", true)(node, out, data)
 			end
 		end}, {type = "ItemCondition", itemSlot = "{SlotName}", rarityCond = "UNIQUE", neg = true}),
 	} end,
