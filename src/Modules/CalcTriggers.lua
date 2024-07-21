@@ -86,10 +86,10 @@ end
 -- Calculate the impact other skills and source rate to trigger cooldown alignment have on the trigger rate
 -- for more details regarding the implementation see comments of #4599 and #5428
 function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD, chance, actor)
-	local index = 1
+	local rotationIndex = 1
 	local next_trigger = 0
-	local trigger_increment = 1 / sourceRate
-	local SIM_TIME = trigger_increment * 1000 -- Simulate 1000 attacks
+	local triggerIncrement = 1 / sourceRate
+	local SIM_TIME = triggerIncrement * 1000 -- Simulate 1000 attacks
 	local chance = chance or 100
 	local skillCount = #skillRotation
 	local actor = actor or env.player
@@ -101,23 +101,27 @@ function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD,
 	end
 
 	while next_trigger < SIM_TIME do
-		for i=1,skillCount do
-			local index = (index + i - 2) % skillCount + 1 
-			if skillRotation[index].next_trig <= next_trigger then
-				skillRotation[index].count = skillRotation[index].count + 1
+		local currentIndex = rotationIndex
+		repeat
+			if skillRotation[currentIndex].next_trig <= next_trigger then -- Skill at current index off cooldown, Trigger it.
+				skillRotation[currentIndex].count = skillRotation[currentIndex].count + 1
 				-- Cooldown starts at the beginning of current tick and ends at the next tick after cooldown expiration
-				skillRotation[index].next_trig = ceil_b(floor_b(next_trigger, 0.033) + skillRotation[index].cd, 0.033)
+				skillRotation[currentIndex].next_trig = ceil_b(floor_b(next_trigger, 0.033) + skillRotation[currentIndex].cd, 0.033)
 				break
 			end
-		end
-		index = (index % skillCount) + 1
-		next_trigger = next_trigger + trigger_increment
+			currentIndex = (currentIndex % skillCount) + 1 -- Current skill on cooldown, try the next one.
+		until(currentIndex == rotationIndex) -- All skills checked, trigger wasted
+		rotationIndex = (rotationIndex % skillCount) + 1 -- Move on to the next skill in rotation
+		next_trigger = next_trigger + triggerIncrement
 	end
 
 	local trigRateTable = { simTime = SIM_TIME, rates = {}, }
 	local mainRate = 0
 	for _, sd in ipairs(skillRotation) do
-		t_insert(trigRateTable.rates, { name = sd.uuid, rate = 1 / (SIM_TIME / sd.count + (trigger_increment / chance * 100) - trigger_increment) })
+		-- Account for trigger chance. Adds the expected value of a geometric distribution where p = chance multiplied by triggerIncrement
+		-- This allows for O(1) estimation of trigger chance impact on trigger rate as number of triggers approaches infinity
+		-- Credit to Logik and Quickstick. More info in prs linked here: https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7244 and on discord.
+		t_insert(trigRateTable.rates, { name = sd.uuid, rate = 1 / (SIM_TIME / sd.count + (triggerIncrement / chance * 100) - triggerIncrement) })
 		if cacheSkillUUID(actor.mainSkill, env) == sd.uuid then
 			mainRate = trigRateTable.rates[#trigRateTable.rates].rate
 		end
