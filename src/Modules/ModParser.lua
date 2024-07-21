@@ -4248,6 +4248,7 @@ local specialModList = {
 	["knockback direction is reversed"] = { mod("EnemyKnockbackDistance", "MORE", -200) },
 	-- Culling
 	["culling strike"] = { mod("CullPercent", "MAX", 10, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
+	["culling strike with melee weapons"] = { mod("CullPercent", "MAX", 10, nil, ModFlag.WeaponMelee, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["culling strike during f?l?a?s?k? ?effect"] = { mod("CullPercent", "MAX", 10, { type = "Condition", var = "UsingFlask" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["hits with this weapon have culling strike against bleeding enemies"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Bleeding" }) },
 	["you have culling strike against cursed enemies"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Cursed" }) },
