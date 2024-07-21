@@ -826,7 +826,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	self.controls.setSelect:SetList(newSetList)
 
 	self.controls.scrollBar.height = viewPort.height
-	self.controls.scrollBar:SetContentDimension(maxColY + 30, viewPort.height)
+	self.controls.scrollBar:SetContentDimension(maxColY + 58, viewPort.height)
 	self.controls.sectionAnchor.y = 20 - self.controls.scrollBar.offset
 
 	main:DrawBackground(viewPort)
