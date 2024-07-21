@@ -22740,8 +22740,8 @@ return {
                 "AmberOil"
             },
             ["stats"]= {
-                "10% chance to Block Attack Damage if you’ve used a Retaliation Skill Recently",
-                "10% chance to Block Spell Damage if you’ve used a Retaliation Skill Recently"
+                "10% chance to Block Attack Damage if you've used a Retaliation Skill Recently",
+                "10% chance to Block Spell Damage if you've used a Retaliation Skill Recently"
             },
             ["reminderText"]= {
                 "(Recently refers to the past 4 seconds)"
