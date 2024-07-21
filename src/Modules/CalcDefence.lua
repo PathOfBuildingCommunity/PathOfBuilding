@@ -358,6 +358,9 @@ function calcs.defence(env, actor)
 					if modDB:Flag(nil, "Unbreakable") then
 						armourBase = armourBase * 2
 					end
+					if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
+						armourBase = armourBase / 2
+					end
 				end
 				output["ArmourOn"..slot] = armourBase
 			end
@@ -369,6 +372,9 @@ function calcs.defence(env, actor)
 					end
 				 	if modDB:Flag(nil, "Unbreakable") and modDB:Flag(nil, "IronReflexes") then
 						evasionBase = evasionBase * 2
+					end
+					if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
+						evasionBase = evasionBase / 2
 					end
 				end
 				output["EvasionOn"..slot] = evasionBase
@@ -728,6 +734,9 @@ function calcs.defence(env, actor)
 						if modDB:Flag(nil, "Unbreakable") then 
 							armourBase = armourBase * 2
 						end
+						if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
+							armourBase = armourBase / 2
+						end
 					end
 					armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
 					gearArmour = gearArmour + armourBase
@@ -743,6 +752,9 @@ function calcs.defence(env, actor)
 						end
 						if modDB:Flag(nil, "Unbreakable") and ironReflexes then
 							evasionBase = evasionBase * 2
+						end
+						if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
+							evasionBase = evasionBase / 2
 						end
 					end
 					gearEvasion = gearEvasion + evasionBase
@@ -1005,14 +1017,12 @@ function calcs.defence(env, actor)
 			"Total: "..output.SpellDodgeChance+output.SpellDodgeChanceOverCap.."%",
 		}
 	end
-	
-	-- Gain on Block
-	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
-	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
-	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
 
 	-- Recovery modifiers
-	output.LifeRecoveryRateMod = calcLib.mod(modDB, nil, "LifeRecoveryRate")
+	output.LifeRecoveryRateMod = 1
+	if not modDB:Flag(nil, "CannotRecoverLifeOutsideLeech") then
+		output.LifeRecoveryRateMod = calcLib.mod(modDB, nil, "LifeRecoveryRate")
+	end
 	output.ManaRecoveryRateMod = calcLib.mod(modDB, nil, "ManaRecoveryRate")
 	output.EnergyShieldRecoveryRateMod = calcLib.mod(modDB, nil, "EnergyShieldRecoveryRate")
 
@@ -1131,7 +1141,7 @@ function calcs.defence(env, actor)
 	end
 	
 	-- Energy Shield Recharge
-	output.EnergyShieldRechargeAppliesToLife = modDB:Flag(nil, "EnergyShieldRechargeAppliesToLife")
+	output.EnergyShieldRechargeAppliesToLife = modDB:Flag(nil, "EnergyShieldRechargeAppliesToLife") and not modDB:Flag(nil, "CannotRecoverLifeOutsideLeech") 
 	output.EnergyShieldRechargeAppliesToEnergyShield = not (modDB:Flag(nil, "NoEnergyShieldRecharge") or modDB:Flag(nil, "CannotGainEnergyShield") or output.EnergyShieldRechargeAppliesToLife)
 	
 	if output.EnergyShieldRechargeAppliesToLife or output.EnergyShieldRechargeAppliesToEnergyShield then
@@ -1288,13 +1298,18 @@ function calcs.defence(env, actor)
 	end
 	
 	-- recovery on block, needs to be after primary defences
-	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
+	output.LifeOnBlock = 0
+	output.LifeOnSuppress = 0
+	if not modDB:Flag(nil, "CannotRecoverLifeOutsideLeech") then
+		output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
+		output.LifeOnSuppress = modDB:Sum("BASE", nil, "LifeOnSuppress")
+	end
+
 	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
+
 	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
 	output.EnergyShieldOnSpellBlock = modDB:Sum("BASE", nil, "EnergyShieldOnSpellBlock")
-	
 	output.EnergyShieldOnSuppress = modDB:Sum("BASE", nil, "EnergyShieldOnSuppress")
-	output.LifeOnSuppress = modDB:Sum("BASE", nil, "LifeOnSuppress")
 	
 	-- damage avoidances
 	output.specificTypeAvoidance = false
@@ -1709,8 +1724,10 @@ function calcs.buildDefenceEstimations(env, actor)
 		local takenFlat = modDB:Sum("BASE", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks", damageType.."DamageTakenFrom"..damageCategoryConfig.."Attacks")
+		elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
+			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromSpells", damageType.."DamageTakenFromSpells", damageType.."DamageTakenFromSpellProjectiles")
 		elseif damageCategoryConfig == "Average" then
-			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks") / 2 + modDB:Sum("BASE", nil, damageType.."DamageTakenFromProjectileAttacks") / 4
+			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks") / 2 + modDB:Sum("BASE", nil, damageType.."DamageTakenFromProjectileAttacks") / 4 + modDB:Sum("BASE", nil, "DamageTakenFromSpells", damageType.."DamageTakenFromSpells") / 2 + modDB:Sum("BASE", nil, "DamageTakenFromSpellProjectiles", damageType.."DamageTakenFromSpellProjectiles") / 4
 		end
 		output[damageType.."takenFlat"] = takenFlat
 		if percentOfArmourApplies > 0 then

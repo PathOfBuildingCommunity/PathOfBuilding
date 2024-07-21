@@ -76,4 +76,37 @@ describe("TestAttacks", function()
 
         assert.True(build.calcsTab.mainOutput.MirageDPS ~= nil)
     end)
+	
+	it("Test Scorching ray applying exposure at max stages", function()
+        build.skillsTab:PasteSocketGroup("Scorching Ray 20/0 Default  1\n")
+        runCallback("OnFrame")
+        
+        local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+        local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
+        srcInstance.skillStageCount = 8
+        build.modFlag = true
+        build.buildFlag = true
+        runCallback("OnFrame")
+        
+        assert.True(build.calcsTab.mainEnv.enemyDB:Sum("BASE", nil, "FireResist") < 0)
+    end)
+
+    it("Test Adrenaline affecting blight max stage count", function()
+        build.skillsTab:PasteSocketGroup("Blight 20/0 Default  1\n")
+        runCallback("OnFrame")
+        
+        local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+        local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
+        srcInstance.skillPart = 2
+        build.modFlag = true
+        build.buildFlag = true
+        runCallback("OnFrame")
+        
+        local preAdrenalineMaxStages = build.calcsTab.mainEnv.player.activeSkillList[1].skillModList:Sum("BASE", nil, "Multiplier:BlightMaxStages")
+        build.configTab.input.buffAdrenaline = true
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+
+        assert.True(preAdrenalineMaxStages < build.calcsTab.mainEnv.player.activeSkillList[1].skillModList:Sum("BASE", nil, "Multiplier:BlightMaxStages"))
+    end)
 end)

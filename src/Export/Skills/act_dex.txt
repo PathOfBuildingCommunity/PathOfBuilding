@@ -28,6 +28,16 @@ local skills, mod, flag, skill = ...
 
 #skill Ambush
 #flags spell movement duration travel
+	statMap = {
+		["ambush_additional_critical_strike_chance_permyriad"] = {
+			mod("CritChance", "BASE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ambush" }),
+			div = 100,
+		},
+		["vanishing_ambush_critical_strike_multiplier_+"] = {
+			mod("CritMultiplier", "BASE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ambush" }),
+		},
+		-- not excluding Exert for Two-Handed weapons, to simulate a potential weapon swap for skills with a duration ( Rage Vortex )
+	},
 #mods
 
 #skill AnimateWeapon
