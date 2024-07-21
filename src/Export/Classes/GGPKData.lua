@@ -71,6 +71,12 @@ function GGPKClass:ExtractFiles()
 	local cmd = 'cd ' .. self.oozPath .. ' && bun_extract_file.exe extract-files "' .. self.path .. '" . ' .. fileList
 	ConPrintf(cmd)
 	os.execute(cmd)
+
+	-- Overwrite Enums
+	local errMsg = PLoadModule("Scripts/enums.lua")
+	if errMsg then
+		print(errMsg)
+	end
 end
 
 function GGPKClass:AddDatFiles()
@@ -228,6 +234,16 @@ function GGPKClass:GetNeededFiles()
 		"Data/weaponclasses.dat",
 		"Data/monsterconditions.dat",
 		"Data/rarity.dat",
+		"Data/trademarketcategory.dat",
+		"Data/trademarketcategorygroups.dat",
+		"Data/PlayerTradeWhisperFormats.dat",
+		"Data/TradeMarketCategoryListAllClass.dat",
+		"Data/TradeMarketIndexItemAs.dat",
+		"Data/TradeMarketImplicitModDisplay.dat",	
+		"Data/Commands.dat",
+		"Data/ModEquivalencies.dat",
+		"Data/InfluenceTags.dat",
+		"Data/InfluenceTypes.dat"
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
