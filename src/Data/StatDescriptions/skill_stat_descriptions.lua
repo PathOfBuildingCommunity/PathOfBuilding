@@ -46259,7 +46259,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Buff grants Added Attack Damage equal to {0}% of the Damage of your Main\nHand Weapon per 5 Power, up to a maximum of 20%"
+					text="Buff grants Added Attack Damage equal to {0}% of the Damage of your Main\nHand Weapon per 5 Power, up to a maximum of 30 Power"
 				}
 			}
 		},
