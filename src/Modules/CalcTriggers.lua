@@ -693,22 +693,51 @@ local function defaultTriggerHandler(env, config)
 
 				--Accuracy and crit chance
 				if source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and GlobalCache.cachedData[env.mode][uuid] and not config.triggerOnUse then
-					local sourceHitChance = GlobalCache.cachedData[env.mode][uuid].HitChance
+
+					local sourceHitChance = GlobalCache.cachedData[env.mode][uuid].HitChance or 0
 					if sourceHitChance ~= 100 then
-						triggerChance = triggerChance * (sourceHitChance or 0) / 100
-						if breakdown then
-							t_insert(triggerChanceBreakdown, s_format("x %d%% ^8(%s hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name))
+						-- Some skills hit with both weapons at the same time. Each weapon rolls accuracy and crit independently
+						if source and env.player.weaponData1.type and env.player.weaponData2.type and source.skillData.doubleHitsWhenDualWielding then
+							local mainHandHit = GlobalCache.cachedData[env.mode][uuid].Env.player.output.MainHand.HitChance
+							local offHandHit = GlobalCache.cachedData[env.mode][uuid].Env.player.output.OffHand.HitChance
+							local bothHit = mainHandHit * offHandHit / 100
+							local mainHandMiss = (100 - mainHandHit)
+							local offHandMiss = (100 - offHandHit)
+							local effectiveHitChance = bothHit + mainHandHit * offHandMiss / 100 + mainHandMiss * offHandHit / 100
+							triggerChance = triggerChance * effectiveHitChance / 100
+							if breakdown then
+								t_insert(triggerChanceBreakdown, s_format("x %.2f%% ^8(%s effective hit chance for skills that hit with both weapons)", effectiveHitChance, source.activeEffect.grantedEffect.name))
+							end
+						else
+							triggerChance = triggerChance * (sourceHitChance or 0) / 100
+							if breakdown then
+								t_insert(triggerChanceBreakdown, s_format("x %.2f%% ^8(%s hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name))
+							end
 						end
 					end
 					if actor.mainSkill.skillData.triggerOnCrit then
 						local onCritChance = actor.mainSkill.skillData.chanceToTriggerOnCrit or (GlobalCache.cachedData[env.mode][uuid] and GlobalCache.cachedData[env.mode][uuid].Env.player.mainSkill.skillData.chanceToTriggerOnCrit)
 						config.triggerChance = config.triggerChance or actor.mainSkill.skillData.chanceToTriggerOnCrit or onCritChance
 
-						local sourceCritChance = GlobalCache.cachedData[env.mode][uuid].CritChance
+						local sourceCritChance = GlobalCache.cachedData[env.mode][uuid].CritChance or 0
 						if sourceCritChance ~= 100 then
-							triggerChance = triggerChance * (sourceCritChance or 0) / 100
-							if breakdown then
-								t_insert(triggerChanceBreakdown, s_format("x %d%% ^8(%s effective crit chance)", sourceCritChance, source.activeEffect.grantedEffect.name))
+							-- Some skills hit with both weapons at the same time. Each weapon rolls accuracy and crit independently
+							if source and env.player.weaponData1.type and env.player.weaponData2.type and source.skillData.doubleHitsWhenDualWielding then
+								local mainHandCrit = GlobalCache.cachedData[env.mode][uuid].Env.player.output.MainHand.CritChance
+								local offHandCrit = GlobalCache.cachedData[env.mode][uuid].Env.player.output.OffHand.CritChance
+								local bothHit = mainHandCrit * offHandCrit / 100
+								local mainHandMiss = (100 - mainHandCrit)
+								local offHandMiss = (100 - offHandCrit)
+								local effectiveCritChance = bothHit + mainHandCrit * offHandMiss / 100 + mainHandMiss * offHandCrit / 100
+								triggerChance = triggerChance * effectiveCritChance / 100
+								if breakdown then
+									t_insert(triggerChanceBreakdown, s_format("x %.2f%% ^8(%s effective crit chance for skills that hit with both weapons)", effectiveCritChance, source.activeEffect.grantedEffect.name))
+								end
+							else
+								triggerChance = triggerChance * (sourceCritChance or 0) / 100
+								if breakdown then
+									t_insert(triggerChanceBreakdown, s_format("x %.2f%% ^8(%s crit chance)", sourceCritChance, source.activeEffect.grantedEffect.name))
+								end
 							end
 						end
 					end
@@ -757,7 +786,7 @@ local function defaultTriggerHandler(env, config)
 						}
 						if triggerChance ~= 100 then
 							t_insert(breakdown.SkillTriggerRate, 1, "")
-							t_insert(breakdown.SkillTriggerRate, 1, s_format("= %d%%", triggerChance))
+							t_insert(breakdown.SkillTriggerRate, 1, s_format("= %.2f%% ^8(Effective chance to trigger)", triggerChance))
 							for _, line in ipairs(triggerChanceBreakdown) do
 								t_insert(breakdown.SkillTriggerRate, 1, line)
 							end
