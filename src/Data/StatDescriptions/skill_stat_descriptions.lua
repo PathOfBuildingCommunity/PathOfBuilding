@@ -46388,13 +46388,13 @@ return {
 							[2]="#"
 						}
 					},
-					text="Covers Enemies in Ash, causing {0}% increased Fire Damage taken per 5 Power, up to 20%"
+					text="The Buff grants 5% of Physical Damage as Extra Fire Damage per 5 Power, up to a maximum of 25 Power"
 				}
 			}
 		},
 		name="infernal_cry_cover_in_ash",
 		stats={
-			[1]="infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power"
+			[1]="infernal_cry_phys_as_extra_fire%_per_5_monster_power"
 		}
 	},
 	[1476]={
@@ -48433,7 +48433,7 @@ return {
 	["infernal_bolt_base_fire_damage_%_maximum_life"]=951,
 	["infernal_bolt_triggered_when_totem_with_this_skill_hit_by_enemy"]=952,
 	["infernal_cry_%_max_life_as_fire_on_death"]=347,
-	["infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power"]=1475,
+	["infernal_cry_phys_as_extra_fire%_per_5_monster_power"]=1475,
 	["infernal_cry_empowered_attacks_trigger_combust_display"]=1489,
 	["inflict_all_exposure_on_hit"]=953,
 	["infusion_grants_life_regeneration_rate_per_minute_%"]=954,
