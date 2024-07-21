@@ -10,13 +10,13 @@ local dkjson = require "dkjson"
 local get_time = os.time
 local t_insert = table.insert
 local t_remove = table.remove
+local t_sort = table.sort
 local m_max = math.max
 local m_min = math.min
 local m_ceil = math.ceil
 local s_format = string.format
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
-
 
 local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.itemsTab = itemsTab
@@ -52,7 +52,7 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 		self.tradeQueryRequests:ProcessQueue()
 	end
 
-	-- set 
+	-- set
 	self.storedGlobalCacheDPSView = GlobalCache.useFullDPS
 	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 	self.hostName = "https://www.pathofexile.com/"
@@ -147,7 +147,7 @@ function TradeQueryClass:PullPoENinjaCurrencyConversion(league)
 		return
 	end
 	-- We are getting currency short-names from Poe API before getting PoeNinja rates
-	-- Potentially, currency short-names could be cached but this request runs 
+	-- Potentially, currency short-names could be cached but this request runs
 	-- once per hour at most and the Poe API response is already Cloudflare cached
 	self:FetchCurrencyConversionTable(function(data, errMsg)
 		if errMsg then
@@ -157,7 +157,7 @@ function TradeQueryClass:PullPoENinjaCurrencyConversion(league)
 		self.pbCurrencyConversion[league] = { }
 		self.lastCurrencyConversionRequest = now
 		launch:DownloadPage(
-			"https://poe.ninja/api/data/CurrencyRates?league=" .. urlEncode(league),	
+			"https://poe.ninja/api/data/CurrencyRates?league=" .. urlEncode(league),
 			function(response, errMsg)
 				if errMsg then
 					self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
@@ -278,7 +278,7 @@ You can click this button to enter your POESESSID.
 - You can generate weighted search URLs but have to visit the trade site and manually import items.
 - You can only generate weighted searches for public leagues. (Generated searches can be modified
 on trade site to work on other leagues and realms)]]
-	
+
 -- Fetches Box
 	self.maxFetchPerSearchDefault = 2
 	self.controls.fetchCountEdit = new("EditControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 19, 154, row_height, "", "Fetch Pages", "%D", 3, function(buf)
@@ -336,7 +336,7 @@ on trade site to work on other leagues and realms)]]
 			self:UpdateControlsWithItems(row_idx)
 		end
 	end)
-	self.controls.itemSortSelection.tooltipText = 
+	self.controls.itemSortSelection.tooltipText =
 [[Weighted Sum searches will always sort using descending weighted sum
 Additional post filtering options can be done these include:
 Highest Stat Value - Sort from highest to lowest Stat Value change of equipping item
@@ -408,13 +408,35 @@ Highest Weight - Displays the order retrieved from trade]]
 		return #self.controls.league.list > 1
 	end
 
-	if  self.pbRealm == "" then
+	if self.pbRealm == "" then
 		self:UpdateRealms()
 	end
+
+	local activeAbyssalSockets = {
+		["Weapon 1"] = { }, ["Weapon 2"] = { }, ["Helmet"] = { }, ["Body Armour"] = { }, ["Gloves"] = { }, ["Boots"] = { }, ["Belt"] = { },
+	}
+	-- loop all slots, set any active abyssal sockets
+	for index, slot in pairs(self.itemsTab.slots) do
+		if index:find("Abyssal") and slot.shown() then
+			t_insert(activeAbyssalSockets[slot.parentSlot.slotName], slot)
+		end
+	end
+	for _, abyssal in pairs(activeAbyssalSockets) do -- sort Abyssal #1 > Abyssal #2 etc
+		t_sort(abyssal, function(a, b)
+			return a.label < b.label
+		end)
+	end
+
 	-- Individual slot rows
 	local slotTables = {}
 	for _, slotName in ipairs(baseSlots) do
 		t_insert(slotTables, { slotName = slotName })
+		-- add abyssal sockets to slotTables if exist for this slot
+		if activeAbyssalSockets[slotName] then
+			for _, abyssalSocket in pairs(activeAbyssalSockets[slotName]) do
+				t_insert(slotTables, { slotName = abyssalSocket.label, fullName = abyssalSocket.slotName }) -- actual slotName doesn't fit/excessive in slotName on popup but is needed for exact matching later
+			end
+		end
 	end
 	local activeSocketList = { }
 	for nodeId, slot in pairs(self.itemsTab.sockets) do
@@ -429,13 +451,14 @@ Highest Weight - Displays the order retrieved from trade]]
 
 	self.controls.sectionAnchor = new("LabelControl", { "LEFT", self.controls.poesessidButton, "LEFT" }, 0, 0, 0, 0, "")
 	top_pane_alignment_ref = {"TOPLEFT", self.controls.sectionAnchor, "TOPLEFT"}
-	local scrollBarShown = #activeSocketList > 6 -- clipping start at Socket 7
+	local scrollBarShown = #slotTables > 21 -- clipping starts beyond this
 	-- dynamically hide rows that are above or below the scrollBar
 	local hideRowFunc = function(self, index)
 		if scrollBarShown then
 			-- 22 items fit in the scrollBar "box" so as the offset moves, we need to dynamically show what is within the boundaries
 			if (index < 23 and (self.controls.scrollBar.offset < ((row_height + row_vertical_padding)*(index-1) + row_vertical_padding))) or
-				(index >= 23 and (self.controls.scrollBar.offset > (row_height + row_vertical_padding)*(index-22))) then
+				-- the second and in this applies if we have more than 44 slots because we need to hide the next "page" of rows as they go above the line, e.g. #23 could be above or below the "box"
+				(index >= 23 and (self.controls.scrollBar.offset > (row_height + row_vertical_padding)*(index-22) and self.controls.scrollBar.offset < (row_height + row_vertical_padding)*(index-1))) then
 				return true
 			end
 		else
@@ -464,15 +487,13 @@ Highest Weight - Displays the order retrieved from trade]]
 	end
 	row_count = row_count + 1
 
-	local effective_row_count = row_count - ((scrollBarShown and #activeSocketList >= 4) and #activeSocketList-4 or 0) + 2 + 2 -- Two top menu rows, two bottom rows, 4 sockets overlap the other controls at the bottom of the pane
-	self.effective_rows_height = row_height * (effective_row_count - #activeSocketList + 3 or 0) -- scrollBar height
+	local effective_row_count = row_count - ((scrollBarShown and #slotTables >= 19) and #slotTables-19 or 0) + 2 + 2 -- Two top menu rows, two bottom rows, slots after #19 overlap the other controls at the bottom of the pane
+	self.effective_rows_height = row_height * (effective_row_count - #slotTables + (18 - (#slotTables > 37 and 3 or 0))) -- scrollBar height, "18 - slotTables > 37" logic is fine tuning whitespace after last row
 	self.pane_height = (row_height + row_vertical_padding) * effective_row_count + 2 * pane_margins_vertical + row_height / 2
 	local pane_width = 850 + (scrollBarShown and 25 or 0)
 
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT", self.controls["StatWeightMultipliersButton"],"TOPRIGHT"}, 0, 25, 18, 0, 50, "VERTICAL", false)
-	self.controls.scrollBar.shown = function()
-		return scrollBarShown
-	end
+	self.controls.scrollBar.shown = function() return scrollBarShown end
 
 	local function wipeItemControls()
 		for index, _ in pairs(self.controls) do
@@ -511,7 +532,7 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
     local statList = { }
 	local sliderController = { index = 1 }
     local popupHeight = 285
-	
+
 	controls.ListControl = new("TradeStatWeightMultiplierListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -410, 45, 400, 200, statList, sliderController)
 
 	for id, stat in pairs(data.powerStatList) do
@@ -527,7 +548,7 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 			})
 		end
 	end
-	
+
 	controls.SliderLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, -410, 20, 0, 16, "^7"..statList[1].stat.label..":")
 	controls.Slider = new("SliderControl", { "TOPLEFT", controls.SliderLabel, "TOPRIGHT" }, 20, 0, 150, 16, function(value)
 		if value == 0 then
@@ -553,7 +574,7 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 	sliderController.SliderLabel = controls.SliderLabel
 	sliderController.Slider = controls.Slider
 	sliderController.SliderValue = controls.SliderValue
-	
+
 	for _, statBase in ipairs(self.statSortSelectionList) do
 		for _, stat in ipairs(statList) do
 			if stat.stat.stat == statBase.stat then
@@ -568,7 +589,7 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 
 	controls.finalise = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -90, -10, 80, 20, "Save", function()
 		main:ClosePopup()
-		
+
 		-- used in ItemsTab to save to xml under TradeSearchWeights node
 		local statSortSelectionList = {}
 		for stat, statTable in pairs(statList) do
@@ -861,7 +882,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	local controls = self.controls
 	local slotTbl = self.slotTables[row_idx]
 	local activeSlotRef = slotTbl.nodeId and self.itemsTab.activeItemSet[slotTbl.nodeId] or self.itemsTab.activeItemSet[slotTbl.slotName]
-	local activeSlot = slotTbl.nodeId and self.itemsTab.sockets[slotTbl.nodeId] or slotTbl.slotName and self.itemsTab.slots[slotTbl.slotName]
+	local activeSlot = slotTbl.nodeId and self.itemsTab.sockets[slotTbl.nodeId] or slotTbl.slotName and (self.itemsTab.slots[slotTbl.slotName] or slotTbl.fullName and self.itemsTab.slots[slotTbl.fullName]) -- fullName for Abyssal Sockets
 	local nameColor = slotTbl.unique and colorCodes.UNIQUE or "^7"
 	controls["name"..row_idx] = new("LabelControl", top_pane_alignment_ref, 0, row_idx*(row_height + row_vertical_padding), 100, row_height - 4, nameColor..slotTbl.slotName)
 	controls["bestButton"..row_idx] = new("ButtonControl", { "LEFT", controls["name"..row_idx], "LEFT"}, 100 + 8, 0, 80, row_height, "Find best", function()
@@ -879,7 +900,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				return
 			end
 			context.controls["priceButton"..context.row_idx].label = "Searching..."
-			self.tradeQueryRequests:SearchWithQueryWeightAdjusted(self.pbRealm, self.pbLeague, query, 
+			self.tradeQueryRequests:SearchWithQueryWeightAdjusted(self.pbRealm, self.pbLeague, query,
 				function(items, errMsg)
 					if errMsg then
 						self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
