@@ -37,7 +37,7 @@ itemBases["Poisonberry Tincture"] = {
 itemBases["Rosethorn Tincture"] = {
 	type = "Tincture",
 	tags = { tincture = true, default = true, },
-	implicit = "+(100-150)% Increased Critical Strike Chance with Melee Weapons",
+	implicit = "(100-150)% Increased Critical Strike Chance with Melee Weapons",
 	implicitModTypes = { },
 	tincture = { manaBurn = 0.6, cooldown = 7 },
 	req = { },
