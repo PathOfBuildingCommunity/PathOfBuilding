@@ -899,6 +899,7 @@ function buildMode:SyncLoadouts(reset)
 
 	if self.treeTab ~= nil and self.itemsTab ~= nil and self.skillsTab ~= nil and self.configTab ~= nil then
 		local transferTable = {}
+		local sortedTreeListSpecialLinks = {}
 		for id, spec in ipairs(self.treeTab.specList) do
 			local specTitle = spec.title or "Default"
 			-- only alphanumeric and comma are allowed in the braces { }
@@ -910,13 +911,16 @@ function buildMode:SyncLoadouts(reset)
 				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 					transferTable["setId"] = id
 					transferTable["setName"] = string.match(specTitle, "(.+)% {")
+					transferTable["linkId"] = linkId
 					self.treeListSpecialLinks[linkId] = transferTable
+					t_insert(sortedTreeListSpecialLinks, transferTable)
 					transferTable = {}
 				end
 			else
 				t_insert(treeList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(specTitle))
 			end
 		end
+		table.sort(sortedTreeListSpecialLinks, function (t1, t2) return t1.linkId < t2.linkId end)
 
 		-- item, skill, and config sets have identical structure
 		local function identifyLinks(setOrderList, tabSets, setList, specialLinks)
@@ -954,15 +958,10 @@ function buildMode:SyncLoadouts(reset)
 			end
 		end
 		-- loop over the identifiers found within braces and set the loadout name to the TreeSet
-		for treeLinkId, tree in pairs(self.treeListSpecialLinks) do
-			for itemLinkId, item in pairs(self.itemListSpecialLinks) do
-				for skillLinkId, skill in pairs(self.skillListSpecialLinks) do
-					for configLinkId, config in pairs(self.configListSpecialLinks) do
-						if (treeLinkId == skillLinkId and treeLinkId == itemLinkId and treeLinkId == configLinkId) then
-							t_insert(filteredList, tree["setName"].." {"..treeLinkId.."}")
-						end
-					end
-				end
+		for _, tree in ipairs(sortedTreeListSpecialLinks) do
+			local treeLinkId = tree.linkId
+			if (self.itemListSpecialLinks[treeLinkId] and self.skillListSpecialLinks[treeLinkId] and self.configListSpecialLinks[treeLinkId]) then
+				t_insert(filteredList, tree.setName .." {"..treeLinkId.."}")
 			end
 		end
 	end
