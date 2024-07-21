@@ -46323,55 +46323,33 @@ return {
 							[1]="#",
 							[2]="#"
 						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
 					},
-					text="Buff grants {0:+d} to Armour per 5 Power, up to a maximum of {1:+d}"
+					text="Buff grants +1% to all Maximum Elemental Resistance per 10 power, up to a maximum of 30 Power"
 				}
 			}
 		},
 		name="armour_per_power",
 		stats={
-			[1]="ancestral_cry_physical_damage_reduction_rating_per_5_MP",
-			[2]="ancestral_cry_max_physical_damage_reduction_rating"
+			[1]="ancestral_cry_max_elemental_resistances_per_5_monster_power",
 		}
 	},
 	[1474]={
 		lang={
 			English={
 				[1]={
-					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=10,
-							[2]=10
-						}
-					},
-					text="Buff grants {0:+d} metre to Melee Strike Range per 5 Power, up to a maximum of +0.6"
-				},
-				[2]={
-					[1]={
-						k="locations_to_metres",
-						v=1
-					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Buff grants {0:+d} metres to Melee Strike Range per 5 Power, up to a maximum of +0.6"
-				}
+					text="Buff grants +5% to all Elemental Resistances per 5 Power, up to a maximum of 30 Power"
+				},
 			}
 		},
 		name="melee_range_plus_per_power",
 		stats={
-			[1]="ancestral_cry_x_melee_range_per_5_monster_power"
+			[1]="ancestral_cry_elemental_resistance_per_5_monster_power"
 		}
 	},
 	[1475]={
@@ -47738,8 +47716,8 @@ return {
 	["ancestral_buff_travel_skill_cooldown_speed_+%"]=496,
 	["ancestral_cry_empowered_attacks_strike_X_additional_enemies"]=1482,
 	["ancestral_cry_max_physical_damage_reduction_rating"]=1473,
-	["ancestral_cry_physical_damage_reduction_rating_per_5_MP"]=1473,
-	["ancestral_cry_x_melee_range_per_5_monster_power"]=1474,
+	["ancestral_cry_max_elemental_resistances_per_5_monster_power"]=1473,
+	["ancestral_cry_elemental_resistance_per_5_monster_power"]=1474,
 	["ancestral_embrace_effect_+%_per_arohongui_tattoo"]=497,
 	["ancestral_embrace_effect_+%_per_hinekora_tattoo"]=498,
 	["ancestral_embrace_effect_+%_per_kitava_tattoo"]=499,
