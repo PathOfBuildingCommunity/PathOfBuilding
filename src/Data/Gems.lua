@@ -14136,13 +14136,13 @@ return {
 		naturalMaxLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemCallToArms"] = {
-		name = "Call to Arms",
+		name = "Autoexertion",
 		baseTypeName = "Call to Arms",
 		gameId = "Metadata/Items/Gems/SkillGemCallToArms",
 		variantId = "CallToArms",
 		grantedEffectId = "CallToArms",
 		secondaryGrantedEffectId = "SupportCallToArms",
-		secondaryEffectName = "Call to Arms Support",
+		secondaryEffectName = "Autoexertion Support",
 		tags = {
 			warcry = true,
 			trigger = true,
