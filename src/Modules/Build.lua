@@ -353,6 +353,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "TrapThrowingTime", label = "Trap Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TrapCooldown", label = "Trap Cooldown", fmt = ".3fs", lowerIsBetter = true },
 		{ stat = "MineLayingTime", label = "Mine Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
+		{ stat = "TrapThrowCount", label = "Avg. Traps per Throw", fmt = ".2f"},
+		{ stat = "MineThrowCount", label = "Avg. Mines per Throw", fmt = ".2f"},
 		{ stat = "TotemPlacementTime", label = "Totem Placement Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return not o.TriggerTime end },
 		{ stat = "PreEffectiveCritChance", label = "Crit Chance", fmt = ".2f%%" },
 		{ stat = "CritChance", label = "Effective Crit Chance", fmt = ".2f%%", condFunc = function(v,o) return v ~= o.PreEffectiveCritChance end },

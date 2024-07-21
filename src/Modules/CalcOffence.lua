@@ -1137,9 +1137,11 @@ function calcs.offence(env, actor, activeSkill)
 			baseSpeed = baseSpeed * (1 / timeMod)
 		end
 		output.TrapThrowingSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "TrapThrowingSpeed") * output.ActionSpeedMod
+		local trapThrowCount = calcLib.val(skillModList, "TrapThrowCount", skillCfg)
+		output.TrapThrowCount = trapThrowCount
 		output.TrapThrowingSpeed = m_min(output.TrapThrowingSpeed, data.misc.ServerTickRate)
 		output.TrapThrowingTime = 1 / output.TrapThrowingSpeed
-		skillData.timeOverride = output.TrapThrowingTime
+		skillData.timeOverride = output.TrapThrowingTime / output.TrapThrowCount
 		if breakdown then
 			breakdown.TrapThrowingSpeed = { }
 			breakdown.multiChain(breakdown.TrapThrowingSpeed, {
@@ -1220,9 +1222,24 @@ function calcs.offence(env, actor, activeSkill)
 			baseSpeed = baseSpeed * (1 / timeMod)
 		end
 		output.MineLayingSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "MineLayingSpeed") * output.ActionSpeedMod
+		-- Calculate additional mine throw
+		local mineThrowCount = calcLib.val(skillModList, "MineThrowCount", skillCfg)
+		output.MineThrowCount = mineThrowCount
+		if mineThrowCount >= 1 then
+			-- Throwing Mines takes 10% more time for each *additional* Mine thrown
+			output.MineLayingSpeed = output.MineLayingSpeed / (1 + (mineThrowCount - 1) * 0.1)
+		end
+
 		output.MineLayingSpeed = m_min(output.MineLayingSpeed, data.misc.ServerTickRate)
 		output.MineLayingTime = 1 / output.MineLayingSpeed
-		skillData.timeOverride = output.MineLayingTime
+		
+		-- Trap mine interaction where the Character throws mines, mine throws traps
+		if skillFlags.trap then
+			skillData.timeOverride = output.MineLayingTime / output.MineThrowCount / output.TrapThrowCount
+		else
+			skillData.timeOverride = output.MineLayingTime / output.MineThrowCount
+		end
+		
 		if breakdown then
 			breakdown.MineLayingTime = { }
 			breakdown.multiChain(breakdown.MineLayingTime, {
@@ -1231,6 +1248,7 @@ function calcs.offence(env, actor, activeSkill)
 				{ "%.2f ^8(increased/reduced throwing speed)", 1 + skillModList:Sum("INC", skillCfg, "MineLayingSpeed") / 100 },
 				{ "%.2f ^8(more/less throwing speed)", skillModList:More(skillCfg, "MineLayingSpeed") },
 				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
+				{ "%.2f ^8(additional mine thrown)", 1 / (1 + (output.MineThrowCount - 1) * 0.1)},
 				total = s_format("= %.2f ^8per second", output.MineLayingSpeed),
 			})
 		end
