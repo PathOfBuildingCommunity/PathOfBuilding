@@ -2236,6 +2236,7 @@ local specialModList = {
 	},
 	["exerted attacks deal (%d+)%% more attack damage if a warcry sacrificed rage recently"] = function(num) return { mod("ExertAttackIncrease", "MORE", num, nil, ModFlag.Attack, 0) } end,
 	["deal (%d+)%% less damage"] = function(num) return { mod("Damage", "MORE", -num) } end,
+	["warcries exert twice as many attacks"] = { mod("ExtraExertedAttacks", "MORE", 100) },
 	-- Champion
 	["cannot be stunned while you have fortify"] = { flag("StunImmune", { type = "Condition", var = "Fortified" }) },
 	["cannot be stunned while fortified"] = { flag("StunImmune", { type = "Condition", var = "Fortified" }) },
