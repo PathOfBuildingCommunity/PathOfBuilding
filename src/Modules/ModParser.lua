@@ -749,7 +749,7 @@ local modNameList = {
 	["to inflict lightning exposure on hit"] = "LightningExposureChance",
 	["to apply lightning exposure on hit"] = "LightningExposureChance",
 	-- Flask and Tincture modifiers
-	["effect"] = { "FlaskEffect", "TinctureEffect" },
+	["effect"] = "LocalEffect",
 	["effect of flasks"] = "FlaskEffect",
 	["effect of tinctures"] = "TinctureEffect",
 	["amount recovered"] = "FlaskRecovery",

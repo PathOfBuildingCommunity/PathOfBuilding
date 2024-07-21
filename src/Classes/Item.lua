@@ -1481,15 +1481,15 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		flaskData.chargesMax = self.base.flask.chargesMax + calcLocal(modList, "FlaskCharges", "BASE", 0)
 		flaskData.chargesUsed = m_floor(self.base.flask.chargesUsed * (1 + calcLocal(modList, "FlaskChargesUsed", "INC", 0) / 100))
 		flaskData.gainMod = 1 + calcLocal(modList, "FlaskChargeRecovery", "INC", 0) / 100
-		flaskData.effectInc = calcLocal(modList, "FlaskEffect", "INC", 0)
+		flaskData.effectInc = calcLocal(modList, "FlaskEffect", "INC", 0) + calcLocal(modList, "LocalEffect", "INC", 0)
 		for _, value in ipairs(modList:List(nil, "FlaskData")) do
 			flaskData[value.key] = value.value
 		end
 	elseif self.base.tincture then
 		local tinctureData = self.tinctureData
-		tinctureData.manaburn = self.base.tincture.manaburn * (1 + calcLocal(modList, "TinctureManaBurnRate", "INC", 0) / 100) * (1 + calcLocal(modList, "TinctureManaBurnRate", "MORE", 0) / 100)
+		tinctureData.manaBurn = self.base.tincture.manaBurn * (1 + calcLocal(modList, "TinctureManaBurnRate", "INC", 0) / 100) * (1 + calcLocal(modList, "TinctureManaBurnRate", "MORE", 0) / 100)
 		tinctureData.cooldown = self.base.tincture.cooldown / (1 + calcLocal(modList, "TinctureCooldownRecovery", "INC", 0) / 100)
-		tinctureData.effectInc = calcLocal(modList, "TinctureEffect", "INC", 0)
+		tinctureData.effectInc = calcLocal(modList, "TinctureEffect", "INC", 0) + calcLocal(modList, "LocalEffect", "INC", 0)
 		for _, value in ipairs(modList:List(nil, "TinctureData")) do
 			tinctureData[value.key] = value.value
 		end

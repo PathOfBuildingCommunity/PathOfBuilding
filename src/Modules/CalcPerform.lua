@@ -1544,6 +1544,12 @@ function calcs.perform(env, skipEHP)
 			tinctureConditions["Using"..item.baseName:gsub("%s+", "")] = true
 			calcTinctureMods(item, item.baseName, item.buffModList, item.modList)
 		end
+		for tinctureCond, status in pairs(tinctureConditions) do
+			modDB.conditions[tinctureCond] = status
+		end
+		for _, buffModList in pairs(tinctureBuffs) do
+			modDB:AddList(buffModList)
+		end
 	end
 
 	if env.mode_combat then
