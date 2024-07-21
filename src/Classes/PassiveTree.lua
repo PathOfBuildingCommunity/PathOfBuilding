@@ -113,7 +113,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		class.classes[0] = { name = "None" }
 		self.classNameMap[class.name] = classId
 		for ascendClassId, ascendClass in pairs(class.classes) do
-			self.ascendNameMap[ascendClass.name] = {
+			self.ascendNameMap[ascendClass.id or ascendClass.name] = {
 				classId = classId,
 				class = class,
 				ascendClassId = ascendClassId,
@@ -122,7 +122,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 	
-	-- hide alternate_ascendancies as they are unobtainable but still in tree data
+	-- hide alternate_ascendancies as they are unobtainable in the newest versions and will cause a crash if an older version is loaded with it at the moment
 	if self.alternate_ascendancies then
 		if launch.devMode then
 			ConPrintf("WARNING! alternate_ascendancies exist but are being hidden")
@@ -325,7 +325,10 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			artWidth = 84,
 			alloc = "KeystoneFrameAllocated",
 			path = "KeystoneFrameCanAllocate",
-			unalloc = "KeystoneFrameUnallocated"
+			unalloc = "KeystoneFrameUnallocated",
+			allocBlighted = "KeystoneFrameAllocated",
+			pathBlighted = "KeystoneFrameCanAllocate",
+			unallocBlighted = "KeystoneFrameUnallocated",
 		},
 		Socket = {
 			artWidth = 58,

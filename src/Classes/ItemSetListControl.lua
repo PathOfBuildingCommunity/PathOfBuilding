@@ -56,6 +56,7 @@ function ItemSetListClass:RenameSet(itemSet, addOnName)
 			self.selValue = itemSet
 		end
 		self.itemsTab:AddUndoState()
+		self.itemsTab.build:SyncLoadouts()
 		main:ClosePopup()
 	end)
 	controls.save.enabled = false

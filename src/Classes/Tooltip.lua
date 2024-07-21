@@ -25,6 +25,7 @@ local recipeNames = {
 	"GoldenOil",
 	"IndigoOil",
 	"OpalescentOil",
+	"PrismaticOil",
 	"SepiaOil",
 	"SilverOil",
 	"TealOil",
