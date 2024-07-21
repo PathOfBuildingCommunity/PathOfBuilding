@@ -2370,11 +2370,19 @@ function calcs.buildDefenceEstimations(env, actor)
 				Damage[damageType] = DamageIn[damageType] * iterationMultiplier * VaalArcticArmourMultiplier
 				damageTotal = damageTotal + Damage[damageType]
 			end
-			if DamageIn.GainWhenHit and (iterationMultiplier > 1 or DamageIn["cycles"] > 1) then
+			if (DamageIn.GainWhenHit or DamageIn.MissingLifeBeforeEnemyHit) and (iterationMultiplier > 1 or DamageIn["cycles"] > 1) then
 				local gainMult = iterationMultiplier * DamageIn["cycles"]
-				poolTable.Life = m_min(poolTable.Life + DamageIn.LifeWhenHit * (gainMult - 1), gainMult * (output.LifeRecoverable or 0))
-				poolTable.Mana = m_min(poolTable.Mana + DamageIn.ManaWhenHit * (gainMult - 1), gainMult * (output.ManaUnreserved or 0))
-				poolTable.EnergyShield = m_min(poolTable.EnergyShield + DamageIn.EnergyShieldWhenHit * (gainMult - 1), gainMult * output.EnergyShieldRecoveryCap)
+				if DamageIn.MissingLifeBeforeEnemyHit then
+					poolTable.Life = m_min(poolTable.Life + DamageIn.MissingLifeBeforeEnemyHit * ((output.LifeUnreserved or 0) - poolTable.Life) * (gainMult - 1) / 100, gainMult * output.LifeRecoverable or 0)
+				end
+				if DamageIn.GainWhenHit then
+					poolTable.Life = m_min(poolTable.Life + (DamageIn.LifeWhenHit + (DamageIn.LifeWhenStunned or 0) * damageTotal / 100) * (gainMult - 1), gainMult * (output.LifeRecoverable or 0))
+					poolTable.Mana = m_min(poolTable.Mana + DamageIn.ManaWhenHit * (gainMult - 1), gainMult * (output.ManaUnreserved or 0))
+					poolTable.EnergyShield = m_min(poolTable.EnergyShield + DamageIn.EnergyShieldWhenHit * (gainMult - 1), gainMult * output.EnergyShieldRecoveryCap)
+				end
+			end
+			if DamageIn.MissingLifeBeforeEnemyHit and poolTable.Life > 0 then
+				poolTable.Life = m_min(poolTable.Life + DamageIn.MissingLifeBeforeEnemyHit * ((output.LifeUnreserved or 0) - poolTable.Life) / 100, output.LifeRecoverable or 0)
 			end
 			poolTable = calcs.reducePoolsByDamage(poolTable, Damage, actor)
 			
@@ -2383,7 +2391,7 @@ function calcs.buildDefenceEstimations(env, actor)
 				return m_huge
 			end
 			if DamageIn.GainWhenHit and poolTable.Life > 0 then
-				poolTable.Life = m_min(poolTable.Life + DamageIn.LifeWhenHit, output.LifeRecoverable or 0)
+				poolTable.Life = m_min(poolTable.Life + DamageIn.LifeWhenHit + (DamageIn.LifeWhenStunned or 0) * damageTotal / 100, output.LifeRecoverable or 0)
 				poolTable.Mana = m_min(poolTable.Mana + DamageIn.ManaWhenHit, output.ManaUnreserved or 0)
 				poolTable.EnergyShield = m_min(poolTable.EnergyShield + DamageIn.EnergyShieldWhenHit, output.EnergyShieldRecoveryCap)
 			end
@@ -2511,9 +2519,11 @@ function calcs.buildDefenceEstimations(env, actor)
 		elseif damageCategoryConfig == "Average" then
 			ExtraAvoidChance = ExtraAvoidChance + output.AvoidProjectilesChance / 2
 		end
-		-- gain when hit (currently just gain on block/suppress)
+		-- gain when hit (currently just gain on block/suppress, Bloodnotch and Defiance of Destiny)
 		if not env.configInput.DisableEHPGainOnBlock then
-			if (DamageIn.LifeWhenHit or 0) ~= 0 or (DamageIn.ManaWhenHit or 0) ~= 0 or DamageIn.EnergyShieldWhenHit ~= 0 then
+			DamageIn.MissingLifeBeforeEnemyHit = modDB:Sum("BASE", nil, "MissingLifeBeforeEnemyHit")
+			DamageIn.LifeWhenStunned = modDB:Sum("BASE", nil, "LifeFromStunningHit")
+			if (DamageIn.LifeWhenHit or 0) ~= 0 or (DamageIn.ManaWhenHit or 0) ~= 0 or DamageIn.EnergyShieldWhenHit ~= 0 or DamageIn.LifeWhenStunned ~= 0 then
 				DamageIn.GainWhenHit = true
 			end
 		else
