@@ -175,6 +175,7 @@ local modNameList = {
 	["rage cost of skills"] = "RageCost",
 	["cost of"] = "Cost",
 	["cost of skills"] = "Cost",
+	["cost of attacks"] = { "Cost", tag = { type = "SkillType", skillType = SkillType.Attack } },
 	["mana reserved"] = "ManaReserved",
 	["mana reservation"] = "ManaReserved",
 	["mana reservation of skills"] = { "ManaReserved", tag = { type = "SkillType", skillType = SkillType.Aura } },
@@ -1169,8 +1170,6 @@ local preFlagList = {
 	-- While in the presence of...
 	["^while a unique enemy is in your presence, "] = { tag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
 	["^while a pinnacle atlas boss is in your presence, "] = { tag = { type = "ActorCondition", actor = "enemy", var = "PinnacleBoss" } },
-	-- Other
-	["^every rage also grants"] = { tag = { type = "Multiplier", var = "Rage" } },
 }
 
 -- List of modifier tags
@@ -2230,9 +2229,15 @@ local specialModList = {
 	["gain %d+ rage when hit by an enemy"] = {
 		flag("Condition:CanGainRage"),
 	},
+	["every rage also grants (%d+)%% increased armour"] = function(num) return {
+		mod("Armour", "INC", num, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect", div = 100 }),
+	} end,
+	["every rage also grants (%d+)%% increased stun threshold"] = function(num) return {
+		mod("StunThreshold", "INC", num, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect", div = 100 }),
+	} end,
 	["every rage also grants (%d+)%% increased attack speed"] = function(num) return {
-		mod("Speed", "INC", num, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageSpellDamage", neg = true }),
-		mod("Speed", "INC", num, "Base", ModFlag.Cast, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageSpellDamage" })
+		mod("Speed", "INC", num, nil, ModFlag.Attack, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect", div = 100 }, { type = "Condition", var = "RageCastSpeed", neg = true }),
+		mod("Speed", "INC", num, nil, ModFlag.Cast, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect", div = 100 }, { type = "Condition", var = "RageCastSpeed" })
 	} end,
 	["while a unique enemy is in your presence, gain %d+ rage on hit with attacks, no more than once every [%d%.]+ seconds"] = {
 		flag("Condition:CanGainRage", { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }),
@@ -2240,11 +2245,11 @@ local specialModList = {
 	["while a pinnacle atlas boss is in your presence, gain %d+ rage on hit with attacks, no more than once every [%d%.]+ seconds"] = {
 		flag("Condition:CanGainRage", { type = "ActorCondition", actor = "enemy", var = "PinnacleBoss" }),
 	},
-	["inherent effects from having rage are tripled"] = { mod("Multiplier:RageEffect", "BASE", 2) },
-	["inherent effects from having rage are doubled"] = { mod("Multiplier:RageEffect", "BASE", 1) },
-	--["(%d+)%% increased rage effect"] = function(num) return {
-	--	mod("Multiplier:RageEffect", "BASE", num / 100)
-	--} end,
+	["inherent effects from having rage are tripled"] = { mod("Multiplier:RageEffect", "BASE", 200) },
+	["inherent effects from having rage are doubled"] = { mod("Multiplier:RageEffect", "BASE", 100) },
+	["(%d+)%% increased rage effect"] = function(num) return {
+		mod("Multiplier:RageEffect", "BASE", num)
+	} end,
 	["cannot be stunned while you have at least (%d+) rage"] = function(num) return { flag("StunImmune", { type = "MultiplierThreshold", var = "Rage", threshold = num }) } end,
 	["lose ([%d%.]+)%% of life per second per rage while you are not losing rage"] = function(num) return { mod("LifeDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }, { type = "Multiplier", var = "Rage" }) } end,
 	["if you've warcried recently, you and nearby allies have (%d+)%% increased attack speed"] = function(num) return { mod("ExtraAura", "LIST", { mod = mod("Speed", "INC", num, nil, ModFlag.Attack) }, { type = "Condition", var = "UsedWarcryRecently" }) } end,
@@ -2252,6 +2257,9 @@ local specialModList = {
 		mod("Armour", "INC", num, { type = "Multiplier", var = "WarcryPower", div = tonumber(div), globalLimit = tonumber(limit), globalLimitKey = "WarningCall" }, { type = "Condition", var = "UsedWarcryInPast8Seconds" })
 	} end,
 	["warcries grant (%d+) rage per (%d+) power if you have less than (%d+) rage"] = {
+		flag("Condition:CanGainRage"),
+	},
+	["warcries grant (%d+) rage per (%d+) enemy power, up to (%d+)"] = {
 		flag("Condition:CanGainRage"),
 	},
 	["exerted attacks deal (%d+)%% more attack damage if a warcry sacrificed rage recently"] = function(num) return { mod("ExertAttackIncrease", "MORE", num, nil, ModFlag.Attack, 0) } end,
