@@ -920,7 +920,6 @@ function buildMode:SyncLoadouts(reset)
 				t_insert(treeList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(specTitle))
 			end
 		end
-		table.sort(sortedTreeListSpecialLinks, function (t1, t2) return t1.linkId < t2.linkId end)
 
 		-- item, skill, and config sets have identical structure
 		local function identifyLinks(setOrderList, tabSets, setList, specialLinks)

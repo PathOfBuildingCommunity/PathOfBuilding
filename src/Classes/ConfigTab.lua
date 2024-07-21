@@ -740,7 +740,7 @@ function ConfigTabClass:UpdateControls()
 		elseif control._className == "CheckBoxControl" then
 			control.state = self.configSets[self.activeConfigSetId].input[var]
 		elseif control._className == "DropDownControl" then
-			control:SelByValue(self.configSets[self.activeConfigSetId].input[var], "val")
+			control:SelByValue(self.configSets[self.activeConfigSetId].input[var] or self:GetDefaultState(var), "val")
 		end
 	end
 end
