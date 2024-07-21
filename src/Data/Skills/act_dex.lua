@@ -106,6 +106,16 @@ skills["Ambush"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Duration] = true, [SkillType.Travel] = true, [SkillType.Triggerable] = true, [SkillType.Cooldown] = true, [SkillType.LateConsumeCooldown] = true, },
 	statDescriptionScope = "secondary_debuff_skill_stat_descriptions",
 	castTime = 0.3,
+	statMap = {
+		["ambush_additional_critical_strike_chance_permyriad"] = {
+			mod("CritChance", "BASE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ambush" }),
+			div = 100,
+		},
+		["vanishing_ambush_critical_strike_multiplier_+"] = {
+			mod("CritMultiplier", "BASE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ambush" }),
+		},
+		-- not excluding Exert for Two-Handed weapons, to simulate a potential weapon swap for skills with a duration ( Rage Vortex )
+	},
 	baseFlags = {
 		spell = true,
 		movement = true,
@@ -15153,6 +15163,31 @@ skills["TornadoShot"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Single Projectile",
+		},
+		{
+			name = "Combined Average Secondary Projectiles",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 and (output.ReturnChance or 0) == 0 then
+			local averageSecondaryProjectiles = output.ProjectileCount + (output.SplitCount or 0)
+			-- if barrage then only shoots 1 projectile at a time, but those can still split and still releases at least 1 secondary projectile
+			if activeSkill.skillModList:Flag(nil, "SequentialProjectiles") and not activeSkill.skillModList:Flag(nil, "OneShotProj") and not activeSkill.skillModList:Flag(nil,"NoAdditionalProjectiles") and not activeSkill.skillModList:Flag(nil, "TriggeredBySnipe") then
+				averageSecondaryProjectiles = 1 + (output.SplitCount or 0)
+			end
+			-- default to 20% per secondary projectile, so 60% base, and 80% with helm enchant
+			local chanceForSecondaryProjectilesToHit = math.min((activeSkill.skillData.tornadoShotSecondaryHitChance or (20 * activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "tornadoShotSecondaryProjectiles"))) / 100, 1)
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * (1 + chanceForSecondaryProjectilesToHit * averageSecondaryProjectiles)
+		end
+	end,
+	statMap = {
+		["tornado_shot_num_of_secondary_projectiles"] = {
+			mod("tornadoShotSecondaryProjectiles", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,

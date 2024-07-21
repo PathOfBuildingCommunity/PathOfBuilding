@@ -54,6 +54,8 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("TotemPlacementTime", "BASE", 0.6, "Base")
 	modDB:NewMod("BallistaPlacementTime", "BASE", 0.35, "Base")
 	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
+	modDB:NewMod("ShockStacksMax", "BASE", 0, "Base")
+	modDB:NewMod("ScorchStacksMax", "BASE", 0, "Base")
 	modDB:NewMod("MovementSpeed", "INC", -30, "Base", { type = "Condition", var = "Maimed" })
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Attack, { type = "Condition", var = "Intimidated"})
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Attack, { type = "Condition", var = "Intimidated", neg = true}, { type = "Condition", var = "Party:Intimidated"})
@@ -474,17 +476,15 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("Speed", "INC", 4, "Base", ModFlag.Cast, { type = "Multiplier", var = "FrenzyCharge" })
 		modDB:NewMod("Damage", "MORE", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
 		modDB:NewMod("PhysicalDamageReduction", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
-		modDB:NewMod("ElementalResist", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
-		modDB:NewMod("Multiplier:RageEffect", "BASE", 1, "Base")
-		modDB:NewMod("Damage", "INC", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageCastSpeed", neg = true })
-		modDB:NewMod("Damage", "INC", 1, "Base", ModFlag.Cast, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageCastSpeed"})
-		modDB:NewMod("Speed", "INC", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage", div = 2 }, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageSpellDamage", neg = true })
-		modDB:NewMod("Speed", "INC", 1, "Base", ModFlag.Cast, { type = "Multiplier", var = "Rage", div = 2 }, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageSpellDamage" })
-		modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rage", div = 5 }, { type = "Multiplier", var = "RageEffect" })
-		modDB:NewMod("MaximumRage", "BASE", 50, "Base")
+		modDB:NewMod("ElementalDamageReduction", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
+		modDB:NewMod("Multiplier:RageEffect", "BASE", 100, "Base")
+		modDB:NewMod("Damage", "MORE", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect", div = 100 }, { type = "Condition", var = "RageSpellDamage", neg = true })
+		modDB:NewMod("Damage", "MORE", 1, "Base", ModFlag.Cast, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect", div = 100 }, { type = "Condition", var = "RageSpellDamage"})
+		modDB:NewMod("MaximumRage", "BASE", 30, "Base")
 		modDB:NewMod("Multiplier:GaleForce", "BASE", 0, "Base")
 		modDB:NewMod("MaximumGaleForce", "BASE", 10, "Base")
 		modDB:NewMod("MaximumFortification", "BASE", 20, "Base")
+		modDB:NewMod("MaximumValour", "BASE", 50, "Base")
 		modDB:NewMod("SoulEaterMax", "BASE", 45, "Base")
 		modDB:NewMod("Multiplier:IntensityLimit", "BASE", 3, "Base")
 		modDB:NewMod("Damage", "INC", 2, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
@@ -499,9 +499,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")
 		modDB:NewMod("SocketedCursesHexLimitValue", "BASE", 1, "Base")
 		modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
-		modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentSpeed", neg = true })
-		modDB:NewMod("Speed", "MORE", 20, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentSpeed"})
-		modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true})
+		modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentDualWieldingSpeed", neg = true })
+		modDB:NewMod("Speed", "MORE", 20, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentDualWieldingSpeed"})
+		modDB:NewMod("BlockChance", "BASE", 20, "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true}, { type = "Condition", var = "DoubledInherentDualWieldingBlock", neg = true})
+		modDB:NewMod("BlockChance", "BASE", 40, "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true}, { type = "Condition", var = "DoubledInherentDualWieldingBlock"})
 		modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
 		modDB:NewMod("Condition:BloodStance", "FLAG", true, "Base", { type = "Condition", var = "SandStance", neg = true })
 		modDB:NewMod("Condition:PrideMinEffect", "FLAG", true, "Base", { type = "Condition", var = "PrideMaxEffect", neg = true })
@@ -512,21 +513,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 		-- Add bandit mods
 		if env.configInput.bandit == "Alira" then
-			modDB:NewMod("ManaRegen", "BASE", 5, "Bandit")
-			modDB:NewMod("CritMultiplier", "BASE", 20, "Bandit")
 			modDB:NewMod("ElementalResist", "BASE", 15, "Bandit")
 		elseif env.configInput.bandit == "Kraityn" then
-			modDB:NewMod("Speed", "INC", 6, "Bandit")
-			for _, ailment in ipairs(env.data.elementalAilmentTypeList) do
-				modDB:NewMod("Avoid"..ailment, "BASE", 10, "Bandit")
-			end
-			modDB:NewMod("MovementSpeed", "INC", 6, "Bandit")
+			modDB:NewMod("MovementSpeed", "INC", 8, "Bandit")
 		elseif env.configInput.bandit == "Oak" then
-			modDB:NewMod("LifeRegenPercent", "BASE", 1, "Bandit")
-			modDB:NewMod("PhysicalDamageReduction", "BASE", 2, "Bandit")
-			modDB:NewMod("PhysicalDamage", "INC", 20, "Bandit")
+			modDB:NewMod("Life", "BASE", 40, "Bandit")
 		else
-			modDB:NewMod("ExtraPoints", "BASE", 2, "Bandit")
+			modDB:NewMod("ExtraPoints", "BASE", 1, "Bandit")
 		end
 
 		-- Add Pantheon mods
@@ -1012,7 +1005,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				elseif item.type == "Quiver" and items["Weapon 1"] and items["Weapon 1"].name:match("Widowhail") then
-					scale = scale * (1 + (items["Weapon 1"].baseModList:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
+					local widowHailMod=(1 + (items["Weapon 1"].baseModList:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
+					scale = scale * widowHailMod
+					env.modDB:NewMod("WidowHailMultiplier", "BASE", widowHailMod, "Widowhail")
 					local combinedList = new("ModList")
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
@@ -1346,6 +1341,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						if grantedEffect and not grantedEffect.support then
 							grantedEffect = env.data.skills["Support"..value.skillId]
 						end
+						grantedEffect.fromItem = true
 						if grantedEffect then
 							for _, targetList in ipairs(targetListList) do
 								t_insert(targetList, {

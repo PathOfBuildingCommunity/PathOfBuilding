@@ -58,6 +58,7 @@ function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
 			self.selValue = spec
 		end
 		self:UpdateItemsTabPassiveTreeDropdown()
+		self.treeTab.build:SyncLoadouts()
 		main:ClosePopup()
 	end)
 	controls.save.enabled = false

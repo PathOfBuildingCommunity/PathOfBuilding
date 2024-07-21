@@ -372,19 +372,20 @@ Martyr of Innocence
 Highborn Staff
 Variant: Pre 3.5.0
 Variant: Pre 3.13.0
+Variant: Pre 3.25.0
 Variant: Current
 Requires Level 52, 89 Str, 89 Int
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
 (12-16)% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2}Adds (350-400) to (500-600) Fire Damage
-{variant:3}Adds (315-360) to (450-540) Fire Damage
+{variant:3,4}Adds (315-360) to (450-540) Fire Damage
 {variant:1}Adds (130-150) to (200-250) Fire Damage to Spells
 {variant:2}Adds (230-250) to (300-350) Fire Damage to Spells
-{variant:3}Battlemage
-Grants Level 15 Vengeance Skill
+{variant:3,4}Battlemage
+{variant:1,2,3}Grants Level 15 Vengeance Skill
 {variant:1}100% increased Fire Damage if you have been Hit Recently
-{variant:2,3}100% increased Fire Damage
+{variant:2,3,4}100% increased Fire Damage
 Immune to Freeze and Chill while Ignited
 Damage Penetrates 15% of Fire Resistance if you have Blocked Recently
 ]],[[

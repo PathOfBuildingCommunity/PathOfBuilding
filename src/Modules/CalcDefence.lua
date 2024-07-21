@@ -358,6 +358,9 @@ function calcs.defence(env, actor)
 					if modDB:Flag(nil, "Unbreakable") then
 						armourBase = armourBase * 2
 					end
+					if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
+						armourBase = armourBase / 2
+					end
 				end
 				output["ArmourOn"..slot] = armourBase
 			end
@@ -369,6 +372,9 @@ function calcs.defence(env, actor)
 					end
 				 	if modDB:Flag(nil, "Unbreakable") and modDB:Flag(nil, "IronReflexes") then
 						evasionBase = evasionBase * 2
+					end
+					if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
+						evasionBase = evasionBase / 2
 					end
 				end
 				output["EvasionOn"..slot] = evasionBase
@@ -514,17 +520,22 @@ function calcs.defence(env, actor)
 	output.BlockChanceOverCap = 0
 	output.SpellBlockChanceOverCap = 0
 	local baseBlockChance = 0
-	if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].armourData then
-		baseBlockChance = baseBlockChance + actor.itemList["Weapon 2"].armourData.BlockChance
-	end
-	if actor.itemList["Weapon 3"] and actor.itemList["Weapon 3"].armourData then
-		baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
+	local ReplaceShieldBlock = modDB:Override(nil, "ReplaceShieldBlock") or 0
+	if ReplaceShieldBlock > 0 then
+		baseBlockChance = ReplaceShieldBlock
+	else
+		if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].armourData then
+			baseBlockChance = baseBlockChance + actor.itemList["Weapon 2"].armourData.BlockChance
+		end
+		if actor.itemList["Weapon 3"] and actor.itemList["Weapon 3"].armourData then
+			baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
+		end
 	end
 	output.ShieldBlockChance = baseBlockChance
 	if modDB:Flag(nil, "BlockAttackChanceIsEqualToParent") then
-		output.BlockChance = actor.parent.output.BlockChance
+		output.BlockChance = m_min(actor.parent.output.BlockChance, output.BlockChanceMax)
 	elseif modDB:Flag(nil, "BlockAttackChanceIsEqualToPartyMember") then
-		output.BlockChance = actor.partyMembers.output.BlockChance
+		output.BlockChance = m_min(actor.partyMembers.output.BlockChance, output.BlockChanceMax)
 	elseif modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
 		output.BlockChance = output.BlockChanceMax
 	else
@@ -570,7 +581,27 @@ function calcs.defence(env, actor)
 		output.SpellBlockChance = 0
 		output.SpellProjectileBlockChance = 0
 	end
-	output.AverageBlockChance = (output.BlockChance + output.ProjectileBlockChance + output.SpellBlockChance + output.SpellProjectileBlockChance) / 4
+	do
+		for _, blockType in ipairs({"BlockChance", "ProjectileBlockChance", "SpellBlockChance", "SpellProjectileBlockChance"}) do
+			output["Effective"..blockType] = env.mode_effective and m_max(output[blockType] - enemyDB:Sum("BASE", nil, "reduceEnemyBlock"), 0) or output[blockType]
+			local luck = 1
+			if env.mode_effective then
+				luck = luck * (modDB:Flag(nil, blockType.."IsLucky") and 2 or 1) / (modDB:Flag(nil, blockType.."IsUnlucky") and 2 or 1)
+			end
+			-- unlucky config to lower the value of block, dodge, evade etc for ehp
+			luck = luck / (env.configInput.EHPUnluckyWorstOf or 1)
+			while luck ~= 1 do
+				if luck > 1 then
+					luck = luck / 2
+					output["Effective"..blockType] = (1 - (1 - output["Effective"..blockType] / 100) ^ 2) * 100
+				else
+					luck = luck * 2
+					output["Effective"..blockType] = output["Effective"..blockType] / 100 * output["Effective"..blockType]
+				end
+			end
+		end
+	end
+	output.EffectiveAverageBlockChance = (output.EffectiveBlockChance + output.EffectiveProjectileBlockChance + output.EffectiveSpellBlockChance + output.EffectiveSpellProjectileBlockChance) / 4
 	output.BlockEffect = m_max(100 - modDB:Sum("BASE", nil, "BlockEffect"), 0)
 	if output.BlockEffect == 0 or output.BlockEffect == 100 then
 		output.BlockEffect = 100
@@ -703,6 +734,9 @@ function calcs.defence(env, actor)
 						if modDB:Flag(nil, "Unbreakable") then 
 							armourBase = armourBase * 2
 						end
+						if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
+							armourBase = armourBase / 2
+						end
 					end
 					armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
 					gearArmour = gearArmour + armourBase
@@ -718,6 +752,9 @@ function calcs.defence(env, actor)
 						end
 						if modDB:Flag(nil, "Unbreakable") and ironReflexes then
 							evasionBase = evasionBase * 2
+						end
+						if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
+							evasionBase = evasionBase / 2
 						end
 					end
 					gearEvasion = gearEvasion + evasionBase
@@ -917,20 +954,6 @@ function calcs.defence(env, actor)
 		end
 	end
 
-	-- Spell Suppression
-	local weaponsCfg = {
-		flags = bit.bor(env.player.weaponData1 and env.player.weaponData1.type and ModFlag[env.player.weaponData1.type] or 0, env.player.weaponData2 and env.player.weaponData2.type and ModFlag[env.player.weaponData2.type] or 0)
-	}
-
-	-- Add weapon dependent mods as unflagged mods if the correct weapons are equipped
-	for _, value in ipairs(modDB:Tabulate("BASE",  weaponsCfg, "SpellSuppressionChance")) do
-		if value.mod.flags ~= 0 and bit.band(value.mod.flags and weaponsCfg.flags) == value.mod.flags then
-			local mod = copyTable(value.mod)
-			mod.flags = 0
-			modDB:AddMod(mod)
-		end
-	end
-
 	local spellSuppressionChance =  modDB:Sum("BASE", nil, "SpellSuppressionChance")
 	local totalSpellSuppressionChance = modDB:Override(nil, "SpellSuppressionChance") or spellSuppressionChance
 
@@ -943,12 +966,22 @@ function calcs.defence(env, actor)
 	output.SpellSuppressionChance = m_min(totalSpellSuppressionChance, data.misc.SuppressionChanceCap)
 	output.SpellSuppressionEffect = m_max(data.misc.SuppressionEffect + modDB:Sum("BASE", nil, "SpellSuppressionEffect"), 0)
 	
-	output.EffectiveSpellSuppressionChance = enemyDB:Flag(nil, "CannotBeSuppressed") and 0 or output.SpellSuppressionChance
-	if output.EffectiveSpellSuppressionChance > 0 then
-		if env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsUnlucky") then
-			output.EffectiveSpellSuppressionChance = output.EffectiveSpellSuppressionChance / 100 * output.EffectiveSpellSuppressionChance
-		elseif env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsLucky") then
-			output.EffectiveSpellSuppressionChance = (1 - (1 - output.EffectiveSpellSuppressionChance / 100) ^ 2) * 100
+	do
+		output.EffectiveSpellSuppressionChance = enemyDB:Flag(nil, "CannotBeSuppressed") and 0 or output.SpellSuppressionChance
+		local luck = 1
+		if env.mode_effective then
+			luck = luck * (modDB:Flag(nil, "SpellSuppressionChanceIsLucky") and 2 or 1) / (modDB:Flag(nil, "SpellSuppressionChanceIsUnlucky") and 2 or 1)
+		end
+		-- unlucky config to lower the value of block, dodge, evade etc for ehp
+		luck = luck / (env.configInput.EHPUnluckyWorstOf or 1)
+		while luck ~= 1 do
+			if luck > 1 then
+				luck = luck / 2
+				output.EffectiveSpellSuppressionChance = (1 - (1 - output.EffectiveSpellSuppressionChance / 100) ^ 2) * 100
+			else
+				luck = luck * 2
+				output.EffectiveSpellSuppressionChance = output.EffectiveSpellSuppressionChance / 100 * output.EffectiveSpellSuppressionChance
+			end
 		end
 	end
 	
@@ -984,14 +1017,12 @@ function calcs.defence(env, actor)
 			"Total: "..output.SpellDodgeChance+output.SpellDodgeChanceOverCap.."%",
 		}
 	end
-	
-	-- Gain on Block
-	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
-	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
-	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
 
 	-- Recovery modifiers
-	output.LifeRecoveryRateMod = calcLib.mod(modDB, nil, "LifeRecoveryRate")
+	output.LifeRecoveryRateMod = 1
+	if not modDB:Flag(nil, "CannotRecoverLifeOutsideLeech") then
+		output.LifeRecoveryRateMod = calcLib.mod(modDB, nil, "LifeRecoveryRate")
+	end
 	output.ManaRecoveryRateMod = calcLib.mod(modDB, nil, "ManaRecoveryRate")
 	output.EnergyShieldRecoveryRateMod = calcLib.mod(modDB, nil, "EnergyShieldRecoveryRate")
 
@@ -1110,7 +1141,7 @@ function calcs.defence(env, actor)
 	end
 	
 	-- Energy Shield Recharge
-	output.EnergyShieldRechargeAppliesToLife = modDB:Flag(nil, "EnergyShieldRechargeAppliesToLife")
+	output.EnergyShieldRechargeAppliesToLife = modDB:Flag(nil, "EnergyShieldRechargeAppliesToLife") and not modDB:Flag(nil, "CannotRecoverLifeOutsideLeech") 
 	output.EnergyShieldRechargeAppliesToEnergyShield = not (modDB:Flag(nil, "NoEnergyShieldRecharge") or modDB:Flag(nil, "CannotGainEnergyShield") or output.EnergyShieldRechargeAppliesToLife)
 	
 	if output.EnergyShieldRechargeAppliesToLife or output.EnergyShieldRechargeAppliesToEnergyShield then
@@ -1243,7 +1274,7 @@ function calcs.defence(env, actor)
 	output.DamageReductionMax = modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
 	modDB:NewMod("ArmourAppliesToPhysicalDamageTaken", "BASE", 100)
 	for _, damageType in ipairs(dmgTypeList) do
-		output["Base"..damageType.."DamageReduction"] = m_min(m_max(0, modDB:Sum("BASE", nil, damageType.."DamageReduction")), output.DamageReductionMax)
+		output["Base"..damageType.."DamageReduction"] = m_min(m_max(0, modDB:Sum("BASE", nil, damageType.."DamageReduction", isElemental[damageType] and "ElementalDamageReduction")), output.DamageReductionMax)
 		output["Base"..damageType.."DamageReductionWhenHit"] = m_min(m_max(0, output["Base"..damageType.."DamageReduction"] + modDB:Sum("BASE", nil, damageType.."DamageReductionWhenHit")), output.DamageReductionMax)
 	end
 
@@ -1267,13 +1298,18 @@ function calcs.defence(env, actor)
 	end
 	
 	-- recovery on block, needs to be after primary defences
-	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
+	output.LifeOnBlock = 0
+	output.LifeOnSuppress = 0
+	if not modDB:Flag(nil, "CannotRecoverLifeOutsideLeech") then
+		output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
+		output.LifeOnSuppress = modDB:Sum("BASE", nil, "LifeOnSuppress")
+	end
+
 	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
+
 	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
 	output.EnergyShieldOnSpellBlock = modDB:Sum("BASE", nil, "EnergyShieldOnSpellBlock")
-	
 	output.EnergyShieldOnSuppress = modDB:Sum("BASE", nil, "EnergyShieldOnSuppress")
-	output.LifeOnSuppress = modDB:Sum("BASE", nil, "LifeOnSuppress")
 	
 	-- damage avoidances
 	output.specificTypeAvoidance = false
@@ -1287,7 +1323,13 @@ function calcs.defence(env, actor)
 	-- hit avoidance
 	output.AvoidAllDamageFromHitsChance = m_min(modDB:Sum("BASE", nil, "AvoidAllDamageFromHitsChance"), data.misc.AvoidChanceCap)
 	-- other avoidances etc
-	output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
+	output.BlindAvoidChance = modDB:Flag(nil, "BlindImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
+	output.ImpaleAvoidChance = modDB:Flag(nil, "ImpaleImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidImpale"), 100)
+	-- Status effect / ailment immunities
+	output.CorruptedBloodImmunity = modDB:Flag(nil, "CorruptedBloodImmune")
+	output.MaimImmunity = modDB:Flag(nil, "MaimImmune")
+	output.HinderImmunity = modDB:Flag(nil, "HinderImmune")
+	output.KnockbackImmunity = modDB:Flag(nil, "KnockbackImmune")
 
 	if modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") then
 		local spellSuppressionToAilmentPercent = (modDB:Sum("BASE", nil, "SpellSuppressionAppliesToAilmentAvoidancePercent") or 0) / 100
@@ -1312,6 +1354,7 @@ function calcs.defence(env, actor)
 	end
 
 	output.CurseAvoidChance = modDB:Flag(nil, "CurseImmune") and 100 or m_min(modDB:Sum("BASE", nil, "AvoidCurse"), 100)
+	output.SilenceAvoidChance = modDB:Flag(nil, "SilenceImmune") and 100 or output.CurseAvoidChance
 	output.CritExtraDamageReduction = m_min(modDB:Sum("BASE", nil, "ReduceCritExtraDamage"), 100)
 	output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
 	if breakdown then
@@ -1680,9 +1723,11 @@ function calcs.buildDefenceEstimations(env, actor)
 		local reductMult = 1
 		local takenFlat = modDB:Sum("BASE", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
-			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks")
+			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks", damageType.."DamageTakenFrom"..damageCategoryConfig.."Attacks")
+		elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
+			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromSpells", damageType.."DamageTakenFromSpells", damageType.."DamageTakenFromSpellProjectiles")
 		elseif damageCategoryConfig == "Average" then
-			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks") / 2
+			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks") / 2 + modDB:Sum("BASE", nil, damageType.."DamageTakenFromProjectileAttacks") / 4 + modDB:Sum("BASE", nil, "DamageTakenFromSpells", damageType.."DamageTakenFromSpells") / 2 + modDB:Sum("BASE", nil, "DamageTakenFromSpellProjectiles", damageType.."DamageTakenFromSpellProjectiles") / 4
 		end
 		output[damageType.."takenFlat"] = takenFlat
 		if percentOfArmourApplies > 0 then
@@ -1696,7 +1741,6 @@ function calcs.buildDefenceEstimations(env, actor)
 		reductMult = 1 - m_max(m_min(output.DamageReductionMax, totalReduct - enemyOverwhelm), 0) / 100
 		output[damageType.."DamageReduction"] = 100 - reductMult * 100
 		if impaleDamage > 0 then
-			ConPrintTable({"A", impaleDamage, impaleArmourReduct, reduction, enemyOverwhelm, output[damageType.."TakenReflect"]})
 			impaleDamage = impaleDamage * resMult * (1 - m_max(m_min(output.DamageReductionMax, m_min(output.DamageReductionMax, impaleArmourReduct + reduction) - enemyOverwhelm), 0) / 100)
 			impaleDamage = impaleDamage * enemyImpaleChance / 100 * 5 * output[damageType.."TakenReflect"]
 		end
@@ -2438,28 +2482,15 @@ function calcs.buildDefenceEstimations(env, actor)
 	
 	do
 		local DamageIn = { }
-		local BlockChance = 0
-		local blockEffect = 1
+		local BlockChance = output.EffectiveBlockChance / 100
+		if damageCategoryConfig ~= "Melee" and damageCategoryConfig ~= "Untyped" then
+			BlockChance = output["Effective"..damageCategoryConfig.."BlockChance"] / 100
+		end
+		local blockEffect = (1 - BlockChance * output.BlockEffect / 100)
 		local suppressChance = 0
 		local suppressionEffect = 1
 		local ExtraAvoidChance = 0
 		local averageAvoidChance = 0
-		local worstOf = env.configInput.EHPUnluckyWorstOf or 1
-		-- block effect
-		if damageCategoryConfig == "Melee" then
-			BlockChance = output.BlockChance / 100
-		elseif damageCategoryConfig ~= "Untyped" then
-			BlockChance = output[damageCategoryConfig.."BlockChance"] / 100
-		end
-		BlockChance = m_max(BlockChance - enemyDB:Sum("BASE", nil, "reduceEnemyBlock"), 0)
-		-- unlucky config to lower the value of block, dodge, evade etc for ehp
-		if worstOf > 1 then
-			BlockChance = BlockChance * BlockChance
-			if worstOf == 4 then
-				BlockChance = BlockChance * BlockChance
-			end
-		end
-		blockEffect = (1 - BlockChance * output.BlockEffect / 100)
 		if not env.configInput.DisableEHPGainOnBlock then
 			DamageIn.LifeWhenHit = output.LifeOnBlock * BlockChance
 			DamageIn.ManaWhenHit = output.ManaOnBlock * BlockChance
@@ -2476,13 +2507,6 @@ function calcs.buildDefenceEstimations(env, actor)
 		end
 		-- We include suppression in damage reduction if it is 100% otherwise we handle it here.
 		if suppressChance < 1 then
-			-- unlucky config to lower the value of block, dodge, evade etc for ehp
-			if worstOf > 1 then
-				suppressChance = suppressChance * suppressChance
-				if worstOf == 4 then
-					suppressChance = suppressChance * suppressChance
-				end
-			end
 			if damageCategoryConfig == "Average" then
 				suppressChance = suppressChance / 2
 			end
@@ -2518,6 +2542,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			if output.specificTypeAvoidance then
 				AvoidChance = m_min(output["Avoid"..damageType.."DamageChance"] + ExtraAvoidChance, data.misc.AvoidChanceCap)
 				-- unlucky config to lower the value of block, dodge, evade etc for ehp
+				local worstOf = env.configInput.EHPUnluckyWorstOf or 1
 				if worstOf > 1 then
 					AvoidChance = AvoidChance / 100 * AvoidChance
 					if worstOf == 4 then
