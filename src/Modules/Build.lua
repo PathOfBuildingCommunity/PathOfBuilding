@@ -333,7 +333,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		self.controls.buildLoadouts:SelByValue(value)
 	end)
 
-	self.controls.similarBuilds = new("ButtonControl", {"LEFT",self.controls.secondaryAscendDrop,"RIGHT"}, 8, 0, 100, 20, "Similar Builds", function()
+	self.controls.similarBuilds = new("ButtonControl", {"LEFT",self.controls.buildLoadouts,"RIGHT"}, 8, 0, 100, 20, "Similar Builds", function()
 		self:OpenSimilarPopup()
 	end)
 	self.controls.similarBuilds.tooltipFunc = function(tooltip)
