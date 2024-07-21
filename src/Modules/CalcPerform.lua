@@ -1447,7 +1447,7 @@ function calcs.perform(env, skipEHP)
 			flaskBuffsPerBaseNonPlayer[item.baseName] = flaskBuffsPerBaseNonPlayer[item.baseName] or {}
 			flaskConditions["UsingFlask"] = true
 			flaskConditions["Using"..item.baseName:gsub("%s+", "")] = true
-			if item.base.flask.life then
+			if item.base.flask.life and not modDB:Flag(nil, "CannotRecoverLifeOutsideLeech") then
 				flaskConditions["UsingLifeFlask"] = true
 			end
 			if item.base.flask.mana then
@@ -1455,7 +1455,7 @@ function calcs.perform(env, skipEHP)
 			end
 
 			if onlyRecovery then
-				if item.base.flask.life then
+				if item.base.flask.life and not modDB:Flag(nil, "CannotRecoverLifeOutsideLeech") then
 					calcFlaskMods(item, "LifeFlask", calcFlaskRecovery("Life", item), {})
 				end
 				if item.base.flask.mana then
