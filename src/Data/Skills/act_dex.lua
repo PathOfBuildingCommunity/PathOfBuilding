@@ -106,6 +106,16 @@ skills["Ambush"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Duration] = true, [SkillType.Travel] = true, [SkillType.Triggerable] = true, [SkillType.Cooldown] = true, [SkillType.LateConsumeCooldown] = true, },
 	statDescriptionScope = "secondary_debuff_skill_stat_descriptions",
 	castTime = 0.3,
+	statMap = {
+		["ambush_additional_critical_strike_chance_permyriad"] = {
+			mod("CritChance", "BASE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ambush" }),
+			div = 100,
+		},
+		["vanishing_ambush_critical_strike_multiplier_+"] = {
+			mod("CritMultiplier", "BASE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ambush" }),
+		},
+		-- not excluding Exert for Two-Handed weapons, to simulate a potential weapon swap for skills with a duration ( Rage Vortex )
+	},
 	baseFlags = {
 		spell = true,
 		movement = true,
