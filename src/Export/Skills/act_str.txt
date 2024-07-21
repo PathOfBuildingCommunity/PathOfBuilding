@@ -163,11 +163,8 @@ local skills, mod, flag, skill = ...
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("BattlemageExertedAttacks", "BASE", nil),
 		},
-		["divine_cry_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value_per_5_power_up_to_150%"] = {
-			mod("BattlemageSpellIncreaseApplyToAttackPer5MP", "BASE", nil),
-		},
-		["divine_cry_critical_strike_chance_+%_per_5_power_up_to_cap%"] = {
-			mod("BattlemageCritChancePer5MP", "BASE", nil),
+		["divine_cry_base_critical_strike_chance_+%_per_5_power"] = {
+			mod("BattlemageBaseCritChancePer5MP", "BASE", nil),
 		},
 		["display_battlemage_cry_exerted_attacks_trigger_supported_spell"] ={
 			-- Display only

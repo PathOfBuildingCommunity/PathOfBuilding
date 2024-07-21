@@ -46417,32 +46417,23 @@ return {
 		lang={
 			English={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% increased Critical Strike Chance per 5 power, up to a maximum of 30%"
-				},
-				[2]={
 					[1]={
-						k="negate",
+						k="divide_by_one_hundred",
 						v=1
 					},
 					limit={
 						[1]={
 							[1]="#",
-							[2]=-1
+							[2]="#"
 						}
 					},
-					text="Buff grants {0}% reduced Critical Strike Chance per 5 power"
+					text="Buff grants {0:+d}% to Critical Strike Chance per 5 Power, up to a maximum of 25 Power"
 				}
 			}
 		},
 		name="divine_cry_crit_chance",
 		stats={
-			[1]="divine_cry_critical_strike_chance_+%_per_5_power_up_to_cap%"
+			[1]="divine_cry_base_critical_strike_chance_+%_per_5_power"
 		}
 	},
 	[1479]={
@@ -48148,7 +48139,7 @@ return {
 	["display_vaal_molten_shell_alternate_description"]=1045,
 	["display_what_freezing_pulse_does"]=6,
 	["divine_cry_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value_per_5_power_up_to_150%"]=1479,
-	["divine_cry_critical_strike_chance_+%_per_5_power_up_to_cap%"]=1478,
+	["divine_cry_base_critical_strike_chance_+%_per_5_power"]=1478,
 	["divine_tempest_ailment_damage_+%_final_per_stage"]=772,
 	["divine_tempest_beam_width_+%"]=770,
 	["divine_tempest_damage_+%_final_while_channelling"]=771,

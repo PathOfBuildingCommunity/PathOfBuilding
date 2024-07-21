@@ -1141,18 +1141,9 @@ function calcs.perform(env, skipEHP)
 				end
 				modDB:NewMod("InfernalActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Battlemage's Cry" and not modDB:Flag(nil, "BattlemageActive") then
-				local battlemageSpellToAttack = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BattlemageSpellIncreaseApplyToAttackPer5MP")
-				local battlemageSpellToAttackMax = m_floor(150 * buff_inc)
-				local battlemageCritChance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BattlemageCritChancePer5MP")
-				local battlemageCritChanceMax = m_floor(30 * buff_inc)
+				local battlemageBaseCritChance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BattlemageBaseCritChancePer5MP")
 				env.player.modDB:NewMod("NumBattlemageExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BattlemageExertedAttacks") + extraExertions)
-				if warcryPowerBonus ~= 0 then
-					battlemageCritChance = m_floor(battlemageCritChance * warcryPowerBonus * buff_inc) / warcryPowerBonus
-					battlemageSpellToAttack = m_floor(battlemageSpellToAttack * warcryPowerBonus * buff_inc) / warcryPowerBonus
-					modDB:NewMod("SpellDamageAppliesToAttacks", "FLAG", true)
-				end
-				env.player.modDB:NewMod("CritChance", "INC", battlemageCritChance * uptime, "Battlemage's Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = battlemageCritChanceMax, limitTotal = true })
-				env.player.modDB:NewMod("ImprovedSpellDamageAppliesToAttacks", "MAX", battlemageSpellToAttack * uptime, "Battlemage's Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = battlemageSpellToAttackMax, limitTotal = true })
+				env.player.modDB:NewMod("CritChance", "BASE", m_floor(battlemageBaseCritChance * buff_inc) / 100 * uptime, "Battlemage's Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
 				modDB:NewMod("BattlemageActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Intimidating Cry" and not modDB:Flag(nil, "IntimidatingActive") then
 				local intimidatingOverwhelmEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingPDRPer5MP")
