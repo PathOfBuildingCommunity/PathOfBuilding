@@ -802,6 +802,9 @@ skills["SupportCallToArms"] = {
 	supportGemsOnly = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	baseMods = {
+		skill("SupportedByAutoexertion", true),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_cooldown_speed_+%", 0.5 },

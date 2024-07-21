@@ -99,6 +99,9 @@ statMap = {
 #mods
 
 #skill SupportCallToArms
+	baseMods = {
+		skill("SupportedByAutoexertion", true),
+	},
 #mods
 
 #skill SupportCastOnMeleeKill
