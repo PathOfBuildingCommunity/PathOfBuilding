@@ -14990,6 +14990,21 @@ skills["Spark"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.65,
+	parts = {
+		{
+			name = "1 Hit",
+		},
+		{
+			name = "Maximum Hits",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local skillData = activeSkill.skillData
+		if activeSkill.skillPart == 2 then
+			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+			output.SkillDPSMultiplier = skillData.dpsMultiplier
+		end
+	end,
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -15063,6 +15078,21 @@ skills["SparkAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
+	parts = {
+		{
+			name = "1 Hit",
+		},
+		{
+			name = "Maximum Hits",
+		},
+	},
+	preDamageFunc = function(activeSkill, output) 
+		local skillData = activeSkill.skillData
+		if activeSkill.skillPart == 2 then
+			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+			output.SkillDPSMultiplier = skillData.dpsMultiplier
+		end
+	end,
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -15138,6 +15168,21 @@ skills["SparkAltY"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.65,
+	parts = {
+		{
+			name = "1 Hit",
+		},
+		{
+			name = "Maximum Hits",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local skillData = activeSkill.skillData
+		if activeSkill.skillPart == 2 then
+			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+			output.SkillDPSMultiplier = skillData.dpsMultiplier
+		end
+	end,
 	baseFlags = {
 		spell = true,
 		projectile = true,

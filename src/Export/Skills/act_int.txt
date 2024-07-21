@@ -3372,14 +3372,59 @@ local skills, mod, flag, skill = ...
 
 #skill Spark
 #flags spell projectile duration
+	parts = {
+		{
+			name = "1 Hit",
+		},
+		{
+			name = "Maximum Hits",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local skillData = activeSkill.skillData
+		if activeSkill.skillPart == 2 then
+			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+			output.SkillDPSMultiplier = skillData.dpsMultiplier
+		end
+	end,
 #mods
 
 #skill SparkAltX
 #flags spell projectile duration
+	parts = {
+		{
+			name = "1 Hit",
+		},
+		{
+			name = "Maximum Hits",
+		},
+	},
+	preDamageFunc = function(activeSkill, output) 
+		local skillData = activeSkill.skillData
+		if activeSkill.skillPart == 2 then
+			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+			output.SkillDPSMultiplier = skillData.dpsMultiplier
+		end
+	end,
 #mods
 
 #skill SparkAltY
 #flags spell projectile duration
+	parts = {
+		{
+			name = "1 Hit",
+		},
+		{
+			name = "Maximum Hits",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local skillData = activeSkill.skillData
+		if activeSkill.skillPart == 2 then
+			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+			output.SkillDPSMultiplier = skillData.dpsMultiplier
+		end
+	end,
 #mods
 
 #skill VaalSparkSpiralNova

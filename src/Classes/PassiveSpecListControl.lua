@@ -83,6 +83,7 @@ function PassiveSpecListClass:OnOrderChange()
 	self.treeTab.activeSpec = isValueInArray(self.list, self.treeTab.build.spec)
 	self.treeTab.modFlag = true
 	self:UpdateItemsTabPassiveTreeDropdown()
+	self.treeTab.build:SyncLoadouts()
 end
 
 function PassiveSpecListClass:OnSelClick(index, spec, doubleClick)
@@ -104,6 +105,7 @@ function PassiveSpecListClass:OnSelDelete(index, spec)
 			end
 			self.treeTab.modFlag = true
 			self:UpdateItemsTabPassiveTreeDropdown()
+			self.treeTab.build:SyncLoadouts()
 		end)
 	end
 end

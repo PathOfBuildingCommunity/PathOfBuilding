@@ -485,6 +485,7 @@ Kaom's Binding
 Heavy Belt
 LevelReq: 56
 Implicits: 1
+{tags:jewellery_attribute}+(25-35) to Strength
 {tags:jewellery_attribute}+(30-40) to Strength
 {tags:jewellery_defense}+(300-500) to Armour
 Take no Burning Damage if you've stopped taking Burning Damage Recently

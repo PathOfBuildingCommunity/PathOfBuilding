@@ -170,17 +170,19 @@ Perfidy
 Glorious Plate
 League: Delirium
 Has Alt Variant: true
-Variant: War Banner
-Variant: Dread Banner
-Variant: Defiance Banner
+Variant: War Banner (Pre 3.25.0)
+Variant: Dread Banner (Pre 3.25.0)
+Variant: Defiance Banner (Pre 3.25.0)
+Variant: Current
 Implicits: 0
 (25-40)% increased Melee Damage
 +(60-90) to maximum Life
-You can have two different Banners at the same time
-Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second
+{variant:1,2,3}You can have two different Banners at the same time
+{variant:1,2,3}Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second
 {variant:1}War Banner has (100-200)% increased Adrenaline duration
 {variant:2}Dread Banner grants an additional +(2-4) to maximum Fortification when placing the Banner
 {variant:3}Defiance Banner has (100-200)% increased Taunt duration
+{variant:4}Having a placed Banner does not prevent you gaining Valour
 ]],[[
 Pragmatism
 Colosseum Plate
@@ -462,11 +464,11 @@ Implicits: 0
 {variant:2,3}+(70-100) to maximum Life
 -30% to Cold Resistance
 {variant:1}Evasion Rating is increased by Uncapped Cold Resistance
-{variant:2,3}Evasion Rating is increased by Overcapped Cold Resistance
+{variant:4}+20% chance to Block Attack Damage
+{variant:2,3,4}Evasion Rating is increased by Overcapped Cold Resistance
 {variant:3}Flesh and Stone has no Reservation
 {variant:3}Hollow Palm Technique
 {variant:4}Versatile Combatant
-{variant:4}+20% chance to Block Attack Damage
 ]],[[
 Yriel's Fostering
 Exquisite Leather

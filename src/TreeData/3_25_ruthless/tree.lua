@@ -22680,8 +22680,8 @@ return {
                 "AmberOil"
             },
             ["stats"]= {
-                "10% chance to Block Attack Damage if you’ve used a Retaliation Skill Recently",
-                "10% chance to Block Spell Damage if you’ve used a Retaliation Skill Recently"
+                "10% chance to Block Attack Damage if you've used a Retaliation Skill Recently",
+                "10% chance to Block Spell Damage if you've used a Retaliation Skill Recently"
             },
             ["reminderText"]= {
                 "(Recently refers to the past 4 seconds)"
@@ -49248,12 +49248,12 @@ return {
                 "OpalescentOil"
             },
             ["stats"]= {
-				"10% increased Effect of Non-Damaging Ailments per Elemental Ailment\nyou've inflicted Recently"
-			},
-			["reminderText"]= {
-				"(Recently refers to the past 4 seconds)",
+                "10% increased Effect of Non-Damaging Ailments per Elemental Ailment\nyou've inflicted Recently"
+            },
+            ["reminderText"]= {
+                "(Recently refers to the past 4 seconds)",
                 "(Elemental Ailments are Ignited, Scorched, Chilled, Frozen, Brittle, Shocked, and Sapped)"
-			},
+            },
             ["group"]= 400,
             ["orbit"]= 0,
             ["orbitIndex"]= 0,
@@ -51369,22 +51369,6 @@ return {
                 "54447"
             }
         },
-        [58214]= {
-            ["skill"]= 58214,
-            ["name"]= "Dual Wield Attack Speed and Block",
-            ["icon"]= "Art/2DArt/SkillIcons/passives/dualwieldblock.png",
-            ["stats"]= {
-                "+3% Chance to Block Attack Damage while Dual Wielding",
-                "3% increased Attack Speed while Dual Wielding"
-            },
-            ["group"]= 423,
-            ["orbit"]= 2,
-            ["orbitIndex"]= 15,
-            ["out"]= {
-                "51976"
-            },
-            ["in"]= {}
-        },
         [51976]= {
             ["skill"]= 51976,
             ["name"]= "Dual Wield Attack Speed and Block",
@@ -51397,12 +51381,29 @@ return {
             ["orbit"]= 2,
             ["orbitIndex"]= 1,
             ["out"]= {
+                "58214"
+            },
+            ["in"]= {
+                "11651"
+            }
+        },
+        [58214]= {
+            ["skill"]= 58214,
+            ["name"]= "Dual Wield Attack Speed and Block",
+            ["icon"]= "Art/2DArt/SkillIcons/passives/dualwieldblock.png",
+            ["stats"]= {
+                "+3% Chance to Block Attack Damage while Dual Wielding",
+                "3% increased Attack Speed while Dual Wielding"
+            },
+            ["group"]= 423,
+            ["orbit"]= 2,
+            ["orbitIndex"]= 15,
+            ["out"]= {
                 "12095"
             },
             ["in"]= {
-                "58214",
-                "11651"
-            }
+                "51976"
+			}
         },
         [12095]= {
             ["skill"]= 12095,
@@ -51419,7 +51420,7 @@ return {
                 "18357"
             },
             ["in"]= {
-                "51976"
+                "58214"
             }
         },
         [18357]= {
