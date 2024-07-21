@@ -32,6 +32,9 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 	self.colWidth = 230
 	self.sectionList = { }
 
+	self.controls.search = new("EditControl", {"TOPLEFT",self,"TOPLEFT"}, 4, 5, 260, 20, "", "Search", "%c", 100, nil, nil, nil, true)
+	t_insert(self.controls, self.controls.search)
+
 	-- Special section for skill/mode selection
 	self:NewSection(3, "SkillSelect", 1, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "View Skill Details", data = {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
@@ -300,9 +303,11 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 	self.controls.scrollBar:SetContentDimension(maxY - baseY, viewPort.height)
 	for _, section in ipairs(self.sectionList) do
 		-- Give sections their actual Y position and let them update
-		section.y = section.y - self.controls.scrollBar.offset
+		section.y = section.y - self.controls.scrollBar.offset + 25
 		section:UpdatePos()
 	end
+	
+	self.controls.search.y = 5 - self.controls.scrollBar.offset
 
 	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
@@ -312,6 +317,8 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 			elseif event.key == "y" and IsKeyDown("CTRL") then
 				self:Redo()
 				self.build.buildFlag = true
+			elseif event.key == "f" and IsKeyDown("CTRL") then
+				self:SelectControl(self.controls.search)
 			end
 		end
 	end
@@ -402,6 +409,11 @@ function CalcsTabClass:CheckFlag(obj)
 		end
 	end
 	return true
+end
+
+function CalcsTabClass:SearchMatch(txt)
+	local searchStr = self.controls.search.buf:lower()
+	return string.len(searchStr) > 0 and txt:lower():find(searchStr)
 end
 
 -- Build the calculation output tables
