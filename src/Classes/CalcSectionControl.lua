@@ -239,7 +239,7 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 			DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", "^8"..subSec.label)
 		else
 			if self.calcsTab:SearchMatch(subSec.label) then
-				DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", colorCodes.SEARCH_HIGHLIGHT..subSec.label..":")
+				DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", colorCodes.HIGHLIGHT..subSec.label..":")
 			else
 				DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", "^7"..subSec.label..":")
 			end
@@ -276,7 +276,7 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 						SetDrawColor(rowData.bgCol or "^0")
 						DrawImage(nil, x + 2, lineY + 2, 130, 18)
 						if self.calcsTab:SearchMatch(rowData.label) then
-							DrawString(x + 132, lineY + 2, "RIGHT_X", 16, "VAR", colorCodes.SEARCH_HIGHLIGHT..rowData.label.."^7:")
+							DrawString(x + 132, lineY + 2, "RIGHT_X", 16, "VAR", colorCodes.HIGHLIGHT..rowData.label.."^7:")
 						else
 							DrawString(x + 132, lineY + 2, "RIGHT_X", 16, "VAR", textColor..rowData.label.."^7:")
 						end
