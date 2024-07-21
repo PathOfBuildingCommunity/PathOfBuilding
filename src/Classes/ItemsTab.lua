@@ -3261,6 +3261,17 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		for _, modLine in pairs(item.buffModLines) do
 			tooltip:AddLine(16, (modLine.extra and colorCodes.UNSUPPORTED or colorCodes.MAGIC) .. modLine.line)
 		end
+	elseif base.tincture then
+		-- Tincture-specific info
+		local tinctureData = item.tinctureData
+		if item.quality > 0 then
+			tooltip:AddLine(16, s_format("^x7F7F7FQuality: "..colorCodes.MAGIC.."+%d%%", item.quality))
+		end
+		tooltip:AddLine(16, s_format("^x7F7F7FInflicts Mana Burn every %s%.2f ^x7F7F7FSeconds", main:StatColor(tinctureData.manaburn, base.tincture.manaburn), tinctureData.manaburn))
+		tooltip:AddLine(16, s_format("^x7F7F7F%s%.2f ^x7F7F7FSecond Cooldown When Deactivated", main:StatColor(tinctureData.cooldown, base.tincture.cooldown), tinctureData.cooldown))
+		for _, modLine in pairs(item.buffModLines) do
+			tooltip:AddLine(16, (modLine.extra and colorCodes.UNSUPPORTED or colorCodes.MAGIC) .. modLine.line)
+		end
 	elseif item.type == "Jewel" then
 		-- Jewel-specific info
 		if item.limit then
@@ -3590,6 +3601,41 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			header = "^7Deactivating this flask will give you:"
 		else
 			header = "^7Activating this flask will give you:"
+		end
+		self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
+	elseif base.tincture then
+		-- Special handling for tinctures
+		local stats = { }
+		local tinctureData = item.tinctureData
+		local modDB = self.build.calcsTab.mainEnv.modDB
+		local output = self.build.calcsTab.mainOutput
+		local effectInc = modDB:Sum("INC", { actor = "player" }, "TinctureEffect")
+
+		if item.rarity == "MAGIC" then
+			effectInc = effectInc + modDB:Sum("INC", { actor = "player" }, "MagicTinctureEffect")
+		end
+		local effectMod = 1 + (tinctureData.effectInc + effectInc) / 100
+		if effectMod ~= 1 then
+			t_insert(stats, s_format("^8Tincture effect modifier: ^7%+d%%", effectMod * 100 - 100))
+		end
+		t_insert(stats, s_format("^8Mana Burn Inflicted Every Second: ^7%.2f", tinctureData.manaburn * (1 + modDB:Sum("INC", { actor = "player" }, "TinctureManaBurnRate")/100) * (1 + modDB:Sum("MORE", { actor = "player" }, "TinctureManaBurnRate")/100)))
+		t_insert(stats, s_format("^8Tincture Cooldown when deactivated: ^7%.2f^8 seconds", tinctureData.cooldown / (1 + modDB:Sum("INC", { actor = "player" }, "TinctureCooldownRecovery")/100)))
+
+		if stats[1] then
+			tooltip:AddLine(14, "^7Effective tincture stats:")
+			for _, stat in ipairs(stats) do
+				tooltip:AddLine(14, stat)
+			end
+		end
+		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+		local output = calcFunc({ toggleTincture = item }, {})
+		GlobalCache.useFullDPS = storedGlobalCacheDPSView
+		local header
+		if self.build.calcsTab.mainEnv.tinctures[item] then
+			header = "^7Deactivating this tincture will give you:"
+		else
+			header = "^7Activating this tincture will give you:"
 		end
 		self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
 	else

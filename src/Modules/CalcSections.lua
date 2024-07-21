@@ -1632,6 +1632,12 @@ return {
 	{ label = "Charges/s", { format = "{2:output:ManaFlaskChargeGen}",
 		{ label = "Mana Flask Charges/s", modName = "ManaFlaskChargesGenerated", modType = "BASE"},
 		{ label = "Generic Flask Charges/s", modName = { "FlaskChargesGenerated", "FlaskChargesGeneratedPerEmptyFlask" }, modType = "BASE" }}, },
+} }, { defaultCollapsed = true, label = "Tinctures", data = {
+	extra = "+{0:output:TinctureEffect}%",
+	{ label = "Inc. Effect", { format = "{0:mod:1}%", { modName = "TinctureEffect", modType = "INC", actor = "player"}, }, },
+	{ label = "Mana Burn inc Rate", { format = "{0:mod:1}%", { modName = "TinctureManaBurnRate", modType = "INC", actor = "player"}, }, },
+	{ label = "Mana Burn more Rate", { format = "{0:mod:1}%", { modName = "TinctureManaBurnRate", modType = "MORE", actor = "player"}, }, },
+	{ label = "Cooldown Recovery", { format = "{0:mod:1}%", { modName = "TinctureCooldownRecovery", modType = "INC", actor = "player"}, }, },
 } }
 } },
 { 1, "Rage", 3, colorCodes.RAGE, {{ defaultCollapsed = true, label = "Rage", data = {
