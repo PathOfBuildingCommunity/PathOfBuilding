@@ -991,7 +991,7 @@ function calcs.defence(env, actor)
 	end
 
 	-- Recovery modifiers
-	output.LifeRecoveryRateMod = 0
+	output.LifeRecoveryRateMod = 1
 	if not modDB:Flag(nil, "CannotRecoverLifeOutsideLeech") then
 		output.LifeRecoveryRateMod = calcLib.mod(modDB, nil, "LifeRecoveryRate")
 	end
