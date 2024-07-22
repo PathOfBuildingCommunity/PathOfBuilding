@@ -361,15 +361,15 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			local ehpText = "EHP: 0"
 			if build.dps then
 				-- SetDrawColor(1, 0, 0)
-				dpsText = formatNumSep(s_format('DPS: %0.f', build.dps))
+				dpsText = formatNumSep(s_format('^x%sDPS^7: %0.f', 'FFC470', build.dps))
 			end
 			if build.life or build.es then
 				-- SetDrawColor(0, 1, 0)
-				lifeText = formatNumSep(s_format('%s: %0.f', build.life > build.es and "Life" or "ES", math.max(build.life, build.es)))
+				lifeText = formatNumSep(s_format('%s^7: %0.f', (build.life or 0) > (build.es or 0) and "^xFFAAAALife" or "^x667BC6ES", math.max(build.life or 0, build.es or 0)))
 			end
 			if build.ehp then
 				-- SetDrawColor(0, 0, 1)
-				ehpText = formatNumSep(s_format('EHP: %0.f', build.ehp))
+				ehpText = formatNumSep(s_format('^x%sEHP^7: %0.f', '3AA6B9',  build.ehp))
 			end
 
 			-- prevent overlapping on smaller screens.
