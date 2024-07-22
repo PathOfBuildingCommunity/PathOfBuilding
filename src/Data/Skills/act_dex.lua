@@ -3559,8 +3559,6 @@ skills["PoisonArrowAltX"] = {
 		{ "base_chance_to_poison_on_hit_%", 40 },
 	},
 	stats = {
-		"attack_minimum_added_chaos_damage",
-		"attack_maximum_added_chaos_damage",
 		"active_skill_base_radius_+",
 		"skill_can_fire_arrows",
 		"visual_hit_effect_chaos_is_green",
