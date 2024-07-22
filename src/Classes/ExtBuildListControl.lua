@@ -345,13 +345,12 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			local image = nil
 			if build.ascendancy or build.class then
 				image = self:GetAscendancyImageHandle(build.ascendancy or build.class)
-			end
-
-			if image then
-				SetDrawColor(0.5, 0.5, 0.5)
-				self:DrawImage(nil, x + self.width() - 115, currentHeight - 1, 82, 82)
-				SetDrawColor(1, 1, 1)
-				self:DrawImage(image, x + self.width() - 114, currentHeight, 80, 80)
+				if image then
+					SetDrawColor(0.5, 0.5, 0.5)
+					self:DrawImage(nil, x + self.width() - 115, currentHeight - 1, 82, 82)
+					SetDrawColor(1, 1, 1)
+					self:DrawImage(image, x + self.width() - 114, currentHeight, 80, 80)
+				end
 			end
 
 			local lineCount = 0
