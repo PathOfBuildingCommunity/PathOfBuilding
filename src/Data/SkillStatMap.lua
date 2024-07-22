@@ -2003,7 +2003,7 @@ return {
 },
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {
-	mod("AuraEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "BannerValour" }, { type = "Condition", var = "BannerPlanted" }),
+	mod("AuraEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "BannerValour" }, { type = "Condition", var = "BannerPlanted" }),
 },
 ["banner_area_of_effect_+%_per_stage"] = {
 	mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "BannerValour" }, { type = "Condition", var = "BannerPlanted" }),
