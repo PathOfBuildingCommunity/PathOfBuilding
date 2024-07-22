@@ -54,7 +54,7 @@ Steps:
    according to the file's format. This is important, otherwise the JSON data converter
    won't trigger.
 7. Restart Path of Building Community. This should result in a new file `tree.lua`.
-8. Remove `data.json` from the new directory. Do not commit this file.
+8. Remove `data.json` and `sprites.json` from the new directory. Do not commit these files.
 
 ## Installer creation
 

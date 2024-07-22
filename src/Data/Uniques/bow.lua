@@ -549,25 +549,27 @@ Variant: Pre 1.1.2
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
+Variant: Pre 3.25.0
 Variant: Current
 Requires Level 66, 212 Dex
 Implicits: 2
 {variant:3}(6-12)% increased Elemental Damage with Attack Skills
-{variant:4,5}(20-24)% increased Elemental Damage with Attack Skills
+{variant:4,5,6}(20-24)% increased Elemental Damage with Attack Skills
 {variant:1}Adds 40 to 60 Cold Damage
 {variant:2,3,4}Adds (32-40) to (48-60) Cold Damage
-{variant:5}Adds (48-60) to (72-90) Cold Damage
+{variant:5,6}Adds (48-60) to (72-90) Cold Damage
 {variant:1}Adds 1 to 100 Lightning Damage
 {variant:2,3,4}Adds 1 to (80-100) Lightning Damage
-{variant:5}Adds 1 to (120-150) Lightning Damage
+{variant:5,6}Adds 1 to (120-150) Lightning Damage
 (10-15)% increased Attack Speed
 {variant:1,2}(80-100)% increased Critical Strike Chance
 {variant:3,4}(60-80)% increased Critical Strike Chance
-{variant:5}(30-40)% increased Critical Strike Chance
+{variant:5,6}(30-40)% increased Critical Strike Chance
 {variant:1,2}25% increased Quantity of Items Dropped by Slain Frozen enemies
 {variant:3,4,5}15% increased Quantity of Items Dropped by Slain Frozen Enemies
+{variant:6}30% increased Rarity of Items Dropped by Slain Frozen Enemies
 {variant:1,2}50% increased Rarity of Items Dropped by Slain Shocked enemies
-{variant:3,4,5}30% increased Rarity of Items Dropped by Slain Shocked Enemies
+{variant:3,4,5,6}30% increased Rarity of Items Dropped by Slain Shocked Enemies
 ]],[[
 Replica Windripper
 Imperial Bow

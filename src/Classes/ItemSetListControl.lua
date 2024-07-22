@@ -56,6 +56,7 @@ function ItemSetListClass:RenameSet(itemSet, addOnName)
 			self.selValue = itemSet
 		end
 		self.itemsTab:AddUndoState()
+		self.itemsTab.build:SyncLoadouts()
 		main:ClosePopup()
 	end)
 	controls.save.enabled = false
@@ -127,6 +128,7 @@ function ItemSetListClass:OnSelDelete(index, itemSetId)
 				self.itemsTab:SetActiveItemSet(self.list[m_max(1, index - 1)])
 			end
 			self.itemsTab:AddUndoState()
+			self.itemsTab.build:SyncLoadouts()
 		end)
 	end
 end

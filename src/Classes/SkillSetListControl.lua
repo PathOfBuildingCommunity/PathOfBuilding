@@ -65,6 +65,7 @@ function SkillSetListClass:RenameSet(skillSet, addOnName)
 			self.selValue = skillSet
 		end
 		self.skillsTab:AddUndoState()
+		self.skillsTab.build:SyncLoadouts()
 		main:ClosePopup()
 	end)
 	controls.save.enabled = false
@@ -107,6 +108,7 @@ function SkillSetListClass:OnSelDelete(index, skillSetId)
 				self.skillsTab:SetActiveSkillSet(self.list[m_max(1, index - 1)])
 			end
 			self.skillsTab:AddUndoState()
+			self.skillsTab.build:SyncLoadouts()
 		end)
 	end
 end

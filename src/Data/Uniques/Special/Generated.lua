@@ -460,71 +460,6 @@ end
 
 table.insert(data.uniques.generated, table.concat(balanceOfTerror, "\n"))
 
-local skinOfTheLords = {
-	"Skin of the Lords",
-	"Simple Robe",
-	"League: Breach",
-	"Source: Upgraded from unique{Skin of the Loyal} using currency{Blessing of Chayula}",
-}
-local excludedItemKeystones = {
-	"Corrupted Soul", -- exclusive to specific unique
-	"Divine Flesh", -- exclusive to specific unique
-	"Hollow Palm Technique", -- exclusive to specific unique
-	"Immortal Ambition", -- exclusive to specific unique
-	"Secrets of Suffering", -- exclusive to specific items
-	"Inner Conviction", -- exclusive to specific items
-	"Phase Acrobatics", -- removed from game
-	"Mortal Conviction", -- removed from game
-}
-local excludedPassiveKeystones = {
-	"Chaos Inoculation", -- to prevent infinite loop
-	"Necromantic Aegis", -- to prevent infinite loop
-}
-local skinOfTheLordsKeystones = {}
-for _, name in ipairs(data.keystones) do
-	if not isValueInArray(excludedItemKeystones, name) and not isValueInArray(excludedPassiveKeystones, name) then
-		table.insert(skinOfTheLordsKeystones, name)
-	end
-end
-for _, name in ipairs(skinOfTheLordsKeystones) do
-	table.insert(skinOfTheLords, "Variant: "..name)
-end
-table.insert(skinOfTheLords, "Implicits: 0")
-table.insert(skinOfTheLords, "Sockets cannot be modified")
-table.insert(skinOfTheLords, "+2 to Level of Socketed Gems")
-table.insert(skinOfTheLords, "100% increased Global Defences")
-table.insert(skinOfTheLords, "You can only Socket Corrupted Gems in this item")
-for index, name in ipairs(skinOfTheLordsKeystones) do
-	table.insert(skinOfTheLords, "{variant:"..index.."}"..name)
-end
-table.insert(skinOfTheLords, "Corrupted")
-table.insert(data.uniques.generated, table.concat(skinOfTheLords, "\n"))
-
-local impossibleEscapeKeystones = {}
-for _, name in ipairs(data.keystones) do
-	if not isValueInArray(excludedItemKeystones, name) then
-		table.insert(impossibleEscapeKeystones, name)
-	end
-end
-local impossibleEscape = {
-	"Impossible Escape",
-	"Viridian Jewel",
-	"League: Sentinel",
-	"Source: Drops from unique{The Maven}",
-	"Limited to: 1",
-	"Radius: Small"
-}
-for _, name in ipairs(impossibleEscapeKeystones) do
-	table.insert(impossibleEscape, "Variant: "..name)
-end
-table.insert(impossibleEscape, "Variant: Everything (QoL Test Variant)")
-local variantCount = #impossibleEscapeKeystones + 1
-for index, name in ipairs(impossibleEscapeKeystones) do
-	table.insert(impossibleEscape, "{variant:"..index..","..variantCount.."}Passives in radius of "..name.." can be allocated without being connected to your tree")
-end
-table.insert(impossibleEscape, "Corrupted")
-table.insert(data.uniques.generated, table.concat(impossibleEscape, "\n"))
-
 --[[ 3 scenarios exist for legacy mods
 	- Mod changed, but kept the same mod Id
 		-- Has legacyMod
@@ -721,12 +656,14 @@ table.insert(data.uniques.generated, table.concat(voranasMarch, "\n"))
 
 function buildTreeDependentUniques(tree)
 	buildForbidden(tree.classNotables)
+	buildKeystoneItems(tree.keystoneMap)
 end
 
 function buildForbidden(classNotables)
 	local forbidden = { }
 	for _, name in pairs({"Flame", "Flesh"}) do
 		forbidden[name] = { }
+		table.insert(forbidden[name], "Rarity: UNIQUE")
 		table.insert(forbidden[name], "Forbidden " .. name)
 		table.insert(forbidden[name], (name == "Flame" and "Crimson" or "Cobalt") .. " Jewel")
 		local index = 1
@@ -759,6 +696,75 @@ function buildForbidden(classNotables)
 	end
 	table.insert(data.uniques.generated, table.concat(forbidden["Flame"], "\n"))
 	table.insert(data.uniques.generated, table.concat(forbidden["Flesh"], "\n"))
+end
+
+function buildKeystoneItems(keystoneMap)
+	local skinOfTheLords = {
+		"Skin of the Lords",
+		"Simple Robe",
+		"League: Breach",
+		"Source: Upgraded from unique{Skin of the Loyal} using currency{Blessing of Chayula}",
+	}
+	local excludedPassiveKeystones = {
+		"Chaos Inoculation", -- to prevent infinite loop
+		"Necromantic Aegis", -- to prevent infinite loop
+	}
+
+	-- Keystones added by jewels don't have a position set in the tree data
+	local isKeystoneNative = function(node) return node.isKeystone and not node.isBlighted and node.x ~= nil end
+
+	local skinOfTheLordsKeystones = {}
+	local seen = {}
+	for _, node in pairs(keystoneMap) do		
+		if isKeystoneNative(node) and not isValueInArray(excludedPassiveKeystones, node.name) and not seen[node] then
+			table.insert(skinOfTheLordsKeystones, node.name)
+			seen[node] = true
+		end
+	end
+	table.sort(skinOfTheLordsKeystones)
+	
+	for _, name in ipairs(skinOfTheLordsKeystones) do
+		table.insert(skinOfTheLords, "Variant: "..name)
+	end
+	table.insert(skinOfTheLords, "Implicits: 0")
+	table.insert(skinOfTheLords, "Sockets cannot be modified")
+	table.insert(skinOfTheLords, "+2 to Level of Socketed Gems")
+	table.insert(skinOfTheLords, "100% increased Global Defences")
+	table.insert(skinOfTheLords, "You can only Socket Corrupted Gems in this item")
+
+	for index, name in ipairs(skinOfTheLordsKeystones) do
+		table.insert(skinOfTheLords, "{variant:"..index.."}"..name)
+	end
+	table.insert(skinOfTheLords, "Corrupted")
+	table.insert(data.uniques.generated, table.concat(skinOfTheLords, "\n"))
+	
+	local impossibleEscapeKeystones = {}
+	seen = {}
+	for _, node in pairs(keystoneMap) do
+		if isKeystoneNative(node) and not seen[node] then
+			table.insert(impossibleEscapeKeystones, node.name)
+			seen[node] = true
+		end
+	end
+	table.sort(impossibleEscapeKeystones)
+	local impossibleEscape = {
+		"Impossible Escape",
+		"Viridian Jewel",
+		"League: Sentinel",
+		"Source: Drops from unique{The Maven} (Uber)",
+		"Limited to: 1",
+		"Radius: Small"
+	}
+	for _, name in ipairs(impossibleEscapeKeystones) do
+		table.insert(impossibleEscape, "Variant: "..name)
+	end
+	table.insert(impossibleEscape, "Variant: Everything (QoL Test Variant)")
+	local variantCount = #impossibleEscapeKeystones + 1
+	for index, name in ipairs(impossibleEscapeKeystones) do
+		table.insert(impossibleEscape, "{variant:"..index..","..variantCount.."}Passives in radius of "..name.." can be allocated without being connected to your tree")
+	end
+	table.insert(impossibleEscape, "Corrupted")
+	table.insert(data.uniques.generated, table.concat(impossibleEscape, "\n"))
 end
 
 -- That Which Was Taken
@@ -812,26 +818,3 @@ for _, modId in ipairs(sortedCharmsMods) do
 end
 
 table.insert(data.uniques.generated, table.concat(thatWhichWasTaken, "\n"))
-
-local thePerandusPactMods = {
-	["Life"] = "+5 to Maximum Life",
-	["Global Crit Chance"] = "5% Increased Global Critical Strike Chance",
-}
-
-local thePerandusPact = {
-	"The Perandus Pact",
-	"Prismatic Jewel",
-	"Limited to: 1",
-}
-
-for name, _ in pairs(thePerandusPactMods) do
-	table.insert(thePerandusPact, "Variant: "..name)
-end
-
-local perandusPactIndex = 1
-for _, line in pairs(thePerandusPactMods) do
-	table.insert(thePerandusPact, "{variant:"..perandusPactIndex.."}Passive Skills in Radius also grant "..line)
-	perandusPactIndex = perandusPactIndex + 1
-end
-
-table.insert(data.uniques.generated, table.concat(thePerandusPact, "\n"))

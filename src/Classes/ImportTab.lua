@@ -473,7 +473,7 @@ function ImportTabClass:DownloadCharacterList()
 				self.controls.charSelectLeague.selIndex = 1
 			end
 			self.lastCharList = charList
-			self:BuildCharacterList(self.controls.charSelectLeague:GetSelValue("league"))
+			self:BuildCharacterList(self.controls.charSelectLeague:GetSelValueByKey("league"))
 
 			-- We only get here if the accountname was correct, found, and not private, so add it to the account history.
 			self:SaveAccountHistory()
@@ -489,14 +489,40 @@ function ImportTabClass:BuildCharacterList(league)
 			charLeague = char.league or "?"
 			charName = char.name or "?"
 			charClass = char.class or "?"
-			lbl = (league == nil and
-				string.format("%s: Level %d %s in %s", charName, charLvl, charClass, charLeague)
-			or
-				string.format("%s: Level %d %s", charName, charLvl, charClass)
-			)
+
+			classColor = colorCodes.DEFAULT
+			if charClass ~= "?" then
+				classColor = colorCodes[charClass:upper()]
+
+				if classColor == nil then
+					if (charClass == "Elementalist" or charClass == "Necromancer" or charClass == "Occultist") then
+						classColor = colorCodes["WITCH"]
+					elseif (charClass == "Guardian" or charClass == "Inquisitor" or charClass == "Hierophant") then
+						classColor = colorCodes["TEMPLAR"]
+					elseif (charClass == "Assassin" or charClass == "Trickster" or charClass == "Saboteur") then
+						classColor = colorCodes["SHADOW"]
+					elseif (charClass == "Gladiator" or charClass == "Slayer" or charClass == "Champion") then
+						classColor = colorCodes["DUELIST"]
+					elseif (charClass == "Raider" or charClass == "Pathfinder" or charClass == "Deadeye") then
+						classColor = colorCodes["RANGER"]
+					elseif (charClass == "Juggernaut" or charClass == "Berserker" or charClass == "Chieftain") then
+						classColor = colorCodes["MARAUDER"]
+					elseif (charClass == "Ascendant") then
+						classColor = colorCodes["SCION"]
+					end
+				end
+			end
+
+			local detail
+			if league == nil then
+				detail = string.format("%s%s ^x808080lvl %d in %s", classColor, charClass, charLvl, charLeague)
+			else
+				detail = string.format("%s%s ^x808080lvl %d", classColor, charClass, charLvl)
+			end
 			t_insert(self.controls.charSelect.list, {
-				label = lbl,
+				label = charName,
 				char = char,
+				detail = detail
 			})
 		end
 	end
@@ -814,7 +840,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	if itemData.ilvl > 0 then
 		item.itemLevel = itemData.ilvl
 	end
-	if item.base.weapon or item.base.armour or item.base.flask then
+	if item.base.weapon or item.base.armour or item.base.flask or item.base.tincture then
 		item.quality = 0
 	end
 	if itemData.properties then
