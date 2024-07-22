@@ -86,7 +86,7 @@ Note that automatic updates are disabled in Dev Mode.
 
 Sometimes you may need to force Dev mode OFF when running from the dev branch to debug a specific part of Path of Building (e.g. the update system).
 
-To do so [comment out Line 54 to line 58](./src/Launch.lua#L54-L58) of the [Launch.lua](./src/Launch.lua) file:
+To do so [comment out Line 65 to line 69](./src/Launch.lua#L65-L69) of the [Launch.lua](./src/Launch.lua) file:
 ```
 	--if localManXML and not self.versionBranch and not self.versionPlatform then
 	--    -- Looks like a remote manifest, so we're probably running from a repository
