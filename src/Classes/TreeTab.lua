@@ -287,13 +287,13 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 				self.build.buildFlag = true
 				inputEvents[id] = nil
 			elseif event.key == "UP" then
-				index = self.activeSpec - 1
-				if self.specList[index] then
+				local index = self.activeSpec - 1
+				if self.specList[index] and not self.controls.specSelect:IsMouseOver() and not self.controls.specSelect.dropped then
 					self.build.modFlag = true
 					self:SetActiveSpec(index)
 				end
-			elseif event.key == "DOWN" then
-				index = self.activeSpec + 1
+			elseif event.key == "DOWN" and not self.controls.specSelect:IsMouseOver() and not self.controls.specSelect.dropped then
+				local index = self.activeSpec + 1
 				if self.specList[index] then
 					self.build.modFlag = true
 					self:SetActiveSpec(index)
