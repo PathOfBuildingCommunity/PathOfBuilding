@@ -1869,7 +1869,7 @@ function calcs.perform(env, skipEHP)
 			end
 			if activeSkill.activeEffect.grantedEffect.name == "Penance Brand of Dissipation" and activeSkill.skillPart == 2 then
 				local activation_frequency, duration = getCachedOutputValue(env, activeSkill, "HitSpeed", "Duration") -- HitSpeed is the brand activation frequency
-				local ticks = m_min((m_floor(activation_frequency * duration) - 1), 19)
+				local ticks = m_max(m_min((m_floor((activation_frequency or 0) * duration) - 1), 19), 0)
 				activeSkill.skillModList:NewMod("Multiplier:PenanceBrandofDissipationMaxStages", "BASE", ticks, "Base")
 				activeSkill.skillModList:NewMod("Multiplier:PenanceBrandofDissipationStageAfterFirst", "BASE", ticks, "Base")
 			end
