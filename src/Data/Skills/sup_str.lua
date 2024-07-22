@@ -1962,7 +1962,7 @@ skills["AncestralSlamSupport"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_ancestral_slam_big_hit_hit_damage_+%_final"] = {
-			mod("FistOfWarHitMultiplier", "BASE", nil),
+			mod("FistOfWarDamageMultiplier", "BASE", nil),
 		},
 		["ancestral_slam_interval_duration"] = {
 			mod("FistOfWarCooldown", "BASE", nil),
