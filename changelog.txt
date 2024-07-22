@@ -1,5 +1,6 @@
-VERSION[2.43.0][2024/07/22]
+VERSION[2.43.0][2024/07/23]
 
+--- New to Path of Building ---
 * Add 3.25 Passive Tree (Regisle)
 * Update gems with 3.25 balance changes (LocalIdentity)
 * Add new 3.25 uniques (Regisle, acoudray)
@@ -73,7 +74,6 @@ VERSION[2.43.0][2024/07/22]
 * Fix Elemancer overriding golem resistances (Paliak)
 * Fix Manaforged trigger rate calculations (Paliak)
 * Fix Spellslinger trigger rate not being capped by Spellslinger cooldown (Paliak)
-* Fix trigger chance applying to self triggers that assume max rate (Paliak)
 * Fix Tawhoa not showing trigger rate on Calcs page (Paliak)
 * Improve handling of trigger chance (Paliak)
 * Fix incorrect calculation of effective crit/hit chance for triggers when using skills that hit with both weapons at the same time (Paliak)
