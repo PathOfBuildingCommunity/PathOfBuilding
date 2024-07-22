@@ -209,9 +209,15 @@ function main:Init()
 	self.controls.forkLabel.label = function()
 		return "^8PoB Community Fork"
 	end
-	self.controls.versionLabel = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 148, -2, 0, 16, "")
+	self.controls.versionLabel = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 148, launch.versionBranch == "beta" and -12 or -2, 0, 16, "")
 	self.controls.versionLabel.label = function()
 		return "^8Version: "..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or launch.versionBranch == "beta" and " (Beta)" or "")
+	end
+	if launch.versionBranch == "beta" then
+		self.controls.versionHash = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 148, 3, 0, 16, "")
+		self.controls.versionHash.label = function()
+			return "^8Rev/Hash: "..launch.versionCommitHashShort
+		end
 	end
 	self.controls.devMode = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -26, 0, 20, colorCodes.NEGATIVE.."Dev Mode")
 	self.controls.devMode.shown = function()
