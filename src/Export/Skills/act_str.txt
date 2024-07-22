@@ -47,66 +47,20 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill InfernalCryOnHitExplosion
-#flags attack melee area
-	statMap = {
-		["triggered_by_infernal_cry"] = {
-			-- Display only
-		},
-	},
-#baseMod skill("showAverage", true)
-#mods
-
-#skill TotemMelee
-#flags attack melee totem duration
-	statMap = {
-		["melee_ancestor_totem_grant_owner_attack_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-	},
-#baseMod skill("allowTotemBuff", true)
-#baseMod skill("thisIsNotABuff", true)
-#mods
-
 #skill AncestralCry
 #flags warcry area duration
 	statMap = {
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("AncestralExertedAttacks", "BASE", nil),
 		},
-		["ancestral_cry_x_melee_range_per_5_monster_power"] = {
-			mod("AncestralMeleeWeaponRangePer5MP", "BASE", nil),
+		["ancestral_cry_elemental_resistance_per_5_monster_power"] = {
+			mod("AncestralElementalResistancePer5MP", "BASE", nil),
 		},
-		["ancestral_cry_physical_damage_reduction_rating_per_5_MP"] = {
-			mod("AncestralArmourPer5MP", "BASE", nil),
-		},
-		["ancestral_cry_max_physical_damage_reduction_rating"] = {
-			mod("AncestralArmourMax", "BASE", nil),
+		["ancestral_cry_max_elemental_resistances_per_5_monster_power"] = {
+			mod("AncestralMaxElementalResistancePer5MP", "BASE", nil),
 		},
 	},
 #baseMod skill("radius", 60)
-#mods
-
-#skill AncestorTotemSlam
-#flags attack melee totem area duration
-	statMap = {
-		["slam_ancestor_totem_grant_owner_melee_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ancestral Warchief" }),
-		},
-	},
-#baseMod skill("allowTotemBuff", true)
-#baseMod skill("thisIsNotABuff", true)
-#mods
-
-#skill VaalAncestralWarchief
-#flags attack melee totem area duration
-	statMap = {
-		["slam_ancestor_totem_grant_owner_melee_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ancestral Warchief" }),
-		},
-	},
-#baseMod skill("allowTotemBuff", true)
-#baseMod skill("thisIsNotABuff", true)
 #mods
 
 #skill Anger
@@ -166,11 +120,8 @@ local skills, mod, flag, skill = ...
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("BattlemageExertedAttacks", "BASE", nil),
 		},
-		["divine_cry_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value_per_5_power_up_to_150%"] = {
-			mod("BattlemageSpellIncreaseApplyToAttackPer5MP", "BASE", nil),
-		},
-		["divine_cry_critical_strike_chance_+%_per_5_power_up_to_cap%"] = {
-			mod("BattlemageCritChancePer5MP", "BASE", nil),
+		["divine_cry_base_critical_strike_chance_+%_per_5_power"] = {
+			mod("BattlemageBaseCritChancePer5MP", "BASE", nil),
 		},
 		["display_battlemage_cry_exerted_attacks_trigger_supported_spell"] ={
 			-- Display only
@@ -193,17 +144,8 @@ local skills, mod, flag, skill = ...
 #skill Berserk
 #flags spell
 	statMap = {
-		["berserk_attack_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-		["berserk_attack_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-		["berserk_movement_speed_+%_final"] = {
-			mod("MovementSpeed", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-		["berserk_base_damage_taken_+%_final"] = {
-			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		["berserk_rage_effect_+%"] = {
+			mod("RageEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 #mods
@@ -457,15 +399,14 @@ local skills, mod, flag, skill = ...
 #skill DefianceBanner
 #flags spell area duration aura banner
 	statMap = {
-		["evasion_and_physical_damage_reduction_rating_+%"] = {
-			mod("ArmourAndEvasion", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		["defiance_banner_movement_speed"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
 		},
-		["armour_evasion_banner_critical_strike_chance_+%"] = {
-			mod("EnemyCritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		["suppress_spell_damage"] = {
+			mod("SpellSuppressionChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
 		},
 	},
-#baseMod skill("radius", 46)
-#baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod skill("radius", 24
 #baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
@@ -526,17 +467,13 @@ local skills, mod, flag, skill = ...
 #flags spell
 	statMap = {
 		["puresteel_banner_accuracy_rating_+%_final"] = {
-			mod("Accuracy", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
+			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
 		},
 		["attacks_impale_on_hit_%_chance"] = {
-			mod("ImpaleChance", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["impale_debuff_effect_+%"] = {
-			mod("ImpaleEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
 		},
 	},
-#baseMod skill("radius", 46)
-#baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod skill("radius", 24)
 #baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
@@ -694,14 +631,8 @@ local skills, mod, flag, skill = ...
 #skill EnduringCry
 #flags warcry area duration
 	statMap = {
-		["regenerate_x_life_over_1_second_on_skill_use_or_trigger"] = {
+		["enduring_cry_life_regenerated_percentage_per_5_power"] = {
 			mod("EnduringCryLifeRegen", "BASE", nil),
-		},
-		["resist_all_elements_%_per_endurance_charge"] = {
-			mod("EnduringCryElementalResist", "BASE", nil),
-		},
-		["physical_damage_reduction_%_per_endurance_charge"] = {
-			mod("EnduringCryPhysicalDamageReduction", "BASE", nil),
 		},
 	},
 #baseMod skill("radius", 60)
@@ -757,12 +688,13 @@ local skills, mod, flag, skill = ...
 #flags spell area aura
 	statMap = {
 		["support_maimed_enemies_physical_damage_taken_+%"] = {
-			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Maim", effectCond = "BloodStance" }, { type = "Condition", var = "Maimed" }),
+			mod("PhysicalDamageTaken", "MORE", nil, ModFlag.Hit, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectCond = "BloodStance" }),
+		},
+		["attack_damage_taken_+%_final_from_enemies_unaffected_by_sand_armour"] = {
+			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura", effectCond = "SandStance" }),
 		},
 	},
 #baseMod skill("radius", 28)
-#baseMod mod("Condition:Maimed", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Flesh", effectCond = "BloodStance" })
-#baseMod mod("Condition:Blinded", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Stone", effectCond = "SandStance" })
 #mods
 
 #skill FrozenLegion
@@ -972,9 +904,6 @@ local skills, mod, flag, skill = ...
 		activeSkill.skillData.FireDot = (activeSkill.skillData.hoaOverkill or 0) * (1 + activeSkill.skillData.hoaMoreBurn / 100) * activeSkill.skillData.hoaOverkillPercent
 	end,
 	statMap = {
-		["herald_of_ash_spell_fire_damage_+%_final"] = {
-			mod("FireDamage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
 		["physical_damage_%_to_add_as_fire"] = {
 			mod("PhysicalDamageGainAsFire", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
 		},
@@ -1079,8 +1008,8 @@ local skills, mod, flag, skill = ...
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("InfernalExertedAttacks", "BASE", nil),
 		},
-		["infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power"] = {
-			mod("InfernalFireTakenPer5MP", "BASE", nil),
+		["infernal_cry_phys_as_extra_fire%_per_5_monster_power"] = {
+			mod("InfernalFireAsExtraPer5MP", "BASE", nil),
 		},
 		["infernal_cry_empowered_attacks_trigger_combust_display"] = {
 			-- Display only
@@ -1088,8 +1017,16 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 60)
 #baseMod skill("radiusLabel", "Warcry area:")
-#baseMod skill("radiusSecondary", 22)
-#baseMod skill("radiusSecondaryLabel", "Explosion area:")
+#mods
+
+#skill InfernalCryOnHitExplosion
+#flags attack melee area
+	statMap = {
+		["triggered_by_infernal_cry"] = {
+			-- Display only
+		},
+	},
+#baseMod skill("showAverage", true)
 #mods
 
 #skill InfernalBlow
@@ -1180,8 +1117,8 @@ local skills, mod, flag, skill = ...
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("IntimidatingExertedAttacks", "BASE", nil),
 		},
-		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
-			mod("IntimidatingPDRPer5MP", "BASE", nil),
+		["intimidating_cry_movement_speed_per_5_MP"] = {
+			mod("IntimidatingMovementSpeedPer5MP", "BASE", nil),
 		},
 		["intimidating_cry_empowerd_attacks_deal_double_damage_display"] = {
 		},
@@ -1621,12 +1558,16 @@ local skills, mod, flag, skill = ...
 			mod("SeismicExertedAttacks", "BASE", nil),
 		},
 		["seismic_cry_slam_skill_area_+%_increase_per_repeat"] = {
-			mod("SeismicAoEMultiplier", "BASE", nil),
+			mod("SeismicAoEIncMultiplier", "BASE", nil),
 		},
 		["seismic_cry_base_slam_skill_area_+%"] = {
+			mod("SeismicAoEMoreMultiplier", "BASE", nil),
 		},
-		["seismic_cry_+%_enemy_stun_threshold_per_5_MP"] = {
+		["seismic_cry_+%_stun_threshold_per_5_MP"] = {
 			mod("SeismicStunThresholdPer5MP", "BASE", nil),
+		},
+		["seismic_cry_+%_physical_damamge_reduction_per_5_MP"] = {
+			mod("SeismicArmourPer5MP", "BASE", nil),
 		},
 	},
 #baseMod skill("radius", 60)
@@ -2098,7 +2039,6 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" })
 		},
 	},
-#baseMod skill("radius", 46)
-#baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod skill("radius", 24)
 #baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods

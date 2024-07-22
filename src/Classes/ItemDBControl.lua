@@ -232,7 +232,7 @@ function ItemDBClass:ListBuilder()
 			item.measuredPower = 0
 			for slotName, slot in pairs(self.itemsTab.slots) do
 				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
-					local output = calcFunc(item.base.flask and { toggleFlask = item } or { repSlotName = slotName, repItem = item }, { nodeAlloc = true, requirementsGems = true })
+					local output = calcFunc(item.base.flask and { toggleFlask = item } or item.base.tincture and { toggleTincture = item } or { repSlotName = slotName, repItem = item }, { nodeAlloc = true, requirementsGems = true })
 					local measuredPower = output.Minion and output.Minion[self.sortMode] or output[self.sortMode] or 0
 					if self.sortDetail.transform then
 						measuredPower = self.sortDetail.transform(measuredPower)

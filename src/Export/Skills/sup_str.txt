@@ -99,6 +99,9 @@ statMap = {
 #mods
 
 #skill SupportCallToArms
+	baseMods = {
+		skill("SupportedByAutoexertion", true),
+	},
 #mods
 
 #skill SupportCastOnMeleeKill
@@ -201,32 +204,6 @@ statMap = {
 	},
 #mods
 
-#skill SupportAuraDuration
-	statMap = {
-		["support_aura_duration_base_buff_duration"] = {
-			skill("auraDuration", nil),
-			div = 1000,
-		},
-	},
-#mods
-
-#skill SupportEarthbreaker
-	addFlags = {
-		totem = true,
-	},
-	statMap = {
-		["support_ancestor_slam_totem_attack_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, ModFlag.Attack),
-		},
-		["support_ancestor_slam_totem_damage_+%_final"] = {
-			mod("Damage", "MORE", nil),
-		},
-		["ancestor_totem_grants_owner_area_of_effect_+%_with_melee_skills"] = {
-			mod("AreaOfEffect", "INC", nil, ModFlag.Melee),
-		},
-	},
-#mods
-
 #skill SupportWeaponElementalDamage
 	statMap = {
 		["support_attack_skills_elemental_damage_+%_final"] = {
@@ -278,9 +255,6 @@ statMap = {
 	statMap = {
 		["support_ancestral_slam_big_hit_hit_damage_+%_final"] = {
 			mod("FistOfWarHitMultiplier", "BASE", nil),
-		},
-		["support_ancestral_slam_big_hit_ailment_damage_+%_final"] = {
-			mod("FistOfWarAilmentMultiplier", "BASE", nil),
 		},
 		["ancestral_slam_interval_duration"] = {
 			mod("FistOfWarCooldown", "BASE", nil),
@@ -376,6 +350,11 @@ statMap = {
 #mods
 
 #skill SupportIncreasedDuration
+	statMap = {
+		["support_reduced_duration_skill_effect_duration_+%_final"] = {
+			mod("Duration", "MORE", nil),
+		},
+	},
 #mods
 
 #skill SupportIronGrip
@@ -530,16 +509,7 @@ statMap = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff", effectName = "Rage" } ),
 		},
 		["attack_minimum_added_physical_damage_with_at_least_10_rage"] = {
-			mod("PhysicalMin", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "MultiplierThreshold", var = "Rage", threshold = 10 })
-		},
-		["attack_maximum_added_physical_damage_with_at_least_10_rage"] = {
-			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "MultiplierThreshold", var = "Rage", threshold = 10 })
-		},
-		["attack_minimum_added_physical_damage_per_10_rage"] = {
-			mod("PhysicalMin", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10 })
-		},
-		["attack_maximum_added_physical_damage_per_10_rage"] = {
-			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10 })
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "MultiplierThreshold", var = "Rage", threshold = 10 })
 		},
 	},
 #mods
@@ -566,6 +536,10 @@ statMap = {
 		},
 		["critical_strike_chance_+%_per_righteous_charge"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "InspirationCharge" }),
+		},
+		["base_mana_cost_-%_final"] = {
+			mod("ManaCost", "MORE", nil),
+			mult = -1,
 		},
 	},
 #mods
