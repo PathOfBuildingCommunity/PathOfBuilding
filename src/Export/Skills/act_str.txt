@@ -2035,8 +2035,8 @@ local skills, mod, flag, skill = ...
 		["accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		},
-		["physical_damage_taken_+%"] = {
-			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" })
+		["physical_damage_+%"] = {
+			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }, { type = "SkillType", skillType = SkillType.Melee }),
 		},
 	},
 #baseMod skill("radius", 24)
