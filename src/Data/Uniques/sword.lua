@@ -188,6 +188,8 @@ Attacks with this Weapon Maim on hit
 ]],[[
 Replica Innsbury Edge
 Elder Sword
+Variant: Pre 3.25.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
@@ -195,7 +197,7 @@ Implicits: 1
 (100-140)% increased Physical Damage
 0.2% of Chaos Damage Leeched as Life
 50% of Physical Damage Converted to Chaos Damage
-10% of Physical Damage from Hits taken as Chaos Damage
+{variant:1}10% of Physical Damage from Hits taken as Chaos Damage
 Inflict Withered for 2 seconds on Hit with this Weapon
 ]],[[
 The Iron Mass
@@ -357,16 +359,18 @@ League: Talisman Standard, Talisman Hardcore
 Source: Drops from unique{Rigwald, the Wolven King} (Level 75+)
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
-{variant:2,3}40% increased Global Accuracy Rating
+{variant:2,3,4}40% increased Global Accuracy Rating
 +10% Chance to Block Attack Damage while Dual Wielding
 Adds (60-80) to (150-180) Physical Damage
 {variant:1,2}80% increased Physical Damage with Axes
 +(350-400) to Accuracy Rating
 {variant:1,2}15% chance to gain a Frenzy Charge on Kill
 {variant:3}+1% to Damage over Time Multiplier for Bleeding per Rage while wielding an Axe
+{variant:4}+2% to Damage over Time Multiplier for Bleeding per Rage while wielding an Axe
 ]],[[
 The Rippling Thoughts
 Legion Sword

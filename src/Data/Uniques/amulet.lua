@@ -68,6 +68,7 @@ Implicits: 1
 ]],[[
 The Ascetic
 Gold Amulet
+Source: No longer obtainable
 Requires Level 8
 Implicits: 1
 (12-20)% increased Rarity of Items found
@@ -197,6 +198,8 @@ Implicits: 1
 ]],[[
 Eternal Damnation
 Agate Amulet
+Variant: Pre 3.25.0
+Variant: Current
 League: Sanctum
 Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
 LevelReq: 52
@@ -206,6 +209,7 @@ Implicits: 1
 {tags:jewellery_resistance}+(-13-13)% to Chaos Resistance
 {tags:jewellery_resistance}-5% to all maximum Resistances
 Gain additional Elemental Damage Reduction equal to half your Chaos Resistance
+{variant:2}Maximum Endurance, Frenzy and Power Charges is 0
 ]],[[
 Badge of the Brotherhood
 Turquoise Amulet
@@ -238,6 +242,7 @@ Gold Amulet
 Variant: Pre 3.0.0
 Variant: Pre 3.2.0
 Variant: Current
+Source: No longer obtainable
 Requires Level 30
 Implicits: 1
 (12-20)% increased Rarity of Items found
@@ -336,6 +341,8 @@ Implicits: 1
 ]],[[
 Defiance of Destiny
 Paua Amulet
+Variant: Pre 3.25.0
+Variant: Current
 LevelReq: 49
 Implicits: 1
 {tags:mana}(20-30)% increased Mana Regeneration Rate
@@ -343,7 +350,8 @@ Implicits: 1
 {tags:jewellery_resistance}+(10-40)% to Fire Resistance
 {tags:jewellery_resistance}+(10-40)% to Cold Resistance
 {tags:jewellery_resistance}+(10-40)% to Lightning Resistance
-{tags:life}Gain (25-35)% of Missing Unreserved Life before being Hit by an Enemy
+{variant:1}{tags:life}Gain (25-35)% of Missing Unreserved Life before being Hit by an Enemy
+{variant:2}{tags:life}Gain (10-20)% of Missing Unreserved Life before being Hit by an Enemy
 ]],[[
 The Ephemeral Bond
 Lapis Amulet
@@ -445,7 +453,7 @@ Variant: Chance to Freeze, Shock and Ignite
 Variant: Crit Chance
 Variant: Area of Effect
 Variant: Attack/Cast Speed
-Variant: Item Quantity
+Variant: Item Quantity (Pre 3.25.0)
 Variant: Life
 Variant: Crit Multiplier
 Variant: Maximum number of Raised Zombies
@@ -461,6 +469,7 @@ Variant: Lightning taken as Cold
 Variant: Lightning taken as Fire
 Variant: Gain Physical as random Element
 Variant: Extra Pierces
+Variant: Damage over Time Multiplier
 Implicits: 32
 {variant:1}(24-32)% increased Attributes
 {variant:2}(30-50)% increased Global Defences
@@ -494,6 +503,7 @@ Implicits: 32
 {variant:30}100% of Lightning Damage from Hits taken as Fire Damage
 {variant:31}Gain (12-24)% of Physical Damage as Extra Damage of a random Element
 {variant:32}Projectiles Pierce (4-6) additional Targets
+{variant:33}(24-36)% Damage over Time Multiplier
 Implicit Modifier magnitudes are doubled
 ]],[[
 The Felbog Fang
@@ -1120,6 +1130,18 @@ Implicits: 1
 {tags:mana}+(30-50) to maximum Mana
 40% increased Stun and Block Recovery
 Your Critical Strikes do not deal extra Damage
+]],[[
+The Utmost
+Gold Amulet
+Source: Created from unique{Primordial Fragments} obtained from Uber bosses
+Requires Level 8
+Implicits: 1
+(12–20)% increased Rarity of Items found
++(0–30)% chance to Suppress Spell Damage
+{tags:jewellery_resistance}+(0–5)% to all maximum Elemental Resistances
+{tags:caster,attack,speed}(0–40)% increased Attack and Cast Speed
+{tags:jewellery_elemental}Damage Penetrates (0–20)% Elemental Resistances
+Corrupted
 ]],[[
 Uul-Netol's Vow
 Unset Amulet

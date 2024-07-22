@@ -21,13 +21,14 @@ Ctrl + 7	Jump to party tab
 Ctrl + I	Jump to import tab
 Ctrl + A	Select all
 Ctrl + C	Copy
+Ctrl + D	Toggle stat diff display (Passive Tree tab / Items tab)
 Ctrl + F	Show find / search box (e.g. unique item / tree)
 Ctrl + M	Manage Trees (Tree tab only)
 Ctrl + N	New build (in build selection menu)
 Ctrl + S	Save build to file
 Ctrl + U	Check for update
 Ctrl + V or RMB	Paste
-Ctrl + W or	
+Ctrl + W or
 Mouse 4	Close Build (gives save prompt if unsaved)
 Ctrl + X	Cut
 Ctrl + Y	Redo
@@ -52,10 +53,9 @@ Passive Tree Shortcuts:
 
 Ctrl	Hide tooltips while held
 P	Toggle node power
-Ctrl + D	Toggle stat diff display
 PgUp/PgDn/MWheel	Zoom in / out (hold with shift to increase the amount of zoom x 3)
 Ctrl + LMB	Zoom in on mouse cursor position
-Hold Shift	Enable "path trace mode" 
+Hold Shift	Enable "path trace mode"
 	(highlighted nodes will stay highlighted, and will be allocated when a node is clicked on the tree)
 Up/Down arrow	Select previous/next tree respectively
 
@@ -89,7 +89,7 @@ Select which jewel type, which jewel socket to search for, and which conqueror f
     ("Any" will just use the first conqueror if you add it to build, more on that later)
 
 The filter nodes option makes it only check nodes that are allocated when searching a jewel socket.
-Next, a node change/addition can be selected with the "search for node" dropdown, 
+Next, a node change/addition can be selected with the "search for node" dropdown,
     The values for the stats added are controlled by primary/secondary (in the case of 2 stats from 1 node) node weights
     If that type has already been added, then moving those sliders will change the values
     These values can also be edited directly in the "Desired Nodes" box
@@ -112,7 +112,25 @@ Militant Faith jewels also have the option to select the other mods on the jewel
 
 Advanced tricks:
     For Militant Faith, if you don't want any nodes to change, you can just sort by devotion. As unchanged nodes add devotion, the ones with the most devotion will be the ones with unchanged nodes
-	
+
+---[Loadouts]
+
+Loadouts can be selected from the dropdown in the top middle of the screen. Selecting a Loadout will load all four sets at once. These are automatically registered based on one of three conditions:
+
+    1) All four sets share the same name and colour formatting, e.g. "Leveling"
+        - If you have a set named ^4Leveling^7, it will not match to other sets named Leveling
+
+    2) All four sets have the same alphanumeric identifier inside of braces { } at the end of the name, e.g. "Leveling Tree {1}", "Leveling Items {1}", "Leveling Skills {1}", "Leveling Config {1}"
+        - If you would like a single set to be used in multiple Loadouts, you can put the identifiers in the braces separated by commas. For example, an Item Set could be named "Early Game {1,2}" and there could be Tree, Skill, and Config Sets with {1} and {2}, resulting in two loadouts linked to the same Item Set
+        - The name of the Loadout in the dropdown is based on the name of the Tree Set, identifiers are shown for clarity when using sets multiple times
+        - These sets can have differing colour formatting so long as the identifier texts match
+
+    3) There is only one set for a type, e.g. "Default" config set, it will be assigned too all existing loadouts.
+
+The "New Loadout" option allows the user to create all four sets from a single popup for convenience.
+The "Sync" option is a backup option to force the UI to update in case the user has changed this data behind the scenes.
+
+
 ---[Party Tab]
 
 The Party tab Allows you to import support characters and have their auras and curses apply
@@ -120,10 +138,10 @@ The Party tab Allows you to import support characters and have their auras and c
 To import a build it must be exported with "Export support" enabled in the import/export tab and must be imported in the party tab
 You can import a specific type like aura or curse, or import to all
 You can also set it to append to a section rather than replace it (curses and links are always replaced if new one has a curse/link)
- 
+
 This does not add the auras, curses or links into the skills tab, but they do show up on calcs tab under "aura and buff skills" as well as "curses and debuffs" respectively
 They also show other effects they add, like when physical damage reduction is applied by an aurabot with the Guardian node
- 
+
 Auras with the highest effect will take priority
 Your curses will take priority over a support's
 
@@ -135,18 +153,18 @@ Some auras like Mines which use a stack value for their effect will not apply as
 
 The skills tab allows you to plan out the skills you will use for your character. To access this tab, click on "Skills" in the tab at the top left of the screen next to "Tree" and "Items".
 
-From here, you can view all of the skills in your build. There are a few different UI elements that you can use to group your skills and make DPS calculations easier. 
+From here, you can view all of the skills in your build. There are a few different UI elements that you can use to group your skills and make DPS calculations easier.
 
-The top left window lets you view Socket Groups. Skills can be organized into Socket Groups to show which support gems are applied to certain skills. You can add a socket group by clicking New and selecting a skill from the drop-down. 
+The top left window lets you view Socket Groups. Skills can be organized into Socket Groups to show which support gems are applied to certain skills. You can add a socket group by clicking New and selecting a skill from the drop-down.
 For example, you could add a socket group for Vitality and then attach Arrogance to the group as a support.
 You can also add labels and organize your skills by type (auras, mobility, damage, etc). This is a great way to keep track of skill changes across skill sets as you level.
 
-Skill sets can be thought of as collections of socket groups. There is a select box above the socket groups window that will let you switch between them. 
+Skill sets can be thought of as collections of socket groups. There is a select box above the socket groups window that will let you switch between them.
 A great way to use these is to create skill sets for different level gaps, allowing you to plan out which skills you can run at certain points in your levelling progression.
 They are also a nice way to showcase different skill options for your build. One set could show the skills you run to maximize DPS, while another could show a better setup for survivability or maybe mapping. Click Manage next to the select box to add, remove, rename, and copy skill sets.
 
-If you click on a skill in one of your socket groups, a table will appear on the right showing you the details of that group. You can set which piece of gear the skills are socketed in, as well as the level of each skill, the variant, quality, and count. 
-Hovering over a skill will display a full description of that skill and toggling the "Enabled" checkbox will enable or disable that skill from your build. You can also use the "Include in Full DPS" checkbox to include or exclude that skill from the Full DPS calculation displayed on the left panel. 
+If you click on a skill in one of your socket groups, a table will appear on the right showing you the details of that group. You can set which piece of gear the skills are socketed in, as well as the level of each skill, the variant, quality, and count.
+Hovering over a skill will display a full description of that skill and toggling the "Enabled" checkbox will enable or disable that skill from your build. You can also use the "Include in Full DPS" checkbox to include or exclude that skill from the Full DPS calculation displayed on the left panel.
 This can be useful for seeing how much damage you are getting from specific skills as well as specific groups of skills in your gear. You may also want to make a socket group simply for display purposes and then you can exclude that from DPS calculations.
 
 Finally, underneath the Socket Groups window is the Gem Options box. This will let you configure the level of your skills gems as well as sort them by different types of DPS. Really useful for viewing total potential damage vs damage at different levels.

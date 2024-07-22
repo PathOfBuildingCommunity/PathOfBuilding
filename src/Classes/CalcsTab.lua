@@ -32,6 +32,9 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 	self.colWidth = 230
 	self.sectionList = { }
 
+	self.controls.search = new("EditControl", {"TOPLEFT",self,"TOPLEFT"}, 4, 5, 260, 20, "", "Search", "%c", 100, nil, nil, nil, true)
+	t_insert(self.controls, self.controls.search)
+
 	-- Special section for skill/mode selection
 	self:NewSection(3, "SkillSelect", 1, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "View Skill Details", data = {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
@@ -300,9 +303,11 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 	self.controls.scrollBar:SetContentDimension(maxY - baseY, viewPort.height)
 	for _, section in ipairs(self.sectionList) do
 		-- Give sections their actual Y position and let them update
-		section.y = section.y - self.controls.scrollBar.offset
+		section.y = section.y - self.controls.scrollBar.offset + 25
 		section:UpdatePos()
 	end
+	
+	self.controls.search.y = 5 - self.controls.scrollBar.offset
 
 	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
@@ -312,6 +317,8 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 			elseif event.key == "y" and IsKeyDown("CTRL") then
 				self:Redo()
 				self.build.buildFlag = true
+			elseif event.key == "f" and IsKeyDown("CTRL") then
+				self:SelectControl(self.controls.search)
 			end
 		end
 	end
@@ -404,6 +411,11 @@ function CalcsTabClass:CheckFlag(obj)
 	return true
 end
 
+function CalcsTabClass:SearchMatch(txt)
+	local searchStr = self.controls.search.buf:lower()
+	return string.len(searchStr) > 0 and txt:lower():find(searchStr)
+end
+
 -- Build the calculation output tables
 function CalcsTabClass:BuildOutput()
 	self.powerBuildFlag = true
@@ -465,6 +477,8 @@ function CalcsTabClass:PowerBuilder()
 	GlobalCache.useFullDPS = self.powerStat and self.powerStat.stat == "FullDPS" or false
 	local calcFunc, calcBase = self:GetMiscCalculator()
 	local cache = { }
+	local distanceMap = { }
+	local distanceList = { }
 	local newPowerMax = {
 		singleStat = 0,
 		offence = 0,
@@ -478,11 +492,26 @@ function CalcsTabClass:PowerBuilder()
 	if coroutine.running() then
 		coroutine.yield()
 	end
-
+	
 	local start = GetTime()
 	for nodeId, node in pairs(self.build.spec.nodes) do
 		wipeTable(node.power)
-		if self.nodePowerMaxDepth == nil or self.nodePowerMaxDepth >= node.pathDist then
+		if node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
+			distanceMap[node.pathDist or 1000] = distanceMap[node.pathDist or 1000] or { }
+			distanceMap[node.pathDist or 1000][nodeId] = node
+		end
+	end
+	for distance, nodes in pairs(distanceMap) do
+		t_insert(distanceList, { distance, nodes })
+	end
+	distanceMap = nil
+	table.sort(distanceList, function(a, b) return a[1] < b[1] end)
+	for _, data in ipairs(distanceList) do
+		local distance, nodes = data[1], data[2]
+		if self.nodePowerMaxDepth and self.nodePowerMaxDepth < distance then
+			break
+		end
+		for nodeId, node in pairs(nodes) do
 			if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
 				if not cache[node.modKey] then
 					cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
@@ -501,28 +530,21 @@ function CalcsTabClass:PowerBuilder()
 							node.power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ addNodes = pathNodes }, { requirementsItems = true, requirementsGems = true, skills = true }), calcBase)
 						end
 					end
-				else
-					if calcBase.Minion then
-						node.power.offence = (output.Minion.CombinedDPS - calcBase.Minion.CombinedDPS) / calcBase.Minion.CombinedDPS
-					else
-						node.power.offence = (output.CombinedDPS - calcBase.CombinedDPS) / calcBase.CombinedDPS
-					end
-					node.power.defence = (output.LifeUnreserved - calcBase.LifeUnreserved) / m_max(3000, calcBase.Life) +
-									(output.Armour - calcBase.Armour) / m_max(10000, calcBase.Armour) +
-									((output.EnergyShieldRecoveryCap or output.EnergyShield) - (calcBase.EnergyShieldRecoveryCap or calcBase.EnergyShield)) / m_max(3000, (calcBase.EnergyShieldRecoveryCap or calcBase.EnergyShield)) +
-									(output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
-									(output.LifeRegenRecovery - calcBase.LifeRegenRecovery) / 500 +
-									(output.EnergyShieldRegenRecovery - calcBase.EnergyShieldRegenRecovery) / 1000
+				elseif not self.powerStat or not self.powerStat.ignoreForNodes then
+					node.power.offence, node.power.defence = self:CalculateCombinedOffDefStat(output, calcBase)
+					node.power.singleStat = node.power.offence
 					if node.path and not node.ascendancyName then
 						newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
 						newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
 						newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, node.power.offence / node.pathDist)
 						newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, node.power.defence / node.pathDist)
-
 					end
 				end
 			elseif node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
-				local output = calcFunc({ removeNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+				if not cache[node.modKey.."_remove"] then
+					cache[node.modKey.."_remove"] = calcFunc({ removeNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+				end
+				local output = cache[node.modKey.."_remove"]
 				if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 					node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 					if node.depends and not node.ascendancyName then
@@ -537,10 +559,10 @@ function CalcsTabClass:PowerBuilder()
 					end
 				end
 			end
-		end
-		if coroutine.running() and GetTime() - start > 100 then
-			coroutine.yield()
-			start = GetTime()
+			if coroutine.running() and GetTime() - start > 100 then
+				coroutine.yield()
+				start = GetTime()
+			end
 		end
 	end
 
@@ -582,6 +604,19 @@ function CalcsTabClass:CalculatePowerStat(selection, original, modified)
 		modifiedValue = selection.transform(modifiedValue)
 	end
 	return originalValue - modifiedValue
+end
+
+function CalcsTabClass:CalculateCombinedOffDefStat(original, modified)
+	local defence = (original.LifeUnreserved - modified.LifeUnreserved) / m_max(3000, modified.Life) +
+					(original.Armour - modified.Armour) / m_max(10000, modified.Armour) +
+					((original.EnergyShieldRecoveryCap or original.EnergyShield) - (modified.EnergyShieldRecoveryCap or modified.EnergyShield)) / m_max(3000, (modified.EnergyShieldRecoveryCap or modified.EnergyShield)) +
+					(original.Evasion - modified.Evasion) / m_max(10000, modified.Evasion) +
+					(original.LifeRegenRecovery - modified.LifeRegenRecovery) / 500 +
+					(original.EnergyShieldRegenRecovery - modified.EnergyShieldRegenRecovery) / 1000
+	if modified.Minion then
+		return (original.Minion.CombinedDPS - modified.Minion.CombinedDPS) / modified.Minion.CombinedDPS, defence
+	end
+	return (original.CombinedDPS - modified.CombinedDPS) / modified.CombinedDPS, defence
 end
 
 function CalcsTabClass:GetNodeCalculator()

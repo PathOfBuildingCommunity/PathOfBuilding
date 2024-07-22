@@ -226,11 +226,115 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.spec:SetWindowTitleWithBuildClass()
 		self.buildFlag = true
 	end)
-	self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
-		self.spec:SelectSecondaryAscendClass(value.ascendClassId)
-		self.spec:AddUndoState()
-		self.spec:SetWindowTitleWithBuildClass()
-		self.buildFlag = true
+	-- // hiding away until we learn more, this dropdown and the Loadout dropdown conflict for UI space, will need to address if secondaryAscendancies come back
+	--self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
+	--	self.spec:SelectSecondaryAscendClass(value.ascendClassId)
+	--	self.spec:AddUndoState()
+	--	self.spec:SetWindowTitleWithBuildClass()
+	--	self.buildFlag = true
+	--end)
+	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 190, 20, {}, function(index, value)
+		if value == "^7^7Loadouts:" or value == "^7^7-----" then
+			self.controls.buildLoadouts:SetSel(1)
+			return
+		end
+		if value == "^7^7Sync" then
+			self:SyncLoadouts()
+			self.controls.buildLoadouts:SetSel(1)
+			return
+		end
+		if value == "^7^7Help >>" then
+			main:OpenAboutPopup(7)
+			self.controls.buildLoadouts:SetSel(1)
+			return
+		end
+		if value == "^7^7New Loadout" then
+			local controls = { }
+			controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter name for this loadout:")
+			controls.edit = new("EditControl", nil, 0, 40, 350, 20, "New Loadout", nil, nil, 100, function(buf)
+				controls.save.enabled = buf:match("%S")
+			end)
+			controls.save = new("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
+				local loadout = controls.edit.buf
+
+				local newSpec = new("PassiveSpec", self, latestTreeVersion)
+				newSpec.title = loadout
+				t_insert(self.treeTab.specList, newSpec)
+
+				local itemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1)
+				t_insert(self.itemsTab.itemSetOrderList, itemSet.id)
+				itemSet.title = loadout
+
+				local skillSet = self.skillsTab:NewSkillSet(#self.skillsTab.skillSets + 1)
+				t_insert(self.skillsTab.skillSetOrderList, skillSet.id)
+				skillSet.title = loadout
+
+				local configSet = self.configTab:NewConfigSet(#self.configTab.configSets + 1)
+				t_insert(self.configTab.configSetOrderList, configSet.id)
+				configSet.title = loadout
+
+				self:SyncLoadouts()
+				self.modFlag = true
+				main:ClosePopup()
+			end)
+			controls.save.enabled = false
+			controls.cancel = new("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
+				main:ClosePopup()
+			end)
+			main:OpenPopup(370, 100, "Set Name", controls, "save", "edit", "cancel")
+
+			self.controls.buildLoadouts:SetSel(1)
+			return
+		end
+
+		-- item, skill, and config sets have identical structure
+		-- return id as soon as it's found
+		local function findSetId(setOrderList, value, sets, setSpecialLinks)
+			for _, setOrder in ipairs(setOrderList) do
+				if value == (sets[setOrder].title or "Default") then
+					return setOrder
+				else
+					local linkMatch = string.match(value, "%{(%w+)%}")
+					if linkMatch then
+						return setSpecialLinks[linkMatch]["setId"]
+					end
+				end
+			end
+			return nil
+		end
+
+		-- trees have a different structure with id/name pairs
+		-- return id as soon as it's found
+		local function findNamedSetId(treeList, value, setSpecialLinks)
+			for id, spec in ipairs(treeList) do
+				if value == spec then
+					return id
+				else
+					local linkMatch = string.match(value, "%{(%w+)%}")
+					if linkMatch then
+						return setSpecialLinks[linkMatch]["setId"]
+					end
+				end
+			end
+			return nil
+		end
+
+		local newSpecId = findNamedSetId(self.treeTab:GetSpecList(), value, self.treeListSpecialLinks)
+		local newItemId = findSetId(self.itemsTab.itemSetOrderList, value, self.itemsTab.itemSets, self.itemListSpecialLinks)
+		local newSkillId = findSetId(self.skillsTab.skillSetOrderList, value, self.skillsTab.skillSets, self.skillListSpecialLinks)
+		local newConfigId = findSetId(self.configTab.configSetOrderList, value, self.configTab.configSets, self.configListSpecialLinks)
+
+		-- if exact match nor special grouping cannot find setIds, bail
+		if newSpecId == nil or newItemId == nil or newSkillId == nil or newConfigId == nil then
+			return
+		end
+
+		self.treeTab:SetActiveSpec(newSpecId)
+		self.itemsTab:SetActiveItemSet(newItemId)
+		self.skillsTab:SetActiveSkillSet(newSkillId)
+		self.configTab:SetActiveConfigSet(newConfigId)
+
+		self.controls.buildLoadouts:SelByValue(value)
 	end)
 
 	-- List of display stats
@@ -254,6 +358,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "TrapThrowingTime", label = "Trap Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TrapCooldown", label = "Trap Cooldown", fmt = ".3fs", lowerIsBetter = true },
 		{ stat = "MineLayingTime", label = "Mine Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
+		{ stat = "TrapThrowCount", label = "Avg. Traps per Throw", fmt = ".2f"},
+		{ stat = "MineThrowCount", label = "Avg. Mines per Throw", fmt = ".2f"},
 		{ stat = "TotemPlacementTime", label = "Totem Placement Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return not o.TriggerTime end },
 		{ stat = "PreEffectiveCritChance", label = "Crit Chance", fmt = ".2f%%" },
 		{ stat = "CritChance", label = "Effective Crit Chance", fmt = ".2f%%", condFunc = function(v,o) return v ~= o.PreEffectiveCritChance end },
@@ -370,7 +476,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "Rage", label = "Rage", fmt = "d", color = colorCodes.RAGE, compPercent = true },
 		{ stat = "RageRegenRecovery", label = "Rage Regen", fmt = ".1f", color = colorCodes.RAGE, compPercent = true },
 		{ },
-		{ stat = "TotalDegen", label = "Total Degen", fmt = ".1f", lowerIsBetter = true },
+		{ stat = "TotalBuildDegen", label = "Total Degen", fmt = ".1f", lowerIsBetter = true },
 		{ stat = "TotalNetRegen", label = "Total Net Recovery", fmt = "+.1f" },
 		{ stat = "NetLifeRegen", label = "Net Life Recovery", fmt = "+.1f", color = colorCodes.LIFE },
 		{ stat = "NetManaRegen", label = "Net Mana Recovery", fmt = "+.1f", color = colorCodes.MANA },
@@ -386,8 +492,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "Spec:ArmourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
 		{ stat = "PhysicalDamageReduction", label = "Phys. Damage Reduction", fmt = "d%%", condFunc = function() return true end },
 		{ },
-		{ stat = "BlockChance", label = "Block Chance", fmt = "d%%", overCapStat = "BlockChanceOverCap" },
-		{ stat = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%", overCapStat = "SpellBlockChanceOverCap" },
+		{ stat = "EffectiveBlockChance", label = "Block Chance", fmt = "d%%", overCapStat = "BlockChanceOverCap" },
+		{ stat = "EffectiveSpellBlockChance", label = "Spell Block Chance", fmt = "d%%", overCapStat = "SpellBlockChanceOverCap" },
 		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%", overCapStat = "AttackDodgeChanceOverCap" },
 		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%", overCapStat = "SpellDodgeChanceOverCap" },
 		{ stat = "EffectiveSpellSuppressionChance", label = "Spell Suppression Chance", fmt = "d%%", overCapStat = "SpellSuppressionChanceOverCap" },
@@ -740,30 +846,182 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	--]]
 
 	self.abortSave = false
+	self:SyncLoadouts()
 end
 
-local acts = { 
-	[1] = { level = 1, questPoints = 0 }, 
-	[2] = { level = 12, questPoints = 2 }, 
-	[3] = { level = 22, questPoints = 3 }, 
-	[4] = { level = 32, questPoints = 5 },
-	[5] = { level = 40, questPoints = 6 },
-	[6] = { level = 44, questPoints = 8 },
-	[7] = { level = 50, questPoints = 11 },
-	[8] = { level = 54, questPoints = 14 },
-	[9] = { level = 60, questPoints = 17 },
-	[10] = { level = 64, questPoints = 19 },
-	[11] = { level = 67, questPoints = 22 },
+local acts = {
+	-- https://www.poewiki.net/wiki/Passive_skill
+	[1] = { level = 1, questPoints = 0 },
+	-- Act 1   : The Dweller of the Deep
+	-- Act 1   : The Marooned Mariner
+	[2] = { level = 12, questPoints = 2 },
+	-- Act 1,2 : The Way Forward (Reward after reaching Act 2)
+	-- Act 2   : Through Sacred Ground (Fellshrine Reward 3.25)
+	[3] = { level = 22, questPoints = 4 },
+	-- Act 3   : Victario's Secrets
+	-- Act 3   : Piety's Pets
+	[4] = { level = 32, questPoints = 6 },
+	-- Act 4   : An Indomitable Spirit
+	[5] = { level = 40, questPoints = 7 },
+	-- Act 5   : In Service to Science
+	-- Act 5   : Kitava's Torments
+	[6] = { level = 44, questPoints = 9 },
+	-- Act 6   : The Father of War
+	-- Act 6   : The Puppet Mistress
+	-- Act 6   : The Cloven One
+	[7] = { level = 50, questPoints = 12 },
+	-- Act 7   : The Master of a Million Faces
+	-- Act 7   : Queen of Despair
+	-- Act 7   : Kishara's Star
+	[8] = { level = 54, questPoints = 15 },
+	-- Act 8   : Love is Dead
+	-- Act 8   : Reflection of Terror
+	-- Act 8   : The Gemling Legion
+	[9] = { level = 60, questPoints = 18 },
+	-- Act 9   : Queen of the Sands
+	-- Act 9   : The Ruler of Highgate
+	[10] = { level = 64, questPoints = 20 },
+	-- Act 10  : Vilenta's Vengeance
+	-- Act 10  : An End to Hunger (+2)
+	[11] = { level = 67, questPoints = 23 },
 }
 
 local function actExtra(act, extra)
+	-- Act 2 : Deal With The Bandits (+1 if the player kills all bandits)
 	return act > 2 and extra or 0
+end
+
+function buildMode:SyncLoadouts(reset)
+	self.controls.buildLoadouts.list = {"No Loadouts"}
+
+	local filteredList = {"^7^7Loadouts:"}
+	local treeList = {}
+	local itemList = {}
+	local skillList = {}
+	local configList = {}
+	-- used when clicking on the dropdown to set the correct setId for each SetActiveSet()
+	self.treeListSpecialLinks, self.itemListSpecialLinks, self.skillListSpecialLinks, self.configListSpecialLinks = {}, {}, {}, {}
+
+	if self.treeTab ~= nil and self.itemsTab ~= nil and self.skillsTab ~= nil and self.configTab ~= nil then
+		local transferTable = {}
+		local sortedTreeListSpecialLinks = {}
+		for id, spec in ipairs(self.treeTab.specList) do
+			local specTitle = spec.title or "Default"
+			-- only alphanumeric and comma are allowed in the braces { }
+			local linkIdentifier = string.match(specTitle, "%{([%w,]+)%}")
+			if linkIdentifier then
+				-- iterate over each identifier, delimited by comma, and set the index so we can grab it later
+				-- setId index is the id of the set in the global list needed for SetActiveSet
+				-- setName is only used for Tree currently and we strip the braces to get the plain name of the set, this is used as the name of the loadout
+				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
+					transferTable["setId"] = id
+					transferTable["setName"] = string.match(specTitle, "(.+)% {") or "Default"
+					transferTable["linkId"] = linkId
+					self.treeListSpecialLinks[linkId] = transferTable
+					t_insert(sortedTreeListSpecialLinks, transferTable)
+					transferTable = {}
+				end
+			else
+				t_insert(treeList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(specTitle))
+			end
+		end
+
+		-- item, skill, and config sets have identical structure
+		local function identifyLinks(setOrderList, tabSets, setList, specialLinks, treeLinks)
+			local assignAll = #setOrderList == 1
+			for id, set in ipairs(setOrderList) do
+				local setTitle = tabSets[set].title or "Default"
+				local linkIdentifier = string.match(setTitle, "%{([%w,]+)%}")
+				-- this if/else prioritizes group identifier in case the user creates sets with same name AND same identifiers
+				-- result is only the group is recognized and one loadout is created rather than a duplicate from each condition met
+				if linkIdentifier then
+					for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
+						transferTable["setId"] = set
+						transferTable["setName"] = string.match(setTitle, "(.+)% {") or "Default"
+						specialLinks[linkId] = transferTable
+						transferTable = {}
+					end
+				else
+					if assignAll then
+						for linkId, _ in pairs(treeLinks) do
+							transferTable["setId"] = set
+							transferTable["setName"] = setTitle
+							specialLinks[linkId] = transferTable
+							transferTable = {}
+						end
+					else
+						t_insert(setList, setTitle)
+					end
+				end
+			end
+		end
+		identifyLinks(self.itemsTab.itemSetOrderList, self.itemsTab.itemSets, itemList, self.itemListSpecialLinks, self.treeListSpecialLinks)
+		identifyLinks(self.skillsTab.skillSetOrderList, self.skillsTab.skillSets, skillList, self.skillListSpecialLinks, self.treeListSpecialLinks)
+		identifyLinks(self.configTab.configSetOrderList, self.configTab.configSets, configList, self.configListSpecialLinks, self.treeListSpecialLinks)
+
+		-- loop over all for exact match loadouts
+		for id, tree in ipairs(treeList) do
+			for id, skill in ipairs(skillList) do
+				for id, item in ipairs(itemList) do
+					for id, config in ipairs(configList) do
+						if (tree == skill and tree == item and tree == config) then
+							t_insert(filteredList, tree)
+						end
+					end
+				end
+			end
+		end
+		-- loop over the identifiers found within braces and set the loadout name to the TreeSet
+		for _, tree in ipairs(sortedTreeListSpecialLinks) do
+			local treeLinkId = tree.linkId
+			if (self.itemListSpecialLinks[treeLinkId] and self.skillListSpecialLinks[treeLinkId] and self.configListSpecialLinks[treeLinkId]) then
+				t_insert(filteredList, tree.setName .." {"..treeLinkId.."}")
+			end
+		end
+	end
+
+	-- giving the options unique formatting so it can not match with user-created sets
+	t_insert(filteredList, "^7^7-----")
+	t_insert(filteredList, "^7^7New Loadout")
+	t_insert(filteredList, "^7^7Sync")
+	t_insert(filteredList, "^7^7Help >>")
+
+	if #filteredList > 0 then
+		self.controls.buildLoadouts.list = filteredList
+	end
+
+	if reset then
+		self.controls.buildLoadouts:SetSel(1)
+    else
+		-- Try to select loadout in dropdown based on currently selected tree
+		local treeName = self.treeTab.specList[self.treeTab.activeSpec].title or "Default"
+		for i, loadout in ipairs(filteredList) do
+			if loadout == treeName then
+				local linkMatch = string.match(treeName, "%{(%w+)%}")
+				if linkMatch then
+					local skillName = self.skillsTab.skillSets[self.skillsTab.activeSkillSetId].title or "Default"
+					local skillMatch = #self.skillsTab.skillSetOrderList == 1 or skillName:find(linkMatch)
+					local itemName = self.itemsTab.itemSets[self.itemsTab.activeItemSetId].title or "Default"
+					local itemMatch = #self.itemsTab.itemSetOrderList == 1 or itemName:find(linkMatch)
+					local configName = self.configTab.configSets[self.configTab.activeConfigSetId].title or "Default"
+					local configMatch = #self.configTab.configSetOrderList == 1 or configName:find(linkMatch)
+
+					if skillMatch and itemMatch and configMatch then
+						self.controls.buildLoadouts:SetSel(i)
+					end
+				end
+				break
+			end
+		end
+	end
+
+	return treeList, itemList, skillList, configList
 end
 
 function buildMode:EstimatePlayerProgress()
 	local PointsUsed, AscUsed, SecondaryAscUsed = self.spec:CountAllocNodes()
 	local extra = self.calcsTab.mainOutput and self.calcsTab.mainOutput.ExtraPoints or 0
-	local usedMax, ascMax, secondaryAscMax, level, act = 99 + 22 + extra, 8, 8, 1, 0
+	local usedMax, ascMax, secondaryAscMax, level, act = 99 + 23 + extra, 8, 8, 1, 0
 
 	-- Find estimated act and level based on points used
 	repeat
@@ -774,6 +1032,7 @@ function buildMode:EstimatePlayerProgress()
 	if self.characterLevelAutoMode and self.characterLevel ~= level then
 		self.characterLevel = level
 		self.controls.characterLevel:SetText(self.characterLevel)
+		self.configTab:BuildModList()
 	end
 
 	-- Ascendancy points for lab
@@ -1015,10 +1274,11 @@ function buildMode:OnFrame(inputEvents)
 	self:ProcessControlsInput(inputEvents, main.viewPort)
 
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
-	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendancies")
+	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValueByKey("ascendancies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
-	self.controls.secondaryAscendDrop.list = {{label = "None", ascendClassId = 0}, {label = "Warden", ascendClassId = 1}, {label = "Warlock", ascendClassId = 2}, {label = "Primalist", ascendClassId = 3}}
-	self.controls.secondaryAscendDrop:SelByValue(self.spec.curSecondaryAscendClassId, "ascendClassId")
+	-- // secondaryAscend dropdown hidden away until we learn more
+	--self.controls.secondaryAscendDrop.list = {{label = "None", ascendClassId = 0}, {label = "Warden", ascendClassId = 1}, {label = "Warlock", ascendClassId = 2}, {label = "Primalist", ascendClassId = 3}}
+	--self.controls.secondaryAscendDrop:SelByValue(self.spec.curSecondaryAscendClassId, "ascendClassId")
 
 	if self.buildFlag then
 		-- Wipe Global Cache

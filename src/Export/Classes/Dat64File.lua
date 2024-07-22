@@ -274,9 +274,13 @@ function Dat64FileClass:ReadValueText(spec, offset)
 		end
 		local other = main.datFileByName[spec.refTo:lower()]
 		if other then
-			local otherRow = other.rows[val + ((spec.type == "Enum" and spec.refTo:lower() ~= self.name) and 0 or 1)]
+			local newVal = val + ((spec.type == "Enum" and spec.refTo:lower() ~= self.name) and 0 or 1)
+			if (spec.enumBase and spec.enumBase > 0) then
+				newVal = newVal + spec.enumBase
+			end
+			local otherRow = other.rows[newVal]
 			if not otherRow then
-				return "<bad ref #"..val..">"
+				return "<bad ref #"..newVal..">"
 			end
 			if other.spec[1] then
 				return other:ReadValueText(other.spec[1], otherRow)

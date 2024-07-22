@@ -59,6 +59,8 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.items = { }
 	self.itemOrderList = { }
 
+	self.showStatDifferences = true
+
 	-- PoB Trader class initialization
 	self.tradeQuery = new("TradeQuery", self)
 
@@ -1011,13 +1013,18 @@ function ItemsTabClass:Load(xml, dbFileName)
 		self.itemSetOrderList[1] = 1
 	end
 	self:SetActiveItemSet(tonumber(xml.attrib.activeItemSet) or 1)
+	if xml.attrib.showStatDifferences then
+		self.showStatDifferences = xml.attrib.showStatDifferences == "true"
+	end
 	self:ResetUndo()
+	self.build:SyncLoadouts()
 end
 
 function ItemsTabClass:Save(xml)
 	xml.attrib = {
 		activeItemSet = tostring(self.activeItemSetId),
 		useSecondWeaponSet = tostring(self.activeItemSet.useSecondWeaponSet),
+		showStatDifferences = tostring(self.showStatDifferences),
 	}
 	for _, id in ipairs(self.itemOrderList) do
 		local item = self.items[id]
@@ -1172,6 +1179,9 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 					self:SelectControl(self.controls.uniqueDB.controls.search)
 					self.controls.selectDB.selIndex = 1
 				end
+			elseif event.key == "d" and IsKeyDown("CTRL") then
+				self.showStatDifferences = not self.showStatDifferences
+				self.build.buildFlag = true
 			end
 		end
 	end
@@ -3260,6 +3270,17 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		for _, modLine in pairs(item.buffModLines) do
 			tooltip:AddLine(16, (modLine.extra and colorCodes.UNSUPPORTED or colorCodes.MAGIC) .. modLine.line)
 		end
+	elseif base.tincture then
+		-- Tincture-specific info
+		local tinctureData = item.tinctureData
+		if item.quality > 0 then
+			tooltip:AddLine(16, s_format("^x7F7F7FQuality: "..colorCodes.MAGIC.."+%d%%", item.quality))
+		end
+		tooltip:AddLine(16, s_format("^x7F7F7FInflicts Mana Burn every %s%.2f ^x7F7F7FSeconds", main:StatColor(tinctureData.manaBurn, base.tincture.manaBurn), tinctureData.manaBurn))
+		tooltip:AddLine(16, s_format("^x7F7F7F%s%.2f ^x7F7F7FSecond Cooldown When Deactivated", main:StatColor(tinctureData.cooldown, base.tincture.cooldown), tinctureData.cooldown))
+		for _, modLine in pairs(item.buffModLines) do
+			tooltip:AddLine(16, (modLine.extra and colorCodes.UNSUPPORTED or colorCodes.MAGIC) .. modLine.line)
+		end
 	elseif item.type == "Jewel" then
 		-- Jewel-specific info
 		if item.limit then
@@ -3387,6 +3408,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	tooltip:AddSeparator(14)
 
 	-- Stat differences
+	if not self.showStatDifferences then
+		tooltip:AddSeparator(14)
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to enable the display of stat differences.")
+		return
+	end
 	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 	if base.flask then
 		-- Special handling for flasks
@@ -3410,8 +3436,15 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				local lifeMore = modDB:More(nil, "FlaskLifeRecovery")
 				local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
 				local instantPerc = flaskData.instantPerc + modDB:Sum("BASE", nil, "LifeFlaskInstantRecovery")
-				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100)
-				local base = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * (1 + durInc / 100)
+
+				-- More life recovery while on low life is not affected by flask effect (verified ingame).
+				-- Since this will be multiplied by the flask effect value below we have to counteract this by removing the flask effect from the value beforehand.
+				-- This is also the reason why this value needs a separate multiplier and cannot just be calculated into FlaskLifeRecovery.
+				local lifeMoreOnLowLife = modDB:More(nil, "FlaskLifeRecoveryLowLife")
+				local lowLifeMulti = (lifeMoreOnLowLife > 1 and ((lifeMoreOnLowLife - 1) / (1 + effectInc / 100)) + 1 or 1)
+
+				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * lowLifeMulti
+				local base = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * (1 + durInc / 100) * lowLifeMulti
 				local grad = base * output.LifeRecoveryRateMod
 				local esGrad = base * output.EnergyShieldRecoveryRateMod
 				lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
@@ -3584,6 +3617,45 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			header = "^7Activating this flask will give you:"
 		end
 		self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
+	elseif base.tincture then
+		-- Special handling for tinctures
+		local stats = { }
+		local tinctureData = item.tinctureData
+		local modDB = self.build.calcsTab.mainEnv.modDB
+		local output = self.build.calcsTab.mainOutput
+		local effectInc = modDB:Sum("INC", { actor = "player" }, "TinctureEffect")
+
+		if item.rarity == "MAGIC" then
+			effectInc = effectInc + modDB:Sum("INC", { actor = "player" }, "MagicTinctureEffect")
+		end
+		local effectMod = 1 + (tinctureData.effectInc + effectInc) / 100
+		if effectMod ~= 1 then
+			t_insert(stats, s_format("^8Tincture effect modifier: ^7%+d%%", effectMod * 100 - 100))
+		end
+		t_insert(stats, s_format("^8Mana Burn Inflicted Every Second: ^7%.2f", tinctureData.manaBurn * (1 + modDB:Sum("INC", { actor = "player" }, "TinctureManaBurnRate")/100) * (1 + modDB:Sum("MORE", { actor = "player" }, "TinctureManaBurnRate")/100)))
+		local TincturesNotInflictManaBurn = m_min(modDB:Sum("BASE", nil, "TincturesNotInflictManaBurn"), 100)
+		if TincturesNotInflictManaBurn ~= 0 then
+			t_insert(stats, s_format("^8Chance to not inflict Mana Burn: ^7%d%%", TincturesNotInflictManaBurn))
+		end
+		t_insert(stats, s_format("^8Tincture Cooldown when deactivated: ^7%.2f^8 seconds", tinctureData.cooldown / (1 + modDB:Sum("INC", { actor = "player" }, "TinctureCooldownRecovery")/100)))
+
+		if stats[1] then
+			tooltip:AddLine(14, "^7Effective tincture stats:")
+			for _, stat in ipairs(stats) do
+				tooltip:AddLine(14, stat)
+			end
+		end
+		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+		local output = calcFunc({ toggleTincture = item }, {})
+		GlobalCache.useFullDPS = storedGlobalCacheDPSView
+		local header
+		if self.build.calcsTab.mainEnv.tinctures[item] then
+			header = "^7Deactivating this tincture will give you:"
+		else
+			header = "^7Activating this tincture will give you:"
+		end
+		self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
 	else
 		self:UpdateSockets()
 		-- Build sorted list of slots to compare with
@@ -3637,6 +3709,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			end
 		end
 	end
+	tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to disable the display of stat differences.")
 
 	if launch.devModeAlt then
 		-- Modifier debugging info

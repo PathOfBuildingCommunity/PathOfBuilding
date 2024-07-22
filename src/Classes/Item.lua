@@ -362,6 +362,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.baseLines = { }
 	local importedLevelReq
 	local flaskBuffLines
+	local tinctureBuffLines
 	local deferJewelRadiusIndexAssignment
 	local gameModeStage = "FINDIMPLICIT"
 	local foundExplicit, foundImplicit
@@ -370,6 +371,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		local line = self.rawLines[l]
 		if flaskBuffLines and flaskBuffLines[line] then
 			flaskBuffLines[line] = nil
+		elseif tinctureBuffLines and tinctureBuffLines[line] then
+			tinctureBuffLines[line] = nil
 		elseif line == "--------" then
 			self.checkSection = true
 		elseif line == "Split" then
@@ -698,6 +701,14 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 							flaskBuffLines = { }
 							for _, line in ipairs(self.base.flask.buff) do
 								flaskBuffLines[line] = true
+								local modList, extra = modLib.parseMod(line)
+								t_insert(self.buffModLines, { line = line, extra = extra, modList = modList or { } })
+							end
+						end
+						if self.base.tincture and self.base.tincture.buff and not tinctureBuffLines then
+							tinctureBuffLines = { }
+							for _, line in ipairs(self.base.tincture.buff) do
+								tinctureBuffLines[line] = true
 								local modList, extra = modLib.parseMod(line)
 								t_insert(self.buffModLines, { line = line, extra = extra, modList = modList or { } })
 							end
@@ -1335,8 +1346,8 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				if calcLocal(modList, "AlternateQualityWeapon", "BASE", 0) > 0 then
 					qualityScalar = 0
 				end
-				min = round(min * (1 + (physInc + qualityScalar) / 100))
-				max = round(max * (1 + (physInc + qualityScalar) / 100))
+				min = round(min * (1 + physInc / 100) * (1 + qualityScalar / 100))
+				max = round(max * (1 + physInc / 100) * (1 + qualityScalar / 100))
 			end
 			if min > 0 and max > 0 then
 				weaponData[dmgType.."Min"] = min
@@ -1395,26 +1406,26 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		end
 		-- base percentiles need to differ for each armour type, as they're weighted differently
 		if armourData.Armour and armourData.Armour > 0 and not armourData.ArmourBasePercentile then
-			armourData.ArmourBasePercentile = ((armourData.Armour / (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc + qualityScalar) / 100) - armourBase)) / armourVariance
+			armourData.ArmourBasePercentile = ((armourData.Armour / ((1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc) / 100) * (1 + (qualityScalar / 100))) - armourBase)) / armourVariance
 			armourData.ArmourBasePercentile = round(m_max(m_min(armourData.ArmourBasePercentile, 1), 0), 4)
 		end
 		if armourData.Evasion and armourData.Evasion > 0 and not armourData.EvasionBasePercentile then
-			armourData.EvasionBasePercentile = ((armourData.Evasion / (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100) - evasionBase)) / evasionVariance
+			armourData.EvasionBasePercentile = ((armourData.Evasion / ((1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc) / 100) * (1 + (qualityScalar / 100))) - evasionBase)) / evasionVariance
 			armourData.EvasionBasePercentile = round(m_max(m_min(armourData.EvasionBasePercentile, 1), 0), 4)
 		end
 		if armourData.EnergyShield and armourData.EnergyShield > 0 and not armourData.EnergyShieldBasePercentile then
-			armourData.EnergyShieldBasePercentile = ((armourData.EnergyShield / (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100) - energyShieldBase)) / energyShieldVariance
+			armourData.EnergyShieldBasePercentile = ((armourData.EnergyShield / ((1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc) / 100) * (1 + (qualityScalar / 100))) - energyShieldBase)) / energyShieldVariance
 			armourData.EnergyShieldBasePercentile = round(m_max(m_min(armourData.EnergyShieldBasePercentile, 1), 0), 4)
 		end
 		if armourData.Ward and armourData.Ward > 0 and not armourData.WardBasePercentile then
-			armourData.WardBasePercentile = ((armourData.Ward / (1 + (wardInc + defencesInc + qualityScalar) / 100) - wardBase)) / wardVariance
+			armourData.WardBasePercentile = ((armourData.Ward / ((1 + (wardInc + defencesInc) / 100) * (1 + (qualityScalar / 100))) - wardBase)) / wardVariance
 			armourData.WardBasePercentile = round(m_max(m_min(armourData.WardBasePercentile, 1), 0),4)
 		end
 
-		armourData.Armour = round((armourBase + armourEvasionBase + armourEnergyShieldBase + armourVariance * (armourData.ArmourBasePercentile or 1)) * (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc + qualityScalar) / 100))
-		armourData.Evasion = round((evasionBase + armourEvasionBase + evasionEnergyShieldBase + evasionVariance * (armourData.EvasionBasePercentile or 1)) * (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100))
-		armourData.EnergyShield = round((energyShieldBase + evasionEnergyShieldBase + armourEnergyShieldBase + energyShieldVariance * (armourData.EnergyShieldBasePercentile or 1)) * (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100))
-		armourData.Ward = round((wardBase + wardVariance * (armourData.WardBasePercentile or 1)) * (1 + (wardInc + defencesInc + qualityScalar) / 100))
+		armourData.Armour = round((armourBase + armourEvasionBase + armourEnergyShieldBase + armourVariance * (armourData.ArmourBasePercentile or 1)) * (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc) / 100) * (1 + (qualityScalar / 100)))
+		armourData.Evasion = round((evasionBase + armourEvasionBase + evasionEnergyShieldBase + evasionVariance * (armourData.EvasionBasePercentile or 1)) * (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc) / 100) * (1 + (qualityScalar / 100)))
+		armourData.EnergyShield = round((energyShieldBase + evasionEnergyShieldBase + armourEnergyShieldBase + energyShieldVariance * (armourData.EnergyShieldBasePercentile or 1)) * (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc) / 100) * (1 + (qualityScalar / 100)))
+		armourData.Ward = round((wardBase + wardVariance * (armourData.WardBasePercentile or 1)) * (1 + (wardInc + defencesInc) / 100) * (1 + (qualityScalar / 100)))
 
 		if not armourData.ArmourBasePercentile and armourData.Armour > 0 then
 			armourData.ArmourBasePercentile = 1
@@ -1465,14 +1476,22 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			end
 		else
 			-- Utility flask
-			flaskData.duration = round(self.base.flask.duration * (1 + (durationInc + self.quality) / 100) * durationMore, 1)
+			flaskData.duration = round(self.base.flask.duration * (1 + durationInc / 100) * (1 + self.quality / 100) * durationMore, 1)
 		end
 		flaskData.chargesMax = self.base.flask.chargesMax + calcLocal(modList, "FlaskCharges", "BASE", 0)
 		flaskData.chargesUsed = m_floor(self.base.flask.chargesUsed * (1 + calcLocal(modList, "FlaskChargesUsed", "INC", 0) / 100))
 		flaskData.gainMod = 1 + calcLocal(modList, "FlaskChargeRecovery", "INC", 0) / 100
-		flaskData.effectInc = calcLocal(modList, "FlaskEffect", "INC", 0)
+		flaskData.effectInc = calcLocal(modList, "FlaskEffect", "INC", 0) + calcLocal(modList, "LocalEffect", "INC", 0)
 		for _, value in ipairs(modList:List(nil, "FlaskData")) do
 			flaskData[value.key] = value.value
+		end
+	elseif self.base.tincture then
+		local tinctureData = self.tinctureData
+		tinctureData.manaBurn = self.base.tincture.manaBurn * (1 + calcLocal(modList, "TinctureManaBurnRate", "INC", 0) / 100) * (1 + calcLocal(modList, "TinctureManaBurnRate", "MORE", 0) / 100)
+		tinctureData.cooldown = self.base.tincture.cooldown / (1 + calcLocal(modList, "TinctureCooldownRecovery", "INC", 0) / 100)
+		tinctureData.effectInc = calcLocal(modList, "TinctureEffect", "INC", 0) + calcLocal(modList, "LocalEffect", "INC", 0)
+		for _, value in ipairs(modList:List(nil, "TinctureData")) do
+			tinctureData[value.key] = value.value
 		end
 	elseif self.type == "Jewel" then
 		if self.name:find("Grand Spectrum") then
@@ -1538,6 +1557,9 @@ function ItemClass:BuildModList()
 		self.armourData = self.armourData or { }
 	elseif self.base.flask then
 		self.flaskData = { }
+		self.buffModList = { }
+	elseif self.base.tincture then
+		self.tinctureData = { }
 		self.buffModList = { }
 	elseif self.type == "Jewel" then
 		self.jewelData = { }

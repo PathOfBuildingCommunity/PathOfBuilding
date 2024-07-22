@@ -13694,26 +13694,13 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% more Damage with Attacks"
+					text="{0}% increased Rage Effect"
 				},
-				[2]={
-					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% less Damage with Attacks"
-				}
 			}
 		},
 		name="berserk_attack_damage",
 		stats={
-			[1]="berserk_attack_damage_+%_final"
+			[1]="berserk_rage_effect_+%"
 		}
 	},
 	[426]={
@@ -18099,13 +18086,32 @@ return {
 							[2]=-1
 						}
 					},
-					text="Nearby Enemies are Blinded while in Sand Stance\nYou take {0}% less Damage from Attacks from Enemies that aren't nearby while in Sand Stance\nNearby Enemies are Maimed while in Blood Stance"
+					text="You take up to {0}% less Damage from Nearby Enemies while in Sand Stance"
 				}
 			}
 		},
 		name="sand_armour_damage_taken",
 		stats={
 			[1]="attack_damage_taken_+%_final_from_enemies_unaffected_by_sand_armour"
+		}
+	},
+	[1520]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Nearby Enemies take up to {0}% more Physical Damage from Hits while in Blood Stance"
+				},
+			}
+		},
+		name="blood_armour_damage_taken",
+		stats={
+			[1]="enemy_hit_damage_taken_+%_final_in_blood_armour"
 		}
 	},
 	[532]={
@@ -41612,7 +41618,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Gain 1 Rage on Melee Hit, no more than once every {0} seconds"
+					text="Gain 3 Rage on Melee Hit"
 				}
 			}
 		},
@@ -45465,17 +45471,17 @@ return {
 				[1]={
 					limit={
 						[1]={
-							[1]=1,
+							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Regenerate {0} Life over 1 second"
+					text="Buff grants 2% Life Regenerated per Second per 5 Power, up to a maximum of 25 Power"
 				}
 			}
 		},
 		name="regen_second_life",
 		stats={
-			[1]="virtual_regenerate_x_life_over_1_second_on_skill_use_or_trigger"
+			[1]="enduring_cry_life_regenerated_percentage_per_5_power"
 		}
 	},
 	[1449]={
@@ -46240,7 +46246,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Buff grants Added Attack Damage equal to {0}% of the Damage of your Main\nHand Weapon per 5 Power, up to a maximum of 20%"
+					text="Buff grants Added Attack Damage equal to {0}% of the Damage of your Main\nHand Weapon per 5 Power, up to a maximum of 30 Power"
 				}
 			}
 		},
@@ -46263,36 +46269,55 @@ return {
 							[2]="#"
 						}
 					},
-					text="Buff grants {0}% reduced Enemy Stun Threshold per 5 Power, up to a maximum of 30%"
+					text="Buff grants {0}% increased Stun Threshold per 5 Power, up to a maximum of 25 Power"
 				}
 			}
 		},
 		name="grant_stun_threshold_reduction_per_power",
 		stats={
-			[1]="seismic_cry_+%_enemy_stun_threshold_per_5_MP"
+			[1]="seismic_cry_+%_stun_threshold_per_5_MP"
+		}
+	},
+	[1521]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="reminderstring",
+						v="ReminderTextStunThreshold"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Buff grants {0}% more Armour per 5 Power, up to a maximum of 25 Power"
+				}
+			}
+		},
+		name="grant_stun_threshold_reduction_per_power",
+		stats={
+			[1]="seismic_cry_+%_physical_damamge_reduction_per_5_MP"
 		}
 	},
 	[1472]={
 		lang={
 			English={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextOverwhelm"
-					},
 					limit={
 						[1]={
-							[1]=1,
+							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Buff causes your Hits to Overwhelm {0}% Physical Damage Reduction per 5 Power, up to 30%"
+					text="Buff grants {0}% increased Movement Speed per 5 Power, up to 30 Power"
 				}
 			}
 		},
 		name="intimidating_cry_buff",
 		stats={
-			[1]="intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"
+			[1]="intimidating_cry_movement_speed_per_5_MP"
 		}
 	},
 	[1473]={
@@ -46304,55 +46329,33 @@ return {
 							[1]="#",
 							[2]="#"
 						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
 					},
-					text="Buff grants {0:+d} to Armour per 5 Power, up to a maximum of {1:+d}"
+					text="Buff grants +1% to all Maximum Elemental Resistance per 10 power, up to a maximum of 30 Power"
 				}
 			}
 		},
 		name="armour_per_power",
 		stats={
-			[1]="ancestral_cry_physical_damage_reduction_rating_per_5_MP",
-			[2]="ancestral_cry_max_physical_damage_reduction_rating"
+			[1]="ancestral_cry_max_elemental_resistances_per_5_monster_power",
 		}
 	},
 	[1474]={
 		lang={
 			English={
 				[1]={
-					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=10,
-							[2]=10
-						}
-					},
-					text="Buff grants {0:+d} metre to Melee Strike Range per 5 Power, up to a maximum of +0.6"
-				},
-				[2]={
-					[1]={
-						k="locations_to_metres",
-						v=1
-					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Buff grants {0:+d} metres to Melee Strike Range per 5 Power, up to a maximum of +0.6"
-				}
+					text="Buff grants +5% to all Elemental Resistances per 5 Power, up to a maximum of 30 Power"
+				},
 			}
 		},
 		name="melee_range_plus_per_power",
 		stats={
-			[1]="ancestral_cry_x_melee_range_per_5_monster_power"
+			[1]="ancestral_cry_elemental_resistance_per_5_monster_power"
 		}
 	},
 	[1475]={
@@ -46369,13 +46372,13 @@ return {
 							[2]="#"
 						}
 					},
-					text="Covers Enemies in Ash, causing {0}% increased Fire Damage taken per 5 Power, up to 20%"
+					text="The Buff grants 5% of Physical Damage as Extra Fire Damage per 5 Power, up to a maximum of 25 Power"
 				}
 			}
 		},
 		name="infernal_cry_cover_in_ash",
 		stats={
-			[1]="infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power"
+			[1]="infernal_cry_phys_as_extra_fire%_per_5_monster_power"
 		}
 	},
 	[1476]={
@@ -46420,32 +46423,23 @@ return {
 		lang={
 			English={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% increased Critical Strike Chance per 5 power, up to a maximum of 30%"
-				},
-				[2]={
 					[1]={
-						k="negate",
+						k="divide_by_one_hundred",
 						v=1
 					},
 					limit={
 						[1]={
 							[1]="#",
-							[2]=-1
+							[2]="#"
 						}
 					},
-					text="Buff grants {0}% reduced Critical Strike Chance per 5 power"
+					text="Buff grants {0:+d}% to Critical Strike Chance per 5 Power, up to a maximum of 25 Power"
 				}
 			}
 		},
 		name="divine_cry_crit_chance",
 		stats={
-			[1]="divine_cry_critical_strike_chance_+%_per_5_power_up_to_cap%"
+			[1]="divine_cry_base_critical_strike_chance_+%_per_5_power"
 		}
 	},
 	[1479]={
@@ -46716,7 +46710,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Exerted Attacks have {0}% increased Area of Effect"
+					text="Exerted Attacks have {0}% more Area of Effect"
 				},
 				[2]={
 					[1]={
@@ -47719,8 +47713,8 @@ return {
 	["ancestral_buff_travel_skill_cooldown_speed_+%"]=496,
 	["ancestral_cry_empowered_attacks_strike_X_additional_enemies"]=1482,
 	["ancestral_cry_max_physical_damage_reduction_rating"]=1473,
-	["ancestral_cry_physical_damage_reduction_rating_per_5_MP"]=1473,
-	["ancestral_cry_x_melee_range_per_5_monster_power"]=1474,
+	["ancestral_cry_max_elemental_resistances_per_5_monster_power"]=1473,
+	["ancestral_cry_elemental_resistance_per_5_monster_power"]=1474,
 	["ancestral_embrace_effect_+%_per_arohongui_tattoo"]=497,
 	["ancestral_embrace_effect_+%_per_hinekora_tattoo"]=498,
 	["ancestral_embrace_effect_+%_per_kitava_tattoo"]=499,
@@ -47763,6 +47757,7 @@ return {
 	["attack_and_cast_speed_+%"]=529,
 	["attack_damage_+%"]=530,
 	["attack_damage_taken_+%_final_from_enemies_unaffected_by_sand_armour"]=531,
+	["enemy_hit_damage_taken_+%_final_in_blood_armour"]=1520,
 	["attack_maximum_added_physical_damage_with_weapons_per_trauma"]=532,
 	["attack_minimum_added_physical_damage_with_weapons_per_trauma"]=532,
 	["attack_repeat_count"]=266,
@@ -47845,7 +47840,7 @@ return {
 	["base_total_number_of_sigils_allowed"]=558,
 	["base_use_life_in_place_of_mana"]=209,
 	["bear_and_siphoning_trap_debuff_grants_-%_cooldown_speed"]=559,
-	["berserk_attack_damage_+%_final"]=425,
+	["berserk_rage_effect_+%"]=425,
 	["berserk_attack_speed_+%_final"]=426,
 	["berserk_base_damage_taken_+%_final"]=428,
 	["berserk_minimum_rage"]=424,
@@ -48150,7 +48145,7 @@ return {
 	["display_vaal_molten_shell_alternate_description"]=1045,
 	["display_what_freezing_pulse_does"]=6,
 	["divine_cry_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value_per_5_power_up_to_150%"]=1479,
-	["divine_cry_critical_strike_chance_+%_per_5_power_up_to_cap%"]=1478,
+	["divine_cry_base_critical_strike_chance_+%_per_5_power"]=1478,
 	["divine_tempest_ailment_damage_+%_final_per_stage"]=772,
 	["divine_tempest_beam_width_+%"]=770,
 	["divine_tempest_damage_+%_final_while_channelling"]=771,
@@ -48413,7 +48408,7 @@ return {
 	["infernal_bolt_base_fire_damage_%_maximum_life"]=951,
 	["infernal_bolt_triggered_when_totem_with_this_skill_hit_by_enemy"]=952,
 	["infernal_cry_%_max_life_as_fire_on_death"]=347,
-	["infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power"]=1475,
+	["infernal_cry_phys_as_extra_fire%_per_5_monster_power"]=1475,
 	["infernal_cry_empowered_attacks_trigger_combust_display"]=1489,
 	["inflict_all_exposure_on_hit"]=953,
 	["infusion_grants_life_regeneration_rate_per_minute_%"]=954,
@@ -48435,7 +48430,7 @@ return {
 	["intermediary_physical_skill_dot_damage_to_deal_per_minute"]=161,
 	["intimidate_nearby_enemies_on_use_for_ms"]=956,
 	["intimidating_cry_empowerd_attacks_deal_double_damage_display"]=1492,
-	["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"]=1472,
+	["intimidating_cry_movement_speed_per_5_MP"]=1472,
 	["is_ranged_attack_totem"]=44,
 	["is_remote_mine"]=41,
 	["is_snipe_default_projectile"]=1198,
@@ -48844,7 +48839,8 @@ return {
 	["secondary_minimum_physical_damage"]=18,
 	["secondary_minion_duration"]=95,
 	["secondary_skill_effect_duration"]=90,
-	["seismic_cry_+%_enemy_stun_threshold_per_5_MP"]=1471,
+	["seismic_cry_+%_stun_threshold_per_5_MP"]=1471,
+	["seismic_cry_+%_physical_damamge_reduction_per_5_MP"]=1521,
 	["seismic_cry_base_slam_skill_area_+%"]=1486,
 	["seismic_cry_base_slam_skill_damage_+%_final"]=1484,
 	["seismic_cry_slam_skill_area_+%_increase_per_repeat"]=1487,
@@ -49314,7 +49310,7 @@ return {
 	["virtual_plague_bearer_maximum_stored_poison_damage"]=404,
 	["virtual_projectile_number_to_split"]=250,
 	["virtual_projectiles_cannot_pierce"]=100,
-	["virtual_regenerate_x_life_over_1_second_on_skill_use_or_trigger"]=1448,
+	["enduring_cry_life_regenerated_percentage_per_5_power"]=1448,
 	["virtual_skill_gains_intensity"]=212,
 	["virtual_spider_aspect_web_interval_ms"]=1449,
 	["virtual_static_strike_base_zap_frequency_ms"]=1450,

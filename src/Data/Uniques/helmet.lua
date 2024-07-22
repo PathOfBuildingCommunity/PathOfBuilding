@@ -148,7 +148,7 @@ Onslaught
 ]],[[
 Blood Price
 Reaver Helmet
-(20-30)% reduced maximum Life
+24% reduced maximum Life
 Regenerate (200-250) Life per second
 100% increased Stun and Block Recovery
 Nearby Enemy Monsters have at least 8% of Life Reserved
@@ -829,6 +829,17 @@ Requires Level 67, 62 Str, 85 Dex
 20% increased Movement Speed
 Mercury Footprints
 ]],[[
+The Devourer of Minds
+Pig-Faced Bascinet
+Source: Drops from unique{The Elder} (Uber Uber)
+Requires Level 63, 85 Str, 62 Dex
++(30–50) to Intelligence
+(80–120)% increased Armour and Evasion
++1 to Level of all Minion Skill Gems
+25% increased Light Radius
+Minions have the same maximum number of Endurance, Frenzy and Power Charges as you
+Minions count as having the same number of Endurance, Frenzy and Power Charges as you
+]],[[
 The Fledgling
 Lacquered Helmet
 League: Heist
@@ -1182,6 +1193,19 @@ Enemies Cannot Leech Mana From You
 {variant:3}(10-20)% of Damage taken Recouped as Mana
 Cannot Leech Mana
 ]],[[
+Ravenous Passion
+Zealot Helmet
+Variant: Pre 3.25.0
+Variant: Current
+Source: Drops from unique{The Eater of Worlds} (Uber)
+Requires Level: 44, 50 Str, 50 Int
++(30-50) to Strength
+(80-120)% Increased Armour and Energy Shield
+{variant:1}Gain (10-15) Rage after Spending a total of 200 Mana
+{variant:2}Gain (7-10) Rage after Spending a total of 200 Mana
+{variant:1}Rage grants Cast Speed instead of Attack Speed
+Rage grants Spell Damage instead of Attack Damage
+]],[[
 Speaker's Wreath
 Prophet Crown
 Requires Level 63, 85 Str, 62 Int
@@ -1253,8 +1277,8 @@ Requires Level 20
 +23 to maximum Life
 (15-10)% reduced Mine Throwing Speed
 Mines have (40-50)% increased Detonation Speed
-Skills which Place Mines place up to 1 additional Mine if you have at least 800 Dexterity
-Skills which Place Mines place up to 1 additional Mine if you have at least 800 Intelligence
+Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Dexterity
+Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Intelligence
 ]],[[
 Eye of Malice
 Callous Mask
