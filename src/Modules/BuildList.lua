@@ -218,7 +218,13 @@ function listMode:SortList()
 				return a.ascendClassName < b.ascendClassName
 			end
 		elseif main.buildSortMode == "LEVEL" then
+			if a.level and not b.level then
+				return false
+			elseif not a.level and b.level then
+				return true
+			else
 				return a.level < b.level
+			end
 		end
 		return naturalSortCompare(a.fileName, b.fileName)
 	end)
