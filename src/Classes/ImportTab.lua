@@ -522,6 +522,7 @@ function ImportTabClass:BuildCharacterList(league)
 			t_insert(self.controls.charSelect.list, {
 				label = charName,
 				char = char,
+				searchFilter = charName.." "..charClass,
 				detail = detail
 			})
 		end

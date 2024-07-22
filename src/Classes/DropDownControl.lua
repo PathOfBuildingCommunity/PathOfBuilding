@@ -19,7 +19,15 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 			end,
 			-- value mapping function
 			function(listVal)
-				return StripEscapes(type(listVal) == "table" and listVal.label or listVal)
+				if type(listVal) == "table" then
+					if listVal.searchFilter then
+						return StripEscapes(listVal.searchFilter)
+					end
+					if listVal.label then
+						return StripEscapes(listVal.label)
+					end
+				end
+				return StripEscapes(listVal)
 			end
 	)
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
