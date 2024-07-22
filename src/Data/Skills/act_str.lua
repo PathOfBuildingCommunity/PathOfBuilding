@@ -11296,7 +11296,7 @@ skills["BloodstainedBanner"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" })
 		},
 		["physical_damage_+%"] = {
-			mod("PhysicalDamage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }, { type = "SkillType", skillType = SkillType.Melee }),
 		},
 	},
 	baseFlags = {
