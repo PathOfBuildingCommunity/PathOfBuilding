@@ -5672,7 +5672,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Ancestrally Boosted Slams deal {0}% more Damage with Hits"
+					text="Ancestrally Boosted Slams deal {0}% more Damage with Hits and Ailments"
 				},
 				[2]={
 					[1]={
@@ -5685,7 +5685,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Ancestrally Boosted Slams deal {0}% less Damage with Hits"
+					text="Ancestrally Boosted Slams deal {0}% less Damage with Hits and Ailments"
 				}
 			}
 		},
