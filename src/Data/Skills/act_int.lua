@@ -10126,12 +10126,6 @@ skills["ClusterBurst"] = {
 			area = true,
 		},
 	},
-	statMap = {
-		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
-			flag("SpellDamageAppliesToAttacks"),
-			mod("ImprovedSpellDamageAppliesToAttacks", "MAX", nil),
-		},
-	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -10227,10 +10221,6 @@ skills["ClusterBurstAltX"] = {
 		["kinetic_blast_modifiers_to_number_of_projectiles_instead_apply_to_number_of_clusters"] = {
 			flag("NoAdditionalProjectiles"),
 		},
-		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
-			flag("SpellDamageAppliesToAttacks"),
-			mod("ImprovedSpellDamageAppliesToAttacks", "MAX", nil),
-		},
 	},
 	baseFlags = {
 		attack = true,
@@ -10312,10 +10302,6 @@ skills["KineticBolt"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
-		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
-			flag("SpellDamageAppliesToAttacks"),
-			mod("ImprovedSpellDamageAppliesToAttacks", "MAX", nil),
-		},
 		["quality_display_spell_damage_to_attack_damage_is_gem"] = {
 			--Display Only
 		},
