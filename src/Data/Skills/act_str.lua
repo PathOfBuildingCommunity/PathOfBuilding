@@ -3465,7 +3465,6 @@ skills["EnduringCry"] = {
 	},
 	constantStats = {
 		{ "enduring_cry_life_regenerated_percentage_per_5_power", 2 },
-		{ "base_skill_effect_duration", 2000 },
 	},
 	stats = {
 		"warcry_speed_+%",
