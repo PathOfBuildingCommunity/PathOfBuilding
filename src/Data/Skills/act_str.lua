@@ -8434,9 +8434,6 @@ skills["SeismicCry"] = {
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("SeismicExertedAttacks", "BASE", nil),
 		},
-		["seismic_cry_slam_skill_area_+%_increase_per_repeat"] = {
-			mod("SeismicAoEIncMultiplier", "BASE", nil),
-		},
 		["seismic_cry_base_slam_skill_area_+%"] = {
 			mod("SeismicAoEMoreMultiplier", "BASE", nil),
 		},
@@ -8465,7 +8462,6 @@ skills["SeismicCry"] = {
 		{ "seismic_cry_+%_stun_threshold_per_5_MP", 15 },
 		{ "seismic_cry_+%_physical_damamge_reduction_per_5_MP", 5 },
 		{ "seismic_cry_base_slam_skill_area_+%", 50 },
-		{ "seismic_cry_slam_skill_area_+%_increase_per_repeat", 30 },
 		{ "skill_empower_limitation_specifier_for_stat_description", 2 },
 	},
 	stats = {
