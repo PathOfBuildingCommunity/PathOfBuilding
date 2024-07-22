@@ -2295,6 +2295,7 @@ local specialModList = {
 	["you cannot be stunned while at maximum endurance charges"] = { flag("StunImmune", { type = "StatThreshold", stat = "EnduranceCharges", thresholdStat = "EnduranceChargesMax" }) },
 	["fortify"] = { flag("Condition:Fortified") },
 	["you have (%d+) fortification"] = function(num) return { mod("MinimumFortification", "BASE", num) } end,
+	["nearby allies count as having fortification equal to yours"] = { mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("YourFortifyEqualToParent", "FLAG", true, { type = "GlobalEffect", effectType = "Global", unscalable = true } ) }) },
 	["enemies taunted by you cannot evade attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("CannotEvade", { type = "Condition", var = "Taunted" }) }) },
 	["if you've impaled an enemy recently, you and nearby allies have %+(%d+) to armour"] = function (num) return { mod("ExtraAura", "LIST", { mod = mod("Armour", "BASE", num) }, { type = "Condition", var = "ImpaledRecently" }) } end,
 	["your hits permanently intimidate enemies that are on full life"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated", { type = "Condition", var = "ChampionIntimidate" }) }) },

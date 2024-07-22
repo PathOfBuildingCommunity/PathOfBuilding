@@ -543,15 +543,17 @@ local function doActorMisc(env, actor)
 		if modDB:Sum("BASE", nil, "MinimumRage") > (modDB.multipliers["Rage"] or 0) then
 			modDB.multipliers["Rage"] = modDB:Sum("BASE", nil, "MinimumRage")
 		end
-		-- Minimum Fortification from King Maker of Perfect Naval Officer spectres
+		-- Minimum Fortification from King Maker or Perfect Naval Officer spectres
 		if modDB:Sum("BASE", nil, "MinimumFortification") > 0 then
+			condList["Fortified"] = true
+		elseif (modDB:Flag(nil, "YourFortifyEqualToParent") and actor.parent.output.FortificationStacks or 0) > 0 then
 			condList["Fortified"] = true
 		end
 		-- Fortify
 		if modDB:Flag(nil, "Fortified") or modDB:Sum("BASE", nil, "Multiplier:Fortification") > 0 then
 			local maxStacks = modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification")
 			local minStacks = m_min(modDB:Sum("BASE", nil, "MinimumFortification"), maxStacks)
-			local stacks = modDB:Override(nil, "FortificationStacks") or (minStacks > 0 and minStacks) or maxStacks
+			local stacks = modDB:Override(nil, "FortificationStacks") or modDB:Flag(nil, "YourFortifyEqualToParent") and actor.parent.output.FortificationStacks or (minStacks > 0 and minStacks) or maxStacks
 			output.FortificationStacks = stacks
 			if not modDB:Flag(nil,"Condition:NoFortificationMitigation") then
 				local effectScale = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
