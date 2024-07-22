@@ -1495,10 +1495,12 @@ function calcs.perform(env, skipEHP)
 	
 	local effectInc = modDB:Sum("INC", {actor = "player"}, "TinctureEffect")
 	local effectIncMagic = modDB:Sum("INC", {actor = "player"}, "MagicTinctureEffect")
+	local tinctureLimit = modDB:Sum("BASE", nil, "TinctureLimit")
 
 	-- tincture breakdown
 	if breakdown then
 		output.TinctureEffect = effectInc
+		output.TinctureLimit = tinctureLimit
 	end
 	
 	
@@ -1539,6 +1541,10 @@ function calcs.perform(env, skipEHP)
 			end
 		end
 		for item in pairs(tinctures) do
+			if tinctureLimit <= 0 then
+				break
+			end
+			tinctureLimit = tinctureLimit - 1
 			tinctureBuffsPerBase[item.baseName] = tinctureBuffsPerBase[item.baseName] or {}
 			tinctureConditions["UsingTincture"] = true
 			tinctureConditions["Using"..item.baseName:gsub("%s+", "")] = true
