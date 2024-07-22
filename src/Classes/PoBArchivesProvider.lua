@@ -45,7 +45,7 @@ function PoBArchivesProviderClass:GetPageUrl()
 
 	return nil
 end
-function PoBArchivesProviderClass:GetRecommendations(buildCode, postURL)
+function PoBArchivesProviderClass:GetRecommendations(buildCode, postURL, callback)
 	local id = LaunchSubScript([[
 			local code, connectionProtocol, proxyURL = ...
 			local curl = require("lcurl.safe")
@@ -76,7 +76,7 @@ function PoBArchivesProviderClass:GetRecommendations(buildCode, postURL)
 		launch:RegisterSubScript(id, function(response, errMsg)
 			if errMsg == 200 then
 				self.statusMsg = nil
-				self:ParseBuilds(response)
+				self:ParseBuilds(response, callback)
 				return
 			else
 				self.statusMsg = "Error while fetching similar builds: " .. errMsg
@@ -87,7 +87,7 @@ function PoBArchivesProviderClass:GetRecommendations(buildCode, postURL)
 
 end
 
-function PoBArchivesProviderClass:ParseBuilds(message)
+function PoBArchivesProviderClass:ParseBuilds(message, callback)
 	local obj = dkjson.decode(message)
 	if not obj or not obj.builds or next(obj.builds) == nil then
 		self.statusMsg = "No builds found."
@@ -122,16 +122,20 @@ function PoBArchivesProviderClass:ParseBuilds(message)
 		-- build.score = value.similarity_score
 		t_insert(self.buildList, build)
 	end
+
+	if callback then
+		callback(self.buildList)
+	end
 end
 
-function PoBArchivesProviderClass:GetBuilds()
+function PoBArchivesProviderClass:GetBuilds(callback)
 	self.statusMsg = "Loading.."
 	wipeTable(self.buildList)
 	self.contentHeight = nil
 
 
 	if self.mode == 'similar' then
-		self:GetRecommendations(self.importCode,self:GetApiUrl())
+		self:GetRecommendations(self.importCode,self:GetApiUrl(), callback)
 		return
 	else
 		launch:DownloadPage(self:GetApiUrl(), function(response, errMsg)
@@ -140,7 +144,7 @@ function PoBArchivesProviderClass:GetBuilds()
 				return
 			end
 
-			self:ParseBuilds(response.body)
+			self:ParseBuilds(response.body, callback)
 
 			self.statusMsg = nil
 		end, {})

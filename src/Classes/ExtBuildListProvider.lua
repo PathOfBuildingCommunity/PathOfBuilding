@@ -16,6 +16,7 @@ local ExtBuildListProviderClass = newClass("ExtBuildListProvider",
 		self.buildList = {}
 		self.activeList = nil
 		self.statusMsg = nil
+		self.fetchBuildsCallback = nil
 	end
 )
 
@@ -23,7 +24,8 @@ function ExtBuildListProviderClass:GetPageUrl()
 	return nil
 end
 
-function ExtBuildListProviderClass:Activate()
+function ExtBuildListProviderClass:Activate(fetchBuildsCallback)
+	self.fetchBuildsCallback = fetchBuildsCallback
 	if self.listTitles and next(self.listTitles) then
 		self:SetActiveList(self.listTitles[1])
 	end
@@ -34,7 +36,7 @@ function ExtBuildListProviderClass:SetActiveList(activeList)
 		for _, value in ipairs(self.listTitles) do
 			if value == activeList then
 				self.activeList = activeList
-				self:GetBuilds()
+				self:GetBuilds(self.fetchBuildsCallback)
 			end
 		end
 	end
@@ -52,7 +54,7 @@ function ExtBuildListProviderClass:GetActivePageUrl()
 	return nil
 end
 
-function ExtBuildListProviderClass:GetBuilds()
+function ExtBuildListProviderClass:GetBuilds(callback)
 	return {}
 end
 
