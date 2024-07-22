@@ -122,7 +122,7 @@ end
 localSource = localSource:gsub("{branch}", localBranch)
 
 -- Download and process remote manifest
-local remoteVer
+local remoteVer, remoteHash
 local remoteFiles = { }
 local remoteSources = { }
 local remoteManText, errMsg = downloadFileText(localSource, "manifest.xml")
@@ -136,6 +136,7 @@ if remoteManXML and remoteManXML[1].elem == "PoBVersion" then
 		if type(node) == "table" then
 			if node.elem == "Version" then
 				remoteVer = node.attrib.number
+				remoteHash = node.attrib.hash
 			elseif node.elem == "Source" then
 				if not remoteSources[node.attrib.part] then
 					remoteSources[node.attrib.part] = { }
@@ -155,7 +156,7 @@ if remoteManXML and remoteManXML[1].elem == "PoBVersion" then
 		end
 	end
 end
-if not remoteVer or not next(remoteSources) or not next(remoteFiles) then
+if not remoteVer or not remoteHash or not next(remoteSources) or not next(remoteFiles) then
 	ConPrintf("Update check failed: invalid remote manifest")
 	return nil, "Invalid remote manifest"
 end
@@ -264,7 +265,7 @@ end
 
 -- Create new manifest
 localManXML = { elem = "PoBVersion" }
-table.insert(localManXML, { elem = "Version", attrib = { number = remoteVer, platform = localPlatform, branch = localBranch } })
+table.insert(localManXML, { elem = "Version", attrib = { number = remoteVer, hash = remoteHash, platform = localPlatform, branch = localBranch } })
 for part, platforms in pairs(remoteSources) do
 	for platform, url in pairs(platforms) do
 		table.insert(localManXML, { elem = "Source", attrib = { part = part, platform = platform ~= "any" and platform, url = url } })
