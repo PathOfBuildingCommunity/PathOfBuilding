@@ -2550,6 +2550,7 @@ function calcs.buildDefenceEstimations(env, actor)
 				if output.specificTypeAvoidance then
 					AvoidChance = m_min(output["Avoid"..damageType.."DamageChance"] + ExtraAvoidChance, data.misc.AvoidChanceCap)
 					-- unlucky config to lower the value of block, dodge, evade etc for ehp
+					local worstOf = env.configInput.EHPUnluckyWorstOf or 1
 					if worstOf > 1 then
 						AvoidChance = AvoidChance / 100 * AvoidChance
 						if worstOf == 4 then
