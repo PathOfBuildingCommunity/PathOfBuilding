@@ -442,15 +442,14 @@ local skills, mod, flag, skill = ...
 #skill DefianceBanner
 #flags spell area duration aura banner
 	statMap = {
-		["evasion_and_physical_damage_reduction_rating_+%"] = {
-			mod("ArmourAndEvasion", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		["defiance_banner_movement_speed"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
 		},
-		["armour_evasion_banner_critical_strike_chance_+%"] = {
-			mod("EnemyCritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		["suppress_spell_damage"] = {
+			mod("SpellSuppressionChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
 		},
 	},
-#baseMod skill("radius", 46)
-#baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod skill("radius", 24
 #baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
@@ -511,17 +510,13 @@ local skills, mod, flag, skill = ...
 #flags spell
 	statMap = {
 		["puresteel_banner_accuracy_rating_+%_final"] = {
-			mod("Accuracy", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
+			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
 		},
 		["attacks_impale_on_hit_%_chance"] = {
-			mod("ImpaleChance", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["impale_debuff_effect_+%"] = {
-			mod("ImpaleEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
 		},
 	},
-#baseMod skill("radius", 46)
-#baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod skill("radius", 24)
 #baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
@@ -2077,7 +2072,6 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" })
 		},
 	},
-#baseMod skill("radius", 46)
-#baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod skill("radius", 24)
 #baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods

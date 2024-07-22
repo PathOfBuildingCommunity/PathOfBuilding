@@ -1050,7 +1050,13 @@ function calcs.perform(env, skipEHP)
 	end
 
 	local hasGuaranteedBonechill = false
-
+	
+	-- Banners
+	if modDB:Flag(nil,"Condition:BannerPlanted") then
+		local max = modDB:Sum("BASE", nil, "MaximumValour")
+		local stacks = modDB:Sum("BASE", nil, "Multiplier:ValourStacks")
+		modDB:NewMod("Multiplier:BannerValour", "BASE", m_min(stacks, max), "Base")
+	end
 
 	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "WarcryPower") < 10 then
 		modDB:NewMod("WarcryPower", "OVERRIDE", 10, "Minimum Warcry Power from CryWolf")
