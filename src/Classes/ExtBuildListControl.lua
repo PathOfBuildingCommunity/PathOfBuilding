@@ -214,16 +214,6 @@ function ExtBuildListControlClass:GetAscendancyImageHandle(ascendancy)
 	return image
 end
 
-function ExtBuildListControlClass:GetClassImageHandle(class)
-	local image = nil
-	if class then
-		image = NewImageHandle()
-		image:Load(s_format('Assets/ascendants/%s.jpeg', (class:gsub("^%l", string.lower))))
-	end
-
-	return image
-end
-
 function ExtBuildListControlClass:HandleButtonClick(button, buttonType)
 	if button then
 		self.inTransition = true
@@ -347,11 +337,8 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 	for _, build in pairs(self.activeListProvider.buildList) do
 		if build.buildName then
 			local image = nil
-			if build.ascendancy then
-				image = self:GetAscendancyImageHandle(build.ascendancy)
-			else if build.class then
-				image = self:GetClassImageHandle(build.class)
-				end
+			if build.ascendancy or build.class then
+				image = self:GetAscendancyImageHandle(build.ascendancy or build.class)
 			end
 
 			if image then
