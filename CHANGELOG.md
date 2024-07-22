@@ -14,7 +14,7 @@
 - Add support for linking sets through Loadouts by [#7672](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7672) ([Subtractem](https://github.com/Subtractem), [Peechey](https://github.com/Peechey), [deathbeam](https://github.com/deathbeam))
 - Add support for multiple configurations [\#7212](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7212) ([Peechey](https://github.com/Peechey))
 - Add support for new Gladiator Ascendancy nodes  [#7704](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7704), [#7697](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7697), [#7733](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7733) ([Regisle](https://github.com/Regisle), [dicsantana](https://github.com/dicsantana))
-- Add support for Tinctures [\#7749](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7749) ([Regisle](https://github.com/Regisle))
+- Add support for Tinctures [\#7749](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7749) ([Regisle](https://github.com/Regisle), [Nostrademous](https://github.com/Nostrademous))
 - Add support for new Warden Ascendancy nodes  [#7707](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7707), [#7782](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7782) ([Nerotox](https://github.com/Nerotox), [Regisle](https://github.com/Regisle))
 - Add support for new double Exerts Berserker Ascendancy [\#7745](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7745) ([Paliak](https://github.com/Paliak))
 - Add support for Champion's new Fortify on allies Ascendancy [\#7773](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7773) ([Regisle](https://github.com/Regisle))
@@ -122,7 +122,7 @@
 - Fix incorrect shortcut key mapping on some keyboards [\#7717](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7717) ([Wires77](https://github.com/Wires77))
 - Fix slow startup on certain computers [\#7717](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7717) ([zao](https://github.com/zao))
 - Fix error when deleting empty folders [\#7717](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7717) ([Wires77](https://github.com/Wires77))
-- Fix incorrectly needing to redownload Timeless Jewel files [\#7717](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7717) ([zao](https://github.com/zao))
+- Fix incorrectly needing to re-download Timeless Jewel files [\#7717](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7717) ([zao](https://github.com/zao))
 
 
 ## [v2.42.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.42.0) (2024/03/30)

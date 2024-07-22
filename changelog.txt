@@ -7,7 +7,7 @@ VERSION[2.43.0][2024/07/23]
 * Add support for linking sets through Loadouts (Subtractem, Peechey, deathbeam)
 * Add support for multiple configurations (Peechey)
 * Add support for new Gladiator Ascendancy nodes (Regisle, dicsantana)
-* Add support for Tinctures (Regisle)
+* Add support for Tinctures (Regisle, Nostrademous)
 * Add support for new Warden Ascendancy nodes (Nerotox, Regisle)
 * Add support for new double Exerts Berserker Ascendancy (Paliak)
 * Add support for Champion's new Fortify on allies Ascendancy (Regisle)
@@ -115,7 +115,7 @@ VERSION[2.43.0][2024/07/23]
 * Fix incorrect shortcut key mapping on some keyboards (Wires77)
 * Fix slow startup on certain computers (zao)
 * Fix error when deleting empty folders (Wires77)
-* Fix incorrectly needing to redownload Timeless Jewel files (zao)
+* Fix incorrectly needing to re-download Timeless Jewel files (zao)
 
 VERSION[2.42.0][2024/03/30]
 
