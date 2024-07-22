@@ -539,15 +539,20 @@ local function doActorMisc(env, actor)
 		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
 			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
 		end
-		-- Minimum Fortification from King Maker of Perfect Naval Officer spectres
-		if modDB:Sum("BASE", nil, "MinimumFortification") > 0 then
+		-- Minimum Rage
+		if modDB:Sum("BASE", nil, "MinimumRage") > (modDB.multipliers["Rage"] or 0) then
+			modDB.multipliers["Rage"] = modDB:Sum("BASE", nil, "MinimumRage")
+		end
+		local alliedFortify = modDB:Flag(nil, "YourFortifyEqualToParent") and actor.parent.output.FortificationStacks or env.partyMembers and env.partyMembers.modDB:Flag(nil, "PartyMemberFortifyEqualToYours") and env.partyMembers.output.FortificationStacks or 0
+		-- Minimum Fortification from King Maker or Perfect Naval Officer spectres or Ally override
+		if modDB:Sum("BASE", nil, "MinimumFortification") > 0 or alliedFortify > 0 then
 			condList["Fortified"] = true
 		end
 		-- Fortify
 		if modDB:Flag(nil, "Fortified") or modDB:Sum("BASE", nil, "Multiplier:Fortification") > 0 then
 			local maxStacks = modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification")
 			local minStacks = m_min(modDB:Sum("BASE", nil, "MinimumFortification"), maxStacks)
-			local stacks = modDB:Override(nil, "FortificationStacks") or (minStacks > 0 and minStacks) or maxStacks
+			local stacks = modDB:Override(nil, "FortificationStacks") or (alliedFortify > 0 and alliedFortify) or (minStacks > 0 and minStacks) or maxStacks
 			output.FortificationStacks = stacks
 			if not modDB:Flag(nil,"Condition:NoFortificationMitigation") then
 				local effectScale = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
@@ -3055,6 +3060,17 @@ function calcs.perform(env, skipEHP)
 		end
 
 		buffExports.PlayerMods["MovementSpeedMod|percent|max="..tostring(output["MovementSpeedMod"] * 100)] = true
+		
+		for _, mod in ipairs(buffExports["Aura"]["extraAura"].modList) do
+			-- leaving comment to make it easier for future similar mods
+			--if mod.name:match("Parent") then
+			--	ConPrintTable(mod)
+			--end
+			if mod.name == "YourFortifyEqualToParent" then
+				buffExports.PlayerMods["PartyMemberFortifyEqualToYours"] = true
+				buffExports.PlayerMods["FortificationStacks="..tostring(output.FortificationStacks or 0)] = true
+			end
+		end
 
 		-- preStack Mine auras
 		for auraName, aura in pairs(buffExports["Aura"]) do
