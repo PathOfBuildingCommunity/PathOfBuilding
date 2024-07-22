@@ -47,27 +47,6 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill InfernalCryOnHitExplosion
-#flags attack melee area
-	statMap = {
-		["triggered_by_infernal_cry"] = {
-			-- Display only
-		},
-	},
-#baseMod skill("showAverage", true)
-#mods
-
-#skill TotemMelee
-#flags attack melee totem duration
-	statMap = {
-		["melee_ancestor_totem_grant_owner_attack_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-	},
-#baseMod skill("allowTotemBuff", true)
-#baseMod skill("thisIsNotABuff", true)
-#mods
-
 #skill AncestralCry
 #flags warcry area duration
 	statMap = {
@@ -82,28 +61,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 60)
-#mods
-
-#skill AncestorTotemSlam
-#flags attack melee totem area duration
-	statMap = {
-		["slam_ancestor_totem_grant_owner_melee_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ancestral Warchief" }),
-		},
-	},
-#baseMod skill("allowTotemBuff", true)
-#baseMod skill("thisIsNotABuff", true)
-#mods
-
-#skill VaalAncestralWarchief
-#flags attack melee totem area duration
-	statMap = {
-		["slam_ancestor_totem_grant_owner_melee_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ancestral Warchief" }),
-		},
-	},
-#baseMod skill("allowTotemBuff", true)
-#baseMod skill("thisIsNotABuff", true)
 #mods
 
 #skill Anger
@@ -1060,6 +1017,16 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 60)
 #baseMod skill("radiusLabel", "Warcry area:")
+#mods
+
+#skill InfernalCryOnHitExplosion
+#flags attack melee area
+	statMap = {
+		["triggered_by_infernal_cry"] = {
+			-- Display only
+		},
+	},
+#baseMod skill("showAverage", true)
 #mods
 
 #skill InfernalBlow
