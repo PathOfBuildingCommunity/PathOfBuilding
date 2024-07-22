@@ -362,6 +362,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.baseLines = { }
 	local importedLevelReq
 	local flaskBuffLines
+	local tinctureBuffLines
 	local deferJewelRadiusIndexAssignment
 	local gameModeStage = "FINDIMPLICIT"
 	local foundExplicit, foundImplicit
@@ -370,6 +371,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		local line = self.rawLines[l]
 		if flaskBuffLines and flaskBuffLines[line] then
 			flaskBuffLines[line] = nil
+		elseif tinctureBuffLines and tinctureBuffLines[line] then
+			tinctureBuffLines[line] = nil
 		elseif line == "--------" then
 			self.checkSection = true
 		elseif line == "Split" then
@@ -698,6 +701,14 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 							flaskBuffLines = { }
 							for _, line in ipairs(self.base.flask.buff) do
 								flaskBuffLines[line] = true
+								local modList, extra = modLib.parseMod(line)
+								t_insert(self.buffModLines, { line = line, extra = extra, modList = modList or { } })
+							end
+						end
+						if self.base.tincture and self.base.tincture.buff and not tinctureBuffLines then
+							tinctureBuffLines = { }
+							for _, line in ipairs(self.base.tincture.buff) do
+								tinctureBuffLines[line] = true
 								local modList, extra = modLib.parseMod(line)
 								t_insert(self.buffModLines, { line = line, extra = extra, modList = modList or { } })
 							end
@@ -1470,9 +1481,17 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		flaskData.chargesMax = self.base.flask.chargesMax + calcLocal(modList, "FlaskCharges", "BASE", 0)
 		flaskData.chargesUsed = m_floor(self.base.flask.chargesUsed * (1 + calcLocal(modList, "FlaskChargesUsed", "INC", 0) / 100))
 		flaskData.gainMod = 1 + calcLocal(modList, "FlaskChargeRecovery", "INC", 0) / 100
-		flaskData.effectInc = calcLocal(modList, "FlaskEffect", "INC", 0)
+		flaskData.effectInc = calcLocal(modList, "FlaskEffect", "INC", 0) + calcLocal(modList, "LocalEffect", "INC", 0)
 		for _, value in ipairs(modList:List(nil, "FlaskData")) do
 			flaskData[value.key] = value.value
+		end
+	elseif self.base.tincture then
+		local tinctureData = self.tinctureData
+		tinctureData.manaBurn = self.base.tincture.manaBurn * (1 + calcLocal(modList, "TinctureManaBurnRate", "INC", 0) / 100) * (1 + calcLocal(modList, "TinctureManaBurnRate", "MORE", 0) / 100)
+		tinctureData.cooldown = self.base.tincture.cooldown / (1 + calcLocal(modList, "TinctureCooldownRecovery", "INC", 0) / 100)
+		tinctureData.effectInc = calcLocal(modList, "TinctureEffect", "INC", 0) + calcLocal(modList, "LocalEffect", "INC", 0)
+		for _, value in ipairs(modList:List(nil, "TinctureData")) do
+			tinctureData[value.key] = value.value
 		end
 	elseif self.type == "Jewel" then
 		if self.name:find("Grand Spectrum") then
@@ -1538,6 +1557,9 @@ function ItemClass:BuildModList()
 		self.armourData = self.armourData or { }
 	elseif self.base.flask then
 		self.flaskData = { }
+		self.buffModList = { }
+	elseif self.base.tincture then
+		self.tinctureData = { }
 		self.buffModList = { }
 	elseif self.type == "Jewel" then
 		self.jewelData = { }

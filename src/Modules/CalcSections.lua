@@ -1639,6 +1639,14 @@ return {
 	{ label = "Charges/s", { format = "{2:output:ManaFlaskChargeGen}",
 		{ label = "Mana Flask Charges/s", modName = "ManaFlaskChargesGenerated", modType = "BASE"},
 		{ label = "Generic Flask Charges/s", modName = { "FlaskChargesGenerated", "FlaskChargesGeneratedPerEmptyFlask" }, modType = "BASE" }}, },
+} }, { defaultCollapsed = true, label = "Tinctures", data = {
+	extra = "+{0:output:TinctureEffect}%, {0:output:TinctureLimit}",
+	{ label = "Inc. Effect", { format = "{0:mod:1}%", { modName = "TinctureEffect", modType = "INC", actor = "player"}, }, },
+	{ label = "Tincture Limit", { format = "{0:mod:1}", { modName = "TinctureLimit", modType = "BASE"}, }, },
+	{ label = "ManaBurn inc Rate", { format = "{0:mod:1}%", { modName = "TinctureManaBurnRate", modType = "INC", actor = "player"}, }, },
+	{ label = "ManaBurn more Rate", { format = "{0:mod:1}%", { modName = "TinctureManaBurnRate", modType = "MORE", actor = "player"}, }, },
+	{ label = "% Not Inflict ManaBurn", { format = "{0:mod:1}%", { modName = "TincturesNotInflictManaBurn", modType = "BASE" }, }, },
+	{ label = "Cooldown Recovery", { format = "{0:mod:1}%", { modName = "TinctureCooldownRecovery", modType = "INC", actor = "player"}, }, },
 } }
 } },
 { 1, "Rage", 3, colorCodes.RAGE, {{ defaultCollapsed = true, label = "Rage", data = {

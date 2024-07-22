@@ -1528,11 +1528,77 @@ function calcs.perform(env, skipEHP)
 			end
 		end
 	end
+	
+	local effectInc = modDB:Sum("INC", {actor = "player"}, "TinctureEffect")
+	local effectIncMagic = modDB:Sum("INC", {actor = "player"}, "MagicTinctureEffect")
+	local tinctureLimit = modDB:Sum("BASE", nil, "TinctureLimit")
+
+	-- tincture breakdown
+	if breakdown then
+		output.TinctureEffect = effectInc
+		output.TinctureLimit = tinctureLimit
+	end
+	
+	
+	local function mergeTinctures(tinctures)
+		local tinctureBuffs = { }
+		local tinctureConditions = {}
+		local tinctureBuffsPerBase = {}
+
+		local function calcTinctureMods(item, baseName, buffModList, modList)
+			local tinctureEffectInc = effectInc + item.tinctureData.effectInc
+			if item.rarity == "MAGIC" then
+				tinctureEffectInc = tinctureEffectInc + effectIncMagic
+			end
+			local effectMod = 1 + (tinctureEffectInc) / 100
+
+			-- same deal as flasks, go look at the comment there
+			if buffModList[1] then
+				local srcList = new("ModList")
+				srcList:ScaleAddList(buffModList, effectMod)
+				mergeBuff(srcList, tinctureBuffs, baseName)
+				mergeBuff(srcList, tinctureBuffsPerBase[item.baseName], baseName)
+			end
+
+			if modList[1] then
+				local srcList = new("ModList")
+				srcList:ScaleAddList(modList, effectMod)
+				local key
+				if item.rarity == "UNIQUE" then
+					key = item.title
+				else
+					key = ""
+					for _, mod in ipairs(modList) do
+						key = key .. modLib.formatModParams(mod) .. "&"
+					end
+				end
+				mergeBuff(srcList, tinctureBuffs, key)
+				mergeBuff(srcList, tinctureBuffsPerBase[item.baseName], key)
+			end
+		end
+		for item in pairs(tinctures) do
+			if tinctureLimit <= 0 then
+				break
+			end
+			tinctureLimit = tinctureLimit - 1
+			tinctureBuffsPerBase[item.baseName] = tinctureBuffsPerBase[item.baseName] or {}
+			tinctureConditions["UsingTincture"] = true
+			tinctureConditions["Using"..item.baseName:gsub("%s+", "")] = true
+			calcTinctureMods(item, item.baseName, item.buffModList, item.modList)
+		end
+		for tinctureCond, status in pairs(tinctureConditions) do
+			modDB.conditions[tinctureCond] = status
+		end
+		for _, buffModList in pairs(tinctureBuffs) do
+			modDB:AddList(buffModList)
+		end
+	end
 
 	if env.mode_combat then
 		-- This needs to be done in 2 steps to account for effects affecting life recovery from flasks
 		-- For example Sorrow of the Divine and buffs (like flask recovery watchers eye)
 		mergeFlasks(env.flasks, false, true)
+		mergeTinctures(env.tinctures)
 
 		-- Merge keystones again to catch any that were added by flasks
 		mergeKeystones(env)

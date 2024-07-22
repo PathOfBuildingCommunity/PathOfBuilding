@@ -229,12 +229,13 @@ function wipeEnv(env, accelerate)
 		-- 1) Jewels and Jewel-Radius related node modifications
 		-- 2) Player items
 		-- 3) Granted Skill from items (e.g., Curse on Hit rings)
-		-- 4) Flasks
+		-- 4) Flasks and Tinctures
 		wipeTable(env.radiusJewelList)
 		wipeTable(env.extraRadiusNodeList)
 		wipeTable(env.player.itemList)
 		wipeTable(env.grantedSkillsItems)
 		wipeTable(env.flasks)
+		wipeTable(env.tinctures)
 
 		-- Special / Unique Items that have their own ModDB()
 		if env.aegisModList then
@@ -402,6 +403,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.explodeSources = { }
 		env.itemWarnings = { }
 		env.flasks = { }
+		env.tinctures = { }
 
 		-- tree based
 		env.grantedPassives = { }
@@ -510,6 +512,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
 		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")
+		modDB:NewMod("TinctureLimit", "BASE", 1, "Base")
+		modDB:NewMod("ManaDegenPercent", "BASE", 1, "Base", { type = "Multiplier", var = "ManaBurnStacks" })
+		modDB:NewMod("LifeDegenPercent", "BASE", 1, "Base", { type = "Multiplier", var = "WeepingWoundsStacks" })
 
 		-- Add bandit mods
 		if env.configInput.bandit == "Alira" then
@@ -824,6 +829,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				end
 				item = nil
+			elseif item and item.type == "Tincture" then
+				if slot.active then
+					env.tinctures[item] = true
+				end
+				item = nil
 			end
 			local scale = 1
 			if item and item.type == "Jewel" and item.base.subType == "Abyss" and slot.parentSlot then
@@ -1027,7 +1037,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				if item.classRestriction then
 					env.itemModDB.conditions[item.title:gsub(" ", "")] = item.classRestriction
 				end
-				if item.type ~= "Jewel" and item.type ~= "Flask" then
+				if item.type ~= "Jewel" and item.type ~= "Flask" and item.type ~= "Tincture" then
 					-- Update item counts
 					local key
 					if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
@@ -1099,6 +1109,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 				env.flasks[override.toggleFlask] = nil
 			else
 				env.flasks[override.toggleFlask] = true
+			end
+		end
+		if override.toggleTincture then
+			if env.tinctures[override.toggleTincture] then
+				env.tinctures[override.toggleTincture] = nil
+			else
+				env.tinctures[override.toggleTincture] = true
 			end
 		end
 	end
