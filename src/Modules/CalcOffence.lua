@@ -2624,7 +2624,7 @@ function calcs.offence(env, actor, activeSkill)
 
 		output.RuthlessBlowHitEffect = 1
 		output.RuthlessBlowAilmentEffect = 1
-		output.FistOfWarHitEffect = 1
+		output.FistOfWarDamageEffect = 1
 		if env.mode_combat then
 			local ruthlessEffect = env.configInput.ruthlessSupportMode or "AVERAGE"
 			-- Calculate Ruthless Blow chance/multipliers + Fist of War multipliers
@@ -2951,8 +2951,8 @@ function calcs.offence(env, actor, activeSkill)
 						if output.RuthlessBlowHitEffect ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowHitEffect))
 						end
-						if output.FistOfWarHitEffect ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarHitEffect))
+						if output.FistOfWarDamageEffect ~= 1 then
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarDamageEffect))
 						end
 						if globalOutput.OffensiveWarcryEffect ~= 1  and not activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(aggregated warcry exerted effect modifier)", globalOutput.OffensiveWarcryEffect))
@@ -2962,9 +2962,9 @@ function calcs.offence(env, actor, activeSkill)
 						end
 					end
 					if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
-						output.allMult = convMult * output.ScaledDamageEffect * output.RuthlessBlowHitEffect * output.FistOfWarHitEffect * globalOutput.MaxOffensiveWarcryEffect
+						output.allMult = convMult * output.ScaledDamageEffect * output.RuthlessBlowHitEffect * output.FistOfWarDamageEffect * globalOutput.MaxOffensiveWarcryEffect
 					else
-						output.allMult = convMult * output.ScaledDamageEffect * output.RuthlessBlowHitEffect * output.FistOfWarHitEffect * globalOutput.OffensiveWarcryEffect
+						output.allMult = convMult * output.ScaledDamageEffect * output.RuthlessBlowHitEffect * output.FistOfWarDamageEffect * globalOutput.OffensiveWarcryEffect
 					end
 					local allMult = output.allMult
 					if pass == 1 then
