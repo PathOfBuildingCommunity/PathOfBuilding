@@ -280,10 +280,19 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 		end
 	end
 
+	local function addSeperator(y, fillH)
+		y = y + 4
+		SetDrawColor(0.5, 0.5, 0.5)
+		self:DrawImage(nil, x - 9, y, self.width() - (y > fillH and 2 or 115), 1)
+		y = y + 8
+		SetDrawColor(1, 1, 1)
+		return y
+	end
 
 	-- loop through builds
 	for _, build in pairs(self.activeListProvider.buildList) do
 		if build.buildName then
+			local portraitHeight = currentHeight + 82
 			local image = nil
 			if build.ascendancy or build.class then
 				image = self:GetAscendancyImageHandle(build.ascendancy or build.class)
@@ -311,12 +320,9 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			end
 
 			-- decorator line
-			currentHeight = currentHeight + 4
-			SetDrawColor(0.5, 0.5, 0.5)
-			self:DrawImage(nil, x - 9, currentHeight, self.width() - 115, 1)
-			currentHeight = currentHeight + 8
+			currentHeight = addSeperator(currentHeight, portraitHeight)
 
-			-- main skill, ascendancy
+			-- main skill
 			SetDrawColor(1, 1, 1)
 			if build.mainSkill and build.mainSkill ~= "" then
 				for _, line in pairs(self:splitStringByWidth(build.mainSkill, self.width() - 125, self.font)) do
@@ -324,12 +330,8 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 					self:DrawString(x, currentHeight, "LEFT", 16, self.font, line)
 					currentHeight = currentHeight + 20
 				end
-				currentHeight = currentHeight + 4
 				-- decorator line
-				SetDrawColor(0.5, 0.5, 0.5)
-				self:DrawImage(nil, x - 9, currentHeight, self.width() - 115, 1)
-				currentHeight = currentHeight + 8
-				SetDrawColor(1, 1, 1)
+				currentHeight = addSeperator(currentHeight, portraitHeight)
 			end
 
 			-- author
@@ -348,13 +350,10 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 				end
 			end
 
-			currentHeight = currentHeight + 20
+			currentHeight = currentHeight + 16
 
 			-- decorator line
-			SetDrawColor(0.5, 0.5, 0.5)
-			self:DrawImage(nil, x - 9, currentHeight, self.width(), 1)
-			currentHeight = currentHeight + 8
-			SetDrawColor(1, 1, 1)
+			currentHeight = addSeperator(currentHeight, portraitHeight)
 
 			-- stats
 			local dpsText = "DPS: 0"
@@ -388,11 +387,10 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 				self:DrawImage(nil, x + dpsWidth + lifeWidth + ehpWidth + 50, currentHeight - 7, 1, 28)
 				SetDrawColor(1, 1, 1)
 				self:DrawString(x + dpsWidth + lifeWidth + 40, currentHeight, "LEFT", 14, self.font, ehpText)
-				currentHeight = currentHeight + 20
+				currentHeight = currentHeight + 16
 				-- decorator line
-				SetDrawColor(0.5, 0.5, 0.5)
-				self:DrawImage(nil, x - 9, currentHeight, self.width(), 1)
-				currentHeight = currentHeight + 3
+				currentHeight = addSeperator(currentHeight, portraitHeight)
+				currentHeight = currentHeight - 5
 			end
 
 			-- SetDrawColor(1, 1, 1)
@@ -402,9 +400,8 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 				for _, metadata in pairs(build.metadata) do
 					SetDrawColor(1, 1, 1)
 					self:DrawString(x, currentHeight, "LEFT", 14, self.font, metadata.key .. ": " .. metadata.value)
-					currentHeight = currentHeight + 20
-					SetDrawColor(0.5, 0.5, 0.5)
-					self:DrawImage(nil, x - 9, currentHeight, self.width(), 1)
+					currentHeight = currentHeight + 16
+					currentHeight = addSeperator(currentHeight, portraitHeight)
 				end
 				currentHeight = currentHeight - 4
 			end
