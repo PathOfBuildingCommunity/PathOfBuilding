@@ -1409,7 +1409,7 @@ function buildMode:OpenSaveAsPopup()
 	end
 	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter new build name:")
 	controls.edit = new("EditControl", nil, 0, 40, 450, 20,
-	(self.dbFileName or self.buildName):gsub("[\\/:%*%?\"<>|%c]", "-"), nil, "\\/:%*%?\"<>|%c", 100, function(buf)
+	(self.buildName or self.dbFileName):gsub("[\\/:%*%?\"<>|%c]", "-"), nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 		updateBuildName()
 	end)
 	controls.folderLabel = new("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 70, 0, 16, "^7Folder:")
