@@ -165,9 +165,6 @@ skills["Barkskin"] = {
 	castTime = 0,
 	fromTree = true,
 	statMap = {
-		["armour_+%_per_barkskin_stack"] = {
-			mod("Armour", "INC", nil, 0, 0, { type = "Multiplier", var = "BarkskinStacks", limitVar = "BarkskinMaxStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
-		},
 		["physical_attack_damage_taken_+_per_barkskin_stack"] = {
 			mod("PhysicalDamageTakenFromAttacks", "BASE", nil, 0, 0, { type = "Multiplier", var = "BarkskinStacks", limitVar = "BarkskinMaxStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
 		},
@@ -184,14 +181,13 @@ skills["Barkskin"] = {
 	},
 	constantStats = {
 		{ "max_barkskin_stacks", 10 },
-		{ "armour_+%_per_barkskin_stack", 15 },
-		{ "physical_attack_damage_taken_+_per_barkskin_stack", -15 },
+		{ "physical_attack_damage_taken_+_per_barkskin_stack", -30 },
 		{ "chance_to_evade_attacks_+%_final_per_missing_barkskin_stack", 2 },
 	},
 	stats = {
 	},
 	levels = {
-		[20] = { storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 70, },
+		[20] = { storedUses = 1, manaReservationPercent = 10, cooldown = 1, levelRequirement = 70, },
 	},
 }
 

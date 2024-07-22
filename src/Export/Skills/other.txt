@@ -59,9 +59,6 @@ local skills, mod, flag, skill = ...
 #flags spell
 	fromTree = true,
 	statMap = {
-		["armour_+%_per_barkskin_stack"] = {
-			mod("Armour", "INC", nil, 0, 0, { type = "Multiplier", var = "BarkskinStacks", limitVar = "BarkskinMaxStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
-		},
 		["physical_attack_damage_taken_+_per_barkskin_stack"] = {
 			mod("PhysicalDamageTakenFromAttacks", "BASE", nil, 0, 0, { type = "Multiplier", var = "BarkskinStacks", limitVar = "BarkskinMaxStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
 		},
