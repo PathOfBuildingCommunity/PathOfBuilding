@@ -2488,35 +2488,26 @@ function calcs.buildDefenceEstimations(env, actor)
 		end
 
 	
-	do
-		local DamageIn = { }
-		local BlockChance = output.EffectiveBlockChance / 100
-		if damageCategoryConfig ~= "Melee" and damageCategoryConfig ~= "Untyped" then
-			BlockChance = output["Effective"..damageCategoryConfig.."BlockChance"] / 100
-		end
-		local blockEffect = (1 - BlockChance * output.BlockEffect / 100)
-		local suppressChance = 0
-		local suppressionEffect = 1
-		local ExtraAvoidChance = 0
-		local averageAvoidChance = 0
-		if not env.configInput.DisableEHPGainOnBlock then
-			DamageIn.LifeWhenHit = output.LifeOnBlock * BlockChance
-			DamageIn.ManaWhenHit = output.ManaOnBlock * BlockChance
-			DamageIn.EnergyShieldWhenHit = output.EnergyShieldOnBlock * BlockChance
-			if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
-				DamageIn.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit + output.EnergyShieldOnSpellBlock * BlockChance
-			elseif damageCategoryConfig == "Average" then
-				DamageIn.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit + output.EnergyShieldOnSpellBlock / 2 * BlockChance
+		do
+			local DamageIn = { }
+			local BlockChance = output.EffectiveBlockChance / 100
+			if damageCategoryConfig ~= "Melee" and damageCategoryConfig ~= "Untyped" then
+				BlockChance = output["Effective"..damageCategoryConfig.."BlockChance"] / 100
 			end
-		end
-		-- suppression
-		if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" or damageCategoryConfig == "Average" then
-			suppressChance = output.EffectiveSpellSuppressionChance / 100
-		end
-		-- We include suppression in damage reduction if it is 100% otherwise we handle it here.
-		if suppressChance < 1 then
-			if damageCategoryConfig == "Average" then
-				suppressChance = suppressChance / 2
+			local blockEffect = (1 - BlockChance * output.BlockEffect / 100)
+			local suppressChance = 0
+			local suppressionEffect = 1
+			local ExtraAvoidChance = 0
+			local averageAvoidChance = 0
+			if not env.configInput.DisableEHPGainOnBlock then
+				DamageIn.LifeWhenHit = output.LifeOnBlock * BlockChance
+				DamageIn.ManaWhenHit = output.ManaOnBlock * BlockChance
+				DamageIn.EnergyShieldWhenHit = output.EnergyShieldOnBlock * BlockChance
+				if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
+					DamageIn.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit + output.EnergyShieldOnSpellBlock * BlockChance
+				elseif damageCategoryConfig == "Average" then
+					DamageIn.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit + output.EnergyShieldOnSpellBlock / 2 * BlockChance
+				end
 			end
 			-- suppression
 			if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" or damageCategoryConfig == "Average" then
@@ -2524,14 +2515,6 @@ function calcs.buildDefenceEstimations(env, actor)
 			end
 			-- We include suppression in damage reduction if it is 100% otherwise we handle it here.
 			if suppressChance < 1 then
-				-- unlucky config to lower the value of block, dodge, evade etc for ehp
-				local worstOf = env.configInput.EHPUnluckyWorstOf or 1
-				if worstOf > 1 then
-					suppressChance = suppressChance * suppressChance
-					if worstOf == 4 then
-						suppressChance = suppressChance * suppressChance
-					end
-				end
 				if damageCategoryConfig == "Average" then
 					suppressChance = suppressChance / 2
 				end
