@@ -863,7 +863,8 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if skillModList:Flag(nil, "DotMultiplierIsCritMultiplier") then
-		skillModList:NewMod("DotMultiplier", "OVERRIDE", skillModList:Sum("BASE", skillCfg, "CritMultiplier"), "Perfect Agony", ModFlag.Ailment)
+		-- On enemy crit multiplier effects also apply for Perfect Agony: https://www.pathofexile.com/forum/view-thread/3532389#13
+		skillModList:NewMod("DotMultiplier", "OVERRIDE", skillModList:Sum("BASE", skillCfg, "CritMultiplier") + enemyDB:Sum("BASE", skillCfg, "SelfCritMultiplier"), "Perfect Agony", ModFlag.Ailment)
 	end
 
 	if skillModList:Flag(nil, "HasSeals") and activeSkill.skillTypes[SkillType.CanRapidFire] and not skillModList:Flag(nil, "NoRepeatBonuses") then
