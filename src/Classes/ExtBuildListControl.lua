@@ -205,13 +205,19 @@ function ExtBuildListControlClass:GetHoveredButton()
 end
 
 function ExtBuildListControlClass:GetAscendancyImageHandle(ascendancy)
-	local image = nil
 	if ascendancy then
-		image = NewImageHandle()
-		image:Load(s_format('Assets/ascendants/%s.jpeg', (ascendancy:gsub("^%l", string.lower))))
+		local fileName = s_format('Assets/ascendants/%s.jpeg', (ascendancy:gsub("^%l", string.lower)))
+		local file = io.open(fileName, "r")
+		if file then
+			file:close()
+			local image = NewImageHandle()
+			image:Load(fileName)
+			return image
+		end
+
 	end
 
-	return image
+	return nil
 end
 
 function ExtBuildListControlClass:HandleButtonClick(button, buttonType)
