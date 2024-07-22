@@ -57,7 +57,7 @@ function ExtBuildListControlClass:Init(providerName)
 	end
 
 	if self.activeListProvider == nil then
-		printf("Build provider not found: %s", providerName)
+		print("Build provider not found: %s", providerName)
 		return
 	end
 
@@ -167,41 +167,20 @@ function ExtBuildListControlClass:OnKeyUp(key)
 	elseif self.controls.scrollBarV:IsScrollUpKey(key) then
 		self.controls.scrollBarV:Scroll(-1)
 	end
-
-	if key == "LEFTBUTTON" then
-		self:CheckButtons()
-	end
 end
 
-function ExtBuildListControlClass:GetHoveredButton()
-	if self.inTransition then
+function ExtBuildListControlClass:importBuild(build)
+	if not (build.buildLink) then
+		print("Build link is not provided.")
 		return
 	end
-	local cursorX, cursorY = GetCursorPos();
-	cursorY = cursorY + self.controls.scrollBarV.offset
-	for i, importButton in ipairs(self.importButtons) do
-		if (cursorX > importButton.x0) and
-			(cursorX < importButton.x1) and
-			(cursorY > importButton.y0) and
-			(cursorY < importButton.y1) then
-			return {
-				button = importButton,
-				type = 'import'
-			}
+	ImportBuild(build.buildLink, function(xmlText, urlText)
+		if xmlText then
+			main:SetMode("BUILD", false,
+				build.buildName .. (build.authorName and (" - " .. self.build.authorName) or ""),
+				xmlText, false, urlText)
 		end
-	end
-
-	for i, previewButton in ipairs(self.previewButtons) do
-		if (cursorX > previewButton.x0) and
-			(cursorX < previewButton.x1) and
-			(cursorY > previewButton.y0) and
-			(cursorY < previewButton.y1) then
-			return {
-				button = previewButton,
-				type = 'preview'
-			}
-		end
-	end
+	end)
 end
 
 function ExtBuildListControlClass:GetAscendancyImageHandle(ascendancy)
@@ -218,51 +197,6 @@ function ExtBuildListControlClass:GetAscendancyImageHandle(ascendancy)
 	end
 
 	return nil
-end
-
-function ExtBuildListControlClass:HandleButtonClick(button, buttonType)
-	if button then
-		self.inTransition = true
-		if buttonType == "import" then
-			ImportBuild(button.buildLink, function (xmlText, urlText)
-				if xmlText then
-					main:SetMode("BUILD", false,
-					button.buildName .. (button.authorName and (" - " .. button.authorName) or ""),
-					 xmlText, false, urlText)
-				end
-			end)
-		elseif buttonType == "preview" then
-			OpenURL(button.previewLink)
-		end
-		self.inTransition = false
-	end
-end
-
-function ExtBuildListControlClass:CheckButtons()
-	if self.inTransition then
-		return
-	end
-	local cursorX, cursorY = GetCursorPos();
-	cursorY = cursorY + self.controls.scrollBarV.offset
-	for i, importButton in ipairs(self.importButtons) do
-		if (cursorX > importButton.x0) and
-			(cursorX < importButton.x1) and
-			(cursorY > importButton.y0) and
-			(cursorY < importButton.y1) then
-			self:HandleButtonClick(importButton, 'import')
-			break
-		end
-	end
-
-	for i, previewButton in ipairs(self.previewButtons) do
-		if (cursorX > previewButton.x0) and
-			(cursorX < previewButton.x1) and
-			(cursorY > previewButton.y0) and
-			(cursorY < previewButton.y1) then
-			self:HandleButtonClick(previewButton, 'preview')
-			break
-		end
-	end
 end
 
 -- splits strings by word and maxWidth
@@ -338,6 +272,14 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 
 	local scrollBarV = self.controls.scrollBarV
 	self.scrollOffsetV = scrollBarV.offset
+
+	-- remove import/export buttons.
+	for i, control in ipairs(self.controls) do
+		if control.label == "Import" or control.label == "Preview" then
+			self.controls[i] = nil
+		end
+	end
+
 
 	-- loop through builds
 	for _, build in pairs(self.activeListProvider.buildList) do
@@ -464,73 +406,36 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 					SetDrawColor(0.5, 0.5, 0.5)
 					self:DrawImage(nil, x - 9, currentHeight, self.width(), 1)
 				end
-
+				currentHeight = currentHeight - 4
 			end
 
-			-- import button
-			local importButton = {
-				buildLink = build.buildLink,
-				buildName = build.buildName,
-				authorName = build.author,
-				x0 = x,
-				y0 = currentHeight + 6,
-				x1 = x + 47,
-				y1 = currentHeight + 26
-			}
-			t_insert(self.importButtons, importButton)
-			-- preview button
-			local previewButton = {
-				previewLink = build.previewLink,
-				x0 = x + 50,
-				y0 = currentHeight + 6,
-				x1 = x + 115,
-				y1 = currentHeight + 26
-			}
-			t_insert(self.previewButtons, previewButton)
-			local hButton = self:GetHoveredButton()
+			-- draw buttons
+			currentHeight = currentHeight + 4
+			local relativeHeight = currentHeight + 10 - self.controls.scrollBarV.offset
+			if relativeHeight > y and relativeHeight < self.height() + y - 10 then
+				if build.buildLink then
+					local importButton = new("ButtonControl", nil, 0, 0, 45, 20, "Import", function()
+						self:importBuild(build)
+					end)
+					importButton.x = x
+					importButton.y = currentHeight - self.controls.scrollBarV.offset
+					t_insert(self.controls, importButton)
+				end
 
-			-- highlight if hovered
-			if hButton and hButton.type == "import" and hButton.button.buildLink == importButton.buildLink then
-				SetDrawColor(1, 1, 1)
-				self:DrawImage(nil, x, currentHeight + 6, 47, 20)
-				SetDrawColor(0.5, 0.5, 0.5)
-			else
-				self:DrawImage(nil, x, currentHeight + 6, 47, 20)
-				SetDrawColor(0, 0, 0)
+				if build.previewLink then
+					local previewButton = new("ButtonControl", nil, 0, 0, 60, 20, "Preview", function()
+							OpenURL(build.previewLink)
+					end)
+					previewButton.x = x + 50
+					previewButton.y = currentHeight - self.controls.scrollBarV.offset
+					t_insert(self.controls, previewButton)
+				end
+				currentHeight = currentHeight + 4
 			end
-
-			-- draw the import button
-			self:DrawImage(nil, x + 1, currentHeight + 7, 45, 18)
-			if self.inTransition then
-				SetDrawColor(0.5, 0.5, 0.5)
-			else
-				SetDrawColor(1, 1, 1)
-			end
-			self:DrawString(x + 5, currentHeight + 9, "LEFT", 14, self.font, 'Import')
-
-
-			-- highlight if hovered
-			if hButton and hButton.type == "preview" and hButton.button.previewLink == previewButton.previewLink then
-				SetDrawColor(1, 1, 1)
-				self:DrawImage(nil, x + 50, currentHeight + 6, 55, 20)
-				SetDrawColor(0.5, 0.5, 0.5)
-			else
-				SetDrawColor(0.5, 0.5, 0.5)
-				self:DrawImage(nil, x + 50, currentHeight + 6, 55, 20)
-				SetDrawColor(0, 0, 0)
-			end
-
-			self:DrawImage(nil, x + 51, currentHeight + 7, 53, 18)
-			if self.inTransition then
-				SetDrawColor(0.5, 0.5, 0.5)
-			else
-				SetDrawColor(1, 1, 1)
-			end
-			self:DrawString(x + 55, currentHeight + 9, "LEFT", 14, self.font, 'Preview')
 
 			-- bottom border
 			SetDrawColor(1, 1, 1)
-			currentHeight = currentHeight + 34
+			currentHeight = currentHeight + 24
 			self:DrawImage(nil, x - 9, currentHeight, self.width() - 1, 3)
 			currentHeight = currentHeight + 16
 		end
