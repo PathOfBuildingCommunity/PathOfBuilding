@@ -927,7 +927,8 @@ function buildMode:SyncLoadouts(reset)
 		end
 
 		-- item, skill, and config sets have identical structure
-		local function identifyLinks(setOrderList, tabSets, setList, specialLinks)
+		local function identifyLinks(setOrderList, tabSets, setList, specialLinks, treeLinks)
+			local assignAll = #setOrderList == 1
 			for id, set in ipairs(setOrderList) do
 				local setTitle = tabSets[set].title or "Default"
 				local linkIdentifier = string.match(setTitle, "%{([%w,]+)%}")
@@ -941,13 +942,22 @@ function buildMode:SyncLoadouts(reset)
 						transferTable = {}
 					end
 				else
-					t_insert(setList, setTitle)
+					if assignAll then
+						for linkId, _ in pairs(treeLinks) do
+							transferTable["setId"] = set
+							transferTable["setName"] = setTitle
+							specialLinks[linkId] = transferTable
+							transferTable = {}
+						end
+					else
+						t_insert(setList, setTitle)
+					end
 				end
 			end
 		end
-		identifyLinks(self.itemsTab.itemSetOrderList, self.itemsTab.itemSets, itemList, self.itemListSpecialLinks)
-		identifyLinks(self.skillsTab.skillSetOrderList, self.skillsTab.skillSets, skillList, self.skillListSpecialLinks)
-		identifyLinks(self.configTab.configSetOrderList, self.configTab.configSets, configList, self.configListSpecialLinks)
+		identifyLinks(self.itemsTab.itemSetOrderList, self.itemsTab.itemSets, itemList, self.itemListSpecialLinks, self.treeListSpecialLinks)
+		identifyLinks(self.skillsTab.skillSetOrderList, self.skillsTab.skillSets, skillList, self.skillListSpecialLinks, self.treeListSpecialLinks)
+		identifyLinks(self.configTab.configSetOrderList, self.configTab.configSets, configList, self.configListSpecialLinks, self.treeListSpecialLinks)
 
 		-- loop over all for exact match loadouts
 		for id, tree in ipairs(treeList) do
@@ -987,12 +997,18 @@ function buildMode:SyncLoadouts(reset)
 		local treeName = self.treeTab.specList[self.treeTab.activeSpec].title or "Default"
 		for i, loadout in ipairs(filteredList) do
 			if loadout == treeName then
-				local skillName = self.skillsTab.skillSets[self.skillsTab.activeSkillSetId].title or "Default"
-				local itemName = self.itemsTab.itemSets[self.itemsTab.activeItemSetId].title or "Default"
-				local configName = self.configTab.configSets[self.configTab.activeConfigSetId].title or "Default"
 				local linkMatch = string.match(treeName, "%{(%w+)%}")
-				if linkMatch and skillName:find(linkMatch) and itemName:find(linkMatch) and configName:find(linkMatch) then
-					self.controls.buildLoadouts:SetSel(i)
+				if linkMatch then
+					local skillName = self.skillsTab.skillSets[self.skillsTab.activeSkillSetId].title or "Default"
+					local skillMatch = #self.skillsTab.skillSetOrderList == 1 or skillName:find(linkMatch)
+					local itemName = self.itemsTab.itemSets[self.itemsTab.activeItemSetId].title or "Default"
+					local itemMatch = #self.itemsTab.itemSetOrderList == 1 or itemName:find(linkMatch)
+					local configName = self.configTab.configSets[self.configTab.activeConfigSetId].title or "Default"
+					local configMatch = #self.configTab.configSetOrderList == 1 or configName:find(linkMatch)
+
+					if skillMatch and itemMatch and configMatch then
+						self.controls.buildLoadouts:SetSel(i)
+					end
 				end
 				break
 			end
