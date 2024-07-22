@@ -1214,7 +1214,7 @@ function calcs.perform(env, skipEHP)
 				local seismicArmour = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicArmourPer5MP")
 				local SeismicAoEMoreMultiplier = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicAoEMoreMultiplier")
 				env.player.modDB:NewMod("NumSeismicExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicExertedAttacks") + extraExertions) * exertMultiplier))
-				env.player.modDB:NewMod("AreaOfEffect", "MORE", m_floor(SeismicAoEMoreMultiplier * buff_inc) * uptime, "Seismic Cry")
+				env.player.modDB:NewMod("AreaOfEffect", "MORE", SeismicAoEMoreMultiplier * uptime, "Seismic Cry")
 				env.player.modDB:NewMod("StunThreshold", "INC", m_floor(seismicStunEffect * buff_inc) * uptime, "Seismic Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
 				env.player.modDB:NewMod("Armour", "MORE", m_floor(seismicArmour * buff_inc) * uptime, "Seismic Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
 				modDB:NewMod("SeismicActive", "FLAG", true) -- Prevents effect from applying multiple times
