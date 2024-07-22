@@ -209,8 +209,7 @@ Implicits: 1
 {tags:jewellery_resistance}+(-13-13)% to Chaos Resistance
 {tags:jewellery_resistance}-5% to all maximum Resistances
 Gain additional Elemental Damage Reduction equal to half your Chaos Resistance
-{variant:2}Cannot gain Endurance Charges
-{variant:2}Cannot gain Power Charges
+{variant:2}Maximum Endurance, Frenzy and Power Charges is 0
 ]],[[
 Badge of the Brotherhood
 Turquoise Amulet
