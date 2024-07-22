@@ -1196,7 +1196,7 @@ Implicits: 1
 {variant:2,3}10% chance to Freeze, Shock and Ignite
 {variant:1}10% increased Damage per Freeze, Shock and Ignite on Enemy
 {variant:2}20% increased Damage with Hits and Ailments per Freeze, Shock and Ignite on Enemy
-{variant:3}(30-40)% increased Elemental Damage with Hits and Ailments for each type of Elemental Ailment on Enemy
+{variant:3}{tags:jewellery_elemental}(30-40)% increased Elemental Damage with Hits and Ailments for each type of Elemental Ailment on Enemy
 ]],[[
 Tasalio's Sign
 Sapphire Ring
