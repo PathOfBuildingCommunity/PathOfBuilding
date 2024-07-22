@@ -539,10 +539,6 @@ local function doActorMisc(env, actor)
 		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
 			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
 		end
-		-- Minimum Rage
-		if modDB:Sum("BASE", nil, "MinimumRage") > (modDB.multipliers["Rage"] or 0) then
-			modDB.multipliers["Rage"] = modDB:Sum("BASE", nil, "MinimumRage")
-		end
 		-- Minimum Fortification from King Maker of Perfect Naval Officer spectres
 		if modDB:Sum("BASE", nil, "MinimumFortification") > 0 then
 			condList["Fortified"] = true
@@ -713,9 +709,23 @@ local function doActorMisc(env, actor)
 			condList["LeechingEnergyShield"] = true
 		end
 		if modDB:Flag(nil, "Condition:CanGainRage") or modDB:Sum("BASE", nil, "RageRegen") > 0 then
-			output.MaximumRage = modDB:Sum("BASE", skillCfg, "MaximumRage")
-			modDB:NewMod("Multiplier:Rage", "BASE", 1, "Base", { type = "Multiplier", var = "RageStack", limit = output.MaximumRage })
-			output.Rage = modDB:Sum("BASE", skillCfg, "Multiplier:Rage")
+			local maxStacks = modDB:Sum("BASE", skillCfg, "MaximumRage")
+			local minStacks = m_min(modDB:Sum("BASE", nil, "MinimumRage"), maxStacks)
+			local rageConfig = modDB:Sum("BASE", nil, "Multiplier:RageStack")
+			local stacks = m_max(m_min(rageConfig, maxStacks), (minStacks > 0 and minStacks) or 0)
+			local effect =  m_floor(stacks * calcLib.mod(modDB, nil, "RageEffect"))
+			modDB:NewMod("Multiplier:RageEffect", "BASE", effect, "Base")
+			output.Rage = stacks
+			output.MaximumRage = maxStacks
+			modDB:NewMod("Multiplier:Rage", "BASE", output.Rage, "Base")
+			if modDB.conditions["RageSpellDamage"] then
+				modDB:NewMod("Damage", "MORE", effect, "Base", ModFlag.Cast)
+			else
+				modDB:NewMod("Damage", "MORE", effect, "Rage", ModFlag.Attack)
+			end
+			if stacks == maxStacks then
+				modDB:NewMod("Condition:HaveMaximumRage", "FLAG", true, "")
+			end
 		end
 		if modDB:Sum("BASE", nil, "CoveredInAshEffect") > 0 then
 			local effect = modDB:Sum("BASE", nil, "CoveredInAshEffect")

@@ -442,6 +442,7 @@ local modNameList = {
 	["aspect of the avian buff effect"] = { "BuffEffect", tag = { type = "SkillName", skillName = "Aspect of the Avian" } },
 	["maximum rage"] = "MaximumRage",
 	["minimum rage"] = "MinimumRage",
+	["rage effect"] = "RageEffect",
 	["maximum fortification"] = "MaximumFortification",
 	["fortification"] = "MinimumFortification",
 	["maximum valour"] = "MaximumValour",
@@ -2251,14 +2252,14 @@ local specialModList = {
 		flag("Condition:CanGainRage"),
 	},
 	["every rage also grants (%d+)%% increased armour"] = function(num) return {
-		mod("Armour", "INC", num, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect", div = 100 }),
+		mod("Armour", "INC", num, { type = "Multiplier", var = "RageEffect" }),
 	} end,
 	["every rage also grants (%d+)%% increased stun threshold"] = function(num) return {
-		mod("StunThreshold", "INC", num, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect", div = 100 }),
+		mod("StunThreshold", "INC", num, { type = "Multiplier", var = "RageEffect" }),
 	} end,
 	["every rage also grants (%d+)%% increased attack speed"] = function(num) return {
-		mod("Speed", "INC", num, nil, ModFlag.Attack, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect", div = 100 }, { type = "Condition", var = "RageCastSpeed", neg = true }),
-		mod("Speed", "INC", num, nil, ModFlag.Cast, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect", div = 100 }, { type = "Condition", var = "RageCastSpeed" })
+		mod("Speed", "INC", num, nil, ModFlag.Attack, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageCastSpeed", neg = true }),
+		mod("Speed", "INC", num, nil, ModFlag.Cast, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageCastSpeed" })
 	} end,
 	["gain %d+ rage on hit with retaliation skills"] = {
 		flag("Condition:CanGainRage"),
@@ -2269,11 +2270,8 @@ local specialModList = {
 	["while a pinnacle atlas boss is in your presence, gain %d+ rage on hit with attacks, no more than once every [%d%.]+ seconds"] = {
 		flag("Condition:CanGainRage", { type = "ActorCondition", actor = "enemy", var = "PinnacleBoss" }),
 	},
-	["inherent effects from having rage are tripled"] = { mod("Multiplier:RageEffect", "BASE", 200) },
-	["inherent effects from having rage are doubled"] = { mod("Multiplier:RageEffect", "BASE", 100) },
-	["(%d+)%% increased rage effect"] = function(num) return {
-		mod("Multiplier:RageEffect", "BASE", num)
-	} end,
+	["inherent effects from having rage are tripled"] = { mod("RageEffect", "MORE", 200) },
+	["inherent effects from having rage are doubled"] = { mod("RageEffect", "MORE", 100) },
 	["cannot be stunned while you have at least (%d+) rage"] = function(num) return { flag("StunImmune", { type = "MultiplierThreshold", var = "Rage", threshold = num }) } end,
 	["lose ([%d%.]+)%% of life per second per rage while you are not losing rage"] = function(num) return { mod("LifeDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }, { type = "Multiplier", var = "Rage" }) } end,
 	["if you've warcried recently, you and nearby allies have (%d+)%% increased attack speed"] = function(num) return { mod("ExtraAura", "LIST", { mod = mod("Speed", "INC", num, nil, ModFlag.Attack) }, { type = "Condition", var = "UsedWarcryRecently" }) } end,

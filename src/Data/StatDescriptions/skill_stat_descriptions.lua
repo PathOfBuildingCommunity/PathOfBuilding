@@ -13694,26 +13694,13 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% more Damage with Attacks"
+					text="{0}% increased Rage Effect"
 				},
-				[2]={
-					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% less Damage with Attacks"
-				}
 			}
 		},
 		name="berserk_attack_damage",
 		stats={
-			[1]="berserk_attack_damage_+%_final"
+			[1]="berserk_rage_effect_+%"
 		}
 	},
 	[426]={
@@ -47853,7 +47840,7 @@ return {
 	["base_total_number_of_sigils_allowed"]=558,
 	["base_use_life_in_place_of_mana"]=209,
 	["bear_and_siphoning_trap_debuff_grants_-%_cooldown_speed"]=559,
-	["berserk_attack_damage_+%_final"]=425,
+	["berserk_rage_effect_+%"]=425,
 	["berserk_attack_speed_+%_final"]=426,
 	["berserk_base_damage_taken_+%_final"]=428,
 	["berserk_minimum_rage"]=424,

@@ -1182,6 +1182,7 @@ skills["Berserk"] = {
 	castTime = 0,
 	statMap = {
 		["berserk_rage_effect_+%"] = {
+			mod("RageEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
