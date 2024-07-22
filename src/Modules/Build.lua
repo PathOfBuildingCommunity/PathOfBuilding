@@ -367,6 +367,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Bleed DPS exceeds in game limit" end },
 		{ stat = "CorruptingBloodDPS", label = "Corrupting Blood DPS", fmt = ".1f", compPercent = true, warnFunc = function(v,o) return v >= data.misc.DotDpsCap and "Corrupting Blood DPS exceeds in game limit" end },
 		{ stat = "BleedDamage", label = "Total Damage per Bleed", fmt = ".1f", compPercent = true, flag = "showAverage" },
+        { stat = "BleedDuration", label = "Bleed duration", fmt = ".1f", compPercent = true},
 		{ stat = "WithBleedDPS", label = "Total DPS inc. Bleed", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 end },
 		{ stat = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Ignite DPS exceeds in game limit" end },
 		{ stat = "IgniteDamage", label = "Total Damage per Ignite", fmt = ".1f", compPercent = true, flag = "showAverage" },
