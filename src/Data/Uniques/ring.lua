@@ -1181,6 +1181,7 @@ Prismatic Ring
 League: Domination, Nemesis
 Source: Vendor Recipe
 Variant: Pre 3.0.0
+Variant: Pre 3.25.0
 Variant: Current
 Requires Level 30
 Implicits: 1
@@ -1188,13 +1189,14 @@ Implicits: 1
 {variant:1}{tags:jewellery_elemental,attack}15% increased Elemental Damage with Attack Skills
 {variant:2}{tags:jewellery_elemental,attack}30% increased Elemental Damage with Attack Skills
 {variant:1}{tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
-{variant:2}{tags:jewellery_resistance}+(20-30)% to all Elemental Resistances
+{variant:2,3}{tags:jewellery_resistance}+(20-30)% to all Elemental Resistances
 {variant:1}{tags:jewellery_elemental}15% increased Elemental Damage
 {variant:2}{tags:jewellery_elemental}30% increased Elemental Damage
 {variant:1}5% chance to Freeze, Shock and Ignite
-{variant:2}10% chance to Freeze, Shock and Ignite
+{variant:2,3}10% chance to Freeze, Shock and Ignite
 {variant:1}10% increased Damage per Freeze, Shock and Ignite on Enemy
 {variant:2}20% increased Damage with Hits and Ailments per Freeze, Shock and Ignite on Enemy
+{variant:3}(30-40)% increased Elemental Damage with Hits and Ailments for each type of Elemental Ailment on Enemy
 ]],[[
 Tasalio's Sign
 Sapphire Ring
