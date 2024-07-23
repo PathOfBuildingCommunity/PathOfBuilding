@@ -1,3 +1,12 @@
+VERSION[2.44.1][2024/07/23]
+
+--- New to Path of Building ---
+* Update 3.25 Skill trees (LocalIdentity)
+* Remove more fire damage line from Herald of Ash description (LocalIdentity)
+
+--- Fixed Crashes ---
+* Fix Crash when allocating Perfect Agony while unarmed (LocalIdentity)
+
 VERSION[2.44.0][2024/07/23]
 
 --- New to Path of Building ---

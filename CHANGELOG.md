@@ -1,5 +1,16 @@
 # Changelog
 
+## [v2.44.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.44.1) (2024/07/23)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.44.0...v2.44.1)
+
+## What's Changed
+### New to Path of Building
+- Update Skill Tree ([LocalIdentity](https://github.com/LocalIdentity))
+- Remove more fire damage line from Herald of Ash description ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Crashes
+- Fix Crash when allocating Perfect Agony while unarmed ([LocalIdentity](https://github.com/LocalIdentity))
+
 ## [v2.44.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.44.0) (2024/07/23)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.43.0...v2.44.0)
