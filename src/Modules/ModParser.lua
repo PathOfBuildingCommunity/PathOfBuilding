@@ -2260,6 +2260,9 @@ local specialModList = {
 	["gain %d+ rage on hit with axes"] = {
 		flag("Condition:CanGainRage"),
 	},
+	["gain %d+ rage on hit with axes or swords"] = {
+		flag("Condition:CanGainRage"),
+	},
 	["gain %d+ rage when hit by an enemy"] = {
 		flag("Condition:CanGainRage"),
 	},
