@@ -304,19 +304,13 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 				end
 			end
 
-			local lineCount = 0
+			-- local lineCount = 0
 			if build.buildName then
 				for _, line in pairs(self:splitStringByWidth(build.buildName, self.width() - 180, "VAR BOLD")) do
-					lineCount = lineCount + 1
+					-- lineCount = lineCount + 1
 					self:DrawString(x, currentHeight, "LEFT", 18, "VAR BOLD", line)
 					currentHeight = currentHeight + 18
 				end
-			end
-
-			-- add at least 32 height to title row so that the ascendancy picture
-			-- does not overlap with other lines
-			if lineCount < 3 then
-				currentHeight = currentHeight + (16 * (2 + (build.mainSkill and 1 or 0) - lineCount))
 			end
 
 			-- decorator line
@@ -326,7 +320,6 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			SetDrawColor(1, 1, 1)
 			if build.mainSkill and build.mainSkill ~= "" then
 				for _, line in pairs(self:splitStringByWidth(build.mainSkill, self.width() - 125, self.font)) do
-					lineCount = lineCount + 1
 					self:DrawString(x, currentHeight, "LEFT", 16, self.font, line)
 					currentHeight = currentHeight + 20
 				end
@@ -392,8 +385,6 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 				currentHeight = addSeperator(currentHeight, portraitHeight)
 				currentHeight = currentHeight - 5
 			end
-
-			-- SetDrawColor(1, 1, 1)
 
 			if build.metadata then
 				currentHeight = currentHeight + 4
