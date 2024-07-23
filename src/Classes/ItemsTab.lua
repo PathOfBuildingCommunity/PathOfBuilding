@@ -1528,9 +1528,9 @@ function ItemsTabClass:SetDisplayItem(item)
 		self.controls.displayItemQualityEdit:SetText(item.quality)
 		self.controls.displayItemCatalyst:SetSel((item.catalyst or 0) + 1)
 		if item.catalystQuality then
-			self.controls.displayItemCatalystQualityEdit:SetText(m_min(item.catalystQuality / 20, 1))
+			self.controls.displayItemCatalystQualityEdit:SetText(m_max(item.catalystQuality, 0))
 		else
-			self.controls.displayItemCatalystQualityEdit:SetText(1)
+			self.controls.displayItemCatalystQualityEdit:SetText(0)
 		end
 		self:UpdateCustomControls()
 		self:UpdateDisplayItemRangeLines()
