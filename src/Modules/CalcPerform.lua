@@ -650,6 +650,7 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "Condition:PhantasmalMight") then
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + (output.ActivePhantasmLimit or 1) - 1 -- slight hack to not double count the initial buff
 		end
+
 		if modDB:Flag(nil, "Elusive") then
 			local maxSkillInc = modDB:Max({ source = "Skill" }, "ElusiveEffect") or 0
 			local inc = modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf")
@@ -719,6 +720,8 @@ local function doActorMisc(env, actor)
 			local rageConfig = modDB:Sum("BASE", nil, "Multiplier:RageStack")
 			local stacks = m_max(m_min(rageConfig, maxStacks), (minStacks > 0 and minStacks) or 0)
 			local effect =  m_floor(stacks * calcLib.mod(modDB, nil, "RageEffect"))
+			local rageVortexSacrificePercentage = output.maxRageSacrificePercentage / 100
+			local maxSacrificedRage = rageVortexSacrificePercentage * maxStacks
 			modDB:NewMod("Multiplier:RageEffect", "BASE", effect, "Base")
 			output.Rage = stacks
 			output.MaximumRage = maxStacks
@@ -731,6 +734,10 @@ local function doActorMisc(env, actor)
 			if stacks == maxStacks then
 				modDB:NewMod("Condition:HaveMaximumRage", "FLAG", true, "")
 			end
+			if not modDB:Flag(nil, "OverrideSacrificedRage") then
+				modDB:NewMod("Multiplier:RageSacrificed", "BASE", maxSacrificedRage)
+			end
+
 		end
 		if modDB:Sum("BASE", nil, "CoveredInAshEffect") > 0 then
 			local effect = modDB:Sum("BASE", nil, "CoveredInAshEffect")
@@ -1125,6 +1132,12 @@ function calcs.perform(env, skipEHP)
 				hasGuaranteedBonechill = true
 			end
 		end
+
+		if activeSkill.activeEffect.grantedEffect.name == "Rage Vortex" then
+			local maxRageSacrificeMultiplier = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "Multiplier:MaxRageVortexSacrificePercentage")
+			output.maxRageSacrificePercentage = maxRageSacrificeMultiplier
+		end
+
 		if activeSkill.skillFlags.warcry and not modDB:Flag(nil, "AlreadyGlobalWarcryCooldown") then
 			local cooldown = calcSkillCooldown(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData)
 			local warcryList = { }
