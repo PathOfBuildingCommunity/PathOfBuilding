@@ -367,9 +367,16 @@ function DropDownClass:Draw(viewPort, noTooltip)
 					SetDrawColor(0.66, 0.66, 0.66)
 				end
 				-- draw actual item label with search match highlight if available
-				local label = type(listVal) == "table" and listVal.label or listVal
+				local label = nil
+				local detail = nil
+				if type(listVal) == "table" then
+					label = listVal.label
+					detail = listVal.detail
+				else 
+					label = listVal
+				end
 				DrawString(0, y, "LEFT", lineHeight, "VAR", label)
-				if selDetail ~= nil then
+				if detail ~= nil then
 					local detail = listVal.detail
 					dx = DrawStringWidth(lineHeight, "VAR", detail)
 					DrawString(width - dx - 4 - 22, y, "LEFT", lineHeight, "VAR", detail)
