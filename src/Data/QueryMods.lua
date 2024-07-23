@@ -13442,7 +13442,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2089652545", 
+				["id"] = "implicit.stat_78985352", 
 				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit", 
 				["type"] = "implicit", 
 			}, 
@@ -43062,7 +43062,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_665823128", 
+				["id"] = "explicit.stat_3023957681", 
 				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill", 
 				["type"] = "explicit", 
 			}, 
@@ -43080,7 +43080,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_665823128", 
+				["id"] = "explicit.stat_3023957681", 
 				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill", 
 				["type"] = "explicit", 
 			}, 
@@ -43094,7 +43094,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_665823128", 
+				["id"] = "explicit.stat_3023957681", 
 				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill", 
 				["type"] = "explicit", 
 			}, 
@@ -43108,7 +43108,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_665823128", 
+				["id"] = "explicit.stat_3023957681", 
 				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill", 
 				["type"] = "explicit", 
 			}, 
@@ -44830,7 +44830,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_665823128", 
+				["id"] = "explicit.stat_3023957681", 
 				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill", 
 				["type"] = "explicit", 
 			}, 
@@ -53294,8 +53294,8 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2523146878", 
-				["text"] = "#% chance for Poisons inflicted with this Weapon to deal 100% more Damage", 
+				["id"] = "explicit.stat_768124628", 
+				["text"] = "#% chance for Poisons inflicted with this Weapon to deal 300% more Damage", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -54874,7 +54874,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_1053326368", 
+				["id"] = "explicit.stat_1619168299", 
 				["text"] = "#% chance to Avoid being Chilled during Effect", 
 				["type"] = "explicit", 
 			}, 
@@ -57582,15 +57582,6 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
-		["9744_CallToArms"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["id"] = "explicit.stat_3292262540", 
-				["text"] = "Call to Arms", 
-				["type"] = "explicit", 
-			}, 
-		}, 
 		["9748_CrimsonDance"] = {
 			["specialCaseData"] = {
 			}, 
@@ -60150,15 +60141,6 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_2522672898", 
 				["text"] = "#% of Fire Damage from Hits taken as Cold Damage", 
-				["type"] = "implicit", 
-			}, 
-		}, 
-		["implicit.stat_2524254339"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["id"] = "implicit.stat_2524254339", 
-				["text"] = "Culling Strike", 
 				["type"] = "implicit", 
 			}, 
 		}, 
@@ -71403,19 +71385,6 @@ return {
 				["type"] = "scourge", 
 			}, 
 		}, 
-		["9744_CallToArms"] = {
-			["Chest"] = {
-				["max"] = 1, 
-				["min"] = 1, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["id"] = "scourge.stat_3292262540", 
-				["text"] = "Call to Arms", 
-				["type"] = "scourge", 
-			}, 
-		}, 
 		["9746_Conduit"] = {
 			["Chest"] = {
 				["max"] = 1, 
@@ -75959,7 +75928,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2089652545", 
+				["id"] = "implicit.stat_78985352", 
 				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit", 
 				["type"] = "implicit", 
 			}, 
