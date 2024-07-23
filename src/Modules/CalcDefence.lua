@@ -2541,8 +2541,8 @@ function calcs.buildDefenceEstimations(env, actor)
 			end
 		-- gain when hit (currently just gain on block/suppress, and Defiance of Destiny)
 			if not env.configInput.DisableEHPGainOnBlock then
-			DamageIn.MissingLifeBeforeEnemyHit = modDB:Sum("BASE", nil, "MissingLifeBeforeEnemyHit")
-				if (DamageIn.LifeWhenHit or 0) ~= 0 or (DamageIn.ManaWhenHit or 0) ~= 0 or DamageIn.EnergyShieldWhenHit ~= 0 then
+				DamageIn.MissingLifeBeforeEnemyHit = modDB:Sum("BASE", nil, "MissingLifeBeforeEnemyHit")
+				if (DamageIn.LifeWhenHit or 0) ~= 0 or (DamageIn.ManaWhenHit or 0) ~= 0 or DamageIn.EnergyShieldWhenHit ~= 0 or DamageIn.MissingLifeBeforeEnemyHit ~= 0 then
 					DamageIn.GainWhenHit = true
 				end
 			else
