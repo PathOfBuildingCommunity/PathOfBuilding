@@ -19,4 +19,22 @@ describe("TestAilments", function()
         runCallback("OnFrame")
         assert.are.equals(round(50 + 10 + 40), build.calcsTab.mainOutput.MaximumShock)
     end)
+
+	it("bleed is buffed by bleed chance", function()
+		-- Shock Nova
+		build.itemsTab:CreateDisplayItemFromRaw("New Item\nKarui Chopper")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nHeavy Strike 1/0 Default  1\n")
+		build.configTab.input.customMods = "\z
+        attacks have 10% chance to cause bleeding\n\z
+        "
+		runCallback("OnFrame")
+		local badDps = build.calcsTab.mainOutput.BleedDps
+
+		build.configTab.input.customMods = "\z
+        attacks have 100% chance to cause bleeding\n\z
+        "
+		runCallback("OnFrame")
+		local goodDps = build.calcsTab.mainOutput.BleedDps
+		assert.True(goodDps > badDps)
+	end)
 end)
