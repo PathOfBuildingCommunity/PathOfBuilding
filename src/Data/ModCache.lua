@@ -1474,8 +1474,6 @@ c["-200 Fire Damage taken from Hits"]={{[1]={flags=0,keywordFlags=0,name="FireDa
 c["-25 Physical Damage taken from Projectile Attacks"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromProjectileAttacks",type="BASE",value=-25}},nil}
 c["-25% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=-25}},nil}
 c["-25% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-25}},nil}
-c["-25% to maximum Chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChanceMax",type="BASE",value=-25}},nil}
-c["-25% to maximum Chance to Block Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChanceMax",type="BASE",value=-25}},nil}
 c["-3 to maximum Fortification"]={{[1]={flags=0,keywordFlags=0,name="MaximumFortification",type="BASE",value=-3}},nil}
 c["-30% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=-30}},nil}
 c["-30% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=-30}},nil}
@@ -4517,7 +4515,6 @@ c["30% increased total Recovery per second from Life Leech"]={{[1]={flags=0,keyw
 c["30% increased total Recovery per second from Life, Mana, or Energy Shield Leech"]={{[1]={flags=0,keywordFlags=0,name="LifeLeechRate",type="INC",value=30},[2]={flags=0,keywordFlags=0,name="ManaLeechRate",type="INC",value=30},[3]={flags=0,keywordFlags=0,name="EnergyShieldLeechRate",type="INC",value=30}},nil}
 c["30% less Animate Weapon Duration"]={{[1]={[1]={includeTransfigured=true,skillName="Animate Weapon",type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="MORE",value=-30}},nil}
 c["30% less Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="MORE",value=-30}},nil}
-c["30% less Damage with Hits"]={{[1]={flags=0,keywordFlags=262144,name="Damage",type="MORE",value=-30}},nil}
 c["30% less Life Recovery from Flasks"]={{[1]={flags=0,keywordFlags=0,name="FlaskLifeRecovery",type="MORE",value=-30}},nil}
 c["30% more Damage with Arrow Hits at Close Range while you have Iron Reflexes"]={{[1]={[1]={type="Condition",var="AtCloseRange"},[2]={type="Condition",var="HaveIronReflexes"},flags=131076,keywordFlags=0,name="Damage",type="MORE",value=30}},nil}
 c["30% more Damage with Hits and Ailments against Enemies that are on Low Life while you are wielding an Axe"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="LowLife"},[2]={type="Condition",var="UsingAxe"},flags=0,keywordFlags=786432,name="Damage",type="MORE",value=30}},nil}
@@ -8758,10 +8755,9 @@ c["Increases and Reductions to Projectile Speed also apply to Damage with Bows"]
 c["Increases and Reductions to Spell Damage also apply to Attacks at 150% of their value"]={{[1]={flags=0,keywordFlags=0,name="SpellDamageAppliesToAttacks",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="ImprovedSpellDamageAppliesToAttacks",type="MAX",value=150}},nil}
 c["Increases and Reductions to Spell Damage also apply to Attacks while wielding a Wand"]={{[1]={[1]={type="Condition",var="UsingWand"},flags=0,keywordFlags=0,name="SpellDamageAppliesToAttacks",type="FLAG",value=true},[2]={[1]={type="Condition",var="UsingWand"},flags=0,keywordFlags=0,name="ImprovedSpellDamageAppliesToAttacks",type="MAX",value=100}},nil}
 c["Increases and reductions to Maximum Mana also apply to Shock Effect at 30% of their value"]={{[1]={flags=0,keywordFlags=0,name="ManaAppliesToShockEffect",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="ImprovedManaAppliesToShockEffect",type="MAX",value=30}},nil}
-c["Inflict 4 additional Impales on Enemies you Impale"]={nil,"Inflict 4 additional Impales on Enemies you Impale "}
-c["Inflict 4 additional Impales on Enemies you Impale For 4 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them"]={nil,"Inflict 4 additional Impales on Enemies you Impale For 4 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them "}
-c["Inflict 4 additional Impales on Enemies you Impale For 4 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them Limited to 1 Keystone Tattoo"]={nil,"Inflict 4 additional Impales on Enemies you Impale For 4 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them Limited to 1 Keystone Tattoo "}
 c["Inflict 5 additional Impales on Enemies you Impale"]={nil,"Inflict 5 additional Impales on Enemies you Impale "}
+c["Inflict 5 additional Impales on Enemies you Impale For 4 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them"]={nil,"Inflict 5 additional Impales on Enemies you Impale For 4 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them "}
+c["Inflict 5 additional Impales on Enemies you Impale For 4 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them Limited to 1 Keystone Tattoo"]={nil,"Inflict 5 additional Impales on Enemies you Impale For 4 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them Limited to 1 Keystone Tattoo "}
 c["Inflict 5 additional Impales on Enemies you Impale For 5 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them"]={nil,"Inflict 5 additional Impales on Enemies you Impale For 5 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them "}
 c["Inflict Brittle on Enemies when you Block their Damage"]={nil,"Inflict Brittle on Enemies when you Block their Damage "}
 c["Inflict Brittle on Enemies when you Block their Damage +92 to Evasion Rating"]={nil,"Inflict Brittle on Enemies when you Block their Damage +92 to Evasion Rating "}
@@ -9022,7 +9018,6 @@ c["Maximum Life becomes 1, Immune to Chaos Damage"]={{[1]={flags=0,keywordFlags=
 c["Maximum Quality is 200%"]={{},"Maximum Quality "}
 c["Maximum Quality is 200% Corrupted"]={{},"Maximum Quality Corrupted "}
 c["Maximum total Energy Shield Recovery per second from Leech is doubled"]={{[1]={flags=0,keywordFlags=0,name="MaxEnergyShieldLeechRate",type="MORE",value=100}},nil}
-c["Maximum total Life Recovery per second from Leech is doubled"]={{[1]={flags=0,keywordFlags=0,name="MaxLifeLeechRate",type="MORE",value=100}},nil}
 c["Melee Attacks Poison on Hit"]={{[1]={flags=256,keywordFlags=0,name="PoisonChance",type="BASE",value=100}},nil}
 c["Melee Attacks cause Bleeding"]={{[1]={flags=256,keywordFlags=0,name="BleedChance",type="BASE",value=100}},nil}
 c["Melee Critical Strikes have 25% chance to Poison the Enemy"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=256,keywordFlags=0,name="PoisonChance",type="BASE",value=25}},nil}
@@ -9302,7 +9297,6 @@ c["Modifiers to Chance to Suppress Spell Damage instead apply to Chance to Dodge
 c["Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed with Melee Skills"]={{[1]={flags=0,keywordFlags=0,name="ClawAttackSpeedAppliesToUnarmed",type="FLAG",value=true}},nil}
 c["Modifiers to Claw Critical Strike Chance also apply to Unarmed Critical Strike Chance with Melee Skills"]={{[1]={flags=0,keywordFlags=0,name="ClawCritChanceAppliesToUnarmed",type="FLAG",value=true}},nil}
 c["Modifiers to Claw Damage also apply to Unarmed Attack Damage with Melee Skills"]={{[1]={flags=0,keywordFlags=0,name="ClawDamageAppliesToUnarmed",type="FLAG",value=true}},nil}
-c["Modifiers to Critical Strike Multiplier also apply to Damage over Time Multiplier for Ailments from Critical Strikes at 50% of their value"]={{[1]={flags=0,keywordFlags=0,name="CritMultiplierAppliesToDegen",type="BASE",value=50}},nil}
 c["Modifiers to Fire Resistance also apply to Cold and Lightning Resistances at 50% of their Value"]={{[1]={flags=0,keywordFlags=0,name="FireResConvertToCold",type="BASE",value=50},[2]={flags=0,keywordFlags=0,name="FireResConvertToLightning",type="BASE",value=50}},nil}
 c["Modifiers to Ignite Duration on you apply to all Elemental Ailments"]={{[1]={flags=0,keywordFlags=0,name="IgniteDurationAppliesToElementalAilments",type="FLAG",value=true}},nil}
 c["Modifiers to Maximum Fire Resistance also apply to Maximum Cold and Lightning Resistances"]={{[1]={flags=0,keywordFlags=0,name="FireMaxResConvertToCold",type="BASE",value=100},[2]={flags=0,keywordFlags=0,name="FireMaxResConvertToLightning",type="BASE",value=100}},nil}
@@ -11146,7 +11140,6 @@ c["Tinctures deactivate when you have 12 or more Mana Burn"]={nil,"Tinctures dea
 c["Tinctures have 40% increased effect while at or above 10 stacks of Mana Burn"]={{[1]={[1]={threshold=10,type="MultiplierThreshold",varList={[1]="ManaBurnStacks",[2]="WeepingWoundsStacks"}},flags=0,keywordFlags=0,name="TinctureEffect",type="INC",value=40}},nil}
 c["Tinctures inflict Weeping Wounds instead of Mana Burn"]={{[1]={flags=0,keywordFlags=0,name="Condition:WeepingWoundsInsteadOfManaBurn",type="FLAG",value=true}},nil}
 c["Total Recovery per second from Life Leech is Doubled"]={{[1]={flags=0,keywordFlags=0,name="LifeLeechRate",type="MORE",value=100}},nil}
-c["Total Recovery per second from Life Leech is doubled"]={{[1]={flags=0,keywordFlags=0,name="LifeLeechRate",type="MORE",value=100}},nil}
 c["Totems Hinder Enemies near them when Summoned"]={nil,"Totems Hinder Enemies near them when Summoned "}
 c["Totems Reflect 100% of their maximum Life as Fire Damage to nearby Enemies when Hit"]={nil,"Totems Reflect 100% of their maximum Life as Fire Damage to nearby Enemies when Hit "}
 c["Totems Reflect 25% of their maximum Life as Fire Damage to nearby Enemies when Hit"]={nil,"Totems Reflect 25% of their maximum Life as Fire Damage to nearby Enemies when Hit "}
@@ -11353,11 +11346,10 @@ c["Warcries Exert 1 additional Attack"]={{[1]={flags=0,keywordFlags=0,name="Extr
 c["Warcries Exert 2 additional Attacks"]={{[1]={flags=0,keywordFlags=0,name="ExtraExertedAttacks",type="BASE",value=2}},nil}
 c["Warcries Exert twice as many Attacks"]={{[1]={flags=0,keywordFlags=0,name="ExtraExertedAttacks",type="MORE",value=100}},nil}
 c["Warcries Knock Back and Interrupt Enemies in a smaller Area"]={nil,"Warcries Knock Back and Interrupt Enemies in a smaller Area "}
-c["Warcries also grant their buffs to nearby allies"]={nil,"Warcries also grant their buffs to nearby allies "}
-c["Warcries also grant their buffs to nearby allies Limited to 1 Keystone Tattoo"]={nil,"Warcries also grant their buffs to nearby allies Limited to 1 Keystone Tattoo "}
 c["Warcries cannot Exert Travel Skills"]={nil,"Warcries cannot Exert Travel Skills "}
 c["Warcries do not grant Buffs or Charges to You"]={nil,"Warcries do not grant Buffs or Charges to You "}
 c["Warcries do not grant Buffs or Charges to You 100% more Warcry Duration"]={nil,"Warcries do not grant Buffs or Charges to You 100% more Warcry Duration "}
+c["Warcries do not grant Buffs or Charges to You 100% more Warcry Duration Limited to 1 Keystone Tattoo"]={nil,"Warcries do not grant Buffs or Charges to You 100% more Warcry Duration Limited to 1 Keystone Tattoo "}
 c["Warcries grant 1 Rage per 5 Enemy Power, up to 5"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Warcries grant 5 Rage per 5 Power if you have less than 25 Rage"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Warcries grant Arcane Surge to you and Allies, with 10% increased effect per 5 power, up to 50%"]={{[1]={[1]={type="Condition",var="UsedWarcryRecently"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:ArcaneSurge",type="FLAG",value=true}}},[2]={[1]={div=5,globalLimit=50,globalLimitKey="Brinerot Flag",stat="WarcryPower",type="PerStat"},[2]={type="Condition",var="UsedWarcryRecently"},flags=0,keywordFlags=0,name="ArcaneSurgeEffect",type="INC",value=10}},nil}
@@ -11365,9 +11357,6 @@ c["Warcries have 10% chance to Exert 3 additional Attacks"]={{[1]={flags=0,keywo
 c["Warcries have 5% Chance to grant an Endurance, Frenzy or Power Charge per Power"]={nil,"Warcries have 5% Chance to grant an Endurance, Frenzy or Power Charge per Power "}
 c["Warcries have a minimum of 10 Power"]={nil,"Warcries have a minimum of 10 Power "}
 c["Warcries have infinite Power"]={{[1]={flags=0,keywordFlags=0,name="WarcryInfinitePower",type="FLAG",value=true}},nil}
-c["Warcries no longer Exert Attacks"]={nil,"Warcries no longer Exert Attacks "}
-c["Warcries no longer Exert Attacks Warcries also grant their buffs to nearby allies"]={nil,"Warcries no longer Exert Attacks Warcries also grant their buffs to nearby allies "}
-c["Warcries no longer Exert Attacks Warcries also grant their buffs to nearby allies Limited to 1 Keystone Tattoo"]={nil,"Warcries no longer Exert Attacks Warcries also grant their buffs to nearby allies Limited to 1 Keystone Tattoo "}
 c["Warcry Skills have +2 seconds to Cooldown"]={{[1]={flags=0,keywordFlags=4,name="CooldownRecovery",type="BASE",value=2}},nil}
 c["Warcry Skills have 15% increased Area of Effect"]={{[1]={[1]={skillType=73,type="SkillType"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=15}},nil}
 c["Warcry Skills have 20% increased Area of Effect"]={{[1]={[1]={skillType=73,type="SkillType"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=20}},nil}
@@ -11400,10 +11389,9 @@ c["When you kill a Poisoned Enemy during any Flask Effect, nearby Enemies are Po
 c["When you leave your Banner's Area, recover 30% of the Valour consumed for that Banner"]={nil,"When you leave your Banner's Area, recover 30% of the Valour consumed for that Banner "}
 c["When you lose Temporal Chains you gain maximum Rage"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["When your Hits Impale Enemies, also Impale other Enemies near them"]={nil,"When your Hits Impale Enemies, also Impale other Enemies near them "}
-c["When your Hits Impale Enemies, also Impale other Enemies near them Inflict 4 additional Impales on Enemies you Impale"]={nil,"When your Hits Impale Enemies, also Impale other Enemies near them Inflict 4 additional Impales on Enemies you Impale "}
-c["When your Hits Impale Enemies, also Impale other Enemies near them Inflict 4 additional Impales on Enemies you Impale For 4 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them"]={nil,"When your Hits Impale Enemies, also Impale other Enemies near them Inflict 4 additional Impales on Enemies you Impale For 4 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them "}
-c["When your Hits Impale Enemies, also Impale other Enemies near them Inflict 4 additional Impales on Enemies you Impale For 4 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them Limited to 1 Keystone Tattoo"]={nil,"When your Hits Impale Enemies, also Impale other Enemies near them Inflict 4 additional Impales on Enemies you Impale For 4 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them Limited to 1 Keystone Tattoo "}
 c["When your Hits Impale Enemies, also Impale other Enemies near them Inflict 5 additional Impales on Enemies you Impale"]={nil,"When your Hits Impale Enemies, also Impale other Enemies near them Inflict 5 additional Impales on Enemies you Impale "}
+c["When your Hits Impale Enemies, also Impale other Enemies near them Inflict 5 additional Impales on Enemies you Impale For 4 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them"]={nil,"When your Hits Impale Enemies, also Impale other Enemies near them Inflict 5 additional Impales on Enemies you Impale For 4 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them "}
+c["When your Hits Impale Enemies, also Impale other Enemies near them Inflict 5 additional Impales on Enemies you Impale For 4 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them Limited to 1 Keystone Tattoo"]={nil,"When your Hits Impale Enemies, also Impale other Enemies near them Inflict 5 additional Impales on Enemies you Impale For 4 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them Limited to 1 Keystone Tattoo "}
 c["When your Hits Impale Enemies, also Impale other Enemies near them Inflict 5 additional Impales on Enemies you Impale For 5 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them"]={nil,"When your Hits Impale Enemies, also Impale other Enemies near them Inflict 5 additional Impales on Enemies you Impale For 5 seconds after you Impale Enemies, they cannot be Impaled again, and Impales cannot be Called from them "}
 c["When your Traps Trigger, your nearby Traps also Trigger"]={nil,"When your Traps Trigger, your nearby Traps also Trigger "}
 c["While Minions have Energy Shield, their Hits Ignore Monster Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={stat="EnergyShield",threshold=1,type="StatThreshold"},flags=0,keywordFlags=0,name="IgnoreElementalResistances",type="FLAG",value=true}}}},nil}
