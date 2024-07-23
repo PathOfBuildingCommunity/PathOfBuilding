@@ -839,6 +839,10 @@ return {
 	flag("MinionDamageAppliesToPlayer"),
 	mod("ImprovedMinionDamageAppliesToPlayer", "MAX", nil)
 },
+["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
+	flag("SpellDamageAppliesToAttacks"),
+	mod("ImprovedSpellDamageAppliesToAttacks", "MAX", nil),
+},
 ["active_skill_main_hand_weapon_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "MainHandAttack" }),
 },
@@ -1999,7 +2003,7 @@ return {
 },
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {
-	mod("AuraEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "BannerValour" }, { type = "Condition", var = "BannerPlanted" }),
+	mod("AuraEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "BannerValour" }, { type = "Condition", var = "BannerPlanted" }),
 },
 ["banner_area_of_effect_+%_per_stage"] = {
 	mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "BannerValour" }, { type = "Condition", var = "BannerPlanted" }),

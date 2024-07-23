@@ -915,7 +915,7 @@ function buildMode:SyncLoadouts(reset)
 				-- setName is only used for Tree currently and we strip the braces to get the plain name of the set, this is used as the name of the loadout
 				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 					transferTable["setId"] = id
-					transferTable["setName"] = string.match(specTitle, "(.+)% {")
+					transferTable["setName"] = string.match(specTitle, "(.+)% {") or "Default"
 					transferTable["linkId"] = linkId
 					self.treeListSpecialLinks[linkId] = transferTable
 					t_insert(sortedTreeListSpecialLinks, transferTable)
@@ -937,7 +937,7 @@ function buildMode:SyncLoadouts(reset)
 				if linkIdentifier then
 					for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 						transferTable["setId"] = set
-						transferTable["setName"] = string.match(setTitle, "(.+)% {")
+						transferTable["setName"] = string.match(setTitle, "(.+)% {") or "Default"
 						specialLinks[linkId] = transferTable
 						transferTable = {}
 					end

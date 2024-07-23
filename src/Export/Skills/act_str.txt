@@ -1557,9 +1557,6 @@ local skills, mod, flag, skill = ...
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("SeismicExertedAttacks", "BASE", nil),
 		},
-		["seismic_cry_slam_skill_area_+%_increase_per_repeat"] = {
-			mod("SeismicAoEIncMultiplier", "BASE", nil),
-		},
 		["seismic_cry_base_slam_skill_area_+%"] = {
 			mod("SeismicAoEMoreMultiplier", "BASE", nil),
 		},
@@ -2035,8 +2032,8 @@ local skills, mod, flag, skill = ...
 		["accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		},
-		["physical_damage_taken_+%"] = {
-			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" })
+		["physical_damage_+%"] = {
+			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }, { type = "SkillType", skillType = SkillType.Melee }),
 		},
 	},
 #baseMod skill("radius", 24)
