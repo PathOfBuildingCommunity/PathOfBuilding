@@ -5068,7 +5068,6 @@ skills["HeraldOfAsh"] = {
 	},
 	stats = {
 		"herald_of_ash_burning_damage_+%_final",
-		"herald_of_ash_spell_fire_damage_+%_final",
 		"is_area_damage",
 		"quality_display_herald_of_ash_is_gem",
 	},
