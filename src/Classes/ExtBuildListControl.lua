@@ -411,20 +411,16 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			local relativeHeight = currentHeight + 10 - self.controls.scrollBarV.offset
 			if relativeHeight > y and relativeHeight < self.height() + y - 10 then
 				if build.buildLink then
-					local importButton = new("ButtonControl", nil, 0, 0, 45, 20, "Import", function()
+					local importButton = new("ButtonControl", nil, x, currentHeight - self.controls.scrollBarV.offset, 45, 20, "Import", function()
 						self:importBuild(build)
 					end)
-					importButton.x = x
-					importButton.y = currentHeight - self.controls.scrollBarV.offset
 					t_insert(self.controls, importButton)
 				end
 
 				if build.previewLink then
-					local previewButton = new("ButtonControl", nil, 0, 0, 60, 20, "Preview", function()
+					local previewButton = new("ButtonControl", nil, x + 50, currentHeight - self.controls.scrollBarV.offset, 60, 20, "Preview", function()
 							OpenURL(build.previewLink)
 					end)
-					previewButton.x = x + 50
-					previewButton.y = currentHeight - self.controls.scrollBarV.offset
 					t_insert(self.controls, previewButton)
 				end
 				currentHeight = currentHeight + 4
