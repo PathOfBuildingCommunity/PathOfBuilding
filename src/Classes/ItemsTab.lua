@@ -492,7 +492,7 @@ holding Shift will put it in the second.]])
 		self:AddImplicitToDisplayItem()
 	end)
 	self.controls.displayItemAddImplicit.shown = function()
-		return self.displayItem and (self.displayItem.corruptible or ((self.displayItem.type ~= "Flask" or self.displayItem.type ~= "Jewel") and (self.displayItem.rarity == "NORMAL" or self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")))
+		return self.displayItem and self.displayItem.type ~= "Tincture" and (self.displayItem.corruptible or ((self.displayItem.type ~= "Flask" or self.displayItem.type ~= "Jewel") and (self.displayItem.rarity == "NORMAL" or self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")))
 	end
 
 	-- Section: Influence dropdowns
@@ -3292,9 +3292,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	elseif base.tincture then
 		-- Tincture-specific info
 		local tinctureData = item.tinctureData
-		if item.quality > 0 then
-			tooltip:AddLine(16, s_format("^x7F7F7FQuality: "..colorCodes.MAGIC.."+%d%%", item.quality))
-		end
+
 		tooltip:AddLine(16, s_format("^x7F7F7FInflicts Mana Burn every %s%.2f ^x7F7F7FSeconds", main:StatColor(tinctureData.manaBurn, base.tincture.manaBurn), tinctureData.manaBurn))
 		tooltip:AddLine(16, s_format("^x7F7F7F%s%.2f ^x7F7F7FSecond Cooldown When Deactivated", main:StatColor(tinctureData.cooldown, base.tincture.cooldown), tinctureData.cooldown))
 		for _, modLine in pairs(item.buffModLines) do
