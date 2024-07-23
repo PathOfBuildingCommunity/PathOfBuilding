@@ -2029,6 +2029,43 @@ function calcs.perform(env, skipEHP)
 						end
 						mergeBuff(srcList, buffs, "Totem "..buff.name)
 					end
+					-- check if aura has a debuff added to it, but does not have an auraDebuff
+					if env.mode_effective and #modDB:List(skillCfg, "ExtraAuraDebuffEffect") > 0 and not modDB:Flag(nil, "SelfAurasOnlyAffectYou") then
+						local auraDebuffFound = false
+						for _, buff in ipairs(activeSkill.buffList) do
+							if buff.type == "AuraDebuff" then
+								auraDebuffFound = true
+								break
+							end
+						end
+						if not auraDebuffFound then
+							activeSkill.debuffSkill = true
+							local extraAuraModList = { }
+							for _, value in ipairs(modDB:List(skillCfg, "ExtraAuraDebuffEffect")) do
+								local add = true
+								for _, mod in ipairs(extraAuraModList) do
+									if modLib.compareModParams(mod, value.mod) then
+										mod.value = mod.value + value.mod.value
+										add = false
+										break
+									end
+								end
+								if add then
+									t_insert(extraAuraModList, copyTable(value.mod, true))
+								end
+							end
+							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
+							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
+							mult = (1 + inc / 100) * more
+							local newModList = new("ModList")
+							newModList:AddList(extraAuraModList)
+							buffExports["Aura"][buff.name..(buffExports["Aura"][buff.name] and "_Debuff" or "")] = { effectMult = mult, modList = newModList }
+							if allyBuffs["AuraDebuff"] and allyBuffs["AuraDebuff"][buff.name] and allyBuffs["AuraDebuff"][buff.name].effectMult / 100 > mult then
+								mult = 0
+							end
+							mergeBuff(newModList, debuffs, buff.name)
+						end
+					end
 				end
 			elseif buff.type == "Debuff" or buff.type == "AuraDebuff" then
 				local stackCount
@@ -2048,13 +2085,30 @@ function calcs.perform(env, skipEHP)
 					modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 					local srcList = new("ModList")
 					local mult = 1
+					local extraAuraModList = { }
 					if buff.type == "AuraDebuff" then
+						for _, value in ipairs(modDB:List(skillCfg, "ExtraAuraDebuffEffect")) do
+							local add = true
+							for _, mod in ipairs(extraAuraModList) do
+								if modLib.compareModParams(mod, value.mod) then
+									mod.value = mod.value + value.mod.value
+									add = false
+									break
+								end
+							end
+							if add then
+								t_insert(extraAuraModList, copyTable(value.mod, true))
+							end
+						end
 						mult = 0
 						if not modDB:Flag(nil, "SelfAurasOnlyAffectYou") then
 							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							mult = (1 + inc / 100) * more
-							buffExports["Aura"][buff.name..(buffExports["Aura"][buff.name] and "_Debuff" or "")] = { effectMult = mult, modList = buff.modList }
+							local newModList = new("ModList")
+							newModList:AddList(buff.modList)
+							newModList:AddList(extraAuraModList)
+							buffExports["Aura"][buff.name..(buffExports["Aura"][buff.name] and "_Debuff" or "")] = { effectMult = mult, modList = newModList }
 							if allyBuffs["AuraDebuff"] and allyBuffs["AuraDebuff"][buff.name] and allyBuffs["AuraDebuff"][buff.name].effectMult / 100 > mult then
 								mult = 0
 							end
@@ -2066,6 +2120,7 @@ function calcs.perform(env, skipEHP)
 						mult = (1 + inc / 100) * more
 					end
 					srcList:ScaleAddList(buff.modList, mult * stackCount)
+					srcList:ScaleAddList(extraAuraModList, mult * stackCount)
 					if activeSkill.skillData.stackCount or buff.stackVar then
 						srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", stackCount, buff.name)
 					end
