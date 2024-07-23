@@ -2,18 +2,18 @@
 
 ## [v2.44.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.44.0) (2024/07/23)
 
-[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.43.1...v2.44.0)
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.43.0...v2.44.0)
 
 <!-- Release notes generated using configuration in .github/release.yml at dev -->
 
 ## What's Changed
 ### New to Path of Building
-- Update Axe, Dagger, Sceptre,  Staff and Flask Bases with 3.25 Changes [\#7828](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7828) ([LocalIdentity](https://github.com/LocalIdentity))
+- Update Axe, Claw, Dagger, Sceptre,  Staff and Flask Bases with 3.25 Changes [\#7828](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7828), [\#7815](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7815) ([LocalIdentity](https://github.com/LocalIdentity), [pauloday](https://github.com/pauloday))
 ### Fixed Crashes
 - Fix crash when trying to add gems to Penance Brand of Dissipation [\#7825](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7825) ([Paliak](https://github.com/Paliak))
 ### User Interface
 - Fix tree selection hotkey double selecting [\#7789](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7789) ([Wires77](https://github.com/Wires77))
-- Add toggle for node search vieport edge highlight [\#7822](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7822) ([Paliak](https://github.com/Paliak))
+- Add toggle for node search viewport edge highlight [\#7822](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7822) ([Paliak](https://github.com/Paliak))
 ### Fixed Calculations
 - Fix "damage with Bleeding" mod not working [\#7800](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7800) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix War Banner not granting damage to Bleed [\#7799](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7799) ([LocalIdentity](https://github.com/LocalIdentity))
@@ -22,7 +22,6 @@
 - Fix Svalinn Lucky block mod not applying to Spell Block [\#7817](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7817) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Seismic Cry more AoE mod scaling with Buff Effect [\#7813](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7813) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Seething Fury not working with Perfect Agony [\#7812](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7812) ([Paliak](https://github.com/Paliak))
-- Update Claw base Critical Strike Chance for 3.25 [\#7815](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7815) ([pauloday](https://github.com/pauloday))
 ### Fixed Behaviours
 - Fix Power Siphon not benefiting from Spell Damage [\#7802](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7802) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix pathing from Ascendant path node to class start [\#7806](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7806) ([trimbe](https://github.com/trimbe))
