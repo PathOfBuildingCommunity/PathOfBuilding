@@ -19,7 +19,7 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 			end,
 			-- value mapping function
 			function(listVal)
-				return StripEscapes(type(listVal) == "table" and listVal.label or listVal)
+				return StripEscapes(type(listVal) == "table" and listVal.label .. " " .. listVal.detail or listVal)
 			end
 	)
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
@@ -359,10 +359,16 @@ function DropDownClass:Draw(viewPort, noTooltip)
 					SetDrawColor(0.66, 0.66, 0.66)
 				end
 				-- draw actual item label with search match highlight if available
-				local label = type(listVal) == "table" and listVal.label or listVal
+				local label
+				local detail
+				if type(listVal) == "table" then
+					label = listVal.label
+					detail = listVal.detail
+				else
+					label = listVal
+				end
 				DrawString(0, y, "LEFT", lineHeight, "VAR", label)
-				if selDetail ~= nil then
-					local detail = listVal.detail
+				if detail ~= nil then
 					dx = DrawStringWidth(lineHeight, "VAR", detail)
 					DrawString(width - dx - 4 - 22, y, "LEFT", lineHeight, "VAR", detail)
 				end
