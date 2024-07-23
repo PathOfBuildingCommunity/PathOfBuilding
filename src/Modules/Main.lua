@@ -978,7 +978,7 @@ function main:OpenOptionsPopup()
 	local initialThousandsSeparator = self.thousandsSeparator
 	local initialDecimalSeparator = self.decimalSeparator
 	local initialBetaTest = self.betaTest
-	local initialedgeSearchHighlight = self.edgeSearchHighlight
+	local initialEdgeSearchHighlight = self.edgeSearchHighlight
 	local initialDefaultGemQuality = self.defaultGemQuality or 0
 	local initialDefaultCharLevel = self.defaultCharLevel or 1
 	local initialDefaultItemAffixQuality = self.defaultItemAffixQuality or 0.5
@@ -1027,7 +1027,7 @@ function main:OpenOptionsPopup()
 		self.decimalSeparator = initialDecimalSeparator
 		self.showTitlebarName = initialTitlebarName
 		self.betaTest = initialBetaTest
-		self.edgeSearchHighlight = initialedgeSearchHighlight
+		self.edgeSearchHighlight = initialEdgeSearchHighlight
 		self.defaultGemQuality = initialDefaultGemQuality
 		self.defaultCharLevel = initialDefaultCharLevel
 		self.defaultItemAffixQuality = initialDefaultItemAffixQuality
