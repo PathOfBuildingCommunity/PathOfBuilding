@@ -242,6 +242,10 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 		return
 	end
 
+	if not main.showPublicBuilds then
+		return
+	end
+
 	-- clear button states
 	wipeTable(self.previewButtons)
 	wipeTable(self.importButtons)

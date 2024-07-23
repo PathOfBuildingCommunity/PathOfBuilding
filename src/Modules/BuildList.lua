@@ -65,14 +65,18 @@ function listMode:Init(selBuildName, subPath)
 		self:SortList()
 	end)
 	self.controls.sort:SelByValue(main.buildSortMode, "sortMode")
-	self.controls.buildList = new("BuildListControl", {"TOP",self.anchor,"TOP"}, 0, 75, main.screenW / 2, 0, self)
+	self.controls.buildList = new("BuildListControl", {"TOP",self.anchor,"TOP"}, 0, 75, 900, 0, self)
 	self.controls.buildList.height = function()
 		return main.screenH - 80
 	end
-	self.controls.buildList.width = function ()
-		return (main.screenW / 2)
+	local buildListWidth = function ()
+		if main.showPublicBuilds then
+			return math.min((main.screenW / 2), 900)
+		else
+			return 900
+		end
 	end
-	self.controls.buildList.x = function ()
+	local buildListOffset = function ()
 		if main.showPublicBuilds then
 			local offset = math.min(450, main.screenW / 4)
 			return offset - 450
@@ -80,6 +84,9 @@ function listMode:Init(selBuildName, subPath)
 			return 0
 		end
 	end
+
+	self.controls.buildList.width = buildListWidth
+	self.controls.buildList.x = buildListOffset
 
 	if main.showPublicBuilds then
 		self.controls.ExtBuildList = self:getPublicBuilds()
@@ -89,9 +96,8 @@ function listMode:Init(selBuildName, subPath)
 		main.filterBuildList = buf
 		self:BuildList()
 	end, nil, nil, true)
-	self.controls.searchText.width = function ()
-		return (main.screenW / 2 - 100)
-	end
+	self.controls.searchText.width = buildListWidth
+	self.controls.searchText.x = buildListOffset
 
 	self:BuildList()
 	self.controls.buildList:SelByFileName(selBuildName and selBuildName..".xml")
