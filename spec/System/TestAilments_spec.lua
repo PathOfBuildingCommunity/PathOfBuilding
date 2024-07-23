@@ -21,20 +21,22 @@ describe("TestAilments", function()
     end)
 
 	it("bleed is buffed by bleed chance", function()
-		-- Shock Nova
 		build.itemsTab:CreateDisplayItemFromRaw("New Item\nKarui Chopper")
+		build.itemsTab:AddDisplayItem()
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nHeavy Strike 1/0 Default  1\n")
 		build.configTab.input.customMods = "\z
         attacks have 10% chance to cause bleeding\n\z
         "
+		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		local badDps = build.calcsTab.mainOutput.BleedDps
+		local badDps = build.calcsTab.mainOutput.BleedDPS
 
 		build.configTab.input.customMods = "\z
         attacks have 100% chance to cause bleeding\n\z
         "
+		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		local goodDps = build.calcsTab.mainOutput.BleedDps
+		local goodDps = build.calcsTab.mainOutput.BleedDPS
 		assert.True(goodDps > badDps)
 	end)
 end)
