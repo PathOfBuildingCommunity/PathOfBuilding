@@ -738,7 +738,10 @@ skills["CallToArms"] = {
 	statMap = {
 		["call_to_arms_behaviour"] = {
 			-- Display only
-		}
+		},
+		["warcry_skills_share_cooldowns"] = {
+			-- Display only
+		},
 	},
 	castTime = 0,
 	baseFlags = {
