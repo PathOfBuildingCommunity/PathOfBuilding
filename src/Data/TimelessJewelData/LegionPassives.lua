@@ -7694,10 +7694,10 @@ return {
 			}, 
 		}, 
 		[62] = {
-			["id"] = "karui_notable_add_physical_added_as_fire", 
-			["dn"] = "Add Physical Added As Fire", 
+			["id"] = "karui_notable_add_rage_on_hit", 
+			["dn"] = "Add Rage on Hit", 
 			["sd"] = {
-				[1] = "Gain 5% of Physical Damage as Extra Fire Damage", 
+				[1] = "Gain 1 Rage on Melee Hit", 
 			}, 
 			["sortedStats"] = {
 				[1] = "physical_damage_%_to_add_as_fire", 

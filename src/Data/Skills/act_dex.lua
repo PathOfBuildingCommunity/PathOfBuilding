@@ -3127,12 +3127,10 @@ skills["BloodRage"] = {
 		["attack_speed_+%_granted_from_skill"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
-		["blood_rage_life_leech_from_elemental_damage_permyriad"] = {
-			mod("FireDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			mod("ColdDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			mod("LightningDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 100
-		}
+		["life_leech_from_physical_attack_damage_permyriad"] = {
+			mod("PhysicalDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 100,
+		},
 	},
 	baseFlags = {
 		spell = true,

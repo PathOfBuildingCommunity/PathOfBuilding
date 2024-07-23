@@ -3538,8 +3538,8 @@ local specialModList = {
 	["you are at maximum chance to block spell damage if you have not blocked recently"] = { flag("MaxSpellBlockIfNotBlockedRecently", { type = "Condition", var = "BlockedRecently", neg = true }) },
 	["%+(%d+)%% chance to block attack damage if you have not blocked recently"] = function(num) return { mod("BlockChance", "BASE", num, { type = "Condition", var = "BlockedRecently", neg = true }) } end,
 	["%+(%d+)%% chance to block spell damage if you have not blocked recently"] = function(num) return { mod("SpellBlockChance", "BASE", num, { type = "Condition", var = "BlockedRecently", neg = true }) } end,
-	["y?o?u?r? ?chance to block is lucky"] = { flag("BlockChanceIsLucky"), flag("ProjectileBlockChanceIsLucky") },
-	["y?o?u?r? ?chance to block is unlucky"] = { flag("BlockChanceIsUnlucky"), flag("ProjectileBlockChanceIsUnlucky") },
+	["y?o?u?r? ?chance to block is lucky"] = { flag("BlockChanceIsLucky"), flag("ProjectileBlockChanceIsLucky"),flag("SpellBlockChanceIsLucky"), flag("SpellProjectileBlockChanceIsLucky") },
+	["y?o?u?r? ?chance to block is unlucky"] = { flag("BlockChanceIsUnlucky"), flag("ProjectileBlockChanceIsUnlucky"), flag("SpellBlockChanceIsUnlucky"), flag("SpellProjectileBlockChanceIsUnlucky") },
 	["y?o?u?r? ?chance to block spell damage is lucky"] = { flag("SpellBlockChanceIsLucky"), flag("SpellProjectileBlockChanceIsLucky") },
 	["y?o?u?r? ?chance to block spell damage is unlucky"] = { flag("SpellBlockChanceIsUnlucky"), flag("SpellProjectileBlockChanceIsUnlucky") },
 	["chance to block attack or spell damage is lucky if you've blocked recently"] = { 
@@ -4776,6 +4776,12 @@ local specialModList = {
 	} end,
 	["hits have (%d+)%% chance to ignore enemy physical damage reduction"] = function(num) return {
 		mod("ChanceToIgnoreEnemyPhysicalDamageReduction", "BASE", num)
+	} end,
+	["hits with this weapon have (%d+)%% chance to ignore enemy physical damage reduction"] = function(num) return {
+		mod("ChanceToIgnoreEnemyPhysicalDamageReduction", "BASE", num, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack })
+	} end,
+	["hits with this weapon ignore enemy physical damage reduction"] = function(num) return {
+		mod("ChanceToIgnoreEnemyPhysicalDamageReduction", "BASE", 100, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack })
 	} end,
 	["hits against you overwhelm (%d+)%% of physical damage reduction"] = function(num) return {
 		mod("EnemyPhysicalOverwhelm", "BASE", num)

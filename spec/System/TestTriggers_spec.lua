@@ -507,7 +507,7 @@ describe("TestTriggers", function()
         build.itemsTab:AddDisplayItem()
         runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Reave 20/0 Default  1\n")
         runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -823,7 +823,7 @@ describe("TestTriggers", function()
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nArc 20/0 Default  1\n")
         runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Reave 20/0 Default  1\n")
         runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -912,7 +912,7 @@ describe("TestTriggers", function()
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nArc 20/0 Default  1\n")
         runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
         runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -943,7 +943,7 @@ describe("TestTriggers", function()
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nIce Nova 20/0 Default  1\n")
         runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Reave 20/0 Default  1\n")
         runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -1013,7 +1013,7 @@ describe("TestTriggers", function()
 		build.skillsTab:PasteSocketGroup("Summon Holy Relic 20/0 Default  1\n")
         runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
         runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.Minion.SkillTriggerRate ~= nil)
@@ -1068,14 +1068,14 @@ describe("TestTriggers", function()
 		build.skillsTab:PasteSocketGroup("Mark On Hit 20/0 Default  1\nAlchemist's Mark 20/0 Default  1\n")
         runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
         runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
     end)
 
 	it("Trigger Hextouch", function()
-		build.skillsTab:PasteSocketGroup("Despair 20/0 Default  1\nHextouch 20/0 Default  1\nFrenzy 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Despair 20/0 Default  1\nHextouch 20/0 Default  1\nSmite 20/0 Default  1\n")
         runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -1103,35 +1103,7 @@ describe("TestTriggers", function()
         build.itemsTab:AddDisplayItem()
         runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
-        runCallback("OnFrame")
-
-		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
-
-	it("Trigger Oskarm", function()
-		build.itemsTab:CreateDisplayItemFromRaw([[Oskarm
-		Nubuck Gloves
-		Evasion: 131
-		EvasionBasePercentile: 0
-		Variant: Pre 3.16.0
-		Variant: Current
-		Selected Variant: 2
-		Quality: 20
-		Sockets: G-G-G-G
-		LevelReq: 52
-		Implicits: 0
-		Trigger Level 10 Assassin's Mark when you Hit a Rare or Unique Enemy
-		{range:0.5}(30-40)% increased Accuracy Rating
-		{range:0.5}+(40-50) to maximum Life
-		{range:0.5}-(20-10)% to Chaos Resistance
-		{variant:1}{range:0.5}(7-8)% chance to Suppress Spell Damage
-		{variant:2}{range:0.5}(10-12)% chance to Suppress Spell Damage
-		2% increased Attack Critical Strike Chance per 200 Accuracy Rating]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
-
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
         runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -1262,14 +1234,14 @@ describe("TestTriggers", function()
 		build.buildFlag = true
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
         runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
     end)
 
 	it("Trigger Prismatic Burst", function()
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\nPrismatic Burst 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\nPrismatic Burst 20/0 Default  1\n")
         runCallback("OnFrame")
 
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
@@ -1303,7 +1275,7 @@ describe("TestTriggers", function()
         build.itemsTab:AddDisplayItem()
         runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\nShockwave 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\nShockwave 20/0 Default  1\n")
         runCallback("OnFrame")
 
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
