@@ -94,13 +94,17 @@ local skills, mod, flag, skill = ...
 statMap = {
 		["call_to_arms_behaviour"] = {
 			-- Display only
-		}
+		},
+		["warcry_skills_share_cooldowns"] = {
+			-- Display only
+		},
 	},
 #mods
 
 #skill SupportCallToArms
 	baseMods = {
 		skill("SupportedByAutoexertion", true),
+		flag("CannotShareWarcryBuffs"),
 	},
 #mods
 

@@ -11347,9 +11347,7 @@ c["Warcries Exert 2 additional Attacks"]={{[1]={flags=0,keywordFlags=0,name="Ext
 c["Warcries Exert twice as many Attacks"]={{[1]={flags=0,keywordFlags=0,name="ExtraExertedAttacks",type="MORE",value=100}},nil}
 c["Warcries Knock Back and Interrupt Enemies in a smaller Area"]={nil,"Warcries Knock Back and Interrupt Enemies in a smaller Area "}
 c["Warcries cannot Exert Travel Skills"]={nil,"Warcries cannot Exert Travel Skills "}
-c["Warcries do not grant Buffs or Charges to You"]={nil,"Warcries do not grant Buffs or Charges to You "}
-c["Warcries do not grant Buffs or Charges to You 100% more Warcry Duration"]={nil,"Warcries do not grant Buffs or Charges to You 100% more Warcry Duration "}
-c["Warcries do not grant Buffs or Charges to You 100% more Warcry Duration Limited to 1 Keystone Tattoo"]={nil,"Warcries do not grant Buffs or Charges to You 100% more Warcry Duration Limited to 1 Keystone Tattoo "}
+c["Warcries do not grant Buffs or Charges to You"]={{[1]={flags=0,keywordFlags=0,name="CannotGainWarcryBuffs",type="FLAG",value=true}},nil}
 c["Warcries grant 1 Rage per 5 Enemy Power, up to 5"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Warcries grant 5 Rage per 5 Power if you have less than 25 Rage"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Warcries grant Arcane Surge to you and Allies, with 10% increased effect per 5 power, up to 50%"]={{[1]={[1]={type="Condition",var="UsedWarcryRecently"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:ArcaneSurge",type="FLAG",value=true}}},[2]={[1]={div=5,globalLimit=50,globalLimitKey="Brinerot Flag",stat="WarcryPower",type="PerStat"},[2]={type="Condition",var="UsedWarcryRecently"},flags=0,keywordFlags=0,name="ArcaneSurgeEffect",type="INC",value=10}},nil}

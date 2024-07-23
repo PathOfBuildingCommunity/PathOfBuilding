@@ -3585,6 +3585,7 @@ local specialModList = {
 	["warcries share their cooldown"] = { flag("WarcryShareCooldown") },
 	["warcries have minimum of (%d+) power"] = { flag("CryWolfMinimumPower") },
 	["warcries have infinite power"] = { flag("WarcryInfinitePower") },
+	["warcries do not grant buffs or charges to you"] = { flag("CannotGainWarcryBuffs") },
 	["(%d+)%% chance to inflict corrosion on hit with attacks"] = { flag("Condition:CanCorrode") },
 	["(%d+)%% chance to inflict withered for (%d+) seconds on hit"] = { flag("Condition:CanWither") },
 	["inflict withered for (%d+) seconds on hit if you've cast (.-) in the past (%d+) seconds"] = function (_, _, curse) return { flag("Condition:CanWither", { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") }) } end,
