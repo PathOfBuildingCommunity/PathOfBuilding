@@ -1493,7 +1493,7 @@ end
 function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
 	local newItem = new("Item", itemRaw)
 	if newItem.base then
-		if normalise then
+		if normalise and not newItem.quality then
 			newItem:NormaliseQuality()
 			newItem:BuildModList()
 		end
