@@ -20,7 +20,6 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 			-- value mapping function
 			function(listVal)
 				if type(listVal) == "table" then
-					local it = listVal.label
 					return StripEscapes(listVal.detail == nil and listVal.label or listVal.label .. " " .. listVal.detail)
 				else
 					return StripEscapes(listVal)
