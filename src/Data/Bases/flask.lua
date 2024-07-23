@@ -391,6 +391,6 @@ itemBases["Iron Flask"] = {
 	tags = { flask = true, utility_flask = true, not_for_sale = true, expedition_flask = true, default = true, },
 	implicit = "Restores Ward on use",
 	implicitModTypes = { { "flask" }, },
-	flask = { duration = 5, chargesUsed = 40, chargesMax = 60, buff = { "+200 to Ward" }, },
+	flask = { duration = 4, chargesUsed = 40, chargesMax = 60, buff = { "+200 to Ward" }, },
 	req = { level = 27, },
 }
