@@ -1,3 +1,48 @@
+VERSION[2.44.1][2024/07/23]
+
+--- New to Path of Building ---
+* Update 3.25 Skill trees (LocalIdentity)
+* Remove more fire damage line from Herald of Ash description (LocalIdentity)
+
+--- Fixed Crashes ---
+* Fix Crash when allocating Perfect Agony while unarmed (LocalIdentity)
+
+VERSION[2.44.0][2024/07/23]
+
+--- New to Path of Building ---
+* Update Axe, Claw, Dagger, Sceptre,  Staff and Flask Bases with 3.25 Changes (LocalIdentity, pauloday)
+
+--- Fixed Crashes ---
+* Fix crash when trying to add gems to Penance Brand of Dissipation (Paliak)
+
+--- User Interface ---
+* Fix tree selection hotkey double selecting (Wires77)
+* Add toggle for node search viewport edge highlight (Paliak)
+
+--- Fixed Calculations ---
+* Fix "damage with Bleeding" mod not working (LocalIdentity)
+* Fix War Banner not granting damage to Bleed (LocalIdentity)
+* Fix Valour incorrectly granting increased Aura effect instead of more Aura Effect (LocalIdentity)
+* Fix Perfect Agony not including on enemy effects (Paliak)
+* Fix Svalinn Lucky block mod not applying to Spell Block (LocalIdentity)
+* Fix Seismic Cry more AoE mod scaling with Buff Effect (LocalIdentity)
+* Fix Seething Fury not working with Perfect Agony (Paliak)
+
+--- Fixed Behaviours ---
+* Fix Power Siphon not benefiting from Spell Damage (LocalIdentity)
+* Fix pathing from Ascendant path node to class start (trimbe)
+* Fix Divine Blessing flat cost not appearing in breakdown (LocalIdentity)
+* Fix Blood Rage not granting Attack damage leech (LocalIdentity)
+* Fix Enduring Cry having incorrect duration (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Fix Fist of War description not applying damage to Ailments (LocalIdentity)
+* Fix Blade Flurry using the wrong damage effectiveness values (LocalIdentity)
+* Fix Seismic Cry including old AoE increase mod (LocalIdentity)
+* Fix Caustic Arrow of Poison still having Flat Damage (LocalIdentity)
+* Fix elemental catalyst not applying to new The Taming (Nerotox)
+* Fix Lethal Pride granting Phys as Extra Fire instead of Rage on hit (LocalIdentity)
+
 VERSION[2.43.0][2024/07/23]
 
 --- New to Path of Building ---

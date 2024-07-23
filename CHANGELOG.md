@@ -1,5 +1,55 @@
 # Changelog
 
+## [v2.44.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.44.1) (2024/07/23)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.44.0...v2.44.1)
+
+## What's Changed
+### New to Path of Building
+- Update Skill Tree ([LocalIdentity](https://github.com/LocalIdentity))
+- Remove more fire damage line from Herald of Ash description ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Crashes
+- Fix Crash when allocating Perfect Agony while unarmed ([LocalIdentity](https://github.com/LocalIdentity))
+
+## [v2.44.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.44.0) (2024/07/23)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.43.0...v2.44.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- Update Axe, Claw, Dagger, Sceptre,  Staff and Flask Bases with 3.25 Changes [\#7828](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7828), [\#7815](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7815) ([LocalIdentity](https://github.com/LocalIdentity), [pauloday](https://github.com/pauloday))
+### Fixed Crashes
+- Fix crash when trying to add gems to Penance Brand of Dissipation [\#7825](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7825) ([Paliak](https://github.com/Paliak))
+### User Interface
+- Fix tree selection hotkey double selecting [\#7789](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7789) ([Wires77](https://github.com/Wires77))
+- Add toggle for node search viewport edge highlight [\#7822](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7822) ([Paliak](https://github.com/Paliak))
+### Fixed Calculations
+- Fix "damage with Bleeding" mod not working [\#7800](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7800) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix War Banner not granting damage to Bleed [\#7799](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7799) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Valour incorrectly granting increased Aura effect instead of more Aura Effect [\#7810](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7810) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Perfect Agony not including on enemy effects [\#7807](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7807) ([Paliak](https://github.com/Paliak))
+- Fix Svalinn Lucky block mod not applying to Spell Block [\#7817](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7817) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Seismic Cry more AoE mod scaling with Buff Effect [\#7813](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7813) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Seething Fury not working with Perfect Agony [\#7812](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7812) ([Paliak](https://github.com/Paliak))
+### Fixed Behaviours
+- Fix Power Siphon not benefiting from Spell Damage [\#7802](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7802) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix pathing from Ascendant path node to class start [\#7806](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7806) ([trimbe](https://github.com/trimbe))
+- Fix Divine Blessing flat cost not appearing in breakdown [\#7811](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7811) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Blood Rage not granting Attack damage leech [\#7823](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7823) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Enduring Cry having incorrect duration [\#7814](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7814) ([LocalIdentity](https://github.com/LocalIdentity))
+### Accuracy Improvements
+- Fix Fist of War description not applying damage to Ailments [\#7798](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7798) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Blade Flurry using the wrong damage effectiveness values [\#7797](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7797) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Seismic Cry including old AoE increase mod [\#7791](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7791) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Caustic Arrow of Poison still having Flat Damage [\#7803](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7803) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix elemental catalyst not applying to new The Taming [\#7821](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7821) ([Nerotox](https://github.com/Nerotox))
+- Fix Lethal Pride granting Phys as Extra Fire instead of Rage on hit [\#7819](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7819) ([LocalIdentity](https://github.com/LocalIdentity))
+### Other changes
+- Use Default value for loadout with no set name match [\#7793](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7793) ([deathbeam](https://github.com/deathbeam))
+
+
 ## [v2.43.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.43.0) (2024/07/23)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.42.0...v2.43.0)

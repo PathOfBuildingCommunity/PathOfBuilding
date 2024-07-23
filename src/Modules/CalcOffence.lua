@@ -3568,7 +3568,7 @@ function calcs.offence(env, actor, activeSkill)
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
 
 		do -- Perfect Agony
-			local handCondition = pass.label == "Off Hand" and { type = "Condition", var = "OffHandAttack" } or pass.label == "Main Hand" and { type = "Condition", var = "MainHandAttack" }
+			local handCondition = pass.label == "Off Hand" and { type = "Condition", var = "OffHandAttack" } or pass.label == "Main Hand" and { type = "Condition", var = "MainHandAttack" } or nil
 
 			if skillModList:Sum("BASE", nil, "CritMultiplierAppliesToDegen") > 0 then
 				for i, value in ipairs(skillModList:Tabulate("BASE", cfg, "CritMultiplier")) do

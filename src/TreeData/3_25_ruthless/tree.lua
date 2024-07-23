@@ -17957,6 +17957,12 @@ return {
                     ["reminderText"]= {
                         "(Recently refers to the past 4 seconds)"
                     }
+                },
+                {
+                    ["effect"]= 16950,
+                    ["stats"]= {
+                        "Totems Taunt Enemies around them for 1 second when Summoned"
+                    }
                 }
             },
             ["stats"]= {},
@@ -18451,6 +18457,12 @@ return {
                     },
                     ["reminderText"]= {
                         "(Recently refers to the past 4 seconds)"
+                    }
+                },
+                {
+                    ["effect"]= 16950,
+                    ["stats"]= {
+                        "Totems Taunt Enemies around them for 1 second when Summoned"
                     }
                 }
             },
@@ -37512,7 +37524,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/CrimsonDance.png",
             ["isKeystone"]= true,
             ["stats"]= {
-                "You can inflict Bleeding on an Enemy up to 8 times\nYour Bleeding does not deal extra Damage while the Enemy is moving\n50% less Damage with Bleeding"
+                "You can inflict Bleeding on an Enemy up to 8 times\nYour Bleeding does not deal extra Damage while the Enemy is moving and cannot be Aggravated\n50% less Damage with Bleeding"
             },
             ["flavourText"]= {
                 "My blade sings so sweetly, your body cannot help but weep."
@@ -37568,6 +37580,12 @@ return {
                     },
                     ["reminderText"]= {
                         "(Recently refers to the past 4 seconds)"
+                    }
+                },
+                {
+                    ["effect"]= 16950,
+                    ["stats"]= {
+                        "Totems Taunt Enemies around them for 1 second when Summoned"
                     }
                 }
             },
@@ -42375,7 +42393,7 @@ return {
         },
         [20605]= {
             ["skill"]= 20605,
-            ["name"]= "King of the Hill",
+            ["name"]= "No Forgiveness",
             ["icon"]= "Art/2DArt/SkillIcons/passives/GladiatorAnointNotable.png",
             ["isNotable"]= true,
             ["isBlighted"]= true,
@@ -42900,6 +42918,12 @@ return {
                     },
                     ["reminderText"]= {
                         "(Recently refers to the past 4 seconds)"
+                    }
+                },
+                {
+                    ["effect"]= 16950,
+                    ["stats"]= {
+                        "Totems Taunt Enemies around them for 1 second when Summoned"
                     }
                 }
             },
@@ -49238,7 +49262,7 @@ return {
         },
         [56274]= {
             ["skill"]= 56274,
-            ["name"]= "Rising Tempest",
+            ["name"]= "Lasting Tempest",
             ["icon"]= "Art/2DArt/SkillIcons/passives/ElementalistAnointNotable.png",
             ["isNotable"]= true,
             ["isBlighted"]= true,
@@ -49248,10 +49272,9 @@ return {
                 "OpalescentOil"
             },
             ["stats"]= {
-                "10% increased Effect of Non-Damaging Ailments per Elemental Ailment\nyou've inflicted Recently"
+                "50% increased Duration of Elemental Ailments on Enemies"
             },
             ["reminderText"]= {
-                "(Recently refers to the past 4 seconds)",
                 "(Elemental Ailments are Ignited, Scorched, Chilled, Frozen, Brittle, Shocked, and Sapped)"
             },
             ["group"]= 400,
@@ -51369,8 +51392,8 @@ return {
                 "54447"
             }
         },
-        [51976]= {
-            ["skill"]= 51976,
+        [58214]= {
+            ["skill"]= 58214,
             ["name"]= "Dual Wield Attack Speed and Block",
             ["icon"]= "Art/2DArt/SkillIcons/passives/dualwieldblock.png",
             ["stats"]= {
@@ -51381,14 +51404,14 @@ return {
             ["orbit"]= 2,
             ["orbitIndex"]= 1,
             ["out"]= {
-                "58214"
+                "51976"
             },
             ["in"]= {
                 "11651"
             }
         },
-        [58214]= {
-            ["skill"]= 58214,
+        [51976]= {
+            ["skill"]= 51976,
             ["name"]= "Dual Wield Attack Speed and Block",
             ["icon"]= "Art/2DArt/SkillIcons/passives/dualwieldblock.png",
             ["stats"]= {
@@ -51402,8 +51425,8 @@ return {
                 "12095"
             },
             ["in"]= {
-                "51976"
-			}
+                "58214"
+            }
         },
         [12095]= {
             ["skill"]= 12095,
@@ -51420,7 +51443,7 @@ return {
                 "18357"
             },
             ["in"]= {
-                "58214"
+                "51976"
             }
         },
         [18357]= {
@@ -51877,7 +51900,7 @@ return {
             ["out"]= {
                 "5408",
                 "6580",
-                "51976"
+                "58214"
             },
             ["in"]= {}
         },
@@ -56985,6 +57008,12 @@ return {
                     ["reminderText"]= {
                         "(Recently refers to the past 4 seconds)"
                     }
+                },
+                {
+                    ["effect"]= 16950,
+                    ["stats"]= {
+                        "Totems Taunt Enemies around them for 1 second when Summoned"
+                    }
                 }
             },
             ["stats"]= {},
@@ -57244,7 +57273,7 @@ return {
                 "IndigoOil"
             },
             ["stats"]= {
-                "Flasks adjacent to applied Tincture gain 2 charges when\nyou Hit an Enemy with a Weapon, no more than once every second"
+                "Flasks adjacent to active Tinctures gain 2 charges when you Hit an\nEnemy with a Melee Weapon, no more than once every second"
             },
             ["group"]= 482,
             ["orbit"]= 2,
@@ -73975,6 +74004,12 @@ return {
                     ["reminderText"]= {
                         "(Recently refers to the past 4 seconds)"
                     }
+                },
+                {
+                    ["effect"]= 16950,
+                    ["stats"]= {
+                        "Totems Taunt Enemies around them for 1 second when Summoned"
+                    }
                 }
             },
             ["stats"]= {},
@@ -78760,7 +78795,7 @@ return {
             ["isNotable"]= true,
             ["ascendancyName"]= "Deadeye",
             ["stats"]= {
-                "Projectiles gain Damage as they travel farther, dealing up to 20% more Damage to targets",
+                "Projectiles gain Damage as they travel farther, dealing up\nto 20% more Damage with Hits and Ailments",
                 "Projectile Barrages have no spread"
             },
             ["group"]= 715,
