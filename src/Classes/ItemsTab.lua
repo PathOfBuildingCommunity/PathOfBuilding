@@ -3632,7 +3632,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if effectMod ~= 1 then
 			t_insert(stats, s_format("^8Tincture effect modifier: ^7%+d%%", effectMod * 100 - 100))
 		end
-		t_insert(stats, s_format("^8Mana Burn Inflicted Every Second: ^7%.2f", tinctureData.manaBurn * (1 + modDB:Sum("INC", { actor = "player" }, "TinctureManaBurnRate")/100) * (1 + modDB:Sum("MORE", { actor = "player" }, "TinctureManaBurnRate")/100)))
+		t_insert(stats, s_format("^8Mana Burn Inflicted Every Second: ^7%.2f", tinctureData.manaBurn / (1 + modDB:Sum("INC", { actor = "player" }, "TinctureManaBurnRate")/100) / (1 + modDB:Sum("MORE", { actor = "player" }, "TinctureManaBurnRate")/100)))
 		local TincturesNotInflictManaBurn = m_min(modDB:Sum("BASE", nil, "TincturesNotInflictManaBurn"), 100)
 		if TincturesNotInflictManaBurn ~= 0 then
 			t_insert(stats, s_format("^8Chance to not inflict Mana Burn: ^7%d%%", TincturesNotInflictManaBurn))

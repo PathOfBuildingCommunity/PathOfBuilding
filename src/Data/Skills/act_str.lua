@@ -291,6 +291,9 @@ skills["AncestralCry"] = {
 		["ancestral_cry_max_elemental_resistances_per_5_monster_power"] = {
 			mod("AncestralMaxElementalResistancePer5MP", "BASE", nil),
 		},
+		["skill_empower_limitation_specifier_for_stat_description"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		warcry = true,
@@ -3784,7 +3787,7 @@ skills["BloodSandArmour"] = {
 	baseTypeName = "Flesh and Stone",
 	color = 1,
 	description = "Casts an aura that affects you and nearby enemies differently depending on your stance. Using the skill again alternates between Blood Stance and Sand Stance.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Aura] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.Instant] = true, [SkillType.HasReservation] = true, [SkillType.AppliesMaim] = true, [SkillType.Area] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, [SkillType.Stance] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Aura] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.Instant] = true, [SkillType.HasReservation] = true, [SkillType.Area] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, [SkillType.Stance] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -8440,6 +8443,9 @@ skills["SeismicCry"] = {
 		},
 		["seismic_cry_+%_physical_damamge_reduction_per_5_MP"] = {
 			mod("SeismicArmourPer5MP", "BASE", nil),
+		},
+		["skill_empower_limitation_specifier_for_stat_description"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {

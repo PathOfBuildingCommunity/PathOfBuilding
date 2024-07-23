@@ -46951,7 +46951,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="All your Warcries share their Cooldowns"
+					text="Supported Warcries do not grant Buffs or Charges to you or Allies"
 				}
 			}
 		},

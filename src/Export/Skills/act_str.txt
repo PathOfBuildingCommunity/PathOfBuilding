@@ -59,6 +59,9 @@ local skills, mod, flag, skill = ...
 		["ancestral_cry_max_elemental_resistances_per_5_monster_power"] = {
 			mod("AncestralMaxElementalResistancePer5MP", "BASE", nil),
 		},
+		["skill_empower_limitation_specifier_for_stat_description"] = {
+			-- Display only
+		},
 	},
 #baseMod skill("radius", 60)
 #mods
@@ -1565,6 +1568,9 @@ local skills, mod, flag, skill = ...
 		},
 		["seismic_cry_+%_physical_damamge_reduction_per_5_MP"] = {
 			mod("SeismicArmourPer5MP", "BASE", nil),
+		},
+		["skill_empower_limitation_specifier_for_stat_description"] = {
+			-- Display only
 		},
 	},
 #baseMod skill("radius", 60)
