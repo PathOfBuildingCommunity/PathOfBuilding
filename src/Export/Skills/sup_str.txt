@@ -104,6 +104,7 @@ statMap = {
 #skill SupportCallToArms
 	baseMods = {
 		skill("SupportedByAutoexertion", true),
+		flag("CannotShareWarcryBuffs"),
 	},
 #mods
 

@@ -1165,7 +1165,7 @@ function calcs.perform(env, skipEHP)
 			end
 			if activeSkill.activeEffect.grantedEffect.name == "Ancestral Cry" and not modDB:Flag(nil, "AncestralActive") then
 				env.player.modDB:NewMod("NumAncestralExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralExertedAttacks") + extraExertions) * exertMultiplier))
-				if not activeSkill.skillData.SupportedByAutoexertion then
+				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then
 					local ancestralEleResistance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralElementalResistancePer5MP")
 					local ancestralMaxEleResistance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralMaxElementalResistancePer5MP")
 					env.player.modDB:NewMod("ElementalResist", "BASE", m_floor(ancestralEleResistance * buff_inc) * uptime, "Ancestral Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
@@ -1173,35 +1173,35 @@ function calcs.perform(env, skipEHP)
 				end
 				modDB:NewMod("AncestralActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Enduring Cry" and not modDB:Flag(nil, "EnduringActive") then
-				if not activeSkill.skillData.SupportedByAutoexertion then
+				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then
 					local enduringRegen = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "EnduringCryLifeRegen")
 					env.player.modDB:NewMod("LifeRegenPercent", "BASE", m_floor(enduringRegen * buff_inc) * uptime, "Enduring Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
 				end
 				modDB:NewMod("EnduringActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Infernal Cry" and not modDB:Flag(nil, "InfernalActive") then
 				env.player.modDB:NewMod("NumInfernalExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "InfernalExertedAttacks") + extraExertions) * exertMultiplier))
-				if not activeSkill.skillData.SupportedByAutoexertion then
+				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then
 					local infernalPhysAsExtraFire = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "InfernalFireAsExtraPer5MP")
 					env.player.modDB:NewMod("PhysicalDamageGainAsFire", "BASE", m_floor(infernalPhysAsExtraFire * buff_inc) * uptime, "Infernal Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
 				end
 				modDB:NewMod("InfernalActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Battlemage's Cry" and not modDB:Flag(nil, "BattlemageActive") then
 				env.player.modDB:NewMod("NumBattlemageExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BattlemageExertedAttacks") + extraExertions) * exertMultiplier))
-				if not activeSkill.skillData.SupportedByAutoexertion then
+				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then
 					local battlemageBaseCritChance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BattlemageBaseCritChancePer5MP")
 					env.player.modDB:NewMod("CritChance", "BASE", m_floor(battlemageBaseCritChance * buff_inc) / 100 * uptime, "Battlemage's Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
 				end
 				modDB:NewMod("BattlemageActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Intimidating Cry" and not modDB:Flag(nil, "IntimidatingActive") then
 				env.player.modDB:NewMod("NumIntimidatingExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingExertedAttacks") + extraExertions) * exertMultiplier))
-				if not activeSkill.skillData.SupportedByAutoexertion then
+				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then
 					local intimidatingMovementSpeed = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingMovementSpeedPer5MP")
 					env.player.modDB:NewMod("MovementSpeed", "INC", m_floor(intimidatingMovementSpeed * buff_inc) * uptime, "Intimidating Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 6 })
 				end
 				modDB:NewMod("IntimidatingActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" and not modDB:Flag(nil, "RallyingActive") then
 				env.player.modDB:NewMod("NumRallyingExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingExertedAttacks") + extraExertions) * exertMultiplier))
-				if not activeSkill.skillData.SupportedByAutoexertion then
+				if not activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") then
 					env.player.modDB:NewMod("RallyingExertMoreDamagePerAlly",  "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryExertDamageBonus"))
 					local rallyingWeaponEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryAllyDamageBonusPer5Power")
 					local rallyingBonusMoreMultiplier = 1 + (activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryMinionDamageBonusMultiplier") or 0)
@@ -1222,7 +1222,7 @@ function calcs.perform(env, skipEHP)
 			elseif activeSkill.activeEffect.grantedEffect.name == "Seismic Cry" and not modDB:Flag(nil, "SeismicActive") then
 				env.player.modDB:NewMod("SeismicMoreAoE", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicAoEMoreMultiplier"))
 				env.player.modDB:NewMod("NumSeismicExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicExertedAttacks") + extraExertions) * exertMultiplier))
-				if not activeSkill.skillData.SupportedByAutoexertion then
+				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then 
 					local seismicStunEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicStunThresholdPer5MP")
 					local seismicArmour = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicArmourPer5MP")
 					env.player.modDB:NewMod("StunThreshold", "INC", m_floor(seismicStunEffect * buff_inc) * uptime, "Seismic Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })

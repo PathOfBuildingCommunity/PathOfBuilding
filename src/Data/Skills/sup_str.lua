@@ -807,6 +807,7 @@ skills["SupportCallToArms"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 		skill("SupportedByAutoexertion", true),
+		flag("CannotShareWarcryBuffs"),
 	},
 	qualityStats = {
 		Default = {
