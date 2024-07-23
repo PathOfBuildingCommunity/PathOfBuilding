@@ -214,7 +214,7 @@ c["+1% to Critical Strike Chance while affected by Aspect of the Cat"]={{[1]={[1
 c["+1% to Critical Strike Multiplier per 1% Block Chance"]={{[1]={[1]={div=1,stat="BlockChance",type="PerStat"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=1}},nil}
 c["+1% to Critical Strike Multiplier per 1% Chance to Block Attack Damage"]={{[1]={[1]={div=1,stat="BlockChance",type="PerStat"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=1}},nil}
 c["+1% to Critical Strike Multiplier per 10 Maximum Energy Shield on Shield"]={{[1]={[1]={div=10,stat="EnergyShieldOnWeapon 2",type="PerStat"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=1}},nil}
-c["+1% to Damage over Time Multiplier for Bleeding per Rage while wielding an Axe"]={{[1]={[1]={type="Multiplier",var="Rage"},[2]={type="Condition",var="UsingAxe"},flags=0,keywordFlags=4194304,name="DotMultiplier",type="BASE",value=1}},nil}
+c["+1% to Damage over Time Multiplier for Bleeding per Rage while wielding an Axe"]={{[1]={[1]={type="Multiplier",var="RageEffect"},[2]={type="Condition",var="UsingAxe"},flags=0,keywordFlags=4194304,name="DotMultiplier",type="BASE",value=1}},nil}
 c["+1% to Off Hand Critical Strike Chance while Dual Wielding"]={{[1]={[1]={type="Condition",var="OffHandAttack"},[2]={skillType=1,type="SkillType"},[3]={type="Condition",var="DualWielding"},flags=0,keywordFlags=0,name="CritChance",type="BASE",value=1}},nil}
 c["+1% to all maximum Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResistMax",type="BASE",value=1}},nil}
 c["+1% to all maximum Elemental Resistances if Equipped Helmet, Body Armour, Gloves, and Boots all have Armour"]={{[1]={[1]={stat="ArmourOnHelmet",threshold=1,type="StatThreshold"},[2]={stat="ArmourOnBody Armour",threshold=1,type="StatThreshold"},[3]={stat="ArmourOnGloves",threshold=1,type="StatThreshold"},[4]={stat="ArmourOnBoots",threshold=1,type="StatThreshold"},flags=0,keywordFlags=0,name="ElementalResistMax",type="BASE",value=1}},nil}
@@ -604,7 +604,7 @@ c["+2% Chance to Block Spell Damage per Power Charge"]={{[1]={[1]={type="Multipl
 c["+2% chance to Suppress Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellSuppressionChance",type="BASE",value=2}},nil}
 c["+2% to Critical Strike Chance against Enemies on Consecrated Ground during Effect"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="OnConsecratedGround"},[2]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="CritChance",type="BASE",value=2}},nil}
 c["+2% to Critical Strike Chance while affected by Hatred"]={{[1]={[1]={type="Condition",var="AffectedByHatred"},flags=0,keywordFlags=0,name="CritChance",type="BASE",value=2}},nil}
-c["+2% to Damage over Time Multiplier for Bleeding per Rage while wielding an Axe"]={{[1]={[1]={type="Multiplier",var="Rage"},[2]={type="Condition",var="UsingAxe"},flags=0,keywordFlags=4194304,name="DotMultiplier",type="BASE",value=2}},nil}
+c["+2% to Damage over Time Multiplier for Bleeding per Rage while wielding an Axe"]={{[1]={[1]={type="Multiplier",var="RageEffect"},[2]={type="Condition",var="UsingAxe"},flags=0,keywordFlags=4194304,name="DotMultiplier",type="BASE",value=2}},nil}
 c["+2% to all Elemental Resistances per 10 Devotion"]={{[1]={[1]={actor="parent",div=10,stat="Devotion",type="PerStat"},flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=2}},nil}
 c["+2% to all maximum Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResistMax",type="BASE",value=2}},nil}
 c["+2% to all maximum Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResistMax",type="BASE",value=2},[2]={flags=0,keywordFlags=0,name="ChaosResistMax",type="BASE",value=2}},nil}
@@ -1917,7 +1917,7 @@ c["1% increased Maximum Life per Abyss Jewel affecting you"]={{[1]={[1]={type="M
 c["1% increased Maximum Mana per Abyss Jewel affecting you"]={{[1]={[1]={type="Multiplier",var="AbyssJewel"},flags=0,keywordFlags=0,name="Mana",type="INC",value=1}},nil}
 c["1% increased Melee Physical Damage per 10 Dexterity"]={{[1]={[1]={div=10,stat="Dex",type="PerStat"},flags=256,keywordFlags=0,name="PhysicalDamage",type="INC",value=1}},nil}
 c["1% increased Minion Attack and Cast Speed per 10 Devotion"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",div=10,stat="Devotion",type="PerStat"},flags=0,keywordFlags=0,name="Speed",type="INC",value=1}}}},nil}
-c["1% increased Movement Speed per 5 Rage"]={{[1]={[1]={div=5,type="Multiplier",var="Rage"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=1}},nil}
+c["1% increased Movement Speed per 5 Rage"]={{[1]={[1]={div=5,type="Multiplier",var="RageEffect"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=1}},nil}
 c["1% increased Movement Speed per 600 Evasion Rating, up to 75%"]={{[1]={[1]={div=600,limit=75,limitTotal=true,stat="Evasion",type="PerStat"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=1}},nil}
 c["1% increased Movement Speed per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=1}},nil}
 c["1% increased Movement Speed per Summoned Totem"]={{[1]={[1]={stat="TotemsSummoned",type="PerStat"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=1}},nil}
@@ -5517,7 +5517,7 @@ c["6% increased Mana Reservation Efficiency of Skills"]={{[1]={flags=0,keywordFl
 c["6% increased Maximum Life for each Corrupted Item Equipped"]={{[1]={[1]={type="Multiplier",var="CorruptedItem"},flags=0,keywordFlags=0,name="Life",type="INC",value=6}},nil}
 c["6% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=6}},nil}
 c["6% increased Movement Speed per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=6}},nil}
-c["6% increased Physical Damage per 10 Rage"]={{[1]={[1]={div=10,type="Multiplier",var="Rage"},flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=6}},nil}
+c["6% increased Physical Damage per 10 Rage"]={{[1]={[1]={div=10,type="Multiplier",var="RageEffect"},flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=6}},nil}
 c["6% increased Physical Damage per Endurance Charge"]={{[1]={[1]={type="Multiplier",var="EnduranceCharge"},flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=6}},nil}
 c["6% increased Quantity of Items found"]={{[1]={flags=0,keywordFlags=0,name="LootQuantity",type="INC",value=6}},nil}
 c["6% increased Spell Damage per 5% Chance to Block Attack Damage"]={{[1]={[1]={div=5,stat="BlockChance",type="PerStat"},flags=2,keywordFlags=0,name="Damage",type="INC",value=6}},nil}
@@ -8028,7 +8028,7 @@ c["Gain 1 Unbound Fury when you inflict an Elemental Ailment with a Hit on an En
 c["Gain 1 Unbound Fury when you inflict an Elemental Ailment with a Hit on an Enemy, no more than once every 0.2 seconds for each type of Ailment Cannot gain Unbound Fury while Unbound Your Hits always inflict Freeze, Shock and Ignite while Unbound 80% more Elemental Damage while Unbound"]={{[1]={flags=0,keywordFlags=0,name="ElementalDamage",type="BASE",value=1}}," Unbound Fury when you inflict an Elemental Ailment with a Hit on an Enemy, no more than once every 0.2 seconds for each type of Ailment Cannot gain Unbound Fury while Unbound Your Hits always inflict Freeze, Shock and Ignite while Unbound 80% more  while Unbound "}
 c["Gain 1% of Cold Damage as Extra Fire Damage per 1% Chill Effect on Enemy"]={{[1]={[1]={actor="enemy",div=1,type="Multiplier",var="ChillEffect"},flags=0,keywordFlags=0,name="ColdDamageGainAsFire",type="BASE",value=1}},nil}
 c["Gain 1% of Lightning Damage as Extra Cold Damage per 2% Shock Effect on Enemy"]={{[1]={[1]={actor="enemy",div=2,type="Multiplier",var="ShockEffect"},flags=0,keywordFlags=0,name="LightningDamageGainAsCold",type="BASE",value=1}},nil}
-c["Gain 1% of Physical Damage as Extra Fire Damage per 1 Rage"]={{[1]={[1]={div=1,type="Multiplier",var="Rage"},flags=0,keywordFlags=0,name="PhysicalDamageGainAsFire",type="BASE",value=1}},nil}
+c["Gain 1% of Physical Damage as Extra Fire Damage per 1 Rage"]={{[1]={[1]={div=1,type="Multiplier",var="RageEffect"},flags=0,keywordFlags=0,name="PhysicalDamageGainAsFire",type="BASE",value=1}},nil}
 c["Gain 10 Life per Enemy Hit if you have used a Vaal Skill Recently"]={{[1]={[1]={type="Condition",var="UsedVaalSkillRecently"},flags=4,keywordFlags=0,name="LifeOnHit",type="BASE",value=10}},nil}
 c["Gain 10 Life per Enemy Hit with Attacks"]={{[1]={flags=4,keywordFlags=65536,name="LifeOnHit",type="BASE",value=10}},nil}
 c["Gain 10 Life per Enemy Killed"]={{[1]={flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=10}},nil}
@@ -8903,7 +8903,7 @@ c["Linked Targets always count as in range of Non-Curse Auras from your Skills N
 c["Linked Targets and Allies in your Link Beams have +5% to all Maximum Elemental Resistances"]={{[1]={[1]={threshold=1,type="MultiplierThreshold",var="LinkedTargets"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={[1]={neg=true,type="Condition",var="AffectedByLink"},flags=0,keywordFlags=0,name="ElementalResistMax",type="BASE",value=5},onlyAllies=true}},[2]={flags=0,keywordFlags=0,name="ExtraLinkEffect",type="LIST",value={mod={[1]={effectType="Global",type="GlobalEffect",unscalable=true},flags=0,keywordFlags=0,name="ElementalResistMax",type="BASE",value=5}}}},nil}
 c["Linked targets share Endurance, Frenzy and Power Charges with you"]={nil,"Linked targets share Endurance, Frenzy and Power Charges with you "}
 c["Links take twice as long to break"]={nil,"Links take twice as long to break "}
-c["Lose 0.1% of Life per second per Rage while you are not losing Rage"]={{[1]={[1]={percent=0.1,stat="Life",type="PercentStat"},[2]={type="Multiplier",var="Rage"},flags=0,keywordFlags=0,name="LifeDegen",type="BASE",value=1}},nil}
+c["Lose 0.1% of Life per second per Rage while you are not losing Rage"]={{[1]={[1]={percent=0.1,stat="Life",type="PercentStat"},[2]={type="Multiplier",var="RageEffect"},flags=0,keywordFlags=0,name="LifeDegen",type="BASE",value=1}},nil}
 c["Lose 1 Bark when Hit by Enemy Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="BASE",value=-1}}," Bark when Hit by Enemy   "}
 c["Lose 1 Fragile Regrowth each second"]={{}," Fragile Regrowth each second "}
 c["Lose 1% of Energy Shield on Kill"]={{[1]={[1]={percent=1,stat="EnergyShield",type="PercentStat"},flags=0,keywordFlags=0,name="EnergyShieldOnKill",type="BASE",value=-1}},nil}
