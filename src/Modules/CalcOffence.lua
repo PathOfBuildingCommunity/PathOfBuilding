@@ -4911,8 +4911,8 @@ function calcs.offence(env, actor, activeSkill)
 			if skillModList:Flag(cfg, "IgnoreEnemyImpalePhysicalDamageReduction") then
 				impaleResist = 0
 			end
-
-			local impaleDMGModifier = impaleHitDamageMod * (1 - impaleResist / 100) * impaleChance
+			local impaleTaken = (1 + enemyDB:Sum("INC", nil, "DamageTaken", "PhysicalDamageTaken") / 100) * enemyDB:More(nil, "DamageTaken", "PhysicalDamageTaken")
+			local impaleDMGModifier = impaleHitDamageMod * (1 - impaleResist / 100) * impaleChance * impaleTaken
 
 			globalOutput.ImpaleStacksMax = maxStacks
 			globalOutput.ImpaleStacks = impaleStacks
@@ -4932,6 +4932,9 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.ImpaleModifier, s_format("x %.3f ^8(stored damage)", impaleStoredDamage))
 				t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale chance)", impaleChance))
 				t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale enemy physical damage reduction)", (1 - impaleResist / 100)))
+				if impaleTaken ~= 1 then
+					t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale enemy damage taken)", impaleTaken))
+				end
 				t_insert(breakdown.ImpaleModifier, s_format("= %.3f ^8(impale damage multiplier)", impaleDMGModifier))
 			end
 		end
@@ -5377,12 +5380,12 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillFlags.impale then
 		if skillFlags.attack then
-			output.ImpaleHit = ((output.MainHand.impaleStoredHitAvg or output.OffHand.impaleStoredHitAvg) + (output.OffHand.impaleStoredHitAvg or output.MainHand.impaleStoredHitAvg)) / 2 * (1-output.CritChance/100) + ((output.MainHand.PhysicalCritAverage or output.OffHand.PhysicalCritAverage) + (output.OffHand.PhysicalCritAverage or output.MainHand.PhysicalCritAverage)) / 2 * (output.CritChance/100)
+			output.ImpaleHit = ((output.MainHand.impaleStoredHitAvg or output.OffHand.impaleStoredHitAvg) + (output.OffHand.impaleStoredHitAvg or output.MainHand.impaleStoredHitAvg)) / 2
 			if skillData.doubleHitsWhenDualWielding and skillFlags.bothWeaponAttack then
 				output.ImpaleHit = output.ImpaleHit * 2
 			end
 		else
-			output.ImpaleHit = output.impaleStoredHitAvg * (1-output.CritChance/100) + output.PhysicalCritAverage * (output.CritChance/100)
+			output.ImpaleHit = output.impaleStoredHitAvg
 		end
 		output.ImpaleDPS = output.ImpaleHit * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * skillData.dpsMultiplier
 		if skillData.showAverage then
@@ -5399,7 +5402,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.CombinedDPS = output.CombinedDPS + output.ImpaleDPS
 		if breakdown then
 			breakdown.ImpaleDPS = {}
-			t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit)", output.ImpaleHit))
+			t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit before mitigation)", output.ImpaleHit))
 			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
 			if skillFlags.notAverage then
 				t_insert(breakdown.ImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, skillFlags.attack and "attack" or "cast"))
