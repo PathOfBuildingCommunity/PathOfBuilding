@@ -251,4 +251,37 @@ describe("TestAttacks", function()
 		assert.are.near(225/2*1.3*1.1, build.calcsTab.mainOutput.ImpaleDPS, 0.0000001)
 
 	end)
+
+	it("impale with extra mods", function()
+		-- inc effect
+		build.configTab.input.customMods = "\z
+		never deal critical strikes\n\z
+		Impale Damage dealt to Enemies Impaled by you Overwhelms 100% Physical Damage Reduction\n\z
+		Overwhelm 100% physical damage reduction\n\z
+		50% increased Impale Effect\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(200, build.calcsTab.mainOutput.MainHand.PhysicalHitAverage)
+		assert.are.equals(200, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
+		assert.are.equals(200, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.near(100*1.3*1.5, build.calcsTab.mainOutput.ImpaleDPS, 0.00000001) -- 5 impales * 10% stored damage * 1.3 attacks per second * 1.5 impale effect
+
+		-- last 1 extra hit
+		build.configTab.input.customMods = "\z
+		never deal critical strikes\n\z
+		Impale Damage dealt to Enemies Impaled by you Overwhelms 100% Physical Damage Reduction\n\z
+		Overwhelm 100% physical damage reduction\n\z
+		Impales you inflict last 1 additional Hit\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(200, build.calcsTab.mainOutput.MainHand.PhysicalHitAverage)
+		assert.are.equals(200, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
+		assert.are.equals(200, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.near(120*1.3, build.calcsTab.mainOutput.ImpaleDPS, 0.0000001) -- 6 impales * 10% stored damage * 1.3 attacks per second
+	end)
+
 end)
