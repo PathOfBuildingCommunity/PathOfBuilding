@@ -1130,7 +1130,7 @@ function calcs.offence(env, actor, activeSkill)
 		if skillData.trapCooldown or skillData.cooldown then
 			trapThrowCount = 1
 		end
-		output.TrapThrowCount = trapThrowCount
+		output.TrapThrowCount = env.modDB:Override(nil, "TrapThrowCount") or trapThrowCount
 		output.TrapThrowingSpeed = m_min(output.TrapThrowingSpeed, data.misc.ServerTickRate)
 		output.TrapThrowingTime = 1 / output.TrapThrowingSpeed
 		skillData.timeOverride = output.TrapThrowingTime / output.TrapThrowCount
@@ -1219,10 +1219,10 @@ function calcs.offence(env, actor, activeSkill)
 		if skillData.trapCooldown or skillData.cooldown then
 			mineThrowCount = 1
 		end
-		output.MineThrowCount = mineThrowCount
-		if mineThrowCount >= 1 then
+		output.MineThrowCount = env.modDB:Override(nil, "MineThrowCount") or mineThrowCount
+		if output.MineThrowCount >= 1 then
 			-- Throwing Mines takes 10% more time for each *additional* Mine thrown
-			output.MineLayingSpeed = output.MineLayingSpeed / (1 + (mineThrowCount - 1) * 0.1)
+			output.MineLayingSpeed = output.MineLayingSpeed / (1 + (output.MineThrowCount - 1) * 0.1)
 		end
 
 		output.MineLayingSpeed = m_min(output.MineLayingSpeed, data.misc.ServerTickRate)

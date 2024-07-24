@@ -7789,6 +7789,16 @@ skills["RageVortex"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			local maxRage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "MaximumRage")
+			local rageVortexSacrificePercentage = activeSkill.skillData.MaxRageVortexSacrificePercentage / 100
+			local configOverride= activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:RageSacrificedStacks")
+			local maxSacrificedRage = math.floor(rageVortexSacrificePercentage * maxRage)
+			local stacks = math.min((configOverride > 0 and configOverride) or maxSacrificedRage, maxSacrificedRage)
+			activeSkill.skillModList:NewMod("Multiplier:RageSacrificed", "BASE", stacks, "Skill:RageVortex")
+		end
+	end,
 	parts = {
 		{
 			name = "Melee",
@@ -7815,7 +7825,7 @@ skills["RageVortex"] = {
 			mod("Speed", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 		["rage_slash_sacrifice_rage_%"] = {
-			mod("Multiplier:MaxRageVortexSacrificePercentage", "BASE", nil),
+			skill("MaxRageVortexSacrificePercentage", nil),
 		},
 		["quality_display_rage_vortex_is_gem"] = {
 			-- Display only

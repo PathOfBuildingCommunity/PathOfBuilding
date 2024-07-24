@@ -1170,7 +1170,6 @@ local preFlagList = {
 	["^auras from your skills grant "] = { addToAura = true },
 	["^auras grant "] = { addToAura = true },
 	["^banners also grant "] = { addToAura = true, onlyAddToBanners = true },
-	["^banners also cause enemies to take "] = { addToAura = true, onlyAddToBanners = true, modSuffix = "Taken", applyToEnemy = true },
 	["^you and nearby allies "] = { newAura = true },
 	["^you and nearby allies [hgd][ae][via][enl] "] = { newAura = true },
 	["^nearby allies [hgd][ae][via][enl] "] = { newAura = true, newAuraOnlyAllies = true },
@@ -2521,7 +2520,7 @@ local specialModList = {
 		mod("Damage", "MORE", num, nil, 0, bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "LowLife" }, { type = "Condition", var = "UsingAxe" }),
 	} end,
 	["retaliation skills have (%d+)%% increased speed"] = function(num) return {
-		mod("Speed", "INC", num),
+		mod("Speed", "INC", num, { type = "SkillType", skillType = SkillType.Retaliation }),
 	} end,
     -- Guardian
 	["grants armour equal to (%d+)%% of your reserved life to you and nearby allies"] = function(num) return { mod("GrantReservedLifeAsAura", "LIST", { mod = mod("Armour", "BASE", num / 100) }) } end,
@@ -4647,6 +4646,7 @@ local specialModList = {
 		mod("SkillData", "LIST", { key = "lifeReservationPercent", value = 0 }, { type = "SkillType", skillType = SkillType.Banner }, { type = "SkillType", skillType = SkillType.Blessing, neg = true }),
 	},
 	["placed banners also grant (%d+)%% increased attack damage to you and allies"] = function(num) return { mod("ExtraAuraEffect", "LIST", { mod = mod("Damage", "INC", num, nil, ModFlag.Attack) }, { type = "Condition", var = "BannerPlanted" }, { type = "SkillType", skillType = SkillType.Banner }) } end,
+	["banners also cause enemies to take (%d+)%% increased damage"] = function(num) return { mod("ExtraAuraDebuffEffect", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true }) }, { type = "Condition", var = "BannerPlanted" }, { type = "SkillType", skillType = SkillType.Banner }) } end,
 	["dread banner grants an additional %+(%d+) to maximum fortification when placing the banner"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("MaximumFortification", "BASE", num, { type = "GlobalEffect", effectType = "Buff" }) }, { type = "Condition", var = "BannerPlanted" }, { type = "SkillName", skillName = "Dread Banner" }) } end,
 	["your aura skills are disabled"] = { flag("DisableSkill", { type = "SkillType", skillType = SkillType.Aura }) },
 	["your blessing skills are disabled"] = { flag("DisableSkill", { type = "SkillType", skillType = SkillType.Blessing }) },
@@ -4802,8 +4802,8 @@ local specialModList = {
 	["nearby enemies are crushed"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Crushed") }) },
 	["crush enemies on hit with maces and sceptres"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Crushed") }, { type = "Condition", var = "UsingMace" }) },
 	["you have fungal ground around you while stationary"] = {
-		mod("ExtraAura", "LIST", { mod = mod("NonChaosDamageGainAsChaos", "BASE", 10) }, { type = "Condition", varList = { "OnFungalGround", "Stationary" } }),
-		mod("EnemyModifier", "LIST", { mod = mod("Damage", "MORE", -10) }, { type = "ActorCondition", actor = "enemy", varList = { "OnFungalGround", "Stationary" } }),
+		mod("ExtraAura", "LIST", { mod = mod("ChaosResist", "BASE", 25) }, { type = "Condition", varList = { "OnFungalGround", "Stationary" } }),
+		mod("EnemyModifier", "LIST", { mod = mod("ChaosResist", "BASE", -10) }, { type = "ActorCondition", actor = "enemy", varList = { "OnFungalGround", "Stationary" } }),
 	},
 	["create fungal ground instead of consecrated ground"] = {
 		flag("Condition:CreateFungalGround"),
@@ -5944,31 +5944,13 @@ local function parseMod(line, order)
 	end
 	if modList[1] then
 		-- Special handling for various modifier types
-		if misc.addToAura then
-			-- Modifiers that add effects to your auras
+		if misc.addToAura then			
 			if misc.onlyAddToBanners then
-				if misc.applyToEnemy then
-					for i, effectMod in ipairs(modList) do
-						local tagList = { }
-						if misc.playerTag then t_insert(tagList, misc.playerTag) end
-						if misc.playerTagList then
-							for _, tag in ipairs(misc.playerTagList) do
-								t_insert(tagList, tag)
-							end
-						end
-						local newMod = effectMod
-						if effectMod[1] and type(effectMod) == "table" and misc.actorEnemy then
-							newMod = copyTable(effectMod)
-							newMod[1]["actor"] = "enemy"
-						end
-						modList[i] = mod("ExtraAuraEffect", "LIST", { mod = mod("EnemyModifier", "LIST", { mod = newMod }, unpack(tagList)) }, { type = "SkillType", skillType = SkillType.Banner })
-					end
-				else
-					for i, effectMod in ipairs(modList) do
-						modList[i] = mod("ExtraAuraEffect", "LIST", { mod = effectMod }, { type = "SkillType", skillType = SkillType.Banner })
-					end
+				for i, effectMod in ipairs(modList) do
+					modList[i] = mod("ExtraAuraEffect", "LIST", { mod = effectMod }, { type = "SkillType", skillType = SkillType.Banner })
 				end
 			else
+				-- Modifiers that add effects to your auras
 				for i, effectMod in ipairs(modList) do
 					modList[i] = mod("ExtraAuraEffect", "LIST", { mod = effectMod })
 				end
