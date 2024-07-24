@@ -1389,6 +1389,9 @@ Huge sets the radius to 11.
 	{ var = "multiplierMineDetonatedRecently", type = "count", label = "# of Mines Detonated Recently:", ifMult = "MineDetonatedRecently", implyCond = "DetonatedMinesRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:MineDetonatedRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "minesPerThrow", type = "count", label = "# of Mines per throw:", ifFlag = "mine", tooltip = "This will override the number of Mines per throw", apply = function(val, modList, enemyModList)
+		modList:NewMod("MineThrowCount", "OVERRIDE", val, "Config", {type = "Condition", var = "Combat"})
+	end },
 	{ var = "TriggeredTrapsRecently", type = "check", label = "Have you Triggered a Trap Recently?", ifCond = "TriggeredTrapsRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:TriggeredTrapsRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -1397,6 +1400,9 @@ Huge sets the radius to 11.
 	end },
 	{ var = "conditionThrownTrapOrMineRecently", type = "check", label = "Have you thrown a Trap or Mine Recently?", ifCond = "TrapOrMineThrownRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:TrapOrMineThrownRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "trapsPerThrow", type = "count", label = "# of Traps per throw:", ifFlag = "trap", tooltip = "This will override the number of Traps per throw", apply = function(val, modList, enemyModList)
+		modList:NewMod("TrapThrowCount", "OVERRIDE", val, "Config", {type = "Condition", var = "Combat"})
 	end },
 	{ var = "conditionCursedEnemyRecently", type = "check", label = "Have you Cursed an enemy Recently?",  ifCond="CursedEnemyRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CursedEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
