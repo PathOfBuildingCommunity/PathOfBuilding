@@ -909,13 +909,19 @@ function buildMode:SyncLoadouts(reset)
 			local specTitle = spec.title or "Default"
 			-- only alphanumeric and comma are allowed in the braces { }
 			local linkIdentifier = string.match(specTitle, "%{([%w,]+)%}")
+
 			if linkIdentifier then
+				local setName = specTitle:gsub("%{" .. linkIdentifier .. "%}", ""):gsub("^%s*", ""):gsub("%s*$", "")
+				if not setName or setName == "" then
+					setName = "Default"
+				end
+
 				-- iterate over each identifier, delimited by comma, and set the index so we can grab it later
 				-- setId index is the id of the set in the global list needed for SetActiveSet
 				-- setName is only used for Tree currently and we strip the braces to get the plain name of the set, this is used as the name of the loadout
 				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 					transferTable["setId"] = id
-					transferTable["setName"] = string.match(specTitle, "(.+)% {") or "Default"
+					transferTable["setName"] = setName
 					transferTable["linkId"] = linkId
 					self.treeListSpecialLinks[linkId] = transferTable
 					t_insert(sortedTreeListSpecialLinks, transferTable)
@@ -932,12 +938,18 @@ function buildMode:SyncLoadouts(reset)
 			for id, set in ipairs(setOrderList) do
 				local setTitle = tabSets[set].title or "Default"
 				local linkIdentifier = string.match(setTitle, "%{([%w,]+)%}")
+
 				-- this if/else prioritizes group identifier in case the user creates sets with same name AND same identifiers
 				-- result is only the group is recognized and one loadout is created rather than a duplicate from each condition met
 				if linkIdentifier then
+					local setName = setTitle:gsub("%{" .. linkIdentifier .. "%}", ""):gsub("^%s*", ""):gsub("%s*$", "")
+					if not setName or setName == "" then
+						setName = "Default"
+					end
+
 					for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 						transferTable["setId"] = set
-						transferTable["setName"] = string.match(setTitle, "(.+)% {") or "Default"
+						transferTable["setName"] = setName
 						specialLinks[linkId] = transferTable
 						transferTable = {}
 					end
