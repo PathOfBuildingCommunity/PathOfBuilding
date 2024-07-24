@@ -863,6 +863,25 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 		return need
 	end
 
+	-- Check recipes
+	if needMatches[1] == "oil:" then
+		if node.recipe then
+			for _, recipeName in ipairs(node.recipe) do
+				-- Trim "Oil" from the recipe name, which normally looks like "GoldenOil"
+				local recipeNameShort = recipeName
+				if #recipeNameShort > 3 and recipeNameShort:sub(-3) == "Oil" then
+					recipeNameShort = recipeNameShort:sub(1, #recipeNameShort - 3)
+				end
+				err, needMatches = PCall(search, recipeNameShort:lower(), needMatches)
+				if err then return false end
+				if #needMatches == 1 and needMatches[1] == "oil:" then
+					return true
+				end
+			end
+		end
+		return false
+	end
+
 	-- Check node name
 	err, needMatches = PCall(search, node.dn:lower(), needMatches)
 	if err then return false end
@@ -897,24 +916,6 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 		return true
 	end
 	
-	-- Check recipes
-	if needMatches[1] == "oil:" then
-		if node.recipe then
-			for _, recipeName in ipairs(node.recipe) do
-				-- Trim "Oil" from the recipe name, which normally looks like "GoldenOil"
-				local recipeNameShort = recipeName
-				if #recipeNameShort > 3 and recipeNameShort:sub(-3) == "Oil" then
-					recipeNameShort = recipeNameShort:sub(1, #recipeNameShort - 3)
-				end
-				err, needMatches = PCall(search, recipeNameShort:lower(), needMatches)
-				if err then return false end
-				if #needMatches == 1 and needMatches[1] == "oil:" then
-					return true
-				end
-			end
-		end
-	end
-
 	-- Check node id for devs
 	if launch.devMode then
 		err, needMatches = PCall(search, tostring(node.id), needMatches)
