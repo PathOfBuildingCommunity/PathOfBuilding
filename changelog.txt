@@ -1,3 +1,42 @@
+VERSION[2.45.0][2024/07/24]
+
+--- New to Path of Building ---
+* Add automatic calculation for Rage sacrificed when using Rage Vortex (LocalIdentity)
+* Add support for changing item quality in the edit item interface (hexeaktivitat)
+* Add config options to override the number of Trap/Mines per throw (NL908)
+* Update Death Aura damage with 3.25 changes (LocalIdentity)
+* Update Tattoo Keystones with 3.25 Changes (LocalIdentity)
+* Update Legion Notables with 3.25 changes (LocalIdentity)
+* Update Fungal and Profane Ground with 3.25 changes (LocalIdentity)
+
+--- Fixed Crashes ---
+* Fix crash when hovering over Tinctures in Item tab (justjuangui)
+* Fix crash when socketing Thread of Hope in Cluster socket (trimbe)
+* Fix crash when importing a build with Warcries (Regisle)
+
+--- User Interface ---
+* Add support to search Character import list by Ascendancy (justjuangui, ryuukk)
+* Relax matching for loadout names and allow groups at any spot (deathbeam)
+* Show proper skill group when switching loadouts (deathbeam)
+
+--- Fixed Calculations ---
+* Fix Seismic Cry AoE calculation (LocalIdentity)
+* Fix Impale not using enemy damage taken (mcheese)
+* Fix Tincture Mana Burn rate applying inversely (Regisle)
+
+--- Fixed Behaviours ---
+* Fix Rage Effect not applying to "per x Rage" mods (LocalIdentity)
+* Fix Autoexertion and Call to Arms not disabling Warcry buffs (LocalIdentity)
+* Fix Arcane Surge not working with Wilma's Requital (mcheese)
+* Fix Cruel Retort granting Attack/Cast Speed to all skills (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Fix Herald of Ash Phys as extra Fire scaling (LocalIdentity)
+* Fix Cyclone of Tumult and Dual Strike of Impaling gem values (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix config set copies not having independent values (justjuangui)
+
 VERSION[2.44.1][2024/07/23]
 
 --- New to Path of Building ---
