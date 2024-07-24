@@ -7789,7 +7789,7 @@ skills["RageVortex"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	preDamageFunc = function(activeSkill, output)
+	preSkillTypeFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
 			local maxRage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "MaximumRage")
 			local rageVortexSacrificePercentage = activeSkill.skillData.MaxRageVortexSacrificePercentage / 100
@@ -7809,17 +7809,16 @@ skills["RageVortex"] = {
 	},
 	statMap = {
 		["rage_slash_radius_+_per_amount_of_rage_sacrificed"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "RageSacrificed" }),
-			div = 2
-		},
-		["rage_slash_rage_sacrifice_per_radius_bonus"] = {
-			-- Display only
-		},
-		["rage_slash_rage_sacrifice_per_damage_bonus"] = {
-			-- Display only
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "RageSacrificed", divVar = "RagePerRadius" }),
 		},
 		["rage_slash_damage_+%_final_per_amount_of_rage_sacrificed"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RageSacrificed" }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RageSacrificed", divVar = "RagePerDamage" }),
+		},
+		["rage_slash_rage_sacrifice_per_radius_bonus"] = {
+			mod("Multiplier:RagePerRadius", "BASE", nil),
+		},
+		["rage_slash_rage_sacrifice_per_damage_bonus"] = {
+			mod("Multiplier:RagePerDamage", "BASE", nil),
 		},
 		["rage_slash_vortex_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
