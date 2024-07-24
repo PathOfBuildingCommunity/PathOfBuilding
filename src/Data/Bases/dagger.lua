@@ -151,7 +151,7 @@ itemBases["Carving Knife"] = {
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
-	weapon = { PhysicalMin = 3, PhysicalMax = 26, CritChanceBase = 8.5, AttackRateBase = 1.45, Range = 10, },
+	weapon = { PhysicalMin = 3, PhysicalMax = 26, CritChanceBase = 8, AttackRateBase = 1.45, Range = 10, },
 	req = { level = 10, dex = 18, int = 26, },
 }
 itemBases["Boot Knife"] = {
@@ -162,7 +162,7 @@ itemBases["Boot Knife"] = {
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
-	weapon = { PhysicalMin = 8, PhysicalMax = 34, CritChanceBase = 8.5, AttackRateBase = 1.45, Range = 10, },
+	weapon = { PhysicalMin = 8, PhysicalMax = 34, CritChanceBase = 8, AttackRateBase = 1.45, Range = 10, },
 	req = { level = 20, dex = 31, int = 45, },
 }
 itemBases["Copper Kris"] = {
@@ -184,7 +184,7 @@ itemBases["Skean"] = {
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
-	weapon = { PhysicalMin = 11, PhysicalMax = 43, CritChanceBase = 8.5, AttackRateBase = 1.45, Range = 10, },
+	weapon = { PhysicalMin = 11, PhysicalMax = 43, CritChanceBase = 8, AttackRateBase = 1.45, Range = 10, },
 	req = { level = 28, dex = 42, int = 60, },
 }
 itemBases["Imp Dagger"] = {
@@ -206,7 +206,7 @@ itemBases["Butcher Knife"] = {
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
-	weapon = { PhysicalMin = 7, PhysicalMax = 62, CritChanceBase = 8.5, AttackRateBase = 1.4, Range = 10, },
+	weapon = { PhysicalMin = 7, PhysicalMax = 62, CritChanceBase = 8, AttackRateBase = 1.4, Range = 10, },
 	req = { level = 38, dex = 55, int = 79, },
 }
 itemBases["Boot Blade"] = {
@@ -217,7 +217,7 @@ itemBases["Boot Blade"] = {
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
-	weapon = { PhysicalMin = 15, PhysicalMax = 59, CritChanceBase = 8.5, AttackRateBase = 1.4, Range = 10, },
+	weapon = { PhysicalMin = 15, PhysicalMax = 59, CritChanceBase = 8, AttackRateBase = 1.4, Range = 10, },
 	req = { level = 44, dex = 63, int = 90, },
 }
 itemBases["Golden Kris"] = {
@@ -239,7 +239,7 @@ itemBases["Royal Skean"] = {
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
-	weapon = { PhysicalMin = 16, PhysicalMax = 64, CritChanceBase = 8.5, AttackRateBase = 1.45, Range = 10, },
+	weapon = { PhysicalMin = 16, PhysicalMax = 64, CritChanceBase = 8, AttackRateBase = 1.45, Range = 10, },
 	req = { level = 50, dex = 71, int = 102, },
 }
 itemBases["Fiend Dagger"] = {
@@ -261,7 +261,7 @@ itemBases["Slaughter Knife"] = {
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
-	weapon = { PhysicalMin = 10, PhysicalMax = 86, CritChanceBase = 8.5, AttackRateBase = 1.4, Range = 10, },
+	weapon = { PhysicalMin = 10, PhysicalMax = 86, CritChanceBase = 8, AttackRateBase = 1.4, Range = 10, },
 	req = { level = 58, dex = 81, int = 117, },
 }
 itemBases["Ezomyte Dagger"] = {
@@ -272,7 +272,7 @@ itemBases["Ezomyte Dagger"] = {
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
-	weapon = { PhysicalMin = 20, PhysicalMax = 79, CritChanceBase = 8.5, AttackRateBase = 1.4, Range = 10, },
+	weapon = { PhysicalMin = 20, PhysicalMax = 79, CritChanceBase = 8, AttackRateBase = 1.4, Range = 10, },
 	req = { level = 62, dex = 95, int = 131, },
 }
 itemBases["Platinum Kris"] = {
@@ -294,7 +294,7 @@ itemBases["Imperial Skean"] = {
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
-	weapon = { PhysicalMin = 18, PhysicalMax = 73, CritChanceBase = 8.5, AttackRateBase = 1.5, Range = 10, },
+	weapon = { PhysicalMin = 18, PhysicalMax = 73, CritChanceBase = 8, AttackRateBase = 1.5, Range = 10, },
 	req = { level = 66, dex = 95, int = 131, },
 }
 itemBases["Demon Dagger"] = {
@@ -316,7 +316,7 @@ itemBases["Flickerflame Blade"] = {
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
 	implicit = "Trigger Level 10 Flame Dash when you use a Socketed Skill",
 	implicitModTypes = { {  }, },
-	weapon = { PhysicalMin = 12, PhysicalMax = 47, CritChanceBase = 8.5, AttackRateBase = 1.45, Range = 10, },
+	weapon = { PhysicalMin = 12, PhysicalMax = 47, CritChanceBase = 8, AttackRateBase = 1.45, Range = 10, },
 	req = { level = 30, dex = 54, int = 54, },
 }
 itemBases["Flashfire Blade"] = {
@@ -327,7 +327,7 @@ itemBases["Flashfire Blade"] = {
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
 	implicit = "Trigger Level 20 Flame Dash when you use a Socketed Skill\n20% increased Cooldown Recovery Rate of Travel Skills",
 	implicitModTypes = { {  }, {  }, },
-	weapon = { PhysicalMin = 18, PhysicalMax = 73, CritChanceBase = 8.5, AttackRateBase = 1.45, Range = 10, },
+	weapon = { PhysicalMin = 18, PhysicalMax = 73, CritChanceBase = 8, AttackRateBase = 1.45, Range = 10, },
 	req = { level = 50, dex = 86, int = 86, },
 }
 itemBases["Infernal Blade"] = {
@@ -338,6 +338,6 @@ itemBases["Infernal Blade"] = {
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
 	implicit = "Trigger Level 30 Flame Dash when you use a Socketed Skill\n40% increased Cooldown Recovery Rate of Travel Skills",
 	implicitModTypes = { {  }, {  }, },
-	weapon = { PhysicalMin = 21, PhysicalMax = 85, CritChanceBase = 8.5, AttackRateBase = 1.45, Range = 10, },
+	weapon = { PhysicalMin = 21, PhysicalMax = 85, CritChanceBase = 8, AttackRateBase = 1.45, Range = 10, },
 	req = { level = 70, dex = 121, int = 121, },
 }
