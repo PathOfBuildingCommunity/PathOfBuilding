@@ -2118,9 +2118,17 @@ function calcs.perform(env, skipEHP)
 							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							mult = (1 + inc / 100) * more
-							local newModList = new("ModList")
-							newModList:AddList(buff.modList)
-							newModList:AddList(extraAuraModList)
+							local newModList = {}
+							for _, mod in ipairs(buff.modList) do
+								t_insert(newModList, mod)
+							end
+							for _, mod in ipairs(extraAuraModList) do
+								t_insert(newModList, mod)
+							end
+							-- A full modlist causes issues with copy table for mine auras
+							--local newModList = new("ModList")
+							--newModList:AddList(buff.modList)
+							--newModList:AddList(extraAuraModList)
 							buffExports["Aura"][buff.name..(buffExports["Aura"][buff.name] and "_Debuff" or "")] = { effectMult = mult, modList = newModList }
 							if allyBuffs["AuraDebuff"] and allyBuffs["AuraDebuff"][buff.name] and allyBuffs["AuraDebuff"][buff.name].effectMult / 100 > mult then
 								mult = 0
