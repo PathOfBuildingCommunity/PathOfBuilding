@@ -486,8 +486,8 @@ return {
 		end
 	end },
 	{ label = "Rage Vortex:", ifSkill = "Rage Vortex" },
-	{ var = "sacrificedRageCount", type = "count", label = "Amount of Rage Sacrificed?", ifSkill = "Rage Vortex", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:RageSacrificed", "BASE", val, "Config")
+	{ var = "sacrificedRageCount", type = "count", label = "Amount of ^xFF9922Rage ^7Sacrificed (if not maximum):", ifSkill = "Rage Vortex", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:RageSacrificedStacks", "BASE", val, "Config")
 	end },
 	{ label = "Raise Spectre:", ifSkill = "Raise Spectre", includeTransfigured = true },
 	{ var = "raiseSpectreEnableBuffs", type = "check", defaultState = true, label = "Enable buffs:", ifSkill = "Raise Spectre", includeTransfigured = true, tooltip = "Enable any buff skills that your spectres have.", apply = function(val, modList, enemyModList)
