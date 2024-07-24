@@ -10322,12 +10322,12 @@ c["Retaliation Skills have 10% reduced Enemy Stun Threshold"]={{[1]={[1]={type="
 c["Retaliation Skills have 12% increased Cooldown Recovery Rate"]={{[1]={[1]={type="SkillType"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=12}},nil}
 c["Retaliation Skills have 15% increased Area of Effect"]={{[1]={[1]={type="SkillType"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=15}},nil}
 c["Retaliation Skills have 15% increased Cooldown Recovery Rate"]={{[1]={[1]={type="SkillType"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=15}},nil}
-c["Retaliation Skills have 20% increased Speed"]={{[1]={flags=0,keywordFlags=0,name="Speed",type="INC",value=20}},nil}
+c["Retaliation Skills have 20% increased Speed"]={{[1]={[1]={type="SkillType"},flags=0,keywordFlags=0,name="Speed",type="INC",value=20}},nil}
 c["Retaliation Skills have 25% increased Stun Duration on Enemies"]={{[1]={[1]={type="SkillType"},flags=0,keywordFlags=0,name="EnemyStunDuration",type="INC",value=25}},nil}
 c["Retaliation Skills have 30% increased Area of Effect"]={{[1]={[1]={type="SkillType"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=30}},nil}
 c["Retaliation Skills have 50% increased Stun Duration on Enemies"]={{[1]={[1]={type="SkillType"},flags=0,keywordFlags=0,name="EnemyStunDuration",type="INC",value=50}},nil}
-c["Retaliation Skills have 6% increased Speed"]={{[1]={flags=0,keywordFlags=0,name="Speed",type="INC",value=6}},nil}
-c["Retaliation Skills have 8% increased Speed"]={{[1]={flags=0,keywordFlags=0,name="Speed",type="INC",value=8}},nil}
+c["Retaliation Skills have 6% increased Speed"]={{[1]={[1]={type="SkillType"},flags=0,keywordFlags=0,name="Speed",type="INC",value=6}},nil}
+c["Retaliation Skills have 8% increased Speed"]={{[1]={[1]={type="SkillType"},flags=0,keywordFlags=0,name="Speed",type="INC",value=8}},nil}
 c["Returning Projectiles have 150% increased Speed"]={nil,"Returning Projectiles have 150% increased Speed "}
 c["Right Ring Slot: Your Shocking Skitterbot's Aura applies Socketed Hex Curse instead"]={{[1]={[1]={num=2,type="SlotNumber"},flags=0,keywordFlags=0,name="SkitterbotsCannotShock",type="FLAG",value=true}},nil}
 c["Right Ring slot: Cover Enemies in Frost for 5 seconds when you Freeze them"]={{[1]={[1]={num=2,type="SlotNumber"},[2]={actor="enemy",type="ActorCondition",var="Frozen"},flags=0,keywordFlags=0,name="CoveredInFrostEffect",type="BASE",value=20}},nil}
