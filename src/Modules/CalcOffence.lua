@@ -328,6 +328,9 @@ function calcs.offence(env, actor, activeSkill)
 
 	local function calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, breakdown)
 		local incArea, moreArea = calcLib.mods(skillModList, skillCfg, "AreaOfEffect", "AreaOfEffectPrimary")
+		if output.FistOfWarAoEEffect and output.FistOfWarAoEEffect ~= 1 then
+			incArea = incArea + (output.FistOfWarAoEEffect - 1)
+		end
 		output.AreaOfEffectMod = round(round(incArea * moreArea, 10), 2)
 		if skillData.radiusIsWeaponRange then
 			local range = 0
@@ -433,11 +436,19 @@ function calcs.offence(env, actor, activeSkill)
 		if breakdown then
 			breakdown.AreaOfEffectMod = { }
 			if output.AreaOfEffectMod ~= 1 then
-				breakdown.multiChain(breakdown.AreaOfEffectMod, {
-					{ "%.2f ^8(increased/reduced)", 1 + skillModList:Sum("INC", skillCfg, "AreaOfEffect") / 100 },
-					{ "%.2f ^8(more/less)", skillModList:More(skillCfg, "AreaOfEffect") },
-					total = s_format("= %.2f", output.AreaOfEffectMod),
-				})
+				if output.FistOfWarAoEEffect and output.FistOfWarAoEEffect ~= 1 then
+					breakdown.multiChain(breakdown.AreaOfEffectMod, {
+						{ "%.2f ^8(increased/reduced with %0.2f Fist of War)", 1 + skillModList:Sum("INC", skillCfg, "AreaOfEffect") / 100 + (output.FistOfWarAoEEffect - 1), (output.FistOfWarAoEEffect - 1) },
+						{ "%.2f ^8(more/less)", skillModList:More(skillCfg, "AreaOfEffect") },
+						total = s_format("= %.2f", output.AreaOfEffectMod),
+					})
+				else
+					breakdown.multiChain(breakdown.AreaOfEffectMod, {
+						{ "%.2f ^8(increased/reduced)", 1 + skillModList:Sum("INC", skillCfg, "AreaOfEffect") / 100 },
+						{ "%.2f ^8(more/less)", skillModList:More(skillCfg, "AreaOfEffect") },
+						total = s_format("= %.2f", output.AreaOfEffectMod),
+					})
+				end
 			end
 		end
 	end
@@ -2603,6 +2614,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.RuthlessBlowHitEffect = 1
 		output.RuthlessBlowAilmentEffect = 1
 		output.FistOfWarDamageEffect = 1
+		output.FistOfWarAoEEffect = 1
 		if env.mode_combat then
 			local ruthlessEffect = env.configInput.ruthlessSupportMode or "AVERAGE"
 			-- Calculate Ruthless Blow chance/multipliers + Fist of War multipliers
@@ -2626,6 +2638,7 @@ function calcs.offence(env, actor, activeSkill)
 			-- If Fist of War & Active Skill is a Slam Skill & NOT a Vaal Skill & NOT used by mirage or other
 			if globalOutput.FistOfWarCooldown ~= 0 and activeSkill.skillTypes[SkillType.Slam] and not activeSkill.skillTypes[SkillType.Vaal] and not activeSkill.skillTypes[SkillType.OtherThingUsesSkill] then
 				globalOutput.FistOfWarDamageMultiplier = skillModList:Sum("BASE", nil, "FistOfWarDamageMultiplier") / 100
+				globalOutput.FistOfWarIncreasedAoE = skillModList:Sum("BASE", nil, "FistOfWarIncAoE") / 100
 				globalOutput.FistOfWarUptimeRatio = m_min( (1 / output.Speed) / globalOutput.FistOfWarCooldown, 1) * 100
 				if globalBreakdown then
 					globalBreakdown.FistOfWarUptimeRatio = {
@@ -2636,6 +2649,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				globalOutput.AvgFistOfWarDamage = globalOutput.FistOfWarDamageMultiplier
 				globalOutput.AvgFistOfWarDamageEffect = 1 + globalOutput.FistOfWarDamageMultiplier * (globalOutput.FistOfWarUptimeRatio / 100)
+				globalOutput.AvgFistOfWarIncreasedAoE = 1 + globalOutput.FistOfWarIncreasedAoE * (globalOutput.FistOfWarUptimeRatio / 100)
 				if globalBreakdown then
 					globalBreakdown.AvgFistOfWarDamageEffect = {
 						s_format("1 + (%.2f ^8(fist of war damage multiplier)", globalOutput.FistOfWarDamageMultiplier),
@@ -2643,17 +2657,26 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("= %.2f", globalOutput.AvgFistOfWarDamageEffect),
 					}
 				end
+				globalOutput.MaxFistOfWarIncreasedAoE = 1 + globalOutput.FistOfWarIncreasedAoE
 				globalOutput.MaxFistOfWarDamageEffect = 1 + globalOutput.FistOfWarDamageMultiplier
 				if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
 					output.FistOfWarDamageEffect = globalOutput.MaxFistOfWarDamageEffect
+					output.FistOfWarAoEEffect = globalOutput.MaxFistOfWarIncreasedAoE
 				else
 					output.FistOfWarDamageEffect = globalOutput.AvgFistOfWarDamageEffect
+					output.FistOfWarAoEEffect = globalOutput.AvgFistOfWarIncreasedAoE
 				end
 				globalOutput.TheoreticalOffensiveWarcryEffect = globalOutput.TheoreticalOffensiveWarcryEffect * globalOutput.AvgFistOfWarDamageEffect
 				globalOutput.TheoreticalMaxOffensiveWarcryEffect = globalOutput.TheoreticalMaxOffensiveWarcryEffect * globalOutput.MaxFistOfWarDamageEffect
+
+				-- update AoE with Fist Of War calculation (Avg or Max depending on Configuration)
+				calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, globalBreakdown)
+				globalOutput.AreaOfEffectMod = output.AreaOfEffectMod
+				globalOutput.AreaOfEffectRadiusMetres = output.AreaOfEffectRadiusMetres
 			else
 				output.FistOfWarDamageEffect = 1
-			end
+				output.FistOfWarAoEEffect = 1
+			end			
 		end
 
 		-- Calculate maximum sustainable fuses and explosion rate for Explosive Arrow
