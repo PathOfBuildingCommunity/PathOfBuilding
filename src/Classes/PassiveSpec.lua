@@ -887,7 +887,7 @@ function PassiveSpecClass:NodesInIntuitiveLeapLikeRadius(node)
 		local radiusIndex = item.jewelRadiusIndex
 		if item and item.jewelData and item.jewelData.intuitiveLeapLike then
 			local inRadius = self.nodes[node.id].nodesInRadius and self.nodes[node.id].nodesInRadius[radiusIndex]
-			for affectedNodeId, affectedNode in pairs(inRadius) do
+			for affectedNodeId, affectedNode in pairs(inRadius or {}) do
 				if self.nodes[affectedNodeId].alloc then
 					t_insert(result, self.nodes[affectedNodeId])
 				end
