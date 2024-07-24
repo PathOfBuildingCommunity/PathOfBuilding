@@ -333,10 +333,18 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			return
 		end
 
-		self.treeTab:SetActiveSpec(newSpecId)
-		self.itemsTab:SetActiveItemSet(newItemId)
-		self.skillsTab:SetActiveSkillSet(newSkillId)
-		self.configTab:SetActiveConfigSet(newConfigId)
+		if newSpecId ~= self.treeTab.activeSpec then
+			self.treeTab:SetActiveSpec(newSpecId)
+		end
+		if newItemId ~= self.itemsTab.activeItemSetId then
+			self.itemsTab:SetActiveItemSet(newItemId)
+		end
+		if newSkillId ~= self.skillsTab.activeSkillSetId then
+			self.skillsTab:SetActiveSkillSet(newSkillId)
+		end
+		if newConfigId ~= self.configTab.activeConfigSetId then
+			self.configTab:SetActiveConfigSet(newConfigId)
+		end
 
 		self.controls.buildLoadouts:SelByValue(value)
 	end)
@@ -895,7 +903,7 @@ local function actExtra(act, extra)
 	return act > 2 and extra or 0
 end
 
-function buildMode:SyncLoadouts(reset)
+function buildMode:SyncLoadouts()
 	self.controls.buildLoadouts.list = {"No Loadouts"}
 
 	local filteredList = {"^7^7Loadouts:"}
@@ -994,10 +1002,8 @@ function buildMode:SyncLoadouts(reset)
 		self.controls.buildLoadouts.list = filteredList
 	end
 
-	if reset then
-		self.controls.buildLoadouts:SetSel(1)
-    else
-		-- Try to select loadout in dropdown based on currently selected tree
+	-- Try to select loadout in dropdown based on currently selected tree
+	if self.treeTab then
 		local treeName = self.treeTab.specList[self.treeTab.activeSpec].title or "Default"
 		for i, loadout in ipairs(filteredList) do
 			if loadout == treeName then
@@ -1012,6 +1018,7 @@ function buildMode:SyncLoadouts(reset)
 
 					if skillMatch and itemMatch and configMatch then
 						self.controls.buildLoadouts:SetSel(i)
+						return treeList, itemList, skillList, configList
 					end
 				end
 				break
@@ -1019,6 +1026,7 @@ function buildMode:SyncLoadouts(reset)
 		end
 	end
 
+	self.controls.buildLoadouts:SetSel(1)
 	return treeList, itemList, skillList, configList
 end
 
