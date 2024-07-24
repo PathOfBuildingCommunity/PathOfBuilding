@@ -4802,8 +4802,8 @@ local specialModList = {
 	["nearby enemies are crushed"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Crushed") }) },
 	["crush enemies on hit with maces and sceptres"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Crushed") }, { type = "Condition", var = "UsingMace" }) },
 	["you have fungal ground around you while stationary"] = {
-		mod("ExtraAura", "LIST", { mod = mod("NonChaosDamageGainAsChaos", "BASE", 10) }, { type = "Condition", varList = { "OnFungalGround", "Stationary" } }),
-		mod("EnemyModifier", "LIST", { mod = mod("Damage", "MORE", -10) }, { type = "ActorCondition", actor = "enemy", varList = { "OnFungalGround", "Stationary" } }),
+		mod("ExtraAura", "LIST", { mod = mod("ChaosResist", "BASE", 25) }, { type = "Condition", varList = { "OnFungalGround", "Stationary" } }),
+		mod("EnemyModifier", "LIST", { mod = mod("ChaosResist", "BASE", -10) }, { type = "ActorCondition", actor = "enemy", varList = { "OnFungalGround", "Stationary" } }),
 	},
 	["create fungal ground instead of consecrated ground"] = {
 		flag("Condition:CreateFungalGround"),
