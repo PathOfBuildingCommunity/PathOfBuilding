@@ -291,6 +291,9 @@ skills["AncestralCry"] = {
 		["ancestral_cry_max_elemental_resistances_per_5_monster_power"] = {
 			mod("AncestralMaxElementalResistancePer5MP", "BASE", nil),
 		},
+		["skill_empower_limitation_specifier_for_stat_description"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		warcry = true,
@@ -3784,7 +3787,7 @@ skills["BloodSandArmour"] = {
 	baseTypeName = "Flesh and Stone",
 	color = 1,
 	description = "Casts an aura that affects you and nearby enemies differently depending on your stance. Using the skill again alternates between Blood Stance and Sand Stance.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Aura] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.Instant] = true, [SkillType.HasReservation] = true, [SkillType.AppliesMaim] = true, [SkillType.Area] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, [SkillType.Stance] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Aura] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.Instant] = true, [SkillType.HasReservation] = true, [SkillType.Area] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, [SkillType.Stance] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -5062,56 +5065,56 @@ skills["HeraldOfAsh"] = {
 		},
 	},
 	constantStats = {
-		{ "physical_damage_%_to_add_as_fire", 15 },
 		{ "base_skill_effect_duration", 4000 },
 		{ "herald_of_ash_burning_%_overkill_damage_per_minute", 1500 },
 	},
 	stats = {
 		"herald_of_ash_burning_damage_+%_final",
+		"physical_damage_%_to_add_as_fire",
 		"is_area_damage",
 		"quality_display_herald_of_ash_is_gem",
 	},
 	levels = {
-		[1] =  {15, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 16, statInterpolation = { 1, 1, }, },
-		[2] =  {15, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 20, statInterpolation = { 1, 1, }, },
-		[3] =  {16, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 24, statInterpolation = { 1, 1, }, },
-		[4] =  {16, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 28, statInterpolation = { 1, 1, }, },
-		[5] =  {16, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 31, statInterpolation = { 1, 1, }, },
-		[6] =  {16, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 34, statInterpolation = { 1, 1, }, },
-		[7] =  {17, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 37, statInterpolation = { 1, 1, }, },
-		[8] =  {17, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 40, statInterpolation = { 1, 1, }, },
-		[9] =  {17, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 43, statInterpolation = { 1, 1, }, },
-		[10] = {17, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 46, statInterpolation = { 1, 1, }, },
-		[11] = {18, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 49, statInterpolation = { 1, 1, }, },
-		[12] = {18, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 52, statInterpolation = { 1, 1, }, },
-		[13] = {18, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 55, statInterpolation = { 1, 1, }, },
-		[14] = {18, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 58, statInterpolation = { 1, 1, }, },
-		[15] = {19, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 60, statInterpolation = { 1, 1, }, },
-		[16] = {19, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 62, statInterpolation = { 1, 1, }, },
-		[17] = {19, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 64, statInterpolation = { 1, 1, }, },
-		[18] = {19, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 66, statInterpolation = { 1, 1, }, },
-		[19] = {20, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 68, statInterpolation = { 1, 1, }, },
-		[20] = {20, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 70, statInterpolation = { 1, 1, }, },
-		[21] = {20, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 72, statInterpolation = { 1, 1, }, },
-		[22] = {21, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 74, statInterpolation = { 1, 1, }, },
-		[23] = {21, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 76, statInterpolation = { 1, 1, }, },
-		[24] = {21, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 78, statInterpolation = { 1, 1, }, },
-		[25] = {21, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 80, statInterpolation = { 1, 1, }, },
-		[26] = {22, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 82, statInterpolation = { 1, 1, }, },
-		[27] = {22, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 84, statInterpolation = { 1, 1, }, },
-		[28] = {22, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 86, statInterpolation = { 1, 1, }, },
-		[29] = {22, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 88, statInterpolation = { 1, 1, }, },
-		[30] = {23, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 90, statInterpolation = { 1, 1, }, },
-		[31] = {23, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 91, statInterpolation = { 1, 1, }, },
-		[32] = {23, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 92, statInterpolation = { 1, 1, }, },
-		[33] = {23, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 93, statInterpolation = { 1, 1, }, },
-		[34] = {24, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 94, statInterpolation = { 1, 1, }, },
-		[35] = {24, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 95, statInterpolation = { 1, 1, }, },
-		[36] = {24, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 96, statInterpolation = { 1, 1, }, },
-		[37] = {24, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 97, statInterpolation = { 1, 1, }, },
-		[38] = {25, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 98, statInterpolation = { 1, 1, }, },
-		[39] = {25, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 99, statInterpolation = { 1, 1, }, },
-		[40] = {25, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 100, statInterpolation = { 1, 1, }, },
+		[1] =  {  0, 15, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 16, statInterpolation = { 1, 1, }, },
+		[2] =  {  2, 15, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 20, statInterpolation = { 1, 1, }, },
+		[3] =  {  4, 16, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 24, statInterpolation = { 1, 1, }, },
+		[4] =  {  6, 16, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 28, statInterpolation = { 1, 1, }, },
+		[5] =  {  8, 16, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 31, statInterpolation = { 1, 1, }, },
+		[6] =  { 10, 16, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 34, statInterpolation = { 1, 1, }, },
+		[7] =  { 12, 17, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 37, statInterpolation = { 1, 1, }, },
+		[8] =  { 14, 17, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 40, statInterpolation = { 1, 1, }, },
+		[9] =  { 16, 17, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 43, statInterpolation = { 1, 1, }, },
+		[10] = { 18, 17, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 46, statInterpolation = { 1, 1, }, },
+		[11] = { 20, 18, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 49, statInterpolation = { 1, 1, }, },
+		[12] = { 22, 18, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 52, statInterpolation = { 1, 1, }, },
+		[13] = { 24, 18, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 55, statInterpolation = { 1, 1, }, },
+		[14] = { 26, 18, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 58, statInterpolation = { 1, 1, }, },
+		[15] = { 28, 19, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 60, statInterpolation = { 1, 1, }, },
+		[16] = { 30, 19, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 62, statInterpolation = { 1, 1, }, },
+		[17] = { 32, 19, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 64, statInterpolation = { 1, 1, }, },
+		[18] = { 34, 19, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 66, statInterpolation = { 1, 1, }, },
+		[19] = { 36, 20, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 68, statInterpolation = { 1, 1, }, },
+		[20] = { 38, 20, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 70, statInterpolation = { 1, 1, }, },
+		[21] = { 40, 20, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 72, statInterpolation = { 1, 1, }, },
+		[22] = { 42, 21, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 74, statInterpolation = { 1, 1, }, },
+		[23] = { 44, 21, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 76, statInterpolation = { 1, 1, }, },
+		[24] = { 46, 21, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 78, statInterpolation = { 1, 1, }, },
+		[25] = { 48, 21, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 80, statInterpolation = { 1, 1, }, },
+		[26] = { 50, 22, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 82, statInterpolation = { 1, 1, }, },
+		[27] = { 52, 22, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 84, statInterpolation = { 1, 1, }, },
+		[28] = { 54, 22, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 86, statInterpolation = { 1, 1, }, },
+		[29] = { 56, 22, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 88, statInterpolation = { 1, 1, }, },
+		[30] = { 58, 23, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 90, statInterpolation = { 1, 1, }, },
+		[31] = { 59, 23, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 91, statInterpolation = { 1, 1, }, },
+		[32] = { 60, 23, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 92, statInterpolation = { 1, 1, }, },
+		[33] = { 61, 23, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 93, statInterpolation = { 1, 1, }, },
+		[34] = { 62, 24, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 94, statInterpolation = { 1, 1, }, },
+		[35] = { 63, 24, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 95, statInterpolation = { 1, 1, }, },
+		[36] = { 64, 24, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 96, statInterpolation = { 1, 1, }, },
+		[37] = { 65, 24, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 97, statInterpolation = { 1, 1, }, },
+		[38] = { 66, 25, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 98, statInterpolation = { 1, 1, }, },
+		[39] = { 67, 25, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 99, statInterpolation = { 1, 1, }, },
+		[40] = { 68, 25, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["HeraldOfPurity"] = {
@@ -7786,6 +7789,16 @@ skills["RageVortex"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			local maxRage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "MaximumRage")
+			local rageVortexSacrificePercentage = activeSkill.skillData.MaxRageVortexSacrificePercentage / 100
+			local configOverride= activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:RageSacrificedStacks")
+			local maxSacrificedRage = math.floor(rageVortexSacrificePercentage * maxRage)
+			local stacks = math.min((configOverride > 0 and configOverride) or maxSacrificedRage, maxSacrificedRage)
+			activeSkill.skillModList:NewMod("Multiplier:RageSacrificed", "BASE", stacks, "Skill:RageVortex")
+		end
+	end,
 	parts = {
 		{
 			name = "Melee",
@@ -7812,7 +7825,7 @@ skills["RageVortex"] = {
 			mod("Speed", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 		["rage_slash_sacrifice_rage_%"] = {
-			mod("Multiplier:MaxRageVortexSacrificePercentage", "BASE", nil),
+			skill("MaxRageVortexSacrificePercentage", nil),
 		},
 		["quality_display_rage_vortex_is_gem"] = {
 			-- Display only
@@ -8440,6 +8453,9 @@ skills["SeismicCry"] = {
 		},
 		["seismic_cry_+%_physical_damamge_reduction_per_5_MP"] = {
 			mod("SeismicArmourPer5MP", "BASE", nil),
+		},
+		["skill_empower_limitation_specifier_for_stat_description"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {

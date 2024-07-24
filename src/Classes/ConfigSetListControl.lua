@@ -12,7 +12,7 @@ local ConfigSetListClass = newClass("ConfigSetListControl", "ListControl", funct
 	self.configTab = configTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, 2, -4, 60, 18, "Copy", function()
 		local configSet = configTab.configSets[self.selValue]
-		local newConfigSet = copyTable(configSet, true)
+		local newConfigSet = copyTable(configSet)
 		newConfigSet.id = 1
 		while configTab.configSets[newConfigSet.id] do
 			newConfigSet.id = newConfigSet.id + 1

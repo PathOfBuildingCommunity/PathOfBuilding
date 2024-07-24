@@ -598,7 +598,7 @@ local function doActorMisc(env, actor)
 			modDB.conditions["AffectedByArcaneSurge"] = true
 			local effect = 1 + modDB:Sum("INC", nil, "ArcaneSurgeEffect", "BuffEffectOnSelf") / 100
 			modDB:NewMod("ManaRegen", "INC", (modDB:Max(nil, "ArcaneSurgeManaRegen") or 30) * effect, "Arcane Surge")
-			modDB:NewMod("Speed", "INC", (modDB:Max(nil, "ArcaneSurgeCastSpeed") or 10) * effect, "Arcane Surge", ModFlag.Spell)
+			modDB:NewMod("Speed", "INC", (modDB:Max(nil, "ArcaneSurgeCastSpeed") or 10) * effect, "Arcane Surge", ModFlag.Cast)
 			local arcaneSurgeDamage = modDB:Max(nil, "ArcaneSurgeDamage") or 0
 			if arcaneSurgeDamage ~= 0 then modDB:NewMod("Damage", "MORE", arcaneSurgeDamage * effect, "Arcane Surge", ModFlag.Spell) end
 		end
@@ -1164,59 +1164,71 @@ function calcs.perform(env, skipEHP)
 				uptime = 1
 			end
 			if activeSkill.activeEffect.grantedEffect.name == "Ancestral Cry" and not modDB:Flag(nil, "AncestralActive") then
-				local ancestralEleResistance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralElementalResistancePer5MP")
-				local ancestralMaxEleResistance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralMaxElementalResistancePer5MP")
 				env.player.modDB:NewMod("NumAncestralExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralExertedAttacks") + extraExertions) * exertMultiplier))
-				env.player.modDB:NewMod("ElementalResist", "BASE", m_floor(ancestralEleResistance * buff_inc) * uptime, "Ancestral Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
-				env.player.modDB:NewMod("ElementalResistMax", "BASE", m_floor(ancestralMaxEleResistance * buff_inc) * uptime, "Ancestral Cry", { type = "Multiplier", var = "WarcryPower", div = 10, limit = 3 })
+				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then
+					local ancestralEleResistance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralElementalResistancePer5MP")
+					local ancestralMaxEleResistance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralMaxElementalResistancePer5MP")
+					env.player.modDB:NewMod("ElementalResist", "BASE", m_floor(ancestralEleResistance * buff_inc) * uptime, "Ancestral Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
+					env.player.modDB:NewMod("ElementalResistMax", "BASE", m_floor(ancestralMaxEleResistance * buff_inc) * uptime, "Ancestral Cry", { type = "Multiplier", var = "WarcryPower", div = 10, limit = 3 })
+				end
 				modDB:NewMod("AncestralActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Enduring Cry" and not modDB:Flag(nil, "EnduringActive") then
-				local enduringRegen = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "EnduringCryLifeRegen")
-				env.player.modDB:NewMod("LifeRegenPercent", "BASE", m_floor(enduringRegen * buff_inc) * uptime, "Enduring Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
+				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then
+					local enduringRegen = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "EnduringCryLifeRegen")
+					env.player.modDB:NewMod("LifeRegenPercent", "BASE", m_floor(enduringRegen * buff_inc) * uptime, "Enduring Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
+				end
 				modDB:NewMod("EnduringActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Infernal Cry" and not modDB:Flag(nil, "InfernalActive") then
-				local infernalPhysAsExtraFire = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "InfernalFireAsExtraPer5MP")
 				env.player.modDB:NewMod("NumInfernalExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "InfernalExertedAttacks") + extraExertions) * exertMultiplier))
-				if env.mode_effective then
+				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then
+					local infernalPhysAsExtraFire = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "InfernalFireAsExtraPer5MP")
 					env.player.modDB:NewMod("PhysicalDamageGainAsFire", "BASE", m_floor(infernalPhysAsExtraFire * buff_inc) * uptime, "Infernal Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
 				end
 				modDB:NewMod("InfernalActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Battlemage's Cry" and not modDB:Flag(nil, "BattlemageActive") then
-				local battlemageBaseCritChance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BattlemageBaseCritChancePer5MP")
 				env.player.modDB:NewMod("NumBattlemageExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BattlemageExertedAttacks") + extraExertions) * exertMultiplier))
-				env.player.modDB:NewMod("CritChance", "BASE", m_floor(battlemageBaseCritChance * buff_inc) / 100 * uptime, "Battlemage's Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
+				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then
+					local battlemageBaseCritChance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BattlemageBaseCritChancePer5MP")
+					env.player.modDB:NewMod("CritChance", "BASE", m_floor(battlemageBaseCritChance * buff_inc) / 100 * uptime, "Battlemage's Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
+				end
 				modDB:NewMod("BattlemageActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Intimidating Cry" and not modDB:Flag(nil, "IntimidatingActive") then
-				local intimidatingMovementSpeed = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingMovementSpeedPer5MP")
 				env.player.modDB:NewMod("NumIntimidatingExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingExertedAttacks") + extraExertions) * exertMultiplier))
-				env.player.modDB:NewMod("MovementSpeed", "INC", m_floor(intimidatingMovementSpeed * buff_inc) * uptime, "Intimidating Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 6 })
+				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then
+					local intimidatingMovementSpeed = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingMovementSpeedPer5MP")
+					env.player.modDB:NewMod("MovementSpeed", "INC", m_floor(intimidatingMovementSpeed * buff_inc) * uptime, "Intimidating Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 6 })
+				end
 				modDB:NewMod("IntimidatingActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" and not modDB:Flag(nil, "RallyingActive") then
 				env.player.modDB:NewMod("NumRallyingExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingExertedAttacks") + extraExertions) * exertMultiplier))
-				env.player.modDB:NewMod("RallyingExertMoreDamagePerAlly",  "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryExertDamageBonus"))
-				local rallyingWeaponEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryAllyDamageBonusPer5Power")
-				local rallyingBonusMoreMultiplier = 1 + (activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryMinionDamageBonusMultiplier") or 0)
-				if warcryPowerBonus ~= 0 then
-					rallyingWeaponEffect = m_floor(rallyingWeaponEffect * warcryPowerBonus * buff_inc) / warcryPowerBonus
-				end
-				-- Special handling for the minion side to add the flat damage bonus
-				if env.minion then
-					-- Add all damage types
-					local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
-					for _, damageType in ipairs(dmgTypeList) do
-						env.minion.modDB:NewMod(damageType.."Min", "BASE", m_floor((env.player.weaponData1[damageType.."Min"] or 0) * rallyingBonusMoreMultiplier * rallyingWeaponEffect / 100) * uptime, "Rallying Cry", { type = "Multiplier", actor = "parent", var = "WarcryPower", div = 5, limit = 10})
-						env.minion.modDB:NewMod(damageType.."Max", "BASE", m_floor((env.player.weaponData1[damageType.."Max"] or 0) * rallyingBonusMoreMultiplier * rallyingWeaponEffect / 100) * uptime, "Rallying Cry", { type = "Multiplier", actor = "parent", var = "WarcryPower", div = 5, limit = 10})
+				if not activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") then
+					env.player.modDB:NewMod("RallyingExertMoreDamagePerAlly",  "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryExertDamageBonus"))
+					local rallyingWeaponEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryAllyDamageBonusPer5Power")
+					local rallyingBonusMoreMultiplier = 1 + (activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryMinionDamageBonusMultiplier") or 0)
+					if warcryPowerBonus ~= 0 then
+						rallyingWeaponEffect = m_floor(rallyingWeaponEffect * warcryPowerBonus * buff_inc) / warcryPowerBonus
+					end
+					-- Special handling for the minion side to add the flat damage bonus
+					if env.minion then
+						-- Add all damage types
+						local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
+						for _, damageType in ipairs(dmgTypeList) do
+							env.minion.modDB:NewMod(damageType.."Min", "BASE", m_floor((env.player.weaponData1[damageType.."Min"] or 0) * rallyingBonusMoreMultiplier * rallyingWeaponEffect / 100) * uptime, "Rallying Cry", { type = "Multiplier", actor = "parent", var = "WarcryPower", div = 5, limit = 10})
+							env.minion.modDB:NewMod(damageType.."Max", "BASE", m_floor((env.player.weaponData1[damageType.."Max"] or 0) * rallyingBonusMoreMultiplier * rallyingWeaponEffect / 100) * uptime, "Rallying Cry", { type = "Multiplier", actor = "parent", var = "WarcryPower", div = 5, limit = 10})
+						end
 					end
 				end
 				modDB:NewMod("RallyingActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Seismic Cry" and not modDB:Flag(nil, "SeismicActive") then
-				local seismicStunEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicStunThresholdPer5MP")
-				local seismicArmour = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicArmourPer5MP")
-				local SeismicAoEMoreMultiplier = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicAoEMoreMultiplier")
+				env.player.modDB:NewMod("SeismicMoreAoE", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicAoEMoreMultiplier"))
 				env.player.modDB:NewMod("NumSeismicExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicExertedAttacks") + extraExertions) * exertMultiplier))
-				env.player.modDB:NewMod("AreaOfEffect", "MORE", SeismicAoEMoreMultiplier * uptime, "Seismic Cry")
-				env.player.modDB:NewMod("StunThreshold", "INC", m_floor(seismicStunEffect * buff_inc) * uptime, "Seismic Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
-				env.player.modDB:NewMod("Armour", "MORE", m_floor(seismicArmour * buff_inc) * uptime, "Seismic Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
+				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then 
+					local seismicStunEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicStunThresholdPer5MP")
+					local seismicArmour = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicArmourPer5MP")
+					env.player.modDB:NewMod("StunThreshold", "INC", m_floor(seismicStunEffect * buff_inc) * uptime, "Seismic Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
+					env.player.modDB:NewMod("Armour", "MORE", m_floor(seismicArmour * buff_inc) * uptime, "Seismic Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
+					
+				end
 				modDB:NewMod("SeismicActive", "FLAG", true) -- Prevents effect from applying multiple times
 			end
 		end
@@ -2030,6 +2042,43 @@ function calcs.perform(env, skipEHP)
 						end
 						mergeBuff(srcList, buffs, "Totem "..buff.name)
 					end
+					-- check if aura has a debuff added to it, but does not have an auraDebuff
+					if env.mode_effective and #modDB:List(skillCfg, "ExtraAuraDebuffEffect") > 0 and not modDB:Flag(nil, "SelfAurasOnlyAffectYou") then
+						local auraDebuffFound = false
+						for _, buff in ipairs(activeSkill.buffList) do
+							if buff.type == "AuraDebuff" then
+								auraDebuffFound = true
+								break
+							end
+						end
+						if not auraDebuffFound then
+							activeSkill.debuffSkill = true
+							local extraAuraModList = { }
+							for _, value in ipairs(modDB:List(skillCfg, "ExtraAuraDebuffEffect")) do
+								local add = true
+								for _, mod in ipairs(extraAuraModList) do
+									if modLib.compareModParams(mod, value.mod) then
+										mod.value = mod.value + value.mod.value
+										add = false
+										break
+									end
+								end
+								if add then
+									t_insert(extraAuraModList, copyTable(value.mod, true))
+								end
+							end
+							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
+							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
+							mult = (1 + inc / 100) * more
+							local newModList = new("ModList")
+							newModList:AddList(extraAuraModList)
+							buffExports["Aura"][buff.name..(buffExports["Aura"][buff.name] and "_Debuff" or "")] = { effectMult = mult, modList = newModList }
+							if allyBuffs["AuraDebuff"] and allyBuffs["AuraDebuff"][buff.name] and allyBuffs["AuraDebuff"][buff.name].effectMult / 100 > mult then
+								mult = 0
+							end
+							mergeBuff(newModList, debuffs, buff.name)
+						end
+					end
 				end
 			elseif buff.type == "Debuff" or buff.type == "AuraDebuff" then
 				local stackCount
@@ -2049,13 +2098,30 @@ function calcs.perform(env, skipEHP)
 					modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 					local srcList = new("ModList")
 					local mult = 1
+					local extraAuraModList = { }
 					if buff.type == "AuraDebuff" then
+						for _, value in ipairs(modDB:List(skillCfg, "ExtraAuraDebuffEffect")) do
+							local add = true
+							for _, mod in ipairs(extraAuraModList) do
+								if modLib.compareModParams(mod, value.mod) then
+									mod.value = mod.value + value.mod.value
+									add = false
+									break
+								end
+							end
+							if add then
+								t_insert(extraAuraModList, copyTable(value.mod, true))
+							end
+						end
 						mult = 0
 						if not modDB:Flag(nil, "SelfAurasOnlyAffectYou") then
 							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							mult = (1 + inc / 100) * more
-							buffExports["Aura"][buff.name..(buffExports["Aura"][buff.name] and "_Debuff" or "")] = { effectMult = mult, modList = buff.modList }
+							local newModList = new("ModList")
+							newModList:AddList(buff.modList)
+							newModList:AddList(extraAuraModList)
+							buffExports["Aura"][buff.name..(buffExports["Aura"][buff.name] and "_Debuff" or "")] = { effectMult = mult, modList = newModList }
 							if allyBuffs["AuraDebuff"] and allyBuffs["AuraDebuff"][buff.name] and allyBuffs["AuraDebuff"][buff.name].effectMult / 100 > mult then
 								mult = 0
 							end
@@ -2067,6 +2133,7 @@ function calcs.perform(env, skipEHP)
 						mult = (1 + inc / 100) * more
 					end
 					srcList:ScaleAddList(buff.modList, mult * stackCount)
+					srcList:ScaleAddList(extraAuraModList, mult * stackCount)
 					if activeSkill.skillData.stackCount or buff.stackVar then
 						srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", stackCount, buff.name)
 					end

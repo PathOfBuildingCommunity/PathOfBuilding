@@ -6065,12 +6065,12 @@ return {
 			["g"] = 1000000000, 
 		}, 
 		[144] = {
-			["id"] = "eternal_notable_rarity_1", 
+			["id"] = "eternal_reservation_efficiency_1", 
 			["in"] = {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "40% increased Rarity of Items found", 
+				[1] = "12% increased Mana Reservation Efficiency of Skills", 
 			}, 
 			["isMultipleChoiceOption"] = false, 
 			["dn"] = "Discerning Taste", 
@@ -6084,12 +6084,12 @@ return {
 				[1] = "base_item_found_rarity_+%", 
 			}, 
 			["stats"] = {
-				["base_item_found_rarity_+%"] = {
-					["max"] = 40, 
+				["base_mana_reservation_efficiency_+%"] = {
+					["max"] = 12, 
 					["fmt"] = "d", 
 					["index"] = 1, 
-					["min"] = 40, 
-					["statOrder"] = 1442, 
+					["min"] = 12, 
+					["statOrder"] = 2090, 
 				}, 
 			}, 
 			["da"] = 0, 
@@ -7694,10 +7694,10 @@ return {
 			}, 
 		}, 
 		[62] = {
-			["id"] = "karui_notable_add_rage_on_hit", 
-			["dn"] = "Add Rage on Hit", 
+			["id"] = "karui_notable_add_physical_added_as_fire", 
+			["dn"] = "Add Physical Added As Fire", 
 			["sd"] = {
-				[1] = "Gain 1 Rage on Melee Hit", 
+				[1] = "Gain 5% of Physical Damage as Extra Fire Damage", 
 			}, 
 			["sortedStats"] = {
 				[1] = "physical_damage_%_to_add_as_fire", 
@@ -7713,20 +7713,20 @@ return {
 			}, 
 		}, 
 		[63] = {
-			["id"] = "karui_notable_add_physical_taken_as_fire", 
-			["dn"] = "Add Physical Taken As Fire", 
+			["id"] = "karui_notable_add_rage_on_hit", 
+			["dn"] = "Add Rage on Hit", 
 			["sd"] = {
-				[1] = "5% of Physical Damage from Hits taken as Fire Damage", 
+				[1] = "Gain 1 Rage on Melee Hit", 
 			}, 
 			["sortedStats"] = {
 				[1] = "physical_damage_taken_%_as_fire", 
 			}, 
 			["stats"] = {
 				["physical_damage_taken_%_as_fire"] = {
-					["max"] = 5, 
+					["max"] = 1, 
 					["fmt"] = "d", 
 					["index"] = 1, 
-					["min"] = 5, 
+					["min"] = 1, 
 					["statOrder"] = 2282, 
 				}, 
 			}, 

@@ -95,7 +95,6 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	-- Set selector
 	self.controls.setSelect = new("DropDownControl", { "TOPLEFT", self, "TOPLEFT" }, 76, 8, 210, 20, nil, function(index, value)
 		self:SetActiveSkillSet(self.skillSetOrderList[index])
-		self:SetDisplayGroup(self.socketGroupList[1])
 		self:AddUndoState()
 	end)
 	self.controls.setSelect.enableDroppedWidth = true
@@ -421,7 +420,6 @@ function SkillsTabClass:Load(xml, fileName)
 		end
 	end
 	self:SetActiveSkillSet(tonumber(xml.attrib.activeSkillSet) or 1)
-	self:SetDisplayGroup(self.socketGroupList[1])
 	self:ResetUndo()
 	self.build:SyncLoadouts()
 end
@@ -1347,4 +1345,5 @@ function SkillsTabClass:SetActiveSkillSet(skillSetId)
 
 	-- set the loadout option to the dummy option since it is now dirty
 	self.build.controls.buildLoadouts:SetSel(1)
+	self:SetDisplayGroup(self.socketGroupList[1])
 end
