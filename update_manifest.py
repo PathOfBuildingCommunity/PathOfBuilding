@@ -8,6 +8,7 @@ import operator
 import pathlib
 import re
 import xml.etree.ElementTree as Et
+import subprocess
 from typing import Any, Callable
 
 alphanumeric_pattern = re.compile(r"(\d+)")
@@ -49,6 +50,8 @@ def _alphanumeric(key: str) -> list[int | str]:
         for character in re.split(alphanumeric_pattern, key)
     ]
 
+def _get_latest_commit_hash_short() -> str:
+    return subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).decode('ascii').strip()
 
 def create_manifest(version: str | None = None, replace: bool = False) -> None:
     """Generate new SHA1 hashes and version number for Path of Building's manifest file.
@@ -78,6 +81,7 @@ def create_manifest(version: str | None = None, replace: bool = False) -> None:
         logging.critical(f"Manifest configuration file not found in path '{base_path}'")
         return
 
+    versions = {"number":new_version, "hash":_get_latest_commit_hash_short()}
     base_url = "https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/"
     parts: list[dict[str, str]] = []
     for part in config.sections():
@@ -120,7 +124,7 @@ def create_manifest(version: str | None = None, replace: bool = False) -> None:
     files.sort(key=lambda attr: (attr["part"], _alphanumeric(attr["name"])))
 
     root = Et.Element("PoBVersion")
-    Et.SubElement(root, "Version", number=new_version)
+    Et.SubElement(root, "Version", versions)
     for attributes in parts:
         Et.SubElement(root, "Source", attributes)
     for attributes in files:

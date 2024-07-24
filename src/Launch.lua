@@ -21,6 +21,7 @@ function launch:OnInit()
 	self.versionNumber = "?"
 	self.versionBranch = "?"
 	self.versionPlatform = "?"
+	self.versionCommitHashShort = "?"
 	self.lastUpdateCheck = GetTime()
 	self.subScripts = { }
 	self.startTime = startTime
@@ -47,6 +48,7 @@ function launch:OnInit()
 			if type(node) == "table" then
 				if node.elem == "Version" then
 					self.versionNumber = node.attrib.number
+					self.versionCommitHashShort = node.attrib.hash
 					self.versionBranch = node.attrib.branch
 					self.versionPlatform = node.attrib.platform
 				end
