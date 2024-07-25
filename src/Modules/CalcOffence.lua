@@ -3852,7 +3852,7 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(globalBreakdown.BleedStackPotential, s_format("= %g ^8(stack potential override)", overrideStackPotential))
 				else
 					t_insert(globalBreakdown.BleedStackPotential, s_format("%.2f ^8(chance to hit)", output.HitChance / 100))
-					t_insert(globalBreakdown.BleedStackPotential, s_format("* %.2f ^8(chance to bleed)", bleedChance / 100))
+					t_insert(globalBreakdown.BleedStackPotential, s_format("* %.2f ^8(chance to bleed)", bleedChance))
 					t_insert(globalBreakdown.BleedStackPotential, s_format("* (%.2f / %.2f) ^8(Bleed duration / Attack Time)", globalOutput.BleedDuration, (output.HitTime or output.Time)))
 					if skillData.dpsMultiplier ~= 1 then
 						t_insert(globalBreakdown.BleedStackPotential, s_format("* %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
@@ -4379,7 +4379,7 @@ function calcs.offence(env, actor, activeSkill)
 					end
 				else
 					t_insert(globalBreakdown.IgniteStackPotential, s_format("%.2f ^8(chance to hit)", output.HitChance / 100))
-					t_insert(globalBreakdown.IgniteStackPotential, s_format("* %.2f ^8(chance to ignite)", igniteChance / 100))
+					t_insert(globalBreakdown.IgniteStackPotential, s_format("* %.2f ^8(chance to ignite)", igniteChance))
 					if skillData.triggeredOnDeath then
 						t_insert(globalBreakdown.IgniteStackPotential, s_format("* 1 ^8Cast on Death override"))
 					elseif output.Cooldown then
