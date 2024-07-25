@@ -180,3 +180,14 @@ If you wish to add more items, you can copy and paste items using CTRL+C (from t
 The item sets section located at the top of the screen can be used to save multiple sets of items and easily switch between them. You can add, remove, rename, and copy new sets using the "Manage..." button.
 
 If you want to search for item upgrades, you can use the "Trade for these items" button to quickly search for items that can improve your gear.
+
+---[Similar Builds Popup]
+
+The Similar Builds Popup allows you to search for builds similar to your current character.
+
+To access the Similar Builds Popup, click on the "Similar Builds" button located at the top of the screen.
+
+It will fetch the builds most similar to your character and sort them by the latest league and match score.
+
+For best results, make sure to select your main item set, tree, and skills before opening the popup.
+If you are using leveling gear/tree, it will match with other leveling builds.
