@@ -1668,7 +1668,7 @@ skills["CleaveAltX"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["chain_strike_cone_radius_+_per_x_rage"] = {
-			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "Rage", div = 5 }),
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "RageEffect", div = 5 }),
 			div = 5,
 		},
 		["quality_display_chain_hook_is_gem"] = {
@@ -2205,10 +2205,10 @@ skills["DefianceBanner"] = {
 	castTime = 0,
 	statMap = {
 		["defiance_banner_movement_speed"] = {
-			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["suppress_spell_damage"] = {
-			mod("SpellSuppressionChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("SpellSuppressionChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -2220,6 +2220,7 @@ skills["DefianceBanner"] = {
 	},
 	baseMods = {
 		skill("radius", 24),
+		mod("AuraEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BannerPlanted", neg = true }),
 		flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
@@ -2721,10 +2722,10 @@ skills["PuresteelBanner"] = {
 	castTime = 0,
 	statMap = {
 		["puresteel_banner_accuracy_rating_+%_final"] = {
-			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["attacks_impale_on_hit_%_chance"] = {
-			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -2732,6 +2733,7 @@ skills["PuresteelBanner"] = {
 	},
 	baseMods = {
 		skill("radius", 24),
+		mod("AuraEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BannerPlanted", neg = true }),
 		flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
@@ -3795,7 +3797,7 @@ skills["BloodSandArmour"] = {
 			mod("PhysicalDamageTaken", "MORE", nil, ModFlag.Hit, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectCond = "BloodStance" }),
 		},
 		["attack_damage_taken_+%_final_from_enemies_unaffected_by_sand_armour"] = {
-			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura", effectCond = "SandStance" }),
+			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SandStance" }),
 		},
 	},
 	baseFlags = {
@@ -5793,44 +5795,44 @@ skills["AbyssalCry"] = {
 	levels = {
 		[1] = { 0,   2500, storedUses = 1, levelRequirement = 24,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 7, }, },
 		[2] = { 2,   2500, storedUses = 1, levelRequirement = 27,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 7, }, },
-		[3] = { 4,   2600, storedUses = 1, levelRequirement = 30,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
-		[4] = { 6,   2600, storedUses = 1, levelRequirement = 33,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
-		[5] = { 8,   2700, storedUses = 1, levelRequirement = 36,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
-		[6] = { 10,  2700, storedUses = 1, levelRequirement = 39,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
-		[7] = { 12,  2800, storedUses = 1, levelRequirement = 42,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
-		[8] = { 14,  2800, storedUses = 1, levelRequirement = 45,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
-		[9] = { 16,  2900, storedUses = 1, levelRequirement = 48,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
-		[10] = { 18, 2900, storedUses = 1, levelRequirement = 50,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
-		[11] = { 20, 3000, storedUses = 1, levelRequirement = 52,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
-		[12] = { 22, 3000, storedUses = 1, levelRequirement = 54,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
-		[13] = { 24, 3100, storedUses = 1, levelRequirement = 56,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
-		[14] = { 26, 3100, storedUses = 1, levelRequirement = 58,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
-		[15] = { 28, 3200, storedUses = 1, levelRequirement = 60,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
-		[16] = { 30, 3200, storedUses = 1, levelRequirement = 62,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
-		[17] = { 32, 3300, storedUses = 1, levelRequirement = 64,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 14, }, },
-		[18] = { 34, 3300, storedUses = 1, levelRequirement = 66,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 14, }, },
-		[19] = { 36, 3400, storedUses = 1, levelRequirement = 68,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 15, }, },
-		[20] = { 38, 3400, storedUses = 1, levelRequirement = 70,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 15, }, },
-		[21] = { 40, 3400, storedUses = 1, levelRequirement = 72,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 15, }, },
-		[22] = { 41, 3500, storedUses = 1, levelRequirement = 74,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 16, }, },
-		[23] = { 42, 3500, storedUses = 1, levelRequirement = 76,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 16, }, },
-		[24] = { 43, 3600, storedUses = 1, levelRequirement = 78,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 17, }, },
-		[25] = { 44, 3600, storedUses = 1, levelRequirement = 80,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 17, }, },
-		[26] = { 45, 3700, storedUses = 1, levelRequirement = 82,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 18, }, },
-		[27] = { 46, 3700, storedUses = 1, levelRequirement = 84,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 18, }, },
-		[28] = { 47, 3800, storedUses = 1, levelRequirement = 86,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 18, }, },
-		[29] = { 48, 3800, storedUses = 1, levelRequirement = 88,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 19, }, },
-		[30] = { 49, 3900, storedUses = 1, levelRequirement = 90,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 19, }, },
-		[31] = { 49, 3900, storedUses = 1, levelRequirement = 91,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 20, }, },
-		[32] = { 50, 4000, storedUses = 1, levelRequirement = 92,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 20, }, },
-		[33] = { 50, 4000, storedUses = 1, levelRequirement = 93,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 20, }, },
-		[34] = { 51, 4100, storedUses = 1, levelRequirement = 94,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 21, }, },
-		[35] = { 51, 4100, storedUses = 1, levelRequirement = 95,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 21, }, },
-		[36] = { 52, 4200, storedUses = 1, levelRequirement = 96,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 22, }, },
-		[37] = { 52, 4200, storedUses = 1, levelRequirement = 97,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 22, }, },
-		[38] = { 53, 4300, storedUses = 1, levelRequirement = 98,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
-		[39] = { 53, 4300, storedUses = 1, levelRequirement = 99,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
-		[40] = { 54, 4300, storedUses = 1, levelRequirement = 100, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
+		[3] = { 4,   2600, storedUses = 1, levelRequirement = 30,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 7, }, },
+		[4] = { 6,   2600, storedUses = 1, levelRequirement = 33,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 7, }, },
+		[5] = { 8,   2700, storedUses = 1, levelRequirement = 36,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
+		[6] = { 10,  2700, storedUses = 1, levelRequirement = 39,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
+		[7] = { 12,  2800, storedUses = 1, levelRequirement = 42,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
+		[8] = { 14,  2800, storedUses = 1, levelRequirement = 45,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
+		[9] = { 16,  2900, storedUses = 1, levelRequirement = 48,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
+		[10] = { 18, 2900, storedUses = 1, levelRequirement = 50,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
+		[11] = { 20, 3000, storedUses = 1, levelRequirement = 52,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
+		[12] = { 22, 3000, storedUses = 1, levelRequirement = 54,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
+		[13] = { 24, 3100, storedUses = 1, levelRequirement = 56,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
+		[14] = { 26, 3100, storedUses = 1, levelRequirement = 58,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
+		[15] = { 28, 3200, storedUses = 1, levelRequirement = 60,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
+		[16] = { 30, 3200, storedUses = 1, levelRequirement = 62,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 9, }, },
+		[17] = { 32, 3300, storedUses = 1, levelRequirement = 64,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
+		[18] = { 34, 3300, storedUses = 1, levelRequirement = 66,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
+		[19] = { 36, 3400, storedUses = 1, levelRequirement = 68,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
+		[20] = { 38, 3400, storedUses = 1, levelRequirement = 70,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
+		[21] = { 40, 3400, storedUses = 1, levelRequirement = 72,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
+		[22] = { 41, 3500, storedUses = 1, levelRequirement = 74,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
+		[23] = { 42, 3500, storedUses = 1, levelRequirement = 76,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
+		[24] = { 43, 3600, storedUses = 1, levelRequirement = 78,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
+		[25] = { 44, 3600, storedUses = 1, levelRequirement = 80,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
+		[26] = { 45, 3700, storedUses = 1, levelRequirement = 82,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
+		[27] = { 46, 3700, storedUses = 1, levelRequirement = 84,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
+		[28] = { 47, 3800, storedUses = 1, levelRequirement = 86,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
+		[29] = { 48, 3800, storedUses = 1, levelRequirement = 88,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
+		[30] = { 49, 3900, storedUses = 1, levelRequirement = 90,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
+		[31] = { 49, 3900, storedUses = 1, levelRequirement = 91,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
+		[32] = { 50, 4000, storedUses = 1, levelRequirement = 92,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
+		[33] = { 50, 4000, storedUses = 1, levelRequirement = 93,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
+		[34] = { 51, 4100, storedUses = 1, levelRequirement = 94,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
+		[35] = { 51, 4100, storedUses = 1, levelRequirement = 95,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 12, }, },
+		[36] = { 52, 4200, storedUses = 1, levelRequirement = 96,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
+		[37] = { 52, 4200, storedUses = 1, levelRequirement = 97,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
+		[38] = { 53, 4300, storedUses = 1, levelRequirement = 98,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
+		[39] = { 53, 4300, storedUses = 1, levelRequirement = 99,  cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
+		[40] = { 54, 4300, storedUses = 1, levelRequirement = 100, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 13, }, },
 	},
 }
 skills["InfernalCryOnHitExplosion"] = {
@@ -7789,7 +7791,7 @@ skills["RageVortex"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	preDamageFunc = function(activeSkill, output)
+	preSkillTypeFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
 			local maxRage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "MaximumRage")
 			local rageVortexSacrificePercentage = activeSkill.skillData.MaxRageVortexSacrificePercentage / 100
@@ -7809,17 +7811,16 @@ skills["RageVortex"] = {
 	},
 	statMap = {
 		["rage_slash_radius_+_per_amount_of_rage_sacrificed"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "RageSacrificed" }),
-			div = 2
-		},
-		["rage_slash_rage_sacrifice_per_radius_bonus"] = {
-			-- Display only
-		},
-		["rage_slash_rage_sacrifice_per_damage_bonus"] = {
-			-- Display only
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "RageSacrificed", divVar = "RagePerRadius" }),
 		},
 		["rage_slash_damage_+%_final_per_amount_of_rage_sacrificed"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RageSacrificed" }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RageSacrificed", divVar = "RagePerDamage" }),
+		},
+		["rage_slash_rage_sacrifice_per_radius_bonus"] = {
+			mod("Multiplier:RagePerRadius", "BASE", nil),
+		},
+		["rage_slash_rage_sacrifice_per_damage_bonus"] = {
+			mod("Multiplier:RagePerDamage", "BASE", nil),
 		},
 		["rage_slash_vortex_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
@@ -11303,10 +11304,10 @@ skills["BloodstainedBanner"] = {
 	castTime = 0,
 	statMap = {
 		["accuracy_rating_+%"] = {
-			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" })
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		},
 		["physical_damage_+%"] = {
-			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }, { type = "SkillType", skillType = SkillType.Melee }),
+			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "SkillType", skillType = SkillType.Melee }),
 		},
 	},
 	baseFlags = {
@@ -11314,6 +11315,7 @@ skills["BloodstainedBanner"] = {
 	},
 	baseMods = {
 		skill("radius", 24),
+		mod("AuraEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BannerPlanted", neg = true }),
 		flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {

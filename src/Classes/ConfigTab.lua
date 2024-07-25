@@ -673,7 +673,6 @@ function ConfigTabClass:Load(xml, fileName)
 
 	self:SetActiveConfigSet(tonumber(xml.attrib.activeConfigSet) or 1)
 	self:ResetUndo()
-	self.build:SyncLoadouts()
 end
 
 function ConfigTabClass:GetDefaultState(var, varType)
@@ -986,4 +985,5 @@ function ConfigTabClass:SetActiveConfigSet(configSetId, init)
 		self:BuildModList()
 	end
 	self.build.buildFlag = true
+	self.build:SyncLoadouts()
 end

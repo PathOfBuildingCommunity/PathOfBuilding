@@ -297,12 +297,12 @@ You can get this from your web browser's cookies while logged into the Path of E
 		if self.controls.importCodeMode.selIndex == 1 then
 			main:OpenConfirmPopup("Build Import", colorCodes.WARNING.."Warning:^7 Importing to the current build will erase ALL existing data for this build.", "Import", function()
 				self.build:Shutdown()
-				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML)
+				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML, false, self.controls.importCodeIn.buf)
 				self.build.viewMode = "TREE"
 			end)
 		else
 			self.build:Shutdown()
-			self.build:Init(false, "Imported build", self.importCodeXML)
+			self.build:Init(false, "Imported build", self.importCodeXML, false, self.controls.importCodeIn.buf)
 			self.build.viewMode = "TREE"
 		end
 	end
@@ -357,6 +357,7 @@ function ImportTabClass:Load(xml, fileName)
 	self.lastRealm = xml.attrib.lastRealm
 	self.controls.accountRealm:SelByValue( self.lastRealm or main.lastRealm or "PC", "id" )
 	self.lastAccountHash = xml.attrib.lastAccountHash
+	self.importLink = xml.attrib.importLink
 	self.controls.enablePartyExportBuffs.state = xml.attrib.exportParty == "true"
 	self.build.partyTab.enableExportBuffs = self.controls.enablePartyExportBuffs.state
 	if self.lastAccountHash then
@@ -375,7 +376,12 @@ function ImportTabClass:Save(xml)
 		lastAccountHash = self.lastAccountHash,
 		lastCharacterHash = self.lastCharacterHash,
 		exportParty = tostring(self.controls.enablePartyExportBuffs.state),
+		importLink = self.importLink
 	}
+
+	if self.build.importLink then
+		xml.attrib.importLink = self.build.importLink
+	end
 end
 
 function ImportTabClass:Draw(viewPort, inputEvents)
