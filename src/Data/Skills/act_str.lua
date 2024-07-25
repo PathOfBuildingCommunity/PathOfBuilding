@@ -2205,10 +2205,10 @@ skills["DefianceBanner"] = {
 	castTime = 0,
 	statMap = {
 		["defiance_banner_movement_speed"] = {
-			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["suppress_spell_damage"] = {
-			mod("SpellSuppressionChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("SpellSuppressionChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -2220,6 +2220,7 @@ skills["DefianceBanner"] = {
 	},
 	baseMods = {
 		skill("radius", 24),
+		mod("AuraEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BannerPlanted", neg = true }),
 		flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
@@ -2721,10 +2722,10 @@ skills["PuresteelBanner"] = {
 	castTime = 0,
 	statMap = {
 		["puresteel_banner_accuracy_rating_+%_final"] = {
-			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["attacks_impale_on_hit_%_chance"] = {
-			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -2732,6 +2733,7 @@ skills["PuresteelBanner"] = {
 	},
 	baseMods = {
 		skill("radius", 24),
+		mod("AuraEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BannerPlanted", neg = true }),
 		flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
@@ -11302,10 +11304,10 @@ skills["BloodstainedBanner"] = {
 	castTime = 0,
 	statMap = {
 		["accuracy_rating_+%"] = {
-			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" })
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		},
 		["physical_damage_+%"] = {
-			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }, { type = "SkillType", skillType = SkillType.Melee }),
+			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "SkillType", skillType = SkillType.Melee }),
 		},
 	},
 	baseFlags = {
@@ -11313,6 +11315,7 @@ skills["BloodstainedBanner"] = {
 	},
 	baseMods = {
 		skill("radius", 24),
+		mod("AuraEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BannerPlanted", neg = true }),
 		flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {

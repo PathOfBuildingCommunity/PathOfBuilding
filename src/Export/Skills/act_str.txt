@@ -403,13 +403,14 @@ local skills, mod, flag, skill = ...
 #flags spell area duration aura banner
 	statMap = {
 		["defiance_banner_movement_speed"] = {
-			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["suppress_spell_damage"] = {
-			mod("SpellSuppressionChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("SpellSuppressionChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #baseMod skill("radius", 24
+#baseMod mod("AuraEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BannerPlanted", neg = true })
 #baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
@@ -470,13 +471,14 @@ local skills, mod, flag, skill = ...
 #flags spell
 	statMap = {
 		["puresteel_banner_accuracy_rating_+%_final"] = {
-			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["attacks_impale_on_hit_%_chance"] = {
-			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #baseMod skill("radius", 24)
+#baseMod mod("AuraEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BannerPlanted", neg = true })
 #baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
@@ -2052,5 +2054,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 24)
+#baseMod mod("AuraEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BannerPlanted", neg = true })
 #baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
