@@ -41,9 +41,6 @@ local BuildListClass = newClass("BuildListControl", "ListControl", function(self
 		end
 	end
 	self.dragTargetList = { self.controls.path, self }
-	self.controls.path.width = function ()
-		return self.width()
-	end
 end)
 
 function BuildListClass:SelByFileName(selFileName)

@@ -23,10 +23,9 @@ local function InsertIfNew(t, val)
 	table.insert(t, val)
 end
 
-function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLink)
+function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.dbFileName = dbFileName
 	self.buildName = buildName
-	self.importLink = importLink
 	if dbFileName then
 		self.dbFileSubPath = self.dbFileName:sub(#main.buildPath + 1, -#self.buildName - 5)
 	else
@@ -349,15 +348,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 
 		self.controls.buildLoadouts:SelByValue(value)
 	end)
-
-	self.controls.similarBuilds = new("ButtonControl", {"LEFT",self.controls.buildLoadouts,"RIGHT"}, 8, 0, 100, 20, "Similar Builds", function()
-		self:OpenSimilarPopup()
-	end)
-	self.controls.similarBuilds.tooltipFunc = function(tooltip)
-		tooltip:Clear()
-		tooltip:AddLine(16, "Search for builds similar to your current character.")
-		tooltip:AddLine(16, "For best results, make sure to select your main item set, tree, and skills before opening the popup.")
-	end
 
 	-- List of display stats
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
@@ -1449,8 +1439,7 @@ function buildMode:OpenSaveAsPopup()
 		end
 	end
 	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter new build name:")
-	controls.edit = new("EditControl", nil, 0, 40, 450, 20,
-	(self.buildName or self.dbFileName):gsub("[\\/:%*%?\"<>|%c]", "-"), nil, "\\/:%*%?\"<>|%c", 100, function(buf)
+	controls.edit = new("EditControl", nil, 0, 40, 450, 20, self.dbFileName and self.buildName, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 		updateBuildName()
 	end)
 	controls.folderLabel = new("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 70, 0, 16, "^7Folder:")
@@ -1472,18 +1461,11 @@ function buildMode:OpenSaveAsPopup()
 		self:SaveDBFile()
 		self.spec:SetWindowTitleWithBuildClass()
 	end)
+	controls.save.enabled = false
 	controls.close = new("ButtonControl", nil, 45, 225, 80, 20, "Cancel", function()
 		main:ClosePopup()
 		self.actionOnSave = nil
 	end)
-
-	if self.dbFileName or self.buildName then
-		controls.save.enabled = self.dbFileName or self.buildName
-		updateBuildName()
-	else
-		controls.save.enabled = false
-	end
-
 	main:OpenPopup(470, 255, self.dbFileName and "Save As" or "Save", controls, "save", "edit", "close")
 end
 
@@ -1516,47 +1498,6 @@ function buildMode:OpenSpectreLibrary()
 	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 24, 2, 0, 16, "Spectres in your Library must be assigned to an active")
 	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 20, 18, 0, 16, "Raise Spectre gem for their buffs and curses to activate")
 	main:OpenPopup(410, 360, "Spectre Library", controls)
-end
-
-function buildMode:OpenSimilarPopup()
-	local controls = { }
-	-- local width, height = self:GetSize()
-	local buildProviders = {
-		{
-			name = "PoB Archives",
-			impl = new("PoBArchivesProvider", "similar")
-		}
-	}
-	local width = 600
-	local height = function()
-		return main.screenH * 0.8
-	end
-	local padding = 50
-	controls.similarBuildList = new("ExtBuildListControl", nil, 0, padding, width, height() - 2 * padding, buildProviders)
-	controls.similarBuildList.shown = true
-	controls.similarBuildList.height = function()
-		return height() - 2 * padding
-	end
-	controls.similarBuildList.width = function ()
-		return width - padding
-	end
-	controls.similarBuildList:SetImportCode(common.base64.encode(Deflate(self:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
-	controls.similarBuildList:Init("PoB Archives")
-
-	-- controls.similarBuildList.shown = not controls.similarBuildList:IsShown()
-
-	controls.close = new("ButtonControl", nil, 0, height() - (padding + 20) / 2, 80, 20, "Close", function()
-		main:ClosePopup()
-	end)
-	-- used in PopupDialog to dynamically size the popup
-	local function resizeFunc()
-		main.popups[1].height = height()
-		main.popups[1].y = function()
-			return m_floor((main.screenH - height()) / 2)
-		end
-		controls.close.y = height() - 35
-	end
-	main:OpenPopup(width, height(), "Similar Builds", controls, nil, nil, nil, nil, resizeFunc)
 end
 
 -- Refresh the set of controls used to select main group/skill/minion
@@ -1965,16 +1906,6 @@ function buildMode:LoadDB(xmlText, fileName)
 	for _, node in ipairs(dbXML[1]) do
 		if type(node) == "table" and node.elem == "Build" then
 			self:Load(node, self.dbFileName)
-			break
-		end
-	end
-
-	-- Check if xml has an import link
-	for _, node in ipairs(dbXML[1]) do
-		if type(node) == "table" and node.elem == "Import" then
-			if node.attrib.importLink and not self.importLink then
-				self.importLink = node.attrib.importLink
-			end
 			break
 		end
 	end
