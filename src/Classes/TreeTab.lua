@@ -144,12 +144,16 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	-- Tree Version Dropdown
 	self.treeVersions = { }
 	for _, num in ipairs(treeVersionList) do
-		t_insert(self.treeVersions, treeVersions[num].display)
+		local value = {
+			label = treeVersions[num].display,
+			value = num
+		}
+		t_insert(self.treeVersions, value)
 	end
 	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.reset, "RIGHT" }, 8, 0, 0, 16, "Version:")
-	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 100, 20, self.treeVersions, function(index, value)
-		if value ~= self.build.spec.treeVersion then
-			self:OpenVersionConvertPopup(value:gsub("[%(%)]", ""):gsub("[%.%s]", "_"), true)
+	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 100, 20, self.treeVersions, function(index, selected)
+		if selected.value ~= self.build.spec.treeVersion then
+			self:OpenVersionConvertPopup(selected.value, true)
 		end
 	end)
 	self.controls.versionSelect.maxDroppedWidth = 1000
@@ -467,7 +471,7 @@ function TreeTabClass:SetActiveSpec(specId)
 	self.build.itemsTab.controls.specSelect.selIndex = specId
 	-- Update Version dropdown to active spec's
 	if self.controls.versionSelect then
-		self.controls.versionSelect:SelByValue(curSpec.treeVersion:gsub("%_", "."):gsub(".ruthless", " (ruthless)"))
+		self.controls.versionSelect:SelByValue(curSpec.treeVersion, 'value')
 	end
 
 	-- set the loadout option to the dummy option since it is now dirty
@@ -556,6 +560,7 @@ function TreeTabClass:OpenVersionConvertPopup(version, ignoreRuthlessCheck)
 		main:ClosePopup()
 	end)
 	controls.cancel = new("ButtonControl", nil, 125, 105, 100, 20, "Cancel", function()
+		self.controls.versionSelect:SelByValue(self.build.spec.treeVersion, 'value')
 		main:ClosePopup()
 	end)
 	main:OpenPopup(570, 140, "Convert to Version "..treeVersions[version].display, controls, "convert", "edit")
