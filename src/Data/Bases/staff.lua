@@ -257,7 +257,7 @@ itemBases["Judgement Staff"] = {
 	socketLimit = 6,
 	tags = { two_hand_weapon = true, top_tier_base_item_type = true, warstaff = true, staff = true, attack_staff = true, weapon = true, twohand = true, default = true, },
 	influenceTags = { shaper = "warstaff_shaper", elder = "warstaff_elder", adjudicator = "warstaff_adjudicator", basilisk = "warstaff_basilisk", crusader = "warstaff_crusader", eyrie = "warstaff_eyrie", cleansing = "warstaff_cleansing", tangle = "warstaff_tangle" },
-	implicit = "+25% Chance to Block Spell Damage while wielding a Staff",
+	implicit = "+25% Chance to Block Attack Damage while wielding a Staff",
 	implicitModTypes = { { "block" }, },
 	weapon = { PhysicalMin = 73, PhysicalMax = 136, CritChanceBase = 8, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 68, str = 113, int = 113, },
