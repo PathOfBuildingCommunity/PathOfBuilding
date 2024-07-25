@@ -3437,6 +3437,7 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("ManaOnHit", "DPS")
 		combineStat("ManaOnHitRate", "DPS")
 		combineStat("ManaOnKill", "DPS")
+		combineStat("impaleStoredHitAvg", "DPS")
 		if skillFlags.bothWeaponAttack then
 			if breakdown then
 				breakdown.AverageDamage = { }
@@ -3610,7 +3611,7 @@ function calcs.offence(env, actor, activeSkill)
 		if not skillFlags.hit then
 			output.ImpaleChanceOnCrit = 0
 		else
-			output.ImpaleChanceOnCrit = m_min(100, skillModList:Sum("BASE", cfg, "ImpaleChance"))
+			output.ImpaleChanceOnCrit = env.mode_effective and m_min(100, skillModList:Sum("BASE", cfg, "ImpaleChance")) or 0
 		end
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotKnockback") then
 			output.KnockbackChanceOnCrit = 0
@@ -3661,7 +3662,7 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.KnockbackChanceOnHit = skillModList:Sum("BASE", cfg, "EnemyKnockbackChance")
 		end
-		output.ImpaleChance = m_min(100, skillModList:Sum("BASE", cfg, "ImpaleChance"))
+		output.ImpaleChance = env.mode_effective and m_min(100, skillModList:Sum("BASE", cfg, "ImpaleChance")) or 0
 		if skillModList:Sum("BASE", cfg, "FireExposureChance") > 0 then
 			skillFlags.applyFireExposure = true
 		end
@@ -5385,15 +5386,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.WithBleedDPS = baseDPS
 	end
 	if skillFlags.impale then
-		if skillFlags.attack then
-			output.ImpaleHit = ((output.MainHand.impaleStoredHitAvg or output.OffHand.impaleStoredHitAvg) + (output.OffHand.impaleStoredHitAvg or output.MainHand.impaleStoredHitAvg)) / 2
-			if skillData.doubleHitsWhenDualWielding and skillFlags.bothWeaponAttack then
-				output.ImpaleHit = output.ImpaleHit * 2
-			end
-		else
-			output.ImpaleHit = output.impaleStoredHitAvg
-		end
-		output.ImpaleDPS = output.ImpaleHit * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * skillData.dpsMultiplier
+		output.ImpaleDPS = output.impaleStoredHitAvg * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * skillData.dpsMultiplier
 		if skillData.showAverage then
 			output.WithImpaleDPS = output.AverageDamage + output.ImpaleDPS
 			output.CombinedAvg = output.CombinedAvg + output.ImpaleDPS
@@ -5408,7 +5401,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.CombinedDPS = output.CombinedDPS + output.ImpaleDPS
 		if breakdown then
 			breakdown.ImpaleDPS = {}
-			t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit before mitigation)", output.ImpaleHit))
+			t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit before mitigation)", output.impaleStoredHitAvg))
 			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
 			if skillFlags.notAverage then
 				t_insert(breakdown.ImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, skillFlags.attack and "attack" or "cast"))
