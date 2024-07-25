@@ -3816,11 +3816,13 @@ function calcs.offence(env, actor, activeSkill)
 			local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster") + enemyDB:Sum("INC", nil, "SelfBleedFaster")  / 100
 			globalOutput.BleedDuration = durationBase * durationMod / rateMod * debuffDurationMult
 
+			-- The chance any given hit applies bleed
+			local bleedChance = output.HitChance / 100 * (output.BleedChanceOnHit / 100 * (1 - output.CritChance / 100) + output.BleedChanceOnCrit / 100 * output.CritChance / 100)
 			-- The average number of bleeds that will be active on the enemy at once
-			local bleedStacks = (output.HitChance / 100) * (output.BleedChanceOnHit / 100) * (globalOutput.BleedDuration / (output.HitTime or output.Time) * skillData.dpsMultiplier)
+			local bleedStacks = bleedChance * (globalOutput.BleedDuration / (output.HitTime or output.Time) * skillData.dpsMultiplier)
 			local activeTotems = env.modDB:Override(nil, "TotemsSummoned") or skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
 			if skillFlags.totem then
-				bleedStacks = (output.HitChance / 100) * (output.BleedChanceOnHit / 100) * (globalOutput.BleedDuration / (output.HitTime or output.Time) * skillData.dpsMultiplier) * activeTotems
+				bleedStacks = bleedStacks * activeTotems
 			end
 			if configStacks > 0 then
 				bleedStacks =  configStacks
@@ -3839,7 +3841,7 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(globalBreakdown.BleedStackPotential, s_format("= %g ^8(stack potential override)", overrideStackPotential))
 				else
 					t_insert(globalBreakdown.BleedStackPotential, s_format("%.2f ^8(chance to hit)", output.HitChance / 100))
-					t_insert(globalBreakdown.BleedStackPotential, s_format("* %.2f ^8(chance to bleed)", output.BleedChanceOnHit / 100))
+					t_insert(globalBreakdown.BleedStackPotential, s_format("* %.2f ^8(chance to bleed)", bleedChance / 100))
 					t_insert(globalBreakdown.BleedStackPotential, s_format("* (%.2f / %.2f) ^8(Bleed duration / Attack Time)", globalOutput.BleedDuration, (output.HitTime or output.Time)))
 					if skillData.dpsMultiplier ~= 1 then
 						t_insert(globalBreakdown.BleedStackPotential, s_format("* %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
@@ -3933,7 +3935,6 @@ function calcs.offence(env, actor, activeSkill)
 			-- over-stacking bleed stacks increases the chance a critical bleed is present
 			local ailmentCritChance = 100 * (1 - m_pow(1 - output.CritChance / 100, m_max(globalOutput.BleedStackPotential, 1)))
 
-			-- what are these values even trying to display? If you get really lucky or unlucky this is how much damage you can do?
 			local baseMinVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceMinHitDmg, 0, true) * basePercent / 100
 			local baseMaxVal = calcAilmentDamage("Bleed", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarDamageEffect * globalOutput.AilmentWarcryEffect
 			local averageBaseBleedDps = calcAilmentDamage("Bleed", ailmentCritChance, avgHitBleedDmg, avgCritBleedDmg, false)
