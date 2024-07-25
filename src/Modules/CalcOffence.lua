@@ -4911,7 +4911,9 @@ function calcs.offence(env, actor, activeSkill)
 			if skillModList:Flag(cfg, "IgnoreEnemyImpalePhysicalDamageReduction") then
 				impaleResist = 0
 			end
-			local impaleTaken = (1 + enemyDB:Sum("INC", nil, "DamageTaken", "PhysicalDamageTaken") / 100) * enemyDB:More(nil, "DamageTaken", "PhysicalDamageTaken")
+			local impaleTakenCfg = { flags = ModFlag.Hit }
+			local impaleTaken = (1 + enemyDB:Sum("INC", impaleTakenCfg, "DamageTaken", "PhysicalDamageTaken", "ReflectedDamageTaken") / 100)
+			                    * enemyDB:More(impaleTakenCfg, "DamageTaken", "PhysicalDamageTaken", "ReflectedDamageTaken")
 			local impaleDMGModifier = impaleHitDamageMod * (1 - impaleResist / 100) * impaleChance * impaleTaken
 
 			globalOutput.ImpaleStacksMax = maxStacks
