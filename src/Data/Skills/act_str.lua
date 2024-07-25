@@ -3795,7 +3795,7 @@ skills["BloodSandArmour"] = {
 			mod("PhysicalDamageTaken", "MORE", nil, ModFlag.Hit, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectCond = "BloodStance" }),
 		},
 		["attack_damage_taken_+%_final_from_enemies_unaffected_by_sand_armour"] = {
-			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura", effectCond = "SandStance" }),
+			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SandStance" }),
 		},
 	},
 	baseFlags = {
