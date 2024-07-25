@@ -738,7 +738,10 @@ skills["CallToArms"] = {
 	statMap = {
 		["call_to_arms_behaviour"] = {
 			-- Display only
-		}
+		},
+		["warcry_skills_share_cooldowns"] = {
+			-- Display only
+		},
 	},
 	castTime = 0,
 	baseFlags = {
@@ -804,6 +807,7 @@ skills["SupportCallToArms"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 		skill("SupportedByAutoexertion", true),
+		flag("CannotShareWarcryBuffs"),
 	},
 	qualityStats = {
 		Default = {
@@ -1963,6 +1967,9 @@ skills["AncestralSlamSupport"] = {
 	statMap = {
 		["support_ancestral_slam_big_hit_hit_damage_+%_final"] = {
 			mod("FistOfWarDamageMultiplier", "BASE", nil),
+		},
+		["support_ancestral_slam_big_hit_area_+%"] = {
+			mod("FistOfWarIncAoE", "BASE", nil),
 		},
 		["ancestral_slam_interval_duration"] = {
 			mod("FistOfWarCooldown", "BASE", nil),
