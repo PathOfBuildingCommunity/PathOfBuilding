@@ -277,12 +277,12 @@ function calcSkillCooldown(skillModList, skillCfg, skillData)
 	end
 end
 
-local function calcWarcryCastTime(skillModList, skillCfg, actor)
+local function calcWarcryCastTime(skillModList, skillCfg, skillData, actor)
 	local baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "WarcryCastTime")
 	local warcryCastTime = baseSpeed * calcLib.mod(skillModList, skillCfg, "WarcrySpeed") * calcs.actionSpeedMod(actor)
 	warcryCastTime = m_min(warcryCastTime, data.misc.ServerTickRate)
 	warcryCastTime = 1 / warcryCastTime
-	if skillModList:Flag(skillCfg, "InstantWarcry") then
+	if skillModList:Flag(skillCfg, "InstantWarcry") or skillData.SupportedByAutoexertion then
 		warcryCastTime = 0
 	end
 	return warcryCastTime
@@ -854,17 +854,6 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if skillModList:Sum("BASE", nil, "CritMultiplierAppliesToDegen") > 0 then
-		for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "CritMultiplier")) do
-			local mod = value.mod
-			if mod.source ~= "Base" then -- The global base Crit Multi doesn't apply to ailments with Perfect Agony
-				skillModList:NewMod("DotMultiplier", "BASE", m_floor(mod.value / 2), mod.source, ModFlag.Ailment, { type = "Condition", var = "CriticalStrike" }, unpack(mod))
-			end
-		end
-	end
-	if skillModList:Flag(nil, "DotMultiplierIsCritMultiplier") then
-		skillModList:NewMod("DotMultiplier", "OVERRIDE", skillModList:Sum("BASE", skillCfg, "CritMultiplier"), "Perfect Agony", ModFlag.Ailment)
-	end
 
 	if skillModList:Flag(nil, "HasSeals") and activeSkill.skillTypes[SkillType.CanRapidFire] and not skillModList:Flag(nil, "NoRepeatBonuses") then
 		-- Applies DPS multiplier based on seals count
@@ -1138,7 +1127,10 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		output.TrapThrowingSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "TrapThrowingSpeed") * output.ActionSpeedMod
 		local trapThrowCount = calcLib.val(skillModList, "TrapThrowCount", skillCfg)
-		output.TrapThrowCount = trapThrowCount
+		if skillData.trapCooldown or skillData.cooldown then
+			trapThrowCount = 1
+		end
+		output.TrapThrowCount = env.modDB:Override(nil, "TrapThrowCount") or trapThrowCount
 		output.TrapThrowingSpeed = m_min(output.TrapThrowingSpeed, data.misc.ServerTickRate)
 		output.TrapThrowingTime = 1 / output.TrapThrowingSpeed
 		skillData.timeOverride = output.TrapThrowingTime / output.TrapThrowCount
@@ -1224,10 +1216,13 @@ function calcs.offence(env, actor, activeSkill)
 		output.MineLayingSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "MineLayingSpeed") * output.ActionSpeedMod
 		-- Calculate additional mine throw
 		local mineThrowCount = calcLib.val(skillModList, "MineThrowCount", skillCfg)
-		output.MineThrowCount = mineThrowCount
-		if mineThrowCount >= 1 then
+		if skillData.trapCooldown or skillData.cooldown then
+			mineThrowCount = 1
+		end
+		output.MineThrowCount = env.modDB:Override(nil, "MineThrowCount") or mineThrowCount
+		if output.MineThrowCount >= 1 then
 			-- Throwing Mines takes 10% more time for each *additional* Mine thrown
-			output.MineLayingSpeed = output.MineLayingSpeed / (1 + (mineThrowCount - 1) * 0.1)
+			output.MineLayingSpeed = output.MineLayingSpeed / (1 + (output.MineThrowCount - 1) * 0.1)
 		end
 
 		output.MineLayingSpeed = m_min(output.MineLayingSpeed, data.misc.ServerTickRate)
@@ -1335,7 +1330,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	if skillFlags.warcry then
-		output.WarcryCastTime = calcWarcryCastTime(skillModList, skillCfg, actor)
+		output.WarcryCastTime = calcWarcryCastTime(skillModList, skillCfg, skillData, actor)
 	end
 
 	if skillFlags.corpse then
@@ -2342,7 +2337,7 @@ function calcs.offence(env, actor, activeSkill)
 						if modDB:Flag(nil, "WarcryShareCooldown") then
 							globalOutput.AncestralCryCooldown = globalOutput.AncestralCryCooldown + (output.GlobalWarcryCooldown - globalOutput.AncestralCryCooldown) / output.GlobalWarcryCount
 						end
-						globalOutput.AncestralCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
+						globalOutput.AncestralCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, value.skillData, actor)
 						globalOutput.AncestralExertsCount = env.modDB:Sum("BASE", nil, "NumAncestralExerts") or 0
 						local baseUptimeRatio = m_min((globalOutput.AncestralExertsCount / output.Speed) / (globalOutput.AncestralCryCooldown + globalOutput.AncestralCryCastTime), 1) * 100
 						local storedUses = value.skillData.storedUses + value.skillModList:Sum("BASE", value.skillCfg, "AdditionalCooldownUses")
@@ -2368,7 +2363,7 @@ function calcs.offence(env, actor, activeSkill)
 						if modDB:Flag(nil, "WarcryShareCooldown") then
 							globalOutput.InfernalCryCooldown = globalOutput.InfernalCryCooldown + (output.GlobalWarcryCooldown - globalOutput.InfernalCryCooldown) / output.GlobalWarcryCount
 						end
-						globalOutput.InfernalCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
+						globalOutput.InfernalCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, value.skillData, actor)
 						if activeSkill.skillTypes[SkillType.Melee] then
 							globalOutput.InfernalExertsCount = env.modDB:Sum("BASE", nil, "NumInfernalExerts") or 0
 							local baseUptimeRatio = m_min((globalOutput.InfernalExertsCount / output.Speed) / (globalOutput.InfernalCryCooldown + globalOutput.InfernalCryCastTime), 1) * 100
@@ -2397,7 +2392,7 @@ function calcs.offence(env, actor, activeSkill)
 						if modDB:Flag(nil, "WarcryShareCooldown") then
 							globalOutput.IntimidatingCryCooldown = globalOutput.IntimidatingCryCooldown + (output.GlobalWarcryCooldown - globalOutput.IntimidatingCryCooldown) / output.GlobalWarcryCount
 						end
-						globalOutput.IntimidatingCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
+						globalOutput.IntimidatingCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, value.skillData, actor)
 						globalOutput.IntimidatingExertsCount = env.modDB:Sum("BASE", nil, "NumIntimidatingExerts") or 0
 						local baseUptimeRatio = m_min((globalOutput.IntimidatingExertsCount / output.Speed) / (globalOutput.IntimidatingCryCooldown + globalOutput.IntimidatingCryCastTime), 1) * 100
 						local storedUses = value.skillData.storedUses + value.skillModList:Sum("BASE", value.skillCfg, "AdditionalCooldownUses")
@@ -2446,7 +2441,7 @@ function calcs.offence(env, actor, activeSkill)
 						if modDB:Flag(nil, "WarcryShareCooldown") then
 							globalOutput.RallyingCryCooldown = globalOutput.RallyingCryCooldown + (output.GlobalWarcryCooldown - globalOutput.RallyingCryCooldown) / output.GlobalWarcryCount
 						end
-						globalOutput.RallyingCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
+						globalOutput.RallyingCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, value.skillData, actor)
 						globalOutput.RallyingExertsCount = env.modDB:Sum("BASE", nil, "NumRallyingExerts") or 0
 						local baseUptimeRatio = m_min((globalOutput.RallyingExertsCount / output.Speed) / (globalOutput.RallyingCryCooldown + globalOutput.RallyingCryCastTime), 1) * 100
 						local storedUses = value.skillData.storedUses + value.skillModList:Sum("BASE", value.skillCfg, "AdditionalCooldownUses")
@@ -2496,11 +2491,18 @@ function calcs.offence(env, actor, activeSkill)
 						if modDB:Flag(nil, "WarcryShareCooldown") then
 							globalOutput.SeismicCryCooldown = globalOutput.SeismicCryCooldown + (output.GlobalWarcryCooldown - globalOutput.SeismicCryCooldown) / output.GlobalWarcryCount
 						end
-						globalOutput.SeismicCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
+						globalOutput.SeismicCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, value.skillData, actor)
 						globalOutput.SeismicExertsCount = env.modDB:Sum("BASE", nil, "NumSeismicExerts") or 0
 						local baseUptimeRatio = m_min((globalOutput.SeismicExertsCount / output.Speed) / (globalOutput.SeismicCryCooldown + globalOutput.SeismicCryCastTime), 1) * 100
 						local storedUses = value.skillData.storedUses + value.skillModList:Sum("BASE", value.skillCfg, "AdditionalCooldownUses")
 						globalOutput.SeismicUpTimeRatio = m_min(100, baseUptimeRatio * storedUses)
+						-- account for AoE increase
+						if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
+							skillModList:NewMod("AreaOfEffect", "MORE", env.modDB:Sum("BASE", nil, "SeismicMoreAoE"), "Max Seismic Exert AoE")
+						else
+							skillModList:NewMod("AreaOfEffect", "MORE", m_floor(env.modDB:Sum("BASE", nil, "SeismicMoreAoE") / 100 * globalOutput.SeismicUpTimeRatio), "Avg Seismic Exert AoE")
+						end
+						calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, globalOutput, globalBreakdown)
 						if globalBreakdown then
 							globalBreakdown.SeismicUpTimeRatio = { }
 							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.SeismicExertsCount))
@@ -2513,23 +2515,6 @@ function calcs.offence(env, actor, activeSkill)
 							end
 							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("= %d%%", globalOutput.SeismicUpTimeRatio))
 						end
-						-- calculate the stacking AoE modifier of Seismic slams
-						local SeismicAoEPerExert = env.modDB:Sum("BASE", cfg, "SeismicIncAoEPerExert") / 100
-						local AoEImpact = 0
-						local MaxSingleAoEImpact = 0
-						for i = 1, globalOutput.SeismicExertsCount do
-							AoEImpact = AoEImpact + (i * SeismicAoEPerExert)
-							MaxSingleAoEImpact = MaxSingleAoEImpact + SeismicAoEPerExert
-						end
-						local AvgAoEImpact = AoEImpact / globalOutput.SeismicExertsCount
-
-						-- account for AoE increase
-						if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
-							skillModList:NewMod("AreaOfEffect", "INC", MaxSingleAoEImpact * 100, "Max Seismic Exert AoE")
-						else
-							skillModList:NewMod("AreaOfEffect", "INC", m_floor(AvgAoEImpact * globalOutput.SeismicUpTimeRatio), "Avg Seismic Exert AoE")
-						end
-						calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, globalOutput, globalBreakdown)
 						globalOutput.SeismicCryCalculated = true
 					elseif value.activeEffect.grantedEffect.name == "Battlemage's Cry" and not globalOutput.BattleMageCryCalculated then
 						globalOutput.BattleMageCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
@@ -2539,7 +2524,7 @@ function calcs.offence(env, actor, activeSkill)
 						if modDB:Flag(nil, "WarcryShareCooldown") then
 							globalOutput.BattleMageCryCooldown = globalOutput.BattleMageCryCooldown + (output.GlobalWarcryCooldown - globalOutput.BattleMageCryCooldown) / output.GlobalWarcryCount
 						end
-						globalOutput.BattleMageCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
+						globalOutput.BattleMageCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, value.skillData, actor)
 						if activeSkill.skillTypes[SkillType.Melee] then
 							globalOutput.BattleCryExertsCount = env.modDB:Sum("BASE", nil, "NumBattlemageExerts") or 0
 							local baseUptimeRatio = m_min((globalOutput.BattleCryExertsCount / output.Speed) / (globalOutput.BattleMageCryCooldown + globalOutput.BattleMageCryCastTime), 1) * 100
@@ -2618,8 +2603,7 @@ function calcs.offence(env, actor, activeSkill)
 
 		output.RuthlessBlowHitEffect = 1
 		output.RuthlessBlowAilmentEffect = 1
-		output.FistOfWarHitEffect = 1
-		output.FistOfWarAilmentEffect = 1
+		output.FistOfWarDamageEffect = 1
 		if env.mode_combat then
 			local ruthlessEffect = env.configInput.ruthlessSupportMode or "AVERAGE"
 			-- Calculate Ruthless Blow chance/multipliers + Fist of War multipliers
@@ -2642,8 +2626,7 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.FistOfWarCooldown = skillModList:Sum("BASE", cfg, "FistOfWarCooldown") or 0
 			-- If Fist of War & Active Skill is a Slam Skill & NOT a Vaal Skill & NOT used by mirage or other
 			if globalOutput.FistOfWarCooldown ~= 0 and activeSkill.skillTypes[SkillType.Slam] and not activeSkill.skillTypes[SkillType.Vaal] and not activeSkill.skillTypes[SkillType.OtherThingUsesSkill] then
-				globalOutput.FistOfWarHitMultiplier = skillModList:Sum("BASE", nil, "FistOfWarHitMultiplier") / 100
-				globalOutput.FistOfWarAilmentMultiplier = skillModList:Sum("BASE", nil, "FistOfWarAilmentMultiplier") / 100
+				globalOutput.FistOfWarDamageMultiplier = skillModList:Sum("BASE", nil, "FistOfWarDamageMultiplier") / 100
 				globalOutput.FistOfWarUptimeRatio = m_min( (1 / output.Speed) / globalOutput.FistOfWarCooldown, 1) * 100
 				if globalBreakdown then
 					globalBreakdown.FistOfWarUptimeRatio = {
@@ -2652,30 +2635,28 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("= %d%%", globalOutput.FistOfWarUptimeRatio),
 					}
 				end
-				globalOutput.AvgFistOfWarHit = globalOutput.FistOfWarHitMultiplier
-				globalOutput.AvgFistOfWarHitEffect = 1 + globalOutput.FistOfWarHitMultiplier * (globalOutput.FistOfWarUptimeRatio / 100)
+				globalOutput.AvgFistOfWarDamage = globalOutput.FistOfWarDamageMultiplier
+				globalOutput.AvgFistOfWarDamageEffect = 1 + globalOutput.FistOfWarDamageMultiplier * (globalOutput.FistOfWarUptimeRatio / 100)
 				if globalBreakdown then
-					globalBreakdown.AvgFistOfWarHitEffect = {
-						s_format("1 + (%.2f ^8(fist of war hit multiplier)", globalOutput.FistOfWarHitMultiplier),
+					globalBreakdown.AvgFistOfWarDamageEffect = {
+						s_format("1 + (%.2f ^8(fist of war damage multiplier)", globalOutput.FistOfWarDamageMultiplier),
 						s_format("x %.2f) ^8(fist of war uptime ratio)", globalOutput.FistOfWarUptimeRatio / 100),
-						s_format("= %.2f", globalOutput.AvgFistOfWarHitEffect),
+						s_format("= %.2f", globalOutput.AvgFistOfWarDamageEffect),
 					}
 				end
-				globalOutput.AvgFistOfWarAilmentEffect = 1 + globalOutput.FistOfWarAilmentMultiplier * (globalOutput.FistOfWarUptimeRatio / 100)
-				globalOutput.MaxFistOfWarHitEffect = 1 + globalOutput.FistOfWarHitMultiplier
-				globalOutput.MaxFistOfWarAilmentEffect = 1 + globalOutput.FistOfWarAilmentMultiplier
+				globalOutput.MaxFistOfWarDamageEffect = 1 + globalOutput.FistOfWarDamageMultiplier
 				if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
-					output.FistOfWarHitEffect = globalOutput.MaxFistOfWarHitEffect
-					output.FistOfWarAilmentEffect = globalOutput.MaxFistOfWarAilmentEffect
+					output.FistOfWarDamageEffect = globalOutput.MaxFistOfWarDamageEffect
+					skillModList:NewMod("AreaOfEffect", "INC", skillModList:Sum("BASE", nil, "FistOfWarIncAoE"), "Max Fist of War Boosted AoE")
 				else
-					output.FistOfWarHitEffect = globalOutput.AvgFistOfWarHitEffect
-					output.FistOfWarAilmentEffect = globalOutput.AvgFistOfWarAilmentEffect
+					output.FistOfWarDamageEffect = globalOutput.AvgFistOfWarDamageEffect
+					skillModList:NewMod("AreaOfEffect", "INC", m_floor(skillModList:Sum("BASE", nil, "FistOfWarIncAoE") / 100 * globalOutput.FistOfWarUptimeRatio), "Avg Fist Of War Boosted AoE")
 				end
-				globalOutput.TheoreticalOffensiveWarcryEffect = globalOutput.TheoreticalOffensiveWarcryEffect * globalOutput.AvgFistOfWarHitEffect
-				globalOutput.TheoreticalMaxOffensiveWarcryEffect = globalOutput.TheoreticalMaxOffensiveWarcryEffect * globalOutput.MaxFistOfWarHitEffect
+				calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, globalOutput, globalBreakdown)
+				globalOutput.TheoreticalOffensiveWarcryEffect = globalOutput.TheoreticalOffensiveWarcryEffect * globalOutput.AvgFistOfWarDamageEffect
+				globalOutput.TheoreticalMaxOffensiveWarcryEffect = globalOutput.TheoreticalMaxOffensiveWarcryEffect * globalOutput.MaxFistOfWarDamageEffect
 			else
-				output.FistOfWarHitEffect = 1
-				output.FistOfWarAilmentEffect = 1
+				output.FistOfWarDamageEffect = 1
 			end
 		end
 
@@ -2952,8 +2933,8 @@ function calcs.offence(env, actor, activeSkill)
 						if output.RuthlessBlowHitEffect ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowHitEffect))
 						end
-						if output.FistOfWarHitEffect ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarHitEffect))
+						if output.FistOfWarDamageEffect ~= 1 then
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarDamageEffect))
 						end
 						if globalOutput.OffensiveWarcryEffect ~= 1  and not activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(aggregated warcry exerted effect modifier)", globalOutput.OffensiveWarcryEffect))
@@ -2963,9 +2944,9 @@ function calcs.offence(env, actor, activeSkill)
 						end
 					end
 					if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
-						output.allMult = convMult * output.ScaledDamageEffect * output.RuthlessBlowHitEffect * output.FistOfWarHitEffect * globalOutput.MaxOffensiveWarcryEffect
+						output.allMult = convMult * output.ScaledDamageEffect * output.RuthlessBlowHitEffect * output.FistOfWarDamageEffect * globalOutput.MaxOffensiveWarcryEffect
 					else
-						output.allMult = convMult * output.ScaledDamageEffect * output.RuthlessBlowHitEffect * output.FistOfWarHitEffect * globalOutput.OffensiveWarcryEffect
+						output.allMult = convMult * output.ScaledDamageEffect * output.RuthlessBlowHitEffect * output.FistOfWarDamageEffect * globalOutput.OffensiveWarcryEffect
 					end
 					local allMult = output.allMult
 					if pass == 1 then
@@ -3596,6 +3577,24 @@ function calcs.offence(env, actor, activeSkill)
 		globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
 
+		do -- Perfect Agony
+			local handCondition = pass.label == "Off Hand" and { type = "Condition", var = "OffHandAttack" } or pass.label == "Main Hand" and { type = "Condition", var = "MainHandAttack" } or nil
+
+			if skillModList:Sum("BASE", nil, "CritMultiplierAppliesToDegen") > 0 then
+				for i, value in ipairs(skillModList:Tabulate("BASE", cfg, "CritMultiplier")) do
+					local mod = value.mod
+					if mod.source ~= "Base" then -- The global base Crit Multi doesn't apply to ailments with Perfect Agony
+						skillModList:NewMod("DotMultiplier", "BASE", m_floor(mod.value / 2), mod.source, ModFlag.Ailment, { type = "Condition", var = "CriticalStrike" }, handCondition, unpack(mod))
+					end
+				end
+			end
+
+			if skillModList:Flag(nil, "DotMultiplierIsCritMultiplier") then
+				-- On enemy crit multiplier effects also apply for Perfect Agony: https://www.pathofexile.com/forum/view-thread/3532389#13
+				skillModList:NewMod("DotMultiplier", "OVERRIDE", (skillModList:Override(cfg, "CritMultiplier") or skillModList:Sum("BASE", cfg, "CritMultiplier")) + enemyDB:Sum("BASE", cfg, "SelfCritMultiplier"), "Perfect Agony", ModFlag.Ailment, handCondition)
+			end
+		end
+
 		-- Calculate chance to inflict secondary dots/status effects
 		cfg.skillCond["CriticalStrike"] = true
 		if not skillFlags.attack or skillModList:Flag(cfg, "CannotBleed") then
@@ -3938,8 +3937,8 @@ function calcs.offence(env, actor, activeSkill)
 			-- over-stacking bleed stacks increases the chance a critical bleed is present
 			local ailmentCritChance = 100 * (1 - m_pow(1 - output.CritChance / 100, bleedStacks))
 			local baseMinVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceMinHitDmg, 0, true) * basePercent / 100
-			local baseMaxVal = calcAilmentDamage("Bleed", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
-			local baseVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseMaxVal = calcAilmentDamage("Bleed", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarDamageEffect * globalOutput.AilmentWarcryEffect
+			local baseVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarDamageEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.bleed = true
 				skillFlags.duration = true
@@ -3988,8 +3987,8 @@ function calcs.offence(env, actor, activeSkill)
 					if output.RuthlessBlowAilmentEffect ~= 1 then
 						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowAilmentEffect))
 					end
-					if output.FistOfWarAilmentEffect ~= 1 then
-						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarAilmentEffect))
+					if output.FistOfWarDamageEffect ~= 1 then
+						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarDamageEffect))
 					end
 					if globalOutput.AilmentWarcryEffect > 1 then
 						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(combined ailment warcry effect modifier)", globalOutput.AilmentWarcryEffect))
@@ -4166,8 +4165,8 @@ function calcs.offence(env, actor, activeSkill)
 				}
 			end
 			local baseMinVal = calcAilmentDamage("Poison", output.CritChance, sourceMinHitDmg, 0, true) * data.misc.PoisonPercentBase
-			local baseMaxVal = calcAilmentDamage("Poison", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * data.misc.PoisonPercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
-			local baseVal = calcAilmentDamage("Poison", output.CritChance, sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseMaxVal = calcAilmentDamage("Poison", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * data.misc.PoisonPercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarDamageEffect * globalOutput.AilmentWarcryEffect
+			local baseVal = calcAilmentDamage("Poison", output.CritChance, sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarDamageEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.poison = true
 				skillFlags.duration = true
@@ -4492,8 +4491,8 @@ function calcs.offence(env, actor, activeSkill)
 			-- over-stacking ignite stacks increases the chance a critical ignite is present
 			local ailmentCritChance = 100 * (1 - m_pow(1 - output.CritChance / 100, igniteStacks))
 			local baseMinVal = calcAilmentDamage("Ignite", ailmentCritChance, sourceMinHitDmg, 0, true) * data.misc.IgnitePercentBase
-			local baseMaxVal = calcAilmentDamage("Ignite", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * data.misc.IgnitePercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
-			local baseVal = calcAilmentDamage("Ignite", ailmentCritChance, sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseMaxVal = calcAilmentDamage("Ignite", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * data.misc.IgnitePercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarDamageEffect * globalOutput.AilmentWarcryEffect
+			local baseVal = calcAilmentDamage("Ignite", ailmentCritChance, sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarDamageEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.ignite = true
 				local effMult = 1
@@ -4916,8 +4915,10 @@ function calcs.offence(env, actor, activeSkill)
 			if skillModList:Flag(cfg, "IgnoreEnemyImpalePhysicalDamageReduction") then
 				impaleResist = 0
 			end
-
-			local impaleDMGModifier = impaleHitDamageMod * (1 - impaleResist / 100) * impaleChance
+			local impaleTakenCfg = { flags = ModFlag.Hit }
+			local impaleTaken = (1 + enemyDB:Sum("INC", impaleTakenCfg, "DamageTaken", "PhysicalDamageTaken", "ReflectedDamageTaken") / 100)
+			                    * enemyDB:More(impaleTakenCfg, "DamageTaken", "PhysicalDamageTaken", "ReflectedDamageTaken")
+			local impaleDMGModifier = impaleHitDamageMod * (1 - impaleResist / 100) * impaleChance * impaleTaken
 
 			globalOutput.ImpaleStacksMax = maxStacks
 			globalOutput.ImpaleStacks = impaleStacks
@@ -4937,6 +4938,9 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.ImpaleModifier, s_format("x %.3f ^8(stored damage)", impaleStoredDamage))
 				t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale chance)", impaleChance))
 				t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale enemy physical damage reduction)", (1 - impaleResist / 100)))
+				if impaleTaken ~= 1 then
+					t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale enemy damage taken)", impaleTaken))
+				end
 				t_insert(breakdown.ImpaleModifier, s_format("= %.3f ^8(impale damage multiplier)", impaleDMGModifier))
 			end
 		end
@@ -5382,12 +5386,12 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillFlags.impale then
 		if skillFlags.attack then
-			output.ImpaleHit = ((output.MainHand.PhysicalHitAverage or output.OffHand.PhysicalHitAverage) + (output.OffHand.PhysicalHitAverage or output.MainHand.PhysicalHitAverage)) / 2 * (1-output.CritChance/100) + ((output.MainHand.PhysicalCritAverage or output.OffHand.PhysicalCritAverage) + (output.OffHand.PhysicalCritAverage or output.MainHand.PhysicalCritAverage)) / 2 * (output.CritChance/100)
+			output.ImpaleHit = ((output.MainHand.impaleStoredHitAvg or output.OffHand.impaleStoredHitAvg) + (output.OffHand.impaleStoredHitAvg or output.MainHand.impaleStoredHitAvg)) / 2
 			if skillData.doubleHitsWhenDualWielding and skillFlags.bothWeaponAttack then
 				output.ImpaleHit = output.ImpaleHit * 2
 			end
 		else
-			output.ImpaleHit = output.PhysicalHitAverage * (1-output.CritChance/100) + output.PhysicalCritAverage * (output.CritChance/100)
+			output.ImpaleHit = output.impaleStoredHitAvg
 		end
 		output.ImpaleDPS = output.ImpaleHit * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * skillData.dpsMultiplier
 		if skillData.showAverage then
@@ -5404,7 +5408,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.CombinedDPS = output.CombinedDPS + output.ImpaleDPS
 		if breakdown then
 			breakdown.ImpaleDPS = {}
-			t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit)", output.ImpaleHit))
+			t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit before mitigation)", output.ImpaleHit))
 			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
 			if skillFlags.notAverage then
 				t_insert(breakdown.ImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, skillFlags.attack and "attack" or "cast"))

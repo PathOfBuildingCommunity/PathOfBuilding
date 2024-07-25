@@ -6,20 +6,20 @@
 local m_max = math.max
 local m_min = math.min
 
-local ResizableEditClass = newClass("ResizableEditControl", "EditControl", function(self, anchor, x, y, minwidth, width, maxwidth, minheight, height, maxheight, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
+local ResizableEditClass = newClass("ResizableEditControl", "EditControl", function(self, anchor, x, y, minWidth, width, maxWidth, minHeight, height, maxHeight, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
     self.EditControl(anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
-    self.minheight = minheight or height
-    self.maxheight = maxheight or height
-    self.minwidth = minwidth or width
-    self.maxwidth = maxwidth or width
+    self.minHeight = minHeight or height
+    self.maxHeight = maxHeight or height
+    self.minWidth = minWidth or width
+    self.maxWidth = maxWidth or width
     self.controls.draggerHeight = new("DraggerControl", {"BOTTOMRIGHT", self, "BOTTOMRIGHT"}, 7, 7, 14, 14, "//", nil, nil, function (position)
         -- onRightClick 
-        if (self.height ~= self.minheight) or (self.width ~= self.minwidth) then
-            self:SetWidth(self.minwidth)
-            self:SetHeight(self.minheight)
+        if (self.height ~= self.minHeight) or (self.width ~= self.minWidth) then
+            self:SetWidth(self.minWidth)
+            self:SetHeight(self.minHeight)
         else
-            self:SetWidth(self.maxwidth)
-            self:SetHeight(self.maxheight)
+            self:SetWidth(self.maxWidth)
+            self:SetHeight(self.maxHeight)
         end
     end)
 	self.protected = false
@@ -38,8 +38,8 @@ function ResizableEditClass:SetBoundedDrag()
 end
 
 function ResizableEditClass:SetWidth(width)
-    self.width = m_max(m_min(width or 0, self.maxwidth), self.minwidth)
+    self.width = m_max(m_min(width or 0, self.maxWidth), self.minWidth)
 end
 function ResizableEditClass:SetHeight(height)
-    self.height = m_max(m_min(height or 0, self.maxheight), self.minheight)
+    self.height = m_max(m_min(height or 0, self.maxHeight), self.minHeight)
 end

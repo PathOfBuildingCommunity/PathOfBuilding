@@ -699,19 +699,17 @@ Reaver Sword
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Pre 3.17.0
-Variant: Pre 3.25.0
 Variant: Current
 Implicits: 3
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
-{variant:3,4,5}60% increased Global Accuracy Rating
+{variant:3,4}60% increased Global Accuracy Rating
 {variant:1,2}(160-190)% increased Physical Damage
-{variant:3,4,5}(130-160)% increased Physical Damage
+{variant:3,4}(130-160)% increased Physical Damage
 (25-30)% increased Attack Speed
 5% increased Movement Speed
 Triggers Level 15 Manifest Dancing Dervishes on Rampage
-{variant:1,2,3,4}Manifested Dancing Dervishes disables both weapon slots
-{variant:5}Cannot be used while Manifested
+Manifested Dancing Dervishes disables both weapon slots
 Manifested Dancing Dervishes die when Rampage ends
 Melee Hits count as Rampage Kills
 Rampage

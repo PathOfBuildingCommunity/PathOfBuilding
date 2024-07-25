@@ -12,7 +12,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="You and nearby allies gain {0}% increased Physical Damage"
+					text="You and nearby allies deal {0}% more Physical Damage with Melee Skills"
 				},
 				[2]={
 					[1]={
@@ -25,7 +25,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="You and nearby allies gain {0}% reduced Physical Damage"
+					text="You and nearby allies deal {0}% reduced Physical Damage with Melee Skills"
 				}
 			}
 		},
@@ -759,7 +759,7 @@ return {
 							[2]=99
 						}
 					},
-					text="You and nearby Allies have {0}% chance to Impale Enemies on Hit with Attacks"
+					text="You and nearby Allies have +{0}% chance to Block Attack Damage"
 				},
 				[2]={
 					[1]={

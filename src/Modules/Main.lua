@@ -94,6 +94,7 @@ function main:Init()
 	self.colorNegative = defaultColorCodes.NEGATIVE
 	self.colorHighlight = defaultColorCodes.HIGHLIGHT
 	self.showThousandsSeparators = true
+	self.edgeSearchHighlight = true
 	self.thousandsSeparator = ","
 	self.decimalSeparator = "."
 	self.defaultItemAffixQuality = 0.5
@@ -583,6 +584,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.betaTest then
 					self.betaTest = node.attrib.betaTest == "true"
 				end
+				if node.attrib.edgeSearchHighlight then
+					self.edgeSearchHighlight = node.attrib.edgeSearchHighlight == "true"
+				end
 				if node.attrib.defaultGemQuality then
 					self.defaultGemQuality = m_min(tonumber(node.attrib.defaultGemQuality) or 0, 23)
 				end
@@ -707,6 +711,7 @@ function main:SaveSettings()
 		decimalSeparator = self.decimalSeparator,
 		showTitlebarName = tostring(self.showTitlebarName),
 		betaTest = tostring(self.betaTest),
+		edgeSearchHighlight = tostring(self.edgeSearchHighlight),
 		defaultGemQuality = tostring(self.defaultGemQuality or 0),
 		defaultCharLevel = tostring(self.defaultCharLevel or 1),
 		defaultItemAffixQuality = tostring(self.defaultItemAffixQuality or 0.5),
@@ -886,6 +891,11 @@ function main:OpenOptionsPopup()
 	end)
 
 	nextRow()
+	controls.edgeSearchHighlight = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Show search circles at viewport edge", function(state)
+		self.edgeSearchHighlight = state
+	end)
+	
+	nextRow()
 	controls.showPublicBuilds = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Show Latest/Trending builds:", function(state)
 		self.showPublicBuilds = state
 	end)
@@ -968,6 +978,7 @@ function main:OpenOptionsPopup()
 	end
 
 	controls.betaTest.state = self.betaTest
+	controls.edgeSearchHighlight.state = self.edgeSearchHighlight
 	controls.titlebarName.state = self.showTitlebarName
 	controls.showPublicBuilds.state = self.showPublicBuilds
 	local initialNodePowerTheme = self.nodePowerTheme
@@ -979,6 +990,7 @@ function main:OpenOptionsPopup()
 	local initialThousandsSeparator = self.thousandsSeparator
 	local initialDecimalSeparator = self.decimalSeparator
 	local initialBetaTest = self.betaTest
+	local initialEdgeSearchHighlight = self.edgeSearchHighlight
 	local initialDefaultGemQuality = self.defaultGemQuality or 0
 	local initialDefaultCharLevel = self.defaultCharLevel or 1
 	local initialDefaultItemAffixQuality = self.defaultItemAffixQuality or 0.5
@@ -1028,6 +1040,7 @@ function main:OpenOptionsPopup()
 		self.decimalSeparator = initialDecimalSeparator
 		self.showTitlebarName = initialTitlebarName
 		self.betaTest = initialBetaTest
+		self.edgeSearchHighlight = initialEdgeSearchHighlight
 		self.defaultGemQuality = initialDefaultGemQuality
 		self.defaultCharLevel = initialDefaultCharLevel
 		self.defaultItemAffixQuality = initialDefaultItemAffixQuality
