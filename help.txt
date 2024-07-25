@@ -125,7 +125,7 @@ Loadouts can be selected from the dropdown in the top middle of the screen. Sele
         - The name of the Loadout in the dropdown is based on the name of the Tree Set, identifiers are shown for clarity when using sets multiple times
         - These sets can have differing colour formatting so long as the identifier texts match
 
-    3) If there is only one set for a set type (except passive tree), e.g. "Default" config set, it will be assigned too all existing loadouts.
+    3) If there is only one set for a set type (except passive tree), e.g. "Default" config set, it will be assigned to all existing loadouts.
 
 The "New Loadout" option allows the user to create all four sets from a single popup for convenience.
 The "Sync" option is a backup option to force the UI to update in case the user has changed this data behind the scenes.
