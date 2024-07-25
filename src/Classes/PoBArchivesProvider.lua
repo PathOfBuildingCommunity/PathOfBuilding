@@ -12,7 +12,7 @@ local archivesUrl = 'https://pobarchives.com'
 local PoBArchivesProviderClass = newClass("PoBArchivesProvider", "ExtBuildListProvider",
 	function(self, mode)
 		if mode == "builds" then
-			self.ExtBuildListProvider({"Latest", "Trending"})
+			self.ExtBuildListProvider({"Trending", "Latest"})
 		else
 			self.ExtBuildListProvider({"Similar Builds"})
 		end
