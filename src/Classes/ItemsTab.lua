@@ -1031,7 +1031,6 @@ function ItemsTabClass:Load(xml, dbFileName)
 		self.showStatDifferences = xml.attrib.showStatDifferences == "true"
 	end
 	self:ResetUndo()
-	self.build:SyncLoadouts()
 end
 
 function ItemsTabClass:Save(xml)
@@ -1292,6 +1291,7 @@ function ItemsTabClass:SetActiveItemSet(itemSetId)
 	end
 	self.build.buildFlag = true
 	self:PopulateSlots()
+	self.build:SyncLoadouts()
 end
 
 -- Equips the given item in the given item set

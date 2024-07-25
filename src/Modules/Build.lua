@@ -319,20 +319,32 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			return nil
 		end
 
+		local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
+		local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
+		local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
+
 		local newSpecId = findNamedSetId(self.treeTab:GetSpecList(), value, self.treeListSpecialLinks)
-		local newItemId = findSetId(self.itemsTab.itemSetOrderList, value, self.itemsTab.itemSets, self.itemListSpecialLinks)
-		local newSkillId = findSetId(self.skillsTab.skillSetOrderList, value, self.skillsTab.skillSets, self.skillListSpecialLinks)
-		local newConfigId = findSetId(self.configTab.configSetOrderList, value, self.configTab.configSets, self.configListSpecialLinks)
+		local newItemId = oneItem and 1 or findSetId(self.itemsTab.itemSetOrderList, value, self.itemsTab.itemSets, self.itemListSpecialLinks)
+		local newSkillId = oneSkill and 1 or findSetId(self.skillsTab.skillSetOrderList, value, self.skillsTab.skillSets, self.skillListSpecialLinks)
+		local newConfigId = oneConfig and 1 or findSetId(self.configTab.configSetOrderList, value, self.configTab.configSets, self.configListSpecialLinks)
 
 		-- if exact match nor special grouping cannot find setIds, bail
 		if newSpecId == nil or newItemId == nil or newSkillId == nil or newConfigId == nil then
 			return
 		end
 
-		self.treeTab:SetActiveSpec(newSpecId)
-		self.itemsTab:SetActiveItemSet(newItemId)
-		self.skillsTab:SetActiveSkillSet(newSkillId)
-		self.configTab:SetActiveConfigSet(newConfigId)
+		if newSpecId ~= self.treeTab.activeSpec then
+			self.treeTab:SetActiveSpec(newSpecId)
+		end
+		if newItemId ~= self.itemsTab.activeItemSetId then
+			self.itemsTab:SetActiveItemSet(newItemId)
+		end
+		if newSkillId ~= self.skillsTab.activeSkillSetId then
+			self.skillsTab:SetActiveSkillSet(newSkillId)
+		end
+		if newConfigId ~= self.configTab.activeConfigSetId then
+			self.configTab:SetActiveConfigSet(newConfigId)
+		end
 
 		self.controls.buildLoadouts:SelByValue(value)
 	end)
@@ -891,7 +903,7 @@ local function actExtra(act, extra)
 	return act > 2 and extra or 0
 end
 
-function buildMode:SyncLoadouts(reset)
+function buildMode:SyncLoadouts()
 	self.controls.buildLoadouts.list = {"No Loadouts"}
 
 	local filteredList = {"^7^7Loadouts:"}
@@ -901,6 +913,10 @@ function buildMode:SyncLoadouts(reset)
 	local configList = {}
 	-- used when clicking on the dropdown to set the correct setId for each SetActiveSet()
 	self.treeListSpecialLinks, self.itemListSpecialLinks, self.skillListSpecialLinks, self.configListSpecialLinks = {}, {}, {}, {}
+
+	local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
+	local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
+	local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
 
 	if self.treeTab ~= nil and self.itemsTab ~= nil and self.skillsTab ~= nil and self.configTab ~= nil then
 		local transferTable = {}
@@ -934,7 +950,6 @@ function buildMode:SyncLoadouts(reset)
 
 		-- item, skill, and config sets have identical structure
 		local function identifyLinks(setOrderList, tabSets, setList, specialLinks, treeLinks)
-			local assignAll = #setOrderList == 1
 			for id, set in ipairs(setOrderList) do
 				local setTitle = tabSets[set].title or "Default"
 				local linkIdentifier = string.match(setTitle, "%{([%w,]+)%}")
@@ -954,16 +969,7 @@ function buildMode:SyncLoadouts(reset)
 						transferTable = {}
 					end
 				else
-					if assignAll then
-						for linkId, _ in pairs(treeLinks) do
-							transferTable["setId"] = set
-							transferTable["setName"] = setTitle
-							specialLinks[linkId] = transferTable
-							transferTable = {}
-						end
-					else
-						t_insert(setList, setTitle)
-					end
+					setList[setTitle] = true
 				end
 			end
 		end
@@ -973,20 +979,14 @@ function buildMode:SyncLoadouts(reset)
 
 		-- loop over all for exact match loadouts
 		for id, tree in ipairs(treeList) do
-			for id, skill in ipairs(skillList) do
-				for id, item in ipairs(itemList) do
-					for id, config in ipairs(configList) do
-						if (tree == skill and tree == item and tree == config) then
-							t_insert(filteredList, tree)
-						end
-					end
-				end
+			if (oneItem or itemList[tree]) and (oneSkill or skillList[tree]) and (oneConfig or configList[tree]) then
+				t_insert(filteredList, tree)
 			end
 		end
 		-- loop over the identifiers found within braces and set the loadout name to the TreeSet
 		for _, tree in ipairs(sortedTreeListSpecialLinks) do
 			local treeLinkId = tree.linkId
-			if (self.itemListSpecialLinks[treeLinkId] and self.skillListSpecialLinks[treeLinkId] and self.configListSpecialLinks[treeLinkId]) then
+			if ((oneItem or self.itemListSpecialLinks[treeLinkId]) and (oneSkill or self.skillListSpecialLinks[treeLinkId]) and (oneConfig or self.configListSpecialLinks[treeLinkId])) then
 				t_insert(filteredList, tree.setName .." {"..treeLinkId.."}")
 			end
 		end
@@ -1002,24 +1002,23 @@ function buildMode:SyncLoadouts(reset)
 		self.controls.buildLoadouts.list = filteredList
 	end
 
-	if reset then
-		self.controls.buildLoadouts:SetSel(1)
-    else
-		-- Try to select loadout in dropdown based on currently selected tree
+	-- Try to select loadout in dropdown based on currently selected tree
+	if self.treeTab then
 		local treeName = self.treeTab.specList[self.treeTab.activeSpec].title or "Default"
 		for i, loadout in ipairs(filteredList) do
 			if loadout == treeName then
-				local linkMatch = string.match(treeName, "%{(%w+)%}")
+				local linkMatch = string.match(treeName, "%{(%w+)%}") or treeName
 				if linkMatch then
 					local skillName = self.skillsTab.skillSets[self.skillsTab.activeSkillSetId].title or "Default"
-					local skillMatch = #self.skillsTab.skillSetOrderList == 1 or skillName:find(linkMatch)
+					local skillMatch = oneSkill or skillName:find(linkMatch)
 					local itemName = self.itemsTab.itemSets[self.itemsTab.activeItemSetId].title or "Default"
-					local itemMatch = #self.itemsTab.itemSetOrderList == 1 or itemName:find(linkMatch)
+					local itemMatch = oneItem or itemName:find(linkMatch)
 					local configName = self.configTab.configSets[self.configTab.activeConfigSetId].title or "Default"
-					local configMatch = #self.configTab.configSetOrderList == 1 or configName:find(linkMatch)
+					local configMatch = oneConfig or configName:find(linkMatch)
 
 					if skillMatch and itemMatch and configMatch then
 						self.controls.buildLoadouts:SetSel(i)
+						return treeList, itemList, skillList, configList
 					end
 				end
 				break
@@ -1027,6 +1026,7 @@ function buildMode:SyncLoadouts(reset)
 		end
 	end
 
+	self.controls.buildLoadouts:SetSel(1)
 	return treeList, itemList, skillList, configList
 end
 

@@ -417,7 +417,6 @@ function TreeTabClass:Load(xml, dbFileName)
 		self.specList[1] = new("PassiveSpec", self.build, latestTreeVersion)
 	end
 	self:SetActiveSpec(tonumber(xml.attrib.activeSpec) or 1)
-	self.build:SyncLoadouts()
 end
 
 function TreeTabClass:PostLoad()
@@ -473,9 +472,7 @@ function TreeTabClass:SetActiveSpec(specId)
 	if self.controls.versionSelect then
 		self.controls.versionSelect:SelByValue(curSpec.treeVersion, 'value')
 	end
-
-	-- set the loadout option to the dummy option since it is now dirty
-	self.build.controls.buildLoadouts:SetSel(1)
+	self.build:SyncLoadouts()
 end
 
 function TreeTabClass:SetCompareSpec(specId)
@@ -508,8 +505,6 @@ function TreeTabClass:ConvertToVersion(version, remove, success, ignoreRuthlessC
 	if success then
 		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[version].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
 	end
-	-- on convert, check the names of the sets in case there's a match now
-	self.build:SyncLoadouts()
 end
 
 function TreeTabClass:ConvertAllToVersion(version)
