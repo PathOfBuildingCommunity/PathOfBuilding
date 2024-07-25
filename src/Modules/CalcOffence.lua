@@ -3535,6 +3535,12 @@ function calcs.offence(env, actor, activeSkill)
 		output.LifeLeechRate = 0
 		output.LifeLeechPerHit = 0
 	end
+	-- Disable non-instant life leech
+	if skillModList:Flag(nil, "UnaffectedByNonInstantLifeLeech") then
+		output.LifeLeechRate = 0
+		output.LifeLeechPerHit = 0
+		output.LifeLeechInstances = 0
+	end
 	output.LifeLeechRate = output.LifeLeechInstantRate + m_min(output.LifeLeechRate, output.MaxLifeLeechRate) * output.LifeRecoveryRateMod
 	output.LifeLeechPerHit = output.LifeLeechInstant + m_min(output.LifeLeechPerHit, output.MaxLifeLeechRate) * output.LifeLeechDuration * output.LifeRecoveryRateMod
 	output.EnergyShieldLeechRate = output.EnergyShieldLeechInstantRate + m_min(output.EnergyShieldLeechRate, output.MaxEnergyShieldLeechRate) * output.EnergyShieldRecoveryRateMod
