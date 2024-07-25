@@ -3611,7 +3611,7 @@ function calcs.offence(env, actor, activeSkill)
 		if not skillFlags.hit then
 			output.ImpaleChanceOnCrit = 0
 		else
-			output.ImpaleChanceOnCrit = m_min(100, skillModList:Sum("BASE", cfg, "ImpaleChance"))
+			output.ImpaleChanceOnCrit = env.mode_effective and m_min(100, skillModList:Sum("BASE", cfg, "ImpaleChance")) or 0
 		end
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotKnockback") then
 			output.KnockbackChanceOnCrit = 0
@@ -3662,7 +3662,7 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.KnockbackChanceOnHit = skillModList:Sum("BASE", cfg, "EnemyKnockbackChance")
 		end
-		output.ImpaleChance = m_min(100, skillModList:Sum("BASE", cfg, "ImpaleChance"))
+		output.ImpaleChance = env.mode_effective and m_min(100, skillModList:Sum("BASE", cfg, "ImpaleChance")) or 0
 		if skillModList:Sum("BASE", cfg, "FireExposureChance") > 0 then
 			skillFlags.applyFireExposure = true
 		end
