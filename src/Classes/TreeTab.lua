@@ -162,7 +162,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.viewer.searchStr = buf
 		self.searchFlag = buf ~= self.viewer.searchStrSaved
 	end, nil, nil, true)
-	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
+	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches\nPrefix your search with \"oil:\" to search by anoint recipe"
 
 	self.tradeLeaguesList = { }
 	-- Find Timeless Jewel Button
