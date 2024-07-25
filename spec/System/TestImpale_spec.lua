@@ -26,7 +26,7 @@ describe("TestAttacks", function()
 		assert.are.equals(100, build.calcsTab.mainOutput.MainHand.ImpaleChanceOnCrit)
 		assert.are.equals(200, build.calcsTab.mainOutput.MainHand.PhysicalHitAverage)
 		assert.are.equals(200, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
-		assert.are.equals(200, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.equals(200, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		assert.are.equals(100*1.3, build.calcsTab.mainOutput.ImpaleDPS) -- 5 impales * 10% stored damage * 1.3 attacks per second
 
 		-- 50% crit
@@ -41,7 +41,7 @@ describe("TestAttacks", function()
 		assert.are.equals(200, build.calcsTab.mainOutput.MainHand.PhysicalHitAverage)
 		assert.are.equals(300, build.calcsTab.mainOutput.MainHand.PhysicalCritAverage)
 		assert.are.equals(250, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
-		assert.are.equals(250, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.equals(250, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		assert.are.equals(125*1.3, build.calcsTab.mainOutput.ImpaleDPS) -- 5 impales * 10% stored damage * 1.3 attacks per second
 
 		-- 100% crit
@@ -54,7 +54,7 @@ describe("TestAttacks", function()
 		runCallback("OnFrame")
 
 		assert.are.equals(300, build.calcsTab.mainOutput.MainHand.PhysicalCritAverage)
-		assert.are.equals(300, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.equals(300, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		assert.are.equals(150*1.3, build.calcsTab.mainOutput.ImpaleDPS) -- 5 impales * 10% stored damage * 1.3 attacks per second
 	end)
 
@@ -71,7 +71,7 @@ describe("TestAttacks", function()
 
 		assert.are.equals(400, build.calcsTab.mainOutput.MainHand.PhysicalHitAverage)
 		assert.are.equals(200, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
-		assert.are.equals(200, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.equals(200, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		assert.are.equals(200*1.3, build.calcsTab.mainOutput.ImpaleDPS) -- 5 impales * 10% stored damage * 1.3 attacks per second
 
 		-- 50% crit
@@ -87,7 +87,7 @@ describe("TestAttacks", function()
 		assert.are.equals(400, build.calcsTab.mainOutput.MainHand.PhysicalHitAverage)
 		assert.are.equals(600, build.calcsTab.mainOutput.MainHand.PhysicalCritAverage)
 		assert.are.equals(250, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
-		assert.are.equals(250, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.equals(250, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		assert.are.equals(250*1.3, build.calcsTab.mainOutput.ImpaleDPS) -- 5 impales * 10% stored damage * 1.3 attacks per second
 
 		-- 100% crit
@@ -103,7 +103,7 @@ describe("TestAttacks", function()
 		assert.are.equals(400, build.calcsTab.mainOutput.MainHand.PhysicalHitAverage)
 		assert.are.equals(600, build.calcsTab.mainOutput.MainHand.PhysicalCritAverage)
 		assert.are.equals(300, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
-		assert.are.equals(300, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.equals(300, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		assert.are.equals(300*1.3, build.calcsTab.mainOutput.ImpaleDPS) -- 5 impales * 10% stored damage * 1.3 attacks per second
 	end)
 
@@ -120,7 +120,7 @@ describe("TestAttacks", function()
 		-- dam * (1 - (armourDR + additionalDR)
 		assert.are.equals(200 * (1 - (0.5 + 0.1)), build.calcsTab.mainOutput.MainHand.PhysicalHitAverage)
 		assert.are.equals(200, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
-		assert.are.equals(200, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.equals(200, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		-- [5 impales * 10% stored damage] * 1.3 attacks * (armour mod - phys DR)
 		assert.are.near(100 * 1.3 * (1 - (2/3 + 0.1)), build.calcsTab.mainOutput.ImpaleDPS, 0.0000001) -- floating point math
 
@@ -137,7 +137,7 @@ describe("TestAttacks", function()
 		-- dam * (1 - (armourDR + additionalDR)
 		assert.are.equals(300 * (1 - (0.5 + 0.1)), build.calcsTab.mainOutput.MainHand.PhysicalCritAverage)
 		assert.are.equals(300, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
-		assert.are.equals(300, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.equals(300, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		-- [5 impales * 10% stored damage] * 1.3 attacks * (armour mod - phys DR)
 		assert.are.near(150 * 1.3 * (1 - (2/3 + 0.1)), build.calcsTab.mainOutput.ImpaleDPS, 0.0000001) -- floating point math
 
@@ -157,7 +157,7 @@ describe("TestAttacks", function()
 		-- taken * dam * (1 - (armourDR + additionalDR)
 		assert.are.equals(2 * 200 * (1 - (0.5 + 0.1)), build.calcsTab.mainOutput.MainHand.PhysicalHitAverage)
 		assert.are.equals(200, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
-		assert.are.equals(200, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.equals(200, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		-- taken * [5 impales * 10% stored damage] * 1.3 attacks * (armour mod - phys DR)
 		assert.are.near(2 * 100 * 1.3 * (1 - (2/3 + 0.1)), build.calcsTab.mainOutput.ImpaleDPS, 0.0000001) -- floating point math
 
@@ -175,7 +175,7 @@ describe("TestAttacks", function()
 		-- taken * dam * (1 - (armourDR + additionalDR)
 		assert.are.equals(2 * 300 * (1 - (0.5 + 0.1)), build.calcsTab.mainOutput.MainHand.PhysicalCritAverage)
 		assert.are.equals(300, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
-		assert.are.equals(300, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.equals(300, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		-- taken * [5 impales * 10% stored damage] * 1.3 attacks * (armour mod - phys DR)
 		assert.are.near(2 * 150 * 1.3 * (1 - (2/3 + 0.1)), build.calcsTab.mainOutput.ImpaleDPS, 0.0000001) -- floating point math
 
@@ -212,7 +212,7 @@ describe("TestAttacks", function()
 		assert.are.equals(100, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
 		assert.are.equals(200, build.calcsTab.mainOutput.OffHand.impaleStoredHitAvg)
 
-		assert.are.equals(150, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.equals(150, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		-- 5 impales * 10% stored damage * 1.3 attacks per second * 1.1 dual wield modifier
 		assert.are.near(75*1.3*1.1, build.calcsTab.mainOutput.ImpaleDPS, 0.0000001)
 
@@ -229,7 +229,7 @@ describe("TestAttacks", function()
 		assert.are.equals(125, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
 		assert.are.equals(250, build.calcsTab.mainOutput.OffHand.impaleStoredHitAvg)
 
-		assert.are.equals(187.5, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.equals(187.5, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		-- 5 impales * 10% stored damage * 1.3 attacks per second * 1.1 dual wield modifier
 		assert.are.near(187.5/2*1.3*1.1, build.calcsTab.mainOutput.ImpaleDPS, 0.0000001)
 
@@ -246,7 +246,7 @@ describe("TestAttacks", function()
 		assert.are.equals(150, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
 		assert.are.equals(300, build.calcsTab.mainOutput.OffHand.impaleStoredHitAvg)
 
-		assert.are.equals(225, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.equals(225, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		-- 5 impales * 10% stored damage * 1.3 attacks per second * 1.1 dual wield modifier
 		assert.are.near(225/2*1.3*1.1, build.calcsTab.mainOutput.ImpaleDPS, 0.0000001)
 
@@ -265,7 +265,7 @@ describe("TestAttacks", function()
 
 		assert.are.equals(200, build.calcsTab.mainOutput.MainHand.PhysicalHitAverage)
 		assert.are.equals(200, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
-		assert.are.equals(200, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.equals(200, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		assert.are.near(100*1.3*1.5, build.calcsTab.mainOutput.ImpaleDPS, 0.00000001) -- 5 impales * 10% stored damage * 1.3 attacks per second * 1.5 impale effect
 
 		-- last 1 extra hit
@@ -280,7 +280,7 @@ describe("TestAttacks", function()
 
 		assert.are.equals(200, build.calcsTab.mainOutput.MainHand.PhysicalHitAverage)
 		assert.are.equals(200, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
-		assert.are.equals(200, build.calcsTab.mainOutput.ImpaleHit)
+		assert.are.equals(200, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		assert.are.near(120*1.3, build.calcsTab.mainOutput.ImpaleDPS, 0.0000001) -- 6 impales * 10% stored damage * 1.3 attacks per second
 	end)
 
