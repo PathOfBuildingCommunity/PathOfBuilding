@@ -1968,6 +1968,9 @@ skills["AncestralSlamSupport"] = {
 		["support_ancestral_slam_big_hit_hit_damage_+%_final"] = {
 			mod("FistOfWarDamageMultiplier", "BASE", nil),
 		},
+		["support_ancestral_slam_big_hit_area_+%"] = {
+			mod("FistOfWarIncAoE", "BASE", nil),
+		},
 		["ancestral_slam_interval_duration"] = {
 			mod("FistOfWarCooldown", "BASE", nil),
 			div = 1000,

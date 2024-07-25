@@ -125,7 +125,7 @@ Loadouts can be selected from the dropdown in the top middle of the screen. Sele
         - The name of the Loadout in the dropdown is based on the name of the Tree Set, identifiers are shown for clarity when using sets multiple times
         - These sets can have differing colour formatting so long as the identifier texts match
 
-    3) There is only one set for a type, e.g. "Default" config set, it will be assigned too all existing loadouts.
+    3) If there is only one set for a set type (except passive tree), e.g. "Default" config set, it will be assigned to all existing loadouts.
 
 The "New Loadout" option allows the user to create all four sets from a single popup for convenience.
 The "Sync" option is a backup option to force the UI to update in case the user has changed this data behind the scenes.
@@ -180,3 +180,14 @@ If you wish to add more items, you can copy and paste items using CTRL+C (from t
 The item sets section located at the top of the screen can be used to save multiple sets of items and easily switch between them. You can add, remove, rename, and copy new sets using the "Manage..." button.
 
 If you want to search for item upgrades, you can use the "Trade for these items" button to quickly search for items that can improve your gear.
+
+---[Similar Builds Popup]
+
+The Similar Builds Popup allows you to search for builds similar to your current character.
+
+To access the Similar Builds Popup, click on the "Similar Builds" button located at the top of the screen.
+
+It will fetch the builds most similar to your character and sort them by the latest league and match score.
+
+For best results, make sure to select your main item set, tree, and skills before opening the popup.
+If you are using leveling gear/tree, it will match with other leveling builds.

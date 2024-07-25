@@ -144,12 +144,16 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	-- Tree Version Dropdown
 	self.treeVersions = { }
 	for _, num in ipairs(treeVersionList) do
-		t_insert(self.treeVersions, treeVersions[num].display)
+		local value = {
+			label = treeVersions[num].display,
+			value = num
+		}
+		t_insert(self.treeVersions, value)
 	end
 	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.reset, "RIGHT" }, 8, 0, 0, 16, "Version:")
-	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 100, 20, self.treeVersions, function(index, value)
-		if value ~= self.build.spec.treeVersion then
-			self:OpenVersionConvertPopup(value:gsub("[%(%)]", ""):gsub("[%.%s]", "_"), true)
+	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 100, 20, self.treeVersions, function(index, selected)
+		if selected.value ~= self.build.spec.treeVersion then
+			self:OpenVersionConvertPopup(selected.value, true)
 		end
 	end)
 	self.controls.versionSelect.maxDroppedWidth = 1000
@@ -162,7 +166,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.viewer.searchStr = buf
 		self.searchFlag = buf ~= self.viewer.searchStrSaved
 	end, nil, nil, true)
-	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
+	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches\nPrefix your search with \"oil:\" to search by anoint recipe"
 
 	self.tradeLeaguesList = { }
 	-- Find Timeless Jewel Button
@@ -413,7 +417,6 @@ function TreeTabClass:Load(xml, dbFileName)
 		self.specList[1] = new("PassiveSpec", self.build, latestTreeVersion)
 	end
 	self:SetActiveSpec(tonumber(xml.attrib.activeSpec) or 1)
-	self.build:SyncLoadouts()
 end
 
 function TreeTabClass:PostLoad()
@@ -467,11 +470,9 @@ function TreeTabClass:SetActiveSpec(specId)
 	self.build.itemsTab.controls.specSelect.selIndex = specId
 	-- Update Version dropdown to active spec's
 	if self.controls.versionSelect then
-		self.controls.versionSelect:SelByValue(curSpec.treeVersion:gsub("%_", "."):gsub(".ruthless", " (ruthless)"))
+		self.controls.versionSelect:SelByValue(curSpec.treeVersion, 'value')
 	end
-
-	-- set the loadout option to the dummy option since it is now dirty
-	self.build.controls.buildLoadouts:SetSel(1)
+	self.build:SyncLoadouts()
 end
 
 function TreeTabClass:SetCompareSpec(specId)
@@ -504,8 +505,6 @@ function TreeTabClass:ConvertToVersion(version, remove, success, ignoreRuthlessC
 	if success then
 		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[version].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
 	end
-	-- on convert, check the names of the sets in case there's a match now
-	self.build:SyncLoadouts()
 end
 
 function TreeTabClass:ConvertAllToVersion(version)
@@ -556,6 +555,7 @@ function TreeTabClass:OpenVersionConvertPopup(version, ignoreRuthlessCheck)
 		main:ClosePopup()
 	end)
 	controls.cancel = new("ButtonControl", nil, 125, 105, 100, 20, "Cancel", function()
+		self.controls.versionSelect:SelByValue(self.build.spec.treeVersion, 'value')
 		main:ClosePopup()
 	end)
 	main:OpenPopup(570, 140, "Convert to Version "..treeVersions[version].display, controls, "convert", "edit")

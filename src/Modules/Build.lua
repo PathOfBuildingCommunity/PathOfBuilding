@@ -23,9 +23,10 @@ local function InsertIfNew(t, val)
 	table.insert(t, val)
 end
 
-function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
+function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLink)
 	self.dbFileName = dbFileName
 	self.buildName = buildName
+	self.importLink = importLink
 	if dbFileName then
 		self.dbFileSubPath = self.dbFileName:sub(#main.buildPath + 1, -#self.buildName - 5)
 	else
@@ -319,23 +320,44 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			return nil
 		end
 
+		local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
+		local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
+		local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
+
 		local newSpecId = findNamedSetId(self.treeTab:GetSpecList(), value, self.treeListSpecialLinks)
-		local newItemId = findSetId(self.itemsTab.itemSetOrderList, value, self.itemsTab.itemSets, self.itemListSpecialLinks)
-		local newSkillId = findSetId(self.skillsTab.skillSetOrderList, value, self.skillsTab.skillSets, self.skillListSpecialLinks)
-		local newConfigId = findSetId(self.configTab.configSetOrderList, value, self.configTab.configSets, self.configListSpecialLinks)
+		local newItemId = oneItem and 1 or findSetId(self.itemsTab.itemSetOrderList, value, self.itemsTab.itemSets, self.itemListSpecialLinks)
+		local newSkillId = oneSkill and 1 or findSetId(self.skillsTab.skillSetOrderList, value, self.skillsTab.skillSets, self.skillListSpecialLinks)
+		local newConfigId = oneConfig and 1 or findSetId(self.configTab.configSetOrderList, value, self.configTab.configSets, self.configListSpecialLinks)
 
 		-- if exact match nor special grouping cannot find setIds, bail
 		if newSpecId == nil or newItemId == nil or newSkillId == nil or newConfigId == nil then
 			return
 		end
 
-		self.treeTab:SetActiveSpec(newSpecId)
-		self.itemsTab:SetActiveItemSet(newItemId)
-		self.skillsTab:SetActiveSkillSet(newSkillId)
-		self.configTab:SetActiveConfigSet(newConfigId)
+		if newSpecId ~= self.treeTab.activeSpec then
+			self.treeTab:SetActiveSpec(newSpecId)
+		end
+		if newItemId ~= self.itemsTab.activeItemSetId then
+			self.itemsTab:SetActiveItemSet(newItemId)
+		end
+		if newSkillId ~= self.skillsTab.activeSkillSetId then
+			self.skillsTab:SetActiveSkillSet(newSkillId)
+		end
+		if newConfigId ~= self.configTab.activeConfigSetId then
+			self.configTab:SetActiveConfigSet(newConfigId)
+		end
 
 		self.controls.buildLoadouts:SelByValue(value)
 	end)
+
+	self.controls.similarBuilds = new("ButtonControl", {"LEFT",self.controls.buildLoadouts,"RIGHT"}, 8, 0, 100, 20, "Similar Builds", function()
+		self:OpenSimilarPopup()
+	end)
+	self.controls.similarBuilds.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "Search for builds similar to your current character.")
+		tooltip:AddLine(16, "For best results, make sure to select your main item set, tree, and skills before opening the popup.")
+	end
 
 	-- List of display stats
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
@@ -891,7 +913,7 @@ local function actExtra(act, extra)
 	return act > 2 and extra or 0
 end
 
-function buildMode:SyncLoadouts(reset)
+function buildMode:SyncLoadouts()
 	self.controls.buildLoadouts.list = {"No Loadouts"}
 
 	local filteredList = {"^7^7Loadouts:"}
@@ -901,6 +923,10 @@ function buildMode:SyncLoadouts(reset)
 	local configList = {}
 	-- used when clicking on the dropdown to set the correct setId for each SetActiveSet()
 	self.treeListSpecialLinks, self.itemListSpecialLinks, self.skillListSpecialLinks, self.configListSpecialLinks = {}, {}, {}, {}
+
+	local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
+	local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
+	local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
 
 	if self.treeTab ~= nil and self.itemsTab ~= nil and self.skillsTab ~= nil and self.configTab ~= nil then
 		local transferTable = {}
@@ -934,7 +960,6 @@ function buildMode:SyncLoadouts(reset)
 
 		-- item, skill, and config sets have identical structure
 		local function identifyLinks(setOrderList, tabSets, setList, specialLinks, treeLinks)
-			local assignAll = #setOrderList == 1
 			for id, set in ipairs(setOrderList) do
 				local setTitle = tabSets[set].title or "Default"
 				local linkIdentifier = string.match(setTitle, "%{([%w,]+)%}")
@@ -954,16 +979,7 @@ function buildMode:SyncLoadouts(reset)
 						transferTable = {}
 					end
 				else
-					if assignAll then
-						for linkId, _ in pairs(treeLinks) do
-							transferTable["setId"] = set
-							transferTable["setName"] = setTitle
-							specialLinks[linkId] = transferTable
-							transferTable = {}
-						end
-					else
-						t_insert(setList, setTitle)
-					end
+					setList[setTitle] = true
 				end
 			end
 		end
@@ -973,20 +989,14 @@ function buildMode:SyncLoadouts(reset)
 
 		-- loop over all for exact match loadouts
 		for id, tree in ipairs(treeList) do
-			for id, skill in ipairs(skillList) do
-				for id, item in ipairs(itemList) do
-					for id, config in ipairs(configList) do
-						if (tree == skill and tree == item and tree == config) then
-							t_insert(filteredList, tree)
-						end
-					end
-				end
+			if (oneItem or itemList[tree]) and (oneSkill or skillList[tree]) and (oneConfig or configList[tree]) then
+				t_insert(filteredList, tree)
 			end
 		end
 		-- loop over the identifiers found within braces and set the loadout name to the TreeSet
 		for _, tree in ipairs(sortedTreeListSpecialLinks) do
 			local treeLinkId = tree.linkId
-			if (self.itemListSpecialLinks[treeLinkId] and self.skillListSpecialLinks[treeLinkId] and self.configListSpecialLinks[treeLinkId]) then
+			if ((oneItem or self.itemListSpecialLinks[treeLinkId]) and (oneSkill or self.skillListSpecialLinks[treeLinkId]) and (oneConfig or self.configListSpecialLinks[treeLinkId])) then
 				t_insert(filteredList, tree.setName .." {"..treeLinkId.."}")
 			end
 		end
@@ -1002,24 +1012,23 @@ function buildMode:SyncLoadouts(reset)
 		self.controls.buildLoadouts.list = filteredList
 	end
 
-	if reset then
-		self.controls.buildLoadouts:SetSel(1)
-    else
-		-- Try to select loadout in dropdown based on currently selected tree
+	-- Try to select loadout in dropdown based on currently selected tree
+	if self.treeTab then
 		local treeName = self.treeTab.specList[self.treeTab.activeSpec].title or "Default"
 		for i, loadout in ipairs(filteredList) do
 			if loadout == treeName then
-				local linkMatch = string.match(treeName, "%{(%w+)%}")
+				local linkMatch = string.match(treeName, "%{(%w+)%}") or treeName
 				if linkMatch then
 					local skillName = self.skillsTab.skillSets[self.skillsTab.activeSkillSetId].title or "Default"
-					local skillMatch = #self.skillsTab.skillSetOrderList == 1 or skillName:find(linkMatch)
+					local skillMatch = oneSkill or skillName:find(linkMatch)
 					local itemName = self.itemsTab.itemSets[self.itemsTab.activeItemSetId].title or "Default"
-					local itemMatch = #self.itemsTab.itemSetOrderList == 1 or itemName:find(linkMatch)
+					local itemMatch = oneItem or itemName:find(linkMatch)
 					local configName = self.configTab.configSets[self.configTab.activeConfigSetId].title or "Default"
-					local configMatch = #self.configTab.configSetOrderList == 1 or configName:find(linkMatch)
+					local configMatch = oneConfig or configName:find(linkMatch)
 
 					if skillMatch and itemMatch and configMatch then
 						self.controls.buildLoadouts:SetSel(i)
+						return treeList, itemList, skillList, configList
 					end
 				end
 				break
@@ -1027,6 +1036,7 @@ function buildMode:SyncLoadouts(reset)
 		end
 	end
 
+	self.controls.buildLoadouts:SetSel(1)
 	return treeList, itemList, skillList, configList
 end
 
@@ -1439,7 +1449,8 @@ function buildMode:OpenSaveAsPopup()
 		end
 	end
 	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter new build name:")
-	controls.edit = new("EditControl", nil, 0, 40, 450, 20, self.dbFileName and self.buildName, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
+	controls.edit = new("EditControl", nil, 0, 40, 450, 20,
+	(self.buildName or self.dbFileName):gsub("[\\/:%*%?\"<>|%c]", "-"), nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 		updateBuildName()
 	end)
 	controls.folderLabel = new("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 70, 0, 16, "^7Folder:")
@@ -1461,11 +1472,18 @@ function buildMode:OpenSaveAsPopup()
 		self:SaveDBFile()
 		self.spec:SetWindowTitleWithBuildClass()
 	end)
-	controls.save.enabled = false
 	controls.close = new("ButtonControl", nil, 45, 225, 80, 20, "Cancel", function()
 		main:ClosePopup()
 		self.actionOnSave = nil
 	end)
+
+	if self.dbFileName or self.buildName then
+		controls.save.enabled = self.dbFileName or self.buildName
+		updateBuildName()
+	else
+		controls.save.enabled = false
+	end
+
 	main:OpenPopup(470, 255, self.dbFileName and "Save As" or "Save", controls, "save", "edit", "close")
 end
 
@@ -1498,6 +1516,47 @@ function buildMode:OpenSpectreLibrary()
 	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 24, 2, 0, 16, "Spectres in your Library must be assigned to an active")
 	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 20, 18, 0, 16, "Raise Spectre gem for their buffs and curses to activate")
 	main:OpenPopup(410, 360, "Spectre Library", controls)
+end
+
+function buildMode:OpenSimilarPopup()
+	local controls = { }
+	-- local width, height = self:GetSize()
+	local buildProviders = {
+		{
+			name = "PoB Archives",
+			impl = new("PoBArchivesProvider", "similar")
+		}
+	}
+	local width = 600
+	local height = function()
+		return main.screenH * 0.8
+	end
+	local padding = 50
+	controls.similarBuildList = new("ExtBuildListControl", nil, 0, padding, width, height() - 2 * padding, buildProviders)
+	controls.similarBuildList.shown = true
+	controls.similarBuildList.height = function()
+		return height() - 2 * padding
+	end
+	controls.similarBuildList.width = function ()
+		return width - padding
+	end
+	controls.similarBuildList:SetImportCode(common.base64.encode(Deflate(self:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
+	controls.similarBuildList:Init("PoB Archives")
+
+	-- controls.similarBuildList.shown = not controls.similarBuildList:IsShown()
+
+	controls.close = new("ButtonControl", nil, 0, height() - (padding + 20) / 2, 80, 20, "Close", function()
+		main:ClosePopup()
+	end)
+	-- used in PopupDialog to dynamically size the popup
+	local function resizeFunc()
+		main.popups[1].height = height()
+		main.popups[1].y = function()
+			return m_floor((main.screenH - height()) / 2)
+		end
+		controls.close.y = height() - 35
+	end
+	main:OpenPopup(width, height(), "Similar Builds", controls, nil, nil, nil, nil, resizeFunc)
 end
 
 -- Refresh the set of controls used to select main group/skill/minion
@@ -1906,6 +1965,16 @@ function buildMode:LoadDB(xmlText, fileName)
 	for _, node in ipairs(dbXML[1]) do
 		if type(node) == "table" and node.elem == "Build" then
 			self:Load(node, self.dbFileName)
+			break
+		end
+	end
+
+	-- Check if xml has an import link
+	for _, node in ipairs(dbXML[1]) do
+		if type(node) == "table" and node.elem == "Import" then
+			if node.attrib.importLink and not self.importLink then
+				self.importLink = node.attrib.importLink
+			end
 			break
 		end
 	end

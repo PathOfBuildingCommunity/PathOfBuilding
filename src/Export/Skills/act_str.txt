@@ -334,7 +334,7 @@ local skills, mod, flag, skill = ...
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["chain_strike_cone_radius_+_per_x_rage"] = {
-			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "Rage", div = 5 }),
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "RageEffect", div = 5 }),
 			div = 5,
 		},
 		["quality_display_chain_hook_is_gem"] = {
@@ -403,13 +403,14 @@ local skills, mod, flag, skill = ...
 #flags spell area duration aura banner
 	statMap = {
 		["defiance_banner_movement_speed"] = {
-			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["suppress_spell_damage"] = {
-			mod("SpellSuppressionChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("SpellSuppressionChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #baseMod skill("radius", 24
+#baseMod mod("AuraEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BannerPlanted", neg = true })
 #baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
@@ -470,13 +471,14 @@ local skills, mod, flag, skill = ...
 #flags spell
 	statMap = {
 		["puresteel_banner_accuracy_rating_+%_final"] = {
-			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["attacks_impale_on_hit_%_chance"] = {
-			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }),
+			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #baseMod skill("radius", 24)
+#baseMod mod("AuraEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BannerPlanted", neg = true })
 #baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
@@ -694,7 +696,7 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDamageTaken", "MORE", nil, ModFlag.Hit, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectCond = "BloodStance" }),
 		},
 		["attack_damage_taken_+%_final_from_enemies_unaffected_by_sand_armour"] = {
-			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura", effectCond = "SandStance" }),
+			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SandStance" }),
 		},
 	},
 #baseMod skill("radius", 28)
@@ -1446,7 +1448,7 @@ local skills, mod, flag, skill = ...
 
 #skill RageVortex
 #flags attack melee area duration
-	preDamageFunc = function(activeSkill, output)
+	preSkillTypeFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
 			local maxRage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "MaximumRage")
 			local rageVortexSacrificePercentage = activeSkill.skillData.MaxRageVortexSacrificePercentage / 100
@@ -1466,17 +1468,16 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["rage_slash_radius_+_per_amount_of_rage_sacrificed"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "RageSacrificed" }),
-			div = 2
-		},
-		["rage_slash_rage_sacrifice_per_radius_bonus"] = {
-			-- Display only
-		},
-		["rage_slash_rage_sacrifice_per_damage_bonus"] = {
-			-- Display only
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "RageSacrificed", divVar = "RagePerRadius" }),
 		},
 		["rage_slash_damage_+%_final_per_amount_of_rage_sacrificed"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RageSacrificed" }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RageSacrificed", divVar = "RagePerDamage" }),
+		},
+		["rage_slash_rage_sacrifice_per_radius_bonus"] = {
+			mod("Multiplier:RagePerRadius", "BASE", nil),
+		},
+		["rage_slash_rage_sacrifice_per_damage_bonus"] = {
+			mod("Multiplier:RagePerDamage", "BASE", nil),
 		},
 		["rage_slash_vortex_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
@@ -2053,5 +2054,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 24)
+#baseMod mod("AuraEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BannerPlanted", neg = true })
 #baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
