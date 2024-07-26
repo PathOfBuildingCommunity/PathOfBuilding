@@ -59,7 +59,7 @@ end
 
 function GGPKClass:ExtractFiles()
 	local datList, txtList, itList = self:GetNeededFiles()
-	
+	local sweetSpotCharacter = 6000
 	local fileList = ''
 	for _, fname in ipairs(datList) do
 		if USE_DAT64 then
@@ -67,20 +67,34 @@ function GGPKClass:ExtractFiles()
 		else
 			fileList = fileList .. '"' .. fname .. '" '
 		end
-	end
-	self:ExtractFilesWithBun(fileList)
 
-	fileList = ''
+		if fileList:len() > sweetSpotCharacter then
+			self:ExtractFilesWithBun(fileList)
+			fileList = ''
+		end
+	end
+
 	for _, fname in ipairs(txtList) do
 		fileList = fileList .. '"' .. fname .. '" '
-	end
-	self:ExtractFilesWithBun(fileList)
 
-	fileList = ''
+		if fileList:len() > sweetSpotCharacter then
+			self:ExtractFilesWithBun(fileList)
+			fileList = ''
+		end
+	end
+
 	for _, fname in ipairs(itList) do
 		fileList = fileList .. '"' .. fname .. '" '
+
+		if fileList:len() > sweetSpotCharacter then
+			self:ExtractFilesWithBun(fileList)
+			fileList = ''
+		end
 	end
-	self:ExtractFilesWithBun(fileList)
+
+	if (fileList:len() > 0) then
+		self:ExtractFilesWithBun(fileList)
+	end
 
 	-- Overwrite Enums
 	local errMsg = PLoadModule("Scripts/enums.lua")
