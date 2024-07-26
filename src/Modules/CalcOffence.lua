@@ -3875,7 +3875,7 @@ function calcs.offence(env, actor, activeSkill)
 			local bleedRollAverage
 			if globalOutput.BleedStackPotential > 1 then
 				-- shift damage towards top of range as only top bleeds apply
-				bleedRollAverage = globalOutput.BleedStackPotential / (globalOutput.BleedStackPotential + 1) * 100
+				bleedRollAverage = (bleedStacks - (maxStacks - 1)/2) / (bleedStacks + 1) * 100
 			else
 				-- assume middle of range for hit damage
 				bleedRollAverage = 50
@@ -3889,10 +3889,11 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("Average Bleed Roll:"),
 				}
 				if(bleedStacks >= maxStacks) then
-					t_insert(globalBreakdown.BleedRollAverage, s_format("%.2f / %.2f ^8Stack Potential / (Stack Potential + 1)", globalOutput.BleedStackPotential, globalOutput.BleedStackPotential + 1))
+					t_insert(globalBreakdown.BleedRollAverage, s_format("%.2f - (%.2f - 1)/2", bleedStacks, maxStacks))
+					t_insert(globalBreakdown.BleedRollAverage, s_format("/ (%.2f + 1)", bleedStacks))
 					t_insert(globalBreakdown.BleedRollAverage, s_format("= %.2f%%", bleedRollAverage))
 				else
-					t_insert(globalBreakdown.BleedRollAverage, "50% (averaging <= 1 bleed)")
+					t_insert(globalBreakdown.BleedRollAverage, s_format("50%% (averaging <= %d bleeds)", maxStacks))
 				end
 			end
 
@@ -4436,7 +4437,7 @@ function calcs.offence(env, actor, activeSkill)
 			local igniteRollAverage
 			if globalOutput.IgniteStackPotential > 1 then
 				-- shift damage towards top of range as only top ignites apply
-				igniteRollAverage = globalOutput.IgniteStackPotential / (globalOutput.IgniteStackPotential + 1) * 100
+				igniteRollAverage = (igniteStacks - (maxStacks - 1)/2) / (igniteStacks + 1) * 100
 			else
 				-- assume middle of range for hit damage
 				igniteRollAverage = 50
@@ -4448,9 +4449,14 @@ function calcs.offence(env, actor, activeSkill)
 						s_format(colorCodes.CUSTOM.."If attacking constantly, your average strongest Ignite currently achieves ^7%.2f%%"..colorCodes.CUSTOM.." of its max damage", igniteRollAverage),
 						s_format(""),
 						s_format("Average Ignite Roll:"),
-						s_format("%.2f / (%.2f + 1) ^8Stack Potential / (Stack Potential + 1)", globalOutput.IgniteStackPotential, globalOutput.IgniteStackPotential),
 					}
-				t_insert(globalBreakdown.IgniteRollAverage, s_format("= %.2f%%", igniteRollAverage))
+				if(igniteStacks >= maxStacks) then
+					t_insert(globalBreakdown.IgniteRollAverage, s_format("%.2f - (%.2f - 1)/2", igniteStacks, maxStacks))
+					t_insert(globalBreakdown.IgniteRollAverage, s_format("/ (%.2f + 1)", igniteStacks))
+					t_insert(globalBreakdown.IgniteRollAverage, s_format("= %.2f%%", igniteRollAverage))
+				else
+					t_insert(globalBreakdown.IgniteRollAverage, s_format("50%% (averaging <= %d ignites)", maxStacks))
+				end
 			end
 
 			for sub_pass = 1, 2 do
