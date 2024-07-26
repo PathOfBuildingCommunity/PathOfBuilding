@@ -1,5 +1,39 @@
 # Changelog
 
+## [v2.46.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.46.0) (2024/07/25)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.45.0...v2.46.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- Add latest and trending builds list to the build list module [\#7389](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7389) ([canuysal](https://github.com/canuysal))
+- Add searching for Oils in tree view [\#7902](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7902) ([nobelv](https://github.com/nobelv))
+### Fixed Crashes
+- Fix crash with some stats in Party tab [\#7920](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7920) ([Regisle](https://github.com/Regisle))
+### User Interface
+- Fix cancelling tree version conversion didn't revert back to previous value in dropdown [\#7904](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7904) ([justjuangui](https://github.com/justjuangui))
+### Fixed Calculations
+- Fix Rallying Cry Exerted damage mod not working with Autoexertion [\#7914](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7914) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Maligaro's Virtuosity not working with Perfect Agony [\#7918](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7918) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Behaviours
+- Fix Banner skills not applying to Minions [\#7922](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7922) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Flesh and Stone less damage taken scaling with Aura effect [\#7892](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7892) ([KaoXinRei](https://github.com/KaoXinRei))
+- Fix quality not applying to Tincture effect [\#7894](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7894) ([Regisle](https://github.com/Regisle))
+- Fix Impale not scaling with "damage taken from hits" [\#7898](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7898) ([mcheese](https://github.com/mcheese))
+- Fix Cleave of Rage area not scaling with Rage effect [\#7890](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7890) ([Moremackles](https://github.com/Moremackles))
+- Fix Seismic Cry AoE mod not applying sometimes [\#7915](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7915) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Rage Vortex AoE per sacrificed Rage mod not working [\#7916](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7916) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix AoE from Fist of War not applying to supported skills [\#7924](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7924) ([Nostrademous](https://github.com/Nostrademous))
+- Match single sets to loadouts more effectively [\#7846](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7846) ([deathbeam](https://github.com/deathbeam))
+### Accuracy Improvements
+- Update unique Staves with block changes [\#7926](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7926) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Critical Strike Chance of some Rune Daggers [\#7909](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7909) ([HashBR](https://github.com/HashBR))
+- Fix Mana cost for Infernal Cry [\#7919](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7919) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Fungal Ground debuff to apply to all Resistances [\#7925](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7925) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
 ## [v2.45.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.45.0) (2024/07/24)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.44.1...v2.45.0)

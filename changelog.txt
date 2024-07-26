@@ -1,3 +1,37 @@
+VERSION[2.46.0][2024/07/25]
+
+--- New to Path of Building ---
+* Add latest and trending builds list to the build list module (canuysal)
+* Add searching for Oils in tree view (nobelv)
+	Prefix your search with "oil:" to search by anoint recipe
+
+--- Fixed Crashes ---
+* Fix crash with some stats in Party tab (Regisle)
+
+--- User Interface ---
+* Fix cancelling tree version conversion didn't revert back to previous value in dropdown (justjuangui)
+
+--- Fixed Calculations ---
+* Fix Rallying Cry Exerted damage mod not working with Autoexertion (LocalIdentity)
+* Fix Maligaro's Virtuosity not working with Perfect Agony (LocalIdentity)
+
+--- Fixed Behaviours ---
+* Fix Banner skills not applying to Minions (LocalIdentity)
+* Fix Flesh and Stone less damage taken scaling with Aura effect (KaoXinRei)
+* Fix quality not applying to Tincture effect (Regisle)
+* Fix Impale not scaling with "damage taken from hits" (mcheese)
+* Fix Cleave of Rage area not scaling with Rage effect (Moremackles)
+* Fix Seismic Cry AoE mod not applying sometimes (LocalIdentity)
+* Fix Rage Vortex AoE per sacrificed Rage mod not working (LocalIdentity)
+* Fix AoE from Fist of War not applying to supported skills (Nostrademous)
+* Match single sets to loadouts more effectively (deathbeam)
+
+--- Accuracy Improvements ---
+* Update unique Staves with block changes (LocalIdentity)
+* Fix Critical Strike Chance of some Rune Daggers (HashBR)
+* Fix Mana cost for Infernal Cry (LocalIdentity)
+* Fix Fungal Ground debuff to apply to all Resistances (LocalIdentity)
+
 VERSION[2.45.0][2024/07/24]
 
 --- New to Path of Building ---

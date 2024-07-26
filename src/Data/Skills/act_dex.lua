@@ -11455,7 +11455,7 @@ skills["Puncture"] = {
 	color = 2,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
-	description = "Punctures enemies, causing a bleeding debuff, which will be affected by modifiers to skill duration. Puncture works with bows, daggers, claws or swords.",
+	description = "Punctures enemies with your Bow, causing a bleeding debuff, which will be affected by modifiers to skill duration.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.DamageOverTime] = true, [SkillType.Triggerable] = true, [SkillType.Physical] = true, },
 	weaponTypes = {
 		["Bow"] = true,
