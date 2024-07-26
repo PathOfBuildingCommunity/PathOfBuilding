@@ -3592,7 +3592,12 @@ function calcs.offence(env, actor, activeSkill)
 
 			if skillModList:Flag(nil, "DotMultiplierIsCritMultiplier") then
 				-- On enemy crit multiplier effects also apply for Perfect Agony: https://www.pathofexile.com/forum/view-thread/3532389#13
-				skillModList:NewMod("DotMultiplier", "OVERRIDE", (skillModList:Override(cfg, "CritMultiplier") or skillModList:Sum("BASE", cfg, "CritMultiplier")) + enemyDB:Sum("BASE", cfg, "SelfCritMultiplier"), "Perfect Agony", ModFlag.Ailment, handCondition)
+				local LOWEST_CRIT_MULT = 50	--Base Crit Multi should be 150%
+				local overrideCritMult_DotMult
+				if skillModList:Override(cfg, "CritMultiplier") ~= nil then
+					overrideCritMult_DotMult = m_max(skillModList:Override(cfg, "CritMultiplier") - 100, LOWEST_CRIT_MULT)
+				end
+				skillModList:NewMod("DotMultiplier", "OVERRIDE", (overrideCritMult_DotMult or skillModList:Sum("BASE", cfg, "CritMultiplier")) + enemyDB:Sum("BASE", cfg, "SelfCritMultiplier"), "Perfect Agony", ModFlag.Ailment, handCondition)
 			end
 		end
 
