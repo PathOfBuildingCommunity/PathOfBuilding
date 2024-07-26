@@ -9,6 +9,7 @@ The base URL for an API should be: _baseURL_/_apiVersion_/ meaning even somethin
 In order to provide a consistent API a metadata endpoint should be provided under _baseURL_/.well-known/pathofbuilding this endpoint should provide information about the API and the version of the API.
 Furthermore this may allow having custom endpoints for the API.
 
+<details><summary><b>Specification</b></summary>
 | Feature          | Field         | Type             | Description                                                                          |
 | ---------------- | ------------- | ---------------- | ------------------------------------------------------------------------------------ |
 | League Filtering | league_filter | bool             | This can  be used to indicate whether the API supports filtering based on leagues    |
@@ -16,9 +17,11 @@ Furthermore this may allow having custom endpoints for the API.
 | Streams          | streams       | StreamInfo[]     | A list of streams available to be queried against                                    |
 | Update Builds    | update_builds | UpdateBuildsInfo | Indicates if the API supports updating builds via PoB and which fields are supported |
 
+</details>
+
 ### Types
 
-#### StreamInfo
+<details><summary><b>StreamInfo</b></summary>
 
 | Field   | Type   | Description                     |
 | ------- | ------ | ------------------------------- |
@@ -26,9 +29,9 @@ Furthermore this may allow having custom endpoints for the API.
 | apiPath | string | API path to the stream endpoint |
 
 apiPath might be changed to a generic endpoint such as `/v1/{stream}/builds`
+</details>
 
-#### UpdateBuildsInfo
-
+<details><summary><b>UpdateBuildsInfo</b></summary>
 | Field      | Type     | Description                                            |
 | ---------- | -------- | ------------------------------------------------------ |
 | hasSupport | bool     | indicates if the API supports updating external builds |
@@ -42,11 +45,13 @@ Example:
     "fields": ["description", "youtubeUrl"]
 }
 ```
+</details>
+
 ## Version 1
 
 ### Response and Request types
 
-#### BuildInfo
+<details><summary><b>BuildInfo</b></summary>
 
 | Field        | Type    | Description                         |
 | ------------ | ------- | ----------------------------------- |
@@ -54,6 +59,7 @@ Example:
 | name         | string  | The name of the build               |
 | lastModified | integer | The last modification timestamp     |
 | buildId      | string  | The unique identifier for the build |
+</details>
 
 ### Endpoints
 
