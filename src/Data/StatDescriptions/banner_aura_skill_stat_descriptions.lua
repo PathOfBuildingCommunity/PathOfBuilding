@@ -12,7 +12,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="You and nearby Allies take -{0}% Damage from Suppressed Hits"
+					text="You and nearby Allies have {0}% increased Armour and Evasion Rating"
 				},
 				[2]={
 					[1]={
@@ -25,7 +25,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="You and nearby Allies take -{0} Damage from Suppressed Hits"
+					text="You and nearby Allies have {0}% reduced Armour and Evasion Rating"
 				}
 			}
 		},
@@ -76,8 +76,21 @@ return {
 							[2]="#"
 						}
 					},
-					text="You and Nearby Allies Recover {0} Life when Blocking"
+					text="Nearby Enemies have {0}% more Accuracy Rating"
 				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Nearby Enemies have {0}% less Accuracy Rating"
+				}
 			}
 		},
 		name="dread_banner_accuracy_final",
@@ -182,7 +195,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Gain 1 Valour when you Kill an Enemy while carrying the Banner"
+					text="Gain 1 Stage when you Kill an Enemy while carrying the Banner"
 				}
 			}
 		},
@@ -239,38 +252,123 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1000,
+							[2]=1000
+						}
+					},
+					text="Gain +10 to maximum Fortification for {0} second per Stage on Placing the Banner"
+				},
+				[2]={
+					[1]={
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="You and Nearby Allies gain {0}% increased Movement Speed"
-				},
+					text="Gain +10 to maximum Fortification for {0} seconds per Stage on Placing the Banner"
+				}
 			}
 		},
-		name="defiance_banner_movement_speed",
+		name="dread_banner_fortify",
 		stats={
-			[1]="defiance_banner_movement_speed"
+			[1]="puresteel_banner_+10_max_fortification_for_duration_per_stage_ms"
 		}
 	},
 	[10]={
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
 					limit={
 						[1]={
-							[1]="#",
-							[2]="#"
+							[1]=1000,
+							[2]=1000
+						},
+						[2]={
+							[1]=0,
+							[2]=0
 						}
 					},
-					text="You and Nearby gain +{0}% chance to Suppress Spell Damage"
+					text="Taunt nearby Enemies for {0} second per Stage on Placing the Banner"
 				},
+				[2]={
+					[1]={
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="Taunt nearby Enemies for {0} seconds per Stage on Placing the Banner"
+				},
+				[3]={
+					[1]={
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					[2]={
+						k="negate",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]=1000,
+							[2]=1000
+						},
+						[2]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Taunt nearby Enemies for {0} second per Stage on Placing the Banner\nEnemies Taunted this way deal {1}% less Damage"
+				},
+				[4]={
+					[1]={
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					[2]={
+						k="negate",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Taunt nearby Enemies for {0} seconds per Stage on Placing the Banner\nEnemies Taunted this way deal {1}% less Damage"
+				}
 			}
 		},
-		name="suppress_spell_damage",
+		name="armour_evasion_banner_super_taunt",
 		stats={
-			[1]="suppress_spell_damage"
+			[1]="armour_evasion_banner_super_taunt_duration_per_stage_ms",
+			[2]="armour_evasion_banner_taunted_enemies_damage_+%_final"
 		}
 	},
 	[11]={
@@ -370,7 +468,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="When placed, {0}% more Area of Effect per Valour Consumed"
+					text="When placed, {0}% increased Area of Effect per Stage"
 				},
 				[2]={
 					[1]={
@@ -383,7 +481,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="When placed, {0}% less Area of Effect per Valour Consumed"
+					text="When placed, {0}% reduced Area of Effect per Stage"
 				}
 			}
 		},
@@ -402,7 +500,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="When placed, {0}% more Aura effect per Valour Consumed"
+					text="When placed, {0}% increased Aura effect per Stage"
 				},
 				[2]={
 					[1]={
@@ -415,7 +513,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="When placed, {0}% less Aura effect per Valour Consumed"
+					text="When placed, {0}% reduced Aura effect per Stage"
 				}
 			}
 		},
@@ -425,7 +523,8 @@ return {
 		}
 	},
 	["armour_evasion_banner_critical_strike_chance_+%"]=2,
-	["suppress_spell_damage"]=10,
+	["armour_evasion_banner_super_taunt_duration_per_stage_ms"]=10,
+	["armour_evasion_banner_taunted_enemies_damage_+%_final"]=10,
 	["banner_add_stage_every_x_milliseconds_while_enemies_nearby"]=6,
 	["banner_add_stage_on_impale"]=5,
 	["banner_add_stage_on_kill"]=7,
@@ -437,7 +536,7 @@ return {
 	["buff_effect_duration"]=12,
 	["evasion_and_physical_damage_reduction_rating_+%"]=1,
 	parent="aura_skill_stat_descriptions",
-	["defiance_banner_movement_speed"]=9,
+	["puresteel_banner_+10_max_fortification_for_duration_per_stage_ms"]=9,
 	["puresteel_banner_accuracy_rating_+%_final"]=3,
 	["puresteel_banner_damage_+%_final"]=4,
 	["quality_display_base_duration_is_quality"]=11

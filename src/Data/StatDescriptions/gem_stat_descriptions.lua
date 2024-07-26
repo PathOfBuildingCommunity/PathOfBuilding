@@ -5672,7 +5672,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Ancestrally Boosted Slams deal {0}% more Damage with Hits and Ailments"
+					text="Ancestrally Boosted Slams deal {0}% more Damage with Hits"
 				},
 				[2]={
 					[1]={
@@ -5685,7 +5685,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Ancestrally Boosted Slams deal {0}% less Damage with Hits and Ailments"
+					text="Ancestrally Boosted Slams deal {0}% less Damage with Hits"
 				}
 			}
 		},
@@ -6758,13 +6758,18 @@ return {
 							[1]="#",
 							[2]="#"
 						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					text="Supported Skills to have {0}% increased Attack Speed while you have at least 10"
+					text="Supported Attacks deal {0} to {1} added Physical Damage with Weapons while you have at least 10 Rage"
 				}
 			}
 		},
 		stats={
 			[1]="attack_minimum_added_physical_damage_with_at_least_10_rage",
+			[2]="attack_maximum_added_physical_damage_with_at_least_10_rage"
 		}
 	},
 	[231]={
@@ -17628,7 +17633,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Supported Skills grant 3 Rage on Melee Hit"
+					text="Supported Skills grant 1 Rage on Melee Hit, no more than once every {0} seconds"
 				}
 			}
 		},
@@ -18860,7 +18865,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="While Channelling a Supported Skill, take {0}% less Damage from Hits"
+					text="While Channelling a Supported Skill, take {0}% less Damage from Hits of types matching the Skill Gem's Tags"
 				}
 			}
 		},
@@ -20406,37 +20411,6 @@ return {
 			[1]="minions_are_defensive"
 		}
 	},
-	[701]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% less Mana Cost"
-				},
-				[2]={
-					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% more Mana Cost"
-				}
-			}
-		},
-		stats={
-			[1]="base_mana_cost_-%_final"
-		}
-	},
 	["%_chance_to_gain_frenzy_charge_on_mine_detonated_targeting_an_enemy"]=461,
 	["%_chance_to_gain_frenzy_charge_on_trap_triggered_by_an_enemy"]=462,
 	["%_chance_to_gain_power_charge_on_mine_detonated_targeting_an_enemy"]=463,
@@ -20525,7 +20499,6 @@ return {
 	["base_life_reservation_efficiency_+%"]=263,
 	["base_mana_cost_+"]=200,
 	["base_mana_cost_-%"]=25,
-	["base_mana_cost_-%_final"]=701,
 	["base_mana_reservation_+%"]=265,
 	["base_melee_attack_repeat_count"]=109,
 	["base_mine_detonation_time_ms"]=266,

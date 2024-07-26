@@ -113,6 +113,36 @@ itemBases["Eternal Burgonet"] = {
 	armour = { ArmourBaseMin = 373, ArmourBaseMax = 429, },
 	req = { level = 69, str = 138, },
 }
+itemBases["General's Helmet"] = {
+	type = "Helmet",
+	subType = "Armour",
+	socketLimit = 4,
+	tags = { str_armour = true, not_for_sale = true, helmet = true, armour = true, top_tier_base_item_type = true, default = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 431, ArmourBaseMax = 496, },
+	req = { level = 73, str = 170, },
+}
+itemBases["Conqueror's Helmet"] = {
+	type = "Helmet",
+	subType = "Armour",
+	socketLimit = 4,
+	tags = { str_armour = true, not_for_sale = true, helmet = true, armour = true, top_tier_base_item_type = true, default = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 501, ArmourBaseMax = 576, },
+	req = { level = 78, str = 194, },
+}
+itemBases["Giantslayer Helmet"] = {
+	type = "Helmet",
+	subType = "Armour",
+	socketLimit = 4,
+	tags = { str_armour = true, not_for_sale = true, helmet = true, armour = true, top_tier_base_item_type = true, default = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 582, ArmourBaseMax = 669, },
+	req = { level = 84, str = 224, },
+}
 
 itemBases["Leather Cap"] = {
 	type = "Helmet",
@@ -213,6 +243,36 @@ itemBases["Lion Pelt"] = {
 	implicitModTypes = { },
 	armour = { EvasionBaseMin = 380, EvasionBaseMax = 437, },
 	req = { level = 70, dex = 150, },
+}
+itemBases["Dire Pelt"] = {
+	type = "Helmet",
+	subType = "Evasion",
+	socketLimit = 4,
+	tags = { top_tier_base_item_type = true, dex_armour = true, helmet = true, armour = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { EvasionBaseMin = 431, EvasionBaseMax = 496, },
+	req = { level = 73, dex = 170, },
+}
+itemBases["Grizzly Pelt"] = {
+	type = "Helmet",
+	subType = "Evasion",
+	socketLimit = 4,
+	tags = { top_tier_base_item_type = true, dex_armour = true, helmet = true, armour = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { EvasionBaseMin = 501, EvasionBaseMax = 576, },
+	req = { level = 78, dex = 194, },
+}
+itemBases["Majestic Pelt"] = {
+	type = "Helmet",
+	subType = "Evasion",
+	socketLimit = 4,
+	tags = { top_tier_base_item_type = true, dex_armour = true, helmet = true, armour = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { EvasionBaseMin = 582, EvasionBaseMax = 669, },
+	req = { level = 84, dex = 224, },
 }
 
 itemBases["Vine Circlet"] = {
@@ -325,6 +385,36 @@ itemBases["Hubris Circlet"] = {
 	armour = { EnergyShieldBaseMin = 80, EnergyShieldBaseMax = 92, },
 	req = { level = 69, int = 154, },
 }
+itemBases["Moonlit Circlet"] = {
+	type = "Helmet",
+	subType = "Energy Shield",
+	socketLimit = 4,
+	tags = { top_tier_base_item_type = true, int_armour = true, helmet = true, armour = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { EnergyShieldBaseMin = 87, EnergyShieldBaseMax = 100, },
+	req = { level = 73, int = 170, },
+}
+itemBases["Sunfire Circlet"] = {
+	type = "Helmet",
+	subType = "Energy Shield",
+	socketLimit = 4,
+	tags = { top_tier_base_item_type = true, int_armour = true, helmet = true, armour = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { EnergyShieldBaseMin = 101, EnergyShieldBaseMax = 116, },
+	req = { level = 78, int = 194, },
+}
+itemBases["Lich's Circlet"] = {
+	type = "Helmet",
+	subType = "Energy Shield",
+	socketLimit = 4,
+	tags = { top_tier_base_item_type = true, int_armour = true, helmet = true, armour = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { EnergyShieldBaseMin = 117, EnergyShieldBaseMax = 134, },
+	req = { level = 84, int = 224, },
+}
 
 itemBases["Battered Helm"] = {
 	type = "Helmet",
@@ -426,13 +516,43 @@ itemBases["Nightmare Bascinet"] = {
 	armour = { ArmourBaseMin = 162, ArmourBaseMax = 187, EvasionBaseMin = 233, EvasionBaseMax = 268, },
 	req = { level = 67, str = 62, dex = 85, },
 }
+itemBases["Knight Helm"] = {
+	type = "Helmet",
+	subType = "Armour/Evasion",
+	socketLimit = 4,
+	tags = { str_dex_armour = true, top_tier_base_item_type = true, not_for_sale = true, helmet = true, armour = true, default = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 268, ArmourBaseMax = 308, EvasionBaseMin = 268, EvasionBaseMax = 308, },
+	req = { level = 73, str = 101, dex = 101, },
+}
+itemBases["Conquest Helmet"] = {
+	type = "Helmet",
+	subType = "Armour/Evasion",
+	socketLimit = 4,
+	tags = { str_dex_armour = true, top_tier_base_item_type = true, not_for_sale = true, helmet = true, armour = true, default = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 308, ArmourBaseMax = 355, EvasionBaseMin = 308, EvasionBaseMax = 355, },
+	req = { level = 78, str = 116, dex = 116, },
+}
+itemBases["Haunted Bascinet"] = {
+	type = "Helmet",
+	subType = "Armour/Evasion",
+	socketLimit = 4,
+	tags = { str_dex_armour = true, top_tier_base_item_type = true, not_for_sale = true, helmet = true, armour = true, default = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 355, ArmourBaseMax = 409, EvasionBaseMin = 355, EvasionBaseMax = 409, },
+	req = { level = 84, str = 132, dex = 132, },
+}
 itemBases["Sorrow Mask"] = {
 	type = "Helmet",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
 	tags = { str_dex_armour = true, not_for_sale = true, helmet = true, armour = true, default = true, },
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
-	implicit = "-15% additional Physical Damage Reduction\nYou are Crushed\n+(2-3) to maximum Fortification",
+	implicit = "+2% to maximum Chaos Resistance\n-15% additional Physical Damage Reduction\nYou are Crushed",
 	implicitModTypes = { {  }, {  }, {  }, },
 	armour = { ArmourBaseMin = 42, ArmourBaseMax = 49, EvasionBaseMin = 42, EvasionBaseMax = 49, },
 	req = { level = 15, str = 20, dex = 20, },
@@ -443,7 +563,7 @@ itemBases["Atonement Mask"] = {
 	socketLimit = 4,
 	tags = { str_dex_armour = true, not_for_sale = true, helmet = true, armour = true, default = true, },
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
-	implicit = "-15% additional Physical Damage Reduction\nYou are Crushed\n+(2-3) to maximum Fortification",
+	implicit = "+3% to maximum Chaos Resistance\n-15% additional Physical Damage Reduction\nYou are Crushed",
 	implicitModTypes = { {  }, {  }, {  }, },
 	armour = { ArmourBaseMin = 122, ArmourBaseMax = 140, EvasionBaseMin = 122, EvasionBaseMax = 140, },
 	req = { level = 45, str = 51, dex = 51, },
@@ -454,7 +574,7 @@ itemBases["Penitent Mask"] = {
 	socketLimit = 4,
 	tags = { str_dex_armour = true, not_for_sale = true, helmet = true, armour = true, default = true, },
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
-	implicit = "-15% additional Physical Damage Reduction\nYou are Crushed\n+(2-3) to maximum Fortification",
+	implicit = "+4% to maximum Chaos Resistance\n-15% additional Physical Damage Reduction\nYou are Crushed",
 	implicitModTypes = { {  }, {  }, {  }, },
 	armour = { ArmourBaseMin = 185, ArmourBaseMax = 212, EvasionBaseMin = 185, EvasionBaseMax = 212, },
 	req = { level = 75, str = 79, dex = 79, },
@@ -560,14 +680,44 @@ itemBases["Praetor Crown"] = {
 	armour = { ArmourBaseMin = 161, ArmourBaseMax = 185, EnergyShieldBaseMin = 51, EnergyShieldBaseMax = 58, },
 	req = { level = 68, str = 62, int = 91, },
 }
+itemBases["Faithful Helmet"] = {
+	type = "Helmet",
+	subType = "Armour/Energy Shield",
+	socketLimit = 4,
+	tags = { str_int_armour = true, top_tier_base_item_type = true, not_for_sale = true, helmet = true, armour = true, default = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 268, ArmourBaseMax = 308, EnergyShieldBaseMin = 54, EnergyShieldBaseMax = 62, },
+	req = { level = 73, str = 101, int = 101, },
+}
+itemBases["Paladin Crown"] = {
+	type = "Helmet",
+	subType = "Armour/Energy Shield",
+	socketLimit = 4,
+	tags = { str_int_armour = true, top_tier_base_item_type = true, not_for_sale = true, helmet = true, armour = true, default = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 308, ArmourBaseMax = 355, EnergyShieldBaseMin = 62, EnergyShieldBaseMax = 71, },
+	req = { level = 78, str = 116, int = 116, },
+}
+itemBases["Divine Crown"] = {
+	type = "Helmet",
+	subType = "Armour/Energy Shield",
+	socketLimit = 4,
+	tags = { str_int_armour = true, top_tier_base_item_type = true, not_for_sale = true, helmet = true, armour = true, default = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 355, ArmourBaseMax = 409, EnergyShieldBaseMin = 71, EnergyShieldBaseMax = 82, },
+	req = { level = 84, str = 132, int = 132, },
+}
 itemBases["Imp Crown"] = {
 	type = "Helmet",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
 	tags = { str_int_armour = true, not_for_sale = true, helmet = true, armour = true, default = true, },
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
-	implicit = "Socketed Skills apply Fire, Cold and Lightning Exposure on Hit\n-10% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "resistance" }, { "elemental", "resistance" }, },
+	implicit = "-1 to Level of Socketed Support Gems\n+1 to Level of Socketed Skill Gems",
+	implicitModTypes = { {  }, {  }, },
 	armour = { ArmourBaseMin = 42, ArmourBaseMax = 49, EnergyShieldBaseMin = 10, EnergyShieldBaseMax = 12, },
 	req = { level = 15, str = 20, int = 20, },
 }
@@ -577,8 +727,8 @@ itemBases["Demon Crown"] = {
 	socketLimit = 4,
 	tags = { str_int_armour = true, not_for_sale = true, helmet = true, armour = true, default = true, },
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
-	implicit = "Socketed Skills apply Fire, Cold and Lightning Exposure on Hit\n-10% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "resistance" }, { "elemental", "resistance" }, },
+	implicit = "-1 to Level of Socketed Support Gems\n+1 to Level of Socketed Skill Gems",
+	implicitModTypes = { {  }, {  }, },
 	armour = { ArmourBaseMin = 122, ArmourBaseMax = 140, EnergyShieldBaseMin = 25, EnergyShieldBaseMax = 29, },
 	req = { level = 45, str = 51, int = 51, },
 }
@@ -588,8 +738,8 @@ itemBases["Archdemon Crown"] = {
 	socketLimit = 4,
 	tags = { str_int_armour = true, not_for_sale = true, helmet = true, armour = true, default = true, },
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
-	implicit = "Socketed Skills apply Fire, Cold and Lightning Exposure on Hit\n-10% to all Elemental Resistances",
-	implicitModTypes = { { "elemental", "resistance" }, { "elemental", "resistance" }, },
+	implicit = "-2 to Level of Socketed Support Gems\n+2 to Level of Socketed Skill Gems",
+	implicitModTypes = { {  }, {  }, },
 	armour = { ArmourBaseMin = 185, ArmourBaseMax = 212, EnergyShieldBaseMin = 38, EnergyShieldBaseMax = 43, },
 	req = { level = 75, str = 79, int = 79, },
 }
@@ -714,6 +864,36 @@ itemBases["Deicide Mask"] = {
 	implicitModTypes = { },
 	armour = { EvasionBaseMin = 190, EvasionBaseMax = 219, EnergyShieldBaseMin = 47, EnergyShieldBaseMax = 54, },
 	req = { level = 67, dex = 73, int = 88, },
+}
+itemBases["Jester Mask"] = {
+	type = "Helmet",
+	subType = "Evasion/Energy Shield",
+	socketLimit = 4,
+	tags = { top_tier_base_item_type = true, not_for_sale = true, helmet = true, armour = true, default = true, dex_int_armour = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { EvasionBaseMin = 268, EvasionBaseMax = 308, EnergyShieldBaseMin = 54, EnergyShieldBaseMax = 62, },
+	req = { level = 73, dex = 101, int = 101, },
+}
+itemBases["Ancient Mask"] = {
+	type = "Helmet",
+	subType = "Evasion/Energy Shield",
+	socketLimit = 4,
+	tags = { top_tier_base_item_type = true, not_for_sale = true, helmet = true, armour = true, default = true, dex_int_armour = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { EvasionBaseMin = 308, EvasionBaseMax = 355, EnergyShieldBaseMin = 62, EnergyShieldBaseMax = 71, },
+	req = { level = 78, dex = 116, int = 116, },
+}
+itemBases["Torturer's Mask"] = {
+	type = "Helmet",
+	subType = "Evasion/Energy Shield",
+	socketLimit = 4,
+	tags = { top_tier_base_item_type = true, not_for_sale = true, helmet = true, armour = true, default = true, dex_int_armour = true, },
+	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
+	implicitModTypes = { },
+	armour = { EvasionBaseMin = 355, EvasionBaseMax = 409, EnergyShieldBaseMin = 71, EnergyShieldBaseMax = 82, },
+	req = { level = 84, dex = 132, int = 132, },
 }
 itemBases["Gale Crown"] = {
 	type = "Helmet",

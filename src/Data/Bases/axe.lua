@@ -235,8 +235,7 @@ itemBases["Maltreatment Axe"] = {
 	socketLimit = 3,
 	tags = { axe = true, onehand = true, not_for_sale = true, weapon = true, experimental_base = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
-	implicit = "+10 to Maximum Rage",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { },
 	weapon = { PhysicalMin = 19, PhysicalMax = 39, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 30, str = 78, dex = 34, },
 }
@@ -245,8 +244,7 @@ itemBases["Disapprobation Axe"] = {
 	socketLimit = 3,
 	tags = { axe = true, onehand = true, not_for_sale = true, weapon = true, experimental_base = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
-	implicit = "+15 to Maximum Rage",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { },
 	weapon = { PhysicalMin = 29, PhysicalMax = 60, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 50, str = 124, dex = 54, },
 }
@@ -255,10 +253,18 @@ itemBases["Psychotic Axe"] = {
 	socketLimit = 3,
 	tags = { axe = true, onehand = true, not_for_sale = true, weapon = true, experimental_base = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
-	implicit = "+20 to Maximum Rage",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { },
 	weapon = { PhysicalMin = 34, PhysicalMax = 71, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 70, str = 163, dex = 84, },
+}
+itemBases["Random One Hand Axe"] = {
+	type = "One Handed Axe",
+	hidden = true,
+	socketLimit = 3,
+	tags = { default = true, },
+	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
+	implicitModTypes = { },
+	req = { },
 }
 
 itemBases["Stone Axe"] = {
@@ -469,28 +475,34 @@ itemBases["Prime Cleaver"] = {
 	socketLimit = 6,
 	tags = { axe = true, weapon = true, not_for_sale = true, two_hand_weapon = true, experimental_base = true, twohand = true, default = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
-	implicit = "+20% to Maximum Quality",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { },
 	weapon = { PhysicalMin = 39, PhysicalMax = 61, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
-	req = { level = 30, },
+	req = { level = 30, str = 73, dex = 34, },
 }
 itemBases["Honed Cleaver"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, weapon = true, not_for_sale = true, two_hand_weapon = true, experimental_base = true, twohand = true, default = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
-	implicit = "Hits with this Weapon have 50% chance to ignore Enemy Physical Damage Reduction",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { },
 	weapon = { PhysicalMin = 60, PhysicalMax = 95, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
-	req = { level = 50, },
+	req = { level = 50, str = 117, dex = 54, },
 }
 itemBases["Apex Cleaver"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, weapon = true, not_for_sale = true, two_hand_weapon = true, experimental_base = true, twohand = true, default = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
-	implicit = "Hits with this Weapon ignore Enemy Physical Damage Reduction",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { },
 	weapon = { PhysicalMin = 78, PhysicalMax = 121, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
-	req = { level = 70, },
+	req = { level = 70, str = 139, dex = 65, },
+}
+itemBases["Random Two Hand Axe"] = {
+	type = "Two Handed Axe",
+	hidden = true,
+	socketLimit = 6,
+	tags = { default = true, },
+	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
+	implicitModTypes = { },
+	req = { },
 }

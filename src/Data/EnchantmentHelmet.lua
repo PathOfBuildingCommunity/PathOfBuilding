@@ -2012,11 +2012,7 @@ return {
 		},
 	},
 	["Rallying Cry"] = {
-		["MERCILESS"] = {
-			"10% increased Rallying Cry Buff Effect",
-		},
 		["ENDGAME"] = {
-			"15% increased Rallying Cry Buff Effect",
 			"Rallying Cry Exerts 1 additional Attack",
 		},
 	},
@@ -2974,6 +2970,14 @@ return {
 		},
 		["ENDGAME"] = {
 			"Zealotry has 30% increased Mana Reservation Efficiency",
+		},
+	},
+	["[DNT] Old Rallying Cry"] = {
+		["MERCILESS"] = {
+			"10% increased Rallying Cry Buff Effect",
+		},
+		["ENDGAME"] = {
+			"15% increased Rallying Cry Buff Effect",
 		},
 	},
 }

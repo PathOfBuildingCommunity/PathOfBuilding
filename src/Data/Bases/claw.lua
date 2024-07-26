@@ -282,3 +282,12 @@ itemBases["Void Fangs"] = {
 	weapon = { PhysicalMin = 22, PhysicalMax = 41, CritChanceBase = 7, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 70, dex = 113, int = 113, },
 }
+itemBases["Random Claw"] = {
+	type = "Claw",
+	hidden = true,
+	socketLimit = 3,
+	tags = { default = true, },
+	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
+	implicitModTypes = { },
+	req = { },
+}
