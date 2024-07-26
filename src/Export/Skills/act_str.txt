@@ -1007,7 +1007,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:CannotDie", { type = "GlobalEffect", effectType = "Guard" })
 #mods
 
-#skill AbyssalCry
+#skill InfernalCry
 #flags warcry area duration
 	statMap = {
 		["skill_empowers_next_x_melee_attacks"] = {
@@ -1024,7 +1024,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusLabel", "Warcry area:")
 #mods
 
-#skill InfernalCryOnHitExplosion
+#skill Combust
 #flags attack melee area
 	statMap = {
 		["triggered_by_infernal_cry"] = {
@@ -1301,7 +1301,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("CannotSplit")
 #mods
 
-#skill BloodSpears
+#skill Perforate
 #flags attack melee area
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.dpsMultiplier = math.max(activeSkill.skillData.dpsMultiplier or 1, 1)
@@ -1322,7 +1322,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 8, { type = "Condition", var = "BloodStance" })
 #mods
 
-#skill BloodSpearsAltX
+#skill PerforateAltX
 #flags attack melee area
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.dpsMultiplier = math.max(activeSkill.skillData.dpsMultiplier or 1, 1)
@@ -1346,7 +1346,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 8, { type = "Condition", var = "BloodStance" })
 #mods
 
-#skill BloodSpearsAltY
+#skill PerforateAltY
 #flags attack melee area
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.dpsMultiplier = math.max(activeSkill.skillData.dpsMultiplier or 1, 1)
