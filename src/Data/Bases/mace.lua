@@ -282,15 +282,6 @@ itemBases["Boom Mace"] = {
 	weapon = { PhysicalMin = 39, PhysicalMax = 81, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 70, str = 218, },
 }
-itemBases["Random One Hand Mace"] = {
-	type = "One Handed Mace",
-	hidden = true,
-	socketLimit = 3,
-	tags = { default = true, },
-	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
-	implicitModTypes = { },
-	req = { },
-}
 
 itemBases["Driftwood Sceptre"] = {
 	type = "Sceptre",
@@ -572,15 +563,6 @@ itemBases["Alternating Sceptre"] = {
 	weapon = { PhysicalMin = 41, PhysicalMax = 61, CritChanceBase = 7.6, AttackRateBase = 1.45, Range = 11, },
 	req = { level = 70, str = 95, int = 131, },
 }
-itemBases["Random Sceptre"] = {
-	type = "Sceptre",
-	hidden = true,
-	socketLimit = 3,
-	tags = { default = true, },
-	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
-	implicitModTypes = { },
-	req = { },
-}
 
 itemBases["Driftwood Maul"] = {
 	type = "Two Handed Mace",
@@ -831,13 +813,4 @@ itemBases["Impact Force Propagator"] = {
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 81, PhysicalMax = 135, CritChanceBase = 5, AttackRateBase = 1.15, Range = 13, },
 	req = { level = 70, str = 220, },
-}
-itemBases["Random Two Hand Mace"] = {
-	type = "Two Handed Mace",
-	hidden = true,
-	socketLimit = 6,
-	tags = { default = true, },
-	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
-	implicitModTypes = { },
-	req = { },
 }

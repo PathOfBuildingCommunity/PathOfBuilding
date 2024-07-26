@@ -260,15 +260,6 @@ itemBases["Psychotic Axe"] = {
 	weapon = { PhysicalMin = 34, PhysicalMax = 71, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 70, str = 163, dex = 84, },
 }
-itemBases["Random One Hand Axe"] = {
-	type = "One Handed Axe",
-	hidden = true,
-	socketLimit = 3,
-	tags = { default = true, },
-	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
-	implicitModTypes = { },
-	req = { },
-}
 
 itemBases["Stone Axe"] = {
 	type = "Two Handed Axe",
@@ -502,13 +493,4 @@ itemBases["Apex Cleaver"] = {
 	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
 	weapon = { PhysicalMin = 78, PhysicalMax = 121, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
 	req = { level = 70, str = 139, dex = 65, },
-}
-itemBases["Random Two Hand Axe"] = {
-	type = "Two Handed Axe",
-	hidden = true,
-	socketLimit = 6,
-	tags = { default = true, },
-	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
-	implicitModTypes = { },
-	req = { },
 }
