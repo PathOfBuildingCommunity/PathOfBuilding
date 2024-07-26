@@ -7,6 +7,7 @@ itemBases["Prismatic Tincture"] = {
 	tags = { tincture = true, default = true, },
 	implicit = "(70-100)% increased Elemental Damage with Melee Weapons",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
+	tincture = { manaBurn = 0.7, cooldown = 8 },
 	req = { },
 }
 itemBases["Rosethorn Tincture"] = {
@@ -14,6 +15,7 @@ itemBases["Rosethorn Tincture"] = {
 	tags = { tincture = true, default = true, },
 	implicit = "(100-150)% increased Critical Strike Chance with Melee Weapons",
 	implicitModTypes = { { "attack", "critical" }, },
+	tincture = { manaBurn = 0.7, cooldown = 8 },
 	req = { },
 }
 itemBases["Ironwood Tincture"] = {
@@ -21,6 +23,7 @@ itemBases["Ironwood Tincture"] = {
 	tags = { tincture = true, default = true, },
 	implicit = "40% reduced Enemy Stun Threshold with Melee Weapons\n(15-25)% increased Stun Duration with Melee Weapons",
 	implicitModTypes = { { "attack" }, { "attack" }, },
+	tincture = { manaBurn = 0.9, cooldown = 10 },
 	req = { },
 }
 itemBases["Ashbark Tincture"] = {
@@ -28,6 +31,7 @@ itemBases["Ashbark Tincture"] = {
 	tags = { tincture = true, default = true, },
 	implicit = "25% chance to Ignite with Melee Weapons\n(60-90)% increased Damage with Ignite from Melee Weapons",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack", "ailment" }, { "elemental_damage", "damage", "elemental", "fire", "attack", "ailment" }, },
+	tincture = { manaBurn = 0.6, cooldown = 7 },
 	req = { },
 }
 itemBases["Borealwood Tincture"] = {
@@ -35,6 +39,7 @@ itemBases["Borealwood Tincture"] = {
 	tags = { tincture = true, default = true, },
 	implicit = "25% chance to Freeze with Melee Weapons\n(25-35)% increased Effect of Chill from Melee Weapons",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold", "attack", "ailment" }, { "elemental_damage", "damage", "elemental", "cold", "attack", "ailment" }, },
+	tincture = { manaBurn = 0.6, cooldown = 7 },
 	req = { },
 }
 itemBases["Fulgurite Tincture"] = {
@@ -42,6 +47,7 @@ itemBases["Fulgurite Tincture"] = {
 	tags = { tincture = true, default = true, },
 	implicit = "25% chance to Shock with Melee Weapons\n(25-35)% increased Effect of Shock from Melee Weapons",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "lightning", "attack", "ailment" }, { "elemental_damage", "damage", "elemental", "lightning", "attack", "ailment" }, },
+	tincture = { manaBurn = 0.6, cooldown = 7 },
 	req = { },
 }
 itemBases["Poisonberry Tincture"] = {
@@ -49,6 +55,7 @@ itemBases["Poisonberry Tincture"] = {
 	tags = { tincture = true, default = true, },
 	implicit = "20% chance to Poison with Melee Weapons\n(60-90)% increased Damage with Poison from Melee Weapons",
 	implicitModTypes = { { "chaos_damage", "poison", "damage", "chaos", "attack", "ailment" }, { "chaos_damage", "poison", "damage", "chaos", "attack", "ailment" }, },
+	tincture = { manaBurn = 0.7, cooldown = 6 },
 	req = { },
 }
 itemBases["Blood Sap Tincture"] = {
@@ -56,6 +63,7 @@ itemBases["Blood Sap Tincture"] = {
 	tags = { tincture = true, default = true, },
 	implicit = "20% chance to cause Bleeding with Melee Weapons\n(60-90)% increased Damage with Bleeding from Melee Weapons",
 	implicitModTypes = { { "physical_damage", "bleed", "damage", "physical", "attack", "ailment" }, { "physical_damage", "bleed", "damage", "physical", "attack", "ailment" }, },
+	tincture = { manaBurn = 0.7, cooldown = 6 },
 	req = { },
 }
 itemBases["Oakbranch Tincture"] = {
@@ -63,6 +71,7 @@ itemBases["Oakbranch Tincture"] = {
 	tags = { tincture = true, default = true, },
 	implicit = "Gain 3 Rage on Melee Weapon Hit",
 	implicitModTypes = { { "attack" }, },
+	tincture = { manaBurn = 0.5, cooldown = 8 },
 	req = { },
 }
 itemBases["Sporebloom Tincture"] = {
@@ -70,5 +79,6 @@ itemBases["Sporebloom Tincture"] = {
 	tags = { tincture = true, default = true, },
 	implicit = "25% chance to Blind Enemies on Hit with Melee Weapons\n(25-35)% increased Effect of Blind from Melee Weapons",
 	implicitModTypes = { { "attack" }, { "attack" }, },
+	tincture = { manaBurn = 0.9, cooldown = 8 },
 	req = { },
 }

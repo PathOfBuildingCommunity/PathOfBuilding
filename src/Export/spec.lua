@@ -4728,6 +4728,8 @@ return {
 	},
 	gemtypes={
 	},
+	gemvisualeffect={
+	},
 	genericbuffauras={
 		[1]={
 			list=false,
@@ -11309,6 +11311,20 @@ return {
 			refTo="BaseItemTypes",
 			type="Key",
 			width=320
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
 		}
 	},
 	tips={
