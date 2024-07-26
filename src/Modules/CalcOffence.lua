@@ -3645,7 +3645,11 @@ function calcs.offence(env, actor, activeSkill)
 				output[ailment.."ChanceOnHit"] = m_min(100, chance)
 				if skillModList:Flag(cfg, "CritsDontAlways"..ailment) -- e.g. Painseeker
 				or (ailmentData[ailment] and ailmentData[ailment].alt and not skillModList:Flag(cfg, "CritAlwaysAltAilments")) then -- e.g. Secrets of Suffering
-					output[ailment.."ChanceOnCrit"] = output[ailment.."ChanceOnHit"]
+					if ailment == "Scorch" and env.modDB:Flag(nil, "IgniteCanScorch") then
+						output["ScorchChanceOnCrit"] = 100
+					else
+						output[ailment.."ChanceOnCrit"] = output[ailment.."ChanceOnHit"]
+					end
 				else
 					output[ailment.."ChanceOnCrit"] = 100
 				end
