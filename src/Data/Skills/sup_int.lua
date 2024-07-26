@@ -1634,7 +1634,7 @@ skills["SignalPrey"] = {
 	color = 3,
 	description = "Applies a debuff to a specific enemy which signals your minions to consider that enemy to be the Prey. All minions from skills supported by any Predator Support will target that enemy. Only one enemy can be the Prey at a time. This skill cannot be used by Totems, Traps, or Mines.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, [SkillType.SkillGrantedBySupport] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
 	baseFlags = {
 	},

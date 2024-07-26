@@ -1380,7 +1380,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill PhysicalDamageAura
+#skill Pride
 #flags spell aura area
 	statMap = {
 		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%"] = {
@@ -1418,7 +1418,7 @@ local skills, mod, flag, skill = ...
 #baseMod mod("DebilitateChance", "BASE", 100)
 #mods
 
-#skill FireResistAura
+#skill PurityOfFire
 #flags spell aura area
 	statMap = {
 		["base_fire_damage_resistance_%"] = {
@@ -1431,7 +1431,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 40)
 #mods
 
-#skill FireImpurity
+#skill VaalImpurityOfFire
 #flags spell aura area duration
 	statMap = {
 		["hits_ignore_my_fire_resistance"] = {
@@ -1587,7 +1587,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 60)
 #mods
 
-#skill NewShieldCharge
+#skill ShieldCharge
 #flags attack melee area shieldAttack
 #baseMod skill("radius", 28)
 #baseMod skill("radiusLabel", "End Cone area:")
@@ -1758,7 +1758,7 @@ local skills, mod, flag, skill = ...
 #baseMod mod("AvoidBleed", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Guard" })
 #mods
 
-#skill Bloodreap
+#skill Reap
 #flags spell area duration
 	statMap = {
 		["blood_scythe_damage_+%_final_per_charge"] = {
@@ -1799,7 +1799,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dotIsArea", true)
 #mods
 
-#skill SummonFireGolem
+#skill SummonFlameGolem
 #flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedFlameGolem",
@@ -1813,7 +1813,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:HaveFireGolem", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
-#skill SummonFireGolemAltX
+#skill SummonFlameGolemAltX
 #flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedFlameGolem",
@@ -1822,7 +1822,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:HaveFireGolem", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
-#skill SummonFireGolemAltY
+#skill SummonFlameGolemAltY
 #flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedFlameGolem",
@@ -1831,7 +1831,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:HaveFireGolem", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
-#skill SummonRockGolem
+#skill SummonStoneGolem
 #flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedStoneGolem",
@@ -1846,7 +1846,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:HavePhysicalGolem", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
-#skill SummonRockGolemAltX
+#skill SummonStoneGolemAltX
 #flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedStoneGolem",
@@ -1855,7 +1855,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:HavePhysicalGolem", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
-#skill SummonRockGolemAltY
+#skill SummonStoneGolemAltY
 #flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedStoneGolem",
@@ -1864,7 +1864,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:HavePhysicalGolem", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
-#skill NewSunder
+#skill Sunder
 #flags attack melee area
 	parts = {
 		{
@@ -1892,7 +1892,7 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Multiplier:SunderWaveArea", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 })
 #mods
 
-#skill NewSunderAltX
+#skill SunderAltX
 #flags attack melee area
 	parts = {
 		{
@@ -1918,7 +1918,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 24)
 #mods
 
-#skill EnduranceChargeSlam
+#skill TectonicSlam
 #flags attack melee area
 #baseMod skill("radius", 15)
 #baseMod skill("radiusLabel", "Fissure Length:")
@@ -1926,7 +1926,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "Fissure Width:")
 #mods
 
-#skill EnduranceChargeSlamAltX
+#skill TectonicSlamAltX
 #flags attack melee area
 	statMap = {
 		["endurance_charge_slam_damage_+%_final_per_endurance_charge_consumed"] = {
@@ -2043,7 +2043,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("debuff", true)
 #mods
 
-#skill BloodstainedBanner
+#skill WarBanner
 #flags spell
 	statMap = {
 		["accuracy_rating_+%"] = {
