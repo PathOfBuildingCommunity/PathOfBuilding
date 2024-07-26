@@ -36,6 +36,7 @@ local EndpointType = {
 ---@field buildId string
 
 --- This data is saved internally for caching
+--- Save this to disk for temporary local caching if required/desired
 ---@class BuildInfoCache
 ---@field pobdata string
 ---@field name string
@@ -48,11 +49,11 @@ local EndpointType = {
 ---@field name string
 ---@field fallbackVersion integer
 ---@field endpointType EndpointType
----@field baseAPIPath string
----@field league_filter boolean
----@field gem_filter boolean
+---@field baseAPIPath? string
+---@field league_filter? boolean
+---@field gem_filter? boolean
 
----This primarily exists for the lua language server
+--- This primarily exists for the lua language server
 ---@param buildInfo BuildInfo
 ---@param source APICapabilities
 ---@return BuildInfoCache
@@ -81,15 +82,14 @@ local getBuildVersions = {
 	[0] = function(...) return APIContractBuilds:GetBuildsVersion1(...) end,
 }
 
----comments
----@param path string
+--- Gets the builds from the source
 ---@param source APISourceInfo
-function APIContractBuilds:GetBuilds(path, source)
-	local builds = getBuildVersions[source.fallbackVersion](path, source.endpointType)
+function APIContractBuilds:GetBuilds(source)
+	getBuildVersions[source.fallbackVersion](source.endpointType)
 end
 
 ---@param source APISourceInfo
-function APIContractBuilds:GetAPICapabilities(source)
+function APIContractBuilds:UpdateAPICapabilities(source)
 	-- TODO: Which features are supported?
 	-- What is the latest version that is supported?
 	-- Which endpoints are supported
@@ -103,6 +103,7 @@ function APIContractBuilds:GetAPICapabilities(source)
 		function(...) return APIContractBuilds:APICapabilitiesCallback(source, ...) end, {})
 end
 
+--- Updates the API capabilities for the source
 ---@param response table
 ---@param errMsg any
 ---@param source APISourceInfo
@@ -119,6 +120,7 @@ function APIContractBuilds:APICapabilitiesCallback(source, response, errMsg)
 	self.apiCapabilities[source.name] = parsedResponse
 end
 
+--- Adds/Updates Builds for the source based on version 1
 ---@param response table
 ---@param errMsg any
 ---@param source APICapabilities
@@ -132,15 +134,15 @@ function APIContractBuilds:BuildsVersion1Callback(source, response, errMsg)
 	end
 end
 
----Version 1 of the API Contract for Builds
----@param path string
+--- Version 1 of the API Contract for Builds
 ---@param source APICapabilities
-function APIContractBuilds:GetBuildsVersion1(path, source)
-	if source.endpointType ~= EndpointType.REST then
+function APIContractBuilds:GetBuildsVersion1(source)
+	if source.endpointType == EndpointType.CSV then
+		-- TODO: Implement CSV Parsing and Format
 		return
 	end
 
-	launch:DownloadPage(source.baseAPIPath + path, function(...)
+	launch:DownloadPage(source.baseAPIPath + "/v1/builds", function(...)
 		self:BuildsVersion1Callback(source, ...)
 	end, {})
 end
