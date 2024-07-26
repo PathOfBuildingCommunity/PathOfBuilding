@@ -85,7 +85,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 40)
 #mods
 
-#skill AnimateArmour
+#skill AnimateGuardian
 #flags spell minion permanentMinion
 	minionHasItemSet = true,
 	minionUses = {
@@ -101,7 +101,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill AnimateArmourAltX
+#skill AnimateGuardianAltX
 #flags spell minion permanentMinion
 	minionHasItemSet = true,
 	minionUses = {
@@ -208,7 +208,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "Area of bladestorms:")
 #mods
 
-#skill BloodSandStance
+#skill BloodAndSand
 #flags spell
 	statMap = {
 		["blood_sand_stance_melee_skills_area_of_effect_+%_final_in_blood_stance"] = {
@@ -300,7 +300,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 14, { type = "SkillPart", skillPart = 2 })
 #mods
 
-#skill ChainStrike
+#skill ChainHook
 #flags attack melee area
 	statMap = {
 		["chain_strike_gain_x_rage_if_attack_hits"] = {
@@ -467,7 +467,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill PuresteelBanner
+#skill DreadBanner
 #flags spell
 	statMap = {
 		["puresteel_banner_accuracy_rating_+%_final"] = {
@@ -558,7 +558,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 28, { type = "SkillPart", skillPart = 2 })
 #mods
 
-#skill SpikeSlam
+#skill Earthshatter
 #flags attack melee area duration
 	parts = {
 		{
@@ -585,7 +585,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 18, { type = "SkillPart", skillPart = 1 })
 #mods
 
-#skill SpikeSlamAltX
+#skill EarthshatterAltX
 #flags attack melee area duration
 	parts = {
 		{
@@ -609,7 +609,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 18, { type = "SkillPart", skillPart = 1 })
 #mods
 
-#skill SpikeSlamAltY
+#skill EarthshatterAltY
 #flags attack melee area duration
 	parts = {
 		{
@@ -689,7 +689,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill BloodSandArmour
+#skill FleshAndStone
 #flags spell area aura
 	statMap = {
 		["support_maimed_enemies_physical_damage_taken_+%"] = {
@@ -941,12 +941,12 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill FlameTotem
+#skill HolyFlameTotem
 #flags spell totem projectile duration
 #baseMod skill("radius", 16)
 #mods
 
-#skill FlameTotemAltX
+#skill HolyFlameTotemAltX
 #flags spell totem projectile duration
 #mods
 
