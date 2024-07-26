@@ -21,7 +21,7 @@ local EndpointType = {
 -- {"baseUrl": "https://mypoebuilds.gg/pob-builds.csv", "name": "MyPoEBuilds CSV", "endpointType": 1, "fallbackVersion": 1}
 -- baseUrl means here the full URL to the actual file or endpoint that returns a CSV formatted file from a GET endpoint
 
---- This is the required information from the enduser
+--- APISourceInfo is the configurated data for a source from the enduser
 ---@class APISourceInfo
 ---@field name string
 ---@field baseUrl string
@@ -43,9 +43,18 @@ local EndpointType = {
 ---@field buildId string
 ---@field sourceName string
 
+--- API Capabilities returned by the source or defaulted to APISourceInfo
+---@class APICapabilities
+---@field name string
+---@field fallbackVersion integer
+---@field endpointType EndpointType
+---@field baseAPIPath string
+---@field league_filter boolean
+---@field gem_filter boolean
+
 ---This primarily exists for the lua language server
 ---@param buildInfo BuildInfo
----@param source APISourceInfo
+---@param source APICapabilities
 ---@return BuildInfoCache
 local function buildInfoToCache(buildInfo, source)
 	return {
@@ -58,10 +67,12 @@ local function buildInfoToCache(buildInfo, source)
 end
 
 ---@class APIContractBuilds
----@field buildList BuildInfoCache[]
+---@field buildList table<string,BuildInfoCache>
+---@field apiCapabilities table<string, APICapabilities>
 local APIContractBuilds = newClass("APIContractBuilds",
 	function(self)
 		self.buildList = {}
+		self.apiCapabilities = {}
 	end
 )
 
@@ -83,13 +94,38 @@ function APIContractBuilds:GetAPICapabilities(source)
 	-- What is the latest version that is supported?
 	-- Which endpoints are supported
 	-- Is Querying supported? (CSV won't support this probably)
+
+	if source.endpointType ~= EndpointType.REST then
+		return
+	end
+
+	launch:DownloadPage(source.baseUrl + "/.well-known/pathofbuilding",
+		function(...) return APIContractBuilds:APICapabilitiesCallback(source, ...) end, {})
 end
 
----@param response table | BuildInfo[]
+---@param response table
 ---@param errMsg any
 ---@param source APISourceInfo
+function APIContractBuilds:APICapabilitiesCallback(source, response, errMsg)
+	local parsedResponse = dkjson.decode(response.body)
+	---@cast parsedResponse APICapabilities
+	if errMsg or not parsedResponse.baseAPIPath then
+		parsedResponse.baseAPIPath = source.baseUrl
+	end
+	parsedResponse.name = source.name
+	parsedResponse.fallbackVersion = source.fallbackVersion
+	parsedResponse.endpointType = source.endpointType
+
+	self.apiCapabilities[source.name] = parsedResponse
+end
+
+---@param response table
+---@param errMsg any
+---@param source APICapabilities
 function APIContractBuilds:BuildsVersion1Callback(source, response, errMsg)
-	for _, build in ipairs(response) do
+	local parsedResponse = dkjson.decode(response.body)
+	---@cast parsedResponse BuildInfo[]
+	for _, build in ipairs(parsedResponse) do
 		-- source and buildId will be used as a caching key
 		-- to avoid buildId collissions
 		self.buildList[common.sha1(source.name + "-" + build.buildId)] = buildInfoToCache(build, source)
@@ -98,11 +134,13 @@ end
 
 ---Version 1 of the API Contract for Builds
 ---@param path string
----@param source APISourceInfo
+---@param source APICapabilities
 function APIContractBuilds:GetBuildsVersion1(path, source)
-	if source.endpointType == EndpointType.REST then
-		launch:DownloadPage(source.baseUrl + path, function(...)
-			self:BuildsVersion1Callback(source, ...)
-		end, {})
+	if source.endpointType ~= EndpointType.REST then
+		return
 	end
+
+	launch:DownloadPage(source.baseAPIPath + path, function(...)
+		self:BuildsVersion1Callback(source, ...)
+	end, {})
 end
