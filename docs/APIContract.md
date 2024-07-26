@@ -9,11 +9,12 @@ The base URL for an API should be: _baseURL_/_apiVersion_/ meaning even somethin
 In order to provide a consistent API a metadata endpoint should be provided under _baseURL_/.well-known/pathofbuilding this endpoint should provide information about the API and the version of the API.
 Furthermore this may allow having custom endpoints for the API.
 
-| Feature          | Field         | Type         | Description                                                                       |
-| ---------------- | ------------- | ------------ | --------------------------------------------------------------------------------- |
-| League Filtering | league_filter | bool         | This can  be used to indicate whether the API supports filtering based on leagues |
-| Gem Filtering    | gem_filter    | bool         | This can  be used to indicate whether the API supports filtering based on gems    |
-| Streams          | streams       | StreamInfo[] | A list of streams available to be queried against                                 |
+| Feature          | Field         | Type             | Description                                                                          |
+| ---------------- | ------------- | ---------------- | ------------------------------------------------------------------------------------ |
+| League Filtering | league_filter | bool             | This can  be used to indicate whether the API supports filtering based on leagues    |
+| Gem Filtering    | gem_filter    | bool             | This can  be used to indicate whether the API supports filtering based on gems       |
+| Streams          | streams       | StreamInfo[]     | A list of streams available to be queried against                                    |
+| Update Builds    | update_builds | UpdateBuildsInfo | Indicates if the API supports updating builds via PoB and which fields are supported |
 
 ### Types
 
@@ -26,6 +27,21 @@ Furthermore this may allow having custom endpoints for the API.
 
 apiPath might be changed to a generic endpoint such as `/v1/{stream}/builds`
 
+#### UpdateBuildsInfo
+
+| Field      | Type     | Description                                            |
+| ---------- | -------- | ------------------------------------------------------ |
+| hasSupport | bool     | indicates if the API supports updating external builds |
+| fields     | string[] | list of fields that can be updated                     |
+
+Example:
+
+```json
+{
+    "hasSupport": true,
+    "fields": ["description", "youtubeUrl"]
+}
+```
 ## Version 1
 
 ### Response and Request types
@@ -42,7 +58,7 @@ apiPath might be changed to a generic endpoint such as `/v1/{stream}/builds`
 ### Endpoints
 
 <details>
- <summary><code>GET</code> <code><b>/v1/{stream}/builds</b></code> <code>(Lists multiple builds)</code></summary>
+ <summary><code>GET</code> <code><b>/v1/builds</b></code> <code>(Lists multiple builds)</code></summary>
 
 #### Parameters
 > Query Parameters
@@ -74,6 +90,39 @@ Example values:
 | http code | content-type       | response           |
 | --------- | ------------------ | ------------------ |
 | `200`     | `application/json` | `BuildInfo object` |
+
+</details>
+
+
+<details>
+ <summary><code>POST</code> <code><b>/v1/builds/{buildId}</b></code> <code>(Update a single build on the source)</code></summary>
+
+#### Parameters
+> Path Parameters
+
+| name    | type     | data type | description                                                |
+| ------- | -------- | --------- | ---------------------------------------------------------- |
+| buildId | required | string    | The build in question on the source that should be updated |
+
+#### Request
+
+| Field      | Type     | Description                        |
+| ---------- | -------- | ---------------------------------- |
+| pobdata    | string   | The Path of Building data          |
+| name       | string   | The name of the build              |
+| customData | string[] | A list of custom data to be stored |
+
+customData will be describable fields via the metadata endpoint, if customData is empty it is expected to be ignored and no changes should be made.
+
+#### Responses
+
+| http code | content-type               | response              | Description            |
+| --------- | -------------------------- | --------------------- | ---------------------- |
+| `200`     | `application/json`         | None                  | Update succesful       |
+| `201`     | `application/json`         | None                  | Succesful creation     |
+| `400`     | `text/html; charset=utf-8` | `Reason for failure`  | Input may be incorrect |
+| `401`     | `text/html; charset=utf-8` | `Reason if necessary` | Auth incorrect         |
+| `404`     | `text/html; charset=utf-8` | None                  | Build does not exist   |
 
 </details>
 
