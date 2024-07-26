@@ -81,6 +81,10 @@ local function tableToQueryParams(t)
 	local query = "?"
 	for key, value in pairs(t) do
 		if value then
+			local tempValue = value
+			if type(value) == "table" then
+				tempValue = table.concat(value, ",")
+			end
 			query = query .. key .. "=" .. value .. "&"
 		end
 	end

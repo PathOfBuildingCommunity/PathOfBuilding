@@ -9,10 +9,22 @@ The base URL for an API should be: _baseURL_/_apiVersion_/ meaning even somethin
 In order to provide a consistent API a metadata endpoint should be provided under _baseURL_/.well-known/pathofbuilding this endpoint should provide information about the API and the version of the API.
 Furthermore this may allow having custom endpoints for the API.
 
-| Feature          | Field         | Type | Description                                                                       |
-| ---------------- | ------------- | ---- | --------------------------------------------------------------------------------- |
-| League Filtering | league_filter | bool | This can  be used to indicate whether the API supports filtering based on leagues |
-| Gem Filtering    | gem_filter    | bool | This can  be used to indicate whether the API supports filtering based on gems    |
+| Feature          | Field         | Type         | Description                                                                       |
+| ---------------- | ------------- | ------------ | --------------------------------------------------------------------------------- |
+| League Filtering | league_filter | bool         | This can  be used to indicate whether the API supports filtering based on leagues |
+| Gem Filtering    | gem_filter    | bool         | This can  be used to indicate whether the API supports filtering based on gems    |
+| Streams          | streams       | StreamInfo[] | A list of streams available to be queried against                                 |
+
+### Types
+
+#### StreamInfo
+
+| Field   | Type   | Description                     |
+| ------- | ------ | ------------------------------- |
+| name    | string | Name of the stream              |
+| apiPath | string | API path to the stream endpoint |
+
+apiPath might be changed to a generic endpoint such as `/v1/{stream}/builds`
 
 ## Version 1
 
@@ -30,7 +42,7 @@ Furthermore this may allow having custom endpoints for the API.
 ### Endpoints
 
 <details>
- <summary><code>GET</code> <code><b>/v1/builds</b></code> <code>(Lists multiple builds)</code></summary>
+ <summary><code>GET</code> <code><b>/v1/{stream}/builds</b></code> <code>(Lists multiple builds)</code></summary>
 
 #### Parameters
 > Query Parameters
@@ -43,19 +55,19 @@ Furthermore this may allow having custom endpoints for the API.
 
 ##### League
 
-The values should be matching what Grinding Gear Games will be using for the teaser part of the website, such as: _https://www.pathofexile.com/settlers_ or _https://www.pathofexile.com/affliction_. This allows for easier mapping of the data as neither PoB nor the API will be required to wait for either party.
+These values will just be the base patch version for the league.
 
 These links are generally available via poewiki see: https://www.poewiki.net/wiki/Necropolis_league _Official Page_.
 
 Example values:
 
-| Patch | League                 | value      | url                                    |
-| ----- | ---------------------- | ---------- | -------------------------------------- |
-| 3.25  | Settlers of Kalguur    | settlers   | https://www.pathofexile.com/settlers   |
-| 3.24  | Necropolis             | necropolis | https://www.pathofexile.com/necropolis |
-| 3.23  | Affliction             | affliction | https://www.pathofexile.com/affliction |
-| 3.22  | Trial of the Ancestors | ancestor   | https://www.pathofexile.com/ancestor   |
-| 3.4   | Delve                  | delve      | https://www.pathofexile.com/delve      |
+| Patch | League                 | value | url                                    |
+| ----- | ---------------------- | ----- | -------------------------------------- |
+| 3.25  | Settlers of Kalguur    | 3.25  | https://www.pathofexile.com/settlers   |
+| 3.24  | Necropolis             | 3.24  | https://www.pathofexile.com/necropolis |
+| 3.23  | Affliction             | 3.23  | https://www.pathofexile.com/affliction |
+| 3.22  | Trial of the Ancestors | 3.22  | https://www.pathofexile.com/ancestor   |
+| 3.4   | Delve                  | 3.4   | https://www.pathofexile.com/delve      |
 
 #### Responses
 
