@@ -239,7 +239,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/PlayerTradeWhisperFormats.dat",
 		"Data/TradeMarketCategoryListAllClass.dat",
 		"Data/TradeMarketIndexItemAs.dat",
-		"Data/TradeMarketImplicitModDisplay.dat",	
+		"Data/TradeMarketImplicitModDisplay.dat",
 		"Data/Commands.dat",
 		"Data/ModEquivalencies.dat",
 		"Data/InfluenceTags.dat",
