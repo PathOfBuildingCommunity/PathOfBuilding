@@ -409,7 +409,7 @@ local skills, mod, flag, skill = ...
 			mod("SpellSuppressionChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
-#baseMod skill("radius", 24
+#baseMod skill("radius", 24)
 #baseMod mod("AuraEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BannerPlanted", neg = true })
 #baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods

@@ -954,13 +954,57 @@ skills["SupportAwakenedCastWhileChannelling"] = {
 		[20] = { 250, 100, PvPDamageMultiplier = -80, levelRequirement = 100, manaMultiplier = 20, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportAwakenedCastWhileChannellingTriggered"] = {
+skills["SupportCastWhileChannellingTriggeredPlus"] = {
+	name = "Awakened Cast While Channelling",
+	description = "Must support both a channelling skill and a non-channelling spell skill to work. The channelling skill will trigger a spell periodically while channelling. Cannot support skills used by totems, traps, or mines. Vaal skills and skills with a reservation cannot be triggered.",
+	color = 3,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, },
+	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	plusVersionOf = "SupportCastWhileChannellingTriggered",
+	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
 			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 		},
 	},
-
+	qualityStats = {
+		Default = {
+			{ "triggered_skill_damage_+%", 0.5 },
+		},
+	},
+	constantStats = {
+		{ "support_cast_while_channelling_triggered_skill_damage_+%_final", -30 },
+	},
+	stats = {
+		"spell_uncastable_if_triggerable",
+		"cast_spell_while_linked_skill_channelling",
+	},
+	levels = {
+		[1] = { PvPDamageMultiplier = -80, levelRequirement = 72, manaMultiplier = 20, },
+		[2] = { PvPDamageMultiplier = -80, levelRequirement = 74, manaMultiplier = 20, },
+		[3] = { PvPDamageMultiplier = -80, levelRequirement = 76, manaMultiplier = 20, },
+		[4] = { PvPDamageMultiplier = -80, levelRequirement = 78, manaMultiplier = 20, },
+		[5] = { PvPDamageMultiplier = -80, levelRequirement = 80, manaMultiplier = 20, },
+		[6] = { PvPDamageMultiplier = -80, levelRequirement = 82, manaMultiplier = 20, },
+		[7] = { PvPDamageMultiplier = -80, levelRequirement = 84, manaMultiplier = 20, },
+		[8] = { PvPDamageMultiplier = -80, levelRequirement = 86, manaMultiplier = 20, },
+		[9] = { PvPDamageMultiplier = -80, levelRequirement = 88, manaMultiplier = 20, },
+		[10] = { PvPDamageMultiplier = -80, levelRequirement = 90, manaMultiplier = 20, },
+		[11] = { PvPDamageMultiplier = -80, levelRequirement = 91, manaMultiplier = 20, },
+		[12] = { PvPDamageMultiplier = -80, levelRequirement = 92, manaMultiplier = 20, },
+		[13] = { PvPDamageMultiplier = -80, levelRequirement = 93, manaMultiplier = 20, },
+		[14] = { PvPDamageMultiplier = -80, levelRequirement = 94, manaMultiplier = 20, },
+		[15] = { PvPDamageMultiplier = -80, levelRequirement = 95, manaMultiplier = 20, },
+		[16] = { PvPDamageMultiplier = -80, levelRequirement = 96, manaMultiplier = 20, },
+		[17] = { PvPDamageMultiplier = -80, levelRequirement = 97, manaMultiplier = 20, },
+		[18] = { PvPDamageMultiplier = -80, levelRequirement = 98, manaMultiplier = 20, },
+		[19] = { PvPDamageMultiplier = -80, levelRequirement = 99, manaMultiplier = 20, },
+		[20] = { PvPDamageMultiplier = -80, levelRequirement = 100, manaMultiplier = 20, },
+	},
+}
 skills["SupportCombustion"] = {
 	name = "Combustion",
 	description = "Supports any skill that hits enemies.",
@@ -1547,7 +1591,18 @@ skills["SupportAwakenedHextouch"] = {
 		[20] = { manaMultiplier = 30, levelRequirement = 100, },
 	},
 }
-skills["SupportAwakenedCurseOnHitCurse"] = {
+skills["SupportCurseOnHitCursePlus"] = {
+	name = "Awakened Hextouch",
+	description = "Must support both a skill that hits enemies, and a hex curse skill to work. The hex will be applied when enemies are hit by the other skill. Cannot support totems, traps, or mines. Minions cannot apply hexes this way.",
+	color = 3,
+	support = true,
+	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.AuraAffectsEnemies, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	ignoreMinionTypes = true,
+	plusVersionOf = "SupportCurseOnHitCurse",
+	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["curse_triggered_by_hextouch"] = {
 			skill("triggeredByCurseOnHit", true),
@@ -1557,7 +1612,44 @@ skills["SupportAwakenedCurseOnHitCurse"] = {
 			mod("CurseEffect", "MORE", nil),
 		},
 	},
-
+	qualityStats = {
+		Default = {
+			{ "base_curse_duration_+%", 0.5 },
+		},
+	},
+	constantStats = {
+		{ "support_hextouch_curse_effect_+%_final", -35 },
+	},
+	stats = {
+		"base_curse_duration_+%",
+		"chance_to_ignore_hexproof_%",
+		"supported_curse_skill_gem_level_+",
+		"cannot_cast_curses",
+		"curse_triggered_by_hextouch",
+	},
+	levels = {
+		[1] = { -30, 10, 0, levelRequirement = 72, statInterpolation = { 1, 1, 1, }, },
+		[2] = { -29, 12, 0, levelRequirement = 74, statInterpolation = { 1, 1, 1, }, },
+		[3] = { -28, 14, 0, levelRequirement = 76, statInterpolation = { 1, 1, 1, }, },
+		[4] = { -27, 16, 0, levelRequirement = 78, statInterpolation = { 1, 1, 1, }, },
+		[5] = { -26, 18, 1, levelRequirement = 80, statInterpolation = { 1, 1, 1, }, },
+		[6] = { -25, 20, 1, levelRequirement = 82, statInterpolation = { 1, 1, 1, }, },
+		[7] = { -24, 21, 1, levelRequirement = 84, statInterpolation = { 1, 1, 1, }, },
+		[8] = { -23, 22, 1, levelRequirement = 86, statInterpolation = { 1, 1, 1, }, },
+		[9] = { -22, 23, 1, levelRequirement = 88, statInterpolation = { 1, 1, 1, }, },
+		[10] = { -22, 24, 1, levelRequirement = 90, statInterpolation = { 1, 1, 1, }, },
+		[11] = { -21, 25, 1, levelRequirement = 91, statInterpolation = { 1, 1, 1, }, },
+		[12] = { -21, 26, 1, levelRequirement = 92, statInterpolation = { 1, 1, 1, }, },
+		[13] = { -20, 27, 1, levelRequirement = 93, statInterpolation = { 1, 1, 1, }, },
+		[14] = { -20, 28, 1, levelRequirement = 94, statInterpolation = { 1, 1, 1, }, },
+		[15] = { -19, 29, 1, levelRequirement = 95, statInterpolation = { 1, 1, 1, }, },
+		[16] = { -19, 30, 1, levelRequirement = 96, statInterpolation = { 1, 1, 1, }, },
+		[17] = { -18, 31, 1, levelRequirement = 97, statInterpolation = { 1, 1, 1, }, },
+		[18] = { -18, 32, 1, levelRequirement = 98, statInterpolation = { 1, 1, 1, }, },
+		[19] = { -17, 33, 1, levelRequirement = 99, statInterpolation = { 1, 1, 1, }, },
+		[20] = { -17, 34, 1, levelRequirement = 100, statInterpolation = { 1, 1, 1, }, },
+	},
+}
 skills["SupportPredator"] = {
 	name = "Predator",
 	description = "Supports skills which create Minions.",

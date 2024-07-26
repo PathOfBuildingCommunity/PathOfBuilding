@@ -2207,7 +2207,7 @@ skills["DefianceBanner"] = {
 		banner = true,
 	},
 	baseMods = {
-		skill("radius", 24,
+		skill("radius", 24),
 		mod("AuraEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BannerPlanted", neg = true }),
 		flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" }),
 	},
