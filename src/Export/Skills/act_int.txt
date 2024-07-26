@@ -389,7 +389,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("debuff", true)
 #mods
 
-#skill SupportDarkRitualX Bane of Condemnation
+#skill SupportDarkRitualAltX Bane of Condemnation
 	statMap = {
 		["apply_linked_curses_with_dark_ritual"] = {
 			flag("Condition:AppliedByBane"),

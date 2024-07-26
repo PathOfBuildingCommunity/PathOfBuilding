@@ -1460,10 +1460,10 @@ local skills, mod, flag, skill = ...
 
 #skill ExplosiveTrapAltX
 #flags spell trap area
-	parts = skills.ShrapnelTrap.parts,
-	preDamageFunc = skills.ShrapnelTrap.preDamageFunc,
-	statMap = skills.ShrapnelTrap.statMap,
-	baseMods = skills.ShrapnelTrap.baseMods,
+	parts = skills.ExplosiveTrap.parts,
+	preDamageFunc = skills.ExplosiveTrap.preDamageFunc,
+	statMap = skills.ExplosiveTrap.statMap,
+	baseMods = skills.ExplosiveTrap.baseMods,
 #mods
 
 #skill ExplosiveTrapAltY

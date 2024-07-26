@@ -593,7 +593,7 @@ skills["ArcticArmour"] = {
 	incrementalEffectiveness = 0.029999999329448,
 	description = "Conjures an icy barrier that chills enemies when they hit you. You drop chilled ground while moving, and take less Fire and Physical damage while stationary.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Totemable] = true, [SkillType.Duration] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Cold] = true, [SkillType.ElementalStatus] = true, [SkillType.Instant] = true, [SkillType.NonHitChill] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
 		["new_arctic_armour_physical_damage_taken_when_hit_+%_final"] = {
@@ -1204,7 +1204,7 @@ skills["BearTrap"] = {
 	incrementalEffectiveness = 0.042500000447035,
 	description = "Throws a trap that damages and immobilises a single enemy for a duration based on how much damage was dealt. After the immobilise expires, a debuff remains on the enemy for a duration, lowering their movement speed by an amount which lessens over time. The affected enemy will take increased damage from traps and mines until the debuff expires. Modifiers to spell damage do not affect this skill's damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Mineable] = true, [SkillType.Trapped] = true, [SkillType.Damage] = true, [SkillType.Physical] = true, [SkillType.Cooldown] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
 		["bear_trap_damage_taken_+%_from_traps_and_mines"] = {
@@ -1290,7 +1290,7 @@ skills["BearTrapAltX"] = {
 	incrementalEffectiveness = 0.042500000447035,
 	description = "Throws a trap that damages and impales a single enemy, and immobilises them for a duration based on how much damage was dealt. Modifiers to spell damage do not affect this skill's damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Mineable] = true, [SkillType.Trapped] = true, [SkillType.Damage] = true, [SkillType.Physical] = true, [SkillType.Cooldown] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
 		cast = true,
@@ -6852,10 +6852,10 @@ skills["ExplosiveTrapAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	parts = skills.ShrapnelTrap.parts,
-	preDamageFunc = skills.ShrapnelTrap.preDamageFunc,
-	statMap = skills.ShrapnelTrap.statMap,
-	baseMods = skills.ShrapnelTrap.baseMods,
+	parts = skills.ExplosiveTrap.parts,
+	preDamageFunc = skills.ExplosiveTrap.preDamageFunc,
+	statMap = skills.ExplosiveTrap.statMap,
+	baseMods = skills.ExplosiveTrap.baseMods,
 	baseFlags = {
 		spell = true,
 		trap = true,
@@ -10580,7 +10580,7 @@ skills["PestilentStrike"] = {
 		["Dagger"] = true,
 		["Claw"] = true,
 	},
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
 		attack = true,
@@ -10912,7 +10912,7 @@ skills["Precision"] = {
 	color = 2,
 	description = "Casts an aura that grants accuracy and critical strike chance to you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
 		["accuracy_rating"] = {
@@ -11485,7 +11485,7 @@ skills["PurityOfIce"] = {
 	color = 2,
 	description = "Casts an aura that grants cold resistance to you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Cold] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
 		["base_cold_damage_resistance_%"] = {
@@ -11563,7 +11563,7 @@ skills["VaalImpurityOfIce"] = {
 	color = 2,
 	description = "Casts an aura that reduces cold damage taken and provides freeze and chill immunity to you and nearby allies, and makes hits against nearby enemies ignore their cold resistance. ",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Cold] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
 		["hits_ignore_my_cold_resistance"] = {
@@ -14006,7 +14006,7 @@ skills["ToxicRain"] = {
 	weaponTypes = {
 		["Bow"] = true,
 	},
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.podOverlapMultiplier or 1, output.ProjectileCount)
@@ -14100,7 +14100,7 @@ skills["ToxicRainAltX"] = {
 	weaponTypes = {
 		["Bow"] = true,
 	},
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.podOverlapMultiplier or 1, output.ProjectileCount)
@@ -14191,7 +14191,7 @@ skills["ToxicRainAltY"] = {
 	weaponTypes = {
 		["Bow"] = true,
 	},
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.podOverlapMultiplier or 1, output.ProjectileCount)
@@ -14687,7 +14687,7 @@ skills["SummonIceGolem"] = {
 	description = "Summons an Ice Golem that grants you increased Critical Strike Chance and Accuracy. The Ice Golem can use an icy barrage spell and a chilling spinning attack in addition to its melee attack.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Movement] = true, [SkillType.Multistrikeable] = true, [SkillType.ChillingArea] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
 		"SummonedIceGolem",
@@ -14776,7 +14776,7 @@ skills["SummonIceGolemAltX"] = {
 	description = "Summons an Ice Golem. The Ice Golem can use an icy barrage spell and a chilling spinning attack in addition to its melee attack.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Movement] = true, [SkillType.Multistrikeable] = true, [SkillType.ChillingArea] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
 		"SummonedIceGolem",
@@ -14856,7 +14856,7 @@ skills["SummonIceGolemAltY"] = {
 	description = "Summons an Ice Golem. The Ice Golem can use an icy barrage spell and a chilling spinning attack in addition to its melee attack. If reduced to low life it will trigger a spell that destroys itself to deal area damage and fire icy projectiles in a circle.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Movement] = true, [SkillType.Multistrikeable] = true, [SkillType.ChillingArea] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
 		"SummonedIceGolem",
@@ -16314,7 +16314,7 @@ skills["WitheringStep"] = {
 	baseEffectiveness = 0,
 	description = "Grants Elusive and a buff that grants Phasing. While you have this buff, monsters that enter an area around you will be Withered. Using a skill or losing the Elusive buff ends this skill's effects. Shares a cooldown with other Blink skills. Cannot be used while already Elusive.",
 	skillTypes = { [SkillType.Travel] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Area] = true, [SkillType.Chaos] = true, [SkillType.Movement] = true, [SkillType.Blink] = true, [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, [SkillType.Totemable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
 		["slither_wither_stacks"] = {
