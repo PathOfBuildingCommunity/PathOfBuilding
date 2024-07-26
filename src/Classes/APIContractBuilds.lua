@@ -104,11 +104,11 @@ local APIContractBuilds = newClass("APIContractBuilds",
 
 -- Switch case for GET Endpoint for Builds
 local getBuildVersions = {
-	[0] = function(...) return APIContractBuilds:GetBuildsVersion1(...) end,
+	[1] = function(...) return APIContractBuilds:GetBuildsVersion1(...) end,
 }
 -- Switch case for GET Endpoint for Builds
 local getBuildFilterVersions = {
-	[0] = function(data) return APIContractBuilds:GetBuildVersion1Filter(data) end,
+	[1] = function(data) return APIContractBuilds:GetBuildVersion1Filter(data) end,
 }
 
 ---@param data table
