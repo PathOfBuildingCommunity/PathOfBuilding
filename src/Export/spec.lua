@@ -11307,21 +11307,21 @@ return {
 	tinctures={
 		[1]={
 			list=false,
-			name="BaseItem",
+			name="BaseItemType",
 			refTo="BaseItemTypes",
 			type="Key",
 			width=320
 		},
 		[2]={
 			list=false,
-			name="",
+			name="ManaBurn",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[3]={
 			list=false,
-			name="",
+			name="CoolDown",
 			refTo="",
 			type="Int",
 			width=150
