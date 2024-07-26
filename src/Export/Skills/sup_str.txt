@@ -8,10 +8,10 @@ local skills, mod, flag, skill = ...
 #skill SupportAddedFireDamage
 #mods
 
-#skill SupportAddedFireDamagePlus
+#skill SupportAwakenedAddedFireDamage
 #mods
 
-#skill SupportSpiritStrike
+#skill SupportAncestralCall
 	statMap = {
 		["support_spirit_strike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
@@ -19,7 +19,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportAncestralCallPlus
+#skill SupportAwakenedAncestralCall
 	statMap = {
 		["support_spirit_strike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
@@ -35,7 +35,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportBloodMagic
+#skill SupportArrogance
 #mods
 
 #skill SupportBloodthirst
@@ -66,7 +66,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportBrutalityPlus
+#skill SupportAwakenedBrutality
 	statMap = {
 		["support_brutality_physical_damage_+%_final"] = {
 			mod("PhysicalDamage", "MORE", nil),
@@ -74,7 +74,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportIncreasedBurningDamage
+#skill SupportBurningDamage
 	statMap = {
 		["support_burning_damage_+%_final"] = {
 			mod("FireDamage", "MORE", nil, 0, KeywordFlag.FireDot),
@@ -82,7 +82,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportBurningDamagePlus
+#skill SupportAwakenedBurningDamage
 	statMap = {
 		["support_burning_damage_+%_final"] = {
 			mod("FireDamage", "MORE", nil, 0, KeywordFlag.FireDot),
@@ -90,7 +90,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill CallToArms
+#skill Autoexertion
 statMap = {
 		["call_to_arms_behaviour"] = {
 			-- Display only
@@ -101,7 +101,7 @@ statMap = {
 	},
 #mods
 
-#skill SupportCallToArms
+#skill SupportAutoexertion
 	baseMods = {
 		skill("SupportedByAutoexertion", true),
 		flag("CannotShareWarcryBuffs"),
@@ -123,7 +123,7 @@ statMap = {
 	},
 #mods
 
-#skill SupportCastOnDamageTaken
+#skill SupportCastWhenDamageTaken
 	statMap = {
 		["cast_on_damage_taken_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
@@ -200,7 +200,7 @@ statMap = {
 #baseMod flag("Cruelty")
 #mods
 
-#skill SupportMeleeDamageOnFullLife
+#skill SupportDamageOnFullLife
 	statMap = {
 		["support_damage_while_on_full_life_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "FullLife" }),
@@ -208,7 +208,7 @@ statMap = {
 	},
 #mods
 
-#skill SupportWeaponElementalDamage
+#skill SupportElementalDamageWithAttacks
 	statMap = {
 		["support_attack_skills_elemental_damage_+%_final"] = {
 			mod("ElementalDamage", "MORE", nil, 0, KeywordFlag.Attack),
@@ -216,7 +216,7 @@ statMap = {
 	},
 #mods
 
-#skill SupportWeaponElementalDamagePlus
+#skill SupportAwakenedElementalDamageWithAttacks
 	statMap = {
 		["support_attack_skills_elemental_damage_+%_final"] = {
 			mod("ElementalDamage", "MORE", nil, 0, KeywordFlag.Attack),
@@ -224,13 +224,13 @@ statMap = {
 	},
 #mods
 
-#skill SupportAdditionalLevel
+#skill SupportEmpower
 #mods
 
-#skill SupportAdditionalLevelPlus
+#skill SupportAwakenedEmpower
 #mods
 
-#skill EnduranceChargeOnMeleeStun
+#skill SupportEnduranceChargeOnMeleeStun
 	statMap = {
 		["endurance_charge_on_melee_stun_damage_+%_final_per_endurance_charge"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
@@ -238,7 +238,7 @@ statMap = {
 	},
 #mods
 
-#skill SupportMortalConviction
+#skill SupportEternalBlessing
 	statMap = {
 		["base_skill_no_reservation"] = {
 		},
@@ -252,10 +252,10 @@ statMap = {
 #skill SupportFirePenetration
 #mods
 
-#skill SupportFirePenetrationPlus
+#skill SupportAwakenedFirePenetration
 #mods
 
-#skill AncestralSlamSupport
+#skill SupportFistofWar
 	statMap = {
 		["support_ancestral_slam_big_hit_hit_damage_+%_final"] = {
 			mod("FistOfWarDamageMultiplier", "BASE", nil),
@@ -325,7 +325,7 @@ statMap = {
 	},
 #mods
 
-#skill SupportGenerosityPlus
+#skill SupportAwakenedGenerosity
 	statMap = {
 		["aura_cannot_affect_self"] = {
 			skill("auraCannotAffectSelf", true),
@@ -356,7 +356,7 @@ statMap = {
 	},
 #mods
 
-#skill SupportIncreasedDuration
+#skill SupportMoreDuration
 	statMap = {
 		["support_reduced_duration_skill_effect_duration_+%_final"] = {
 			mod("Duration", "MORE", nil),
@@ -376,7 +376,7 @@ statMap = {
 #skill SupportKnockback
 #mods
 
-#skill SupportReducedDuration
+#skill SupportLessDuration
 	statMap = {
 		["support_reduced_duration_skill_effect_duration_+%_final"] = {
 			mod("Duration", "MORE", nil),
@@ -426,7 +426,7 @@ statMap = {
 	},
 #mods
 
-#skill SupportMeleePhysicalDamagePlus
+#skill SupportAwakenedMeleePhysicalDamage
 	statMap = {
 		["support_melee_physical_damage_+%_final"] = {
 			mod("PhysicalDamage", "MORE", nil, ModFlag.Melee),
@@ -443,7 +443,7 @@ statMap = {
 #skill SupportMeleeSplash
 #mods
 
-#skill SupportMeleeSplashPlus
+#skill SupportAwakenedMeleeSplash
 #mods
 
 #skill SupportMultistrike
@@ -467,7 +467,7 @@ statMap = {
 #baseMod flag("SupportedByMultistrike")
 #mods
 
-#skill SupportMultistrikePlus
+#skill SupportAwakenedMultistrike
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
 			mod("RepeatOneDamage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
@@ -491,7 +491,7 @@ statMap = {
 	},
 #mods
 
-#skill SupportMultiTotem
+#skill SupportMultipleTotems
 	statMap = {
 		["support_additional_totem_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
@@ -521,7 +521,7 @@ statMap = {
 	},
 #mods
 
-#skill SupportRangedAttackTotem
+#skill SupportBallistaTotem
 	addFlags = {
 		totem = true,
 		ballista = true,
@@ -536,7 +536,7 @@ statMap = {
 	},
 #mods
 
-#skill SupportReducedMana
+#skill SupportInspiration
 	statMap = {
 		["elemental_damage_+%_final_per_righteous_charge"] = {
 			mod("ElementalDamage", "MORE", nil, 0, 0, { type = "Multiplier", var = "InspirationCharge" }),
@@ -569,7 +569,7 @@ statMap = {
 	},
 #mods
 
-#skill SupportBluntWeapon
+#skill SupportShockwave
 	statMap = {
 		["support_blunt_chance_to_trigger_shockwave_on_hit_%"] = {
 		},
