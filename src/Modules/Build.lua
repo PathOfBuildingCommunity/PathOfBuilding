@@ -23,9 +23,10 @@ local function InsertIfNew(t, val)
 	table.insert(t, val)
 end
 
-function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
+function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLink)
 	self.dbFileName = dbFileName
 	self.buildName = buildName
+	self.importLink = importLink
 	if dbFileName then
 		self.dbFileSubPath = self.dbFileName:sub(#main.buildPath + 1, -#self.buildName - 5)
 	else
@@ -234,21 +235,21 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	--	self.buildFlag = true
 	--end)
 	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 190, 20, {}, function(index, value)
-		if value == "Loadouts:" or value == "-----" then
+		if value == "^7^7Loadouts:" or value == "^7^7-----" then
 			self.controls.buildLoadouts:SetSel(1)
 			return
 		end
-		if value == "Sync" then
+		if value == "^7^7Sync" then
 			self:SyncLoadouts()
 			self.controls.buildLoadouts:SetSel(1)
 			return
 		end
-		if value == "^7Help >>" then
+		if value == "^7^7Help >>" then
 			main:OpenAboutPopup(7)
 			self.controls.buildLoadouts:SetSel(1)
 			return
 		end
-		if value == "New Loadout" then
+		if value == "^7^7New Loadout" then
 			local controls = { }
 			controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter name for this loadout:")
 			controls.edit = new("EditControl", nil, 0, 40, 350, 20, "New Loadout", nil, nil, 100, function(buf)
@@ -269,6 +270,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 				t_insert(self.skillsTab.skillSetOrderList, skillSet.id)
 				skillSet.title = loadout
 
+				local configSet = self.configTab:NewConfigSet(#self.configTab.configSets + 1)
+				t_insert(self.configTab.configSetOrderList, configSet.id)
+				configSet.title = loadout
+
 				self:SyncLoadouts()
 				self.modFlag = true
 				main:ClosePopup()
@@ -283,54 +288,76 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			return
 		end
 
-		local treeList = self.treeTab:GetSpecList()
-		local newSpecId = nil
-		for id, spec in ipairs(treeList) do
-			if value == spec then -- exact match
-				newSpecId = id
-			else
-				-- we set the value as the Set title without the braces and then manually add the single group it matched
-				-- this grabs the single link identifier so we can find the setId with respect to setOrder needed for SetActive
-				local linkMatch = string.match(value, "%{(%w+)%}")
-				if linkMatch then
-					newSpecId = self.treeListSpecialLinks[linkMatch]["setId"]
+		-- item, skill, and config sets have identical structure
+		-- return id as soon as it's found
+		local function findSetId(setOrderList, value, sets, setSpecialLinks)
+			for _, setOrder in ipairs(setOrderList) do
+				if value == (sets[setOrder].title or "Default") then
+					return setOrder
+				else
+					local linkMatch = string.match(value, "%{(%w+)%}")
+					if linkMatch then
+						return setSpecialLinks[linkMatch]["setId"]
+					end
 				end
 			end
-		end
-		local newItemId = nil
-		for _, itemOrder in ipairs(self.itemsTab.itemSetOrderList) do
-			if value == self.itemsTab.itemSets[itemOrder].title then
-				newItemId = itemOrder
-			else
-				local linkMatch = string.match(value, "%{(%w+)%}")
-				if linkMatch then
-					newItemId = self.itemListSpecialLinks[linkMatch]["setId"]
-				end
-			end
-		end
-		local newSkillId = nil
-		for _, skillOrder in ipairs(self.skillsTab.skillSetOrderList) do
-			if value == self.skillsTab.skillSets[skillOrder].title then
-				newSkillId = skillOrder
-			else
-				local linkMatch = string.match(value, "%{(%w+)%}")
-				if linkMatch then
-					newSkillId = self.skillListSpecialLinks[linkMatch]["setId"]
-				end
-			end
+			return nil
 		end
 
+		-- trees have a different structure with id/name pairs
+		-- return id as soon as it's found
+		local function findNamedSetId(treeList, value, setSpecialLinks)
+			for id, spec in ipairs(treeList) do
+				if value == spec then
+					return id
+				else
+					local linkMatch = string.match(value, "%{(%w+)%}")
+					if linkMatch then
+						return setSpecialLinks[linkMatch]["setId"]
+					end
+				end
+			end
+			return nil
+		end
+
+		local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
+		local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
+		local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
+
+		local newSpecId = findNamedSetId(self.treeTab:GetSpecList(), value, self.treeListSpecialLinks)
+		local newItemId = oneItem and 1 or findSetId(self.itemsTab.itemSetOrderList, value, self.itemsTab.itemSets, self.itemListSpecialLinks)
+		local newSkillId = oneSkill and 1 or findSetId(self.skillsTab.skillSetOrderList, value, self.skillsTab.skillSets, self.skillListSpecialLinks)
+		local newConfigId = oneConfig and 1 or findSetId(self.configTab.configSetOrderList, value, self.configTab.configSets, self.configListSpecialLinks)
+
 		-- if exact match nor special grouping cannot find setIds, bail
-		if newSpecId == nil or newItemId == nil or newSkillId == nil then
+		if newSpecId == nil or newItemId == nil or newSkillId == nil or newConfigId == nil then
 			return
 		end
 
-		self.treeTab:SetActiveSpec(newSpecId)
-		self.itemsTab:SetActiveItemSet(newItemId)
-		self.skillsTab:SetActiveSkillSet(newSkillId)
+		if newSpecId ~= self.treeTab.activeSpec then
+			self.treeTab:SetActiveSpec(newSpecId)
+		end
+		if newItemId ~= self.itemsTab.activeItemSetId then
+			self.itemsTab:SetActiveItemSet(newItemId)
+		end
+		if newSkillId ~= self.skillsTab.activeSkillSetId then
+			self.skillsTab:SetActiveSkillSet(newSkillId)
+		end
+		if newConfigId ~= self.configTab.activeConfigSetId then
+			self.configTab:SetActiveConfigSet(newConfigId)
+		end
 
 		self.controls.buildLoadouts:SelByValue(value)
 	end)
+
+	self.controls.similarBuilds = new("ButtonControl", {"LEFT",self.controls.buildLoadouts,"RIGHT"}, 8, 0, 100, 20, "Similar Builds", function()
+		self:OpenSimilarPopup()
+	end)
+	self.controls.similarBuilds.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "Search for builds similar to your current character.")
+		tooltip:AddLine(16, "For best results, make sure to select your main item set, tree, and skills before opening the popup.")
+	end
 
 	-- List of display stats
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
@@ -353,6 +380,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "TrapThrowingTime", label = "Trap Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TrapCooldown", label = "Trap Cooldown", fmt = ".3fs", lowerIsBetter = true },
 		{ stat = "MineLayingTime", label = "Mine Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
+		{ stat = "TrapThrowCount", label = "Avg. Traps per Throw", fmt = ".2f"},
+		{ stat = "MineThrowCount", label = "Avg. Mines per Throw", fmt = ".2f"},
 		{ stat = "TotemPlacementTime", label = "Totem Placement Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return not o.TriggerTime end },
 		{ stat = "PreEffectiveCritChance", label = "Crit Chance", fmt = ".2f%%" },
 		{ stat = "CritChance", label = "Effective Crit Chance", fmt = ".2f%%", condFunc = function(v,o) return v ~= o.PreEffectiveCritChance end },
@@ -469,7 +498,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "Rage", label = "Rage", fmt = "d", color = colorCodes.RAGE, compPercent = true },
 		{ stat = "RageRegenRecovery", label = "Rage Regen", fmt = ".1f", color = colorCodes.RAGE, compPercent = true },
 		{ },
-		{ stat = "TotalDegen", label = "Total Degen", fmt = ".1f", lowerIsBetter = true },
+		{ stat = "TotalBuildDegen", label = "Total Degen", fmt = ".1f", lowerIsBetter = true },
 		{ stat = "TotalNetRegen", label = "Total Net Recovery", fmt = "+.1f" },
 		{ stat = "NetLifeRegen", label = "Net Life Recovery", fmt = "+.1f", color = colorCodes.LIFE },
 		{ stat = "NetManaRegen", label = "Net Mana Recovery", fmt = "+.1f", color = colorCodes.MANA },
@@ -485,8 +514,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "Spec:ArmourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
 		{ stat = "PhysicalDamageReduction", label = "Phys. Damage Reduction", fmt = "d%%", condFunc = function() return true end },
 		{ },
-		{ stat = "BlockChance", label = "Block Chance", fmt = "d%%", overCapStat = "BlockChanceOverCap" },
-		{ stat = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%", overCapStat = "SpellBlockChanceOverCap" },
+		{ stat = "EffectiveBlockChance", label = "Block Chance", fmt = "d%%", overCapStat = "BlockChanceOverCap" },
+		{ stat = "EffectiveSpellBlockChance", label = "Spell Block Chance", fmt = "d%%", overCapStat = "SpellBlockChanceOverCap" },
 		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%", overCapStat = "AttackDodgeChanceOverCap" },
 		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%", overCapStat = "SpellDodgeChanceOverCap" },
 		{ stat = "EffectiveSpellSuppressionChance", label = "Spell Suppression Chance", fmt = "d%%", overCapStat = "SpellSuppressionChanceOverCap" },
@@ -884,107 +913,131 @@ local function actExtra(act, extra)
 	return act > 2 and extra or 0
 end
 
-function buildMode:SyncLoadouts(reset)
+function buildMode:SyncLoadouts()
 	self.controls.buildLoadouts.list = {"No Loadouts"}
 
-	local filteredList = {"Loadouts:"}
+	local filteredList = {"^7^7Loadouts:"}
 	local treeList = {}
 	local itemList = {}
 	local skillList = {}
+	local configList = {}
 	-- used when clicking on the dropdown to set the correct setId for each SetActiveSet()
-	self.treeListSpecialLinks, self.itemListSpecialLinks, self.skillListSpecialLinks = {}, {}, {}
+	self.treeListSpecialLinks, self.itemListSpecialLinks, self.skillListSpecialLinks, self.configListSpecialLinks = {}, {}, {}, {}
 
-	if self.treeTab ~= nil and self.itemsTab ~= nil and self.skillsTab ~= nil then
+	local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
+	local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
+	local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
+
+	if self.treeTab ~= nil and self.itemsTab ~= nil and self.skillsTab ~= nil and self.configTab ~= nil then
 		local transferTable = {}
+		local sortedTreeListSpecialLinks = {}
 		for id, spec in ipairs(self.treeTab.specList) do
 			local specTitle = spec.title or "Default"
-			t_insert(treeList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(specTitle))
 			-- only alphanumeric and comma are allowed in the braces { }
 			local linkIdentifier = string.match(specTitle, "%{([%w,]+)%}")
+
 			if linkIdentifier then
+				local setName = specTitle:gsub("%{" .. linkIdentifier .. "%}", ""):gsub("^%s*", ""):gsub("%s*$", "")
+				if not setName or setName == "" then
+					setName = "Default"
+				end
+
 				-- iterate over each identifier, delimited by comma, and set the index so we can grab it later
-				-- setId index is the id of the set in the global list needed for SetActive
+				-- setId index is the id of the set in the global list needed for SetActiveSet
 				-- setName is only used for Tree currently and we strip the braces to get the plain name of the set, this is used as the name of the loadout
 				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 					transferTable["setId"] = id
-					transferTable["setName"] = string.match(specTitle, "(.+)% {")
+					transferTable["setName"] = setName
+					transferTable["linkId"] = linkId
 					self.treeListSpecialLinks[linkId] = transferTable
+					t_insert(sortedTreeListSpecialLinks, transferTable)
 					transferTable = {}
+				end
+			else
+				t_insert(treeList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(specTitle))
+			end
+		end
+
+		-- item, skill, and config sets have identical structure
+		local function identifyLinks(setOrderList, tabSets, setList, specialLinks, treeLinks)
+			for id, set in ipairs(setOrderList) do
+				local setTitle = tabSets[set].title or "Default"
+				local linkIdentifier = string.match(setTitle, "%{([%w,]+)%}")
+
+				-- this if/else prioritizes group identifier in case the user creates sets with same name AND same identifiers
+				-- result is only the group is recognized and one loadout is created rather than a duplicate from each condition met
+				if linkIdentifier then
+					local setName = setTitle:gsub("%{" .. linkIdentifier .. "%}", ""):gsub("^%s*", ""):gsub("%s*$", "")
+					if not setName or setName == "" then
+						setName = "Default"
+					end
+
+					for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
+						transferTable["setId"] = set
+						transferTable["setName"] = setName
+						specialLinks[linkId] = transferTable
+						transferTable = {}
+					end
+				else
+					setList[setTitle] = true
 				end
 			end
 		end
-		for id, item in ipairs(self.itemsTab.itemSetOrderList) do
-			local itemTitle = self.itemsTab.itemSets[item].title or "Default"
-			t_insert(itemList, itemTitle)
-			local linkIdentifier = string.match(itemTitle, "%{([%w,]+)%}")
-			if linkIdentifier then
-				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
-					transferTable["setId"] = item
-					transferTable["setName"] = string.match(itemTitle, "(.+)% {")
-					self.itemListSpecialLinks[linkId] = transferTable
-					transferTable = {}
-				end
-			end
-		end
-		for id, skill in ipairs(self.skillsTab.skillSetOrderList) do
-			local skillTitle = self.skillsTab.skillSets[skill].title or "Default"
-			t_insert(skillList, skillTitle)
-			local linkIdentifier = string.match(skillTitle, "%{([%w,]+)%}")
-			if linkIdentifier then
-				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
-					transferTable["setId"] = skill
-					transferTable["setName"] = string.match(skillTitle, "(.+)% {")
-					self.skillListSpecialLinks[linkId] = transferTable
-					transferTable = {}
-				end
-			end
-		end
-		local duplicateCheck = { }
+		identifyLinks(self.itemsTab.itemSetOrderList, self.itemsTab.itemSets, itemList, self.itemListSpecialLinks, self.treeListSpecialLinks)
+		identifyLinks(self.skillsTab.skillSetOrderList, self.skillsTab.skillSets, skillList, self.skillListSpecialLinks, self.treeListSpecialLinks)
+		identifyLinks(self.configTab.configSetOrderList, self.configTab.configSets, configList, self.configListSpecialLinks, self.treeListSpecialLinks)
+
 		-- loop over all for exact match loadouts
 		for id, tree in ipairs(treeList) do
-			for id, skill in ipairs(skillList) do
-				for id, item in ipairs(itemList) do
-					if (tree == skill and tree == item) then
-						if duplicateCheck[tree] then -- if already seen, re-colour NEGATIVE to alert user of duplicate
-							tree = colorCodes.NEGATIVE..tree
-						end
-						t_insert(filteredList, tree)
-						duplicateCheck[tree] = true
-					end
-				end
+			if (oneItem or itemList[tree]) and (oneSkill or skillList[tree]) and (oneConfig or configList[tree]) then
+				t_insert(filteredList, tree)
 			end
 		end
 		-- loop over the identifiers found within braces and set the loadout name to the TreeSet
-		for treeLinkId, tree in pairs(self.treeListSpecialLinks) do
-			for itemLinkId, item in pairs(self.itemListSpecialLinks) do
-				for skillLinkId, skill in pairs(self.skillListSpecialLinks) do
-					if (treeLinkId == skillLinkId and treeLinkId == itemLinkId) then
-						local loadoutName = tree["setName"].." {"..treeLinkId.."}"
-						if duplicateCheck[loadoutName] then
-							loadoutName = colorCodes.NEGATIVE..loadoutName
-						end
-						t_insert(filteredList, loadoutName)
-						duplicateCheck[loadoutName] = true
-					end
-				end
+		for _, tree in ipairs(sortedTreeListSpecialLinks) do
+			local treeLinkId = tree.linkId
+			if ((oneItem or self.itemListSpecialLinks[treeLinkId]) and (oneSkill or self.skillListSpecialLinks[treeLinkId]) and (oneConfig or self.configListSpecialLinks[treeLinkId])) then
+				t_insert(filteredList, tree.setName .." {"..treeLinkId.."}")
 			end
 		end
 	end
 
-	t_insert(filteredList, "-----")
-	t_insert(filteredList, "New Loadout")
-	t_insert(filteredList, "Sync")
-	t_insert(filteredList, "^7Help >>")
+	-- giving the options unique formatting so it can not match with user-created sets
+	t_insert(filteredList, "^7^7-----")
+	t_insert(filteredList, "^7^7New Loadout")
+	t_insert(filteredList, "^7^7Sync")
+	t_insert(filteredList, "^7^7Help >>")
 
 	if #filteredList > 0 then
 		self.controls.buildLoadouts.list = filteredList
 	end
 
-	if reset then
-		self.controls.buildLoadouts:SetSel(1)
+	-- Try to select loadout in dropdown based on currently selected tree
+	if self.treeTab then
+		local treeName = self.treeTab.specList[self.treeTab.activeSpec].title or "Default"
+		for i, loadout in ipairs(filteredList) do
+			if loadout == treeName then
+				local linkMatch = string.match(treeName, "%{(%w+)%}") or treeName
+				if linkMatch then
+					local skillName = self.skillsTab.skillSets[self.skillsTab.activeSkillSetId].title or "Default"
+					local skillMatch = oneSkill or skillName:find(linkMatch)
+					local itemName = self.itemsTab.itemSets[self.itemsTab.activeItemSetId].title or "Default"
+					local itemMatch = oneItem or itemName:find(linkMatch)
+					local configName = self.configTab.configSets[self.configTab.activeConfigSetId].title or "Default"
+					local configMatch = oneConfig or configName:find(linkMatch)
+
+					if skillMatch and itemMatch and configMatch then
+						self.controls.buildLoadouts:SetSel(i)
+						return treeList, itemList, skillList, configList
+					end
+				end
+				break
+			end
+		end
 	end
 
-	return treeList, itemList, skillList
+	self.controls.buildLoadouts:SetSel(1)
+	return treeList, itemList, skillList, configList
 end
 
 function buildMode:EstimatePlayerProgress()
@@ -1243,7 +1296,7 @@ function buildMode:OnFrame(inputEvents)
 	self:ProcessControlsInput(inputEvents, main.viewPort)
 
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
-	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendancies")
+	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValueByKey("ascendancies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
 	-- // secondaryAscend dropdown hidden away until we learn more
 	--self.controls.secondaryAscendDrop.list = {{label = "None", ascendClassId = 0}, {label = "Warden", ascendClassId = 1}, {label = "Warlock", ascendClassId = 2}, {label = "Primalist", ascendClassId = 3}}
@@ -1396,7 +1449,8 @@ function buildMode:OpenSaveAsPopup()
 		end
 	end
 	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter new build name:")
-	controls.edit = new("EditControl", nil, 0, 40, 450, 20, self.dbFileName and self.buildName, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
+	controls.edit = new("EditControl", nil, 0, 40, 450, 20,
+	(self.buildName or self.dbFileName):gsub("[\\/:%*%?\"<>|%c]", "-"), nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 		updateBuildName()
 	end)
 	controls.folderLabel = new("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 70, 0, 16, "^7Folder:")
@@ -1418,11 +1472,18 @@ function buildMode:OpenSaveAsPopup()
 		self:SaveDBFile()
 		self.spec:SetWindowTitleWithBuildClass()
 	end)
-	controls.save.enabled = false
 	controls.close = new("ButtonControl", nil, 45, 225, 80, 20, "Cancel", function()
 		main:ClosePopup()
 		self.actionOnSave = nil
 	end)
+
+	if self.dbFileName or self.buildName then
+		controls.save.enabled = self.dbFileName or self.buildName
+		updateBuildName()
+	else
+		controls.save.enabled = false
+	end
+
 	main:OpenPopup(470, 255, self.dbFileName and "Save As" or "Save", controls, "save", "edit", "close")
 end
 
@@ -1455,6 +1516,47 @@ function buildMode:OpenSpectreLibrary()
 	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 24, 2, 0, 16, "Spectres in your Library must be assigned to an active")
 	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 20, 18, 0, 16, "Raise Spectre gem for their buffs and curses to activate")
 	main:OpenPopup(410, 360, "Spectre Library", controls)
+end
+
+function buildMode:OpenSimilarPopup()
+	local controls = { }
+	-- local width, height = self:GetSize()
+	local buildProviders = {
+		{
+			name = "PoB Archives",
+			impl = new("PoBArchivesProvider", "similar")
+		}
+	}
+	local width = 600
+	local height = function()
+		return main.screenH * 0.8
+	end
+	local padding = 50
+	controls.similarBuildList = new("ExtBuildListControl", nil, 0, padding, width, height() - 2 * padding, buildProviders)
+	controls.similarBuildList.shown = true
+	controls.similarBuildList.height = function()
+		return height() - 2 * padding
+	end
+	controls.similarBuildList.width = function ()
+		return width - padding
+	end
+	controls.similarBuildList:SetImportCode(common.base64.encode(Deflate(self:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
+	controls.similarBuildList:Init("PoB Archives")
+
+	-- controls.similarBuildList.shown = not controls.similarBuildList:IsShown()
+
+	controls.close = new("ButtonControl", nil, 0, height() - (padding + 20) / 2, 80, 20, "Close", function()
+		main:ClosePopup()
+	end)
+	-- used in PopupDialog to dynamically size the popup
+	local function resizeFunc()
+		main.popups[1].height = height()
+		main.popups[1].y = function()
+			return m_floor((main.screenH - height()) / 2)
+		end
+		controls.close.y = height() - 35
+	end
+	main:OpenPopup(width, height(), "Similar Builds", controls, nil, nil, nil, nil, resizeFunc)
 end
 
 -- Refresh the set of controls used to select main group/skill/minion
@@ -1863,6 +1965,16 @@ function buildMode:LoadDB(xmlText, fileName)
 	for _, node in ipairs(dbXML[1]) do
 		if type(node) == "table" and node.elem == "Build" then
 			self:Load(node, self.dbFileName)
+			break
+		end
+	end
+
+	-- Check if xml has an import link
+	for _, node in ipairs(dbXML[1]) do
+		if type(node) == "table" and node.elem == "Import" then
+			if node.attrib.importLink and not self.importLink then
+				self.importLink = node.attrib.importLink
+			end
 			break
 		end
 	end

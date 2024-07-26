@@ -55,6 +55,17 @@ return {
 		},
 		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds increases Damage by a further 100% (Applied on Uber) and cannot be blocked or dodged"
 	},
+	["Shaper Beam"] = {
+		DamageType = "DamageOverTime",
+		DamageMultipliers = {
+			Lightning = { 12.58958162968, 0 },
+			Cold = { 9.1363649598343, 0 },
+			Fire = { 11.141451836499, 0 }
+		},
+		speed = 1000,
+		critChance = 0,
+		tooltip = "Damage Over Time skill"
+	},
 	["Sirus Meteor"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
@@ -75,6 +86,15 @@ return {
 			}
 		},
 		tooltip = "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50% (Applied on Uber)"
+	},
+	["Cortex Ground Degen"] = {
+		DamageType = "DamageOverTime",
+		DamageMultipliers = {
+			Physical = { 5.3012106087214, 0 }
+		},
+		speed = 1630,
+		critChance = 0,
+		tooltip = "Damage Over Time skill"
 	},
 	["Exarch Ball"] = {
 		DamageType = "SpellProjectile",
@@ -152,7 +172,9 @@ return {
     { val = "Atziri Flameblast", label = "Atziri Flameblast" },
     { val = "Shaper Ball", label = "Shaper Ball" },
     { val = "Shaper Slam", label = "Shaper Slam" },
+    { val = "Shaper Beam", label = "Shaper Beam" },
     { val = "Sirus Meteor", label = "Sirus Meteor" },
+    { val = "Cortex Ground Degen", label = "Cortex Ground Degen" },
     { val = "Exarch Ball", label = "Exarch Ball" },
     { val = "Eater Beam", label = "Eater Beam" },
     { val = "Maven Fireball", label = "Maven Fireball" },

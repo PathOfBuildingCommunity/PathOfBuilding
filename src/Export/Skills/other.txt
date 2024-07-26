@@ -59,9 +59,6 @@ local skills, mod, flag, skill = ...
 #flags spell
 	fromTree = true,
 	statMap = {
-		["armour_+%_per_barkskin_stack"] = {
-			mod("Armour", "INC", nil, 0, 0, { type = "Multiplier", var = "BarkskinStacks", limitVar = "BarkskinMaxStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
-		},
 		["physical_attack_damage_taken_+_per_barkskin_stack"] = {
 			mod("PhysicalDamageTakenFromAttacks", "BASE", nil, 0, 0, { type = "Multiplier", var = "BarkskinStacks", limitVar = "BarkskinMaxStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
 		},
@@ -73,6 +70,11 @@ local skills, mod, flag, skill = ...
 			mod("Multiplier:MissingBarkskinStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
+#mods
+
+#skill UnboundAvatar
+#flags spell
+	fromTree = true,
 #mods
 
 #skill BirdAspect
@@ -344,6 +346,16 @@ local skills, mod, flag, skill = ...
 #flags spell
 #mods
 
+#skill SupportAuraDuration
+	fromItem = true,
+	statMap = {
+		["support_aura_duration_base_buff_duration"] = {
+			skill("auraDuration", nil),
+			div = 1000,
+		},
+	},
+#mods
+
 #noGem
 #skill TouchOfGod
 #flags attack area melee
@@ -356,6 +368,24 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["aegis_unique_shield_max_value"] = {
 			mod("ElementalAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
+#mods
+
+#skill SupportEarthbreaker
+	fromItem = true,
+	addFlags = {
+		totem = true,
+	},
+	statMap = {
+		["support_ancestor_slam_totem_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack),
+		},
+		["support_ancestor_slam_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["ancestor_totem_grants_owner_area_of_effect_+%_with_melee_skills"] = {
+			mod("AreaOfEffect", "INC", nil, ModFlag.Melee),
 		},
 	},
 #mods
@@ -511,8 +541,8 @@ local skills, mod, flag, skill = ...
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("IntimidatingExertedAttacks", "BASE", nil),
 		},
-		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
-			mod("IntimidatingPDRPer5MP", "BASE", nil),
+		["intimidating_cry_movement_speed_per_5_MP"] = {
+			mod("IntimidatingMovementSpeedPer5MP", "BASE", nil),
 		},
 	},
 #baseMod skill("radius", 60)

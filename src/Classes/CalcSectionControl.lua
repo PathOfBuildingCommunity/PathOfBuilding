@@ -238,10 +238,14 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 		if not self.enabled then
 			DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", "^8"..subSec.label)
 		else
-			DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", "^7"..subSec.label..":")
+			local textColor = "^7"
+			if self.calcsTab:SearchMatch(subSec.label) then
+				textColor = colorCodes.HIGHLIGHT
+			end
+			DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", textColor..subSec.label..":")
 			if subSec.data.extra then
 				local x = x + 3 + DrawStringWidth(16, "VAR BOLD", subSec.label) + 10
-				DrawString(x, lineY + 3, "LEFT", 16, "VAR", self:FormatStr(subSec.data.extra, actor))
+				DrawString(x, lineY + 3, "LEFT", 16, "VAR", "^7"..self:FormatStr(subSec.data.extra, actor))
 			end
 		end
 		-- Draw line below label
@@ -269,9 +273,11 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 						textColor = rowData.color
 					end
 					if rowData.label then
-						-- Draw row label with background
 						SetDrawColor(rowData.bgCol or "^0")
 						DrawImage(nil, x + 2, lineY + 2, 130, 18)
+						if self.calcsTab:SearchMatch(rowData.label) then
+							textColor = colorCodes.HIGHLIGHT
+						end
 						DrawString(x + 132, lineY + 2, "RIGHT_X", 16, "VAR", textColor..rowData.label.."^7:")
 					end
 					for colour, colData in ipairs(rowData) do

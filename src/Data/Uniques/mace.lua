@@ -375,7 +375,7 @@ Implicits: 2
 {variant:6,7,8}(40-60)% increased Global Damage
 {variant:9,10,11}+2 to Level of All Spell Skill Gems
 {variant:1,2,3,4,5}7% Global chance to Blind Enemies on hit
-{variant:6,7,8}10% Global chance to Blind Enemies on hit
+{variant:6,7,8,9,10,11}10% Global chance to Blind Enemies on hit
 Blind does not affect your Chance to Hit
 Enemies Blinded by you have Malediction
 {variant:1,2}Gain 1 Mana on Kill per Level

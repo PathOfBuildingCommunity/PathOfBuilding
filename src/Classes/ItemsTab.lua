@@ -59,6 +59,8 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.items = { }
 	self.itemOrderList = { }
 
+	self.showStatDifferences = true
+
 	-- PoB Trader class initialization
 	self.tradeQuery = new("TradeQuery", self)
 
@@ -490,7 +492,7 @@ holding Shift will put it in the second.]])
 		self:AddImplicitToDisplayItem()
 	end)
 	self.controls.displayItemAddImplicit.shown = function()
-		return self.displayItem and (self.displayItem.corruptible or ((self.displayItem.type ~= "Flask" or self.displayItem.type ~= "Jewel") and (self.displayItem.rarity == "NORMAL" or self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")))
+		return self.displayItem and self.displayItem.type ~= "Tincture" and (self.displayItem.corruptible or ((self.displayItem.type ~= "Flask" or self.displayItem.type ~= "Jewel") and (self.displayItem.rarity == "NORMAL" or self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")))
 	end
 
 	-- Section: Influence dropdowns
@@ -534,9 +536,27 @@ holding Shift will put it in the second.]])
 		return self.displayItem and self.displayItem.canBeInfluenced
 	end
 
+	-- Section: Item Quality
+	self.controls.displayItemSectionQuality = new("Control", {"TOPLEFT",self.controls.displayItemSectionInfluence,"BOTTOMLEFT"}, 0, 0, 0, function()
+		return (self.controls.displayItemQuality:IsShown() and self.controls.displayItemQualityEdit:IsShown()) and 28 or 0
+	end)
+	self.controls.displayItemQuality = new("LabelControl", {"TOPLEFT",self.controls.displayItemSectionQuality,"TOPRIGHT"}, -4, 0, 0, 16, "^7Quality:")
+	self.controls.displayItemQuality.shown = function()
+		return self.displayItem and self.displayItem.quality and (self.displayItem.base.type ~= "Amulet" or self.displayItem.base.type ~= "Belt" or self.displayItem.base.type ~= "Jewel" or self.displayItem.base.type ~= "Quiver" or self.displayItem.base.type ~= "Ring")
+	end
+
+	self.controls.displayItemQualityEdit = new("EditControl", {"LEFT",self.controls.displayItemQuality,"RIGHT"},2,0,60,20,nil,nil,"%D",2,function(buf)
+		self.displayItem.quality = tonumber(buf)
+		self.displayItem:BuildAndParseRaw()
+		self:UpdateDisplayItemTooltip()
+	end)
+	self.controls.displayItemQualityEdit.shown = function()
+		return self.displayItem and self.displayItem.quality and (self.displayItem.base.type ~= "Amulet" or self.displayItem.base.type ~= "Belt" or self.displayItem.base.type ~= "Jewel" or self.displayItem.base.type ~= "Quiver" or self.displayItem.base.type ~= "Ring")
+	end
+
 	-- Section: Catalysts
-	self.controls.displayItemSectionCatalyst = new("Control", {"TOPLEFT",self.controls.displayItemSectionInfluence,"BOTTOMLEFT"}, 0, 0, 0, function()
-		return (self.controls.displayItemCatalyst:IsShown() or self.controls.displayItemCatalystQualitySlider:IsShown()) and 28 or 0
+	self.controls.displayItemSectionCatalyst = new("Control", {"TOPLEFT",self.controls.displayItemSectionQuality,"BOTTOMLEFT"}, 0, 0, 0, function()
+		return (self.controls.displayItemCatalyst:IsShown() or self.controls.displayItemCatalystQualityEdit:IsShown()) and 28 or 0
 	end)
 	self.controls.displayItemCatalyst = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionCatalyst,"TOPRIGHT"}, 0, 0, 250, 20,
 		{"Catalyst","Abrasive (Attack)","Accelerating (Speed)","Fertile (Life & Mana)","Imbued (Caster)","Intrinsic (Attribute)","Noxious (Physical & Chaos Damage)",
@@ -545,6 +565,7 @@ holding Shift will put it in the second.]])
 			self.displayItem.catalyst = index - 1
 			if not self.displayItem.catalystQuality then
 				self.displayItem.catalystQuality = 20
+				self.controls.displayItemCatalystQualityEdit:SetText(self.displayItem.catalystQuality)
 			end
 			if self.displayItem.crafted then
 				for i = 1, self.displayItem.affixLimit do
@@ -559,8 +580,8 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemCatalyst.shown = function()
 		return self.displayItem and (self.displayItem.crafted or self.displayItem.hasModTags) and (self.displayItem.base.type == "Amulet" or self.displayItem.base.type == "Ring" or self.displayItem.base.type == "Belt")
 	end
-	self.controls.displayItemCatalystQualitySlider = new("SliderControl", {"LEFT",self.controls.displayItemCatalyst,"RIGHT",true}, 8, 0, 200, 20, function(val)
-		self.displayItem.catalystQuality = round(val * 20)
+	self.controls.displayItemCatalystQualityEdit = new("EditControl", {"LEFT",self.controls.displayItemCatalyst,"RIGHT"},2,0,60,20,nil,nil,"%D",2,function(buf)
+		self.displayItem.catalystQuality = tonumber(buf)
 		if self.displayItem.crafted then
 			for i = 1, self.displayItem.affixLimit do
 				-- Force affix selectors to update
@@ -571,13 +592,8 @@ holding Shift will put it in the second.]])
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
 	end)
-	self.controls.displayItemCatalystQualitySlider.shown = function()
+	self.controls.displayItemCatalystQualityEdit.shown = function()
 		return self.displayItem and (self.displayItem.crafted or self.displayItem.hasModTags) and self.displayItem.catalyst and self.displayItem.catalyst > 0
-	end
-	self.controls.displayItemCatalystQualitySlider.tooltipFunc = function(tooltip, val)
-		local quality = round(val * 20)
-		tooltip:Clear()
-		tooltip:AddLine(16, "^7Quality: "..quality.."%")
 	end
 
 	-- Section: Cluster Jewel
@@ -1011,14 +1027,17 @@ function ItemsTabClass:Load(xml, dbFileName)
 		self.itemSetOrderList[1] = 1
 	end
 	self:SetActiveItemSet(tonumber(xml.attrib.activeItemSet) or 1)
+	if xml.attrib.showStatDifferences then
+		self.showStatDifferences = xml.attrib.showStatDifferences == "true"
+	end
 	self:ResetUndo()
-	self.build:SyncLoadouts()
 end
 
 function ItemsTabClass:Save(xml)
 	xml.attrib = {
 		activeItemSet = tostring(self.activeItemSetId),
 		useSecondWeaponSet = tostring(self.activeItemSet.useSecondWeaponSet),
+		showStatDifferences = tostring(self.showStatDifferences),
 	}
 	for _, id in ipairs(self.itemOrderList) do
 		local item = self.items[id]
@@ -1173,6 +1192,9 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 					self:SelectControl(self.controls.uniqueDB.controls.search)
 					self.controls.selectDB.selIndex = 1
 				end
+			elseif event.key == "d" and IsKeyDown("CTRL") then
+				self.showStatDifferences = not self.showStatDifferences
+				self.build.buildFlag = true
 			end
 		end
 	end
@@ -1269,6 +1291,7 @@ function ItemsTabClass:SetActiveItemSet(itemSetId)
 	end
 	self.build.buildFlag = true
 	self:PopulateSlots()
+	self.build:SyncLoadouts()
 end
 
 -- Equips the given item in the given item set
@@ -1548,11 +1571,12 @@ function ItemsTabClass:SetDisplayItem(item)
 		end
 		self.controls.displayItemInfluence:SetSel(influence1, true) -- Don't call the selection function for the first influence dropdown as the second dropdown isn't properly set yet.
 		self.controls.displayItemInfluence2:SetSel(influence2) -- The selection function for the second dropdown properly handles everything for both dropdowns
+		self.controls.displayItemQualityEdit:SetText(item.quality)
 		self.controls.displayItemCatalyst:SetSel((item.catalyst or 0) + 1)
 		if item.catalystQuality then
-			self.controls.displayItemCatalystQualitySlider.val = m_min(item.catalystQuality / 20, 1)
+			self.controls.displayItemCatalystQualityEdit:SetText(m_max(item.catalystQuality, 0))
 		else
-			self.controls.displayItemCatalystQualitySlider.val = 1
+			self.controls.displayItemCatalystQualityEdit:SetText(0)
 		end
 		self:UpdateCustomControls()
 		self:UpdateDisplayItemRangeLines()
@@ -1931,7 +1955,11 @@ function ItemsTabClass:CraftItem()
 		item.implicitModLines = { }
 		item.explicitModLines = { }
 		item.crucibleModLines = { }
-		item.quality = 0
+		if base.base.type ~= "Amulet" or base.base.type ~= "Belt" or base.base.type ~= "Jewel" or base.base.type ~= "Quiver" or base.base.type ~= "Ring" then
+			item.quality = nil
+		else
+			item.quality = 0
+		end
 		local raritySel = controls.rarity.selIndex
 		if base.base.flask
 				or (base.base.type == "Jewel" and base.base.subType == "Charm")
@@ -3261,6 +3289,19 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		for _, modLine in pairs(item.buffModLines) do
 			tooltip:AddLine(16, (modLine.extra and colorCodes.UNSUPPORTED or colorCodes.MAGIC) .. modLine.line)
 		end
+	elseif base.tincture then
+		-- Tincture-specific info
+		local tinctureData = item.tinctureData
+		
+		if item.quality and item.quality > 0 then
+			tooltip:AddLine(16, s_format("^x7F7F7FQuality: "..colorCodes.MAGIC.."+%d%%", item.quality))
+		end
+
+		tooltip:AddLine(16, s_format("^x7F7F7FInflicts Mana Burn every %s%.2f ^x7F7F7FSeconds", main:StatColor(tinctureData.manaBurn, base.tincture.manaBurn), tinctureData.manaBurn))
+		tooltip:AddLine(16, s_format("^x7F7F7F%s%.2f ^x7F7F7FSecond Cooldown When Deactivated", main:StatColor(tinctureData.cooldown, base.tincture.cooldown), tinctureData.cooldown))
+		for _, modLine in pairs(item.buffModLines) do
+			tooltip:AddLine(16, (modLine.extra and colorCodes.UNSUPPORTED or colorCodes.MAGIC) .. modLine.line)
+		end
 	elseif item.type == "Jewel" then
 		-- Jewel-specific info
 		if item.limit then
@@ -3388,6 +3429,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	tooltip:AddSeparator(14)
 
 	-- Stat differences
+	if not self.showStatDifferences then
+		tooltip:AddSeparator(14)
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to enable the display of stat differences.")
+		return
+	end
 	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 	if base.flask then
 		-- Special handling for flasks
@@ -3592,6 +3638,45 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			header = "^7Activating this flask will give you:"
 		end
 		self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
+	elseif base.tincture then
+		-- Special handling for tinctures
+		local stats = { }
+		local tinctureData = item.tinctureData
+		local modDB = self.build.calcsTab.mainEnv.modDB
+		local output = self.build.calcsTab.mainOutput
+		local effectInc = modDB:Sum("INC", { actor = "player" }, "TinctureEffect")
+
+		if item.rarity == "MAGIC" then
+			effectInc = effectInc + modDB:Sum("INC", { actor = "player" }, "MagicTinctureEffect")
+		end
+		local effectMod = (1 + (tinctureData.effectInc + effectInc) / 100) * (1 + (item.quality or 0) / 100)
+		if effectMod ~= 1 then
+			t_insert(stats, s_format("^8Tincture effect modifier: ^7%+d%%", effectMod * 100 - 100))
+		end
+		t_insert(stats, s_format("^8Mana Burn Inflicted Every Second: ^7%.2f", tinctureData.manaBurn / (1 + modDB:Sum("INC", { actor = "player" }, "TinctureManaBurnRate")/100) / (1 + modDB:Sum("MORE", { actor = "player" }, "TinctureManaBurnRate")/100)))
+		local TincturesNotInflictManaBurn = m_min(modDB:Sum("BASE", nil, "TincturesNotInflictManaBurn"), 100)
+		if TincturesNotInflictManaBurn ~= 0 then
+			t_insert(stats, s_format("^8Chance to not inflict Mana Burn: ^7%d%%", TincturesNotInflictManaBurn))
+		end
+		t_insert(stats, s_format("^8Tincture Cooldown when deactivated: ^7%.2f^8 seconds", tinctureData.cooldown / (1 + modDB:Sum("INC", { actor = "player" }, "TinctureCooldownRecovery")/100)))
+
+		if stats[1] then
+			tooltip:AddLine(14, "^7Effective tincture stats:")
+			for _, stat in ipairs(stats) do
+				tooltip:AddLine(14, stat)
+			end
+		end
+		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+		local output = calcFunc({ toggleTincture = item }, {})
+		GlobalCache.useFullDPS = storedGlobalCacheDPSView
+		local header
+		if self.build.calcsTab.mainEnv.tinctures[item] then
+			header = "^7Deactivating this tincture will give you:"
+		else
+			header = "^7Activating this tincture will give you:"
+		end
+		self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
 	else
 		self:UpdateSockets()
 		-- Build sorted list of slots to compare with
@@ -3645,6 +3730,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			end
 		end
 	end
+	tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to disable the display of stat differences.")
 
 	if launch.devModeAlt then
 		-- Modifier debugging info
