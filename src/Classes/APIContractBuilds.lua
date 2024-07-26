@@ -180,7 +180,7 @@ function APIContractBuilds:BuildsVersion1Callback(source, response, errMsg)
 	for _, build in ipairs(parsedResponse) do
 		-- source and buildId will be used as a caching key
 		-- to avoid buildId collissions
-		self.buildList[common.sha1(source.name + "-" + build.buildId)] = buildInfoToCache(build, source)
+		self.buildList[common.sha1(source.name .. "-" .. build.buildId)] = buildInfoToCache(build, source)
 	end
 end
 
