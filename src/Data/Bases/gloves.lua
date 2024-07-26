@@ -274,8 +274,8 @@ itemBases["Tinker Gloves"] = {
 	socketLimit = 4,
 	tags = { gloves = true, dex_armour = true, armour = true, not_for_sale = true, default = true, },
 	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
-	implicit = "30% reduced Cooldown Recovery Rate for throwing Traps",
-	implicitModTypes = { {  }, },
+	implicit = "30% reduced Cooldown Recovery Rate for throwing Traps\nTrap Skills have (10-15)% increased Skill Effect Duration",
+	implicitModTypes = { {  }, {  }, },
 	armour = { EvasionBaseMin = 35, EvasionBaseMax = 41, },
 	req = { level = 10, dex = 18, },
 }
@@ -285,8 +285,8 @@ itemBases["Apprentice Gloves"] = {
 	socketLimit = 4,
 	tags = { gloves = true, dex_armour = true, armour = true, not_for_sale = true, default = true, },
 	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
-	implicit = "30% reduced Cooldown Recovery Rate for throwing Traps",
-	implicitModTypes = { {  }, },
+	implicit = "30% reduced Cooldown Recovery Rate for throwing Traps\nTrap Skills have (15-20)% increased Skill Effect Duration",
+	implicitModTypes = { {  }, {  }, },
 	armour = { EvasionBaseMin = 132, EvasionBaseMax = 152, },
 	req = { level = 40, dex = 59, },
 }
@@ -296,8 +296,8 @@ itemBases["Trapsetter Gloves"] = {
 	socketLimit = 4,
 	tags = { gloves = true, dex_armour = true, armour = true, not_for_sale = true, default = true, },
 	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
-	implicit = "30% reduced Cooldown Recovery Rate for throwing Traps",
-	implicitModTypes = { {  }, },
+	implicit = "30% reduced Cooldown Recovery Rate for throwing Traps\nTrap Skills have (20-25)% increased Skill Effect Duration",
+	implicitModTypes = { {  }, {  }, },
 	armour = { EvasionBaseMin = 236, EvasionBaseMax = 271, },
 	req = { level = 70, dex = 101, },
 }

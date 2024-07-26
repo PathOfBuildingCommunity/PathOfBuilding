@@ -830,7 +830,7 @@ return {
 		},
 		name="chance_to_blind",
 		stats={
-			[1]="global_chance_to_blind_on_hit_%"
+			[1]="virtual_chance_to_blind_on_hit_%"
 		}
 	},
 	[29]={
@@ -2555,7 +2555,6 @@ return {
 	["energy_shield_leech_from_any_damage_permyriad"]=6,
 	["freeze_duration_+%"]=23,
 	["gain_power_charge_on_kill_with_hit_%"]=61,
-	["global_chance_to_blind_on_hit_%"]=28,
 	["global_hit_causes_monster_flee_%"]=15,
 	["global_maximum_added_fire_damage_vs_burning_enemies"]=77,
 	["global_minimum_added_fire_damage_vs_burning_enemies"]=77,
@@ -2595,5 +2594,6 @@ return {
 	["support_spell_echo_final_repeat_damage_+%_final"]=80,
 	["support_unbound_ailments_ailment_damage_+%_final"]=81,
 	["support_withered_base_duration_ms"]=82,
+	["virtual_chance_to_blind_on_hit_%"]=28,
 	["withered_on_hit_chance_%"]=83
 }
