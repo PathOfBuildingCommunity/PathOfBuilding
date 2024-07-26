@@ -283,6 +283,15 @@ itemBases["Anarchic Spiritblade"] = {
 	weapon = { PhysicalMin = 34, PhysicalMax = 63, CritChanceBase = 6.5, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 70, str = 121, dex = 121, },
 }
+itemBases["Random One Hand Sword"] = {
+	type = "One Handed Sword",
+	hidden = true,
+	socketLimit = 3,
+	tags = { default = true, },
+	influenceTags = { shaper = "sword_shaper", elder = "sword_elder", adjudicator = "sword_adjudicator", basilisk = "sword_basilisk", crusader = "sword_crusader", eyrie = "sword_eyrie", cleansing = "sword_cleansing", tangle = "sword_tangle" },
+	implicitModTypes = { },
+	req = { },
+}
 
 itemBases["Charan's Sword"] = {
 	type = "One Handed Sword",
@@ -841,6 +850,15 @@ itemBases["Banishing Blade"] = {
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 55, PhysicalMax = 102, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 13, },
 	req = { level = 70, str = 130, dex = 130, },
+}
+itemBases["Random Two Hand Sword"] = {
+	type = "Two Handed Sword",
+	hidden = true,
+	socketLimit = 6,
+	tags = { default = true, },
+	influenceTags = { shaper = "2h_sword_shaper", elder = "2h_sword_elder", adjudicator = "2h_sword_adjudicator", basilisk = "2h_sword_basilisk", crusader = "2h_sword_crusader", eyrie = "2h_sword_eyrie", cleansing = "2h_sword_cleansing", tangle = "2h_sword_tangle" },
+	implicitModTypes = { },
+	req = { },
 }
 
 itemBases["Energy Blade Two Handed"] = {

@@ -32,7 +32,7 @@ itemBases["Gold Ring"] = {
 	tags = { ring = true, default = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "(6-15)% increased Rarity of Items found",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "drop" }, },
 	req = { level = 20, },
 }
 itemBases["Topaz Ring"] = {
