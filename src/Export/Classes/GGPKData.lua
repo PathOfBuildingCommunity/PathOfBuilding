@@ -50,6 +50,13 @@ local GGPKClass = newClass("GGPKData", function(self, path, datPath)
 	end
 end)
 
+
+function GGPKClass:ExtractFilesWithBun(fileListStr)
+	local cmd = 'cd ' .. self.oozPath .. ' && bun_extract_file.exe extract-files "' .. self.path .. '" . ' .. fileListStr
+	ConPrintf(cmd)
+	os.execute(cmd)
+end
+
 function GGPKClass:ExtractFiles()
 	local datList, txtList, itList = self:GetNeededFiles()
 	
@@ -61,16 +68,19 @@ function GGPKClass:ExtractFiles()
 			fileList = fileList .. '"' .. fname .. '" '
 		end
 	end
+	self:ExtractFilesWithBun(fileList)
+
+	fileList = ''
 	for _, fname in ipairs(txtList) do
 		fileList = fileList .. '"' .. fname .. '" '
 	end
+	self:ExtractFilesWithBun(fileList)
+
+	fileList = ''
 	for _, fname in ipairs(itList) do
 		fileList = fileList .. '"' .. fname .. '" '
 	end
-	
-	local cmd = 'cd ' .. self.oozPath .. ' && bun_extract_file.exe extract-files "' .. self.path .. '" . ' .. fileList
-	ConPrintf(cmd)
-	os.execute(cmd)
+	self:ExtractFilesWithBun(fileList)
 
 	-- Overwrite Enums
 	local errMsg = PLoadModule("Scripts/enums.lua")
