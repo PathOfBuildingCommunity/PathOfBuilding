@@ -49,9 +49,15 @@ local EndpointType = {
 ---@field name string
 ---@field fallbackVersion integer
 ---@field endpointType EndpointType
+---@field supportedVersion? integer
 ---@field baseAPIPath? string
 ---@field league_filter? boolean
 ---@field gem_filter? boolean
+
+--- Build version 1 Filter option
+---@class BuildVersion1Filter
+---@field league string
+---@field gem string
 
 --- This primarily exists for the lua language server
 ---@param buildInfo BuildInfo
@@ -65,6 +71,25 @@ local function buildInfoToCache(buildInfo, source)
 		buildId = buildInfo.buildId,
 		sourceName = source.name
 	}
+end
+
+---@param t table
+local function tableToQueryParams(t)
+	if #t == 0 then
+		return ""
+	end
+	local query = "?"
+	for key, value in pairs(t) do
+		if value then
+			query = query .. key .. "=" .. value .. "&"
+		end
+	end
+	-- remove trailing &
+	if #t > 0 then
+		query = query:sub(1, #query - 1)
+	end
+
+	return query
 end
 
 ---@class APIContractBuilds
@@ -81,11 +106,36 @@ local APIContractBuilds = newClass("APIContractBuilds",
 local getBuildVersions = {
 	[0] = function(...) return APIContractBuilds:GetBuildsVersion1(...) end,
 }
+-- Switch case for GET Endpoint for Builds
+local getBuildFilterVersions = {
+	[0] = function(data) return APIContractBuilds:GetBuildVersion1Filter(data) end,
+}
+
+---@param data table
+function APIContractBuilds:GetBuildVersion1Filter(data)
+	return {
+		league = data.league,
+		gem = data.gem
+	}
+end
 
 --- Gets the builds from the source
----@param source APISourceInfo
-function APIContractBuilds:GetBuilds(source)
-	getBuildVersions[source.fallbackVersion](source.endpointType)
+---@param source APICapabilities
+---@param data table
+function APIContractBuilds:GetBuilds(source, data)
+	local getBuildsFunction = nil
+	local getBuildsFilterFunction = nil
+	if not source.supportedVersion then
+		getBuildsFunction = getBuildVersions[source.fallbackVersion]
+		getBuildsFilterFunction = getBuildFilterVersions[source.fallbackVersion]
+	else
+		getBuildsFunction = getBuildVersions[source.supportedVersion]
+		getBuildsFilterFunction = getBuildFilterVersions[source.supportedVersion]
+	end
+
+	if getBuildsFunction and getBuildsFilterFunction then
+		getBuildsFunction(source.endpointType, getBuildsFilterFunction(data), source)
+	end
 end
 
 ---@param source APISourceInfo
@@ -136,13 +186,14 @@ end
 
 --- Version 1 of the API Contract for Builds
 ---@param source APICapabilities
-function APIContractBuilds:GetBuildsVersion1(source)
+---@param params BuildVersion1Filter
+function APIContractBuilds:GetBuildsVersion1(source, params)
 	if source.endpointType == EndpointType.CSV then
 		-- TODO: Implement CSV Parsing and Format
 		return
 	end
 
-	launch:DownloadPage(source.baseAPIPath + "/v1/builds", function(...)
+	launch:DownloadPage(source.baseAPIPath .. "/v1/builds" .. tableToQueryParams(params), function(...)
 		self:BuildsVersion1Callback(source, ...)
 	end, {})
 end
