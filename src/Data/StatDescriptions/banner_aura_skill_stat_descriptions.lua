@@ -6,32 +6,45 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="reminderstring",
+						v="ReminderTextValourGain"
+					},
 					limit={
 						[1]={
-							[1]=1,
-							[2]="#"
+							[1]="!",
+							[2]=0
+						},
+						[2]={
+							[1]=0,
+							[2]=0
 						}
 					},
-					text="You and nearby Allies take -{0}% Damage from Suppressed Hits"
+					text="While you have no placed Banner, you can gain Valour"
 				},
 				[2]={
 					[1]={
-						k="negate",
-						v=1
+						k="reminderstring",
+						v="ReminderTextValourGain"
 					},
 					limit={
 						[1]={
+							[1]="!",
+							[2]=0
+						},
+						[2]={
 							[1]="#",
-							[2]=-1
+							[2]="#"
 						}
 					},
-					text="You and nearby Allies take -{0} Damage from Suppressed Hits"
+					text="You can gain Valour"
 				}
 			}
 		},
-		name="evasion_and_physical_damage_reduction_rating_incr",
+		name="gain_valour",
 		stats={
-			[1]="evasion_and_physical_damage_reduction_rating_+%"
+			[1]="base_can_gain_banner_resource",
+			[2]="can_gain_banner_resource_while_banner_is_placed"
 		}
 	},
 	[2]={
@@ -44,7 +57,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Nearby Enemies have {0}% increased Critical Strike Chance"
+					text="Banner grants {0}% increased Armour and Evasion Rating to You and Allies"
 				},
 				[2]={
 					[1]={
@@ -57,13 +70,13 @@ return {
 							[2]=-1
 						}
 					},
-					text="Nearby Enemies have {0}% reduced Critical Strike Chance"
+					text="Banner grants {0}% reduced Armour and Evasion Rating to You and Allies"
 				}
 			}
 		},
-		name="armour_evasion_banner_crit_chance",
+		name="evasion_and_physical_damage_reduction_rating_incr",
 		stats={
-			[1]="armour_evasion_banner_critical_strike_chance_+%"
+			[1]="evasion_and_physical_damage_reduction_rating_+%"
 		}
 	},
 	[3]={
@@ -76,13 +89,26 @@ return {
 							[2]="#"
 						}
 					},
-					text="You and Nearby Allies Recover {0} Life when Blocking"
+					text="Banner applies {0}% increased Critical Strike Chance to Enemies"
 				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Banner applies {0}% reduced Critical Strike Chance to Enemies"
+				}
 			}
 		},
-		name="dread_banner_accuracy_final",
+		name="armour_evasion_banner_crit_chance",
 		stats={
-			[1]="puresteel_banner_accuracy_rating_+%_final"
+			[1]="armour_evasion_banner_critical_strike_chance_+%"
 		}
 	},
 	[4]={
@@ -95,7 +121,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Nearby Enemies deal {0}% more Damage"
+					text="Banner applies {0}% more Accuracy Rating to Enemies"
 				},
 				[2]={
 					[1]={
@@ -108,13 +134,13 @@ return {
 							[2]=-1
 						}
 					},
-					text="Nearby Enemies deal {0}% less Damage"
+					text="Banner applies {0}% less Accuracy Rating to Enemies"
 				}
 			}
 		},
-		name="dread_banner_enemy_damage_final",
+		name="dread_banner_accuracy_final",
 		stats={
-			[1]="puresteel_banner_damage_+%_final"
+			[1]="puresteel_banner_accuracy_rating_+%_final"
 		}
 	},
 	[5]={
@@ -123,17 +149,30 @@ return {
 				[1]={
 					limit={
 						[1]={
-							[1]="#",
+							[1]=1,
 							[2]="#"
 						}
 					},
-					text="Gain 1 Stage when you Impale an Enemy while carrying the Banner, up to 5 per second"
+					text="Banner applies {0}% more Damage to Enemies"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Banner applies {0}% less Damage to Enemies"
 				}
 			}
 		},
-		name="banner_add_stage_on_impale",
+		name="dread_banner_enemy_damage_final",
 		stats={
-			[1]="banner_add_stage_on_impale"
+			[1]="puresteel_banner_damage_+%_final"
 		}
 	},
 	[6]={
@@ -141,35 +180,22 @@ return {
 			English={
 				[1]={
 					[1]={
-						k="milliseconds_to_seconds",
+						k="milliseconds_to_seconds_2dp",
 						v=1
 					},
 					limit={
 						[1]={
-							[1]=1000,
-							[2]=1000
-						}
-					},
-					text="Gain 1 Stage every {0} second while an Enemy is Nearby"
-				},
-				[2]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
+							[1]=1,
 							[2]="#"
 						}
 					},
-					text="Gain 1 Stage every {0} seconds while an Enemy is Nearby"
+					text="Banner lasts {0} seconds"
 				}
 			}
 		},
-		name="banner_add_stage_every_x_milliseconds_while_enemies_nearby",
+		name="buff_duration",
 		stats={
-			[1]="banner_add_stage_every_x_milliseconds_while_enemies_nearby"
+			[1]="buff_effect_duration"
 		}
 	},
 	[7]={
@@ -178,61 +204,62 @@ return {
 				[1]={
 					limit={
 						[1]={
-							[1]="#",
+							[1]=1,
 							[2]="#"
 						}
 					},
-					text="Gain 1 Valour when you Kill an Enemy while carrying the Banner"
+					text="{0}% more Area of Effect per Valour consumed"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Area of Effect per Valour consumed"
 				}
 			}
 		},
-		name="banner_add_stage_on_kill",
+		name="banner_resource_aoe",
 		stats={
-			[1]="banner_add_stage_on_kill"
+			[1]="banner_area_of_effect_+%_final_per_resource"
 		}
 	},
 	[8]={
 		lang={
 			English={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds_2dp",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextAdrenaline"
-					},
 					limit={
 						[1]={
-							[1]=1000,
-							[2]=1000
+							[1]=1,
+							[2]="#"
 						}
 					},
-					text="Gain Adrenaline for {0} second per Stage on Placing the Banner"
+					text="{0}% more Aura effect per Valour consumed"
 				},
 				[2]={
 					[1]={
-						k="milliseconds_to_seconds_2dp",
+						k="negate",
 						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextAdrenaline"
 					},
 					limit={
 						[1]={
 							[1]="#",
-							[2]="#"
+							[2]=-1
 						}
 					},
-					text="Gain Adrenaline for {0} seconds per Stage on Placing the Banner"
+					text="{0}% less Aura effect per Valour consumed"
 				}
 			}
 		},
-		name="war_banner_adrenaline",
+		name="banner_resource_aura_effect",
 		stats={
-			[1]="bloodstained_banner_adrenaline_duration_per_stage_ms"
+			[1]="banner_buff_effect_+%_final_per_resource"
 		}
 	},
 	[9]={
@@ -241,17 +268,30 @@ return {
 				[1]={
 					limit={
 						[1]={
-							[1]="#",
+							[1]=1,
 							[2]="#"
 						}
 					},
-					text="You and Nearby Allies gain {0}% increased Movement Speed"
+					text="Banner grants {0}% increased Accuracy Rating to You and Allies"
 				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Banner grants {0}% reduced Accuracy Rating to You and Allies"
+				}
 			}
 		},
-		name="defiance_banner_movement_speed",
+		name="accuracy_rating_incr",
 		stats={
-			[1]="defiance_banner_movement_speed"
+			[1]="accuracy_rating_+%"
 		}
 	},
 	[10]={
@@ -264,113 +304,26 @@ return {
 							[2]="#"
 						}
 					},
-					text="You and Nearby gain +{0}% chance to Suppress Spell Damage"
-				},
+					text="Banner grants {0:+d}% Chance to Block Attack Damage to You and Allies"
+				}
 			}
 		},
-		name="suppress_spell_damage",
+		name="block_add",
 		stats={
-			[1]="suppress_spell_damage"
+			[1]="additional_block_%"
 		}
 	},
 	[11]={
 		lang={
 			English={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds_2dp",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Base Duration of {0} seconds after being Placed"
-				}
-			}
-		},
-		name="base_duration_identifier",
-		stats={
-			[1]="base_skill_effect_duration",
-			[2]="quality_display_base_duration_is_quality"
-		}
-	},
-	[12]={
-		lang={
-			English={
-				[1]={
-					[1]={
-						k="milliseconds_to_seconds_2dp",
-						v=1
-					},
 					limit={
 						[1]={
 							[1]=1,
 							[2]="#"
 						}
 					},
-					text="Banner lasts {0} seconds after being placed"
-				}
-			}
-		},
-		name="buff_duration",
-		stats={
-			[1]="buff_effect_duration"
-		}
-	},
-	[13]={
-		lang={
-			English={
-				[1]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						}
-					},
-					text="{0:+d} second to Base Placed Banner Duration per Stage"
-				},
-				[2]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0:+d} seconds to Base Placed Banner Duration per Stage"
-				}
-			}
-		},
-		name="banner_stage_duration",
-		stats={
-			[1]="banner_additional_base_duration_per_stage_ms"
-		}
-	},
-	[14]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="When placed, {0}% more Area of Effect per Valour Consumed"
+					text="Banner grants {0}% increased Movement Speed to You and Allies"
 				},
 				[2]={
 					[1]={
@@ -383,13 +336,78 @@ return {
 							[2]=-1
 						}
 					},
-					text="When placed, {0}% less Area of Effect per Valour Consumed"
+					text="Banner grants {0}% reduced Movement Speed to You and Allies"
 				}
 			}
 		},
-		name="banner_stage_aoe",
+		name="movement_speed_incr",
 		stats={
-			[1]="banner_area_of_effect_+%_per_stage"
+			[1]="base_movement_velocity_+%"
+		}
+	},
+	[12]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="reminderstring",
+						v="ReminderTextSuppression"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Banner grants {0:+d}% chance to Suppress Spell Damage to You and Allies"
+				}
+			}
+		},
+		name="base_suppress_chance",
+		stats={
+			[1]="base_spell_suppression_chance_%"
+		}
+	},
+	[13]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Banner grants {0:+d}% to Damage over Time Multiplier for Bleeding to You and Allies"
+				}
+			}
+		},
+		name="bleeding_dot_multi",
+		stats={
+			[1]="bleeding_dot_multiplier_+"
+		}
+	},
+	[14]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="reminderstring",
+						v="ReminderTextDamageTypes"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Banner grants {0:+d} Damage taken of each Damage Type from Suppressed Hits to You and Allies"
+				}
+			}
+		},
+		name="suppressed_damage",
+		stats={
+			[1]="damage_taken_+_from_suppressed_hits"
 		}
 	},
 	[15]={
@@ -402,7 +420,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="When placed, {0}% more Aura effect per Valour Consumed"
+					text="Banner grants {0}% increased Impale Effect to You and Allies"
 				},
 				[2]={
 					[1]={
@@ -415,30 +433,83 @@ return {
 							[2]=-1
 						}
 					},
-					text="When placed, {0}% less Aura effect per Valour Consumed"
+					text="Banner grants {0}% reduced Impale Effect to You and Allies"
 				}
 			}
 		},
-		name="banner_stage_aura_effect",
+		name="impale_effect",
 		stats={
-			[1]="banner_buff_effect_+%_per_stage"
+			[1]="impale_debuff_effect_+%"
 		}
 	},
-	["armour_evasion_banner_critical_strike_chance_+%"]=2,
-	["suppress_spell_damage"]=10,
-	["banner_add_stage_every_x_milliseconds_while_enemies_nearby"]=6,
-	["banner_add_stage_on_impale"]=5,
-	["banner_add_stage_on_kill"]=7,
-	["banner_additional_base_duration_per_stage_ms"]=13,
-	["banner_area_of_effect_+%_per_stage"]=14,
-	["banner_buff_effect_+%_per_stage"]=15,
-	["base_skill_effect_duration"]=11,
-	["bloodstained_banner_adrenaline_duration_per_stage_ms"]=8,
-	["buff_effect_duration"]=12,
-	["evasion_and_physical_damage_reduction_rating_+%"]=1,
+	[16]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Banner causes you and Allies to Recover {0} Life when Blocking"
+				}
+			}
+		},
+		name="recover_life_on_block",
+		stats={
+			[1]="recover_X_life_on_block"
+		}
+	},
+	[17]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Banner grants {0}% more Physical Damage with Melee Skills to You and Allies"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Banner grants {0}% less Physical Damage with Melee Skills to You and Allies"
+				}
+			}
+		},
+		name="war_banner_phys_damage",
+		stats={
+			[1]="war_banner_physical_damage_+%_final_with_melee_skills"
+		}
+	},
+	["accuracy_rating_+%"]=9,
+	["additional_block_%"]=10,
+	["armour_evasion_banner_critical_strike_chance_+%"]=3,
+	["banner_area_of_effect_+%_final_per_resource"]=7,
+	["banner_buff_effect_+%_final_per_resource"]=8,
+	["base_can_gain_banner_resource"]=1,
+	["base_movement_velocity_+%"]=11,
+	["base_spell_suppression_chance_%"]=12,
+	["bleeding_dot_multiplier_+"]=13,
+	["buff_effect_duration"]=6,
+	["can_gain_banner_resource_while_banner_is_placed"]=1,
+	["damage_taken_+_from_suppressed_hits"]=14,
+	["evasion_and_physical_damage_reduction_rating_+%"]=2,
+	["impale_debuff_effect_+%"]=15,
 	parent="aura_skill_stat_descriptions",
-	["defiance_banner_movement_speed"]=9,
-	["puresteel_banner_accuracy_rating_+%_final"]=3,
-	["puresteel_banner_damage_+%_final"]=4,
-	["quality_display_base_duration_is_quality"]=11
+	["puresteel_banner_accuracy_rating_+%_final"]=4,
+	["puresteel_banner_damage_+%_final"]=5,
+	["recover_X_life_on_block"]=16,
+	["war_banner_physical_damage_+%_final_with_melee_skills"]=17
 }

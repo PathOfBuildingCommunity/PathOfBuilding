@@ -606,6 +606,42 @@ return {
 							[2]="#"
 						}
 					},
+					text="Divined"
+				}
+			}
+		},
+		stats={
+			[1]="monster_drop_X_cards_from_area"
+		}
+	},
+	[32]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Divined"
+				}
+			}
+		},
+		stats={
+			[1]="monster_drop_additional_card_from_area_chance_%"
+		}
+	},
+	[33]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
 					text="Blocks Projectiles while charging"
 				}
 			}
@@ -636,6 +672,8 @@ return {
 	["monster_casts_fire_nova_text"]=15,
 	["monster_casts_flask_charge_nova_text"]=16,
 	["monster_caustic_cloud_on_death_%_max_damage_to_deal_per_minute"]=6,
+	["monster_drop_X_cards_from_area"]=31,
+	["monster_drop_additional_card_from_area_chance_%"]=32,
 	["monster_enrages_on_low_life_text"]=21,
 	["monster_ground_fire_on_death_%_max_damage_to_deal_per_minute"]=3,
 	["monster_ground_ice_on_death_base_area_of_effect_radius"]=4,
@@ -644,5 +682,5 @@ return {
 	["monster_has_movement_skill_damage_aura_text"]=20,
 	["monster_has_temporal_chains_aura_text"]=19,
 	["necromancer_additional_rarity_levels_can_be_raised"]=7,
-	["trigger_charge_additional_block_chance_against_projectiles_%"]=31
+	["trigger_charge_additional_block_chance_against_projectiles_%"]=33
 }
