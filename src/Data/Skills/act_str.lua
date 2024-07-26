@@ -287,9 +287,11 @@ skills["AncestralCry"] = {
 		},
 		["ancestral_cry_elemental_resistance_per_5_monster_power"] = {
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 }),
+			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 5, limit = 5 }),
 		},
 		["ancestral_cry_max_elemental_resistances_per_5_monster_power"] = {
 			mod("ElementalResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 10, limit = 3 }),
+			mod("ElementalResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 10, limit = 3 }),
 		},
 		["skill_empower_limitation_specifier_for_stat_description"] = {
 			-- Display only
@@ -639,6 +641,7 @@ skills["BattlemagesCry"] = {
 		},
 		["divine_cry_base_critical_strike_chance_+%_per_5_power"] = {
 			mod("CritChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 }),
+			mod("CritChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 5, limit = 5 }),
 			div = 100,
 		},
 		["display_battlemage_cry_exerted_attacks_trigger_supported_spell"] ={
@@ -3454,6 +3457,7 @@ skills["EnduringCry"] = {
 	statMap = {
 		["enduring_cry_life_regenerated_percentage_per_5_power"] = {
 			mod("LifeRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 }),
+			mod("LifeRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 5, limit = 5 }),
 		},
 	},
 	baseFlags = {
@@ -5758,6 +5762,7 @@ skills["AbyssalCry"] = {
 		},
 		["infernal_cry_phys_as_extra_fire%_per_5_monster_power"] = {
 			mod("PhysicalDamageGainAsFire", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 }),
+			mod("PhysicalDamageGainAsFire", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 5, limit = 5 }),
 		},
 		["infernal_cry_empowered_attacks_trigger_combust_display"] = {
 			-- Display only
@@ -6188,6 +6193,7 @@ skills["IntimidatingCry"] = {
 		},
 		["intimidating_cry_movement_speed_per_5_MP"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 5, limit = 6 }),
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 5, limit = 6 }),
 		},
 		["intimidating_cry_empowerd_attacks_deal_double_damage_display"] = {
 		},
@@ -8452,9 +8458,11 @@ skills["SeismicCry"] = {
 		},
 		["seismic_cry_+%_stun_threshold_per_5_MP"] = {
 			mod("StunThreshold", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 }),
+			mod("StunThreshold", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 5, limit = 5 }),
 		},
 		["seismic_cry_+%_physical_damamge_reduction_per_5_MP"] = {
 			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 }),
+			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 5, limit = 5 }),
 		},
 		["skill_empower_limitation_specifier_for_stat_description"] = {
 			-- Display only
