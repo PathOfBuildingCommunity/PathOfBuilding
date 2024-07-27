@@ -133,6 +133,38 @@ return {
 				}
 			}
 		},
+		name="support_more_duration",
+		stats={
+			[1]="support_more_duration_skill_effect_duration_+%_final"
+		}
+	},
+	[5]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Duration"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Duration"
+				}
+			}
+		},
 		name="support_less_duration",
 		stats={
 			[1]="support_reduced_duration_skill_effect_duration_+%_final"
@@ -142,5 +174,6 @@ return {
 	parent="skill_stat_descriptions",
 	["skill_effect_and_damaging_ailment_duration_+%"]=2,
 	["skill_effect_duration_+%"]=3,
-	["support_reduced_duration_skill_effect_duration_+%_final"]=4
+	["support_more_duration_skill_effect_duration_+%_final"]=4,
+	["support_reduced_duration_skill_effect_duration_+%_final"]=5
 }

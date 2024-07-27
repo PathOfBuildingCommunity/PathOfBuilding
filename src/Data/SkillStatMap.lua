@@ -2002,15 +2002,11 @@ return {
 	flag("Condition:CannotRecallBrand"),
 },
 -- Banner
-["banner_buff_effect_+%_per_stage"] = {
+["banner_buff_effect_+%_final_per_resource"] = {
 	mod("AuraEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "BannerValour" }, { type = "Condition", var = "BannerPlanted" }),
 },
-["banner_area_of_effect_+%_per_stage"] = {
+["banner_area_of_effect_+%_final_per_resource"] = {
 	mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "BannerValour" }, { type = "Condition", var = "BannerPlanted" }),
-},
-["banner_additional_base_duration_per_stage_ms"] = {
-	mod("PrimaryDuration", "BASE", nil, 0, 0, { type = "Multiplier", var = "BannerValour" }, { type = "Condition", var = "BannerPlanted" }),
-	div = 1000,
 },
 -- Other
 ["triggered_skill_damage_+%"] = {
@@ -2055,6 +2051,9 @@ return {
 },
 ["spell_cast_time_added_to_cooldown_if_triggered"] = {
 	flag("SpellCastTimeAddedToCooldownIfTriggered"),
+},
+["gain_x_rage_on_attack_hit"] = {
+	flag("Condition:CanGainRage", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 },
 --
 -- Spectre or Minion-specific stats
@@ -2139,6 +2138,9 @@ return {
 	-- Display only
 },
 ["quality_display_active_skill_bleed_damage_final_is_gem"] = {
+	-- Display only
+},
+["quality_display_spell_damage_to_attack_damage_is_gem"] = {
 	-- Display only
 },
 }

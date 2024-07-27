@@ -88,19 +88,6 @@ local function writeMods(outName, condFunc)
 				end
 				out:write('}, ')
 				out:write('weightVal = { ', table.concat(mod.SpawnWeights, ', '), ' }, ')
-				out:write('weightMultiplierKey = { ')
-				for _, tag in ipairs(mod.GenerationWeightTags) do
-					out:write('"', tag.Id, '", ')
-				end
-				out:write('}, ')
-				out:write('weightMultiplierVal = { ', table.concat(mod.GenerationWeightValues, ', '), ' }, ')
-				if mod.Tags[1] then
-					out:write('tags = { ')
-					for _, tag in ipairs(mod.Tags) do
-						out:write('"', tag.Id, '", ')
-					end
-					out:write('}, ')
-				end
 				out:write('modTags = { ', stats.modTags, ' }, ')
 				out:write('},\n')
 			else

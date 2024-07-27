@@ -48,7 +48,7 @@ itemBases["Gold Amulet"] = {
 	tags = { amulet = true, default = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(12-20)% increased Rarity of Items found",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "drop" }, },
 	req = { level = 8, },
 }
 itemBases["Onyx Amulet"] = {
@@ -387,8 +387,8 @@ itemBases["Spinefuse Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, talisman = true, amulet = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
-	implicit = "(6-10)% increased Quantity of Items found",
-	implicitModTypes = { {  }, },
+	implicit = "+(12-18)% to Damage over Time Multiplier",
+	implicitModTypes = { { "dot_multi", "damage" }, },
 	req = { },
 }
 itemBases["Three Rat Talisman"] = {

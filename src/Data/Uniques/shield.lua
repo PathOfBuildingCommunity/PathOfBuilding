@@ -47,7 +47,7 @@ Variant: Pre 3.25.0
 Variant: Current
 Implicits: 1
 {variant:2,3,4}+(30-40) to maximum Life
-{variant:1,2,3}Grants Level 30 Reckoning Skill
+{variant:1,2,3}Grants Level 30 Crushing Fist Skill
 {variant:1,2}(130-170)% increased Armour
 {variant:3,4}(165-205)% increased Armour
 +(65-80) to maximum Life
