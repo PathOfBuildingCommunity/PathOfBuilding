@@ -3,21 +3,19 @@
 
 return {
 	[1]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Adds {0} to {1} Fire Damage to Attacks"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Adds {0} to {1} Fire Damage to Attacks"
 			}
 		},
 		name="attack_added_fire",
@@ -27,21 +25,19 @@ return {
 		}
 	},
 	[2]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Buff grants {0} to {1} Added Attack Cold Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants {0} to {1} Added Attack Cold Damage"
 			}
 		},
 		name="attack_added_cold",
@@ -51,21 +47,19 @@ return {
 		}
 	},
 	[3]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Buff grants {0} to {1} Added Spell Cold Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants {0} to {1} Added Spell Cold Damage"
 			}
 		},
 		name="spell_added_cold",
@@ -75,21 +69,19 @@ return {
 		}
 	},
 	[4]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Buff grants {0} to {1} Added Attack Lightning Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants {0} to {1} Added Attack Lightning Damage"
 			}
 		},
 		name="attack_added_lightning",
@@ -99,21 +91,19 @@ return {
 		}
 	},
 	[5]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Buff grants {0} to {1} Added Spell Lightning Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants {0} to {1} Added Spell Lightning Damage"
 			}
 		},
 		name="spell_added_lightning",
@@ -123,30 +113,28 @@ return {
 		}
 	},
 	[6]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% increased Critical Strike Chance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Buff grants have {0}% reduced Critical Strike Chance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% increased Critical Strike Chance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buff grants have {0}% reduced Critical Strike Chance"
 			}
 		},
 		name="grants_critical_strike_chance_incr",
@@ -155,17 +143,15 @@ return {
 		}
 	},
 	[7]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% increased Cold Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% increased Cold Damage"
 			}
 		},
 		name="herald_of_ice_cold_damage_incr",
@@ -174,17 +160,15 @@ return {
 		}
 	},
 	[8]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% increased Lightning Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% increased Lightning Damage"
 			}
 		},
 		name="herald_of_thunder_lightning_damage_incr",
@@ -193,30 +177,28 @@ return {
 		}
 	},
 	[9]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% increased Stealth"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Buff grants {0}% reduced Stealth"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% increased Stealth"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buff grants {0}% reduced Stealth"
 			}
 		},
 		name="stealth_increase",
@@ -225,21 +207,19 @@ return {
 		}
 	},
 	[10]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Buff grants {0} Mana Regeneration per second"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants {0} Mana Regeneration per second"
 			}
 		},
 		name="mana_regen",
@@ -248,21 +228,19 @@ return {
 		}
 	},
 	[11]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Buff grants {0} Energy Shield Regeneration per second"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants {0} Energy Shield Regeneration per second"
 			}
 		},
 		name="es_regen",
@@ -271,17 +249,15 @@ return {
 		}
 	},
 	[12]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Buff grants {0:+d}% Chance to Block Spell Damage while holding a Shield"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants {0:+d}% Chance to Block Spell Damage while holding a Shield"
 			}
 		},
 		name="shield_spell_block",
@@ -290,21 +266,19 @@ return {
 		}
 	},
 	[13]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextPhasing"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextPhasing"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Buff grants Phasing"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants Phasing"
 			}
 		},
 		name="phasing",
@@ -313,38 +287,36 @@ return {
 		}
 	},
 	[14]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
-					},
-					text="Buff grants {0:+d}% chance to Shock enemies"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextShock"
+						[1]="#",
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+					[2]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Buff grants {0:+d}% chance to Shock enemies"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextShock"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Buff Grants {0}% chance to Shock enemies"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff Grants {0}% chance to Shock enemies"
 			}
 		},
 		name="skill_grants_shock_chance",
@@ -354,30 +326,28 @@ return {
 		}
 	},
 	[15]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% increased Damage taken"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Buff grants {0}% reduced Damage taken"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% increased Damage taken"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buff grants {0}% reduced Damage taken"
 			}
 		},
 		name="damage_taken_incr",
@@ -386,17 +356,15 @@ return {
 		}
 	},
 	[16]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Buff grants Immunity to Freeze"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants Immunity to Freeze"
 			}
 		},
 		name="immune_to_freeze",
@@ -405,30 +373,28 @@ return {
 		}
 	},
 	[17]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% increased Movement Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Buff grants {0}% reduced Movement Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% increased Movement Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buff grants {0}% reduced Movement Speed"
 			}
 		},
 		name="movement_speed_incr",
@@ -437,17 +403,15 @@ return {
 		}
 	},
 	[18]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Buff grants {0:+d} to Armour"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants {0:+d} to Armour"
 			}
 		},
 		name="base_armour",
@@ -456,21 +420,19 @@ return {
 		}
 	},
 	[19]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextRageEffect"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextRageEffect"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0}% increased Rage Effect"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0}% increased Rage Effect"
 			}
 		},
 		name="berserk_rage_effect",
@@ -479,30 +441,28 @@ return {
 		}
 	},
 	[20]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% more Spell Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Buff grants {0}% less Spell Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% more Spell Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buff grants {0}% less Spell Damage"
 			}
 		},
 		name="berserk_spell_damage_final",
@@ -511,21 +471,19 @@ return {
 		}
 	},
 	[21]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Buff grants {0} to {1} Added Spell Physical Damage per 1% Shield Quality"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants {0} to {1} Added Spell Physical Damage per 1% Shield Quality"
 			}
 		},
 		name="buff_spell_phys",
@@ -535,17 +493,15 @@ return {
 		}
 	},
 	[22]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Linked target Recovers {0} Life when they Block"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Linked target Recovers {0} Life when they Block"
 			}
 		},
 		name="bulwark_link_recover",
@@ -554,30 +510,28 @@ return {
 		}
 	},
 	[23]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Linked target has {0}% increased Stun Threshold"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Linked target has {0}% reduced Stun Threshold"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Linked target has {0}% increased Stun Threshold"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Linked target has {0}% reduced Stun Threshold"
 			}
 		},
 		name="bulwark_link_stun_threshold",
@@ -586,30 +540,28 @@ return {
 		}
 	},
 	[24]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Linked target has {0}% increased Accuracy Rating"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Linked target has {0}% reduced Accuracy Rating"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Linked target has {0}% increased Accuracy Rating"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Linked target has {0}% reduced Accuracy Rating"
 			}
 		},
 		name="critical_link_accuracy",
@@ -618,17 +570,15 @@ return {
 		}
 	},
 	[25]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Linked target has {0:+d}% to Critical Strike Multiplier"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Linked target has {0:+d}% to Critical Strike Multiplier"
 			}
 		},
 		name="critical_link_multiplier",
@@ -637,21 +587,19 @@ return {
 		}
 	},
 	[26]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextRecoup"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextRecoup"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0}% of Damage taken Recouped as Mana"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0}% of Damage taken Recouped as Mana"
 			}
 		},
 		name="skill_damage_taken_goes_to_mana",
@@ -660,17 +608,15 @@ return {
 		}
 	},
 	[27]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Linked target's Chance to Block Attack Damage is equal to yours\nLinked target's Maximum Chance to Block Attack Damage is equal to yours"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Linked target's Chance to Block Attack Damage is equal to yours\nLinked target's Maximum Chance to Block Attack Damage is equal to yours"
 			}
 		},
 		name="display_bulwark_link_override",
@@ -679,17 +625,15 @@ return {
 		}
 	},
 	[28]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Linked target's Main Hand Critical Strike Chance is equal to yours"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Linked target's Main Hand Critical Strike Chance is equal to yours"
 			}
 		},
 		name="display_critical_link_override",
@@ -698,17 +642,15 @@ return {
 		}
 	},
 	[29]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Buff grants Immunity to Bleeding"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants Immunity to Bleeding"
 			}
 		},
 		name="display_immune_to_bleeding",
@@ -717,21 +659,19 @@ return {
 		}
 	},
 	[30]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You lose {0} Energy Shield per second"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You lose {0} Energy Shield per second"
 			}
 		},
 		name="energy_shield_loss",
@@ -740,21 +680,19 @@ return {
 		}
 	},
 	[31]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextIgnite"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextIgnite"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Linked target has {0}% chance to Ignite"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Linked target has {0}% chance to Ignite"
 			}
 		},
 		name="flame_link_ignite_chance",
@@ -763,76 +701,74 @@ return {
 		}
 	},
 	[32]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]=1,
-							[2]="#"
-						},
-						[3]={
-							[1]="!",
-							[2]=0
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Life Recovery other than Flasks cannot Recover Life to above Low Life\nWhen taking Damage from Hits, {0}% of Life loss below half Life is Prevented, then {1}% of Life loss prevented this way is lost over 4 seconds"
+					[2]={
+						[1]=1,
+						[2]="#"
+					},
+					[3]={
+						[1]="!",
+						[2]=0
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="!",
-							[2]=0
-						},
-						[2]={
-							[1]="!",
-							[2]=0
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						}
+				text="Life Recovery other than Flasks cannot Recover Life to above Low Life\nWhen taking Damage from Hits, {0}% of Life loss below half Life is Prevented, then {1}% of Life loss prevented this way is lost over 4 seconds"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="!",
+						[2]=0
 					},
-					text="When taking Damage from Hits, {0:+d}% of Life loss below half Life is Prevented\n{1:+d}% of Life loss prevented this way is lost over 4 seconds"
+					[2]={
+						[1]="!",
+						[2]=0
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[3]={
-					limit={
-						[1]={
-							[1]="!",
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						}
+				text="When taking Damage from Hits, {0:+d}% of Life loss below half Life is Prevented\n{1:+d}% of Life loss prevented this way is lost over 4 seconds"
+			},
+			[3]={
+				limit={
+					[1]={
+						[1]="!",
+						[2]=0
 					},
-					text="When taking Damage from Hits, {0:+d}% of Life loss below half Life is Prevented"
+					[2]={
+						[1]=0,
+						[2]=0
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[4]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]="!",
-							[2]=0
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						}
+				text="When taking Damage from Hits, {0:+d}% of Life loss below half Life is Prevented"
+			},
+			[4]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="{1:+d}% of Life loss prevented is lost over 4 seconds"
-				}
+					[2]={
+						[1]="!",
+						[2]=0
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="{1:+d}% of Life loss prevented is lost over 4 seconds"
 			}
 		},
 		name="petrified_blood_life_loss_over_time",
@@ -843,17 +779,15 @@ return {
 		}
 	},
 	[33]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% additional Physical Damage Reduction per Endurance Charge"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% additional Physical Damage Reduction per Endurance Charge"
 			}
 		},
 		name="endurance_charge_phys_reduction",
@@ -862,30 +796,28 @@ return {
 		}
 	},
 	[34]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% increased Armour"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Buff grants {0}% reduced Armour"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% increased Armour"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buff grants {0}% reduced Armour"
 			}
 		},
 		name="armour_incr",
@@ -894,17 +826,15 @@ return {
 		}
 	},
 	[35]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Life Leech effects are not removed at Full Life\nLife Leech effects apply Recovery Linked Target instead of you\nLinked target's Maximum total Life Recovery per second from Leech is equal to yours"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Life Leech effects are not removed at Full Life\nLife Leech effects apply Recovery Linked Target instead of you\nLinked target's Maximum total Life Recovery per second from Leech is equal to yours"
 			}
 		},
 		name="remora_link",
@@ -913,30 +843,28 @@ return {
 		}
 	},
 	[36]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Linked target deals {0}% increased Damage when on Full Life"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Linked target deals {0}% reduced Damage when on Full Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Linked target deals {0}% increased Damage when on Full Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Linked target deals {0}% reduced Damage when on Full Life"
 			}
 		},
 		name="remora_link_damage_on_full_life",
@@ -945,21 +873,19 @@ return {
 		}
 	},
 	[37]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Buff grants {0:+d}% to Maximum total Life Recovery per second from Leech"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants {0:+d}% to Maximum total Life Recovery per second from Leech"
 			}
 		},
 		name="remora_link_leech_max",
@@ -968,17 +894,15 @@ return {
 		}
 	},
 	[38]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Buff grants {0:+d}% to all Elemental Resistances per Endurance Charge"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants {0:+d}% to all Elemental Resistances per Endurance Charge"
 			}
 		},
 		name="endurance_charge_ele_resist",
@@ -987,17 +911,15 @@ return {
 		}
 	},
 	[39]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Buff grants {0:+d}% to all Resistances"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants {0:+d}% to all Resistances"
 			}
 		},
 		name="all_resist",
@@ -1006,30 +928,28 @@ return {
 		}
 	},
 	[40]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Buff Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Buff Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Buff Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Buff Effect"
 			}
 		},
 		name="skill_buff_effect",
@@ -1038,30 +958,28 @@ return {
 		}
 	},
 	[41]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% increased Attack and Cast Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Buff grants {0}% reduced Attack and Cast Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% increased Attack and Cast Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buff grants {0}% reduced Attack and Cast Speed"
 			}
 		},
 		name="buff_grants_attack_and_cast_speed",
@@ -1070,17 +988,15 @@ return {
 		}
 	},
 	[42]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% chance to Freeze"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% chance to Freeze"
 			}
 		},
 		name="buff_grants_chance_to_freeze",
@@ -1089,30 +1005,28 @@ return {
 		}
 	},
 	[43]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% increased Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Buff grants {0}% reduced Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% increased Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buff grants {0}% reduced Damage"
 			}
 		},
 		name="buff_grants_damage_pluspercent",
@@ -1121,30 +1035,28 @@ return {
 		}
 	},
 	[44]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% increased Shock Duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Buff grants {0}% reduced Shock Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% increased Shock Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buff grants {0}% reduced Shock Duration"
 			}
 		},
 		name="buff_grants_shock_duration",
@@ -1153,17 +1065,15 @@ return {
 		}
 	},
 	[45]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Buff grants Immunity to Shock"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants Immunity to Shock"
 			}
 		},
 		name="display_buff_shock_immune",
@@ -1172,21 +1082,19 @@ return {
 		}
 	},
 	[46]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextLowLife"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextLowLife"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Skills gain a Base Life Cost equal to {0}% of Base Mana Cost while not on Low Life"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Skills gain a Base Life Cost equal to {0}% of Base Mana Cost while not on Low Life"
 			}
 		},
 		name="life_cost_from_mana_cost_not_low_life",
@@ -1195,30 +1103,28 @@ return {
 		}
 	},
 	[47]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Linked target takes {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Linked target takes {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Linked target takes {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Linked target takes {0}% less Damage"
 			}
 		},
 		name="soul_link_damage_taken",
@@ -1227,30 +1133,28 @@ return {
 		}
 	},
 	[48]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Linked target has {0}% increased Mana Regeneration Rate"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Linked target has {0}% reduced Mana Regeneration Rate"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Linked target has {0}% increased Mana Regeneration Rate"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Linked target has {0}% reduced Mana Regeneration Rate"
 			}
 		},
 		name="soul_link_mana_regen",
@@ -1259,17 +1163,15 @@ return {
 		}
 	},
 	[49]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0}% of Damage from Hits against target is taken from your Energy Shield before them"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0}% of Damage from Hits against target is taken from your Energy Shield before them"
 			}
 		},
 		name="soul_link_transfer_percent",
@@ -1278,30 +1180,28 @@ return {
 		}
 	},
 	[50]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff Grants {0}% increased Spell Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Buff Grants {0}% reduced Spell Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff Grants {0}% increased Spell Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buff Grants {0}% reduced Spell Damage"
 			}
 		},
 		name="spell_damage_incr",
@@ -1310,30 +1210,28 @@ return {
 		}
 	},
 	[51]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% more Maximum Energy Shield"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Buff grants {0}% less Maximum Energy Shield"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% more Maximum Energy Shield"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buff grants {0}% less Maximum Energy Shield"
 			}
 		},
 		name="storm_blade_less_energy_shield",
@@ -1342,21 +1240,19 @@ return {
 		}
 	},
 	[52]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextUnaffectedBy"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextUnaffectedBy"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Buff makes you Unaffected by Temporal Chains"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff makes you Unaffected by Temporal Chains"
 			}
 		},
 		name="unaffected_by_temporal_chains",
@@ -1365,17 +1261,15 @@ return {
 		}
 	},
 	[53]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% more Armour"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% more Armour"
 			}
 		},
 		name="vaal_molten_shall_armour_incr",
@@ -1384,21 +1278,19 @@ return {
 		}
 	},
 	[54]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Linked target gains {0} to {1} Added Fire Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Linked target gains {0} to {1} Added Fire Damage"
 			}
 		},
 		name="flame_link_added_damage",
@@ -1408,21 +1300,19 @@ return {
 		}
 	},
 	[55]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Energy Blades have {0} to {1} Lightning Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Energy Blades have {0} to {1} Lightning Damage"
 			}
 		},
 		name="storm_blade_base_damage",
@@ -1432,34 +1322,32 @@ return {
 		}
 	},
 	[56]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="!",
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="!",
+						[2]=0
 					},
-					text="Link breaks if target leaves range or line of sight for 4 seconds\nMaximum 1 Link from any source per target\nYou die if Linked target dies"
+					[2]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="!",
-							[2]=0
-						},
-						[2]={
-							[1]="!",
-							[2]=0
-						}
+				text="Link breaks if target leaves range or line of sight for 4 seconds\nMaximum 1 Link from any source per target\nYou die if Linked target dies"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="!",
+						[2]=0
 					},
-					text="Link breaks if target leaves range or line of sight for 8 seconds\nMaximum 1 Link from any source per target\nYou die if Linked target dies"
-				}
+					[2]={
+						[1]="!",
+						[2]=0
+					}
+				},
+				text="Link breaks if target leaves range or line of sight for 8 seconds\nMaximum 1 Link from any source per target\nYou die if Linked target dies"
 			}
 		},
 		name="link_stuff",

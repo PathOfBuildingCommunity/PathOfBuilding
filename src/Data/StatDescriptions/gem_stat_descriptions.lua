@@ -3,30 +3,28 @@
 
 return {
 	[1]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Melee Physical Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Melee Physical Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Melee Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Melee Physical Damage"
 			}
 		},
 		stats={
@@ -34,30 +32,28 @@ return {
 		}
 	},
 	[2]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage with Bleeding and Poison caused by Melee Hits"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage with Bleeding and Poison caused by Melee Hits"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage with Bleeding and Poison caused by Melee Hits"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage with Bleeding and Poison caused by Melee Hits"
 			}
 		},
 		stats={
@@ -65,17 +61,15 @@ return {
 		}
 	},
 	[3]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Curse Skills apply their Curses as Auras\nSupported Curse Skills also count as Aura Skills"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Curse Skills apply their Curses as Auras\nSupported Curse Skills also count as Aura Skills"
 			}
 		},
 		stats={
@@ -83,30 +77,28 @@ return {
 		}
 	},
 	[4]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -114,30 +106,28 @@ return {
 		}
 	},
 	[5]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -145,30 +135,28 @@ return {
 		}
 	},
 	[6]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -176,17 +164,15 @@ return {
 		}
 	},
 	[7]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Using Supported Skills is Instant"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Using Supported Skills is Instant"
 			}
 		},
 		stats={
@@ -194,30 +180,28 @@ return {
 		}
 	},
 	[8]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Attack Skills deal {0}% more Damage while on Full Life"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Attack Skills deal {0}% less Damage while on Full Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Attack Skills deal {0}% more Damage while on Full Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Attack Skills deal {0}% less Damage while on Full Life"
 			}
 		},
 		stats={
@@ -225,30 +209,28 @@ return {
 		}
 	},
 	[9]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Attacks deal {0}% more Damage for each Warcry Exerting them"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Attacks deal {0}% less Damage for each Warcry Exerting them"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Attacks deal {0}% more Damage for each Warcry Exerting them"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Attacks deal {0}% less Damage for each Warcry Exerting them"
 			}
 		},
 		stats={
@@ -256,30 +238,28 @@ return {
 		}
 	},
 	[10]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Attacks deal {0}% more Damage if Exerted"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Attacks deal {0}% less Damage if Exerted"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Attacks deal {0}% more Damage if Exerted"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Attacks deal {0}% less Damage if Exerted"
 			}
 		},
 		stats={
@@ -287,30 +267,28 @@ return {
 		}
 	},
 	[11]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Attack Skills deal {0}% more Elemental Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Attack Skills deal {0}% less Elemental Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Attack Skills deal {0}% more Elemental Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Attack Skills deal {0}% less Elemental Damage"
 			}
 		},
 		stats={
@@ -318,30 +296,28 @@ return {
 		}
 	},
 	[12]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Weapon Elemental Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Weapon Elemental Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Weapon Elemental Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Weapon Elemental Damage"
 			}
 		},
 		stats={
@@ -349,30 +325,28 @@ return {
 		}
 	},
 	[13]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Area Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Area Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Area Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Area Damage"
 			}
 		},
 		stats={
@@ -380,30 +354,28 @@ return {
 		}
 	},
 	[14]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -411,30 +383,28 @@ return {
 		}
 	},
 	[15]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Projectile Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Projectile Damage"
 			}
 		},
 		stats={
@@ -442,30 +412,28 @@ return {
 		}
 	},
 	[16]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Projectile Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Projectile Damage"
 			}
 		},
 		stats={
@@ -473,30 +441,28 @@ return {
 		}
 	},
 	[17]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Projectile Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Projectile Damage"
 			}
 		},
 		stats={
@@ -504,30 +470,28 @@ return {
 		}
 	},
 	[18]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -535,30 +499,28 @@ return {
 		}
 	},
 	[19]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -566,30 +528,28 @@ return {
 		}
 	},
 	[20]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Spells deal {0}% increased Spell Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Spells deal {0}% reduced Spell Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Spells deal {0}% increased Spell Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Spells deal {0}% reduced Spell Damage"
 			}
 		},
 		stats={
@@ -597,30 +557,28 @@ return {
 		}
 	},
 	[21]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Spell Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Spell Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Spell Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Spell Damage"
 			}
 		},
 		stats={
@@ -628,30 +586,28 @@ return {
 		}
 	},
 	[22]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Spells have {0}% more Spell Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Spells have {0}% less Spell Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Spells have {0}% more Spell Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Spells have {0}% less Spell Damage"
 			}
 		},
 		stats={
@@ -659,30 +615,28 @@ return {
 		}
 	},
 	[23]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Triggered Spells deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Triggered Spells deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Triggered Spells deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Triggered Spells deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -690,30 +644,28 @@ return {
 		}
 	},
 	[24]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Spells deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Spells deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Spells deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Spells deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -721,30 +673,28 @@ return {
 		}
 	},
 	[25]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Cost"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Cost"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Cost"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Cost"
 			}
 		},
 		stats={
@@ -752,30 +702,28 @@ return {
 		}
 	},
 	[26]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Life Cost"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Life Cost"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Life Cost"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Life Cost"
 			}
 		},
 		stats={
@@ -783,30 +731,28 @@ return {
 		}
 	},
 	[27]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% reduced Mana Cost"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% increased Mana Cost"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% reduced Mana Cost"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% increased Mana Cost"
 			}
 		},
 		stats={
@@ -814,30 +760,28 @@ return {
 		}
 	},
 	[28]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Mana Cost"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Mana Cost"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Mana Cost"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Mana Cost"
 			}
 		},
 		stats={
@@ -845,26 +789,24 @@ return {
 		}
 	},
 	[29]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Supported Strike Skills target {0} additional nearby Enemy"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Strike Skills target {0} additional nearby Enemies"
-				}
+				text="Supported Strike Skills target {0} additional nearby Enemy"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Strike Skills target {0} additional nearby Enemies"
 			}
 		},
 		stats={
@@ -872,17 +814,15 @@ return {
 		}
 	},
 	[30]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Strike Skills cannot target additional Enemies"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Strike Skills cannot target additional Enemies"
 			}
 		},
 		stats={
@@ -890,17 +830,15 @@ return {
 		}
 	},
 	[31]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Extra Targets for Supported Skills can be found {0}% further away"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Extra Targets for Supported Skills can be found {0}% further away"
 			}
 		},
 		stats={
@@ -908,30 +846,28 @@ return {
 		}
 	},
 	[32]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Area of Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Area of Effect"
 			}
 		},
 		stats={
@@ -939,30 +875,28 @@ return {
 		}
 	},
 	[33]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Area of Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Area of Effect"
 			}
 		},
 		stats={
@@ -970,30 +904,28 @@ return {
 		}
 	},
 	[34]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Area of Effect while Dead"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Area of Effect while Dead"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Area of Effect while Dead"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Area of Effect while Dead"
 			}
 		},
 		stats={
@@ -1001,30 +933,28 @@ return {
 		}
 	},
 	[35]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Aura Area of Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Aura Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Aura Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Aura Area of Effect"
 			}
 		},
 		stats={
@@ -1032,30 +962,28 @@ return {
 		}
 	},
 	[36]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Aura effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Aura effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Aura effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Aura effect"
 			}
 		},
 		stats={
@@ -1063,30 +991,28 @@ return {
 		}
 	},
 	[37]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Critical Strike Chance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Critical Strike Chance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Critical Strike Chance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Critical Strike Chance"
 			}
 		},
 		stats={
@@ -1094,17 +1020,15 @@ return {
 		}
 	},
 	[38]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills Cost Life instead of Mana"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills Cost Life instead of Mana"
 			}
 		},
 		stats={
@@ -1112,17 +1036,15 @@ return {
 		}
 	},
 	[39]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills Reserve Life instead of Mana"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills Reserve Life instead of Mana"
 			}
 		},
 		stats={
@@ -1130,17 +1052,15 @@ return {
 		}
 	},
 	[40]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Spend Life instead of Mana for effects of Supported Skills"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Spend Life instead of Mana for effects of Supported Skills"
 			}
 		},
 		stats={
@@ -1148,17 +1068,15 @@ return {
 		}
 	},
 	[41]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="!",
-							[2]=0
-						}
-					},
-					text="Supported Skills fire a Payload Arrow into the air\nProjectiles from the Supported Skill Fire from where the Payload Arrow lands"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="!",
+						[2]=0
+					}
+				},
+				text="Supported Skills fire a Payload Arrow into the air\nProjectiles from the Supported Skill Fire from where the Payload Arrow lands"
 			}
 		},
 		stats={
@@ -1166,34 +1084,32 @@ return {
 		}
 	},
 	[42]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=10,
-							[2]=10
-						}
-					},
-					text="Ignites caused by Supported Skills spread to other Enemies within {0} metre"
+					k="locations_to_metres",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Ignites caused by Supported Skills spread to other Enemies within {0} metres"
-				}
+						[1]=10,
+						[2]=10
+					}
+				},
+				text="Ignites caused by Supported Skills spread to other Enemies within {0} metre"
+			},
+			[2]={
+				[1]={
+					k="locations_to_metres",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Ignites caused by Supported Skills spread to other Enemies within {0} metres"
 			}
 		},
 		stats={
@@ -1201,278 +1117,276 @@ return {
 		}
 	},
 	[43]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						},
-						[3]={
-							[1]="#",
-							[2]="#"
-						},
-						[4]={
-							[1]=1,
-							[2]="#"
-						},
-						[5]={
-							[1]=0,
-							[2]=0
-						},
-						[6]={
-							[1]=0,
-							[2]=0
-						},
-						[7]={
-							[1]="#",
-							[2]="#"
-						},
-						[8]={
-							[1]="#",
-							[2]="#"
-						},
-						[9]={
-							[1]=0,
-							[2]=0
-						},
-						[10]={
-							[1]=0,
-							[2]=0
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="Supported Skills Fire Projectiles in random directions"
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]="#",
+						[2]="#"
+					},
+					[4]={
+						[1]=1,
+						[2]="#"
+					},
+					[5]={
+						[1]=0,
+						[2]=0
+					},
+					[6]={
+						[1]=0,
+						[2]=0
+					},
+					[7]={
+						[1]="#",
+						[2]="#"
+					},
+					[8]={
+						[1]="#",
+						[2]="#"
+					},
+					[9]={
+						[1]=0,
+						[2]=0
+					},
+					[10]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						},
-						[4]={
-							[1]=1,
-							[2]="#"
-						},
-						[5]={
-							[1]="!",
-							[2]=0
-						},
-						[6]={
-							[1]=0,
-							[2]=0
-						},
-						[7]={
-							[1]="#",
-							[2]="#"
-						},
-						[8]={
-							[1]="#",
-							[2]="#"
-						},
-						[9]={
-							[1]=0,
-							[2]=0
-						},
-						[10]={
-							[1]=0,
-							[2]=0
-						}
+				text="Supported Skills Fire Projectiles in random directions"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="Supported Skills Fire Projectiles in a spiral"
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					},
+					[4]={
+						[1]=1,
+						[2]="#"
+					},
+					[5]={
+						[1]="!",
+						[2]=0
+					},
+					[6]={
+						[1]=0,
+						[2]=0
+					},
+					[7]={
+						[1]="#",
+						[2]="#"
+					},
+					[8]={
+						[1]="#",
+						[2]="#"
+					},
+					[9]={
+						[1]=0,
+						[2]=0
+					},
+					[10]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[3]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						},
-						[4]={
-							[1]=1,
-							[2]="#"
-						},
-						[5]={
-							[1]="!",
-							[2]=0
-						},
-						[6]={
-							[1]="!",
-							[2]=0
-						},
-						[7]={
-							[1]="#",
-							[2]="#"
-						},
-						[8]={
-							[1]="#",
-							[2]="#"
-						},
-						[9]={
-							[1]=0,
-							[2]=0
-						},
-						[10]={
-							[1]=0,
-							[2]=0
-						}
+				text="Supported Skills Fire Projectiles in a spiral"
+			},
+			[3]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="Supported Skills Fire Projectiles in two mirrored spirals"
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					},
+					[4]={
+						[1]=1,
+						[2]="#"
+					},
+					[5]={
+						[1]="!",
+						[2]=0
+					},
+					[6]={
+						[1]="!",
+						[2]=0
+					},
+					[7]={
+						[1]="#",
+						[2]="#"
+					},
+					[8]={
+						[1]="#",
+						[2]="#"
+					},
+					[9]={
+						[1]=0,
+						[2]=0
+					},
+					[10]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[4]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						},
-						[4]={
-							[1]=0,
-							[2]=0
-						},
-						[5]={
-							[1]="#",
-							[2]="#"
-						},
-						[6]={
-							[1]=0,
-							[2]=0
-						},
-						[7]={
-							[1]="!",
-							[2]=0
-						},
-						[8]={
-							[1]="!",
-							[2]=0
-						},
-						[9]={
-							[1]=0,
-							[2]=0
-						},
-						[10]={
-							[1]=0,
-							[2]=0
-						}
+				text="Supported Skills Fire Projectiles in two mirrored spirals"
+			},
+			[4]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="Supported Skills Fire Projectiles in a spiral"
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					},
+					[4]={
+						[1]=0,
+						[2]=0
+					},
+					[5]={
+						[1]="#",
+						[2]="#"
+					},
+					[6]={
+						[1]=0,
+						[2]=0
+					},
+					[7]={
+						[1]="!",
+						[2]=0
+					},
+					[8]={
+						[1]="!",
+						[2]=0
+					},
+					[9]={
+						[1]=0,
+						[2]=0
+					},
+					[10]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[5]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						},
-						[4]={
-							[1]=0,
-							[2]=0
-						},
-						[5]={
-							[1]="#",
-							[2]="#"
-						},
-						[6]={
-							[1]=0,
-							[2]=0
-						},
-						[7]={
-							[1]="!",
-							[2]=0
-						},
-						[8]={
-							[1]=0,
-							[2]=0
-						},
-						[9]={
-							[1]=0,
-							[2]=0
-						},
-						[10]={
-							[1]=0,
-							[2]=0
-						}
+				text="Supported Skills Fire Projectiles in a spiral"
+			},
+			[5]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="Supported Skills Fire Projectiles in a circle"
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					},
+					[4]={
+						[1]=0,
+						[2]=0
+					},
+					[5]={
+						[1]="#",
+						[2]="#"
+					},
+					[6]={
+						[1]=0,
+						[2]=0
+					},
+					[7]={
+						[1]="!",
+						[2]=0
+					},
+					[8]={
+						[1]=0,
+						[2]=0
+					},
+					[9]={
+						[1]=0,
+						[2]=0
+					},
+					[10]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[6]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						},
-						[4]={
-							[1]=0,
-							[2]=0
-						},
-						[5]={
-							[1]="#",
-							[2]="#"
-						},
-						[6]={
-							[1]=0,
-							[2]=0
-						},
-						[7]={
-							[1]=0,
-							[2]=0
-						},
-						[8]={
-							[1]="!",
-							[2]=0
-						},
-						[9]={
-							[1]=0,
-							[2]=0
-						},
-						[10]={
-							[1]=0,
-							[2]=0
-						}
+				text="Supported Skills Fire Projectiles in a circle"
+			},
+			[6]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="Supported Skills Fire Projectiles sequentially"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					},
+					[4]={
+						[1]=0,
+						[2]=0
+					},
+					[5]={
+						[1]="#",
+						[2]="#"
+					},
+					[6]={
+						[1]=0,
+						[2]=0
+					},
+					[7]={
+						[1]=0,
+						[2]=0
+					},
+					[8]={
+						[1]="!",
+						[2]=0
+					},
+					[9]={
+						[1]=0,
+						[2]=0
+					},
+					[10]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Supported Skills Fire Projectiles sequentially"
 			}
 		},
 		stats={
@@ -1489,42 +1403,40 @@ return {
 		}
 	},
 	[44]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextElementalAilments"
-					},
-					limit={
-						[1]={
-							[1]=10,
-							[2]=10
-						}
-					},
-					text="Elemental Ailments inflicted by Supported Skills spread to other enemies within {0} metre"
+					k="locations_to_metres",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextElementalAilments"
+				},
+				limit={
 					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextElementalAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Elemental Ailments inflicted by Supported Skills spread to other enemies within {0} metres"
-				}
+						[1]=10,
+						[2]=10
+					}
+				},
+				text="Elemental Ailments inflicted by Supported Skills spread to other enemies within {0} metre"
+			},
+			[2]={
+				[1]={
+					k="locations_to_metres",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextElementalAilments"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Elemental Ailments inflicted by Supported Skills spread to other enemies within {0} metres"
 			}
 		},
 		stats={
@@ -1532,17 +1444,15 @@ return {
 		}
 	},
 	[45]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Kill Enemies that have 10% Life or lower when Hit by Supported Skills"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Kill Enemies that have 10% Life or lower when Hit by Supported Skills"
 			}
 		},
 		stats={
@@ -1550,17 +1460,15 @@ return {
 		}
 	},
 	[46]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills' Projectile Attack Hits deal up to 30% more Damage to targets at the start of their movement, dealing less Damage to targets as the projectile travels farther"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills' Projectile Attack Hits deal up to 30% more Damage to targets at the start of their movement, dealing less Damage to targets as the projectile travels farther"
 			}
 		},
 		stats={
@@ -1568,21 +1476,19 @@ return {
 		}
 	},
 	[47]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextChillNonHitNoDuration"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextChillNonHitNoDuration"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills Damage and Chill Enemies between you and Linked Targets"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills Damage and Chill Enemies between you and Linked Targets"
 			}
 		},
 		stats={
@@ -1590,17 +1496,15 @@ return {
 		}
 	},
 	[48]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Strength's Damage bonus applies to Projectile Attack Damage as well for Supported Skills"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Strength's Damage bonus applies to Projectile Attack Damage as well for Supported Skills"
 			}
 		},
 		stats={
@@ -1608,17 +1512,15 @@ return {
 		}
 	},
 	[49]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Strength's Damage bonus applies to all Spell Damage as well for Supported Skills"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Strength's Damage bonus applies to all Spell Damage as well for Supported Skills"
 			}
 		},
 		stats={
@@ -1626,34 +1528,32 @@ return {
 		}
 	},
 	[50]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]=1,
-							[2]=1
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Throws a Remote Mine which uses the Supported Skill when detonated"
+					[2]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]=2,
-							[2]="#"
-						}
+				text="Throws a Remote Mine which uses the Supported Skill when detonated"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Throws {1} Remote Mines which use the Supported Skill when detonated"
-				}
+					[2]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Throws {1} Remote Mines which use the Supported Skill when detonated"
 			}
 		},
 		stats={
@@ -1662,26 +1562,24 @@ return {
 		}
 	},
 	[51]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Supported Skills throw up to 1 additional Trap"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills throw up to {0} additional Traps"
-				}
+				text="Supported Skills throw up to 1 additional Trap"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills throw up to {0} additional Traps"
 			}
 		},
 		stats={
@@ -1689,21 +1587,19 @@ return {
 		}
 	},
 	[52]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextMultipleMines"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextMultipleMines"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to throw up to 1 additional Trap or Mine"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to throw up to 1 additional Trap or Mine"
 			}
 		},
 		stats={
@@ -1711,21 +1607,19 @@ return {
 		}
 	},
 	[53]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextMultipleMines"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextMultipleMines"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to throw up to 2 additional Traps or Mines"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to throw up to 2 additional Traps or Mines"
 			}
 		},
 		stats={
@@ -1733,21 +1627,19 @@ return {
 		}
 	},
 	[54]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextMultipleMines"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextMultipleMines"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to throw up to 3 additional Traps or Mines"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to throw up to 3 additional Traps or Mines"
 			}
 		},
 		stats={
@@ -1755,17 +1647,15 @@ return {
 		}
 	},
 	[55]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills throw Traps randomly around targeted location"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills throw Traps randomly around targeted location"
 			}
 		},
 		stats={
@@ -1773,76 +1663,74 @@ return {
 		}
 	},
 	[56]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="!",
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=1
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="!",
+						[2]=0
 					},
-					text="Supported Skills will summon a Totem which uses that Skill"
+					[2]={
+						[1]=0,
+						[2]=1
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="!",
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=1
-						},
-						[3]={
-							[1]="!",
-							[2]=0
-						}
+				text="Supported Skills will summon a Totem which uses that Skill"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="!",
+						[2]=0
 					},
-					text="Supported Skills will summon a Ballista Totem which uses that Skill"
+					[2]={
+						[1]=0,
+						[2]=1
+					},
+					[3]={
+						[1]="!",
+						[2]=0
+					}
 				},
-				[3]={
-					limit={
-						[1]={
-							[1]="!",
-							[2]=0
-						},
-						[2]={
-							[1]=2,
-							[2]="#"
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						}
+				text="Supported Skills will summon a Ballista Totem which uses that Skill"
+			},
+			[3]={
+				limit={
+					[1]={
+						[1]="!",
+						[2]=0
 					},
-					text="Supported Skills will summon {0} Totems which use that Skill"
+					[2]={
+						[1]=2,
+						[2]="#"
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[4]={
-					limit={
-						[1]={
-							[1]="!",
-							[2]=0
-						},
-						[2]={
-							[1]=2,
-							[2]="#"
-						},
-						[3]={
-							[1]="!",
-							[2]=0
-						}
+				text="Supported Skills will summon {0} Totems which use that Skill"
+			},
+			[4]={
+				limit={
+					[1]={
+						[1]="!",
+						[2]=0
 					},
-					text="Supported Skills will summon {0} Ballista Totems which use that Skill"
-				}
+					[2]={
+						[1]=2,
+						[2]="#"
+					},
+					[3]={
+						[1]="!",
+						[2]=0
+					}
+				},
+				text="Supported Skills will summon {0} Ballista Totems which use that Skill"
 			}
 		},
 		stats={
@@ -1852,21 +1740,19 @@ return {
 		}
 	},
 	[57]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Totem lasts {0} seconds"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Totem lasts {0} seconds"
 			}
 		},
 		stats={
@@ -1874,26 +1760,24 @@ return {
 		}
 	},
 	[58]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Projectiles from Supported Skills Pierce {0} additional Target"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Projectiles from Supported Skills Pierce {0} additional Targets"
-				}
+				text="Projectiles from Supported Skills Pierce {0} additional Target"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Projectiles from Supported Skills Pierce {0} additional Targets"
 			}
 		},
 		stats={
@@ -1901,59 +1785,57 @@ return {
 		}
 	},
 	[59]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
-					},
-					text="Trap lasts {0:+d} second"
+					k="milliseconds_to_seconds",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
+						[1]=1000,
+						[2]=1000
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
-					},
-					text="Trap lasts {0:+d} seconds"
+					[2]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[3]={
+				text="Trap lasts {0:+d} second"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
+						[1]="#",
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+					[2]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Trap lasts {0:+d} seconds"
+			},
+			[3]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Trap lasts {0} seconds"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Trap lasts {0} seconds"
 			}
 		},
 		stats={
@@ -1962,21 +1844,19 @@ return {
 		}
 	},
 	[60]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Mine lasts {0} seconds"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Mine lasts {0} seconds"
 			}
 		},
 		stats={
@@ -1984,21 +1864,19 @@ return {
 		}
 	},
 	[61]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Mine lasts {0} seconds"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Mine lasts {0} seconds"
 			}
 		},
 		stats={
@@ -2006,17 +1884,15 @@ return {
 		}
 	},
 	[62]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0:+d} to maximum number of Summoned Ballista Totems"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0:+d} to maximum number of Summoned Ballista Totems"
 			}
 		},
 		stats={
@@ -2024,17 +1900,15 @@ return {
 		}
 	},
 	[63]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0:+d} to maximum number of Summoned Totems"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0:+d} to maximum number of Summoned Totems"
 			}
 		},
 		stats={
@@ -2042,17 +1916,15 @@ return {
 		}
 	},
 	[64]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills Summon two Totems instead of one"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills Summon two Totems instead of one"
 			}
 		},
 		stats={
@@ -2060,26 +1932,24 @@ return {
 		}
 	},
 	[65]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Can have up to {0} Trap placed at a time"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Can have up to {0} Traps placed at a time"
-				}
+				text="Can have up to {0} Trap placed at a time"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Can have up to {0} Traps placed at a time"
 			}
 		},
 		stats={
@@ -2087,26 +1957,24 @@ return {
 		}
 	},
 	[66]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Can have up to {0} Remote Mine placed at a time"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Can have up to {0} Remote Mines placed at a time"
-				}
+				text="Can have up to {0} Remote Mine placed at a time"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Can have up to {0} Remote Mines placed at a time"
 			}
 		},
 		stats={
@@ -2114,30 +1982,28 @@ return {
 		}
 	},
 	[67]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Trap Duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Trap Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Trap Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Trap Duration"
 			}
 		},
 		stats={
@@ -2145,30 +2011,28 @@ return {
 		}
 	},
 	[68]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced duration"
 			}
 		},
 		stats={
@@ -2176,21 +2040,19 @@ return {
 		}
 	},
 	[69]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextBlind"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextBlind"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to Blind enemies on hit"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to Blind enemies on hit"
 			}
 		},
 		stats={
@@ -2198,30 +2060,28 @@ return {
 		}
 	},
 	[70]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Blinding duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Blinding duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Blinding duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Blinding duration"
 			}
 		},
 		stats={
@@ -2229,30 +2089,28 @@ return {
 		}
 	},
 	[71]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Critical Strike Chance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Critical Strike Chance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Critical Strike Chance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Critical Strike Chance"
 			}
 		},
 		stats={
@@ -2260,30 +2118,28 @@ return {
 		}
 	},
 	[72]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Critical Strike Chance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Critical Strike Chance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Critical Strike Chance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Critical Strike Chance"
 			}
 		},
 		stats={
@@ -2291,17 +2147,15 @@ return {
 		}
 	},
 	[73]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0:+d}% to Critical Strike Multiplier"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0:+d}% to Critical Strike Multiplier"
 			}
 		},
 		stats={
@@ -2309,17 +2163,15 @@ return {
 		}
 	},
 	[74]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills Penetrate {0}% Fire Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills Penetrate {0}% Fire Resistance"
 			}
 		},
 		stats={
@@ -2327,17 +2179,15 @@ return {
 		}
 	},
 	[75]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills Penetrate {0}% Cold Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills Penetrate {0}% Cold Resistance"
 			}
 		},
 		stats={
@@ -2345,17 +2195,15 @@ return {
 		}
 	},
 	[76]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills Penetrate {0}% Elemental Resistances"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills Penetrate {0}% Elemental Resistances"
 			}
 		},
 		stats={
@@ -2363,17 +2211,15 @@ return {
 		}
 	},
 	[77]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills Penetrate {0}% Lightning Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills Penetrate {0}% Lightning Resistance"
 			}
 		},
 		stats={
@@ -2381,17 +2227,15 @@ return {
 		}
 	},
 	[78]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills Chain {0:+d} times"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills Chain {0:+d} times"
 			}
 		},
 		stats={
@@ -2399,17 +2243,15 @@ return {
 		}
 	},
 	[79]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Projectiles from Supported Skills Split towards {0} targets"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Projectiles from Supported Skills Split towards {0} targets"
 			}
 		},
 		stats={
@@ -2417,17 +2259,15 @@ return {
 		}
 	},
 	[80]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Projectiles from Supported Skills Fork"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Projectiles from Supported Skills Fork"
 			}
 		},
 		stats={
@@ -2435,26 +2275,24 @@ return {
 		}
 	},
 	[81]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Projectiles from Supported Skills can Fork an additional Time"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Projectiles from Supported Skills can Fork {0} additional Times"
-				}
+				text="Projectiles from Supported Skills can Fork an additional Time"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Projectiles from Supported Skills can Fork {0} additional Times"
 			}
 		},
 		stats={
@@ -2462,47 +2300,45 @@ return {
 		}
 	},
 	[82]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=1,
-							[2]=99
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="Projectiles from Supported Skills have {1}% chance to Return to you"
+					[2]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=100,
-							[2]="#"
-						}
+				text="Projectiles from Supported Skills have {1}% chance to Return to you"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="Projectiles from Supported Skills Return to you"
+					[2]={
+						[1]=100,
+						[2]="#"
+					}
 				},
-				[3]={
-					limit={
-						[1]={
-							[1]="!",
-							[2]=0
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+				text="Projectiles from Supported Skills Return to you"
+			},
+			[3]={
+				limit={
+					[1]={
+						[1]="!",
+						[2]=0
 					},
-					text="Projectiles from Supported Skills Return to you"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Projectiles from Supported Skills Return to you"
 			}
 		},
 		stats={
@@ -2511,30 +2347,28 @@ return {
 		}
 	},
 	[83]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage with Hits"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage with Hits"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage with Hits"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage with Hits"
 			}
 		},
 		stats={
@@ -2542,30 +2376,28 @@ return {
 		}
 	},
 	[84]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -2573,30 +2405,28 @@ return {
 		}
 	},
 	[85]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Projectile Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Projectile Damage"
 			}
 		},
 		stats={
@@ -2604,30 +2434,28 @@ return {
 		}
 	},
 	[86]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Projectile Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Projectile Damage"
 			}
 		},
 		stats={
@@ -2635,38 +2463,36 @@ return {
 		}
 	},
 	[87]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage with Hits for each Poison on the Enemy, up to {1}"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
+						[1]=1,
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage with Hits for each Poison on the Enemy, up to {1}"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
 					},
-					text="Supported Skills deal {0}% less Damage with Hits for each Poison on the Enemy, up to {1}"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% less Damage with Hits for each Poison on the Enemy, up to {1}"
 			}
 		},
 		stats={
@@ -2675,30 +2501,28 @@ return {
 		}
 	},
 	[88]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage with Poison"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage with Poison"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage with Poison"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage with Poison"
 			}
 		},
 		stats={
@@ -2706,30 +2530,28 @@ return {
 		}
 	},
 	[89]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage with Poison"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage with Poison"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage with Poison"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage with Poison"
 			}
 		},
 		stats={
@@ -2737,30 +2559,28 @@ return {
 		}
 	},
 	[90]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Projectiles from Supported Skills deal {0}% more Damage with Hits and Ailments while Returning"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Projectiles from Supported Skills deal {0}% less Damage with Hits and Ailments while Returning"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Projectiles from Supported Skills deal {0}% more Damage with Hits and Ailments while Returning"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Projectiles from Supported Skills deal {0}% less Damage with Hits and Ailments while Returning"
 			}
 		},
 		stats={
@@ -2768,30 +2588,28 @@ return {
 		}
 	},
 	[91]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Chaos Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Chaos Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Chaos Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Chaos Damage"
 			}
 		},
 		stats={
@@ -2799,30 +2617,28 @@ return {
 		}
 	},
 	[92]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Spell Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Spell Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Spell Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Spell Damage"
 			}
 		},
 		stats={
@@ -2830,30 +2646,28 @@ return {
 		}
 	},
 	[93]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Spell Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Spell Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Spell Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Spell Damage"
 			}
 		},
 		stats={
@@ -2861,30 +2675,28 @@ return {
 		}
 	},
 	[94]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage over Time"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage over Time"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage over Time"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage over Time"
 			}
 		},
 		stats={
@@ -2892,30 +2704,28 @@ return {
 		}
 	},
 	[95]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage over Time"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage over Time"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage over Time"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage over Time"
 			}
 		},
 		stats={
@@ -2923,30 +2733,28 @@ return {
 		}
 	},
 	[96]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -2954,38 +2762,36 @@ return {
 		}
 	},
 	[97]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage with Ailments"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage with Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage with Ailments"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage with Ailments"
 			}
 		},
 		stats={
@@ -2993,30 +2799,28 @@ return {
 		}
 	},
 	[98]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage with Hits"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage with Hits"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage with Hits"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage with Hits"
 			}
 		},
 		stats={
@@ -3024,30 +2828,28 @@ return {
 		}
 	},
 	[99]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Physical Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Physical Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Physical Damage"
 			}
 		},
 		stats={
@@ -3055,30 +2857,28 @@ return {
 		}
 	},
 	[100]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Fire Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Fire Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Fire Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Fire Damage"
 			}
 		},
 		stats={
@@ -3086,30 +2886,28 @@ return {
 		}
 	},
 	[101]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage with Hits"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage with Hits"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage with Hits"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage with Hits"
 			}
 		},
 		stats={
@@ -3117,30 +2915,28 @@ return {
 		}
 	},
 	[102]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Elemental Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Elemental Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Elemental Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Elemental Damage"
 			}
 		},
 		stats={
@@ -3148,30 +2944,28 @@ return {
 		}
 	},
 	[103]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage with Ignite"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage with Ignite"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage with Ignite"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage with Ignite"
 			}
 		},
 		stats={
@@ -3179,30 +2973,28 @@ return {
 		}
 	},
 	[104]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Physical Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Physical Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Physical Damage"
 			}
 		},
 		stats={
@@ -3210,17 +3002,15 @@ return {
 		}
 	},
 	[105]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal up to {0}% more Melee Damage to Enemies, based on proximity"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal up to {0}% more Melee Damage to Enemies, based on proximity"
 			}
 		},
 		stats={
@@ -3228,30 +3018,28 @@ return {
 		}
 	},
 	[106]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Trap and Mine Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Trap and Mine Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Trap and Mine Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Trap and Mine Damage"
 			}
 		},
 		stats={
@@ -3259,30 +3047,28 @@ return {
 		}
 	},
 	[107]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0} Life gained per Enemy Hit with Supported Attacks"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0} Life lost per Enemy Hit with Supported Attacks"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0} Life gained per Enemy Hit with Supported Attacks"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0} Life lost per Enemy Hit with Supported Attacks"
 			}
 		},
 		stats={
@@ -3290,30 +3076,28 @@ return {
 		}
 	},
 	[108]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0} Mana gained per Enemy Hit with Supported Attacks"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0} Mana lost per Enemy Hit with Supported Attacks"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0} Mana gained per Enemy Hit with Supported Attacks"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0} Mana lost per Enemy Hit with Supported Attacks"
 			}
 		},
 		stats={
@@ -3321,30 +3105,28 @@ return {
 		}
 	},
 	[109]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage to main target"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage to main target"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage to main target"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage to main target"
 			}
 		},
 		stats={
@@ -3352,17 +3134,15 @@ return {
 		}
 	},
 	[110]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal Splash Damage to surrounding targets"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal Splash Damage to surrounding targets"
 			}
 		},
 		stats={
@@ -3370,55 +3150,53 @@ return {
 		}
 	},
 	[111]={
-		lang={
-			English={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					},
+					[2]={
+						[1]="!",
+						[2]=0
+					}
+				},
+				text="Supported Skills deal {0}% more Splash Damage to surrounding targets"
+			},
+			[2]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]="!",
-							[2]=0
-						}
-					},
-					text="Supported Skills deal {0}% more Splash Damage to surrounding targets"
+					k="negate",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
+						[1]="#",
+						[2]=-1
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						},
-						[2]={
-							[1]="!",
-							[2]=0
-						}
-					},
-					text="Supported Skills deal {0}% less Splash Damage to surrounding targets"
+					[2]={
+						[1]="!",
+						[2]=0
+					}
 				},
-				[3]={
+				text="Supported Skills deal {0}% less Splash Damage to surrounding targets"
+			},
+			[3]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
+						[1]="#",
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
-					},
-					text="Supported Skills deal {0}% less Splash Damage to surrounding targets"
-				}
+					[2]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Supported Skills deal {0}% less Splash Damage to surrounding targets"
 			}
 		},
 		stats={
@@ -3427,17 +3205,15 @@ return {
 		}
 	},
 	[112]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills Repeat {0} additional times"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills Repeat {0} additional times"
 			}
 		},
 		stats={
@@ -3445,26 +3221,24 @@ return {
 		}
 	},
 	[113]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Supported Skills Repeat an additional time"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Supported Skills Repeat an additional {0} times"
-				}
+				text="Supported Skills Repeat an additional time"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Supported Skills Repeat an additional {0} times"
 			}
 		},
 		stats={
@@ -3472,30 +3246,28 @@ return {
 		}
 	},
 	[114]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Cast Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Cast Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Cast Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Cast Speed"
 			}
 		},
 		stats={
@@ -3503,30 +3275,28 @@ return {
 		}
 	},
 	[115]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Melee Attack Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Melee Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Melee Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Melee Attack Speed"
 			}
 		},
 		stats={
@@ -3534,30 +3304,28 @@ return {
 		}
 	},
 	[116]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Attack Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Attack Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Attack Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Attack Damage"
 			}
 		},
 		stats={
@@ -3565,30 +3333,28 @@ return {
 		}
 	},
 	[117]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Trap Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Trap Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Trap Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Trap Damage"
 			}
 		},
 		stats={
@@ -3596,30 +3362,28 @@ return {
 		}
 	},
 	[118]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -3627,30 +3391,28 @@ return {
 		}
 	},
 	[119]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% more Damage while Dead"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% less Damage while Dead"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% more Damage while Dead"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% less Damage while Dead"
 			}
 		},
 		stats={
@@ -3658,30 +3420,28 @@ return {
 		}
 	},
 	[120]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -3689,17 +3449,15 @@ return {
 		}
 	},
 	[121]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Totems and Minions summoned by Supported Skills have {0:+d}% Fire Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Totems and Minions summoned by Supported Skills have {0:+d}% Fire Resistance"
 			}
 		},
 		stats={
@@ -3707,17 +3465,15 @@ return {
 		}
 	},
 	[122]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Totems and Minions summoned by Supported Skills have {0:+d}% Cold Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Totems and Minions summoned by Supported Skills have {0:+d}% Cold Resistance"
 			}
 		},
 		stats={
@@ -3725,17 +3481,15 @@ return {
 		}
 	},
 	[123]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Totems and Minions summoned by Supported Skills have {0:+d}% Lightning Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Totems and Minions summoned by Supported Skills have {0:+d}% Lightning Resistance"
 			}
 		},
 		stats={
@@ -3743,26 +3497,24 @@ return {
 		}
 	},
 	[124]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have a {0}% chance to apply Supported Curses on Hit"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills apply supported Curses on Hit"
-				}
+				text="Supported Skills have a {0}% chance to apply Supported Curses on Hit"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills apply supported Curses on Hit"
 			}
 		},
 		stats={
@@ -3770,17 +3522,15 @@ return {
 		}
 	},
 	[125]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You cannot Cast Supported Curse Spells"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You cannot Cast Supported Curse Spells"
 			}
 		},
 		stats={
@@ -3788,26 +3538,24 @@ return {
 		}
 	},
 	[126]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Attacks have a {0}% chance to Trigger a Supported Spell when you Crit an Enemy"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Attacks will Trigger a Supported Spell when you Crit an Enemy"
-				}
+				text="Supported Attacks have a {0}% chance to Trigger a Supported Spell when you Crit an Enemy"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Attacks will Trigger a Supported Spell when you Crit an Enemy"
 			}
 		},
 		stats={
@@ -3815,26 +3563,24 @@ return {
 		}
 	},
 	[127]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Melee Attacks have a {0}% chance to Trigger a Supported Spell on Kill"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Melee Attacks will Trigger a Supported Spell on Kill"
-				}
+				text="Supported Melee Attacks have a {0}% chance to Trigger a Supported Spell on Kill"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Melee Attacks will Trigger a Supported Spell on Kill"
 			}
 		},
 		stats={
@@ -3842,26 +3588,24 @@ return {
 		}
 	},
 	[128]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Trigger Doom Blast when a Hex from Supported Curse Skills ends"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Trigger Doom Blast when a Hex from Supported Curse Skills ends"
-				}
+				text="Trigger Doom Blast when a Hex from Supported Curse Skills ends"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Trigger Doom Blast when a Hex from Supported Curse Skills ends"
 			}
 		},
 		stats={
@@ -3869,17 +3613,15 @@ return {
 		}
 	},
 	[129]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0}% chance to Trigger Supported Non-Minion Spells on Death"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0}% chance to Trigger Supported Non-Minion Spells on Death"
 			}
 		},
 		stats={
@@ -3887,17 +3629,15 @@ return {
 		}
 	},
 	[130]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0}% chance to Trigger Supported Spells when you are Stunned, or\nBlock a Stunning Hit"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0}% chance to Trigger Supported Spells when you are Stunned, or\nBlock a Stunning Hit"
 			}
 		},
 		stats={
@@ -3905,26 +3645,24 @@ return {
 		}
 	},
 	[131]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="{0}% chance to Trigger Supported Spells when you fire Projectiles from a Non-Triggered Wand Attack"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Trigger Supported Spells when you fire Projectiles from a Non-Triggered Wand Attack"
-				}
+				text="{0}% chance to Trigger Supported Spells when you fire Projectiles from a Non-Triggered Wand Attack"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Trigger Supported Spells when you fire Projectiles from a Non-Triggered Wand Attack"
 			}
 		},
 		stats={
@@ -3932,42 +3670,40 @@ return {
 		}
 	},
 	[132]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						},
-						[3]={
-							[1]=1,
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
 					},
-					text="{0}% chance to Trigger Supported Spells when you take {2} total Damage from Hits"
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]=1,
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						},
-						[3]={
-							[1]=1,
-							[2]="#"
-						}
+				text="{0}% chance to Trigger Supported Spells when you take {2} total Damage from Hits"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
 					},
-					text="Trigger Supported Spells when you take {2} total Damage from Hits"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Trigger Supported Spells when you take {2} total Damage from Hits"
 			}
 		},
 		stats={
@@ -3977,21 +3713,19 @@ return {
 		}
 	},
 	[133]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds_2dp",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_2dp",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Trigger a Supported Spell every {0} seconds while Channelling Supported Skills"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Trigger a Supported Spell every {0} seconds while Channelling Supported Skills"
 			}
 		},
 		stats={
@@ -3999,21 +3733,19 @@ return {
 		}
 	},
 	[134]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Deals {0} Base Chaos Damage per second"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Deals {0} Base Chaos Damage per second"
 			}
 		},
 		stats={
@@ -4021,21 +3753,19 @@ return {
 		}
 	},
 	[135]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Deals {0} Base Fire Damage per second"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Deals {0} Base Fire Damage per second"
 			}
 		},
 		stats={
@@ -4043,21 +3773,19 @@ return {
 		}
 	},
 	[136]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Deals {0} Base Physical Damage per second"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Deals {0} Base Physical Damage per second"
 			}
 		},
 		stats={
@@ -4065,21 +3793,19 @@ return {
 		}
 	},
 	[137]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Secondary Debuff Deals {0} Base Fire Damage per second"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Secondary Debuff Deals {0} Base Fire Damage per second"
 			}
 		},
 		stats={
@@ -4087,21 +3813,19 @@ return {
 		}
 	},
 	[138]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0} Base Cold Damage per second"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0} Base Cold Damage per second"
 			}
 		},
 		stats={
@@ -4109,92 +3833,90 @@ return {
 		}
 	},
 	[139]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds_2dp_if_required",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLingerLinkEnemies"
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						},
-						[2]={
-							[1]="!",
-							[2]=0
-						}
-					},
-					text="Damage and Chill Linger for a Base Duration of {0} second"
+					k="milliseconds_to_seconds_2dp_if_required",
+					v=1
 				},
 				[2]={
-					[1]={
-						k="milliseconds_to_seconds_2dp_if_required",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLingerLinkEnemies"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="!",
-							[2]=0
-						}
-					},
-					text="Damage and Chill Linger for a Base Duration of {0} seconds"
+					k="reminderstring",
+					v="ReminderTextLingerLinkEnemies"
 				},
-				[3]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_2dp_if_required",
-						v=1
+						[1]=1000,
+						[2]=1000
 					},
 					[2]={
-						k="reminderstring",
-						v="ReminderTextLingerLinkEnemies"
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
-					},
-					text="Damage and Chill Linger for a Base Duration of {0:+d} second"
+						[1]="!",
+						[2]=0
+					}
 				},
-				[4]={
+				text="Damage and Chill Linger for a Base Duration of {0} second"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds_2dp_if_required",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextLingerLinkEnemies"
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_2dp_if_required",
-						v=1
+						[1]="#",
+						[2]="#"
 					},
 					[2]={
-						k="reminderstring",
-						v="ReminderTextLingerLinkEnemies"
+						[1]="!",
+						[2]=0
+					}
+				},
+				text="Damage and Chill Linger for a Base Duration of {0} seconds"
+			},
+			[3]={
+				[1]={
+					k="milliseconds_to_seconds_2dp_if_required",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextLingerLinkEnemies"
+				},
+				limit={
+					[1]={
+						[1]=1000,
+						[2]=1000
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
+					[2]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Damage and Chill Linger for a Base Duration of {0:+d} second"
+			},
+			[4]={
+				[1]={
+					k="milliseconds_to_seconds_2dp_if_required",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextLingerLinkEnemies"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Damage and Chill Linger for a Base Duration of {0:+d} seconds"
-				}
+					[2]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Damage and Chill Linger for a Base Duration of {0:+d} seconds"
 			}
 		},
 		stats={
@@ -4203,17 +3925,15 @@ return {
 		}
 	},
 	[140]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Modifiers to Spell Damage apply to Supported Skill's Damage Over Time effect"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Modifiers to Spell Damage apply to Supported Skill's Damage Over Time effect"
 			}
 		},
 		stats={
@@ -4221,30 +3941,28 @@ return {
 		}
 	},
 	[141]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Effect of Supported Curses"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Effect of Supported Curses"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Effect of Supported Curses"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Effect of Supported Curses"
 			}
 		},
 		stats={
@@ -4252,30 +3970,28 @@ return {
 		}
 	},
 	[142]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% more Effect of Supported Curses"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% less Effect of Supported Curses"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% more Effect of Supported Curses"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% less Effect of Supported Curses"
 			}
 		},
 		stats={
@@ -4283,30 +3999,28 @@ return {
 		}
 	},
 	[143]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% more Effect of Supported Curses"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% less Effect of Supported Curses"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% more Effect of Supported Curses"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% less Effect of Supported Curses"
 			}
 		},
 		stats={
@@ -4314,30 +4028,28 @@ return {
 		}
 	},
 	[144]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% more Effect of Supported Curses"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% less Effect of Supported Curses"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% more Effect of Supported Curses"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% less Effect of Supported Curses"
 			}
 		},
 		stats={
@@ -4345,30 +4057,28 @@ return {
 		}
 	},
 	[145]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Cast Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Cast Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Cast Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Cast Speed"
 			}
 		},
 		stats={
@@ -4376,30 +4086,28 @@ return {
 		}
 	},
 	[146]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Attack Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Attack Speed"
 			}
 		},
 		stats={
@@ -4407,25 +4115,23 @@ return {
 		}
 	},
 	[147]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextBleeding"
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextBleeding"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Causes Bleeding on Hit for {0} seconds"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Causes Bleeding on Hit for {0} seconds"
 			}
 		},
 		stats={
@@ -4433,17 +4139,15 @@ return {
 		}
 	},
 	[148]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Auras do not affect you"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Auras do not affect you"
 			}
 		},
 		stats={
@@ -4451,30 +4155,28 @@ return {
 		}
 	},
 	[149]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Melee Physical Damage against Bleeding enemies"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Melee Physical Damage against Bleeding enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Melee Physical Damage against Bleeding enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Melee Physical Damage against Bleeding enemies"
 			}
 		},
 		stats={
@@ -4482,30 +4184,28 @@ return {
 		}
 	},
 	[150]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Projectile Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Projectile Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Projectile Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Projectile Speed"
 			}
 		},
 		stats={
@@ -4513,30 +4213,28 @@ return {
 		}
 	},
 	[151]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -4544,30 +4242,28 @@ return {
 		}
 	},
 	[152]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Skill Effect Duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Skill Effect Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Skill Effect Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Skill Effect Duration"
 			}
 		},
 		stats={
@@ -4575,30 +4271,28 @@ return {
 		}
 	},
 	[153]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Skill Effect Duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Skill Effect Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Skill Effect Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Skill Effect Duration"
 			}
 		},
 		stats={
@@ -4606,55 +4300,53 @@ return {
 		}
 	},
 	[154]={
-		lang={
-			English={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					},
+					[2]={
+						[1]="!",
+						[2]=0
+					}
+				},
+				text="Supported Skills have {0}% more Attached Duration"
+			},
+			[2]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]="!",
-							[2]=0
-						}
-					},
-					text="Supported Skills have {0}% more Attached Duration"
+					k="negate",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
+						[1]="#",
+						[2]=-1
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						},
-						[2]={
-							[1]="!",
-							[2]=0
-						}
-					},
-					text="Supported Skills have {0}% less Attached Duration"
+					[2]={
+						[1]="!",
+						[2]=0
+					}
 				},
-				[3]={
+				text="Supported Skills have {0}% less Attached Duration"
+			},
+			[3]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
+						[1]="#",
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
-					},
-					text="Supported Skills have {0}% less Attached Duration"
-				}
+					[2]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Supported Skills have {0}% less Attached Duration"
 			}
 		},
 		stats={
@@ -4663,30 +4355,28 @@ return {
 		}
 	},
 	[155]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Detached Duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Detached Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Detached Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Detached Duration"
 			}
 		},
 		stats={
@@ -4694,34 +4384,32 @@ return {
 		}
 	},
 	[156]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextElusive"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have a {0}% chance to grant Elusive on Critical Strike"
+					k="reminderstring",
+					v="ReminderTextElusive"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextElusive"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills grant Elusive on Critical Strike"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Supported Skills have a {0}% chance to grant Elusive on Critical Strike"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextElusive"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills grant Elusive on Critical Strike"
 			}
 		},
 		stats={
@@ -4729,21 +4417,19 @@ return {
 		}
 	},
 	[157]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextPoison"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextPoison"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills Poison Enemies on Hit"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills Poison Enemies on Hit"
 			}
 		},
 		stats={
@@ -4751,34 +4437,32 @@ return {
 		}
 	},
 	[158]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextPoison"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have {0}% chance to Poison on Hit"
+					k="reminderstring",
+					v="ReminderTextPoison"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextPoison"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills always Poison on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Supported Skills have {0}% chance to Poison on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextPoison"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills always Poison on Hit"
 			}
 		},
 		stats={
@@ -4786,34 +4470,32 @@ return {
 		}
 	},
 	[159]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextWithered"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have {0}% chance to inflict Withered on Hit"
+					k="reminderstring",
+					v="ReminderTextWithered"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextWithered"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills always inflict Withered on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Supported Skills have {0}% chance to inflict Withered on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextWithered"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills always inflict Withered on Hit"
 			}
 		},
 		stats={
@@ -4821,21 +4503,19 @@ return {
 		}
 	},
 	[160]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextElementalAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextElementalAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills cannot inflict Elemental Ailments"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills cannot inflict Elemental Ailments"
 			}
 		},
 		stats={
@@ -4843,21 +4523,19 @@ return {
 		}
 	},
 	[161]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Enemies lose {0}% Cold Resistance while Frozen"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Enemies lose {0}% Cold Resistance while Frozen"
 			}
 		},
 		stats={
@@ -4865,17 +4543,15 @@ return {
 		}
 	},
 	[162]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0:+d}% to Critical Strike Multiplier while Elusive"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0:+d}% to Critical Strike Multiplier while Elusive"
 			}
 		},
 		stats={
@@ -4883,21 +4559,19 @@ return {
 		}
 	},
 	[163]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextUpfrontCost"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextUpfrontCost"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Gain Arcane Surge after Spending a total of {0} Mana on\nUpfront Costs and Effects of a Supported Skill"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Gain Arcane Surge after Spending a total of {0} Mana on\nUpfront Costs and Effects of a Supported Skill"
 			}
 		},
 		stats={
@@ -4905,34 +4579,32 @@ return {
 		}
 	},
 	[164]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="Arcane Surge grants {1}% increased Mana Regeneration rate"
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+				text="Arcane Surge grants {1}% increased Mana Regeneration rate"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Arcane Surge grants {0}% increased Cast Speed\nArcane Surge grants {1}% increased Mana Regeneration rate"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Arcane Surge grants {0}% increased Cast Speed\nArcane Surge grants {1}% increased Mana Regeneration rate"
 			}
 		},
 		stats={
@@ -4941,30 +4613,28 @@ return {
 		}
 	},
 	[165]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Cruelty granted by Supported Skills has {0}% increased Duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Cruelty granted by Supported Skills has {0}% reduced Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Cruelty granted by Supported Skills has {0}% increased Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Cruelty granted by Supported Skills has {0}% reduced Duration"
 			}
 		},
 		stats={
@@ -4972,34 +4642,32 @@ return {
 		}
 	},
 	[166]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						}
-					},
-					text="Arcane Surge lasts {0} second"
+					k="milliseconds_to_seconds",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Arcane Surge lasts {0} seconds"
-				}
+						[1]=1000,
+						[2]=1000
+					}
+				},
+				text="Arcane Surge lasts {0} second"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Arcane Surge lasts {0} seconds"
 			}
 		},
 		stats={
@@ -5007,34 +4675,32 @@ return {
 		}
 	},
 	[167]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						}
-					},
-					text="Cruelty has a Base Duration of {0} second"
+					k="milliseconds_to_seconds",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Cruelty has a Base Duration of {0} seconds"
-				}
+						[1]=1000,
+						[2]=1000
+					}
+				},
+				text="Cruelty has a Base Duration of {0} second"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Cruelty has a Base Duration of {0} seconds"
 			}
 		},
 		stats={
@@ -5042,34 +4708,32 @@ return {
 		}
 	},
 	[168]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						}
-					},
-					text="Withered lasts {0} second"
+					k="milliseconds_to_seconds",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Withered lasts {0} seconds"
-				}
+						[1]=1000,
+						[2]=1000
+					}
+				},
+				text="Withered lasts {0} second"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Withered lasts {0} seconds"
 			}
 		},
 		stats={
@@ -5077,42 +4741,40 @@ return {
 		}
 	},
 	[169]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextWithered"
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						}
-					},
-					text="Withered lasts {0} second"
+					k="milliseconds_to_seconds",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextWithered"
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextWithered"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Withered lasts {0} seconds"
-				}
+						[1]=1000,
+						[2]=1000
+					}
+				},
+				text="Withered lasts {0} second"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextWithered"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Withered lasts {0} seconds"
 			}
 		},
 		stats={
@@ -5120,34 +4782,32 @@ return {
 		}
 	},
 	[170]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						}
-					},
-					text="Arcane Surge lasts {0} second"
+					k="milliseconds_to_seconds",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Arcane Surge lasts {0} seconds"
-				}
+						[1]=1000,
+						[2]=1000
+					}
+				},
+				text="Arcane Surge lasts {0} second"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Arcane Surge lasts {0} seconds"
 			}
 		},
 		stats={
@@ -5155,34 +4815,32 @@ return {
 		}
 	},
 	[171]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						}
-					},
-					text="Withered lasts {0} second"
+					k="milliseconds_to_seconds",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Withered lasts {0} seconds"
-				}
+						[1]=1000,
+						[2]=1000
+					}
+				},
+				text="Withered lasts {0} second"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Withered lasts {0} seconds"
 			}
 		},
 		stats={
@@ -5190,17 +4848,15 @@ return {
 		}
 	},
 	[172]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Gain Innervation on Killing a Shocked Enemy with Supported Skills"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Gain Innervation on Killing a Shocked Enemy with Supported Skills"
 			}
 		},
 		stats={
@@ -5208,21 +4864,19 @@ return {
 		}
 	},
 	[173]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Innervation grants {0} to {1} Lightning Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Innervation grants {0} to {1} Lightning Damage"
 			}
 		},
 		stats={
@@ -5231,34 +4885,32 @@ return {
 		}
 	},
 	[174]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						}
-					},
-					text="Innervation lasts {0} second"
+					k="milliseconds_to_seconds",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Innervation lasts {0} seconds"
-				}
+						[1]=1000,
+						[2]=1000
+					}
+				},
+				text="Innervation lasts {0} second"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Innervation lasts {0} seconds"
 			}
 		},
 		stats={
@@ -5266,17 +4918,15 @@ return {
 		}
 	},
 	[175]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Every third Attack with Supported Melee Attacks deals a Ruthless Blow"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Every third Attack with Supported Melee Attacks deals a Ruthless Blow"
 			}
 		},
 		stats={
@@ -5284,17 +4934,15 @@ return {
 		}
 	},
 	[176]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Ruthless Blows with Supported Skills deal {0}% more Melee Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Ruthless Blows with Supported Skills deal {0}% more Melee Damage"
 			}
 		},
 		stats={
@@ -5302,21 +4950,19 @@ return {
 		}
 	},
 	[177]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Ruthless Blows with Supported Skills deal {0}% more Damage with\nAilments caused by Melee Hits"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Ruthless Blows with Supported Skills deal {0}% more Damage with\nAilments caused by Melee Hits"
 			}
 		},
 		stats={
@@ -5324,21 +4970,19 @@ return {
 		}
 	},
 	[178]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Ruthless Blows with Supported Skills have a base Stun Duration of {0} seconds"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Ruthless Blows with Supported Skills have a base Stun Duration of {0} seconds"
 			}
 		},
 		stats={
@@ -5346,26 +4990,24 @@ return {
 		}
 	},
 	[179]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="{0}% chance to Summon a Phantasm when Supported Skills, or Non-Phantasm Minions\nfrom Supported Skills, deal a Killing Blow"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Summon a Phantasm when Supported Skills, or Non-Phantasm Minions\nfrom Supported Skills, deal a Killing Blow"
-				}
+				text="{0}% chance to Summon a Phantasm when Supported Skills, or Non-Phantasm Minions\nfrom Supported Skills, deal a Killing Blow"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Summon a Phantasm when Supported Skills, or Non-Phantasm Minions\nfrom Supported Skills, deal a Killing Blow"
 			}
 		},
 		stats={
@@ -5373,30 +5015,28 @@ return {
 		}
 	},
 	[180]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Effect of Chill inflicted with Supported Skills"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Effect of Chill inflicted with Supported Skills"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Effect of Chill inflicted with Supported Skills"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Effect of Chill inflicted with Supported Skills"
 			}
 		},
 		stats={
@@ -5404,30 +5044,28 @@ return {
 		}
 	},
 	[181]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Chill Duration on Enemies"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Chill Duration on Enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Chill Duration on Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Chill Duration on Enemies"
 			}
 		},
 		stats={
@@ -5435,38 +5073,36 @@ return {
 		}
 	},
 	[182]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextChill"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextChill"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Enemies Chilled by Supported Skills take {0}% increased Cold Damage over Time"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Enemies Chilled by Supported Skills take {0}% increased Cold Damage over Time"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextChill"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextChill"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Enemies Chilled by Supported Skills take {0}% reduced Cold Damage over Time"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Enemies Chilled by Supported Skills take {0}% reduced Cold Damage over Time"
 			}
 		},
 		stats={
@@ -5474,17 +5110,15 @@ return {
 		}
 	},
 	[183]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Enemies Chilled by Supported Skills increase Cold Damage taken by Chill Effect"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Enemies Chilled by Supported Skills increase Cold Damage taken by Chill Effect"
 			}
 		},
 		stats={
@@ -5492,38 +5126,36 @@ return {
 		}
 	},
 	[184]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextChillingArea"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextChillingArea"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Enemies in Chilling Areas from Supported Skills take {0}% increased Cold Damage over Time"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Enemies in Chilling Areas from Supported Skills take {0}% increased Cold Damage over Time"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextChillingArea"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextChillingArea"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Enemies in Chilling Areas from Supported Skills take {0}% reduced Cold Damage over Time"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Enemies in Chilling Areas from Supported Skills take {0}% reduced Cold Damage over Time"
 			}
 		},
 		stats={
@@ -5531,21 +5163,19 @@ return {
 		}
 	},
 	[185]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextChillingArea"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextChillingArea"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Enemies in Chilling Areas from Supported Skills increase Cold Damage taken by Chill Effect"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Enemies in Chilling Areas from Supported Skills increase Cold Damage taken by Chill Effect"
 			}
 		},
 		stats={
@@ -5553,30 +5183,28 @@ return {
 		}
 	},
 	[186]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Mine Throwing Speed per Frenzy Charge"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Mine Throwing Speed per Frenzy Charge"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Mine Throwing Speed per Frenzy Charge"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Mine Throwing Speed per Frenzy Charge"
 			}
 		},
 		stats={
@@ -5584,30 +5212,28 @@ return {
 		}
 	},
 	[187]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Critical Strike Chance per\nPower Charge when used by Mines"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Critical Strike Chance per\nPower Charge when used by Mines"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Critical Strike Chance per\nPower Charge when used by Mines"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Critical Strike Chance per\nPower Charge when used by Mines"
 			}
 		},
 		stats={
@@ -5615,17 +5241,15 @@ return {
 		}
 	},
 	[188]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills have {0:+d}% to all Elemental Resistances"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills have {0:+d}% to all Elemental Resistances"
 			}
 		},
 		stats={
@@ -5633,21 +5257,19 @@ return {
 		}
 	},
 	[189]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextMaximumResistance"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextMaximumResistance"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills have {0:+d}% to all maximum Elemental Resistances"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills have {0:+d}% to all maximum Elemental Resistances"
 			}
 		},
 		stats={
@@ -5655,21 +5277,19 @@ return {
 		}
 	},
 	[190]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills take {0}% of their Maximum Life as Fire Damage per second"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills take {0}% of their Maximum Life as Fire Damage per second"
 			}
 		},
 		stats={
@@ -5677,30 +5297,28 @@ return {
 		}
 	},
 	[191]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills take {0}% increased Fire Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills take {0}% reduced Fire Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills take {0}% increased Fire Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills take {0}% reduced Fire Damage"
 			}
 		},
 		stats={
@@ -5708,21 +5326,19 @@ return {
 		}
 	},
 	[192]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills deal {0} Fire Damage per second to Enemies near them"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills deal {0} Fire Damage per second to Enemies near them"
 			}
 		},
 		stats={
@@ -5730,34 +5346,32 @@ return {
 		}
 	},
 	[193]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=10,
-							[2]=10
-						}
-					},
-					text="Minions from Supported Skills have {0:+d} metre to Radius of their Burning Effect"
+					k="locations_to_metres",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills have {0:+d} metres to Radius of their Burning Effect"
-				}
+						[1]=10,
+						[2]=10
+					}
+				},
+				text="Minions from Supported Skills have {0:+d} metre to Radius of their Burning Effect"
+			},
+			[2]={
+				[1]={
+					k="locations_to_metres",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills have {0:+d} metres to Radius of their Burning Effect"
 			}
 		},
 		stats={
@@ -5765,21 +5379,19 @@ return {
 		}
 	},
 	[194]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds_2dp_if_required",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_2dp_if_required",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Attacks with Supported Skill are Ancestrally Boosted, no more than once every {0} seconds\nAncestral Boost does not apply to repeats of the Attack"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Attacks with Supported Skill are Ancestrally Boosted, no more than once every {0} seconds\nAncestral Boost does not apply to repeats of the Attack"
 			}
 		},
 		stats={
@@ -5787,30 +5399,28 @@ return {
 		}
 	},
 	[195]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Ancestrally Boosted Slams deal {0}% more Damage with Hits and Ailments"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Ancestrally Boosted Slams deal {0}% less Damage with Hits and Ailments"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Ancestrally Boosted Slams deal {0}% more Damage with Hits and Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Ancestrally Boosted Slams deal {0}% less Damage with Hits and Ailments"
 			}
 		},
 		stats={
@@ -5818,30 +5428,28 @@ return {
 		}
 	},
 	[196]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Ancestrally Boosted Slams have {0}% increased Area of Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Ancestrally Boosted Slams have {0}% reduced Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Ancestrally Boosted Slams have {0}% increased Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Ancestrally Boosted Slams have {0}% reduced Area of Effect"
 			}
 		},
 		stats={
@@ -5849,21 +5457,19 @@ return {
 		}
 	},
 	[197]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextResonance"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextResonance"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Hits with Supported Skills for which the highest Damage Type is Elemental cause you to gain 25 Resonance of other Elements per second for 2 seconds\nLose 5 Resonance per second of each Element you are not gaining"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Hits with Supported Skills for which the highest Damage Type is Elemental cause you to gain 25 Resonance of other Elements per second for 2 seconds\nLose 5 Resonance per second of each Element you are not gaining"
 			}
 		},
 		stats={
@@ -5871,30 +5477,28 @@ return {
 		}
 	},
 	[198]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Elemental Damage per 5 of lowest Resonance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Elemental Damage per 5 of lowest Resonance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Elemental Damage per 5 of lowest Resonance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Elemental Damage per 5 of lowest Resonance"
 			}
 		},
 		stats={
@@ -5902,17 +5506,15 @@ return {
 		}
 	},
 	[199]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills penetrate {0}% Elemental Resistances while each Resonance is at least 25"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills penetrate {0}% Elemental Resistances while each Resonance is at least 25"
 			}
 		},
 		stats={
@@ -5920,30 +5522,28 @@ return {
 		}
 	},
 	[200]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Attack and Cast Speed while each Resonance is at least 25"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Attack and Cast Speed while each Resonance is at least 25"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Attack and Cast Speed while each Resonance is at least 25"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Attack and Cast Speed while each Resonance is at least 25"
 			}
 		},
 		stats={
@@ -5951,21 +5551,19 @@ return {
 		}
 	},
 	[201]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextCruelty"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextCruelty"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Hits from Supported Skills grant Cruelty"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Hits from Supported Skills grant Cruelty"
 			}
 		},
 		stats={
@@ -5973,30 +5571,28 @@ return {
 		}
 	},
 	[202]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Totem Life"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Totem Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Totem Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Totem Life"
 			}
 		},
 		stats={
@@ -6004,17 +5600,15 @@ return {
 		}
 	},
 	[203]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills Cost {0:+d} Mana"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills Cost {0:+d} Mana"
 			}
 		},
 		stats={
@@ -6022,17 +5616,15 @@ return {
 		}
 	},
 	[204]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Projectiles from Supported Skills Pierce all Targets while Returning"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Projectiles from Supported Skills Pierce all Targets while Returning"
 			}
 		},
 		stats={
@@ -6040,17 +5632,15 @@ return {
 		}
 	},
 	[205]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Projectiles from Supported Skills have {0}% chance to Return to you an additional Time"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Projectiles from Supported Skills have {0}% chance to Return to you an additional Time"
 			}
 		},
 		stats={
@@ -6058,30 +5648,28 @@ return {
 		}
 	},
 	[206]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Maximum Attack Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Maximum Attack Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Maximum Attack Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Maximum Attack Damage"
 			}
 		},
 		stats={
@@ -6089,30 +5677,28 @@ return {
 		}
 	},
 	[207]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Minimum Attack Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Minimum Attack Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Minimum Attack Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Minimum Attack Damage"
 			}
 		},
 		stats={
@@ -6120,30 +5706,28 @@ return {
 		}
 	},
 	[208]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Effect of Marks from Supported Skills"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Effect of Marks from Supported Skills"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Effect of Marks from Supported Skills"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Effect of Marks from Supported Skills"
 			}
 		},
 		stats={
@@ -6151,21 +5735,19 @@ return {
 		}
 	},
 	[209]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills Regenerate {0}% of Life per second"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills Regenerate {0}% of Life per second"
 			}
 		},
 		stats={
@@ -6173,17 +5755,15 @@ return {
 		}
 	},
 	[210]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0:+d} to Accuracy Rating"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0:+d} to Accuracy Rating"
 			}
 		},
 		stats={
@@ -6191,30 +5771,28 @@ return {
 		}
 	},
 	[211]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Accuracy Rating"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Accuracy Rating"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Accuracy Rating"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Accuracy Rating"
 			}
 		},
 		stats={
@@ -6222,47 +5800,45 @@ return {
 		}
 	},
 	[212]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Increases and Reductions to Spell Damage also apply to Attack Damage from this Skill at {0:+d}% of their value"
+					[2]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]=100
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+				text="Increases and Reductions to Spell Damage also apply to Attack Damage from this Skill at {0:+d}% of their value"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]=100
 					},
-					text="Increases and Reductions to Spell Damage also apply to Attack Damage from this Skill"
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
 				},
-				[3]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+				text="Increases and Reductions to Spell Damage also apply to Attack Damage from this Skill"
+			},
+			[3]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Increases and Reductions to Spell Damage also apply to Attack Damage from this Skill at {0}% of their value"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Increases and Reductions to Spell Damage also apply to Attack Damage from this Skill at {0}% of their value"
 			}
 		},
 		stats={
@@ -6271,26 +5847,24 @@ return {
 		}
 	},
 	[213]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have {0}% chance to gain a Power Charge on Critical Strike"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills gain a Power Charge on Critical Strike"
-				}
+				text="Supported Skills have {0}% chance to gain a Power Charge on Critical Strike"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills gain a Power Charge on Critical Strike"
 			}
 		},
 		stats={
@@ -6298,17 +5872,15 @@ return {
 		}
 	},
 	[214]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to gain a Power Charge on Kill"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to gain a Power Charge on Kill"
 			}
 		},
 		stats={
@@ -6316,30 +5888,28 @@ return {
 		}
 	},
 	[215]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {}% more Added Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {}% less Added Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {}% more Added Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {}% less Added Damage"
 			}
 		},
 		stats={
@@ -6347,21 +5917,19 @@ return {
 		}
 	},
 	[216]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0:+d}% to Critical Strike Chance"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0:+d}% to Critical Strike Chance"
 			}
 		},
 		stats={
@@ -6369,21 +5937,19 @@ return {
 		}
 	},
 	[217]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextFreeze"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextFreeze"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0:+d}% chance to Freeze Enemies which are Chilled"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0:+d}% chance to Freeze Enemies which are Chilled"
 			}
 		},
 		stats={
@@ -6391,21 +5957,19 @@ return {
 		}
 	},
 	[218]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {:+d}% to Critical Strike Chance while Dead"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {:+d}% to Critical Strike Chance while Dead"
 			}
 		},
 		stats={
@@ -6413,21 +5977,19 @@ return {
 		}
 	},
 	[219]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0:+d}% to Critical Strike Chance while Elusive"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0:+d}% to Critical Strike Chance while Elusive"
 			}
 		},
 		stats={
@@ -6435,48 +5997,46 @@ return {
 		}
 	},
 	[220]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Supported Spells gain Intensity when you Cast them, to a maximum of 3\nSupported Skills fire an additional Projectile per Intensity"
-				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Supported Spells gain Intensity when you Cast them, to a maximum of 3\nSupported Skills fire {0} additional Projectiles per Intensity"
-				},
-				[3]={
-					limit={
-						[1]={
-							[1]=-1,
-							[2]=-1
-						}
-					},
-					text="Supported Spells gain Intensity when you Cast them, to a maximum of 3\nSupported Skills fire 1 fewer Projectile per Intensity"
-				},
-				[4]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Spells gain Intensity when you Cast them, to a maximum of 3\nSupported Skills fire {0} fewer Projectiles per Intensity"
-				}
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Supported Spells gain Intensity when you Cast them, to a maximum of 3\nSupported Skills fire an additional Projectile per Intensity"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Supported Spells gain Intensity when you Cast them, to a maximum of 3\nSupported Skills fire {0} additional Projectiles per Intensity"
+			},
+			[3]={
+				limit={
+					[1]={
+						[1]=-1,
+						[2]=-1
+					}
+				},
+				text="Supported Spells gain Intensity when you Cast them, to a maximum of 3\nSupported Skills fire 1 fewer Projectile per Intensity"
+			},
+			[4]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Spells gain Intensity when you Cast them, to a maximum of 3\nSupported Skills fire {0} fewer Projectiles per Intensity"
 			}
 		},
 		stats={
@@ -6484,30 +6044,28 @@ return {
 		}
 	},
 	[221]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Effect of Ancestor Totem Buff"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Effect of Ancestor Totem Buff"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Effect of Ancestor Totem Buff"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Effect of Ancestor Totem Buff"
 			}
 		},
 		stats={
@@ -6515,30 +6073,28 @@ return {
 		}
 	},
 	[222]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Area of Effect with Melee Skills while Totem is Active"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% increased Area of Effect with Melee Skills while Totem is Active"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Area of Effect with Melee Skills while Totem is Active"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% increased Area of Effect with Melee Skills while Totem is Active"
 			}
 		},
 		stats={
@@ -6546,38 +6102,36 @@ return {
 		}
 	},
 	[223]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextStunThreshold"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextStunThreshold"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Ancestrally Boosted Slams have {}% reduced Enemy Stun Threshold"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Ancestrally Boosted Slams have {}% reduced Enemy Stun Threshold"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextStunThreshold"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextStunThreshold"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Ancestrally Boosted Slams have {}% increased Enemy Stun Threshold"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Ancestrally Boosted Slams have {}% increased Enemy Stun Threshold"
 			}
 		},
 		stats={
@@ -6585,17 +6139,15 @@ return {
 		}
 	},
 	[224]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Overpowered applies -{0}% chance to Block Attack and Spell Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Overpowered applies -{0}% chance to Block Attack and Spell Damage"
 			}
 		},
 		stats={
@@ -6603,30 +6155,28 @@ return {
 		}
 	},
 	[225]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills gain Added Lightning Damage equal to {0}% of Unreserved Maximum Mana"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills lose Added Lightning Damage equal to {0}% of Unreserved Maximum Mana"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills gain Added Lightning Damage equal to {0}% of Unreserved Maximum Mana"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills lose Added Lightning Damage equal to {0}% of Unreserved Maximum Mana"
 			}
 		},
 		stats={
@@ -6634,30 +6184,28 @@ return {
 		}
 	},
 	[226]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Area Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Area Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Area Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Area Damage"
 			}
 		},
 		stats={
@@ -6665,30 +6213,28 @@ return {
 		}
 	},
 	[227]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Attack and Cast Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Attack and Cast Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Attack and Cast Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Attack and Cast Speed"
 			}
 		},
 		stats={
@@ -6696,30 +6242,28 @@ return {
 		}
 	},
 	[228]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Attack and Cast Speed during Onslaught"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Attack and Cast Speed during Onslaught"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Attack and Cast Speed during Onslaught"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Attack and Cast Speed during Onslaught"
 			}
 		},
 		stats={
@@ -6727,30 +6271,28 @@ return {
 		}
 	},
 	[229]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Attack Critical Strike Chance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Attack Critical Strike Chance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Attack Critical Strike Chance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Attack Critical Strike Chance"
 			}
 		},
 		stats={
@@ -6758,30 +6300,28 @@ return {
 		}
 	},
 	[230]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Attack Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Attack Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Attack Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Attack Damage"
 			}
 		},
 		stats={
@@ -6789,30 +6329,28 @@ return {
 		}
 	},
 	[231]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {}% increased Attack damage per 1000 Accuracy Rating"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {}% reduced Attack damage per 1000 Accuracy Rating"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {}% increased Attack damage per 1000 Accuracy Rating"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {}% reduced Attack damage per 1000 Accuracy Rating"
 			}
 		},
 		stats={
@@ -6820,21 +6358,19 @@ return {
 		}
 	},
 	[232]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Supported Attacks deal {0} to {1} added Physical Damage with Weapons per 10 Rage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Attacks deal {0} to {1} added Physical Damage with Weapons per 10 Rage"
 			}
 		},
 		stats={
@@ -6843,21 +6379,19 @@ return {
 		}
 	},
 	[233]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Supported Attacks deal {0} to {1} added Physical Damage with Weapons while you have at least 10 Rage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Attacks deal {0} to {1} added Physical Damage with Weapons while you have at least 10 Rage"
 			}
 		},
 		stats={
@@ -6866,21 +6400,19 @@ return {
 		}
 	},
 	[234]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Supported Attacks deal {0} to {1} added Physical Damage with Weapons"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Attacks deal {0} to {1} added Physical Damage with Weapons"
 			}
 		},
 		stats={
@@ -6889,21 +6421,19 @@ return {
 		}
 	},
 	[235]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Supported Skills have {0} to {1} Added Attack Physical Damage per Trauma"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0} to {1} Added Attack Physical Damage per Trauma"
 			}
 		},
 		stats={
@@ -6912,25 +6442,23 @@ return {
 		}
 	},
 	[236]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextManaLeech"
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextManaLeech"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Attacks have {0}% of Damage Leeched as Mana"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Attacks have {0}% of Damage Leeched as Mana"
 			}
 		},
 		stats={
@@ -6938,30 +6466,28 @@ return {
 		}
 	},
 	[237]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Attack Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Attack Speed"
 			}
 		},
 		stats={
@@ -6969,38 +6495,36 @@ return {
 		}
 	},
 	[238]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextLowLife"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextLowLife"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Attack Speed when on Low Life"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Attack Speed when on Low Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextLowLife"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLowLife"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Attack Speed when on Low Life"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Attack Speed when on Low Life"
 			}
 		},
 		stats={
@@ -7008,30 +6532,28 @@ return {
 		}
 	},
 	[239]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Attack Speed while you have at least 10 Rage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Attack Speed while you have at least 10 Rage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Attack Speed while you have at least 10 Rage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Attack Speed while you have at least 10 Rage"
 			}
 		},
 		stats={
@@ -7039,30 +6561,28 @@ return {
 		}
 	},
 	[240]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Attack Speed while you have at least 20 Rage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Attack Speed while you have at least 20 Rage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Attack Speed while you have at least 20 Rage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Attack Speed while you have at least 20 Rage"
 			}
 		},
 		stats={
@@ -7070,34 +6590,32 @@ return {
 		}
 	},
 	[241]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextImpale"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Attacks have {0}% chance to Impale Enemies on Hit"
+					k="reminderstring",
+					v="ReminderTextImpale"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextImpale"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Attacks always Impale Enemies on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Supported Attacks have {0}% chance to Impale Enemies on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextImpale"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Attacks always Impale Enemies on Hit"
 			}
 		},
 		stats={
@@ -7105,17 +6623,15 @@ return {
 		}
 	},
 	[242]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Aura Skills have no Reservation"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Aura Skills have no Reservation"
 			}
 		},
 		stats={
@@ -7123,26 +6639,24 @@ return {
 		}
 	},
 	[243]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="{0}% chance to Ignore Stuns while Using Supported Skills"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Ignore Stuns while Using Supported Skills"
-				}
+				text="{0}% chance to Ignore Stuns while Using Supported Skills"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Ignore Stuns while Using Supported Skills"
 			}
 		},
 		stats={
@@ -7150,30 +6664,28 @@ return {
 		}
 	},
 	[244]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Projectiles Fired by Supported Skills have {0}% increased Projectile spread"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Projectiles Fired by Supported Skills have {0}% reduced Projectile spread"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Projectiles Fired by Supported Skills have {0}% increased Projectile spread"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Projectiles Fired by Supported Skills have {0}% reduced Projectile spread"
 			}
 		},
 		stats={
@@ -7181,38 +6693,36 @@ return {
 		}
 	},
 	[245]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage with Ailments"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage with Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage with Ailments"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage with Ailments"
 			}
 		},
 		stats={
@@ -7220,38 +6730,36 @@ return {
 		}
 	},
 	[246]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Duration of Ailments inflicted with Supported Skills"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Duration of Ailments inflicted with Supported Skills"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Duration of Ailments inflicted with Supported Skills"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Duration of Ailments inflicted with Supported Skills"
 			}
 		},
 		stats={
@@ -7259,30 +6767,28 @@ return {
 		}
 	},
 	[247]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Attacks have {0}% increased Bleeding Duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Attacks have {0}% reduced Bleeding Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Attacks have {0}% increased Bleeding Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Attacks have {0}% reduced Bleeding Duration"
 			}
 		},
 		stats={
@@ -7290,30 +6796,28 @@ return {
 		}
 	},
 	[248]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Cast Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Cast Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Cast Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Cast Speed"
 			}
 		},
 		stats={
@@ -7321,17 +6825,15 @@ return {
 		}
 	},
 	[249]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to Destroy Ignited Corpses on Killing Blow"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to Destroy Ignited Corpses on Killing Blow"
 			}
 		},
 		stats={
@@ -7339,59 +6841,57 @@ return {
 		}
 	},
 	[250]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextFreeze"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills always Freeze Enemies on Hit"
+					k="reminderstring",
+					v="ReminderTextFreeze"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextFreeze"
+						[1]="#",
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
-					},
-					text="Supported Skills always Freeze"
+					[2]={
+						[1]=1,
+						[2]="#"
+					}
 				},
-				[3]={
+				text="Supported Skills always Freeze Enemies on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextFreeze"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextFreeze"
+						[1]=100,
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
+					[2]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Supported Skills always Freeze"
+			},
+			[3]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextFreeze"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
 					},
-					text="Supported Skills have {0}% chance to Freeze"
-				}
+					[2]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Supported Skills have {0}% chance to Freeze"
 			}
 		},
 		stats={
@@ -7400,34 +6900,32 @@ return {
 		}
 	},
 	[251]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextIgnite"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have {0}% chance to Ignite"
+					k="reminderstring",
+					v="ReminderTextIgnite"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextIgnite"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills always Ignite"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Supported Skills have {0}% chance to Ignite"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextIgnite"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills always Ignite"
 			}
 		},
 		stats={
@@ -7435,34 +6933,32 @@ return {
 		}
 	},
 	[252]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextShock"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have {0}% chance to Shock"
+					k="reminderstring",
+					v="ReminderTextShock"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextShock"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills always Shock"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Supported Skills have {0}% chance to Shock"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextShock"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills always Shock"
 			}
 		},
 		stats={
@@ -7470,21 +6966,19 @@ return {
 		}
 	},
 	[253]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds_2dp_if_required",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_2dp_if_required",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0:+d} seconds to Cooldown"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0:+d} seconds to Cooldown"
 			}
 		},
 		stats={
@@ -7492,30 +6986,28 @@ return {
 		}
 	},
 	[254]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Cooldown Recovery Rate"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Cooldown Recovery Rate"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Cooldown Recovery Rate"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Cooldown Recovery Rate"
 			}
 		},
 		stats={
@@ -7523,30 +7015,28 @@ return {
 		}
 	},
 	[255]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Curse Duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Curse Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Curse Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Curse Duration"
 			}
 		},
 		stats={
@@ -7554,30 +7044,28 @@ return {
 		}
 	},
 	[256]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage while you are affected by an Ailment"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage while you are affected by an Ailment"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage while you are affected by an Ailment"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage while you are affected by an Ailment"
 			}
 		},
 		stats={
@@ -7585,17 +7073,15 @@ return {
 		}
 	},
 	[257]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal no Chaos Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal no Chaos Damage"
 			}
 		},
 		stats={
@@ -7603,21 +7089,19 @@ return {
 		}
 	},
 	[258]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextKnockback"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextKnockback"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to Knock Enemies Back on hit"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to Knock Enemies Back on hit"
 			}
 		},
 		stats={
@@ -7625,34 +7109,32 @@ return {
 		}
 	},
 	[259]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						}
-					},
-					text="Supported Skills create Cursed Ground with a base Duration of {0} second\nHexes from Supported Skills have no Duration\nEnemies on the Cursed Ground from a Supported Skill are Cursed with that Hex\nLimit 1 area of Cursed Ground"
+					k="milliseconds_to_seconds",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills create Cursed Ground with a base Duration of {0} seconds\nHexes from Supported Skills have no Duration\nEnemies on the Cursed Ground from a Supported Skill are Cursed with that Hex\nMaximum 1 area of Cursed Ground"
-				}
+						[1]=1000,
+						[2]=1000
+					}
+				},
+				text="Supported Skills create Cursed Ground with a base Duration of {0} second\nHexes from Supported Skills have no Duration\nEnemies on the Cursed Ground from a Supported Skill are Cursed with that Hex\nLimit 1 area of Cursed Ground"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills create Cursed Ground with a base Duration of {0} seconds\nHexes from Supported Skills have no Duration\nEnemies on the Cursed Ground from a Supported Skill are Cursed with that Hex\nMaximum 1 area of Cursed Ground"
 			}
 		},
 		stats={
@@ -7660,34 +7142,32 @@ return {
 		}
 	},
 	[260]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextColdExposure"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have {0}% chance to inflict Cold Exposure on Hit"
+					k="reminderstring",
+					v="ReminderTextColdExposure"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextColdExposure"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills Inflict Cold Exposure on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Supported Skills have {0}% chance to inflict Cold Exposure on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextColdExposure"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills Inflict Cold Exposure on Hit"
 			}
 		},
 		stats={
@@ -7695,34 +7175,32 @@ return {
 		}
 	},
 	[261]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextFireExposure"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have {0}% chance to inflict Fire Exposure on Hit"
+					k="reminderstring",
+					v="ReminderTextFireExposure"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextFireExposure"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills Inflict Fire Exposure on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Supported Skills have {0}% chance to inflict Fire Exposure on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextFireExposure"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills Inflict Fire Exposure on Hit"
 			}
 		},
 		stats={
@@ -7730,34 +7208,32 @@ return {
 		}
 	},
 	[262]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextLightningExposure"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have {0}% chance to inflict Lightning Exposure on Hit"
+					k="reminderstring",
+					v="ReminderTextLightningExposure"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextLightningExposure"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills Inflict Lightning Exposure on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Supported Skills have {0}% chance to inflict Lightning Exposure on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextLightningExposure"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills Inflict Lightning Exposure on Hit"
 			}
 		},
 		stats={
@@ -7765,30 +7241,28 @@ return {
 		}
 	},
 	[263]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Quantity of Items Dropped by Enemies Slain from Supported Skills"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Quantity of Items Dropped by Enemies Slain from Supported Skills"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Quantity of Items Dropped by Enemies Slain from Supported Skills"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Quantity of Items Dropped by Enemies Slain from Supported Skills"
 			}
 		},
 		stats={
@@ -7796,30 +7270,28 @@ return {
 		}
 	},
 	[264]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Rarity of Items Dropped by Enemies Slain from Supported Skills"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Rarity of Items Dropped by Enemies Slain from Supported Skills"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Rarity of Items Dropped by Enemies Slain from Supported Skills"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Rarity of Items Dropped by Enemies Slain from Supported Skills"
 			}
 		},
 		stats={
@@ -7827,25 +7299,23 @@ return {
 		}
 	},
 	[265]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextLifeLeech"
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLifeLeech"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% of Attack Damage Leeched as Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% of Attack Damage Leeched as Life"
 			}
 		},
 		stats={
@@ -7853,25 +7323,23 @@ return {
 		}
 	},
 	[266]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextLifeLeech"
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLifeLeech"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% of Chaos Damage Leeched as Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% of Chaos Damage Leeched as Life"
 			}
 		},
 		stats={
@@ -7879,30 +7347,28 @@ return {
 		}
 	},
 	[267]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Life Reservation Efficiency"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Life Reservation Efficiency"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Life Reservation Efficiency"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Life Reservation Efficiency"
 			}
 		},
 		stats={
@@ -7910,30 +7376,28 @@ return {
 		}
 	},
 	[268]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Life Reservation"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Life Reservation"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Life Reservation"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Life Reservation"
 			}
 		},
 		stats={
@@ -7941,30 +7405,28 @@ return {
 		}
 	},
 	[269]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Mana Reservation"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Mana Reservation"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Mana Reservation"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Mana Reservation"
 			}
 		},
 		stats={
@@ -7972,21 +7434,19 @@ return {
 		}
 	},
 	[270]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds_2dp",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_2dp",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have a Base Mine Detonation Time of {0} seconds"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have a Base Mine Detonation Time of {0} seconds"
 			}
 		},
 		stats={
@@ -7994,26 +7454,24 @@ return {
 		}
 	},
 	[271]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Maximum {0} Summoned Phantasm"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Maximum {0} Summoned Phantasm"
-				}
+				text="Maximum {0} Summoned Phantasm"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Maximum {0} Summoned Phantasm"
 			}
 		},
 		stats={
@@ -8021,17 +7479,15 @@ return {
 		}
 	},
 	[272]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% of Physical Damage Converted to Lightning Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% of Physical Damage Converted to Lightning Damage"
 			}
 		},
 		stats={
@@ -8039,30 +7495,28 @@ return {
 		}
 	},
 	[273]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage with Poison"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage with Poison"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage with Poison"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage with Poison"
 			}
 		},
 		stats={
@@ -8070,30 +7524,28 @@ return {
 		}
 	},
 	[274]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Poison Duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Poison Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Poison Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Poison Duration"
 			}
 		},
 		stats={
@@ -8101,30 +7553,28 @@ return {
 		}
 	},
 	[275]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Projectile Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Projectile Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Projectile Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Projectile Speed"
 			}
 		},
 		stats={
@@ -8132,30 +7582,28 @@ return {
 		}
 	},
 	[276]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Reservation Efficiency"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Reservation Efficiency"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Reservation Efficiency"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Reservation Efficiency"
 			}
 		},
 		stats={
@@ -8163,30 +7611,28 @@ return {
 		}
 	},
 	[277]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Reservation"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Reservation"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Reservation"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Reservation"
 			}
 		},
 		stats={
@@ -8194,17 +7640,15 @@ return {
 		}
 	},
 	[278]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills Cost Life instead of {0}% of Mana Cost"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills Cost Life instead of {0}% of Mana Cost"
 			}
 		},
 		stats={
@@ -8212,17 +7656,15 @@ return {
 		}
 	},
 	[279]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have no Reservation"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have no Reservation"
 			}
 		},
 		stats={
@@ -8230,30 +7672,28 @@ return {
 		}
 	},
 	[280]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Spells have {0}% increased Cooldown Recovery Rate"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Spells have {0}% reduced Cooldown Recovery Rate"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Spells have {0}% increased Cooldown Recovery Rate"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Spells have {0}% reduced Cooldown Recovery Rate"
 			}
 		},
 		stats={
@@ -8261,30 +7701,28 @@ return {
 		}
 	},
 	[281]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Stun Duration on Enemies"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Stun Duration on Enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Stun Duration on Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Stun Duration on Enemies"
 			}
 		},
 		stats={
@@ -8292,38 +7730,36 @@ return {
 		}
 	},
 	[282]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextStunThreshold"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextStunThreshold"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% reduced Enemy Stun Threshold"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% reduced Enemy Stun Threshold"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextStunThreshold"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextStunThreshold"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% increased Enemy Stun Threshold"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% increased Enemy Stun Threshold"
 			}
 		},
 		stats={
@@ -8331,88 +7767,86 @@ return {
 		}
 	},
 	[283]={
-		lang={
-			English={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					},
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]="!",
+						[2]=0
+					}
+				},
+				text="Supported Attacks cannot cause Bleeding"
+			},
+			[2]={
 				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						},
-						[3]={
-							[1]="!",
-							[2]=0
-						}
-					},
-					text="Supported Attacks cannot cause Bleeding"
+					k="reminderstring",
+					v="ReminderTextBleeding"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextBleeding"
+						[1]="#",
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="!",
-							[2]=0
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						}
+					[2]={
+						[1]="!",
+						[2]=0
 					},
-					text="Supported Attacks cause Bleeding"
+					[3]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[3]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextBleeding"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						}
-					},
-					text="Supported Attacks cause Bleeding"
+				text="Supported Attacks cause Bleeding"
+			},
+			[3]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextBleeding"
 				},
-				[4]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextBleeding"
+						[1]=100,
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						}
+					[2]={
+						[1]=0,
+						[2]=0
 					},
-					text="Supported Attacks have {0}% chance to cause Bleeding"
-				}
+					[3]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Supported Attacks cause Bleeding"
+			},
+			[4]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextBleeding"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					},
+					[2]={
+						[1]=0,
+						[2]=0
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Supported Attacks have {0}% chance to cause Bleeding"
 			}
 		},
 		stats={
@@ -8422,30 +7856,28 @@ return {
 		}
 	},
 	[284]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Attacks deal {0}% increased Damage with Bleeding"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Attacks deal {0}% reduced Damage with Bleeding"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Attacks deal {0}% increased Damage with Bleeding"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Attacks deal {0}% reduced Damage with Bleeding"
 			}
 		},
 		stats={
@@ -8453,21 +7885,19 @@ return {
 		}
 	},
 	[285]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextLowLife"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextLowLife"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Attacks deal Added Physical Damage with Weapons equal\nto {0}% of Maximum Life while on Low Life"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Attacks deal Added Physical Damage with Weapons equal\nto {0}% of Maximum Life while on Low Life"
 			}
 		},
 		stats={
@@ -8475,30 +7905,28 @@ return {
 		}
 	},
 	[286]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Burning Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Burning Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Burning Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Burning Damage"
 			}
 		},
 		stats={
@@ -8506,30 +7934,28 @@ return {
 		}
 	},
 	[287]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills require {0}% increased amount of Damage taken to Trigger"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills require {0}% reduced amount of Damage taken to Trigger"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills require {0}% increased amount of Damage taken to Trigger"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills require {0}% reduced amount of Damage taken to Trigger"
 			}
 		},
 		stats={
@@ -8537,30 +7963,28 @@ return {
 		}
 	},
 	[288]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Chaining range"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Chaining range"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Chaining range"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Chaining range"
 			}
 		},
 		stats={
@@ -8568,17 +7992,15 @@ return {
 		}
 	},
 	[289]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {}% chance for Coin Shower on Kill"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {}% chance for Coin Shower on Kill"
 			}
 		},
 		stats={
@@ -8586,34 +8008,32 @@ return {
 		}
 	},
 	[290]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextLucky"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {}% chance for Damage with Hits to be Lucky"
+					k="reminderstring",
+					v="ReminderTextLucky"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextUnlucky"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {}% chance for Damage with Hits to be Unlucky"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {}% chance for Damage with Hits to be Lucky"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextUnlucky"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {}% chance for Damage with Hits to be Unlucky"
 			}
 		},
 		stats={
@@ -8621,21 +8041,19 @@ return {
 		}
 	},
 	[291]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextBleeding"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextBleeding"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {}% chance to inflict Bleeding on Maimed Enemies"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {}% chance to inflict Bleeding on Maimed Enemies"
 			}
 		},
 		stats={
@@ -8643,34 +8061,32 @@ return {
 		}
 	},
 	[292]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextCrushed"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have {0}% chance to Crush Enemies for 4 seconds on Hit"
+					k="reminderstring",
+					v="ReminderTextCrushed"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextCrushed"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills Crush Enemies for 4 seconds on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Supported Skills have {0}% chance to Crush Enemies for 4 seconds on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextCrushed"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills Crush Enemies for 4 seconds on Hit"
 			}
 		},
 		stats={
@@ -8678,17 +8094,15 @@ return {
 		}
 	},
 	[293]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to double Stun Duration"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to double Stun Duration"
 			}
 		},
 		stats={
@@ -8696,17 +8110,15 @@ return {
 		}
 	},
 	[294]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Projectiles from Supported Skills have {0}% chance for an additional Projectile when Forking"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Projectiles from Supported Skills have {0}% chance for an additional Projectile when Forking"
 			}
 		},
 		stats={
@@ -8714,42 +8126,40 @@ return {
 		}
 	},
 	[295]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextFortifyingHit"
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextFortification"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Melee Hits from Supported Skills Fortify"
+					k="reminderstring",
+					v="ReminderTextFortifyingHit"
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextFortification"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextFortifyingHit"
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextFortification"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Melee Hits from Supported Skills have {0}% chance to Fortify"
-				}
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Melee Hits from Supported Skills Fortify"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextFortifyingHit"
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextFortification"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Melee Hits from Supported Skills have {0}% chance to Fortify"
 			}
 		},
 		stats={
@@ -8757,50 +8167,48 @@ return {
 		}
 	},
 	[296]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextFreeze"
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextShock"
-					},
-					[3]={
-						k="reminderstring",
-						v="ReminderTextIgnite"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have {0}% chance to Freeze, Shock and Ignite"
+					k="reminderstring",
+					v="ReminderTextFreeze"
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextShock"
+				},
+				[3]={
+					k="reminderstring",
+					v="ReminderTextIgnite"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextFreeze"
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextShock"
-					},
-					[3]={
-						k="reminderstring",
-						v="ReminderTextIgnite"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills always Freeze, Shock and Ignite"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Supported Skills have {0}% chance to Freeze, Shock and Ignite"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextFreeze"
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextShock"
+				},
+				[3]={
+					k="reminderstring",
+					v="ReminderTextIgnite"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills always Freeze, Shock and Ignite"
 			}
 		},
 		stats={
@@ -8808,26 +8216,24 @@ return {
 		}
 	},
 	[297]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have {0}% chance to gain a Frenzy Charge on Killing a Frozen Enemy"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills gain a Frenzy Charge on Killing a Frozen Enemy"
-				}
+				text="Supported Skills have {0}% chance to gain a Frenzy Charge on Killing a Frozen Enemy"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills gain a Frenzy Charge on Killing a Frozen Enemy"
 			}
 		},
 		stats={
@@ -8835,17 +8241,15 @@ return {
 		}
 	},
 	[298]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Hexes applied by Supported Curse Skills have {0}% chance to affect Hexproof Enemies"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Hexes applied by Supported Curse Skills have {0}% chance to affect Hexproof Enemies"
 			}
 		},
 		stats={
@@ -8853,21 +8257,19 @@ return {
 		}
 	},
 	[299]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextImpale"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextImpale"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to inflict an additional Impale on Enemies they Impale"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to inflict an additional Impale on Enemies they Impale"
 			}
 		},
 		stats={
@@ -8875,34 +8277,32 @@ return {
 		}
 	},
 	[300]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextIntimidate"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have {0}% chance to Intimidate Enemies for 4 seconds on Hit"
+					k="reminderstring",
+					v="ReminderTextIntimidate"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextIntimidate"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills Intimidate Enemies for 4 seconds on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Supported Skills have {0}% chance to Intimidate Enemies for 4 seconds on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextIntimidate"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills Intimidate Enemies for 4 seconds on Hit"
 			}
 		},
 		stats={
@@ -8910,21 +8310,19 @@ return {
 		}
 	},
 	[301]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextMultipleMines"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextMultipleMines"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to throw up to 1 additional Mine"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to throw up to 1 additional Mine"
 			}
 		},
 		stats={
@@ -8932,26 +8330,24 @@ return {
 		}
 	},
 	[302]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="{0}% chance to Summon a Phantasm when Supported Skills, or Non-Phantasm Minions\nfrom Supported Skills, Hit a Rare or Unique Enemy"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Summon a Phantasm when Supported Skills, or Non-Phantasm Minions\nfrom Supported Skills, Hit a Rare or Unique Enemy"
-				}
+				text="{0}% chance to Summon a Phantasm when Supported Skills, or Non-Phantasm Minions\nfrom Supported Skills, Hit a Rare or Unique Enemy"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Summon a Phantasm when Supported Skills, or Non-Phantasm Minions\nfrom Supported Skills, Hit a Rare or Unique Enemy"
 			}
 		},
 		stats={
@@ -8959,34 +8355,32 @@ return {
 		}
 	},
 	[303]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextUnnerve"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have {0}% chance to Unnerve Enemies for 4 seconds on Hit"
+					k="reminderstring",
+					v="ReminderTextUnnerve"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextUnnerve"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills Unnerve Enemies for 4 seconds on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Supported Skills have {0}% chance to Unnerve Enemies for 4 seconds on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextUnnerve"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills Unnerve Enemies for 4 seconds on Hit"
 			}
 		},
 		stats={
@@ -8994,30 +8388,28 @@ return {
 		}
 	},
 	[304]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Channelling Skills deal {0}% increased Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Channelling Skills deal {0}% reduced Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Channelling Skills deal {0}% increased Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Channelling Skills deal {0}% reduced Damage"
 			}
 		},
 		stats={
@@ -9025,30 +8417,28 @@ return {
 		}
 	},
 	[305]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Chaos Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Chaos Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Chaos Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Chaos Damage"
 			}
 		},
 		stats={
@@ -9056,17 +8446,15 @@ return {
 		}
 	},
 	[306]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="+0.1 metres to radius per Nearby Enemy, up to a maximum of +1 metre"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="+0.1 metres to radius per Nearby Enemy, up to a maximum of +1 metre"
 			}
 		},
 		stats={
@@ -9074,21 +8462,19 @@ return {
 		}
 	},
 	[307]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextCloseRange"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextCloseRange"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Damage with Hits to Close Range Enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Damage with Hits to Close Range Enemies"
 			}
 		},
 		stats={
@@ -9096,38 +8482,36 @@ return {
 		}
 	},
 	[308]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextColdAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextColdAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Effect of Cold Ailments"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Effect of Cold Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextColdAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextColdAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Effect of Cold Ailments"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Effect of Cold Ailments"
 			}
 		},
 		stats={
@@ -9135,17 +8519,15 @@ return {
 		}
 	},
 	[309]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills gain {0}% of Cold Damage as Extra Fire Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills gain {0}% of Cold Damage as Extra Fire Damage"
 			}
 		},
 		stats={
@@ -9153,30 +8535,28 @@ return {
 		}
 	},
 	[310]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Cold Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Cold Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Cold Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Cold Damage"
 			}
 		},
 		stats={
@@ -9184,30 +8564,28 @@ return {
 		}
 	},
 	[311]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{}% increased Effect of Combat Rush granted by Supported Skills"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{}% reduced Effect of Combat Rush granted by Supported Skills"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{}% increased Effect of Combat Rush granted by Supported Skills"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{}% reduced Effect of Combat Rush granted by Supported Skills"
 			}
 		},
 		stats={
@@ -9215,26 +8593,24 @@ return {
 		}
 	},
 	[312]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Cooldown Recovery Rate if used while a Unique Enemy is in your Presence"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% decreased Cooldown Recovery Rate if used while a Unique Enemy is in your Presence"
-				}
+				text="{0}% increased Cooldown Recovery Rate if used while a Unique Enemy is in your Presence"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% decreased Cooldown Recovery Rate if used while a Unique Enemy is in your Presence"
 			}
 		},
 		stats={
@@ -9242,34 +8618,32 @@ return {
 		}
 	},
 	[313]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextCoveredInAsh"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have {0}% chance to Cover Enemies in Ash on Hit"
+					k="reminderstring",
+					v="ReminderTextCoveredInAsh"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextCoveredInAsh"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills cover Enemies in Ash on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Supported Skills have {0}% chance to Cover Enemies in Ash on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextCoveredInAsh"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills cover Enemies in Ash on Hit"
 			}
 		},
 		stats={
@@ -9277,17 +8651,15 @@ return {
 		}
 	},
 	[314]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0:+d}% Damage over Time Multiplier for Ailments from Critical Strikes"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0:+d}% Damage over Time Multiplier for Ailments from Critical Strikes"
 			}
 		},
 		stats={
@@ -9295,30 +8667,28 @@ return {
 		}
 	},
 	[315]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Critical Strike Chance against Blinded Enemies"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Critical Strike Chance against Blinded Enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Critical Strike Chance against Blinded Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Critical Strike Chance against Blinded Enemies"
 			}
 		},
 		stats={
@@ -9326,30 +8696,28 @@ return {
 		}
 	},
 	[316]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Effect of Cruelty granted by Supported Skills"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Effect of Cruelty granted by Supported Skills"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Effect of Cruelty granted by Supported Skills"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Effect of Cruelty granted by Supported Skills"
 			}
 		},
 		stats={
@@ -9357,34 +8725,32 @@ return {
 		}
 	},
 	[317]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextCrushedNoDuration"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have {}% chance to Crush for 2 seconds on Hit"
+					k="reminderstring",
+					v="ReminderTextCrushedNoDuration"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextCrushedNoDuration"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills Crush for 2 seconds on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Supported Skills have {}% chance to Crush for 2 seconds on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextCrushedNoDuration"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills Crush for 2 seconds on Hit"
 			}
 		},
 		stats={
@@ -9392,30 +8758,28 @@ return {
 		}
 	},
 	[318]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Area of Effect of Supported Curse Skills"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Area of Effect of Supported Curse Skills"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Area of Effect of Supported Curse Skills"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Area of Effect of Supported Curse Skills"
 			}
 		},
 		stats={
@@ -9423,38 +8787,36 @@ return {
 		}
 	},
 	[319]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextRecently"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage if you have Consumed a corpse Recently"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage if you have Consumed a corpse Recently"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextRecently"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage if you have Consumed a corpse Recently"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage if you have Consumed a corpse Recently"
 			}
 		},
 		stats={
@@ -9462,30 +8824,28 @@ return {
 		}
 	},
 	[320]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage over Time"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage over Time"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage over Time"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage over Time"
 			}
 		},
 		stats={
@@ -9493,30 +8853,28 @@ return {
 		}
 	},
 	[321]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage"
 			}
 		},
 		stats={
@@ -9524,30 +8882,28 @@ return {
 		}
 	},
 	[322]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased non-Minion Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced non-Minion Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased non-Minion Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced non-Minion Damage"
 			}
 		},
 		stats={
@@ -9555,30 +8911,28 @@ return {
 		}
 	},
 	[323]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {}% increased Damage if you've lost an Endurance Charge in the past 8 seconds"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {}% reduced Damage if you've lost an Endurance Charge in the past 8 seconds"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {}% increased Damage if you've lost an Endurance Charge in the past 8 seconds"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {}% reduced Damage if you've lost an Endurance Charge in the past 8 seconds"
 			}
 		},
 		stats={
@@ -9586,30 +8940,28 @@ return {
 		}
 	},
 	[324]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Damage for each 200 Mana you have Spent Recently"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Damage for each 200 Mana you have Spent Recently"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Damage for each 200 Mana you have Spent Recently"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Damage for each 200 Mana you have Spent Recently"
 			}
 		},
 		stats={
@@ -9617,30 +8969,28 @@ return {
 		}
 	},
 	[325]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage per Endurance Charge"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage per Endurance Charge"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage per Endurance Charge"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage per Endurance Charge"
 			}
 		},
 		stats={
@@ -9648,30 +8998,28 @@ return {
 		}
 	},
 	[326]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage per Frenzy Charge"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage per Frenzy Charge"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage per Frenzy Charge"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage per Frenzy Charge"
 			}
 		},
 		stats={
@@ -9679,30 +9027,28 @@ return {
 		}
 	},
 	[327]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage per Power Charge"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage per Power Charge"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage per Power Charge"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage per Power Charge"
 			}
 		},
 		stats={
@@ -9710,30 +9056,28 @@ return {
 		}
 	},
 	[328]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage with Hits and Ailments against Enemies that are on Full Life"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage with Hits and Ailments against Enemies that are on Full Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage with Hits and Ailments against Enemies that are on Full Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage with Hits and Ailments against Enemies that are on Full Life"
 			}
 		},
 		stats={
@@ -9741,38 +9085,36 @@ return {
 		}
 	},
 	[329]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage with Hits and Ailments per Freeze, Shock or Ignite on Enemy"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage with Hits and Ailments per Freeze, Shock or Ignite on Enemy"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage with Hits and Ailments  per Freeze, Shock or Ignite on Enemy"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage with Hits and Ailments  per Freeze, Shock or Ignite on Enemy"
 			}
 		},
 		stats={
@@ -9780,30 +9122,28 @@ return {
 		}
 	},
 	[330]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage with Hits against Frozen Enemies"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage with Hits against Frozen Enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage with Hits against Frozen Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage with Hits against Frozen Enemies"
 			}
 		},
 		stats={
@@ -9811,30 +9151,28 @@ return {
 		}
 	},
 	[331]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage while on Full Energy Shield"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage while on Full Energy Shield"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage while on Full Energy Shield"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage while on Full Energy Shield"
 			}
 		},
 		stats={
@@ -9842,30 +9180,28 @@ return {
 		}
 	},
 	[332]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage when on Full Life"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage when on Full Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage when on Full Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage when on Full Life"
 			}
 		},
 		stats={
@@ -9873,38 +9209,36 @@ return {
 		}
 	},
 	[333]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextLowLife"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextLowLife"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills Deal {0}% increased Damage while on Low Life"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills Deal {0}% increased Damage while on Low Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextLowLife"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLowLife"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills Deal {0}% reduced Damage while on Low Life"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills Deal {0}% reduced Damage while on Low Life"
 			}
 		},
 		stats={
@@ -9912,38 +9246,36 @@ return {
 		}
 	},
 	[334]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage while you are affected by an Ailment"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage while you are affected by an Ailment"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage while you are affected by an Ailment"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage while you are affected by an Ailment"
 			}
 		},
 		stats={
@@ -9951,30 +9283,28 @@ return {
 		}
 	},
 	[335]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage while Leeching Energy Shield"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage while Leeching Energy Shield"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage while Leeching Energy Shield"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage while Leeching Energy Shield"
 			}
 		},
 		stats={
@@ -9982,30 +9312,28 @@ return {
 		}
 	},
 	[336]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage while Leeching Life"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage while Leeching Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage while Leeching Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage while Leeching Life"
 			}
 		},
 		stats={
@@ -10013,30 +9341,28 @@ return {
 		}
 	},
 	[337]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage while Leeching Mana"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage while Leeching Mana"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage while Leeching Mana"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage while Leeching Mana"
 			}
 		},
 		stats={
@@ -10044,38 +9370,36 @@ return {
 		}
 	},
 	[338]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage with Hits and Ailments per Curse on Enemy"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage with Hits and Ailments per Curse on Enemy"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage with Hits and Ailments per Curse on Enemy"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage with Hits and Ailments per Curse on Enemy"
 			}
 		},
 		stats={
@@ -10083,17 +9407,15 @@ return {
 		}
 	},
 	[339]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage with Hits against Enemies that are on Low Life"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage with Hits against Enemies that are on Low Life"
 			}
 		},
 		stats={
@@ -10101,25 +9423,23 @@ return {
 		}
 	},
 	[340]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextDealsDamageFaster"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextDealsDamageFaster"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Damaging Ailments inflicted with Supported Skills deal damage {0}% faster"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Damaging Ailments inflicted with Supported Skills deal damage {0}% faster"
 			}
 		},
 		stats={
@@ -10127,17 +9447,15 @@ return {
 		}
 	},
 	[341]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills inflict Decay on Hit, dealing {0} Chaos Damage per second for 8 seconds"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills inflict Decay on Hit, dealing {0} Chaos Damage per second for 8 seconds"
 			}
 		},
 		stats={
@@ -10145,17 +9463,15 @@ return {
 		}
 	},
 	[342]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal no Elemental Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal no Elemental Damage"
 			}
 		},
 		stats={
@@ -10163,30 +9479,28 @@ return {
 		}
 	},
 	[343]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -10194,17 +9508,15 @@ return {
 		}
 	},
 	[344]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% chance to detonate an additional corpse"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% chance to detonate an additional corpse"
 			}
 		},
 		stats={
@@ -10212,21 +9524,19 @@ return {
 		}
 	},
 	[345]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds_2dp",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_2dp",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Spells lose 1 Intensity every 0.25 seconds while moving, or immediately if you teleport"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Spells lose 1 Intensity every 0.25 seconds while moving, or immediately if you teleport"
 			}
 		},
 		stats={
@@ -10234,17 +9544,15 @@ return {
 		}
 	},
 	[346]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Totems cannot gain Infusion"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Totems cannot gain Infusion"
 			}
 		},
 		stats={
@@ -10252,17 +9560,15 @@ return {
 		}
 	},
 	[347]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0:+d}% to Damage over Time Multiplier"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0:+d}% to Damage over Time Multiplier"
 			}
 		},
 		stats={
@@ -10270,17 +9576,15 @@ return {
 		}
 	},
 	[348]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Elemental Damage from Supported Skills cannot be Reflected"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Elemental Damage from Supported Skills cannot be Reflected"
 			}
 		},
 		stats={
@@ -10288,30 +9592,28 @@ return {
 		}
 	},
 	[349]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Elemental Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Elemental Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Elemental Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Elemental Damage"
 			}
 		},
 		stats={
@@ -10319,38 +9621,36 @@ return {
 		}
 	},
 	[350]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextElusive"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextElusive"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Effect of Elusive from Supported Skills"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Effect of Elusive from Supported Skills"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextElusive"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextElusive"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Effect of Elusive from Supported Skills"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Effect of Elusive from Supported Skills"
 			}
 		},
 		stats={
@@ -10358,30 +9658,28 @@ return {
 		}
 	},
 	[351]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Attacks deal {0}% increased Damage if Exerted"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Attacks deal {0}% reduced Damage if Exerted"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Attacks deal {0}% increased Damage if Exerted"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Attacks deal {0}% reduced Damage if Exerted"
 			}
 		},
 		stats={
@@ -10389,30 +9687,28 @@ return {
 		}
 	},
 	[352]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Enemies Shocked by supported Skills have {0}% increased Movement Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Enemies Shocked by supported Skills have {0}% reduced Movement Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Enemies Shocked by supported Skills have {0}% increased Movement Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Enemies Shocked by supported Skills have {0}% reduced Movement Speed"
 			}
 		},
 		stats={
@@ -10420,30 +9716,28 @@ return {
 		}
 	},
 	[353]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Enemies Shocked by Supported Skills take {0}% increased Physical Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Enemies Shocked by Supported Skills take {0}% reduced Physical Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Enemies Shocked by Supported Skills take {0}% increased Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Enemies Shocked by Supported Skills take {0}% reduced Physical Damage"
 			}
 		},
 		stats={
@@ -10451,21 +9745,19 @@ return {
 		}
 	},
 	[354]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextOverwhelm"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextOverwhelm"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills Overwhelm {0}% Physical Damage Reduction"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills Overwhelm {0}% Physical Damage Reduction"
 			}
 		},
 		stats={
@@ -10473,25 +9765,23 @@ return {
 		}
 	},
 	[355]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextEnergyShieldLeech"
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextEnergyShieldLeech"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% of Damage Leeched as Energy Shield"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% of Damage Leeched as Energy Shield"
 			}
 		},
 		stats={
@@ -10499,21 +9789,19 @@ return {
 		}
 	},
 	[356]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDealsDamageFaster"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDealsDamageFaster"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Bleeding inflicted by Supported Skills deals Damage {0}% faster"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Bleeding inflicted by Supported Skills deals Damage {0}% faster"
 			}
 		},
 		stats={
@@ -10521,34 +9809,32 @@ return {
 		}
 	},
 	[357]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextDealsDamageFaster"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Ignites from Supported Skills deal Damage {0}% faster"
+					k="reminderstring",
+					v="ReminderTextDealsDamageFaster"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Ignites from Supported Skills deal Damage {0}% slower"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Ignites from Supported Skills deal Damage {0}% faster"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Ignites from Supported Skills deal Damage {0}% slower"
 			}
 		},
 		stats={
@@ -10556,25 +9842,23 @@ return {
 		}
 	},
 	[358]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextPoison"
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextDealsDamageFaster"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextPoison"
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextDealsDamageFaster"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Poisons from Supported Skills deal Damage {0}% faster"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Poisons from Supported Skills deal Damage {0}% faster"
 			}
 		},
 		stats={
@@ -10582,30 +9866,28 @@ return {
 		}
 	},
 	[359]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Fire Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Fire Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Fire Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Fire Damage"
 			}
 		},
 		stats={
@@ -10613,17 +9895,15 @@ return {
 		}
 	},
 	[360]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0:+d}% to Fire Damage over Time Multiplier"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0:+d}% to Fire Damage over Time Multiplier"
 			}
 		},
 		stats={
@@ -10631,21 +9911,19 @@ return {
 		}
 	},
 	[361]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds_2dp",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_2dp",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Burning Ground lasts {0} seconds"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Burning Ground lasts {0} seconds"
 			}
 		},
 		stats={
@@ -10653,30 +9931,28 @@ return {
 		}
 	},
 	[362]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Fortification Duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Fortification Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Fortification Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Fortification Duration"
 			}
 		},
 		stats={
@@ -10684,17 +9960,15 @@ return {
 		}
 	},
 	[363]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Enemies Frozen by Supported Skills have {:+d}% to Cold Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Enemies Frozen by Supported Skills have {:+d}% to Cold Resistance"
 			}
 		},
 		stats={
@@ -10702,30 +9976,28 @@ return {
 		}
 	},
 	[364]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Freeze Duration on Enemies"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Freeze Duration on Enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Freeze Duration on Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Freeze Duration on Enemies"
 			}
 		},
 		stats={
@@ -10733,17 +10005,15 @@ return {
 		}
 	},
 	[365]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Activation Frequency if 75% of Attached Duration expired"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Activation Frequency if 75% of Attached Duration expired"
 			}
 		},
 		stats={
@@ -10751,34 +10021,32 @@ return {
 		}
 	},
 	[366]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Supported Skills have Added Spell Damage equal to {0:+d}% of Damage of Equipped Wand\nIf two Wands are Equipped, each contributes half as much Added Damage"
+					[2]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+				text="Supported Skills have Added Spell Damage equal to {0:+d}% of Damage of Equipped Wand\nIf two Wands are Equipped, each contributes half as much Added Damage"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Supported Skills have Added Spell Damage equal to {0}% of Damage of Equipped Wand\nIf two Wands are Equipped, each contributes half as much Added Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have Added Spell Damage equal to {0}% of Damage of Equipped Wand\nIf two Wands are Equipped, each contributes half as much Added Damage"
 			}
 		},
 		stats={
@@ -10787,21 +10055,19 @@ return {
 		}
 	},
 	[367]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextRage"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextRage"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0}% chance to gain 1 Rage when you use Supported Skills"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0}% chance to gain 1 Rage when you use Supported Skills"
 			}
 		},
 		stats={
@@ -10809,47 +10075,45 @@ return {
 		}
 	},
 	[368]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=99
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="{1}% chance to gain an Endurance Charge when you Stun an Enemy with a Melee Hit from Supported Skills"
+					[2]={
+						[1]=0,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=100,
-							[2]="#"
-						}
+				text="{1}% chance to gain an Endurance Charge when you Stun an Enemy with a Melee Hit from Supported Skills"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="Gain an Endurance Charge when you Stun an Enemy with a Melee Hit from Supported Skills"
+					[2]={
+						[1]=100,
+						[2]="#"
+					}
 				},
-				[3]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+				text="Gain an Endurance Charge when you Stun an Enemy with a Melee Hit from Supported Skills"
+			},
+			[3]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Gain an Endurance Charge when you Stun an Enemy with a Melee Hit from Supported Skills"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Gain an Endurance Charge when you Stun an Enemy with a Melee Hit from Supported Skills"
 			}
 		},
 		stats={
@@ -10858,17 +10122,15 @@ return {
 		}
 	},
 	[369]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to gain a Frenzy Charge on Killing an Enemy affected by at least 5 Poisons"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to gain a Frenzy Charge on Killing an Enemy affected by at least 5 Poisons"
 			}
 		},
 		stats={
@@ -10876,17 +10138,15 @@ return {
 		}
 	},
 	[370]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to gain a Frenzy Charge on Killing Blow against Enemies with at least 5 Poisons"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to gain a Frenzy Charge on Killing Blow against Enemies with at least 5 Poisons"
 			}
 		},
 		stats={
@@ -10894,17 +10154,15 @@ return {
 		}
 	},
 	[371]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to gain a Power Charge on Killing Blow"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to gain a Power Charge on Killing Blow"
 			}
 		},
 		stats={
@@ -10912,34 +10170,32 @@ return {
 		}
 	},
 	[372]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextUpfrontCost"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="{0}% chance to gain an Inspiration Charge when you Spend Mana on\nUpfront Costs or Effects of Supported Skills"
+					k="reminderstring",
+					v="ReminderTextUpfrontCost"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextUpfrontCost"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Gain an Inspiration Charge when you Spend Mana on Upfront\nCosts or Effects of Supported Skills"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="{0}% chance to gain an Inspiration Charge when you Spend Mana on\nUpfront Costs or Effects of Supported Skills"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextUpfrontCost"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Gain an Inspiration Charge when you Spend Mana on Upfront\nCosts or Effects of Supported Skills"
 			}
 		},
 		stats={
@@ -10947,21 +10203,19 @@ return {
 		}
 	},
 	[373]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills gain a Vaal Soul on Hit\nYou can only generate a Soul every {0} seconds"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills gain a Vaal Soul on Hit\nYou can only generate a Soul every {0} seconds"
 			}
 		},
 		stats={
@@ -10969,17 +10223,15 @@ return {
 		}
 	},
 	[374]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Quality has no effect"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Quality has no effect"
 			}
 		},
 		stats={
@@ -10987,17 +10239,15 @@ return {
 		}
 	},
 	[375]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {:d}% chance to Cause Monsters to Flee"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {:d}% chance to Cause Monsters to Flee"
 			}
 		},
 		stats={
@@ -11005,21 +10255,19 @@ return {
 		}
 	},
 	[376]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Supported Skills have {0} to {1} added Chaos Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0} to {1} added Chaos Damage"
 			}
 		},
 		stats={
@@ -11028,21 +10276,19 @@ return {
 		}
 	},
 	[377]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Supported Skills have {0} to {1} added Cold Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0} to {1} added Cold Damage"
 			}
 		},
 		stats={
@@ -11051,21 +10297,19 @@ return {
 		}
 	},
 	[378]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Supported Skills have {0} to {1} added Fire Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0} to {1} added Fire Damage"
 			}
 		},
 		stats={
@@ -11074,21 +10318,19 @@ return {
 		}
 	},
 	[379]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Supported Skills have {0} to {1} added Lightning Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0} to {1} added Lightning Damage"
 			}
 		},
 		stats={
@@ -11097,21 +10339,19 @@ return {
 		}
 	},
 	[380]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Supported Skills have {0} to {1} added Physical Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0} to {1} added Physical Damage"
 			}
 		},
 		stats={
@@ -11120,17 +10360,15 @@ return {
 		}
 	},
 	[381]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% reduced Enemy Block Chance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% reduced Enemy Block Chance"
 			}
 		},
 		stats={
@@ -11138,30 +10376,28 @@ return {
 		}
 	},
 	[382]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Projectiles from Supported Skills deal {0}% more Damage with Hits per Intensity"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Projectiles from Supported Skills deal {0}% less Damage with Hits per Intensity"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Projectiles from Supported Skills deal {0}% more Damage with Hits per Intensity"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Projectiles from Supported Skills deal {0}% less Damage with Hits per Intensity"
 			}
 		},
 		stats={
@@ -11169,30 +10405,28 @@ return {
 		}
 	},
 	[383]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Hex Transfer range"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Hex Transfer range"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Hex Transfer range"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Hex Transfer range"
 			}
 		},
 		stats={
@@ -11200,30 +10434,28 @@ return {
 		}
 	},
 	[384]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Damage with Hits and Poison"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Damage with Hits and Poison"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Damage with Hits and Poison"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Damage with Hits and Poison"
 			}
 		},
 		stats={
@@ -11231,30 +10463,28 @@ return {
 		}
 	},
 	[385]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Damage with Hits and Poison for each Poison on the Enemy"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Damage with Hits and Poison for each Poison on the Enemy"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Damage with Hits and Poison for each Poison on the Enemy"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Damage with Hits and Poison for each Poison on the Enemy"
 			}
 		},
 		stats={
@@ -11262,30 +10492,28 @@ return {
 		}
 	},
 	[386]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Damage with Hits"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Damage with Hits"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Damage with Hits"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Damage with Hits"
 			}
 		},
 		stats={
@@ -11293,30 +10521,28 @@ return {
 		}
 	},
 	[387]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Ignite Duration on Enemies"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Ignite Duration on Enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Ignite Duration on Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Ignite Duration on Enemies"
 			}
 		},
 		stats={
@@ -11324,17 +10550,15 @@ return {
 		}
 	},
 	[388]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Enemies Ignited by Supported Skills have {0:+d}% to Fire Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Enemies Ignited by Supported Skills have {0:+d}% to Fire Resistance"
 			}
 		},
 		stats={
@@ -11342,17 +10566,15 @@ return {
 		}
 	},
 	[389]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% chance to not take Damage when you gain Trauma from Supported Skills"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% chance to not take Damage when you gain Trauma from Supported Skills"
 			}
 		},
 		stats={
@@ -11360,30 +10582,28 @@ return {
 		}
 	},
 	[390]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Attacks have {0}% increased Impale Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Attacks have {0}% reduced Impale Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Attacks have {0}% increased Impale Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Attacks have {0}% reduced Impale Effect"
 			}
 		},
 		stats={
@@ -11391,21 +10611,19 @@ return {
 		}
 	},
 	[391]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextOverwhelm"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextOverwhelm"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Impale Damage dealt to Enemies Impaled by Supported Skills Overwhelms {0}% Physical Damage Reduction"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Impale Damage dealt to Enemies Impaled by Supported Skills Overwhelms {0}% Physical Damage Reduction"
 			}
 		},
 		stats={
@@ -11413,17 +10631,15 @@ return {
 		}
 	},
 	[392]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Physical Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Physical Damage"
 			}
 		},
 		stats={
@@ -11431,30 +10647,28 @@ return {
 		}
 	},
 	[393]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Area Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Area Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Area Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Area Damage"
 			}
 		},
 		stats={
@@ -11462,21 +10676,19 @@ return {
 		}
 	},
 	[394]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Infusion grants {}% of Life Regenerated per second"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Infusion grants {}% of Life Regenerated per second"
 			}
 		},
 		stats={
@@ -11484,30 +10696,28 @@ return {
 		}
 	},
 	[395]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Inspiration Charge Duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Inspiration Charge Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Inspiration Charge Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Inspiration Charge Duration"
 			}
 		},
 		stats={
@@ -11515,30 +10725,28 @@ return {
 		}
 	},
 	[396]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Spells lose Intensity with {0}% increased frequency while moving"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Spells lose Intensity with {0}% reduced frequency while moving"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Spells lose Intensity with {0}% increased frequency while moving"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Spells lose Intensity with {0}% reduced frequency while moving"
 			}
 		},
 		stats={
@@ -11546,17 +10754,15 @@ return {
 		}
 	},
 	[397]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Attacks with Supported Skills count as Exerted"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Attacks with Supported Skills count as Exerted"
 			}
 		},
 		stats={
@@ -11564,47 +10770,45 @@ return {
 		}
 	},
 	[398]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]=1,
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Killing Blows with Supported Skills Consume corpses to Recover {0} Life and {1} Mana"
+					[2]={
+						[1]=1,
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
+				text="Killing Blows with Supported Skills Consume corpses to Recover {0} Life and {1} Mana"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Killing Blows with Supported Skills Consume corpses to Recover {0} Life"
+					[2]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[3]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=1,
-							[2]="#"
-						}
+				text="Killing Blows with Supported Skills Consume corpses to Recover {0} Life"
+			},
+			[3]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="Killing Blows with Supported Skills Consume corpses to Recover {1} Mana"
-				}
+					[2]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Killing Blows with Supported Skills Consume corpses to Recover {1} Mana"
 			}
 		},
 		stats={
@@ -11613,21 +10817,19 @@ return {
 		}
 	},
 	[399]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextCloseRange"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextCloseRange"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to Knock Enemies Back with Hits at Close Range"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to Knock Enemies Back with Hits at Close Range"
 			}
 		},
 		stats={
@@ -11635,30 +10837,28 @@ return {
 		}
 	},
 	[400]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Knockback Distance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Knockback Distance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Knockback Distance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Knockback Distance"
 			}
 		},
 		stats={
@@ -11666,25 +10866,23 @@ return {
 		}
 	},
 	[401]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextLifeLeech"
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLifeLeech"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% of Damage Leeched as Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% of Damage Leeched as Life"
 			}
 		},
 		stats={
@@ -11692,38 +10890,36 @@ return {
 		}
 	},
 	[402]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextLightningAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextLightningAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Effect of Lightning Ailments"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Effect of Lightning Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextLightningAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLightningAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Effect of Lightning Ailments"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Effect of Lightning Ailments"
 			}
 		},
 		stats={
@@ -11731,30 +10927,28 @@ return {
 		}
 	},
 	[403]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Lightning Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Lightning Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Lightning Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Lightning Damage"
 			}
 		},
 		stats={
@@ -11762,30 +10956,28 @@ return {
 		}
 	},
 	[404]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Dexterity Requirement"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Dexterity Requirement"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Dexterity Requirement"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Dexterity Requirement"
 			}
 		},
 		stats={
@@ -11793,30 +10985,28 @@ return {
 		}
 	},
 	[405]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Intelligence Requirement"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Intelligence Requirement"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Intelligence Requirement"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Intelligence Requirement"
 			}
 		},
 		stats={
@@ -11824,30 +11014,28 @@ return {
 		}
 	},
 	[406]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Strength Requirement"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Strength Requirement"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Strength Requirement"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Strength Requirement"
 			}
 		},
 		stats={
@@ -11855,30 +11043,28 @@ return {
 		}
 	},
 	[407]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Effect of Maim"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Effect of Maim"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Effect of Maim"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Effect of Maim"
 			}
 		},
 		stats={
@@ -11886,34 +11072,32 @@ return {
 		}
 	},
 	[408]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextMaim"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Attacks have {0}% chance to Maim on Hit"
+					k="reminderstring",
+					v="ReminderTextMaim"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextMaim"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Attacks always Maim on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Supported Attacks have {0}% chance to Maim on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextMaim"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Attacks always Maim on Hit"
 			}
 		},
 		stats={
@@ -11921,25 +11105,23 @@ return {
 		}
 	},
 	[409]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextManaLeech"
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextManaLeech"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% of Damage Leeched as Mana"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% of Damage Leeched as Mana"
 			}
 		},
 		stats={
@@ -11947,17 +11129,15 @@ return {
 		}
 	},
 	[410]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have added Mana Cost equal to {0}% of Unreserved Maximum Mana"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have added Mana Cost equal to {0}% of Unreserved Maximum Mana"
 			}
 		},
 		stats={
@@ -11965,17 +11145,15 @@ return {
 		}
 	},
 	[411]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills gain Added Cold Damage equal to {0}% of Mana Cost, if Mana Cost is not higher than the maximum you could spend"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills gain Added Cold Damage equal to {0}% of Mana Cost, if Mana Cost is not higher than the maximum you could spend"
 			}
 		},
 		stats={
@@ -11983,30 +11161,28 @@ return {
 		}
 	},
 	[412]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Maximum Recovery per Energy Shield Leech"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Maximum Recovery per Energy Shield Leech"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Maximum Recovery per Energy Shield Leech"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Maximum Recovery per Energy Shield Leech"
 			}
 		},
 		stats={
@@ -12014,17 +11190,15 @@ return {
 		}
 	},
 	[413]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0:+d} to maximum Intensity"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0:+d} to maximum Intensity"
 			}
 		},
 		stats={
@@ -12032,30 +11206,28 @@ return {
 		}
 	},
 	[414]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Maximum Recovery per Life Leech"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Maximum Recovery per Life Leech"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Maximum Recovery per Life Leech"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Maximum Recovery per Life Leech"
 			}
 		},
 		stats={
@@ -12063,30 +11235,28 @@ return {
 		}
 	},
 	[415]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Melee Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Melee Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Melee Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Melee Damage"
 			}
 		},
 		stats={
@@ -12094,30 +11264,28 @@ return {
 		}
 	},
 	[416]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Melee Damage against Bleeding Enemies"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Melee Damage against Bleeding Enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Melee Damage against Bleeding Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Melee Damage against Bleeding Enemies"
 			}
 		},
 		stats={
@@ -12125,30 +11293,28 @@ return {
 		}
 	},
 	[417]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Melee Physical Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Melee Physical Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Melee Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Melee Physical Damage"
 			}
 		},
 		stats={
@@ -12156,42 +11322,40 @@ return {
 		}
 	},
 	[418]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextMeleeStrikeRange"
-					},
-					limit={
-						[1]={
-							[1]=10,
-							[2]=10
-						}
-					},
-					text="Supported Skills have {0:+d} metre to Melee Strike Range"
+					k="locations_to_metres",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextMeleeStrikeRange"
+				},
+				limit={
 					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextMeleeStrikeRange"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0:+d} metres to Melee Strike Range"
-				}
+						[1]=10,
+						[2]=10
+					}
+				},
+				text="Supported Skills have {0:+d} metre to Melee Strike Range"
+			},
+			[2]={
+				[1]={
+					k="locations_to_metres",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextMeleeStrikeRange"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0:+d} metres to Melee Strike Range"
 			}
 		},
 		stats={
@@ -12199,30 +11363,28 @@ return {
 		}
 	},
 	[419]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Melee Splash Area of Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Melee Splash Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Melee Splash Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Melee Splash Area of Effect"
 			}
 		},
 		stats={
@@ -12230,30 +11392,28 @@ return {
 		}
 	},
 	[420]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Mine Detonation Area of Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Mine Detonation Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Mine Detonation Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Mine Detonation Area of Effect"
 			}
 		},
 		stats={
@@ -12261,30 +11421,28 @@ return {
 		}
 	},
 	[421]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Mines from Supported Skills have {0}% increased Detonation Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Mines from Supported Skills have {0}% reduced Detonation Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Mines from Supported Skills have {0}% increased Detonation Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Mines from Supported Skills have {0}% reduced Detonation Speed"
 			}
 		},
 		stats={
@@ -12292,30 +11450,28 @@ return {
 		}
 	},
 	[422]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Mine Throwing Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Mine Throwing Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Mine Throwing Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Mine Throwing Speed"
 			}
 		},
 		stats={
@@ -12323,30 +11479,28 @@ return {
 		}
 	},
 	[423]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Projectile Speed per Frenzy Charge when used by a Mine"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Projectile Speed per Frenzy Charge when used by a Mine"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Projectile Speed per Frenzy Charge when used by a Mine"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Projectile Speed per Frenzy Charge when used by a Mine"
 			}
 		},
 		stats={
@@ -12354,21 +11508,19 @@ return {
 		}
 	},
 	[424]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Supported Skills have {0} to {1} added Cold Damage per Frenzy Charge"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0} to {1} added Cold Damage per Frenzy Charge"
 			}
 		},
 		stats={
@@ -12377,17 +11529,15 @@ return {
 		}
 	},
 	[425]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills always fire at least 1 Projectile"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills always fire at least 1 Projectile"
 			}
 		},
 		stats={
@@ -12395,21 +11545,19 @@ return {
 		}
 	},
 	[426]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextPower"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextPower"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have minimum of {0} Power"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have minimum of {0} Power"
 			}
 		},
 		stats={
@@ -12417,17 +11565,15 @@ return {
 		}
 	},
 	[427]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills have {0}% additional Physical Damage Reduction"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills have {0}% additional Physical Damage Reduction"
 			}
 		},
 		stats={
@@ -12435,30 +11581,28 @@ return {
 		}
 	},
 	[428]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills deal {}% increased Damage with Ailments"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills deal {}% reduced Damage with Ailments"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills deal {}% increased Damage with Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills deal {}% reduced Damage with Ailments"
 			}
 		},
 		stats={
@@ -12466,30 +11610,28 @@ return {
 		}
 	},
 	[429]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Minion Attack Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Minion Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Minion Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Minion Attack Speed"
 			}
 		},
 		stats={
@@ -12497,17 +11639,15 @@ return {
 		}
 	},
 	[430]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills have {0:+d}% Chance to Block Attack Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills have {0:+d}% Chance to Block Attack Damage"
 			}
 		},
 		stats={
@@ -12515,30 +11655,28 @@ return {
 		}
 	},
 	[431]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills deal {}% increased Burning Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills deal {}% reduced Burning Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills deal {}% increased Burning Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills deal {}% reduced Burning Damage"
 			}
 		},
 		stats={
@@ -12546,30 +11684,28 @@ return {
 		}
 	},
 	[432]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Minion Cast Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Minion Cast Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Minion Cast Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Minion Cast Speed"
 			}
 		},
 		stats={
@@ -12577,17 +11713,15 @@ return {
 		}
 	},
 	[433]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills have {0}% chance to deal Double Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills have {0}% chance to deal Double Damage"
 			}
 		},
 		stats={
@@ -12595,17 +11729,15 @@ return {
 		}
 	},
 	[434]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills have {0}% chance to Taunt on Hit"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills have {0}% chance to Taunt on Hit"
 			}
 		},
 		stats={
@@ -12613,30 +11745,28 @@ return {
 		}
 	},
 	[435]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills have {}% increased Cooldown Recovery Rate"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills have {}% reduced Cooldown Recovery Rate"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills have {}% increased Cooldown Recovery Rate"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills have {}% reduced Cooldown Recovery Rate"
 			}
 		},
 		stats={
@@ -12644,30 +11774,28 @@ return {
 		}
 	},
 	[436]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills have {0}% increased Critical Strike Chance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills have {0}% reduced Critical Strike Chance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills have {0}% increased Critical Strike Chance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills have {0}% reduced Critical Strike Chance"
 			}
 		},
 		stats={
@@ -12675,30 +11803,28 @@ return {
 		}
 	},
 	[437]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills deal {0}% increased Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills deal {0}% reduced Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills deal {0}% increased Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills deal {0}% reduced Damage"
 			}
 		},
 		stats={
@@ -12706,30 +11832,28 @@ return {
 		}
 	},
 	[438]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills deal {}% increased Damage while on Full Life"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills deal {}% reduced Damage while on Full Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills deal {}% increased Damage while on Full Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills deal {}% reduced Damage while on Full Life"
 			}
 		},
 		stats={
@@ -12737,21 +11861,19 @@ return {
 		}
 	},
 	[439]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextFeedingFrenzy"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextFeedingFrenzy"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills have {0}% chance to grant Feeding Frenzy to you on Hit"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills have {0}% chance to grant Feeding Frenzy to you on Hit"
 			}
 		},
 		stats={
@@ -12759,25 +11881,23 @@ return {
 		}
 	},
 	[440]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextLifeLeech"
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLifeLeech"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skill Leech {}% of Elemental Damage as Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skill Leech {}% of Elemental Damage as Life"
 			}
 		},
 		stats={
@@ -12785,30 +11905,28 @@ return {
 		}
 	},
 	[441]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Minion maximum Life"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Minion maximum Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Minion maximum Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Minion maximum Life"
 			}
 		},
 		stats={
@@ -12816,30 +11934,28 @@ return {
 		}
 	},
 	[442]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Minion Movement Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Minion Movement Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Minion Movement Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Minion Movement Speed"
 			}
 		},
 		stats={
@@ -12847,30 +11963,28 @@ return {
 		}
 	},
 	[443]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills have {0}% increased Projectile Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills have {0}% reduced Projectile Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills have {0}% increased Projectile Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills have {0}% reduced Projectile Speed"
 			}
 		},
 		stats={
@@ -12878,17 +11992,15 @@ return {
 		}
 	},
 	[444]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills recover {0}% of Life on Hit"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills recover {0}% of Life on Hit"
 			}
 		},
 		stats={
@@ -12896,26 +12008,24 @@ return {
 		}
 	},
 	[445]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Minions from Supported Skills have {0}% chance to inflict Exposure on Hit, applying -10% to the Elemental Resistance matching highest Damage type taken by Enemy"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills inflict Exposure on Hit, applying -10% to the Elemental Resistance matching highest Damage type taken by Enemy"
-				}
+				text="Minions from Supported Skills have {0}% chance to inflict Exposure on Hit, applying -10% to the Elemental Resistance matching highest Damage type taken by Enemy"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills inflict Exposure on Hit, applying -10% to the Elemental Resistance matching highest Damage type taken by Enemy"
 			}
 		},
 		stats={
@@ -12923,17 +12033,15 @@ return {
 		}
 	},
 	[446]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Mirage Archer fires {0} additional Projectiles with Supported Skills"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Mirage Archer fires {0} additional Projectiles with Supported Skills"
 			}
 		},
 		stats={
@@ -12941,30 +12049,28 @@ return {
 		}
 	},
 	[447]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Projectiles Fired by Supported Skills have {0}% increased Projectile spread"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Projectiles Fired by Supported Skills have {0}% reduced Projectile spread"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Projectiles Fired by Supported Skills have {0}% increased Projectile spread"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Projectiles Fired by Supported Skills have {0}% reduced Projectile spread"
 			}
 		},
 		stats={
@@ -12972,30 +12078,28 @@ return {
 		}
 	},
 	[448]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Area of Effect per Repeat"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Area of Effect per Repeat"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Area of Effect per Repeat"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Area of Effect per Repeat"
 			}
 		},
 		stats={
@@ -13003,30 +12107,28 @@ return {
 		}
 	},
 	[449]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="First Repeat of Supported Skills deals {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="First Repeat of Supported Skills deals {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="First Repeat of Supported Skills deals {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="First Repeat of Supported Skills deals {0}% less Damage"
 			}
 		},
 		stats={
@@ -13034,30 +12136,28 @@ return {
 		}
 	},
 	[450]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Second Repeat of Supported Skills deals {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Second Repeat of Supported Skills deals {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Second Repeat of Supported Skills deals {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Second Repeat of Supported Skills deals {0}% less Damage"
 			}
 		},
 		stats={
@@ -13065,30 +12165,28 @@ return {
 		}
 	},
 	[451]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Third Repeat of Supported Skills deals {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Third Repeat of Supported Skills deals {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Third Repeat of Supported Skills deals {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Third Repeat of Supported Skills deals {0}% less Damage"
 			}
 		},
 		stats={
@@ -13096,17 +12194,15 @@ return {
 		}
 	},
 	[452]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Elusive from Supported Skills also grants {0:+d}% to Critical Strike Multiplier for\nSkills Supported by Nightblade"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Elusive from Supported Skills also grants {0:+d}% to Critical Strike Multiplier for\nSkills Supported by Nightblade"
 			}
 		},
 		stats={
@@ -13114,17 +12210,15 @@ return {
 		}
 	},
 	[453]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills Cost nothing"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills Cost nothing"
 			}
 		},
 		stats={
@@ -13132,30 +12226,28 @@ return {
 		}
 	},
 	[454]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Non-Curse Auras from Supported Skills have {0}% increased Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Non-Curse Auras from Supported Skills have {0}% reduced Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Non-Curse Auras from Supported Skills have {0}% increased Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Non-Curse Auras from Supported Skills have {0}% reduced Effect"
 			}
 		},
 		stats={
@@ -13163,38 +12255,36 @@ return {
 		}
 	},
 	[455]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextNonDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextNonDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Effect of non-Damaging Ailments on Enemies"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Effect of non-Damaging Ailments on Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextNonDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextNonDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Effect of non-Damaging Ailments on Enemies"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Effect of non-Damaging Ailments on Enemies"
 			}
 		},
 		stats={
@@ -13202,26 +12292,24 @@ return {
 		}
 	},
 	[456]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Supported Skills can apply an additional Curse"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Supported Skills can apply {0} additional Curses"
-				}
+				text="Supported Skills can apply an additional Curse"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Supported Skills can apply {0} additional Curses"
 			}
 		},
 		stats={
@@ -13229,34 +12317,32 @@ return {
 		}
 	},
 	[457]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextMultipleMines"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Supported Skills throw up to 1 additional Mine"
+					k="reminderstring",
+					v="ReminderTextMultipleMines"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextMultipleMines"
-					},
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Supported Skills throw up to {0} additional Mines"
-				}
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Supported Skills throw up to 1 additional Mine"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextMultipleMines"
+				},
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Supported Skills throw up to {0} additional Mines"
 			}
 		},
 		stats={
@@ -13264,26 +12350,24 @@ return {
 		}
 	},
 	[458]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Supported Skills fire an additional Projectile"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Supported Skills fire {0} additional Projectiles"
-				}
+				text="Supported Skills fire an additional Projectile"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Supported Skills fire {0} additional Projectiles"
 			}
 		},
 		stats={
@@ -13291,26 +12375,24 @@ return {
 		}
 	},
 	[459]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Supported Skills can have up to {0} additional Remote Mine placed at a time"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills can have up to {0} additional Remote Mines placed at a time"
-				}
+				text="Supported Skills can have up to {0} additional Remote Mine placed at a time"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills can have up to {0} additional Remote Mines placed at a time"
 			}
 		},
 		stats={
@@ -13318,26 +12400,24 @@ return {
 		}
 	},
 	[460]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Supported Skills can have up to {0} additional Trap placed at a time"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills can have up to {0} additional Traps placed at a time"
-				}
+				text="Supported Skills can have up to {0} additional Trap placed at a time"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills can have up to {0} additional Traps placed at a time"
 			}
 		},
 		stats={
@@ -13345,30 +12425,28 @@ return {
 		}
 	},
 	[461]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills fire {0}% more Projectiles"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills fire {0}% less Projectiles"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills fire {0}% more Projectiles"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills fire {0}% less Projectiles"
 			}
 		},
 		stats={
@@ -13376,25 +12454,23 @@ return {
 		}
 	},
 	[462]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextOnslaught"
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextOnslaught"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills gain Onslaught for {0} seconds on Killing a Shocked Enemy"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills gain Onslaught for {0} seconds on Killing a Shocked Enemy"
 			}
 		},
 		stats={
@@ -13402,38 +12478,36 @@ return {
 		}
 	},
 	[463]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextOverpowered"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextOverpowered"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {}% increased Overpowered Effect"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {}% increased Overpowered Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextOverpowered"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextOverpowered"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {}% reduced Overpowered Effect"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {}% reduced Overpowered Effect"
 			}
 		},
 		stats={
@@ -13441,21 +12515,19 @@ return {
 		}
 	},
 	[464]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextOverwhelm"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextOverwhelm"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Hits from Supported Skills Overwhelm {0}% of Physical Damage Reduction while at maximum Fortification"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Hits from Supported Skills Overwhelm {0}% of Physical Damage Reduction while at maximum Fortification"
 			}
 		},
 		stats={
@@ -13463,30 +12535,28 @@ return {
 		}
 	},
 	[465]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased distance between Firing Points"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced distance between Firing Points"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased distance between Firing Points"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced distance between Firing Points"
 			}
 		},
 		stats={
@@ -13494,26 +12564,24 @@ return {
 		}
 	},
 	[466]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0}% chance to gain a Frenzy Charge when a Mine from Supported\nSkills is Detonated targeting an Enemy"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]=100
-						}
-					},
-					text="Gain a Frenzy Charge when a Mine from Supported Skills is Detonated targeting an Enemy"
-				}
+				text="{0}% chance to gain a Frenzy Charge when a Mine from Supported\nSkills is Detonated targeting an Enemy"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]=100
+					}
+				},
+				text="Gain a Frenzy Charge when a Mine from Supported Skills is Detonated targeting an Enemy"
 			}
 		},
 		stats={
@@ -13521,26 +12589,24 @@ return {
 		}
 	},
 	[467]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to gain a Frenzy Charge when your Trap is triggered by an Enemy"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]=100
-						}
-					},
-					text="Supported Skills gain a Frenzy Charge when your Trap is triggered by an Enemy"
-				}
+				text="Supported Skills have {0}% chance to gain a Frenzy Charge when your Trap is triggered by an Enemy"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]=100
+					}
+				},
+				text="Supported Skills gain a Frenzy Charge when your Trap is triggered by an Enemy"
 			}
 		},
 		stats={
@@ -13548,26 +12614,24 @@ return {
 		}
 	},
 	[468]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0}% chance to gain a Power Charge when a Mine from Supported\nSkills is Detonated targeting an Enemy"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]=100
-						}
-					},
-					text="Gain a Power Charge when a Mine from Supported Skills is Detonated targeting an Enemy"
-				}
+				text="{0}% chance to gain a Power Charge when a Mine from Supported\nSkills is Detonated targeting an Enemy"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]=100
+					}
+				},
+				text="Gain a Power Charge when a Mine from Supported Skills is Detonated targeting an Enemy"
 			}
 		},
 		stats={
@@ -13575,26 +12639,24 @@ return {
 		}
 	},
 	[469]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to gain a Power Charge when your Trap is triggered by an Enemy"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]=100
-						}
-					},
-					text="Supported Skills gain a Power Charge when your Trap is triggered by an Enemy"
-				}
+				text="Supported Skills have {0}% chance to gain a Power Charge when your Trap is triggered by an Enemy"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]=100
+					}
+				},
+				text="Supported Skills gain a Power Charge when your Trap is triggered by an Enemy"
 			}
 		},
 		stats={
@@ -13602,17 +12664,15 @@ return {
 		}
 	},
 	[470]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills gain {0}% of Physical Damage as Extra Chaos Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills gain {0}% of Physical Damage as Extra Chaos Damage"
 			}
 		},
 		stats={
@@ -13620,17 +12680,15 @@ return {
 		}
 	},
 	[471]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills gain {0}% of Physical Damage as Extra Fire Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills gain {0}% of Physical Damage as Extra Fire Damage"
 			}
 		},
 		stats={
@@ -13638,17 +12696,15 @@ return {
 		}
 	},
 	[472]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills gain {0}% of Physical Damage as Extra Lightning Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills gain {0}% of Physical Damage as Extra Lightning Damage"
 			}
 		},
 		stats={
@@ -13656,30 +12712,28 @@ return {
 		}
 	},
 	[473]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Physical Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Physical Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Physical Damage"
 			}
 		},
 		stats={
@@ -13687,30 +12741,28 @@ return {
 		}
 	},
 	[474]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Cooldown Recovery Rate for throwing Traps"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Cooldown Recovery Rate for throwing Traps"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Cooldown Recovery Rate for throwing Traps"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Cooldown Recovery Rate for throwing Traps"
 			}
 		},
 		stats={
@@ -13718,26 +12770,24 @@ return {
 		}
 	},
 	[475]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]=99
-						}
-					},
-					text="Projectiles Fired by Supported Skills have {0}% chance not to Pierce Enemies"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Projectiles Fired by Supported Skills cannot Pierce Enemies"
-				}
+				text="Projectiles Fired by Supported Skills have {0}% chance not to Pierce Enemies"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Projectiles Fired by Supported Skills cannot Pierce Enemies"
 			}
 		},
 		stats={
@@ -13745,30 +12795,28 @@ return {
 		}
 	},
 	[476]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Projectile Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Projectile Damage"
 			}
 		},
 		stats={
@@ -13776,30 +12824,28 @@ return {
 		}
 	},
 	[477]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Projectiles from Supported Skills that have Pierced deal {0}% increased Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Projectiles from Supported Skills that have Pierced deal {0}% reduced Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Projectiles from Supported Skills that have Pierced deal {0}% increased Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Projectiles from Supported Skills that have Pierced deal {0}% reduced Damage"
 			}
 		},
 		stats={
@@ -13807,34 +12853,32 @@ return {
 		}
 	},
 	[478]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=10,
-							[2]=10
-						}
-					},
-					text="Projectiles from Supported Skills have {0} metre maximum range"
+					k="locations_to_metres",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Projectiles from Supported Skills have {0} metres maximum range"
-				}
+						[1]=10,
+						[2]=10
+					}
+				},
+				text="Projectiles from Supported Skills have {0} metre maximum range"
+			},
+			[2]={
+				[1]={
+					k="locations_to_metres",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Projectiles from Supported Skills have {0} metres maximum range"
 			}
 		},
 		stats={
@@ -13842,30 +12886,28 @@ return {
 		}
 	},
 	[479]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Projectiles from Supported Skills deal {0}% increased Damage with Hits to nearby Enemies"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Projectiles from Supported Skills deal {0}% reduced Projectile Damage with Hits to nearby Enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Projectiles from Supported Skills deal {0}% increased Damage with Hits to nearby Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Projectiles from Supported Skills deal {0}% reduced Projectile Damage with Hits to nearby Enemies"
 			}
 		},
 		stats={
@@ -13873,34 +12915,32 @@ return {
 		}
 	},
 	[480]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=10,
-							[2]=10
-						}
-					},
-					text="Projectiles from Supported Skills Pierce all Targets within {0} metre"
+					k="locations_to_metres",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Projectiles from Supported Skills Pierce all Targets within {0} metres"
-				}
+						[1]=10,
+						[2]=10
+					}
+				},
+				text="Projectiles from Supported Skills Pierce all Targets within {0} metre"
+			},
+			[2]={
+				[1]={
+					k="locations_to_metres",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Projectiles from Supported Skills Pierce all Targets within {0} metres"
 			}
 		},
 		stats={
@@ -13908,17 +12948,15 @@ return {
 		}
 	},
 	[481]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Ballista Totems from Supported Skills only Attack when you fire an Attack Projectile"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Ballista Totems from Supported Skills only Attack when you fire an Attack Projectile"
 			}
 		},
 		stats={
@@ -13926,21 +12964,19 @@ return {
 		}
 	},
 	[482]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Recover {0}% of Life when you Stun an Enemy with Supported Skills"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Recover {0}% of Life when you Stun an Enemy with Supported Skills"
 			}
 		},
 		stats={
@@ -13948,17 +12984,15 @@ return {
 		}
 	},
 	[483]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Recover {}% of Life when Supported Skills Cull an Enemy"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Recover {}% of Life when Supported Skills Cull an Enemy"
 			}
 		},
 		stats={
@@ -13966,21 +13000,19 @@ return {
 		}
 	},
 	[484]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Recover {0}% of Life when you use Supported Skills"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Recover {0}% of Life when you use Supported Skills"
 			}
 		},
 		stats={
@@ -13988,17 +13020,15 @@ return {
 		}
 	},
 	[485]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills Penetrate {0}% Chaos Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills Penetrate {0}% Chaos Resistance"
 			}
 		},
 		stats={
@@ -14006,17 +13036,15 @@ return {
 		}
 	},
 	[486]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Enemies have {0}% reduced chance to Dodge Hits from Supported Skills"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Enemies have {0}% reduced chance to Dodge Hits from Supported Skills"
 			}
 		},
 		stats={
@@ -14024,26 +13052,24 @@ return {
 		}
 	},
 	[487]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have {}% chance to refresh Bleeding Duration on Hit"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills refresh Bleeding Duration on Hit"
-				}
+				text="Supported Skills have {}% chance to refresh Bleeding Duration on Hit"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills refresh Bleeding Duration on Hit"
 			}
 		},
 		stats={
@@ -14051,17 +13077,15 @@ return {
 		}
 	},
 	[488]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Regenerate {0}% of Life over 1 second when you use Supported Skills"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Regenerate {0}% of Life over 1 second when you use Supported Skills"
 			}
 		},
 		stats={
@@ -14069,17 +13093,15 @@ return {
 		}
 	},
 	[489]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills gain a Base Reservation equal to Base Mana and Life Cost"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills gain a Base Reservation equal to Base Mana and Life Cost"
 			}
 		},
 		stats={
@@ -14087,30 +13109,28 @@ return {
 		}
 	},
 	[490]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Retaliation Skills become Usable for {0}% longer"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Retaliation Skills become Usable for {0}% shorter"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Retaliation Skills become Usable for {0}% longer"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Retaliation Skills become Usable for {0}% shorter"
 			}
 		},
 		stats={
@@ -14118,30 +13138,28 @@ return {
 		}
 	},
 	[491]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Shock Duration on Enemies"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Shock Duration on Enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Shock Duration on Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Shock Duration on Enemies"
 			}
 		},
 		stats={
@@ -14149,30 +13167,28 @@ return {
 		}
 	},
 	[492]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Effect of Shocks inflicted with Critical Strikes from Supported Skills"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Effect of Shocks inflicted with Critical Strikes from Supported Skills"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Effect of Shocks inflicted with Critical Strikes from Supported Skills"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Effect of Shocks inflicted with Critical Strikes from Supported Skills"
 			}
 		},
 		stats={
@@ -14180,30 +13196,28 @@ return {
 		}
 	},
 	[493]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Activation frequency"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Activation frequency"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Activation frequency"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Activation frequency"
 			}
 		},
 		stats={
@@ -14211,17 +13225,15 @@ return {
 		}
 	},
 	[494]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills also count as Blessing Skills\nYou can only have one Aura on you from your Blessing Skills"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills also count as Blessing Skills\nYou can only have one Aura on you from your Blessing Skills"
 			}
 		},
 		stats={
@@ -14229,17 +13241,15 @@ return {
 		}
 	},
 	[495]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Your Non-Blessing Skills which Reserve Mana are Disabled while you have an Aura from a Supported Skill on you"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Your Non-Blessing Skills which Reserve Mana are Disabled while you have an Aura from a Supported Skill on you"
 			}
 		},
 		stats={
@@ -14247,30 +13257,28 @@ return {
 		}
 	},
 	[496]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Buff Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Buff Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Buff Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Buff Effect"
 			}
 		},
 		stats={
@@ -14278,17 +13286,15 @@ return {
 		}
 	},
 	[497]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Maximum 1 Summoned Mirage Archer"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Maximum 1 Summoned Mirage Archer"
 			}
 		},
 		stats={
@@ -14296,17 +13302,15 @@ return {
 		}
 	},
 	[498]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% of Cold Damage Converted to Fire Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% of Cold Damage Converted to Fire Damage"
 			}
 		},
 		stats={
@@ -14314,17 +13318,15 @@ return {
 		}
 	},
 	[499]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills convert {0}% of Physical Damage to a random Element"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills convert {0}% of Physical Damage to a random Element"
 			}
 		},
 		stats={
@@ -14332,38 +13334,36 @@ return {
 		}
 	},
 	[500]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Duration of Supported Skills and Damaging Ailments they inflict"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Duration of Supported Skills and Damaging Ailments they inflict"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Duration of Supported Skills and Damaging Ailments they inflict"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Duration of Supported Skills and Damaging Ailments they inflict"
 			}
 		},
 		stats={
@@ -14371,30 +13371,28 @@ return {
 		}
 	},
 	[501]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Skill Effect Duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Skill Effect Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Skill Effect Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Skill Effect Duration"
 			}
 		},
 		stats={
@@ -14402,30 +13400,28 @@ return {
 		}
 	},
 	[502]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {}% increased Skill Effect Duration while Dead"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {}% reduced Skill Effect Duration while Dead"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {}% increased Skill Effect Duration while Dead"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {}% reduced Skill Effect Duration while Dead"
 			}
 		},
 		stats={
@@ -14433,17 +13429,15 @@ return {
 		}
 	},
 	[503]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% of Physical Damage Converted to Chaos Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% of Physical Damage Converted to Chaos Damage"
 			}
 		},
 		stats={
@@ -14451,21 +13445,19 @@ return {
 		}
 	},
 	[504]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Supported Skills have {0}% of Physical Damage Converted to Cold Damage"
-				}
+					[2]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Supported Skills have {0}% of Physical Damage Converted to Cold Damage"
 			}
 		},
 		stats={
@@ -14474,17 +13466,15 @@ return {
 		}
 	},
 	[505]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% of Physical Damage Converted to Fire Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% of Physical Damage Converted to Fire Damage"
 			}
 		},
 		stats={
@@ -14492,17 +13482,15 @@ return {
 		}
 	},
 	[506]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% of Physical Damage Converted to Lightning Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% of Physical Damage Converted to Lightning Damage"
 			}
 		},
 		stats={
@@ -14510,30 +13498,28 @@ return {
 		}
 	},
 	[507]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage when used by Sacred Wisps"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage when used by Sacred Wisps"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage when used by Sacred Wisps"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage when used by Sacred Wisps"
 			}
 		},
 		stats={
@@ -14541,30 +13527,28 @@ return {
 		}
 	},
 	[508]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -14572,68 +13556,66 @@ return {
 		}
 	},
 	[509]={
-		lang={
-			English={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
+					},
+					[2]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {1}% more Damage with Hits per Snipe Stage"
+			},
+			[2]={
 				[1]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {1}% more Damage with Hits per Snipe Stage"
+					k="negate",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
+						[1]=0,
+						[2]=0
 					},
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {1}% less Damage with Hits per Snipe Stage"
+					[2]={
+						[1]="#",
+						[2]=-1
+					}
 				},
-				[3]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="This Skill's Arrows deal {1}% more Damage with Hits per Stage"
-				},
-				[4]={
+				text="Supported Skills deal {1}% less Damage with Hits per Snipe Stage"
+			},
+			[3]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
+						[1]="#",
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]=-1
-						}
+					[2]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="This Skill's Arrows deal {1}% more Damage with Hits per Stage"
+			},
+			[4]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="This Skill's Arrows deal {1}% less Damage with Hits per Stage"
-				}
+					[2]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="This Skill's Arrows deal {1}% less Damage with Hits per Stage"
 			}
 		},
 		stats={
@@ -14642,84 +13624,82 @@ return {
 		}
 	},
 	[510]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
+						[1]=0,
+						[2]=0
 					},
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {1}% more Damage with Ailments per Snipe Stage"
+					[2]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {1}% more Damage with Ailments per Snipe Stage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
+						[1]=0,
+						[2]=0
 					},
 					[2]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {1}% less Damage with Ailments per Snipe Stage"
+						[1]="#",
+						[2]=-1
+					}
 				},
-				[3]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="This Skill's Arrows deal {1}% more Damage with Ailments per Stage"
+				text="Supported Skills deal {1}% less Damage with Ailments per Snipe Stage"
+			},
+			[3]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
 				},
-				[4]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
+						[1]="#",
+						[2]="#"
 					},
 					[2]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="This Skill's Arrows deal {1}% more Damage with Ailments per Stage"
+			},
+			[4]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="This Skill's Arrows deal {1}% less Damage with Ailments per Stage"
-				}
+					[2]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="This Skill's Arrows deal {1}% less Damage with Ailments per Stage"
 			}
 		},
 		stats={
@@ -14728,30 +13708,28 @@ return {
 		}
 	},
 	[511]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Spell Critical Strike Chance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Spell Critical Strike Chance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Spell Critical Strike Chance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Spell Critical Strike Chance"
 			}
 		},
 		stats={
@@ -14759,30 +13737,28 @@ return {
 		}
 	},
 	[512]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Spell Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Spell Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Spell Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Spell Damage"
 			}
 		},
 		stats={
@@ -14790,17 +13766,15 @@ return {
 		}
 	},
 	[513]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Final Repeat of Supported Skills has {0}% chance to deal Double Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Final Repeat of Supported Skills has {0}% chance to deal Double Damage"
 			}
 		},
 		stats={
@@ -14808,34 +13782,32 @@ return {
 		}
 	},
 	[514]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						}
-					},
-					text="Beams Hit Enemies every {0} second"
+					k="milliseconds_to_seconds",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_2dp",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Beams Hit Enemies every {0} seconds"
-				}
+						[1]=1000,
+						[2]=1000
+					}
+				},
+				text="Beams Hit Enemies every {0} second"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds_2dp",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Beams Hit Enemies every {0} seconds"
 			}
 		},
 		stats={
@@ -14843,17 +13815,15 @@ return {
 		}
 	},
 	[515]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0}% increased Beam frequency"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0}% increased Beam frequency"
 			}
 		},
 		stats={
@@ -14861,17 +13831,15 @@ return {
 		}
 	},
 	[516]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="When you Hit an Enemy with an Arrow from a Supported Skill, Summon a Mirage Archer which uses that Skill\nMirage Archer can use Triggered Attacks as though they were not Triggered"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="When you Hit an Enemy with an Arrow from a Supported Skill, Summon a Mirage Archer which uses that Skill\nMirage Archer can use Triggered Attacks as though they were not Triggered"
 			}
 		},
 		stats={
@@ -14879,17 +13847,15 @@ return {
 		}
 	},
 	[517]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills will Trigger Summon Sacred Wisps on Hit"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills will Trigger Summon Sacred Wisps on Hit"
 			}
 		},
 		stats={
@@ -14897,30 +13863,28 @@ return {
 		}
 	},
 	[518]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Totem Placement speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Totem Placement speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Totem Placement speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Totem Placement speed"
 			}
 		},
 		stats={
@@ -14928,26 +13892,24 @@ return {
 		}
 	},
 	[519]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Supported Non-Instant Skills have {0:+d} Cooldown Use"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Supported Non-Instant Skills have {0:+d} Cooldown Uses"
-				}
+				text="Supported Non-Instant Skills have {0:+d} Cooldown Use"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Supported Non-Instant Skills have {0:+d} Cooldown Uses"
 			}
 		},
 		stats={
@@ -14955,17 +13917,15 @@ return {
 		}
 	},
 	[520]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to throw an additional Trap"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to throw an additional Trap"
 			}
 		},
 		stats={
@@ -14973,30 +13933,28 @@ return {
 		}
 	},
 	[521]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Attack Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Attack Speed"
 			}
 		},
 		stats={
@@ -15004,30 +13962,28 @@ return {
 		}
 	},
 	[522]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Seal gain frequency"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Seal gain frequency"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Seal gain frequency"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Seal gain frequency"
 			}
 		},
 		stats={
@@ -15035,30 +13991,28 @@ return {
 		}
 	},
 	[523]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Spell Damage while you have Arcane Surge"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Spell Damage while you have Arcane Surge"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Spell Damage while you have Arcane Surge"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Spell Damage while you have Arcane Surge"
 			}
 		},
 		stats={
@@ -15066,21 +14020,19 @@ return {
 		}
 	},
 	[524]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds_2dp",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_2dp",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Auras from Supported Skills have a base duration of {0} seconds"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Auras from Supported Skills have a base duration of {0} seconds"
 			}
 		},
 		stats={
@@ -15088,17 +14040,15 @@ return {
 		}
 	},
 	[525]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Spells are Triggered when their Cooldowns are over"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Spells are Triggered when their Cooldowns are over"
 			}
 		},
 		stats={
@@ -15106,17 +14056,15 @@ return {
 		}
 	},
 	[526]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Warcries are Triggered when their Cooldowns are over"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Warcries are Triggered when their Cooldowns are over"
 			}
 		},
 		stats={
@@ -15124,17 +14072,15 @@ return {
 		}
 	},
 	[527]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills' Base Mana Cost is {0}"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills' Base Mana Cost is {0}"
 			}
 		},
 		stats={
@@ -15142,30 +14088,28 @@ return {
 		}
 	},
 	[528]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Attack Time per Projectile"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Attack Time per Projectile"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Attack Time per Projectile"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Attack Time per Projectile"
 			}
 		},
 		stats={
@@ -15173,30 +14117,28 @@ return {
 		}
 	},
 	[529]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Trap and Mine Throwing Time per Projectile"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Trap and Mine Throwing Time per Projectile"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Trap and Mine Throwing Time per Projectile"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Trap and Mine Throwing Time per Projectile"
 			}
 		},
 		stats={
@@ -15204,30 +14146,28 @@ return {
 		}
 	},
 	[530]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Attacks deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Attacks deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Attacks deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Attacks deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -15235,26 +14175,24 @@ return {
 		}
 	},
 	[531]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have a {0}% chance to Trigger Shockwave on Melee Hit"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills will Trigger Shockwave on Melee Hit"
-				}
+				text="Supported Skills have a {0}% chance to Trigger Shockwave on Melee Hit"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills will Trigger Shockwave on Melee Hit"
 			}
 		},
 		stats={
@@ -15262,30 +14200,28 @@ return {
 		}
 	},
 	[532]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Cold Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Cold Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Cold Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Cold Damage"
 			}
 		},
 		stats={
@@ -15293,30 +14229,28 @@ return {
 		}
 	},
 	[533]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Area of Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Area of Effect"
 			}
 		},
 		stats={
@@ -15324,30 +14258,28 @@ return {
 		}
 	},
 	[534]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -15355,30 +14287,28 @@ return {
 		}
 	},
 	[535]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Burning Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Burning Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Burning Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Burning Damage"
 			}
 		},
 		stats={
@@ -15386,30 +14316,28 @@ return {
 		}
 	},
 	[536]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Attack Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Attack Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Attack Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Attack Damage"
 			}
 		},
 		stats={
@@ -15417,38 +14345,36 @@ return {
 		}
 	},
 	[537]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextNonDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextNonDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Triggered Spells have {0}% increased Effect of Non-Damaging Ailments"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Triggered Spells have {0}% increased Effect of Non-Damaging Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextNonDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextNonDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Triggered Spells have {0}% reduced Effect of Non-Damaging Ailments"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Triggered Spells have {0}% reduced Effect of Non-Damaging Ailments"
 			}
 		},
 		stats={
@@ -15456,30 +14382,28 @@ return {
 		}
 	},
 	[538]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Attacks deal {0}% more Damage with Bleeding"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Attacks deal {0}% less Damage with Bleeding"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Attacks deal {0}% more Damage with Bleeding"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Attacks deal {0}% less Damage with Bleeding"
 			}
 		},
 		stats={
@@ -15487,30 +14411,28 @@ return {
 		}
 	},
 	[539]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Chaos Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Chaos Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Chaos Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Chaos Damage"
 			}
 		},
 		stats={
@@ -15518,30 +14440,28 @@ return {
 		}
 	},
 	[540]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -15549,17 +14469,15 @@ return {
 		}
 	},
 	[541]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="[DNT] Ignites from Stunning Melee Hits from Supported Skills count as coming from a Critical Strike"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="[DNT] Ignites from Stunning Melee Hits from Supported Skills count as coming from a Critical Strike"
 			}
 		},
 		stats={
@@ -15567,30 +14485,28 @@ return {
 		}
 	},
 	[542]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="[DNT] Ignites from Stunning Melee Hits from Supported Skills deal {0}% more Damage per 200ms of Stun duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="[DNT] Ignites from Stunning Melee Hits from Supported Skills deal {0}% less Damage per 200ms of Stun duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="[DNT] Ignites from Stunning Melee Hits from Supported Skills deal {0}% more Damage per 200ms of Stun duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="[DNT] Ignites from Stunning Melee Hits from Supported Skills deal {0}% less Damage per 200ms of Stun duration"
 			}
 		},
 		stats={
@@ -15598,30 +14514,28 @@ return {
 		}
 	},
 	[543]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="[DNT] Ignites from Stunning Melee Hits from Supported Skills have {0}% increased Duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="[DNT] Ignites from Stunning Melee Hits from Supported Skills have {0}% reduced Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="[DNT] Ignites from Stunning Melee Hits from Supported Skills have {0}% increased Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="[DNT] Ignites from Stunning Melee Hits from Supported Skills have {0}% reduced Duration"
 			}
 		},
 		stats={
@@ -15629,30 +14543,28 @@ return {
 		}
 	},
 	[544]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Area of Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Area of Effect"
 			}
 		},
 		stats={
@@ -15660,21 +14572,19 @@ return {
 		}
 	},
 	[545]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Corrupted Blood inflicted by Supported Warcries deals {0} base Physical Damage per second"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Corrupted Blood inflicted by Supported Warcries deals {0} base Physical Damage per second"
 			}
 		},
 		stats={
@@ -15682,26 +14592,24 @@ return {
 		}
 	},
 	[546]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Supported Warcries inflict Corrupted Blood on the first\nenemy Hit by each Attack they Exert"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Supported Warcries inflict {0} Corrupted Blood Debuffs on the first\nenemy Hit by each Attack they Exert"
-				}
+				text="Supported Warcries inflict Corrupted Blood on the first\nenemy Hit by each Attack they Exert"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Supported Warcries inflict {0} Corrupted Blood Debuffs on the first\nenemy Hit by each Attack they Exert"
 			}
 		},
 		stats={
@@ -15709,21 +14617,19 @@ return {
 		}
 	},
 	[547]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds_2dp_if_required",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_2dp_if_required",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Corrupted Blood inflicted by Supported Warcries has a Base Duration of {0} seconds"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Corrupted Blood inflicted by Supported Warcries has a Base Duration of {0} seconds"
 			}
 		},
 		stats={
@@ -15731,26 +14637,24 @@ return {
 		}
 	},
 	[548]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Supported Warcries inflict Corrupted Blood"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Supported Warcries inflict {0} Corrupted Blood Debuffs"
-				}
+				text="Supported Warcries inflict Corrupted Blood"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Supported Warcries inflict {0} Corrupted Blood Debuffs"
 			}
 		},
 		stats={
@@ -15758,30 +14662,28 @@ return {
 		}
 	},
 	[549]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -15789,30 +14691,28 @@ return {
 		}
 	},
 	[550]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage while on Full Energy Shield"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage while on Full Energy Shield"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage while on Full Energy Shield"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage while on Full Energy Shield"
 			}
 		},
 		stats={
@@ -15820,30 +14720,28 @@ return {
 		}
 	},
 	[551]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage while Leeching Energy Shield"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage while Leeching Energy Shield"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage while Leeching Energy Shield"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage while Leeching Energy Shield"
 			}
 		},
 		stats={
@@ -15851,30 +14749,28 @@ return {
 		}
 	},
 	[552]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage with Hits and Ailments against Enemies on Low Life"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage with Hits and Ailments against Enemies on Low Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage with Hits and Ailments against Enemies on Low Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage with Hits and Ailments against Enemies on Low Life"
 			}
 		},
 		stats={
@@ -15882,21 +14778,19 @@ return {
 		}
 	},
 	[553]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds_0dp",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_0dp",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Killing Blows from Supported Strike Skills with Melee Weapons against Rare Monsters grant one of their Modifiers for {0} seconds"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Killing Blows from Supported Strike Skills with Melee Weapons against Rare Monsters grant one of their Modifiers for {0} seconds"
 			}
 		},
 		stats={
@@ -15904,17 +14798,15 @@ return {
 		}
 	},
 	[554]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% chance to refresh Duration of granted Modifier by up to 5 seconds when you Hit a Rare or Unique Enemy with Supported Skills"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% chance to refresh Duration of granted Modifier by up to 5 seconds when you Hit a Rare or Unique Enemy with Supported Skills"
 			}
 		},
 		stats={
@@ -15922,30 +14814,28 @@ return {
 		}
 	},
 	[555]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Cooldown Recovery Rate"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Cooldown Recovery Rate"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Cooldown Recovery Rate"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Cooldown Recovery Rate"
 			}
 		},
 		stats={
@@ -15953,38 +14843,36 @@ return {
 		}
 	},
 	[556]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% more Duration of Ailments inflicted with Supported Skills"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% more Duration of Ailments inflicted with Supported Skills"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% less Duration of Ailments inflicted with Supported Skills"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% less Duration of Ailments inflicted with Supported Skills"
 			}
 		},
 		stats={
@@ -15992,17 +14880,15 @@ return {
 		}
 	},
 	[557]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Totems from Supported Skills gain the Avenging Flame\nSkill and Trigger it when Hit by an Enemy"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Totems from Supported Skills gain the Avenging Flame\nSkill and Trigger it when Hit by an Enemy"
 			}
 		},
 		stats={
@@ -16010,30 +14896,28 @@ return {
 		}
 	},
 	[558]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Attack Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Attack Speed"
 			}
 		},
 		stats={
@@ -16041,30 +14925,28 @@ return {
 		}
 	},
 	[559]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -16072,30 +14954,28 @@ return {
 		}
 	},
 	[560]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage with Ailments caused by Melee Hits"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage with Ailments caused by Melee Hits"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage with Ailments caused by Melee Hits"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage with Ailments caused by Melee Hits"
 			}
 		},
 		stats={
@@ -16103,30 +14983,28 @@ return {
 		}
 	},
 	[561]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Melee Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Melee Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Melee Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Melee Damage"
 			}
 		},
 		stats={
@@ -16134,21 +15012,19 @@ return {
 		}
 	},
 	[562]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Phantasms last {0} seconds"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Phantasms last {0} seconds"
 			}
 		},
 		stats={
@@ -16156,30 +15032,28 @@ return {
 		}
 	},
 	[563]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Projectile Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Projectile Damage"
 			}
 		},
 		stats={
@@ -16187,17 +15061,15 @@ return {
 		}
 	},
 	[564]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills cannot apply Auras on you unless you have Minions from a Supported Skill"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills cannot apply Auras on you unless you have Minions from a Supported Skill"
 			}
 		},
 		stats={
@@ -16205,21 +15077,19 @@ return {
 		}
 	},
 	[565]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills take {0}% of their total Maximum Life and Energy Shield as Physical Damage per second while you have an Aura from a Supported Skill on you"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills take {0}% of their total Maximum Life and Energy Shield as Physical Damage per second while you have an Aura from a Supported Skill on you"
 			}
 		},
 		stats={
@@ -16227,30 +15097,28 @@ return {
 		}
 	},
 	[566]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Cold Damage Over Time"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Cold Damage Over Time"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Cold Damage Over Time"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Cold Damage Over Time"
 			}
 		},
 		stats={
@@ -16258,38 +15126,36 @@ return {
 		}
 	},
 	[567]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage with Hits and Ailments against Chilled Enemies"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage with Hits and Ailments against Chilled Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage with Hits and Ailments against Chilled Enemies"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage with Hits and Ailments against Chilled Enemies"
 			}
 		},
 		stats={
@@ -16297,26 +15163,24 @@ return {
 		}
 	},
 	[568]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="{}% chance to gain Innervation when you Shock a Unique Enemy with Supported Skills"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Gain Innervation when you Shock a Unique Enemy with Supported Skills"
-				}
+				text="{}% chance to gain Innervation when you Shock a Unique Enemy with Supported Skills"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Gain Innervation when you Shock a Unique Enemy with Supported Skills"
 			}
 		},
 		stats={
@@ -16324,25 +15188,23 @@ return {
 		}
 	},
 	[569]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextUpfrontCost"
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextLifetap"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextUpfrontCost"
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLifetap"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Gain Lifetap after Spending a total of {0} Life on Upfront\nCosts and Effects of a Supported Skill"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Gain Lifetap after Spending a total of {0} Life on Upfront\nCosts and Effects of a Supported Skill"
 			}
 		},
 		stats={
@@ -16350,30 +15212,28 @@ return {
 		}
 	},
 	[570]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage while you have Lifetap"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage while you have Lifetap"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage while you have Lifetap"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage while you have Lifetap"
 			}
 		},
 		stats={
@@ -16381,59 +15241,57 @@ return {
 		}
 	},
 	[571]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
-					},
-					text="Lifetap lasts {0:+d} seconds"
+					k="milliseconds_to_seconds",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
+						[1]="#",
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Lifetap lasts {0} second"
+					[2]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[3]={
+				text="Lifetap lasts {0:+d} seconds"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
+						[1]=1000,
+						[2]=1000
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Lifetap lasts {0} second"
+			},
+			[3]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Lifetap lasts {0} seconds"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Lifetap lasts {0} seconds"
 			}
 		},
 		stats={
@@ -16442,21 +15300,19 @@ return {
 		}
 	},
 	[572]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Mine lasts {0} seconds"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Mine lasts {0} seconds"
 			}
 		},
 		stats={
@@ -16464,34 +15320,32 @@ return {
 		}
 	},
 	[573]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=10,
-							[2]=10
-						}
-					},
-					text="Mines from Supported Skills can't be Detonated while within {0} metre of you"
+					k="locations_to_metres",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Mines from Supported Skills can't be Detonated while within {0} metres of you"
-				}
+						[1]=10,
+						[2]=10
+					}
+				},
+				text="Mines from Supported Skills can't be Detonated while within {0} metre of you"
+			},
+			[2]={
+				[1]={
+					k="locations_to_metres",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Mines from Supported Skills can't be Detonated while within {0} metres of you"
 			}
 		},
 		stats={
@@ -16499,30 +15353,28 @@ return {
 		}
 	},
 	[574]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -16530,17 +15382,15 @@ return {
 		}
 	},
 	[575]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Mines using Supported Skills always target your location"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Mines using Supported Skills always target your location"
 			}
 		},
 		stats={
@@ -16548,17 +15398,15 @@ return {
 		}
 	},
 	[576]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills throw Mines in an Arc"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills throw Mines in an Arc"
 			}
 		},
 		stats={
@@ -16566,30 +15414,28 @@ return {
 		}
 	},
 	[577]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Enemies Maimed by Supported Skills take {0}% increased Physical Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Enemies Maimed by Supported Skills take {0}% reduced Physical Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Enemies Maimed by Supported Skills take {0}% increased Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Enemies Maimed by Supported Skills take {0}% reduced Physical Damage"
 			}
 		},
 		stats={
@@ -16597,30 +15443,28 @@ return {
 		}
 	},
 	[578]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -16628,17 +15472,15 @@ return {
 		}
 	},
 	[579]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage with Hits and Ailments per 1 Mana Cost"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage with Hits and Ailments per 1 Mana Cost"
 			}
 		},
 		stats={
@@ -16646,30 +15488,28 @@ return {
 		}
 	},
 	[580]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Attack Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Attack Speed"
 			}
 		},
 		stats={
@@ -16677,30 +15517,28 @@ return {
 		}
 	},
 	[581]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -16708,30 +15546,28 @@ return {
 		}
 	},
 	[582]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Mine Throwing Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Mine Throwing Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Mine Throwing Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Mine Throwing Speed"
 			}
 		},
 		stats={
@@ -16739,21 +15575,19 @@ return {
 		}
 	},
 	[583]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Supported Skills deal {0} to {1} added Fire Damage against Burning Enemies"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0} to {1} added Fire Damage against Burning Enemies"
 			}
 		},
 		stats={
@@ -16762,30 +15596,28 @@ return {
 		}
 	},
 	[584]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -16793,30 +15625,28 @@ return {
 		}
 	},
 	[585]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills have {0}% more Maximum Life"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills have {0}% less Maximum Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills have {0}% more Maximum Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills have {0}% less Maximum Life"
 			}
 		},
 		stats={
@@ -16824,30 +15654,28 @@ return {
 		}
 	},
 	[586]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills deal {0}% more Damage with Hits and Ailments to Enemies that are Near you"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills deal {0}% less Damage with Hits and Ailments to Enemies that are Near you"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills deal {0}% more Damage with Hits and Ailments to Enemies that are Near you"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills deal {0}% less Damage with Hits and Ailments to Enemies that are Near you"
 			}
 		},
 		stats={
@@ -16855,30 +15683,28 @@ return {
 		}
 	},
 	[587]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills take {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills take {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills take {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills take {0}% less Damage"
 			}
 		},
 		stats={
@@ -16886,30 +15712,28 @@ return {
 		}
 	},
 	[588]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills have {0}% increased Critical Strike Chance against the Prey"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills have {0}% reduced Critical Strike Chance against the Prey"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills have {0}% increased Critical Strike Chance against the Prey"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills have {0}% reduced Critical Strike Chance against the Prey"
 			}
 		},
 		stats={
@@ -16917,17 +15741,15 @@ return {
 		}
 	},
 	[589]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills have {0:+d}% to Critical Strike Multiplier against the Prey"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills have {0:+d}% to Critical Strike Multiplier against the Prey"
 			}
 		},
 		stats={
@@ -16935,30 +15757,28 @@ return {
 		}
 	},
 	[590]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills deal {0}% more Damage to the Prey with Hits and Ailments"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills deal {0}% less Damage to the Prey with Hits and Ailments"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills deal {0}% more Damage to the Prey with Hits and Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills deal {0}% less Damage to the Prey with Hits and Ailments"
 			}
 		},
 		stats={
@@ -16966,30 +15786,28 @@ return {
 		}
 	},
 	[591]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Minion maximum Life"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Minion maximum Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Minion maximum Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Minion maximum Life"
 			}
 		},
 		stats={
@@ -16997,30 +15815,28 @@ return {
 		}
 	},
 	[592]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills deal {0}% more Damage while you have Feeding Frenzy"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills deal {0}% less Damage while you have Feeding Frenzy"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills deal {0}% more Damage while you have Feeding Frenzy"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills deal {0}% less Damage while you have Feeding Frenzy"
 			}
 		},
 		stats={
@@ -17028,30 +15844,28 @@ return {
 		}
 	},
 	[593]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills deal {0}% more Elemental Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions from Supported Skills deal {0}% less Elemental Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills deal {0}% more Elemental Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions from Supported Skills deal {0}% less Elemental Damage"
 			}
 		},
 		stats={
@@ -17059,17 +15873,15 @@ return {
 		}
 	},
 	[594]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills always target the Prey if possible"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills always target the Prey if possible"
 			}
 		},
 		stats={
@@ -17077,30 +15889,28 @@ return {
 		}
 	},
 	[595]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Mirage Archer uses Supported Skill with {0}% more Attack Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Mirage Archer uses Supported Skill with {0}% less Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Mirage Archer uses Supported Skill with {0}% more Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Mirage Archer uses Supported Skill with {0}% less Attack Speed"
 			}
 		},
 		stats={
@@ -17108,21 +15918,19 @@ return {
 		}
 	},
 	[596]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Mirage Archer lasts {0} seconds"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Mirage Archer lasts {0} seconds"
 			}
 		},
 		stats={
@@ -17130,30 +15938,28 @@ return {
 		}
 	},
 	[597]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Mirage Archer deals {0}% more Damage with Supported Skills"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Mirage Archer deals {0}% less Damage with Supported Skills"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Mirage Archer deals {0}% more Damage with Supported Skills"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Mirage Archer deals {0}% less Damage with Supported Skills"
 			}
 		},
 		stats={
@@ -17161,42 +15967,40 @@ return {
 		}
 	},
 	[598]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds_2dp",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0:+d} seconds to time between gaining Momentum while Channelling a Supported Skill"
+					k="milliseconds_to_seconds_2dp",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_2dp",
-						v=1
+						[1]="#",
+						[2]=-1
 					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0:+d} seconds to time between gaining Momentum while Channelling a Supported Skill"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds_2dp",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Gain 1 Momentum when you Use a Supported Skill\nGain 1 Momentum every {0} seconds while Channelling a Supported Skill\nLose all Momentum if you Move"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Gain 1 Momentum when you Use a Supported Skill\nGain 1 Momentum every {0} seconds while Channelling a Supported Skill\nLose all Momentum if you Move"
 			}
 		},
 		stats={
@@ -17205,30 +16009,28 @@ return {
 		}
 	},
 	[599]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Attack Speed per Momentum"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Attack Speed per Momentum"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Attack Speed per Momentum"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Attack Speed per Momentum"
 			}
 		},
 		stats={
@@ -17236,67 +16038,65 @@ return {
 		}
 	},
 	[600]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds_2dp",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						}
-					},
-					text="Swiftness lasts {0:+d} seconds"
+					k="milliseconds_to_seconds_2dp",
+					v=1
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Can gain up to {0:+d} Momentum before losing it to gain Swiftness"
-				},
-				[3]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_1dp",
-						v=1
+						[1]="#",
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]="#",
-							[2]="#"
-						}
+					[2]={
+						[1]=0,
+						[2]=0
 					},
-					text="When you reach {2} Momentum, lose all Momentum and gain\nSwiftness for {0} seconds"
-				}
+					[3]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Swiftness lasts {0:+d} seconds"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
+					},
+					[2]={
+						[1]=0,
+						[2]=0
+					},
+					[3]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Can gain up to {0:+d} Momentum before losing it to gain Swiftness"
+			},
+			[3]={
+				[1]={
+					k="milliseconds_to_seconds_1dp",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					},
+					[2]={
+						[1]=0,
+						[2]=0
+					},
+					[3]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="When you reach {2} Momentum, lose all Momentum and gain\nSwiftness for {0} seconds"
 			}
 		},
 		stats={
@@ -17306,30 +16106,28 @@ return {
 		}
 	},
 	[601]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Swiftness grants {0}% increased Movement Speed per Momentum lost"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Swiftness grants {0}% reduced Movement Speed per Momentum lost"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Swiftness grants {0}% increased Movement Speed per Momentum lost"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Swiftness grants {0}% reduced Movement Speed per Momentum lost"
 			}
 		},
 		stats={
@@ -17337,25 +16135,23 @@ return {
 		}
 	},
 	[602]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextOverpowered"
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextOverpowered"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills inflict Overpowered for {0} seconds when Blocked"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills inflict Overpowered for {0} seconds when Blocked"
 			}
 		},
 		stats={
@@ -17363,26 +16159,24 @@ return {
 		}
 	},
 	[603]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Supported Skills also fire Projectiles from up to {0} point on each side of you"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Supported Skills also fire Projectiles from up to {0} points on each side of you"
-				}
+				text="Supported Skills also fire Projectiles from up to {0} point on each side of you"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Supported Skills also fire Projectiles from up to {0} points on each side of you"
 			}
 		},
 		stats={
@@ -17390,30 +16184,28 @@ return {
 		}
 	},
 	[604]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Projectile Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Projectile Damage"
 			}
 		},
 		stats={
@@ -17421,30 +16213,28 @@ return {
 		}
 	},
 	[605]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Chaos Damage over Time"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Chaos Damage over Time"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Chaos Damage over Time"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Chaos Damage over Time"
 			}
 		},
 		stats={
@@ -17452,30 +16242,28 @@ return {
 		}
 	},
 	[606]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Physical Damage over Time"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Physical Damage over Time"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Physical Damage over Time"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Physical Damage over Time"
 			}
 		},
 		stats={
@@ -17483,30 +16271,28 @@ return {
 		}
 	},
 	[607]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Projectiles from Supported Skills deal {0}% more Physical Spell Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Projectiles from Supported Skills deal {0}% less Physical Spell Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Projectiles from Supported Skills deal {0}% more Physical Spell Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Projectiles from Supported Skills deal {0}% less Physical Spell Damage"
 			}
 		},
 		stats={
@@ -17514,30 +16300,28 @@ return {
 		}
 	},
 	[608]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Attack Skills deal {0}% more Damage with Bleeding and Poison caused by Projectile Hits"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Attack Skills deal {0}% more Damage with Bleeding and Poison caused by Projectile Hits"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Attack Skills deal {0}% more Damage with Bleeding and Poison caused by Projectile Hits"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Attack Skills deal {0}% more Damage with Bleeding and Poison caused by Projectile Hits"
 			}
 		},
 		stats={
@@ -17545,30 +16329,28 @@ return {
 		}
 	},
 	[609]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Projectile Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Projectile Damage"
 			}
 		},
 		stats={
@@ -17576,30 +16358,28 @@ return {
 		}
 	},
 	[610]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage per Power Charge"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage per Power Charge"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage per Power Charge"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage per Power Charge"
 			}
 		},
 		stats={
@@ -17607,30 +16387,28 @@ return {
 		}
 	},
 	[611]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Physical Projectile Attack Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Physical Projectile Attack Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Physical Projectile Attack Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Physical Projectile Attack Damage"
 			}
 		},
 		stats={
@@ -17638,30 +16416,28 @@ return {
 		}
 	},
 	[612]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Projectile Attack Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Projectile Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Projectile Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Projectile Attack Speed"
 			}
 		},
 		stats={
@@ -17669,30 +16445,28 @@ return {
 		}
 	},
 	[613]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Area of Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Area of Effect"
 			}
 		},
 		stats={
@@ -17700,30 +16474,28 @@ return {
 		}
 	},
 	[614]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Attack Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Attack Speed"
 			}
 		},
 		stats={
@@ -17731,30 +16503,28 @@ return {
 		}
 	},
 	[615]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Melee Area Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Melee Area Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Melee Area Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Melee Area Damage"
 			}
 		},
 		stats={
@@ -17762,30 +16532,28 @@ return {
 		}
 	},
 	[616]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -17793,30 +16561,28 @@ return {
 		}
 	},
 	[617]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills Shock Enemies as though dealing {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills Shock Enemies as though dealing {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills Shock Enemies as though dealing {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills Shock Enemies as though dealing {0}% less Damage"
 			}
 		},
 		stats={
@@ -17824,30 +16590,28 @@ return {
 		}
 	},
 	[618]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Projectile Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Projectile Damage"
 			}
 		},
 		stats={
@@ -17855,25 +16619,23 @@ return {
 		}
 	},
 	[619]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextRage"
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextRage"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills grant 1 Rage on Melee Hit, no more than once every {0} seconds"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills grant 1 Rage on Melee Hit, no more than once every {0} seconds"
 			}
 		},
 		stats={
@@ -17881,30 +16643,28 @@ return {
 		}
 	},
 	[620]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Activation frequency"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Activation frequency"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Activation frequency"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Activation frequency"
 			}
 		},
 		stats={
@@ -17912,46 +16672,44 @@ return {
 		}
 	},
 	[621]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextRecently"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Each Supported Skill deals {0}% more Damage with Ignite for each Ignite inflicted with it Recently, up to a maximum of {1}%"
+					k="reminderstring",
+					v="ReminderTextRecently"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
+						[1]=1,
+						[2]="#"
 					},
 					[2]={
-						k="reminderstring",
-						v="ReminderTextRecently"
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Each Supported Skill deals {0}% more Damage with Ignite for each Ignite inflicted with it Recently, up to a maximum of {1}%"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Each Supported Skill deals {0}% less Damage with Ignite for each Ignite inflicted with it Recently"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Each Supported Skill deals {0}% less Damage with Ignite for each Ignite inflicted with it Recently"
 			}
 		},
 		stats={
@@ -17960,50 +16718,48 @@ return {
 		}
 	},
 	[622]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextRecently"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Each Supported Skill deals {0}% more Damage for each Ignite inflicted with it Recently"
+					k="reminderstring",
+					v="ReminderTextRecently"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
+						[1]=1,
+						[2]="#"
 					},
 					[2]={
-						k="negate",
-						v=2
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Each Supported Skill deals {0}% more Damage for each Ignite inflicted with it Recently"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				[2]={
+					k="negate",
+					v=2
+				},
+				[3]={
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
 					},
-					[3]={
-						k="reminderstring",
-						v="ReminderTextRecently"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Each Supported Skill deals {0}% less Damage for each Ignite inflicted with it Recently, up to a maximum of {1}%"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Each Supported Skill deals {0}% less Damage for each Ignite inflicted with it Recently, up to a maximum of {1}%"
 			}
 		},
 		stats={
@@ -18012,21 +16768,19 @@ return {
 		}
 	},
 	[623]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Wakened Fury grants {0}% of Damage Leeched as Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Wakened Fury grants {0}% of Damage Leeched as Life"
 			}
 		},
 		stats={
@@ -18034,49 +16788,47 @@ return {
 		}
 	},
 	[624]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds_2dp_if_required",
+					v=1
+				},
+				[2]={
+					k="divide_by_one_hundred",
+					v=3
+				},
+				[3]={
+					k="reminderstring",
+					v="ReminderTextAdrenaline"
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_2dp_if_required",
-						v=1
+						[1]=1,
+						[2]="#"
 					},
 					[2]={
-						k="divide_by_one_hundred",
-						v=3
+						[1]=1,
+						[2]="#"
 					},
 					[3]={
-						k="reminderstring",
-						v="ReminderTextAdrenaline"
+						[1]=1,
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]=1,
-							[2]="#"
-						},
-						[3]={
-							[1]=1,
-							[2]="#"
-						},
-						[4]={
-							[1]=1,
-							[2]="#"
-						},
-						[5]={
-							[1]="#",
-							[2]="#"
-						},
-						[6]={
-							[1]="#",
-							[2]="#"
-						}
+					[4]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Minions created by Supported Skills gain Wakened Fury and Adrenaline for {1}% of their Duration, up to a maximum of {0} seconds\nWakened Fury grants {2:+d}% to Critical Strike Chance\nWakened Fury grants {3:+d}% to Critical Strike Multiplier"
-				}
+					[5]={
+						[1]="#",
+						[2]="#"
+					},
+					[6]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions created by Supported Skills gain Wakened Fury and Adrenaline for {1}% of their Duration, up to a maximum of {0} seconds\nWakened Fury grants {2:+d}% to Critical Strike Chance\nWakened Fury grants {3:+d}% to Critical Strike Multiplier"
 			}
 		},
 		stats={
@@ -18089,17 +16841,15 @@ return {
 		}
 	},
 	[625]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Enemies have -{0}% chance to Block Attack or Spell Damage from Supported Skills"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Enemies have -{0}% chance to Block Attack or Spell Damage from Supported Skills"
 			}
 		},
 		stats={
@@ -18107,30 +16857,28 @@ return {
 		}
 	},
 	[626]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Critical Strike Chance per Inspiration Charge"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Critical Strike Chance per Inspiration Charge"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Critical Strike Chance per Inspiration Charge"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Critical Strike Chance per Inspiration Charge"
 			}
 		},
 		stats={
@@ -18138,30 +16886,28 @@ return {
 		}
 	},
 	[627]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Elemental Damage per Inspiration Charge"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Elemental Damage per Inspiration Charge"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Elemental Damage per Inspiration Charge"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Elemental Damage per Inspiration Charge"
 			}
 		},
 		stats={
@@ -18169,21 +16915,19 @@ return {
 		}
 	},
 	[628]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextUpfrontCost"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextUpfrontCost"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Lose all Inspiration Charges after Spending a total of {0} Mana on Upfront Costs and Effects of Supported Skills"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Lose all Inspiration Charges after Spending a total of {0} Mana on Upfront Costs and Effects of Supported Skills"
 			}
 		},
 		stats={
@@ -18191,21 +16935,19 @@ return {
 		}
 	},
 	[629]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds_2dp",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_2dp",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have a Base Mine Detonation Time of {0} seconds"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have a Base Mine Detonation Time of {0} seconds"
 			}
 		},
 		stats={
@@ -18213,30 +16955,28 @@ return {
 		}
 	},
 	[630]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -18244,30 +16984,28 @@ return {
 		}
 	},
 	[631]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage for each prior Mine in Detonation Sequence"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage for each prior Mine in Detonation Sequence"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage for each prior Mine in Detonation Sequence"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage for each prior Mine in Detonation Sequence"
 			}
 		},
 		stats={
@@ -18275,30 +17013,28 @@ return {
 		}
 	},
 	[632]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Mine Damage with Hits"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Mine Damage with Hits"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Mine Damage with Hits"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Mine Damage with Hits"
 			}
 		},
 		stats={
@@ -18306,21 +17042,19 @@ return {
 		}
 	},
 	[633]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextRupture"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextRupture"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Critical Strikes with Supported Skills that inflict Bleeding also inflict Rupture"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Critical Strikes with Supported Skills that inflict Bleeding also inflict Rupture"
 			}
 		},
 		stats={
@@ -18328,26 +17062,24 @@ return {
 		}
 	},
 	[634]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Targets take {0}% more Damage from Bleeding per Rupture on them from Supported Skills"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Targets take {0}% less Damage from Bleeding per Rupture on them from Supported Skills"
-				}
+				text="Targets take {0}% more Damage from Bleeding per Rupture on them from Supported Skills"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Targets take {0}% less Damage from Bleeding per Rupture on them from Supported Skills"
 			}
 		},
 		stats={
@@ -18355,26 +17087,24 @@ return {
 		}
 	},
 	[635]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Bleeding expires {0}% more quickly per Rupture from Supported Skills on targets"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Bleeding expires {0}% less quickly per Rupture from Supported Skills on targets"
-				}
+				text="Bleeding expires {0}% more quickly per Rupture from Supported Skills on targets"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Bleeding expires {0}% less quickly per Rupture from Supported Skills on targets"
 			}
 		},
 		stats={
@@ -18382,34 +17112,32 @@ return {
 		}
 	},
 	[636]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]=1,
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Supported Spells Sacrifice {0}% of your current Life when Cast to gain added Chaos Damage equal to {1}% of Sacrificed Life"
+					[2]={
+						[1]=1,
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
+				text="Supported Spells Sacrifice {0}% of your current Life when Cast to gain added Chaos Damage equal to {1}% of Sacrificed Life"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Supported Spells Sacrifice {0}% of your current Life when Cast"
-				}
+					[2]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Supported Spells Sacrifice {0}% of your current Life when Cast"
 			}
 		},
 		stats={
@@ -18418,38 +17146,36 @@ return {
 		}
 	},
 	[637]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextOnslaught"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextOnslaught"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Onslaught duration"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Onslaught duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextOnslaught"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextOnslaught"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Onslaught duration"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Onslaught duration"
 			}
 		},
 		stats={
@@ -18457,25 +17183,23 @@ return {
 		}
 	},
 	[638]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextOnslaught"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextOnslaught"
+						[1]="#",
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to grant Onslaught for 3 seconds when\nyou Hit a Unique Enemy"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to grant Onslaught for 3 seconds when\nyou Hit a Unique Enemy"
 			}
 		},
 		stats={
@@ -18484,33 +17208,31 @@ return {
 		}
 	},
 	[639]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds",
+					v=2
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextOnslaught"
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=2
+						[1]="#",
+						[2]="#"
 					},
 					[2]={
-						k="reminderstring",
-						v="ReminderTextOnslaught"
+						[1]="!",
+						[2]=0
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="!",
-							[2]=0
-						},
-						[3]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% chance to grant Onslaught for {1} seconds on\ndealing a Killing Blow"
-				}
+					[3]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% chance to grant Onslaught for {1} seconds on\ndealing a Killing Blow"
 			}
 		},
 		stats={
@@ -18520,34 +17242,32 @@ return {
 		}
 	},
 	[640]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						}
-					},
-					text="Supported Skills grant Combat Rush on Hit\nCombat Rush lasts {0} second or until you use a Travel Skill"
+					k="milliseconds_to_seconds",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills grant Combat Rush on Hit\nCombat Rush lasts {0} seconds or until you use a Travel Skill"
-				}
+						[1]=1000,
+						[2]=1000
+					}
+				},
+				text="Supported Skills grant Combat Rush on Hit\nCombat Rush lasts {0} second or until you use a Travel Skill"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills grant Combat Rush on Hit\nCombat Rush lasts {0} seconds or until you use a Travel Skill"
 			}
 		},
 		stats={
@@ -18555,30 +17275,28 @@ return {
 		}
 	},
 	[641]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Combat Rush grants {0}% more Attack Speed to Travel Skills not Supported by Close Combat"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Combat Rush grants {0}% less Attack Speed to Travel Skills not Supported by Close Combat"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Combat Rush grants {0}% more Attack Speed to Travel Skills not Supported by Close Combat"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Combat Rush grants {0}% less Attack Speed to Travel Skills not Supported by Close Combat"
 			}
 		},
 		stats={
@@ -18586,30 +17304,28 @@ return {
 		}
 	},
 	[642]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Projectile Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Projectile Damage"
 			}
 		},
 		stats={
@@ -18617,76 +17333,74 @@ return {
 		}
 	},
 	[643]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Spells gain Intensity when you Cast them, to a maximum of 3\nSupported Skills deal {0}% more Area Damage with Hits per Intensity\nSupported Skills have {1}% more Area of Effect per Intensity"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						},
-						[2]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Spells gain Intensity when you Cast them, to a maximum of 3\nSupported Skills deal {0}% less Area Damage with Hits per Intensity\nSupported Skills have {1}% more Area of Effect per Intensity"
-				},
-				[3]={
-					[1]={
-						k="negate",
-						v=2
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Spells gain Intensity when you Cast them, to a maximum of 3\nSupported Skills deal {0}% more Area Damage with Hits per Intensity\nSupported Skills have {1}% less Area of Effect per Intensity"
-				},
-				[4]={
-					[1]={
-						k="negate",
-						v=1
+						[1]=1,
+						[2]="#"
 					},
 					[2]={
-						k="negate",
-						v=2
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Spells gain Intensity when you Cast them, to a maximum of 3\nSupported Skills deal {0}% more Area Damage with Hits per Intensity\nSupported Skills have {1}% more Area of Effect per Intensity"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						},
-						[2]={
-							[1]="#",
-							[2]=-1
-						}
+					[2]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Spells gain Intensity when you Cast them, to a maximum of 3\nSupported Skills deal {0}% less Area Damage with Hits per Intensity\nSupported Skills have {1}% more Area of Effect per Intensity"
+			},
+			[3]={
+				[1]={
+					k="negate",
+					v=2
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Supported Spells gain Intensity when you Cast them, to a maximum of 3\nSupported Skills deal {0}% less Area Damage with Hits per Intensity\nSupported Skills have {1}% less Area of Effect per Intensity"
-				}
+					[2]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Spells gain Intensity when you Cast them, to a maximum of 3\nSupported Skills deal {0}% more Area Damage with Hits per Intensity\nSupported Skills have {1}% less Area of Effect per Intensity"
+			},
+			[4]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				[2]={
+					k="negate",
+					v=2
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					},
+					[2]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Spells gain Intensity when you Cast them, to a maximum of 3\nSupported Skills deal {0}% less Area Damage with Hits per Intensity\nSupported Skills have {1}% less Area of Effect per Intensity"
 			}
 		},
 		stats={
@@ -18695,30 +17409,28 @@ return {
 		}
 	},
 	[644]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased delay between affected Areas"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced delay between affected Areas"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased delay between affected Areas"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced delay between affected Areas"
 			}
 		},
 		stats={
@@ -18726,30 +17438,28 @@ return {
 		}
 	},
 	[645]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Area of Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Area of Effect"
 			}
 		},
 		stats={
@@ -18757,30 +17467,28 @@ return {
 		}
 	},
 	[646]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -18788,34 +17496,32 @@ return {
 		}
 	},
 	[647]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="!",
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="!",
+						[2]=0
 					},
-					text="Supported Area of Effect Skills also affect areas in front of and behind the targeted area"
+					[2]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="!",
-							[2]=0
-						},
-						[2]={
-							[1]="!",
-							[2]=0
-						}
+				text="Supported Area of Effect Skills also affect areas in front of and behind the targeted area"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="!",
+						[2]=0
 					},
-					text="Supported Area of Effect Skills also affect areas in front of, behind,\nand on each side of the targeted area"
-				}
+					[2]={
+						[1]="!",
+						[2]=0
+					}
+				},
+				text="Supported Area of Effect Skills also affect areas in front of, behind,\nand on each side of the targeted area"
 			}
 		},
 		stats={
@@ -18824,30 +17530,28 @@ return {
 		}
 	},
 	[648]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Final Repeat of Supported Skills deals {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Final Repeat of Supported Skills deals {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Final Repeat of Supported Skills deals {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Final Repeat of Supported Skills deals {0}% less Damage"
 			}
 		},
 		stats={
@@ -18855,17 +17559,15 @@ return {
 		}
 	},
 	[649]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have Added Spell Damage equal to {0}% of\nDamage of Equipped One Handed Melee Weapons\nIf two Weapons are Equipped, each contributes 60% as much Added Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have Added Spell Damage equal to {0}% of\nDamage of Equipped One Handed Melee Weapons\nIf two Weapons are Equipped, each contributes 60% as much Added Damage"
 			}
 		},
 		stats={
@@ -18873,17 +17575,15 @@ return {
 		}
 	},
 	[650]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have Added Spell Damage equal to {0:+d}% of Damage of Equipped One Handed Melee Weapons while wielding two different Weapon Types"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have Added Spell Damage equal to {0:+d}% of Damage of Equipped One Handed Melee Weapons while wielding two different Weapon Types"
 			}
 		},
 		stats={
@@ -18891,30 +17591,28 @@ return {
 		}
 	},
 	[651]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage with Hits and Ailments"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage with Hits and Ailments"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage with Hits and Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage with Hits and Ailments"
 			}
 		},
 		stats={
@@ -18922,30 +17620,28 @@ return {
 		}
 	},
 	[652]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -18953,30 +17649,28 @@ return {
 		}
 	},
 	[653]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage"
 			}
 		},
 		stats={
@@ -18984,30 +17678,28 @@ return {
 		}
 	},
 	[654]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="While Channelling a Supported Skill, take {0}% more Damage from Hits"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="While Channelling a Supported Skill, take {0}% less Damage from Hits"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="While Channelling a Supported Skill, take {0}% more Damage from Hits"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="While Channelling a Supported Skill, take {0}% less Damage from Hits"
 			}
 		},
 		stats={
@@ -19015,38 +17707,36 @@ return {
 		}
 	},
 	[655]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% more Duration of Supported Skills and Damaging Ailments they inflict"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% more Duration of Supported Skills and Damaging Ailments they inflict"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% less Duration of Supported Skills and Damaging Ailments they inflict"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% less Duration of Supported Skills and Damaging Ailments they inflict"
 			}
 		},
 		stats={
@@ -19054,30 +17744,28 @@ return {
 		}
 	},
 	[656]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Mine Throwing Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Mine Throwing Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Mine Throwing Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Mine Throwing Speed"
 			}
 		},
 		stats={
@@ -19085,30 +17773,28 @@ return {
 		}
 	},
 	[657]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% more Trap Throwing Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% less Trap Throwing Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% more Trap Throwing Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% less Trap Throwing Speed"
 			}
 		},
 		stats={
@@ -19116,30 +17802,28 @@ return {
 		}
 	},
 	[658]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Trap Damage with Hits"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Trap Damage with Hits"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Trap Damage with Hits"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Trap Damage with Hits"
 			}
 		},
 		stats={
@@ -19147,30 +17831,28 @@ return {
 		}
 	},
 	[659]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Melee Damage per Trauma"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Melee Damage per Trauma"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Melee Damage per Trauma"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Melee Damage per Trauma"
 			}
 		},
 		stats={
@@ -19178,30 +17860,28 @@ return {
 		}
 	},
 	[660]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Stun Duration per Trauma"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Stun Duration per Trauma"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Stun Duration per Trauma"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Stun Duration per Trauma"
 			}
 		},
 		stats={
@@ -19209,38 +17889,36 @@ return {
 		}
 	},
 	[661]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage with Ailments"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage with Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage with Ailments"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage with Ailments"
 			}
 		},
 		stats={
@@ -19248,30 +17926,28 @@ return {
 		}
 	},
 	[662]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Physical Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Physical Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Physical Damage"
 			}
 		},
 		stats={
@@ -19279,30 +17955,28 @@ return {
 		}
 	},
 	[663]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Chaos Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Chaos Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Chaos Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Chaos Damage"
 			}
 		},
 		stats={
@@ -19310,17 +17984,15 @@ return {
 		}
 	},
 	[664]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0:+d} to Level of Supported Chaos Skill Gems"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0:+d} to Level of Supported Chaos Skill Gems"
 			}
 		},
 		stats={
@@ -19328,17 +18000,15 @@ return {
 		}
 	},
 	[665]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0:+d} to Level of Supported Curse Skill Gems"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0:+d} to Level of Supported Curse Skill Gems"
 			}
 		},
 		stats={
@@ -19346,17 +18016,15 @@ return {
 		}
 	},
 	[666]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0:+d} to Level of Supported Elemental Skill Gems"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0:+d} to Level of Supported Elemental Skill Gems"
 			}
 		},
 		stats={
@@ -19364,17 +18032,15 @@ return {
 		}
 	},
 	[667]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0:+d} to Level of Supported Minion Skill Gems"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0:+d} to Level of Supported Minion Skill Gems"
 			}
 		},
 		stats={
@@ -19382,17 +18048,15 @@ return {
 		}
 	},
 	[668]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0:+d} to Level of Supported Physical Skill Gems"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0:+d} to Level of Supported Physical Skill Gems"
 			}
 		},
 		stats={
@@ -19400,17 +18064,15 @@ return {
 		}
 	},
 	[669]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills can only be used with Axes or Swords"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills can only be used with Axes or Swords"
 			}
 		},
 		stats={
@@ -19418,17 +18080,15 @@ return {
 		}
 	},
 	[670]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills can only be used with Bows"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills can only be used with Bows"
 			}
 		},
 		stats={
@@ -19436,21 +18096,19 @@ return {
 		}
 	},
 	[671]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDaggerRuneDagger"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDaggerRuneDagger"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills can only be used with Claws or Daggers"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills can only be used with Claws or Daggers"
 			}
 		},
 		stats={
@@ -19458,21 +18116,19 @@ return {
 		}
 	},
 	[672]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextStaffWarstaff"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextStaffWarstaff"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills can only be used with Maces, Sceptres or Staves"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills can only be used with Maces, Sceptres or Staves"
 			}
 		},
 		stats={
@@ -19480,17 +18136,15 @@ return {
 		}
 	},
 	[673]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills can only be used with Bows or Wands"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills can only be used with Bows or Wands"
 			}
 		},
 		stats={
@@ -19498,17 +18152,15 @@ return {
 		}
 	},
 	[674]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills can only be used with Wands"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills can only be used with Wands"
 			}
 		},
 		stats={
@@ -19516,17 +18168,15 @@ return {
 		}
 	},
 	[675]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0:+d} to Level of Supported Strike Skill Gems"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0:+d} to Level of Supported Strike Skill Gems"
 			}
 		},
 		stats={
@@ -19534,34 +18184,32 @@ return {
 		}
 	},
 	[676]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds_2dp_if_required",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						}
-					},
-					text="Deals Damage every {0} second"
+					k="milliseconds_to_seconds_2dp_if_required",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_2dp_if_required",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Deals Damage every {0} seconds"
-				}
+						[1]=1000,
+						[2]=1000
+					}
+				},
+				text="Deals Damage every {0} second"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds_2dp_if_required",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Deals Damage every {0} seconds"
 			}
 		},
 		stats={
@@ -19569,21 +18217,19 @@ return {
 		}
 	},
 	[677]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextHexTransfer"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextHexTransfer"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Hexes from Supported Skills Transfer to all Enemies within 3 metres when Hexed Enemy dies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Hexes from Supported Skills Transfer to all Enemies within 3 metres when Hexed Enemy dies"
 			}
 		},
 		stats={
@@ -19591,17 +18237,15 @@ return {
 		}
 	},
 	[678]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0:+d}% to Critical Strike Multiplier per Power Charge when used by Traps"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0:+d}% to Critical Strike Multiplier per Power Charge when used by Traps"
 			}
 		},
 		stats={
@@ -19609,30 +18253,28 @@ return {
 		}
 	},
 	[679]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Trap Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Trap Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Trap Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Trap Damage"
 			}
 		},
 		stats={
@@ -19640,30 +18282,28 @@ return {
 		}
 	},
 	[680]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Trap Spread"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Trap Spread"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Trap Spread"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Trap Spread"
 			}
 		},
 		stats={
@@ -19671,30 +18311,28 @@ return {
 		}
 	},
 	[681]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Trap Throwing Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Trap Throwing Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Trap Throwing Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Trap Throwing Speed"
 			}
 		},
 		stats={
@@ -19702,30 +18340,28 @@ return {
 		}
 	},
 	[682]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Trap Throwing Speed per Frenzy Charge"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Trap Throwing Speed per Frenzy Charge"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Trap Throwing Speed per Frenzy Charge"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Trap Throwing Speed per Frenzy Charge"
 			}
 		},
 		stats={
@@ -19733,30 +18369,28 @@ return {
 		}
 	},
 	[683]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Trap Trigger Area of Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Trap Trigger Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Trap Trigger Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Trap Trigger Area of Effect"
 			}
 		},
 		stats={
@@ -19764,30 +18398,28 @@ return {
 		}
 	},
 	[684]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {}% increased Trap Trigger Radius per Power Charge"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {}% reduced Trap Trigger Radius per Power Charge"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {}% increased Trap Trigger Radius per Power Charge"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {}% reduced Trap Trigger Radius per Power Charge"
 			}
 		},
 		stats={
@@ -19795,30 +18427,28 @@ return {
 		}
 	},
 	[685]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Attack Speed per Trauma"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Attack Speed per Trauma"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Attack Speed per Trauma"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Attack Speed per Trauma"
 			}
 		},
 		stats={
@@ -19826,179 +18456,177 @@ return {
 		}
 	},
 	[686]={
-		lang={
-			English={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
+					},
+					[2]={
+						[1]=0,
+						[2]=0
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					},
+					[4]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Take {3} Physical Damage per Trauma when you gain Trauma from Supported Skills"
+			},
+			[2]={
 				[1]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						},
-						[4]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Take {3} Physical Damage per Trauma when you gain Trauma from Supported Skills"
+					k="milliseconds_to_seconds_1dp",
+					v=3
 				},
-				[2]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_1dp",
-						v=3
+						[1]=0,
+						[2]=0
 					},
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=1000,
-							[2]=1000
-						},
-						[4]={
-							[1]=1,
-							[2]="#"
-						}
+					[2]={
+						[1]=0,
+						[2]=0
 					},
-					text="Gain 1 Trauma the first time a Supported Attack Hits an Enemy\nTake {3} Physical Damage per Trauma when you gain Trauma from Supported Skills\nTrauma lasts {2} second"
+					[3]={
+						[1]=1000,
+						[2]=1000
+					},
+					[4]={
+						[1]=1,
+						[2]="#"
+					}
 				},
-				[3]={
-					[1]={
-						k="milliseconds_to_seconds_1dp",
-						v=3
-					},
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=1,
-							[2]="#"
-						},
-						[4]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Gain 1 Trauma the first time a Supported Attack Hits an Enemy\nTake {3} Physical Damage per Trauma when you gain Trauma from Supported Skills\nTrauma lasts {2} seconds"
+				text="Gain 1 Trauma the first time a Supported Attack Hits an Enemy\nTake {3} Physical Damage per Trauma when you gain Trauma from Supported Skills\nTrauma lasts {2} second"
+			},
+			[3]={
+				[1]={
+					k="milliseconds_to_seconds_1dp",
+					v=3
 				},
-				[4]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_1dp",
-						v=2
+						[1]=0,
+						[2]=0
 					},
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=1000,
-							[2]=1000
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						},
-						[4]={
-							[1]=1,
-							[2]="#"
-						}
+					[2]={
+						[1]=0,
+						[2]=0
 					},
-					text="Gain 1 Trauma the first time a Supported Attack Hits an Enemy\nTake {3} Physical Damage per Trauma when you gain Trauma from Supported Skills\nTrauma lasts {1} second"
+					[3]={
+						[1]=1,
+						[2]="#"
+					},
+					[4]={
+						[1]=1,
+						[2]="#"
+					}
 				},
-				[5]={
-					[1]={
-						k="milliseconds_to_seconds_1dp",
-						v=2
-					},
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=1,
-							[2]="#"
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						},
-						[4]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Gain 1 Trauma the first time a Supported Attack Hits an Enemy\nTake {3} Physical Damage per Trauma when you gain Trauma from Supported Skills\nTrauma lasts {1} seconds"
+				text="Gain 1 Trauma the first time a Supported Attack Hits an Enemy\nTake {3} Physical Damage per Trauma when you gain Trauma from Supported Skills\nTrauma lasts {2} seconds"
+			},
+			[4]={
+				[1]={
+					k="milliseconds_to_seconds_1dp",
+					v=2
 				},
-				[6]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_1dp",
-						v=1
+						[1]=0,
+						[2]=0
 					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						},
-						[3]={
-							[1]="#",
-							[2]="#"
-						},
-						[4]={
-							[1]=1,
-							[2]="#"
-						}
+					[2]={
+						[1]=1000,
+						[2]=1000
 					},
-					text="Gain 1 Trauma the first time a Supported Attack Hits an Enemy\nTake {3} Physical Damage per Trauma when you gain Trauma from Supported Skills\nTrauma lasts {0} second"
+					[3]={
+						[1]=0,
+						[2]=0
+					},
+					[4]={
+						[1]=1,
+						[2]="#"
+					}
 				},
-				[7]={
+				text="Gain 1 Trauma the first time a Supported Attack Hits an Enemy\nTake {3} Physical Damage per Trauma when you gain Trauma from Supported Skills\nTrauma lasts {1} second"
+			},
+			[5]={
+				[1]={
+					k="milliseconds_to_seconds_1dp",
+					v=2
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_1dp",
-						v=1
+						[1]=0,
+						[2]=0
 					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						},
-						[3]={
-							[1]="#",
-							[2]="#"
-						},
-						[4]={
-							[1]=1,
-							[2]="#"
-						}
+					[2]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Gain 1 Trauma the first time a Supported Attack Hits an Enemy\nTake {3} Physical Damage per Trauma when you gain Trauma from Supported Skills\nTrauma lasts {0} seconds"
-				}
+					[3]={
+						[1]=0,
+						[2]=0
+					},
+					[4]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Gain 1 Trauma the first time a Supported Attack Hits an Enemy\nTake {3} Physical Damage per Trauma when you gain Trauma from Supported Skills\nTrauma lasts {1} seconds"
+			},
+			[6]={
+				[1]={
+					k="milliseconds_to_seconds_1dp",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]=1000,
+						[2]=1000
+					},
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]="#",
+						[2]="#"
+					},
+					[4]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Gain 1 Trauma the first time a Supported Attack Hits an Enemy\nTake {3} Physical Damage per Trauma when you gain Trauma from Supported Skills\nTrauma lasts {0} second"
+			},
+			[7]={
+				[1]={
+					k="milliseconds_to_seconds_1dp",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					},
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]="#",
+						[2]="#"
+					},
+					[4]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Gain 1 Trauma the first time a Supported Attack Hits an Enemy\nTake {3} Physical Damage per Trauma when you gain Trauma from Supported Skills\nTrauma lasts {0} seconds"
 			}
 		},
 		stats={
@@ -20009,30 +18637,28 @@ return {
 		}
 	},
 	[687]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills Deal {0}% more Damage with Hits against Branded Enemy"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills Deal {0}% less Damage with Hits against Branded Enemy"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills Deal {0}% more Damage with Hits against Branded Enemy"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills Deal {0}% less Damage with Hits against Branded Enemy"
 			}
 		},
 		stats={
@@ -20040,17 +18666,15 @@ return {
 		}
 	},
 	[688]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Trigger Supported Skill when you Hit a Rare or Unique Enemy with an Attack"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Trigger Supported Skill when you Hit a Rare or Unique Enemy with an Attack"
 			}
 		},
 		stats={
@@ -20058,17 +18682,15 @@ return {
 		}
 	},
 	[689]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Spells are Triggered by Intuitive Link"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Spells are Triggered by Intuitive Link"
 			}
 		},
 		stats={
@@ -20076,26 +18698,24 @@ return {
 		}
 	},
 	[690]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Supported Skills have a {0}% chance to Trigger Prismatic Burst on Hit"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Supported Skills will Trigger Prismatic Burst on Hit"
-				}
+				text="Supported Skills have a {0}% chance to Trigger Prismatic Burst on Hit"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Supported Skills will Trigger Prismatic Burst on Hit"
 			}
 		},
 		stats={
@@ -20103,17 +18723,15 @@ return {
 		}
 	},
 	[691]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills are Triggered by Arcanist Brand, from the Brand's location"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills are Triggered by Arcanist Brand, from the Brand's location"
 			}
 		},
 		stats={
@@ -20121,17 +18739,15 @@ return {
 		}
 	},
 	[692]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Spells are Triggered by Attacks Exerted by Battlemage's Cry"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Spells are Triggered by Attacks Exerted by Battlemage's Cry"
 			}
 		},
 		stats={
@@ -20139,34 +18755,32 @@ return {
 		}
 	},
 	[693]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="{1:+d}% of Mana Cost required to be Spent before Triggering"
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+				text="{1:+d}% of Mana Cost required to be Spent before Triggering"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Supported Skills Trigger once total Mana Spent on other Bow\nAttacks exceeds {1}% of their Mana Cost"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills Trigger once total Mana Spent on other Bow\nAttacks exceeds {1}% of their Mana Cost"
 			}
 		},
 		stats={
@@ -20175,17 +18789,15 @@ return {
 		}
 	},
 	[694]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills are used by Mirage Warriors Summoned by General's Cry\nSupported Skills count as Triggered"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills are used by Mirage Warriors Summoned by General's Cry\nSupported Skills count as Triggered"
 			}
 		},
 		stats={
@@ -20193,30 +18805,28 @@ return {
 		}
 	},
 	[695]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Triggered Spells deal {0}% increased Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Triggered Spells deal {0}% reduced Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Triggered Spells deal {0}% increased Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Triggered Spells deal {0}% reduced Damage"
 			}
 		},
 		stats={
@@ -20224,30 +18834,28 @@ return {
 		}
 	},
 	[696]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Seal gain frequency while you are Channelling"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Seal gain frequency while you are Channelling"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Seal gain frequency while you are Channelling"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Seal gain frequency while you are Channelling"
 			}
 		},
 		stats={
@@ -20255,30 +18863,28 @@ return {
 		}
 	},
 	[697]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Seal gain frequency while you are not Channelling"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Seal gain frequency while you are not Channelling"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Seal gain frequency while you are not Channelling"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Seal gain frequency while you are not Channelling"
 			}
 		},
 		stats={
@@ -20286,17 +18892,15 @@ return {
 		}
 	},
 	[698]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Warcries do not grant Buffs or Charges to You or Allies"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Warcries do not grant Buffs or Charges to You or Allies"
 			}
 		},
 		stats={
@@ -20304,17 +18908,15 @@ return {
 		}
 	},
 	[699]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Exerted Attacks deal {0}% increased Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Exerted Attacks deal {0}% increased Damage"
 			}
 		},
 		stats={
@@ -20322,30 +18924,28 @@ return {
 		}
 	},
 	[700]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have {0}% increased Warcry Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills have {0}% reduced Warcry Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0}% increased Warcry Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0}% reduced Warcry Speed"
 			}
 		},
 		stats={
@@ -20353,30 +18953,28 @@ return {
 		}
 	},
 	[701]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% increased Elemental Damage with Weapons"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% reduced Elemental Damage with Weapons"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% increased Elemental Damage with Weapons"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% reduced Elemental Damage with Weapons"
 			}
 		},
 		stats={
@@ -20384,17 +18982,15 @@ return {
 		}
 	},
 	[702]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills have a {0}% chance to apply an additional Withered Debuff when inflicting Withered"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have a {0}% chance to apply an additional Withered Debuff when inflicting Withered"
 			}
 		},
 		stats={
@@ -20402,30 +18998,28 @@ return {
 		}
 	},
 	[703]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and Enemies have {0}% increased Movement Speed while inflicted with an Ailment from Supported Skills"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and Enemies have {0}% reduced Movement Speed while inflicted with an Ailment from Supported Skills"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and Enemies have {0}% increased Movement Speed while inflicted with an Ailment from Supported Skills"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and Enemies have {0}% reduced Movement Speed while inflicted with an Ailment from Supported Skills"
 			}
 		},
 		stats={
@@ -20433,37 +19027,35 @@ return {
 		}
 	},
 	[704]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds_2dp",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextReoccurringSpell"
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_2dp",
-						v=1
+						[1]=1,
+						[2]="#"
 					},
 					[2]={
-						k="reminderstring",
-						v="ReminderTextReoccurringSpell"
+						[1]="#",
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						},
-						[3]={
-							[1]=1,
-							[2]="#"
-						},
-						[4]={
-							[1]="#",
-							[2]="#"
-						}
+					[3]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Supported Spells gain a Seal every {0} seconds, to a maximum of {2} Seals\nSupported Spells are Unsealed when cast, and their effects Reoccur for each Seal lost"
-				}
+					[4]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Spells gain a Seal every {0} seconds, to a maximum of {2} Seals\nSupported Spells are Unsealed when cast, and their effects Reoccur for each Seal lost"
 			}
 		},
 		stats={
@@ -20474,30 +19066,28 @@ return {
 		}
 	},
 	[705]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Supported Skills deal {0}% more Damage when Reoccurring"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Supported Skills deal {0}% less Damage when Reoccurring"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills deal {0}% more Damage when Reoccurring"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills deal {0}% less Damage when Reoccurring"
 			}
 		},
 		stats={
@@ -20505,21 +19095,19 @@ return {
 		}
 	},
 	[706]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextStaffWarstaff"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextStaffWarstaff"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Supported Skills can only be used with Axes, Maces, Sceptres or Staves"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Supported Skills can only be used with Axes, Maces, Sceptres or Staves"
 			}
 		},
 		stats={
@@ -20527,17 +19115,15 @@ return {
 		}
 	},
 	[707]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Each Mine from Supported Skills applies {0}% chance to deal Double Damage to Hits against Enemies near it, up to a maximum of 100%"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Each Mine from Supported Skills applies {0}% chance to deal Double Damage to Hits against Enemies near it, up to a maximum of 100%"
 			}
 		},
 		stats={
@@ -20545,21 +19131,19 @@ return {
 		}
 	},
 	[708]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextAggressiveMinions"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextAggressiveMinions"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills are Aggressive"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills are Aggressive"
 			}
 		},
 		stats={
@@ -20567,21 +19151,19 @@ return {
 		}
 	},
 	[709]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDefensiveMinions"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDefensiveMinions"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions from Supported Skills are Defensive"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions from Supported Skills are Defensive"
 			}
 		},
 		stats={
