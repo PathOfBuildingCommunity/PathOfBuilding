@@ -464,7 +464,6 @@ statMap = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 	},
-#baseMod flag("SupportedByMultistrike")
 #mods
 
 #skill SupportAwakenedMultistrike

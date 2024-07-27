@@ -286,10 +286,10 @@ skills["AncestralCry"] = {
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("AncestralExertedAttacks", "BASE", nil),
 		},
-		["ancestral_cry_elemental_resistance_per_5_monster_power"] = {
+		["ancestral_cry_elemental_resist_%_per_5_power_up_to_cap"] = {
 			mod("AncestralElementalResistancePer5MP", "BASE", nil),
 		},
-		["ancestral_cry_max_elemental_resistances_per_5_monster_power"] = {
+		["ancestral_cry_maximum_elemental_resist_%_per_10_power_up_to_cap"] = {
 			mod("AncestralMaxElementalResistancePer5MP", "BASE", nil),
 		},
 		["skill_empower_limitation_specifier_for_stat_description"] = {
@@ -638,7 +638,7 @@ skills["BattlemagesCry"] = {
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("BattlemageExertedAttacks", "BASE", nil),
 		},
-		["divine_cry_base_critical_strike_chance_+%_per_5_power"] = {
+		["divine_cry_additional_base_critical_strike_chance_per_5_power_up_to_cap"] = {
 			mod("BattlemageBaseCritChancePer5MP", "BASE", nil),
 		},
 		["display_battlemage_cry_exerted_attacks_trigger_supported_spell"] ={
@@ -1290,7 +1290,7 @@ skills["BoneshatterAltX"] = {
 		},
 	},
 	statMap = {
-		["trauma_strike_damage_+%_final_per_trauma"] = {
+		["trauma_strike_damage_+%_final_per_trauma_capped"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks", limitVar = "TraumaStacksMax" }),
 		},
 		["boneshatter_trauma_base_duration_ms"] = {
@@ -1481,9 +1481,6 @@ skills["ChainHook"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
-		["chain_strike_gain_x_rage_if_attack_hits"] = {
-			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
-		},
 		["chain_strike_cone_radius_+_per_x_rage"] = {
 			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "Rage", div = 5 }),
 			div = 5,
@@ -1654,9 +1651,6 @@ skills["CleaveAltX"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
-		["chain_strike_gain_x_rage_if_attack_hits"] = {
-			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
-		},
 		["chain_strike_cone_radius_+_per_x_rage"] = {
 			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "RageEffect", div = 5 }),
 			div = 5,
@@ -2192,10 +2186,10 @@ skills["DefianceBanner"] = {
 	statDescriptionScope = "banner_aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
-		["defiance_banner_movement_speed"] = {
+		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["suppress_spell_damage"] = {
+		["base_spell_suppression_chance_%"] = {
 			mod("SpellSuppressionChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
@@ -2712,10 +2706,10 @@ skills["DreadBanner"] = {
 	statDescriptionScope = "banner_aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
-		["puresteel_banner_accuracy_rating_+%_final"] = {
+		["recover_X_life_on_block"] = {
 			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["attacks_impale_on_hit_%_chance"] = {
+		["additional_block_%"] = {
 			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
@@ -3444,8 +3438,9 @@ skills["EnduringCry"] = {
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
-		["enduring_cry_life_regenerated_percentage_per_5_power"] = {
+		["enduring_cry_life_regeneration_rate_per_minute_%_per_5_power_up_to_cap"] = {
 			mod("EnduringCryLifeRegen", "BASE", nil),
+			div = 60,
 		},
 	},
 	baseFlags = {
@@ -3787,10 +3782,10 @@ skills["FleshAndStone"] = {
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
-		["support_maimed_enemies_physical_damage_taken_+%"] = {
+		["flesh_stone_blood_stance_enemies_physical_damage_taken_when_hit_+%_final_from_player_distance"] = {
 			mod("PhysicalDamageTaken", "MORE", nil, ModFlag.Hit, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectCond = "BloodStance" }),
 		},
-		["attack_damage_taken_+%_final_from_enemies_unaffected_by_sand_armour"] = {
+		["flesh_stone_sand_stance_damage_taken_+%_final_from_distance_from_enemy_hits"] = {
 			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SandStance" }),
 		},
 	},
@@ -5744,7 +5739,7 @@ skills["InfernalCry"] = {
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("InfernalExertedAttacks", "BASE", nil),
 		},
-		["infernal_cry_phys_as_extra_fire%_per_5_monster_power"] = {
+		["infernal_cry_physical_damage_%_to_add_as_fire_per_5_power_up_to_cap"] = {
 			mod("InfernalFireAsExtraPer5MP", "BASE", nil),
 		},
 		["infernal_cry_empowered_attacks_trigger_combust_display"] = {
@@ -6172,7 +6167,7 @@ skills["IntimidatingCry"] = {
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("IntimidatingExertedAttacks", "BASE", nil),
 		},
-		["intimidating_cry_movement_speed_per_5_MP"] = {
+		["intimidating_cry_movement_speed_+%_per_5_power_up_to_cap"] = {
 			mod("IntimidatingMovementSpeedPer5MP", "BASE", nil),
 		},
 		["intimidating_cry_empowerd_attacks_deal_double_damage_display"] = {
@@ -8071,93 +8066,6 @@ skills["RallyingCry"] = {
 		[40] = { 54, 4200, storedUses = 1, levelRequirement = 100, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
 	},
 }
-skills["Reckoning"] = {
-	name = "Reckoning",
-	hidden = true,
-	color = 1,
-	baseEffectiveness = 0.5,
-	incrementalEffectiveness = 0.023299999535084,
-	description = "Perform a swift counter-attack against enemies in a cone shape when you block with your shield.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.RequiresShield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Physical] = true, [SkillType.Cooldown] = true, },
-	weaponTypes = {
-		["None"] = true,
-		["Claw"] = true,
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["One Handed Axe"] = true,
-		["Dagger"] = true,
-		["One Handed Sword"] = true,
-	},
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1,
-	baseFlags = {
-		attack = true,
-		area = true,
-		melee = true,
-	},
-	baseMods = {
-		skill("radius", 35),
-	},
-	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 2 },
-		},
-	},
-	constantStats = {
-		{ "melee_counterattack_trigger_on_block_%", 100 },
-		{ "shield_counterattack_aoe_range", 35 },
-	},
-	stats = {
-		"attack_minimum_added_physical_damage",
-		"attack_maximum_added_physical_damage",
-		"attack_unusable_if_triggerable",
-		"base_skill_show_average_damage_instead_of_dps",
-		"is_area_damage",
-	},
-	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.15, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.15, cooldown = 0.4, levelRequirement = 4, statInterpolation = { 3, 3, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.182, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.18, cooldown = 0.4, levelRequirement = 6, statInterpolation = { 3, 3, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.213, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.21, cooldown = 0.4, levelRequirement = 9, statInterpolation = { 3, 3, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.245, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.24, cooldown = 0.4, levelRequirement = 12, statInterpolation = { 3, 3, }, },
-		[5] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.276, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.28, cooldown = 0.4, levelRequirement = 16, statInterpolation = { 3, 3, }, },
-		[6] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.308, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.31, cooldown = 0.4, levelRequirement = 20, statInterpolation = { 3, 3, }, },
-		[7] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.339, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.34, cooldown = 0.4, levelRequirement = 24, statInterpolation = { 3, 3, }, },
-		[8] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.371, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.37, cooldown = 0.4, levelRequirement = 28, statInterpolation = { 3, 3, }, },
-		[9] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.403, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.4, cooldown = 0.4, levelRequirement = 32, statInterpolation = { 3, 3, }, },
-		[10] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.434, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.43, cooldown = 0.4, levelRequirement = 36, statInterpolation = { 3, 3, }, },
-		[11] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.466, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.47, cooldown = 0.4, levelRequirement = 40, statInterpolation = { 3, 3, }, },
-		[12] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.497, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.5, cooldown = 0.4, levelRequirement = 44, statInterpolation = { 3, 3, }, },
-		[13] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.529, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.53, cooldown = 0.4, levelRequirement = 48, statInterpolation = { 3, 3, }, },
-		[14] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.561, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.56, cooldown = 0.4, levelRequirement = 52, statInterpolation = { 3, 3, }, },
-		[15] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.592, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.59, cooldown = 0.4, levelRequirement = 55, statInterpolation = { 3, 3, }, },
-		[16] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.624, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.62, cooldown = 0.4, levelRequirement = 58, statInterpolation = { 3, 3, }, },
-		[17] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.655, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.66, cooldown = 0.4, levelRequirement = 61, statInterpolation = { 3, 3, }, },
-		[18] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.687, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.69, cooldown = 0.4, levelRequirement = 64, statInterpolation = { 3, 3, }, },
-		[19] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.718, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.72, cooldown = 0.4, levelRequirement = 67, statInterpolation = { 3, 3, }, },
-		[20] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.75, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.75, cooldown = 0.4, levelRequirement = 70, statInterpolation = { 3, 3, }, },
-		[21] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.782, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.78, cooldown = 0.4, levelRequirement = 72, statInterpolation = { 3, 3, }, },
-		[22] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.813, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.81, cooldown = 0.4, levelRequirement = 74, statInterpolation = { 3, 3, }, },
-		[23] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.845, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.84, cooldown = 0.4, levelRequirement = 76, statInterpolation = { 3, 3, }, },
-		[24] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.876, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.88, cooldown = 0.4, levelRequirement = 78, statInterpolation = { 3, 3, }, },
-		[25] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.908, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.91, cooldown = 0.4, levelRequirement = 80, statInterpolation = { 3, 3, }, },
-		[26] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.939, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.94, cooldown = 0.4, levelRequirement = 82, statInterpolation = { 3, 3, }, },
-		[27] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.971, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.97, cooldown = 0.4, levelRequirement = 84, statInterpolation = { 3, 3, }, },
-		[28] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.003, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2, cooldown = 0.4, levelRequirement = 86, statInterpolation = { 3, 3, }, },
-		[29] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.034, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.03, cooldown = 0.4, levelRequirement = 88, statInterpolation = { 3, 3, }, },
-		[30] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.066, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.07, cooldown = 0.4, levelRequirement = 90, statInterpolation = { 3, 3, }, },
-		[31] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.082, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.08, cooldown = 0.4, levelRequirement = 91, statInterpolation = { 3, 3, }, },
-		[32] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.097, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.1, cooldown = 0.4, levelRequirement = 92, statInterpolation = { 3, 3, }, },
-		[33] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.113, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.11, cooldown = 0.4, levelRequirement = 93, statInterpolation = { 3, 3, }, },
-		[34] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.129, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.13, cooldown = 0.4, levelRequirement = 94, statInterpolation = { 3, 3, }, },
-		[35] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.145, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.14, cooldown = 0.4, levelRequirement = 95, statInterpolation = { 3, 3, }, },
-		[36] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.161, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.16, cooldown = 0.4, levelRequirement = 96, statInterpolation = { 3, 3, }, },
-		[37] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.176, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.18, cooldown = 0.4, levelRequirement = 97, statInterpolation = { 3, 3, }, },
-		[38] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.192, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.19, cooldown = 0.4, levelRequirement = 98, statInterpolation = { 3, 3, }, },
-		[39] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.208, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.21, cooldown = 0.4, levelRequirement = 99, statInterpolation = { 3, 3, }, },
-		[40] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.224, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.22, cooldown = 0.4, levelRequirement = 100, statInterpolation = { 3, 3, }, },
-	},
-}
 skills["RejuvenationTotem"] = {
 	name = "Rejuvenation Totem",
 	baseTypeName = "Rejuvenation Totem",
@@ -8423,13 +8331,13 @@ skills["SeismicCry"] = {
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("SeismicExertedAttacks", "BASE", nil),
 		},
-		["seismic_cry_base_slam_skill_area_+%"] = {
+		["seismic_cry_base_slam_skill_area_+%_final"] = {
 			mod("SeismicAoEMoreMultiplier", "BASE", nil),
 		},
-		["seismic_cry_+%_stun_threshold_per_5_MP"] = {
+		["seismic_cry_stun_threshold_+%_per_5_power_up_to_cap"] = {
 			mod("SeismicStunThresholdPer5MP", "BASE", nil),
 		},
-		["seismic_cry_+%_physical_damamge_reduction_per_5_MP"] = {
+		["seismic_cry_armour_+%_final_per_5_power_up_to_cap"] = {
 			mod("SeismicArmourPer5MP", "BASE", nil),
 		},
 		["skill_empower_limitation_specifier_for_stat_description"] = {
@@ -10572,92 +10480,6 @@ skills["TectonicSlamAltX"] = {
 		[40] = { attackSpeedMultiplier = -20, baseMultiplier = 7.801, damageEffectiveness = 7.801, levelRequirement = 100, cost = { Mana = 15, }, },
 	},
 }
-skills["Vengeance"] = {
-	name = "Vengeance",
-	hidden = true,
-	color = 1,
-	baseEffectiveness = 0.5,
-	incrementalEffectiveness = 0.023299999535084,
-	description = "Chance to perform a swift counter-attack against all enemies around you when you are hit. Weapon range increases the area of this attack. Requires a Melee Weapon.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Physical] = true, [SkillType.Cooldown] = true, },
-	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Two Handed Axe"] = true,
-		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
-	},
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1,
-	baseFlags = {
-		attack = true,
-		melee = true,
-		area = true,
-	},
-	qualityStats = {
-		Default = {
-			{ "melee_counterattack_trigger_on_hit_%", 1 },
-		},
-	},
-	constantStats = {
-		{ "melee_counterattack_trigger_on_hit_%", 30 },
-	},
-	stats = {
-		"attack_minimum_added_physical_damage",
-		"attack_maximum_added_physical_damage",
-		"attack_unusable_if_triggerable",
-		"base_skill_show_average_damage_instead_of_dps",
-		"is_area_damage",
-	},
-	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.7, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.7, cooldown = 1.2, levelRequirement = 24, statInterpolation = { 3, 3, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.745, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.74, cooldown = 1.2, levelRequirement = 27, statInterpolation = { 3, 3, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.789, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.79, cooldown = 1.2, levelRequirement = 30, statInterpolation = { 3, 3, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.834, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.83, cooldown = 1.2, levelRequirement = 33, statInterpolation = { 3, 3, }, },
-		[5] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.879, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.88, cooldown = 1.2, levelRequirement = 36, statInterpolation = { 3, 3, }, },
-		[6] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.924, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.92, cooldown = 1.2, levelRequirement = 39, statInterpolation = { 3, 3, }, },
-		[7] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 1.968, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.97, cooldown = 1.2, levelRequirement = 42, statInterpolation = { 3, 3, }, },
-		[8] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.013, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.01, cooldown = 1.2, levelRequirement = 45, statInterpolation = { 3, 3, }, },
-		[9] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.058, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.06, cooldown = 1.2, levelRequirement = 48, statInterpolation = { 3, 3, }, },
-		[10] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.103, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.1, cooldown = 1.2, levelRequirement = 50, statInterpolation = { 3, 3, }, },
-		[11] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.147, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.15, cooldown = 1.2, levelRequirement = 52, statInterpolation = { 3, 3, }, },
-		[12] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.192, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.19, cooldown = 1.2, levelRequirement = 54, statInterpolation = { 3, 3, }, },
-		[13] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.237, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.24, cooldown = 1.2, levelRequirement = 56, statInterpolation = { 3, 3, }, },
-		[14] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.282, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.28, cooldown = 1.2, levelRequirement = 58, statInterpolation = { 3, 3, }, },
-		[15] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.326, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.33, cooldown = 1.2, levelRequirement = 60, statInterpolation = { 3, 3, }, },
-		[16] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.371, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.37, cooldown = 1.2, levelRequirement = 62, statInterpolation = { 3, 3, }, },
-		[17] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.416, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.42, cooldown = 1.2, levelRequirement = 64, statInterpolation = { 3, 3, }, },
-		[18] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.461, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.46, cooldown = 1.2, levelRequirement = 66, statInterpolation = { 3, 3, }, },
-		[19] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.505, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.51, cooldown = 1.2, levelRequirement = 68, statInterpolation = { 3, 3, }, },
-		[20] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.55, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.55, cooldown = 1.2, levelRequirement = 70, statInterpolation = { 3, 3, }, },
-		[21] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.595, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.59, cooldown = 1.2, levelRequirement = 72, statInterpolation = { 3, 3, }, },
-		[22] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.639, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.64, cooldown = 1.2, levelRequirement = 74, statInterpolation = { 3, 3, }, },
-		[23] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.684, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.68, cooldown = 1.2, levelRequirement = 76, statInterpolation = { 3, 3, }, },
-		[24] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.729, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.73, cooldown = 1.2, levelRequirement = 78, statInterpolation = { 3, 3, }, },
-		[25] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.774, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.77, cooldown = 1.2, levelRequirement = 80, statInterpolation = { 3, 3, }, },
-		[26] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.818, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.82, cooldown = 1.2, levelRequirement = 82, statInterpolation = { 3, 3, }, },
-		[27] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.863, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.86, cooldown = 1.2, levelRequirement = 84, statInterpolation = { 3, 3, }, },
-		[28] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.908, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.91, cooldown = 1.2, levelRequirement = 86, statInterpolation = { 3, 3, }, },
-		[29] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.953, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.95, cooldown = 1.2, levelRequirement = 88, statInterpolation = { 3, 3, }, },
-		[30] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 2.997, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 3, cooldown = 1.2, levelRequirement = 90, statInterpolation = { 3, 3, }, },
-		[31] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 3.02, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 3.02, cooldown = 1.2, levelRequirement = 91, statInterpolation = { 3, 3, }, },
-		[32] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 3.042, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 3.04, cooldown = 1.2, levelRequirement = 92, statInterpolation = { 3, 3, }, },
-		[33] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 3.064, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 3.06, cooldown = 1.2, levelRequirement = 93, statInterpolation = { 3, 3, }, },
-		[34] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 3.087, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 3.09, cooldown = 1.2, levelRequirement = 94, statInterpolation = { 3, 3, }, },
-		[35] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 3.109, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 3.11, cooldown = 1.2, levelRequirement = 95, statInterpolation = { 3, 3, }, },
-		[36] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 3.132, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 3.13, cooldown = 1.2, levelRequirement = 96, statInterpolation = { 3, 3, }, },
-		[37] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 3.154, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 3.15, cooldown = 1.2, levelRequirement = 97, statInterpolation = { 3, 3, }, },
-		[38] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 3.176, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 3.18, cooldown = 1.2, levelRequirement = 98, statInterpolation = { 3, 3, }, },
-		[39] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 3.199, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 3.2, cooldown = 1.2, levelRequirement = 99, statInterpolation = { 3, 3, }, },
-		[40] = { 0.80000001192093, 1.2000000476837, baseMultiplier = 3.221, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 3.22, cooldown = 1.2, levelRequirement = 100, statInterpolation = { 3, 3, }, },
-	},
-}
 skills["VigilantStrike"] = {
 	name = "Vigilant Strike",
 	baseTypeName = "Vigilant Strike",
@@ -11201,7 +11023,7 @@ skills["WarlordsMark"] = {
 		["mana_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
 			mod("SelfDamageManaLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["enemy_rage_regeneration_on_stun"] = {
+		["enemy_grant_X_rage_on_stun"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" } ),
 		},
 	},
@@ -11284,8 +11106,8 @@ skills["WarBanner"] = {
 		["accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		},
-		["physical_damage_+%"] = {
-			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "BannerPlanted" }, { type = "SkillType", skillType = SkillType.Melee }),
+		["war_banner_physical_damage_+%_final_with_melee_skills"] = {
+			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "SkillType", skillType = SkillType.Melee }),
 		},
 	},
 	baseFlags = {

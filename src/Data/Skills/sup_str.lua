@@ -3444,9 +3444,6 @@ skills["SupportMultistrike"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 	},
-	baseMods = {
-		flag("SupportedByMultistrike"),
-	},
 	qualityStats = {
 		Default = {
 			{ "melee_damage_+%", 0.5 },

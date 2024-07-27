@@ -10310,11 +10310,6 @@ skills["KineticBolt"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	statMap = {
-		["quality_display_spell_damage_to_attack_damage_is_gem"] = {
-			--Display Only
-		},
-	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -10388,11 +10383,6 @@ skills["KineticBoltAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	statMap = {
-		["quality_display_spell_damage_to_attack_damage_is_gem"] = {
-			--Display Only
-		},
-	},
 	baseFlags = {
 		attack = true,
 		projectile = true,

@@ -435,7 +435,6 @@ Implicits: 2
 {variant:1}Adds (130-150) to (200-250) Fire Damage to Spells
 {variant:2}Adds (230-250) to (300-350) Fire Damage to Spells
 {variant:3,4}Battlemage
-{variant:1,2,3}Grants Level 15 Vengeance Skill
 {variant:1}100% increased Fire Damage if you have been Hit Recently
 {variant:2,3,4}100% increased Fire Damage
 Immune to Freeze and Chill while Ignited

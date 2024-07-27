@@ -2200,20 +2200,10 @@ local skills, mod, flag, skill = ...
 
 #skill KineticBolt
 #flags attack projectile
-	statMap = {
-		["quality_display_spell_damage_to_attack_damage_is_gem"] = {
-			--Display Only
-		},
-	},
 #mods
 
 #skill KineticBoltAltX
 #flags attack projectile
-	statMap = {
-		["quality_display_spell_damage_to_attack_damage_is_gem"] = {
-			--Display Only
-		},
-	},
 #mods
 
 #skill LightningSpireTrap

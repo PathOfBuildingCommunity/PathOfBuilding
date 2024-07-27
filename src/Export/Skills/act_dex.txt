@@ -2365,10 +2365,6 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Multiplier:ReaveMaxStages", "BASE", 4)
 #mods
 
-#skill Riposte
-#flags attack melee
-#mods
-
 #skill ScourgeArrow
 #flags attack projectile
 	preDamageFunc = function(activeSkill, output)
