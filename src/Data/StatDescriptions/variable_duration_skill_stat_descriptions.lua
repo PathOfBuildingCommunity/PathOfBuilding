@@ -3,28 +3,30 @@
 
 return {
 	[1]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Duration"
+				}
 			}
 		},
 		name="quality_duration_final",
@@ -33,36 +35,38 @@ return {
 		}
 	},
 	[2]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Duration of this Skill and Damaging Ailments"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Duration of this Skill and Damaging Ailments"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Duration of this Skill and Damaging Ailments"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Duration of this Skill and Damaging Ailments"
+				}
 			}
 		},
 		name="skill_and_damaging_ailment_duration_incr",
@@ -71,28 +75,30 @@ return {
 		}
 	},
 	[3]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Duration"
+				}
 			}
 		},
 		name="skill_duration_incr",
@@ -101,28 +107,30 @@ return {
 		}
 	},
 	[4]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Duration"
+				}
 			}
 		},
 		name="support_more_duration",
@@ -131,28 +139,30 @@ return {
 		}
 	},
 	[5]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Duration"
+				}
 			}
 		},
 		name="support_less_duration",

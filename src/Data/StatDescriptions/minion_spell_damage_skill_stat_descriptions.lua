@@ -3,19 +3,21 @@
 
 return {
 	[1]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Debuff Lasts {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Debuff Lasts {0} seconds"
+				}
 			}
 		},
 		name="buff_duration",
@@ -24,28 +26,30 @@ return {
 		}
 	},
 	[2]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% increased Critical Strike Chance"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% increased Critical Strike Chance"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% reduced Critical Strike Chance"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% reduced Critical Strike Chance"
+				}
 			}
 		},
 		name="critical_strike_chance_incr",
@@ -54,28 +58,30 @@ return {
 		}
 	},
 	[3]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% more Critical Strike Chance"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% more Critical Strike Chance"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% less Critical Strike Chance"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% less Critical Strike Chance"
+				}
 			}
 		},
 		name="controlled_destruction_critical_strike_chance",
@@ -84,15 +90,17 @@ return {
 		}
 	},
 	[4]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0:+d}% to Critical Strike Multiplier"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0:+d}% to Critical Strike Multiplier"
+				}
 			}
 		},
 		name="critical_strike_multiplier_incr",
@@ -101,23 +109,25 @@ return {
 		}
 	},
 	[5]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="divide_by_one_hundred",
-					v=1
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextLifeLeech"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions Leech {0}% of Damage as Life"
+						k="divide_by_one_hundred",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextLifeLeech"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions Leech {0}% of Damage as Life"
+				}
 			}
 		},
 		name="life_leech_from_any",
@@ -126,23 +136,25 @@ return {
 		}
 	},
 	[6]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="divide_by_one_hundred",
-					v=1
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextEnergyShieldLeech"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions Leech {0}% of Damage as Energy Shield"
+						k="divide_by_one_hundred",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextEnergyShieldLeech"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions Leech {0}% of Damage as Energy Shield"
+				}
 			}
 		},
 		name="energy_shield_leech_from_any",
@@ -151,32 +163,34 @@ return {
 		}
 	},
 	[7]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextKnockback"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]=99
-					}
+						k="reminderstring",
+						v="ReminderTextKnockback"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="This Spell and Minions have an additional {0}% chance to Knock Enemies Back on Hit"
 				},
-				text="This Spell and Minions have an additional {0}% chance to Knock Enemies Back on Hit"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextKnockback"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions knock Enemies Back on Hit"
+						k="reminderstring",
+						v="ReminderTextKnockback"
+					},
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions knock Enemies Back on Hit"
+				}
 			}
 		},
 		name="knockback_chance",
@@ -185,28 +199,30 @@ return {
 		}
 	},
 	[8]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% increased Knockback Distance"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% increased Knockback Distance"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% reduced Knockback Distance"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% reduced Knockback Distance"
+				}
 			}
 		},
 		name="knockback_distance",
@@ -215,36 +231,38 @@ return {
 		}
 	},
 	[9]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextStunThreshold"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% reduced Enemy Stun Threshold"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextStunThreshold"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% reduced Enemy Stun Threshold"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextStunThreshold"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% increased Enemy Stun Threshold"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextStunThreshold"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% increased Enemy Stun Threshold"
+				}
 			}
 		},
 		name="stun_threshold_reduction_incr",
@@ -253,28 +271,30 @@ return {
 		}
 	},
 	[10]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Rarity of Items Dropped by enemies Slain by this Spell or Minions"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Rarity of Items Dropped by enemies Slain by this Spell or Minions"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Rarity of Items Dropped by enemies Slain by this Spell or Minions"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Rarity of Items Dropped by enemies Slain by this Spell or Minions"
+				}
 			}
 		},
 		name="killed_monster_dropped_item_rarity_incr",
@@ -283,28 +303,30 @@ return {
 		}
 	},
 	[11]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Quantity of Items Dropped by enemies Slain by this Spell or Minions"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Quantity of Items Dropped by enemies Slain by this Spell or Minions"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Quantity of Items Dropped by enemies Slain by this Spell or Minions"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Quantity of Items Dropped by enemies Slain by this Spell or Minions"
+				}
 			}
 		},
 		name="killed_monster_dropped_item_quantity_incr",
@@ -313,57 +335,59 @@ return {
 		}
 	},
 	[12]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextFreeze"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
+						k="reminderstring",
+						v="ReminderTextFreeze"
 					},
-					[2]={
-						[1]=1,
-						[2]="#"
-					}
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions always Freeze Enemies"
 				},
-				text="This Spell and Minions always Freeze Enemies"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextFreeze"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]=100,
-						[2]="#"
+						k="reminderstring",
+						v="ReminderTextFreeze"
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="This Spell and Minions always Freeze Enemies"
 				},
-				text="This Spell and Minions always Freeze Enemies"
-			},
-			[3]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextFreeze"
-				},
-				limit={
+				[3]={
 					[1]={
-						[1]=1,
-						[2]=99
+						k="reminderstring",
+						v="ReminderTextFreeze"
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
-				},
-				text="This Spell and Minions have {0}% chance to Freeze enemies"
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="This Spell and Minions have {0}% chance to Freeze enemies"
+				}
 			}
 		},
 		name="freeze_chance",
@@ -373,19 +397,21 @@ return {
 		}
 	},
 	[13]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextShock"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% chance to Shock enemies"
+						k="reminderstring",
+						v="ReminderTextShock"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% chance to Shock enemies"
+				}
 			}
 		},
 		name="shock_chance",
@@ -394,19 +420,21 @@ return {
 		}
 	},
 	[14]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextIgnite"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% chance to Ignite enemies"
+						k="reminderstring",
+						v="ReminderTextIgnite"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% chance to Ignite enemies"
+				}
 			}
 		},
 		name="burn_chance",
@@ -415,15 +443,17 @@ return {
 		}
 	},
 	[15]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% chance to cause Monsters to Flee on Hit"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% chance to cause Monsters to Flee on Hit"
+				}
 			}
 		},
 		name="chance_to_flee",
@@ -432,28 +462,30 @@ return {
 		}
 	},
 	[16]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% increased Area of Effect"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% increased Area of Effect"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% reduced Area of Effect"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% reduced Area of Effect"
+				}
 			}
 		},
 		name="area_of_effect_incr",
@@ -462,28 +494,30 @@ return {
 		}
 	},
 	[17]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% more Area of Effect"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% more Area of Effect"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% less Area of Effect"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% less Area of Effect"
+				}
 			}
 		},
 		name="concentrated_area_of_effect",
@@ -492,28 +526,30 @@ return {
 		}
 	},
 	[18]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% increased Stun Duration on enemies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% increased Stun Duration on enemies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% reduced Stun Duration on enemies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% reduced Stun Duration on enemies"
+				}
 			}
 		},
 		name="stun_duration_incr",
@@ -522,28 +558,30 @@ return {
 		}
 	},
 	[19]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Effect of Chill inflicted by this Spell or Minions"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Effect of Chill inflicted by this Spell or Minions"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Effect of Chill inflicted by this Spell or Minions"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Effect of Chill inflicted by this Spell or Minions"
+				}
 			}
 		},
 		name="chill_effect",
@@ -552,28 +590,30 @@ return {
 		}
 	},
 	[20]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% increased Shock Effect"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% increased Shock Effect"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% reduced Shock Effect"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% reduced Shock Effect"
+				}
 			}
 		},
 		name="shock_effect",
@@ -582,28 +622,30 @@ return {
 		}
 	},
 	[21]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% increased Ignite Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% increased Ignite Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% reduced Ignite Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% reduced Ignite Duration"
+				}
 			}
 		},
 		name="burn_duration",
@@ -612,28 +654,30 @@ return {
 		}
 	},
 	[22]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% increased Chill Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% increased Chill Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% reduced Chill Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% reduced Chill Duration"
+				}
 			}
 		},
 		name="chill_duration",
@@ -642,28 +686,30 @@ return {
 		}
 	},
 	[23]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% increased Freeze Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% increased Freeze Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% reduced Freeze Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% reduced Freeze Duration"
+				}
 			}
 		},
 		name="freeze_duration",
@@ -672,28 +718,30 @@ return {
 		}
 	},
 	[24]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% increased Shock Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% increased Shock Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% reduced Shock Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% reduced Shock Duration"
+				}
 			}
 		},
 		name="shock_duration",
@@ -702,19 +750,21 @@ return {
 		}
 	},
 	[25]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextElementalAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Elemental Ailments caused by this Spell or Minions also spread to nearby enemies"
+						k="reminderstring",
+						v="ReminderTextElementalAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Elemental Ailments caused by this Spell or Minions also spread to nearby enemies"
+				}
 			}
 		},
 		name="elemental_status_aura",
@@ -723,15 +773,17 @@ return {
 		}
 	},
 	[26]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Ignites caused by this Spell or Minions spread to other nearby Enemies"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Ignites caused by this Spell or Minions spread to other nearby Enemies"
+				}
 			}
 		},
 		name="ignite_aura",
@@ -740,15 +792,17 @@ return {
 		}
 	},
 	[27]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions Convert {0}% of Physical Damage to Lightning Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions Convert {0}% of Physical Damage to Lightning Damage"
+				}
 			}
 		},
 		name="physical_damage_to_convert_to_lightning",
@@ -757,19 +811,21 @@ return {
 		}
 	},
 	[28]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextBlind"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% chance to Blind on Hit"
+						k="reminderstring",
+						v="ReminderTextBlind"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% chance to Blind on Hit"
+				}
 			}
 		},
 		name="chance_to_blind",
@@ -778,28 +834,30 @@ return {
 		}
 	},
 	[29]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% increased Blinding duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% increased Blinding duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% reduced Blinding duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% reduced Blinding duration"
+				}
 			}
 		},
 		name="blind_duration_incr",
@@ -808,15 +866,17 @@ return {
 		}
 	},
 	[30]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions Penetrate {0}% Fire Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions Penetrate {0}% Fire Resistance"
+				}
 			}
 		},
 		name="fire_penetration",
@@ -825,15 +885,17 @@ return {
 		}
 	},
 	[31]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions Penetrate {0}% Cold Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions Penetrate {0}% Cold Resistance"
+				}
 			}
 		},
 		name="cold_penetration",
@@ -842,15 +904,17 @@ return {
 		}
 	},
 	[32]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions Penetrate {0}% Elemental Resistances"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions Penetrate {0}% Elemental Resistances"
+				}
 			}
 		},
 		name="elemental_penetration",
@@ -859,15 +923,17 @@ return {
 		}
 	},
 	[33]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions Penetrate {0}% Lightning Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions Penetrate {0}% Lightning Resistance"
+				}
 			}
 		},
 		name="lightning_penetration",
@@ -876,24 +942,26 @@ return {
 		}
 	},
 	[34]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="This Spell and Minion's Spells Repeat an additional time"
 				},
-				text="This Spell and Minion's Spells Repeat an additional time"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minion's Spells Repeat an additional {0} times"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minion's Spells Repeat an additional {0} times"
+				}
 			}
 		},
 		name="base_multicast",
@@ -902,28 +970,30 @@ return {
 		}
 	},
 	[35]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% increased Duration of Cruelty"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% increased Duration of Cruelty"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% reduced Duration of Cruelty"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% reduced Duration of Cruelty"
+				}
 			}
 		},
 		name="cruelty_duration_incr",
@@ -932,24 +1002,26 @@ return {
 		}
 	},
 	[36]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=99
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="This Spell and Minions have {0}% chance to gain a Power Charge on Critical Strike"
 				},
-				text="This Spell and Minions have {0}% chance to gain a Power Charge on Critical Strike"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions gain a Power Charge on Critical Strike"
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions gain a Power Charge on Critical Strike"
+				}
 			}
 		},
 		name="power_charge_on_crit_chance",
@@ -958,19 +1030,21 @@ return {
 		}
 	},
 	[37]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextFreeze"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0:d}% chance to Freeze Enemies which are Chilled"
+						k="reminderstring",
+						v="ReminderTextFreeze"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0:d}% chance to Freeze Enemies which are Chilled"
+				}
 			}
 		},
 		name="freeze_chance_vs_chilled",
@@ -979,36 +1053,38 @@ return {
 		}
 	},
 	[38]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions deal {0}% more Damage with Hits and Ailments against Chilled Enemies"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions deal {0}% more Damage with Hits and Ailments against Chilled Enemies"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions deal {0}% less Damage with Hits and Ailments against Chilled Enemies"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions deal {0}% less Damage with Hits and Ailments against Chilled Enemies"
+				}
 			}
 		},
 		name="hypothermia_damage",
@@ -1017,19 +1093,21 @@ return {
 		}
 	},
 	[39]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextElementalAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions cannot inflict Elemental Ailments"
+						k="reminderstring",
+						v="ReminderTextElementalAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions cannot inflict Elemental Ailments"
+				}
 			}
 		},
 		name="cannot_inflict_ailments",
@@ -1038,19 +1116,21 @@ return {
 		}
 	},
 	[40]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextPoison"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions Poison Enemies on Hit"
+						k="reminderstring",
+						v="ReminderTextPoison"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions Poison Enemies on Hit"
+				}
 			}
 		},
 		name="poison_on_hit",
@@ -1059,28 +1139,30 @@ return {
 		}
 	},
 	[41]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% increased Poison Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% increased Poison Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% reduced Poison Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% reduced Poison Duration"
+				}
 			}
 		},
 		name="poison_duration",
@@ -1089,36 +1171,38 @@ return {
 		}
 	},
 	[42]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Duration of Ailments inflicted with this Spell or by Minions"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Duration of Ailments inflicted with this Spell or by Minions"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Duration of Ailments inflicted with this Spell or by Minions"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Duration of Ailments inflicted with this Spell or by Minions"
+				}
 			}
 		},
 		name="ailment_duration_incr",
@@ -1127,32 +1211,34 @@ return {
 		}
 	},
 	[43]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextPoison"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]=99
-					}
+						k="reminderstring",
+						v="ReminderTextPoison"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="This Spell and Minions have {0}% chance to Poison on Hit"
 				},
-				text="This Spell and Minions have {0}% chance to Poison on Hit"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextPoison"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions always Poison on Hit"
+						k="reminderstring",
+						v="ReminderTextPoison"
+					},
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions always Poison on Hit"
+				}
 			}
 		},
 		name="poison_chance",
@@ -1161,32 +1247,34 @@ return {
 		}
 	},
 	[44]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextColdExposure"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]=99
-					}
+						k="reminderstring",
+						v="ReminderTextColdExposure"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="This Spell and Minions have {0}% chance to inflict Cold Exposure on Hit"
 				},
-				text="This Spell and Minions have {0}% chance to inflict Cold Exposure on Hit"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextColdExposure"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions inflict Cold Exposure on Hit"
+						k="reminderstring",
+						v="ReminderTextColdExposure"
+					},
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions inflict Cold Exposure on Hit"
+				}
 			}
 		},
 		name="inflict_cold_exposure_on_hit_chance",
@@ -1195,32 +1283,34 @@ return {
 		}
 	},
 	[45]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextFireExposure"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]=99
-					}
+						k="reminderstring",
+						v="ReminderTextFireExposure"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="This Spell and Minions have {0}% chance to inflict Fire Exposure on Hit"
 				},
-				text="This Spell and Minions have {0}% chance to inflict Fire Exposure on Hit"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextFireExposure"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions inflict Fire Exposure on Hit"
+						k="reminderstring",
+						v="ReminderTextFireExposure"
+					},
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions inflict Fire Exposure on Hit"
+				}
 			}
 		},
 		name="inflict_fire_exposure_on_hit_chance",
@@ -1229,32 +1319,34 @@ return {
 		}
 	},
 	[46]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextLightningExposure"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]=99
-					}
+						k="reminderstring",
+						v="ReminderTextLightningExposure"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="This Spell and Minions have {0}% chance to inflict Lightning Exposure on Hit"
 				},
-				text="This Spell and Minions have {0}% chance to inflict Lightning Exposure on Hit"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextLightningExposure"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions inflict Lightning Exposure on Hit"
+						k="reminderstring",
+						v="ReminderTextLightningExposure"
+					},
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions inflict Lightning Exposure on Hit"
+				}
 			}
 		},
 		name="inflict_lightning_exposure_on_hit_chance",
@@ -1263,23 +1355,25 @@ return {
 		}
 	},
 	[47]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="divide_by_one_hundred",
-					v=1
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextLifeLeech"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% of Chaos Damage Leeched as Life"
+						k="divide_by_one_hundred",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextLifeLeech"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% of Chaos Damage Leeched as Life"
+				}
 			}
 		},
 		name="life_leech_from_chaos_damage",
@@ -1288,36 +1382,38 @@ return {
 		}
 	},
 	[48]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextColdAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions Have {0}% increased Effect of Cold Ailments"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextColdAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions Have {0}% increased Effect of Cold Ailments"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextColdAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions Have {0}% reduced Effect of Cold Ailments"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextColdAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions Have {0}% reduced Effect of Cold Ailments"
+				}
 			}
 		},
 		name="cold_ailment_effect_incr",
@@ -1326,28 +1422,30 @@ return {
 		}
 	},
 	[49]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% increased Critical Strike Chance against Blinded Enemies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% increased Critical Strike Chance against Blinded Enemies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% reduced Critical Strike Chance against Blinded Enemies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% reduced Critical Strike Chance against Blinded Enemies"
+				}
 			}
 		},
 		name="critical_strike_chance_incr_vs_blinded_enemies",
@@ -1356,28 +1454,30 @@ return {
 		}
 	},
 	[50]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Effect of Cruelty gained by this Spell or Minions"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Effect of Cruelty gained by this Spell or Minions"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Effect of Cruelty gained by this Spell or Minions"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Effect of Cruelty gained by this Spell or Minions"
+				}
 			}
 		},
 		name="cruelty_effect_incr",
@@ -1386,36 +1486,38 @@ return {
 		}
 	},
 	[51]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextRecently"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage if you have Consumed a corpse Recently\nMinions deal {0}% increased Damage if they have Consumed a corpse Recently"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextRecently"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage if you have Consumed a corpse Recently\nMinions deal {0}% increased Damage if they have Consumed a corpse Recently"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextRecently"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage if you have Consumed a corpse Recently\nMinions deal {0}% reduced Damage if they have Consumed a corpse Recently"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextRecently"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage if you have Consumed a corpse Recently\nMinions deal {0}% reduced Damage if they have Consumed a corpse Recently"
+				}
 			}
 		},
 		name="damage_if_consumed_corpse_recently",
@@ -1424,36 +1526,38 @@ return {
 		}
 	},
 	[52]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions deal {0}% increased Damage with Hits and Ailments per Freeze, Shock or Ignite on Enemy"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions deal {0}% increased Damage with Hits and Ailments per Freeze, Shock or Ignite on Enemy"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions deal {0}% reduced Damage with Hits and Ailments  per Freeze, Shock or Ignite on Enemy"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions deal {0}% reduced Damage with Hits and Ailments  per Freeze, Shock or Ignite on Enemy"
+				}
 			}
 		},
 		name="damage_incr_per_ailment",
@@ -1462,28 +1566,30 @@ return {
 		}
 	},
 	[53]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions deal {0}% increased Damage while Leeching Energy Shield"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions deal {0}% increased Damage while Leeching Energy Shield"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions deal {0}% reduced Damage while Leeching Energy Shield"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions deal {0}% reduced Damage while Leeching Energy Shield"
+				}
 			}
 		},
 		name="damage_while_es_leeching",
@@ -1492,28 +1598,30 @@ return {
 		}
 	},
 	[54]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions deal {0}% increased Damage while Leeching Life"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions deal {0}% increased Damage while Leeching Life"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions deal {0}% reduced Damage while Leeching Life"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions deal {0}% reduced Damage while Leeching Life"
+				}
 			}
 		},
 		name="damage_while_life_leeching",
@@ -1522,28 +1630,30 @@ return {
 		}
 	},
 	[55]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions deal {0}% increased Damage while Leeching Mana"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions deal {0}% increased Damage while Leeching Mana"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions deal {0}% reduced Damage while Leeching Mana"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions deal {0}% reduced Damage while Leeching Mana"
+				}
 			}
 		},
 		name="damage_while_mana_leeching",
@@ -1552,36 +1662,38 @@ return {
 		}
 	},
 	[56]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions deal {0}% increased Damage with Hits and Ailments per Curse on Enemy"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions deal {0}% increased Damage with Hits and Ailments per Curse on Enemy"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions deal {0}% reduced Damage with Hits and Ailments per Curse on Enemy"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions deal {0}% reduced Damage with Hits and Ailments per Curse on Enemy"
+				}
 			}
 		},
 		name="damage_per_enemy_curse_incr",
@@ -1590,15 +1702,17 @@ return {
 		}
 	},
 	[57]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions deal {0}% increased Damage with Hits against Enemies that are on Low Life"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions deal {0}% increased Damage with Hits against Enemies that are on Low Life"
+				}
 			}
 		},
 		name="damage_vs_enemies_on_low_life_incr",
@@ -1607,19 +1721,21 @@ return {
 		}
 	},
 	[58]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Damaging Ailments inflicted with this Spell or by Minions deal damage {0}% faster"
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Damaging Ailments inflicted with this Spell or by Minions deal damage {0}% faster"
+				}
 			}
 		},
 		name="damaging_ailments_deal_damage_faster",
@@ -1628,15 +1744,17 @@ return {
 		}
 	},
 	[59]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions inflict Decay on Hit, dealing {0} Chaos Damage per second for 8 seconds"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions inflict Decay on Hit, dealing {0} Chaos Damage per second for 8 seconds"
+				}
 			}
 		},
 		name="decay_on_hit",
@@ -1645,28 +1763,30 @@ return {
 		}
 	},
 	[60]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Enemies Shocked by this Spell or Minions have {0}% increased Movement Speed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Enemies Shocked by this Spell or Minions have {0}% increased Movement Speed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Enemies Shocked by this Spell or Minions have {0}% reduced Movement Speed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Enemies Shocked by this Spell or Minions have {0}% reduced Movement Speed"
+				}
 			}
 		},
 		name="shocked_movement_speed",
@@ -1675,15 +1795,17 @@ return {
 		}
 	},
 	[61]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% chance to gain a Power Charge on Killing Blow"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% chance to gain a Power Charge on Killing Blow"
+				}
 			}
 		},
 		name="gain_power_charge_on_kill_chance",
@@ -1692,19 +1814,21 @@ return {
 		}
 	},
 	[62]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextCruelty"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions gain Cruelty on Hit"
+						k="reminderstring",
+						v="ReminderTextCruelty"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions gain Cruelty on Hit"
+				}
 			}
 		},
 		name="hits_grant_cruelty",
@@ -1713,15 +1837,17 @@ return {
 		}
 	},
 	[63]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Enemies Ignited by this Spell or Minions have {0:+d}% to Fire Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Enemies Ignited by this Spell or Minions have {0:+d}% to Fire Resistance"
+				}
 			}
 		},
 		name="ignites_apply_fire_res",
@@ -1730,19 +1856,21 @@ return {
 		}
 	},
 	[64]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextAll3Exposures"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions inflict Fire, Cold, and Lightning Exposure on Hit"
+						k="reminderstring",
+						v="ReminderTextAll3Exposures"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions inflict Fire, Cold, and Lightning Exposure on Hit"
+				}
 			}
 		},
 		name="inflict_all_exposure_on_hit",
@@ -1751,45 +1879,47 @@ return {
 		}
 	},
 	[65]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]=1,
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]=1,
-						[2]="#"
-					}
+					text="Killing Blows Consume corpses to Recover {0} Life and {1} Mana\nMinions Consume corpses on Killing Blow to Recover {0} Life and {1} Mana"
 				},
-				text="Killing Blows Consume corpses to Recover {0} Life and {1} Mana\nMinions Consume corpses on Killing Blow to Recover {0} Life and {1} Mana"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
+				[2]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					text="Killing Blows Consume corpses to Recover {0} Life\nMinions Consume corpses on Killing Blow to Recover {0} Life"
 				},
-				text="Killing Blows Consume corpses to Recover {0} Life\nMinions Consume corpses on Killing Blow to Recover {0} Life"
-			},
-			[3]={
-				limit={
-					[1]={
-						[1]=0,
-						[2]=0
+				[3]={
+					limit={
+						[1]={
+							[1]=0,
+							[2]=0
+						},
+						[2]={
+							[1]=1,
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Killing Blows Consume corpses to Recover {1} Mana\nMinions Consume corpses on Killing Blow to Recover {1} Mana"
+					text="Killing Blows Consume corpses to Recover {1} Mana\nMinions Consume corpses on Killing Blow to Recover {1} Mana"
+				}
 			}
 		},
 		name="killing_blow_consume_corpse_add_flat_life",
@@ -1799,19 +1929,21 @@ return {
 		}
 	},
 	[66]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextCloseRange"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% chance to Knock Enemies Back with Hits at Close Range"
+						k="reminderstring",
+						v="ReminderTextCloseRange"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% chance to Knock Enemies Back with Hits at Close Range"
+				}
 			}
 		},
 		name="close_range_knockback",
@@ -1820,36 +1952,38 @@ return {
 		}
 	},
 	[67]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextLightningAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% increased Effect of Lightning Ailments"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextLightningAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% increased Effect of Lightning Ailments"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextLightningAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% reduced Effect of Lightning Ailments"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextLightningAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% reduced Effect of Lightning Ailments"
+				}
 			}
 		},
 		name="lightning_ailment_effect_incr",
@@ -1858,36 +1992,38 @@ return {
 		}
 	},
 	[68]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextNonDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions have {0}% increased Effect of non-Damaging Ailments"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextNonDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions have {0}% increased Effect of non-Damaging Ailments"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextNonDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions have {0}% reduced Effect of non-Damaging Ailments"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextNonDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions have {0}% reduced Effect of non-Damaging Ailments"
+				}
 			}
 		},
 		name="ailment_non_damaging_incr_effect",
@@ -1896,15 +2032,17 @@ return {
 		}
 	},
 	[69]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions Penetrate {0}% Chaos Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions Penetrate {0}% Chaos Resistance"
+				}
 			}
 		},
 		name="chaos_penetration",
@@ -1913,28 +2051,30 @@ return {
 		}
 	},
 	[70]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Effect of Shocks this Spell or Minions inflict with Critical Strikes"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Effect of Shocks this Spell or Minions inflict with Critical Strikes"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Effect of Shocks this Spell or Minions inflict with Critical Strikes"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Effect of Shocks this Spell or Minions inflict with Critical Strikes"
+				}
 			}
 		},
 		name="critical_shock_effect",
@@ -1943,36 +2083,38 @@ return {
 		}
 	},
 	[71]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Duration of Damaging Ailments\nMinions have {0}% increased Duration of Skills and Damaging Ailments"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Duration of Damaging Ailments\nMinions have {0}% increased Duration of Skills and Damaging Ailments"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Duration of Damaging Ailments\nMinions have {0}% reduced Duration of Skills and Damaging Ailments"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Duration of Damaging Ailments\nMinions have {0}% reduced Duration of Skills and Damaging Ailments"
+				}
 			}
 		},
 		name="skill_and_damaging_ailment_duration_incr",
@@ -1981,28 +2123,30 @@ return {
 		}
 	},
 	[72]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Enemies Chilled by this Spell or Minions take {0}% increased Cold Damage over Time"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Enemies Chilled by this Spell or Minions take {0}% increased Cold Damage over Time"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Enemies Chilled by this Spell or Minions take {0}% reduced Cold Damage over Time"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Enemies Chilled by this Spell or Minions take {0}% reduced Cold Damage over Time"
+				}
 			}
 		},
 		name="support_chills_incr_cold_dot_taken",
@@ -2011,15 +2155,17 @@ return {
 		}
 	},
 	[73]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Enemies Chilled by this Spell or Minions have Cold Damage taken increased by Chill Effect"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Enemies Chilled by this Spell or Minions have Cold Damage taken increased by Chill Effect"
+				}
 			}
 		},
 		name="support_chills_incr_cold_damage_taken",
@@ -2028,28 +2174,30 @@ return {
 		}
 	},
 	[74]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions deal {0}% more Damage while on Full Energy Shield"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions deal {0}% more Damage while on Full Energy Shield"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions deal {0}% less Damage while on Full Energy Shield"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions deal {0}% less Damage while on Full Energy Shield"
+				}
 			}
 		},
 		name="support_damage_full_es_incr",
@@ -2058,28 +2206,30 @@ return {
 		}
 	},
 	[75]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions deal {0}% more Damage while Leeching Energy Shield"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions deal {0}% more Damage while Leeching Energy Shield"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions deal {0}% less Damage while Leeching Energy Shield"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions deal {0}% less Damage while Leeching Energy Shield"
+				}
 			}
 		},
 		name="damage_while_es_leeching_more",
@@ -2088,36 +2238,38 @@ return {
 		}
 	},
 	[76]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Duration of Ailments inflicted with This Spell or by Minions"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Duration of Ailments inflicted with This Spell or by Minions"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Duration of Ailments inflicted with This Spell or by Minions"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Duration of Ailments inflicted with This Spell or by Minions"
+				}
 			}
 		},
 		name="support_faster_ailments_duration",
@@ -2126,19 +2278,21 @@ return {
 		}
 	},
 	[77]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions deal {0} to {1} added Fire Damage against Burning Enemies"
+					text="This Spell and Minions deal {0} to {1} added Fire Damage against Burning Enemies"
+				}
 			}
 		},
 		name="added_fire_against_burning",
@@ -2148,28 +2302,30 @@ return {
 		}
 	},
 	[78]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions deal {0}% more Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions deal {0}% more Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions deal {0}% less Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions deal {0}% less Damage"
+				}
 			}
 		},
 		name="pure_shock_less_damage",
@@ -2178,28 +2334,30 @@ return {
 		}
 	},
 	[79]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions Shock Enemies as though dealing {0}% more Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions Shock Enemies as though dealing {0}% more Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions Shock Enemies as though dealing {0}% less Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions Shock Enemies as though dealing {0}% less Damage"
+				}
 			}
 		},
 		name="support_shock_with_more_damage",
@@ -2208,28 +2366,30 @@ return {
 		}
 	},
 	[80]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Final Repeat of this Spell or Minion's Spells deals {0}% more Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Final Repeat of this Spell or Minion's Spells deals {0}% more Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Final Repeat of this Spell or Minion's Spells deals {0}% less Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Final Repeat of this Spell or Minion's Spells deals {0}% less Damage"
+				}
 			}
 		},
 		name="spell_echo_final_repeat_damage",
@@ -2238,36 +2398,38 @@ return {
 		}
 	},
 	[81]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions deal {0}% more Damage with Ailments"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions deal {0}% more Damage with Ailments"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="This Spell and Minions deal {0}% less Damage with Ailments"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Spell and Minions deal {0}% less Damage with Ailments"
+				}
 			}
 		},
 		name="ailment_damage_incr",
@@ -2276,32 +2438,34 @@ return {
 		}
 	},
 	[82]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1000,
-						[2]=1000
-					}
+						k="milliseconds_to_seconds",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1000,
+							[2]=1000
+						}
+					},
+					text="Withered inflicted by this Spell or Minions has a base duration of {0} second"
 				},
-				text="Withered inflicted by this Spell or Minions has a base duration of {0} second"
-			},
-			[2]={
-				[1]={
-					k="milliseconds_to_seconds",
-					v=1
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Withered inflicted by this Spell or Minions has a base duration of {0} seconds"
+						k="milliseconds_to_seconds",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Withered inflicted by this Spell or Minions has a base duration of {0} seconds"
+				}
 			}
 		},
 		name="withered_support_base_duration",
@@ -2310,32 +2474,34 @@ return {
 		}
 	},
 	[83]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextWithered"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]=99
-					}
+						k="reminderstring",
+						v="ReminderTextWithered"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="This Spell and Minions have {0}% chance to inflict Withered on Hit"
 				},
-				text="This Spell and Minions have {0}% chance to inflict Withered on Hit"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextWithered"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="This Spell and Minions inflict Withered on Hit"
+						k="reminderstring",
+						v="ReminderTextWithered"
+					},
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="This Spell and Minions inflict Withered on Hit"
+				}
 			}
 		},
 		name="withered_on_hit_chance",

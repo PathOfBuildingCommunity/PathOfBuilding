@@ -3,40 +3,42 @@
 
 return {
 	[1]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextValourGain"
-				},
-				limit={
 					[1]={
-						[1]="!",
-						[2]=0
+						k="reminderstring",
+						v="ReminderTextValourGain"
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					limit={
+						[1]={
+							[1]="!",
+							[2]=0
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="While you have no placed Banner, you can gain Valour"
 				},
-				text="While you have no placed Banner, you can gain Valour"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextValourGain"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="!",
-						[2]=0
+						k="reminderstring",
+						v="ReminderTextValourGain"
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="You can gain Valour"
+					limit={
+						[1]={
+							[1]="!",
+							[2]=0
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="You can gain Valour"
+				}
 			}
 		},
 		name="gain_valour",
@@ -46,28 +48,30 @@ return {
 		}
 	},
 	[2]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Banner grants {0}% increased Armour and Evasion Rating to You and Allies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Banner grants {0}% increased Armour and Evasion Rating to You and Allies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Banner grants {0}% reduced Armour and Evasion Rating to You and Allies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Banner grants {0}% reduced Armour and Evasion Rating to You and Allies"
+				}
 			}
 		},
 		name="evasion_and_physical_damage_reduction_rating_incr",
@@ -76,28 +80,30 @@ return {
 		}
 	},
 	[3]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Banner applies {0}% increased Critical Strike Chance to Enemies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Banner applies {0}% increased Critical Strike Chance to Enemies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Banner applies {0}% reduced Critical Strike Chance to Enemies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Banner applies {0}% reduced Critical Strike Chance to Enemies"
+				}
 			}
 		},
 		name="armour_evasion_banner_crit_chance",
@@ -106,28 +112,30 @@ return {
 		}
 	},
 	[4]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Banner applies {0}% more Accuracy Rating to Enemies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Banner applies {0}% more Accuracy Rating to Enemies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Banner applies {0}% less Accuracy Rating to Enemies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Banner applies {0}% less Accuracy Rating to Enemies"
+				}
 			}
 		},
 		name="dread_banner_accuracy_final",
@@ -136,28 +144,30 @@ return {
 		}
 	},
 	[5]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Banner applies {0}% more Damage to Enemies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Banner applies {0}% more Damage to Enemies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Banner applies {0}% less Damage to Enemies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Banner applies {0}% less Damage to Enemies"
+				}
 			}
 		},
 		name="dread_banner_enemy_damage_final",
@@ -166,19 +176,21 @@ return {
 		}
 	},
 	[6]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Banner lasts {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Banner lasts {0} seconds"
+				}
 			}
 		},
 		name="buff_duration",
@@ -187,28 +199,30 @@ return {
 		}
 	},
 	[7]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Area of Effect per Valour consumed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Area of Effect per Valour consumed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Area of Effect per Valour consumed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Area of Effect per Valour consumed"
+				}
 			}
 		},
 		name="banner_resource_aoe",
@@ -217,28 +231,30 @@ return {
 		}
 	},
 	[8]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Aura effect per Valour consumed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Aura effect per Valour consumed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Aura effect per Valour consumed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Aura effect per Valour consumed"
+				}
 			}
 		},
 		name="banner_resource_aura_effect",
@@ -247,28 +263,30 @@ return {
 		}
 	},
 	[9]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Banner grants {0}% increased Accuracy Rating to You and Allies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Banner grants {0}% increased Accuracy Rating to You and Allies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Banner grants {0}% reduced Accuracy Rating to You and Allies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Banner grants {0}% reduced Accuracy Rating to You and Allies"
+				}
 			}
 		},
 		name="accuracy_rating_incr",
@@ -277,15 +295,17 @@ return {
 		}
 	},
 	[10]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Banner grants {0:+d}% Chance to Block Attack Damage to You and Allies"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Banner grants {0:+d}% Chance to Block Attack Damage to You and Allies"
+				}
 			}
 		},
 		name="block_add",
@@ -294,28 +314,30 @@ return {
 		}
 	},
 	[11]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Banner grants {0}% increased Movement Speed to You and Allies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Banner grants {0}% increased Movement Speed to You and Allies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Banner grants {0}% reduced Movement Speed to You and Allies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Banner grants {0}% reduced Movement Speed to You and Allies"
+				}
 			}
 		},
 		name="movement_speed_incr",
@@ -324,19 +346,21 @@ return {
 		}
 	},
 	[12]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextSuppression"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Banner grants {0:+d}% chance to Suppress Spell Damage to You and Allies"
+						k="reminderstring",
+						v="ReminderTextSuppression"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Banner grants {0:+d}% chance to Suppress Spell Damage to You and Allies"
+				}
 			}
 		},
 		name="base_suppress_chance",
@@ -345,15 +369,17 @@ return {
 		}
 	},
 	[13]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Banner grants {0:+d}% to Damage over Time Multiplier for Bleeding to You and Allies"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Banner grants {0:+d}% to Damage over Time Multiplier for Bleeding to You and Allies"
+				}
 			}
 		},
 		name="bleeding_dot_multi",
@@ -362,19 +388,21 @@ return {
 		}
 	},
 	[14]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextDamageTypes"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Banner grants {0:+d} Damage taken of each Damage Type from Suppressed Hits to You and Allies"
+						k="reminderstring",
+						v="ReminderTextDamageTypes"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Banner grants {0:+d} Damage taken of each Damage Type from Suppressed Hits to You and Allies"
+				}
 			}
 		},
 		name="suppressed_damage",
@@ -383,28 +411,30 @@ return {
 		}
 	},
 	[15]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Banner grants {0}% increased Impale Effect to You and Allies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Banner grants {0}% increased Impale Effect to You and Allies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Banner grants {0}% reduced Impale Effect to You and Allies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Banner grants {0}% reduced Impale Effect to You and Allies"
+				}
 			}
 		},
 		name="impale_effect",
@@ -413,15 +443,17 @@ return {
 		}
 	},
 	[16]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Banner causes you and Allies to Recover {0} Life when Blocking"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Banner causes you and Allies to Recover {0} Life when Blocking"
+				}
 			}
 		},
 		name="recover_life_on_block",
@@ -430,28 +462,30 @@ return {
 		}
 	},
 	[17]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Banner grants {0}% more Physical Damage with Melee Skills to You and Allies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Banner grants {0}% more Physical Damage with Melee Skills to You and Allies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Banner grants {0}% less Physical Damage with Melee Skills to You and Allies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Banner grants {0}% less Physical Damage with Melee Skills to You and Allies"
+				}
 			}
 		},
 		name="war_banner_phys_damage",

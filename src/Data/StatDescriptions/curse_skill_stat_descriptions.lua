@@ -3,19 +3,21 @@
 
 return {
 	[1]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Curse lasts {0} seconds"
+						k="milliseconds_to_seconds",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Curse lasts {0} seconds"
+				}
 			}
 		},
 		name="buff_duration",
@@ -24,28 +26,30 @@ return {
 		}
 	},
 	[2]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed Normal and Magic Enemies have {0}% more Action Speed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed Normal and Magic Enemies have {0}% more Action Speed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Cursed Normal and Magic Enemies have {0}% less Action Speed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Cursed Normal and Magic Enemies have {0}% less Action Speed"
+				}
 			}
 		},
 		name="action_speed_reduction",
@@ -54,32 +58,34 @@ return {
 		}
 	},
 	[3]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Other effects on Cursed enemies expire {0}% faster"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Other effects on Cursed enemies expire {0}% faster"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextSlowTimeEffects"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Other effects on Cursed enemies expire {0}% slower"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextSlowTimeEffects"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Other effects on Cursed enemies expire {0}% slower"
+				}
 			}
 		},
 		name="buff_time_passed_reduction",
@@ -88,15 +94,17 @@ return {
 		}
 	},
 	[4]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cursed enemies have {0:+d}% to Elemental Resistances"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cursed enemies have {0:+d}% to Elemental Resistances"
+				}
 			}
 		},
 		name="elemental_resist",
@@ -105,15 +113,17 @@ return {
 		}
 	},
 	[5]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cursed enemies have {0:+d}% to Fire Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cursed enemies have {0:+d}% to Fire Resistance"
+				}
 			}
 		},
 		name="fire_resist",
@@ -122,15 +132,17 @@ return {
 		}
 	},
 	[6]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cursed enemies have {0:+d}% to Cold Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cursed enemies have {0:+d}% to Cold Resistance"
+				}
 			}
 		},
 		name="cold_resist",
@@ -139,15 +151,17 @@ return {
 		}
 	},
 	[7]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cursed enemies have {0:+d}% to Lightning Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cursed enemies have {0:+d}% to Lightning Resistance"
+				}
 			}
 		},
 		name="lightning_resist",
@@ -156,15 +170,17 @@ return {
 		}
 	},
 	[8]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cursed enemies have {0:+d}% to Chaos Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cursed enemies have {0:+d}% to Chaos Resistance"
+				}
 			}
 		},
 		name="chaos_res",
@@ -173,19 +189,21 @@ return {
 		}
 	},
 	[9]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextFreeze"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Hits against Cursed Enemies have {0:+d}% chance to Freeze"
+						k="reminderstring",
+						v="ReminderTextFreeze"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Hits against Cursed Enemies have {0:+d}% chance to Freeze"
+				}
 			}
 		},
 		name="chance_to_be_frozen",
@@ -194,19 +212,21 @@ return {
 		}
 	},
 	[10]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextIgnite"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Hits against Cursed Enemies have {0:+d}% chance to Ignite"
+						k="reminderstring",
+						v="ReminderTextIgnite"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Hits against Cursed Enemies have {0:+d}% chance to Ignite"
+				}
 			}
 		},
 		name="chance_to_be_ignited",
@@ -215,19 +235,21 @@ return {
 		}
 	},
 	[11]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextShock"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Hits against Cursed Enemies have {0:+d}% chance to Shock"
+						k="reminderstring",
+						v="ReminderTextShock"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Hits against Cursed Enemies have {0:+d}% chance to Shock"
+				}
 			}
 		},
 		name="chance_to_be_shocked",
@@ -236,15 +258,17 @@ return {
 		}
 	},
 	[12]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies grant {0}% increased Flask Charges"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies grant {0}% increased Flask Charges"
+				}
 			}
 		},
 		name="monster_flask_charges_incr",
@@ -253,23 +277,25 @@ return {
 		}
 	},
 	[13]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="divide_by_one_hundred",
-					v=1
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextLifeLeech"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies grant {0}% Life Leech when Hit by Attacks"
+						k="divide_by_one_hundred",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextLifeLeech"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies grant {0}% Life Leech when Hit by Attacks"
+				}
 			}
 		},
 		name="life_leeched_when_hit_by_attack",
@@ -278,23 +304,25 @@ return {
 		}
 	},
 	[14]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="divide_by_one_hundred",
-					v=1
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextLifeLeech"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies grant {0}% Life Leech when Hit"
+						k="divide_by_one_hundred",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextLifeLeech"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies grant {0}% Life Leech when Hit"
+				}
 			}
 		},
 		name="life_leeched_when_hit",
@@ -303,23 +331,25 @@ return {
 		}
 	},
 	[15]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="divide_by_one_hundred",
-					v=1
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextManaLeech"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies grant {0}% Mana Leech when Hit by Attacks"
+						k="divide_by_one_hundred",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextManaLeech"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies grant {0}% Mana Leech when Hit by Attacks"
+				}
 			}
 		},
 		name="mana_leeched_when_hit_by_attack",
@@ -328,23 +358,25 @@ return {
 		}
 	},
 	[16]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="divide_by_one_hundred",
-					v=1
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextManaLeech"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies grant {0}% Mana Leech when Hit"
+						k="divide_by_one_hundred",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextManaLeech"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies grant {0}% Mana Leech when Hit"
+				}
 			}
 		},
 		name="mana_leeched_when_hit",
@@ -353,15 +385,17 @@ return {
 		}
 	},
 	[17]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies have a {0}% chance to grant an Endurance Charge when slain"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies have a {0}% chance to grant an Endurance Charge when slain"
+				}
 			}
 		},
 		name="chance_to_grant_endurance_charge_on_death",
@@ -370,15 +404,17 @@ return {
 		}
 	},
 	[18]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies have a {0}% chance to grant a Frenzy Charge when slain"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies have a {0}% chance to grant a Frenzy Charge when slain"
+				}
 			}
 		},
 		name="chance_to_grant_frenzy_charge_on_death",
@@ -387,15 +423,17 @@ return {
 		}
 	},
 	[19]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies have a {0}% chance to grant a Power Charge when slain"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies have a {0}% chance to grant a Power Charge when slain"
+				}
 			}
 		},
 		name="chance_to_grant_power_charge_on_death",
@@ -404,28 +442,30 @@ return {
 		}
 	},
 	[20]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies have {0}% increased Accuracy Rating"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies have {0}% increased Accuracy Rating"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Cursed enemies have {0}% reduced Accuracy Rating"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Cursed enemies have {0}% reduced Accuracy Rating"
+				}
 			}
 		},
 		name="accuracy_rating_incr",
@@ -434,28 +474,30 @@ return {
 		}
 	},
 	[21]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies have {0}% increased Critical Strike Chance"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies have {0}% increased Critical Strike Chance"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Cursed enemies have {0}% reduced Critical Strike Chance"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Cursed enemies have {0}% reduced Critical Strike Chance"
+				}
 			}
 		},
 		name="critical_strike_chance_incr",
@@ -464,15 +506,17 @@ return {
 		}
 	},
 	[22]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cursed enemies have {0:+d}% to Critical Strike Multiplier"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cursed enemies have {0:+d}% to Critical Strike Multiplier"
+				}
 			}
 		},
 		name="critical_strike_multiplier_incr",
@@ -481,28 +525,30 @@ return {
 		}
 	},
 	[23]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed Normal or Magic enemies deal {0}% more Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed Normal or Magic enemies deal {0}% more Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Cursed Normal or Magic enemies deal {0}% less Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Cursed Normal or Magic enemies deal {0}% less Damage"
+				}
 			}
 		},
 		name="enfeeble_damage_scale",
@@ -511,19 +557,21 @@ return {
 		}
 	},
 	[24]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="divide_by_one_hundred",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Hits against Cursed Enemies have {0:+d}% to Critical Strike Chance"
+						k="divide_by_one_hundred",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Hits against Cursed Enemies have {0:+d}% to Critical Strike Chance"
+				}
 			}
 		},
 		name="chance_to_take_critical_strike",
@@ -532,15 +580,17 @@ return {
 		}
 	},
 	[25]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Hits against Cursed Enemies have {0:+d}% to Critical Strike Multiplier"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Hits against Cursed Enemies have {0:+d}% to Critical Strike Multiplier"
+				}
 			}
 		},
 		name="enemy_critical_strike_multiplier_against_self",
@@ -549,28 +599,30 @@ return {
 		}
 	},
 	[26]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies take {0}% reduced Extra Damage from Critical Strikes"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies take {0}% reduced Extra Damage from Critical Strikes"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Cursed enemies take {0}% increased Extra Damage from Critical Strikes"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Cursed enemies take {0}% increased Extra Damage from Critical Strikes"
+				}
 			}
 		},
 		name="self_critical_strike_multiplier_reduction",
@@ -579,15 +631,17 @@ return {
 		}
 	},
 	[27]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Projectiles Pierce Cursed Enemies"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Projectiles Pierce Cursed Enemies"
+				}
 			}
 		},
 		name="be_pierced",
@@ -596,19 +650,21 @@ return {
 		}
 	},
 	[28]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextKnockback"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Hits on Cursed Enemies have an additional {0}% chance to Knockback"
+						k="reminderstring",
+						v="ReminderTextKnockback"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Hits on Cursed Enemies have an additional {0}% chance to Knockback"
+				}
 			}
 		},
 		name="chance_to_be_knocked_back",
@@ -617,28 +673,30 @@ return {
 		}
 	},
 	[29]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies have {0}% more Evasion Rating"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies have {0}% more Evasion Rating"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Cursed enemies have {0}% less Evasion Rating"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Cursed enemies have {0}% less Evasion Rating"
+				}
 			}
 		},
 		name="evasion_rating_poachers_mark",
@@ -647,15 +705,17 @@ return {
 		}
 	},
 	[30]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies take {0}% increased Damage from Projectile Hits"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies take {0}% increased Damage from Projectile Hits"
+				}
 			}
 		},
 		name="projectile_damage_taken_incr",
@@ -664,15 +724,17 @@ return {
 		}
 	},
 	[31]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed Enemies have an additional {0}% chance to be Stunned"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed Enemies have an additional {0}% chance to be Stunned"
+				}
 			}
 		},
 		name="chance_to_be_stunned",
@@ -681,28 +743,30 @@ return {
 		}
 	},
 	[32]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies have {0}% increased Stun and Block Recovery"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies have {0}% increased Stun and Block Recovery"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Cursed enemies have {0}% reduced Stun and Block Recovery"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Cursed enemies have {0}% reduced Stun and Block Recovery"
+				}
 			}
 		},
 		name="stun_recovery_incr",
@@ -711,15 +775,17 @@ return {
 		}
 	},
 	[33]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies take {0}% increased Physical Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies take {0}% increased Physical Damage"
+				}
 			}
 		},
 		name="physical_damage_taken_incr",
@@ -728,15 +794,17 @@ return {
 		}
 	},
 	[34]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies take {0}% increased Damage from Damage Over Time effects"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies take {0}% increased Damage from Damage Over Time effects"
+				}
 			}
 		},
 		name="degen_effect_incr",
@@ -745,28 +813,30 @@ return {
 		}
 	},
 	[35]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Ignite on Cursed enemies has {0}% reduced Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Ignite on Cursed enemies has {0}% reduced Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Ignite on Cursed enemies has {0}% increased Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Ignite on Cursed enemies has {0}% increased Duration"
+				}
 			}
 		},
 		name="self_burn_duration",
@@ -775,28 +845,30 @@ return {
 		}
 	},
 	[36]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Freezes on Cursed enemies have {0}% reduced Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Freezes on Cursed enemies have {0}% reduced Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Freezes on Cursed enemies have {0}% increased Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Freezes on Cursed enemies have {0}% increased Duration"
+				}
 			}
 		},
 		name="self_freeze_duration",
@@ -805,28 +877,30 @@ return {
 		}
 	},
 	[37]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Shocks on Cursed enemies have {0}% reduced Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Shocks on Cursed enemies have {0}% reduced Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Shocks on Cursed enemies have {0}% increased Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Shocks on Cursed enemies have {0}% increased Duration"
+				}
 			}
 		},
 		name="self_shock_duration",
@@ -835,15 +909,17 @@ return {
 		}
 	},
 	[38]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="You cannot Cast this Spell directly"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="You cannot Cast this Spell directly"
+				}
 			}
 		},
 		name="cannot_cast_curses",
@@ -852,15 +928,17 @@ return {
 		}
 	},
 	[39]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cursed enemies grant {0} Life when Hit by Attacks"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cursed enemies grant {0} Life when Hit by Attacks"
+				}
 			}
 		},
 		name="life_granted_when_hit",
@@ -869,15 +947,17 @@ return {
 		}
 	},
 	[40]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cursed enemies grant {0} Mana when Hit by Attacks"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cursed enemies grant {0} Mana when Hit by Attacks"
+				}
 			}
 		},
 		name="mana_granted_when_hit",
@@ -886,15 +966,17 @@ return {
 		}
 	},
 	[41]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cursed enemies grant {0} Life when Killed"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cursed enemies grant {0} Life when Killed"
+				}
 			}
 		},
 		name="life_granted_when_killed",
@@ -903,15 +985,17 @@ return {
 		}
 	},
 	[42]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cursed enemies grant {0} Mana when Killed"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cursed enemies grant {0} Mana when Killed"
+				}
 			}
 		},
 		name="mana_granted_when_killed",
@@ -920,28 +1004,30 @@ return {
 		}
 	},
 	[43]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Area of Effect"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Area of Effect"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Area of Effect"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Area of Effect"
+				}
 			}
 		},
 		name="curse_area",
@@ -950,15 +1036,17 @@ return {
 		}
 	},
 	[44]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="This Curse is Cast as an Aura applying to nearby Enemies"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="This Curse is Cast as an Aura applying to nearby Enemies"
+				}
 			}
 		},
 		name="curse_aura",
@@ -967,24 +1055,26 @@ return {
 		}
 	},
 	[45]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Gain {0} Flask Charge when you Hit a Cursed Enemy, no more than once every 3 seconds"
 				},
-				text="Gain {0} Flask Charge when you Hit a Cursed Enemy, no more than once every 3 seconds"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="Gain {0} Flask Charges when you Hit a Cursed Enemy, no more than once every 3 seconds"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="Gain {0} Flask Charges when you Hit a Cursed Enemy, no more than once every 3 seconds"
+				}
 			}
 		},
 		name="alchemists_mark_flask_on_hit",
@@ -993,15 +1083,17 @@ return {
 		}
 	},
 	[46]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cursed enemies have {0:+d}% to Physical Damage Reduction"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cursed enemies have {0:+d}% to Physical Damage Reduction"
+				}
 			}
 		},
 		name="phys_reduction",
@@ -1010,28 +1102,30 @@ return {
 		}
 	},
 	[47]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies take {0}% increased Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies take {0}% increased Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Cursed enemies take {0}% reduced Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Cursed enemies take {0}% reduced Damage"
+				}
 			}
 		},
 		name="damage_taken_incr",
@@ -1040,19 +1134,21 @@ return {
 		}
 	},
 	[48]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextHinder"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Spell Hits have {0}% chance to Hinder Cursed Enemies"
+						k="reminderstring",
+						v="ReminderTextHinder"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Spell Hits have {0}% chance to Hinder Cursed Enemies"
+				}
 			}
 		},
 		name="hinder_when_hit_chance",
@@ -1061,19 +1157,21 @@ return {
 		}
 	},
 	[49]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextMaim"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Attack Hits have {0}% chance to Maim Cursed Enemies for 4 seconds"
+						k="reminderstring",
+						v="ReminderTextMaim"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Attack Hits have {0}% chance to Maim Cursed Enemies for 4 seconds"
+				}
 			}
 		},
 		name="maim_when_hit_chance",
@@ -1082,36 +1180,38 @@ return {
 		}
 	},
 	[50]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextLowLife"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed Enemies take {0}% increased Damage while on Low Life"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextLowLife"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed Enemies take {0}% increased Damage while on Low Life"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextLowLife"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Cursed Enemies take {0}% reduced Damage while on Low Life"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextLowLife"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Cursed Enemies take {0}% reduced Damage while on Low Life"
+				}
 			}
 		},
 		name="low_life_damage_taken",
@@ -1120,44 +1220,46 @@ return {
 		}
 	},
 	[51]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
+						k="milliseconds_to_seconds_2dp",
+						v=1
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
-				},
-				text="Cursed Enemies are Debilitated for {0:+d} Seconds when they Hit"
-			},
-			[2]={
-				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="Cursed Enemies are Debilitated for {0:+d} Seconds when they Hit"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextDebilitate"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
+						k="milliseconds_to_seconds_2dp",
+						v=1
 					},
 					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cursed Enemies are Debilitated for {0} Seconds when they Hit"
+						k="reminderstring",
+						v="ReminderTextDebilitate"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cursed Enemies are Debilitated for {0} Seconds when they Hit"
+				}
 			}
 		},
 		name="debilitated_when_hit",
@@ -1167,15 +1269,17 @@ return {
 		}
 	},
 	[52]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Curse expiry rate cannot be modified"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Curse expiry rate cannot be modified"
+				}
 			}
 		},
 		name="display_fixed_duration_buff",
@@ -1184,19 +1288,21 @@ return {
 		}
 	},
 	[53]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextAggravatedBleeding"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Attack Hits against Cursed Enemies have {0}% chance to Aggravate Bleeding"
+						k="reminderstring",
+						v="ReminderTextAggravatedBleeding"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Attack Hits against Cursed Enemies have {0}% chance to Aggravate Bleeding"
+				}
 			}
 		},
 		name="self_aggravate_chance_when_hit",
@@ -1205,15 +1311,17 @@ return {
 		}
 	},
 	[54]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Hits against Cursed Enemies have {0}% chance to double Stun Duration"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Hits against Cursed Enemies have {0}% chance to double Stun Duration"
+				}
 			}
 		},
 		name="double_stun_duration_curse",
@@ -1222,19 +1330,21 @@ return {
 		}
 	},
 	[55]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Ailments inflicted on Cursed Enemies deal Damage {0}% Faster"
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Ailments inflicted on Cursed Enemies deal Damage {0}% Faster"
+				}
 			}
 		},
 		name="vuln_curse_ailment_faster_damage",
@@ -1243,15 +1353,17 @@ return {
 		}
 	},
 	[56]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cursed Enemies grant {0} Rage when Stunned"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cursed Enemies grant {0} Rage when Stunned"
+				}
 			}
 		},
 		name="rage_gained_on_stun_curse",
@@ -1260,15 +1372,17 @@ return {
 		}
 	},
 	[57]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cursed Enemies grant {0} Rage Regenerated over 1 second when Stunned"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cursed Enemies grant {0} Rage Regenerated over 1 second when Stunned"
+				}
 			}
 		},
 		name="rage_regeneration_on_stun_curse",
@@ -1277,23 +1391,25 @@ return {
 		}
 	},
 	[58]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="divide_by_one_hundred",
-					v=1
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextEnergyShieldLeech"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies grant {0}% Energy Shield Leech when Hit"
+						k="divide_by_one_hundred",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextEnergyShieldLeech"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies grant {0}% Energy Shield Leech when Hit"
+				}
 			}
 		},
 		name="energy_shield_leeched_when_hit",
@@ -1302,28 +1418,30 @@ return {
 		}
 	},
 	[59]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed Rare or Unique enemies deal {0}% more Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed Rare or Unique enemies deal {0}% more Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Cursed Rare or Unique enemies deal {0}% less Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Cursed Rare or Unique enemies deal {0}% less Damage"
+				}
 			}
 		},
 		name="enfeeble_damage_scale_rare_or_unique",
@@ -1332,24 +1450,26 @@ return {
 		}
 	},
 	[60]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]=100
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]=100
+						}
+					},
+					text="Cursed Enemies grant an Endurance Charge when Hit"
 				},
-				text="Cursed Enemies grant an Endurance Charge when Hit"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]=99
-					}
-				},
-				text="Cursed Enemies have a {0}% chance to grant an Endurance Charge when Hit"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]=99
+						}
+					},
+					text="Cursed Enemies have a {0}% chance to grant an Endurance Charge when Hit"
+				}
 			}
 		},
 		name="curse_endurance_on_hit",
@@ -1358,24 +1478,26 @@ return {
 		}
 	},
 	[61]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]=100
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]=100
+						}
+					},
+					text="Cursed Enemies grant a Frenzy Charge when Hit"
 				},
-				text="Cursed Enemies grant a Frenzy Charge when Hit"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]=99
-					}
-				},
-				text="Cursed Enemies have a {0}% chance to grant a Frenzy Charge when Hit"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]=99
+						}
+					},
+					text="Cursed Enemies have a {0}% chance to grant a Frenzy Charge when Hit"
+				}
 			}
 		},
 		name="curse_frenzy_on_hit",
@@ -1384,24 +1506,26 @@ return {
 		}
 	},
 	[62]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]=100
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]=100
+						}
+					},
+					text="Cursed Enemies grant a Power Charge when Hit"
 				},
-				text="Cursed Enemies grant a Power Charge when Hit"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]=99
-					}
-				},
-				text="Cursed Enemies have a {0}% chance to grant a Power Charge when Hit"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]=99
+						}
+					},
+					text="Cursed Enemies have a {0}% chance to grant a Power Charge when Hit"
+				}
 			}
 		},
 		name="curse_power_on_hit",
@@ -1410,24 +1534,26 @@ return {
 		}
 	},
 	[63]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="You gain a Life Flask Charge when you Hit Cursed Enemy, no more\nthan once every 0.5 seconds"
 				},
-				text="You gain a Life Flask Charge when you Hit Cursed Enemy, no more\nthan once every 0.5 seconds"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="You gain {0} Life Flask Charges when you Hit Cursed Enemy, no more\nthan once every 0.5 seconds"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="You gain {0} Life Flask Charges when you Hit Cursed Enemy, no more\nthan once every 0.5 seconds"
+				}
 			}
 		},
 		name="alchemists_mark_life_flask_on_hit",
@@ -1436,24 +1562,26 @@ return {
 		}
 	},
 	[64]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="You gain a Mana Flask Charge when you Hit Cursed Enemy, no more\nthan once every 0.5 seconds"
 				},
-				text="You gain a Mana Flask Charge when you Hit Cursed Enemy, no more\nthan once every 0.5 seconds"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="You gain {0} Mana Flask Charges when you Hit Cursed Enemy, no more\nthan once every 0.5 seconds"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="You gain {0} Mana Flask Charges when you Hit Cursed Enemy, no more\nthan once every 0.5 seconds"
+				}
 			}
 		},
 		name="alchemists_mark_mana_flask_on_hit",
@@ -1462,28 +1590,30 @@ return {
 		}
 	},
 	[65]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Effect of Mark"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Effect of Mark"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Effect of Mark"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Effect of Mark"
+				}
 			}
 		},
 		name="mark_effect_incr",
@@ -1492,19 +1622,21 @@ return {
 		}
 	},
 	[66]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Adds {0} to {1} Chaos Damage to Hits against Cursed Enemies"
+					text="Adds {0} to {1} Chaos Damage to Hits against Cursed Enemies"
+				}
 			}
 		},
 		name="chaos_weakness_damage",
@@ -1514,19 +1646,21 @@ return {
 		}
 	},
 	[67]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Adds {0} to {1} Physical Damage to Hits against Cursed Enemies"
+					text="Adds {0} to {1} Physical Damage to Hits against Cursed Enemies"
+				}
 			}
 		},
 		name="physical_damage_enemies_cursed",
@@ -1536,28 +1670,30 @@ return {
 		}
 	},
 	[68]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed enemies take {0}% increased Physical Damage from Damage Over Time"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed enemies take {0}% increased Physical Damage from Damage Over Time"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Cursed enemies take {0}% reduced Physical Damage from Damage Over Time"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Cursed enemies take {0}% reduced Physical Damage from Damage Over Time"
+				}
 			}
 		},
 		name="physical_dot_taken_incr",
@@ -1566,15 +1702,17 @@ return {
 		}
 	},
 	[69]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Projectiles which Hit Cursed Enemies Split towards {0} additional targets"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Projectiles which Hit Cursed Enemies Split towards {0} additional targets"
+				}
 			}
 		},
 		name="projectiles_split_against_self",
@@ -1583,19 +1721,21 @@ return {
 		}
 	},
 	[70]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextBleeding"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Attack Hits against Cursed Enemies have {0}% chance to inflict Bleeding"
+						k="reminderstring",
+						v="ReminderTextBleeding"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Attack Hits against Cursed Enemies have {0}% chance to inflict Bleeding"
+				}
 			}
 		},
 		name="bleed_when_hit_chance",
@@ -1604,19 +1744,21 @@ return {
 		}
 	},
 	[71]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextOverkill"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0}% of Overkill Damage from Killing Blows on Cursed Enemies is Reflected to other Enemies as Physical Damage"
+						k="reminderstring",
+						v="ReminderTextOverkill"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0}% of Overkill Damage from Killing Blows on Cursed Enemies is Reflected to other Enemies as Physical Damage"
+				}
 			}
 		},
 		name="reflect_overkill_damage_on_death",
@@ -1625,28 +1767,30 @@ return {
 		}
 	},
 	[72]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Duration of Bleeding on Cursed Enemies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Duration of Bleeding on Cursed Enemies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Duration of Bleeding on Cursed Enemies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Duration of Bleeding on Cursed Enemies"
+				}
 			}
 		},
 		name="self_bleeding_duration_incr",
@@ -1655,36 +1799,38 @@ return {
 		}
 	},
 	[73]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextElementalAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% reduced Duration of Elemental Ailments on Cursed enemies"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextElementalAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% reduced Duration of Elemental Ailments on Cursed enemies"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextElementalAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% increased Duration of Elemental Ailments on Cursed enemies"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextElementalAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% increased Duration of Elemental Ailments on Cursed enemies"
+				}
 			}
 		},
 		name="self_elemental_status_duration",
@@ -1693,28 +1839,30 @@ return {
 		}
 	},
 	[74]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Effect of Curse"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Effect of Curse"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Effect of Curse"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Effect of Curse"
+				}
 			}
 		},
 		name="bane_curse_effect",
@@ -1723,28 +1871,30 @@ return {
 		}
 	},
 	[75]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Effect of Curse"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Effect of Curse"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Effect of Curse"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Effect of Curse"
+				}
 			}
 		},
 		name="blasphemy_curse_effect",
@@ -1753,28 +1903,30 @@ return {
 		}
 	},
 	[76]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Effect of Curse"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Effect of Curse"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Effect of Curse"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Effect of Curse"
+				}
 			}
 		},
 		name="hextouch_curse_effect",
@@ -1783,28 +1935,30 @@ return {
 		}
 	},
 	[77]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cursed Rare and Unique Enemies have {0}% more Action Speed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cursed Rare and Unique Enemies have {0}% more Action Speed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Cursed Rare and Unique Enemies have {0}% less Action Speed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Cursed Rare and Unique Enemies have {0}% less Action Speed"
+				}
 			}
 		},
 		name="action_speed_reduction_rare_or_unique",
@@ -1813,24 +1967,26 @@ return {
 		}
 	},
 	[78]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=99
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="Trigger Doom Blast when Curse ends"
 				},
-				text="Trigger Doom Blast when Curse ends"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Trigger Doom Blast when Curse ends"
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Trigger Doom Blast when Curse ends"
+				}
 			}
 		},
 		name="curse_triggers_doom_blast",

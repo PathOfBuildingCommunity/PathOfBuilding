@@ -3,15 +3,17 @@
 
 return {
 	[1]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Modifiers to Debuff Duration also apply to this Skill's Soul Gain Prevention"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Modifiers to Debuff Duration also apply to this Skill's Soul Gain Prevention"
+				}
 			}
 		},
 		name="soul_prevention_buff_duration",
@@ -20,19 +22,21 @@ return {
 		}
 	},
 	[2]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Debuff Lasts {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Debuff Lasts {0} seconds"
+				}
 			}
 		},
 		name="buff_duration",
@@ -41,19 +45,21 @@ return {
 		}
 	},
 	[3]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Secondary Debuff Lasts {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Secondary Debuff Lasts {0} seconds"
+				}
 			}
 		},
 		name="secondary_buff_duration",
@@ -62,32 +68,34 @@ return {
 		}
 	},
 	[4]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					text="Applies beams to the closest {0:+d} Enemies"
 				},
-				text="Applies beams to the closest {0:+d} Enemies"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Applies beams to the closest {0} Enemies"
+					text="Applies beams to the closest {0} Enemies"
+				}
 			}
 		},
 		name="ice_siphon_trap_max_targets",
@@ -97,15 +105,17 @@ return {
 		}
 	},
 	[5]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Applies beams to the closest {0} nearby Bleeding Enemies"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Applies beams to the closest {0} nearby Bleeding Enemies"
+				}
 			}
 		},
 		name="vampiric_icon_max_targets",
@@ -114,19 +124,21 @@ return {
 		}
 	},
 	[6]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="per_minute_to_per_second",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Regenerate {0} Life per second while any Enemy is affected"
+						k="per_minute_to_per_second",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Regenerate {0} Life per second while any Enemy is affected"
+				}
 			}
 		},
 		name="life_regen_with_at_least_one_enemy",
@@ -135,19 +147,21 @@ return {
 		}
 	},
 	[7]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="per_minute_to_per_second",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Regenerate {0} Mana per second while any Enemy is affected"
+						k="per_minute_to_per_second",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Regenerate {0} Mana per second while any Enemy is affected"
+				}
 			}
 		},
 		name="mana_regen_with_at_least_one_enemy",
@@ -156,19 +170,21 @@ return {
 		}
 	},
 	[8]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="per_minute_to_per_second",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Regenerate {0} Life per second for each affected Enemy"
+						k="per_minute_to_per_second",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Regenerate {0} Life per second for each affected Enemy"
+				}
 			}
 		},
 		name="life_regen_per_enemy",
@@ -177,19 +193,21 @@ return {
 		}
 	},
 	[9]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="per_minute_to_per_second",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Regenerate {0} Mana per second for each affected Enemy"
+						k="per_minute_to_per_second",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Regenerate {0} Mana per second for each affected Enemy"
+				}
 			}
 		},
 		name="mana_regen_per_enemy",
@@ -198,28 +216,30 @@ return {
 		}
 	},
 	[10]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Grants {0}% increased Damage Taken for each affected Enemy"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Grants {0}% increased Damage Taken for each affected Enemy"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Grants {0}% reduced Damage Taken for each affected Enemy"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Grants {0}% reduced Damage Taken for each affected Enemy"
+				}
 			}
 		},
 		name="damage_taken_incr_per_enemy",
@@ -228,28 +248,30 @@ return {
 		}
 	},
 	[11]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Burning Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Burning Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Burning Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Burning Damage"
+				}
 			}
 		},
 		name="herald_of_ash_burning_damage",
@@ -258,15 +280,17 @@ return {
 		}
 	},
 	[12]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Buff grants {0}% of your Physical Damage as Extra Fire Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Buff grants {0}% of your Physical Damage as Extra Fire Damage"
+				}
 			}
 		},
 		name="physical_damage_to_add_as_fire",
@@ -275,15 +299,17 @@ return {
 		}
 	},
 	[13]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Buff grants {0}% increased Fire Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Buff grants {0}% increased Fire Damage"
+				}
 			}
 		},
 		name="herald_of_ash_fire_damage_incr",
@@ -292,28 +318,30 @@ return {
 		}
 	},
 	[14]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Buff grants {0}% more Spell Fire Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Buff grants {0}% more Spell Fire Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Buff grants {0}% less Spell Fire Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Buff grants {0}% less Spell Fire Damage"
+				}
 			}
 		},
 		name="herald_of_ash_spell_fire_damage_incr",
@@ -322,28 +350,30 @@ return {
 		}
 	},
 	[15]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Debuff Effect"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Debuff Effect"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Debuff Effect"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Debuff Effect"
+				}
 			}
 		},
 		name="skill_buff_effect",
@@ -352,28 +382,30 @@ return {
 		}
 	},
 	[16]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Enemies have {0}% reduced Action Speed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Enemies have {0}% reduced Action Speed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Enemies have {0}% increased Action Speed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Enemies have {0}% increased Action Speed"
+				}
 			}
 		},
 		name="action_speed_reduction",
@@ -382,15 +414,17 @@ return {
 		}
 	},
 	[17]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Enemies have {0}% chance to Explode on Death, dealing a quarter of their maximum Life as Chaos Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Enemies have {0}% chance to Explode on Death, dealing a quarter of their maximum Life as Chaos Damage"
+				}
 			}
 		},
 		name="bane_enemies_explode_on_death_chance",
@@ -399,15 +433,17 @@ return {
 		}
 	},
 	[18]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Enemies get {0:+d}% to Chaos Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Enemies get {0:+d}% to Chaos Resistance"
+				}
 			}
 		},
 		name="chaos_res",
@@ -416,15 +452,17 @@ return {
 		}
 	},
 	[19]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cold Exposure applies {0:+d}% to Cold Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cold Exposure applies {0:+d}% to Cold Resistance"
+				}
 			}
 		},
 		name="cold_resist",
@@ -433,15 +471,17 @@ return {
 		}
 	},
 	[20]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Fire Exposure applies {0:+d}% to Fire Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Fire Exposure applies {0:+d}% to Fire Resistance"
+				}
 			}
 		},
 		name="fire_resist",
@@ -450,15 +490,17 @@ return {
 		}
 	},
 	[21]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Lightning Exposure applies {0:+d}% to Lightning Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Lightning Exposure applies {0:+d}% to Lightning Resistance"
+				}
 			}
 		},
 		name="lightning_resist",
@@ -467,28 +509,30 @@ return {
 		}
 	},
 	[22]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Enemies take {0}% increased Damage from Trap or Mine Hits"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Enemies take {0}% increased Damage from Trap or Mine Hits"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Enemies take {0}% reduced Damage from Trap or Mine Hits"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Enemies take {0}% reduced Damage from Trap or Mine Hits"
+				}
 			}
 		},
 		name="trap_and_mine_damage_taken",
@@ -497,28 +541,30 @@ return {
 		}
 	},
 	[23]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Enemies have {0}% more Movement Speed when the Debuff starts"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Enemies have {0}% more Movement Speed when the Debuff starts"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Enemies have {0}% less Movement Speed when the Debuff starts"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Enemies have {0}% less Movement Speed when the Debuff starts"
+				}
 			}
 		},
 		name="bear_trap_slow",
@@ -527,19 +573,21 @@ return {
 		}
 	},
 	[24]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Projectiles which pass through the wall deal {0} to {1} Added Fire Damage"
+					text="Projectiles which pass through the wall deal {0} to {1} Added Fire Damage"
+				}
 			}
 		},
 		name="firewall_added_fire",
@@ -549,27 +597,29 @@ return {
 		}
 	},
 	[25]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
-				},
-				[2]={
-					k="negate",
-					v=2
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
+						k="negate",
+						v=1
 					},
 					[2]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Each Spore Pod applies {0}% less Movement Speed to nearby Enemies, to a maximum of {1}%"
+						k="negate",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						},
+						[2]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Each Spore Pod applies {0}% less Movement Speed to nearby Enemies, to a maximum of {1}%"
+				}
 			}
 		},
 		name="rain_of_spores_slow",
@@ -579,15 +629,17 @@ return {
 		}
 	},
 	[26]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Debuff applies {0:+d}% to all Resistances"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Debuff applies {0:+d}% to all Resistances"
+				}
 			}
 		},
 		name="all_resist",
@@ -596,19 +648,21 @@ return {
 		}
 	},
 	[27]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="per_minute_to_per_second",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Regenerate {0}% of Energy Shield per second for each affected Enemy"
+						k="per_minute_to_per_second",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Regenerate {0}% of Energy Shield per second for each affected Enemy"
+				}
 			}
 		},
 		name="es_regen_per_enemy",

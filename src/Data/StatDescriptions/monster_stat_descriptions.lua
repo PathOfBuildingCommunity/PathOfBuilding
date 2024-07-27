@@ -3,15 +3,17 @@
 
 return {
 	[1]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Curse Immune"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Curse Immune"
+				}
 			}
 		},
 		stats={
@@ -19,15 +21,17 @@ return {
 		}
 	},
 	[2]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Hexproof"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Hexproof"
+				}
 			}
 		},
 		stats={
@@ -35,15 +39,17 @@ return {
 		}
 	},
 	[3]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Burns Ground on Death"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Burns Ground on Death"
+				}
 			}
 		},
 		stats={
@@ -51,15 +57,17 @@ return {
 		}
 	},
 	[4]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Chills Ground on Death"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Chills Ground on Death"
+				}
 			}
 		},
 		stats={
@@ -67,15 +75,17 @@ return {
 		}
 	},
 	[5]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Spreads Tar on Death"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Spreads Tar on Death"
+				}
 			}
 		},
 		stats={
@@ -83,15 +93,17 @@ return {
 		}
 	},
 	[6]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Spreads Caustic Ground on Death"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Spreads Caustic Ground on Death"
+				}
 			}
 		},
 		stats={
@@ -99,33 +111,35 @@ return {
 		}
 	},
 	[7]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Can raise Magic monsters"
 				},
-				text="Can raise Magic monsters"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]=2
-					}
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]=2
+						}
+					},
+					text="Can raise Rare or Magic monsters"
 				},
-				text="Can raise Rare or Magic monsters"
-			},
-			[3]={
-				limit={
-					[1]={
-						[1]=3,
-						[2]=3
-					}
-				},
-				text="Can raise Unique, Rare or Magic monsters"
+				[3]={
+					limit={
+						[1]={
+							[1]=3,
+							[2]=3
+						}
+					},
+					text="Can raise Unique, Rare or Magic monsters"
+				}
 			}
 		},
 		stats={
@@ -133,24 +147,26 @@ return {
 		}
 	},
 	[8]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]=99
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]=99
+						}
+					},
+					text="Avoids Frozen"
 				},
-				text="Avoids Frozen"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Cannot be Frozen"
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Cannot be Frozen"
+				}
 			}
 		},
 		stats={
@@ -158,24 +174,26 @@ return {
 		}
 	},
 	[9]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]=99
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]=99
+						}
+					},
+					text="Avoids Chilled"
 				},
-				text="Avoids Chilled"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Cannot be Chilled"
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Cannot be Chilled"
+				}
 			}
 		},
 		stats={
@@ -183,24 +201,26 @@ return {
 		}
 	},
 	[10]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]=99
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]=99
+						}
+					},
+					text="Avoids Ignited"
 				},
-				text="Avoids Ignited"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Cannot be Ignited"
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Cannot be Ignited"
+				}
 			}
 		},
 		stats={
@@ -208,24 +228,26 @@ return {
 		}
 	},
 	[11]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]=99
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]=99
+						}
+					},
+					text="Avoids Shocked"
 				},
-				text="Avoids Shocked"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Cannot be Shocked"
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Cannot be Shocked"
+				}
 			}
 		},
 		stats={
@@ -233,15 +255,17 @@ return {
 		}
 	},
 	[12]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Spikes on Death"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Spikes on Death"
+				}
 			}
 		},
 		stats={
@@ -249,15 +273,17 @@ return {
 		}
 	},
 	[13]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Ice Spears on Death"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Ice Spears on Death"
+				}
 			}
 		},
 		stats={
@@ -265,15 +291,17 @@ return {
 		}
 	},
 	[14]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Casts Lightning Nova"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Casts Lightning Nova"
+				}
 			}
 		},
 		stats={
@@ -281,15 +309,17 @@ return {
 		}
 	},
 	[15]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Casts Fire Nova"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Casts Fire Nova"
+				}
 			}
 		},
 		stats={
@@ -297,15 +327,17 @@ return {
 		}
 	},
 	[16]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Removes Flask Charges"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Removes Flask Charges"
+				}
 			}
 		},
 		stats={
@@ -313,15 +345,17 @@ return {
 		}
 	},
 	[17]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Causes Bleeding"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Causes Bleeding"
+				}
 			}
 		},
 		stats={
@@ -329,15 +363,17 @@ return {
 		}
 	},
 	[18]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Enemies take increased Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Enemies take increased Damage"
+				}
 			}
 		},
 		stats={
@@ -345,15 +381,17 @@ return {
 		}
 	},
 	[19]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Enemies are affected by Temporal Chains"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Enemies are affected by Temporal Chains"
+				}
 			}
 		},
 		stats={
@@ -361,15 +399,17 @@ return {
 		}
 	},
 	[20]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Enemies take Damage when using Movement skills"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Enemies take Damage when using Movement skills"
+				}
 			}
 		},
 		stats={
@@ -377,15 +417,17 @@ return {
 		}
 	},
 	[21]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Enrages on Low Life"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Enrages on Low Life"
+				}
 			}
 		},
 		stats={
@@ -393,15 +435,17 @@ return {
 		}
 	},
 	[22]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Cannot be Slowed"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Cannot be Slowed"
+				}
 			}
 		},
 		stats={
@@ -409,15 +453,17 @@ return {
 		}
 	},
 	[23]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cannot be fully Slowed"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cannot be fully Slowed"
+				}
 			}
 		},
 		stats={
@@ -425,15 +471,17 @@ return {
 		}
 	},
 	[24]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0}% chance not to be consumed when sacrificed at the Blood Altar"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0}% chance not to be consumed when sacrificed at the Blood Altar"
+				}
 			}
 		},
 		stats={
@@ -441,15 +489,17 @@ return {
 		}
 	},
 	[25]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cannot be Life-Leeched"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cannot be Life-Leeched"
+				}
 			}
 		},
 		stats={
@@ -457,15 +507,17 @@ return {
 		}
 	},
 	[26]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Ignores Summoning Towers"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Ignores Summoning Towers"
+				}
 			}
 		},
 		stats={
@@ -473,15 +525,17 @@ return {
 		}
 	},
 	[27]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Resilient to Cold Towers"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Resilient to Cold Towers"
+				}
 			}
 		},
 		stats={
@@ -489,15 +543,17 @@ return {
 		}
 	},
 	[28]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Resilient to Fire Towers"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Resilient to Fire Towers"
+				}
 			}
 		},
 		stats={
@@ -505,15 +561,17 @@ return {
 		}
 	},
 	[29]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Resilient to Lightning Towers"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Resilient to Lightning Towers"
+				}
 			}
 		},
 		stats={
@@ -521,15 +579,17 @@ return {
 		}
 	},
 	[30]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Resilient to Physical Towers"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Resilient to Physical Towers"
+				}
 			}
 		},
 		stats={
@@ -537,15 +597,17 @@ return {
 		}
 	},
 	[31]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Divined"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Divined"
+				}
 			}
 		},
 		stats={
@@ -553,15 +615,17 @@ return {
 		}
 	},
 	[32]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Divined"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Divined"
+				}
 			}
 		},
 		stats={
@@ -569,15 +633,17 @@ return {
 		}
 	},
 	[33]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Blocks Projectiles while charging"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Blocks Projectiles while charging"
+				}
 			}
 		},
 		stats={

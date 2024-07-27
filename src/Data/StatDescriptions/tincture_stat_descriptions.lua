@@ -3,36 +3,38 @@
 
 return {
 	[1]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextStunThreshold"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% reduced Enemy Stun Threshold with Melee Weapons"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextStunThreshold"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% reduced Enemy Stun Threshold with Melee Weapons"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextStunThreshold"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% increased Enemy Stun Threshold with Melee Weapons"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextStunThreshold"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% increased Enemy Stun Threshold with Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -40,19 +42,21 @@ return {
 		}
 	},
 	[2]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextBleeding"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% chance to cause Bleeding with Melee Weapons"
+						k="reminderstring",
+						v="ReminderTextBleeding"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% chance to cause Bleeding with Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -60,19 +64,21 @@ return {
 		}
 	},
 	[3]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextBlind"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% chance to Blind Enemies on Hit with Melee Weapons"
+						k="reminderstring",
+						v="ReminderTextBlind"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% chance to Blind Enemies on Hit with Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -80,15 +86,17 @@ return {
 		}
 	},
 	[4]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Does not inflict Mana Burn over time"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Does not inflict Mana Burn over time"
+				}
 			}
 		},
 		stats={
@@ -96,32 +104,34 @@ return {
 		}
 	},
 	[5]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextTinctureManaBurn"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]=1
-					}
+						k="reminderstring",
+						v="ReminderTextTinctureManaBurn"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Inflicts Mana Burn on you when you Hit an Enemy with a Melee Weapon"
 				},
-				text="Inflicts Mana Burn on you when you Hit an Enemy with a Melee Weapon"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextTinctureManaBurn"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="Inflicts {0} Mana Burn on you when you Hit an Enemy with a Melee Weapon"
+						k="reminderstring",
+						v="ReminderTextTinctureManaBurn"
+					},
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="Inflicts {0} Mana Burn on you when you Hit an Enemy with a Melee Weapon"
+				}
 			}
 		},
 		stats={
@@ -129,15 +139,17 @@ return {
 		}
 	},
 	[6]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Rarity of Items found per Mana Burn, up to a maximum of 100%"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Rarity of Items found per Mana Burn, up to a maximum of 100%"
+				}
 			}
 		},
 		stats={
@@ -145,19 +157,21 @@ return {
 		}
 	},
 	[7]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextFreeze"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="All Damage with Melee Weapons can Freeze"
+						k="reminderstring",
+						v="ReminderTextFreeze"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="All Damage with Melee Weapons can Freeze"
+				}
 			}
 		},
 		stats={
@@ -165,19 +179,21 @@ return {
 		}
 	},
 	[8]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextIgnite"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="All Damage with Melee Weapons can Ignite"
+						k="reminderstring",
+						v="ReminderTextIgnite"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="All Damage with Melee Weapons can Ignite"
+				}
 			}
 		},
 		stats={
@@ -185,19 +201,21 @@ return {
 		}
 	},
 	[9]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextPoison"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="All Damage with Melee Weapons can Poison"
+						k="reminderstring",
+						v="ReminderTextPoison"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="All Damage with Melee Weapons can Poison"
+				}
 			}
 		},
 		stats={
@@ -205,19 +223,21 @@ return {
 		}
 	},
 	[10]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextShock"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="All Damage with Melee Weapons can Shock"
+						k="reminderstring",
+						v="ReminderTextShock"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="All Damage with Melee Weapons can Shock"
+				}
 			}
 		},
 		stats={
@@ -225,15 +245,17 @@ return {
 		}
 	},
 	[11]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Damaging Melee Weapon Hits always Stun Enemies that are on Full Life"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Damaging Melee Weapon Hits always Stun Enemies that are on Full Life"
+				}
 			}
 		},
 		stats={
@@ -241,19 +263,21 @@ return {
 		}
 	},
 	[12]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextWithered"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Melee Weapon Hits Inflict {0} Withered Debuffs for 2 seconds"
+						k="reminderstring",
+						v="ReminderTextWithered"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Melee Weapon Hits Inflict {0} Withered Debuffs for 2 seconds"
+				}
 			}
 		},
 		stats={
@@ -261,28 +285,30 @@ return {
 		}
 	},
 	[13]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Rarity of Items Dropped by Enemies killed by Melee Weapon Attacks"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Rarity of Items Dropped by Enemies killed by Melee Weapon Attacks"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Rarity of Items Dropped by Enemies killed by Melee Weapon Attacks"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Rarity of Items Dropped by Enemies killed by Melee Weapon Attacks"
+				}
 			}
 		},
 		stats={
@@ -290,36 +316,38 @@ return {
 		}
 	},
 	[14]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextBleeding"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage with Bleeding from Melee Weapons"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextBleeding"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage with Bleeding from Melee Weapons"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextBleeding"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage with Bleeding from Melee Weapons"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextBleeding"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage with Bleeding from Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -327,36 +355,38 @@ return {
 		}
 	},
 	[15]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextBlindNoDuration"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Effect of Blind from Melee Weapons"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextBlindNoDuration"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Effect of Blind from Melee Weapons"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextBlindNoDuration"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Effect of Blind from Melee Weapons"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextBlindNoDuration"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Effect of Blind from Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -364,32 +394,34 @@ return {
 		}
 	},
 	[16]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextGraspingVines"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]=99
-					}
+						k="reminderstring",
+						v="ReminderTextGraspingVines"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="{0}% chance to inflict a Grasping Vine on Melee Weapon Hit"
 				},
-				text="{0}% chance to inflict a Grasping Vine on Melee Weapon Hit"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextGraspingVines"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Inflict a Grasping Vine on Melee Weapon Hit"
+						k="reminderstring",
+						v="ReminderTextGraspingVines"
+					},
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Inflict a Grasping Vine on Melee Weapon Hit"
+				}
 			}
 		},
 		stats={
@@ -397,19 +429,21 @@ return {
 		}
 	},
 	[17]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextRecently"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="+{0}% Chance to Block Attack Damage if you've Stunned an Enemy with a Melee Weapon Recently"
+						k="reminderstring",
+						v="ReminderTextRecently"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="+{0}% Chance to Block Attack Damage if you've Stunned an Enemy with a Melee Weapon Recently"
+				}
 			}
 		},
 		stats={
@@ -417,19 +451,21 @@ return {
 		}
 	},
 	[18]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextFreeze"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% chance to Freeze with Melee Weapons"
+						k="reminderstring",
+						v="ReminderTextFreeze"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% chance to Freeze with Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -437,19 +473,21 @@ return {
 		}
 	},
 	[19]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextIgnite"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% chance to Ignite with Melee Weapons"
+						k="reminderstring",
+						v="ReminderTextIgnite"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% chance to Ignite with Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -457,19 +495,21 @@ return {
 		}
 	},
 	[20]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextPoison"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% chance to Poison with Melee Weapons"
+						k="reminderstring",
+						v="ReminderTextPoison"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% chance to Poison with Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -477,19 +517,21 @@ return {
 		}
 	},
 	[21]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextShock"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% chance to Shock with Melee Weapons"
+						k="reminderstring",
+						v="ReminderTextShock"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% chance to Shock with Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -497,36 +539,38 @@ return {
 		}
 	},
 	[22]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextChillPotentialEffect"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Effect of Chill from Melee Weapons"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextChillPotentialEffect"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Effect of Chill from Melee Weapons"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextChillPotentialEffect"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Effect of Chill from Melee Weapons"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextChillPotentialEffect"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Effect of Chill from Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -534,19 +578,21 @@ return {
 		}
 	},
 	[23]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextConsecratedGround"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% chance to create Consecrated Ground when you Hit a Rare or\nUnique Enemy with a Melee Weapon, lasting 8 seconds"
+						k="reminderstring",
+						v="ReminderTextConsecratedGround"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% chance to create Consecrated Ground when you Hit a Rare or\nUnique Enemy with a Melee Weapon, lasting 8 seconds"
+				}
 			}
 		},
 		stats={
@@ -554,28 +600,30 @@ return {
 		}
 	},
 	[24]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Critical Strike Chance with Melee Weapons"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Critical Strike Chance with Melee Weapons"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Critical Strike Chance with Melee Weapons"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Critical Strike Chance with Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -583,19 +631,21 @@ return {
 		}
 	},
 	[25]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextCullingStrike"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Melee Weapon Attacks have Culling Strike"
+						k="reminderstring",
+						v="ReminderTextCullingStrike"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Melee Weapon Attacks have Culling Strike"
+				}
 			}
 		},
 		stats={
@@ -603,28 +653,30 @@ return {
 		}
 	},
 	[26]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Elemental Damage with Melee Weapons"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Elemental Damage with Melee Weapons"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Elemental Damage with Melee Weapons"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Elemental Damage with Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -632,15 +684,17 @@ return {
 		}
 	},
 	[27]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Killing Blows with Melee Weapons have a {0}% chance for Enemies to\nExplode, dealing a tenth of their maximum Life as Fire Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Killing Blows with Melee Weapons have a {0}% chance for Enemies to\nExplode, dealing a tenth of their maximum Life as Fire Damage"
+				}
 			}
 		},
 		stats={
@@ -648,15 +702,17 @@ return {
 		}
 	},
 	[28]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0:+d} Fire Damage taken from Hits per Mana Burn"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d} Fire Damage taken from Hits per Mana Burn"
+				}
 			}
 		},
 		stats={
@@ -664,15 +720,17 @@ return {
 		}
 	},
 	[29]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Killing Blows with Melee Weapons against Rare Monsters have a\n{0}% chance to grant one of their Modifiers for 60 seconds"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Killing Blows with Melee Weapons against Rare Monsters have a\n{0}% chance to grant one of their Modifiers for 60 seconds"
+				}
 			}
 		},
 		stats={
@@ -680,40 +738,42 @@ return {
 		}
 	},
 	[30]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextRage"
+					[1]={
+						k="reminderstring",
+						v="ReminderTextRage"
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextRageOnHit"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="{0}% chance to gain 1 Rage when you Hit a Rare or Unique Enemy with a Melee Weapon"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextRageOnHit"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]=99
-					}
-				},
-				text="{0}% chance to gain 1 Rage when you Hit a Rare or Unique Enemy with a Melee Weapon"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextRage"
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextRageOnHit"
-				},
-				limit={
-					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Gain 1 Rage when you Hit a Rare or Unique Enemy with a Melee Weapon"
+						k="reminderstring",
+						v="ReminderTextRage"
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextRageOnHit"
+					},
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Gain 1 Rage when you Hit a Rare or Unique Enemy with a Melee Weapon"
+				}
 			}
 		},
 		stats={
@@ -721,23 +781,25 @@ return {
 		}
 	},
 	[31]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextRage"
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextRageOnHit"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Gain {0} Rage on Melee Weapon Hit"
+						k="reminderstring",
+						v="ReminderTextRage"
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextRageOnHit"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Gain {0} Rage on Melee Weapon Hit"
+				}
 			}
 		},
 		stats={
@@ -745,24 +807,26 @@ return {
 		}
 	},
 	[32]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=99
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="Melee Weapon Hits have {0}% chance to ignore Enemy Physical Damage Reduction"
 				},
-				text="Melee Weapon Hits have {0}% chance to ignore Enemy Physical Damage Reduction"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Melee Weapon Hits ignore Enemy Physical Damage Reduction"
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Melee Weapon Hits ignore Enemy Physical Damage Reduction"
+				}
 			}
 		},
 		stats={
@@ -770,36 +834,38 @@ return {
 		}
 	},
 	[33]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextIgniteNonHitNoDuration"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage with Ignite from Melee Weapons"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextIgniteNonHitNoDuration"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage with Ignite from Melee Weapons"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextIgniteNonHitNoDuration"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage with Ignite from Melee Weapons"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextIgniteNonHitNoDuration"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage with Ignite from Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -807,19 +873,21 @@ return {
 		}
 	},
 	[34]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextLowLife"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0}% of Melee Weapon Leech is Instant against Enemies that are on Low Life"
+						k="reminderstring",
+						v="ReminderTextLowLife"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0}% of Melee Weapon Leech is Instant against Enemies that are on Low Life"
+				}
 			}
 		},
 		stats={
@@ -827,23 +895,25 @@ return {
 		}
 	},
 	[35]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextLifeLeech"
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextOverkill"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% of Overkill Damage with Melee Weapons is Leeched as Life"
+						k="reminderstring",
+						v="ReminderTextLifeLeech"
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextOverkill"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% of Overkill Damage with Melee Weapons is Leeched as Life"
+				}
 			}
 		},
 		stats={
@@ -851,36 +921,38 @@ return {
 		}
 	},
 	[36]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextRecently"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Mana Regeneration Rate if you have Shocked an Enemy with a Melee Weapon Recently"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextRecently"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Mana Regeneration Rate if you have Shocked an Enemy with a Melee Weapon Recently"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextRecently"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Mana Regeneration Rate if you have Shocked an Enemy with a Melee Weapon Recently"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextRecently"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Mana Regeneration Rate if you have Shocked an Enemy with a Melee Weapon Recently"
+				}
 			}
 		},
 		stats={
@@ -888,49 +960,51 @@ return {
 		}
 	},
 	[37]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
-				},
-				text="Melee Strike Skills deal Splash Damage to surrounding targets"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					},
-					[2]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Melee Strike Skills deal Splash Damage to surrounding targets, with {1}% increased Area of Effect"
-			},
-			[3]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=2
-				},
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]=-1
-					}
+					text="Melee Strike Skills deal Splash Damage to surrounding targets"
 				},
-				text="Melee Strike Skills deal Splash Damage to surrounding targets, with {1}% reduced Area of Effect"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Melee Strike Skills deal Splash Damage to surrounding targets, with {1}% increased Area of Effect"
+				},
+				[3]={
+					[1]={
+						k="negate",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Melee Strike Skills deal Splash Damage to surrounding targets, with {1}% reduced Area of Effect"
+				}
 			}
 		},
 		stats={
@@ -939,40 +1013,42 @@ return {
 		}
 	},
 	[38]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="locations_to_metres",
-					v=1
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextMeleeStrikeRange"
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="{0:+d} metre to Melee Strike Range"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextMeleeStrikeRange"
-				},
-				limit={
 					[1]={
-						[1]=10,
-						[2]=10
-					}
-				},
-				text="{0:+d} metre to Melee Strike Range"
-			},
-			[2]={
-				[1]={
-					k="locations_to_metres",
-					v=1
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextMeleeStrikeRange"
-				},
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0:+d} metres to Melee Strike Range"
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextMeleeStrikeRange"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d} metres to Melee Strike Range"
+				}
 			}
 		},
 		stats={
@@ -980,32 +1056,34 @@ return {
 		}
 	},
 	[39]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextRecently"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]=1
-					}
+						k="reminderstring",
+						v="ReminderTextRecently"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Attacks with Melee Weapons fire an additional Projectile if you've been Hit Recently"
 				},
-				text="Attacks with Melee Weapons fire an additional Projectile if you've been Hit Recently"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextRecently"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="Attacks with Melee Weapons fire {0} additional Projectiles if you've been Hit Recently"
+						k="reminderstring",
+						v="ReminderTextRecently"
+					},
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="Attacks with Melee Weapons fire {0} additional Projectiles if you've been Hit Recently"
+				}
 			}
 		},
 		stats={
@@ -1013,15 +1091,17 @@ return {
 		}
 	},
 	[40]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Melee Weapons have {0}% chance to ignore Enemy Physical Damage Reduction"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Melee Weapons have {0}% chance to ignore Enemy Physical Damage Reduction"
+				}
 			}
 		},
 		stats={
@@ -1029,15 +1109,17 @@ return {
 		}
 	},
 	[41]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Melee Weapon Damage Penetrates {0}% Elemental Resistances per Mana Burn"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Melee Weapon Damage Penetrates {0}% Elemental Resistances per Mana Burn"
+				}
 			}
 		},
 		stats={
@@ -1045,32 +1127,34 @@ return {
 		}
 	},
 	[42]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextPhasing"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=99
-					}
+						k="reminderstring",
+						v="ReminderTextPhasing"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=99
+						}
+					},
+					text="{0}% chance to gain Phasing for 4 seconds on Melee Weapon Kill"
 				},
-				text="{0}% chance to gain Phasing for 4 seconds on Melee Weapon Kill"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextPhasing"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Gain Phasing for 4 seconds on Melee Weapon Kill"
+						k="reminderstring",
+						v="ReminderTextPhasing"
+					},
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Gain Phasing for 4 seconds on Melee Weapon Kill"
+				}
 			}
 		},
 		stats={
@@ -1078,36 +1162,38 @@ return {
 		}
 	},
 	[43]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextPoison"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage with Poison from Melee Weapons"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextPoison"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage with Poison from Melee Weapons"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextPoison"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage with Poison from Melee Weapons"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextPoison"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage with Poison from Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -1115,28 +1201,30 @@ return {
 		}
 	},
 	[44]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Cooldown Recovery Rate"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Cooldown Recovery Rate"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Cooldown Recovery Rate"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Cooldown Recovery Rate"
+				}
 			}
 		},
 		stats={
@@ -1144,28 +1232,30 @@ return {
 		}
 	},
 	[45]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased effect"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased effect"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced effect"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced effect"
+				}
 			}
 		},
 		stats={
@@ -1173,28 +1263,30 @@ return {
 		}
 	},
 	[46]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Mana Burn rate"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Mana Burn rate"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Mana Burn rate"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Mana Burn rate"
+				}
 			}
 		},
 		stats={
@@ -1202,15 +1294,17 @@ return {
 		}
 	},
 	[47]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0}% chance to Curse Enemies with a random Hex on Melee Weapon Hit"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0}% chance to Curse Enemies with a random Hex on Melee Weapon Hit"
+				}
 			}
 		},
 		stats={
@@ -1218,28 +1312,30 @@ return {
 		}
 	},
 	[48]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Recover {0}% of Life on Killing a Rare or Unique Enemy with a Melee Weapon"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Recover {0}% of Life on Killing a Rare or Unique Enemy with a Melee Weapon"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Lose {0}% of Life on Killing a Rare or Unique Enemy with a Melee Weapon"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Lose {0}% of Life on Killing a Rare or Unique Enemy with a Melee Weapon"
+				}
 			}
 		},
 		stats={
@@ -1247,28 +1343,30 @@ return {
 		}
 	},
 	[49]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Melee Weapon Damage Penetrates {0}% Chaos Resistance"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Melee Weapon Damage Penetrates {0}% Chaos Resistance"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Your Melee Weapon Hits treat Chaos Resistance as {0}% higher than actual value"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Your Melee Weapon Hits treat Chaos Resistance as {0}% higher than actual value"
+				}
 			}
 		},
 		stats={
@@ -1276,28 +1374,30 @@ return {
 		}
 	},
 	[50]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Melee Weapon Damage Penetrates {0}% Cold Resistance"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Melee Weapon Damage Penetrates {0}% Cold Resistance"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Your Melee Weapon Hits treat Cold Resistance as {0}% higher than actual value"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Your Melee Weapon Hits treat Cold Resistance as {0}% higher than actual value"
+				}
 			}
 		},
 		stats={
@@ -1305,28 +1405,30 @@ return {
 		}
 	},
 	[51]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Melee Weapon Damage Penetrates {0}% Fire Resistance"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Melee Weapon Damage Penetrates {0}% Fire Resistance"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Your Melee Weapon Hits treat Fire Resistance as {0}% higher than actual value"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Your Melee Weapon Hits treat Fire Resistance as {0}% higher than actual value"
+				}
 			}
 		},
 		stats={
@@ -1334,28 +1436,30 @@ return {
 		}
 	},
 	[52]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Melee Weapon Damage Penetrates {0}% Lightning Resistance"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Melee Weapon Damage Penetrates {0}% Lightning Resistance"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Your Melee Weapon Hits treat Lightning Resistance as {0}% higher than actual value"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Your Melee Weapon Hits treat Lightning Resistance as {0}% higher than actual value"
+				}
 			}
 		},
 		stats={
@@ -1363,19 +1467,21 @@ return {
 		}
 	},
 	[53]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextBleeding"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% chance to refresh Bleeding Duration on Melee Weapon Hit"
+						k="reminderstring",
+						v="ReminderTextBleeding"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% chance to refresh Bleeding Duration on Melee Weapon Hit"
+				}
 			}
 		},
 		stats={
@@ -1383,19 +1489,21 @@ return {
 		}
 	},
 	[54]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextIgnite"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% chance to refresh Ignite Duration on Melee Weapon Hit"
+						k="reminderstring",
+						v="ReminderTextIgnite"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% chance to refresh Ignite Duration on Melee Weapon Hit"
+				}
 			}
 		},
 		stats={
@@ -1403,15 +1511,17 @@ return {
 		}
 	},
 	[55]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Killing Blows with Melee Weapons have {0}% chance to Shatter Enemies"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Killing Blows with Melee Weapons have {0}% chance to Shatter Enemies"
+				}
 			}
 		},
 		stats={
@@ -1419,36 +1529,38 @@ return {
 		}
 	},
 	[56]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextShockPotentialEffect"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Effect of Shock from Melee Weapons"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextShockPotentialEffect"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Effect of Shock from Melee Weapons"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextShockPotentialEffect"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Effect of Shock from Melee Weapons"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextShockPotentialEffect"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Effect of Shock from Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -1456,24 +1568,26 @@ return {
 		}
 	},
 	[57]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=99
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="{0}% chance to Steal Endurance Charges on Hit with Melee Weapons"
 				},
-				text="{0}% chance to Steal Endurance Charges on Hit with Melee Weapons"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Melee Weapon Hits Steal Endurance Charges"
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Melee Weapon Hits Steal Endurance Charges"
+				}
 			}
 		},
 		stats={
@@ -1481,24 +1595,26 @@ return {
 		}
 	},
 	[58]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=99
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="{0}% chance to Steal Frenzy Charges on Hit with Melee Weapons"
 				},
-				text="{0}% chance to Steal Frenzy Charges on Hit with Melee Weapons"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Melee Weapon Hits Steal Frenzy Charges"
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Melee Weapon Hits Steal Frenzy Charges"
+				}
 			}
 		},
 		stats={
@@ -1506,24 +1622,26 @@ return {
 		}
 	},
 	[59]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=99
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="{0}% chance to Steal Power Charges on Hit with Melee Weapons"
 				},
-				text="{0}% chance to Steal Power Charges on Hit with Melee Weapons"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Melee Weapon Hits Steal Power Charges"
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Melee Weapon Hits Steal Power Charges"
+				}
 			}
 		},
 		stats={
@@ -1531,28 +1649,30 @@ return {
 		}
 	},
 	[60]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Stun Duration with Melee Weapons"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Stun Duration with Melee Weapons"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Stun Duration with Melee Weapons"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Stun Duration with Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -1560,28 +1680,30 @@ return {
 		}
 	},
 	[61]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Melee Weapon Attack Speed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Melee Weapon Attack Speed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Melee Weapon Attack Speed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Melee Weapon Attack Speed"
+				}
 			}
 		},
 		stats={
@@ -1589,28 +1711,30 @@ return {
 		}
 	},
 	[62]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Gain {0} Mana per Enemy Killed with Melee Weapons"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Gain {0} Mana per Enemy Killed with Melee Weapons"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Lose {0} Mana per Enemy Killed with Melee Weapons"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Lose {0} Mana per Enemy Killed with Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -1618,15 +1742,17 @@ return {
 		}
 	},
 	[63]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0:+d}% to Melee Weapon Critical Strike Multiplier"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d}% to Melee Weapon Critical Strike Multiplier"
+				}
 			}
 		},
 		stats={
@@ -1634,15 +1760,17 @@ return {
 		}
 	},
 	[64]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0:+d}% to Damage over Time Multiplier with Melee Weapon Attacks"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d}% to Damage over Time Multiplier with Melee Weapon Attacks"
+				}
 			}
 		},
 		stats={
@@ -1650,36 +1778,38 @@ return {
 		}
 	},
 	[65]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextElementalAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Duration of Elemental Ailments from Melee Weapon Attacks"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextElementalAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Duration of Elemental Ailments from Melee Weapon Attacks"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextElementalAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Duration of Elemental Ailments from Melee Weapon Attacks"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextElementalAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Duration of Elemental Ailments from Melee Weapon Attacks"
+				}
 			}
 		},
 		stats={
@@ -1687,28 +1817,30 @@ return {
 		}
 	},
 	[66]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Flask Charges gained from Kills with Melee Weapons"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Flask Charges gained from Kills with Melee Weapons"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Flask Charges gained from Kills with Melee Weapons"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Flask Charges gained from Kills with Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -1716,15 +1848,17 @@ return {
 		}
 	},
 	[67]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Gain {0} Life per Enemy Hit with Melee Weapons"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Gain {0} Life per Enemy Hit with Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -1732,15 +1866,17 @@ return {
 		}
 	},
 	[68]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Gain {0} Life per Enemy Killed with Melee Weapons"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Gain {0} Life per Enemy Killed with Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -1748,15 +1884,17 @@ return {
 		}
 	},
 	[69]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Gain {0} Mana per Enemy Hit with Melee Weapons"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Gain {0} Mana per Enemy Hit with Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -1764,15 +1902,17 @@ return {
 		}
 	},
 	[70]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Melee Weapon Damage Penetrates {0}% Elemental Resistances"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Melee Weapon Damage Penetrates {0}% Elemental Resistances"
+				}
 			}
 		},
 		stats={
@@ -1780,19 +1920,21 @@ return {
 		}
 	},
 	[71]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextLowLife"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Melee Weapon Damage against Enemies that are on Low Life"
+						k="reminderstring",
+						v="ReminderTextLowLife"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Melee Weapon Damage against Enemies that are on Low Life"
+				}
 			}
 		},
 		stats={
@@ -1800,36 +1942,38 @@ return {
 		}
 	},
 	[72]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextBleeding"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Bleeding inflicted with Melee Weapons on non-Bleeding Enemies deals {0}% more Damage"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextBleeding"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Bleeding inflicted with Melee Weapons on non-Bleeding Enemies deals {0}% more Damage"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextBleeding"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Bleeding inflicted with Melee Weapons on non-Bleeding Enemies deals {0}% less Damage"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextBleeding"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Bleeding inflicted with Melee Weapons on non-Bleeding Enemies deals {0}% less Damage"
+				}
 			}
 		},
 		stats={
@@ -1837,15 +1981,17 @@ return {
 		}
 	},
 	[73]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Melee Weapons have {0:+d}% to Critical Strike Chance against Enemies that are on Full Life"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Melee Weapons have {0:+d}% to Critical Strike Chance against Enemies that are on Full Life"
+				}
 			}
 		},
 		stats={
@@ -1853,36 +1999,38 @@ return {
 		}
 	},
 	[74]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextPoison"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Poisons inflicted with Melee Weapons on non-Poisoned Enemies deal {0}% increased Damage"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextPoison"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Poisons inflicted with Melee Weapons on non-Poisoned Enemies deal {0}% increased Damage"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextPoison"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Poisons inflicted with Melee Weapons on non-Poisoned Enemies deal {0}% reduced Damage"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextPoison"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Poisons inflicted with Melee Weapons on non-Poisoned Enemies deal {0}% reduced Damage"
+				}
 			}
 		},
 		stats={
@@ -1890,36 +2038,38 @@ return {
 		}
 	},
 	[75]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextRecently"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Melee Weapon Attack Speed if you have Blocked Recently"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextRecently"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Melee Weapon Attack Speed if you have Blocked Recently"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextRecently"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Melee Weapon Attack Speed if you have Blocked Recently"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextRecently"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Melee Weapon Attack Speed if you have Blocked Recently"
+				}
 			}
 		},
 		stats={
@@ -1927,15 +2077,17 @@ return {
 		}
 	},
 	[76]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Chills from Melee Weapon Hits always reduce Action Speed by at least {0}%"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Chills from Melee Weapon Hits always reduce Action Speed by at least {0}%"
+				}
 			}
 		},
 		stats={
@@ -1943,19 +2095,21 @@ return {
 		}
 	},
 	[77]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextCoveredInAshNoDuration"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cover Full Life Enemies in Ash for {0} seconds on Melee Weapon Hit"
+						k="reminderstring",
+						v="ReminderTextCoveredInAshNoDuration"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cover Full Life Enemies in Ash for {0} seconds on Melee Weapon Hit"
+				}
 			}
 		},
 		stats={
@@ -1963,19 +2117,21 @@ return {
 		}
 	},
 	[78]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextCoveredInFrostNoDuration"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Cover Full Life Enemies in Frost for {0} seconds on Melee Weapon Hit"
+						k="reminderstring",
+						v="ReminderTextCoveredInFrostNoDuration"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Cover Full Life Enemies in Frost for {0} seconds on Melee Weapon Hit"
+				}
 			}
 		},
 		stats={
@@ -1983,15 +2139,17 @@ return {
 		}
 	},
 	[79]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0:+d}% to Melee Weapon Critical Strike Multiplier against Enemies that are on Full Life"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d}% to Melee Weapon Critical Strike Multiplier against Enemies that are on Full Life"
+				}
 			}
 		},
 		stats={
@@ -1999,19 +2157,21 @@ return {
 		}
 	},
 	[80]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextCrushedNoDuration"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Crush Full Life Enemies for {0} seconds on Melee Weapon Hit"
+						k="reminderstring",
+						v="ReminderTextCrushedNoDuration"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Crush Full Life Enemies for {0} seconds on Melee Weapon Hit"
+				}
 			}
 		},
 		stats={
@@ -2019,28 +2179,30 @@ return {
 		}
 	},
 	[81]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Melee Weapon Damage for each\nNon-Instant Spell you've Cast in the past 8 seconds"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Melee Weapon Damage for each\nNon-Instant Spell you've Cast in the past 8 seconds"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Melee Weapon Damage for each\nNon-Instant Spell you've Cast in the past 8 seconds"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Melee Weapon Damage for each\nNon-Instant Spell you've Cast in the past 8 seconds"
+				}
 			}
 		},
 		stats={
@@ -2048,19 +2210,21 @@ return {
 		}
 	},
 	[82]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextLowLife"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Your Melee Weapon Hits can't be Evaded while you are on Low Life"
+						k="reminderstring",
+						v="ReminderTextLowLife"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Your Melee Weapon Hits can't be Evaded while you are on Low Life"
+				}
 			}
 		},
 		stats={
@@ -2068,32 +2232,34 @@ return {
 		}
 	},
 	[83]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextOnslaught"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]=99
-					}
+						k="reminderstring",
+						v="ReminderTextOnslaught"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="{0}% chance to gain Onslaught for 10 seconds on Killing Blow with Melee Weapons"
 				},
-				text="{0}% chance to gain Onslaught for 10 seconds on Killing Blow with Melee Weapons"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextOnslaught"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Gain Onslaught for 10 seconds on Killing Blow with Melee Weapons"
+						k="reminderstring",
+						v="ReminderTextOnslaught"
+					},
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Gain Onslaught for 10 seconds on Killing Blow with Melee Weapons"
+				}
 			}
 		},
 		stats={
@@ -2101,24 +2267,26 @@ return {
 		}
 	},
 	[84]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=0,
-						[2]=99
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=0,
+							[2]=99
+						}
+					},
+					text="Projectiles from Melee Weapon Attacks have {0}% chance to be able to Chain when colliding with terrain"
 				},
-				text="Projectiles from Melee Weapon Attacks have {0}% chance to be able to Chain when colliding with terrain"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Projectiles from Melee Weapon Attacks can Chain when colliding with terrain"
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Projectiles from Melee Weapon Attacks can Chain when colliding with terrain"
+				}
 			}
 		},
 		stats={
@@ -2126,36 +2294,38 @@ return {
 		}
 	},
 	[85]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextRecently"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Melee Weapon Attack Area of Effect if you've Killed Recently"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextRecently"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Melee Weapon Attack Area of Effect if you've Killed Recently"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextRecently"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Melee Weapon Attack Area of Effect if you've Killed Recently"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextRecently"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Melee Weapon Attack Area of Effect if you've Killed Recently"
+				}
 			}
 		},
 		stats={

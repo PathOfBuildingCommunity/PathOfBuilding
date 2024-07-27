@@ -8,15 +8,17 @@ return {
 		}
 	},
 	[2]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% chance for Brands to Attach to a new Enemy each time they Activate"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% chance for Brands to Attach to a new Enemy each time they Activate"
+				}
 			}
 		},
 		name="armageddon_brand_reattach_each_activation_chance",
@@ -25,19 +27,21 @@ return {
 		}
 	},
 	[3]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Can be Detached for a total Duration of {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Can be Detached for a total Duration of {0} seconds"
+				}
 			}
 		},
 		name="base_secondary_duration_identifier",
@@ -46,23 +50,25 @@ return {
 		}
 	},
 	[4]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
+						k="milliseconds_to_seconds_2dp",
+						v=1
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Can be Attached for a total Duration of {0} seconds"
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Can be Attached for a total Duration of {0} seconds"
+				}
 			}
 		},
 		name="base_duration_identifier",
@@ -72,19 +78,21 @@ return {
 		}
 	},
 	[5]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Base Debuff Duration is {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Base Debuff Duration is {0} seconds"
+				}
 			}
 		},
 		name="base_tertiary_duration_identifier",
@@ -93,15 +101,17 @@ return {
 		}
 	},
 	[6]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Activates once when Attached, then is Destroyed"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Activates once when Attached, then is Destroyed"
+				}
 			}
 		},
 		name="brand_removed_after_activating",
@@ -110,24 +120,26 @@ return {
 		}
 	},
 	[7]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Can have {0} Brand Attached to an Enemy"
 				},
-				text="Can have {0} Brand Attached to an Enemy"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="Can have {0} Brands Attached to an Enemy"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="Can have {0} Brands Attached to an Enemy"
+				}
 			}
 		},
 		name="brand_target_limit",
@@ -136,58 +148,60 @@ return {
 		}
 	},
 	[8]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					text="Sends beams to {0:+d} Enemy"
 				},
-				text="Sends beams to {0:+d} Enemy"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					text="Sends beams to {0:+d} Enemies"
 				},
-				text="Sends beams to {0:+d} Enemies"
-			},
-			[3]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
+				[3]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]="!",
+							[2]=0
+						}
 					},
-					[2]={
-						[1]="!",
-						[2]=0
-					}
+					text="Sends a beam to the Branded Enemy"
 				},
-				text="Sends a beam to the Branded Enemy"
-			},
-			[4]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
+				[4]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						},
+						[2]={
+							[1]="!",
+							[2]=0
+						}
 					},
-					[2]={
-						[1]="!",
-						[2]=0
-					}
-				},
-				text="Sends beams to {0} Enemies, including the Branded Enemy"
+					text="Sends beams to {0} Enemies, including the Branded Enemy"
+				}
 			}
 		},
 		name="storm_brand_beam_num",
@@ -197,19 +211,21 @@ return {
 		}
 	},
 	[9]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Can be Detached for a total Duration of {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Can be Detached for a total Duration of {0} seconds"
+				}
 			}
 		},
 		name="secondary_skill_duration",
@@ -218,49 +234,51 @@ return {
 		}
 	},
 	[10]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
-				},
-				text="Deals {0:+d}% more Damage with Hits against Branded Enemy"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Deals {0}% more Damage with Hits against Branded Enemy"
-			},
-			[3]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
-				},
-				limit={
-					[1]={
-						[1]="#",
-						[2]=-1
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
+					text="Deals {0:+d}% more Damage with Hits against Branded Enemy"
 				},
-				text="Deals {0}% less Damage with Hits against Branded Enemy"
+				[2]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Deals {0}% more Damage with Hits against Branded Enemy"
+				},
+				[3]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Deals {0}% less Damage with Hits against Branded Enemy"
+				}
 			}
 		},
 		name="sigil_attached_target_damage_final",
@@ -270,32 +288,34 @@ return {
 		}
 	},
 	[11]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1000,
-						[2]=1000
-					}
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1000,
+							[2]=1000
+						}
+					},
+					text="Activates every second while Attached"
 				},
-				text="Activates every second while Attached"
-			},
-			[2]={
-				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Activates every {0} seconds while Attached"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Activates every {0} seconds while Attached"
+				}
 			}
 		},
 		name="sigil_activate_frequency",
@@ -304,19 +324,21 @@ return {
 		}
 	},
 	[12]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Can be Attached for a total Duration of {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Can be Attached for a total Duration of {0} seconds"
+				}
 			}
 		},
 		name="skill_duration",
@@ -325,19 +347,21 @@ return {
 		}
 	},
 	[13]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Debuff Lasts {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Debuff Lasts {0} seconds"
+				}
 			}
 		},
 		name="tertiary_buff_duration",

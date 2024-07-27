@@ -3,40 +3,42 @@
 
 return {
 	[1]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextValourGain"
-				},
-				limit={
 					[1]={
-						[1]="!",
-						[2]=0
+						k="reminderstring",
+						v="ReminderTextValourGain"
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					limit={
+						[1]={
+							[1]="!",
+							[2]=0
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="While you have this Skill and have no placed Banner, you can gain Valour"
 				},
-				text="While you have this Skill and have no placed Banner, you can gain Valour"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextValourGain"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="!",
-						[2]=0
+						k="reminderstring",
+						v="ReminderTextValourGain"
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="While you have this Skill, you can gain Valour"
+					limit={
+						[1]={
+							[1]="!",
+							[2]=0
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="While you have this Skill, you can gain Valour"
+				}
 			}
 		},
 		stats={
@@ -45,19 +47,21 @@ return {
 		}
 	},
 	[2]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0} to {1} Base Off Hand Cold Damage"
+					text="{0} to {1} Base Off Hand Cold Damage"
+				}
 			}
 		},
 		stats={
@@ -66,19 +70,21 @@ return {
 		}
 	},
 	[3]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0} to {1} Base Off Hand Fire Damage"
+					text="{0} to {1} Base Off Hand Fire Damage"
+				}
 			}
 		},
 		stats={
@@ -87,19 +93,21 @@ return {
 		}
 	},
 	[4]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0} to {1} Base Off Hand Physical Damage"
+					text="{0} to {1} Base Off Hand Physical Damage"
+				}
 			}
 		},
 		stats={
@@ -108,19 +116,21 @@ return {
 		}
 	},
 	[5]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0} to {1} Added Cold Damage per 15 Evasion Rating on Shield"
+					text="{0} to {1} Added Cold Damage per 15 Evasion Rating on Shield"
+				}
 			}
 		},
 		stats={
@@ -129,19 +139,21 @@ return {
 		}
 	},
 	[6]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0} to {1} Added Fire Damage per 15 Armour on Shield"
+					text="{0} to {1} Added Fire Damage per 15 Armour on Shield"
+				}
 			}
 		},
 		stats={
@@ -150,19 +162,21 @@ return {
 		}
 	},
 	[7]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0} to {1} Added Physical Damage per 15 Armour or Evasion Rating on Shield"
+					text="{0} to {1} Added Physical Damage per 15 Armour or Evasion Rating on Shield"
+				}
 			}
 		},
 		stats={
@@ -171,19 +185,21 @@ return {
 		}
 	},
 	[8]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Base Off Hand Attack time is {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Base Off Hand Attack time is {0} seconds"
+				}
 			}
 		},
 		stats={
@@ -191,19 +207,21 @@ return {
 		}
 	},
 	[9]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Deals {0} to {1} Physical Damage"
+					text="Deals {0} to {1} Physical Damage"
+				}
 			}
 		},
 		stats={
@@ -212,19 +230,21 @@ return {
 		}
 	},
 	[10]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Deals {0} to {1} Fire Damage"
+					text="Deals {0} to {1} Fire Damage"
+				}
 			}
 		},
 		stats={
@@ -233,19 +253,21 @@ return {
 		}
 	},
 	[11]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Deals {0} to {1} Cold Damage"
+					text="Deals {0} to {1} Cold Damage"
+				}
 			}
 		},
 		stats={
@@ -254,19 +276,21 @@ return {
 		}
 	},
 	[12]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Deals {0} to {1} Lightning Damage"
+					text="Deals {0} to {1} Lightning Damage"
+				}
 			}
 		},
 		stats={
@@ -275,19 +299,21 @@ return {
 		}
 	},
 	[13]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Deals {0} to {1} Chaos Damage"
+					text="Deals {0} to {1} Chaos Damage"
+				}
 			}
 		},
 		stats={
@@ -296,15 +322,17 @@ return {
 		}
 	},
 	[14]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% of Physical Damage Converted to Lightning Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% of Physical Damage Converted to Lightning Damage"
+				}
 			}
 		},
 		stats={
@@ -312,28 +340,30 @@ return {
 		}
 	},
 	[15]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Deals {0}% more Attack Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Deals {0}% more Attack Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Deals {0}% less Attack Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Deals {0}% less Attack Damage"
+				}
 			}
 		},
 		stats={
@@ -341,19 +371,21 @@ return {
 		}
 	},
 	[16]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="multiplicative_damage_modifier",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="When Dual Wielding, Deals {0}% Damage from each Weapon combined"
+						k="multiplicative_damage_modifier",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="When Dual Wielding, Deals {0}% Damage from each Weapon combined"
+				}
 			}
 		},
 		stats={
@@ -361,32 +393,34 @@ return {
 		}
 	},
 	[17]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="divide_by_one_hundred",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
+						k="divide_by_one_hundred",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Deals {0}% more Attack Damage"
 				},
-				text="Deals {0}% more Attack Damage"
-			},
-			[2]={
-				[1]={
-					k="divide_by_one_hundred_and_negate",
-					v=1
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Deals {0}% less Attack Damage"
+						k="divide_by_one_hundred_and_negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Deals {0}% less Attack Damage"
+				}
 			}
 		},
 		stats={
@@ -394,28 +428,30 @@ return {
 		}
 	},
 	[18]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Deals {0}% more Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Deals {0}% more Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Deals {0}% less Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Deals {0}% less Damage"
+				}
 			}
 		},
 		stats={
@@ -423,19 +459,21 @@ return {
 		}
 	},
 	[19]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="multiplicative_damage_modifier",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Minions deal {0}% of Damage"
+						k="multiplicative_damage_modifier",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Minions deal {0}% of Damage"
+				}
 			}
 		},
 		stats={
@@ -443,19 +481,21 @@ return {
 		}
 	},
 	[20]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="multiplicative_damage_modifier",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Minions deal {0}% of Physical Damage"
+						k="multiplicative_damage_modifier",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Minions deal {0}% of Physical Damage"
+				}
 			}
 		},
 		stats={
@@ -463,28 +503,30 @@ return {
 		}
 	},
 	[21]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Deals {0}% more Physical Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Deals {0}% more Physical Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Deals {0}% less Physical Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Deals {0}% less Physical Damage"
+				}
 			}
 		},
 		stats={
@@ -492,28 +534,30 @@ return {
 		}
 	},
 	[22]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Physical Damage per Frenzy Charge"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Physical Damage per Frenzy Charge"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Physical Damage per Frenzy Charge"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Physical Damage per Frenzy Charge"
+				}
 			}
 		},
 		stats={
@@ -521,58 +565,60 @@ return {
 		}
 	},
 	[23]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					text="{0:+d} to Maximum Raised Zombies"
 				},
-				text="{0:+d} to Maximum Raised Zombies"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
+				[2]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
+					text="Maximum {0} Raised Zombie"
 				},
-				text="Maximum {0} Raised Zombie"
-			},
-			[3]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]=99
+				[3]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]=99
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					text="{0:+d} to Maximum Raised Zombies"
 				},
-				text="{0:+d} to Maximum Raised Zombies"
-			},
-			[4]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]=99
+				[4]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]=99
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Maximum {0} Raised Zombies"
+					text="Maximum {0} Raised Zombies"
+				}
 			}
 		},
 		stats={
@@ -581,24 +627,26 @@ return {
 		}
 	},
 	[24]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Maximum {0} Raised Spectre"
 				},
-				text="Maximum {0} Raised Spectre"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="Maximum {0} Raised Spectres"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="Maximum {0} Raised Spectres"
+				}
 			}
 		},
 		stats={
@@ -606,45 +654,47 @@ return {
 		}
 	},
 	[25]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					text="{0:+d} to Maximum Summoned Skeletons"
 				},
-				text="{0:+d} to Maximum Summoned Skeletons"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
+				[2]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
+					text="Maximum {0} Summoned Skeleton"
 				},
-				text="Maximum {0} Summoned Skeleton"
-			},
-			[3]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
+				[3]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Maximum {0} Summoned Skeletons"
+					text="Maximum {0} Summoned Skeletons"
+				}
 			}
 		},
 		stats={
@@ -653,24 +703,26 @@ return {
 		}
 	},
 	[26]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Maximum {0} Summoned Raging Spirit"
 				},
-				text="Maximum {0} Summoned Raging Spirit"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Maximum {0} Summoned Raging Spirits"
+				[2]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Maximum {0} Summoned Raging Spirits"
+				}
 			}
 		},
 		stats={
@@ -678,28 +730,30 @@ return {
 		}
 	},
 	[27]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Area of Effect"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Area of Effect"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Area of Effect"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Area of Effect"
+				}
 			}
 		},
 		stats={
@@ -707,28 +761,30 @@ return {
 		}
 	},
 	[28]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Aura effect"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Aura effect"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Aura effect"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Aura effect"
+				}
 			}
 		},
 		stats={
@@ -736,40 +792,42 @@ return {
 		}
 	},
 	[29]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
+						k="milliseconds_to_seconds_2dp",
+						v=1
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="Base duration is {0} seconds"
 				},
-				text="Base duration is {0} seconds"
-			},
-			[2]={
-				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]="#"
+						k="milliseconds_to_seconds_2dp",
+						v=1
 					},
-					[2]={
-						[1]="!",
-						[2]=0
-					}
-				},
-				text="{0:+d} seconds to Base duration"
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="!",
+							[2]=0
+						}
+					},
+					text="{0:+d} seconds to Base duration"
+				}
 			}
 		},
 		stats={
@@ -778,15 +836,17 @@ return {
 		}
 	},
 	[30]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="During initial Duration, can be hit by your Projectiles up to {0} times"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="During initial Duration, can be hit by your Projectiles up to {0} times"
+				}
 			}
 		},
 		stats={
@@ -794,19 +854,21 @@ return {
 		}
 	},
 	[31]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Base secondary duration is {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Base secondary duration is {0} seconds"
+				}
 			}
 		},
 		stats={
@@ -814,19 +876,21 @@ return {
 		}
 	},
 	[32]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Additional {0} seconds Base Duration per extra corpse Consumed"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Additional {0} seconds Base Duration per extra corpse Consumed"
+				}
 			}
 		},
 		stats={
@@ -834,19 +898,21 @@ return {
 		}
 	},
 	[33]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0:+d} seconds to Buff Duration per Endurance Charge removed"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d} seconds to Buff Duration per Endurance Charge removed"
+				}
 			}
 		},
 		stats={
@@ -854,28 +920,30 @@ return {
 		}
 	},
 	[34]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Buff and Debuff Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Buff and Debuff Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Buff and Debuff Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Buff and Debuff Duration"
+				}
 			}
 		},
 		stats={
@@ -883,28 +951,30 @@ return {
 		}
 	},
 	[35]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Skill Effect Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Skill Effect Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Skill Effect Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Skill Effect Duration"
+				}
 			}
 		},
 		stats={
@@ -912,15 +982,17 @@ return {
 		}
 	},
 	[36]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Minions have {0} base maximum Life"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Minions have {0} base maximum Life"
+				}
 			}
 		},
 		stats={
@@ -928,24 +1000,26 @@ return {
 		}
 	},
 	[37]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Repeats once"
 				},
-				text="Repeats once"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="Repeats {0} times"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="Repeats {0} times"
+				}
 			}
 		},
 		stats={
@@ -953,24 +1027,26 @@ return {
 		}
 	},
 	[38]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Maximum {0} Summoned Golem"
 				},
-				text="Maximum {0} Summoned Golem"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="Maximum {0} Summoned Golems"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="Maximum {0} Summoned Golems"
+				}
 			}
 		},
 		stats={
@@ -978,74 +1054,76 @@ return {
 		}
 	},
 	[39]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="!",
-						[2]=0
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="!",
+							[2]=0
+						},
+						[2]={
+							[1]=0,
+							[2]=1
+						},
+						[3]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=1
-					},
-					[3]={
-						[1]=0,
-						[2]=0
-					}
+					text="Summons a Totem which uses this Skill"
 				},
-				text="Summons a Totem which uses this Skill"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="!",
-						[2]=0
+				[2]={
+					limit={
+						[1]={
+							[1]="!",
+							[2]=0
+						},
+						[2]={
+							[1]=0,
+							[2]=1
+						},
+						[3]={
+							[1]="!",
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=1
-					},
-					[3]={
-						[1]="!",
-						[2]=0
-					}
+					text="Summons a Ballista Totem which uses this Skill"
 				},
-				text="Summons a Ballista Totem which uses this Skill"
-			},
-			[3]={
-				limit={
-					[1]={
-						[1]="!",
-						[2]=0
+				[3]={
+					limit={
+						[1]={
+							[1]="!",
+							[2]=0
+						},
+						[2]={
+							[1]=2,
+							[2]="#"
+						},
+						[3]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=2,
-						[2]="#"
-					},
-					[3]={
-						[1]=0,
-						[2]=0
-					}
+					text="Summons {0} Totems which use this Skill"
 				},
-				text="Summons {0} Totems which use this Skill"
-			},
-			[4]={
-				limit={
-					[1]={
-						[1]="!",
-						[2]=0
+				[4]={
+					limit={
+						[1]={
+							[1]="!",
+							[2]=0
+						},
+						[2]={
+							[1]=2,
+							[2]="#"
+						},
+						[3]={
+							[1]="!",
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=2,
-						[2]="#"
-					},
-					[3]={
-						[1]="!",
-						[2]=0
-					}
-				},
-				text="Summons {0} Ballista Totems which use this Skill"
+					text="Summons {0} Ballista Totems which use this Skill"
+				}
 			}
 		},
 		stats={
@@ -1055,28 +1133,30 @@ return {
 		}
 	},
 	[40]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Deals {0}% more Damage with Hits per 0.1 seconds Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Deals {0}% more Damage with Hits per 0.1 seconds Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Deals {0}% less Damage with Hits per 0.1 seconds Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Deals {0}% less Damage with Hits per 0.1 seconds Duration"
+				}
 			}
 		},
 		stats={
@@ -1084,28 +1164,30 @@ return {
 		}
 	},
 	[41]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Aftershock deals {0}% more Damage with Hits per 0.1 seconds Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Aftershock deals {0}% more Damage with Hits per 0.1 seconds Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Aftershock deals {0}% less Damage with Hits per 0.1 seconds Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Aftershock deals {0}% less Damage with Hits per 0.1 seconds Duration"
+				}
 			}
 		},
 		stats={
@@ -1113,28 +1195,30 @@ return {
 		}
 	},
 	[42]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Deals {0}% more Damage with Ailments per 0.1 seconds Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Deals {0}% more Damage with Ailments per 0.1 seconds Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Deals {0}% less Damage with Ailments per 0.1 seconds Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Deals {0}% less Damage with Ailments per 0.1 seconds Duration"
+				}
 			}
 		},
 		stats={
@@ -1142,28 +1226,30 @@ return {
 		}
 	},
 	[43]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Aftershock deals {0}% more Damage with Ailments per 0.1 seconds Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Aftershock deals {0}% more Damage with Ailments per 0.1 seconds Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Aftershock deals {0}% less Damage with Ailments per 0.1 seconds Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Aftershock deals {0}% less Damage with Ailments per 0.1 seconds Duration"
+				}
 			}
 		},
 		stats={
@@ -1171,15 +1257,17 @@ return {
 		}
 	},
 	[44]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0:+d} to maximum number of Summoned Ballista Totems"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d} to maximum number of Summoned Ballista Totems"
+				}
 			}
 		},
 		stats={
@@ -1187,15 +1275,17 @@ return {
 		}
 	},
 	[45]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0:+d} to maximum number of Summoned Totems"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d} to maximum number of Summoned Totems"
+				}
 			}
 		},
 		stats={
@@ -1203,28 +1293,30 @@ return {
 		}
 	},
 	[46]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Aftershock has {0}% more Area of Effect per 0.1 seconds Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Aftershock has {0}% more Area of Effect per 0.1 seconds Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Aftershock has {0}% less Area of Effect per 0.1 seconds Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Aftershock has {0}% less Area of Effect per 0.1 seconds Duration"
+				}
 			}
 		},
 		stats={
@@ -1232,32 +1324,34 @@ return {
 		}
 	},
 	[47]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp_if_required",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1000,
-						[2]=1000
-					}
+						k="milliseconds_to_seconds_2dp_if_required",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1000,
+							[2]=1000
+						}
+					},
+					text="Activates every second while Attached"
 				},
-				text="Activates every second while Attached"
-			},
-			[2]={
-				[1]={
-					k="milliseconds_to_seconds_2dp_if_required",
-					v=1
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Activates every {0} seconds while Attached"
+						k="milliseconds_to_seconds_2dp_if_required",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Activates every {0} seconds while Attached"
+				}
 			}
 		},
 		stats={
@@ -1265,15 +1359,17 @@ return {
 		}
 	},
 	[48]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Projectiles Fork"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Projectiles Fork"
+				}
 			}
 		},
 		stats={
@@ -1281,24 +1377,26 @@ return {
 		}
 	},
 	[49]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Projectiles can Fork {0} additional Time"
 				},
-				text="Projectiles can Fork {0} additional Time"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Projectiles can Fork {0} additional Times"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Projectiles can Fork {0} additional Times"
+				}
 			}
 		},
 		stats={
@@ -1306,28 +1404,30 @@ return {
 		}
 	},
 	[50]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Activation frequency"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Activation frequency"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Activation frequency"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Activation frequency"
+				}
 			}
 		},
 		stats={
@@ -1335,15 +1435,17 @@ return {
 		}
 	},
 	[51]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Increases and Reductions to Cast Speed also apply to this Skill's Activation frequency"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Increases and Reductions to Cast Speed also apply to this Skill's Activation frequency"
+				}
 			}
 		},
 		stats={
@@ -1351,24 +1453,26 @@ return {
 		}
 	},
 	[52]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="This Attack Repeats {0} additional time"
 				},
-				text="This Attack Repeats {0} additional time"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="This Attack Repeats {0} additional times"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="This Attack Repeats {0} additional times"
+				}
 			}
 		},
 		stats={
@@ -1376,19 +1480,21 @@ return {
 		}
 	},
 	[53]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="per_minute_to_per_second",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Deals {0} Base Cold Damage per second"
+						k="per_minute_to_per_second",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Deals {0} Base Cold Damage per second"
+				}
 			}
 		},
 		stats={
@@ -1396,57 +1502,59 @@ return {
 		}
 	},
 	[54]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=1,
+							[2]="#"
+						},
+						[3]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=1,
-						[2]="#"
-					},
-					[3]={
-						[1]=0,
-						[2]=0
-					}
+					text="Deals {0} to {1} Fire Damage"
 				},
-				text="Deals {0} to {1} Fire Damage"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
+				[2]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]=1,
+							[2]="#"
+						},
+						[3]={
+							[1]=1,
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]=1,
-						[2]="#"
-					},
-					[3]={
-						[1]=1,
-						[2]="#"
-					}
+					text="This Spell deals {0} to {1}, plus {2}% of your maximum Life, as base Fire Damage"
 				},
-				text="This Spell deals {0} to {1}, plus {2}% of your maximum Life, as base Fire Damage"
-			},
-			[3]={
-				limit={
-					[1]={
-						[1]=0,
-						[2]=0
+				[3]={
+					limit={
+						[1]={
+							[1]=0,
+							[2]=0
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						},
+						[3]={
+							[1]=1,
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					},
-					[3]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Deals {2:+d}% of your maximum Life, as base Fire Damage"
+					text="Deals {2:+d}% of your maximum Life, as base Fire Damage"
+				}
 			}
 		},
 		stats={
@@ -1456,32 +1564,34 @@ return {
 		}
 	},
 	[55]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=0,
-						[2]=0
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=0,
+							[2]=0
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
+					text="Can use Items requiring up to Level {1}"
 				},
-				text="Can use Items requiring up to Level {1}"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Can use Items requiring up to Level {1}\nAnimated Weapons are transformed into random Unique Weapons with Level Requirement between {0} and {1}"
+					text="Can use Items requiring up to Level {1}\nAnimated Weapons are transformed into random Unique Weapons with Level Requirement between {0} and {1}"
+				}
 			}
 		},
 		stats={
@@ -1490,15 +1600,17 @@ return {
 		}
 	},
 	[56]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0:+d} to Accuracy Rating"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d} to Accuracy Rating"
+				}
 			}
 		},
 		stats={
@@ -1506,28 +1618,30 @@ return {
 		}
 	},
 	[57]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Accuracy Rating"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Accuracy Rating"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Accuracy Rating"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Accuracy Rating"
+				}
 			}
 		},
 		stats={
@@ -1535,15 +1649,17 @@ return {
 		}
 	},
 	[58]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Increases and Reductions to Minion Damage also apply\nto this Skill's Damage at {0}% of their value"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Increases and Reductions to Minion Damage also apply\nto this Skill's Damage at {0}% of their value"
+				}
 			}
 		},
 		stats={
@@ -1551,36 +1667,38 @@ return {
 		}
 	},
 	[59]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Damage with Ailments"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Damage with Ailments"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Damage with Ailments"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Damage with Ailments"
+				}
 			}
 		},
 		stats={
@@ -1588,28 +1706,30 @@ return {
 		}
 	},
 	[60]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Attack Damage with Two Handed Weapons"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Attack Damage with Two Handed Weapons"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Attack Damage with Two Handed Weapons"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Attack Damage with Two Handed Weapons"
+				}
 			}
 		},
 		stats={
@@ -1617,28 +1737,30 @@ return {
 		}
 	},
 	[61]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Attack Speed with Two Handed Weapons"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Attack Speed with Two Handed Weapons"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Attack Speed with Two Handed Weapons"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Attack Speed with Two Handed Weapons"
+				}
 			}
 		},
 		stats={
@@ -1646,24 +1768,26 @@ return {
 		}
 	},
 	[62]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Can have an additional Brand Attached to an Enemy"
 				},
-				text="Can have an additional Brand Attached to an Enemy"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="Can have {0} additional Brands Attached to an Enemy"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="Can have {0} additional Brands Attached to an Enemy"
+				}
 			}
 		},
 		stats={
@@ -1671,24 +1795,26 @@ return {
 		}
 	},
 	[63]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]=100
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]=100
+						}
+					},
+					text="Increases and Reductions to Cast Speed apply to this Skill's Attack Speed"
 				},
-				text="Increases and Reductions to Cast Speed apply to this Skill's Attack Speed"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Increases and Reductions to Cast Speed apply to this Skill's Attack Speed at {0}% of their value"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Increases and Reductions to Cast Speed apply to this Skill's Attack Speed at {0}% of their value"
+				}
 			}
 		},
 		stats={
@@ -1696,28 +1822,30 @@ return {
 		}
 	},
 	[64]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Cast Speed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Cast Speed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Cast Speed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Cast Speed"
+				}
 			}
 		},
 		stats={
@@ -1725,28 +1853,30 @@ return {
 		}
 	},
 	[65]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Critical Strike Chance"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Critical Strike Chance"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Critical Strike Chance"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Critical Strike Chance"
+				}
 			}
 		},
 		stats={
@@ -1754,28 +1884,30 @@ return {
 		}
 	},
 	[66]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Poison Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Poison Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Poison Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Poison Duration"
+				}
 			}
 		},
 		stats={
@@ -1783,28 +1915,30 @@ return {
 		}
 	},
 	[67]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{}% more Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{}% more Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{}% less Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{}% less Damage"
+				}
 			}
 		},
 		stats={
@@ -1812,28 +1946,30 @@ return {
 		}
 	},
 	[68]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Skill Effect Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Skill Effect Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Skill Effect Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Skill Effect Duration"
+				}
 			}
 		},
 		stats={
@@ -1841,15 +1977,17 @@ return {
 		}
 	},
 	[69]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% chance to gain a Power Charge on Kill"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% chance to gain a Power Charge on Kill"
+				}
 			}
 		},
 		stats={
@@ -1857,15 +1995,17 @@ return {
 		}
 	},
 	[70]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Deals Added Fire Damage equal to {0}% of Maximum Life"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Deals Added Fire Damage equal to {0}% of Maximum Life"
+				}
 			}
 		},
 		stats={
@@ -1873,15 +2013,17 @@ return {
 		}
 	},
 	[71]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Deals Added Physical Damage equal to {0}% of Maximum Mana"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Deals Added Physical Damage equal to {0}% of Maximum Mana"
+				}
 			}
 		},
 		stats={
@@ -1889,19 +2031,21 @@ return {
 		}
 	},
 	[72]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="divide_by_one_hundred",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0:+d}% to Critical Strike Chance"
+						k="divide_by_one_hundred",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d}% to Critical Strike Chance"
+				}
 			}
 		},
 		stats={
@@ -1909,19 +2053,21 @@ return {
 		}
 	},
 	[73]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp_if_required",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0:+d} seconds to Attack Time"
+						k="milliseconds_to_seconds_2dp_if_required",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d} seconds to Attack Time"
+				}
 			}
 		},
 		stats={
@@ -1929,15 +2075,17 @@ return {
 		}
 	},
 	[74]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Increases and Reductions to Mine Duration also apply to this Skill's Buff Duration"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Increases and Reductions to Mine Duration also apply to this Skill's Buff Duration"
+				}
 			}
 		},
 		stats={
@@ -1945,28 +2093,30 @@ return {
 		}
 	},
 	[75]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Effect of Ancestor Totem Buff"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Effect of Ancestor Totem Buff"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Effect of Ancestor Totem Buff"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Effect of Ancestor Totem Buff"
+				}
 			}
 		},
 		stats={
@@ -1974,28 +2124,30 @@ return {
 		}
 	},
 	[76]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Activation range"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Activation range"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Activation range"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Activation range"
+				}
 			}
 		},
 		stats={
@@ -2003,28 +2155,30 @@ return {
 		}
 	},
 	[77]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Area Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Area Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Area Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Area Damage"
+				}
 			}
 		},
 		stats={
@@ -2032,28 +2186,30 @@ return {
 		}
 	},
 	[78]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Area of Effect while Dead"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Area of Effect while Dead"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Area of Effect while Dead"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Area of Effect while Dead"
+				}
 			}
 		},
 		stats={
@@ -2061,28 +2217,30 @@ return {
 		}
 	},
 	[79]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Attack and Cast Speed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Attack and Cast Speed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Attack and Cast Speed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Attack and Cast Speed"
+				}
 			}
 		},
 		stats={
@@ -2090,28 +2248,30 @@ return {
 		}
 	},
 	[80]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Attack and Cast Speed during Onslaught"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Attack and Cast Speed during Onslaught"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Attack and Cast Speed during Onslaught"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Attack and Cast Speed during Onslaught"
+				}
 			}
 		},
 		stats={
@@ -2119,19 +2279,21 @@ return {
 		}
 	},
 	[81]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0} to {1} Added Chaos Damage"
+					text="{0} to {1} Added Chaos Damage"
+				}
 			}
 		},
 		stats={
@@ -2140,19 +2302,21 @@ return {
 		}
 	},
 	[82]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0} to {1} Added Cold Damage"
+					text="{0} to {1} Added Cold Damage"
+				}
 			}
 		},
 		stats={
@@ -2161,19 +2325,21 @@ return {
 		}
 	},
 	[83]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0} to {1} Added Fire Damage"
+					text="{0} to {1} Added Fire Damage"
+				}
 			}
 		},
 		stats={
@@ -2182,19 +2348,21 @@ return {
 		}
 	},
 	[84]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0} to {1} Added Lightning Damage"
+					text="{0} to {1} Added Lightning Damage"
+				}
 			}
 		},
 		stats={
@@ -2203,19 +2371,21 @@ return {
 		}
 	},
 	[85]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0} to {1} Added Attack Physical Damage"
+					text="{0} to {1} Added Attack Physical Damage"
+				}
 			}
 		},
 		stats={
@@ -2224,15 +2394,17 @@ return {
 		}
 	},
 	[86]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Deals Added Lightning Damage equal to {0}% of maximum Mana"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Deals Added Lightning Damage equal to {0}% of maximum Mana"
+				}
 			}
 		},
 		stats={
@@ -2240,28 +2412,30 @@ return {
 		}
 	},
 	[87]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Attack Speed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Attack Speed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Attack Speed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Attack Speed"
+				}
 			}
 		},
 		stats={
@@ -2269,28 +2443,30 @@ return {
 		}
 	},
 	[88]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Attack Speed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Attack Speed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Attack Speed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Attack Speed"
+				}
 			}
 		},
 		stats={
@@ -2298,24 +2474,26 @@ return {
 		}
 	},
 	[89]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=99
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="{0}% chance to Ignore Stuns While Using this Skill"
 				},
-				text="{0}% chance to Ignore Stuns While Using this Skill"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Ignore Stuns While Using this Skill"
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Ignore Stuns While Using this Skill"
+				}
 			}
 		},
 		stats={
@@ -2323,24 +2501,26 @@ return {
 		}
 	},
 	[90]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=-1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=-1,
+							[2]=1
+						}
+					},
+					text="{0:+d} Cooldown Use"
 				},
-				text="{0:+d} Cooldown Use"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0:+d} Cooldown Uses"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d} Cooldown Uses"
+				}
 			}
 		},
 		stats={
@@ -2348,36 +2528,38 @@ return {
 		}
 	},
 	[91]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage with Ailments"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage with Ailments"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage with Ailments"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage with Ailments"
+				}
 			}
 		},
 		stats={
@@ -2385,28 +2567,30 @@ return {
 		}
 	},
 	[92]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Aura Area of Effect"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Aura Area of Effect"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Aura Area of Effect"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Aura Area of Effect"
+				}
 			}
 		},
 		stats={
@@ -2414,32 +2598,34 @@ return {
 		}
 	},
 	[93]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1000,
-						[2]=1000
-					}
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1000,
+							[2]=1000
+						}
+					},
+					text="Pulses every {0} second"
 				},
-				text="Pulses every {0} second"
-			},
-			[2]={
-				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Pulses every {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Pulses every {0} seconds"
+				}
 			}
 		},
 		stats={
@@ -2447,19 +2633,21 @@ return {
 		}
 	},
 	[94]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Hits Enemies every {0} Seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Hits Enemies every {0} Seconds"
+				}
 			}
 		},
 		stats={
@@ -2467,28 +2655,30 @@ return {
 		}
 	},
 	[95]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Bleeding Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Bleeding Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Bleeding Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Bleeding Duration"
+				}
 			}
 		},
 		stats={
@@ -2496,28 +2686,30 @@ return {
 		}
 	},
 	[96]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Cast Speed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Cast Speed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Cast Speed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Cast Speed"
+				}
 			}
 		},
 		stats={
@@ -2525,57 +2717,59 @@ return {
 		}
 	},
 	[97]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextFreeze"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
+						k="reminderstring",
+						v="ReminderTextFreeze"
 					},
-					[2]={
-						[1]=1,
-						[2]="#"
-					}
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Always Freezes Enemies on Hit"
 				},
-				text="Always Freezes Enemies on Hit"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextFreeze"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]=100,
-						[2]="#"
+						k="reminderstring",
+						v="ReminderTextFreeze"
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="Always Freeze"
 				},
-				text="Always Freeze"
-			},
-			[3]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextFreeze"
-				},
-				limit={
+				[3]={
 					[1]={
-						[1]=1,
-						[2]=99
+						k="reminderstring",
+						v="ReminderTextFreeze"
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
-				},
-				text="{0}% chance to Freeze"
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="{0}% chance to Freeze"
+				}
 			}
 		},
 		stats={
@@ -2584,32 +2778,34 @@ return {
 		}
 	},
 	[98]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextIgnite"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]=99
-					}
+						k="reminderstring",
+						v="ReminderTextIgnite"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="{0}% chance to Ignite"
 				},
-				text="{0}% chance to Ignite"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextIgnite"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Always Ignite"
+						k="reminderstring",
+						v="ReminderTextIgnite"
+					},
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Always Ignite"
+				}
 			}
 		},
 		stats={
@@ -2617,32 +2813,34 @@ return {
 		}
 	},
 	[99]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextShock"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]=99
-					}
+						k="reminderstring",
+						v="ReminderTextShock"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="{0}% chance to Shock"
 				},
-				text="{0}% chance to Shock"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextShock"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Always Shock"
+						k="reminderstring",
+						v="ReminderTextShock"
+					},
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Always Shock"
+				}
 			}
 		},
 		stats={
@@ -2650,15 +2848,17 @@ return {
 		}
 	},
 	[100]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Gains a Stage when you Spend a total of {0} Mana while in Area"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Gains a Stage when you Spend a total of {0} Mana while in Area"
+				}
 			}
 		},
 		stats={
@@ -2666,28 +2866,30 @@ return {
 		}
 	},
 	[101]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Cost"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Cost"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Cost"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Cost"
+				}
 			}
 		},
 		stats={
@@ -2695,15 +2897,17 @@ return {
 		}
 	},
 	[102]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0:+d}% to Critical Strike Multiplier"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d}% to Critical Strike Multiplier"
+				}
 			}
 		},
 		stats={
@@ -2711,28 +2915,30 @@ return {
 		}
 	},
 	[103]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Curse Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Curse Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Curse Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Curse Duration"
+				}
 			}
 		},
 		stats={
@@ -2740,32 +2946,34 @@ return {
 		}
 	},
 	[104]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1000,
-						[2]=1000
-					}
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1000,
+							[2]=1000
+						}
+					},
+					text="Fires a beam every {0} second"
 				},
-				text="Fires a beam every {0} second"
-			},
-			[2]={
-				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Fires a beam every {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Fires a beam every {0} seconds"
+				}
 			}
 		},
 		stats={
@@ -2773,19 +2981,21 @@ return {
 		}
 	},
 	[105]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextKnockback"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% chance to Knock Enemies Back on hit"
+						k="reminderstring",
+						v="ReminderTextKnockback"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% chance to Knock Enemies Back on hit"
+				}
 			}
 		},
 		stats={
@@ -2793,28 +3003,30 @@ return {
 		}
 	},
 	[106]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Rarity of Items Dropped by Slain Enemies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Rarity of Items Dropped by Slain Enemies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Rarity of Items Dropped by Slain Enemies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Rarity of Items Dropped by Slain Enemies"
+				}
 			}
 		},
 		stats={
@@ -2822,28 +3034,30 @@ return {
 		}
 	},
 	[107]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Life Cost"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Life Cost"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Life Cost"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Life Cost"
+				}
 			}
 		},
 		stats={
@@ -2851,28 +3065,30 @@ return {
 		}
 	},
 	[108]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Gain {0} Life per Enemy Hit"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Gain {0} Life per Enemy Hit"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Lose {0} Life per Enemy Hit"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Lose {0} Life per Enemy Hit"
+				}
 			}
 		},
 		stats={
@@ -2880,23 +3096,25 @@ return {
 		}
 	},
 	[109]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="divide_by_one_hundred",
-					v=1
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextLifeLeech"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% of Attack Damage Leeched as Life"
+						k="divide_by_one_hundred",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextLifeLeech"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% of Attack Damage Leeched as Life"
+				}
 			}
 		},
 		stats={
@@ -2904,28 +3122,30 @@ return {
 		}
 	},
 	[110]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Life Reservation"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Life Reservation"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Life Reservation"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Life Reservation"
+				}
 			}
 		},
 		stats={
@@ -2933,28 +3153,30 @@ return {
 		}
 	},
 	[111]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% reduced Mana Cost"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% reduced Mana Cost"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% increased Mana Cost"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% increased Mana Cost"
+				}
 			}
 		},
 		stats={
@@ -2962,28 +3184,30 @@ return {
 		}
 	},
 	[112]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Mana Reservation"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Mana Reservation"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Mana Reservation"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Mana Reservation"
+				}
 			}
 		},
 		stats={
@@ -2991,19 +3215,21 @@ return {
 		}
 	},
 	[113]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Base Mine Detonation Time is {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Base Mine Detonation Time is {0} seconds"
+				}
 			}
 		},
 		stats={
@@ -3011,142 +3237,144 @@ return {
 		}
 	},
 	[114]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						},
+						[3]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					},
-					[3]={
-						[1]=0,
-						[2]=0
-					}
+					text="Fires {0:+d} Arrow"
 				},
-				text="Fires {0:+d} Arrow"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						},
+						[3]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					},
-					[3]={
-						[1]=0,
-						[2]=0
-					}
+					text="Fires {0:+d} Arrows"
 				},
-				text="Fires {0:+d} Arrows"
-			},
-			[3]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
+				[3]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						},
+						[3]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					},
-					[3]={
-						[1]=0,
-						[2]=0
-					}
+					text="Fires {0} Arrow"
 				},
-				text="Fires {0} Arrow"
-			},
-			[4]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
+				[4]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						},
+						[3]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					},
-					[3]={
-						[1]=0,
-						[2]=0
-					}
+					text="Fires {0} Arrows"
 				},
-				text="Fires {0} Arrows"
-			},
-			[5]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
+				[5]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						},
+						[3]={
+							[1]="!",
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					},
-					[3]={
-						[1]="!",
-						[2]=0
-					}
+					text="Fires up to {0:+d} Arrow"
 				},
-				text="Fires up to {0:+d} Arrow"
-			},
-			[6]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
+				[6]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						},
+						[3]={
+							[1]="!",
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					},
-					[3]={
-						[1]="!",
-						[2]=0
-					}
+					text="Fires up to {0:+d} Arrows"
 				},
-				text="Fires up to {0:+d} Arrows"
-			},
-			[7]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
+				[7]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						},
+						[3]={
+							[1]="!",
+							[2]=0
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					},
-					[3]={
-						[1]="!",
-						[2]=0
-					}
+					text="Fires up to {0} Arrow at a target"
 				},
-				text="Fires up to {0} Arrow at a target"
-			},
-			[8]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
+				[8]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						},
+						[3]={
+							[1]="!",
+							[2]=0
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					},
-					[3]={
-						[1]="!",
-						[2]=0
-					}
-				},
-				text="Fires up to {0} Arrows at different targets"
+					text="Fires up to {0} Arrows at different targets"
+				}
 			}
 		},
 		stats={
@@ -3156,24 +3384,26 @@ return {
 		}
 	},
 	[115]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Maximum {0} Summoned Sentinel of Purity"
 				},
-				text="Maximum {0} Summoned Sentinel of Purity"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="Maximum {0} Summoned Sentinels of Purity"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="Maximum {0} Summoned Sentinels of Purity"
+				}
 			}
 		},
 		stats={
@@ -3181,58 +3411,60 @@ return {
 		}
 	},
 	[116]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					text="Fires {0:+d} Projectile"
 				},
-				text="Fires {0:+d} Projectile"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
+				[2]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
+					text="Fires 1 Projectile"
 				},
-				text="Fires 1 Projectile"
-			},
-			[3]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
+				[3]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					text="Fires {0:+d} Projectiles"
 				},
-				text="Fires {0:+d} Projectiles"
-			},
-			[4]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
+				[4]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Fires {0} Projectiles"
+					text="Fires {0} Projectiles"
+				}
 			}
 		},
 		stats={
@@ -3241,24 +3473,26 @@ return {
 		}
 	},
 	[117]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Maximum {0} Summoned Holy Relic"
 				},
-				text="Maximum {0} Summoned Holy Relic"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Maximum {0} Summoned Holy Relics"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Maximum {0} Summoned Holy Relics"
+				}
 			}
 		},
 		stats={
@@ -3266,15 +3500,17 @@ return {
 		}
 	},
 	[118]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% of Physical Damage Converted to Lightning Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% of Physical Damage Converted to Lightning Damage"
+				}
 			}
 		},
 		stats={
@@ -3282,28 +3518,30 @@ return {
 		}
 	},
 	[119]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Poison Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Poison Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Poison Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Poison Duration"
+				}
 			}
 		},
 		stats={
@@ -3311,28 +3549,30 @@ return {
 		}
 	},
 	[120]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Projectile Speed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Projectile Speed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Projectile Speed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Projectile Speed"
+				}
 			}
 		},
 		stats={
@@ -3340,15 +3580,17 @@ return {
 		}
 	},
 	[121]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Penetrates {0}% Cold Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Penetrates {0}% Cold Resistance"
+				}
 			}
 		},
 		stats={
@@ -3356,15 +3598,17 @@ return {
 		}
 	},
 	[122]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Penetrates {0}% Fire Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Penetrates {0}% Fire Resistance"
+				}
 			}
 		},
 		stats={
@@ -3372,15 +3616,17 @@ return {
 		}
 	},
 	[123]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Penetrates {0}% Lightning Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Penetrates {0}% Lightning Resistance"
+				}
 			}
 		},
 		stats={
@@ -3388,28 +3634,30 @@ return {
 		}
 	},
 	[124]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Reservation Efficiency"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Reservation Efficiency"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Reservation Efficiency"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Reservation Efficiency"
+				}
 			}
 		},
 		stats={
@@ -3417,28 +3665,30 @@ return {
 		}
 	},
 	[125]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Reservation"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Reservation"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Reservation"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Reservation"
+				}
 			}
 		},
 		stats={
@@ -3446,28 +3696,30 @@ return {
 		}
 	},
 	[126]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Area of Effect"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Area of Effect"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Area of Effect"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Area of Effect"
+				}
 			}
 		},
 		stats={
@@ -3475,28 +3727,30 @@ return {
 		}
 	},
 	[127]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Stun Duration on Enemies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Stun Duration on Enemies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Stun Duration on Enemies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Stun Duration on Enemies"
+				}
 			}
 		},
 		stats={
@@ -3504,15 +3758,17 @@ return {
 		}
 	},
 	[128]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Spend Life instead of Mana for Effects of this Skill"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Spend Life instead of Mana for Effects of this Skill"
+				}
 			}
 		},
 		stats={
@@ -3520,28 +3776,30 @@ return {
 		}
 	},
 	[129]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased rotation speed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased rotation speed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced rotation speed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced rotation speed"
+				}
 			}
 		},
 		stats={
@@ -3549,74 +3807,76 @@ return {
 		}
 	},
 	[130]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="divide_by_one_hundred_2dp_if_required",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=100,
-						[2]=100
+						k="divide_by_one_hundred_2dp_if_required",
+						v=1
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					limit={
+						[1]={
+							[1]=100,
+							[2]=100
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="Rotates {0:+d} time"
 				},
-				text="Rotates {0:+d} time"
-			},
-			[2]={
-				[1]={
-					k="divide_by_one_hundred_2dp_if_required",
-					v=1
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]="#"
+						k="divide_by_one_hundred_2dp_if_required",
+						v=1
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="Rotates {0:+d} times"
 				},
-				text="Rotates {0:+d} times"
-			},
-			[3]={
-				[1]={
-					k="divide_by_one_hundred_2dp_if_required",
-					v=1
-				},
-				limit={
+				[3]={
 					[1]={
-						[1]=100,
-						[2]=100
+						k="divide_by_one_hundred_2dp_if_required",
+						v=1
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
+					limit={
+						[1]={
+							[1]=100,
+							[2]=100
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Rotates {0} time"
 				},
-				text="Rotates {0} time"
-			},
-			[4]={
-				[1]={
-					k="divide_by_one_hundred_2dp_if_required",
-					v=1
-				},
-				limit={
+				[4]={
 					[1]={
-						[1]="#",
-						[2]="#"
+						k="divide_by_one_hundred_2dp_if_required",
+						v=1
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Rotates {0} times"
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Rotates {0} times"
+				}
 			}
 		},
 		stats={
@@ -3625,15 +3885,17 @@ return {
 		}
 	},
 	[131]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Lose {0} Rage per second"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Lose {0} Rage per second"
+				}
 			}
 		},
 		stats={
@@ -3641,32 +3903,34 @@ return {
 		}
 	},
 	[132]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextLingeringBlades"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]=1
-					}
+						k="reminderstring",
+						v="ReminderTextLingeringBlades"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Leaves a Lingering Blade in the ground for every Volley"
 				},
-				text="Leaves a Lingering Blade in the ground for every Volley"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextLingeringBlades"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Leaves a Lingering Blade in the ground for every {0} Volleys"
+						k="reminderstring",
+						v="ReminderTextLingeringBlades"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Leaves a Lingering Blade in the ground for every {0} Volleys"
+				}
 			}
 		},
 		stats={
@@ -3674,58 +3938,60 @@ return {
 		}
 	},
 	[133]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					text="{0:+d} Volley"
 				},
-				text="{0:+d} Volley"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
+				[2]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
+					text="1 Volley"
 				},
-				text="1 Volley"
-			},
-			[3]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
+				[3]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					text="{0:+d} Volleys"
 				},
-				text="{0:+d} Volleys"
-			},
-			[4]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
+				[4]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0} Volleys"
+					text="{0} Volleys"
+				}
 			}
 		},
 		stats={
@@ -3734,28 +4000,30 @@ return {
 		}
 	},
 	[134]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Leaves {0}% more Lingering Blades in the ground if you don't Cast this Spell yourself"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Leaves {0}% more Lingering Blades in the ground if you don't Cast this Spell yourself"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Leaves {0}% fewer Lingering Blades in the ground if you don't Cast this Spell yourself"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Leaves {0}% fewer Lingering Blades in the ground if you don't Cast this Spell yourself"
+				}
 			}
 		},
 		stats={
@@ -3763,28 +4031,30 @@ return {
 		}
 	},
 	[135]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Blinding duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Blinding duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Blinding duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Blinding duration"
+				}
 			}
 		},
 		stats={
@@ -3792,19 +4062,21 @@ return {
 		}
 	},
 	[136]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextRecently"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Creates {0} additional Spikes if you've changed Stance Recently"
+						k="reminderstring",
+						v="ReminderTextRecently"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Creates {0} additional Spikes if you've changed Stance Recently"
+				}
 			}
 		},
 		stats={
@@ -3812,62 +4084,64 @@ return {
 		}
 	},
 	[137]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
-				},
-				text="Creates {0:+d} Spike"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
-				},
-				text="Creates {0:+d} Spikes"
-			},
-			[3]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Creates {0} Spikes"
-			},
-			[4]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
-				},
-				limit={
-					[1]={
-						[1]="#",
-						[2]=-1
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
+					text="Creates {0:+d} Spike"
 				},
-				text="Creates {0} fewer Spikes"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="Creates {0:+d} Spikes"
+				},
+				[3]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Creates {0} Spikes"
+				},
+				[4]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Creates {0} fewer Spikes"
+				}
 			}
 		},
 		stats={
@@ -3876,28 +4150,30 @@ return {
 		}
 	},
 	[138]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Damage while in Blood Stance"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Damage while in Blood Stance"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Damage while in Blood Stance"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Damage while in Blood Stance"
+				}
 			}
 		},
 		stats={
@@ -3905,15 +4181,17 @@ return {
 		}
 	},
 	[139]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Attaches to a new Enemy after Activating, no more than once every 0.3 seconds"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Attaches to a new Enemy after Activating, no more than once every 0.3 seconds"
+				}
 			}
 		},
 		stats={
@@ -3921,28 +4199,30 @@ return {
 		}
 	},
 	[140]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Burning Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Burning Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Burning Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Burning Damage"
+				}
 			}
 		},
 		stats={
@@ -3950,24 +4230,26 @@ return {
 		}
 	},
 	[141]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=99
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="{0}% chance to also Poison a nearby Enemy when you inflict Poison"
 				},
-				text="{0}% chance to also Poison a nearby Enemy when you inflict Poison"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Poison a nearby Enemy when you inflict Poison"
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Poison a nearby Enemy when you inflict Poison"
+				}
 			}
 		},
 		stats={
@@ -3975,15 +4257,17 @@ return {
 		}
 	},
 	[142]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0}% chance to double Stun Duration"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0}% chance to double Stun Duration"
+				}
 			}
 		},
 		stats={
@@ -3991,15 +4275,17 @@ return {
 		}
 	},
 	[143]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Projectiles have {0}% chance for an additional Projectile when Forking"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Projectiles have {0}% chance for an additional Projectile when Forking"
+				}
 			}
 		},
 		stats={
@@ -4007,40 +4293,42 @@ return {
 		}
 	},
 	[144]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextFortifyingHit"
+					[1]={
+						k="reminderstring",
+						v="ReminderTextFortifyingHit"
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextFortification"
+					},
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Melee Hits Fortify"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextFortification"
-				},
-				limit={
 					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Melee Hits Fortify"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextFortifyingHit"
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextFortification"
-				},
-				limit={
-					[1]={
-						[1]=1,
-						[2]=99
-					}
-				},
-				text="Melee Hits have {0}% chance to Fortify"
+						k="reminderstring",
+						v="ReminderTextFortifyingHit"
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextFortification"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="Melee Hits have {0}% chance to Fortify"
+				}
 			}
 		},
 		stats={
@@ -4048,24 +4336,26 @@ return {
 		}
 	},
 	[145]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=99
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="{0}% chance to gain a Frenzy Charge on Killing a Frozen Enemy"
 				},
-				text="{0}% chance to gain a Frenzy Charge on Killing a Frozen Enemy"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Gain a Frenzy Charge on Killing a Frozen Enemy"
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Gain a Frenzy Charge on Killing a Frozen Enemy"
+				}
 			}
 		},
 		stats={
@@ -4073,19 +4363,21 @@ return {
 		}
 	},
 	[146]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextMultipleMines"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0}% chance when throwing Mines to throw up to 1 additional Mine"
+						k="reminderstring",
+						v="ReminderTextMultipleMines"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0}% chance when throwing Mines to throw up to 1 additional Mine"
+				}
 			}
 		},
 		stats={
@@ -4093,32 +4385,34 @@ return {
 		}
 	},
 	[147]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextScorch"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]=99
-					}
+						k="reminderstring",
+						v="ReminderTextScorch"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=99
+						}
+					},
+					text="{0}% chance to Scorch"
 				},
-				text="{0}% chance to Scorch"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextScorch"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Always Scorch"
+						k="reminderstring",
+						v="ReminderTextScorch"
+					},
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Always Scorch"
+				}
 			}
 		},
 		stats={
@@ -4126,28 +4420,30 @@ return {
 		}
 	},
 	[148]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Chaos Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Chaos Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Chaos Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Chaos Damage"
+				}
 			}
 		},
 		stats={
@@ -4155,28 +4451,30 @@ return {
 		}
 	},
 	[149]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Chill Duration on Enemies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Chill Duration on Enemies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Chill Duration on Enemies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Chill Duration on Enemies"
+				}
 			}
 		},
 		stats={
@@ -4184,28 +4482,30 @@ return {
 		}
 	},
 	[150]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Chill Effect on Enemies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Chill Effect on Enemies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Chill Effect on Enemies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Chill Effect on Enemies"
+				}
 			}
 		},
 		stats={
@@ -4213,28 +4513,30 @@ return {
 		}
 	},
 	[151]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Mana Cost of your Skills while in Area"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Mana Cost of your Skills while in Area"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Mana Cost of your Skills while in Area"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Mana Cost of your Skills while in Area"
+				}
 			}
 		},
 		stats={
@@ -4242,28 +4544,30 @@ return {
 		}
 	},
 	[152]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Damage with Hits and Ailments for each remaining Chain"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Damage with Hits and Ailments for each remaining Chain"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Damage with Hits and Ailments for each remaining Chain"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Damage with Hits and Ailments for each remaining Chain"
+				}
 			}
 		},
 		stats={
@@ -4271,36 +4575,38 @@ return {
 		}
 	},
 	[153]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextColdAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Effect of Cold Ailments"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextColdAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Effect of Cold Ailments"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextColdAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Effect of Cold Ailments"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextColdAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Effect of Cold Ailments"
+				}
 			}
 		},
 		stats={
@@ -4308,15 +4614,17 @@ return {
 		}
 	},
 	[154]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Gain {0}% of Cold Damage as Extra Fire Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Gain {0}% of Cold Damage as Extra Fire Damage"
+				}
 			}
 		},
 		stats={
@@ -4324,28 +4632,30 @@ return {
 		}
 	},
 	[155]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Cold Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Cold Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Cold Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Cold Damage"
+				}
 			}
 		},
 		stats={
@@ -4353,15 +4663,17 @@ return {
 		}
 	},
 	[156]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0}% increased Effect of Consecrated Ground"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0}% increased Effect of Consecrated Ground"
+				}
 			}
 		},
 		stats={
@@ -4369,28 +4681,30 @@ return {
 		}
 	},
 	[157]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Consecrated Ground applies {0}% increased Damage taken to Enemies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Consecrated Ground applies {0}% increased Damage taken to Enemies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Consecrated Ground applies {0}% reduced Damage taken to Enemies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Consecrated Ground applies {0}% reduced Damage taken to Enemies"
+				}
 			}
 		},
 		stats={
@@ -4398,28 +4712,30 @@ return {
 		}
 	},
 	[158]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Consecrated Ground Area"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Consecrated Ground Area"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Consecrated Ground Area"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Consecrated Ground Area"
+				}
 			}
 		},
 		stats={
@@ -4427,28 +4743,30 @@ return {
 		}
 	},
 	[159]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Converted Enemies deal {0}% increased Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Converted Enemies deal {0}% increased Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Converted Enemies deal {0}% reduced Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Converted Enemies deal {0}% reduced Damage"
+				}
 			}
 		},
 		stats={
@@ -4456,28 +4774,30 @@ return {
 		}
 	},
 	[160]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Converted Enemies have {0}% chance to Taunt on Hit"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Converted Enemies have {0}% chance to Taunt on Hit"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]=100,
-						[2]="#"
-					}
-				},
-				text="Converted Enemies Taunt on Hit"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Converted Enemies Taunt on Hit"
+				}
 			}
 		},
 		stats={
@@ -4485,15 +4805,17 @@ return {
 		}
 	},
 	[161]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Maximum of {0} Geysers at a time"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Maximum of {0} Geysers at a time"
+				}
 			}
 		},
 		stats={
@@ -4501,28 +4823,30 @@ return {
 		}
 	},
 	[162]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Fires Projectiles {0}% faster"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Fires Projectiles {0}% faster"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Fires Projectiles {0}% slower"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Fires Projectiles {0}% slower"
+				}
 			}
 		},
 		stats={
@@ -4530,15 +4854,17 @@ return {
 		}
 	},
 	[163]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0:+d}% to Damage over Time Multiplier for Ailments from Critical Strikes"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d}% to Damage over Time Multiplier for Ailments from Critical Strikes"
+				}
 			}
 		},
 		stats={
@@ -4546,15 +4872,17 @@ return {
 		}
 	},
 	[164]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{:+d}% to Critical Strike Multiplier per 100 Maximum Energy Shield on Shield"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{:+d}% to Critical Strike Multiplier per 100 Maximum Energy Shield on Shield"
+				}
 			}
 		},
 		stats={
@@ -4562,28 +4890,30 @@ return {
 		}
 	},
 	[165]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Critical Strike Chance"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Critical Strike Chance"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Critical Strike Chance"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Critical Strike Chance"
+				}
 			}
 		},
 		stats={
@@ -4591,28 +4921,30 @@ return {
 		}
 	},
 	[166]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Movement Speed while at maximum Stages"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Movement Speed while at maximum Stages"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Movement Speed while at maximum Stages"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Movement Speed while at maximum Stages"
+				}
 			}
 		},
 		stats={
@@ -4620,28 +4952,30 @@ return {
 		}
 	},
 	[167]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage over Time"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage over Time"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage over Time"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage over Time"
+				}
 			}
 		},
 		stats={
@@ -4649,28 +4983,30 @@ return {
 		}
 	},
 	[168]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage"
+				}
 			}
 		},
 		stats={
@@ -4678,28 +5014,30 @@ return {
 		}
 	},
 	[169]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage per Endurance Charge"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage per Endurance Charge"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage per Endurance Charge"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage per Endurance Charge"
+				}
 			}
 		},
 		stats={
@@ -4707,28 +5045,30 @@ return {
 		}
 	},
 	[170]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage per Frenzy Charge"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage per Frenzy Charge"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage per Frenzy Charge"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage per Frenzy Charge"
+				}
 			}
 		},
 		stats={
@@ -4736,28 +5076,30 @@ return {
 		}
 	},
 	[171]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage per Power Charge"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage per Power Charge"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage per Power Charge"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage per Power Charge"
+				}
 			}
 		},
 		stats={
@@ -4765,28 +5107,30 @@ return {
 		}
 	},
 	[172]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage with Hits and Ailments against Enemies that are on Full Life"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage with Hits and Ailments against Enemies that are on Full Life"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage with Hits and Ailments against Enemies that are on Full Life"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage with Hits and Ailments against Enemies that are on Full Life"
+				}
 			}
 		},
 		stats={
@@ -4794,36 +5138,38 @@ return {
 		}
 	},
 	[173]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage with Hits and Ailments per Freeze, Shock or Ignite on Enemy"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage with Hits and Ailments per Freeze, Shock or Ignite on Enemy"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage with Hits and Ailments  per Freeze, Shock or Ignite on Enemy"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage with Hits and Ailments  per Freeze, Shock or Ignite on Enemy"
+				}
 			}
 		},
 		stats={
@@ -4831,28 +5177,30 @@ return {
 		}
 	},
 	[174]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage with Hits against Frozen Enemies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage with Hits against Frozen Enemies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage with Hits against Frozen Enemies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage with Hits against Frozen Enemies"
+				}
 			}
 		},
 		stats={
@@ -4860,28 +5208,30 @@ return {
 		}
 	},
 	[175]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage while on Full Energy Shield"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage while on Full Energy Shield"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage while on Full Energy Shield"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage while on Full Energy Shield"
+				}
 			}
 		},
 		stats={
@@ -4889,28 +5239,30 @@ return {
 		}
 	},
 	[176]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage when on Full Life"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage when on Full Life"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage when on Full Life"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage when on Full Life"
+				}
 			}
 		},
 		stats={
@@ -4918,36 +5270,38 @@ return {
 		}
 	},
 	[177]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextLowLife"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage when on Low Life"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextLowLife"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage when on Low Life"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextLowLife"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage when on Low Life"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextLowLife"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage when on Low Life"
+				}
 			}
 		},
 		stats={
@@ -4955,28 +5309,30 @@ return {
 		}
 	},
 	[178]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage with Hits and Ailments"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage with Hits and Ailments"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage with Hits and Ailments"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage with Hits and Ailments"
+				}
 			}
 		},
 		stats={
@@ -4984,36 +5340,38 @@ return {
 		}
 	},
 	[179]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage with Hits and Ailments per Curse on Enemy"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage with Hits and Ailments per Curse on Enemy"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextDamagingAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage with Hits and Ailments per Curse on Enemy"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextDamagingAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage with Hits and Ailments per Curse on Enemy"
+				}
 			}
 		},
 		stats={
@@ -5021,15 +5379,17 @@ return {
 		}
 	},
 	[180]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage with Hits against Enemies that are on Low Life"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage with Hits against Enemies that are on Low Life"
+				}
 			}
 		},
 		stats={
@@ -5037,19 +5397,21 @@ return {
 		}
 	},
 	[181]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_1dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Grants Phasing for {0} seconds"
+						k="milliseconds_to_seconds_1dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Grants Phasing for {0} seconds"
+				}
 			}
 		},
 		stats={
@@ -5057,19 +5419,21 @@ return {
 		}
 	},
 	[182]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="This Spell loses 1 Intensity every 0.25 seconds while moving, or immediately if you teleport"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="This Spell loses 1 Intensity every 0.25 seconds while moving, or immediately if you teleport"
+				}
 			}
 		},
 		stats={
@@ -5077,15 +5441,17 @@ return {
 		}
 	},
 	[183]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="This Skill's Area of Effect cannot be modified"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="This Skill's Area of Effect cannot be modified"
+				}
 			}
 		},
 		stats={
@@ -5093,15 +5459,17 @@ return {
 		}
 	},
 	[184]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Increases and Reductions to Cast Speed also apply to Projectile Frequency"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Increases and Reductions to Cast Speed also apply to Projectile Frequency"
+				}
 			}
 		},
 		stats={
@@ -5109,15 +5477,17 @@ return {
 		}
 	},
 	[185]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Damages {0} nearby Enemies when you gain Stages"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Damages {0} nearby Enemies when you gain Stages"
+				}
 			}
 		},
 		stats={
@@ -5125,15 +5495,17 @@ return {
 		}
 	},
 	[186]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0:+d}% to Damage over Time Multiplier"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d}% to Damage over Time Multiplier"
+				}
 			}
 		},
 		stats={
@@ -5141,28 +5513,30 @@ return {
 		}
 	},
 	[187]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Elemental Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Elemental Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Elemental Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Elemental Damage"
+				}
 			}
 		},
 		stats={
@@ -5170,19 +5544,21 @@ return {
 		}
 	},
 	[188]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextOverwhelm"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Overwhelm {0}% Physical Damage Reduction"
+						k="reminderstring",
+						v="ReminderTextOverwhelm"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Overwhelm {0}% Physical Damage Reduction"
+				}
 			}
 		},
 		stats={
@@ -5190,32 +5566,34 @@ return {
 		}
 	},
 	[189]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextLingeringBlades"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]=1
-					}
+						k="reminderstring",
+						v="ReminderTextLingeringBlades"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Each Projectile fired remains in the ground as a Lingering Blade"
 				},
-				text="Each Projectile fired remains in the ground as a Lingering Blade"
-			},
-			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextLingeringBlades"
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="One of every {0} Projectiles fired remains in the ground as a Lingering Blade"
+						k="reminderstring",
+						v="ReminderTextLingeringBlades"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="One of every {0} Projectiles fired remains in the ground as a Lingering Blade"
+				}
 			}
 		},
 		stats={
@@ -5223,24 +5601,26 @@ return {
 		}
 	},
 	[190]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Modifiers to number of Projectiles only apply to the final Spiral"
 				},
-				text="Modifiers to number of Projectiles only apply to the final Spiral"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]=2
-					}
-				},
-				text="Modifiers to number of Projectiles only apply to the Shards"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]=2
+						}
+					},
+					text="Modifiers to number of Projectiles only apply to the Shards"
+				}
 			}
 		},
 		stats={
@@ -5248,19 +5628,21 @@ return {
 		}
 	},
 	[191]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextDealsDamageFaster"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Bleeding you inflict deals Damage {0}% faster"
+						k="reminderstring",
+						v="ReminderTextDealsDamageFaster"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Bleeding you inflict deals Damage {0}% faster"
+				}
 			}
 		},
 		stats={
@@ -5268,32 +5650,34 @@ return {
 		}
 	},
 	[192]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextDealsDamageFaster"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
+						k="reminderstring",
+						v="ReminderTextDealsDamageFaster"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Ignites deal Damage {0}% faster"
 				},
-				text="Ignites deal Damage {0}% faster"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Ignites deal Damage {0}% slower"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Ignites deal Damage {0}% slower"
+				}
 			}
 		},
 		stats={
@@ -5301,23 +5685,25 @@ return {
 		}
 	},
 	[193]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextPoison"
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextDealsDamageFaster"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Poisons you inflict deal Damage {0}% faster"
+						k="reminderstring",
+						v="ReminderTextPoison"
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextDealsDamageFaster"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Poisons you inflict deal Damage {0}% faster"
+				}
 			}
 		},
 		stats={
@@ -5325,28 +5711,30 @@ return {
 		}
 	},
 	[194]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Fire Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Fire Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Fire Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Fire Damage"
+				}
 			}
 		},
 		stats={
@@ -5354,28 +5742,30 @@ return {
 		}
 	},
 	[195]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased explosion Area of Effect"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased explosion Area of Effect"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced explosion Area of Effect"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced explosion Area of Effect"
+				}
 			}
 		},
 		stats={
@@ -5383,19 +5773,21 @@ return {
 		}
 	},
 	[196]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Linked target gains {0} to {1} Added Fire Damage"
+					text="Linked target gains {0} to {1} Added Fire Damage"
+				}
 			}
 		},
 		stats={
@@ -5404,15 +5796,17 @@ return {
 		}
 	},
 	[197]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Linked target gains Added Fire Damage equal to {0}% of your Maximum Life"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Linked target gains Added Fire Damage equal to {0}% of your Maximum Life"
+				}
 			}
 		},
 		stats={
@@ -5420,28 +5814,30 @@ return {
 		}
 	},
 	[198]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Fortification Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Fortification Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Fortification Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Fortification Duration"
+				}
 			}
 		},
 		stats={
@@ -5449,28 +5845,30 @@ return {
 		}
 	},
 	[199]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Freeze Duration on Enemies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Freeze Duration on Enemies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Freeze Duration on Enemies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Freeze Duration on Enemies"
+				}
 			}
 		},
 		stats={
@@ -5478,19 +5876,21 @@ return {
 		}
 	},
 	[200]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextDaggerRuneDagger"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Deals Added Spell Damage equal to {0}% of Damage of Equipped Dagger\nIf two Daggers are Equipped, each contributes half as much Added Damage"
+						k="reminderstring",
+						v="ReminderTextDaggerRuneDagger"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Deals Added Spell Damage equal to {0}% of Damage of Equipped Dagger\nIf two Daggers are Equipped, each contributes half as much Added Damage"
+				}
 			}
 		},
 		stats={
@@ -5498,24 +5898,26 @@ return {
 		}
 	},
 	[201]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Fires Beams with {0}% increased Frequency"
 				},
-				text="Fires Beams with {0}% increased Frequency"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Fires Beams with {0}% reduced Frequency"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Fires Beams with {0}% reduced Frequency"
+				}
 			}
 		},
 		stats={
@@ -5523,19 +5925,21 @@ return {
 		}
 	},
 	[202]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextBlind"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0}% chance to Blind enemies on hit"
+						k="reminderstring",
+						v="ReminderTextBlind"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0}% chance to Blind enemies on hit"
+				}
 			}
 		},
 		stats={
@@ -5543,19 +5947,21 @@ return {
 		}
 	},
 	[203]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Adds {0} to {1} Chaos Damage"
+					text="Adds {0} to {1} Chaos Damage"
+				}
 			}
 		},
 		stats={
@@ -5564,19 +5970,21 @@ return {
 		}
 	},
 	[204]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Adds {0} to {1} Cold Damage"
+					text="Adds {0} to {1} Cold Damage"
+				}
 			}
 		},
 		stats={
@@ -5585,19 +5993,21 @@ return {
 		}
 	},
 	[205]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Adds {0} to {1} Fire Damage"
+					text="Adds {0} to {1} Fire Damage"
+				}
 			}
 		},
 		stats={
@@ -5606,19 +6016,21 @@ return {
 		}
 	},
 	[206]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Adds {0} to {1} Lightning Damage"
+					text="Adds {0} to {1} Lightning Damage"
+				}
 			}
 		},
 		stats={
@@ -5627,19 +6039,21 @@ return {
 		}
 	},
 	[207]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Adds {0} to {1} Physical Damage"
+					text="Adds {0} to {1} Physical Damage"
+				}
 			}
 		},
 		stats={
@@ -5648,15 +6062,17 @@ return {
 		}
 	},
 	[208]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% reduced Enemy Block Chance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% reduced Enemy Block Chance"
+				}
 			}
 		},
 		stats={
@@ -5664,28 +6080,30 @@ return {
 		}
 	},
 	[209]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Buff Effect"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Buff Effect"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Buff Effect"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Buff Effect"
+				}
 			}
 		},
 		stats={
@@ -5693,19 +6111,21 @@ return {
 		}
 	},
 	[210]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Storm Hits an Enemy every {0} Seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Storm Hits an Enemy every {0} Seconds"
+				}
 			}
 		},
 		stats={
@@ -5713,24 +6133,26 @@ return {
 		}
 	},
 	[211]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Storms Hit Enemies with {0}% increased Frequency"
 				},
-				text="Storms Hit Enemies with {0}% increased Frequency"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Storms Hit Enemies with {0}% reduced Frequency"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Storms Hit Enemies with {0}% reduced Frequency"
+				}
 			}
 		},
 		stats={
@@ -5738,28 +6160,30 @@ return {
 		}
 	},
 	[212]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Damage with Hits"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage with Hits"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Damage with Hits"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage with Hits"
+				}
 			}
 		},
 		stats={
@@ -5767,19 +6191,21 @@ return {
 		}
 	},
 	[213]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Pulses every {0} seconds while Frozen, Shocked, Brittle or Sapped"
+						k="milliseconds_to_seconds",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Pulses every {0} seconds while Frozen, Shocked, Brittle or Sapped"
+				}
 			}
 		},
 		stats={
@@ -5787,49 +6213,51 @@ return {
 		}
 	},
 	[214]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
-				},
-				text="{0:+d}% increased Pulse Frequency"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0}% increased Pulse Frequency"
-			},
-			[3]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
-				},
-				limit={
-					[1]={
-						[1]="#",
-						[2]=-1
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
+					text="{0:+d}% increased Pulse Frequency"
 				},
-				text="{0}% reduced Pulse Frequency"
+				[2]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0}% increased Pulse Frequency"
+				},
+				[3]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0}% reduced Pulse Frequency"
+				}
 			}
 		},
 		stats={
@@ -5838,28 +6266,30 @@ return {
 		}
 	},
 	[215]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Ignite Duration on Enemies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Ignite Duration on Enemies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Ignite Duration on Enemies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Ignite Duration on Enemies"
+				}
 			}
 		},
 		stats={
@@ -5867,28 +6297,30 @@ return {
 		}
 	},
 	[216]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Loses Intensity with {0}% increased frequency while moving"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Loses Intensity with {0}% increased frequency while moving"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Loses Intensity with {0}% reduced frequency while moving"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Loses Intensity with {0}% reduced frequency while moving"
+				}
 			}
 		},
 		stats={
@@ -5896,15 +6328,17 @@ return {
 		}
 	},
 	[217]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Modifiers to number of Projectiles instead apply to the number of Explosions"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Modifiers to number of Projectiles instead apply to the number of Explosions"
+				}
 			}
 		},
 		stats={
@@ -5912,15 +6346,17 @@ return {
 		}
 	},
 	[218]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Projectile changes direction {0} times"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Projectile changes direction {0} times"
+				}
 			}
 		},
 		stats={
@@ -5928,28 +6364,30 @@ return {
 		}
 	},
 	[219]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Knockback Distance"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Knockback Distance"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Knockback Distance"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Knockback Distance"
+				}
 			}
 		},
 		stats={
@@ -5957,23 +6395,25 @@ return {
 		}
 	},
 	[220]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="divide_by_one_hundred",
-					v=1
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextLifeLeech"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% of Damage Leeched as Life"
+						k="divide_by_one_hundred",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextLifeLeech"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% of Damage Leeched as Life"
+				}
 			}
 		},
 		stats={
@@ -5981,36 +6421,38 @@ return {
 		}
 	},
 	[221]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextLightningAilments"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Effect of Lightning Ailments"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextLightningAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Effect of Lightning Ailments"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextLightningAilments"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Effect of Lightning Ailments"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextLightningAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Effect of Lightning Ailments"
+				}
 			}
 		},
 		stats={
@@ -6018,15 +6460,17 @@ return {
 		}
 	},
 	[222]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Gain {0}% of Lightning Damage as Extra Chaos Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Gain {0}% of Lightning Damage as Extra Chaos Damage"
+				}
 			}
 		},
 		stats={
@@ -6034,28 +6478,30 @@ return {
 		}
 	},
 	[223]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Lightning Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Lightning Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Lightning Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Lightning Damage"
+				}
 			}
 		},
 		stats={
@@ -6063,19 +6509,21 @@ return {
 		}
 	},
 	[224]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Strikes every {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Strikes every {0} seconds"
+				}
 			}
 		},
 		stats={
@@ -6083,15 +6531,17 @@ return {
 		}
 	},
 	[225]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0}% chance to Detonate for Double Damage instead of Chaining"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0}% chance to Detonate for Double Damage instead of Chaining"
+				}
 			}
 		},
 		stats={
@@ -6099,28 +6549,30 @@ return {
 		}
 	},
 	[226]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Effect of Maim"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Effect of Maim"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Effect of Maim"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Effect of Maim"
+				}
 			}
 		},
 		stats={
@@ -6128,28 +6580,30 @@ return {
 		}
 	},
 	[227]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Gain {0} Mana per Enemy Hit"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Gain {0} Mana per Enemy Hit"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Lose {0} Mana per Enemy Hit"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Lose {0} Mana per Enemy Hit"
+				}
 			}
 		},
 		stats={
@@ -6157,23 +6611,25 @@ return {
 		}
 	},
 	[228]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="divide_by_one_hundred",
-					v=1
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextManaLeech"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% of Damage Leeched as Mana"
+						k="divide_by_one_hundred",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextManaLeech"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% of Damage Leeched as Mana"
+				}
 			}
 		},
 		stats={
@@ -6181,28 +6637,30 @@ return {
 		}
 	},
 	[229]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Maximum Recovery per Energy Shield Leech"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Maximum Recovery per Energy Shield Leech"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Maximum Recovery per Energy Shield Leech"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Maximum Recovery per Energy Shield Leech"
+				}
 			}
 		},
 		stats={
@@ -6210,28 +6668,30 @@ return {
 		}
 	},
 	[230]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Maximum Recovery per Life Leech"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Maximum Recovery per Life Leech"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Maximum Recovery per Life Leech"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Maximum Recovery per Life Leech"
+				}
 			}
 		},
 		stats={
@@ -6239,36 +6699,38 @@ return {
 		}
 	},
 	[231]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="reminderstring",
-					v="ReminderTextSpawnCorpse"
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Corpses Spawned have {0}% increased Maximum Life"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
+						k="reminderstring",
+						v="ReminderTextSpawnCorpse"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Corpses Spawned have {0}% increased Maximum Life"
 				},
 				[2]={
-					k="reminderstring",
-					v="ReminderTextSpawnCorpse"
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Corpses Spawned have {0}% reduced Maximum Life"
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextSpawnCorpse"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Corpses Spawned have {0}% reduced Maximum Life"
+				}
 			}
 		},
 		stats={
@@ -6276,24 +6738,26 @@ return {
 		}
 	},
 	[232]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Melee Strikes target {0} additional nearby Enemy"
 				},
-				text="Melee Strikes target {0} additional nearby Enemy"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Melee Strikes target {0} additional nearby Enemies"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Melee Strikes target {0} additional nearby Enemies"
+				}
 			}
 		},
 		stats={
@@ -6301,28 +6765,30 @@ return {
 		}
 	},
 	[233]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Melee Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Melee Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Melee Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Melee Damage"
+				}
 			}
 		},
 		stats={
@@ -6330,28 +6796,30 @@ return {
 		}
 	},
 	[234]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Melee Damage against Bleeding Enemies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Melee Damage against Bleeding Enemies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Melee Damage against Bleeding Enemies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Melee Damage against Bleeding Enemies"
+				}
 			}
 		},
 		stats={
@@ -6359,28 +6827,30 @@ return {
 		}
 	},
 	[235]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Melee Physical Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Melee Physical Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Melee Physical Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Melee Physical Damage"
+				}
 			}
 		},
 		stats={
@@ -6388,28 +6858,30 @@ return {
 		}
 	},
 	[236]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Mine Detonation Area of Effect"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Mine Detonation Area of Effect"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Mine Detonation Area of Effect"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Mine Detonation Area of Effect"
+				}
 			}
 		},
 		stats={
@@ -6417,28 +6889,30 @@ return {
 		}
 	},
 	[237]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Mines have {0}% increased Detonation Speed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Mines have {0}% increased Detonation Speed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Mines have {0}% reduced Detonation Speed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Mines have {0}% reduced Detonation Speed"
+				}
 			}
 		},
 		stats={
@@ -6446,28 +6920,30 @@ return {
 		}
 	},
 	[238]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Mine duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Mine duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Mine duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Mine duration"
+				}
 			}
 		},
 		stats={
@@ -6475,28 +6951,30 @@ return {
 		}
 	},
 	[239]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Mine Throwing Speed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Mine Throwing Speed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Mine Throwing Speed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Mine Throwing Speed"
+				}
 			}
 		},
 		stats={
@@ -6504,15 +6982,17 @@ return {
 		}
 	},
 	[240]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Minions have {0}% chance to deal Double Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Minions have {0}% chance to deal Double Damage"
+				}
 			}
 		},
 		stats={
@@ -6520,15 +7000,17 @@ return {
 		}
 	},
 	[241]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Minions have {0:+d}% to all Elemental Resistances"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Minions have {0:+d}% to all Elemental Resistances"
+				}
 			}
 		},
 		stats={
@@ -6536,15 +7018,17 @@ return {
 		}
 	},
 	[242]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Modifiers to number of Projectiles instead apply to the number of times this Skill Chains"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Modifiers to number of Projectiles instead apply to the number of times this Skill Chains"
+				}
 			}
 		},
 		stats={
@@ -6552,15 +7036,17 @@ return {
 		}
 	},
 	[243]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Modifiers to number of Projectiles instead apply to\nthe number of targets Projectile Splits towards"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Modifiers to number of Projectiles instead apply to\nthe number of targets Projectile Splits towards"
+				}
 			}
 		},
 		stats={
@@ -6568,15 +7054,17 @@ return {
 		}
 	},
 	[244]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
-				},
-				text="Modifiers to number of Projectiles do not apply to this Skill"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Modifiers to number of Projectiles do not apply to this Skill"
+				}
 			}
 		},
 		stats={
@@ -6584,15 +7072,17 @@ return {
 		}
 	},
 	[245]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Modifiers to Trap Throwing Speed also apply to strike Frequency"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Modifiers to Trap Throwing Speed also apply to strike Frequency"
+				}
 			}
 		},
 		stats={
@@ -6600,15 +7090,17 @@ return {
 		}
 	},
 	[246]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Modifiers to Trap Throwing Speed also apply to wave release Frequency"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Modifiers to Trap Throwing Speed also apply to wave release Frequency"
+				}
 			}
 		},
 		stats={
@@ -6616,28 +7108,30 @@ return {
 		}
 	},
 	[247]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Aura effect"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Aura effect"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Aura effect"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Aura effect"
+				}
 			}
 		},
 		stats={
@@ -6645,24 +7139,26 @@ return {
 		}
 	},
 	[248]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Fires an additional Arrow"
 				},
-				text="Fires an additional Arrow"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="Fires {0} additional Arrows"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="Fires {0} additional Arrows"
+				}
 			}
 		},
 		stats={
@@ -6670,24 +7166,26 @@ return {
 		}
 	},
 	[249]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Fires an additional Projectile"
 				},
-				text="Fires an additional Projectile"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="Fires {0} additional Projectiles"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="Fires {0} additional Projectiles"
+				}
 			}
 		},
 		stats={
@@ -6695,15 +7193,17 @@ return {
 		}
 	},
 	[250]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Chains {0:+d} Times"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Chains {0:+d} Times"
+				}
 			}
 		},
 		stats={
@@ -6711,24 +7211,26 @@ return {
 		}
 	},
 	[251]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Can have up to {0} additional Remote Mine placed at a time"
 				},
-				text="Can have up to {0} additional Remote Mine placed at a time"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Can have up to {0} additional Remote Mines placed at a time"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Can have up to {0} additional Remote Mines placed at a time"
+				}
 			}
 		},
 		stats={
@@ -6736,24 +7238,26 @@ return {
 		}
 	},
 	[252]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Can have up to {0} additional Trap placed at a time"
 				},
-				text="Can have up to {0} additional Trap placed at a time"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Can have up to {0} additional Traps placed at a time"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Can have up to {0} additional Traps placed at a time"
+				}
 			}
 		},
 		stats={
@@ -6761,24 +7265,26 @@ return {
 		}
 	},
 	[253]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Throw up to 1 additional Trap"
 				},
-				text="Throw up to 1 additional Trap"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Throw up to {0} additional Traps"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Throw up to {0} additional Traps"
+				}
 			}
 		},
 		stats={
@@ -6786,45 +7292,47 @@ return {
 		}
 	},
 	[254]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					text="{0:+d} to Maximum Animated Weapons"
 				},
-				text="{0:+d} to Maximum Animated Weapons"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
+				[2]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
+					text="Maximum {0} Animated Weapon"
 				},
-				text="Maximum {0} Animated Weapon"
-			},
-			[3]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
+				[3]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Maximum {0} Animated Weapons"
+					text="Maximum {0} Animated Weapons"
+				}
 			}
 		},
 		stats={
@@ -6833,28 +7341,30 @@ return {
 		}
 	},
 	[255]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Fires {0}% more Projectiles per Steel Shard consumed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Fires {0}% more Projectiles per Steel Shard consumed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Fires {0}% less Projectiles per Steel Shard consumed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Fires {0}% less Projectiles per Steel Shard consumed"
+				}
 			}
 		},
 		stats={
@@ -6862,24 +7372,26 @@ return {
 		}
 	},
 	[256]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Maximum {0} Summoned Reaper"
 				},
-				text="Maximum {0} Summoned Reaper"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Maximum {0} Summoned Reapers"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Maximum {0} Summoned Reapers"
+				}
 			}
 		},
 		stats={
@@ -6887,32 +7399,34 @@ return {
 		}
 	},
 	[257]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1000,
-						[2]=1000
-					}
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1000,
+							[2]=1000
+						}
+					},
+					text="Strikes every {0} second, and when you use a Lightning Skill near the Orb"
 				},
-				text="Strikes every {0} second, and when you use a Lightning Skill near the Orb"
-			},
-			[2]={
-				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Strikes every {0} seconds, and when you use a Lightning Skill near the Orb"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Strikes every {0} seconds, and when you use a Lightning Skill near the Orb"
+				}
 			}
 		},
 		stats={
@@ -6920,32 +7434,34 @@ return {
 		}
 	},
 	[258]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1000,
-						[2]=1000
-					}
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1000,
+							[2]=1000
+						}
+					},
+					text="Strikes every {0} second while Channelling a Lightning Skill near the Orb"
 				},
-				text="Strikes every {0} second while Channelling a Lightning Skill near the Orb"
-			},
-			[2]={
-				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Strikes every {0} seconds while Channelling a Lightning Skill near the Orb"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Strikes every {0} seconds while Channelling a Lightning Skill near the Orb"
+				}
 			}
 		},
 		stats={
@@ -6953,19 +7469,21 @@ return {
 		}
 	},
 	[259]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Releases waves every {0} seconds"
+						k="milliseconds_to_seconds",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Releases waves every {0} seconds"
+				}
 			}
 		},
 		stats={
@@ -6973,15 +7491,17 @@ return {
 		}
 	},
 	[260]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Gain {0}% of Physical Damage as Extra Fire Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Gain {0}% of Physical Damage as Extra Fire Damage"
+				}
 			}
 		},
 		stats={
@@ -6989,15 +7509,17 @@ return {
 		}
 	},
 	[261]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Gain {0}% of Physical Damage as Extra Lightning Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Gain {0}% of Physical Damage as Extra Lightning Damage"
+				}
 			}
 		},
 		stats={
@@ -7005,28 +7527,30 @@ return {
 		}
 	},
 	[262]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Physical Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Physical Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Physical Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Physical Damage"
+				}
 			}
 		},
 		stats={
@@ -7034,28 +7558,30 @@ return {
 		}
 	},
 	[263]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Cooldown Recovery Rate for throwing Traps"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Cooldown Recovery Rate for throwing Traps"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Cooldown Recovery Rate for throwing Traps"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Cooldown Recovery Rate for throwing Traps"
+				}
 			}
 		},
 		stats={
@@ -7063,24 +7589,26 @@ return {
 		}
 	},
 	[264]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Fires a Projectile at up to {0} target\nModifiers to number of Projectiles instead apply to number of targets fired at"
 				},
-				text="Fires a Projectile at up to {0} target\nModifiers to number of Projectiles instead apply to number of targets fired at"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="Fires a Projectile at up to {0} targets\nModifiers to number of Projectiles instead apply to number of targets fired at"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="Fires a Projectile at up to {0} targets\nModifiers to number of Projectiles instead apply to number of targets fired at"
+				}
 			}
 		},
 		stats={
@@ -7088,28 +7616,30 @@ return {
 		}
 	},
 	[265]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="You and nearby Allies have {0}% more Area of Effect"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="You and nearby Allies have {0}% more Area of Effect"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="You and nearby Allies have {0}% less Area of Effect"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="You and nearby Allies have {0}% less Area of Effect"
+				}
 			}
 		},
 		stats={
@@ -7117,24 +7647,26 @@ return {
 		}
 	},
 	[266]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Primary Projectile Chains {0:+d} Time"
 				},
-				text="Primary Projectile Chains {0:+d} Time"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="Primary Projectile Chains {0:+d} Times"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="Primary Projectile Chains {0:+d} Times"
+				}
 			}
 		},
 		stats={
@@ -7142,32 +7674,34 @@ return {
 		}
 	},
 	[267]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1000,
-						[2]=1000
-					}
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1000,
+							[2]=1000
+						}
+					},
+					text="Arrows fire Beams every {0} second"
 				},
-				text="Arrows fire Beams every {0} second"
-			},
-			[2]={
-				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Arrows fire Beams every {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Arrows fire Beams every {0} seconds"
+				}
 			}
 		},
 		stats={
@@ -7175,24 +7709,26 @@ return {
 		}
 	},
 	[268]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Projectiles Pierce an additional Target"
 				},
-				text="Projectiles Pierce an additional Target"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="Projectiles Pierce {0} additional Targets"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="Projectiles Pierce {0} additional Targets"
+				}
 			}
 		},
 		stats={
@@ -7200,28 +7736,30 @@ return {
 		}
 	},
 	[269]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Projectile Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Projectile Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Projectile Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Projectile Damage"
+				}
 			}
 		},
 		stats={
@@ -7229,15 +7767,17 @@ return {
 		}
 	},
 	[270]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Projectiles Split towards {0} targets"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Projectiles Split towards {0} targets"
+				}
 			}
 		},
 		stats={
@@ -7245,45 +7785,47 @@ return {
 		}
 	},
 	[271]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=0,
-						[2]=0
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=0,
+							[2]=0
+						},
+						[2]={
+							[1]=1,
+							[2]=99
+						}
 					},
-					[2]={
-						[1]=1,
-						[2]=99
-					}
+					text="Projectiles have {1}% chance to Return to you"
 				},
-				text="Projectiles have {1}% chance to Return to you"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=0,
-						[2]=0
+				[2]={
+					limit={
+						[1]={
+							[1]=0,
+							[2]=0
+						},
+						[2]={
+							[1]=100,
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]=100,
-						[2]="#"
-					}
+					text="Projectiles Return to you"
 				},
-				text="Projectiles Return to you"
-			},
-			[3]={
-				limit={
-					[1]={
-						[1]="!",
-						[2]=0
+				[3]={
+					limit={
+						[1]={
+							[1]="!",
+							[2]=0
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Projectiles Return to you"
+					text="Projectiles Return to you"
+				}
 			}
 		},
 		stats={
@@ -7292,19 +7834,21 @@ return {
 		}
 	},
 	[272]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0}% of Damage from Hits is taken from the Buff before your Life or Energy Shield\nBuff can take {1} Damage"
+					text="{0}% of Damage from Hits is taken from the Buff before your Life or Energy Shield\nBuff can take {1} Damage"
+				}
 			}
 		},
 		stats={
@@ -7313,24 +7857,26 @@ return {
 		}
 	},
 	[273]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Fires an additional sequence of arrows"
 				},
-				text="Fires an additional sequence of arrows"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="Fires {0} additional sequences of arrows"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="Fires {0} additional sequences of arrows"
+				}
 			}
 		},
 		stats={
@@ -7338,15 +7884,17 @@ return {
 		}
 	},
 	[274]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Does not require a corpse"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Does not require a corpse"
+				}
 			}
 		},
 		stats={
@@ -7354,15 +7902,17 @@ return {
 		}
 	},
 	[275]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="+{0} to maximum Stages"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="+{0} to maximum Stages"
+				}
 			}
 		},
 		stats={
@@ -7370,15 +7920,17 @@ return {
 		}
 	},
 	[276]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Penetrates {0}% Chaos Resistance"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Penetrates {0}% Chaos Resistance"
+				}
 			}
 		},
 		stats={
@@ -7386,15 +7938,17 @@ return {
 		}
 	},
 	[277]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% reduced Enemy chance to Dodge"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% reduced Enemy chance to Dodge"
+				}
 			}
 		},
 		stats={
@@ -7402,15 +7956,17 @@ return {
 		}
 	},
 	[278]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Regenerate {0} Life over 1 second"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Regenerate {0} Life over 1 second"
+				}
 			}
 		},
 		stats={
@@ -7418,28 +7974,30 @@ return {
 		}
 	},
 	[279]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Becomes Usable for {0}% longer"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Becomes Usable for {0}% longer"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="Becomes Usable for {0}% shorter"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Becomes Usable for {0}% shorter"
+				}
 			}
 		},
 		stats={
@@ -7447,28 +8005,30 @@ return {
 		}
 	},
 	[280]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Secondary Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Secondary Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Secondary Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Secondary Duration"
+				}
 			}
 		},
 		stats={
@@ -7476,28 +8036,30 @@ return {
 		}
 	},
 	[281]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased wave frequency"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased wave frequency"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced wave frequency"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced wave frequency"
+				}
 			}
 		},
 		stats={
@@ -7505,28 +8067,30 @@ return {
 		}
 	},
 	[282]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Shock Duration on Enemies"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Shock Duration on Enemies"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Shock Duration on Enemies"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Shock Duration on Enemies"
+				}
 			}
 		},
 		stats={
@@ -7534,15 +8098,17 @@ return {
 		}
 	},
 	[283]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Deals {0}% of your maximum Energy Shield as base Chaos Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Deals {0}% of your maximum Energy Shield as base Chaos Damage"
+				}
 			}
 		},
 		stats={
@@ -7550,15 +8116,17 @@ return {
 		}
 	},
 	[284]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Deals {0}% of your maximum Life as base Chaos Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Deals {0}% of your maximum Life as base Chaos Damage"
+				}
 			}
 		},
 		stats={
@@ -7566,15 +8134,17 @@ return {
 		}
 	},
 	[285]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% of Cold Damage Converted to Fire Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% of Cold Damage Converted to Fire Damage"
+				}
 			}
 		},
 		stats={
@@ -7582,15 +8152,17 @@ return {
 		}
 	},
 	[286]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% of Fire Damage Converted to Chaos Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% of Fire Damage Converted to Chaos Damage"
+				}
 			}
 		},
 		stats={
@@ -7598,15 +8170,17 @@ return {
 		}
 	},
 	[287]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% of Lightning Damage Converted to Chaos Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% of Lightning Damage Converted to Chaos Damage"
+				}
 			}
 		},
 		stats={
@@ -7614,15 +8188,17 @@ return {
 		}
 	},
 	[288]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% of Physical Damage Converted to Chaos Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% of Physical Damage Converted to Chaos Damage"
+				}
 			}
 		},
 		stats={
@@ -7630,19 +8206,21 @@ return {
 		}
 	},
 	[289]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
-				},
-				text="{0}% of Physical Damage Converted to Cold Damage"
+					text="{0}% of Physical Damage Converted to Cold Damage"
+				}
 			}
 		},
 		stats={
@@ -7651,15 +8229,17 @@ return {
 		}
 	},
 	[290]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% of Physical Damage Converted to Fire Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% of Physical Damage Converted to Fire Damage"
+				}
 			}
 		},
 		stats={
@@ -7667,15 +8247,17 @@ return {
 		}
 	},
 	[291]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{}% chance to Fire a caught Projectile when Hit"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{}% chance to Fire a caught Projectile when Hit"
+				}
 			}
 		},
 		stats={
@@ -7683,45 +8265,47 @@ return {
 		}
 	},
 	[292]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=0,
-						[2]=0
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=0,
+							[2]=0
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
+					text="Take {1}% of maximum Energy Shield as Chaos Damage"
 				},
-				text="Take {1}% of maximum Energy Shield as Chaos Damage"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					text="Take {0}% of maximum Life as Chaos Damage"
 				},
-				text="Take {0}% of maximum Life as Chaos Damage"
-			},
-			[3]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+				[3]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Take {0}% of maximum Life and {1}% of maximum Energy Shield as Chaos Damage"
+					text="Take {0}% of maximum Life and {1}% of maximum Energy Shield as Chaos Damage"
+				}
 			}
 		},
 		stats={
@@ -7730,24 +8314,26 @@ return {
 		}
 	},
 	[293]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Bounces up to {0} time\nModifiers to number of Projectiles instead apply to the number of Bounces"
 				},
-				text="Bounces up to {0} time\nModifiers to number of Projectiles instead apply to the number of Bounces"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
-					}
-				},
-				text="Bounces up to {0} times\nModifiers to number of Projectiles instead apply to the number of Bounces"
+				[2]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						}
+					},
+					text="Bounces up to {0} times\nModifiers to number of Projectiles instead apply to the number of Bounces"
+				}
 			}
 		},
 		stats={
@@ -7755,19 +8341,21 @@ return {
 		}
 	},
 	[294]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp_if_required",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="This Spell's Cast Time is added to its Cooldown if Triggered"
+						k="milliseconds_to_seconds_2dp_if_required",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="This Spell's Cast Time is added to its Cooldown if Triggered"
+				}
 			}
 		},
 		stats={
@@ -7775,28 +8363,30 @@ return {
 		}
 	},
 	[295]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Spell Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Spell Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Spell Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Spell Damage"
+				}
 			}
 		},
 		stats={
@@ -7804,15 +8394,17 @@ return {
 		}
 	},
 	[296]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="{0} maximum Beam Targets"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0} maximum Beam Targets"
+				}
 			}
 		},
 		stats={
@@ -7820,27 +8412,29 @@ return {
 		}
 	},
 	[297]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						},
+						[3]={
+							[1]="#",
+							[2]="#"
+						},
+						[4]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					},
-					[3]={
-						[1]="#",
-						[2]="#"
-					},
-					[4]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Energy Blades have minimum Lightning Damage equal to {2}% of Energy Shield, plus {0}\nEnergy Blades have maximum Lightning Damage equal to {3}% of Energy Shield, plus {1}"
+					text="Energy Blades have minimum Lightning Damage equal to {2}% of Energy Shield, plus {0}\nEnergy Blades have maximum Lightning Damage equal to {3}% of Energy Shield, plus {1}"
+				}
 			}
 		},
 		stats={
@@ -7851,15 +8445,17 @@ return {
 		}
 	},
 	[298]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Two Handed Energy Blades have {0}% more Lightning Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Two Handed Energy Blades have {0}% more Lightning Damage"
+				}
 			}
 		},
 		stats={
@@ -7867,15 +8463,17 @@ return {
 		}
 	},
 	[299]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="This Spell gains Intensity when you Cast it, to a maximum of 3"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="This Spell gains Intensity when you Cast it, to a maximum of 3"
+				}
 			}
 		},
 		stats={
@@ -7883,28 +8481,30 @@ return {
 		}
 	},
 	[300]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% more Trap Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Trap Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% less Trap Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Trap Damage"
+				}
 			}
 		},
 		stats={
@@ -7912,28 +8512,30 @@ return {
 		}
 	},
 	[301]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased initial Duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased initial Duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced initial Duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced initial Duration"
+				}
 			}
 		},
 		stats={
@@ -7941,58 +8543,60 @@ return {
 		}
 	},
 	[302]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					text="Fires {0:+d} secondary Projectile"
 				},
-				text="Fires {0:+d} secondary Projectile"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
+				[2]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
+					text="Fires {0} secondary Projectile"
 				},
-				text="Fires {0} secondary Projectile"
-			},
-			[3]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
+				[3]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
 					},
-					[2]={
-						[1]=0,
-						[2]=0
-					}
+					text="Fires {0:+d} secondary Projectiles"
 				},
-				text="Fires {0:+d} secondary Projectiles"
-			},
-			[4]={
-				limit={
-					[1]={
-						[1]=2,
-						[2]="#"
+				[4]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
 					},
-					[2]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Fires {0} secondary Projectiles"
+					text="Fires {0} secondary Projectiles"
+				}
 			}
 		},
 		stats={
@@ -8001,15 +8605,17 @@ return {
 		}
 	},
 	[303]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Totems Explode on Death, dealing {0}% of their Life as Physical Damage"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Totems Explode on Death, dealing {0}% of their Life as Physical Damage"
+				}
 			}
 		},
 		stats={
@@ -8017,19 +8623,21 @@ return {
 		}
 	},
 	[304]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="per_minute_to_per_second",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Totems Regenerate {0}% of Life per second"
+						k="per_minute_to_per_second",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Totems Regenerate {0}% of Life per second"
+				}
 			}
 		},
 		stats={
@@ -8037,28 +8645,30 @@ return {
 		}
 	},
 	[305]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Trap Damage"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Trap Damage"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Trap Damage"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Trap Damage"
+				}
 			}
 		},
 		stats={
@@ -8066,28 +8676,30 @@ return {
 		}
 	},
 	[306]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Trap duration"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Trap duration"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Trap duration"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Trap duration"
+				}
 			}
 		},
 		stats={
@@ -8095,28 +8707,30 @@ return {
 		}
 	},
 	[307]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Trap Throwing Speed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Trap Throwing Speed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Trap Throwing Speed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Trap Throwing Speed"
+				}
 			}
 		},
 		stats={
@@ -8124,28 +8738,30 @@ return {
 		}
 	},
 	[308]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Trap Trigger Area of Effect"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Trap Trigger Area of Effect"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Trap Trigger Area of Effect"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Trap Trigger Area of Effect"
+				}
 			}
 		},
 		stats={
@@ -8153,15 +8769,17 @@ return {
 		}
 	},
 	[309]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="Spawned corpses are Level {0}"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Spawned corpses are Level {0}"
+				}
 			}
 		},
 		stats={
@@ -8169,24 +8787,26 @@ return {
 		}
 	},
 	[310]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Projectiles change direction {0} time\nProjectiles can Hit targets each time they change direction"
 				},
-				text="Projectiles change direction {0} time\nProjectiles can Hit targets each time they change direction"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Projectiles change direction {0} times\nProjectiles can Hit targets each time they change direction"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Projectiles change direction {0} times\nProjectiles can Hit targets each time they change direction"
+				}
 			}
 		},
 		stats={
@@ -8194,15 +8814,17 @@ return {
 		}
 	},
 	[311]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Modifiers which would cause Projectiles to Fork or\nChain instead cause them to change direction additional times"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Modifiers which would cause Projectiles to Fork or\nChain instead cause them to change direction additional times"
+				}
 			}
 		},
 		stats={
@@ -8210,32 +8832,34 @@ return {
 		}
 	},
 	[312]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]=1000,
-						[2]=1000
-					}
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=1000,
+							[2]=1000
+						}
+					},
+					text="Strikes an Enemy every {0} second"
 				},
-				text="Strikes an Enemy every {0} second"
-			},
-			[2]={
-				[1]={
-					k="milliseconds_to_seconds_2dp",
-					v=1
-				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Strikes an Enemy every {0} seconds"
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Strikes an Enemy every {0} seconds"
+				}
 			}
 		},
 		stats={
@@ -8243,24 +8867,26 @@ return {
 		}
 	},
 	[313]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]=1
-					}
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						}
+					},
+					text="Consumes up to 1 corpse"
 				},
-				text="Consumes up to 1 corpse"
-			},
-			[2]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Consumes up to {0} corpses"
+				[2]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Consumes up to {0} corpses"
+				}
 			}
 		},
 		stats={
@@ -8268,15 +8894,17 @@ return {
 		}
 	},
 	[314]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Maximum of {0} Orbs at a time"
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Maximum of {0} Orbs at a time"
+				}
 			}
 		},
 		stats={
@@ -8284,28 +8912,30 @@ return {
 		}
 	},
 	[315]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Warcry Speed"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Warcry Speed"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Warcry Speed"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Warcry Speed"
+				}
 			}
 		},
 		stats={
@@ -8313,28 +8943,30 @@ return {
 		}
 	},
 	[316]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased Elemental Damage with Weapons"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Elemental Damage with Weapons"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Elemental Damage with Weapons"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Elemental Damage with Weapons"
+				}
 			}
 		},
 		stats={
@@ -8342,28 +8974,30 @@ return {
 		}
 	},
 	[317]={
-		[1]={
-			[1]={
-				limit={
-					[1]={
-						[1]=1,
-						[2]="#"
-					}
-				},
-				text="{0}% increased rotation speed if Dual Wielding"
-			},
-			[2]={
+		lang={
+			English={
 				[1]={
-					k="negate",
-					v=1
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased rotation speed if Dual Wielding"
 				},
-				limit={
+				[2]={
 					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced rotation speed if Dual Wielding"
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced rotation speed if Dual Wielding"
+				}
 			}
 		},
 		stats={
@@ -8371,19 +9005,21 @@ return {
 		}
 	},
 	[318]={
-		[1]={
-			[1]={
+		lang={
+			English={
 				[1]={
-					k="divide_by_one_hundred_2dp_if_required",
-					v=1
-				},
-				limit={
 					[1]={
-						[1]="#",
-						[2]="#"
-					}
-				},
-				text="Rotates {0:+d} times if Dual Wielding"
+						k="divide_by_one_hundred_2dp_if_required",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Rotates {0:+d} times if Dual Wielding"
+				}
 			}
 		},
 		stats={
