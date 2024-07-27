@@ -194,7 +194,7 @@ return function(stats, scopeName)
 			for depth, scope in ipairs(rootScope.scopeList) do
 				if scope[s] then
 					local descriptor = scope[scope[s]]
-					if descriptor then
+					if descriptor[1] then
 						describeStats[descriptor.stats[1]] = { depth = depth, order = scope[s], description = scope[scope[s]] }
 					end
 					break

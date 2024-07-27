@@ -144,7 +144,7 @@ function describeStats(stats)
 			val[i] = stats[s] or { min = 0, max = 0 }
 			val[i].fmt = "d"
 		end
-		local desc = matchLimit(descriptor.lang["English"], val)
+		local desc = matchLimit(descriptor[1], val)
 		if desc then
 			for _, spec in ipairs(desc) do
 				if spec.k == "negate" then
