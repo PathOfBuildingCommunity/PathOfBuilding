@@ -629,3 +629,9 @@ statMap = {
 		},
 	},
 #mods
+
+#skill SupportExpertRetaliation
+#mods
+
+#skill SupportOverexertion
+#mods

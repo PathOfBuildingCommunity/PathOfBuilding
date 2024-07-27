@@ -554,3 +554,6 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod flag("SupportedByMomentum")
 #mods
+
+#skill SupportRupture
+#mods

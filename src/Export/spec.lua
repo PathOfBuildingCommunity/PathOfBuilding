@@ -4661,7 +4661,7 @@ return {
 			name="Tags",
 			refTo="GemTags",
 			type="Key",
-			width=390
+			width=450
 		},
 		[10]={
 			list=false,
