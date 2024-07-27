@@ -1889,7 +1889,6 @@ skills["ElementalHitCloneShot"] = {
 		attack = true,
 		projectile = true,
 		melee = true,
-		area = true,
 	},
 	constantStats = {
 		{ "chance_to_freeze_shock_ignite_%", 20 },

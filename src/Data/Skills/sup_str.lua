@@ -740,9 +740,6 @@ statMap = {
 		["call_to_arms_behaviour"] = {
 			-- Display only
 		},
-		["warcry_skills_share_cooldowns"] = {
-			-- Display only
-		},
 	},
 	baseFlags = {
 	},
@@ -2539,7 +2536,7 @@ skills["SupportMoreDuration"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
-		["support_reduced_duration_skill_effect_duration_+%_final"] = {
+		["support_more_duration_skill_effect_duration_+%_final"] = {
 			mod("Duration", "MORE", nil),
 		},
 	},
@@ -3727,7 +3724,7 @@ skills["SupportRage"] = {
 		["support_rage_gain_rage_on_melee_hit_cooldown_ms"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff", effectName = "Rage" } ),
 		},
-		["attack_minimum_added_physical_damage_with_at_least_10_rage"] = {
+		["attack_speed_+%_with_at_least_10_rage"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "MultiplierThreshold", var = "Rage", threshold = 10 })
 		},
 	},
@@ -3891,7 +3888,7 @@ skills["SupportInspiration"] = {
 		["critical_strike_chance_+%_per_righteous_charge"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "InspirationCharge" }),
 		},
-		["base_mana_cost_-%_final"] = {
+		["support_inspiration_mana_cost_+%_final"] = {
 			mod("ManaCost", "MORE", nil),
 			mult = -1,
 		},

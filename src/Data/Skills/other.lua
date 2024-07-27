@@ -1894,7 +1894,7 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("IntimidatingExertedAttacks", "BASE", nil),
 		},
-		["intimidating_cry_movement_speed_per_5_MP"] = {
+		["intimidating_cry_movement_speed_+%_per_5_power_up_to_cap"] = {
 			mod("IntimidatingMovementSpeedPer5MP", "BASE", nil),
 		},
 	},
