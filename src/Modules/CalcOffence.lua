@@ -3653,6 +3653,10 @@ function calcs.offence(env, actor, activeSkill)
 				output[ailment.."ChanceOnHit"] = 0
 				output[ailment.."ChanceOnCrit"] = 0
 			end
+			-- Warden's Oath of Summer Scorch on Crit Chance
+			if ailment == "Scorch" and env.modDB:Flag(nil, "IgniteCanScorch") then
+				output["ScorchChanceOnCrit"] = 100
+			end
 			if (output[ailment.."ChanceOnHit"] + (skillModList:Flag(cfg, "NeverCrit") and 0 or output[ailment.."ChanceOnCrit"])) > 0 then
 				skillFlags["inflict"..ailment] = true
 			end
