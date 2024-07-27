@@ -1366,7 +1366,7 @@ return {
 				}
 			}
 		},
-		name="rage_regeneration_on_stun_curse",
+		name="rage_gained_on_stun_curse",
 		stats={
 			[1]="enemy_grant_X_rage_on_stun"
 		}

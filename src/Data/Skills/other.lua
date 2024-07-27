@@ -7,10 +7,11 @@
 local skills, mod, flag, skill = ...
 
 skills["RepeatingShockwave"] = {
-	name = "",
+	name = "Abberath's Fury",
 	hidden = true,
 	color = 4,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Fire] = true, },
+	description = "While you run, this skill creates a small explosion with each step, dealing fire damage in an area around you.",
+	skillTypes = { [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
