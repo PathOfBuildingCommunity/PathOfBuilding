@@ -2053,7 +2053,7 @@ return {
 	flag("SpellCastTimeAddedToCooldownIfTriggered"),
 },
 ["gain_x_rage_on_attack_hit"] = {
-	flag("Condition:CanGainRage", ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+	flag("Condition:CanGainRage", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 },
 --
 -- Spectre or Minion-specific stats
