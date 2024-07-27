@@ -631,6 +631,11 @@ statMap = {
 #mods
 
 #skill SupportExpertRetaliation
+	statMap = {
+		["support_expert_retaliation_cooldown_speed_+%_final"] = {
+			mod("CooldownRecovery", "MORE", nil),
+		},
+	},
 #mods
 
 #skill SupportOverexertion

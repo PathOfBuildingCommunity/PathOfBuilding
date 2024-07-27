@@ -4554,6 +4554,11 @@ skills["SupportExpertRetaliation"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_expert_retaliation_cooldown_speed_+%_final"] = {
+			mod("CooldownRecovery", "MORE", nil),
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "support_expert_retaliation_cooldown_speed_+%_final", 0.5 },
