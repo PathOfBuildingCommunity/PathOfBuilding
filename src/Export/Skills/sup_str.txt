@@ -254,7 +254,7 @@ statMap = {
 
 #skill SupportFistofWar
 	statMap = {
-		["support_ancestral_slam_big_hit_hit_damage_+%_final"] = {
+		["support_ancestral_slam_big_hit_damage_with_hits_and_ailments_+%_final"] = {
 			mod("FistOfWarDamageMultiplier", "BASE", nil),
 		},
 		["support_ancestral_slam_big_hit_area_+%"] = {
