@@ -973,6 +973,10 @@ return {
 	mod("EnemyShockChance", "BASE", nil),
 	value = 100,
 },
+["always_freeze"] = {
+	mod("EnemyFreezeChance", "BASE", nil),
+	value = 100,
+},
 ["base_chance_to_freeze_%"] = {
 	mod("EnemyFreezeChance", "BASE", nil),
 },
@@ -1571,10 +1575,10 @@ return {
 	skill("setOffHandAttackTime", nil),
 },
 ["off_hand_minimum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
-	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
+	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
 },
 ["off_hand_maximum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
-	mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
+	mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
 },
 ["off_hand_minimum_added_cold_damage_per_15_shield_evasion"] = {
 	mod("ColdMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "EvasionOnWeapon 2", div = 15 }),
