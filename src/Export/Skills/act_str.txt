@@ -1568,8 +1568,6 @@ local skills, mod, flag, skill = ...
 			div = 100
 		},
 	},
-#baseMod skill("buffAllies", true)
-#baseMod skill("buffNotPlayer", true)
 #baseMod skill("radius", 60)
 #mods
 

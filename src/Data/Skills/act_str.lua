@@ -8328,8 +8328,6 @@ skills["RallyingCry"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("buffAllies", true),
-		skill("buffNotPlayer", true),
 		skill("radius", 60),
 	},
 	qualityStats = {
