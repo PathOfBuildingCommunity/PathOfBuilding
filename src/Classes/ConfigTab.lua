@@ -946,7 +946,10 @@ end
 function ConfigTabClass:NewConfigSet(configSetId, title)
 	local configSet = { id = configSetId, title = title, input = { }, placeholder = { } }
 	if not configSetId then
-		configSet.id = #self.configSets + 1
+		configSet.id = 1
+		while self.configSets[configSet.id] do
+			configSet.id = configSet.id + 1
+		end
 	end
 	-- there are default values for input and placeholder that every new config set needs to have
 	for _, varData in ipairs(varList) do
