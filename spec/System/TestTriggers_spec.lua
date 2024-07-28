@@ -1374,4 +1374,33 @@ describe("TestTriggers", function()
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
     end)
+	
+	it("Trigger Svalinn", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[Rarity: UNIQUE
+			Svalinn Girded
+			Colossal Tower Shield
+			Armour: 721
+			ArmourBasePercentile: 1
+			Ward: 163
+			WardBasePercentile: 1
+			League: Settlers of Kalguur
+			Quality: 20
+			Sockets: R-R-R
+			LevelReq: 50
+			Implicits: 1
+			{range:0.5}+(10-20) to maximum Life
+			13% Chance to Block Spell Damage
+			+136 to Ward
+			-10% to maximum Chance to Block Attack Damage
+			-10% to maximum Chance to Block Spell Damage
+			Chance To Block is Lucky
+			Trigger a Socketed Elemental Spell on Block, with a 0.25 Second Cooldown]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 2\nArc 20/0 Default  1\n")
+        runCallback("OnFrame")
+
+		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
+    end)
 end)
