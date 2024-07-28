@@ -17,13 +17,13 @@ return {
 					[1] = { line = "30% increased Stun and Block Recovery", value = { 30 }, },
 				},
 			},
-			[3] = { name = "Nassar, Lion of the Seas",
+			[3] = { name = "Captain Tanner Lightfoot",
 				mods = {
 					-- base_avoid_freeze_%
 					[1] = { line = "100% chance to Avoid being Frozen", value = { 100 }, },
 				},
 			},
-			[4] = { name = "Sumter the Twisted",
+			[4] = { name = "Glace",
 				mods = {
 					-- chill_effectiveness_on_self_+%
 					[1] = { line = "50% reduced Effect of Chill on you", value = { -50 }, },
@@ -46,13 +46,13 @@ return {
 					[1] = { line = "20% increased Recovery rate of Life and Energy Shield if you've stopped taking Damage Over Time Recently", value = { 20 }, },
 				},
 			},
-			[3] = { name = "Armala, the Widow",
+			[3] = { name = "Hybrid Widow",
 				mods = {
 					-- debuff_time_passed_+%
 					[1] = { line = "Debuffs on you expire 20% faster", value = { 20 }, },
 				},
 			},
-			[4] = { name = "The Primal One",
+			[4] = { name = "Shadow of the Vaal",
 				mods = {
 					-- additional_chaos_resistance_against_damage_over_time_%
 					[1] = { line = "+40% Chaos Resistance against Damage Over Time", value = { 40 }, },
@@ -71,13 +71,13 @@ return {
 					[2] = { line = "20% chance to take 50% less Area Damage from Hits", value = { 20 }, },
 				},
 			},
-			[2] = { name = "Forest of Flames",
+			[2] = { name = "Kitava, The Destroyer",
 				mods = {
 					-- elemental_damage_taken_+%_if_not_hit_recently
 					[1] = { line = "8% reduced Elemental Damage taken if you haven't been Hit Recently", value = { -8 }, },
 				},
 			},
-			[3] = { name = "Lord of the Ashen Arrow",
+			[3] = { name = "The Gorgon",
 				mods = {
 					-- self_take_no_extra_damage_from_critical_strikes_if_have_been_crit_recently
 					[1] = { line = "Take no Extra Damage from Critical Strikes if you have taken a Critical Strike Recently", value = { 1 }, },
@@ -108,7 +108,7 @@ return {
 					[1] = { line = "10% chance to avoid Projectiles", value = { 10 }, },
 				},
 			},
-			[3] = { name = "Captain Clayborne, The Accursed",
+			[3] = { name = "Khor, Sister of Shadows",
 				mods = {
 					-- elemental_damage_taken_+%_if_been_hit_recently
 					[1] = { line = "6% reduced Elemental Damage taken if you have been Hit Recently", value = { -6 }, },
@@ -122,16 +122,6 @@ return {
 			},
 		},
 	},
-	["Minor God 1"] = {
-		isMajorGod = false,
-		souls = {
-		},
-	},
-	["Minor God 2"] = {
-		isMajorGod = false,
-		souls = {
-		},
-	},
 	["Abberath"] = {
 		isMajorGod = false,
 		souls = {
@@ -141,7 +131,7 @@ return {
 					[1] = { line = "60% less Duration of Ignite on You", value = { -60 }, },
 				},
 			},
-			[2] = { name = "Renkarr, The Kiln Keeper",
+			[2] = { name = "Mephod, the Earth Scorcher",
 				mods = {
 					-- unaffected_by_burning_ground
 					[1] = { line = "Unaffected by Burning Ground", value = { 1 }, },
@@ -149,11 +139,6 @@ return {
 					[2] = { line = "10% increased Movement Speed while on Burning Ground", value = { 10 }, },
 				},
 			},
-		},
-	},
-	["Minor God 4"] = {
-		isMajorGod = false,
-		souls = {
 		},
 	},
 	["Gruthkul"] = {
@@ -184,7 +169,7 @@ return {
 					[2] = { line = "50% chance to Reflect Hexes", value = { 50 }, },
 				},
 			},
-			[2] = { name = "Sallazzang",
+			[2] = { name = "Varhesh, Shimmering Aberration",
 				mods = {
 					-- curse_effect_on_self_+%
 					[1] = { line = "30% reduced Effect of Curses on you", value = { -30 }, },
@@ -230,11 +215,6 @@ return {
 			},
 		},
 	},
-	["Minor God 9"] = {
-		isMajorGod = false,
-		souls = {
-		},
-	},
 	["Ralakesh"] = {
 		isMajorGod = false,
 		souls = {
@@ -263,7 +243,7 @@ return {
 					[1] = { line = "60% reduced Effect of Shock on you", value = { -60 }, },
 				},
 			},
-			[2] = { name = "Drought-Maddened Rhoa",
+			[2] = { name = "Stalker of the Endless Dunes",
 				mods = {
 					-- cannot_be_blinded
 					[1] = { line = "Cannot be Blinded", value = { 1 }, },
@@ -284,7 +264,7 @@ return {
 					[2] = { line = "60% increased Life Recovery from Flasks used when on Low Life", value = { 60 }, },
 				},
 			},
-			[2] = { name = "Murgeth Bogsong",
+			[2] = { name = "Gorulis, Will-Thief",
 				mods = {
 					-- enemy_life_regeneration_rate_+%_for_4_seconds_on_hit
 					[1] = { line = "Enemies you've Hit Recently have 50% reduced Life Regeneration rate", value = { -50 }, },

@@ -422,7 +422,7 @@ skills["GuardianSentinelFireAura"] = {
 #mods
 
 #skill ElementalHitCloneShot Elemental Hit
-#flags attack projectile melee area
+#flags attack projectile melee
 #mods
 
 #skill SumonRagingSpiritMelee Melee

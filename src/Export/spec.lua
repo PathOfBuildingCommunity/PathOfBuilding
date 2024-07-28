@@ -752,10 +752,10 @@ return {
 	alternatequalitytypes={
 		[1]={
 			list=false,
-			name="QualityMod",
-			refTo="Mods",
-			type="Key",
-			width=190
+			name="Id",
+			refTo="",
+			type="String",
+			width=200
 		},
 		[2]={
 			list=false,
@@ -776,7 +776,42 @@ return {
 			name="",
 			refTo="",
 			type="Key",
-			width=150
+			width=40
+		},
+		[5]={
+			list=true,
+			name="MapStats",
+			refTo="Stats",
+			type="Key",
+			width=230
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=60
+		},
+		[7]={
+			list=false,
+			name="IsCatalyst",
+			refTo="",
+			type="Bool",
+			width=80
+		},
+		[8]={
+			list=false,
+			name="HASH16",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[9]={
+			list=false,
+			name="CatalystMod",
+			refTo="Mods",
+			type="Key",
+			width=200
 		}
 	},
 	alternateskilltargetingbehaviours={
@@ -1790,6 +1825,20 @@ return {
 			refTo="AchievementItems",
 			type="Key",
 			width=150
+		},
+		[32]={
+			list=false,
+			name="IgnoreQuantBonus",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[33]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
 		}
 	},
 	battlepasses={
@@ -3452,6 +3501,13 @@ return {
 			refTo="",
 			type="Key",
 			width=260
+		},
+		[40]={
+			list=true,
+			name="Tags",
+			refTo="Tags",
+			type="Key",
+			width=150
 		}
 	},
 	craftingbenchsortcategories={
@@ -3551,6 +3607,13 @@ return {
 			refTo="",
 			type="String",
 			width=130
+		},
+		[5]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
 		}
 	},
 	crucibledifficulty={
@@ -4661,7 +4724,7 @@ return {
 			name="Tags",
 			refTo="GemTags",
 			type="Key",
-			width=390
+			width=450
 		},
 		[10]={
 			list=false,
@@ -4727,6 +4790,8 @@ return {
 		}
 	},
 	gemtypes={
+	},
+	gemvisualeffect={
 	},
 	genericbuffauras={
 		[1]={
@@ -8511,6 +8576,20 @@ return {
 			refTo="",
 			type="Bool",
 			width=50
+		},
+		[100]={
+			list=false,
+			name="BossHealthBar",
+			refTo="",
+			type="Bool",
+			width=100
+		},
+		[101]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
 		}
 	},
 	monstervarietiesartvariations={
@@ -8752,49 +8831,70 @@ return {
 			name="Effect2Values",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[19]={
+			list=false,
+			name="QuestFlags",
+			refTo="QuestFlags",
+			type="Key",
+			width=100
+		},
+		[20]={
+			list=false,
+			name="IsDisabled",
+			refTo="",
+			type="Bool",
+			width=100
+		},
+		[21]={
+			list=true,
+			name="AchievementItems",
+			refTo="AchievementItems",
+			type="Key",
+			width=150
+		},
+		[22]={
+			list=false,
+			name="LeagueQuestFlag1",
+			refTo="",
+			type="Int",
+			width=110
+		},
+		[23]={
+			list=false,
+			name="LeagueQuestFlag2",
+			refTo="",
+			type="Int",
+			width=110
+		},
+		[24]={
+			list=false,
+			name="LeagueQuestFlag3",
+			refTo="",
+			type="Int",
+			width=110
+		},
+		[25]={
 			list=false,
 			name="QuestState1",
 			refTo="QuestStates",
 			type="Key",
 			width=70
 		},
-		[20]={
+		[26]={
 			list=false,
 			name="QuestState2",
 			refTo="QuestStates",
 			type="Key",
 			width=70
 		},
-		[21]={
+		[27]={
 			list=false,
 			name="QuestState3",
 			refTo="QuestStates",
 			type="Key",
 			width=70
-		},
-		[22]={
-			list=false,
-			name="QuestState4",
-			refTo="QuestStates",
-			type="Key",
-			width=70
-		},
-		[23]={
-			list=false,
-			name="IsDisabled",
-			refTo="",
-			type="Bool",
-			width=150
-		},
-		[24]={
-			list=true,
-			name="AchievementItems",
-			refTo="AchievementItems",
-			type="Key",
-			width=150
 		}
 	},
 	pantheonsouls={
@@ -10070,6 +10170,13 @@ return {
 			refTo="",
 			type="String",
 			width=80
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=80
 		}
 	},
 	raritymask={
@@ -11305,10 +11412,24 @@ return {
 	tinctures={
 		[1]={
 			list=false,
-			name="BaseItem",
+			name="BaseItemType",
 			refTo="BaseItemTypes",
 			type="Key",
-			width=320
+			width=250
+		},
+		[2]={
+			list=false,
+			name="ManaBurn",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[3]={
+			list=false,
+			name="CoolDown",
+			refTo="",
+			type="Int",
+			width=100
 		}
 	},
 	tips={
@@ -11642,6 +11763,22 @@ return {
 		}
 	},
 	userinterfacemodecondition={
+	},
+	villageuniquedisenchantvalues={
+		[1]={
+			list=false,
+			name="Unique",
+			refTo="Words.Text",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Float",
+			width=150
+		}
 	},
 	virtualstatcontextflags={
 		[1]={

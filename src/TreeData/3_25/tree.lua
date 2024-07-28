@@ -11552,7 +11552,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/Berserker/DmgAttackSpeed.png",
             ["ascendancyName"]= "Berserker",
             ["stats"]= {
-                "Gain 1 Rage on Melee Hit",
+                "Gain 1 Rage on Attack Hit",
                 "10% increased Physical Damage"
             },
             ["reminderText"]= {
@@ -11575,7 +11575,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/Berserker/DmgAttackSpeed.png",
             ["ascendancyName"]= "Berserker",
             ["stats"]= {
-                "Gain 1 Rage on Melee Hit",
+                "Gain 1 Rage on Attack Hit",
                 "10% increased Physical Damage"
             },
             ["reminderText"]= {
@@ -23304,7 +23304,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/CallToArms.png",
             ["isKeystone"]= true,
             ["stats"]= {
-                "Warcries do not grant Buffs or Charges to You\n100% more Warcry Duration"
+                "Your Warcries do not grant Buffs or Charges to You\n100% more Warcry Duration"
             },
             ["flavourText"]= {
                 "Follow me, and I will show you strength!"

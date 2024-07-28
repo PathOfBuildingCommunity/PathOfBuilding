@@ -104,6 +104,6 @@ itemBases["Golden Obi"] = {
 	tags = { demigods = true, not_for_sale = true, default = true, belt = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "(20-30)% increased Rarity of Items found",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "drop" }, },
 	req = { },
 }

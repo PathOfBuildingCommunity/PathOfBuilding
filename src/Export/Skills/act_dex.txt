@@ -306,7 +306,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill ChargedAttack
+#skill BladeFlurry
 #flags attack melee area
 	parts = {
 		{
@@ -347,7 +347,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 14)
 #mods
 
-#skill ChargedAttackAltX
+#skill BladeFlurryAltX
 #flags attack melee area
 	parts = {
 		{
@@ -388,7 +388,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 14)
 #mods
 
-#skill VaalChargedAttack
+#skill VaalBladeFlurry
 #flags attack melee area
 	statMap = {
 		["vaal_charged_attack_damage_taken_+%_final"] = {
@@ -599,7 +599,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 16)
 #mods
 
-#skill PoisonArrow
+#skill CausticArrow
 #flags attack projectile area duration
 	statMap = {
 		["caustic_arrow_explode_on_hit_base_area_of_effect_radius"] = {
@@ -613,7 +613,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("dotIsCausticGround")
 #mods
 
-#skill PoisonArrowAltX
+#skill CausticArrowAltX
 #flags attack projectile area
 	statMap = {
 		["caustic_arrow_explode_on_hit_base_area_of_effect_radius"] = {
@@ -633,7 +633,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("dotIsCausticGround")
 #mods
 
-#skill ImpactingSteelReload
+#skill CallOfSteel
 #flags area
 #mods
 
@@ -688,7 +688,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill CorpseEruption
+#skill Cremation
 #flags spell projectile area
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 1 then
@@ -724,7 +724,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
 #mods
 
-#skill CorpseEruptionAltX
+#skill CremationAltX
 #flags spell projectile area
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 1 then
@@ -760,7 +760,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
 #mods
 
-#skill CorpseEruptionAltY
+#skill CremationAltY
 #flags spell projectile area
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.cremationFireRate / (1 + (activeSkill.skillData.cremationFireRateIncrease or 0))
@@ -867,7 +867,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 24)
 #mods
 
-#skill QuickDodge
+#skill Dash
 #flags spell
 #mods
 
@@ -1365,7 +1365,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill ShrapnelTrap
+#skill ExplosiveTrap
 #flags spell trap area
 	parts = {
 		{
@@ -1458,15 +1458,15 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusTertiaryBaseMargin", 30)
 #mods
 
-#skill ShrapnelTrapAltX
+#skill ExplosiveTrapAltX
 #flags spell trap area
-	parts = skills.ShrapnelTrap.parts,
-	preDamageFunc = skills.ShrapnelTrap.preDamageFunc,
-	statMap = skills.ShrapnelTrap.statMap,
-	baseMods = skills.ShrapnelTrap.baseMods,
+	parts = skills.ExplosiveTrap.parts,
+	preDamageFunc = skills.ExplosiveTrap.preDamageFunc,
+	statMap = skills.ExplosiveTrap.statMap,
+	baseMods = skills.ExplosiveTrap.baseMods,
 #mods
 
-#skill ShrapnelTrapAltY
+#skill ExplosiveTrapAltY
 #flags spell trap area
 #mods
 
@@ -1652,7 +1652,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dotIsArea", true, { type = "SkillPart", skillPart = 2 })
 #mods
 
-#skill ShrapnelShot
+#skill GalvanicArrow
 #flags attack projectile area
 	parts = {
 		{
@@ -1667,12 +1667,12 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 28)
 #mods
 
-#skill ShrapnelShotAltX
+#skill GalvanicArrowAltX
 #flags attack area
 #baseMod skill("radius", 28)
 #mods
 
-#skill ShrapnelShotAltY
+#skill GalvanicArrowAltY
 #flags attack projectile area
 	parts = {
 		{
@@ -1685,6 +1685,10 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 28)
+#mods
+
+#skill GlacialShieldSwipe
+#flags attack melee area shieldAttack
 #mods
 
 #skill Grace
@@ -1850,7 +1854,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "Second Explosion:")
 #mods
 
-#skill DoubleSlash
+#skill Lacerate
 #flags attack melee area
 	parts = {
 		{
@@ -1869,7 +1873,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 })
 #mods
 
-#skill DoubleSlashAltX
+#skill LacerateAltX
 #flags attack melee area
 	parts = {
 		{
@@ -1882,7 +1886,8 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 38)
 #baseMod skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 })
 #mods
-#skill DoubleSlashAltY
+
+#skill LacerateAltY
 #flags attack melee area
 	parts = {
 		{
@@ -2080,12 +2085,12 @@ local skills, mod, flag, skill = ...
 #baseMod skill("minionUseBowAndQuiver", true)
 #mods
 
-#skill MambaStrike
+#skill PestilentStrike
 #flags attack melee area duration
 #baseMod skill("radius", 27)
 #mods
 
-#skill NewPhaseRun
+#skill PhaseRun
 #flags spell duration
 	statMap = {
 		["phase_run_melee_physical_damage_+%_final"] = {
@@ -2097,7 +2102,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill CorrosiveShroud
+#skill PlagueBearer
 #flags spell area
 	statMap = {
 		["corrosive_shroud_poison_damage_+%_final_while_accumulating_poison"] = {
@@ -2129,7 +2134,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("debuff", true)
 #mods
 
-#skill AccuracyAndCritsAura
+#skill Precision
 #flags spell aura area
 	statMap = {
 		["accuracy_rating"] = {
@@ -2269,7 +2274,17 @@ local skills, mod, flag, skill = ...
 #baseMod skill("bleedIsSkillEffect", true)
 #mods
 
-#skill ColdResistAura
+#skill PunctureAltX
+#flags attack melee duration
+	statMap = {
+		["quality_display_active_skill_bleed_damage_final_is_gem"] = {
+			-- Display only
+		},
+	},
+#baseMod skill("bleedIsSkillEffect", true)
+#mods
+
+#skill PurityOfIce
 #flags spell aura area
 	statMap = {
 		["base_cold_damage_resistance_%"] = {
@@ -2282,7 +2297,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 40)
 #mods
 
-#skill ColdImpurity
+#skill VaalImpurityOfIce
 #flags spell aura area duration
 	statMap = {
 		["hits_ignore_my_cold_resistance"] = {
@@ -2362,10 +2377,6 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 12)
 #baseMod mod("Multiplier:ReaveMaxStages", "BASE", 4)
-#mods
-
-#skill Riposte
-#flags attack melee
 #mods
 
 #skill ScourgeArrow
@@ -2464,7 +2475,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 28)
 #mods
 
-#skill PhysCascadeTrap
+#skill SeismicTrap
 #flags spell area trap duration
 	preDamageFunc = function(activeSkill, output, breakdown)
 		local skillCfg = activeSkill.skillCfg
@@ -2624,7 +2635,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "Small Burst:")
 #mods
 
-#skill PhysCascadeTrapAltX
+#skill SeismicTrapAltX
 #flags spell area trap
 	preDamageFunc = function(activeSkill, output, breakdown)
 		local skillCfg = activeSkill.skillCfg
@@ -2758,7 +2769,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 18)
 #mods
 
-#skill ThrownShield
+#skill SpectralShieldThrow
 #flags attack projectile shieldAttack
 	parts = {
 		{
@@ -2775,10 +2786,16 @@ local skills, mod, flag, skill = ...
 		["primary_projectile_chains_+"] = {
 			mod("ChainCountMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
+		["off_hand_minimum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
+			mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
+		},
+		["off_hand_maximum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
+			mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
+		},
 	},
 #mods
 
-#skill ThrownShieldAltX
+#skill SpectralShieldThrowAltX
 #flags attack projectile shieldAttack
 	parts = {
 		{
@@ -2795,17 +2812,17 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill ThrownWeapon
+#skill SpectralThrow
 #flags attack projectile
 #baseMod mod("PierceChance", "BASE", 100)
 #mods
 
-#skill ThrownWeaponAltX
+#skill SpectralThrowAltX
 #flags attack projectile
 #baseMod mod("PierceChance", "BASE", 100)
 #mods
 
-#skill VaalThrownWeapon
+#skill VaalSpectralThrow
 #flags attack projectile vaal
 	statMap = {
 		["base_number_of_projectiles_in_spiral_nova"] = {
@@ -2814,7 +2831,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill RainOfSpores
+#skill ToxicRain
 #flags attack projectile area duration
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.podOverlapMultiplier or 1, output.ProjectileCount)
@@ -2826,7 +2843,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusLabel", "Pod Area:")
 #mods
 
-#skill RainOfSporesAltX
+#skill ToxicRainAltX
 #flags attack projectile area duration
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.podOverlapMultiplier or 1, output.ProjectileCount)
@@ -2836,7 +2853,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusLabel", "Pod Area:")
 #mods
 
-#skill RainOfSporesAltY
+#skill ToxicRainAltY
 #flags attack projectile area duration
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.podOverlapMultiplier or 1, output.ProjectileCount)
@@ -2872,11 +2889,11 @@ local skills, mod, flag, skill = ...
 #flags attack projectile
 #mods
 
-#skill ImpactingSteel
+#skill SplittingSteel
 #flags attack projectile area
 #mods
 
-#skill ImpactingSteelAltX
+#skill SplittingSteelAltX
 #flags attack projectile area
 #mods
 
@@ -2968,7 +2985,7 @@ local skills, mod, flag, skill = ...
 #flags attack projectile
 #mods
 
-#skill BoneLance
+#skill Unearth
 #flags spell projectile corpse
 	statMap = {
 		["unearth_base_corpse_level"] = {
@@ -2978,7 +2995,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("corpseMonsterVariety", "Bone Archer")
 #mods
 
-#skill SnappingAdder
+#skill VenomGyre
 #flags attack projectile
 	parts = {
 		{
@@ -2991,7 +3008,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:ReturningProjectile", { type = "SkillPart", skillPart = 2 })
 #mods
 
-#skill VaalSnappingAdder
+#skill VaalVenomGyre
 #flags attack projectile duration
 #mods
 
@@ -3218,7 +3235,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 24, { type = "SkillPart", skillPart = 2 })
 #mods
 
-#skill Slither
+#skill WitheringStep
 #flags spell duration
 	statMap = {
 		["slither_wither_stacks"] = {
@@ -3278,7 +3295,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill ChannelledSnipe
+#skill Snipe
 #flags attack projectile channelRelease
 	statMap = {
 		["snipe_max_stacks"] = {

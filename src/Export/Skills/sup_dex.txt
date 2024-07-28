@@ -8,7 +8,7 @@ local skills, mod, flag, skill = ...
 #skill SupportAddedColdDamage
 #mods
 
-#skill SupportAddedColdDamagePlus
+#skill SupportAwakenedAddedColdDamage
 #mods
 
 #skill SupportAdditionalAccuracy
@@ -22,7 +22,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportArrowNovaPlus
+#skill SupportAwakenedArrowNova
 	statMap = {
 		["support_rain_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
@@ -49,7 +49,7 @@ local skills, mod, flag, skill = ...
 #skill SupportBlind
 #mods
 
-#skill SupportBlockReduction
+#skill SupportBlockChanceReduction
 	statMap = {
 		["global_reduce_enemy_block_%"] = {
 			mod("reduceEnemyBlock", "BASE", nil, 0, 0)
@@ -60,7 +60,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportCastOnCrit
+#skill SupportCastOnCriticalStrike
 	statMap = {
 		["support_cast_on_crit_spell_damage_+%_final"] = {
 		},
@@ -75,7 +75,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportCastOnCritPlus
+#skill SupportAwakenedCastOnCriticalStrike
 	statMap = {
 		["support_cast_on_crit_spell_damage_+%_final"] = {
 		},
@@ -112,7 +112,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportChainPlus
+#skill SupportAwakenedChain
 	statMap = {
 		["support_chain_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
@@ -123,7 +123,7 @@ local skills, mod, flag, skill = ...
 #skill SupportChanceToFlee
 #mods
 
-#skill SupportGemFrenzyPowerOnTrapTrigger
+#skill SupportChargedTraps
 	statMap = {
 		["trap_trigger_radius_"] = {
 			mod("TrapTriggerAreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" } )
@@ -131,7 +131,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportSlashingWeapon
+#skill SupportCloseCombat
 	statMap = {
 		["support_slashing_damage_+%_final_from_distance"] = {
 			mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }),
@@ -148,7 +148,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:SupportedByCloseCombat")
 #mods
 
-#skill SupportClusterTrap
+#skill SupportClusterTraps
 	statMap = {
 		["support_clustertrap_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
@@ -159,7 +159,7 @@ local skills, mod, flag, skill = ...
 #skill SupportColdPenetration
 #mods
 
-#skill SupportColdPenetrationPlus
+#skill SupportAwakenedColdPenetration
 #mods
 
 #skill SupportCullingStrike
@@ -176,7 +176,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportDeadlyAilmentsPlus
+#skill SupportAwakenedDeadlyAilments
 	statMap = {
 		["support_better_ailments_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
@@ -187,7 +187,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportAdditionalQuality
+#skill SupportEnhance
 	statMap = {
 		["supported_active_skill_gem_quality_%"] = {
 			mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "quality", value = nil }),
@@ -195,7 +195,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportAdditionalQualityPlus
+#skill SupportAwakenedEnhance
 	statMap = {
 		["supported_active_skill_gem_quality_%"] = {
 			mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "quality", value = nil }),
@@ -203,7 +203,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportFasterAttack
+#skill SupportFasterAttacks
 #mods
 
 #skill SupportFasterProjectiles
@@ -228,7 +228,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportForkPlus
+#skill SupportAwakenedFork
 	statMap = {
 		["support_fork_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
@@ -244,7 +244,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportGreaterMultipleProjectilesPlus
+#skill SupportAwakenedGreaterMultipleProjectiles
 	statMap = {
 		["support_multiple_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
@@ -260,7 +260,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportDamageAgainstChilled
+#skill SupportHypothermia
 	statMap = {
 		["support_hypothermia_damage_+%_vs_chilled_enemies_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
@@ -283,7 +283,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportFrenzyChargeOnSlayingFrozenEnemy
+#skill SupportIceBite
 #mods
 
 #skill SupportLesserMultipleProjectiles
@@ -317,7 +317,7 @@ local skills, mod, flag, skill = ...
 #skill SupportMarkOnHit
 #mods
 
-#skill SupportGemMirageArcher
+#skill SupportMirageArcher
 	statMap = {
 		["support_mirage_archer_base_duration"] = {
 			mod("MirageArcherDuration", "BASE", nil),
@@ -335,7 +335,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportMultiTrap
+#skill SupportMultipleTraps
 	statMap = {	
 		["support_multithrow_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
@@ -343,7 +343,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportPuncturingWeapon
+#skill SupportNightblade
 	statMap = {
 		["supported_skill_can_only_use_dagger_and_claw"] = {
 		},
@@ -374,6 +374,20 @@ local skills, mod, flag, skill = ...
 #skill SupportCriticalStrikeAffliction
 #mods
 
+#skill SupportRupture
+	statMap = {
+		["support_rupture_bleeding_time_passed_+%_final"] = {
+			mod("DamageTaken", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Multiplier", var = "RuptureStack", limit = 3 })
+		},
+		["support_rupture_bleeding_damage_taken_+%_final"] = {
+			mod("BleedExpireRate", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Multiplier", var = "RuptureStack", limit = 3 })
+		},
+		["critical_strikes_that_inflict_bleeding_also_rupture"] = {
+			flag("Condition:CanInflictRupture", { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#mods
+
 #skill SupportSadism
 	statMap = {
 		["support_faster_ailments_ailment_duration_+%_final"] = {
@@ -382,7 +396,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportAdditionalCooldown
+#skill SupportSecondWind
 #mods
 
 #skill SupportSlowerProjectiles
@@ -396,7 +410,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportRapidDecay
+#skill SupportSwiftAffliction
 	statMap = {
 		["support_rapid_decay_damage_over_time_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Dot),
@@ -407,7 +421,7 @@ local skills, mod, flag, skill = ...
 #skill SupportReturningProjectiles
 #mods
 
-#skill SupportSwiftAfflictionPlus
+#skill SupportAwakenedSwiftAffliction
 	statMap = {
 		["support_rapid_decay_damage_over_time_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Dot),
@@ -415,7 +429,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportAdditionalTrapMine
+#skill SupportSwiftAssembly
 #mods
 
 #skill SupportTrap
@@ -429,7 +443,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportTrapCooldown
+#skill SupportAdvancedTraps
 #mods
 
 #skill SupportTrapAndMineDamage
@@ -446,7 +460,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportPhysicalProjectileAttackDamage
+#skill SupportViciousProjectiles
 	statMap = {
 		["support_projectile_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile)),
@@ -463,7 +477,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportViciousProjectilesPlus
+#skill SupportAwakenedViciousProjectiles
 	statMap = {
 		["support_projectile_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile)),
@@ -480,7 +494,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportDebilitate
+#skill SupportVileToxins
 	statMap = {
 		["support_debilitate_poison_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
@@ -502,7 +516,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportVoidManipulationPlus
+#skill SupportAwakenedVoidManipulation
 	statMap = {
 		["support_void_manipulation_chaos_damage_+%_final"] = {
 			mod("ChaosDamage", "MORE", nil),
@@ -510,7 +524,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportParallelProjectiles
+#skill SupportVolley
 	statMap = {
 		["support_parallel_projectiles_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
@@ -518,7 +532,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportChaosAttacks
+#skill SupportWitheringTouch
 #mods
 
 #skill SupportManaforgedArrows

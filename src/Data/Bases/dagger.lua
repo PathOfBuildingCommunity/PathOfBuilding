@@ -139,7 +139,7 @@ itemBases["Ethereal Blade"] = {
 	tags = { one_hand_weapon = true, onehand = true, not_for_sale = true, attack_dagger = true, weapon = true, dagger = true, default = true, },
 	influenceTags = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", cleansing = "dagger_cleansing", tangle = "dagger_tangle" },
 	implicitModTypes = { },
-	weapon = { PhysicalMin = 4, PhysicalMax = 8, CritChanceBase = 6, AttackRateBase = 1.5, Range = 10, },
+	weapon = { PhysicalMin = 4, PhysicalMax = 8, CritChanceBase = 7.5, AttackRateBase = 1.5, Range = 10, },
 	req = { dex = 9, int = 6, },
 }
 

@@ -3,1378 +3,2250 @@
 
 return {
 	[1]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="All Damage can Freeze"
-				}
+					k="reminderstring",
+					v="ReminderTextStunThreshold"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% reduced Enemy Stun Threshold with Melee Weapons"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextStunThreshold"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% increased Enemy Stun Threshold with Melee Weapons"
 			}
 		},
 		stats={
-			[1]="all_damage_with_weapons_can_freeze"
+			[1]="stun_threshold_reduction_+%_with_tinctured_weapons"
 		}
 	},
 	[2]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="All Damage can Ignite"
-				}
+					k="reminderstring",
+					v="ReminderTextBleeding"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% chance to cause Bleeding with Melee Weapons"
 			}
 		},
 		stats={
-			[1]="all_damage_with_weapons_can_ignite"
+			[1]="chance_to_bleed_on_hit_%_with_tinctured_weapons"
 		}
 	},
 	[3]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="All Damage can Poison"
-				}
+					k="reminderstring",
+					v="ReminderTextBlind"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% chance to Blind Enemies on Hit with Melee Weapons"
 			}
 		},
 		stats={
-			[1]="all_damage_with_weapons_can_poison"
+			[1]="chance_to_blind_on_hit_%_with_tinctured_weapons"
 		}
 	},
 	[4]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="All Damage can Shock"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Does not inflict Mana Burn over time"
 			}
 		},
 		stats={
-			[1]="all_damage_with_weapons_can_shock"
+			[1]="local_cannot_generate_toxicity_stacks_over_time"
 		}
 	},
 	[5]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Damaging Hits always Stun Enemies that are on Full Life"
-				}
+					k="reminderstring",
+					v="ReminderTextTinctureManaBurn"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Inflicts Mana Burn on you when you Hit an Enemy with a Melee Weapon"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextTinctureManaBurn"
+				},
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Inflicts {0} Mana Burn on you when you Hit an Enemy with a Melee Weapon"
 			}
 		},
 		stats={
-			[1]="always_stun_enemies_that_are_on_full_life_with_weapons"
+			[1]="toxicity_stacks_gained_on_hit_with_tinctured_weapons"
 		}
 	},
 	[6]={
-		lang={
-			English={
-				[1]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextWithered"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Hits Inflict {0} Withered Debuffs for 2 seconds on Enemies that are on Full Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Rarity of Items found per Mana Burn, up to a maximum of 100%"
 			}
 		},
 		stats={
-			[1]="apply_X_wither_stacks_for_2_seconds_vs_enemies_that_are_on_full_life_with_weapons"
+			[1]="item_rarity_+%_per_toxicity_up_to_100%_from_tincture"
 		}
 	},
 	[7]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Rarity of Items Dropped by Slain Enemies"
+					k="reminderstring",
+					v="ReminderTextFreeze"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Rarity of Items Dropped by Slain Enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="All Damage with Melee Weapons can Freeze"
 			}
 		},
 		stats={
-			[1]="base_killed_monster_from_weapon_attack_dropped_item_rarity_+%"
+			[1]="all_damage_with_tinctured_weapons_can_freeze"
 		}
 	},
 	[8]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Gain {0} Mana per Enemy Killed"
+					k="reminderstring",
+					v="ReminderTextIgnite"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Lose {0} Mana per Enemy Killed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="All Damage with Melee Weapons can Ignite"
 			}
 		},
 		stats={
-			[1]="base_mana_gained_on_weapon_kill"
+			[1]="all_damage_with_tinctured_weapons_can_ignite"
 		}
 	},
 	[9]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextGraspingVines"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="{0}% chance to inflict a Grasping Vine on Hit"
+					k="reminderstring",
+					v="ReminderTextPoison"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextGraspingVines"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Inflict a Grasping Vine on Hit"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="All Damage with Melee Weapons can Poison"
 			}
 		},
 		stats={
-			[1]="chance_to_apply_grasping_vines_on_weapon_hit_%"
+			[1]="all_damage_with_tinctured_weapons_can_poison"
 		}
 	},
 	[10]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextShock"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextConsecratedGround"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% chance to create Consecrated Ground when you Hit a Rare or Unique Enemy, lasting 8 seconds"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="All Damage with Melee Weapons can Shock"
 			}
 		},
 		stats={
-			[1]="create_consecrated_ground_on_weapon_hit_%_vs_rare_or_unique_enemy"
+			[1]="all_damage_with_tinctured_weapons_can_shock"
 		}
 	},
 	[11]={
-		lang={
-			English={
-				[1]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextCullingStrike"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Culling Strike"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Damaging Melee Weapon Hits always Stun Enemies that are on Full Life"
 			}
 		},
 		stats={
-			[1]="culling_strike_with_weapons"
+			[1]="always_stun_enemies_that_are_on_full_life_with_tinctured_weapons"
 		}
 	},
 	[12]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Killing Blows have a {0}% chance for Enemies to Explode, dealing a tenth of their maximum Life as Fire Damage"
-				}
+					k="reminderstring",
+					v="ReminderTextWithered"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Melee Weapon Hits Inflict {0} Withered Debuffs for 2 seconds"
 			}
 		},
 		stats={
-			[1]="explode_enemies_for_10%_life_as_fire_on_weapon_kill_chance_%"
+			[1]="apply_X_wither_stacks_for_2_seconds_with_tinctured_weapons"
 		}
 	},
 	[13]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Flask Charges gained from Kills"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Flask Charges gained from Kills"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Rarity of Items Dropped by Enemies killed by Melee Weapon Attacks"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Rarity of Items Dropped by Enemies killed by Melee Weapon Attacks"
 			}
 		},
 		stats={
-			[1]="flask_charges_granted_from_weapon_kills_+%"
+			[1]="base_killed_monster_from_tinctured_weapon_attack_dropped_item_rarity_+%"
 		}
 	},
 	[14]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Killing Blows against Rare Monsters have a {0}% chance\nto grant one of their Modifiers for 60 seconds"
-				}
+					k="reminderstring",
+					v="ReminderTextBleeding"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Damage with Bleeding from Melee Weapons"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextBleeding"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Damage with Bleeding from Melee Weapons"
 			}
 		},
 		stats={
-			[1]="gain_1_rare_monster_mod_on_killing_blow_with_weapons_for_60_seconds_%_chance"
+			[1]="bleeding_damage_+%_with_tinctured_weapons"
 		}
 	},
 	[15]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextBlindNoDuration"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextRage"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="{0}% chance to gain 1 Rage when you Hit a Rare or Unique Enemy"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Effect of Blind from Melee Weapons"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextBlindNoDuration"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextRage"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Gain 1 Rage when you Hit a Rare or Unique Enemy"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Effect of Blind from Melee Weapons"
 			}
 		},
 		stats={
-			[1]="gain_rage_on_hitting_rare_unique_enemy_with_weapon_%"
+			[1]="blind_effect_+%_with_tinctured_weapons"
 		}
 	},
 	[16]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0}% of Leech is Instant against Low Life Enemies"
-				}
+					k="reminderstring",
+					v="ReminderTextGraspingVines"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="{0}% chance to inflict a Grasping Vine on Melee Weapon Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextGraspingVines"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Inflict a Grasping Vine on Melee Weapon Hit"
 			}
 		},
 		stats={
-			[1]="leech_%_is_instant_with_weapons_vs_low_life_enemies"
+			[1]="chance_to_apply_grasping_vines_on_tinctured_weapon_hit_%"
 		}
 	},
 	[17]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextLifeLeech"
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextOverkill"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% of Overkill Damage is Leeched as Life"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="+{0}% Chance to Block Attack Damage if you've Stunned an Enemy with a Melee Weapon Recently"
 			}
 		},
 		stats={
-			[1]="life_leech_on_overkill_weapon_damage_%"
+			[1]="chance_to_block_attack_damage_if_stunned_an_enemy_with_tinctured_weapon_recently_+%"
 		}
 	},
 	[18]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextRecently"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Mana Regeneration Rate if you have Shocked an Enemy Recently"
+					k="reminderstring",
+					v="ReminderTextFreeze"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextRecently"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Mana Regeneration Rate if you have Shocked an Enemy Recently"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% chance to Freeze with Melee Weapons"
 			}
 		},
 		stats={
-			[1]="mana_regeneration_rate_+%_if_enemy_shocked_with_weapon_recently"
+			[1]="chance_to_freeze_%_with_tinctured_weapons"
 		}
 	},
 	[19]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
-					},
-					text="Melee Strike Skills deal Splash Damage to surrounding targets"
+					k="reminderstring",
+					v="ReminderTextIgnite"
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Melee Strike Skills deal Splash Damage to surrounding targets, with {1}% increased Area of Effect"
-				},
-				[3]={
+				limit={
 					[1]={
-						k="negate",
-						v=2
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Melee Strike Skills deal Splash Damage to surrounding targets, with {1}% reduced Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% chance to Ignite with Melee Weapons"
 			}
 		},
 		stats={
-			[1]="melee_splash_with_weapons",
-			[2]="melee_splash_area_of_effect_+%"
+			[1]="chance_to_ignite_%_with_tinctured_weapons"
 		}
 	},
 	[20]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextMeleeStrikeRange"
-					},
-					limit={
-						[1]={
-							[1]=10,
-							[2]=10
-						}
-					},
-					text="{0:+d} metre to Melee Strike Range"
+					k="reminderstring",
+					v="ReminderTextPoison"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="locations_to_metres",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextMeleeStrikeRange"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0:+d} metres to Melee Strike Range"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% chance to Poison with Melee Weapons"
 			}
 		},
 		stats={
-			[1]="melee_weapon_range_+"
+			[1]="chance_to_poison_on_hit_%_with_tinctured_weapons"
 		}
 	},
 	[21]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextRecently"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Weapon Attacks fire an additional Projectile if you've been Hit Recently"
+					k="reminderstring",
+					v="ReminderTextShock"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextRecently"
-					},
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Weapon Attacks fire {0} additional Projectiles if you've been Hit Recently"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% chance to Shock with Melee Weapons"
 			}
 		},
 		stats={
-			[1]="number_of_additional_projectiles_with_weapon_attacks_if_you_have_been_hit_recently"
+			[1]="chance_to_shock_%_with_tinctured_weapons"
 		}
 	},
 	[22]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextChillPotentialEffect"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextOverwhelm"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Overwhelm {0}% of Physical Damage Reduction"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Effect of Chill from Melee Weapons"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextChillPotentialEffect"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Effect of Chill from Melee Weapons"
 			}
 		},
 		stats={
-			[1]="overwhelm_%_physical_damage_reduction_with_weapons_%"
+			[1]="chill_effect_+%_with_tinctured_weapons"
 		}
 	},
 	[23]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextPhasing"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=99
-						}
-					},
-					text="{0}% chance to gain Phasing for 4 seconds on Kill"
+					k="reminderstring",
+					v="ReminderTextConsecratedGround"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextPhasing"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Gain Phasing for 4 seconds on Kill"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% chance to create Consecrated Ground when you Hit a Rare or\nUnique Enemy with a Melee Weapon, lasting 8 seconds"
 			}
 		},
 		stats={
-			[1]="phasing_for_4_seconds_on_weapon_kill_%"
+			[1]="create_consecrated_ground_on_tinctured_weapon_hit_%_vs_rare_or_unique_enemy"
 		}
 	},
 	[24]={
-		lang={
-			English={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Critical Strike Chance with Melee Weapons"
+			},
+			[2]={
 				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0}% chance to Curse Enemies with a random Hex on Hit"
-				}
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Critical Strike Chance with Melee Weapons"
 			}
 		},
 		stats={
-			[1]="random_curse_on_weapon_hit_%"
+			[1]="critical_strike_chance_+%_with_tinctured_weapons"
 		}
 	},
 	[25]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Recover {0}% of Life on Killing a Rare or Unique Enemy"
+					k="reminderstring",
+					v="ReminderTextCullingStrike"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Lose {0}% of Life on Killing a Rare or Unique Enemy"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Melee Weapon Attacks have Culling Strike"
 			}
 		},
 		stats={
-			[1]="recover_%_maximum_life_on_killing_rare_or_unique_with_weapon"
+			[1]="culling_strike_with_tinctured_weapons"
 		}
 	},
 	[26]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Damage Penetrates {0}% Chaos Resistance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Your Hits treat Chaos Resistance as {0}% higher than actual value"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Elemental Damage with Melee Weapons"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Elemental Damage with Melee Weapons"
 			}
 		},
 		stats={
-			[1]="reduce_enemy_chaos_resistance_with_weapons_%"
+			[1]="elemental_damage_+%_with_tinctured_weapons"
 		}
 	},
 	[27]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Damage Penetrates {0}% Cold Resistance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Your Hits treat Cold Resistance as {0}% higher than actual value"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Killing Blows with Melee Weapons have a {0}% chance for Enemies to\nExplode, dealing a tenth of their maximum Life as Fire Damage"
 			}
 		},
 		stats={
-			[1]="reduce_enemy_cold_resistance_with_weapons_%"
+			[1]="explode_enemies_for_10%_life_as_fire_on_tinctured_weapon_kill_chance_%"
 		}
 	},
 	[28]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Damage Penetrates {0}% Fire Resistance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Your Hits treat Fire Resistance as {0}% higher than actual value"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0:+d} Fire Damage taken from Hits per Mana Burn"
 			}
 		},
 		stats={
-			[1]="reduce_enemy_fire_resistance_with_weapons_%"
+			[1]="fire_damage_taken_+_per_toxicity_from_tincture"
 		}
 	},
 	[29]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Damage Penetrates {0}% Lightning Resistance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Your Hits treat Lightning Resistance as {0}% higher than actual value"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Killing Blows with Melee Weapons against Rare Monsters have a\n{0}% chance to grant one of their Modifiers for 60 seconds"
 			}
 		},
 		stats={
-			[1]="reduce_enemy_lightning_resistance_with_weapons_%"
+			[1]="gain_1_rare_monster_mod_on_killing_blow_with_tinctured_weapons_for_60_seconds_%_chance"
 		}
 	},
 	[30]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% chance to refresh Bleeding Duration on Hit"
-				}
+					k="reminderstring",
+					v="ReminderTextRage"
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextRageOnHit"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="{0}% chance to gain 1 Rage when you Hit a Rare or Unique Enemy with a Melee Weapon"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextRage"
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextRageOnHit"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Gain 1 Rage when you Hit a Rare or Unique Enemy with a Melee Weapon"
 			}
 		},
 		stats={
-			[1]="refresh_bleeding_duration_on_weapon_hit_%_chance"
+			[1]="gain_rage_on_hitting_rare_unique_enemy_with_tinctured_weapon_%"
 		}
 	},
 	[31]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% chance to refresh Ignite Duration on Hit"
-				}
+					k="reminderstring",
+					v="ReminderTextRage"
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextRageOnHit"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Gain {0} Rage on Melee Weapon Hit"
 			}
 		},
 		stats={
-			[1]="refresh_ignite_duration_on_weapon_hit_%_chance"
+			[1]="gain_x_rage_on_hit_with_tinctured_weapons"
 		}
 	},
 	[32]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Killing Blows have {0}% chance to Shatter Enemies as though Frozen"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Melee Weapon Hits have {0}% chance to ignore Enemy Physical Damage Reduction"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Melee Weapon Hits ignore Enemy Physical Damage Reduction"
 			}
 		},
 		stats={
-			[1]="shatter_on_weapon_kill_chance_%"
+			[1]="hits_ignore_enemy_monster_physical_damage_reduction_%_chance_with_tinctured_weapons"
 		}
 	},
 	[33]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextIgniteNonHitNoDuration"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextRecently"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Area of Effect if you've Killed Recently"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Damage with Ignite from Melee Weapons"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextIgniteNonHitNoDuration"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextRecently"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Area of Effect if you've Killed Recently"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Damage with Ignite from Melee Weapons"
 			}
 		},
 		stats={
-			[1]="weapon_skill_area_of_effect_+%_if_enemy_killed_recently"
+			[1]="ignite_damage_+%_with_tinctured_weapons"
 		}
 	},
 	[34]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="{0}% chance to Steal Endurance Charges on Hit"
+					k="reminderstring",
+					v="ReminderTextLowLife"
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Hits Steal Endurance Charges"
-				}
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0}% of Melee Weapon Leech is Instant against Enemies that are on Low Life"
 			}
 		},
 		stats={
-			[1]="steal_endurance_charges_on_hit_%_with_weapons"
+			[1]="leech_%_is_instant_with_tinctured_weapons_vs_low_life_enemies"
 		}
 	},
 	[35]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="{0}% chance to Steal Frenzy Charges on Hit"
+					k="reminderstring",
+					v="ReminderTextLifeLeech"
 				},
 				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Hits Steal Frenzy Charges"
-				}
+					k="reminderstring",
+					v="ReminderTextOverkill"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% of Overkill Damage with Melee Weapons is Leeched as Life"
 			}
 		},
 		stats={
-			[1]="steal_frenzy_charges_on_hit_%_with_weapons"
+			[1]="life_leech_on_overkill_tinctured_weapon_damage_%"
 		}
 	},
 	[36]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="{0}% chance to Steal Power Charges on Hit"
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Mana Regeneration Rate if you have Shocked an Enemy with a Melee Weapon Recently"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Hits Steal Power Charges"
-				}
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Mana Regeneration Rate if you have Shocked an Enemy with a Melee Weapon Recently"
 			}
 		},
 		stats={
-			[1]="steal_power_charges_on_hit_%_with_weapons"
+			[1]="mana_regeneration_rate_+%_if_enemy_shocked_with_tinctured_weapon_recently"
 		}
 	},
 	[37]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Bleeding you inflict on non-Bleeding Enemies deals {0}% more Damage"
+					[2]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Melee Strike Skills deal Splash Damage to surrounding targets"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					},
+					[2]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Melee Strike Skills deal Splash Damage to surrounding targets, with {1}% increased Area of Effect"
+			},
+			[3]={
+				[1]={
+					k="negate",
+					v=2
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					},
+					[2]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Melee Strike Skills deal Splash Damage to surrounding targets, with {1}% reduced Area of Effect"
+			}
+		},
+		stats={
+			[1]="melee_splash_with_tinctured_weapons",
+			[2]="melee_splash_area_of_effect_+%"
+		}
+	},
+	[38]={
+		[1]={
+			[1]={
+				[1]={
+					k="locations_to_metres",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextMeleeStrikeRange"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Bleeding you inflict on non-Bleeding Enemies deals {0}% less Damage"
-				}
+						[1]=10,
+						[2]=10
+					}
+				},
+				text="{0:+d} metre to Melee Strike Range"
+			},
+			[2]={
+				[1]={
+					k="locations_to_metres",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextMeleeStrikeRange"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0:+d} metres to Melee Strike Range"
+			}
+		},
+		stats={
+			[1]="melee_tinctured_weapon_range_+"
+		}
+	},
+	[39]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Attacks with Melee Weapons fire an additional Projectile if you've been Hit Recently"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Attacks with Melee Weapons fire {0} additional Projectiles if you've been Hit Recently"
+			}
+		},
+		stats={
+			[1]="number_of_additional_projectiles_with_tinctured_weapon_attacks_if_you_have_been_hit_recently"
+		}
+	},
+	[40]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Melee Weapons have {0}% chance to ignore Enemy Physical Damage Reduction"
+			}
+		},
+		stats={
+			[1]="overwhelm_%_physical_damage_reduction_with_tinctured_weapons_%"
+		}
+	},
+	[41]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Melee Weapon Damage Penetrates {0}% Elemental Resistances per Mana Burn"
+			}
+		},
+		stats={
+			[1]="penetrate_elemental_resistances_%_per_toxicity_with_tinctured_weapons"
+		}
+	},
+	[42]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextPhasing"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=99
+					}
+				},
+				text="{0}% chance to gain Phasing for 4 seconds on Melee Weapon Kill"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextPhasing"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Gain Phasing for 4 seconds on Melee Weapon Kill"
+			}
+		},
+		stats={
+			[1]="phasing_for_4_seconds_on_tinctured_weapon_kill_%"
+		}
+	},
+	[43]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextPoison"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Damage with Poison from Melee Weapons"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextPoison"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Damage with Poison from Melee Weapons"
+			}
+		},
+		stats={
+			[1]="poison_damage_+%_with_tinctured_weapons"
+		}
+	},
+	[44]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Cooldown Recovery Rate"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Cooldown Recovery Rate"
+			}
+		},
+		stats={
+			[1]="local_tincture_cooldown_recovery_+%"
+		}
+	},
+	[45]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced effect"
+			}
+		},
+		stats={
+			[1]="local_tincture_mod_effect_+%"
+		}
+	},
+	[46]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Mana Burn rate"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Mana Burn rate"
+			}
+		},
+		stats={
+			[1]="local_tincture_toxicity_rate_+%"
+		}
+	},
+	[47]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0}% chance to Curse Enemies with a random Hex on Melee Weapon Hit"
+			}
+		},
+		stats={
+			[1]="random_curse_on_tinctured_weapon_hit_%"
+		}
+	},
+	[48]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Recover {0}% of Life on Killing a Rare or Unique Enemy with a Melee Weapon"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Lose {0}% of Life on Killing a Rare or Unique Enemy with a Melee Weapon"
+			}
+		},
+		stats={
+			[1]="recover_%_maximum_life_on_killing_rare_or_unique_with_tinctured_weapon"
+		}
+	},
+	[49]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Melee Weapon Damage Penetrates {0}% Chaos Resistance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Your Melee Weapon Hits treat Chaos Resistance as {0}% higher than actual value"
+			}
+		},
+		stats={
+			[1]="reduce_enemy_chaos_resistance_with_tinctured_weapons_%"
+		}
+	},
+	[50]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Melee Weapon Damage Penetrates {0}% Cold Resistance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Your Melee Weapon Hits treat Cold Resistance as {0}% higher than actual value"
+			}
+		},
+		stats={
+			[1]="reduce_enemy_cold_resistance_with_tinctured_weapons_%"
+		}
+	},
+	[51]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Melee Weapon Damage Penetrates {0}% Fire Resistance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Your Melee Weapon Hits treat Fire Resistance as {0}% higher than actual value"
+			}
+		},
+		stats={
+			[1]="reduce_enemy_fire_resistance_with_tinctured_weapons_%"
+		}
+	},
+	[52]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Melee Weapon Damage Penetrates {0}% Lightning Resistance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Your Melee Weapon Hits treat Lightning Resistance as {0}% higher than actual value"
+			}
+		},
+		stats={
+			[1]="reduce_enemy_lightning_resistance_with_tinctured_weapons_%"
+		}
+	},
+	[53]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextBleeding"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% chance to refresh Bleeding Duration on Melee Weapon Hit"
+			}
+		},
+		stats={
+			[1]="refresh_bleeding_duration_on_tinctured_weapon_hit_%_chance"
+		}
+	},
+	[54]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextIgnite"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% chance to refresh Ignite Duration on Melee Weapon Hit"
+			}
+		},
+		stats={
+			[1]="refresh_ignite_duration_on_tinctured_weapon_hit_%_chance"
+		}
+	},
+	[55]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Killing Blows with Melee Weapons have {0}% chance to Shatter Enemies"
+			}
+		},
+		stats={
+			[1]="shatter_on_tinctured_weapon_kill_chance_%"
+		}
+	},
+	[56]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextShockPotentialEffect"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Effect of Shock from Melee Weapons"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextShockPotentialEffect"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Effect of Shock from Melee Weapons"
+			}
+		},
+		stats={
+			[1]="shock_effect_+%_with_tinctured_weapons"
+		}
+	},
+	[57]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="{0}% chance to Steal Endurance Charges on Hit with Melee Weapons"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Melee Weapon Hits Steal Endurance Charges"
+			}
+		},
+		stats={
+			[1]="steal_endurance_charges_on_hit_%_with_tinctured_weapons"
+		}
+	},
+	[58]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="{0}% chance to Steal Frenzy Charges on Hit with Melee Weapons"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Melee Weapon Hits Steal Frenzy Charges"
+			}
+		},
+		stats={
+			[1]="steal_frenzy_charges_on_hit_%_with_tinctured_weapons"
+		}
+	},
+	[59]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="{0}% chance to Steal Power Charges on Hit with Melee Weapons"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Melee Weapon Hits Steal Power Charges"
+			}
+		},
+		stats={
+			[1]="steal_power_charges_on_hit_%_with_tinctured_weapons"
+		}
+	},
+	[60]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Stun Duration with Melee Weapons"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Stun Duration with Melee Weapons"
+			}
+		},
+		stats={
+			[1]="stun_duration_+%_with_tinctured_weapons"
+		}
+	},
+	[61]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Melee Weapon Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Melee Weapon Attack Speed"
+			}
+		},
+		stats={
+			[1]="attack_speed_+%_with_tinctured_weapons"
+		}
+	},
+	[62]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Gain {0} Mana per Enemy Killed with Melee Weapons"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Lose {0} Mana per Enemy Killed with Melee Weapons"
+			}
+		},
+		stats={
+			[1]="base_mana_gained_on_tinctured_weapon_kill"
+		}
+	},
+	[63]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0:+d}% to Melee Weapon Critical Strike Multiplier"
+			}
+		},
+		stats={
+			[1]="critical_strike_multiplier_+_with_tinctured_weapons"
+		}
+	},
+	[64]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0:+d}% to Damage over Time Multiplier with Melee Weapon Attacks"
+			}
+		},
+		stats={
+			[1]="damage_over_time_multiplier_+_with_tinctured_weapons"
+		}
+	},
+	[65]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextElementalAilments"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Duration of Elemental Ailments from Melee Weapon Attacks"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextElementalAilments"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Duration of Elemental Ailments from Melee Weapon Attacks"
+			}
+		},
+		stats={
+			[1]="elemental_ailment_duration_+%_with_tinctured_weapons"
+		}
+	},
+	[66]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Flask Charges gained from Kills with Melee Weapons"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Flask Charges gained from Kills with Melee Weapons"
+			}
+		},
+		stats={
+			[1]="flask_charges_granted_from_tinctured_weapon_kills_+%"
+		}
+	},
+	[67]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Gain {0} Life per Enemy Hit with Melee Weapons"
+			}
+		},
+		stats={
+			[1]="life_gained_on_hitting_enemies_with_tinctured_weapons"
+		}
+	},
+	[68]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Gain {0} Life per Enemy Killed with Melee Weapons"
+			}
+		},
+		stats={
+			[1]="life_gained_on_killing_enemies_with_tinctured_weapons"
+		}
+	},
+	[69]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Gain {0} Mana per Enemy Hit with Melee Weapons"
+			}
+		},
+		stats={
+			[1]="mana_gained_on_hitting_enemies_with_tinctured_weapons"
+		}
+	},
+	[70]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Melee Weapon Damage Penetrates {0}% Elemental Resistances"
+			}
+		},
+		stats={
+			[1]="penetrate_elemental_resistances_%_with_tinctured_weapons"
+		}
+	},
+	[71]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextLowLife"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Melee Weapon Damage against Enemies that are on Low Life"
+			}
+		},
+		stats={
+			[1]="tinctured_weapon_damage_+%_vs_enemies_that_are_on_low_life"
+		}
+	},
+	[72]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextBleeding"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Bleeding inflicted with Melee Weapons on non-Bleeding Enemies deals {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextBleeding"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Bleeding inflicted with Melee Weapons on non-Bleeding Enemies deals {0}% less Damage"
 			}
 		},
 		stats={
 			[1]="tincture_bleeding_damage_+%_final_vs_non_bleeding_enemies"
 		}
 	},
-	[38]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0:+d}% to Critical Strike Chance against Enemies that are on Full Life"
-				}
+	[73]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Melee Weapons have {0:+d}% to Critical Strike Chance against Enemies that are on Full Life"
 			}
 		},
 		stats={
-			[1]="weapon_additional_critical_strike_chance_percent_against_full_life_enemies"
+			[1]="tinctured_weapon_additional_critical_strike_chance_percent_against_full_life_enemies"
 		}
 	},
-	[39]={
-		lang={
-			English={
+	[74]={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Poisons you inflict on non-Poisoned Enemies deal {0}% increased Damage"
+					k="reminderstring",
+					v="ReminderTextPoison"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Poisons inflicted with Melee Weapons on non-Poisoned Enemies deal {0}% increased Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextPoison"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Poisons you inflict on non-Poisoned Enemies deal {0}% reduced Damage"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Poisons inflicted with Melee Weapons on non-Poisoned Enemies deal {0}% reduced Damage"
 			}
 		},
 		stats={
-			[1]="weapon_attack_poison_on_non_poisoned_enemies_damage_+%"
+			[1]="tinctured_weapon_attack_poison_on_non_poisoned_enemies_damage_+%"
 		}
 	},
-	[40]={
-		lang={
-			English={
+	[75]={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Attack Speed if you have Blocked Recently"
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Melee Weapon Attack Speed if you have Blocked Recently"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Attack Speed if you have Blocked Recently"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Melee Weapon Attack Speed if you have Blocked Recently"
 			}
 		},
 		stats={
-			[1]="weapon_attack_speed_+%_if_have_blocked_recently"
+			[1]="tinctured_weapon_attack_speed_+%_if_have_blocked_recently"
 		}
 	},
-	[41]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Chills from your Hits always reduce Action Speed by at least {0}%"
-				}
-			}
-		},
-		stats={
-			[1]="weapon_chill_minimum_slow_%"
-		}
-	},
-	[42]={
-		lang={
-			English={
-				[1]={
+	[76]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextCoveredInAshNoDuration"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Cover Enemies in Ash on Hit for {0} seconds against Enemies that are on Full Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Chills from Melee Weapon Hits always reduce Action Speed by at least {0}%"
 			}
 		},
 		stats={
-			[1]="weapon_cover_in_ash_on_hit_for_X_seconds_vs_full_life_enemies"
+			[1]="tinctured_weapon_chill_minimum_slow_%"
 		}
 	},
-	[43]={
-		lang={
-			English={
+	[77]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextCoveredInAshNoDuration"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextCoveredInFrostNoDuration"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Cover Enemies in Frost on Hit for {0} seconds against Enemies that are on Full Life"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Cover Full Life Enemies in Ash for {0} seconds on Melee Weapon Hit"
 			}
 		},
 		stats={
-			[1]="weapon_cover_in_frost_on_hit_for_X_seconds_vs_full_life_enemies"
+			[1]="tinctured_weapon_cover_in_ash_on_hit_for_X_seconds_vs_full_life_enemies"
 		}
 	},
-	[44]={
-		lang={
-			English={
+	[78]={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="{0:+d}% to Critical Strike Multiplier against Enemies that are on Full Life"
-				}
-			}
-		},
-		stats={
-			[1]="weapon_critical_strike_multiplier_vs_enemies_on_full_life_+"
-		}
-	},
-	[45]={
-		lang={
-			English={
-				[1]={
+					k="reminderstring",
+					v="ReminderTextCoveredInFrostNoDuration"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextCrushedNoDuration"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Crush Enemies for {0} seconds when you Hit them while they are on Full Life"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Cover Full Life Enemies in Frost for {0} seconds on Melee Weapon Hit"
 			}
 		},
 		stats={
-			[1]="weapon_crush_on_hit_for_X_seconds_vs_full_life_enemies"
+			[1]="tinctured_weapon_cover_in_frost_on_hit_for_X_seconds_vs_full_life_enemies"
 		}
 	},
-	[46]={
-		lang={
-			English={
-				[1]={
+	[79]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextLowLife"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Damage against Enemies that are on Low Life"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0:+d}% to Melee Weapon Critical Strike Multiplier against Enemies that are on Full Life"
 			}
 		},
 		stats={
-			[1]="weapon_damage_+%_vs_enemies_that_are_on_low_life"
+			[1]="tinctured_weapon_critical_strike_multiplier_vs_enemies_on_full_life_+"
 		}
 	},
-	[47]={
-		lang={
-			English={
+	[80]={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Damage for each Non-Instant Spell you've Cast in the past 8 seconds"
+					k="reminderstring",
+					v="ReminderTextCrushedNoDuration"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Crush Full Life Enemies for {0} seconds on Melee Weapon Hit"
+			}
+		},
+		stats={
+			[1]="tinctured_weapon_crush_on_hit_for_X_seconds_vs_full_life_enemies"
+		}
+	},
+	[81]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Melee Weapon Damage for each\nNon-Instant Spell you've Cast in the past 8 seconds"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Melee Weapon Damage for each\nNon-Instant Spell you've Cast in the past 8 seconds"
+			}
+		},
+		stats={
+			[1]="tinctured_weapon_damage_+%_per_non_instant_spell_cast_in_past_8_seconds"
+		}
+	},
+	[82]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextLowLife"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Your Melee Weapon Hits can't be Evaded while you are on Low Life"
+			}
+		},
+		stats={
+			[1]="tinctured_weapon_hits_cannot_be_evaded_while_on_low_life"
+		}
+	},
+	[83]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextOnslaught"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="{0}% chance to gain Onslaught for 10 seconds on Killing Blow with Melee Weapons"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextOnslaught"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Gain Onslaught for 10 seconds on Killing Blow with Melee Weapons"
+			}
+		},
+		stats={
+			[1]="tinctured_weapon_kill_chance_to_gain_onslaught_on_kill_for_10_seconds_%"
+		}
+	},
+	[84]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=99
+					}
+				},
+				text="Projectiles from Melee Weapon Attacks have {0}% chance to be able to Chain when colliding with terrain"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Projectiles from Melee Weapon Attacks can Chain when colliding with terrain"
+			}
+		},
+		stats={
+			[1]="tinctured_weapon_projectile_chain_from_terrain_chance_%"
+		}
+	},
+	[85]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Melee Weapon Attack Area of Effect if you've Killed Recently"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
-					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="(0)% reduced Damage for each Non-Instant Spell you've Cast in the past 8 seconds"
-				}
-			}
-		},
-		stats={
-			[1]="weapon_damage_+%_per_non_instant_spell_cast_in_past_8_seconds"
-		}
-	},
-	[48]={
-		lang={
-			English={
-				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextLowLife"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Your hits can't be Evaded while you are on Low Life"
-				}
-			}
-		},
-		stats={
-			[1]="weapon_hits_cannot_be_evaded_while_on_low_life"
-		}
-	},
-	[49]={
-		lang={
-			English={
-				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextOnslaught"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="{0}% chance to gain Onslaught for 10 seconds on Killing Blow"
+					k="reminderstring",
+					v="ReminderTextRecently"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextOnslaught"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Gain Onslaught for 10 seconds on Killing Blow"
-				}
-			}
-		},
-		stats={
-			[1]="weapon_kill_chance_to_gain_onslaught_on_kill_for_10_seconds_%"
-		}
-	},
-	[50]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=99
-						}
-					},
-					text="Projectiles have {0}% chance to be able to Chain when colliding with terrain"
+						[1]="#",
+						[2]=-1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Projectiles can Chain when colliding with terrain"
-				}
+				text="{0}% reduced Melee Weapon Attack Area of Effect if you've Killed Recently"
 			}
 		},
 		stats={
-			[1]="weapon_projectile_chain_from_terrain_chance_%"
+			[1]="tinctured_weapon_skill_area_of_effect_+%_if_enemy_killed_recently"
 		}
 	},
-	["all_damage_with_weapons_can_freeze"]=1,
-	["all_damage_with_weapons_can_ignite"]=2,
-	["all_damage_with_weapons_can_poison"]=3,
-	["all_damage_with_weapons_can_shock"]=4,
-	["always_stun_enemies_that_are_on_full_life_with_weapons"]=5,
-	["apply_X_wither_stacks_for_2_seconds_vs_enemies_that_are_on_full_life_with_weapons"]=6,
-	["base_killed_monster_from_weapon_attack_dropped_item_rarity_+%"]=7,
-	["base_mana_gained_on_weapon_kill"]=8,
-	["chance_to_apply_grasping_vines_on_weapon_hit_%"]=9,
-	["create_consecrated_ground_on_weapon_hit_%_vs_rare_or_unique_enemy"]=10,
-	["culling_strike_with_weapons"]=11,
-	["explode_enemies_for_10%_life_as_fire_on_weapon_kill_chance_%"]=12,
-	["flask_charges_granted_from_weapon_kills_+%"]=13,
-	["gain_1_rare_monster_mod_on_killing_blow_with_weapons_for_60_seconds_%_chance"]=14,
-	["gain_rage_on_hitting_rare_unique_enemy_with_weapon_%"]=15,
-	["leech_%_is_instant_with_weapons_vs_low_life_enemies"]=16,
-	["life_leech_on_overkill_weapon_damage_%"]=17,
-	["mana_regeneration_rate_+%_if_enemy_shocked_with_weapon_recently"]=18,
-	["melee_splash_area_of_effect_+%"]=19,
-	["melee_splash_with_weapons"]=19,
-	["melee_weapon_range_+"]=20,
-	["number_of_additional_projectiles_with_weapon_attacks_if_you_have_been_hit_recently"]=21,
-	["overwhelm_%_physical_damage_reduction_with_weapons_%"]=22,
+	["all_damage_with_tinctured_weapons_can_freeze"]=7,
+	["all_damage_with_tinctured_weapons_can_ignite"]=8,
+	["all_damage_with_tinctured_weapons_can_poison"]=9,
+	["all_damage_with_tinctured_weapons_can_shock"]=10,
+	["always_stun_enemies_that_are_on_full_life_with_tinctured_weapons"]=11,
+	["apply_X_wither_stacks_for_2_seconds_with_tinctured_weapons"]=12,
+	["attack_speed_+%_with_tinctured_weapons"]=61,
+	["base_killed_monster_from_tinctured_weapon_attack_dropped_item_rarity_+%"]=13,
+	["base_mana_gained_on_tinctured_weapon_kill"]=62,
+	["bleeding_damage_+%_with_tinctured_weapons"]=14,
+	["blind_effect_+%_with_tinctured_weapons"]=15,
+	["chance_to_apply_grasping_vines_on_tinctured_weapon_hit_%"]=16,
+	["chance_to_bleed_on_hit_%_with_tinctured_weapons"]=2,
+	["chance_to_blind_on_hit_%_with_tinctured_weapons"]=3,
+	["chance_to_block_attack_damage_if_stunned_an_enemy_with_tinctured_weapon_recently_+%"]=17,
+	["chance_to_freeze_%_with_tinctured_weapons"]=18,
+	["chance_to_ignite_%_with_tinctured_weapons"]=19,
+	["chance_to_poison_on_hit_%_with_tinctured_weapons"]=20,
+	["chance_to_shock_%_with_tinctured_weapons"]=21,
+	["chill_effect_+%_with_tinctured_weapons"]=22,
+	["create_consecrated_ground_on_tinctured_weapon_hit_%_vs_rare_or_unique_enemy"]=23,
+	["critical_strike_chance_+%_with_tinctured_weapons"]=24,
+	["critical_strike_multiplier_+_with_tinctured_weapons"]=63,
+	["culling_strike_with_tinctured_weapons"]=25,
+	["damage_over_time_multiplier_+_with_tinctured_weapons"]=64,
+	["elemental_ailment_duration_+%_with_tinctured_weapons"]=65,
+	["elemental_damage_+%_with_tinctured_weapons"]=26,
+	["explode_enemies_for_10%_life_as_fire_on_tinctured_weapon_kill_chance_%"]=27,
+	["fire_damage_taken_+_per_toxicity_from_tincture"]=28,
+	["flask_charges_granted_from_tinctured_weapon_kills_+%"]=66,
+	["gain_1_rare_monster_mod_on_killing_blow_with_tinctured_weapons_for_60_seconds_%_chance"]=29,
+	["gain_rage_on_hitting_rare_unique_enemy_with_tinctured_weapon_%"]=30,
+	["gain_x_rage_on_hit_with_tinctured_weapons"]=31,
+	["hits_ignore_enemy_monster_physical_damage_reduction_%_chance_with_tinctured_weapons"]=32,
+	["ignite_damage_+%_with_tinctured_weapons"]=33,
+	["item_rarity_+%_per_toxicity_up_to_100%_from_tincture"]=6,
+	["leech_%_is_instant_with_tinctured_weapons_vs_low_life_enemies"]=34,
+	["life_gained_on_hitting_enemies_with_tinctured_weapons"]=67,
+	["life_gained_on_killing_enemies_with_tinctured_weapons"]=68,
+	["life_leech_on_overkill_tinctured_weapon_damage_%"]=35,
+	["local_cannot_generate_toxicity_stacks_over_time"]=4,
+	["local_tincture_cooldown_recovery_+%"]=44,
+	["local_tincture_mod_effect_+%"]=45,
+	["local_tincture_toxicity_rate_+%"]=46,
+	["mana_gained_on_hitting_enemies_with_tinctured_weapons"]=69,
+	["mana_regeneration_rate_+%_if_enemy_shocked_with_tinctured_weapon_recently"]=36,
+	["melee_splash_area_of_effect_+%"]=37,
+	["melee_splash_with_tinctured_weapons"]=37,
+	["melee_tinctured_weapon_range_+"]=38,
+	["number_of_additional_projectiles_with_tinctured_weapon_attacks_if_you_have_been_hit_recently"]=39,
+	["overwhelm_%_physical_damage_reduction_with_tinctured_weapons_%"]=40,
 	parent="stat_descriptions",
-	["phasing_for_4_seconds_on_weapon_kill_%"]=23,
-	["random_curse_on_weapon_hit_%"]=24,
-	["recover_%_maximum_life_on_killing_rare_or_unique_with_weapon"]=25,
-	["reduce_enemy_chaos_resistance_with_weapons_%"]=26,
-	["reduce_enemy_cold_resistance_with_weapons_%"]=27,
-	["reduce_enemy_fire_resistance_with_weapons_%"]=28,
-	["reduce_enemy_lightning_resistance_with_weapons_%"]=29,
-	["refresh_bleeding_duration_on_weapon_hit_%_chance"]=30,
-	["refresh_ignite_duration_on_weapon_hit_%_chance"]=31,
-	["shatter_on_weapon_kill_chance_%"]=32,
-	["steal_endurance_charges_on_hit_%_with_weapons"]=34,
-	["steal_frenzy_charges_on_hit_%_with_weapons"]=35,
-	["steal_power_charges_on_hit_%_with_weapons"]=36,
-	["tincture_bleeding_damage_+%_final_vs_non_bleeding_enemies"]=37,
-	["weapon_additional_critical_strike_chance_percent_against_full_life_enemies"]=38,
-	["weapon_attack_poison_on_non_poisoned_enemies_damage_+%"]=39,
-	["weapon_attack_speed_+%_if_have_blocked_recently"]=40,
-	["weapon_chill_minimum_slow_%"]=41,
-	["weapon_cover_in_ash_on_hit_for_X_seconds_vs_full_life_enemies"]=42,
-	["weapon_cover_in_frost_on_hit_for_X_seconds_vs_full_life_enemies"]=43,
-	["weapon_critical_strike_multiplier_vs_enemies_on_full_life_+"]=44,
-	["weapon_crush_on_hit_for_X_seconds_vs_full_life_enemies"]=45,
-	["weapon_damage_+%_per_non_instant_spell_cast_in_past_8_seconds"]=47,
-	["weapon_damage_+%_vs_enemies_that_are_on_low_life"]=46,
-	["weapon_hits_cannot_be_evaded_while_on_low_life"]=48,
-	["weapon_kill_chance_to_gain_onslaught_on_kill_for_10_seconds_%"]=49,
-	["weapon_projectile_chain_from_terrain_chance_%"]=50,
-	["weapon_skill_area_of_effect_+%_if_enemy_killed_recently"]=33
+	["penetrate_elemental_resistances_%_per_toxicity_with_tinctured_weapons"]=41,
+	["penetrate_elemental_resistances_%_with_tinctured_weapons"]=70,
+	["phasing_for_4_seconds_on_tinctured_weapon_kill_%"]=42,
+	["poison_damage_+%_with_tinctured_weapons"]=43,
+	["random_curse_on_tinctured_weapon_hit_%"]=47,
+	["recover_%_maximum_life_on_killing_rare_or_unique_with_tinctured_weapon"]=48,
+	["reduce_enemy_chaos_resistance_with_tinctured_weapons_%"]=49,
+	["reduce_enemy_cold_resistance_with_tinctured_weapons_%"]=50,
+	["reduce_enemy_fire_resistance_with_tinctured_weapons_%"]=51,
+	["reduce_enemy_lightning_resistance_with_tinctured_weapons_%"]=52,
+	["refresh_bleeding_duration_on_tinctured_weapon_hit_%_chance"]=53,
+	["refresh_ignite_duration_on_tinctured_weapon_hit_%_chance"]=54,
+	["shatter_on_tinctured_weapon_kill_chance_%"]=55,
+	["shock_effect_+%_with_tinctured_weapons"]=56,
+	["steal_endurance_charges_on_hit_%_with_tinctured_weapons"]=57,
+	["steal_frenzy_charges_on_hit_%_with_tinctured_weapons"]=58,
+	["steal_power_charges_on_hit_%_with_tinctured_weapons"]=59,
+	["stun_duration_+%_with_tinctured_weapons"]=60,
+	["stun_threshold_reduction_+%_with_tinctured_weapons"]=1,
+	["tincture_bleeding_damage_+%_final_vs_non_bleeding_enemies"]=72,
+	["tinctured_weapon_additional_critical_strike_chance_percent_against_full_life_enemies"]=73,
+	["tinctured_weapon_attack_poison_on_non_poisoned_enemies_damage_+%"]=74,
+	["tinctured_weapon_attack_speed_+%_if_have_blocked_recently"]=75,
+	["tinctured_weapon_chill_minimum_slow_%"]=76,
+	["tinctured_weapon_cover_in_ash_on_hit_for_X_seconds_vs_full_life_enemies"]=77,
+	["tinctured_weapon_cover_in_frost_on_hit_for_X_seconds_vs_full_life_enemies"]=78,
+	["tinctured_weapon_critical_strike_multiplier_vs_enemies_on_full_life_+"]=79,
+	["tinctured_weapon_crush_on_hit_for_X_seconds_vs_full_life_enemies"]=80,
+	["tinctured_weapon_damage_+%_per_non_instant_spell_cast_in_past_8_seconds"]=81,
+	["tinctured_weapon_damage_+%_vs_enemies_that_are_on_low_life"]=71,
+	["tinctured_weapon_hits_cannot_be_evaded_while_on_low_life"]=82,
+	["tinctured_weapon_kill_chance_to_gain_onslaught_on_kill_for_10_seconds_%"]=83,
+	["tinctured_weapon_projectile_chain_from_terrain_chance_%"]=84,
+	["tinctured_weapon_skill_area_of_effect_+%_if_enemy_killed_recently"]=85,
+	["toxicity_stacks_gained_on_hit_with_tinctured_weapons"]=5
 }

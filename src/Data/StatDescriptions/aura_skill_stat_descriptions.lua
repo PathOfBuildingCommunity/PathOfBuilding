@@ -3,30 +3,28 @@
 
 return {
 	[1]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies deal {0}% more Physical Damage with Melee Skills"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby allies deal {0}% reduced Physical Damage with Melee Skills"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0}% increased Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby allies gain {0}% reduced Physical Damage"
 			}
 		},
 		name="physical_damage_incr",
@@ -35,30 +33,28 @@ return {
 		}
 	},
 	[2]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0}% increased Movement Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby allies gain {0}% reduced Movement Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0}% increased Movement Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby allies gain {0}% reduced Movement Speed"
 			}
 		},
 		name="movement_speed_incr",
@@ -67,30 +63,28 @@ return {
 		}
 	},
 	[3]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0}% increased Attack Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby allies gain {0}% reduced Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0}% increased Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby allies gain {0}% reduced Attack Speed"
 			}
 		},
 		name="attack_speed_incr_skill_granted",
@@ -99,30 +93,28 @@ return {
 		}
 	},
 	[4]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0}% increased Cast Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby allies gain {0}% reduced Cast Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0}% increased Cast Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby allies gain {0}% reduced Cast Speed"
 			}
 		},
 		name="cast_speed_incr_skill_granted",
@@ -131,17 +123,15 @@ return {
 		}
 	},
 	[5]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0:+d}% to all Elemental Resistances"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0:+d}% to all Elemental Resistances"
 			}
 		},
 		name="elemental_resist",
@@ -150,21 +140,19 @@ return {
 		}
 	},
 	[6]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second_2dp",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second_2dp",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies Regenerate {0}% of Life per second"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies Regenerate {0}% of Life per second"
 			}
 		},
 		name="life_regen_per_minute_percent",
@@ -173,21 +161,19 @@ return {
 		}
 	},
 	[7]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies Regenerate {0} Life per second"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies Regenerate {0} Life per second"
 			}
 		},
 		name="life_regen_per_minute",
@@ -196,30 +182,28 @@ return {
 		}
 	},
 	[8]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0}% increased Accuracy Rating"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby allies gain {0}% reduced Accuracy Rating"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0}% increased Accuracy Rating"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby allies gain {0}% reduced Accuracy Rating"
 			}
 		},
 		name="accuracy_rating_incr",
@@ -228,30 +212,28 @@ return {
 		}
 	},
 	[9]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0}% increased Critical Strike Chance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby allies gain {0}% reduced Critical Strike Chance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0}% increased Critical Strike Chance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby allies gain {0}% reduced Critical Strike Chance"
 			}
 		},
 		name="grants_critical_strike_chance_incr",
@@ -260,17 +242,15 @@ return {
 		}
 	},
 	[10]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0} additional Evasion Rating"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0} additional Evasion Rating"
 			}
 		},
 		name="base_evasion",
@@ -279,17 +259,15 @@ return {
 		}
 	},
 	[11]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0}% more Evasion rating"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0}% more Evasion rating"
 			}
 		},
 		name="grace_evasion_incr",
@@ -298,17 +276,15 @@ return {
 		}
 	},
 	[12]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0} additional Armour"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0} additional Armour"
 			}
 		},
 		name="base_armour",
@@ -317,17 +293,15 @@ return {
 		}
 	},
 	[13]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0}% more Armour"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0}% more Armour"
 			}
 		},
 		name="determination_armour_incr",
@@ -336,17 +310,15 @@ return {
 		}
 	},
 	[14]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0} additional Energy Shield"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0} additional Energy Shield"
 			}
 		},
 		name="base_energy_shield",
@@ -355,17 +327,15 @@ return {
 		}
 	},
 	[15]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0}% additional Lightning Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0}% additional Lightning Resistance"
 			}
 		},
 		name="lightning_resist",
@@ -374,17 +344,15 @@ return {
 		}
 	},
 	[16]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0}% additional Fire Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0}% additional Fire Resistance"
 			}
 		},
 		name="fire_resist",
@@ -393,17 +361,15 @@ return {
 		}
 	},
 	[17]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0}% additional Cold Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0}% additional Cold Resistance"
 			}
 		},
 		name="cold_resist",
@@ -412,21 +378,19 @@ return {
 		}
 	},
 	[18]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextMaximumResistance"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextMaximumResistance"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0}% additional maximum Fire Resistance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0}% additional maximum Fire Resistance"
 			}
 		},
 		name="max_fire_resist",
@@ -435,21 +399,19 @@ return {
 		}
 	},
 	[19]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextMaximumResistance"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextMaximumResistance"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0}% additional maximum Cold Resistance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0}% additional maximum Cold Resistance"
 			}
 		},
 		name="max_cold_resist",
@@ -458,21 +420,19 @@ return {
 		}
 	},
 	[20]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextMaximumResistance"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextMaximumResistance"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0}% additional maximum Lightning Resistance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0}% additional maximum Lightning Resistance"
 			}
 		},
 		name="max_lightning_resist",
@@ -481,21 +441,19 @@ return {
 		}
 	},
 	[21]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="You and nearby allies deal {0} to {1} additional Fire Damage with Attacks"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby allies deal {0} to {1} additional Fire Damage with Attacks"
 			}
 		},
 		name="attack_added_fire",
@@ -505,21 +463,19 @@ return {
 		}
 	},
 	[22]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="You and nearby allies deal {0} to {1} additional Lightning Damage with Attacks"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby allies deal {0} to {1} additional Lightning Damage with Attacks"
 			}
 		},
 		name="attack_added_lightning",
@@ -529,17 +485,15 @@ return {
 		}
 	},
 	[23]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0}% of Physical Damage as Extra Cold Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0}% of Physical Damage as Extra Cold Damage"
 			}
 		},
 		name="physical_damage_to_add_as_cold",
@@ -548,21 +502,19 @@ return {
 		}
 	},
 	[24]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies Regenerate {0} Mana per second"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies Regenerate {0} Mana per second"
 			}
 		},
 		name="mana_regen",
@@ -571,17 +523,15 @@ return {
 		}
 	},
 	[25]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Your and nearby allies' Energy Shield Recharges are not delayed by Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Your and nearby allies' Energy Shield Recharges are not delayed by Damage"
 			}
 		},
 		name="energy_shield_no_delay",
@@ -590,17 +540,15 @@ return {
 		}
 	},
 	[26]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Your and nearby allies' Skills Cost no Mana"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Your and nearby allies' Skills Cost no Mana"
 			}
 		},
 		name="no_mana_cost",
@@ -609,17 +557,15 @@ return {
 		}
 	},
 	[27]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies have {0:+d}% chance to Evade Attack Hits"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies have {0:+d}% chance to Evade Attack Hits"
 			}
 		},
 		name="evade_chance",
@@ -628,17 +574,15 @@ return {
 		}
 	},
 	[28]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Taking Elemental Damage instead heals you and Nearby Allies\nYou and Nearby Allies cannot gain Vaal Souls"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Taking Elemental Damage instead heals you and Nearby Allies\nYou and Nearby Allies cannot gain Vaal Souls"
 			}
 		},
 		name="base_elemental_damage_heals",
@@ -647,21 +591,19 @@ return {
 		}
 	},
 	[29]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="You and nearby allies deal {0} to {1} additional Fire Damage with Spells"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby allies deal {0} to {1} additional Fire Damage with Spells"
 			}
 		},
 		name="spell_added_fire_damage",
@@ -671,30 +613,28 @@ return {
 		}
 	},
 	[30]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies deal {0}% more Spell Lightning Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby allies deal {0}% less Spell Lightning Damage with Spells"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies deal {0}% more Spell Lightning Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby allies deal {0}% less Spell Lightning Damage with Spells"
 			}
 		},
 		name="wrath_spell_lightning_damage",
@@ -703,17 +643,15 @@ return {
 		}
 	},
 	[31]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby allies gain {0:+d} to Accuracy Rating"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby allies gain {0:+d} to Accuracy Rating"
 			}
 		},
 		name="accuracy_rating",
@@ -722,21 +660,19 @@ return {
 		}
 	},
 	[32]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="You and nearby allies deal {0} to {1} additional Chaos Damage with Attacks"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby allies deal {0} to {1} additional Chaos Damage with Attacks"
 			}
 		},
 		name="attack_added_chaos",
@@ -746,34 +682,32 @@ return {
 		}
 	},
 	[33]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextImpale"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="You and nearby Allies have +{0}% chance to Block Attack Damage"
+					k="reminderstring",
+					v="ReminderTextImpale"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextImpale"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies Impale Enemies on Hit with Attacks"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="You and nearby Allies have {0}% chance to Impale Enemies on Hit with Attacks"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextImpale"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies Impale Enemies on Hit with Attacks"
 			}
 		},
 		name="attack_impale_chance",
@@ -782,30 +716,28 @@ return {
 		}
 	},
 	[34]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies deal {0}% increased Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby Allies deal {0}% reduced Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies deal {0}% increased Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby Allies deal {0}% reduced Damage"
 			}
 		},
 		name="aura_damage_pluspercent",
@@ -814,17 +746,15 @@ return {
 		}
 	},
 	[35]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0}% chance to avoid Elemental Ailments"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0}% chance to avoid Elemental Ailments"
 			}
 		},
 		name="aura_avoid_elemental_ailments",
@@ -833,34 +763,32 @@ return {
 		}
 	},
 	[36]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextChanceToAvoidDamageMax"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="You and nearby Allies have {0}% chance to Avoid Chaos Damage from Hits"
+					k="reminderstring",
+					v="ReminderTextChanceToAvoidDamageMax"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextChanceToAvoidDamageMax"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies Avoid Chaos Damage from Hits"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="You and nearby Allies have {0}% chance to Avoid Chaos Damage from Hits"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextChanceToAvoidDamageMax"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies Avoid Chaos Damage from Hits"
 			}
 		},
 		name="avoid_chaos_damage",
@@ -869,17 +797,15 @@ return {
 		}
 	},
 	[37]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Nearby Enemies have {0}% to Physical Damage Reduction"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Nearby Enemies have {0}% to Physical Damage Reduction"
 			}
 		},
 		name="phys_reduction",
@@ -888,30 +814,28 @@ return {
 		}
 	},
 	[38]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies deal {0}% increased Damage with Ailments"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby Allies deal {0}% reduced Damage with Ailments"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies deal {0}% increased Damage with Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby Allies deal {0}% reduced Damage with Ailments"
 			}
 		},
 		name="aura_ailment_damage",
@@ -920,17 +844,15 @@ return {
 		}
 	},
 	[39]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0}% chance to avoid being Frozen"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0}% chance to avoid being Frozen"
 			}
 		},
 		name="aura_avoid_freeze",
@@ -939,17 +861,15 @@ return {
 		}
 	},
 	[40]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0}% chance to avoid being Ignited"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0}% chance to avoid being Ignited"
 			}
 		},
 		name="aura_avoid_ignite",
@@ -958,17 +878,15 @@ return {
 		}
 	},
 	[41]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0}% chance to avoid being Shocked"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0}% chance to avoid being Shocked"
 			}
 		},
 		name="aura_avoid_shock",
@@ -977,17 +895,15 @@ return {
 		}
 	},
 	[42]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0}% chance to Avoid being Stunned"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0}% chance to Avoid being Stunned"
 			}
 		},
 		name="base_avoid_stun_chance",
@@ -996,17 +912,15 @@ return {
 		}
 	},
 	[43]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0:+d}% to Critical Strike Multiplier"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0:+d}% to Critical Strike Multiplier"
 			}
 		},
 		name="critical_strike_multiplier_incr",
@@ -1015,17 +929,15 @@ return {
 		}
 	},
 	[44]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby allies are Immune to Chill"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby allies are Immune to Chill"
 			}
 		},
 		name="immune_to_chill",
@@ -1034,17 +946,15 @@ return {
 		}
 	},
 	[45]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby allies are Immune to Freeze"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby allies are Immune to Freeze"
 			}
 		},
 		name="immune_to_freeze",
@@ -1053,17 +963,15 @@ return {
 		}
 	},
 	[46]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby allies are Immune to Ignite"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby allies are Immune to Ignite"
 			}
 		},
 		name="immune_to_ignite",
@@ -1072,17 +980,15 @@ return {
 		}
 	},
 	[47]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby allies are Immune to Shock"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby allies are Immune to Shock"
 			}
 		},
 		name="immune_to_shock",
@@ -1091,30 +997,28 @@ return {
 		}
 	},
 	[48]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0}% increased Projectile Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby Allies have {0}% reduced Projectile Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0}% increased Projectile Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby Allies have {0}% reduced Projectile Speed"
 			}
 		},
 		name="projectile_speed_incr",
@@ -1123,17 +1027,15 @@ return {
 		}
 	},
 	[49]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Your and nearby Allies' Damage Penetrates {0}% Cold Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Your and nearby Allies' Damage Penetrates {0}% Cold Resistance"
 			}
 		},
 		name="cold_penetration",
@@ -1142,17 +1044,15 @@ return {
 		}
 	},
 	[50]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Your and nearby Allies' Damage Penetrates {0}% Fire Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Your and nearby Allies' Damage Penetrates {0}% Fire Resistance"
 			}
 		},
 		name="fire_penetration",
@@ -1161,17 +1061,15 @@ return {
 		}
 	},
 	[51]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Your and nearby Allies' Damage Penetrates {0}% Lightning Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Your and nearby Allies' Damage Penetrates {0}% Lightning Resistance"
 			}
 		},
 		name="lightning_penetration",
@@ -1180,30 +1078,28 @@ return {
 		}
 	},
 	[52]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buffs on You and nearby Allies expire {0}% faster"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Buffs on You and nearby Allies expire {0}% slower"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buffs on You and nearby Allies expire {0}% faster"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buffs on You and nearby Allies expire {0}% slower"
 			}
 		},
 		name="buff_time_passed_pluspercent_for_buff_category",
@@ -1212,30 +1108,28 @@ return {
 		}
 	},
 	[53]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies deal {0}% increased Burning Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby Allies deal {0}% reduced Burning Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies deal {0}% increased Burning Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby Allies deal {0}% reduced Burning Damage"
 			}
 		},
 		name="burn_damage",
@@ -1244,30 +1138,28 @@ return {
 		}
 	},
 	[54]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0}% increased Chill and Freeze Duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby Allies have {0}% reduced Chill and Freeze Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0}% increased Chill and Freeze Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby Allies have {0}% reduced Chill and Freeze Duration"
 			}
 		},
 		name="chill_and_freeze_duration",
@@ -1276,30 +1168,28 @@ return {
 		}
 	},
 	[55]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Cold Damage taken"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Cold Damage taken"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Cold Damage taken"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Cold Damage taken"
 			}
 		},
 		name="cold_damage_taken",
@@ -1308,21 +1198,19 @@ return {
 		}
 	},
 	[56]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextConsecratedGround"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextConsecratedGround"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby Non-Minion Allies have a {0}% chance to create Consecrated Ground on Hitting a Rare or Unique Enemy, lasting 8 seconds"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby Non-Minion Allies have a {0}% chance to create Consecrated Ground on Hitting a Rare or Unique Enemy, lasting 8 seconds"
 			}
 		},
 		name="consecrate_on_hit_rare_unique",
@@ -1331,30 +1219,28 @@ return {
 		}
 	},
 	[57]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% increased Damage if you've changed Stance recently"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Buff grants {0}% reduced Damage if you've changed Stance recently"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% increased Damage if you've changed Stance recently"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buff grants {0}% reduced Damage if you've changed Stance recently"
 			}
 		},
 		name="damage_plus_if_changed_stances_recently",
@@ -1363,30 +1249,28 @@ return {
 		}
 	},
 	[58]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0}% increased Damage while on Full Mana"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby Allies have {0}% reduced Damage while on Full Mana"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0}% increased Damage while on Full Mana"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby Allies have {0}% reduced Damage while on Full Mana"
 			}
 		},
 		name="damage_on_full_mana",
@@ -1395,30 +1279,28 @@ return {
 		}
 	},
 	[59]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0}% increased Damage while on Full Energy Shield"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby Allies have {0}% reduced Damage while on Full Energy Shield"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0}% increased Damage while on Full Energy Shield"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby Allies have {0}% reduced Damage while on Full Energy Shield"
 			}
 		},
 		name="damage_on_full_energy_shield_incr",
@@ -1427,17 +1309,15 @@ return {
 		}
 	},
 	[60]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies deal {0}% increased Damage while on Full Life"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies deal {0}% increased Damage while on Full Life"
 			}
 		},
 		name="aura_damage_on_full_life",
@@ -1446,21 +1326,19 @@ return {
 		}
 	},
 	[61]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextUnlucky"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextUnlucky"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Suppressed Spell Damage dealt to you is Unlucky"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Suppressed Spell Damage dealt to you is Unlucky"
 			}
 		},
 		name="unlucky_suppressed_damage",
@@ -1469,30 +1347,28 @@ return {
 		}
 	},
 	[62]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies deal {0}% more Damage over Time"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby allies deal {0}% less Damage over Time"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies deal {0}% more Damage over Time"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby allies deal {0}% less Damage over Time"
 			}
 		},
 		name="delirium_aura_damage_over_time_incr",
@@ -1501,30 +1377,28 @@ return {
 		}
 	},
 	[63]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies have {0}% increased Skill Effect Duration"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby allies {0}% reduced Skill Effect Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies have {0}% increased Skill Effect Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby allies {0}% reduced Skill Effect Duration"
 			}
 		},
 		name="duration_incr_from_delerium",
@@ -1533,30 +1407,28 @@ return {
 		}
 	},
 	[64]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0}% faster start of Energy Shield Recharge"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby Allies have {0}% slower start of Energy Shield Recharge"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0}% faster start of Energy Shield Recharge"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby Allies have {0}% slower start of Energy Shield Recharge"
 			}
 		},
 		name="energy_shield_delay",
@@ -1565,30 +1437,28 @@ return {
 		}
 	},
 	[65]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies gain {0}% increased Energy Shield Recharge Rate"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby Allies gain {0}% reduced Energy Shield Recharge Rate"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies gain {0}% increased Energy Shield Recharge Rate"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby Allies gain {0}% reduced Energy Shield Recharge Rate"
 			}
 		},
 		name="energy_shield_recharge_rate",
@@ -1597,17 +1467,15 @@ return {
 		}
 	},
 	[66]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies gain {0}% of Evasion Rating as Extra Armour"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies gain {0}% of Evasion Rating as Extra Armour"
 			}
 		},
 		name="evasion_to_add_as_armour",
@@ -1616,30 +1484,28 @@ return {
 		}
 	},
 	[67]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Fire Damage taken"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Fire Damage taken"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Fire Damage taken"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Fire Damage taken"
 			}
 		},
 		name="fire_damage_taken",
@@ -1648,17 +1514,15 @@ return {
 		}
 	},
 	[68]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0}% increased Mana Recovery from Flasks"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0}% increased Mana Recovery from Flasks"
 			}
 		},
 		name="flask_mana_to_recover_incr",
@@ -1667,30 +1531,28 @@ return {
 		}
 	},
 	[69]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies deal {0}% more Cold Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby allies deal {0}% less Cold Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies deal {0}% more Cold Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby allies deal {0}% less Cold Damage"
 			}
 		},
 		name="hatred_aura_cold_damage",
@@ -1699,17 +1561,15 @@ return {
 		}
 	},
 	[70]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Nearby Enemies' Cold Resistance is Ignored by Hits"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Nearby Enemies' Cold Resistance is Ignored by Hits"
 			}
 		},
 		name="hits_ignore_cold_res",
@@ -1718,17 +1578,15 @@ return {
 		}
 	},
 	[71]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Nearby Enemies' Fire Resistance is Ignored by Hits"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Nearby Enemies' Fire Resistance is Ignored by Hits"
 			}
 		},
 		name="hits_ignore_fire_res",
@@ -1737,17 +1595,15 @@ return {
 		}
 	},
 	[72]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Nearby Enemies' Lightning Resistance is Ignored by Hits"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Nearby Enemies' Lightning Resistance is Ignored by Hits"
 			}
 		},
 		name="hits_ignore_lightning_res",
@@ -1756,17 +1612,15 @@ return {
 		}
 	},
 	[73]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby allies are Immune to Curses"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby allies are Immune to Curses"
 			}
 		},
 		name="immune_to_curses",
@@ -1775,21 +1629,19 @@ return {
 		}
 	},
 	[74]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextElementalAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextElementalAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby allies are Immune to all Elemental Ailments"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby allies are Immune to all Elemental Ailments"
 			}
 		},
 		name="elemental_ailment_immunity",
@@ -1798,30 +1650,28 @@ return {
 		}
 	},
 	[75]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0}% increased Impale Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby Allies have {0}% reduced Impale Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0}% increased Impale Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby Allies have {0}% reduced Impale Effect"
 			}
 		},
 		name="impale_effect",
@@ -1830,25 +1680,23 @@ return {
 		}
 	},
 	[76]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextLifeLeech"
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLifeLeech"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies Leech {0}% of Physical Attack Damage as Life"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies Leech {0}% of Physical Attack Damage as Life"
 			}
 		},
 		name="life_leech_from_physical",
@@ -1857,30 +1705,28 @@ return {
 		}
 	},
 	[77]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Lightning Damage taken"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Lightning Damage taken"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Lightning Damage taken"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Lightning Damage taken"
 			}
 		},
 		name="lightning_damage_taken",
@@ -1889,30 +1735,28 @@ return {
 		}
 	},
 	[78]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0}% increased Movement Speed while on Chilled Ground"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby Allies have {0}% reduced Movement Speed while on Chilled Ground"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0}% increased Movement Speed while on Chilled Ground"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby Allies have {0}% reduced Movement Speed while on Chilled Ground"
 			}
 		},
 		name="move_speed_on_chilled_ground",
@@ -1921,21 +1765,19 @@ return {
 		}
 	},
 	[79]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Nearby Enemies take at least {0}% more Physical Damage,\n raising up to {1}% as they stay in the Aura for 4 seconds"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Nearby Enemies take at least {0}% more Physical Damage,\n raising up to {1}% as they stay in the Aura for 4 seconds"
 			}
 		},
 		name="pride_physical_damage_taken",
@@ -1945,17 +1787,15 @@ return {
 		}
 	},
 	[80]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Nearby Enemies take {0}% increased Physical Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Nearby Enemies take {0}% increased Physical Damage"
 			}
 		},
 		name="physical_damage_taken_incr",
@@ -1964,30 +1804,28 @@ return {
 		}
 	},
 	[81]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0}% more Area of Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby Allies have {0}% less Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0}% more Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby Allies have {0}% less Area of Effect"
 			}
 		},
 		name="precision_area_of_effect_incr_final",
@@ -1996,17 +1834,15 @@ return {
 		}
 	},
 	[82]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Attack Hits against nearby Enemies have {0}% chance to inflict Bleeding"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Attack Hits against nearby Enemies have {0}% chance to inflict Bleeding"
 			}
 		},
 		name="bleed_when_hit_chance",
@@ -2015,17 +1851,15 @@ return {
 		}
 	},
 	[83]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Your and nearby Allies' Damage Penetrates {0}% Chaos Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Your and nearby Allies' Damage Penetrates {0}% Chaos Resistance"
 			}
 		},
 		name="chaos_penetration",
@@ -2034,17 +1868,15 @@ return {
 		}
 	},
 	[84]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Your and nearby Allies' Damage Penetrates {0}% Elemental Resistances"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Your and nearby Allies' Damage Penetrates {0}% Elemental Resistances"
 			}
 		},
 		name="elemental_penetration",
@@ -2053,17 +1885,15 @@ return {
 		}
 	},
 	[85]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Disables your Non-Blessing Skills which Reserve Mana"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Disables your Non-Blessing Skills which Reserve Mana"
 			}
 		},
 		name="aura_disables_non_blessing_reservation_skills",
@@ -2072,17 +1902,15 @@ return {
 		}
 	},
 	[86]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0:+d}% to Critical Strike Multiplier"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0:+d}% to Critical Strike Multiplier"
 			}
 		},
 		name="grant_critical_strike_multiplier_incr",
@@ -2091,30 +1919,28 @@ return {
 		}
 	},
 	[87]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies have {0}% increased Spell Critical Strike Chance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby allies have {0}% reduced Spell Critical Strike Chance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies have {0}% increased Spell Critical Strike Chance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby allies have {0}% reduced Spell Critical Strike Chance"
 			}
 		},
 		name="spell_crit_incr",
@@ -2123,30 +1949,28 @@ return {
 		}
 	},
 	[88]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby allies deal {0}% more Spell Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby allies deal {0}% less Spell Damage with Spells"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby allies deal {0}% more Spell Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby allies deal {0}% less Spell Damage with Spells"
 			}
 		},
 		name="spell_damage_aura_spell_damage",
@@ -2155,21 +1979,19 @@ return {
 		}
 	},
 	[89]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="You and nearby allies deal {0} to {1} additional Chaos Damage with Spells"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="You and nearby allies deal {0} to {1} additional Chaos Damage with Spells"
 			}
 		},
 		name="spell_added_chaos_damage",
@@ -2179,30 +2001,28 @@ return {
 		}
 	},
 	[90]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="You and nearby Allies have {0}% increased Totem Placement speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="You and nearby Allies have {0}% reduced Totem Placement speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="You and nearby Allies have {0}% increased Totem Placement speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="You and nearby Allies have {0}% reduced Totem Placement speed"
 			}
 		},
 		name="totem_summon_speed_incr",
@@ -2211,17 +2031,15 @@ return {
 		}
 	},
 	[91]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Aura cannot be applied unless you have a Minion from a Supported Skill"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Aura cannot be applied unless you have a Minion from a Supported Skill"
 			}
 		},
 		name="guartdians_blessing_aura_only_while_minion",
