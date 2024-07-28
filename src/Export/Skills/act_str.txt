@@ -396,7 +396,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill CrushingFist
-#flags attack melee slam area retaliation
+#flags attack melee slam area
 #mods
 
 #skill DecoyTotem
@@ -650,7 +650,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Eviscerate
-#flags attack melee area retaliation
+#flags attack melee area
 #mods
 
 #skill Exsanguinate
@@ -1751,7 +1751,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Swordstorm
-#flags attack melee area retaliation
+#flags attack melee area
 #mods
 
 #skill QuickGuard
@@ -1955,7 +1955,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VengefulCry
-#flags warcry area duration retaliation
+#flags warcry area duration
 #mods
 
 #skill VigilantStrike

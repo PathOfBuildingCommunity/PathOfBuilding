@@ -2253,7 +2253,6 @@ skills["CrushingFist"] = {
 		melee = true,
 		slam = true,
 		area = true,
-		retaliation = true,
 	},
 	qualityStats = {
 		Default = {
@@ -3746,7 +3745,6 @@ skills["Eviscerate"] = {
 		attack = true,
 		melee = true,
 		area = true,
-		retaliation = true,
 	},
 	qualityStats = {
 		Default = {
@@ -9551,7 +9549,6 @@ skills["Swordstorm"] = {
 		attack = true,
 		melee = true,
 		area = true,
-		retaliation = true,
 	},
 	qualityStats = {
 		Default = {
@@ -10877,7 +10874,6 @@ skills["VengefulCry"] = {
 		warcry = true,
 		area = true,
 		duration = true,
-		retaliation = true,
 	},
 	qualityStats = {
 		Default = {

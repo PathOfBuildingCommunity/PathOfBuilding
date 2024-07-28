@@ -8270,7 +8270,6 @@ skills["GlacialShieldSwipe"] = {
 		melee = true,
 		area = true,
 		cold = true,
-		retaliation = true,
 	},
 	qualityStats = {
 		Default = {

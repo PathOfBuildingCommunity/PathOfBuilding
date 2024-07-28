@@ -416,6 +416,11 @@ skills["Automation"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.HasReservation] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["automation_behaviour"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		trigger = true,
@@ -4708,7 +4713,6 @@ skills["DivineRetribution"] = {
 		spell = true,
 		area = true,
 		lightning = true,
-		retaliation = true,
 	},
 	qualityStats = {
 		Default = {

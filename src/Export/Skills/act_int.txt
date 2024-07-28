@@ -58,6 +58,11 @@ local skills, mod, flag, skill = ...
 
 #skill Automation
 #flags spell trigger
+	statMap = {
+		["automation_behaviour"] = {
+			-- Display only
+		},
+	},
 #mods
 
 #skill SupportAutomation
@@ -945,7 +950,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DivineRetribution
-#flags spell area lightning retaliation
+#flags spell area lightning
 #mods
 
 #skill ElementalWeakness

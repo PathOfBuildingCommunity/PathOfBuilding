@@ -1688,7 +1688,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill GlacialShieldSwipe
-#flags attack melee area cold retaliation
+#flags attack melee area cold
 #mods
 
 #skill Grace
