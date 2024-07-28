@@ -723,8 +723,8 @@ local function doActorMisc(env, actor)
 			output.Rage = stacks
 			output.MaximumRage = maxStacks
 			modDB:NewMod("Multiplier:Rage", "BASE", output.Rage, "Base")
-			if modDB.conditions["RageSpellDamage"] then
-				modDB:NewMod("Damage", "MORE", effect, "Base", ModFlag.Cast)
+			if modDB:Flag(nil, "Condition:RageSpellDamage") then
+				modDB:NewMod("Damage", "MORE", effect, "Rage", ModFlag.Spell)
 			else
 				modDB:NewMod("Damage", "MORE", effect, "Rage", ModFlag.Attack)
 			end
