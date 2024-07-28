@@ -655,6 +655,11 @@ function ConfigTabClass:Load(xml, fileName)
 			end
 		end
 	end
+
+	-- Catch special case of empty Config
+	if xml.empty then
+		self:NewConfigSet(1, "Default")
+	end
 	for index, node in ipairs(xml) do
 		if node.elem ~= "ConfigSet" then
 			if not self.configSets[1] then
@@ -941,10 +946,7 @@ end
 function ConfigTabClass:NewConfigSet(configSetId, title)
 	local configSet = { id = configSetId, title = title, input = { }, placeholder = { } }
 	if not configSetId then
-		configSet.id = 1
-		while self.configSets[configSet.id] do
-			configSet.id = configSet.id + 1
-		end
+		configSet.id = #self.configSets + 1
 	end
 	-- there are default values for input and placeholder that every new config set needs to have
 	for _, varData in ipairs(varList) do
