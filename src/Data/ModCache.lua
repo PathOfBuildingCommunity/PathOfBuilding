@@ -8530,8 +8530,7 @@ c["Grants Level 25 Purity of Fire Skill"]={{[1]={flags=0,keywordFlags=0,name="Ex
 c["Grants Level 25 Purity of Ice Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=25,skillId="PurityOfIce"}}},nil}
 c["Grants Level 25 Purity of Lightning Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=25,skillId="PurityOfLightning"}}},nil}
 c["Grants Level 25 Scorching Ray Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=25,skillId="ScorchingRay"}}},nil}
-c["Grants Level 30 Crushing Fist Skill"]={nil,nil}
-c["Grants Level 30 Crushing Fist Skill 170% increased Armour"]={nil,nil}
+c["Grants Level 30 Crushing Fist Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=30,skillId="CrushingFist"}}},nil}
 c["Grants Level 30 Dash Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=30,skillId="Dash"}}},nil}
 c["Grants Level 30 Precision Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=30,skillId="Precision"}}},nil}
 c["Grants Level 30 Smite Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=30,skillId="Smite"}}},nil}
@@ -10535,6 +10534,7 @@ c["Socketed Gems are Supported by Level 10 Elemental Proliferation"]={{[1]={[1]=
 c["Socketed Gems are Supported by Level 10 Endurance Charge on Melee Stun"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportEnduranceChargeOnMeleeStun"}}},nil}
 c["Socketed Gems are Supported by Level 10 Energy Leech"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportEnergyLeech"}}},nil}
 c["Socketed Gems are Supported by Level 10 Eternal Blessing"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportEternalBlessing"}}},nil}
+c["Socketed Gems are Supported by Level 10 Expert Retaliation"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportExpertRetaliation"}}},nil}
 c["Socketed Gems are Supported by Level 10 Faster Attacks"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportFasterAttacks"}}},nil}
 c["Socketed Gems are Supported by Level 10 Faster Casting"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportFasterCasting"}}},nil}
 c["Socketed Gems are Supported by Level 10 Faster Projectiles"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportFasterProjectiles"}}},nil}
@@ -10764,6 +10764,7 @@ c["Socketed Gems are Supported by Level 35 Elemental Proliferation"]={{[1]={[1]=
 c["Socketed Gems are Supported by Level 35 Endurance Charge on Melee Stun"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportEnduranceChargeOnMeleeStun"}}},nil}
 c["Socketed Gems are Supported by Level 35 Energy Leech"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportEnergyLeech"}}},nil}
 c["Socketed Gems are Supported by Level 35 Eternal Blessing"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportEternalBlessing"}}},nil}
+c["Socketed Gems are Supported by Level 35 Expert Retaliation"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportExpertRetaliation"}}},nil}
 c["Socketed Gems are Supported by Level 35 Faster Attacks"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportFasterAttacks"}}},nil}
 c["Socketed Gems are Supported by Level 35 Faster Casting"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportFasterCasting"}}},nil}
 c["Socketed Gems are Supported by Level 35 Faster Projectiles"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportFasterProjectiles"}}},nil}

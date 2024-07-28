@@ -2122,7 +2122,7 @@ return {
 	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Minion }),
 },
 
--- Gem quality display only
+-- Display only
 ["quality_display_base_additional_arrows_is_gem"] = {
 	-- Display only
 },
@@ -2151,6 +2151,9 @@ return {
 	-- Display only
 },
 ["quality_display_spell_damage_to_attack_damage_is_gem"] = {
+	-- Display only
+},
+["retaliation_base_use_window_duration_ms"] = {
 	-- Display only
 },
 }
