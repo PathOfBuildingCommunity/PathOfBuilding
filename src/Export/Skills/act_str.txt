@@ -1980,6 +1980,18 @@ local skills, mod, flag, skill = ...
 
 #skill VengefulCry
 #flags warcry area duration
+	statMap = {
+		["rage_warcry_gain_X_rage_per_minute_per_5_monster_power_max_25_power"] = {
+			mod("VengefulRageRegenPer5MP", "BASE", nil),
+			div = 60,
+		},
+		["rage_warcry_maximum_rage_+"] = {
+			mod("VengefulMaxRage", "BASE", nil),
+		},
+        ["display_retaliation_use_requirement_variation"] = {
+			-- Display only
+		},
+	},
 #mods
 
 #skill VigilantStrike

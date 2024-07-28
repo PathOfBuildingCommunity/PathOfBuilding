@@ -10895,6 +10895,18 @@ skills["VengefulCry"] = {
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, [SkillType.Retaliation] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["rage_warcry_gain_X_rage_per_minute_per_5_monster_power_max_25_power"] = {
+			mod("VengefulRageRegenPer5MP", "BASE", nil),
+			div = 60,
+		},
+		["rage_warcry_maximum_rage_+"] = {
+			mod("VengefulMaxRage", "BASE", nil),
+		},
+        ["display_retaliation_use_requirement_variation"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		warcry = true,
 		area = true,
