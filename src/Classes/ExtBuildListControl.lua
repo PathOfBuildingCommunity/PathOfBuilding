@@ -242,7 +242,8 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 		return
 	end
 
-	if not main.showPublicBuilds then
+	--if not main.showPublicBuilds then
+	if true then
 		return
 	end
 
@@ -284,7 +285,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 		end
 	end
 
-	local function addSeperator(y, fillH)
+	local function addSeparator(y, fillH)
 		y = y + 4
 		SetDrawColor(0.5, 0.5, 0.5)
 		self:DrawImage(nil, x - 9, y, self.width() - (y > fillH and 2 or 115), 1)
@@ -318,7 +319,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			end
 
 			-- decorator line
-			currentHeight = addSeperator(currentHeight, portraitHeight)
+			currentHeight = addSeparator(currentHeight, portraitHeight)
 
 			-- main skill
 			SetDrawColor(1, 1, 1)
@@ -328,7 +329,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 					currentHeight = currentHeight + 20
 				end
 				-- decorator line
-				currentHeight = addSeperator(currentHeight, portraitHeight)
+				currentHeight = addSeparator(currentHeight, portraitHeight)
 			end
 
 			-- author
@@ -350,7 +351,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 			currentHeight = currentHeight + 16
 
 			-- decorator line
-			currentHeight = addSeperator(currentHeight, portraitHeight)
+			currentHeight = addSeparator(currentHeight, portraitHeight)
 
 			-- stats
 			local dpsText = "DPS: 0"
@@ -386,7 +387,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 				self:DrawString(x + dpsWidth + lifeWidth + 40, currentHeight, "LEFT", 14, self.font, ehpText)
 				currentHeight = currentHeight + 16
 				-- decorator line
-				currentHeight = addSeperator(currentHeight, portraitHeight)
+				currentHeight = addSeparator(currentHeight, portraitHeight)
 				currentHeight = currentHeight - 5
 			end
 
@@ -396,7 +397,7 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 					SetDrawColor(1, 1, 1)
 					self:DrawString(x, currentHeight, "LEFT", 14, self.font, metadata.key .. ": " .. metadata.value)
 					currentHeight = currentHeight + 16
-					currentHeight = addSeperator(currentHeight, portraitHeight)
+					currentHeight = addSeparator(currentHeight, portraitHeight)
 				end
 				currentHeight = currentHeight - 4
 			end

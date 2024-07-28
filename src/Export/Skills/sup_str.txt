@@ -624,4 +624,15 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportOverexertion
+	statMap = {
+		["support_overexertion_damage_+%_final_if_exerted"] = {
+			mod("ExertIncrease", "MORE", nil)
+		},
+		["empowered_attack_damage_+%"] = {
+			mod("ExertIncrease", "INC", nil)
+		},
+		["support_overexertion_damage_+%_final_per_warcry_exerting_action"] = {
+			mod("ExertAverageIncrease", "MORE", nil)
+		},
+	},
 #mods
