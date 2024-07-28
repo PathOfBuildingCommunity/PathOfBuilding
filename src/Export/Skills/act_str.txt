@@ -660,6 +660,15 @@ local skills, mod, flag, skill = ...
 
 #skill Eviscerate
 #flags attack melee area
+	parts = {
+		{
+			name = "1 Wave",
+		},
+		{
+			name = "Both Waves",
+		},
+	},
+#baseMod skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill Exsanguinate
