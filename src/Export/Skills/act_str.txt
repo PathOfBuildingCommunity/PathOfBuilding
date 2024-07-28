@@ -405,7 +405,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill CrushingFist
-#flags attack melee slam area
+#flags attack melee area
 #mods
 
 #skill DecoyTotem

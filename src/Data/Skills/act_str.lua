@@ -2258,7 +2258,6 @@ skills["CrushingFist"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
-		slam = true,
 		area = true,
 	},
 	qualityStats = {
