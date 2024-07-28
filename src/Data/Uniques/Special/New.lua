@@ -108,7 +108,7 @@ Requires Level 48, 101 Str
 Nearby corpses Explode when you Warcry, dealing (5-10)% of their Life as Physical Damage
 Warcry Skills have (25-35)% increased Area of Effect
 ]],[[
-Grasphing Nightshade
+Grasping Nightshade
 Sporebloom Tincture
 League: Settlers of Kalguur
 Requires Level 52
@@ -158,7 +158,7 @@ Gain 3 Rage on Melee Weapon Hit
 Does not inflict Mana Burn over time
 Inflicts Mana Burn on you when you Hit an Enemy with a Melee Weapon
 (1-5)% increased Rarity of Items found per Mana Burn, up to a maximum of 100%
-Melee Weapon Attacks have Culling Strik
+Melee Weapon Attacks have Culling Strike
 ]],[[
 Admiral's Arrogance
 Antique Gauntlets
