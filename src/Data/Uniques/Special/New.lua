@@ -39,54 +39,41 @@ Radius: Large
 {variant:12}Passive Skills in Radius also grant 6% increased Chaos Damage
 {variant:13}Passive Skills in Radius also grant +4% to Chaos Resistance
 ]],[[
-The Queller of Minds Nameless 
-Ring
-League: Ritual
+The Queller of Minds
+Nameless Ring
+League: Settlers of Kalguur
 Requires Level 50
 Implicits: 2
-50% increased Elemental Ailment Duration on You
-{tags:caster}50% reduced Effect of Curses on You
+50% increased Elemental Ailment Duration on you
+{tags:caster}50% reduced Effect of Curses on you
 Grants Level 20 Pacify
-{tags:caster,speed}(6-10)% increased Cast Speed
-{tags:mana}+30 to maximum Mana
-{tags:jewellery_resistance}+(7-11)% to Chaos Resistance
+{tags:caster,speed}(6-12)% increased Cast Speed
+{tags:mana}+(30-60) to maximum Mana
+{tags:jewellery_resistance}+(7-19)% to Chaos Resistance
 ]],[[
-The Selfish Shepherd Nameless 
-Ring
-League: Ritual
+The Selfish Shepherd
+Nameless Ring
+League: Settlers of Kalguur
 Requires Level 50
 Implicits: 2
 50% increased Elemental Ailment Duration on You
 {tags:caster}50% reduced Effect of Curses on You
 Grants Level 20 Affliction
-{tags:caster,speed}(6-10)% increased Cast Speed
-{tags:jewellery_defense}+30 to maximum Energy Shield
-{tags:jewellery_resistance}+(7-11)% to Chaos Resistance
+{tags:caster,speed}(6-12)% increased Cast Speed
+{tags:jewellery_defense}+(30-60) to maximum Energy Shield
+{tags:jewellery_resistance}+(7-19)% to Chaos Resistance
 ]],[[
-The Hateful Accuser Nameless 
-Ring
-League: Ritual
-Requires Level 50
-Implicits: 2
-50% increased Elemental Ailment Duration on You
-{tags:caster}50% reduced Effect of Curses on You
-Grants Level 20 Penance Mark
-{tags:caster,speed}(6-10)% increased Cast Speed
-{tags:life}+(30-60) to maximum Life
-{tags:jewellery_resistance}+(7-11)% to Chaos Resistance
-]],[[
-Svalinn Girded 
-Colossal Tower Shield
+The Hateful Accuser 
+Nameless Ring
 League: Settlers of Kalguur
 Requires Level 50
-Implicits: 1
-+(10-20) to maximum Life
-13% Chance to Block Spell Damage
-+136 to Ward
--10% to maximum Chance to Block Attack Damage
--10% to maximum Chance to Block Spell Damage
-Chance To Block is Lucky
-Trigger a Socketed Elemental Spell on Block, with a 0.25 Second Cooldown
+Implicits: 2
+50% increased Elemental Ailment Duration on you
+{tags:caster}50% reduced Effect of Curses on you
+Grants Level 20 Penance Mark
+{tags:caster,speed}(6-12)% increased Cast Speed
+{tags:life}+(30-60) to maximum Life
+{tags:jewellery_resistance}+(7-19)% to Chaos Resistance
 ]],[[
 Ynda's Stand
 Studded Belt
@@ -172,6 +159,40 @@ Does not inflict Mana Burn over time
 Inflicts Mana Burn on you when you Hit an Enemy with a Melee Weapon
 (1-5)% increased Rarity of Items found per Mana Burn, up to a maximum of 100%
 Melee Weapon Attacks have Culling Strik
+]],[[
+Admiral's Arrogance
+Antique Gauntlets
+League: Settlers of Kalguur
+Requires Level 39, 58 Str
+(6-12)% increased Attack Speed
+(100-140)% increased Armour
+(10-20)% chance that if you would gain Rage on Hit, you instead gain up to your maximum Rage
++(1-3) to Level of all Melee Skill Gems
+]],[[
+Svalinn
+Girded Tower Shield
+League: Settlers of Kalguur
+Requires Level 51, 123 Str
+Implicits: 1
++(10-20) to maximum Life
+(10-15)% Chance to Block Spell Damage
++(100-150) to Ward
+-10% to maximum Chance to Block Attack Damage
+-10% to maximum Chance to Block Spell Damage
+Chance to Block is Lucky
+Trigger a Socketed Elemental Spell on Block, with a 0.25 second Cooldown
+]],[[
+Tawhoa's Felling
+Piledriver
+League: Settlers of Kalguur
+Requires Level 61, 212 Str
+Implicits: 1
+20% reduced Enemy Stun Threshold
+Trigger Level 20 Tawhoa's Chosen when you Attack with a Non-Vaal Slam or Strike Skill near an Enemy
++(30-40) to Strength
+(250-300)% increased Physical Damage
+(20-30)% increased Stun Duration on Enemies
+(20-30)% reduced Enemy Stun Threshold with this Weapon
 ]],
 
 }
