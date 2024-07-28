@@ -700,9 +700,16 @@ skills["SupportAutoexertion"] = {
 	supportGemsOnly = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["warcries_do_not_apply_buffs_to_self_or_allies"] = {
+			flag("CannotShareWarcryBuffs"),
+		},
+		["support_autoexertion_base_mana_cost_override"] = {
+			mod("BaseManaCostOverride", "OVERRIDE", nil),
+		},
+	},
 	baseMods = {
 		skill("SupportedByAutoexertion", true),
-		flag("CannotShareWarcryBuffs"),
 	},
 	qualityStats = {
 		Default = {
