@@ -1357,6 +1357,13 @@ local configTable = {
 					useCastRate = true}
 		end
 	end,
+	["supporttriggerelementalspellonblock"] = function(env) -- Svalinn Girded Tower Shield
+		env.player.mainSkill.skillFlags.globalTrigger = true
+		return {source = env.player.mainSkill,
+				triggeredSkillCond = function(env, skill)
+					return slotMatch(env, skill) and calcLib.canGrantedEffectSupportActiveSkill(skill.triggeredBy.grantedEffect, skill)
+				end}
+	end,
 }
 
 -- Find unique item trigger name
