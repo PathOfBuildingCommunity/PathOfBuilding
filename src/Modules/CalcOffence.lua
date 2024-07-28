@@ -5291,6 +5291,25 @@ function calcs.offence(env, actor, activeSkill)
 					return dmgBreakdown, totalDmgTaken
 				end
 			end,
+			["Echoes of Creation"] = function(activeSkill, output, breakdown)
+				local dmgType, dmgMult
+				for _, value in ipairs(activeSkill.skillModList:List(nil, "EchoesOfCreationSelfDamage")) do
+					dmgMult = value.dmgMult
+					dmgType = string.gsub(" "..value.damageType, "%W%l", string.upper):sub(2)
+					break -- Only one mod of this kind is expected here
+				end
+				local averageWarcryCount = output.GlobalWarcryUptimeRatio / 100
+				if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
+					averageWarcryCount = env.modDB:Sum("BASE", nil, "GlobalWarcryCount")
+				end
+				if averageWarcryCount and dmgType and dmgMult then
+					local dmgBreakdown, totalDmgTaken = calcs.applyDmgTakenConversion(activeSkill, output, breakdown, dmgType, (output.Life or 0) * dmgMult/100 * averageWarcryCount)
+					t_insert(dmgBreakdown, 1, s_format("Echoes of Creation base damage: %d ^8(Life)^7 * %d%% * %.2f ^8(Avg. Warcry Count)^7 = %.2f", (output.Life or 0), dmgMult, averageWarcryCount, (output.Life or 0) * dmgMult/100* averageWarcryCount ))
+					t_insert(dmgBreakdown, 2, s_format(""))
+					t_insert(dmgBreakdown, s_format("Total Echoes of Creation damage taken per Attack: %.2f ", totalDmgTaken))
+					return dmgBreakdown, totalDmgTaken
+				end
+			end,
 			["Scold's Bridle"] = function(activeSkill, output, breakdown)
 				local dmgType, dmgMult
 				for _, value in ipairs(activeSkill.skillModList:List(nil, "ScoldsBridleSelfDamage")) do
