@@ -1546,10 +1546,8 @@ Huge sets the radius to 11.
 	{ var = "conditionSingleBleed", type = "check", label = "Cap to Single Bleed on enemy?", ifCond = "SingleBleed", tooltip = "This is for Blood Sap Tincture, but will limit you to only applying a single Bleed on the enemy", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SingleBleed", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "multiplierRuptureStacks", type = "count", label = "# of Rupture stacks?", ifFlag = "Condition:CanInflictRupture", tooltip = "Rupture applies 25% more bleed damage and 25% faster bleeds for 3 seconds, up to 3 stacks", apply = function(val, modList, enemyModList)
+	{ var = "multiplierRuptureStacks", type = "count", label = "# of Rupture stacks?", ifFlag = "Condition:CanInflictRupture", tooltip = "Rupture applies more bleed damage and faster bleeds for 3 seconds, up to 3 stacks", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:RuptureStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
-		enemyModList:NewMod("DamageTaken", "MORE", 25, "Rupture", nil, KeywordFlag.Bleed, { type = "Multiplier", var = "RuptureStack", limit = 3 }, { type = "ActorCondition", actor = "enemy", var = "CanInflictRupture" })
-		enemyModList:NewMod("BleedExpireRate", "MORE", 25, "Rupture", nil, KeywordFlag.Bleed, { type = "Multiplier", var = "RuptureStack", limit = 3 }, { type = "ActorCondition", actor = "enemy", var = "CanInflictRupture" })
 	end },
 	{ var = "conditionEnemyPoisoned", type = "check", label = "Is the enemy Poisoned?", ifEnemyCond = "Poisoned", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Poisoned", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
