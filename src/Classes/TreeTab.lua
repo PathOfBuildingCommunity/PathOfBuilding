@@ -2189,14 +2189,13 @@ function TreeTabClass:FindTimelessJewel()
 								}
 							end
 							curNodeId = "totalStat"
-						else
-							if jewelDataTbl[1] >= data.timelessJewelAdditions then -- replace
-								curNode = legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions]
-								curNodeId = curNode and legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions].id or nil
-							else -- add
-								curNode = legionAdditions[jewelDataTbl[1] + 1]
-								curNodeId = curNode and legionAdditions[jewelDataTbl[1] + 1].id or nil
-							end
+						end
+						if jewelDataTbl[1] >= data.timelessJewelAdditions and not isValueInTable(protectedNodes, treeData.nodes[targetNode].dn) then -- replace
+							curNode = legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions]
+							curNodeId = curNode and legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions].id or nil
+						else -- add
+							curNode = legionAdditions[jewelDataTbl[1] + 1]
+							curNodeId = curNode and legionAdditions[jewelDataTbl[1] + 1].id or nil
 						end
 						if desiredNodes["totalStat"] and reverseTotalModIDs[curNodeId] then
 							curNodeId = "totalStat"
