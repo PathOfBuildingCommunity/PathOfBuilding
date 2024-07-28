@@ -700,9 +700,16 @@ skills["SupportAutoexertion"] = {
 	supportGemsOnly = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["warcries_do_not_apply_buffs_to_self_or_allies"] = {
+			flag("CannotShareWarcryBuffs"),
+		},
+		["support_autoexertion_base_mana_cost_override"] = {
+			mod("BaseManaCostOverride", "OVERRIDE", nil),
+		},
+	},
 	baseMods = {
 		skill("SupportedByAutoexertion", true),
-		flag("CannotShareWarcryBuffs"),
 	},
 	qualityStats = {
 		Default = {
@@ -3747,10 +3754,21 @@ skills["Eviscerate"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "1 Wave",
+		},
+		{
+			name = "Both Waves",
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
@@ -9551,10 +9569,18 @@ skills["Swordstorm"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["swordstorm_num_hits"] = {
+			skill("dpsMultiplier", nil)
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		skill("doubleHitsWhenDualWielding", true),
 	},
 	qualityStats = {
 		Default = {
@@ -10791,10 +10817,10 @@ skills["TectonicSlamAltX"] = {
 		["endurance_charge_slam_damage_+%_final_per_endurance_charge_consumed"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
 		},
-        ["tectonic_slam_area_of_effect_+%_final_per_endurance_charge_consumed"] = {
+		["tectonic_slam_area_of_effect_+%_final_per_endurance_charge_consumed"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
 		},
-        ["quality_display_alternate_tectonic_slam_is_gem"] = {
+		["quality_display_alternate_tectonic_slam_is_gem"] = {
 			-- Display only
 		},
 	},
@@ -10876,6 +10902,18 @@ skills["VengefulCry"] = {
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, [SkillType.Retaliation] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["rage_warcry_gain_X_rage_per_minute_per_5_monster_power_max_25_power"] = {
+			mod("VengefulRageRegenPer5MP", "BASE", nil),
+			div = 60,
+		},
+		["rage_warcry_maximum_rage_+"] = {
+			mod("VengefulMaxRage", "BASE", nil),
+		},
+		["display_retaliation_use_requirement_variation"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		warcry = true,
 		area = true,

@@ -4488,6 +4488,17 @@ skills["SupportOverexertion"] = {
 	excludeSkillTypes = { SkillType.Channel, SkillType.NeverExertable, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_overexertion_damage_+%_final_if_exerted"] = {
+			mod("ExertIncrease", "MORE", nil)
+		},
+		["empowered_attack_damage_+%"] = {
+			mod("ExertIncrease", "INC", nil)
+		},
+		["support_overexertion_damage_+%_final_per_warcry_exerting_action"] = {
+			mod("ExertAverageIncrease", "MORE", nil)
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "empowered_attack_damage_+%", 1 },

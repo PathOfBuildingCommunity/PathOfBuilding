@@ -1607,8 +1607,8 @@ local skills, mod, flag, skill = ...
 
 #skill FrostWall
 #flags spell duration
-    statMap = {
-        ["quality_display_wall_length_is_gem"] = {
+	statMap = {
+		["quality_display_wall_length_is_gem"] = {
 			-- Display only
 		},
 	},

@@ -1230,6 +1230,15 @@ function calcs.perform(env, skipEHP)
 					
 				end
 				modDB:NewMod("SeismicActive", "FLAG", true) -- Prevents effect from applying multiple times
+			elseif activeSkill.activeEffect.grantedEffect.name == "Vengeful Cry" and not modDB:Flag(nil, "VengefulActive") then
+				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then
+					local vengefulRageRegen = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "VengefulRageRegenPer5MP")
+					local vengefulMaxRage = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "VengefulMaxRage")
+					env.player.modDB:NewMod("RageRegen", "BASE", m_floor(vengefulRageRegen * buff_inc) * uptime, "Vengeful Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
+					env.player.modDB:NewMod("MaximumRage", "BASE", m_floor(vengefulMaxRage * buff_inc) * uptime, "Vengeful Cry")
+					modDB:NewMod("Condition:CanGainRage", "FLAG", true)
+				end
+				modDB:NewMod("VengefulActive", "FLAG", true) -- Prevents effect from applying multiple times
 			end
 		end
 		if activeSkill.skillData.triggeredOnDeath and not activeSkill.skillFlags.minion then

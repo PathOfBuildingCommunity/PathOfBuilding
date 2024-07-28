@@ -569,6 +569,9 @@ return {
 ["critical_strike_chance_+%_vs_shocked_enemies"] = {
 	mod("CritChance", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }),
 },
+["critical_strike_chance_+%_vs_bleeding_enemies"] = {
+	mod("CritChance", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Bleeding" }),
+},
 ["critical_strike_chance_+%_per_power_charge"] = {
 	mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
 },
@@ -971,6 +974,10 @@ return {
 },
 ["always_shock"] = {
 	mod("EnemyShockChance", "BASE", nil),
+	value = 100,
+},
+["always_freeze"] = {
+	mod("EnemyFreezeChance", "BASE", nil),
 	value = 100,
 },
 ["base_chance_to_freeze_%"] = {
@@ -1571,10 +1578,10 @@ return {
 	skill("setOffHandAttackTime", nil),
 },
 ["off_hand_minimum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
-	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
+	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
 },
 ["off_hand_maximum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
-	mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
+	mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
 },
 ["off_hand_minimum_added_cold_damage_per_15_shield_evasion"] = {
 	mod("ColdMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "EvasionOnWeapon 2", div = 15 }),
@@ -2055,6 +2062,9 @@ return {
 ["gain_x_rage_on_attack_hit"] = {
 	flag("Condition:CanGainRage", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 },
+["warcry_count_power_from_enemies"] = {
+	flag("UsesWarcryPower", { type = "GlobalEffect", effectType = "Buff" })
+},
 --
 -- Spectre or Minion-specific stats
 --
@@ -2112,7 +2122,7 @@ return {
 	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Minion }),
 },
 
--- Gem quality display only
+-- Display only
 ["quality_display_base_additional_arrows_is_gem"] = {
 	-- Display only
 },
@@ -2141,6 +2151,9 @@ return {
 	-- Display only
 },
 ["quality_display_spell_damage_to_attack_damage_is_gem"] = {
+	-- Display only
+},
+["retaliation_base_use_window_duration_ms"] = {
 	-- Display only
 },
 }
