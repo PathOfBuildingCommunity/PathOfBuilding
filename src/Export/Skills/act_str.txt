@@ -117,6 +117,22 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill Autoexertion
+#flags spell
+	statMap = {
+		["call_to_arms_behaviour"] = {
+			-- Display only
+		},
+	},
+#mods
+
+#skill SupportAutoexertion
+	baseMods = {
+		skill("SupportedByAutoexertion", true),
+		flag("CannotShareWarcryBuffs"),
+	},
+#mods
+
 #skill BattlemagesCry
 #flags area duration warcry
 	statMap = {
@@ -388,6 +404,10 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "CorruptingFeverStageAfterFirst"})
 #mods
 
+#skill CrushingFist
+#flags attack melee area
+#mods
+
 #skill DecoyTotem
 #flags spell totem area duration
 #baseMod skill("radius", 60)
@@ -636,6 +656,10 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 60)
+#mods
+
+#skill Eviscerate
+#flags attack melee area
 #mods
 
 #skill Exsanguinate
@@ -1735,6 +1759,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 20)
 #mods
 
+#skill Swordstorm
+#flags attack melee area
+#mods
+
 #skill QuickGuard
 #flags spell duration
 	statMap = {
@@ -1933,6 +1961,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusLabel", "Fissure Length:")
 #baseMod skill("radiusSecondary", 7)
 #baseMod skill("radiusSecondaryLabel", "Fissure Width:")
+#mods
+
+#skill VengefulCry
+#flags warcry area duration
 #mods
 
 #skill VigilantStrike

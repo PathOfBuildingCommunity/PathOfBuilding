@@ -56,6 +56,18 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Multiplier:ManaSpentRecently", "BASE", 100, 0, 0, { type = "PercentStat", stat = "ManaUnreserved", percentVar = "ArcaneCloakConsumedMana" }, { type = "Condition", var = "ArcaneCloakUsedRecently"}, { type = "GlobalEffect", effectType = "Buff", unscalable = true})
 #mods
 
+#skill Automation
+#flags spell
+	statMap = {
+		["automation_behaviour"] = {
+			-- Display only
+		},
+	},
+#mods
+
+#skill SupportAutomation
+#mods
+
 #skill BrandSupport
 #flags spell duration brand
 	preDamageFunc = function(activeSkill, output)
@@ -935,6 +947,10 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod mod("Multiplier:DivineIreofDisintegrationMaxStages", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 2 })
+#mods
+
+#skill DivineRetribution
+#flags spell area
 #mods
 
 #skill ElementalWeakness

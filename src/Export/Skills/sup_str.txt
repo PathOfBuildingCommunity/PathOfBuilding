@@ -90,21 +90,6 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill Autoexertion
-statMap = {
-		["call_to_arms_behaviour"] = {
-			-- Display only
-		},
-	},
-#mods
-
-#skill SupportAutoexertion
-	baseMods = {
-		skill("SupportedByAutoexertion", true),
-		flag("CannotShareWarcryBuffs"),
-	},
-#mods
-
 #skill SupportCastOnMeleeKill
 	statMap = {
 		["support_cast_on_melee_kill_spell_damage_+%_final"] = {
@@ -254,7 +239,7 @@ statMap = {
 
 #skill SupportFistofWar
 	statMap = {
-		["support_ancestral_slam_big_hit_hit_damage_+%_final"] = {
+		["support_ancestral_slam_big_hit_damage_with_hits_and_ailments_+%_final"] = {
 			mod("FistOfWarDamageMultiplier", "BASE", nil),
 		},
 		["support_ancestral_slam_big_hit_area_+%"] = {
@@ -628,4 +613,15 @@ statMap = {
 			mod("MaxDamage", "MORE", nil),
 		},
 	},
+#mods
+
+#skill SupportExpertRetaliation
+	statMap = {
+		["support_expert_retaliation_cooldown_speed_+%_final"] = {
+			mod("CooldownRecovery", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportOverexertion
 #mods

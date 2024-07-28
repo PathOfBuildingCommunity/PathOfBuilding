@@ -43,19 +43,6 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill Automation
-	statMap = {
-		["automation_behaviour"] = {
-			-- Display only
-		}
-	},
-#mods
-
-#skill SupportAutomation
-	statMap = {
-	},
-#mods
-
 #skill SupportBlasphemy
 	statMap = {
 		["curse_apply_as_aura"] = {

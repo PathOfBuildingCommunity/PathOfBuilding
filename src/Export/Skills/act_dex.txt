@@ -1687,6 +1687,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 28)
 #mods
 
+#skill GlacialShieldSwipe
+#flags attack melee area
+#mods
+
 #skill Grace
 #flags spell aura area
 	statMap = {
@@ -2262,6 +2266,16 @@ local skills, mod, flag, skill = ...
 
 #skill Puncture
 #flags attack melee projectile duration
+	statMap = {
+		["quality_display_active_skill_bleed_damage_final_is_gem"] = {
+			-- Display only
+		},
+	},
+#baseMod skill("bleedIsSkillEffect", true)
+#mods
+
+#skill PunctureAltX
+#flags attack melee duration
 	statMap = {
 		["quality_display_active_skill_bleed_damage_final_is_gem"] = {
 			-- Display only
