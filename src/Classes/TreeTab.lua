@@ -1423,7 +1423,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.socketFilter.state = timelessData.socketFilter
 
 	-- Militant Faith protect notables controls
-	controls.protectAllocatedLabel = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, 15, 25, 0, 16, "^7Protect allocated nodes for search:")
+	controls.protectAllocatedLabel = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, 15, 25, 0, 16, "^7Protect allocated nodes from changing:")
 	controls.protectAllocatedSelect = new("DropDownControl", { "TOPLEFT", controls.protectAllocatedLabel, "BOTTOMLEFT" }, 0, 8, 200, 18, nil, nil)
 	controls.protectAllocatedButtonAdd = new("ButtonControl", { "LEFT", controls.protectAllocatedSelect, "RIGHT" }, 5, 0, 44, 18, "Add", function()
 		local selValue = controls.protectAllocatedSelect:GetSelValue()
