@@ -2182,12 +2182,13 @@ function TreeTabClass:FindTimelessJewel()
 						if (timelessData.jewelType.id == 4 and isValueInTable(protectedNodes, treeData.nodes[targetNode].dn)) then
 							if not desiredNodes["totalStat"] then -- only add if user has not entered their own Devotion to the table
 								desiredNodes["totalStat"] = {
-									nodeWeight = .01, -- keeps total score low to let desired stats decide sort
+									nodeWeight = 0.1, -- keeps total score low to let desired stats decide sort
 									nodeWeight2 = 0,
 									displayName = "Devotion",
 									desiredIdx = desiredIdx + 1
 								}
 							end
+							curNodeId = "totalStat"
 						else
 							if jewelDataTbl[1] >= data.timelessJewelAdditions then -- replace
 								curNode = legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions]
