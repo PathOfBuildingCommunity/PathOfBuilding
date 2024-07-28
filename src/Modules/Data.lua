@@ -356,6 +356,9 @@ data.highPrecisionMods = {
 	["EnergyShieldRegen"] = {
 		["BASE"] = 1,
 	},
+	["RageRegen"] = {
+		["BASE"] = 1,
+	},
 	["LifeDegenPercent"] = {
 		["BASE"] = 2,
 	},
@@ -439,7 +442,10 @@ data.highPrecisionMods = {
 	},
 	["SupportManaMultiplier"] = {
 		["MORE"] = 4,
-	}
+	},
+	["MovementSpeed"] = {
+		["INC"] = 1,
+	},
 }
 
 data.weaponTypeInfo = {
