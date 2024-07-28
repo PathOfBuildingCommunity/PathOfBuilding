@@ -438,7 +438,7 @@ return {
 		{ format = "{0:mod:1}%", { modName = "ChaosDamage", modType = "MORE", cfg = "dotChaos" }, },
 	},
 	{ label = "Total Multiplier",
-		{ format = "{0:mod:1}%", { modName = "DotMultiplier", cfg = "dot" }, },
+		{ format = "{0:mod:1}%", { modName = "DotMultiplier", modType = "BASE", cfg = "dot" }, },
 		{ format = "{0:mod:1}%", { modName = "PhysicalDotMultiplier", modType = "BASE", cfg = "dotPhysical" }, },
 		{ format = "{0:mod:1}%", { modName = "LightningDotMultiplier", modType = "BASE", cfg = "dotLightning" }, },
 		{ format = "{0:mod:1}%", { modName = "ColdDotMultiplier", modType = "BASE", cfg = "dotCold" }, },
