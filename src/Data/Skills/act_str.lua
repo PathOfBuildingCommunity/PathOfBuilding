@@ -10817,10 +10817,10 @@ skills["TectonicSlamAltX"] = {
 		["endurance_charge_slam_damage_+%_final_per_endurance_charge_consumed"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
 		},
-        ["tectonic_slam_area_of_effect_+%_final_per_endurance_charge_consumed"] = {
+		["tectonic_slam_area_of_effect_+%_final_per_endurance_charge_consumed"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
 		},
-        ["quality_display_alternate_tectonic_slam_is_gem"] = {
+		["quality_display_alternate_tectonic_slam_is_gem"] = {
 			-- Display only
 		},
 	},
@@ -10910,7 +10910,7 @@ skills["VengefulCry"] = {
 		["rage_warcry_maximum_rage_+"] = {
 			mod("VengefulMaxRage", "BASE", nil),
 		},
-        ["display_retaliation_use_requirement_variation"] = {
+		["display_retaliation_use_requirement_variation"] = {
 			-- Display only
 		},
 	},
