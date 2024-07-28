@@ -287,10 +287,12 @@ skills["AncestralCry"] = {
 			mod("AncestralExertedAttacks", "BASE", nil),
 		},
 		["ancestral_cry_elemental_resist_%_per_5_power_up_to_cap"] = {
-			mod("AncestralElementalResistancePer5MP", "BASE", nil),
+			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 }),
+			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 5, limit = 5 }),
 		},
 		["ancestral_cry_maximum_elemental_resist_%_per_10_power_up_to_cap"] = {
-			mod("AncestralMaxElementalResistancePer5MP", "BASE", nil),
+			mod("ElementalResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 10, limit = 3 }),
+			mod("ElementalResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 10, limit = 3 }),
 		},
 		["skill_empower_limitation_specifier_for_stat_description"] = {
 			-- Display only
@@ -700,9 +702,16 @@ skills["SupportAutoexertion"] = {
 	supportGemsOnly = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["warcries_do_not_apply_buffs_to_self_or_allies"] = {
+			flag("CannotShareWarcryBuffs"),
+		},
+		["support_autoexertion_base_mana_cost_override"] = {
+			mod("BaseManaCostOverride", "OVERRIDE", nil),
+		},
+	},
 	baseMods = {
 		skill("SupportedByAutoexertion", true),
-		flag("CannotShareWarcryBuffs"),
 	},
 	qualityStats = {
 		Default = {
@@ -773,7 +782,9 @@ skills["BattlemagesCry"] = {
 			mod("BattlemageExertedAttacks", "BASE", nil),
 		},
 		["divine_cry_additional_base_critical_strike_chance_per_5_power_up_to_cap"] = {
-			mod("BattlemageBaseCritChancePer5MP", "BASE", nil),
+			mod("CritChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 }),
+			mod("CritChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 5, limit = 5 }),
+			div = 100,
 		},
 		["display_battlemage_cry_exerted_attacks_trigger_supported_spell"] ={
 			-- Display only
@@ -3661,7 +3672,8 @@ skills["EnduringCry"] = {
 	castTime = 0.8,
 	statMap = {
 		["enduring_cry_life_regeneration_rate_per_minute_%_per_5_power_up_to_cap"] = {
-			mod("EnduringCryLifeRegen", "BASE", nil),
+			mod("LifeRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 }),
+			mod("LifeRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 5, limit = 5 }),
 			div = 60,
 		},
 	},
@@ -3747,10 +3759,21 @@ skills["Eviscerate"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "1 Wave",
+		},
+		{
+			name = "Both Waves",
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
@@ -6045,7 +6068,8 @@ skills["InfernalCry"] = {
 			mod("InfernalExertedAttacks", "BASE", nil),
 		},
 		["infernal_cry_physical_damage_%_to_add_as_fire_per_5_power_up_to_cap"] = {
-			mod("InfernalFireAsExtraPer5MP", "BASE", nil),
+			mod("PhysicalDamageGainAsFire", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 }),
+			mod("PhysicalDamageGainAsFire", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 5, limit = 5 }),
 		},
 		["infernal_cry_empowered_attacks_trigger_combust_display"] = {
 			-- Display only
@@ -6473,7 +6497,8 @@ skills["IntimidatingCry"] = {
 			mod("IntimidatingExertedAttacks", "BASE", nil),
 		},
 		["intimidating_cry_movement_speed_+%_per_5_power_up_to_cap"] = {
-			mod("IntimidatingMovementSpeedPer5MP", "BASE", nil),
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 5, limit = 6 }),
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 5, limit = 6 }),
 		},
 		["intimidating_cry_empowerd_attacks_deal_double_damage_display"] = {
 		},
@@ -8290,7 +8315,7 @@ skills["RallyingCry"] = {
 		},
 		["rallying_cry_weapon_damage_%_for_allies_per_5_monster_power"] = {
 			mod("RallyingCryAllyDamageBonusPer5Power", "BASE", nil),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Multiplier", var = "NearbyAlly" }),
+			mod("Dummy", "DUMMY", 1, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "NearbyAlly" }),
 		},
 		["rallying_cry_buff_effect_on_minions_+%_final"] = {
 			mod("RallyingCryMinionDamageBonusMultiplier", "BASE", nil),
@@ -8303,8 +8328,6 @@ skills["RallyingCry"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("buffAllies", true),
-		skill("buffNotPlayer", true),
 		skill("radius", 60),
 	},
 	qualityStats = {
@@ -8640,10 +8663,12 @@ skills["SeismicCry"] = {
 			mod("SeismicAoEMoreMultiplier", "BASE", nil),
 		},
 		["seismic_cry_stun_threshold_+%_per_5_power_up_to_cap"] = {
-			mod("SeismicStunThresholdPer5MP", "BASE", nil),
+			mod("StunThreshold", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 }),
+			mod("StunThreshold", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 5, limit = 5 }),
 		},
 		["seismic_cry_armour_+%_final_per_5_power_up_to_cap"] = {
-			mod("SeismicArmourPer5MP", "BASE", nil),
+			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 }),
+			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 5, limit = 5 }),
 		},
 		["skill_empower_limitation_specifier_for_stat_description"] = {
 			-- Display only
@@ -9551,10 +9576,18 @@ skills["Swordstorm"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["swordstorm_num_hits"] = {
+			skill("dpsMultiplier", nil)
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		skill("doubleHitsWhenDualWielding", true),
 	},
 	qualityStats = {
 		Default = {
@@ -10791,10 +10824,10 @@ skills["TectonicSlamAltX"] = {
 		["endurance_charge_slam_damage_+%_final_per_endurance_charge_consumed"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
 		},
-        ["tectonic_slam_area_of_effect_+%_final_per_endurance_charge_consumed"] = {
+		["tectonic_slam_area_of_effect_+%_final_per_endurance_charge_consumed"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
 		},
-        ["quality_display_alternate_tectonic_slam_is_gem"] = {
+		["quality_display_alternate_tectonic_slam_is_gem"] = {
 			-- Display only
 		},
 	},
@@ -10876,6 +10909,20 @@ skills["VengefulCry"] = {
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, [SkillType.Retaliation] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["rage_warcry_gain_X_rage_per_minute_per_5_monster_power_max_25_power"] = {
+			mod("RageRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 }),
+			mod("RageRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }, { type = "Multiplier", var = "WarcryPower", actor = "parent", div = 5, limit = 5 }),
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Warcry"} ),
+			div = 60,
+		},
+		["rage_warcry_maximum_rage_+"] = {
+			mod("MaximumRage", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry" }),
+		},
+		["display_retaliation_use_requirement_variation"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		warcry = true,
 		area = true,

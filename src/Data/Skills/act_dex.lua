@@ -8269,6 +8269,7 @@ skills["GlacialShieldSwipe"] = {
 		attack = true,
 		melee = true,
 		area = true,
+		shieldAttack = true,
 	},
 	qualityStats = {
 		Default = {
@@ -13661,6 +13662,12 @@ skills["SpectralShieldThrow"] = {
 		},
 		["primary_projectile_chains_+"] = {
 			mod("ChainCountMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
+		["off_hand_minimum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
+			mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
+		},
+		["off_hand_maximum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
+			mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
 		},
 	},
 	baseFlags = {

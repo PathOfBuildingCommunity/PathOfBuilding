@@ -7850,8 +7850,8 @@ skills["FrostWall"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Cascadable] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
-    statMap = {
-        ["quality_display_wall_length_is_gem"] = {
+	statMap = {
+		["quality_display_wall_length_is_gem"] = {
 			-- Display only
 		},
 	},

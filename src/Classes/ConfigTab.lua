@@ -655,6 +655,11 @@ function ConfigTabClass:Load(xml, fileName)
 			end
 		end
 	end
+
+	-- Catch special case of empty Config
+	if xml.empty then
+		self:NewConfigSet(1, "Default")
+	end
 	for index, node in ipairs(xml) do
 		if node.elem ~= "ConfigSet" then
 			if not self.configSets[1] then

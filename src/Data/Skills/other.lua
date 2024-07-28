@@ -3631,6 +3631,24 @@ skills["SupportTriggerSpellOnSkillUse"] = {
 		[2] = { PvPDamageMultiplier = -80, cooldown = 4, storedUses = 1, manaMultiplier = 150, levelRequirement = 1, },
 	},
 }
+skills["SupportTriggerElementalSpellOnBlock"] = {
+	name = "SupportTriggerElementalSpellOnBlock",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, SkillType.Fire, SkillType.Cold, SkillType.OR, SkillType.Lightning, SkillType.OR, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	stats = {
+		"trigger_effect_group_on_block",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 0.25, },
+	},
+}
 skills["Twister"] = {
 	name = "Twister",
 	hidden = true,

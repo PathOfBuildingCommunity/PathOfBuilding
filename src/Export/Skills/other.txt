@@ -1000,6 +1000,10 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill SupportTriggerElementalSpellOnBlock
+	fromItem = true,
+#mods
+
 #skill Twister
 #flags spell projectile duration
 	fromItem = true,

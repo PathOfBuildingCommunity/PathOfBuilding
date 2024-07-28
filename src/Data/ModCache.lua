@@ -8030,6 +8030,7 @@ c["Gain 1 Life on Kill per Level"]={{[1]={[1]={type="Condition",var="KilledRecen
 c["Gain 1 Mana on Kill per Level"]={{[1]={[1]={type="Condition",var="KilledRecently"},[2]={type="Multiplier",var="Level"},flags=0,keywordFlags=0,name="Mana",type="BASE",value=1}},nil}
 c["Gain 1 Power Charge on use"]={{}," Power Charge on use "}
 c["Gain 1 Power Charge on use Gain 3 Endurance Charge on use"]={{}," Power Charge on use Gain 3 Endurance Charge on use "}
+c["Gain 1 Rage on Attack Hit"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Gain 1 Rage on Critical Hit with attacks, no more than once every 0.5 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Gain 1 Rage on Hit with Axes"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Gain 1 Rage on Melee Hit"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
@@ -8530,8 +8531,7 @@ c["Grants Level 25 Purity of Fire Skill"]={{[1]={flags=0,keywordFlags=0,name="Ex
 c["Grants Level 25 Purity of Ice Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=25,skillId="PurityOfIce"}}},nil}
 c["Grants Level 25 Purity of Lightning Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=25,skillId="PurityOfLightning"}}},nil}
 c["Grants Level 25 Scorching Ray Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=25,skillId="ScorchingRay"}}},nil}
-c["Grants Level 30 Crushing Fist Skill"]={nil,nil}
-c["Grants Level 30 Crushing Fist Skill 170% increased Armour"]={nil,nil}
+c["Grants Level 30 Crushing Fist Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=30,skillId="CrushingFist"}}},nil}
 c["Grants Level 30 Dash Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=30,skillId="Dash"}}},nil}
 c["Grants Level 30 Precision Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=30,skillId="Precision"}}},nil}
 c["Grants Level 30 Smite Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=30,skillId="Smite"}}},nil}
@@ -10431,7 +10431,8 @@ c["Skills Supported by Nightblade have 40% increased Effect of Elusive"]={{[1]={
 c["Skills Supported by Unleash have 30% increased Seal gain frequency"]={{[1]={flags=0,keywordFlags=0,name="SealGainFrequency",type="INC",value=30}},nil}
 c["Skills Supported by Unleash have 40% increased Seal gain frequency"]={{[1]={flags=0,keywordFlags=0,name="SealGainFrequency",type="INC",value=40}},nil}
 c["Skills Supported by Unleash have 50% increased Seal gain frequency"]={{[1]={flags=0,keywordFlags=0,name="SealGainFrequency",type="INC",value=50}},nil}
-c["Skills deal 15% more Damage for each Warcry Exerting them"]={{[1]={flags=0,keywordFlags=4,name="Damage",type="MORE",value=15}},"  for each  Exerting them "}
+c["Skills deal 13% more Damage for each Warcry Exerting them"]={{[1]={flags=0,keywordFlags=0,name="ExertAverageIncrease",type="MORE",value=13}},nil}
+c["Skills deal 15% more Damage for each Warcry Exerting them"]={{[1]={flags=0,keywordFlags=0,name="ExertAverageIncrease",type="MORE",value=15}},nil}
 c["Skills fire 2 additional Projectiles"]={{[1]={flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=2}},nil}
 c["Skills fire 2 additional Projectiles during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=2}},nil}
 c["Skills fire 2 additional Projectiles if you've been Hit Recently"]={{[1]={[1]={type="Condition",var="BeenHitRecently"},flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=2}},nil}
@@ -10535,6 +10536,7 @@ c["Socketed Gems are Supported by Level 10 Elemental Proliferation"]={{[1]={[1]=
 c["Socketed Gems are Supported by Level 10 Endurance Charge on Melee Stun"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportEnduranceChargeOnMeleeStun"}}},nil}
 c["Socketed Gems are Supported by Level 10 Energy Leech"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportEnergyLeech"}}},nil}
 c["Socketed Gems are Supported by Level 10 Eternal Blessing"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportEternalBlessing"}}},nil}
+c["Socketed Gems are Supported by Level 10 Expert Retaliation"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportExpertRetaliation"}}},nil}
 c["Socketed Gems are Supported by Level 10 Faster Attacks"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportFasterAttacks"}}},nil}
 c["Socketed Gems are Supported by Level 10 Faster Casting"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportFasterCasting"}}},nil}
 c["Socketed Gems are Supported by Level 10 Faster Projectiles"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportFasterProjectiles"}}},nil}
@@ -10598,6 +10600,7 @@ c["Socketed Gems are Supported by Level 10 Multiple Traps"]={{[1]={[1]={slotName
 c["Socketed Gems are Supported by Level 10 Multistrike"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportMultistrike"}}},nil}
 c["Socketed Gems are Supported by Level 10 Nightblade"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportNightblade"}}},nil}
 c["Socketed Gems are Supported by Level 10 Overcharge"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportOvercharge"}}},nil}
+c["Socketed Gems are Supported by Level 10 Overexertion"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportOverexertion"}}},nil}
 c["Socketed Gems are Supported by Level 10 Physical to Lightning"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportPhysicalToLightning"}}},nil}
 c["Socketed Gems are Supported by Level 10 Pierce"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportPierce"}}},nil}
 c["Socketed Gems are Supported by Level 10 Pinpoint"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportPinpoint"}}},nil}
@@ -10610,6 +10613,7 @@ c["Socketed Gems are Supported by Level 10 Rage"]={{[1]={[1]={slotName="{SlotNam
 c["Socketed Gems are Supported by Level 10 Remote Mine"]={nil,nil}
 c["Socketed Gems are Supported by Level 10 Remote Mine Socketed Gems are Supported by Level 10 Blastchain Mine"]={nil,nil}
 c["Socketed Gems are Supported by Level 10 Returning Projectiles"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportReturningProjectiles"}}},nil}
+c["Socketed Gems are Supported by Level 10 Rupture"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportRupture"}}},nil}
 c["Socketed Gems are Supported by Level 10 Ruthless"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportRuthless"}}},nil}
 c["Socketed Gems are Supported by Level 10 Sacred Wisps"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportSacredWisps"}},[2]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=10,skillId="SummonSacredWisp"}}},nil}
 c["Socketed Gems are Supported by Level 10 Sacrifice"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportSacrifice"}}},nil}
@@ -10763,6 +10767,7 @@ c["Socketed Gems are Supported by Level 35 Elemental Proliferation"]={{[1]={[1]=
 c["Socketed Gems are Supported by Level 35 Endurance Charge on Melee Stun"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportEnduranceChargeOnMeleeStun"}}},nil}
 c["Socketed Gems are Supported by Level 35 Energy Leech"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportEnergyLeech"}}},nil}
 c["Socketed Gems are Supported by Level 35 Eternal Blessing"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportEternalBlessing"}}},nil}
+c["Socketed Gems are Supported by Level 35 Expert Retaliation"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportExpertRetaliation"}}},nil}
 c["Socketed Gems are Supported by Level 35 Faster Attacks"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportFasterAttacks"}}},nil}
 c["Socketed Gems are Supported by Level 35 Faster Casting"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportFasterCasting"}}},nil}
 c["Socketed Gems are Supported by Level 35 Faster Projectiles"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportFasterProjectiles"}}},nil}
@@ -10826,6 +10831,7 @@ c["Socketed Gems are Supported by Level 35 Multiple Traps"]={{[1]={[1]={slotName
 c["Socketed Gems are Supported by Level 35 Multistrike"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportMultistrike"}}},nil}
 c["Socketed Gems are Supported by Level 35 Nightblade"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportNightblade"}}},nil}
 c["Socketed Gems are Supported by Level 35 Overcharge"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportOvercharge"}}},nil}
+c["Socketed Gems are Supported by Level 35 Overexertion"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportOverexertion"}}},nil}
 c["Socketed Gems are Supported by Level 35 Physical to Lightning"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportPhysicalToLightning"}}},nil}
 c["Socketed Gems are Supported by Level 35 Pierce"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportPierce"}}},nil}
 c["Socketed Gems are Supported by Level 35 Pinpoint"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportPinpoint"}}},nil}
@@ -10836,6 +10842,7 @@ c["Socketed Gems are Supported by Level 35 Prismatic Burst"]={{[1]={[1]={slotNam
 c["Socketed Gems are Supported by Level 35 Pulverise"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportPulverise"}}},nil}
 c["Socketed Gems are Supported by Level 35 Rage"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportRage"}}},nil}
 c["Socketed Gems are Supported by Level 35 Returning Projectiles"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportReturningProjectiles"}}},nil}
+c["Socketed Gems are Supported by Level 35 Rupture"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportRupture"}}},nil}
 c["Socketed Gems are Supported by Level 35 Ruthless"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportRuthless"}}},nil}
 c["Socketed Gems are Supported by Level 35 Sacred Wisps"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportSacredWisps"}},[2]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=35,skillId="SummonSacredWisp"}}},nil}
 c["Socketed Gems are Supported by Level 35 Sacrifice"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportSacrifice"}}},nil}
@@ -11264,7 +11271,7 @@ c["Trigger Summon Spirit of Utula Skill on taking a Savage Hit from a Unique Ene
 c["Trigger a Socketed Bow Skill when you Attack with a Bow, with a 1 second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportTriggerBowSkillOnBowAttack"}}},nil}
 c["Trigger a Socketed Bow Skill when you Cast a Spell while wielding a Bow"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportTriggerBowSkillOnBowAttack"}}},nil}
 c["Trigger a Socketed Cold Spell on Melee Critical Strike, with a 0.25 second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"}}},nil}
-c["Trigger a Socketed Elemental Spell on Block, with a 0.25 Second Cooldown"]={nil,"Trigger a Socketed Elemental Spell on Block, with a 0.25 Second Cooldown "}
+c["Trigger a Socketed Elemental Spell on Block, with a 0.25 Second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportTriggerElementalSpellOnBlock"}}},nil}
 c["Trigger a Socketed Lightning Spell on Hit, with a 0.25 second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportUniqueMjolnerLightningSpellsCastOnHit"}}},nil}
 c["Trigger a Socketed Spell when you Attack with a Bow, with a 0.3 second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportTriggerSpellOnBowAttack"}}},nil}
 c["Trigger a Socketed Spell when you Attack with this Weapon, with a 0.25 second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportTriggerSpellOnAttack"}}},nil}
@@ -11363,7 +11370,6 @@ c["Warcries Exert 2 additional Attacks"]={{[1]={flags=0,keywordFlags=0,name="Ext
 c["Warcries Exert twice as many Attacks"]={{[1]={flags=0,keywordFlags=0,name="ExtraExertedAttacks",type="MORE",value=100}},nil}
 c["Warcries Knock Back and Interrupt Enemies in a smaller Area"]={nil,"Warcries Knock Back and Interrupt Enemies in a smaller Area "}
 c["Warcries cannot Exert Travel Skills"]={nil,"Warcries cannot Exert Travel Skills "}
-c["Warcries do not grant Buffs or Charges to You"]={{[1]={flags=0,keywordFlags=0,name="CannotGainWarcryBuffs",type="FLAG",value=true}},nil}
 c["Warcries grant 1 Rage per 5 Enemy Power, up to 5"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Warcries grant 5 Rage per 5 Power if you have less than 25 Rage"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Warcries grant Arcane Surge to you and Allies, with 10% increased effect per 5 power, up to 50%"]={{[1]={[1]={type="Condition",var="UsedWarcryRecently"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:ArcaneSurge",type="FLAG",value=true}}},[2]={[1]={div=5,globalLimit=50,globalLimitKey="Brinerot Flag",stat="WarcryPower",type="PerStat"},[2]={type="Condition",var="UsedWarcryRecently"},flags=0,keywordFlags=0,name="ArcaneSurgeEffect",type="INC",value=10}},nil}
@@ -11383,8 +11389,8 @@ c["When Hit, gain a random Movement Speed modifier from 40% reduced to 100% incr
 c["When Hit, lose a Ghost Shroud to Recover Energy Shield equal to 3% of your Evasion Rating"]={nil,"lose a Ghost Shroud to Recover Energy Shield equal to 3% of your Evasion Rating "}
 c["When Hit, lose a Ghost Shroud to Recover Energy Shield equal to 3% of your Evasion Rating Limited to 1 Keystone Tattoo"]={nil,"lose a Ghost Shroud to Recover Energy Shield equal to 3% of your Evasion Rating Limited to 1 Keystone Tattoo "}
 c["When an Enemy Hit deals Elemental Damage to you, their Resistance to those Elements becomes zero for 4 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:HaveTrickstersSmile",type="FLAG",value=true}},nil}
-c["When you Attack, take 20% of Life as Physical Damage for each Warcry Exerting the Attack"]={nil,"When you Attack, take 20% of Life as Physical Damage for each Warcry Exerting the Attack "}
-c["When you Attack, take 20% of Life as Physical Damage for each Warcry Exerting the Attack Skills deal 15% more Damage for each Warcry Exerting them"]={nil,"When you Attack, take 20% of Life as Physical Damage for each Warcry Exerting the Attack Skills deal 15% more Damage for each Warcry Exerting them "}
+c["When you Attack, take 18% of Life as Physical Damage for each Warcry Exerting the Attack"]={{[1]={flags=0,keywordFlags=0,name="EchoesOfCreationSelfDamage",type="LIST",value={damageType="physical",dmgMult=18}}},nil}
+c["When you Attack, take 20% of Life as Physical Damage for each Warcry Exerting the Attack"]={{[1]={flags=0,keywordFlags=0,name="EchoesOfCreationSelfDamage",type="LIST",value={damageType="physical",dmgMult=20}}},nil}
 c["When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage"]={nil,"When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage "}
 c["When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage equal to 25% of Sacrificed Mana for 4 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:HaveManaStorm",type="FLAG",value=true},[2]={[1]={percent=25,stat="ManaUnreserved",type="PercentStat"},[2]={type="Condition",var="SacrificeManaForLightning"},flags=0,keywordFlags=0,name="LightningMax",type="BASE",value=1}},nil}
 c["When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage equal to 50% of Sacrificed Mana for 4 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:HaveManaStorm",type="FLAG",value=true},[2]={[1]={percent=50,stat="ManaUnreserved",type="PercentStat"},[2]={type="Condition",var="SacrificeManaForLightning"},flags=0,keywordFlags=0,name="LightningMax",type="BASE",value=1}},nil}
@@ -11876,9 +11882,7 @@ c["Your Raised Zombies count as Corpses"]={nil,"Your Raised Zombies count as Cor
 c["Your Skills deal you 400% of Mana Cost as Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="ScoldsBridleSelfDamage",type="LIST",value={damageType="physical",dmgMult=400}}},nil}
 c["Your Spells are disabled"]={{[1]={[1]={skillType=2,type="SkillType"},flags=0,keywordFlags=0,name="DisableSkill",type="FLAG",value=true}},nil}
 c["Your Spells have Culling Strike"]={{[1]={flags=2,keywordFlags=0,name="CullPercent",type="MAX",value=10}},nil}
-c["Your Warcries do not grant Buffs or Charges to You"]={nil,"Your Warcries do not grant Buffs or Charges to You "}
-c["Your Warcries do not grant Buffs or Charges to You 100% more Warcry Duration"]={nil,"Your Warcries do not grant Buffs or Charges to You 100% more Warcry Duration "}
-c["Your Warcries do not grant Buffs or Charges to You 100% more Warcry Duration Limited to 1 Keystone Tattoo"]={nil,"Your Warcries do not grant Buffs or Charges to You 100% more Warcry Duration Limited to 1 Keystone Tattoo "}
+c["Your Warcries do not grant Buffs or Charges to You"]={{[1]={flags=0,keywordFlags=0,name="CannotGainWarcryBuffs",type="FLAG",value=true}},nil}
 c["Your hits can't be Evaded"]={{[1]={flags=0,keywordFlags=0,name="CannotBeEvaded",type="FLAG",value=true}},nil}
 c["Your nearby party members maximum Endurance Charges is equal to yours"]={{[1]={flags=0,keywordFlags=0,name="PartyMemberMaximumEnduranceChargesEqualToYours",type="FLAG",value=true}},nil}
 c["Your spells have 100% chance to Shock against Frozen enemies"]={nil,"Your spells have 100% chance to Shock against Frozen enemies "}

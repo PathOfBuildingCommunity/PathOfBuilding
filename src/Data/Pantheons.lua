@@ -122,16 +122,6 @@ return {
 			},
 		},
 	},
-	["Minor God 1"] = {
-		isMajorGod = false,
-		souls = {
-		},
-	},
-	["Minor God 2"] = {
-		isMajorGod = false,
-		souls = {
-		},
-	},
 	["Abberath"] = {
 		isMajorGod = false,
 		souls = {
@@ -149,11 +139,6 @@ return {
 					[2] = { line = "10% increased Movement Speed while on Burning Ground", value = { 10 }, },
 				},
 			},
-		},
-	},
-	["Minor God 4"] = {
-		isMajorGod = false,
-		souls = {
 		},
 	},
 	["Gruthkul"] = {
@@ -228,11 +213,6 @@ return {
 					[1] = { line = "Regenerate 2% of Life per second while stationary", value = { 120 }, },
 				},
 			},
-		},
-	},
-	["Minor God 9"] = {
-		isMajorGod = false,
-		souls = {
 		},
 	},
 	["Ralakesh"] = {
