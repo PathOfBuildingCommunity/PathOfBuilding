@@ -8030,6 +8030,7 @@ c["Gain 1 Life on Kill per Level"]={{[1]={[1]={type="Condition",var="KilledRecen
 c["Gain 1 Mana on Kill per Level"]={{[1]={[1]={type="Condition",var="KilledRecently"},[2]={type="Multiplier",var="Level"},flags=0,keywordFlags=0,name="Mana",type="BASE",value=1}},nil}
 c["Gain 1 Power Charge on use"]={{}," Power Charge on use "}
 c["Gain 1 Power Charge on use Gain 3 Endurance Charge on use"]={{}," Power Charge on use Gain 3 Endurance Charge on use "}
+c["Gain 1 Rage on Attack Hit"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Gain 1 Rage on Critical Hit with attacks, no more than once every 0.5 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Gain 1 Rage on Hit with Axes"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Gain 1 Rage on Melee Hit"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
@@ -11368,7 +11369,6 @@ c["Warcries Exert 2 additional Attacks"]={{[1]={flags=0,keywordFlags=0,name="Ext
 c["Warcries Exert twice as many Attacks"]={{[1]={flags=0,keywordFlags=0,name="ExtraExertedAttacks",type="MORE",value=100}},nil}
 c["Warcries Knock Back and Interrupt Enemies in a smaller Area"]={nil,"Warcries Knock Back and Interrupt Enemies in a smaller Area "}
 c["Warcries cannot Exert Travel Skills"]={nil,"Warcries cannot Exert Travel Skills "}
-c["Warcries do not grant Buffs or Charges to You"]={{[1]={flags=0,keywordFlags=0,name="CannotGainWarcryBuffs",type="FLAG",value=true}},nil}
 c["Warcries grant 1 Rage per 5 Enemy Power, up to 5"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Warcries grant 5 Rage per 5 Power if you have less than 25 Rage"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Warcries grant Arcane Surge to you and Allies, with 10% increased effect per 5 power, up to 50%"]={{[1]={[1]={type="Condition",var="UsedWarcryRecently"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:ArcaneSurge",type="FLAG",value=true}}},[2]={[1]={div=5,globalLimit=50,globalLimitKey="Brinerot Flag",stat="WarcryPower",type="PerStat"},[2]={type="Condition",var="UsedWarcryRecently"},flags=0,keywordFlags=0,name="ArcaneSurgeEffect",type="INC",value=10}},nil}
@@ -11881,9 +11881,7 @@ c["Your Raised Zombies count as Corpses"]={nil,"Your Raised Zombies count as Cor
 c["Your Skills deal you 400% of Mana Cost as Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="ScoldsBridleSelfDamage",type="LIST",value={damageType="physical",dmgMult=400}}},nil}
 c["Your Spells are disabled"]={{[1]={[1]={skillType=2,type="SkillType"},flags=0,keywordFlags=0,name="DisableSkill",type="FLAG",value=true}},nil}
 c["Your Spells have Culling Strike"]={{[1]={flags=2,keywordFlags=0,name="CullPercent",type="MAX",value=10}},nil}
-c["Your Warcries do not grant Buffs or Charges to You"]={nil,"Your Warcries do not grant Buffs or Charges to You "}
-c["Your Warcries do not grant Buffs or Charges to You 100% more Warcry Duration"]={nil,"Your Warcries do not grant Buffs or Charges to You 100% more Warcry Duration "}
-c["Your Warcries do not grant Buffs or Charges to You 100% more Warcry Duration Limited to 1 Keystone Tattoo"]={nil,"Your Warcries do not grant Buffs or Charges to You 100% more Warcry Duration Limited to 1 Keystone Tattoo "}
+c["Your Warcries do not grant Buffs or Charges to You"]={{[1]={flags=0,keywordFlags=0,name="CannotGainWarcryBuffs",type="FLAG",value=true}},nil}
 c["Your hits can't be Evaded"]={{[1]={flags=0,keywordFlags=0,name="CannotBeEvaded",type="FLAG",value=true}},nil}
 c["Your nearby party members maximum Endurance Charges is equal to yours"]={{[1]={flags=0,keywordFlags=0,name="PartyMemberMaximumEnduranceChargesEqualToYours",type="FLAG",value=true}},nil}
 c["Your spells have 100% chance to Shock against Frozen enemies"]={nil,"Your spells have 100% chance to Shock against Frozen enemies "}
