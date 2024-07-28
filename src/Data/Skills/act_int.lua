@@ -423,7 +423,6 @@ skills["Automation"] = {
 	},
 	baseFlags = {
 		spell = true,
-		trigger = true,
 	},
 	stats = {
 		"automation_behaviour",
@@ -4712,7 +4711,6 @@ skills["DivineRetribution"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 	},
 	qualityStats = {
 		Default = {

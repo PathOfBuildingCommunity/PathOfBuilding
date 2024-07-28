@@ -634,10 +634,13 @@ skills["Autoexertion"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.HasReservation] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["call_to_arms_behaviour"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		spell = true,
-		warcry = true,
-		trigger = true,
 	},
 	stats = {
 		"call_to_arms_behaviour",
@@ -697,6 +700,10 @@ skills["SupportAutoexertion"] = {
 	supportGemsOnly = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	baseMods = {
+		skill("SupportedByAutoexertion", true),
+		flag("CannotShareWarcryBuffs"),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_cooldown_speed_+%", 0.5 },
