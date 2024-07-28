@@ -21,7 +21,8 @@ function listMode:Init(selBuildName, subPath)
 		self.subPath = subPath or self.subPath
 		self.controls.buildList.controls.path:SetSubPath(self.subPath)
 		self.controls.buildList:SelByFileName(selBuildName and selBuildName..".xml")
-		if main.showPublicBuilds then
+		--if main.showPublicBuilds then
+		if false then
 			self.controls.ExtBuildList = self:getPublicBuilds()
 		else
 			self.controls.ExtBuildList = nil
@@ -71,14 +72,16 @@ function listMode:Init(selBuildName, subPath)
 		return main.screenH - 80
 	end
 	local buildListWidth = function ()
-		if main.showPublicBuilds then
+		--if main.showPublicBuilds then
+		if false then
 			return math.min((main.screenW / 2), 900)
 		else
 			return 900
 		end
 	end
 	local buildListOffset = function ()
-		if main.showPublicBuilds then
+		--if main.showPublicBuilds then
+		if false then
 			local offset = math.min(450, main.screenW / 4)
 			return offset - 450
 		else
@@ -89,7 +92,8 @@ function listMode:Init(selBuildName, subPath)
 	self.controls.buildList.width = buildListWidth
 	self.controls.buildList.x = buildListOffset
 
-	if main.showPublicBuilds then
+	--if main.showPublicBuilds then
+	if false then
 		self.controls.ExtBuildList = self:getPublicBuilds()
 	end
 

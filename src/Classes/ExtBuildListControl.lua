@@ -242,7 +242,8 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 		return
 	end
 
-	if not main.showPublicBuilds then
+	--if not main.showPublicBuilds then
+	if true then
 		return
 	end
 
