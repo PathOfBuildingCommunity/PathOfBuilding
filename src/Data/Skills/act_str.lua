@@ -9562,10 +9562,18 @@ skills["Swordstorm"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["swordstorm_num_hits"] = {
+			skill("dpsMultiplier", nil)
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		skill("doubleHitsWhenDualWielding", true),
 	},
 	qualityStats = {
 		Default = {

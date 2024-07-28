@@ -1770,6 +1770,12 @@ local skills, mod, flag, skill = ...
 
 #skill Swordstorm
 #flags attack melee area
+	statMap = {
+		["swordstorm_num_hits"] = {
+			skill("dpsMultiplier", nil)
+		},
+	},
+#baseMod skill("doubleHitsWhenDualWielding", true)
 #mods
 
 #skill QuickGuard
