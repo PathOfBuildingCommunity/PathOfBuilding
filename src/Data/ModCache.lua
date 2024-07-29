@@ -8923,8 +8923,7 @@ c["Life Leech from Melee Damage is Instant"]={{[1]={flags=256,keywordFlags=0,nam
 c["Life Recoup Effects instead occur over 3 seconds"]={{[1]={flags=0,keywordFlags=0,name="3SecondLifeRecoup",type="FLAG",value=true}},nil}
 c["Life Recovery from Flasks also applies to Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="LifeFlaskAppliesToEnergyShield",type="FLAG",value=true}},nil}
 c["Life Recovery from Flasks also applies to Energy Shield during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="LifeFlaskAppliesToEnergyShield",type="FLAG",value=true}},nil}
-c["Life Recovery from Non-Instant Leech is not applied"]={nil,"Life Recovery from Non-Instant Leech is not applied "}
-c["Life Recovery from Non-Instant Leech is not applied 2% additional Physical Damage Reduction for every 3% Life Recovery per second from Leech"]={nil,"Life Recovery from Non-Instant Leech is not applied 2% additional Physical Damage Reduction for every 3% Life Recovery per second from Leech "}
+c["Life Recovery from Non-Instant Leech is not applied"]={{[1]={flags=0,keywordFlags=0,name="UnaffectedByNonInstantLifeLeech",type="FLAG",value=true}},nil}
 c["Life Recovery from Regeneration is not applied"]={{[1]={flags=0,keywordFlags=0,name="UnaffectedByLifeRegen",type="FLAG",value=true}},nil}
 c["Life Regeneration is applied to Energy Shield instead"]={{[1]={flags=0,keywordFlags=0,name="ZealotsOath",type="FLAG",value=true}},nil}
 c["Life and Mana Leech are instant during effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="InstantLifeLeech",type="BASE",value=100},[2]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="InstantManaLeech",type="BASE",value=100}},nil}
