@@ -1,5 +1,21 @@
 # Changelog
 
+## [v2.47.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.47.1) (2024/07/29)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.47.0...v2.47.1)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Calculations
+- Fix Added Damage not applying to Monster Explosions [\#8008](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8008) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Poison stacks applying twice to Poison DPS [\#8007](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8007) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix damage calculation when using both Autoexertion and Echoes of Creation [\#8006](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8006) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Behaviours
+- Fix increased Chance to Block mod on Shields not working [\#8010](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8010) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
+
 ## [v2.47.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.47.0) (2024/07/29)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.46.0...v2.47.0)
