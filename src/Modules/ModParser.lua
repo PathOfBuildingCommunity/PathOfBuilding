@@ -320,6 +320,7 @@ local modNameList = {
 	["to block attacks"] = "BlockChance",
 	["to block attack damage"] = "BlockChance",
 	["block chance"] = "BlockChance",
+	["chance to block"] = "BlockChance",
 	["block chance with staves"] = { "BlockChance", tag = { type = "Condition", var = "UsingStaff" } },
 	["to block with staves"] = { "BlockChance", tag = { type = "Condition", var = "UsingStaff" } },
 	["block chance against projectiles"] = "ProjectileBlockChance",
