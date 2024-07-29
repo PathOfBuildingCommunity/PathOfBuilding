@@ -106,7 +106,7 @@ function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD,
 			if skillRotation[currentIndex].next_trig <= next_trigger then -- Skill at current index off cooldown, Trigger it.
 				skillRotation[currentIndex].count = skillRotation[currentIndex].count + 1
 				-- Cooldown starts at the beginning of current tick and ends at the next tick after cooldown expiration
-				skillRotation[currentIndex].next_trig = ceil_b(floor_b(next_trigger, 0.033) + skillRotation[currentIndex].cd, 0.033)
+				skillRotation[currentIndex].next_trig = ceil_b(floor_b(next_trigger, data.misc.ServerTickTime) + skillRotation[currentIndex].cd, data.misc.ServerTickTime)
 				break
 			end
 			currentIndex = (currentIndex % skillCount) + 1 -- Current skill on cooldown, try the next one.
