@@ -519,6 +519,24 @@ local watchersEyeLegacyMods = {
 	["HasteChanceToDodgeSpells"] = {
 		["rename"] = "Haste: Chance to Suppress Spells",
 	},
+	["PurityOfFireTakePhysicalAsFire"] = {
+		["version"] = "3.25.0",
+	},
+	["PurityOfIceTakePhysicalAsIce"] = {
+		["version"] = "3.25.0",
+	},
+	["PurityOfLightningTakePhysicalAsLightning"] = {
+		["version"] = "3.25.0",
+	},
+	["PurityOfElementsTakePhysicalAsFire_"] = {
+		["version"] = "3.25.0",
+	},
+	["PurityOfElementsTakePhysicalAsCold"] = {
+		["version"] = "3.25.0",
+	},
+	["PurityOfElementsTakePhysicalAsLightning"] = {
+		["version"] = "3.25.0",
+	},
 	["PurityOfFireReducedReflectedFireDamage"] = { },
 	["PurityOfIceReducedReflectedColdDamage"] = { },
 	["PurityOfLightningReducedReflectedLightningDamage"] = { },
