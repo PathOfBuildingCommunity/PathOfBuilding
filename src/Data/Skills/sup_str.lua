@@ -4496,7 +4496,7 @@ skills["SupportOverexertion"] = {
 			mod("ExertIncrease", "INC", nil)
 		},
 		["support_overexertion_damage_+%_final_per_warcry_exerting_action"] = {
-			mod("AutoexertionExertAverageIncrease", "MORE", nil)
+			mod("OverexertionExertAverageIncrease", "MORE", nil)
 		},
 	},
 	qualityStats = {
