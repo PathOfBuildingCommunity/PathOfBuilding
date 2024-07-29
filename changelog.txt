@@ -1,3 +1,8 @@
+VERSION[2.47.2][2024/07/29]
+
+--- Fixed Calculations ---
+* Fix Block Chance calculation (LocalIdentity)
+
 VERSION[2.47.1][2024/07/29]
 
 --- Fixed Calculations ---

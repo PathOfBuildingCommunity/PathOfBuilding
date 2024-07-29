@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <PoBVersion>
-	<Version number="2.47.1" />
+	<Version number="2.47.2" />
 	<Source part="default" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
-	<File name="changelog.txt" part="default" sha1="cbe4d72d08b52a419d185be2acf083738b368ab5" />
+	<File name="changelog.txt" part="default" sha1="40dca850a6652a5a7861b0644359369ebb378697" />
 	<File name="help.txt" part="default" sha1="6840098872cbb19370aacfe47e7b1be4d24e3d52" />
 	<File name="LICENSE.md" part="default" sha1="c77635aa1ba0a2ffe8eb72f93b3376e3a3d2041a" />
 	<File name="Assets/ascendants/ascendant.jpeg" part="program" sha1="c9edaa10dad44c5361f873e68fa39a831338e9ec" />
@@ -77,7 +77,7 @@
 	<File name="Classes/FolderListControl.lua" part="program" sha1="64706fc226b02939112f90735c5d78ddf99b896f" />
 	<File name="Classes/GemSelectControl.lua" part="program" sha1="6685f12b12144c97456847ebf34119d643d403ae" />
 	<File name="Classes/ImportTab.lua" part="program" sha1="461bbfe25b2db787336f7d5665ef3e8aac20ecc8" />
-	<File name="Classes/Item.lua" part="program" sha1="39d78dfff8aa132e4b6a54ef72cc402e6647be7c" />
+	<File name="Classes/Item.lua" part="program" sha1="86c08a7b78a95f736cda40ec7d6873678c5ac56c" />
 	<File name="Classes/ItemDBControl.lua" part="program" sha1="ca571d13f4d0bdd8d9c7e1b511cfbde5cda2d95c" />
 	<File name="Classes/ItemListControl.lua" part="program" sha1="142517eee62e770ad36b363373d613318124b4a3" />
 	<File name="Classes/ItemSetListControl.lua" part="program" sha1="1a2c3fc18465348ad58fd1391b9660980fd2d5b9" />

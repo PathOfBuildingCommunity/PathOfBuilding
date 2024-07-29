@@ -1,5 +1,15 @@
 # Changelog
 
+## [v2.47.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.47.2) (2024/07/29)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.47.1...v2.47.2)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Calculations
+- Fix Block Chance calculation ([LocalIdentity](https://github.com/LocalIdentity))
+
 ## [v2.47.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.47.1) (2024/07/29)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.47.0...v2.47.1)
