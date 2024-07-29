@@ -1349,7 +1349,7 @@ local configTable = {
 		env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill,
 				triggeredSkillCond = function(env, skill)
-					return slotMatch(env, skill) and calcLib.canGrantedEffectSupportActiveSkill(skill.triggeredBy.grantedEffect, skill)
+					return slotMatch(env, skill) and skill.triggeredBy and calcLib.canGrantedEffectSupportActiveSkill(skill.triggeredBy.grantedEffect, skill)
 				end}
 	end,
 }
