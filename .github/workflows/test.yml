@@ -26,3 +26,27 @@ jobs:
         run: busted --lua=/home/runner/work/PathOfBuilding/PathOfBuilding/.lua/bin/luajit
       - name: Report coverage
         run: cd src; luacov-coveralls --repo-token=${{ secrets.github_token }} -e TestData -e Data -e runtime
+
+  install_tests:
+    runs-on: windows-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download installer
+        run: gh release download --pattern '*.exe' --repo PathOfBuildingCommunity/PathOfBuilding
+      - name: Run installer
+        run: .\PathOfBuildingCommunity-Setup.exe /S /NCRC
+      - name: Run Path of Building
+        run: |
+          cd $ENV:APPDATA
+          Start-Process -FilePath "Path of Building Community\Path of Building.exe"
+      - name: Verify first run
+        run: return !(Test-Path "Path of Building Community\first.run")
+      - name: Download Sikuli
+        run: Invoke-WebRequest https://launchpad.net/sikuli/sikulix/2.0.5/+download/sikulixapi-2.0.5.jar -OutFile sikulixapi-2.0.5.jar
+      - name: Run test
+        run: |
+          dir
+          java -jar sikulixapi-2.0.5.jar -r spec\checkUpdate
