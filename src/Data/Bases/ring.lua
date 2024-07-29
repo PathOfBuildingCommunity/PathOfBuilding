@@ -301,6 +301,14 @@ itemBases["Shadowed Ring"] = {
 	implicitModTypes = { { "elemental", "cold", "lightning" }, { "elemental", "cold", "lightning" }, },
 	req = { level = 24, },
 }
+itemBases["Nameless Ring"] = {
+	type = "Ring",
+	tags = { ring = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "50% increased Elemental Ailment Duration on you\n50% reduced Effect of Curses on you",
+	implicitModTypes = { { "elemental" }, { "elemental" }, },
+	req = { level = 24, },
+}
 itemBases["Ring"] = {
 	type = "Ring",
 	tags = { ring = true, not_for_sale = true, default = true, },
