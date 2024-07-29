@@ -1,3 +1,13 @@
+VERSION[2.47.1][2024/07/29]
+
+--- Fixed Calculations ---
+* Fix Added Damage not applying to Monster Explosions (LocalIdentity)
+* Fix Poison stacks applying twice to Poison DPS (LocalIdentity)
+* Fix damage calculation when using both Autoexertion and Echoes of Creation (LocalIdentity)
+
+--- Fixed Behaviours ---
+- Fix increased Chance to Block mod on Shields not working (LocalIdentity)
+
 VERSION[2.47.0][2024/07/29]
 
 --- New to Path of Building ---
