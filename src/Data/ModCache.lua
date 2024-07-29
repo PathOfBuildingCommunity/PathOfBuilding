@@ -10484,8 +10484,8 @@ c["Skills Supported by Nightblade have 40% increased Effect of Elusive"]={{[1]={
 c["Skills Supported by Unleash have 30% increased Seal gain frequency"]={{[1]={flags=0,keywordFlags=0,name="SealGainFrequency",type="INC",value=30}},nil}
 c["Skills Supported by Unleash have 40% increased Seal gain frequency"]={{[1]={flags=0,keywordFlags=0,name="SealGainFrequency",type="INC",value=40}},nil}
 c["Skills Supported by Unleash have 50% increased Seal gain frequency"]={{[1]={flags=0,keywordFlags=0,name="SealGainFrequency",type="INC",value=50}},nil}
-c["Skills deal 13% more Damage for each Warcry Exerting them"]={{[1]={flags=0,keywordFlags=0,name="ExertAverageIncrease",type="MORE",value=13}},nil}
-c["Skills deal 15% more Damage for each Warcry Exerting them"]={{[1]={flags=0,keywordFlags=0,name="ExertAverageIncrease",type="MORE",value=15}},nil}
+c["Skills deal 13% more Damage for each Warcry Exerting them"]={{[1]={flags=0,keywordFlags=0,name="EchoesExertAverageIncrease",type="MORE",value=13}},nil}
+c["Skills deal 15% more Damage for each Warcry Exerting them"]={{[1]={flags=0,keywordFlags=0,name="EchoesExertAverageIncrease",type="MORE",value=15}},nil}
 c["Skills fire 2 additional Projectiles"]={{[1]={flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=2}},nil}
 c["Skills fire 2 additional Projectiles during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=2}},nil}
 c["Skills fire 2 additional Projectiles if you've been Hit Recently"]={{[1]={[1]={type="Condition",var="BeenHitRecently"},flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=2}},nil}
