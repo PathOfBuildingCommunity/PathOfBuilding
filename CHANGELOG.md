@@ -8,7 +8,7 @@
 
 ## What's Changed
 ### New to Path of Building
-- Update existing gems [\#7970](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7970) ([Wires77](https://github.com/Wires77), [Regisle](https://github.com/Regisle), [Nostrademous](https://github.com/Nostrademous), [LocalIdentity](https://github.com/LocalIdentity))
+- Update Gems, Item bases, Mods and Minions [\#7970](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7970) ([Wires77](https://github.com/Wires77), [Regisle](https://github.com/Regisle), [Nostrademous](https://github.com/Nostrademous), [LocalIdentity](https://github.com/LocalIdentity))
 - Add support for new 3.25 Gems [\#7988](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7988) ([LocalIdentity](https://github.com/LocalIdentity))
 - Add support for new 3.25 Uniques [\#8000](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8000), [\#7993](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7993) ([Paliak](https://github.com/Paliak), [Nostrademous](https://github.com/Nostrademous), [LocalIdentity](https://github.com/LocalIdentity))
 - Add support for Warcries to affect Minions [\#7960](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7960) ([Regisle](https://github.com/Regisle))

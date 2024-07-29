@@ -1,7 +1,7 @@
 VERSION[2.47.0][2024/07/29]
 
 --- New to Path of Building ---
-* Update existing gems (Wires77, Regisle, Nostrademous, LocalIdentity)
+* Update Gems, Item bases, Mods and Minions (Wires77, Regisle, Nostrademous, LocalIdentity)
 * Add support for new 3.25 Gems (LocalIdentity)
 * Add support for new 3.25 Uniques (LocalIdentity, Paliak, Nostrademous)
 * Add support for Warcries to affect Minions (Regisle)
