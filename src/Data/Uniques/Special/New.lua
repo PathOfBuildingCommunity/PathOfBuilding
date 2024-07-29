@@ -29,7 +29,7 @@ Radius: Large
 {variant:2}Passive Skills in Radius also grant 3% increased Energy Shield
 {variant:3}Passive Skills in Radius also grant +5 to Maximum Mana
 {variant:4}Passive Skills in Radius also grant 7% increased Armour
-{variant:5}Passive Skills in Radius also grant 5% increased Evasion Rating
+{variant:5}Passive Skills in Radius also grant 7% increased Evasion Rating
 {variant:6}Passive Skills in Radius also grant +2 to all Attributes
 {variant:7}Passive Skills in Radius also grant 5% Increased Global Critical Strike Chance
 {variant:8}Passive Skills in Radius also grant 6% increased Physical Damage
@@ -84,7 +84,7 @@ Implicits: 1
 {tags:life}Regenerate 44 Life per second
 {tags:jewellery_resistance}+21% to Fire Resistance
 {tags:jewellery_resistance}+21% to Cold Resistance
-Gain Ward Instead of 50% of Armour and Evasion Rating From Equipped Body Armour
+{tags:jewellery_defense}Gain Ward Instead of 50% of Armour and Evasion Rating From Equipped Body Armour
 ]],[[
 Serle's Masterwork
 Phantom Mace

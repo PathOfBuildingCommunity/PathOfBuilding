@@ -12,6 +12,7 @@ local itemBases = ...
 #base Metadata/Items/Rings/Ring14 Two-Stone Ring (Fire/Cold)
 #baseMatch Metadata/Items/Rings/RingE%d+
 #baseMatch Metadata/Items/Rings/RingK%d+
+#baseMatch Metadata/Items/Rings/RingR%d+
 #baseMatch Metadata/Items/Rings/MirrorRing
 #forceShow false
 
