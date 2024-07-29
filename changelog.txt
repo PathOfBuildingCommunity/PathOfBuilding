@@ -11,7 +11,7 @@ VERSION[2.47.1][2024/07/29]
 * Fix damage calculation when using both Autoexertion and Echoes of Creation (LocalIdentity)
 
 --- Fixed Behaviours ---
-- Fix increased Chance to Block mod on Shields not working (LocalIdentity)
+* Fix increased Chance to Block mod on Shields not working (LocalIdentity)
 
 VERSION[2.47.0][2024/07/29]
 
