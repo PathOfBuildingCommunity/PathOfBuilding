@@ -4274,7 +4274,7 @@ function calcs.offence(env, actor, activeSkill)
 					output.TotalPoisonAverageDamage = output.PoisonDamage
 					output.TotalPoisonDPS = output.PoisonDPS
 				else
-					output.TotalPoisonDPS = m_min(PoisonDPSCapped * output.TotalPoisonStacks, data.misc.DotDpsCap)
+					output.TotalPoisonDPS = m_min(PoisonDPSCapped, data.misc.DotDpsCap)
 				end
 				if breakdown then
 					if output.CritPoisonDotMulti and (output.CritPoisonDotMulti ~= output.PoisonDotMulti) then
