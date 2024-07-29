@@ -11,6 +11,7 @@ local function scanDir(directory, extension)
 	local t = { }
 	local pFile = io.popen('dir "'..directory..'" /b')
 	for filename in pFile:lines() do
+		filename = filename:gsub('\r?$', '')
 		--ConPrintf("%s\n", filename)
 		if extension then
 			if filename:match(extension) then
@@ -35,7 +36,7 @@ local GGPKClass = newClass("GGPKData", function(self, path, datPath)
 		self.oozPath = datPath:match("\\$") and datPath or (datPath .. "\\")
 	else
 		self.path = path
-		self.temp = io.popen("cd"):read('*l')
+		self.temp = io.popen("cd"):read('*l'):gsub('\r?', '')
 		self.oozPath = self.temp .. "\\ggpk\\"
 		self:ExtractFiles()
 	end

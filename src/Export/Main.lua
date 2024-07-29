@@ -416,7 +416,7 @@ function main:InitGGPK()
 		return
 	else
 		local now = GetTime()
-		local ggpkPath = self.datSource.ggpkPath or self.datSource.datFilePath
+		local ggpkPath = self.datSource.ggpkPath
 		if ggpkPath then
 			self.ggpk = new("GGPKData", ggpkPath)
 			ConPrintf("GGPK: %d ms", GetTime() - now)
