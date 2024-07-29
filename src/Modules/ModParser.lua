@@ -3595,7 +3595,6 @@ local specialModList = {
 		mod("Multiplier:WarcryNearbyEnemies", "BASE", num),
 	} end,
 	["enemies taunted by your warcries take (%d+)%% increased damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Condition", var = "Taunted" }) }, { type = "Condition", var = "UsedWarcryRecently" }) } end,
-	["warcries share their cooldown"] = { flag("WarcryShareCooldown") },
 	["warcries have minimum of (%d+) power"] = { flag("CryWolfMinimumPower") },
 	["warcries have infinite power"] = { flag("WarcryInfinitePower") },
 	["your warcries do not grant buffs or charges to you"] = { flag("CannotGainWarcryBuffs") },
