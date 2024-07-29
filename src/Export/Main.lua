@@ -152,25 +152,15 @@ function main:Init()
 
 	self.colList = { }
 
-	self.controls.datSourceLabel = new("LabelControl", nil, 10, 10, 100, 16, "^7GGPK/Steam PoE path:")
+	self.controls.shownLeagueLabel = new("LabelControl", nil, 10, 10, 100, 16, "^7Data from:")
+	self.controls.leagueLabel = new("LabelControl", { "LEFT", self.controls.shownLeagueLabel, "RIGHT"}, 10, 0, 100, 16, function() return self.leagueLabel or "Unknown" end)
 	self.controls.addSource = new("ButtonControl", nil, 10, 30, 100, 18, "Edit Sources...", function()
 		self.OpenPathPopup()
 	end)
 
 	self.datSources = self.datSources or { }
 	self.controls.datSource = new("DropDownControl", nil, 10, 50, 250, 18, self.datSources, function(_, value)
-		local out = io.open(self.datSource.spec..(self.datSource.spec:match("%.lua$") and "" or ".lua"), "w")
-		out:write('return ')
-		writeLuaTable(out, self.datSpecs, 1)
-		out:close()
-		self.datSource = value
-		self.datSpecs = LoadModule(self.datSource.spec)
-		self:InitGGPK()
-		if USE_DAT64 then
-			self:LoadDat64Files()
-		else
-			self:LoadDatFiles()
-		end
+		self:LoadDatSource(value)
 	end, nil)
 
 	if self.datSource and self.datSource.label then
@@ -339,6 +329,22 @@ function main:CanExit()
 	return true
 end
 
+function main:LoadDatSource(value)
+	self.leagueLabel = nil
+	local out = io.open(self.datSource.spec..(self.datSource.spec:match("%.lua$") and "" or ".lua"), "w")
+	out:write('return ')
+	writeLuaTable(out, self.datSpecs, 1)
+	out:close()
+	self.datSource = value
+	self.datSpecs = LoadModule(self.datSource.spec)
+	self:InitGGPK()
+	if USE_DAT64 then
+		self:LoadDat64Files()
+	else
+		self:LoadDatFiles()
+	end
+end
+
 function main:OpenPathPopup()
 	main:OpenPopup(370, 290, "Manage GGPK versions", {
 		new("GGPKSourceListControl", nil, 0, 50, 350, 200, self),
@@ -417,7 +423,7 @@ function main:InitGGPK()
 	else
 		local now = GetTime()
 		local ggpkPath = self.datSource.ggpkPath
-		if ggpkPath then
+		if ggpkPath and ggpkPath ~= "" then
 			self.ggpk = new("GGPKData", ggpkPath)
 			ConPrintf("GGPK: %d ms", GetTime() - now)
 		elseif self.datSource.datFilePath then
@@ -435,6 +441,19 @@ function main:LoadDatFiles()
 			now = GetTime()
 		end
 		local datFile = new("DatFile", record.name:gsub("%.dat$",""), record.data)
+		if record.name:match("leaguenames%.dat") then
+			if not datFile.spec[2] or not datFile.spec[2].type then
+				datFile.spec = {
+					{
+						type = "String"
+					},
+					{
+						type = "String"
+					}
+				}
+			end
+			self.leagueLabel = datFile:ReadCellText(2, 2)
+		end
 		t_insert(self.datFileList, datFile)
 		self.datFileByName[datFile.name] = datFile
 	end
@@ -449,6 +468,19 @@ function main:LoadDat64Files()
 			now = GetTime()
 		end
 		local datFile = new("Dat64File", record.name:gsub("%.dat64$",""), record.data)
+		if record.name:match("leaguenames%.dat64") then
+			if not datFile.spec[2] or not datFile.spec[2].type then
+				datFile.spec = {
+					{
+						type = "String"
+					},
+					{
+						type = "String"
+					}
+				}
+			end
+			self.leagueLabel = datFile:ReadCellText(2, 2)
+		end
 		t_insert(self.datFileList, datFile)
 		self.datFileByName[datFile.name] = datFile
 	end
