@@ -7,7 +7,7 @@
 local bosses = ...
 
 bosses["Venarius"] = {
-	armourMult = 0,
+	armourMult = 50,
 	evasionMult = 0,
 	isUber = true,
 }
@@ -22,7 +22,7 @@ bosses["SearingExarch"] = {
 	isUber = true,
 }
 bosses["Maven"] = {
-	armourMult = 100,
+	armourMult = 25,
 	evasionMult = 0,
 	isUber = true,
 }
@@ -32,12 +32,12 @@ bosses["Sirus"] = {
 	isUber = true,
 }
 bosses["Shaper"] = {
-	armourMult = 33,
+	armourMult = 0,
 	evasionMult = 33,
 	isUber = true,
 }
 bosses["Elder"] = {
-	armourMult = 33,
+	armourMult = 0,
 	evasionMult = 33,
 	isUber = true,
 }
@@ -48,13 +48,13 @@ bosses["BlackStar"] = {
 	isUber = false,
 }
 bosses["InfiniteHunger"] = {
-	armourMult = 100,
+	armourMult = 0,
 	evasionMult = 0,
 	isUber = false,
 }
 
 bosses["Atziri"] = {
-	armourMult = 100,
+	armourMult = 25,
 	evasionMult = 50,
 	isUber = false,
 }
@@ -65,7 +65,7 @@ bosses["Phoenix"] = {
 	isUber = false,
 }
 bosses["Hydra"] = {
-	armourMult = 0,
+	armourMult = 50,
 	evasionMult = 100,
 	isUber = false,
 }
@@ -75,28 +75,28 @@ bosses["Minotaur"] = {
 	isUber = false,
 }
 bosses["Chimera"] = {
-	armourMult = 0,
+	armourMult = 50,
 	evasionMult = 50,
 	isUber = false,
 }
 
 bosses["Enslaver"] = {
-	armourMult = 33,
+	armourMult = 75,
 	evasionMult = 33,
 	isUber = false,
 }
 bosses["Eradicator"] = {
-	armourMult = 33,
+	armourMult = 0,
 	evasionMult = 33,
 	isUber = false,
 }
 bosses["Constrictor"] = {
-	armourMult = 33,
+	armourMult = 100,
 	evasionMult = 33,
 	isUber = false,
 }
 bosses["Purifier"] = {
-	armourMult = 33,
+	armourMult = 75,
 	evasionMult = 33,
 	isUber = false,
 }

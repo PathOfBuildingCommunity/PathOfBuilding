@@ -36,7 +36,7 @@ skills["RepeatingShockwave"] = {
 		[7] = { critChance = 5, PvPDamageMultiplier = -80, levelRequirement = 1, },
 	},
 }
-skills["MinionSacrifice"] = {
+skills["Affliction"] = {
 	name = "Affliction",
 	hidden = true,
 	color = 3,
@@ -61,7 +61,7 @@ skills["MinionSacrifice"] = {
 		[20] = { levelRequirement = 70, cost = { Mana = 33, }, },
 	},
 }
-skills["AnimateGuardianWeapon"] = {
+skills["AnimateGuardiansWeapon"] = {
 	name = "Animate Guardian's Weapon",
 	hidden = true,
 	color = 2,
@@ -112,7 +112,7 @@ skills["AnimateGuardianWeapon"] = {
 		[20] = { 100, 126, 184, 14, storedUses = 1, levelRequirement = 70, cooldown = 0.05, statInterpolation = { 1, 1, 1, 1, }, },
 	},
 }
-skills["TouchOfFire"] = {
+skills["ApproachingFlames"] = {
 	name = "Approaching Flames",
 	hidden = true,
 	color = 4,
@@ -159,7 +159,7 @@ skills["Barkskin"] = {
 	name = "Barkskin",
 	hidden = true,
 	color = 2,
-	description = "Adopt the power of the Viridian Wildwood, gradually covering your body in bark. Getting hit by enemy attacks causes bark to be removed. You have higher armour the more bark builds up, but higher chance to evade when less covered in bark.",
+	description = "Adopt the power of the forest, gradually covering your body in bark. Getting hit by enemy attacks causes bark to be removed. You take reduced damage from physical attack hits the more bark builds up, but higher chance to evade when less covered in bark.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
@@ -187,30 +187,37 @@ skills["Barkskin"] = {
 	stats = {
 	},
 	levels = {
-		[20] = { storedUses = 1, manaReservationPercent = 10, cooldown = 1, levelRequirement = 70, },
+		[20] = { storedUses = 1, manaReservationPercent = 10, cooldown = 10, levelRequirement = 70, },
 	},
 }
-
-skills["UnboundAvatar"] = {
+skills["AilmentBearer"] = {
 	name = "Unbound Avatar",
 	hidden = true,
 	color = 2,
-	description = "",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, },
+	description = "Gain Unbound Fury by inflicting Elemental Ailments with Hits on enemies. Once you reach maximum Unbound Fury, consume it to become Unbound, vastly augmenting your Elemental prowess.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, [SkillType.Fire] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	fromTree = true,
 	baseFlags = {
 		spell = true,
 	},
+	constantStats = {
+		{ "base_skill_effect_duration", 10000 },
+		{ "display_max_ailment_bearer_charges", 100 },
+		{ "display_ailment_bearer_charge_interval", 1 },
+	},
 	stats = {
+		"base_deal_no_damage",
+		"fixed_skill_effect_duration",
+		"display_skill_fixed_duration_buff",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
 	},
 	levels = {
-		[20] = { storedUses = 1, levelRequirement = 1, cooldown = 1, },
+		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 0.5, cost = { Mana = 13, }, },
 	},
 }
-
-skills["BirdAspect"] = {
+skills["AspectOfTheAvian"] = {
 	name = "Aspect of the Avian",
 	hidden = true,
 	color = 4,
@@ -252,7 +259,7 @@ skills["BirdAspect"] = {
 		[30] = { 12, 12, 14, 14, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, }, },
 	},
 }
-skills["CatAspect"] = {
+skills["AspectOfTheCat"] = {
 	name = "Aspect of the Cat",
 	hidden = true,
 	color = 4,
@@ -295,7 +302,7 @@ skills["CatAspect"] = {
 		[30] = { 120, 15, 100, 16, 16, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, }, },
 	},
 }
-skills["CrabAspect"] = {
+skills["AspectOfTheCrab"] = {
 	name = "Aspect of the Crab",
 	hidden = true,
 	color = 4,
@@ -326,7 +333,7 @@ skills["CrabAspect"] = {
 		[30] = { 12, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, }, },
 	},
 }
-skills["SpiderAspect"] = {
+skills["AspectOfTheSpider"] = {
 	name = "Aspect of the Spider",
 	hidden = true,
 	color = 4,
@@ -530,7 +537,7 @@ skills["BoneArmour"] = {
 		[20] = { 1, storedUses = 1, levelRequirement = 70, cooldown = 3, statInterpolation = { 3, }, },
 	},
 }
-skills["TriggeredBoneNova"] = {
+skills["BoneNova"] = {
 	name = "Bone Nova",
 	hidden = true,
 	color = 4,
@@ -555,10 +562,10 @@ skills["TriggeredBoneNova"] = {
 		"cannot_cause_bleeding",
 	},
 	levels = {
-		[20] = { storedUses = 1, PvPDamageMultiplier = -80, baseMultiplier = 1.5, damageEffectiveness = 1.5, levelRequirement = 1, cooldown = 0.5, },
+		[20] = { baseMultiplier = 1.5, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.5, cooldown = 0.5, levelRequirement = 1, },
 	},
 }
-skills["BrandDetonate"] = {
+skills["Brandsurge"] = {
 	name = "Brandsurge",
 	hidden = true,
 	color = 3,
@@ -708,7 +715,7 @@ skills["CorpseWalk"] = {
 	name = "Corpse Walk",
 	hidden = true,
 	color = 4,
-	description = "Spawns corpses around you while you move. The corpses will be chosen from the monsters in the current area and any Spectres that have existed in this instance.",
+	description = "Spawns corpses around you while you move, based on monsters in the current area. If you are using the Raise Spectre skill there is a chance to spawn spectral corpses matching your most recently raised Spectres. Spectral corpses cannot be interacted with except by Minion skills.",
 	skillTypes = { [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -771,7 +778,7 @@ skills["TriggeredSummonLesserShrine"] = {
 		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 20, },
 	},
 }
-skills["ChaosDegenAuraUnique"] = {
+skills["DeathAura"] = {
 	name = "Death Aura",
 	hidden = true,
 	color = 4,
@@ -997,7 +1004,7 @@ skills["GemDetonateMines"] = {
 		[10] = { storedUses = 1, levelRequirement = 8, cooldown = 0.2, },
 	},
 }
-skills["SupportAuraDuration"] = {
+skills["SupportDivineBlessing"] = {
 	name = "Divine Blessing",
 	description = "Supports aura skills that create permanent auras around you, changing their reservation to a cost and making them temporary. Cannot support banner or stance skills.",
 	color = 1,
@@ -1070,7 +1077,7 @@ skills["SupportAuraDuration"] = {
 		[40] = { 12400, 44, 429, levelRequirement = 100, statInterpolation = { 1, 1, 1, }, },
 	},
 }
-skills["TouchOfGod"] = {
+skills["DoryanisTouch"] = {
 	name = "Doryani's Touch",
 	hidden = true,
 	color = 1,
@@ -1089,7 +1096,6 @@ skills["TouchOfGod"] = {
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_lightning", 100 },
-		{ "active_skill_attack_speed_+%_final", -30 },
 		{ "base_chance_to_shock_%", 40 },
 	},
 	stats = {
@@ -1097,46 +1103,79 @@ skills["TouchOfGod"] = {
 		"global_always_hit",
 	},
 	levels = {
-		[1] = {  damageEffectiveness = 10, levelRequirement = 28, cost = { Mana = 14, }, },
-		[2] = {  damageEffectiveness = 10, levelRequirement = 31, cost = { Mana = 14, }, },
-		[3] = {  damageEffectiveness = 10, levelRequirement = 34, cost = { Mana = 14, }, },
-		[4] = {  damageEffectiveness = 10, levelRequirement = 37, cost = { Mana = 14, }, },
-		[5] = {  damageEffectiveness = 10, levelRequirement = 40, cost = { Mana = 14, }, },
-		[6] = {  damageEffectiveness = 10, levelRequirement = 42, cost = { Mana = 14, }, },
-		[7] = {  damageEffectiveness = 10, levelRequirement = 44, cost = { Mana = 14, }, },
-		[8] = {  damageEffectiveness = 10, levelRequirement = 46, cost = { Mana = 14, }, },
-		[9] = {  damageEffectiveness = 10, levelRequirement = 48, cost = { Mana = 14, }, },
-		[10] = { damageEffectiveness = 10, levelRequirement = 50, cost = { Mana = 14, }, },
-		[11] = { damageEffectiveness = 10, levelRequirement = 52, cost = { Mana = 14, }, },
-		[12] = { damageEffectiveness = 10, levelRequirement = 54, cost = { Mana = 14, }, },
-		[13] = { damageEffectiveness = 10, levelRequirement = 56, cost = { Mana = 14, }, },
-		[14] = { damageEffectiveness = 10, levelRequirement = 58, cost = { Mana = 14, }, },
-		[15] = { damageEffectiveness = 10, levelRequirement = 60, cost = { Mana = 14, }, },
-		[16] = { damageEffectiveness = 10, levelRequirement = 62, cost = { Mana = 14, }, },
-		[17] = { damageEffectiveness = 10, levelRequirement = 64, cost = { Mana = 14, }, },
-		[18] = { damageEffectiveness = 10, levelRequirement = 66, cost = { Mana = 14, }, },
-		[19] = { damageEffectiveness = 10, levelRequirement = 68, cost = { Mana = 14, }, },
-		[20] = { damageEffectiveness = 10, levelRequirement = 70, cost = { Mana = 14, }, },
-		[21] = { damageEffectiveness = 10, levelRequirement = 72, cost = { Mana = 14, }, },
-		[22] = { damageEffectiveness = 10, levelRequirement = 74, cost = { Mana = 14, }, },
-		[23] = { damageEffectiveness = 10, levelRequirement = 76, cost = { Mana = 14, }, },
-		[24] = { damageEffectiveness = 10, levelRequirement = 78, cost = { Mana = 14, }, },
-		[25] = { damageEffectiveness = 10, levelRequirement = 80, cost = { Mana = 14, }, },
-		[26] = { damageEffectiveness = 10, levelRequirement = 82, cost = { Mana = 14, }, },
-		[27] = { damageEffectiveness = 10, levelRequirement = 84, cost = { Mana = 14, }, },
-		[28] = { damageEffectiveness = 10, levelRequirement = 86, cost = { Mana = 14, }, },
-		[29] = { damageEffectiveness = 10, levelRequirement = 88, cost = { Mana = 14, }, },
-		[30] = { damageEffectiveness = 10, levelRequirement = 90, cost = { Mana = 14, }, },
-		[31] = { damageEffectiveness = 10, levelRequirement = 91, cost = { Mana = 14, }, },
-		[32] = { damageEffectiveness = 10, levelRequirement = 92, cost = { Mana = 14, }, },
-		[33] = { damageEffectiveness = 10, levelRequirement = 93, cost = { Mana = 14, }, },
-		[34] = { damageEffectiveness = 10, levelRequirement = 94, cost = { Mana = 14, }, },
-		[35] = { damageEffectiveness = 10, levelRequirement = 95, cost = { Mana = 14, }, },
-		[36] = { damageEffectiveness = 10, levelRequirement = 96, cost = { Mana = 14, }, },
-		[37] = { damageEffectiveness = 10, levelRequirement = 97, cost = { Mana = 14, }, },
-		[38] = { damageEffectiveness = 10, levelRequirement = 98, cost = { Mana = 14, }, },
-		[39] = { damageEffectiveness = 10, levelRequirement = 99, cost = { Mana = 14, }, },
-		[40] = { damageEffectiveness = 10, levelRequirement = 100, cost = { Mana = 14, }, },
+		[1] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 28, cost = { Mana = 10, }, },
+		[2] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 31, cost = { Mana = 11, }, },
+		[3] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 34, cost = { Mana = 11, }, },
+		[4] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 37, cost = { Mana = 11, }, },
+		[5] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 40, cost = { Mana = 12, }, },
+		[6] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 42, cost = { Mana = 12, }, },
+		[7] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 44, cost = { Mana = 12, }, },
+		[8] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 46, cost = { Mana = 12, }, },
+		[9] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 48, cost = { Mana = 12, }, },
+		[10] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 50, cost = { Mana = 13, }, },
+		[11] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 52, cost = { Mana = 13, }, },
+		[12] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 54, cost = { Mana = 13, }, },
+		[13] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 56, cost = { Mana = 13, }, },
+		[14] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 58, cost = { Mana = 13, }, },
+		[15] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 60, cost = { Mana = 13, }, },
+		[16] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 62, cost = { Mana = 14, }, },
+		[17] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 64, cost = { Mana = 14, }, },
+		[18] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 66, cost = { Mana = 14, }, },
+		[19] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 68, cost = { Mana = 14, }, },
+		[20] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 70, cost = { Mana = 14, }, },
+		[21] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 72, cost = { Mana = 15, }, },
+		[22] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 74, cost = { Mana = 15, }, },
+		[23] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 76, cost = { Mana = 15, }, },
+		[24] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 78, cost = { Mana = 15, }, },
+		[25] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 80, cost = { Mana = 15, }, },
+		[26] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 82, cost = { Mana = 15, }, },
+		[27] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 84, cost = { Mana = 16, }, },
+		[28] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 86, cost = { Mana = 16, }, },
+		[29] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 88, cost = { Mana = 16, }, },
+		[30] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 90, cost = { Mana = 16, }, },
+		[31] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 91, cost = { Mana = 16, }, },
+		[32] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 92, cost = { Mana = 16, }, },
+		[33] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 93, cost = { Mana = 16, }, },
+		[34] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 94, cost = { Mana = 17, }, },
+		[35] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 95, cost = { Mana = 17, }, },
+		[36] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 96, cost = { Mana = 17, }, },
+		[37] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 97, cost = { Mana = 17, }, },
+		[38] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 98, cost = { Mana = 17, }, },
+		[39] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 99, cost = { Mana = 17, }, },
+		[40] = { attackSpeedMultiplier = -30, damageEffectiveness = 10, levelRequirement = 100, cost = { Mana = 17, }, },
+	},
+}
+skills["ElementalAegis"] = {
+	name = "Elemental Aegis",
+	hidden = true,
+	color = 4,
+	description = "Calls forth a protective aegis which takes elemental damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking elemental damage from hits, or if depleted.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Aegis] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	cannotBeSupported = true,
+	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("ElementalAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+	},
+	constantStats = {
+		{ "active_skill_display_aegis_variation", 2 },
+		{ "aegis_recharge_delay_ms", 10000 },
+	},
+	stats = {
+		"aegis_unique_shield_max_value",
+		"cast_on_gain_skill",
+		"spell_uncastable_if_triggerable",
+		"no_cost",
+	},
+	levels = {
+		[1] = { 50, levelRequirement = 1, statInterpolation = { 1, }, },
+		[20] = { 1000, levelRequirement = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["SupportEarthbreaker"] = {
@@ -1186,16 +1225,16 @@ skills["SupportEarthbreaker"] = {
 		"force_lite_skill_effects",
 	},
 	levels = {
-		[1] = { 8,   0,  manaMultiplier = 100, levelRequirement = 8,  statInterpolation = { 1, 1, }, },
-		[2] = { 10,  1,  manaMultiplier = 100, levelRequirement = 10, statInterpolation = { 1, 1, }, },
-		[3] = { 13,  2,  manaMultiplier = 100, levelRequirement = 13, statInterpolation = { 1, 1, }, },
-		[4] = { 17,  3,  manaMultiplier = 100, levelRequirement = 17, statInterpolation = { 1, 1, }, },
-		[5] = { 21,  4,  manaMultiplier = 100, levelRequirement = 21, statInterpolation = { 1, 1, }, },
-		[6] = { 25,  5,  manaMultiplier = 100, levelRequirement = 25, statInterpolation = { 1, 1, }, },
-		[7] = { 29,  6,  manaMultiplier = 100, levelRequirement = 29, statInterpolation = { 1, 1, }, },
-		[8] = { 33,  7,  manaMultiplier = 100, levelRequirement = 33, statInterpolation = { 1, 1, }, },
-		[9] = { 37,  8,  manaMultiplier = 100, levelRequirement = 37, statInterpolation = { 1, 1, }, },
-		[10] = { 40, 9,  manaMultiplier = 100, levelRequirement = 40, statInterpolation = { 1, 1, }, },
+		[1] = { 8, 0, manaMultiplier = 100, levelRequirement = 8, statInterpolation = { 1, 1, }, },
+		[2] = { 10, 1, manaMultiplier = 100, levelRequirement = 10, statInterpolation = { 1, 1, }, },
+		[3] = { 13, 2, manaMultiplier = 100, levelRequirement = 13, statInterpolation = { 1, 1, }, },
+		[4] = { 17, 3, manaMultiplier = 100, levelRequirement = 17, statInterpolation = { 1, 1, }, },
+		[5] = { 21, 4, manaMultiplier = 100, levelRequirement = 21, statInterpolation = { 1, 1, }, },
+		[6] = { 25, 5, manaMultiplier = 100, levelRequirement = 25, statInterpolation = { 1, 1, }, },
+		[7] = { 29, 6, manaMultiplier = 100, levelRequirement = 29, statInterpolation = { 1, 1, }, },
+		[8] = { 33, 7, manaMultiplier = 100, levelRequirement = 33, statInterpolation = { 1, 1, }, },
+		[9] = { 37, 8, manaMultiplier = 100, levelRequirement = 37, statInterpolation = { 1, 1, }, },
+		[10] = { 40, 9, manaMultiplier = 100, levelRequirement = 40, statInterpolation = { 1, 1, }, },
 		[11] = { 43, 10, manaMultiplier = 100, levelRequirement = 43, statInterpolation = { 1, 1, }, },
 		[12] = { 46, 11, manaMultiplier = 100, levelRequirement = 46, statInterpolation = { 1, 1, }, },
 		[13] = { 49, 12, manaMultiplier = 100, levelRequirement = 49, statInterpolation = { 1, 1, }, },
@@ -1216,49 +1255,16 @@ skills["SupportEarthbreaker"] = {
 		[28] = { 86, 27, manaMultiplier = 100, levelRequirement = 86, statInterpolation = { 1, 1, }, },
 		[29] = { 88, 28, manaMultiplier = 100, levelRequirement = 88, statInterpolation = { 1, 1, }, },
 		[30] = { 90, 29, manaMultiplier = 100, levelRequirement = 90, statInterpolation = { 1, 1, }, },
-		[31] = { 91, 30, manaMultiplier = 100, levelRequirement = 91, statInterpolation = { 1, 1, }, },
-		[32] = { 92, 31, manaMultiplier = 100, levelRequirement = 92, statInterpolation = { 1, 1, }, },
-		[33] = { 93, 32, manaMultiplier = 100, levelRequirement = 93, statInterpolation = { 1, 1, }, },
-		[34] = { 94, 33, manaMultiplier = 100, levelRequirement = 94, statInterpolation = { 1, 1, }, },
-		[35] = { 95, 34, manaMultiplier = 100, levelRequirement = 95, statInterpolation = { 1, 1, }, },
-		[36] = { 96, 35, manaMultiplier = 100, levelRequirement = 96, statInterpolation = { 1, 1, }, },
-		[37] = { 97, 36, manaMultiplier = 100, levelRequirement = 97, statInterpolation = { 1, 1, }, },
-		[38] = { 98, 37, manaMultiplier = 100, levelRequirement = 98, statInterpolation = { 1, 1, }, },
-		[39] = { 99, 38, manaMultiplier = 100, levelRequirement = 99, statInterpolation = { 1, 1, }, },
-		[40] = { 100, 39, manaMultiplier = 100, levelRequirement = 100, statInterpolation = { 1, 1, }, },
-	},
-}
-skills["ElementalAegis"] = {
-	name = "Elemental Aegis",
-	hidden = true,
-	color = 4,
-	description = "Calls forth a protective aegis which takes elemental damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking elemental damage from hits, or if depleted.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Aegis] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1,
-	cannotBeSupported = true,
-	fromItem = true,
-	statMap = {
-		["aegis_unique_shield_max_value"] = {
-			mod("ElementalAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
-		},
-	},
-	baseFlags = {
-		spell = true,
-	},
-	constantStats = {
-		{ "active_skill_display_aegis_variation", 2 },
-		{ "aegis_recharge_delay_ms", 10000 },
-	},
-	stats = {
-		"aegis_unique_shield_max_value",
-		"cast_on_gain_skill",
-		"spell_uncastable_if_triggerable",
-		"no_cost",
-	},
-	levels = {
-		[1] = { 50, levelRequirement = 1, statInterpolation = { 1, }, },
-		[20] = { 1000, levelRequirement = 1, statInterpolation = { 1, }, },
+		[31] = { 91, 29, manaMultiplier = 100, levelRequirement = 91, statInterpolation = { 1, 1, }, },
+		[32] = { 92, 30, manaMultiplier = 100, levelRequirement = 92, statInterpolation = { 1, 1, }, },
+		[33] = { 93, 30, manaMultiplier = 100, levelRequirement = 93, statInterpolation = { 1, 1, }, },
+		[34] = { 94, 31, manaMultiplier = 100, levelRequirement = 94, statInterpolation = { 1, 1, }, },
+		[35] = { 95, 31, manaMultiplier = 100, levelRequirement = 95, statInterpolation = { 1, 1, }, },
+		[36] = { 96, 32, manaMultiplier = 100, levelRequirement = 96, statInterpolation = { 1, 1, }, },
+		[37] = { 97, 32, manaMultiplier = 100, levelRequirement = 97, statInterpolation = { 1, 1, }, },
+		[38] = { 98, 33, manaMultiplier = 100, levelRequirement = 98, statInterpolation = { 1, 1, }, },
+		[39] = { 99, 33, manaMultiplier = 100, levelRequirement = 99, statInterpolation = { 1, 1, }, },
+		[40] = { 100, 34, manaMultiplier = 100, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["SupportElementalPenetration"] = {
@@ -1322,7 +1328,7 @@ skills["SupportElementalPenetration"] = {
 		[40] = { 39, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["OnHitWhileCursedTriggeredCurseNova"] = {
+skills["ElementalWarding"] = {
 	name = "Elemental Warding",
 	hidden = true,
 	color = 4,
@@ -1568,9 +1574,9 @@ skills["FieryImpactHeistMaceImplicit"] = {
 		"skill_has_trigger_from_unique_item",
 	},
 	levels = {
-		[10] = { baseMultiplier = 2, storedUses = 1, damageEffectiveness = 2, cooldown = 1.8, levelRequirement = 30, },
-		[15] = { baseMultiplier = 2.5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.6, levelRequirement = 50, },
-		[20] = { baseMultiplier = 3, storedUses = 1, damageEffectiveness = 3, cooldown = 1.4, levelRequirement = 70, },
+		[10] = { baseMultiplier = 2.8, storedUses = 1, damageEffectiveness = 2.8, cooldown = 1.8, levelRequirement = 30, },
+		[15] = { baseMultiplier = 3.5, storedUses = 1, damageEffectiveness = 3.5, cooldown = 1.6, levelRequirement = 50, },
+		[20] = { baseMultiplier = 4.2, storedUses = 1, damageEffectiveness = 4.2, cooldown = 1.4, levelRequirement = 70, },
 	},
 }
 skills["AtziriUniqueStaffFlameblast"] = {
@@ -1651,7 +1657,7 @@ skills["SupportTriggerSpellFromHelmet"] = {
 		[1] = { storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 1, cooldown = 0.25, },
 	},
 }
-skills["CreateSmokeCloud"] = {
+skills["FogOfWar"] = {
 	name = "Fog of War",
 	hidden = true,
 	color = 4,
@@ -1673,7 +1679,7 @@ skills["CreateSmokeCloud"] = {
 		[20] = { storedUses = 1, levelRequirement = 65, cooldown = 1, },
 	},
 }
-skills["VaalAuraElementalDamageHealing"] = {
+skills["GluttonyOfElements"] = {
 	name = "Gluttony of Elements",
 	hidden = true,
 	color = 4,
@@ -1737,8 +1743,8 @@ skills["GoreShockwave"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 1, 0, baseMultiplier = 1.6, storedUses = 1, damageEffectiveness = 1.6, cooldown = 1, levelRequirement = 1, statInterpolation = { 1, 1, }, },
-		[5] = { 2, 8, baseMultiplier = 1.81, storedUses = 1, damageEffectiveness = 1.81, cooldown = 1, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+		[1] = { 1, 0, baseMultiplier = 2.307, storedUses = 1, damageEffectiveness = 2.307, cooldown = 1, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+		[5] = { 2, 8, baseMultiplier = 2.497, storedUses = 1, damageEffectiveness = 2.497, cooldown = 1, levelRequirement = 1, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["SupportGreaterSpellEcho"] = {
@@ -1773,7 +1779,7 @@ skills["SupportGreaterSpellEcho"] = {
 		[30] = { manaMultiplier = 50, levelRequirement = 90, },
 	},
 }
-skills["IcestormUniqueStaff12"] = {
+skills["Icestorm"] = {
 	name = "Icestorm",
 	hidden = true,
 	color = 3,
@@ -1819,7 +1825,7 @@ skills["IcestormUniqueStaff12"] = {
 		[1] = { critChance = 6, levelRequirement = 1, cost = { Mana = 22, }, },
 	},
 }
-skills["TriggeredIcicleNova"] = {
+skills["IcicleBurst"] = {
 	name = "Icicle Burst",
 	hidden = true,
 	color = 4,
@@ -1848,10 +1854,11 @@ skills["TriggeredIcicleNova"] = {
 		"never_freeze",
 	},
 	levels = {
-		[20] = { storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 1, cooldown = 0.5, },
+		[10] = { baseMultiplier = 1.25, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.25, cooldown = 0.5, levelRequirement = 1, },
+		[20] = { baseMultiplier = 1.5, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.5, cooldown = 0.5, levelRequirement = 1, },
 	},
 }
-skills["MerveilWarp"] = {
+skills["IllusoryWarp"] = {
 	name = "Illusory Warp",
 	hidden = true,
 	color = 4,
@@ -1878,7 +1885,7 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 	name = "Intimidating Cry",
 	hidden = true,
 	color = 1,
-	description = "Performs a warcry, taunting nearby enemies to attack the user and exerting subsequent attacks. Grants a buff which lowers the effect of enemy physical damage reduction against your hits.",
+	description = "Performs a warcry, taunting nearby enemies to attack the user and exerting subsequent attacks. The user and nearby allies gain a buff that grants movement speed.",
 	skillTypes = { [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, [SkillType.Physical] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.25,
@@ -1887,7 +1894,7 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("IntimidatingExertedAttacks", "BASE", nil),
 		},
-		["intimidating_cry_movement_speed_per_5_MP"] = {
+		["intimidating_cry_movement_speed_+%_per_5_power_up_to_cap"] = {
 			mod("IntimidatingMovementSpeedPer5MP", "BASE", nil),
 		},
 	},
@@ -1900,10 +1907,10 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 		skill("radius", 60),
 	},
 	constantStats = {
-		{ "intimidating_cry_movement_speed_per_5_MP", 3 },
+		{ "intimidating_cry_movement_speed_+%_per_5_power_up_to_cap", 3 },
 		{ "skill_empowers_next_x_melee_attacks", 2 },
 		{ "warcry_speed_+%", 38 },
-		{ "base_skill_effect_duration", 4900 },
+		{ "base_skill_effect_duration", 3400 },
 	},
 	stats = {
 		"base_deal_no_attack_damage",
@@ -1970,7 +1977,7 @@ skills["LightningAegis"] = {
 		[20] = { levelRequirement = 1, },
 	},
 }
-skills["LightningSpell"] = {
+skills["LightningBolt"] = {
 	name = "Lightning Bolt",
 	hidden = true,
 	color = 3,
@@ -2048,7 +2055,7 @@ skills["SupportTriggerBowSkillOnBowAttack"] = {
 		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 1, },
 	},
 }
-skills["UniqueAnimateWeapon"] = {
+skills["ManifestDancingDervishes"] = {
 	name = "Manifest Dancing Dervishes",
 	hidden = true,
 	color = 4,
@@ -2144,7 +2151,7 @@ skills["TriggeredMoltenStrike"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 	},
 	levels = {
-		[16] = { baseMultiplier = 1.15, storedUses = 1, damageEffectiveness = 1.7, cooldown = 0.15, levelRequirement = 1, },
+		[16] = { baseMultiplier = 1.7, storedUses = 1, damageEffectiveness = 1.7, cooldown = 0.15, levelRequirement = 1, },
 	},
 }
 skills["PenanceMark"] = {
@@ -2304,7 +2311,7 @@ skills["PrimalAegis"] = {
 		[20] = { levelRequirement = 1, },
 	},
 }
-skills["Quieten"] = {
+skills["Pacify"] = {
 	name = "Pacify",
 	hidden = true,
 	color = 3,
@@ -2367,7 +2374,7 @@ skills["Ravenous"] = {
 		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 5, cost = { Mana = 33, }, },
 	},
 }
-skills["TriggeredSummonSpider"] = {
+skills["RaiseSpiders"] = {
 	name = "Raise Spiders",
 	hidden = true,
 	color = 3,
@@ -2549,7 +2556,7 @@ skills["TriggeredShockedGround"] = {
 		[10] = { storedUses = 1, levelRequirement = 1, cooldown = 5, },
 	},
 }
-skills["SummonEssenceSpirits"] = {
+skills["SpectralSpirits"] = {
 	name = "Spectral Spirits",
 	hidden = true,
 	color = 3,
@@ -2645,7 +2652,7 @@ skills["SpiritBurst"] = {
 		[20] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.2, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 70, statInterpolation = { 3, 3, }, },
 	},
 }
-skills["VolatileDeadChaos"] = {
+skills["StalkingPustule"] = {
 	name = "Stalking Pustule",
 	hidden = true,
 	color = 2,
@@ -2934,7 +2941,7 @@ skills["SummonBeastialUrsa"] = {
 		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 5, cost = { Mana = 30, }, },
 	},
 }
-skills["CursePillar"] = {
+skills["SummonDoedresEffigy"] = {
 	name = "Summon Doedre's Effigy",
 	hidden = true,
 	color = 4,
@@ -2980,7 +2987,7 @@ skills["SupportCursePillarTriggerCurses"] = {
 		[20] = { levelRequirement = 70, },
 	},
 }
-skills["SummonGuardianRelic"] = {
+skills["SummonElementalRelic"] = {
 	name = "Summon Elemental Relic",
 	hidden = true,
 	color = 4,
@@ -3348,7 +3355,7 @@ skills["TriggeredSummonGhostOnKill"] = {
 		[20] = { manaMultiplier = 20, levelRequirement = 70, },
 	},
 }
-skills["SummonRadiantSentinel"] = {
+skills["SummonSentinelOfRadiance"] = {
 	name = "Summon Sentinel of Radiance",
 	hidden = true,
 	color = 4,
@@ -3394,7 +3401,7 @@ skills["SummonRadiantSentinel"] = {
 		[20] = { 40, 1200, damageEffectiveness = 2, critChance = 6, levelRequirement = 12, statInterpolation = { 1, 1, }, cost = { Mana = 40, }, },
 	},
 }
-skills["SummonRigwaldsPack"] = {
+skills["SummonSpectralWolf"] = {
 	name = "Summon Spectral Wolf",
 	hidden = true,
 	color = 4,
@@ -3475,7 +3482,7 @@ skills["SummonTauntingContraption"] = {
 		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 8, },
 	},
 }
-skills["SummonVoidSphere"] = {
+skills["VolatileAnomaly"] = {
 	name = "Summon Volatile Anomaly",
 	hidden = true,
 	color = 3,
@@ -3568,7 +3575,7 @@ skills["TentacleSmash"] = {
 		[20] = { baseMultiplier = 2.5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 2, levelRequirement = 70, },
 	},
 }
-skills["VampiricIcon"] = {
+skills["ThirstForBlood"] = {
 	name = "Thirst for Blood",
 	hidden = true,
 	color = 4,
@@ -3624,7 +3631,25 @@ skills["SupportTriggerSpellOnSkillUse"] = {
 		[2] = { PvPDamageMultiplier = -80, cooldown = 4, storedUses = 1, manaMultiplier = 150, levelRequirement = 1, },
 	},
 }
-skills["AvianTornado"] = {
+skills["SupportTriggerElementalSpellOnBlock"] = {
+	name = "SupportTriggerElementalSpellOnBlock",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, SkillType.Fire, SkillType.Cold, SkillType.OR, SkillType.Lightning, SkillType.OR, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	stats = {
+		"trigger_effect_group_on_block",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 0.25, },
+	},
+}
+skills["Twister"] = {
 	name = "Twister",
 	hidden = true,
 	color = 3,
@@ -3679,7 +3704,7 @@ skills["Unhinge"] = {
 		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 5, },
 	},
 }
-skills["HiddenBlade"] = {
+skills["UnseenStrike"] = {
 	name = "Unseen Strike",
 	hidden = true,
 	color = 2,
@@ -3732,6 +3757,7 @@ skills["VaalBreach"] = {
 		"base_deal_no_damage",
 		"display_vaal_breach_no_drops_xp",
 		"cannot_cancel_skill_before_contact_point",
+		"skill_cannot_be_stunned_before_contact_point",
 	},
 	levels = {
 		[1] = { vaalStoredUses = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },

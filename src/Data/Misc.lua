@@ -33,6 +33,11 @@ data.gameConstants = {
 	["PartyQuantityBonusPerAdditionalPlayerHardMode"] = 0.3,
 	["PartyRarityBonusPerAdditionalPlayer"] = 0.5,
 	["PartyRarityBonusPerAdditionalPlayerHardMode"] = 0,
+	["SellPriceMultiplier"] = 0.11,
+	["UnidentifiedMagicMultiplier"] = 1.5,
+	["UnidentifiedRareMultiplier"] = 6,
+	["IdentifiedMagicMultiplier"] = 1,
+	["IdentifiedRareMultiplier"] = 2,
 }
 -- From MonsterVarieties.dat combined with SkillTotemVariations.dat
 data.totemLifeMult = { [1] = 1, [2] = 1, [3] = 1, [4] = 1.2, [5] = 1, [6] = 1.2, [7] = 1.2, [8] = 1.2, [9] = 1, [10] = 1, [11] = 1, [12] = 1, [13] = 1.2, [15] = 1.2, [16] = 7.44, [17] = 1.2, [18] = 1, [19] = 1, [20] = 1.2, [21] = 1.2, }

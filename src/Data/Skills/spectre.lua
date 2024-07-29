@@ -266,7 +266,7 @@ skills["BreachCleave"] = {
 	hidden = true,
 	color = 1,
 	description = "The character swings their weapon (or both weapons if dual wielding) in an arc, damaging monsters in an area in front of them. Only works with Axes and Swords.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ThresholdJewelArea] = true, [SkillType.Physical] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ThresholdJewelArea] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -744,7 +744,7 @@ skills["FireMonsterWhirlingBlades"] = {
 	color = 4,
 	baseEffectiveness = 1.0888999700546,
 	incrementalEffectiveness = 0.064599998295307,
-	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords. Cannot be supported by Multistrike.",
+	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
@@ -1212,7 +1212,7 @@ skills["IncursionLeapSlamChampion"] = {
 	name = "Leap Slam",
 	hidden = true,
 	color = 4,
-	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -1410,7 +1410,7 @@ skills["KitavaDemonLeapSlam"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -1449,7 +1449,7 @@ skills["KitavaDemonCleave"] = {
 	color = 1,
 	baseEffectiveness = 0,
 	description = "The character swings their weapon (or both weapons if dual wielding) in an arc, damaging monsters in an area in front of them. Only works with Axes and Swords.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ThresholdJewelArea] = true, [SkillType.Physical] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ThresholdJewelArea] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -1483,7 +1483,7 @@ skills["KitavaDemonWhirlingBlades"] = {
 	color = 4,
 	baseEffectiveness = 2.666699886322,
 	incrementalEffectiveness = 0.0625,
-	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords. Cannot be supported by Multistrike.",
+	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
@@ -1812,7 +1812,7 @@ skills["MonsterEnduringCry"] = {
 	hidden = true,
 	color = 1,
 	baseEffectiveness = 0,
-	description = "Performs a warcry, taunting all nearby enemies to attack the user and granting endurance charges. Gives a brief burst of life regeneration, as well as a buff which grants resistances and physical damage reduction based on your endurance charges.",
+	description = "Performs a warcry, taunting all nearby enemies to attack the user and granting a buff to the user and nearby allies. The user and allied players also gain endurance charges.",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.8,
@@ -2112,7 +2112,7 @@ skills["MonsterLeapSlam"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -2148,7 +2148,7 @@ skills["MonsterLeapSlamFoothills"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -3708,7 +3708,7 @@ skills["UndyingWhirlingBlades"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords. Cannot be supported by Multistrike.",
+	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
@@ -4562,7 +4562,7 @@ skills["HarvestRhexLeapSlam"] = {
 	name = "Leap Slam",
 	hidden = true,
 	color = 4,
-	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -5539,8 +5539,8 @@ skills["TBHellscapePaleLightningBoltSpammableLeft"] = {
 	name = "Lightning Bolt",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 1.5,
-	incrementalEffectiveness = 0.045000001788139,
+	baseEffectiveness = 0.75,
+	incrementalEffectiveness = 0.032499998807907,
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.333,
@@ -5564,8 +5564,8 @@ skills["GSHellscapePaleEliteBoltImpact"] = {
 	name = "Bolt Impact",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 4,
-	incrementalEffectiveness = 0.03999999910593,
+	baseEffectiveness = 3,
+	incrementalEffectiveness = 0.032499998807907,
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -5603,15 +5603,17 @@ skills["GSHellscapePaleEliteOmegaBeam"] = {
 		triggerable = true,
 	},
 	constantStats = {
-		{ "spell_maximum_action_distance_+%", -50 },
+		{ "spell_maximum_action_distance_+%", -65 },
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
+		"active_skill_damage_+%_final",
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, critChance = 5, storedUses = 1, levelRequirement = 1, cooldown = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, -50, critChance = 5, storedUses = 1, levelRequirement = 1, cooldown = 6, statInterpolation = { 3, 3, 2, }, },
+		[2] = { 0.5, 1.5, 1, critChance = 5, storedUses = 1, levelRequirement = 68, cooldown = 6, statInterpolation = { 3, 3, 2, }, },
 	},
 }
 skills["MMSHellscapeDemonEliteTripleMortar"] = {
@@ -5924,7 +5926,7 @@ skills["HellionRallyingCry"] = {
 	name = "Rallying Cry",
 	hidden = true,
 	color = 1,
-	description = "Performs a warcry, granting increased damage and mana regeneration to the user and nearby allies if there are nearby enemies. The damage increase is proportional to the number of surrounding enemies. Taunts all nearby enemies to attack the user. Shares a cooldown with other Warcry skills.",
+	description = "[DNT] Unused (replaced)",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.25,
@@ -6485,7 +6487,7 @@ skills["AzmeriHailrakeColdResistAura"] = {
 	},
 	levels = {
 		[1] = { 20, 0, 20, storedUses = 1, levelRequirement = 1, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
-		[2] = { 60, 5, 45, storedUses = 1, levelRequirement = 80, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
+		[2] = { 31, 1, 50, storedUses = 1, levelRequirement = 80, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
 	},
 }
 skills["AzmeriFireFuryMoltenStrike"] = {
@@ -6673,7 +6675,7 @@ skills["AzmeriFirefuryFireResistAura"] = {
 	},
 	levels = {
 		[1] = { 20, 0, 20, storedUses = 1, levelRequirement = 1, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
-		[2] = { 60, 5, 45, levelRequirement = 80, statInterpolation = { 2, 2, 2, }, },
+		[2] = { 31, 1, 50, levelRequirement = 80, statInterpolation = { 2, 2, 2, }, },
 	},
 }
 skills["AzmeriHydraDoomArrow"] = {
@@ -6778,9 +6780,9 @@ skills["AzmeriHydraHatred"] = {
 		skill("radius", 40),
 	},
 	constantStats = {
-		{ "physical_damage_%_to_add_as_cold", 30 },
+		{ "physical_damage_%_to_add_as_cold", 20 },
 		{ "active_skill_area_of_effect_radius_+%_final", 50 },
-		{ "hatred_aura_cold_damage_+%_final", 20 },
+		{ "hatred_aura_cold_damage_+%_final", 16 },
 	},
 	stats = {
 	},
@@ -7006,15 +7008,14 @@ skills["AzmeriKudukuWrath"] = {
 	},
 	constantStats = {
 		{ "active_skill_area_of_effect_radius_+%_final", 50 },
-		{ "wrath_aura_spell_lightning_damage_+%_final", 10 },
+		{ "wrath_aura_spell_lightning_damage_+%_final", 18 },
 	},
 	stats = {
 		"attack_minimum_added_lightning_damage",
 		"attack_maximum_added_lightning_damage",
-		"wrath_aura_spell_lightning_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0.050000000745058, 0.80000001192093, 0.025000000372529, storedUses = 1, levelRequirement = 1, cooldown = 0.5, statInterpolation = { 3, 3, 3, }, },
+		[1] = { 0.019999999552965, 0.28000000119209, storedUses = 1, levelRequirement = 1, cooldown = 0.5, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MeleeAtAnimationSpeedCold"] = {
@@ -7231,7 +7232,7 @@ skills["AzmeriAdmiralPrecision"] = {
 		"base_deal_no_damage",
 	},
 	levels = {
-		[1] = { 1, 0.10000000149012, storedUses = 1, levelRequirement = 70, cooldown = 0.5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.55150002241135, 0.054299999028444, storedUses = 1, levelRequirement = 1, cooldown = 0.5, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriSawbladeAnimatedWeaponCyclone"] = {
@@ -7846,7 +7847,7 @@ skills["DeceleratingProjectileAzmeriCasterDemon"] = {
 		"cast_time_overrides_attack_duration",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, critChance = 1, storedUses = 1, levelRequirement = 0, cooldown = 10, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 1, storedUses = 1, levelRequirement = 0, cooldown = 5, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["DeceleratingProjectileAzmeriCasterDemonExplode"] = {
@@ -7908,8 +7909,8 @@ skills["AzmeriCasterDemonSpellDamageAura"] = {
 		"base_deal_no_damage",
 	},
 	levels = {
-		[1] = { 10, 30, storedUses = 1, levelRequirement = 0, cooldown = 0.5, statInterpolation = { 2, 2, }, },
-		[2] = { 20, 60, storedUses = 1, levelRequirement = 80, cooldown = 0.5, statInterpolation = { 2, 2, }, },
+		[1] = { 10, 20, storedUses = 1, levelRequirement = 0, cooldown = 0.5, statInterpolation = { 2, 2, }, },
+		[2] = { 12, 29, storedUses = 1, levelRequirement = 80, cooldown = 0.5, statInterpolation = { 2, 2, }, },
 	},
 }
 skills["AzmeriCycloneDemonCleave"] = {
@@ -8854,7 +8855,7 @@ skills["AzmeriPhantasmClarity"] = {
 		"base_mana_regeneration_rate_per_minute",
 	},
 	levels = {
-		[1] = { 1, levelRequirement = 1, statInterpolation = { 3, }, },
+		[1] = { 1139, levelRequirement = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["AzmeriMegaSkeletonHeavyMelee"] = {
@@ -8914,7 +8915,7 @@ skills["AzmeriOakSweep"] = {
 	color = 4,
 	baseEffectiveness = 0,
 	description = "Swings a two handed melee weapon in a circle, knocking back monsters around the character.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Physical] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, },
 	weaponTypes = {
 		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
@@ -8946,7 +8947,7 @@ skills["AzmeriOakLeapSlam"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -9012,7 +9013,7 @@ skills["AzmeriOakVitality"] = {
 		"base_life_regeneration_rate_per_minute",
 	},
 	levels = {
-		[1] = { 1, storedUses = 1, levelRequirement = 1, cooldown = 0.5, statInterpolation = { 3, }, },
+		[1] = { 0.2301000058651, storedUses = 1, levelRequirement = 1, cooldown = 0.5, statInterpolation = { 3, }, },
 	},
 }
 skills["AzmeriReaperMelee"] = {
@@ -9474,7 +9475,7 @@ skills["AzmeriTentacleMinionLightningResistAura"] = {
 	},
 	levels = {
 		[1] = { 20, 0, 20, storedUses = 1, levelRequirement = 1, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
-		[2] = { 60, 5, 45, storedUses = 1, levelRequirement = 80, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
+		[2] = { 31, 1, 50, storedUses = 1, levelRequirement = 80, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
 	},
 }
 skills["AzmeriTigerSpiritFangs"] = {
@@ -9613,9 +9614,9 @@ skills["AzmeriTigerHaste"] = {
 		skill("radius", 40),
 	},
 	constantStats = {
-		{ "attack_speed_+%_granted_from_skill", 25 },
-		{ "cast_speed_+%_granted_from_skill", 25 },
-		{ "base_movement_velocity_+%", 15 },
+		{ "attack_speed_+%_granted_from_skill", 19 },
+		{ "cast_speed_+%_granted_from_skill", 19 },
+		{ "base_movement_velocity_+%", 13 },
 		{ "active_skill_area_of_effect_radius_+%_final", 50 },
 	},
 	stats = {
@@ -9675,14 +9676,14 @@ skills["AzmeriTurtleDetermination"] = {
 	},
 	constantStats = {
 		{ "active_skill_area_of_effect_radius_+%_final", 50 },
-		{ "determination_aura_armour_+%_final", 30 },
+		{ "determination_aura_armour_+%_final", 44 },
 	},
 	stats = {
 		"base_physical_damage_reduction_rating",
 		"base_deal_no_damage",
 	},
 	levels = {
-		[1] = { 1, storedUses = 1, levelRequirement = 0, cooldown = 0.5, statInterpolation = { 3, }, },
+		[1] = { 0.31400001049042, storedUses = 1, levelRequirement = 1, cooldown = 0.5, statInterpolation = { 3, }, },
 	},
 }
 skills["AzmeriOversoulRocksTriggered"] = {
@@ -10328,7 +10329,7 @@ skills["AzmeriDemonPhysicalDamageAura"] = {
 	},
 	levels = {
 		[1] = { 15, 30, storedUses = 1, levelRequirement = 1, cooldown = 5, statInterpolation = { 2, 2, }, },
-		[2] = { 25, 50, storedUses = 1, levelRequirement = 80, cooldown = 5, statInterpolation = { 2, 2, }, },
+		[2] = { 17, 34, storedUses = 1, levelRequirement = 80, cooldown = 5, statInterpolation = { 2, 2, }, },
 	},
 }
 skills["EmptyActionAttackAzmeriGolemVSlam"] = {
@@ -10434,7 +10435,7 @@ skills["AzmeriGolemLeapSlam"] = {
 	name = "Leap Slam",
 	hidden = true,
 	color = 4,
-	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,

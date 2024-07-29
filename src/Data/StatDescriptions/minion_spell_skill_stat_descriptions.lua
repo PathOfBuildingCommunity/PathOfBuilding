@@ -3,30 +3,28 @@
 
 return {
 	[1]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="This Spell and Minions have {0}% increased Cast Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="This Spell and Minions have {0}% reduced Cast Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="This Spell and Minions have {0}% increased Cast Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="This Spell and Minions have {0}% reduced Cast Speed"
 			}
 		},
 		name="cast_speed_incr",
@@ -35,38 +33,36 @@ return {
 		}
 	},
 	[2]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextLowLife"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextLowLife"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="This Spell and Minions have {0}% increased Cast Speed when on Low Life"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="This Spell and Minions have {0}% increased Cast Speed when on Low Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextLowLife"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLowLife"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="This Spell and Minions have {0}% reduced Cast Speed when on Low Life"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="This Spell and Minions have {0}% reduced Cast Speed when on Low Life"
 			}
 		},
 		name="cast_speed_incr_on_low_life",
@@ -75,30 +71,28 @@ return {
 		}
 	},
 	[3]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="This Spell and Minions have {0}% more Cast Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="This Spell and Minions have {0}% less Cast Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="This Spell and Minions have {0}% more Cast Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="This Spell and Minions have {0}% less Cast Speed"
 			}
 		},
 		name="multicast_cast_speed_incr",
@@ -107,30 +101,28 @@ return {
 		}
 	},
 	[4]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="This Spell and Minions have {0}% more Cast Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="This Spell and Minions have {0}% less Cast Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="This Spell and Minions have {0}% more Cast Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="This Spell and Minions have {0}% less Cast Speed"
 			}
 		},
 		name="totem_cast_speed",
@@ -139,17 +131,15 @@ return {
 		}
 	},
 	[5]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minion's Melee Strike Skills deal Fire-only Splash Damage to Surrounding Targets"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minion's Melee Strike Skills deal Fire-only Splash Damage to Surrounding Targets"
 			}
 		},
 		name="melee_splash_fire_only",
@@ -158,21 +148,19 @@ return {
 		}
 	},
 	[6]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextMultipleMines"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextMultipleMines"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="This Skill and Minions have {0}% chance to throw up to 1 additional Trap or Mine"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="This Skill and Minions have {0}% chance to throw up to 1 additional Trap or Mine"
 			}
 		},
 		name="chance_for_1_additional_trap_mine",
@@ -181,21 +169,19 @@ return {
 		}
 	},
 	[7]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextMultipleMines"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextMultipleMines"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="This Skill and Minions have {0}% chance to throw up to 2 additional Traps or Mines"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="This Skill and Minions have {0}% chance to throw up to 2 additional Traps or Mines"
 			}
 		},
 		name="chance_for_2_additional_trap_mine",
@@ -204,21 +190,19 @@ return {
 		}
 	},
 	[8]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextMultipleMines"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextMultipleMines"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="This Skill and Minions have {0}% chance to throw up to 3 additional Traps or Mines"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="This Skill and Minions have {0}% chance to throw up to 3 additional Traps or Mines"
 			}
 		},
 		name="chance_for_3_additional_trap_mine",

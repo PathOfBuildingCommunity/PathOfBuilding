@@ -1187,18 +1187,6 @@ local configTable = {
 		end
 		return {source = env.player.mainSkill}
 	end,
-	["riposte"] = function(env)
-        env.player.mainSkill.skillFlags.globalTrigger = true
-		return {source = env.player.mainSkill}
-	end,
-	["reckoning"] = function(env)
-        env.player.mainSkill.skillFlags.globalTrigger = true
-		return {source = env.player.mainSkill}
-	end,
-	["vengeance"] = function(env)
-        env.player.mainSkill.skillFlags.globalTrigger = true
-		return {source = env.player.mainSkill}
-	end,
 	["battlemage's cry"] = function(env)
 		if env.player.mainSkill.activeEffect.grantedEffect.name ~= "Battlemage's Cry" then
 			return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] end,
@@ -1356,6 +1344,13 @@ local configTable = {
 					sourceName = "Custom source",
 					useCastRate = true}
 		end
+	end,
+	["supporttriggerelementalspellonblock"] = function(env) -- Svalinn Girded Tower Shield
+		env.player.mainSkill.skillFlags.globalTrigger = true
+		return {source = env.player.mainSkill,
+				triggeredSkillCond = function(env, skill)
+					return slotMatch(env, skill) and calcLib.canGrantedEffectSupportActiveSkill(skill.triggeredBy.grantedEffect, skill)
+				end}
 	end,
 }
 

@@ -97,7 +97,7 @@ return {
 		tooltip = "Damage Over Time skill"
 	},
 	["Exarch Ball"] = {
-		DamageType = "SpellProjectile",
+		DamageType = "Spell",
 		DamageMultipliers = {
 			Fire = { 14.924946784635, 0.074624733923175 }
 		},

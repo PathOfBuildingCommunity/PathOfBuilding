@@ -1160,70 +1160,6 @@ describe("TestTriggers", function()
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
     end)
 
-	it("Trigger Riposte", function()
-		build.skillsTab:PasteSocketGroup("Riposte 20/0 Default  1\n")
-        runCallback("OnFrame")
-
-		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
-
-	it("Trigger Reckoning", function()
-		build.itemsTab:CreateDisplayItemFromRaw([[Armour Shield
-		Heat-attuned Tower Shield
-		Armour: 819
-		ArmourBasePercentile: 0
-		Crafted: true
-		Prefix: {range:0.5}LocalIncreasedPhysicalDamageReductionRating5
-		Prefix: {range:0.5}LocalIncreasedPhysicalDamageReductionRatingPercent5
-		Prefix: {range:0.5}IncreasedLife8
-		Suffix: None
-		Suffix: None
-		Suffix: None
-		Quality: 20
-		Sockets: R-R-R
-		LevelReq: 70
-		Implicits: 1
-		Scorch Enemies when you Block their Damage
-		+92 to Armour
-		74% increased Armour
-		+85 to maximum Life]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
-
-		build.skillsTab:PasteSocketGroup("Reckoning 20/0 Default  1\n")
-        runCallback("OnFrame")
-
-		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
-
-	it("Trigger Vengeance", function()
-		build.itemsTab:CreateDisplayItemFromRaw([[Elemental 1H Sword
-		Jewelled Foil
-		Crafted: true
-		Prefix: {range:0.5}WeaponElementalDamageOnWeapons4
-		Prefix: None
-		Prefix: None
-		Suffix: {range:0.5}LocalIncreasedAttackSpeed3
-		Suffix: {range:0.5}LocalCriticalStrikeChance3
-		Suffix: {range:0.5}LocalCriticalMultiplier4
-		Quality: 20
-		Sockets: G-G-G
-		LevelReq: 68
-		Implicits: 1
-		{tags:damage,critical}+25% to Global Critical Strike Multiplier
-		12% increased Attack Speed
-		22% increased Critical Strike Chance
-		+27% to Global Critical Strike Multiplier
-		40% increased Elemental Damage with Attack Skills]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
-
-		build.skillsTab:PasteSocketGroup("Vengeance 20/0 Default  1\n")
-        runCallback("OnFrame")
-
-		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
-
 	it("Trigger Combust", function()
 		build.skillsTab:PasteSocketGroup("Infernal Cry 20/0 Default  1\n")
         runCallback("OnFrame")
@@ -1370,6 +1306,35 @@ describe("TestTriggers", function()
 	
 	it("Trigger Automation", function()
 		build.skillsTab:PasteSocketGroup("Steelskin 20/0 Default  1\nAutomation 20/0 Default  1\n")
+        runCallback("OnFrame")
+
+		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
+    end)
+	
+	it("Trigger Svalinn", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[Rarity: UNIQUE
+			Svalinn Girded
+			Colossal Tower Shield
+			Armour: 721
+			ArmourBasePercentile: 1
+			Ward: 163
+			WardBasePercentile: 1
+			League: Settlers of Kalguur
+			Quality: 20
+			Sockets: R-R-R
+			LevelReq: 50
+			Implicits: 1
+			{range:0.5}+(10-20) to maximum Life
+			13% Chance to Block Spell Damage
+			+136 to Ward
+			-10% to maximum Chance to Block Attack Damage
+			-10% to maximum Chance to Block Spell Damage
+			Chance To Block is Lucky
+			Trigger a Socketed Elemental Spell on Block, with a 0.25 Second Cooldown]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 2\nArc 20/0 Default  1\n")
         runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)

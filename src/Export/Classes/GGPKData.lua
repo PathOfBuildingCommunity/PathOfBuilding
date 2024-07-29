@@ -50,9 +50,16 @@ local GGPKClass = newClass("GGPKData", function(self, path, datPath)
 	end
 end)
 
+
+function GGPKClass:ExtractFilesWithBun(fileListStr)
+	local cmd = 'cd ' .. self.oozPath .. ' && bun_extract_file.exe extract-files "' .. self.path .. '" . ' .. fileListStr
+	ConPrintf(cmd)
+	os.execute(cmd)
+end
+
 function GGPKClass:ExtractFiles()
 	local datList, txtList, itList = self:GetNeededFiles()
-	
+	local sweetSpotCharacter = 6000
 	local fileList = ''
 	for _, fname in ipairs(datList) do
 		if USE_DAT64 then
@@ -60,17 +67,34 @@ function GGPKClass:ExtractFiles()
 		else
 			fileList = fileList .. '"' .. fname .. '" '
 		end
+
+		if fileList:len() > sweetSpotCharacter then
+			self:ExtractFilesWithBun(fileList)
+			fileList = ''
+		end
 	end
+
 	for _, fname in ipairs(txtList) do
 		fileList = fileList .. '"' .. fname .. '" '
+
+		if fileList:len() > sweetSpotCharacter then
+			self:ExtractFilesWithBun(fileList)
+			fileList = ''
+		end
 	end
+
 	for _, fname in ipairs(itList) do
 		fileList = fileList .. '"' .. fname .. '" '
+
+		if fileList:len() > sweetSpotCharacter then
+			self:ExtractFilesWithBun(fileList)
+			fileList = ''
+		end
 	end
-	
-	local cmd = 'cd ' .. self.oozPath .. ' && bun_extract_file.exe extract-files "' .. self.path .. '" . ' .. fileList
-	ConPrintf(cmd)
-	os.execute(cmd)
+
+	if (fileList:len() > 0) then
+		self:ExtractFilesWithBun(fileList)
+	end
 
 	-- Overwrite Enums
 	local errMsg = PLoadModule("Scripts/enums.lua")
@@ -239,7 +263,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/PlayerTradeWhisperFormats.dat",
 		"Data/TradeMarketCategoryListAllClass.dat",
 		"Data/TradeMarketIndexItemAs.dat",
-		"Data/TradeMarketImplicitModDisplay.dat",	
+		"Data/TradeMarketImplicitModDisplay.dat",
 		"Data/Commands.dat",
 		"Data/ModEquivalencies.dat",
 		"Data/InfluenceTags.dat",

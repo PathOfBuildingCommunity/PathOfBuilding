@@ -723,8 +723,8 @@ local function doActorMisc(env, actor)
 			output.Rage = stacks
 			output.MaximumRage = maxStacks
 			modDB:NewMod("Multiplier:Rage", "BASE", output.Rage, "Base")
-			if modDB.conditions["RageSpellDamage"] then
-				modDB:NewMod("Damage", "MORE", effect, "Base", ModFlag.Cast)
+			if modDB:Flag(nil, "Condition:RageSpellDamage") then
+				modDB:NewMod("Damage", "MORE", effect, "Rage", ModFlag.Spell)
 			else
 				modDB:NewMod("Damage", "MORE", effect, "Rage", ModFlag.Attack)
 			end
@@ -1147,88 +1147,11 @@ function calcs.perform(env, skipEHP)
 			output[activeSkill.minion.minionData.limit] = m_max(limit, output[activeSkill.minion.minionData.limit] or 0)
 		end
 		if env.mode_buffs and activeSkill.skillFlags.warcry then
-			local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
-			local exertMultiplier = activeSkill.skillModList:More(nil, "ExtraExertedAttacks")
-			local full_duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
-			local cooldownOverride = activeSkill.skillModList:Override(activeSkill.skillCfg, "CooldownRecovery")
-			local actual_cooldown = cooldownOverride or (activeSkill.skillData.cooldown  + activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "CooldownRecovery")) / calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "CooldownRecovery")
-			local globalCooldown = modDB:Sum("BASE", nil, "GlobalWarcryCooldown")
-			local globalCount = modDB:Sum("BASE", nil, "GlobalWarcryCount")
-			local uptime = m_min(full_duration / actual_cooldown, 1)
-			local buff_inc = 1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "BuffEffect") / 100
-			local warcryPowerBonus = m_floor((modDB:Override(nil, "WarcryPower") or modDB:Sum("BASE", nil, "WarcryPower") or 0) / 5)
-			if modDB:Flag(nil, "WarcryShareCooldown") then
-				uptime = m_min(full_duration / (actual_cooldown + (globalCooldown - actual_cooldown) / globalCount), 1)
-			end
-			if modDB:Flag(nil, "Condition:WarcryMaxHit") then
-				uptime = 1
-			end
-			if activeSkill.activeEffect.grantedEffect.name == "Ancestral Cry" and not modDB:Flag(nil, "AncestralActive") then
-				env.player.modDB:NewMod("NumAncestralExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralExertedAttacks") + extraExertions) * exertMultiplier))
-				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then
-					local ancestralEleResistance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralElementalResistancePer5MP")
-					local ancestralMaxEleResistance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "AncestralMaxElementalResistancePer5MP")
-					env.player.modDB:NewMod("ElementalResist", "BASE", m_floor(ancestralEleResistance * buff_inc) * uptime, "Ancestral Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
-					env.player.modDB:NewMod("ElementalResistMax", "BASE", m_floor(ancestralMaxEleResistance * buff_inc) * uptime, "Ancestral Cry", { type = "Multiplier", var = "WarcryPower", div = 10, limit = 3 })
-				end
-				modDB:NewMod("AncestralActive", "FLAG", true) -- Prevents effect from applying multiple times
-			elseif activeSkill.activeEffect.grantedEffect.name == "Enduring Cry" and not modDB:Flag(nil, "EnduringActive") then
-				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then
-					local enduringRegen = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "EnduringCryLifeRegen")
-					env.player.modDB:NewMod("LifeRegenPercent", "BASE", m_floor(enduringRegen * buff_inc) * uptime, "Enduring Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
-				end
-				modDB:NewMod("EnduringActive", "FLAG", true) -- Prevents effect from applying multiple times
-			elseif activeSkill.activeEffect.grantedEffect.name == "Infernal Cry" and not modDB:Flag(nil, "InfernalActive") then
-				env.player.modDB:NewMod("NumInfernalExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "InfernalExertedAttacks") + extraExertions) * exertMultiplier))
-				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then
-					local infernalPhysAsExtraFire = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "InfernalFireAsExtraPer5MP")
-					env.player.modDB:NewMod("PhysicalDamageGainAsFire", "BASE", m_floor(infernalPhysAsExtraFire * buff_inc) * uptime, "Infernal Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
-				end
-				modDB:NewMod("InfernalActive", "FLAG", true) -- Prevents effect from applying multiple times
-			elseif activeSkill.activeEffect.grantedEffect.name == "Battlemage's Cry" and not modDB:Flag(nil, "BattlemageActive") then
-				env.player.modDB:NewMod("NumBattlemageExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BattlemageExertedAttacks") + extraExertions) * exertMultiplier))
-				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then
-					local battlemageBaseCritChance = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BattlemageBaseCritChancePer5MP")
-					env.player.modDB:NewMod("CritChance", "BASE", m_floor(battlemageBaseCritChance * buff_inc) / 100 * uptime, "Battlemage's Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
-				end
-				modDB:NewMod("BattlemageActive", "FLAG", true) -- Prevents effect from applying multiple times
-			elseif activeSkill.activeEffect.grantedEffect.name == "Intimidating Cry" and not modDB:Flag(nil, "IntimidatingActive") then
-				env.player.modDB:NewMod("NumIntimidatingExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingExertedAttacks") + extraExertions) * exertMultiplier))
-				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then
-					local intimidatingMovementSpeed = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingMovementSpeedPer5MP")
-					env.player.modDB:NewMod("MovementSpeed", "INC", m_floor(intimidatingMovementSpeed * buff_inc) * uptime, "Intimidating Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 6 })
-				end
-				modDB:NewMod("IntimidatingActive", "FLAG", true) -- Prevents effect from applying multiple times
-			elseif activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" and not modDB:Flag(nil, "RallyingActive") then
-				env.player.modDB:NewMod("NumRallyingExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingExertedAttacks") + extraExertions) * exertMultiplier))
-				env.player.modDB:NewMod("RallyingExertMoreDamagePerAlly",  "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryExertDamageBonus"))
-				if not activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") then
-					local rallyingWeaponEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryAllyDamageBonusPer5Power")
-					local rallyingBonusMoreMultiplier = 1 + (activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryMinionDamageBonusMultiplier") or 0)
-					if warcryPowerBonus ~= 0 then
-						rallyingWeaponEffect = m_floor(rallyingWeaponEffect * warcryPowerBonus * buff_inc) / warcryPowerBonus
-					end
-					-- Special handling for the minion side to add the flat damage bonus
-					if env.minion then
-						-- Add all damage types
-						local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
-						for _, damageType in ipairs(dmgTypeList) do
-							env.minion.modDB:NewMod(damageType.."Min", "BASE", m_floor((env.player.weaponData1[damageType.."Min"] or 0) * rallyingBonusMoreMultiplier * rallyingWeaponEffect / 100) * uptime, "Rallying Cry", { type = "Multiplier", actor = "parent", var = "WarcryPower", div = 5, limit = 10})
-							env.minion.modDB:NewMod(damageType.."Max", "BASE", m_floor((env.player.weaponData1[damageType.."Max"] or 0) * rallyingBonusMoreMultiplier * rallyingWeaponEffect / 100) * uptime, "Rallying Cry", { type = "Multiplier", actor = "parent", var = "WarcryPower", div = 5, limit = 10})
-						end
-					end
-				end
+			if activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" and not activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") and not modDB:Flag(nil, "RallyingActive") then
+				env.player.modDB:NewMod("RallyingExertMoreDamagePerAlly", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryExertDamageBonus"))
 				modDB:NewMod("RallyingActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Seismic Cry" and not modDB:Flag(nil, "SeismicActive") then
 				env.player.modDB:NewMod("SeismicMoreAoE", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicAoEMoreMultiplier"))
-				env.player.modDB:NewMod("NumSeismicExerts", "BASE", m_floor((activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicExertedAttacks") + extraExertions) * exertMultiplier))
-				if not (activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") or modDB:Flag(nil, "CannotGainWarcryBuffs")) then 
-					local seismicStunEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicStunThresholdPer5MP")
-					local seismicArmour = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicArmourPer5MP")
-					env.player.modDB:NewMod("StunThreshold", "INC", m_floor(seismicStunEffect * buff_inc) * uptime, "Seismic Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
-					env.player.modDB:NewMod("Armour", "MORE", m_floor(seismicArmour * buff_inc) * uptime, "Seismic Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 5 })
-					
-				end
 				modDB:NewMod("SeismicActive", "FLAG", true) -- Prevents effect from applying multiple times
 			end
 		end
@@ -1523,7 +1446,7 @@ function calcs.perform(env, skipEHP)
 			if item.rarity == "MAGIC" then
 				tinctureEffectInc = tinctureEffectInc + effectIncMagic
 			end
-			local effectMod = (1 + (tinctureEffectInc) / 100) + (1 + (item.quality or 0) / 100)
+			local effectMod = (1 + (tinctureEffectInc) / 100) * (1 + (item.quality or 0) / 100)
 
 			-- same deal as flasks, go look at the comment there
 			if buffModList[1] then
@@ -1950,6 +1873,64 @@ function calcs.perform(env, skipEHP)
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, guards, buff.name)
+					end
+				end
+			elseif buff.type == "Warcry" then
+				if env.mode_buffs then
+					local skillCfg = skillCfg
+					local modStore = skillModList or modDB
+					local warcryName = buff.name:gsub(" Cry", ""):gsub("'s",""):gsub(" ","")
+					local baseExerts = modStore:Sum("BASE", env.player.mainSkill.skillCfg, warcryName.."ExertedAttacks")
+					if baseExerts > 0 then
+						local extraExertions = modStore:Sum("BASE", nil, "ExtraExertedAttacks") or 0
+						local exertMultiplier = modStore:More(nil, "ExtraExertedAttacks")
+						env.player.modDB:NewMod("Num"..warcryName.."Exerts", "BASE", m_floor((baseExerts + extraExertions) * exertMultiplier))
+					end
+					local full_duration = calcSkillDuration(modStore, skillCfg, activeSkill.skillData, env, enemyDB)
+					local cooldownOverride = modStore:Override(skillCfg, "CooldownRecovery")
+					local actual_cooldown = cooldownOverride or (activeSkill.skillData.cooldown  + modStore:Sum("BASE", skillCfg, "CooldownRecovery")) / calcLib.mod(modStore, skillCfg, "CooldownRecovery")
+					local globalCooldown = modDB:Sum("BASE", nil, "GlobalWarcryCooldown")
+					local globalCount = modDB:Sum("BASE", nil, "GlobalWarcryCount")
+					local uptime = modDB:Flag(nil, "Condition:WarcryMaxHit") and 1 or modDB:Flag(nil, "WarcryShareCooldown") and m_min(full_duration / (actual_cooldown + (globalCooldown - actual_cooldown) / globalCount), 1) or m_min(full_duration / actual_cooldown, 1)
+					if not activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") then
+						if not modDB:Flag(nil, "CannotGainWarcryBuffs") then
+							if not buff.applyNotPlayer then
+								activeSkill.buffSkill = true
+								modDB.conditions["AffectedBy"..warcryName] = true
+								local srcList = new("ModList")
+								local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer")
+								local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
+								local mult = (1 + inc / 100) * more * uptime
+								srcList:ScaleAddList(buff.modList, mult)
+								mergeBuff(srcList, buffs, buff.name)
+							end
+						end
+						if env.minion then
+							activeSkill.minionBuffSkill = true
+							env.minion.modDB.conditions["AffectedBy"..warcryName] = true
+							local inc = skillModList:Sum("INC", skillCfg, "BuffEffect") + env.minion.modDB:Sum("INC", skillCfg, "BuffEffectOnSelf")
+							local more = skillModList:More(skillCfg, "BuffEffect") * env.minion.modDB:More(skillCfg, "BuffEffectOnSelf")
+							local mult = (1 + inc / 100) * more * uptime
+							local srcList = new("ModList")
+							srcList:ScaleAddList(buff.modList, mult)
+							mergeBuff(srcList, minionBuffs, buff.name)
+						end
+						-- Special handling for the minion side to add the flat damage bonus
+						if activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" and env.minion then
+							local warcryPowerBonus = m_floor((modDB:Override(nil, "WarcryPower") or modDB:Sum("BASE", nil, "WarcryPower") or 0) / 5)
+							local rallyingWeaponEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryAllyDamageBonusPer5Power")
+							local inc = modStore:Sum("INC", skillCfg, "BuffEffect") + env.minion.modDB:Sum("INC", skillCfg, "BuffEffectOnSelf")
+							local rallyingBonusMoreMultiplier = 1 + (activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryMinionDamageBonusMultiplier") or 0)
+							if warcryPowerBonus ~= 0 then
+								rallyingWeaponEffect = m_floor(rallyingWeaponEffect * warcryPowerBonus * (1 + inc / 100)) / warcryPowerBonus
+							end
+							-- Add all damage types
+							local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
+							for _, damageType in ipairs(dmgTypeList) do
+								env.minion.modDB:NewMod(damageType.."Min", "BASE", m_floor((env.player.weaponData1[damageType.."Min"] or 0) * rallyingBonusMoreMultiplier * rallyingWeaponEffect / 100) * uptime, "Rallying Cry", { type = "Multiplier", actor = "parent", var = "WarcryPower", div = 5, limit = 6})
+								env.minion.modDB:NewMod(damageType.."Max", "BASE", m_floor((env.player.weaponData1[damageType.."Max"] or 0) * rallyingBonusMoreMultiplier * rallyingWeaponEffect / 100) * uptime, "Rallying Cry", { type = "Multiplier", actor = "parent", var = "WarcryPower", div = 5, limit = 6})
+							end
+						end
 					end
 				end
 			elseif buff.type == "Aura" then

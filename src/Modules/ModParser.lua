@@ -1012,6 +1012,7 @@ local preFlagList = {
 	-- Damage types
 	["^attack damage "] = { flags = ModFlag.Attack },
 	["^hits deal "] = { keywordFlags = KeywordFlag.Hit },
+	["^melee weapon damage"] = { flags = ModFlag.WeaponMelee },
 	["^deal "] = { },
 	["^arrows deal "] = { flags = ModFlag.Bow },
 	["^critical strikes deal "] = { tag = { type = "Condition", var = "CriticalStrike" } },
@@ -1222,6 +1223,8 @@ local modTagList = {
 	["per rage"] = { tag = { type = "Multiplier", var = "RageEffect" } },
 	["per rage while you are not losing rage"] = { tag = { type = "Multiplier", var = "RageEffect" } },
 	["per (%d+) rage"] = function(num) return { tag = { type = "Multiplier", var = "RageEffect", div = num } } end,
+	["per mana burn"] = { tag = { type = "Multiplier", var = "ManaBurnStacks" } },
+	["per mana burn, up to a maximum of (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "ManaBurnStacks", limit = tonumber(num), limitTotal = true } } end,
 	["per level"] = { tag = { type = "Multiplier", var = "Level" } },
 	["per (%d+) player levels"] = function(num) return { tag = { type = "Multiplier", var = "Level", div = num } } end,
 	["per defiance"] = { tag = { type = "Multiplier", var = "Defiance" } },
@@ -1970,6 +1973,7 @@ local specialModList = {
 	["(%d+)%% less damage taken for every (%d+)%% life recovery per second from leech"] = function(num, _, div)
 		return { mod("DamageTaken", "MORE", -num, { type = "PerStat", stat = "MaxLifeLeechRatePercent", div = tonumber(div) }) }
 	end,
+	["(%w+) recovery from non%-instant leech is not applied"] = function(_, type) return { flag("UnaffectedByNonInstant" .. firstToUpper(type) .. "Leech") } end,
 	["(%d+)%% additional physical damage reduction for every (%d+)%% life recovery per second from leech"] = function(num, _, div)
 		return { mod("PhysicalDamageReduction", "BASE", num, { type = "PerStat", stat = "MaxLifeLeechRatePercent", div = tonumber(div) }, { type = "Condition", var = "Leeching"}) }
 	end,
@@ -2003,6 +2007,7 @@ local specialModList = {
 		mod("SpellBlockChance", "MORE", -30),
 	},
 	["(%d+)%% increased blind effect"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("BlindEffect", "INC", num) }), } end,
+	["(%d+)%% increased effect of blind from melee weapons"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("BlindEffect", "INC", num) }), } end,
 	["%+(%d+)%% chance to block spell damage for each (%d+)%% overcapped chance to block attack damage"] = function(num, _, div) return { mod("SpellBlockChance", "BASE", num, { type = "PerStat", stat = "BlockChanceOverCap", div = tonumber(div) }) } end,
 	["maximum life becomes 1, immune to chaos damage"] = {
 		flag("ChaosInoculation"),
@@ -2253,7 +2258,13 @@ local specialModList = {
 	["gain %d+ rage on hit with attacks, no more than once every [%d%.]+ seconds"] = {
 		flag("Condition:CanGainRage"),
 	},
+	["gain %d+ rage on attack hit"] = {
+		flag("Condition:CanGainRage"),
+	},
 	["gain %d+ rage on melee hit"] = {
+		flag("Condition:CanGainRage"),
+	},
+	["gain %d+ rage on melee weapon hit"] = {
 		flag("Condition:CanGainRage"),
 	},
 	["gain %d+ rage on hit with axes"] = {
@@ -2493,7 +2504,6 @@ local specialModList = {
 	-- Gladiator
 	["chance to block spell damage is equal to chance to block attack damage"] = { flag("SpellBlockChanceIsBlockChance") },
 	["maximum chance to block spell damage is equal to maximum chance to block attack damage"] = { flag("SpellBlockChanceMaxIsBlockChanceMax") },
-	["your counterattacks deal double damage"] = { mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillNameList = { "Reckoning", "Riposte", "Vengeance" } }) },
 	["attack damage is lucky if you[' ]h?a?ve blocked in the past (%d+) seconds"] = {
 		flag("LuckyHits", nil, ModFlag.Attack, { type = "Condition", var = "BlockedRecently" })
 	},
@@ -2842,6 +2852,9 @@ local specialModList = {
 	 -- Self hit dmg
 	["take (%d+) (.+) damage when you ignite an enemy"] = function(dmg, _, dmgType) return {
 		mod("EyeOfInnocenceSelfDamage", "LIST", {baseDamage = dmg, damageType = dmgType})
+	} end,
+	["when you attack, take (%d+)%% of life as (.+) damage for each warcry exerting the attack"] = function(dmgMult, _, dmgType) return {
+		mod("EchoesOfCreationSelfDamage", "LIST", {dmgMult = dmgMult, damageType = dmgType})
 	} end,
 	["(%d+) (.+) damage taken on minion death"] = function(dmg, _, dmgType) return {
 		mod("HeartboundLoopSelfDamage", "LIST", {baseDamage = dmg, damageType = dmgType})
@@ -3584,9 +3597,10 @@ local specialModList = {
 	["warcries share their cooldown"] = { flag("WarcryShareCooldown") },
 	["warcries have minimum of (%d+) power"] = { flag("CryWolfMinimumPower") },
 	["warcries have infinite power"] = { flag("WarcryInfinitePower") },
-	["warcries do not grant buffs or charges to you"] = { flag("CannotGainWarcryBuffs") },
+	["your warcries do not grant buffs or charges to you"] = { flag("CannotGainWarcryBuffs") },
 	["(%d+)%% chance to inflict corrosion on hit with attacks"] = { flag("Condition:CanCorrode") },
 	["(%d+)%% chance to inflict withered for (%d+) seconds on hit"] = { flag("Condition:CanWither") },
+	["melee weapon hits inflict (%d+) withered debuffs for (%d+) seconds"] = { flag("Condition:CanWither") },
 	["inflict withered for (%d+) seconds on hit if you've cast (.-) in the past (%d+) seconds"] = function (_, _, curse) return { flag("Condition:CanWither", { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") }) } end,
 	["(%d+)%% chance to inflict withered for (%d+) seconds on hit with this weapon"] = { flag("Condition:CanWither") },
 	["(%d+)%% chance to inflict withered for two seconds on hit if there are (%d+) or fewer withered debuffs on enemy"] = { flag("Condition:CanWither") },
@@ -4362,6 +4376,7 @@ local specialModList = {
 	-- Culling
 	["culling strike"] = { mod("CullPercent", "MAX", 10, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["culling strike with melee weapons"] = { mod("CullPercent", "MAX", 10, nil, ModFlag.WeaponMelee, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
+	["melee weapon attacks have culling strike"] = { mod("CullPercent", "MAX", 10, nil, bor(ModFlag.Attack, ModFlag.WeaponMelee), { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["culling strike during f?l?a?s?k? ?effect"] = { mod("CullPercent", "MAX", 10, { type = "Condition", var = "UsingFlask" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["hits with this weapon have culling strike against bleeding enemies"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Bleeding" }) },
 	["you have culling strike against cursed enemies"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Cursed" }) },
@@ -4554,6 +4569,7 @@ local specialModList = {
 	["cannot recover energy shield to above evasion rating"] = { flag("EvasionESRecoveryCap") },
 	["warcries exert (%d+) additional attacks?"] = function(num) return { mod("ExtraExertedAttacks", "BASE", num) } end,
 	["warcries have (%d+)%% chance to exert (%d+) additional attacks?"] = function(num, _, var) return { mod("ExtraExertedAttacks", "BASE", (num*var/100)) } end,
+	["skills deal (%d+)%% more damage for each warcry exerting them"] = function(num) return { mod("ExertAverageIncrease", "MORE", num, nil) } end,
 	["iron will"] = { flag("IronWill") },
 	["iron reflexes while stationary"] = { mod("Keystone", "LIST", "Iron Reflexes", { type = "Condition", var = "Stationary" }) },
 	["you have iron reflexes while at maximum frenzy charges"] = { mod("Keystone", "LIST", "Iron Reflexes", { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }) },
@@ -4589,6 +4605,7 @@ local specialModList = {
 	["attack skills cost life instead of (%d+)%% of mana cost"] = function(num) return { 
 		mod("HybridManaAndLifeCost_Life", "BASE", num, nil, ModFlag.Attack) 
 	} end,
+	["trigger a socketed elemental spell on block, with a ([%d%.]+) second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerElementalSpellOnBlock", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["(%d+)%% chance to cast a? ?socketed lightning spells? on hit"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueMjolnerLightningSpellsCastOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["cast a socketed lightning spell on hit"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueMjolnerLightningSpellsCastOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger a socketed lightning spell on hit"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueMjolnerLightningSpellsCastOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
@@ -4898,8 +4915,6 @@ local specialModList = {
 	["(%d+)%% more frozen legion and general's cry cooldown recovery rate"] = function(num) return { mod("CooldownRecovery", "MORE", num, { type = "SkillName", skillNameList = { "Frozen Legion", "General's Cry" }, includeTransfigured = true }) } end,
 	["flamethrower, seismic and lightning spire trap have (%d+)%% increased cooldown recovery rate"] = function(num) return { mod("CooldownRecovery", "INC", num, { type = "SkillName", skillNameList = { "Flamethrower Trap", "Seismic Trap", "Lightning Spire Trap" }, includeTransfigured = true }) } end,
 	["flamethrower, seismic and lightning spire trap have %-(%d+) cooldown uses?"] = function(num) return { mod("AdditionalCooldownUses", "BASE", -num, { type = "SkillName", skillNameList = { "Flamethrower Trap", "Seismic Trap",  "Lightning Spire Trap" }, includeTransfigured = true }) } end,
-	["your counterattacks have (%d+)%% reduced cooldown recovery rate"] = function(num) return { mod("CooldownRecovery", "INC", -num, { type = "SkillName", skillNameList = { "Reckoning", "Riposte", "Vengeance" } }) } end,
-	["your counterattacks deal (%d+)%% more damage"] = function(num) return { mod("Damage", "MORE", num, { type = "SkillName", skillNameList = { "Reckoning", "Riposte", "Vengeance" } }) } end,
 	["flameblast starts with (%d+) additional stages"] = function(num) return { mod("Multiplier:FlameblastMinimumStage", "BASE", num, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }) } end,
 	["incinerate starts with (%d+) additional stages"] = function(num) return { mod("Multiplier:IncinerateMinimumStage", "BASE", num, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }) } end,
 	["%+([%d%.]+) seconds to flameblast and incinerate cooldown"] = function(num) return {
