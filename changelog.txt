@@ -1,28 +1,33 @@
 VERSION[2.47.0][2024/07/29]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
 
-* Update existing gems by (@Wires77, @Regisle, @Nostrademous, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7970
+--- New to Path of Building ---
+* Update existing gems (Wires77, Regisle, Nostrademous, LocalIdentity)
 * Add support for new 3.25 Gems (LocalIdentity)
-* Add support for new 3.25 Uniques by (@LocalIdentity, @Paliak, @Nostrademous) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8000, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7993
+* Add support for new 3.25 Uniques (LocalIdentity, Paliak, Nostrademous)
 * Add support for Warcries to affect Minions (Regisle)
 * Add support for Echoes of Creation (LocalIdentity)
 * Fix numerous issues in bleed calculations (CelestiaTheDryad)
+
 --- Fixed Crashes ---
 * Fix crash when importing a build where empty configs were not loaded properly (Wires77)
+
 --- User Interface ---
 * Remove remote build list functionality pending redesign (Wires77)
 * Fix breakdown for DoT Multiplier (Rybadour)
+
 --- Fixed Calculations ---
 * Fix DoT Multi when using Maligaro's Virtuosity and Perfect Agony (DieMango)
 * Fix Scorch chance on Crit when using Warden's Oath of Summer (ConnorThelin)
 * Fix Gladiator Determined Survivor Shield Block calculation (Regisle)
 * Fix Ignite divide by 0 error (NL908)
+
 --- Fixed Behaviours ---
 * Fix Quality on Tinctures to apply More effect instead of Increased (nexus671)
 * Fix non-instant Life Leech incorrectly applying with Strength of Blood (greatnameincoming)
 * Fix Ravenous Passion helmet not granting Spell damage from Rage (LocalIdentity)
 * Fix Rallying Cry Exerted damage mod incorrectly working with Autoexertion (LocalIdentity)
 * Improve Militant Faith Notable Protection (Peechey)
+
 --- Accuracy Improvements ---
 * Fix Dark Seer missing global Chance to Blind on Hit (NL908)
 * Add tag to Legacy Watchers eye mods (LocalIdentity)
