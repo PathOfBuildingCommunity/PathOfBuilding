@@ -1385,6 +1385,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		local energyShieldVariance = (self.base.armour.EnergyShieldBaseMax or 0) - (self.base.armour.EnergyShieldBaseMin or 0)
 		local armourEnergyShieldBase = calcLocal(modList, "ArmourAndEnergyShield", "BASE", 0)
 		local wardBase = calcLocal(modList, "Ward", "BASE", 0) + (self.base.armour.WardBaseMin or 0)
+		local blockBase = calcLocal(modList, "BlockChance", "BASE", 0)
 		local wardVariance = (self.base.armour.WardBaseMax or 0) - (self.base.armour.WardBaseMin or 0)
 		local armourInc = calcLocal(modList, "Armour", "INC", 0)
 		local armourEvasionInc = calcLocal(modList, "ArmourAndEvasion", "INC", 0)
@@ -1393,6 +1394,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		local energyShieldInc = calcLocal(modList, "EnergyShield", "INC", 0)
 		local wardInc = calcLocal(modList, "Ward", "INC", 0)
 		local armourEnergyShieldInc = calcLocal(modList, "ArmourAndEnergyShield", "INC", 0)
+		local blockInc = calcLocal(modList, "BlockChance", "INC", 0)
 		local defencesInc = calcLocal(modList, "Defences", "INC", 0)
 		local qualityScalar = self.quality
 		if calcLocal(modList, "AlternateQualityArmour", "BASE", 0) > 0 then
@@ -1435,7 +1437,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		end
 
 		if self.base.armour.BlockChance then
-			armourData.BlockChance = self.base.armour.BlockChance + calcLocal(modList, "BlockChance", "BASE", 0)
+			armourData.BlockChance = m_floor((self.base.armour.BlockChance + blockBase) * (1 + blockInc / 100))
 		end
 		if self.base.armour.MovementPenalty then
 			modList:NewMod("MovementSpeed", "INC", -self.base.armour.MovementPenalty, self.modSource, { type = "Condition", var = "IgnoreMovementPenalties", neg = true })
