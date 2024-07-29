@@ -82,6 +82,9 @@ function main:Init()
 		else
 			self:LoadDatFiles()
 		end
+		if self.datFileByName["leaguenames"] then
+			self.leagueLabel = self.datFileByName["leaguenames"]:ReadValueText({ type = "String" }, self.datFileByName["leaguenames"].rows[2] + 8)
+		end
 	end
 
 	self.scriptList = { }
@@ -153,7 +156,7 @@ function main:Init()
 	self.colList = { }
 
 	self.controls.shownLeagueLabel = new("LabelControl", nil, 10, 10, 100, 16, "^7Data from:")
-	self.controls.leagueLabel = new("LabelControl", { "LEFT", self.controls.shownLeagueLabel, "RIGHT"}, 10, 0, 100, 16, function() return self.leagueLabel or "Unknown" end)
+	self.controls.leagueLabel = new("LabelControl", { "LEFT", self.controls.shownLeagueLabel, "RIGHT"}, 10, 0, 100, 16, function() return "^7" .. (self.leagueLabel or "Unknown") end)
 	self.controls.addSource = new("ButtonControl", nil, 10, 30, 100, 18, "Edit Sources...", function()
 		self.OpenPathPopup()
 	end)
@@ -343,6 +346,9 @@ function main:LoadDatSource(value)
 	else
 		self:LoadDatFiles()
 	end
+	if self.datFileByName["leaguenames"] then
+		self.leagueLabel = self.datFileByName["leaguenames"]:ReadValueText({ type = "String" }, self.datFileByName["leaguenames"].rows[2] + 8)
+	end
 end
 
 function main:OpenPathPopup()
@@ -441,19 +447,6 @@ function main:LoadDatFiles()
 			now = GetTime()
 		end
 		local datFile = new("DatFile", record.name:gsub("%.dat$",""), record.data)
-		if record.name:match("leaguenames%.dat") then
-			if not datFile.spec[2] or not datFile.spec[2].type then
-				datFile.spec = {
-					{
-						type = "String"
-					},
-					{
-						type = "String"
-					}
-				}
-			end
-			self.leagueLabel = datFile:ReadCellText(2, 2)
-		end
 		t_insert(self.datFileList, datFile)
 		self.datFileByName[datFile.name] = datFile
 	end
@@ -468,19 +461,6 @@ function main:LoadDat64Files()
 			now = GetTime()
 		end
 		local datFile = new("Dat64File", record.name:gsub("%.dat64$",""), record.data)
-		if record.name:match("leaguenames%.dat64") then
-			if not datFile.spec[2] or not datFile.spec[2].type then
-				datFile.spec = {
-					{
-						type = "String"
-					},
-					{
-						type = "String"
-					}
-				}
-			end
-			self.leagueLabel = datFile:ReadCellText(2, 2)
-		end
 		t_insert(self.datFileList, datFile)
 		self.datFileByName[datFile.name] = datFile
 	end

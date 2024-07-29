@@ -43,6 +43,7 @@ function GGPKSourceListClass:EditDATSource(datSource, newSource)
 		controls.save.enabled = (controls.dat.buf:match("%S") or controls.ggpk.buf:match("%S")) and controls.label.buf:match("%S") and buf:match("%S")
 	end)
 	controls.save = new("ButtonControl", {"TOP",controls.spec,"TOP"}, -45, 22, 80, 20, "Save", function()
+		local reload = datSource.label == main.datSource.label
 		datSource.label = controls.label.buf
 		datSource.ggpkPath = controls.ggpk.buf or ""
 		datSource.datFilePath = controls.dat.buf or ""
@@ -52,7 +53,7 @@ function GGPKSourceListClass:EditDATSource(datSource, newSource)
 			self.selIndex = #self.list
 			self.selValue = datSource
 		end
-		if datSource.label == main.datSource.label then
+		if reload then
 			main:LoadDatSource(datSource)
 		end
 		main:ClosePopup()
