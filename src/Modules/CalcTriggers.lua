@@ -65,14 +65,14 @@ local function packageSkillDataForSimulation(skill, env)
 	return { uuid = cacheSkillUUID(skill, env), cd = skill.skillData.cooldown, cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery"), addsCastTime = processAddedCastTime(skill), icdr = calcLib.mod(skill.skillModList, skill.skillCfg, "CooldownRecovery"), addedCooldown = skill.skillModList:Sum("BASE", skill.skillCfg, "CooldownRecovery")}
 end
 
-local function defualtComparer(env, uuid, source, triggerRate)
+local function defaultComparer(env, uuid, source, triggerRate)
 	local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed
 	return (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0))
 end
 
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second
 local function findTriggerSkill(env, skill, source, triggerRate, comparer)
-	local comparer = comparer or defualtComparer
+	local comparer = comparer or defaultComparer
 
 	local uuid = cacheSkillUUID(skill, env)
 	if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
@@ -1215,7 +1215,7 @@ local configTable = {
 					comparer = function(env, uuid, source, triggerRate)
 						-- Skills with no uptime ratio are not exerted by battlemage so should not be considered.
 						local uptimeRatio = GlobalCache.cachedData[env.mode][uuid].Env.player.output.BattlemageUpTimeRatio
-						return defualtComparer(env, uuid, source, triggerRate) and uptimeRatio
+						return defaultComparer(env, uuid, source, triggerRate) and uptimeRatio
 					end,
 					triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBattleMageCry and slotMatch(env, skill) end}
 		end
@@ -1250,7 +1250,7 @@ local configTable = {
 				comparer = function(env, uuid, source, triggerRate)
 					-- Skills with no uptime ratio are not exerted by infernal cry so should not be considered.
 					local uptimeRatio = GlobalCache.cachedData[env.mode][uuid].Env.player.output.InfernalUpTimeRatio
-					return defualtComparer(env, uuid, source, triggerRate) and uptimeRatio
+					return defaultComparer(env, uuid, source, triggerRate) and uptimeRatio
 				end,}
 	end,
 	["prismatic burst"] = function(env)
