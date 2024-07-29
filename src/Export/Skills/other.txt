@@ -1129,6 +1129,6 @@ skills["EnemyExplode"] = {
 		"skill_can_add_multiple_charges_per_action",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 0, baseMultiplier = 1, levelRequirement = 1, }
+		[1] = { damageEffectiveness = 1, baseMultiplier = 1, levelRequirement = 1, }
 	}
 }
