@@ -1955,7 +1955,7 @@ function ItemsTabClass:CraftItem()
 		item.implicitModLines = { }
 		item.explicitModLines = { }
 		item.crucibleModLines = { }
-		if base.base.type ~= "Amulet" or base.base.type ~= "Belt" or base.base.type ~= "Jewel" or base.base.type ~= "Quiver" or base.base.type ~= "Ring" then
+		if base.base.type == "Amulet" or base.base.type == "Belt" or base.base.type == "Jewel" or base.base.type == "Quiver" or base.base.type == "Ring" then
 			item.quality = nil
 		else
 			item.quality = 0
