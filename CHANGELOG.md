@@ -16,7 +16,7 @@
 - Fix Overexertion and Echoes of Creation counting non-exerting Warcries [\#8027](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8027) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fixes Rupture using the wrong stat for damage taken and Bleed duration [\#8030](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8030) ([dreais](https://github.com/dreais))
 ### Fixed Behaviours
-- Fix autoexertion not triggering supported skills [\#8026](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8026) ([Paliak](https://github.com/Paliak))
+- Fix Autoexertion not triggering supported skills [\#8026](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8026) ([Paliak](https://github.com/Paliak))
 - Fix Autoexertion not applying Mana reservation to Warcries [\#8029](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8029) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Poison stacks not being capped by skills and config option [\#8035](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8035) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix item quality not defaulting to 20% [\#8032](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8032) ([ConnorThelin](https://github.com/ConnorThelin))
