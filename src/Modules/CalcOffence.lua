@@ -3850,10 +3850,9 @@ function calcs.offence(env, actor, activeSkill)
 			local overrideStackPotential = skillModList:Override(nil, "BleedStackPotentialOverride") and skillModList:Override(nil, "BleedStackPotentialOverride") / maxStacks
 			globalOutput.BleedStacksMax = maxStacks
 			local durationBase = skillData.bleedDurationIsSkillDuration and skillData.duration or data.misc.BleedDurationBase
-			local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyBleedDuration", "EnemyAilmentDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration", "SelfAilmentDuration")
+			local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyBleedDuration", "EnemyAilmentDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration", "SelfAilmentDuration") / calcLib.mod(enemyDB, dotCfg, "BleedExpireRate")
 			durationMod = m_max(durationMod, 0)
 			local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster") + enemyDB:Sum("INC", nil, "SelfBleedFaster")  / 100
-			rateMod = (calcLib.mod(enemyDB, dotCfg, "BleedExpireRate") / 2) + 0.5
 			globalOutput.BleedDuration = durationBase * durationMod / rateMod * debuffDurationMult
 
 			-- The chance any given hit applies bleed
