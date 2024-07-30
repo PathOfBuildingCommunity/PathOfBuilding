@@ -1174,6 +1174,19 @@ local configTable = {
 					return skill.activeEffect.grantedEffect.name == "Call to Arms"
 				end}
 	end,
+	["autoexertion"] = function(env)
+		if env.player.mainSkill.activeEffect.grantedEffect.name == "Autoexertion" then
+			env.player.mainSkill.skillFlags.globalTrigger = true
+			return {source = env.player.mainSkill}
+		end
+		env.player.mainSkill.skillData.sourceRateIsFinal = true
+		env.player.mainSkill.skillData.ignoresTickRate = true
+		return {triggerOnUse = true,
+				useCastRate = true,
+				triggerSkillCond = function(env, skill)
+					return skill.activeEffect.grantedEffect.name == "Autoexertion"
+				end}
+	end,
 	["mark on hit"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] end}
 	end,
