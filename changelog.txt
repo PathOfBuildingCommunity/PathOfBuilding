@@ -1,3 +1,21 @@
+VERSION[2.47.3][2024/07/30]
+
+--- Fixed Crashes ---
+* Fix crash when importing builds to Party tab (Regisle)
+* Fix crash when using Svalin unique shield (Paliak)
+
+--- Fixed Calculations ---
+* Fix Inspiration granting more Mana cost instead of Less (LocalIdentity)
+* Fix Warcry trigger rate calculations (Paliak)
+* Fix Overexertion and Echoes of Creation counting non-exerting Warcries (LocalIdentity)
+* Fixes Rupture using the wrong stat for damage taken and Bleed duration (dreais)
+
+--- Fixed Behaviours ---
+* Fix Autoexertion not triggering supported skills (Paliak)
+* Fix Autoexertion not applying Mana reservation to Warcries (LocalIdentity)
+* Fix Poison stacks not being capped by skills and config option (LocalIdentity)
+* Fix item quality not defaulting to 20% (ConnorThelin)
+
 VERSION[2.47.2][2024/07/29]
 
 --- Fixed Calculations ---
