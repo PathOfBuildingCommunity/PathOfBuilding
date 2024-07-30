@@ -766,7 +766,7 @@ local function doActorCharges(env, actor)
 	-- Calculate current and maximum charges
 	output.PowerChargesMin = m_max(modDB:Sum("BASE", nil, "PowerChargesMin"), 0)
 	output.PowerChargesMax = m_max(modDB:Sum("BASE", nil, "PowerChargesMax"), 0)
-    output.PowerChargesDuration = m_floor(modDB:Sum("BASE", nil, "ChargeDuration") * (1 + modDB:Sum("INC", nil, "PowerChargesDuration", "ChargeDuration") / 100))
+    output.PowerChargesDuration = m_floor(modDB:Sum("BASE", nil, "ChargeDuration") * calcLib.mod(modDB, nil, "PowerChargesDuration", "ChargeDuration"))
 	if modDB:Flag(nil, "MaximumFrenzyChargesIsMaximumPowerCharges") then
 		local source = modDB.mods["MaximumFrenzyChargesIsMaximumPowerCharges"][1].source
 		if not modDB:HasMod("OVERRIDE", {source = source:match("[^:]+")}, "FrenzyChargesMax") then
@@ -775,7 +775,7 @@ local function doActorCharges(env, actor)
 	end
 	output.FrenzyChargesMin = m_max(modDB:Sum("BASE", nil, "FrenzyChargesMin"), 0)
 	output.FrenzyChargesMax = m_max(modDB:Flag(nil, "MaximumFrenzyChargesIsMaximumPowerCharges") and output.PowerChargesMax or modDB:Sum("BASE", nil, "FrenzyChargesMax"), 0)
-	output.FrenzyChargesDuration = m_floor(modDB:Sum("BASE", nil, "ChargeDuration") * (1 + modDB:Sum("INC", nil, "FrenzyChargesDuration", "ChargeDuration") / 100))
+	output.FrenzyChargesDuration = m_floor(modDB:Sum("BASE", nil, "ChargeDuration") * calcLib.mod(modDB, nil, "FrenzyChargesDuration", "ChargeDuration"))
 	if modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") then
 		local source = modDB.mods["MaximumEnduranceChargesIsMaximumFrenzyCharges"][1].source
 		if not modDB:HasMod("OVERRIDE", {source = source:match("[^:]+")}, "EnduranceChargesMax") then
@@ -784,7 +784,7 @@ local function doActorCharges(env, actor)
 	end
 	output.EnduranceChargesMin = m_max(modDB:Sum("BASE", nil, "EnduranceChargesMin"), 0)
 	output.EnduranceChargesMax = m_max(env.partyMembers.modDB:Flag(nil, "PartyMemberMaximumEnduranceChargesEqualToYours") and env.partyMembers.output.EnduranceChargesMax or (modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or modDB:Sum("BASE", nil, "EnduranceChargesMax")), 0)
-	output.EnduranceChargesDuration = m_floor(modDB:Sum("BASE", nil, "ChargeDuration") * (1 + modDB:Sum("INC", nil, "EnduranceChargesDuration", "ChargeDuration") / 100))
+	output.EnduranceChargesDuration = m_floor(modDB:Sum("BASE", nil, "ChargeDuration") * calcLib.mod(modDB, nil, "EnduranceChargesDuration", "ChargeDuration"))
 	output.SiphoningChargesMax = m_max(modDB:Sum("BASE", nil, "SiphoningChargesMax"), 0)
 	output.ChallengerChargesMax = m_max(modDB:Sum("BASE", nil, "ChallengerChargesMax"), 0)
 	output.BlitzChargesMax = m_max(modDB:Sum("BASE", nil, "BlitzChargesMax"), 0)
