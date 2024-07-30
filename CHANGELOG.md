@@ -1,5 +1,28 @@
 # Changelog
 
+## [v2.47.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.47.3) (2024/07/30)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.47.2...v2.47.3)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Crashes
+- Fix crash when importing builds to Party tab [\#8022](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8022) ([Regisle](https://github.com/Regisle))
+- Fix crash when using Svalin unique shield [\#8023](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8023) ([Paliak](https://github.com/Paliak))
+### Fixed Calculations
+- Fix Inspiration granting more Mana cost instead of Less [\#8015](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8015) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Warcry trigger rate calculations [\#8025](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8025) ([Paliak](https://github.com/Paliak))
+- Fix Overexertion and Echoes of Creation counting non-exerting Warcries [\#8027](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8027) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fixes Rupture using the wrong stat for damage taken and Bleed duration [\#8030](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8030) ([dreais](https://github.com/dreais))
+### Fixed Behaviours
+- Fix Autoexertion not triggering supported skills [\#8026](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8026) ([Paliak](https://github.com/Paliak))
+- Fix Autoexertion not applying Mana reservation to Warcries [\#8029](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8029) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Poison stacks not being capped by skills and config option [\#8035](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8035) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix item quality not defaulting to 20% [\#8032](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8032) ([ConnorThelin](https://github.com/ConnorThelin))
+
+
+
 ## [v2.47.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.47.2) (2024/07/29)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.47.1...v2.47.2)
