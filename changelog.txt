@@ -1,3 +1,16 @@
+VERSION[2.47.3][2024/07/30]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Fix crash when importing builds to Party tab (Regisle)
+* Fix crash when using Svalin unique shield (Paliak)
+* Fix Warcry trigger rate calculations (Paliak)
+* Fix Overexertion and Echoes of Creation counting non-exerting Warcries (LocalIdentity)
+* Fixes Rupture using the wrong stat for damage taken and Bleed duration (dreais)
+* Fix Autoexertion not applying Mana reservation to Warcries (LocalIdentity)
+* Fix Poison stacks not being capped by skills and config option (LocalIdentity)
+* Fix item quality not defaulting to 20% (ConnorThelin)
+
+
 VERSION[2.47.2][2024/07/29]
 
 --- Fixed Calculations ---
