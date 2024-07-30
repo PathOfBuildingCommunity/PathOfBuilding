@@ -4137,27 +4137,21 @@ function calcs.offence(env, actor, activeSkill)
 			if PoisonStacks < 1 and (env.configInput.multiplierPoisonOnEnemy or 0) <= 1 then
 				skillModList:NewMod("Condition:SinglePoison", "FLAG", true, "poison")
 			end
-			globalOutput.PoisonStacks = PoisonStacks
 			if globalBreakdown then
-				globalBreakdown.PoisonStacks = {
-					"Average number of poisons",
-					s_format("%.2f ^8(chance to hit)", output.HitChance / 100),
-					s_format("* %.2f ^8(chance to poison)", poisonChance),
-				}
-				if (globalOutput.HitSpeed or globalOutput.Speed) > 0 then
-					t_insert(globalBreakdown.PoisonStacks, s_format("* %.2f ^8(poison duration)", globalOutput.PoisonDuration))
-					t_insert(globalBreakdown.PoisonStacks, s_format("* %.2f ^8(attacks per second)", globalOutput.HitSpeed or globalOutput.Speed))
+				globalBreakdown.PoisonStacks = { }
+				globalBreakdown.multiChain(globalBreakdown.PoisonStacks, {
+					base = { "%.2fs ^8(poison duration)", globalOutput.PoisonDuration },
+					{ "%.2f ^8(poison chance)", poisonChance },
+					{ "%.2f ^8(hit chance)", output.HitChance / 100 },
+					{ "%.2f ^8(hits per second)", globalOutput.HitSpeed or globalOutput.Speed },
+					{ "%g ^8(dps multiplier for this skill)", skillData.dpsMultiplier or 1 },
+					{ "%g ^8(stack multiplier for this skill)", skillData.stackMultiplier or 1 },
+					{ "%g ^8(quantity multiplier for this skill)", quantityMultiplier },
+					total = s_format("= %.2f", PoisonStacks),
+				})
+				if skillModList:Flag(nil, "Condition:SinglePoison") then
+					t_insert(globalBreakdown.PoisonStacks, "Capped to 1")
 				end
-				if skillData.dpsMultiplier ~= 1 then
-					t_insert(globalBreakdown.PoisonStacks, s_format("* %.2f ^8(skill DPS multiplier)", skillData.dpsMultiplier))
-				end
-				if skillData.stackMultiplier and skillData.stackMultiplier ~= 1 then
-					t_insert(globalBreakdown.PoisonStacks, s_format("* %.2f ^8(stack multiplier)", skillData.stackMultiplier))
-				end
-				if quantityMultiplier ~= 1 then
-					t_insert(globalBreakdown.PoisonStacks, s_format("* %.2f ^8(quantity multiplier)", quantityMultiplier))
-				end
-				t_insert(globalBreakdown.PoisonStacks, s_format("= %.2f", PoisonStacks))
 			end
 			for sub_pass = 1, 2 do
 				if skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") or sub_pass == 1 then
@@ -4243,12 +4237,11 @@ function calcs.offence(env, actor, activeSkill)
 						globalBreakdown.PoisonEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore, sourceRes, true)
 					end
 				end
-				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
 				if skillModList:Flag(nil, "Condition:SinglePoison") then
-					output.TotalPoisonStacks = m_min(1, PoisonStacks)
-				else
-					output.TotalPoisonStacks = PoisonStacks
+					PoisonStacks = m_min(1, PoisonStacks)
 				end
+				globalOutput.PoisonStacks = PoisonStacks
+				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
 				local singlePoisonDps = m_min(baseVal * effectMod * rateMod * effMult, data.misc.DotDpsCap)
 				local PoisonDPSUncapped = singlePoisonDps * PoisonStacks
 				local PoisonDPSCapped = m_min(PoisonDPSUncapped, data.misc.DotDpsCap)
@@ -4356,25 +4349,6 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown.PoisonDamage, s_format("%.1f ^8(damage per second)", singlePoisonDps))
 					t_insert(breakdown.PoisonDamage, s_format("x %.2fs ^8(poison duration)", globalOutput.PoisonDuration))
 					t_insert(breakdown.PoisonDamage, s_format("= %.1f ^8damage per poison stack", output.PoisonDamage))
-					if not skillData.showAverage then
-						breakdown.TotalPoisonStacks = { }
-						if isAttack then
-							t_insert(breakdown.TotalPoisonStacks, pass.label..":")
-						end
-						breakdown.multiChain(breakdown.TotalPoisonStacks, {
-							base = { "%.2fs ^8(poison duration)", globalOutput.PoisonDuration },
-							{ "%.2f ^8(poison chance)", output.PoisonChance / 100 },
-							{ "%.2f ^8(hit chance)", output.HitChance / 100 },
-							{ "%.2f ^8(hits per second)", globalOutput.HitSpeed or globalOutput.Speed },
-							{ "%g ^8(dps multiplier for this skill)", skillData.dpsMultiplier or 1 },
-							{ "%g ^8(stack multiplier for this skill)", skillData.stackMultiplier or 1 },
-							{ "%g ^8(quantity multiplier for this skill)", quantityMultiplier },
-							total = s_format("= %.1f", output.TotalPoisonStacks),
-						})
-						if skillModList:Flag(nil, "Condition:SinglePoison") then
-							t_insert(breakdown.TotalPoisonStacks, "Capped to 1")
-						end
-					end
 				end
 			end
 		end
