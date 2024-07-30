@@ -527,7 +527,6 @@ local skills, mod, flag, skill = ...
 		},
 		["support_inspiration_mana_cost_+%_final"] = {
 			mod("ManaCost", "MORE", nil),
-			mult = -1,
 		},
 	},
 #mods

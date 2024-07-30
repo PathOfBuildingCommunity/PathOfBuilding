@@ -1512,7 +1512,7 @@ function calcs.perform(env, skipEHP)
 		breakdown.ManaReserved = { reservations = { } }
 	end
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		if activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
+		if activeSkill.skillTypes[SkillType.HasReservation] or activeSkill.skillData.SupportedByAutoexertion and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
 			local skillModList = activeSkill.skillModList
 			local skillCfg = activeSkill.skillCfg
 			local mult = floor(skillModList:More(skillCfg, "SupportManaMultiplier"), 4)
@@ -3096,7 +3096,7 @@ function calcs.perform(env, skipEHP)
 			buffExports.PlayerMods["EnduranceChargesMax="..tostring(output["EnduranceChargesMax"])] = true
 		end
 
-		buffExports.PlayerMods["MovementSpeedMod|percent|max="..tostring(output["MovementSpeedMod"] * 100)] = true
+		buffExports.PlayerMods["MovementSpeedMod|percent|max="..tostring(m_floor(output["MovementSpeedMod"] * 100))] = true
 		
 		for _, mod in ipairs(buffExports["Aura"]["extraAura"].modList) do
 			-- leaving comment to make it easier for future similar mods

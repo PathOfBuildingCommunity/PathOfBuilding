@@ -82,6 +82,9 @@ function main:Init()
 		else
 			self:LoadDatFiles()
 		end
+		if self.datFileByName["leaguenames"] then
+			self.leagueLabel = self.datFileByName["leaguenames"]:ReadValueText({ type = "String" }, self.datFileByName["leaguenames"].rows[2] + 8)
+		end
 	end
 
 	self.scriptList = { }
@@ -152,25 +155,15 @@ function main:Init()
 
 	self.colList = { }
 
-	self.controls.datSourceLabel = new("LabelControl", nil, 10, 10, 100, 16, "^7GGPK/Steam PoE path:")
+	self.controls.shownLeagueLabel = new("LabelControl", nil, 10, 10, 100, 16, "^7Data from:")
+	self.controls.leagueLabel = new("LabelControl", { "LEFT", self.controls.shownLeagueLabel, "RIGHT"}, 10, 0, 100, 16, function() return "^7" .. (self.leagueLabel or "Unknown") end)
 	self.controls.addSource = new("ButtonControl", nil, 10, 30, 100, 18, "Edit Sources...", function()
 		self.OpenPathPopup()
 	end)
 
 	self.datSources = self.datSources or { }
 	self.controls.datSource = new("DropDownControl", nil, 10, 50, 250, 18, self.datSources, function(_, value)
-		local out = io.open(self.datSource.spec..(self.datSource.spec:match("%.lua$") and "" or ".lua"), "w")
-		out:write('return ')
-		writeLuaTable(out, self.datSpecs, 1)
-		out:close()
-		self.datSource = value
-		self.datSpecs = LoadModule(self.datSource.spec)
-		self:InitGGPK()
-		if USE_DAT64 then
-			self:LoadDat64Files()
-		else
-			self:LoadDatFiles()
-		end
+		self:LoadDatSource(value)
 	end, nil)
 
 	if self.datSource and self.datSource.label then
@@ -339,6 +332,25 @@ function main:CanExit()
 	return true
 end
 
+function main:LoadDatSource(value)
+	self.leagueLabel = nil
+	local out = io.open(self.datSource.spec..(self.datSource.spec:match("%.lua$") and "" or ".lua"), "w")
+	out:write('return ')
+	writeLuaTable(out, self.datSpecs, 1)
+	out:close()
+	self.datSource = value
+	self.datSpecs = LoadModule(self.datSource.spec)
+	self:InitGGPK()
+	if USE_DAT64 then
+		self:LoadDat64Files()
+	else
+		self:LoadDatFiles()
+	end
+	if self.datFileByName["leaguenames"] then
+		self.leagueLabel = self.datFileByName["leaguenames"]:ReadValueText({ type = "String" }, self.datFileByName["leaguenames"].rows[2] + 8)
+	end
+end
+
 function main:OpenPathPopup()
 	main:OpenPopup(370, 290, "Manage GGPK versions", {
 		new("GGPKSourceListControl", nil, 0, 50, 350, 200, self),
@@ -416,8 +428,8 @@ function main:InitGGPK()
 		return
 	else
 		local now = GetTime()
-		local ggpkPath = self.datSource.ggpkPath or self.datSource.datFilePath
-		if ggpkPath then
+		local ggpkPath = self.datSource.ggpkPath
+		if ggpkPath and ggpkPath ~= "" then
 			self.ggpk = new("GGPKData", ggpkPath)
 			ConPrintf("GGPK: %d ms", GetTime() - now)
 		elseif self.datSource.datFilePath then

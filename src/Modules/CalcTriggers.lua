@@ -65,19 +65,21 @@ local function packageSkillDataForSimulation(skill, env)
 	return { uuid = cacheSkillUUID(skill, env), cd = skill.skillData.cooldown, cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery"), addsCastTime = processAddedCastTime(skill), icdr = calcLib.mod(skill.skillModList, skill.skillCfg, "CooldownRecovery"), addedCooldown = skill.skillModList:Sum("BASE", skill.skillCfg, "CooldownRecovery")}
 end
 
+local function defaultComparer(env, uuid, source, triggerRate)
+	local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed
+	return (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0))
+end
+
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second
 local function findTriggerSkill(env, skill, source, triggerRate, comparer)
-	local comparer = comparer or function(uuid, source, triggerRate)
-		local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed
-		return (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0))
-	end
+	local comparer = comparer or defaultComparer
 
 	local uuid = cacheSkillUUID(skill, env)
 	if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
 		calcs.buildActiveSkill(env, env.mode, skill, uuid)
 	end
 
-	if GlobalCache.cachedData[env.mode][uuid] and comparer(uuid, source, triggerRate) and (skill.skillFlags and not skill.skillFlags.disable) and (skill.skillCfg and not skill.skillCfg.skillCond["usedByMirage"]) and not skill.skillTypes[SkillType.OtherThingUsesSkill] then
+	if GlobalCache.cachedData[env.mode][uuid] and comparer(env, uuid, source, triggerRate) and (skill.skillFlags and not skill.skillFlags.disable) and (skill.skillCfg and not skill.skillCfg.skillCond["usedByMirage"]) and not skill.skillTypes[SkillType.OtherThingUsesSkill] then
 		return skill, GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed, uuid
 	end
 	return source, triggerRate, source and cacheSkillUUID(source, env)
@@ -106,7 +108,7 @@ function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD,
 			if skillRotation[currentIndex].next_trig <= next_trigger then -- Skill at current index off cooldown, Trigger it.
 				skillRotation[currentIndex].count = skillRotation[currentIndex].count + 1
 				-- Cooldown starts at the beginning of current tick and ends at the next tick after cooldown expiration
-				skillRotation[currentIndex].next_trig = ceil_b(floor_b(next_trigger, 0.033) + skillRotation[currentIndex].cd, 0.033)
+				skillRotation[currentIndex].next_trig = ceil_b(floor_b(next_trigger, data.misc.ServerTickTime) + skillRotation[currentIndex].cd, data.misc.ServerTickTime)
 				break
 			end
 			currentIndex = (currentIndex % skillCount) + 1 -- Current skill on cooldown, try the next one.
@@ -425,7 +427,7 @@ local function defaultTriggerHandler(env, config)
 					t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s %s)", trigRate, config.sourceName or source.activeEffect.grantedEffect.name, config.useCastRate and "cast rate" or "attack rate"))
 				end
 			end
-			
+
 			-- Dual wield triggers
 			if trigRate and source and env.player.weaponData1.type and env.player.weaponData2.type and not source.skillData.doubleHitsWhenDualWielding and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.support and actor.mainSkill.triggeredBy.grantedEffect.fromItem then
 				trigRate = trigRate / 2
@@ -447,24 +449,6 @@ local function defaultTriggerHandler(env, config)
 				end
 			end
 
-			-- Battlemage's Cry uptime
-			if actor.mainSkill.skillData.triggeredByBattleMageCry and GlobalCache.cachedData[env.mode][uuid] and source and source.skillTypes[SkillType.Melee] then
-				local battleMageUptime = GlobalCache.cachedData[env.mode][uuid].Env.player.output.BattlemageUpTimeRatio or 100
-				trigRate = trigRate * battleMageUptime / 100
-				if breakdown then
-					t_insert(breakdown.EffectiveSourceRate, s_format("x %d%% ^8(Battlemage's Cry uptime)", battleMageUptime))
-				end
-			end
-
-			-- Infernal Cry uptime
-			if actor.mainSkill.activeEffect.grantedEffect.name == "Combust" and GlobalCache.cachedData[env.mode][uuid] and source and source.skillTypes[SkillType.Melee] then
-				local InfernalUpTime = GlobalCache.cachedData[env.mode][uuid].Env.player.output.InfernalUpTimeRatio or 100
-				trigRate = trigRate * InfernalUpTime / 100
-				if breakdown then
-					t_insert(breakdown.EffectiveSourceRate, s_format("x %d%% ^8(Infernal Cry uptime)", InfernalUpTime))
-				end
-			end
-
 			--Account for skills that can hit multiple times per use
 			if source and GlobalCache.cachedData[env.mode][uuid] and source.skillPartName and source.skillPartName:match("(.*)All(.*)Projectiles(.*)") and source.skillFlags.projectile then
 				local multiHitDpsMult = GlobalCache.cachedData[env.mode][uuid].Env.player.output.ProjectileCount or 1
@@ -482,6 +466,44 @@ local function defaultTriggerHandler(env, config)
 				if breakdown and repeats > 1 then
 					t_insert(breakdown.EffectiveSourceRate, s_format("/%d ^8(repeated attacks/casts do not count as they don't use mana)", repeats))
 				end
+			end
+
+			-- Battlemage's Cry uptime
+			if actor.mainSkill.skillData.triggeredByBattleMageCry and GlobalCache.cachedData[env.mode][uuid] and source and source.skillTypes[SkillType.Melee] then
+				local battleMageExertsCount = GlobalCache.cachedData[env.mode][uuid].Env.player.output.BattleCryExertsCount
+				local battleMageDuration = ceil_b(GlobalCache.cachedData[env.mode][uuid].Env.player.output.BattleMageCryDuration, data.misc.ServerTickTime)
+				local battleMageCastTime = GlobalCache.cachedData[env.mode][uuid].Env.player.output.BattleMageCryCastTime
+				local battleMageCooldown = ceil_b(GlobalCache.cachedData[env.mode][uuid].Env.player.output.BattleMageCryCooldown, data.misc.ServerTickTime)
+
+				-- Cap the number of hits that happen during the duration
+				local battleMageHits = m_max(m_min(trigRate * battleMageDuration, battleMageExertsCount), 0)
+
+				if breakdown then
+					t_insert(breakdown.EffectiveSourceRate, s_format("^8(min(%.2f * %.2f, %d) = %.2f average number of exerted attacks capped by exerted count)", trigRate, battleMageDuration, battleMageExertsCount, battleMageHits))
+					t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f / (%.2f + %.2f) ^8(the calculated number of exerted attacks happens every cooldown + duration)", battleMageHits, battleMageCastTime, battleMageCooldown))
+				end
+
+				-- The hits happen every battlemage cooldown + duration
+				trigRate = battleMageHits / (battleMageCastTime + battleMageCooldown)
+			end
+
+			-- Infernal Cry uptime
+			if actor.mainSkill.activeEffect.grantedEffect.name == "Combust" and GlobalCache.cachedData[env.mode][uuid] and source and source.skillTypes[SkillType.Melee] then
+				local infernalCryExertsCount = GlobalCache.cachedData[env.mode][uuid].Env.player.output.InfernalExertsCount
+				local infernalCryDuration = ceil_b(GlobalCache.cachedData[env.mode][uuid].Env.player.output.InfernalCryDuration, data.misc.ServerTickTime)
+				local infernalCryCastTime = GlobalCache.cachedData[env.mode][uuid].Env.player.output.InfernalCryCastTime
+				local infernalCryCooldown = ceil_b(GlobalCache.cachedData[env.mode][uuid].Env.player.output.InfernalCryCooldown, data.misc.ServerTickTime)
+
+				-- Cap the number of hits that happen during the duration
+				local infernalCryHits = m_max(m_min(trigRate * infernalCryDuration, infernalCryExertsCount), 0)
+
+				if breakdown then
+					t_insert(breakdown.EffectiveSourceRate, s_format("^8(min(%.2f * %.2f, %d) = %.2f average number of exerted attacks capped by exerted count)", trigRate, infernalCryDuration, infernalCryExertsCount, infernalCryHits))
+					t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f / (%.2f + %.2f) ^8(the calculated number of exerted attacks happens every cooldown + duration)", infernalCryHits, infernalCryCastTime, infernalCryCooldown))
+				end
+
+				-- The hits happen every Infernal Cry cooldown + duration
+				trigRate = infernalCryHits / (infernalCryCastTime + infernalCryCooldown)
 			end
 
 			-- Handling for mana spending rate for Manaforged Arrows Support
@@ -525,7 +547,7 @@ local function defaultTriggerHandler(env, config)
 			local triggerCD = actor.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
 			triggerCD = triggerCD or source.triggeredBy and source.triggeredBy.grantedEffect.levels[source.triggeredBy.level].cooldown
 			local triggeredCD = actor.mainSkill.skillData.cooldown
-			
+
 			if actor.mainSkill.skillData.triggeredByBrand then
 				triggerCD = actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency / actor.mainSkill.triggeredBy.activationFreqMore / actor.mainSkill.triggeredBy.activationFreqInc
 				triggerCD = triggerCD * icdr -- cancels out division by icdr lower, brand activation rate is not affected by icdr
@@ -1037,7 +1059,7 @@ local configTable = {
 		local requiredManaCost = env.player.modDB:Sum("BASE", nil, "KitavaRequiredManaCost")
 		return {triggerChance = env.player.modDB:Sum("BASE", nil, "KitavaTriggerChance"),
 				triggerName = "Kitava's Thirst",
-				comparer = function(uuid, source, triggerRate)
+				comparer = function(env, uuid, source, triggerRate)
 					local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed
 					local cachedManaCost = GlobalCache.cachedData[env.mode][uuid].ManaCost
 					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedManaCost or 0) > requiredManaCost )
@@ -1152,6 +1174,19 @@ local configTable = {
 					return skill.activeEffect.grantedEffect.name == "Call to Arms"
 				end}
 	end,
+	["autoexertion"] = function(env)
+		if env.player.mainSkill.activeEffect.grantedEffect.name == "Autoexertion" then
+			env.player.mainSkill.skillFlags.globalTrigger = true
+			return {source = env.player.mainSkill}
+		end
+		env.player.mainSkill.skillData.sourceRateIsFinal = true
+		env.player.mainSkill.skillData.ignoresTickRate = true
+		return {triggerOnUse = true,
+				useCastRate = true,
+				triggerSkillCond = function(env, skill)
+					return skill.activeEffect.grantedEffect.name == "Autoexertion"
+				end}
+	end,
 	["mark on hit"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] end}
 	end,
@@ -1190,6 +1225,11 @@ local configTable = {
 	["battlemage's cry"] = function(env)
 		if env.player.mainSkill.activeEffect.grantedEffect.name ~= "Battlemage's Cry" then
 			return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] end,
+					comparer = function(env, uuid, source, triggerRate)
+						-- Skills with no uptime ratio are not exerted by battlemage so should not be considered.
+						local uptimeRatio = GlobalCache.cachedData[env.mode][uuid].Env.player.output.BattlemageUpTimeRatio
+						return defaultComparer(env, uuid, source, triggerRate) and uptimeRatio
+					end,
 					triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBattleMageCry and slotMatch(env, skill) end}
 		end
 	end,
@@ -1219,7 +1259,12 @@ local configTable = {
 		env.player.mainSkill.infoMessage = env.player.mainSkill.activeEffect.grantedEffect.name .. " Triggered on Death"
 	end,
 	["combust"] = function(env)
-		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] end}
+		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] end,
+				comparer = function(env, uuid, source, triggerRate)
+					-- Skills with no uptime ratio are not exerted by infernal cry so should not be considered.
+					local uptimeRatio = GlobalCache.cachedData[env.mode][uuid].Env.player.output.InfernalUpTimeRatio
+					return defaultComparer(env, uuid, source, triggerRate) and uptimeRatio
+				end,}
 	end,
 	["prismatic burst"] = function(env)
 		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end}
@@ -1324,7 +1369,7 @@ local configTable = {
 	end,
 	["avenging flame"]  = function(env)
 		return {triggerSkillCond = function(env, skill) return skill.skillFlags.totem and slotMatch(env, skill) end,
-				comparer = function(uuid, source, currentTotemLife)
+				comparer = function(env, uuid, source, currentTotemLife)
 					local totemLife = GlobalCache.cachedData[env.mode][uuid].Env.player.output.TotemLife
 					return (not source and totemLife) or (totemLife and totemLife > (currentTotemLife or 0))
 				end,
@@ -1349,7 +1394,7 @@ local configTable = {
 		env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill,
 				triggeredSkillCond = function(env, skill)
-					return slotMatch(env, skill) and calcLib.canGrantedEffectSupportActiveSkill(skill.triggeredBy.grantedEffect, skill)
+					return slotMatch(env, skill) and skill.triggeredBy and calcLib.canGrantedEffectSupportActiveSkill(skill.triggeredBy.grantedEffect, skill)
 				end}
 	end,
 }

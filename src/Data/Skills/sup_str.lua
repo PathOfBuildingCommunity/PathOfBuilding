@@ -3757,7 +3757,6 @@ skills["SupportInspiration"] = {
 		},
 		["support_inspiration_mana_cost_+%_final"] = {
 			mod("ManaCost", "MORE", nil),
-			mult = -1,
 		},
 	},
 	qualityStats = {
