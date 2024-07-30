@@ -6516,6 +6516,8 @@ return {
 	},
 	leagueinfopanelversions={
 	},
+	leaguenames={
+	},
 	leagueprogressquestflags={
 	},
 	leaguequestflags={
