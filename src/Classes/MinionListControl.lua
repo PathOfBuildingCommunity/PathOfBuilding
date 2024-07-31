@@ -106,20 +106,32 @@ function MinionListClass:OnSelDelete(index, minionId)
 	end
 end
 
-function MinionListClass:DoesEntryMatchFilters(searchStr, minionId)
-	local err, match = PCall(string.matchOrPattern, self.data.minions[minionId].name:lower(), searchStr)
-	if not err and match then
-		return true
+function MinionListClass:DoesEntryMatchFilters(searchStr, minionId, filterMode)
+	if filterMode == 1 or filterMode == 3 then
+		local err, match = PCall(string.matchOrPattern, self.data.minions[minionId].name:lower(), searchStr)
+		if not err and match then
+			return true
+		end
+	end
+	if filterMode == 2 or filterMode == 3 then
+		for _, skillId in ipairs(self.data.minions[minionId].skillList) do
+			if self.data.skills[skillId] then
+				local err, match = PCall(string.matchOrPattern, self.data.skills[skillId].name:lower(), searchStr)
+				if not err and match then
+					return true
+				end
+			end
+		end
 	end
 	return false
 end
 
-function MinionListClass:ListFilterChanged(buf)
+function MinionListClass:ListFilterChanged(buf, filterMode)
 	local searchStr = buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
 	if searchStr:match("%S") then
 		local filteredList = { }
 		for _, minionId in pairs(self.unfilteredList) do
-			if self:DoesEntryMatchFilters(searchStr, minionId) then
+			if self:DoesEntryMatchFilters(searchStr, minionId, filterMode) then
 				t_insert(filteredList, minionId)
 			end
 		end
