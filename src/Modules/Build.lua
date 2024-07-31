@@ -1503,22 +1503,8 @@ function buildMode:OpenSpectreLibrary()
 	end)
 	local controls = { }
 	controls.searchText = new("EditControl", nil, 0, 25, 390, 20, "", "Search", "%c", 100, function(buf)
-		local searchStr = buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
-		if searchStr:match("%S") then
-			local sourceListFiltered = { }
-			for _, minionId in pairs(sourceList) do
-				local err, match = PCall(string.matchOrPattern, self.data.minions[minionId].name:lower(), searchStr)
-				if not err and match then
-					t_insert(sourceListFiltered, minionId)
-				end
-				--if string.find( self.data.minions[minionId].name:lower(), buf:lower()) then
-				--	t_insert(sourceListFiltered, minionId)
-				--end
-			end
-			controls.source.list = sourceListFiltered
-		else
-			controls.source.list = sourceList
-		end
+		controls.source:ListFilterChanged(buf)
+		--controls.list:ListFilterChanged(buf) -- filter left list
 	end, nil, nil, true)
 	controls.list = new("MinionListControl", nil, -100, 70, 190, 250, self.data, destList)
 	controls.source = new("MinionListControl", nil, 100, 70, 190, 250, self.data, sourceList, controls.list)
