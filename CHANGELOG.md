@@ -9,7 +9,7 @@
 ## What's Changed
 ### Fixed Crashes
 - Fix crash when importing builds to Party tab [\#8022](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8022) ([Regisle](https://github.com/Regisle))
-- Fix crash when using Svalin unique shield [\#8023](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8023) ([Paliak](https://github.com/Paliak))
+- Fix crash when using Svalinn unique shield [\#8023](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8023) ([Paliak](https://github.com/Paliak))
 ### Fixed Calculations
 - Fix Inspiration granting more Mana cost instead of Less [\#8015](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8015) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Warcry trigger rate calculations [\#8025](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8025) ([Paliak](https://github.com/Paliak))
