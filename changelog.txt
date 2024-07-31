@@ -2,7 +2,7 @@ VERSION[2.47.3][2024/07/30]
 
 --- Fixed Crashes ---
 * Fix crash when importing builds to Party tab (Regisle)
-* Fix crash when using Svalin unique shield (Paliak)
+* Fix crash when using Svalinn unique shield (Paliak)
 
 --- Fixed Calculations ---
 * Fix Inspiration granting more Mana cost instead of Less (LocalIdentity)
