@@ -12,7 +12,6 @@ local MinionListClass = newClass("MinionListControl", "ListControl", function(se
 	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", not dest, list)
 	self.data = data
 	self.dest = dest
-	self.unfilteredList = copyTable(list)
 	if dest then
 		self.dragTargetList = { dest }
 		self.label = "^7Available Spectres:"
@@ -30,13 +29,12 @@ local MinionListClass = newClass("MinionListControl", "ListControl", function(se
 		self.controls.delete.enabled = function()
 			return self.selValue ~= nil
 		end
-	end		
+	end
 end)
 
 function MinionListClass:AddSel()
 	if self.dest and not isValueInArray(self.dest.list, self.selValue) then
 		t_insert(self.dest.list, self.selValue)
-		t_insert(self.dest.unfilteredList, self.selValue)
 	end
 end
 
@@ -88,7 +86,6 @@ end
 
 function MinionListClass:ReceiveDrag(type, value, source)
 	t_insert(self.list, self.selDragIndex or #self.list + 1, value)
-	t_insert(self.unfilteredList, self.selDragIndex or #self.list + 1, value)
 end
 
 function MinionListClass:OnSelClick(index, minionId, doubleClick)
@@ -100,44 +97,7 @@ end
 function MinionListClass:OnSelDelete(index, minionId)
 	if not self.dest then
 		t_remove(self.list, index)
-		t_remove(self.unfilteredList, index)
 		self.selIndex = nil
 		self.selValue = nil
-	end
-end
-
-function MinionListClass:DoesEntryMatchFilters(searchStr, minionId, filterMode)
-	if filterMode == 1 or filterMode == 3 then
-		local err, match = PCall(string.matchOrPattern, self.data.minions[minionId].name:lower(), searchStr)
-		if not err and match then
-			return true
-		end
-	end
-	if filterMode == 2 or filterMode == 3 then
-		for _, skillId in ipairs(self.data.minions[minionId].skillList) do
-			if self.data.skills[skillId] then
-				local err, match = PCall(string.matchOrPattern, self.data.skills[skillId].name:lower(), searchStr)
-				if not err and match then
-					return true
-				end
-			end
-		end
-	end
-	return false
-end
-
-function MinionListClass:ListFilterChanged(buf, filterMode)
-	local searchStr = buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
-	if searchStr:match("%S") then
-		local filteredList = { }
-		for _, minionId in pairs(self.unfilteredList) do
-			if self:DoesEntryMatchFilters(searchStr, minionId, filterMode) then
-				t_insert(filteredList, minionId)
-			end
-		end
-		self.list = filteredList
-		self:SelectIndex(1)
-	else
-		self.list = self.unfilteredList
 	end
 end
