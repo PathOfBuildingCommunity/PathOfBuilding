@@ -664,6 +664,9 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enableGlobal2.state = true
 			slot.count:SetText(gemInstance.count)
 		elseif gemId == gemInstance.gemId then
+			if addUndo then
+				self:AddUndoState()
+			end
 			return
 		end
 		gemInstance.gemId = gemId
