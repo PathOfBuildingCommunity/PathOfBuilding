@@ -1822,7 +1822,7 @@ local function flag(name, ...)
 end
 
 local gemIdLookup = {
-	["power charge on critical strike"] = "SupportPowerChargeOnCrit",
+	["power charge on critical strike"] = "SupportPowerChargeOnCritical",
 }
 for name, grantedEffect in pairs(data.skills) do
 	if not grantedEffect.hidden or grantedEffect.fromItem or grantedEffect.fromTree then
