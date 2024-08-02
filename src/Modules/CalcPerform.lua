@@ -1194,7 +1194,8 @@ function calcs.perform(env, skipEHP)
 		if armourData then
 			ward = armourData.Evasion + armourData.Armour
 			if ward > 0 then
-				modDB:NewMod("Ward", "BASE", ward * 0.5 , "Body Armour Armour And Evasion Rating to Ward Conversion")
+				local wardMult = ((modDB:Sum("BASE", nil,"BodyArmourArmourEvasionToWardPercent") or 0) / 100)
+				modDB:NewMod("Ward", "BASE", ward * wardMult , "Body Armour Armour And Evasion Rating to Ward Conversion")
 			end
 		end
 	end
