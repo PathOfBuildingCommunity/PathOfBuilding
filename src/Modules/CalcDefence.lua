@@ -358,9 +358,6 @@ function calcs.defence(env, actor)
 					if modDB:Flag(nil, "Unbreakable") then
 						armourBase = armourBase * 2
 					end
-					if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
-						armourBase = armourBase * (1 - ((modDB:Sum("BASE", nil, "BodyArmourArmourEvasionToWardPercent") or 0) / 100))
-					end
 				end
 				output["ArmourOn"..slot] = armourBase
 			end
@@ -372,9 +369,6 @@ function calcs.defence(env, actor)
 					end
 				 	if modDB:Flag(nil, "Unbreakable") and modDB:Flag(nil, "IronReflexes") then
 						evasionBase = evasionBase * 2
-					end
-					if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
-						evasionBase = evasionBase * (1 - ((modDB:Sum("BASE", nil, "BodyArmourArmourEvasionToWardPercent") or 0) / 100))
 					end
 				end
 				output["EvasionOn"..slot] = evasionBase
