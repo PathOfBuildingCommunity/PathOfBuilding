@@ -3177,5 +3177,64 @@ function calcs.perform(env, skipEHP)
 		env.build.partyTab:setBuffExports(buffExports)
 	end
 
+	-- calculate Gem Level of MainSkill
+	if env.player.mainSkill then
+		local mainSkill = env.player.mainSkill
+		if mainSkill.activeEffect and mainSkill.activeEffect.level and mainSkill.activeEffect.srcInstance then
+			output.GemLevel = mainSkill.activeEffect.level
+			output.GemHasLevel = true
+			
+			local itemLevelList = mainSkill.skillModList:Tabulate("LIST", mainSkill.skillCfg, "GemProperty")
+			local supportLevelList = mainSkill.skillModList:Tabulate("LIST", mainSkill.skillCfg, "SupportedGemProperty")
+			local totalSupportLevel = 0
+			local totalItemLevel = 0
+
+			env.player.modDB:NewMod("GemLevel", "BASE", mainSkill.activeEffect.srcInstance.level, "Gem Level")
+
+			local function isMatch(value, gemData, key)
+				if value.key ~= key then return false end
+				if not gemData then return false end
+
+				if value.keywordList then
+					for _, keyword in ipairs(value.keywordList) do
+						if not calcLib.gemIsType(gemData, keyword, true) then
+							return false
+						end
+					end
+				elseif not calcLib.gemIsType(gemData, value.keyword, true) then
+					return false
+				end
+				return true
+			end
+
+			for _, level in ipairs(supportLevelList) do
+				local match = isMatch(level.value, mainSkill.activeEffect.gemData, "level")
+				if match then
+					totalSupportLevel = totalSupportLevel + level.value.value
+					env.player.modDB:NewMod("GemLevel", "BASE", level.value.value, level.mod.source, #level.mod > 0 and level.mod[1] or nil)
+				end
+			end
+			for _, level in ipairs(itemLevelList) do
+				local match = isMatch(level.value, mainSkill.activeEffect.gemData, "level")
+				if match then
+					totalItemLevel = totalItemLevel + level.value.value
+					env.player.modDB:NewMod("GemLevel", "BASE", level.value.value, level.mod.source, #level.mod > 0 and level.mod[1] or nil)
+				end
+			end
+
+			if env.player.breakdown then
+				env.player.breakdown.GemLevel = {}
+				t_insert(env.player.breakdown.GemLevel, s_format("%d ^8(level from gem)", mainSkill.activeEffect.srcInstance.level))
+				if totalSupportLevel > 0 then
+					t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from support)", totalSupportLevel))
+				end
+				if totalItemLevel > 0 then
+					t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from items)", totalItemLevel))
+				end
+				t_insert(env.player.breakdown.GemLevel, s_format("= %d", output.GemLevel))
+			end
+		end
+	end
+
 	cacheData(cacheSkillUUID(env.player.mainSkill, env), env)
 end
