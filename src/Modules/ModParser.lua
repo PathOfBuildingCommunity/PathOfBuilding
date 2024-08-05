@@ -2284,6 +2284,9 @@ local specialModList = {
 		mod("Speed", "INC", num, nil, ModFlag.Attack, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageCastSpeed", neg = true }),
 		mod("Speed", "INC", num, nil, ModFlag.Cast, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageCastSpeed" })
 	} end,
+	["every rage also grants (%d+)%% of physical damage as extra fire damage per (%d+) rage"] = function(num, _, div) return {
+		mod("PhysicalDamageGainAsFire", "BASE", num, { type = "Multiplier", var = "RageEffect", div = num }),
+	} end,
 	["gain %d+ rage on hit with retaliation skills"] = {
 		flag("Condition:CanGainRage"),
 	},
