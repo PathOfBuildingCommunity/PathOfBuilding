@@ -1,0 +1,93 @@
+---
+name: Run Tests
+on:
+  pull_request:
+    branches:
+      - dev
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  run_build_diff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout HEAD
+        uses: actions/checkout@v4
+      - name: Fetch Dev branch
+        id: get-dev-ref
+        run: |
+            git fetch --depth=1 origin dev
+            echo "devref=$(git rev-parse origin/dev)" >> $GITHUB_OUTPUT
+      - name: Download Dev branch cache
+        id: download-dev-ref-cache
+        uses: dawidd6/action-download-artifact@3ecf4024886f219d9290351234889bfb45d1b9da
+        with:
+          name: cache-devref-${{ steps.get-dev-ref.outputs.devref }}
+          path: /tmp/cache/
+          if_no_artifact_found: warn
+          search_artifacts: true
+      # Dev ref cache contains the build list and build xmls. Use that one to keep tests reproducible
+      - name: Update static builds list from cache
+        if: ${{ steps.download-dev-ref-cache.outputs.found_artifact == 'true' }}
+        run: cat /tmp/cache/builds.txt > spec/builds.txt
+      - name: Download latest build list
+        if: ${{ steps.download-dev-ref-cache.outputs.found_artifact == 'false' }}
+        id: download-build-list
+        uses: dawidd6/action-download-artifact@3ecf4024886f219d9290351234889bfb45d1b9da
+        with:
+          name: builds.txt
+          path: /tmp/latestbuildlist/
+          workflow: updatebuildlist.yml
+          if_no_artifact_found: warn
+          search_artifacts: true
+      - name: Update static builds list
+        if: ${{ steps.download-dev-ref-cache.outputs.found_artifact == 'false' && steps.download-build-list.outputs.found_artifact == 'true' }}
+        run: cat /tmp/latestbuildlist/builds.txt > spec/builds.txt
+      - name: Download latest build xmls
+        if: ${{ steps.download-dev-ref-cache.outputs.found_artifact == 'false' }}
+        uses: dawidd6/action-download-artifact@3ecf4024886f219d9290351234889bfb45d1b9da
+        with:
+          name: build-xmls
+          path: /tmp/cache/
+          if_no_artifact_found: warn
+          search_artifacts: true
+      - name: Calculate build xmls and differences between them
+        run: |
+            mkdir /tmp/cache || true # Make sure /tmp/cache exists. Ignore exit code
+            chmod -R 777 /tmp/cache && docker compose run -v '/tmp/cache/:/cache' -e 'CACHEDIR=/cache' busted-diff | tee /tmp/dockerlog
+      - name: Generate artefact
+        run: |
+          sed -n '/Runtime comparison for/,/Savefile Diff for/{/Savefile Diff for/!p;}' /tmp/dockerlog > /tmp/artefact
+          sed -n '/Savefile Diff for/, $p' /tmp/dockerlog >> /tmp/artefact
+          [ -s /tmp/artefact ] || rm /tmp/artefact
+      - name: Upload artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-diff-output
+          path: /tmp/artefact
+      - name: Save used build list into cache
+        if: ${{ steps.download-dev-ref-cache.outputs.found_artifact == 'false' }}
+        run: cp spec/builds.txt /tmp/cache/
+      - name: Move xmls found in builds.txt to a new directory
+        if: ${{ steps.download-dev-ref-cache.outputs.found_artifact == 'false' && steps.download-build-list.outputs.found_artifact == 'true' }}
+        run: |
+          mkdir new-build-xmls
+          while IFS= read -r line; do
+              FILENAME="/tmp/cache/${line//[^a-zA-Z0-9]/}.xml"
+              if [ -f "$FILENAME" ]; then
+                  mv "$FILENAME" "./new-build-xmls/"
+              fi
+          done < "spec/builds.txt"
+      - name: Upload new build xmls
+        if: ${{ steps.download-dev-ref-cache.outputs.found_artifact == 'false' && steps.download-build-list.outputs.found_artifact == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-xmls
+          path: './new-build-xmls/*'
+      - name: Upload dev ref cache
+        if: ${{ steps.download-dev-ref-cache.outputs.found_artifact == 'false' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: cache-devref-${{ steps.get-dev-ref.outputs.devref }}
+          path: /tmp/cache/

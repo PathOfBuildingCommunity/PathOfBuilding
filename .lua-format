@@ -1,0 +1,8 @@
+column_limit: 160
+indent_width: 1
+use_tab: true
+tab_width: 4
+continuation_indent_width: 4
+spaces_before_call: 1
+keep_simple_control_block_one_line: false
+keep_simple_function_one_line: false

@@ -1,0 +1,37 @@
+---
+name: Update build list for tests
+on:
+  schedule:
+    - cron: '20 4 * * *'
+  workflow_dispatch:
+jobs:
+  update-builds-list:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout HEAD
+        uses: actions/checkout@v4
+      - name: Install moreutils
+        run: sudo apt-get install -y moreutils
+      - name: Download latest build list
+        uses: dawidd6/action-download-artifact@3ecf4024886f219d9290351234889bfb45d1b9da
+        with:
+          name: builds.txt
+          if_no_artifact_found: warn
+          path: /tmp/latestbuildlist/
+      - name: Update list
+        run: >
+            cat spec/builds.txt /tmp/latestbuildlist/builds.txt
+            <({ curl "https://pobarchives.com/api/builds?q=latest" & curl "https://pobarchives.com/api/builds?q=trending"; }
+            | jq -r '.builds[].build_info.build_link')
+            | tail -n 500
+            | sort -u
+            | sponge builds.txt
+      - name: Print new builds list
+        run: cat builds.txt
+      - name: Save new build list
+        uses: actions/upload-artifact@v4
+        with:
+          name: builds.txt
+          path: builds.txt
+          overwrite: true
+          retention-days: 3
