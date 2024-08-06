@@ -443,9 +443,6 @@ data.highPrecisionMods = {
 	["SupportManaMultiplier"] = {
 		["MORE"] = 4,
 	},
-	["MovementSpeed"] = {
-		["INC"] = 1,
-	},
 }
 
 data.weaponTypeInfo = {
