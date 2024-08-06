@@ -886,7 +886,7 @@ function calcs.defence(env, actor)
 		output.MeleeEvasion = m_max(round(evasion * calcLib.mod(modDB, nil, "MeleeEvasion")), 0)
 		output.ProjectileEvasion = m_max(round(evasion * calcLib.mod(modDB, nil, "ProjectileEvasion")), 0)
 		output.LowestOfArmourAndEvasion = m_min(output.Armour, output.Evasion)
-		output.Ward = m_max(round(ward), 0)
+		output.Ward = m_max(m_floor(ward), 0)
 		output["Gear:Ward"] = gearWard
 		output["Gear:EnergyShield"] = gearEnergyShield
 		output["Gear:Armour"] = gearArmour
