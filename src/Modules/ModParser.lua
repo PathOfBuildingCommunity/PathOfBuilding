@@ -1175,6 +1175,8 @@ local preFlagList = {
 	["^you and nearby allies "] = { newAura = true },
 	["^you and nearby allies [hgd][ae][via][enl] "] = { newAura = true },
 	["^nearby allies [hgd][ae][via][enl] "] = { newAura = true, newAuraOnlyAllies = true },
+	["^every rage also grants "] = { tag = { type = "Multiplier", var = "RageEffect" } },
+	["^each rage also grants "] = { tag = { type = "Multiplier", var = "RageEffect" } },
 	["^you and allies affected by auras from your skills [hgd][ae][via][enl] "] = { tag = { type = "Condition", var = "AffectedByAura" } },
 	["^take "] = { modSuffix = "Taken" },
 	["^marauder: "] = { tag = { type = "Condition", var = "ConnectedToMarauderStart" } },
@@ -1221,9 +1223,9 @@ local modTagList = {
 	["per blitz charge"] = { tag = { type = "Multiplier", var = "BlitzCharge" } },
 	["per ghost shroud"] = { tag = { type = "Multiplier", var = "GhostShroud" } },
 	["per crab barrier"] = { tag = { type = "Multiplier", var = "CrabBarrier" } },
-	["per rage"] = { tag = { type = "Multiplier", var = "RageEffect" } },
-	["per rage while you are not losing rage"] = { tag = { type = "Multiplier", var = "RageEffect" } },
-	["per (%d+) rage"] = function(num) return { tag = { type = "Multiplier", var = "RageEffect", div = num } } end,
+	["per rage"] = { tag = { type = "Multiplier", var = "Rage" } },
+	["per rage while you are not losing rage"] = { tag = { type = "Multiplier", var = "Rage" } },
+	["per (%d+) rage"] = function(num) return { tag = { type = "Multiplier", var = "Rage", div = num } } end,
 	["per mana burn"] = { tag = { type = "Multiplier", var = "ManaBurnStacks" } },
 	["per mana burn, up to a maximum of (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "ManaBurnStacks", limit = tonumber(num), limitTotal = true } } end,
 	["per level"] = { tag = { type = "Multiplier", var = "Level" } },
@@ -2274,16 +2276,6 @@ local specialModList = {
 	["gain %d+ rage when hit by an enemy"] = {
 		flag("Condition:CanGainRage"),
 	},
-	["every rage also grants (%d+)%% increased armour"] = function(num) return {
-		mod("Armour", "INC", num, { type = "Multiplier", var = "RageEffect" }),
-	} end,
-	["every rage also grants (%d+)%% increased stun threshold"] = function(num) return {
-		mod("StunThreshold", "INC", num, { type = "Multiplier", var = "RageEffect" }),
-	} end,
-	["every rage also grants (%d+)%% increased attack speed"] = function(num) return {
-		mod("Speed", "INC", num, nil, ModFlag.Attack, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageCastSpeed", neg = true }),
-		mod("Speed", "INC", num, nil, ModFlag.Cast, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageCastSpeed" })
-	} end,
 	["gain %d+ rage on hit with retaliation skills"] = {
 		flag("Condition:CanGainRage"),
 	},
