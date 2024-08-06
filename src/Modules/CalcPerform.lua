@@ -1857,6 +1857,7 @@ function calcs.perform(env, skipEHP)
 					local skillCfg = skillCfg
 					local modStore = skillModList or modDB
 					local warcryName = buff.name:gsub(" Cry", ""):gsub("'s",""):gsub(" ","")
+					local warcryPower = modDB:Override(nil, "WarcryPower") or modDB:Sum("BASE", nil, "WarcryPower") or 0
 					local baseExerts = modStore:Sum("BASE", env.player.mainSkill.skillCfg, warcryName.."ExertedAttacks")
 					if baseExerts > 0 then
 						local extraExertions = modStore:Sum("BASE", nil, "ExtraExertedAttacks") or 0
@@ -1876,24 +1877,36 @@ function calcs.perform(env, skipEHP)
 								local srcList = new("ModList")
 								local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer")
 								local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
-								local mult = (1 + inc / 100) * more * uptime
-								srcList:ScaleAddList(buff.modList, mult)
+								for _, warcryBuff in ipairs(buff.modList) do
+									local warcryPowerBonus = 1
+									if warcryBuff[1] and warcryBuff[1].effectType == "Warcry" and warcryBuff[1].div then
+										warcryPowerBonus = m_floor((warcryBuff[1].limit and m_min(warcryPower, warcryBuff[1].limit) or warcryPower) / warcryBuff[1].div)
+									end
+									local mult = (1 + inc / 100) * more * warcryPowerBonus * uptime
+									srcList:ScaleAddList({warcryBuff}, mult)
+								end
 								mergeBuff(srcList, buffs, buff.name)
 							end
 						end
 						if env.minion then
 							activeSkill.minionBuffSkill = true
 							env.minion.modDB.conditions["AffectedBy"..warcryName] = true
+							local srcList = new("ModList")
 							local inc = skillModList:Sum("INC", skillCfg, "BuffEffect") + env.minion.modDB:Sum("INC", skillCfg, "BuffEffectOnSelf")
 							local more = skillModList:More(skillCfg, "BuffEffect") * env.minion.modDB:More(skillCfg, "BuffEffectOnSelf")
-							local mult = (1 + inc / 100) * more * uptime
-							local srcList = new("ModList")
-							srcList:ScaleAddList(buff.modList, mult)
+							for _, warcryBuff in ipairs(buff.modList) do
+								local warcryPowerBonus = 1
+								if warcryBuff[1] and warcryBuff[1].effectType == "Warcry" and warcryBuff[1].div then
+									warcryPowerBonus = m_floor((warcryBuff[1].limit and m_min(warcryPower, warcryBuff[1].limit) or warcryPower) / warcryBuff[1].div)
+								end
+								local mult = (1 + inc / 100) * more * warcryPowerBonus * uptime
+								srcList:ScaleAddList({warcryBuff}, mult)
+							end
 							mergeBuff(srcList, minionBuffs, buff.name)
 						end
 						-- Special handling for the minion side to add the flat damage bonus
 						if activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" and env.minion then
-							local warcryPowerBonus = m_floor((modDB:Override(nil, "WarcryPower") or modDB:Sum("BASE", nil, "WarcryPower") or 0) / 5)
+							local warcryPowerBonus = m_floor((warcryPower) / 5)
 							local rallyingWeaponEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryAllyDamageBonusPer5Power")
 							local inc = modStore:Sum("INC", skillCfg, "BuffEffect") + env.minion.modDB:Sum("INC", skillCfg, "BuffEffectOnSelf")
 							local rallyingBonusMoreMultiplier = 1 + (activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryMinionDamageBonusMultiplier") or 0)
