@@ -1861,7 +1861,7 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 			local statVal1 = compareOutput[statData.stat] or 0
 			local statVal2 = baseOutput[statData.stat] or 0
 			local diff = statVal1 - statVal2
-			if statData.stat == "FullDPS" and not GlobalCache.useFullDPS and not self.viewMode == "TREE" then
+			if statData.stat == "FullDPS" and not GlobalCache.useFullDPS and self.viewMode ~= "TREE" then
 				diff = 0
 			end
 			if (diff > 0.001 or diff < -0.001) and (not statData.condFunc or statData.condFunc(statVal1,compareOutput) or statData.condFunc(statVal2,baseOutput)) then
@@ -1957,7 +1957,7 @@ function buildMode:LoadDB(xmlText, fileName)
 		launch:ShowErrMsg("^1Error loading '%s': %s", fileName, errMsg)
 		return true
 	elseif #dbXML == 0 then
-		launch:ShowErrMsg("^1Build file empty '%s'", fileName)
+		main:OpenMessagePopup("Error", "Build file is empty, or error parsing xml.\n\n"..fileName)
 		return true
 	elseif dbXML[1].elem ~= "PathOfBuilding" then
 		launch:ShowErrMsg("^1Error parsing '%s': 'PathOfBuilding' root element missing", fileName)

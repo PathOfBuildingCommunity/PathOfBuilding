@@ -460,10 +460,13 @@ Raised Zombies have Avatar of Fire
 ]],[[
 Maata's Teaching
 Karui Sceptre
+Variant: Pre 3.25.0
+Variant: Current
 Requires Level 56, 96 Str, 96 Int
 Implicits: 1
 +(30-40) to Intelligence
-(25-50)% increased Critical Strike Chance
+{variant:1}(25-50)% increased Critical Strike Chance
+{variant:2}(15-30)% increased Critical Strike Chance
 +(1-2) to Level of all Minion Skill Gems
 Minions' Base Attack Critical Strike Chance is equal to the Critical Strike Chance of your Main Hand Weapon
 ]],[[
