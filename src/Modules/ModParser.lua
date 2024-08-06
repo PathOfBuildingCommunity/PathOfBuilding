@@ -5387,49 +5387,49 @@ local jewelOtherFuncs = {
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased Global Critical Strike Chance"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod("CritChance", "INC", tonumber(num), data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant %+(%d+) to Maximum Life"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod("Life", "BASE", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant %+(%d+) to Maximum Mana"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod("Mana", "BASE", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased Energy Shield"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod("EnergyShield", "INC", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased Armour"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod("Armour", "INC", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased Evasion Rating"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod("Evasion", "INC", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant %+(%d+) to all Attributes"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod("Str", "BASE", num, data.modSource)
 				out:NewMod("Dex", "BASE", num, data.modSource)
 				out:NewMod("Int", "BASE", num, data.modSource)
@@ -5439,14 +5439,14 @@ local jewelOtherFuncs = {
 	end,
 	["Passive Skills in Radius also grant %+(%d+)%% to Chaos Resistance"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod("ChaosResist", "BASE", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased (%w+) Damage"] = function(num, type)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod(firstToUpper(type).."Damage", "INC", num, data.modSource)
 			end
 		end
