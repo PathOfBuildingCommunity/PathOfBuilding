@@ -744,7 +744,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
 					(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity"))
 					or (node.targetType == "Keystone" and treeNodes[selectedNode.id].type == node.targetType))
-					and node.MinimumConnected <= numLinkedNodes then
+					and node.MinimumConnected <= numLinkedNodes and node.legacy == false then
 				local combine = false
 				for id, desc in pairs(node.stats) do
 					combine = (id:match("^local_display.*") and #node.stats == (#node.sd - 1)) or combine
@@ -846,6 +846,11 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	controls.totalTattoos = new("LabelControl", nil, 0, 95, 0, 16, "^7Tattoo Count: ".. getTattooCount() .."/50" )
 	main:OpenPopup(600, 105, "Replace Modifier of Node", controls, "save")
 	constructUI(modGroups[1])
+	
+	-- Show Legacy Tattoos
+	controls.showLegacyTattoo = new("CheckBoxControl", { "LEFT", controls.totalTattoos, "RIGHT" }, 205, 0, 20, "Show Legacy Tattoos:", function(state)
+		self.showLegacyTattoo = state
+	end)
 end
 
 function TreeTabClass:SaveMasteryPopup(node, listControl)
