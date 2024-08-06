@@ -4351,7 +4351,7 @@ function calcs.offence(env, actor, activeSkill)
 			-- For ignites we will be using a weighted average calculation
 			local maxStacks = 1
 			if skillFlags.igniteCanStack then
-				maxStacks = maxStacks + skillModList:Sum("BASE", cfg, "IgniteStacks")
+				maxStacks = skillModList:Override(cfg, "IgniteStacks") or (maxStacks + skillModList:Sum("BASE", cfg, "IgniteStacks"))
 			end
 			local overrideStackPotential = skillModList:Override(nil, "IgniteStackPotentialOverride") and skillModList:Override(nil, "IgniteStackPotentialOverride") / maxStacks
 			globalOutput.IgniteStacksMax = maxStacks

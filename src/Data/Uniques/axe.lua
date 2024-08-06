@@ -260,7 +260,7 @@ Gain 20 Life per Enemy Killed
 Culling Strike
 {variant:3,4}Gain 1 Rage on Critical Hit with attacks, no more than once every 0.5 seconds
 {variant:5}Gain 5 Rage on Melee Hit
-{variant:3,4,5}Gain 1% of Physical Damage as Extra Fire Damage per 1 Rage
+{variant:3,4,5}Every Rage also grants 1% of Physical Damage as Extra Fire Damage
 ]],[[
 Kingmaker
 Despot Axe

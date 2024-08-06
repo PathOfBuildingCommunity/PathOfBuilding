@@ -369,8 +369,8 @@ Adds (60-80) to (150-180) Physical Damage
 {variant:1,2}80% increased Physical Damage with Axes
 +(350-400) to Accuracy Rating
 {variant:1,2}15% chance to gain a Frenzy Charge on Kill
-{variant:3}+1% to Damage over Time Multiplier for Bleeding per Rage while wielding an Axe
-{variant:4}+2% to Damage over Time Multiplier for Bleeding per Rage while wielding an Axe
+{variant:3}Each Rage also grants +1% to Damage over Time Multiplier for Bleeding while wielding an Axe
+{variant:4}Each Rage also grants +2% to Damage over Time Multiplier for Bleeding while wielding an Axe
 ]],[[
 The Rippling Thoughts
 Legion Sword

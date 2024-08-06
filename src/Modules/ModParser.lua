@@ -650,7 +650,8 @@ local modNameList = {
 	["damage with ignite"] = { "Damage", keywordFlags = KeywordFlag.Ignite },
 	["damage with ignites"] = { "Damage", keywordFlags = KeywordFlag.Ignite },
 	["damage with ignites inflicted"] = { "Damage", keywordFlags = KeywordFlag.Ignite },
-	["damage with bleedi?n?g?"] = { "Damage", keywordFlags = KeywordFlag.Bleed },
+	["damage with bleed"] = { "Damage", keywordFlags = KeywordFlag.Bleed },
+	["damage with bleeding"] = { "Damage", keywordFlags = KeywordFlag.Bleed },
 	["damage with poison"] = { "Damage", keywordFlags = KeywordFlag.Poison },
 	["incinerate damage for each stage"] = { "Damage", tagList = { { type = "Multiplier", var = "IncinerateStage" }, { type = "SkillName", skillName = "Incinerate" } } },
 	["physical damage over time multiplier"] = "PhysicalDotMultiplier",
@@ -763,6 +764,7 @@ local modNameList = {
 	["to apply cold exposure on hit"] = "ColdExposureChance",
 	["to inflict lightning exposure on hit"] = "LightningExposureChance",
 	["to apply lightning exposure on hit"] = "LightningExposureChance",
+	["to ignore enemy physical damage reduction"] = "ChanceToIgnoreEnemyPhysicalDamageReduction",
 	-- Flask and Tincture modifiers
 	["effect"] = "LocalEffect",
 	["effect of flasks"] = "FlaskEffect",
@@ -853,7 +855,9 @@ local modFlagList = {
 	["to unarmed attacks"] = { flags = bor(ModFlag.Unarmed, ModFlag.Hit) },
 	["to unarmed melee hits"] = { flags = bor(ModFlag.Unarmed, ModFlag.Melee, ModFlag.Hit) },
 	["with melee weapons"] = { flags = ModFlag.WeaponMelee },
+	["with melee weapon attacks"] = { flags = bor(ModFlag.WeaponMelee, ModFlag.Hit) },
 	["from melee weapons"] = { flags = ModFlag.WeaponMelee },
+	["from melee weapon attacks"] = { flags = bor(ModFlag.WeaponMelee, ModFlag.Hit) },
 	["melee weapon"] = { flags = ModFlag.WeaponMelee },
 	["with one handed weapons"] = { flags = bor(ModFlag.Weapon1H, ModFlag.Hit) },
 	["with one handed melee weapons"] = { flags = bor(ModFlag.Weapon1H, ModFlag.WeaponMelee, ModFlag.Hit) },
@@ -1007,6 +1011,7 @@ local preFlagList = {
 	["^attacks with one handed weapons [hd][ae][va][el] "] = { flags = ModFlag.Weapon1H },
 	["^attacks with two handed weapons [hd][ae][va][el] "] = { flags = ModFlag.Weapon2H },
 	["^attacks with melee weapons [hd][ae][va][el] "] = { flags = ModFlag.WeaponMelee },
+	["^melee weapon hits [hd][ae][va][el] "] = { flags = bor(ModFlag.WeaponMelee, ModFlag.Hit) },
 	["^attacks with one handed melee weapons [hd][ae][va][el] "] = { flags = bor(ModFlag.Weapon1H, ModFlag.WeaponMelee) },
 	["^attacks with two handed melee weapons [hd][ae][va][el] "] = { flags = bor(ModFlag.Weapon2H, ModFlag.WeaponMelee) },
 	["^attacks with ranged weapons [hd][ae][va][el] "] = { flags = ModFlag.WeaponRanged },
@@ -1175,6 +1180,8 @@ local preFlagList = {
 	["^you and nearby allies "] = { newAura = true },
 	["^you and nearby allies [hgd][ae][via][enl] "] = { newAura = true },
 	["^nearby allies [hgd][ae][via][enl] "] = { newAura = true, newAuraOnlyAllies = true },
+	["^every rage also grants "] = { tag = { type = "Multiplier", var = "RageEffect" } },
+	["^each rage also grants "] = { tag = { type = "Multiplier", var = "RageEffect" } },
 	["^you and allies affected by auras from your skills [hgd][ae][via][enl] "] = { tag = { type = "Condition", var = "AffectedByAura" } },
 	["^take "] = { modSuffix = "Taken" },
 	["^marauder: "] = { tag = { type = "Condition", var = "ConnectedToMarauderStart" } },
@@ -1221,9 +1228,9 @@ local modTagList = {
 	["per blitz charge"] = { tag = { type = "Multiplier", var = "BlitzCharge" } },
 	["per ghost shroud"] = { tag = { type = "Multiplier", var = "GhostShroud" } },
 	["per crab barrier"] = { tag = { type = "Multiplier", var = "CrabBarrier" } },
-	["per rage"] = { tag = { type = "Multiplier", var = "RageEffect" } },
-	["per rage while you are not losing rage"] = { tag = { type = "Multiplier", var = "RageEffect" } },
-	["per (%d+) rage"] = function(num) return { tag = { type = "Multiplier", var = "RageEffect", div = num } } end,
+	["per rage"] = { tag = { type = "Multiplier", var = "Rage" } },
+	["per rage while you are not losing rage"] = { tag = { type = "Multiplier", var = "Rage" } },
+	["per (%d+) rage"] = function(num) return { tag = { type = "Multiplier", var = "Rage", div = num } } end,
 	["per mana burn"] = { tag = { type = "Multiplier", var = "ManaBurnStacks" } },
 	["per mana burn, up to a maximum of (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "ManaBurnStacks", limit = tonumber(num), limitTotal = true } } end,
 	["per level"] = { tag = { type = "Multiplier", var = "Level" } },
@@ -2274,16 +2281,6 @@ local specialModList = {
 	["gain %d+ rage when hit by an enemy"] = {
 		flag("Condition:CanGainRage"),
 	},
-	["every rage also grants (%d+)%% increased armour"] = function(num) return {
-		mod("Armour", "INC", num, { type = "Multiplier", var = "RageEffect" }),
-	} end,
-	["every rage also grants (%d+)%% increased stun threshold"] = function(num) return {
-		mod("StunThreshold", "INC", num, { type = "Multiplier", var = "RageEffect" }),
-	} end,
-	["every rage also grants (%d+)%% increased attack speed"] = function(num) return {
-		mod("Speed", "INC", num, nil, ModFlag.Attack, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageCastSpeed", neg = true }),
-		mod("Speed", "INC", num, nil, ModFlag.Cast, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageCastSpeed" })
-	} end,
 	["gain %d+ rage on hit with retaliation skills"] = {
 		flag("Condition:CanGainRage"),
 	},
@@ -3175,8 +3172,8 @@ local specialModList = {
 		flag("CannotBrittle", { type = "SkillName", skillNameList = { "Flameblast", "Incinerate" }, includeTransfigured = true }),
 		flag("CannotSap", { type = "SkillName", skillNameList = { "Flameblast", "Incinerate" }, includeTransfigured = true }),
 	},
-	["you can inflict up to (%d+) ignites on an enemy"] = { flag("IgniteCanStack") },
-	["you can inflict an additional ignite on an enemy"] = { flag("IgniteCanStack"), mod("IgniteStacks", "BASE", 1) },
+	["you can inflict up to (%d+) ignites on an enemy"] = function(num) return { flag("IgniteCanStack"), mod("IgniteStacks", "OVERRIDE", num) } end,
+	["you can inflict an additional ignite on [ea][an]c?h? enemy"] = { flag("IgniteCanStack"), mod("IgniteStacks", "BASE", 1) },
 	["enemies chilled by you take (%d+)%% increased burning damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("FireDamageTakenOverTime", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Chilled" }) } end,
 	["damaging ailments deal damage (%d+)%% faster"] = function(num) return { mod("IgniteBurnFaster", "INC", num), mod("BleedFaster", "INC", num), mod("PoisonFaster", "INC", num) } end,
 	["damaging ailments you inflict deal damage (%d+)%% faster while affected by malevolence"] = function(num) return {
@@ -5387,49 +5384,49 @@ local jewelOtherFuncs = {
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased Global Critical Strike Chance"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod("CritChance", "INC", tonumber(num), data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant %+(%d+) to Maximum Life"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod("Life", "BASE", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant %+(%d+) to Maximum Mana"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod("Mana", "BASE", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased Energy Shield"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod("EnergyShield", "INC", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased Armour"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod("Armour", "INC", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased Evasion Rating"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod("Evasion", "INC", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant %+(%d+) to all Attributes"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod("Str", "BASE", num, data.modSource)
 				out:NewMod("Dex", "BASE", num, data.modSource)
 				out:NewMod("Int", "BASE", num, data.modSource)
@@ -5439,14 +5436,14 @@ local jewelOtherFuncs = {
 	end,
 	["Passive Skills in Radius also grant %+(%d+)%% to Chaos Resistance"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod("ChaosResist", "BASE", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased (%w+) Damage"] = function(num, type)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
 				out:NewMod(firstToUpper(type).."Damage", "INC", num, data.modSource)
 			end
 		end
