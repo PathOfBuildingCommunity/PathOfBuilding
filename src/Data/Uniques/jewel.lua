@@ -848,8 +848,11 @@ Combat Focus
 Crimson Jewel
 Source: Vendor Recipe
 Limited to: 2
+Variant: Pre 3.21.0
+Variant: Current
 Radius: Medium
-(10-15)% increased Elemental Damage with Attack Skills
+{variant:1}(10-15)% increased Elemental Damage with Attack Skills
+{variant:2}(10-15)% increased Elemental Damage
 With 40 total Strength and Intelligence in Radius, Prismatic Skills cannot choose Cold
 With 40 total Strength and Intelligence in Radius, Prismatic Skills deal 50% less Cold Damage
 ]],[[
@@ -857,8 +860,11 @@ Combat Focus
 Cobalt Jewel
 Source: Vendor Recipe
 Limited to: 2
+Variant: Pre 3.21.0
+Variant: Current
 Radius: Medium
-(10-15)% increased Elemental Damage with Attack Skills
+{variant:1}(10-15)% increased Elemental Damage with Attack Skills
+{variant:2}(10-15)% increased Elemental Damage
 With 40 total Intelligence and Dexterity in Radius, Prismatic Skills cannot choose Fire
 With 40 total Intelligence and Dexterity in Radius, Prismatic Skills deal 50% less Fire Damage
 ]],[[
@@ -866,8 +872,11 @@ Combat Focus
 Viridian Jewel
 Source: Vendor Recipe
 Limited to: 2
+Variant: Pre 3.21.0
+Variant: Current
 Radius: Medium
-(10-15)% increased Elemental Damage with Attack Skills
+{variant:1}(10-15)% increased Elemental Damage with Attack Skills
+{variant:2}(10-15)% increased Elemental Damage
 With 40 total Dexterity and Strength in Radius, Prismatic Skills Strike cannot choose Lightning
 With 40 total Dexterity and Strength in Radius, Prismatic Skills deal 50% less Lightning Damage
 ]],[[
