@@ -2281,9 +2281,6 @@ local specialModList = {
 	["gain %d+ rage when hit by an enemy"] = {
 		flag("Condition:CanGainRage"),
 	},
-	["every rage also grants (%d+)%% of physical damage as extra fire damage per (%d+) rage"] = function(num, _, div) return {
-		mod("PhysicalDamageGainAsFire", "BASE", num, { type = "Multiplier", var = "RageEffect", div = num }),
-	} end,
 	["gain %d+ rage on hit with retaliation skills"] = {
 		flag("Condition:CanGainRage"),
 	},
