@@ -1794,7 +1794,7 @@ skills["CleaveAltX"] = {
 	castTime = 1,
 	statMap = {
 		["chain_strike_cone_radius_+_per_x_rage"] = {
-			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "RageEffect", div = 5 }),
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "Rage", div = 5 }),
 			div = 5,
 		},
 		["quality_display_chain_hook_is_gem"] = {
