@@ -145,7 +145,7 @@ League: Settlers of Kalguur
 Requires Level 18
 Implicits: 1
 (70-100)% increased Elemental Damage with Melee Weapons
-Melee Weapon Damage Penetrates 1% Elemental Resistance per Mana Burn
+Melee Weapon Damage Penetrates 1% Elemental Resistance per Mana Burn, up to a maximum of 200%
 (20-40)% increased Cooldown Recovery Rate
 (35--35)% increased Mana Burn rate
 ]],[[
