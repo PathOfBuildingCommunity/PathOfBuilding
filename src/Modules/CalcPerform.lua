@@ -3103,7 +3103,7 @@ function calcs.perform(env, skipEHP)
 			buffExports.PlayerMods["EnduranceChargesMax="..tostring(output["EnduranceChargesMax"])] = true
 		end
 
-		buffExports.PlayerMods["MovementSpeedMod|percent|max="..tostring(m_floor(output["MovementSpeedMod"] * 100))] = true
+		buffExports.PlayerMods["MovementSpeedMod|percent|max="..tostring(output["MovementSpeedMod"] * 100)] = true
 		
 		for _, mod in ipairs(buffExports["Aura"]["extraAura"].modList) do
 			-- leaving comment to make it easier for future similar mods
