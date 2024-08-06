@@ -2541,6 +2541,15 @@ function calcs.perform(env, skipEHP)
 				end
 				mergeBuff(srcList, buffs, warcryName)
 			end
+			if env.minion and not env.minion.modDB.conditions["AffectedBy"..warcryNameCompressed] then
+				env.minion.modDB.conditions["AffectedByWarcry"] = true
+				env.minion.modDB.conditions["AffectedBy"..warcryNameCompressed] = true
+				local srcList = new("ModList")
+				for _, warcryBuff in ipairs(warcry.modList) do
+					srcList:ScaleAddList({warcryBuff}, (warcry.effectMult or 100) / 100 * (warcryBuff[1].warcryPowerBonus or 1))
+				end
+				mergeBuff(srcList, minionBuffs, warcryName)
+			end
 		end
 	end
 	if env.partyMembers["Link"] and env.partyMembers["Link"]["Link"] then
