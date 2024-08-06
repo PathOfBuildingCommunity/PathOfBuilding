@@ -1957,7 +1957,7 @@ function buildMode:LoadDB(xmlText, fileName)
 		launch:ShowErrMsg("^1Error loading '%s': %s", fileName, errMsg)
 		return true
 	elseif #dbXML == 0 then
-		launch:ShowErrMsg("^1Build file empty '%s'", fileName)
+		main:OpenMessagePopup("Error", "Build file is empty, or error parsing xml.\n\n"..fileName)
 		return true
 	elseif dbXML[1].elem ~= "PathOfBuilding" then
 		launch:ShowErrMsg("^1Error parsing '%s': 'PathOfBuilding' root element missing", fileName)
