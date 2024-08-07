@@ -1982,6 +1982,8 @@ function calcs.buildDefenceEstimations(env, actor)
 		output.LifeRecoverable = (output.LifeCancellableReservation / 100) * output.Life
 	end
 	
+	output.LifeRecoverable = m_max(output.LifeRecoverable, 1)
+	
 	-- Prevented life loss taken over 4 seconds (and Petrified Blood)
 	do
 		local halfLife = output.Life * 0.5
