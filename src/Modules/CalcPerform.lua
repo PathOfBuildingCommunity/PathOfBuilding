@@ -1882,6 +1882,7 @@ function calcs.perform(env, skipEHP)
 						local cooldownOverride = modStore:Override(skillCfg, "CooldownRecovery")
 						local actual_cooldown = cooldownOverride or (activeSkill.skillData.cooldown  + modStore:Sum("BASE", skillCfg, "CooldownRecovery")) / calcLib.mod(modStore, skillCfg, "CooldownRecovery")
 						local uptime = modDB:Flag(nil, "Condition:WarcryMaxHit") and 1 or m_min(full_duration / actual_cooldown, 1)
+						local extraWarcryModList = {}
 						if not modDB:Flag(nil, "CannotGainWarcryBuffs") then
 							if not buff.applyNotPlayer then
 								activeSkill.buffSkill = true
@@ -1909,10 +1910,12 @@ function calcs.perform(env, skipEHP)
 							mergeBuff(srcList, minionBuffs, buff.name)
 						end
 						if partyTabEnableExportBuffs then
-							local srcList = new("ModList")
+							local newModList = new("ModList")
 							local inc = skillModList:Sum("INC", skillCfg, "BuffEffect")
 							local more = skillModList:More(skillCfg, "BuffEffect")
-							buffExports["Warcry"][buff.name] = { effectMult = (1 + inc / 100) * more * uptime, modList = buff.modList }
+							newModList:AddList(buff.modList)
+							newModList:AddList(extraWarcryModList)
+							buffExports["Warcry"][buff.name] = { effectMult = (1 + inc / 100) * more * uptime, modList = newModList }
 						end
 						-- Special handling for the minion side to add the flat damage bonus
 						if activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" and env.minion then
