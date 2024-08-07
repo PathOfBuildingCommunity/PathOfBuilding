@@ -589,6 +589,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					elseif not compareNode.alloc and node.alloc then
 						-- Base has not, current has, color red (Remove nodes to match)
 						SetDrawColor(1, 0, 0)
+					elseif node.type == "Mastery" and compareNode.alloc and node.alloc and node.sd ~= compareNode.sd then
+						-- Node is a mastery, both have it allocated, but mastery changed, color it blue
+						SetDrawColor(0, 0, 1)
 					else
 						-- Both have or both have not, use white
 						SetDrawColor(1, 1, 1)
@@ -614,6 +617,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				elseif not compareNode.alloc and node.alloc then
 					-- Base has not, current has, color red (Remove nodes to match)
 					SetDrawColor(1, 0, 0)
+				elseif node.type == "Mastery" and compareNode.alloc and node.alloc and node.sd ~= compareNode.sd then
+					-- Node is a mastery, both have it allocated, but mastery changed, color it blue
+					SetDrawColor(0, 0, 1)
 				else
 					-- Both have or both have not, use white
 					SetDrawColor(1, 1, 1)
