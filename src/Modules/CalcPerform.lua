@@ -1863,7 +1863,6 @@ function calcs.perform(env, skipEHP)
 					local skillCfg = skillCfg
 					local modStore = skillModList or modDB
 					local warcryName = buff.name:gsub(" Cry", ""):gsub("'s",""):gsub(" ","")
-					local warcryPower = modDB:Override(nil, "WarcryPower") or m_max((modDB:Sum("BASE", nil, "WarcryPower") or 0) * (1 + (modDB:Sum("INC", nil, "WarcryPower") or 0)/100), (modDB:Sum("BASE", nil, "MinimumWarcryPower") or 0))
 					local baseExerts = modStore:Sum("BASE", env.player.mainSkill.skillCfg, warcryName.."ExertedAttacks")
 					if baseExerts > 0 then
 						local extraExertions = modStore:Sum("BASE", nil, "ExtraExertedAttacks") or 0
@@ -1872,7 +1871,7 @@ function calcs.perform(env, skipEHP)
 						env.player.modDB:NewMod("ExertingWarcryCount", "BASE", 1)
 					end
 					if not activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") then
-						local warcryPower = modDB:Override(nil, "WarcryPower") or modDB:Sum("BASE", nil, "WarcryPower") or 0
+						local warcryPower = modDB:Override(nil, "WarcryPower") or m_max((modDB:Sum("BASE", nil, "WarcryPower") or 0) * (1 + (modDB:Sum("INC", nil, "WarcryPower") or 0)/100), (modDB:Sum("BASE", nil, "MinimumWarcryPower") or 0))
 						for _, warcryBuff in ipairs(buff.modList) do
 							if warcryBuff[1] and warcryBuff[1].effectType == "Warcry" and warcryBuff[1].div then
 								warcryBuff[1].warcryPowerBonus = m_floor((warcryBuff[1].limit and m_min(warcryPower, warcryBuff[1].limit) or warcryPower) / warcryBuff[1].div)
