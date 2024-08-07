@@ -3187,43 +3187,10 @@ function calcs.perform(env, skipEHP)
 			output.GemLevel = mainSkill.activeEffect.level
 			output.GemHasLevel = true
 			
-			local itemLevelList = mainSkill.skillModList:Tabulate("LIST", mainSkill.skillCfg, "GemProperty")
-			local supportLevelList = mainSkill.skillModList:Tabulate("LIST", mainSkill.skillCfg, "SupportedGemProperty")
-			local totalSupportLevel = 0
-			local totalItemLevel = 0
+			local totalItemLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemItemLevel")
+			local totalSupportLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSupportLevel")
 
-			env.player.modDB:NewMod("GemLevel", "BASE", mainSkill.activeEffect.srcInstance.level, "Gem Level")
-
-			local function isMatch(value, gemData, key)
-				if value.key ~= key then return false end
-				if not gemData then return false end
-
-				if value.keywordList then
-					for _, keyword in ipairs(value.keywordList) do
-						if not calcLib.gemIsType(gemData, keyword, true) then
-							return false
-						end
-					end
-				elseif not calcLib.gemIsType(gemData, value.keyword, true) then
-					return false
-				end
-				return true
-			end
-
-			for _, level in ipairs(supportLevelList) do
-				local match = isMatch(level.value, mainSkill.activeEffect.gemData, "level")
-				if match then
-					totalSupportLevel = totalSupportLevel + level.value.value
-					env.player.modDB:NewMod("GemLevel", "BASE", level.value.value, level.mod.source, #level.mod > 0 and level.mod[1] or nil)
-				end
-			end
-			for _, level in ipairs(itemLevelList) do
-				local match = isMatch(level.value, mainSkill.activeEffect.gemData, "level")
-				if match then
-					totalItemLevel = totalItemLevel + level.value.value
-					env.player.modDB:NewMod("GemLevel", "BASE", level.value.value, level.mod.source, #level.mod > 0 and level.mod[1] or nil)
-				end
-			end
+			env.player.modDB:NewMod("GemLevel", "BASE", mainSkill.activeEffect.srcInstance.level, "Max Level")
 
 			if env.player.breakdown then
 				env.player.breakdown.GemLevel = {}
