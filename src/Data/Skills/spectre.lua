@@ -10548,3 +10548,183 @@ skills["AzmeriGolemRotateZap"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["MeleeAtAnimationSpeed"] = {
+    name = "Default Attack",
+    hidden = true,
+    color = 4,
+    baseEffectiveness = 0,
+    incrementalEffectiveness = 0,
+    description = "Strike your foes down with a powerful blow.",
+    skillTypes = {
+        [SkillType.Attack] = true,
+        [SkillType.RangedAttack] = true,
+        [SkillType.MirageArcherCanUse] = true,
+        [SkillType.Projectile] = true,
+        [SkillType.MeleeSingleTarget] = true,
+        [SkillType.Multistrikeable] = true,
+        [SkillType.Melee] = true,
+        [SkillType.ProjectilesFromUser] = true,
+    },
+    statDescriptionScope = "skill_stat_descriptions",
+    castTime = 1,
+    baseFlags = {
+        attack = true,
+        melee = true,
+        projectile = true,
+    },
+    baseMods = {
+    },
+    qualityStats = {
+    },
+    stats = {
+        "skill_can_fire_arrows",
+        "skill_can_fire_wand_projectiles",
+        "action_attack_or_cast_time_uses_animation_length",
+        "projectile_uses_contact_position",
+        "use_scaled_contact_offset",
+    },
+    levels = {
+        [1] = {levelRequirement = 1, statInterpolation = {},  cost = { }, },
+    },
+}
+skills["RevenantMapBossSummon1"] = {
+    name = "Revenant Map Boss Summon 1",
+    hidden = true,
+    color = 4,
+    baseEffectiveness = 0,
+    incrementalEffectiveness = 0,
+    skillTypes = {
+        [SkillType.Spell] = true,
+        [SkillType.Multicastable] = true,
+        [SkillType.Triggerable] = true,
+    },
+    statDescriptionScope = "skill_stat_descriptions",
+    castTime = 1,
+    baseFlags = {
+        spell = true,
+    },
+    baseMods = {
+    },
+    qualityStats = {
+    },
+    stats = {
+        "alternate_minion",
+        "number_of_monsters_to_summon",
+        "summoned_monsters_no_drops_or_experience",
+        "summoned_monsters_are_minions",
+    },
+    levels = {
+        [1] = {46, 3, levelRequirement = 0, statInterpolation = {},  cost = { }, },
+    },
+}
+skills["RevenantMapBossSummon2"] = {
+    name = "Revenant Map Boss Summon 2",
+    hidden = true,
+    color = 4,
+    baseEffectiveness = 0,
+    incrementalEffectiveness = 0,
+    skillTypes = {
+        [SkillType.Spell] = true,
+        [SkillType.Multicastable] = true,
+        [SkillType.Triggerable] = true,
+    },
+    statDescriptionScope = "skill_stat_descriptions",
+    castTime = 1,
+    baseFlags = {
+        spell = true,
+    },
+    baseMods = {
+    },
+    qualityStats = {
+    },
+    stats = {
+        "alternate_minion",
+        "number_of_monsters_to_summon",
+        "summoned_monsters_no_drops_or_experience",
+        "summoned_monsters_are_minions",
+    },
+    levels = {
+        [1] = {47, 6, levelRequirement = 0, statInterpolation = {},  cost = { }, },
+    },
+}
+skills["RevenantReviveUndead"] = {
+    name = "Revenant Revive Undead",
+    hidden = true,
+    color = 4,
+    baseEffectiveness = 0,
+    incrementalEffectiveness = 0,
+    skillTypes = {
+        [SkillType.Spell] = true,
+    },
+    statDescriptionScope = "skill_stat_descriptions",
+    castTime = 1,
+    baseFlags = {
+        spell = true,
+    },
+    baseMods = {
+    },
+    qualityStats = {
+    },
+    stats = {
+        "revenant_revive_explode_damage_%",
+        "base_skill_effect_duration",
+        "spell_maximum_action_distance_+%",
+    },
+    levels = {
+        [1] = {40, 2000, -40, levelRequirement = 3, statInterpolation = {1},  cost = { }, },
+        [2] = {34, 2000, -40, levelRequirement = 43, statInterpolation = {1},  cost = { }, },
+        [3] = {27, 2000, -40, levelRequirement = 58, statInterpolation = {1},  cost = { }, },
+        [4] = {26, 2000, -40, levelRequirement = 68, statInterpolation = {1},  cost = { }, },
+        [5] = {25, 2000, -40, levelRequirement = 69, statInterpolation = {1},  cost = { }, },
+        [6] = {24, 2000, -40, levelRequirement = 70, statInterpolation = {1},  cost = { }, },
+        [7] = {23, 2000, -40, levelRequirement = 71, statInterpolation = {1},  cost = { }, },
+        [8] = {22, 2000, -40, levelRequirement = 72, statInterpolation = {1},  cost = { }, },
+        [9] = {22, 2000, -40, levelRequirement = 73, statInterpolation = {1},  cost = { }, },
+        [10] = {21, 2000, -40, levelRequirement = 74, statInterpolation = {1},  cost = { }, },
+        [11] = {20, 2000, -40, levelRequirement = 75, statInterpolation = {1},  cost = { }, },
+        [12] = {19, 2000, -40, levelRequirement = 76, statInterpolation = {1},  cost = { }, },
+        [13] = {18, 2000, -40, levelRequirement = 77, statInterpolation = {1},  cost = { }, },
+        [14] = {18, 2000, -40, levelRequirement = 78, statInterpolation = {1},  cost = { }, },
+        [15] = {17, 2000, -40, levelRequirement = 79, statInterpolation = {1},  cost = { }, },
+        [16] = {16, 2000, -40, levelRequirement = 80, statInterpolation = {1},  cost = { }, },
+        [17] = {15, 2000, -40, levelRequirement = 81, statInterpolation = {1},  cost = { }, },
+        [18] = {14, 2000, -40, levelRequirement = 82, statInterpolation = {1},  cost = { }, },
+    },
+}
+skills["RevenantBossSpellProjectile"] = {
+    name = "Revenant Boss Spell Projectile",
+    hidden = true,
+    color = 4,
+    baseEffectiveness = 0,
+    incrementalEffectiveness = 0,
+    skillTypes = {
+        [SkillType.Spell] = true,
+        [SkillType.Projectile] = true,
+        [SkillType.ProjectilesFromUser] = true,
+        [SkillType.Triggerable] = true,
+    },
+    statDescriptionScope = "skill_stat_descriptions",
+    castTime = 1,
+    baseFlags = {
+        spell = true,
+        projectile = true,
+    },
+    baseMods = {
+    },
+    qualityStats = {
+    },
+    stats = {
+        "spell_minimum_base_lightning_damage",
+        "spell_maximum_base_lightning_damage",
+        "monster_projectile_variation",
+        "base_number_of_projectiles_in_spiral_nova",
+        "projectile_spiral_nova_time_ms",
+        "projectile_spiral_nova_angle",
+        "projectile_spiral_nova_starting_angle_offset",
+        "monster_reverse_point_blank_damage_-%_at_minimum_range",
+        "base_is_projectile",
+    },
+    levels = {
+        [1] = {0.60000002384186, 1.3999999761581, 7, 9, 750, 50, -20, 80, levelRequirement = 3, statInterpolation = {3, 3},  cost = { }, },
+    },
+}
