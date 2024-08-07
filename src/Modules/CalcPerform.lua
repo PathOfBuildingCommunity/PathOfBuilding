@@ -1875,6 +1875,7 @@ function calcs.perform(env, skipEHP)
 					local cooldownOverride = modStore:Override(skillCfg, "CooldownRecovery")
 					local actual_cooldown = cooldownOverride or (activeSkill.skillData.cooldown  + modStore:Sum("BASE", skillCfg, "CooldownRecovery")) / calcLib.mod(modStore, skillCfg, "CooldownRecovery")
 					local uptime = modDB:Flag(nil, "Condition:WarcryMaxHit") and 1 or m_min(full_duration / actual_cooldown, 1)
+					local extraWarcryModList = activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" and new("ModList") or {}
 					if not activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") then
 						if not modDB:Flag(nil, "CannotGainWarcryBuffs") then
 							if not buff.applyNotPlayer then
@@ -1908,23 +1909,25 @@ function calcs.perform(env, skipEHP)
 								local mult = (1 + inc / 100) * more * warcryPowerBonus * uptime
 								srcList:ScaleAddList({warcryBuff}, mult)
 							end
+							-- Special handling for the minion side to add the flat damage bonus
+							if activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" then
+								local warcryPowerBonus = m_floor((m_min(warcryPower, 30)) / 5)
+								local rallyingWeaponEffect = m_floor(activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryAllyDamageBonusPer5Power") * warcryPowerBonus)
+								local inc = modStore:Sum("INC", skillCfg, "BuffEffect") + env.minion.modDB:Sum("INC", skillCfg, "BuffEffectOnSelf")
+								local rallyingBonusMoreMultiplier = 1 + (activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryMinionDamageBonusMultiplier") or 0)
+								-- Add all damage types
+								local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
+								for _, damageType in ipairs(dmgTypeList) do
+									if env.player.weaponData1[damageType.."Min"] then
+										extraWarcryModList:NewMod(damageType.."Min", "BASE", (env.player.weaponData1[damageType.."Min"] * rallyingWeaponEffect / 100), "Rallying Cry", 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Warcry", div = 5, limit = 30 })
+									end
+									if env.player.weaponData1[damageType.."Max"] then
+										extraWarcryModList:NewMod(damageType.."Max", "BASE", (env.player.weaponData1[damageType.."Max"] * rallyingWeaponEffect / 100), "Rallying Cry", 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Warcry", div = 5, limit = 30 })
+									end
+								end
+								srcList:ScaleAddList(extraWarcryModList, (1 + inc / 100) * rallyingBonusMoreMultiplier * uptime)
+							end
 							mergeBuff(srcList, minionBuffs, buff.name)
-						end
-						-- Special handling for the minion side to add the flat damage bonus
-						if activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" and env.minion then
-							local warcryPowerBonus = m_floor((warcryPower) / 5)
-							local rallyingWeaponEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryAllyDamageBonusPer5Power")
-							local inc = modStore:Sum("INC", skillCfg, "BuffEffect") + env.minion.modDB:Sum("INC", skillCfg, "BuffEffectOnSelf")
-							local rallyingBonusMoreMultiplier = 1 + (activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryMinionDamageBonusMultiplier") or 0)
-							if warcryPowerBonus ~= 0 then
-								rallyingWeaponEffect = m_floor(rallyingWeaponEffect * warcryPowerBonus * (1 + inc / 100)) / warcryPowerBonus
-							end
-							-- Add all damage types
-							local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
-							for _, damageType in ipairs(dmgTypeList) do
-								env.minion.modDB:NewMod(damageType.."Min", "BASE", m_floor((env.player.weaponData1[damageType.."Min"] or 0) * rallyingBonusMoreMultiplier * rallyingWeaponEffect / 100) * uptime, "Rallying Cry", { type = "Multiplier", actor = "parent", var = "WarcryPower", div = 5, limit = 6})
-								env.minion.modDB:NewMod(damageType.."Max", "BASE", m_floor((env.player.weaponData1[damageType.."Max"] or 0) * rallyingBonusMoreMultiplier * rallyingWeaponEffect / 100) * uptime, "Rallying Cry", { type = "Multiplier", actor = "parent", var = "WarcryPower", div = 5, limit = 6})
-							end
 						end
 					end
 				end
