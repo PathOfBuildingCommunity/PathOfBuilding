@@ -224,7 +224,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 
 	-- Arrange the sections
 	local baseX = viewPort.x + 4
-	local baseY = viewPort.y + 4
+	local baseY = viewPort.y + 30
 	local maxCol = m_floor(viewPort.width / (self.colWidth + 8))
 	if main.portraitMode then maxCol = 3 end
 	local colY = { }
@@ -300,14 +300,14 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 		end
 	end
 	self.controls.scrollBar.height = viewPort.height
-	self.controls.scrollBar:SetContentDimension(maxY - baseY, viewPort.height)
+	self.controls.scrollBar:SetContentDimension(maxY - (baseY - 26), viewPort.height)
 	for _, section in ipairs(self.sectionList) do
 		-- Give sections their actual Y position and let them update
-		section.y = section.y - self.controls.scrollBar.offset + 25
+		section.y = section.y - self.controls.scrollBar.offset
 		section:UpdatePos()
 	end
 	
-	self.controls.search.y = 5 - self.controls.scrollBar.offset
+	self.controls.search.y = 4 - self.controls.scrollBar.offset
 
 	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
