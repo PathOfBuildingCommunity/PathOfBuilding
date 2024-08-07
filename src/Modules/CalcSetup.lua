@@ -1333,7 +1333,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				groupCfgList[slotName or "noSlot"] = groupCfgList[slotName or "noSlot"] or {}
 				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
-					propertyModList = env.modDB:Tabulate({slotName = slotName}, "GemProperty")
+					propertyModList = env.modDB:Tabulate("LIST", {slotName = slotName}, "GemProperty")
 				}
 				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				local propertyModList = groupCfg.propertyModList
@@ -1436,7 +1436,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				local slotName = group.slot and group.slot:gsub(" Swap","")
 				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
-					propertyModList = env.modDB:Tabulate({slotName = slotName}, "GemProperty")
+					propertyModList = env.modDB:Tabulate("LIST", {slotName = slotName}, "GemProperty")
 				}
 				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				local propertyModList = groupCfg.propertyModList
@@ -1558,7 +1558,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if index == env.mainSocketGroup or (group.enabled and group.slotEnabled) then
 				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
-					propertyModList = env.modDB:Tabluate({slotName = slotName}, "GemProperty")
+					propertyModList = env.modDB:Tabulate("LIST", {slotName = slotName}, "GemProperty")
 				}
 				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				for _, value in ipairs(env.modDB:List(groupCfg, "GroupProperty")) do
