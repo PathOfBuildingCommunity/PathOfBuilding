@@ -29,7 +29,7 @@ local MinionListClass = newClass("MinionListControl", "ListControl", function(se
 		self.controls.delete.enabled = function()
 			return self.selValue ~= nil
 		end
-	end		
+	end
 end)
 
 function MinionListClass:AddSel()
