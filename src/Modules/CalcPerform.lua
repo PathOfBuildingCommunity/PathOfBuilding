@@ -1449,11 +1449,11 @@ function calcs.perform(env, skipEHP)
 		local tinctureBuffsPerBase = {}
 
 		local function calcTinctureMods(item, baseName, buffModList, modList)
-			local tinctureEffectInc = effectInc + item.tinctureData.effectInc
+			local tinctureEffectInc = effectInc
 			if item.rarity == "MAGIC" then
 				tinctureEffectInc = tinctureEffectInc + effectIncMagic
 			end
-			local effectMod = (1 + (tinctureEffectInc) / 100) * (1 + (item.quality or 0) / 100)
+			local effectMod = (1 + (tinctureEffectInc) / 100) * (1 + (item.tinctureData.effectInc) / 100) * (1 + (item.quality or 0) / 100)
 
 			-- same deal as flasks, go look at the comment there
 			if buffModList[1] then
