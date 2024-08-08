@@ -732,12 +732,12 @@ local function doActorMisc(env, actor)
 				modDB:NewMod("Condition:HaveMaximumRage", "FLAG", true, "")
 			end
 		end
-		if env.configInput.multiplierManaBurnStacks > 0 then
+		if (env.configInput.multiplierManaBurnStacks or 0) > 0 then
 			local maxManaBurn = modDB:Sum("BASE", nil, "MaxManaBurnStacks")
 			if maxManaBurn == 0 then
 				maxManaBurn = 9999
 			end
-			local manaBurnStacks = m_min(env.configInput.multiplierManaBurnStacks, maxManaBurn)
+			local manaBurnStacks = m_min((env.configInput.multiplierManaBurnStacks or 0), maxManaBurn)
 			modDB:NewMod("Multiplier:ManaBurnStacks", "BASE", manaBurnStacks, "Config")
 			manaBurnStacks = manaBurnStacks + modDB:Sum("BASE", { actor = "player" }, "EffectiveManaBurnStacks")
 			if modDB:Flag(nil, "Condition:WeepingWoundsInsteadOfManaBurn") then
