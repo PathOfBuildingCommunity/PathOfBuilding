@@ -1178,6 +1178,9 @@ function ItemClass:Craft()
 				end
 				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))
 				local rangeScalar = getCatalystScalar(self.catalyst, mod.modTags, self.catalystQuality)
+				if self.base.tincture and mod.type ~= "Prefix" then
+					rangeScalar = rangeScalar * (1 + (self.tinctureData.effectInc or 0) / 100) * (1 + (self.quality or 0) / 100)
+				end
 				for i, line in ipairs(mod) do
 					line = itemLib.applyRange(line, affix.range or 0.5, rangeScalar)
 					local order = mod.statOrder[i]
