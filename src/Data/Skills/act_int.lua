@@ -5418,6 +5418,10 @@ skills["EyeOfWinterAltX"] = {
 		spell = true,
 		projectile = true,
 	},
+	baseMods = {
+		skill("projectileSpeed", 80),
+		skill("duration", 0.33),
+	},
 	qualityStats = {
 		Default = {
 			{ "eye_of_winter_base_explosion_shards", 0.1 },
@@ -5508,6 +5512,10 @@ skills["EyeOfWinterAltY"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
+	},
+	baseMods = {
+		skill("projectileSpeed", 80),
+		skill("duration", 0.33),
 	},
 	qualityStats = {
 		Default = {
@@ -15303,6 +15311,9 @@ skills["SparkAltX"] = {
 		projectile = true,
 		duration = true,
 	},
+	baseMods = {
+		flag("ReturnDoesNotAddDPS"),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_number_of_projectiles", 0.1 },
@@ -15392,6 +15403,9 @@ skills["SparkAltY"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
+	},
+	baseMods = {
+		flag("ReturnDoesNotAddDPS"),
 	},
 	qualityStats = {
 		Default = {

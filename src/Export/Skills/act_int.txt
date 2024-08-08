@@ -1046,6 +1046,8 @@ local skills, mod, flag, skill = ...
 			-- Display only
 		},
 	},
+#baseMod skill("projectileSpeed", 80)
+#baseMod skill("duration", 0.33)
 #mods
 
 #skill EyeOfWinterAltX
@@ -1064,6 +1066,8 @@ local skills, mod, flag, skill = ...
 			-- Display only
 		},
 	},
+#baseMod skill("projectileSpeed", 80)
+#baseMod skill("duration", 0.33)
 #mods
 
 #skill EyeOfWinterAltY
@@ -3432,10 +3436,12 @@ local skills, mod, flag, skill = ...
 			output.SkillDPSMultiplier = skillData.dpsMultiplier
 		end
 	end,
+#baseMod flag("ReturnDoesNotAddDPS")
 #mods
 
 #skill VaalSpark
 #flags spell projectile duration
+#baseMod flag("ReturnDoesNotAddDPS")
 #mods
 
 #skill Spellslinger
