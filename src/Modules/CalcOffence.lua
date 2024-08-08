@@ -3491,45 +3491,26 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	
 	-- returning projectile dps mods and removing them from pass list
-	skillData.hitDpsMultiplier = (skillData.hitDpsMultiplier or 1)
-	skillData.dotStackPotentialDpsMultiplier = (skillData.dotStackPotentialDpsMultiplier or 1)
-	skillData.dotStackingDpsMultiplier = (skillData.dotStackingDpsMultiplier or 1)
 	if (output.ReturnChance or 0) > 0 then
-		local returningProjectileHitDamageMult = 1
+		local returningProjectileDamageMult = 1
 		local baseDamageMult = 1
 		if isAttack then
-			returningProjectileHitDamageMult = output.MainHand and output.MainHand.ReturningProjectile.AverageDamage or 0 + output.OffHand and output.OffHand.ReturningProjectile.AverageDamage or 0
+			returningProjectileDamageMult = output.MainHand and output.MainHand.ReturningProjectile.AverageDamage or 0 + output.OffHand and output.OffHand.ReturningProjectile.AverageDamage or 0
 			baseDamageMult = output.MainHand and output.MainHand.AverageDamage or 0 + output.OffHand and output.OffHand.AverageDamage or 0
 		else
-			returningProjectileHitDamageMult = output.ReturningProjectile.AverageDamage
+			returningProjectileDamageMult = output.ReturningProjectile.AverageDamage
 			baseDamageMult = output.AverageDamage
 		end
-		returningProjectileHitDamageMult = returningProjectileHitDamageMult / baseDamageMult
-		local dotCfg = {
-				skillName = skillCfg.skillName,
-				skillPart = skillCfg.skillPart,
-				skillTypes = skillCfg.skillTypes,
-				slotName = skillCfg.slotName,
-				flags = bor(ModFlag.Dot, ModFlag.Ailment, band(skillCfg.flags, ModFlag.WeaponMask), band(skillCfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
-				keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.PhysicalDot),
-				skillCond = setmetatable({["CriticalStrike"] = true }, { __index = function(table, key) return skillCfg.skillCond[key] end } ),
-				skillDist = skillCfg.skillDist,
-			}
-		local returningProjectileDotCfg = copyTable(dotCfg, true)
-		returningProjectileDotCfg.skillCond = copyTable(returningProjectileDotCfg.skillCond)
-		returningProjectileDotCfg.skillCond["ReturningProjectile"] = true
-		local returningProjectileDotDamageMult = skillModList:More(returningProjectileDotCfg, "Damage") / skillModList:More(dotCfg, "Damage")
+		returningProjectileDamageMult = returningProjectileDamageMult / baseDamageMult
 		local returnChanceMult = output.ReturnChance * (1 + (output.SecondaryReturnChance or 0) / 100) / 100
-		skillData.hitDpsMultiplier = skillData.hitDpsMultiplier * (1 + returnChanceMult * returningProjectileHitDamageMult)
-		skillData.dotStackingDpsMultiplier = skillData.dotStackingDpsMultiplier * (1 + returnChanceMult * returningProjectileDotDamageMult)
-		if returningProjectileDotDamageMult == 1 then
-			skillData.dotStackPotentialDpsMultiplier = skillData.dotStackPotentialDpsMultiplier * (1 + returnChanceMult)
-		end
+		skillData.dpsMultiplier = skillData.dpsMultiplier * (1 + returnChanceMult * returningProjectileDamageMult)
 		-- remove returning projectile passes
 		local passesToRemove = {}
 		for i, pass in ipairs(passList) do
 			if pass.label:match(" Returning Projectile") then
 				t_insert(passesToRemove, 1, i)
+			else
+				pass.output.TotalDPS = pass.output.TotalDPS * (1 + returnChanceMult * returningProjectileDamageMult)
 			end
 		end
 		for _, i in ipairs(passesToRemove) do
@@ -3546,7 +3527,6 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("AverageDamage", "DPS")
 		combineStat("PvpAverageDamage", "DPS")
 		combineStat("TotalDPS", "DPS")
-		output.TotalDPS = output.TotalDPS * skillData.hitDpsMultiplier
 		combineStat("PvpTotalDPS", "DPS")
 		combineStat("LifeLeechDuration", "DPS")
 		combineStat("LifeLeechInstances", "DPS")
@@ -3620,8 +3600,8 @@ function calcs.offence(env, actor, activeSkill)
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(cast rate)", output.Speed),
 			}
 		end
-		if skillData.dpsMultiplier ~= 1 or skillData.hitDpsMultiplier ~= 1 then
-			t_insert(breakdown.TotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier * skillData.hitDpsMultiplier))
+		if skillData.dpsMultiplier ~= 1 then
+			t_insert(breakdown.TotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
 		end
 		if quantityMultiplier > 1 then
 			t_insert(breakdown.TotalDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
@@ -3638,8 +3618,8 @@ function calcs.offence(env, actor, activeSkill)
 				s_format("%.1f ^8(average pvp hit)", output.PvpAverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, rateType),
 			}
-			if skillData.dpsMultiplier ~= 1 or skillData.hitDpsMultiplier ~= 1 then
-				t_insert(breakdown.PvpTotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier * skillData.hitDpsMultiplier))
+			if skillData.dpsMultiplier ~= 1 then
+				t_insert(breakdown.PvpTotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
 			end
 			if quantityMultiplier > 1 then
 				t_insert(breakdown.PvpTotalDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
@@ -3695,7 +3675,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.ManaLeechGainRate = output.ManaLeechRate + output.ManaOnHitRate
 	end
 	if breakdown then
-		local hitRate = output.HitChance / 100 * (globalOutput.HitSpeed or globalOutput.Speed) * skillData.dpsMultiplier * skillData.hitDpsMultiplier
+		local hitRate = output.HitChance / 100 * (globalOutput.HitSpeed or globalOutput.Speed) * skillData.dpsMultiplier
 		if skillFlags.leechLife then
 			breakdown.LifeLeech = breakdown.leech(output.LifeLeechInstant, output.LifeLeechInstantRate, output.LifeLeechInstances, output.Life, "LifeLeechRate", output.MaxLifeLeechRate, output.LifeLeechDuration, output.LifeLeechInstantProportion, hitRate)
 		end
@@ -4548,8 +4528,8 @@ function calcs.offence(env, actor, activeSkill)
 					elseif (globalOutput.HitSpeed or globalOutput.Speed) > 0 then
 						t_insert(globalBreakdown.IgniteStackPotential, s_format("* (%.2f / %.2f) ^8(Ignite Duration / Attack Time)", globalOutput.IgniteDuration, (globalOutput.HitTime or output.Time)))
 					end
-					if skillData.dpsMultiplier ~= 1 or skillData.dotStackPotentialDpsMultiplier ~= 1 then
-						t_insert(globalBreakdown.IgniteStackPotential, s_format("* %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier * skillData.dotStackPotentialDpsMultiplier))
+					if skillData.dpsMultiplier ~= 1 then
+						t_insert(globalBreakdown.IgniteStackPotential, s_format("* %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
 					end
 					t_insert(globalBreakdown.IgniteStackPotential, s_format("/ %d ^8(max number of stacks)", maxStacks))
 					t_insert(globalBreakdown.IgniteStackPotential, s_format("= %.2f", globalOutput.IgniteStackPotential))
@@ -5326,7 +5306,7 @@ function calcs.offence(env, actor, activeSkill)
 		elseif band(dotCfg.keywordFlags, KeywordFlag.Trap) ~= 0 then
 			speed = output.TrapThrowingSpeed
 		end
-		output.TotalDot = m_min(output.TotalDotInstance * speed * output.Duration * skillData.dpsMultiplier * skillData.dotStackingDpsMultiplier * quantityMultiplier, data.misc.DotDpsCap)
+		output.TotalDot = m_min(output.TotalDotInstance * speed * output.Duration * skillData.dpsMultiplier * quantityMultiplier, data.misc.DotDpsCap)
 		output.TotalDotCalcSection = output.TotalDot
 		if breakdown then
 			breakdown.TotalDot = {
@@ -5334,8 +5314,8 @@ function calcs.offence(env, actor, activeSkill)
 				s_format("x %.2f ^8(hits per second)", speed),
 				s_format("x %.2f ^8(skill duration)", output.Duration),
 			}
-			if skillData.dpsMultiplier ~= 1 or skillData.dotStackingDpsMultiplier ~= 1 then
-				t_insert(breakdown.TotalDot, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier * skillData.dotStackingDpsMultiplier))
+			if skillData.dpsMultiplier ~= 1 then
+				t_insert(breakdown.TotalDot, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
 			end
 			if quantityMultiplier > 1 then
 				t_insert(breakdown.TotalDot, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
@@ -5594,8 +5574,8 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.ImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, skillFlags.attack and "attack" or "cast"))
 			end
 			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(impale damage multiplier)", ((output.ImpaleModifier or 1) - 1)))
-			if skillData.dpsMultiplier ~= 1 or skillData.hitDpsMultiplier ~= 1 then
-				t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(dps multiplier for this skill)", skillData.dpsMultiplier * skillData.hitDpsMultiplier))
+			if skillData.dpsMultiplier ~= 1 then
+				t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(dps multiplier for this skill)", skillData.dpsMultiplier))
 			end
 			if quantityMultiplier > 1 then
 				t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
