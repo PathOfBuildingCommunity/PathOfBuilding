@@ -1922,7 +1922,7 @@ c["1% increased Evasion Rating per 10 Intelligence"]={{[1]={[1]={div=10,stat="In
 c["1% increased Evasion Rating per 5 Intelligence"]={{[1]={[1]={div=5,stat="Int",type="PerStat"},flags=0,keywordFlags=0,name="Evasion",type="INC",value=1}},nil}
 c["1% increased Fire Damage per 20 Strength"]={{[1]={[1]={div=20,stat="Str",type="PerStat"},flags=0,keywordFlags=0,name="FireDamage",type="INC",value=1}},nil}
 c["1% increased Fishing Line Strength"]={{[1]={flags=0,keywordFlags=0,name="Str",type="INC",value=1}}," Fishing Line  "}
-c["1% increased Flask Charges gained per Mana Burn on you"]={{[1]={[1]={type="Multiplier",var="ManaBurnStacks"},flags=0,keywordFlags=0,name="FlaskChargesGained",type="INC",value=1}},"   on you "}
+c["1% increased Flask Charges gained per Mana Burn on you"]={{[1]={[1]={type="Multiplier",var="ManaBurnStacks"},flags=0,keywordFlags=0,name="FlaskChargesGained",type="INC",value=1}},nil}
 c["1% increased Lightning Damage per 10 Intelligence"]={{[1]={[1]={div=10,stat="Int",type="PerStat"},flags=0,keywordFlags=0,name="LightningDamage",type="INC",value=1}},nil}
 c["1% increased Mana Regeneration Rate per 1% Chance to Block Spell Damage"]={{[1]={[1]={div=1,stat="SpellBlockChance",type="PerStat"},flags=0,keywordFlags=0,name="ManaRegen",type="INC",value=1}},nil}
 c["1% increased Maximum Life per Abyss Jewel affecting you"]={{[1]={[1]={type="Multiplier",var="AbyssJewel"},flags=0,keywordFlags=0,name="Life",type="INC",value=1}},nil}
@@ -9112,7 +9112,7 @@ c["Melee Strike Skills deal Splash Damage to surrounding targets"]={nil,"Melee S
 c["Melee Strike Skills deal Splash Damage to surrounding targets 10% increased Global Physical Damage"]={nil,"Melee Strike Skills deal Splash Damage to surrounding targets 10% increased Global Physical Damage "}
 c["Melee Strike Skills deal Splash Damage to surrounding targets 15% reduced Mana Burn rate"]={nil,"Melee Strike Skills deal Splash Damage to surrounding targets 15% reduced Mana Burn rate "}
 c["Melee Weapon Attacks have Culling Strike"]={{[1]={[1]={effectType="Global",type="GlobalEffect",unscalable=true},flags=67108865,keywordFlags=0,name="CullPercent",type="MAX",value=10}},nil}
-c["Melee Weapon Damage Penetrates 1% Elemental Resistance per Mana Burn"]={{[1]={[1]={type="Multiplier",var="ManaBurnStacks"},flags=67108864,keywordFlags=0,name="ElementalPenetration",type="BASE",value=1}},nil}
+c["Melee Weapon Damage Penetrates 1% Elemental Resistance per Mana Burn, up to a maximum of 200%"]={{[1]={[1]={limit=200,limitTotal=true,type="Multiplier",var="ManaBurnStacks"},flags=67108864,keywordFlags=0,name="ElementalPenetration",type="BASE",value=1}},nil}
 c["Melee Weapon Hits Inflict 3 Withered Debuffs for 2 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanWither",type="FLAG",value=true}},nil}
 c["Mercury Footprints"]={nil,"Mercury Footprints "}
 c["Mind Over Matter"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Mind Over Matter"}},nil}
@@ -9703,7 +9703,7 @@ c["Recover 1% of Life when you Ignite an Enemy 100% increased Melee Physical Dam
 c["Recover 1% of Life when you Kill a Cursed Enemy"]={{[1]={[1]={percent=1,stat="Life",type="PercentStat"},[2]={actor="enemy",type="ActorCondition",var="Cursed"},flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=1}},nil}
 c["Recover 1% of Mana on Kill"]={{[1]={[1]={percent=1,stat="Mana",type="PercentStat"},flags=0,keywordFlags=0,name="ManaOnKill",type="BASE",value=1}},nil}
 c["Recover 1% of Mana on Kill for each different type of Mastery you have Allocated"]={{[1]={[1]={percent=1,stat="Mana",type="PercentStat"},[2]={type="Multiplier",var="AllocatedMasteryType"},flags=0,keywordFlags=0,name="ManaOnKill",type="BASE",value=1}},nil}
-c["Recover 1% of Mana on Kill while you have a Tincture active"]={nil,"Recover 1% of Mana on Kill while you have a Tincture active "}
+c["Recover 1% of Mana on Kill while you have a Tincture active"]={{[1]={[1]={percent=1,stat="Mana",type="PercentStat"},[2]={type="Condition",var="UsingTincture"},flags=0,keywordFlags=0,name="ManaOnKill",type="BASE",value=1}},nil}
 c["Recover 1% of Mana when you Curse a Non-Cursed Enemy"]={nil,"Recover 1% of Mana when you Curse a Non-Cursed Enemy "}
 c["Recover 1% of Mana when you Kill a Cursed Enemy"]={{[1]={[1]={percent=1,stat="Mana",type="PercentStat"},[2]={actor="enemy",type="ActorCondition",var="Cursed"},flags=0,keywordFlags=0,name="ManaOnKill",type="BASE",value=1}},nil}
 c["Recover 10% of Mana over 1 second when you use a Guard Skill"]={nil,"Recover 10% of Mana over 1 second when you use a Guard Skill "}
@@ -11198,7 +11198,7 @@ c["The Effect of Chill on you is reversed"]={{[1]={flags=0,keywordFlags=0,name="
 c["The Impaler"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="The Impaler"}},nil}
 c["The Light of Meaning"]={nil,"The Light of Meaning "}
 c["The Light of Meaning Prismatic Jewel"]={nil,"The Light of Meaning Prismatic Jewel "}
-c["The first 6 Mana Burn applied to you have no effect"]={nil,"The first 6 Mana Burn applied to you have no effect "}
+c["The first 6 Mana Burn applied to you have no effect"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="EffectiveManaBurnStacks",type="BASE",value=-6}},nil}
 c["This Jewel's Socket has 25% increased effect per Allocated Passive Skill between"]={nil,"This Jewel's Socket has 25% increased effect per Allocated Passive Skill between "}
 c["This Jewel's Socket has 25% increased effect per Allocated Passive Skill between it and your Class' starting location"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="jewelIncEffectFromClassStart",value=25}}},nil}
 c["This Weapon's Critical Strike Chance is 100%"]={{[1]={flags=0,keywordFlags=0,name="WeaponData",type="LIST",value={key="CritChance",value=100}}},nil}
@@ -11214,7 +11214,7 @@ c["Tinctures applied to you have 30% less Mana Burn rate"]={{[1]={[1]={actor="pl
 c["Tinctures applied to you have 5% increased Effect"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="TinctureEffect",type="INC",value=5}},nil}
 c["Tinctures applied to you have 5% reduced Mana Burn rate"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="TinctureManaBurnRate",type="INC",value=-5}},nil}
 c["Tinctures applied to you have 8% increased Effect"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="TinctureEffect",type="INC",value=8}},nil}
-c["Tinctures deactivate when you have 12 or more Mana Burn"]={nil,"Tinctures deactivate when you have 12 or more Mana Burn "}
+c["Tinctures deactivate when you have 12 or more Mana Burn"]={{[1]={flags=0,keywordFlags=0,name="MaxManaBurnStacks",type="BASE",value=12}},nil}
 c["Tinctures have 40% increased effect while at or above 10 stacks of Mana Burn"]={{[1]={[1]={threshold=10,type="MultiplierThreshold",varList={[1]="ManaBurnStacks",[2]="WeepingWoundsStacks"}},flags=0,keywordFlags=0,name="TinctureEffect",type="INC",value=40}},nil}
 c["Tinctures inflict Weeping Wounds instead of Mana Burn"]={{[1]={flags=0,keywordFlags=0,name="Condition:WeepingWoundsInsteadOfManaBurn",type="FLAG",value=true}},nil}
 c["Total Recovery per second from Life Leech is Doubled"]={{[1]={flags=0,keywordFlags=0,name="LifeLeechRate",type="MORE",value=100}},nil}
