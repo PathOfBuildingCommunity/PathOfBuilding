@@ -11205,7 +11205,7 @@ c["This Weapon's Critical Strike Chance is 100%"]={{[1]={flags=0,keywordFlags=0,
 c["This item can be anointed by Cassia"]={{},nil}
 c["Tincture Effects Linger on you for 0.5 seconds per Mana Burn on you when the Tincture was deactivated, up to a maximum of 6 seconds"]={nil,"Tincture Effects Linger on you for 0.5 seconds per Mana Burn on you when the Tincture was deactivated, up to a maximum of 6 seconds "}
 c["Tincture Effects Linger on you for 0.5 seconds per Mana Burn on you when the Tincture was deactivated, up to a maximum of 6 seconds Tinctures applied to you have 30% less Mana Burn rate"]={nil,"Tincture Effects Linger on you for 0.5 seconds per Mana Burn on you when the Tincture was deactivated, up to a maximum of 6 seconds Tinctures applied to you have 30% less Mana Burn rate "}
-c["Tincture Effects also apply to Ranged Weapons"]={nil,"Tincture Effects also apply to Ranged Weapons "}
+c["Tincture Effects also apply to Ranged Weapons"]={{[1]={flags=0,keywordFlags=0,name="TinctureRangedWeapons",type="FLAG",value=true}},nil}
 c["Tinctures applied to you have 10% increased Effect"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="TinctureEffect",type="INC",value=10}},nil}
 c["Tinctures applied to you have 10% reduced Mana Burn rate"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="TinctureManaBurnRate",type="INC",value=-10}},nil}
 c["Tinctures applied to you have 15% increased Effect"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="TinctureEffect",type="INC",value=15}},nil}
