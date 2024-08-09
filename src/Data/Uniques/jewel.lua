@@ -470,7 +470,6 @@ Source: Drops from unique Delirium bosses in maps
 Adds Hollow Palm Technique
 ]],[[
 The Perandus Pact
-The Light of Meaning
 Prismatic Jewel
 Variant: Life
 Variant: Energy Shield
