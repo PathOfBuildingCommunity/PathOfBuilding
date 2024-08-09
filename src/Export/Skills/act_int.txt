@@ -86,6 +86,9 @@ local skills, mod, flag, skill = ...
 		["trigger_brand_support_hit_damage_+%_final_vs_branded_enemy"] = {
 			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
+		["projectile_maximum_range_override"] = {
+			mod("projectile_maximum_range_override", "OVERRIDE", nil),
+		},
 	},
 #baseMod skill("triggeredByBrand", true)
 #mods
@@ -3483,9 +3486,6 @@ local skills, mod, flag, skill = ...
 		},
 		["soul_link_grants_take_%_of_hit_damage_from_soul_link_source_energy_shield_before_you"] = {
 			mod("TakenFromParentESBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
-		},
-		["projectile_maximum_range_override"] = {
-			mod("projectile_maximum_range_override", "OVERRIDE", nil),
 		},
 	},
 #mods
