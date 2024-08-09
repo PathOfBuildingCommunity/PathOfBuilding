@@ -1286,6 +1286,9 @@ return {
 ["cannot_pierce"] = {
 	flag("CannotPierce"),
 },
+["projectile_behaviour_only_explode"] = {
+	flag("CannotReturn"),
+},
 ["projectile_damage_+%_if_pierced_enemy"] = {
 	mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "StatThreshold", stat = "PiercedCount", threshold = 1 }),
 },
@@ -1354,8 +1357,21 @@ return {
 	flag("ForkTwice"),
 	mod("ForkCountMax", "BASE", nil),
 },
+["projectiles_return"] = {
+	mod("ReturnChance", "BASE", nil, ModFlag.Projectile),
+	value = 100,
+},
+["projectile_return_%_chance"] = {
+	mod("ReturnChance", "BASE", nil, ModFlag.Projectile)
+},
+["projectile_additional_return_chance_%"] = {
+	mod("SecondaryReturnChance", "BASE", nil, ModFlag.Projectile)
+},
 ["active_skill_returning_projectile_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "ReturningProjectile" }),
+},
+["support_return_returning_projectiles_damage_+%_final"] = {
+	mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "Condition", var = "ReturningProjectile" }),
 },
 ["returning_projectiles_always_pierce"] = {
 	flag("PierceAllTargets", { type = "Condition", var = "ReturningProjectile" }),

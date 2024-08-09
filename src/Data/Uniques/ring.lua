@@ -712,7 +712,7 @@ Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
 {tags:jewellery_attribute}+(30-50) to Dexterity
 (25-35)% increased Projectile Damage
-Projectiles Return to you at end of flight
+Projectiles Return to you
 Projectiles are fired in random directions
 ]],[[
 Le Heup of All

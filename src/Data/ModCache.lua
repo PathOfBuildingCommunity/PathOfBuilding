@@ -9614,8 +9614,7 @@ c["Projectiles Pierce 6 additional Targets"]={{[1]={flags=0,keywordFlags=0,name=
 c["Projectiles Pierce all Burning Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Burning"},flags=0,keywordFlags=0,name="PierceAllTargets",type="FLAG",value=true}},nil}
 c["Projectiles Pierce all Targets while you have Phasing"]={{[1]={[1]={type="Condition",var="Phasing"},flags=0,keywordFlags=0,name="PierceAllTargets",type="FLAG",value=true}},nil}
 c["Projectiles Pierce an additional Target"]={{[1]={flags=0,keywordFlags=0,name="PierceCount",type="BASE",value=1}},nil}
-c["Projectiles Return to you at end of flight"]={nil,"Projectiles Return to you at end of flight "}
-c["Projectiles Return to you at end of flight Projectiles are fired in random directions"]={nil,"Projectiles Return to you at end of flight Projectiles are fired in random directions "}
+c["Projectiles Return to you"]={{[1]={flags=1024,keywordFlags=0,name="ReturnChance",type="BASE",value=100}},nil}
 c["Projectiles Return to you from final target"]={nil,"Projectiles Return to you from final target "}
 c["Projectiles are fired in random directions"]={nil,"Projectiles are fired in random directions "}
 c["Projectiles cannot Pierce, Fork or Chain"]={{[1]={flags=1024,keywordFlags=0,name="CannotPierce",type="FLAG",value=true},[2]={flags=1024,keywordFlags=0,name="CannotChain",type="FLAG",value=true},[3]={flags=1024,keywordFlags=0,name="CannotFork",type="FLAG",value=true}},nil}
@@ -10395,7 +10394,7 @@ c["Retaliation Skills have 30% increased Area of Effect"]={{[1]={[1]={skillType=
 c["Retaliation Skills have 50% increased Stun Duration on Enemies"]={{[1]={[1]={skillType=132,type="SkillType"},flags=0,keywordFlags=0,name="EnemyStunDuration",type="INC",value=50}},nil}
 c["Retaliation Skills have 6% increased Speed"]={{[1]={[1]={skillType=132,type="SkillType"},flags=0,keywordFlags=0,name="Speed",type="INC",value=6}},nil}
 c["Retaliation Skills have 8% increased Speed"]={{[1]={[1]={skillType=132,type="SkillType"},flags=0,keywordFlags=0,name="Speed",type="INC",value=8}},nil}
-c["Returning Projectiles have 150% increased Speed"]={nil,"Returning Projectiles have 150% increased Speed "}
+c["Returning Projectiles have 150% increased Speed"]={{[1]={[1]={type="Condition",var="ReturningProjectile"},flags=0,keywordFlags=0,name="ProjectileSpeed",type="INC",value=150}},nil}
 c["Right Ring Slot: Your Shocking Skitterbot's Aura applies Socketed Hex Curse instead"]={{[1]={[1]={num=2,type="SlotNumber"},flags=0,keywordFlags=0,name="SkitterbotsCannotShock",type="FLAG",value=true}},nil}
 c["Right Ring slot: Cover Enemies in Frost for 5 seconds when you Freeze them"]={{[1]={[1]={num=2,type="SlotNumber"},[2]={actor="enemy",type="ActorCondition",var="Frozen"},flags=0,keywordFlags=0,name="CoveredInFrostEffect",type="BASE",value=20}},nil}
 c["Right ring slot: +100 to maximum Mana"]={{[1]={[1]={num=2,type="SlotNumber"},flags=0,keywordFlags=0,name="Mana",type="BASE",value=100}},nil}

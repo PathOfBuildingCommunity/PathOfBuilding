@@ -3999,6 +3999,8 @@ local specialModList = {
 		flag("ForkTwice", nil, ModFlag.Projectile, { type = "SkillType", skillType = SkillType.RangedAttack }),
 		mod("ForkCountMax", "BASE", num, nil, ModFlag.Projectile, { type = "SkillType", skillType = SkillType.RangedAttack })
 	} end,
+	["projectiles return to you"] = { mod("ReturnChance", "BASE", 100, nil, ModFlag.Projectile) },
+	["returning projectiles have (%d+)%% increased speed"] = function(num) return { mod("ProjectileSpeed", "INC", num, nil, 0, 0, { type = "Condition", var = "ReturningProjectile" }), } end,
 	["(%d+)%% increased critical strike chance with arrows that fork"] = function(num) return {
 		mod("CritChance", "INC", num, nil, ModFlag.Bow, { type = "StatThreshold", stat = "ForkRemaining", threshold = 1 }, { type = "StatThreshold", stat = "PierceCount", threshold = 0, upper = true }) }
 	end,
