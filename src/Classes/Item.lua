@@ -25,12 +25,28 @@ local catalystTags = {
 	{ "critical" },
 }
 
-local function getCatalystScalar(catalystId, tags, quality)
-	if not catalystId or type(catalystId) ~= "number" or not catalystTags[catalystId] or not tags or type(tags) ~= "table" or #tags == 0 then
+-- Helper Function used by tinctures and catalysts
+-- (can be used in future for heist enchants/jewellery)
+---@param typeID type of mod, either tincture or catalystID
+---@param tags list of tags on the mod
+---@param quality number of quality, either item base, or catalyst
+---@param extraMult any extra multipliers (eg increased effect for tinctures)
+---@return multiplier value for the mod based on the tags
+local function getRangeScalarFromTag(typeID, tags, quality, extraMult)
+	if not typeID or (typeID ~= "tincture" and (type(typeID) ~= "number" or not catalystTags[typeID])) or not tags or type(tags) ~= "table" or #tags == 0 then
 		return 1
 	end
 	if not quality then
 		quality = 20
+	end
+	
+	if typeID == "tincture" then
+		for _, curTag in ipairs(tags) do
+			if curTag == "tincture" then
+				return (100 + (extraMult or 0)) / 100 * (100 + quality) / 100
+			end
+		end
+		return 1
 	end
 
 	-- Create a fast lookup table for all provided tags
@@ -40,7 +56,7 @@ local function getCatalystScalar(catalystId, tags, quality)
 	end
 
 	-- Find if any of the catalyst's tags match the provided tags
-	for _, catalystTag in ipairs(catalystTags[catalystId]) do
+	for _, catalystTag in ipairs(catalystTags[typeID]) do
 		if tagLookup[catalystTag] then
 			return (100 + quality) / 100
 		end
@@ -721,14 +737,14 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					foundImplicit = true
 					gameModeStage = "IMPLICIT"
 				end
-				local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
-				local rangedLine = itemLib.applyRange(line, 1, catalystScalar)
+				local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst, modLine.modTags, self.quality or self.catalystQuality, self.base.tincture and 0 or 0)
+				local rangedLine = itemLib.applyRange(line, 1, rangeScalar)
 				local modList, extra = modLib.parseMod(rangedLine)
 				if (not modList or extra) and self.rawLines[l+1] then
 					-- Try to combine it with the next line
 					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(%l+%)","")
 					local combLine = line.." "..nextLine
-					rangedLine = itemLib.applyRange(combLine, 1, catalystScalar)
+					rangedLine = itemLib.applyRange(combLine, 1, rangeScalar)
 					modList, extra = modLib.parseMod(rangedLine, true)
 					if modList and not extra then
 						line = line.."\n"..nextLine
@@ -778,7 +794,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				if modList then
 					modLine.modList = modList
 					modLine.extra = extra
-					modLine.valueScalar = catalystScalar
+					modLine.valueScalar = rangeScalar
 					modLine.range = modLine.range or main.defaultItemAffixQuality
 					t_insert(modLines, modLine)
 					if mode == "GAME" then
@@ -1177,10 +1193,7 @@ function ItemClass:Craft()
 					self.nameSuffix = " " .. mod.affix
 				end
 				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))
-				local rangeScalar = getCatalystScalar(self.catalyst, mod.modTags, self.catalystQuality)
-				if self.base.tincture and mod.type ~= "Prefix" then
-					rangeScalar = rangeScalar * (1 + (self.tinctureData.effectInc or 0) / 100) * (1 + (self.quality or 0) / 100)
-				end
+				local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst, mod.modTags, self.quality or self.catalystQuality, self.base.tincture and self.tinctureData.effectInc)
 				for i, line in ipairs(mod) do
 					line = itemLib.applyRange(line, affix.range or 0.5, rangeScalar)
 					local order = mod.statOrder[i]
@@ -1584,9 +1597,9 @@ function ItemClass:BuildModList()
 					-- Check if line actually has a range
 					if modLine.line:find("%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)") then
 						local strippedModeLine = modLine.line:gsub("\n"," ")						
-						local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
+						local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst, modLine.modTags, self.quality or self.catalystQuality, self.base.tincture and self.tinctureData.effectInc)
 						-- Put the modified value into the string
-						local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar)
+						local line = itemLib.applyRange(strippedModeLine, modLine.range, rangeScalar)
 						-- Check if we can parse it before adding the mods
 						local list, extra = modLib.parseMod(line)
 						if list and not extra then
