@@ -497,6 +497,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 
 	-- Apply gem/quality modifiers from support gems
+	skillModList:NewMod("GemLevel", "BASE", activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.level or activeSkill.activeEffect.level, "Max Level")
 	for _, supportProperty in ipairs(skillModList:Tabulate("LIST", activeSkill.skillCfg, "SupportedGemProperty")) do
 		local value = supportProperty.value
 		if value.keyword == "grants_active_skill" and activeSkill.activeEffect.gemData and not activeSkill.activeEffect.gemData.tags.support  then
@@ -509,7 +510,6 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		local value =  gemProperty.value
 		skillModList:NewMod("GemItem".. value.key:gsub("^%l", string.upper), "BASE", value.value, gemProperty.mod.source, #gemProperty.mod > 0 and gemProperty.mod[1] or nil)
 	end
-
 
 	-- Add active gem modifiers
 	activeEffect.actorLevel = activeSkill.actor.minionData and activeSkill.actor.level
