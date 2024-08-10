@@ -8836,12 +8836,12 @@ c["Inflicts Mana Burn on you when you Hit an Enemy with a Melee Weapon 5% increa
 c["Inflicts a random Hex on you when your Totems die"]={nil,"Inflicts a random Hex on you when your Totems die "}
 c["Inherent Attack Speed bonus from Dual Wielding is doubled while wielding two Claws"]={{[1]={[1]={type="Condition",var="DualWieldingClaws"},flags=0,keywordFlags=0,name="Condition:DoubledInherentDualWieldingSpeed",type="FLAG",value=true}},nil}
 c["Inherent Bonuses from Dual Wielding are doubled"]={{[1]={flags=0,keywordFlags=0,name="Condition:DoubledInherentDualWieldingSpeed",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="Condition:DoubledInherentDualWieldingBlock",type="FLAG",value=true}},nil}
-c["Inherent Rage Loss starts 1 second later"]={nil,"Inherent Rage Loss starts 1 second later "}
-c["Inherent Rage Loss starts 2 seconds later"]={nil,"Inherent Rage Loss starts 2 seconds later "}
-c["Inherent loss of Rage is 10% slower"]={{},"Inherent loss of Rage slower "}
-c["Inherent loss of Rage is 20% faster"]={{},"Inherent loss of Rage faster "}
-c["Inherent loss of Rage is 20% slower"]={{},"Inherent loss of Rage slower "}
-c["Inherent loss of Rage is 8% slower"]={{},"Inherent loss of Rage slower "}
+c["Inherent Rage Loss starts 1 second later"]={{[1]={flags=0,keywordFlags=0,name="InherentRageLossDelay",type="BASE",value=1}},nil}
+c["Inherent Rage Loss starts 2 seconds later"]={{[1]={flags=0,keywordFlags=0,name="InherentRageLossDelay",type="BASE",value=2}},nil}
+c["Inherent loss of Rage is 10% slower"]={{[1]={flags=0,keywordFlags=0,name="InherentRageLoss",type="INC",value=-10}},nil}
+c["Inherent loss of Rage is 20% faster"]={{[1]={flags=0,keywordFlags=0,name="InherentRageLoss",type="INC",value=20}},nil}
+c["Inherent loss of Rage is 20% slower"]={{[1]={flags=0,keywordFlags=0,name="InherentRageLoss",type="INC",value=-20}},nil}
+c["Inherent loss of Rage is 8% slower"]={{[1]={flags=0,keywordFlags=0,name="InherentRageLoss",type="INC",value=-8}},nil}
 c["Inner Conviction"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Inner Conviction"}},nil}
 c["Instant Recovery"]={{[1]={flags=0,keywordFlags=0,name="FlaskInstantRecovery",type="BASE",value=100}},nil}
 c["Insufficient Mana doesn't prevent your Melee Attacks"]={nil,"Insufficient Mana doesn't prevent your Melee Attacks "}
