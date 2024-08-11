@@ -43,7 +43,7 @@ local function getRangeScalarFromTag(typeID, tags, quality, extraMult)
 	if typeID == "tincture" then
 		for _, curTag in ipairs(tags) do
 			if curTag == "tincture" then
-				return (100 + (extraMult or 0)) / 100 * (100 + quality) / 100
+				return (100 + (extraMult and extraMult["localEffect"] or 0)) / 100 * (100 + quality) / 100
 			end
 		end
 		return 1
@@ -356,6 +356,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		-- Found the name for a rare or unique, but let's parse it if it's a magic or normal or Unidentified item to get the base
 		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or unidentified) then
 			l = l + 1
+		end
+	end
+	-- preprocess looking for modifer effect multipliers
+	local modLineMultipliers = {}
+	for _, line in ipairs(self.rawLines) do
+		if line:find("effect") then
+			modLineMultipliers["localEffect"] = (modLineMultipliers["localEffect"] or 0) + (line:match("^(%d+)%% increased effect") or 0) - (line:match("^(%d+)%% reduced effect") or 0)
 		end
 	end
 	self.checkSection = false
@@ -737,7 +744,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					foundImplicit = true
 					gameModeStage = "IMPLICIT"
 				end
-				local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst, modLine.modTags, self.quality or self.catalystQuality, self.base.tincture and 0 or 0)
+				local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst, modLine.modTags, self.quality or self.catalystQuality, modLineMultipliers)
 				local rangedLine = itemLib.applyRange(line, 1, rangeScalar)
 				local modList, extra = modLib.parseMod(rangedLine)
 				if (not modList or extra) and self.rawLines[l+1] then
@@ -1179,6 +1186,22 @@ function ItemClass:Craft()
 	self.nameSuffix = ""
 	self.requirements.level = self.base.req.level
 	local statOrder = { }
+	-- preprocess looking for modifer effect multipliers
+	local modLineMultipliers = {}
+	if self.base.tincture then
+		for _, list in ipairs({self.prefixes,self.suffixes}) do
+			for _, affix in ipairs(list) do
+				local mod = self.affixes[affix.modId]
+				if mod then
+					for _, line in ipairs(mod) do
+						if line:find("effect") then
+							modLineMultipliers["localEffect"] = (modLineMultipliers["localEffect"] or 0) + (line:match("^(%d+)%% increased effect") or 0) - (line:match("^(%d+)%% reduced effect") or 0)
+						end
+					end
+				end
+			end
+		end
+	end
 	for _, list in ipairs({self.prefixes,self.suffixes}) do
 		for i = 1, self.affixLimit / 2 do
 			local affix = list[i]
@@ -1193,7 +1216,7 @@ function ItemClass:Craft()
 					self.nameSuffix = " " .. mod.affix
 				end
 				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))
-				local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst, mod.modTags, self.quality or self.catalystQuality, self.base.tincture and self.tinctureData.effectInc)
+				local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst, mod.modTags, self.quality or self.catalystQuality, modLineMultipliers)
 				for i, line in ipairs(mod) do
 					line = itemLib.applyRange(line, affix.range or 0.5, rangeScalar)
 					local order = mod.statOrder[i]
@@ -1585,6 +1608,15 @@ function ItemClass:BuildModList()
 			end
 		end
 	end
+	-- preprocess looking for modifer effect multipliers
+	local modLineMultipliers = {}
+	if self.base.tincture then
+		for _, modLine in ipairs(self.explicitModLines) do
+			if modLine.line:find("effect") then
+				modLineMultipliers["localEffect"] = (modLineMultipliers["localEffect"] or 0) + (modLine.line:match("^(%d+)%% increased effect") or 0) - (modLine.line:match("^(%d+)%% reduced effect") or 0)
+			end
+		end
+	end
 	local function processModLine(modLine)
 		if self:CheckModLineVariant(modLine) then
 			-- special section for variant over-ride of pre-modifier item parameters
@@ -1597,7 +1629,7 @@ function ItemClass:BuildModList()
 					-- Check if line actually has a range
 					if modLine.line:find("%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)") then
 						local strippedModeLine = modLine.line:gsub("\n"," ")						
-						local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst, modLine.modTags, self.quality or self.catalystQuality, self.base.tincture and self.tinctureData.effectInc)
+						local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst, modLine.modTags, self.quality or self.catalystQuality, modLineMultipliers)
 						-- Put the modified value into the string
 						local line = itemLib.applyRange(strippedModeLine, modLine.range, rangeScalar)
 						-- Check if we can parse it before adding the mods
