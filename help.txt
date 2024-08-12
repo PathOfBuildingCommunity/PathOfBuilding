@@ -81,6 +81,12 @@ Adding ^ and then a number or hex code before text will change the colour of the
 
 ---[Timeless Jewels]
 
+DEV[Developer Information:]
+DEV[The Timeless jewels determine what effect they have on a node based on the "Look up Tables" in \src\Data\TimelessJewelData]
+DEV[The LuTs for the timeless jewels come from https://github.com/Regisle/TimelessJewelData]
+DEV[ ]
+DEV[These can be generated if that repo is out of date (see RELEASE.md)]
+DEV[ ]
 Timeless jewels modify nodes in a radius based on their seed, the same seed will apply the same changes to the same small/notable nodes so that is the number you look for. The Conqueror (name on the jewel) only affects the keystone.
 
 Path of Building has an inbuilt tool in the tree tab to search through seeds to find stats that would be good for your build.
