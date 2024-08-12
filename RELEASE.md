@@ -84,6 +84,7 @@ Alt tab out and back in to make right click paste work
 ------------------------------------------------------------------------------------------------------- 
 
 If updated this way making a PR to https://github.com/Regisle/TimelessJewelData with the files in the format it uses is appreciated.
+To do this follow steps 1-5 the same and choose the other option for step 6.
 
 
 ## Installer creation
