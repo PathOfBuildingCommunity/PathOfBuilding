@@ -185,6 +185,45 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self:BuildModList()
 					self.build.buildFlag = true
 				end)
+			elseif varData.type == "multiList" then
+				control = new("Control", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 16, 16)
+				control.varControlList = { {}, {} }
+				control.type = "multiList"
+				local extraHeight = 20
+				for i=1,(varData.maxElements or 10) do
+					control.height = control.height + 20
+					local dropDownControl = new("DropDownControl", {"TOPLEFT",control,"TOPLEFT"}, -225, extraHeight, 343, 18, varData.list, function(index, value)
+						self.configSets[self.activeConfigSetId].input[varData.var.."_"..i] = value.val
+						self:AddUndoState()
+						self:BuildModList()
+						self.build.buildFlag = true
+					end)
+					self.varControls[varData.var.."_"..i] = dropDownControl
+					t_insert(control.varControlList[1], dropDownControl)
+					local extraTypesExtraHeight = 0
+					for j, varExtra in ipairs(varData.extraTypes or {}) do
+						if varExtra == "integer" then
+							local editControl = new("EditControl", {"TOPLEFT",dropDownControl,"TOPLEFT"}, 225, extraTypesExtraHeight, 90, 18, "", nil, "^%-%d", 7, function(buf, placeholder)
+								if placeholder then
+									self.configSets[self.activeConfigSetId].placeholder[varData.var.."_"..i.."_"..j] = tonumber(buf)
+								else
+									self.configSets[self.activeConfigSetId].input[varData.var.."_"..i.."_"..j] = tonumber(buf)
+									self:AddUndoState()
+									self:BuildModList()
+								end
+								self.build.buildFlag = true
+							end)
+							if j == 1 then
+								dropDownControl.width = function() return 220 + ((not editControl:IsShown()) and 123 or 0) end
+							else
+								extraTypesExtraHeight = extraTypesExtraHeight + 20
+							end
+							self.varControls[varData.var.."_"..i.."_"..j] = editControl
+							t_insert(control.varControlList[2], editControl)
+						end
+					end
+					extraHeight = extraHeight + 20 + extraTypesExtraHeight
+				end
 			elseif varData.type == "text" and not varData.resizable then
 				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, 344, 118, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
@@ -517,10 +556,15 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 
 			if varData.tooltipFunc then
 				control.tooltipFunc = varData.tooltipFunc
+				if control.varControlList then
+					for _, varControl in ipairs(control.varControlList[1]) do
+						varControl.tooltipFunc = varData.tooltipFunc
+					end
+				end
 			end
 			local labelControl = control
 			if varData.label and varData.type ~= "check" then
-				labelControl = new("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label)
+				labelControl = new("LabelControl", {"TOPRIGHT",control,"TOPLEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label)
 				t_insert(self.controls, labelControl)
 			end
 			if varData.var then
@@ -606,6 +650,13 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 
 			t_insert(self.controls, control)
 			t_insert(lastSection.varControlList, control)
+			if control.varControlList then
+				for _, varControlList in pairs(control.varControlList) do
+					for _, varControl in pairs(varControlList) do
+						t_insert(self.controls, varControl)
+					end
+				end
+			end
 		end
 	end
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
@@ -873,6 +924,12 @@ function ConfigTabClass:BuildModList()
 			elseif varData.type == "list" then
 				if input[varData.var] then
 					varData.apply(input[varData.var], modList, enemyModList, self.build)
+				end
+			elseif varData.type == "multiList" then
+				for i=1,(varData.maxElements or 10) do
+					if input[varData.var.."_"..i] then
+						varData.apply(input[varData.var.."_"..i], modList, enemyModList, self.build)
+					end
 				end
 			elseif varData.type == "text" then
 				if input[varData.var] then
