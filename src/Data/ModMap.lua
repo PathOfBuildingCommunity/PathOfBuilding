@@ -403,7 +403,6 @@ return {
 		["of Power"] = { }, -- Monsters gain a Power Charge on Hit
 	},
 	Prefix = {
-		{ val = "NONE", label = "None" },
 		{ val = "Armoured", label = "Enemy Phys D R" .. "                                                                Physical Damage reduction".."Armoured" },
 		{ val = "Hexproof", label = "Enemy is Hexproof?" .. "                                                                ".."Hexproof" },
 		{ val = "Hexwarded", label = "Less Curse effect" .. "                                                                of Curses on enemy".."Hexwarded" },
@@ -422,7 +421,6 @@ return {
 		{ val = "Overlord's", label = "Boss Inc Damage / Speed                                                                 Unique deals increased has Attack and Cast".."Overlord's" },
 	},
 	Suffix = {
-		{ val = "NONE", label = "None" },
 		{ val = "of Congealment", label = "Cannot Leech" .."                                                                Life / Mana".."of Congealment" },
 		{ val = "of Drought", label = "reduced Flask Charges" .. "                                                                Gains".."of Drought" },
 		{ val = "of Exposure", label = "-X% maximum Res" .. "                                                                Resistances".."of Exposure" },
