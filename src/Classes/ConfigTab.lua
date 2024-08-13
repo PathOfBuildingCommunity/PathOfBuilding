@@ -189,11 +189,33 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				control = new("Control", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 16, 16)
 				control.varControlList = { {}, {} }
 				control.type = "multiList"
+				control.newLists = function(exludeControl)
+					local excludeValue = {}
+					for i, varControl in ipairs(control.varControlList[1]) do
+						excludeValue[varControl:GetSelValue().val] = true
+					end
+					for i, varControl in ipairs(control.varControlList[1]) do
+						if i ~= exludeControl then
+							local oldValue = varControl:GetSelValue().val
+							varControl.selIndex = 1
+							varControl.list = { { val = "NONE", label = "None" } }
+							for j, element in ipairs(varData.list) do
+								if not excludeValue[element.val] or element.val == oldValue then
+									t_insert(varControl.list, element)
+								end
+								if element.val == oldValue then
+									varControl.selIndex = #varControl.list
+								end
+							end
+						end
+					end
+				end
 				local extraHeight = 20
 				for i=1,(varData.maxElements or 10) do
 					control.height = control.height + 20
 					local dropDownControl = new("DropDownControl", {"TOPLEFT",control,"TOPLEFT"}, -225, extraHeight, 343, 18, varData.list, function(index, value)
 						self.configSets[self.activeConfigSetId].input[varData.var.."_"..i] = value.val
+						control.newLists(i)
 						self:AddUndoState()
 						self:BuildModList()
 						self.build.buildFlag = true
@@ -224,6 +246,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					end
 					extraHeight = extraHeight + 20 + extraTypesExtraHeight
 				end
+				control.newLists(-1)
 			elseif varData.type == "text" and not varData.resizable then
 				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, {8, 0, 344, 118}, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
@@ -583,6 +606,10 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.defaultState[varData.var] = varData.defaultState or 0
 				elseif varData.type == "list" then
 					self.defaultState[varData.var] = varData.list[varData.defaultIndex or 1].val
+				elseif varData.type == "multiList" then
+					for i, _ in ipairs(control.varControlList[1]) do
+						self.defaultState[varData.var.."_"..i] = "NONE"
+					end
 				elseif varData.type == "text" then
 					self.defaultState[varData.var] = varData.defaultState or ""
 				else
