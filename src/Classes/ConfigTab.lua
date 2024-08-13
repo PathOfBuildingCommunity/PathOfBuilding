@@ -224,6 +224,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					t_insert(control.varControlList[1], dropDownControl)
 					local extraTypesExtraHeight = 0
 					for j, varExtra in ipairs(varData.extraTypes or {}) do
+						extraTypesExtraHeight = extraTypesExtraHeight + 20
+						control.height = control.height + 20
 						if varExtra == "integer" then
 							local editControl = new("EditControl", {"TOPLEFT",dropDownControl,"TOPLEFT"}, 225, extraTypesExtraHeight, 90, 18, "", nil, "^%-%d", 7, function(buf, placeholder)
 								if placeholder then
@@ -235,13 +237,14 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 								end
 								self.build.buildFlag = true
 							end)
-							if j == 1 then
-								dropDownControl.width = function() return 220 + ((not editControl:IsShown()) and 123 or 0) end
-							else
-								extraTypesExtraHeight = extraTypesExtraHeight + 20
-							end
 							self.varControls[varData.var.."_"..i.."_"..j] = editControl
 							t_insert(control.varControlList[2], editControl)
+						elseif varExtra == "slider" then
+							slider = new("SliderControl", {"TOPLEFT",dropDownControl,"TOPLEFT"}, 0, extraTypesExtraHeight, 118 + 225, 18, function(val)
+								
+							end)
+							self.varControls[varData.var.."_"..i.."_"..j] = slider
+							t_insert(control.varControlList[2], slider)
 						end
 					end
 					extraHeight = extraHeight + 20 + extraTypesExtraHeight
