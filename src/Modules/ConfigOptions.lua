@@ -710,8 +710,8 @@ Huge sets the radius to 11.
 	--{ subsection = "Map Mods", 
 	{ var = "multiplierMapModEffect", type = "count", label = "% increased effect of map mods" },
 	{ var = "multiplierMapModTier", type = "list", defaultIndex = 3, label = "Map Tier", list = { {val = "LOW", label = "White"}, {val = "MED", label = "Yellow"}, {val = "HIGH", label = "Red"}, {val = "UBER", label = "T17"} } },
-	{ var = "MapPrefixes", type = "multiList", maxElements = 4, label = "Map Prefix Modifiers:" , tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ var = "MapSuffixes", type = "multiList", maxElements = 4, label = "Map Suffix Modifiers:" , tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
+	{ var = "MapPrefixes", type = "multiList", maxElements = 4, showAll = true, label = "Map Prefix Modifiers:" , tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
+	{ var = "MapSuffixes", type = "multiList", maxElements = 4, showAll = true, label = "Map Suffix Modifiers:" , tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
 	{ label = "Unique Map Modifiers:" },
 	{ var = "PvpScaling", type = "check", label = "PvP damage scaling in effect", tooltip = "'Hall of Grandmasters'", apply = function(val, modList, enemyModList)
 		modList:NewMod("HasPvpScaling", "FLAG", true, "Config")
