@@ -358,7 +358,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			l = l + 1
 		end
 	end
-	-- preprocess looking for modifer effect multipliers
+	-- preprocess looking for modifier effect multipliers
 	local modLineMultipliers = {}
 	for _, line in ipairs(self.rawLines) do
 		if line:find("effect") then
@@ -1186,7 +1186,7 @@ function ItemClass:Craft()
 	self.nameSuffix = ""
 	self.requirements.level = self.base.req.level
 	local statOrder = { }
-	-- preprocess looking for modifer effect multipliers
+	-- preprocess looking for modifier effect multipliers
 	local modLineMultipliers = {}
 	if self.base.tincture then
 		for _, list in ipairs({self.prefixes,self.suffixes}) do
@@ -1608,7 +1608,7 @@ function ItemClass:BuildModList()
 			end
 		end
 	end
-	-- preprocess looking for modifer effect multipliers
+	-- preprocess looking for modifier effect multipliers
 	local modLineMultipliers = {}
 	if self.base.tincture then
 		for _, modLine in ipairs(self.explicitModLines) do
