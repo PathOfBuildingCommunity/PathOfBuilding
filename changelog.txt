@@ -1,3 +1,65 @@
+VERSION[2.48.0][2024/08/15]
+
+--- New to Path of Building ---
+* Hide legacy Tattoos from dropdown by default (LocalIdentity, Peechey)
+* Add ability to search in the spectre library (nofate121)
+* Add Support for Enemy damaging ailments (Regisle)
+* View Gem level sources in calc sections (justjuangui)
+* Enable Tincture Effects to also apply to Ranged Weapons (Regisle)
+* Add support for Tincture mods (LocalIdentity)
+* Add support for pseudo recoup like Divine Shield and Juggernaut (Regisle)
+* Add support for some warcry power modifiers (Regisle)
+* Add Warcry effect mod to calcs tab with breakdown (Regisle)
+* Add support for export and importing warcry buffs to the Party Tab (Regisle)
+* Add The Living Blade (Nostrademous)
+
+--- Fixed Crashes ---
+* Fix crash when using Power Charge on Crit from Elder staves (Wires77)
+* Fix crash when allocating Blood Magic with Manabond (LocalIdentity)
+
+--- User Interface ---
+* Color mastery differences blue when comparing trees (nofate121)
+* Improve Rage Calcs tab breakdown (Regisle)
+* Fix Calcs tab scroll bar (Regisle)
+* Fix full dps visual bug on gem dropdown (Paliak)
+
+--- Fixed Calculations ---
+* Fix Charge duration not using More/Less modifiers (Wires77)
+* Fix Ynda's Stand Ward conversion mod not taking catalysts into consideration (krfreak)
+* Fix accuracy of scaled Warcry buffs (Regisle)
+* Fix Ward rounding final value incorrectly (LocalIdentity)
+* Fix Hateforge Rage cost calculation (LocalIdentity)
+* Minor improvements to Tinctures and Mana Burn (Regisle)
+
+--- Fixed Behaviours ---
+* Fix issue where PoB did not detect changes when selecting gems via keyboard shortcuts (nofate121)
+* Fix The Light of Meaning adding stats to allocated sockets (Paliak)
+* Fix Rage Effect incorrectly scaling some mods (LocalIdentity)
+* Fix Rage Support not enabling Rage damage bonus (LocalIdentity)
+* Fix Arcane Surge effect per Summoned Totem mod not working (LocalIdentity)
+* Fix Ynda's Stand not working correctly with Trickster's Escape Artist (LocalIdentity)
+* Fix Divine Blessing not removing reservation from skill (LocalIdentity)
+* Fix Overexertion not applying to skills linked with Generals Cry (LocalIdentity)
+* Fix rare case with gain on suppression with no chance to mitigate damage (eg 100% suppress chance) (Regisle)
+* Fix Warcry options are not shown in all configurations (n1tr0xs)
+* Fix Tattoos being removed from list when using Remove All Tattoos button (Peechey)
+* Fix Minions with Endurance Charges still gaining resists (n1tr0xs)
+* Fix EHP and Maximum Hit taken with negative Unreserved Life (Regisle)
+* Fix Exerted multipliers applying twice when Dual Wielding (LocalIdentity)
+* Fix Sand Stance "less damage taken" incorrectly applying to DoT degen (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Update Sap of the Seasons to add new cap (Regisle)
+* Add variant for post 3.21 Combat Focus (Paliak)
+* Fix parsing missing for new wording on Emberwake (Paliak)
+* Fix Maata's Teaching using wrong crit chance range (LocalIdentity)
+* Fix incorrect names for Timeless Jewel nodes (LocalIdentity)
+* Fix Kaom's Primacy Rage mod not working (LocalIdentity)
+* Fix broken base types on some items (Regisle)
+
+--- Fixed Bugs ---
+* Fix infinitely nested XML stored as importLink (Wires77)
+
 VERSION[2.47.3][2024/07/30]
 
 --- Fixed Crashes ---

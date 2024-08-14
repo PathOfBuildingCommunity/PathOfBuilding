@@ -1,5 +1,67 @@
 # Changelog
 
+## [v2.48.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.48.0) (2024/08/15)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.47.3...v2.48.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- Hide legacy Tattoos from dropdown by default [\#8122](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8122) ([LocalIdentity](https://github.com/LocalIdentity), [Peechey](https://github.com/Peechey))
+- Add ability to search in the spectre library [\#8059](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8059) ([nofate121](https://github.com/nofate121))
+- Add Support for Enemy damaging ailments [\#6814](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6814) ([Regisle](https://github.com/Regisle))
+- View Gem level sources in calc sections [\#8092](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8092) ([justjuangui](https://github.com/justjuangui))
+- Enable Tincture Effects to also apply to Ranged Weapons [\#8134](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8134) ([Regisle](https://github.com/Regisle))
+- Add support for Tincture mods [\#8078](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8078) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for pseudo recoup like Divine Shield and Juggernaut [\#6833](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6833) ([Regisle](https://github.com/Regisle))
+- Add support for some warcry power modifiers [\#8130](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8130) ([Regisle](https://github.com/Regisle))
+- Add Warcry effect mod to calcs tab with breakdown [\#8126](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8126) ([Regisle](https://github.com/Regisle))
+- Add support for export and importing warcry buffs to the Party Tab [\#8116](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8116) ([Regisle](https://github.com/Regisle))
+- Add The Living Blade [\#8065](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8065) ([Nostrademous](https://github.com/Nostrademous))
+### Fixed Crashes
+- Fix crash when using Power Charge on Crit from Elder staves [\#8048](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8048) ([Wires77](https://github.com/Wires77))
+- Fix crash when allocating Blood Magic with Manabond [\#8177](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8177) ([LocalIdentity](https://github.com/LocalIdentity))
+### User Interface
+- Color mastery differences blue when comparing trees [\#8044](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8044) ([nofate121](https://github.com/nofate121))
+- Improve Rage Calcs tab breakdown [\#8145](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8145) ([Regisle](https://github.com/Regisle))
+- Fix Calcs tab scroll bar [\#8118](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8118) ([Regisle](https://github.com/Regisle))
+- Fix full dps visual bug on gem dropdown [\#8087](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8087) ([Paliak](https://github.com/Paliak))
+### Fixed Calculations
+- Fix Charge duration not using More/Less modifiers [\#8049](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8049) ([Wires77](https://github.com/Wires77))
+- Fix Ynda's Stand Ward conversion mod not taking catalysts into consideration [\#8062](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8062) ([krfreak](https://github.com/krfreak))
+- Fix accuracy of scaled Warcry buffs [\#8129](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8109), [\#8129](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8129) ([Regisle](https://github.com/Regisle))
+- Fix Ward rounding final value incorrectly [\#8083](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8083) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Hateforge Rage cost calculation [\#8176](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8176) ([LocalIdentity](https://github.com/LocalIdentity))
+- Minor improvements to Tinctures and Mana Burn [\#8135](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8135) ([Regisle](https://github.com/Regisle))
+### Fixed Behaviours
+- Fix issue where PoB did not detect changes when selecting gems via keyboard shortcuts [\#8072](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8072) ([nofate121](https://github.com/nofate121))
+- Fix The Light of Meaning adding stats to allocated sockets [\#8108](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8108) ([Paliak](https://github.com/Paliak))
+- Fix Rage Effect incorrectly scaling some mods [\#8113](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8113) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Rage Support not enabling Rage damage bonus [\#8178](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8178) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Arcane Surge effect per Summoned Totem mod not working [\#8102](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8102) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Ynda's Stand not working correctly with Trickster's Escape Artist [\#8084](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8084) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Divine Blessing not removing reservation from skill [\#8082](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8082) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Overexertion not applying to skills linked with Generals Cry [\#8040](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8040) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix rare case with gain on suppression with no chance to mitigate damage (eg 100% suppress chance) [\#8121](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8121) ([Regisle](https://github.com/Regisle))
+- Fix Warcry options are not shown in all configurations [\#8173](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8173) ([n1tr0xs](https://github.com/n1tr0xs))
+- Fix Tattoos being removed from list when using Remove All Tattoos button [\#8171](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8171) ([Peechey](https://github.com/Peechey))
+- Fix Minions with Endurance Charges still gaining resists [\#8166](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8166) ([n1tr0xs](https://github.com/n1tr0xs))
+- Fix EHP and Maximum Hit taken with negative Unreserved Life [\#8120](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8120) ([Regisle](https://github.com/Regisle))
+- Fix Exerted multipliers applying twice when Dual Wielding [\#8174](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8174) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Sand Stance "less damage taken" incorrectly applying to DoT degen [\#8175](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8175) ([LocalIdentity](https://github.com/LocalIdentity))
+### Accuracy Improvements
+- Update Sap of the Seasons to add new cap [\#8112](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8112) ([Regisle](https://github.com/Regisle))
+- Add variant for post 3.21 Combat Focus [\#8111](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8111) ([Paliak](https://github.com/Paliak))
+- Fix parsing missing for new wording on Emberwake [\#8110](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8110) ([Paliak](https://github.com/Paliak))
+- Fix Maata's Teaching using wrong crit chance range [\#8081](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8081) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix incorrect names for Timeless Jewel nodes [\#8080](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8080) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Kaom's Primacy Rage mod not working [\#8101](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8101) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix broken base types on some items [\#8141](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8141) ([Regisle](https://github.com/Regisle))
+### Fixed Bugs
+- Fix infinitely nested XML stored as importLink [\#8066](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8066) ([Wires77](https://github.com/Wires77))
+
+
 ## [v2.47.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.47.3) (2024/07/30)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.47.2...v2.47.3)
