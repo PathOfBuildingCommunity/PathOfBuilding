@@ -125,10 +125,9 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			main:ClosePopup()
 		end)
 		controls.removeTattoo = new("ButtonControl", nil, 0, buttonY, 144, 20, "Remove All Tattoos", function()
-			local hashOverridesCopy = copyTable(self.build.spec.hashOverrides, true) -- updating hashOverrides in RemoveTattooFromNode
-			for _, node in pairs(hashOverridesCopy) do
+			for id, node in pairs(self.build.spec.hashOverrides) do --hashOverrides will contain only the nodes that have been tattoo-ed
 				if node.isTattoo then
-					self:RemoveTattooFromNode(node)
+					self:RemoveTattooFromNode(self.build.spec.nodes[id])
 				end
 			end
 			self.modFlag = true
