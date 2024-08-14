@@ -1037,7 +1037,7 @@ return {
 						[2]="#"
 					}
 				},
-				text="Melee Weapon Damage Penetrates {0}% Elemental Resistances per Mana Burn"
+				text="Melee Weapon Damage Penetrates {0}% Elemental Resistances per Mana Burn, up to a maximum of 200%"
 			}
 		},
 		stats={

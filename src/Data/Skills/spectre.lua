@@ -9341,7 +9341,7 @@ skills["AzmeriZombieCausticGroundWhenHit"] = {
 		"base_chaos_damage_to_deal_per_minute",
 	},
 	levels = {
-		[1] = { 50.000001117587, storedUses = 1, levelRequirement = 1, cooldown = 4, statInterpolation = { 3, }, },
+		[1] = { 46.666666915019, storedUses = 1, levelRequirement = 1, cooldown = 4, statInterpolation = { 3, }, },
 	},
 }
 skills["ElderTentacleMinionProjectile"] = {

@@ -10897,7 +10897,7 @@ skills["VengefulCry"] = {
 	name = "Vengeful Cry",
 	baseTypeName = "Vengeful Cry",
 	color = 1,
-	description = "Retaliate against a savage hit with a warcry, taunting all nearby enemies to attack the user. The user and nearby allies gain a buff which grants rage and prevents rage from being lost.",
+	description = "Retaliate against a savage hit with a warcry, taunting all nearby enemies to attack the user. The user and nearby allies gain a buff which grants rage and prevents rage from being lost. Minions cannot gain rage.",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, [SkillType.Retaliation] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
