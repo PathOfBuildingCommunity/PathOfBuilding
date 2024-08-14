@@ -953,10 +953,7 @@ Huge sets the radius to 11.
 	{ var = "conditionUsingTincture", type = "check", label = "Do you have a Tincture active?", ifCond = "UsingTincture", tooltip = "This is automatically enabled if you have a tincture active,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UsingTincture", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierManaBurnStacks", type = "count", label = "Mana Burn Stacks:", tooltip = "Mana Burn Applies a 1% of mana degen per stack\nThis also applies Weeping Wounds if the Keystone is Allocated", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:ManaBurnStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "WeepingWoundsInsteadOfManaBurn", neg = true})
-		modList:NewMod("Multiplier:WeepingWoundsStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "WeepingWoundsInsteadOfManaBurn"})
-	end },
+	{ var = "multiplierManaBurnStacks", type = "count", label = "Mana Burn Stacks:", tooltip = "Mana Burn Applies a 1% of mana degen per stack\nThis also applies Weeping Wounds if the Keystone is Allocated"},
 	{ var = "conditionHaveTotem", type = "check", label = "Do you have a Totem summoned?", ifCond = "HaveTotem", tooltip = "You will automatically be considered to have a Totem if your main skill is a Totem,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:HaveTotem", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
