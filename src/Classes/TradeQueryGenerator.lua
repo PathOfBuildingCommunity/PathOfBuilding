@@ -924,6 +924,14 @@ function TradeQueryGeneratorClass:FinishQuery()
 			break
 		end
 	end
+	if not options.includeMirrored then
+	    queryTable.query.filters.misc_filters = {
+	    	disabled = false,
+	    	filters = {
+	    		mirrored = false,
+	    	}
+	    }
+	end
 
 	if options.maxPrice and options.maxPrice > 0 then
 		queryTable.query.filters.trade_filters = {
