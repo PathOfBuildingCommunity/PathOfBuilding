@@ -114,11 +114,10 @@ local function mapAffixTooltip(tooltip, mode, index, value)
 	end
 end
 
-local function mapAffixDropDownFunction(val, modList, enemyModList, build)
+local function mapAffixDropDownFunction(val, extraData, modList, enemyModList, build)
 	if val ~= "NONE" then
 		local effect = (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100)
 		local tier = (build.configTab.varControls['multiplierMapModTier'].selIndex or 1)
-		local range = 100
 		local affixData = data.mapMods.AffixData[val] or {}
 		if affixData.apply then
 			if affixData.type == "check" then
@@ -126,7 +125,7 @@ local function mapAffixDropDownFunction(val, modList, enemyModList, build)
 			elseif affixData.type == "list" then
 				affixData.apply(tier, effect, affixData.values, modList, enemyModList)
 			elseif affixData.type == "count" then
-				affixData.apply(tier, range, effect, affixData.values, modList, enemyModList)
+				affixData.apply(tier, extraData[1] or 100, effect, affixData.values, modList, enemyModList)
 			end
 		end
 	end
@@ -710,8 +709,8 @@ Huge sets the radius to 11.
 	--{ subsection = "Map Mods", 
 	{ var = "multiplierMapModEffect", type = "count", label = "% increased effect of map mods" },
 	{ var = "multiplierMapModTier", type = "list", defaultIndex = 3, label = "Map Tier", list = { {val = "LOW", label = "White"}, {val = "MED", label = "Yellow"}, {val = "HIGH", label = "Red"}, {val = "UBER", label = "T17"} } },
-	{ var = "MapPrefixes", type = "multiList", maxElements = 4, showAll = true, label = "Map Prefix Modifiers:" , tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ var = "MapSuffixes", type = "multiList", maxElements = 4, showAll = true, label = "Map Suffix Modifiers:" , tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
+	{ var = "MapPrefixes", type = "multiList", maxElements = 4, extraTypes = { { "slider", "range of the map mod", "range", 100 } }, showAll = true, label = "Map Prefix Modifiers:" , tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
+	{ var = "MapSuffixes", type = "multiList", maxElements = 4, extraTypes = { { "slider", "range of the map mod", "range", 100 } }, showAll = true, label = "Map Suffix Modifiers:" , tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
 	{ label = "Unique Map Modifiers:" },
 	{ var = "PvpScaling", type = "check", label = "PvP damage scaling in effect", tooltip = "'Hall of Grandmasters'", apply = function(val, modList, enemyModList)
 		modList:NewMod("HasPvpScaling", "FLAG", true, "Config")
