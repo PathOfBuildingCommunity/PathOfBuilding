@@ -1,8 +1,7 @@
-VERSION[2.48.1][2024/08/14]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
+VERSION[2.48.1][2024/08/15]
 
 --- Fixed Crashes ---
-* Fix crash when selecting Damage Over Time as the Enemy Damage Type by @Wires77
+* Fix crash when selecting Damage Over Time as the Enemy Damage Type (Wires77)
 
 VERSION[2.48.0][2024/08/15]
 

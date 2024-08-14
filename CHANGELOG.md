@@ -1,6 +1,6 @@
 # Changelog
 
-## [v2.48.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.48.1) (2024/08/14)
+## [v2.48.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.48.1) (2024/08/15)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.48.0...v2.48.1)
 
