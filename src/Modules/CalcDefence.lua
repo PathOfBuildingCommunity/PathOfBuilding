@@ -3303,7 +3303,7 @@ function calcs.buildDefenceEstimations(env, actor)
 				}
 			end
 		end
-		local enemyCritAilmentEffect = 1 + output.EnemyCritChance / 100 * 0.5 * (1 - output.CritExtraDamageReduction / 100)
+		local enemyCritAilmentEffect = 1 + (output.EnemyCritChance or 0) / 100 * 0.5 * (1 - output.CritExtraDamageReduction / 100)
 		-- this is just used so that ailments don't always showup if the enemy has no other way of applying the ailment and they have a low crit chance
 		local enemyCritThreshold = 10.1
 		local enemyBleedChance = 0
