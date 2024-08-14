@@ -156,6 +156,8 @@ return {
 			type = "check",
 			tooltipLines = { "All Monster Damage from Hits always Ignites" },
 			apply = function(val, mapModEffect, modList, enemyModList)
+				enemyModList:NewMod("IgniteChance", "BASE", 100, "Map mod Conflagrating")
+				enemyModList:NewMod("AllDamageIgnites", "FLAG", true, "Map mod Conflagrating")
 			end
 		},
 		["Impaling"] = {
@@ -171,6 +173,7 @@ return {
 			tooltipLines = { "Monsters have a %d%% chance to Ignite, Freeze and Shock on Hit" },
 			values = { 0, 15, 20 },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("ElementalAilmentChance", "BASE", values[val] * mapModEffect, "Map mod Empowered")
 			end
 		},
 		["Overlord's"] = {
@@ -351,6 +354,7 @@ return {
 			type = "check",
 			tooltipLines = { "Monsters Poison on Hit" },
 			apply = function(val, mapModEffect, modList, enemyModList)
+				enemyModList:NewMod("PoisonChance", "BASE", 100, "Map mod of Venom")
 			end
 		},
 		["of Deadliness"] = {
@@ -413,6 +417,8 @@ return {
 		{ val = "Profane", label = "Enemy Phys As Chaos                                 Monsters deal to extra Physical Damage Inflict Withered for seconds on Hit Profane" },
 		{ val = "Fleet", label = "Enemy Inc Speed                                 to increased Monster Movement Attack Cast".."Fleet" },
 		{ val = "Impaling", label = "Enemy Impale                                 Monsters have chance to with Attacks Impaling" },
+		{ val = "Conflagrating", label = "Hits always Ignites                                 All Monster Damage from Conflagrating" },
+		{ val = "Empowered", label = "Elemental Ailments on Hit                                 Monsters have chance to cause Empowered" },
 		{ val = "Overlord's", label = "Boss Inc Damage / Speed                                 Unique deals increased has Attack and Cast".."Overlord's" },
 	},
 	Suffix = {
@@ -430,6 +436,7 @@ return {
 		{ val = "of Fatigue", label = "Less Cooldown Recovery                                 Players have Rate".."of Fatigue" },
 		{ val = "of Doubt", label = "Reduced Aura Effect                                 Players have Non-Curse Auras from Skills".."of Doubt" },
 		{ val = "of Imprecision", label = "Less Accuracy                                 Players have Rating".."of Imprecision" },
+		{ val = "of Venom", label = "Poison On Hit                                 Monsters of Venom" },
 		{ val = "of Deadliness", label = "Enemy Critical Strike                                 Monsters have to increased Chance Monster Multiplier".."of Deadliness" },
 	},
 }

@@ -1449,6 +1449,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			}
 		end
 		local enemyCritChance = enemyDB:Flag(nil, "NeverCrit") and 0 or enemyDB:Flag(nil, "AlwaysCrit") and 100 or (m_max(m_min((modDB:Override(nil, "enemyCritChance") or env.configInput["enemyCritChance"] or env.configPlaceholder["enemyCritChance"] or 0) * (1 + modDB:Sum("INC", nil, "EnemyCritChance") / 100 + enemyDB:Sum("INC", nil, "CritChance") / 100) * (1 - output["ConfiguredEvadeChance"] / 100), 100), 0))
+		output["EnemyCritChance"] = enemyCritChance
 		local enemyCritDamage = m_max((env.configInput["enemyCritDamage"] or env.configPlaceholder["enemyCritDamage"] or 0) + enemyDB:Sum("BASE", nil, "CritMultiplier"), 0)
 		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
 		local enemyCfg = {keywordFlags = bit.bnot(KeywordFlag.MatchAll)} -- Match all keywordFlags parameter for enemy min-max damage mods
@@ -3243,63 +3244,147 @@ function calcs.buildDefenceEstimations(env, actor)
 				}
 			end
 		end
-		local enemyDotChance = 0 -- this is for future use for calculating ignite/bleed/poison etc
-		if damageCategoryConfig == "DamageOverTime" or enemyDotChance > 0 then
+		local enemyCritAilmentEffect = 1 + output.EnemyCritChance / 100 * 0.5 * (1 - output.CritExtraDamageReduction / 100)
+		-- this is just used so that ailments don't always showup if the enemy has no other way of applying the ailment and they have a low crit chance
+		local enemyCritThreshold = 10.1
+		local enemyBleedChance = 0
+		local enemyIgniteChance = 0
+		if output.SelfIgniteEffect ~= 0 and output.IgniteAvoidChance < 100 and output.SelfIgniteDuration ~= 0 and damageCategoryConfig ~= "DamageOverTime" then
+			enemyIgniteChance = enemyDB:Sum("BASE", nil, "IgniteChance", "ElementalAilmentChance")
+			local enemyCritAilmentChance = (not modDB:Flag(nil, "CritsOnYouDontAlwaysApplyElementalAilments")) and ((output.EnemyCritChance > enemyCritThreshold or enemyIgniteChance > 0) and output.EnemyCritChance or 0) or 0
+			enemyIgniteChance = (enemyCritAilmentChance + (1 - enemyCritAilmentChance / 100) * enemyIgniteChance) * (1 - output.IgniteAvoidChance / 100)
+		end
+		local enemyPoisonChance = 0
+		if output.SelfPoisonEffect ~= 0 and output.PoisonAvoidChance < 100 and output.SelfPoisonDuration ~= 0 and damageCategoryConfig ~= "DamageOverTime" then
+			enemyPoisonChance = enemyDB:Sum("BASE", nil, "PoisonChance") * (1 - output.PoisonAvoidChance / 100)
+		end
+		if damageCategoryConfig == "DamageOverTime" or (enemyIgniteChance + enemyPoisonChance + enemyBleedChance) > 0 then
 			output.TotalDegen = output.TotalBuildDegen or 0
-			for _, damageType in ipairs(dmgTypeList) do
-				local source = "Config"
-				local baseVal = tonumber(env.configInput["enemy"..damageType.."Damage"])
-				if baseVal == nil then
-					source = "Default"
-					baseVal = tonumber(env.configPlaceholder["enemy"..damageType.."Damage"]) or 0
+			if damageCategoryConfig == "DamageOverTime" then
+				for _, damageType in ipairs(dmgTypeList) do
+					local source = "Config"
+					local baseVal = tonumber(env.configInput["enemy"..damageType.."Damage"])
+					if baseVal == nil then
+						source = "Default"
+						baseVal = tonumber(env.configPlaceholder["enemy"..damageType.."Damage"]) or 0
+					end
+					if baseVal > 0 then
+						for damageConvertedType, convertPercent in pairs(actor.damageOverTimeShiftTable[damageType]) do
+							if convertPercent > 0 then
+								local total = baseVal * (convertPercent / 100) * output[damageConvertedType.."TakenDotMult"]
+								output[damageConvertedType.."EnemyDegen"] = (output[damageConvertedType.."EnemyDegen"] or 0) + total
+								output.TotalDegen = output.TotalDegen + total
+								if breakdown then
+									breakdown.TotalDegen = breakdown.TotalDegen or { 
+										rowList = { },
+										colList = {
+											{ label = "Source", key = "source" },
+											{ label = "Base Type", key = "type" },
+											{ label = "Final Type", key = "type2" },
+											{ label = "Base", key = "base" },
+											{ label = "Taken As Percent", key = "conv" },
+											{ label = "Multiplier", key = "mult" },
+											{ label = "Total", key = "total" },
+										}
+									}
+									t_insert(breakdown.TotalDegen.rowList, {
+										source = source,
+										type = damageType,
+										type2 = damageConvertedType,
+										base = s_format("%.1f", baseVal),
+										conv = s_format("x %.2f%%", convertPercent),
+										mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
+										total = s_format("%.1f", total),
+									})
+									breakdown[damageConvertedType.."EnemyDegen"] = breakdown[damageConvertedType.."EnemyDegen"] or { 
+										rowList = { },
+										colList = {
+											{ label = "Source", key = "source" },
+											{ label = "Base Type", key = "type" },
+											{ label = "Base", key = "base" },
+											{ label = "Taken As Percent", key = "conv" },
+											{ label = "Multiplier", key = "mult" },
+											{ label = "Total", key = "total" },
+										}
+									}
+									t_insert(breakdown[damageConvertedType.."EnemyDegen"].rowList, {
+										source = source,
+										type = damageType,
+										base = s_format("%.1f", baseVal),
+										conv = s_format("x %.2f%%", convertPercent),
+										mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
+										total = s_format("%.1f", total),
+									})
+								end
+							end
+						end
+					end
 				end
-				if baseVal > 0 then
-					for damageConvertedType, convertPercent in pairs(actor.damageOverTimeShiftTable[damageType]) do
-						if convertPercent > 0 then
-							local total = baseVal * (convertPercent / 100) * output[damageConvertedType.."TakenDotMult"]
-							output[damageConvertedType.."EnemyDegen"] = (output[damageConvertedType.."EnemyDegen"] or 0) + total
-							output.TotalDegen = output.TotalDegen + total
-							if breakdown then
-								breakdown.TotalDegen = breakdown.TotalDegen or { 
-									rowList = { },
-									colList = {
-										{ label = "Source", key = "source" },
-										{ label = "Base Type", key = "type" },
-										{ label = "Final Type", key = "type2" },
-										{ label = "Base", key = "base" },
-										{ label = "Taken As Percent", key = "conv" },
-										{ label = "Multiplier", key = "mult" },
-										{ label = "Total", key = "total" },
+			elseif (enemyIgniteChance + enemyPoisonChance + enemyBleedChance) > 0 then
+				local ailmentList = {}
+				if enemyBleedChance > 0 then
+					ailmentList["Bleed"] = { damageType = "Physical", sourceTypes = { "Physical" } }
+				end
+				if enemyIgniteChance > 0 then
+					ailmentList["Ignite"] = { damageType = "Fire", sourceTypes = enemyDB:Flag(nil, "AllDamageIgnites") and dmgTypeList or { "Fire" } }
+				end
+				if enemyPoisonChance > 0 then
+					ailmentList["Poison"] = { damageType = "Chaos", sourceTypes = { "Physical", "Chaos" } }
+				end
+				for source, ailment in pairs(ailmentList) do
+					local baseVal = 0
+					for _, damageType in ipairs(ailment.sourceTypes) do
+						baseVal = baseVal + output[damageType.."TakenDamage"]
+					end
+					baseVal = baseVal * data.misc[source.."PercentBase"] * (enemyCritAilmentEffect / output["EnemyCritEffect"]) * output["Self"..source.."Effect"] / 100
+					if baseVal > 0 then
+						for damageConvertedType, convertPercent in pairs(actor.damageOverTimeShiftTable[ailment.damageType]) do
+							if convertPercent > 0 then
+								local total = baseVal * (convertPercent / 100) * output[damageConvertedType.."TakenDotMult"]
+								output[damageConvertedType.."EnemyDegen"] = (output[damageConvertedType.."EnemyDegen"] or 0) + total
+								output.TotalDegen = output.TotalDegen + total
+								if breakdown then
+									breakdown.TotalDegen = breakdown.TotalDegen or { 
+										rowList = { },
+										colList = {
+											{ label = "Source", key = "source" },
+											{ label = "Base Type", key = "type" },
+											{ label = "Final Type", key = "type2" },
+											{ label = "Base", key = "base" },
+											{ label = "Taken As Percent", key = "conv" },
+											{ label = "Multiplier", key = "mult" },
+											{ label = "Total", key = "total" },
+										}
 									}
-								}
-								t_insert(breakdown.TotalDegen.rowList, {
-									source = source,
-									type = damageType,
-									type2 = damageConvertedType,
-									base = s_format("%.1f", baseVal),
-									conv = s_format("x %.2f%%", convertPercent),
-									mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
-									total = s_format("%.1f", total),
-								})
-								breakdown[damageConvertedType.."EnemyDegen"] = breakdown[damageConvertedType.."EnemyDegen"] or { 
-									rowList = { },
-									colList = {
-										{ label = "Source", key = "source" },
-										{ label = "Base Type", key = "type" },
-										{ label = "Base", key = "base" },
-										{ label = "Taken As Percent", key = "conv" },
-										{ label = "Multiplier", key = "mult" },
-										{ label = "Total", key = "total" },
+									t_insert(breakdown.TotalDegen.rowList, {
+										source = source,
+										type = ailment.damageType,
+										type2 = damageConvertedType,
+										base = s_format("%.1f", baseVal),
+										conv = s_format("x %.2f%%", convertPercent),
+										mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
+										total = s_format("%.1f", total),
+									})
+									breakdown[damageConvertedType.."EnemyDegen"] = breakdown[damageConvertedType.."EnemyDegen"] or { 
+										rowList = { },
+										colList = {
+											{ label = "Source", key = "source" },
+											{ label = "Base Type", key = "type" },
+											{ label = "Base", key = "base" },
+											{ label = "Taken As Percent", key = "conv" },
+											{ label = "Multiplier", key = "mult" },
+											{ label = "Total", key = "total" },
+										}
 									}
-								}
-								t_insert(breakdown[damageConvertedType.."EnemyDegen"].rowList, {
-									source = source,
-									type = damageType,
-									base = s_format("%.1f", baseVal),
-									conv = s_format("x %.2f%%", convertPercent),
-									mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
-									total = s_format("%.1f", total),
-								})
+									t_insert(breakdown[damageConvertedType.."EnemyDegen"].rowList, {
+										source = source,
+										type = ailment.damageType,
+										base = s_format("%.1f", baseVal),
+										conv = s_format("x %.2f%%", convertPercent),
+										mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
+										total = s_format("%.1f", total),
+									})
+								end
 							end
 						end
 					end
@@ -3379,18 +3464,30 @@ function calcs.buildDefenceEstimations(env, actor)
 						end
 					end
 				end
-				output.ComprehensiveNetLifeRegen = output.ComprehensiveNetLifeRegen - totalLifeDegen
-				output.ComprehensiveNetManaRegen = output.ComprehensiveNetManaRegen - totalManaDegen
-				output.ComprehensiveNetEnergyShieldRegen = output.ComprehensiveNetEnergyShieldRegen - totalEnergyShieldDegen
+				output.ComprehensiveNetLifeRegen = output.ComprehensiveNetLifeRegen + (output.LifeRecoupRecoveryAvg or 0) - totalLifeDegen - (output.LifeLossLostAvg or 0)
+				output.ComprehensiveNetManaRegen = output.ComprehensiveNetManaRegen + (output.ManaRecoupRecoveryAvg or 0) - totalManaDegen
+				output.ComprehensiveNetEnergyShieldRegen = output.ComprehensiveNetEnergyShieldRegen + (output.EnergyShieldRecoupRecoveryAvg or 0) - totalEnergyShieldDegen
 				output.ComprehensiveTotalNetRegen = output.ComprehensiveNetLifeRegen + output.ComprehensiveNetManaRegen + output.ComprehensiveNetEnergyShieldRegen
 				if breakdown then
 					t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("%.1f ^8(total life regen)", output.LifeRegenRecovery))
+					if (output.LifeRecoupRecoveryAvg or 0) ~= 0 then
+						t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("+ %.1f ^8(average life recoup)", (output.LifeRecoupRecoveryAvg or 0)))
+					end
 					t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("- %.1f ^8(total life degen)", totalLifeDegen))
+					if (output.LifeLossLostAvg or 0) ~= 0 then
+						t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("- %.1f ^8(average life lost over time)", (output.LifeLossLostAvg or 0)))
+					end
 					t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("= %.1f", output.ComprehensiveNetLifeRegen))
 					t_insert(breakdown.ComprehensiveNetManaRegen, s_format("%.1f ^8(total mana regen)", output.ManaRegenRecovery))
+					if (output.ManaRecoupRecoveryAvg or 0) ~= 0 then
+						t_insert(breakdown.ComprehensiveNetManaRegen, s_format("+ %.1f ^8(average mana recoup)", (output.ManaRecoupRecoveryAvg or 0)))
+					end
 					t_insert(breakdown.ComprehensiveNetManaRegen, s_format("- %.1f ^8(total mana degen)", totalManaDegen))
 					t_insert(breakdown.ComprehensiveNetManaRegen, s_format("= %.1f", output.ComprehensiveNetManaRegen))
 					t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("%.1f ^8(total energy shield regen)", output.EnergyShieldRegenRecovery))
+					if (output.EnergyShieldRecoupRecoveryAvg or 0) ~= 0 then
+						t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("+ %.1f ^8(average energy shield recoup)", (output.EnergyShieldRecoupRecoveryAvg or 0)))
+					end
 					t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("- %.1f ^8(total energy shield degen)", totalEnergyShieldDegen))
 					t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("= %.1f", output.ComprehensiveNetEnergyShieldRegen))
 					breakdown.ComprehensiveTotalNetRegen = {
