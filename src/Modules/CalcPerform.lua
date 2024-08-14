@@ -718,19 +718,21 @@ local function doActorMisc(env, actor)
 			local minStacks = m_min(modDB:Sum("BASE", nil, "MinimumRage"), maxStacks)
 			local rageConfig = modDB:Sum("BASE", nil, "Multiplier:RageStack")
 			local stacks = m_max(m_min(rageConfig, maxStacks), (minStacks > 0 and minStacks) or 0)
-			local effect =  m_floor(stacks * calcLib.mod(modDB, nil, "RageEffect"))
-			modDB:NewMod("Multiplier:RageEffect", "BASE", effect, "Base")
+			output.RageEffect =  m_floor(stacks * calcLib.mod(modDB, nil, "RageEffect"))
+			modDB:NewMod("Multiplier:RageEffect", "BASE", output.RageEffect, "Base")
 			output.Rage = stacks
 			output.MaximumRage = maxStacks
 			modDB:NewMod("Multiplier:Rage", "BASE", output.Rage, "Base")
 			if modDB:Flag(nil, "Condition:RageSpellDamage") then
-				modDB:NewMod("Damage", "MORE", effect, "Rage", ModFlag.Spell)
+				modDB:NewMod("Damage", "MORE", output.RageEffect, "Rage", ModFlag.Spell)
 			else
-				modDB:NewMod("Damage", "MORE", effect, "Rage", ModFlag.Attack)
+				modDB:NewMod("Damage", "MORE", output.RageEffect, "Rage", ModFlag.Attack)
 			end
 			if stacks == maxStacks then
 				modDB:NewMod("Condition:HaveMaximumRage", "FLAG", true, "")
 			end
+			output.InherentRageLossDelay = 2 + modDB:Sum("BASE", nil, "InherentRageLossDelay")
+			output.InherentRageLoss = (not modDB:Flag(nil, "InherentRageLossIsPrevented")) and 10 * (1 + modDB:Sum("INC", nil, "InherentRageLoss") / 100) or 0
 		end
 		if modDB:Sum("BASE", nil, "CoveredInAshEffect") > 0 then
 			local effect = modDB:Sum("BASE", nil, "CoveredInAshEffect")

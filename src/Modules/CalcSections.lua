@@ -1317,7 +1317,6 @@ return {
 		{ breakdown = "OffHand.KnockbackDistance" },
 		{ modName = "EnemyKnockbackDistance", cfg = "weapon2" },
 	}, },
-	{ label = "Maximum Rage", haveOutput = "MaximumRage", { format = "{0:output:MaximumRage}", { modName = "MaximumRage" },	}, },
 	{ label = "Inc. Item Quantity", { format = "{0:mod:1}%", { modName = "LootQuantity", modType = "INC", cfg = "skill" }, }, },
 	{ label = "IIQ for Normal Mobs", haveOutput = "LootQuantityNormalEnemies", { format = "{0:output:LootQuantityNormalEnemies}%", { modName = { "LootQuantityNormalEnemies", "LootQuantity" } }, }, },
 	{ label = "Inc. Item Rarity", { format = "{0:mod:1}%", { modName = "LootRarity", modType = "INC", cfg = "skill" }, }, },
@@ -1645,9 +1644,10 @@ return {
 } }
 } },
 { 1, "Rage", 3, colorCodes.RAGE, {{ defaultCollapsed = true, label = "Rage", data = {
-	extra = "{0:output:Rage}",
+	extra = "{0:output:Rage} ({1:output:RageEffect})",
 	{ label = "Total", { format = "{0:output:Rage}", }, },
-	{ label = "Maximum Rage", { format = "{0:output:MaximumRage}", { modName = "MaximumRage", modType = "BASE" }, }, },
+	{ label = "Rage Effect", { format = "{1:output:RageEffect}", { modName = "RageEffect" }, }, },
+	{ label = "Maximum Rage", { format = "{0:output:MaximumRage}", { modName = "MaximumRage" }, }, },
 	{ label = "Recovery", { format = "{1:output:RageRegenRecovery} ({1:output:RageRegenPercent}%)",
 		{ breakdown = "RageRegenRecovery" },
 		{ label = "Sources", modName = { "RageRegen", "RageRegenPercent", "RageDegen", "RageDegenPercent", "RageRecovery" }, modType = "BASE" },
@@ -1655,6 +1655,8 @@ return {
 		{ label = "More Rage Regeneration Rate", modName = { "RageRegen" }, modType = "MORE" },
 		{ label = "Recovery modifiers", modName = "RageRecoveryRate" },
 	}, },
+	{ label = "Rage Loss Delay", { format = "{1:output:InherentRageLossDelay}s", { modName = "InherentRageLossDelay" }, }, },
+	{ label = "Inherent Rage Loss", { format = "{1:output:InherentRageLoss} /s", { modName = "InherentRageLoss" }, { modName = { "InherentRageLossIsPrevented" } }, }, },
 } }
 } },
 { 1, "Charges", 3, colorCodes.NORMAL, {{ defaultCollapsed = true, label = "Charges", data = {

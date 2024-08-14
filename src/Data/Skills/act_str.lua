@@ -10905,6 +10905,7 @@ skills["VengefulCry"] = {
 		["rage_warcry_gain_X_rage_per_minute_per_5_monster_power_max_25_power"] = {
 			mod("RageRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry", div = 5, limit = 25 }),
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Warcry"} ),
+			flag("InherentRageLossIsPrevented", { type = "GlobalEffect", effectType = "Warcry"} ),
 			div = 60,
 		},
 		["rage_warcry_maximum_rage_+"] = {
