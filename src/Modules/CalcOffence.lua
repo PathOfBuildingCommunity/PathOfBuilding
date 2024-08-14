@@ -1622,9 +1622,10 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			elseif val.type == "Rage" then
 				if skillModList:Flag(skillCfg, "CostRageInsteadOfSouls") then -- Hateforge
-					val.baseCost = val.baseCost + costs.Soul.baseCost
+					val.baseCost = costs.Soul.baseCost
 					val.baseCostNoMult = val.baseCostNoMult + costs.Soul.baseCostNoMult
-					val.finalBaseCost = val.finalBaseCost + costs.Soul.finalBaseCost
+					val.finalBaseCost = costs.Soul.baseCost
+					mult = 1
 					costs.Soul.baseCost = 0
 					costs.Soul.baseCostNoMult = 0
 					costs.Soul.finalBaseCost = 0
