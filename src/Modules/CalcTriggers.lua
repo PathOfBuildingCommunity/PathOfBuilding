@@ -509,10 +509,10 @@ local function defaultTriggerHandler(env, config)
 			-- Handling for mana spending rate for Manaforged Arrows Support
 			if actor.mainSkill.skillData.triggeredByManaforged and trigRate > 0 then
 				local triggeredUUID = cacheSkillUUID(actor.mainSkill, env)
-				if not GlobalCache.cachedData[env.mode][triggeredUUID] then
-					calcs.buildActiveSkill(env, env.mode, actor.mainSkill, triggeredUUID, {[triggeredUUID] = true})
+				if not GlobalCache.cachedData["CACHE"][triggeredUUID] or env.mode == "CALCULATOR" then
+					calcs.buildActiveSkill(env, "CACHE", actor.mainSkill, triggeredUUID)
 				end
-				local triggeredManaCost = GlobalCache.cachedData[env.mode][triggeredUUID].Env.player.output.ManaCostRaw or 0
+				local triggeredManaCost = GlobalCache.cachedData["CACHE"][triggeredUUID].Env.player.output.ManaCostRaw or 0
 				if triggeredManaCost > 0 then
 					local manaSpentThreshold = triggeredManaCost * actor.mainSkill.skillData.ManaForgedArrowsPercentThreshold
 					local sourceManaCost = GlobalCache.cachedData[env.mode][uuid].Env.player.output.ManaCostRaw or 0
@@ -1209,14 +1209,14 @@ local configTable = {
 	["shattershard"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
 		local uuid = cacheSkillUUID(env.player.mainSkill, env)
-		if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-			calcs.buildActiveSkill(env, env.mode, env.player.mainSkill, uuid, {[uuid] = true})
+		if not GlobalCache.cachedData["CACHE"][uuid] or env.mode == "CALCULATOR" then
+			calcs.buildActiveSkill(env, "CACHE", env.player.mainSkill, uuid)
 		end
-		env.player.mainSkill.skillData.triggerRateCapOverride = 1 / GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration
+		env.player.mainSkill.skillData.triggerRateCapOverride = 1 / GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Duration
 		if env.player.breakdown then
 			env.player.breakdown.SkillTriggerRate = {
 				s_format("Shattershard uses duration as pseudo cooldown"),
-				s_format("1 / %.2f ^8(Shattershard duration)", GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration),
+				s_format("1 / %.2f ^8(Shattershard duration)", GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Duration),
 				s_format("= %.2f ^8per second", env.player.mainSkill.skillData.triggerRateCapOverride),
 			}
 		end
@@ -1306,7 +1306,7 @@ local configTable = {
 		end
 
 		if env.player.mainSkill.activeEffect.grantedEffect.name == "Snipe" then
-			if env.player.mainSkill.skillData.limitedProcessing then
+			if env.mode ~= "CACHE" then
 				-- Snipe is being used by some other skill. In this case snipe does not get more damage mods
 				snipeStages = 0
 			else
@@ -1418,7 +1418,7 @@ local function getUniqueItemTriggerName(skill)
 end
 
 function calcs.triggers(env, actor)
-	if actor and not actor.mainSkill.skillFlags.disable and not actor.mainSkill.skillData.limitedProcessing then
+	if actor and not actor.mainSkill.skillFlags.disable and env.mode ~= "CACHE" then
 		local skillName = actor.mainSkill.activeEffect.grantedEffect.name
 		local triggerName = actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name
 		local uniqueName = isTriggered(actor.mainSkill) and getUniqueItemTriggerName(actor.mainSkill)
