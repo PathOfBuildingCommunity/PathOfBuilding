@@ -188,26 +188,27 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			elseif varData.type == "multiList" then
 				control = new("Control", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 16, 16)
 				control.varControlList = { {}, {} }
+				control.varData = varData
 				control.height = function()
 					local height = 20
 					for i, varControl in ipairs(control.varControlList[1]) do
 						if varControl:IsShown() then
-							height = height + m_max(varControl.height, 18) + 4
-						end
-					end
-					for i, varControl in ipairs(control.varControlList[2]) do
-						if varControl:IsShown() then
-							height = height + m_max(varControl.height, 18) + 4
+							if varData.extraTypes and control.varControlList[2][i * (#varData.extraTypes)]:IsShown() then
+								height = varControl.y + control.varControlList[2][i * (#varData.extraTypes)].y + m_max(control.varControlList[2][i * (#varData.extraTypes)].height, 18) + 4
+							else
+								height = varControl.y + m_max(varControl.height, 18) + 4
+							end
 						end
 					end
 					return height
 				end
 				control.newLists = function()
+					local input = self.configSets[self.activeConfigSetId].input
 					local excludeValue = {}
 					local newValues = {}
 					for i, varControl in ipairs(control.varControlList[1]) do
-						excludeValue[varControl:GetSelValue().val] = true
-						newValues[i] = varControl:GetSelValue().val
+						excludeValue[input[varData.var.."_"..i] or varControl:GetSelValue().val] = true
+						newValues[i] = input[varData.var.."_"..i] or varControl:GetSelValue().val
 					end
 					if not varData.showAll then
 						for i, varControl in ipairs(control.varControlList[1]) do
@@ -215,8 +216,22 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 								if i < #control.varControlList[1] and newValues[i+1] ~= "NONE" then
 									newValues[i] = newValues[i+1]
 									newValues[i+1] = "NONE"
-									self.configSets[self.activeConfigSetId].input[varData.var.."_"..i] = self.configSets[self.activeConfigSetId].input[varData.var.."_"..i+1]
-									self.configSets[self.activeConfigSetId].input[varData.var.."_"..i+1] = "NONE"
+									local index1, index2 = varData.var.."_"..i, varData.var.."_"..(i+1)
+									input[index1] = input[index2]
+									input[index2] = "NONE"
+									for j, varExtra in ipairs(varData.extraTypes or {}) do
+										local index1, index2 = index1.."_"..j, index2.."_"..j
+										local old = input[index1]
+										input[index1] = input[index2]
+										input[index2] = old
+										if varExtra[1] == "integer" then
+											control.varControlList[2][i*(#varData.extraTypes)+j-1]:SetText(tostring(input[index1] or ""))
+											control.varControlList[2][(i+1)*(#varData.extraTypes)+j-1]:SetText(tostring(input[index2] or ""))
+										elseif varExtra[1] == "slider" then
+											control.varControlList[2][i*(#varData.extraTypes)+j-1].val = input[index1] / 100
+											control.varControlList[2][(i+1)*(#varData.extraTypes)+j-1].val = input[index1] / 100
+										end
+									end
 								else
 									break
 								end
@@ -244,8 +259,20 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 							end
 						end
 					end
+					for i, varControl in ipairs(control.varControlList[1]) do
+						if i ~= #control.varControlList[1] and varControl:IsShown() then
+							if varData.extraTypes and control.varControlList[2][i * (#varData.extraTypes)]:IsShown() then
+								control.varControlList[1][i+1].y = varControl.y + control.varControlList[2][i * (#varData.extraTypes)].y + m_max(control.varControlList[2][i * (#varData.extraTypes)].height, 18) + 4
+							else
+								control.varControlList[1][i+1].y = varControl.y + m_max(varControl.height, 18) + 4
+							end
+						end
+					end
 				end
 				local extraHeight = 20
+				if varData.listFunc then
+					varData.list = varData.listFunc(self.build)
+				end
 				for i=1,(varData.maxElements or #varData.list) do
 					local dropDownControl = new("DropDownControl", {"TOPLEFT",control,"TOPLEFT"}, -225, extraHeight, 343, 18, { { val = "NONE", label = "None" } }, function(index, value)
 						self.configSets[self.activeConfigSetId].input[varData.var.."_"..i] = value.val
@@ -260,9 +287,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					t_insert(control.varControlList[1], dropDownControl)
 					local extraTypesExtraHeight = 0
 					for j, varExtra in ipairs(varData.extraTypes or {}) do
-						extraTypesExtraHeight = extraTypesExtraHeight + 22
-						if varExtra == "integer" then
-							local editControl = new("EditControl", {"TOPLEFT",dropDownControl,"TOPLEFT"}, 225, extraTypesExtraHeight, 90, 18, "", nil, "^%-%d", 7, function(buf, placeholder)
+						if varExtra[1] == "integer" then
+							local editControl = new("EditControl", {"TOPLEFT",dropDownControl,"TOPLEFT"}, 225, 0, 90, 18, "", nil, "^%-%d", 7, function(buf, placeholder)
 								if placeholder then
 									self.configSets[self.activeConfigSetId].placeholder[varData.var.."_"..i.."_"..j] = tonumber(buf)
 								else
@@ -272,17 +298,40 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 								end
 								self.build.buildFlag = true
 							end)
+							if #varData.extraTypes == 1 then -- sameLine
+								dropDownControl.width = function() return 220 + ((not editControl:IsShown()) and 123 or 0) end
+							else
+								local xs = { 0, 112, 225 }
+								editControl.x = xs[(j-1)%3 + 1]
+								editControl.y = 22 * (1 + m_floor((j-1)/3))
+								editControl.height = 16
+								extraTypesExtraHeight = 20 * (1 + m_floor((j-1)/3))
+							end
+							editControl.tooltipText = varExtra[2]
+							if varExtra[3] then
+								editControl.shown = function() return dropDownControl:GetSelValue()[varExtra[3]] end
+							end
+							editControl.placeholder = varExtra[4]
 							self.varControls[varData.var.."_"..i.."_"..j] = editControl
 							t_insert(control.varControlList[2], editControl)
-						elseif varExtra == "slider" then
+						elseif varExtra[1] == "slider" then
+							extraTypesExtraHeight = extraTypesExtraHeight + 22
 							slider = new("SliderControl", {"TOPLEFT",dropDownControl,"TOPLEFT"}, 0, extraTypesExtraHeight, 118 + 225, 18, function(val)
-								
+								self.configSets[self.activeConfigSetId].input[varData.var.."_"..i.."_"..j] = m_floor(val * 100)
+								self:AddUndoState()
+								self:BuildModList()
+								self.build.buildFlag = true
 							end)
+							slider.tooltipText = varExtra[2]
+							if varExtra[3] then
+								slider.shown = function() return dropDownControl:GetSelValue()[varExtra[3]] end
+							end
+							slider.val = varExtra[4] / 100
 							self.varControls[varData.var.."_"..i.."_"..j] = slider
 							t_insert(control.varControlList[2], slider)
 						end
 					end
-					extraHeight = extraHeight + 22 + extraTypesExtraHeight
+					extraHeight = extraHeight + 22
 				end
 				control.newLists()
 			elseif varData.type == "text" and not varData.resizable then
@@ -996,7 +1045,11 @@ function ConfigTabClass:BuildModList()
 			elseif varData.type == "multiList" then
 				for i=1,(varData.maxElements or 10) do
 					if input[varData.var.."_"..i] then
-						varData.apply(input[varData.var.."_"..i], modList, enemyModList, self.build)
+						local extraData = {}
+						for j, _ in ipairs(varData.extraTypes or {}) do
+							extraData[j] = input[varData.var.."_"..i.."_"..j]
+						end
+						varData.apply(input[varData.var.."_"..i], extraData, modList, enemyModList, self.build)
 					end
 				end
 			elseif varData.type == "text" then
