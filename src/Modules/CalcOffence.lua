@@ -2572,7 +2572,7 @@ function calcs.offence(env, actor, activeSkill)
 					end
 					t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("= %d%%", globalOutput.ExertedAttackUptimeRatio))
 				end
-				if globalOutput.ExertedAttackUptimeRatio > 0 then
+				if globalOutput.ExertedAttackUptimeRatio > 0 and not globalOutput.ExertedAttackUptimeRatioCalculated then
 					local incExertedAttacks = skillModList:Sum("INC", cfg, "ExertIncrease")
 					local moreExertedAttacks = skillModList:Sum("MORE", cfg, "ExertIncrease")
 					local moreExertedAttackDamage = skillModList:Sum("MORE", cfg, "ExertAttackIncrease")
@@ -2602,6 +2602,7 @@ function calcs.offence(env, actor, activeSkill)
 							s_format("= %.2f", globalOutput.ExertedAttackHitEffect),
 						}
 					end
+					globalOutput.ExertedAttackUptimeRatioCalculated = true
 				end
 			end
 		end
