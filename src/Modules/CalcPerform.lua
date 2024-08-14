@@ -1766,7 +1766,7 @@ function calcs.perform(env, skipEHP)
 	}
 	local linkSkills = { }
 	local allyBuffs = env.partyMembers["Aura"]
-	local buffExports = { Aura = {}, Curse = {}, Link = {}, EnemyMods = {}, EnemyConditions = {}, PlayerMods = {} }
+	local buffExports = { Aura = {}, Curse = {}, Warcry = {}, Link = {}, EnemyMods = {}, EnemyConditions = {}, PlayerMods = {} }
 	for spectreId = 1, #env.spec.build.spectreList do
 		local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
 		for modId = 1, #spectreData.modList do
@@ -1891,7 +1891,6 @@ function calcs.perform(env, skipEHP)
 					local skillCfg = skillCfg
 					local modStore = skillModList or modDB
 					local warcryName = buff.name:gsub(" Cry", ""):gsub("'s",""):gsub(" ","")
-					local warcryPower = modDB:Override(nil, "WarcryPower") or m_max((modDB:Sum("BASE", nil, "WarcryPower") or 0) * (1 + (modDB:Sum("INC", nil, "WarcryPower") or 0)/100), (modDB:Sum("BASE", nil, "MinimumWarcryPower") or 0))
 					local baseExerts = modStore:Sum("BASE", env.player.mainSkill.skillCfg, warcryName.."ExertedAttacks")
 					if baseExerts > 0 then
 						local extraExertions = modStore:Sum("BASE", nil, "ExtraExertedAttacks") or 0
@@ -1899,11 +1898,18 @@ function calcs.perform(env, skipEHP)
 						env.player.modDB:NewMod("Num"..warcryName.."Exerts", "BASE", m_floor((baseExerts + extraExertions) * exertMultiplier))
 						env.player.modDB:NewMod("ExertingWarcryCount", "BASE", 1)
 					end
-					local full_duration = calcSkillDuration(modStore, skillCfg, activeSkill.skillData, env, enemyDB)
-					local cooldownOverride = modStore:Override(skillCfg, "CooldownRecovery")
-					local actual_cooldown = cooldownOverride or (activeSkill.skillData.cooldown  + modStore:Sum("BASE", skillCfg, "CooldownRecovery")) / calcLib.mod(modStore, skillCfg, "CooldownRecovery")
-					local uptime = modDB:Flag(nil, "Condition:WarcryMaxHit") and 1 or m_min(full_duration / actual_cooldown, 1)
 					if not activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") then
+						local warcryPower = modDB:Override(nil, "WarcryPower") or m_max((modDB:Sum("BASE", nil, "WarcryPower") or 0) * (1 + (modDB:Sum("INC", nil, "WarcryPower") or 0)/100), (modDB:Sum("BASE", nil, "MinimumWarcryPower") or 0))
+						for _, warcryBuff in ipairs(buff.modList) do
+							if warcryBuff[1] and warcryBuff[1].effectType == "Warcry" and warcryBuff[1].div then
+								warcryBuff[1].warcryPowerBonus = m_floor((warcryBuff[1].limit and m_min(warcryPower, warcryBuff[1].limit) or warcryPower) / warcryBuff[1].div)
+							end
+						end
+						local full_duration = calcSkillDuration(modStore, skillCfg, activeSkill.skillData, env, enemyDB)
+						local cooldownOverride = modStore:Override(skillCfg, "CooldownRecovery")
+						local actual_cooldown = cooldownOverride or (activeSkill.skillData.cooldown  + modStore:Sum("BASE", skillCfg, "CooldownRecovery")) / calcLib.mod(modStore, skillCfg, "CooldownRecovery")
+						local uptime = modDB:Flag(nil, "Condition:WarcryMaxHit") and 1 or m_min(full_duration / actual_cooldown, 1)
+						local extraWarcryModList = {}
 						if not modDB:Flag(nil, "CannotGainWarcryBuffs") then
 							if not buff.applyNotPlayer then
 								activeSkill.buffSkill = true
@@ -1912,11 +1918,7 @@ function calcs.perform(env, skipEHP)
 								local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer")
 								local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 								for _, warcryBuff in ipairs(buff.modList) do
-									local warcryPowerBonus = 1
-									if warcryBuff[1] and warcryBuff[1].effectType == "Warcry" and warcryBuff[1].div then
-										warcryPowerBonus = m_floor((warcryBuff[1].limit and m_min(warcryPower, warcryBuff[1].limit) or warcryPower) / warcryBuff[1].div)
-									end
-									local mult = (1 + inc / 100) * more * warcryPowerBonus * uptime
+									local mult = (1 + inc / 100) * more * (warcryBuff[1].warcryPowerBonus or 1) * uptime
 									srcList:ScaleAddList({warcryBuff}, mult)
 								end
 								mergeBuff(srcList, buffs, buff.name)
@@ -1929,14 +1931,18 @@ function calcs.perform(env, skipEHP)
 							local inc = skillModList:Sum("INC", skillCfg, "BuffEffect") + env.minion.modDB:Sum("INC", skillCfg, "BuffEffectOnSelf")
 							local more = skillModList:More(skillCfg, "BuffEffect") * env.minion.modDB:More(skillCfg, "BuffEffectOnSelf")
 							for _, warcryBuff in ipairs(buff.modList) do
-								local warcryPowerBonus = 1
-								if warcryBuff[1] and warcryBuff[1].effectType == "Warcry" and warcryBuff[1].div then
-									warcryPowerBonus = m_floor((warcryBuff[1].limit and m_min(warcryPower, warcryBuff[1].limit) or warcryPower) / warcryBuff[1].div)
-								end
-								local mult = (1 + inc / 100) * more * warcryPowerBonus * uptime
+								local mult = (1 + inc / 100) * more * (warcryBuff[1].warcryPowerBonus or 1) * uptime
 								srcList:ScaleAddList({warcryBuff}, mult)
 							end
 							mergeBuff(srcList, minionBuffs, buff.name)
+						end
+						if partyTabEnableExportBuffs then
+							local newModList = new("ModList")
+							local inc = skillModList:Sum("INC", skillCfg, "BuffEffect")
+							local more = skillModList:More(skillCfg, "BuffEffect")
+							newModList:AddList(buff.modList)
+							newModList:AddList(extraWarcryModList)
+							buffExports["Warcry"][buff.name] = { effectMult = (1 + inc / 100) * more * uptime, modList = newModList }
 						end
 						-- Special handling for the minion side to add the flat damage bonus
 						if activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" and env.minion then
@@ -2550,6 +2556,29 @@ function calcs.perform(env, skipEHP)
 					srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
 					mergeBuff(srcList, debuffs, auraName)
 				end
+			end
+		end
+	end
+	if env.partyMembers["Warcry"] and env.partyMembers["Warcry"]["Warcry"] then
+		for warcryName, warcry in pairs(env.partyMembers["Warcry"]["Warcry"]) do
+			local warcryNameCompressed = warcryName:gsub(" ","")
+			if not modDB.conditions["AffectedBy"..warcryNameCompressed] then
+				modDB.conditions["AffectedByWarcry"] = true
+				modDB.conditions["AffectedBy"..warcryNameCompressed] = true
+				local srcList = new("ModList")
+				for _, warcryBuff in ipairs(warcry.modList) do
+					srcList:ScaleAddList({warcryBuff}, (warcry.effectMult or 100) / 100 * (warcryBuff[1].warcryPowerBonus or 1))
+				end
+				mergeBuff(srcList, buffs, warcryName)
+			end
+			if env.minion and not env.minion.modDB.conditions["AffectedBy"..warcryNameCompressed] then
+				env.minion.modDB.conditions["AffectedByWarcry"] = true
+				env.minion.modDB.conditions["AffectedBy"..warcryNameCompressed] = true
+				local srcList = new("ModList")
+				for _, warcryBuff in ipairs(warcry.modList) do
+					srcList:ScaleAddList({warcryBuff}, (warcry.effectMult or 100) / 100 * (warcryBuff[1].warcryPowerBonus or 1))
+				end
+				mergeBuff(srcList, minionBuffs, warcryName)
 			end
 		end
 	end
