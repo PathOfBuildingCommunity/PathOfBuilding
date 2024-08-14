@@ -83,7 +83,7 @@ Prefix: IncreasedLife7
 -- Gloves
 [[
 Evasion Gloves
-Sinistral Gloves
+Trapsetter Gloves
 Crafted: true
 Prefix: LocalIncreasedPhysicalDamageReductionRating2
 Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
@@ -97,7 +97,7 @@ Prefix: LocalIncreasedEnergyShieldPercent5
 Prefix: LocalIncreasedEnergyShield6
 ]],[[
 Armour Gloves
-Debilitation Gauntlets
+Thwarting Gauntlets
 Crafted: true
 Prefix: LocalIncreasedPhysicalDamageReductionRating2
 Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
