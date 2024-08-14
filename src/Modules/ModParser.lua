@@ -4525,6 +4525,7 @@ local specialModList = {
 	["the first (%d+) mana burn applied to you have no effect"] = function(num) return { mod("EffectiveManaBurnStacks", "BASE", -num, { type = "ActorCondition", actor = "player"}) } end,
 	["tinctures deactivate when you have (%d+) or more mana burn"] = function(num) return { mod("MaxManaBurnStacks", "BASE", num) } end,
 	["tinctures inflict weeping wounds instead of mana burn"] = { flag("Condition:WeepingWoundsInsteadOfManaBurn"), },
+	["tincture effects also apply to ranged weapons"] = { flag("TinctureRangedWeapons"), },
 	["you can have an additional tincture active"] = { mod("TinctureLimit", "BASE", 1), },
 	["(%d+)%% increased tincture cooldown recovery rate"] = function(num) return { mod("TinctureCooldownRecovery", "INC", num) } end,
 	["adds (%d+) passive skills"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelNodeCount", value = num }) } end,

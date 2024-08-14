@@ -18,6 +18,7 @@ local s_format = string.format
 local m_huge = math.huge
 local bor = bit.bor
 local band = bit.band
+local bnot = bit.bnot
 
 --- getCachedOutputValue
 ---  retrieves a value specified by key from a cached version of skill
@@ -1493,6 +1494,17 @@ function calcs.perform(env, skipEHP)
 		end
 		for _, buffModList in pairs(tinctureBuffs) do
 			modDB:AddList(buffModList)
+		end
+		if modDB:Flag(nil, "TinctureRangedWeapons") then
+			for key, buffModList in pairs(tinctureBuffs) do
+				for _, buff in ipairs(buffModList) do
+					if band(buff.flags, ModFlag.WeaponMelee) == ModFlag.WeaponMelee then
+						newMod = copyTable(buff, true)
+						newMod.flags = bor(band(newMod.flags, bnot(ModFlag.WeaponMelee)), ModFlag.WeaponRanged)
+						modDB:AddList({newMod})
+					end
+				end
+			end
 		end
 	end
 
