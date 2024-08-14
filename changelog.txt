@@ -1,7 +1,7 @@
-VERSION[2.48.0][2024/08/14]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
+VERSION[2.48.0][2024/08/15]
 
-* Hide legacy Tattoos from dropdown by default (LocalIdentity)
+--- New to Path of Building ---
+* Hide legacy Tattoos from dropdown by default (LocalIdentity, Peechey)
 * Add ability to search in the spectre library (nofate121)
 * Add Support for Enemy damaging ailments (Regisle)
 * View Gem level sources in calc sections (justjuangui)
@@ -12,21 +12,25 @@ VERSION[2.48.0][2024/08/14]
 * Add Warcry effect mod to calcs tab with breakdown (Regisle)
 * Add support for export and importing warcry buffs to the Party Tab (Regisle)
 * Add The Living Blade (Nostrademous)
+
 --- Fixed Crashes ---
 * Fix crash when using Power Charge on Crit from Elder staves (Wires77)
 * Fix crash when allocating Blood Magic with Manabond (LocalIdentity)
+
 --- User Interface ---
 * Color mastery differences blue when comparing trees (nofate121)
 * Improve Rage Calcs tab breakdown (Regisle)
 * Fix Calcs tab scroll bar (Regisle)
 * Fix full dps visual bug on gem dropdown (Paliak)
+
 --- Fixed Calculations ---
 * Fix Charge duration not using More/Less modifiers (Wires77)
 * Fix Ynda's Stand Ward conversion mod not taking catalysts into consideration (krfreak)
-* Fix accuracy of Scaled Warcry buffs (Regisle)
+* Fix accuracy of scaled Warcry buffs (Regisle)
 * Fix Ward rounding final value incorrectly (LocalIdentity)
 * Fix Hateforge Rage cost calculation (LocalIdentity)
 * Minor improvements to Tinctures and Mana Burn (Regisle)
+
 --- Fixed Behaviours ---
 * Fix issue where PoB did not detect changes when selecting gems via keyboard shortcuts (nofate121)
 * Fix The Light of Meaning adding stats to allocated sockets (Paliak)
@@ -43,6 +47,7 @@ VERSION[2.48.0][2024/08/14]
 * Fix EHP and Maximum Hit taken with negative Unreserved Life (Regisle)
 * Fix Exerted multipliers applying twice when Dual Wielding (LocalIdentity)
 * Fix Sand Stance "less damage taken" incorrectly applying to DoT degen (LocalIdentity)
+
 --- Accuracy Improvements ---
 * Update Sap of the Seasons to add new cap (Regisle)
 * Add variant for post 3.21 Combat Focus (Paliak)
@@ -51,6 +56,7 @@ VERSION[2.48.0][2024/08/14]
 * Fix incorrect names for Timeless Jewel nodes (LocalIdentity)
 * Fix Kaom's Primacy Rage mod not working (LocalIdentity)
 * Fix broken base types on some items (Regisle)
+
 --- Fixed Bugs ---
 * Fix infinitely nested XML stored as importLink (Wires77)
 
