@@ -852,6 +852,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		self.showLegacyTattoo = state
 		buildMods(selectedNode)
 	end)
+	controls.showLegacyTattoo.state = self.showLegacyTattoo
 end
 
 function TreeTabClass:SaveMasteryPopup(node, listControl)
