@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <PoBVersion>
-	<Version number="2.48.0" />
+	<Version number="2.48.1" />
 	<Source part="default" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
-	<File name="changelog.txt" part="default" sha1="540fa0e7bdc755b02968df55b058d17f8ca200a6" />
+	<File name="changelog.txt" part="default" sha1="e22e1606f649314474956c4a514947f21ef1dca4" />
 	<File name="help.txt" part="default" sha1="e486cb63a78f5ca355430b67fa23e02fd30f5771" />
 	<File name="LICENSE.md" part="default" sha1="c77635aa1ba0a2ffe8eb72f93b3376e3a3d2041a" />
 	<File name="Assets/ascendants/ascendant.jpeg" part="program" sha1="c9edaa10dad44c5361f873e68fa39a831338e9ec" />
@@ -256,7 +256,7 @@
 	<File name="Modules/BuildSiteTools.lua" part="program" sha1="1200028c50af6960b58c4ed60395ef8ea1c156c1" />
 	<File name="Modules/CalcActiveSkill.lua" part="program" sha1="22e6dbb202ee140bb731aa96a5c8f8f3f93ee81f" />
 	<File name="Modules/CalcBreakdown.lua" part="program" sha1="edd6c08679fa4c7ed667895f86c7ee67257bfcf0" />
-	<File name="Modules/CalcDefence.lua" part="program" sha1="297dad9dd961c217d2b1b5ba83960f7f2cbe5d44" />
+	<File name="Modules/CalcDefence.lua" part="program" sha1="5753fd3cdfdd89e03479957dd5852b74b8736575" />
 	<File name="Modules/CalcMirages.lua" part="program" sha1="c5da8d4d022c2ac6cd3c3f644229473ef430199f" />
 	<File name="Modules/CalcOffence.lua" part="program" sha1="422fc17adaadb99d2e3ba6462e86e020c0a2cfb1" />
 	<File name="Modules/CalcPerform.lua" part="program" sha1="f73ff53fc5f5ca992d2d31893ffa0be56123f875" />

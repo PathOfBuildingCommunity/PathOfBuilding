@@ -1,5 +1,15 @@
 # Changelog
 
+## [v2.48.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.48.1) (2024/08/15)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.48.0...v2.48.1)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+### Fixed Crashes
+* Fix crash when selecting Damage Over Time as the Enemy Damage Type by @Wires77
+
+
 ## [v2.48.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.48.0) (2024/08/15)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.47.3...v2.48.0)
