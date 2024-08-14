@@ -3239,5 +3239,30 @@ function calcs.perform(env, skipEHP)
 		env.build.partyTab:setBuffExports(buffExports)
 	end
 
+	-- calculate Gem Level of MainSkill
+	if env.player.mainSkill then
+		local mainSkill = env.player.mainSkill
+		if mainSkill.activeEffect and mainSkill.activeEffect.level and mainSkill.activeEffect.srcInstance then
+			local baseLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemLevel")
+			local totalItemLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemItemLevel")
+			local totalSupportLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSupportLevel")
+
+			output.GemHasLevel = true
+			output.GemLevel = baseLevel + totalSupportLevel + totalItemLevel
+			
+			if env.player.breakdown then
+				env.player.breakdown.GemLevel = {}
+				t_insert(env.player.breakdown.GemLevel, s_format("%d ^8(level from gem)", baseLevel))
+				if totalSupportLevel > 0 then
+					t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from support)", totalSupportLevel))
+				end
+				if totalItemLevel > 0 then
+					t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from items)", totalItemLevel))
+				end
+				t_insert(env.player.breakdown.GemLevel, s_format("= %d", output.GemLevel))
+			end
+		end
+	end
+
 	cacheData(cacheSkillUUID(env.player.mainSkill, env), env)
 end

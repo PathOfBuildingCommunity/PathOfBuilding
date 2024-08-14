@@ -601,6 +601,7 @@ return {
 } }
 } },
 { 1, "SkillTypeStats", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill type-specific Stats", data = {
+	{ label = "Gem Level", haveOutput = "GemHasLevel", { format = "{0:output:GemLevel}", { breakdown = "GemLevel" }, { modName = { "GemLevel" }, cfg = "skill" },{ modName = { "GemSupportLevel" }, cfg = "skill" }, { modName = { "GemItemLevel" }, cfg = "skill" }, }, },
 	{ label = "Mana Cost", color = colorCodes.MANA, haveOutput = "ManaHasCost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = { "ManaCost", "Cost", "ManaCostNoMult" }, cfg = "skill" }, }, },
 	{ label = "Mana % Cost", color = colorCodes.MANA, haveOutput = "ManaPercentHasCost", { format = "{0:output:ManaPercentCost}", { breakdown = "ManaPercentCost" }, { modName = { "ManaCost", "Cost", "ManaCostNoMult" }, cfg = "skill" }, }, },
 	{ label = "Mana per second", color = colorCodes.MANA, haveOutput = "ManaPerSecondHasCost", { format = "{2:output:ManaPerSecondCost}", { breakdown = "ManaPerSecondCost" }, { modName = { "ManaCost", "Cost", "ManaCostNoMult" }, cfg = "skill" }, }, },
