@@ -1,14 +1,14 @@
 describe("TestTriggers", function()
-    before_each(function()
-        newBuild()
-    end)
+	before_each(function()
+		newBuild()
+	end)
 
-    teardown(function()
-        -- newBuild() takes care of resetting everything in setup()
-    end)
+	teardown(function()
+		-- newBuild() takes care of resetting everything in setup()
+	end)
 
-    it("Trigger Law of the Wilds", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Law of the Wilds
+	it("Trigger Law of the Wilds", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[Law of the Wilds
 		Hellion's Paw
 		League: Harvest
 		Variant: Pre 3.14.0
@@ -25,17 +25,17 @@ describe("TestTriggers", function()
 		{range:0.5}(15-20)% increased Attack Speed
 		{range:0.5}(22-28)% increased Critical Strike Chance
 		{range:0.5}+(15-25)% to Global Critical Strike Multiplier]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Reave 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger The Rippling Thoughts", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[The Rippling Thoughts
+		build.itemsTab:CreateDisplayItemFromRaw([[The Rippling Thoughts
 		Legion Sword
 		League: Harbinger
 		Quality: 20
@@ -50,20 +50,20 @@ describe("TestTriggers", function()
 		{range:0.5}Adds 1 to (60-70) Lightning Damage
 		{range:0.5}Adds 1 to (60-70) Lightning Damage to Spells
 		10% increased Area of Effect]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.mainSocketGroup = 2
 		build.modFlag = true
 		build.buildFlag = true
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger The Surging Thoughts", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[The Surging Thoughts
+		build.itemsTab:CreateDisplayItemFromRaw([[The Surging Thoughts
 		Legion Sword
 		League: Harvest
 		Quality: 20
@@ -78,20 +78,20 @@ describe("TestTriggers", function()
 		{range:0.5}Adds 1 to (60-70) Lightning Damage
 		{range:0.5}Adds 1 to (60-70) Lightning Damage to Spells
 		10% increased Area of Effect]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.mainSocketGroup = 2
 		build.modFlag = true
 		build.buildFlag = true
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger The Hidden Blade", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[The Hidden Blade
+		build.itemsTab:CreateDisplayItemFromRaw([[The Hidden Blade
 		Ambusher
 		League: Heist
 		Quality: 20
@@ -103,16 +103,16 @@ describe("TestTriggers", function()
 		{range:0.5}+(20-40) to Dexterity
 		{range:0.5}(230-260)% increased Physical Damage
 		30% reduced Attack Speed while Phasing]])
-        build.itemsTab:AddDisplayItem()
+		build.itemsTab:AddDisplayItem()
 		build.configTab.input["buffPhasing"] = true
 		build.configTab:BuildModList()
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Replica Eternity Shroud", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Replica Eternity Shroud
+		build.itemsTab:CreateDisplayItemFromRaw([[Replica Eternity Shroud
 		Blood Raiment
 		Evasion: 1127
 		EvasionBasePercentile: 0.3692
@@ -131,14 +131,14 @@ describe("TestTriggers", function()
 		{range:0.5}+(17-23)% to Chaos Resistance
 		{range:0.5}Gain (3-5)% of Physical Damage as Extra Chaos Damage per Elder Item Equipped
 		Hits ignore Enemy Monster Chaos Resistance if all Equipped Items are Elder Items]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger shroud of the Lightless", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Shroud of the Lightless
+		build.itemsTab:CreateDisplayItemFromRaw([[Shroud of the Lightless
 		Carnal Armour
 		Evasion: 1048
 		EvasionBasePercentile: 0.2394
@@ -172,14 +172,14 @@ describe("TestTriggers", function()
 		{variant:1,2,3,4}1% increased Maximum Mana per Abyss Jewel affecting you
 		{variant:5,6,7}3% increased Maximum Mana per Abyss Jewel affecting you
 		{variant:5,6,7}Penetrate 4% Elemental Resistances per Abyss Jewel affecting you]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Limbsplit", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Limbsplit
+		build.itemsTab:CreateDisplayItemFromRaw([[Limbsplit
 		Woodsplitter
 		Variant: Pre 3.11.0
 		Variant: Current
@@ -194,17 +194,17 @@ describe("TestTriggers", function()
 		{range:0.5}(80-100)% increased Physical Damage
 		Adds 5 to 10 Physical Damage
 		Culling Strike]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Lioneye's Paws", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Lioneye's Paws
+		build.itemsTab:CreateDisplayItemFromRaw([[Lioneye's Paws
 		Bronzescale Boots
 		Armour: 66
 		ArmourBasePercentile: 0
@@ -226,8 +226,8 @@ describe("TestTriggers", function()
 		40% reduced Movement Speed when on Low Life
 		{variant:1}20% increased Stun and Block Recovery
 		{variant:1}Cannot be Stunned when on Low Life]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.itemsTab:CreateDisplayItemFromRaw([[+3 Bow
 		Thicket Bow
@@ -245,17 +245,17 @@ describe("TestTriggers", function()
 		+1 to Level of Socketed Gems
 		+2 to Level of Socketed Bow Gems
 		9% increased Attack Speed]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Replica Lioneye's Paws", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Replica Lioneye's Paws
+		build.itemsTab:CreateDisplayItemFromRaw([[Replica Lioneye's Paws
 		Bronzescale Boots
 		Armour: 66
 		ArmourBasePercentile: 0
@@ -272,8 +272,8 @@ describe("TestTriggers", function()
 		Adds 12 to 24 Chaos Damage to Attacks
 		20% increased Movement Speed
 		40% reduced Movement Speed when on Low Life]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.itemsTab:CreateDisplayItemFromRaw([[+3 Bow
 		Thicket Bow
@@ -291,17 +291,17 @@ describe("TestTriggers", function()
 		+1 to Level of Socketed Gems
 		+2 to Level of Socketed Bow Gems
 		9% increased Attack Speed]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Moonbender's Wing", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Moonbender's Wing
+		build.itemsTab:CreateDisplayItemFromRaw([[Moonbender's Wing
 		Tomahawk
 		Variant: Pre 3.11.0
 		Variant: Current
@@ -319,17 +319,17 @@ describe("TestTriggers", function()
 		{variant:1}25% of Physical Damage Converted to Cold Damage
 		{variant:1}25% of Physical Damage Converted to Lightning Damage
 		{variant:2}{range:0.5}Hits with this Weapon gain (75-100)% of Physical Damage as Extra Cold or Lightning Damage]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Ngamahu's Flame", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Ngamahu's Flame
+		build.itemsTab:CreateDisplayItemFromRaw([[Ngamahu's Flame
 		Abyssal Axe
 		Variant: Pre 3.11.0
 		Variant: Current
@@ -345,17 +345,17 @@ describe("TestTriggers", function()
 		{variant:1}50% of Physical Damage Converted to Fire Damage
 		{variant:2}60% of Physical Damage Converted to Fire Damage
 		Damage Penetrates 20% Fire Resistance]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Cameria's Avarice", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Cameria's Avarice
+		build.itemsTab:CreateDisplayItemFromRaw([[Cameria's Avarice
 		Gavel
 		Quality: 20
 		Sockets: R-R-R
@@ -368,17 +368,17 @@ describe("TestTriggers", function()
 		40% increased Rarity of Items Dropped by Frozen Enemies
 		{range:0.5}(30-40)% increased Cold Damage with Attack Skills
 		Trigger Level 20 Icicle Burst when you Hit a Frozen Enemy]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Uul-Netol's Embrace", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Uul-Netol's Embrace
+		build.itemsTab:CreateDisplayItemFromRaw([[Uul-Netol's Embrace
 		Vaal Axe
 		League: Breach
 		Variant: Pre 3.11.0
@@ -395,17 +395,17 @@ describe("TestTriggers", function()
 		{range:0.5}(30-25)% reduced Attack Speed
 		{variant:1,2}Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
 		{variant:3}Attacks have 25% chance to inflict Bleeding]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Rigwald's Crest", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Rigwald's Crest
+		build.itemsTab:CreateDisplayItemFromRaw([[Rigwald's Crest
 		Two-Stone Ring
 		League: Talisman
 		Variant: Pre 3.19.0
@@ -418,17 +418,17 @@ describe("TestTriggers", function()
 		{tags:jewellery_elemental}{variant:1}{range:0.5}(20-30)% increased Fire Damage
 		{tags:jewellery_elemental}{variant:1}{range:0.5}(20-30)% increased Cold Damage
 		{tags:mana}{range:0.5}(20-30)% increased Mana Regeneration Rate]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Jorrhast's Blacksteel", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Jorrhast's Blacksteel
+		build.itemsTab:CreateDisplayItemFromRaw([[Jorrhast's Blacksteel
 		Steelhead
 		League: Tempest
 		Variant: Pre 2.6.0
@@ -446,17 +446,17 @@ describe("TestTriggers", function()
 		{range:0.5}(8-12)% increased Cast Speed
 		30% less Animate Weapon Duration
 		Weapons you Animate create an additional copy]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Ashcaller", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Ashcaller
+		build.itemsTab:CreateDisplayItemFromRaw([[Ashcaller
 		Carved Wand
 		Variant: Pre 3.8.0
 		Variant: Pre 3.19.0
@@ -482,17 +482,17 @@ describe("TestTriggers", function()
 		{variant:2}{range:0.5}(20-30)% increased Burning Damage
 		{variant:1,2}{range:0.5}(16-22)% chance to Ignite
 		{variant:3,4}10% chance to Cover Enemies in Ash on Hit]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Kinetic Blast 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Arakaali's Fang", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Arakaali's Fang
+		build.itemsTab:CreateDisplayItemFromRaw([[Arakaali's Fang
 		Fiend Dagger
 		Quality: 20
 		Sockets: B-B-B
@@ -504,17 +504,17 @@ describe("TestTriggers", function()
 		{range:0.5}Adds (8-13) to (20-30) Physical Damage
 		Adds 1 to 59 Chaos Damage
 		15% chance to Poison on Hit]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Reave 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Sporeguard", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Sporeguard
+		build.itemsTab:CreateDisplayItemFromRaw([[Sporeguard
 		Saint's Hauberk
 		Armour: 1612
 		ArmourBasePercentile: 0.4575
@@ -532,17 +532,17 @@ describe("TestTriggers", function()
 		Enemies on Fungal Ground you Kill Explode, dealing 5% of their Life as Chaos Damage
 		You have Fungal Ground around you while stationary
 		This item can be anointed by Cassia]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Mark of the Elder", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Mark of the Elder
+		build.itemsTab:CreateDisplayItemFromRaw([[Mark of the Elder
 		Steel Ring
 		Elder Item
 		LevelReq: 80
@@ -554,17 +554,17 @@ describe("TestTriggers", function()
 		{tags:attack}{range:0.5}(60-80)% increased Attack Damage if your other Ring is a Shaper Item
 		Cannot be Stunned by Attacks if your other Ring is an Elder Item
 		20% chance to Trigger Level 20 Tentacle Whip on Kill]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Mark of the Shaper", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Mark of the Shaper
+		build.itemsTab:CreateDisplayItemFromRaw([[Mark of the Shaper
 		Opal Ring
 		Shaper Item
 		LevelReq: 80
@@ -576,17 +576,17 @@ describe("TestTriggers", function()
 		{tags:caster}{range:0.5}(60-80)% increased Spell Damage if your other Ring is an Elder Item
 		Cannot be Stunned by Spells if your other Ring is a Shaper Item
 		20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger The Poet's Pen", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[The Poet's Pen
+		build.itemsTab:CreateDisplayItemFromRaw([[The Poet's Pen
 		Carved Wand
 		Quality: 20
 		Sockets: B-B-B
@@ -597,17 +597,17 @@ describe("TestTriggers", function()
 		Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels
 		{range:0.5}(8-12)% increased Attack Speed
 		Trigger a Socketed Spell when you Attack with this Weapon, with a 0.25 second Cooldown]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nArc 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Kinetic Blast 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Maloney's Mechanism", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[+3 Bow
@@ -626,10 +626,10 @@ describe("TestTriggers", function()
 		+1 to Level of Socketed Gems
 		+2 to Level of Socketed Bow Gems
 		9% increased Attack Speed]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
-        build.itemsTab:CreateDisplayItemFromRaw([[Maloney's Mechanism
+		build.itemsTab:CreateDisplayItemFromRaw([[Maloney's Mechanism
 		Ornate Quiver
 		Sockets: G-G-G
 		LevelReq: 45
@@ -640,17 +640,17 @@ describe("TestTriggers", function()
 		{range:0.5}(7-12)% increased Attack Speed
 		{range:0.5}+(50-70) to maximum Life
 		5% chance to Blind Enemies on Hit with Attacks]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 2\nRain of Arrows 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Replica Maloney's Mechanism", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[+3 Bow
@@ -669,10 +669,10 @@ describe("TestTriggers", function()
 		+1 to Level of Socketed Gems
 		+2 to Level of Socketed Bow Gems
 		9% increased Attack Speed]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
-        build.itemsTab:CreateDisplayItemFromRaw([[Replica Maloney's Mechanism
+		build.itemsTab:CreateDisplayItemFromRaw([[Replica Maloney's Mechanism
 		Ornate Quiver
 		League: Heist
 		Sockets: G-G-G
@@ -684,17 +684,17 @@ describe("TestTriggers", function()
 		{range:0.5}(7-12)% increased Cast Speed
 		{range:0.5}+(50-70) to maximum Life
 		5% chance to Blind Enemies on Hit with Attacks]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 2\nRain of Arrows 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Asenath's Mark", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[+3 Bow
@@ -713,10 +713,10 @@ describe("TestTriggers", function()
 		+1 to Level of Socketed Gems
 		+2 to Level of Socketed Bow Gems
 		9% increased Attack Speed]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
-        build.itemsTab:CreateDisplayItemFromRaw([[Asenath's Mark
+		build.itemsTab:CreateDisplayItemFromRaw([[Asenath's Mark
 		Iron Circlet
 		Energy Shield: 62
 		EnergyShieldBasePercentile: 0
@@ -737,20 +737,20 @@ describe("TestTriggers", function()
 		30% increased Mana Regeneration Rate
 		{variant:1,2}5% increased Movement Speed
 		{variant:1,2}{range:0.5}(10-15)% increased Stun and Block Recovery]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Slot: Helmet\nArc 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Vixen's Entrapment", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Vixen's Entrapment
+		build.itemsTab:CreateDisplayItemFromRaw([[Vixen's Entrapment
 		Embroidered Gloves
 		Energy Shield: 114
 		EnergyShieldBasePercentile: 0
@@ -763,20 +763,20 @@ describe("TestTriggers", function()
 		0.2% of Spell Damage Leeched as Energy Shield for each Curse on Enemy
 		You can apply an additional Curse
 		{range:0.5}(10-20)% increased Cast Speed with Curse Skills]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Slot: Gloves\nEnfeeble 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Despair 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Atziri's Rule", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Atziri's Rule
+		build.itemsTab:CreateDisplayItemFromRaw([[Atziri's Rule
 		Judgement Staff
 		Quality: 20
 		Sockets: B-B-B-B-B-B
@@ -788,19 +788,19 @@ describe("TestTriggers", function()
 		Queen's Demand can Trigger Level 20 Storm of Judgement
 		Cannot be Stunned
 		Damage cannot be Reflected]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.mainSocketGroup = 2
 		build.modFlag = true
 		build.buildFlag = true
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Trigger Craft", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[New Item
+		build.itemsTab:CreateDisplayItemFromRaw([[New Item
 		Gemini Claw
 		Crafted: true
 		Prefix: None
@@ -817,20 +817,20 @@ describe("TestTriggers", function()
 		{tags:resource,life,mana,attack}Grants 14 Mana per Enemy Hit
 		{tags:skill,unveiled_mod,caster,gem}{crafted}Trigger a Socketed Spell when you Use a Skill, with a 8 second Cooldown
 		{crafted}Spells Triggered this way have 150% more Cost]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nArc 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Reave 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Kitava's Thirst", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Kitava's Thirst
+		build.itemsTab:CreateDisplayItemFromRaw([[Kitava's Thirst
 		Zealot Helmet
 		Armour: 240
 		ArmourBasePercentile: 0.2265
@@ -848,8 +848,8 @@ describe("TestTriggers", function()
 		{range:0.5}+(30-50) to maximum Mana
 		{variant:1}30% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown
 		{variant:2}50% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 		
 		build.itemsTab:CreateDisplayItemFromRaw([[The Blood Reaper
 		Headsman Axe
@@ -869,20 +869,20 @@ describe("TestTriggers", function()
 		1% of Physical Attack Damage Leeched as Life
 		500% increased Mana Cost of Skills
 		50% chance to cause Bleeding on Hit]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Slot: Helmet\nArc 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Ice Nova 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Mjolner", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Mjolner
+		build.itemsTab:CreateDisplayItemFromRaw([[Mjolner
 		Gavel
 		Variant: Pre 2.0.0
 		Variant: Pre 2.4.0
@@ -906,20 +906,20 @@ describe("TestTriggers", function()
 		{variant:2}30% chance to Cast a Socketed Lightning Spell on Hit
 		{variant:3,4,5}Trigger a Socketed Lightning Spell on Hit, with a 0.25 second Cooldown
 		{variant:1,2,3,4}Socketed Lightning Spells deal 100% increased Spell Damage if Triggered]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nArc 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Cospri's Malice", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Cospri's Malice
+		build.itemsTab:CreateDisplayItemFromRaw([[Cospri's Malice
 		Jewelled Foil
 		Variant: Pre 2.6.0
 		Variant: Current
@@ -937,20 +937,20 @@ describe("TestTriggers", function()
 		{range:0.5}(8-14)% increased Attack Speed
 		+257 Intelligence Requirement
 		60% increased Critical Strike Chance against Chilled Enemies]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nIce Nova 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Reave 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Cast On Critical", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Elemental 1H Sword
+		build.itemsTab:CreateDisplayItemFromRaw([[Elemental 1H Sword
 		Eternal Sword
 		Crafted: true
 		Prefix: {range:0.5}WeaponElementalDamageOnWeapons4
@@ -968,17 +968,17 @@ describe("TestTriggers", function()
 		22% increased Critical Strike Chance
 		+27% to Global Critical Strike Multiplier
 		40% increased Elemental Damage with Attack Skills]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Cast On Critical Strike 20/0 Default  1\nArc 20/0 Default  1\nCyclone 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Cast on Melee Kill", function()
-        build.itemsTab:CreateDisplayItemFromRaw([[Elemental 1H Sword
+		build.itemsTab:CreateDisplayItemFromRaw([[Elemental 1H Sword
 		Eternal Sword
 		Crafted: true
 		Prefix: {range:0.5}WeaponElementalDamageOnWeapons4
@@ -996,42 +996,42 @@ describe("TestTriggers", function()
 		22% increased Critical Strike Chance
 		+27% to Global Critical Strike Multiplier
 		40% increased Elemental Damage with Attack Skills]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Cast on Melee Kill 20/0 Default  1\nArc 20/0 Default  1\nCyclone 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		build.configTab.input["conditionKilledRecently"] = true
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Holy Relic", function()
 		build.skillsTab:PasteSocketGroup("Summon Holy Relic 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 		
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.Minion.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Cast when Damage Taken", function()
 		build.skillsTab:PasteSocketGroup("Cast when Damage Taken 20/0 Default  1\nArc 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Cast when Stunned", function()
 		build.skillsTab:PasteSocketGroup("Cast when Stunned 20/0 Default  1\nArc 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Spellslinger", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[Elemental Wand
@@ -1052,34 +1052,34 @@ describe("TestTriggers", function()
 		22% increased Critical Strike Chance
 		+27% to Global Critical Strike Multiplier
 		40% increased Elemental Damage with Attack Skills]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1\nSpellslinger 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Kinetic Blast 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Mark On Hit", function()
 		build.skillsTab:PasteSocketGroup("Mark On Hit 20/0 Default  1\nAlchemist's Mark 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Hextouch", function()
 		build.skillsTab:PasteSocketGroup("Despair 20/0 Default  1\nHextouch 20/0 Default  1\nSmite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Oskarm", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[Oskarm
@@ -1100,14 +1100,14 @@ describe("TestTriggers", function()
 		{variant:1}{range:0.5}(7-8)% chance to Suppress Spell Damage
 		{variant:2}{range:0.5}(10-12)% chance to Suppress Spell Damage
 		2% increased Attack Critical Strike Chance per 200 Accuracy Rating]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Tempest Shield", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[Armour Shield
@@ -1129,14 +1129,14 @@ describe("TestTriggers", function()
 		+92 to Armour
 		74% increased Armour
 		+85 to maximum Life]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Tempest Shield 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Shattershard", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[Shattershard
@@ -1154,15 +1154,15 @@ describe("TestTriggers", function()
 		{range:0.5}(120-150)% increased Armour and Evasion
 		{range:0.5}+(80-100) to maximum Life
 		{range:0.5}+(8-12)% Chance to Block]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Combust", function()
 		build.skillsTab:PasteSocketGroup("Infernal Cry 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
 		mainSocketGroup.mainActiveSkill = 2
@@ -1171,14 +1171,14 @@ describe("TestTriggers", function()
 		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Prismatic Burst", function()
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\nPrismatic Burst 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
 		mainSocketGroup.mainActiveSkill = 2
@@ -1187,7 +1187,7 @@ describe("TestTriggers", function()
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Shockwave", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[Elemental 1H Mace
@@ -1208,11 +1208,11 @@ describe("TestTriggers", function()
 		22% increased Critical Strike Chance
 		+27% to Global Critical Strike Multiplier
 		40% increased Elemental Damage with Attack Skills]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\nShockwave 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
 		mainSocketGroup.mainActiveSkill = 2
@@ -1221,7 +1221,7 @@ describe("TestTriggers", function()
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Manaforged", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[+3 Bow
@@ -1240,31 +1240,31 @@ describe("TestTriggers", function()
 		+1 to Level of Socketed Gems
 		+2 to Level of Socketed Bow Gems
 		9% increased Attack Speed]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\nManaforged Arrows 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Rain of Arrows 20/0 Default  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Doom Blast", function()
 		build.skillsTab:PasteSocketGroup("Impending Doom 20/0 Default  1\nDespair 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Cast while Channelling", function()
 		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1\nCast while Channelling 20/0 Default  1\nBlight 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Focus", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[New Item
@@ -1282,18 +1282,18 @@ describe("TestTriggers", function()
 		Implicits: 1
 		{tags:attribute}{range:0.5}+(16-24) to all Attributes
 		{tags:skill,unveiled_mod,caster,gem}{crafted}Trigger Socketed Spells when you Focus, with a 0.25 second Cooldown]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Slot: Helmet\nArc 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 
 	it("Trigger Flamewood", function()
 		build.skillsTab:PasteSocketGroup("Decoy Totem 20/0 Default  1\nFlamewood 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
 		mainSocketGroup.mainActiveSkill = 2
@@ -1302,14 +1302,14 @@ describe("TestTriggers", function()
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 	
 	it("Trigger Automation", function()
 		build.skillsTab:PasteSocketGroup("Steelskin 20/0 Default  1\nAutomation 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 	
 	it("Trigger Svalinn", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[Rarity: UNIQUE
@@ -1331,12 +1331,12 @@ describe("TestTriggers", function()
 			-10% to maximum Chance to Block Spell Damage
 			Chance To Block is Lucky
 			Trigger a Socketed Elemental Spell on Block, with a 0.25 Second Cooldown]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 2\nArc 20/0 Default  1\n")
-        runCallback("OnFrame")
+		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
+	end)
 end)

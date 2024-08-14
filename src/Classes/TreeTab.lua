@@ -125,10 +125,9 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			main:ClosePopup()
 		end)
 		controls.removeTattoo = new("ButtonControl", nil, 0, buttonY, 144, 20, "Remove All Tattoos", function()
-			local hashOverridesCopy = copyTable(self.build.spec.hashOverrides, true) -- updating hashOverrides in RemoveTattooFromNode
-			for _, node in pairs(hashOverridesCopy) do
+			for id, node in pairs(self.build.spec.hashOverrides) do --hashOverrides will contain only the nodes that have been tattoo-ed
 				if node.isTattoo then
-					self:RemoveTattooFromNode(node)
+					self:RemoveTattooFromNode(self.build.spec.nodes[id])
 				end
 			end
 			self.modFlag = true
@@ -744,7 +743,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
 					(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity"))
 					or (node.targetType == "Keystone" and treeNodes[selectedNode.id].type == node.targetType))
-					and node.MinimumConnected <= numLinkedNodes then
+					and node.MinimumConnected <= numLinkedNodes and (node.legacy == false or node.legacy == self.showLegacyTattoo) then
 				local combine = false
 				for id, desc in pairs(node.stats) do
 					combine = (id:match("^local_display.*") and #node.stats == (#node.sd - 1)) or combine
@@ -846,6 +845,13 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	controls.totalTattoos = new("LabelControl", nil, 0, 95, 0, 16, "^7Tattoo Count: ".. getTattooCount() .."/50" )
 	main:OpenPopup(600, 105, "Replace Modifier of Node", controls, "save")
 	constructUI(modGroups[1])
+	
+	-- Show Legacy Tattoos
+	controls.showLegacyTattoo = new("CheckBoxControl", { "LEFT", controls.totalTattoos, "RIGHT" }, 205, 0, 20, "Show Legacy Tattoos:", function(state)
+		self.showLegacyTattoo = state
+		buildMods(selectedNode)
+	end)
+	controls.showLegacyTattoo.state = self.showLegacyTattoo
 end
 
 function TreeTabClass:SaveMasteryPopup(node, listControl)

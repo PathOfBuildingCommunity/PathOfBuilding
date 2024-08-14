@@ -297,12 +297,12 @@ You can get this from your web browser's cookies while logged into the Path of E
 		if self.controls.importCodeMode.selIndex == 1 then
 			main:OpenConfirmPopup("Build Import", colorCodes.WARNING.."Warning:^7 Importing to the current build will erase ALL existing data for this build.", "Import", function()
 				self.build:Shutdown()
-				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML, false, self.controls.importCodeIn.buf)
+				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML, false, self.importCodeSite and self.controls.importCodeIn.buf or nil)
 				self.build.viewMode = "TREE"
 			end)
 		else
 			self.build:Shutdown()
-			self.build:Init(false, "Imported build", self.importCodeXML, false, self.controls.importCodeIn.buf)
+			self.build:Init(false, "Imported build", self.importCodeXML, false, self.importCodeSite and self.controls.importCodeIn.buf or nil)
 			self.build.viewMode = "TREE"
 		end
 	end
@@ -382,6 +382,8 @@ function ImportTabClass:Save(xml)
 	if self.build.importLink then
 		xml.attrib.importLink = self.build.importLink
 	end
+	-- Gets rid of erroneous, potentially infinitely nested full base64 XML stored as an import link
+	xml.attrib.importLink = (xml.attrib.importLink and xml.attrib.importLink:len() < 100) and xml.attrib.importLink or nil 
 end
 
 function ImportTabClass:Draw(viewPort, inputEvents)
@@ -400,9 +402,14 @@ end
 function ImportTabClass:DownloadCharacterList()
 	self.charImportMode = "DOWNLOADCHARLIST"
 	self.charImportStatus = "Retrieving character list..."
-	  -- Trim Trailing/Leading spaces
-	local accountName = self.controls.accountName.buf:gsub('%s+', '')
 	local realm = realmList[self.controls.accountRealm.selIndex]
+	local accountName
+	-- Handle spaces in the account name
+	if realm.realmCode == "pc" then
+		accountName = self.controls.accountName.buf:gsub("%s+", "")
+	else
+		accountName = self.controls.accountName.buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", ""):gsub("%s", "+")
+	end
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(response, errMsg)
 		if errMsg == "Response code: 401" then

@@ -1503,7 +1503,7 @@ function buildMode:OpenSpectreLibrary()
 	end)
 	local controls = { }
 	controls.list = new("MinionListControl", nil, -100, 40, 190, 250, self.data, destList)
-	controls.source = new("MinionListControl", nil, 100, 40, 190, 250, self.data, sourceList, controls.list)
+	controls.source = new("MinionSearchListControl", nil, 100, 60, 190, 230, self.data, sourceList, controls.list)
 	controls.save = new("ButtonControl", nil, -45, 330, 80, 20, "Save", function()
 		self.spectreList = destList
 		self.modFlag = true
@@ -1515,7 +1515,8 @@ function buildMode:OpenSpectreLibrary()
 	end)
 	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 24, 2, 0, 16, "Spectres in your Library must be assigned to an active")
 	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 20, 18, 0, 16, "Raise Spectre gem for their buffs and curses to activate")
-	main:OpenPopup(410, 360, "Spectre Library", controls)
+	local spectrePopup = main:OpenPopup(410, 360, "Spectre Library", controls)
+	spectrePopup:SelectControl(spectrePopup.controls.source.controls.searchText)
 end
 
 function buildMode:OpenSimilarPopup()
@@ -1861,7 +1862,7 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 			local statVal1 = compareOutput[statData.stat] or 0
 			local statVal2 = baseOutput[statData.stat] or 0
 			local diff = statVal1 - statVal2
-			if statData.stat == "FullDPS" and not GlobalCache.useFullDPS and not self.viewMode == "TREE" then
+			if statData.stat == "FullDPS" and not GlobalCache.useFullDPS and self.viewMode ~= "TREE" then
 				diff = 0
 			end
 			if (diff > 0.001 or diff < -0.001) and (not statData.condFunc or statData.condFunc(statVal1,compareOutput) or statData.condFunc(statVal2,baseOutput)) then
@@ -1955,6 +1956,9 @@ function buildMode:LoadDB(xmlText, fileName)
 	local dbXML, errMsg = common.xml.ParseXML(xmlText)
 	if not dbXML then
 		launch:ShowErrMsg("^1Error loading '%s': %s", fileName, errMsg)
+		return true
+	elseif #dbXML == 0 then
+		main:OpenMessagePopup("Error", "Build file is empty, or error parsing xml.\n\n"..fileName)
 		return true
 	elseif dbXML[1].elem ~= "PathOfBuilding" then
 		launch:ShowErrMsg("^1Error parsing '%s': 'PathOfBuilding' root element missing", fileName)

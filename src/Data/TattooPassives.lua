@@ -149,6 +149,7 @@ return {
 	}, 
 	["nodes"] = {
 		["Tattoo of the Tukohama Warcaller"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tukohama5", 
@@ -173,6 +174,7 @@ return {
 			["dn"] = "Tattoo of the Tukohama Warcaller", 
 		}, 
 		["Tattoo of the Hinekora Makanga"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Hinekora7", 
@@ -200,6 +202,7 @@ return {
 			["dn"] = "Tattoo of the Hinekora Makanga", 
 		}, 
 		["Tattoo of the Arohongui Warrior"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Arohongui3", 
@@ -224,6 +227,7 @@ return {
 			["dn"] = "Tattoo of the Arohongui Warrior", 
 		}, 
 		["Tattoo of the Hinekora Deathwarden"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Hinekora2", 
@@ -248,6 +252,7 @@ return {
 			["dn"] = "Tattoo of the Hinekora Deathwarden", 
 		}, 
 		["Tattoo of the Tasalio Scout"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tasalio5", 
@@ -272,6 +277,7 @@ return {
 			["dn"] = "Tattoo of the Tasalio Scout", 
 		}, 
 		["Loyalty Tattoo of Tawhanuku"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Hinekora6", 
@@ -301,6 +307,7 @@ return {
 			["dn"] = "Loyalty Tattoo of Tawhanuku", 
 		}, 
 		["Tattoo of the Ngamahu Warrior"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Ngamahu3", 
@@ -325,6 +332,7 @@ return {
 			["dn"] = "Tattoo of the Ngamahu Warrior", 
 		}, 
 		["Tattoo of the Ngamahu Warmonger"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Ngamahu4", 
@@ -349,6 +357,7 @@ return {
 			["dn"] = "Tattoo of the Ngamahu Warmonger", 
 		}, 
 		["Tattoo of the Valako Shaman"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Valako5", 
@@ -373,6 +382,7 @@ return {
 			["dn"] = "Tattoo of the Valako Shaman", 
 		}, 
 		["Tattoo of the Rongokurai Brute"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Rongokurai2", 
@@ -409,7 +419,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10091, 
+					["statOrder"] = 10092, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -425,6 +435,7 @@ return {
 			["dn"] = "The Agnostic", 
 		}, 
 		["Tattoo of the Tawhoa Scout"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tawhoa2", 
@@ -449,6 +460,7 @@ return {
 			["dn"] = "Tattoo of the Tawhoa Scout", 
 		}, 
 		["Tattoo of the Tawhoa Makanga"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tawhoa7", 
@@ -476,6 +488,7 @@ return {
 			["dn"] = "Tattoo of the Tawhoa Makanga", 
 		}, 
 		["Loyalty Tattoo of Kiloava"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Valako6", 
@@ -505,6 +518,7 @@ return {
 			["dn"] = "Loyalty Tattoo of Kiloava", 
 		}, 
 		["Honoured Tattoo of the Storm"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialNotableInt2", 
@@ -536,6 +550,7 @@ return {
 			["dn"] = "Honoured Tattoo of the Storm", 
 		}, 
 		["Tattoo of the Tukohama Shaman"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tukohama1", 
@@ -560,6 +575,7 @@ return {
 			["dn"] = "Tattoo of the Tukohama Shaman", 
 		}, 
 		["Tattoo of the Tasalio Makanga"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tasalio7", 
@@ -599,7 +615,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10077, 
+					["statOrder"] = 10078, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -628,7 +644,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10038, 
+					["statOrder"] = 10039, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -656,7 +672,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10069, 
+					["statOrder"] = 10070, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -685,7 +701,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10099, 
+					["statOrder"] = 10100, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -701,6 +717,7 @@ return {
 			["dn"] = "Runebinder", 
 		}, 
 		["Loyalty Tattoo of Kahuturoa"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Rongokurai6", 
@@ -731,6 +748,7 @@ return {
 			["dn"] = "Loyalty Tattoo of Kahuturoa", 
 		}, 
 		["Journey Tattoo of the Mind"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "UniqueNotableDex1", 
@@ -767,7 +785,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10034, 
+					["statOrder"] = 10035, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -797,7 +815,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10033, 
+					["statOrder"] = 10034, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -813,6 +831,7 @@ return {
 			["dn"] = "Arrow Dancing", 
 		}, 
 		["Tattoo of the Valako Shieldbearer"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Valako4", 
@@ -837,6 +856,7 @@ return {
 			["dn"] = "Tattoo of the Valako Shieldbearer", 
 		}, 
 		["Tattoo of the Ramako Sniper"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Ramako3", 
@@ -873,7 +893,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10031, 
+					["statOrder"] = 10032, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -888,6 +908,7 @@ return {
 			["dn"] = "Point Blank", 
 		}, 
 		["Tattoo of the Ngamahu Makanga"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Ngamahu7", 
@@ -915,6 +936,7 @@ return {
 			["dn"] = "Tattoo of the Ngamahu Makanga", 
 		}, 
 		["Honoured Tattoo of the Hatungo"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialSmallNode7", 
@@ -939,6 +961,7 @@ return {
 			["dn"] = "Honoured Tattoo of the Hatungo", 
 		}, 
 		["Tattoo of the Kitava Makanga"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Kitava7", 
@@ -966,6 +989,7 @@ return {
 			["dn"] = "Tattoo of the Kitava Makanga", 
 		}, 
 		["Loyalty Tattoo of Akoya"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tukohama6", 
@@ -996,6 +1020,7 @@ return {
 			["dn"] = "Loyalty Tattoo of Akoya", 
 		}, 
 		["Honoured Tattoo of the Warlord"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialNotableStr1", 
@@ -1021,6 +1046,7 @@ return {
 			["dn"] = "Honoured Tattoo of the Warlord", 
 		}, 
 		["Tattoo of the Ramako Scout"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Ramako1", 
@@ -1045,6 +1071,7 @@ return {
 			["dn"] = "Tattoo of the Ramako Scout", 
 		}, 
 		["Loyalty Tattoo of Utula"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Kitava6", 
@@ -1074,6 +1101,7 @@ return {
 			["dn"] = "Loyalty Tattoo of Utula", 
 		}, 
 		["Honoured Tattoo of the Oak"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialSmallNode6", 
@@ -1098,6 +1126,7 @@ return {
 			["dn"] = "Honoured Tattoo of the Oak", 
 		}, 
 		["Tattoo of the Arohongui Shaman"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Arohongui5", 
@@ -1134,7 +1163,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10079, 
+					["statOrder"] = 10080, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -1151,6 +1180,7 @@ return {
 			["dn"] = "Eternal Youth", 
 		}, 
 		["Tattoo of the Rongokurai Warrior"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Rongokurai1", 
@@ -1187,7 +1217,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10107, 
+					["statOrder"] = 10108, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -1216,7 +1246,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10037, 
+					["statOrder"] = 10038, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -1243,7 +1273,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10082, 
+					["statOrder"] = 10083, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -1260,6 +1290,7 @@ return {
 			["dn"] = "Ghost Reaver", 
 		}, 
 		["Tattoo of the Tawhoa Warrior"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tawhoa3", 
@@ -1284,6 +1315,7 @@ return {
 			["dn"] = "Tattoo of the Tawhoa Warrior", 
 		}, 
 		["Tattoo of the Hinekora Warmonger"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Hinekora5", 
@@ -1320,7 +1352,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10036, 
+					["statOrder"] = 10037, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -1348,7 +1380,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10039, 
+					["statOrder"] = 10040, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -1375,7 +1407,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10044, 
+					["statOrder"] = 10045, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -1391,6 +1423,7 @@ return {
 			["dn"] = "Resolute Technique", 
 		}, 
 		["Tattoo of the Tukohama Warrior"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tukohama2", 
@@ -1415,6 +1448,7 @@ return {
 			["dn"] = "Tattoo of the Tukohama Warrior", 
 		}, 
 		["Tattoo of the Rongokurai Turtle"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Rongokurai4", 
@@ -1439,6 +1473,7 @@ return {
 			["dn"] = "Tattoo of the Rongokurai Turtle", 
 		}, 
 		["Honoured Tattoo of the Pa"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialNotableStr3", 
@@ -1464,6 +1499,7 @@ return {
 			["dn"] = "Honoured Tattoo of the Pa", 
 		}, 
 		["Honoured Tattoo of the Tuatara"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialSmallNode3", 
@@ -1488,6 +1524,7 @@ return {
 			["dn"] = "Honoured Tattoo of the Tuatara", 
 		}, 
 		["Tattoo of the Ngamahu Firewalker"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Ngamahu1", 
@@ -1524,7 +1561,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10085, 
+					["statOrder"] = 10086, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -1540,6 +1577,7 @@ return {
 			["dn"] = "Hex Master", 
 		}, 
 		["Tattoo of the Rongokurai Guard"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Rongokurai5", 
@@ -1564,6 +1602,7 @@ return {
 			["dn"] = "Tattoo of the Rongokurai Guard", 
 		}, 
 		["Tattoo of the Hinekora Shaman"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Hinekora3", 
@@ -1588,6 +1627,7 @@ return {
 			["dn"] = "Tattoo of the Hinekora Shaman", 
 		}, 
 		["Tattoo of the Ngamahu Woodcarver"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Ngamahu5", 
@@ -1624,7 +1664,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10029, 
+					["statOrder"] = 10030, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -1639,6 +1679,7 @@ return {
 			["dn"] = "Pain Attunement", 
 		}, 
 		["Tattoo of the Valako Stormrider"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Valako1", 
@@ -1663,6 +1704,7 @@ return {
 			["dn"] = "Tattoo of the Valako Stormrider", 
 		}, 
 		["Loyalty Tattoo of Ahuana"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Ramako6", 
@@ -1693,6 +1735,7 @@ return {
 			["dn"] = "Loyalty Tattoo of Ahuana", 
 		}, 
 		["Loyalty Tattoo of Maata"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tawhoa6", 
@@ -1723,6 +1766,7 @@ return {
 			["dn"] = "Loyalty Tattoo of Maata", 
 		}, 
 		["Tattoo of the Rongokurai Goliath"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Rongokurai3", 
@@ -1747,6 +1791,7 @@ return {
 			["dn"] = "Tattoo of the Rongokurai Goliath", 
 		}, 
 		["Tattoo of the Ramako Makanga"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Ramako7", 
@@ -1786,7 +1831,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10076, 
+					["statOrder"] = 10077, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -1802,6 +1847,7 @@ return {
 			["dn"] = "Divine Shield", 
 		}, 
 		["Tattoo of the Tawhoa Naturalist"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tawhoa1", 
@@ -1826,6 +1872,7 @@ return {
 			["dn"] = "Tattoo of the Tawhoa Naturalist", 
 		}, 
 		["Tattoo of the Kitava Heart Eater"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Kitava4", 
@@ -1850,6 +1897,7 @@ return {
 			["dn"] = "Tattoo of the Kitava Heart Eater", 
 		}, 
 		["Honoured Tattoo of the Barbarian"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialNotableDex2", 
@@ -1881,6 +1929,7 @@ return {
 			["dn"] = "Honoured Tattoo of the Barbarian", 
 		}, 
 		["Tattoo of the Kitava Blood Drinker"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Kitava1", 
@@ -1905,6 +1954,7 @@ return {
 			["dn"] = "Tattoo of the Kitava Blood Drinker", 
 		}, 
 		["Ancestral Tattoo of Bloodlines"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "UniqueSmallNode1", 
@@ -1943,7 +1993,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10100, 
+					["statOrder"] = 10101, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -1959,6 +2009,7 @@ return {
 			["dn"] = "Imbalanced Guard", 
 		}, 
 		["Tattoo of the Tasalio Bladedancer"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tasalio1", 
@@ -1983,6 +2034,7 @@ return {
 			["dn"] = "Tattoo of the Tasalio Bladedancer", 
 		}, 
 		["Honoured Tattoo of the Wise"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialNotableInt1", 
@@ -2008,6 +2060,7 @@ return {
 			["dn"] = "Honoured Tattoo of the Wise", 
 		}, 
 		["Tattoo of the Tawhoa Herbalist"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tawhoa4", 
@@ -2032,6 +2085,7 @@ return {
 			["dn"] = "Tattoo of the Tawhoa Herbalist", 
 		}, 
 		["Tattoo of the Tukohama Makanga"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tukohama7", 
@@ -2059,6 +2113,7 @@ return {
 			["dn"] = "Tattoo of the Tukohama Makanga", 
 		}, 
 		["Loyalty Tattoo of Kaom"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Ngamahu6", 
@@ -2089,6 +2144,7 @@ return {
 			["dn"] = "Loyalty Tattoo of Kaom", 
 		}, 
 		["Tattoo of the Arohongui Moonwarden"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Arohongui1", 
@@ -2125,7 +2181,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10116, 
+					["statOrder"] = 10117, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -2152,7 +2208,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10083, 
+					["statOrder"] = 10084, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -2208,7 +2264,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10032, 
+					["statOrder"] = 10033, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -2235,7 +2291,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10115, 
+					["statOrder"] = 10116, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -2264,7 +2320,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10094, 
+					["statOrder"] = 10095, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -2280,6 +2336,7 @@ return {
 			["dn"] = "Precise Technique", 
 		}, 
 		["Tattoo of the Arohongui Warmonger"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Arohongui4", 
@@ -2304,6 +2361,7 @@ return {
 			["dn"] = "Tattoo of the Arohongui Warmonger", 
 		}, 
 		["Tattoo of the Tawhoa Shaman"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tawhoa5", 
@@ -2328,6 +2386,7 @@ return {
 			["dn"] = "Tattoo of the Tawhoa Shaman", 
 		}, 
 		["Honoured Tattoo of the Flock"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialSmallNode8", 
@@ -2364,7 +2423,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10086, 
+					["statOrder"] = 10087, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -2393,7 +2452,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10022, 
+					["statOrder"] = 10023, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -2409,6 +2468,7 @@ return {
 			["dn"] = "Ancestral Bond", 
 		}, 
 		["Tattoo of the Ramako Shaman"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Ramako5", 
@@ -2433,6 +2493,7 @@ return {
 			["dn"] = "Tattoo of the Ramako Shaman", 
 		}, 
 		["Honoured Tattoo of the Sky"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialSmallNode2", 
@@ -2457,6 +2518,7 @@ return {
 			["dn"] = "Honoured Tattoo of the Sky", 
 		}, 
 		["Honoured Tattoo of the Berserker"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialNotableDex3", 
@@ -2482,6 +2544,7 @@ return {
 			["dn"] = "Honoured Tattoo of the Berserker", 
 		}, 
 		["Tattoo of the Ramako Fleetfoot"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Ramako4", 
@@ -2518,7 +2581,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10019, 
+					["statOrder"] = 10020, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -2533,6 +2596,7 @@ return {
 			["dn"] = "Iron Reflexes", 
 		}, 
 		["Tattoo of the Kitava Shaman"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Kitava5", 
@@ -2557,6 +2621,7 @@ return {
 			["dn"] = "Tattoo of the Kitava Shaman", 
 		}, 
 		["Tattoo of the Tukohama Brawler"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tukohama3", 
@@ -2581,6 +2646,7 @@ return {
 			["dn"] = "Tattoo of the Tukohama Brawler", 
 		}, 
 		["Loyalty Tattoo of Ikiaho"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Arohongui6", 
@@ -2611,6 +2677,7 @@ return {
 			["dn"] = "Loyalty Tattoo of Ikiaho", 
 		}, 
 		["Tattoo of the Tasalio Shaman"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tasalio3", 
@@ -2647,7 +2714,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10087, 
+					["statOrder"] = 10088, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -2675,7 +2742,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10045, 
+					["statOrder"] = 10046, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -2691,6 +2758,7 @@ return {
 			["dn"] = "Unwavering Stance", 
 		}, 
 		["Tattoo of the Rongokurai Makanga"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Rongokurai7", 
@@ -2730,7 +2798,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10081, 
+					["statOrder"] = 10082, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -2747,6 +2815,7 @@ return {
 			["dn"] = "Ghost Dance", 
 		}, 
 		["Tattoo of the Arohongui Scout"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Arohongui2", 
@@ -2789,7 +2858,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10104, 
+					["statOrder"] = 10105, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -2805,6 +2874,7 @@ return {
 			["dn"] = "Solipsism", 
 		}, 
 		["Tattoo of the Kitava Rebel"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Kitava2", 
@@ -2841,7 +2911,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10114, 
+					["statOrder"] = 10115, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -2857,6 +2927,7 @@ return {
 			["dn"] = "Wicked Ward", 
 		}, 
 		["Tattoo of the Arohongui Makanga"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Arohongui7", 
@@ -2884,6 +2955,7 @@ return {
 			["dn"] = "Tattoo of the Arohongui Makanga", 
 		}, 
 		["Tattoo of the Ngamahu Shaman"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Ngamahu2", 
@@ -2908,6 +2980,7 @@ return {
 			["dn"] = "Tattoo of the Ngamahu Shaman", 
 		}, 
 		["Tattoo of the Tasalio Tideshifter"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tasalio2", 
@@ -2944,7 +3017,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10030, 
+					["statOrder"] = 10031, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -2959,6 +3032,7 @@ return {
 			["dn"] = "Iron Grip", 
 		}, 
 		["Loyalty Tattoo of Rakiata"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tasalio6", 
@@ -2988,6 +3062,7 @@ return {
 			["dn"] = "Loyalty Tattoo of Rakiata", 
 		}, 
 		["Tattoo of the Hinekora Warrior"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Hinekora1", 
@@ -3024,7 +3099,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10088, 
+					["statOrder"] = 10089, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -3040,6 +3115,7 @@ return {
 			["dn"] = "Magebane", 
 		}, 
 		["Tattoo of the Tukohama Warmonger"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tukohama4", 
@@ -3076,7 +3152,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 8, 
-					["statOrder"] = 10061, 
+					["statOrder"] = 10062, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -3093,6 +3169,7 @@ return {
 			["dn"] = "Crimson Dance", 
 		}, 
 		["Honoured Tattoo of the Makanga"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "UniqueSmallNode2", 
@@ -3132,7 +3209,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10020, 
+					["statOrder"] = 10021, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -3160,7 +3237,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10021, 
+					["statOrder"] = 10022, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -3177,6 +3254,7 @@ return {
 			["dn"] = "Eldritch Battery", 
 		}, 
 		["Tattoo of the Valako Scout"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Valako2", 
@@ -3201,6 +3279,7 @@ return {
 			["dn"] = "Tattoo of the Valako Scout", 
 		}, 
 		["Honoured Tattoo of the Dove"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialSmallNode1", 
@@ -3225,6 +3304,7 @@ return {
 			["dn"] = "Honoured Tattoo of the Dove", 
 		}, 
 		["Honoured Tattoo of the Turtle"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialSmallNode5", 
@@ -3249,6 +3329,7 @@ return {
 			["dn"] = "Honoured Tattoo of the Turtle", 
 		}, 
 		["Tattoo of the Kitava Warrior"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Kitava3", 
@@ -3273,6 +3354,7 @@ return {
 			["dn"] = "Tattoo of the Kitava Warrior", 
 		}, 
 		["Honoured Tattoo of the Mountain"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialNotableStr2", 
@@ -3316,7 +3398,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10072, 
+					["statOrder"] = 10073, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -3332,6 +3414,7 @@ return {
 			["dn"] = "Call to Arms", 
 		}, 
 		["Honoured Tattoo of the Hunter"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialNotableDex1", 
@@ -3369,7 +3452,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10043, 
+					["statOrder"] = 10044, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -3384,6 +3467,7 @@ return {
 			["dn"] = "Mind Over Matter", 
 		}, 
 		["Honoured Tattoo of the Flood"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialNotableInt3", 
@@ -3409,6 +3493,7 @@ return {
 			["dn"] = "Honoured Tattoo of the Flood", 
 		}, 
 		["Honoured Tattoo of the Pillager"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "SpecialSmallNode4", 
@@ -3433,6 +3518,7 @@ return {
 			["dn"] = "Honoured Tattoo of the Pillager", 
 		}, 
 		["Journey Tattoo of the Body"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "UniqueNotableStr1", 
@@ -3457,6 +3543,7 @@ return {
 			["dn"] = "Journey Tattoo of the Body", 
 		}, 
 		["Journey Tattoo of the Soul"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "UniqueNotableInt1", 
@@ -3493,7 +3580,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10112, 
+					["statOrder"] = 10113, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -3522,7 +3609,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10028, 
+					["statOrder"] = 10029, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -3538,6 +3625,7 @@ return {
 			["dn"] = "Acrobatics", 
 		}, 
 		["Tattoo of the Tasalio Warrior"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Tasalio4", 
@@ -3574,7 +3662,7 @@ return {
 					["fmt"] = "d", 
 					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 10035, 
+					["statOrder"] = 10036, 
 				}, 
 			}, 
 			["not"] = false, 
@@ -3589,6 +3677,7 @@ return {
 			["dn"] = "Minion Instability", 
 		}, 
 		["Tattoo of the Ramako Archer"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Ramako2", 
@@ -3613,6 +3702,7 @@ return {
 			["dn"] = "Tattoo of the Ramako Archer", 
 		}, 
 		["Tattoo of the Valako Warrior"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Valako3", 
@@ -3637,6 +3727,7 @@ return {
 			["dn"] = "Tattoo of the Valako Warrior", 
 		}, 
 		["Tattoo of the Valako Makanga"] = {
+			["legacy"] = true, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Valako7", 
@@ -3664,6 +3755,7 @@ return {
 			["dn"] = "Tattoo of the Valako Makanga", 
 		}, 
 		["Tattoo of the Hinekora Storyteller"] = {
+			["legacy"] = false, 
 			["m"] = false, 
 			["isTattoo"] = true, 
 			["id"] = "Hinekora4", 

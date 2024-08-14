@@ -70,6 +70,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 		self.controls.scrollBarH.shown = false
 		self.controls.scrollBarV.shown = false
 	end
+	self.labelPositionOffset = {0, 0}
 end)
 
 function ListClass:SelectIndex(index)
@@ -176,7 +177,7 @@ function ListClass:Draw(viewPort, noTooltip)
 
 	local label = self:GetProperty("label") 
 	if label then
-		DrawString(x, y - 20, "LEFT", 16, self.font, label)
+		DrawString(x + self.labelPositionOffset[1], y - 20 + self.labelPositionOffset[2], "LEFT", 16, self.font, label)
 	end
 	if self.otherDragSource and not self.CanDragToValue then
 		SetDrawColor(0.2, 0.6, 0.2)

@@ -271,12 +271,13 @@ local function getGemModList(env, groupCfg, socketColor, socketNum)
 	local gemCfg = copyTable(groupCfg, true)
 	gemCfg.socketColor = socketColor
 	gemCfg.socketNum = socketNum
-	return env.modDB:List(gemCfg, "GemProperty")
+	return env.modDB:Tabulate("LIST", gemCfg, "GemProperty")
 end
 
 local function applyGemMods(effect, modList)
-	for _, value in ipairs(modList) do
+	for _, mod in ipairs(modList) do
 		local match = true
+		local value = mod.value
 		if value.keywordList then
 			for _, keyword in ipairs(value.keywordList) do
 				if not calcLib.gemIsType(effect.gemData, keyword, true) then
@@ -289,6 +290,8 @@ local function applyGemMods(effect, modList)
 		end
 		if match then
 			effect[value.key] = (effect[value.key] or 0) + value.value
+			effect.gemPropertyInfo = effect.gemPropertyInfo or {}
+			t_insert(effect.gemPropertyInfo, mod)
 		end
 	end
 end
@@ -510,7 +513,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
 		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")
 		modDB:NewMod("TinctureLimit", "BASE", 1, "Base")
-		modDB:NewMod("ManaDegenPercent", "BASE", 1, "Base", { type = "Multiplier", var = "ManaBurnStacks" })
+		modDB:NewMod("ManaDegenPercent", "BASE", 1, "Base", { type = "Multiplier", var = "EffectiveManaBurnStacks" })
 		modDB:NewMod("LifeDegenPercent", "BASE", 1, "Base", { type = "Multiplier", var = "WeepingWoundsStacks" })
 
 		-- Add bandit mods
@@ -1330,7 +1333,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				groupCfgList[slotName or "noSlot"] = groupCfgList[slotName or "noSlot"] or {}
 				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
-					propertyModList = env.modDB:List({slotName = slotName}, "GemProperty")
+					propertyModList = env.modDB:Tabulate("LIST", {slotName = slotName}, "GemProperty")
 				}
 				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				local propertyModList = groupCfg.propertyModList
@@ -1433,7 +1436,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				local slotName = group.slot and group.slot:gsub(" Swap","")
 				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
-					propertyModList = env.modDB:List({slotName = slotName}, "GemProperty")
+					propertyModList = env.modDB:Tabulate("LIST", {slotName = slotName}, "GemProperty")
 				}
 				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				local propertyModList = groupCfg.propertyModList
@@ -1555,7 +1558,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if index == env.mainSocketGroup or (group.enabled and group.slotEnabled) then
 				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
-					propertyModList = env.modDB:List({slotName = slotName}, "GemProperty")
+					propertyModList = env.modDB:Tabulate("LIST", {slotName = slotName}, "GemProperty")
 				}
 				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				for _, value in ipairs(env.modDB:List(groupCfg, "GroupProperty")) do

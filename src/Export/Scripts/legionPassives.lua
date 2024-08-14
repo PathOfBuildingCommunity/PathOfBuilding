@@ -21,6 +21,38 @@ local datErrors = {
 			["Id"] = "templar_notable_minimum_frenzy_charge",
 		},
 	},
+	["karui_notable_add_physical_taken_as_fire"] = {
+		["match"] = {
+			["Id"] = "karui_notable_add_physical_taken_as_fire",
+		},
+		["replace"] = {
+			["Id"] = "karui_notable_add_rage_on_melee_hit",
+		},
+	},
+	["karui_notable_add_faster_burn"] = {
+		["match"] = {
+			["Id"] = "karui_notable_add_faster_burn",
+		},
+		["replace"] = {
+			["Id"] = "karui_notable_add_faster_ignite",
+		},
+	},
+	["maraketh_notable_add_ailment_avoid"] = {
+		["match"] = {
+			["Id"] = "maraketh_notable_add_ailment_avoid",
+		},
+		["replace"] = {
+			["Id"] = "maraketh_notable_add_stun_avoid",
+		},
+	},
+	["maraketh_notable_add_flask_effect"] = {
+		["match"] = {
+			["Id"] = "maraketh_notable_add_flask_effect",
+		},
+		["replace"] = {
+			["Id"] = "maraketh_notable_add_alchemists_genius",
+		},
+	},
 }
 
 local fixDatErrors = function(row)
@@ -197,6 +229,7 @@ for i=1, alternatePassiveAdditionsDat.rowCount do
 		local key = alternatePassiveAdditionsDat.spec[j].name
 		datFileRow[key] = alternatePassiveAdditionsDat:ReadCell(i, j)
 	end
+	fixDatErrors(datFileRow)
 
 	---@type table<string, boolean|string|number|table>
 	local legionPassiveAddition = {}

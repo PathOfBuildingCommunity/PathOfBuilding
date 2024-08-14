@@ -56,6 +56,37 @@ Steps:
 7. Restart Path of Building Community. This should result in a new file `tree.lua`.
 8. Remove `data.json` and `sprites.json` from the new directory. Do not commit these files.
 
+## Timeless Jewel updates
+
+The Timeless jewels determine what effect they have on a node based on the "Look up Tables" in \src\Data\TimelessJewelData
+The LuTs for the Timeless jewels come from https://github.com/Regisle/TimelessJewelData
+More information can be found there.
+
+The LuTs PoB uses are slightly different due to historical reasons, and so they can be generated using the generator from there.
+
+
+-------------------------------------------------------------------------------------------------------
+Steps to Generate Timeless Jewel LuTs for PoB:
+1. Clone repo from https://github.com/Regisle/TimelessJewelData/tree/Generator
+2. Open DatafileGenerator.sln in Visual Studio
+3. Grab new data.json tree file
+4. Grab new AlternatePassiveAdditions.json and AlternatePassiveSkills.json from https://snosme.github.io/poe-dat-viewer/ and clicking on 'Export data' in the top right
+5. Run following commands in the Visual Studio command prompt order, adjusting for file location
+	dotnet run --project DataFileGenerator
+	E:\PoB Dev Work\TimelessJewelData\AlternatePassiveAdditions.json
+	E:\PoB Dev Work\TimelessJewelData\AlternatePassiveSkills.json
+	E:\PoB Dev Work\GGG Skill Tree\data.json
+	E:\PoB Dev Work\PathOfBuildingCommunity\src\Data\TimelessJewelData
+6. Choose Compressed
+7. Replace updated Files in \src\Data\TimelessJewelData
+
+Alt tab out and back in to make right click paste work
+------------------------------------------------------------------------------------------------------- 
+
+If updated this way making a PR to https://github.com/Regisle/TimelessJewelData with the files in the format it uses is appreciated.
+To do this follow steps 1-5 the same and choose the other option for step 6.
+
+
 ## Installer creation
 
 Path of Building Community offers both installable and standalone releases. They're

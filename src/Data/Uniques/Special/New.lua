@@ -145,7 +145,7 @@ League: Settlers of Kalguur
 Requires Level 18
 Implicits: 1
 (70-100)% increased Elemental Damage with Melee Weapons
-Melee Weapon Damage Penetrates 1% Elemental Resistance per Mana Burn
+Melee Weapon Damage Penetrates 1% Elemental Resistance per Mana Burn, up to a maximum of 200%
 (20-40)% increased Cooldown Recovery Rate
 (35--35)% increased Mana Burn rate
 ]],[[
@@ -193,6 +193,18 @@ Trigger Level 20 Tawhoa's Chosen when you Attack with a Non-Vaal Slam or Strike 
 (250-300)% increased Physical Damage
 (20-30)% increased Stun Duration on Enemies
 (20-30)% reduced Enemy Stun Threshold with this Weapon
+]],[[
+The Living Blade
+Ezomyte Blade
+League: Settlers of Kalguur
+Requires Level 61, 113 Str, 113 Dex
+Implicits: 1
++25% to Global Critical Strike Multiplier
+(100-140)% increased Physical Damage
+(25-35)% increased Attack Speed
+Cannot be Poisoned
+You can have an additional Tincture active
+10% chance to remove 1 Mana Burn on Kill
 ]],
 
 }

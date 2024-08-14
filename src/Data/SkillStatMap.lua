@@ -2060,7 +2060,7 @@ return {
 	flag("SpellCastTimeAddedToCooldownIfTriggered"),
 },
 ["gain_x_rage_on_attack_hit"] = {
-	flag("Condition:CanGainRage", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+	flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff", effectName = "Rage" } ),
 },
 ["warcry_count_power_from_enemies"] = {
 	flag("UsesWarcryPower", { type = "GlobalEffect", effectType = "Buff" })
