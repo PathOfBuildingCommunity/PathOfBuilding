@@ -1316,8 +1316,9 @@ local configTable = {
 			if #triggeredSkills < 1 then
 				-- Snipe is being used as a standalone skill
 				if snipeStages then
-					env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeHitMulti * snipeStages, "Snipe", ModFlag.Hit, 0)
-					env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeAilmentMulti * snipeStages, "Snipe", ModFlag.Ailment, 0)
+					env.player.mainSkill.skillModList:NewMod("Multiplier:SnipeStages", "BASE", snipeStages, "Snipe")
+					env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeHitMulti, "Snipe", ModFlag.Hit, 0, { type = "Multiplier", var = "SnipeStages" })
+					env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeAilmentMulti, "Snipe", ModFlag.Ailment, 0, { type = "Multiplier", var = "SnipeStages" })
 				end
 			else
 				-- Snipe is being used as a trigger source, it triggers other skills but does no damage it self
@@ -1340,8 +1341,9 @@ local configTable = {
 			if currentSkillSnipeIndex and currentSkillSnipeIndex <= snipeStages then
 				local source
 				local trigRate
-				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeHitMulti * snipeStages , "Snipe", ModFlag.Hit, 0)
-				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeAilmentMulti * snipeStages , "Snipe", ModFlag.Ailment, 0)
+				env.player.mainSkill.skillModList:NewMod("Multiplier:SnipeStages", "BASE", snipeStages, "Snipe")
+				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeAilmentMulti, "Snipe", ModFlag.Ailment, 0, { type = "Multiplier", var = "SnipeStages" })
+				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeHitMulti, "Snipe", ModFlag.Hit, 0, { type = "Multiplier", var = "SnipeStages" })
 				for _, skill in ipairs(env.player.activeSkillList) do
 					if skill.activeEffect.grantedEffect.name == "Snipe" and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
 						skill.skillData.hitTimeMultiplier = snipeStages - 0.5
