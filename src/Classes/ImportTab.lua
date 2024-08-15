@@ -1148,6 +1148,5 @@ function ImportTabClass:SetPredefinedBuildName()
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
 	local charName = charData.name
-	local predefName = accountName.." - "..charName
-	main.predefinedBuildName = predefName
+	main.predefinedBuildName = accountName.." - "..charName
 end
