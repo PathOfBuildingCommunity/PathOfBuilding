@@ -401,13 +401,14 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 end
 
 -- Process active skill
-function calcs.buildActiveSkill(env, mode, skill, targetUUID)
+function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingFlags)
 	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
 	targetUUID = targetUUID or cacheSkillUUID(skill, env)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		local activeSkillUUID = cacheSkillUUID(activeSkill, fullEnv)
 		if activeSkillUUID == targetUUID then
 			fullEnv.player.mainSkill = activeSkill
+			fullEnv.player.mainSkill.skillData.limitedProcessing = limitedProcessingFlags and limitedProcessingFlags[activeSkillUUID]
 			calcs.perform(fullEnv, true)
 			return
 		end

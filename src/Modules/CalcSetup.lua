@@ -344,14 +344,6 @@ end
 -- 5. Builds a list of active skills and their supports (calcs.createActiveSkill)
 -- 6. Builds modifier lists for all active skills (calcs.buildActiveSkillModList)
 function calcs.initEnv(build, mode, override, specEnv)
-	-- envirement modes:
-	-- MAIN: used by envirements handling calculations for the side bar
-	-- CALCS: used by envirement handling calculations for the calcs tab
-	-- CALCULATOR: used by getMiscCalculator and other places that peform comparison calculations.
-	--- Prevents use of currently cached envirements in GlobalCache
-	-- CACHE: used by potentially recursive calculations (trigger, max stages).
-	--- Primairly used to prevent infinite recursion loops. May contain incomplete calculations.
-
 	-- accelerator variables
 	local cachedPlayerDB = specEnv and specEnv.cachedPlayerDB or nil
 	local cachedEnemyDB = specEnv and specEnv.cachedEnemyDB or nil

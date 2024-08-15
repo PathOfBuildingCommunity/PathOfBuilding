@@ -316,7 +316,7 @@ SkillType = {
 	NeverExertable = 133,
 }
 
-GlobalCache = {
+GlobalCache = { 
 	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {}, CACHE = {}, },
 	noCache = nil,
 	useFullDPS = false,
