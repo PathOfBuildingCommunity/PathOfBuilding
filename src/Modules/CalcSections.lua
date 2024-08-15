@@ -503,6 +503,8 @@ return {
 	{ label = "CWDT Threshold", haveOutput = "CWDTThreshold", flag = "triggered", { format = "{2:output:CWDTThreshold}", { breakdown = "CWDTThreshold" }, }, },
 	{ label = "Channel time", flag = "channelRelease", haveOutput = "HitTime", { format = "{2:output:HitTime}s", { breakdown = "HitTime" } }, },
 	{ label = "Hit Rate", haveOutput = "HitSpeed", { format = "{2:output:HitSpeed}", { breakdown = "HitSpeed" } }, },
+	{ label = "Inc. Warcry Speed", flag = "warcry", { format = "{0:mod:2}%", { breakdown = "WarcrySpeed" }, { modName = "WarcrySpeed", modType = "INC", cfg = "skill", }, }, },
+	{ label = "More Warcry Speed", flag = "warcry", { format = "{0:mod:2}%", { breakdown = "WarcrySpeed" }, { modName = "WarcrySpeed", modType = "MORE", cfg = "skill", }, }, },
 } }
 } },
 { 1, "Crit", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Crits", data = {
