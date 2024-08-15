@@ -2814,7 +2814,7 @@ local specialModList = {
 	["socketed non%-channelling bow skills are triggered by snipe"] = {
 	},
 	["grants level (%d+) snipe skill"] = function(num) return {
-		mod("ExtraSkill", "LIST", { skillId = "ChannelledSnipe", level = num }),
+		mod("ExtraSkill", "LIST", { skillId = "Snipe", level = num }),
 		mod("ExtraSupport", "LIST", { skillId = "ChannelledSnipeSupport", level = num }, { type = "SocketedIn", slotName = "{SlotName}" }),
 	} end,
 	["socketed triggered bow skills deal (%d+)%% less damage"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("Damage", "MORE", -num) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "bow" }, { type = "SkillType", skillType = SkillType.Triggerable }) } end,
