@@ -405,7 +405,7 @@ function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingF
 	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
 
 	-- env.limitedSkills contains a map of uuids that should be limited in calculation
-	-- this is in order to prevent infinite resursion loops
+	-- this is in order to prevent infinite recursion loops
 	fullEnv.limitedSkills = fullEnv.limitedSkills or {}
 	for uuid, _ in pairs(env.limitedSkills or {}) do
 		fullEnv.limitedSkills[uuid] = true
