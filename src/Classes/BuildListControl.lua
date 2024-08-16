@@ -139,11 +139,31 @@ function BuildListClass:RenameBuild(build, copyOnName)
 	main:OpenPopup(370, 100, (copyOnName and "Copy " or "Rename ")..(build.folderName and "Folder" or "Build"), controls, "save", "edit")	
 end
 
+function deleteDirectory(dir)	
+	local search = NewFileSearch(dir..'/*')
+	if search then
+		os.remove(dir..'/'..search:GetFileName())
+		while search:NextFile() do
+			os.remove(dir..'/'..search:GetFileName())
+		end	
+	endsearch
+
+	local search = NewFileSearch(dir..'/*', true)
+	if search then
+		deleteDirectory(dir..'/'..search:GetFileName())
+		while search:NextFile() do
+			deleteDirectory(dir..'/'..search:GetFileName())
+		end
+	end   
+
+    RemoveDir(dir)
+end
+
 function BuildListClass:DeleteBuild(build)
 	if build.folderName then
 		if NewFileSearch(build.fullFileName.."/*") or NewFileSearch(build.fullFileName.."/*", true) then
 			main:OpenConfirmPopup("Confirm Folder Delete", "The folder is not empty.\nAre you sure you want to delete build:\n"..build.folderName.."\nThis cannot be undone.", "Delete", function()				
-				os.execute("rd \""..build.fullFileName:gsub("\\", "/").."\" /S /Q")
+				deleteDirectory(build.fullFileName:gsub("\\", "/"))
 				self.listMode:BuildList()
 				self.selIndex = nil
 				self.selValue = nil
