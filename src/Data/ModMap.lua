@@ -1,11 +1,14 @@
 -- This is currently made by hand but should be auto generated
 -- Item data (c) Grinding Gear Games
 
+local mapTierCache = { }
+
 return {
 	AffixData = {
 		-- defensive prefixes
 		["Armoured"] = {
 			type = "list",
+			label = "Enemy Physical Damage reduction                                                                  Monster Armoured",
 			tooltipLines = { "+%d%% Monster Physical Damage Reduction" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("PhysicalDamageReduction", "BASE", values[val] * mapModEffect, "Map mod Armoured")
@@ -19,6 +22,7 @@ return {
 		},
 		["Hexproof"] = {
 			type = "check",
+			label = "Enemy is Hexproof?                                                                  Monsters are Hexproof",
 			tooltipLines = { "Monsters are Hexproof" },
 			apply = function(val, mapModEffect, modList, enemyModList)
 				enemyModList:NewMod("Hexproof", "FLAG", true, "Map mod Hexproof")
@@ -26,6 +30,7 @@ return {
 		},
 		["Hexwarded"] = {
 			type = "list",
+			label = "Less effect of Curses on enemy                                                                  Monsters Hexwarded",
 			tooltipLines = { "%d%% less effect of Curses on Monsters" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("CurseEffectOnSelf", "MORE", -values[val] * mapModEffect, "Map mod Hexwarded")
@@ -39,6 +44,7 @@ return {
 		},
 		["Resistant"] = {
 			type = "list",
+			label = "Enemy has Elemental / ^xD02090Chaos ^7Resist                                                                  Monster Resistance Resistances Resistant",
 			tooltipLines = { "+%d%% Monster Chaos Resistance", "+%d%% Monster Elemental Resistances" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("ElementalResist", "BASE", values[val][2] * mapModEffect, "Map mod Resistant")
@@ -90,6 +96,7 @@ return {
 		},
 		["Unstoppable"] = {
 			type = "check",
+			label = "Enemy Cannot Be Slowed                                                                  Monsters Taunted Monsters' Action Speed modified below Base Value Movement Unstoppable",
 			tooltipLines = { "Monsters cannot be Taunted", "Monsters' Action Speed cannot be modified to below Base Value", "Monsters' Movement Speed cannot be modified to below Base Value" },
 			apply = function(val, mapModEffect, modList, enemyModList)
 				-- MISSING: Monsters cannot be Taunted
@@ -98,6 +105,7 @@ return {
 		},
 		["Impervious"] = {
 			type = "list",
+			label = "Enemy chance to avoid Poison and Bleed                                                                  Monsters have Poison, Impale, Bleeding Impervious",
 			tooltipLines = { "Monsters have a %d%% chance to avoid Poison, Impale, and Bleeding" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("AvoidPoison", "BASE", values[val] * mapModEffect, "Map mod Impervious")
@@ -174,6 +182,7 @@ return {
 		-- offensive prefixes
 		["Savage"] = {
 			type = "count",
+			label = "Enemy Increased Damage                                                                  to Monster Savage",
 			tooltipLines = { "(%d to %d)%% increased Monster Damage" },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("Damage", "INC", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Savage")
@@ -187,6 +196,7 @@ return {
 		},
 		["Savage UBER"] = {
 			type = "count",
+			label = "Enemy Increased Damage                                                                  to Monster Savage UBER",
 			tooltipLines = { "(%d to %d)%% increased Monster Damage" },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("Damage", "INC", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Savage")
@@ -197,6 +207,7 @@ return {
 		},
 		["Burning"] = {
 			type = "count",
+			label = "Enemy Physical As Extra Fire                                                                  Monsters deal to Damage Burning",
 			tooltipLines = { "Monsters deal (%d to %d)%% extra Physical Damage as Fire" },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("PhysicalDamageGainAsFire", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Burning")
@@ -210,6 +221,7 @@ return {
 		},
 		["Freezing"] = {
 			type = "count",
+			label = "Enemy Physical As Extra Cold                                                                  Monsters deal to Damage Freezing",
 			tooltipLines = { "Monsters deal (%d to %d)%% extra Physical Damage as Cold" },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("PhysicalDamageGainAsCold", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Freezing")
@@ -223,6 +235,7 @@ return {
 		},
 		["Shocking"] = {
 			type = "count",
+			label = "Enemy Physical As Extra Lightning                                                                  Monsters deal to Damage Shocking",
 			tooltipLines = { "Monsters deal (%d to %d)%% extra Physical Damage as Lightning" },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("PhysicalDamageGainAsLightning", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Shocking")
@@ -236,6 +249,7 @@ return {
 		},
 		["Profane"] = {
 			type = "count",
+			label = "Enemy Physical As Extra Chaos                                                                  Monsters gain to their Damage Inflict Withered for seconds Hit Profane",
 			tooltipLines = { "Monsters gain (%d to %d)%% of their Physical Damage as Extra Chaos Damage", "Monsters Inflict Withered for %d seconds on Hit" },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				if values[val] then
@@ -251,6 +265,7 @@ return {
 		},
 		["Profane UBER"] = {
 			type = "count",
+			label = "Enemy Physical As Extra Chaos                                                                  Monsters gain to their Damage Profane UBER",
 			tooltipLines = { "Monsters gain (%d to %d)%% of their Physical Damage as Extra Chaos Damage" },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				if values[val] then
@@ -263,6 +278,7 @@ return {
 		},
 		["Fleet"] = {
 			type = "count",
+			label = "Enemy Increased Speed                                                                  to Monster Movement Attack Cast Fleet",
 			tooltipLines = { "(%d to %d)%% increased Monster Movement Speed", "(%d to %d)%% increased Monster Attack Speed", "(%d to %d)%% increased Monster Cast Speed" },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				-- attack and cast is the same so applying it once, movespeed does not matter
@@ -272,21 +288,12 @@ return {
 				[1] = { { 15, 20 }, { 20, 25 }, { 20, 25 } },
 				[2] = { { 20, 25 }, { 25, 35 }, { 25, 35 } },
 				[3] = { { 25, 30 }, { 35, 45 }, { 35, 45 } },
-			},
-		},
-		["Fleet UBER"] = {
-			type = "count",
-			tooltipLines = { "(%d to %d)%% increased Monster Movement Speed", "(%d to %d)%% increased Monster Attack Speed", "(%d to %d)%% increased Monster Cast Speed" },
-			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
-				-- attack and cast is the same so applying it once, movespeed does not matter
-				enemyModList:NewMod("Speed", "INC", (values[val][2][1] + (values[val][2][2] - values[val][2][1]) * rollRange / 100) * mapModEffect, "Map mod Fleet")
-			end,
-			values = {
 				[4] = { { 35, 45 }, { 35, 45 }, { 25, 30 } },
 			},
 		},
 		["Conflagrating"] = {
 			type = "check",
+			label = "Enemy Hits always Ignites                                                                  All Monster Damage from Conflagrating",
 			tooltipLines = { "All Monster Damage from Hits always Ignites" },
 			apply = function(val, mapModEffect, modList, enemyModList)
 				enemyModList:NewMod("IgniteChance", "BASE", 100, "Map mod Conflagrating")
@@ -295,6 +302,7 @@ return {
 		},
 		["Impaling"] = {
 			type = "list",
+			label = "Enemy chance to Impale                                                                  Monsters' Attacks have Hit Impaling",
 			tooltipLines = { "Monsters' Attacks have %d%% chance to Impale on Hit" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("ImpaleChance", "BASE", values[val] * mapModEffect, "Map mod Impaling", ModFlag.Attack)
@@ -308,6 +316,7 @@ return {
 		},
 		["Impaling UBER"] = {
 			type = "list",
+			label = "Enemy chance to Impale                                                                  Monsters' Attacks Hit When fifth is inflicted Player, Impales are removed Reflect their Physical Damage multiplied by remaining Hits that and Allies within metres Impaling UBER",
 			tooltipLines = { "Monsters' Attacks Impale on Hit", "When a fifth Impale is inflicted on a Player, Impales are removed to Reflect their Physical Damage multiplied by their remaining Hits to that Player and their Allies within %d.%d metres" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				if val == 4 then
@@ -320,6 +329,7 @@ return {
 		},
 		["Empowered"] = {
 			type = "list",
+			label = "Enemy Elemental Ailments chance on Hit                                                                  Monsters have to Ignite, Freeze and Shock Empowered",
 			tooltipLines = { "Monsters have a %d%% chance to Ignite, Freeze and Shock on Hit" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				if values[val] then
@@ -334,6 +344,7 @@ return {
 		},
 		["Overlord's"] = {
 			type = "list",
+			label = "Boss Increased Damage / Speed                                                                  Unique deals has Attack and Cast Overlord's",
 			tooltipLines = { "Unique Boss deals %d%% increased Damage", "Unique Boss has %d%% increased Attack and Cast Speed" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("Damage", "INC", values[val][1] * mapModEffect, "Map mod Overlord's", { type = "Condition", var = "RareOrUnique" })
@@ -392,6 +403,7 @@ return {
 		},
 		["of Congealment"] = {
 			type = "check",
+			label = "Cannot Leech ^xE05030Life ^7/ ^x7070FFMana                                                                  Monsters be Leeched from of Congealment",
 			tooltipLines = { "Monsters cannot be Leeched from" },
 			apply = function(val, mapModEffect, modList, enemyModList)
 				enemyModList:NewMod("CannotLeechLifeFromSelf", "FLAG", true, "Map mod of Congealment")
@@ -401,6 +413,7 @@ return {
 		},
 		["of Drought"] = {
 			type = "list",
+			label = "Gain reduced Flask Charges                                                                  Players of Drought",
 			tooltipLines = { "Players gain %d%% reduced Flask Charges" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				modList:NewMod("FlaskChargesGained", "INC", -values[val] * mapModEffect, "Map mod of Drought")
@@ -414,6 +427,7 @@ return {
 		},
 		["of Exposure"] = {
 			type = "count",
+			label = "-X% maximum Resistances                                                                  Players have minus to all of Exposure",
 			tooltipLines = { "Players have minus (%d to %d)%% to all maximum Resistances" },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				if values[val] then
@@ -432,6 +446,7 @@ return {
 		},
 		["of Exposure UBER"] = {
 			type = "list",
+			label = "-X% maximum Resistances                                                                  Players have minus to all of Exposure UBER",
 			tooltipLines = { "Players have minus %d%% to all maximum Resistances" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				if val == 4 then
@@ -447,6 +462,7 @@ return {
 		},
 		["of Impotence"] = {
 			type = "list",
+			label = "Less Area of Effect:                                                                  Players have of Impotence",
 			tooltipLines = { "Players have %d%% less Area of Effect" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				modList:NewMod("AreaOfEffect", "MORE", -values[val] * mapModEffect, "Map mod of Impotence")
@@ -460,6 +476,7 @@ return {
 		},
 		["of Impotence UBER"] = {
 			type = "count",
+			label = "Less Area of Effect:                                                                  Players have to of Impotence UBER",
 			tooltipLines = { "Players have (%d to %d)%% less Area of Effect" },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				if val == 4 then
@@ -472,6 +489,7 @@ return {
 		},
 		["of Insulation"] = {
 			type = "list",
+			label = "Enemy chance to avoid Elemental Ailments                                                                  Monsters have of Insulation",
 			tooltipLines = { "Monsters have %d%% chance to Avoid Elemental Ailments" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("AvoidElementalAilments", "BASE", values[val] * mapModEffect, "Map mod of Insulation")
@@ -485,6 +503,7 @@ return {
 		},
 		["of Miring"] = {
 			type = "list",
+			label = "Enemy has inc. Accuracy: / Players have to amount of Suppressed Spell Damage Prevented                                                                  Monsters increased Rating minus of Miring",
 			tooltipLines = { "Monsters have %d%% increased Accuracy Rating", "Players have minus %d%% to amount of Suppressed Spell Damage Prevented" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				modList:NewMod("SpellSuppressionEffect", "BASE", -values[val][1] * mapModEffect, "Map mod of Miring")
@@ -499,6 +518,7 @@ return {
 		},
 		["of Miring UBER"] = {
 			type = "count",
+			label = "Less Global Defences                                                                  Players have to of Miring UBER",
 			tooltipLines = { "Players have (%d to %d)%% less Defences" },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				modList:NewMod("Defences", "MORE", -(values[val][2] + (values[val][1] - values[val][2]) * 100 / 100) * mapModEffect, "Map mod of Miring")
@@ -509,6 +529,7 @@ return {
 		},
 		["of Rust"] = {
 			type = "list",
+			label = "Reduced Block Chance / less Armour                                                                  Players have to of Rust",
 			tooltipLines = { "Players have %d%% less Armour", "Players have %d%% reduced Chance to Block" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				modList:NewMod("BlockChance", "INC", -values[val][1] * mapModEffect, "Map mod of Rust")
@@ -523,6 +544,7 @@ return {
 		},
 		["of Smothering"] = {
 			type = "list",
+			label = "Less Recovery Rate of ^xE05030Life ^7and ^x88FFFFEnergy Shield                                                                  Players have of Smothering",
 			tooltipLines = { "Players have %d%% less Recovery Rate of Life and Energy Shield" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				modList:NewMod("LifeRecoveryRate", "MORE", -values[val] * mapModEffect, "Map mod of Smothering")
@@ -537,6 +559,7 @@ return {
 		},
 		["of Stasis"] = {
 			type = "check",
+			label = "Cannot Regenerate ^xE05030Life^7, ^x7070FFMana ^7or ^x88FFFFES                                                                  Players Life, Energy Shield of Stasis",
 			tooltipLines = { "Players cannot Regenerate Life, Mana or Energy Shield" },
 			apply = function(val, mapModEffect, modList, enemyModList)
 				modList:NewMod("NoLifeRegen", "FLAG", true, "Map mod of Stasis")
@@ -546,6 +569,7 @@ return {
 		},
 		["of Toughness"] = {
 			type = "count",
+			label = "Enemy takes reduced Extra Crit Damage                                                                  Monsters from Critical Strikes of Toughness",
 			tooltipLines = { "Monsters take (%d to %d)%% reduced Extra Damage from Critical Strikes" },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("SelfCritMultiplier", "INC", -(values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod of Toughness")
@@ -559,6 +583,7 @@ return {
 		},
 		["of Toughness UBER"] = {
 			type = "count",
+			label = "Enemy takes reduced Extra Crit Damage                                                                  Monsters from Critical Strikes of Toughness UBER",
 			tooltipLines = { "Monsters take (%d to %d)%% reduced Extra Damage from Critical Strikes" },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("SelfCritMultiplier", "INC", -(values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod of Toughness")
@@ -569,6 +594,7 @@ return {
 		},
 		["of Fatigue"] = {
 			type = "list",
+			label = "Less Cooldown Recovery Rate                                                                  Players have of Fatigue",
 			tooltipLines = { "Players have %d%% less Cooldown Recovery Rate" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				modList:NewMod("CooldownRecovery", "MORE", -values[val] * mapModEffect, "Map mod of Fatigue")
@@ -603,6 +629,7 @@ return {
 		},
 		["of Doubt"] = {
 			type = "list",
+			label = "Reduced Non-Curse Aura Effect                                                                  Players have Auras from Skills of Doubt",
 			tooltipLines = { "Players have %d%% reduced effect of Non-Curse Auras from Skills" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				modList:NewMod("AuraEffect", "INC", -values[val] * mapModEffect, "Map mod of Doubt", { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true })
@@ -616,6 +643,7 @@ return {
 		},
 		["of Imprecision"] = {
 			type = "list",
+			label = "Less Accuracy Rating                                                                  Players have of Imprecision",
 			tooltipLines = { "Players have %d%% less Accuracy Rating" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				modList:NewMod("Accuracy", "MORE", -values[val] * mapModEffect, "Map mod of Imprecision")
@@ -636,6 +664,7 @@ return {
 		},
 		["of Venom"] = {
 			type = "check",
+			label = "Enemy chance to Poison on Hit                                                                  Monsters of Venom",
 			tooltipLines = { "Monsters Poison on Hit" },
 			apply = function(val, mapModEffect, modList, enemyModList)
 				enemyModList:NewMod("PoisonChance", "BASE", 100, "Map mod of Venom")
@@ -643,6 +672,7 @@ return {
 		},
 		["of Deadliness"] = {
 			type = "count",
+			label = "Enemy Critical Strike                                                                  Monsters have to increased Chance Multiplier of Deadliness",
 			tooltipLines = { "Monsters have (%d to %d)%% increased Critical Strike Chance", "+(%d to %d)%% to Monster Critical Strike Multiplier" },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("CritChance", "INC", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100) * mapModEffect, "Map mod of Deadliness")
@@ -657,6 +687,7 @@ return {
 		},
 		["of Deadliness UBER"] = {
 			type = "count",
+			label = "Enemy Critical Strike                                                                  Monsters have to increased Chance Multiplier of Deadliness UBER",
 			tooltipLines = { "Monsters have (%d to %d)%% increased Critical Strike Chance", "+(%d to %d)%% to Monster Critical Strike Multiplier" },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("CritChance", "INC", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100) * mapModEffect, "Map mod of Deadliness")
@@ -731,48 +762,32 @@ return {
 		["of Splinters"] = { }, -- 25% chance for Rare Monsters to Fracture on death
 		["of the Juggernaut"] = { }, -- Monsters cannot be Stunned", "Monsters' Action Speed cannot be modified to below Base Value", "Monsters' Movement Speed cannot be modified to below Base Value
 	},
-	Prefix = {
-		{ val = "Armoured", label = "Enemy Physical Damage reduction                                                                  Monster Armoured" },
-		{ val = "Hexproof", label = "Enemy is Hexproof?                                                                  Monsters are Hexproof" },
-		{ val = "Hexwarded", label = "Less effect of Curses on enemy                                                                  Monsters Hexwarded" },
-		{ val = "Resistant", label = "Enemy has Elemental / ^xD02090Chaos ^7Resist                                                                  Monster Resistances Resistant" },
-		{ val = "Unstoppable", label = "Enemy Cannot Be Slowed                                                                  Taunted Monsters' Action Speed modified below Base Value Movement Unstoppable" },
-		{ val = "Impervious", label = "Enemy chance to avoid Poison and Bleed                                                                  Monsters have Poison, Impale, Bleeding Impervious" },
-		{ val = "Savage", label = "Enemy Increased Damage                                                                  to Monster Savage", range = true },
-		{ val = "Savage UBER", label = "Enemy Increased Damage                                                                  to Monster Savage UBER", range = true },
-		{ val = "Burning", label = "Enemy Physical As Extra Fire                                                                  Monsters deal to Damage Burning", range = true },
-		{ val = "Freezing", label = "Enemy Physical As Extra Cold                                                                  Monsters deal to Damage Freezing", range = true },
-		{ val = "Shocking", label = "Enemy Physical As Extra Lightning                                                                  Monsters deal to Damage Shocking", range = true },
-		{ val = "Profane", label = "Enemy Physical As Extra Chaos                                                                  Monsters gain to their Damage Inflict Withered for seconds Hit Profane", range = true },
-		{ val = "Profane UBER", label = "Enemy Physical As Extra Chaos                                                                  Monsters gain to their Damage Profane UBER", range = true },
-		{ val = "Fleet", label = "Enemy Increased Speed                                                                  to Monster Movement Attack Cast Fleet", range = true },
-		{ val = "Fleet UBER", label = "Enemy Increased Speed                                                                  to Monster Movement Attack Cast Fleet UBER", range = true },
-		{ val = "Conflagrating", label = "Enemy Hits always Ignites                                                                  All Monster Damage from Conflagrating" },
-		{ val = "Impaling", label = "Enemy chance to Impale                                                                  Monsters' Attacks have Hit Impaling" },
-		{ val = "Impaling UBER", label = "Enemy chance to Impale                                                                  Monsters' Attacks Hit When fifth is inflicted Player, Impales are removed Reflect their Physical Damage multiplied by remaining Hits that and Allies within metres Impaling UBER" },
-		{ val = "Empowered", label = "Enemy Elemental Ailments chance on Hit                                                                  Monsters have to Ignite, Freeze and Shock Empowered" },
-		{ val = "Overlord's", label = "Boss Increased Damage / Speed                                                                  Unique deals has Attack and Cast Overlord's" },
-	},
-	Suffix = {
-		{ val = "of Congealment", label = "Cannot Leech ^xE05030Life ^7/ ^x7070FFMana                                                                  Monsters be Leeched from of Congealment" },
-		{ val = "of Drought", label = "Gain reduced Flask Charges                                                                  Players of Drought" },
-		{ val = "of Exposure", label = "-X% maximum Resistances                                                                  Players have minus to all of Exposure", range = true },
-		{ val = "of Exposure UBER", label = "-X% maximum Resistances                                                                  Players have minus to all of Exposure UBER" },
-		{ val = "of Impotence", label = "Less Area of Effect:                                                                  Players have of Impotence" },
-		{ val = "of Impotence UBER", label = "Less Area of Effect:                                                                  Players have to of Impotence UBER", range = true },
-		{ val = "of Insulation", label = "Enemy chance to avoid Elemental Ailments                                                                  Monsters have of Insulation" },
-		{ val = "of Miring", label = "Enemy has inc. Accuracy: / Players have to amount of Suppressed Spell Damage Prevented                                                                  Monsters increased Rating minus of Miring" },
-		{ val = "of Miring UBER", label = "Less Global Defences                                                                  Players have to of Miring UBER", range = true },
-		{ val = "of Rust", label = "Reduced Block Chance / less Armour                                                                  Players have to of Rust" },
-		{ val = "of Smothering", label = "Less Recovery Rate of ^xE05030Life ^7and ^x88FFFFEnergy Shield                                                                  Players have of Smothering" },
-		{ val = "of Stasis", label = "Cannot Regenerate ^xE05030Life^7, ^x7070FFMana ^7or ^x88FFFFES                                                                  Players Life, Energy Shield of Stasis" },
-		{ val = "of Toughness", label = "Enemy takes reduced Extra Crit Damage                                                                  Monsters from Critical Strikes of Toughness", range = true },
-		{ val = "of Toughness UBER", label = "Enemy takes reduced Extra Crit Damage                                                                  Monsters from Critical Strikes of Toughness UBER", range = true },
-		{ val = "of Fatigue", label = "Less Cooldown Recovery Rate                                                                 Players have of Fatigue" },
-		{ val = "of Doubt", label = "Reduced Non-Curse Aura Effect                                                                  Players have Non-Curse Auras from Skills of Doubt" },
-		{ val = "of Imprecision", label = "Less Accuracy Rating                                                                  Players have of Imprecision" },
-		{ val = "of Venom", label = "Enemy chance to Poison on Hit                                                                  Monsters of Venom" },
-		{ val = "of Deadliness", label = "Enemy Critical Strike                                                                  Monsters have to increased Chance Multiplier of Deadliness", range = true },
-		{ val = "of Deadliness UBER", label = "Enemy Critical Strike                                                                  Monsters have to increased Chance Multiplier of Deadliness UBER", range = true },
-	},
+	Prefix = function(build)
+		local List = {}
+		local tier = (build.configTab and build.configTab.varControls['multiplierMapModTier'].selIndex or 4)
+		if mapTierCache["Prefix"..tier] then
+			return mapTierCache["Prefix"..tier]
+		end
+		for affixName, affix in pairs(data.mapMods.AffixData) do
+			if not affixName:match("^of ") and (affix.type == "check" or affix.values and affix.values[tier]) and affix.label then
+				table.insert(List, { val = affixName, label = affix.label, range = (affix.type == "count") or nil})
+			end
+		end
+		mapTierCache["Prefix"..tier] = List
+		return List
+	end,
+	Suffix = function(build)
+		local List = {}
+		local tier = (build.configTab and build.configTab.varControls['multiplierMapModTier'].selIndex or 4)
+		if mapTierCache["Suffix"..tier] then
+			return mapTierCache["Suffix"..tier]
+		end
+		for affixName, affix in pairs(data.mapMods.AffixData) do
+			if affixName:match("^of ") and (affix.type == "check" or affix.values and affix.values[tier]) and affix.label then
+				table.insert(List, { val = affixName, label = affix.label, range = (affix.type == "count") or nil})
+			end
+		end
+		mapTierCache["Suffix"..tier] = List
+		return List
+	end,
 }
