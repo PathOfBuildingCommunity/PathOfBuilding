@@ -78,42 +78,12 @@ local function mapAffixTooltip(tooltip, mode, index, value)
 	end
 	local applyModes = { BODY = true, HOVER = true }
 	if applyModes[mode] then
-		tooltip:AddLine(14, '^7'..value.val)
-		local affixData = data.mapMods.AffixData[value.val] or {}
-		if #affixData.tooltipLines > 0 then
-			if affixData.type == "check" then
-				for _, line in ipairs(affixData.tooltipLines) do
-					tooltip:AddLine(14, '^7'..line)
-				end
-			elseif affixData.type == "list" then
-				for i, tier in ipairs({"Low", "Med", "High"}) do
-					if affixData.values[i] then
-						tooltip:AddLine(16, '^7'..tier..": ")
-						for j, line in ipairs(affixData.tooltipLines) do
-							local modValue = (#affixData.tooltipLines > 1) and affixData.values[i][j] or affixData.values[i]
-							if modValue == nil then
-								tooltip:AddLine(14, '   ^7'..line)
-							elseif modValue ~= 0 then
-								tooltip:AddLine(14, '   ^7'..s_format(line, modValue))
-							end
-						end
-					end
-				end
-			elseif affixData.type == "count" then
-				for i, tier in ipairs({"Low", "Med", "High"}) do
-					if affixData.values[i] then
-						tooltip:AddLine(16, '^7'..tier..": ")
-						for j, line in ipairs(affixData.tooltipLines) do
-							local modValue = {(#affixData.tooltipLines > 1) and (affixData.values[i][j] and affixData.values[i][j][1] or nil) or affixData.values[i][1], (#affixData.tooltipLines > 1) and (affixData.values[i][j] and affixData.values[i][j][2] or nil) or affixData.values[i][2]}
-							if modValue[2] == nil then
-								tooltip:AddLine(14, '   ^7'..line)
-							elseif modValue[2] ~= 0 then
-								tooltip:AddLine(14, '   ^7'..s_format(line, modValue[1], modValue[2]))
-							end
-						end
-					end
-				end
+		tooltip:AddLine(20, '^7'..value.val)
+		if value.tooltip then
+			for _, line in ipairs(value.tooltip) do
+				tooltip:AddLine(line[1], line[2])
 			end
+			return
 		end
 	end
 end

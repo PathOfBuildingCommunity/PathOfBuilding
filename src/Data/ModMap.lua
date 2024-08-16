@@ -1,7 +1,46 @@
 -- This is currently made by hand but should be auto generated
 -- Item data (c) Grinding Gear Games
 
+local t_insert = table.insert
+local s_format = string.format
+
 local mapTierCache = { }
+local mapTiers = {"Low", "Med", "High", "T17"}
+local tooltipGenerator = function(affixData, tier)
+	local tooltip = {}
+	if #affixData.tooltipLines > 0 then
+		if affixData.type == "check" then
+			for _, line in ipairs(affixData.tooltipLines) do
+				t_insert(tooltip, {14, '^7'..line})
+			end
+		elseif affixData.type == "list" then
+			if affixData.values[tier] then
+				t_insert(tooltip, {16, '^7'..mapTiers[tier]..": "})
+				for i, line in ipairs(affixData.tooltipLines) do
+					local modValue = (#affixData.tooltipLines > 1) and affixData.values[tier][i] or affixData.values[tier]
+					if modValue == nil then
+						t_insert(tooltip, {14, '   ^7'..line})
+					elseif modValue ~= 0 then
+						t_insert(tooltip, {14, '   ^7'..s_format(line, modValue)})
+					end
+				end
+			end
+		elseif affixData.type == "count" then
+			if affixData.values[tier] then
+				t_insert(tooltip, {16, '^7'..mapTiers[tier]..": "})
+				for i, line in ipairs(affixData.tooltipLines) do
+					local modValue = {(#affixData.tooltipLines > 1) and (affixData.values[tier][i] and affixData.values[tier][i][1] or nil) or affixData.values[tier][1], (#affixData.tooltipLines > 1) and (affixData.values[tier][i] and affixData.values[tier][i][2] or nil) or affixData.values[tier][2]}
+					if modValue[2] == nil then
+						t_insert(tooltip, {14, '   ^7'..line})
+					elseif modValue[2] ~= 0 then
+						t_insert(tooltip, {14, '   ^7'..s_format(line, modValue[1], modValue[2])})
+					end
+				end
+			end
+		end
+	end
+	return (#tooltip > 0) and tooltip
+end
 
 return {
 	AffixData = {
@@ -250,7 +289,7 @@ return {
 		["Profane"] = {
 			type = "count",
 			label = "Enemy Physical As Extra Chaos                                                                  Monsters gain to their Damage Inflict Withered for seconds Hit Profane",
-			tooltipLines = { "Monsters gain (%d to %d)%% of their Physical Damage as Extra Chaos Damage", "Monsters Inflict Withered for %d seconds on Hit" },
+			tooltipLines = { "Monsters gain (%d to %d)%% of their Physical Damage as Extra Chaos Damage", "Monsters Inflict Withered for 10 seconds on Hit" },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				if values[val] then
 					enemyModList:NewMod("PhysicalDamageGainAsChaos", "BASE", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100) * mapModEffect, "Map mod Profane")
@@ -317,7 +356,7 @@ return {
 		["Impaling UBER"] = {
 			type = "list",
 			label = "Enemy chance to Impale                                                                  Monsters' Attacks Hit When fifth is inflicted Player, Impales are removed Reflect their Physical Damage multiplied by remaining Hits that and Allies within metres Impaling UBER",
-			tooltipLines = { "Monsters' Attacks Impale on Hit", "When a fifth Impale is inflicted on a Player, Impales are removed to Reflect their Physical Damage multiplied by their remaining Hits to that Player and their Allies within %d.%d metres" },
+			tooltipLines = { "Monsters' Attacks Impale on Hit", "When a fifth Impale is inflicted on a Player, Impales are removed to Reflect their Physical Damage multiplied by their remaining Hits to that Player and their Allies within X metres" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				if val == 4 then
 					enemyModList:NewMod("ImpaleChance", "BASE", values[val][2] * mapModEffect, "Map mod Impaling", ModFlag.Attack)
@@ -770,7 +809,7 @@ return {
 		end
 		for affixName, affix in pairs(data.mapMods.AffixData) do
 			if not affixName:match("^of ") and (affix.type == "check" or affix.values and affix.values[tier]) and affix.label then
-				table.insert(List, { val = affixName, label = affix.label, range = (affix.type == "count") or nil})
+				table.insert(List, { val = affixName, label = affix.label, tooltip = tooltipGenerator(affix, tier), range = (affix.type == "count") or nil})
 			end
 		end
 		mapTierCache["Prefix"..tier] = List
@@ -784,7 +823,7 @@ return {
 		end
 		for affixName, affix in pairs(data.mapMods.AffixData) do
 			if affixName:match("^of ") and (affix.type == "check" or affix.values and affix.values[tier]) and affix.label then
-				table.insert(List, { val = affixName, label = affix.label, range = (affix.type == "count") or nil})
+				table.insert(List, { val = affixName, label = affix.label, tooltip = tooltipGenerator(affix, tier), range = (affix.type == "count") or nil})
 			end
 		end
 		mapTierCache["Suffix"..tier] = List
