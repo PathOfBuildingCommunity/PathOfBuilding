@@ -146,7 +146,7 @@ function deleteDirectory(dir)
 		while search:NextFile() do
 			os.remove(dir..'/'..search:GetFileName())
 		end	
-	endsearch
+	end
 
 	local search = NewFileSearch(dir..'/*', true)
 	if search then
