@@ -162,7 +162,7 @@ end
 function BuildListClass:DeleteBuild(build)
 	if build.folderName then
 		if NewFileSearch(build.fullFileName.."/*") or NewFileSearch(build.fullFileName.."/*", true) then
-			main:OpenConfirmPopup("Confirm Folder Delete", "The folder is not empty.\nAre you sure you want to delete build:\n"..build.folderName.."\nThis cannot be undone.", "Delete", function()				
+			main:OpenConfirmPopup("Confirm Folder Delete", "The folder is not empty.\nAre you sure you want to delete folder:\n"..build.folderName.."\nThis cannot be undone.", "Delete", function()				
 				deleteDirectory(build.fullFileName:gsub("\\", "/"))
 				self.listMode:BuildList()
 				self.selIndex = nil
