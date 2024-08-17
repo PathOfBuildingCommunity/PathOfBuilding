@@ -13652,7 +13652,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_78985352", 
+				["id"] = "implicit.stat_2089652545", 
 				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit", 
 				["type"] = "implicit", 
 			}, 
@@ -76324,7 +76324,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_78985352", 
+				["id"] = "implicit.stat_2089652545", 
 				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit", 
 				["type"] = "implicit", 
 			}, 
