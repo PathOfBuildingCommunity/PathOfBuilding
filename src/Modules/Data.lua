@@ -255,6 +255,22 @@ data.cursePriority = {
 	["CurseFromEquipment"] = 10000,
 	["CurseFromAura"] = 20000,
 }
+-- this list should be auto generated and include things like silence etc
+data.playerCursedWithXList = {
+	{ val = "AssassinsMark", label = "Assassin's Mark:" },
+	{ val = "Conductivity", label = "Conductivity:" },
+	{ val = "Despair", label = "Despair:" },
+	{ val = "ElementalWeakness", label = "Elemental Weakness:" },
+	{ val = "Enfeeble", label = "Enfeeble:" },
+	{ val = "Flammability", label = "Flammability:" },
+	{ val = "Frostbite", label = "Frostbite:" },
+	{ val = "PoachersMark", label = "Poacher's Mark:" },
+	{ val = "ProjectileWeakness", label = "Projectile Weakness:" },
+	{ val = "Punishment", label = "Punishment:" },
+	{ val = "TemporalChains", label = "Temporal Chains:" },
+	{ val = "Vulnerability", label = "Vulnerability:" },
+	{ val = "WarlordsMark", label = "Warlord's Mark:" },
+}
 
 ---@type string[] @List of all keystones not exclusive to timeless jewels.
 data.keystones = {

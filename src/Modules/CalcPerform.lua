@@ -2634,7 +2634,7 @@ function calcs.perform(env, skipEHP)
 				calcs.mergeSkillInstanceMods(env, gemModList, {
 					grantedEffect = grantedEffect,
 					level = value.level,
-					quality = 0,
+					quality = (value.quality or 0),
 				})
 				local curseModList = { }
 				for _, mod in ipairs(gemModList) do
@@ -2652,7 +2652,7 @@ function calcs.perform(env, skipEHP)
 						modDB.multipliers["CurseOnSelf"] = (modDB.multipliers["CurseOnSelf"] or 0) + 1
 						modDB.conditions["AffectedBy"..grantedEffect.name:gsub(" ","")] = true
 						local cfg = { skillName = grantedEffect.name }
-						local inc = modDB:Sum("INC", cfg, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
+						local inc = (value.incEffect or 0) + modDB:Sum("INC", cfg, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
 						local more = modDB:More(cfg, "CurseEffectOnSelf") * gemModList:More(nil, "CurseEffectAgainstPlayer")
 						modDB:ScaleAddList(curseModList, (1 + inc / 100) * more)
 					end
