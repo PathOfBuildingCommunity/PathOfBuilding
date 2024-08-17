@@ -25,7 +25,7 @@ jobs:
           images: |
             ghcr.io/${{ github.repository_owner }}/pathofbuilding-tests
           labels: |
-            org.opencontainers.image.description=A docker image packaged with the correct verions of tools to run PathOfBuilding busted tests. Includes emmylua debugger files. Refer to https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/dev/CONTRIBUTING.md for usage instructions.
+            org.opencontainers.image.description=A docker image packaged with the correct versions of tools to run PathOfBuilding busted tests. Includes emmylua debugger files. Refer to https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/dev/CONTRIBUTING.md for usage instructions.
             org.opencontainers.image.licenses=https://opensource.org/licenses/MIT
           tags: |
             type=sha
