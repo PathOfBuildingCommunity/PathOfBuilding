@@ -131,6 +131,21 @@ local function mapAffixDropDownFunction(val, extraData, modList, enemyModList, b
 	end
 end
 
+local function ShrineTooltip(tooltip, mode, index, value)
+	tooltip:Clear()
+	if value.val == "NONE" then
+		return
+	end
+	local applyModes = { BODY = true, HOVER = true }
+	if applyModes[mode] then
+		if value.val == "ALL" then
+			tooltip:AddLine(14, '^7'.."Applies all Shrine effects to the player.")
+		else
+			tooltip:AddLine(14, '^7'.."Applies a "..value.label.." effect to the player.")
+		end
+	end
+end
+
 return {
 	-- Section: General options
 	{ section = "General", col = 1 },
@@ -716,6 +731,15 @@ Huge sets the radius to 11.
 		modList:NewMod("HasPvpScaling", "FLAG", true, "Config")
 	end },
 	--}
+	{ var = "Shrines", type = "multiList", label = "Shrines:" , tooltipFunc = ShrineTooltip, list = data.shrines.List, apply = function(val, extra, modList, enemyModList)
+		if val == "ALL" then 
+			for _, shrine in ipairs(data.shrines.List) do
+				modList:NewMod(shrine.val, "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+			end
+		elseif val ~= "NONE" then 
+			modList:NewMod(val, "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		end
+	end},
 	{ label = "Player is cursed by:" },
 	{ var = "playerCursedWithAssassinsMark", type = "count", label = "Assassin's Mark:", tooltip = "Sets the level of Assassin's Mark to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "AssassinsMark", level = val, applyToPlayer = true })
