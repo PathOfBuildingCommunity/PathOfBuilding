@@ -1,3 +1,10 @@
+VERSION[2.48.2][2024/08/17]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Fix limited processing flag not persisting through recursions causing crash (Paliak)
+* Fix Snipe for Assailum not working (Paliak)
+
+
 VERSION[2.48.1][2024/08/15]
 
 --- Fixed Crashes ---
