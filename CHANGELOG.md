@@ -1,5 +1,23 @@
 # Changelog
 
+## [v2.48.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.48.2) (2024/08/17)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.48.1...v2.48.2)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Crashes
+- Fix limited processing flag not persisting through recursions causing crash [\#8192](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8192) ([Paliak](https://github.com/Paliak))
+### User Interface
+- Improve breakdown for Snipe's damage mods [\#8196](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8196) ([Paliak](https://github.com/Paliak))
+### Fixed Calculations
+- Fix Damage while Leeching Life mod not working [\#8205](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8205) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Behaviours
+- Fix Sublime Vision disabling Mine skills [\#8206](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8206) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Snipe for Assailum not working [\#8195](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8195) ([Paliak](https://github.com/Paliak))
+
+
 ## [v2.48.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.48.1) (2024/08/15)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.48.0...v2.48.1)
