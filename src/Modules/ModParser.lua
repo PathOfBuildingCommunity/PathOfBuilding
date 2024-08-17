@@ -1566,6 +1566,7 @@ local modTagList = {
 	["while you have infusion"] = { tag = { type = "Condition", var = "InfusionActive" } },
 	["while focus?sed"] = { tag = { type = "Condition", var = "Focused" } },
 	["while leeching"] = { tag = { type = "Condition", var = "Leeching" } },
+	["while leeching life"] = { tag = { type = "Condition", var = "LeechingLife" } },
 	["while leeching energy shield"] = { tag = { type = "Condition", var = "LeechingEnergyShield" } },
 	["while leeching mana"] = { tag = { type = "Condition", var = "LeechingMana" } },
 	["while using a flask"] = { tag = { type = "Condition", var = "UsingFlask" } },
