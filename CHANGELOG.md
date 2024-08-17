@@ -10,13 +10,12 @@
 ### Fixed Crashes
 - Fix limited processing flag not persisting through recursions causing crash [\#8192](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8192) ([Paliak](https://github.com/Paliak))
 ### User Interface
-- Improve breakdown for snipe's damage mods [\#8196](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8196) ([Paliak](https://github.com/Paliak))
+- Improve breakdown for Snipe's damage mods [\#8196](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8196) ([Paliak](https://github.com/Paliak))
 ### Fixed Calculations
 - Fix Damage while Leeching Life mod not working [\#8205](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8205) ([LocalIdentity](https://github.com/LocalIdentity))
 ### Fixed Behaviours
 - Fix Sublime Vision disabling Mine skills [\#8206](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8206) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Snipe for Assailum not working [\#8195](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8195) ([Paliak](https://github.com/Paliak))
-
 
 
 ## [v2.48.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.48.1) (2024/08/15)
