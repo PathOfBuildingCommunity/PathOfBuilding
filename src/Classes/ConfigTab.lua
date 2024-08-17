@@ -242,6 +242,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					for i, varControl in ipairs(control.varControlList[1]) do
 						varControl.selIndex = 1
 						varControl.list = { { val = "NONE", label = "None" } }
+						if i == 1 and not varData.showAll then
+							t_insert(varControl.list, { val = "ALL", label = "All Options" })
+						end
 						varControl.shown = true
 						for j, element in ipairs(varData.list) do
 							if not excludeValue[element.val] or element.val == newValues[i] then
@@ -251,11 +254,21 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 								varControl.selIndex = #varControl.list
 							end
 						end
-						if not varData.showAll and newValues[i] == "NONE" then
-							if firstNone then
-								varControl.shown = false
-							else
-								firstNone = true
+						if not varData.showAll then
+							if i == 1 and newValues[i] == "ALL" then
+								varControl.selIndex = 2
+								for j, varControl2 in ipairs(control.varControlList[1]) do
+									if j ~= i then
+										varControl2.shown = false
+									end
+								end
+								break
+							elseif newValues[i] == "NONE" then
+								if firstNone then
+									varControl.shown = false
+								else
+									firstNone = true
+								end
 							end
 						end
 					end
@@ -266,6 +279,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 							else
 								control.varControlList[1][i+1].y = varControl.y + m_max(varControl.height, 18) + 4
 							end
+						else
+							break
 						end
 					end
 				end
@@ -1043,11 +1058,17 @@ function ConfigTabClass:BuildModList()
 					varData.apply(input[varData.var], modList, enemyModList, self.build)
 				end
 			elseif varData.type == "multiList" then
-				for i=1,(varData.maxElements or 10) do
-					if input[varData.var.."_"..i] then
+				for i, varControl in ipairs(self.varControls[varData.var].varControlList[1]) do
+					if not varControl:IsShown() then
+						break
+					elseif input[varData.var.."_"..i] then
 						local extraData = {}
 						for j, _ in ipairs(varData.extraTypes or {}) do
-							extraData[j] = input[varData.var.."_"..i.."_"..j]
+							if not input[varData.var.."_"..i.."_"..j] and placeholder[varData.var.."_"..i.."_"..j] then
+								extraData[j] = placeholder[varData.var.."_"..i.."_"..j]
+							else
+								extraData[j] = input[varData.var.."_"..i.."_"..j]
+							end
 						end
 						varData.apply(input[varData.var.."_"..i], extraData, modList, enemyModList, self.build)
 					end
