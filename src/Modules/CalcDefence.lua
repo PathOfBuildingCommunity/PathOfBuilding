@@ -3388,7 +3388,7 @@ function calcs.buildDefenceEstimations(env, actor)
 					ailmentList["Ignite"] = { damageType = "Fire", sourceTypes = enemyDB:Flag(nil, "AllDamageIgnites") and dmgTypeList or { "Fire" } }
 				end
 				if enemyPoisonChance > 0 then
-					ailmentList["Poison"] = { damageType = "Chaos", sourceTypes = { "Physical", "Chaos" } }
+					ailmentList["Poison"] = { damageType = "Chaos", sourceTypes = enemyDB:Flag(nil, "AllDamagePoisons") and dmgTypeList or{ "Physical", "Chaos" } }
 				end
 				for source, ailment in pairs(ailmentList) do
 					local baseVal = 0

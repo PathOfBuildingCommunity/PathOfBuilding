@@ -846,6 +846,306 @@ return {
 				[4] = { { 650, 700 }, { 70, 75 } },
 			},
 		},
+		-- Cleansing Altar
+		-- Cleansing Altar Boss
+		["CleansingAltarDownsideBossArmour"] = {
+			type = "list",
+			tooltipLines = { "+%d to Armour" },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("Armour", "BASE", values[val], "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+			end,
+			values = {
+				[1] = 50000,
+			},
+		},
+		["CleansingAltarDownsideBossIncreasedArmourAndEvasion"] = {
+			type = "count",
+			tooltipLines = { "(%d to %d)%% increased Armour", "(%d to %d)%% increased Evasion Rating" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("Armour", "INC", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100), "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("Evasion", "INC", (values[val][2][1] + (values[val][2][2] - values[val][2][1]) * rollRange / 100), "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+			end,
+			values = {
+				[1] = { { 100, 200 }, { 100, 200 } },
+			},
+		},
+		["CleansingAltarDownsideBossFireAndChaosResist"] = {
+			type = "list",
+			tooltipLines = { "+%d%% to Fire Resistance", "+%d%% to maximum Fire Resistance", "+%d%% to Chaos Resistance", "+%d%% to maximum Chaos Resistance" },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("FireResist", "BASE", values[val][1], "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("FireResistMax", "BASE", values[val][2], "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("ChaosResist", "BASE", values[val][3], "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("ChaosResistMax", "BASE", values[val][4], "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+			end,
+			values = {
+				[1] = { 80, 10, 80, 10 },
+			},
+		},
+		["CleansingAltarDownsideBossPenetrateElementalResist"] = {
+			type = "count",
+			tooltipLines = { "Gain (%d to %d)%% of Physical Damage as Extra Damage of a random Element", "Damage Penetrates (%d to %d)%% of Enemy Elemental Resistances" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("PhysicalDamageGainAsRandom", "BASE", (values[val][2][1] + (values[val][2][2] - values[val][2][1]) * rollRange / 100), "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("ElementalPenetration", "BASE", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100), "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+			end,
+			values = {
+				[1] = { { 15, 25 }, { 50, 80 } },
+			},
+		},
+		["CleansingAltarDownsideBossPhysToAddAsChaos"] = {
+			type = "count",
+			tooltipLines = { "Gain (%d to %d)%% of Physical Damage as Extra Chaos Damage", "Poison on Hit", "All Damage from Hits can Poison" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("PhysicalDamageGainAsChaos", "BASE", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100), "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("PoisonChance", "BASE", 100, "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("AllDamagePoisons", "FLAG", true, "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+			end,
+			values = {
+				[1] = { { 70, 130 } },
+			},
+		},
+		["CleansingAltarDownsideBossPhysToAddAsFire"] = {
+			type = "count",
+			tooltipLines = { "Gain (%d to %d)%% of Physical Damage as Extra Fire Damage", "Hits always Ignite", "All Damage can Ignite" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("PhysicalDamageGainAsFire", "BASE", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100), "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("IgniteChance", "BASE", 100, "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("AllDamageIgnites", "FLAG", true, "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+			end,
+			values = {
+				[1] = { { 70, 130 } },
+			},
+		},
+		-- Cleansing Altar Monster
+		-- Cleansing Altar Player
+		["CleansingAltarDownsidePlayerIncreasedFlaskChargesUsed"] = {
+			type = "count",
+			tooltipLines = { "(%d to %d)%% increased Flask Charges used", "(%d to %d)%% reduced Flask Effect Duration" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				modList:NewMod("FlaskChargesUsed", "INC", (values[val][1][2] + (values[val][1][1] - values[val][1][2]) * rollRange / 100), "Altar Player Downside")
+				modList:NewMod("FlaskDuration", "INC", -(values[val][2][2] + (values[val][2][1] - values[val][2][2]) * rollRange / 100), "Altar Player Downside")
+			end,
+			values = {
+				[1] = { { 20, 40 }, { 60, 40 } },
+			},
+		},
+		["CleansingAltarDownsidePlayerChaosDegenDuringFlaskDuration"] = {
+			type = "list",
+			tooltipLines = { "Take %d Chaos Damage per second during any Flask Effect" },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				modList:NewMod("ChaosDegen", "BASE", values[val], "Altar Player Downside", { type = "Condition", var = "UsingFlask" })
+			end,
+			values = {
+				[1] = 600,
+			},
+		},
+		["CleansingAltarDownsidePlayerChaosMonsterAura"] = {
+			type = "list",
+			tooltipLines = { "Nearby Enemies Gain %d%% of their Physical Damage as Extra Chaos Damage" },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("PhysicalDamageGainAsChaos", "BASE", values[val], "Altar Player Downside")
+			end,
+			values = {
+				[1] = 100,
+			},
+		},
+		["CleansingAltarDownsidePlayerFireMonsterAura"] = {
+			type = "list",
+			tooltipLines = { "Nearby Enemies Gain %d%% of their Physical Damage as Extra Fire Damage" },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("PhysicalDamageGainAsFire", "BASE", values[val], "Altar Player Downside")
+			end,
+			values = {
+				[1] = 100,
+			},
+		},
+		["CleansingAltarDownsidePlayerReducedArmourAndEvasion"] = {
+			type = "list",
+			tooltipLines = { "minus %d to Armour", "minus %d to Evasion Rating" },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				modList:NewMod("Armour", "BASE", -values[val][1], "Altar Player Downside")
+				modList:NewMod("Evasion", "BASE", -values[val][2], "Altar Player Downside")
+			end,
+			values = {
+				[1] = { 3000, 3000 },
+			},
+		},
+		["CleansingAltarDownsidePlayerReducedFireAndChaosResist"] = {
+			type = "count",
+			tooltipLines = { "-(%d to %d)%% to Fire Resistance", "-(%d to %d)%% to Chaos Resistance" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				local roll = (values[val][1][2] + (values[val][1][1] - values[val][1][2]) * rollRange / 100)
+				modList:NewMod("FireResist", "BASE", -roll, "Altar Player Downside")
+				modList:NewMod("ChaosResist", "BASE", -roll, "Altar Player Downside")
+			end,
+			values = {
+				[1] = { { 60, 40 }, { 60, 40 } },
+			},
+		},
+		["CleansingAltarDownsidePlayerScorched"] = {
+			type = "count",
+			tooltipLines = { "All Damage taken from Hits can Scorch you", "(%d to %d)%% chance to be Scorched when Hit" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+			end,
+			values = {
+				[1] = { 25, 35 },
+			},
+		},
+		-- Tangled Altar
+		-- Tangled Altar Boss
+		["TangledAltarDownsideBossMaxLifeAsEnergyShield"] = {
+			type = "count",
+			tooltipLines = { "Gain (%d to %d)%% of Maximum Life as Extra Maximum Energy Shield" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("LifeGainAsEnergyShield", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100), "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+			end,
+			values = {
+				[1] = { 50, 70 },
+			},
+		},
+		["TangledAltarDownsideBossPhysicalDamageReduction"] = {
+			type = "count",
+			tooltipLines = { "(%d to %d)%% additional Physical Damage Reduction" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("PhysicalDamageReduction", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100), "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+			end,
+			values = {
+				[1] = { 50, 70 },
+			},
+		},
+		["TangledAltarDownsideBossSuppressSpells"] = {
+			type = "count",
+			tooltipLines = { "+%d%% chance to Suppress Spell Damage", "Prevent +(%d to %d)%% of Suppressed Spell Damage" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("SpellSuppressionChance", "BASE", values[val][1][1], "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("SpellSuppressionEffect", "BASE", (values[val][2][1] + (values[val][2][2] - values[val][2][1]) * rollRange / 100), "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+			end,
+			values = {
+				[1] = { { 100 }, { 20, 30 } },
+			},
+		},
+		["TangledAltarDownsideBossColdAndLightningResist"] = {
+			type = "list",
+			tooltipLines = { "+%d%% to Cold Resistance", "+%d%% to maximum Cold Resistance", "+%d%% to Lightning Resistance", "+%d%% to maximum Lightning Resistance" },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("ColdResist", "BASE", values[val][1], "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("ColdResistMax", "BASE", values[val][2], "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("LightningResist", "BASE", values[val][3], "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("LightningResistMax", "BASE", values[val][4], "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+			end,
+			values = {
+				[1] = { 80, 10, 80, 10 },
+			},
+		},
+		["TangledAltarDownsideBossPenetrateElementalResistances"] = {
+			type = "count",
+			tooltipLines = { "Damage Penetrates (%d to %d)%% of Enemy Elemental Resistances", "Gain (%d to %d)%% of Physical Damage as Extra Damage of a random Element" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("PhysicalDamageGainAsRandom", "BASE", (values[val][2][1] + (values[val][2][2] - values[val][2][1]) * rollRange / 100), "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("ElementalPenetration", "BASE", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100), "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+			end,
+			values = {
+				[1] = { { 15, 25 }, { 50, 80 } },
+			},
+		},
+		["TangledAltarDownsideBossPhysToAddAsCold"] = {
+			type = "count",
+			tooltipLines = { "Gain (%d to %d)%% of Physical Damage as Extra Cold Damage", "All Damage with Hits can Chill" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("PhysicalDamageGainAsCold", "BASE", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100), "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+			end,
+			values = {
+				[1] = { { 70, 130 } },
+			},
+		},
+		["TangledAltarDownsideBossPhysToAddAsLightning"] = {
+			type = "count",
+			tooltipLines = { "Gain (%d to %d)%% of Physical Damage as Extra Lightning Damage", "Hits always Shock", "All Damage can Shock" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("PhysicalDamageGainAsLightning", "BASE", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100), "Altar Boss Downside", { type = "Condition", var = "RareOrUnique" })
+			end,
+			values = {
+				[1] = { { 70, 130 } },
+			},
+		},
+		-- Tangled Altar Monster
+		-- Tangled Altar Player
+		["TangledAltarDownsidePlayerReducedPhysicalDamageReduction"] = {
+			type = "count",
+			tooltipLines = { "minus (%d to %d)%% additional Physical Damage Reduction" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				modList:NewMod("PhysicalDamageReduction", "BASE", -(values[val][2] + (values[val][1] - values[val][2]) * rollRange / 100), "Altar Player Downside")
+			end,
+			values = {
+				[1] = { 60, 40 },
+			},
+		},
+		["TangledAltarDownsidePlayerReducedColdAndLightningResist"] = {
+			type = "count",
+			tooltipLines = { "-(%d to %d)%% to Cold Resistance", "-(%d to %d)%% to Lightning Resistance" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				local roll = (values[val][1][2] + (values[val][1][1] - values[val][1][2]) * rollRange / 100)
+				modList:NewMod("ColdResist", "BASE", -roll, "Altar Player Downside")
+				modList:NewMod("LightningResist", "BASE", -roll, "Altar Player Downside")
+			end,
+			values = {
+				[1] = { { 60, 40 }, { 60, 40 } },
+			},
+		},
+		["TangledAltarDownsidePlayerTaintedEndurance"] = {
+			type = "count",
+			tooltipLines = { "(%d to %d)%% reduced Recovery Rate of Life, Mana and Energy Shield per Endurance Charge" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				local roll = (values[val][2] + (values[val][1] - values[val][2]) * rollRange / 100)
+				modList:NewMod("LifeRecoveryRate", "INC", -roll, "Altar Player Downside", { type = "Multiplier", var = "EnduranceCharge" })
+				modList:NewMod("ManaRecoveryRate", "INC", -roll, "Altar Player Downside", { type = "Multiplier", var = "EnduranceCharge" })
+				modList:NewMod("EnergyShieldRecoveryRate", "INC", -roll, "Altar Player Downside", { type = "Multiplier", var = "EnduranceCharge" })
+			end,
+			values = {
+				[1] = { 20, 10 },
+			},
+		},
+		["TangledAltarDownsidePlayerTaintedFrenzy"] = {
+			type = "count",
+			tooltipLines = { "(%d to %d)%% reduced Defences per Frenzy Charge" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				modList:NewMod("Defences", "INC", -(values[val][2] + (values[val][1] - values[val][2]) * rollRange / 100), "Altar Player Downside", { type = "Multiplier", var = "FrenzyCharge" })
+			end,
+			values = {
+				[1] = { 50, 30 },
+			},
+		},
+		["TangledAltarDownsidePlayerTaintedPower"] = {
+			type = "count",
+			tooltipLines = { "-(%d to %d)%% to Critical Strike Multiplier per Power Charge" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				modList:NewMod("CritMultiplier", "BASE", -(values[val][2] + (values[val][1] - values[val][2]) * rollRange / 100), "Altar Player Downside", { type = "Multiplier", var = "PowerCharge" })
+			end,
+			values = {
+				[1] = { 40, 20 },
+			},
+		},
+		["TangledAltarDownsidePlayerColdMonsterAura"] = {
+			type = "list",
+			tooltipLines = { "Nearby Enemies Gain %d%% of their Physical Damage as Extra Cold Damage" },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("PhysicalDamageGainAsCold", "BASE", values[val], "Altar Player Downside")
+			end,
+			values = {
+				[1] = 100,
+			},
+		},
+		["TangledAltarDownsidePlayerLightningMonsterAura"] = {
+			type = "list",
+			tooltipLines = { "Nearby Enemies Gain %d%% of their Physical Damage as Extra Lightning Damage" },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("PhysicalDamageGainAsLightning", "BASE", values[val], "Altar Player Downside")
+			end,
+			values = {
+				[1] = 100,
+			},
+		},
 		-- other Prefixes
 		["Abhorrent"] = { }, -- Area is inhabited by Abominations
 		["Afflicting"] = { }, -- All Monster Damage can Ignite, Freeze and Shock", "Monsters Ignite, Freeze and Shock on Hit
@@ -910,6 +1210,44 @@ return {
 		["of Revolt"] = { }, -- Players' Minions have 50% less Attack Speed", "Players' Minions have 50% less Cast Speed", "Players' Minions have 50% less Movement Speed
 		["of Splinters"] = { }, -- 25% chance for Rare Monsters to Fracture on death
 		["of the Juggernaut"] = { }, -- Monsters cannot be Stunned", "Monsters' Action Speed cannot be modified to below Base Value", "Monsters' Movement Speed cannot be modified to below Base Value
+		-- other CleansingAltares
+		["CleansingAltarDownsideBossConsecrateOnHit"] = { }, -- Create Consecrated Ground on Hit, lasting 6 seconds
+		["CleansingAltarDownsideBossCoveredInAshOnHit"] = { }, -- Gain (50-80)% of Physical Damage as Extra Fire Damage", "Cover Enemies in Ash on Hit
+		["CleansingAltarDownsideBossHinderAura"] = { }, -- Nearby Enemies are Hindered, with 40% reduced Movement Speed
+		["CleansingAltarDownsideBossRemoveFlaskChargeOnHit"] = { }, -- Enemies lose 6 Flask Charges every 3 seconds and cannot gain Flask Charges for 6 seconds after being Hit
+		["CleansingAltarDownsideMonsterArmour"] = { }, -- +50000 to Armour
+		["CleansingAltarDownsideMonsterBurningGroundOnDeath"] = { }, -- Drops Burning Ground on Death, lasting 3 seconds
+		["CleansingAltarDownsideMonsterChaosDamage"] = { }, -- Gain (70-130)% of Physical Damage as Extra Chaos Damage
+		["CleansingAltarDownsideMonsterConsecratedGroundOnDeath"] = { }, -- Create Consecrated Ground on Death, lasting 6 seconds
+		["CleansingAltarDownsideMonsterExposureOnHit"] = { }, -- Gain (70-130)% of Physical Damage as Extra Damage of a random Element", "Inflict Fire, Cold, and Lightning Exposure on Hit
+		["CleansingAltarDownsideMonsterFireAndChaosResist"] = { }, -- +10% to maximum Fire Resistance", "+80% to Fire Resistance", "+10% to maximum Chaos Resistance", "+80% to Chaos Resistance
+		["CleansingAltarDownsideMonsterFireDamage"] = { }, -- Gain (70-130)% of Physical Damage as Extra Fire Damage
+		["CleansingAltarDownsideMonsterFlaskDegenOnHit"] = { }, -- Enemies lose 6 Flask Charges every 3 seconds and cannot gain Flask Charges for 6 seconds after being Hit
+		["CleansingAltarDownsideMonsterIncreasedArea"] = { }, -- (70-130)% increased Area of Effect
+		["CleansingAltarDownsideMonsterIncreasedEvasion"] = { }, -- (250-500)% increased Evasion Rating
+		["CleansingAltarDownsidePlayerBurningGroundWhenHit"] = { }, -- (15-20)% chance for Enemies to drop Burning Ground when Hitting you, no more than once every 2 seconds
+		["CleansingAltarDownsidePlayerCurseReflect"] = { }, -- Curses you inflict are reflected back to you
+		["CleansingAltarDownsidePlayerMeteorOnFlaskUse"] = { }, -- 30% chance to be targeted by a Meteor when you use a Flask
+		-- other TangledAltares
+		["TangledAltarDownsideBossBlindOnHit"] = { }, -- 100% Global chance to Blind Enemies on hit", "(100-200)% increased Blind Effect
+		["TangledAltarDownsideBossCoveredInFrostOnHit"] = { }, -- Gain (50-80)% of Physical Damage as Extra Cold Damage", "Cover Enemies in Frost on Hit
+		["TangledAltarDownsideMonsterChilledGroundOnDeath"] = { }, -- Drops Chilled Ground on Death, lasting 3 seconds
+		["TangledAltarDownsideMonsterColdAndLightningResist"] = { }, -- +10% to maximum Cold Resistance", "+80% to Cold Resistance", "+10% to maximum Lightning Resistance", "+80% to Lightning Resistance
+		["TangledAltarDownsideMonsterColdDamage"] = { }, -- Gain (70-130)% of Physical Damage as Extra Cold Damage
+		["TangledAltarDownsideMonsterExtraProjectiles"] = { }, -- Skills fire (3-5) additional Projectiles
+		["TangledAltarDownsideMonsterGraspingVineStackOnHit"] = { }, -- Inflict 1 Grasping Vine on Hit
+		["TangledAltarDownsideMonsterLightningDamage"] = { }, -- Gain (70-130)% of Physical Damage as Extra Lightning Damage
+		["TangledAltarDownsideMonsterOverwhelm"] = { }, -- Hits have (50-80)% chance to ignore Enemy Physical Damage Reduction
+		["TangledAltarDownsideMonsterPhysicalDamageReduction"] = { }, -- (50-80)% additional Physical Damage Reduction
+		["TangledAltarDownsideMonsterRemoveChargeOnHit"] = { }, -- 100% chance to remove a random Charge from Enemy on Hit
+		["TangledAltarDownsideMonsterShockedGroundOnDeath"] = { }, -- 100% chance to create Shocked Ground on Death, lasting 3 seconds
+		["TangledAltarDownsideMonsterSpeed"] = { }, -- (30-50)% increased Attack Speed", "(30-50)% increased Cast Speed", "(30-50)% increased Movement Speed
+		["TangledAltarDownsideMonsterSupressSpells"] = { }, -- Prevent +(20-30)% of Suppressed Spell Damage", "+100% chance to Suppress Spell Damage
+		["TangledAltarDownsidePlayerChilledGroundWhenHit"] = { }, -- (25-35)% chance for Enemies to drop Chilled Ground when Hitting you, no more than once every 2 seconds
+		["TangledAltarDownsidePlayerNonDamagingAilmentsReflectedToSelf"] = { }, -- Non-Damaging Ailments you inflict are reflected back to you
+		["TangledAltarDownsidePlayerRandomProjectileDirection"] = { }, -- Projectiles are fired in random directions
+		["TangledAltarDownsidePlayerSapped"] = { }, -- All Damage taken from Hits can Sap you", "(25-35)% chance to be Sapped when Hit
+		["TangledAltarDownsidePlayerShockedGroundWhenHit"] = { }, -- (25-35)% chance for Enemies to drop Shocked Ground when Hitting you, no more than once every 2 seconds
 	},
 	Prefix = function(build)
 		local List = {}
@@ -941,4 +1279,33 @@ return {
 		mapTierCache["Suffix"..tier] = List
 		return List
 	end,
+	CleansingAltar = {
+		{ val = "CleansingAltarDownsideBossArmour", label = "Boss Armour                                                                  to CleansingAltarDownsideBossArmour" },
+		{ val = "CleansingAltarDownsideBossIncreasedArmourAndEvasion", label = "Boss Increased Armour And Evasion Rating                                                                  to CleansingAltarDownsideBossIncreasedArmourAndEvasion", range = true },
+		{ val = "CleansingAltarDownsideBossFireAndChaosResist", label = "Boss Fire and Chaos Resistances                                                                  to maximum CleansingAltarDownsideBossFireAndChaosResist" },
+		--{ val = "CleansingAltarDownsideBossPenetrateElementalResist", label = "Boss Phys as Random and Penetration                                                                  Gain to of Physical Damage Extra Penetrates Enemy Resistances CleansingAltarDownsideBossPenetrateElementalResist", range = true },
+		{ val = "CleansingAltarDownsideBossPhysToAddAsChaos", label = "Boss Physical As Chaos                                                                  Gain of Damage Extra Poison Hit All from Hits can CleansingAltarDownsideBossPhysToAddAsChaos", range = true },
+		{ val = "CleansingAltarDownsideBossPhysToAddAsFire", label = "Boss Physical As Fire                                                                  Hits always Ignite Gain of Damage Extra All can CleansingAltarDownsideBossPhysToAddAsFire", range = true },
+		{ val = "CleansingAltarDownsidePlayerIncreasedFlaskChargesUsed", label = "Reduced Flask Sustain                                                                  to Effect Duration CleansingAltarDownsidePlayerIncreasedFlaskChargesUsed", range = true },
+		{ val = "CleansingAltarDownsidePlayerChaosDegenDuringFlaskDuration", label = "Chaos Degen During Flask                                                                  Take Damage per second any Effect CleansingAltarDownsidePlayerChaosDegenDuringFlaskDuration" },
+		{ val = "CleansingAltarDownsidePlayerChaosMonsterAura", label = "Physical As Chaos Aura                                                                  Nearby Enemies Gain of their Damage Extra CleansingAltarDownsidePlayerChaosMonsterAura" },
+		{ val = "CleansingAltarDownsidePlayerFireMonsterAura", label = "Physical As Fire Aura                                                                  Nearby Enemies Gain of their Damage Extra CleansingAltarDownsidePlayerFireMonsterAura" },
+		{ val = "CleansingAltarDownsidePlayerReducedArmourAndEvasion", label = "Minus Armour and Evasion Rating                                                                  to CleansingAltarDownsidePlayerReducedArmourAndEvasion" },
+		{ val = "CleansingAltarDownsidePlayerReducedFireAndChaosResist", label = "Minus Fire and Chaos Resistances                                                                  - to CleansingAltarDownsidePlayerReducedFireAndChaosResist", range = true },
+	},
+	TangledAltar = {
+		{ val = "TangledAltarDownsideBossPhysicalDamageReduction", label = "Boss Physical Damage Reduction                                                                  to additional TangledAltarDownsideBossPhysicalDamageReduction", range = true },
+		--{ val = "TangledAltarDownsideBossSuppressSpells", label = "Boss Spell Suppression                                                                  Prevent to of Suppressed Damage chance TangledAltarDownsideBossSuppressSpells", range = true },
+		{ val = "TangledAltarDownsideBossColdAndLightningResist", label = "Boss Cold and Lightning Resistances                                                                  to maximum TangledAltarDownsideBossColdAndLightningResist" },
+		--{ val = "TangledAltarDownsideBossPenetrateElementalResistances", label = "Boss Phys as Random and Penetration                                                                  Gain to of Physical Damage Extra Penetrates Enemy TangledAltarDownsideBossPenetrateElementalResistances", range = true },
+		{ val = "TangledAltarDownsideBossPhysToAddAsCold", label = "Boss Physical As Cold                                                                  Gain of Damage Extra All with Hits can Chill TangledAltarDownsideBossPhysToAddAsCold", range = true },
+		{ val = "TangledAltarDownsideBossPhysToAddAsLightning", label = "Boss Physical As Lightning                                                                  Hits always Shock Gain of Damage Extra All can TangledAltarDownsideBossPhysToAddAsLightning", range = true },
+		{ val = "TangledAltarDownsidePlayerReducedPhysicalDamageReduction", label = "Minus Physical Damage Reduction                                                                  to additional TangledAltarDownsidePlayerReducedPhysicalDamageReduction", range = true },
+		{ val = "TangledAltarDownsidePlayerReducedColdAndLightningResist", label = "Minus Cold and Lightning Resistances                                                                  - to TangledAltarDownsidePlayerReducedColdAndLightningResist", range = true },
+		{ val = "TangledAltarDownsidePlayerTaintedEndurance", label = "Minus Recovery Rate Per Endurance Charge                                                                  to reduced of Life, Mana and Energy Shield TangledAltarDownsidePlayerTaintedEndurance", range = true },
+		{ val = "TangledAltarDownsidePlayerTaintedFrenzy", label = "Minus Defences Per Frenzy Charge                                                                  to reduced TangledAltarDownsidePlayerTaintedFrenzy", range = true },
+		{ val = "TangledAltarDownsidePlayerTaintedPower", label = "Minus Crit Multi Per Power Charge                                                                  - to Critical Strike Multiplier TangledAltarDownsidePlayerTaintedPower", range = true },
+		{ val = "TangledAltarDownsidePlayerColdMonsterAura", label = "Physical As Cold Aura                                                                  Nearby Enemies Gain of their Damage Extra TangledAltarDownsidePlayerColdMonsterAura" },
+		{ val = "TangledAltarDownsidePlayerLightningMonsterAura", label = "Physical As Lightning Aura                                                                  Nearby Enemies Gain of their Damage Extra TangledAltarDownsidePlayerLightningMonsterAura" },
+	},
 }
