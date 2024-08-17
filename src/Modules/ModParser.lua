@@ -1566,6 +1566,7 @@ local modTagList = {
 	["while you have infusion"] = { tag = { type = "Condition", var = "InfusionActive" } },
 	["while focus?sed"] = { tag = { type = "Condition", var = "Focused" } },
 	["while leeching"] = { tag = { type = "Condition", var = "Leeching" } },
+	["while leeching life"] = { tag = { type = "Condition", var = "LeechingLife" } },
 	["while leeching energy shield"] = { tag = { type = "Condition", var = "LeechingEnergyShield" } },
 	["while leeching mana"] = { tag = { type = "Condition", var = "LeechingMana" } },
 	["while using a flask"] = { tag = { type = "Condition", var = "UsingFlask" } },
@@ -2814,7 +2815,7 @@ local specialModList = {
 	["socketed non%-channelling bow skills are triggered by snipe"] = {
 	},
 	["grants level (%d+) snipe skill"] = function(num) return {
-		mod("ExtraSkill", "LIST", { skillId = "ChannelledSnipe", level = num }),
+		mod("ExtraSkill", "LIST", { skillId = "Snipe", level = num }),
 		mod("ExtraSupport", "LIST", { skillId = "ChannelledSnipeSupport", level = num }, { type = "SocketedIn", slotName = "{SlotName}" }),
 	} end,
 	["socketed triggered bow skills deal (%d+)%% less damage"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("Damage", "MORE", -num) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "bow" }, { type = "SkillType", skillType = SkillType.Triggerable }) } end,
@@ -4679,7 +4680,7 @@ local specialModList = {
 	["your spells are disabled"] = { flag("DisableSkill", { type = "SkillType", skillType = SkillType.Spell }) },
 	["your travel skills are disabled"] = { flag("DisableSkill", { type = "SkillType", skillType = SkillType.Travel }) },
 	["aura skills other than ([%a%s]+) are disabled"] = function(_, name) return {
-		flag("DisableSkill", { type = "SkillType", skillType = SkillType.Aura }),
+		flag("DisableSkill", { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.RemoteMined, neg = true }),
 		flag("EnableSkill", { type = "SkillName", skillName = name }),
 	} end,
 	["travel skills other than ([%a%s]+) are disabled"] = function(_, name) return {

@@ -403,12 +403,22 @@ end
 -- Process active skill
 function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingFlags)
 	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
+
+	-- env.limitedSkills contains a map of uuids that should be limited in calculation
+	-- this is in order to prevent infinite recursion loops
+	fullEnv.limitedSkills = fullEnv.limitedSkills or {}
+	for uuid, _ in pairs(env.limitedSkills or {}) do
+		fullEnv.limitedSkills[uuid] = true
+	end
+	for uuid, _ in pairs(limitedProcessingFlags or {}) do
+		fullEnv.limitedSkills[uuid] = true
+	end
+
 	targetUUID = targetUUID or cacheSkillUUID(skill, env)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		local activeSkillUUID = cacheSkillUUID(activeSkill, fullEnv)
 		if activeSkillUUID == targetUUID then
 			fullEnv.player.mainSkill = activeSkill
-			fullEnv.player.mainSkill.skillData.limitedProcessing = limitedProcessingFlags and limitedProcessingFlags[activeSkillUUID]
 			calcs.perform(fullEnv, true)
 			return
 		end

@@ -1,3 +1,18 @@
+VERSION[2.48.2][2024/08/17]
+
+--- Fixed Crashes ---
+* Fix limited processing flag not persisting through recursions causing crash (Paliak)
+
+--- User Interface ---
+* Improve breakdown for Snipe's damage mods (Paliak)
+
+--- Fixed Calculations ---
+* Fix Damage while Leeching Life mod not working (LocalIdentity)
+
+--- Fixed Behaviours ---
+* Fix Sublime Vision disabling Mine skills (LocalIdentity)
+* Fix Snipe for Assailum not working (Paliak)
+
 VERSION[2.48.1][2024/08/15]
 
 --- Fixed Crashes ---
