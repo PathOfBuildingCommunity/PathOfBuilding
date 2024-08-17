@@ -14,7 +14,7 @@ RUN wget https://luarocks.org/releases/luarocks-3.7.0.tar.gz && tar xf luarocks-
 RUN cd luarocks-3.7.0 && ./configure && make
 
 FROM buildbase AS luajit
-RUN git clone --depth 1 --branch v2.1.0-beta3 https://github.com/LuaJIT/LuaJIT
+RUN git clone https://github.com/LuaJIT/LuaJIT && cd LuaJIT && git checkout c7db8255e1eb59f933fac7bc9322f0e4f8ddc6e6
 RUN cd LuaJIT && make
 
 FROM buildbase AS emmyluadebugger
@@ -34,6 +34,6 @@ RUN luarocks install busted 2.2.0-1;\
 	luarocks install luacov-coveralls 0.2.3-1
 
 RUN --mount=type=cache,from=emmyluadebugger,source=/opt,target=/opt make -C /opt/EmmyLuaDebugger/build/ install
-RUN --mount=type=cache,from=luajit,source=/opt,target=/opt make -C /opt/LuaJIT/ install && ln -sf /usr/local/bin/luajit-2.1.0-beta3 /usr/local/bin/luajit
+RUN --mount=type=cache,from=luajit,source=/opt,target=/opt make -C /opt/LuaJIT/ install
 
 CMD [ "echo", "This container is meant to be ran with docker compose. See: https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/dev/CONTRIBUTING.md" ]

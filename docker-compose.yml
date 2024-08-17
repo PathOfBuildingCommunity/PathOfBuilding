@@ -1,10 +1,10 @@
 services:
   busted-tests:
     #build: .
-    image: ghcr.io/paliak/busted-tests:latest
+    image: ghcr.io/paliak/pathofbuilding-tests:latest
     environment:
       HOME: /tmp
-    container_name: busted-tests
+    container_name: pathofbuilding-tests
     user: nobody:nobody
     command: busted --lua=luajit
     security_opt:
