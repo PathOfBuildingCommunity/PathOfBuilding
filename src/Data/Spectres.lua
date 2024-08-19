@@ -6766,3 +6766,27 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh"] = {
 		mod("PlayerModifier", "LIST", { mod = mod("Duration", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HalfRememberedGoliath", unscaleable = true })}),
 	},
 }
+-- Wretched Defiler
+minions["Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber"] = {
+    name = "Wretched Defiler",
+	monsterTags = {"caster", "demon", "fast_movement", "flesh_armour", "is_unarmed", "large_model", "lightning_affinity", "melee", "not_int", "not_str", "physical_affinity", "raises_dead", "ranged", "red_blood", "slashing_weapon", "small_height", "standalone_map_boss"},
+    life = 3.9,
+    fireResist = 40,
+    coldResist = 40,
+    lightningResist = 40,
+    chaosResist = 25,
+    damage = 3,
+    damageSpread = 0.2,
+    attackTime = 1.5,
+    attackRange = 10,
+    accuracy = 1,
+    skillList = {
+        "MeleeAtAnimationSpeed",
+        "RevenantMapBossSummon1",
+        "RevenantMapBossSummon2",
+        "RevenantReviveUndead",
+        "RevenantBossSpellProjectile",
+    },
+    modList = {
+    },
+}
