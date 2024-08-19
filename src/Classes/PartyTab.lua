@@ -857,8 +857,20 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 						end
 						if currentName ~= "SKIP" then
 							if mod.source:match("Item") then
-								_, mod.source = mod.source:match("Item:(%d+):(.+)")
+								local oldItem
+								oldItem, mod.source = mod.source:match("Item:(%d+):(.+)")
 								mod.source = "Party - "..mod.source
+							end
+							if mod.source:match("Skill") then
+								local skillId = mod.source:match("Skill:(.+)")
+								if not data.skills[skillId] then
+									local minimisedName = currentName:gsub(" %l",string.upper):gsub(" ","")
+									if data.skills[minimisedName] then
+										mod.source = "Skill:"..minimisedName
+									else
+										mod.source = skillId
+									end
+								end
 							end
 							if buffType == "Link" then
 								mod.name = mod.name:gsub("Parent", "PartyMember")
