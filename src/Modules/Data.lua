@@ -522,6 +522,7 @@ data.jewelRadius = data.setJewelRadiiGlobally(latestTreeVersion)
 data.enchantmentSource = {
 	{ name = "ENKINDLING", label = "Enkindling Orb" },
 	{ name = "INSTILLING", label = "Instilling Orb" },
+	{ name = "RUNESMITH", label = "Runecraft Bench" },
 	{ name = "HEIST", label = "Heist" },
 	{ name = "HARVEST", label = "Harvest" },
 	{ name = "DEDICATION", label = "Dedication to the Goddess" },
@@ -555,8 +556,26 @@ data.enchantments = {
 	["Belt"] = LoadModule("Data/EnchantmentBelt"),
 	["Body Armour"] = LoadModule("Data/EnchantmentBody"),
 	["Weapon"] = LoadModule("Data/EnchantmentWeapon"),
-	["Flask"] = LoadModule("Data/EnchantmentFlask"),
+	["UtilityFlask"] = LoadModule("Data/EnchantmentFlask"),
 }
+do
+	data.enchantments["Flask"] = data.enchantments["UtilityFlask"]--["HARVEST"]
+	for baseType, _ in pairs(data.weaponTypeInfo) do
+		data.enchantments[baseType] = { }
+		for enchantmentType, enchantmentList in pairs(data.enchantments["Weapon"]) do
+			if type(enchantmentList[1]) == "string" then
+				data.enchantments[baseType][enchantmentType] = enchantmentList
+			elseif type(enchantmentList[1]) == "table" then
+				data.enchantments[baseType][enchantmentType] = {}
+				for _, enchantment in ipairs(enchantmentList) do
+					if enchantment.types[baseType] then
+						t_insert(data.enchantments[baseType][enchantmentType], table.concat(enchantment, "/"))
+					end
+				end
+			end
+		end
+	end					
+end
 data.essences = LoadModule("Data/Essence")
 data.veiledMods = LoadModule("Data/ModVeiled")
 data.necropolisMods = LoadModule("Data/ModNecropolis")

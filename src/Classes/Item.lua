@@ -679,11 +679,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
 								or data.itemMods[self.base.type]
 								or data.itemMods.Item
-						if self.base.weapon then
-							self.enchantments = data.enchantments["Weapon"]
-						elseif self.base.flask then
-							self.enchantments = data.enchantments["Flask"]
+						if self.base.flask then
 							if self.base.utility_flask then
+								self.enchantments = data.enchantments["UtilityFlask"]
+							else
 								self.enchantments = data.enchantments["Flask"]
 							end
 						else
