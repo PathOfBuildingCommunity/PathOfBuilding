@@ -2332,6 +2332,15 @@ function calcs.offence(env, actor, activeSkill)
 	if quantityMultiplier > 1 then
 		output.QuantityMultiplier = quantityMultiplier
 	end
+	
+	-- enemy spell suppress
+	do
+		local enemySuppressChance = m_min((enemyDB:Sum("BASE", cfg, "SpellSuppressionChance") or 0), 100)
+		if enemySuppressChance > 0 then
+			local effect = m_min(data.misc.SuppressionEffect + enemyDB:Sum("BASE", cfg, "SpellSuppressionEffect"), 100)
+			enemyDB:NewMod("DamageTaken", "MORE", -m_floor(effect * enemySuppressChance / 100), "Enemy Spell Suppression", ModFlag.Spell)
+		end
+	end
 
 	--Calculate damage (exerts, crits, ruthless, DPS, etc)
 	for _, pass in ipairs(passList) do

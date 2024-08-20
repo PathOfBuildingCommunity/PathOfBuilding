@@ -192,6 +192,7 @@ return {
 			order = 11,
 			modType= "Prefix",
 			type = "list",
+			label = "Enemy chance to Suppress Spell Damage                                                                  Monsters have Oppressive",
 			tooltipLines = { "Monsters have +%d%% chance to Suppress Spell Damage" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("SpellSuppressionChance", "BASE", values[val] * mapModEffect, "Map mod Oppressive")
@@ -207,6 +208,7 @@ return {
 			order = 12,
 			modType= "Prefix",
 			type = "list",
+			label = "Enemy chance to Suppress Spell Damage                                                                  Monsters have Oppressive UBER",
 			tooltipLines = { "Monsters have +%d%% chance to Suppress Spell Damage" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("SpellSuppressionChance", "BASE", values[val] * mapModEffect, "Map mod Oppressive")
@@ -1409,7 +1411,7 @@ return {
 	TangledAltar = {
 		{ val = "ALLPLAYER", label = "All Player Downsides" },
 		{ val = "TangledAltarDownsideBossPhysicalDamageReduction", label = "Boss Physical Damage Reduction                                                                  to additional TangledAltarDownsideBossPhysicalDamageReduction", range = true },
-		--{ val = "TangledAltarDownsideBossSuppressSpells", label = "Boss Spell Suppression                                                                  Prevent to of Suppressed Damage chance TangledAltarDownsideBossSuppressSpells", range = true },
+		{ val = "TangledAltarDownsideBossSuppressSpells", label = "Boss Spell Suppression                                                                  Prevent to of Suppressed Damage chance TangledAltarDownsideBossSuppressSpells", range = true },
 		{ val = "TangledAltarDownsideBossColdAndLightningResist", label = "Boss Cold and Lightning Resistances                                                                  to maximum TangledAltarDownsideBossColdAndLightningResist" },
 		{ val = "TangledAltarDownsideBossPenetrateElementalResistances", label = "Boss Phys as Random and Penetration                                                                  Gain to of Physical Damage Extra Penetrates Enemy TangledAltarDownsideBossPenetrateElementalResistances", range = true },
 		{ val = "TangledAltarDownsideBossPhysToAddAsCold", label = "Boss Physical As Cold                                                                  Gain of Damage Extra All with Hits can Chill TangledAltarDownsideBossPhysToAddAsCold", range = true },
