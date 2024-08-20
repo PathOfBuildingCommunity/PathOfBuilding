@@ -1342,6 +1342,10 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				end
 				min = round(min * (1 + physInc / 100) * (1 + qualityScalar / 100))
 				max = round(max * (1 + physInc / 100) * (1 + qualityScalar / 100))
+			elseif dmgType ~= "Physical" and dmgType ~= "Chaos" then
+				local localInc = calcLocal(modList, "Local"..dmgType.."Damage", "INC", 0) + calcLocal(modList, "LocalElementalDamage", "INC", 0)
+				min = round(min * (1 + localInc / 100))
+				max = round(max * (1 + localInc / 100))
 			end
 			if min > 0 and max > 0 then
 				weaponData[dmgType.."Min"] = min
