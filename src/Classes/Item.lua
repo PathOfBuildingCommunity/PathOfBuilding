@@ -1195,6 +1195,7 @@ function ItemClass:Craft()
 				if mod then
 					for _, line in ipairs(mod) do
 						if line:find("effect") then
+							line = itemLib.applyRange(line, affix.range or 0.5, nil)
 							modLineMultipliers["localEffect"] = (modLineMultipliers["localEffect"] or 0) + (line:match("^(%d+)%% increased effect") or 0) - (line:match("^(%d+)%% reduced effect") or 0)
 						end
 					end
@@ -1202,6 +1203,7 @@ function ItemClass:Craft()
 			end
 		end
 	end
+	ConPrintTable(modLineMultipliers)
 	for _, list in ipairs({self.prefixes,self.suffixes}) do
 		for i = 1, self.affixLimit / 2 do
 			local affix = list[i]
@@ -1216,7 +1218,7 @@ function ItemClass:Craft()
 					self.nameSuffix = " " .. mod.affix
 				end
 				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))
-				local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst, mod.modTags, self.quality or self.catalystQuality, modLineMultipliers)
+				local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst, self.base.tincture and mod.type == "Suffix" and { "tincture" } or mod.modTags, self.quality or self.catalystQuality, modLineMultipliers)
 				for i, line in ipairs(mod) do
 					line = itemLib.applyRange(line, affix.range or 0.5, rangeScalar)
 					local order = mod.statOrder[i]
