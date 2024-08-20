@@ -114,6 +114,8 @@ local function eldrtichAltarTooltip(tooltip, mode, index, value)
 	if applyModes[mode] then
 		if value.val == "ALL" then
 			tooltip:AddLine(16, '^7Adds All Eldritch Altar Mods of This Kind')
+		elseif value.val == "ALLPLAYER" then
+			tooltip:AddLine(16, '^7Adds All Player Eldritch Altar Mods of This Kind')
 		else
 			tooltip:AddLine(20, '^7'..value.val)
 			local affixData = data.mapMods.AffixData[value.val]
@@ -145,6 +147,36 @@ local function eldrtichAltarTooltip(tooltip, mode, index, value)
 						end
 					end
 				end
+			end
+		end
+	end
+end
+
+local function eldritchAltarFunction(val, extraData, modList, enemyModList, altarList)
+	if val == "ALL" or val == "ALLPLAYER" then
+		for _, altar in ipairs(altarList) do
+			if altar.val ~= "ALLPLAYER" and (val == "ALL" or altar.val:match("DownsidePlayer")) then
+				local affixData = data.mapMods.AffixData[altar.val] or {}
+				if affixData.apply then
+					if affixData.type == "check" then
+						affixData.apply(var, 1, modList, enemyModList)
+					elseif affixData.type == "list" then
+						affixData.apply(1, 1, affixData.values, modList, enemyModList)
+					elseif affixData.type == "count" then
+						affixData.apply(1, extraData[1] or 100, 1, affixData.values, modList, enemyModList)
+					end
+				end
+			end
+		end
+	elseif val ~= "NONE" then
+		local affixData = data.mapMods.AffixData[val] or {}
+		if affixData.apply then
+			if affixData.type == "check" then
+				affixData.apply(var, 1, modList, enemyModList)
+			elseif affixData.type == "list" then
+				affixData.apply(1, 1, affixData.values, modList, enemyModList)
+			elseif affixData.type == "count" then
+				affixData.apply(1, extraData[1] or 100, 1, affixData.values, modList, enemyModList)
 			end
 		end
 	end
@@ -811,58 +843,10 @@ Huge sets the radius to 11.
 		end
 	end },
 	{ var = "CleansingAltarDownsides", type = "multiList", extraTypes = { { "slider", "range of the eldritch altar", "range", 100 } }, label = "EXARCH Eldritch Altar Downsides:" , tooltipFunc = eldrtichAltarTooltip, list = data.mapMods.CleansingAltar, apply = function(val, extraData, modList, enemyModList)
-		if val == "ALL" then
-			for _, altar in ipairs(data.mapMods.CleansingAltar) do
-				local affixData = data.mapMods.AffixData[altar.val] or {}
-				if affixData.apply then
-					if affixData.type == "check" then
-						affixData.apply(var, 1, modList, enemyModList)
-					elseif affixData.type == "list" then
-						affixData.apply(1, 1, affixData.values, modList, enemyModList)
-					elseif affixData.type == "count" then
-						affixData.apply(1, extraData[1] or 100, 1, affixData.values, modList, enemyModList)
-					end
-				end
-			end
-		elseif val ~= "NONE" then
-			local affixData = data.mapMods.AffixData[val] or {}
-			if affixData.apply then
-				if affixData.type == "check" then
-					affixData.apply(var, 1, modList, enemyModList)
-				elseif affixData.type == "list" then
-					affixData.apply(1, 1, affixData.values, modList, enemyModList)
-				elseif affixData.type == "count" then
-					affixData.apply(1, extraData[1] or 100, 1, affixData.values, modList, enemyModList)
-				end
-			end
-		end
+		eldritchAltarFunction(val, extraData, modList, enemyModList, data.mapMods.CleansingAltar)
 	end },
 	{ var = "TangledAltarDownsides", type = "multiList", extraTypes = { { "slider", "range of the eldritch altar", "range", 100 } }, label = "EATER Eldritch Altar Downsides:" , tooltipFunc = eldrtichAltarTooltip, list = data.mapMods.TangledAltar, apply = function(val, extraData, modList, enemyModList)
-		if val == "ALL" then
-			for _, altar in ipairs(data.mapMods.TangledAltar) do
-				local affixData = data.mapMods.AffixData[altar.val] or {}
-				if affixData.apply then
-					if affixData.type == "check" then
-						affixData.apply(var, 1, modList, enemyModList)
-					elseif affixData.type == "list" then
-						affixData.apply(1, 1, affixData.values, modList, enemyModList)
-					elseif affixData.type == "count" then
-						affixData.apply(1, extraData[1] or 100, 1, affixData.values, modList, enemyModList)
-					end
-				end
-			end
-		elseif val ~= "NONE" then
-			local affixData = data.mapMods.AffixData[val] or {}
-			if affixData.apply then
-				if affixData.type == "check" then
-					affixData.apply(var, 1, modList, enemyModList)
-				elseif affixData.type == "list" then
-					affixData.apply(1, 1, affixData.values, modList, enemyModList)
-				elseif affixData.type == "count" then
-					affixData.apply(1, extraData[1] or 100, 1, affixData.values, modList, enemyModList)
-				end
-			end
-		end
+		eldritchAltarFunction(val, extraData, modList, enemyModList, data.mapMods.TangledAltar)
 	end },
 	{ label = "Unique Map Modifiers:" },
 	{ var = "PvpScaling", type = "check", label = "PvP damage scaling in effect", tooltip = "'Hall of Grandmasters'", apply = function(val, modList, enemyModList)

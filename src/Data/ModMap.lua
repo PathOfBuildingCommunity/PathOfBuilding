@@ -1280,6 +1280,7 @@ return {
 		return List
 	end,
 	CleansingAltar = {
+		{ val = "ALLPLAYER", label = "All Player Downsides" },
 		{ val = "CleansingAltarDownsideBossArmour", label = "Boss Armour                                                                  to CleansingAltarDownsideBossArmour" },
 		{ val = "CleansingAltarDownsideBossIncreasedArmourAndEvasion", label = "Boss Increased Armour And Evasion Rating                                                                  to CleansingAltarDownsideBossIncreasedArmourAndEvasion", range = true },
 		{ val = "CleansingAltarDownsideBossFireAndChaosResist", label = "Boss Fire and Chaos Resistances                                                                  to maximum CleansingAltarDownsideBossFireAndChaosResist" },
@@ -1294,6 +1295,7 @@ return {
 		{ val = "CleansingAltarDownsidePlayerReducedFireAndChaosResist", label = "Minus Fire and Chaos Resistances                                                                  - to CleansingAltarDownsidePlayerReducedFireAndChaosResist", range = true },
 	},
 	TangledAltar = {
+		{ val = "ALLPLAYER", label = "All Player Downsides" },
 		{ val = "TangledAltarDownsideBossPhysicalDamageReduction", label = "Boss Physical Damage Reduction                                                                  to additional TangledAltarDownsideBossPhysicalDamageReduction", range = true },
 		--{ val = "TangledAltarDownsideBossSuppressSpells", label = "Boss Spell Suppression                                                                  Prevent to of Suppressed Damage chance TangledAltarDownsideBossSuppressSpells", range = true },
 		{ val = "TangledAltarDownsideBossColdAndLightningResist", label = "Boss Cold and Lightning Resistances                                                                  to maximum TangledAltarDownsideBossColdAndLightningResist" },
