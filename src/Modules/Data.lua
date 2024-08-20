@@ -559,7 +559,7 @@ data.enchantments = {
 	["UtilityFlask"] = LoadModule("Data/EnchantmentFlask"),
 }
 do
-	data.enchantments["Flask"] = data.enchantments["UtilityFlask"]--["HARVEST"]
+	data.enchantments["Flask"] = { ["HARVEST"] = data.enchantments["UtilityFlask"]["HARVEST"] }
 	for baseType, _ in pairs(data.weaponTypeInfo) do
 		data.enchantments[baseType] = { }
 		for enchantmentType, enchantmentList in pairs(data.enchantments["Weapon"]) do

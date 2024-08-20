@@ -144,6 +144,14 @@ function describeStats(stats)
 			val[i] = stats[s] or { min = 0, max = 0 }
 			val[i].fmt = "d"
 		end
+		if descriptor[1] then
+			if descriptor[1][3] and descriptor[1][3].text:match("-1%% to this value when used") then
+				descriptor[1][3].limit[1] = descriptor[1][1].limit[1]
+				descriptor[1][4].limit[1] = descriptor[1][2].limit[1]
+			elseif descriptor[1][2] and descriptor[1][2].text:match("-1 to this value when used") then
+				descriptor[1][2].limit[1] = descriptor[1][1].limit[1]
+			end
+		end
 		local desc = matchLimit(descriptor[1], val)
 		if desc then
 			for _, spec in ipairs(desc) do
