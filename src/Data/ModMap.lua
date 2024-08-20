@@ -63,8 +63,18 @@ return {
 				[4] = 40,
 			},
 		},
-		["Hexproof"] = {
+		["Cycling UBER"] = {
 			order = 2,
+			modType= "Prefix",
+			type = "check",
+			label = "Players Deal no Damage 3 out of 10 seconds                                                                  and their Minions for every Cycling UBER",
+			tooltipLines = { "Players and their Minions deal no damage for 3 out of every 10 seconds" },
+			apply = function(val, mapModEffect, modList, enemyModList)
+				modList:NewMod("DPS", "MORE", -30, "Map mod Cycling")
+			end,
+		},
+		["Hexproof"] = {
+			order = 3,
 			modType= "Prefix",
 			type = "check",
 			label = "Enemy is Hexproof?                                                                  Monsters are Hexproof",
@@ -74,7 +84,7 @@ return {
 			end,
 		},
 		["Hexwarded"] = {
-			order = 3,
+			order = 4,
 			modType= "Prefix",
 			type = "list",
 			label = "Less effect of Curses on enemy                                                                  Monsters Hexwarded",
@@ -90,7 +100,7 @@ return {
 			},
 		},
 		["Resistant"] = {
-			order = 4,
+			order = 5,
 			modType= "Prefix",
 			type = "list",
 			label = "Enemy has Elemental / ^xD02090Chaos ^7Resist                                                                  Monster Resistance Resistances Resistant",
@@ -107,7 +117,7 @@ return {
 			},
 		},
 		["Unwavering"] = {
-			order = 5,
+			order = 6,
 			modType= "Prefix",
 			type = "count",
 			tooltipLines = { "(%d to %d)%% more Monster Life", "Monsters cannot be Stunned" },
@@ -123,7 +133,7 @@ return {
 			},
 		},
 		["Fecund"] = {
-			order = 6,
+			order = 7,
 			modType= "Prefix",
 			type = "count",
 			tooltipLines = { "(%d to %d)%% more Monster Life" },
@@ -138,7 +148,7 @@ return {
 			},
 		},
 		["Fecund UBER"] = {
-			order = 7,
+			order = 8,
 			modType= "Prefix",
 			type = "count",
 			tooltipLines = { "(%d to %d)%% more Monster Life" },
@@ -150,7 +160,7 @@ return {
 			},
 		},
 		["Unstoppable"] = {
-			order = 8,
+			order = 9,
 			modType= "Prefix",
 			type = "check",
 			label = "Enemy Cannot Be Slowed                                                                  Monsters Taunted Monsters' Action Speed modified below Base Value Movement Unstoppable",
@@ -161,7 +171,7 @@ return {
 			end,
 		},
 		["Impervious"] = {
-			order = 9,
+			order = 10,
 			modType= "Prefix",
 			type = "list",
 			label = "Enemy chance to avoid Poison and Bleed                                                                  Monsters have Poison, Impale, Bleeding Impervious",
@@ -179,7 +189,7 @@ return {
 			},
 		},
 		["Oppressive"] = {
-			order = 10,
+			order = 11,
 			modType= "Prefix",
 			type = "list",
 			tooltipLines = { "Monsters have +%d%% chance to Suppress Spell Damage" },
@@ -194,7 +204,7 @@ return {
 			},
 		},
 		["Oppressive UBER"] = {
-			order = 11,
+			order = 12,
 			modType= "Prefix",
 			type = "list",
 			tooltipLines = { "Monsters have +%d%% chance to Suppress Spell Damage" },
@@ -206,7 +216,7 @@ return {
 			},
 		},
 		["Buffered"] = {
-			order = 12,
+			order = 13,
 			modType= "Prefix",
 			type = "count",
 			tooltipLines = { "Monsters gain (%d to %d)%% of Maximum Life as Extra Maximum Energy Shield" },
@@ -221,7 +231,7 @@ return {
 			},
 		},
 		["Buffered UBER"] = {
-			order = 13,
+			order = 14,
 			modType= "Prefix",
 			type = "count",
 			tooltipLines = { "Monsters gain (%d to %d)%% of Maximum Life as Extra Maximum Energy Shield" },
@@ -232,8 +242,21 @@ return {
 				[4] = { 70, 80 },
 			},
 		},
+		["Stalwart UBER"] = {
+			order = 15,
+			modType= "Prefix",
+			type = "list",
+			label = "Enemy Block Chance                                                                  Monsters have to Attack Damage Stalwart UBER",
+			tooltipLines = { "Monsters have +%d%% Chance to Block Attack Damage" },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("BlockChance", "BASE", values[val] * mapModEffect, "Map mod Stalwart", ModFlag.Attack)
+			end,
+			values = {
+				[4] = 50,
+			},
+		},
 		["Titan's"] = {
-			order = 14,
+			order = 16,
 			modType= "Prefix",
 			type = "list",
 			tooltipLines = { "Unique Boss has %d%% increased Life", "Unique Boss has %d%% increased Area of Effect" },
@@ -250,7 +273,7 @@ return {
 		},
 		-- offensive prefixes
 		["Savage"] = {
-			order = 15,
+			order = 17,
 			modType= "Prefix",
 			type = "count",
 			label = "Enemy Increased Damage                                                                  to Monster Savage",
@@ -266,7 +289,7 @@ return {
 			},
 		},
 		["Savage UBER"] = {
-			order = 16,
+			order = 18,
 			modType= "Prefix",
 			type = "count",
 			label = "Enemy Increased Damage                                                                  to Monster Savage UBER",
@@ -279,7 +302,7 @@ return {
 			},
 		},
 		["Burning"] = {
-			order = 17,
+			order = 19,
 			modType= "Prefix",
 			type = "count",
 			label = "Enemy Physical As Extra Fire                                                                  Monsters deal to Damage Burning",
@@ -295,7 +318,7 @@ return {
 			},
 		},
 		["Freezing"] = {
-			order = 18,
+			order = 20,
 			modType= "Prefix",
 			type = "count",
 			label = "Enemy Physical As Extra Cold                                                                  Monsters deal to Damage Freezing",
@@ -311,7 +334,7 @@ return {
 			},
 		},
 		["Shocking"] = {
-			order = 19,
+			order = 21,
 			modType= "Prefix",
 			type = "count",
 			label = "Enemy Physical As Extra Lightning                                                                  Monsters deal to Damage Shocking",
@@ -327,7 +350,7 @@ return {
 			},
 		},
 		["Profane"] = {
-			order = 20,
+			order = 22,
 			modType= "Prefix",
 			type = "count",
 			label = "Enemy Physical As Extra Chaos                                                                  Monsters gain to their Damage Inflict Withered for seconds Hit Profane",
@@ -345,7 +368,7 @@ return {
 			},
 		},
 		["Profane UBER"] = {
-			order = 21,
+			order = 23,
 			modType= "Prefix",
 			type = "count",
 			label = "Enemy Physical As Extra Chaos                                                                  Monsters gain to their Damage Profane UBER",
@@ -359,8 +382,23 @@ return {
 				[4] = { 80, 100 },
 			},
 		},
+		["Prismatic UBER"] = {
+			order = 24,
+			modType= "Prefix",
+			type = "count",
+			label = "Enemy Physical As Extra Random                                                                  Monsters gain to of their Damage Element Prismatic UBER",
+			tooltipLines = { "Monsters gain (%d to %d)%% of their Physical Damage as Extra Damage of a random Element" },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				if values[val] then
+					enemyModList:NewMod("PhysicalDamageGainAsRandom", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Prismatic")
+				end
+			end,
+			values = {
+				[4] = { 180, 200 },
+			},
+		},
 		["Fleet"] = {
-			order = 22,
+			order = 25,
 			modType= "Prefix",
 			type = "count",
 			label = "Enemy Increased Speed                                                                  to Monster Movement Attack Cast Fleet",
@@ -376,8 +414,30 @@ return {
 				[4] = { { 25, 30 }, { 35, 45 }, { 35, 45 } },
 			},
 		},
+		["Equalising UBER"] = {
+			order = 27,
+			modType= "Prefix",
+			type = "list",
+			tooltipLines = { "Rare and Unique Monsters remove %d%% of Life, Mana and Energy Shield from Players or their Minions on Hit" },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+			end,
+			values = {
+				[4] = 5,
+			},
+		},
+		["Afflicting UBER"] = {
+			order = 28,
+			modType= "Prefix",
+			type = "check",
+			label = "Enemy Hits always Ignites, Freezes and Shocks                                                                  All Monster Damage can Ignite, Monsters Afflicting UBER",
+			tooltipLines = { "All Monster Damage can Ignite, Freeze and Shock", "Monsters Ignite, Freeze and Shock on Hit" },
+			apply = function(val, mapModEffect, modList, enemyModList)
+				enemyModList:NewMod("IgniteChance", "BASE", 100, "Map mod Afflicting")
+				enemyModList:NewMod("AllDamageIgnites", "FLAG", true, "Map mod Afflicting")
+			end,
+		},
 		["Conflagrating"] = {
-			order = 24,
+			order = 29,
 			modType= "Prefix",
 			type = "check",
 			label = "Enemy Hits always Ignites                                                                  All Monster Damage from Conflagrating",
@@ -388,7 +448,7 @@ return {
 			end,
 		},
 		["Impaling"] = {
-			order = 25,
+			order = 30,
 			modType= "Prefix",
 			type = "list",
 			label = "Enemy chance to Impale                                                                  Monsters' Attacks have Hit Impaling",
@@ -404,7 +464,7 @@ return {
 			},
 		},
 		["Impaling UBER"] = {
-			order = 26,
+			order = 31,
 			modType= "Prefix",
 			type = "list",
 			label = "Enemy chance to Impale                                                                  Monsters' Attacks Hit When fifth is inflicted Player, Impales are removed Reflect their Physical Damage multiplied by remaining Hits that and Allies within metres Impaling UBER",
@@ -419,7 +479,7 @@ return {
 			},
 		},
 		["Empowered"] = {
-			order = 27,
+			order = 32,
 			modType= "Prefix",
 			type = "list",
 			label = "Enemy Elemental Ailments chance on Hit                                                                  Monsters have to Ignite, Freeze and Shock Empowered",
@@ -436,7 +496,7 @@ return {
 			},
 		},
 		["Overlord's"] = {
-			order = 28,
+			order = 33,
 			modType= "Prefix",
 			type = "list",
 			label = "Boss Increased Damage / Speed                                                                  Unique deals has Attack and Cast Overlord's",
@@ -454,7 +514,7 @@ return {
 		},
 		-- reflect prefixes
 		["Punishing"] = {
-			order = 29,
+			order = 34,
 			modType= "Prefix",
 			type = "list",
 			tooltipLines = { "Monsters reflect %d%% of Physical Damage" },
@@ -468,7 +528,7 @@ return {
 			},
 		},
 		["Punishing UBER"] = {
-			order = 30,
+			order = 35,
 			modType= "Prefix",
 			type = "list",
 			tooltipLines = { "Monsters reflect %d%% of Physical Damage", "Monsters reflect %d%% of Elemental Damage" },
@@ -479,7 +539,7 @@ return {
 			},
 		},
 		["Mirrored"] = {
-			order = 31,
+			order = 36,
 			modType= "Prefix",
 			type = "list",
 			tooltipLines = { "Monsters reflect %d%% of Elemental Damage" },
@@ -494,7 +554,7 @@ return {
 		},
 		-- suffixes
 		["of Balance"] = {
-			order = 32,
+			order = 37,
 			modType= "Suffix",
 			type = "check",
 			OldLabel = "Player has Elemental Equilibrium?",
@@ -505,7 +565,7 @@ return {
 			end,
 		},
 		["of Congealment"] = {
-			order = 33,
+			order = 38,
 			modType= "Suffix",
 			type = "check",
 			label = "Cannot Leech ^xE05030Life ^7/ ^x7070FFMana                                                                  Monsters be Leeched from of Congealment",
@@ -517,7 +577,7 @@ return {
 			end,
 		},
 		["of Drought"] = {
-			order = 34,
+			order = 39,
 			modType= "Suffix",
 			type = "list",
 			label = "Gain reduced Flask Charges                                                                  Players of Drought",
@@ -533,7 +593,7 @@ return {
 			},
 		},
 		["of Exposure"] = {
-			order = 35,
+			order = 40,
 			modType= "Suffix",
 			type = "count",
 			label = "-X% maximum Resistances                                                                  Players have minus to all of Exposure",
@@ -554,7 +614,7 @@ return {
 			},
 		},
 		["of Exposure UBER"] = {
-			order = 36,
+			order = 41,
 			modType= "Suffix",
 			type = "list",
 			label = "-X% maximum Resistances                                                                  Players have minus to all of Exposure UBER",
@@ -571,8 +631,21 @@ return {
 				[4] = 20,
 			},
 		},
+		["of Penetration UBER"] = {
+			order = 42,
+			modType= "Suffix",
+			type = "list",
+			label = "Enemy Penetrates Elemental Resistances                                                                  Monster Damage of Penetration UBER",
+			tooltipLines = { "Monster Damage Penetrates %d%% Elemental Resistances" },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+					enemyModList:NewMod("ElementalPenetration", "BASE", values[val] * mapModEffect, "Map mod Penetration")
+			end,
+			values = {
+				[4] = 15,
+			},
+		},
 		["of Impotence"] = {
-			order = 37,
+			order = 43,
 			modType= "Suffix",
 			type = "list",
 			label = "Less Area of Effect:                                                                  Players have of Impotence",
@@ -588,7 +661,7 @@ return {
 			},
 		},
 		["of Impotence UBER"] = {
-			order = 38,
+			order = 44,
 			modType= "Suffix",
 			type = "count",
 			label = "Less Area of Effect:                                                                  Players have to of Impotence UBER",
@@ -603,7 +676,7 @@ return {
 			},
 		},
 		["of Insulation"] = {
-			order = 39,
+			order = 45,
 			modType= "Suffix",
 			type = "list",
 			label = "Enemy chance to avoid Elemental Ailments                                                                  Monsters have of Insulation",
@@ -619,7 +692,7 @@ return {
 			},
 		},
 		["of Miring"] = {
-			order = 40,
+			order = 46,
 			modType= "Suffix",
 			type = "list",
 			label = "Enemy has inc. Accuracy: / Players have to amount of Suppressed Spell Damage Prevented                                                                  Monsters increased Rating minus of Miring",
@@ -636,7 +709,7 @@ return {
 			},
 		},
 		["of Miring UBER"] = {
-			order = 41,
+			order = 47,
 			modType= "Suffix",
 			type = "count",
 			label = "Less Global Defences                                                                  Players have to of Miring UBER",
@@ -649,7 +722,7 @@ return {
 			},
 		},
 		["of Rust"] = {
-			order = 42,
+			order = 48,
 			modType= "Suffix",
 			type = "list",
 			label = "Reduced Block Chance / less Armour                                                                  Players have to of Rust",
@@ -666,7 +739,7 @@ return {
 			},
 		},
 		["of Smothering"] = {
-			order = 43,
+			order = 49,
 			modType= "Suffix",
 			type = "list",
 			label = "Less Recovery Rate of ^xE05030Life ^7and ^x88FFFFEnergy Shield                                                                  Players have of Smothering",
@@ -683,7 +756,7 @@ return {
 			},
 		},
 		["of Stasis"] = {
-			order = 44,
+			order = 50,
 			modType= "Suffix",
 			type = "check",
 			label = "Cannot Regenerate ^xE05030Life^7, ^x7070FFMana ^7or ^x88FFFFES                                                                  Players Life, Energy Shield of Stasis",
@@ -695,7 +768,7 @@ return {
 			end,
 		},
 		["of Toughness"] = {
-			order = 45,
+			order = 51,
 			modType= "Suffix",
 			type = "count",
 			label = "Enemy takes reduced Extra Crit Damage                                                                  Monsters from Critical Strikes of Toughness",
@@ -711,7 +784,7 @@ return {
 			},
 		},
 		["of Toughness UBER"] = {
-			order = 46,
+			order = 52,
 			modType= "Suffix",
 			type = "count",
 			label = "Enemy takes reduced Extra Crit Damage                                                                  Monsters from Critical Strikes of Toughness UBER",
@@ -724,7 +797,7 @@ return {
 			},
 		},
 		["of Fatigue"] = {
-			order = 47,
+			order = 53,
 			modType= "Suffix",
 			type = "list",
 			label = "Less Cooldown Recovery Rate                                                                  Players have of Fatigue",
@@ -739,8 +812,47 @@ return {
 				[4] = 40,
 			},
 		},
+		["of Deceleration UBER"] = {
+			order = 54,
+			modType= "Suffix",
+			type = "list",
+			label = "Reduced Action Speed for each Skill used Recently                                                                  Players have time they've of Deceleration UBER",
+			tooltipLines = { "Players have %d%% reduced Action Speed for each time they've used a Skill Recently" },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				modList:NewMod("ActionSpeed", "INC", -values[val] * mapModEffect, "Map mod of Deceleration", { type = "Multiplier", var = "SkillUsedRecently" })
+			end,
+			values = {
+				[4] = 3,
+			},
+		},
+		["of Revolt UBER"] = {
+			order = 55,
+			modType= "Suffix",
+			type = "list",
+			label = "Less Minion Speed                                                                  Players' Minions have less Attack Cast Movement of Revolt UBER",
+			tooltipLines = { "Players' Minions have %d%% less Attack Speed", "Players' Minions have %d%% less Cast Speed", "Players' Minions have %d%% less Movement Speed" },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Speed", "MORE", -values[val][1] * mapModEffect, "Map mod of Revolt", ModFlag.Attack) }, "Map mod of Revolt")
+				modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Speed", "MORE", -values[val][2] * mapModEffect, "Map mod of Revolt", ModFlag.Cast) }, "Map mod of Revolt")
+				modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("MovementSpeed", "MORE", -values[val][3] * mapModEffect, "Map mod of Revolt") }, "Map mod of Revolt")
+			end,
+			values = {
+				[4] = { 50, 50, 50 },
+			},
+		},
+		["of Defiance UBER"] = {
+			order = 56,
+			modType= "Suffix",
+			type = "list",
+			tooltipLines = { "Debuffs on Monsters expire %d%% faster" },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+			end,
+			values = {
+				[4] = 100,
+			},
+		},
 		["of Transience"] = {
-			order = 48,
+			order = 57,
 			modType= "Suffix",
 			type = "list",
 			tooltipLines = { "Buffs on Players expire %d%% faster" },
@@ -754,7 +866,7 @@ return {
 			},
 		},
 		["of Transience UBER"] = {
-			order = 49,
+			order = 58,
 			modType= "Suffix",
 			type = "list",
 			tooltipLines = { "Buffs on Players expire %d%% faster" },
@@ -765,7 +877,7 @@ return {
 			},
 		},
 		["of Doubt"] = {
-			order = 50,
+			order = 59,
 			modType= "Suffix",
 			type = "list",
 			label = "Reduced Non-Curse Aura Effect                                                                  Players have Auras from Skills of Doubt",
@@ -781,7 +893,7 @@ return {
 			},
 		},
 		["of Imprecision"] = {
-			order = 51,
+			order = 60,
 			modType= "Suffix",
 			type = "list",
 			label = "Less Accuracy Rating                                                                  Players have of Imprecision",
@@ -797,7 +909,7 @@ return {
 			},
 		},
 		["of Blinding"] = {
-			order = 52,
+			order = 61,
 			modType= "Suffix",
 			type = "check",
 			tooltipLines = { "Monsters Blind on Hit" },
@@ -806,7 +918,7 @@ return {
 			end,
 		},
 		["of Venom"] = {
-			order = 53,
+			order = 62,
 			modType= "Suffix",
 			type = "check",
 			label = "Enemy chance to Poison on Hit                                                                  Monsters of Venom",
@@ -816,7 +928,7 @@ return {
 			end,
 		},
 		["of Deadliness"] = {
-			order = 54,
+			order = 63,
 			modType= "Suffix",
 			type = "count",
 			label = "Enemy Critical Strike                                                                  Monsters have to increased Chance Multiplier of Deadliness",
@@ -833,7 +945,7 @@ return {
 			},
 		},
 		["of Deadliness UBER"] = {
-			order = 55,
+			order = 64,
 			modType= "Suffix",
 			type = "count",
 			label = "Enemy Critical Strike                                                                  Monsters have to increased Chance Multiplier of Deadliness UBER",
