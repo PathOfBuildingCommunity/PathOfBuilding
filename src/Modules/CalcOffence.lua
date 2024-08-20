@@ -295,7 +295,7 @@ function calcSkillDuration(skillModList, skillCfg, skillData, env, enemyDB)
 	local duration = durationBase * durationMod
 	local debuffDurationMult = 1
 	if env.mode_effective then
-		debuffDurationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(enemyDB, skillCfg, "BuffExpireFaster"))
+		debuffDurationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(enemyDB, skillCfg, "BuffExpireFaster", "DebuffExpireFaster"))
 	end
 	if skillData.debuff then
 		duration = duration * debuffDurationMult
@@ -1375,7 +1375,7 @@ function calcs.offence(env, actor, activeSkill)
 	-- Skill duration
 	local debuffDurationMult = 1
 	if env.mode_effective then
-		debuffDurationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(enemyDB, skillCfg, "BuffExpireFaster"))
+		debuffDurationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(enemyDB, skillCfg, "BuffExpireFaster", "DebuffExpireFaster"))
 	end
 	do
 		output.DurationMod = calcLib.mod(skillModList, skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)

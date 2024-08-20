@@ -846,8 +846,10 @@ return {
 			order = 56,
 			modType= "Suffix",
 			type = "list",
+			label = "Debuffs on Enemies Expire Faster                                                                Monsters of Defiance UBER",
 			tooltipLines = { "Debuffs on Monsters expire %d%% faster" },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("DebuffExpireFaster", "MORE", values[val] * mapModEffect, "Map mod of Defiance")
 			end,
 			values = {
 				[4] = 100,
