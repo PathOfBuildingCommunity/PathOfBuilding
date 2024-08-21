@@ -1295,7 +1295,7 @@ return {
 		{ val = "CleansingAltarDownsidePlayerReducedFireAndChaosResist", label = "Minus Fire and Chaos Resistances                                                                  - to CleansingAltarDownsidePlayerReducedFireAndChaosResist", range = true },
 	},
 	TangledAltar = {
-		{ val = "ALLPLAYER", label = "All Player Downsides" },
+		{ val = "ALL_PLAYER", label = "All Player Downsides" },
 		{ val = "TangledAltarDownsideBossPhysicalDamageReduction", label = "Boss Physical Damage Reduction                                                                  to additional TangledAltarDownsideBossPhysicalDamageReduction", range = true },
 		--{ val = "TangledAltarDownsideBossSuppressSpells", label = "Boss Spell Suppression                                                                  Prevent to of Suppressed Damage chance TangledAltarDownsideBossSuppressSpells", range = true },
 		{ val = "TangledAltarDownsideBossColdAndLightningResist", label = "Boss Cold and Lightning Resistances                                                                  to maximum TangledAltarDownsideBossColdAndLightningResist" },
