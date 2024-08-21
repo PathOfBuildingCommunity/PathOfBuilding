@@ -3,27 +3,6 @@
 return {
 -- Helmet
 [[
-Armour/Evasion Helmet
-Penitent Mask
-Crafted: true
-Prefix: LocalBaseArmourAndEvasionRating3
-Prefix: LocalIncreasedArmourAndEvasion5
-Prefix: IncreasedLife7
-]],[[
-Evasion/Energy Shield Helmet
-Blizzard Crown
-Crafted: true
-Prefix: LocalBaseEvasionRatingAndEnergyShield3
-Prefix: LocalIncreasedEvasionAndEnergyShield5_
-Prefix: IncreasedLife7
-]],[[
-Armour/Energy Shield Helmet
-Archdemon Crown
-Crafted: true
-Prefix: LocalBaseArmourAndEnergyShield3
-Prefix: LocalIncreasedArmourAndEnergyShield5
-Prefix: IncreasedLife7
-]],[[
 Armour Helmet
 Eternal Burgonet
 Crafted: true
@@ -52,6 +31,13 @@ Prefix: LocalBaseArmourAndEvasionRating3
 Prefix: LocalIncreasedArmourAndEvasion5
 Prefix: IncreasedLife7
 ]],[[
+Armour/Evasion Helmet
+Penitent Mask
+Crafted: true
+Prefix: LocalBaseArmourAndEvasionRating3
+Prefix: LocalIncreasedArmourAndEvasion5
+Prefix: IncreasedLife7
+]],[[
 Armour/Energy Shield Helmet
 Praetor Crown
 Crafted: true
@@ -66,8 +52,22 @@ Prefix: LocalBaseArmourAndEnergyShield3
 Prefix: LocalIncreasedArmourAndEnergyShield5
 Prefix: IncreasedLife7
 ]],[[
+Armour/Energy Shield Helmet
+Archdemon Crown
+Crafted: true
+Prefix: LocalBaseArmourAndEnergyShield3
+Prefix: LocalIncreasedArmourAndEnergyShield5
+Prefix: IncreasedLife7
+]],[[
 Evasion/Energy Shield Helmet
 Deicide Mask
+Crafted: true
+Prefix: LocalBaseEvasionRatingAndEnergyShield3
+Prefix: LocalIncreasedEvasionAndEnergyShield5_
+Prefix: IncreasedLife7
+]],[[
+Evasion/Energy Shield Helmet
+Blizzard Crown
 Crafted: true
 Prefix: LocalBaseEvasionRatingAndEnergyShield3
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
@@ -79,37 +79,8 @@ Crafted: true
 Prefix: LocalIncreasedWardPercent3
 Prefix: LocalIncreasedWard5___
 Prefix: IncreasedLife7
-]],
--- Gloves
+]],-- Gloves
 [[
-Evasion Gloves
-Trapsetter Gloves
-Crafted: true
-Prefix: LocalIncreasedPhysicalDamageReductionRating2
-Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
-Prefix: IncreasedLife6
-]],[[
-Energy Shield Gloves
-Nexus Gloves
-Crafted: true
-Prefix: IncreasedLife6
-Prefix: LocalIncreasedEnergyShieldPercent5
-Prefix: LocalIncreasedEnergyShield6
-]],[[
-Armour Gloves
-Thwarting Gauntlets
-Crafted: true
-Prefix: LocalIncreasedPhysicalDamageReductionRating2
-Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
-Prefix: IncreasedLife6
-]],[[
-Armour/Energy Shield Gloves
-Apothecary's Gloves
-Crafted: true
-Prefix: LocalBaseArmourAndEnergyShield2_
-Prefix: LocalIncreasedArmourAndEnergyShield5
-Prefix: IncreasedLife6
-]],[[
 Armour Gloves
 Titan Gauntlets
 Crafted: true
@@ -119,6 +90,13 @@ Prefix: IncreasedLife6
 ]],[[
 Armour Gloves
 Spiked Gloves
+Crafted: true
+Prefix: LocalIncreasedPhysicalDamageReductionRating2
+Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
+Prefix: IncreasedLife6
+]],[[
+Armour Gloves
+Thwarting Gauntlets
 Crafted: true
 Prefix: LocalIncreasedPhysicalDamageReductionRating2
 Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
@@ -138,6 +116,13 @@ Prefix: LocalIncreasedEvasionRating2
 Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife6
 ]],[[
+Evasion Gloves
+Trapsetter Gloves
+Crafted: true
+Prefix: LocalIncreasedEvasionRating2
+Prefix: LocalIncreasedEvasionRatingPercent5
+Prefix: IncreasedLife6
+]],[[
 Energy Shield Gloves
 Sorcerer Gloves
 Crafted: true
@@ -147,6 +132,13 @@ Prefix: LocalIncreasedEnergyShield6
 ]],[[
 Energy Shield Gloves
 Fingerless Silk Gloves
+Crafted: true
+Prefix: IncreasedLife6
+Prefix: LocalIncreasedEnergyShieldPercent5
+Prefix: LocalIncreasedEnergyShield6
+]],[[
+Energy Shield Gloves
+Nexus Gloves
 Crafted: true
 Prefix: IncreasedLife6
 Prefix: LocalIncreasedEnergyShieldPercent5
@@ -166,6 +158,13 @@ Prefix: LocalBaseArmourAndEnergyShield2_
 Prefix: LocalIncreasedArmourAndEnergyShield5
 Prefix: IncreasedLife6
 ]],[[
+Armour/Energy Shield Gloves
+Apothecary's Gloves
+Crafted: true
+Prefix: LocalBaseArmourAndEnergyShield2_
+Prefix: LocalIncreasedArmourAndEnergyShield5
+Prefix: IncreasedLife6
+]],[[
 Evasion/Energy Shield Gloves
 Murder Mitts
 Crafted: true
@@ -179,8 +178,7 @@ Crafted: true
 Prefix: LocalIncreasedWardPercent3
 Prefix: LocalIncreasedWard5___
 Prefix: IncreasedLife7
-]],
--- Body Armour
+]],-- Body Armour
 [[
 Armour Chest
 Glorious Plate
@@ -197,14 +195,14 @@ Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
 Prefix: IncreasedLife9
 ]],[[
 Evasion Chest
-Assassin's Garb
+Zodiac Leather
 Crafted: true
 Prefix: LocalIncreasedEvasionRating5
 Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife9
 ]],[[
 Evasion Chest
-Zodiac Leather
+Assassin's Garb
 Crafted: true
 Prefix: LocalIncreasedEvasionRating5
 Prefix: LocalIncreasedEvasionRatingPercent5
@@ -237,40 +235,17 @@ Crafted: true
 Prefix: LocalBaseEvasionRatingAndEnergyShield5_
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
 Prefix: IncreasedLife9
-]],
--- Boots
+]],-- Boots
 [[
-Evasion/Energy Shield Boots
-Fugitive Boots
-Crafted: true
-Prefix: LocalIncreasedEvasionAndEnergyShield5_
-Prefix: IncreasedLife6
-Prefix: MovementVelocity5
-Suffix: ChaosResist4
-]],[[
-Evasion Boots
-Stormrider Boots
-Crafted: true
-Prefix: LocalIncreasedEvasionRatingPercent5
-Prefix: IncreasedLife6
-Prefix: MovementVelocity5
-]],[[
-Energy Shield Boots
-Dreamquest Slippers
-Crafted: true
-Prefix: LocalIncreasedEnergyShieldPercent5
-Prefix: IncreasedLife6
-Prefix: MovementVelocity5
-]],[[
 Armour Boots
-Brimstone Treads
+Titan Greaves
 Crafted: true
 Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
 Prefix: IncreasedLife6
 Prefix: MovementVelocity5
 ]],[[
 Armour Boots
-Titan Greaves
+Brimstone Treads
 Crafted: true
 Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
 Prefix: IncreasedLife6
@@ -283,11 +258,25 @@ Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife6
 Prefix: MovementVelocity5
 ]],[[
+Evasion Boots
+Stormrider Boots
+Crafted: true
+Prefix: LocalIncreasedEvasionRatingPercent5
+Prefix: IncreasedLife6
+Prefix: MovementVelocity5
+]],[[
 Energy Shield Boots
 Sorcerer Boots
 Crafted: true
 Prefix: IncreasedLife6
 Prefix: LocalIncreasedEnergyShieldPercent5
+Prefix: MovementVelocity5
+]],[[
+Energy Shield Boots
+Dreamquest Slippers
+Crafted: true
+Prefix: LocalIncreasedEnergyShieldPercent5
+Prefix: IncreasedLife6
 Prefix: MovementVelocity5
 ]],[[
 Armour/Evasion Boots
@@ -332,38 +321,31 @@ Prefix: LocalIncreasedEvasionAndEnergyShield5_
 Prefix: IncreasedLife6
 Prefix: MovementVelocity5
 ]],[[
+Evasion/Energy Shield Boots
+Fugitive Boots
+Crafted: true
+Prefix: LocalIncreasedEvasionAndEnergyShield5_
+Prefix: IncreasedLife6
+Prefix: MovementVelocity5
+Suffix: ChaosResist4
+]],[[
 Ward Boots
 Runic Sabatons
 Crafted: true
 Prefix: LocalIncreasedWardPercent3
 Prefix: LocalIncreasedWard5___
 Prefix: IncreasedLife7
-]],
--- Shields
+]],-- Shields
 [[
-Energy Shield Shield
-Transfer-attuned Spirit Shield
-Crafted: true
-Prefix: IncreasedLife8
-Prefix: LocalIncreasedEnergyShieldPercent5
-Prefix: LocalIncreasedEnergyShield9
-]],[[
-Evasion Shield
-Cold-attuned Buckler
-Crafted: true
-Prefix: LocalIncreasedEvasionRating5
-Prefix: LocalIncreasedEvasionRatingPercent5
-Prefix: IncreasedLife8
-]],[[
 Armour Shield
-Heat-attuned Tower Shield
+Pinnacle Tower Shield
 Crafted: true
 Prefix: LocalIncreasedPhysicalDamageReductionRating5
 Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
 Prefix: IncreasedLife8
 ]],[[
 Armour Shield
-Pinnacle Tower Shield
+Heat-attuned Tower Shield
 Crafted: true
 Prefix: LocalIncreasedPhysicalDamageReductionRating5
 Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
@@ -376,8 +358,22 @@ Prefix: LocalIncreasedEvasionRating5
 Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife8
 ]],[[
+Evasion Shield
+Cold-attuned Buckler
+Crafted: true
+Prefix: LocalIncreasedEvasionRating5
+Prefix: LocalIncreasedEvasionRatingPercent5
+Prefix: IncreasedLife8
+]],[[
 Energy Shield Shield
 Titanium Spirit Shield
+Crafted: true
+Prefix: IncreasedLife8
+Prefix: LocalIncreasedEnergyShieldPercent5
+Prefix: LocalIncreasedEnergyShield9
+]],[[
+Energy Shield Shield
+Transfer-attuned Spirit Shield
 Crafted: true
 Prefix: IncreasedLife8
 Prefix: LocalIncreasedEnergyShieldPercent5
@@ -403,16 +399,8 @@ Crafted: true
 Prefix: LocalBaseEvasionRatingAndEnergyShield5_
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
 Prefix: IncreasedLife8
-]],
--- Amulets
+]],-- Amulets
 [[
-Energy Shield Amulet
-Seaglass Amulet
-Crafted: true
-Prefix: IncreasedEnergyShield7
-Prefix: IncreasedEnergyShieldPercent5
-Suffix: Intelligence5
-]],[[
 Amulet
 Amber Amulet
 Crafted: true
@@ -451,16 +439,16 @@ Crafted: true
 Suffix: Dexterity5
 Suffix: Strength5
 ]],[[
+Amulet
+Marble Amulet
+Crafted: true
+]],[[
 Mana Amulet
 Paua Amulet
 Crafted: true
 Prefix: IncreasedMana7
 Suffix: Intelligence5
 Suffix: ManaRegeneration4
-]],[[
-Amulet
-Marble Amulet
-Crafted: true
 ]],[[
 Mana Amulet
 Blue Pearl Amulet
@@ -469,6 +457,13 @@ Prefix: IncreasedMana7
 Suffix: Intelligence5
 Suffix: ManaRegeneration4
 ]],[[
+Energy Shield Amulet
+Seaglass Amulet
+Crafted: true
+Prefix: IncreasedEnergyShield7
+Prefix: IncreasedEnergyShieldPercent5
+Suffix: Intelligence5
+]],[[
 Influence Amulet
 Astrolabe Amulet
 Crafted: true
@@ -476,22 +471,29 @@ Crafted: true
 Amulet
 Simplex Amulet
 Crafted: true
-]],
--- Rings
+]],-- Rings
 [[
-Ring
-Geodesic Ring
+Life Ring
+Coral Ring
 Crafted: true
+Prefix: IncreasedLife4
+Suffix: Strength6
 ]],[[
-Resistance Ring
-Cogwork Ring
+Life Ring
+Vermillion Ring
 Crafted: true
-Suffix: FireResist4
-Suffix: ColdResist4
-Suffix: LightningResist4
+Prefix: IncreasedLife4
+Suffix: Strength6 
 ]],[[
 Mana Ring
 Paua Ring
+Crafted: true
+Prefix: IncreasedMana7
+Suffix: Intelligence5
+Suffix: ManaRegeneration4
+]],[[
+Mana Ring
+Cerulean Ring
 Crafted: true
 Prefix: IncreasedMana7
 Suffix: Intelligence5
@@ -502,10 +504,6 @@ Moonstone Ring
 Crafted: true
 Prefix: IncreasedEnergyShield6
 Suffix: Intelligence5
-]],[[
-Ring
-Diamond Ring
-Crafted: true
 ]],[[
 Resistance Ring
 Ruby Ring
@@ -528,31 +526,6 @@ Suffix: FireResist4
 Suffix: ColdResist4
 Suffix: LightningResist4
 ]],[[
-Chaos Resistance Ring
-Amethyst Ring
-Crafted: true
-Suffix: ChaosResist4
-]],[[
-Resistance Ring
-Ruby Ring
-Crafted: true
-Suffix: FireResist4
-Suffix: ColdResist4
-Suffix: LightningResist4
-]],[[
-Life Ring
-Coral Ring
-Crafted: true
-Prefix: IncreasedLife4
-Suffix: Strength6
-]],[[
-Resistance Ring
-Prismatic Ring
-Crafted: true
-Suffix: FireResist4
-Suffix: ColdResist4
-Suffix: LightningResist4
-]],[[
 Resistance Ring
 Two-Stone Ring
 Variant: Fire and Cold
@@ -567,10 +540,33 @@ Implicits: 3
 {variant:2}+(12-16)% to Cold and Lightning Resistances
 {variant:3}+(12-16)% to Fire and Lightning Resistances
 ]],[[
+Resistance Ring
+Prismatic Ring
+Crafted: true
+Suffix: FireResist4
+Suffix: ColdResist4
+Suffix: LightningResist4
+]],[[
+Resistance Ring
+Cogwork Ring
+Crafted: true
+Suffix: FireResist4
+Suffix: ColdResist4
+Suffix: LightningResist4
+]],[[
+Chaos Resistance Ring
+Amethyst Ring
+Crafted: true
+Suffix: ChaosResist4
+]],[[
 Ring
 Unset Ring
 Crafted: true
 Prefix: LocalIncreaseSocketedGemUnsetRing2
+]],[[
+Ring
+Diamond Ring
+Crafted: true
 ]],[[
 Ring
 Steel Ring
@@ -587,29 +583,16 @@ Ring
 Opal Ring
 Crafted: true
 ]],[[
-Mana Ring
-Cerulean Ring
+Ring
+Geodesic Ring
 Crafted: true
-Prefix: IncreasedMana7
-Suffix: Intelligence5
-Suffix: ManaRegeneration4
-]],[[
-Life Ring
-Vermillion Ring
+]],-- Belts
+[[
+Belt
+Heavy Belt
 Crafted: true
 Prefix: IncreasedLife4
 Suffix: Strength6
-]],
--- Belts
-[[
-Belt
-Rustic Sash
-Crafted: true
-]],[[
-Energy Shield Belt
-Chain Belt
-Crafted: true
-Prefix: IncreasedEnergyShield6
 ]],[[
 Belt
 Leather Belt
@@ -617,11 +600,10 @@ Crafted: true
 Prefix: IncreasedLife4
 Suffix: Strength6
 ]],[[
-Belt
-Heavy Belt
+Energy Shield Belt
+Chain Belt
 Crafted: true
-Prefix: IncreasedLife4
-Suffix: Strength6
+Prefix: IncreasedEnergyShield6
 ]],[[
 Energy Shield Belt
 Crystal Belt
@@ -634,6 +616,10 @@ Crafted: true
 Prefix: IncreasedPhysicalDamageReductionRating5
 Prefix: IncreasedLife5
 ]],[[
+Belt
+Rustic Sash
+Crafted: true
+]],[[
 Flask Belt
 Micro-Distillery Belt
 Crafted: true
@@ -643,8 +629,7 @@ Suffix: BeltIncreasedFlaskDuration1
 Belt
 Mechanical Belt
 Crafted: true
-]],
--- Quivers
+]],-- Quivers
 [[
 Quiver
 Spike-Point Arrow Quiver
@@ -655,8 +640,7 @@ Prefix: WeaponElementalDamage3
 Suffix: IncreasedAttackSpeed1
 Suffix: CriticalStrikeChanceWithBows4
 Suffix: CriticalMultiplierWithBows3
-]],
-[[
+]],[[
 Quiver
 Artillery Quiver
 Crafted: true
@@ -664,10 +648,9 @@ Prefix: AddedPhysicalDamage3
 Prefix: IncreasedLife7
 Prefix: WeaponElementalDamage3
 Suffix: IncreasedAttackSpeed1
-Suffix: CriticalStrikeChanceWithBows4   
+Suffix: CriticalStrikeChanceWithBows4
 Suffix: CriticalMultiplierWithBows3
-]],
--- Weapons
+]],-- Weapons
 [[
 Physical 1H Axe
 Runic Hatchet
@@ -760,7 +743,7 @@ Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
 ]],[[
 Fire Bow
-Solarine Bow 
+Solarine Bow
 Crafted: true
 Prefix: LocalAddedFireDamageRanged6
 Prefix: WeaponElementalDamageOnWeapons4
@@ -873,20 +856,20 @@ Prefix: SpellDamageAndManaOnWeapon4
 Suffix: SpellCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
 ]],[[
-Elemental Sceptre
-Void Sceptre
-Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
-Suffix: LocalIncreasedAttackSpeed3
-Suffix: LocalCriticalStrikeChance3
-Suffix: LocalCriticalMultiplier4
-]],[[
 Physical Sceptre
 Void Sceptre
 Crafted: true
 Prefix: LocalIncreasedPhysicalDamagePercent5
 Prefix: LocalIncreasedPhysicalDamagePercentAndAccuracyRating5
 Prefix: LocalAddedPhysicalDamage6
+Suffix: LocalIncreasedAttackSpeed3
+Suffix: LocalCriticalStrikeChance3
+Suffix: LocalCriticalMultiplier4
+]],[[
+Elemental Sceptre
+Void Sceptre
+Crafted: true
+Prefix: WeaponElementalDamageOnWeapons4
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -931,20 +914,20 @@ Prefix: SpellDamageAndManaOnWeapon4
 Suffix: SpellCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
 ]],[[
-Elemental Sceptre
-Alternating Sceptre
-Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
-Suffix: LocalIncreasedAttackSpeed3
-Suffix: LocalCriticalStrikeChance3
-Suffix: LocalCriticalMultiplier4
-]],[[
 Physical Sceptre
 Alternating Sceptre
 Crafted: true
 Prefix: LocalIncreasedPhysicalDamagePercent5
 Prefix: LocalIncreasedPhysicalDamagePercentAndAccuracyRating5
 Prefix: LocalAddedPhysicalDamage6
+Suffix: LocalIncreasedAttackSpeed3
+Suffix: LocalCriticalStrikeChance3
+Suffix: LocalCriticalMultiplier4
+]],[[
+Elemental Sceptre
+Alternating Sceptre
+Crafted: true
+Prefix: WeaponElementalDamageOnWeapons4
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -1269,6 +1252,14 @@ Prefix: SpellDamageAndManaOnWeapon4
 Suffix: SpellCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
 ]],[[
+Spell Wand
+Accumulator Wand
+Crafted: true
+Prefix: SpellDamageOnWeapon5
+Prefix: SpellDamageAndManaOnWeapon4
+Suffix: SpellCriticalStrikeChance3
+Suffix: LocalCriticalMultiplier4
+]],[[
 Physical Wand
 Accumulator Wand
 Crafted: true
@@ -1286,16 +1277,7 @@ Prefix: WeaponElementalDamageOnWeapons4
 Suffix: LocalIncreasedAttackSpeed2
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
-]],[[
-Spell Wand
-Accumulator Wand
-Crafted: true
-Prefix: SpellDamageOnWeapon5
-Prefix: SpellDamageAndManaOnWeapon4
-Suffix: SpellCriticalStrikeChance3
-Suffix: LocalCriticalMultiplier4
-]],
--- Jewels
+]],-- Jewels
 [[
 Jewel
 Crimson Jewel
@@ -1321,8 +1303,7 @@ Cluster Jewel
 Small Cluster Jewel
 Crafted: true
 ]],
--- Flasks
--- Instant CB/Bleed immune Divine Life Flask
+-- Flasks-- Instant CB/Bleed immune Divine Life Flask
 [[
 Rarity: MAGIC
 Seething Divine Life Flask of Allaying
