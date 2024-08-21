@@ -680,7 +680,7 @@ function main:SaveSettings()
 		t_insert(mode, child)
 	end
 
-	-- if setting save is attempted and mode if nil something has gone very wrong
+	-- if setting save is attempted and mode is nil something has gone very wrong
 	if not mode.attrib.mode or not mode[1] then
 		launch:ShowErrMsg("^1Error saving 'Settings.xml': mode element is invalid")
 		return true
