@@ -1203,7 +1203,6 @@ function ItemClass:Craft()
 			end
 		end
 	end
-	ConPrintTable(modLineMultipliers)
 	for _, list in ipairs({self.prefixes,self.suffixes}) do
 		for i = 1, self.affixLimit / 2 do
 			local affix = list[i]
