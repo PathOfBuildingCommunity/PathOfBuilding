@@ -4,28 +4,28 @@ return {
 -- Helmet
 [[
 Armour Helmet
-Eternal Burgonet
+Giantslayer Helmet
 Crafted: true
 Prefix: LocalIncreasedPhysicalDamageReductionRating3
 Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
 Prefix: IncreasedLife7
 ]],[[
 Evasion Helmet
-Lion Pelt
+Majestic Pelt
 Crafted: true
 Prefix: LocalIncreasedEvasionRating3
 Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife7
 ]],[[
 Energy Shield Helmet
-Hubris Circlet
+Lich's Circlet
 Crafted: true
 Prefix: IncreasedLife7
 Prefix: LocalIncreasedEnergyShieldPercent5
 Prefix: LocalIncreasedEnergyShield7
 ]],[[
 Armour/Evasion Helmet
-Nightmare Bascinet
+Haunted Bascinet
 Crafted: true
 Prefix: LocalBaseArmourAndEvasionRating3
 Prefix: LocalIncreasedArmourAndEvasion5
@@ -39,7 +39,7 @@ Prefix: LocalIncreasedArmourAndEvasion5
 Prefix: IncreasedLife7
 ]],[[
 Armour/Energy Shield Helmet
-Praetor Crown
+Divine Crown
 Crafted: true
 Prefix: LocalBaseArmourAndEnergyShield3
 Prefix: LocalIncreasedArmourAndEnergyShield5
@@ -60,7 +60,7 @@ Prefix: LocalIncreasedArmourAndEnergyShield5
 Prefix: IncreasedLife7
 ]],[[
 Evasion/Energy Shield Helmet
-Deicide Mask
+Torturer's Mask
 Crafted: true
 Prefix: LocalBaseEvasionRatingAndEnergyShield3
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
@@ -82,7 +82,7 @@ Prefix: IncreasedLife7
 ]],-- Gloves
 [[
 Armour Gloves
-Titan Gauntlets
+Leviathan Gauntlets
 Crafted: true
 Prefix: LocalIncreasedPhysicalDamageReductionRating2
 Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
@@ -103,7 +103,7 @@ Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
 Prefix: IncreasedLife6
 ]],[[
 Evasion Gloves
-Slink Gloves
+Velour Gloves
 Crafted: true
 Prefix: LocalIncreasedEvasionRating2
 Prefix: LocalIncreasedEvasionRatingPercent5
@@ -124,7 +124,7 @@ Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife6
 ]],[[
 Energy Shield Gloves
-Sorcerer Gloves
+Warlock Gloves
 Crafted: true
 Prefix: IncreasedLife6
 Prefix: LocalIncreasedEnergyShieldPercent5
@@ -145,14 +145,14 @@ Prefix: LocalIncreasedEnergyShieldPercent5
 Prefix: LocalIncreasedEnergyShield6
 ]],[[
 Armour/Evasion Gloves
-Dragonscale Gauntlets
+Wyvernscale Gauntlets
 Crafted: true
 Prefix: LocalBaseArmourAndEvasionRating2
 Prefix: LocalIncreasedArmourAndEvasion5
 Prefix: IncreasedLife6
 ]],[[
 Armour/Energy Shield Gloves
-Crusader Gloves
+Paladin Gloves
 Crafted: true
 Prefix: LocalBaseArmourAndEnergyShield2_
 Prefix: LocalIncreasedArmourAndEnergyShield5
@@ -166,7 +166,7 @@ Prefix: LocalIncreasedArmourAndEnergyShield5
 Prefix: IncreasedLife6
 ]],[[
 Evasion/Energy Shield Gloves
-Murder Mitts
+Phantom Mitts
 Crafted: true
 Prefix: LocalBaseEvasionRatingAndEnergyShield2
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
@@ -181,7 +181,7 @@ Prefix: IncreasedLife7
 ]],-- Body Armour
 [[
 Armour Chest
-Glorious Plate
+Royal Plate
 Crafted: true
 Prefix: LocalIncreasedPhysicalDamageReductionRating5
 Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
@@ -195,7 +195,7 @@ Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
 Prefix: IncreasedLife9
 ]],[[
 Evasion Chest
-Zodiac Leather
+Syndicate's Garb
 Crafted: true
 Prefix: LocalIncreasedEvasionRating5
 Prefix: LocalIncreasedEvasionRatingPercent5
@@ -209,28 +209,28 @@ Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife9
 ]],[[
 Energy Shield Chest
-Vaal Regalia
+Twilight Regalia
 Crafted: true
 Prefix: IncreasedLife9
 Prefix: LocalIncreasedEnergyShieldPercent5
 Prefix: LocalIncreasedEnergyShield10
 ]],[[
 Armour/Evasion Chest
-Triumphant Lamellar
+Conquest Lamellar
 Crafted: true
 Prefix: LocalBaseArmourAndEvasionRating5
 Prefix: LocalIncreasedArmourAndEvasion5
 Prefix: IncreasedLife9
 ]],[[
 Armour/Energy Shield Chest
-Saintly Chainmail
+Sacred Chainmail
 Crafted: true
 Prefix: LocalBaseArmourAndEnergyShield5
 Prefix: LocalIncreasedArmourAndEnergyShield5
 Prefix: IncreasedLife9
 ]],[[
 Evasion/Energy Shield Chest
-Carnal Armour
+Necrotic Armour
 Crafted: true
 Prefix: LocalBaseEvasionRatingAndEnergyShield5_
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
@@ -238,7 +238,7 @@ Prefix: IncreasedLife9
 ]],-- Boots
 [[
 Armour Boots
-Titan Greaves
+Leviathan Greaves
 Crafted: true
 Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
 Prefix: IncreasedLife6
@@ -252,7 +252,7 @@ Prefix: IncreasedLife6
 Prefix: MovementVelocity5
 ]],[[
 Evasion Boots
-Slink Boots
+Velour Boots
 Crafted: true
 Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife6
@@ -266,7 +266,7 @@ Prefix: IncreasedLife6
 Prefix: MovementVelocity5
 ]],[[
 Energy Shield Boots
-Sorcerer Boots
+Warlock Boots
 Crafted: true
 Prefix: IncreasedLife6
 Prefix: LocalIncreasedEnergyShieldPercent5
@@ -280,7 +280,7 @@ Prefix: IncreasedLife6
 Prefix: MovementVelocity5
 ]],[[
 Armour/Evasion Boots
-Dragonscale Boots
+Wyvernscale Boots
 Crafted: true
 Prefix: LocalIncreasedArmourAndEvasion5
 Prefix: IncreasedLife6
@@ -294,7 +294,7 @@ Prefix: IncreasedLife6
 Prefix: MovementVelocity5
 ]],[[
 Armour/Energy Shield Boots
-Crusader Boots
+Paladin Boots
 Crafted: true
 Prefix: LocalIncreasedArmourAndEnergyShield5
 Prefix: IncreasedLife6
@@ -308,7 +308,7 @@ Prefix: IncreasedLife6
 Prefix: MovementVelocity5
 ]],[[
 Evasion/Energy Shield Boots
-Murder Boots
+Phantom Boots
 Crafted: true
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
 Prefix: IncreasedLife6
@@ -338,7 +338,7 @@ Prefix: IncreasedLife7
 ]],-- Shields
 [[
 Armour Shield
-Pinnacle Tower Shield
+Colossal Tower Shield
 Crafted: true
 Prefix: LocalIncreasedPhysicalDamageReductionRating5
 Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
@@ -352,7 +352,7 @@ Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
 Prefix: IncreasedLife8
 ]],[[
 Evasion Shield
-Imperial Buckler
+Lacquered Buckler
 Crafted: true
 Prefix: LocalIncreasedEvasionRating5
 Prefix: LocalIncreasedEvasionRatingPercent5
@@ -380,10 +380,17 @@ Prefix: LocalIncreasedEnergyShieldPercent5
 Prefix: LocalIncreasedEnergyShield9
 ]],[[
 Armour/Evasion Shield
-Elegant Round Shield
+Cardinal Round Shield
 Crafted: true
 Prefix: LocalBaseArmourAndEvasionRating5
 Prefix: LocalIncreasedArmourAndEvasion5
+Prefix: IncreasedLife8
+]],[[
+Armour/Energy Shield Shield
+Champion Kite Shield
+Crafted: true
+Prefix: LocalBaseArmourAndEnergyShield5
+Prefix: LocalIncreasedArmourAndEnergyShield5
 Prefix: IncreasedLife8
 ]],[[
 Armour/Energy Shield Shield
