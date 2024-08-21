@@ -269,7 +269,7 @@ local excludedGems = {
 local gems = { }
 for _, gemData in pairs(data.gems) do
 	local grantedEffect = gemData.grantedEffect
-	if not grantedEffect.support and not isValueInArray(excludedGems, grantedEffect.name) and not grantedEffect.id:match("AltX") and not grantedEffect.id:match("AltY") and not grantedEffect.id:match("^Vaal") then
+	if not grantedEffect.support and not isValueInArray(excludedGems, grantedEffect.name) and not grantedEffect.id:match("AltX") and not grantedEffect.id:match("AltY") and not grantedEffect.id:match("AltZ") and not grantedEffect.id:match("^Vaal") then
 		table.insert(gems, grantedEffect.name)
 	end
 end
