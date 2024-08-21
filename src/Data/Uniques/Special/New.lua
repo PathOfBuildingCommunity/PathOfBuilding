@@ -96,8 +96,9 @@ Implicits: 1
 +(30-40) to Dexterity
 (150-250)% increased Physical Damage
 +(400-500) to Accuracy Rating
-Can have 2 additional Runesmithing Enchantments
 Can be Enchanted by a Kalguuran Runesmith
+Can have 2 additional Runesmithing Enchantments
+Can be Runesmithed as though it were all One Handed Melee Weapon Types
 ]],[[
 Kaom's Command
 Siege Helmet
