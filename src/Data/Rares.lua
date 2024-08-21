@@ -79,7 +79,8 @@ Crafted: true
 Prefix: LocalIncreasedWardPercent3
 Prefix: LocalIncreasedWard5___
 Prefix: IncreasedLife7
-]],-- Gloves
+]],
+-- Gloves
 [[
 Armour Gloves
 Leviathan Gauntlets
@@ -178,7 +179,8 @@ Crafted: true
 Prefix: LocalIncreasedWardPercent3
 Prefix: LocalIncreasedWard5___
 Prefix: IncreasedLife7
-]],-- Body Armour
+]],
+-- Body Armour
 [[
 Armour Chest
 Royal Plate
@@ -235,7 +237,8 @@ Crafted: true
 Prefix: LocalBaseEvasionRatingAndEnergyShield5_
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
 Prefix: IncreasedLife9
-]],-- Boots
+]],
+-- Boots
 [[
 Armour Boots
 Leviathan Greaves
@@ -335,7 +338,8 @@ Crafted: true
 Prefix: LocalIncreasedWardPercent3
 Prefix: LocalIncreasedWard5___
 Prefix: IncreasedLife7
-]],-- Shields
+]],
+-- Shields
 [[
 Armour Shield
 Colossal Tower Shield
@@ -406,7 +410,8 @@ Crafted: true
 Prefix: LocalBaseEvasionRatingAndEnergyShield5_
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
 Prefix: IncreasedLife8
-]],-- Amulets
+]],
+-- Amulets
 [[
 Amulet
 Amber Amulet
@@ -478,7 +483,8 @@ Crafted: true
 Amulet
 Simplex Amulet
 Crafted: true
-]],-- Rings
+]],
+-- Rings
 [[
 Life Ring
 Coral Ring
@@ -593,7 +599,8 @@ Crafted: true
 Ring
 Geodesic Ring
 Crafted: true
-]],-- Belts
+]],
+-- Belts
 [[
 Belt
 Heavy Belt
@@ -636,7 +643,8 @@ Suffix: BeltIncreasedFlaskDuration1
 Belt
 Mechanical Belt
 Crafted: true
-]],-- Quivers
+]],
+-- Quivers
 [[
 Quiver
 Spike-Point Arrow Quiver
@@ -657,7 +665,8 @@ Prefix: WeaponElementalDamage3
 Suffix: IncreasedAttackSpeed1
 Suffix: CriticalStrikeChanceWithBows4
 Suffix: CriticalMultiplierWithBows3
-]],-- Weapons
+]],
+-- Weapons
 [[
 Physical 1H Axe
 Runic Hatchet
@@ -1284,7 +1293,8 @@ Prefix: WeaponElementalDamageOnWeapons4
 Suffix: LocalIncreasedAttackSpeed2
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
-]],-- Jewels
+]],
+-- Jewels
 [[
 Jewel
 Crimson Jewel
@@ -1310,7 +1320,8 @@ Cluster Jewel
 Small Cluster Jewel
 Crafted: true
 ]],
--- Flasks-- Instant CB/Bleed immune Divine Life Flask
+-- Flasks
+-- Instant CB/Bleed immune Divine Life Flask
 [[
 Rarity: MAGIC
 Seething Divine Life Flask of Allaying
