@@ -900,21 +900,6 @@ Implicits: 1
 {variant:2}Always Freeze, Shock and Ignite
 {variant:1}Cannot gain Power Charges
 ]],[[
-Replica Dragonfang's Flight
-Onyx Amulet
-Variant: Pre 3.23.0
-Variant: Current
-LevelReq: 56
-Implicits: 1
-{tags: jewellery_attribute}+(10-16) to all Attributes
-{variant:1}{tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
-{variant:2}{tags:jewellery_resistance}+(5-10)% to all Elemental Resistances
-+3 to Level of all Spark Gems
-{variant:1}(10-15)% increased Reservation Efficiency of Skills
-{variant:2}(5-10)% increased Reservation Efficiency of Skills
-{variant:1}Items and Gems have (10-15)% reduced Attribute Requirements
-{variant:2}Items and Gems have (5-10)% reduced Attribute Requirements
-]],[[
 Retaliation Charm
 Citrine Amulet
 Variant: Pre 3.19.0
