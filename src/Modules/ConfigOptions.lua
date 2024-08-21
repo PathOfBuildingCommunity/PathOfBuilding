@@ -731,6 +731,9 @@ Huge sets the radius to 11.
 		modList:NewMod("HasPvpScaling", "FLAG", true, "Config")
 	end },
 	--}
+	{ var = "atlasShrineEffect", type = "count", label = "Other % Increased Effect of Shrines", tooltip = "Sets the amount of increased shrine effect you are getting from other sources like the atlas tree", apply = function(val, modList, enemyModList)
+		modList:NewMod("ShrineBuffEffect", "INC", val, "Config")
+	end},
 	{ var = "Shrines", type = "multiList", label = "Shrines:" , tooltipFunc = ShrineTooltip, list = data.shrines.List, apply = function(val, extra, modList, enemyModList)
 		if val == "ALL" then 
 			for _, shrine in ipairs(data.shrines.List) do
