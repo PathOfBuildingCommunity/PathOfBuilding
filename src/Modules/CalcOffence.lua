@@ -1608,8 +1608,9 @@ function calcs.offence(env, actor, activeSkill)
 					val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult
 					val.finalBaseCost = val.finalBaseCost + costs[manaType].finalBaseCost
 					costs[manaType].baseCost = 0
-					costs[manaType].baseCostNoMult = 0
+					costs[manaType].baseCostRaw = 0
 					costs[manaType].finalBaseCost = 0
+					costs[manaType].baseCostNoMult = 0
 				elseif additionalLifeCost > 0 or hybridLifeCost > 0 then
 					val.baseCost = costs[manaType].baseCost
 					val.finalBaseCost = val.finalBaseCost + round(costs[manaType].finalBaseCost * (hybridLifeCost + additionalLifeCost))
