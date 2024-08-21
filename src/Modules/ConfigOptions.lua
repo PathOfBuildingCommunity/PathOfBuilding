@@ -105,7 +105,7 @@ local function mapAffixDropDownFunction(val, extraData, modList, enemyModList, b
 	end
 end
 
-local function eldrtichAltarTooltip(tooltip, mode, index, value)
+local function eldritchAltarTooltip(tooltip, mode, index, value)
 	tooltip:Clear()
 	if value.val == "NONE" then
 		return
@@ -114,7 +114,7 @@ local function eldrtichAltarTooltip(tooltip, mode, index, value)
 	if applyModes[mode] then
 		if value.val == "ALL" then
 			tooltip:AddLine(16, '^7Adds All Eldritch Altar Mods of This Kind')
-		elseif value.val == "ALLPLAYER" then
+		elseif value.val == "ALL_PLAYER" then
 			tooltip:AddLine(16, '^7Adds All Player Eldritch Altar Mods of This Kind')
 		else
 			tooltip:AddLine(20, '^7'..value.val)
@@ -153,9 +153,9 @@ local function eldrtichAltarTooltip(tooltip, mode, index, value)
 end
 
 local function eldritchAltarFunction(val, extraData, modList, enemyModList, altarList)
-	if val == "ALL" or val == "ALLPLAYER" then
+	if val == "ALL" or val == "ALL_PLAYER" then
 		for _, altar in ipairs(altarList) do
-			if altar.val ~= "ALLPLAYER" and (val == "ALL" or altar.val:match("DownsidePlayer")) then
+			if altar.val ~= "ALL_PLAYER" and (val == "ALL" or altar.val:match("DownsidePlayer")) then
 				local affixData = data.mapMods.AffixData[altar.val] or {}
 				if affixData.apply then
 					if affixData.type == "check" then
@@ -842,10 +842,10 @@ Huge sets the radius to 11.
 			build.configTab.varControls['TangledAltarDownsides'].shown = true
 		end
 	end },
-	{ var = "CleansingAltarDownsides", type = "multiList", extraTypes = { { "slider", "range of the eldritch altar", "range", 100 } }, label = "EXARCH Eldritch Altar Downsides:" , tooltipFunc = eldrtichAltarTooltip, list = data.mapMods.CleansingAltar, apply = function(val, extraData, modList, enemyModList)
+	{ var = "CleansingAltarDownsides", type = "multiList", extraTypes = { { "slider", "range of the eldritch altar", "range", 100 } }, label = "EXARCH Eldritch Altar Downsides:" , tooltipFunc = eldritchAltarTooltip, list = data.mapMods.CleansingAltar, apply = function(val, extraData, modList, enemyModList)
 		eldritchAltarFunction(val, extraData, modList, enemyModList, data.mapMods.CleansingAltar)
 	end },
-	{ var = "TangledAltarDownsides", type = "multiList", extraTypes = { { "slider", "range of the eldritch altar", "range", 100 } }, label = "EATER Eldritch Altar Downsides:" , tooltipFunc = eldrtichAltarTooltip, list = data.mapMods.TangledAltar, apply = function(val, extraData, modList, enemyModList)
+	{ var = "TangledAltarDownsides", type = "multiList", extraTypes = { { "slider", "range of the eldritch altar", "range", 100 } }, label = "EATER Eldritch Altar Downsides:" , tooltipFunc = eldritchAltarTooltip, list = data.mapMods.TangledAltar, apply = function(val, extraData, modList, enemyModList)
 		eldritchAltarFunction(val, extraData, modList, enemyModList, data.mapMods.TangledAltar)
 	end },
 	{ label = "Unique Map Modifiers:" },

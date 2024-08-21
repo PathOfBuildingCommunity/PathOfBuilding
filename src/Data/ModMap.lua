@@ -1210,7 +1210,7 @@ return {
 		["of Revolt"] = { }, -- Players' Minions have 50% less Attack Speed", "Players' Minions have 50% less Cast Speed", "Players' Minions have 50% less Movement Speed
 		["of Splinters"] = { }, -- 25% chance for Rare Monsters to Fracture on death
 		["of the Juggernaut"] = { }, -- Monsters cannot be Stunned", "Monsters' Action Speed cannot be modified to below Base Value", "Monsters' Movement Speed cannot be modified to below Base Value
-		-- other CleansingAltares
+		-- other CleansingAltars
 		["CleansingAltarDownsideBossConsecrateOnHit"] = { }, -- Create Consecrated Ground on Hit, lasting 6 seconds
 		["CleansingAltarDownsideBossCoveredInAshOnHit"] = { }, -- Gain (50-80)% of Physical Damage as Extra Fire Damage", "Cover Enemies in Ash on Hit
 		["CleansingAltarDownsideBossHinderAura"] = { }, -- Nearby Enemies are Hindered, with 40% reduced Movement Speed
@@ -1228,7 +1228,7 @@ return {
 		["CleansingAltarDownsidePlayerBurningGroundWhenHit"] = { }, -- (15-20)% chance for Enemies to drop Burning Ground when Hitting you, no more than once every 2 seconds
 		["CleansingAltarDownsidePlayerCurseReflect"] = { }, -- Curses you inflict are reflected back to you
 		["CleansingAltarDownsidePlayerMeteorOnFlaskUse"] = { }, -- 30% chance to be targeted by a Meteor when you use a Flask
-		-- other TangledAltares
+		-- other TangledAltars
 		["TangledAltarDownsideBossBlindOnHit"] = { }, -- 100% Global chance to Blind Enemies on hit", "(100-200)% increased Blind Effect
 		["TangledAltarDownsideBossCoveredInFrostOnHit"] = { }, -- Gain (50-80)% of Physical Damage as Extra Cold Damage", "Cover Enemies in Frost on Hit
 		["TangledAltarDownsideMonsterChilledGroundOnDeath"] = { }, -- Drops Chilled Ground on Death, lasting 3 seconds
@@ -1280,7 +1280,7 @@ return {
 		return List
 	end,
 	CleansingAltar = {
-		{ val = "ALLPLAYER", label = "All Player Downsides" },
+		{ val = "ALL_PLAYER", label = "All Player Downsides" },
 		{ val = "CleansingAltarDownsideBossArmour", label = "Boss Armour                                                                  to CleansingAltarDownsideBossArmour" },
 		{ val = "CleansingAltarDownsideBossIncreasedArmourAndEvasion", label = "Boss Increased Armour And Evasion Rating                                                                  to CleansingAltarDownsideBossIncreasedArmourAndEvasion", range = true },
 		{ val = "CleansingAltarDownsideBossFireAndChaosResist", label = "Boss Fire and Chaos Resistances                                                                  to maximum CleansingAltarDownsideBossFireAndChaosResist" },
