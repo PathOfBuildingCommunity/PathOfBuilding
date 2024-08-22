@@ -6789,7 +6789,6 @@ minions["Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber"] = {
         "standalone_map_boss",
     },
     life = 3.9,
-    evasion = 0.5,
     fireResist = 40,
     coldResist = 40,
     lightningResist = 40,
@@ -6800,6 +6799,10 @@ minions["Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber"] = {
     attackRange = 10,
     accuracy = 1,
     skillList = {
+        "MeleeAtAnimationSpeed",
+        "RevenantMapBossSummon1",
+        "RevenantMapBossSummon2",
+        "RevenantReviveUndead",
         "RevenantBossSpellProjectile",
     },
     modList = {
