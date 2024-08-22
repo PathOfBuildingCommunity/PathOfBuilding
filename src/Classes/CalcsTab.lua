@@ -134,7 +134,8 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 		}, },
 		{ label = "Aura and Buff Skills", flag = "buffs", textSize = 12, { format = "{output:BuffList}", { breakdown = "SkillBuffs" } }, },
 		{ label = "Combat Buffs", flag = "combat", textSize = 12, { format = "{output:CombatList}" }, },
-		{ label = "Curses and Debuffs", flag = "effective", textSize = 12, { format = "{output:CurseList}", { breakdown = "SkillDebuffs" } }, },
+		{ label = "Curses and Debuffs", flag = "effective", textSize = 12, { format = "{output:SkillDebuffsList}", { breakdown = "SkillDebuffs" } }, },
+		{ label = "Debuffs on You", flag = "effective", textSize = 12, haveOutput = "DebuffsOnYouList", { format = "{output:DebuffsOnYouList}", { breakdown = "DebuffsOnYou" } }, },
 	}}}, function(section)
 		self.build:RefreshSkillSelectControls(section.controls, self.input.skill_number, "Calcs")
 		section.controls.showMinion.state = self.input.showMinion

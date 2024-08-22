@@ -720,6 +720,12 @@ local skills, mod, flag, skill = ...
 #baseMod mod("ShockedGroundEffect", "BASE", 15)
 #mods
 
+#skill Silence
+#flags spell curse area duration
+#baseMod flag("DisableSkill", { type = "SkillType", skillType = SkillType.Aura, neg = true }, { type = "SkillType", skillType = SkillType.Spell }, { type = "GlobalEffect", effectType = "Curse" })
+#baseMod skill("debuff", true)
+#mods
+
 #skill SpectralSpirits
 #flags spell minion
 	fromItem = true,

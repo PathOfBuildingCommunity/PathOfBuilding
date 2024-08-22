@@ -735,9 +735,11 @@ Huge sets the radius to 11.
 		ConPrintTable({"Curse:_", val, extraData})
 		if val == "ALL" then
 			for _, curse in ipairs(data.playerCursedWithXList) do
-				modList:NewMod("ExtraCurse", "LIST", { skillId = curse.val, level = extraData[1] or 1, applyToPlayer = true })
+				if curse.val ~= "NONE" and curse.val ~= "ALL" then
+					modList:NewMod("ExtraCurse", "LIST", { skillId = curse.val, level = extraData[1] or 1, applyToPlayer = true })
+				end
 			end
-		elseif val ~= "None" then
+		elseif val ~= "NONE" then
 			modList:NewMod("ExtraCurse", "LIST", { skillId = val, level = extraData[1] or 1, applyToPlayer = true })
 		end
 	end },

@@ -2556,6 +2556,32 @@ skills["TriggeredShockedGround"] = {
 		[10] = { storedUses = 1, levelRequirement = 1, cooldown = 5, },
 	},
 }
+skills["Silence"] = {
+	name = "",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.AreaSpell] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		flag("DisableSkill", { type = "SkillType", skillType = SkillType.Aura, neg = true }, { type = "SkillType", skillType = SkillType.Spell }, { type = "GlobalEffect", effectType = "Curse" }),
+		skill("debuff", true),
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 3000 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 0, },
+	},
+}
 skills["SpectralSpirits"] = {
 	name = "Spectral Spirits",
 	hidden = true,
