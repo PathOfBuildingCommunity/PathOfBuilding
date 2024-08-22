@@ -1399,6 +1399,15 @@ local configTable = {
 					return slotMatch(env, skill) and skill.triggeredBy and calcLib.canGrantedEffectSupportActiveSkill(skill.triggeredBy.grantedEffect, skill)
 				end}
 	end,
+	["supporttriggerfirespellonhit"] = function(env)
+		return {triggerSkillCond = function(env, skill)
+					-- Skill is triggered only when the weapon with the enchant on it hits
+					return skill.skillTypes[SkillType.Melee]
+				end,
+				triggeredSkillCond = function(env, skill)
+					return skill.skillData.triggeredBySettlersEnchantTrigger and slotMatch(env, skill)
+				end}
+	end,
 }
 
 -- Find unique item trigger name
