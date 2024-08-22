@@ -731,8 +731,7 @@ Huge sets the radius to 11.
 		modList:NewMod("HasPvpScaling", "FLAG", true, "Config")
 	end },
 	--}
-	{ var = "playerCursedWithX", type = "multiList", extraTypes = { { "integer", "sets the level of the curse applied", nil, 1 } }, label = "Player is cursed by:" , tooltipFunc = playerCursedWithXTooltip, list = data.playerCursedWithXList, apply = function(val, extraData, modList, enemyModList)
-		ConPrintTable({"Curse:_", val, extraData})
+	{ var = "playerCursedWithX", type = "multiList", extraTypes = { { "count", "sets the level of the curse applied", nil, 1 } }, label = "Player is cursed by:" , tooltipFunc = playerCursedWithXTooltip, list = data.playerCursedWithXList, apply = function(val, extraData, modList, enemyModList)
 		if val == "ALL" then
 			for _, curse in ipairs(data.playerCursedWithXList) do
 				if curse.val ~= "NONE" and curse.val ~= "ALL" then
