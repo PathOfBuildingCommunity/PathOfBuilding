@@ -224,7 +224,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 										local old = input[index1]
 										input[index1] = input[index2]
 										input[index2] = old
-										if varExtra[1] == "integer" then
+										if varExtra[1] == "count" then
 											control.varControlList[2][i*(#varData.extraTypes)+j-1]:SetText(tostring(input[index1] or ""))
 											control.varControlList[2][(i+1)*(#varData.extraTypes)+j-1]:SetText(tostring(input[index2] or ""))
 										elseif varExtra[1] == "slider" then
@@ -302,8 +302,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					t_insert(control.varControlList[1], dropDownControl)
 					local extraTypesExtraHeight = 0
 					for j, varExtra in ipairs(varData.extraTypes or {}) do
-						if varExtra[1] == "integer" then
-							local editControl = new("EditControl", {"TOPLEFT",dropDownControl,"TOPLEFT"}, 225, 0, 90, 18, "", nil, "^%-%d", 7, function(buf, placeholder)
+						if varExtra[1] == "count" then
+							local editControl = new("EditControl", {"TOPLEFT",dropDownControl,"TOPLEFT"}, 225, 0, 90, 18, "", nil, "%D", 7, function(buf, placeholder)
 								if placeholder then
 									self.configSets[self.activeConfigSetId].placeholder[varData.var.."_"..i.."_"..j] = tonumber(buf)
 								else
