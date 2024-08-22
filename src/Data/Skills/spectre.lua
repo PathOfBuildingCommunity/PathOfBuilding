@@ -10548,3 +10548,95 @@ skills["AzmeriGolemRotateZap"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["MeleeAtAnimationSpeed"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	stats = {
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["RevenantBossSpellProjectile"] = {
+	name = "Lightning Projectile",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.125,
+	incrementalEffectiveness = 0.046000000089407,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 7 },
+		{ "base_number_of_projectiles_in_spiral_nova", 9 },
+		{ "projectile_spiral_nova_time_ms", 750 },
+		{ "projectile_spiral_nova_angle", 50 },
+		{ "projectile_spiral_nova_starting_angle_offset", -20 },
+		{ "monster_reverse_point_blank_damage_-%_at_minimum_range", 80 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { 0.60000002384186, 1.3999999761581, levelRequirement = 3, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["RevenantReviveUndead"] = {
+	name = "Revive Undead",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Spell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 2000 },
+		{ "spell_maximum_action_distance_+%", -40 },
+	},
+	stats = {
+		"revenant_revive_explode_damage_%",
+	},
+	levels = {
+		[1] = { 40, storedUses = 1, levelRequirement = 3, cooldown = 5, statInterpolation = { 1, }, },
+		[2] = { 34, storedUses = 1, levelRequirement = 43, cooldown = 5, statInterpolation = { 1, }, },
+		[3] = { 27, storedUses = 1, levelRequirement = 58, cooldown = 5, statInterpolation = { 1, }, },
+		[4] = { 26, storedUses = 1, levelRequirement = 68, cooldown = 5, statInterpolation = { 1, }, },
+		[5] = { 25, storedUses = 1, levelRequirement = 69, cooldown = 5, statInterpolation = { 1, }, },
+		[6] = { 24, storedUses = 1, levelRequirement = 70, cooldown = 5, statInterpolation = { 1, }, },
+		[7] = { 23, storedUses = 1, levelRequirement = 71, cooldown = 5, statInterpolation = { 1, }, },
+		[8] = { 22, storedUses = 1, levelRequirement = 72, cooldown = 5, statInterpolation = { 1, }, },
+		[9] = { 22, storedUses = 1, levelRequirement = 73, cooldown = 5, statInterpolation = { 1, }, },
+		[10] = { 21, storedUses = 1, levelRequirement = 74, cooldown = 5, statInterpolation = { 1, }, },
+		[11] = { 20, storedUses = 1, levelRequirement = 75, cooldown = 5, statInterpolation = { 1, }, },
+		[12] = { 19, storedUses = 1, levelRequirement = 76, cooldown = 5, statInterpolation = { 1, }, },
+		[13] = { 18, storedUses = 1, levelRequirement = 77, cooldown = 5, statInterpolation = { 1, }, },
+		[14] = { 18, storedUses = 1, levelRequirement = 78, cooldown = 5, statInterpolation = { 1, }, },
+		[15] = { 17, storedUses = 1, levelRequirement = 79, cooldown = 5, statInterpolation = { 1, }, },
+		[16] = { 16, storedUses = 1, levelRequirement = 80, cooldown = 5, statInterpolation = { 1, }, },
+		[17] = { 15, storedUses = 1, levelRequirement = 81, cooldown = 5, statInterpolation = { 1, }, },
+		[18] = { 14, storedUses = 1, levelRequirement = 82, cooldown = 5, statInterpolation = { 1, }, },
+	},
+}

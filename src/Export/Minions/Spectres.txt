@@ -121,6 +121,8 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Pyromaniac/PyromaniacPoison
 -- Stygian Revenant
 #spectre Metadata/Monsters/Revenant/Revenant
+-- Wretched Defiler
+#spectre Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber
 -- Sea Witch
 #spectre Metadata/Monsters/Seawitch/SeaWitchFrostBolt
 #spectre Metadata/Monsters/Seawitch/SeaWitchScreech

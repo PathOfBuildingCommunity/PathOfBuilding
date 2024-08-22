@@ -2046,6 +2046,32 @@ minions["Metadata/Monsters/Revenant/Revenant"] = {
 	modList = {
 	},
 }
+-- Wretched Defiler
+minions["Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber"] = {
+	name = "Wretched Defiler",
+	monsterTags = { "caster", "demon", "fast_movement", "flesh_armour", "is_unarmed", "large_model", "lightning_affinity", "melee", "not_int", "not_str", "physical_affinity", "raises_dead", "ranged", "red_blood", "slashing_weapon", "small_height", "standalone_map_boss", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.9,
+	evasion = 0.5,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 25,
+	damage = 3,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"RevenantReviveUndead",
+		"RevenantBossSpellProjectile",
+		"MeleeAtAnimationSpeed",
+		"RevenantMapBossSummon1",
+		"RevenantMapBossSummon2",
+	},
+	modList = {
+	},
+}
 -- Sea Witch
 minions["Metadata/Monsters/Seawitch/SeaWitchFrostBolt"] = {
 	name = "Merveil's Blessed",
