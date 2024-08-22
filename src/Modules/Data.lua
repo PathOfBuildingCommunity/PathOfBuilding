@@ -879,7 +879,7 @@ for skillId, grantedEffect in pairs(data.skills) do
 			end
 		end
 	end
-	-- Filter out curses which typicaly get applied to the player, many curses have multiple sources like from monsters
+	-- Filter out curses which typically get applied to the player, many curses have multiple sources like from monsters
 	-- This does mean it misses Projectile weakness which is only from monsters but I dont think those even exist anymore tbh
 	if grantedEffect.skillTypes and grantedEffect.skillTypes[SkillType.AppliesCurse] and skillId == grantedEffect.name:gsub(" ",""):gsub("'","") then
 		t_insert(data.playerCursedWithXList, { val = skillId, label = grantedEffect.name} )
