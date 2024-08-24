@@ -37,7 +37,6 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 	if dbType == "UNIQUE" then
 		self.controls.sort = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, baseY + 20, 179, 18, self.sortDropList, function(index, value)
 			self:SetSortMode(value.sortMode)
-			GlobalCache.useFullDPS = value.sortMode == "FullDPS"
 		end)
 		self.controls.league = new("DropDownControl", {"LEFT",self.controls.sort,"RIGHT"}, 2, 0, 179, 18, self.leagueList, function(index, value)
 			self.listBuildFlag = true
@@ -226,8 +225,6 @@ function ItemDBClass:ListBuilder()
 	if self.sortDetail and self.sortDetail.stat then -- stat-based
 		local start = GetTime()
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
-		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		for itemIndex, item in ipairs(list) do
 			item.measuredPower = 0
 			for slotName, slot in pairs(self.itemsTab.slots) do
@@ -247,7 +244,6 @@ function ItemDBClass:ListBuilder()
 				start = now
 			end
 		end
-		GlobalCache.useFullDPS = storedGlobalCacheDPSView
 	end
 
 	table.sort(list, function(a, b)

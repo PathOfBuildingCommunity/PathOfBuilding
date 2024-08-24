@@ -138,8 +138,6 @@ function NotableDBClass:ListBuilder()
 		local start = GetTime()
 		local calcFunc = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		local itemType = self.itemsTab.displayItem.base.type
-		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		local calcBase = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(nil) }, {})
 		self.sortMaxPower = 0
 		for nodeIndex, node in ipairs(list) do
@@ -160,7 +158,6 @@ function NotableDBClass:ListBuilder()
 				start = now
 			end
 		end
-		GlobalCache.useFullDPS = storedGlobalCacheDPSView
 		
 		if #infinites > 0 then
 			self.sortMaxPower = self.sortMaxPower * 2

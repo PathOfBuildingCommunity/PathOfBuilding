@@ -188,11 +188,7 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 		end
 	end
 	for _, statTable in ipairs(statWeights) do
-		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
-			meanStatDiff = meanStatDiff + ratioModSums("TotalDPS", "TotalDotDPS", "CombinedDPS") * statTable.weightMult
-		else
-			meanStatDiff = meanStatDiff + ratioModSums(statTable.stat) * statTable.weightMult
-		end
+		meanStatDiff = meanStatDiff + ratioModSums(statTable.stat) * statTable.weightMult
 	end
 	return meanStatDiff
 end
@@ -982,9 +978,6 @@ function TradeQueryGeneratorClass:FinishQuery()
 	if #queryTable.query.stats[1].filters == 0 then
 		-- No mods to filter
 		errMsg = "Could not generate search, found no mods to search for"
-		if GlobalCache.numActiveSkillInFullDPS == 0 then
-			errMsg = "Could not generate search, change active skill or enable FullDPS on some skills"
-		end
 	end
 
 	local queryJson = dkjson.encode(queryTable)
