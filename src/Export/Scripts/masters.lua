@@ -67,6 +67,26 @@ for _, craft in ipairs(dat("CraftingBenchOptions"):GetRowList("IsDisabled", fals
 		out:write('}, ')
 		out:write('},\n')
 	end
+	if craft.SortCategory.Id == "Runecrafting" then
+		out:write('\t{ ')
+		out:write('type = "Runecraft", ')
+		local stats, orders = describeMod(craft.AddEnchantment)
+		out:write('modTags = { ', stats.modTags, ' }, ')
+		out:write('"', table.concat(stats, '", "'), '", ')
+		out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
+		out:write('types = { ')		
+		local uniqueTypes = { }
+		for _, category in ipairs(craft.ItemCategories) do
+			for _, itemClass in ipairs(category.ItemClasses) do
+				if uniqueTypes[itemClassMap[itemClass.Id]] ~= itemClassMap[itemClass.Id] then
+					uniqueTypes[itemClassMap[itemClass.Id]] = itemClassMap[itemClass.Id]
+					out:write('["', itemClassMap[itemClass.Id], '"] = true, ')
+				end
+			end
+		end
+		out:write('}, ')
+		out:write('},\n')
+	end
 end
 out:write('}')
 out:close()

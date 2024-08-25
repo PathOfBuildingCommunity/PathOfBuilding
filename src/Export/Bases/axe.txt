@@ -4,9 +4,9 @@ local itemBases = ...
 #type One Handed Axe
 #influenceBaseTag axe
 #socketLimit 3
-#baseMatch Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe
+#baseMatch BaseType Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/AbstractOneHandAxe
 
 #type Two Handed Axe
 #influenceBaseTag 2h_axe
 #socketLimit 6
-#baseMatch Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe
+#baseMatch BaseType Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/AbstractTwoHandAxe

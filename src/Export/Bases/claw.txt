@@ -4,4 +4,4 @@ local itemBases = ...
 #type Claw
 #influenceBaseTag claw
 #socketLimit 3
-#baseMatch Metadata/Items/Weapons/OneHandWeapons/Claws/Claw
+#baseMatch BaseType Metadata/Items/Weapons/OneHandWeapons/Claws/AbstractClaw

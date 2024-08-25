@@ -573,6 +573,7 @@ function PassiveSpecClass:SelectAscendClass(ascendClassId)
 	local ascendClass = self.curClass.classes[ascendClassId] or self.curClass.classes[0]
 	self.curAscendClass = ascendClass
 	self.curAscendClassName = ascendClass.name
+	self.curAscendClassBaseName = ascendClass.id
 
 	if ascendClass.startNodeId then
 		-- Allocate the new ascendancy class's start node
@@ -800,7 +801,7 @@ function PassiveSpecClass:BuildPathFromNode(root)
 			if not other.pathDist then
 				ConPrintTable(other, true)
 			end
-			if node.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 1 and not other.ascendancyName)) then
+			if node.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 0 and not other.ascendancyName)) then
 				-- The shortest path to the other node is through the current node
 				other.pathDist = curDist
 				if not other.alloc then
@@ -886,7 +887,7 @@ function PassiveSpecClass:NodesInIntuitiveLeapLikeRadius(node)
 		local radiusIndex = item.jewelRadiusIndex
 		if item and item.jewelData and item.jewelData.intuitiveLeapLike then
 			local inRadius = self.nodes[node.id].nodesInRadius and self.nodes[node.id].nodesInRadius[radiusIndex]
-			for affectedNodeId, affectedNode in pairs(inRadius) do
+			for affectedNodeId, affectedNode in pairs(inRadius or {}) do
 				if self.nodes[affectedNodeId].alloc then
 					t_insert(result, self.nodes[affectedNodeId])
 				end
@@ -895,7 +896,7 @@ function PassiveSpecClass:NodesInIntuitiveLeapLikeRadius(node)
 
 		if item.jewelData and item.jewelData.impossibleEscapeKeystone then
 			for keyName, keyNode in pairs(item.jewelData.impossibleEscapeKeystones) do
-				if self.tree.keystoneMap[keyName].nodesInRadius then
+				if self.tree.keystoneMap[keyName] and self.tree.keystoneMap[keyName].nodesInRadius then
 					for affectedNodeId in pairs(self.tree.keystoneMap[keyName].nodesInRadius[radiusIndex]) do
 						if self.nodes[affectedNodeId].alloc then
 							t_insert(result, self.nodes[affectedNodeId])

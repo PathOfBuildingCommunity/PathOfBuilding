@@ -261,8 +261,10 @@ data.keystones = {
 	"Acrobatics",
 	"Ancestral Bond",
 	"Arrow Dancing",
+	"Arsenal of Vengeance",
 	"Avatar of Fire",
 	"Blood Magic",
+	"Bloodsoaked Blade",
 	"Call to Arms",
 	"Chaos Inoculation",
 	"Conduit",
@@ -354,6 +356,9 @@ data.highPrecisionMods = {
 	["EnergyShieldRegen"] = {
 		["BASE"] = 1,
 	},
+	["RageRegen"] = {
+		["BASE"] = 1,
+	},
 	["LifeDegenPercent"] = {
 		["BASE"] = 2,
 	},
@@ -437,7 +442,7 @@ data.highPrecisionMods = {
 	},
 	["SupportManaMultiplier"] = {
 		["MORE"] = 4,
-	}
+	},
 }
 
 data.weaponTypeInfo = {

@@ -11552,7 +11552,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/Berserker/DmgAttackSpeed.png",
             ["ascendancyName"]= "Berserker",
             ["stats"]= {
-                "Gain 1 Rage on Melee Hit",
+                "Gain 1 Rage on Attack Hit",
                 "10% increased Physical Damage"
             },
             ["reminderText"]= {
@@ -11575,7 +11575,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/Berserker/DmgAttackSpeed.png",
             ["ascendancyName"]= "Berserker",
             ["stats"]= {
-                "Gain 1 Rage on Melee Hit",
+                "Gain 1 Rage on Attack Hit",
                 "10% increased Physical Damage"
             },
             ["reminderText"]= {
@@ -18017,6 +18017,12 @@ return {
                     ["reminderText"]= {
                         "(Recently refers to the past 4 seconds)"
                     }
+                },
+                {
+                    ["effect"]= 16950,
+                    ["stats"]= {
+                        "Totems Taunt Enemies around them for 1 second when Summoned"
+                    }
                 }
             },
             ["stats"]= {},
@@ -18511,6 +18517,12 @@ return {
                     },
                     ["reminderText"]= {
                         "(Recently refers to the past 4 seconds)"
+                    }
+                },
+                {
+                    ["effect"]= 16950,
+                    ["stats"]= {
+                        "Totems Taunt Enemies around them for 1 second when Summoned"
                     }
                 }
             },
@@ -22740,8 +22752,8 @@ return {
                 "AmberOil"
             },
             ["stats"]= {
-                "10% chance to Block Attack Damage if you’ve used a Retaliation Skill Recently",
-                "10% chance to Block Spell Damage if you’ve used a Retaliation Skill Recently"
+                "10% chance to Block Attack Damage if you've used a Retaliation Skill Recently",
+                "10% chance to Block Spell Damage if you've used a Retaliation Skill Recently"
             },
             ["reminderText"]= {
                 "(Recently refers to the past 4 seconds)"
@@ -23292,7 +23304,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/CallToArms.png",
             ["isKeystone"]= true,
             ["stats"]= {
-                "Warcries do not grant Buffs or Charges to You\n100% more Warcry Duration"
+                "Your Warcries do not grant Buffs or Charges to You\n100% more Warcry Duration"
             },
             ["flavourText"]= {
                 "Follow me, and I will show you strength!"
@@ -37572,7 +37584,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/CrimsonDance.png",
             ["isKeystone"]= true,
             ["stats"]= {
-                "You can inflict Bleeding on an Enemy up to 8 times\nYour Bleeding does not deal extra Damage while the Enemy is moving\n50% less Damage with Bleeding"
+                "You can inflict Bleeding on an Enemy up to 8 times\nYour Bleeding does not deal extra Damage while the Enemy is moving and cannot be Aggravated\n50% less Damage with Bleeding"
             },
             ["flavourText"]= {
                 "My blade sings so sweetly, your body cannot help but weep."
@@ -37628,6 +37640,12 @@ return {
                     },
                     ["reminderText"]= {
                         "(Recently refers to the past 4 seconds)"
+                    }
+                },
+                {
+                    ["effect"]= 16950,
+                    ["stats"]= {
+                        "Totems Taunt Enemies around them for 1 second when Summoned"
                     }
                 }
             },
@@ -42444,7 +42462,7 @@ return {
         },
         [20605]= {
             ["skill"]= 20605,
-            ["name"]= "King of the Hill",
+            ["name"]= "No Forgiveness",
             ["icon"]= "Art/2DArt/SkillIcons/passives/GladiatorAnointNotable.png",
             ["isNotable"]= true,
             ["isBlighted"]= true,
@@ -42969,6 +42987,12 @@ return {
                     },
                     ["reminderText"]= {
                         "(Recently refers to the past 4 seconds)"
+                    }
+                },
+                {
+                    ["effect"]= 16950,
+                    ["stats"]= {
+                        "Totems Taunt Enemies around them for 1 second when Summoned"
                     }
                 }
             },
@@ -49337,7 +49361,7 @@ return {
         },
         [56274]= {
             ["skill"]= 56274,
-            ["name"]= "Rising Tempest",
+            ["name"]= "Lasting Tempest",
             ["icon"]= "Art/2DArt/SkillIcons/passives/ElementalistAnointNotable.png",
             ["isNotable"]= true,
             ["isBlighted"]= true,
@@ -49347,10 +49371,9 @@ return {
                 "OpalescentOil"
             },
             ["stats"]= {
-                "10% increased Effect of Non-Damaging Ailments per Elemental Ailment\nyou've inflicted Recently"
+                "50% increased Duration of Elemental Ailments on Enemies"
             },
             ["reminderText"]= {
-                "(Recently refers to the past 4 seconds)",
                 "(Elemental Ailments are Ignited, Scorched, Chilled, Frozen, Brittle, Shocked, and Sapped)"
             },
             ["group"]= 400,
@@ -51491,11 +51514,13 @@ return {
             },
             ["group"]= 423,
             ["orbit"]= 2,
-            ["orbitIndex"]= 15,
+            ["orbitIndex"]= 1,
             ["out"]= {
                 "51976"
             },
-            ["in"]= {}
+            ["in"]= {
+                "11651"
+            }
         },
         [51976]= {
             ["skill"]= 51976,
@@ -51507,13 +51532,12 @@ return {
             },
             ["group"]= 423,
             ["orbit"]= 2,
-            ["orbitIndex"]= 1,
+            ["orbitIndex"]= 15,
             ["out"]= {
                 "12095"
             },
             ["in"]= {
-                "58214",
-                "11651"
+                "58214"
             }
         },
         [12095]= {
@@ -51988,7 +52012,7 @@ return {
             ["out"]= {
                 "5408",
                 "6580",
-                "51976"
+                "58214"
             },
             ["in"]= {}
         },
@@ -57117,6 +57141,12 @@ return {
                     ["reminderText"]= {
                         "(Recently refers to the past 4 seconds)"
                     }
+                },
+                {
+                    ["effect"]= 16950,
+                    ["stats"]= {
+                        "Totems Taunt Enemies around them for 1 second when Summoned"
+                    }
                 }
             },
             ["stats"]= {},
@@ -57376,7 +57406,7 @@ return {
                 "IndigoOil"
             },
             ["stats"]= {
-                "Flasks adjacent to applied Tincture gain 2 charges when\nyou Hit an Enemy with a Weapon, no more than once every second"
+                "Flasks adjacent to active Tinctures gain 2 charges when you Hit an\nEnemy with a Melee Weapon, no more than once every second"
             },
             ["group"]= 482,
             ["orbit"]= 2,
@@ -73572,7 +73602,6 @@ return {
             ["orbit"]= 2,
             ["orbitIndex"]= 14,
             ["out"]= {
-                "49391",
                 "13375"
             },
             ["in"]= {
@@ -74106,6 +74135,12 @@ return {
                     },
                     ["reminderText"]= {
                         "(Recently refers to the past 4 seconds)"
+                    }
+                },
+                {
+                    ["effect"]= 16950,
+                    ["stats"]= {
+                        "Totems Taunt Enemies around them for 1 second when Summoned"
                     }
                 }
             },
@@ -78924,7 +78959,7 @@ return {
             ["isNotable"]= true,
             ["ascendancyName"]= "Deadeye",
             ["stats"]= {
-                "Projectiles gain Damage as they travel farther, dealing up to 30% more Damage to targets",
+                "Projectiles gain Damage as they travel farther, dealing up\nto 30% more Damage with Hits and Ailments",
                 "Projectile Barrages have no spread"
             },
             ["group"]= 715,

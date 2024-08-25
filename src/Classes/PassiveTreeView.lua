@@ -340,7 +340,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		local scrX, scrY = treeToScreen(group.x, group.y)
 		if group.ascendancyName then
 			if group.isAscendancyStart then
-				if group.ascendancyName ~= spec.curAscendClassName and (not spec.curSecondaryAscendClass or group.ascendancyName ~= spec.curSecondaryAscendClass.id) then
+				if group.ascendancyName ~= spec.curAscendClassBaseName and (not spec.curSecondaryAscendClass or group.ascendancyName ~= spec.curSecondaryAscendClass.id) then
 					SetDrawColor(1, 1, 1, 0.25)
 				end
 				self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
@@ -411,7 +411,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		if hoverDep and hoverDep[node1] and hoverDep[node2] then
 			-- Both nodes depend on the node currently being hovered over, so color the line red
 			setConnectorColor(1, 0, 0)
-		elseif connector.ascendancyName and connector.ascendancyName ~= spec.curAscendClassName then
+		elseif connector.ascendancyName and connector.ascendancyName ~= spec.curAscendClassBaseName then
 			-- Fade out lines in ascendancy classes other than the current one
 			setConnectorColor(0.75, 0.75, 0.75)
 		end
@@ -589,6 +589,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					elseif not compareNode.alloc and node.alloc then
 						-- Base has not, current has, color red (Remove nodes to match)
 						SetDrawColor(1, 0, 0)
+					elseif node.type == "Mastery" and compareNode.alloc and node.alloc and node.sd ~= compareNode.sd then
+						-- Node is a mastery, both have it allocated, but mastery changed, color it blue
+						SetDrawColor(0, 0, 1)
 					else
 						-- Both have or both have not, use white
 						SetDrawColor(1, 1, 1)
@@ -614,6 +617,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				elseif not compareNode.alloc and node.alloc then
 					-- Base has not, current has, color red (Remove nodes to match)
 					SetDrawColor(1, 0, 0)
+				elseif node.type == "Mastery" and compareNode.alloc and node.alloc and node.sd ~= compareNode.sd then
+					-- Node is a mastery, both have it allocated, but mastery changed, color it blue
+					SetDrawColor(0, 0, 1)
 				else
 					-- Both have or both have not, use white
 					SetDrawColor(1, 1, 1)
@@ -689,20 +695,25 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			SetDrawColor(rgbColor[1], rgbColor[2], rgbColor[3])
 			local size = 175 * scale / self.zoom ^ 0.4
 
-			-- Snap node matches to the edge of the viewPort
-			local peekaboo_ratio = 1.15
-			local scaled_down_ratio = 0.6667
-			local wide_cull = {viewPort.x - size / peekaboo_ratio, viewPort.x + viewPort.width - size * peekaboo_ratio}
-			local high_cull = {viewPort.y - size / peekaboo_ratio, viewPort.y + viewPort.height - size * peekaboo_ratio}
-			local newX = m_min(m_max(scrX - size, wide_cull[1]), wide_cull[2])
-			local newY = m_min(m_max(scrY - size, high_cull[1]), high_cull[2])
+			if main.edgeSearchHighlight then
+				-- Snap node matches to the edge of the viewPort
+				local peekaboo_ratio = 1.15
+				local scaled_down_ratio = 0.6667
+				local wide_cull = {viewPort.x - size / peekaboo_ratio, viewPort.x + viewPort.width - size * peekaboo_ratio}
+				local high_cull = {viewPort.y - size / peekaboo_ratio, viewPort.y + viewPort.height - size * peekaboo_ratio}
+				local newX = m_min(m_max(scrX - size, wide_cull[1]), wide_cull[2])
+				local newY = m_min(m_max(scrY - size, high_cull[1]), high_cull[2])
 
-			if newX ~= scrX - size or newY ~= scrY - size then
-			  size = size * scaled_down_ratio
-			  newX = newX + size / 2
-			  newY = newY + size / 2
+				if newX ~= scrX - size or newY ~= scrY - size then
+				size = size * scaled_down_ratio
+				newX = newX + size / 2
+				newY = newY + size / 2
+				end
+				DrawImage(self.highlightRing, newX, newY, size * 2, size * 2)
+			else
+				DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
 			end
-			DrawImage(self.highlightRing, newX, newY, size * 2, size * 2)
+
 		end
 		if node == hoverNode and (node.type ~= "Socket" or not IsKeyDown("SHIFT")) and (node.type ~= "Mastery" or node.masteryEffects) and not IsKeyDown("CTRL") and not main.popups[1] then
 			-- Draw tooltip
@@ -858,6 +869,20 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 		return need
 	end
 
+	-- Check recipes
+	if needMatches[1] == "oil:" then
+		if node.recipe then
+			for _, recipeName in ipairs(node.recipe) do
+				err, needMatches = PCall(search, recipeName:gsub("Oil",""):lower(), needMatches)
+				if err then return false end
+				if #needMatches == 1 and needMatches[1] == "oil:" then
+					return true
+				end
+			end
+		end
+		return false
+	end
+
 	-- Check node name
 	err, needMatches = PCall(search, node.dn:lower(), needMatches)
 	if err then return false end
@@ -891,7 +916,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 	if #needMatches == 0 then
 		return true
 	end
-
+	
 	-- Check node id for devs
 	if launch.devMode then
 		err, needMatches = PCall(search, tostring(node.id), needMatches)

@@ -291,6 +291,9 @@ function ModStoreClass:EvalMod(mod, cfg)
 			else
 				base = target:GetMultiplier(tag.var, cfg)
 			end
+			if tag.divVar then
+				tag.div = self:GetMultiplier(tag.divVar, cfg)
+			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
 			local limitNegTotal

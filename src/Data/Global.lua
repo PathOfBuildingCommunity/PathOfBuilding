@@ -55,7 +55,7 @@ colorCodes = {
 	BRITTLEBG = "^x00122b",
 	SAPBG = "^x261500",
 	SCOURGE = "^xFF6E25",
-	CRUCIBLE = "^xFFA500",
+	CRUCIBLE = "^xFFA500"
 }
 colorCodes.STRENGTH = colorCodes.MARAUDER
 colorCodes.DEXTERITY = colorCodes.RANGER
@@ -312,6 +312,8 @@ SkillType = {
 	InnateTrauma = 129,
 	DualWieldRequiresDifferentTypes = 130,
 	NoVolley = 131,
+	Retaliation = 132,
+	NeverExertable = 133,
 }
 
 GlobalCache = { 

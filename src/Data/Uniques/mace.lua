@@ -375,7 +375,7 @@ Implicits: 2
 {variant:6,7,8}(40-60)% increased Global Damage
 {variant:9,10,11}+2 to Level of All Spell Skill Gems
 {variant:1,2,3,4,5}7% Global chance to Blind Enemies on hit
-{variant:6,7,8}10% Global chance to Blind Enemies on hit
+{variant:6,7,8,9,10,11}10% Global chance to Blind Enemies on hit
 Blind does not affect your Chance to Hit
 Enemies Blinded by you have Malediction
 {variant:1,2}Gain 1 Mana on Kill per Level
@@ -460,10 +460,13 @@ Raised Zombies have Avatar of Fire
 ]],[[
 Maata's Teaching
 Karui Sceptre
+Variant: Pre 3.25.0
+Variant: Current
 Requires Level 56, 96 Str, 96 Int
 Implicits: 1
 +(30-40) to Intelligence
-(25-50)% increased Critical Strike Chance
+{variant:1}(25-50)% increased Critical Strike Chance
+{variant:2}(15-30)% increased Critical Strike Chance
 +(1-2) to Level of all Minion Skill Gems
 Minions' Base Attack Critical Strike Chance is equal to the Critical Strike Chance of your Main Hand Weapon
 ]],[[

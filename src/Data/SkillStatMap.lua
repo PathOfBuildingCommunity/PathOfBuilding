@@ -569,6 +569,9 @@ return {
 ["critical_strike_chance_+%_vs_shocked_enemies"] = {
 	mod("CritChance", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }),
 },
+["critical_strike_chance_+%_vs_bleeding_enemies"] = {
+	mod("CritChance", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Bleeding" }),
+},
 ["critical_strike_chance_+%_per_power_charge"] = {
 	mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
 },
@@ -839,6 +842,10 @@ return {
 	flag("MinionDamageAppliesToPlayer"),
 	mod("ImprovedMinionDamageAppliesToPlayer", "MAX", nil)
 },
+["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
+	flag("SpellDamageAppliesToAttacks"),
+	mod("ImprovedSpellDamageAppliesToAttacks", "MAX", nil),
+},
 ["active_skill_main_hand_weapon_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "MainHandAttack" }),
 },
@@ -967,6 +974,10 @@ return {
 },
 ["always_shock"] = {
 	mod("EnemyShockChance", "BASE", nil),
+	value = 100,
+},
+["always_freeze"] = {
+	mod("EnemyFreezeChance", "BASE", nil),
 	value = 100,
 },
 ["base_chance_to_freeze_%"] = {
@@ -1567,10 +1578,10 @@ return {
 	skill("setOffHandAttackTime", nil),
 },
 ["off_hand_minimum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
-	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
+	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
 },
 ["off_hand_maximum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
-	mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
+	mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
 },
 ["off_hand_minimum_added_cold_damage_per_15_shield_evasion"] = {
 	mod("ColdMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "EvasionOnWeapon 2", div = 15 }),
@@ -1685,6 +1696,9 @@ return {
 ["trap_trigger_radius_+%"] = {
 	mod("TrapTriggerAreaOfEffect", "INC", nil),
 },
+["number_of_additional_traps_to_throw"] = {
+	mod("TrapThrowCount", "BASE", nil)
+},
 -- Mine
 ["number_of_additional_remote_mines_allowed"] = {
 	mod("ActiveMineLimit", "BASE", nil),
@@ -1713,6 +1727,25 @@ return {
 },
 ["mine_projectile_speed_+%_per_frenzy_charge"] = {
 	mod("ProjectileSpeed", "INC", nil, 0, KeywordFlag.Mine, { type = "Multiplier", var = "FrenzyCharge" })
+},
+["number_of_additional_mines_to_place"] = {
+	mod("MineThrowCount", "BASE", nil)
+},
+-- Swift Assembly (mine & trap)
+["support_additional_trap_mine_%_chance_for_1_additional_trap_mine"] = {
+	mod("MineThrowCount", "BASE", nil),
+	mod("TrapThrowCount", "BASE", nil),
+	div = 100
+},
+["support_additional_trap_mine_%_chance_for_2_additional_trap_mine"] = {
+	mod("MineThrowCount", "BASE", nil),
+	mod("TrapThrowCount", "BASE", nil),
+	div = 100 / 2
+},
+["support_additional_trap_mine_%_chance_for_3_additional_trap_mine"] = {
+	mod("MineThrowCount", "BASE", nil),
+	mod("TrapThrowCount", "BASE", nil),
+	div = 100 / 3
 },
 -- Totem
 ["totem_damage_+%"] = {
@@ -1976,15 +2009,11 @@ return {
 	flag("Condition:CannotRecallBrand"),
 },
 -- Banner
-["banner_buff_effect_+%_per_stage"] = {
-	mod("AuraEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
+["banner_buff_effect_+%_final_per_resource"] = {
+	mod("AuraEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "BannerValour" }, { type = "Condition", var = "BannerPlanted" }),
 },
-["banner_area_of_effect_+%_per_stage"] = {
-	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
-},
-["banner_additional_base_duration_per_stage_ms"] = {
-	mod("PrimaryDuration", "BASE", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
-	div = 1000,
+["banner_area_of_effect_+%_final_per_resource"] = {
+	mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "BannerValour" }, { type = "Condition", var = "BannerPlanted" }),
 },
 -- Other
 ["triggered_skill_damage_+%"] = {
@@ -2029,6 +2058,12 @@ return {
 },
 ["spell_cast_time_added_to_cooldown_if_triggered"] = {
 	flag("SpellCastTimeAddedToCooldownIfTriggered"),
+},
+["gain_x_rage_on_attack_hit"] = {
+	flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff", effectName = "Rage" } ),
+},
+["warcry_count_power_from_enemies"] = {
+	flag("UsesWarcryPower", { type = "GlobalEffect", effectType = "Buff" })
 },
 --
 -- Spectre or Minion-specific stats
@@ -2087,7 +2122,7 @@ return {
 	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Minion }),
 },
 
--- Gem quality display only
+-- Display only
 ["quality_display_base_additional_arrows_is_gem"] = {
 	-- Display only
 },
@@ -2113,6 +2148,12 @@ return {
 	-- Display only
 },
 ["quality_display_active_skill_bleed_damage_final_is_gem"] = {
+	-- Display only
+},
+["quality_display_spell_damage_to_attack_damage_is_gem"] = {
+	-- Display only
+},
+["retaliation_base_use_window_duration_ms"] = {
 	-- Display only
 },
 }

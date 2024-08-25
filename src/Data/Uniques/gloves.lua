@@ -72,6 +72,7 @@ Variant: Current
 Life Recovery from Regeneration is not applied
 {variant:1}Regenerate 1 Rage per second for every 100 Life Recovery per second from Regeneration
 {variant:2}Regenerate 1 Rage per second for every 300 Life Recovery per second from Regeneration
+Does not delay Inherent Loss of Rage
 ]],[[
 Doryani's Fist
 Vaal Gauntlets

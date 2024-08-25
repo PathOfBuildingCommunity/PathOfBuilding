@@ -11,6 +11,7 @@ local buildSortDropList = {
 	{ label = "Sort by Name", sortMode = "NAME" },
 	{ label = "Sort by Class", sortMode = "CLASS" },
 	{ label = "Sort by Last Edited", sortMode = "EDITED"},
+	{ label = "Sort by Level", sortMode = "LEVEL"},
 }
 
 local listMode = new("ControlHost")
@@ -20,6 +21,12 @@ function listMode:Init(selBuildName, subPath)
 		self.subPath = subPath or self.subPath
 		self.controls.buildList.controls.path:SetSubPath(self.subPath)
 		self.controls.buildList:SelByFileName(selBuildName and selBuildName..".xml")
+		--if main.showPublicBuilds then
+		if false then
+			self.controls.ExtBuildList = self:getPublicBuilds()
+		else
+			self.controls.ExtBuildList = nil
+		end
 		self:BuildList()
 		self:SelectControl(self.controls.buildList)
 		return
@@ -64,10 +71,38 @@ function listMode:Init(selBuildName, subPath)
 	self.controls.buildList.height = function()
 		return main.screenH - 80
 	end
+	local buildListWidth = function ()
+		--if main.showPublicBuilds then
+		if false then
+			return math.min((main.screenW / 2), 900)
+		else
+			return 900
+		end
+	end
+	local buildListOffset = function ()
+		--if main.showPublicBuilds then
+		if false then
+			local offset = math.min(450, main.screenW / 4)
+			return offset - 450
+		else
+			return 0
+		end
+	end
+
+	self.controls.buildList.width = buildListWidth
+	self.controls.buildList.x = buildListOffset
+
+	--if main.showPublicBuilds then
+	if false then
+		self.controls.ExtBuildList = self:getPublicBuilds()
+	end
+
 	self.controls.searchText = new("EditControl", {"TOP",self.anchor,"TOP"}, 0, 25, 640, 20, self.filterBuildList, "Search", "%c%(%)", 100, function(buf)
 		main.filterBuildList = buf
 		self:BuildList()
 	end, nil, nil, true)
+	self.controls.searchText.width = buildListWidth
+	self.controls.searchText.x = buildListOffset
 
 	self:BuildList()
 	self.controls.buildList:SelByFileName(selBuildName and selBuildName..".xml")
@@ -76,6 +111,23 @@ function listMode:Init(selBuildName, subPath)
 	self.initialised = true
 end
 
+function listMode:getPublicBuilds()
+	local buildProviders = {
+		{
+			name = "PoB Archives",
+			impl = new("PoBArchivesProvider", "builds")
+		}
+	}
+	local extBuildList = new("ExtBuildListControl", {"LEFT",self.controls.buildList,"RIGHT"}, 25, 0, main.screenW * 1 / 4 - 50, 0, buildProviders)
+	extBuildList:Init("PoB Archives")
+	extBuildList.height = function()
+		return main.screenH - 80
+	end
+	extBuildList.width = function ()
+		return math.max((main.screenW / 4 - 50), 400)
+	end
+	return extBuildList
+end
 function listMode:Shutdown()
 end
 
@@ -215,6 +267,14 @@ function listMode:SortList()
 				return a.className < b.className
 			elseif a.ascendClassName ~= b.ascendClassName then
 				return a.ascendClassName < b.ascendClassName
+			end
+		elseif main.buildSortMode == "LEVEL" then
+			if a.level and not b.level then
+				return false
+			elseif not a.level and b.level then
+				return true
+			else
+				return a.level < b.level
 			end
 		end
 		return naturalSortCompare(a.fileName, b.fileName)

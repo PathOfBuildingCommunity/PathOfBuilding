@@ -125,10 +125,9 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			main:ClosePopup()
 		end)
 		controls.removeTattoo = new("ButtonControl", nil, 0, buttonY, 144, 20, "Remove All Tattoos", function()
-			local hashOverridesCopy = copyTable(self.build.spec.hashOverrides, true) -- updating hashOverrides in RemoveTattooFromNode
-			for _, node in pairs(hashOverridesCopy) do
+			for id, node in pairs(self.build.spec.hashOverrides) do --hashOverrides will contain only the nodes that have been tattoo-ed
 				if node.isTattoo then
-					self:RemoveTattooFromNode(node)
+					self:RemoveTattooFromNode(self.build.spec.nodes[id])
 				end
 			end
 			self.modFlag = true
@@ -144,12 +143,16 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	-- Tree Version Dropdown
 	self.treeVersions = { }
 	for _, num in ipairs(treeVersionList) do
-		t_insert(self.treeVersions, treeVersions[num].display)
+		local value = {
+			label = treeVersions[num].display,
+			value = num
+		}
+		t_insert(self.treeVersions, value)
 	end
 	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.reset, "RIGHT" }, 8, 0, 0, 16, "Version:")
-	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 100, 20, self.treeVersions, function(index, value)
-		if value ~= self.build.spec.treeVersion then
-			self:OpenVersionConvertPopup(value:gsub("[%(%)]", ""):gsub("[%.%s]", "_"), true)
+	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 100, 20, self.treeVersions, function(index, selected)
+		if selected.value ~= self.build.spec.treeVersion then
+			self:OpenVersionConvertPopup(selected.value, true)
 		end
 	end)
 	self.controls.versionSelect.maxDroppedWidth = 1000
@@ -162,7 +165,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.viewer.searchStr = buf
 		self.searchFlag = buf ~= self.viewer.searchStrSaved
 	end, nil, nil, true)
-	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
+	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches\nPrefix your search with \"oil:\" to search by anoint recipe"
 
 	self.tradeLeaguesList = { }
 	-- Find Timeless Jewel Button
@@ -287,13 +290,13 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 				self.build.buildFlag = true
 				inputEvents[id] = nil
 			elseif event.key == "UP" then
-				index = self.activeSpec - 1
-				if self.specList[index] then
+				local index = self.activeSpec - 1
+				if self.specList[index] and not self.controls.specSelect:IsMouseOver() and not self.controls.specSelect.dropped then
 					self.build.modFlag = true
 					self:SetActiveSpec(index)
 				end
-			elseif event.key == "DOWN" then
-				index = self.activeSpec + 1
+			elseif event.key == "DOWN" and not self.controls.specSelect:IsMouseOver() and not self.controls.specSelect.dropped then
+				local index = self.activeSpec + 1
 				if self.specList[index] then
 					self.build.modFlag = true
 					self:SetActiveSpec(index)
@@ -413,7 +416,6 @@ function TreeTabClass:Load(xml, dbFileName)
 		self.specList[1] = new("PassiveSpec", self.build, latestTreeVersion)
 	end
 	self:SetActiveSpec(tonumber(xml.attrib.activeSpec) or 1)
-	self.build:SyncLoadouts()
 end
 
 function TreeTabClass:PostLoad()
@@ -467,11 +469,9 @@ function TreeTabClass:SetActiveSpec(specId)
 	self.build.itemsTab.controls.specSelect.selIndex = specId
 	-- Update Version dropdown to active spec's
 	if self.controls.versionSelect then
-		self.controls.versionSelect:SelByValue(curSpec.treeVersion:gsub("%_", "."):gsub(".ruthless", " (ruthless)"))
+		self.controls.versionSelect:SelByValue(curSpec.treeVersion, 'value')
 	end
-
-	-- set the loadout option to the dummy option since it is now dirty
-	self.build.controls.buildLoadouts:SetSel(1)
+	self.build:SyncLoadouts()
 end
 
 function TreeTabClass:SetCompareSpec(specId)
@@ -554,6 +554,7 @@ function TreeTabClass:OpenVersionConvertPopup(version, ignoreRuthlessCheck)
 		main:ClosePopup()
 	end)
 	controls.cancel = new("ButtonControl", nil, 125, 105, 100, 20, "Cancel", function()
+		self.controls.versionSelect:SelByValue(self.build.spec.treeVersion, 'value')
 		main:ClosePopup()
 	end)
 	main:OpenPopup(570, 140, "Convert to Version "..treeVersions[version].display, controls, "convert", "edit")
@@ -742,7 +743,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
 					(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity"))
 					or (node.targetType == "Keystone" and treeNodes[selectedNode.id].type == node.targetType))
-					and node.MinimumConnected <= numLinkedNodes then
+					and node.MinimumConnected <= numLinkedNodes and (node.legacy == false or node.legacy == self.showLegacyTattoo) then
 				local combine = false
 				for id, desc in pairs(node.stats) do
 					combine = (id:match("^local_display.*") and #node.stats == (#node.sd - 1)) or combine
@@ -844,6 +845,13 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	controls.totalTattoos = new("LabelControl", nil, 0, 95, 0, 16, "^7Tattoo Count: ".. getTattooCount() .."/50" )
 	main:OpenPopup(600, 105, "Replace Modifier of Node", controls, "save")
 	constructUI(modGroups[1])
+	
+	-- Show Legacy Tattoos
+	controls.showLegacyTattoo = new("CheckBoxControl", { "LEFT", controls.totalTattoos, "RIGHT" }, 205, 0, 20, "Show Legacy Tattoos:", function(state)
+		self.showLegacyTattoo = state
+		buildMods(selectedNode)
+	end)
+	controls.showLegacyTattoo.state = self.showLegacyTattoo
 end
 
 function TreeTabClass:SaveMasteryPopup(node, listControl)
@@ -1337,7 +1345,8 @@ function TreeTabClass:FindTimelessJewel()
 	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 25, 0, 16, "^7Jewel Type:")
 	controls.jewelSelect = new("DropDownControl", { "LEFT", controls.jewelSelectLabel, "RIGHT" }, 10, 0, 200, 18, jewelTypes, function(index, value)
 		timelessData.jewelType = value
-		controls.devotionSelectLabel.shown = value.id == 4
+		controls.devotionSelectLabel.shown = value.id == 4 -- Militant Faith
+		controls.protectAllocatedLabel.shown = (value.id == 4 and controls.socketFilter.state)
 		controls.conquerorSelect.list = conquerorTypes[timelessData.jewelType.id]
 		controls.conquerorSelect.selIndex = 1
 		timelessData.conquerorType = conquerorTypes[timelessData.jewelType.id][1]
@@ -1355,9 +1364,29 @@ function TreeTabClass:FindTimelessJewel()
 	end)
 	controls.conquerorSelect.selIndex = timelessData.conquerorType.id
 
+	local allocatedNodes = { }
+	local protectedNodes = { }
+	local protectedNodesCount = 0
+	self.allocatedNodesInRadiusCount = 0
+	local function setAllocatedNodes() -- find allocated nodes in radius for Militant Faith filtering / protected nodes dropdown
+		local nodeNames = { }
+		local radiusNodes = treeData.nodes[timelessData.jewelSocket.id].nodesInRadius[3] -- large radius around timelessData.jewelSocket.id
+		for nodeId in pairs(radiusNodes) do
+			if self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil then
+				allocatedNodes[nodeId] = true
+				if treeData.nodes[nodeId] and treeData.nodes[nodeId].isNotable then
+					t_insert(nodeNames, treeData.nodes[nodeId].dn)
+				end
+			end
+		end
+		controls.protectAllocatedSelect:SetList(nodeNames)
+		self.allocatedNodesInRadiusCount = #nodeNames
+	end
+
 	controls.socketSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 75, 0, 16, "^7Jewel Socket:")
 	controls.socketSelect = new("TimelessJewelSocketControl", { "LEFT", controls.socketSelectLabel, "RIGHT" }, 10, 0, 200, 18, jewelSockets, function(index, value)
 		timelessData.jewelSocket = value
+		setAllocatedNodes() -- reset list when changing sockets
 		self.build.modFlag = true
 	end, self.build, socketViewer)
 	-- we need to search through `jewelSockets` for the correct `id` as the `idx` can become stale due to dynamic sorting
@@ -1367,7 +1396,16 @@ function TreeTabClass:FindTimelessJewel()
 			break
 		end
 	end
-
+	
+	local function clearProtected() -- clear all controls, nodes related to Militant Faith filtering
+		protectedNodesCount = 0
+		protectedNodes = { }
+		for index, _ in pairs(controls) do
+			if index:find("protected:") then
+				controls[index] = nil
+			end
+		end
+	end
 	controls.socketFilterLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 100, 0, 16, "^7Filter Nodes:")
 	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 10, 0, 18, nil, function(value)
 		timelessData.socketFilter = value
@@ -1375,6 +1413,13 @@ function TreeTabClass:FindTimelessJewel()
 		controls.socketFilterAdditionalDistanceLabel.shown = value
 		controls.socketFilterAdditionalDistance.shown = value
 		controls.socketFilterAdditionalDistanceValue.shown = value
+		controls.protectAllocatedLabel.shown = (value and timelessData.jewelType.label == "Militant Faith")
+
+		if value then
+			setAllocatedNodes()
+		else
+			clearProtected()
+		end
 	end)
 	controls.socketFilter.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
@@ -1382,6 +1427,32 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:AddLine(16, "^7This can be useful if you're never going to path towards those excluded nodes and don't care what happens to them.")
 	end
 	controls.socketFilter.state = timelessData.socketFilter
+
+	-- Militant Faith protect notables controls
+	controls.protectAllocatedLabel = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, 15, 25, 0, 16, "^7Protect allocated nodes from changing:")
+	controls.protectAllocatedSelect = new("DropDownControl", { "TOPLEFT", controls.protectAllocatedLabel, "BOTTOMLEFT" }, 0, 8, 200, 18, nil, nil)
+	controls.protectAllocatedButtonAdd = new("ButtonControl", { "LEFT", controls.protectAllocatedSelect, "RIGHT" }, 5, 0, 44, 18, "Add", function()
+		local selValue = controls.protectAllocatedSelect:GetSelValue()
+		if selValue and not controls["protected:"..selValue] then
+			protectedNodesCount = protectedNodesCount + 1
+			t_insert(protectedNodes, selValue)
+			controls["protected:"..selValue] = new("LabelControl", { "TOPLEFT", controls.protectAllocatedSelect, "BOTTOMLEFT" }, 0, 16*protectedNodesCount-10, 0, 16, "^7"..selValue)
+		end
+	end)
+	controls.protectAllocatedButtonClear = new("ButtonControl", { "LEFT", controls.protectAllocatedButtonAdd, "RIGHT" }, 5, 0, 44, 18, "Clear", function()
+		clearProtected()
+	end)
+	-- set shown and list on load
+	if controls.socketFilter.state then
+		setAllocatedNodes()
+	end
+	controls.protectAllocatedLabel.shown = controls.jewelSelect.selIndex == 4 and controls.socketFilter.state
+
+	controls.protectAllocatedButtonAdd.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Protect allocated nodes during search.")
+		tooltip:AddLine(16, "^7This can be useful if transforming certain notables would break your build.")
+	end
 
 	local socketFilterAdditionalDistanceMAX = 10
 	controls.socketFilterAdditionalDistanceLabel = new("LabelControl", { "LEFT", controls.socketFilter, "RIGHT" }, 10, 0, 0, 16, "^7Node Distance:")
@@ -2049,6 +2120,11 @@ function TreeTabClass:FindTimelessJewel()
 						if desiredNode[4] ~= nil and tonumber(desiredNode[4]) > 0 then
 							t_insert(minimumWeights, { reqNode = desiredNode[1], weight = tonumber(desiredNode[4]) })
 						end
+						-- if we're protecting a node and the number of protected nodes is less than the total allocated in radius and the total desired nodes is less than the total allocated in radius
+						-- these constraints avoid a blank result in the case where you set a min weight of 1 onto a non devotion stat with zero unprotected nodes
+						if protectedNodesCount > 0 and protectedNodesCount < self.allocatedNodesInRadiusCount and (#searchListCombinedTbl < self.allocatedNodesInRadiusCount) then
+							t_insert(minimumWeights, { reqNode = desiredNode[1], weight = 1 })
+						end
 						if desiredNodes[desiredNode[1]] then
 							desiredNodes[desiredNode[1]] = {
 								nodeWeight = tonumber(desiredNode[2]) or 0.001,
@@ -2109,7 +2185,18 @@ function TreeTabClass:FindTimelessJewel()
 					else
 						local curNode = nil
 						local curNodeId = nil
-						if jewelDataTbl[1] >= data.timelessJewelAdditions then -- replace
+						if (timelessData.jewelType.id == 4 and isValueInTable(protectedNodes, treeData.nodes[targetNode].dn)) then
+							if not desiredNodes["totalStat"] then -- only add if user has not entered their own Devotion to the table
+								desiredNodes["totalStat"] = {
+									nodeWeight = 0.1, -- keeps total score low to let desired stats decide sort
+									nodeWeight2 = 0,
+									displayName = "Devotion",
+									desiredIdx = desiredIdx + 1
+								}
+							end
+							curNodeId = "totalStat"
+						end
+						if jewelDataTbl[1] >= data.timelessJewelAdditions and not isValueInTable(protectedNodes, treeData.nodes[targetNode].dn) then -- replace
 							curNode = legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions]
 							curNodeId = curNode and legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions].id or nil
 						else -- add
@@ -2262,6 +2349,7 @@ function TreeTabClass:FindTimelessJewel()
 		updateSearchList("", false)
 		wipeTable(timelessData.searchResults)
 		controls.searchTradeButton.enabled = false
+		clearProtected()
 	end)
 	controls.closeButton = new("ButtonControl", nil, buttonX + (width + divider) * 2, 485, width, 20, "Cancel", function()
 		main:ClosePopup()

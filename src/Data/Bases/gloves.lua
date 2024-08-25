@@ -93,36 +93,56 @@ itemBases["Titan Gauntlets"] = {
 	armour = { ArmourBaseMin = 242, ArmourBaseMax = 278, },
 	req = { level = 69, str = 98, },
 }
-itemBases["Taxing Gauntlets"] = {
+itemBases["Precursor Gauntlets"] = {
 	type = "Gloves",
 	subType = "Armour",
 	socketLimit = 4,
-	tags = { gloves = true, str_armour = true, not_for_sale = true, armour = true, default = true, },
+	tags = { gloves = true, str_armour = true, not_for_sale = true, armour = true, top_tier_base_item_type = true, default = true, },
 	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
-	implicit = "Exerted Attacks deal (25-30)% increased Damage\nWarcry Skills have +2 seconds to Cooldown",
-	implicitModTypes = { { "attack" }, { "attack" }, },
-	armour = { ArmourBaseMin = 35, ArmourBaseMax = 41, },
-	req = { level = 10, str = 18, },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 307, ArmourBaseMax = 353, },
+	req = { level = 78, str = 125, },
 }
-itemBases["Gruelling Gauntlets"] = {
+itemBases["Leviathan Gauntlets"] = {
+	type = "Gloves",
+	subType = "Armour",
+	socketLimit = 4,
+	tags = { gloves = true, str_armour = true, not_for_sale = true, armour = true, top_tier_base_item_type = true, default = true, },
+	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 359, ArmourBaseMax = 413, },
+	req = { level = 84, str = 144, },
+}
+itemBases["Preserving Gauntlets"] = {
 	type = "Gloves",
 	subType = "Armour",
 	socketLimit = 4,
 	tags = { gloves = true, str_armour = true, not_for_sale = true, armour = true, default = true, },
 	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
-	implicit = "Exerted Attacks deal (30-40)% increased Damage\nWarcry Skills have +2 seconds to Cooldown",
-	implicitModTypes = { { "attack" }, { "attack" }, },
+	implicit = "+(3-4)% Chance to Block Attack Damage\nYou take 10% of Damage from Blocked Hits",
+	implicitModTypes = { { "block" }, { "block" }, },
+	armour = { ArmourBaseMin = 35, ArmourBaseMax = 41, },
+	req = { level = 16, str = 18, },
+}
+itemBases["Guarding Gauntlets"] = {
+	type = "Gloves",
+	subType = "Armour",
+	socketLimit = 4,
+	tags = { gloves = true, str_armour = true, not_for_sale = true, armour = true, default = true, },
+	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
+	implicit = "+(4-5)% Chance to Block Attack Damage\nYou take 10% of Damage from Blocked Hits",
+	implicitModTypes = { { "block" }, { "block" }, },
 	armour = { ArmourBaseMin = 132, ArmourBaseMax = 152, },
 	req = { level = 40, str = 59, },
 }
-itemBases["Debilitation Gauntlets"] = {
+itemBases["Thwarting Gauntlets"] = {
 	type = "Gloves",
 	subType = "Armour",
 	socketLimit = 4,
 	tags = { gloves = true, str_armour = true, not_for_sale = true, armour = true, default = true, },
 	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
-	implicit = "Exerted Attacks deal (40-50)% increased Damage\nWarcry Skills have +2 seconds to Cooldown",
-	implicitModTypes = { { "attack" }, { "attack" }, },
+	implicit = "+(5-6)% Chance to Block Attack Damage\nYou take 10% of Damage from Blocked Hits",
+	implicitModTypes = { { "block" }, { "block" }, },
 	armour = { ArmourBaseMin = 236, ArmourBaseMax = 271, },
 	req = { level = 70, str = 101, },
 }
@@ -228,36 +248,56 @@ itemBases["Slink Gloves"] = {
 	armour = { EvasionBaseMin = 242, EvasionBaseMax = 278, },
 	req = { level = 70, dex = 95, },
 }
-itemBases["Gauche Gloves"] = {
+itemBases["Harpyskin Gloves"] = {
+	type = "Gloves",
+	subType = "Evasion",
+	socketLimit = 4,
+	tags = { gloves = true, top_tier_base_item_type = true, dex_armour = true, armour = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
+	implicitModTypes = { },
+	armour = { EvasionBaseMin = 307, EvasionBaseMax = 353, },
+	req = { level = 78, dex = 125, },
+}
+itemBases["Velour Gloves"] = {
+	type = "Gloves",
+	subType = "Evasion",
+	socketLimit = 4,
+	tags = { gloves = true, top_tier_base_item_type = true, dex_armour = true, armour = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
+	implicitModTypes = { },
+	armour = { EvasionBaseMin = 359, EvasionBaseMax = 413, },
+	req = { level = 84, dex = 144, },
+}
+itemBases["Tinker Gloves"] = {
 	type = "Gloves",
 	subType = "Evasion",
 	socketLimit = 4,
 	tags = { gloves = true, dex_armour = true, armour = true, not_for_sale = true, default = true, },
 	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
-	implicit = "25% reduced Attack Damage with Main Hand\n(40-50)% increased Attack Damage with Off Hand",
-	implicitModTypes = { { "attack" }, { "attack" }, },
+	implicit = "30% reduced Cooldown Recovery Rate for throwing Traps\nTrap Skills have (10-15)% increased Skill Effect Duration",
+	implicitModTypes = { {  }, {  }, },
 	armour = { EvasionBaseMin = 35, EvasionBaseMax = 41, },
 	req = { level = 10, dex = 18, },
 }
-itemBases["Southswing Gloves"] = {
+itemBases["Apprentice Gloves"] = {
 	type = "Gloves",
 	subType = "Evasion",
 	socketLimit = 4,
 	tags = { gloves = true, dex_armour = true, armour = true, not_for_sale = true, default = true, },
 	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
-	implicit = "25% reduced Attack Damage with Main Hand\n(40-50)% increased Attack Damage with Off Hand",
-	implicitModTypes = { { "attack" }, { "attack" }, },
+	implicit = "30% reduced Cooldown Recovery Rate for throwing Traps\nTrap Skills have (15-20)% increased Skill Effect Duration",
+	implicitModTypes = { {  }, {  }, },
 	armour = { EvasionBaseMin = 132, EvasionBaseMax = 152, },
 	req = { level = 40, dex = 59, },
 }
-itemBases["Sinistral Gloves"] = {
+itemBases["Trapsetter Gloves"] = {
 	type = "Gloves",
 	subType = "Evasion",
 	socketLimit = 4,
 	tags = { gloves = true, dex_armour = true, armour = true, not_for_sale = true, default = true, },
 	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
-	implicit = "25% reduced Attack Damage with Main Hand\n(40-50)% increased Attack Damage with Off Hand",
-	implicitModTypes = { { "attack" }, { "attack" }, },
+	implicit = "30% reduced Cooldown Recovery Rate for throwing Traps\nTrap Skills have (20-25)% increased Skill Effect Duration",
+	implicitModTypes = { {  }, {  }, },
 	armour = { EvasionBaseMin = 236, EvasionBaseMax = 271, },
 	req = { level = 70, dex = 101, },
 }
@@ -362,6 +402,26 @@ itemBases["Sorcerer Gloves"] = {
 	implicitModTypes = { },
 	armour = { EnergyShieldBaseMin = 49, EnergyShieldBaseMax = 57, },
 	req = { level = 69, int = 97, },
+}
+itemBases["Sage Gloves"] = {
+	type = "Gloves",
+	subType = "Energy Shield",
+	socketLimit = 4,
+	tags = { gloves = true, top_tier_base_item_type = true, int_armour = true, armour = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
+	implicitModTypes = { },
+	armour = { EnergyShieldBaseMin = 62, EnergyShieldBaseMax = 71, },
+	req = { level = 78, int = 125, },
+}
+itemBases["Warlock Gloves"] = {
+	type = "Gloves",
+	subType = "Energy Shield",
+	socketLimit = 4,
+	tags = { gloves = true, top_tier_base_item_type = true, int_armour = true, armour = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
+	implicitModTypes = { },
+	armour = { EnergyShieldBaseMin = 72, EnergyShieldBaseMax = 83, },
+	req = { level = 84, int = 144, },
 }
 itemBases["Leyline Gloves"] = {
 	type = "Gloves",
@@ -488,6 +548,26 @@ itemBases["Dragonscale Gauntlets"] = {
 	armour = { ArmourBaseMin = 121, ArmourBaseMax = 139, EvasionBaseMin = 121, EvasionBaseMax = 139, },
 	req = { level = 67, str = 51, dex = 51, },
 }
+itemBases["Chimerascale Gauntlets"] = {
+	type = "Gloves",
+	subType = "Armour/Evasion",
+	socketLimit = 4,
+	tags = { str_dex_armour = true, top_tier_base_item_type = true, not_for_sale = true, armour = true, gloves = true, default = true, },
+	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 176, ArmourBaseMax = 176, EvasionBaseMin = 176, EvasionBaseMax = 176, },
+	req = { level = 78, str = 70, dex = 70, },
+}
+itemBases["Wyvernscale Gauntlets"] = {
+	type = "Gloves",
+	subType = "Armour/Evasion",
+	socketLimit = 4,
+	tags = { str_dex_armour = true, top_tier_base_item_type = true, not_for_sale = true, armour = true, gloves = true, default = true, },
+	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 205, ArmourBaseMax = 205, EvasionBaseMin = 205, EvasionBaseMax = 205, },
+	req = { level = 84, str = 80, dex = 80, },
+}
 
 itemBases["Chain Gloves"] = {
 	type = "Gloves",
@@ -568,6 +648,26 @@ itemBases["Crusader Gloves"] = {
 	implicitModTypes = { },
 	armour = { ArmourBaseMin = 121, ArmourBaseMax = 139, EnergyShieldBaseMin = 25, EnergyShieldBaseMax = 28, },
 	req = { level = 66, str = 51, int = 51, },
+}
+itemBases["Martyr Gloves"] = {
+	type = "Gloves",
+	subType = "Armour/Energy Shield",
+	socketLimit = 4,
+	tags = { str_int_armour = true, top_tier_base_item_type = true, not_for_sale = true, armour = true, gloves = true, default = true, },
+	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 176, ArmourBaseMax = 203, EnergyShieldBaseMin = 35, EnergyShieldBaseMax = 41, },
+	req = { level = 78, str = 70, int = 70, },
+}
+itemBases["Paladin Gloves"] = {
+	type = "Gloves",
+	subType = "Armour/Energy Shield",
+	socketLimit = 4,
+	tags = { str_int_armour = true, top_tier_base_item_type = true, not_for_sale = true, armour = true, gloves = true, default = true, },
+	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 205, ArmourBaseMax = 236, EnergyShieldBaseMin = 41, EnergyShieldBaseMax = 47, },
+	req = { level = 84, str = 80, int = 80, },
 }
 itemBases["Apothecary's Gloves"] = {
 	type = "Gloves",
@@ -660,6 +760,26 @@ itemBases["Murder Mitts"] = {
 	implicitModTypes = { },
 	armour = { EvasionBaseMin = 121, EvasionBaseMax = 139, EnergyShieldBaseMin = 25, EnergyShieldBaseMax = 28, },
 	req = { level = 67, dex = 51, int = 51, },
+}
+itemBases["Infiltrator Mitts"] = {
+	type = "Gloves",
+	subType = "Evasion/Energy Shield",
+	socketLimit = 4,
+	tags = { gloves = true, top_tier_base_item_type = true, not_for_sale = true, armour = true, default = true, dex_int_armour = true, },
+	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
+	implicitModTypes = { },
+	armour = { EvasionBaseMin = 176, EvasionBaseMax = 203, EnergyShieldBaseMin = 35, EnergyShieldBaseMax = 41, },
+	req = { level = 78, dex = 70, int = 70, },
+}
+itemBases["Phantom Mitts"] = {
+	type = "Gloves",
+	subType = "Evasion/Energy Shield",
+	socketLimit = 4,
+	tags = { gloves = true, top_tier_base_item_type = true, not_for_sale = true, armour = true, default = true, dex_int_armour = true, },
+	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
+	implicitModTypes = { },
+	armour = { EvasionBaseMin = 205, EvasionBaseMax = 236, EnergyShieldBaseMin = 41, EnergyShieldBaseMax = 47, },
+	req = { level = 84, dex = 80, int = 80, },
 }
 
 itemBases["Runic Gloves"] = {

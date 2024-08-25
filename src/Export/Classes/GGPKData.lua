@@ -11,6 +11,7 @@ local function scanDir(directory, extension)
 	local t = { }
 	local pFile = io.popen('dir "'..directory..'" /b')
 	for filename in pFile:lines() do
+		filename = filename:gsub('\r?$', '')
 		--ConPrintf("%s\n", filename)
 		if extension then
 			if filename:match(extension) then
@@ -35,8 +36,8 @@ local GGPKClass = newClass("GGPKData", function(self, path, datPath)
 		self.oozPath = datPath:match("\\$") and datPath or (datPath .. "\\")
 	else
 		self.path = path
-		self.temp = io.popen("cd"):read('*l')
-		self.oozPath = self.temp .. "\\ggpk\\"
+		self.oozPath = io.popen("cd"):read('*l'):gsub('\r?', '') .. "\\ggpk\\"
+		self:CleanDir()
 		self:ExtractFiles()
 	end
 
@@ -50,9 +51,21 @@ local GGPKClass = newClass("GGPKData", function(self, path, datPath)
 	end
 end)
 
+function GGPKClass:CleanDir()
+	local cmd = 'del ' .. self.oozPath .. 'Data ' .. self.oozPath .. 'Metadata /Q /S'
+	ConPrintf(cmd)
+	os.execute(cmd)
+end
+
+function GGPKClass:ExtractFilesWithBun(fileListStr)
+	local cmd = 'cd ' .. self.oozPath .. ' && bun_extract_file.exe extract-files "' .. self.path .. '" . ' .. fileListStr
+	ConPrintf(cmd)
+	os.execute(cmd)
+end
+
 function GGPKClass:ExtractFiles()
 	local datList, txtList, itList = self:GetNeededFiles()
-	
+	local sweetSpotCharacter = 6000
 	local fileList = ''
 	for _, fname in ipairs(datList) do
 		if USE_DAT64 then
@@ -60,17 +73,40 @@ function GGPKClass:ExtractFiles()
 		else
 			fileList = fileList .. '"' .. fname .. '" '
 		end
+
+		if fileList:len() > sweetSpotCharacter then
+			self:ExtractFilesWithBun(fileList)
+			fileList = ''
+		end
 	end
+
 	for _, fname in ipairs(txtList) do
 		fileList = fileList .. '"' .. fname .. '" '
+
+		if fileList:len() > sweetSpotCharacter then
+			self:ExtractFilesWithBun(fileList)
+			fileList = ''
+		end
 	end
+
 	for _, fname in ipairs(itList) do
 		fileList = fileList .. '"' .. fname .. '" '
+
+		if fileList:len() > sweetSpotCharacter then
+			self:ExtractFilesWithBun(fileList)
+			fileList = ''
+		end
 	end
-	
-	local cmd = 'cd ' .. self.oozPath .. ' && bun_extract_file.exe extract-files "' .. self.path .. '" . ' .. fileList
-	ConPrintf(cmd)
-	os.execute(cmd)
+
+	if (fileList:len() > 0) then
+		self:ExtractFilesWithBun(fileList)
+	end
+
+	-- Overwrite Enums
+	local errMsg = PLoadModule("Scripts/enums.lua")
+	if errMsg then
+		print(errMsg)
+	end
 end
 
 function GGPKClass:AddDatFiles()
@@ -228,6 +264,17 @@ function GGPKClass:GetNeededFiles()
 		"Data/weaponclasses.dat",
 		"Data/monsterconditions.dat",
 		"Data/rarity.dat",
+		"Data/trademarketcategory.dat",
+		"Data/trademarketcategorygroups.dat",
+		"Data/PlayerTradeWhisperFormats.dat",
+		"Data/TradeMarketCategoryListAllClass.dat",
+		"Data/TradeMarketIndexItemAs.dat",
+		"Data/TradeMarketImplicitModDisplay.dat",
+		"Data/Commands.dat",
+		"Data/ModEquivalencies.dat",
+		"Data/InfluenceTags.dat",
+		"Data/InfluenceTypes.dat",
+		"Data/leaguenames.dat"
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

@@ -54,6 +54,8 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("TotemPlacementTime", "BASE", 0.6, "Base")
 	modDB:NewMod("BallistaPlacementTime", "BASE", 0.35, "Base")
 	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
+	modDB:NewMod("ShockStacksMax", "BASE", 0, "Base")
+	modDB:NewMod("ScorchStacksMax", "BASE", 0, "Base")
 	modDB:NewMod("MovementSpeed", "INC", -30, "Base", { type = "Condition", var = "Maimed" })
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Attack, { type = "Condition", var = "Intimidated"})
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Attack, { type = "Condition", var = "Intimidated", neg = true}, { type = "Condition", var = "Party:Intimidated"})
@@ -227,12 +229,13 @@ function wipeEnv(env, accelerate)
 		-- 1) Jewels and Jewel-Radius related node modifications
 		-- 2) Player items
 		-- 3) Granted Skill from items (e.g., Curse on Hit rings)
-		-- 4) Flasks
+		-- 4) Flasks and Tinctures
 		wipeTable(env.radiusJewelList)
 		wipeTable(env.extraRadiusNodeList)
 		wipeTable(env.player.itemList)
 		wipeTable(env.grantedSkillsItems)
 		wipeTable(env.flasks)
+		wipeTable(env.tinctures)
 
 		-- Special / Unique Items that have their own ModDB()
 		if env.aegisModList then
@@ -268,12 +271,13 @@ local function getGemModList(env, groupCfg, socketColor, socketNum)
 	local gemCfg = copyTable(groupCfg, true)
 	gemCfg.socketColor = socketColor
 	gemCfg.socketNum = socketNum
-	return env.modDB:List(gemCfg, "GemProperty")
+	return env.modDB:Tabulate("LIST", gemCfg, "GemProperty")
 end
 
 local function applyGemMods(effect, modList)
-	for _, value in ipairs(modList) do
+	for _, mod in ipairs(modList) do
 		local match = true
+		local value = mod.value
 		if value.keywordList then
 			for _, keyword in ipairs(value.keywordList) do
 				if not calcLib.gemIsType(effect.gemData, keyword, true) then
@@ -286,6 +290,8 @@ local function applyGemMods(effect, modList)
 		end
 		if match then
 			effect[value.key] = (effect[value.key] or 0) + value.value
+			effect.gemPropertyInfo = effect.gemPropertyInfo or {}
+			t_insert(effect.gemPropertyInfo, mod)
 		end
 	end
 end
@@ -400,6 +406,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.explodeSources = { }
 		env.itemWarnings = { }
 		env.flasks = { }
+		env.tinctures = { }
 
 		-- tree based
 		env.grantedPassives = { }
@@ -475,16 +482,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("Damage", "MORE", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
 		modDB:NewMod("PhysicalDamageReduction", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
 		modDB:NewMod("ElementalDamageReduction", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
-		modDB:NewMod("Multiplier:RageEffect", "BASE", 1, "Base")
-		modDB:NewMod("Damage", "INC", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageCastSpeed", neg = true })
-		modDB:NewMod("Damage", "INC", 1, "Base", ModFlag.Cast, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageCastSpeed"})
-		modDB:NewMod("Speed", "INC", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage", div = 2 }, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageSpellDamage", neg = true })
-		modDB:NewMod("Speed", "INC", 1, "Base", ModFlag.Cast, { type = "Multiplier", var = "Rage", div = 2 }, { type = "Multiplier", var = "RageEffect" }, { type = "Condition", var = "RageSpellDamage" })
-		modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rage", div = 5 }, { type = "Multiplier", var = "RageEffect" })
-		modDB:NewMod("MaximumRage", "BASE", 50, "Base")
+		modDB:NewMod("MaximumRage", "BASE", 30, "Base")
 		modDB:NewMod("Multiplier:GaleForce", "BASE", 0, "Base")
 		modDB:NewMod("MaximumGaleForce", "BASE", 10, "Base")
 		modDB:NewMod("MaximumFortification", "BASE", 20, "Base")
+		modDB:NewMod("MaximumValour", "BASE", 50, "Base")
 		modDB:NewMod("SoulEaterMax", "BASE", 45, "Base")
 		modDB:NewMod("Multiplier:IntensityLimit", "BASE", 3, "Base")
 		modDB:NewMod("Damage", "INC", 2, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
@@ -493,6 +495,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("Speed", "INC", 5, "Base", ModFlag.Cast, { type = "Multiplier", var = "SoulEater" })
 		modDB:NewMod("ActiveTrapLimit", "BASE", 15, "Base")
 		modDB:NewMod("ActiveMineLimit", "BASE", 15, "Base")
+		modDB:NewMod("MineThrowCount", "BASE", 1, "Base")
+		modDB:NewMod("TrapThrowCount", "BASE", 1, "Base")
 		modDB:NewMod("ActiveBrandLimit", "BASE", 3, "Base")
 		modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")
 		modDB:NewMod("SocketedCursesHexLimitValue", "BASE", 1, "Base")
@@ -508,6 +512,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
 		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")
+		modDB:NewMod("TinctureLimit", "BASE", 1, "Base")
+		modDB:NewMod("ManaDegenPercent", "BASE", 1, "Base", { type = "Multiplier", var = "EffectiveManaBurnStacks" })
+		modDB:NewMod("LifeDegenPercent", "BASE", 1, "Base", { type = "Multiplier", var = "WeepingWoundsStacks" })
 
 		-- Add bandit mods
 		if env.configInput.bandit == "Alira" then
@@ -822,6 +829,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				end
 				item = nil
+			elseif item and item.type == "Tincture" then
+				if slot.active then
+					env.tinctures[item] = true
+				end
+				item = nil
 			end
 			local scale = 1
 			if item and item.type == "Jewel" and item.base.subType == "Abyss" and slot.parentSlot then
@@ -1003,7 +1015,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				elseif item.type == "Quiver" and items["Weapon 1"] and items["Weapon 1"].name:match("Widowhail") then
-					scale = scale * (1 + (items["Weapon 1"].baseModList:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
+					local widowHailMod=(1 + (items["Weapon 1"].baseModList:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
+					scale = scale * widowHailMod
+					env.modDB:NewMod("WidowHailMultiplier", "BASE", widowHailMod, "Widowhail")
 					local combinedList = new("ModList")
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
@@ -1023,7 +1037,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				if item.classRestriction then
 					env.itemModDB.conditions[item.title:gsub(" ", "")] = item.classRestriction
 				end
-				if item.type ~= "Jewel" and item.type ~= "Flask" then
+				if item.type ~= "Jewel" and item.type ~= "Flask" and item.type ~= "Tincture" then
 					-- Update item counts
 					local key
 					if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
@@ -1095,6 +1109,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 				env.flasks[override.toggleFlask] = nil
 			else
 				env.flasks[override.toggleFlask] = true
+			end
+		end
+		if override.toggleTincture then
+			if env.tinctures[override.toggleTincture] then
+				env.tinctures[override.toggleTincture] = nil
+			else
+				env.tinctures[override.toggleTincture] = true
 			end
 		end
 	end
@@ -1312,7 +1333,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				groupCfgList[slotName or "noSlot"] = groupCfgList[slotName or "noSlot"] or {}
 				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
-					propertyModList = env.modDB:List({slotName = slotName}, "GemProperty")
+					propertyModList = env.modDB:Tabulate("LIST", {slotName = slotName}, "GemProperty")
 				}
 				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				local propertyModList = groupCfg.propertyModList
@@ -1415,7 +1436,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				local slotName = group.slot and group.slot:gsub(" Swap","")
 				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
-					propertyModList = env.modDB:List({slotName = slotName}, "GemProperty")
+					propertyModList = env.modDB:Tabulate("LIST", {slotName = slotName}, "GemProperty")
 				}
 				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				local propertyModList = groupCfg.propertyModList
@@ -1537,7 +1558,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if index == env.mainSocketGroup or (group.enabled and group.slotEnabled) then
 				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
-					propertyModList = env.modDB:List({slotName = slotName}, "GemProperty")
+					propertyModList = env.modDB:Tabulate("LIST", {slotName = slotName}, "GemProperty")
 				}
 				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				for _, value in ipairs(env.modDB:List(groupCfg, "GroupProperty")) do

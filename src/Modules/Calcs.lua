@@ -237,7 +237,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 						igniteSource = activeSkill.activeEffect.grantedEffect.name
 					end
 					if usedEnv.minion.output.PoisonDPS and usedEnv.minion.output.PoisonDPS > 0 then
-						fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.minion.output.PoisonDPS * (usedEnv.minion.output.TotalPoisonStacks or 1) * activeSkillCount
+						fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.minion.output.PoisonDPS * activeSkillCount
 					end
 					if usedEnv.minion.output.ImpaleDPS and usedEnv.minion.output.ImpaleDPS > 0 then
 						fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.minion.output.ImpaleDPS * activeSkillCount
@@ -273,7 +273,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 						igniteSource = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
 					end
 					if activeSkill.mirage.output.PoisonDPS and activeSkill.mirage.output.PoisonDPS > 0 then
-						fullDPS.poisonDPS = fullDPS.poisonDPS + activeSkill.mirage.output.PoisonDPS * (activeSkill.mirage.output.TotalPoisonStacks or 1) * mirageCount
+						fullDPS.poisonDPS = fullDPS.poisonDPS + activeSkill.mirage.output.PoisonDPS * mirageCount
 					end
 					if activeSkill.mirage.output.ImpaleDPS and activeSkill.mirage.output.ImpaleDPS > 0 then
 						fullDPS.impaleDPS = fullDPS.impaleDPS + activeSkill.mirage.output.ImpaleDPS * mirageCount
@@ -318,7 +318,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					burningGroundSource = activeSkill.activeEffect.grantedEffect.name
 				end
 				if usedEnv.player.output.PoisonDPS and usedEnv.player.output.PoisonDPS > 0 then
-					fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.player.output.PoisonDPS * (usedEnv.player.output.TotalPoisonStacks or 1) * activeSkillCount
+					fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.player.output.PoisonDPS * activeSkillCount
 				end
 				if usedEnv.player.output.CausticGroundDPS and usedEnv.player.output.CausticGroundDPS > fullDPS.causticGroundDPS then
 					fullDPS.causticGroundDPS = usedEnv.player.output.CausticGroundDPS
@@ -403,12 +403,22 @@ end
 -- Process active skill
 function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingFlags)
 	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
+
+	-- env.limitedSkills contains a map of uuids that should be limited in calculation
+	-- this is in order to prevent infinite recursion loops
+	fullEnv.limitedSkills = fullEnv.limitedSkills or {}
+	for uuid, _ in pairs(env.limitedSkills or {}) do
+		fullEnv.limitedSkills[uuid] = true
+	end
+	for uuid, _ in pairs(limitedProcessingFlags or {}) do
+		fullEnv.limitedSkills[uuid] = true
+	end
+
 	targetUUID = targetUUID or cacheSkillUUID(skill, env)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		local activeSkillUUID = cacheSkillUUID(activeSkill, fullEnv)
 		if activeSkillUUID == targetUUID then
 			fullEnv.player.mainSkill = activeSkill
-			fullEnv.player.mainSkill.skillData.limitedProcessing = limitedProcessingFlags and limitedProcessingFlags[activeSkillUUID]
 			calcs.perform(fullEnv, true)
 			return
 		end

@@ -95,7 +95,6 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	-- Set selector
 	self.controls.setSelect = new("DropDownControl", { "TOPLEFT", self, "TOPLEFT" }, 76, 8, 210, 20, nil, function(index, value)
 		self:SetActiveSkillSet(self.skillSetOrderList[index])
-		self:SetDisplayGroup(self.socketGroupList[1])
 		self:AddUndoState()
 	end)
 	self.controls.setSelect.enableDroppedWidth = true
@@ -386,7 +385,7 @@ function SkillsTabClass:Load(xml, fileName)
 	else
 		self.controls.defaultLevel:SelByValue("normalMaximum", "gemLevel")
 	end
-	self.defaultGemLevel = self.controls.defaultLevel:GetSelValue("gemLevel")
+	self.defaultGemLevel = self.controls.defaultLevel:GetSelValueByKey("gemLevel")
 	self.defaultGemQuality = m_max(m_min(tonumber(xml.attrib.defaultGemQuality) or 0, 23), 0)
 	self.controls.defaultQuality:SetText(self.defaultGemQuality or "")
 	if xml.attrib.sortGemsByDPS then
@@ -399,8 +398,8 @@ function SkillsTabClass:Load(xml, fileName)
 	self.controls.showAltQualityGems.state = self.showAltQualityGems
 	self.controls.showSupportGemTypes:SelByValue(xml.attrib.showSupportGemTypes or "ALL", "show")
 	self.controls.sortGemsByDPSFieldControl:SelByValue(xml.attrib.sortGemsByDPSField or "CombinedDPS", "type") 
-	self.showSupportGemTypes = self.controls.showSupportGemTypes:GetSelValue("show")
-	self.sortGemsByDPSField = self.controls.sortGemsByDPSFieldControl:GetSelValue("type")
+	self.showSupportGemTypes = self.controls.showSupportGemTypes:GetSelValueByKey("show")
+	self.sortGemsByDPSField = self.controls.sortGemsByDPSFieldControl:GetSelValueByKey("type")
 	for _, node in ipairs(xml) do
 		if node.elem == "Skill" then
 			-- Old format, initialize skill sets if needed
@@ -421,9 +420,7 @@ function SkillsTabClass:Load(xml, fileName)
 		end
 	end
 	self:SetActiveSkillSet(tonumber(xml.attrib.activeSkillSet) or 1)
-	self:SetDisplayGroup(self.socketGroupList[1])
 	self:ResetUndo()
-	self.build:SyncLoadouts()
 end
 
 function SkillsTabClass:Save(xml)
@@ -667,6 +664,9 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enableGlobal2.state = true
 			slot.count:SetText(gemInstance.count)
 		elseif gemId == gemInstance.gemId then
+			if addUndo then
+				self:AddUndoState()
+			end
 			return
 		end
 		gemInstance.gemId = gemId
@@ -1346,5 +1346,6 @@ function SkillsTabClass:SetActiveSkillSet(skillSetId)
 	self.build.buildFlag = true
 
 	-- set the loadout option to the dummy option since it is now dirty
-	self.build.controls.buildLoadouts:SetSel(1)
+	self:SetDisplayGroup(self.socketGroupList[1])
+	self.build:SyncLoadouts()
 end

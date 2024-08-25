@@ -37,7 +37,8 @@ local function calculateMirage(env, config)
 	if mirageSkill then
 		local newSkill, newEnv = calcs.copyActiveSkill(env, env.mode, mirageSkill)
 		newSkill.skillCfg.skillCond["usedByMirage"] = true
-		newSkill.skillData.limitedProcessing = true
+		newEnv.limitedSkills = newEnv.limitedSkills or {}
+		newEnv.limitedSkills[cacheSkillUUID(newSkill, newEnv)] = true
 		newSkill.skillData.mirageUses = env.player.mainSkill.skillData.storedUses
 		newSkill.skillTypes[SkillType.OtherThingUsesSkill] = true
 
@@ -386,19 +387,23 @@ function calcs.mirages(env)
 		end
 
 		-- Supported Attacks Count as Exerted
-		for _, value in ipairs(env.modDB:Tabulate("INC", env.player.mainSkill.skillCfg, "ExertIncrease")) do
+		for _, value in ipairs(env.player.mainSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "ExertIncrease")) do
 			local mod = value.mod
 			env.player.mainSkill.skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
 		end
-		for _, value in ipairs(env.modDB:Tabulate("MORE", env.player.mainSkill.skillCfg, "ExertIncrease")) do
+		for _, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "ExertIncrease")) do
 			local mod = value.mod
 			env.player.mainSkill. skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
 		end
-		for _, value in ipairs(env.modDB:Tabulate("MORE", env.player.mainSkill.skillCfg, "ExertAttackIncrease")) do
+		for _, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "ExertAttackIncrease")) do
 			local mod = value.mod
 			env.player.mainSkill.skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
 		end
-		for _, value in ipairs(env.modDB:Tabulate("BASE", env.player.mainSkill.skillCfg, "ExertDoubleDamageChance")) do
+		for _, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "OverexertionExertAverageIncrease")) do
+			local mod = value.mod
+			env.player.mainSkill.skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+		end
+		for _, value in ipairs(env.player.mainSkill.skillModList:Tabulate("BASE", env.player.mainSkill.skillCfg, "ExertDoubleDamageChance")) do
 			local mod = value.mod
 			env.player.mainSkill.skillModList:NewMod("DoubleDamageChance", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
 		end
