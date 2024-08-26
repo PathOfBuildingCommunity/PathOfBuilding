@@ -4235,15 +4235,14 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				globalOutput.PoisonStacks = PoisonStacks
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
-				local singlePoisonDps = m_min(baseVal * effectMod * rateMod * effMult, data.misc.DotDpsCap)
-				local PoisonDPSUncapped = singlePoisonDps * PoisonStacks
-				local PoisonDPSCapped = m_min(PoisonDPSUncapped, data.misc.DotDpsCap)
-				output.PoisonDamage = singlePoisonDps * globalOutput.PoisonDuration
-				local MinPoisonDPSUncapped = baseMinVal * effectMod * rateMod * effMult * PoisonStacks
+				local singlePoisonDPSUncapped = m_min(baseVal * effectMod * rateMod * effMult, data.misc.DotDpsCap)
+				local singlePoisonDPSCapped = m_min(singlePoisonDPSUncapped, data.misc.DotDpsCap)
+				output.PoisonDPS = singlePoisonDPSCapped
+				output.PoisonDamage = singlePoisonDPSCapped * globalOutput.PoisonDuration
+				local MinPoisonDPSUncapped = baseMinVal * effectMod * rateMod * effMult
 				local MinPoisonDPSCapped = m_min(MinPoisonDPSUncapped, data.misc.DotDpsCap)
-				local MaxPoisonDPSUncapped = baseMaxVal * effectMod * rateMod * effMult * PoisonStacks
+				local MaxPoisonDPSUncapped = baseMaxVal * effectMod * rateMod * effMult
 				local MaxPoisonDPSCapped = m_min(MaxPoisonDPSUncapped, data.misc.DotDpsCap)
-				output.PoisonDPS = PoisonDPSCapped
 				local groundMult = m_max(skillModList:Max(nil, "PoisonDpsAsCausticGround") or 0, enemyDB:Max(nil, "PoisonDpsAsCausticGround") or 0)
 				if groundMult > 0 then
 					local CausticGroundDPSUncapped = baseVal * effectMod * rateMod * effMult * groundMult / 100
@@ -4259,11 +4258,15 @@ function calcs.offence(env, actor, activeSkill)
 						}
 					end
 				end
+				local PoisonDPSUncapped
+				local PoisonDPSCapped
 				if skillData.showAverage then
 					output.TotalPoisonAverageDamage = output.PoisonDamage
 					output.TotalPoisonDPS = output.PoisonDPS
 				else
-					output.TotalPoisonDPS = m_min(PoisonDPSCapped, data.misc.DotDpsCap)
+					PoisonDPSUncapped = singlePoisonDPSCapped * PoisonStacks
+					PoisonDPSCapped = m_min(PoisonDPSUncapped, data.misc.DotDpsCap)
+					output.TotalPoisonDPS = PoisonDPSCapped
 				end
 				if breakdown then
 					if output.CritPoisonDotMulti and (output.CritPoisonDotMulti ~= output.PoisonDotMulti) then
@@ -4281,7 +4284,7 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown.PoisonDPS, s_format("= %.1f", baseVal, 1))
 					t_insert(breakdown.PoisonDPS, "")
 					t_insert(breakdown.PoisonDPS, "Poison DPS:")
-					if baseVal ~= PoisonDPSUncapped then
+					if baseVal ~= singlePoisonDPSUncapped then
 						t_insert(breakdown.PoisonDPS, s_format("%.1f ^8(base damage per second)", baseVal))
 					end
 					if effectMod ~= 1 then
@@ -4293,13 +4296,10 @@ function calcs.offence(env, actor, activeSkill)
 					if effMult ~= 1 then
 						t_insert(breakdown.PoisonDPS, s_format("x %.3f ^8(effective DPS modifier from enemy debuffs)", effMult))
 					end
-					if PoisonStacks ~= 1 then
-						t_insert(breakdown.PoisonDPS, s_format("x %.2f ^8(poison stacks)", PoisonStacks))
-					end
-					if output.PoisonDPS ~= PoisonDPSUncapped then
-						t_insert(breakdown.PoisonDPS, s_format("= %.1f ^8(Uncapped raw Poison DPS)", PoisonDPSUncapped))
-						t_insert(breakdown.PoisonDPS, s_format("^8(Raw Poison DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", PoisonDPSUncapped - PoisonDPSCapped, (PoisonDPSUncapped - PoisonDPSCapped) / PoisonDPSCapped * 100))
-						t_insert(breakdown.PoisonDPS, s_format("= %d ^8(Capped Poison DPS)", PoisonDPSCapped))
+					if output.PoisonDPS ~= singlePoisonDPSUncapped then
+						t_insert(breakdown.PoisonDPS, s_format("= %.1f ^8(Uncapped raw Poison DPS)", singlePoisonDPSUncapped))
+						t_insert(breakdown.PoisonDPS, s_format("^8(Raw Poison DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", singlePoisonDPSUncapped - singlePoisonDPSCapped, (singlePoisonDPSUncapped - singlePoisonDPSCapped) / singlePoisonDPSCapped * 100))
+						t_insert(breakdown.PoisonDPS, s_format("= %d ^8(Capped Poison DPS)", singlePoisonDPSCapped))
 					else
 						t_insert(breakdown.PoisonDPS, s_format("= %.1f ^8per second", output.PoisonDPS))
 					end
@@ -4320,6 +4320,19 @@ function calcs.offence(env, actor, activeSkill)
 					if MaxPoisonDPSCapped ~= MaxPoisonDPSUncapped or MinPoisonDPSCapped ~= MinPoisonDPSUncapped then
 						t_insert(breakdown.PoisonDPS, s_format("%.0f to %.0f ^8(Capped Poison DPS Range)", MinPoisonDPSCapped, MaxPoisonDPSCapped))
 					end
+					if not skillData.showAverage and PoisonStacks ~= 1 then
+						breakdown.TotalPoisonDPS = {
+							s_format("%.1f ^8single poison damage per second", singlePoisonDPSCapped),
+							s_format("x %.2f ^8(poison stacks)", PoisonStacks),
+						}
+						if output.TotalPoisonDPS ~= PoisonDPSUncapped then
+							t_insert(breakdown.TotalPoisonDPS, s_format("= %.1f ^8(Uncapped raw Poison DPS)", PoisonDPSUncapped))
+							t_insert(breakdown.TotalPoisonDPS, s_format("^8(Raw Poison DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", PoisonDPSUncapped - PoisonDPSCapped, (PoisonDPSUncapped - PoisonDPSCapped) / PoisonDPSCapped * 100))
+							t_insert(breakdown.TotalPoisonDPS, s_format("= %d ^8(Capped Poison DPS)", PoisonDPSCapped))
+						else
+							t_insert(breakdown.TotalPoisonDPS, s_format("= %.1f ^8per second", PoisonDPSCapped))
+						end
+					end
 					if globalOutput.PoisonDuration ~= 2 then
 						globalBreakdown.PoisonDuration = {
 							s_format("%.2fs ^8(base duration)", durationBase)
@@ -4339,7 +4352,7 @@ function calcs.offence(env, actor, activeSkill)
 					if isAttack then
 						t_insert(breakdown.PoisonDamage, pass.label..":")
 					end
-					t_insert(breakdown.PoisonDamage, s_format("%.1f ^8(damage per second)", singlePoisonDps))
+					t_insert(breakdown.PoisonDamage, s_format("%.1f ^8(damage per second)", singlePoisonDPSCapped))
 					t_insert(breakdown.PoisonDamage, s_format("x %.2fs ^8(poison duration)", globalOutput.PoisonDuration))
 					t_insert(breakdown.PoisonDamage, s_format("= %.1f ^8damage per poison stack", output.PoisonDamage))
 				end
