@@ -7282,6 +7282,12 @@ c["Blink Arrow and Mirror Arrow have 100% increased Cooldown Recovery Rate"]={{[
 c["Blood Magic"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Blood Magic"}},nil}
 c["Bloodsoaked Blade"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Bloodsoaked Blade"}},nil}
 c["Bone Offering has 11% increased Effect"]={{[1]={[1]={skillId="BoneOffering",type="SkillId"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value="11"}},nil}
+c["Bound Fate: Attacks against you always Hit"]={{[1]={[1]={type="Condition",var="BoundFate"},[2]={type="Condition",var="BoundFate4"},flags=0,keywordFlags=0,name="CannotEvade",type="FLAG",value=true}},nil}
+c["Bound Fate: Attacks cannot Hit you"]={{[1]={[1]={type="Condition",var="BoundFate"},[2]={type="Condition",var="BoundFate3"},flags=0,keywordFlags=0,name="AlwaysEvade",type="FLAG",value=true}},nil}
+c["Bound Fate: Damage of Hits against you is Lucky"]={nil,"Bound Fate: Damage of Hits  is Lucky "}
+c["Bound Fate: Hits against you are always Critical Strikes"]={{[1]={[1]={type="Condition",var="BoundFate"},[2]={type="Condition",var="BoundFate2"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="AlwaysCrit",type="FLAG",value=true}}},[2]={[1]={type="Condition",var="BoundFate"},[2]={type="Condition",var="BoundFate2"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:AlwaysCrit",type="FLAG",value=true}}}},nil}
+c["Bound Fate: Your Damage with Hits is Lucky"]={{[1]={[1]={type="Condition",var="BoundFate"},[2]={type="Condition",var="BoundFate5"},flags=0,keywordFlags=0,name="LuckyHits",type="FLAG",value=true}},nil}
+c["Bound Fate: Your Hits are always Critical Strikes"]={{[1]={[1]={type="Condition",var="BoundFate"},[2]={type="Condition",var="BoundFate1"},flags=0,keywordFlags=0,name="CritChance",type="OVERRIDE",value=100}},nil}
 c["Bow Attacks fire 2 additional Arrows"]={{[1]={flags=131072,keywordFlags=0,name="ProjectileCount",type="BASE",value=2}},nil}
 c["Bow Attacks fire 2 additional Arrows if you haven't Cast Dash recently"]={{[1]={[1]={neg=true,type="Condition",var="CastDashRecently"},flags=131072,keywordFlags=0,name="ProjectileCount",type="BASE",value=2}},nil}
 c["Bow Attacks fire an additional Arrow"]={{[1]={flags=131072,keywordFlags=0,name="ProjectileCount",type="BASE",value=1}},nil}
@@ -7957,8 +7963,7 @@ c["Every 4 seconds, Regenerate Life equal to 1% of Armour and Evasion Rating ove
 c["Every 4 seconds, remove Curses and Elemental Ailments from you"]={nil,"Every 4 seconds, remove Curses and Elemental Ailments from you "}
 c["Every 4 seconds, remove Curses and Elemental Ailments from you Every 4 seconds, Regenerate 100% of Life over one second"]={nil,"Every 4 seconds, remove Curses and Elemental Ailments from you Every 4 seconds, Regenerate 100% of Life over one second "}
 c["Every 4 seconds, remove Curses and Elemental Ailments from you Grants Armour equal to 6% of your Reserved Mana to you and nearby Allies"]={nil,"Every 4 seconds, remove Curses and Elemental Ailments from you Grants Armour equal to 6% of your Reserved Mana to you and nearby Allies "}
-c["Every 5 seconds, gain one of the following for 5 seconds:"]={nil,"Every 5 seconds, gain one of the following for 5 seconds: "}
-c["Every 5 seconds, gain one of the following for 5 seconds: Your Hits are always Critical Strikes"]={nil,"Every 5 seconds, gain one of the following for 5 seconds: Your Hits are always Critical Strikes "}
+c["Every 5 seconds, gain one of the following for 5 seconds:"]={{[1]={flags=0,keywordFlags=0,name="Condition:BoundFate",type="FLAG",value=true}},nil}
 c["Every 8 seconds, gain Avatar of Fire for 4 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:HaveVulconus",type="FLAG",value=true}},nil}
 c["Every Rage also grants 1% increased Armour"]={{[1]={[1]={type="Multiplier",var="RageEffect"},flags=0,keywordFlags=0,name="Armour",type="INC",value=1}},nil}
 c["Every Rage also grants 1% increased Attack Speed"]={{[1]={[1]={type="Multiplier",var="RageEffect"},flags=1,keywordFlags=0,name="Speed",type="INC",value=1}},nil}
