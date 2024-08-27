@@ -739,7 +739,11 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 
 				local lineLower = line:lower()
-				if lineLower == "this item can be anointed by cassia" then
+				if lineLower:match(" prefix modifiers? allowed") then
+					self.prefixes.limit = (self.prefixes.limit or 0) + (tonumber(lineLower:match("%+(%d+) prefix modifiers? allowed")) or 0) - (tonumber(lineLower:match("%-(%d+) prefix modifiers? allowed")) or 0)
+				elseif lineLower:match(" suffix modifiers? allowed") then
+					self.suffixes.limit = (self.suffixes.limit or 0) + (tonumber(lineLower:match("%+(%d+) suffix modifiers? allowed")) or 0) - (tonumber(lineLower:match("%-(%d+) suffix modifiers? allowed")) or 0)
+				elseif lineLower == "this item can be anointed by cassia" then
 					self.canBeAnointed = true
 				elseif lineLower == "can have a second enchantment modifier" then
 					self.canHaveTwoEnchants = true
@@ -827,15 +831,26 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		if not self.affixes then 
 			self.crafted = false
 		elseif self.rarity == "MAGIC" then
-			self.affixLimit = 2
+			if self.prefixes.limit or self.suffixes.limit then
+				self.prefixes.limit = m_max((self.prefixes.limit or 0) + 1, 0)
+				self.suffixes.limit = m_max((self.suffixes.limit or 0) + 1, 0)
+				self.affixLimit = self.prefixes.limit + self.suffixes.limit
+			else
+				self.affixLimit = 2
+			end
 		elseif self.rarity == "RARE" then
 			self.affixLimit = ((self.type == "Jewel" and not (self.base.subType == "Abyss" and self.corrupted)) and 4 or 6)
+			if self.prefixes.limit or self.suffixes.limit then
+				self.prefixes.limit = m_max((self.prefixes.limit or 0) + self.affixLimit / 2, 0)
+				self.suffixes.limit = m_max((self.suffixes.limit or 0) + self.affixLimit / 2, 0)
+				self.affixLimit = self.prefixes.limit + self.suffixes.limit
+			end
 		else
 			self.crafted = false
 		end
 		if self.crafted then
 			for _, list in ipairs({self.prefixes,self.suffixes}) do
-				for i = 1, self.affixLimit/2 do
+				for i = 1, (list.limit or (self.affixLimit / 2)) do
 					if not list[i] then
 						list[i] = { modId = "None" }
 					elseif list[i].modId ~= "None" and not self.affixes[list[i].modId] then
@@ -1164,7 +1179,7 @@ function ItemClass:Craft()
 	self.requirements.level = self.base.req.level
 	local statOrder = { }
 	for _, list in ipairs({self.prefixes,self.suffixes}) do
-		for i = 1, self.affixLimit / 2 do
+		for i = 1, (list.limit or (self.affixLimit / 2)) do
 			local affix = list[i]
 			if not affix then
 				list[i] = { modId = "None" }

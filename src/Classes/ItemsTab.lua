@@ -1655,9 +1655,13 @@ end
 -- Update affix selection controls
 function ItemsTabClass:UpdateAffixControls()
 	local item = self.displayItem
-	for i = 1, item.affixLimit/2 do
-		self:UpdateAffixControl(self.controls["displayItemAffix"..i], item, "Prefix", "prefixes", i)
-		self:UpdateAffixControl(self.controls["displayItemAffix"..(i+item.affixLimit/2)], item, "Suffix", "suffixes", i)
+	local prefixLimit = item.prefixes.limit or (item.affixLimit / 2)
+	for i = 1, item.affixLimit do
+		if i <= prefixLimit then
+			self:UpdateAffixControl(self.controls["displayItemAffix"..i], item, "Prefix", "prefixes", i)
+		else
+			self:UpdateAffixControl(self.controls["displayItemAffix"..i], item, "Suffix", "suffixes", i - prefixLimit)
+		end
 	end	
 	-- The custom affixes may have had their indexes changed, so the custom control UI is also rebuilt so that it will
 	-- reference the correct affix index.
@@ -1668,7 +1672,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	local extraTags = { }
 	local excludeGroups = { }
 	for _, table in ipairs({"prefixes","suffixes"}) do
-		for index = 1, item.affixLimit/2 do
+		for index = 1, (item[table].limit or (item.affixLimit / 2)) do
 			if index ~= outputIndex or table ~= outputTable then
 				local mod = item.affixes[item[table][index] and item[table][index].modId]
 				if mod then
@@ -2537,7 +2541,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		if sourceId == "MASTER" then
 			local excludeGroups = { }
 			for _, modLine in ipairs({ self.displayItem.prefixes, self.displayItem.suffixes }) do
-				for i = 1, self.displayItem.affixLimit / 2 do
+				for i = 1, (modLine.limit or (self.displayItem.affixLimit / 2)) do
 					if modLine[i].modId ~= "None" then
 						excludeGroups[self.displayItem.affixes[modLine[i].modId].group] = true
 					end
