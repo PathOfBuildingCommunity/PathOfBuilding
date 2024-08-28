@@ -2658,7 +2658,7 @@ function calcs.perform(env, skipEHP)
 						local newModList = new("ModList")
 						newModList:ScaleAddList(curseModList, (1 + inc / 100) * more)
 						t_insert(curseOnYouSlots, { name = grantedEffect.name, modList = newModList, isMark = isMark})
-						markOnSelf = isMark or false
+						markOnSelf = isMark or markOnSelf
 					end
 				elseif not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof") then
 					local curse = {
