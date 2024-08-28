@@ -2826,6 +2826,9 @@ local specialModList = {
 	["hits from socketed vaal skills ignore enemy monster physical damage reduction"]  = { mod("ExtraSkillMod", "LIST", { mod = flag("IgnoreEnemyPhysicalDamageReduction") }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "SkillType", skillType = SkillType.Vaal }) },
 	["socketed vaal skills grant elusive when used"] = { flag("Condition:CanBeElusive") },
 	["damage with hits from socketed vaal skills is lucky"]  = { mod("ExtraSkillMod", "LIST", { mod = flag("LuckyHits") }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "SkillType", skillType = SkillType.Vaal }) },
+	["curse auras from socketed skills also affect you"] = { mod("ExtraSkillMod", "LIST", { mod = flag("applyCurseToPlayer") }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "SkillType", skillType = SkillType.Aura }) },
+	["hexes applied by socketed curse skills are reflected back to you"] = { mod("ExtraSkillMod", "LIST", { mod = flag("applyCurseToPlayer") }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "SkillType", skillType = SkillType.Hex }) },
+	-- ["hex reflection"] = { flag("HexesAreReflectedAwayFromYou") },
 	-- Global gem modifiers
 	["([%+%-]%d+)%%? to (%a+) of all (.+) gems"] = function(num, _, property, skill)
 		if gemIdLookup[skill] then

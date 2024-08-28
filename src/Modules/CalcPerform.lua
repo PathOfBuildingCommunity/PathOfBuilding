@@ -1761,6 +1761,8 @@ function calcs.perform(env, skipEHP)
 	local debuffs = { }
 	env.debuffs = debuffs
 	local curses = { }
+	local curseOnYouSlots = { }
+	local markOnSelf = false
 	local minionCurses = {
 		limit = 1,
 	}
@@ -2206,6 +2208,17 @@ function calcs.perform(env, skipEHP)
 							curse.minionBuffModList:ScaleAddList(temp, (1 + buffInc / 100) * buffMore)
 						end
 					end
+					if skillModList:Flag(nil, "applyCurseToPlayer") then
+						-- Sources for curses on the player don't usually respect any kind of limit, so there's little point bothering with slots, just always insert it
+						if modDB:Sum("BASE", nil, "AvoidCurse") < 100 and ((mark and not markOnSelf) or (not mark and not modDB:Flag(nil, "Condition:Hexproof"))) then
+							local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + modDB:Sum("INC", nil, "CurseEffectOnSelf")
+							local more = skillModList:More(skillCfg, "CurseEffect") * modDB:More(skillCfg, "CurseEffectOnSelf") * skillModList:More(nil, "CurseEffectAgainstPlayer")
+							local newModList = new("ModList")
+							newModList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+							t_insert(curseOnYouSlots, { name = buff.name, modList = newModList, isMark = mark})
+							markOnSelf = mark or markOnSelf
+						end
+					end
 					t_insert(curses, curse)
 				end
 			elseif buff.type == "Link" then
@@ -2625,9 +2638,7 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 
-	local curseOnYouSlots = { }
 	env.curseOnYouSlots = curseOnYouSlots
-	local markOnSelf = false
 	-- Check for extra curses
 	for dest, modDB in pairs({[curses] = modDB, [minionCurses] = env.minion and env.minion.modDB}) do
 		for _, value in ipairs(modDB:List(nil, "ExtraCurse")) do
@@ -2858,7 +2869,7 @@ function calcs.perform(env, skipEHP)
 				modDB:AddList(slot.modList)
 			end
 		end
-	end			
+	end
 	modDB.multipliers["CurseOnEnemy"] = #curseSlots
 	for _, slot in ipairs(curseSlots) do
 		enemyDB.conditions["Cursed"] = true

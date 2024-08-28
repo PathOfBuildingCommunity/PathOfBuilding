@@ -7595,8 +7595,7 @@ c["Culling Strike against Enemies Cursed with Poacher's Mark You have Culling St
 c["Culling Strike against Frozen Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Frozen"},flags=0,keywordFlags=0,name="CullPercent",type="MAX",value=10}},nil}
 c["Culling Strike against Marked Enemy"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Marked"},flags=0,keywordFlags=0,name="CullPercent",type="MAX",value=10}},nil}
 c["Culling Strike during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},[2]={effectType="Global",type="GlobalEffect",unscalable=true},flags=0,keywordFlags=0,name="CullPercent",type="MAX",value=10}},nil}
-c["Curse Auras from Socketed Skills also affect you"]={nil,"Curse Auras from Socketed Skills also affect you "}
-c["Curse Auras from Socketed Skills also affect you Socketed Curse Gems have 50% increased Reservation Efficiency"]={nil,"Curse Auras from Socketed Skills also affect you Socketed Curse Gems have 50% increased Reservation Efficiency "}
+c["Curse Auras from Socketed Skills also affect you"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},[2]={skillType=43,type="SkillType"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="applyCurseToPlayer",type="FLAG",value=true}}}},nil}
 c["Curse Enemies which Hit you with a random Hex, ignoring Curse Limit"]={nil,"Curse Enemies which Hit you with a random Hex, ignoring Curse Limit "}
 c["Curse Enemies which Hit you with a random Hex, ignoring Curse Limit 5% chance to create Shocked Ground when Hit"]={nil,"Curse Enemies which Hit you with a random Hex, ignoring Curse Limit 5% chance to create Shocked Ground when Hit "}
 c["Curse Enemies with Elemental Weakness when you Block their Spell Damage, ignoring Curse Limit"]={nil,"Curse Enemies with Elemental Weakness when you Block their Spell Damage, ignoring Curse Limit "}
@@ -8653,8 +8652,7 @@ c["Hex Master"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value=
 c["Hex Reflection"]={nil,"Hex Reflection "}
 c["Hex Reflection +10% Chance to Block Attack Damage while not Cursed"]={nil,"Hex Reflection +10% Chance to Block Attack Damage while not Cursed "}
 c["Hex Reflection Unaffected by Curses"]={nil,"Hex Reflection Unaffected by Curses "}
-c["Hexes applied by Socketed Curse Skills are Reflected back to you"]={nil,"Hexes applied by Socketed Curse Skills are Reflected back to you "}
-c["Hexes applied by Socketed Curse Skills are Reflected back to you You cannot be Chilled for 3 seconds after being Chilled"]={nil,"Hexes applied by Socketed Curse Skills are Reflected back to you You cannot be Chilled for 3 seconds after being Chilled "}
+c["Hexes applied by Socketed Curse Skills are Reflected back to you"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},[2]={skillType=108,type="SkillType"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="applyCurseToPlayer",type="FLAG",value=true}}}},nil}
 c["Hexes from Socketed Skills can apply 5 additional Curses"]={{[1]={flags=0,keywordFlags=0,name="SocketedCursesHexLimitValue",type="BASE",value=5},[2]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="SocketedCursesAdditionalLimit",type="FLAG",value=true}},nil}
 c["Hexes on Slain Enemies are transferred to a nearby Enemy"]={nil,"Hexes on Slain Enemies are transferred to a nearby Enemy "}
 c["Historic"]={{},nil}
