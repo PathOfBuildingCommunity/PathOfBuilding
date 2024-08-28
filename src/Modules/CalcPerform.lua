@@ -2627,6 +2627,7 @@ function calcs.perform(env, skipEHP)
 
 	local curseOnYouSlots = { }
 	env.curseOnYouSlots = curseOnYouSlots
+	local markOnSelf = false
 	-- Check for extra curses
 	for dest, modDB in pairs({[curses] = modDB, [minionCurses] = env.minion and env.minion.modDB}) do
 		for _, value in ipairs(modDB:List(nil, "ExtraCurse")) do
@@ -2648,14 +2649,16 @@ function calcs.perform(env, skipEHP)
 					end
 				end
 				if value.applyToPlayer then
+					local isMark = grantedEffect.skillTypes[SkillType.Mark]
 					-- Sources for curses on the player don't usually respect any kind of limit, so there's little point bothering with slots, just always insert it
-					if modDB:Sum("BASE", nil, "AvoidCurse") < 100 then
+					if modDB:Sum("BASE", nil, "AvoidCurse") < 100 and ((isMark and not markOnSelf) or (not isMark and not modDB:Flag(nil, "Condition:Hexproof"))) then
 						local cfg = { skillName = grantedEffect.name }
 						local inc = (value.incEffect or 0) + modDB:Sum("INC", cfg, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
 						local more = modDB:More(cfg, "CurseEffectOnSelf") * gemModList:More(nil, "CurseEffectAgainstPlayer")
 						local newModList = new("ModList")
 						newModList:ScaleAddList(curseModList, (1 + inc / 100) * more)
-						t_insert(curseOnYouSlots, { name = grantedEffect.name, modList = newModList})
+						t_insert(curseOnYouSlots, { name = grantedEffect.name, modList = newModList, isMark = isMark})
+						markOnSelf = isMark or false
 					end
 				elseif not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof") then
 					local curse = {
