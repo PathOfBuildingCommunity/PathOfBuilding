@@ -224,10 +224,10 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 										local old = input[index1]
 										input[index1] = input[index2]
 										input[index2] = old
-										if varExtra[1] == "count" then
+										if varExtra.type == "count" then
 											control.varControlList[2][i*(#varData.extraTypes)+j-1]:SetText(tostring(input[index1] or ""))
 											control.varControlList[2][(i+1)*(#varData.extraTypes)+j-1]:SetText(tostring(input[index2] or ""))
-										elseif varExtra[1] == "slider" then
+										elseif varExtra.type == "slider" then
 											control.varControlList[2][i*(#varData.extraTypes)+j-1].val = input[index1] / 100
 											control.varControlList[2][(i+1)*(#varData.extraTypes)+j-1].val = input[index1] / 100
 										end
@@ -302,8 +302,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					t_insert(control.varControlList[1], dropDownControl)
 					local extraTypesExtraHeight = 0
 					for j, varExtra in ipairs(varData.extraTypes or {}) do
-						if varExtra[1] == "count" then
-							local editControl = new("EditControl", {"TOPLEFT",dropDownControl,"TOPLEFT"}, 225, 0, 90, 18, "", nil, "%D", 7, function(buf, placeholder)
+						if varExtra.type == "count" then
+							local editControl = new("EditControl", {"TOPLEFT",dropDownControl,"TOPLEFT"}, 225, 0, 90, 18, "", nil, (varExtra.subtype == "integer" and "^%-%d") or (varExtra.subtype == "float" and "^%d.") or "%D", 7, function(buf, placeholder)
 								if placeholder then
 									self.configSets[self.activeConfigSetId].placeholder[varData.var.."_"..i.."_"..j] = tonumber(buf)
 								else
@@ -322,14 +322,14 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 								editControl.height = 16
 								extraTypesExtraHeight = 20 * (1 + m_floor((j-1)/3))
 							end
-							editControl.tooltipText = varExtra[2]
-							if varExtra[3] then
-								editControl.shown = function() return dropDownControl:GetSelValue()[varExtra[3]] end
+							editControl.tooltipText = varExtra.tooltip
+							if varExtra.hideUnless then
+								editControl.shown = function() return dropDownControl:GetSelValue()[varExtra.hideUnless] end
 							end
-							editControl.placeholder = varExtra[4]
+							editControl.placeholder = varExtra.defaultPlaceholderState
 							self.varControls[varData.var.."_"..i.."_"..j] = editControl
 							t_insert(control.varControlList[2], editControl)
-						elseif varExtra[1] == "slider" then
+						elseif varExtra.type == "slider" then
 							extraTypesExtraHeight = extraTypesExtraHeight + 22
 							slider = new("SliderControl", {"TOPLEFT",dropDownControl,"TOPLEFT"}, 0, extraTypesExtraHeight, 118 + 225, 18, function(val)
 								self.configSets[self.activeConfigSetId].input[varData.var.."_"..i.."_"..j] = m_floor(val * 100)
@@ -337,11 +337,11 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 								self:BuildModList()
 								self.build.buildFlag = true
 							end)
-							slider.tooltipText = varExtra[2]
-							if varExtra[3] then
-								slider.shown = function() return dropDownControl:GetSelValue()[varExtra[3]] end
+							slider.tooltipText = varExtra.tooltip
+							if varExtra.hideUnless then
+								slider.shown = function() return dropDownControl:GetSelValue()[varExtra.hideUnless] end
 							end
-							slider.val = varExtra[4] / 100
+							slider.val = (varExtra.defaultState or 0) / 100
 							self.varControls[varData.var.."_"..i.."_"..j] = slider
 							t_insert(control.varControlList[2], slider)
 						end

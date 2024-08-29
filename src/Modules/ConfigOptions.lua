@@ -715,16 +715,14 @@ Huge sets the radius to 11.
 	{ var = "multiplierSextant", type = "count", label = "# of Sextants affecting the area", ifMult = "Sextant", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Sextant", "BASE", m_min(val, 5), "Config")
 	end },
-	--{ subsection = "Map Mods", 
 	{ var = "multiplierMapModEffect", type = "count", label = "% increased effect of map mods" },
 	{ var = "multiplierMapModTier", type = "list", defaultIndex = 3, label = "Map Tier", list = { {val = "LOW", label = "White"}, {val = "MED", label = "Yellow"}, {val = "HIGH", label = "Red"}, {val = "UBER", label = "T17"} } },
-	{ var = "MapPrefixes", type = "multiList", maxElements = 4, extraTypes = { { "slider", "range of the map mod", "range", 100 } }, showAll = true, label = "Map Prefix Modifiers:" , tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ var = "MapSuffixes", type = "multiList", maxElements = 4, extraTypes = { { "slider", "range of the map mod", "range", 100 } }, showAll = true, label = "Map Suffix Modifiers:" , tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
+	{ var = "MapPrefixes", type = "multiList", maxElements = 4, extraTypes = { { type = "slider", tooltip = "range of the map mod", hideUnless = "range", defaultState = 100 } }, showAll = true, label = "Map Prefix Modifiers:" , tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
+	{ var = "MapSuffixes", type = "multiList", maxElements = 4, extraTypes = { { type = "slider", tooltip = "range of the map mod", hideUnless = "range", defaultState = 100 } }, showAll = true, label = "Map Suffix Modifiers:" , tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
 	{ label = "Unique Map Modifiers:" },
 	{ var = "PvpScaling", type = "check", label = "PvP damage scaling in effect", tooltip = "'Hall of Grandmasters'", apply = function(val, modList, enemyModList)
 		modList:NewMod("HasPvpScaling", "FLAG", true, "Config")
 	end },
-	--}
 	{ label = "Player is cursed by:" },
 	{ var = "playerCursedWithAssassinsMark", type = "count", label = "Assassin's Mark:", tooltip = "Sets the level of Assassin's Mark to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "AssassinsMark", level = val, applyToPlayer = true })
