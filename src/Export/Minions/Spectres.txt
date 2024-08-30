@@ -429,3 +429,5 @@ local minions, mod, flag = ...
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh
 #mod mod("PlayerModifier", "LIST", { mod = mod("Duration", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HalfRememberedGoliath", unscaleable = true })})
 #emit
+-- Wretched Defiler
+#spectre Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber
