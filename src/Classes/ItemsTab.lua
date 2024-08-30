@@ -3032,15 +3032,15 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			local listMod = modList[modGroups[controls.modGroupSelect.selIndex].modListIndex][controls.modSelect.selIndex]
 			local index
 			for i, implicitMod in ipairs(item.implicitModLines) do
-				if implicitMod[listMod.type] and implicitMod[listMod.type] == "{"..listMod.type.."}" then
+				if implicitMod[listMod.type] then
 					index = i
 					break
 				end
 			end
 			if index then
 				for i, line in ipairs(listMod.mod) do
-                    item.implicitModLines[index + i - 1] = { line = line, modTags = listMod.mod.modTags, [listMod.type] = true }
-                end
+					item.implicitModLines[index + i - 1] = { line = line, modTags = listMod.mod.modTags, [listMod.type] = true }
+				end
 			else
 				for _, line in ipairs(listMod.mod) do
 					t_insert(item.implicitModLines, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
