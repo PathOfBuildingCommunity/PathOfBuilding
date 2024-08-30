@@ -5301,6 +5301,20 @@ function calcs.offence(env, actor, activeSkill)
 					return dmgBreakdown, totalDmgTaken * output.SummonedMinionsPerCast
 				end
 			end,
+			["Storm Secret"] = function(activeSkill, output, breakdown)
+				local dmgType, dmgVal
+				for _, value in ipairs(activeSkill.skillModList:List(nil, "StormSecretSelfDamage")) do -- Combines dmg taken from both rings accounting for catalysts
+					dmgVal = (dmgVal or 0) + value.baseDamage
+					dmgType = string.gsub(" "..value.damageType, "%W%l", string.upper):sub(2) -- This assumes both rings deal the same damage type
+				end
+				if activeSkill.activeEffect.grantedEffect.name == "Herald of Thunder" and dmgType and dmgVal then
+					local dmgBreakdown, totalDmgTaken = calcs.applyDmgTakenConversion(activeSkill, output, breakdown, dmgType, dmgVal)
+					t_insert(dmgBreakdown, 1, s_format("Storm Secret base damage: %d", dmgVal))
+					t_insert(dmgBreakdown, 2, s_format(""))
+					t_insert(dmgBreakdown, s_format("Total Storm Secret damage taken per Herald of Thunder Hit: %.2f",totalDmgTaken))
+					return dmgBreakdown, totalDmgTaken
+				end
+			end,
 			["Eye of Innocence"] = function(activeSkill, output, breakdown)
 				local dmgType, dmgVal
 				for _, value in ipairs(activeSkill.skillModList:List(nil, "EyeOfInnocenceSelfDamage")) do

@@ -2860,6 +2860,9 @@ local specialModList = {
 	["(%d+) (.+) damage taken on minion death"] = function(dmg, _, dmgType) return {
 		mod("HeartboundLoopSelfDamage", "LIST", {baseDamage = dmg, damageType = dmgType})
 	}end,
+	["take (%d+) (.+) damage when herald of thunder hits an enemy"] = function(dmg, _, dmgType) return {
+		mod("StormSecretSelfDamage", "LIST", {baseDamage = dmg, damageType = dmgType})
+	}end,
 	["your skills deal you (%d+)%% of mana cost as (.+) damage"] = function(dmgMult, _, dmgType) return {
 		mod("ScoldsBridleSelfDamage", "LIST", {dmgMult = dmgMult, damageType = dmgType})
 	}end,
