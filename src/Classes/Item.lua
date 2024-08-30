@@ -322,10 +322,15 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	-- preprocess looking for modifier effect multipliers
 	local modLineMultipliers = {}
 	for _, line in ipairs(self.rawLines) do
-		if line:find("effect") then
+		if line:find("Modifier magnitudes") then
+			local tag = line:match("ed Explicit (%a+) Modifier magnitudes") or (line:match("ed Suffix Modifier magnitudes") and "Suffix") or (line:match("ed Prefix Modifier magnitudes") and "Prefix") or "AllExplicit"
+			local value = (line:match("^(%d+)%% increased ") or 0) - (line:match("^(%d+)%% reduced ") or 0)
+			modLineMultipliers[tag] = (modLineMultipliers[tag] or 0) + value
+		elseif line:find("effect") then
 			modLineMultipliers["localEffect"] = (modLineMultipliers["localEffect"] or 0) + (line:match("^(%d+)%% increased effect") or 0) - (line:match("^(%d+)%% reduced effect") or 0)
 		end
 	end
+	
 	self.checkSection = false
 	self.sockets = { }
 	self.classRequirementModLines = { }
@@ -721,12 +726,19 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						end
 					end
 				end
-				if not self.base.tincture then
+				if not self.base.tincture and gameModeStage == "EXPLICIT" then
 					for searchTag, mult in pairs(modLineMultipliers) do
-						if searchTag ~= "localEffect" then
+						if searchTag == "AllExplicit" then
+							-- this was still matching implicts
+							if line:match("Modifier") then
+								break
+							else
+								rangeScalar = rangeScalar * (100 + mult) / 100
+							end
+						elseif searchTag ~= "localEffect" then
 							for _, curTag in ipairs(modLine.modTags) do
-								if curTag == searchTag then
-									rangeScalar = rangeScalar * mult
+								if curTag == searchTag:lower() then
+									rangeScalar = rangeScalar * (100 + mult) / 100
 									break
 								end
 							end
@@ -1190,6 +1202,27 @@ function ItemClass:Craft()
 				end
 			end
 		end
+	else
+		if self.base.type == "Ring" or self.base.type == "Amulet" then
+			for _, modLine in ipairs(self.implicitModLines) do
+				if modLine.line:find("Modifier magnitudes") then
+					local tag = modLine.line:match("ed Explicit (%a+) Modifier magnitudes") or (modLine.line:match("ed Suffix Modifier magnitudes") and "Suffix") or (modLine.line:match("ed Prefix Modifier magnitudes") and "Prefix") or "AllExplicit"
+					local value = (modLine.line:match("^(%d+)%% increased ") or 0) - (modLine.line:match("^(%d+)%% reduced ") or 0)
+					modLineMultipliers[tag] = (modLineMultipliers[tag] or 0) + value
+				end
+			end
+		end
+		for _, modLine in ipairs(self.enchantModLines) do
+			if modLine.line:find("Modifier magnitudes") then
+				if modLine.line:find("increased") then
+					local value, tag = modLine.line:match("^(%d+)%% increased Explicit (%a+) Modifier magnitudes")
+					modLineMultipliers[tag] = (modLineMultipliers[tag] or 0) + (value or 0)
+				else
+					local value, tag = modLine.line:match("^(%d+)%% reduced Explicit (%a+) Modifier magnitudes")
+					modLineMultipliers[tag] = (modLineMultipliers[tag] or 0) - (value or 0)
+				end
+			end
+		end
 	end
 	for _, list in ipairs({self.prefixes,self.suffixes}) do
 		for i = 1, self.affixLimit / 2 do
@@ -1218,15 +1251,17 @@ function ItemClass:Craft()
 				end
 				if not self.base.tincture then
 					for searchTag, mult in pairs(modLineMultipliers) do
-						if searchTag == mod.type then
-							rangeScalar = rangeScalar * mult
+						if searchTag == "AllExplicit" then
+							--rangeScalar = rangeScalar * (100 + mult) / 100
+						elseif searchTag == mod.type then
+							rangeScalar = rangeScalar * (100 + mult) / 100
 						else
-							for _, curTag in ipairs(modLine.modTags) do
-								if curTag == searchTag then
-									rangeScalar = rangeScalar * mult
-									break
-								end
-							end
+							-- for _, curTag in ipairs(mod.modTags) do
+								-- if curTag == searchTag:lower() then
+									-- rangeScalar = rangeScalar * (100 + mult) / 100
+									-- break
+								-- end
+							-- end
 						end
 					end
 				end
@@ -1629,8 +1664,29 @@ function ItemClass:BuildModList()
 				modLineMultipliers["localEffect"] = (modLineMultipliers["localEffect"] or 0) + (modLine.line:match("^(%d+)%% increased effect") or 0) - (modLine.line:match("^(%d+)%% reduced effect") or 0)
 			end
 		end
+	else
+		if self.base.type == "Ring" or self.base.type == "Amulet" then
+			for _, modLine in ipairs(self.implicitModLines) do
+				if modLine.line:find("Modifier magnitudes") then
+					local tag = modLine.line:match("ed Explicit (%a+) Modifier magnitudes") or "AllExplicit"
+					local value = (modLine.line:match("^(%d+)%% increased Explicit ") or 0) - (modLine.line:match("^(%d+)%% reduced Explicit ") or 0)
+					modLineMultipliers[tag] = (modLineMultipliers[tag] or 0) + value
+				end
+			end
+		end
+		for _, modLine in ipairs(self.enchantModLines) do
+			if modLine.line:find("Modifier magnitudes") then
+				if modLine.line:find("increased") then
+					local value, tag = modLine.line:match("^(%d+)%% increased Explicit (%a+) Modifier magnitudes")
+					modLineMultipliers[tag] = (modLineMultipliers[tag] or 0) + (value or 0)
+				else
+					local value, tag = modLine.line:match("^(%d+)%% reduced Explicit (%a+) Modifier magnitudes")
+					modLineMultipliers[tag] = (modLineMultipliers[tag] or 0) - (value or 0)
+				end
+			end
+		end
 	end
-	local function processModLine(modLine)
+	local function processModLine(modLine, lineType)
 		if self:CheckModLineVariant(modLine) then
 			-- special section for variant over-ride of pre-modifier item parameters
 			if modLine.line:find("Requires Class") then
@@ -1658,12 +1714,16 @@ function ItemClass:BuildModList()
 								end
 							end
 						end
-						if not self.base.tincture then
+						if not self.base.tincture and lineType == "explicitModLines" then
 							for searchTag, mult in pairs(modLineMultipliers) do
-								for _, curTag in ipairs(modLine.modTags) do
-									if curTag == searchTag then
-										rangeScalar = rangeScalar * mult
-										break
+								if searchTag == "AllExplicit" then
+									rangeScalar = rangeScalar * (100 + mult) / 100
+								else
+									for _, curTag in ipairs(modLine.modTags) do
+										if curTag == searchTag:lower() then
+											rangeScalar = rangeScalar * (100 + mult) / 100
+											break
+										end
 									end
 								end
 							end
@@ -1688,22 +1748,22 @@ function ItemClass:BuildModList()
 			end
 		end
 	end
-	for _, modLine in ipairs(self.enchantModLines) do
+	for _, modLine in ipairs(self.enchantModLines, "enchantModLines") do
 		processModLine(modLine)
 	end
-	for _, modLine in ipairs(self.scourgeModLines) do
+	for _, modLine in ipairs(self.scourgeModLines, "scourgeModLines") do
 		processModLine(modLine)
 	end
-	for _, modLine in ipairs(self.classRequirementModLines) do
+	for _, modLine in ipairs(self.classRequirementModLines, "classRequirementModLines") do
 		processModLine(modLine)
 	end
-	for _, modLine in ipairs(self.implicitModLines) do
+	for _, modLine in ipairs(self.implicitModLines, "implicitModLines") do
 		processModLine(modLine)
 	end
-	for _, modLine in ipairs(self.explicitModLines) do
+	for _, modLine in ipairs(self.explicitModLines, "explicitModLines") do
 		processModLine(modLine)
 	end
-	for _, modLine in ipairs(self.crucibleModLines) do
+	for _, modLine in ipairs(self.crucibleModLines, "crucibleModLines") do
 		processModLine(modLine)
 	end
 	if self.name == "Tabula Rasa, Simple Robe" or self.name == "Skin of the Loyal, Simple Robe" or self.name == "Skin of the Lords, Simple Robe" or self.name == "The Apostate, Cabalist Regalia" then
