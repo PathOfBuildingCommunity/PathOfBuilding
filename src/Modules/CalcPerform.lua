@@ -2211,7 +2211,7 @@ function calcs.perform(env, skipEHP)
 			elseif buff.type == "Link" then
 				local linksApplyToMinions = env.minion and modDB:Flag(nil, "Condition:CanLinkToMinions") and modDB:Flag(nil, "Condition:LinkedToMinion")
 						and not env.minion.modDB:Flag(nil, "Condition:CannotBeDamaged") and not env.minion.mainSkill.summonSkill.skillTypes[SkillType.MinionsAreUndamageable]
-				if env.mode_buffs and (#linkSkills < 1) and (env.build.partyTab.enableExportBuffs or linksApplyToMinions) then
+				if env.mode_buffs and (#linkSkills < 1) and (partyTabEnableExportBuffs or linksApplyToMinions) then
 					-- Check for extra modifiers to apply to link skills
 					local extraLinkModList = { }
 					for _, value in ipairs(modDB:List(skillCfg, "ExtraLinkEffect")) do
@@ -2234,7 +2234,7 @@ function calcs.perform(env, skipEHP)
 					local inc = skillModList:Sum("INC", skillCfg, "LinkEffect", "BuffEffect")
 					local more = skillModList:More(skillCfg, "LinkEffect", "BuffEffect")
 					local mult = (1 + inc / 100) * more
-					if env.build.partyTab.enableExportBuffs then
+					if partyTabEnableExportBuffs then
 						local newModList = new("ModList")
 						newModList:AddList(buff.modList)
 						newModList:AddList(extraLinkModList)
@@ -2261,7 +2261,7 @@ function calcs.perform(env, skipEHP)
 			modDB:NewMod("WitherEffectStack", "MAX", effect)
 		end
 		--Handle combustion
-		if (activeSkill.skillTypes[SkillType.Damage] or activeSkill.skillTypes[SkillType.Attack]) and not appliedCombustion then
+		if enemyDB:Flag(nil, "Condition:Ignited") and (activeSkill.skillTypes[SkillType.Damage] or activeSkill.skillTypes[SkillType.Attack]) and not appliedCombustion then
 			for _, support in ipairs(activeSkill.supportList) do
 				if support.grantedEffect.name == "Combustion" then
 					if not activeSkill.skillModList:Flag(activeSkill.skillCfg, "CannotIgnite") then
