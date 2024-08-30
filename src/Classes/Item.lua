@@ -723,10 +723,12 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 				if not self.base.tincture then
 					for searchTag, mult in pairs(modLineMultipliers) do
-						for _, curTag in ipairs(modLine.modTags) do
-							if curTag == searchTag then
-								rangeScalar = rangeScalar * mult
-								break
+						if searchTag ~= "localEffect" then
+							for _, curTag in ipairs(modLine.modTags) do
+								if curTag == searchTag then
+									rangeScalar = rangeScalar * mult
+									break
+								end
 							end
 						end
 					end
