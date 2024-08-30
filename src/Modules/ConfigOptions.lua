@@ -375,7 +375,7 @@ return {
 	{ var = "embraceMadnessActive", type = "check", label = "Is Embrace Madness active?", ifSkill = "Embrace Madness", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AffectedByGloriousMadness", "FLAG", true, "Config")
 	end },
-	{ var = "touchedDebuffsCount", type = "countAllowZero", label = "Glorius Madness Stacks", ifOption = "embraceMadnessActive", defaultState = 10, tooltip = "Glorius Madness Stacks grants:\n\tEroding Touch: 6% inc Damage Taken per stack\n\tParalysing Touch: 6% reduced Action Speed per stack\n\tDiluting Touch: 9% reduced Flask charges gained and 9% reduced Flask Effect per stack\n\tWasting Touch: 9% reduced ^xE05030Life ^7and ^x88FFFFEnergy Shield ^7recovery rate per stack", apply = function(val, modList, enemyModList)
+	{ var = "touchedDebuffsCount", type = "countAllowZero", label = "Glorious Madness Stacks", ifOption = "embraceMadnessActive", defaultState = 10, tooltip = "Glorious Madness Stacks grants:\n\tEroding Touch: 6% inc Damage Taken per stack\n\tParalysing Touch: 6% reduced Action Speed per stack\n\tDiluting Touch: 9% reduced Flask charges gained and 9% reduced Flask Effect per stack\n\tWasting Touch: 9% reduced ^xE05030Life ^7and ^x88FFFFEnergy Shield ^7recovery rate per stack", apply = function(val, modList, enemyModList)
 		val = m_min(val, 10)
 		modList:NewMod("DamageTaken", "INC", val * 6, val.." Eroding Touch Stacks", { type = "GlobalEffect", effectType = "Debuff" })
 		modList:NewMod("ActionSpeed", "INC", -val * 6, val.." Paralysing Touch Stacks", { type = "GlobalEffect", effectType = "Debuff" })
