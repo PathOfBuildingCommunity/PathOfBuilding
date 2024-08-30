@@ -89,7 +89,7 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId, useF
 	-- Add hovered gem to tooltip
 	self:AddGemTooltip(gemInstance)
 	-- Calculate the impact of using this gem
-	local output = calcFunc({ }, { allocNodes = true, requirementsItems = true }, useFullDPS)
+	local output = calcFunc(nil, useFullDPS)
 	-- Put the original gem back into the list
 	if oldGem then
 		gemInstance.gemData = oldGem.gemData
