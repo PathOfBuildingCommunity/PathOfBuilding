@@ -5288,17 +5288,35 @@ function calcs.offence(env, actor, activeSkill)
 		-- Handler functions for self hit sources
 		local nameToHandler = {
 			["Heartbound Loop"] = function(activeSkill, output, breakdown)
-				local dmgType, dmgVal
-				for _, value in ipairs(activeSkill.skillModList:List(nil, "HeartboundLoopSelfDamage")) do -- Combines dmg taken from both ring accounting for catalysts
-					dmgVal = (dmgVal or 0) + value.baseDamage
-					dmgType = string.gsub(" "..value.damageType, "%W%l", string.upper):sub(2) -- This assumes both rings deal the same damage type
+				if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" then
+					local dmgType, dmgVal
+					for _, value in ipairs(activeSkill.skillModList:List(nil, "HeartboundLoopSelfDamage")) do -- Combines dmg taken from both ring accounting for catalysts
+						dmgVal = (dmgVal or 0) + value.baseDamage
+						dmgType = string.gsub(" "..value.damageType, "%W%l", string.upper):sub(2) -- This assumes both rings deal the same damage type
+					end
+					if dmgType and dmgVal then
+						local dmgBreakdown, totalDmgTaken = calcs.applyDmgTakenConversion(activeSkill, output, breakdown, dmgType, dmgVal)
+						t_insert(dmgBreakdown, 1, s_format("Heartbound Loop base damage: %d", dmgVal))
+						t_insert(dmgBreakdown, 2, s_format(""))
+						t_insert(dmgBreakdown, s_format("Total Heartbound Loop damage taken per cast/attack: %.2f * %d ^8(minions per cast)^7 = %.2f",totalDmgTaken, output.SummonedMinionsPerCast, totalDmgTaken * output.SummonedMinionsPerCast))
+						return dmgBreakdown, totalDmgTaken * output.SummonedMinionsPerCast
+					end
 				end
-				if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" and dmgType and dmgVal then
-					local dmgBreakdown, totalDmgTaken = calcs.applyDmgTakenConversion(activeSkill, output, breakdown, dmgType, dmgVal)
-					t_insert(dmgBreakdown, 1, s_format("Heartbound Loop base damage: %d", dmgVal))
-					t_insert(dmgBreakdown, 2, s_format(""))
-					t_insert(dmgBreakdown, s_format("Total Heartbound Loop damage taken per cast/attack: %.2f * %d ^8(minions per cast)^7 = %.2f",totalDmgTaken, output.SummonedMinionsPerCast, totalDmgTaken * output.SummonedMinionsPerCast))
-					return dmgBreakdown, totalDmgTaken * output.SummonedMinionsPerCast
+			end,
+			["Storm Secret"] = function(activeSkill, output, breakdown)
+				if activeSkill.activeEffect.grantedEffect.name == "Herald of Thunder" then
+					local dmgType, dmgVal
+					for _, value in ipairs(activeSkill.skillModList:List(nil, "StormSecretSelfDamage")) do -- Combines dmg taken from both rings accounting for catalysts
+						dmgVal = (dmgVal or 0) + value.baseDamage
+						dmgType = string.gsub(" "..value.damageType, "%W%l", string.upper):sub(2) -- This assumes both rings deal the same damage type
+					end
+					if dmgType and dmgVal then
+						local dmgBreakdown, totalDmgTaken = calcs.applyDmgTakenConversion(activeSkill, output, breakdown, dmgType, dmgVal)
+						t_insert(dmgBreakdown, 1, s_format("Storm Secret base damage: %d", dmgVal))
+						t_insert(dmgBreakdown, 2, s_format(""))
+						t_insert(dmgBreakdown, s_format("Total Storm Secret damage taken per Herald of Thunder Hit: %.2f",totalDmgTaken))
+						return dmgBreakdown, totalDmgTaken
+					end
 				end
 			end,
 			["Eye of Innocence"] = function(activeSkill, output, breakdown)

@@ -11151,7 +11151,7 @@ c["Take 200 Physical Damage when you use a Movement Skill"]={{[1]={flags=0,keywo
 c["Take 200 Physical Damage when you use a Movement Skill You have no Armour or Maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTaken",type="BASE",value=200}},"  when you use a Movement Skill You have no Armour or Maximum Energy Shield "}
 c["Take 25% less Damage"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="MORE",value=-25}},nil}
 c["Take 250 Chaos Damage per Second during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="ChaosDegen",type="BASE",value=250}},nil}
-c["Take 250 Lightning Damage when Herald of Thunder Hits an Enemy"]={{[1]={[1]={includeTransfigured=true,skillName="Herald of Thunder",type="SkillName"},flags=0,keywordFlags=0,name="LightningDamageTaken",type="BASE",value=250}},"  whenHits an Enemy "}
+c["Take 250 Lightning Damage when Herald of Thunder Hits an Enemy"]={{[1]={flags=0,keywordFlags=0,name="StormSecretSelfDamage",type="LIST",value={baseDamage=250,damageType="lightning"}}},nil}
 c["Take 30 Chaos Damage per Second during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="ChaosDegen",type="BASE",value=30}},nil}
 c["Take 300 Chaos Damage per Second during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="ChaosDegen",type="BASE",value=300}},nil}
 c["Take 40% less Damage from Hits for 5 seconds"]={{[1]={[1]={type="Condition",var="HeartstopperHIT"},flags=0,keywordFlags=0,name="DamageTakenWhenHit",type="MORE",value=-40},[2]={[1]={type="Condition",var="HeartstopperAVERAGE"},flags=0,keywordFlags=0,name="DamageTakenWhenHit",type="MORE",value=-20}},nil}
