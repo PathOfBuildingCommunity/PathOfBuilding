@@ -13,52 +13,46 @@ local m_floor = math.floor
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
 local catalystList = {"Abrasive", "Accelerating", "Fertile", "Imbued", "Intrinsic", "Noxious", "Prismatic", "Tempering", "Turbulent", "Unstable"}
 local catalystTags = {
-	{ "attack" },
-	{ "speed" },
-	{ "life", "mana", "resource" },
-	{ "caster" },
-	{ "jewellery_attribute", "attribute" },
-	{ "physical_damage", "chaos_damage" },
-	{ "jewellery_resistance", "resistance" },
-	{ "jewellery_defense", "defences" },
-	{ "jewellery_elemental" ,"elemental_damage" },
-	{ "critical" },
+	{ attack = true },
+	{ speed = true },
+	{ life = true, mana = true, resource = true },
+	{ caster = true },
+	{ jewellery_attribute = true, attribute = true },
+	{ physical_damage = true, chaos_damage = true },
+	{ jewellery_resistance = true, resistance = true },
+	{ jewellery_defense = true, defences = true },
+	{ jewellery_elemental = true ,elemental_damage = true },
+	{ critical = true },
 }
 
 -- Helper Function used by tinctures and catalysts
 -- (can be used in future for heist enchants/jewellery)
----@param typeID type of mod, either tincture or catalystID
----@param tags list of tags on the mod
+---@param typeID type of mod, either generic, tincture or catalyst
+---@param modTags list of tags on the mod
+---@param validTags list of tags valid for matching (or catalyst index for catalysts)
 ---@param quality number of quality, either item base, or catalyst
 ---@param extraMult any extra multipliers (eg increased effect for tinctures)
 ---@return multiplier value for the mod based on the tags
-local function getRangeScalarFromTag(typeID, tags, quality, extraMult)
-	if not typeID or (typeID ~= "tincture" and (type(typeID) ~= "number" or not catalystTags[typeID])) or not tags or type(tags) ~= "table" or #tags == 0 then
+local function getRangeScalarFromTag(typeID, modTags, validTags, quality, extraMult)
+	if typeID == "catalyst" then
+		if type(validTags) ~= "number" or not catalystTags[validTags] then
+			return 1
+		end
+		validTags = catalystTags[validTags]
+	end
+	if not modTags or type(modTags) ~= "table" or #modTags == 0 or not validTags or type(validTags) ~= "table" then
 		return 1
 	end
 	if not quality then
 		quality = 20
 	end
 	
-	if typeID == "tincture" then
-		for _, curTag in ipairs(tags) do
-			if curTag == "tincture" then
+	for _, curTag in ipairs(modTags) do
+		if validTags[curTag] then
+			if typeID == "catalyst" or typeID == "tincture" then
 				return (100 + (extraMult and extraMult["localEffect"] or 0)) / 100 * (100 + quality) / 100
 			end
-		end
-		return 1
-	end
-
-	-- Create a fast lookup table for all provided tags
-	local tagLookup = {}
-	for _, curTag in ipairs(tags) do
-		tagLookup[curTag] = true;
-	end
-
-	-- Find if any of the catalyst's tags match the provided tags
-	for _, catalystTag in ipairs(catalystTags[typeID]) do
-		if tagLookup[catalystTag] then
-			return (100 + quality) / 100
+			return (100 + (extraMult and extraMult["localEffect"] or 0)) / 100
 		end
 	end
 	return 1
@@ -744,7 +738,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					foundImplicit = true
 					gameModeStage = "IMPLICIT"
 				end
-				local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst, modLine.modTags, self.quality or self.catalystQuality, modLineMultipliers)
+				local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst and "catalyst", modLine.modTags, self.base.tincture and { tincture = true } or self.catalyst, self.catalyst and self.catalystQuality or self.quality, modLineMultipliers)
 				local rangedLine = itemLib.applyRange(line, 1, rangeScalar)
 				local modList, extra = modLib.parseMod(rangedLine)
 				if (not modList or extra) and self.rawLines[l+1] then
@@ -1216,8 +1210,8 @@ function ItemClass:Craft()
 				elseif mod.type == "Suffix" then
 					self.nameSuffix = " " .. mod.affix
 				end
-				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))
-				local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst, self.base.tincture and mod.type == "Suffix" and { "tincture" } or mod.modTags, self.quality or self.catalystQuality, modLineMultipliers)
+				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))	
+				local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst and "catalyst", self.base.tincture and mod.type == "Suffix" and { "tincture" } or mod.modTags, self.base.tincture and { tincture = true } or self.catalyst, self.catalyst and self.catalystQuality or self.quality, modLineMultipliers)
 				for i, line in ipairs(mod) do
 					line = itemLib.applyRange(line, affix.range or 0.5, rangeScalar)
 					local order = mod.statOrder[i]
@@ -1630,7 +1624,7 @@ function ItemClass:BuildModList()
 					-- Check if line actually has a range
 					if modLine.line:find("%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)") then
 						local strippedModeLine = modLine.line:gsub("\n"," ")						
-						local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst, modLine.modTags, self.quality or self.catalystQuality, modLineMultipliers)
+						local rangeScalar = getRangeScalarFromTag(self.base.tincture and "tincture" or self.catalyst and "catalyst", modLine.modTags, self.base.tincture and { tincture = true } or self.catalyst, self.catalyst and self.catalystQuality or self.quality, modLineMultipliers)
 						-- Put the modified value into the string
 						local line = itemLib.applyRange(strippedModeLine, modLine.range, rangeScalar)
 						-- Check if we can parse it before adding the mods
