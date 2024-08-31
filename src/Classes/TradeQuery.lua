@@ -449,7 +449,7 @@ Highest Weight - Displays the order retrieved from trade]]
 		t_insert(slotTables, { slotName = self.itemsTab.sockets[nodeId].label, nodeId = nodeId })
 	end
 
-	self.controls.sectionAnchor = new("LabelControl", {"LEFT", self.controls.poesessidButton, "LEFT"}, {0, 0, 0, }, "")
+	self.controls.sectionAnchor = new("LabelControl", {"LEFT", self.controls.poesessidButton, "LEFT"}, {0, 0, 0, 0}, "")
 	top_pane_alignment_ref = {"TOPLEFT", self.controls.sectionAnchor, "TOPLEFT"}
 	local scrollBarShown = #slotTables > 21 -- clipping starts beyond this
 	-- dynamically hide rows that are above or below the scrollBar
@@ -587,7 +587,7 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 		end
 	end
 
-	controls.finalise = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, {-45, -10, 80, 20}, "Save", function()
+	controls.finalise = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, {-90, -10, 80, 20}, "Save", function()
 		main:ClosePopup()
 
 		-- used in ItemsTab to save to xml under TradeSearchWeights node
