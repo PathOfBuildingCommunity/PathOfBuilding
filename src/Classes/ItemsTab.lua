@@ -492,7 +492,10 @@ holding Shift will put it in the second.]])
 		self:AddImplicitToDisplayItem()
 	end)
 	self.controls.displayItemAddImplicit.shown = function()
-		return self.displayItem and self.displayItem.type ~= "Tincture" and (self.displayItem.corruptible or ((self.displayItem.type ~= "Flask" or self.displayItem.type ~= "Jewel") and (self.displayItem.rarity == "NORMAL" or self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")))
+		return self.displayItem and
+			self.displayItem.type ~= "Tincture" and (self.displayItem.corruptible or ((self.displayItem.type ~= "Flask" and self.displayItem.type ~= "Jewel") and
+			(self.displayItem.rarity == "NORMAL" or self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE"))) and 
+			not self.displayItem.implicitsCannotBeChanged
 	end
 
 	-- Section: Influence dropdowns
@@ -2423,8 +2426,13 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			currentModType = "ScourgeUpside"
 			buildImplicitList("ScourgeUpside")
 			buildImplicitList("ScourgeDownside")
-			controls.implicit3Label.shown = true
+			controls.implicit.shown = true
+			controls.implicitLabel.shown = true
+			controls.implicit2.shown = true
+			controls.implicit2Label.shown = true
 			controls.implicit3.shown = true
+			controls.implicit3Label.shown = true
+			controls.implicitCannotBeChangedLabel.shown = false
 			main.popups[1].height = 147
 			controls.close.y = 117
 			controls.save.y = 117
@@ -2440,10 +2448,15 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			buildList(controls.implicit4, controls.implicit3, "ScourgeDownside")
 		else
 			currentModType = value
+			controls.implicit.shown = not self.displayItem.implicitsCannotBeChanged
+			controls.implicitLabel.shown = not self.displayItem.implicitsCannotBeChanged
+			controls.implicit2.shown = not self.displayItem.implicitsCannotBeChanged
+			controls.implicit2Label.shown = not self.displayItem.implicitsCannotBeChanged
 			controls.implicit3Label.shown = false
 			controls.implicit3.shown = false
 			controls.implicit4Label.shown = false
 			controls.implicit4.shown = false
+			controls.implicitCannotBeChangedLabel.shown = self.displayItem.implicitsCannotBeChanged
 			controls.implicit2.y = 65
 			main.popups[1].height = 129
 			controls.close.y = 99
@@ -2470,6 +2483,8 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
 	end
+	controls.implicit.shown = not self.displayItem.implicitsCannotBeChanged
+	controls.implicitLabel.shown = not self.displayItem.implicitsCannotBeChanged
 	controls.implicit2Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 65, 0, 16, "^7Implicit #2:")
 	controls.implicit2 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 80, 65, 440, 18, nil, function()
 		buildList(controls.implicit, controls.implicit2, currentModType)
@@ -2483,6 +2498,8 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
 	end
+	controls.implicit2.shown = not self.displayItem.implicitsCannotBeChanged
+	controls.implicit2Label.shown = not self.displayItem.implicitsCannotBeChanged
 	controls.implicit3Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 85, 0, 16, "^7Implicit #3:")
 	controls.implicit3 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 80, 65, 440, 18, nil, function()
 		buildList(controls.implicit4, controls.implicit3, "ScourgeDownside")
@@ -2513,6 +2530,8 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 	end
 	controls.implicit4Label.shown = false
 	controls.implicit4.shown = false
+	controls.implicitCannotBeChangedLabel = new("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 20, 45, 0, 20, "^7This Items Implicits Cannot Be Changed")
+	controls.implicitCannotBeChangedLabel.shown = self.displayItem.implicitsCannotBeChanged
 	buildList(controls.implicit, controls.implicit2, currentModType)
 	buildList(controls.implicit2, controls.implicit, currentModType)
 	controls.save = new("ButtonControl", nil, -45, 99, 80, 20, modType, function()
