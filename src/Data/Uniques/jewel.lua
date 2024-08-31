@@ -469,6 +469,40 @@ League: Delirium
 Source: Drops from unique Delirium bosses in maps
 Adds Hollow Palm Technique
 ]],[[
+The Perandus Pact
+Prismatic Jewel
+Variant: Life
+Variant: Energy Shield
+Variant: Mana
+Variant: Armour
+Variant: Evasion Rating
+Variant: Attributes
+Variant: Global Crit Chance
+Variant: Physical Damage
+Variant: Lightning Damage
+Variant: Cold Damage
+Variant: Fire Damage
+Variant: Chaos Damage
+Variant: Chaos Resistance
+Selected Variant: 1
+League: Necropolis
+Source: No longer obtainable
+Limited to: 1
+Radius: Large
+{variant:1}Passive Skills in Radius also grant +5 to Maximum Life
+{variant:2}Passive Skills in Radius also grant 3% increased Energy Shield
+{variant:3}Passive Skills in Radius also grant +5 to Maximum Mana
+{variant:4}Passive Skills in Radius also grant 7% increased Armour
+{variant:5}Passive Skills in Radius also grant 5% increased Evasion Rating
+{variant:6}Passive Skills in Radius also grant +2 to all Attributes
+{variant:7}Passive Skills in Radius also grant 7% Increased Global Critical Strike Chance
+{variant:8}Passive Skills in Radius also grant 6% increased Physical Damage
+{variant:9}Passive Skills in Radius also grant 6% increased Lightning Damage
+{variant:10}Passive Skills in Radius also grant 6% increased Cold Damage
+{variant:11}Passive Skills in Radius also grant 6% increased Fire Damage
+{variant:12}Passive Skills in Radius also grant 6% increased Chaos Damage
+{variant:13}Passive Skills in Radius also grant +4% to Chaos Resistance
+]],[[
 Primordial Eminence
 Viridian Jewel
 Golems have (16-20)% increased Attack and Cast Speed
@@ -545,9 +579,13 @@ Scion: 30% increased Damage
 ]],[[
 Replica Reckless Defence
 Cobalt Jewel
+Variant: Pre 3.25.0
+Variant: Current
 League: Heist
-+(2-4)% Chance to Block Spell Damage
-+(2-4)% Chance to Block Attack Damage
+{variant:1}+(2-4)% Chance to Block Spell Damage
+{variant:2}+(2-6)% Chance to Block Spell Damage
+{variant:1}+(2-4)% Chance to Block Attack Damage
+{variant:2}+(2-6)% Chance to Block Attack Damage
 +10% chance to be Frozen, Shocked and Ignited
 ]],[[
 The Red Dream
@@ -809,8 +847,11 @@ Combat Focus
 Crimson Jewel
 Source: Vendor Recipe
 Limited to: 2
+Variant: Pre 3.21.0
+Variant: Current
 Radius: Medium
-(10-15)% increased Elemental Damage with Attack Skills
+{variant:1}(10-15)% increased Elemental Damage with Attack Skills
+{variant:2}(10-15)% increased Elemental Damage
 With 40 total Strength and Intelligence in Radius, Prismatic Skills cannot choose Cold
 With 40 total Strength and Intelligence in Radius, Prismatic Skills deal 50% less Cold Damage
 ]],[[
@@ -818,8 +859,11 @@ Combat Focus
 Cobalt Jewel
 Source: Vendor Recipe
 Limited to: 2
+Variant: Pre 3.21.0
+Variant: Current
 Radius: Medium
-(10-15)% increased Elemental Damage with Attack Skills
+{variant:1}(10-15)% increased Elemental Damage with Attack Skills
+{variant:2}(10-15)% increased Elemental Damage
 With 40 total Intelligence and Dexterity in Radius, Prismatic Skills cannot choose Fire
 With 40 total Intelligence and Dexterity in Radius, Prismatic Skills deal 50% less Fire Damage
 ]],[[
@@ -827,8 +871,11 @@ Combat Focus
 Viridian Jewel
 Source: Vendor Recipe
 Limited to: 2
+Variant: Pre 3.21.0
+Variant: Current
 Radius: Medium
-(10-15)% increased Elemental Damage with Attack Skills
+{variant:1}(10-15)% increased Elemental Damage with Attack Skills
+{variant:2}(10-15)% increased Elemental Damage
 With 40 total Dexterity and Strength in Radius, Prismatic Skills Strike cannot choose Lightning
 With 40 total Dexterity and Strength in Radius, Prismatic Skills deal 50% less Lightning Damage
 ]],[[
@@ -860,7 +907,7 @@ Radius: Medium
 {variant:1}With at least 40 Intelligence in Radius, can summon up to 3 Skeleton Mages with Summon Skeletons
 {variant:2}With at least 40 Intelligence in Radius, can summon up to 5 Skeleton Mages with Summon Skeletons
 {variant:3}With at least 40 Intelligence in Radius, can summon up to 15 Skeleton Mages with Summon Skeletons
-{variant:4}Summoned Skeletons gain Added Chaos Damage equal to (20-30)% of Maximum Energy Shield on your Equipped Shield
+{variant:4}Skeletons gain Added Chaos Damage equal to (20-30)% of Maximum Energy Shield on your Equipped Shield
 ]],[[
 Fight for Survival
 Viridian Jewel
@@ -1390,6 +1437,13 @@ Source: Use currency{Vaal Orb} on normal{Crimson Jewel}
 -1 to Maximum Endurance Charges
 Corrupted
 ]],[[
+Replica Fragility
+Crimson Jewel
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Lose an Endurance Charge each second
+Corrupted
+]],[[
 Healthy Mind
 Cobalt Jewel
 Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
@@ -1440,10 +1494,24 @@ Viridian Jewel
 Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 Corrupted
 ]],[[
+Replica Pacifism
+Viridian Jewel
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Lose a Frenzy Charge each second
+Corrupted
+]],[[
 Powerlessness
 Cobalt Jewel
 Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 -1 to Maximum Power Charges
+Corrupted
+]],[[
+Replica Powerlessness
+Cobalt Jewel
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Lose a Power Charge each second
 Corrupted
 ]],[[
 Quickening Covenant
@@ -1475,10 +1543,13 @@ Cobalt Jewel
 Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 Variant: Pre 3.4.0
 Variant: Pre 3.20.0
+Variant: Pre 3.25.0
 Variant: Current
 {variant:1}+6% Chance to Block Spell Damage
 {variant:2,3}+(2-4)% Chance to Block Spell Damage
-(2-4)% Chance to Block Attack Damage
+{variant:4}+(2-6)% Chance to Block Spell Damage
+{variant:1,2,3}(2-4)% Chance to Block Attack Damage
+{variant:4}(2-6)% Chance to Block Attack Damage
 Hits have (140-200)% increased Critical Strike Chance against you
 {variant:3}Corrupted
 ]],[[
@@ -1498,7 +1569,6 @@ Variant: Current
 League: Legion
 Requires Level: 20
 Limited to: 1
-Radius: Medium
 (10-15)% increased Attack Damage while holding a Shield
 {variant:1}+0.2% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
 {variant:2,3}+0.15% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
@@ -1665,6 +1735,15 @@ Limited to: 1
 {variant:1}+0.1 metres to Melee Strike Range
 {variant:2}10% increased Attack Damage
 {variant:2}+0.2 metres to Melee Strike Range
+]],[[
+The Adorned
+Crimson Jewel
+Variant: Pre 3.25.0
+Variant: Current
+League: Affliction
+Source: Vaal Aspect Combination
+{variant:1}(50–150)% increased Effect of Jewel Socket Passive Skills containing Corrupted Magic Jewels
+{variant:2}(0–100)% increased Effect of Jewel Socket Passive Skills containing Corrupted Magic Jewels
 ]],
 -- Jewel: Labyrinth rewards
 [[

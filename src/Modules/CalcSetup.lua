@@ -27,6 +27,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("BlockChanceMax", "BASE", 75, "Base")
 	modDB:NewMod("SpellBlockChanceMax", "BASE", 75, "Base")
 	modDB:NewMod("SpellDodgeChanceMax", "BASE", 75, "Base")
+	modDB:NewMod("ChargeDuration", "BASE", 10, "Base")
 	modDB:NewMod("PowerChargesMax", "BASE", 3, "Base")
 	modDB:NewMod("FrenzyChargesMax", "BASE", 3, "Base")
 	modDB:NewMod("EnduranceChargesMax", "BASE", 3, "Base")
@@ -42,7 +43,6 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("MaxLifeLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("MaxManaLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("ImpaleStacksMax", "BASE", 5, "Base")
-	modDB:NewMod("Multiplier:VirulenceStacksMax", "BASE", 40, "Base")
 	modDB:NewMod("BleedStacksMax", "BASE", 1, "Base")
 	modDB:NewMod("MaxEnergyShieldLeechRate", "BASE", 10, "Base")
 	modDB:NewMod("MaxLifeLeechInstance", "BASE", 10, "Base")
@@ -54,6 +54,8 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("TotemPlacementTime", "BASE", 0.6, "Base")
 	modDB:NewMod("BallistaPlacementTime", "BASE", 0.35, "Base")
 	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
+	modDB:NewMod("ShockStacksMax", "BASE", 0, "Base")
+	modDB:NewMod("ScorchStacksMax", "BASE", 0, "Base")
 	modDB:NewMod("MovementSpeed", "INC", -30, "Base", { type = "Condition", var = "Maimed" })
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Attack, { type = "Condition", var = "Intimidated"})
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Attack, { type = "Condition", var = "Intimidated", neg = true}, { type = "Condition", var = "Party:Intimidated"})
@@ -70,6 +72,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("Fanaticism", "FLAG", true, "Base", { type = "Condition", var = "Fanaticism" })
 	modDB:NewMod("Onslaught", "FLAG", true, "Base", { type = "Condition", var = "Onslaught" })
 	modDB:NewMod("UnholyMight", "FLAG", true, "Base", { type = "Condition", var = "UnholyMight" })
+	modDB:NewMod("ChaoticMight", "FLAG", true, "Base", { type = "Condition", var = "ChaoticMight" })
 	modDB:NewMod("Tailwind", "FLAG", true, "Base", { type = "Condition", var = "Tailwind" })
 	modDB:NewMod("Adrenaline", "FLAG", true, "Base", { type = "Condition", var = "Adrenaline" })
 	modDB:NewMod("LesserMassiveShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserMassiveShrine" })
@@ -226,12 +229,13 @@ function wipeEnv(env, accelerate)
 		-- 1) Jewels and Jewel-Radius related node modifications
 		-- 2) Player items
 		-- 3) Granted Skill from items (e.g., Curse on Hit rings)
-		-- 4) Flasks
+		-- 4) Flasks and Tinctures
 		wipeTable(env.radiusJewelList)
 		wipeTable(env.extraRadiusNodeList)
 		wipeTable(env.player.itemList)
 		wipeTable(env.grantedSkillsItems)
 		wipeTable(env.flasks)
+		wipeTable(env.tinctures)
 
 		-- Special / Unique Items that have their own ModDB()
 		if env.aegisModList then
@@ -267,24 +271,27 @@ local function getGemModList(env, groupCfg, socketColor, socketNum)
 	local gemCfg = copyTable(groupCfg, true)
 	gemCfg.socketColor = socketColor
 	gemCfg.socketNum = socketNum
-	return env.modDB:List(gemCfg, "GemProperty")
+	return env.modDB:Tabulate("LIST", gemCfg, "GemProperty")
 end
 
 local function applyGemMods(effect, modList)
-	for _, value in ipairs(modList) do
+	for _, mod in ipairs(modList) do
 		local match = true
+		local value = mod.value
 		if value.keywordList then
 			for _, keyword in ipairs(value.keywordList) do
-				if not calcLib.gemIsType(effect.gemData, keyword) then
+				if not calcLib.gemIsType(effect.gemData, keyword, true) then
 					match = false
 					break
 				end
 			end
-		elseif not calcLib.gemIsType(effect.gemData, value.keyword) then
+		elseif not calcLib.gemIsType(effect.gemData, value.keyword, true) then
 			match = false
 		end
 		if match then
 			effect[value.key] = (effect[value.key] or 0) + value.value
+			effect.gemPropertyInfo = effect.gemPropertyInfo or {}
+			t_insert(effect.gemPropertyInfo, mod)
 		end
 	end
 end
@@ -295,6 +302,37 @@ local function applySocketMods(env, gem, groupCfg, socketNum, modSource)
 	socketCfg.socketNum = socketNum
 	for _, value in ipairs(env.modDB:List(socketCfg, "SocketProperty")) do
 		env.player.modDB:AddMod(modLib.setSource(value.value, modSource or groupCfg.slotName or ""))
+	end
+end
+
+local function addBestSupport(supportEffect, appliedSupportList, mode)
+	local add = true
+	for index, otherSupport in ipairs(appliedSupportList) do
+		-- Check if there's another better support already present
+		if supportEffect.grantedEffect == otherSupport.grantedEffect then
+			add = false
+			if supportEffect.level > otherSupport.level or (supportEffect.level == otherSupport.level and supportEffect.quality > otherSupport.quality) then
+				if mode == "MAIN" then
+					otherSupport.superseded = true
+				end
+				appliedSupportList[index] = supportEffect
+			else
+				supportEffect.superseded = true
+			end
+			break
+		elseif supportEffect.grantedEffect.plusVersionOf == otherSupport.grantedEffect.id then
+			add = false
+			if mode == "MAIN" then
+				otherSupport.superseded = true
+			end
+			appliedSupportList[index] = supportEffect
+		elseif otherSupport.grantedEffect.plusVersionOf == supportEffect.grantedEffect.id then
+			add = false
+			supportEffect.superseded = true
+		end
+	end
+	if add then
+		t_insert(appliedSupportList, supportEffect)
 	end
 end
 
@@ -368,6 +406,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.explodeSources = { }
 		env.itemWarnings = { }
 		env.flasks = { }
+		env.tinctures = { }
 
 		-- tree based
 		env.grantedPassives = { }
@@ -442,15 +481,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("Speed", "INC", 4, "Base", ModFlag.Cast, { type = "Multiplier", var = "FrenzyCharge" })
 		modDB:NewMod("Damage", "MORE", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
 		modDB:NewMod("PhysicalDamageReduction", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
-		modDB:NewMod("ElementalResist", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
-		modDB:NewMod("Multiplier:RageEffect", "BASE", 1, "Base")
-		modDB:NewMod("Damage", "INC", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage" }, { type = "Multiplier", var = "RageEffect" })
-		modDB:NewMod("Speed", "INC", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage", div = 2 }, { type = "Multiplier", var = "RageEffect" })
-		modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rage", div = 5 }, { type = "Multiplier", var = "RageEffect" })
-		modDB:NewMod("MaximumRage", "BASE", 50, "Base")
+		modDB:NewMod("ElementalDamageReduction", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
+		modDB:NewMod("MaximumRage", "BASE", 30, "Base")
 		modDB:NewMod("Multiplier:GaleForce", "BASE", 0, "Base")
 		modDB:NewMod("MaximumGaleForce", "BASE", 10, "Base")
 		modDB:NewMod("MaximumFortification", "BASE", 20, "Base")
+		modDB:NewMod("MaximumValour", "BASE", 50, "Base")
+		modDB:NewMod("SoulEaterMax", "BASE", 45, "Base")
 		modDB:NewMod("Multiplier:IntensityLimit", "BASE", 3, "Base")
 		modDB:NewMod("Damage", "INC", 2, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
 		modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
@@ -458,13 +495,16 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("Speed", "INC", 5, "Base", ModFlag.Cast, { type = "Multiplier", var = "SoulEater" })
 		modDB:NewMod("ActiveTrapLimit", "BASE", 15, "Base")
 		modDB:NewMod("ActiveMineLimit", "BASE", 15, "Base")
+		modDB:NewMod("MineThrowCount", "BASE", 1, "Base")
+		modDB:NewMod("TrapThrowCount", "BASE", 1, "Base")
 		modDB:NewMod("ActiveBrandLimit", "BASE", 3, "Base")
 		modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")
 		modDB:NewMod("SocketedCursesHexLimitValue", "BASE", 1, "Base")
 		modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
-		modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentSpeed", neg = true })
-		modDB:NewMod("Speed", "MORE", 20, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentSpeed"})
-		modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true})
+		modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentDualWieldingSpeed", neg = true })
+		modDB:NewMod("Speed", "MORE", 20, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentDualWieldingSpeed"})
+		modDB:NewMod("BlockChance", "BASE", 20, "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true}, { type = "Condition", var = "DoubledInherentDualWieldingBlock", neg = true})
+		modDB:NewMod("BlockChance", "BASE", 40, "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true}, { type = "Condition", var = "DoubledInherentDualWieldingBlock"})
 		modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
 		modDB:NewMod("Condition:BloodStance", "FLAG", true, "Base", { type = "Condition", var = "SandStance", neg = true })
 		modDB:NewMod("Condition:PrideMinEffect", "FLAG", true, "Base", { type = "Condition", var = "PrideMaxEffect", neg = true })
@@ -472,24 +512,19 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
 		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")
+		modDB:NewMod("TinctureLimit", "BASE", 1, "Base")
+		modDB:NewMod("ManaDegenPercent", "BASE", 1, "Base", { type = "Multiplier", var = "EffectiveManaBurnStacks" })
+		modDB:NewMod("LifeDegenPercent", "BASE", 1, "Base", { type = "Multiplier", var = "WeepingWoundsStacks" })
 
 		-- Add bandit mods
 		if env.configInput.bandit == "Alira" then
-			modDB:NewMod("ManaRegen", "BASE", 5, "Bandit")
-			modDB:NewMod("CritMultiplier", "BASE", 20, "Bandit")
 			modDB:NewMod("ElementalResist", "BASE", 15, "Bandit")
 		elseif env.configInput.bandit == "Kraityn" then
-			modDB:NewMod("Speed", "INC", 6, "Bandit")
-			for _, ailment in ipairs(env.data.elementalAilmentTypeList) do
-				modDB:NewMod("Avoid"..ailment, "BASE", 10, "Bandit")
-			end
-			modDB:NewMod("MovementSpeed", "INC", 6, "Bandit")
+			modDB:NewMod("MovementSpeed", "INC", 8, "Bandit")
 		elseif env.configInput.bandit == "Oak" then
-			modDB:NewMod("LifeRegenPercent", "BASE", 1, "Bandit")
-			modDB:NewMod("PhysicalDamageReduction", "BASE", 2, "Bandit")
-			modDB:NewMod("PhysicalDamage", "INC", 20, "Bandit")
+			modDB:NewMod("Life", "BASE", 40, "Bandit")
 		else
-			modDB:NewMod("ExtraPoints", "BASE", 2, "Bandit")
+			modDB:NewMod("ExtraPoints", "BASE", 1, "Bandit")
 		end
 
 		-- Add Pantheon mods
@@ -612,7 +647,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			elseif override.repItem and override.repSlotName:match("^Weapon 1") and slotName:match("^Weapon 2") and
 			(override.repItem.base.type == "Staff" or override.repItem.base.type == "Two Handed Sword" or override.repItem.base.type == "Two Handed Axe" or override.repItem.base.type == "Two Handed Mace"
 			or (override.repItem.base.type == "Bow" and item and item.base.type ~= "Quiver")) then
-				item = nil
+				goto continue
 			elseif slot.nodeId and override.spec then
 				item = build.itemsTab.items[env.spec.jewels[slot.nodeId]]
 			else
@@ -633,7 +668,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				t_insert(env.explodeSources, item)
 			end
 			if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then
-				item = nil
+				goto continue
 			end
 			if slot.weaponSet == 2 and build.itemsTab.activeItemSet.useSecondWeaponSet then
 				slotName = slotName:gsub(" Swap","")
@@ -641,10 +676,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if slot.nodeId then
 				-- Slot is a jewel socket, check if socket is allocated
 				if not env.allocNodes[slot.nodeId] then
-					item = nil
+					goto continue
 				elseif item then
 					if item.jewelData then
 						item.jewelData.limitDisabled = nil
+					end
+					if item and item.type == "Jewel" and item.name:match("The Adorned, Crimson Jewel") then
+						env.modDB.multipliers["CorruptedMagicJewelEffect"] = item.jewelData.corruptedMagicJewelIncEffect / 100
 					end
 					if item.limit and not env.configInput.ignoreJewelLimits then
 						local limitKey = item.base.subType == "Timeless" and "Historic" or item.title
@@ -654,7 +692,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 							end
 							env.itemWarnings.jewelLimitWarning = env.itemWarnings.jewelLimitWarning or { }
 							t_insert(env.itemWarnings.jewelLimitWarning, limitKey)
-							item = nil
+							goto continue
 						else
 							jewelLimits[limitKey] = (jewelLimits[limitKey] or 0) + 1
 						end
@@ -720,6 +758,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 			end
 			items[slotName] = item
+			::continue::
 		end
 
 		if not env.configInput.ignoreItemDisablers then
@@ -736,6 +775,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 						-- checks if it disables another slot
 						for _, tag in ipairs(mod) do
 							if tag.type == "DisablesItem" then
+								-- e.g. Tincture in Flask 5 while using a Micro-Distillery Belt
+								if tag.excludeItemType and items[tag.slotName] and items[tag.slotName].type == tag.excludeItemType then
+									break
+								end
 								itemDisablers[slotName] = tag.slotName
 								itemDisabled[tag.slotName] = slotName
 								break
@@ -784,6 +827,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 					if item.flaskData.lifeTotal > highestLifeRecovery then
 						env.itemModDB.multipliers["LifeFlaskRecovery"] = item.flaskData.lifeTotal
 					end
+				end
+				item = nil
+			elseif item and item.type == "Tincture" then
+				if slot.active then
+					env.tinctures[item] = true
 				end
 				item = nil
 			end
@@ -924,6 +972,17 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				elseif item.name:match("Kalandra's Touch") then
+					-- Reset mult counters since they don't work for kalandra
+					for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder"}) do
+						if item[property] then
+							env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) - 1
+						else
+							env.itemModDB.multipliers["Non"..mult] = (env.itemModDB.multipliers["Non"..mult] or 0) + 1
+						end
+					end
+					if item.shaper or item.elder then
+						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) - 1
+					end
 					local otherRing = (slotName == "Ring 1" and build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId]) or (slotName == "Ring 2" and build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId])
 					if otherRing and not otherRing.name:match("Kalandra's Touch") then
 						local otherRingList = otherRing and copyTable(otherRing.modList or otherRing.slotModList[slot.slotNum]) or {}
@@ -937,14 +996,39 @@ function calcs.initEnv(build, mode, override, specEnv)
 							end
 						end
 						env.itemModDB:ScaleAddList(otherRingList, scale)
+						-- Adjust multipliers based on other ring
+						for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder"}) do
+							if otherRing[property] then
+								env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) + 1
+								env.itemModDB.multipliers["Non"..mult] = (env.itemModDB.multipliers["Non"..mult] or 0) - 1
+							end
+						end
+						if otherRing.elder or otherRing.shaper then
+							env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
+						end
 					end
-					env.itemModDB:ScaleAddList(srcList, scale)
+
+					-- Only ExtraSkill implicit mods work (none should but this is likely an in game bug)
+					for _, mod in ipairs(srcList) do
+						if mod.name == "ExtraSkill" then
+							env.itemModDB:ScaleAddMod(mod, scale)
+						end
+					end
 				elseif item.type == "Quiver" and items["Weapon 1"] and items["Weapon 1"].name:match("Widowhail") then
-					scale = scale * (1 + (items["Weapon 1"].baseModList:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
+					local widowHailMod=(1 + (items["Weapon 1"].baseModList:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
+					scale = scale * widowHailMod
+					env.modDB:NewMod("WidowHailMultiplier", "BASE", widowHailMod, "Widowhail")
 					local combinedList = new("ModList")
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
 					end
+					env.itemModDB:ScaleAddList(combinedList, scale)
+				elseif env.modDB.multipliers["CorruptedMagicJewelEffect"] and item.type == "Jewel" and item.rarity == "MAGIC" and item.corrupted and slot.nodeId and item.base.subType ~= "Charm" then
+					scale = scale + env.modDB.multipliers["CorruptedMagicJewelEffect"]
+					local combinedList = new("ModList")
+					for _, mod in ipairs(srcList) do
+						combinedList:MergeMod(mod)
+					end	
 					env.itemModDB:ScaleAddList(combinedList, scale)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
@@ -953,7 +1037,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				if item.classRestriction then
 					env.itemModDB.conditions[item.title:gsub(" ", "")] = item.classRestriction
 				end
-				if item.type ~= "Jewel" and item.type ~= "Flask" then
+				if item.type ~= "Jewel" and item.type ~= "Flask" and item.type ~= "Tincture" then
 					-- Update item counts
 					local key
 					if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
@@ -967,22 +1051,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 					env.itemModDB.multipliers[key] = (env.itemModDB.multipliers[key] or 0) + 1
 					env.itemModDB.conditions[key .. "In" .. slotName] = true
-					if item.corrupted then
-						env.itemModDB.multipliers.CorruptedItem = (env.itemModDB.multipliers.CorruptedItem or 0) + 1
-					else
-						env.itemModDB.multipliers.NonCorruptedItem = (env.itemModDB.multipliers.NonCorruptedItem or 0) + 1
-					end
-					if item.shaper then
-						env.itemModDB.multipliers.ShaperItem = (env.itemModDB.multipliers.ShaperItem or 0) + 1
-						env.itemModDB.conditions["ShaperItemIn"..slotName] = true
-					else
-						env.itemModDB.multipliers.NonShaperItem = (env.itemModDB.multipliers.NonShaperItem or 0) + 1
-					end
-					if item.elder then
-						env.itemModDB.multipliers.ElderItem = (env.itemModDB.multipliers.ElderItem or 0) + 1
-						env.itemModDB.conditions["ElderItemIn"..slotName] = true
-					else
-						env.itemModDB.multipliers.NonElderItem = (env.itemModDB.multipliers.NonElderItem or 0) + 1
+					for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder"}) do
+						if item[property] then
+							env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) + 1
+						else
+							env.itemModDB.multipliers["Non"..mult] = (env.itemModDB.multipliers["Non"..mult] or 0) + 1
+						end
 					end
 					if item.shaper or item.elder then
 						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
@@ -1037,6 +1111,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 				env.flasks[override.toggleFlask] = true
 			end
 		end
+		if override.toggleTincture then
+			if env.tinctures[override.toggleTincture] then
+				env.tinctures[override.toggleTincture] = nil
+			else
+				env.tinctures[override.toggleTincture] = true
+			end
+		end
 	end
 
 	-- Merge env.itemModDB with env.ModDB
@@ -1078,6 +1159,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	if not override or (override and not override.extraJewelFuncs) then
 		override = override or {}
 		override.extraJewelFuncs = new("ModList")
+		override.extraJewelFuncs.actor = env.player
 		for _, mod in ipairs(env.modDB:Tabulate("LIST", nil, "ExtraJewelFunc")) do
 			override.extraJewelFuncs:AddMod(mod.mod)
 		end
@@ -1102,6 +1184,17 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 	if not accelerate.skills then
 		if env.mode == "MAIN" then
+			local function getNormalizedSkillLevel(grantedSkill)
+				-- Levels in socketGroup.gemList[1].level are normalized
+				-- grantedSkill.level is not causing group match miss which causes all things that rely on group order to fail
+				local normalizedGrantedSkill = {
+					grantedEffect = data.skills[grantedSkill.skillId],
+					level = grantedSkill.level
+				}
+				calcLib.validateGemLevel(normalizedGrantedSkill)
+				return normalizedGrantedSkill.level
+			end
+
 			-- Process extra skills granted by items or tree nodes
 			local markList = wipeTable(tempTable1)
 			for _, grantedSkill in ipairs(env.grantedSkills) do
@@ -1109,7 +1202,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				local group
 				for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
 					if socketGroup.source == grantedSkill.source and socketGroup.slot == grantedSkill.slotName then
-						if socketGroup.gemList[1] and socketGroup.gemList[1].skillId == grantedSkill.skillId and socketGroup.gemList[1].level == grantedSkill.level then
+						if socketGroup.gemList[1] and socketGroup.gemList[1].skillId == grantedSkill.skillId and (socketGroup.gemList[1].level == grantedSkill.level or socketGroup.gemList[1].level == getNormalizedSkillLevel(grantedSkill)) then
 							group = socketGroup
 							markList[socketGroup] = true
 							break
@@ -1137,29 +1230,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 				activeGemInstance.level = grantedSkill.level
 				activeGemInstance.enableGlobal1 = true
 				activeGemInstance.noSupports = grantedSkill.noSupports
-				if grantedSkill.triggered then
-					activeGemInstance.triggered = grantedSkill.triggered
-				end
-				if grantedSkill.triggerChance then
-					activeGemInstance.triggerChance = grantedSkill.triggerChance
-				end
+				group.noSupports = grantedSkill.noSupports
+				activeGemInstance.triggered = grantedSkill.triggered
+				activeGemInstance.triggerChance = grantedSkill.triggerChance
 				wipeTable(group.gemList)
 				t_insert(group.gemList, activeGemInstance)
-				if grantedSkill.noSupports then
-					group.noSupports = true
-				else
-					for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
-						-- Look for other groups that are socketed in the item
-						if socketGroup.slot == grantedSkill.slotName and not socketGroup.source and socketGroup.enabled then
-							-- Add all support gems to the skill's group
-							for _, gemInstance in ipairs(socketGroup.gemList) do
-								if gemInstance.gemData and (gemInstance.gemData.grantedEffect.support or (gemInstance.gemData.secondaryGrantedEffect and gemInstance.gemData.secondaryGrantedEffect.support)) then
-									t_insert(group.gemList, gemInstance)
-								end
-							end
-						end
-					end
-				end
 				build.skillsTab:ProcessSocketGroup(group)
 			end
 
@@ -1230,7 +1305,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 
 		-- Determine main skill group
-		if env.mode == "CALCS" or env.mode == "CACHE" then
+		if env.mode == "CALCS" then
 			env.calcsInput.skill_number = m_min(m_max(#build.skillsTab.socketGroupList, 1), env.calcsInput.skill_number or 1)
 			env.mainSocketGroup = env.calcsInput.skill_number
 		else
@@ -1238,40 +1313,42 @@ function calcs.initEnv(build, mode, override, specEnv)
 			env.mainSocketGroup = build.mainSocketGroup
 		end
 
-		-- Below we re-order the socket group list in order to support modifiers introduced in 3.16
-		-- which allow a Shield (Weapon 2) to link to a Main Hand and an Amulet to link to a Body Armour
-		-- as we need their support gems and effects to be processed before we cross-link them to those slots
-		-- Store extra supports for other items that are linked
-		local crossLinkedSupportList = { }
-		local crossLinkedSupportGroups = {}
+		-- Process supports and put them into the correct buckets
+		env.crossLinkedSupportGroups = {}
 		for _, mod in ipairs(env.modDB:Tabulate("LIST", nil, "LinkedSupport")) do
-			crossLinkedSupportList[mod.value.targetSlotName] = { }
-			crossLinkedSupportGroups[mod.mod.sourceSlot] = mod.value.targetSlotName
-		end
-		local indexOrder = { }
-		for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
-			if crossLinkedSupportGroups[socketGroup.slot and socketGroup.slot:gsub(" Swap","")] then
-				t_insert(indexOrder, 1, index)
-			else
-				t_insert(indexOrder, index)
-			end
+			env.crossLinkedSupportGroups[mod.mod.sourceSlot] = env.crossLinkedSupportGroups[mod.mod.sourceSlot] or {}
+			t_insert(env.crossLinkedSupportGroups[mod.mod.sourceSlot], mod.value.targetSlotName)
 		end
 
-		for _, index in ipairs(indexOrder) do
-			local socketGroup = build.skillsTab.socketGroupList[index]
-			local socketGroupSkillList = { }
-			local slot = socketGroup.slot and build.itemsTab.slots[socketGroup.slot]
-			-- Used to stop gems with multiple effects applying multiple socket mods
-			local processedSockets = {}
-			socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
-			if index == env.mainSocketGroup or (socketGroup.enabled and socketGroup.slotEnabled) then
-				local groupCfg = {}
-				groupCfg.slotName = socketGroup.slot and socketGroup.slot:gsub(" Swap","")
-				local propertyModList = env.modDB:List(groupCfg, "GemProperty")
+		local supportLists = { }
+		local groupCfgList = { }
+		local processedSockets = {}
+		-- Process support gems adding them to applicable support lists
+		for index, group in ipairs(build.skillsTab.socketGroupList) do
+			local slot = group.slot and build.itemsTab.slots[group.slot]
+			group.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
+			-- if group is main skill or group is enabled 
+			if index == env.mainSocketGroup or (group.enabled and group.slotEnabled) then
+				local slotName = group.slot and group.slot:gsub(" Swap","")
+				groupCfgList[slotName or "noSlot"] = groupCfgList[slotName or "noSlot"] or {}
+				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
+					slotName = slotName,
+					propertyModList = env.modDB:Tabulate("LIST", {slotName = slotName}, "GemProperty")
+				}
+				local groupCfg = groupCfgList[slotName or "noSlot"][group]
+				local propertyModList = groupCfg.propertyModList
+				local targetListList = {}
+				if groupCfg.slotName then
+					supportLists[groupCfg.slotName] = supportLists[groupCfg.slotName] or {}
+					supportLists[groupCfg.slotName][group] = supportLists[groupCfg.slotName][group] or {}
+					t_insert(targetListList, supportLists[groupCfg.slotName][group])
+				else
+					supportLists[group] = supportLists[group] or {}
+					t_insert(targetListList, supportLists[group])
+				end
 
-				-- Build list of supports for this socket group
-				local supportList = { }
-				if not socketGroup.source then
+				-- if not unique item that provides skills
+				if not group.source then
 					-- Add extra supports from the item this group is socketed in
 					for _, value in ipairs(env.modDB:List(groupCfg, "ExtraSupport")) do
 						local grantedEffect = env.data.skills[value.skillId]
@@ -1281,23 +1358,22 @@ function calcs.initEnv(build, mode, override, specEnv)
 						if grantedEffect and not grantedEffect.support then
 							grantedEffect = env.data.skills["Support"..value.skillId]
 						end
+						grantedEffect.fromItem = true
 						if grantedEffect then
-							t_insert(supportList, {
-								grantedEffect = grantedEffect,
-								gemData = env.data.gems[env.data.gemForBaseName[grantedEffect.name] or env.data.gemForBaseName[grantedEffect.name .. " Support"]],
-								level = value.level,
-								quality = 0,
-								enabled = true,
-							})
+							for _, targetList in ipairs(targetListList) do
+								t_insert(targetList, {
+									grantedEffect = grantedEffect,
+									gemData = env.data.gems[env.data.gemForBaseName[grantedEffect.name:lower()] or env.data.gemForBaseName[(grantedEffect.name .. " Support"):lower()]],
+									level = value.level,
+									quality = 0,
+									enabled = true,
+								})
+							end
 						end
 					end
 				end
-				if crossLinkedSupportList[groupCfg.slotName] then
-					for _, supportItem in ipairs(crossLinkedSupportList[groupCfg.slotName]) do
-						t_insert(supportList, supportItem)
-					end
-				end
-				for gemIndex, gemInstance in ipairs(socketGroup.gemList) do
+
+				for gemIndex, gemInstance in ipairs(group.gemList) do
 					-- Add support gems from this group
 					if env.mode == "MAIN" then
 						gemInstance.displayEffect = nil
@@ -1337,33 +1413,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 							end
 							-- Validate support gem level in case there is no active skill (and no full calculation)
 							calcLib.validateGemLevel(supportEffect)
-							local add = true
-							for index, otherSupport in ipairs(supportList) do
-								-- Check if there's another support with the same name already present
-								if grantedEffect == otherSupport.grantedEffect then
-									add = false
-									if supportEffect.level > otherSupport.level or (supportEffect.level == otherSupport.level and supportEffect.quality > otherSupport.quality) then
-										if env.mode == "MAIN" then
-											otherSupport.superseded = true
-										end
-										supportList[index] = supportEffect
-									else
-										supportEffect.superseded = true
-									end
-									break
-								elseif grantedEffect.plusVersionOf == otherSupport.grantedEffect.id then
-									add = false
-									if env.mode == "MAIN" then
-										otherSupport.superseded = true
-									end
-									supportList[index] = supportEffect
-								elseif otherSupport.grantedEffect.plusVersionOf == grantedEffect.id then
-									add = false
-									supportEffect.superseded = true
-								end
-							end
-							if add then
-								t_insert(supportList, supportEffect)
+
+							for _, targetList in ipairs(targetListList) do
+								addBestSupport(supportEffect, targetList, env.mode)
 							end
 						end
 						if gemInstance.gemData then
@@ -1372,23 +1424,34 @@ function calcs.initEnv(build, mode, override, specEnv)
 						else
 							processGrantedEffect(gemInstance.grantedEffect)
 						end
-						-- Store extra supports for other items that are linked
-						local targetGroup = crossLinkedSupportList[crossLinkedSupportGroups[groupCfg.slotName]]
-						if targetGroup then
-							wipeTable(targetGroup)
-							for _, supportItem in ipairs(supportList) do
-								t_insert(targetGroup, supportItem)
-							end
-						end
 					end
 				end
+			end
+		end
+
+		-- Process active skills adding the applicable supports
+		local socketGroupSkillListList = { }
+		for index, group in ipairs(build.skillsTab.socketGroupList) do
+			if index == env.mainSocketGroup or (group.enabled and group.slotEnabled) then
+				local slotName = group.slot and group.slot:gsub(" Swap","")
+				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
+					slotName = slotName,
+					propertyModList = env.modDB:Tabulate("LIST", {slotName = slotName}, "GemProperty")
+				}
+				local groupCfg = groupCfgList[slotName or "noSlot"][group]
+				local propertyModList = groupCfg.propertyModList
+				socketGroupSkillListList[slotName or "noSlot"] = socketGroupSkillListList[slotName or "noSlot"] or {}
+				socketGroupSkillListList[slotName or "noSlot"][group] = socketGroupSkillListList[slotName or "noSlot"][group] or {}
+				local socketGroupSkillList = socketGroupSkillListList[slotName or "noSlot"][group]
+				local slotHasActiveSkill = false
 
 				-- Create active skills
-				for gemIndex, gemInstance in ipairs(socketGroup.gemList) do
+				for gemIndex, gemInstance in ipairs(group.gemList) do
 					if gemInstance.enabled and (gemInstance.gemData or gemInstance.grantedEffect) then
 						local grantedEffectList = gemInstance.gemData and gemInstance.gemData.grantedEffectList or { gemInstance.grantedEffect }
 						for index, grantedEffect in ipairs(grantedEffectList) do
 							if not grantedEffect.support and not grantedEffect.unsupported and (not grantedEffect.hasGlobalEffect or gemInstance["enableGlobal"..index]) then
+								slotHasActiveSkill = true
 								local activeEffect = {
 									grantedEffect = grantedEffect,
 									level = gemInstance.level,
@@ -1413,7 +1476,54 @@ function calcs.initEnv(build, mode, override, specEnv)
 								if env.mode == "MAIN" then
 									gemInstance.displayEffect = activeEffect
 								end
-								local activeSkill = calcs.createActiveSkill(activeEffect, supportList, env.player, socketGroup)
+								local appliedSupportList = {}
+								if not group.noSupports then
+									appliedSupportList = copyTable(supportLists[group] or supportLists[slotName][group], true)
+									-- add displayGemList for tooltip to display all gems linked to active skills
+									group.displayGemList = copyTable(group.gemList, true)
+									-- if skill granted by unique item, go through all support groups in slot
+									if group.source then 
+										if supportLists[slotName] then
+											-- add socketed supports from other socketGroups
+											for _, otherSocketGroup in ipairs(build.skillsTab.socketGroupList) do
+												if otherSocketGroup.slot and otherSocketGroup.slot == group.slot then
+													for _, gem in ipairs(otherSocketGroup.gemList) do
+														if gem.gemData and gem.gemData.grantedEffect and gem.gemData.grantedEffect.support then
+															t_insert(group.displayGemList, gem)
+														end
+													end
+												end
+											end
+											for _, supportGroup in pairs(supportLists[slotName]) do
+												for _, supportEffect in ipairs(supportGroup) do
+													addBestSupport(supportEffect, appliedSupportList, env.mode)
+												end
+											end
+										end
+									end
+									-- then add supports from crossLinked socketGroups
+									for crossLinkedSupportSlot, crossLinkedSupportGroup in pairs(env.crossLinkedSupportGroups) do
+										for _, crossLinkedSupportedSlot in ipairs(crossLinkedSupportGroup) do
+											if crossLinkedSupportedSlot == slotName and supportLists[crossLinkedSupportSlot] then
+												for _, otherSocketGroup in ipairs(build.skillsTab.socketGroupList) do 
+													if otherSocketGroup.slot and otherSocketGroup.slot == crossLinkedSupportSlot then 
+														for _, gem in ipairs(otherSocketGroup.gemList) do
+															if gem.gemData and gem.gemData.grantedEffect and gem.gemData.grantedEffect.support then
+																t_insert(group.displayGemList, gem)
+															end
+														end
+													end
+												end
+												for _, supportGroup in pairs(supportLists[crossLinkedSupportSlot]) do
+													for _, supportEffect in ipairs(supportGroup) do
+														addBestSupport(supportEffect, appliedSupportList, env.mode)
+													end
+												end
+											end
+										end
+									end
+								end
+								local activeSkill = calcs.createActiveSkill(activeEffect, appliedSupportList, env.player, group)
 								if gemInstance.gemData then
 									activeSkill.slotName = groupCfg.slotName
 								end
@@ -1432,7 +1542,25 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				end
+				
+				if not slotHasActiveSkill and group.displayGemList then
+					group.displayGemList = nil
+				end
+			end
+		end
 
+		-- Process calculated active skill lists
+		for index, group in ipairs(build.skillsTab.socketGroupList) do
+			local slotName = group.slot and group.slot:gsub(" Swap","")
+			socketGroupSkillListList[slotName or "noSlot"] = socketGroupSkillListList[slotName or "noSlot"] or {}
+			socketGroupSkillListList[slotName or "noSlot"][group] = socketGroupSkillListList[slotName or "noSlot"][group] or {}
+			local socketGroupSkillList = socketGroupSkillListList[slotName or "noSlot"][group]
+			if index == env.mainSocketGroup or (group.enabled and group.slotEnabled) then
+				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
+					slotName = slotName,
+					propertyModList = env.modDB:Tabulate("LIST", {slotName = slotName}, "GemProperty")
+				}
+				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				for _, value in ipairs(env.modDB:List(groupCfg, "GroupProperty")) do
 					env.player.modDB:AddMod(modLib.setSource(value.value, groupCfg.slotName or ""))
 				end
@@ -1441,12 +1569,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 					-- Select the main skill from this socket group
 					local activeSkillIndex
 					if env.mode == "CALCS" then
-						socketGroup.mainActiveSkillCalcs = m_min(#socketGroupSkillList, socketGroup.mainActiveSkillCalcs or 1)
-						activeSkillIndex = socketGroup.mainActiveSkillCalcs
+						group.mainActiveSkillCalcs = m_min(#socketGroupSkillList, group.mainActiveSkillCalcs or 1)
+						activeSkillIndex = group.mainActiveSkillCalcs
 					else
-						activeSkillIndex = m_min(#socketGroupSkillList, socketGroup.mainActiveSkill or 1)
+						activeSkillIndex = m_min(#socketGroupSkillList, group.mainActiveSkill or 1)
 						if env.mode == "MAIN" then
-							socketGroup.mainActiveSkill = activeSkillIndex
+							group.mainActiveSkill = activeSkillIndex
 						end
 					end
 					env.player.mainSkill = socketGroupSkillList[activeSkillIndex]
@@ -1455,28 +1583,28 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 			if env.mode == "MAIN" then
 				-- Create display label for the socket group if the user didn't specify one
-				if socketGroup.label and socketGroup.label:match("%S") then
-					socketGroup.displayLabel = socketGroup.label
+				if group.label and group.label:match("%S") then
+					group.displayLabel = group.label
 				else
-					socketGroup.displayLabel = nil
-					for _, gemInstance in ipairs(socketGroup.gemList) do
+					group.displayLabel = nil
+					for _, gemInstance in ipairs(group.gemList) do
 						local grantedEffect = gemInstance.gemData and gemInstance.gemData.grantedEffect or gemInstance.grantedEffect
 						if grantedEffect and not grantedEffect.support and gemInstance.enabled then
-							socketGroup.displayLabel = (socketGroup.displayLabel and socketGroup.displayLabel..", " or "") .. grantedEffect.name
+							group.displayLabel = (group.displayLabel and group.displayLabel..", " or "") .. grantedEffect.name
 						end
 					end
-					socketGroup.displayLabel = socketGroup.displayLabel or "<No active skills>"
+					group.displayLabel = group.displayLabel or "<No active skills>"
 				end
 
 				-- Save the active skill list for display in the socket group tooltip
-				socketGroup.displaySkillList = socketGroupSkillList
+				group.displaySkillList = socketGroupSkillList
 			elseif env.mode == "CALCS" then
-				socketGroup.displaySkillListCalcs = socketGroupSkillList
+				group.displaySkillListCalcs = socketGroupSkillList
 			end
 
 			-- Check for enabled energy blade to see if we need to regenerate everything.
-			if not modDB.conditions["AffectedByEnergyBlade"] and socketGroup.enabled and socketGroup.slotEnabled then
-				for _, gemInstance in ipairs(socketGroup.gemList) do
+			if not modDB.conditions["AffectedByEnergyBlade"] and group.enabled and group.slotEnabled then
+				for _, gemInstance in ipairs(group.gemList) do
 					local grantedEffect = gemInstance.gemData and gemInstance.gemData.grantedEffect or gemInstance.grantedEffect
 					if grantedEffect and not grantedEffect.support and gemInstance.enabled and grantedEffect.name == "Energy Blade" then
 						override.conditions = override.conditions or { }

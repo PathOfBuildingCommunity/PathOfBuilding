@@ -10,7 +10,12 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill AnimateGuardianWeapon
+#skill Affliction
+#flags spell area
+	fromTree = true,
+#mods
+
+#skill AnimateGuardiansWeapon
 #flags spell minion duration
 	fromItem = true,
 	minionHasItemSet = true,
@@ -36,7 +41,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill TouchOfFire
+#skill ApproachingFlames
 #flags spell
 	fromItem = true,
 	statMap = {
@@ -50,7 +55,29 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill BirdAspect
+#skill Barkskin
+#flags spell
+	fromTree = true,
+	statMap = {
+		["physical_attack_damage_taken_+_per_barkskin_stack"] = {
+			mod("PhysicalDamageTakenFromAttacks", "BASE", nil, 0, 0, { type = "Multiplier", var = "BarkskinStacks", limitVar = "BarkskinMaxStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
+		},
+		["chance_to_evade_attacks_+%_final_per_missing_barkskin_stack"] = {
+			mod("EvadeChance", "MORE", nil, 0, 0, { type = "Multiplier", var = "MissingBarkskinStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
+		},
+		["max_barkskin_stacks"] = {
+			mod("Multiplier:BarkskinMaxStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("Multiplier:MissingBarkskinStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
+#mods
+
+#skill AilmentBearer
+#flags spell
+	fromTree = true,
+#mods
+
+#skill AspectOfTheAvian
 #flags cast duration
 	fromItem = true,
 	statMap = {
@@ -69,7 +96,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill CatAspect
+#skill AspectOfTheCat
 #flags cast duration
 	fromItem = true,
 	statMap = {
@@ -88,7 +115,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill CrabAspect
+#skill AspectOfTheCrab
 #flags cast
 	fromItem = true,
 	statMap = {
@@ -101,7 +128,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SpiderAspect
+#skill AspectOfTheSpider
 #flags cast duration
 	fromItem = true,
 	statMap = {
@@ -191,12 +218,12 @@ local skills, mod, flag, skill = ...
 #baseMod mod("AvoidBleed", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Guard" })
 #mods
 
-#skill TriggeredBoneNova
+#skill BoneNova
 #flags attack projectile
 	fromItem = true,
 #mods
 
-#skill BrandDetonate
+#skill Brandsurge
 #flags spell area
 	fromItem = true,
 #mods
@@ -241,7 +268,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #noGem
-#skill ChaosDegenAuraUnique
+#skill DeathAura
 #flags spell aura area
 	fromItem = true,
 #baseMod skill("dotIsArea", true)
@@ -319,8 +346,18 @@ local skills, mod, flag, skill = ...
 #flags spell
 #mods
 
+#skill SupportDivineBlessing
+	fromItem = true,
+	statMap = {
+		["support_aura_duration_base_buff_duration"] = {
+			skill("auraDuration", nil),
+			div = 1000,
+		},
+	},
+#mods
+
 #noGem
-#skill TouchOfGod
+#skill DoryanisTouch
 #flags attack area melee
 	fromItem = true,
 #mods
@@ -335,11 +372,29 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportEarthbreaker
+	fromItem = true,
+	addFlags = {
+		totem = true,
+	},
+	statMap = {
+		["support_ancestor_slam_totem_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack),
+		},
+		["support_ancestor_slam_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["ancestor_totem_grants_owner_area_of_effect_+%_with_melee_skills"] = {
+			mod("AreaOfEffect", "INC", nil, ModFlag.Melee),
+		},
+	},
+#mods
+
 #skill SupportElementalPenetration Elemental Penetration
 	fromItem = true,
 #mods
 
-#skill OnHitWhileCursedTriggeredCurseNova
+#skill ElementalWarding
 #flags spell projectile duration
 	fromItem = true,
 	parts = {
@@ -418,13 +473,13 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill CreateSmokeCloud
+#skill FogOfWar
 #flags spell
 	fromItem = true,
 #mods
 
 #noGem
-#skill VaalAuraElementalDamageHealing
+#skill GluttonyOfElements
 #flags spell aura area duration
 	fromItem = true,
 	statMap = {
@@ -454,7 +509,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:HaveGreaterSpellEcho")
 #mods
 
-#skill IcestormUniqueStaff12
+#skill Icestorm
 #flags spell area duration
 	fromItem = true,
 	statMap = {
@@ -463,17 +518,18 @@ local skills, mod, flag, skill = ...
 			div = 1000,
 		},
 	},
-#baseMod skill("radius", 22)
-#baseMod skill("radiusSecondary", 16)
+#baseMod skill("radiusSecondary", 22)
+#baseMod skill("radiusLabel", "Ice projectile:")
+#baseMod skill("radiusSecondaryLabel", "Target area:")
 #mods
 
-#skill TriggeredIcicleNova
+#skill IcicleBurst
 #flags attack projectile
 #baseMod skill("showAverage", true)
 	fromItem = true,
 #mods
 
-#skill MerveilWarp
+#skill IllusoryWarp
 #flags spell area duration
 	fromItem = true,
 #mods
@@ -485,8 +541,8 @@ local skills, mod, flag, skill = ...
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("IntimidatingExertedAttacks", "BASE", nil),
 		},
-		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
-			mod("IntimidatingPDRPer5MP", "BASE", nil),
+		["intimidating_cry_movement_speed_+%_per_5_power_up_to_cap"] = {
+			mod("IntimidatingMovementSpeedPer5MP", "BASE", nil),
 		},
 	},
 #baseMod skill("radius", 60)
@@ -506,7 +562,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill LightningSpell
+#skill LightningBolt
 #flags spell area
 	fromItem = true,
 	preDamageFunc = function(activeSkill, output)
@@ -518,7 +574,7 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill UniqueAnimateWeapon
+#skill ManifestDancingDervishes
 #flags spell minion
 	fromItem = true,
 	minionList = {
@@ -537,7 +593,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod mod("DisableWeapons", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
 #baseMod mod("Condition:Onslaught", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
-#baseMod skill("minionLevel", 59)
+#baseMod skill("minionLevel", 65)
 #mods
 
 #skill SupportUniqueMjolnerLightningSpellsCastOnHit Mjolner
@@ -548,6 +604,12 @@ local skills, mod, flag, skill = ...
 #flags attack projectile area
 	fromItem = true,
 #baseMod flag("CannotSplit")
+#mods
+
+#skill PenanceMark
+#flags spell curse duration mark
+	fromTree = true,
+#baseMod skill("debuff", true)
 #mods
 
 #skill PhysicalAegis
@@ -576,7 +638,29 @@ local skills, mod, flag, skill = ...
 	fromTree = true,
 #mods
 
-#skill TriggeredSummonSpider
+#skill Pacify
+#flags spell curse area duration hex
+	fromTree = true,
+#baseMod skill("debuff", true)
+#mods
+
+#skill Ravenous
+#flags spell
+	fromTree = true,
+	statMap = {
+		["ravenous_buff_magnitude"] = {
+			{
+				mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "RavenousCorpseConsumed" }),
+				mult = -1,
+			},
+			{
+				mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "RavenousCorpseConsumed" }),
+			},
+		},
+	},
+#mods
+
+#skill RaiseSpiders
 #flags spell minion duration
 	fromItem = true,
 	minionList = {
@@ -636,7 +720,7 @@ local skills, mod, flag, skill = ...
 #baseMod mod("ShockedGroundEffect", "BASE", 15)
 #mods
 
-#skill SummonEssenceSpirits
+#skill SpectralSpirits
 #flags spell minion
 	fromItem = true,
 	minionList = {
@@ -650,7 +734,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("showAverage", true)
 #mods
 
-#skill VolatileDeadChaos
+#skill StalkingPustule
 #flags spell
 	fromItem = true,
 	statMap = {
@@ -658,6 +742,8 @@ local skills, mod, flag, skill = ...
 			skill("radius", "BASE", nil),
 		},
 	},
+#baseMod skill("radiusLabel", "Orb explosion:")
+#baseMod skill("radiusSecondaryLabel", "Corpse explosion:")
 #mods
 
 #skill StormCascadeTriggered
@@ -724,7 +810,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
-#skill CursePillar
+#skill SummonDoedresEffigy
 #flags duration
 	fromItem = true,
 #mods
@@ -734,7 +820,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("manaReservationPercent", 0)
 #mods
 
-#skill SummonGuardianRelic
+#skill SummonElementalRelic
 #flags spell minion duration
 	fromTree = true,
 	minionList = {
@@ -824,7 +910,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SummonRadiantSentinel
+#skill SummonSentinelOfRadiance
 #flags spell minion duration
 	fromTree = true,
 	minionList = {
@@ -845,7 +931,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SummonRigwaldsPack
+#skill SummonSpectralWolf
 #flags spell minion duration
 	fromItem = true,
 	minionList = {
@@ -872,7 +958,7 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill SummonVoidSphere Summon Volatile Anomaly
+#skill VolatileAnomaly Summon Volatile Anomaly
 #flags spell area duration
 	fromItem = true,
 #baseMod skill("dotIsArea", true)
@@ -893,12 +979,12 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill VampiricIcon
+#skill ThirstForBlood
 #flags spell
 	fromItem = true,
 	statMap = {
 		["vampiric_icon_max_bleeding_beam_targets"] = {
-			mod("Multiplier:ThirstForBloodMaxTargets", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+			mod("Multiplier:ThirstForBloodMaxTargets", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 		},
 		["skill_life_regeneration_per_minute_per_affected_enemy"] = {
 			mod("LifeRegen", "BASE", nil, 0, 0, { type = "Multiplier", var = "NearbyBleedingEnemies", limitVar = "ThirstForBloodMaxTargets" }, { type = "GlobalEffect", effectType = "Buff" }),
@@ -914,7 +1000,11 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill AvianTornado
+#skill SupportTriggerElementalSpellOnBlock
+	fromItem = true,
+#mods
+
+#skill Twister
 #flags spell projectile duration
 	fromItem = true,
 #baseMod skill("showAverage", true)
@@ -925,8 +1015,8 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill HiddenBlade
-#flags attack projectile
+#skill UnseenStrike
+#flags attack projectile forceMainHand
 	fromItem = true,
 #mods
 
@@ -952,6 +1042,15 @@ local skills, mod, flag, skill = ...
 #skill SupportUniqueCastCurseOnCurse Vixen's Entrapment
 #flags spell curse
 	fromItem = true,
+#mods
+
+#skill SupportTriggerFireSpellOnHit
+	fromItem = true,
+	statMap = {
+		["spell_is_triggered_on_hit"] = {
+			skill("triggeredBySettlersEnchantTrigger", true)
+		}
+	},
 #mods
 
 skills["EnemyExplode"] = {
@@ -1039,6 +1138,6 @@ skills["EnemyExplode"] = {
 		"skill_can_add_multiple_charges_per_action",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 0, baseMultiplier = 1, levelRequirement = 1, }
+		[1] = { damageEffectiveness = 1, baseMultiplier = 1, levelRequirement = 1, }
 	}
 }

@@ -50,60 +50,20 @@ function main:Init()
 	self.modes["LIST"] = LoadModule("Modules/BuildList")
 	self.modes["BUILD"] = LoadModule("Modules/Build")
 
-	if launch.devMode or (GetScriptPath() == GetRuntimePath() and not launch.installedMode) then
-		-- If running in dev mode or standalone mode, put user data in the script path
-		self.userPath = GetScriptPath().."/"
-	else
-		self.userPath = GetUserPath().."/Path of Building/"
-		MakeDir(self.userPath)
-	end
-	self.defaultBuildPath = self.userPath.."Builds/"
-	self.buildPath = self.defaultBuildPath
-	MakeDir(self.buildPath)
-
-	if launch.devMode and IsKeyDown("CTRL") then
-		-- If modLib.parseMod doesn't find a cache entry it generates it.
-		-- Not loading pre-generated cache causes it to be rebuilt
-		self.saveNewModCache = true
-	else
-		-- Load mod cache
-		LoadModule("Data/ModCache", modLib.parseModCache)
-	end
-
-	if launch.devMode and IsKeyDown("CTRL") and IsKeyDown("SHIFT") then
-		self.allowTreeDownload = true
-	end
-
-
-	self.inputEvents = { }
 	self.popups = { }
-	self.tooltipLines = { }
-
+	self.sharedItemList = { }
+	self.sharedItemSetList = { }
 	self.gameAccounts = { }
-
-	self.buildSortMode = "NAME"
-	self.connectionProtocol = 0
-	self.nodePowerTheme = "RED/BLUE"
-	self.colorPositive = defaultColorCodes.POSITIVE
-	self.colorNegative = defaultColorCodes.NEGATIVE
-	self.colorHighlight = defaultColorCodes.HIGHLIGHT
-	self.showThousandsSeparators = true
-	self.thousandsSeparator = ","
-	self.decimalSeparator = "."
-	self.defaultItemAffixQuality = 0.5
-	self.showTitlebarName = true
-	self.showWarnings = true
-	self.slotOnlyTooltips = true
-	self.POESESSID = ""
 
 	local ignoreBuild
 	if arg[1] then
-		buildSites.DownloadBuild(arg[1], nil, function(isSuccess, data)
+		local importLink = buildSites.ParseImportLinkFromURI(arg[1])
+		buildSites.DownloadBuild(arg[1], nil, function(isSuccess, data, importLink)
 			if not isSuccess then
 				self:SetMode("BUILD", false, data)
 			else
 				local xmlText = Inflate(common.base64.decode(data:gsub("-","+"):gsub("_","/")))
-				self:SetMode("BUILD", false, "Imported Build", xmlText)
+				self:SetMode("BUILD", false, "Imported Build", xmlText, false, importLink)
 				self.newModeChangeToTree = true
 			end
 		end)
@@ -114,7 +74,57 @@ function main:Init()
 	if not ignoreBuild then
 		self:SetMode("BUILD", false, "Unnamed build")
 	end
-	self:LoadSettings(ignoreBuild)
+	if launch.devMode or (GetScriptPath() == GetRuntimePath() and not launch.installedMode) then
+		-- If running in dev mode or standalone mode, put user data in the script path
+		self.userPath = GetScriptPath().."/"
+	else
+		local invalidPath
+		self.userPath, invalidPath = GetUserPath()
+		if not self.userPath then
+			self:OpenPathPopup(invalidPath, ignoreBuild)
+		else
+			self.userPath = self.userPath.."/Path of Building/"
+		end
+	end
+
+	self.buildSortMode = "NAME"
+	self.connectionProtocol = 0
+	self.nodePowerTheme = "RED/BLUE"
+	self.colorPositive = defaultColorCodes.POSITIVE
+	self.colorNegative = defaultColorCodes.NEGATIVE
+	self.colorHighlight = defaultColorCodes.HIGHLIGHT
+	self.showThousandsSeparators = true
+	self.edgeSearchHighlight = true
+	self.thousandsSeparator = ","
+	self.decimalSeparator = "."
+	self.defaultItemAffixQuality = 0.5
+	self.showTitlebarName = true
+	self.showWarnings = true
+	self.slotOnlyTooltips = true
+	self.POESESSID = ""
+	self.showPublicBuilds = true
+
+	if self.userPath then
+		self:ChangeUserPath(self.userPath, ignoreBuild)
+	end
+
+	if launch.devMode and IsKeyDown("CTRL") then
+		-- If modLib.parseMod doesn't find a cache entry it generates it.
+		-- Not loading pre-generated cache causes it to be rebuilt
+		self.saveNewModCache = true
+	else
+		-- Load mod cache
+		LoadModule("Data/ModCache", modLib.parseModCache)
+	end
+
+	--[[ this does not work properly anymore see PR #7675
+	if launch.devMode and IsKeyDown("CTRL") and IsKeyDown("SHIFT") then
+		self.allowTreeDownload = true
+	end
+	--]]
+
+	self.inputEvents = { }
+	self.tooltipLines = { }
 
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
@@ -160,7 +170,7 @@ function main:Init()
 		self.rareDB.loading = nil
 		ConPrintf("Rares loaded")
 	end
-	
+
 	if self.saveNewModCache then
 		local saved = self.defaultItemAffixQuality
 		self.defaultItemAffixQuality = 0.5
@@ -168,9 +178,6 @@ function main:Init()
 		self:SaveModCache()
 		self.defaultItemAffixQuality = saved
 	end
-
-	self.sharedItemList = { }
-	self.sharedItemSetList = { }
 
 	self.anchorMain = new("Control", nil, {4, 0, 0, 0})
 	self.anchorMain.y = function()
@@ -235,8 +242,6 @@ please reinstall using one of the installers from
 the "Releases" section of the GitHub page.]])
 	end
 
-	self:LoadSharedItems()
-
 	self.onFrameFuncs = {
 		["FirstFrame"] = function()
 			self.onFrameFuncs["FirstFrame"] = nil
@@ -249,7 +254,7 @@ the "Releases" section of the GitHub page.]])
 
 	if not self.saveNewModCache then
 		local itemsCoroutine = coroutine.create(loadItemDBs)
-		
+
 		self.onFrameFuncs["LoadItems"] = function()
 			local res, errMsg = coroutine.resume(itemsCoroutine)
 			if coroutine.status(itemsCoroutine) == "dead" then
@@ -579,6 +584,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.betaTest then
 					self.betaTest = node.attrib.betaTest == "true"
 				end
+				if node.attrib.edgeSearchHighlight then
+					self.edgeSearchHighlight = node.attrib.edgeSearchHighlight == "true"
+				end
 				if node.attrib.defaultGemQuality then
 					self.defaultGemQuality = m_min(tonumber(node.attrib.defaultGemQuality) or 0, 23)
 				end
@@ -605,6 +613,9 @@ function main:LoadSettings(ignoreBuild)
 				end
 				if node.attrib.disableDevAutoSave then
 					self.disableDevAutoSave = node.attrib.disableDevAutoSave == "true"
+				end
+				if node.attrib.showPublicBuilds then
+					self.showPublicBuilds = node.attrib.showPublicBuilds == "true"
 				end
 			end
 		end
@@ -668,6 +679,12 @@ function main:SaveSettings()
 		end
 		t_insert(mode, child)
 	end
+
+	-- if setting save is attempted and mode is nil something has gone very wrong
+	if not mode.attrib.mode or not mode[1] then
+		launch:ShowErrMsg("^1Error saving 'Settings.xml': mode element is invalid")
+		return true
+	end
 	t_insert(setXML, mode)
 	local accounts = { elem = "Accounts", attrib = { lastAccountName = self.lastAccountName, lastRealm = self.lastRealm } }
 	for accountName, account in pairs(self.gameAccounts) do
@@ -700,6 +717,7 @@ function main:SaveSettings()
 		decimalSeparator = self.decimalSeparator,
 		showTitlebarName = tostring(self.showTitlebarName),
 		betaTest = tostring(self.betaTest),
+		edgeSearchHighlight = tostring(self.edgeSearchHighlight),
 		defaultGemQuality = tostring(self.defaultGemQuality or 0),
 		defaultCharLevel = tostring(self.defaultCharLevel or 1),
 		defaultItemAffixQuality = tostring(self.defaultItemAffixQuality or 0.5),
@@ -709,12 +727,59 @@ function main:SaveSettings()
 		POESESSID = self.POESESSID,
 		invertSliderScrollDirection = tostring(self.invertSliderScrollDirection),
 		disableDevAutoSave = tostring(self.disableDevAutoSave),
+		showPublicBuilds = tostring(self.showPublicBuilds)
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
 		launch:ShowErrMsg("Error saving 'Settings.xml': %s", errMsg)
 		return true
 	end
+end
+
+function main:OpenPathPopup(invalidPath, ignoreBuild)
+	local controls = { }
+	local defaultLabelPlacementX = 8
+
+	controls.label = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, 20, 206, 16, function()
+		return "^7User settings path contains unicode characters and cannot be loaded."..
+		"\nCurrent Path: "..invalidPath:gsub("?", "^1?^7").."/Path of Building/"..
+		"\nSpecify a new location for your Settings.xml:"
+	end)
+	controls.explainButton = new("ButtonControl", { "LEFT", controls.label, "RIGHT" }, 4, 0, 20, 20, "?", function()
+		OpenURL("https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/Why-do-I-have-to-change-my-Settings-path%3F")
+	end)
+	controls.userPath = new("EditControl", { "TOPLEFT", controls.label, "TOPLEFT" }, 0, 60, 206, 20, invalidPath, nil, nil, nil, function(buf)
+		invalidPath = sanitiseText(buf)
+		if not invalidPath:match("?") then
+			controls.save.enabled = true
+		else
+			controls.save.enabled = false
+		end
+	end)
+	controls.save = new("ButtonControl", { "TOPLEFT", controls.userPath, "TOPLEFT" }, 0, 26, 206, 20, "Save", function()
+		local res, msg = MakeDir(controls.userPath.buf)
+		if not res and msg ~= "No error" then
+			self:OpenMessagePopup("Error", "Couldn't create '"..controls.userPath.buf.."' : "..msg)
+		else
+			self:ChangeUserPath(controls.userPath.buf, ignoreBuild)
+			self:ClosePopup()
+		end
+	end)
+	controls.save.enabled = false
+	controls.cancel = new("ButtonControl", nil, 0, 0, 0, 0, "Cancel", function()
+		-- Do nothing, require user to enter a location
+	end)
+	self:OpenPopup(600, 150, "Change Settings Path", controls, "save", nil, "cancel")
+end
+
+function main:ChangeUserPath(newUserPath, ignoreBuild)
+	self.userPath = newUserPath
+	MakeDir(self.userPath)
+	self.defaultBuildPath = self.userPath.."Builds/"
+	self.buildPath = self.defaultBuildPath
+	MakeDir(self.buildPath)
+	self:LoadSettings(ignoreBuild)
+	self:LoadSharedItems()
 end
 
 function main:OpenOptionsPopup()
@@ -826,9 +891,20 @@ function main:OpenOptionsPopup()
 	controls.colorHighlightLabel = new("LabelControl", { "RIGHT", controls.colorHighlight, "LEFT" }, { defaultLabelSpacingPx, 0, 0, 16 }, "^7Hex colour for highlight nodes:")
 	controls.colorHighlight.tooltipText = "Overrides the default hex colour for highlighting nodes in passive tree search. \nExpected format is 0x000000. " ..
 		"The default value is " .. tostring(defaultColorCodes.HIGHLIGHT:gsub('^(^)', '0')) .."\nIf updating while inside a build, please re-load the build after saving."
+
 	nextRow()
 	controls.betaTest = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Opt-in to weekly beta test builds:", function(state)
 		self.betaTest = state
+	end)
+
+	nextRow()
+	controls.edgeSearchHighlight = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Show search circles at viewport edge", function(state)
+		self.edgeSearchHighlight = state
+	end)
+	
+	nextRow()
+	controls.showPublicBuilds = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Show Latest/Trending builds:", function(state)
+		self.showPublicBuilds = state
 	end)
 
 	nextRow()
@@ -909,7 +985,9 @@ function main:OpenOptionsPopup()
 	end
 
 	controls.betaTest.state = self.betaTest
+	controls.edgeSearchHighlight.state = self.edgeSearchHighlight
 	controls.titlebarName.state = self.showTitlebarName
+	controls.showPublicBuilds.state = self.showPublicBuilds
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialColorPositive = self.colorPositive
 	local initialColorNegative = self.colorNegative
@@ -919,6 +997,7 @@ function main:OpenOptionsPopup()
 	local initialThousandsSeparator = self.thousandsSeparator
 	local initialDecimalSeparator = self.decimalSeparator
 	local initialBetaTest = self.betaTest
+	local initialEdgeSearchHighlight = self.edgeSearchHighlight
 	local initialDefaultGemQuality = self.defaultGemQuality or 0
 	local initialDefaultCharLevel = self.defaultCharLevel or 1
 	local initialDefaultItemAffixQuality = self.defaultItemAffixQuality or 0.5
@@ -926,6 +1005,7 @@ function main:OpenOptionsPopup()
 	local initialSlotOnlyTooltips = self.slotOnlyTooltips
 	local initialInvertSliderScrollDirection = self.invertSliderScrollDirection
 	local initialDisableDevAutoSave = self.disableDevAutoSave
+	local initialShowPublicBuilds = self.showPublicBuilds
 
 	-- last line with buttons has more spacing
 	nextRow(1.5)
@@ -967,6 +1047,7 @@ function main:OpenOptionsPopup()
 		self.decimalSeparator = initialDecimalSeparator
 		self.showTitlebarName = initialTitlebarName
 		self.betaTest = initialBetaTest
+		self.edgeSearchHighlight = initialEdgeSearchHighlight
 		self.defaultGemQuality = initialDefaultGemQuality
 		self.defaultCharLevel = initialDefaultCharLevel
 		self.defaultItemAffixQuality = initialDefaultItemAffixQuality
@@ -974,6 +1055,7 @@ function main:OpenOptionsPopup()
 		self.slotOnlyTooltips = initialSlotOnlyTooltips
 		self.invertSliderScrollDirection = initialInvertSliderScrollDirection
 		self.disableDevAutoSave = initialDisableDevAutoSave
+		self.showPublicBuilds = initialShowPublicBuilds
 		main:ClosePopup()
 	end)
 	nextRow(1.5)
@@ -1321,8 +1403,8 @@ function main:CopyFolder(srcName, dstName)
 	end
 end
 
-function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl)
-	local popup = new("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl)
+function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl, scrollBarFunc, resizeFunc)
+	local popup = new("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl, scrollBarFunc, resizeFunc)
 	t_insert(self.popups, 1, popup)
 	return popup
 end

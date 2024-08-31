@@ -95,7 +95,6 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	-- Set selector
 	self.controls.setSelect = new("DropDownControl", { "TOPLEFT", self, "TOPLEFT" }, { 76, 8, 210, 20 }, nil, function(index, value)
 		self:SetActiveSkillSet(self.skillSetOrderList[index])
-		self:SetDisplayGroup(self.socketGroupList[1])
 		self:AddUndoState()
 	end)
 	self.controls.setSelect.enableDroppedWidth = true
@@ -271,6 +270,7 @@ end)
 
 -- parse real gem name and quality by omitting the first word if alt qual is set
 function SkillsTabClass:GetBaseNameAndQuality(gemTypeLine, quality)
+	gemTypeLine = sanitiseText(gemTypeLine)
 	-- if quality is default or nil check the gem type line if we have alt qual by comparing to the existing list
 	if gemTypeLine and (quality == nil or quality == "" or quality == "Default") then
 		local firstword, otherwords = gemTypeLine:match("(%w+)%s(.+)")
@@ -307,9 +307,25 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 	socketGroup.gemList = { }
 	for _, child in ipairs(node) do
 		local gemInstance = { }
-		gemInstance.nameSpec = child.attrib.nameSpec or ""
+		gemInstance.nameSpec = sanitiseText(child.attrib.nameSpec or "")
 		if child.attrib.gemId then
-			local gemData = self.build.data.gems[child.attrib.gemId]
+			local gemData
+			local possibleVariants = self.build.data.gemsByGameId[child.attrib.gemId]
+			if possibleVariants then
+				-- If it is a known gem, try to determine which variant is used
+				if child.attrib.variantId then
+					-- New save format from 3.23 that stores the specific variation (transfiguration)
+					gemData = possibleVariants[child.attrib.variantId]
+				elseif child.attrib.skillId then
+					-- Old format relying on the uniqueness of the granted effects id
+					for _, variant in pairs(possibleVariants) do
+						if variant.grantedEffectId == child.attrib.skillId then
+							gemData = variant
+							break
+						end
+					end
+				end
+			end
 			if gemData then
 				gemInstance.gemId = gemData.id
 				gemInstance.skillId = gemData.grantedEffectId
@@ -369,7 +385,7 @@ function SkillsTabClass:Load(xml, fileName)
 	else
 		self.controls.defaultLevel:SelByValue("normalMaximum", "gemLevel")
 	end
-	self.defaultGemLevel = self.controls.defaultLevel:GetSelValue("gemLevel")
+	self.defaultGemLevel = self.controls.defaultLevel:GetSelValueByKey("gemLevel")
 	self.defaultGemQuality = m_max(m_min(tonumber(xml.attrib.defaultGemQuality) or 0, 23), 0)
 	self.controls.defaultQuality:SetText(self.defaultGemQuality or "")
 	if xml.attrib.sortGemsByDPS then
@@ -382,8 +398,8 @@ function SkillsTabClass:Load(xml, fileName)
 	self.controls.showAltQualityGems.state = self.showAltQualityGems
 	self.controls.showSupportGemTypes:SelByValue(xml.attrib.showSupportGemTypes or "ALL", "show")
 	self.controls.sortGemsByDPSFieldControl:SelByValue(xml.attrib.sortGemsByDPSField or "CombinedDPS", "type") 
-	self.showSupportGemTypes = self.controls.showSupportGemTypes:GetSelValue("show")
-	self.sortGemsByDPSField = self.controls.sortGemsByDPSFieldControl:GetSelValue("type")
+	self.showSupportGemTypes = self.controls.showSupportGemTypes:GetSelValueByKey("show")
+	self.sortGemsByDPSField = self.controls.sortGemsByDPSFieldControl:GetSelValueByKey("type")
 	for _, node in ipairs(xml) do
 		if node.elem == "Skill" then
 			-- Old format, initialize skill sets if needed
@@ -404,7 +420,6 @@ function SkillsTabClass:Load(xml, fileName)
 		end
 	end
 	self:SetActiveSkillSet(tonumber(xml.attrib.activeSkillSet) or 1)
-	self:SetDisplayGroup(self.socketGroupList[1])
 	self:ResetUndo()
 end
 
@@ -438,7 +453,8 @@ function SkillsTabClass:Save(xml)
 				t_insert(node, { elem = "Gem", attrib = {
 					nameSpec = gemInstance.nameSpec,
 					skillId = gemInstance.skillId,
-					gemId = gemInstance.gemId,
+					gemId = gemInstance.gemData and gemInstance.gemData.gameId,
+					variantId = gemInstance.gemData and gemInstance.gemData.variantId,
 					level = tostring(gemInstance.level),
 					quality = tostring(gemInstance.quality),
 					qualityId = gemInstance.qualityId,
@@ -481,7 +497,7 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 	end
 	self.x = self.x - self.controls.scrollBarH.offset
 
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if event.key == "z" and IsKeyDown("CTRL") then
 				self:Undo()
@@ -495,11 +511,11 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 		end
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyUp" then
-			if event.key == "WHEELDOWN" or event.key == "PAGEDOWN" then
+			if self.controls.scrollBarH:IsScrollDownKey(event.key) then
 				self.controls.scrollBarH:Scroll(1)
-			elseif event.key == "WHEELUP" or event.key == "PAGEUP" then
+			elseif self.controls.scrollBarH:IsScrollUpKey(event.key) then
 				self.controls.scrollBarH:Scroll(-1)
 			end
 		end
@@ -543,7 +559,7 @@ function SkillsTabClass:CopySocketGroup(socketGroup)
 end
 
 function SkillsTabClass:PasteSocketGroup(testInput)
-	local skillText = Paste() or testInput
+	local skillText = sanitiseText(Paste() or testInput)
 	if skillText then
 		local newGroup = { label = "", enabled = true, gemList = { } }
 		local label = skillText:match("Label: (%C+)")
@@ -648,6 +664,9 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enableGlobal2.state = true
 			slot.count:SetText(gemInstance.count)
 		elseif gemId == gemInstance.gemId then
+			if addUndo then
+				self:AddUndoState()
+			end
 			return
 		end
 		gemInstance.gemId = gemId
@@ -1203,7 +1222,7 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 		end
 	end
 	local showOtherHeader = true
-	for _, gemInstance in ipairs(socketGroup.gemList) do
+	for _, gemInstance in ipairs(socketGroup.displayGemList or socketGroup.gemList) do
 		if not gemShown[gemInstance] then
 			if showOtherHeader then
 				showOtherHeader = false
@@ -1325,4 +1344,8 @@ function SkillsTabClass:SetActiveSkillSet(skillSetId)
 	self.controls.groupList.list = self.socketGroupList
 	self.activeSkillSetId = skillSetId
 	self.build.buildFlag = true
+
+	-- set the loadout option to the dummy option since it is now dirty
+	self:SetDisplayGroup(self.socketGroupList[1])
+	self.build:SyncLoadouts()
 end

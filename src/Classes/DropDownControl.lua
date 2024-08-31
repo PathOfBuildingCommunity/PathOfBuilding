@@ -19,7 +19,15 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 			end,
 			-- value mapping function
 			function(listVal)
-				return StripEscapes(type(listVal) == "table" and listVal.label or listVal)
+				if type(listVal) == "table" then
+					if listVal.searchFilter then
+						return StripEscapes(listVal.searchFilter)
+					end
+					if listVal.label then
+						return StripEscapes(listVal.label)
+					end
+				end
+				return StripEscapes(listVal)
 			end
 	)
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {-1, 0, 18, 0}, (self.height - 4) * 4)
@@ -135,8 +143,12 @@ function DropDownClass:SelByValue(value, key)
 	end
 end
 
-function DropDownClass:GetSelValue(key)
+function DropDownClass:GetSelValueByKey(key)
 	return self.list[self.selIndex][key]
+end
+
+function DropDownClass:GetSelValue()
+	return self.list[self.selIndex]
 end
 
 function DropDownClass:SetSel(newSel, noCallSelFunc)
@@ -247,10 +259,8 @@ function DropDownClass:Draw(viewPort, noTooltip)
 		DrawImage(nil, x, dropY, self.droppedWidth, dropExtra)
 		SetDrawLayer(nil, 0)
 	end
-	if not enabled then
+	if not enabled or self.dropped then
 		SetDrawColor(0, 0, 0)
-	elseif self.dropped then
-		SetDrawColor(0.5, 0.5, 0.5)
 	elseif mOver then
 		SetDrawColor(0.33, 0.33, 0.33)
 	else
@@ -292,17 +302,25 @@ function DropDownClass:Draw(viewPort, noTooltip)
 		SetDrawColor(0.66, 0.66, 0.66)
 	end
 	-- draw selected label or search term
-	local selLabel
+	local selLabel = nil
+	local selDetail = nil
 	if self:IsSearchActive() then
 		selLabel = "Search: " .. self:GetSearchTermPretty()
 	else
-		selLabel = self.list[self.selIndex]
-		if type(selLabel) == "table" then
-			selLabel = selLabel.label
+		local selItem = self.list[self.selIndex]
+		if type(selItem) == "table" then
+			selLabel = selItem.label
+			selDetail = selItem.detail
+		else
+			selLabel = selItem
 		end
 	end
 	SetViewport(x + 2, y + 2, width - height, lineHeight)
 	DrawString(0, 0, "LEFT", lineHeight, "VAR", selLabel or "")
+	if selDetail ~= nil then
+		local dx = DrawStringWidth(lineHeight, "VAR", selDetail)
+		DrawString(width - dx - 22, 0, "LEFT", lineHeight, "VAR", selDetail)
+	end
 	SetViewport()
 
 	-- draw dropped down part with items
@@ -349,8 +367,20 @@ function DropDownClass:Draw(viewPort, noTooltip)
 					SetDrawColor(0.66, 0.66, 0.66)
 				end
 				-- draw actual item label with search match highlight if available
-				local label = type(listVal) == "table" and listVal.label or listVal
+				local label = nil
+				local detail = nil
+				if type(listVal) == "table" then
+					label = listVal.label
+					detail = listVal.detail
+				else 
+					label = listVal
+				end
 				DrawString(0, y, "LEFT", lineHeight, "VAR", label)
+				if detail ~= nil then
+					local detail = listVal.detail
+					dx = DrawStringWidth(lineHeight, "VAR", detail)
+					DrawString(width - dx - 4 - 22, y, "LEFT", lineHeight, "VAR", detail)
+				end
 				self:DrawSearchHighlights(label, searchInfo, 0, y, width - 4, lineHeight)
 			end
 		end
@@ -428,7 +458,7 @@ function DropDownClass:OnKeyUp(key)
 			self:SetSel(math.floor((cursorY - dropY + self.controls.scrollBar.offset) / (height - 4)) + 1)
 			self.dropped = false
 		end
-	elseif key == "WHEELDOWN" then
+	elseif self.controls.scrollBar:IsScrollDownKey(key) then
 		if self.dropped and self.controls.scrollBar.enabled then
 			self.controls.scrollBar:Scroll(1)
 		else
@@ -439,7 +469,7 @@ function DropDownClass:OnKeyUp(key)
 		self:SetSel(self:ListIndexToDropIndex(self.selIndex, 0) + 1)
 		self:ScrollSelIntoView()
 		return self
-	elseif key == "WHEELUP" then
+	elseif self.controls.scrollBar:IsScrollUpKey(key) then
 		if self.dropped and self.controls.scrollBar.enabled then
 			self.controls.scrollBar:Scroll(-1)
 		else
@@ -480,7 +510,7 @@ function DropDownClass:CheckDroppedWidth(enable)
 		local dWidth = self.width
 		for _, line in ipairs(self.list) do
 			if type(line) == "table" then
-				line = line.label
+				line = line.label or ""
 			end
 			  -- +10 to stop clipping
 			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", line) + 10)

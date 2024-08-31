@@ -52,7 +52,7 @@ local influenceInfo = itemLib.influenceInfo
 
 local ItemClass = newClass("Item", function(self, raw, rarity, highQuality)
 	if raw then
-		self:ParseRaw(itemLib.sanitiseItemText(raw), rarity, highQuality)
+		self:ParseRaw(sanitiseText(raw), rarity, highQuality)
 	end	
 end)
 
@@ -227,6 +227,7 @@ end
 -- Iterate over modifiers to see if specific substring is found (for conditional checking)
 function ItemClass:FindModifierSubstring(substring, itemSlotName)
 	local modLines = {}
+	local substring, explicit = substring:gsub("explicit ", "")
 
 	-- The commented out line below is used at GGPK updates to check if any new modifiers
 	-- have been identified that need to be added to the manually maintained special modifier
@@ -234,11 +235,13 @@ function ItemClass:FindModifierSubstring(substring, itemSlotName)
 	--getTagBasedModifiers(substring, itemSlotName)
 
 	-- merge various modifier lines into one table
-	for _,v in pairs(self.enchantModLines) do t_insert(modLines, v) end
-	for _,v in pairs(self.scourgeModLines) do t_insert(modLines, v) end
-	for _,v in pairs(self.implicitModLines) do t_insert(modLines, v) end
 	for _,v in pairs(self.explicitModLines) do t_insert(modLines, v) end
-	for _,v in pairs(self.crucibleModLines) do t_insert(modLines, v) end
+	if explicit < 1 then
+		for _,v in pairs(self.enchantModLines) do t_insert(modLines, v) end
+		for _,v in pairs(self.scourgeModLines) do t_insert(modLines, v) end
+		for _,v in pairs(self.implicitModLines) do t_insert(modLines, v) end
+		for _,v in pairs(self.crucibleModLines) do t_insert(modLines, v) end
+	end
 
 	for _,v in pairs(modLines) do
 		local currentVariant = false
@@ -359,6 +362,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.baseLines = { }
 	local importedLevelReq
 	local flaskBuffLines
+	local tinctureBuffLines
 	local deferJewelRadiusIndexAssignment
 	local gameModeStage = "FINDIMPLICIT"
 	local foundExplicit, foundImplicit
@@ -367,6 +371,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		local line = self.rawLines[l]
 		if flaskBuffLines and flaskBuffLines[line] then
 			flaskBuffLines[line] = nil
+		elseif tinctureBuffLines and tinctureBuffLines[line] then
+			tinctureBuffLines[line] = nil
 		elseif line == "--------" then
 			self.checkSection = true
 		elseif line == "Split" then
@@ -673,11 +679,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
 								or data.itemMods[self.base.type]
 								or data.itemMods.Item
-						if self.base.weapon then
-							self.enchantments = data.enchantments["Weapon"]
-						elseif self.base.flask then
-							self.enchantments = data.enchantments["Flask"]
+						if self.base.flask then
 							if self.base.utility_flask then
+								self.enchantments = data.enchantments["UtilityFlask"]
+							else
 								self.enchantments = data.enchantments["Flask"]
 							end
 						else
@@ -695,6 +700,14 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 							flaskBuffLines = { }
 							for _, line in ipairs(self.base.flask.buff) do
 								flaskBuffLines[line] = true
+								local modList, extra = modLib.parseMod(line)
+								t_insert(self.buffModLines, { line = line, extra = extra, modList = modList or { } })
+							end
+						end
+						if self.base.tincture and self.base.tincture.buff and not tinctureBuffLines then
+							tinctureBuffLines = { }
+							for _, line in ipairs(self.base.tincture.buff) do
+								tinctureBuffLines[line] = true
 								local modList, extra = modLib.parseMod(line)
 								t_insert(self.buffModLines, { line = line, extra = extra, modList = modList or { } })
 							end
@@ -725,7 +738,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 
 				local lineLower = line:lower()
-				if lineLower == "this item can be anointed by cassia" then
+				if lineLower == "implicit modifiers cannot be changed" then
+					self.implicitsCannotBeChanged = true
+				elseif lineLower:match(" prefix modifiers? allowed") then
+					self.prefixes.limit = (self.prefixes.limit or 0) + (tonumber(lineLower:match("%+(%d+) prefix modifiers? allowed")) or 0) - (tonumber(lineLower:match("%-(%d+) prefix modifiers? allowed")) or 0)
+				elseif lineLower:match(" suffix modifiers? allowed") then
+					self.suffixes.limit = (self.suffixes.limit or 0) + (tonumber(lineLower:match("%+(%d+) suffix modifiers? allowed")) or 0) - (tonumber(lineLower:match("%-(%d+) suffix modifiers? allowed")) or 0)
+				elseif lineLower == "this item can be anointed by cassia" then
 					self.canBeAnointed = true
 				elseif lineLower == "can have a second enchantment modifier" then
 					self.canHaveTwoEnchants = true
@@ -813,15 +832,26 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		if not self.affixes then 
 			self.crafted = false
 		elseif self.rarity == "MAGIC" then
-			self.affixLimit = 2
+			if self.prefixes.limit or self.suffixes.limit then
+				self.prefixes.limit = m_max(m_min((self.prefixes.limit or 0) + 1, 2), 0)
+				self.suffixes.limit = m_max(m_min((self.suffixes.limit or 0) + 1, 2), 0)
+				self.affixLimit = self.prefixes.limit + self.suffixes.limit
+			else
+				self.affixLimit = 2
+			end
 		elseif self.rarity == "RARE" then
 			self.affixLimit = ((self.type == "Jewel" and not (self.base.subType == "Abyss" and self.corrupted)) and 4 or 6)
+			if self.prefixes.limit or self.suffixes.limit then
+				self.prefixes.limit = m_max(m_min((self.prefixes.limit or 0) + self.affixLimit / 2, self.affixLimit), 0)
+				self.suffixes.limit = m_max(m_min((self.suffixes.limit or 0) + self.affixLimit / 2, self.affixLimit), 0)
+				self.affixLimit = self.prefixes.limit + self.suffixes.limit
+			end
 		else
 			self.crafted = false
 		end
 		if self.crafted then
 			for _, list in ipairs({self.prefixes,self.suffixes}) do
-				for i = 1, self.affixLimit/2 do
+				for i = 1, (list.limit or (self.affixLimit / 2)) do
 					if not list[i] then
 						list[i] = { modId = "None" }
 					elseif list[i].modId ~= "None" and not self.affixes[list[i].modId] then
@@ -883,7 +913,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 end
 
 function ItemClass:NormaliseQuality()
-	if self.base and (self.base.armour or self.base.weapon or self.base.flask) then
+	if self.base and (self.base.armour or self.base.weapon or self.base.flask or self.base.tincture) then
 		if not self.quality then
 			self.quality = 0
 		elseif not self.uniqueID and not self.corrupted and not self.split and not self.mirrored and self.quality < 20 then
@@ -916,9 +946,16 @@ function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
 				break
 			end
 		end
-		for i, key in ipairs(mod.weightMultiplierKey) do
-			if (self.base.tags[key] or (includeTags and includeTags[key]) or HasInfluenceTag(key)) and not (excludeTags and excludeTags[key]) then
-				weight = weight * mod.weightMultiplierVal[i] / 100
+	end
+	return weight
+end
+
+function ItemClass:GetNecropolisModSpawnWeight(mod)
+	local weight = 0
+	if self.base then
+		for i, key in ipairs(mod.weightKey) do
+			if self.base.tags[key:gsub("necropolis_", "")] then
+				weight = mod.weightVal[i]
 				break
 			end
 		end
@@ -1143,7 +1180,7 @@ function ItemClass:Craft()
 	self.requirements.level = self.base.req.level
 	local statOrder = { }
 	for _, list in ipairs({self.prefixes,self.suffixes}) do
-		for i = 1, self.affixLimit / 2 do
+		for i = 1, (list.limit or (self.affixLimit / 2)) do
 			local affix = list[i]
 			if not affix then
 				list[i] = { modId = "None" }
@@ -1151,9 +1188,9 @@ function ItemClass:Craft()
 			local mod = self.affixes[affix.modId]
 			if mod then
 				if mod.type == "Prefix" then
-					self.namePrefix = mod.affix .. " "
+					self.namePrefix = mod.affix .. " " .. self.namePrefix
 				elseif mod.type == "Suffix" then
-					self.nameSuffix = " " .. mod.affix
+					self.nameSuffix = self.nameSuffix .. " " .. mod.affix
 				end
 				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))
 				local rangeScalar = getCatalystScalar(self.catalyst, mod.modTags, self.catalystQuality)
@@ -1310,6 +1347,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		weaponData.AttackRate = round(self.base.weapon.AttackRateBase * (1 + weaponData.AttackSpeedInc / 100), 2)
 		weaponData.rangeBonus = calcLocal(modList, "WeaponRange", "BASE", 0) + 10 * calcLocal(modList, "WeaponRangeMetre", "BASE", 0) + m_floor(self.quality / 10 * calcLocal(modList, "AlternateQualityLocalWeaponRangePer10Quality", "BASE", 0))
 		weaponData.range = self.base.weapon.Range + weaponData.rangeBonus
+		local LocalIncEle = calcLocal(modList, "LocalElementalDamage", "INC", 0)
 		for _, dmgType in pairs(dmgTypeList) do
 			local min = (self.base.weapon[dmgType.."Min"] or 0) + calcLocal(modList, dmgType.."Min", "BASE", 0)
 			local max = (self.base.weapon[dmgType.."Max"] or 0) + calcLocal(modList, dmgType.."Max", "BASE", 0)
@@ -1319,8 +1357,12 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				if calcLocal(modList, "AlternateQualityWeapon", "BASE", 0) > 0 then
 					qualityScalar = 0
 				end
-				min = round(min * (1 + (physInc + qualityScalar) / 100))
-				max = round(max * (1 + (physInc + qualityScalar) / 100))
+				min = round(min * (1 + physInc / 100) * (1 + qualityScalar / 100))
+				max = round(max * (1 + physInc / 100) * (1 + qualityScalar / 100))
+			elseif dmgType ~= "Physical" and dmgType ~= "Chaos" then
+				local localInc = calcLocal(modList, "Local"..dmgType.."Damage", "INC", 0) + LocalIncEle
+				min = round(min * (1 + localInc / 100))
+				max = round(max * (1 + localInc / 100))
 			end
 			if min > 0 and max > 0 then
 				weaponData[dmgType.."Min"] = min
@@ -1379,26 +1421,26 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		end
 		-- base percentiles need to differ for each armour type, as they're weighted differently
 		if armourData.Armour and armourData.Armour > 0 and not armourData.ArmourBasePercentile then
-			armourData.ArmourBasePercentile = ((armourData.Armour / (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc + qualityScalar) / 100) - armourBase)) / armourVariance
+			armourData.ArmourBasePercentile = ((armourData.Armour / ((1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc) / 100) * (1 + (qualityScalar / 100))) - armourBase)) / armourVariance
 			armourData.ArmourBasePercentile = round(m_max(m_min(armourData.ArmourBasePercentile, 1), 0), 4)
 		end
 		if armourData.Evasion and armourData.Evasion > 0 and not armourData.EvasionBasePercentile then
-			armourData.EvasionBasePercentile = ((armourData.Evasion / (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100) - evasionBase)) / evasionVariance
+			armourData.EvasionBasePercentile = ((armourData.Evasion / ((1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc) / 100) * (1 + (qualityScalar / 100))) - evasionBase)) / evasionVariance
 			armourData.EvasionBasePercentile = round(m_max(m_min(armourData.EvasionBasePercentile, 1), 0), 4)
 		end
 		if armourData.EnergyShield and armourData.EnergyShield > 0 and not armourData.EnergyShieldBasePercentile then
-			armourData.EnergyShieldBasePercentile = ((armourData.EnergyShield / (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100) - energyShieldBase)) / energyShieldVariance
+			armourData.EnergyShieldBasePercentile = ((armourData.EnergyShield / ((1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc) / 100) * (1 + (qualityScalar / 100))) - energyShieldBase)) / energyShieldVariance
 			armourData.EnergyShieldBasePercentile = round(m_max(m_min(armourData.EnergyShieldBasePercentile, 1), 0), 4)
 		end
 		if armourData.Ward and armourData.Ward > 0 and not armourData.WardBasePercentile then
-			armourData.WardBasePercentile = ((armourData.Ward / (1 + (wardInc + defencesInc + qualityScalar) / 100) - wardBase)) / wardVariance
+			armourData.WardBasePercentile = ((armourData.Ward / ((1 + (wardInc + defencesInc) / 100) * (1 + (qualityScalar / 100))) - wardBase)) / wardVariance
 			armourData.WardBasePercentile = round(m_max(m_min(armourData.WardBasePercentile, 1), 0),4)
 		end
 
-		armourData.Armour = round((armourBase + armourEvasionBase + armourEnergyShieldBase + armourVariance * (armourData.ArmourBasePercentile or 1)) * (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc + qualityScalar) / 100))
-		armourData.Evasion = round((evasionBase + armourEvasionBase + evasionEnergyShieldBase + evasionVariance * (armourData.EvasionBasePercentile or 1)) * (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100))
-		armourData.EnergyShield = round((energyShieldBase + evasionEnergyShieldBase + armourEnergyShieldBase + energyShieldVariance * (armourData.EnergyShieldBasePercentile or 1)) * (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100))
-		armourData.Ward = round((wardBase + wardVariance * (armourData.WardBasePercentile or 1)) * (1 + (wardInc + defencesInc + qualityScalar) / 100))
+		armourData.Armour = round((armourBase + armourEvasionBase + armourEnergyShieldBase + armourVariance * (armourData.ArmourBasePercentile or 1)) * (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc) / 100) * (1 + (qualityScalar / 100)))
+		armourData.Evasion = round((evasionBase + armourEvasionBase + evasionEnergyShieldBase + evasionVariance * (armourData.EvasionBasePercentile or 1)) * (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc) / 100) * (1 + (qualityScalar / 100)))
+		armourData.EnergyShield = round((energyShieldBase + evasionEnergyShieldBase + armourEnergyShieldBase + energyShieldVariance * (armourData.EnergyShieldBasePercentile or 1)) * (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc) / 100) * (1 + (qualityScalar / 100)))
+		armourData.Ward = round((wardBase + wardVariance * (armourData.WardBasePercentile or 1)) * (1 + (wardInc + defencesInc) / 100) * (1 + (qualityScalar / 100)))
 
 		if not armourData.ArmourBasePercentile and armourData.Armour > 0 then
 			armourData.ArmourBasePercentile = 1
@@ -1414,7 +1456,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		end
 
 		if self.base.armour.BlockChance then
-			armourData.BlockChance = self.base.armour.BlockChance + calcLocal(modList, "BlockChance", "BASE", 0)
+			armourData.BlockChance = m_floor((self.base.armour.BlockChance + calcLocal(modList, "BlockChance", "BASE", 0)) * (1 + calcLocal(modList, "BlockChance", "INC", 0) / 100))
 		end
 		if self.base.armour.MovementPenalty then
 			modList:NewMod("MovementSpeed", "INC", -self.base.armour.MovementPenalty, self.modSource, { type = "Condition", var = "IgnoreMovementPenalties", neg = true })
@@ -1449,14 +1491,22 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			end
 		else
 			-- Utility flask
-			flaskData.duration = round(self.base.flask.duration * (1 + (durationInc + self.quality) / 100) * durationMore, 1)
+			flaskData.duration = round(self.base.flask.duration * (1 + durationInc / 100) * (1 + self.quality / 100) * durationMore, 1)
 		end
 		flaskData.chargesMax = self.base.flask.chargesMax + calcLocal(modList, "FlaskCharges", "BASE", 0)
 		flaskData.chargesUsed = m_floor(self.base.flask.chargesUsed * (1 + calcLocal(modList, "FlaskChargesUsed", "INC", 0) / 100))
 		flaskData.gainMod = 1 + calcLocal(modList, "FlaskChargeRecovery", "INC", 0) / 100
-		flaskData.effectInc = calcLocal(modList, "FlaskEffect", "INC", 0)
+		flaskData.effectInc = calcLocal(modList, "FlaskEffect", "INC", 0) + calcLocal(modList, "LocalEffect", "INC", 0)
 		for _, value in ipairs(modList:List(nil, "FlaskData")) do
 			flaskData[value.key] = value.value
+		end
+	elseif self.base.tincture then
+		local tinctureData = self.tinctureData
+		tinctureData.manaBurn = (self.base.tincture.manaBurn + 0.01) / (1 + calcLocal(modList, "TinctureManaBurnRate", "INC", 0) / 100) / (1 + calcLocal(modList, "TinctureManaBurnRate", "MORE", 0) / 100)
+		tinctureData.cooldown = self.base.tincture.cooldown / (1 + calcLocal(modList, "TinctureCooldownRecovery", "INC", 0) / 100)
+		tinctureData.effectInc = calcLocal(modList, "TinctureEffect", "INC", 0) + calcLocal(modList, "LocalEffect", "INC", 0)
+		for _, value in ipairs(modList:List(nil, "TinctureData")) do
+			tinctureData[value.key] = value.value
 		end
 	elseif self.type == "Jewel" then
 		if self.name:find("Grand Spectrum") then
@@ -1523,6 +1573,9 @@ function ItemClass:BuildModList()
 	elseif self.base.flask then
 		self.flaskData = { }
 		self.buffModList = { }
+	elseif self.base.tincture then
+		self.tinctureData = { }
+		self.buffModList = { }
 	elseif self.type == "Jewel" then
 		self.jewelData = { }
 	end
@@ -1587,6 +1640,11 @@ function ItemClass:BuildModList()
 	end
 	for _, modLine in ipairs(self.crucibleModLines) do
 		processModLine(modLine)
+	end
+	if self.name == "Tabula Rasa, Simple Robe" or self.name == "Skin of the Loyal, Simple Robe" or self.name == "Skin of the Lords, Simple Robe" or self.name == "The Apostate, Cabalist Regalia" then
+		-- Hack to remove the energy shield and base int requirement
+		baseList:NewMod("ArmourData", "LIST", { key = "EnergyShield", value = 0 })
+		self.requirements.int = 0
 	end
 	if calcLocal(baseList, "NoAttributeRequirements", "FLAG", 0) then
 		self.requirements.strMod = 0
@@ -1658,10 +1716,6 @@ function ItemClass:BuildModList()
 		self.sockets = newSockets
 	end
 	self.socketedJewelEffectModifier = 1 + calcLocal(baseList, "SocketedJewelEffect", "INC", 0) / 100
-	if self.name == "Tabula Rasa, Simple Robe" or self.name == "Skin of the Loyal, Simple Robe" or self.name == "Skin of the Lords, Simple Robe" then
-		-- Hack to remove the energy shield
-		baseList:NewMod("ArmourData", "LIST", { key = "EnergyShield", value = 0 })
-	end
 	if self.base.weapon or self.type == "Ring" then
 		self.slotModList = { }
 		for i = 1, 2 do

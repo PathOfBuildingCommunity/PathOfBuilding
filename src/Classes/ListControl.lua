@@ -70,6 +70,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 		self.controls.scrollBarH.shown = false
 		self.controls.scrollBarV.shown = false
 	end
+	self.labelPositionOffset = {0, 0}
 end)
 
 function ListClass:SelectIndex(index)
@@ -176,7 +177,7 @@ function ListClass:Draw(viewPort, noTooltip)
 
 	local label = self:GetProperty("label") 
 	if label then
-		DrawString(x, y - 20, "LEFT", 16, self.font, label)
+		DrawString(x + self.labelPositionOffset[1], y - 20 + self.labelPositionOffset[2], "LEFT", 16, self.font, label)
 	end
 	if self.otherDragSource and not self.CanDragToValue then
 		SetDrawColor(0.2, 0.6, 0.2)
@@ -403,13 +404,13 @@ function ListClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
-	if key == "WHEELDOWN" then
+	if self.controls.scrollBarV:IsScrollDownKey(key) then
 		if self.scroll and self.scrollH and IsKeyDown("SHIFT") then
 			self.controls.scrollBarH:Scroll(1)
 		else
 			self.controls.scrollBarV:Scroll(1)
 		end
-	elseif key == "WHEELUP" then
+	elseif self.controls.scrollBarV:IsScrollUpKey(key) then
 		if self.scroll and self.scrollH and IsKeyDown("SHIFT") then
 			self.controls.scrollBarH:Scroll(-1)
 		else

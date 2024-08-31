@@ -21,12 +21,6 @@ skills["SupportAddedColdDamage"] = {
 		Default = {
 			{ "cold_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_chance_to_freeze_%", 0.5 },
-		},
-		Alternate2 = {
-			{ "skill_physical_damage_%_to_convert_to_cold", 1 },
-		},
 	},
 	stats = {
 		"global_minimum_added_cold_damage",
@@ -75,7 +69,7 @@ skills["SupportAddedColdDamage"] = {
 		[40] = { 0.80000001192093, 1.2000000476837, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 3, 3, }, },
 	},
 }
-skills["SupportAddedColdDamagePlus"] = {
+skills["SupportAwakenedAddedColdDamage"] = {
 	name = "Awakened Added Cold Damage",
 	description = "Supports any skill that hits enemies.",
 	color = 2,
@@ -130,20 +124,9 @@ skills["SupportAdditionalAccuracy"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["attack_damage_+%_per_1000_accuracy_rating"] = {
-			mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", div = 1000, stat = "Accuracy"})
-		}
-	},
 	qualityStats = {
 		Default = {
 			{ "accuracy_rating_+%", 1 },
-		},
-		Alternate1 = {
-			{ "base_critical_strike_multiplier_+", 1 },
-		},
-		Alternate2 = {
-			{ "attack_damage_+%_per_1000_accuracy_rating", 0.2 },
 		},
 	},
 	stats = {
@@ -215,13 +198,6 @@ skills["SupportArrowNova"] = {
 		Default = {
 			{ "projectile_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_projectile_speed_+%", 1 },
-		},
-		Alternate2 = {
-			{ "base_projectile_speed_+%", -2 },
-			{ "damage_+%", 1 },
-		},
 	},
 	constantStats = {
 		{ "number_of_additional_projectiles", 4 },
@@ -276,7 +252,7 @@ skills["SupportArrowNova"] = {
 		[40] = { -5, PvPDamageMultiplier = -25, levelRequirement = 100, manaMultiplier = 50, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportArrowNovaPlus"] = {
+skills["SupportAwakenedArrowNova"] = {
 	name = "Awakened Arrow Nova",
 	description = "Supports bow attack skills that fire arrows forwards as projectiles. These skills will instead fire a payload arrow into the air to land at a targeted location. The supported skills' arrows will then fire out in a circle from where it lands. Cannot support skills that already fire arrows into the air, channelled skills, or skills that create Minions.",
 	color = 2,
@@ -342,7 +318,7 @@ skills["SupportBarrage"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Projectile, SkillType.ThresholdJewelProjectile, SkillType.OR, SkillType.ProjectileNumber, SkillType.OR, SkillType.RangedAttack, SkillType.ThresholdJewelRangedAttack, SkillType.OR, SkillType.AND, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Channel, SkillType.CreatesMinion, SkillType.Triggered, SkillType.InbuiltTrigger, },
+	excludeSkillTypes = { SkillType.Channel, SkillType.CreatesMinion, SkillType.Triggered, SkillType.InbuiltTrigger, SkillType.SingleMainProjectile, },
 	ignoreMinionTypes = true,
 	weaponTypes = {
 		["Wand"] = true,
@@ -365,12 +341,6 @@ skills["SupportBarrage"] = {
 	qualityStats = {
 		Default = {
 			{ "projectile_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "projectile_base_number_of_targets_to_pierce", 0.1 },
-		},
-		Alternate2 = {
-			{ "barrage_support_projectile_spread_+%", 5 },
 		},
 	},
 	constantStats = {
@@ -437,13 +407,7 @@ skills["SupportBlind"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
 		Default = {
-			{ "blind_duration_+%", 1 },
-		},
-		Alternate1 = {
-			{ "global_chance_to_blind_on_hit_%", 0.5 },
-		},
-		Alternate2 = {
-			{ "critical_strike_chance_+%_vs_blinded_enemies", 2 },
+			{ "blind_effect_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -495,7 +459,7 @@ skills["SupportBlind"] = {
 		[40] = { 68, manaMultiplier = 10, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportBlockReduction"] = {
+skills["SupportBlockChanceReduction"] = {
 	name = "Block Chance Reduction",
 	description = "Supports any skill that hits enemies.",
 	color = 2,
@@ -515,9 +479,6 @@ skills["SupportBlockReduction"] = {
 	qualityStats = {
 		Default = {
 			{ "global_reduce_enemy_block_%", 0.25 },
-		},
-		Alternate1 = {
-			{ "overpowered_effect_+%", 2 },
 		},
 	},
 	constantStats = {
@@ -570,7 +531,7 @@ skills["SupportBlockReduction"] = {
 		[40] = { 28, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportCastOnCrit"] = {
+skills["SupportCastOnCriticalStrike"] = {
 	name = "Cast On Critical Strike",
 	description = "Must support both an attack skill and a spell skill to work. The attack skill will trigger a spell when it critically strikes an enemy. Cannot support totems, traps, or mines. Vaal skills, channelling skills, and skills with a reservation cannot be triggered.",
 	color = 2,
@@ -581,21 +542,12 @@ skills["SupportCastOnCrit"] = {
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
-		["support_cast_on_crit_quality_attack_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Attack, 0)
-		},
 		["support_cast_on_crit_spell_damage_+%_final"] = {
 		},
 	},
 	qualityStats = {
 		Default = {
 			{ "attack_critical_strike_chance_+%", 1 },
-		},
-		Alternate1 = {
-			{ "support_cast_on_crit_quality_attack_damage_+%_final", 1 },
-		},
-		Alternate2 = {
-			{ "attack_speed_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -666,12 +618,6 @@ skills["SupportCastOnCritTriggered"] = {
 		Default = {
 			{ "spell_critical_strike_chance_+%", 1 },
 		},
-		Alternate1 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-		Alternate2 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
 	},
 	stats = {
 		"support_cast_on_crit_spell_damage_+%_final",
@@ -722,7 +668,7 @@ skills["SupportCastOnCritTriggered"] = {
 		[40] = { -2, storedUses = 1, cooldown = 0.15, levelRequirement = 100, manaMultiplier = 20, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportCastOnCritPlus"] = {
+skills["SupportAwakenedCastOnCriticalStrike"] = {
 	name = "Awakened Cast On Critical Strike",
 	description = "Must support both an attack skill and a spell skill to work. The attack skill will trigger a spell when it critically strikes an enemy. Cannot support totems, traps, or mines. Vaal skills, channelling skills, and skills with a reservation cannot be triggered.",
 	color = 2,
@@ -731,7 +677,7 @@ skills["SupportCastOnCritPlus"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, },
 	ignoreMinionTypes = true,
-	plusVersionOf = "SupportCastOnCrit",
+	plusVersionOf = "SupportCastOnCriticalStrike",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_cast_on_crit_spell_damage_+%_final"] = {
@@ -839,13 +785,6 @@ skills["SupportCastOnDeath"] = {
 		["cast_on_death_damage_+%_final_while_dead"] = {
 			mod("Damage", "MORE", nil),
 		},
-		["additional_critical_strike_chance_permyriad_while_dead"] = {
-			mod("CritChance", "BASE", nil),
-			div = 100
-		},
-		["skill_effect_duration_+%_while_dead"] = {
-			mod("Duration", "INC", nil),
-		},
 		["no_cost"] = {
 		},
 	},
@@ -855,12 +794,6 @@ skills["SupportCastOnDeath"] = {
 	qualityStats = {
 		Default = {
 			{ "area_of_effect_+%_while_dead", 3 },
-		},
-		Alternate1 = {
-			{ "additional_critical_strike_chance_permyriad_while_dead", 50 },
-		},
-		Alternate2 = {
-			{ "skill_effect_duration_+%_while_dead", 3 },
 		},
 	},
 	constantStats = {
@@ -934,12 +867,6 @@ skills["SupportChain"] = {
 		Default = {
 			{ "chaining_range_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_projectile_speed_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "projectile_chance_to_not_pierce_%", 4 },
-		},
 	},
 	constantStats = {
 		{ "number_of_chains", 2 },
@@ -991,7 +918,7 @@ skills["SupportChain"] = {
 		[40] = { 4, PvPDamageMultiplier = -30, levelRequirement = 100, manaMultiplier = 50, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportChainPlus"] = {
+skills["SupportAwakenedChain"] = {
 	name = "Awakened Chain",
 	description = "Supports projectile skills, and any other skills that chain.",
 	color = 2,
@@ -1054,9 +981,6 @@ skills["SupportChanceToFlee"] = {
 		Default = {
 			{ "global_hit_causes_monster_flee_%", 1 },
 		},
-		Alternate1 = {
-			{ "base_cast_speed_+%", -0.5 },
-		},
 	},
 	stats = {
 		"global_hit_causes_monster_flee_%",
@@ -1104,7 +1028,7 @@ skills["SupportChanceToFlee"] = {
 		[40] = { 59, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportGemFrenzyPowerOnTrapTrigger"] = {
+skills["SupportChargedTraps"] = {
 	name = "Charged Traps",
 	description = "Supports skills which throw traps.",
 	color = 2,
@@ -1121,13 +1045,6 @@ skills["SupportGemFrenzyPowerOnTrapTrigger"] = {
 	qualityStats = {
 		Default = {
 			{ "trap_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "%_chance_to_gain_power_charge_on_trap_triggered_by_an_enemy", 0.5 },
-			{ "%_chance_to_gain_frenzy_charge_on_trap_triggered_by_an_enemy", 0.5 },
-		},
-		Alternate2 = {
-			{ "trap_trigger_radius_+%_per_power_charge", 0.5 },
 		},
 	},
 	constantStats = {
@@ -1181,7 +1098,7 @@ skills["SupportGemFrenzyPowerOnTrapTrigger"] = {
 		[40] = { 37, 37, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportSlashingWeapon"] = {
+skills["SupportCloseCombat"] = {
 	name = "Close Combat",
 	description = "Supports melee attack skills. Cannot support skills which create minions.",
 	color = 2,
@@ -1208,9 +1125,6 @@ skills["SupportSlashingWeapon"] = {
 		["close_combat_damage_to_close_range_+%"] = {
 			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "Condition", var = "AtCloseRange" }),
 		},
-		["combat_rush_effect_+%"] = {
-			mod("CombatRushEffect", "INC", nil),
-		},
 		["supported_skill_can_only_use_axe_and_sword"] = {
 		},
 	},
@@ -1219,13 +1133,7 @@ skills["SupportSlashingWeapon"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "melee_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "combat_rush_effect_+%", 2 },
-		},
-		Alternate2 = {
-			{ "close_combat_damage_to_close_range_+%", 1 },
+			{ "close_combat_damage_to_close_range_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -1280,7 +1188,7 @@ skills["SupportSlashingWeapon"] = {
 		[40] = { 50, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportClusterTrap"] = {
+skills["SupportClusterTraps"] = {
 	name = "Cluster Traps",
 	description = "Supports traps skills, making them throw extra traps randomly around the targeted location.",
 	color = 2,
@@ -1296,13 +1204,7 @@ skills["SupportClusterTrap"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "trap_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "trap_throwing_speed_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "trap_spread_+%", -2 },
+			{ "trap_trigger_radius_+%", 1 },
 		},
 	},
 	constantStats = {
@@ -1370,12 +1272,6 @@ skills["SupportColdPenetration"] = {
 		Default = {
 			{ "cold_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_chance_to_freeze_%", 0.5 },
-		},
-		Alternate2 = {
-			{ "cold_ailment_effect_+%", 1 },
-		},
 	},
 	stats = {
 		"base_reduce_enemy_cold_resistance_%",
@@ -1423,7 +1319,7 @@ skills["SupportColdPenetration"] = {
 		[40] = { 45, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportColdPenetrationPlus"] = {
+skills["SupportAwakenedColdPenetration"] = {
 	name = "Awakened Cold Penetration",
 	description = "Supports any skill that hits enemies, making those hits penetrate enemy cold resistance.",
 	color = 2,
@@ -1476,12 +1372,6 @@ skills["SupportCullingStrike"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
 		Default = {
-			{ "damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "damage_vs_enemies_on_low_life_+%", 3 },
-		},
-		Alternate2 = {
 			{ "recover_%_maximum_life_on_cull", 0.1 },
 		},
 	},
@@ -1553,12 +1443,6 @@ skills["SupportDeadlyAilments"] = {
 		Default = {
 			{ "damage_over_time_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_all_ailment_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "support_better_ailments_hit_damage_+%_final", 2 },
-		},
 	},
 	constantStats = {
 		{ "support_better_ailments_hit_damage_+%_final", -80 },
@@ -1609,7 +1493,7 @@ skills["SupportDeadlyAilments"] = {
 		[40] = { 55, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportDeadlyAilmentsPlus"] = {
+skills["SupportAwakenedDeadlyAilments"] = {
 	name = "Awakened Deadly Ailments",
 	description = "Supports any skill that hits enemies.",
 	color = 2,
@@ -1661,7 +1545,7 @@ skills["SupportDeadlyAilmentsPlus"] = {
 		[20] = { 62, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportAdditionalQuality"] = {
+skills["SupportEnhance"] = {
 	name = "Enhance",
 	description = "Supports any skill gem. Once this gem reaches level 2 or above, will raise the quality of supported gems. Cannot support skills that don't come from gems.",
 	color = 2,
@@ -1680,9 +1564,6 @@ skills["SupportAdditionalQuality"] = {
 		Default = {
 			{ "local_gem_experience_gain_+%", 5 },
 		},
-		Alternate1 = {
-			{ "local_gem_dex_requirement_+%", -3 },
-		},
 	},
 	stats = {
 		"supported_active_skill_gem_quality_%",
@@ -1700,7 +1581,7 @@ skills["SupportAdditionalQuality"] = {
 		[10] = { 72, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportAdditionalQualityPlus"] = {
+skills["SupportAwakenedEnhance"] = {
 	name = "Awakened Enhance",
 	description = "Supports any skill gem. Once this gem reaches level 2 or above, will raise the quality of supported gems. Cannot support skills that don't come from gems.",
 	color = 2,
@@ -1709,7 +1590,7 @@ skills["SupportAdditionalQualityPlus"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.SkillGrantedBySupport, },
 	supportGemsOnly = true,
-	plusVersionOf = "SupportAdditionalQuality",
+	plusVersionOf = "SupportEnhance",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["supported_active_skill_gem_quality_%"] = {
@@ -1747,7 +1628,7 @@ skills["SupportAdditionalQualityPlus"] = {
 		[20] = { 152, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportFasterAttack"] = {
+skills["SupportFasterAttacks"] = {
 	name = "Faster Attacks",
 	description = "Supports attack skills.",
 	color = 2,
@@ -1760,12 +1641,6 @@ skills["SupportFasterAttack"] = {
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_cooldown_speed_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "faster_bleed_%", 0.5 },
 		},
 	},
 	stats = {
@@ -1827,12 +1702,6 @@ skills["SupportFasterProjectiles"] = {
 	qualityStats = {
 		Default = {
 			{ "base_projectile_speed_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "projectile_return_%_chance", 0.5 },
-		},
-		Alternate2 = {
-			{ "projectile_damage_+%", 0.5 },
 		},
 	},
 	stats = {
@@ -1904,12 +1773,6 @@ skills["SupportFocusedBallista"] = {
 		Default = {
 			{ "totem_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "totem_life_+%", 0.5 },
-		},
 	},
 	stats = {
 		"support_focused_ballista_totem_attack_speed_+%_final",
@@ -1978,12 +1841,6 @@ skills["SupportFork"] = {
 		Default = {
 			{ "projectile_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "chance_to_fork_extra_projectile_%", 1 },
-		},
-		Alternate2 = {
-			{ "projectile_base_number_of_targets_to_pierce", 0.05 },
-		},
 	},
 	constantStats = {
 		{ "terrain_arrow_attachment_chance_reduction_+%", 100 },
@@ -2035,7 +1892,7 @@ skills["SupportFork"] = {
 		[40] = { 24, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportForkPlus"] = {
+skills["SupportAwakenedFork"] = {
 	name = "Awakened Fork",
 	description = "Supports projectile skills, making their projectiles fork into two projectiles the first two times they hit an enemy and don't pierce it.",
 	color = 2,
@@ -2105,14 +1962,6 @@ skills["SupportGreaterMultipleProjectiles"] = {
 		Default = {
 			{ "projectile_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_mana_cost_-%", 1 },
-			{ "base_life_cost_+%", -1 },
-			{ "base_projectile_speed_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "multiple_projectiles_projectile_spread_+%", 1 },
-		},
 	},
 	constantStats = {
 		{ "number_of_additional_projectiles", 4 },
@@ -2164,7 +2013,7 @@ skills["SupportGreaterMultipleProjectiles"] = {
 		[40] = { -18, PvPDamageMultiplier = -25, levelRequirement = 100, manaMultiplier = 50, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportGreaterMultipleProjectilesPlus"] = {
+skills["SupportAwakenedGreaterMultipleProjectiles"] = {
 	name = "Awakened Greater Multiple Projectiles",
 	description = "Supports projectile skills.",
 	color = 2,
@@ -2216,12 +2065,12 @@ skills["SupportGreaterMultipleProjectilesPlus"] = {
 }
 skills["SupportGreaterVolley"] = {
 	name = "Greater Volley",
-	description = "Supports skills that fire projectiles from the user. Does not affect projectiles fired from other locations as secondary effects.",
+	description = "Supports skills that fire projectiles from the user. Does not affect projectiles fired from other locations as secondary effects. Does not support skills that fire projectiles in a spiral.",
 	color = 2,
 	support = true,
 	requireSkillTypes = { SkillType.ProjectilesFromUser, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.ProjectileSpiral, SkillType.SingleMainProjectile, SkillType.ProjectilesNotFromUser, SkillType.ProjectilesNotFired, },
+	excludeSkillTypes = { SkillType.ProjectileSpiral, SkillType.SingleMainProjectile, SkillType.ProjectilesNotFromUser, SkillType.ProjectilesNotFired, SkillType.NoVolley, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_greater_volley_projectile_damage_+%_final"] = {
@@ -2231,12 +2080,6 @@ skills["SupportGreaterVolley"] = {
 	qualityStats = {
 		Default = {
 			{ "projectile_damage_+%", 1 },
-		},
-		Alternate1 = {
-			{ "parallel_projectile_firing_point_x_dist_+%", 1 },
-		},
-		Alternate2 = {
-			{ "base_projectile_speed_+%", 1 },
 		},
 	},
 	constantStats = {
@@ -2290,7 +2133,7 @@ skills["SupportGreaterVolley"] = {
 		[40] = { -11, PvPDamageMultiplier = -25, levelRequirement = 100, manaMultiplier = 50, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportDamageAgainstChilled"] = {
+skills["SupportHypothermia"] = {
 	name = "Hypothermia",
 	description = "Supports any skill that deals damage.",
 	color = 2,
@@ -2306,19 +2149,10 @@ skills["SupportDamageAgainstChilled"] = {
 		["support_hypothermia_cold_damage_over_time_+%_final"] = {
 			mod("ColdDamage", "MORE", nil, 0, KeywordFlag.ColdDot),
 		},
-		["freeze_applies_cold_resistance_+"] = {
-			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "Frozen" }),
-		},
 	},
 	qualityStats = {
 		Default = {
-			{ "chill_duration_+%", 1.5 },
-		},
-		Alternate1 = {
 			{ "additional_chance_to_freeze_chilled_enemies_%", 1 },
-		},
-		Alternate2 = {
-			{ "freeze_applies_cold_resistance_+", -0.2 },
 		},
 	},
 	constantStats = {
@@ -2393,12 +2227,6 @@ skills["SupportImpale"] = {
 		Default = {
 			{ "impale_debuff_effect_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "attacks_impale_on_hit_%_chance", 0.5 },
-		},
-		Alternate2 = {
-			{ "chance_to_inflict_additional_impale_%", 0.25 },
-		},
 	},
 	constantStats = {
 		{ "attacks_impale_on_hit_%_chance", 60 },
@@ -2449,7 +2277,7 @@ skills["SupportImpale"] = {
 		[40] = { 51, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportFrenzyChargeOnSlayingFrozenEnemy"] = {
+skills["SupportIceBite"] = {
 	name = "Ice Bite",
 	description = "Supports any skill you use to hit enemies yourself. Cannot support skills used by totems, traps, or mines.",
 	color = 2,
@@ -2462,13 +2290,7 @@ skills["SupportFrenzyChargeOnSlayingFrozenEnemy"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
 		Default = {
-			{ "damage_+%_vs_frozen_enemies", 1 },
-		},
-		Alternate1 = {
 			{ "damage_+%_per_frenzy_charge", 0.1 },
-		},
-		Alternate2 = {
-			{ "chance_to_gain_frenzy_charge_on_killing_frozen_enemy_%", 1 },
 		},
 	},
 	constantStats = {
@@ -2542,14 +2364,6 @@ skills["SupportLesserMultipleProjectiles"] = {
 	qualityStats = {
 		Default = {
 			{ "projectile_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_mana_cost_-%", 1 },
-			{ "base_life_cost_+%", -1 },
-			{ "base_projectile_speed_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "multiple_projectiles_projectile_spread_+%", 1 },
 		},
 	},
 	constantStats = {
@@ -2626,13 +2440,6 @@ skills["SupportLocusMine"] = {
 	qualityStats = {
 		Default = {
 			{ "mine_laying_speed_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "mine_detonation_speed_+%", 1 },
-		},
-		Alternate2 = {
-			{ "base_reservation_efficiency_+%", -1.5 },
-			{ "number_of_additional_mines_to_place", 0.05 },
 		},
 	},
 	constantStats = {
@@ -2712,12 +2519,6 @@ skills["SupportChanceToPoison"] = {
 		Default = {
 			{ "base_poison_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_poison_duration_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "hit_damage_+%", 1 },
-		},
 	},
 	constantStats = {
 		{ "base_chance_to_poison_on_hit_%", 40 },
@@ -2779,20 +2580,9 @@ skills["SupportManaLeech"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["damage_+%_per_200_mana_spent_recently"] = {
-			mod("Damage", "INC", nil, 0, 0, {type = "Multiplier", div = 200, var = "ManaSpentRecently"})
-		}
-	},
 	qualityStats = {
 		Default = {
 			{ "damage_+%_while_mana_leeching", 0.5 },
-		},
-		Alternate1 = {
-			{ "damage_+%_per_200_mana_spent_recently", 0.5 },
-		},
-		Alternate2 = {
-			{ "mana_gain_per_target", 0.2 },
 		},
 	},
 	stats = {
@@ -2851,23 +2641,9 @@ skills["SupportMarkOnHit"] = {
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
 	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["mark_skills_curse_effect_+%"] = {
-			mod("CurseEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Mark }),
-		},
-		["marked_enemy_damage_taken_+%"] = {
-			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-	},
 	qualityStats = {
 		Default = {
 			{ "mark_skills_curse_effect_+%", 0.25 },
-		},
-		Alternate1 = {
-			{ "base_mana_cost_-%", 0.5 },
-		},
-		Alternate2 = {
-			{ "marked_enemy_damage_taken_+%", 0.25 },
 		},
 	},
 	stats = {
@@ -2917,7 +2693,7 @@ skills["SupportMarkOnHit"] = {
 		[40] = { -13, storedUses = 1, cooldown = 4, levelRequirement = 100, manaMultiplier = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportGemMirageArcher"] = {
+skills["SupportMirageArcher"] = {
 	name = "Mirage Archer",
 	description = "Supports attack skills that can be used with bows. Supported skills can only be used with bows. Cannot support Vaal skills, minion skills, movement skills, or skills used by totems, traps, or mines.",
 	color = 2,
@@ -2938,9 +2714,6 @@ skills["SupportGemMirageArcher"] = {
 		["support_mirage_archer_attack_speed_+%_final"] = {
 			mod("MirageArcherLessAttackSpeed", "BASE", nil),
 		},
-		["mirage_archer_number_of_additional_projectiles"] = {
-			mod("MirageArcherAdditionalProjectileCount", "BASE", nil)
-		},
 		["summon_mirage_archer_on_hit"] = {
 			mod("MirageArcherMaxCount", "BASE", 1),
 		},
@@ -2948,13 +2721,6 @@ skills["SupportGemMirageArcher"] = {
 	qualityStats = {
 		Default = {
 			{ "attack_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "mirage_archer_number_of_additional_projectiles", 0.1 },
-			{ "support_mirage_archer_base_duration", -100 },
-		},
-		Alternate2 = {
-			{ "skill_effect_duration_+%", 1 },
 		},
 	},
 	constantStats = {
@@ -3011,7 +2777,7 @@ skills["SupportGemMirageArcher"] = {
 		[40] = { -22, PvPDamageMultiplier = -35, levelRequirement = 100, manaMultiplier = 30, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportMultiTrap"] = {
+skills["SupportMultipleTraps"] = {
 	name = "Multiple Traps",
 	description = "Supports traps skills, making them throw extra traps in a line.",
 	color = 2,
@@ -3028,12 +2794,6 @@ skills["SupportMultiTrap"] = {
 	qualityStats = {
 		Default = {
 			{ "trap_trigger_radius_+%", 1 },
-		},
-		Alternate1 = {
-			{ "number_of_additional_traps_allowed", 0.1 },
-		},
-		Alternate2 = {
-			{ "support_additional_trap_%_chance_for_1_additional_trap", 0.2 },
 		},
 	},
 	constantStats = {
@@ -3087,7 +2847,7 @@ skills["SupportMultiTrap"] = {
 		[40] = { -45, PvPDamageMultiplier = -20, levelRequirement = 100, manaMultiplier = 40, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportPuncturingWeapon"] = {
+skills["SupportNightblade"] = {
 	name = "Nightblade",
 	description = "Supports attack skills. Cannot support skills which create minions.",
 	color = 2,
@@ -3112,12 +2872,6 @@ skills["SupportPuncturingWeapon"] = {
 	qualityStats = {
 		Default = {
 			{ "critical_strike_chance_+%", 1 },
-		},
-		Alternate1 = {
-			{ "elusive_effect_+%", 1 },
-		},
-		Alternate2 = {
-			{ "critical_strike_chance_against_enemies_on_full_life_+%", 5 },
 		},
 	},
 	constantStats = {
@@ -3187,19 +2941,10 @@ skills["SupportPierce"] = {
 		["support_pierce_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
-		["projectile_damage_+%_if_pierced_enemy"] = {
-			mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "StatThreshold", stat = "PiercedCount", threshold = 1 }),
-		},
 	},
 	qualityStats = {
 		Default = {
 			{ "projectile_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "projectile_base_number_of_targets_to_pierce", 0.1 },
-		},
-		Alternate2 = {
-			{ "projectile_damage_+%_if_pierced_enemy", 2 },
 		},
 	},
 	stats = {
@@ -3270,12 +3015,6 @@ skills["SupportPointBlank"] = {
 		Default = {
 			{ "projectile_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "knockback_chance_%_at_close_range", 2 },
-		},
-		Alternate2 = {
-			{ "projectiles_pierce_all_targets_in_x_range", 1 },
-		},
 	},
 	stats = {
 		"projectile_damage_+%",
@@ -3337,12 +3076,6 @@ skills["SupportCriticalStrikeAffliction"] = {
 		Default = {
 			{ "critical_ailment_dot_multiplier_+", 0.5 },
 		},
-		Alternate1 = {
-			{ "critical_strike_chance_+%", 1 },
-		},
-		Alternate2 = {
-			{ "base_critical_strike_multiplier_+", 0.75 },
-		},
 	},
 	stats = {
 		"critical_ailment_dot_multiplier_+",
@@ -3390,6 +3123,81 @@ skills["SupportCriticalStrikeAffliction"] = {
 		[40] = { 120, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
+skills["SupportRupture"] = {
+	name = "Rupture",
+	description = "Supports attack skills.",
+	color = 2,
+	support = true,
+	requireSkillTypes = { SkillType.Damage, SkillType.Attack, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_rupture_bleeding_damage_taken_+%_final"] = {
+			mod("DamageTaken", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Multiplier", var = "RuptureStack", limit = 3 })
+		},
+		["support_rupture_bleeding_time_passed_+%_final"] = {
+			mod("BleedExpireRate", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Multiplier", var = "RuptureStack", limit = 3 })
+		},
+		["critical_strikes_that_inflict_bleeding_also_rupture"] = {
+			flag("Condition:CanInflictRupture", { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+	qualityStats = {
+		Default = {
+			{ "critical_strike_chance_+%", 1 },
+		},
+	},
+	constantStats = {
+		{ "support_rupture_bleeding_time_passed_+%_final", 25 },
+	},
+	stats = {
+		"support_rupture_bleeding_damage_taken_+%_final",
+		"critical_strikes_that_inflict_bleeding_also_rupture",
+	},
+	levels = {
+		[1] = { 20, manaMultiplier = 40, levelRequirement = 38, statInterpolation = { 1, }, },
+		[2] = { 20, manaMultiplier = 40, levelRequirement = 40, statInterpolation = { 1, }, },
+		[3] = { 21, manaMultiplier = 40, levelRequirement = 42, statInterpolation = { 1, }, },
+		[4] = { 21, manaMultiplier = 40, levelRequirement = 44, statInterpolation = { 1, }, },
+		[5] = { 22, manaMultiplier = 40, levelRequirement = 46, statInterpolation = { 1, }, },
+		[6] = { 22, manaMultiplier = 40, levelRequirement = 48, statInterpolation = { 1, }, },
+		[7] = { 23, manaMultiplier = 40, levelRequirement = 50, statInterpolation = { 1, }, },
+		[8] = { 23, manaMultiplier = 40, levelRequirement = 52, statInterpolation = { 1, }, },
+		[9] = { 24, manaMultiplier = 40, levelRequirement = 54, statInterpolation = { 1, }, },
+		[10] = { 24, manaMultiplier = 40, levelRequirement = 56, statInterpolation = { 1, }, },
+		[11] = { 25, manaMultiplier = 40, levelRequirement = 58, statInterpolation = { 1, }, },
+		[12] = { 25, manaMultiplier = 40, levelRequirement = 60, statInterpolation = { 1, }, },
+		[13] = { 26, manaMultiplier = 40, levelRequirement = 62, statInterpolation = { 1, }, },
+		[14] = { 26, manaMultiplier = 40, levelRequirement = 64, statInterpolation = { 1, }, },
+		[15] = { 27, manaMultiplier = 40, levelRequirement = 65, statInterpolation = { 1, }, },
+		[16] = { 27, manaMultiplier = 40, levelRequirement = 66, statInterpolation = { 1, }, },
+		[17] = { 28, manaMultiplier = 40, levelRequirement = 67, statInterpolation = { 1, }, },
+		[18] = { 28, manaMultiplier = 40, levelRequirement = 68, statInterpolation = { 1, }, },
+		[19] = { 29, manaMultiplier = 40, levelRequirement = 69, statInterpolation = { 1, }, },
+		[20] = { 29, manaMultiplier = 40, levelRequirement = 70, statInterpolation = { 1, }, },
+		[21] = { 30, manaMultiplier = 40, levelRequirement = 72, statInterpolation = { 1, }, },
+		[22] = { 30, manaMultiplier = 40, levelRequirement = 74, statInterpolation = { 1, }, },
+		[23] = { 31, manaMultiplier = 40, levelRequirement = 76, statInterpolation = { 1, }, },
+		[24] = { 31, manaMultiplier = 40, levelRequirement = 78, statInterpolation = { 1, }, },
+		[25] = { 32, manaMultiplier = 40, levelRequirement = 80, statInterpolation = { 1, }, },
+		[26] = { 32, manaMultiplier = 40, levelRequirement = 82, statInterpolation = { 1, }, },
+		[27] = { 33, manaMultiplier = 40, levelRequirement = 84, statInterpolation = { 1, }, },
+		[28] = { 33, manaMultiplier = 40, levelRequirement = 86, statInterpolation = { 1, }, },
+		[29] = { 34, manaMultiplier = 40, levelRequirement = 88, statInterpolation = { 1, }, },
+		[30] = { 34, manaMultiplier = 40, levelRequirement = 90, statInterpolation = { 1, }, },
+		[31] = { 34, manaMultiplier = 40, levelRequirement = 91, statInterpolation = { 1, }, },
+		[32] = { 35, manaMultiplier = 40, levelRequirement = 92, statInterpolation = { 1, }, },
+		[33] = { 35, manaMultiplier = 40, levelRequirement = 93, statInterpolation = { 1, }, },
+		[34] = { 35, manaMultiplier = 40, levelRequirement = 94, statInterpolation = { 1, }, },
+		[35] = { 35, manaMultiplier = 40, levelRequirement = 95, statInterpolation = { 1, }, },
+		[36] = { 36, manaMultiplier = 40, levelRequirement = 96, statInterpolation = { 1, }, },
+		[37] = { 36, manaMultiplier = 40, levelRequirement = 97, statInterpolation = { 1, }, },
+		[38] = { 36, manaMultiplier = 40, levelRequirement = 98, statInterpolation = { 1, }, },
+		[39] = { 36, manaMultiplier = 40, levelRequirement = 99, statInterpolation = { 1, }, },
+		[40] = { 37, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
+	},
+}
 skills["SupportSadism"] = {
 	name = "Sadism",
 	description = "Supports any skill that hits enemies.",
@@ -3407,13 +3215,6 @@ skills["SupportSadism"] = {
 	qualityStats = {
 		Default = {
 			{ "damage_over_time_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "attack_and_cast_speed_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_all_ailment_duration_+%", -1.5 },
-			{ "dot_multiplier_+", 0.75 },
 		},
 	},
 	stats = {
@@ -3463,7 +3264,7 @@ skills["SupportSadism"] = {
 		[40] = { 94, -80, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportAdditionalCooldown"] = {
+skills["SupportSecondWind"] = {
 	name = "Second Wind",
 	description = "Supports skills with cooldowns.\nCannot support triggered skills.",
 	color = 2,
@@ -3475,13 +3276,6 @@ skills["SupportAdditionalCooldown"] = {
 	qualityStats = {
 		Default = {
 			{ "base_cooldown_speed_+%", 0.25 },
-		},
-		Alternate1 = {
-			{ "support_added_cooldown_count_if_not_instant", 0.05 },
-			{ "base_cooldown_speed_+%", -0.5 },
-		},
-		Alternate2 = {
-			{ "recover_permyriad_life_on_skill_use", 5 },
 		},
 	},
 	constantStats = {
@@ -3549,19 +3343,10 @@ skills["SupportSlowerProjectiles"] = {
 		["support_slower_projectiles_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
-		["projectile_damage_+%_vs_nearby_enemies"] = {
-			mod("Damage", "INC", nil, ModFlag.Projectile)
-		},
 	},
 	qualityStats = {
 		Default = {
 			{ "projectile_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "projectile_damage_+%_vs_nearby_enemies", 0.75 },
-		},
-		Alternate2 = {
-			{ "projectile_chance_to_not_pierce_%", 3 },
 		},
 	},
 	stats = {
@@ -3611,7 +3396,7 @@ skills["SupportSlowerProjectiles"] = {
 		[40] = { -37, 27, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportRapidDecay"] = {
+skills["SupportSwiftAffliction"] = {
 	name = "Swift Affliction",
 	description = "Supports any skill that has a duration, or can hit enemies to inflict ailments on them.",
 	color = 2,
@@ -3628,12 +3413,6 @@ skills["SupportRapidDecay"] = {
 	qualityStats = {
 		Default = {
 			{ "damage_over_time_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_projectile_speed_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "you_and_enemy_movement_velocity_+%_while_affected_by_ailment_you_inflicted", 1 },
 		},
 	},
 	constantStats = {
@@ -3698,12 +3477,6 @@ skills["SupportReturningProjectiles"] = {
 		Default = {
 			{ "base_projectile_speed_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "projectile_additional_return_chance_%", 1 },
-		},
-		Alternate2 = {
-			{ "projectile_base_number_of_targets_to_pierce", 0.05 },
-		},
 	},
 	stats = {
 		"support_return_returning_projectiles_damage_+%_final",
@@ -3753,7 +3526,7 @@ skills["SupportReturningProjectiles"] = {
 		[40] = { -53, manaMultiplier = 50, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportSwiftAfflictionPlus"] = {
+skills["SupportAwakenedSwiftAffliction"] = {
 	name = "Awakened Swift Affliction",
 	description = "Supports any skill that has a duration, or can hit enemies to inflict ailments on them.",
 	color = 2,
@@ -3761,7 +3534,7 @@ skills["SupportSwiftAfflictionPlus"] = {
 	requireSkillTypes = { SkillType.Duration, SkillType.ThresholdJewelDuration, SkillType.Damage, SkillType.Attack, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
-	plusVersionOf = "SupportRapidDecay",
+	plusVersionOf = "SupportSwiftAffliction",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_rapid_decay_damage_over_time_+%_final"] = {
@@ -3802,7 +3575,7 @@ skills["SupportSwiftAfflictionPlus"] = {
 		[20] = { 57, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportAdditionalTrapMine"] = {
+skills["SupportSwiftAssembly"] = {
 	name = "Swift Assembly",
 	description = "Supports skills which throw Traps or Mines.",
 	color = 2,
@@ -3813,15 +3586,8 @@ skills["SupportAdditionalTrapMine"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
 		Default = {
-			{ "mine_laying_speed_+%", 0.5 },
-			{ "trap_throwing_speed_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "trap_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "trap_throwing_speed_+%_per_frenzy_charge", 0.1 },
-			{ "mine_throwing_speed_+%_per_frenzy_charge", 0.1 },
+			{ "mine_laying_speed_+%", 0.25 },
+			{ "trap_throwing_speed_+%", 0.25 },
 		},
 	},
 	constantStats = {
@@ -3896,13 +3662,7 @@ skills["SupportTrap"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "trap_throwing_speed_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "damage_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "trap_trigger_radius_+%", 1 },
+			{ "trap_damage_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -3916,6 +3676,7 @@ skills["SupportTrap"] = {
 		"disable_skill_if_melee_attack",
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_trap",
+		"quality_display_trap_duration_is_gem",
 	},
 	levels = {
 		[1] = { 0, -20, PvPDamageMultiplier = -10, levelRequirement = 8, manaMultiplier = 20, statInterpolation = { 1, 1, }, },
@@ -3960,7 +3721,7 @@ skills["SupportTrap"] = {
 		[40] = { 39, 9, PvPDamageMultiplier = -10, levelRequirement = 100, manaMultiplier = 20, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportTrapCooldown"] = {
+skills["SupportAdvancedTraps"] = {
 	name = "Advanced Traps",
 	description = "Supports skills which throw traps.",
 	color = 2,
@@ -3972,12 +3733,6 @@ skills["SupportTrapCooldown"] = {
 	qualityStats = {
 		Default = {
 			{ "trap_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 1 },
-		},
-		Alternate2 = {
-			{ "skill_effect_duration_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -4054,14 +3809,6 @@ skills["SupportTrapAndMineDamage"] = {
 		Default = {
 			{ "damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_mana_cost_-%", 0.5 },
-			{ "base_life_cost_+%", -0.5 },
-			{ "base_reservation_efficiency_+%", 1 },
-		},
-		Alternate2 = {
-			{ "damage_+%_per_power_charge", 0.1 },
-		},
 	},
 	constantStats = {
 		{ "support_trap_and_mine_damage_trap_throwing_speed_+%_final", -10 },
@@ -4113,7 +3860,7 @@ skills["SupportTrapAndMineDamage"] = {
 		[40] = { 64, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportPhysicalProjectileAttackDamage"] = {
+skills["SupportViciousProjectiles"] = {
 	name = "Vicious Projectiles",
 	description = "Supports projectile attack skills.",
 	color = 2,
@@ -4139,13 +3886,6 @@ skills["SupportPhysicalProjectileAttackDamage"] = {
 	qualityStats = {
 		Default = {
 			{ "physical_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "bleed_on_hit_with_attacks_%", 0.5 },
-			{ "base_chance_to_poison_on_hit_%", 0.5 },
-		},
-		Alternate2 = {
-			{ "attacks_impale_on_hit_%_chance", 0.5 },
 		},
 	},
 	constantStats = {
@@ -4199,7 +3939,7 @@ skills["SupportPhysicalProjectileAttackDamage"] = {
 		[40] = { 64, 64, 64, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, 1, }, },
 	},
 }
-skills["SupportViciousProjectilesPlus"] = {
+skills["SupportAwakenedViciousProjectiles"] = {
 	name = "Awakened Vicious Projectiles",
 	description = "Supports projectile attack skills.",
 	color = 2,
@@ -4207,7 +3947,7 @@ skills["SupportViciousProjectilesPlus"] = {
 	requireSkillTypes = { SkillType.RangedAttack, SkillType.ThresholdJewelRangedAttack, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
-	plusVersionOf = "SupportPhysicalProjectileAttackDamage",
+	plusVersionOf = "SupportViciousProjectiles",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_projectile_attack_speed_+%_final"] = {
@@ -4259,7 +3999,7 @@ skills["SupportViciousProjectilesPlus"] = {
 		[20] = { 67, 67, 67, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, 1, }, },
 	},
 }
-skills["SupportDebilitate"] = {
+skills["SupportVileToxins"] = {
 	name = "Vile Toxins",
 	description = "Supports any skill that hits enemies.",
 	color = 2,
@@ -4281,13 +4021,7 @@ skills["SupportDebilitate"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_poison_damage_+%", 1 },
-		},
-		Alternate1 = {
-			{ "base_poison_duration_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "faster_poison_%", 0.25 },
+			{ "base_poison_damage_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -4358,12 +4092,6 @@ skills["SupportVoidManipulation"] = {
 		Default = {
 			{ "chaos_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_life_leech_from_chaos_damage_permyriad", 2 },
-		},
 	},
 	stats = {
 		"support_void_manipulation_chaos_damage_+%_final",
@@ -4412,7 +4140,7 @@ skills["SupportVoidManipulation"] = {
 		[40] = { 45, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportVoidManipulationPlus"] = {
+skills["SupportAwakenedVoidManipulation"] = {
 	name = "Awakened Void Manipulation",
 	description = "Supports any skill that deals damage.",
 	color = 2,
@@ -4460,14 +4188,14 @@ skills["SupportVoidManipulationPlus"] = {
 		[20] = { 47, 1, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportParallelProjectiles"] = {
+skills["SupportVolley"] = {
 	name = "Volley",
-	description = "Supports skills that fire projectiles from the user. Does not affect projectiles fired from other locations as secondary effects.",
+	description = "Supports skills that fire projectiles from the user. Does not affect projectiles fired from other locations as secondary effects. Does not support skills that fire projectiles in a spiral.",
 	color = 2,
 	support = true,
 	requireSkillTypes = { SkillType.ProjectilesFromUser, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.ProjectileSpiral, SkillType.SingleMainProjectile, SkillType.ProjectilesNotFromUser, SkillType.ProjectilesNotFired, },
+	excludeSkillTypes = { SkillType.ProjectileSpiral, SkillType.SingleMainProjectile, SkillType.ProjectilesNotFromUser, SkillType.ProjectilesNotFired, SkillType.NoVolley, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_parallel_projectiles_damage_+%_final"] = {
@@ -4476,13 +4204,7 @@ skills["SupportParallelProjectiles"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "projectile_damage_+%", 1 },
-		},
-		Alternate1 = {
-			{ "parallel_projectile_firing_point_x_dist_+%", 1 },
-		},
-		Alternate2 = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
+			{ "projectile_damage_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -4536,7 +4258,7 @@ skills["SupportParallelProjectiles"] = {
 		[40] = { 5, PvPDamageMultiplier = -10, levelRequirement = 100, manaMultiplier = 30, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportChaosAttacks"] = {
+skills["SupportWitheringTouch"] = {
 	name = "Withering Touch",
 	description = "Supports attack skills.",
 	color = 2,
@@ -4548,12 +4270,6 @@ skills["SupportChaosAttacks"] = {
 	qualityStats = {
 		Default = {
 			{ "chaos_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "skill_effect_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "wither_applies_additional_wither_%", 1 },
 		},
 	},
 	constantStats = {
@@ -4637,12 +4353,6 @@ skills["SupportManaforgedArrows"] = {
 		Default = {
 			{ "base_cooldown_speed_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_mana_cost_-%", 1 },
-		},
-		Alternate2 = {
-			{ "support_manaforged_arrows_mana_cost_%_threshold", -2.5 },
-		},
 	},
 	constantStats = {
 		{ "triggered_by_manaforged_arrows_support_%_chance", 100 },
@@ -4724,12 +4434,6 @@ skills["SupportMomentum"] = {
 	qualityStats = {
 		Default = {
 			{ "support_momentum_base_buff_duration_ms", 25 },
-		},
-		Alternate1 = {
-			{ "support_momentum_movement_speed_+%_per_stack_removed", 0.1 },
-		},
-		Alternate2 = {
-			{ "support_momentum_stack_while_channelling_base_ms", -5 },
 		},
 	},
 	constantStats = {

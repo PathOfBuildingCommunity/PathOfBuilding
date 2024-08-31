@@ -68,6 +68,7 @@ Implicits: 1
 ]],[[
 The Ascetic
 Gold Amulet
+Source: No longer obtainable
 Requires Level 8
 Implicits: 1
 (12-20)% increased Rarity of Items found
@@ -78,7 +79,7 @@ Ashes of the Stars
 Onyx Amulet
 Variant: Pre 3.23.0
 Variant: Current
-Source: Drops from unique{The Eater of Worlds}
+Source: Drops from unique{The Eater of Worlds} (Uber)
 Requires Level 60
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
@@ -197,6 +198,8 @@ Implicits: 1
 ]],[[
 Eternal Damnation
 Agate Amulet
+Variant: Pre 3.25.0
+Variant: Current
 League: Sanctum
 Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
 LevelReq: 52
@@ -206,6 +209,7 @@ Implicits: 1
 {tags:jewellery_resistance}+(-13-13)% to Chaos Resistance
 {tags:jewellery_resistance}-5% to all maximum Resistances
 Gain additional Elemental Damage Reduction equal to half your Chaos Resistance
+{variant:2}Maximum Endurance, Frenzy and Power Charges is 0
 ]],[[
 Badge of the Brotherhood
 Turquoise Amulet
@@ -218,12 +222,27 @@ League: Blight
 (20-25)% chance to lose a Frenzy Charge when you use a Travel Skill
 (20-25)% chance to lose a Power Charge when you gain Elusive
 Your Maximum Frenzy Charges is equal to your Maximum Power Charges
+]],
+[[
+Replica Badge of the Brotherhood
+Turquoise Amulet
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Requires Level: 60
+Implicits: 1
+{tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
+Your Maximum Endurance Charges is equal to your Maximum Frenzy Charges
+(20-25)% chance to lose a Frenzy Charge when you use a Travel Skill
+(7-10)% increased Cooldown Recovery of Travel Skills per Frenzy Charge
++1 to Maximum Fortification per Endurance Charge
+(20-25)% chance to lose an Endurance Charge when you gain Fortification
 ]],[[
 Bisco's Collar
 Gold Amulet
 Variant: Pre 3.0.0
 Variant: Pre 3.2.0
 Variant: Current
+Source: No longer obtainable
 Requires Level 30
 Implicits: 1
 (12-20)% increased Rarity of Items found
@@ -298,7 +317,7 @@ Extra Gore
 ]],[[
 Crystallised Omniscience
 Onyx Amulet
-Source: Drops from unique{The Searing Exarch}
+Source: Drops from unique{The Searing Exarch} (Uber)
 Requires Level 61
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
@@ -322,6 +341,8 @@ Implicits: 1
 ]],[[
 Defiance of Destiny
 Paua Amulet
+Variant: Pre 3.25.0
+Variant: Current
 LevelReq: 49
 Implicits: 1
 {tags:mana}(20-30)% increased Mana Regeneration Rate
@@ -329,7 +350,8 @@ Implicits: 1
 {tags:jewellery_resistance}+(10-40)% to Fire Resistance
 {tags:jewellery_resistance}+(10-40)% to Cold Resistance
 {tags:jewellery_resistance}+(10-40)% to Lightning Resistance
-{tags:life}Gain (25-35)% of Missing Unreserved Life before being Hit by an Enemy
+{variant:1}{tags:life}Gain (25-35)% of Missing Unreserved Life before being Hit by an Enemy
+{variant:2}{tags:life}Gain (10-20)% of Missing Unreserved Life before being Hit by an Enemy
 ]],[[
 The Ephemeral Bond
 Lapis Amulet
@@ -342,6 +364,17 @@ Implicits: 1
 {tags:critical}+(30-40)% to Critical Strike Multiplier if you've gained a Power Charge Recently
 {tags:jewellery_elemental}(1-2) to (36-40) Lightning Damage per Power Charge
 90% less Power Charge Duration
+]],[[
+The Untouched Soul
+Gold Amulet
+League: Affliction
+Requires Level 48
+Implicits: 1
+(12-20)% increased Rarity of Items found
+{tags:life}+40 to maximum Life for each Empty Red Socket on any Equipped Item
+{tags:attack}+225 to Accuracy Rating for each Empty Green Socket on any Equipped Item
+{tags:mana}+40 to maximum Mana for each Empty Blue Socket on any Equipped Item
+{tags:jewellery_resistance}+18% to all Elemental Resistances for each Empty White Socket on any Equipped Item
 ]],[[
 Doedre's Tongue
 Lapis Amulet
@@ -362,8 +395,8 @@ Implicits: 1
 {tags:jewellery_attribute}+(30-50) to Strength
 5% chance to grant Unholy Might to nearby Enemies on Kill
 5% chance to grant Onslaught to nearby Enemies on Kill
-{variant:1}5% chance to gain Unholy Might for 10 seconds on Kill
-{variant:2}10% chance to gain Unholy Might for 10 seconds on Kill
+{variant:1}5% chance to gain Chaotic Might for 10 seconds on Kill
+{variant:2}10% chance to gain Chaotic Might for 10 seconds on Kill
 {variant:1}5% chance to gain Onslaught for 10 seconds on Kill
 {variant:2}10% chance to gain Onslaught for 10 seconds on Kill
 {tags:life}Recover 1% of Life on Kill
@@ -420,7 +453,7 @@ Variant: Chance to Freeze, Shock and Ignite
 Variant: Crit Chance
 Variant: Area of Effect
 Variant: Attack/Cast Speed
-Variant: Item Quantity
+Variant: Item Quantity (Pre 3.25.0)
 Variant: Life
 Variant: Crit Multiplier
 Variant: Maximum number of Raised Zombies
@@ -436,6 +469,7 @@ Variant: Lightning taken as Cold
 Variant: Lightning taken as Fire
 Variant: Gain Physical as random Element
 Variant: Extra Pierces
+Variant: Damage over Time Multiplier
 Implicits: 32
 {variant:1}(24-32)% increased Attributes
 {variant:2}(30-50)% increased Global Defences
@@ -469,6 +503,7 @@ Implicits: 32
 {variant:30}100% of Lightning Damage from Hits taken as Fire Damage
 {variant:31}Gain (12-24)% of Physical Damage as Extra Damage of a random Element
 {variant:32}Projectiles Pierce (4-6) additional Targets
+{variant:33}(24-36)% Damage over Time Multiplier
 Implicit Modifier magnitudes are doubled
 ]],[[
 The Felbog Fang
@@ -558,6 +593,16 @@ Implicits: 1
 {variant:1}(12-20)% chance to Suppress Spell Damage
 {variant:2}Prevent +3% of Suppressed Spell Damage
 Cannot be Blinded
+]],[[
+Replica Hinekora's Sight
+Onyx Amulet
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+{tags:jewellery_attribute}+(10–16) to all Attributes
+{tags:attack}+(600–1000) to Accuracy Rating
+{tags:jewellery_defense}+(600–1000) to Armour
+{tags:jewellery_resistance}+1% to all maximum Elemental Resistances
+You cannot be Maimed
 ]],[[
 Hyrri's Truth
 Jade Amulet
@@ -861,9 +906,9 @@ Variant: Pre 3.23.0
 Variant: Current
 LevelReq: 56
 Implicits: 1
-+(10-16) to all Attributes
-{variant:1}+(10-15)% to all Elemental Resistances
-{variant:2}+(5-10)% to all Elemental Resistances
+{tags: jewellery_attribute}+(10-16) to all Attributes
+{variant:1}{tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
+{variant:2}{tags:jewellery_resistance}+(5-10)% to all Elemental Resistances
 +3 to Level of all Spark Gems
 {variant:1}(10-15)% increased Reservation Efficiency of Skills
 {variant:2}(5-10)% increased Reservation Efficiency of Skills
@@ -1086,6 +1131,18 @@ Implicits: 1
 40% increased Stun and Block Recovery
 Your Critical Strikes do not deal extra Damage
 ]],[[
+The Utmost
+Gold Amulet
+Source: Created from unique{Primordial Fragments} obtained from Uber bosses
+Requires Level 8
+Implicits: 1
+(12–20)% increased Rarity of Items found
++(0–30)% chance to Suppress Spell Damage
+{tags:jewellery_resistance}+(0–5)% to all maximum Elemental Resistances
+{tags:caster,attack,speed}(0–40)% increased Attack and Cast Speed
+{tags:jewellery_elemental}Damage Penetrates (0–20)% Elemental Resistances
+Corrupted
+]],[[
 Uul-Netol's Vow
 Unset Amulet
 Source: Drops from unique{Breachlord} in a normal{Flawless Breachstone}
@@ -1259,6 +1316,8 @@ Avatar of Fire
 ]],[[
 Yoke of Suffering
 Onyx Amulet
+Variant: Pre 3.24.0
+Variant: Current
 Requires Level 70
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
@@ -1267,7 +1326,8 @@ Implicits: 1
 {tags:jewellery_resistance}+(20-40)% to Lightning Resistance
 30% reduced Duration of Ailments on Enemies
 (5-10)% chance to Shock
-Enemies take 5% increased Damage for each type of Ailment you have inflicted on them
+{variant:1}Enemies take 5% increased Damage for each type of Ailment you have inflicted on them
+{variant:2}Enemies take (5-10)% increased Damage for each type of Ailment you have inflicted on them
 Your Elemental Damage can Shock
 ]],[[
 The Eternal Struggle

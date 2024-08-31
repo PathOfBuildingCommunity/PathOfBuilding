@@ -13,7 +13,7 @@ local realmList = {
 	{ label = "PC", id = "PC", realmCode = "pc", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
 	{ label = "Xbox", id = "XBOX", realmCode = "xbox", hostName = "https://www.pathofexile.com/", profileURL = "account/xbox/view-profile/" },
 	{ label = "PS4", id = "SONY", realmCode = "sony", hostName = "https://www.pathofexile.com/", profileURL = "account/sony/view-profile/" },
-	{ label = "Garena", id = "PC", realmCode = "pc", hostName = "https://web.poe.garena.tw/", profileURL = "account/view-profile/" },
+	{ label = "Hotcool", id = "PC", realmCode = "pc", hostName = "https://pathofexile.tw/", profileURL = "account/view-profile/" },
 	{ label = "Tencent", id = "PC", realmCode = "pc", hostName = "https://poe.game.qq.com/", profileURL = "account/view-profile/" },
 }
 
@@ -297,12 +297,12 @@ You can get this from your web browser's cookies while logged into the Path of E
 		if self.controls.importCodeMode.selIndex == 1 then
 			main:OpenConfirmPopup("Build Import", colorCodes.WARNING.."Warning:^7 Importing to the current build will erase ALL existing data for this build.", "Import", function()
 				self.build:Shutdown()
-				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML)
+				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML, false, self.importCodeSite and self.controls.importCodeIn.buf or nil)
 				self.build.viewMode = "TREE"
 			end)
 		else
 			self.build:Shutdown()
-			self.build:Init(false, "Imported build", self.importCodeXML)
+			self.build:Init(false, "Imported build", self.importCodeXML, false, self.importCodeSite and self.controls.importCodeIn.buf or nil)
 			self.build.viewMode = "TREE"
 		end
 	end
@@ -357,6 +357,7 @@ function ImportTabClass:Load(xml, fileName)
 	self.lastRealm = xml.attrib.lastRealm
 	self.controls.accountRealm:SelByValue( self.lastRealm or main.lastRealm or "PC", "id" )
 	self.lastAccountHash = xml.attrib.lastAccountHash
+	self.importLink = xml.attrib.importLink
 	self.controls.enablePartyExportBuffs.state = xml.attrib.exportParty == "true"
 	self.build.partyTab.enableExportBuffs = self.controls.enablePartyExportBuffs.state
 	if self.lastAccountHash then
@@ -375,7 +376,14 @@ function ImportTabClass:Save(xml)
 		lastAccountHash = self.lastAccountHash,
 		lastCharacterHash = self.lastCharacterHash,
 		exportParty = tostring(self.controls.enablePartyExportBuffs.state),
+		importLink = self.importLink
 	}
+
+	if self.build.importLink then
+		xml.attrib.importLink = self.build.importLink
+	end
+	-- Gets rid of erroneous, potentially infinitely nested full base64 XML stored as an import link
+	xml.attrib.importLink = (xml.attrib.importLink and xml.attrib.importLink:len() < 100) and xml.attrib.importLink or nil 
 end
 
 function ImportTabClass:Draw(viewPort, inputEvents)
@@ -394,9 +402,14 @@ end
 function ImportTabClass:DownloadCharacterList()
 	self.charImportMode = "DOWNLOADCHARLIST"
 	self.charImportStatus = "Retrieving character list..."
-	  -- Trim Trailing/Leading spaces
-	local accountName = self.controls.accountName.buf:gsub('%s+', '')
 	local realm = realmList[self.controls.accountRealm.selIndex]
+	local accountName
+	-- Handle spaces in the account name
+	if realm.realmCode == "pc" then
+		accountName = self.controls.accountName.buf:gsub("%s+", "")
+	else
+		accountName = self.controls.accountName.buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", ""):gsub("%s", "+")
+	end
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(response, errMsg)
 		if errMsg == "Response code: 401" then
@@ -473,7 +486,7 @@ function ImportTabClass:DownloadCharacterList()
 				self.controls.charSelectLeague.selIndex = 1
 			end
 			self.lastCharList = charList
-			self:BuildCharacterList(self.controls.charSelectLeague:GetSelValue("league"))
+			self:BuildCharacterList(self.controls.charSelectLeague:GetSelValueByKey("league"))
 
 			-- We only get here if the accountname was correct, found, and not private, so add it to the account history.
 			self:SaveAccountHistory()
@@ -485,9 +498,45 @@ function ImportTabClass:BuildCharacterList(league)
 	wipeTable(self.controls.charSelect.list)
 	for i, char in ipairs(self.lastCharList) do
 		if not league or char.league == league then
+			charLvl = char.level or 0
+			charLeague = char.league or "?"
+			charName = char.name or "?"
+			charClass = char.class or "?"
+
+			classColor = colorCodes.DEFAULT
+			if charClass ~= "?" then
+				classColor = colorCodes[charClass:upper()]
+
+				if classColor == nil then
+					if (charClass == "Elementalist" or charClass == "Necromancer" or charClass == "Occultist") then
+						classColor = colorCodes["WITCH"]
+					elseif (charClass == "Guardian" or charClass == "Inquisitor" or charClass == "Hierophant") then
+						classColor = colorCodes["TEMPLAR"]
+					elseif (charClass == "Assassin" or charClass == "Trickster" or charClass == "Saboteur") then
+						classColor = colorCodes["SHADOW"]
+					elseif (charClass == "Gladiator" or charClass == "Slayer" or charClass == "Champion") then
+						classColor = colorCodes["DUELIST"]
+					elseif (charClass == "Raider" or charClass == "Pathfinder" or charClass == "Deadeye") then
+						classColor = colorCodes["RANGER"]
+					elseif (charClass == "Juggernaut" or charClass == "Berserker" or charClass == "Chieftain") then
+						classColor = colorCodes["MARAUDER"]
+					elseif (charClass == "Ascendant") then
+						classColor = colorCodes["SCION"]
+					end
+				end
+			end
+
+			local detail
+			if league == nil then
+				detail = string.format("%s%s ^x808080lvl %d in %s", classColor, charClass, charLvl, charLeague)
+			else
+				detail = string.format("%s%s ^x808080lvl %d", classColor, charClass, charLvl)
+			end
 			t_insert(self.controls.charSelect.list, {
-				label = string.format("%s: Level %d %s in %s", char.name or "?", char.level or 0, char.class or "?", char.league or "?"),
+				label = charName,
 				char = char,
+				searchFilter = charName.." "..charClass,
+				detail = detail
 			})
 		end
 	end
@@ -601,6 +650,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	if self.controls.charImportTreeClearJewels.state then
 		for _, slot in pairs(self.build.itemsTab.slots) do
 			if slot.selItemId ~= 0 and slot.nodeId then
+				self.build.itemsTab.build.spec.ignoreAllocatingSubgraph = true -- ignore allocated cluster nodes on Import when Delete Jewel is true, clean slate
 				self.build.itemsTab:DeleteItem(self.build.itemsTab.items[slot.selItemId])
 			end
 		end
@@ -610,21 +660,8 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
-	for classId, class in pairs(self.build.spec.tree.classes) do
-		if charData.class == class.name then
-			charData.classId = classId
-			charData.ascendancyClass = 0
-			break
-		end
-		for ascendId, ascendancyClass in pairs(class.ascendancies) do
-			if charData.class == ascendancyClass.name then
-				charData.classId = classId
-				charData.ascendancyClass = ascendId
-				break
-			end
-		end
-	end
-	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, 0, charPassiveData.hashes, charPassiveData.skill_overrides, charPassiveData.mastery_effects or {}, latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or ""))
+
+	self.build.spec:ImportFromNodeList(charPassiveData.character, charPassiveData.ascendancy, charPassiveData.alternate_ascendancy or 0, charPassiveData.hashes, charPassiveData.skill_overrides, charPassiveData.mastery_effects or {}, latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or ""))
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.characterLevelAutoMode = false
@@ -753,8 +790,8 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	-- Determine rarity, display name and base type of the item
 	item.rarity = rarityMap[itemData.frameType]
 	if #itemData.name > 0 then
-		item.title = itemLib.sanitiseItemText(itemData.name)
-		item.baseName = itemLib.sanitiseItemText(itemData.typeLine):gsub("Synthesised ","")
+		item.title = sanitiseText(itemData.name)
+		item.baseName = sanitiseText(itemData.typeLine):gsub("Synthesised ","")
 		item.name = item.title .. ", " .. item.baseName
 		if item.baseName == "Two-Toned Boots" then
 			-- Hack for Two-Toned Boots
@@ -767,7 +804,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			ConPrintf("Unrecognised base in imported item: %s", item.baseName)
 		end
 	else
-		item.name = itemLib.sanitiseItemText(itemData.typeLine)
+		item.name = sanitiseText(itemData.typeLine)
 		if item.name:match("Energy Blade") then
 			local oneHanded = false
 			for _, p in ipairs(itemData.properties) do
@@ -817,7 +854,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	if itemData.ilvl > 0 then
 		item.itemLevel = itemData.ilvl
 	end
-	if item.base.weapon or item.base.armour or item.base.flask then
+	if item.base.weapon or item.base.armour or item.base.flask or item.base.tincture then
 		item.quality = 0
 	end
 	if itemData.properties then
@@ -1001,12 +1038,14 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			abyssalSocketId = abyssalSocketId + 1
 		else
 			local normalizedBasename, qualityType = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.typeLine, nil)
-			local gemId = self.build.data.gemForBaseName[normalizedBasename]
-			if not gemId and socketedItem.hybrid then
-				-- Dual skill gems (currently just Stormbind) show the second skill as the typeLine, which won't match the actual gem
-				-- Luckily the primary skill name is also there, so we can find the gem using that
+			local gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
+			if socketedItem.hybrid then
+				-- Used by transfigured gems and dual-skill gems (currently just Stormbind) 
 				normalizedBasename, qualityType  = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.hybrid.baseTypeName, nil)
-				gemId = self.build.data.gemForBaseName[normalizedBasename]
+				gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
+				if gemId and socketedItem.hybrid.isVaalGem then
+					gemId = self.build.data.gemGrantedEffectIdForVaalGemId[self.build.data.gems[gemId].grantedEffectId]
+				end
 			end
 			if gemId then
 				local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true, gemId = gemId }

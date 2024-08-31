@@ -15,7 +15,7 @@ local s_format = string.format
 ---@param node table
 ---@return boolean
 local function IsAnointableNode(node)
-	return node.type == "Notable" and node.recipe and #node.recipe >= 1
+	return node.recipe and #node.recipe >= 1
 end
 
 ---@class NotableDBControl : ListControl

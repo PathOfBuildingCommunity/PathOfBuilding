@@ -269,3 +269,13 @@ itemBases["Solarine Bow"] = {
 	weapon = { PhysicalMin = 16, PhysicalMax = 24, CritChanceBase = 5.5, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 70, dex = 212, },
 }
+itemBases["Ethereal Bow"] = {
+	type = "Bow",
+	hidden = true,
+	socketLimit = 6,
+	tags = { two_hand_weapon = true, not_for_sale = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
+	implicitModTypes = { },
+	weapon = { PhysicalMin = 5, PhysicalMax = 9, CritChanceBase = 6, AttackRateBase = 1.5, Range = 120, },
+	req = { dex = 14, },
+}

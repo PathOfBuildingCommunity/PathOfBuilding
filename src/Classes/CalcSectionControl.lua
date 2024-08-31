@@ -238,10 +238,14 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 		if not self.enabled then
 			DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", "^8"..subSec.label)
 		else
-			DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", "^7"..subSec.label..":")
+			local textColor = "^7"
+			if self.calcsTab:SearchMatch(subSec.label) then
+				textColor = colorCodes.HIGHLIGHT
+			end
+			DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", textColor..subSec.label..":")
 			if subSec.data.extra then
 				local x = x + 3 + DrawStringWidth(16, "VAR BOLD", subSec.label) + 10
-				DrawString(x, lineY + 3, "LEFT", 16, "VAR", self:FormatStr(subSec.data.extra, actor))
+				DrawString(x, lineY + 3, "LEFT", 16, "VAR", "^7"..self:FormatStr(subSec.data.extra, actor))
 			end
 		end
 		-- Draw line below label
@@ -258,46 +262,54 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 				primary = false
 			end
 		else
-			lineY = lineY + 22
+			lineY = lineY + 20
 			primary = false
+			local rows = 0;
 			for _, rowData in ipairs(subSec.data) do
 				if rowData.enabled then
+					rows = rows + 1
 					local textColor = "^7"
 					if rowData.color then
 						textColor = rowData.color
 					end
 					if rowData.label then
-						-- Draw row label with background
 						SetDrawColor(rowData.bgCol or "^0")
-						DrawImage(nil, x + 2, lineY, 130, 18)
-						DrawString(x + 132, lineY + 1, "RIGHT_X", 16, "VAR", textColor..rowData.label.."^7:")
+						DrawImage(nil, x + 2, lineY + 2, 130, 18)
+						if self.calcsTab:SearchMatch(rowData.label) then
+							textColor = colorCodes.HIGHLIGHT
+						end
+						DrawString(x + 132, lineY + 2, "RIGHT_X", 16, "VAR", textColor..rowData.label.."^7:")
 					end
 					for colour, colData in ipairs(rowData) do
 						-- Draw column separator at the left end of the cell
 						SetDrawColor(self.colour)
-						DrawImage(nil, colData.x, lineY, 2, colData.height)
+						DrawImage(nil, colData.x, lineY + 2, 2, colData.height)
 						if colData.format and self.calcsTab:CheckFlag(colData) then
 							if cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height and cursorX >= colData.x and cursorY >= colData.y and cursorX < colData.x + colData.width and cursorY < colData.y + colData.height then
-						self.calcsTab:SetDisplayStat(colData)
+								self.calcsTab:SetDisplayStat(colData)
+							end
+							if self.calcsTab.displayData == colData then
+								-- This is the display stat, draw a green border around this cell
+								SetDrawColor(0.25, 1, 0.25)
+								DrawImage(nil, colData.x + 2, colData.y, colData.width - 2, colData.height)
+								SetDrawColor(rowData.bgCol or "^0")
+								DrawImage(nil, colData.x + 3, colData.y + 1, colData.width - 4, colData.height - 2)
+							else
+								SetDrawColor(rowData.bgCol or "^0")
+								DrawImage(nil, colData.x + 2, colData.y, colData.width - 2, colData.height)
+							end
+							local textSize = rowData.textSize or 14
+							SetViewport(colData.x + 3, colData.y, colData.width - 4, colData.height)
+							DrawString(1, 9 - textSize/2, "LEFT", textSize, "VAR", "^7"..self:FormatStr(colData.format, actor, colData))
+							SetViewport()
+						end
 					end
-					if self.calcsTab.displayData == colData then
-						-- This is the display stat, draw a green border around this cell
-						SetDrawColor(0.25, 1, 0.25)
-						DrawImage(nil, colData.x + 2, colData.y, colData.width - 2, colData.height)
-						SetDrawColor(rowData.bgCol or "^0")
-						DrawImage(nil, colData.x + 3, colData.y + 1, colData.width - 4, colData.height - 2)
-					else
-						SetDrawColor(rowData.bgCol or "^0")
-						DrawImage(nil, colData.x + 2, colData.y, colData.width - 2, colData.height)
-					end
-					local textSize = rowData.textSize or 14
-					SetViewport(colData.x + 3, colData.y, colData.width - 4, colData.height)
-					DrawString(1, 9 - textSize/2, "LEFT", textSize, "VAR", "^7"..self:FormatStr(colData.format, actor, colData))
-					SetViewport()
+					lineY = lineY + 18
 				end
 			end
-			lineY = lineY + 18
-				end
+			-- If there's at least one enabled row in this subsection, offset by the border for the subsection label
+			if rows > 0 then
+				lineY = lineY + 2
 			end
 		end
 	end

@@ -186,7 +186,7 @@ Skills Chain +1 times
 Nebulis
 Void Sceptre
 League: Synthesis
-Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
+Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage
@@ -287,8 +287,8 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 32, 52 Str, 62 Int
 Implicits: 1
 22% increased Elemental Damage
-{variant: 1}Socketed Gems are Supported by Level 1 Elemental Penetration
-{variant: 2}Socketed Gems are Supported by Level 15 Elemental Penetration
+{variant:1}Socketed Gems are Supported by Level 1 Elemental Penetration
+{variant:2}Socketed Gems are Supported by Level 15 Elemental Penetration
 Socketed Gems are Supported by Level 15 Immolate
 Socketed Gems are Supported by Level 15 Unbound Ailments
 Socketed Gems are Supported by Level 15 Ice Bite
@@ -361,24 +361,31 @@ Variant: Pre 3.0.0
 Variant: Pre 3.11.0 (Life/Mana)
 Variant: Pre 3.11.0 (Life/ES)
 Variant: Pre 3.11.0 (Mana/ES)
+Variant: Pre 3.24.0 (Life/Mana)
+Variant: Pre 3.24.0 (Life/ES)
+Variant: Pre 3.24.0 (Mana/ES)
 Variant: Current (Life/Mana)
 Variant: Current (Life/ES)
 Variant: Current (Mana/ES)
 Requires Level 32, 52 Str, 62 Int
 Implicits: 2
 {variant:1}15% increased Elemental Damage
-{variant:2,3,4,5,6,7,8}22% increased Elemental Damage
+{variant:2,3,4,5,6,7,8,9,10,11}22% increased Elemental Damage
 {variant:1,2,3,4,5}(30-50)% increased Global Damage
 {variant:6,7,8}(40-60)% increased Global Damage
+{variant:9,10,11}+2 to Level of All Spell Skill Gems
 {variant:1,2,3,4,5}7% Global chance to Blind Enemies on hit
-{variant:6,7,8}10% Global chance to Blind Enemies on hit
+{variant:6,7,8,9,10,11}10% Global chance to Blind Enemies on hit
 Blind does not affect your Chance to Hit
-Enemies Blinded by you while you are Blinded have Malediction
+Enemies Blinded by you have Malediction
 {variant:1,2}Gain 1 Mana on Kill per Level
 {variant:1,2}Gain 1 Energy Shield on Kill per Level
 {variant:3,4,6,7}+1 to maximum Life per Level
+{variant:9,10}+(1-2) to maximum Life per Level
 {variant:3,5,6,8}+1 to maximum Mana per Level
+{variant:9,11}+(1-2) to maximum Mana per Level
 {variant:4,5,7,8}+1 to maximum Energy Shield per Level
+{variant:10,11}+(1-2) to maximum Energy Shield per Level
 ]],[[
 Death's Hand
 Karui Sceptre
@@ -453,10 +460,13 @@ Raised Zombies have Avatar of Fire
 ]],[[
 Maata's Teaching
 Karui Sceptre
+Variant: Pre 3.25.0
+Variant: Current
 Requires Level 56, 96 Str, 96 Int
 Implicits: 1
 +(30-40) to Intelligence
-(25-50)% increased Critical Strike Chance
+{variant:1}(25-50)% increased Critical Strike Chance
+{variant:2}(15-30)% increased Critical Strike Chance
 +(1-2) to Level of all Minion Skill Gems
 Minions' Base Attack Critical Strike Chance is equal to the Critical Strike Chance of your Main Hand Weapon
 ]],[[

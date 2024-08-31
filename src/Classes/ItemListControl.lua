@@ -151,7 +151,6 @@ function ItemListClass:ReceiveDrag(type, value, source)
 		self.itemsTab:AddItem(newItem, true, self.selDragIndex)
 		self.itemsTab:PopulateSlots()
 		self.itemsTab:AddUndoState()
-		self.itemsTab.build.buildFlag = true
 	end
 end
 

@@ -21,12 +21,6 @@ skills["SupportAddedChaosDamage"] = {
 		Default = {
 			{ "chaos_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "reduce_enemy_chaos_resistance_%", 0.25 },
-		},
-		Alternate2 = {
-			{ "skill_physical_damage_%_to_convert_to_chaos", 1 },
-		},
 	},
 	stats = {
 		"global_minimum_added_chaos_damage",
@@ -75,7 +69,7 @@ skills["SupportAddedChaosDamage"] = {
 		[40] = { 0.80000001192093, 1.2000000476837, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 3, 3, }, },
 	},
 }
-skills["SupportAddedChaosDamagePlus"] = {
+skills["SupportAwakenedAddedChaosDamage"] = {
 	name = "Awakened Added Chaos Damage",
 	description = "Supports any skill that hits enemies.",
 	color = 3,
@@ -135,12 +129,6 @@ skills["SupportAddedLightningDamage"] = {
 		Default = {
 			{ "lightning_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "critical_strike_chance_+%", 1.5 },
-		},
-		Alternate2 = {
-			{ "skill_physical_damage_%_to_convert_to_lightning", 1 },
-		},
 	},
 	stats = {
 		"global_minimum_added_lightning_damage",
@@ -189,7 +177,7 @@ skills["SupportAddedLightningDamage"] = {
 		[40] = { 0.10000000149012, 1.8999999761581, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 3, 3, }, },
 	},
 }
-skills["SupportAddedLightningDamagePlus"] = {
+skills["SupportAwakenedAddedLightningDamage"] = {
 	name = "Awakened Added Lightning Damage",
 	description = "Supports any skill that hits enemies.",
 	color = 3,
@@ -258,12 +246,6 @@ skills["SupportArcaneSurge"] = {
 		Default = {
 			{ "spell_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "support_arcane_surge_mana_regeneration_rate_+%", 0.6 },
-		},
-		Alternate2 = {
-			{ "support_arcane_surge_base_duration_ms", 100 },
-		},
 	},
 	constantStats = {
 		{ "support_arcane_surge_base_duration_ms", 4000 },
@@ -319,92 +301,75 @@ skills["SupportArcaneSurge"] = {
 }
 skills["SupportArchmage"] = {
 	name = "Archmage",
-	description = "Supports spell skills that deal damage with hits and have no reservation. Cannot support arcane skills, Vaal skills, or skills used by totems, traps or mines. Cannot modify the skills of minions.",
+	description = "Supports spell skills that deal damage with hits and have no reservation. Cannot support arcane skills, Brand skills, Orb skills, Vaal skills, or skills used by totems, traps or mines. Cannot modify the skills of minions.",
 	color = 3,
-	baseEffectiveness = 0.17499999701977,
-	incrementalEffectiveness = 0.039000000804663,
 	support = true,
 	requireSkillTypes = { SkillType.Damage, SkillType.Spell, SkillType.AND, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.HasReservation, SkillType.Vaal, SkillType.Arcane, },
+	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.HasReservation, SkillType.Vaal, SkillType.Arcane, SkillType.Orb, SkillType.Brand, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["manaweave_cost_equals_%_unreserved_mana"] = {
-			skill("baseManaCostIsAtLeastPercentUnreservedMana", nil),
+			mod("ManaCostBase", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaUnreserved" , percent = 1 }),
 		},
-		["manaweave_added_lightning_damage_%_cost_if_payable"] = {
-			mod("LightningMin", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
-			mod("LightningMax", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
-			div = 100,
-		},
-		["manaweave_added_cold_damage_%_cost_if_payable"] = {
-			mod("ColdMin", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
-			mod("ColdMax", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
-			div = 100,
+		["archmage_gain_lightning_damage_%_of_max_unreserved_mana"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaUnreserved" , percent = 1 }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaUnreserved" , percent = 1 }),
 		},
 	},
 	qualityStats = {
 		Default = {
-			{ "base_mana_cost_-%", -0.5 },
-		},
-		Alternate1 = {
-			{ "manaweave_added_cold_damage_%_cost_if_payable", 2 },
-			{ "manaweave_added_lightning_damage_%_cost_if_payable", -2 },
-		},
-		Alternate2 = {
-			{ "base_mana_cost_-%", 1 },
+			{ "spell_damage_+%", 0.5 },
 		},
 	},
 	constantStats = {
 		{ "manaweave_cost_equals_%_unreserved_mana", 5 },
-		{ "manaweave_added_lightning_damage_%_cost_if_payable", 75 },
 	},
 	stats = {
-		"global_minimum_added_lightning_damage",
-		"global_maximum_added_lightning_damage",
+		"archmage_gain_lightning_damage_%_of_max_unreserved_mana",
 	},
 	levels = {
-		[1] = { 0.10000000149012, 1.8999999761581, levelRequirement = 31, statInterpolation = { 3, 3, }, },
-		[2] = { 0.10000000149012, 1.8999999761581, levelRequirement = 34, statInterpolation = { 3, 3, }, },
-		[3] = { 0.10000000149012, 1.8999999761581, levelRequirement = 36, statInterpolation = { 3, 3, }, },
-		[4] = { 0.10000000149012, 1.8999999761581, levelRequirement = 38, statInterpolation = { 3, 3, }, },
-		[5] = { 0.10000000149012, 1.8999999761581, levelRequirement = 40, statInterpolation = { 3, 3, }, },
-		[6] = { 0.10000000149012, 1.8999999761581, levelRequirement = 42, statInterpolation = { 3, 3, }, },
-		[7] = { 0.10000000149012, 1.8999999761581, levelRequirement = 44, statInterpolation = { 3, 3, }, },
-		[8] = { 0.10000000149012, 1.8999999761581, levelRequirement = 46, statInterpolation = { 3, 3, }, },
-		[9] = { 0.10000000149012, 1.8999999761581, levelRequirement = 48, statInterpolation = { 3, 3, }, },
-		[10] = { 0.10000000149012, 1.8999999761581, levelRequirement = 50, statInterpolation = { 3, 3, }, },
-		[11] = { 0.10000000149012, 1.8999999761581, levelRequirement = 52, statInterpolation = { 3, 3, }, },
-		[12] = { 0.10000000149012, 1.8999999761581, levelRequirement = 54, statInterpolation = { 3, 3, }, },
-		[13] = { 0.10000000149012, 1.8999999761581, levelRequirement = 56, statInterpolation = { 3, 3, }, },
-		[14] = { 0.10000000149012, 1.8999999761581, levelRequirement = 58, statInterpolation = { 3, 3, }, },
-		[15] = { 0.10000000149012, 1.8999999761581, levelRequirement = 60, statInterpolation = { 3, 3, }, },
-		[16] = { 0.10000000149012, 1.8999999761581, levelRequirement = 62, statInterpolation = { 3, 3, }, },
-		[17] = { 0.10000000149012, 1.8999999761581, levelRequirement = 64, statInterpolation = { 3, 3, }, },
-		[18] = { 0.10000000149012, 1.8999999761581, levelRequirement = 66, statInterpolation = { 3, 3, }, },
-		[19] = { 0.10000000149012, 1.8999999761581, levelRequirement = 68, statInterpolation = { 3, 3, }, },
-		[20] = { 0.10000000149012, 1.8999999761581, levelRequirement = 70, statInterpolation = { 3, 3, }, },
-		[21] = { 0.10000000149012, 1.8999999761581, levelRequirement = 72, statInterpolation = { 3, 3, }, },
-		[22] = { 0.10000000149012, 1.8999999761581, levelRequirement = 74, statInterpolation = { 3, 3, }, },
-		[23] = { 0.10000000149012, 1.8999999761581, levelRequirement = 76, statInterpolation = { 3, 3, }, },
-		[24] = { 0.10000000149012, 1.8999999761581, levelRequirement = 78, statInterpolation = { 3, 3, }, },
-		[25] = { 0.10000000149012, 1.8999999761581, levelRequirement = 80, statInterpolation = { 3, 3, }, },
-		[26] = { 0.10000000149012, 1.8999999761581, levelRequirement = 82, statInterpolation = { 3, 3, }, },
-		[27] = { 0.10000000149012, 1.8999999761581, levelRequirement = 84, statInterpolation = { 3, 3, }, },
-		[28] = { 0.10000000149012, 1.8999999761581, levelRequirement = 86, statInterpolation = { 3, 3, }, },
-		[29] = { 0.10000000149012, 1.8999999761581, levelRequirement = 88, statInterpolation = { 3, 3, }, },
-		[30] = { 0.10000000149012, 1.8999999761581, levelRequirement = 90, statInterpolation = { 3, 3, }, },
-		[31] = { 0.10000000149012, 1.8999999761581, levelRequirement = 91, statInterpolation = { 3, 3, }, },
-		[32] = { 0.10000000149012, 1.8999999761581, levelRequirement = 92, statInterpolation = { 3, 3, }, },
-		[33] = { 0.10000000149012, 1.8999999761581, levelRequirement = 93, statInterpolation = { 3, 3, }, },
-		[34] = { 0.10000000149012, 1.8999999761581, levelRequirement = 94, statInterpolation = { 3, 3, }, },
-		[35] = { 0.10000000149012, 1.8999999761581, levelRequirement = 95, statInterpolation = { 3, 3, }, },
-		[36] = { 0.10000000149012, 1.8999999761581, levelRequirement = 96, statInterpolation = { 3, 3, }, },
-		[37] = { 0.10000000149012, 1.8999999761581, levelRequirement = 97, statInterpolation = { 3, 3, }, },
-		[38] = { 0.10000000149012, 1.8999999761581, levelRequirement = 98, statInterpolation = { 3, 3, }, },
-		[39] = { 0.10000000149012, 1.8999999761581, levelRequirement = 99, statInterpolation = { 3, 3, }, },
-		[40] = { 0.10000000149012, 1.8999999761581, levelRequirement = 100, statInterpolation = { 3, 3, }, },
+		[1] = { 10, levelRequirement = 31, statInterpolation = { 1, }, },
+		[2] = { 10, levelRequirement = 34, statInterpolation = { 1, }, },
+		[3] = { 11, levelRequirement = 36, statInterpolation = { 1, }, },
+		[4] = { 11, levelRequirement = 38, statInterpolation = { 1, }, },
+		[5] = { 12, levelRequirement = 40, statInterpolation = { 1, }, },
+		[6] = { 12, levelRequirement = 42, statInterpolation = { 1, }, },
+		[7] = { 13, levelRequirement = 44, statInterpolation = { 1, }, },
+		[8] = { 13, levelRequirement = 46, statInterpolation = { 1, }, },
+		[9] = { 14, levelRequirement = 48, statInterpolation = { 1, }, },
+		[10] = { 14, levelRequirement = 50, statInterpolation = { 1, }, },
+		[11] = { 15, levelRequirement = 52, statInterpolation = { 1, }, },
+		[12] = { 15, levelRequirement = 54, statInterpolation = { 1, }, },
+		[13] = { 16, levelRequirement = 56, statInterpolation = { 1, }, },
+		[14] = { 16, levelRequirement = 58, statInterpolation = { 1, }, },
+		[15] = { 17, levelRequirement = 60, statInterpolation = { 1, }, },
+		[16] = { 17, levelRequirement = 62, statInterpolation = { 1, }, },
+		[17] = { 18, levelRequirement = 64, statInterpolation = { 1, }, },
+		[18] = { 18, levelRequirement = 66, statInterpolation = { 1, }, },
+		[19] = { 19, levelRequirement = 68, statInterpolation = { 1, }, },
+		[20] = { 19, levelRequirement = 70, statInterpolation = { 1, }, },
+		[21] = { 20, levelRequirement = 72, statInterpolation = { 1, }, },
+		[22] = { 20, levelRequirement = 74, statInterpolation = { 1, }, },
+		[23] = { 21, levelRequirement = 76, statInterpolation = { 1, }, },
+		[24] = { 21, levelRequirement = 78, statInterpolation = { 1, }, },
+		[25] = { 22, levelRequirement = 80, statInterpolation = { 1, }, },
+		[26] = { 22, levelRequirement = 82, statInterpolation = { 1, }, },
+		[27] = { 23, levelRequirement = 84, statInterpolation = { 1, }, },
+		[28] = { 23, levelRequirement = 86, statInterpolation = { 1, }, },
+		[29] = { 24, levelRequirement = 88, statInterpolation = { 1, }, },
+		[30] = { 24, levelRequirement = 90, statInterpolation = { 1, }, },
+		[31] = { 24, levelRequirement = 91, statInterpolation = { 1, }, },
+		[32] = { 25, levelRequirement = 92, statInterpolation = { 1, }, },
+		[33] = { 25, levelRequirement = 93, statInterpolation = { 1, }, },
+		[34] = { 25, levelRequirement = 94, statInterpolation = { 1, }, },
+		[35] = { 25, levelRequirement = 95, statInterpolation = { 1, }, },
+		[36] = { 26, levelRequirement = 96, statInterpolation = { 1, }, },
+		[37] = { 26, levelRequirement = 97, statInterpolation = { 1, }, },
+		[38] = { 26, levelRequirement = 98, statInterpolation = { 1, }, },
+		[39] = { 26, levelRequirement = 99, statInterpolation = { 1, }, },
+		[40] = { 27, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
 skills["SupportBlasphemy"] = {
@@ -427,13 +392,6 @@ skills["SupportBlasphemy"] = {
 	qualityStats = {
 		Default = {
 			{ "curse_area_of_effect_+%", 1 },
-		},
-		Alternate1 = {
-			{ "curse_effect_+%", -0.5 },
-			{ "base_skill_area_of_effect_+%", 2 },
-		},
-		Alternate2 = {
-			{ "base_reservation_efficiency_+%", 0.2 },
 		},
 	},
 	constantStats = {
@@ -487,7 +445,7 @@ skills["SupportBlasphemy"] = {
 		[40] = { 136, storedUses = 1, manaReservationPercent = 35, cooldown = 1.2, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportBlasphemyPlus"] = {
+skills["SupportAwakenedBlasphemy"] = {
 	name = "Awakened Blasphemy",
 	description = "Supports hex curse skills, turning them into auras that will apply their effect to all enemies in an area around you.",
 	color = 3,
@@ -565,13 +523,7 @@ skills["SupportBonechill"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "chill_duration_+%", 1 },
-		},
-		Alternate1 = {
 			{ "cold_damage_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "chill_effect_+%", 0.5 },
 		},
 	},
 	stats = {
@@ -623,7 +575,7 @@ skills["SupportBonechill"] = {
 		[40] = { 64, 22, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportCastOnStunned"] = {
+skills["SupportCastWhenStunned"] = {
 	name = "Cast when Stunned",
 	description = "Each supported spell skill will have a chance to be triggered when you are stunned. Cannot support skills used by totems, traps, or mines. Vaal skills, channelling skills, and skills with a reservation cannot be triggered.",
 	color = 3,
@@ -636,12 +588,6 @@ skills["SupportCastOnStunned"] = {
 	qualityStats = {
 		Default = {
 			{ "cast_on_stunned_%", 1 },
-		},
-		Alternate1 = {
-			{ "skill_effect_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "damage_+%", 0.5 },
 		},
 	},
 	stats = {
@@ -713,12 +659,6 @@ skills["SupportCastWhileChannelling"] = {
 		Default = {
 			{ "channelled_skill_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "skill_effect_duration_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
 	},
 	stats = {
 		"cast_while_channelling_time_ms",
@@ -780,24 +720,10 @@ skills["SupportCastWhileChannellingTriggered"] = {
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
 			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 		},
-		["support_cast_while_channelling_triggered_skill_non_damaging_ailment_effect_+%"] = {
-			mod("EnemyChillEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
-			mod("EnemyShockEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
-			mod("EnemyFreezeEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
-			mod("EnemyScorchEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
-			mod("EnemyBrittleEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
-			mod("EnemySapEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
-		},
 	},
 	qualityStats = {
 		Default = {
 			{ "triggered_skill_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-		Alternate2 = {
-			{ "support_cast_while_channelling_triggered_skill_non_damaging_ailment_effect_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -850,7 +776,7 @@ skills["SupportCastWhileChannellingTriggered"] = {
 		[40] = { PvPDamageMultiplier = -80, levelRequirement = 100, manaMultiplier = 20, },
 	},
 }
-skills["SupportCastWhileChannellingPlus"] = {
+skills["SupportAwakenedCastWhileChannelling"] = {
 	name = "Awakened Cast While Channelling",
 	description = "Must support both a channelling skill and a non-channelling spell skill to work. The channelling skill will trigger a spell periodically while channelling. Cannot support skills used by totems, traps, or mines. Vaal skills and skills with a reservation cannot be triggered.",
 	color = 3,
@@ -951,7 +877,7 @@ skills["SupportCastWhileChannellingTriggeredPlus"] = {
 		[20] = { PvPDamageMultiplier = -80, levelRequirement = 100, manaMultiplier = 20, },
 	},
 }
-skills["SupportChanceToIgnite"] = {
+skills["SupportCombustion"] = {
 	name = "Combustion",
 	description = "Supports any skill that hits enemies.",
 	color = 3,
@@ -972,13 +898,6 @@ skills["SupportChanceToIgnite"] = {
 	qualityStats = {
 		Default = {
 			{ "fire_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "faster_burn_%", 0.25 },
-		},
-		Alternate2 = {
-			{ "faster_burn_%", -0.5 },
-			{ "fire_damage_+%", 1 },
 		},
 	},
 	constantStats = {
@@ -1040,27 +959,9 @@ skills["SupportChargedMines"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["mine_throwing_speed_+%_per_frenzy_charge"] = {
-			mod("MineLayingSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
-		},
-		["mine_critical_strike_chance_+%_per_power_charge"] = {
-			mod("CritChance", "INC", nil, 0, KeywordFlag.Mine, { type = "Multiplier", var = "PowerCharge" }),
-		},
-		["mine_projectile_speed_+%_per_frenzy_charge"] = {
-			mod("ProjectileSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" })
-		},
-	},
 	qualityStats = {
 		Default = {
 			{ "mine_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "%_chance_to_gain_frenzy_charge_on_mine_detonated_targeting_an_enemy", 0.5 },
-			{ "%_chance_to_gain_power_charge_on_mine_detonated_targeting_an_enemy", 0.5 },
-		},
-		Alternate2 = {
-			{ "mine_projectile_speed_+%_per_frenzy_charge", 0.2 },
 		},
 	},
 	constantStats = {
@@ -1136,12 +1037,6 @@ skills["SupportConcentratedEffect"] = {
 		Default = {
 			{ "area_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "support_concentrated_effect_skill_area_of_effect_+%_final", -0.5 },
-		},
-		Alternate2 = {
-			{ "base_stun_threshold_reduction_+%", 0.5 },
-		},
 	},
 	constantStats = {
 		{ "support_concentrated_effect_skill_area_of_effect_+%_final", -30 },
@@ -1213,13 +1108,6 @@ skills["SupportControlledDestruction"] = {
 		Default = {
 			{ "spell_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "support_controlled_destruction_critical_strike_chance_+%_final", -1 },
-			{ "chance_to_freeze_shock_ignite_%", 0.5 },
-		},
-		Alternate2 = {
-			{ "chance_for_extra_damage_roll_%", 0.5 },
-		},
 	},
 	constantStats = {
 		{ "support_controlled_destruction_critical_strike_chance_+%_final", -80 },
@@ -1270,7 +1158,7 @@ skills["SupportControlledDestruction"] = {
 		[40] = { 50, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportControlledDestructionPlus"] = {
+skills["SupportAwakenedControlledDestruction"] = {
 	name = "Awakened Controlled Destruction",
 	description = "Supports attack skills, or spell skills that deal damage.",
 	color = 3,
@@ -1334,13 +1222,7 @@ skills["SupportCursedGround"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
 		Default = {
-			{ "skill_effect_duration_+%", 0.5 },
-		},
-		Alternate1 = {
 			{ "curse_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_mana_cost_-%", 0.25 },
 		},
 	},
 	stats = {
@@ -1389,7 +1271,7 @@ skills["SupportCursedGround"] = {
 		[40] = { 49000, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportCurseOnHit"] = {
+skills["SupportHextouch"] = {
 	name = "Hextouch",
 	description = "Must support both a skill that hits enemies, and a hex curse skill to work. The hex will be applied when enemies are hit by the other skill. Cannot support totems, traps, or mines. Minions cannot apply hexes this way.",
 	color = 3,
@@ -1400,9 +1282,6 @@ skills["SupportCurseOnHit"] = {
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
-		["damage_vs_cursed_enemies_per_enemy_curse_+%"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseOnEnemy" })
-		},
 		["apply_linked_curses_on_hit_%"] = {
 			--Display only. Handled by SupportCurseOnHitCurse
 		},
@@ -1411,12 +1290,6 @@ skills["SupportCurseOnHit"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-		Alternate1 = {
-			{ "damage_vs_cursed_enemies_per_enemy_curse_+%", 1 },
-		},
-		Alternate2 = {
 			{ "dummy_stat_display_nothing", 0 },
 		},
 	},
@@ -1492,13 +1365,6 @@ skills["SupportCurseOnHitCurse"] = {
 		Default = {
 			{ "base_curse_duration_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-		Alternate2 = {
-			{ "curse_effect_+%", -0.5 },
-			{ "base_curse_duration_+%", 2 },
-		},
 	},
 	constantStats = {
 		{ "support_hextouch_curse_effect_+%_final", -35 },
@@ -1551,7 +1417,7 @@ skills["SupportCurseOnHitCurse"] = {
 		[40] = { -16, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportCurseOnHitPlus"] = {
+skills["SupportAwakenedHextouch"] = {
 	name = "Awakened Hextouch",
 	description = "Must support both a skill that hits enemies, and a hex curse skill to work. The hex will be applied when enemies are hit by the other skill. Cannot support totems, traps, or mines. Minions cannot apply hexes this way.",
 	color = 3,
@@ -1560,7 +1426,7 @@ skills["SupportCurseOnHitPlus"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, },
 	ignoreMinionTypes = true,
-	plusVersionOf = "SupportCurseOnHit",
+	plusVersionOf = "SupportHextouch",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["apply_linked_curses_on_hit_%"] = {
@@ -1656,7 +1522,7 @@ skills["SupportCurseOnHitCursePlus"] = {
 		[20] = { -17, 34, 1, levelRequirement = 100, statInterpolation = { 1, 1, 1, }, },
 	},
 }
-skills["SupportMinionFocusFire"] = {
+skills["SupportPredator"] = {
 	name = "Predator",
 	description = "Supports skills which create Minions.",
 	color = 3,
@@ -1672,23 +1538,10 @@ skills["SupportMinionFocusFire"] = {
 		["support_minion_focus_fire_damage_+%_final_vs_focussed_target"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
 		},
-		["support_minion_focus_fire_critical_strike_chance_+%_vs_focused_target"] = {
-			mod("MinionModifier", "LIST", { mod = mod("CritChance", "INC", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
-		},
-		["support_minion_focus_fire_critical_strike_multiplier_+_vs_focused_target"] = {
-			mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
-		},
 	},
 	qualityStats = {
 		Default = {
 			{ "minion_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-		Alternate2 = {
-			{ "support_minion_focus_fire_critical_strike_chance_+%_vs_focused_target", 1.5 },
-			{ "support_minion_focus_fire_critical_strike_multiplier_+_vs_focused_target", 0.75 },
 		},
 	},
 	stats = {
@@ -1739,29 +1592,18 @@ skills["SupportMinionFocusFire"] = {
 		[40] = { 34, 17, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["MinionFocusFire"] = {
+skills["SignalPrey"] = {
 	name = "Signal Prey",
+	baseTypeName = "Signal Prey",
 	color = 3,
 	description = "Applies a debuff to a specific enemy which signals your minions to consider that enemy to be the Prey. All minions from skills supported by any Predator Support will target that enemy. Only one enemy can be the Prey at a time. This skill cannot be used by Totems, Traps, or Mines.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, [SkillType.SkillGrantedBySupport] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
-	statMap = {
-		["resist_all_%"] = {
-			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectCond = "EnemyHasDeathmark" }),
-			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectCond = "EnemyHasDeathmark" }),
-		},
-	},
 	baseFlags = {
 	},
 	qualityStats = {
 		Default = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-		Alternate1 = {
-			{ "resist_all_%", -0.2 },
-		},
-		Alternate2 = {
 			{ "dummy_stat_display_nothing", 0 },
 		},
 	},
@@ -1818,8 +1660,8 @@ skills["SupportDecay"] = {
 	name = "Decay",
 	description = "Supports any skill that hits enemies.",
 	color = 3,
-	baseEffectiveness = 1.335000038147,
-	incrementalEffectiveness = 0.045800000429153,
+	baseEffectiveness = 2.0355999469757,
+	incrementalEffectiveness = 0.042500000447035,
 	support = true,
 	requireSkillTypes = { SkillType.Damage, SkillType.Attack, },
 	addSkillTypes = { },
@@ -1828,12 +1670,6 @@ skills["SupportDecay"] = {
 	qualityStats = {
 		Default = {
 			{ "chaos_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "skill_effect_duration_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "skill_physical_damage_%_to_convert_to_chaos", 0.5 },
 		},
 	},
 	stats = {
@@ -1901,13 +1737,7 @@ skills["SupportDevour"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "damage_vs_enemies_on_low_life_+%", 2 },
-		},
-		Alternate1 = {
 			{ "damage_+%_if_you_have_consumed_a_corpse_recently", 4 },
-		},
-		Alternate2 = {
-			{ "life_leech_from_any_damage_permyriad", 2.5 },
 		},
 	},
 	stats = {
@@ -1978,13 +1808,6 @@ skills["SupportEfficacy"] = {
 		Default = {
 			{ "damage_over_time_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "skill_effect_duration_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_mana_cost_-%", 0.5 },
-			{ "base_life_cost_+%", -0.5 },
-		},
 	},
 	stats = {
 		"support_efficacy_damage_over_time_+%_final",
@@ -2051,12 +1874,6 @@ skills["SupportElementalFocus"] = {
 		Default = {
 			{ "elemental_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "avoid_interruption_while_using_this_skill_%", 1 },
-		},
 	},
 	stats = {
 		"support_gem_elemental_damage_+%_final",
@@ -2105,7 +1922,7 @@ skills["SupportElementalFocus"] = {
 		[40] = { 45, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportElementalFocusPlus"] = {
+skills["SupportAwakenedElementalFocus"] = {
 	name = "Awakened Elemental Focus",
 	description = "Supports any skill that hits or burns enemies, or inflicts elemental ailments.",
 	color = 3,
@@ -2162,22 +1979,9 @@ skills["SupportElementalProliferation"] = {
 	addSkillTypes = { SkillType.Area, },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["damage_+%_vs_enemies_per_freeze_shock_ignite"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
-			mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
-			mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }),
-		}
-	},
 	qualityStats = {
 		Default = {
 			{ "base_elemental_status_ailment_duration_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 1 },
-		},
-		Alternate2 = {
-			{ "damage_+%_vs_enemies_per_freeze_shock_ignite", 1 },
 		},
 	},
 	constantStats = {
@@ -2231,7 +2035,7 @@ skills["SupportElementalProliferation"] = {
 		[40] = { 18, 34, manaMultiplier = 10, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportEnergyShieldLeech"] = {
+skills["SupportEnergyLeech"] = {
 	name = "Energy Leech",
 	description = "Supports any skill that hits enemies, causing those hits to leech energy shield based on damage dealt.",
 	color = 3,
@@ -2248,19 +2052,10 @@ skills["SupportEnergyShieldLeech"] = {
 		["support_energy_shield_leech_damage_+%_while_leeching_energy_shield_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "LeechingEnergyShield" }),
 		},
-		["maximum_energy_shield_leech_amount_per_leech_+%"] = {
-			mod("MaxEnergyShieldLeechRate", "INC", nil)
-		}
 	},
 	qualityStats = {
 		Default = {
 			{ "damage_+%_while_es_leeching", 0.5 },
-		},
-		Alternate1 = {
-			{ "damage_+%_on_full_energy_shield", 0.5 },
-		},
-		Alternate2 = {
-			{ "maximum_energy_shield_leech_amount_per_leech_+%", 2 },
 		},
 	},
 	stats = {
@@ -2311,7 +2106,7 @@ skills["SupportEnergyShieldLeech"] = {
 		[40] = { 220, 18, 32, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, 1, }, },
 	},
 }
-skills["SupportAdditionalXP"] = {
+skills["SupportEnlighten"] = {
 	name = "Enlighten",
 	description = "Supports any skill gem. Once this gem reaches level 2 or above, will apply a cost & reservation multiplier to supported gems. Cannot support skills that don't come from gems.",
 	color = 3,
@@ -2324,9 +2119,6 @@ skills["SupportAdditionalXP"] = {
 	qualityStats = {
 		Default = {
 			{ "local_gem_experience_gain_+%", 5 },
-		},
-		Alternate1 = {
-			{ "local_gem_int_requirement_+%", -3 },
 		},
 	},
 	stats = {
@@ -2344,7 +2136,7 @@ skills["SupportAdditionalXP"] = {
 		[10] = { manaMultiplier = -36, levelRequirement = 100, },
 	},
 }
-skills["SupportAdditionalXPPlus"] = {
+skills["SupportAwakenedEnlighten"] = {
 	name = "Awakened Enlighten",
 	description = "Supports any skill gem. Once this gem reaches level 2 or above, will apply a cost & reservation multiplier to supported gems. Cannot support skills that don't come from gems.",
 	color = 3,
@@ -2353,7 +2145,7 @@ skills["SupportAdditionalXPPlus"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.SkillGrantedBySupport, },
 	supportGemsOnly = true,
-	plusVersionOf = "SupportAdditionalXP",
+	plusVersionOf = "SupportEnlighten",
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
 		Default = {
@@ -2385,7 +2177,7 @@ skills["SupportAdditionalXPPlus"] = {
 		[20] = { manaMultiplier = -56, levelRequirement = 100, },
 	},
 }
-skills["SupportFasterCast"] = {
+skills["SupportFasterCasting"] = {
 	name = "Faster Casting",
 	description = "Supports non-instant spell skills.",
 	color = 3,
@@ -2398,12 +2190,6 @@ skills["SupportFasterCast"] = {
 	qualityStats = {
 		Default = {
 			{ "base_cast_speed_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_cooldown_speed_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "faster_burn_%", 0.5 },
 		},
 	},
 	stats = {
@@ -2452,7 +2238,7 @@ skills["SupportFasterCast"] = {
 		[40] = { 54, manaMultiplier = 10, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportMinionOffensiveStance"] = {
+skills["SupportFeedingFrenzy"] = {
 	name = "Feeding Frenzy",
 	description = "Supports skills which create Minions.",
 	color = 3,
@@ -2468,12 +2254,6 @@ skills["SupportMinionOffensiveStance"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "puppet_master_base_duration_ms", 50 },
-		},
-		Alternate1 = {
-			{ "minion_recover_%_maximum_life_on_hit", 0.05 },
-		},
-		Alternate2 = {
 			{ "minion_movement_speed_+%", 0.5 },
 		},
 	},
@@ -2542,10 +2322,6 @@ skills["SupportFreshMeat"] = {
 		["support_recent_minions_additional_critical_strike_multiplier_from_wakened_fury"] = {
 			mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", nil) }, 0, 0, { type = "Condition", var = "FreshMeatActive" }),
 		},
-		["support_recent_minions_life_leech_from_any_damage_permyriad_from_wakened_fury"] = {
-			mod("MinionModifier", "LIST", { mod = mod("DamageLifeLeech", "BASE", nil) }, 0, 0, { type = "Condition", var = "FreshMeatActive" }),
-			div = 100,
-		},
 	},
 	baseMods = {
 		mod("MinionModifier", "LIST", { mod = mod("Condition:Adrenaline", "FLAG", true) }, 0, 0, { type = "Condition", var = "FreshMeatActive" }),
@@ -2553,12 +2329,6 @@ skills["SupportFreshMeat"] = {
 	qualityStats = {
 		Default = {
 			{ "minion_critical_strike_chance_+%", 1 },
-		},
-		Alternate1 = {
-			{ "support_recent_minions_life_leech_from_any_damage_permyriad_from_wakened_fury", 10 },
-		},
-		Alternate2 = {
-			{ "skill_effect_duration_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -2633,13 +2403,7 @@ skills["SupportFrigidBond"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "chill_effect_+%", 0.5 },
-		},
-		Alternate1 = {
 			{ "support_damaging_links_base_duration_ms", 100 },
-		},
-		Alternate2 = {
-			{ "base_mana_cost_-%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -2705,13 +2469,7 @@ skills["SupportHexBloom"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
 		Default = {
-			{ "base_curse_duration_+%", 0.5 },
-		},
-		Alternate1 = {
 			{ "hex_transfer_on_death_range_+%", 0.2 },
-		},
-		Alternate2 = {
-			{ "curse_area_of_effect_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -2763,7 +2521,7 @@ skills["SupportHexBloom"] = {
 		[40] = { 51, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportRemoteMine2"] = {
+skills["SupportHighImpactMine"] = {
 	name = "High-Impact Mine",
 	description = "Supports spells, or attacks that use bows or wands. Instead of using that skill, you will throw a mine that will use the skill for you when you detonate it. Mines cannot use channelling skills.",
 	color = 3,
@@ -2785,13 +2543,7 @@ skills["SupportRemoteMine2"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "mine_laying_speed_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_critical_strike_multiplier_+", 0.25 },
-		},
-		Alternate2 = {
-			{ "base_stun_threshold_reduction_+%", 0.5 },
+			{ "mine_damage_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -2870,12 +2622,6 @@ skills["SupportIgniteProliferation"] = {
 		Default = {
 			{ "fire_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_chance_to_ignite_%", 0.5 },
-		},
 	},
 	stats = {
 		"support_ignite_proliferation_radius",
@@ -2924,7 +2670,7 @@ skills["SupportIgniteProliferation"] = {
 		[40] = { 25, 32, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportImmolation"] = {
+skills["SupportImmolate"] = {
 	name = "Immolate",
 	description = "Supports any skill that hits enemies.",
 	color = 3,
@@ -2938,12 +2684,6 @@ skills["SupportImmolation"] = {
 	qualityStats = {
 		Default = {
 			{ "fire_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_chance_to_ignite_%", 0.5 },
 		},
 	},
 	stats = {
@@ -2993,7 +2733,7 @@ skills["SupportImmolation"] = {
 		[40] = { 0.80000001192093, 1.2000000476837, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 3, 3, }, },
 	},
 }
-skills["ViciousHexSupport"] = {
+skills["SupportImpendingDoom"] = {
 	name = "Impending Doom",
 	description = "Supports hex curse skills, causing them to trigger Doom Blast when the hex ends. Cannot support curse skills which are triggered or applied as an aura.",
 	color = 3,
@@ -3009,12 +2749,6 @@ skills["ViciousHexSupport"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-		Alternate1 = {
-			{ "curse_skill_effect_duration_+%", -2 },
-		},
-		Alternate2 = {
 			{ "dummy_stat_display_nothing", 0 },
 		},
 	},
@@ -3064,8 +2798,9 @@ skills["ViciousHexSupport"] = {
 		[40] = { manaMultiplier = 30, levelRequirement = 100, },
 	},
 }
-skills["ViciousHexExplosion"] = {
+skills["DoomBlast"] = {
 	name = "Doom Blast",
+	baseTypeName = "Doom Blast",
 	color = 3,
 	baseEffectiveness = 1.7200000286102,
 	incrementalEffectiveness = 0.055599998682737,
@@ -3084,13 +2819,6 @@ skills["ViciousHexExplosion"] = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-		Alternate2 = {
-			{ "base_added_cooldown_count", 0.05 },
-			{ "base_cooldown_speed_+%", -2 },
-		},
 	},
 	stats = {
 		"spell_minimum_base_chaos_damage",
@@ -3099,46 +2827,46 @@ skills["ViciousHexExplosion"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 31, statInterpolation = { 3, 3, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 34, statInterpolation = { 3, 3, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 36, statInterpolation = { 3, 3, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 38, statInterpolation = { 3, 3, }, },
-		[5] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 40, statInterpolation = { 3, 3, }, },
-		[6] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 42, statInterpolation = { 3, 3, }, },
-		[7] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 44, statInterpolation = { 3, 3, }, },
-		[8] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 46, statInterpolation = { 3, 3, }, },
-		[9] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 48, statInterpolation = { 3, 3, }, },
-		[10] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 50, statInterpolation = { 3, 3, }, },
-		[11] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 52, statInterpolation = { 3, 3, }, },
-		[12] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 54, statInterpolation = { 3, 3, }, },
-		[13] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 56, statInterpolation = { 3, 3, }, },
-		[14] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 58, statInterpolation = { 3, 3, }, },
-		[15] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 60, statInterpolation = { 3, 3, }, },
-		[16] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 62, statInterpolation = { 3, 3, }, },
-		[17] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 64, statInterpolation = { 3, 3, }, },
-		[18] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 66, statInterpolation = { 3, 3, }, },
-		[19] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 68, statInterpolation = { 3, 3, }, },
-		[20] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 70, statInterpolation = { 3, 3, }, },
-		[21] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 72, statInterpolation = { 3, 3, }, },
-		[22] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 74, statInterpolation = { 3, 3, }, },
-		[23] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 76, statInterpolation = { 3, 3, }, },
-		[24] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 78, statInterpolation = { 3, 3, }, },
-		[25] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 80, statInterpolation = { 3, 3, }, },
-		[26] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 82, statInterpolation = { 3, 3, }, },
-		[27] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 84, statInterpolation = { 3, 3, }, },
-		[28] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 86, statInterpolation = { 3, 3, }, },
-		[29] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 88, statInterpolation = { 3, 3, }, },
-		[30] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 90, statInterpolation = { 3, 3, }, },
-		[31] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 91, statInterpolation = { 3, 3, }, },
-		[32] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 92, statInterpolation = { 3, 3, }, },
-		[33] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 93, statInterpolation = { 3, 3, }, },
-		[34] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 94, statInterpolation = { 3, 3, }, },
-		[35] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 95, statInterpolation = { 3, 3, }, },
-		[36] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 96, statInterpolation = { 3, 3, }, },
-		[37] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 97, statInterpolation = { 3, 3, }, },
-		[38] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 98, statInterpolation = { 3, 3, }, },
-		[39] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 99, statInterpolation = { 3, 3, }, },
-		[40] = { 0.80000001192093, 1.2000000476837, critChance = 5, cooldown = 0.15, damageEffectiveness = 3.7, storedUses = 3, levelRequirement = 100, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 2.2, cooldown = 0.15, levelRequirement = 31, statInterpolation = { 3, 3, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 2.3, cooldown = 0.15, levelRequirement = 34, statInterpolation = { 3, 3, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 2.4, cooldown = 0.15, levelRequirement = 36, statInterpolation = { 3, 3, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 2.5, cooldown = 0.15, levelRequirement = 38, statInterpolation = { 3, 3, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 2.5, cooldown = 0.15, levelRequirement = 40, statInterpolation = { 3, 3, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 2.6, cooldown = 0.15, levelRequirement = 42, statInterpolation = { 3, 3, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 2.6, cooldown = 0.15, levelRequirement = 44, statInterpolation = { 3, 3, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 2.7, cooldown = 0.15, levelRequirement = 46, statInterpolation = { 3, 3, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 2.8, cooldown = 0.15, levelRequirement = 48, statInterpolation = { 3, 3, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 2.9, cooldown = 0.15, levelRequirement = 50, statInterpolation = { 3, 3, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 2.9, cooldown = 0.15, levelRequirement = 52, statInterpolation = { 3, 3, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3, cooldown = 0.15, levelRequirement = 54, statInterpolation = { 3, 3, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.1, cooldown = 0.15, levelRequirement = 56, statInterpolation = { 3, 3, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.2, cooldown = 0.15, levelRequirement = 58, statInterpolation = { 3, 3, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.3, cooldown = 0.15, levelRequirement = 60, statInterpolation = { 3, 3, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.3, cooldown = 0.15, levelRequirement = 62, statInterpolation = { 3, 3, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.4, cooldown = 0.15, levelRequirement = 64, statInterpolation = { 3, 3, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.5, cooldown = 0.15, levelRequirement = 66, statInterpolation = { 3, 3, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.6, cooldown = 0.15, levelRequirement = 68, statInterpolation = { 3, 3, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 70, statInterpolation = { 3, 3, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 72, statInterpolation = { 3, 3, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 74, statInterpolation = { 3, 3, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 76, statInterpolation = { 3, 3, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 78, statInterpolation = { 3, 3, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 80, statInterpolation = { 3, 3, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 82, statInterpolation = { 3, 3, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 84, statInterpolation = { 3, 3, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 86, statInterpolation = { 3, 3, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 88, statInterpolation = { 3, 3, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 90, statInterpolation = { 3, 3, }, },
+		[31] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 91, statInterpolation = { 3, 3, }, },
+		[32] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 92, statInterpolation = { 3, 3, }, },
+		[33] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 93, statInterpolation = { 3, 3, }, },
+		[34] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 94, statInterpolation = { 3, 3, }, },
+		[35] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 95, statInterpolation = { 3, 3, }, },
+		[36] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 96, statInterpolation = { 3, 3, }, },
+		[37] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 97, statInterpolation = { 3, 3, }, },
+		[38] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 98, statInterpolation = { 3, 3, }, },
+		[39] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 99, statInterpolation = { 3, 3, }, },
+		[40] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 3.7, cooldown = 0.15, levelRequirement = 100, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SupportIncreasedAreaOfEffect"] = {
@@ -3154,13 +2882,6 @@ skills["SupportIncreasedAreaOfEffect"] = {
 	qualityStats = {
 		Default = {
 			{ "area_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-			{ "damage_+%", -1 },
-		},
-		Alternate2 = {
-			{ "base_skill_area_of_effect_+%", 0.25 },
 		},
 	},
 	stats = {
@@ -3209,7 +2930,7 @@ skills["SupportIncreasedAreaOfEffect"] = {
 		[40] = { 64, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportIncreasedAreaOfEffectPlus"] = {
+skills["SupportAwakenedIncreasedAreaofEffect"] = {
 	name = "Awakened Increased Area of Effect",
 	description = "Supports any skill with an area of effect.",
 	color = 3,
@@ -3269,12 +2990,6 @@ skills["SupportIncreasedCriticalDamage"] = {
 	qualityStats = {
 		Default = {
 			{ "base_critical_strike_multiplier_+", 0.5 },
-		},
-		Alternate1 = {
-			{ "critical_strike_chance_+%", 1 },
-		},
-		Alternate2 = {
-			{ "critical_ailment_dot_multiplier_+", 0.75 },
 		},
 	},
 	stats = {
@@ -3337,12 +3052,6 @@ skills["SupportIncreasedCriticalStrikes"] = {
 		Default = {
 			{ "critical_strike_chance_+%", 1 },
 		},
-		Alternate1 = {
-			{ "base_critical_strike_multiplier_+", 0.25 },
-		},
-		Alternate2 = {
-			{ "gain_power_charge_on_kill_with_hit_%", 0.5 },
-		},
 	},
 	constantStats = {
 		{ "additional_base_critical_strike_chance", 200 },
@@ -3393,7 +3102,7 @@ skills["SupportIncreasedCriticalStrikes"] = {
 		[40] = { 162, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportBurningMinions"] = {
+skills["SupportInfernalLegion"] = {
 	name = "Infernal Legion",
 	description = "Supports skills which create Minions.",
 	color = 3,
@@ -3414,22 +3123,10 @@ skills["SupportBurningMinions"] = {
 			div = 60,
 			mod("ExtraMinionSkill", "LIST", { skillId = "InfernalLegion" }),
 		},
-		["minion_burning_damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("FireDamage", "INC", nil, 0, KeywordFlag.FireDot) }),
-		},
-		["minion_fire_damage_taken_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("FireDamageTaken", "INC", nil) }),
-		}
 	},
 	qualityStats = {
 		Default = {
-			{ "minion_fire_damage_taken_+%", -1 },
-		},
-		Alternate1 = {
-			{ "minion_fire_damage_%_of_maximum_life_taken_per_minute", 30 },
-		},
-		Alternate2 = {
-			{ "minion_burning_damage_+%", 1.5 },
+			{ "minion_damage_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -3482,118 +3179,79 @@ skills["SupportBurningMinions"] = {
 		[40] = { 16.666667039196, 8, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 3, 1, }, },
 	},
 }
-skills["SupportStormBarrier"] = {
+skills["SupportInfusedChannelling"] = {
 	name = "Infused Channelling",
-	description = "Supports any channelling skill, protecting you from damage while you channel it.  Cannot support skills used by totems. Cannot modify the skills of minions.",
+	description = "Supports any channelling skill, protecting you from damage while you channel it. Cannot modify the skills of minions.",
 	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.Channel, },
-	addSkillTypes = { SkillType.Duration, },
-	excludeSkillTypes = { SkillType.SummonsTotem, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
-		["support_storm_barrier_skill_type_damage_taken_when_hit_+%_final"] = {
-			mod("PhysicalDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "PhysicalInfusion" }),
-			mod("FireDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "FireInfusion" }),
-			mod("ColdDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "ColdInfusion" }),
-			mod("LightningDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "LightningInfusion" }),
-			mod("ChaosDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "ChaosInfusion" }),
+		["support_storm_barrier_damage_taken_when_hit_+%_final_while_channelling"] = {
+			mod("DamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "InfusionActive" }),
 		},
 		["support_storm_barrier_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
-		["support_storm_barrier_skill_type_damage_+%_final"] = {
-			mod("Condition:HavePhysicalInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "PhysicalInfusion" }),
-			mod("Condition:HaveFireInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "FireInfusion" }),
-			mod("Condition:HaveColdInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ColdInfusion" }),
-			mod("Condition:HaveLightningInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "LightningInfusion" }),
-			mod("Condition:HaveChaosInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ChaosInfusion" }),
-		},
-		["infusion_grants_life_regeneration_rate_per_minute_%"] = {
-			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "PhysicalInfusion" }),
-			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "FireInfusion" }),
-			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ColdInfusion" }),
-			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "LightningInfusion" }),
-			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ChaosInfusion" }),
-			div = 60
-		},
-		["infusion_effect_+%"] = {
-			mod("InfusionEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-	},
-	baseMods = {
-		flag("Condition:PhysicalInfusion", { type = "SkillType", skillType = SkillType.Physical }),
-		flag("Condition:FireInfusion", { type = "SkillType", skillType = SkillType.Fire }),
-		flag("Condition:ColdInfusion", { type = "SkillType", skillType = SkillType.Cold }),
-		flag("Condition:LightningInfusion", { type = "SkillType", skillType = SkillType.Lightning }),
-		flag("Condition:ChaosInfusion", { type = "SkillType", skillType = SkillType.Chaos }),
 	},
 	qualityStats = {
 		Default = {
-			{ "support_storm_barrier_damage_buff_time_threshold_ms", -20 },
-		},
-		Alternate1 = {
-			{ "infusion_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "infusion_grants_life_regeneration_rate_per_minute_%", 1.5 },
+			{ "support_storm_barrier_damage_taken_when_hit_+%_final_while_channelling", -0.1 },
 		},
 	},
 	constantStats = {
-		{ "support_storm_barrier_skill_type_damage_taken_when_hit_+%_final", -8 },
-		{ "support_storm_barrier_damage_buff_base_duration_ms", 6000 },
-		{ "support_storm_barrier_skill_type_damage_+%_final", 10 },
+		{ "support_storm_barrier_damage_taken_when_hit_+%_final_while_channelling", -8 },
 	},
 	stats = {
 		"support_storm_barrier_damage_+%_final",
-		"support_storm_barrier_damage_buff_time_threshold_ms",
-		"support_storm_barrier_damage_buff_uses_time_threshold",
 	},
 	levels = {
-		[1] = { 15, 1600, manaMultiplier = 30, levelRequirement = 4, statInterpolation = { 1, 1, }, },
-		[2] = { 15, 1600, manaMultiplier = 30, levelRequirement = 6, statInterpolation = { 1, 1, }, },
-		[3] = { 16, 1500, manaMultiplier = 30, levelRequirement = 9, statInterpolation = { 1, 1, }, },
-		[4] = { 16, 1500, manaMultiplier = 30, levelRequirement = 12, statInterpolation = { 1, 1, }, },
-		[5] = { 17, 1500, manaMultiplier = 30, levelRequirement = 16, statInterpolation = { 1, 1, }, },
-		[6] = { 17, 1400, manaMultiplier = 30, levelRequirement = 20, statInterpolation = { 1, 1, }, },
-		[7] = { 18, 1400, manaMultiplier = 30, levelRequirement = 24, statInterpolation = { 1, 1, }, },
-		[8] = { 18, 1400, manaMultiplier = 30, levelRequirement = 28, statInterpolation = { 1, 1, }, },
-		[9] = { 19, 1300, manaMultiplier = 30, levelRequirement = 32, statInterpolation = { 1, 1, }, },
-		[10] = { 19, 1300, manaMultiplier = 30, levelRequirement = 36, statInterpolation = { 1, 1, }, },
-		[11] = { 20, 1300, manaMultiplier = 30, levelRequirement = 40, statInterpolation = { 1, 1, }, },
-		[12] = { 20, 1200, manaMultiplier = 30, levelRequirement = 44, statInterpolation = { 1, 1, }, },
-		[13] = { 21, 1200, manaMultiplier = 30, levelRequirement = 48, statInterpolation = { 1, 1, }, },
-		[14] = { 21, 1200, manaMultiplier = 30, levelRequirement = 52, statInterpolation = { 1, 1, }, },
-		[15] = { 22, 1100, manaMultiplier = 30, levelRequirement = 55, statInterpolation = { 1, 1, }, },
-		[16] = { 22, 1100, manaMultiplier = 30, levelRequirement = 58, statInterpolation = { 1, 1, }, },
-		[17] = { 23, 1100, manaMultiplier = 30, levelRequirement = 61, statInterpolation = { 1, 1, }, },
-		[18] = { 23, 1000, manaMultiplier = 30, levelRequirement = 64, statInterpolation = { 1, 1, }, },
-		[19] = { 24, 1000, manaMultiplier = 30, levelRequirement = 67, statInterpolation = { 1, 1, }, },
-		[20] = { 24, 1000, manaMultiplier = 30, levelRequirement = 70, statInterpolation = { 1, 1, }, },
-		[21] = { 25, 900, manaMultiplier = 30, levelRequirement = 72, statInterpolation = { 1, 1, }, },
-		[22] = { 25, 900, manaMultiplier = 30, levelRequirement = 74, statInterpolation = { 1, 1, }, },
-		[23] = { 26, 900, manaMultiplier = 30, levelRequirement = 76, statInterpolation = { 1, 1, }, },
-		[24] = { 26, 800, manaMultiplier = 30, levelRequirement = 78, statInterpolation = { 1, 1, }, },
-		[25] = { 27, 800, manaMultiplier = 30, levelRequirement = 80, statInterpolation = { 1, 1, }, },
-		[26] = { 27, 800, manaMultiplier = 30, levelRequirement = 82, statInterpolation = { 1, 1, }, },
-		[27] = { 28, 700, manaMultiplier = 30, levelRequirement = 84, statInterpolation = { 1, 1, }, },
-		[28] = { 28, 700, manaMultiplier = 30, levelRequirement = 86, statInterpolation = { 1, 1, }, },
-		[29] = { 29, 700, manaMultiplier = 30, levelRequirement = 88, statInterpolation = { 1, 1, }, },
-		[30] = { 29, 600, manaMultiplier = 30, levelRequirement = 90, statInterpolation = { 1, 1, }, },
-		[31] = { 29, 600, manaMultiplier = 30, levelRequirement = 91, statInterpolation = { 1, 1, }, },
-		[32] = { 30, 600, manaMultiplier = 30, levelRequirement = 92, statInterpolation = { 1, 1, }, },
-		[33] = { 30, 500, manaMultiplier = 30, levelRequirement = 93, statInterpolation = { 1, 1, }, },
-		[34] = { 30, 500, manaMultiplier = 30, levelRequirement = 94, statInterpolation = { 1, 1, }, },
-		[35] = { 30, 500, manaMultiplier = 30, levelRequirement = 95, statInterpolation = { 1, 1, }, },
-		[36] = { 31, 500, manaMultiplier = 30, levelRequirement = 96, statInterpolation = { 1, 1, }, },
-		[37] = { 31, 500, manaMultiplier = 30, levelRequirement = 97, statInterpolation = { 1, 1, }, },
-		[38] = { 31, 500, manaMultiplier = 30, levelRequirement = 98, statInterpolation = { 1, 1, }, },
-		[39] = { 31, 500, manaMultiplier = 30, levelRequirement = 99, statInterpolation = { 1, 1, }, },
-		[40] = { 32, 500, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, }, },
+		[1] = { 20, manaMultiplier = 30, levelRequirement = 4, statInterpolation = { 1, }, },
+		[2] = { 20, manaMultiplier = 30, levelRequirement = 6, statInterpolation = { 1, }, },
+		[3] = { 21, manaMultiplier = 30, levelRequirement = 9, statInterpolation = { 1, }, },
+		[4] = { 21, manaMultiplier = 30, levelRequirement = 12, statInterpolation = { 1, }, },
+		[5] = { 22, manaMultiplier = 30, levelRequirement = 16, statInterpolation = { 1, }, },
+		[6] = { 22, manaMultiplier = 30, levelRequirement = 20, statInterpolation = { 1, }, },
+		[7] = { 23, manaMultiplier = 30, levelRequirement = 24, statInterpolation = { 1, }, },
+		[8] = { 23, manaMultiplier = 30, levelRequirement = 28, statInterpolation = { 1, }, },
+		[9] = { 24, manaMultiplier = 30, levelRequirement = 32, statInterpolation = { 1, }, },
+		[10] = { 24, manaMultiplier = 30, levelRequirement = 36, statInterpolation = { 1, }, },
+		[11] = { 25, manaMultiplier = 30, levelRequirement = 40, statInterpolation = { 1, }, },
+		[12] = { 25, manaMultiplier = 30, levelRequirement = 44, statInterpolation = { 1, }, },
+		[13] = { 26, manaMultiplier = 30, levelRequirement = 48, statInterpolation = { 1, }, },
+		[14] = { 26, manaMultiplier = 30, levelRequirement = 52, statInterpolation = { 1, }, },
+		[15] = { 27, manaMultiplier = 30, levelRequirement = 55, statInterpolation = { 1, }, },
+		[16] = { 27, manaMultiplier = 30, levelRequirement = 58, statInterpolation = { 1, }, },
+		[17] = { 28, manaMultiplier = 30, levelRequirement = 61, statInterpolation = { 1, }, },
+		[18] = { 28, manaMultiplier = 30, levelRequirement = 64, statInterpolation = { 1, }, },
+		[19] = { 29, manaMultiplier = 30, levelRequirement = 67, statInterpolation = { 1, }, },
+		[20] = { 29, manaMultiplier = 30, levelRequirement = 70, statInterpolation = { 1, }, },
+		[21] = { 30, manaMultiplier = 30, levelRequirement = 72, statInterpolation = { 1, }, },
+		[22] = { 30, manaMultiplier = 30, levelRequirement = 74, statInterpolation = { 1, }, },
+		[23] = { 31, manaMultiplier = 30, levelRequirement = 76, statInterpolation = { 1, }, },
+		[24] = { 31, manaMultiplier = 30, levelRequirement = 78, statInterpolation = { 1, }, },
+		[25] = { 32, manaMultiplier = 30, levelRequirement = 80, statInterpolation = { 1, }, },
+		[26] = { 32, manaMultiplier = 30, levelRequirement = 82, statInterpolation = { 1, }, },
+		[27] = { 33, manaMultiplier = 30, levelRequirement = 84, statInterpolation = { 1, }, },
+		[28] = { 33, manaMultiplier = 30, levelRequirement = 86, statInterpolation = { 1, }, },
+		[29] = { 34, manaMultiplier = 30, levelRequirement = 88, statInterpolation = { 1, }, },
+		[30] = { 34, manaMultiplier = 30, levelRequirement = 90, statInterpolation = { 1, }, },
+		[31] = { 34, manaMultiplier = 30, levelRequirement = 91, statInterpolation = { 1, }, },
+		[32] = { 35, manaMultiplier = 30, levelRequirement = 92, statInterpolation = { 1, }, },
+		[33] = { 35, manaMultiplier = 30, levelRequirement = 93, statInterpolation = { 1, }, },
+		[34] = { 35, manaMultiplier = 30, levelRequirement = 94, statInterpolation = { 1, }, },
+		[35] = { 35, manaMultiplier = 30, levelRequirement = 95, statInterpolation = { 1, }, },
+		[36] = { 36, manaMultiplier = 30, levelRequirement = 96, statInterpolation = { 1, }, },
+		[37] = { 36, manaMultiplier = 30, levelRequirement = 97, statInterpolation = { 1, }, },
+		[38] = { 36, manaMultiplier = 30, levelRequirement = 98, statInterpolation = { 1, }, },
+		[39] = { 36, manaMultiplier = 30, levelRequirement = 99, statInterpolation = { 1, }, },
+		[40] = { 37, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportOnslaughtOnSlayingShockedEnemy"] = {
+skills["SupportInnervate"] = {
 	name = "Innervate",
 	description = "Supports any skill you use to hit enemies yourself. Cannot support skills used by totems, traps, or mines.",
 	color = 3,
@@ -3614,13 +3272,7 @@ skills["SupportOnslaughtOnSlayingShockedEnemy"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "shock_duration_+%", 1.5 },
-		},
-		Alternate1 = {
 			{ "support_innervate_buff_base_duration_ms", 100 },
-		},
-		Alternate2 = {
-			{ "support_innervate_chance_to_gain_buff_on_shock_vs_unique_%", 0.2 },
 		},
 	},
 	constantStats = {
@@ -3677,7 +3329,7 @@ skills["SupportOnslaughtOnSlayingShockedEnemy"] = {
 		[40] = { 0.15000000596046, 2.6199998855591, 0.079999998211861, 1.5199999809265, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 3, 3, 3, 3, }, },
 	},
 }
-skills["SupportHandcastSpellBoost"] = {
+skills["SupportIntensify"] = {
 	name = "Intensify",
 	description = "Supports spell skills that you cast yourself. Cannot support triggered skills, Vaal skills, instant skills, channelling skills, skills with a reservation or which create minions, or skills used by totems, traps, or mines.",
 	color = 3,
@@ -3697,15 +3349,6 @@ skills["SupportHandcastSpellBoost"] = {
 	qualityStats = {
 		Default = {
 			{ "area_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "intensity_loss_frequency_while_moving_+%", 2 },
-		},
-		Alternate3 = {
-			{ "intensity_loss_frequency_while_moving_+%", -1 },
 		},
 	},
 	constantStats = {
@@ -3773,9 +3416,6 @@ skills["SupportItemRarity"] = {
 		Default = {
 			{ "base_killed_monster_dropped_item_rarity_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "chance_for_coin_shower_on_kill_%", 0.1 },
-		},
 	},
 	stats = {
 		"base_killed_monster_dropped_item_rarity_+%",
@@ -3836,12 +3476,6 @@ skills["SupportLightningPenetration"] = {
 		Default = {
 			{ "lightning_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_chance_to_shock_%", 0.5 },
-		},
-		Alternate2 = {
-			{ "lightning_ailment_effect_+%", 1 },
-		},
 	},
 	stats = {
 		"base_reduce_enemy_lightning_resistance_%",
@@ -3889,7 +3523,7 @@ skills["SupportLightningPenetration"] = {
 		[40] = { 45, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportLightningPenetrationPlus"] = {
+skills["SupportAwakenedLightningPenetration"] = {
 	name = "Awakened Lightning Penetration",
 	description = "Supports any skill that hits enemies, making those hits penetrate enemy lightning resistance.",
 	color = 3,
@@ -3931,7 +3565,7 @@ skills["SupportLightningPenetrationPlus"] = {
 		[20] = { 47, 10, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportMinionDefensiveStance"] = {
+skills["SupportMeatShield"] = {
 	name = "Meat Shield",
 	description = "Supports skills which create Minions.",
 	color = 3,
@@ -3953,13 +3587,7 @@ skills["SupportMinionDefensiveStance"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "minion_additional_physical_damage_reduction_%", 0.25 },
-		},
-		Alternate1 = {
-			{ "support_minion_defensive_stance_minion_damage_+%_final_against_enemies_near_you", 0.25 },
-		},
-		Alternate2 = {
-			{ "minion_block_%", 0.4 },
+			{ "support_minion_defensive_stance_minion_damage_taken_+%_final", -0.25 },
 		},
 	},
 	constantStats = {
@@ -4030,13 +3658,7 @@ skills["SupportMinefield"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "mine_laying_speed_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "chance_to_place_an_additional_mine_%", 0.2 },
-		},
-		Alternate2 = {
-			{ "number_of_additional_remote_mines_allowed", 0.2 },
+			{ "mine_laying_speed_+%", 0.25 },
 		},
 	},
 	constantStats = {
@@ -4104,22 +3726,10 @@ skills["SupportMinionDamage"] = {
 		["support_minion_damage_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
 		},
-		["minion_chance_to_deal_double_damage_%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("DoubleDamageChance", "BASE", nil) }),
-		},
-		["minion_ailment_damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, KeywordFlag.Ailment) }),
-		},
 	},
 	qualityStats = {
 		Default = {
 			{ "minion_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "minion_chance_to_deal_double_damage_%", 0.15 },
-		},
-		Alternate2 = {
-			{ "minion_ailment_damage_+%", 2 },
 		},
 	},
 	constantStats = {
@@ -4171,7 +3781,7 @@ skills["SupportMinionDamage"] = {
 		[40] = { 50, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportMinionDamagePlus"] = {
+skills["SupportAwakenedMinionDamage"] = {
 	name = "Awakened Minion Damage",
 	description = "Supports skills which create Minions.",
 	color = 3,
@@ -4235,23 +3845,10 @@ skills["SupportMinionLife"] = {
 		["support_minion_maximum_life_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }),
 		},
-		["minion_life_regeneration_rate_per_minute_%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("LifeRegenPercent", "BASE", nil) }),
-			div = 60
-		},
-		["minion_damage_+%_on_full_life"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, {type = "Condition", var = "FullLife"}) }),
-		},
 	},
 	qualityStats = {
 		Default = {
-			{ "minion_maximum_life_+%", 0.75 },
-		},
-		Alternate1 = {
-			{ "minion_life_regeneration_rate_per_minute_%", 3 },
-		},
-		Alternate2 = {
-			{ "minion_damage_+%_on_full_life", 1 },
+			{ "minion_maximum_life_+%", 1 },
 		},
 	},
 	stats = {
@@ -4314,12 +3911,6 @@ skills["SupportMinionSpeed"] = {
 		Default = {
 			{ "minion_movement_speed_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_minion_duration_+%", -2 },
-		},
-		Alternate2 = {
-			{ "minion_cooldown_recovery_+%", 1 },
-		},
 	},
 	stats = {
 		"minion_movement_speed_+%",
@@ -4369,7 +3960,7 @@ skills["SupportMinionSpeed"] = {
 		[40] = { 59, 42, 42, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, 1, 1, }, },
 	},
 }
-skills["SupportSummonElementalResistances"] = {
+skills["SupportElementalArmy"] = {
 	name = "Elemental Army",
 	description = "Supports skills which create Minions.",
 	color = 3,
@@ -4382,24 +3973,12 @@ skills["SupportSummonElementalResistances"] = {
 		["support_minion_totem_resistance_elemental_damage_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("ElementalDamage", "MORE", nil) }),
 		},
-		["minion_life_leech_from_elemental_damage_permyriad"] = {
-			mod("MinionModifier", "LIST", { mod = mod("FireDamageLeech", "BASE", nil) }),
-			mod("MinionModifier", "LIST", { mod = mod("LightningDamageLeech", "BASE", nil) }),
-			mod("MinionModifier", "LIST", { mod = mod("ColdDamageLeech", "BASE", nil) }),
-			div = 100
-		},
 		["minions_inflict_exposure_on_hit_%_chance"] = {
 		},
 	},
 	qualityStats = {
 		Default = {
 			{ "minion_maximum_all_elemental_resistances_%", 0.1 },
-		},
-		Alternate1 = {
-			{ "minion_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "minion_life_leech_from_elemental_damage_permyriad", 2 },
 		},
 	},
 	constantStats = {
@@ -4469,19 +4048,10 @@ skills["SupportOvercharge"] = {
 		["support_pure_shock_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
-		["shock_effect_+%_with_critical_strikes"] = {
-			mod("EnemyShockEffect", "INC", nil),
-		},
 	},
 	qualityStats = {
 		Default = {
-			{ "shock_duration_+%", 1.5 },
-		},
-		Alternate1 = {
-			{ "shock_effect_+%_with_critical_strikes", 1 },
-		},
-		Alternate2 = {
-			{ "critical_strike_chance_+%", 2 },
+			{ "shock_duration_+%", 1 },
 		},
 	},
 	constantStats = {
@@ -4543,21 +4113,9 @@ skills["SupportPhysicalToLightning"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["enemies_you_shock_take_%_increased_physical_damage"] = {
-			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "Shocked" }),
-		},
-	},
 	qualityStats = {
 		Default = {
 			{ "physical_damage_+%", 0.5 },
-			{ "lightning_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "skill_physical_damage_%_to_convert_to_lightning", 0.5 },
-		},
-		Alternate2 = {
-			{ "enemies_you_shock_take_%_increased_physical_damage", 0.5 },
 		},
 	},
 	constantStats = {
@@ -4628,15 +4186,6 @@ skills["SupportPrismaticBurst"] = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0 },
 		},
-		Alternate1 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-		Alternate2 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-		Alternate3 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
 	},
 	constantStats = {
 		{ "trigger_prismatic_burst_on_hit_%_chance", 100 },
@@ -4688,6 +4237,7 @@ skills["SupportPrismaticBurst"] = {
 }
 skills["PrismaticBurst"] = {
 	name = "Prismatic Burst",
+	baseTypeName = "Prismatic Burst",
 	color = 3,
 	baseEffectiveness = 0.99330002069473,
 	incrementalEffectiveness = 0.059399999678135,
@@ -4713,15 +4263,6 @@ skills["PrismaticBurst"] = {
 			mod("LightningDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
 			mult = -100,
 		},
-		["spell_damage_+%_per_10_int"] = {
-			skill("Damage", nil, { type = "PerStat", stat = "Int", div = 10 }),
-		},
-		["critical_strike_multiplier_+_if_dexterity_higher_than_intelligence"] = {
-			skill("CritMultiplier", nil, { type = "Condition", var = "DexHigherThanInt" }),
-		},
-		["area_of_effect_+%_per_50_strength"] = {
-			skill("Area", nil, { type = "PerStat", stat = "Str", div = 50 }),
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -4733,15 +4274,6 @@ skills["PrismaticBurst"] = {
 	qualityStats = {
 		Default = {
 			{ "elemental_damage_+%", 1 },
-		},
-		Alternate1 = {
-			{ "spell_damage_+%_per_10_int", 0.05 },
-		},
-		Alternate2 = {
-			{ "critical_strike_multiplier_+_if_dexterity_higher_than_intelligence", 0.5 },
-		},
-		Alternate3 = {
-			{ "area_of_effect_+%_per_50_strength", 0.1 },
 		},
 	},
 	stats = {
@@ -4758,49 +4290,49 @@ skills["PrismaticBurst"] = {
 		"prismatic_burst_unchosen_type_damage_-100%_final",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 0, 0, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 0, 3, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 2, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 1, 6, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 4, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 1, 9, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 7, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[5] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 2, 12, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 11, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[6] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 2, 15, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 16, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[7] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 3, 18, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 20, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[8] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 3, 21, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 24, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[9] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 4, 24, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 28, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[10] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 4, 27, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 32, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[11] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 5, 30, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 36, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[12] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 5, 33, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 40, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[13] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 6, 36, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 44, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[14] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 6, 39, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 48, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[15] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 7, 42, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 52, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[16] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 7, 45, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 56, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[17] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 8, 48, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 60, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[18] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 8, 51, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 64, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[19] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 9, 54, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 67, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[20] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 9, 57, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 70, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[21] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 10, 60, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 72, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[22] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 10, 63, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 74, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[23] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 10, 66, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 76, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[24] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 10, 69, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 78, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[25] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 11, 72, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 80, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[26] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 11, 75, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 82, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[27] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 11, 78, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 84, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[28] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 11, 81, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 86, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[29] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 12, 84, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 88, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[30] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 12, 87, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 90, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[31] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 12, 88, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 91, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[32] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 12, 90, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 92, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[33] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 13, 91, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 93, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[34] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 13, 93, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 94, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[35] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 13, 94, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 95, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[36] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 13, 96, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 96, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[37] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 14, 97, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 97, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[38] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 14, 99, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 98, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[39] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 14, 100, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 99, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
-		[40] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 14, 102, critChance = 5, cooldown = 0.8, damageEffectiveness = 2.8, storedUses = 1, levelRequirement = 100, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 0, 0, critChance = 5, storedUses = 1, levelRequirement = 1, cooldown = 0.8, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 0, 3, critChance = 5, storedUses = 1, levelRequirement = 2, cooldown = 0.8, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 1, 6, critChance = 5, storedUses = 1, levelRequirement = 4, cooldown = 0.8, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 1, 9, critChance = 5, storedUses = 1, damageEffectiveness = 1.1, cooldown = 0.8, levelRequirement = 7, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 2, 12, critChance = 5, storedUses = 1, damageEffectiveness = 1.1, cooldown = 0.8, levelRequirement = 11, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 2, 15, critChance = 5, storedUses = 1, damageEffectiveness = 1.2, cooldown = 0.8, levelRequirement = 16, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 3, 18, critChance = 5, storedUses = 1, damageEffectiveness = 1.3, cooldown = 0.8, levelRequirement = 20, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 3, 21, critChance = 5, storedUses = 1, damageEffectiveness = 1.4, cooldown = 0.8, levelRequirement = 24, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 4, 24, critChance = 5, storedUses = 1, damageEffectiveness = 1.5, cooldown = 0.8, levelRequirement = 28, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 4, 27, critChance = 5, storedUses = 1, damageEffectiveness = 1.6, cooldown = 0.8, levelRequirement = 32, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 5, 30, critChance = 5, storedUses = 1, damageEffectiveness = 1.7, cooldown = 0.8, levelRequirement = 36, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 5, 33, critChance = 5, storedUses = 1, damageEffectiveness = 1.8, cooldown = 0.8, levelRequirement = 40, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 6, 36, critChance = 5, storedUses = 1, damageEffectiveness = 1.9, cooldown = 0.8, levelRequirement = 44, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 6, 39, critChance = 5, storedUses = 1, damageEffectiveness = 2, cooldown = 0.8, levelRequirement = 48, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 7, 42, critChance = 5, storedUses = 1, damageEffectiveness = 2.1, cooldown = 0.8, levelRequirement = 52, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 7, 45, critChance = 5, storedUses = 1, damageEffectiveness = 2.3, cooldown = 0.8, levelRequirement = 56, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 8, 48, critChance = 5, storedUses = 1, damageEffectiveness = 2.4, cooldown = 0.8, levelRequirement = 60, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 8, 51, critChance = 5, storedUses = 1, damageEffectiveness = 2.6, cooldown = 0.8, levelRequirement = 64, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 9, 54, critChance = 5, storedUses = 1, damageEffectiveness = 2.7, cooldown = 0.8, levelRequirement = 67, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 9, 57, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 70, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 10, 60, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 72, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 10, 63, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 74, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 10, 66, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 76, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 10, 69, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 78, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 11, 72, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 80, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 11, 75, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 82, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 11, 78, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 84, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 11, 81, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 86, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 12, 84, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 88, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 12, 87, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 90, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[31] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 12, 88, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 91, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[32] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 12, 90, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 92, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[33] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 13, 91, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 93, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[34] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 13, 93, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 94, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[35] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 13, 94, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 95, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[36] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 13, 96, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 96, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[37] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 14, 97, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 97, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[38] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 14, 99, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 98, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[39] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 14, 100, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 99, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
+		[40] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 14, 102, critChance = 5, storedUses = 1, damageEffectiveness = 2.8, cooldown = 0.8, levelRequirement = 100, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
 	},
 }
-skills["SupportProjectileIntensity"] = {
+skills["SupportPinpoint"] = {
 	name = "Pinpoint",
 	description = "Supports projectile spells you cast yourself. Cannot support triggered skills, Vaal skills, instant skills, channelling skills, skills with a reservation or which create minions, or skills used by totems, traps, or mines.",
 	color = 3,
@@ -4824,12 +4356,6 @@ skills["SupportProjectileIntensity"] = {
 	qualityStats = {
 		Default = {
 			{ "projectile_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "intensity_loss_frequency_while_moving_+%", -1 },
-		},
-		Alternate2 = {
-			{ "intensity_loss_frequency_while_moving_+%", 1 },
 		},
 	},
 	constantStats = {
@@ -4884,7 +4410,7 @@ skills["SupportProjectileIntensity"] = {
 		[40] = { -8, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportPowerChargeOnCrit"] = {
+skills["SupportPowerChargeOnCritical"] = {
 	name = "Power Charge On Critical",
 	description = "Supports any skill that hits enemies.",
 	color = 3,
@@ -4900,13 +4426,7 @@ skills["SupportPowerChargeOnCrit"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "critical_strike_chance_+%", 1 },
-		},
-		Alternate1 = {
-			{ "add_power_charge_on_critical_strike_%", 1 },
-		},
-		Alternate2 = {
-			{ "damage_+%_per_power_charge", 0.1 },
+			{ "add_power_charge_on_critical_strike_%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -4958,7 +4478,7 @@ skills["SupportPowerChargeOnCrit"] = {
 		[40] = { 69, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportRemoteMine"] = {
+skills["SupportBlastchainMine"] = {
 	name = "Blastchain Mine",
 	description = "Supports spells, or attacks that use bows or wands. Instead of using that skill, you will throw a mine that will use the skill for you when you detonate it. Mines cannot use channelling skills.",
 	color = 3,
@@ -4980,13 +4500,7 @@ skills["SupportRemoteMine"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "mine_laying_speed_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_reservation_efficiency_+%", 2 },
-		},
-		Alternate2 = {
-			{ "mine_detonation_speed_+%", 1 },
+			{ "mine_damage_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -5047,6 +4561,152 @@ skills["SupportRemoteMine"] = {
 		[40] = { -46, manaMultiplier = -50, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
+skills["SupportSacredWisps"] = {
+	name = "Sacred Wisps",
+	description = "Supports attack skills that can be used with Wands. Cannot support Vaal skills, minion skills, movement skills, or skills used by totems, traps, or mines.",
+	color = 3,
+	support = true,
+	requireSkillTypes = { SkillType.RangedAttack, },
+	addSkillTypes = { },
+	excludeSkillTypes = { SkillType.Vaal, SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Minion, },
+	ignoreMinionTypes = true,
+	weaponTypes = {
+		["Wand"] = true,
+	},
+	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["skill_used_by_sacred_wisp_damage_+%_final"] = {
+			mod("SacredWispsLessDamage", "BASE", nil),
+		},
+		["supported_skill_can_only_use_wand"] = {
+			-- Display only
+		},
+	},
+	qualityStats = {
+		Default = {
+			{ "attack_damage_+%", 0.5 },
+		},
+	},
+	stats = {
+		"skill_used_by_sacred_wisp_damage_+%_final",
+		"summon_sacred_wisps_on_hit",
+		"supported_skill_can_only_use_wand",
+	},
+	levels = {
+		[1] = { -60, manaMultiplier = 40, levelRequirement = 18, statInterpolation = { 1, }, },
+		[2] = { -60, manaMultiplier = 40, levelRequirement = 22, statInterpolation = { 1, }, },
+		[3] = { -59, manaMultiplier = 40, levelRequirement = 26, statInterpolation = { 1, }, },
+		[4] = { -59, manaMultiplier = 40, levelRequirement = 29, statInterpolation = { 1, }, },
+		[5] = { -58, manaMultiplier = 40, levelRequirement = 32, statInterpolation = { 1, }, },
+		[6] = { -58, manaMultiplier = 40, levelRequirement = 35, statInterpolation = { 1, }, },
+		[7] = { -57, manaMultiplier = 40, levelRequirement = 38, statInterpolation = { 1, }, },
+		[8] = { -57, manaMultiplier = 40, levelRequirement = 41, statInterpolation = { 1, }, },
+		[9] = { -56, manaMultiplier = 40, levelRequirement = 44, statInterpolation = { 1, }, },
+		[10] = { -56, manaMultiplier = 40, levelRequirement = 47, statInterpolation = { 1, }, },
+		[11] = { -55, manaMultiplier = 40, levelRequirement = 50, statInterpolation = { 1, }, },
+		[12] = { -55, manaMultiplier = 40, levelRequirement = 53, statInterpolation = { 1, }, },
+		[13] = { -54, manaMultiplier = 40, levelRequirement = 56, statInterpolation = { 1, }, },
+		[14] = { -54, manaMultiplier = 40, levelRequirement = 58, statInterpolation = { 1, }, },
+		[15] = { -53, manaMultiplier = 40, levelRequirement = 60, statInterpolation = { 1, }, },
+		[16] = { -53, manaMultiplier = 40, levelRequirement = 62, statInterpolation = { 1, }, },
+		[17] = { -52, manaMultiplier = 40, levelRequirement = 64, statInterpolation = { 1, }, },
+		[18] = { -52, manaMultiplier = 40, levelRequirement = 66, statInterpolation = { 1, }, },
+		[19] = { -51, manaMultiplier = 40, levelRequirement = 68, statInterpolation = { 1, }, },
+		[20] = { -51, manaMultiplier = 40, levelRequirement = 70, statInterpolation = { 1, }, },
+		[21] = { -50, manaMultiplier = 40, levelRequirement = 72, statInterpolation = { 1, }, },
+		[22] = { -50, manaMultiplier = 40, levelRequirement = 74, statInterpolation = { 1, }, },
+		[23] = { -49, manaMultiplier = 40, levelRequirement = 76, statInterpolation = { 1, }, },
+		[24] = { -49, manaMultiplier = 40, levelRequirement = 78, statInterpolation = { 1, }, },
+		[25] = { -48, manaMultiplier = 40, levelRequirement = 80, statInterpolation = { 1, }, },
+		[26] = { -48, manaMultiplier = 40, levelRequirement = 82, statInterpolation = { 1, }, },
+		[27] = { -47, manaMultiplier = 40, levelRequirement = 84, statInterpolation = { 1, }, },
+		[28] = { -47, manaMultiplier = 40, levelRequirement = 86, statInterpolation = { 1, }, },
+		[29] = { -46, manaMultiplier = 40, levelRequirement = 88, statInterpolation = { 1, }, },
+		[30] = { -46, manaMultiplier = 40, levelRequirement = 90, statInterpolation = { 1, }, },
+		[31] = { -46, manaMultiplier = 40, levelRequirement = 91, statInterpolation = { 1, }, },
+		[32] = { -45, manaMultiplier = 40, levelRequirement = 92, statInterpolation = { 1, }, },
+		[33] = { -45, manaMultiplier = 40, levelRequirement = 93, statInterpolation = { 1, }, },
+		[34] = { -45, manaMultiplier = 40, levelRequirement = 94, statInterpolation = { 1, }, },
+		[35] = { -45, manaMultiplier = 40, levelRequirement = 95, statInterpolation = { 1, }, },
+		[36] = { -44, manaMultiplier = 40, levelRequirement = 96, statInterpolation = { 1, }, },
+		[37] = { -44, manaMultiplier = 40, levelRequirement = 97, statInterpolation = { 1, }, },
+		[38] = { -44, manaMultiplier = 40, levelRequirement = 98, statInterpolation = { 1, }, },
+		[39] = { -44, manaMultiplier = 40, levelRequirement = 99, statInterpolation = { 1, }, },
+		[40] = { -43, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
+	},
+}
+skills["SummonSacredWisp"] = {
+	name = "Summon Sacred Wisps",
+	baseTypeName = "Summon Sacred Wisps",
+	color = 3,
+	description = "This skill is triggered by supported skills to summon Sacred Wisps which use the triggering skill when you do.",
+	skillTypes = { [SkillType.SkillGrantedBySupport] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Duration] = true, [SkillType.Spell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["support_sacred_wisps_wisp_%_chance_to_attack"] = {
+			mod("SacredWispsChance", "BASE", 25),
+		},
+		["support_sacred_wisps_wisp_additional_%_chance_to_attack_when_rare_or_unique_enemy_in_presence"] = {
+			mod("SacredWispsChance", "BASE", 25, nil, nil, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }),
+		},
+		["base_number_of_sacred_wisps_allowed"] = {
+			mod("SacredWispsMaxCount", "BASE", 2),
+		},
+	},
+	baseFlags = {
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 10000 },
+		{ "base_number_of_sacred_wisps_allowed", 2 },
+		{ "support_sacred_wisps_wisp_%_chance_to_attack", 25 },
+		{ "support_sacred_wisps_wisp_additional_%_chance_to_attack_when_rare_or_unique_enemy_in_presence", 25 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 18, },
+		[2] = { levelRequirement = 22, },
+		[3] = { levelRequirement = 26, },
+		[4] = { levelRequirement = 29, },
+		[5] = { levelRequirement = 32, },
+		[6] = { levelRequirement = 35, },
+		[7] = { levelRequirement = 38, },
+		[8] = { levelRequirement = 41, },
+		[9] = { levelRequirement = 44, },
+		[10] = { levelRequirement = 47, },
+		[11] = { levelRequirement = 50, },
+		[12] = { levelRequirement = 53, },
+		[13] = { levelRequirement = 56, },
+		[14] = { levelRequirement = 58, },
+		[15] = { levelRequirement = 60, },
+		[16] = { levelRequirement = 62, },
+		[17] = { levelRequirement = 64, },
+		[18] = { levelRequirement = 66, },
+		[19] = { levelRequirement = 68, },
+		[20] = { levelRequirement = 70, },
+		[21] = { levelRequirement = 72, },
+		[22] = { levelRequirement = 74, },
+		[23] = { levelRequirement = 76, },
+		[24] = { levelRequirement = 78, },
+		[25] = { levelRequirement = 80, },
+		[26] = { levelRequirement = 82, },
+		[27] = { levelRequirement = 84, },
+		[28] = { levelRequirement = 86, },
+		[29] = { levelRequirement = 88, },
+		[30] = { levelRequirement = 90, },
+		[31] = { levelRequirement = 91, },
+		[32] = { levelRequirement = 92, },
+		[33] = { levelRequirement = 93, },
+		[34] = { levelRequirement = 94, },
+		[35] = { levelRequirement = 95, },
+		[36] = { levelRequirement = 96, },
+		[37] = { levelRequirement = 97, },
+		[38] = { levelRequirement = 98, },
+		[39] = { levelRequirement = 99, },
+		[40] = { levelRequirement = 100, },
+	},
+}
 skills["SupportSacrifice"] = {
 	name = "Sacrifice",
 	description = "Supports spell skills that hit enemies and have no reservation. Cannot support brand skills, orb skills, channelling skills, Vaal skills or skills used by traps or mines. Cannot modify the skills of minions.",
@@ -5070,12 +4730,6 @@ skills["SupportSacrifice"] = {
 	qualityStats = {
 		Default = {
 			{ "chaos_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_skill_cost_life_instead_of_mana_%", 2 },
-		},
-		Alternate2 = {
-			{ "support_sacrifice_sacrifice_%_of_current_life", 0.25 },
 		},
 	},
 	stats = {
@@ -5139,19 +4793,10 @@ skills["SupportSpellblade"] = {
 		["support_spell_weapon_damage_gain_%_of_one_hand_melee_weapon_damage_as_added_spell_damage"] = {
 			mod("OneHandWeaponDamageAppliesToSpells", "MAX", nil),
 		},
-		["support_spell_weapon_damage_gain_%_of_one_hand_melee_weapon_damage_as_added_spell_damage_while_wielding_two_different_weapon_types"] = {
-			mod("OneHandWeaponDamageAppliesToSpellsWithTwoDifferentTypes", "MAX", nil),
-		},
 	},
 	qualityStats = {
 		Default = {
 			{ "spell_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "support_spell_weapon_damage_gain_%_of_one_hand_melee_weapon_damage_as_added_spell_damage_while_wielding_two_different_weapon_types", 1 },
-		},
-		Alternate2 = {
-			{ "chance_for_extra_damage_roll_%", 0.5 },
 		},
 	},
 	stats = {
@@ -5222,13 +4867,6 @@ skills["SupportSpellCascade"] = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "damage_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_skill_area_of_effect_+%", 1 },
-			{ "support_spell_cascade_area_delay_+%", 5 },
-		},
 	},
 	constantStats = {
 		{ "support_spell_cascade_number_of_cascades_per_side", 1 },
@@ -5280,7 +4918,7 @@ skills["SupportSpellCascade"] = {
 		[40] = { -8, -23, PvPDamageMultiplier = -20, levelRequirement = 100, manaMultiplier = 30, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportSpellCascadePlus"] = {
+skills["SupportAwakenedSpellCascade"] = {
 	name = "Awakened Spell Cascade",
 	description = "Supports spell skills that apply an effect to an area around a targeted location. Cannot support Vaal skills or skills used by totems, traps, or mines. Cannot modify the skills of minions.",
 	color = 3,
@@ -5335,9 +4973,9 @@ skills["SupportSpellCascadePlus"] = {
 		[20] = { -18, -24, PvPDamageMultiplier = -20, levelRequirement = 100, manaMultiplier = 30, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportMulticast"] = {
+skills["SupportSpellEcho"] = {
 	name = "Spell Echo",
-	description = "Supports spell skills, making them repeat when cast. Cannot support Vaal skills, totem skills, channelling skills, triggered skills, instant skills, or skills with a reservation.",
+	description = "Supports spell skills, making them repeat when cast. Cannot support Vaal skills, totem skills, channelling skills, triggered skills, instant skills, retaliation skills, blink skills, or skills with a reservation.",
 	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.Multicastable, },
@@ -5351,9 +4989,6 @@ skills["SupportMulticast"] = {
 		["support_multicast_cast_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
-		["support_spell_echo_final_repeat_damage_+%_final"] = {
-			mod("RepeatFinalDamage", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
-		}
 	},
 	baseMods = {
 		flag("Condition:HaveSpellEcho"),
@@ -5361,13 +4996,6 @@ skills["SupportMulticast"] = {
 	qualityStats = {
 		Default = {
 			{ "spell_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_cast_speed_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "support_echo_damage_+%_final", -1 },
-			{ "support_spell_echo_final_repeat_damage_+%_final", 3 },
 		},
 	},
 	constantStats = {
@@ -5420,15 +5048,15 @@ skills["SupportMulticast"] = {
 		[40] = { 65, manaMultiplier = 50, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportSpellEchoPlus"] = {
+skills["SupportAwakenedSpellEcho"] = {
 	name = "Awakened Spell Echo",
-	description = "Supports spell skills, making them repeat when cast. Cannot support Vaal skills, totem skills, channelling skills, triggered skills, instant skills, or skills with a reservation.",
+	description = "Supports spell skills, making them repeat when cast. Cannot support Vaal skills, totem skills, channelling skills, triggered skills, instant skills, retaliation skills, blink skills, or skills with a reservation.",
 	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.Multicastable, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Triggered, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, SkillType.Blink, SkillType.NonRepeatable, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
-	plusVersionOf = "SupportMulticast",
+	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Triggered, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, SkillType.NonRepeatable, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
+	plusVersionOf = "SupportSpellEcho",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_echo_damage_+%_final"] = {
@@ -5480,7 +5108,7 @@ skills["SupportSpellEchoPlus"] = {
 		[20] = { 67, manaMultiplier = 50, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportSummonGhostOnKill"] = {
+skills["SupportSummonPhantasm"] = {
 	name = "Summon Phantasm",
 	description = "Supports skills that can hit enemies, or create minions. When those skills or minions kill enemies, or hit rare or unique enemies they will have a chance to summon a Phantasm minion, which uses a piercing projectile spell that deals physical damage.",
 	color = 3,
@@ -5499,9 +5127,6 @@ skills["SupportSummonGhostOnKill"] = {
 		["base_number_of_support_ghosts_allowed"] = {
 			mod("ActivePhantasmLimit", "BASE", nil),
 		},
-		["damage_+%_for_non_minions"] = {
-			-- mod("Damage", "INC", nil, 0, 0, {type = "Actor"})
-		},
 		["phantasm_minimum_added_physical_damage_to_grant"] = {
 			mod("PhysicalMin", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight" })
 		},
@@ -5512,12 +5137,6 @@ skills["SupportSummonGhostOnKill"] = {
 	qualityStats = {
 		Default = {
 			{ "chance_to_summon_support_ghost_on_killing_blow_%", 0.5 },
-		},
-		Alternate1 = {
-			{ "damage_+%_for_non_minions", 3 },
-		},
-		Alternate2 = {
-			{ "skill_effect_duration_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -5574,7 +5193,7 @@ skills["SupportSummonGhostOnKill"] = {
 		[40] = { 84, 13, 62, 92, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, }, },
 	},
 }
-skills["SupportRapidActivation"] = {
+skills["SupportSwiftbrand"] = {
 	name = "Swiftbrand",
 	description = "Supports skills which create brands.",
 	color = 3,
@@ -5593,20 +5212,10 @@ skills["SupportRapidActivation"] = {
 		["support_rapid_activation_brand_skill_only_secondary_duration_+%_final"] = {
 			mod("SecondaryDuration", "MORE", nil, 0, KeywordFlag.Brand),
 		},
-		["from_quality_brand_activation_rate_+%_final_if_75%_attached_duration_expired"] = {
-			mod("BrandActivationFrequency", "MORE", nil, 0, 0, {type = "Condition", var = "BrandLastQuarter"})
-		},
 	},
 	qualityStats = {
 		Default = {
-			{ "sigil_repeat_frequency_+%", 0.25 },
-		},
-		Alternate1 = {
-			{ "support_rapid_activation_brand_skill_only_primary_duration_+%_final", 1 },
-			{ "support_rapid_activation_brand_skill_only_secondary_duration_+%_final", -1 },
-		},
-		Alternate2 = {
-			{ "from_quality_brand_activation_rate_+%_final_if_75%_attached_duration_expired", 1 },
+			{ "support_rapid_activation_brand_activation_rate_+%_final", 0.25 },
 		},
 	},
 	constantStats = {
@@ -5682,12 +5291,6 @@ skills["SupportTrinity"] = {
 		Default = {
 			{ "elemental_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "chance_to_freeze_shock_ignite_%", 0.25 },
-		},
-		Alternate2 = {
-			{ "skill_convert_%_physical_damage_to_random_element", 0.5 },
-		},
 	},
 	constantStats = {
 		{ "elemental_damage_+%_final_per_5_lowest_resonance", 3 },
@@ -5739,7 +5342,7 @@ skills["SupportTrinity"] = {
 		[40] = { 24, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportAilments"] = {
+skills["SupportUnboundAilments"] = {
 	name = "Unbound Ailments",
 	description = "Supports any skill that hits enemies or inflicts ailments",
 	color = 3,
@@ -5752,19 +5355,10 @@ skills["SupportAilments"] = {
 		["support_unbound_ailments_ailment_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison, KeywordFlag.Ignite)),
 		},
-		["base_damage_+%_while_an_ailment_on_you"] = {
-			mod("Damage", "INC", nil, 0, 0, {type = "Condition", varList = { "Frozen","Chilled","Shocked","Ignited","Scorched","Brittle","Sapped","Poisoned","Bleeding" }})
-		}
 	},
 	qualityStats = {
 		Default = {
 			{ "base_all_ailment_duration_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_ailment_damage_+%", 1 },
-		},
-		Alternate2 = {
-			{ "base_damage_+%_while_an_ailment_on_you", 1.5 },
 		},
 	},
 	stats = {
@@ -5815,7 +5409,7 @@ skills["SupportAilments"] = {
 		[40] = { 74, 27, 74, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, 1, 1, }, },
 	},
 }
-skills["SupportUnboundAilmentsPlus"] = {
+skills["SupportAwakenedUnboundAilments"] = {
 	name = "Awakened Unbound Ailments",
 	description = "Supports any skill that hits enemies or inflicts ailments",
 	color = 3,
@@ -5823,7 +5417,7 @@ skills["SupportUnboundAilmentsPlus"] = {
 	requireSkillTypes = { SkillType.Damage, SkillType.Attack, SkillType.ElementalStatus, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
-	plusVersionOf = "SupportAilments",
+	plusVersionOf = "SupportUnboundAilments",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_unbound_ailments_ailment_damage_+%_final"] = {
@@ -5863,7 +5457,7 @@ skills["SupportUnboundAilmentsPlus"] = {
 		[20] = { 77, 26, 77, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, 1, 1, }, },
 	},
 }
-skills["SupportHandcastAnticipation"] = {
+skills["SupportUnleash"] = {
 	name = "Unleash",
 	description = "Supports spell skills, making their effect reoccur when cast. Cannot support skills with cooldowns, triggered skills, Brand skills, Vaal skills, channelling skills, skills with a reservation, or skills used by totems, traps, or mines. Cannot modify the skills of minions.",
 	color = 3,
@@ -5890,14 +5484,6 @@ skills["SupportHandcastAnticipation"] = {
 	qualityStats = {
 		Default = {
 			{ "spell_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_cast_speed_+%", 1 },
-			{ "support_anticipation_charge_gain_frequency_+%", -0.5 },
-		},
-		Alternate2 = {
-			{ "unleash_support_seal_gain_frequency_+%_while_channelling", 2.5 },
-			{ "unleash_support_seal_gain_frequency_+%_while_not_channelling", -5 },
 		},
 	},
 	constantStats = {
@@ -5950,7 +5536,7 @@ skills["SupportHandcastAnticipation"] = {
 		[40] = { 510, -31, PvPDamageMultiplier = -40, levelRequirement = 100, manaMultiplier = 50, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportUnleashPlus"] = {
+skills["SupportAwakenedUnleash"] = {
 	name = "Awakened Unleash",
 	description = "Supports spell skills, making their effect reoccur when cast. Cannot support skills with cooldowns, triggered skills, Brand skills, Vaal skills, channelling skills, skills with a reservation, or skills used by totems, traps, or mines. Cannot modify the skills of minions.",
 	color = 3,
@@ -5958,7 +5544,7 @@ skills["SupportUnleashPlus"] = {
 	requireSkillTypes = { SkillType.CanRapidFire, },
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Triggered, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, SkillType.Channel, SkillType.Cooldown, },
-	plusVersionOf = "SupportHandcastAnticipation",
+	plusVersionOf = "SupportUnleash",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_anticipation_rapid_fire_count"] = {

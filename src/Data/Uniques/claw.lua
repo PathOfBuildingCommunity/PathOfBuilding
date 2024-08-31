@@ -136,9 +136,9 @@ Variant: Current
 Implicits: 3
 {variant:1,2}0.6% of Physical Attack Damage Leeched as Life
 {variant:3}Grants 31 Life per Enemy Hit
-{variant:4,5}2% of Physical Attack Damage Leeched as Life
+{variant:4,5,6}2% of Physical Attack Damage Leeched as Life
 {variant:1}+10% Chance to Block Attack Damage while Dual Wielding Claws
-{variant:2,3,4,5}+8% Chance to Block Attack Damage while Dual Wielding Claws
+{variant:2,3,4,5,6}+8% Chance to Block Attack Damage while Dual Wielding Claws
 {variant:1}(80-120)% increased Physical Damage
 {variant:2,3,4,5}(140-180)% increased Physical Damage
 {variant:1}Adds 1 to 50 Lightning Damage

@@ -1,7 +1,7 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
-loadStatFile("stat_descriptions.txt")
+loadStatFile("tincture_stat_descriptions.txt")
 
 function table.containsId(table, element)
   for _, value in pairs(table) do
@@ -88,19 +88,6 @@ local function writeMods(outName, condFunc)
 				end
 				out:write('}, ')
 				out:write('weightVal = { ', table.concat(mod.SpawnWeights, ', '), ' }, ')
-				out:write('weightMultiplierKey = { ')
-				for _, tag in ipairs(mod.GenerationWeightTags) do
-					out:write('"', tag.Id, '", ')
-				end
-				out:write('}, ')
-				out:write('weightMultiplierVal = { ', table.concat(mod.GenerationWeightValues, ', '), ' }, ')
-				if mod.Tags[1] then
-					out:write('tags = { ')
-					for _, tag in ipairs(mod.Tags) do
-						out:write('"', tag.Id, '", ')
-					end
-					out:write('}, ')
-				end
 				out:write('modTags = { ', stats.modTags, ' }, ')
 				out:write('},\n')
 			else
@@ -123,6 +110,9 @@ end)
 writeMods("../Data/ModFlask.lua", function(mod)
 	return mod.Domain == 2 and (mod.GenerationType == 1 or mod.GenerationType == 2)
 end)
+writeMods("../Data/ModTincture.lua", function(mod)
+	return (mod.Domain == 34) and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 3)
+end)
 writeMods("../Data/ModJewel.lua", function(mod)
 	return (mod.Domain == 10 or mod.Domain == 16) and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
 end)
@@ -132,11 +122,17 @@ end)
 writeMods("../Data/ModJewelCluster.lua", function(mod)
 	return (mod.Domain == 21 and (mod.GenerationType == 1 or mod.GenerationType == 2)) or (mod.Domain == 10 and mod.GenerationType == 5)
 end)
+writeMods("../Data/ModJewelCharm.lua", function(mod)
+	return (mod.Domain == 35) and (mod.GenerationType == 1 or mod.GenerationType == 2)
+end)
 writeMods("../Data/Uniques/Special/WatchersEye.lua", function(mod)
 	return (mod.Family[1].Id == "AuraBonus" or mod.Family[1].Id == "ArbalestBonus") and mod.GenerationType == 3 and not mod.Id:match("^Synthesis")
 end)
 writeMods("../Data/ModVeiled.lua", function(mod)
 	return mod.Domain == 28 and (mod.GenerationType == 1 or mod.GenerationType == 2)
+end)
+writeMods("../Data/ModNecropolis.lua", function(mod)
+	return mod.Domain == 1 and mod.Id:match("^NecropolisCrafting")
 end)
 
 

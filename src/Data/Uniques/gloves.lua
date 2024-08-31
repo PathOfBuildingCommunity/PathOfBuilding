@@ -41,6 +41,15 @@ Adds (2-3) to (22-26) Physical Damage to Attacks
 (20-30)% chance to gain an Endurance Charge on Hitting an Enemy with no Armour
 (20-30)% chance to gain a Frenzy Charge on Hitting an Enemy with no Evasion Rating
 ]],[[
+The Celestial Brace
+Goliath Gauntlets
+Source: Drops from unique{The Searing Exarch} (Uber)
+Requires Level: 53, 77 Str
+(80-120)% Increased Armour
+1% Increased Attack Speed per Fortification
++(1-10) to Maximum Fortification
+Melee Hits from Strike Skills Fortify
+]],[[
 Craiceann's Pincers
 Titan Gauntlets
 League: Bestiary
@@ -63,6 +72,7 @@ Variant: Current
 Life Recovery from Regeneration is not applied
 {variant:1}Regenerate 1 Rage per second for every 100 Life Recovery per second from Regeneration
 {variant:2}Regenerate 1 Rage per second for every 300 Life Recovery per second from Regeneration
+Does not delay Inherent Loss of Rage
 ]],[[
 Doryani's Fist
 Vaal Gauntlets
@@ -426,6 +436,7 @@ Sadima's Touch
 Wool Gloves
 Variant: Pre 1.1.0
 Variant: Pre 3.5.0
+Variant: Pre 3.25.0
 Variant: Current
 Requires Level 11
 Adds 4 to 8 Fire Damage to Attacks
@@ -434,6 +445,7 @@ Adds 1 to 13 Lightning Damage to Attacks
 {variant:1}(18-24)% increased Quantity of Items found
 {variant:2}(12-16)% increased Quantity of Items found
 {variant:3}(5-10)% increased Quantity of Items found
+{variant:4}(10-15)% increased Rarity of Items found
 ]],[[
 Voidbringer
 Conjurer Gloves
@@ -636,15 +648,28 @@ Requires Level 37, 29 Str, 29 Int
 With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
 With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
 ]],[[
+The Hand of Phrecia
+Mesh Gloves
+League: Necropolis
+Requires Level 32, 26 Str, 26 Int
+(50–70)% increased Armour and Energy Shield
++(10–15)% to all Elemental Resistances
+(20–40)% increased Effect of Non-Curse Auras from your Skills while you have a Linked Target
+Linked Targets always count as in range of Non-Curse Auras from your Skills
+Non-Curse Auras from your Skills only apply to you and Linked Targets
+]],[[
 Hand of the Fervent
 Zealot Gloves
+Variant: Pre 3.25.0
+Variant: Current
 League: Ritual
 Source: Purchase from Ritual Reward
 Requires Level 43, 34 Str, 34 Int
 (70-130)% increased Armour and Energy Shield
 +(50-70) to maximum Life
 Gain Sacrificial Zeal when you use a Skill, dealing you 150% of the Skill's Mana Cost as Physical Damage per Second
-Hits Overwhelm (10-15)% of Physical Damage Reduction while you have Sacrificial Zeal
+{variant:1}Hits Overwhelm (10-15)% of Physical Damage Reduction while you have Sacrificial Zeal
+{variant:2}(35-50)% chance for Hits to ignore Enemy Physical Damage Reduction while you have Sacrificial Zeal
 ]],[[
 Hands of the High Templar
 Crusader Gloves
@@ -926,13 +951,15 @@ Adds (8-10) to (13-15) Chaos Damage for each Spider's Web on the Enemy
 ]],[[
 Soul Ascension
 Carnal Mitts
+Variant: Pre 3.24.0
+Variant: Current
 Elder Item
 Source: Drops from unique{The Elder} (Uber Uber)
 (120-150)% increased Evasion and Energy Shield
 +(17-29)% to Chaos Resistance
-Eat a Soul when you Hit a Unique Enemy, no more than once every second
-Lose an Eaten Soul every 3 seconds while no Unique Enemy is in your Presence
-Maximum 50 Eaten Souls
+{variant:1}Eat a Soul when you Hit a Unique Enemy, no more than once every second
+{variant:2}Eat a Soul when you Hit a Rare or Unique Enemy, no more than once every 0.5 seconds
++(-10-10) to maximum number of Eaten Souls
 ]],[[
 Machina Mitts
 Murder Mitts
@@ -1003,7 +1030,6 @@ Requires Level 58, 45 Dex, 45 Int
 Storm's Gift
 Assassin's Mitts
 League: Synthesis
-Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 58, 45 Dex, 45 Int
 (20-30)% increased Damage over Time
 (250-300)% increased Evasion and Energy Shield
@@ -1053,6 +1079,7 @@ Flasks gain 1 Charge per second if you've Hit a Unique Enemy Recently
 Nightgrip
 Runic Gages
 Variant: Pre 3.16.0
+Variant: Pre 3.25.0
 Variant: Current
 League: Expedition
 Requires Level 48, 31 Str, 31 Dex, 31 Int
@@ -1060,6 +1087,7 @@ Requires Level 48, 31 Str, 31 Dex, 31 Int
 +(17-23)% to Chaos Resistance
 {variant:1}Gain Added Chaos Damage equal to 25% of Ward
 {variant:2}Gain Added Chaos Damage equal to 20% of Ward
-75% of Damage bypasses Ward
+{variant:3}Gain Added Chaos Damage equal to 10% of Ward
+75% of Damage taken bypasses Ward
 ]],
 }

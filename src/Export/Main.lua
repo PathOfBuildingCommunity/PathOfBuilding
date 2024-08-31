@@ -82,6 +82,9 @@ function main:Init()
 		else
 			self:LoadDatFiles()
 		end
+		if self.datFileByName["leaguenames"] then
+			self.leagueLabel = self.datFileByName["leaguenames"]:ReadValueText({ type = "String" }, self.datFileByName["leaguenames"].rows[2] + 8)
+		end
 	end
 
 	self.scriptList = { }
@@ -152,28 +155,22 @@ function main:Init()
 
 	self.colList = { }
 
-	self.controls.datSourceLabel = new("LabelControl", nil, {10, 10, 100, 16}, "^7GGPK/Steam PoE path:")
-	self.controls.addSource = new("ButtonControl", nil, {10, 30, 100, 18}, "Edit Sources...", function()
+	self.controls.shownLeagueLabel = new("LabelControl", nil, 10, 10, 100, 16, "^7Data from:")
+	self.controls.leagueLabel = new("LabelControl", { "LEFT", self.controls.shownLeagueLabel, "RIGHT"}, 10, 0, 100, 16, function() return "^7" .. (self.leagueLabel or "Unknown") end)
+	self.controls.addSource = new("ButtonControl", nil, 10, 30, 100, 18, "Edit Sources...", function()
 		self.OpenPathPopup()
 	end)
 
 	self.datSources = self.datSources or { }
-	self.controls.datSource = new("DropDownControl", nil, {10, 50, 250, 18}, self.datSources, function(_, value)
-		local out = io.open(self.datSource.spec..(self.datSource.spec:match("%.lua$") and "" or ".lua"), "w")
-		out:write('return ')
-		writeLuaTable(out, self.datSpecs, 1)
-		out:close()
-		self.datSource = value
-		self.datSpecs = LoadModule(self.datSource.spec)
-		self:InitGGPK()
-		if USE_DAT64 then
-			self:LoadDat64Files()
-		else
-			self:LoadDatFiles()
-		end
+	self.controls.datSource = new("DropDownControl", nil, 10, 50, 250, 18, self.datSources, function(_, value)
+		self:LoadDatSource(value)
 	end, nil)
 
-	self.controls.scripts = new("ButtonControl", nil, {160, 30, 100, 18}, "Scripts >>", function()
+	if self.datSource and self.datSource.label then
+		self.controls.datSource:SelByValue(self.datSource.label, "label")
+	end
+
+	self.controls.scripts = new("ButtonControl", nil, 160, 30, 100, 18, "Scripts >>", function()
 		self:SetCurrentDat()
 	end)
 	
@@ -231,6 +228,10 @@ function main:Init()
 	end) {
 		shown = function()
 			return self.curSpecCol
+		end,
+		tooltipFunc = function(tooltip)
+			tooltip:Clear()
+			tooltip:AddLine(16, "^7Field name in the dat file")
 		end
 	}
 
@@ -238,7 +239,7 @@ function main:Init()
 		self.curSpecCol.type = value
 		self.curDatFile:OnSpecChanged()
 		self:UpdateCol()
-	end)
+	end, "^7Field type in the dat file")
 
 	self.controls.colIsList = new("CheckBoxControl", {"TOPLEFT",self.controls.colType,"BOTTOMLEFT"}, {30, 4, 18}, "List:", function(state)
 		self.curSpecCol.list = state
@@ -249,14 +250,36 @@ function main:Init()
 	self.controls.colRefTo = new("EditControl", {"TOPLEFT",self.controls.colType,"BOTTOMLEFT"}, {0, 26, 150, 18}, nil, nil, nil, nil, function(buf)
 		self.curSpecCol.refTo = buf
 		self.curDatFile:OnSpecChanged()
-	end)
+	end) {
+		tooltipFunc = function(tooltip)
+			tooltip:Clear()
+			tooltip:AddLine(16, "^7Reference to another dat file")
+		end
+	}
 
 	self.controls.colWidth = new("EditControl", {"TOPLEFT",self.controls.colRefTo,"BOTTOMLEFT"}, {0, 4, 100, 18}, nil, nil, "%D", nil, function(buf)
 		self.curSpecCol.width = m_max(tonumber(buf) or 150, 20)
 		self.controls.rowList:BuildColumns()
-	end) { numberInc = 10 }
+	end) { 
+		numberInc = 10, 
+		tooltipFunc = function(tooltip)
+			tooltip:Clear()
+			tooltip:AddLine(16, "^7Column width in the grid")
+		end
+	}
 
-	self.controls.colDelete = new("ButtonControl", {"BOTTOMRIGHT",self.controls.colName,"TOPRIGHT"}, {0, -4, 18, 18}, "x", function()
+	self.controls.enumBase = new("EditControl", {"TOPLEFT",self.controls.colWidth,"BOTTOMLEFT"}, 0, 4, 100, 18, nil, nil, "%D", nil, function(buf)
+		self.curSpecCol.enumBase = tonumber(buf) or 0
+		self.curDatFile:OnSpecChanged()
+	end) { 
+		numberInc = 1,
+		tooltipFunc = function(tooltip)
+			tooltip:Clear()
+			tooltip:AddLine(16, "^7Base value for enum types")
+		end
+	}
+
+	self.controls.colDelete = new("ButtonControl", {"BOTTOMRIGHT",self.controls.colName,"TOPRIGHT"}, 0, -4, 18, 18, "x", function()
 		t_remove(self.curDatFile.spec, self.curSpecColIndex)
 		self.curDatFile:OnSpecChanged()
 		self.controls.rowList:BuildColumns()
@@ -307,6 +330,25 @@ end
 
 function main:CanExit()
 	return true
+end
+
+function main:LoadDatSource(value)
+	self.leagueLabel = nil
+	local out = io.open(self.datSource.spec..(self.datSource.spec:match("%.lua$") and "" or ".lua"), "w")
+	out:write('return ')
+	writeLuaTable(out, self.datSpecs, 1)
+	out:close()
+	self.datSource = value
+	self.datSpecs = LoadModule(self.datSource.spec)
+	self:InitGGPK()
+	if USE_DAT64 then
+		self:LoadDat64Files()
+	else
+		self:LoadDatFiles()
+	end
+	if self.datFileByName["leaguenames"] then
+		self.leagueLabel = self.datFileByName["leaguenames"]:ReadValueText({ type = "String" }, self.datFileByName["leaguenames"].rows[2] + 8)
+	end
 end
 
 function main:OpenPathPopup()
@@ -386,8 +428,8 @@ function main:InitGGPK()
 		return
 	else
 		local now = GetTime()
-		local ggpkPath = self.datSource.ggpkPath or self.datSource.path
-		if ggpkPath then
+		local ggpkPath = self.datSource.ggpkPath
+		if ggpkPath and ggpkPath ~= "" then
 			self.ggpk = new("GGPKData", ggpkPath)
 			ConPrintf("GGPK: %d ms", GetTime() - now)
 		elseif self.datSource.datFilePath then
@@ -464,6 +506,7 @@ function main:UpdateCol()
 	self.controls.colRefTo.enabled = self.curDatFile.cols[self.curSpecColIndex].isRef
 	self.controls.colRefTo:SetText(self.curSpecCol.refTo)
 	self.controls.colWidth:SetText(self.curSpecCol.width)
+	self.controls.enumBase:SetText(self.curSpecCol.enumBase or 0)
 	self.controls.rowList:BuildColumns()
 end
 
@@ -673,8 +716,8 @@ function main:CopyFolder(srcName, dstName)
 	end
 end
 
-function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl)
-	local popup = new("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl)
+function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl, scrollBarFunc, resizeFunc)
+	local popup = new("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl, scrollBarFunc, resizeFunc)
 	t_insert(self.popups, 1, popup)
 	return popup
 end
