@@ -3415,7 +3415,7 @@ c["20% chance to Trigger Level 25 Summon Spectral Wolf on Critical Strike with t
 c["20% chance to deal Double Damage while Focused"]={{[1]={[1]={type="Condition",var="Focused"},flags=0,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=20}},nil}
 c["20% chance to deal Double Damage while affected by Glorious Madness"]={{[1]={[1]={type="Condition",var="AffectedByGloriousMadness"},flags=0,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=20}},nil}
 c["20% chance to double Stun Duration"]={{[1]={flags=0,keywordFlags=0,name="DoubleEnemyStunDurationChance",type="BASE",value=20}},nil}
-c["20% chance to gain Elusive when you Block while Dual Wielding"]={{[1]={[1]={type="Condition",var="DualWielding"},flags=0,keywordFlags=0,name="Condition:CanBeElusive",type="FLAG",value=true}}," when you Block  "}
+c["20% chance to gain Elusive when you Block while Dual Wielding"]={{[1]={[1]={type="Condition",var="DualWielding"},flags=0,keywordFlags=0,name="Condition:CanBeElusive",type="FLAG",value=true}},nil}
 c["20% chance to gain Onslaught for 4 seconds on Kill"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=0,keywordFlags=0,name="Condition:Onslaught",type="FLAG",value=true}},nil}
 c["20% chance to gain a Endurance Charge on Kill"]={nil,"a Endurance Charge  "}
 c["20% chance to gain a Endurance Charge on Kill Regenerate 4% of Life per second"]={nil,"a Endurance Charge  Regenerate 4% of Life per second "}
