@@ -832,8 +832,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self.crafted = false
 		elseif self.rarity == "MAGIC" then
 			if self.prefixes.limit or self.suffixes.limit then
-				self.prefixes.limit = m_max((self.prefixes.limit or 0) + 1, 0)
-				self.suffixes.limit = m_max((self.suffixes.limit or 0) + 1, 0)
+				self.prefixes.limit = m_max(m_min((self.prefixes.limit or 0) + 1, 2), 0)
+				self.suffixes.limit = m_max(m_min((self.suffixes.limit or 0) + 1, 2), 0)
 				self.affixLimit = self.prefixes.limit + self.suffixes.limit
 			else
 				self.affixLimit = 2
@@ -841,8 +841,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		elseif self.rarity == "RARE" then
 			self.affixLimit = ((self.type == "Jewel" and not (self.base.subType == "Abyss" and self.corrupted)) and 4 or 6)
 			if self.prefixes.limit or self.suffixes.limit then
-				self.prefixes.limit = m_max((self.prefixes.limit or 0) + self.affixLimit / 2, 0)
-				self.suffixes.limit = m_max((self.suffixes.limit or 0) + self.affixLimit / 2, 0)
+				self.prefixes.limit = m_max(m_min((self.prefixes.limit or 0) + self.affixLimit / 2, self.affixLimit), 0)
+				self.suffixes.limit = m_max(m_min((self.suffixes.limit or 0) + self.affixLimit / 2, self.affixLimit), 0)
 				self.affixLimit = self.prefixes.limit + self.suffixes.limit
 			end
 		else
@@ -1187,9 +1187,9 @@ function ItemClass:Craft()
 			local mod = self.affixes[affix.modId]
 			if mod then
 				if mod.type == "Prefix" then
-					self.namePrefix = mod.affix .. " "
+					self.namePrefix = mod.affix .. " " .. self.namePrefix
 				elseif mod.type == "Suffix" then
-					self.nameSuffix = " " .. mod.affix
+					self.nameSuffix = self.nameSuffix .. " " .. mod.affix
 				end
 				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))
 				local rangeScalar = getCatalystScalar(self.catalyst, mod.modTags, self.catalystQuality)
