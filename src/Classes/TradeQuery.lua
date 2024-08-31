@@ -528,6 +528,7 @@ end
 
 -- Popup to set stat weight multipliers for sorting
 function TradeQueryClass:SetStatWeights(previousSelectionList)
+	previousSelectionList = previousSelectionList or {}
     local controls = { }
     local statList = { }
 	local sliderController = { index = 1 }
