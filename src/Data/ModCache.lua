@@ -7656,7 +7656,7 @@ c["Damage Penetrates 7% Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="C
 c["Damage Penetrates 8% Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningPenetration",type="BASE",value=8}},nil}
 c["Damage Penetrates 8% of Enemy Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalPenetration",type="BASE",value=8}},nil}
 c["Damage Penetrates 9% Elemental Resistances while you are Chilled"]={{[1]={[1]={type="Condition",var="Chilled"},flags=0,keywordFlags=0,name="ElementalPenetration",type="BASE",value=9}},nil}
-c["Damage cannot be Reflected"]={nil,"Damage cannot be Reflected "}
+c["Damage cannot be Reflected"]={{[1]={[1]={effectType="Global",type="GlobalEffect",unscalable=true},flags=0,keywordFlags=0,name="ReflectedDamageTaken",type="MORE",value=-100}},nil}
 c["Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability"]={nil,"Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability "}
 c["Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability You count as on Full Life while you are Cursed with Vulnerability"]={nil,"Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability You count as on Full Life while you are Cursed with Vulnerability "}
 c["Damage from your Critical Strikes cannot be Reflected"]={nil,"Damage from your Critical Strikes cannot be Reflected "}

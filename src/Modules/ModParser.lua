@@ -1379,6 +1379,7 @@ local modTagList = {
 	["per (%d+)%% chaos resistance"] = function(num) return { tag = { type = "PerStat", stat = "ChaosResist", div = num } } end,
 	["per (%d+)%% cold resistance above 75%%"] = function(num) return { tag  = { type = "PerStat", stat = "ColdResistOver75", div = num } } end,
 	["per (%d+)%% lightning resistance above 75%%"] = function(num) return { tag  = { type = "PerStat", stat = "LightningResistOver75", div = num } } end,
+	["per (%d+)%% fire resistance above 75%%"] = function(num) return { tag  = { type = "PerStat", stat = "FireResistOver75", div = num } } end,
 	["per (%d+) devotion"] = function(num) return { tag = { type = "PerStat", stat = "Devotion", actor = "parent", div = num } } end,
 	["per (%d+)%% missing fire resistance, up to a maximum of (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", stat = "MissingFireResist", div = num, globalLimit = tonumber(limit), globalLimitKey = "ReplicaNebulisFire" } } end,
 	["per (%d+)%% missing cold resistance, up to a maximum of (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", stat = "MissingColdResist", div = num, globalLimit = tonumber(limit), globalLimitKey = "ReplicaNebulisCold" } } end,
@@ -2757,6 +2758,7 @@ local specialModList = {
 	["attacks with this weapon deal double damage to chilled enemies"] = { mod("DoubleDamageChance", "BASE", 100, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }, { type = "ActorCondition", actor = "enemy", var = "Chilled" }) },
 	["life leech from hits with this weapon applies instantly"] = { mod("InstantLifeLeech", "BASE", 100, { type = "Condition", var = "{Hand}Attack" }) },
 	["life leech from hits with this weapon is instant"] = { mod("InstantLifeLeech", "BASE", 100, { type = "Condition", var = "{Hand}Attack" }) },
+	["mana leech from hits with this weapon is instant"] = { mod("InstantManaLeech", "BASE", 100, { type = "Condition", var = "{Hand}Attack" }) },
 	["life leech from melee damage is instant"] = { mod("InstantLifeLeech", "BASE", 100, nil, ModFlag.Melee) },
 	["gain life from leech instantly from hits with this weapon"] = { mod("InstantLifeLeech", "BASE", 100, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }) },
 	["(%d+)%% of leech from hits with this weapon is instant per enemy power"] = function(num) return { mod("InstantLifeLeech", "BASE", num, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }, { type = "Multiplier", var = "EnemyPower"}) } end,
@@ -3502,6 +3504,7 @@ local specialModList = {
 	} end,
 	["nearby allies' damage with hits is lucky"] = { mod("ExtraAura", "LIST", { onlyAllies = true, mod = flag("LuckyHits") }) },
 	["your damage with hits is lucky"] = { flag("LuckyHits") },
+	["chaos damage with hits is lucky"] = { flag("ChaosLuckyHits") },
 	["elemental damage with hits is lucky while you are shocked"] = { flag("ElementalLuckHits", { type = "Condition", var = "Shocked" }) },
 	["allies' aura buffs do not affect you"] = { flag("AlliesAurasCannotAffectSelf") },
 	["(%d+)%% increased effect of non%-curse auras from your skills on enemies"] = function(num) return {
@@ -3596,6 +3599,9 @@ local specialModList = {
 	} end,
 	["gain arcane surge after spending a total of (%d+) mana"] = function(num) return {
 		mod("ExtraAura", "LIST", { mod = flag("Condition:ArcaneSurge")}, { type = "MultiplierThreshold", var = "ManaSpentRecently", threshold = num }),
+	} end,
+	["gain arcane surge after spending a total of (%d+) life"] = function(num) return {
+		mod("ExtraAura", "LIST", { mod = flag("Condition:ArcaneSurge")}, { type = "MultiplierThreshold", var = "LifeSpentRecently", threshold = num }),
 	} end,
 	["gain onslaught for (%d+) seconds on hit while at maximum frenzy charges"] = { flag("Onslaught", { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }, { type = "Condition", var = "HitRecently" }) },
 	["enemies in your chilling areas take (%d+)%% increased lightning damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("LightningDamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "InChillingArea" }) } end,
@@ -4123,6 +4129,9 @@ local specialModList = {
 	["you and your minions take (%d+)%% reduced reflected damage"] = function(num) return {
 		mod("ReflectedDamageTaken", "INC", -tonumber(num), { type = "GlobalEffect", effectType = "Global", unscalable = true }),
 		mod("MinionModifier", "LIST", { mod = mod("ReflectedDamageTaken", "INC", -tonumber(num), { type = "GlobalEffect", effectType = "Global", unscalable = true }) }),
+	} end,
+	["damage cannot be reflected"] = function(num) return {
+		mod("ReflectedDamageTaken", "MORE", -100, { type = "GlobalEffect", effectType = "Global", unscalable = true }),
 	} end,
 	["you have mind over matter while at maximum power charges"] = { mod("Keystone", "LIST", "Mind Over Matter", { type = "StatThreshold", stat = "PowerCharges", thresholdStat = "PowerChargesMax" }) },
 	["cannot evade enemy attacks"] = { flag("CannotEvade") },
@@ -4711,8 +4720,16 @@ local specialModList = {
 	["attacks with this weapon have added maximum lightning damage equal to (%d+)%% of your maximum energy shield"] = function(num) return {
 		mod("LightningMax", "BASE", 1, { type = "PercentStat", stat = "EnergyShield" , percent = num }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
 	} end,
+	["adds (%d+)%% of your maximum energy shield as cold damage to attacks with this weapon"] = function(num) return {
+		mod("ColdMin", "BASE", 1, { type = "PercentStat", stat = "EnergyShield" , percent = num }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
+		mod("ColdMax", "BASE", 1, { type = "PercentStat", stat = "EnergyShield" , percent = num }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
+	} end,
 	["attacks with this weapon have added maximum lightning damage equal to (%d+)%% of player'?s? maximum energy shield"] = function(num) return {
 		mod("LightningMax", "BASE", 1, { type = "PercentStat", stat = "EnergyShield" , percent = num, actor = "parent" }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
+	} end,
+	["adds (%d+)%% of your maximum mana as fire damage to attacks with this weapon"] = function(num) return {
+		mod("FireMin", "BASE", 1, { type = "PercentStat", stat = "Mana" , percent = num }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
+		mod("FireMax", "BASE", 1, { type = "PercentStat", stat = "Mana" , percent = num }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
 	} end,
 	["gain added chaos damage equal to (%d+)%% of ward"] = function(num) return {
 		mod("ChaosMin", "BASE", 1, { type = "PercentStat", stat = "Ward", percent = num }),
