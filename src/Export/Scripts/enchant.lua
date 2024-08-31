@@ -3,6 +3,41 @@ if not loadStatFile then
 end
 loadStatFile("stat_descriptions.txt")
 
+local itemClassMap = {
+	["LifeFlask"] = "Flask",
+	["ManaFlask"] = "Flask",
+	["HybridFlask"] = "Flask",
+	["Amulet"] = "Amulet",
+	["Ring"] = "Ring",
+	["Claw"] = "Claw",
+	["Dagger"] = "Dagger",
+	["Rune Dagger"] = "Dagger",
+	["Wand"] = "Wand",
+	["One Hand Sword"] = "One Handed Sword",
+	["Thrusting One Hand Sword"] = "Thrusting One Handed Sword",
+	["One Hand Axe"] = "One Handed Axe",
+	["One Hand Mace"] = "One Handed Mace",
+	["Bow"] = "Bow",
+	["Fishing Rod"] = "Fishing Rod",
+	["Staff"] = "Staff",
+	["Warstaff"] = "Staff",
+	["Two Hand Sword"] = "Two Handed Sword",
+	["Two Hand Axe"] = "Two Handed Axe",
+	["Two Hand Mace"] = "Two Handed Mace",
+	["Quiver"] = "Quiver",
+	["Belt"] = "Belt",
+	["Gloves"] = "Gloves",
+	["Boots"] = "Boots",
+	["Body Armour"] = "Body Armour",
+	["Helmet"] = "Helmet",
+	["Shield"] = "Shield",
+	["Sceptre"] = "Sceptre",
+	["UtilityFlask"] = "Flask",
+	["UtilityFlaskCritical"] = "Flask",
+	["Map"] = "Map",
+	["Jewel"] = "Jewel",
+}
+
 local lab = {
 	[32] = "NORMAL",
 	[53] = "CRUEL",
@@ -10,7 +45,7 @@ local lab = {
 	[75] = "ENDGAME",
 	[83] = "DEDICATION",
 }
-local sourceOrder = { "NORMAL", "CRUEL", "MERCILESS", "ENDGAME", "DEDICATION", "ENKINDLING", "INSTILLING", "HARVEST", "HEIST" }
+local sourceOrder = { "NORMAL", "CRUEL", "MERCILESS", "ENDGAME", "DEDICATION", "ENKINDLING", "INSTILLING", "HARVEST", "HEIST", "RUNESMITH" }
 
 local function doLabEnchantment(fileName, group)
 	local byDiff = { }
@@ -44,13 +79,24 @@ doLabEnchantment("../Data/EnchantmentBelt.lua", "BuffEnchantment")
 
 local function doOtherEnchantment(fileName, groupsList)
 	local byDiff = { }
+	local byDiffFullMods = { }
 	for generation in pairs(groupsList) do
-		for _, mod in ipairs(dat("Mods"):GetRowList("GenerationType", generation)) do
-			if groupsList[generation][mod.Family[1].Id] then
-				local stats, orders = describeMod(mod)
-				local diff = groupsList[generation][mod.Family[1].Id]
-				byDiff[diff] = byDiff[diff] or { }
-				table.insert(byDiff[diff], stats)
+		if type(generation) == "string" and generation == "Craft" then
+			for _, craft in ipairs(dat("CraftingBenchOptions"):GetRowList("IsDisabled", false)) do
+				if groupsList[generation][craft.SortCategory.Id] then
+					local diff = groupsList[generation][craft.SortCategory.Id]
+					byDiffFullMods[diff] = byDiffFullMods[diff] or { }
+					table.insert(byDiffFullMods[diff], craft)
+				end
+			end
+		else
+			for _, mod in ipairs(dat("Mods"):GetRowList("GenerationType", generation)) do
+				if groupsList[generation][mod.Family[1].Id] then
+					local stats, orders = describeMod(mod)
+					local diff = groupsList[generation][mod.Family[1].Id]
+					byDiff[diff] = byDiff[diff] or { }
+					table.insert(byDiff[diff], stats)
+				end
 			end
 		end
 	end
@@ -64,6 +110,29 @@ local function doOtherEnchantment(fileName, groupsList)
 				out:write('\t\t"'..table.concat(stats, '/')..'",\n')
 			end
 			out:write('\t},\n')
+		elseif byDiffFullMods[diff] then
+			out:write('\t["'..diff..'"] = {\n')
+			for _, mod in ipairs(byDiffFullMods[diff]) do		
+				out:write('\t\t{ ')
+				out:write('type = "Runecraft", ')
+				local stats, orders = describeMod(mod.AddEnchantment)
+				out:write('modTags = { ', stats.modTags, ' }, ')
+				out:write('"', table.concat(stats, '", "'), '", ')
+				out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
+				out:write('types = { ')		
+				local uniqueTypes = { }
+				for _, category in ipairs(mod.ItemCategories) do
+					for _, itemClass in ipairs(category.ItemClasses) do
+						if uniqueTypes[itemClassMap[itemClass.Id]] ~= itemClassMap[itemClass.Id] then
+							uniqueTypes[itemClassMap[itemClass.Id]] = itemClassMap[itemClass.Id]
+							out:write('["', itemClassMap[itemClass.Id], '"] = true, ')
+						end
+					end
+				end
+				out:write('}, ')
+				out:write('},\n')
+			end
+			out:write('\t},\n')
 		end
 	end
 	out:write('}')
@@ -75,7 +144,7 @@ doOtherEnchantment("../Data/EnchantmentFlask.lua", { --[3] = { ["FlaskEnchantmen
 	[21] = { ["FlaskEnchantment"] = "ENKINDLING" },
 	[22] = { ["FlaskEnchantment"] = "INSTILLING" } })
 doOtherEnchantment("../Data/EnchantmentBody.lua", { [3] = { ["AlternateArmourQuality"] = "HARVEST", ["EnchantmentHeistArmour"] = "HEIST" } })
-doOtherEnchantment("../Data/EnchantmentWeapon.lua", { [3] = { ["AlternateWeaponQuality"] = "HARVEST", ["EnchantmentHeistWeapon"] = "HEIST" } })
+doOtherEnchantment("../Data/EnchantmentWeapon.lua", { [3] = { ["AlternateWeaponQuality"] = "HARVEST", ["EnchantmentHeistWeapon"] = "HEIST" }, ["Craft"] = { ["Runecrafting"] = "RUNESMITH" } })
 
 local skillMap = {
 	["Summone?d?RagingSpirit"] = "Summon Raging Spirit",

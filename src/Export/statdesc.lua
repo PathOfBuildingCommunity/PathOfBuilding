@@ -153,9 +153,12 @@ function describeStats(stats)
 					val[spec.v].max, val[spec.v].min = 100 - val[spec.v].min, 100 - val[spec.v].max
 				elseif spec.k == "negate_and_double" then
 					val[spec.v].max, val[spec.v].min = -2 * val[spec.v].min, -2 * val[spec.v].max
-				elseif spec.k == "passive_hash" and val[spec.v].min < 0 then
-					val[spec.v].min = val[spec.v].min + 65536
-					val[spec.v].max = val[spec.v].max + 65536
+				elseif spec.k == "passive_hash" then
+					-- handled elsewhere
+					if val[spec.v].min < 0 then
+						val[spec.v].min = val[spec.v].min + 65536
+						val[spec.v].max = val[spec.v].max + 65536
+					end
 				elseif spec.k == "divide_by_two_0dp" then
 					val[spec.v].min = val[spec.v].min / 2
 					val[spec.v].max = val[spec.v].max / 2
@@ -217,7 +220,7 @@ function describeStats(stats)
 				elseif spec.k == "milliseconds_to_seconds_0dp" then
 					val[spec.v].min = val[spec.v].min / 1000
 					val[spec.v].max = val[spec.v].max / 1000
-				elseif spec.k == "milliseconds_to_seconds_2dp_if_required" then
+				elseif spec.k == "milliseconds_to_seconds_2dp_if_required" or spec.k == "milliseconds_to_seconds_2dp" then
 					val[spec.v].min = round(val[spec.v].min / 1000, 2)
 					val[spec.v].max = round(val[spec.v].max / 1000, 2)
 					val[spec.v].fmt = "g"	
