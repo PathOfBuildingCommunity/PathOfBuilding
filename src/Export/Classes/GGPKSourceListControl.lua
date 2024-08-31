@@ -28,21 +28,21 @@ function GGPKSourceListClass:EditDATSource(datSource, newSource)
 	controls.label = new("EditControl", nil, {85, 20, 180, 20}, datSource.label, nil, nil, nil, function(buf)
 		controls.save.enabled = (controls.dat.buf:match("%S") or controls.ggpk.buf:match("%S")) and buf:match("%S")
 	end)
-	controls.ggpkLabel = new("LabelControl", nil, 0, 40, 0, 16, "^7Source from GGPK/Steam PoE path:")
-	controls.ggpk = new("EditControl", {"TOP",controls.ggpkLabel,"TOP"}, 0, 20, 350, 20, datSource.ggpkPath, nil, nil, nil, function(buf)
+	controls.ggpkLabel = new("LabelControl", nil, {0, 40, 0, 16}, "^7Source from GGPK/Steam PoE path:")
+	controls.ggpk = new("EditControl", {"TOP",controls.ggpkLabel,"TOP"}, {0, 20, 350, 20}, datSource.ggpkPath, nil, nil, nil, function(buf)
 		controls.save.enabled = (buf:match("%S") or controls.dat.buf:match("%S")) and controls.label.buf:match("%S") and controls.spec.buf:match("%S")
 	end)
 	controls.ggpk.enabled = function() return not controls.dat.buf:match("%S") end
-	controls.datLabel = new("LabelControl", {"TOP",controls.ggpk,"TOP"}, 0, 22, 0, 16, "^7Source from DAT files:")
-	controls.dat = new("EditControl", {"TOP",controls.datLabel,"TOP"}, 0, 20, 350, 20, datSource.datFilePath, nil, nil, nil, function(buf)
+	controls.datLabel = new("LabelControl", {"TOP",controls.ggpk,"TOP"}, {0, 22, 0, 16}, "^7Source from DAT files:")
+	controls.dat = new("EditControl", {"TOP",controls.datLabel,"TOP"}, {0, 20, 350, 20}, datSource.datFilePath, nil, nil, nil, function(buf)
 		controls.save.enabled = (buf:match("%S") or controls.ggpk.buf:match("%S")) and controls.label.buf:match("%S") and controls.spec.buf:match("%S")
 	end)
 	controls.dat.enabled = function() return not controls.ggpk.buf:match("%S") end
-	controls.specLabel = new("LabelControl", {"TOP",controls.dat,"TOP"}, 0, 22, 0, 16, "^7Spec File location:")
-	controls.spec = new("EditControl", {"TOP",controls.specLabel,"TOP"}, 0, 20, 350, 20, datSource.spec or "spec.lua", nil, nil, nil, function(buf)
+	controls.specLabel = new("LabelControl", {"TOP",controls.dat,"TOP"}, {0, 22, 0, 16}, "^7Spec File location:")
+	controls.spec = new("EditControl", {"TOP",controls.specLabel,"TOP"}, {0, 20, 350, 20}, datSource.spec or "spec.lua", nil, nil, nil, function(buf)
 		controls.save.enabled = (controls.dat.buf:match("%S") or controls.ggpk.buf:match("%S")) and controls.label.buf:match("%S") and buf:match("%S")
 	end)
-	controls.save = new("ButtonControl", {"TOP",controls.spec,"TOP"}, -45, 22, 80, 20, "Save", function()
+	controls.save = new("ButtonControl", {"TOP",controls.spec,"TOP"}, {-45, 22, 80, 20}, "Save", function()
 		local reload = datSource.label == main.datSource.label
 		datSource.label = controls.label.buf
 		datSource.ggpkPath = controls.ggpk.buf or ""
