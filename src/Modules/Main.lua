@@ -679,6 +679,12 @@ function main:SaveSettings()
 		end
 		t_insert(mode, child)
 	end
+
+	-- if setting save is attempted and mode is nil something has gone very wrong
+	if not mode.attrib.mode or not mode[1] then
+		launch:ShowErrMsg("^1Error saving 'Settings.xml': mode element is invalid")
+		return true
+	end
 	t_insert(setXML, mode)
 	local accounts = { elem = "Accounts", attrib = { lastAccountName = self.lastAccountName, lastRealm = self.lastRealm } }
 	for accountName, account in pairs(self.gameAccounts) do
