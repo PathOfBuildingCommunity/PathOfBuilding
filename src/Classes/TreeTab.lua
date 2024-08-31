@@ -172,6 +172,9 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.findTimelessJewel = new("ButtonControl", { "LEFT", self.controls.treeSearch, "RIGHT" }, 8, 0, 150, 20, "Find Timeless Jewel", function()
 		self:FindTimelessJewel()
 	end)
+	
+	--Default index for Tattoos
+	self.defaultTattoo = { }
 
 	-- Show Node Power Checkbox
 	self.controls.treeHeatMap = new("CheckBoxControl", { "LEFT", self.controls.findTimelessJewel, "RIGHT" }, 130, 0, 20, "Show Node Power:", function(state)
@@ -733,11 +736,11 @@ end
 function TreeTabClass:ModifyNodePopup(selectedNode)
 	local controls = { }
 	local modGroups = { }
+	local treeNodes = self.build.spec.tree.nodes
+	local nodeName = treeNodes[selectedNode.id].dn
 	local function buildMods(selectedNode)
 		wipeTable(modGroups)
-		local treeNodes = self.build.spec.tree.nodes
 		local numLinkedNodes = selectedNode.linkedId and #selectedNode.linkedId or 0
-		local nodeName = treeNodes[selectedNode.id].dn
 		local nodeValue = treeNodes[selectedNode.id].sd[1]
 		for id, node in pairs(self.build.spec.tree.tattoo.nodes) do
 			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
@@ -806,6 +809,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	buildMods(selectedNode)
 	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 150, 25, 0, 16, "^7Modifier:")
 	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 155, 25, 250, 18, modGroups, function(idx) constructUI(modGroups[idx]) end)
+	controls.modSelect.selIndex = self.defaultTattoo[nodeName] or 1
 	controls.modSelect.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if mode ~= "OUT" and value then
@@ -818,6 +822,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		addModifier(selectedNode)
 		self.modFlag = true
 		self.build.buildFlag = true
+		self.defaultTattoo[nodeName] = controls.modSelect.selIndex
 		main:ClosePopup()
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
@@ -844,7 +849,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end
 	controls.totalTattoos = new("LabelControl", nil, 0, 95, 0, 16, "^7Tattoo Count: ".. getTattooCount() .."/50" )
 	main:OpenPopup(600, 105, "Replace Modifier of Node", controls, "save")
-	constructUI(modGroups[1])
+	constructUI(modGroups[self.defaultTattoo[nodeName] or 1])
 	
 	-- Show Legacy Tattoos
 	controls.showLegacyTattoo = new("CheckBoxControl", { "LEFT", controls.totalTattoos, "RIGHT" }, 205, 0, 20, "Show Legacy Tattoos:", function(state)
