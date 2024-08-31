@@ -33,8 +33,8 @@ function listMode:Init(selBuildName, subPath)
 	end
 
 	self.anchor = new("Control", nil, {0, 4, 0, 0})
-	self.anchor.x = function() 
-		return main.screenW / 2 
+	self.anchor.x = function()
+		return main.screenW / 2
 	end
 
 	self.subPath = subPath or ""
