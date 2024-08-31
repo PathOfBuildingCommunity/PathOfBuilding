@@ -1473,7 +1473,7 @@ Huge sets the radius to 11.
 	{ var = "conditionHaveArborix", type = "check", label = "Do you have Iron Reflexes?", ifFlag = "Condition:HaveArborix", tooltip = "This option is specific to Arborix.",apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:HaveIronReflexes", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Keystone", "LIST", "Iron Reflexes", "Config")
-	end },	
+	end },
 	{ var = "conditionHaveAugyre", type = "list", label = "Augyre rotating buff:", ifFlag = "Condition:HaveAugyre", list = {{val="EleOverload",label="Elemental Overload"},{val="ResTechnique",label="Resolute Technique"}}, tooltip = "This option is specific to Augyre.", apply = function(val, modList, enemyModList)
 		if val == "EleOverload" then
 			modList:NewMod("Condition:HaveElementalOverload", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1482,7 +1482,20 @@ Huge sets the radius to 11.
 			modList:NewMod("Condition:HaveResoluteTechnique", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 			modList:NewMod("Keystone", "LIST", "Resolute Technique", "Config")
 		end
-	end },	
+	end },
+	{ var = "conditionBoundFate", type = "list", label = "Bound Fate rotating buff:", ifFlag = "Condition:BoundFate", list = {
+			{val="NONE",label="No Buff"},
+			{val="BoundFate1",label="Your Hits are always Critical Strikes"},
+			{val="BoundFate2",label="Hits against you are always Critical Strikes"},
+			{val="BoundFate3",label="Attacks cannot Hit you"},
+			{val="BoundFate4",label="Attacks against you always Hit"},
+			{val="BoundFate5",label="Your Damage with Hits is Lucky"},
+			{val="BoundFate6",label="Damage of Hits against you is Lucky"}
+		}, tooltip = "This option is specific to Bound Fate.", apply = function(val, modList, enemyModList)
+		if val ~= "NONE" then
+			modList:NewMod("Condition:"..val, "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+		end
+	end },
 	{ var = "conditionHaveVulconus", type = "check", label = "Do you have Avatar Of Fire?", ifFlag = "Condition:HaveVulconus", tooltip = "This option is specific to Vulconus.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:HaveAvatarOfFire", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Keystone", "LIST", "Avatar of Fire", "Config")

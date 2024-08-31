@@ -738,6 +738,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					end
 				end
 
+				local handleRemainingModsAs
 				local lineLower = line:lower()
 				if lineLower == "this item can be anointed by cassia" then
 					self.canBeAnointed = true
@@ -758,6 +759,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.canHaveShieldCrucibleTree = true
 				elseif lineLower == "has a two handed sword crucible passive skill tree" then
 					self.canHaveTwoHandedSwordCrucibleTree = true
+				elseif lineLower == "every 5 seconds, gain one of the following for 5 seconds:" then
+					handleRemainingModsAs = "Bound Fate"
 				end
 
 				local modLines
@@ -805,6 +808,43 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					modLine.modList = { }
 					modLine.extra = line
 					t_insert(modLines, modLine)
+				end
+				
+				if handleRemainingModsAs then
+					l = l + 1
+					while self.rawLines[l] do	
+						local line = self.rawLines[l]
+						local modLine = { modTags = {} }
+						local rangedLine = itemLib.applyRange(handleRemainingModsAs..": "..line, 1, 1)
+						local modList, extra = modLib.parseMod(rangedLine)
+						if (not modList or extra) and self.rawLines[l+1] then
+							-- Try to combine it with the next line
+							local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(%l+%)","")
+							local combLine = line.." "..nextLine
+							rangedLine = itemLib.applyRange(combLine, 1, catalystScalar)
+							modList, extra = modLib.parseMod(rangedLine, true)
+							if modList and not extra then
+								line = line.."\n"..nextLine
+								l = l + 1
+							else
+								modList, extra = modLib.parseMod(rangedLine)
+							end
+						end
+						local modLines = self.explicitModLines
+						modLine.line = line
+						if modList then
+							modLine.modList = modList
+							modLine.extra = extra
+							modLine.valueScalar = catalystScalar
+							modLine.range = modLine.range or main.defaultItemAffixQuality
+							t_insert(modLines, modLine)
+						else
+							modLine.modList = { }
+							modLine.extra = line
+							t_insert(modLines, modLine)
+						end
+						l = l + 1
+					end
 				end
 			end
 		end
