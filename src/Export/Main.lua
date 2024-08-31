@@ -155,14 +155,14 @@ function main:Init()
 
 	self.colList = { }
 
-	self.controls.shownLeagueLabel = new("LabelControl", nil, 10, 10, 100, 16, "^7Data from:")
-	self.controls.leagueLabel = new("LabelControl", { "LEFT", self.controls.shownLeagueLabel, "RIGHT"}, 10, 0, 100, 16, function() return "^7" .. (self.leagueLabel or "Unknown") end)
-	self.controls.addSource = new("ButtonControl", nil, 10, 30, 100, 18, "Edit Sources...", function()
+	self.controls.shownLeagueLabel = new("LabelControl", nil, {10, 10, 100, 16}, "^7Data from:")
+	self.controls.leagueLabel = new("LabelControl", {"LEFT", self.controls.shownLeagueLabel, "RIGHT"}, {10, 0, 100, 16}, function() return "^7" .. (self.leagueLabel or "Unknown") end)
+	self.controls.addSource = new("ButtonControl", nil, {10, 30, 100, 18}, "Edit Sources...", function()
 		self.OpenPathPopup()
 	end)
 
 	self.datSources = self.datSources or { }
-	self.controls.datSource = new("DropDownControl", nil, 10, 50, 250, 18, self.datSources, function(_, value)
+	self.controls.datSource = new("DropDownControl", nil, {10, 50, 250, 18}, self.datSources, function(_, value)
 		self:LoadDatSource(value)
 	end, nil)
 
@@ -170,7 +170,7 @@ function main:Init()
 		self.controls.datSource:SelByValue(self.datSource.label, "label")
 	end
 
-	self.controls.scripts = new("ButtonControl", nil, 160, 30, 100, 18, "Scripts >>", function()
+	self.controls.scripts = new("ButtonControl", nil, {160, 30, 100, 18}, "Scripts >>", function()
 		self:SetCurrentDat()
 	end)
 	
@@ -268,7 +268,7 @@ function main:Init()
 		end
 	}
 
-	self.controls.enumBase = new("EditControl", {"TOPLEFT",self.controls.colWidth,"BOTTOMLEFT"}, 0, 4, 100, 18, nil, nil, "%D", nil, function(buf)
+	self.controls.enumBase = new("EditControl", {"TOPLEFT",self.controls.colWidth,"BOTTOMLEFT"}, {0, 4, 100, 18}, nil, nil, "%D", nil, function(buf)
 		self.curSpecCol.enumBase = tonumber(buf) or 0
 		self.curDatFile:OnSpecChanged()
 	end) { 
@@ -279,7 +279,7 @@ function main:Init()
 		end
 	}
 
-	self.controls.colDelete = new("ButtonControl", {"BOTTOMRIGHT",self.controls.colName,"TOPRIGHT"}, 0, -4, 18, 18, "x", function()
+	self.controls.colDelete = new("ButtonControl", {"BOTTOMRIGHT",self.controls.colName,"TOPRIGHT"}, {0, -4, 18, 18}, "x", function()
 		t_remove(self.curDatFile.spec, self.curSpecColIndex)
 		self.curDatFile:OnSpecChanged()
 		self.controls.rowList:BuildColumns()

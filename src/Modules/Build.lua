@@ -228,13 +228,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		self.buildFlag = true
 	end)
 	-- // hiding away until we learn more, this dropdown and the Loadout dropdown conflict for UI space, will need to address if secondaryAscendancies come back
-	--self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
+	--self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, {8, 0, 120, 20}, nil, function(index, value)
 	--	self.spec:SelectSecondaryAscendClass(value.ascendClassId)
 	--	self.spec:AddUndoState()
 	--	self.spec:SetWindowTitleWithBuildClass()
 	--	self.buildFlag = true
 	--end)
-	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 190, 20, {}, function(index, value)
+	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, {8, 0, 190, 20}, {}, function(index, value)
 		if value == "^7^7Loadouts:" or value == "^7^7-----" then
 			self.controls.buildLoadouts:SetSel(1)
 			return
@@ -251,11 +251,11 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		end
 		if value == "^7^7New Loadout" then
 			local controls = { }
-			controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter name for this loadout:")
-			controls.edit = new("EditControl", nil, 0, 40, 350, 20, "New Loadout", nil, nil, 100, function(buf)
+			controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter name for this loadout:")
+			controls.edit = new("EditControl", nil, {0, 40, 350, 20}, "New Loadout", nil, nil, 100, function(buf)
 				controls.save.enabled = buf:match("%S")
 			end)
-			controls.save = new("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
+			controls.save = new("ButtonControl", nil, {-45, 70, 80, 20}, "Save", function()
 				local loadout = controls.edit.buf
 
 				local newSpec = new("PassiveSpec", self, latestTreeVersion)
@@ -279,7 +279,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 				main:ClosePopup()
 			end)
 			controls.save.enabled = false
-			controls.cancel = new("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
+			controls.cancel = new("ButtonControl", nil, {45, 70, 80, 20}, "Cancel", function()
 				main:ClosePopup()
 			end)
 			main:OpenPopup(370, 100, "Set Name", controls, "save", "edit", "cancel")
@@ -350,7 +350,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		self.controls.buildLoadouts:SelByValue(value)
 	end)
 
-	--self.controls.similarBuilds = new("ButtonControl", {"LEFT",self.controls.buildLoadouts,"RIGHT"}, 8, 0, 100, 20, "Similar Builds", function()
+	--self.controls.similarBuilds = new("ButtonControl", {"LEFT",self.controls.buildLoadouts,"RIGHT"}, {8, 0, 100, 20}, "Similar Builds", function()
 	--	self:OpenSimilarPopup()
 	--end)
 	--self.controls.similarBuilds.tooltipFunc = function(tooltip)
@@ -1449,7 +1449,7 @@ function buildMode:OpenSaveAsPopup()
 		end
 	end
 	controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter new build name:")
-	controls.edit = new("EditControl", nil, 0, 40, 450, 20,
+	controls.edit = new("EditControl", nil, {0, 40, 450, 20},
 	(self.buildName or self.dbFileName):gsub("[\\/:%*%?\"<>|%c]", "-"), nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 		updateBuildName()
 	end)
@@ -1503,8 +1503,8 @@ function buildMode:OpenSpectreLibrary()
 	end)
 	local controls = { }
 	controls.list = new("MinionListControl", nil, {-100, 40, 190, 250}, self.data, destList)
-	controls.source = new("MinionSearchListControl", nil, 100, 60, 190, 230, self.data, sourceList, controls.list)
-	controls.save = new("ButtonControl", nil, -45, 330, 80, 20, "Save", function()
+	controls.source = new("MinionSearchListControl", nil, {100, 60, 190, 230}, self.data, sourceList, controls.list)
+	controls.save = new("ButtonControl", nil, {-45, 330, 80, 20}, "Save", function()
 		self.spectreList = destList
 		self.modFlag = true
 		self.buildFlag = true
@@ -1533,7 +1533,7 @@ function buildMode:OpenSimilarPopup()
 		return main.screenH * 0.8
 	end
 	local padding = 50
-	controls.similarBuildList = new("ExtBuildListControl", nil, 0, padding, width, height() - 2 * padding, buildProviders)
+	controls.similarBuildList = new("ExtBuildListControl", nil, {0, padding, width, height() - 2 * padding}, buildProviders)
 	controls.similarBuildList.shown = true
 	controls.similarBuildList.height = function()
 		return height() - 2 * padding
@@ -1546,7 +1546,7 @@ function buildMode:OpenSimilarPopup()
 
 	-- controls.similarBuildList.shown = not controls.similarBuildList:IsShown()
 
-	controls.close = new("ButtonControl", nil, 0, height() - (padding + 20) / 2, 80, 20, "Close", function()
+	controls.close = new("ButtonControl", nil, {0, height() - (padding + 20) / 2, 80, 20}, "Close", function()
 		main:ClosePopup()
 	end)
 	-- used in PopupDialog to dynamically size the popup

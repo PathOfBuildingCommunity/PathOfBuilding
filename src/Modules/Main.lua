@@ -740,15 +740,15 @@ function main:OpenPathPopup(invalidPath, ignoreBuild)
 	local controls = { }
 	local defaultLabelPlacementX = 8
 
-	controls.label = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, 20, 206, 16, function()
+	controls.label = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, 20, 206, 16 }, function()
 		return "^7User settings path contains unicode characters and cannot be loaded."..
 		"\nCurrent Path: "..invalidPath:gsub("?", "^1?^7").."/Path of Building/"..
 		"\nSpecify a new location for your Settings.xml:"
 	end)
-	controls.explainButton = new("ButtonControl", { "LEFT", controls.label, "RIGHT" }, 4, 0, 20, 20, "?", function()
+	controls.explainButton = new("ButtonControl", { "LEFT", controls.label, "RIGHT" }, { 4, 0, 20, 20 }, "?", function()
 		OpenURL("https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/Why-do-I-have-to-change-my-Settings-path%3F")
 	end)
-	controls.userPath = new("EditControl", { "TOPLEFT", controls.label, "TOPLEFT" }, 0, 60, 206, 20, invalidPath, nil, nil, nil, function(buf)
+	controls.userPath = new("EditControl", { "TOPLEFT", controls.label, "TOPLEFT" }, { 0, 60, 206, 20 }, invalidPath, nil, nil, nil, function(buf)
 		invalidPath = sanitiseText(buf)
 		if not invalidPath:match("?") then
 			controls.save.enabled = true
@@ -756,7 +756,7 @@ function main:OpenPathPopup(invalidPath, ignoreBuild)
 			controls.save.enabled = false
 		end
 	end)
-	controls.save = new("ButtonControl", { "TOPLEFT", controls.userPath, "TOPLEFT" }, 0, 26, 206, 20, "Save", function()
+	controls.save = new("ButtonControl", { "TOPLEFT", controls.userPath, "TOPLEFT" }, { 0, 26, 206, 20 }, "Save", function()
 		local res, msg = MakeDir(controls.userPath.buf)
 		if not res and msg ~= "No error" then
 			self:OpenMessagePopup("Error", "Couldn't create '"..controls.userPath.buf.."' : "..msg)
@@ -766,7 +766,7 @@ function main:OpenPathPopup(invalidPath, ignoreBuild)
 		end
 	end)
 	controls.save.enabled = false
-	controls.cancel = new("ButtonControl", nil, 0, 0, 0, 0, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, { 0, 0, 0, 0 }, "Cancel", function()
 		-- Do nothing, require user to enter a location
 	end)
 	self:OpenPopup(600, 150, "Change Settings Path", controls, "save", nil, "cancel")

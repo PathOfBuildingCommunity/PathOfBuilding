@@ -449,7 +449,7 @@ Highest Weight - Displays the order retrieved from trade]]
 		t_insert(slotTables, { slotName = self.itemsTab.sockets[nodeId].label, nodeId = nodeId })
 	end
 
-	self.controls.sectionAnchor = new("LabelControl", { "LEFT", self.controls.poesessidButton, "LEFT" }, 0, 0, 0, 0, "")
+	self.controls.sectionAnchor = new("LabelControl", {"LEFT", self.controls.poesessidButton, "LEFT"}, {0, 0, 0, }, "")
 	top_pane_alignment_ref = {"TOPLEFT", self.controls.sectionAnchor, "TOPLEFT"}
 	local scrollBarShown = #slotTables > 21 -- clipping starts beyond this
 	-- dynamically hide rows that are above or below the scrollBar
@@ -474,7 +474,7 @@ Highest Weight - Displays the order retrieved from trade]]
 		end
 	end
 
-	self.controls.otherTradesLabel = new("LabelControl", top_pane_alignment_ref, 0, (#slotTables+1)*(row_height + row_vertical_padding), 100, 16, "^8Other trades:")
+	self.controls.otherTradesLabel = new("LabelControl", top_pane_alignment_ref, {0, (#slotTables+1)*(row_height + row_vertical_padding), 100, 16}, "^8Other trades:")
 	self.controls.otherTradesLabel.shown = function()
 		return hideRowFunc(self, #slotTables+1)
 	end
@@ -492,7 +492,7 @@ Highest Weight - Displays the order retrieved from trade]]
 	self.pane_height = (row_height + row_vertical_padding) * effective_row_count + 2 * pane_margins_vertical + row_height / 2
 	local pane_width = 850 + (scrollBarShown and 25 or 0)
 
-	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT", self.controls["StatWeightMultipliersButton"],"TOPRIGHT"}, 0, 25, 18, 0, 50, "VERTICAL", false)
+	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT", self.controls["StatWeightMultipliersButton"],"TOPRIGHT"}, {0, 25, 18, 0}, 50, "VERTICAL", false)
 	self.controls.scrollBar.shown = function() return scrollBarShown end
 
 	local function wipeItemControls()
@@ -533,7 +533,7 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 	local sliderController = { index = 1 }
     local popupHeight = 285
 
-	controls.ListControl = new("TradeStatWeightMultiplierListControl", { "TOPLEFT", nil, "TOPRIGHT" }, {-410, 45, 400, 200}, statList, sliderController)
+	controls.ListControl = new("TradeStatWeightMultiplierListControl", {"TOPLEFT", nil, "TOPRIGHT"}, {-410, 45, 400, 200}, statList, sliderController)
 
 	for id, stat in pairs(data.powerStatList) do
 		if not stat.ignoreForItems and stat.label ~= "Name" then
@@ -605,13 +605,13 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 			self:UpdateControlsWithItems(row_idx)
 		end
     end)
-	controls.cancel = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, 0, -10, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, { 0, -10, 80, 20 }, "Cancel", function()
 		if previousSelectionList and #previousSelectionList > 0 then
 			self.statSortSelectionList = copyTable(previousSelectionList, true)
 		end
 		main:ClosePopup()
 	end)
-	controls.reset = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, 90, -10, 80, 20, "Reset", function()
+	controls.reset = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, { 90, -10, 80, 20 }, "Reset", function()
 		local previousSelection = { }
 		if isSameAsDefaultList(self.statSortSelectionList) then
 			previousSelection = copyTable(previousSelectionList, true)
@@ -884,7 +884,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	local activeSlotRef = slotTbl.nodeId and self.itemsTab.activeItemSet[slotTbl.nodeId] or self.itemsTab.activeItemSet[slotTbl.slotName]
 	local activeSlot = slotTbl.nodeId and self.itemsTab.sockets[slotTbl.nodeId] or slotTbl.slotName and (self.itemsTab.slots[slotTbl.slotName] or slotTbl.fullName and self.itemsTab.slots[slotTbl.fullName]) -- fullName for Abyssal Sockets
 	local nameColor = slotTbl.unique and colorCodes.UNIQUE or "^7"
-	controls["name"..row_idx] = new("LabelControl", top_pane_alignment_ref, 0, row_idx*(row_height + row_vertical_padding), 100, row_height - 4, nameColor..slotTbl.slotName)
+	controls["name"..row_idx] = new("LabelControl", top_pane_alignment_ref, {0, row_idx*(row_height + row_vertical_padding), 100, row_height - 4}, nameColor..slotTbl.slotName)
 	controls["bestButton"..row_idx] = new("ButtonControl", { "LEFT", controls["name"..row_idx], "LEFT"}, {100 + 8, 0, 80, row_height}, "Find best", function()
 		self.tradeQueryGenerator:RequestQuery(activeSlot, { slotTbl = slotTbl, controls = controls, row_idx = row_idx }, self.statSortSelectionList, function(context, query, errMsg)
 			if errMsg then

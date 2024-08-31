@@ -32,7 +32,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 	self.colWidth = 230
 	self.sectionList = { }
 
-	self.controls.search = new("EditControl", {"TOPLEFT",self,"TOPLEFT"}, 4, 5, 260, 20, "", "Search", "%c", 100, nil, nil, nil, true)
+	self.controls.search = new("EditControl", {"TOPLEFT",self,"TOPLEFT"}, {4, 5, 260, 20}, "", "Search", "%c", 100, nil, nil, nil, true)
 	t_insert(self.controls, self.controls.search)
 
 	-- Special section for skill/mode selection

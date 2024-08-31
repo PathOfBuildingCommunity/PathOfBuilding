@@ -24,9 +24,12 @@ local rect = {
 	y,
 	width,
 	height,
+	}
+	
+	could possibly have
 	minWidth,
 	minHeight,
-	}
+	for containers
 --]]
 
 local ControlClass = newClass("Control", function(self, anchor, rect)

@@ -399,11 +399,11 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return not self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.editWarcriesLabel = new("LabelControl", {"TOPLEFT",self.controls.editAurasLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "^7Warcry Skills")
+	self.controls.editWarcriesLabel = new("LabelControl", {"TOPLEFT",self.controls.editAurasLabel,"BOTTOMLEFT"}, {0, 8, 0, theme.stringHeight}, "^7Warcry Skills")
 	self.controls.editWarcriesLabel.y = function()
 		return self.controls.ShowAdvanceTools.state and (self.controls.editAuras.height() + 8) or (theme.lineCounter(self.controls.simpleAuras.label) + 4)
 	end
-	self.controls.editWarcries = new("EditControl", {"TOPLEFT",self.controls.editWarcriesLabel,"TOPLEFT"}, 0, 18, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editWarcries = new("EditControl", {"TOPLEFT",self.controls.editWarcriesLabel,"TOPLEFT"}, {0, 18, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editWarcries.width = function()
 		return self.width / 2 - 16
 	end
@@ -413,16 +413,16 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.editWarcries.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleWarcries = new("LabelControl", {"TOPLEFT",self.controls.editWarcriesLabel,"TOPLEFT"}, 0, 18, 0, theme.stringHeight, "")
+	self.controls.simpleWarcries = new("LabelControl", {"TOPLEFT",self.controls.editWarcriesLabel,"TOPLEFT"}, {0, 18, 0, theme.stringHeight}, "")
 	self.controls.simpleWarcries.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.editLinksLabel = new("LabelControl", {"TOPLEFT",self.controls.editWarcriesLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "^7Link Skills")
+	self.controls.editLinksLabel = new("LabelControl", {"TOPLEFT",self.controls.editWarcriesLabel,"BOTTOMLEFT"}, {0, 8, 0, theme.stringHeight}, "^7Link Skills")
 	self.controls.editLinksLabel.y = function()
 		return self.controls.ShowAdvanceTools.state and (self.controls.editWarcries.height() + 8) or (theme.lineCounter(self.controls.simpleWarcries.label) + 4)
 	end
-	self.controls.editLinks = new("EditControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, 0, 18, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editLinks = new("EditControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, {0, 18, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editLinks.width = function()
 		return self.width / 2 - 16
 	end

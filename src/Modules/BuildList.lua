@@ -118,7 +118,7 @@ function listMode:getPublicBuilds()
 			impl = new("PoBArchivesProvider", "builds")
 		}
 	}
-	local extBuildList = new("ExtBuildListControl", {"LEFT",self.controls.buildList,"RIGHT"}, 25, 0, main.screenW * 1 / 4 - 50, 0, buildProviders)
+	local extBuildList = new("ExtBuildListControl", {"LEFT",self.controls.buildList,"RIGHT"}, {25, 0, main.screenW * 1 / 4 - 50, 0}, buildProviders)
 	extBuildList:Init("PoB Archives")
 	extBuildList.height = function()
 		return main.screenH - 80
