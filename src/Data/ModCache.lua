@@ -116,10 +116,8 @@ c["+1 Armour per 10 Unreserved Maximum Mana"]={{[1]={[1]={div=10,stat="ManaUnres
 c["+1 Armour per 2 Strength"]={{[1]={[1]={div=2,stat="Str",type="PerStat"},flags=0,keywordFlags=0,name="Armour",type="BASE",value=1}},nil}
 c["+1 Life per 4 Dexterity"]={{[1]={[1]={div=4,stat="Dex",type="PerStat"},flags=0,keywordFlags=0,name="Life",type="BASE",value=1}},nil}
 c["+1 Mana per 4 Strength"]={{[1]={[1]={div=4,stat="Str",type="PerStat"},flags=0,keywordFlags=0,name="Mana",type="BASE",value=1}},nil}
-c["+1 Prefix Modifier allowed"]={{}," Prefix Modifier allowed "}
-c["+1 Prefix Modifier allowed -1 Suffix Modifier allowed"]={{}," Prefix Modifier allowed -1 Suffix Modifier allowed "}
-c["+1 Suffix Modifier allowed"]={{}," Suffix Modifier allowed "}
-c["+1 Suffix Modifier allowed Implicit Modifiers Cannot Be Changed"]={{}," Suffix Modifier allowed Implicit Modifiers Cannot Be Changed "}
+c["+1 Prefix Modifier allowed"]={{},nil}
+c["+1 Suffix Modifier allowed"]={{},nil}
 c["+1 maximum Energy Shield per 5 Strength"]={{[1]={[1]={div=5,stat="Str",type="PerStat"},flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=1}},nil}
 c["+1 second to Summon Skeleton Cooldown"]={{}," second to Summon  Cooldown "}
 c["+1 to Level of Socketed Active Skill Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="active skill",value=1}}},nil}
@@ -1432,10 +1430,8 @@ c["+95 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",v
 c["+96 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=96}},nil}
 c["-1 Fire Damage taken from Hits per Mana Burn"]={{[1]={[1]={type="Multiplier",var="ManaBurnStacks"},flags=0,keywordFlags=0,name="FireDamageTakenWhenHit",type="BASE",value=-1}},nil}
 c["-1 Physical Damage taken from Hits per Level"]={{[1]={[1]={type="Multiplier",var="Level"},flags=0,keywordFlags=0,name="PhysicalDamageTakenWhenHit",type="BASE",value=-1}},nil}
-c["-1 Prefix Modifier allowed"]={{}," Prefix Modifier allowed "}
-c["-1 Prefix Modifier allowed +1 Suffix Modifier allowed"]={{}," Prefix Modifier allowed +1 Suffix Modifier allowed "}
-c["-1 Suffix Modifier allowed"]={{}," Suffix Modifier allowed "}
-c["-1 Suffix Modifier allowed Implicit Modifiers Cannot Be Changed"]={{}," Suffix Modifier allowed Implicit Modifiers Cannot Be Changed "}
+c["-1 Prefix Modifier allowed"]={{},nil}
+c["-1 Suffix Modifier allowed"]={{},nil}
 c["-1 to Maximum Endurance Charges"]={{[1]={flags=0,keywordFlags=0,name="EnduranceChargesMax",type="BASE",value=-1}},nil}
 c["-1 to Maximum Frenzy Charges"]={{[1]={flags=0,keywordFlags=0,name="FrenzyChargesMax",type="BASE",value=-1}},nil}
 c["-1 to Maximum Power Charges"]={{[1]={flags=0,keywordFlags=0,name="PowerChargesMax",type="BASE",value=-1}},nil}
@@ -1470,8 +1466,7 @@ c["-16 Physical Damage taken from Attack Hits"]={{[1]={flags=0,keywordFlags=0,na
 c["-18 Physical Damage taken from Attack Hits"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromAttacks",type="BASE",value=-18}},nil}
 c["-2 Physical Damage taken from Attack Hits"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromAttacks",type="BASE",value=-2}},nil}
 c["-2 Physical Damage taken from Attacks"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromAttacks",type="BASE",value=-2}},nil}
-c["-2 Prefix Modifiers allowed"]={{}," Prefix Modifiers allowed "}
-c["-2 Prefix Modifiers allowed -1 Suffix Modifier allowed"]={{}," Prefix Modifiers allowed -1 Suffix Modifier allowed "}
+c["-2 Prefix Modifiers allowed"]={{},nil}
 c["-2 to Accuracy Rating per Level"]={{[1]={[1]={type="Multiplier",var="Level"},flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=-2}},nil}
 c["-2 to Level of Socketed Skill Gems per Socketed Gem"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},[2]={type="Multiplier",var="SocketedGemsIn{SlotName}"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="grants_active_skill",value=-2}}},nil}
 c["-2 to Level of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="support",value=-2}}},nil}
