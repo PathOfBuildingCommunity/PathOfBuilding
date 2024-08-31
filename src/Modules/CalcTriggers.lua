@@ -535,6 +535,9 @@ local function defaultTriggerHandler(env, config)
 						end
 						trigRate = trigRate / m_ceil(manaSpentThreshold / sourceManaCost)
 					else
+						if breakdown then
+							t_insert(breakdown.EffectiveSourceRate, s_format("Source skill has no mana cost", output.EffectiveSourceRate))
+						end
 						trigRate = 0
 					end
 				end
