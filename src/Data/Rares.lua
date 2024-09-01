@@ -17,6 +17,7 @@ Crafted: true
 Prefix: LocalIncreasedEvasionRating3
 Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife7
+Suffix: ChanceToSuppressSpells2
 ]],[[
 Energy Shield Helmet
 Lich's Circlet
@@ -31,6 +32,7 @@ Crafted: true
 Prefix: LocalBaseArmourAndEvasionRating3
 Prefix: LocalIncreasedArmourAndEvasion5
 Prefix: IncreasedLife7
+Suffix: ChanceToSuppressSpells2
 ]],[[
 Armour/Evasion Helmet
 Penitent Mask
@@ -38,6 +40,7 @@ Crafted: true
 Prefix: LocalBaseArmourAndEvasionRating3
 Prefix: LocalIncreasedArmourAndEvasion5
 Prefix: IncreasedLife7
+Suffix: ChanceToSuppressSpells2
 ]],[[
 Armour/Energy Shield Helmet
 Divine Crown
@@ -46,11 +49,10 @@ Prefix: LocalBaseArmourAndEnergyShield3
 Prefix: LocalIncreasedArmourAndEnergyShield5
 Prefix: IncreasedLife7
 ]],[[
-Armour/Energy Shield Helmet
+Minion Helm
 Bone Helmet
 Crafted: true
-Prefix: LocalBaseArmourAndEnergyShield3
-Prefix: LocalIncreasedArmourAndEnergyShield5
+Prefix: GlobalIncreaseMinionSpellSkillGemLevel2
 Prefix: IncreasedLife7
 ]],[[
 Armour/Energy Shield Helmet
@@ -66,6 +68,7 @@ Crafted: true
 Prefix: LocalBaseEvasionRatingAndEnergyShield3
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
 Prefix: IncreasedLife7
+Suffix: ChanceToSuppressSpells2
 ]],[[
 Evasion/Energy Shield Helmet
 Blizzard Crown
@@ -73,6 +76,7 @@ Crafted: true
 Prefix: LocalBaseEvasionRatingAndEnergyShield3
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
 Prefix: IncreasedLife7
+Suffix: ChanceToSuppressSpells2
 ]],[[
 Ward Helmet
 Runic Crown
@@ -110,6 +114,7 @@ Crafted: true
 Prefix: LocalIncreasedEvasionRating2
 Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife6
+Suffix: ChanceToSuppressSpells2
 ]],[[
 Evasion Gloves
 Gripped Gloves
@@ -117,6 +122,7 @@ Crafted: true
 Prefix: LocalIncreasedEvasionRating2
 Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife6
+Suffix: ChanceToSuppressSpells2
 ]],[[
 Evasion Gloves
 Trapsetter Gloves
@@ -124,6 +130,7 @@ Crafted: true
 Prefix: LocalIncreasedEvasionRating2
 Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife6
+Suffix: ChanceToSuppressSpells2
 ]],[[
 Energy Shield Gloves
 Warlock Gloves
@@ -152,6 +159,7 @@ Crafted: true
 Prefix: LocalBaseArmourAndEvasionRating2
 Prefix: LocalIncreasedArmourAndEvasion5
 Prefix: IncreasedLife6
+Suffix: ChanceToSuppressSpells2
 ]],[[
 Armour/Energy Shield Gloves
 Paladin Gloves
@@ -173,6 +181,7 @@ Crafted: true
 Prefix: LocalBaseEvasionRatingAndEnergyShield2
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
 Prefix: IncreasedLife6
+Suffix: ChanceToSuppressSpells2
 ]],[[
 Ward Gloves
 Runic Gauntlets
@@ -197,12 +206,20 @@ Prefix: LocalIncreasedPhysicalDamageReductionRating5
 Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
 Prefix: IncreasedLife9
 ]],[[
+Additional Curse Hunter Chest
+Royal Plate
+Hunter Item
+Crafted: true
+Prefix: AdditionalCurseOnEnemiesInfluence1
+Prefix: IncreasedLife9
+]],[[
 Evasion Chest
 Syndicate's Garb
 Crafted: true
 Prefix: LocalIncreasedEvasionRating5
 Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife9
+Suffix: ChanceToSuppressSpellsHigh2__
 ]],[[
 Evasion Chest
 Assassin's Garb
@@ -210,6 +227,7 @@ Crafted: true
 Prefix: LocalIncreasedEvasionRating5
 Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife9
+Suffix: ChanceToSuppressSpellsHigh2__
 ]],[[
 Energy Shield Chest
 Twilight Regalia
@@ -224,6 +242,7 @@ Crafted: true
 Prefix: LocalBaseArmourAndEvasionRating5
 Prefix: LocalIncreasedArmourAndEvasion5
 Prefix: IncreasedLife9
+Suffix: ChanceToSuppressSpellsHigh2__
 ]],[[
 Armour/Energy Shield Chest
 Sacred Chainmail
@@ -238,6 +257,7 @@ Crafted: true
 Prefix: LocalBaseEvasionRatingAndEnergyShield5_
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
 Prefix: IncreasedLife9
+Suffix: ChanceToSuppressSpellsHigh2__
 ]],
 -- Boots
 [[
@@ -261,6 +281,7 @@ Crafted: true
 Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife6
 Prefix: MovementVelocity5
+Suffix: ChanceToSuppressSpells2
 ]],[[
 Evasion Boots
 Stormrider Boots
@@ -268,6 +289,7 @@ Crafted: true
 Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife6
 Prefix: MovementVelocity5
+Suffix: ChanceToSuppressSpells2
 ]],[[
 Energy Shield Boots
 Warlock Boots
@@ -289,6 +311,7 @@ Crafted: true
 Prefix: LocalIncreasedArmourAndEvasion5
 Prefix: IncreasedLife6
 Prefix: MovementVelocity5
+Suffix: ChanceToSuppressSpells2
 ]],[[
 Armour/Evasion Boots
 Two-Toned Boots (Armour/Evasion)
@@ -296,6 +319,7 @@ Crafted: true
 Prefix: LocalIncreasedArmourAndEvasion5
 Prefix: IncreasedLife6
 Prefix: MovementVelocity5
+Suffix: ChanceToSuppressSpells2
 ]],[[
 Armour/Energy Shield Boots
 Paladin Boots
@@ -317,6 +341,7 @@ Crafted: true
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
 Prefix: IncreasedLife6
 Prefix: MovementVelocity5
+Suffix: ChanceToSuppressSpells2
 ]],[[
 Evasion/Energy Shield Boots
 Two-Toned Boots (Evasion/Energy Shield)
@@ -324,6 +349,7 @@ Crafted: true
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
 Prefix: IncreasedLife6
 Prefix: MovementVelocity5
+Suffix: ChanceToSuppressSpells2
 ]],[[
 Evasion/Energy Shield Boots
 Fugitive Boots
@@ -345,72 +371,126 @@ Prefix: IncreasedLife7
 Armour Shield
 Colossal Tower Shield
 Crafted: true
-Prefix: LocalIncreasedPhysicalDamageReductionRating5
+Prefix: LocalIncreasedBlockPercentage5
 Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
 Prefix: IncreasedLife8
 ]],[[
 Armour Shield
 Heat-attuned Tower Shield
 Crafted: true
-Prefix: LocalIncreasedPhysicalDamageReductionRating5
+Prefix: LocalIncreasedBlockPercentage5
 Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5
 Prefix: IncreasedLife8
+]],[[
+Shaper Gain On Block Shield
+Ezomyte Tower Shield
+Shaper Item
+Crafted: true
+Prefix: LocalIncreasedBlockPercentage5
+Prefix: IncreasedLife8
+Suffix: RecoverLifePercentOnBlockUber1_
 ]],[[
 Evasion Shield
 Lacquered Buckler
 Crafted: true
-Prefix: LocalIncreasedEvasionRating5
+Prefix: LocalIncreasedBlockPercentage5
 Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife8
+Suffix: ChanceToSuppressSpellsHigh2__
 ]],[[
 Evasion Shield
 Cold-attuned Buckler
 Crafted: true
-Prefix: LocalIncreasedEvasionRating5
+Prefix: LocalIncreasedBlockPercentage5
 Prefix: LocalIncreasedEvasionRatingPercent5
 Prefix: IncreasedLife8
+Suffix: ChanceToSuppressSpellsHigh2__
 ]],[[
 Energy Shield Shield
 Titanium Spirit Shield
 Crafted: true
-Prefix: IncreasedLife8
+Prefix: LocalIncreasedBlockPercentage5
 Prefix: LocalIncreasedEnergyShieldPercent5
 Prefix: LocalIncreasedEnergyShield9
 ]],[[
 Energy Shield Shield
 Transfer-attuned Spirit Shield
 Crafted: true
-Prefix: IncreasedLife8
+Prefix: LocalIncreasedBlockPercentage5
 Prefix: LocalIncreasedEnergyShieldPercent5
 Prefix: LocalIncreasedEnergyShield9
+]],[[
++Physical Shield
+Titanium Spirit Shield
+Crafted: true
+Prefix: GlobalPhysicalSpellGemsLevel1
+Prefix: SpellDamageOnWeapon5
+Suffix: SpellCriticalStrikeChance3
+]],[[
++Fire Shield
+Titanium Spirit Shield
+Crafted: true
+Prefix: GlobalFireSpellGemsLevel1_
+Prefix: FireDamagePrefixOnWeapon5_
+Suffix: SpellCriticalStrikeChance3
+]],[[
++Cold Shield
+Titanium Spirit Shield
+Crafted: true
+Prefix: GlobalColdSpellGemsLevel1_
+Prefix: ColdDamagePrefixOnWeapon5_
+Suffix: SpellCriticalStrikeChance3
+]],[[
++Lightning Shield
+Titanium Spirit Shield
+Crafted: true
+Prefix: GlobalLightningSpellGemsLevel1
+Prefix: LightningDamagePrefixOnWeapon5
+Suffix: SpellCriticalStrikeChance3
+]],[[
++Chaos Shield
+Titanium Spirit Shield
+Crafted: true
+Prefix: GlobalChaosSpellGemsLevel1
+Prefix: SpellDamageOnWeapon5
+Suffix: SpellCriticalStrikeChance3
+]],[[
++Minion Shield
+Fossilised Spirit Shield
+Crafted: true
+Prefix: MinionGemLevel1h1
+Prefix: MinionDamageOnWeapon5
+Suffix: MinionCriticalStrikeChanceIncrease3
 ]],[[
 Armour/Evasion Shield
 Cardinal Round Shield
 Crafted: true
-Prefix: LocalBaseArmourAndEvasionRating5
+Prefix: LocalIncreasedBlockPercentage5
 Prefix: LocalIncreasedArmourAndEvasion5
 Prefix: IncreasedLife8
+Suffix: ChanceToSuppressSpellsHigh2__
 ]],[[
 Armour/Energy Shield Shield
 Champion Kite Shield
 Crafted: true
-Prefix: LocalBaseArmourAndEnergyShield5
+Prefix: LocalIncreasedBlockPercentage5
 Prefix: LocalIncreasedArmourAndEnergyShield5
 Prefix: IncreasedLife8
 ]],[[
 Armour/Energy Shield Shield
 Archon Kite Shield
 Crafted: true
-Prefix: LocalBaseArmourAndEnergyShield5
+Prefix: LocalIncreasedBlockPercentage5
 Prefix: LocalIncreasedArmourAndEnergyShield5
 Prefix: IncreasedLife8
 ]],[[
 Evasion/Energy Shield Shield
 Supreme Spiked Shield
 Crafted: true
-Prefix: LocalBaseEvasionRatingAndEnergyShield5_
+Prefix: LocalIncreasedBlockPercentage5
 Prefix: LocalIncreasedEvasionAndEnergyShield5_
 Prefix: IncreasedLife8
+Suffix: ChanceToSuppressSpellsHigh2__
 ]],
 -- Amulets
 [[
@@ -589,6 +669,12 @@ Prefix: AddedPhysicalDamage4
 Suffix: IncreasedAccuracyNew3
 Suffix: IncreasedAttackSpeed1
 ]],[[
+Minion Ring
+Bone Ring
+Crafted: true
+Prefix: MinionDamagePercent3
+Suffix: MinionAttackAndCastSpeed2
+]],[[
 Ring
 Iolite Ring
 Crafted: true
@@ -600,39 +686,78 @@ Crafted: true
 Ring
 Geodesic Ring
 Crafted: true
+]],[[
+Ring
+Helical Ring
+Crafted: true
+]],[[
+Ring
+Manifold Ring
+Crafted: true
+]],[[
+Synthesised Charge Ring
+Iron Ring
+Variant: Endurance Charge
+Variant: Frenzy Charge
+Variant: Power Charge
+Crafted: true
+Implicits: 3
+{variant:1}+1 to Maximum Endurance Charges
+{variant:2}+1 to Maximum Frenzy Charges
+{variant:3}+1 to Maximum Power Charges
+]],[[
+Synthesised Curse Ring
+Iron Ring
+Variant: Vulnerability
+Variant: Flammability
+Variant: Frostbite
+Variant: Conductivity
+Variant: Elemental Weakness
+Crafted: true
+Implicits: 5
+{variant:1}Curse Enemies with Vulnerability on Hit
+{variant:2}Curse Enemies with Flammability on Hit
+{variant:3}Curse Enemies with Frostbite on Hit
+{variant:4}Curse Enemies with Conductivity on Hit
+{variant:5}Curse Enemies with Elemental Weakness on Hit
 ]],
+
 -- Belts
 [[
 Belt
 Heavy Belt
 Crafted: true
-Prefix: IncreasedLife4
-Suffix: Strength6
+Prefix: IncreasedLife7
+Suffix: Strength7
 ]],[[
 Belt
 Leather Belt
 Crafted: true
-Prefix: IncreasedLife4
-Suffix: Strength6
+Prefix: IncreasedLife7
+Suffix: Strength7
 ]],[[
 Energy Shield Belt
 Chain Belt
 Crafted: true
-Prefix: IncreasedEnergyShield6
+Prefix: IncreasedEnergyShield10
 ]],[[
 Energy Shield Belt
 Crystal Belt
 Crafted: true
-Prefix: IncreasedEnergyShield6
+Prefix: IncreasedEnergyShield10
 ]],[[
 Belt
 Vanguard Belt
 Crafted: true
 Prefix: IncreasedPhysicalDamageReductionRating5
-Prefix: IncreasedLife5
+Prefix: IncreasedLife7
 ]],[[
 Belt
 Rustic Sash
+Crafted: true
+]],[[
+Belt
+Stygian Vise
 Crafted: true
 ]],[[
 Flask Belt
@@ -682,7 +807,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental 1H Axe
 Vaal Hatchet
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: LocalAddedFireDamage8
+Prefix: LocalAddedColdDamage8
+Prefix: LocalAddedLightningDamage8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -700,7 +827,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental 1H Axe
 Psychotic Axe
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: LocalAddedFireDamage8
+Prefix: LocalAddedColdDamage8
+Prefix: LocalAddedLightningDamage8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -718,7 +847,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental 2H Axe
 Despot Axe
 Crafted: true
-Prefix: WeaponElementalDamageOnTwohandWeapon4
+Prefix: LocalAddedFireDamageTwoHand8_
+Prefix: LocalAddedColdDamageTwoHand8
+Prefix: LocalAddedLightningDamageTwoHand8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -736,7 +867,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental 2H Axe
 Apex Cleaver
 Crafted: true
-Prefix: WeaponElementalDamageOnTwohandWeapon4
+Prefix: LocalAddedFireDamageTwoHand8_
+Prefix: LocalAddedColdDamageTwoHand8
+Prefix: LocalAddedLightningDamageTwoHand8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -754,7 +887,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental Bow
 Thicket Bow
 Crafted: true
-Prefix: WeaponElementalDamageOnTwohandWeapon4
+Prefix: LocalAddedFireDamageTwoHand8_
+Prefix: LocalAddedColdDamageTwoHand8
+Prefix: LocalAddedLightningDamageTwoHand8
 Suffix: LocalIncreasedAttackSpeed2
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -788,7 +923,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental Claw
 Imperial Claw
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: LocalAddedFireDamage8
+Prefix: LocalAddedColdDamage8
+Prefix: LocalAddedLightningDamage8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -816,7 +953,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental Dagger
 Ambusher
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: LocalAddedFireDamage8
+Prefix: LocalAddedColdDamage8
+Prefix: LocalAddedLightningDamage8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -843,7 +982,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental Dagger
 Pneumatic Dagger
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: LocalAddedFireDamage8
+Prefix: LocalAddedColdDamage8
+Prefix: LocalAddedLightningDamage8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -886,7 +1027,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental Sceptre
 Void Sceptre
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: LocalAddedFireDamage8
+Prefix: LocalAddedColdDamage8
+Prefix: LocalAddedLightningDamage8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -902,7 +1045,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental Sceptre
 Oscillating Sceptre
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: LocalAddedFireDamage8
+Prefix: LocalAddedColdDamage8
+Prefix: LocalAddedLightningDamage8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -918,7 +1063,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental Sceptre
 Stabilising Sceptre
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: LocalAddedFireDamage8
+Prefix: LocalAddedColdDamage8
+Prefix: LocalAddedLightningDamage8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -944,7 +1091,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental Sceptre
 Alternating Sceptre
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: LocalAddedFireDamage8
+Prefix: LocalAddedColdDamage8
+Prefix: LocalAddedLightningDamage8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -962,7 +1111,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental 1H Mace
 Behemoth Mace
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: LocalAddedFireDamage8
+Prefix: LocalAddedColdDamage8
+Prefix: LocalAddedLightningDamage8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -980,7 +1131,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental 1H Mace
 Boom Mace
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: LocalAddedFireDamage8
+Prefix: LocalAddedColdDamage8
+Prefix: LocalAddedLightningDamage8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -998,7 +1151,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental 2H Mace
 Coronal Maul
 Crafted: true
-Prefix: WeaponElementalDamageOnTwohandWeapon4
+Prefix: LocalAddedFireDamageTwoHand8_
+Prefix: LocalAddedColdDamageTwoHand8
+Prefix: LocalAddedLightningDamageTwoHand8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -1016,7 +1171,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental 2H Mace
 Impact Force Propagator
 Crafted: true
-Prefix: WeaponElementalDamageOnTwohandWeapon4
+Prefix: LocalAddedFireDamageTwoHand8_
+Prefix: LocalAddedColdDamageTwoHand8
+Prefix: LocalAddedLightningDamageTwoHand8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -1034,7 +1191,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental Staff
 Maelstrom Staff
 Crafted: true
-Prefix: WeaponElementalDamageOnTwohandWeapon4
+Prefix: LocalAddedFireDamageTwoHand8_
+Prefix: LocalAddedColdDamageTwoHand8
+Prefix: LocalAddedLightningDamageTwoHand8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -1052,7 +1211,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental Staff
 Eventuality Rod
 Crafted: true
-Prefix: WeaponElementalDamageOnTwohandWeapon4
+Prefix: LocalAddedFireDamageTwoHand8_
+Prefix: LocalAddedColdDamageTwoHand8
+Prefix: LocalAddedLightningDamageTwoHand8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -1186,7 +1347,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental 1H Sword
 Eternal Sword
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: LocalAddedFireDamage8
+Prefix: LocalAddedColdDamage8
+Prefix: LocalAddedLightningDamage8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -1204,7 +1367,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental 1H Sword
 Anarchic Spiritblade
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: LocalAddedFireDamage8
+Prefix: LocalAddedColdDamage8
+Prefix: LocalAddedLightningDamage8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -1212,7 +1377,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental 1H Sword
 Jewelled Foil
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: LocalAddedFireDamage8
+Prefix: LocalAddedColdDamage8
+Prefix: LocalAddedLightningDamage8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -1230,7 +1397,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental 2H Sword
 Reaver Sword
 Crafted: true
-Prefix: WeaponElementalDamageOnTwohandWeapon4
+Prefix: LocalAddedFireDamageTwoHand8_
+Prefix: LocalAddedColdDamageTwoHand8
+Prefix: LocalAddedLightningDamageTwoHand8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -1238,7 +1407,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental 2H Sword
 Banishing Blade
 Crafted: true
-Prefix: WeaponElementalDamageOnTwohandWeapon4
+Prefix: LocalAddedFireDamageTwoHand8_
+Prefix: LocalAddedColdDamageTwoHand8
+Prefix: LocalAddedLightningDamageTwoHand8
 Suffix: LocalIncreasedAttackSpeed3
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -1256,7 +1427,9 @@ Suffix: LocalCriticalMultiplier4
 Elemental Wand
 Imbued Wand
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: LocalAddedFireDamage8
+Prefix: LocalAddedColdDamage8
+Prefix: LocalAddedLightningDamage8
 Suffix: LocalIncreasedAttackSpeed2
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
@@ -1290,10 +1463,18 @@ Suffix: LocalCriticalMultiplier4
 Elemental Wand
 Accumulator Wand
 Crafted: true
-Prefix: WeaponElementalDamageOnWeapons4
+Prefix: LocalAddedFireDamage8
+Prefix: LocalAddedColdDamage8
+Prefix: LocalAddedLightningDamage8
 Suffix: LocalIncreasedAttackSpeed2
 Suffix: LocalCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
+]],[[
+Minion Wand
+Convoking Wand
+Crafted: true
+Prefix: MinionGemLevel1h1
+Prefix: MinionDamageOnWeapon6
 ]],
 -- Jewels
 [[
@@ -1319,6 +1500,22 @@ Crafted: true
 ]],[[
 Cluster Jewel
 Small Cluster Jewel
+Crafted: true
+]],[[
+Abyss Jewel
+Ghastly Eye Jewel
+Crafted: true
+]],[[
+Abyss Jewel
+Hypnotic Eye Jewel
+Crafted: true
+]],[[
+Abyss Jewel
+Murderous Eye Jewel
+Crafted: true
+]],[[
+Abyss Jewel
+Searching Eye Jewel
 Crafted: true
 ]],
 -- Flasks
