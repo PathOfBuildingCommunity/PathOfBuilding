@@ -2026,6 +2026,8 @@ Huge sets the radius to 11.
 				end
 			end
 		else
+			build.configTab.varControls['enemyDamageType']:SelByValue("Average", "val")
+			build.configTab.input['enemyDamageType'] = "Average"
 			build.configTab.varControls['enemyDamageType'].enabled = true
 		end
 	end },
