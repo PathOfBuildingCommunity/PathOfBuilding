@@ -191,7 +191,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 					mult = ((playerLevel + 5) / (playerLevel + 5 + diff ^ 2.5)) ^ 1.5
 				end
 				if playerLevel >= 95 then
-					mult = mult * (1 / (1 + 0.1 * (playerLevel - 94)))
+					local xpPenalty = ({0.935, 0.885, 0.8125, 0.7175, 0.6})[playerLevel - 94] or 0
+					mult = mult * (1 / (1 + 0.1 * (playerLevel - 94))) * xpPenalty
 				end
 				if mult > 0.01 then
 					local line = level
