@@ -279,7 +279,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			weapon1Flags, weapon1Info = ModFlag[env.data.weaponTypeInfo["None"].flag], env.data.weaponTypeInfo["None"]
 		end
 		if weapon1Flags then
-			if skillFlags.attack then
+			if skillFlags.attack or skillFlags.dotFromAttack then
 				activeSkill.weapon1Flags = weapon1Flags
 				skillFlags.weapon1Attack = true
 				if weapon1Info.melee and skillFlags.melee then
@@ -296,7 +296,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		if not skillTypes[SkillType.MainHandOnly] and not skillFlags.forceMainHand then
 			local weapon2Flags, weapon2Info = getWeaponFlags(env, activeSkill.actor.weaponData2, weaponTypes)
 			if weapon2Flags then
-				if skillFlags.attack then
+				if skillFlags.attack or skillFlags.dotFromAttack then
 					activeSkill.weapon2Flags = weapon2Flags
 					skillFlags.weapon2Attack = true
 				end

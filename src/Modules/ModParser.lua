@@ -855,7 +855,7 @@ local modFlagList = {
 	["to unarmed attacks"] = { flags = bor(ModFlag.Unarmed, ModFlag.Hit) },
 	["to unarmed melee hits"] = { flags = bor(ModFlag.Unarmed, ModFlag.Melee, ModFlag.Hit) },
 	["with melee weapons"] = { flags = ModFlag.WeaponMelee },
-	["with melee weapon attacks"] = { flags = bor(ModFlag.WeaponMelee, ModFlag.Hit) },
+	["with melee weapon attacks"] = { flags = ModFlag.WeaponMelee }, --Tincture mod doesn't care about it being a Hit
 	["from melee weapons"] = { flags = ModFlag.WeaponMelee },
 	["from melee weapon attacks"] = { flags = bor(ModFlag.WeaponMelee, ModFlag.Hit) },
 	["melee weapon"] = { flags = ModFlag.WeaponMelee },
