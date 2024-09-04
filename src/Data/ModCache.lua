@@ -11674,7 +11674,7 @@ c["You are Chilled while you are Bleeding"]={{[1]={[1]={type="Condition",var="Bl
 c["You are Chilled while you are Poisoned"]={{[1]={[1]={type="Condition",var="Poisoned"},flags=0,keywordFlags=0,name="Condition:Chilled",type="FLAG",value=true}},nil}
 c["You are Crushed"]={{[1]={flags=0,keywordFlags=0,name="Condition:Crushed",type="FLAG",value=true}},nil}
 c["You are Cursed with Vulnerability"]={{[1]={flags=0,keywordFlags=0,name="ExtraCurse",type="LIST",value={applyToPlayer=true,level=1,skillId="Vulnerability"}}},nil}
-c["You are Hexproof if you have a Magic Ring in right slot"]={{[1]={[1]={type="Condition",var="MagicItemInRing 2"},flags=0,keywordFlags=0,name="CurseEffectOnSelf",type="MORE",value=-100}},nil}
+c["You are Hexproof if you have a Magic Ring in right slot"]={{[1]={[1]={type="Condition",var="MagicItemInRing 2"},flags=0,keywordFlags=0,name="Condition:Hexproof",type="FLAG",value=true}},nil}
 c["You are Shocked during Effect, causing 50% increased Damage taken"]={nil,"Shocked , causing 50% increased Damage taken "}
 c["You are Shocked during Effect, causing 50% increased Damage taken Damage Penetrates 10% Lightning Resistance during Effect"]={nil,"Shocked , causing 50% increased Damage taken Damage Penetrates 10% Lightning Resistance  "}
 c["You are Unaffected by Bleeding if you've cast Vulnerability in the past 10 seconds"]={{[1]={[1]={type="Condition",var="SelfCastVulnerability"},[2]={effectType="Global",type="GlobalEffect",unscalable=true},flags=0,keywordFlags=0,name="SelfBleedingEffect",type="MORE",value=-100}},nil}

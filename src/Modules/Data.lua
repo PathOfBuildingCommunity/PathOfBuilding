@@ -864,6 +864,8 @@ data.skillStatMapMeta = {
 for _, type in pairs(skillTypes) do
 	LoadModule("Data/Skills/"..type, data.skills, makeSkillMod, makeFlagMod, makeSkillDataMod)
 end
+-- This list is used for curse on player config
+data.playerCursedWithXList = { }
 for skillId, grantedEffect in pairs(data.skills) do
 	grantedEffect.name = sanitiseText(grantedEffect.name)
 	grantedEffect.id = skillId
@@ -896,7 +898,13 @@ for skillId, grantedEffect in pairs(data.skills) do
 			end
 		end
 	end
+	-- Filter out curses which typically get applied to the player, many curses have multiple sources like from monsters
+	-- This does mean it misses Projectile weakness which is only from monsters but I dont think those even exist anymore tbh
+	if grantedEffect.skillTypes and grantedEffect.skillTypes[SkillType.AppliesCurse] and skillId == grantedEffect.name:gsub(" ",""):gsub("'","") then
+		t_insert(data.playerCursedWithXList, { val = skillId, label = grantedEffect.name} )
+	end
 end
+table.sort(data.playerCursedWithXList, function(a, b) return a.val < b.val end)
 
 -- Load gems
 data.gems = LoadModule("Data/Gems")
