@@ -114,17 +114,34 @@ local function mapAffixTooltip(tooltip, mode, index, value)
 	end
 end
 
-local function mapAffixDropDownFunction(val, modList, enemyModList, build)
+local function mapAffixDropDownFunction(val, extraData, modList, enemyModList, build)
 	if val ~= "NONE" then
+		local effect = (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100)
+		local tier = (build.configTab.varControls['multiplierMapModTier'].selIndex or 1)
 		local affixData = data.mapMods.AffixData[val] or {}
 		if affixData.apply then
 			if affixData.type == "check" then
-				affixData.apply(var, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), modList, enemyModList)
+				affixData.apply(var, effect, modList, enemyModList)
 			elseif affixData.type == "list" then
-				affixData.apply(4 - (build.configTab.varControls['multiplierMapModTier'].selIndex or 1), (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), affixData.values, modList, enemyModList)
+				affixData.apply(tier, effect, affixData.values, modList, enemyModList)
 			elseif affixData.type == "count" then
-				affixData.apply(4 - (build.configTab.varControls['multiplierMapModTier'].selIndex or 1), 100, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), affixData.values, modList, enemyModList)
+				affixData.apply(tier, extraData[1] or 100, effect, affixData.values, modList, enemyModList)
 			end
+		end
+	end
+end
+
+local function playerCursedWithXTooltip(tooltip, mode, index, value)
+	tooltip:Clear()
+	if value.val == "NONE" then
+		return
+	end
+	local applyModes = { BODY = true, HOVER = true }
+	if applyModes[mode] then
+		if value.val == "NONE" then
+			tooltip:AddLine(14, '^7'.."Applies all curses to the player.")
+		else
+			tooltip:AddLine(14, '^7'.."Applies a "..value.label:gsub(":","").." curse to the player.")
 		end
 	end
 end
@@ -713,61 +730,26 @@ Huge sets the radius to 11.
 	{ var = "multiplierSextant", type = "count", label = "# of Sextants affecting the area", ifMult = "Sextant", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Sextant", "BASE", m_min(val, 5), "Config")
 	end },
+	--{ subsection = "Map Mods", 
 	{ var = "multiplierMapModEffect", type = "count", label = "% increased effect of map mods" },
-	{ var = "multiplierMapModTier", type = "list", label = "Map Tier", list = { {val = "HIGH", label = "Red"}, {val = "MED", label = "Yellow"}, {val = "LOW", label = "White"} } },
-	{ label = "Map Prefix Modifiers:" },
-	{ var = "MapPrefix1", type = "list", label = "Prefix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ var = "MapPrefix2", type = "list", label = "Prefix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ var = "MapPrefix3", type = "list", label = "Prefix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ var = "MapPrefix4", type = "list", label = "Prefix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ label = "Map Suffix Modifiers:" },
-	{ var = "MapSuffix1", type = "list", label = "Suffix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
-	{ var = "MapSuffix2", type = "list", label = "Suffix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
-	{ var = "MapSuffix3", type = "list", label = "Suffix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
-	{ var = "MapSuffix4", type = "list", label = "Suffix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
+	{ var = "multiplierMapModTier", type = "list", defaultIndex = 3, label = "Map Tier", list = { {val = "LOW", label = "White"}, {val = "MED", label = "Yellow"}, {val = "HIGH", label = "Red"}, {val = "UBER", label = "T17"} } },
+	{ var = "MapPrefixes", type = "multiList", maxElements = 4, extraTypes = { { "slider", "range of the map mod", "range", 100 } }, showAll = true, label = "Map Prefix Modifiers:" , tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
+	{ var = "MapSuffixes", type = "multiList", maxElements = 4, extraTypes = { { "slider", "range of the map mod", "range", 100 } }, showAll = true, label = "Map Suffix Modifiers:" , tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
 	{ label = "Unique Map Modifiers:" },
 	{ var = "PvpScaling", type = "check", label = "PvP damage scaling in effect", tooltip = "'Hall of Grandmasters'", apply = function(val, modList, enemyModList)
 		modList:NewMod("HasPvpScaling", "FLAG", true, "Config")
 	end },
-	{ label = "Player is cursed by:" },
-	{ var = "playerCursedWithAssassinsMark", type = "count", label = "Assassin's Mark:", tooltip = "Sets the level of Assassin's Mark to apply to the player.", apply = function(val, modList, enemyModList)
-		modList:NewMod("ExtraCurse", "LIST", { skillId = "AssassinsMark", level = val, applyToPlayer = true })
-	end },
-	{ var = "playerCursedWithConductivity", type = "count", label = "Conductivity:", tooltip = "Sets the level of Conductivity to apply to the player.", apply = function(val, modList, enemyModList)
-		modList:NewMod("ExtraCurse", "LIST", { skillId = "Conductivity", level = val, applyToPlayer = true })
-	end },
-	{ var = "playerCursedWithDespair", type = "count", label = "Despair:", tooltip = "Sets the level of Despair to apply to the player.", apply = function(val, modList, enemyModList)
-		modList:NewMod("ExtraCurse", "LIST", { skillId = "Despair", level = val, applyToPlayer = true })
-	end },
-	{ var = "playerCursedWithElementalWeakness", type = "count", label = "Elemental Weakness:", tooltip = "Sets the level of Elemental Weakness to apply to the player.\nIn mid tier maps, 'of Elemental Weakness' applies level 10.\nIn high tier maps, 'of Elemental Weakness' applies level 15.", apply = function(val, modList, enemyModList)
-		modList:NewMod("ExtraCurse", "LIST", { skillId = "ElementalWeakness", level = val, applyToPlayer = true })
-	end },
-	{ var = "playerCursedWithEnfeeble", type = "count", label = "Enfeeble:", tooltip = "Sets the level of Enfeeble to apply to the player.\nIn mid tier maps, 'of Enfeeblement' applies level 10.\nIn high tier maps, 'of Enfeeblement' applies level 15.", apply = function(val, modList, enemyModList)
-		modList:NewMod("ExtraCurse", "LIST", { skillId = "Enfeeble", level = val, applyToPlayer = true })
-	end },
-	{ var = "playerCursedWithFlammability", type = "count", label = "Flammability:", tooltip = "Sets the level of Flammability to apply to the player.", apply = function(val, modList, enemyModList)
-		modList:NewMod("ExtraCurse", "LIST", { skillId = "Flammability", level = val, applyToPlayer = true })
-	end },
-	{ var = "playerCursedWithFrostbite", type = "count", label = "Frostbite:", tooltip = "Sets the level of Frostbite to apply to the player.", apply = function(val, modList, enemyModList)
-		modList:NewMod("ExtraCurse", "LIST", { skillId = "Frostbite", level = val, applyToPlayer = true })
-	end },
-	{ var = "playerCursedWithPoachersMark", type = "count", label = "Poacher's Mark:", tooltip = "Sets the level of Poacher's Mark to apply to the player.", apply = function(val, modList, enemyModList)
-		modList:NewMod("ExtraCurse", "LIST", { skillId = "PoachersMark", level = val, applyToPlayer = true })
-	end },
-	{ var = "playerCursedWithProjectileWeakness", type = "count", label = "Projectile Weakness:", tooltip = "Sets the level of Projectile Weakness to apply to the player.", apply = function(val, modList, enemyModList)
-		modList:NewMod("ExtraCurse", "LIST", { skillId = "ProjectileWeakness", level = val, applyToPlayer = true })
-	end },
-	{ var = "playerCursedWithPunishment", type = "count", label = "Punishment:", tooltip = "Sets the level of Punishment to apply to the player.", apply = function(val, modList, enemyModList)
-		modList:NewMod("ExtraCurse", "LIST", { skillId = "Punishment", level = val, applyToPlayer = true })
-	end },
-	{ var = "playerCursedWithTemporalChains", type = "count", label = "Temporal Chains:", tooltip = "Sets the level of Temporal Chains to apply to the player.\nIn mid tier maps, 'of Temporal Chains' applies level 10.\nIn high tier maps, 'of Temporal Chains' applies level 15.", apply = function(val, modList, enemyModList)
-		modList:NewMod("ExtraCurse", "LIST", { skillId = "TemporalChains", level = val, applyToPlayer = true })
-	end },
-	{ var = "playerCursedWithVulnerability", type = "count", label = "Vulnerability:", tooltip = "Sets the level of Vulnerability to apply to the player.\nIn mid tier maps, 'of Vulnerability' applies level 10.\nIn high tier maps, 'of Vulnerability' applies level 15.", apply = function(val, modList, enemyModList)
-		modList:NewMod("ExtraCurse", "LIST", { skillId = "Vulnerability", level = val, applyToPlayer = true })
-	end },
-	{ var = "playerCursedWithWarlordsMark", type = "count", label = "Warlord's Mark:", tooltip = "Sets the level of Warlord's Mark to apply to the player.", apply = function(val, modList, enemyModList)
-		modList:NewMod("ExtraCurse", "LIST", { skillId = "WarlordsMark", level = val, applyToPlayer = true })
+	--}
+	{ var = "playerCursedWithX", type = "multiList", extraTypes = { { "count", "sets the level of the curse applied", nil, 1 } }, label = "Player is cursed by:" , tooltipFunc = playerCursedWithXTooltip, list = data.playerCursedWithXList, apply = function(val, extraData, modList, enemyModList)
+		if val == "ALL" then
+			for _, curse in ipairs(data.playerCursedWithXList) do
+				if curse.val ~= "NONE" and curse.val ~= "ALL" then
+					modList:NewMod("ExtraCurse", "LIST", { skillId = curse.val, level = extraData[1] or 1, applyToPlayer = true })
+				end
+			end
+		elseif val ~= "NONE" then
+			modList:NewMod("ExtraCurse", "LIST", { skillId = val, level = extraData[1] or 1, applyToPlayer = true })
+		end
 	end },
 
 	-- Section: Combat options

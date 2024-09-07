@@ -640,6 +640,7 @@ function calcs.buildOutput(build, mode)
 		local buffList = { }
 		local combatList = { }
 		local curseList = { }
+		local curseOnYouList = { }
 		if output.PowerCharges > 0 then
 			t_insert(combatList, s_format("%d Power Charges", output.PowerCharges))
 		end
@@ -774,9 +775,27 @@ function calcs.buildOutput(build, mode)
 				end
 			end
 		end
+		env.player.breakdown.DebuffsOnYou = { modList = { } }
+		for _, slot in ipairs(env.curseOnYouSlots) do
+			t_insert(curseOnYouList, slot.name)
+			if slot.modList then
+				for _, mod in ipairs(slot.modList) do
+					local value = env.modDB:EvalMod(mod)
+					if value and value ~= 0 then
+						t_insert(env.player.breakdown.DebuffsOnYou.modList, {
+							mod = mod,
+							value = value,
+						})
+					end
+				end
+			end
+		end
 		output.BuffList = table.concat(buffList, ", ")
 		output.CombatList = table.concat(combatList, ", ")
-		output.CurseList = table.concat(curseList, ", ")
+		output.SkillDebuffsList = table.concat(curseList, ", ")
+		if #curseOnYouList > 0 then
+			output.DebuffsOnYouList = table.concat(curseOnYouList, ", ")
+		end
 		if env.minion then
 			local buffList = { }
 			local combatList = { }
@@ -829,7 +848,7 @@ function calcs.buildOutput(build, mode)
 			env.minion.breakdown.SkillDebuffs = env.player.breakdown.SkillDebuffs
 			output.Minion.BuffList = table.concat(buffList, ", ")
 			output.Minion.CombatList = table.concat(combatList, ", ")
-			output.Minion.CurseList = output.CurseList
+			output.Minion.SkillDebuffsList = output.SkillDebuffsList
 		end
 
 		-- infoDump(env)
