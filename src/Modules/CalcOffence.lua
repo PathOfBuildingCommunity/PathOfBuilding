@@ -295,7 +295,7 @@ function calcSkillDuration(skillModList, skillCfg, skillData, env, enemyDB)
 	local duration = durationBase * durationMod
 	local debuffDurationMult = 1
 	if env.mode_effective then
-		debuffDurationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(enemyDB, skillCfg, "BuffExpireFaster"))
+		debuffDurationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(enemyDB, skillCfg, "BuffExpireFaster", "DebuffExpireFaster"))
 	end
 	if skillData.debuff then
 		duration = duration * debuffDurationMult
@@ -1375,7 +1375,7 @@ function calcs.offence(env, actor, activeSkill)
 	-- Skill duration
 	local debuffDurationMult = 1
 	if env.mode_effective then
-		debuffDurationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(enemyDB, skillCfg, "BuffExpireFaster"))
+		debuffDurationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(enemyDB, skillCfg, "BuffExpireFaster", "DebuffExpireFaster"))
 	end
 	do
 		output.DurationMod = calcLib.mod(skillModList, skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
@@ -2332,6 +2332,15 @@ function calcs.offence(env, actor, activeSkill)
 	local quantityMultiplier = m_max(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "QuantityMultiplier"), 1)
 	if quantityMultiplier > 1 then
 		output.QuantityMultiplier = quantityMultiplier
+	end
+	
+	-- enemy spell suppress
+	do
+		local enemySuppressChance = m_min((enemyDB:Sum("BASE", cfg, "SpellSuppressionChance") or 0), 100)
+		if enemySuppressChance > 0 then
+			local effect = m_min(data.misc.SuppressionEffect + enemyDB:Sum("BASE", cfg, "SpellSuppressionEffect"), 100)
+			enemyDB:NewMod("DamageTaken", "MORE", -m_floor(effect * enemySuppressChance / 100), "Enemy Spell Suppression", ModFlag.Spell)
+		end
 	end
 
 	--Calculate damage (exerts, crits, ruthless, DPS, etc)
