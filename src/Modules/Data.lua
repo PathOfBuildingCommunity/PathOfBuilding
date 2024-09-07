@@ -590,6 +590,37 @@ do
 	setmetatable(data.costs, { __index = function(t, k) return t[map[k]] end })
 end
 data.mapMods = LoadModule("Data/ModMap")
+data.shrines = { List = {
+	--{ val = "AccelerationShrine", label = "Acceleration Shrine" },
+	--{ val = "BrutalShrine", label = "Brutal Shrine" },
+	{ val = "DiamondShrine", label = "Diamond Shrine" },
+	--{ val = "DivineShrine", label = "Divine Shrine" },
+	--{ val = "EchoingShrine", label = "Echoing Shrine" },
+	--{ val = "FreezingShrine", label = "Freezing Shrine" },
+	--{ val = "GloomShrine", label = "Gloom Shrine" },
+	--{ val = "ImpenetrableShrine", label = "Impenetrable Shrine" },
+	--{ val = "LightningShrine", label = "Lightning Shrine" },
+	{ val = "MassiveShrine", label = "Massive Shrine" },
+	--{ val = "ReplenishingShrine", label = "Replenishing Shrine" },
+	--{ val = "ResonatingShrine", label = "Resonating Shrine" },
+	--{ val = "ResistanceShrine", label = "Resistance Shrine" },
+	--{ val = "LesserAccelerationShrine", label = "Lesser Acceleration Shrine" },
+	{ val = "LesserBrutalShrine", label = "Lesser Brutal Shrine" },
+	--{ val = "LesserImpenetrableShrine", label = "Lesser Impenetrable Shrine" },
+	{ val = "LesserMassiveShrine", label = "Lesser Massive Shrine" },
+	--{ val = "LesserReplenishingShrine", label = "Lesser Replenishing Shrine" },
+	--{ val = "LesserResistanceShrine", label = "Lesser Resistance Shrine" },
+	--{ val = "EvolvingShrine", label = "Evolving Shrine" },
+	--{ val = "WarlordsShrine", label = "Warlord's Shrine" },
+	--{ val = "CrusadersShrine", label = "Crusader's Shrine" },
+	--{ val = "RedeemersShrine", label = "Redeemer's Shrine" },
+	--{ val = "HuntersShrine", label = "Hunter's Shrine" },
+	--{ val = "CovetousShrine", label = "Covetous Shrine" },
+	--{ val = "TsoagothShrine", label = "Tsoagoth Shrine" },
+	--{ val = "LunarisShrine", label = "Lunaris Shrine" },
+	--{ val = "SolarisShrine", label = "Solaris Shrine" },
+	--{ val = "ArakaaliShrine", label = "Arakaali Shrine" },
+}}
 
 -- Manually seeded modifier tag against item slot table for Mastery Item Condition based modifiers
 -- Data is informed by getTagBasedModifiers() located in Item.lua

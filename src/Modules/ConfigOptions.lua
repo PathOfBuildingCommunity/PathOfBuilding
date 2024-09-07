@@ -114,17 +114,34 @@ local function mapAffixTooltip(tooltip, mode, index, value)
 	end
 end
 
-local function mapAffixDropDownFunction(val, modList, enemyModList, build)
+local function mapAffixDropDownFunction(val, extraData, modList, enemyModList, build)
 	if val ~= "NONE" then
+		local effect = (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100)
+		local tier = (build.configTab.varControls['multiplierMapModTier'].selIndex or 1)
 		local affixData = data.mapMods.AffixData[val] or {}
 		if affixData.apply then
 			if affixData.type == "check" then
-				affixData.apply(var, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), modList, enemyModList)
+				affixData.apply(var, effect, modList, enemyModList)
 			elseif affixData.type == "list" then
-				affixData.apply(4 - (build.configTab.varControls['multiplierMapModTier'].selIndex or 1), (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), affixData.values, modList, enemyModList)
+				affixData.apply(tier, effect, affixData.values, modList, enemyModList)
 			elseif affixData.type == "count" then
-				affixData.apply(4 - (build.configTab.varControls['multiplierMapModTier'].selIndex or 1), 100, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), affixData.values, modList, enemyModList)
+				affixData.apply(tier, extraData[1] or 100, effect, affixData.values, modList, enemyModList)
 			end
+		end
+	end
+end
+
+local function ShrineTooltip(tooltip, mode, index, value)
+	tooltip:Clear()
+	if value.val == "NONE" then
+		return
+	end
+	local applyModes = { BODY = true, HOVER = true }
+	if applyModes[mode] then
+		if value.val == "ALL" then
+			tooltip:AddLine(14, '^7'.."Applies all Shrine effects to the player.")
+		else
+			tooltip:AddLine(14, '^7'.."Applies a "..value.label.." effect to the player.")
 		end
 	end
 end
@@ -713,22 +730,28 @@ Huge sets the radius to 11.
 	{ var = "multiplierSextant", type = "count", label = "# of Sextants affecting the area", ifMult = "Sextant", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Sextant", "BASE", m_min(val, 5), "Config")
 	end },
+	--{ subsection = "Map Mods", 
 	{ var = "multiplierMapModEffect", type = "count", label = "% increased effect of map mods" },
-	{ var = "multiplierMapModTier", type = "list", label = "Map Tier", list = { {val = "HIGH", label = "Red"}, {val = "MED", label = "Yellow"}, {val = "LOW", label = "White"} } },
-	{ label = "Map Prefix Modifiers:" },
-	{ var = "MapPrefix1", type = "list", label = "Prefix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ var = "MapPrefix2", type = "list", label = "Prefix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ var = "MapPrefix3", type = "list", label = "Prefix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ var = "MapPrefix4", type = "list", label = "Prefix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ label = "Map Suffix Modifiers:" },
-	{ var = "MapSuffix1", type = "list", label = "Suffix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
-	{ var = "MapSuffix2", type = "list", label = "Suffix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
-	{ var = "MapSuffix3", type = "list", label = "Suffix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
-	{ var = "MapSuffix4", type = "list", label = "Suffix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
+	{ var = "multiplierMapModTier", type = "list", defaultIndex = 3, label = "Map Tier", list = { {val = "LOW", label = "White"}, {val = "MED", label = "Yellow"}, {val = "HIGH", label = "Red"}, {val = "UBER", label = "T17"} } },
+	{ var = "MapPrefixes", type = "multiList", maxElements = 4, extraTypes = { { "slider", "range of the map mod", "range", 100 } }, showAll = true, label = "Map Prefix Modifiers:" , tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
+	{ var = "MapSuffixes", type = "multiList", maxElements = 4, extraTypes = { { "slider", "range of the map mod", "range", 100 } }, showAll = true, label = "Map Suffix Modifiers:" , tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
 	{ label = "Unique Map Modifiers:" },
 	{ var = "PvpScaling", type = "check", label = "PvP damage scaling in effect", tooltip = "'Hall of Grandmasters'", apply = function(val, modList, enemyModList)
 		modList:NewMod("HasPvpScaling", "FLAG", true, "Config")
 	end },
+	--}
+	{ var = "atlasShrineEffect", type = "count", label = "Other % Increased Effect of Shrines", tooltip = "Sets the amount of increased shrine effect you are getting from other sources like the atlas tree", apply = function(val, modList, enemyModList)
+		modList:NewMod("ShrineBuffEffect", "INC", val, "Config")
+	end},
+	{ var = "Shrines", type = "multiList", label = "Shrines:" , tooltipFunc = ShrineTooltip, list = data.shrines.List, apply = function(val, extra, modList, enemyModList)
+		if val == "ALL" then 
+			for _, shrine in ipairs(data.shrines.List) do
+				modList:NewMod(shrine.val, "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+			end
+		elseif val ~= "NONE" then 
+			modList:NewMod(val, "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		end
+	end},
 	{ label = "Player is cursed by:" },
 	{ var = "playerCursedWithAssassinsMark", type = "count", label = "Assassin's Mark:", tooltip = "Sets the level of Assassin's Mark to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "AssassinsMark", level = val, applyToPlayer = true })
