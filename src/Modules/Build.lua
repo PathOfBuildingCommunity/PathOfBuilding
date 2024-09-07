@@ -1318,6 +1318,9 @@ function buildMode:OnFrame(inputEvents)
 	if main.thousandsSeparator ~= self.lastShowThousandsSeparator then
 		self:RefreshStatList()
 	end
+	if main.lowerPrecisionDisplay ~= self.lastLowerPrecisionDisplay then
+		self:RefreshStatList()
+	end
 	if main.decimalSeparator ~= self.lastShowDecimalSeparator then
 		self:RefreshStatList()
 	end
@@ -1678,6 +1681,7 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 	end
 	self.lastShowThousandsSeparators = main.showThousandsSeparators
 	self.lastShowThousandsSeparator = main.thousandsSeparator
+	self.lastLowerPrecisionDisplay = main.lowerPrecisionDisplay
 	self.lastShowDecimalSeparator = main.decimalSeparator
 	self.lastShowTitlebarName = main.showTitlebarName
 	return valStr
