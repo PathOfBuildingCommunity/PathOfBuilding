@@ -78,52 +78,28 @@ local function mapAffixTooltip(tooltip, mode, index, value)
 	end
 	local applyModes = { BODY = true, HOVER = true }
 	if applyModes[mode] then
-		tooltip:AddLine(14, '^7'..value.val)
-		local affixData = data.mapMods.AffixData[value.val] or {}
-		if #affixData.tooltipLines > 0 then
-			if affixData.type == "check" then
-				for _, line in ipairs(affixData.tooltipLines) do
-					tooltip:AddLine(14, '^7'..line)
-				end
-			elseif affixData.type == "list" then
-				for i, tier in ipairs({"Low", "Med", "High"}) do
-					tooltip:AddLine(16, '^7'..tier..": ")
-					for j, line in ipairs(affixData.tooltipLines) do
-						local modValue = (#affixData.tooltipLines > 1) and affixData.values[i][j] or affixData.values[i]
-						if modValue == nil then
-							tooltip:AddLine(14, '   ^7'..line)
-						elseif modValue ~= 0 then
-							tooltip:AddLine(14, '   ^7'..s_format(line, modValue))
-						end
-					end
-				end
-			elseif affixData.type == "count" then
-				for i, tier in ipairs({"Low", "Med", "High"}) do
-					tooltip:AddLine(16, '^7'..tier..": ")
-					for j, line in ipairs(affixData.tooltipLines) do
-						local modValue = {(#affixData.tooltipLines > 1) and (affixData.values[i][j] and affixData.values[i][j][1] or nil) or affixData.values[i][1], (#affixData.tooltipLines > 1) and (affixData.values[i][j] and affixData.values[i][j][2] or nil) or affixData.values[i][2]}
-						if modValue[2] == nil then
-							tooltip:AddLine(14, '   ^7'..line)
-						elseif modValue[2] ~= 0 then
-							tooltip:AddLine(14, '   ^7'..s_format(line, modValue[1], modValue[2]))
-						end
-					end
-				end
+		tooltip:AddLine(20, '^7'..value.val)
+		if value.tooltip then
+			for _, line in ipairs(value.tooltip) do
+				tooltip:AddLine(line[1], line[2])
 			end
+			return
 		end
 	end
 end
 
-local function mapAffixDropDownFunction(val, modList, enemyModList, build)
+local function mapAffixDropDownFunction(val, extraData, modList, enemyModList, build)
 	if val ~= "NONE" then
+		local effect = (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100)
+		local tier = (build.configTab.varControls['multiplierMapModTier'].selIndex or 1)
 		local affixData = data.mapMods.AffixData[val] or {}
 		if affixData.apply then
 			if affixData.type == "check" then
-				affixData.apply(var, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), modList, enemyModList)
+				affixData.apply(var, effect, modList, enemyModList)
 			elseif affixData.type == "list" then
-				affixData.apply(4 - (build.configTab.varControls['multiplierMapModTier'].selIndex or 1), (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), affixData.values, modList, enemyModList)
+				affixData.apply(tier, effect, affixData.values, modList, enemyModList)
 			elseif affixData.type == "count" then
-				affixData.apply(4 - (build.configTab.varControls['multiplierMapModTier'].selIndex or 1), 100, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), affixData.values, modList, enemyModList)
+				affixData.apply(tier, extraData[1] or 100, effect, affixData.values, modList, enemyModList)
 			end
 		end
 	end
@@ -713,22 +689,83 @@ Huge sets the radius to 11.
 	{ var = "multiplierSextant", type = "count", label = "# of Sextants affecting the area", ifMult = "Sextant", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Sextant", "BASE", m_min(val, 5), "Config")
 	end },
+	--{ subsection = "Map Mods", 
 	{ var = "multiplierMapModEffect", type = "count", label = "% increased effect of map mods" },
-	{ var = "multiplierMapModTier", type = "list", label = "Map Tier", list = { {val = "HIGH", label = "Red"}, {val = "MED", label = "Yellow"}, {val = "LOW", label = "White"} } },
-	{ label = "Map Prefix Modifiers:" },
-	{ var = "MapPrefix1", type = "list", label = "Prefix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ var = "MapPrefix2", type = "list", label = "Prefix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ var = "MapPrefix3", type = "list", label = "Prefix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ var = "MapPrefix4", type = "list", label = "Prefix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ label = "Map Suffix Modifiers:" },
-	{ var = "MapSuffix1", type = "list", label = "Suffix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
-	{ var = "MapSuffix2", type = "list", label = "Suffix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
-	{ var = "MapSuffix3", type = "list", label = "Suffix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
-	{ var = "MapSuffix4", type = "list", label = "Suffix", tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
+	{ var = "multiplierMapModTier", type = "list", defaultIndex = 3, label = "Map Tier", list = { {val = "LOW", label = "White"}, {val = "MED", label = "Yellow"}, {val = "HIGH", label = "Red"}, {val = "UBER", label = "T17"} }, apply = function(val, modList, enemyModList, build)
+		local configTab = build.configTab
+		local input = configTab.configSets[configTab.activeConfigSetId].input
+		local varControls = configTab.varControls
+		if (varControls['multiplierMapModTier'].lastBuild or "HIGH") ~= val.val then
+			varControls['MapPrefixes'].varData.list = varControls['MapPrefixes'].varData.listFunc(build)
+			local modsFound = { true, true, true, true } or { false, false, false, false }
+			for _, mapMod in ipairs(build.configTab.varControls['MapPrefixes'].varData.list) do
+				if input['MapPrefixes_1'] == mapMod.val then
+					modsFound[1] = true
+				elseif input['MapPrefixes_2'] == mapMod.val then
+					modsFound[2] = true
+				elseif input['MapPrefixes_3'] == mapMod.val then
+					modsFound[3] = true
+				elseif input['MapPrefixes_4'] == mapMod.val then
+					modsFound[4] = true
+				end
+			end
+			if not modsFound[1] then
+				input['MapPrefixes_1'] = "NONE"
+				varControls['MapPrefixes_1']:SelByValue(input['MapPrefixes_1'], "val")
+			end
+			if not modsFound[2] then
+				input['MapPrefixes_2'] = "NONE"
+				varControls['MapPrefixes_2']:SelByValue(input['MapPrefixes_2'], "val")
+			end
+			if not modsFound[3] then
+				input['MapPrefixes_3'] = "NONE"
+				varControls['MapPrefixes_3']:SelByValue(input['MapPrefixes_3'], "val")
+			end
+			if not modsFound[4] then
+				input['MapPrefixes_4'] = "NONE"
+				varControls['MapPrefixes_4']:SelByValue(input['MapPrefixes_4'], "val")
+			end
+			build.configTab.varControls['MapPrefixes'].newLists()
+			build.configTab.varControls['MapSuffixes'].varData.list = build.configTab.varControls['MapSuffixes'].varData.listFunc(build)
+			local modsFound = { false, false, false, false }
+			for _, mapMod in ipairs(build.configTab.varControls['MapSuffixes'].varData.list) do
+				if input['MapSuffixes_1'] == mapMod.val then
+					modsFound[1] = true
+				elseif input['MapSuffixes_2'] == mapMod.val then
+					modsFound[2] = true
+				elseif input['MapSuffixes_3'] == mapMod.val then
+					modsFound[3] = true
+				elseif input['MapSuffixes_4'] == mapMod.val then
+					modsFound[4] = true
+				end
+			end
+			if not modsFound[1] then
+				input['MapSuffixes_1'] = "NONE"
+				varControls['MapSuffixes_1']:SelByValue(input['MapSuffixes_1'], "val")
+			end
+			if not modsFound[2] then
+				input['MapSuffixes_2'] = "NONE"
+				varControls['MapSuffixes_2']:SelByValue(input['MapSuffixes_2'], "val")
+			end
+			if not modsFound[3] then
+				input['MapSuffixes_3'] = "NONE"
+				varControls['MapSuffixes_3']:SelByValue(input['MapSuffixes_3'], "val")
+			end
+			if not modsFound[4] then
+				input['MapSuffixes_4'] = "NONE"
+				varControls['MapSuffixes_4']:SelByValue(input['MapSuffixes_4'], "val")
+			end
+			build.configTab.varControls['MapSuffixes'].newLists()
+			build.configTab.varControls['multiplierMapModTier'].lastBuild = val.val
+		end
+	end},
+	{ var = "MapPrefixes", type = "multiList", maxElements = 4, extraTypes = { { "slider", "range of the map mod", "range", 100 } }, showAll = true, label = "Map Prefix Modifiers:" , tooltipFunc = mapAffixTooltip, listFunc = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
+	{ var = "MapSuffixes", type = "multiList", maxElements = 4, extraTypes = { { "slider", "range of the map mod", "range", 100 } }, showAll = true, label = "Map Suffix Modifiers:" , tooltipFunc = mapAffixTooltip, listFunc = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
 	{ label = "Unique Map Modifiers:" },
 	{ var = "PvpScaling", type = "check", label = "PvP damage scaling in effect", tooltip = "'Hall of Grandmasters'", apply = function(val, modList, enemyModList)
 		modList:NewMod("HasPvpScaling", "FLAG", true, "Config")
 	end },
+	--}
 	{ label = "Player is cursed by:" },
 	{ var = "playerCursedWithAssassinsMark", type = "count", label = "Assassin's Mark:", tooltip = "Sets the level of Assassin's Mark to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "AssassinsMark", level = val, applyToPlayer = true })
