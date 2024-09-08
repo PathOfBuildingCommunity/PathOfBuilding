@@ -36,7 +36,7 @@ local legacyOrbitRadii = { 0, 82, 162, 335, 493 }
 -- Retrieve the file at the given URL
 -- This is currently disabled as it does not work due to issues
 -- its possible to fix this but its never used due to us performing preprocessing on tree
-local function getFile(URL)
+local function getFileAtURL(URL)
 	local page = ""
 	local easy = common.curl.easy()
 	easy:setopt_url(URL)
@@ -49,6 +49,46 @@ local function getFile(URL)
 	return #page > 0 and page
 end
 
+-- Retrieve the file at the given Path
+local function getFile(Path, altPath)
+	local text
+	local File = io.open("TreeData/"..Path..".lua", "r")
+	if File then
+		text = File:read("*a")
+		File:close()
+		return text
+	else
+		local page
+		local pageFile = io.open("TreeData/"..altPath..".json", "r")
+		if pageFile then
+			ConPrintf("Converting passive tree data json")
+			page = pageFile:read("*a")
+			pageFile:close()
+		elseif main.allowTreeDownload then  -- Enable downloading with Ctrl+Shift+F5 (currently disabled)
+			ConPrintf("Downloading passive tree data...")
+			page = getFileAtURL("https://www.pathofexile.com/passive-skill-tree")
+		elseif Path:match("ruthless") then
+			File = io.open("TreeData/"..Path:gsub("_ruthless","")..".lua", "r")
+			if File then
+				text = File:read("*a")
+				File:close()
+				return text
+			end
+		end
+		local treeData = page:match("var passiveSkillTreeData = (%b{})")
+		if treeData then
+			text = "local tree=" .. jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
+			text = text .. "return tree"
+		else
+			text = "return " .. jsonToLua(page)
+		end
+		File = io.open("TreeData/"..Path..".lua", "w")
+		File:write(text)
+		File:close()
+		return text
+	end
+end
+
 local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.treeVersion = treeVersion
 	local versionNum = treeVersions[treeVersion].num
@@ -56,37 +96,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.legion = LoadModule("Data/TimelessJewelData/LegionPassives")
 	self.tattoo = LoadModule("Data/TattooPassives")
 
-	MakeDir("TreeData")
-
 	ConPrintf("Loading passive tree data for version '%s'...", treeVersions[treeVersion].display)
-	local treeText
-	local treeFile = io.open("TreeData/data/"..treeVersion..".lua", "r")
-	if treeFile then
-		treeText = treeFile:read("*a")
-		treeFile:close()
-	else
-		local page
-		local pageFile = io.open("TreeData/data/data.json", "r")
-		if pageFile then
-			ConPrintf("Converting passive tree data json")
-			page = pageFile:read("*a")
-			pageFile:close()
-		elseif main.allowTreeDownload then  -- Enable downloading with Ctrl+Shift+F5 (currently disabled)
-			ConPrintf("Downloading passive tree data...")
-			page = getFile("https://www.pathofexile.com/passive-skill-tree")
-		end
-		local treeData = page:match("var passiveSkillTreeData = (%b{})")
-		if treeData then
-			treeText = "local tree=" .. jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
-			treeText = treeText .. "return tree"
-		else
-			treeText = "return " .. jsonToLua(page)
-		end
-		treeFile = io.open("TreeData/data/"..treeVersion..".lua", "w")
-		treeFile:write(treeText)
-		treeFile:close()
-	end
-	for k, v in pairs(assert(loadstring(treeText))()) do
+	for k, v in pairs(assert(loadstring(getFile("data/"..treeVersion, (treeVersion:match("ruthless") and treeVersion:gsub("_ruthless", "/ruthless")) or (treeVersion.."/data"))))()) do
 		self[k] = v
 	end
 
@@ -207,25 +218,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	if not self.skillSprites then
 		if not self.sprites then
 			ConPrintf("Loading passive tree sprite data for version '%s'...", treeVersions[treeVersion].display)
-			local spriteText
-			local spriteFile = io.open("TreeData/assets/data/"..treeVersion..".lua", "r")
-			if spriteFile then
-				spriteText = spriteFile:read("*a")
-				spriteFile:close()
-			else
-				local page
-				local pageFile = io.open("TreeData/data/sprites.json", "r")
-				if pageFile then
-					ConPrintf("Converting passive tree sprites json")
-					page = pageFile:read("*a")
-					pageFile:close()
-					spriteText = "return " .. jsonToLua(page)
-				end
-				spriteFile = io.open("TreeData/assets/data/"..treeVersion..".lua", "w")
-				spriteFile:write(spriteText)
-				spriteFile:close()
-			end
-			for k, v in pairs(assert(loadstring(spriteText))()) do
+			for k, v in pairs(assert(loadstring(getFile("assets/data/"..treeVersion, (treeVersion:match("ruthless") and treeVersion:gsub("_ruthless", "/sprites_ruthless")) or (treeVersion.."/sprites"))))()) do
 				self[k] = v
 			end
 		end
@@ -748,13 +741,19 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 			imgName = spriteSheet
 		elseif main.allowTreeDownload then -- Enable downloading with Ctrl+Shift+F5 (currently disabled)
 			ConPrintf("Downloading '%s'...", imgName)
-			local data = getFile(url)
+			local data = getFileAtURL(url)
 			if data and not data:match("<!DOCTYPE html>") then
 				imgFile = io.open("TreeData/assets/"..imgName, "wb")
 				imgFile:write(data)
 				imgFile:close()
 			else
 				ConPrintf("Failed to download: %s", url)
+			end
+		elseif self.treeVersion:match("ruthless") then
+			imgFile = io.open("TreeData/assets/"..spriteSheet:gsub("_ruthless",""), "r")
+			if imgFile then
+				imgFile:close()
+				imgName = spriteSheet:gsub("_ruthless","")
 			end
 		end
 	end
