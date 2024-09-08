@@ -3,8 +3,8 @@
 -- Class: Script List
 -- Script list control.
 --
-local ScriptListClass = newClass("ScriptListControl", "ListControl", function(self, anchor, x, y, width, height)
-	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", false, main.scriptList)
+local ScriptListClass = newClass("ScriptListControl", "ListControl", function(self, anchor, rect)
+	self.ListControl(anchor, rect, 16, "VERTICAL", false, main.scriptList)
 end)
 
 function ScriptListClass:GetRowValue(column, index, script)

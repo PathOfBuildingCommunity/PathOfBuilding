@@ -6,13 +6,14 @@
 local m_max = math.max
 local m_min = math.min
 
-local ResizableEditClass = newClass("ResizableEditControl", "EditControl", function(self, anchor, x, y, minWidth, width, maxWidth, minHeight, height, maxHeight, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
-    self.EditControl(anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
+local ResizableEditClass = newClass("ResizableEditControl", "EditControl", function(self, anchor, rect, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
+    self.EditControl(anchor, rect, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
+	local x, y, width, height, minWidth, minHeight, maxWidth, maxHeight = unpack(rect)
     self.minHeight = minHeight or height
     self.maxHeight = maxHeight or height
     self.minWidth = minWidth or width
     self.maxWidth = maxWidth or width
-    self.controls.draggerHeight = new("DraggerControl", {"BOTTOMRIGHT", self, "BOTTOMRIGHT"}, 7, 7, 14, 14, "//", nil, nil, function (position)
+    self.controls.draggerHeight = new("DraggerControl", {"BOTTOMRIGHT", self, "BOTTOMRIGHT"}, {7, 7, 14, 14}, "//", nil, nil, function (position)
         -- onRightClick 
         if (self.height ~= self.minHeight) or (self.width ~= self.minWidth) then
             self:SetWidth(self.minWidth)

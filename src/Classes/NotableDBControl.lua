@@ -19,8 +19,8 @@ local function IsAnointableNode(node)
 end
 
 ---@class NotableDBControl : ListControl
-local NotableDBClass = newClass("NotableDBControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab, db, dbType)
-	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", false)
+local NotableDBClass = newClass("NotableDBControl", "ListControl", function(self, anchor, rect, itemsTab, db, dbType)
+	self.ListControl(anchor, rect, 16, "VERTICAL", false)
 	self.itemsTab = itemsTab
 	self.db = db
 	self.dbType = dbType
@@ -32,13 +32,13 @@ local NotableDBClass = newClass("NotableDBControl", "ListControl", function(self
 	self.sortDropList = { }
 	self.sortOrder = { }
 	self.sortMode = "NAME"
-	self.controls.sort = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -22, 360, 18, self.sortDropList, function(index, value)
+	self.controls.sort = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, {0, -22, 360, 18}, self.sortDropList, function(index, value)
 		self:SetSortMode(value.sortMode)
 	end)
-	self.controls.search = new("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -2, 258, 18, "", "Search", "%c", 100, function()
+	self.controls.search = new("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 258, 18}, "", "Search", "%c", 100, function()
 		self.listBuildFlag = true
 	end, nil, nil, true)
-	self.controls.searchMode = new("DropDownControl", {"LEFT",self.controls.search,"RIGHT"}, 2, 0, 100, 18, { "Anywhere", "Names", "Modifiers" }, function(index, value)
+	self.controls.searchMode = new("DropDownControl", {"LEFT",self.controls.search,"RIGHT"}, {2, 0, 100, 18}, { "Anywhere", "Names", "Modifiers" }, function(index, value)
 		self.listBuildFlag = true
 	end)
 	self:BuildSortOrder()
