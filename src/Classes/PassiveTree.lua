@@ -174,6 +174,16 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		self.orbitAnglesByOrbit[orbit] = self:CalcOrbitAngles(skillsInOrbit)
 	end
 
+
+	local classArt = {
+		[0] = "centerscion",
+		[1] = "centermarauder",
+		[2] = "centerranger",
+		[3] = "centerwitch",
+		[4] = "centerduelist",
+		[5] = "centertemplar",
+		[6] = "centershadow"
+	}
 	if not self.assets then
 		self.assets = LoadModule("TreeData/assets/data/Assets.lua")
 		self.assets = self.assets.assets
@@ -205,162 +215,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	for name, data in pairs(self.assets) do
 		self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
 	end
-
-	-- Load sprite sheets and build sprite map
-	self.spriteMap = { }
-	local spriteSheets = { }
-	if not self.skillSprites then
-		if not self.sprites then
-			ConPrintf("Loading passive tree sprite data for version '%s'...", treeVersions[treeVersion].display)
-			for k, v in pairs(assert(loadstring(getFile("assets/data/"..treeVersion, (treeVersion:match("ruthless") and treeVersion:gsub("_ruthless", "/sprites_ruthless")) or (treeVersion.."/sprites"))))()) do
-				self[k] = v
-			end
-		end
-		self.skillSprites = self.sprites
-	end
-	for type, data in pairs(self.skillSprites) do
-		local maxZoom
-		if not self.imageZoomLevels then
-			maxZoom = data
-		elseif versionNum >= 3.19 then
-			maxZoom = data[0.3835] or data[1]
-		else
-			maxZoom = data[#data]
-		end
-		local sheet = spriteSheets[maxZoom.filename]
-		if not sheet then
-			sheet = { }
-			self:LoadSheet(versionNum >= 3.16 and maxZoom.filename:gsub("%?%x+$",""):gsub(".*/","") or maxZoom.filename:gsub("%?%x+$",""), versionNum >= 3.16 and maxZoom.filename or "https://web.poecdn.com"..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
-			spriteSheets[maxZoom.filename] = sheet
-		end
-		for name, coords in pairs(maxZoom.coords) do
-			if not self.spriteMap[name] then
-				self.spriteMap[name] = { }
-			end
-			self.spriteMap[name][type] = {
-				handle = sheet.handle,
-				width = coords.w,
-				height = coords.h,
-				[1] = coords.x / sheet.width,
-				[2] = coords.y / sheet.height,
-				[3] = (coords.x + coords.w) / sheet.width,
-				[4] = (coords.y + coords.h) / sheet.height
-			}
-		end
-	end
-
-	-- Load legion sprite sheets and build sprite map
-	if main.tree.legionSheets then
-		for type, data in pairs(main.tree.legionSheets) do
-			spriteSheets[data.filename] = data.sheet
-			local sheet = data.sheet
-			for name, coords in pairs(data.coords) do
-				if not self.spriteMap[name] then
-					self.spriteMap[name] = { }
-				end
-				self.spriteMap[name][type] = {
-					handle = sheet.handle,
-					width = coords.w,
-					height = coords.h,
-					[1] = coords.x / sheet.width,
-					[2] = coords.y / sheet.height,
-					[3] = (coords.x + coords.w) / sheet.width,
-					[4] = (coords.y + coords.h) / sheet.height
-				}
-			end
-		end
-	else
-		main.tree.legionSheets = {}
-		local legionSprites = LoadModule("TreeData/assets/legion/tree-legion.lua")
-		for type, data in pairs(legionSprites) do
-			local maxZoom = data[#data]
-			local sheet = spriteSheets[maxZoom.filename]
-			if not sheet then
-				sheet = { }
-				sheet.handle = NewImageHandle()
-				sheet.handle:Load("TreeData/assets/legion/"..maxZoom.filename)
-				sheet.width, sheet.height = sheet.handle:ImageSize()
-				spriteSheets[maxZoom.filename] = sheet
-			end
-			main.tree.legionSheets[type] = { sheet = sheet, filename = maxZoom.filename, coords = maxZoom.coords}
-			for name, coords in pairs(maxZoom.coords) do
-				if not self.spriteMap[name] then
-					self.spriteMap[name] = { }
-				end
-				self.spriteMap[name][type] = {
-					handle = sheet.handle,
-					width = coords.w,
-					height = coords.h,
-					[1] = coords.x / sheet.width,
-					[2] = coords.y / sheet.height,
-					[3] = (coords.x + coords.w) / sheet.width,
-					[4] = (coords.y + coords.h) / sheet.height
-				}
-			end
-		end
-	end
-
-	local classArt = {
-		[0] = "centerscion",
-		[1] = "centermarauder",
-		[2] = "centerranger",
-		[3] = "centerwitch",
-		[4] = "centerduelist",
-		[5] = "centertemplar",
-		[6] = "centershadow"
-	}
-	self.nodeOverlay = {
-		Normal = {
-			artWidth = 40,
-			alloc = "PSSkillFrameActive",
-			path = "PSSkillFrameHighlighted",
-			unalloc = "PSSkillFrame",
-			allocAscend = versionNum >= 3.10 and "AscendancyFrameSmallAllocated" or "PassiveSkillScreenAscendancyFrameSmallAllocated",
-			pathAscend = versionNum >= 3.10 and "AscendancyFrameSmallCanAllocate" or "PassiveSkillScreenAscendancyFrameSmallCanAllocate",
-			unallocAscend = versionNum >= 3.10 and "AscendancyFrameSmallNormal" or "PassiveSkillScreenAscendancyFrameSmallNormal"
-		},
-		Notable = {
-			artWidth = 58,
-			alloc = "NotableFrameAllocated",
-			path = "NotableFrameCanAllocate",
-			unalloc = "NotableFrameUnallocated",
-			allocAscend = versionNum >= 3.10 and "AscendancyFrameLargeAllocated" or "PassiveSkillScreenAscendancyFrameLargeAllocated",
-			pathAscend = versionNum >= 3.10 and "AscendancyFrameLargeCanAllocate" or "PassiveSkillScreenAscendancyFrameLargeCanAllocate",
-			unallocAscend = versionNum >= 3.10 and "AscendancyFrameLargeNormal" or "PassiveSkillScreenAscendancyFrameLargeNormal",
-			allocBlighted = "BlightedNotableFrameAllocated",
-			pathBlighted = "BlightedNotableFrameCanAllocate",
-			unallocBlighted = "BlightedNotableFrameUnallocated",
-		},
-		Keystone = {
-			artWidth = 84,
-			alloc = "KeystoneFrameAllocated",
-			path = "KeystoneFrameCanAllocate",
-			unalloc = "KeystoneFrameUnallocated",
-			allocBlighted = "KeystoneFrameAllocated",
-			pathBlighted = "KeystoneFrameCanAllocate",
-			unallocBlighted = "KeystoneFrameUnallocated",
-		},
-		Socket = {
-			artWidth = 58,
-			alloc = "JewelFrameAllocated",
-			path = "JewelFrameCanAllocate",
-			unalloc = "JewelFrameUnallocated",
-			allocAlt = "JewelSocketAltActive",
-			pathAlt = "JewelSocketAltCanAllocate",
-			unallocAlt = "JewelSocketAltNormal",
-		},
-		Mastery = {
-			artWidth = 65,
-			alloc = "AscendancyFrameLargeAllocated",
-			path = "AscendancyFrameLargeCanAllocate",
-			unalloc = "AscendancyFrameLargeNormal"
-		},
-	}
-	for type, data in pairs(self.nodeOverlay) do
-		local size = data.artWidth * 1.33
-		data.size = size
-		data.rsq = size * size
-	end
+	
+	self:LoadAndBuildSheets()
 
 	if versionNum >= 3.10 then
 		-- Migrate groups to old format
@@ -755,6 +611,156 @@ function PassiveTreeClass:ProcessNode(node)
 	end
 
 	self:ProcessStats(node)
+end
+
+function PassiveTreeClass:LoadAndBuildSheets()
+	local treeVersion = self.treeVersion
+	local versionNum = treeVersions[treeVersion].num
+	-- Load sprite sheets and build sprite map
+	self.spriteMap = { }
+	local spriteSheets = { }
+	if not self.skillSprites then
+		if not self.sprites then
+			ConPrintf("Loading passive tree sprite data for version '%s'...", treeVersions[treeVersion].display)
+			for k, v in pairs(assert(loadstring(getFile("assets/data/"..treeVersion, (treeVersion:match("ruthless") and treeVersion:gsub("_ruthless", "/sprites_ruthless")) or (treeVersion.."/sprites"))))()) do
+				self[k] = v
+			end
+		end
+		self.skillSprites = self.sprites
+	end
+	for type, data in pairs(self.skillSprites) do
+		local maxZoom
+		if not self.imageZoomLevels then
+			maxZoom = data
+		elseif versionNum >= 3.19 then
+			maxZoom = data[0.3835] or data[1]
+		else
+			maxZoom = data[#data]
+		end
+		local sheet = spriteSheets[maxZoom.filename]
+		if not sheet then
+			sheet = { }
+			self:LoadSheet(versionNum >= 3.16 and maxZoom.filename:gsub("%?%x+$",""):gsub(".*/","") or maxZoom.filename:gsub("%?%x+$",""), versionNum >= 3.16 and maxZoom.filename or "https://web.poecdn.com"..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
+			spriteSheets[maxZoom.filename] = sheet
+		end
+		for name, coords in pairs(maxZoom.coords) do
+			if not self.spriteMap[name] then
+				self.spriteMap[name] = { }
+			end
+			self.spriteMap[name][type] = {
+				handle = sheet.handle,
+				width = coords.w,
+				height = coords.h,
+				[1] = coords.x / sheet.width,
+				[2] = coords.y / sheet.height,
+				[3] = (coords.x + coords.w) / sheet.width,
+				[4] = (coords.y + coords.h) / sheet.height
+			}
+		end
+	end
+
+	-- Load legion sprite sheets and build sprite map
+	if main.tree.legionSheets then
+		for type, data in pairs(main.tree.legionSheets) do
+			spriteSheets[data.filename] = data.sheet
+			local sheet = data.sheet
+			for name, coords in pairs(data.coords) do
+				if not self.spriteMap[name] then
+					self.spriteMap[name] = { }
+				end
+				self.spriteMap[name][type] = {
+					handle = sheet.handle,
+					width = coords.w,
+					height = coords.h,
+					[1] = coords.x / sheet.width,
+					[2] = coords.y / sheet.height,
+					[3] = (coords.x + coords.w) / sheet.width,
+					[4] = (coords.y + coords.h) / sheet.height
+				}
+			end
+		end
+	else
+		main.tree.legionSheets = {}
+		local legionSprites = LoadModule("TreeData/assets/legion/tree-legion.lua")
+		for type, data in pairs(legionSprites) do
+			local maxZoom = data[#data]
+			local sheet = spriteSheets[maxZoom.filename]
+			if not sheet then
+				sheet = { }
+				sheet.handle = NewImageHandle()
+				sheet.handle:Load("TreeData/assets/legion/"..maxZoom.filename)
+				sheet.width, sheet.height = sheet.handle:ImageSize()
+				spriteSheets[maxZoom.filename] = sheet
+			end
+			main.tree.legionSheets[type] = { sheet = sheet, filename = maxZoom.filename, coords = maxZoom.coords}
+			for name, coords in pairs(maxZoom.coords) do
+				if not self.spriteMap[name] then
+					self.spriteMap[name] = { }
+				end
+				self.spriteMap[name][type] = {
+					handle = sheet.handle,
+					width = coords.w,
+					height = coords.h,
+					[1] = coords.x / sheet.width,
+					[2] = coords.y / sheet.height,
+					[3] = (coords.x + coords.w) / sheet.width,
+					[4] = (coords.y + coords.h) / sheet.height
+				}
+			end
+		end
+	end
+	self.nodeOverlay = {
+		Normal = {
+			artWidth = 40,
+			alloc = "PSSkillFrameActive",
+			path = "PSSkillFrameHighlighted",
+			unalloc = "PSSkillFrame",
+			allocAscend = versionNum >= 3.10 and "AscendancyFrameSmallAllocated" or "PassiveSkillScreenAscendancyFrameSmallAllocated",
+			pathAscend = versionNum >= 3.10 and "AscendancyFrameSmallCanAllocate" or "PassiveSkillScreenAscendancyFrameSmallCanAllocate",
+			unallocAscend = versionNum >= 3.10 and "AscendancyFrameSmallNormal" or "PassiveSkillScreenAscendancyFrameSmallNormal"
+		},
+		Notable = {
+			artWidth = 58,
+			alloc = "NotableFrameAllocated",
+			path = "NotableFrameCanAllocate",
+			unalloc = "NotableFrameUnallocated",
+			allocAscend = versionNum >= 3.10 and "AscendancyFrameLargeAllocated" or "PassiveSkillScreenAscendancyFrameLargeAllocated",
+			pathAscend = versionNum >= 3.10 and "AscendancyFrameLargeCanAllocate" or "PassiveSkillScreenAscendancyFrameLargeCanAllocate",
+			unallocAscend = versionNum >= 3.10 and "AscendancyFrameLargeNormal" or "PassiveSkillScreenAscendancyFrameLargeNormal",
+			allocBlighted = "BlightedNotableFrameAllocated",
+			pathBlighted = "BlightedNotableFrameCanAllocate",
+			unallocBlighted = "BlightedNotableFrameUnallocated",
+		},
+		Keystone = {
+			artWidth = 84,
+			alloc = "KeystoneFrameAllocated",
+			path = "KeystoneFrameCanAllocate",
+			unalloc = "KeystoneFrameUnallocated",
+			allocBlighted = "KeystoneFrameAllocated",
+			pathBlighted = "KeystoneFrameCanAllocate",
+			unallocBlighted = "KeystoneFrameUnallocated",
+		},
+		Socket = {
+			artWidth = 58,
+			alloc = "JewelFrameAllocated",
+			path = "JewelFrameCanAllocate",
+			unalloc = "JewelFrameUnallocated",
+			allocAlt = "JewelSocketAltActive",
+			pathAlt = "JewelSocketAltCanAllocate",
+			unallocAlt = "JewelSocketAltNormal",
+		},
+		Mastery = {
+			artWidth = 65,
+			alloc = "AscendancyFrameLargeAllocated",
+			path = "AscendancyFrameLargeCanAllocate",
+			unalloc = "AscendancyFrameLargeNormal"
+		},
+	}
+	for type, data in pairs(self.nodeOverlay) do
+		local size = data.artWidth * 1.33
+		data.size = size
+		data.rsq = size * size
+	end
 end
 
 
