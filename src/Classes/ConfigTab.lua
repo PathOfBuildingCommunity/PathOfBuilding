@@ -186,7 +186,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "multiList" then
-				control = new("Control", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 16, 16)
+				control = new("Control", {"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 16, 16})
 				control.varControlList = { {}, {} }
 				control.varData = varData
 				control.height = function()
@@ -289,7 +289,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					varData.list = varData.listFunc(self.build)
 				end
 				for i=1,(varData.maxElements or #varData.list) do
-					local dropDownControl = new("DropDownControl", {"TOPLEFT",control,"TOPLEFT"}, -225, extraHeight, 343, 18, { { val = "NONE", label = "None" } }, function(index, value)
+					local dropDownControl = new("DropDownControl", {"TOPLEFT",control,"TOPLEFT"}, {-225, extraHeight, 343, 18}, { { val = "NONE", label = "None" } }, function(index, value)
 						self.configSets[self.activeConfigSetId].input[varData.var.."_"..i] = value.val
 						control.newLists()
 						self:AddUndoState()
@@ -303,7 +303,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					local extraTypesExtraHeight = 0
 					for j, varExtra in ipairs(varData.extraTypes or {}) do
 						if varExtra.type == "count" then
-							local editControl = new("EditControl", {"TOPLEFT",dropDownControl,"TOPLEFT"}, 225, 0, 90, 18, "", nil, (varExtra.subtype == "integer" and "^%-%d") or (varExtra.subtype == "float" and "^%d.") or "%D", 7, function(buf, placeholder)
+							local editControl = new("EditControl", {"TOPLEFT",dropDownControl,"TOPLEFT"}, {225, 0, 90, 18}, "", nil, (varExtra.subtype == "integer" and "^%-%d") or (varExtra.subtype == "float" and "^%d.") or "%D", 7, function(buf, placeholder)
 								if placeholder then
 									self.configSets[self.activeConfigSetId].placeholder[varData.var.."_"..i.."_"..j] = tonumber(buf)
 								else
@@ -331,7 +331,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 							t_insert(control.varControlList[2], editControl)
 						elseif varExtra.type == "slider" then
 							extraTypesExtraHeight = extraTypesExtraHeight + 22
-							slider = new("SliderControl", {"TOPLEFT",dropDownControl,"TOPLEFT"}, 0, extraTypesExtraHeight, 118 + 225, 18, function(val)
+							slider = new("SliderControl", {"TOPLEFT",dropDownControl,"TOPLEFT"}, {0, extraTypesExtraHeight, 118 + 225, 18}, function(val)
 								self.configSets[self.activeConfigSetId].input[varData.var.."_"..i.."_"..j] = m_floor(val * 100)
 								self:AddUndoState()
 								self:BuildModList()
@@ -690,9 +690,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			local labelControl = control
 			if varData.label and varData.type ~= "check" then
 				if varData.type == "multiList" then
-					labelControl = new("LabelControl", {"TOPRIGHT",control,"TOPLEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label)
+					labelControl = new("LabelControl", {"TOPRIGHT",control,"TOPLEFT"}, {-4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14}, "^7"..varData.label)
 				else
-					labelControl = new("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label)
+					labelControl = new("LabelControl", {"RIGHT",control,"LEFT"}, {-4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14}, "^7"..varData.label)
 				end
 				t_insert(self.controls, labelControl)
 			end
