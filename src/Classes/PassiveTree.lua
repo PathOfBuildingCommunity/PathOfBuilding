@@ -117,10 +117,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.classNotables = { }
 
 	for classId, class in pairs(self.classes) do
-		if versionNum >= 3.10 then
-			-- Migrate to old format
-			class.classes = class.ascendancies
-		end
+		class.classes = class.classes or class.ascendancies
 		class.classes[0] = { name = "None" }
 		self.classNameMap[class.name] = classId
 		for ascendClassId, ascendClass in pairs(class.classes) do
@@ -236,7 +233,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
 			sheet = { }
-			self:LoadImage(versionNum >= 3.16 and maxZoom.filename:gsub("%?%x+$",""):gsub(".*/","") or maxZoom.filename:gsub("%?%x+$",""), versionNum >= 3.16 and maxZoom.filename or "https://web.poecdn.com"..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
+			self:LoadSheet(versionNum >= 3.16 and maxZoom.filename:gsub("%?%x+$",""):gsub(".*/","") or maxZoom.filename:gsub("%?%x+$",""), versionNum >= 3.16 and maxZoom.filename or "https://web.poecdn.com"..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
 			spriteSheets[maxZoom.filename] = sheet
 		end
 		for name, coords in pairs(maxZoom.coords) do
@@ -727,38 +724,66 @@ function PassiveTreeClass:ProcessNode(node)
 	self:ProcessStats(node)
 end
 
+
 -- Checks if a given image is present and downloads it from the given URL if it isn't there
-function PassiveTreeClass:LoadImage(imgName, url, data, ...)
-	local imgFile = io.open("TreeData/assets/non_sprite/"..imgName, "r")
-	if imgFile then
-		imgFile:close()
-		imgName = "non_sprite/" .. imgName
-	else
-		local spriteSheet = imgName:gsub(".jpg", ""):gsub(".png", "").."/"..self.treeVersion..(imgName:match(".jpg") and ".jpg" or imgName:match(".png") and ".png")
-		imgFile = io.open("TreeData/assets/"..spriteSheet, "r")
+-- also checks all previous versions incase the current one has been deleted to dedupe
+function PassiveTreeClass:LoadSheet(imgName, url, data, ...)
+	local index = #treeVersionList
+	while index > 1 and self.treeVersion ~= treeVersionList[index] do
+		index = index - 1
+	end
+	while index > 1 do
+		local spriteSheet = imgName:gsub(".jpg", ""):gsub(".png", "").."/"..treeVersionList[index]..(imgName:match(".jpg") and ".jpg" or imgName:match(".png") and ".png")
+		local imgFile = io.open("TreeData/assets/"..spriteSheet, "r")
 		if imgFile then
 			imgFile:close()
 			imgName = spriteSheet
+			break
+		elseif treeVersionList[index]:match("ruthless") then
+			imgFile = io.open("TreeData/assets/"..spriteSheet:gsub("_ruthless",""), "r")
+			if imgFile then
+				imgFile:close()
+				imgName = spriteSheet:gsub("_ruthless","")
+				break
+			end
 		elseif main.allowTreeDownload then -- Enable downloading with Ctrl+Shift+F5 (currently disabled)
 			ConPrintf("Downloading '%s'...", imgName)
 			local data = getFileAtURL(url)
 			if data and not data:match("<!DOCTYPE html>") then
-				imgFile = io.open("TreeData/assets/"..imgName, "wb")
+				imgFile = io.open("TreeData/assets/non_sprite/"..imgName, "wb")
 				imgFile:write(data)
 				imgFile:close()
 			else
 				ConPrintf("Failed to download: %s", url)
 			end
-		elseif self.treeVersion:match("ruthless") then
-			imgFile = io.open("TreeData/assets/"..spriteSheet:gsub("_ruthless",""), "r")
-			if imgFile then
-				imgFile:close()
-				imgName = spriteSheet:gsub("_ruthless","")
-			end
+			break
 		end
+		index = index - 1
 	end
 	data.handle = NewImageHandle()
 	data.handle:Load("TreeData/assets/"..imgName, ...)
+	data.width, data.height = data.handle:ImageSize()
+end
+
+-- Checks if a given image is present and downloads it from the given URL if it isn't there
+function PassiveTreeClass:LoadImage(imgName, url, data, ...)
+	local imgFile = io.open("TreeData/assets/non_sprite/"..imgName, "r")
+	if imgFile then
+		imgFile:close()
+		imgName = "" .. imgName
+	elseif main.allowTreeDownload then -- Enable downloading with Ctrl+Shift+F5 (currently disabled)
+		ConPrintf("Downloading '%s'...", imgName)
+		local data = getFileAtURL(url)
+		if data and not data:match("<!DOCTYPE html>") then
+			imgFile = io.open("TreeData/assets/non_sprite/"..imgName, "wb")
+			imgFile:write(data)
+			imgFile:close()
+		else
+			ConPrintf("Failed to download: %s", url)
+		end
+	end
+	data.handle = NewImageHandle()
+	data.handle:Load("TreeData/assets/non_sprite/"..imgName, ...)
 	data.width, data.height = data.handle:ImageSize()
 end
 
