@@ -93,9 +93,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.treeVersion = treeVersion
 	local versionNum = treeVersions[treeVersion].num
 
-	self.legion = LoadModule("Data/TimelessJewelData/LegionPassives")
-	self.tattoo = LoadModule("Data/TattooPassives")
-
 	ConPrintf("Loading passive tree data for version '%s'...", treeVersions[treeVersion].display)
 	for k, v in pairs(assert(loadstring(getFile("data/"..treeVersion, (treeVersion:match("ruthless") and treeVersion:gsub("_ruthless", "/ruthless")) or (treeVersion.."/data"))))()) do
 		self[k] = v
@@ -253,30 +250,53 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 
 	-- Load legion sprite sheets and build sprite map
-	local legionSprites = LoadModule("TreeData/assets/legion/tree-legion.lua")
-	for type, data in pairs(legionSprites) do
-		local maxZoom = data[#data]
-		local sheet = spriteSheets[maxZoom.filename]
-		if not sheet then
-			sheet = { }
-			sheet.handle = NewImageHandle()
-			sheet.handle:Load("TreeData/assets/legion/"..maxZoom.filename)
-			sheet.width, sheet.height = sheet.handle:ImageSize()
-			spriteSheets[maxZoom.filename] = sheet
-		end
-		for name, coords in pairs(maxZoom.coords) do
-			if not self.spriteMap[name] then
-				self.spriteMap[name] = { }
+	if main.tree.legionSheets then
+		for type, data in pairs(main.tree.legionSheets) do
+			spriteSheets[data.filename] = data.sheet
+			local sheet = data.sheet
+			for name, coords in pairs(data.coords) do
+				if not self.spriteMap[name] then
+					self.spriteMap[name] = { }
+				end
+				self.spriteMap[name][type] = {
+					handle = sheet.handle,
+					width = coords.w,
+					height = coords.h,
+					[1] = coords.x / sheet.width,
+					[2] = coords.y / sheet.height,
+					[3] = (coords.x + coords.w) / sheet.width,
+					[4] = (coords.y + coords.h) / sheet.height
+				}
 			end
-			self.spriteMap[name][type] = {
-				handle = sheet.handle,
-				width = coords.w,
-				height = coords.h,
-				[1] = coords.x / sheet.width,
-				[2] = coords.y / sheet.height,
-				[3] = (coords.x + coords.w) / sheet.width,
-				[4] = (coords.y + coords.h) / sheet.height
-			}
+		end
+	else
+		main.tree.legionSheets = {}
+		local legionSprites = LoadModule("TreeData/assets/legion/tree-legion.lua")
+		for type, data in pairs(legionSprites) do
+			local maxZoom = data[#data]
+			local sheet = spriteSheets[maxZoom.filename]
+			if not sheet then
+				sheet = { }
+				sheet.handle = NewImageHandle()
+				sheet.handle:Load("TreeData/assets/legion/"..maxZoom.filename)
+				sheet.width, sheet.height = sheet.handle:ImageSize()
+				spriteSheets[maxZoom.filename] = sheet
+			end
+			main.tree.legionSheets[type] = { sheet = sheet, filename = maxZoom.filename, coords = maxZoom.coords}
+			for name, coords in pairs(maxZoom.coords) do
+				if not self.spriteMap[name] then
+					self.spriteMap[name] = { }
+				end
+				self.spriteMap[name][type] = {
+					handle = sheet.handle,
+					width = coords.w,
+					height = coords.h,
+					[1] = coords.x / sheet.width,
+					[2] = coords.y / sheet.height,
+					[3] = (coords.x + coords.w) / sheet.width,
+					[4] = (coords.y + coords.h) / sheet.height
+				}
+			end
 		end
 	end
 
@@ -562,54 +582,67 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 
-	-- Build ModList for legion jewels
-	for _, node in pairs(self.legion.nodes) do
-		-- Determine node type
-		if node.m then
-			node.type = "Mastery"
-		elseif node.ks then
-			node.type = "Keystone"
-			if not self.keystoneMap[node.dn] then -- Don't override good tree data with legacy keystones
-				self.keystoneMap[node.dn] = node
+	self.legion = main.tree.legion
+	if not self.legion then
+		self.legion = LoadModule("Data/TimelessJewelData/LegionPassives")
+
+		-- Build ModList for legion jewels
+		for _, node in pairs(self.legion.nodes) do
+			-- Determine node type
+			if node.m then
+				node.type = "Mastery"
+			elseif node.ks then
+				node.type = "Keystone"
+				if not self.keystoneMap[node.dn] then -- Don't override good tree data with legacy keystones
+					self.keystoneMap[node.dn] = node
+				end
+			elseif node["not"] then
+				node.type = "Notable"
+			else
+				node.type = "Normal"
 			end
-		elseif node["not"] then
-			node.type = "Notable"
-		else
-			node.type = "Normal"
-		end
 
-		-- Assign node artwork assets
-		node.sprites = self.spriteMap[node.icon]
-		if not node.sprites then
-			--error("missing sprite "..node.icon)
-			node.sprites = { }
-		end
+			-- Assign node artwork assets
+			node.sprites = self.spriteMap[node.icon]
+			if not node.sprites then
+				--error("missing sprite "..node.icon)
+				node.sprites = { }
+			end
 
-		self:ProcessStats(node)
+			self:ProcessStats(node)
+		end
+		
+		main.tree.legion = self.legion
 	end
+	
+	self.tattoo = main.tree.tattoo
+	if not self.tattoo then
+		self.tattoo = LoadModule("Data/TattooPassives")
+		
+		-- Build ModList for tattoos
+		for _, node in pairs(self.tattoo.nodes) do
+			-- Determine node type
+			if node.m then
+				node.type = "Mastery"
+			elseif node.ks then
+				node.type = "Keystone"
+			elseif node["not"] then
+				node.type = "Notable"
+			else
+				node.type = "Normal"
+			end
 
-	-- Build ModList for tattoos
-	for _, node in pairs(self.tattoo.nodes) do
-		-- Determine node type
-		if node.m then
-			node.type = "Mastery"
-		elseif node.ks then
-			node.type = "Keystone"
-		elseif node["not"] then
-			node.type = "Notable"
-		else
-			node.type = "Normal"
+			-- Assign node artwork assets
+			node.sprites = self.spriteMap[node.icon]
+			node.effectSprites = self.spriteMap[node.activeEffectImage]
+			if not node.sprites then
+				--error("missing sprite "..node.icon)
+				node.sprites = { }
+			end
+
+			self:ProcessStats(node)
 		end
-
-		-- Assign node artwork assets
-		node.sprites = self.spriteMap[node.icon]
-		node.effectSprites = self.spriteMap[node.activeEffectImage]
-		if not node.sprites then
-			--error("missing sprite "..node.icon)
-			node.sprites = { }
-		end
-
-		self:ProcessStats(node)
+		main.tree.tattoo = self.tattoo
 	end
 
 	-- Late load the Generated data so we can take advantage of a tree existing
