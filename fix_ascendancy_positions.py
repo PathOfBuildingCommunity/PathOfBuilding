@@ -157,12 +157,12 @@ def main(root: pathlib.Path) -> None:
         logging.info(f"Found and processed file '{file}'.")
         fix_ascendancy_positions(os.path.join(fileLocation, "ruthless.json"), True)
         for file2 in fileLocation.glob("**/*-3.png"):
-            dirPath = pathlib.Path("src/TreeData/assets/" + os.path.basename(file2).removesuffix(".png"))
+            dirPath = pathlib.Path("src/TreeData/Assets/" + os.path.basename(file2).removesuffix(".png"))
             if not dirPath.is_dir():
                 dirPath.mkdir()
             file2.rename(os.path.join(dirPath, versionNumber + ".png"))
         for file2 in fileLocation.glob("**/*-3.jpg"):
-            dirPath = pathlib.Path("src/TreeData/assets/" + os.path.basename(file2).removesuffix(".jpg"))
+            dirPath = pathlib.Path("src/TreeData/Assets/" + os.path.basename(file2).removesuffix(".jpg"))
             if not dirPath.is_dir():
                 dirPath.mkdir()
             file2.rename(os.path.join(dirPath, versionNumber + ".jpg"))

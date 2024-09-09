@@ -94,7 +94,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	local versionNum = treeVersions[treeVersion].num
 
 	ConPrintf("Loading passive tree data for version '%s'...", treeVersions[treeVersion].display)
-	for k, v in pairs(assert(loadstring(getFile("data/"..treeVersion, (treeVersion:match("ruthless") and treeVersion:gsub("_ruthless", "/ruthless")) or (treeVersion.."/data"))))()) do
+	for k, v in pairs(assert(loadstring(getFile("Data/"..treeVersion, (treeVersion:match("ruthless") and treeVersion:gsub("_ruthless", "/ruthless")) or (treeVersion.."/data"))))()) do
 		self[k] = v
 	end
 
@@ -185,7 +185,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		[6] = "centershadow"
 	}
 	if not self.assets then
-		self.assets = LoadModule("TreeData/assets/data/Assets.lua")
+		self.assets = LoadModule("TreeData/Assets/data/Assets.lua")
 		self.assets = self.assets.assets
 		if self.alternate_ascendancies then
 			-- backgrounds
@@ -622,7 +622,7 @@ function PassiveTreeClass:LoadAndBuildSheets()
 	if not self.skillSprites then
 		if not self.sprites then
 			ConPrintf("Loading passive tree sprite data for version '%s'...", treeVersions[treeVersion].display)
-			for k, v in pairs(assert(loadstring(getFile("assets/data/"..treeVersion, (treeVersion:match("ruthless") and treeVersion:gsub("_ruthless", "/sprites_ruthless")) or (treeVersion.."/sprites"))))()) do
+			for k, v in pairs(assert(loadstring(getFile("Assets/data/"..treeVersion, (treeVersion:match("ruthless") and treeVersion:gsub("_ruthless", "/sprites_ruthless")) or (treeVersion.."/sprites"))))()) do
 				self[k] = v
 			end
 		end
@@ -681,14 +681,14 @@ function PassiveTreeClass:LoadAndBuildSheets()
 		end
 	else
 		main.tree.legionSheets = {}
-		local legionSprites = LoadModule("TreeData/assets/legion/tree-legion.lua")
+		local legionSprites = LoadModule("TreeData/Assets/legion/tree-legion.lua")
 		for type, data in pairs(legionSprites) do
 			local maxZoom = data[#data]
 			local sheet = spriteSheets[maxZoom.filename]
 			if not sheet then
 				sheet = { }
 				sheet.handle = NewImageHandle()
-				sheet.handle:Load("TreeData/assets/legion/"..maxZoom.filename)
+				sheet.handle:Load("TreeData/Assets/legion/"..maxZoom.filename)
 				sheet.width, sheet.height = sheet.handle:ImageSize()
 				spriteSheets[maxZoom.filename] = sheet
 			end
@@ -773,13 +773,13 @@ function PassiveTreeClass:LoadSheet(imgName, url, data, ...)
 	end
 	while index > 1 do
 		local spriteSheet = imgName:gsub(".jpg", ""):gsub(".png", "").."/"..treeVersionList[index]..(imgName:match(".jpg") and ".jpg" or imgName:match(".png") and ".png")
-		local imgFile = io.open("TreeData/assets/"..spriteSheet, "r")
+		local imgFile = io.open("TreeData/Assets/"..spriteSheet, "r")
 		if imgFile then
 			imgFile:close()
 			imgName = spriteSheet
 			break
 		elseif treeVersionList[index]:match("ruthless") then
-			imgFile = io.open("TreeData/assets/"..spriteSheet:gsub("_ruthless",""), "r")
+			imgFile = io.open("TreeData/Assets/"..spriteSheet:gsub("_ruthless",""), "r")
 			if imgFile then
 				imgFile:close()
 				imgName = spriteSheet:gsub("_ruthless","")
@@ -789,7 +789,7 @@ function PassiveTreeClass:LoadSheet(imgName, url, data, ...)
 			ConPrintf("Downloading '%s'...", imgName)
 			local data = getFileAtURL(url)
 			if data and not data:match("<!DOCTYPE html>") then
-				imgFile = io.open("TreeData/assets/non_sprite/"..imgName, "wb")
+				imgFile = io.open("TreeData/Assets/non_sprite/"..imgName, "wb")
 				imgFile:write(data)
 				imgFile:close()
 			else
@@ -800,13 +800,13 @@ function PassiveTreeClass:LoadSheet(imgName, url, data, ...)
 		index = index - 1
 	end
 	data.handle = NewImageHandle()
-	data.handle:Load("TreeData/assets/"..imgName, ...)
+	data.handle:Load("TreeData/Assets/"..imgName, ...)
 	data.width, data.height = data.handle:ImageSize()
 end
 
 -- Checks if a given image is present and downloads it from the given URL if it isn't there
 function PassiveTreeClass:LoadImage(imgName, url, data, ...)
-	local imgFile = io.open("TreeData/assets/non_sprite/"..imgName, "r")
+	local imgFile = io.open("TreeData/Assets/non_sprite/"..imgName, "r")
 	if imgFile then
 		imgFile:close()
 		imgName = "" .. imgName
@@ -814,7 +814,7 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 		ConPrintf("Downloading '%s'...", imgName)
 		local data = getFileAtURL(url)
 		if data and not data:match("<!DOCTYPE html>") then
-			imgFile = io.open("TreeData/assets/non_sprite/"..imgName, "wb")
+			imgFile = io.open("TreeData/Assets/non_sprite/"..imgName, "wb")
 			imgFile:write(data)
 			imgFile:close()
 		else
@@ -822,7 +822,7 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 		end
 	end
 	data.handle = NewImageHandle()
-	data.handle:Load("TreeData/assets/non_sprite/"..imgName, ...)
+	data.handle:Load("TreeData/Assets/non_sprite/"..imgName, ...)
 	data.width, data.height = data.handle:ImageSize()
 end
 

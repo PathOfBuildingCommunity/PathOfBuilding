@@ -37,7 +37,7 @@ local recipeNames = {
 local recipeImages = { }
 for _, recipeName in pairs(recipeNames) do
 	recipeImages[recipeName] = NewImageHandle()
-	recipeImages[recipeName]:Load("TreeData/assets/oils/" .. recipeName .. ".png", "CLAMP")
+	recipeImages[recipeName]:Load("TreeData/Assets/oils/" .. recipeName .. ".png", "CLAMP")
 end
 
 local TooltipClass = newClass("Tooltip", function(self)
