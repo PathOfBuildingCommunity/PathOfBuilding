@@ -1562,7 +1562,6 @@ League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 Requires Level 68, 66 Str, 66 Dex, 66 Int
 Never deal Critical Strikes
-Nearby Enemies cannot deal Critical Strikes
 Battlemage
 ]],
 }
