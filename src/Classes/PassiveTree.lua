@@ -765,7 +765,7 @@ end
 
 
 -- Checks if a given image is present and downloads it from the given URL if it isn't there
--- also checks all previous versions incase the current one has been deleted to dedupe
+-- also checks all previous versions incase the current one has been deleted to deduplicate
 function PassiveTreeClass:LoadSheet(imgName, url, data, ...)
 	local index = #treeVersionList
 	while index > 1 and self.treeVersion ~= treeVersionList[index] do
