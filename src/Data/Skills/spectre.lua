@@ -10548,3 +10548,34 @@ skills["AzmeriGolemRotateZap"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["RevenantBossSpellProjectile"] = {
+	name = "Lightning Projectile",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.125,
+	incrementalEffectiveness = 0.046000000089407,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 7 },
+		{ "base_number_of_projectiles_in_spiral_nova", 9 },
+		{ "projectile_spiral_nova_time_ms", 750 },
+		{ "projectile_spiral_nova_angle", 50 },
+		{ "projectile_spiral_nova_starting_angle_offset", -20 },
+		{ "monster_reverse_point_blank_damage_-%_at_minimum_range", 80 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { 0.60000002384186, 1.3999999761581, levelRequirement = 3, statInterpolation = { 3, 3, }, },
+	},
+}

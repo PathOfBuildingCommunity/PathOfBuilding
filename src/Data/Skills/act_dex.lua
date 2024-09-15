@@ -7924,6 +7924,7 @@ skills["FrostBladesAltX"] = {
 		{
 			name = "Ground DoT",
 			attack = false,
+			hit = false,
 			melee = false,
 			projectile = false,
 			area = true,
@@ -7940,6 +7941,7 @@ skills["FrostBladesAltX"] = {
 		melee = true,
 		projectile = true,
 		area = true,
+		dotFromAttack = true,
 	},
 	baseMods = {
 		skill("dotIsArea", true, { type = "SkillPart", skillPart = 2 }),

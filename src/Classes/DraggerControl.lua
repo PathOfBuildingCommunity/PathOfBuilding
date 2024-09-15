@@ -3,8 +3,8 @@
 -- Class: Dragger Button Control
 -- Dragger button control.
 --
-local DraggerClass = newClass("DraggerControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, label, onKeyDown, onKeyUp, onRightClick, onHover, forceTooltip)
-	self.Control(anchor, x, y, width, height)
+local DraggerClass = newClass("DraggerControl", "Control", "TooltipHost", function(self, anchor, rect, label, onKeyDown, onKeyUp, onRightClick, onHover, forceTooltip)
+	self.Control(anchor, rect)
 	self.TooltipHost()
 	self.label = label
 	self.onKeyDown = onKeyDown

@@ -4140,7 +4140,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusHigh__"] = {
 		mod("Damage", "INC", 8, 1, 0, { div = 450, stat = "Armour", type = "PerStat" }), -- AzmeriRobotArgusAttackDamagePerArmour2 [attack_damage_+%_per_450_physical_damage_reduction_rating = 8]
 		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
 		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
-		mod("AllyModifier", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true })}),
 	},
 }
 -- Spirit of Fortune
@@ -4328,7 +4327,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_"] = {
 		"GSAzmeriAdmiralCannonball",
 	},
 	modList = {
-		mod("AllyModifier", "LIST", { mod = mod("MinimumFortification", "BASE", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PerfectNavalOfficer", unscaleable = true })}),
+		mod("AllyModifier", "LIST", { mod = mod("ColdDamageTaken", "INC", -5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PerfectNavalOfficer", unscaleable = true })}),
 	},
 }
 -- Dancing Sword
@@ -4378,7 +4377,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordMid"] = {
 		"AzmeriSwordStormCascade",
 	},
 	modList = {
-		mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })}),
+		mod("AllyModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })}),
 	},
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_"] = {
@@ -4403,8 +4402,8 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_"] = {
 		"AzmeriSwordStormCascade",
 	},
 	modList = {
-		mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })}),
-		mod("AllyModifier", "LIST", { mod = mod("ImpaleStacksMax", "BASE", 1, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })}),
+		mod("AllyModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })}),
+		mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })}),
 	},
 }
 -- Needle Horror
@@ -4901,9 +4900,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonMid"] = {
 		"AzmeriDualStrikeDemonDualStrike",
 	},
 	modList = {
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage" }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
-		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 2 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
-		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 1, 0, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 5 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
 	},
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonHigh"] = {
@@ -4931,9 +4928,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonHigh"] = {
 	},
 	modList = {
 		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageGainAsFire", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SlashingHorror", unscaleable = true })}),
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage" }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
-		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 2 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
-		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 1, 0, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 5 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
 	},
 }
 -- Druidic Alchemist
@@ -5863,7 +5858,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderHigh_"] = {
 		"ABTTAzmeriSpiderLeaderAura",
 	},
 	modList = {
-		mod("PlayerModifier", "LIST", { mod = mod("WitherEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SpiderMatriarch", unscaleable = true })}) --Does not work,
+		mod("PlayerModifier", "LIST", { mod = mod("WitherEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SpiderMatriarch", unscaleable = true })}) --Does not work,
 	},
 }
 -- Meatsack
@@ -6153,7 +6148,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleMid_"] = {
 		"ABTTAzmeriTurtleInvulnerability",
 	},
 	modList = {
-		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscaleable = true })}),
+		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscaleable = true })}),
 	},
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleHigh"] = {
@@ -6763,6 +6758,31 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh"] = {
 	},
 	modList = {
 		mod("LinkEffectOnSelf", "INC", 100, 0, 0), -- AzmeriGolemLinkEffectOnSelf2 [link_buff_effect_on_self_+% = 100]
-		mod("PlayerModifier", "LIST", { mod = mod("Duration", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HalfRememberedGoliath", unscaleable = true })}),
+	},
+}
+-- Wretched Defiler
+minions["Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber"] = {
+	name = "Wretched Defiler",
+	monsterTags = { "caster", "demon", "fast_movement", "flesh_armour", "is_unarmed", "large_model", "lightning_affinity", "melee", "not_int", "not_str", "physical_affinity", "raises_dead", "ranged", "red_blood", "slashing_weapon", "small_height", "standalone_map_boss", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.9,
+	evasion = 0.5,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 25,
+	damage = 3,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"RevenantReviveUndead",
+		"RevenantBossSpellProjectile",
+		"MeleeAtAnimationSpeed",
+		"RevenantMapBossSummon1",
+		"RevenantMapBossSummon2",
+	},
+	modList = {
 	},
 }

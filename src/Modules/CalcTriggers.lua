@@ -535,6 +535,9 @@ local function defaultTriggerHandler(env, config)
 						end
 						trigRate = trigRate / m_ceil(manaSpentThreshold / sourceManaCost)
 					else
+						if breakdown then
+							t_insert(breakdown.EffectiveSourceRate, s_format("Source skill has no mana cost", output.EffectiveSourceRate))
+						end
 						trigRate = 0
 					end
 				end
@@ -1397,6 +1400,15 @@ local configTable = {
 		return {source = env.player.mainSkill,
 				triggeredSkillCond = function(env, skill)
 					return slotMatch(env, skill) and skill.triggeredBy and calcLib.canGrantedEffectSupportActiveSkill(skill.triggeredBy.grantedEffect, skill)
+				end}
+	end,
+	["supporttriggerfirespellonhit"] = function(env)
+		return {triggerSkillCond = function(env, skill)
+					-- Skill is triggered only when the weapon with the enchant on it hits
+					return skill.skillTypes[SkillType.Melee]
+				end,
+				triggeredSkillCond = function(env, skill)
+					return skill.skillData.triggeredBySettlersEnchantTrigger and slotMatch(env, skill)
 				end}
 	end,
 }

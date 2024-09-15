@@ -1339,4 +1339,24 @@ describe("TestTriggers", function()
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
+
+	it("Trigger settlers enchant", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[Physical 1H Axe
+			Runic Hatchet
+			Quality: 0
+			Sockets: R-R-R
+			LevelReq: 71
+			Implicits: 0
+			Trigger a Socketed Fire Spell on Hit, with a 0.25 second Cooldown]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFireball 20/0 Default  1\n")
+		runCallback("OnFrame")
+
+		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		runCallback("OnFrame")
+
+		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
+	end)
 end)

@@ -32,7 +32,7 @@ end
 local function banditTooltip(tooltip, mode, index, value)
 	local banditBenefits = {
 		["None"] = "Grants 1 Passive Skill Point",
-		["Oak"] = "+40 to Maximum Life",
+		["Oak"] = "+40 to Maximum ^xE05030Life",
 		["Kraityn"] = "8% increased Movement Speed",
 		["Alira"] = "+15% to all Elemental Resistances",
 	}
@@ -374,6 +374,15 @@ return {
 	{ label = "Embrace Madness:", ifSkill = "Embrace Madness" },
 	{ var = "embraceMadnessActive", type = "check", label = "Is Embrace Madness active?", ifSkill = "Embrace Madness", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AffectedByGloriousMadness", "FLAG", true, "Config")
+	end },
+	{ var = "touchedDebuffsCount", type = "countAllowZero", label = "Glorious Madness Stacks", ifOption = "embraceMadnessActive", defaultState = 10, tooltip = "Glorious Madness Stacks grants:\n\tEroding Touch: 6% inc Damage Taken per stack\n\tParalysing Touch: 6% reduced Action Speed per stack\n\tDiluting Touch: 9% reduced Flask charges gained and 9% reduced Flask Effect per stack\n\tWasting Touch: 9% reduced ^xE05030Life ^7and ^x88FFFFEnergy Shield ^7recovery rate per stack", apply = function(val, modList, enemyModList)
+		val = m_min(val, 10)
+		modList:NewMod("DamageTaken", "INC", val * 6, val.." Eroding Touch Stacks", { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "AffectedByGloriousMadness" })
+		modList:NewMod("ActionSpeed", "INC", -val * 6, val.." Paralysing Touch Stacks", { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "AffectedByGloriousMadness" })
+		modList:NewMod("FlaskChargesGained", "INC", -val * 9, val.." Diluting Touch Stacks", { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "AffectedByGloriousMadness" })
+		modList:NewMod("FlaskEffect", "INC", -val * 9, val.." Diluting Touch Stacks", { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "AffectedByGloriousMadness" })
+		modList:NewMod("LifeRecoveryRate", "INC", -val * 9, val.." Wasting Touch Stacks", { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "AffectedByGloriousMadness" })
+		modList:NewMod("EnergyShieldRecoveryRate", "INC", -val * 9, val.." Wasting Touch Stacks", { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "AffectedByGloriousMadness" })
 	end },
 	{ label = "Feeding Frenzy:", ifSkill = "Feeding Frenzy" },
 	{ var = "feedingFrenzyFeedingFrenzyActive", type = "check", label = "Is Feeding Frenzy active?", ifSkill = "Feeding Frenzy", tooltip = "Feeding Frenzy grants:\n\t10% more Minion Damage\n\t10% increased Minion Movement Speed\n\t10% increased Minion Attack and Cast Speed", apply = function(val, modList, enemyModList)
@@ -1369,7 +1378,7 @@ Huge sets the radius to 11.
 	{ var = "conditionSoulGainPrevention", type = "check", label = "Do you have Soul Gain Prevention?", ifCond = "SoulGainPrevention", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SoulGainPrevention", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionUsedWarcryRecently", type = "check", label = "Have you used a Warcry Recently?", ifFlag = "warcry", implyCondList = {"UsedWarcryInPast8Seconds", "UsedSkillRecently"}, tooltip = "This also implies that you have used a Skill Recently.", apply = function(val, modList, enemyModList)
+	{ var = "conditionUsedWarcryRecently", type = "check", label = "Have you used a Warcry Recently?", {ifFlag = "warcry", ifCond = "UsedWarcryRecently"}, implyCondList = {"UsedWarcryInPast8Seconds", "UsedSkillRecently"}, tooltip = "This also implies that you have used a Skill Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UsedWarcryRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:UsedWarcryInPast8Seconds", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:UsedSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1423,7 +1432,7 @@ Huge sets the radius to 11.
 	{ var = "conditionRavenousCorpseConsumed", type = "check", label = "Has Ravenous consumed a corpse?", ifSkill = "Ravenous", implyCond = "ConsumedCorpseRecently", tooltip = "Corpse must be the same type as the monster you're fighting.\nThis also implies you have 'Consumed a corpse Recently'", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:RavenousCorpseConsumed", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierWarcryUsedRecently", type = "count", label = "# of Warcries Used Recently:", ifFlag = "warcry", implyCondList = {"UsedWarcryRecently", "UsedWarcryInPast8Seconds", "UsedSkillRecently"}, tooltip = "This also implies you have 'Used a Warcry Recently', 'Used a Warcry in the past 8 seconds', and 'Used a Skill Recently'", apply = function(val, modList, enemyModList)
+	{ var = "multiplierWarcryUsedRecently", type = "count", label = "# of Warcries Used Recently:", {ifFlag = "warcry", ifMult = "WarcryUsedRecently"}, implyCondList = {"UsedWarcryRecently", "UsedWarcryInPast8Seconds", "UsedSkillRecently"}, tooltip = "This also implies you have 'Used a Warcry Recently', 'Used a Warcry in the past 8 seconds', and 'Used a Skill Recently'", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:WarcryUsedRecently", "BASE", m_min(val, 100), "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:UsedWarcryRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:UsedWarcryInPast8Seconds", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1767,7 +1776,7 @@ Huge sets the radius to 11.
 	{ var = "conditionEnemyRareOrUnique", type = "check", label = "Is the enemy Rare or Unique?", ifEnemyCond = "EnemyRareOrUnique", tooltip = "The enemy will automatically be considered to be Unique if they are a Boss,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", defaultIndex = 1, tooltip = data.enemyIsBossTooltip, list = {{val="None",label="No"},{val="Boss",label="Standard Boss"},{val="Pinnacle",label="Guardian/Pinnacle Boss"},{val="Uber",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
+	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", defaultIndex = 3, tooltip = data.enemyIsBossTooltip, list = {{val="None",label="No"},{val="Boss",label="Standard Boss"},{val="Pinnacle",label="Guardian/Pinnacle Boss"},{val="Uber",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
 		-- These defaults are here so that the placeholders get reset correctly
 		build.configTab.varControls['enemySpeed']:SetPlaceholder(700, true)
 		build.configTab.varControls['enemyCritChance']:SetPlaceholder(5, true)
