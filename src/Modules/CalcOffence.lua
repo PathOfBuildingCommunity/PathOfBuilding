@@ -2580,18 +2580,21 @@ function calcs.offence(env, actor, activeSkill)
 					local moreExertedAttackDamage = skillModList:Sum("MORE", cfg, "ExertAttackIncrease")
 					local overexertionExertedDamage = skillModList:Sum("MORE", cfg, "OverexertionExertAverageIncrease")
 					local echoesOfCreationExertedDamage = skillModList:Sum("MORE", cfg, "EchoesExertAverageIncrease")
+					local exertAggravateChance = skillModList:Sum("BASE", cfg, "ExertAggravateChance")
 					if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
 						skillModList:NewMod("Damage", "INC", incExertedAttacks, "Exerted Attacks")
 						skillModList:NewMod("Damage", "MORE", moreExertedAttacks, "Exerted Attacks")
 						skillModList:NewMod("Damage", "MORE", moreExertedAttackDamage, "Exerted Attack Damage", ModFlag.Attack)
 						skillModList:NewMod("Damage", "MORE", overexertionExertedDamage * exertingWarcryCount, "Max Autoexertion Support")
 						skillModList:NewMod("Damage", "MORE", echoesOfCreationExertedDamage * exertingWarcryCount, "Max Echoes of Creation")
+						skillModList:NewMod("AggravateChance", "BASE", exertAggravateChance, "Exerted Attacks")
 					else
 						skillModList:NewMod("Damage", "INC", incExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks")
 						skillModList:NewMod("Damage", "MORE", moreExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks")
 						skillModList:NewMod("Damage", "MORE", moreExertedAttackDamage * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attack Damage", ModFlag.Attack)
 						skillModList:NewMod("Damage", "MORE", overexertionExertedDamage * globalOutput.GlobalWarcryUptimeRatio / 100, "Uptime Scaled Autoexertion Support")
 						skillModList:NewMod("Damage", "MORE", echoesOfCreationExertedDamage * globalOutput.GlobalWarcryUptimeRatio / 100, "Uptime Scaled Echoes of Creation")
+						skillModList:NewMod("AggravateChance", "BASE", exertAggravateChance * globalOutput.GlobalWarcryUptimeRatio / 100, "Uptime Scaled Exerted Attacks")
 					end
 					globalOutput.ExertedAttackAvgDmg = calcLib.mod(skillModList, skillCfg, "ExertIncrease")
 					globalOutput.ExertedAttackAvgDmg = globalOutput.ExertedAttackAvgDmg * calcLib.mod(skillModList, skillCfg, "ExertAttackIncrease", "OverexertionExertAverageIncrease", "EchoesExertAverageIncrease")
@@ -3622,6 +3625,7 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.BleedChanceOnCrit = m_min(100, skillModList:Sum("BASE", cfg, "BleedChance") + enemyDB:Sum("BASE", nil, "SelfBleedChance"))
 		end
+		output.AggravateChanceOnCrit = m_min(100, skillModList:Sum("BASE", cfg, "AggravateChance", "AggravateChanceOnCrit"))
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotPoison") then
 			output.PoisonChanceOnCrit = 0
 		else
@@ -3643,6 +3647,7 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.BleedChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "BleedChance") + enemyDB:Sum("BASE", nil, "SelfBleedChance"))
 		end
+		output.AggravateChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "AggravateChance"))
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotPoison") then
 			output.PoisonChanceOnHit = 0
 			output.ChaosPoisonChance = 0
@@ -3821,6 +3826,12 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		-- Calculate bleeding chance and damage
+		if (output.AggravateChanceOnHit + output.AggravateChanceOnCrit) > 0 then
+			output.AggravateOldBleedsChance = output.AggravateChanceOnHit * (1 - output.CritChance / 100) + output.AggravateChanceOnCrit * output.CritChance / 100
+			if not skillModList:Flag(cfg, "Condition:CannotAggravate") then
+				output.AggravateChance = m_min(100, output.AggravateOldBleedsChance + (skillModList:Flag(cfg, "BleedingYouInflictIsAggravated") and 100 or 0))
+			end
+		end
 		if canDeal.Physical and (output.BleedChanceOnHit + output.BleedChanceOnCrit) > 0 then
 			activeSkill[pass.label ~= "Off Hand" and "bleedCfg" or "OHbleedCfg"] = {
 				skillName = skillCfg.skillName,
@@ -4992,6 +5003,8 @@ function calcs.offence(env, actor, activeSkill)
 	-- Combine secondary effect stats
 	if isAttack then
 		combineStat("BleedChance", "AVERAGE")
+		combineStat("AggravateOldBleedsChance", "AVERAGE")
+		combineStat("AggravateChance", "AVERAGE")
 		combineStat("BleedDPS", "CHANCE_AILMENT", "BleedChance")
 		combineStat("PoisonChance", "AVERAGE")
 		combineStat("PoisonDPS", "CHANCE", "PoisonChance")
