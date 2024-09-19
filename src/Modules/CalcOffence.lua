@@ -3827,9 +3827,34 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Calculate bleeding chance and damage
 		if (output.AggravateChanceOnHit + output.AggravateChanceOnCrit) > 0 then
-			output.AggravateOldBleedsChance = output.AggravateChanceOnHit * (1 - output.CritChance / 100) + output.AggravateChanceOnCrit * output.CritChance / 100
-			if not skillModList:Flag(cfg, "Condition:CannotAggravate") then
-				output.AggravateChance = m_min(100, output.AggravateOldBleedsChance + (skillModList:Flag(cfg, "BleedingYouInflictIsAggravated") and 100 or 0))
+			local aggravateOldBleedsChance = output.AggravateChanceOnHit * (1 - output.CritChance / 100) + output.AggravateChanceOnCrit * output.CritChance / 100
+			output.AggravateOldBleedsChance = output.HitChance / 100 * aggravateOldBleedsChance
+			local bleedIsAggravated = skillModList:Flag(cfg, "BleedingYouInflictIsAggravated") or (env.partyMembers.output.AggravateOldBleedsChance and (env.partyMembers.output.AggravateOldBleedsChance > 0))
+			if not skillModList:Flag(cfg, "CannotAggravateBleeding") then
+				output.AggravateChance = m_min(100, output.AggravateOldBleedsChance + (bleedIsAggravated and 100 or 0))
+				output.NumberOfHitsToAggravate = (not bleedIsAggravated and ((output.AggravateOldBleedsChance == 0) and -1 or 100 / output.AggravateOldBleedsChance )) or 0
+			else
+				output.NumberOfHitsToAggravate = -1
+			end
+			if globalBreakdown and not globalBreakdown.AggravateChance then
+				if skillModList:Flag(cfg, "CannotAggravateBleeding") then
+					globalBreakdown.AggravateChance = { "Cannot Aggravate Bleeding" }
+				elseif bleedIsAggravated then
+					if skillModList:Flag(cfg, "BleedingYouInflictIsAggravated") then
+						globalBreakdown.AggravateChance = { "Bleeding You Inflict is Aggravated" }
+					else
+						globalBreakdown.AggravateChance = { "Bleeding You Inflict is Aggravated by Party Memebers" }
+					end
+				else
+					globalBreakdown.AggravateChance = { }
+					t_insert(globalBreakdown.AggravateChance, s_format("%.2f ^8(chance to hit)", output.HitChance / 100))
+					t_insert(globalBreakdown.AggravateChance, s_format("* %.2f ^8(chance to aggravate)", aggravateOldBleedsChance / 100))
+					t_insert(globalBreakdown.AggravateChance, s_format("= %.2f%%", output.AggravateOldBleedsChance))
+					t_insert(globalBreakdown.AggravateChance, " ")
+					t_insert(globalBreakdown.AggravateChance, "Hits Required to Aggravate: ")
+					t_insert(globalBreakdown.AggravateChance, s_format("1 / %.4f ^8(1 / chance to aggravate)", output.AggravateOldBleedsChance / 100))
+					t_insert(globalBreakdown.AggravateChance, s_format("= %.2f ^8 (number of hits to aggravate)", output.NumberOfHitsToAggravate))
+				end
 			end
 		end
 		if canDeal.Physical and (output.BleedChanceOnHit + output.BleedChanceOnCrit) > 0 then
@@ -3984,6 +4009,14 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 			local basePercent = skillData.bleedBasePercent or data.misc.BleedPercentBase
+			local baseReason = "(base)"
+			if enemyDB:Flag(nil, "Condition:Moving") and not skillModList:Flag(dotCfg, "NoExtraBleedDamageToMovingEnemy") then
+				basePercent = basePercent * 3
+				baseReason = "(enemy is moving)"
+			elseif output.NumberOfHitsToAggravate == 0 then
+				basePercent = basePercent * 3
+				baseReason = "(bleed is aggrevated)"
+			end
 			-- over-stacking bleed stacks increases the chance a critical bleed is present
 			local ailmentCritChance = 100 * (1 - m_pow(1 - output.CritChance / 100, m_max(globalOutput.BleedStackPotential, 1)))
 
@@ -4026,7 +4059,7 @@ function calcs.offence(env, actor, activeSkill)
 						breakdown.BleedDotMulti = breakdown.critDot(output.BleedDotMulti, output.CritBleedDotMulti, totalFromHit, totalFromCrit)
 						output.BleedDotMulti = (output.BleedDotMulti * totalFromHit) + (output.CritBleedDotMulti * totalFromCrit)
 					end
-					t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(bleed deals %d%% per second)", basePercent/100, basePercent))
+					t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(bleed deals %d%% per second %s)", basePercent/100, basePercent, baseReason))
 					if effectMod ~= 1 then
 						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ailment effect modifier)", effectMod))
 					end

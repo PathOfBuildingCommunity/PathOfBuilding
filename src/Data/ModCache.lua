@@ -11844,7 +11844,7 @@ c["You take no Extra Damage from Critical Strikes while Elusive"]={{[1]={[1]={ty
 c["Your Action Speed is at least 108% of base value"]={{[1]={flags=0,keywordFlags=0,name="MinimumActionSpeed",type="MAX",value=108}},nil}
 c["Your Aura Buffs do not affect allies"]={{[1]={flags=0,keywordFlags=0,name="SelfAurasCannotAffectAllies",type="FLAG",value=true}},nil}
 c["Your Aura Skills are Disabled"]={{[1]={[1]={skillType=43,type="SkillType"},flags=0,keywordFlags=0,name="DisableSkill",type="FLAG",value=true}},nil}
-c["Your Bleeding does not deal extra Damage while the Enemy is moving and cannot be Aggravated"]={{[1]={flags=0,keywordFlags=0,name="Condition:NoExtraBleedDamageToMovingEnemy",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="Condition:CannotAggravate",type="FLAG",value=true}},nil}
+c["Your Bleeding does not deal extra Damage while the Enemy is moving and cannot be Aggravated"]={{[1]={flags=0,keywordFlags=0,name="NoExtraBleedDamageToMovingEnemy",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="CannotAggravateBleeding",type="FLAG",value=true}},nil}
 c["Your Blessing Skills are Disabled"]={{[1]={[1]={skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="DisableSkill",type="FLAG",value=true}},nil}
 c["Your Chaos Damage Poisons Enemies"]={{[1]={flags=0,keywordFlags=0,name="ChaosPoisonChance",type="BASE",value=100}},nil}
 c["Your Chaos Damage can Chill"]={{[1]={flags=0,keywordFlags=0,name="ChaosCanChill",type="FLAG",value=true}},nil}
