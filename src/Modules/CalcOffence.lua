@@ -3842,7 +3842,7 @@ function calcs.offence(env, actor, activeSkill)
 					if skillModList:Flag(cfg, "BleedingYouInflictIsAggravated") then
 						globalBreakdown.AggravateChance = { "Bleeding You Inflict is Aggravated" }
 					else
-						globalBreakdown.AggravateChance = { "Bleeding You Inflict is Aggravated by Party Memebers" }
+						globalBreakdown.AggravateChance = { "Bleeding You Inflict is Aggravated by Party Members" }
 					end
 				else
 					globalBreakdown.AggravateChance = { }
@@ -4029,7 +4029,7 @@ function calcs.offence(env, actor, activeSkill)
 				baseReason = "(enemy is moving)"
 			elseif output.NumberOfHitsToAggravate == 0 then
 				basePercent = basePercent * 3
-				baseReason = "(bleed is aggrevated)"
+				baseReason = "(bleed is aggravated)"
 			end
 			-- over-stacking bleed stacks increases the chance a critical bleed is present
 			local ailmentCritChance = 100 * (1 - m_pow(1 - output.CritChance / 100, m_max(globalOutput.BleedStackPotential, 1)))
