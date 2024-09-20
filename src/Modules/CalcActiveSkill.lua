@@ -296,7 +296,11 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		if not skillTypes[SkillType.MainHandOnly] and not skillFlags.forceMainHand then
 			local weapon2Flags, weapon2Info = getWeaponFlags(env, activeSkill.actor.weaponData2, weaponTypes)
 			if weapon2Flags then
-				if skillFlags.attack or skillFlags.dotFromAttack then
+				if skillTypes[SkillType.DualWieldRequiresDifferentTypes] and (activeSkill.actor.weaponData1.type == activeSkill.actor.weaponData2.type) then
+					-- Skill requires a different compatible off hand weapon to main hand weapon
+					skillFlags.disable = true
+					activeSkill.disableReason = activeSkill.disableReason or "Weapon Types Need to be Different"
+				elseif skillFlags.attack or skillFlags.dotFromAttack then
 					activeSkill.weapon2Flags = weapon2Flags
 					skillFlags.weapon2Attack = true
 				end
