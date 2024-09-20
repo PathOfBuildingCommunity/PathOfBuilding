@@ -239,8 +239,9 @@ function ModDBClass:TabulateInternal(context, result, modType, cfg, flags, keywo
 				if (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 					local value
 					if mod[1] then
-						value = context:EvalMod(mod, cfg) or 0
+						value = context:EvalMod(mod, cfg)
 						if mod[1].globalLimit and mod[1].globalLimitKey then
+							value = value or 0
 							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] or 0
 							if globalLimits[mod[1].globalLimitKey] + value > mod[1].globalLimit then
 								value = mod[1].globalLimit - globalLimits[mod[1].globalLimitKey]
