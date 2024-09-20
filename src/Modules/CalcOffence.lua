@@ -3944,7 +3944,8 @@ function calcs.offence(env, actor, activeSkill)
 				if aggravatedBleedStacks > 1 then
 					aggravatedBleedRollAverage = (aggravatedBleedStacks - (maxStacks - 1)/2) / (aggravatedBleedStacks + 1) * 100
 				else
-					aggravatedBleedRollAverage = 50
+					-- scale average roll bleed by the percentage of bleeds which are aggravated
+					aggravatedBleedRollAverage = 50 * bleedStacks / output.NumberOfHitsToAggravate
 				end
 			end
 			globalOutput.BleedRollAverage = bleedRollAverage
