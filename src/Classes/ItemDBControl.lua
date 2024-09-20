@@ -37,7 +37,6 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 	if dbType == "UNIQUE" then
 		self.controls.sort = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, {0, baseY + 20, 179, 18}, self.sortDropList, function(index, value)
 			self:SetSortMode(value.sortMode)
-			GlobalCache.useFullDPS = value.sortMode == "FullDPS"
 		end)
 		self.controls.league = new("DropDownControl", {"LEFT",self.controls.sort,"RIGHT"}, {2, 0, 179, 18}, self.leagueList, function(index, value)
 			self.listBuildFlag = true
@@ -224,15 +223,14 @@ function ItemDBClass:ListBuilder()
 	end
 
 	if self.sortDetail and self.sortDetail.stat then -- stat-based
+		local useFullDPS = self.sortDetail.stat == "FullDPS"
 		local start = GetTime()
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
-		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		for itemIndex, item in ipairs(list) do
 			item.measuredPower = 0
 			for slotName, slot in pairs(self.itemsTab.slots) do
 				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
-					local output = calcFunc(item.base.flask and { toggleFlask = item } or item.base.tincture and { toggleTincture = item } or { repSlotName = slotName, repItem = item }, { nodeAlloc = true, requirementsGems = true })
+					local output = calcFunc(item.base.flask and { toggleFlask = item } or item.base.tincture and { toggleTincture = item } or { repSlotName = slotName, repItem = item }, useFullDPS)
 					local measuredPower = output.Minion and output.Minion[self.sortMode] or output[self.sortMode] or 0
 					if self.sortDetail.transform then
 						measuredPower = self.sortDetail.transform(measuredPower)
@@ -247,7 +245,6 @@ function ItemDBClass:ListBuilder()
 				start = now
 			end
 		end
-		GlobalCache.useFullDPS = storedGlobalCacheDPSView
 	end
 
 	table.sort(list, function(a, b)

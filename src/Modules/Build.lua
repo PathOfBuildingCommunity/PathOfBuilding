@@ -1863,7 +1863,7 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 			local statVal1 = compareOutput[statData.stat] or 0
 			local statVal2 = baseOutput[statData.stat] or 0
 			local diff = statVal1 - statVal2
-			if statData.stat == "FullDPS" and not GlobalCache.useFullDPS and self.viewMode ~= "TREE" then
+			if statData.stat == "FullDPS" and not compareOutput[statData.stat] then
 				diff = 0
 			end
 			if (diff > 0.001 or diff < -0.001) and (not statData.condFunc or statData.condFunc(statVal1,compareOutput) or statData.condFunc(statVal2,baseOutput)) then

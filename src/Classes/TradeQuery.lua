@@ -53,8 +53,6 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	end
 
 	-- set
-	self.storedGlobalCacheDPSView = GlobalCache.useFullDPS
-	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 	self.hostName = "https://www.pathofexile.com/"
 end)
 
@@ -503,9 +501,7 @@ Highest Weight - Displays the order retrieved from trade]]
 		end
 	end
 	self.controls.fullPrice = new("LabelControl", {"BOTTOM", nil, "BOTTOM"}, {0, -row_height - pane_margins_vertical - row_vertical_padding, pane_width - 2 * pane_margins_horizontal, row_height}, "")
-	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 	self.controls.close = new("ButtonControl", {"BOTTOM", nil, "BOTTOM"}, {0, -pane_margins_vertical, 90, row_height}, "Done", function()
-		GlobalCache.useFullDPS = self.storedGlobalCacheDPSView
 		main:ClosePopup()
 		-- there's a case where if you have a socket(s) allocated, open TradeQuery, close it, dealloc, then open TradeQuery again
 		-- the deallocated socket controls were still showing, so this will remove all dynamically created controls from items
@@ -693,13 +689,7 @@ end
 function TradeQueryClass:ReduceOutput(output)
 	local smallOutput = {}
 	for _, statTable in ipairs(self.statSortSelectionList) do
-		if statTable.stat == "FullDPS" and GlobalCache.numActiveSkillInFullDPS == 0 then
-			smallOutput.TotalDPS = output.TotalDPS
-			smallOutput.TotalDotDPS = output.TotalDotDPS
-			smallOutput.CombinedDPS = output.CombinedDPS
-		else
-			smallOutput[statTable.stat] = output[statTable.stat]
-		end
+		smallOutput[statTable.stat] = output[statTable.stat]
 	end
 	return smallOutput
 end
@@ -729,10 +719,10 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		for nodeName in (result.item_string.."\r\n"):gmatch("1 Added Passive Skill is (.-)\r?\n") do
 			t_insert(addedNodes, self.itemsTab.build.spec.tree.clusterNodeMap[nodeName])
 		end
-		local output12  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[2]] = true } }, { requirementsItems = true, requirementsGems = true, skills = true }))
-		local output13  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[3]] = true } }, { requirementsItems = true, requirementsGems = true, skills = true }))
-		local output23  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[2]] = true, [addedNodes[3]] = true } }, { requirementsItems = true, requirementsGems = true, skills = true }))
-		local output123 = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[2]] = true, [addedNodes[3]] = true } }), { requirementsItems = true, requirementsGems = true, skills = true })
+		local output12  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[2]] = true } }))
+		local output13  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[3]] = true } }))
+		local output23  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[2]] = true, [addedNodes[3]] = true } }))
+		local output123 = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[2]] = true, [addedNodes[3]] = true } }))
 		-- Sometimes the third node is as powerful as a wet noodle, so use weight per point spent, including the jewel socket
 		local weight12  = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output12,  self.statSortSelectionList) / 4
 		local weight13  = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output13,  self.statSortSelectionList) / 4

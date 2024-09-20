@@ -62,7 +62,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 				if selIndex ~= self.activeSpec then
 					local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 					if calcFunc then
-						local output = calcFunc({ spec = spec }, {})
+						local output = calcFunc({ spec = spec })
 						self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Switching to this tree will give you:")
 					end
 					if spec.curClassId == self.build.spec.curClassId then
@@ -1672,7 +1672,7 @@ function TreeTabClass:FindTimelessJewel()
 	local function generateFallbackWeights(nodes, selection)
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
 		local newList = { }
-		local baseOutput = calcFunc({ })
+		local baseOutput = calcFunc()
 		if baseOutput.Minion then
 			baseOutput = baseOutput.Minion
 		end
