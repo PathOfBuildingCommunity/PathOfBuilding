@@ -11691,7 +11691,7 @@ c["You can apply an additional Curse"]={{[1]={flags=0,keywordFlags=0,name="Enemy
 c["You can apply an additional Curse while affected by Malevolence"]={{[1]={[1]={type="Condition",var="AffectedByMalevolence"},flags=0,keywordFlags=0,name="EnemyCurseLimit",type="BASE",value=1}},nil}
 c["You can apply an additional Curse while at maximum Power Charges"]={{[1]={[1]={stat="PowerCharges",thresholdStat="PowerChargesMax",type="StatThreshold"},flags=0,keywordFlags=0,name="EnemyCurseLimit",type="BASE",value=1}},nil}
 c["You can apply one fewer Curse"]={{[1]={flags=0,keywordFlags=0,name="EnemyCurseLimit",type="BASE",value=-1}},nil}
-c["You can apply up to 50 Shocks to each Enemy"]={{[1]={flags=0,keywordFlags=0,name="ShockCanStack",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="ShockStacksMax",type="BASE",value=50}},nil}
+c["You can apply up to 50 Shocks to each Enemy"]={{[1]={flags=0,keywordFlags=0,name="ShockCanStack",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="ShockStacksMax",type="OVERRIDE",value=50}},nil}
 c["You can be Touched by Tormented Spirits"]={nil,"You can be Touched by Tormented Spirits "}
 c["You can catch Exotic Fish"]={nil,"You can catch Exotic Fish "}
 c["You can have an Offering of each type"]={nil,"You can have an Offering of each type "}
@@ -11701,7 +11701,7 @@ c["You can have an additional Tincture active"]={{[1]={flags=0,keywordFlags=0,na
 c["You can have two different Banners at the same time"]={{},nil}
 c["You can inflict Bleeding on an Enemy up to 8 times"]={{[1]={flags=0,keywordFlags=0,name="BleedStacksMax",type="OVERRIDE",value=8},[2]={flags=0,keywordFlags=0,name="Condition:HaveCrimsonDance",type="FLAG",value=true}},nil}
 c["You can inflict an additional Ignite on an Enemy"]={{[1]={flags=0,keywordFlags=0,name="IgniteCanStack",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="IgniteStacks",type="BASE",value=1}},nil}
-c["You can inflict an additional Scorch on each Enemy"]={{[1]={flags=0,keywordFlags=0,name="ScorchCanStack",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="ScorchStacksMax",type="BASE",value=2}},nil}
+c["You can inflict an additional Scorch on each Enemy"]={{[1]={flags=0,keywordFlags=0,name="ScorchCanStack",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="ScorchStacksMax",type="BASE",value=1}},nil}
 c["You can only Socket Corrupted Gems in this item"]={nil,"You can only Socket Corrupted Gems in this item "}
 c["You can only Socket Corrupted Gems in this item Acrobatics"]={nil,"You can only Socket Corrupted Gems in this item Acrobatics "}
 c["You can only deal Damage with this Weapon or Ignite"]={nil,"You can only deal Damage with this Weapon or Ignite "}

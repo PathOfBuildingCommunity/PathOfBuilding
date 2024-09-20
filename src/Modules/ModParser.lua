@@ -2700,9 +2700,9 @@ local specialModList = {
 	    mod("SpellSuppressionEffect", "BASE", num, { type = "Multiplier", var = "MissingBarkskinStacks" })
 	} end,
 	["hits that would ignite instead scorch"] = { flag("IgniteCanScorch"), flag("CannotIgnite") },
-	["you can inflict an additional scorch on each enemy"] = { flag("ScorchCanStack"), mod("ScorchStacksMax", "BASE", 2) },
+	["you can inflict an additional scorch on each enemy"] = { flag("ScorchCanStack"), mod("ScorchStacksMax", "BASE", 1) },
 	["maximum effect of shock is (%d+)%% increased damage taken"] = function (num) return { mod("ShockMax", "OVERRIDE", num) } end,
-	["you can apply up to (%d+) shocks to each enemy"] = function(num) return { flag("ShockCanStack"), mod("ShockStacksMax", "BASE", num) } end,
+	["you can apply up to (%d+) shocks to each enemy"] = function(num) return { flag("ShockCanStack"), mod("ShockStacksMax", "OVERRIDE", num) } end,
 	["hits that fail to freeze due to insufficient freeze duration inflict hoarfrost"] = { flag("HitsCanInflictHoarfrost") },
 	["your hits always inflict freeze, shock and ignite while unbound"] = {
 		mod("EnemyFreezeChance", "BASE", 100, { type = "Condition", var = "Unbound"}),

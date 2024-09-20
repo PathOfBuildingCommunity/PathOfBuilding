@@ -1151,7 +1151,7 @@ return {
 	{ label = "Current Scorch", bgCol = colorCodes.SCORCHBG, haveOutput = "CurrentScorch", { format = "{0:output:CurrentScorch}%",
 		{ label = "Configured Scorch", modName = "ScorchVal", enemy = true, modType = "BASE" },
 		{ label = "Guaranteed Scorches", modName = "ScorchOverride", modType = "BASE" },
-		{ label = "Total Scorch", modName = "TotalScorchValue", enemy = true, cfg = "skill" },
+		{ label = "Total Scorch", modName = "ElementalResistByScorch", enemy = true, cfg = "skill" },
 	}, },
 	{ label = "Effect of Chill", bgCol = colorCodes.CHILLBG, flag = "chill", haveOutput = "ChillSourceEffect", { format = "{0:output:ChillSourceEffect}%", { breakdown = "DotChill" }, }, },
 	{ label = "Chill Effect Mod", bgCol = colorCodes.CHILLBG, flag = "chill", { format = "x {2:output:ChillEffectMod}",
