@@ -298,10 +298,6 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.rawLines = { }
 	-- Find non-blank lines and trim whitespace
 	for line in raw:gmatch("%s*([^\n]*%S)") do
-		if not main.seenAdvIDWarn and line:match("^{ ") then
-			main:OpenMessagePopup("Warning", "\"Advanced Item Descriptions\" (Ctrl+Alt+c) are currently unsupported.\n\nPlease try again using Ctrl+c only.")
-			main.seenAdvIDWarn = true
-		end
 		t_insert(self.rawLines, line)
 	end
 	local mode = rarity and "GAME" or "WIKI"

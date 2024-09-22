@@ -1170,6 +1170,11 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 		if event.type == "KeyDown" then	
 			if event.key == "v" and IsKeyDown("CTRL") then
 				local newItem = Paste()
+				if newItem:find("{ ", 0, true) then
+					main:OpenConfirmPopup("Warning", "\"Advanced Item Descriptions\" (Ctrl+Alt+c) are unsupported.\n\nAbort paste?", "OK", function()
+						self:SetDisplayItem()
+					end)
+				end
 				if newItem then
 					self:CreateDisplayItemFromRaw(newItem, true)
 				end
