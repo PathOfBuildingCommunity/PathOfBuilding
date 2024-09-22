@@ -675,6 +675,8 @@ function PartyTabClass:Draw(viewPort, inputEvents)
 					self.controls.editAuras:Undo()
 				elseif self.controls.editCurses.hasFocus then
 					self.controls.editCurses:Undo()
+				elseif self.controls.editWarcries.hasFocus then
+					self.controls.editWarcries:Undo()
 				elseif self.controls.editLinks.hasFocus then
 					self.controls.editLinks:Undo()
 				elseif self.controls.editPartyMemberStats.hasFocus then
@@ -685,6 +687,8 @@ function PartyTabClass:Draw(viewPort, inputEvents)
 					self.controls.editAuras:Redo()
 				elseif self.controls.editCurses.hasFocus then
 					self.controls.editCurses:Redo()
+				elseif self.controls.editWarcries.hasFocus then
+					self.controls.editWarcries:Redo()
 				elseif self.controls.editLinks.hasFocus then
 					self.controls.editLinks:Redo()
 				elseif self.controls.editPartyMemberStats.hasFocus then
