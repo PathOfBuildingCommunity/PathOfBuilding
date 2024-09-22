@@ -92,8 +92,8 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			self.actor["Curse"] = {}
 		end
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Warcry Skills" then
-			self.controls.simpleLinks.label = ""
-			self.controls.editLinks:SetText("")
+			self.controls.simpleWarcries.label = ""
+			self.controls.editWarcries:SetText("")
 			wipeTable(self.actor["Warcry"])
 			self.actor["Warcry"] = {}
 		end
