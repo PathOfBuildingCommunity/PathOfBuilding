@@ -9,6 +9,8 @@ local s_format = string.format
 local t_insert = table.insert
 local t_remove = table.remove
 local m_max = math.max
+local m_min = math.min
+local m_floor = math.floor
 
 local maximumMembers = 6
 
@@ -54,6 +56,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			return lineCount * 16
 		end,
 		widthThreshold1 = 1350,
+		widthThreshold2 = 1150,
 		bufferHeightSmall = 106,
 		bufferHeightLeft = function()
 			-- 2 elements
@@ -188,6 +191,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		if not replaceMember then
 			t_insert(self.partyMembers, { name = "New Member "..(#self.partyMembers), Aura = {}, Curse = {}, Warcry = { }, Link = {}, modDB = new("ModDB"), output = { }, enemyModList = new("ModList") })
 			self:SwapSelectedMember(#self.partyMembers, true)
+			self.controls["Member"..#self.partyMembers.."Button"].label = "^7".."New Member "..(#self.partyMembers - 1)
 		end
 		local partyMember = self.partyMembers[self.selectedMember]
 		local destination = partyDestinations[self.controls.importCodeDestination.selIndex]
@@ -205,6 +209,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 				if destination == "All" or destination == "Curse" then
 					currentCurseBuffer = partyMember.editCurses
 					self.controls.editCurses:SetText("") --curses do not play nicely with append atm, need to fix
+					partyMember.editCurses = ""
 					wipeTable(partyMember["Curse"])
 					partyMember["Curse"] = { }
 				end
@@ -216,6 +221,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 					 -- only one link can be applied at a time anyway
 					currentLinkBuffer = partyMember.editLinks
 					self.controls.editLinks:SetText("")
+					partyMember.editLinks = ""
 					wipeTable(partyMember["Link"])
 					partyMember["Link"] = { }
 				end
@@ -395,31 +401,50 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		end
 	end
 	self.controls.importCodeOverwriteMember.x = function()
-		return (self.width + 200 > theme.widthThreshold1) and 8 or (-328)
+		return (self.width > theme.widthThreshold2) and 8 or (-328)
 	end
 	self.controls.importCodeOverwriteMember.y = function()
-		return (self.width + 200 > theme.widthThreshold1) and 0 or 24
+		return (self.width > theme.widthThreshold2) and 0 or 24
 	end
 	
 	self.controls.ShowAdvanceTools = new("CheckBoxControl", {"TOPLEFT",self.controls.importCodeDestination,"BOTTOMLEFT"}, {140, 4, theme.buttonHeight}, "^7Show Advanced Info", function(state)
-	end, "This shows the advanced info like what stats each aura/curse etc are adding, as well as enables the ability to edit them without a re-export\nDo not edit any boxes unless you know what you are doing, use copy/paste or import instead", false)
+	end, "This shows the advanced info like what stats each aura/curse etc are adding, advanced buttons like disable/rebuild,\nas well as enables the ability to edit them without a re-export\nDo not edit any boxes unless you know what you are doing, use copy/paste or import instead", false)
 	self.controls.ShowAdvanceTools.y = function()
-		return (self.width > theme.widthThreshold1) and 4 or 28
+		return (self.width > theme.widthThreshold2) and 4 or 28
 	end
 	
-	self.controls.deleteMember = new("ButtonControl", {"LEFT",self.controls.ShowAdvanceTools,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "^7Delete Member", function() 
+	self.controls.renameMember = new("EditControl", {"LEFT",self.controls.ShowAdvanceTools,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "", nil, "%^", 15, function(buf)
+		if self.selectedMember ~= 1 then
+			self.controls["Member"..self.selectedMember.."Button"].label = "^7"..buf
+			self.partyMembers[self.selectedMember].name = buf
+		end
+	end, theme.stringHeight)
+	self.controls.renameMember.tooltipText = "^7Renames the Current Party Member"
+	self.controls.renameMember.enabled = function()
+		return self.selectedMember ~= 1
+	end
+	
+	self.controls.deleteMember = new("ButtonControl", {"LEFT",self.controls.renameMember,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "^7Delete Member", function()
 		wipeTable(self.partyMembers[self.selectedMember])
 		t_remove(self.partyMembers, self.selectedMember)
+		for i = self.selectedMember, #self.partyMembers do
+			self.controls["Member"..i.."Button"].label = "^7"..self.partyMembers[i].name
+		end
 		self:CombineBuffs()
 		self:SwapSelectedMember(1, false)
 		self.build.buildFlag = true
 	end)
 	self.controls.deleteMember.tooltipText = "^7Removes the Current Party Member"
+	self.controls.deleteMember.x = function()
+		return (self.width > theme.widthThreshold2) and 8 or (-142)
+	end
+	self.controls.deleteMember.y = function()
+		return (self.width > theme.widthThreshold2) and 0 or -24
+	end
 	
 	self.controls.clear = new("ButtonControl", {"TOPLEFT",self.controls.ShowAdvanceTools,"TOPLEFT"}, {-140, 30, 160, theme.buttonHeight}, "^7Clear", function() 
 		clearInputText()
-		wipeTable(self.enemyModList)
-		self.enemyModList = new("ModList")
+		self:CombineBuffs()
 		self.build.buildFlag = true
 	end)
 	self.controls.clear.tooltipText = "^7Clears all the party tab imported data"
@@ -520,6 +545,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self:SwapSelectedMember(1, true)
 	end)
 	self.controls.overviewButton.tooltipText = "^7 Overview of everything all the other party members give"
+	self.controls.overviewButton.width = function()
+		return m_floor(m_min((self.width / 2) / m_min(#self.partyMembers, ((self.width > theme.widthThreshold1) and 6 or 3)) - 20, 160))
+	end
 	self.controls.overviewButton.y = function()
 		return self.controls.ShowAdvanceTools.state and (60 + ((self.width > theme.widthThreshold1) and 0 or 24)) or 30
 	end
@@ -532,6 +560,15 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self.controls["Member"..i.."Button"].shown = function()
 			return (#self.partyMembers >= i)
 		end
+		self.controls["Member"..i.."Button"].width = function()
+			return m_floor(m_min((self.width / 2) / m_min(#self.partyMembers, ((self.width > theme.widthThreshold1) and 6 or 3)) - 20, 160))
+		end
+	end
+	self.controls["Member4Button"].x = function()
+		return (self.width > theme.widthThreshold1) and 8 or (-self.controls["Member4Button"].width()*3-16)
+	end
+	self.controls["Member4Button"].y = function()
+		return (self.width > theme.widthThreshold1) and 0 or 24
 	end
 
 	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.overviewButton,"TOPLEFT"}, {0, 40, 0, theme.stringHeight}, "^7Auras")
@@ -671,6 +708,7 @@ function PartyTabClass:Load(xml, fileName)
 				ConPrintf("missing name")
 			else
 				t_insert(self.partyMembers, { name = node.attrib.name, Aura = {}, Curse = {}, Warcry = { }, Link = {}, modDB = new("ModDB"), output = { }, enemyModList = new("ModList") })
+				self.controls["Member"..#self.partyMembers.."Button"].label = "^7"..node.attrib.name
 				local currentMember = self.partyMembers[#self.partyMembers]
 				for _, node2 in ipairs(node) do
 					if node2.attrib.name == "PartyMemberStats" then
@@ -700,6 +738,7 @@ function PartyTabClass:Load(xml, fileName)
 		elseif node.elem == "ImportedBuffs" then
 			if not unknownMemeber then
 				t_insert(self.partyMembers, { name = "Unknown", Aura = {}, Curse = {}, Warcry = { }, Link = {}, modDB = new("ModDB"), output = { }, enemyModList = new("ModList") })
+				self.controls["Member"..#self.partyMembers.."Button"].label = "^7Unknown"
 				unknownMemeber = self.partyMembers[#self.partyMembers]
 			end
 			if not node.attrib.name then
@@ -921,6 +960,7 @@ function PartyTabClass:SwapSelectedMember(newMember, saveBuffers)
 	end
 	self.selectedMember = newMember
 	if newMember ~= 1 then
+		self.controls.renameMember.buf = self.partyMembers[self.selectedMember].name
 		self.controls.editPartyMemberStats.buf = self.partyMembers[self.selectedMember].editPartyMemberStats or ""
 		self.controls.editAuras.buf = self.partyMembers[self.selectedMember].editAuras or ""
 		self.controls.editCurses.buf = self.partyMembers[self.selectedMember].editCurses or ""
@@ -928,6 +968,8 @@ function PartyTabClass:SwapSelectedMember(newMember, saveBuffers)
 		self.controls.editLinks.buf = self.partyMembers[self.selectedMember].editLinks or ""
 		self.controls.enemyCond.buf = self.partyMembers[self.selectedMember].enemyCond or ""
 		self.controls.enemyMods.buf = self.partyMembers[self.selectedMember].enemyMods or ""
+	else
+		self.controls.renameMember.buf = ""
 	end
 	self.controls.simpleAuras.label = self.partyMembers[self.selectedMember].simpleAuras or ""
 	self.controls.simpleCurses.label = self.partyMembers[self.selectedMember].simpleCurses or ""
@@ -1224,7 +1266,11 @@ function PartyTabClass:CombineBuffs(filter)
 			if not filter or filter == "PartyMemberStats" then
 				self.actor.modDB:AddList(partyMember.modDB)
 				for k, v in pairs(partyMember.output) do
-					self.actor.output[k] = v
+					if k == "MovementSpeedMod" then
+						self.actor.output[k] = m_max((self.actor.output[k] or 0), tonumber(v))
+					else
+						self.actor.output[k] = v
+					end
 				end
 			end
 			if not filter or filter == "Aura" then
