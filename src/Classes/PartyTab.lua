@@ -715,7 +715,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 end)
 
 function PartyTabClass:Load(xml, fileName)
-	local unknownMemeber
+	local unknownMember
 	for _, node in ipairs(xml) do
 		if node.elem == "ImportedMember" then
 			if not node.attrib.name then
@@ -750,34 +750,34 @@ function PartyTabClass:Load(xml, fileName)
 				end
 			end
 		elseif node.elem == "ImportedBuffs" then
-			if not unknownMemeber then
+			if not unknownMember then
 				t_insert(self.partyMembers, { name = "Unknown", Aura = {}, Curse = {}, Warcry = { }, Link = {}, modDB = new("ModDB"), output = { }, enemyModList = new("ModList") })
 				self.controls["Member"..#self.partyMembers.."Button"].label = "^7Unknown"
-				unknownMemeber = self.partyMembers[#self.partyMembers]
+				unknownMember = self.partyMembers[#self.partyMembers]
 			end
 			if not node.attrib.name then
 				ConPrintf("missing name")
 			elseif node.attrib.name == "PartyMemberStats" then
-				unknownMemeber.editPartyMemberStats = node[1] or ""
-				self:ParseBuffs("PartyMemberStats", unknownMemeber, node[1] or "")
+				unknownMember.editPartyMemberStats = node[1] or ""
+				self:ParseBuffs("PartyMemberStats", unknownMember, node[1] or "")
 			elseif node.attrib.name == "Aura" then
-				unknownMemeber.editAuras = node[1] or ""
-				self:ParseBuffs("Aura", unknownMemeber, node[1] or "")
+				unknownMember.editAuras = node[1] or ""
+				self:ParseBuffs("Aura", unknownMember, node[1] or "")
 			elseif node.attrib.name == "Curse" then
-				unknownMemeber.editCurses = node[1] or ""
-				self:ParseBuffs("Curse", unknownMemeber, node[1] or "")
+				unknownMember.editCurses = node[1] or ""
+				self:ParseBuffs("Curse", unknownMember, node[1] or "")
 			elseif node.attrib.name == "Warcry Skills" then
-				unknownMemeber.editWarcries = node[1] or ""
-				self:ParseBuffs("Warcry", unknownMemeber, node[1] or "")
+				unknownMember.editWarcries = node[1] or ""
+				self:ParseBuffs("Warcry", unknownMember, node[1] or "")
 			elseif node.attrib.name == "Link Skills" then
-				unknownMemeber.editLinks = node[1] or ""
-				self:ParseBuffs("Link", unknownMemeber, node[1] or "")
+				unknownMember.editLinks = node[1] or ""
+				self:ParseBuffs("Link", unknownMember, node[1] or "")
 			elseif node.attrib.name == "EnemyConditions" then
-				unknownMemeber.editPartyMemberStats = node[1] or ""
-				self:ParseBuffs("EnemyConditions", unknownMemeber, node[1] or "")
+				unknownMember.editPartyMemberStats = node[1] or ""
+				self:ParseBuffs("EnemyConditions", unknownMember, node[1] or "")
 			elseif node.attrib.name == "EnemyMods" then
-				unknownMemeber.enemyMods = node[1] or ""
-				self:ParseBuffs("EnemyMods", unknownMemeber, node[1] or "")
+				unknownMember.enemyMods = node[1] or ""
+				self:ParseBuffs("EnemyMods", unknownMember, node[1] or "")
 			end
 		elseif node.elem == "ExportedBuffs" then
 			if not node.attrib.name then

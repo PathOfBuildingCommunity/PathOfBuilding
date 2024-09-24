@@ -141,19 +141,22 @@ The "Sync" option is a backup option to force the UI to update in case the user 
 
 The Party tab Allows you to import support characters and have their auras and curses apply
 
-To import a build it must be exported with "Export support" enabled in the import/export tab and must be imported in the party tab
-You can import a specific type like aura or curse, or import to all
-You can also set it to append to a section rather than replace it (curses and links are always replaced if new one has a curse/link)
+To import a build it must be exported with "Export support" enabled in the import/export tab and must be imported in the party tab.
+You can import a specific type like aura or curse, or import to all.
+You can also set it to append to a section rather than replace it in the advanced options (curses and links are always replaced if new one has a curse/link)
 
-This does not add the auras, curses or links into the skills tab, but they do show up on calcs tab under "aura and buff skills" as well as "curses and debuffs" respectively
-They also show other effects they add, like when physical damage reduction is applied by an aurabot with the Guardian node
+These can be imported to a new member or overwriting the current one, these members can also be renamed but not reordered.
+If the name is red it means its currently disabled (via advanced options), and if yellow it means its been edited without being rebuilt.
 
-Auras with the highest effect will take priority
-Your curses will take priority over a support's
+This does not add the auras, curses, warcries or links into the skills tab, but they do show up on calcs tab under "aura and buff skills" as well as "curses and debuffs" respectively.
+They also show other effects they add, like when physical damage reduction is applied by an aurabot with the Guardian node.
 
-Links skills use stats from party members if they are exported
-Some Enemy conditions and Modifiers may not be properly exported, please let us know if something is broken
-Some auras like Mines which use a stack value for their effect will not apply as their stack value is missing
+Auras with the highest effect will take priority.
+Your curses will take priority over a support's.
+
+Links skills use stats from party members if they are exported.
+Some Enemy conditions and Modifiers may not be properly exported, please let us know if something is broken.
+Allied Flasks do not currently apply, and is a known issue.
 
 ---[Skills Tab]
 
