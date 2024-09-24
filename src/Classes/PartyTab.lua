@@ -1360,7 +1360,6 @@ function PartyTabClass:CombineBuffs(filter)
 		local count = 0
 		local enemyModList = { }
 		self.partyMembers[1].simpleEnemyMods = "^7---------------------------"
-		ConPrintTable(self.enemyModList)
 		for _, mod in ipairs(self.enemyModList) do
 			if not mod.name:match("Condition:Party") then
 				enemyModList[mod.name] = enemyModList[mod.name] or { }
