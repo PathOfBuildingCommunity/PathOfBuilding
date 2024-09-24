@@ -415,7 +415,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	
 	self.controls.renameMember = new("EditControl", {"LEFT",self.controls.ShowAdvanceTools,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "", nil, "%^", 15, function(buf)
 		if self.selectedMember ~= 1 then
-			self.controls["Member"..self.selectedMember.."Button"].label = "^7"..buf
+			self.controls["Member"..self.selectedMember.."Button"].label = (self.partyMembers[self.selectedMember].NameColour or "^7")..buf
 			self.partyMembers[self.selectedMember].name = buf
 		end
 	end, theme.stringHeight)
@@ -428,7 +428,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		wipeTable(self.partyMembers[self.selectedMember])
 		t_remove(self.partyMembers, self.selectedMember)
 		for i = self.selectedMember, #self.partyMembers do
-			self.controls["Member"..i.."Button"].label = "^7"..self.partyMembers[i].name
+			self.controls["Member"..i.."Button"].label = (self.partyMembers[i].NameColour or "^7")..self.partyMembers[i].name
 		end
 		self:CombineBuffs()
 		self:SwapSelectedMember(1, false)
@@ -459,6 +459,8 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		if self.selectedMember == 1 then
 			for i, partyMember in ipairs(self.partyMembers) do
 				if i ~= 1 then
+					partyMember.NameColour = "^1"
+					self.controls["Member"..i.."Button"].label = "^1"..partyMember.name
 					partyMember["Aura"] = { }
 					partyMember["Curse"] = { }
 					partyMember["Warcry"] = { }
@@ -472,6 +474,8 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			end
 		else
 			local partyMember = self.partyMembers[self.selectedMember]
+			partyMember.NameColour = "^1"
+			self.controls["Member"..self.selectedMember.."Button"].label = "^1"..partyMember.name
 			partyMember["Aura"] = { }
 			partyMember["Curse"] = { }
 			partyMember["Warcry"] = { }
@@ -498,6 +502,8 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		if self.selectedMember == 1 then
 			for i, partyMember in ipairs(self.partyMembers) do
 				if i ~= 1 then
+					partyMember.NameColour = "^7"
+					self.controls["Member"..i.."Button"].label = "^7"..partyMember.name
 					partyMember["Aura"] = { }
 					partyMember["Curse"] = { }
 					partyMember["Warcry"] = { }
@@ -518,6 +524,8 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			end
 		else
 			local partyMember = self.partyMembers[self.selectedMember]
+			partyMember.NameColour = "^7"
+			self.controls["Member"..self.selectedMember.."Button"].label = "^7"..partyMember.name
 			partyMember["Aura"] = { }
 			partyMember["Curse"] = { }
 			partyMember["Warcry"] = { }
@@ -571,11 +579,17 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return (self.width > theme.widthThreshold1) and 0 or 24
 	end
 
+	local rebuildColourFunction = function(buf)
+		if not self.partyMembers[self.selectedMember].NameColour or self.partyMembers[self.selectedMember].NameColour ~= "^1" then
+			self.partyMembers[self.selectedMember].NameColour = "^4"
+			self.controls["Member"..self.selectedMember.."Button"].label = "^4"..self.partyMembers[self.selectedMember].name
+		end
+	end
 	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.overviewButton,"TOPLEFT"}, {0, 40, 0, theme.stringHeight}, "^7Auras")
 	self.controls.editAurasLabel.y = function()
 		return 36 + ((self.width <= theme.widthThreshold1) and 24 or 0)
 	end
-	self.controls.editAuras = new("EditControl", {"TOPLEFT",self.controls.editAurasLabel,"TOPLEFT"}, {0, 18, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editAuras = new("EditControl", {"TOPLEFT",self.controls.editAurasLabel,"TOPLEFT"}, {0, 18, 0, 0}, "", nil, "^%C\t\n", nil, rebuildColourFunction, 14, true)
 	self.controls.editAuras.width = function()
 		return self.width / 2 - 16
 	end
@@ -595,7 +609,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.editWarcriesLabel.y = function()
 		return (self.controls.ShowAdvanceTools.state and (self.selectedMember ~= 1)) and (self.controls.editAuras.height() + 8) or (theme.lineCounter(self.controls.simpleAuras.label) + 4)
 	end
-	self.controls.editWarcries = new("EditControl", {"TOPLEFT",self.controls.editWarcriesLabel,"TOPLEFT"}, {0, 18, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editWarcries = new("EditControl", {"TOPLEFT",self.controls.editWarcriesLabel,"TOPLEFT"}, {0, 18, 0, 0}, "", nil, "^%C\t\n", nil, rebuildColourFunction, 14, true)
 	self.controls.editWarcries.width = function()
 		return self.width / 2 - 16
 	end
@@ -614,7 +628,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.editLinksLabel.y = function()
 		return (self.controls.ShowAdvanceTools.state and (self.selectedMember ~= 1)) and (self.controls.editWarcries.height() + 8) or (theme.lineCounter(self.controls.simpleWarcries.label) + 4)
 	end
-	self.controls.editLinks = new("EditControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, {0, 18, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editLinks = new("EditControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, {0, 18, 0, 0}, "", nil, "^%C\t\n", nil, rebuildColourFunction, 14, true)
 	self.controls.editLinks.width = function()
 		return self.width / 2 - 16
 	end
@@ -630,7 +644,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	end
 
 	self.controls.editPartyMemberStatsLabel = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"TOPRIGHT"}, {8, 0, 0, theme.stringHeight}, "^7Party Member Stats")
-	self.controls.editPartyMemberStats = new("EditControl", {"TOPLEFT",self.controls.editPartyMemberStatsLabel,"BOTTOMLEFT"}, {0, 2, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editPartyMemberStats = new("EditControl", {"TOPLEFT",self.controls.editPartyMemberStatsLabel,"BOTTOMLEFT"}, {0, 2, 0, 0}, "", nil, "^%C\t\n", nil, rebuildColourFunction, 14, true)
 	self.controls.editPartyMemberStats.width = function()
 		return self.width / 2 - 16
 	end
@@ -645,7 +659,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.enemyCondLabel.y = function()
 		return (self.controls.ShowAdvanceTools.state and (self.selectedMember ~= 1)) and (self.controls.editPartyMemberStats.height() + 8) or 4
 	end
-	self.controls.enemyCond = new("EditControl", {"TOPLEFT",self.controls.enemyCondLabel,"BOTTOMLEFT"}, {0, 2, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.enemyCond = new("EditControl", {"TOPLEFT",self.controls.enemyCondLabel,"BOTTOMLEFT"}, {0, 2, 0, 0}, "", nil, "^%C\t\n", nil, rebuildColourFunction, 14, true)
 	self.controls.enemyCond.width = function()
 		return self.width / 2 - 16
 	end
@@ -664,7 +678,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.enemyModsLabel.y = function()
 		return (self.controls.ShowAdvanceTools.state and (self.selectedMember ~= 1)) and (self.controls.enemyCond.height() + 8) or (theme.lineCounter(self.controls.simpleEnemyCond.label) + 4)
 	end
-	self.controls.enemyMods = new("EditControl", {"TOPLEFT",self.controls.enemyModsLabel,"BOTTOMLEFT"}, {0, 2, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.enemyMods = new("EditControl", {"TOPLEFT",self.controls.enemyModsLabel,"BOTTOMLEFT"}, {0, 2, 0, 0}, "", nil, "^%C\t\n", nil, rebuildColourFunction, 14, true)
 	self.controls.enemyMods.width = function()
 		return self.width / 2 - 16
 	end
@@ -683,7 +697,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.editCursesLabel.y = function()
 		return (self.controls.ShowAdvanceTools.state and (self.selectedMember ~= 1)) and (self.controls.enemyMods.height() + 8) or (theme.lineCounter(self.controls.simpleEnemyMods.label) + 4)
 	end
-	self.controls.editCurses = new("EditControl", {"TOPLEFT",self.controls.editCursesLabel,"BOTTOMLEFT"}, {0, 2, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editCurses = new("EditControl", {"TOPLEFT",self.controls.editCursesLabel,"BOTTOMLEFT"}, {0, 2, 0, 0}, "", nil, "^%C\t\n", nil, rebuildColourFunction, 14, true)
 	self.controls.editCurses.width = function()
 		return self.width / 2 - 16
 	end
