@@ -1708,11 +1708,11 @@ function ItemClass:BuildModList()
 		if self.sockets then
 			for i, socket in ipairs(self.sockets) do
 				if socket.color ~= "A" then
-					t_insert(newSockets, socket)
-					group = socket.group
 					if #newSockets >= self.selectableSocketCount then
 						break
 					end
+					t_insert(newSockets, socket)
+					group = socket.group
 				end
 			end
 		end
