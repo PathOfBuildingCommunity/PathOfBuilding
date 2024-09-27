@@ -2725,6 +2725,8 @@ local skills, mod, flag, skill = ...
 			activeSkill.skillModList:NewMod("DPS", "MORE", splitCount * 100, "Split Return", 0, { type = "Condition", var = "ReturningProjectile" })
 		end
 	end,
+#baseMod skill("projectileSpeed", 200)
+#baseMod skill("duration", 0.41)
 #mods
 
 #skill ShrapnelBallistaAltX
@@ -2816,6 +2818,7 @@ local skills, mod, flag, skill = ...
 #skill SpectralThrow
 #flags attack projectile
 #baseMod mod("PierceChance", "BASE", 100)
+#baseMod mod("ReturnChance", "BASE", 100)
 #mods
 
 #skill SpectralThrowAltX
@@ -3000,13 +3003,18 @@ local skills, mod, flag, skill = ...
 #flags attack projectile
 	parts = {
 		{
-			name = "Outgoing Projectile",
+			name = "Main Projectile",
 		},
 		{
-			name = "Returning Projectile",
+			name = "Caught Projectile",
 		},
 	},
-#baseMod flag("Condition:ReturningProjectile", { type = "SkillPart", skillPart = 2 })
+	statMap = {
+		["quality_display_active_skill_returning_damage_is_gem"] = {
+			-- Display only
+		},
+	},
+#baseMod flag("CannotReturn", { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill VaalVenomGyre

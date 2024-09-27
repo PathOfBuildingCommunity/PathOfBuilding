@@ -611,7 +611,10 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillModList:Flag(nil, "ProjectileSpeedAppliesToBowDamage") then
 		-- Bow mastery projectile speed to damage with bows conversion
-		for i, value in ipairs(skillModList:Tabulate("INC", { }, "ProjectileSpeed")) do
+		local returnCfg = copyTable(skillCfg, true)
+		returnCfg.skillCond = copyTable(returnCfg.skillCond)
+		returnCfg.skillCond["ReturningProjectile"] = true
+		for i, value in ipairs(skillModList:Tabulate("INC", returnCfg, "ProjectileSpeed")) do
 			local mod = value.mod
 			skillModList:NewMod("Damage", mod.type, mod.value, mod.source, bor(ModFlag.Bow, ModFlag.Hit), mod.keywordFlags, unpack(mod))
 		end
@@ -1044,6 +1047,85 @@ function calcs.offence(env, actor, activeSkill)
 		output.ProjectileSpeedMod = calcLib.mod(skillModList, skillCfg, "ProjectileSpeed")
 		if breakdown then
 			breakdown.ProjectileSpeedMod = breakdown.mod(skillModList, skillCfg, "ProjectileSpeed")
+		end
+		if env.configInput.disableReturn then
+			output.ReturnChance = 0
+			if breakdown and skillModList:Sum("BASE", skillCfg, "ReturnChance") > 0 then
+				output.ReturnChanceString = "Return Disabled"
+			end
+		elseif skillModList:Flag(skillCfg, "CannotReturn") or activeSkill.skillTypes[SkillType.ProjectileNumber] or (activeSkill.activeEffect.grantedEffect.name == "Unearth" and output.PierceCount >= 100) then
+			output.ReturnChance = 0
+			if breakdown and skillModList:Sum("BASE", skillCfg, "ReturnChance") > 0 then
+				output.ReturnChanceString = "Cannot return"
+			end
+		elseif skillModList:Flag(skillCfg, "ReturnDoesNotAddDPS") then
+			output.ReturnChance = 0
+			if breakdown and skillModList:Sum("BASE", skillCfg, "ReturnChance") > 0 then
+				output.ReturnChanceString = "No Extra DPS"
+			end
+		else
+			output.ReturnChance = m_min(skillModList:Sum("BASE", skillCfg, "ReturnChance"), 100)
+			if output.ReturnChance > 0 then
+				local minimumReturnSpeed = skillModList:Sum("BASE", skillCfg, "ReturnSpeedNeeded")
+				if minimumReturnSpeed == 0 and skillData.projectileSpeed and skillData.duration then
+					local distanceNeeded = skillModList:Sum("OVERRIDE", skillCfg, "projectile_maximum_range_override") * 2
+					distanceNeeded = distanceNeeded > 0 and distanceNeeded or (data.misc.ProjectileDistanceCap * 2)
+					minimumReturnSpeed = distanceNeeded / skillData.projectileSpeed / skillData.duration * 100
+				end
+				if minimumReturnSpeed > 0 then
+					local nonReturnCfg = copyTable(skillCfg, true)
+					nonReturnCfg.skillCond = copyTable(nonReturnCfg.skillCond)
+					nonReturnCfg.skillCond["ReturningProjectile"] = false
+					local nonReturnProjectileSpeedMod = calcLib.mod(skillModList, nonReturnCfg, "ProjectileSpeed")
+					if (minimumReturnSpeed / 100) > nonReturnProjectileSpeedMod then
+						output.ReturnChance = 0
+						output.ReturnChanceString = "Proj. Too Slow"
+						if breakdown then
+							breakdown.ReturnChanceString = {
+								s_format("Return Chance: %d%%", output.ReturnChance),
+								s_format("Minimum projectile speed required to return: %d%%", minimumReturnSpeed),
+								s_format("Current projectile speed: %d%%", nonReturnProjectileSpeedMod * 100),
+							}
+						end
+					end
+				end
+				if output.ReturnChance > 0 then
+					output.ReturnChanceString = output.ReturnChance.."%"
+					output.SecondaryReturnChance = m_min(skillModList:Sum("BASE", skillCfg, "SecondaryReturnChance"), 100)
+					if output.SecondaryReturnChance > 0 and minimumReturnSpeed > 0 then
+						local returnCfg = copyTable(skillCfg, true)
+						returnCfg.skillCond = copyTable(returnCfg.skillCond)
+						returnCfg.skillCond["ReturningProjectile"] = true
+						local returnProjectileSpeedMod = calcLib.mod(skillModList, returnCfg, "ProjectileSpeed")
+						if (minimumReturnSpeed * 2 / 100) > returnProjectileSpeedMod then
+							output.SecondaryReturnChance = 0
+							if breakdown then
+								breakdown.ReturnChanceString = {
+									s_format("Return Chance: %d%%", output.ReturnChance),
+									s_format(" "),
+									s_format("Second Return Chance: %d%%", output.SecondaryReturnChance),
+									s_format("Minimum projectile speed required to return Second Time: %d%%", minimumReturnSpeed * 2),
+									s_format("Current projectile speed: %d%%", returnProjectileSpeedMod * 100),
+								}
+							end
+						end
+					end
+					if output.SecondaryReturnChance > 0 then
+						output.ReturnChanceString = output.ReturnChanceString..", "..output.SecondaryReturnChance.."%"
+						if breakdown then
+							breakdown.ReturnChanceString = {
+								s_format("Return Chance: %d%%", output.ReturnChance),
+								s_format(" "),
+								s_format("Second Return Chance: %d%%", output.SecondaryReturnChance),
+							}
+							if output.SecondaryReturnChance > 0 and output.ReturnChance < 100 then
+								t_insert(breakdown.ReturnChanceString, s_format("x %.2f ^8(return chance)", output.ReturnChance / 100))
+								t_insert(breakdown.ReturnChanceString, s_format("= %.2f%% ^8(total chance to return twice)", output.SecondaryReturnChance * output.ReturnChance / 100))
+							end
+						end
+					end
+				end
+			end
 		end
 	end
 	if skillFlags.melee then
@@ -2333,6 +2415,26 @@ function calcs.offence(env, actor, activeSkill)
 	if quantityMultiplier > 1 then
 		output.QuantityMultiplier = quantityMultiplier
 	end
+	
+	-- support returning projectiles dps multiplier, its here instead of earlier due to no return mods affecting attack speed etc
+	if (output.ReturnChance or 0) > 0 then
+		local returnPasses = {}
+		for _, pass in ipairs(passList) do
+			pass.output.ReturningProjectile = copyTable(pass.output, true)
+			t_insert(returnPasses, {
+				label = pass.label.." Returning Projectile",
+				source = copyTable(pass.source),
+				cfg = copyTable(pass.cfg, true),
+				output = pass.output.ReturningProjectile,
+				breakdown = nil,
+			})
+		end
+		for _, pass in ipairs(returnPasses) do
+			pass.cfg.skillCond = copyTable(pass.cfg.skillCond)
+			pass.cfg.skillCond["ReturningProjectile"] = true
+			t_insert(passList, pass)
+		end
+	end
 
 	--Calculate damage (exerts, crits, ruthless, DPS, etc)
 	for _, pass in ipairs(passList) do
@@ -3412,6 +3514,35 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	
+	-- returning projectile dps mods and removing them from pass list
+	if (output.ReturnChance or 0) > 0 then
+		local returningProjectileDamageMult = 1
+		local baseDamageMult = 1
+		if isAttack then
+			returningProjectileDamageMult = output.MainHand and output.MainHand.ReturningProjectile.AverageDamage or 0 + output.OffHand and output.OffHand.ReturningProjectile.AverageDamage or 0
+			baseDamageMult = output.MainHand and output.MainHand.AverageDamage or 0 + output.OffHand and output.OffHand.AverageDamage or 0
+		else
+			returningProjectileDamageMult = output.ReturningProjectile.AverageDamage
+			baseDamageMult = output.AverageDamage
+		end
+		returningProjectileDamageMult = returningProjectileDamageMult / baseDamageMult
+		local returnChanceMult = output.ReturnChance * (1 + (output.SecondaryReturnChance or 0) / 100) / 100
+		skillData.dpsMultiplier = skillData.dpsMultiplier * (1 + returnChanceMult * returningProjectileDamageMult)
+		-- remove returning projectile passes
+		local passesToRemove = {}
+		for i, pass in ipairs(passList) do
+			if pass.label:match(" Returning Projectile") then
+				t_insert(passesToRemove, 1, i)
+			else
+				pass.output.TotalDPS = pass.output.TotalDPS * (1 + returnChanceMult * returningProjectileDamageMult)
+			end
+		end
+		for _, i in ipairs(passesToRemove) do
+			t_remove(passList, i)
+		end
+	end
+	
 
 	if isAttack then
 		-- Combine crit stats, average damage and DPS
