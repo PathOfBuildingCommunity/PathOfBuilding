@@ -983,19 +983,22 @@ function calcs.initEnv(build, mode, override, specEnv)
 					if item.shaper or item.elder then
 						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) - 1
 					end
-					local otherRing = (slotName == "Ring 1" and build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId]) or (slotName == "Ring 2" and build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId])
+					local otherRing = items[(slotName == "Ring 1" and "Ring 2") or (slotName == "Ring 2" and "Ring 1")]
 					if otherRing and not otherRing.name:match("Kalandra's Touch") then
-						local otherRingList = otherRing and copyTable(otherRing.modList or otherRing.slotModList[slot.slotNum]) or {}
-						for index, mod in ipairs(otherRingList) do
-							modLib.setSource(mod, item.modSource)
+						for _, mod in ipairs(otherRing.modList or otherRing.slotModList[slot.slotNum] or {}) do
+							-- Filter out SocketedIn type mods
 							for _, tag in ipairs(mod) do
 								if tag.type == "SocketedIn" then
-									otherRingList[index] = nil
-									break
+									goto skip_mod
 								end
 							end
+
+							local modCopy = copyTable(mod)
+							modLib.setSource(modCopy, item.modSource)
+							env.itemModDB:ScaleAddMod(modCopy, scale)
+
+							::skip_mod::
 						end
-						env.itemModDB:ScaleAddList(otherRingList, scale)
 						-- Adjust multipliers based on other ring
 						for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder"}) do
 							if otherRing[property] then
