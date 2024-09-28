@@ -1735,19 +1735,8 @@ function buildMode:AddDisplayStatList(statList, actor)
 						end
 					elseif not (statData.hideStat) then
 						-- Change the color of the stat label to red if cost exceeds pool
-						local output = actor.output
-						local poolVal = output[statData.pool]
 						local colorOverride = nil
-						if statData.stat:match("Cost$") and not statData.stat:match("PerSecondCost$") and statVal and poolVal then
-							if statData.stat == "ManaCost" and output.EnergyShieldProtectsMana then
-								if statVal > output.ManaUnreserved + output.EnergyShield then
-									colorOverride = colorCodes.NEGATIVE
-								end
-							elseif statVal > poolVal then
-								colorOverride = colorCodes.NEGATIVE
-							end
-						end
-						if statData.warnFunc and statData.warnFunc(statVal, actor.output) and statData.warnColor then
+						if actor.output[statData.stat.."Warning"] or (statData.warnFunc and statData.warnFunc(statVal, actor.output) and statData.warnColor) then
 							colorOverride = colorCodes.NEGATIVE
 						end
 						t_insert(statBoxList, {
