@@ -8,6 +8,7 @@ local ipairs = ipairs
 local t_insert = table.insert
 local s_format = string.format
 local m_min = math.min
+local m_ceil = math.ceil
 
 local calcs = { }
 calcs.breakdownModule = "Modules/CalcBreakdown"
@@ -441,8 +442,13 @@ function calcs.buildOutput(build, mode)
 					if cachedCost then
 						local totalPool = (output.EnergyShieldProtectsMana and costResource == "ManaCost" and output["EnergyShield"] or 0) + (output[pool] or 0)
 						if totalPool < cachedCost then
-							output[costResource.."Warning"] = output[costResource.."Warning"] or {}
-							t_insert(output[costResource.."Warning"], skill.activeEffect.grantedEffect.name)
+							local rawPool = pool:gsub("Unreserved$", "")
+							local reservation = GlobalCache.cachedData[mode][uuid].Env.player.mainSkill and GlobalCache.cachedData[mode][uuid].Env.player.mainSkill.skillData[rawPool .. "ReservedPercent"]
+							-- Skill has both cost and reservation check if there's avilable pool for raw cost before reservation
+							if not reservation or (reservation and (totalPool + m_ceil((output[rawPool] or 0) * reservation / 100)) < cachedCost) then
+								output[costResource.."Warning"] = output[costResource.."Warning"] or {}
+								t_insert(output[costResource.."Warning"], skill.activeEffect.grantedEffect.name)
+							end
 						end
 					end
 				end
