@@ -3713,6 +3713,12 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 
+		if modDB:Flag(nil, "AilmentsAreNeverFromCrit") then
+			for _, ailment in ipairs(ailmentTypeList) do
+				output[ailment.."ChanceOnCrit"] = 0
+			end
+		end
+
 		-- address Weapon1H interaction with Ailment for nodes like Sleight of Hand
 		-- bit-and on cfg.flags confirms if the skill has the 1H flag
 		-- if so bit-or on the targetCfg (e.g. dotCfg) to guarantee for calculations like Sum("INC") and breakdown
@@ -3921,11 +3927,8 @@ function calcs.offence(env, actor, activeSkill)
 			end
 
 			for sub_pass = 1, 2 do
-				if skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") or sub_pass == 1 then
-					dotCfg.skillCond["CriticalStrike"] = false
-				else
-					dotCfg.skillCond["CriticalStrike"] = true
-				end
+				dotCfg.skillCond["CriticalStrike"] = sub_pass ~= 1
+
 				local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.BleedPhysical, "Physical", 0)
 				output.BleedPhysicalMin = min
 				output.BleedPhysicalMax = max
@@ -4149,11 +4152,8 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 			for sub_pass = 1, 2 do
-				if skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") or sub_pass == 1 then
-					dotCfg.skillCond["CriticalStrike"] = false
-				else
-					dotCfg.skillCond["CriticalStrike"] = true
-				end
+				dotCfg.skillCond["CriticalStrike"] = sub_pass ~= 1
+
 				local totalMin, totalMax = 0, 0
 				do
 					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.PoisonChaos, "Chaos", 0)
@@ -4457,11 +4457,8 @@ function calcs.offence(env, actor, activeSkill)
 			end
 
 			for sub_pass = 1, 2 do
-				if skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") or sub_pass == 1 then
-					dotCfg.skillCond["CriticalStrike"] = false
-				else
-					dotCfg.skillCond["CriticalStrike"] = true
-				end
+				dotCfg.skillCond["CriticalStrike"] = sub_pass ~= 1
+
 				local totalMin, totalMax = 0, 0
 				if canDeal.Physical and skillModList:Flag(cfg, "PhysicalCanIgnite") then
 					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.IgnitePhysical, "Physical", dmgTypeFlags.Fire)
