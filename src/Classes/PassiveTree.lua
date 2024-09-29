@@ -36,7 +36,7 @@ local legacyOrbitRadii = { 0, 82, 162, 335, 493 }
 -- Retrieve the file at the given URL
 -- This is currently disabled as it does not work due to issues
 -- its possible to fix this but its never used due to us performing preprocessing on tree
-local function getFile(URL)
+local function getFileAtURL(URL)
 	local page = ""
 	local easy = common.curl.easy()
 	easy:setopt_url(URL)
@@ -49,44 +49,52 @@ local function getFile(URL)
 	return #page > 0 and page
 end
 
-local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
-	self.treeVersion = treeVersion
-	local versionNum = treeVersions[treeVersion].num
-
-	self.legion = LoadModule("Data/TimelessJewelData/LegionPassives")
-	self.tattoo = LoadModule("Data/TattooPassives")
-
-	MakeDir("TreeData")
-
-	ConPrintf("Loading passive tree data for version '%s'...", treeVersions[treeVersion].display)
-	local treeText
-	local treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "r")
-	if treeFile then
-		treeText = treeFile:read("*a")
-		treeFile:close()
+-- Retrieve the file at the given Path
+local function getFile(Path, altPath)
+	local text
+	local File = io.open("TreeData/"..Path..".lua", "r")
+	if File then
+		text = File:read("*a")
+		File:close()
+		return text
 	else
 		local page
-		local pageFile = io.open("TreeData/"..treeVersion.."/data.json", "r")
+		local pageFile = io.open("TreeData/"..altPath..".json", "r")
 		if pageFile then
 			ConPrintf("Converting passive tree data json")
 			page = pageFile:read("*a")
 			pageFile:close()
 		elseif main.allowTreeDownload then  -- Enable downloading with Ctrl+Shift+F5 (currently disabled)
 			ConPrintf("Downloading passive tree data...")
-			page = getFile("https://www.pathofexile.com/passive-skill-tree")
+			page = getFileAtURL("https://www.pathofexile.com/passive-skill-tree")
+		elseif Path:match("ruthless") then
+			File = io.open("TreeData/"..Path:gsub("_ruthless","")..".lua", "r")
+			if File then
+				text = File:read("*a")
+				File:close()
+				return text
+			end
 		end
 		local treeData = page:match("var passiveSkillTreeData = (%b{})")
 		if treeData then
-			treeText = "local tree=" .. jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
-			treeText = treeText .. "return tree"
+			text = "local tree=" .. jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
+			text = text .. "return tree"
 		else
-			treeText = "return " .. jsonToLua(page)
+			text = "return " .. jsonToLua(page)
 		end
-		treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "w")
-		treeFile:write(treeText)
-		treeFile:close()
+		File = io.open("TreeData/"..Path..".lua", "w")
+		File:write(text)
+		File:close()
+		return text
 	end
-	for k, v in pairs(assert(loadstring(treeText))()) do
+end
+
+local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
+	self.treeVersion = treeVersion
+	local versionNum = treeVersions[treeVersion].num
+
+	ConPrintf("Loading passive tree data for version '%s'...", treeVersions[treeVersion].display)
+	for k, v in pairs(assert(loadstring(getFile("Data/"..treeVersion, (treeVersion:match("ruthless") and treeVersion:gsub("_ruthless", "/ruthless")) or (treeVersion.."/data"))))()) do
 		self[k] = v
 	end
 
@@ -106,10 +114,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.classNotables = { }
 
 	for classId, class in pairs(self.classes) do
-		if versionNum >= 3.10 then
-			-- Migrate to old format
-			class.classes = class.ascendancies
-		end
+		class.classes = class.classes or class.ascendancies
 		class.classes[0] = { name = "None" }
 		self.classNameMap[class.name] = classId
 		for ascendClassId, ascendClass in pairs(class.classes) do
@@ -169,8 +174,18 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		self.orbitAnglesByOrbit[orbit] = self:CalcOrbitAngles(skillsInOrbit)
 	end
 
+
+	local classArt = {
+		[0] = "centerscion",
+		[1] = "centermarauder",
+		[2] = "centerranger",
+		[3] = "centerwitch",
+		[4] = "centerduelist",
+		[5] = "centertemplar",
+		[6] = "centershadow"
+	}
 	if not self.assets then
-		self.assets = LoadModule("TreeData/3_19/Assets.lua")
+		self.assets = LoadModule("TreeData/Assets/data/Assets.lua")
 		self.assets = self.assets.assets
 		if self.alternate_ascendancies then
 			-- backgrounds
@@ -200,157 +215,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	for name, data in pairs(self.assets) do
 		self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
 	end
-
-	-- Load sprite sheets and build sprite map
-	self.spriteMap = { }
-	local spriteSheets = { }
-	if not self.skillSprites then
-		if not self.sprites then
-			ConPrintf("Loading passive tree sprite data for version '%s'...", treeVersions[treeVersion].display)
-			local spriteText
-			local spriteFile = io.open("TreeData/"..treeVersion.."/sprites.lua", "r")
-			if spriteFile then
-				spriteText = spriteFile:read("*a")
-				spriteFile:close()
-			else
-				local page
-				local pageFile = io.open("TreeData/"..treeVersion.."/sprites.json", "r")
-				if pageFile then
-					ConPrintf("Converting passive tree sprites json")
-					page = pageFile:read("*a")
-					pageFile:close()
-					spriteText = "return " .. jsonToLua(page)
-				end
-				spriteFile = io.open("TreeData/"..treeVersion.."/sprites.lua", "w")
-				spriteFile:write(spriteText)
-				spriteFile:close()
-			end
-			for k, v in pairs(assert(loadstring(spriteText))()) do
-				self[k] = v
-			end
-		end
-		self.skillSprites = self.sprites
-	end
-	for type, data in pairs(self.skillSprites) do
-		local maxZoom
-		if not self.imageZoomLevels then
-			maxZoom = data
-		elseif versionNum >= 3.19 then
-			maxZoom = data[0.3835] or data[1]
-		else
-			maxZoom = data[#data]
-		end
-		local sheet = spriteSheets[maxZoom.filename]
-		if not sheet then
-			sheet = { }
-			self:LoadImage(versionNum >= 3.16 and maxZoom.filename:gsub("%?%x+$",""):gsub(".*/","") or maxZoom.filename:gsub("%?%x+$",""), versionNum >= 3.16 and maxZoom.filename or "https://web.poecdn.com"..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
-			spriteSheets[maxZoom.filename] = sheet
-		end
-		for name, coords in pairs(maxZoom.coords) do
-			if not self.spriteMap[name] then
-				self.spriteMap[name] = { }
-			end
-			self.spriteMap[name][type] = {
-				handle = sheet.handle,
-				width = coords.w,
-				height = coords.h,
-				[1] = coords.x / sheet.width,
-				[2] = coords.y / sheet.height,
-				[3] = (coords.x + coords.w) / sheet.width,
-				[4] = (coords.y + coords.h) / sheet.height
-			}
-		end
-	end
-
-	-- Load legion sprite sheets and build sprite map
-	local legionSprites = LoadModule("TreeData/legion/tree-legion.lua")
-	for type, data in pairs(legionSprites) do
-		local maxZoom = data[#data]
-		local sheet = spriteSheets[maxZoom.filename]
-		if not sheet then
-			sheet = { }
-			sheet.handle = NewImageHandle()
-			sheet.handle:Load("TreeData/legion/"..maxZoom.filename)
-			sheet.width, sheet.height = sheet.handle:ImageSize()
-			spriteSheets[maxZoom.filename] = sheet
-		end
-		for name, coords in pairs(maxZoom.coords) do
-			if not self.spriteMap[name] then
-				self.spriteMap[name] = { }
-			end
-			self.spriteMap[name][type] = {
-				handle = sheet.handle,
-				width = coords.w,
-				height = coords.h,
-				[1] = coords.x / sheet.width,
-				[2] = coords.y / sheet.height,
-				[3] = (coords.x + coords.w) / sheet.width,
-				[4] = (coords.y + coords.h) / sheet.height
-			}
-		end
-	end
-
-	local classArt = {
-		[0] = "centerscion",
-		[1] = "centermarauder",
-		[2] = "centerranger",
-		[3] = "centerwitch",
-		[4] = "centerduelist",
-		[5] = "centertemplar",
-		[6] = "centershadow"
-	}
-	self.nodeOverlay = {
-		Normal = {
-			artWidth = 40,
-			alloc = "PSSkillFrameActive",
-			path = "PSSkillFrameHighlighted",
-			unalloc = "PSSkillFrame",
-			allocAscend = versionNum >= 3.10 and "AscendancyFrameSmallAllocated" or "PassiveSkillScreenAscendancyFrameSmallAllocated",
-			pathAscend = versionNum >= 3.10 and "AscendancyFrameSmallCanAllocate" or "PassiveSkillScreenAscendancyFrameSmallCanAllocate",
-			unallocAscend = versionNum >= 3.10 and "AscendancyFrameSmallNormal" or "PassiveSkillScreenAscendancyFrameSmallNormal"
-		},
-		Notable = {
-			artWidth = 58,
-			alloc = "NotableFrameAllocated",
-			path = "NotableFrameCanAllocate",
-			unalloc = "NotableFrameUnallocated",
-			allocAscend = versionNum >= 3.10 and "AscendancyFrameLargeAllocated" or "PassiveSkillScreenAscendancyFrameLargeAllocated",
-			pathAscend = versionNum >= 3.10 and "AscendancyFrameLargeCanAllocate" or "PassiveSkillScreenAscendancyFrameLargeCanAllocate",
-			unallocAscend = versionNum >= 3.10 and "AscendancyFrameLargeNormal" or "PassiveSkillScreenAscendancyFrameLargeNormal",
-			allocBlighted = "BlightedNotableFrameAllocated",
-			pathBlighted = "BlightedNotableFrameCanAllocate",
-			unallocBlighted = "BlightedNotableFrameUnallocated",
-		},
-		Keystone = {
-			artWidth = 84,
-			alloc = "KeystoneFrameAllocated",
-			path = "KeystoneFrameCanAllocate",
-			unalloc = "KeystoneFrameUnallocated",
-			allocBlighted = "KeystoneFrameAllocated",
-			pathBlighted = "KeystoneFrameCanAllocate",
-			unallocBlighted = "KeystoneFrameUnallocated",
-		},
-		Socket = {
-			artWidth = 58,
-			alloc = "JewelFrameAllocated",
-			path = "JewelFrameCanAllocate",
-			unalloc = "JewelFrameUnallocated",
-			allocAlt = "JewelSocketAltActive",
-			pathAlt = "JewelSocketAltCanAllocate",
-			unallocAlt = "JewelSocketAltNormal",
-		},
-		Mastery = {
-			artWidth = 65,
-			alloc = "AscendancyFrameLargeAllocated",
-			path = "AscendancyFrameLargeCanAllocate",
-			unalloc = "AscendancyFrameLargeNormal"
-		},
-	}
-	for type, data in pairs(self.nodeOverlay) do
-		local size = data.artWidth * 1.33
-		data.size = size
-		data.rsq = size * size
-	end
+	
+	self:LoadAndBuildSheets()
 
 	if versionNum >= 3.10 then
 		-- Migrate groups to old format
@@ -572,54 +438,67 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 
-	-- Build ModList for legion jewels
-	for _, node in pairs(self.legion.nodes) do
-		-- Determine node type
-		if node.m then
-			node.type = "Mastery"
-		elseif node.ks then
-			node.type = "Keystone"
-			if not self.keystoneMap[node.dn] then -- Don't override good tree data with legacy keystones
-				self.keystoneMap[node.dn] = node
+	self.legion = main.tree.legion
+	if not self.legion then
+		self.legion = LoadModule("Data/TimelessJewelData/LegionPassives")
+
+		-- Build ModList for legion jewels
+		for _, node in pairs(self.legion.nodes) do
+			-- Determine node type
+			if node.m then
+				node.type = "Mastery"
+			elseif node.ks then
+				node.type = "Keystone"
+				if not self.keystoneMap[node.dn] then -- Don't override good tree data with legacy keystones
+					self.keystoneMap[node.dn] = node
+				end
+			elseif node["not"] then
+				node.type = "Notable"
+			else
+				node.type = "Normal"
 			end
-		elseif node["not"] then
-			node.type = "Notable"
-		else
-			node.type = "Normal"
-		end
 
-		-- Assign node artwork assets
-		node.sprites = self.spriteMap[node.icon]
-		if not node.sprites then
-			--error("missing sprite "..node.icon)
-			node.sprites = { }
-		end
+			-- Assign node artwork assets
+			node.sprites = self.spriteMap[node.icon]
+			if not node.sprites then
+				--error("missing sprite "..node.icon)
+				node.sprites = { }
+			end
 
-		self:ProcessStats(node)
+			self:ProcessStats(node)
+		end
+		
+		main.tree.legion = self.legion
 	end
+	
+	self.tattoo = main.tree.tattoo
+	if not self.tattoo then
+		self.tattoo = LoadModule("Data/TattooPassives")
+		
+		-- Build ModList for tattoos
+		for _, node in pairs(self.tattoo.nodes) do
+			-- Determine node type
+			if node.m then
+				node.type = "Mastery"
+			elseif node.ks then
+				node.type = "Keystone"
+			elseif node["not"] then
+				node.type = "Notable"
+			else
+				node.type = "Normal"
+			end
 
-	-- Build ModList for tattoos
-	for _, node in pairs(self.tattoo.nodes) do
-		-- Determine node type
-		if node.m then
-			node.type = "Mastery"
-		elseif node.ks then
-			node.type = "Keystone"
-		elseif node["not"] then
-			node.type = "Notable"
-		else
-			node.type = "Normal"
+			-- Assign node artwork assets
+			node.sprites = self.spriteMap[node.icon]
+			node.effectSprites = self.spriteMap[node.activeEffectImage]
+			if not node.sprites then
+				--error("missing sprite "..node.icon)
+				node.sprites = { }
+			end
+
+			self:ProcessStats(node)
 		end
-
-		-- Assign node artwork assets
-		node.sprites = self.spriteMap[node.icon]
-		node.effectSprites = self.spriteMap[node.activeEffectImage]
-		if not node.sprites then
-			--error("missing sprite "..node.icon)
-			node.sprites = { }
-		end
-
-		self:ProcessStats(node)
+		main.tree.tattoo = self.tattoo
 	end
 
 	-- Late load the Generated data so we can take advantage of a tree existing
@@ -734,30 +613,216 @@ function PassiveTreeClass:ProcessNode(node)
 	self:ProcessStats(node)
 end
 
--- Checks if a given image is present and downloads it from the given URL if it isn't there
-function PassiveTreeClass:LoadImage(imgName, url, data, ...)
-	local imgFile = io.open("TreeData/"..imgName, "r")
-	if imgFile then
-		imgFile:close()
+function PassiveTreeClass:LoadAndBuildSheets()
+	local treeVersion = self.treeVersion
+	local versionNum = treeVersions[treeVersion].num
+	-- Load sprite sheets and build sprite map
+	self.spriteMap = { }
+	local spriteSheets = { }
+	if not self.skillSprites then
+		if not self.sprites then
+			ConPrintf("Loading passive tree sprite data for version '%s'...", treeVersions[treeVersion].display)
+			for k, v in pairs(assert(loadstring(getFile("Assets/data/"..treeVersion, (treeVersion:match("ruthless") and treeVersion:gsub("_ruthless", "/sprites_ruthless")) or (treeVersion.."/sprites"))))()) do
+				self[k] = v
+			end
+		end
+		self.skillSprites = self.sprites
+	end
+	for type, data in pairs(self.skillSprites) do
+		local maxZoom
+		if not self.imageZoomLevels then
+			maxZoom = data
+		elseif versionNum >= 3.19 then
+			maxZoom = data[0.3835] or data[1]
+		else
+			maxZoom = data[#data]
+		end
+		local sheet = spriteSheets[maxZoom.filename]
+		if not sheet then
+			sheet = { }
+			self:LoadSheet(versionNum >= 3.16 and maxZoom.filename:gsub("%?%x+$",""):gsub(".*/","") or maxZoom.filename:gsub("%?%x+$",""), versionNum >= 3.16 and maxZoom.filename or "https://web.poecdn.com"..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
+			spriteSheets[maxZoom.filename] = sheet
+		end
+		for name, coords in pairs(maxZoom.coords) do
+			if not self.spriteMap[name] then
+				self.spriteMap[name] = { }
+			end
+			self.spriteMap[name][type] = {
+				handle = sheet.handle,
+				width = coords.w,
+				height = coords.h,
+				[1] = coords.x / sheet.width,
+				[2] = coords.y / sheet.height,
+				[3] = (coords.x + coords.w) / sheet.width,
+				[4] = (coords.y + coords.h) / sheet.height
+			}
+		end
+	end
+
+	-- Load legion sprite sheets and build sprite map
+	if main.tree.legionSheets then
+		for type, data in pairs(main.tree.legionSheets) do
+			spriteSheets[data.filename] = data.sheet
+			local sheet = data.sheet
+			for name, coords in pairs(data.coords) do
+				if not self.spriteMap[name] then
+					self.spriteMap[name] = { }
+				end
+				self.spriteMap[name][type] = {
+					handle = sheet.handle,
+					width = coords.w,
+					height = coords.h,
+					[1] = coords.x / sheet.width,
+					[2] = coords.y / sheet.height,
+					[3] = (coords.x + coords.w) / sheet.width,
+					[4] = (coords.y + coords.h) / sheet.height
+				}
+			end
+		end
 	else
-		imgFile = io.open("TreeData/"..self.treeVersion.."/"..imgName, "r")
+		main.tree.legionSheets = {}
+		local legionSprites = LoadModule("TreeData/Assets/legion/tree-legion.lua")
+		for type, data in pairs(legionSprites) do
+			local maxZoom = data[#data]
+			local sheet = spriteSheets[maxZoom.filename]
+			if not sheet then
+				sheet = { }
+				sheet.handle = NewImageHandle()
+				sheet.handle:Load("TreeData/Assets/legion/"..maxZoom.filename)
+				sheet.width, sheet.height = sheet.handle:ImageSize()
+				spriteSheets[maxZoom.filename] = sheet
+			end
+			main.tree.legionSheets[type] = { sheet = sheet, filename = maxZoom.filename, coords = maxZoom.coords}
+			for name, coords in pairs(maxZoom.coords) do
+				if not self.spriteMap[name] then
+					self.spriteMap[name] = { }
+				end
+				self.spriteMap[name][type] = {
+					handle = sheet.handle,
+					width = coords.w,
+					height = coords.h,
+					[1] = coords.x / sheet.width,
+					[2] = coords.y / sheet.height,
+					[3] = (coords.x + coords.w) / sheet.width,
+					[4] = (coords.y + coords.h) / sheet.height
+				}
+			end
+		end
+	end
+	self.nodeOverlay = {
+		Normal = {
+			artWidth = 40,
+			alloc = "PSSkillFrameActive",
+			path = "PSSkillFrameHighlighted",
+			unalloc = "PSSkillFrame",
+			allocAscend = versionNum >= 3.10 and "AscendancyFrameSmallAllocated" or "PassiveSkillScreenAscendancyFrameSmallAllocated",
+			pathAscend = versionNum >= 3.10 and "AscendancyFrameSmallCanAllocate" or "PassiveSkillScreenAscendancyFrameSmallCanAllocate",
+			unallocAscend = versionNum >= 3.10 and "AscendancyFrameSmallNormal" or "PassiveSkillScreenAscendancyFrameSmallNormal"
+		},
+		Notable = {
+			artWidth = 58,
+			alloc = "NotableFrameAllocated",
+			path = "NotableFrameCanAllocate",
+			unalloc = "NotableFrameUnallocated",
+			allocAscend = versionNum >= 3.10 and "AscendancyFrameLargeAllocated" or "PassiveSkillScreenAscendancyFrameLargeAllocated",
+			pathAscend = versionNum >= 3.10 and "AscendancyFrameLargeCanAllocate" or "PassiveSkillScreenAscendancyFrameLargeCanAllocate",
+			unallocAscend = versionNum >= 3.10 and "AscendancyFrameLargeNormal" or "PassiveSkillScreenAscendancyFrameLargeNormal",
+			allocBlighted = "BlightedNotableFrameAllocated",
+			pathBlighted = "BlightedNotableFrameCanAllocate",
+			unallocBlighted = "BlightedNotableFrameUnallocated",
+		},
+		Keystone = {
+			artWidth = 84,
+			alloc = "KeystoneFrameAllocated",
+			path = "KeystoneFrameCanAllocate",
+			unalloc = "KeystoneFrameUnallocated",
+			allocBlighted = "KeystoneFrameAllocated",
+			pathBlighted = "KeystoneFrameCanAllocate",
+			unallocBlighted = "KeystoneFrameUnallocated",
+		},
+		Socket = {
+			artWidth = 58,
+			alloc = "JewelFrameAllocated",
+			path = "JewelFrameCanAllocate",
+			unalloc = "JewelFrameUnallocated",
+			allocAlt = "JewelSocketAltActive",
+			pathAlt = "JewelSocketAltCanAllocate",
+			unallocAlt = "JewelSocketAltNormal",
+		},
+		Mastery = {
+			artWidth = 65,
+			alloc = "AscendancyFrameLargeAllocated",
+			path = "AscendancyFrameLargeCanAllocate",
+			unalloc = "AscendancyFrameLargeNormal"
+		},
+	}
+	for type, data in pairs(self.nodeOverlay) do
+		local size = data.artWidth * 1.33
+		data.size = size
+		data.rsq = size * size
+	end
+end
+
+
+-- Checks if a given image is present and downloads it from the given URL if it isn't there
+-- also checks all previous versions incase the current one has been deleted to deduplicate
+function PassiveTreeClass:LoadSheet(imgName, url, data, ...)
+	local index = #treeVersionList
+	while index > 1 and self.treeVersion ~= treeVersionList[index] do
+		index = index - 1
+	end
+	while index > 1 do
+		local spriteSheet = imgName:gsub(".jpg", ""):gsub(".png", "").."/"..treeVersionList[index]..(imgName:match(".jpg") and ".jpg" or imgName:match(".png") and ".png")
+		local imgFile = io.open("TreeData/Assets/"..spriteSheet, "r")
 		if imgFile then
 			imgFile:close()
-			imgName = self.treeVersion.."/"..imgName
+			imgName = spriteSheet
+			break
+		elseif treeVersionList[index]:match("ruthless") then
+			imgFile = io.open("TreeData/Assets/"..spriteSheet:gsub("_ruthless",""), "r")
+			if imgFile then
+				imgFile:close()
+				imgName = spriteSheet:gsub("_ruthless","")
+				break
+			end
 		elseif main.allowTreeDownload then -- Enable downloading with Ctrl+Shift+F5 (currently disabled)
 			ConPrintf("Downloading '%s'...", imgName)
-			local data = getFile(url)
+			local data = getFileAtURL(url)
 			if data and not data:match("<!DOCTYPE html>") then
-				imgFile = io.open("TreeData/"..imgName, "wb")
+				imgFile = io.open("TreeData/Assets/non_sprite/"..imgName, "wb")
 				imgFile:write(data)
 				imgFile:close()
 			else
 				ConPrintf("Failed to download: %s", url)
 			end
+			break
+		end
+		index = index - 1
+	end
+	data.handle = NewImageHandle()
+	data.handle:Load("TreeData/Assets/"..imgName, ...)
+	data.width, data.height = data.handle:ImageSize()
+end
+
+-- Checks if a given image is present and downloads it from the given URL if it isn't there
+function PassiveTreeClass:LoadImage(imgName, url, data, ...)
+	local imgFile = io.open("TreeData/Assets/non_sprite/"..imgName, "r")
+	if imgFile then
+		imgFile:close()
+		imgName = "" .. imgName
+	elseif main.allowTreeDownload then -- Enable downloading with Ctrl+Shift+F5 (currently disabled)
+		ConPrintf("Downloading '%s'...", imgName)
+		local data = getFileAtURL(url)
+		if data and not data:match("<!DOCTYPE html>") then
+			imgFile = io.open("TreeData/Assets/non_sprite/"..imgName, "wb")
+			imgFile:write(data)
+			imgFile:close()
+		else
+			ConPrintf("Failed to download: %s", url)
 		end
 	end
 	data.handle = NewImageHandle()
-	data.handle:Load("TreeData/"..imgName, ...)
+	data.handle:Load("TreeData/Assets/non_sprite/"..imgName, ...)
 	data.width, data.height = data.handle:ImageSize()
 end
 
