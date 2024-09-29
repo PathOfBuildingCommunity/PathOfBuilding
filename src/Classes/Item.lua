@@ -750,13 +750,17 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.canHaveTwoEnchants = true
 				elseif lineLower == "can have 1 additional enchantment modifiers" then
 					self.canHaveTwoEnchants = true
-				elseif lineLower == "can have 2 additional enchantment modifiers" then
+				elseif lineLower == "can have 2 additional enchantment modifiers" or lineLower == "can have 2 additional runesmithing enchantments" then
 					self.canHaveTwoEnchants = true
 					self.canHaveThreeEnchants = true
 				elseif lineLower == "can have 3 additional enchantment modifiers" then
 					self.canHaveTwoEnchants = true
 					self.canHaveThreeEnchants = true
 					self.canHaveFourEnchants = true
+				elseif lineLower == "can be enchanted by a kalguuran runesmith" then
+					self.canHaveRunesmithEnchant = true
+				elseif lineLower == "can be runesmithed as though it were all one handed melee weapon types" then
+					self.canHaveAllOneHandedMeleeRunesmithEnchant = true
 				elseif lineLower == "has a crucible passive skill tree with only support passive skills" then
 					self.canHaveOnlySupportSkillsCrucibleTree = true
 				elseif lineLower == "has a crucible passive skill tree" then

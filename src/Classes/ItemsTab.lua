@@ -2097,6 +2097,9 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 
 	local controls = { } 
 	local enchantments = self.displayItem.enchantments
+	if self.displayItem.canHaveAllOneHandedMeleeRunesmithEnchant then
+		enchantments = data.enchantments["AllOneHandMelee"]
+	end
 	local haveSkills = true
 	for _, source in ipairs(self.build.data.enchantmentSource) do
 		if self.displayItem.enchantments[source.name] then
@@ -2133,7 +2136,7 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		wipeTable(enchantmentSourceList)
 		local list = haveSkills and enchantments[skillList[controls.skill and controls.skill.selIndex or 1]] or enchantments
 		for _, source in ipairs(self.build.data.enchantmentSource) do
-			if list[source.name] then
+			if list[source.name] and (source.name ~= "RUNESMITH" or (self.displayItem.rarity ~= "UNIQUE" and self.displayItem.rarity ~= "RELIC") or self.displayItem.canHaveRunesmithEnchant) then
 				t_insert(enchantmentSourceList, source)
 			end
 		end
