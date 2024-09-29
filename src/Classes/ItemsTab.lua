@@ -3665,7 +3665,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if item.rarity == "MAGIC" then
 			effectInc = effectInc + modDB:Sum("INC", { actor = "player" }, "MagicTinctureEffect")
 		end
-		local effectMod = (1 + (tinctureData.effectInc + effectInc) / 100) * (1 + (item.quality or 0) / 100)
+		local effectMod = (1 + (effectInc) / 100)
 		if effectMod ~= 1 then
 			t_insert(stats, s_format("^8Tincture effect modifier: ^7%+d%%", effectMod * 100 - 100))
 		end
