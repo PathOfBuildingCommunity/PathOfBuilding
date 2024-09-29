@@ -2580,18 +2580,21 @@ function calcs.offence(env, actor, activeSkill)
 					local moreExertedAttackDamage = skillModList:Sum("MORE", cfg, "ExertAttackIncrease")
 					local overexertionExertedDamage = skillModList:Sum("MORE", cfg, "OverexertionExertAverageIncrease")
 					local echoesOfCreationExertedDamage = skillModList:Sum("MORE", cfg, "EchoesExertAverageIncrease")
+					local exertAggravateChance = skillModList:Sum("BASE", cfg, "ExertAggravateChance")
 					if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
 						skillModList:NewMod("Damage", "INC", incExertedAttacks, "Exerted Attacks")
 						skillModList:NewMod("Damage", "MORE", moreExertedAttacks, "Exerted Attacks")
 						skillModList:NewMod("Damage", "MORE", moreExertedAttackDamage, "Exerted Attack Damage", ModFlag.Attack)
 						skillModList:NewMod("Damage", "MORE", overexertionExertedDamage * exertingWarcryCount, "Max Autoexertion Support")
 						skillModList:NewMod("Damage", "MORE", echoesOfCreationExertedDamage * exertingWarcryCount, "Max Echoes of Creation")
+						skillModList:NewMod("AggravateChance", "BASE", exertAggravateChance, "Exerted Attacks")
 					else
 						skillModList:NewMod("Damage", "INC", incExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks")
 						skillModList:NewMod("Damage", "MORE", moreExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks")
 						skillModList:NewMod("Damage", "MORE", moreExertedAttackDamage * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attack Damage", ModFlag.Attack)
 						skillModList:NewMod("Damage", "MORE", overexertionExertedDamage * globalOutput.GlobalWarcryUptimeRatio / 100, "Uptime Scaled Autoexertion Support")
 						skillModList:NewMod("Damage", "MORE", echoesOfCreationExertedDamage * globalOutput.GlobalWarcryUptimeRatio / 100, "Uptime Scaled Echoes of Creation")
+						skillModList:NewMod("AggravateChance", "BASE", exertAggravateChance * globalOutput.GlobalWarcryUptimeRatio / 100, "Uptime Scaled Exerted Attacks")
 					end
 					globalOutput.ExertedAttackAvgDmg = calcLib.mod(skillModList, skillCfg, "ExertIncrease")
 					globalOutput.ExertedAttackAvgDmg = globalOutput.ExertedAttackAvgDmg * calcLib.mod(skillModList, skillCfg, "ExertAttackIncrease", "OverexertionExertAverageIncrease", "EchoesExertAverageIncrease")
@@ -3622,6 +3625,7 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.BleedChanceOnCrit = m_min(100, skillModList:Sum("BASE", cfg, "BleedChance") + enemyDB:Sum("BASE", nil, "SelfBleedChance"))
 		end
+		output.AggravateChanceOnCrit = m_min(100, skillModList:Sum("BASE", cfg, "AggravateChance", "AggravateChanceOnCrit"))
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotPoison") then
 			output.PoisonChanceOnCrit = 0
 		else
@@ -3643,6 +3647,7 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.BleedChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "BleedChance") + enemyDB:Sum("BASE", nil, "SelfBleedChance"))
 		end
+		output.AggravateChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "AggravateChance"))
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotPoison") then
 			output.PoisonChanceOnHit = 0
 			output.ChaosPoisonChance = 0
@@ -3821,6 +3826,36 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		-- Calculate bleeding chance and damage
+		output.NumberOfHitsToAggravate = -1
+		local bleedIsAggravated = skillModList:Flag(cfg, "BleedingYouInflictIsAggravated") or (env.partyMembers.output.AggravateOldBleedsChance and (env.partyMembers.output.AggravateOldBleedsChance > 0))
+		if bleedIsAggravated or ((output.AggravateChanceOnHit + output.AggravateChanceOnCrit) > 0) then
+			local aggravateOldBleedsChance = output.AggravateChanceOnHit * (1 - output.CritChance / 100) + output.AggravateChanceOnCrit * output.CritChance / 100
+			output.AggravateOldBleedsChance = output.HitChance / 100 * aggravateOldBleedsChance
+			if not skillModList:Flag(cfg, "CannotAggravateBleeding") then
+				output.AggravateChance = m_min(100, output.AggravateOldBleedsChance + (bleedIsAggravated and 100 or 0))
+				output.NumberOfHitsToAggravate = (not bleedIsAggravated and ((output.AggravateOldBleedsChance == 0) and -1 or 100 / output.AggravateOldBleedsChance )) or 0
+			end
+			if globalBreakdown and not globalBreakdown.AggravateChance then
+				if skillModList:Flag(cfg, "CannotAggravateBleeding") then
+					globalBreakdown.AggravateChance = { "Cannot Aggravate Bleeding" }
+				elseif bleedIsAggravated then
+					if skillModList:Flag(cfg, "BleedingYouInflictIsAggravated") then
+						globalBreakdown.AggravateChance = { "Bleeding You Inflict is Aggravated" }
+					else
+						globalBreakdown.AggravateChance = { "Bleeding You Inflict is Aggravated by Party Members" }
+					end
+				else
+					globalBreakdown.AggravateChance = { }
+					t_insert(globalBreakdown.AggravateChance, s_format("%.2f ^8(chance to hit)", output.HitChance / 100))
+					t_insert(globalBreakdown.AggravateChance, s_format("* %.2f ^8(chance to aggravate)", aggravateOldBleedsChance / 100))
+					t_insert(globalBreakdown.AggravateChance, s_format("= %.2f%%", output.AggravateOldBleedsChance))
+					t_insert(globalBreakdown.AggravateChance, " ")
+					t_insert(globalBreakdown.AggravateChance, "Hits Required to Aggravate: ")
+					t_insert(globalBreakdown.AggravateChance, s_format("1 / %.4f ^8(1 / chance to aggravate)", output.AggravateOldBleedsChance / 100))
+					t_insert(globalBreakdown.AggravateChance, s_format("= %.2f ^8 (number of hits to aggravate)", output.NumberOfHitsToAggravate))
+				end
+			end
+		end
 		if canDeal.Physical and (output.BleedChanceOnHit + output.BleedChanceOnCrit) > 0 then
 			activeSkill[pass.label ~= "Off Hand" and "bleedCfg" or "OHbleedCfg"] = {
 				skillName = skillCfg.skillName,
@@ -3834,7 +3869,7 @@ function calcs.offence(env, actor, activeSkill)
 			}
 			local dotCfg = pass.label ~= "Off Hand" and activeSkill.bleedCfg or activeSkill.OHbleedCfg
 			checkWeapon1HFlags(dotCfg)
-			local avgCritBleedDmg, sourceMinCritDmg, sourceMaxCritDmg, avgHitBleedDmg, sourceMinHitDmg, sourceMaxHitDmg
+			local avgCritBleedDmg, sourceMinCritDmg, sourceMaxCritDmg, avgHitBleedDmg, sourceMinHitDmg, sourceMaxHitDmg, avgAggravatedCritBleedDmg, avgAggravatedHitBleedDmg
 			if breakdown then
 				breakdown.BleedPhysical = { damageTypes = { } }
 			end
@@ -3896,12 +3931,22 @@ function calcs.offence(env, actor, activeSkill)
 
 			-- the amount of damage each bleed does as % maximum
 			local bleedRollAverage
+			local aggravatedBleedRollAverage
 			if globalOutput.BleedStackPotential > 1 then
 				-- shift damage towards top of range as only top bleeds apply
 				bleedRollAverage = (bleedStacks - (maxStacks - 1)/2) / (bleedStacks + 1) * 100
 			else
 				-- assume middle of range for hit damage
 				bleedRollAverage = 50
+			end
+			if (not enemyDB:Flag(nil, "Condition:Moving") or skillModList:Flag(dotCfg, "NoExtraBleedDamageToMovingEnemy")) and output.NumberOfHitsToAggravate > 0 then
+				local aggravatedBleedStacks = bleedStacks - output.NumberOfHitsToAggravate
+				if aggravatedBleedStacks > 1 then
+					aggravatedBleedRollAverage = (aggravatedBleedStacks - (maxStacks - 1)/2) / (aggravatedBleedStacks + 1) * 100
+				else
+					-- scale average roll bleed by the percentage of bleeds which are aggravated
+					aggravatedBleedRollAverage = 50 * bleedStacks / output.NumberOfHitsToAggravate
+				end
 			end
 			globalOutput.BleedRollAverage = bleedRollAverage
 			if globalBreakdown then
@@ -3934,11 +3979,17 @@ function calcs.offence(env, actor, activeSkill)
 					sourceMinCritDmg = min * output.CritBleedDotMulti
 					sourceMaxCritDmg = max * output.CritBleedDotMulti
 					avgCritBleedDmg = (sourceMinCritDmg + (sourceMaxCritDmg - sourceMinCritDmg) * bleedRollAverage / 100)
+					if aggravatedBleedRollAverage then
+						avgAggravatedCritBleedDmg = (sourceMinCritDmg + (sourceMaxCritDmg - sourceMinCritDmg) * aggravatedBleedRollAverage / 100)
+					end
 				else
 					output.BleedDotMulti = 1 + (skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier")) / 100
 					sourceMinHitDmg = min * output.BleedDotMulti
 					sourceMaxHitDmg = max * output.BleedDotMulti
 					avgHitBleedDmg = (sourceMinHitDmg + (sourceMaxHitDmg - sourceMinHitDmg) * bleedRollAverage / 100)
+					if aggravatedBleedRollAverage then
+						avgAggravatedHitBleedDmg = (sourceMinHitDmg + (sourceMaxHitDmg - sourceMinHitDmg) * aggravatedBleedRollAverage / 100)
+					end
 				end
 			end
 
@@ -3973,13 +4024,25 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 			local basePercent = skillData.bleedBasePercent or data.misc.BleedPercentBase
+			local baseReason = "(base)"
+			if enemyDB:Flag(nil, "Condition:Moving") and not skillModList:Flag(dotCfg, "NoExtraBleedDamageToMovingEnemy") then
+				basePercent = basePercent * 3
+				baseReason = "(enemy is moving)"
+			elseif output.NumberOfHitsToAggravate == 0 then
+				basePercent = basePercent * 3
+				baseReason = "(bleed is aggravated)"
+			end
 			-- over-stacking bleed stacks increases the chance a critical bleed is present
 			local ailmentCritChance = 100 * (1 - m_pow(1 - output.CritChance / 100, m_max(globalOutput.BleedStackPotential, 1)))
 
 			local baseMinVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceMinHitDmg, 0, true) * basePercent / 100
 			local baseMaxVal = calcAilmentDamage("Bleed", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarDamageEffect * globalOutput.AilmentWarcryEffect
 			local averageBaseBleedDps = calcAilmentDamage("Bleed", ailmentCritChance, avgHitBleedDmg, avgCritBleedDmg, false)
-			local baseBleedDps = averageBaseBleedDps * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarDamageEffect * globalOutput.AilmentWarcryEffect
+			local averageBaseAggravatedBleedDps = 0
+			if aggravatedBleedRollAverage and (averageBaseBleedDps > 0) then
+				averageBaseAggravatedBleedDps = 2 * calcAilmentDamage("Bleed", ailmentCritChance, avgAggravatedHitBleedDmg, avgAggravatedCritBleedDmg, false)
+			end
+			local baseBleedDps = (averageBaseBleedDps + averageBaseAggravatedBleedDps) * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarDamageEffect * globalOutput.AilmentWarcryEffect
 			if baseBleedDps > 0 then
 				skillFlags.bleed = true
 				skillFlags.duration = true
@@ -4015,7 +4078,10 @@ function calcs.offence(env, actor, activeSkill)
 						breakdown.BleedDotMulti = breakdown.critDot(output.BleedDotMulti, output.CritBleedDotMulti, totalFromHit, totalFromCrit)
 						output.BleedDotMulti = (output.BleedDotMulti * totalFromHit) + (output.CritBleedDotMulti * totalFromCrit)
 					end
-					t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(bleed deals %d%% per second)", basePercent/100, basePercent))
+					t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(bleed deals %d%% per second %s)", basePercent/100, basePercent, baseReason))
+					if aggravatedBleedRollAverage then
+						t_insert(breakdown.BleedDPS, s_format("(and x %.2f ^8(from best aggravated bleed)", basePercent / 100 * ((averageBaseBleedDps + averageBaseAggravatedBleedDps) / averageBaseBleedDps - 1)))
+					end
 					if effectMod ~= 1 then
 						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ailment effect modifier)", effectMod))
 					end
@@ -4992,6 +5058,8 @@ function calcs.offence(env, actor, activeSkill)
 	-- Combine secondary effect stats
 	if isAttack then
 		combineStat("BleedChance", "AVERAGE")
+		combineStat("AggravateOldBleedsChance", "AVERAGE")
+		combineStat("AggravateChance", "AVERAGE")
 		combineStat("BleedDPS", "CHANCE_AILMENT", "BleedChance")
 		combineStat("PoisonChance", "AVERAGE")
 		combineStat("PoisonDPS", "CHANCE", "PoisonChance")
