@@ -2536,6 +2536,7 @@ local specialModList = {
 	} end,
 	["retaliation skills have (%d+)%% increased speed"] = function(num) return {
 		mod("Speed", "INC", num, { type = "SkillType", skillType = SkillType.Retaliation }),
+		mod("WarcrySpeed", "INC", num, nil, 0, KeywordFlag.Warcry, { type = "SkillType", skillType = SkillType.Retaliation }),
 	} end,
     -- Guardian
 	["grants armour equal to (%d+)%% of your reserved life to you and nearby allies"] = function(num) return { mod("GrantReservedLifeAsAura", "LIST", { mod = mod("Armour", "BASE", num / 100) }) } end,
