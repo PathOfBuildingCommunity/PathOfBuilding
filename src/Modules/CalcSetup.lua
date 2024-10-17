@@ -1589,8 +1589,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 					group.displayLabel = nil
 					for _, gemInstance in ipairs(group.gemList) do
 						local grantedEffect = gemInstance.gemData and gemInstance.gemData.grantedEffect or gemInstance.grantedEffect
-						if grantedEffect and not grantedEffect.support and gemInstance.enabled then
-							group.displayLabel = (group.displayLabel and group.displayLabel..", " or "") .. grantedEffect.name
+						if grantedEffect and not grantedEffect.support then
+							if gemInstance.enabled then
+								group.displayLabel = (group.displayLabel and group.displayLabel..", " or "") .. grantedEffect.name
+							else
+								group.displayLabel = (group.displayLabel and group.displayLabel..", " or "") .. "^x7F7F7F" .. grantedEffect.name .. " (Disabled)^xFFFFFF"
+							end
 						end
 					end
 					group.displayLabel = group.displayLabel or "<No active skills>"
