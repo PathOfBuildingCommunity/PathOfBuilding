@@ -103,6 +103,7 @@ function main:Init()
 	self.slotOnlyTooltips = true
 	self.POESESSID = ""
 	self.showPublicBuilds = true
+	self.showEHPInBuildPanel = false
 
 	if self.userPath then
 		self:ChangeUserPath(self.userPath, ignoreBuild)
@@ -617,6 +618,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.showPublicBuilds then
 					self.showPublicBuilds = node.attrib.showPublicBuilds == "true"
 				end
+				if node.attrib.showEHPInBuildPanel then
+					self.showEHPInBuildPanel = node.attrib.showEHPInBuildPanel == "true"
+				end
 			end
 		end
 	end
@@ -727,7 +731,8 @@ function main:SaveSettings()
 		POESESSID = self.POESESSID,
 		invertSliderScrollDirection = tostring(self.invertSliderScrollDirection),
 		disableDevAutoSave = tostring(self.disableDevAutoSave),
-		showPublicBuilds = tostring(self.showPublicBuilds)
+		showPublicBuilds = tostring(self.showPublicBuilds),
+		showEHPInBuildPanel = tostring(self.showEHPInBuildPanel)
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -975,6 +980,13 @@ function main:OpenOptionsPopup()
 	controls.invertSliderScrollDirection.tooltipText = "Default scroll direction is:\nScroll Up = Move right\nScroll Down = Move left"
 	controls.invertSliderScrollDirection.state = self.invertSliderScrollDirection
 	
+	nextRow()
+	controls.showEHPInBuildPanel = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Show EHP In Build Panel:", function(state)
+		self.showEHPInBuildPanel = state
+	end)
+	controls.showEHPInBuildPanel.tooltipText = "Display Effective Health Pool In The Left Build Panel"
+	controls.showEHPInBuildPanel.state = self.showEHPInBuildPanel
+
 	if launch.devMode then
 		nextRow()
 		controls.disableDevAutoSave = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Disable Dev AutoSave:", function(state)
