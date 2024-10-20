@@ -176,6 +176,27 @@ local displayStats = {
 	{ label = "Chaos Resistance", val = "Immune", labelStat = "ChaosResist", color = colorCodes.CHAOS, condFunc = function(o) return o.ChaosInoculation end },
 	{ },
 	{ stat = "EffectiveMovementSpeedMod", label = "Movement Speed Modifier", fmt = "+d%%", mod = true, condFunc = function() return true end },
+	--[[ potentially useful mods
+	{ stat = "QuantityMultiplier", label = "Quantity Multiplier", fmt = "+d%%" },
+	{ stat = "StoredUses", label = "Stored Uses", fmt = "d" },
+	{ stat = "Duration", label = "Skill Duration", fmt = ".2f", flag = "duration" },
+	{ stat = "DurationSecondary", label = "Secondary Duration", fmt = ".2f", flag = "duration" },
+	{ stat = "AuraDuration", label = "Aura Duration", fmt = ".2f" },
+	{ stat = "ReserveDuration", label = "Reserve Duration", fmt = ".2f" },
+	{ stat = "SoulGainPreventionDuration", label = "Soul Gain Prevent.", fmt = ".2f" },
+	{ stat = "SustainableTrauma", label = "Sustainable Trauma", fmt = "d" },
+	{ stat = "ProjectileCount", label = "Projectile Count", fmt = "d", flag = "projectile" },
+	{ stat = "PierceCountString", label = "Pierce Count", fmt = "d" },
+	{ stat = "ForkCountString", label = "Fork Count", fmt = "d" },
+	{ stat = "ChainMaxString", label = "Max Chain Count", fmt = "d" },
+	{ stat = "SplitCountString", label = "Proj, Split Count", fmt = "d", flag = "projectile" },
+	{ stat = "ProjectileSpeedMod", label = "Proj. Speed Mod", fmt = ".2f", flag = "projectile" },
+	{ stat = "BounceCount", label = "Bounces Count", fmt = "d", flag = "bounce" },
+	{ stat = "AuraEffectMod", label = "Aura Effect Mod", fmt = ".2f" },
+	{ stat = "CurseEffectMod", label = "Curse Effect Mod", fmt = ".2f" },
+	{ stat = "LootQuantity", label = "Item Quantity", fmt = "+d%%" },
+	{ stat = "LootRarity", label = "Item Rarity", fmt = "+d%%" },
+	--]]
 	{ },
 	{ stat = "FullDPS", label = "Full DPS", fmt = ".1f", color = colorCodes.CURRENCY, compPercent = true },
 	{ stat = "FullDotDPS", label = "Full Dot DPS", fmt = ".1f", color = colorCodes.CURRENCY, compPercent = true, condFunc = function (v) return v >= data.misc.DotDpsCap end, warnFunc = function (v) return "Full Dot DPS exceeds in game limit" end },
@@ -212,6 +233,7 @@ local minionDisplayStats = {
 	{ stat = "EnergyShieldRegenRecovery", label = "ES Recovery", fmt = ".1f", color = colorCodes.ES },
 	{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", color = colorCodes.ES, compPercent = true },
 }
+-- Extra stats saved to the xml if not already saved there, mostly for 3rd party tools
 local extraSaveStats = {
 	"PowerCharges",
 	"PowerChargesMax",
