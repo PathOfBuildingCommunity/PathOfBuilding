@@ -960,6 +960,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 10)
+#baseMod flag("dotIsHeraldOfAsh")
 #mods
 
 #skill HeraldOfPurity

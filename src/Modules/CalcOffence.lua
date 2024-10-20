@@ -5144,6 +5144,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	runSkillFunc("preDotFunc")
 
+	---Section Handles Generic Damage over time [DOT]
 	for _, damageType in ipairs(dmgTypeList) do
 		local dotTypeCfg = copyTable(dotCfg, true)
 		dotTypeCfg.keywordFlags = bor(dotTypeCfg.keywordFlags, KeywordFlag[damageType.."Dot"])
@@ -5157,6 +5158,7 @@ function calcs.offence(env, actor, activeSkill)
 		if baseVal > 0 or (output[damageType.."Dot"] or 0) > 0 then
 			skillFlags.dot = true
 			local effMult = 1
+			--Section handles Enemy Damage Taken based on Configs
 			if env.mode_effective then
 				local resist = 0
 				local takenInc = enemyDB:Sum("INC", dotTakenCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime") + (isElemental[damageType] and enemyDB:Sum("INC", dotTakenCfg, "ElementalDamageTaken") or 0)
@@ -5173,7 +5175,11 @@ function calcs.offence(env, actor, activeSkill)
 					breakdown[damageType.."DotEffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes, true)
 				end
 			end
+			--Variables below calculate DOT damage
 			local inc = skillModList:Sum("INC", dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
+			if skillModList:Flag(nil, "dotIsHeraldOfAsh") then
+				inc = inc - skillModList:Sum("INC", skillCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
+			end
 			local more = skillModList:More(dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
 			local mult = skillModList:Override(dotTypeCfg, "DotMultiplier") or skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier") + skillModList:Sum("BASE", dotTypeCfg, damageType.."DotMultiplier")
 			local aura = activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillTypes[SkillType.RemoteMined] and calcLib.mod(skillModList, dotTypeCfg, "AuraEffect")
@@ -5190,6 +5196,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	
 	if skillModList:Flag(nil, "DotCanStack") then
 		skillFlags.DotCanStack = true
 		local speed = output.Speed

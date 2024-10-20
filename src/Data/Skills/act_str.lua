@@ -5368,6 +5368,7 @@ skills["HeraldOfAsh"] = {
 	},
 	baseMods = {
 		skill("radius", 10),
+		flag("dotIsHeraldOfAsh"),
 	},
 	qualityStats = {
 		Default = {
