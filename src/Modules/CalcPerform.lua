@@ -1649,12 +1649,11 @@ function calcs.perform(env, skipEHP)
 	-- Process attribute requirements
 	do
 		local reqMult = calcLib.mod(modDB, nil, "GlobalAttributeRequirements")
-		local attrTable = modDB:Flag(nil, "OmniscienceRequirements") and {"Omni","Str","Dex","Int"} or {"Str","Dex","Int"}
+		local omniRequirements = modDB:Flag(nil, "OmniscienceRequirements") and calcLib.mod(modDB, nil, "OmniAttributeRequirements")
+		local ignoreAttrReq = modDB:Flag(nil, "IgnoreAttributeRequirements")
+		local attrTable = omniRequirements and {"Omni","Str","Dex","Int"} or {"Str","Dex","Int"}
 		for _, attr in ipairs(attrTable) do
-			local breakdownAttr = attr
-			if modDB:Flag(nil, "OmniscienceRequirements") then
-				breakdownAttr = "Omni"
-			end
+			local breakdownAttr = omniRequirements and "Omni" or attr
 			if breakdown then
 				breakdown["Req"..attr] = {
 					rowList = { },
@@ -1665,16 +1664,19 @@ function calcs.perform(env, skipEHP)
 					}
 				}
 			end
-			local out = 0
+			local out = {val = 0, source = nil}
 			for _, reqSource in ipairs(env.requirementsTable) do
 				if reqSource[attr] and reqSource[attr] > 0 then
 					local req = m_floor(reqSource[attr] * reqMult)
-					if modDB:Flag(nil, "OmniscienceRequirements") then
-						local omniReqMult = 1 / (calcLib.mod(modDB, nil, "OmniAttributeRequirements") - 1)
+					if omniRequirements then
+						local omniReqMult = 1 / (omniRequirements - 1)
 						local attributereq =  m_floor(reqSource[attr] * reqMult)
 						req = m_floor(attributereq * omniReqMult)
 					end
-					out = m_max(out, req)
+					if req > out.val then
+						out.val = req
+						out.source = reqSource
+					end
 					if breakdown then
 						local row = {
 							req = req > output[breakdownAttr] and colorCodes.NEGATIVE..req or req,
@@ -1694,15 +1696,16 @@ function calcs.perform(env, skipEHP)
 					end
 				end
 			end
-			if modDB:Flag(nil, "IgnoreAttributeRequirements") then
-				out = 0
+			if ignoreAttrReq then
+				out.val = 0
 			end
 			output["Req"..attr.."String"] = 0
-			if out > (output["Req"..breakdownAttr] or 0) then
-				output["Req"..breakdownAttr.."String"] = out
-				output["Req"..breakdownAttr] = out
+			if out.val > (output["Req"..breakdownAttr] or 0) then
+				output["Req"..breakdownAttr.."String"] = out.val
+				output["Req"..breakdownAttr] = out.val
+				output["Req"..breakdownAttr.."Item"] = out.source
 				if breakdown then
-					output["Req"..breakdownAttr.."String"] = out > (output[breakdownAttr] or 0) and colorCodes.NEGATIVE..out or out
+					output["Req"..breakdownAttr.."String"] = out.val > (output[breakdownAttr] or 0) and colorCodes.NEGATIVE..(out.val) or out.val
 				end
 			end
 		end
