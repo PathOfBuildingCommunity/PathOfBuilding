@@ -1300,8 +1300,19 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.player.weaponData1 = env.player.itemList["Weapon 1"] and env.player.itemList["Weapon 1"].weaponData and env.player.itemList["Weapon 1"].weaponData[1] or copyTable(env.data.unarmedWeaponData[env.classId])
 		if env.player.weaponData1.countsAsDualWielding then
 			env.player.weaponData2 = env.player.itemList["Weapon 1"].weaponData[2]
+		elseif not env.player.itemList["Weapon 2"] then
+			-- Hollow Palm Technique
+			if (not env.player.itemList["Weapon 1"]) and (not env.player.itemList["Gloves"]) and env.modDB.mods.Keystone then
+				for _, keystone in ipairs(env.modDB.mods.Keystone) do
+					if keystone.value == "Hollow Palm Technique" then
+						env.player.weaponData2 = copyTable(env.data.unarmedWeaponData[env.classId])
+						break
+					end
+				end
+			end
+			env.player.weaponData2 = env.player.weaponData2 or { }
 		else
-			env.player.weaponData2 = env.player.itemList["Weapon 2"] and env.player.itemList["Weapon 2"].weaponData and env.player.itemList["Weapon 2"].weaponData[2] or { }
+			env.player.weaponData2 = env.player.itemList["Weapon 2"].weaponData and env.player.itemList["Weapon 2"].weaponData[2] or { }
 		end
 
 		-- Determine main skill group
