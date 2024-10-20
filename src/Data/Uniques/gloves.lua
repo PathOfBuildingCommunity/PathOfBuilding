@@ -702,7 +702,7 @@ Requires Level 57, 44 Str, 44 Int
 50% reduced Maximum Recovery per Life Leech
 (6-10)% increased Attack and Cast Speed
 (15-25)% increased Damage while Leeching
-Life Leech effects are not removed at Full Life
+Life Leech effects are not removed when Unreserved Life is Filled
 ]],[[
 Repentance
 Crusader Gloves
