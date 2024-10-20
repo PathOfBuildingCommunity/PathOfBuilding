@@ -96,6 +96,7 @@ function main:Init()
 	self.showThousandsSeparators = true
 	self.edgeSearchHighlight = true
 	self.thousandsSeparator = ","
+	self.lowerPrecisionDisplay = false
 	self.decimalSeparator = "."
 	self.defaultItemAffixQuality = 0.5
 	self.showTitlebarName = true
@@ -575,6 +576,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.thousandsSeparator then
 					self.thousandsSeparator = node.attrib.thousandsSeparator
 				end
+				if node.attrib.lowerPrecisionDisplay then
+					self.lowerPrecisionDisplay = node.attrib.lowerPrecisionDisplay == "true"
+				end
 				if node.attrib.decimalSeparator then
 					self.decimalSeparator = node.attrib.decimalSeparator
 				end
@@ -714,6 +718,7 @@ function main:SaveSettings()
 		colorHighlight = self.colorHighlight,
 		showThousandsSeparators = tostring(self.showThousandsSeparators),
 		thousandsSeparator = self.thousandsSeparator,
+		lowerPrecisionDisplay = tostring(self.lowerPrecisionDisplay),
 		decimalSeparator = self.decimalSeparator,
 		showTitlebarName = tostring(self.showTitlebarName),
 		betaTest = tostring(self.betaTest),
@@ -922,6 +927,12 @@ function main:OpenOptionsPopup()
 	controls.thousandsSeparatorLabel = new("LabelControl", { "RIGHT", controls.thousandsSeparator, "LEFT" }, { defaultLabelSpacingPx, 0, 92, 16 }, "^7Thousands separator:")
 
 	nextRow()
+	controls.lowerPrecisionDisplay = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT"}, { defaultLabelPlacementX, currentY, 20 }, "^7Reduce Display Precision:", function(state)
+		self.lowerPrecisionDisplay = state
+	end)
+	controls.lowerPrecisionDisplay.state = self.lowerPrecisionDisplay
+
+	nextRow()
 	controls.decimalSeparator = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 30, 20 }, self.decimalSeparator, nil, "%w", 1, function(buf)
 		self.decimalSeparator = buf
 	end)
@@ -995,6 +1006,7 @@ function main:OpenOptionsPopup()
 	local initialThousandsSeparatorDisplay = self.showThousandsSeparators
 	local initialTitlebarName = self.showTitlebarName
 	local initialThousandsSeparator = self.thousandsSeparator
+	local initialLowerPrecisionDisplay = self.lowerPrecisionDisplay
 	local initialDecimalSeparator = self.decimalSeparator
 	local initialBetaTest = self.betaTest
 	local initialEdgeSearchHighlight = self.edgeSearchHighlight

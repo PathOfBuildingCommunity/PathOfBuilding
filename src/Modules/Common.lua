@@ -656,7 +656,22 @@ function formatNumSep(str)
 			return m
 		end
 		local x, y, minus, integer, fraction = str:find("(-?)(%d+)(%.?%d*)")
-		if main.showThousandsSeparators then
+		if main.lowerPrecisionDisplay and #integer > 3 then
+			if fraction == "" then
+				fraction = "."..integer:sub(-1)
+			else
+				fraction = "."..integer:sub(-#(fraction or "  ") + 1)
+			end
+			if #integer > 12 then
+				return colour..minus..integer:sub(1, #integer - 12)..fraction:gsub("%.", main.decimalSeparator).." T"
+			elseif #integer > 9 then
+				return colour..minus..integer:sub(1, #integer - 9)..fraction:gsub("%.", main.decimalSeparator).." B"
+			elseif #integer > 6 then
+				return colour..minus..integer:sub(1, #integer - 6)..fraction:gsub("%.", main.decimalSeparator).." M"
+			else
+				return colour..minus..integer:sub(1, #integer - 3)..fraction:gsub("%.", main.decimalSeparator).." k"
+			end
+		elseif main.showThousandsSeparators then
 			integer = integer:reverse():gsub("(%d%d%d)", "%1"..main.thousandsSeparator):reverse()
 			-- There will be leading separators if the number of digits are divisible by 3
 			-- This checks for their presence and removes them
