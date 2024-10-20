@@ -10920,9 +10920,6 @@ skills["VengefulCry"] = {
 		area = true,
 		duration = true,
 	},
-	baseMods = {
-		mod("BuffEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BeenSavageHitRecently", neg = true }),
-	},
 	qualityStats = {
 		Default = {
 			{ "base_cooldown_speed_+%", 2 },

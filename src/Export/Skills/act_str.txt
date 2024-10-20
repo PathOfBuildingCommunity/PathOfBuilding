@@ -2000,7 +2000,6 @@ local skills, mod, flag, skill = ...
 			-- Display only
 		},
 	},
-#baseMod mod("BuffEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BeenSavageHitRecently", neg = true })
 #mods
 
 #skill VigilantStrike
