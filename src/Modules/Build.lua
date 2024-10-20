@@ -456,7 +456,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		{ },
 		{ stat = "Devotion", label = "Devotion", color = colorCodes.RARE, fmt = "d" },
 		{ },
-		{ stat = "TotalEHP", label = "Effective Hit Pool", fmt = ".0f", compPercent = true },
+		{ stat = "TotalEHP", label = "Effective Hit Pool", fmt = ".0f", compPercent = true},
 		{ stat = "PvPTotalTakenHit", label = "PvP Hit Taken", fmt = ".1f", flag = "isPvP", lowerIsBetter = true },
 		{ stat = "PhysicalMaximumHitTaken", label = "Phys Max Hit", fmt = ".0f", color = colorCodes.PHYS, compPercent = true,  },
 		{ stat = "LightningMaximumHitTaken", label = "Elemental Max Hit", fmt = ".0f", color = colorCodes.LIGHTNING, compPercent = true, condFunc = function(v,o) return o.LightningMaximumHitTaken == o.ColdMaximumHitTaken and o.LightningMaximumHitTaken == o.FireMaximumHitTaken end },
@@ -1322,6 +1322,9 @@ function buildMode:OnFrame(inputEvents)
 	if main.decimalSeparator ~= self.lastShowDecimalSeparator then
 		self:RefreshStatList()
 	end
+	if main.showEHPInBuildPanel ~= self.showEHPInBuildPanel then
+		self:RefreshStatList()
+	end
 	if main.showTitlebarName ~= self.lastShowTitlebarName then
 		self.spec:SetWindowTitleWithBuildClass()
 	end
@@ -1680,6 +1683,7 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 	self.lastShowThousandsSeparators = main.showThousandsSeparators
 	self.lastShowThousandsSeparator = main.thousandsSeparator
 	self.lastShowDecimalSeparator = main.decimalSeparator
+	self.showEHPInBuildPanel = main.showEHPInBuildPanel
 	self.lastShowTitlebarName = main.showTitlebarName
 	return valStr
 end
@@ -1701,6 +1705,11 @@ function buildMode:AddDisplayStatList(statList, actor)
 				end
 				if statVal and ((statData.condFunc and statData.condFunc(statVal,actor.output)) or (not statData.condFunc and statVal ~= 0)) then
 					local overCapStatVal = actor.output[statData.overCapStat] or nil
+
+					if statData.stat == "TotalEHP" then
+						statData.hideStat = not self.showEHPInBuildPanel
+					end
+
 					if statData.stat == "SkillDPS" then
 						labelColor = colorCodes.CUSTOM
 						table.sort(actor.output.SkillDPS, function(a,b) return (a.dps * a.count) > (b.dps * b.count) end)

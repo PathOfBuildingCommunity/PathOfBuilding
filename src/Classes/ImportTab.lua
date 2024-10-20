@@ -1039,16 +1039,29 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 		else
 			local normalizedBasename, qualityType = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.typeLine, nil)
 			local gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
+			local enable1 = true
+			local enable2 = false
 			if socketedItem.hybrid then
 				-- Used by transfigured gems and dual-skill gems (currently just Stormbind) 
 				normalizedBasename, qualityType  = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.hybrid.baseTypeName, nil)
 				gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 				if gemId and socketedItem.hybrid.isVaalGem then
 					gemId = self.build.data.gemGrantedEffectIdForVaalGemId[self.build.data.gems[gemId].grantedEffectId]
+					
+					-- Turn off Vaal skills by default on import
+					enable1 = false
+					enable2 = true
 				end
 			end
 			if gemId then
-				local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true, gemId = gemId }
+				-- if the gem is a guard gem, disable by default
+				local isGuard = false
+				if self.build.data.gems[gemId].tags.guard then
+					isGuard = true
+				end
+				local gemInstance = {
+					level = 20, quality = 0, enabled = not isGuard, enableGlobal1 = enable1, enableGlobal2 = enable2, gemId = gemId
+				}
 				gemInstance.nameSpec = self.build.data.gems[gemId].name
 				gemInstance.support = socketedItem.support
 				gemInstance.qualityId = qualityType
