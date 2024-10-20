@@ -86,6 +86,9 @@ local skills, mod, flag, skill = ...
 		["trigger_brand_support_hit_damage_+%_final_vs_branded_enemy"] = {
 			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
+		["projectile_maximum_range_override"] = {
+			mod("projectile_maximum_range_override", "OVERRIDE", nil),
+		},
 	},
 #baseMod skill("triggeredByBrand", true)
 #mods
@@ -1046,6 +1049,8 @@ local skills, mod, flag, skill = ...
 			-- Display only
 		},
 	},
+#baseMod skill("projectileSpeed", 80)
+#baseMod skill("duration", 0.33)
 #mods
 
 #skill EyeOfWinterAltX
@@ -1064,6 +1069,8 @@ local skills, mod, flag, skill = ...
 			-- Display only
 		},
 	},
+#baseMod skill("projectileSpeed", 80)
+#baseMod skill("duration", 0.33)
 #mods
 
 #skill EyeOfWinterAltY
@@ -1082,6 +1089,8 @@ local skills, mod, flag, skill = ...
 			-- Display only
 		},
 	},
+#baseMod skill("projectileSpeed", 80)
+#baseMod skill("duration", 0.33)
 #mods
 
 #skill Fireball
@@ -2797,6 +2806,7 @@ local skills, mod, flag, skill = ...
 #flags spell projectile area chaining
 #baseMod skill("radius", 14)
 #baseMod flag("CannotSplit")
+#baseMod flag("ReturnDoesNotAddDPS")
 #mods
 
 #skill Malevolence
@@ -3389,6 +3399,7 @@ local skills, mod, flag, skill = ...
 			output.SkillDPSMultiplier = skillData.dpsMultiplier
 		end
 	end,
+#baseMod flag("ReturnDoesNotAddDPS")
 #mods
 
 #skill SparkAltX
@@ -3408,6 +3419,7 @@ local skills, mod, flag, skill = ...
 			output.SkillDPSMultiplier = skillData.dpsMultiplier
 		end
 	end,
+#baseMod flag("ReturnDoesNotAddDPS")
 #mods
 
 #skill SparkAltY
@@ -3427,10 +3439,12 @@ local skills, mod, flag, skill = ...
 			output.SkillDPSMultiplier = skillData.dpsMultiplier
 		end
 	end,
+#baseMod flag("ReturnDoesNotAddDPS")
 #mods
 
 #skill VaalSpark
 #flags spell projectile duration
+#baseMod flag("ReturnDoesNotAddDPS")
 #mods
 
 #skill Spellslinger

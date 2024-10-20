@@ -630,6 +630,9 @@ skills["SupportBrandSupport"] = {
 		["trigger_brand_support_hit_damage_+%_final_vs_branded_enemy"] = {
 			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
+		["projectile_maximum_range_override"] = {
+			mod("projectile_maximum_range_override", "OVERRIDE", nil),
+		},
 	},
 	baseMods = {
 		skill("triggeredByBrand", true),
@@ -5323,6 +5326,10 @@ skills["EyeOfWinter"] = {
 		spell = true,
 		projectile = true,
 	},
+	baseMods = {
+		skill("projectileSpeed", 80),
+		skill("duration", 0.33),
+	},
 	qualityStats = {
 		Default = {
 			{ "eye_of_winter_base_explosion_shards", 0.1 },
@@ -5414,6 +5421,10 @@ skills["EyeOfWinterAltX"] = {
 		spell = true,
 		projectile = true,
 	},
+	baseMods = {
+		skill("projectileSpeed", 80),
+		skill("duration", 0.33),
+	},
 	qualityStats = {
 		Default = {
 			{ "eye_of_winter_base_explosion_shards", 0.1 },
@@ -5504,6 +5515,10 @@ skills["EyeOfWinterAltY"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
+	},
+	baseMods = {
+		skill("projectileSpeed", 80),
+		skill("duration", 0.33),
 	},
 	qualityStats = {
 		Default = {
@@ -12207,6 +12222,7 @@ skills["RollingMagma"] = {
 	baseMods = {
 		skill("radius", 14),
 		flag("CannotSplit"),
+		flag("ReturnDoesNotAddDPS"),
 	},
 	qualityStats = {
 		Default = {
@@ -15207,6 +15223,9 @@ skills["Spark"] = {
 		projectile = true,
 		duration = true,
 	},
+	baseMods = {
+		flag("ReturnDoesNotAddDPS"),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_number_of_projectiles", 0.1 },
@@ -15294,6 +15313,9 @@ skills["SparkAltX"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
+	},
+	baseMods = {
+		flag("ReturnDoesNotAddDPS"),
 	},
 	qualityStats = {
 		Default = {
@@ -15385,6 +15407,9 @@ skills["SparkAltY"] = {
 		projectile = true,
 		duration = true,
 	},
+	baseMods = {
+		flag("ReturnDoesNotAddDPS"),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_number_of_projectiles", 0.1 },
@@ -15457,6 +15482,9 @@ skills["VaalSpark"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
+	},
+	baseMods = {
+		flag("ReturnDoesNotAddDPS"),
 	},
 	qualityStats = {
 		Default = {

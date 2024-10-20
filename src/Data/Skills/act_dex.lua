@@ -13222,6 +13222,10 @@ skills["ShrapnelBallista"] = {
 		totem = true,
 		ballista = true,
 	},
+	baseMods = {
+		skill("projectileSpeed", 200),
+		skill("duration", 0.41),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_projectile_speed_+%", 2 },
@@ -13854,6 +13858,7 @@ skills["SpectralThrow"] = {
 	},
 	baseMods = {
 		mod("PierceChance", "BASE", 100),
+		mod("ReturnChance", "BASE", 100),
 	},
 	qualityStats = {
 		Default = {
@@ -15379,10 +15384,15 @@ skills["VenomGyre"] = {
 	castTime = 1,
 	parts = {
 		{
-			name = "Outgoing Projectile",
+			name = "Main Projectile",
 		},
 		{
-			name = "Returning Projectile",
+			name = "Caught Projectile",
+		},
+	},
+	statMap = {
+		["quality_display_active_skill_returning_damage_is_gem"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -15390,7 +15400,7 @@ skills["VenomGyre"] = {
 		projectile = true,
 	},
 	baseMods = {
-		flag("Condition:ReturningProjectile", { type = "SkillPart", skillPart = 2 }),
+		flag("CannotReturn", { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
