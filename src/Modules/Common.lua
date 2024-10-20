@@ -658,7 +658,7 @@ function formatNumSep(str)
 		local x, y, minus, integer, fraction = str:find("(-?)(%d+)(%.?%d*)")
 		if main.lowerPrecisionDisplay and #integer > 3 then
 			if fraction == "" then
-				fraction = "."..integer:sub(-2)
+				fraction = "."..integer:sub(-1)
 			else
 				fraction = "."..integer:sub(-#(fraction or "  ") + 1)
 			end
