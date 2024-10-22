@@ -1029,7 +1029,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 end
 
 local defaultDisabledGems = {
-	ImmortalCall = true
+	["Metadata/Items/Gems/SkillGemImmortalCall"] = true
 }
 
 function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
