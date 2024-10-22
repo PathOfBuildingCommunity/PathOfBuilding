@@ -2204,6 +2204,9 @@ function calcs.buildDefenceEstimations(env, actor)
 	if output["sharedGuardAbsorbRate"] > 0 then
 		output.OnlySharedGuard = true
 		output["sharedGuardAbsorb"] = calcLib.val(modDB, "GuardAbsorbLimit")
+		if output.maxHitGuardMode ~= "NONE" then
+			output.MaxHitGuard = true
+		end
 		if (output.ehpGuardMode == "AVERAGE" or output.maxHitGuardMode == "AVERAGE") then
 			output["scaledSharedGuardAbsorb"] = calcLib.val(modDB, "ScaledGuardAbsorbLimit")
 			if output.ehpGuardMode == "AVERAGE" then
@@ -2242,6 +2245,9 @@ function calcs.buildDefenceEstimations(env, actor)
 			output.AnyGuard = true
 			output.OnlySharedGuard = false
 			output[damageType.."GuardAbsorb"] = calcLib.val(modDB, damageType.."GuardAbsorbLimit")
+			if output.maxHitGuardMode ~= "NONE" then
+				output.MaxHitGuard = true
+			end
 			if (output.ehpGuardMode == "AVERAGE" or output.maxHitGuardMode == "AVERAGE") then
 				output["Scaled"..damageType.."GuardAbsorb"] = calcLib.val(modDB, "Scaled"..damageType.."GuardAbsorbLimit")
 				if output.ehpGuardMode == "AVERAGE" then
