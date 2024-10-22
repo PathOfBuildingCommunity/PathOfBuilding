@@ -231,6 +231,7 @@ return {
 			modList:NewMod("Condition:WarcryMaxHit", "FLAG", true, "Config")
 		end
 	end },
+	{ var = "guardMode", type = "list", label = "Guard Skill calc mode:", ifSkill = { "Arcane Cloak", "Molten Shell", "Steelskin", "Bone Armour", "Vaal Arctic Armour" }, tooltip = "Controls how Guard Skills (excluding Immortal Call) and Vaal Arctic Armour are calculated:\nAverage / None: Averages out Guard skills for EHP but disables it for maximum hit.\nMaximum / None: Uses the maximum value of Guard skills for EHP but disables it for maximum hit.\nAverage / Maximum: Averages out Guard skills for EHP but uses the maximum value for maximum hit. (As if it was always up)\nMaximum / Maximum: Uses the maximum value for EHP and maximum hit. (As if it was always up)", list = {{val="AVERAGE,NONE",label="Average / None"},{val="MAX,NONE",label="Maximum / None"},{val="AVERAGE,MAX",label="Average / Maximum"},{val="MAX,MAX",label="Maximum / Maximum"}} },
 	{ var = "EVBypass", type = "check", label = "Disable Emperor's Vigilance Bypass", ifCond = "EVBypass", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:EVBypass", "FLAG", true, "Config")
 	end },
