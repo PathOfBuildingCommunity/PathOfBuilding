@@ -1173,21 +1173,22 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 				if newItem then
 					if newItem:find("{ ", 0, true) then
 						local controls = { }
-						controls.label = new("LabelControl", nil, {0, 30, 0, 16}, "^7\"Advanced Item Descriptions\" (Ctrl+Alt+c) are unsupported.\n\nIf this is not an advanced item copy paste or if you wish to procced anyway click proceed.\n\nOr you can removed the advanced info from the item and paste as a normal item.")
-						controls.close = new("ButtonControl", nil, {-175, 140, 150, 20}, "^7Proceed Anyway", function()
+						controls.label = new("LabelControl", nil, {0, 40, 0, 16}, "^7\"Advanced Item Descriptions\" (Ctrl+Alt+c) are unsupported.") 
+								-- \n\nIf this is not an advanced item copy paste or if you wish to proceed anyway click proceed.\n\nOr you can remove the advanced info from the item and paste as a normal item.
+						controls.close = new("ButtonControl", nil, {-175, 90, 150, 20}, "^7Proceed Anyway", function()
 							self:CreateDisplayItemFromRaw(newItem, true)
 							main:ClosePopup()
 						end)
-						controls.strip = new("ButtonControl", nil, {0, 140, 150, 20}, "^7Remove Advanced Info", function()
+						controls.strip = new("ButtonControl", nil, {0, 90, 150, 20}, "^7Remove Advanced Info", function()
 							newItem = itemLib.stripAdvancedCopyPaste(newItem)
 							self:CreateDisplayItemFromRaw(newItem, true)
 							main:ClosePopup()
 						end)
-						controls.abort = new("ButtonControl", nil, {175, 140, 150, 20}, "^7Abort", function()
+						controls.abort = new("ButtonControl", nil, {175, 90, 150, 20}, "^7Abort", function()
 							self:SetDisplayItem()
 							main:ClosePopup()
 						end)
-						main:OpenPopup(570, 170, "Warning", controls)
+						main:OpenPopup(560, 120, "Warning", controls)
 					else
 						self:CreateDisplayItemFromRaw(newItem, true)
 					end
