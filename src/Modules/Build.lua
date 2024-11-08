@@ -806,11 +806,11 @@ function buildMode:SyncLoadouts()
 				local linkMatch = string.match(treeName, "%{(%w+)%}") or treeName
 				if linkMatch then
 					local skillName = self.skillsTab.skillSets[self.skillsTab.activeSkillSetId].title or "Default"
-					local skillMatch = oneSkill or skillName:find(linkMatch)
+					local skillMatch = oneSkill or skillName:find(linkMatch, 1, true)
 					local itemName = self.itemsTab.itemSets[self.itemsTab.activeItemSetId].title or "Default"
-					local itemMatch = oneItem or itemName:find(linkMatch)
+					local itemMatch = oneItem or itemName:find(linkMatch, 1, true)
 					local configName = self.configTab.configSets[self.configTab.activeConfigSetId].title or "Default"
-					local configMatch = oneConfig or configName:find(linkMatch)
+					local configMatch = oneConfig or configName:find(linkMatch, 1, true)
 
 					if skillMatch and itemMatch and configMatch then
 						self.controls.buildLoadouts:SetSel(i)
