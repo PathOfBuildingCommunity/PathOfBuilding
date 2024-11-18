@@ -444,7 +444,7 @@ function calcs.buildOutput(build, mode)
 						if totalPool < cachedCost then
 							local rawPool = pool:gsub("Unreserved$", "")
 							local reservation = GlobalCache.cachedData[mode][uuid].Env.player.mainSkill and GlobalCache.cachedData[mode][uuid].Env.player.mainSkill.skillData[rawPool .. "ReservedPercent"]
-							-- Skill has both cost and reservation check if there's avilable pool for raw cost before reservation
+							-- Skill has both cost and reservation check if there's available pool for raw cost before reservation
 							if not reservation or (reservation and (totalPool + m_ceil((output[rawPool] or 0) * reservation / 100)) < cachedCost) then
 								output[costResource.."Warning"] = output[costResource.."Warning"] or {}
 								t_insert(output[costResource.."Warning"], skill.activeEffect.grantedEffect.name)
