@@ -1,3 +1,8 @@
+VERSION[2.49.1][2024/11/19]
+
+--- Fixed Bugs ---
+* Fix character import for Xbox and Playstation accounts (HashBR)
+
 VERSION[2.49.0][2024/11/18]
 
 --- New to Path of Building ---
