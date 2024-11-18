@@ -1,3 +1,61 @@
+VERSION[2.49.0][2024/11/18]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Fix character import for accounts with discriminators (Regisle)
+* Change default Boss Config from None to Pinnacle (Regisle)
+* Default to last added Tattoo in Tattoo popup (LocalIdentity)
+* Add support for Debuffs granted by Glorious Madness (LocalIdentity)
+* Add support for Storm Secret self damage calculation (LocalIdentity)
+* Add Wretched Defiler Spectre (machenme)
+* Add support for modifying affix limits (Regisle)
+* Add support for Items Implicits Cannot Be Changed (Regisle)
+* Add Support for many Runecraft Enchants by (@LocalIdentity, @Regisle, @Paliak) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8217, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8222, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8240
+* Add Ctrl+Alt+c error popup (Nightblade)
+* Update rare templates (Regisle)
+* Add name of item causing requirements warning to warning message (Paliak)
+* Update Affliction Spectre Buffs with 3.25 Changes (LocalIdentity)
+--- Fixed Crashes ---
+* Fix invalid skill IDs in party tab source (Regisle)
+* Fix Trade Query Stat Weight Crash (Regisle)
+* Fix Party Tab Crash with thresholds (Regisle)
+* Fix special characters in set name causing crash (Paliak)
+--- User Interface ---
+* Show Curse limit on calcs tab (Regisle)
+* Add "Ignore Mirrored Items" checkbox to trade query options (n1tr0xs)
+* Hide recovery information on Mana Flasks if recovery is 0  (Paliak)
+* Allow zero enemy armour in config and fix negative enemy damage (Regisle)
+* Fix Warden import colour (Regisle)
+--- Fixed Calculations ---
+* Mana cost raw not being set to 0 when using lifetap (Paliak)
+* Fix Frost Blades of Katabasis DoT not scaling with Tinctures and Multistrike (LocalIdentity)
+* Fix 3.1 xp multiplier calc for levels 95-99 (OriginalThing)
+* Shock and scorch fixes (Regisle)
+* Improve EHP overkill approximation, especially for MoM (0xjc)
+* Hollow Palm Technique proper Dual Wielding (Regisle)
+* Fixed Off hand detection regarding Necromantic Aegis (Jonathan-Dang)
+* Fix Herald of Ash overkill damage incorrectly scaling with global damage increases (Jonathan-Dang)
+--- Fixed Behaviours ---
+* Fix Blasphemy Auras triggering Mana cost warning (Paliak)
+* Fix Eldritch Implicit Mod Replacement (Regisle)
+* Fix Bloodscent not making Rage eligble (n1tr0xs)
+* Fix "# of Warcries used recently" configuration option unavailable (n1tr0xs)
+* Fix The Taming affecting Elemental ground DoTs (LocalIdentity)
+* Fix Dual Strike of Ambidexterity and Cleave of Rage (Regisle)
+* Fix Ghost Reaver and Brutal Fervour Interaction (Regisle)
+* Fix abyss socket items with no selectable Socket count (e.g. Wraithlord) (Regisle)
+* Default "Enemy Damage Type" to "Average" when changing Boss skills (ConnorThelin)
+* Vengeful Cry Improvements (Regisle)
+* Fix Kalandra's Touch skipping mods (Paliak)
+* Fix Rupture sometimes applying multiple times (majochem)
+--- Accuracy Improvements ---
+* Make Runesmith enchants an enchant instead of a craft (Regisle)
+* Fix Cooldown breakdown showing overrides for other skills (e.g. Flicker) (Regisle)
+* Remove non-existant stat from Cadigan's Crown (deathbeam)
+* Fix numerous fullDPS tooltip issues (Paliak)
+--- Other changes ---
+* Fix Dual Wielding Mastery "Elusive on block" not enabling Elusive config (Regisle)
+* Fix Party Tab Warcries clearing links instead of Warcries (Regisle)
+
 VERSION[2.48.2][2024/08/17]
 
 --- Fixed Crashes ---
