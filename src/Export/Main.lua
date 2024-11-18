@@ -151,7 +151,7 @@ function main:Init()
 		return self.ggpk.txt[name]
 	end
 
-	self.typeDrop = { "Bool", "Int", "UInt", "Interval", "Float", "String", "Enum", "ShortKey", "Key" }
+	self.typeDrop = { "Bool", "Int", "UInt16", "UInt", "Interval", "Float", "String", "Enum", "ShortKey", "Key" }
 
 	self.colList = { }
 
