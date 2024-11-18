@@ -406,12 +406,12 @@ function ImportTabClass:DownloadCharacterList()
 	local accountName
 	-- Handle spaces in the account name
 	if realm.realmCode == "pc" then
-		accountName = self.controls.accountName.buf:gsub("%s+", ""):gsub("-", "%%23"):gsub("#", "%%23")
+		accountName = self.controls.accountName.buf:gsub("%s+", "")
 	else
-		accountName = self.controls.accountName.buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", ""):gsub("%s", "+"):gsub("-", "%%23"):gsub("#", "%%23")
+		accountName = self.controls.accountName.buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", ""):gsub("%s", "+")
 	end
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
-	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(response, errMsg)
+	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName:gsub("-", "%%23"):gsub("#", "%%23").."&realm="..realm.realmCode, function(response, errMsg)
 		if errMsg == "Response code: 401" then
 			self.charImportStatus = colorCodes.NEGATIVE.."Sign-in is required."
 			self.charImportMode = "GETSESSIONID"
@@ -443,7 +443,7 @@ function ImportTabClass:DownloadCharacterList()
 		end
 		-- GGG's character API has an issue where for /get-characters the account name is not case-sensitive, but for /get-passive-skills and /get-items it is.
 		-- This workaround grabs the profile page and extracts the correct account name from one of the URLs.
-		launch:DownloadPage(realm.hostName..realm.profileURL..accountName, function(response, errMsg)
+		launch:DownloadPage(realm.hostName..realm.profileURL..accountName:gsub("#", "%%23"), function(response, errMsg)
 			if errMsg then
 				self.charImportStatus = colorCodes.NEGATIVE.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
 				self.charImportMode = "GETACCOUNTNAME"
@@ -456,7 +456,6 @@ function ImportTabClass:DownloadCharacterList()
 				return
 			end
 			self.controls.accountName:SetText(realAccountName:gsub("-", "#"))
-			realAccountName = realAccountName:gsub("-", "%%23"):gsub("#", "%%23")
 			accountName = realAccountName
 			self.charImportStatus = "Character list successfully retrieved."
 			self.charImportMode = "SELECTCHAR"
@@ -559,11 +558,11 @@ function ImportTabClass:SaveAccountHistory()
 	if not historyList[self.controls.accountName.buf] then
 		t_insert(historyList, self.controls.accountName.buf)
 		historyList[self.controls.accountName.buf] = true
-		self.controls.accountHistory:SelByValue(self.controls.accountName.buf)
 		table.sort(historyList, function(a,b)
 			return a:lower() < b:lower()
 		end)
 		self.controls.accountHistory:CheckDroppedWidth(true)
+		self.controls.accountHistory:SelByValue(self.controls.accountName.buf)
 	end
 end
 
@@ -571,11 +570,11 @@ function ImportTabClass:DownloadPassiveTree()
 	self.charImportMode = "IMPORTING"
 	self.charImportStatus = "Retrieving character passive tree..."
 	local realm = realmList[self.controls.accountRealm.selIndex]
-	local accountName = self.controls.accountName.buf:gsub("-", "%%23"):gsub("#", "%%23")
+	local accountName = self.controls.accountName.buf
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
-	launch:DownloadPage(realm.hostName.."character-window/get-passive-skills?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
+	launch:DownloadPage(realm.hostName.."character-window/get-passive-skills?accountName="..accountName:gsub("#", "%%23").."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then
 			self.charImportStatus = colorCodes.NEGATIVE.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
@@ -593,11 +592,11 @@ function ImportTabClass:DownloadItems()
 	self.charImportMode = "IMPORTING"
 	self.charImportStatus = "Retrieving character items..."
 	local realm = realmList[self.controls.accountRealm.selIndex]
-	local accountName = self.controls.accountName.buf:gsub("-", "%%23"):gsub("#", "%%23")
+	local accountName = self.controls.accountName.buf
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
-	launch:DownloadPage(realm.hostName.."character-window/get-items?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
+	launch:DownloadPage(realm.hostName.."character-window/get-items?accountName="..accountName:gsub("#", "%%23").."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then
 			self.charImportStatus = colorCodes.NEGATIVE.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
