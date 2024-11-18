@@ -455,8 +455,9 @@ function ImportTabClass:DownloadCharacterList()
 				self.charImportMode = "GETSESSIONID"
 				return
 			end
-			self.controls.accountName:SetText(realAccountName:gsub("-", "#"))
-			accountName = realAccountName:gsub("-", "#")
+			realAccountName = realAccountName:gsub("-", "#")
+			self.controls.accountName:SetText(realAccountName)
+			accountName = realAccountName
 			self.charImportStatus = "Character list successfully retrieved."
 			self.charImportMode = "SELECTCHAR"
 			self.lastRealm = realm.id
