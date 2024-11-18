@@ -9,7 +9,7 @@ VERSION[2.49.0][2024/11/18]
 * Add Wretched Defiler Spectre (machenme)
 * Add support for modifying affix limits (Regisle)
 * Add support for Items Implicits Cannot Be Changed (Regisle)
-* Add Support for many Runecraft Enchants by (dLocalIdentity, Regisle, Paliak)
+* Add Support for many Runecraft Enchants by (LocalIdentity, Regisle, Paliak)
 * Add Ctrl+Alt+c error popup (Nightblade)
 * Update rare templates (Regisle)
 * Add name of item causing requirements warning to warning message (Paliak)
