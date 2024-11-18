@@ -153,8 +153,7 @@ local function doActorAttribsConditions(env, actor)
 	-- Set conditions
 	if (actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].type == "Shield") or (actor == env.player and env.aegisModList) then
 		condList["UsingShield"] = true
-	end
-	if not actor.itemList["Weapon 2"] then
+	elseif not actor.itemList["Weapon 2"] then
 		condList["OffHandIsEmpty"] = true
 	end
 	if actor.weaponData1.type == "None" then
