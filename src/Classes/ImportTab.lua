@@ -406,9 +406,9 @@ function ImportTabClass:DownloadCharacterList()
 	local accountName
 	-- Handle spaces in the account name
 	if realm.realmCode == "pc" then
-		accountName = self.controls.accountName.buf:gsub("%s+", "")
+		accountName = self.controls.accountName.buf:gsub("%s+", ""):gsub("-", "%%23"):gsub("#", "%%23")
 	else
-		accountName = self.controls.accountName.buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", ""):gsub("%s", "+")
+		accountName = self.controls.accountName.buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", ""):gsub("%s", "+"):gsub("-", "%%23"):gsub("#", "%%23")
 	end
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(response, errMsg)
@@ -456,6 +456,7 @@ function ImportTabClass:DownloadCharacterList()
 				return
 			end
 			self.controls.accountName:SetText(realAccountName)
+			realAccountName = realAccountName:gsub("-", "%%23"):gsub("#", "%%23")
 			accountName = realAccountName
 			self.charImportStatus = "Character list successfully retrieved."
 			self.charImportMode = "SELECTCHAR"
@@ -570,7 +571,7 @@ function ImportTabClass:DownloadPassiveTree()
 	self.charImportMode = "IMPORTING"
 	self.charImportStatus = "Retrieving character passive tree..."
 	local realm = realmList[self.controls.accountRealm.selIndex]
-	local accountName = self.controls.accountName.buf
+	local accountName = self.controls.accountName.buf:gsub("-", "%%23"):gsub("#", "%%23")
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
@@ -592,7 +593,7 @@ function ImportTabClass:DownloadItems()
 	self.charImportMode = "IMPORTING"
 	self.charImportStatus = "Retrieving character items..."
 	local realm = realmList[self.controls.accountRealm.selIndex]
-	local accountName = self.controls.accountName.buf
+	local accountName = self.controls.accountName.buf:gsub("-", "%%23"):gsub("#", "%%23")
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
