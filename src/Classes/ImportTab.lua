@@ -517,7 +517,7 @@ function ImportTabClass:BuildCharacterList(league)
 						classColor = colorCodes["SHADOW"]
 					elseif (charClass == "Gladiator" or charClass == "Slayer" or charClass == "Champion") then
 						classColor = colorCodes["DUELIST"]
-					elseif (charClass == "Raider" or charClass == "Pathfinder" or charClass == "Deadeye") then
+					elseif (charClass == "Raider" or charClass == "Pathfinder" or charClass == "Deadeye" or charClass == "Warden") then
 						classColor = colorCodes["RANGER"]
 					elseif (charClass == "Juggernaut" or charClass == "Berserker" or charClass == "Chieftain") then
 						classColor = colorCodes["MARAUDER"]
