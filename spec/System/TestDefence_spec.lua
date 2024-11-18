@@ -9,6 +9,10 @@ describe("TestDefence", function()
 
 	-- boring part
 	it("no armour max hits", function()
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
 		assert.are.equals(60, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
 		assert.are.equals(38, build.calcsTab.calcsOutput.FireMaximumHitTaken)
 		assert.are.equals(38, build.calcsTab.calcsOutput.ColdMaximumHitTaken)
@@ -19,6 +23,7 @@ describe("TestDefence", function()
 		+200 to all resistances\n\z
 		200% additional Physical Damage Reduction\n\z
 		"
+
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 		assert.are.equals(600, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
@@ -168,6 +173,7 @@ describe("TestDefence", function()
 		When Hit during effect, 50% of Life loss from Damage taken occurs over 4 seconds instead\n\z
 		"   -- 50% progenesis should just simply double the life pool
 		build.configTab.input.conditionUsingFlask = true
+		build.configTab.input.enemyIsBoss = "None"
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 		assert.are.equals(600, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
@@ -186,7 +192,6 @@ describe("TestDefence", function()
 		100% less intelligence\n\z
 		+60 to maximum energy shield\n\z
 		"  -- progenesis should not interact with pools other than life.
-		build.configTab.input.conditionUsingFlask = true
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 		assert.are.equals(900, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
@@ -257,7 +262,6 @@ describe("TestDefence", function()
 		100% less intelligence\n\z
 		+60 to maximum energy shield\n\z
 		"   -- wonkier numbers to test the pool reduction function
-		build.configTab.input.conditionUsingFlask = true
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 		assert.are.equals(1300, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
@@ -323,6 +327,7 @@ describe("TestDefence", function()
 		+940 to maximum life\n\z
 		+10000 to armour\n\z
 		" -- hit of 2000 on 10000 armour results in 50% DR which reduces the damage to 1000 - total HP
+		build.configTab.input.enemyIsBoss = "None"
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 		assert.are.equals(1000, takenHitFromTypeMaxHit("Physical"))
@@ -603,6 +608,7 @@ describe("TestDefence", function()
 	end)
 
 	it("energy shield bypass tests #pet", function()
+		build.configTab.input.enemyIsBoss = "None"
 		-- Mastery
 		build.configTab.input.customMods = [[
 			+40 to maximum life
@@ -611,6 +617,7 @@ describe("TestDefence", function()
 			You have no intelligence
 			+60% to all resistances
 		]]
+
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 		assert.are.equals(300, build.calcsTab.calcsOutput.FireMaximumHitTaken)
