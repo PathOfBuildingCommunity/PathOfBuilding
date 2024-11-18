@@ -218,7 +218,7 @@ return {
 		[14]={
 			list=false,
 			name="SkillTotem",
-			refTo="SkillTotems",
+			refTo="",
 			type="Int",
 			width=80
 		},
@@ -334,8 +334,6 @@ return {
 			type="Key",
 			width=150
 		}
-	},
-	activeskilltargettypes={
 	},
 	activeskilltype={
 		[1]={
@@ -572,9 +570,9 @@ return {
 		[4]={
 			list=true,
 			name="StatsKeys",
-			refTo="",
-			type="UInt",
-			width=80
+			refTo="Stats",
+			type="Key",
+			width=200
 		},
 		[5]={
 			list=false,
@@ -701,7 +699,7 @@ return {
 			list=false,
 			name="ConquerorIndex",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=90
 		},
 		[14]={
@@ -729,21 +727,21 @@ return {
 			list=true,
 			name="AchievementItemsKeys",
 			refTo="",
-			type="UInt",
+			type="Key",
 			width=150
 		},
 		[18]={
 			list=false,
 			name="ConquerorVersion",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=150
 		},
 		[19]={
 			list=false,
 			name="ConquerorSpawnWeight",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=150
 		}
 	},
@@ -874,7 +872,7 @@ return {
 			list=false,
 			name="NotableReplacementSpawnWeight ",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=200
 		}
 	},
@@ -1959,8 +1957,6 @@ return {
 	},
 	breachstoneupgrades={
 	},
-	buffcategories={
-	},
 	buffdefinitions={
 		[1]={
 			list=false,
@@ -2817,8 +2813,6 @@ return {
 			type="Int",
 			width=80
 		}
-	},
-	buffvisualsets={
 	},
 	characteraudioevents={
 	},
@@ -4120,7 +4114,7 @@ return {
 			list=false,
 			name="Unknown23",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=100
 		},
 		[25]={
@@ -4824,8 +4818,6 @@ return {
 	},
 	grandmasters={
 	},
-	grantedeffectgroups={
-	},
 	grantedeffectqualitystats={
 		[1]={
 			list=false,
@@ -4927,7 +4919,7 @@ return {
 			name="Hash",
 			refTo="",
 			type="UInt",
-			width=50
+			width=80
 		},
 		[10]={
 			list=true,
@@ -5165,28 +5157,28 @@ return {
 			list=false,
 			name="ManaReservationFlat",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=150
 		},
 		[18]={
 			list=false,
 			name="ManaReservationPercent",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=150
 		},
 		[19]={
 			list=false,
 			name="LifeReservationFlat",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=150
 		},
 		[20]={
 			list=false,
 			name="LifeReservationPercent",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=150
 		},
 		[21]={
@@ -5655,16 +5647,6 @@ return {
 			name="tags",
 			refTo="Tags",
 			type="Key",
-			width=150
-		}
-	},
-	influencetypes={
-		[1]={
-			enumBase=0,
-			list=false,
-			name="Name",
-			refTo="",
-			type="String",
 			width=150
 		}
 	},
@@ -6811,10 +6793,6 @@ return {
 	},
 	missiontransitiontiles={
 	},
-	modauraflags={
-	},
-	moddomains={
-	},
 	modeffectstats={
 		[1]={
 			list=false,
@@ -6912,8 +6890,6 @@ return {
 			width=200
 		}
 	},
-	modgenerationtype={
-	},
 	mods={
 		[1]={
 			list=false,
@@ -6926,7 +6902,7 @@ return {
 			list=false,
 			name="Hash",
 			refTo="",
-			type="UInt",
+			type="UInt16",
 			width=60
 		},
 		[3]={
@@ -9334,7 +9310,7 @@ return {
 			list=false,
 			name="PassiveSkillNodeId",
 			refTo="",
-			type="Int",
+			type="UInt16",
 			width=100
 		},
 		[9]={
@@ -9681,15 +9657,6 @@ return {
 	passiveskilltreetutorial={
 	},
 	passiveskilltreeuiart={
-	},
-	passiveskilltypes={
-		[1]={
-			list=false,
-			name="Name",
-			refTo="",
-			type="String",
-			width=150
-		}
 	},
 	passivetreeexpansionjewels={
 		[1]={
@@ -10635,8 +10602,6 @@ return {
 			width=600
 		}
 	},
-	skillmines={
-	},
 	skillminevariations={
 	},
 	skillmorphdisplay={
@@ -10647,14 +10612,12 @@ return {
 	},
 	skillsurgeeffects={
 	},
-	skilltotems={
-	},
 	skilltotemvariations={
 		[1]={
 			list=false,
 			name="SkillTotem",
-			refTo="SkillTotems",
-			type="Enum",
+			refTo="",
+			type="Int",
 			width=60
 		},
 		[2]={
@@ -10752,8 +10715,6 @@ return {
 	stashtype={
 	},
 	statdescriptionfunctions={
-	},
-	statinterpolationtypes={
 	},
 	stats={
 		[1]={
@@ -10905,8 +10866,6 @@ return {
 			type="Int",
 			width=150
 		}
-	},
-	statsemantics={
 	},
 	statsets={
 	},

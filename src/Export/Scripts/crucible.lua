@@ -29,6 +29,21 @@ for crucible in dat("WeaponPassiveSkills"):Rows() do
 			end
 			out:write('}, ')
 			out:write('weightVal = { ', table.concat(crucible.Mod.SpawnWeights, ', '), ' }, ')
+			if crucible.Mod.GenerationWeightTags[1] then
+				out:write('weightMultiplierKey = { ')
+				for _, tag in ipairs(crucible.Mod.GenerationWeightTags) do
+					out:write('"', tag.Id, '", ')
+				end
+				out:write('}, ')
+				out:write('weightMultiplierVal = { ', table.concat(crucible.Mod.GenerationWeightValues, ', '), ' }, ')
+				if crucible.Mod.Tags[1] then
+					out:write('tags = { ')
+					for _, tag in ipairs(crucible.Mod.Tags) do
+						out:write('"', tag.Id, '", ')
+					end
+					out:write('}, ')
+				end
+			end
 			out:write('modTags = { ', stats.modTags, ' }, ')
 			out:write('},\n')
 		else

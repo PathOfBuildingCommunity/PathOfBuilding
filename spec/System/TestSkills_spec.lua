@@ -86,8 +86,17 @@ describe("TestAttacks", function()
 		srcInstance.skillStageCount = 8
 		build.modFlag = true
 		build.buildFlag = true
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		
+		-- Manual stages
+		assert.True(build.calcsTab.mainEnv.enemyDB:Sum("BASE", nil, "FireResist") < 0)
+
+		srcInstance.skillPart = 2
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+		-- Automatic maximum sustainable stages
 		assert.True(build.calcsTab.mainEnv.enemyDB:Sum("BASE", nil, "FireResist") < 0)
 	end)
 

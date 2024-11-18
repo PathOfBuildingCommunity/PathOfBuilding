@@ -1044,6 +1044,15 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill SupportTriggerFireSpellOnHit
+	fromItem = true,
+	statMap = {
+		["spell_is_triggered_on_hit"] = {
+			skill("triggeredBySettlersEnchantTrigger", true)
+		}
+	},
+#mods
+
 skills["EnemyExplode"] = {
 	name = "On Kill Monster Explosion",
 	hidden = true,

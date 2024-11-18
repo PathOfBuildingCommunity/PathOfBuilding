@@ -54857,24 +54857,26 @@ return {
 			}, 
 		}, 
 		["786_FlaskDispellsPoison"] = {
+			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_3596333054", 
-				["text"] = "Grants Immunity to Poison for 4 seconds if used while Poisoned", 
+				["id"] = "explicit.stat_542375676", 
+				["text"] = "Grants Immunity to Poison for # seconds if used while Poisoned", 
 				["type"] = "explicit", 
 			}, 
 		}, 
 		["787_FlaskPoisonImmunity"] = {
 			["Flask"] = {
-				["max"] = 1, 
-				["min"] = 1, 
+				["max"] = 17, 
+				["min"] = 6, 
 			}, 
+			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_3596333054", 
-				["text"] = "Grants Immunity to Poison for 4 seconds if used while Poisoned", 
+				["id"] = "explicit.stat_542375676", 
+				["text"] = "Grants Immunity to Poison for # seconds if used while Poisoned", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -55155,7 +55157,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_1053326368", 
+				["id"] = "explicit.stat_1619168299", 
 				["text"] = "#% chance to Avoid being Chilled during Effect", 
 				["type"] = "explicit", 
 			}, 
@@ -55169,7 +55171,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2872815301", 
+				["id"] = "explicit.stat_475518267", 
 				["text"] = "#% chance to Avoid being Frozen during Effect", 
 				["type"] = "explicit", 
 			}, 
@@ -55223,7 +55225,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_335507772", 
+				["id"] = "explicit.stat_2094299742", 
 				["text"] = "+# to maximum Fortification", 
 				["type"] = "explicit", 
 			}, 
@@ -55237,7 +55239,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_335507772", 
+				["id"] = "explicit.stat_2094299742", 
 				["text"] = "+# to maximum Fortification", 
 				["type"] = "explicit", 
 			}, 

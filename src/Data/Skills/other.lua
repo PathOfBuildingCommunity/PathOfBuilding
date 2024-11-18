@@ -3856,6 +3856,29 @@ skills["SupportUniqueCastCurseOnCurse"] = {
 		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 0.25, },
 	},
 }
+skills["SupportTriggerFireSpellOnHit"] = {
+	name = "SupportTriggerFireSpellOnHit",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, SkillType.Fire, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	statMap = {
+		["spell_is_triggered_on_hit"] = {
+			skill("triggeredBySettlersEnchantTrigger", true)
+		}
+	},
+	stats = {
+		"spell_is_triggered_on_hit",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 0.25, },
+	},
+}
 skills["EnemyExplode"] = {
 	name = "On Kill Monster Explosion",
 	hidden = true,

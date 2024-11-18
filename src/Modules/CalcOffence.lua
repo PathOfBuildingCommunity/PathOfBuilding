@@ -1608,8 +1608,9 @@ function calcs.offence(env, actor, activeSkill)
 					val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult
 					val.finalBaseCost = val.finalBaseCost + costs[manaType].finalBaseCost
 					costs[manaType].baseCost = 0
-					costs[manaType].baseCostNoMult = 0
+					costs[manaType].baseCostRaw = 0
 					costs[manaType].finalBaseCost = 0
+					costs[manaType].baseCostNoMult = 0
 				elseif additionalLifeCost > 0 or hybridLifeCost > 0 then
 					val.baseCost = costs[manaType].baseCost
 					val.finalBaseCost = val.finalBaseCost + round(costs[manaType].finalBaseCost * (hybridLifeCost + additionalLifeCost))
@@ -2966,6 +2967,7 @@ function calcs.offence(env, actor, activeSkill)
 					or (pass == 2 and damageType == "Lightning" and skillModList:Flag(skillCfg, "LightningNoCritLucky"))
 					or (pass == 1 and skillModList:Flag(skillCfg, "CritLucky"))
 					or (damageType == "Lightning" and modDB:Flag(nil, "LightningLuckHits"))
+					or (damageType == "Chaos" and modDB:Flag(nil, "ChaosLuckyHits"))
 					or ((damageType == "Lightning" or damageType == "Cold" or damageType == "Fire") and skillModList:Flag(skillCfg, "ElementalLuckHits")) then
 						damageTypeLuckyChance = 1
 					else
@@ -5142,6 +5144,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	runSkillFunc("preDotFunc")
 
+	---Section Handles Generic Damage over time [DOT]
 	for _, damageType in ipairs(dmgTypeList) do
 		local dotTypeCfg = copyTable(dotCfg, true)
 		dotTypeCfg.keywordFlags = bor(dotTypeCfg.keywordFlags, KeywordFlag[damageType.."Dot"])
@@ -5155,6 +5158,7 @@ function calcs.offence(env, actor, activeSkill)
 		if baseVal > 0 or (output[damageType.."Dot"] or 0) > 0 then
 			skillFlags.dot = true
 			local effMult = 1
+			--Section handles Enemy Damage Taken based on Configs
 			if env.mode_effective then
 				local resist = 0
 				local takenInc = enemyDB:Sum("INC", dotTakenCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime") + (isElemental[damageType] and enemyDB:Sum("INC", dotTakenCfg, "ElementalDamageTaken") or 0)
@@ -5171,7 +5175,11 @@ function calcs.offence(env, actor, activeSkill)
 					breakdown[damageType.."DotEffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes, true)
 				end
 			end
+			--Variables below calculate DOT damage
 			local inc = skillModList:Sum("INC", dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
+			if skillModList:Flag(nil, "dotIsHeraldOfAsh") then
+				inc = inc - skillModList:Sum("INC", skillCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
+			end
 			local more = skillModList:More(dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
 			local mult = skillModList:Override(dotTypeCfg, "DotMultiplier") or skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier") + skillModList:Sum("BASE", dotTypeCfg, damageType.."DotMultiplier")
 			local aura = activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillTypes[SkillType.RemoteMined] and calcLib.mod(skillModList, dotTypeCfg, "AuraEffect")
@@ -5188,6 +5196,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	
 	if skillModList:Flag(nil, "DotCanStack") then
 		skillFlags.DotCanStack = true
 		local speed = output.Speed
@@ -5288,17 +5297,35 @@ function calcs.offence(env, actor, activeSkill)
 		-- Handler functions for self hit sources
 		local nameToHandler = {
 			["Heartbound Loop"] = function(activeSkill, output, breakdown)
-				local dmgType, dmgVal
-				for _, value in ipairs(activeSkill.skillModList:List(nil, "HeartboundLoopSelfDamage")) do -- Combines dmg taken from both ring accounting for catalysts
-					dmgVal = (dmgVal or 0) + value.baseDamage
-					dmgType = string.gsub(" "..value.damageType, "%W%l", string.upper):sub(2) -- This assumes both rings deal the same damage type
+				if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" then
+					local dmgType, dmgVal
+					for _, value in ipairs(activeSkill.skillModList:List(nil, "HeartboundLoopSelfDamage")) do -- Combines dmg taken from both ring accounting for catalysts
+						dmgVal = (dmgVal or 0) + value.baseDamage
+						dmgType = string.gsub(" "..value.damageType, "%W%l", string.upper):sub(2) -- This assumes both rings deal the same damage type
+					end
+					if dmgType and dmgVal then
+						local dmgBreakdown, totalDmgTaken = calcs.applyDmgTakenConversion(activeSkill, output, breakdown, dmgType, dmgVal)
+						t_insert(dmgBreakdown, 1, s_format("Heartbound Loop base damage: %d", dmgVal))
+						t_insert(dmgBreakdown, 2, s_format(""))
+						t_insert(dmgBreakdown, s_format("Total Heartbound Loop damage taken per cast/attack: %.2f * %d ^8(minions per cast)^7 = %.2f",totalDmgTaken, output.SummonedMinionsPerCast, totalDmgTaken * output.SummonedMinionsPerCast))
+						return dmgBreakdown, totalDmgTaken * output.SummonedMinionsPerCast
+					end
 				end
-				if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" and dmgType and dmgVal then
-					local dmgBreakdown, totalDmgTaken = calcs.applyDmgTakenConversion(activeSkill, output, breakdown, dmgType, dmgVal)
-					t_insert(dmgBreakdown, 1, s_format("Heartbound Loop base damage: %d", dmgVal))
-					t_insert(dmgBreakdown, 2, s_format(""))
-					t_insert(dmgBreakdown, s_format("Total Heartbound Loop damage taken per cast/attack: %.2f * %d ^8(minions per cast)^7 = %.2f",totalDmgTaken, output.SummonedMinionsPerCast, totalDmgTaken * output.SummonedMinionsPerCast))
-					return dmgBreakdown, totalDmgTaken * output.SummonedMinionsPerCast
+			end,
+			["Storm Secret"] = function(activeSkill, output, breakdown)
+				if activeSkill.activeEffect.grantedEffect.name == "Herald of Thunder" then
+					local dmgType, dmgVal
+					for _, value in ipairs(activeSkill.skillModList:List(nil, "StormSecretSelfDamage")) do -- Combines dmg taken from both rings accounting for catalysts
+						dmgVal = (dmgVal or 0) + value.baseDamage
+						dmgType = string.gsub(" "..value.damageType, "%W%l", string.upper):sub(2) -- This assumes both rings deal the same damage type
+					end
+					if dmgType and dmgVal then
+						local dmgBreakdown, totalDmgTaken = calcs.applyDmgTakenConversion(activeSkill, output, breakdown, dmgType, dmgVal)
+						t_insert(dmgBreakdown, 1, s_format("Storm Secret base damage: %d", dmgVal))
+						t_insert(dmgBreakdown, 2, s_format(""))
+						t_insert(dmgBreakdown, s_format("Total Storm Secret damage taken per Herald of Thunder Hit: %.2f",totalDmgTaken))
+						return dmgBreakdown, totalDmgTaken
+					end
 				end
 			end,
 			["Eye of Innocence"] = function(activeSkill, output, breakdown)

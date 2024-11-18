@@ -1,5 +1,69 @@
 # Changelog
 
+## [v2.49.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.49.0) (2024/11/18)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.48.2...v2.49.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- Fix character import for accounts with discriminators [\#8361](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8361) ([Regisle](https://github.com/Regisle))
+- Change default Boss Config from None to Pinnacle [\#8271](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8271) ([Regisle](https://github.com/Regisle))
+- Default to last added Tattoo in Tattoo popup [\#8215](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8215) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Debuffs granted by Glorious Madness [\#8275](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8275) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Storm Secret self damage calculation [\#8274](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8274) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add Wretched Defiler Spectre [\#8242](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8242) ([machenme](https://github.com/machenme))
+- Add support for modifying affix limits [\#8258](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8258) ([Regisle](https://github.com/Regisle))
+- Add support for Items Implicits Cannot Be Changed [\#8243](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8243) ([Regisle](https://github.com/Regisle))
+- Add Support for many Runecraft Enchants  [\#8217](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8217), [\#8222](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8222), [\#8240](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8240) ([LocalIdentity](https://github.com/LocalIdentity), [Regisle](https://github.com/Regisle), [Paliak](https://github.com/Paliak))
+- Add Ctrl+Alt+c error popup [\#8287](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8287) ([Nightblade](https://github.com/Nightblade))
+- Update rare templates [\#8229](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8229) ([Regisle](https://github.com/Regisle))
+- Add name of item causing requirements warning to warning message [\#8335](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8335) ([Paliak](https://github.com/Paliak))
+- Update Affliction Spectre Buffs with 3.25 Changes [\#8279](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8279) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Crashes
+- Fix invalid skill IDs in party tab source [\#8211](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8211) ([Regisle](https://github.com/Regisle))
+- Fix Trade Query Stat Weight Crash [\#8278](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8278) ([Regisle](https://github.com/Regisle))
+- Fix Party Tab Crash with thresholds [\#8314](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8314) ([Regisle](https://github.com/Regisle))
+- Fix special characters in set name causing crash [\#8353](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8353) ([Paliak](https://github.com/Paliak))
+### User Interface
+- Show Curse limit on calcs tab [\#8263](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8263) ([Regisle](https://github.com/Regisle))
+- Add "Ignore Mirrored Items" checkbox to trade query options [\#8184](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8184) ([n1tr0xs](https://github.com/n1tr0xs))
+- Hide recovery information on Mana Flasks if recovery is 0  [\#8239](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8239) ([Paliak](https://github.com/Paliak))
+- Allow zero enemy armour in config and fix negative enemy damage [\#8305](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8305) ([Regisle](https://github.com/Regisle))
+- Fix Warden import colour [\#8362](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8362) ([Regisle](https://github.com/Regisle))
+### Fixed Calculations
+- Mana cost raw not being set to 0 when using lifetap [\#8233](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8233) ([Paliak](https://github.com/Paliak))
+- Fix Frost Blades of Katabasis DoT not scaling with Tinctures and Multistrike [\#8281](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8281) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix 3.1 xp multiplier calc for levels 95-99 [\#8283](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8283) ([OriginalThing](https://github.com/OriginalThing))
+- Shock and scorch fixes [\#8272](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8272) ([Regisle](https://github.com/Regisle))
+- Improve EHP overkill approximation, especially for MoM [\#7568](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7568) ([0xjc](https://github.com/0xjc))
+- Hollow Palm Technique proper Dual Wielding [\#8307](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8307) ([Regisle](https://github.com/Regisle))
+- Fixed Off hand detection regarding Necromantic Aegis [\#8331](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8331) ([Jonathan-Dang](https://github.com/Jonathan-Dang))
+- Fix Herald of Ash overkill damage incorrectly scaling with global damage increases [\#8330](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8330) ([Jonathan-Dang](https://github.com/Jonathan-Dang))
+### Fixed Behaviours
+- Fix Blasphemy Auras triggering Mana cost warning [\#8324](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8324) ([Paliak](https://github.com/Paliak))
+- Fix Eldritch Implicit Mod Replacement [\#8265](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8265) ([Regisle](https://github.com/Regisle))
+- Fix Bloodscent not making Rage eligible [\#8237](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8237) ([n1tr0xs](https://github.com/n1tr0xs))
+- Fix "# of Warcries used recently" configuration option unavailable [\#8218](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8218) ([n1tr0xs](https://github.com/n1tr0xs))
+- Fix The Taming affecting Elemental ground DoTs [\#8286](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8286) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Dual Strike of Ambidexterity and Cleave of Rage [\#8304](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8304) ([Regisle](https://github.com/Regisle))
+- Fix Ghost Reaver and Brutal Fervour Interaction [\#8290](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8290) ([Regisle](https://github.com/Regisle))
+- Fix abyss socket items with no selectable Socket count (e.g. Wraithlord) [\#8317](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8317) ([Regisle](https://github.com/Regisle))
+- Default "Enemy Damage Type" to "Average" when changing Boss skills [\#8318](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8318) ([ConnorThelin](https://github.com/ConnorThelin))
+- Vengeful Cry Improvements [\#8303](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8303) ([Regisle](https://github.com/Regisle))
+- Fix Kalandra's Touch skipping mods [\#8323](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8323) ([Paliak](https://github.com/Paliak))
+- Fix Rupture sometimes applying multiple times [\#8320](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8320) ([majochem](https://github.com/majochem))
+### Accuracy Improvements
+- Make Runesmith enchants an enchant instead of a craft [\#8223](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8223) ([Regisle](https://github.com/Regisle))
+- Fix Cooldown breakdown showing overrides for other skills (e.g. Flicker) [\#8306](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8306) ([Regisle](https://github.com/Regisle))
+- Remove non-existant stat from Cadigan's Crown [\#8294](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8294) ([deathbeam](https://github.com/deathbeam))
+- Fix numerous fullDPS tooltip issues [\#8247](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8247) ([Paliak](https://github.com/Paliak))
+### Other changes
+- Fix Dual Wielding Mastery "Elusive on block" not enabling Elusive config [\#8277](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8277) ([Regisle](https://github.com/Regisle))
+- Fix Party Tab Warcries clearing links instead of Warcries [\#8313](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8313) ([Regisle](https://github.com/Regisle))
+
+
 ## [v2.48.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.48.2) (2024/08/17)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.48.1...v2.48.2)

@@ -298,7 +298,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.rawLines = { }
 	-- Find non-blank lines and trim whitespace
 	for line in raw:gmatch("%s*([^\n]*%S)") do
-	 	t_insert(self.rawLines, line)
+		t_insert(self.rawLines, line)
 	end
 	local mode = rarity and "GAME" or "WIKI"
 	local l = 1
@@ -679,11 +679,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
 								or data.itemMods[self.base.type]
 								or data.itemMods.Item
-						if self.base.weapon then
-							self.enchantments = data.enchantments["Weapon"]
-						elseif self.base.flask then
-							self.enchantments = data.enchantments["Flask"]
+						if self.base.flask then
 							if self.base.utility_flask then
+								self.enchantments = data.enchantments["UtilityFlask"]
+							else
 								self.enchantments = data.enchantments["Flask"]
 							end
 						else
@@ -739,7 +738,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 
 				local lineLower = line:lower()
-				if lineLower == "this item can be anointed by cassia" then
+				if lineLower == "implicit modifiers cannot be changed" then
+					self.implicitsCannotBeChanged = true
+				elseif lineLower:match(" prefix modifiers? allowed") then
+					self.prefixes.limit = (self.prefixes.limit or 0) + (tonumber(lineLower:match("%+(%d+) prefix modifiers? allowed")) or 0) - (tonumber(lineLower:match("%-(%d+) prefix modifiers? allowed")) or 0)
+				elseif lineLower:match(" suffix modifiers? allowed") then
+					self.suffixes.limit = (self.suffixes.limit or 0) + (tonumber(lineLower:match("%+(%d+) suffix modifiers? allowed")) or 0) - (tonumber(lineLower:match("%-(%d+) suffix modifiers? allowed")) or 0)
+				elseif lineLower == "this item can be anointed by cassia" then
 					self.canBeAnointed = true
 				elseif lineLower == "can have a second enchantment modifier" then
 					self.canHaveTwoEnchants = true
@@ -827,15 +832,26 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		if not self.affixes then 
 			self.crafted = false
 		elseif self.rarity == "MAGIC" then
-			self.affixLimit = 2
+			if self.prefixes.limit or self.suffixes.limit then
+				self.prefixes.limit = m_max(m_min((self.prefixes.limit or 0) + 1, 2), 0)
+				self.suffixes.limit = m_max(m_min((self.suffixes.limit or 0) + 1, 2), 0)
+				self.affixLimit = self.prefixes.limit + self.suffixes.limit
+			else
+				self.affixLimit = 2
+			end
 		elseif self.rarity == "RARE" then
 			self.affixLimit = ((self.type == "Jewel" and not (self.base.subType == "Abyss" and self.corrupted)) and 4 or 6)
+			if self.prefixes.limit or self.suffixes.limit then
+				self.prefixes.limit = m_max(m_min((self.prefixes.limit or 0) + self.affixLimit / 2, self.affixLimit), 0)
+				self.suffixes.limit = m_max(m_min((self.suffixes.limit or 0) + self.affixLimit / 2, self.affixLimit), 0)
+				self.affixLimit = self.prefixes.limit + self.suffixes.limit
+			end
 		else
 			self.crafted = false
 		end
 		if self.crafted then
 			for _, list in ipairs({self.prefixes,self.suffixes}) do
-				for i = 1, self.affixLimit/2 do
+				for i = 1, (list.limit or (self.affixLimit / 2)) do
 					if not list[i] then
 						list[i] = { modId = "None" }
 					elseif list[i].modId ~= "None" and not self.affixes[list[i].modId] then
@@ -927,6 +943,12 @@ function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
 		for i, key in ipairs(mod.weightKey) do
 			if (self.base.tags[key] or (includeTags and includeTags[key]) or HasInfluenceTag(key)) and not (excludeTags and excludeTags[key]) then
 				weight = (HasInfluenceTag(key) and HasMavenInfluence(mod.affix)) and 1000 or mod.weightVal[i]
+				break
+			end
+		end
+		for i, key in ipairs(mod.weightMultiplierKey or {}) do
+			if (self.base.tags[key] or (includeTags and includeTags[key]) or HasInfluenceTag(key)) and not (excludeTags and excludeTags[key]) then
+				weight = weight * mod.weightMultiplierVal[i] / 100
 				break
 			end
 		end
@@ -1164,7 +1186,7 @@ function ItemClass:Craft()
 	self.requirements.level = self.base.req.level
 	local statOrder = { }
 	for _, list in ipairs({self.prefixes,self.suffixes}) do
-		for i = 1, self.affixLimit / 2 do
+		for i = 1, (list.limit or (self.affixLimit / 2)) do
 			local affix = list[i]
 			if not affix then
 				list[i] = { modId = "None" }
@@ -1172,9 +1194,9 @@ function ItemClass:Craft()
 			local mod = self.affixes[affix.modId]
 			if mod then
 				if mod.type == "Prefix" then
-					self.namePrefix = mod.affix .. " "
+					self.namePrefix = mod.affix .. " " .. self.namePrefix
 				elseif mod.type == "Suffix" then
-					self.nameSuffix = " " .. mod.affix
+					self.nameSuffix = self.nameSuffix .. " " .. mod.affix
 				end
 				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))
 				local rangeScalar = getCatalystScalar(self.catalyst, mod.modTags, self.catalystQuality)
@@ -1331,6 +1353,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		weaponData.AttackRate = round(self.base.weapon.AttackRateBase * (1 + weaponData.AttackSpeedInc / 100), 2)
 		weaponData.rangeBonus = calcLocal(modList, "WeaponRange", "BASE", 0) + 10 * calcLocal(modList, "WeaponRangeMetre", "BASE", 0) + m_floor(self.quality / 10 * calcLocal(modList, "AlternateQualityLocalWeaponRangePer10Quality", "BASE", 0))
 		weaponData.range = self.base.weapon.Range + weaponData.rangeBonus
+		local LocalIncEle = calcLocal(modList, "LocalElementalDamage", "INC", 0)
 		for _, dmgType in pairs(dmgTypeList) do
 			local min = (self.base.weapon[dmgType.."Min"] or 0) + calcLocal(modList, dmgType.."Min", "BASE", 0)
 			local max = (self.base.weapon[dmgType.."Max"] or 0) + calcLocal(modList, dmgType.."Max", "BASE", 0)
@@ -1342,6 +1365,10 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				end
 				min = round(min * (1 + physInc / 100) * (1 + qualityScalar / 100))
 				max = round(max * (1 + physInc / 100) * (1 + qualityScalar / 100))
+			elseif dmgType ~= "Physical" and dmgType ~= "Chaos" then
+				local localInc = calcLocal(modList, "Local"..dmgType.."Damage", "INC", 0) + LocalIncEle
+				min = round(min * (1 + localInc / 100))
+				max = round(max * (1 + localInc / 100))
 			end
 			if min > 0 and max > 0 then
 				weaponData[dmgType.."Min"] = min
@@ -1677,11 +1704,11 @@ function ItemClass:BuildModList()
 		if self.sockets then
 			for i, socket in ipairs(self.sockets) do
 				if socket.color ~= "A" then
-					t_insert(newSockets, socket)
-					group = socket.group
 					if #newSockets >= self.selectableSocketCount then
 						break
 					end
+					t_insert(newSockets, socket)
+					group = socket.group
 				end
 			end
 		end

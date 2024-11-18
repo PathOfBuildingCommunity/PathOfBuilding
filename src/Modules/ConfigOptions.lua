@@ -32,7 +32,7 @@ end
 local function banditTooltip(tooltip, mode, index, value)
 	local banditBenefits = {
 		["None"] = "Grants 1 Passive Skill Point",
-		["Oak"] = "+40 to Maximum Life",
+		["Oak"] = "+40 to Maximum ^xE05030Life",
 		["Kraityn"] = "8% increased Movement Speed",
 		["Alira"] = "+15% to all Elemental Resistances",
 	}
@@ -374,6 +374,15 @@ return {
 	{ label = "Embrace Madness:", ifSkill = "Embrace Madness" },
 	{ var = "embraceMadnessActive", type = "check", label = "Is Embrace Madness active?", ifSkill = "Embrace Madness", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AffectedByGloriousMadness", "FLAG", true, "Config")
+	end },
+	{ var = "touchedDebuffsCount", type = "countAllowZero", label = "Glorious Madness Stacks", ifOption = "embraceMadnessActive", defaultState = 10, tooltip = "Glorious Madness Stacks grants:\n\tEroding Touch: 6% inc Damage Taken per stack\n\tParalysing Touch: 6% reduced Action Speed per stack\n\tDiluting Touch: 9% reduced Flask charges gained and 9% reduced Flask Effect per stack\n\tWasting Touch: 9% reduced ^xE05030Life ^7and ^x88FFFFEnergy Shield ^7recovery rate per stack", apply = function(val, modList, enemyModList)
+		val = m_min(val, 10)
+		modList:NewMod("DamageTaken", "INC", val * 6, val.." Eroding Touch Stacks", { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "AffectedByGloriousMadness" })
+		modList:NewMod("ActionSpeed", "INC", -val * 6, val.." Paralysing Touch Stacks", { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "AffectedByGloriousMadness" })
+		modList:NewMod("FlaskChargesGained", "INC", -val * 9, val.." Diluting Touch Stacks", { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "AffectedByGloriousMadness" })
+		modList:NewMod("FlaskEffect", "INC", -val * 9, val.." Diluting Touch Stacks", { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "AffectedByGloriousMadness" })
+		modList:NewMod("LifeRecoveryRate", "INC", -val * 9, val.." Wasting Touch Stacks", { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "AffectedByGloriousMadness" })
+		modList:NewMod("EnergyShieldRecoveryRate", "INC", -val * 9, val.." Wasting Touch Stacks", { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "AffectedByGloriousMadness" })
 	end },
 	{ label = "Feeding Frenzy:", ifSkill = "Feeding Frenzy" },
 	{ var = "feedingFrenzyFeedingFrenzyActive", type = "check", label = "Is Feeding Frenzy active?", ifSkill = "Feeding Frenzy", tooltip = "Feeding Frenzy grants:\n\t10% more Minion Damage\n\t10% increased Minion Movement Speed\n\t10% increased Minion Attack and Cast Speed", apply = function(val, modList, enemyModList)
@@ -1369,7 +1378,7 @@ Huge sets the radius to 11.
 	{ var = "conditionSoulGainPrevention", type = "check", label = "Do you have Soul Gain Prevention?", ifCond = "SoulGainPrevention", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SoulGainPrevention", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionUsedWarcryRecently", type = "check", label = "Have you used a Warcry Recently?", ifFlag = "warcry", implyCondList = {"UsedWarcryInPast8Seconds", "UsedSkillRecently"}, tooltip = "This also implies that you have used a Skill Recently.", apply = function(val, modList, enemyModList)
+	{ var = "conditionUsedWarcryRecently", type = "check", label = "Have you used a Warcry Recently?", {ifFlag = "warcry", ifCond = "UsedWarcryRecently"}, implyCondList = {"UsedWarcryInPast8Seconds", "UsedSkillRecently"}, tooltip = "This also implies that you have used a Skill Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UsedWarcryRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:UsedWarcryInPast8Seconds", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:UsedSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1423,7 +1432,7 @@ Huge sets the radius to 11.
 	{ var = "conditionRavenousCorpseConsumed", type = "check", label = "Has Ravenous consumed a corpse?", ifSkill = "Ravenous", implyCond = "ConsumedCorpseRecently", tooltip = "Corpse must be the same type as the monster you're fighting.\nThis also implies you have 'Consumed a corpse Recently'", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:RavenousCorpseConsumed", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierWarcryUsedRecently", type = "count", label = "# of Warcries Used Recently:", ifFlag = "warcry", implyCondList = {"UsedWarcryRecently", "UsedWarcryInPast8Seconds", "UsedSkillRecently"}, tooltip = "This also implies you have 'Used a Warcry Recently', 'Used a Warcry in the past 8 seconds', and 'Used a Skill Recently'", apply = function(val, modList, enemyModList)
+	{ var = "multiplierWarcryUsedRecently", type = "count", label = "# of Warcries Used Recently:", {ifFlag = "warcry", ifMult = "WarcryUsedRecently"}, implyCondList = {"UsedWarcryRecently", "UsedWarcryInPast8Seconds", "UsedSkillRecently"}, tooltip = "This also implies you have 'Used a Warcry Recently', 'Used a Warcry in the past 8 seconds', and 'Used a Skill Recently'", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:WarcryUsedRecently", "BASE", m_min(val, 100), "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:UsedWarcryRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:UsedWarcryInPast8Seconds", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1767,7 +1776,7 @@ Huge sets the radius to 11.
 	{ var = "conditionEnemyRareOrUnique", type = "check", label = "Is the enemy Rare or Unique?", ifEnemyCond = "EnemyRareOrUnique", tooltip = "The enemy will automatically be considered to be Unique if they are a Boss,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", defaultIndex = 1, tooltip = data.enemyIsBossTooltip, list = {{val="None",label="No"},{val="Boss",label="Standard Boss"},{val="Pinnacle",label="Guardian/Pinnacle Boss"},{val="Uber",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
+	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", defaultIndex = 3, tooltip = data.enemyIsBossTooltip, list = {{val="None",label="No"},{val="Boss",label="Standard Boss"},{val="Pinnacle",label="Guardian/Pinnacle Boss"},{val="Uber",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
 		-- These defaults are here so that the placeholders get reset correctly
 		build.configTab.varControls['enemySpeed']:SetPlaceholder(700, true)
 		build.configTab.varControls['enemyCritChance']:SetPlaceholder(5, true)
@@ -1944,13 +1953,13 @@ Huge sets the radius to 11.
 	{ var = "enemyMaxResist", type = "check", label = "Enemy Max Resistance is always 75%", tooltip = "Enemy Maximum resistance is increased by the resistance configurations \nThis locks it at the default value", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("DoNotChangeMaxResFromConfig", "FLAG", true, "EnemyConfig")
 	end },
-	{ var = "enemyBlockChance", type = "integer", label = "Enemy Block Chance:", apply = function(val, modList, enemyModList)
+	{ var = "enemyBlockChance", type = "countAllowZero", label = "Enemy Block Chance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("BlockChance", "BASE", val, "Config")
 	end },
-	{ var = "enemyEvasion", type = "count", label = "Enemy Base ^x33FF77Evasion:", apply = function(val, modList, enemyModList)
+	{ var = "enemyEvasion", type = "countAllowZero", label = "Enemy Base ^x33FF77Evasion:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Evasion", "BASE", val, "Config")
 	end },
-	{ var = "enemyArmour", type = "count", label = "Enemy Base Armour:", apply = function(val, modList, enemyModList)
+	{ var = "enemyArmour", type = "countAllowZero", label = "Enemy Base Armour:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Armour", "BASE", val, "Config")
 	end },
 	{ var = "presetBossSkills", type = "list", defaultIndex = 1, label = "Boss Skill Preset", tooltipFunc = bossSkillsTooltip, list = data.bossSkillsList, apply = function(val, modList, enemyModList, build)
@@ -2026,6 +2035,10 @@ Huge sets the radius to 11.
 				end
 			end
 		else
+			if build.configTab.varControls['enemyDamageType'].enabled == false then
+				build.configTab.input['enemyDamageType'] = "Average"
+				build.configTab.varControls['enemyDamageType']:SelByValue("Average", "val")
+			end
 			build.configTab.varControls['enemyDamageType'].enabled = true
 		end
 	end },
@@ -2039,21 +2052,21 @@ Huge sets the radius to 11.
 		{val="Spell",label="Spell"},
 		{val="SpellProjectile",label="Projectile Spell"}
 	} },
-	{ var = "enemySpeed", type = "integer", label = "Enemy attack / cast time in ms:", defaultPlaceholderState = 700 },
+	{ var = "enemySpeed", type = "countAllowZero", label = "Enemy attack / cast time in ms:", defaultPlaceholderState = 700 },
 	{ var = "enemyMultiplierPvpDamage", type = "count", label = "Custom PvP Damage multiplier percent:", ifFlag = "isPvP", tooltip = "This multiplies the damage of a given skill in pvp, for instance any with damage multiplier specific to pvp (from skill or support or item like sire of shards)", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("MultiplierPvpDamage", "BASE", val, "Config")
 	end },
-	{ var = "enemyCritChance", type = "integer", label = "Enemy critical strike chance:", defaultPlaceholderState = 5 },
-	{ var = "enemyCritDamage", type = "integer", label = "Enemy critical strike multiplier:", defaultPlaceholderState = 30 },
-	{ var = "enemyPhysicalDamage", type = "integer", label = "Enemy Skill Physical Damage:", tooltip = "This overrides the default damage amount used to estimate your damage reduction from armour.\nThe default is 1.5 times the enemy's base damage, which is the same value\nused in-game to calculate the estimate shown on the character sheet.", defaultPlaceholderState = 7 },
-	{ var = "enemyPhysicalOverwhelm", type = "integer", label = "Enemy Skill Physical Overwhelm:"},
-	{ var = "enemyLightningDamage", type = "integer", label = "Enemy Skill ^xADAA47Lightning Damage:"},
-	{ var = "enemyLightningPen", type = "integer", label = "Enemy Skill ^xADAA47Lightning Pen:"},
-	{ var = "enemyColdDamage", type = "integer", label = "Enemy Skill ^x3F6DB3Cold Damage:"},
-	{ var = "enemyColdPen", type = "integer", label = "Enemy Skill ^x3F6DB3Cold Pen:"},
-	{ var = "enemyFireDamage", type = "integer", label = "Enemy Skill ^xB97123Fire Damage:"},
-	{ var = "enemyFirePen", type = "integer", label = "Enemy Skill ^xB97123Fire Pen:"},
-	{ var = "enemyChaosDamage", type = "integer", label = "Enemy Skill ^xD02090Chaos Damage:"},
+	{ var = "enemyCritChance", type = "countAllowZero", label = "Enemy critical strike chance:", defaultPlaceholderState = 5 },
+	{ var = "enemyCritDamage", type = "countAllowZero", label = "Enemy critical strike multiplier:", defaultPlaceholderState = 30 },
+	{ var = "enemyPhysicalDamage", type = "countAllowZero", label = "Enemy Skill Physical Damage:", tooltip = "This overrides the default damage amount used to estimate your damage reduction from armour.\nThe default is 1.5 times the enemy's base damage, which is the same value\nused in-game to calculate the estimate shown on the character sheet.", defaultPlaceholderState = 7 },
+	{ var = "enemyPhysicalOverwhelm", type = "countAllowZero", label = "Enemy Skill Physical Overwhelm:"},
+	{ var = "enemyLightningDamage", type = "countAllowZero", label = "Enemy Skill ^xADAA47Lightning Damage:"},
+	{ var = "enemyLightningPen", type = "countAllowZero", label = "Enemy Skill ^xADAA47Lightning Pen:"},
+	{ var = "enemyColdDamage", type = "countAllowZero", label = "Enemy Skill ^x3F6DB3Cold Damage:"},
+	{ var = "enemyColdPen", type = "countAllowZero", label = "Enemy Skill ^x3F6DB3Cold Pen:"},
+	{ var = "enemyFireDamage", type = "countAllowZero", label = "Enemy Skill ^xB97123Fire Damage:"},
+	{ var = "enemyFirePen", type = "countAllowZero", label = "Enemy Skill ^xB97123Fire Pen:"},
+	{ var = "enemyChaosDamage", type = "countAllowZero", label = "Enemy Skill ^xD02090Chaos Damage:"},
 	
 	-- Section: Custom mods
 	{ section = "Custom Modifiers", col = 1 },

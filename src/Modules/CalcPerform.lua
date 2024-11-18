@@ -153,8 +153,7 @@ local function doActorAttribsConditions(env, actor)
 	-- Set conditions
 	if (actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].type == "Shield") or (actor == env.player and env.aegisModList) then
 		condList["UsingShield"] = true
-	end
-	if not actor.itemList["Weapon 2"] then
+	elseif not actor.itemList["Weapon 2"] then
 		condList["OffHandIsEmpty"] = true
 	end
 	if actor.weaponData1.type == "None" then
@@ -706,7 +705,7 @@ local function doActorMisc(env, actor)
 			local effect = m_max(m_floor(70 * calcLib.mod(modDB, nil, "SelfChillEffect")), 0)
 			modDB:NewMod("ActionSpeed", "INC", -effect, "Freeze")
 		end
-		if modDB:Flag(nil, "CanLeechLifeOnFullLife") then
+		if modDB:Flag(nil, "CanLeechLifeOnFullLife") and not modDB:Flag(nil, "GhostReaver") then
 			condList["Leeching"] = true
 			condList["LeechingLife"] = true
 		end
@@ -1649,12 +1648,11 @@ function calcs.perform(env, skipEHP)
 	-- Process attribute requirements
 	do
 		local reqMult = calcLib.mod(modDB, nil, "GlobalAttributeRequirements")
-		local attrTable = modDB:Flag(nil, "OmniscienceRequirements") and {"Omni","Str","Dex","Int"} or {"Str","Dex","Int"}
+		local omniRequirements = modDB:Flag(nil, "OmniscienceRequirements") and calcLib.mod(modDB, nil, "OmniAttributeRequirements")
+		local ignoreAttrReq = modDB:Flag(nil, "IgnoreAttributeRequirements")
+		local attrTable = omniRequirements and {"Omni","Str","Dex","Int"} or {"Str","Dex","Int"}
 		for _, attr in ipairs(attrTable) do
-			local breakdownAttr = attr
-			if modDB:Flag(nil, "OmniscienceRequirements") then
-				breakdownAttr = "Omni"
-			end
+			local breakdownAttr = omniRequirements and "Omni" or attr
 			if breakdown then
 				breakdown["Req"..attr] = {
 					rowList = { },
@@ -1665,16 +1663,19 @@ function calcs.perform(env, skipEHP)
 					}
 				}
 			end
-			local out = 0
+			local out = {val = 0, source = nil}
 			for _, reqSource in ipairs(env.requirementsTable) do
 				if reqSource[attr] and reqSource[attr] > 0 then
 					local req = m_floor(reqSource[attr] * reqMult)
-					if modDB:Flag(nil, "OmniscienceRequirements") then
-						local omniReqMult = 1 / (calcLib.mod(modDB, nil, "OmniAttributeRequirements") - 1)
+					if omniRequirements then
+						local omniReqMult = 1 / (omniRequirements - 1)
 						local attributereq =  m_floor(reqSource[attr] * reqMult)
 						req = m_floor(attributereq * omniReqMult)
 					end
-					out = m_max(out, req)
+					if req > out.val then
+						out.val = req
+						out.source = reqSource
+					end
 					if breakdown then
 						local row = {
 							req = req > output[breakdownAttr] and colorCodes.NEGATIVE..req or req,
@@ -1694,15 +1695,16 @@ function calcs.perform(env, skipEHP)
 					end
 				end
 			end
-			if modDB:Flag(nil, "IgnoreAttributeRequirements") then
-				out = 0
+			if ignoreAttrReq then
+				out.val = 0
 			end
 			output["Req"..attr.."String"] = 0
-			if out > (output["Req"..breakdownAttr] or 0) then
-				output["Req"..breakdownAttr.."String"] = out
-				output["Req"..breakdownAttr] = out
+			if out.val > (output["Req"..breakdownAttr] or 0) then
+				output["Req"..breakdownAttr.."String"] = out.val
+				output["Req"..breakdownAttr] = out.val
+				output["Req"..breakdownAttr.."Item"] = out.source
 				if breakdown then
-					output["Req"..breakdownAttr.."String"] = out > (output[breakdownAttr] or 0) and colorCodes.NEGATIVE..out or out
+					output["Req"..breakdownAttr.."String"] = out.val > (output[breakdownAttr] or 0) and colorCodes.NEGATIVE..(out.val) or out.val
 				end
 			end
 		end
@@ -2211,7 +2213,7 @@ function calcs.perform(env, skipEHP)
 			elseif buff.type == "Link" then
 				local linksApplyToMinions = env.minion and modDB:Flag(nil, "Condition:CanLinkToMinions") and modDB:Flag(nil, "Condition:LinkedToMinion")
 						and not env.minion.modDB:Flag(nil, "Condition:CannotBeDamaged") and not env.minion.mainSkill.summonSkill.skillTypes[SkillType.MinionsAreUndamageable]
-				if env.mode_buffs and (#linkSkills < 1) and (env.build.partyTab.enableExportBuffs or linksApplyToMinions) then
+				if env.mode_buffs and (#linkSkills < 1) and (partyTabEnableExportBuffs or linksApplyToMinions) then
 					-- Check for extra modifiers to apply to link skills
 					local extraLinkModList = { }
 					for _, value in ipairs(modDB:List(skillCfg, "ExtraLinkEffect")) do
@@ -2234,7 +2236,7 @@ function calcs.perform(env, skipEHP)
 					local inc = skillModList:Sum("INC", skillCfg, "LinkEffect", "BuffEffect")
 					local more = skillModList:More(skillCfg, "LinkEffect", "BuffEffect")
 					local mult = (1 + inc / 100) * more
-					if env.build.partyTab.enableExportBuffs then
+					if partyTabEnableExportBuffs then
 						local newModList = new("ModList")
 						newModList:AddList(buff.modList)
 						newModList:AddList(extraLinkModList)
@@ -2261,7 +2263,7 @@ function calcs.perform(env, skipEHP)
 			modDB:NewMod("WitherEffectStack", "MAX", effect)
 		end
 		--Handle combustion
-		if (activeSkill.skillTypes[SkillType.Damage] or activeSkill.skillTypes[SkillType.Attack]) and not appliedCombustion then
+		if enemyDB:Flag(nil, "Condition:Ignited") and (activeSkill.skillTypes[SkillType.Damage] or activeSkill.skillTypes[SkillType.Attack]) and not appliedCombustion then
 			for _, support in ipairs(activeSkill.supportList) do
 				if support.grantedEffect.name == "Combustion" then
 					if not activeSkill.skillModList:Flag(activeSkill.skillCfg, "CannotIgnite") then
@@ -2965,6 +2967,7 @@ function calcs.perform(env, skipEHP)
 				local mods = { }
 				if modDB:Flag(nil, "ShockCanStack") then
 					t_insert(mods, modLib.createMod("DamageTaken", "INC", num, "Shock", { type = "Condition", var = "Shocked" }, { type = "Multiplier", var = "ShockStacks", limit = modDB:Override(nil, "ShockStacksMax") or modDB:Sum("BASE", nil, "ShockStacksMax")}))
+					output["CurrentShock"] = num * m_min(enemyDB:Sum("BASE", nil, "Multiplier:ShockStacks"), modDB:Override(nil, "ShockStacksMax") or modDB:Sum("BASE", nil, "ShockStacksMax"))
 					if breakdown then
 						t_insert(mods, modLib.createMod("DamageTakenByShock", "INC", num, "Shock Stacks", { type = "Condition", var = "Shocked" }, { type = "Multiplier", var = "ShockStacks", limit = modDB:Override(nil, "ShockStacksMax") or modDB:Sum("BASE", nil, "ShockStacksMax")}))
 					end
@@ -2980,8 +2983,9 @@ function calcs.perform(env, skipEHP)
 				local mods = { }
 				if modDB:Flag(nil, "ScorchCanStack") then
 					t_insert(mods, modLib.createMod("ElementalResist", "BASE", -num, "Scorch", { type = "Condition", var = "Scorched" }, { type = "Multiplier", var = "ScorchStacks", limit = modDB:Override(nil, "ScorchStacksMax") or modDB:Sum("BASE", nil, "ScorchStacksMax")}))
+					output["CurrentScorch"] = num * m_min(enemyDB:Sum("BASE", nil, "Multiplier:ScorchStacks"), modDB:Override(nil, "ScorchStacksMax") or modDB:Sum("BASE", nil, "ScorchStacksMax"))
 					if breakdown then
-						t_insert(mods, modLib.createMod("TotalScorchValue", "BASE", -num, "Scorch Stacks", { type = "Condition", var = "Scorched" }, { type = "Multiplier", var = "ScorchStacks", limit = modDB:Override(nil, "ScorchStacksMax") or modDB:Sum("BASE", nil, "ScorchStacksMax")}))
+						t_insert(mods, modLib.createMod("ElementalResistByScorch", "BASE", -num, "Scorch Stacks", { type = "Condition", var = "Scorched" }, { type = "Multiplier", var = "ScorchStacks", limit = modDB:Override(nil, "ScorchStacksMax") or modDB:Sum("BASE", nil, "ScorchStacksMax")}))
 					end
 				else 
 					t_insert(mods, modLib.createMod("ElementalResist", "BASE", -num, "Scorch", { type = "Condition", var = "Scorched" }))

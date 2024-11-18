@@ -65,7 +65,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.tradeQuery = new("TradeQuery", self)
 
 	-- Set selector
-	self.controls.setSelect = new("DropDownControl", {"TOPLEFT",self,"TOPLEFT"}, 96, 8, 216, 20, nil, function(index, value)
+	self.controls.setSelect = new("DropDownControl", {"TOPLEFT",self,"TOPLEFT"}, {96, 8, 216, 20}, nil, function(index, value)
 		self:SetActiveItemSet(self.itemSetOrderList[index])
 		self:AddUndoState()
 	end)
@@ -79,13 +79,13 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 			self:AddItemSetTooltip(tooltip, self.itemSets[self.itemSetOrderList[index]])
 		end
 	end
-	self.controls.setLabel = new("LabelControl", {"RIGHT",self.controls.setSelect,"LEFT"}, -2, 0, 0, 16, "^7Item set:")
-	self.controls.setManage = new("ButtonControl", {"LEFT",self.controls.setSelect,"RIGHT"}, 4, 0, 90, 20, "Manage...", function()
+	self.controls.setLabel = new("LabelControl", {"RIGHT",self.controls.setSelect,"LEFT"}, {-2, 0, 0, 16}, "^7Item set:")
+	self.controls.setManage = new("ButtonControl", {"LEFT",self.controls.setSelect,"RIGHT"}, {4, 0, 90, 20}, "Manage...", function()
 		self:OpenItemSetManagePopup()
 	end)
 
 	-- Price Items
-	self.controls.priceDisplayItem = new("ButtonControl", {"TOPLEFT",self,"TOPLEFT"}, 96, 32, 310, 20, "Trade for these items", function()
+	self.controls.priceDisplayItem = new("ButtonControl", {"TOPLEFT",self,"TOPLEFT"}, {96, 32, 310, 20}, "Trade for these items", function()
 		self.tradeQuery:PriceItem()
 	end)
 	self.controls.priceDisplayItem.tooltipFunc = function(tooltip)
@@ -98,7 +98,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.slots = { }
 	self.orderedSlots = { }
 	self.slotOrder = { }
-	self.slotAnchor = new("Control", {"TOPLEFT",self,"TOPLEFT"}, 96, 76, 310, 0)
+	self.slotAnchor = new("Control", {"TOPLEFT",self,"TOPLEFT"}, {96, 76, 310, 0})
 	local prevSlot = self.slotAnchor
 	local function addSlot(slot)
 		prevSlot = slot
@@ -151,7 +151,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	end
 
 	-- Passive tree dropdown controls
-	self.controls.specSelect = new("DropDownControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 8, 216, 20, nil, function(index, value)
+	self.controls.specSelect = new("DropDownControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, {0, 8, 216, 20}, nil, function(index, value)
 		if self.build.treeTab.specList[index] then
 			self.build.modFlag = true
 			self.build.treeTab:SetActiveSpec(index)
@@ -161,10 +161,10 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		return #self.controls.specSelect.list > 1
 	end
 	prevSlot = self.controls.specSelect
-	self.controls.specButton = new("ButtonControl", {"LEFT",prevSlot,"RIGHT"}, 4, 0, 90, 20, "Manage...", function()
+	self.controls.specButton = new("ButtonControl", {"LEFT",prevSlot,"RIGHT"}, {4, 0, 90, 20}, "Manage...", function()
 		self.build.treeTab:OpenSpecManagePopup()
 	end)
-	self.controls.specLabel = new("LabelControl", {"RIGHT",prevSlot,"LEFT"}, -2, 0, 0, 16, "^7Passive tree:")
+	self.controls.specLabel = new("LabelControl", {"RIGHT",prevSlot,"LEFT"}, {-2, 0, 0, 16}, "^7Passive tree:")
 
 	self.sockets = { }
 	local socketOrder = { }
@@ -181,8 +181,8 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		self.sockets[node.id] = socketControl
 		addSlot(socketControl)
 	end
-	self.controls.slotHeader = new("LabelControl", {"BOTTOMLEFT",self.slotAnchor,"TOPLEFT"}, 0, -4, 0, 16, "^7Equipped items:")
-	self.controls.weaponSwap1 = new("ButtonControl", {"BOTTOMRIGHT",self.slotAnchor,"TOPRIGHT"}, -20, -2, 18, 18, "I", function()
+	self.controls.slotHeader = new("LabelControl", {"BOTTOMLEFT",self.slotAnchor,"TOPLEFT"}, {0, -4, 0, 16}, "^7Equipped items:")
+	self.controls.weaponSwap1 = new("ButtonControl", {"BOTTOMRIGHT",self.slotAnchor,"TOPRIGHT"}, {-20, -2, 18, 18}, "I", function()
 		if self.activeItemSet.useSecondWeaponSet then
 			self.activeItemSet.useSecondWeaponSet = false
 			self:AddUndoState()
@@ -202,7 +202,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.controls.weaponSwap1.locked = function()
 		return not self.activeItemSet.useSecondWeaponSet
 	end
-	self.controls.weaponSwap2 = new("ButtonControl", {"BOTTOMRIGHT",self.slotAnchor,"TOPRIGHT"}, 0, -2, 18, 18, "II", function()
+	self.controls.weaponSwap2 = new("ButtonControl", {"BOTTOMRIGHT",self.slotAnchor,"TOPRIGHT"}, {0, -2, 18, 18}, "II", function()
 		if not self.activeItemSet.useSecondWeaponSet then
 			self.activeItemSet.useSecondWeaponSet = true
 			self:AddUndoState()
@@ -222,24 +222,24 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.controls.weaponSwap2.locked = function()
 		return self.activeItemSet.useSecondWeaponSet
 	end
-	self.controls.weaponSwapLabel = new("LabelControl", {"RIGHT",self.controls.weaponSwap1,"LEFT"}, -4, 0, 0, 14, "^7Weapon Set:")
+	self.controls.weaponSwapLabel = new("LabelControl", {"RIGHT",self.controls.weaponSwap1,"LEFT"}, {-4, 0, 0, 14}, "^7Weapon Set:")
 
 	-- All items list
 	if main.portraitMode then
-		self.controls.itemList = new("ItemListControl", {"TOPRIGHT",self.lastSlot,"BOTTOMRIGHT"}, 0, 0, 360, 308, self, true)
+		self.controls.itemList = new("ItemListControl", {"TOPRIGHT",self.lastSlot,"BOTTOMRIGHT"}, {0, 0, 360, 308}, self, true)
 	else
-		self.controls.itemList = new("ItemListControl", {"TOPLEFT",self.controls.setManage,"TOPRIGHT"}, 20, 20, 360, 308, self, true)
+		self.controls.itemList = new("ItemListControl", {"TOPLEFT",self.controls.setManage,"TOPRIGHT"}, {20, 20, 360, 308}, self, true)
 	end
 
 	-- Database selector
-	self.controls.selectDBLabel = new("LabelControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 14, 0, 16, "^7Import from:")
+	self.controls.selectDBLabel = new("LabelControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 14, 0, 16}, "^7Import from:")
 	self.controls.selectDBLabel.shown = function()
 		return self.height < 980
 	end
-	self.controls.selectDB = new("DropDownControl", {"LEFT",self.controls.selectDBLabel,"RIGHT"}, 4, 0, 150, 18, { "Uniques", "Rare Templates" })
+	self.controls.selectDB = new("DropDownControl", {"LEFT",self.controls.selectDBLabel,"RIGHT"}, {4, 0, 150, 18}, { "Uniques", "Rare Templates" })
 
 	-- Unique database
-	self.controls.uniqueDB = new("ItemDBControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(244, self.maxY - select(2, c:GetPos())) end, self, main.uniqueDB, "UNIQUE")
+	self.controls.uniqueDB = new("ItemDBControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 76, 360, function(c) return m_min(244, self.maxY - select(2, c:GetPos())) end}, self, main.uniqueDB, "UNIQUE")
 	self.controls.uniqueDB.y = function()
 		return self.controls.selectDBLabel:IsShown() and 118 or 96
 	end
@@ -248,7 +248,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	end
 
 	-- Rare template database
-	self.controls.rareDB = new("ItemDBControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end, self, main.rareDB, "RARE")
+	self.controls.rareDB = new("ItemDBControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end}, self, main.rareDB, "RARE")
 	self.controls.rareDB.y = function()
 		return self.controls.selectDBLabel:IsShown() and 78 or 396
 	end
@@ -256,16 +256,16 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 2
 	end
 	-- Create/import item
-	self.controls.craftDisplayItem = new("ButtonControl", {"TOPLEFT",main.portraitMode and self.controls.setManage or self.controls.itemList,"TOPRIGHT"}, 20, main.portraitMode and 0 or -20, 120, 20, "Craft item...", function()
+	self.controls.craftDisplayItem = new("ButtonControl", {"TOPLEFT",main.portraitMode and self.controls.setManage or self.controls.itemList,"TOPRIGHT"}, {20, main.portraitMode and 0 or -20, 120, 20}, "Craft item...", function()
 		self:CraftItem()
 	end)
 	self.controls.craftDisplayItem.shown = function()
 		return self.displayItem == nil 
 	end
-	self.controls.newDisplayItem = new("ButtonControl", {"TOPLEFT",self.controls.craftDisplayItem,"TOPRIGHT"}, 8, 0, 120, 20, "Create custom...", function()
+	self.controls.newDisplayItem = new("ButtonControl", {"TOPLEFT",self.controls.craftDisplayItem,"TOPRIGHT"}, {8, 0, 120, 20}, "Create custom...", function()
 		self:EditDisplayItemText()
 	end)
-	self.controls.displayItemTip = new("LabelControl", {"TOPLEFT",self.controls.craftDisplayItem,"BOTTOMLEFT"}, 0, 8, 100, 16, 
+	self.controls.displayItemTip = new("LabelControl", {"TOPLEFT",self.controls.craftDisplayItem,"BOTTOMLEFT"}, {0, 8, 100, 16}, 
 [[^7Double-click an item from one of the lists,
 or copy and paste an item from in game
 (hover over the item and Ctrl+C) to view or edit
@@ -278,31 +278,31 @@ drag it onto the slot.  This will also add it to
 your build if it's from the unique/template list.
 If there's 2 slots an item can go in, 
 holding Shift will put it in the second.]])
-	self.controls.sharedItemList = new("SharedItemListControl", {"TOPLEFT",self.controls.craftDisplayItem, "BOTTOMLEFT"}, 0, 232, 340, 308, self, true)
+	self.controls.sharedItemList = new("SharedItemListControl", {"TOPLEFT",self.controls.craftDisplayItem, "BOTTOMLEFT"}, {0, 232, 340, 308}, self, true)
 
 	-- Display item
 	self.displayItemTooltip = new("Tooltip")
 	self.displayItemTooltip.maxWidth = 458
-	self.anchorDisplayItem = new("Control", {"TOPLEFT",main.portraitMode and self.controls.setManage or self.controls.itemList,"TOPRIGHT"}, 20, main.portraitMode and 0 or -20, 0, 0)
+	self.anchorDisplayItem = new("Control", {"TOPLEFT",main.portraitMode and self.controls.setManage or self.controls.itemList,"TOPRIGHT"}, {20, main.portraitMode and 0 or -20, 0, 0})
 	self.anchorDisplayItem.shown = function()
 		return self.displayItem ~= nil
 	end
-	self.controls.addDisplayItem = new("ButtonControl", {"TOPLEFT",self.anchorDisplayItem,"TOPLEFT"}, 0, 0, 100, 20, "", function()
+	self.controls.addDisplayItem = new("ButtonControl", {"TOPLEFT",self.anchorDisplayItem,"TOPLEFT"}, {0, 0, 100, 20}, "", function()
 		self:AddDisplayItem()
 	end)
 	self.controls.addDisplayItem.label = function()
 		return self.items[self.displayItem.id] and "Save" or "Add to build"
 	end
-	self.controls.editDisplayItem = new("ButtonControl", {"LEFT",self.controls.addDisplayItem,"RIGHT"}, 8, 0, 60, 20, "Edit...", function()
+	self.controls.editDisplayItem = new("ButtonControl", {"LEFT",self.controls.addDisplayItem,"RIGHT"}, {8, 0, 60, 20}, "Edit...", function()
 		self:EditDisplayItemText()
 	end)
-	self.controls.removeDisplayItem = new("ButtonControl", {"LEFT",self.controls.editDisplayItem,"RIGHT"}, 8, 0, 60, 20, "Cancel", function()
+	self.controls.removeDisplayItem = new("ButtonControl", {"LEFT",self.controls.editDisplayItem,"RIGHT"}, {8, 0, 60, 20}, "Cancel", function()
 		self:SetDisplayItem()
 	end)
 
 	-- Section: Variant(s)
 
-	self.controls.displayItemSectionVariant = new("Control", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 8, 0, function()
+	self.controls.displayItemSectionVariant = new("Control", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, {0, 8, 0, function()
 		if not self.controls.displayItemVariant:IsShown() then
 			return 0
 		end
@@ -312,8 +312,8 @@ holding Shift will put it in the second.]])
 		(self.displayItem.hasAltVariant3 and 24 or 0) +
 		(self.displayItem.hasAltVariant4 and 24 or 0) + 
 		(self.displayItem.hasAltVariant5 and 24 or 0))
-	end)
-	self.controls.displayItemVariant = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, 0, 0, 300, 20, nil, function(index, value)
+	end})
+	self.controls.displayItemVariant = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, {0, 0, 300, 20}, nil, function(index, value)
 		self.displayItem.variant = index
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
@@ -323,7 +323,7 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemVariant.shown = function()
 		return self.displayItem.variantList and #self.displayItem.variantList > 1
 	end
-	self.controls.displayItemAltVariant = new("DropDownControl", {"TOPLEFT",self.controls.displayItemVariant,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
+	self.controls.displayItemAltVariant = new("DropDownControl", {"TOPLEFT",self.controls.displayItemVariant,"BOTTOMLEFT"}, {0, 4, 300, 20}, nil, function(index, value)
 		self.displayItem.variantAlt = index
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
@@ -333,7 +333,7 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemAltVariant.shown = function()
 		return self.displayItem.hasAltVariant
 	end
-	self.controls.displayItemAltVariant2 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
+	self.controls.displayItemAltVariant2 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant,"BOTTOMLEFT"}, {0, 4, 300, 20}, nil, function(index, value)
 		self.displayItem.variantAlt2 = index
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
@@ -343,7 +343,7 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemAltVariant2.shown = function()
 		return self.displayItem.hasAltVariant2
 	end
-	self.controls.displayItemAltVariant3 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant2,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
+	self.controls.displayItemAltVariant3 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant2,"BOTTOMLEFT"}, {0, 4, 300, 20}, nil, function(index, value)
 		self.displayItem.variantAlt3 = index
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
@@ -353,7 +353,7 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemAltVariant3.shown = function()
 		return self.displayItem.hasAltVariant3
 	end
-	self.controls.displayItemAltVariant4 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant3,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
+	self.controls.displayItemAltVariant4 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant3,"BOTTOMLEFT"}, {0, 4, 300, 20}, nil, function(index, value)
 		self.displayItem.variantAlt4 = index
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
@@ -363,7 +363,7 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemAltVariant4.shown = function()
 		return self.displayItem.hasAltVariant4
 	end
-	self.controls.displayItemAltVariant5 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant4,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
+	self.controls.displayItemAltVariant5 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant4,"BOTTOMLEFT"}, {0, 4, 300, 20}, nil, function(index, value)
 		self.displayItem.variantAlt5 = index
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
@@ -375,11 +375,11 @@ holding Shift will put it in the second.]])
 	end
 
 	-- Section: Sockets and Links
-	self.controls.displayItemSectionSockets = new("Control", {"TOPLEFT",self.controls.displayItemSectionVariant,"BOTTOMLEFT"}, 0, 0, 0, function()
+	self.controls.displayItemSectionSockets = new("Control", {"TOPLEFT",self.controls.displayItemSectionVariant,"BOTTOMLEFT"}, {0, 0, 0, function()
 		return self.displayItem and self.displayItem.selectableSocketCount > 0 and 28 or 0
-	end)
+	end})
 	for i = 1, 6 do
-		local drop = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionSockets,"TOPLEFT"}, (i-1) * 64, 0, 36, 20, socketDropList, function(index, value)
+		local drop = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionSockets,"TOPLEFT"}, {(i-1) * 64, 0, 36, 20}, socketDropList, function(index, value)
 			self.displayItem.sockets[i].color = value.color
 			self.displayItem:BuildAndParseRaw()
 			self:UpdateDisplayItemTooltip()
@@ -389,7 +389,7 @@ holding Shift will put it in the second.]])
 		end
 		self.controls["displayItemSocket"..i] = drop
 		if i < 6 then
-			local link = new("CheckBoxControl", {"LEFT",drop,"RIGHT"}, 4, 0, 20, nil, function(state)
+			local link = new("CheckBoxControl", {"LEFT",drop,"RIGHT"}, {4, 0, 20}, nil, function(state)
 				if state and self.displayItem.sockets[i].group ~= self.displayItem.sockets[i+1].group then
 					for s = i + 1, #self.displayItem.sockets do
 						self.displayItem.sockets[s].group = self.displayItem.sockets[s].group - 1
@@ -408,7 +408,7 @@ holding Shift will put it in the second.]])
 			self.controls["displayItemLink"..i] = link
 		end
 	end
-	self.controls.displayItemAddSocket = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionSockets,"TOPLEFT"}, function() return (#self.displayItem.sockets - self.displayItem.abyssalSocketCount) * 64 - 12 end, 0, 20, 20, "+", function()
+	self.controls.displayItemAddSocket = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionSockets,"TOPLEFT"}, {function() return (#self.displayItem.sockets - self.displayItem.abyssalSocketCount) * 64 - 12 end, 0, 20, 20}, "+", function()
 		local insertIndex = #self.displayItem.sockets - self.displayItem.abyssalSocketCount + 1
 		t_insert(self.displayItem.sockets, insertIndex, {
 			color = self.displayItem.defaultSocketColor,
@@ -426,28 +426,28 @@ holding Shift will put it in the second.]])
 	end
 	
 	-- Section: Enchant / Anoint / Corrupt
-	self.controls.displayItemSectionEnchant = new("Control", {"TOPLEFT",self.controls.displayItemSectionSockets,"BOTTOMLEFT"}, 0, 0, 0, function()
+	self.controls.displayItemSectionEnchant = new("Control", {"TOPLEFT",self.controls.displayItemSectionSockets,"BOTTOMLEFT"}, {0, 0, 0, function()
 		return (self.controls.displayItemEnchant:IsShown() or self.controls.displayItemEnchant2:IsShown() or self.controls.displayItemAnoint:IsShown() or self.controls.displayItemAnoint2:IsShown() or self.controls.displayItemCorrupt:IsShown() ) and 28 or 0
-	end)
-	self.controls.displayItemEnchant = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionEnchant,"TOPLEFT"}, 0, 0, 160, 20, "Apply Enchantment...", function()
+	end})
+	self.controls.displayItemEnchant = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionEnchant,"TOPLEFT"}, {0, 0, 160, 20}, "Apply Enchantment...", function()
 		self:EnchantDisplayItem(1)
 	end)
 	self.controls.displayItemEnchant.shown = function()
 		return self.displayItem and self.displayItem.enchantments
 	end
-	self.controls.displayItemEnchant2 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemEnchant,"TOPRIGHT",true}, 8, 0, 160, 20, "Apply Enchantment 2...", function()
+	self.controls.displayItemEnchant2 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemEnchant,"TOPRIGHT",true}, {8, 0, 160, 20}, "Apply Enchantment 2...", function()
 		self:EnchantDisplayItem(2)
 	end)
 	self.controls.displayItemEnchant2.shown = function()
 		return self.displayItem and self.displayItem.enchantments and self.displayItem.canHaveTwoEnchants and #self.displayItem.enchantModLines > 0
 	end
-	self.controls.displayItemAnoint = new("ButtonControl", {"TOPLEFT",self.controls.displayItemEnchant2,"TOPRIGHT",true}, 8, 0, 100, 20, "Anoint...", function()
+	self.controls.displayItemAnoint = new("ButtonControl", {"TOPLEFT",self.controls.displayItemEnchant2,"TOPRIGHT",true}, {8, 0, 100, 20}, "Anoint...", function()
 		self:AnointDisplayItem(1)
 	end)
 	self.controls.displayItemAnoint.shown = function()
 		return self.displayItem and (self.displayItem.base.type == "Amulet" or self.displayItem.canBeAnointed)
 	end
-	self.controls.displayItemAnoint2 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint,"TOPRIGHT",true}, 8, 0, 100, 20, "Anoint 2...", function()
+	self.controls.displayItemAnoint2 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint,"TOPRIGHT",true}, {8, 0, 100, 20}, "Anoint 2...", function()
 		self:AnointDisplayItem(2)
 	end)
 	self.controls.displayItemAnoint2.shown = function()
@@ -456,7 +456,7 @@ holding Shift will put it in the second.]])
 			self.displayItem.canHaveTwoEnchants and
 			#self.displayItem.enchantModLines > 0
 	end
-	self.controls.displayItemAnoint3 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint2,"TOPRIGHT",true}, 8, 0, 100, 20, "Anoint 3...", function()
+	self.controls.displayItemAnoint3 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint2,"TOPRIGHT",true}, {8, 0, 100, 20}, "Anoint 3...", function()
 		self:AnointDisplayItem(3)
 	end)
 	self.controls.displayItemAnoint3.shown = function()
@@ -465,7 +465,7 @@ holding Shift will put it in the second.]])
 			self.displayItem.canHaveThreeEnchants and
 			#self.displayItem.enchantModLines > 1
 	end
-	self.controls.displayItemAnoint4 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint3,"TOPRIGHT",true}, 8, 0, 100, 20, "Anoint 4...", function()
+	self.controls.displayItemAnoint4 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint3,"TOPRIGHT",true}, {8, 0, 100, 20}, "Anoint 4...", function()
 		self:AnointDisplayItem(4)
 	end)
 	self.controls.displayItemAnoint4.shown = function()
@@ -474,25 +474,28 @@ holding Shift will put it in the second.]])
 			self.displayItem.canHaveFourEnchants and
 			#self.displayItem.enchantModLines > 2
 	end
-	self.controls.displayItemCorrupt = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint4,"TOPRIGHT",true}, 8, 10, 100, 20, "Corrupt...", function()
+	self.controls.displayItemCorrupt = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint4,"TOPRIGHT",true}, {8, 10, 100, 20}, "Corrupt...", function()
 		self:CorruptDisplayItem("Corrupted")
 	end)
 	self.controls.displayItemCorrupt.shown = function()
 		return self.displayItem and self.displayItem.corruptible
 	end
 	--[[
-	self.controls.displayItemScourge = new("ButtonControl", {"TOPLEFT",self.controls.displayItemCorrupt,"TOPRIGHT",true}, 8, 0, 100, 20, "Scourge...", function()
+	self.controls.displayItemScourge = new("ButtonControl", {"TOPLEFT",self.controls.displayItemCorrupt,"TOPRIGHT",true}, {8, 0, 100, 20}, "Scourge...", function()
 		self:CorruptDisplayItem("Scourge")
 	end)
 	self.controls.displayItemScourge.shown = function()
 		return self.displayItem and self.displayItem.corruptible
 	end
 	--]]
-	self.controls.displayItemAddImplicit = new("ButtonControl", {"TOPLEFT",self.controls.displayItemCorrupt,"TOPRIGHT",true}, 8, 0, 120, 20, "Add Implicit...", function()
+	self.controls.displayItemAddImplicit = new("ButtonControl", {"TOPLEFT",self.controls.displayItemCorrupt,"TOPRIGHT",true}, {8, 0, 120, 20}, "Add Implicit...", function()
 		self:AddImplicitToDisplayItem()
 	end)
 	self.controls.displayItemAddImplicit.shown = function()
-		return self.displayItem and self.displayItem.type ~= "Tincture" and (self.displayItem.corruptible or ((self.displayItem.type ~= "Flask" or self.displayItem.type ~= "Jewel") and (self.displayItem.rarity == "NORMAL" or self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")))
+		return self.displayItem and
+			self.displayItem.type ~= "Tincture" and (self.displayItem.corruptible or ((self.displayItem.type ~= "Flask" and self.displayItem.type ~= "Jewel") and
+			(self.displayItem.rarity == "NORMAL" or self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE"))) and 
+			not self.displayItem.implicitsCannotBeChanged
 	end
 
 	-- Section: Influence dropdowns
@@ -518,17 +521,17 @@ holding Shift will put it in the second.]])
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
 	end
-	self.controls.displayItemSectionInfluence = new("Control", {"TOPLEFT",self.controls.displayItemSectionEnchant,"BOTTOMLEFT"}, 0, 0, 0, function()
+	self.controls.displayItemSectionInfluence = new("Control", {"TOPLEFT",self.controls.displayItemSectionEnchant,"BOTTOMLEFT"}, {0, 0, 0, function()
 		return self.displayItem and self.displayItem.canBeInfluenced and 28 or 0
-	end)
-	self.controls.displayItemInfluence = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionInfluence,"TOPRIGHT"}, 0, 0, 100, 20, influenceDisplayList, function(index, value)
+	end})
+	self.controls.displayItemInfluence = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionInfluence,"TOPRIGHT"}, {0, 0, 100, 20}, influenceDisplayList, function(index, value)
 		local otherIndex = self.controls.displayItemInfluence2.selIndex
 		setDisplayItemInfluence({ index - 1, otherIndex - 1 })
 	end)
 	self.controls.displayItemInfluence.shown = function()
 		return self.displayItem and self.displayItem.canBeInfluenced
 	end
-	self.controls.displayItemInfluence2 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemInfluence,"TOPRIGHT",true}, 8, 0, 100, 20, influenceDisplayList, function(index, value)
+	self.controls.displayItemInfluence2 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemInfluence,"TOPRIGHT",true}, {8, 0, 100, 20}, influenceDisplayList, function(index, value)
 		local otherIndex = self.controls.displayItemInfluence.selIndex
 		setDisplayItemInfluence({ index - 1, otherIndex - 1 })
 	end)
@@ -537,15 +540,15 @@ holding Shift will put it in the second.]])
 	end
 
 	-- Section: Item Quality
-	self.controls.displayItemSectionQuality = new("Control", {"TOPLEFT",self.controls.displayItemSectionInfluence,"BOTTOMLEFT"}, 0, 0, 0, function()
+	self.controls.displayItemSectionQuality = new("Control", {"TOPLEFT",self.controls.displayItemSectionInfluence,"BOTTOMLEFT"}, {0, 0, 0, function()
 		return (self.controls.displayItemQuality:IsShown() and self.controls.displayItemQualityEdit:IsShown()) and 28 or 0
-	end)
-	self.controls.displayItemQuality = new("LabelControl", {"TOPLEFT",self.controls.displayItemSectionQuality,"TOPRIGHT"}, -4, 0, 0, 16, "^7Quality:")
+	end})
+	self.controls.displayItemQuality = new("LabelControl", {"TOPLEFT",self.controls.displayItemSectionQuality,"TOPRIGHT"}, {-4, 0, 0, 16}, "^7Quality:")
 	self.controls.displayItemQuality.shown = function()
 		return self.displayItem and self.displayItem.quality and (self.displayItem.base.type ~= "Amulet" or self.displayItem.base.type ~= "Belt" or self.displayItem.base.type ~= "Jewel" or self.displayItem.base.type ~= "Quiver" or self.displayItem.base.type ~= "Ring")
 	end
 
-	self.controls.displayItemQualityEdit = new("EditControl", {"LEFT",self.controls.displayItemQuality,"RIGHT"},2,0,60,20,nil,nil,"%D",2,function(buf)
+	self.controls.displayItemQualityEdit = new("EditControl", {"LEFT",self.controls.displayItemQuality,"RIGHT"}, {2, 0, 60, 20}, nil, nil, "%D", 2, function(buf)
 		self.displayItem.quality = tonumber(buf)
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
@@ -555,10 +558,10 @@ holding Shift will put it in the second.]])
 	end
 
 	-- Section: Catalysts
-	self.controls.displayItemSectionCatalyst = new("Control", {"TOPLEFT",self.controls.displayItemSectionQuality,"BOTTOMLEFT"}, 0, 0, 0, function()
+	self.controls.displayItemSectionCatalyst = new("Control", {"TOPLEFT",self.controls.displayItemSectionQuality,"BOTTOMLEFT"}, {0, 0, 0, function()
 		return (self.controls.displayItemCatalyst:IsShown() or self.controls.displayItemCatalystQualityEdit:IsShown()) and 28 or 0
-	end)
-	self.controls.displayItemCatalyst = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionCatalyst,"TOPRIGHT"}, 0, 0, 250, 20,
+	end})
+	self.controls.displayItemCatalyst = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionCatalyst,"TOPRIGHT"}, {0, 0, 250, 20},
 		{"Catalyst","Abrasive (Attack)","Accelerating (Speed)","Fertile (Life & Mana)","Imbued (Caster)","Intrinsic (Attribute)","Noxious (Physical & Chaos Damage)",
 		 "Prismatic (Resistance)","Tempering (Defense)","Turbulent (Elemental)","Unstable (Critical)"},
 		function(index, value)
@@ -580,7 +583,7 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemCatalyst.shown = function()
 		return self.displayItem and (self.displayItem.crafted or self.displayItem.hasModTags) and (self.displayItem.base.type == "Amulet" or self.displayItem.base.type == "Ring" or self.displayItem.base.type == "Belt")
 	end
-	self.controls.displayItemCatalystQualityEdit = new("EditControl", {"LEFT",self.controls.displayItemCatalyst,"RIGHT"},2,0,60,20,nil,nil,"%D",2,function(buf)
+	self.controls.displayItemCatalystQualityEdit = new("EditControl", {"LEFT",self.controls.displayItemCatalyst,"RIGHT"}, {2, 0, 60, 20}, nil, nil, "%D", 2, function(buf)
 		self.displayItem.catalystQuality = tonumber(buf)
 		if self.displayItem.crafted then
 			for i = 1, self.displayItem.affixLimit do
@@ -597,10 +600,10 @@ holding Shift will put it in the second.]])
 	end
 
 	-- Section: Cluster Jewel
-	self.controls.displayItemSectionClusterJewel = new("Control", {"TOPLEFT",self.controls.displayItemSectionCatalyst,"BOTTOMLEFT"}, 0, 0, 0, function()
+	self.controls.displayItemSectionClusterJewel = new("Control", {"TOPLEFT",self.controls.displayItemSectionCatalyst,"BOTTOMLEFT"}, {0, 0, 0, function()
 		return self.controls.displayItemClusterJewelSkill:IsShown() and 52 or 0
-	end)
-	self.controls.displayItemClusterJewelSkill = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionClusterJewel,"TOPLEFT"}, 0, 0, 300, 20, { }, function(index, value)
+	end})
+	self.controls.displayItemClusterJewelSkill = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionClusterJewel,"TOPLEFT"}, {0, 0, 300, 20}, { }, function(index, value)
 		self.displayItem.clusterJewelSkill = value.skillId
 		self:CraftClusterJewel()
 	end) {
@@ -609,8 +612,8 @@ holding Shift will put it in the second.]])
 		end
 	}
 	
-	self.controls.displayItemClusterJewelNodeCountLabel = new("LabelControl", {"TOPLEFT",self.controls.displayItemClusterJewelSkill,"BOTTOMLEFT"}, 0, 7, 0, 14, "^7Added Passives:")
-	self.controls.displayItemClusterJewelNodeCount = new("SliderControl", {"LEFT",self.controls.displayItemClusterJewelNodeCountLabel,"RIGHT"}, 2, 0, 150, 20, function(val)
+	self.controls.displayItemClusterJewelNodeCountLabel = new("LabelControl", {"TOPLEFT",self.controls.displayItemClusterJewelSkill,"BOTTOMLEFT"}, {0, 7, 0, 14}, "^7Added Passives:")
+	self.controls.displayItemClusterJewelNodeCount = new("SliderControl", {"LEFT",self.controls.displayItemClusterJewelNodeCountLabel,"RIGHT"}, {2, 0, 150, 20}, function(val)
 		local divVal = self.controls.displayItemClusterJewelNodeCount:GetDivVal()
 		local clusterJewel = self.displayItem.clusterJewel
 		self.displayItem.clusterJewelNodeCount = round(val * (clusterJewel.maxNodes - clusterJewel.minNodes) + clusterJewel.minNodes)
@@ -618,7 +621,7 @@ holding Shift will put it in the second.]])
 	end)
 
 	-- Section: Affix Selection
-	self.controls.displayItemSectionAffix = new("Control", {"TOPLEFT",self.controls.displayItemSectionClusterJewel,"BOTTOMLEFT"}, 0, 0, 0, function()
+	self.controls.displayItemSectionAffix = new("Control", {"TOPLEFT",self.controls.displayItemSectionClusterJewel,"BOTTOMLEFT"}, {0, 0, 0, function()
 		if not self.displayItem or not self.displayItem.crafted then
 			return 0
 		end
@@ -632,7 +635,7 @@ holding Shift will put it in the second.]])
 			end
 		end
 		return h
-	end)
+	end})
 	for i = 1, 6 do
 		local prev = self.controls["displayItemAffix"..(i-1)] or self.controls.displayItemSectionAffix
 		local drop, slider
@@ -676,7 +679,7 @@ holding Shift will put it in the second.]])
 			end
 			return range
 		end
-		drop = new("DropDownControl", {"TOPLEFT",prev,"TOPLEFT"}, i==1 and 40 or 0, 0, 418, 20, nil, function(index, value)
+		drop = new("DropDownControl", {"TOPLEFT",prev,"TOPLEFT"}, {i==1 and 40 or 0, 0, 418, 20}, nil, function(index, value)
 			local affix = { modId = "None" }
 			if value.modId then
 				affix.modId = value.modId
@@ -805,7 +808,7 @@ holding Shift will put it in the second.]])
 		drop.shown = function()
 			return self.displayItem and self.displayItem.crafted and i <= self.displayItem.affixLimit
 		end
-		slider = new("SliderControl", {"TOPLEFT",drop,"BOTTOMLEFT"}, 0, 2, 300, 16, function(val)
+		slider = new("SliderControl", {"TOPLEFT",drop,"BOTTOMLEFT"}, {0, 2, 300, 16}, function(val)
 			local affix = self.displayItem[drop.outputTable][drop.outputIndex]
 			local index, range = slider:GetDivVal()
 			affix.modId = drop.list[drop.selIndex].modList[index]
@@ -844,21 +847,21 @@ holding Shift will put it in the second.]])
 		end
 		drop.slider = slider
 		self.controls["displayItemAffix"..i] = drop
-		self.controls["displayItemAffixLabel"..i] = new("LabelControl", {"RIGHT",drop,"LEFT"}, -4, 0, 0, 14, function()
+		self.controls["displayItemAffixLabel"..i] = new("LabelControl", {"RIGHT",drop,"LEFT"}, {-4, 0, 0, 14}, function()
 			return drop.outputTable == "prefixes" and "^7Prefix:" or "^7Suffix:"
 		end)
 		self.controls["displayItemAffixRange"..i] = slider
-		self.controls["displayItemAffixRangeLabel"..i] = new("LabelControl", {"RIGHT",slider,"LEFT"}, -4, 0, 0, 14, function()
+		self.controls["displayItemAffixRangeLabel"..i] = new("LabelControl", {"RIGHT",slider,"LEFT"}, {-4, 0, 0, 14}, function()
 			return drop.selIndex > 1 and "^7Roll:" or "^x7F7F7FRoll:"
 		end)
 	end
 
 	-- Section: Custom modifiers
 	-- if either Custom or Crucible mod buttons are shown, create the control for the list of mods
-	self.controls.displayItemSectionCustom = new("Control", {"TOPLEFT",self.controls.displayItemSectionAffix,"BOTTOMLEFT"}, 0, 0, 0, function()
+	self.controls.displayItemSectionCustom = new("Control", {"TOPLEFT",self.controls.displayItemSectionAffix,"BOTTOMLEFT"}, {0, 0, 0, function()
 		return (self.controls.displayItemAddCustom:IsShown() or self.controls.displayItemAddCrucible:IsShown()) and 28 + self.displayItem.customCount * 22 or 0
-	end)
-	self.controls.displayItemAddCustom = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, 0, 0, 120, 20, "Add modifier...", function()
+	end})
+	self.controls.displayItemAddCustom = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, {0, 0, 120, 20}, "Add modifier...", function()
 		self:AddCustomModifierToDisplayItem()
 	end)
 	self.controls.displayItemAddCustom.shown = function()
@@ -867,9 +870,9 @@ holding Shift will put it in the second.]])
 
 	-- Section: Crucible modifiers
 	-- if the Add modifier button is not shown, take its place, otherwise move it to the right of it
-	self.controls.displayItemAddCrucible = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, function()
+	self.controls.displayItemAddCrucible = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, {function()
 		return (self.controls.displayItemAddCustom:IsShown() and 128) or 0
-	end, 0, 150, 20, "Add Crucible mod...", function()
+	end, 0, 150, 20}, "Add Crucible mod...", function()
 		self:AddCrucibleModifierToDisplayItem()
 	end)
 	self.controls.displayItemAddCrucible.shown = function()
@@ -877,16 +880,16 @@ holding Shift will put it in the second.]])
 	end
 
 	-- Section: Modifier Range
-	self.controls.displayItemSectionRange = new("Control", {"TOPLEFT",self.controls.displayItemSectionCustom,"BOTTOMLEFT"}, 0, 0, 0, function()
+	self.controls.displayItemSectionRange = new("Control", {"TOPLEFT",self.controls.displayItemSectionCustom,"BOTTOMLEFT"}, {0, 0, 0, function()
 		return self.displayItem.rangeLineList[1] and 28 or 0
-	end)
-	self.controls.displayItemRangeLine = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionRange,"TOPLEFT"}, 0, 0, 350, 18, nil, function(index, value)
+	end})
+	self.controls.displayItemRangeLine = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionRange,"TOPLEFT"}, {0, 0, 350, 18}, nil, function(index, value)
 		self.controls.displayItemRangeSlider.val = self.displayItem.rangeLineList[index].range
 	end)
 	self.controls.displayItemRangeLine.shown = function()
 		return self.displayItem and self.displayItem.rangeLineList[1] ~= nil
 	end
-	self.controls.displayItemRangeSlider = new("SliderControl", {"LEFT",self.controls.displayItemRangeLine,"RIGHT"}, 8, 0, 100, 18, function(val)
+	self.controls.displayItemRangeSlider = new("SliderControl", {"LEFT",self.controls.displayItemRangeLine,"RIGHT"}, {8, 0, 100, 18}, function(val)
 		self.displayItem.rangeLineList[self.controls.displayItemRangeLine.selIndex].range = val
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
@@ -897,8 +900,8 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemTooltipAnchor = new("Control", {"TOPLEFT",self.controls.displayItemSectionRange,"BOTTOMLEFT"})
 
 	-- Scroll bars
-	self.controls.scrollBarH = new("ScrollBarControl", nil, 0, 0, 0, 18, 100, "HORIZONTAL", true)
-	self.controls.scrollBarV = new("ScrollBarControl", nil, 0, 0, 18, 0, 100, "VERTICAL", true)
+	self.controls.scrollBarH = new("ScrollBarControl", nil, {0, 0, 0, 18}, 100, "HORIZONTAL", true)
+	self.controls.scrollBarV = new("ScrollBarControl", nil, {0, 0, 18, 0}, 100, "VERTICAL", true)
 
 	-- Initialise drag target lists
 	t_insert(self.controls.itemList.dragTargetList, self.controls.sharedItemList)
@@ -1167,6 +1170,11 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 		if event.type == "KeyDown" then	
 			if event.key == "v" and IsKeyDown("CTRL") then
 				local newItem = Paste()
+				if newItem:find("{ ", 0, true) then
+					main:OpenConfirmPopup("Warning", "\"Advanced Item Descriptions\" (Ctrl+Alt+c) are unsupported.\n\nAbort paste?", "OK", function()
+						self:SetDisplayItem()
+					end)
+				end
 				if newItem then
 					self:CreateDisplayItemFromRaw(newItem, true)
 				end
@@ -1655,9 +1663,13 @@ end
 -- Update affix selection controls
 function ItemsTabClass:UpdateAffixControls()
 	local item = self.displayItem
-	for i = 1, item.affixLimit/2 do
-		self:UpdateAffixControl(self.controls["displayItemAffix"..i], item, "Prefix", "prefixes", i)
-		self:UpdateAffixControl(self.controls["displayItemAffix"..(i+item.affixLimit/2)], item, "Suffix", "suffixes", i)
+	local prefixLimit = item.prefixes.limit or (item.affixLimit / 2)
+	for i = 1, item.affixLimit do
+		if i <= prefixLimit then
+			self:UpdateAffixControl(self.controls["displayItemAffix"..i], item, "Prefix", "prefixes", i)
+		else
+			self:UpdateAffixControl(self.controls["displayItemAffix"..i], item, "Suffix", "suffixes", i - prefixLimit)
+		end
 	end	
 	-- The custom affixes may have had their indexes changed, so the custom control UI is also rebuilt so that it will
 	-- reference the correct affix index.
@@ -1668,7 +1680,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	local extraTags = { }
 	local excludeGroups = { }
 	for _, table in ipairs({"prefixes","suffixes"}) do
-		for index = 1, item.affixLimit/2 do
+		for index = 1, (item[table].limit or (item.affixLimit / 2)) do
 			if index ~= outputIndex or table ~= outputTable then
 				local mod = item.affixes[item[table][index] and item[table][index].modId]
 				if mod then
@@ -1785,9 +1797,9 @@ function ItemsTabClass:UpdateCustomControls()
 				local line = itemLib.formatModLine(modLine)
 				if line then
 					if not self.controls["displayItemCustomModifierRemove"..i] then
-						self.controls["displayItemCustomModifierRemove"..i] = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, 0, i * 22 + 4, 70, 20, "^7Remove")
-						self.controls["displayItemCustomModifier"..i] = new("LabelControl", {"LEFT",self.controls["displayItemCustomModifierRemove"..i],"RIGHT"}, 65, 0, 0, 16)
-						self.controls["displayItemCustomModifierLabel"..i] = new("LabelControl", {"LEFT",self.controls["displayItemCustomModifierRemove"..i],"RIGHT"}, 5, 0, 0, 16)
+						self.controls["displayItemCustomModifierRemove"..i] = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, {0, i * 22 + 4, 70, 20}, "^7Remove")
+						self.controls["displayItemCustomModifier"..i] = new("LabelControl", {"LEFT",self.controls["displayItemCustomModifierRemove"..i],"RIGHT"}, {65, 0, 0, 16})
+						self.controls["displayItemCustomModifierLabel"..i] = new("LabelControl", {"LEFT",self.controls["displayItemCustomModifierRemove"..i],"RIGHT"}, {5, 0, 0, 16})
 					end
 					self.controls["displayItemCustomModifierRemove"..i].shown = true
 					local label = itemLib.formatModLine(modLine)
@@ -1852,11 +1864,8 @@ function ItemsTabClass:AddModComparisonTooltip(tooltip, mod)
 	newItem:BuildAndParseRaw()
 
 	local calcFunc = self.build.calcsTab:GetMiscCalculator()
-	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-	local outputBase = calcFunc({ repSlotName = slotName, repItem = self.displayItem }, {})
-	local outputNew = calcFunc({ repSlotName = slotName, repItem = newItem }, {})
-	GlobalCache.useFullDPS = storedGlobalCacheDPSView
+	local outputBase = calcFunc({ repSlotName = slotName, repItem = self.displayItem })
+	local outputNew = calcFunc({ repSlotName = slotName, repItem = newItem })
 	self.build:AddStatComparesToTooltip(tooltip, outputBase, outputNew, "\nAdding this mod will give: ")	
 end
 
@@ -1930,11 +1939,11 @@ end
 -- Opens the item set manager
 function ItemsTabClass:OpenItemSetManagePopup()
 	local controls = { }
-	controls.setList = new("ItemSetListControl", nil, -155, 50, 300, 200, self)
-	controls.sharedList = new("SharedItemSetListControl", nil, 155, 50, 300, 200, self)
+	controls.setList = new("ItemSetListControl", nil, {-155, 50, 300, 200}, self)
+	controls.sharedList = new("SharedItemSetListControl", nil, {155, 50, 300, 200}, self)
 	controls.setList.dragTargetList = { controls.sharedList }
 	controls.sharedList.dragTargetList = { controls.setList }
-	controls.close = new("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
+	controls.close = new("ButtonControl", nil, {0, 260, 90, 20}, "Done", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(630, 290, "Manage Item Sets", controls)
@@ -1988,21 +1997,21 @@ function ItemsTabClass:CraftItem()
 		item:BuildAndParseRaw()
 		return item
 	end
-	controls.rarityLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 20, 0, 16, "Rarity:")
-	controls.rarity = new("DropDownControl", nil, -80, 20, 100, 18, rarityDropList)
+	controls.rarityLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {50, 20, 0, 16}, "Rarity:")
+	controls.rarity = new("DropDownControl", nil, {-80, 20, 100, 18}, rarityDropList)
 	controls.rarity.selIndex = self.lastCraftRaritySel or 3
-	controls.title = new("EditControl", nil, 70, 20, 190, 18, "", "Name")
+	controls.title = new("EditControl", nil, {70, 20, 190, 18}, "", "Name")
 	controls.title.shown = function()
 		return controls.rarity.selIndex >= 3
 	end
-	controls.typeLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 45, 0, 16, "Type:")
-	controls.type = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 55, 45, 295, 18, self.build.data.itemBaseTypeList, function(index, value)
+	controls.typeLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {50, 45, 0, 16}, "Type:")
+	controls.type = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {55, 45, 295, 18}, self.build.data.itemBaseTypeList, function(index, value)
 		controls.base.list = self.build.data.itemBaseLists[self.build.data.itemBaseTypeList[index]]
 		controls.base.selIndex = 1
 	end)
 	controls.type.selIndex = self.lastCraftTypeSel or 1
-	controls.baseLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 70, 0, 16, "Base:")
-	controls.base = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 55, 70, 200, 18, self.build.data.itemBaseLists[self.build.data.itemBaseTypeList[controls.type.selIndex]])
+	controls.baseLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {50, 70, 0, 16}, "Base:")
+	controls.base = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {55, 70, 200, 18}, self.build.data.itemBaseLists[self.build.data.itemBaseTypeList[controls.type.selIndex]])
 	controls.base.selIndex = self.lastCraftBaseSel or 1
 	controls.base.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
@@ -2010,7 +2019,7 @@ function ItemsTabClass:CraftItem()
 			self:AddItemTooltip(tooltip, makeItem(value), nil, true)
 		end
 	end
-	controls.save = new("ButtonControl", nil, -45, 100, 80, 20, "Create", function()
+	controls.save = new("ButtonControl", nil, {-45, 100, 80, 20}, "Create", function()
 		main:ClosePopup()
 		local item = makeItem(controls.base.list[controls.base.selIndex])
 		self:SetDisplayItem(item)
@@ -2021,7 +2030,7 @@ function ItemsTabClass:CraftItem()
 		self.lastCraftTypeSel = controls.type.selIndex
 		self.lastCraftBaseSel = controls.base.selIndex
 	end)
-	controls.cancel = new("ButtonControl", nil, 45, 100, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, {45, 100, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(370, 130, "Craft Item", controls)
@@ -2038,8 +2047,8 @@ function ItemsTabClass:EditDisplayItemText(alsoAddItem)
 			return "Rarity: "..controls.rarity.list[controls.rarity.selIndex].rarity.."\n"..controls.edit.buf
 		end
 	end
-	controls.rarity = new("DropDownControl", nil, -190, 10, 100, 18, rarityDropList)
-	controls.edit = new("EditControl", nil, 0, 40, 480, 420, "", nil, "^%C\t\n", nil, nil, 14)
+	controls.rarity = new("DropDownControl", nil, {-190, 10, 100, 18}, rarityDropList)
+	controls.edit = new("EditControl", nil, {0, 40, 480, 420}, "", nil, "^%C\t\n", nil, nil, 14)
 	if self.displayItem then
 		controls.edit:SetText(self.displayItem:BuildRaw():gsub("Rarity: %w+\n",""))
 		controls.rarity:SelByValue(self.displayItem.rarity, "rarity")
@@ -2048,7 +2057,7 @@ function ItemsTabClass:EditDisplayItemText(alsoAddItem)
 	end
 	controls.edit.font = "FIXED"
 	controls.edit.pasteFilter = sanitiseText
-	controls.save = new("ButtonControl", nil, -45, 470, 80, 20, self.displayItem and "Save" or "Create", function()
+	controls.save = new("ButtonControl", nil, {-45, 470, 80, 20}, self.displayItem and "Save" or "Create", function()
 		local id = self.displayItem and self.displayItem.id
 		self:CreateDisplayItemFromRaw(buildRaw(), not self.displayItem)
 		self.displayItem.id = id
@@ -2076,7 +2085,7 @@ function ItemsTabClass:EditDisplayItemText(alsoAddItem)
 			tooltip:AddLine(14, "Scholar's Platinum Kris of Joy")
 		end
 	end	
-	controls.cancel = new("ButtonControl", nil, 45, 470, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, {45, 470, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(500, 500, self.displayItem and "Edit Item Text" or "Create Custom Item from Text", controls, nil, "edit")
@@ -2166,13 +2175,13 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		return item
 	end
 	if haveSkills then
-		controls.skillLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Skill:")
-		controls.skill = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 180, 18, skillList, function(index, value)
+		controls.skillLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {95, 20, 0, 16}, "^7Skill:")
+		controls.skill = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 20, 180, 18}, skillList, function(index, value)
 			buildEnchantmentSourceList()
 			buildEnchantmentList()
 			controls.enchantment:SetSel(1)
 		end)
-		controls.allSkills = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 350, 20, 18, "All skills:", function(state)
+		controls.allSkills = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, {350, 20, 18}, "All skills:", function(state)
 			buildSkillList(not state)
 			controls.skill:SetSel(1)
 			buildEnchantmentList()
@@ -2184,26 +2193,26 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 			controls.allSkills.enabled = false
 		end
 	end
-	controls.enchantmentSourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Source:")
-	controls.enchantmentSource = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 180, 18, enchantmentSourceList, function(index, value)
+	controls.enchantmentSourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {95, 45, 0, 16}, "^7Source:")
+	controls.enchantmentSource = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 45, 180, 18}, enchantmentSourceList, function(index, value)
 		buildEnchantmentList()
 		controls.enchantment:SetSel(m_min(controls.enchantment.selIndex, #enchantmentList))
 	end)
-	controls.enchantmentLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 70, 0, 16, "^7Enchantment:")
-	controls.enchantment = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 70, 440, 18, enchantmentList)
+	controls.enchantmentLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {95, 70, 0, 16}, "^7Enchantment:")
+	controls.enchantment = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 70, 440, 18}, enchantmentList)
 	controls.enchantment.tooltipFunc = function(tooltip, mode, index)
 		tooltip:Clear()
 		self:AddItemTooltip(tooltip, enchantItem(index), nil, true)
 	end
-	controls.save = new("ButtonControl", nil, -88, 100, 80, 20, "Enchant", function()
+	controls.save = new("ButtonControl", nil, {-88, 100, 80, 20}, "Enchant", function()
 		self:SetDisplayItem(enchantItem())
 		main:ClosePopup()
 	end)
-	controls.remove = new("ButtonControl", nil, 0, 100, 80, 20, "Remove", function()
+	controls.remove = new("ButtonControl", nil, {0, 100, 80, 20}, "Remove", function()
 		self:SetDisplayItem(enchantItem(nil, true))
 		main:ClosePopup()
 	end)
-	controls.close = new("ButtonControl", nil, 88, 100, 80, 20, "Cancel", function()
+	controls.close = new("ButtonControl", nil, {88, 100, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(550, 130, "Enchant Item", controls)
@@ -2281,11 +2290,8 @@ function ItemsTabClass:AppendAnointTooltip(tooltip, node, actionText)
 		header = "^7"..actionText.." nothing will give you: "
 	end
 	local calcFunc = self.build.calcsTab:GetMiscCalculator()
-	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-	local outputBase = calcFunc({ repSlotName = "Amulet", repItem = self.displayItem }, {})
-	local outputNew = calcFunc({ repSlotName = "Amulet", repItem = self:anointItem(node) }, {})
-	GlobalCache.useFullDPS = storedGlobalCacheDPSView
+	local outputBase = calcFunc({ repSlotName = "Amulet", repItem = self.displayItem })
+	local outputNew = calcFunc({ repSlotName = "Amulet", repItem = self:anointItem(node) })
 	local numChanges = self.build:AddStatComparesToTooltip(tooltip, outputBase, outputNew, header)
 	if node and numChanges == 0 then
 		tooltip:AddLine(14, "^7"..actionText.." "..node.dn.." changes nothing.")
@@ -2296,11 +2302,8 @@ end
 ---@param tooltip table @The tooltip to append into
 ---@param node table @The passive tree node that will be added
 function ItemsTabClass:AppendAddedNotableTooltip(tooltip, node)
-	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
-	local outputNew = calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
-	GlobalCache.useFullDPS = storedGlobalCacheDPSView
+	local outputNew = calcFunc({ addNodes = { [node] = true } })
 	local numChanges = self.build:AddStatComparesToTooltip(tooltip, calcBase, outputNew, "^7Allocating "..node.dn.." will give you: ")
 	if numChanges == 0 then
 		tooltip:AddLine(14, "^7Allocating "..node.dn.." changes nothing.")
@@ -2312,7 +2315,7 @@ function ItemsTabClass:AnointDisplayItem(enchantSlot)
 	self.anointEnchantSlot = enchantSlot or 1
 
 	local controls = { } 
-	controls.notableDB = new("NotableDBControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 60, 360, 360, self, self.build.spec.tree.nodes, "ANOINT")
+	controls.notableDB = new("NotableDBControl", {"TOPLEFT",nil,"TOPLEFT"}, {10, 60, 360, 360}, self, self.build.spec.tree.nodes, "ANOINT")
 
 	local function saveLabel()
 		local node = controls.notableDB.selValue
@@ -2333,7 +2336,7 @@ function ItemsTabClass:AnointDisplayItem(enchantSlot)
 		local width = saveLabelWidth()
 		return -(width + 90) / 2
 	end
-	controls.save = new("ButtonControl", {"BOTTOMLEFT", nil, "BOTTOM" }, saveLabelX, -4, saveLabelWidth, 20, saveLabel, function()
+	controls.save = new("ButtonControl", {"BOTTOMLEFT", nil, "BOTTOM" }, {saveLabelX, -4, saveLabelWidth, 20}, saveLabel, function()
 		self:SetDisplayItem(self:anointItem(controls.notableDB.selValue))
 		main:ClosePopup()
 	end)
@@ -2341,7 +2344,7 @@ function ItemsTabClass:AnointDisplayItem(enchantSlot)
 		tooltip:Clear()
 		self:AppendAnointTooltip(tooltip, controls.notableDB.selValue)
 	end	
-	controls.close = new("ButtonControl", {"TOPLEFT", controls.save, "TOPRIGHT" }, 10, 0, 80, 20, "Cancel", function()
+	controls.close = new("ButtonControl", {"TOPLEFT", controls.save, "TOPRIGHT" }, {10, 0, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(380, 448, "Anoint Item", controls)
@@ -2413,14 +2416,19 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 		item:BuildAndParseRaw()
 		return item
 	end
-	controls.sourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Source:")
-	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 150, 18, sourceList, function(index, value)
+	controls.sourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {95, 20, 0, 16}, "^7Source:")
+	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 20, 150, 18}, sourceList, function(index, value)
 		if value == "Scourge" then
 			currentModType = "ScourgeUpside"
 			buildImplicitList("ScourgeUpside")
 			buildImplicitList("ScourgeDownside")
-			controls.implicit3Label.shown = true
+			controls.implicit.shown = true
+			controls.implicitLabel.shown = true
+			controls.implicit2.shown = true
+			controls.implicit2Label.shown = true
 			controls.implicit3.shown = true
+			controls.implicit3Label.shown = true
+			controls.implicitCannotBeChangedLabel.shown = false
 			main.popups[1].height = 147
 			controls.close.y = 117
 			controls.save.y = 117
@@ -2436,10 +2444,15 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			buildList(controls.implicit4, controls.implicit3, "ScourgeDownside")
 		else
 			currentModType = value
+			controls.implicit.shown = not self.displayItem.implicitsCannotBeChanged
+			controls.implicitLabel.shown = not self.displayItem.implicitsCannotBeChanged
+			controls.implicit2.shown = not self.displayItem.implicitsCannotBeChanged
+			controls.implicit2Label.shown = not self.displayItem.implicitsCannotBeChanged
 			controls.implicit3Label.shown = false
 			controls.implicit3.shown = false
 			controls.implicit4Label.shown = false
 			controls.implicit4.shown = false
+			controls.implicitCannotBeChangedLabel.shown = self.displayItem.implicitsCannotBeChanged
 			controls.implicit2.y = 65
 			main.popups[1].height = 129
 			controls.close.y = 99
@@ -2453,8 +2466,8 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 		controls.implicit4:SetSel(1)
 	end)
 	controls.source.enabled = #sourceList > 1
-	controls.implicitLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 45, 0, 16, "^7Implicit #1:")
-	controls.implicit = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 80, 45, 440, 18, nil, function()
+	controls.implicitLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {75, 45, 0, 16}, "^7Implicit #1:")
+	controls.implicit = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {80, 45, 440, 18}, nil, function()
 		buildList(controls.implicit2, controls.implicit, currentModType)
 	end)
 	controls.implicit.tooltipFunc = function(tooltip, mode, index, value)
@@ -2466,8 +2479,10 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
 	end
-	controls.implicit2Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 65, 0, 16, "^7Implicit #2:")
-	controls.implicit2 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 80, 65, 440, 18, nil, function()
+	controls.implicit.shown = not self.displayItem.implicitsCannotBeChanged
+	controls.implicitLabel.shown = not self.displayItem.implicitsCannotBeChanged
+	controls.implicit2Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {75, 65, 0, 16}, "^7Implicit #2:")
+	controls.implicit2 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {80, 65, 440, 18}, nil, function()
 		buildList(controls.implicit, controls.implicit2, currentModType)
 	end)
 	controls.implicit2.tooltipFunc = function(tooltip, mode, index, value)
@@ -2479,8 +2494,10 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
 	end
-	controls.implicit3Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 85, 0, 16, "^7Implicit #3:")
-	controls.implicit3 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 80, 65, 440, 18, nil, function()
+	controls.implicit2.shown = not self.displayItem.implicitsCannotBeChanged
+	controls.implicit2Label.shown = not self.displayItem.implicitsCannotBeChanged
+	controls.implicit3Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {75, 85, 0, 16}, "^7Implicit #3:")
+	controls.implicit3 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {80, 65, 440, 18}, nil, function()
 		buildList(controls.implicit4, controls.implicit3, "ScourgeDownside")
 	end)
 	controls.implicit3.tooltipFunc = function(tooltip, mode, index, value)
@@ -2494,8 +2511,8 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 	end
 	controls.implicit3Label.shown = false
 	controls.implicit3.shown = false
-	controls.implicit4Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 105, 0, 16, "^7Implicit #4:")
-	controls.implicit4 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 80, 105, 440, 18, nil, function()
+	controls.implicit4Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {75, 105, 0, 16}, "^7Implicit #4:")
+	controls.implicit4 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {80, 105, 440, 18}, nil, function()
 		buildList(controls.implicit3, controls.implicit4, "ScourgeDownside")
 	end)
 	controls.implicit4.tooltipFunc = function(tooltip, mode, index, value)
@@ -2509,9 +2526,11 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 	end
 	controls.implicit4Label.shown = false
 	controls.implicit4.shown = false
+	controls.implicitCannotBeChangedLabel = new("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, {20, 45, 0, 20}, "^7This Items Implicits Cannot Be Changed")
+	controls.implicitCannotBeChangedLabel.shown = self.displayItem.implicitsCannotBeChanged
 	buildList(controls.implicit, controls.implicit2, currentModType)
 	buildList(controls.implicit2, controls.implicit, currentModType)
-	controls.save = new("ButtonControl", nil, -45, 99, 80, 20, modType, function()
+	controls.save = new("ButtonControl", nil, {-45, 99, 80, 20}, modType, function()
 		self:SetDisplayItem(corruptItem())
 		main:ClosePopup()
 	end)
@@ -2519,7 +2538,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 		tooltip:Clear()
 		self:AddItemTooltip(tooltip, corruptItem(), nil, true)
 	end	
-	controls.close = new("ButtonControl", nil, 45, 99, 80, 20, "Cancel", function()
+	controls.close = new("ButtonControl", nil, {45, 99, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(540, 129, modType .. " Item", controls)
@@ -2537,7 +2556,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		if sourceId == "MASTER" then
 			local excludeGroups = { }
 			for _, modLine in ipairs({ self.displayItem.prefixes, self.displayItem.suffixes }) do
-				for i = 1, self.displayItem.affixLimit / 2 do
+				for i = 1, (modLine.limit or (self.displayItem.affixLimit / 2)) do
 					if modLine[i].modId ~= "None" then
 						excludeGroups[self.displayItem.affixes[modLine[i].modId].group] = true
 					end
@@ -2698,14 +2717,14 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		item:BuildAndParseRaw()
 		return item
 	end
-	controls.sourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Source:")
-	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 150, 18, sourceList, function(index, value)
+	controls.sourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {95, 20, 0, 16}, "^7Source:")
+	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 20, 150, 18}, sourceList, function(index, value)
 		buildMods(value.sourceId)
 		controls.modSelect:SetSel(1)
 	end)
 	controls.source.enabled = #sourceList > 1
-	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Modifier:")
-	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 600, 18, modList)
+	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {95, 45, 0, 16}, "^7Modifier:")
+	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 45, 600, 18}, modList)
 	controls.modSelect.shown = function()
 		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
 	end
@@ -2718,11 +2737,11 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
 	end
-	controls.custom = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 440, 18)
+	controls.custom = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 45, 440, 18})
 	controls.custom.shown = function()
 		return sourceList[controls.source.selIndex].sourceId == "CUSTOM"
 	end
-	controls.save = new("ButtonControl", nil, -45, 75, 80, 20, "Add", function()
+	controls.save = new("ButtonControl", nil, {-45, 75, 80, 20}, "Add", function()
 		self:SetDisplayItem(addModifier())
 		main:ClosePopup()
 	end)
@@ -2730,7 +2749,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		tooltip:Clear()
 		self:AddItemTooltip(tooltip, addModifier())
 	end	
-	controls.close = new("ButtonControl", nil, 45, 75, 80, 20, "Cancel", function()
+	controls.close = new("ButtonControl", nil, {45, 75, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(710, 105, "Add Modifier to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")	
@@ -2834,8 +2853,8 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 	buildCrucibleMods()
 	local y = 45
 	for i = 1,5 do
-		controls["modSelectNode"..i.."Label"] = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, y, 0, 16, "^7Node "..i..":")
-		controls["modSelectNode"..i] = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, y, 555, 18, modList[i])
+		controls["modSelectNode"..i.."Label"] = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {95, y, 0, 16}, "^7Node "..i..":")
+		controls["modSelectNode"..i] = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, y, 555, 18}, modList[i])
 		controls["modSelectNode"..i].tooltipFunc = function(tooltip, mode, index, value)
 			tooltip:Clear()
 			if mode ~= "OUT" and value and value ~= "None" then
@@ -2855,7 +2874,7 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 			end
 		end
 	end
-	controls.save = new("ButtonControl", nil, -45, 157, 80, 20, "Add", function()
+	controls.save = new("ButtonControl", nil, {-45, 157, 80, 20}, "Add", function()
 		self:SetDisplayItem(addModifier())
 		main:ClosePopup()
 	end)
@@ -2863,7 +2882,7 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 		tooltip:Clear()
 		self:AddItemTooltip(tooltip, addModifier())
 	end
-	controls.close = new("ButtonControl", nil, 45, 157, 80, 20, "Cancel", function()
+	controls.close = new("ButtonControl", nil, {45, 157, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(710, 185, "Add Crucible Modifier to Item", controls, "save")
@@ -3032,15 +3051,15 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			local listMod = modList[modGroups[controls.modGroupSelect.selIndex].modListIndex][controls.modSelect.selIndex]
 			local index
 			for i, implicitMod in ipairs(item.implicitModLines) do
-				if implicitMod[listMod.type] and implicitMod[listMod.type] == "{"..listMod.type.."}" then
+				if implicitMod[listMod.type] then
 					index = i
 					break
 				end
 			end
 			if index then
 				for i, line in ipairs(listMod.mod) do
-                    item.implicitModLines[index + i - 1] = { line = line, modTags = listMod.mod.modTags, [listMod.type] = true }
-                end
+					item.implicitModLines[index + i - 1] = { line = line, modTags = listMod.mod.modTags, [listMod.type] = true }
+				end
 			else
 				for _, line in ipairs(listMod.mod) do
 					t_insert(item.implicitModLines, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
@@ -3055,8 +3074,8 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		item:BuildAndParseRaw()
 		return item
 	end
-	controls.sourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Source:")
-	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 150, 18, sourceList, function(index, value)
+	controls.sourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {95, 20, 0, 16}, "^7Source:")
+	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 20, 150, 18}, sourceList, function(index, value)
 		if value.sourceId ~= "CUSTOM" then
 			controls.modSelectLabel.y = 70
 			buildMods(value.sourceId)
@@ -3068,8 +3087,8 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		end
 	end)
 	controls.source.enabled = #sourceList > 1
-	controls.modGroupSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Type:")
-	controls.modGroupSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 600, 18, modGroups, function(index, value)
+	controls.modGroupSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {95, 45, 0, 16}, "^7Type:")
+	controls.modGroupSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 45, 600, 18}, modGroups, function(index, value)
 		controls.modSelect.list = modList[value.modListIndex]
 		controls.modSelect:SetSel(1)
 	end)
@@ -3091,8 +3110,8 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
 	end
-	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 70, 0, 16, "^7Modifier:")
-	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 70, 600, 18, sourceList[controls.source.selIndex].sourceId ~= "CUSTOM" and modList[modGroups[1].modListIndex] or { })
+	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {95, 70, 0, 16}, "^7Modifier:")
+	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 70, 600, 18}, sourceList[controls.source.selIndex].sourceId ~= "CUSTOM" and modList[modGroups[1].modListIndex] or { })
 	controls.modSelect.shown = function()
 		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
 	end
@@ -3105,11 +3124,11 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
 	end
-	controls.custom = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 440, 18)
+	controls.custom = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 45, 440, 18})
 	controls.custom.shown = function()
 		return sourceList[controls.source.selIndex].sourceId == "CUSTOM"
 	end
-	controls.save = new("ButtonControl", nil, -45, 100, 80, 20, "Add", function()
+	controls.save = new("ButtonControl", nil, {-45, 100, 80, 20}, "Add", function()
 		self:SetDisplayItem(addModifier())
 		main:ClosePopup()
 	end)
@@ -3117,7 +3136,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		tooltip:Clear()
 		self:AddItemTooltip(tooltip, addModifier())
 	end	
-	controls.close = new("ButtonControl", nil, 45, 100, 80, 20, "Cancel", function()
+	controls.close = new("ButtonControl", nil, {45, 100, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(710, 130, "Add Implicit to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")	
@@ -3269,13 +3288,13 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			end
 		end
 		if flaskData.manaTotal then
-			if flaskData.manaGradual then
+			if flaskData.manaGradual ~= 0 then
 				tooltip:AddLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FMana over %s%.1f0 ^x7F7F7FSeconds",
 					main:StatColor(flaskData.manaTotal, base.flask.mana), flaskData.manaGradual,
 					main:StatColor(flaskData.duration, base.flask.duration), flaskData.duration
 					))
 			end
-			if flaskData.manaInstant then
+			if flaskData.manaInstant ~= 0 then
 				tooltip:AddLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FMana instantly", main:StatColor(flaskData.manaTotal, base.flask.mana), flaskData.manaInstant))
 			end
 		end
@@ -3627,10 +3646,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				tooltip:AddLine(14, stat)
 			end
 		end
-		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-		local output = calcFunc({ toggleFlask = item }, {})
-		GlobalCache.useFullDPS = storedGlobalCacheDPSView
+		local output = calcFunc({ toggleFlask = item })
 		local header
 		if self.build.calcsTab.mainEnv.flasks[item] then
 			header = "^7Deactivating this flask will give you:"
@@ -3666,10 +3682,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				tooltip:AddLine(14, stat)
 			end
 		end
-		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-		local output = calcFunc({ toggleTincture = item }, {})
-		GlobalCache.useFullDPS = storedGlobalCacheDPSView
+		local output = calcFunc({ toggleTincture = item })
 		local header
 		if self.build.calcsTab.mainEnv.tinctures[item] then
 			header = "^7Deactivating this tincture will give you:"
@@ -3716,10 +3729,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		for _, compareSlot in pairs(compareSlots) do
 			if not main.slotOnlyTooltips or (slot and (slot.nodeId == compareSlot.nodeId or slot.slotName == compareSlot.slotName)) or not slot or slot == compareSlot then
 				local selItem = self.items[compareSlot.selItemId]
-				local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-				GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-				local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil}, {})
-				GlobalCache.useFullDPS = storedGlobalCacheDPSView
+				local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil})
 				local header
 				if item == selItem then
 					header = "^7Removing this item from "..compareSlot.label.." will give you:"

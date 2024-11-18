@@ -32,13 +32,13 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 	self.colWidth = 230
 	self.sectionList = { }
 
-	self.controls.search = new("EditControl", {"TOPLEFT",self,"TOPLEFT"}, 4, 5, 260, 20, "", "Search", "%c", 100, nil, nil, nil, true)
+	self.controls.search = new("EditControl", {"TOPLEFT",self,"TOPLEFT"}, {4, 5, 260, 20}, "", "Search", "%c", 100, nil, nil, nil, true)
 	t_insert(self.controls, self.controls.search)
 
 	-- Special section for skill/mode selection
 	self:NewSection(3, "SkillSelect", 1, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "View Skill Details", data = {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
-			control = new("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value) 
+			control = new("DropDownControl", nil, {0, 0, 300, 16}, nil, function(index, value) 
 				self.input.skill_number = index
 				self:AddUndoState()
 				self.build.buildFlag = true
@@ -52,14 +52,14 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 			}
 		}, },
 		{ label = "Active Skill", { controlName = "mainSkill", 
-			control = new("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value)
+			control = new("DropDownControl", nil, {0, 0, 300, 16}, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				mainSocketGroup.mainActiveSkillCalcs = index
 				self.build.buildFlag = true
 			end)
 		}, },
 		{ label = "Skill Part", playerFlag = "multiPart", { controlName = "mainSkillPart", 
-			control = new("DropDownControl", nil, 0, 0, 250, 16, nil, function(index, value)
+			control = new("DropDownControl", nil, {0, 0, 250, 16}, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillPartCalcs = index
@@ -67,7 +67,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				self.build.buildFlag = true
 			end)
 		}, },{ label = "Skill Stages", playerFlag = "multiStage", { controlName = "mainSkillStageCount",
-			control = new("EditControl", nil, 0, 0, 52, 16, nil, nil, "%D", nil, function(buf)
+			control = new("EditControl", nil, {0, 0, 52, 16}, nil, nil, "%D", nil, function(buf)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillStageCountCalcs = tonumber(buf)
@@ -76,7 +76,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 			end)
 		}, },
 		{ label = "Active Mines", playerFlag = "mine", { controlName = "mainSkillMineCount",
-			control = new("EditControl", nil, 0, 0, 52, 16, nil, nil, "%D", nil, function(buf)
+			control = new("EditControl", nil, {0, 0, 52, 16}, nil, nil, "%D", nil, function(buf)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillMineCountCalcs = tonumber(buf)
@@ -85,13 +85,13 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 			end)
 		}, },
 		{ label = "Show Minion Stats", flag = "haveMinion", { controlName = "showMinion", 
-			control = new("CheckBoxControl", nil, 0, 0, 18, nil, function(state)
+			control = new("CheckBoxControl", nil, {0, 0, 18}, nil, function(state)
 				self.input.showMinion = state
 				self:AddUndoState()
 			end, "Show stats for the minion instead of the player.")
 		}, },
 		{ label = "Minion", flag = "minion", { controlName = "mainSkillMinion",
-			control = new("DropDownControl", nil, 0, 0, 160, 16, nil, function(index, value)
+			control = new("DropDownControl", nil, {0, 0, 160, 16}, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				if value.itemSetId then
@@ -104,12 +104,12 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 			end)
 		} },
 		{ label = "Spectre Library", flag = "spectre", { controlName = "mainSkillMinionLibrary",
-			control = new("ButtonControl", nil, 0, 0, 100, 16, "Manage Spectres...", function()
+			control = new("ButtonControl", nil, {0, 0, 100, 16}, "Manage Spectres...", function()
 				self.build:OpenSpectreLibrary()
 			end)
 		} },
 		{ label = "Minion Skill", flag = "haveMinion", { controlName = "mainSkillMinionSkill",
-			control = new("DropDownControl", nil, 0, 0, 200, 16, nil, function(index, value)
+			control = new("DropDownControl", nil, {0, 0, 200, 16}, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillMinionSkillCalcs = index
@@ -119,7 +119,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 		} },
 		{ label = "Calculation Mode", { 
 			controlName = "mode", 
-			control = new("DropDownControl", nil, 0, 0, 100, 16, buffModeDropList, function(index, value) 
+			control = new("DropDownControl", nil, {0, 0, 100, 16}, buffModeDropList, function(index, value) 
 				self.input.misc_buffMode = value.buffMode 
 				self:AddUndoState()
 				self.build.buildFlag = true
@@ -149,7 +149,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 
 	self.controls.breakdown = new("CalcBreakdownControl", self)
 
-	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
+	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
 	self.powerBuilderInitialized = nil
 end)
 
@@ -474,7 +474,7 @@ end
 -- Estimate the offensive and defensive power of all unallocated nodes
 function CalcsTabClass:PowerBuilder()
 	--local timer_start = GetTime()
-	GlobalCache.useFullDPS = self.powerStat and self.powerStat.stat == "FullDPS" or false
+	local useFullDPS = self.powerStat and self.powerStat.stat == "FullDPS"
 	local calcFunc, calcBase = self:GetMiscCalculator()
 	local cache = { }
 	local distanceMap = { }
@@ -514,7 +514,7 @@ function CalcsTabClass:PowerBuilder()
 		for nodeId, node in pairs(nodes) do
 			if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
 				if not cache[node.modKey] then
-					cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+					cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
 				end
 				local output = cache[node.modKey]
 				if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
@@ -527,7 +527,7 @@ function CalcsTabClass:PowerBuilder()
 							pathNodes[node] = true
 						end
 						if node.pathDist > 1 then
-							node.power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ addNodes = pathNodes }, { requirementsItems = true, requirementsGems = true, skills = true }), calcBase)
+							node.power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ addNodes = pathNodes }, useFullDPS), calcBase)
 						end
 					end
 				elseif not self.powerStat or not self.powerStat.ignoreForNodes then
@@ -542,7 +542,7 @@ function CalcsTabClass:PowerBuilder()
 				end
 			elseif node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
 				if not cache[node.modKey.."_remove"] then
-					cache[node.modKey.."_remove"] = calcFunc({ removeNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+					cache[node.modKey.."_remove"] = calcFunc({ removeNodes = { [node] = true } }, useFullDPS)
 				end
 				local output = cache[node.modKey.."_remove"]
 				if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
@@ -554,7 +554,7 @@ function CalcsTabClass:PowerBuilder()
 							pathNodes[node] = true
 						end
 						if #node.depends > 1 then
-							node.power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ removeNodes = pathNodes }, { requirementsItems = true, requirementsGems = true, skills = true }), calcBase)
+							node.power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ removeNodes = pathNodes }, useFullDPS), calcBase)
 						end
 					end
 				end
@@ -575,7 +575,7 @@ function CalcsTabClass:PowerBuilder()
 		wipeTable(node.power)
 		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
 			if not cache[node.modKey] then
-				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
 			end
 			local output = cache[node.modKey]
 			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then

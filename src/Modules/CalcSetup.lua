@@ -54,8 +54,8 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("TotemPlacementTime", "BASE", 0.6, "Base")
 	modDB:NewMod("BallistaPlacementTime", "BASE", 0.35, "Base")
 	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
-	modDB:NewMod("ShockStacksMax", "BASE", 0, "Base")
-	modDB:NewMod("ScorchStacksMax", "BASE", 0, "Base")
+	modDB:NewMod("ShockStacksMax", "BASE", 1, "Base")
+	modDB:NewMod("ScorchStacksMax", "BASE", 1, "Base")
 	modDB:NewMod("MovementSpeed", "INC", -30, "Base", { type = "Condition", var = "Maimed" })
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Attack, { type = "Condition", var = "Intimidated"})
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Attack, { type = "Condition", var = "Intimidated", neg = true}, { type = "Condition", var = "Party:Intimidated"})
@@ -983,19 +983,22 @@ function calcs.initEnv(build, mode, override, specEnv)
 					if item.shaper or item.elder then
 						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) - 1
 					end
-					local otherRing = (slotName == "Ring 1" and build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId]) or (slotName == "Ring 2" and build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId])
+					local otherRing = items[(slotName == "Ring 1" and "Ring 2") or (slotName == "Ring 2" and "Ring 1")]
 					if otherRing and not otherRing.name:match("Kalandra's Touch") then
-						local otherRingList = otherRing and copyTable(otherRing.modList or otherRing.slotModList[slot.slotNum]) or {}
-						for index, mod in ipairs(otherRingList) do
-							modLib.setSource(mod, item.modSource)
+						for _, mod in ipairs(otherRing.modList or otherRing.slotModList[slot.slotNum] or {}) do
+							-- Filter out SocketedIn type mods
 							for _, tag in ipairs(mod) do
 								if tag.type == "SocketedIn" then
-									otherRingList[index] = nil
-									break
+									goto skip_mod
 								end
 							end
+
+							local modCopy = copyTable(mod)
+							modLib.setSource(modCopy, item.modSource)
+							env.itemModDB:ScaleAddMod(modCopy, scale)
+
+							::skip_mod::
 						end
-						env.itemModDB:ScaleAddList(otherRingList, scale)
 						-- Adjust multipliers based on other ring
 						for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder"}) do
 							if otherRing[property] then
@@ -1300,8 +1303,19 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.player.weaponData1 = env.player.itemList["Weapon 1"] and env.player.itemList["Weapon 1"].weaponData and env.player.itemList["Weapon 1"].weaponData[1] or copyTable(env.data.unarmedWeaponData[env.classId])
 		if env.player.weaponData1.countsAsDualWielding then
 			env.player.weaponData2 = env.player.itemList["Weapon 1"].weaponData[2]
+		elseif not env.player.itemList["Weapon 2"] then
+			-- Hollow Palm Technique
+			if (not env.player.itemList["Weapon 1"]) and (not env.player.itemList["Gloves"]) and env.modDB.mods.Keystone then
+				for _, keystone in ipairs(env.modDB.mods.Keystone) do
+					if keystone.value == "Hollow Palm Technique" then
+						env.player.weaponData2 = copyTable(env.data.unarmedWeaponData[env.classId])
+						break
+					end
+				end
+			end
+			env.player.weaponData2 = env.player.weaponData2 or { }
 		else
-			env.player.weaponData2 = env.player.itemList["Weapon 2"] and env.player.itemList["Weapon 2"].weaponData and env.player.itemList["Weapon 2"].weaponData[2] or { }
+			env.player.weaponData2 = env.player.itemList["Weapon 2"].weaponData and env.player.itemList["Weapon 2"].weaponData[2] or { }
 		end
 
 		-- Determine main skill group

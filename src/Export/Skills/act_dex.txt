@@ -1626,7 +1626,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FrostBladesAltX
-#flags attack melee projectile area
+#flags attack melee projectile area dotFromAttack
 	parts = {
 		{
 			name = "Melee Hit",
@@ -1638,6 +1638,7 @@ local skills, mod, flag, skill = ...
 		{
 			name = "Ground DoT",
 			attack = false,
+			hit = false,
 			melee = false,
 			projectile = false,
 			area = true,

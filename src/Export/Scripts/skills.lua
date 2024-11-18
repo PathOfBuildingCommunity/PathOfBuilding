@@ -341,7 +341,7 @@ directiveTable.skill = function(state, args, out)
 			out:write('\t},\n')
 		end
 		out:write('\tstatDescriptionScope = "', skillStatScope[granted.ActiveSkill.Id] or "skill_stat_descriptions", '",\n')
-		if granted.ActiveSkill.SkillTotem <= dat("SkillTotems").rowCount then
+		if granted.ActiveSkill.SkillTotem <= 21 then
 			out:write('\tskillTotemId = ', granted.ActiveSkill.SkillTotem, ',\n')
 		end
 		out:write('\tcastTime = ', granted.CastTime / 1000, ',\n')

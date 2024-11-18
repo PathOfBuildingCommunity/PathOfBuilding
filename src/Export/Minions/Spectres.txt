@@ -255,7 +255,6 @@ local minions, mod, flag = ...
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusHigh__
 #mod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterTag", monsterTag = "Construct" })})
 #mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterTag", monsterTag = "Construct" })})
-#mod mod("AllyModifier", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true })})
 #emit
 -- Spirit of Fortune
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuLow
@@ -267,16 +266,16 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralMid__
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_
-#mod mod("AllyModifier", "LIST", { mod = mod("MinimumFortification", "BASE", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PerfectNavalOfficer", unscaleable = true })})
+#mod mod("AllyModifier", "LIST", { mod = mod("ColdDamageTaken", "INC", -5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PerfectNavalOfficer", unscaleable = true })})
 #emit
 -- Dancing Sword
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordLow
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordMid
-#mod mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
+#mod mod("AllyModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_
-#mod mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
-#mod mod("AllyModifier", "LIST", { mod = mod("ImpaleStacksMax", "BASE", 1, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
+#mod mod("AllyModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
+#mod mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
 #emit
 -- Needle Horror
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonLow
@@ -311,15 +310,11 @@ local minions, mod, flag = ...
 -- Slashing Horror
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonLow
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonMid
-#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage" }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
-#mod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 2 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
-#mod mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 1, 0, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 5 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
+#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonHigh
 #mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageGainAsFire", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SlashingHorror", unscaleable = true })})
-#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage" }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
-#mod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 2 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
-#mod mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 1, 0, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 5 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
+#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
 #emit
 -- Druidic Alchemist
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverLow__
@@ -377,7 +372,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderMid
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderHigh_
-#mod mod("PlayerModifier", "LIST", { mod = mod("WitherEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SpiderMatriarch", unscaleable = true })}) --Does not work
+#mod mod("PlayerModifier", "LIST", { mod = mod("WitherEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SpiderMatriarch", unscaleable = true })}) --Does not work
 #emit
 -- Meatsack
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieLow
@@ -396,7 +391,7 @@ local minions, mod, flag = ...
 -- Guardian Turtle
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleLow
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleMid_
-#mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscaleable = true })})
+#mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscaleable = true })})
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleHigh
 #mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscaleable = true })})
@@ -426,6 +421,6 @@ local minions, mod, flag = ...
 -- Half-remembered Goliath
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemMid
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh
-#mod mod("PlayerModifier", "LIST", { mod = mod("Duration", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HalfRememberedGoliath", unscaleable = true })})
-#emit
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh
+-- Wretched Defiler
+#spectre Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber

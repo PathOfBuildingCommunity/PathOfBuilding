@@ -3,7 +3,10 @@ if not loadStatFile then
 end
 loadStatFile("tincture_stat_descriptions.txt")
 
+local s_format = string.format
+
 local directiveTable = { }
+local bases = { All = { } }
 
 directiveTable.type = function(state, args, out)
 	state.type = args
@@ -120,6 +123,7 @@ directiveTable.base = function(state, args, out)
 		out:write('{ ', implicitModTypes[i], ' }, ')
 	end
 	out:write('},\n')
+	local itemValueSum = 0
 	local weaponType = dat("WeaponTypes"):GetRow("BaseItemType", baseItemType)
 	if weaponType then
 		out:write('\tweapon = { ')
@@ -128,6 +132,7 @@ directiveTable.base = function(state, args, out)
 		out:write('AttackRateBase = ', round(1000 / weaponType.Speed, 2), ', ')
 		out:write('Range = ', weaponType.Range, ', ')
 		out:write('},\n')
+		itemValueSum = weaponType.DamageMin + weaponType.DamageMax
 	end
 	local armourType = dat("ArmourTypes"):GetRow("BaseItemType", baseItemType)
 	if armourType then
@@ -139,14 +144,17 @@ directiveTable.base = function(state, args, out)
 		if armourType.ArmourMin > 0 then
 			out:write('ArmourBaseMin = ', armourType.ArmourMin, ', ')
 			out:write('ArmourBaseMax = ', armourType.ArmourMax, ', ')
+			itemValueSum = itemValueSum + armourType.ArmourMin + armourType.ArmourMax
 		end
 		if armourType.EvasionMin > 0 then
 			out:write('EvasionBaseMin = ', armourType.EvasionMin, ', ')
 			out:write('EvasionBaseMax = ', armourType.EvasionMax, ', ')
+			itemValueSum = itemValueSum + armourType.EvasionMin + armourType.EvasionMax
 		end
 		if armourType.EnergyShieldMin > 0 then
 			out:write('EnergyShieldBaseMin = ', armourType.EnergyShieldMin, ', ')
 			out:write('EnergyShieldBaseMax = ', armourType.EnergyShieldMax, ', ')
+			itemValueSum = itemValueSum + armourType.EnergyShieldMin + armourType.EnergyShieldMax
 		end
 		if armourType.MovementPenalty ~= 0 then
 			out:write('MovementPenalty = ', -armourType.MovementPenalty, ', ')
@@ -154,6 +162,7 @@ directiveTable.base = function(state, args, out)
 		if armourType.WardMin > 0 then
 			out:write('WardBaseMin = ', armourType.WardMin, ', ')
 			out:write('WardBaseMax = ', armourType.WardMax, ', ')
+			itemValueSum = itemValueSum + armourType.WardMin + armourType.WardMax
 		end
 		out:write('},\n')
 	end
@@ -217,6 +226,15 @@ directiveTable.base = function(state, args, out)
 		end
 	end
 	out:write('},\n}\n')
+	
+	if not ((baseItemType.Hidden == 0 or state.forceHide) and not baseTypeId:match("Talisman") and not state.forceShow) then
+		bases[state.type] = bases[state.type] or {}
+		local subtype = state.subType and #state.subType and state.subType or ""
+		if not bases[state.type][subtype] or itemValueSum > bases[state.type][subtype][2] then
+			bases[state.type][subtype] = { displayName, itemValueSum }
+		end
+		bases["All"][displayName] = { state.type, state.subType }
+	end
 end
 
 directiveTable.baseMatch = function(state, argstr, out)
@@ -237,6 +255,77 @@ directiveTable.baseMatch = function(state, argstr, out)
 			directiveTable.base(state, baseItemType.Id, out)
 		end
 	end
+end
+
+local baseMods = { }
+directiveTable.baseGroup = function(state, args, out)
+	local baseGroup, values = args:match("^([^%)]+), %[ ([^%)]+)%]")
+	baseMods[baseGroup] = values
+end
+
+directiveTable.setBestBase = function(state, args, out)
+	local baseClass, baseSubType, itemNameOverride, values = args:match("^([^,]+), ([^,]+), ([^,]+), %[([^%]]+)%]")
+	if not baseClass then
+		baseClass, baseSubType, values = args:match("^([^%)]+), ([^%)]+), %[ ([^%)]+)%]")
+	end
+	local itemName = itemNameOverride and itemNameOverride or (baseSubType..' '..baseClass)
+	local base = bases[baseClass][baseSubType][1]
+	out:write('[[\n')
+	out:write(itemName,'\n')
+	out:write(base,'\n')
+	if not values:match("Crafted: true") then
+		out:write('Crafted: true\n')
+	end
+	if values ~= " " then
+		for line in values:gmatch('([^,]+)') do
+			out:write(line:gsub("^ ", ""),'\n')
+		end
+	elseif baseMods[itemName] then
+		for line in values:gmatch('([^,]+)') do
+			out:write(line:gsub("^ ", ""),'\n')
+		end
+	end
+	out:write(']],')
+end
+
+directiveTable.setBase = function(state, args, out)
+	local baseName, itemName, values = args:match("^([^,]+), ([^,]+), %[([^%]]+)%]")
+	if not baseName then
+		baseName, values = args:match("([^,]+), %[([^%]]+)%]")
+	end
+	if baseName and not bases["All"][baseName] then
+		print("Missing base")
+		print(baseName)
+		return
+	end
+	out:write('[[\n')
+	local baseClass, baseSubType = unpack(bases["All"][baseName])
+	local groupName = baseClass
+	if itemName then
+		out:write(s_format(itemName, baseClass):gsub("One Handed", "1H"):gsub("Two Handed", "2H"),'\n')
+		groupName = s_format(itemName, (baseClass:match("One Handed") or baseClass:match("Claw") or baseClass:match("Dagger") or baseClass:match("Sceptre") or baseClass:match("Wand")) and "One Handed" or (baseClass:match("Two Handed") or baseClass:match("Staff")) and "Two Handed" or "")
+	else
+		if baseSubType then
+			groupName = baseSubType..' '..baseClass
+			out:write(groupName,'\n')
+		else
+			out:write(baseClass,'\n')
+		end
+	end
+	out:write(baseName,'\n')
+	if not values:match("Crafted: true") then
+		out:write('Crafted: true\n')
+	end
+	if values ~= " " then
+		for line in values:gmatch('([^,]+)') do
+			out:write(line:gsub("^ ", ""),'\n')
+		end
+	elseif baseMods[groupName] then
+		for line in baseMods[groupName]:gmatch('([^,]+)') do
+			out:write(line:gsub("^ ", ""),'\n')
+		end
+	end
+	out:write(']],')
 end
 
 local itemTypes = {
@@ -267,3 +356,7 @@ for _, name in pairs(itemTypes) do
 end
 
 print("Item bases exported.")
+
+processTemplateFile("Rares", "Bases/", "../Data/", directiveTable)
+
+print("Rare Item Templates Generated and Verified")
