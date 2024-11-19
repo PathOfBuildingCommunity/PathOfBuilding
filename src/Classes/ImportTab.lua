@@ -63,7 +63,13 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 		self:DownloadCharacterList()
 	end)
 	self.controls.accountNameGo.enabled = function()
-		return self.controls.accountName.buf:match("%S")
+		return self.controls.accountName.buf:match("%S[#%-(%%23)]%d%d%d%d$")
+	end
+	self.controls.accountNameGo.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		if not self.controls.accountName.buf:match("[#%-(%%23)]%d%d%d%d$") then
+			tooltip:AddLine(16, "^7Missing discriminator e.g. " .. self.controls.accountName.buf .. "#1234")
+		end
 	end
 
 	self.controls.accountHistory = new("DropDownControl", {"LEFT",self.controls.accountNameGo,"RIGHT"}, {8, 0, 200, 20}, historyList, function()
@@ -86,18 +92,25 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 		tooltip:AddLine(16, "^7Removes account from the dropdown list")
 	end
 
-	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, {0, 16, 0, 14}, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
+	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, {0, 34, 0, 14}, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
 	self.controls.accountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, {0, 4, 170, 18}, "^x4040FFhttps://www.urlencoder.org/", function()
 		OpenURL("https://www.urlencoder.org/")
 	end)
+	
+	self.controls.accountNameMissingDiscriminator = new("LabelControl", {"BOTTOMLEFT",self.controls.accountNameUnicode,"TOPLEFT"}, {0, -4, 0, 18}, "^1Missing discriminator e.g. #1234")
+	self.controls.accountNameMissingDiscriminator.shown = function()
+		return not self.controls.accountName.buf:match("[#%-(%%23)]%d%d%d%d$")
+	end
+	
 
 	-- Stage: input POESESSID
 	self.controls.sessionHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, {6, 40, 200, 14})
 	self.controls.sessionHeader.label = function()
 		return [[
 ^7The list of characters on ']]..self.controls.accountName.buf..[[' couldn't be retrieved. This may be because:
-1. You entered a character name instead of an account name or
-2. This account's characters tab is hidden (this is the default setting).
+1. You are missing the discriminator at the end of the account name e.g. #1234
+2. You entered a character name instead of an account name or
+3. This account's characters tab is hidden (this is the default setting).
 If this is your account, you can either:
 1. Uncheck "Hide Characters" in your privacy settings or
 2. Enter a POESESSID below.
@@ -107,7 +120,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.sessionHeader.shown = function()
 		return self.charImportMode == "GETSESSIONID"
 	end
-	self.controls.sessionRetry = new("ButtonControl", {"TOPLEFT",self.controls.sessionHeader,"TOPLEFT"}, {0, 108, 60, 20}, "Retry", function()
+	self.controls.sessionRetry = new("ButtonControl", {"TOPLEFT",self.controls.sessionHeader,"TOPLEFT"}, {0, 122, 60, 20}, "Retry", function()
 		self:DownloadCharacterList()
 	end)
 	self.controls.sessionCancel = new("ButtonControl", {"LEFT",self.controls.sessionRetry,"RIGHT"}, {8, 0, 60, 20}, "Cancel", function()
