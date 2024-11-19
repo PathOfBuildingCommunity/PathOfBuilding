@@ -1118,7 +1118,10 @@ function TradeQueryClass:UpdateRealms()
 			end
 			self.realmIds = {}
 			for _, value in pairs(data.realms) do
-				self.realmIds[value.text] = value.id
+				-- filter out only Path of Exile one realms, as poe2 is not supported yet
+				if value.text:match("PoE 1 ") then
+					self.realmIds[value.text:gsub("PoE 1 ", "")] = value.id
+				end
 			end
 			setRealmDropList()
 
