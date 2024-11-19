@@ -68,7 +68,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	self.controls.accountNameGo.tooltipFunc = function(tooltip)
 		tooltip:Clear()
 		if not self.controls.accountName.buf:match("[#%-(%%23)]%d%d%d%d$") then
-			tooltip:AddLine(16, "^7Missing discriminator eg " .. self.controls.accountName.buf .. "#0000")
+			tooltip:AddLine(16, "^7Missing discriminator e.g. " .. self.controls.accountName.buf .. "#1234")
 		end
 	end
 
@@ -97,7 +97,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 		OpenURL("https://www.urlencoder.org/")
 	end)
 	
-	self.controls.accountNameMissingDiscriminator = new("LabelControl", {"BOTTOMLEFT",self.controls.accountNameUnicode,"TOPLEFT"}, {0, -4, 0, 18}, "^1Missing discriminator eg #0000")
+	self.controls.accountNameMissingDiscriminator = new("LabelControl", {"BOTTOMLEFT",self.controls.accountNameUnicode,"TOPLEFT"}, {0, -4, 0, 18}, "^1Missing discriminator e.g. #1234")
 	self.controls.accountNameMissingDiscriminator.shown = function()
 		return not self.controls.accountName.buf:match("[#%-(%%23)]%d%d%d%d$")
 	end
@@ -108,7 +108,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	self.controls.sessionHeader.label = function()
 		return [[
 ^7The list of characters on ']]..self.controls.accountName.buf..[[' couldn't be retrieved. This may be because:
-1. You are missing the discriminator at the end of the account name eg #0000
+1. You are missing the discriminator at the end of the account name e.g. #1234
 2. You entered a character name instead of an account name or
 3. This account's characters tab is hidden (this is the default setting).
 If this is your account, you can either:
