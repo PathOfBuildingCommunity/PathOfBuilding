@@ -424,7 +424,8 @@ function ImportTabClass:DownloadCharacterList()
 		accountName = self.controls.accountName.buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", ""):gsub("%s", "+")
 	end
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
-	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName:gsub("-", "%%23"):gsub("#", "%%23").."&realm="..realm.realmCode, function(response, errMsg)
+	accountName = ReplaceDiscrimintorSafely(accountName)
+	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName:gsub("#", "%%23").."&realm="..realm.realmCode, function(response, errMsg)
 		if errMsg == "Response code: 401" then
 			self.charImportStatus = colorCodes.NEGATIVE.."Sign-in is required."
 			self.charImportMode = "GETSESSIONID"
@@ -468,9 +469,9 @@ function ImportTabClass:DownloadCharacterList()
 				self.charImportMode = "GETSESSIONID"
 				return
 			end
-			realAccountName = realAccountName:gsub("-", "#")
-			self.controls.accountName:SetText(realAccountName)
+			realAccountName = ReplaceDiscrimintorSafely(realAccountName)
 			accountName = realAccountName
+			self.controls.accountName:SetText(realAccountName)
 			self.charImportStatus = "Character list successfully retrieved."
 			self.charImportMode = "SELECTCHAR"
 			self.lastRealm = realm.id
@@ -1136,6 +1137,24 @@ end
 
 function HexToChar(x)
 	return string.char(tonumber(x, 16))
+end
+
+function ReplaceCharAtIndex(str, pos, r)
+    return ("%s%s%s"):format(str:sub(1,pos-1), r, str:sub(pos+1))
+end
+
+function ReplaceDiscrimintorSafely(accountName)
+	reversedAccountName = string.reverse(accountName)
+	discriminatorIndex = 0
+	for i = 1, #reversedAccountName do
+		local c = reversedAccountName:sub(i,i)
+			if c == "#" or c == "-" then
+			discriminatorIndex = i
+			break
+			end
+	end
+	discriminatorIndex = discriminatorIndex * -1
+	return ReplaceCharAtIndex(accountName, discriminatorIndex, "#")
 end
 
 function UrlDecode(url)
