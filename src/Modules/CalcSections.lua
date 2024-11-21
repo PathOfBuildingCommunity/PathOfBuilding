@@ -2151,8 +2151,8 @@ return {
 	}, },
 	{ label = "Hits before death", { format = "{2:output:TotalNumberOfHits}", { breakdown = "TotalNumberOfHits" }}, },
 	{ label = "Effective Hit Pool",{ format = "{0:output:TotalEHP}", { breakdown = "TotalEHP" }, },},
-	{ label = "Time before death",{ format = "{2:output:EHPsurvivalTime}s", 
-		{ breakdown = "EHPsurvivalTime" }, 
+	{ label = "Time before death",{ format = "{2:output:EHPSurvivalTime}s", 
+		{ breakdown = "EHPSurvivalTime" }, 
 		{ label = "Enemy modifiers", modName = { "TemporalChainsActionSpeed", "ActionSpeed", "Speed", "MinimumActionSpeed" }, enemy = true },
 	},}
 }, }, { defaultCollapsed = false, label = "Maximum Hit Taken", data = {
