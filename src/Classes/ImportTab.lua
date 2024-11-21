@@ -1139,10 +1139,6 @@ function HexToChar(x)
 	return string.char(tonumber(x, 16))
 end
 
-function ReplaceCharAtIndex(str, pos, r)
-    return ("%s%s%s"):format(str:sub(1,pos-1), r, str:sub(pos+1))
-end
-
 function ReplaceDiscrimintorSafely(accountName)
 	reversedAccountName = string.reverse(accountName)
 	discriminatorIndex = 0

@@ -948,3 +948,7 @@ function ImportBuild(importLink, callback)
 		callback(Inflate(common.base64.decode(importLink:gsub("-", "+"):gsub("_", "/"))), nil)
 	end
 end
+
+function ReplaceCharAtIndex(str, pos, r)
+	return ("%s%s%s"):format(str:sub(1,pos-1), r, str:sub(pos+1))
+end
