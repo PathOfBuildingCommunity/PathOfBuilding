@@ -424,7 +424,8 @@ function ImportTabClass:DownloadCharacterList()
 		accountName = self.controls.accountName.buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", ""):gsub("%s", "+")
 	end
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
-	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName:gsub("-", "%%23"):gsub("#", "%%23").."&realm="..realm.realmCode, function(response, errMsg)
+	accountName = ReplaceDiscriminatorSafely(accountName)
+	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName:gsub("#", "%%23").."&realm="..realm.realmCode, function(response, errMsg)
 		if errMsg == "Response code: 401" then
 			self.charImportStatus = colorCodes.NEGATIVE.."Sign-in is required."
 			self.charImportMode = "GETSESSIONID"
@@ -468,9 +469,9 @@ function ImportTabClass:DownloadCharacterList()
 				self.charImportMode = "GETSESSIONID"
 				return
 			end
-			realAccountName = realAccountName:gsub("-", "#")
-			self.controls.accountName:SetText(realAccountName)
+			realAccountName = ReplaceDiscriminatorSafely(realAccountName)
 			accountName = realAccountName
+			self.controls.accountName:SetText(realAccountName)
 			self.charImportStatus = "Character list successfully retrieved."
 			self.charImportMode = "SELECTCHAR"
 			self.lastRealm = realm.id
@@ -1136,6 +1137,10 @@ end
 
 function HexToChar(x)
 	return string.char(tonumber(x, 16))
+end
+
+function ReplaceDiscriminatorSafely(accountName)
+	return accountName:gsub("(.*)[#%-]", "%1#")
 end
 
 function UrlDecode(url)
