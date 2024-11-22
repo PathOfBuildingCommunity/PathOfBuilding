@@ -424,7 +424,7 @@ function ImportTabClass:DownloadCharacterList()
 		accountName = self.controls.accountName.buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", ""):gsub("%s", "+")
 	end
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
-	accountName = ReplaceDiscrimintorSafely(accountName)
+	accountName = ReplaceDiscriminatorSafely(accountName)
 	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName:gsub("#", "%%23").."&realm="..realm.realmCode, function(response, errMsg)
 		if errMsg == "Response code: 401" then
 			self.charImportStatus = colorCodes.NEGATIVE.."Sign-in is required."
@@ -469,7 +469,7 @@ function ImportTabClass:DownloadCharacterList()
 				self.charImportMode = "GETSESSIONID"
 				return
 			end
-			realAccountName = ReplaceDiscrimintorSafely(realAccountName)
+			realAccountName = ReplaceDiscriminatorSafely(realAccountName)
 			accountName = realAccountName
 			self.controls.accountName:SetText(realAccountName)
 			self.charImportStatus = "Character list successfully retrieved."
@@ -1139,18 +1139,8 @@ function HexToChar(x)
 	return string.char(tonumber(x, 16))
 end
 
-function ReplaceDiscrimintorSafely(accountName)
-	reversedAccountName = string.reverse(accountName)
-	discriminatorIndex = 0
-	for i = 1, #reversedAccountName do
-		local c = reversedAccountName:sub(i,i)
-			if c == "#" or c == "-" then
-			discriminatorIndex = i
-			break
-			end
-	end
-	discriminatorIndex = discriminatorIndex * -1
-	return ReplaceCharAtIndex(accountName, discriminatorIndex, "#")
+function ReplaceDiscriminatorSafely(accountName)
+	return accountName:gsub("(.*)[#%-]", "%1#")
 end
 
 function UrlDecode(url)
