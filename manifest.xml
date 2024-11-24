@@ -5,7 +5,7 @@
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
-	<File name="changelog.txt" part="default" sha1="87f5bdf536dee14d4439147d0f6b6c6c33ebbc5e" />
+	<File name="changelog.txt" part="default" sha1="dba98f84a840b8daa4b75450446a3c015f021865" />
 	<File name="help.txt" part="default" sha1="e486cb63a78f5ca355430b67fa23e02fd30f5771" />
 	<File name="LICENSE.md" part="default" sha1="c77635aa1ba0a2ffe8eb72f93b3376e3a3d2041a" />
 	<File name="Assets/ascendants/ascendant.jpeg" part="program" sha1="c9edaa10dad44c5361f873e68fa39a831338e9ec" />
@@ -76,7 +76,7 @@
 	<File name="Classes/ExtBuildListProvider.lua" part="program" sha1="79d6bab71c0e0194e7c5b48e6cfb348d85e20263" />
 	<File name="Classes/FolderListControl.lua" part="program" sha1="27a6203072993c799a83d078bf188cb83464ae8a" />
 	<File name="Classes/GemSelectControl.lua" part="program" sha1="267fd8e55c034502d6a4f149ec55adcc7c16e11c" />
-	<File name="Classes/ImportTab.lua" part="program" sha1="4079774ab672275e7591a3e824f19e8092a2bc83" />
+	<File name="Classes/ImportTab.lua" part="program" sha1="b5018491fda0ee03380f117aa6648dadc1567f99" />
 	<File name="Classes/Item.lua" part="program" sha1="c3b2351a6b83b2308fa33d13ed7871c056e1fc63" />
 	<File name="Classes/ItemDBControl.lua" part="program" sha1="8b73e0f9bd01e4b6f17225a549f491d65df82f3f" />
 	<File name="Classes/ItemListControl.lua" part="program" sha1="909a4efe03ac4b993954627819bc0a02cd951fa1" />
@@ -118,7 +118,7 @@
 	<File name="Classes/TimelessJewelSocketControl.lua" part="program" sha1="a47645db39133957917a0d0f090cf4cc70c4f980" />
 	<File name="Classes/Tooltip.lua" part="program" sha1="8153660a236f4d71c41c0b84c6b8898e31dd8523" />
 	<File name="Classes/TooltipHost.lua" part="program" sha1="c9854fd295d8305b0d2b1a31ac28b44a53ec791d" />
-	<File name="Classes/TradeQuery.lua" part="program" sha1="91c712959cffec50c1813328ddd653562396995a" />
+	<File name="Classes/TradeQuery.lua" part="program" sha1="52b4113ff2cfb75e542c88cc7ce634228d88f3a8" />
 	<File name="Classes/TradeQueryGenerator.lua" part="program" sha1="4eb2caf7fc5d2fc48c5925b8688afcabd446ad43" />
 	<File name="Classes/TradeQueryRateLimiter.lua" part="program" sha1="85c8a28c7d2bacf5bf91a97165a2ebd89bc238c0" />
 	<File name="Classes/TradeQueryRequests.lua" part="program" sha1="7fcc19a8d12e90dcbd38c2b8327a30200134d91e" />
@@ -165,7 +165,7 @@
 	<File name="Data/Misc.lua" part="program" sha1="834f43c0ea25b99174b05ed96ce1528cb0d67790" />
 	<File name="Data/ModCache.lua" part="program" sha1="0dcfcb88a0f738a45a1347ea2aed750411f3be13" />
 	<File name="Data/ModFlask.lua" part="program" sha1="9e2f4cd9f71b4147cb49115da3f2419025b57494" />
-	<File name="Data/ModItem.lua" part="program" sha1="fe1d4b5e31115f5da35d12c2412cb624c05f30f7" />
+	<File name="Data/ModItem.lua" part="program" sha1="c6dbda7d71a23834332485400b7715bf43376b4a" />
 	<File name="Data/ModJewel.lua" part="program" sha1="4cf6be65feeb688f53190502600d3c54c56ffff5" />
 	<File name="Data/ModJewelAbyss.lua" part="program" sha1="8483c8270fcc7d3c37a0c2574d3b163948cf7429" />
 	<File name="Data/ModJewelCharm.lua" part="program" sha1="37ac0006c43f72d8ffefed12a535d6818c1eb26f" />
@@ -176,7 +176,7 @@
 	<File name="Data/ModTincture.lua" part="program" sha1="4b19212284550b5b04eef46852ac5afcb848ac47" />
 	<File name="Data/ModVeiled.lua" part="program" sha1="1e834ac33021695d5b56ca95374d9762a0048a5d" />
 	<File name="Data/Pantheons.lua" part="program" sha1="7cbb90c5b9d87ca3ad869ff2f2f572846ef38581" />
-	<File name="Data/QueryMods.lua" part="program" sha1="84158063822c653b27099bb99a96122b912eca2d" />
+	<File name="Data/QueryMods.lua" part="program" sha1="329cea13ccb8fdc65cb6268e66c2c3cab4686759" />
 	<File name="Data/Rares.lua" part="program" sha1="7a2cf2496de9bd4fbdd042bece8214d60f57adb5" />
 	<File name="Data/Skills/act_dex.lua" part="program" sha1="9d4a512b5e551b3aa4d27d730171568977725848" />
 	<File name="Data/Skills/act_int.lua" part="program" sha1="a3bf4440f3adc23d62b4aff87bb87c49d8062c66" />
@@ -219,7 +219,7 @@
 	<File name="Data/TimelessJewelData/GloriousVanity.zip.part2" part="program" sha1="60f7638b3844ab3d8156a2bc372240bbc0019a74" />
 	<File name="Data/TimelessJewelData/GloriousVanity.zip.part3" part="program" sha1="d1c00f7372880a8786658586f019e62bb49631fb" />
 	<File name="Data/TimelessJewelData/GloriousVanity.zip.part4" part="program" sha1="9e7c3d351eef258afb2ea69f816cb496d7e1ecbe" />
-	<File name="Data/TimelessJewelData/LegionPassives.lua" part="program" sha1="c993d2684bb78de184f59893842d8287a8efe611" />
+	<File name="Data/TimelessJewelData/LegionPassives.lua" part="program" sha1="d85108d0900b8b009cf94401e035abf21450e42b" />
 	<File name="Data/TimelessJewelData/LegionTradeIds.lua" part="program" sha1="a852a234591481dcd4c8ddf937fb0f75b69036bb" />
 	<File name="Data/TimelessJewelData/LethalPride.zip" part="program" sha1="a9f5459b5a0440115ba72220d027552f264971ac" />
 	<File name="Data/TimelessJewelData/MilitantFaith.zip" part="program" sha1="d957315cc725e3f3571e46091ff85c257c580a51" />
@@ -266,7 +266,7 @@
 	<File name="Modules/CalcSetup.lua" part="program" sha1="e6af3ec4819367707f9e3cccb857587f4fffa04e" />
 	<File name="Modules/CalcTools.lua" part="program" sha1="a6a3e93d084adf3802f40e9cec8339a51284b4ed" />
 	<File name="Modules/CalcTriggers.lua" part="program" sha1="961781ea4a588b84a33c47212c98a8451b342cd1" />
-	<File name="Modules/Common.lua" part="program" sha1="ad8d8b6de561532223faf92b5547bcc1a7bb0b13" />
+	<File name="Modules/Common.lua" part="program" sha1="e6b4693f1e0d552fb84860230d36d2b7a6bc7209" />
 	<File name="Modules/ConfigOptions.lua" part="program" sha1="9067fb2b37aa9f6566a6dc6767fd48644959407b" />
 	<File name="Modules/Data.lua" part="program" sha1="b0c2c71b806718320bfca359ae0b737600f690c7" />
 	<File name="Modules/DataLegionLookUpTableHelper.lua" part="program" sha1="170699925a438275137ba621206800e29f453eb3" />
