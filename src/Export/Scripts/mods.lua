@@ -33,7 +33,7 @@ local function writeMods(outName, condFunc)
 					print("[Jewel]: Skipping '" .. mod.Id .. "'")
 					goto continue
 				end
-			elseif mod.Family[1].Id ~= "AuraBonus" and mod.Family[1].Id ~= "ArbalestBonus" and mod.GenerationType == 3 and not (mod.Domain == 16 or (mod.Domain == 1 and mod.Id:match("^Synthesis"))) then
+			elseif mod.Family[1] and mod.Family[1].Id ~= "AuraBonus" and mod.Family[1].Id ~= "ArbalestBonus" and mod.GenerationType == 3 and not (mod.Domain == 16 or (mod.Domain == 1 and mod.Id:match("^Synthesis"))) then
 				goto continue
 			end
 			local stats, orders = describeMod(mod)
@@ -158,7 +158,7 @@ writeMods("../Data/ModJewelCharm.lua", function(mod)
 	return (mod.Domain == 35) and (mod.GenerationType == 1 or mod.GenerationType == 2)
 end)
 writeMods("../Data/Uniques/Special/WatchersEye.lua", function(mod)
-	return (mod.Family[1].Id == "AuraBonus" or mod.Family[1].Id == "ArbalestBonus") and mod.GenerationType == 3 and not mod.Id:match("^Synthesis")
+	return mod.Family[1] and (mod.Family[1].Id == "AuraBonus" or mod.Family[1].Id == "ArbalestBonus") and mod.GenerationType == 3 and not mod.Id:match("^Synthesis")
 end)
 writeMods("../Data/ModVeiled.lua", function(mod)
 	return mod.Domain == 28 and (mod.GenerationType == 1 or mod.GenerationType == 2)

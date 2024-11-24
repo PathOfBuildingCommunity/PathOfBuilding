@@ -5650,6 +5650,8 @@ return {
 			width=150
 		}
 	},
+	influencetypes={
+	},
 	invasionmonstergroups={
 	},
 	invasionmonsterrestrictions={
@@ -6951,7 +6953,7 @@ return {
 			list=false,
 			name="Domain",
 			refTo="ModDomains",
-			type="Enum",
+			type="Int",
 			width=60
 		},
 		[10]={
@@ -6965,7 +6967,7 @@ return {
 			list=false,
 			name="GenerationType",
 			refTo="ModGenerationType",
-			type="Enum",
+			type="Int",
 			width=100
 		},
 		[12]={
@@ -9657,6 +9659,8 @@ return {
 	passiveskilltreetutorial={
 	},
 	passiveskilltreeuiart={
+	},
+	passiveskilltypes={
 	},
 	passivetreeexpansionjewels={
 		[1]={
