@@ -1,5 +1,16 @@
 # Changelog
 
+## [v2.49.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.49.3) (2024/11/24)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.49.2...v2.49.3)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Bugs
+- Fix character import from accounts with a hyphen in them [\#8370](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8370) ([tarekis](https://github.com/tarekis))
+- Fix trade realms not sorting correctly [\#8367](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8367) ([Regisle](https://github.com/Regisle))
+
 ## [v2.49.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.49.2) (2024/11/19)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.49.1...v2.49.2)

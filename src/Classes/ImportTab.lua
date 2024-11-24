@@ -63,11 +63,11 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 		self:DownloadCharacterList()
 	end)
 	self.controls.accountNameGo.enabled = function()
-		return self.controls.accountName.buf:match("%S[#%-(%%23)]%d%d%d%d$")
+		return self.controls.accountName.buf:match("%S[#%-]%d%d%d%d$")
 	end
 	self.controls.accountNameGo.tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		if not self.controls.accountName.buf:match("[#%-(%%23)]%d%d%d%d$") then
+		if not self.controls.accountName.buf:match("[#%-]%d%d%d%d$") then
 			tooltip:AddLine(16, "^7Missing discriminator e.g. " .. self.controls.accountName.buf .. "#1234")
 		end
 	end
@@ -99,7 +99,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	
 	self.controls.accountNameMissingDiscriminator = new("LabelControl", {"BOTTOMLEFT",self.controls.accountNameUnicode,"TOPLEFT"}, {0, -4, 0, 18}, "^1Missing discriminator e.g. #1234")
 	self.controls.accountNameMissingDiscriminator.shown = function()
-		return not self.controls.accountName.buf:match("[#%-(%%23)]%d%d%d%d$")
+		return not self.controls.accountName.buf:match("[#%-]%d%d%d%d$")
 	end
 	
 
@@ -423,8 +423,9 @@ function ImportTabClass:DownloadCharacterList()
 	else
 		accountName = self.controls.accountName.buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", ""):gsub("%s", "+")
 	end
+	accountName = accountName:gsub("(.*)[#%-]", "%1#")
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
-	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName:gsub("-", "%%23"):gsub("#", "%%23").."&realm="..realm.realmCode, function(response, errMsg)
+	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName:gsub("#", "%%23").."&realm="..realm.realmCode, function(response, errMsg)
 		if errMsg == "Response code: 401" then
 			self.charImportStatus = colorCodes.NEGATIVE.."Sign-in is required."
 			self.charImportMode = "GETSESSIONID"
@@ -468,9 +469,9 @@ function ImportTabClass:DownloadCharacterList()
 				self.charImportMode = "GETSESSIONID"
 				return
 			end
-			realAccountName = realAccountName:gsub("-", "#")
-			self.controls.accountName:SetText(realAccountName)
+			realAccountName = realAccountName:gsub("(.*)[#%-]", "%1#")
 			accountName = realAccountName
+			self.controls.accountName:SetText(realAccountName)
 			self.charImportStatus = "Character list successfully retrieved."
 			self.charImportMode = "SELECTCHAR"
 			self.lastRealm = realm.id
