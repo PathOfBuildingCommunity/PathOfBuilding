@@ -460,7 +460,7 @@ function main:LoadDat64Files()
 			ConPrintf("DAT64 find: %d ms", GetTime() - now)
 			now = GetTime()
 		end
-		local datFile = new("Dat64File", record.name:gsub("%.dat64$",""), record.data)
+		local datFile = new("Dat64File", record.name:gsub("%.datc64$",""), record.data)
 		t_insert(self.datFileList, datFile)
 		self.datFileByName[datFile.name] = datFile
 	end

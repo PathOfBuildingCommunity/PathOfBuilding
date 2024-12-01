@@ -69,7 +69,7 @@ function GGPKClass:ExtractFiles()
 	local fileList = ''
 	for _, fname in ipairs(datList) do
 		if USE_DAT64 then
-			fileList = fileList .. '"' .. fname .. '64" '
+			fileList = fileList .. '"' .. fname .. 'c64" '
 		else
 			fileList = fileList .. '"' .. fname .. '" '
 		end
@@ -123,7 +123,7 @@ function GGPKClass:AddDatFiles()
 end
 
 function GGPKClass:AddDat64Files()
-	local datFiles = scanDir(self.oozPath .. "Data\\", '%w+%.dat64$')
+	local datFiles = scanDir(self.oozPath .. "Data\\", '%w+%.datc64$')
 	for _, f in ipairs(datFiles) do
 		local record = { }
 		record.name = f

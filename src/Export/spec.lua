@@ -103,7 +103,7 @@ return {
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
+			type="UInt16",
 			width=150
 		},
 		[3]={
@@ -801,7 +801,7 @@ return {
 			list=false,
 			name="HASH16",
 			refTo="",
-			type="Int",
+			type="UInt16",
 			width=80
 		},
 		[9]={
@@ -1716,7 +1716,7 @@ return {
 			list=false,
 			name="HASH32",
 			refTo="",
-			type="Int",
+			type="UInt",
 			width=100
 		},
 		[17]={
@@ -1837,6 +1837,13 @@ return {
 			refTo="",
 			type="Bool",
 			width=50
+		},
+		[34]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
 		}
 	},
 	battlepasses={
@@ -2990,7 +2997,7 @@ return {
 			list=false,
 			name="HASH32",
 			refTo="",
-			type="Int",
+			type="UInt",
 			width=150
 		},
 		[6]={
@@ -6091,7 +6098,7 @@ return {
 			list=false,
 			name="Hash",
 			refTo="",
-			type="Int",
+			type="UInt16",
 			width=70
 		},
 		[6]={
@@ -8239,7 +8246,7 @@ return {
 			list=false,
 			name="Hash",
 			refTo="",
-			type="Int",
+			type="UInt16",
 			width=50
 		},
 		[55]={
@@ -9045,7 +9052,7 @@ return {
 			list=false,
 			name="Hash",
 			refTo="",
-			type="Int",
+			type="UInt16",
 			width=80
 		},
 		[3]={
@@ -9080,6 +9087,13 @@ return {
 			list=false,
 			name="AchievementItem",
 			refTo="AchievementItems",
+			type="Key",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
 			type="Key",
 			width=150
 		}
