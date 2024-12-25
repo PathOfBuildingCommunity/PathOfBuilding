@@ -74,7 +74,10 @@ function main:Init()
 	self.datFileByName = { }
 
 	self:LoadSettings()
-
+	self.reExportGGPKData = false
+	if IsKeyDown("CTRL") then
+		self.reExportGGPKData = true
+	end
 	self:InitGGPK()
 	if self.datSource then
 		if USE_DAT64 then
@@ -446,10 +449,10 @@ function main:InitGGPK()
 		local now = GetTime()
 		local ggpkPath = self.datSource.ggpkPath
 		if ggpkPath and ggpkPath ~= "" then
-			self.ggpk = new("GGPKData", ggpkPath)
+			self.ggpk = new("GGPKData", ggpkPath, nil, self.reExportGGPKData)
 			ConPrintf("GGPK: %d ms", GetTime() - now)
 		elseif self.datSource.datFilePath then
-			self.ggpk = new("GGPKData", nil, self.datSource.datFilePath)
+			self.ggpk = new("GGPKData", nil, self.datSource.datFilePath, self.reExportGGPKData)
 			ConPrintf("GGPK: %d ms", GetTime() - now)
 		end
 	end
