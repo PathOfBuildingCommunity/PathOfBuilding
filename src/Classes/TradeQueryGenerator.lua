@@ -301,7 +301,7 @@ function TradeQueryGeneratorClass:ProcessMod(mod, tradeQueryStatsParsed, itemCat
 		local tradeMod = nil
 		local invert
 
-		if mod.statOrder[index] == nil then -- if there isn't a mod order we have to use the trade id instead e.g. implcits.
+		if mod.statOrder[index] == nil then -- if there isn't a mod order we have to use the trade id instead e.g. implicits.
 			tradeMod, invert = getTradeMod()
 			if tradeMod == nil then
 				logToFile("Unable to match %s mod: %s", modType, modLine)
@@ -322,7 +322,7 @@ function TradeQueryGeneratorClass:ProcessMod(mod, tradeQueryStatsParsed, itemCat
 				goto nextModLine
 			end
 			self.modData[modType][uniqueIndex] = { tradeMod = tradeMod, specialCaseData = { }, invertOnNegative = invert }
-		elseif self.modData[modType][uniqueIndex].tradeMod.text:gsub("[#()0-9%-%+%.]","") == swapInverse(modLine):gsub("[#()0-9%-%+%.]","") and swapInverse(modLine) ~= modLine then -- if the swaped mod matches the inverse then consider it inverted, provide it changed.
+		elseif self.modData[modType][uniqueIndex].tradeMod.text:gsub("[#()0-9%-%+%.]","") == swapInverse(modLine):gsub("[#()0-9%-%+%.]","") and swapInverse(modLine) ~= modLine then -- if the swapped mod matches the inverse then consider it inverted, provide it changed.
 			invert = true
 		end
 
@@ -502,7 +502,7 @@ function TradeQueryGeneratorClass:InitMods()
 				end
 			end
 
-			-- mask found process implicit mod this avoids processing unimplemnted bases i.e. two handed axes.
+			-- mask found process implicit mod this avoids processing unimplemented bases and misattributing the implicits.
 			if next(maskOverride) ~= nil then
 				self:ProcessMod(mod, tradeQueryStatsParsed, regularItemMask, maskOverride)
 			end
@@ -544,7 +544,7 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 				modValue = -1 * modValue
 			end
 
-			-- trade mod dictates a plus is used infront of postive values.
+			-- trade mod dictates a plus is used in front of positive values.
 			if modLine:find("+#") and modValue >= 0 then
 				modLine = modLine:gsub("#", modValue)
 			else
