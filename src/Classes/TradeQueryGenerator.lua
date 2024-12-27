@@ -539,9 +539,6 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 				modLine = entry.tradeMod.text
 			end
 
-			-- swap lines here to avoid leading to modLine's that the Item parser can't handle, 
-			-- this assume swapping will always tend to make values greater than 1 i.e. 
-			-- there are no mods where it naturally will occur for e.g. -10% reduced attack speed
 			if entry.invertOnNegative and modValue < 0 then
 				modLine = swapInverse(modLine)
 				modValue = -1 * modValue
