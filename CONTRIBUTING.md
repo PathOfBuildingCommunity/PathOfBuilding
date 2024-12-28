@@ -264,14 +264,14 @@ as well as some familiarity with build tools such as [CMake](https://cmake.org).
        "<path to repo>\runtime\Path{space}of{space}Building.exe" "<path to repo>\src\Export\Launch.lua"
 3. Run the shortcut.  "Dat View", the GGPK data viewer UI, should appear.  If you get an error, be sure you're using the latest release of Path of Building Community.
 4. Click `Edit Sources...` to display the "New DAT Source" popup.  Click `New` and enter a name.
-5. Paste the full path to `Content.ggpk` into the "Source from GGPK/Steam PoE path" box and hit `Enter`.  (Do not put anything in the "Source from DAT files" box unless you have already manually unpacked the relevant files.)  
+5. Paste the full path to `Content.ggpk` into the "Source from GGPK/Steam PoE path" box and hit `Enter`.  For the stand-alone client, the path must include the file-name.  (Do not put anything in the "Source from DAT files" box unless you have already manually unpacked the relevant files.)  
 
    Example input for the stand-alone client:
 
        C:\Path of Exile\Content.ggpk
    Example input for Steam:
 
-       C:\Program Files (x86)\Steam\steamapps\common\Path of Exile\Content.ggpk  
+       C:\Program Files (x86)\Steam\steamapps\common\Path of Exile  
    If successful, you should see some cmd windows pop up as the files are unpacked, and then a list of the data tables in the GGPK file should appear.  
 6. Click `Scripts >>` to show the list of available export scripts. Double-clicking a script will run it, and the box to the right will show any output from the script.
 7. If you run into any errors, update the code in `./src/Export` as necessary and try again.
