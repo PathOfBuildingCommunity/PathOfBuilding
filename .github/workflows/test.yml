@@ -4,6 +4,7 @@ on:
     branches: [ dev ]
   pull_request:
     branches: [ dev ]
+  workflow_dispatch:
 jobs:
   run_tests:
     runs-on: ubuntu-latest
