@@ -236,6 +236,8 @@ Docker alternative:
 * [How skills work in Path of Building](docs/addingSkills.md)
 
 ## Exporting GGPK data from Path of Exile
+> [!WARNING]   
+> This will not work on files from the torrent that is released before league launches, as it contains no `Data` section.
 
 Note: This tutorial assumes that you are already familiar with the GGPK and its structure. [poe-tool-dev/ggpk.discussion](https://github.com/poe-tool-dev/ggpk.discussion/wiki)
 is a good starting point.
@@ -244,6 +246,9 @@ The `./src/Data` folder contains generated files which are created using the scr
 If you change any logic/configuration in `./src/Export`, you will need to regenerate the appropriate `./src/Data` files. You can do so by running the `./src/Export` scripts using the `.dat` viewer at `./src/Export/Launch.lua`:
 
 ### Obtain an Oodle extractor
+> [!TIP]   
+> Binaries are usually available at https://github.com/zao/ooz/releases.
+
 Note: For this tutorial, you will need a working installation of [Visual Studio Community](https://visualstudio.microsoft.com/vs/community/)
 as well as some familiarity with build tools such as [CMake](https://cmake.org).
 1. In Visual Studio, clone the following repository using this command:
@@ -252,13 +257,24 @@ as well as some familiarity with build tools such as [CMake](https://cmake.org).
 2. Configure CMake.
 3. Build `bun_extract_file.exe`, `libbun.dll` and `libooz.dll`.
 
-### Set up the exporter   
-1. Copy `bun_extract_file.exe`, `libbun.dll` and `libooz.dll` to `./src/Export/ggpk/`.
-2. Create a shortcut to `./runtime/Path{space}of{space}Building.exe` with the path to `./src/Export/Launch.lua` as first argument. You should end up with something like: `"<path to repo>\runtime\Path{space}of{space}Building.exe" "<path to repo>\src\Export\Launch.lua"`.
-3. Run the shortcut, and the GGPK data viewer UI will appear. If you get an error, be sure you're using the latest release of Path of Building Community.
-4. Paste the path to `Content.ggpk` (or, for Steam users, `C:\Program Files (x86)\Steam\steamapps\common\Path of Exile`) into the text box in the top left, and hit `Enter` to read the GGPK. If successful, you will see a list of the data tables in the GGPK file. Note: This will not work on the GGPK from the torrent file released before league launches, as it contains no `Data` section.
-5. Click `Scripts >>` to show the list of available export scripts. Double-clicking a script will run it, and the box to the right will show any output from the script.
-6. If you run into any errors, update the code in `./src/Export` as necessary and try again.
+### Set up the exporter
+1. Copy `bun_extract_file.exe`, `libbun.dll` and `libooz.dll` to `.\src\Export\ggpk\`.
+2. Create a shortcut to `.\runtime\Path{space}of{space}Building.exe` with the path to `.\src\Export\Launch.lua` as the first argument. You should end up with something like: 
+
+       "<path to repo>\runtime\Path{space}of{space}Building.exe" "<path to repo>\src\Export\Launch.lua"
+3. Run the shortcut.  "Dat View", the GGPK data viewer UI, should appear.  If you get an error, be sure you're using the latest release of Path of Building Community.
+4. Click `Edit Sources...` to display the "New DAT Source" popup.  Click `New` and enter a name.
+5. Paste the full path to `Content.ggpk` into the "Source from GGPK/Steam PoE path" box and hit `Enter`.  For the stand-alone client, the path must include the file-name.  (Do not put anything in the "Source from DAT files" box unless you have already manually unpacked the relevant files.)  
+
+   Example input for the stand-alone client:
+
+       C:\Path of Exile\Content.ggpk
+   Example input for Steam:
+
+       C:\Program Files (x86)\Steam\steamapps\common\Path of Exile  
+   If successful, you should see some cmd windows pop up as the files are unpacked, and then a list of the data tables in the GGPK file should appear.  
+6. Click `Scripts >>` to show the list of available export scripts. Double-clicking a script will run it, and the box to the right will show any output from the script.
+7. If you run into any errors, update the code in `./src/Export` as necessary and try again.
 
 ## Using the inbuilt profiler
 The profiler is found at https://github.com/charlesmallah/lua-profiler and is written entirely in lua under a MIT license.
