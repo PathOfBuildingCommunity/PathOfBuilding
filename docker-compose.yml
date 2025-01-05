@@ -1,7 +1,7 @@
 services:
   busted-tests:
     #build: .
-    image: ghcr.io/paliak/pathofbuilding-tests:latest
+    image: ghcr.io/pathofbuildingcommunity/pathofbuilding-tests:latest
     environment:
       HOME: /tmp
     container_name: pathofbuilding-tests
