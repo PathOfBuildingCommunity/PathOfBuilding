@@ -15,7 +15,7 @@ jobs:
                 ref: 'master'
                 ssh-key: '${{ secrets.POB_INSTALLER_KEY }}'
             - name: Create installer
-              run: 'python3 make_release.py'
+              run: 'python3 make_release.py --game-version 1'
             - name: Upload artifact
               run: >
                 gh release upload ${{ github.event.release.tag_name }} (Get-ChildItem Dist -File).FullName --clobber -R ${{ github.repository }};
