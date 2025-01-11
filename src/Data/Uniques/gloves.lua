@@ -482,7 +482,7 @@ Source: Drops in Blighted Maps
 +(30-50) to maximum Mana
 +(10-16)% to all Elemental Resistances
 (5-10)% increased Attack and Cast Speed
-Create a Blighted Spore when you Kill a Rare Monster
+Create a Blighted Spore when your Skills or Minions Kill a Rare Monster
 This item can be anointed by Cassia
 ]],[[
 Farrul's Pounce
