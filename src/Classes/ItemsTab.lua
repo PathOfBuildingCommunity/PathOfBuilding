@@ -1751,13 +1751,13 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 		local lastSeries
 		for _, modId in ipairs(affixList) do
 			local mod = item.affixes[modId]
-			if not lastSeries or lastSeries.statOrderKey ~= mod.statOrderKey then
+			if not lastSeries or not tableDeepEquals(lastSeries.statOrder, mod.statOrder) then
 				local modString = table.concat(mod, "/")
 				lastSeries = {
 					label = modString,
 					modList = { },
 					haveRange = modString:match("%(%-?[%d%.]+%-%-?[%d%.]+%)"),
-					statOrderKey = mod.statOrderKey,
+					statOrder = mod.statOrder,
 				}
 				t_insert(control.list, lastSeries)
 			end

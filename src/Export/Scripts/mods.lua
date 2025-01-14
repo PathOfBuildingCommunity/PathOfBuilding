@@ -79,7 +79,6 @@ local function writeMods(outName, condFunc)
 					end
 				end
 				out:write('"', table.concat(stats, '", "'), '", ')
-				out:write('statOrderKey = "', table.concat(orders, ','), '", ')
 				out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
 				out:write('level = ', mod.Level, ', group = "', mod.Type.Id, '", ')
 				out:write('weightKey = { ')
