@@ -366,6 +366,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.calcsInput = build.calcsTab.input
 		env.mode = mode
 		env.spec = override.spec or build.spec
+		env.override = override
 		env.classId = env.spec.curClassId
 
 		modDB = new("ModDB")
