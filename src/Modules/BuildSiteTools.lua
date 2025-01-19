@@ -21,6 +21,7 @@ buildSites.websiteList = {
 	},
 	{ label = "PastebinP.com", id = "pastebinProxy", matchURL = "pastebinp%.com/%w+", regexURL = "pastebinp%.com/(%w+)%s*$", downloadURL = "pastebinp.com/raw/%1", linkURL = "pastebin.com/%1" },
 	{ label = "Rentry.co", id = "rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw", linkURL = "rentry.co/%1" },
+	{ label = "poedb.tw", id = "PoEDB", matchURL = "poedb%.tw/.+", regexURL = "poedb%.tw/pob/(.+)%s*$", downloadURL = "poedb.tw/pob/%1/raw", codeOut = "", postUrl = "https://poedb.tw/pob/api/gen", postFields = "", linkURL = "poedb.tw/pob/%1" },
 }
 
 --- Uploads a PoB build code to a website
