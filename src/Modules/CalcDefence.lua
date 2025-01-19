@@ -520,14 +520,11 @@ function calcs.defence(env, actor)
 	end
 	if actor.itemList["Weapon 3"] and actor.itemList["Weapon 3"].armourData then
 		baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
-	end	
-	output.ShieldBlockChance = baseBlockChance
-	-- Override from Ascendancy or other sources
-	baseBlockChance = modDB:Override(nil, "ReplaceShieldBlock") or baseBlockChance
-	-- Bandage fix for interaction of block replacement effects with Necromantic Aegis
-	if actor == env.minion and env.player.modDB:Override(nil, "ReplaceShieldBlock") and env.allocNodes[45175] then
-		baseBlockChance = env.player.modDB:Override(nil, "ReplaceShieldBlock")
 	end
+	output.ShieldBlockChance = modDB:Override(nil, "ReplaceShieldBlock") or baseBlockChance
+
+	-- Apply player block overrides if Necromantic Aegis allocated
+	output.ShieldBlockChance = actor == env.minion and env.keystonesAdded["Necromantic Aegis"] and env.player.modDB:Override(nil, "ReplaceShieldBlock") or output.ShieldBlockChance
 
 	if modDB:Flag(nil, "BlockAttackChanceIsEqualToParent") then
 		output.BlockChance = m_min(actor.parent.output.BlockChance, output.BlockChanceMax)
