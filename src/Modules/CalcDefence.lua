@@ -521,7 +521,7 @@ function calcs.defence(env, actor)
 	if actor.itemList["Weapon 3"] and actor.itemList["Weapon 3"].armourData then
 		baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
 	end
-	output.ShieldBlockChance = modDB:Override(nil, "ReplaceShieldBlock") or baseBlockChance
+	baseBlockChance = modDB:Override(nil, "ReplaceShieldBlock") or baseBlockChance
 
 	-- Apply player block overrides if Necromantic Aegis allocated
 	baseBlockChance = actor == env.minion and env.keystonesAdded["Necromantic Aegis"] and env.player.modDB:Override(nil, "ReplaceShieldBlock") or output.ShieldBlockChance
