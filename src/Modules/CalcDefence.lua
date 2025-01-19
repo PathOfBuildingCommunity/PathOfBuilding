@@ -524,7 +524,7 @@ function calcs.defence(env, actor)
 	output.ShieldBlockChance = modDB:Override(nil, "ReplaceShieldBlock") or baseBlockChance
 
 	-- Apply player block overrides if Necromantic Aegis allocated
-	output.ShieldBlockChance = actor == env.minion and env.keystonesAdded["Necromantic Aegis"] and env.player.modDB:Override(nil, "ReplaceShieldBlock") or output.ShieldBlockChance
+	baseBlockChance = actor == env.minion and env.keystonesAdded["Necromantic Aegis"] and env.player.modDB:Override(nil, "ReplaceShieldBlock") or output.ShieldBlockChance
 
 	if modDB:Flag(nil, "BlockAttackChanceIsEqualToParent") then
 		output.BlockChance = m_min(actor.parent.output.BlockChance, output.BlockChanceMax)
