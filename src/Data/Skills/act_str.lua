@@ -6975,10 +6975,68 @@ skills["MoltenStrike"] = {
 			projectile = true,
 			area = true,
 		},
+		{
+			name = "Average Balls Hitting",
+			melee = false,
+			projectile = true,
+			area = true,
+		},
 	},
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local skillCfg = activeSkill.skillCfg
+		local skillData = activeSkill.skillData
+		local skillPart = activeSkill.skillPart
+		local skillModList = activeSkill.skillModList
+		local t_insert = table.insert
+		local s_format = string.format
+
+		-- melee part doesnt need to calc balls
+		if skillPart == 1 then
+			return
+		end
+
+		local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
+		local ballRadius = output.AreaOfEffectRadius
+		local innerRadius = output.AreaOfEffectRadiusSecondary
+		local outerRadius = output.AreaOfEffectRadiusTertiary
+
+		-- logic adapted from MoldyDwarf's calculator
+		local hitRange = enemyRadius + ballRadius - innerRadius
+		local landingRange = outerRadius - innerRadius
+		local overlapChance = math.min(1, hitRange / landingRange)
+		output.OverlapChance = overlapChance * 100
+
+		if breakdown then
+			breakdown.OverlapChance = { }
+			t_insert(breakdown.OverlapChance, "Chance for individual balls to land on the enemy:")
+			t_insert(breakdown.OverlapChance, "^8= (area where a ball can land on enemy) / (total area)")
+			t_insert(breakdown.OverlapChance, "^8= (enemy radius + ball radius - min travel) / (max travel - min travel)")
+			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 + ^7%d^8 - ^7%d) / (^7%d^8 - ^7%d)",
+				enemyRadius, ballRadius, innerRadius, outerRadius, innerRadius))
+			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.2f^8%%", output.OverlapChance))
+		end
+
+		local numProjectiles = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
+		local dpsMult = 1
+		ConPrintf(skillPart)
+		if skillPart == 3 then
+			dpsMult = overlapChance * numProjectiles
+		end
+		if dpsMult ~= 1 then
+			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * dpsMult
+			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMult
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, "^8= number of projectiles * overlap chance")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7 %d^8 *^7 %.3f^8", numProjectiles, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMult))
+			end
+		end
+	end,
 	statMap = {
 		["active_skill_hit_ailment_damage_with_projectile_+%_final"] = {
-			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPart = 2 })
+			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPartList = { 2, 3 } })
 		},
 	},
 	baseFlags = {
@@ -6989,12 +7047,12 @@ skills["MoltenStrike"] = {
 	},
 	baseMods = {
 		skill("projectileSpeedAppliesToMSAreaOfEffect", true),
-		skill("radius", 9, { type = "SkillPart", skillPart = 2 }),
-		skill("radiusLabel", "Ball area:", { type = "SkillPart", skillPart = 2 }),
-		skill("radiusSecondary", 2, { type = "SkillPart", skillPart = 2 }),
-		skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPart = 2 }),
-		skill("radiusTertiary", 25, { type = "SkillPart", skillPart = 2 }),
-		skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPart = 2 }),
+		skill("radius", 9, { type = "SkillPart", skillPartList = { 2, 3 }}),
+		skill("radiusLabel", "Ball area:", { type = "SkillPart", skillPartList = { 2, 3 } }),
+		skill("radiusSecondary", 2, { type = "SkillPart", skillPartList = { 2, 3 } }),
+		skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPartList = { 2, 3 } }),
+		skill("radiusTertiary", 25, { type = "SkillPart", skillPartList = { 2, 3 } }),
+		skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPartList = { 2, 3 } }),
 		flag("CannotSplit"),
 	},
 	qualityStats = {
