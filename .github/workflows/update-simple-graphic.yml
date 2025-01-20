@@ -13,7 +13,7 @@ jobs:
             - name: Download DLLs
               uses: robinraju/release-downloader@v1
               with:
-                repository: ${{ github.repository.owner }}/PathOfBuilding-SimpleGraphic
+                repository: ${{ github.repository_owner }}/PathOfBuilding-SimpleGraphic
                 tag: ${{ github.event.client_payload.tag }}
                 fileName: SimpleGraphicDLLs-x64-windows.tar
                 extract: true
