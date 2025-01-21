@@ -7018,20 +7018,41 @@ skills["MoltenStrike"] = {
 
 		local numProjectiles = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
 		local dpsMult = 1
-		ConPrintf(skillPart)
-		if skillPart == 3 then
+		if skillPart == 3 or skillPart == 5 or skillPart == 6 then
 			dpsMult = overlapChance * numProjectiles
+
+			if skillPart ~= 6 then
+				if breakdown then
+					breakdown.SkillDPSMultiplier = {}
+					t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+					t_insert(breakdown.SkillDPSMultiplier, "^8= number of projectiles * overlap chance")
+					t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d^8 *^7 %.3f^8", numProjectiles, overlapChance))
+					t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMult))
+				end
+			else
+				-- zenith: make an effective dpsMult for the weighted average of normal and 5th attack balls
+				local gemQuality = activeSkill.activeEffect.quality
+				local fifthAttackMulti = 1 + 8 + 0.1 * gemQuality
+				local fifthAttackOverallMulti = fifthAttackMulti * overlapChance * (numProjectiles + 5)
+				dpsMult = 0.8 * dpsMult + 0.2 * fifthAttackOverallMulti
+
+				if breakdown then
+					breakdown.SkillDPSMultiplier = {}
+					t_insert(breakdown.SkillDPSMultiplier, "Weighted average DPS multiplier for balls")
+					t_insert(breakdown.SkillDPSMultiplier, "^8= (0.8 * balls dps) + (0.2 * 5th attack balls dps)")
+					t_insert(breakdown.SkillDPSMultiplier, "^8= (0.8 * normal ball hit * overlap chance * number of projectiles) " ..
+						"+ (0.2 * ball hit * 5th attack multiplier * overlap chance * (number of projectiles + 5))")
+					t_insert(breakdown.SkillDPSMultiplier, "^8= ball hit * overlap chance * (0.8 * number of projectiles " ..
+						"+ 0.2 * 5th attack multiplier * (number of projectiles + 5))")
+					t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ball hit * ^7%.3f ^8* (0.8 * ^7%d ^8+ 0.2 * ^7%.1f ^8* ^7%d^8)",
+						overlapChance, numProjectiles, fifthAttackMulti, numProjectiles + 5))
+					t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ball hit * ^7 %.3f", dpsMult))
+				end
+			end
 		end
 		if dpsMult ~= 1 then
 			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * dpsMult
 			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMult
-			if breakdown then
-				breakdown.SkillDPSMultiplier = {}
-				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
-				t_insert(breakdown.SkillDPSMultiplier, "^8= number of projectiles * overlap chance")
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7 %d^8 *^7 %.3f^8", numProjectiles, overlapChance))
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMult))
-			end
 		end
 	end,
 	statMap = {
@@ -7140,21 +7161,40 @@ skills["MoltenStrikeAltX"] = {
 			area = true,
 		},
 		{
+			name = "Average Balls Hitting",
+			melee = false,
+			projectile = true,
+			area = true,
+		},
+		{
 			name = "Magma Balls (5th attack)",
 			melee = false,
 			projectile = true,
 			area = true,
 		},
+		{
+			name = "Average Balls (5th attack)",
+			melee = false,
+			projectile = true,
+			area = true,
+		},
+		{
+			name = "Total Weighted Ball Average",
+			melee = false,
+			projectile = true,
+			area = true,
+		},
 	},
+	preDamageFunc = skills.MoltenStrike.preDamageFunc,
 	statMap = {
 		["active_skill_hit_ailment_damage_with_projectile_+%_final"] = {
-			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPartList = { 2, 3 } })
+			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPartList = { 2, 3, 4, 5, 6 } })
 		},
 		["molten_strike_every_5th_attack_projectiles_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPart = 3 })
+			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPartList = { 4, 5 } })
 		},
 		["molten_strike_every_5th_attack_fire_X_additional_projectiles"] = {
-			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 })
+			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 4, 5 } })
 		},
 	},
 	baseFlags = {
@@ -7165,12 +7205,12 @@ skills["MoltenStrikeAltX"] = {
 	},
 	baseMods = {
 		skill("projectileSpeedAppliesToMSAreaOfEffect", true),
-		skill("radius", 9, { type = "SkillPart", skillPartList = { 2, 3 } }),
-		skill("radiusLabel", "Ball area:", { type = "SkillPart", skillPartList = { 2, 3 } }),
-		skill("radiusSecondary", 2, { type = "SkillPart", skillPartList = { 2, 3 } }),
-		skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPartList = { 2, 3 } }),
-		skill("radiusTertiary", 25, { type = "SkillPart", skillPartList = { 2, 3 } }),
-		skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPartList = { 2, 3 } }),
+		skill("radius", 9, { type = "SkillPart", skillPartList = { 2, 3, 4, 5, 6 } }),
+		skill("radiusLabel", "Ball area:", { type = "SkillPart", skillPartList = { 2, 3, 4, 5, 6 } }),
+		skill("radiusSecondary", 2, { type = "SkillPart", skillPartList = { 2, 3, 4, 5, 6 } }),
+		skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPartList = { 2, 3, 4, 5, 6 } }),
+		skill("radiusTertiary", 25, { type = "SkillPart", skillPartList = { 2, 3, 4, 5, 6 } }),
+		skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPartList = { 2, 3, 4, 5, 6 } }),
 		flag("CannotSplit"),
 	},
 	qualityStats = {
