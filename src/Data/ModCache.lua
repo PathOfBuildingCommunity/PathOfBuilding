@@ -8140,6 +8140,7 @@ c["Gain 15% of Elemental Damage as Extra Chaos Damage"]={{[1]={flags=0,keywordFl
 c["Gain 15% of Elemental Damage as Extra Chaos Damage during effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="ElementalDamageGainAsChaos",type="BASE",value=15}},nil}
 c["Gain 15% of Maximum Life as Extra Maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="LifeGainAsEnergyShield",type="BASE",value=15}},nil}
 c["Gain 15% of Maximum Mana as Extra Maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ManaGainAsEnergyShield",type="BASE",value=15}},nil}
+c["Gain 15% of Missing Unreserved Life before being Hit by an Enemy"]={{[1]={flags=0,keywordFlags=0,name="MissingLifeBeforeEnemyHit",type="BASE",value=15}},nil}
 c["Gain 15% of Physical Attack Damage as Extra Fire Damage"]={{[1]={flags=1,keywordFlags=0,name="PhysicalDamageGainAsFire",type="BASE",value=15}},nil}
 c["Gain 15% of Physical Attack Damage as Extra Lightning Damage"]={{[1]={flags=1,keywordFlags=0,name="PhysicalDamageGainAsLightning",type="BASE",value=15}},nil}
 c["Gain 15% of Physical Damage as Extra Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageGainAsChaos",type="BASE",value=15}},nil}
@@ -8179,7 +8180,7 @@ c["Gain 20 Mana on Culling Strike"]={{[1]={flags=0,keywordFlags=0,name="Mana",ty
 c["Gain 20 Mana per Enemy Killed"]={{[1]={flags=0,keywordFlags=0,name="ManaOnKill",type="BASE",value=20}},nil}
 c["Gain 20% of Elemental Damage as Extra Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ElementalDamageGainAsChaos",type="BASE",value=20}},nil}
 c["Gain 20% of Maximum Mana as Extra Maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ManaGainAsEnergyShield",type="BASE",value=20}},nil}
-c["Gain 20% of Missing Unreserved Life before being Hit by an Enemy"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=20}}," Missing Unreserved  before being Hit by an Enemy "}
+c["Gain 20% of Missing Unreserved Life before being Hit by an Enemy"]={{[1]={flags=0,keywordFlags=0,name="MissingLifeBeforeEnemyHit",type="BASE",value=20}},nil}
 c["Gain 20% of Physical Damage as Extra Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageGainAsChaos",type="BASE",value=20}},nil}
 c["Gain 20% of Physical Damage as Extra Chaos Damage during effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="PhysicalDamageGainAsChaos",type="BASE",value=20}},nil}
 c["Gain 20% of Physical Damage as Extra Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageGainAsCold",type="BASE",value=20}},nil}
@@ -8236,8 +8237,7 @@ c["Gain 30% of Physical Damage as Extra Fire Damage"]={{[1]={flags=0,keywordFlag
 c["Gain 30% of Physical Damage as Extra Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageGainAsLightning",type="BASE",value=30}},nil}
 c["Gain 300 Life per Ignited Enemy Killed"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Ignited"},flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=300}},nil}
 c["Gain 300% of Weapon Physical Damage as Extra Damage of a random Element"]={{[1]={flags=8192,keywordFlags=0,name="PhysicalDamageGainAsRandom",type="BASE",value=300}},nil}
-c["Gain 35% of Missing Unreserved Life before being Hit by an Enemy"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=35}}," Missing Unreserved  before being Hit by an Enemy "}
-c["Gain 35% of Missing Unreserved Life before being Hit by an Enemy Gain 20% of Missing Unreserved Life before being Hit by an Enemy"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=35}}," Missing Unreserved  before being Hit by an Enemy Gain 20% of Missing Unreserved Life before being Hit by an Enemy "}
+c["Gain 35% of Missing Unreserved Life before being Hit by an Enemy"]={{[1]={flags=0,keywordFlags=0,name="MissingLifeBeforeEnemyHit",type="BASE",value=35}},nil}
 c["Gain 35% of Physical Attack Damage as Extra Fire Damage"]={{[1]={flags=1,keywordFlags=0,name="PhysicalDamageGainAsFire",type="BASE",value=35}},nil}
 c["Gain 35% of Physical Damage as Extra Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageGainAsChaos",type="BASE",value=35}},nil}
 c["Gain 35% of Physical Damage as Extra Damage of a random Element while you are Ignited"]={{[1]={[1]={type="Condition",var="Ignited"},flags=0,keywordFlags=0,name="PhysicalDamageGainAsRandom",type="BASE",value=35}},nil}
