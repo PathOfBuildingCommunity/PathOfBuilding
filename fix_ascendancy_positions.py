@@ -44,44 +44,44 @@ NODE_GROUPS = {
     "Warlock": Point2D(9300, 7300),
 }
 EXTRA_NODES = {
-	"Necromancer": [{"Node": {"name": "Nine Lives", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Int.png", "isNotable": True, "skill" : 27602}, 
-		"offset": Point2D(-1500, -1000)}],
-	"Guardian": [{"Node": {"name": "Searing Purity", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrInt.png", "isNotable": True, "skill" : 57568}, 
-		"offset": Point2D(-1000, 1500)}],
-	"Berserker": [{"Node": {"name": "Indomitable Resolve", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Str.png", "isNotable": True, "skill" : 52435}, 
-		"offset": Point2D(-1000, 0)}],
-	"Ascendant": [{"Node": {"name": "Unleashed Potential", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/SkillPoint.png", "skill" : 19355}, 
-		"offset": Point2D(-1000, 1000)}],
-	"Champion": [{"Node": {"name": "Fatal Flourish", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrDex.png", "isNotable": True, "skill" : 42469}, 
-		"offset": Point2D(0, 1000)}],
-	"Raider": [{"Node": {"name": "Fury of Nature", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Dex.png", "isNotable": True, "skill" : 18054}, 
-		"offset": Point2D(1000, -1500)}],
-	"Saboteur": [{"Node": {"name": "Harness the Void", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/DexInt.png", "isNotable": True, "skill" : 57331}, 
-		"offset": Point2D(1000, -1500)}],
+    "Necromancer": [{"Node": {"name": "Nine Lives", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Int.png", "isNotable": True, "skill" : 27602}, 
+        "offset": Point2D(-1500, -1000)}],
+    "Guardian": [{"Node": {"name": "Searing Purity", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrInt.png", "isNotable": True, "skill" : 57568}, 
+        "offset": Point2D(-1000, 1500)}],
+    "Berserker": [{"Node": {"name": "Indomitable Resolve", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Str.png", "isNotable": True, "skill" : 52435}, 
+        "offset": Point2D(-1000, 0)}],
+    "Ascendant": [{"Node": {"name": "Unleashed Potential", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/SkillPoint.png", "skill" : 19355}, 
+        "offset": Point2D(-1000, 1000)}],
+    "Champion": [{"Node": {"name": "Fatal Flourish", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrDex.png", "isNotable": True, "skill" : 42469}, 
+        "offset": Point2D(0, 1000)}],
+    "Raider": [{"Node": {"name": "Fury of Nature", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Dex.png", "isNotable": True, "skill" : 18054}, 
+        "offset": Point2D(1000, -1500)}],
+    "Saboteur": [{"Node": {"name": "Harness the Void", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/DexInt.png", "isNotable": True, "skill" : 57331}, 
+        "offset": Point2D(1000, -1500)}],
 }
 EXTRA_NODE_IDS = { # these can be any value but for now they are hardcoded to what random numbers were generated last time for consistency, the "hash" value is what we should probs use though as it's the value in the ggpk
-	"Nine Lives": {"NodeID": 33600, "GroupID" : 44472},
-	"Searing Purity": {"NodeID": 22278, "GroupID" : 50933},
-	"Soul Drinker": {"NodeID": 19264, "GroupID" : 37841, "hash" : 45999},
-	"Harness the Void": {"GroupID" : 37841},
-	"Fury of Nature": {"NodeID": 62630, "GroupID" : 56600},
-	"Fatal Flourish": {"NodeID": 11264, "GroupID" : 63033},
-	"Indomitable Resolve": {"NodeID": 15386, "GroupID" : 25519},
-	"Unleashed Potential": {"NodeID": 55193, "GroupID" : 60495},
+    "Nine Lives": {"NodeID": 33600, "GroupID" : 44472},
+    "Searing Purity": {"NodeID": 22278, "GroupID" : 50933},
+    "Soul Drinker": {"NodeID": 19264, "GroupID" : 37841, "hash" : 45999},
+    "Harness the Void": {"GroupID" : 37841},
+    "Fury of Nature": {"NodeID": 62630, "GroupID" : 56600},
+    "Fatal Flourish": {"NodeID": 11264, "GroupID" : 63033},
+    "Indomitable Resolve": {"NodeID": 15386, "GroupID" : 25519},
+    "Unleashed Potential": {"NodeID": 55193, "GroupID" : 60495},
 }
 EXTRA_NODES_STATS = { # these should not be hardcoded here, but should be inserted later via the exporter from the ggpk (they are AscendencySpecialEldritch in PassiveSkills.dat, though reminder text seems to be missing)
-	"Nine Lives": {"stats": ["25% of Damage taken Recouped as Life, Mana and Energy Shield", "Recoup Effects instead occur over 3 seconds"], "reminderText": ["(Only Damage from Hits can be Recouped, over 4 seconds following the Hit)"]}, 
-	"Searing Purity": {"stats": ["45% of Chaos Damage taken as Fire Damage", "45% of Chaos Damage taken as Lightning Damage"], "reminderText": []},
-	"Soul Drinker": {"stats": ["2% of Damage Leeched as Energy Shield", "20% increased Attack and Cast Speed while Leeching Energy Shield", "Energy Shield Leech effects are not removed when Energy Shield is Filled"], "reminderText": ["(Leeched Energy Shield is recovered over time. Multiple Leeches can occur simultaneously, up to a maximum rate)"]},
-	"Harness the Void": {"stats": ["27% chance to gain 25% of Non-Chaos Damage with Hits as Extra Chaos Damage", "13% chance to gain 50% of Non-Chaos Damage with Hits as Extra Chaos Damage", "7% chance to gain 100% of Non-Chaos Damage with Hits as Extra Chaos Damage"], "reminderText": []},
-	"Fury of Nature" : {"stats": ["Non-Damaging Elemental Ailments you inflict spread to nearby enemies in a radius of 20", "Non-Damaging Elemental Ailments you inflict have 100% more Effect"], "reminderText": ["(Elemental Ailments are Ignited, Scorched, Chilled, Frozen, Brittled, Shocked, and Sapped)"]},
-	"Fatal Flourish": {"stats": ["Final Repeat of Attack Skills deals 60% more Damage", "Non-Travel Attack Skills Repeat an additional Time"], "reminderText": []},
-	"Indomitable Resolve": {"stats": ["Deal 10% less Damage", "Take 25% less Damage"], "reminderText": []},
-	"Unleashed Potential" : {"stats": ["400% increased Endurance, Frenzy and Power Charge Duration", "25% chance to gain a Power, Frenzy or Endurance Charge on Kill", "+1 to Maximum Endurance Charges", "+1 to Maximum Frenzy Charges", "+1 to Maximum Power Charges"], "reminderText": []},
+    "Nine Lives": {"stats": ["25% of Damage taken Recouped as Life, Mana and Energy Shield", "Recoup Effects instead occur over 3 seconds"], "reminderText": ["(Only Damage from Hits can be Recouped, over 4 seconds following the Hit)"]}, 
+    "Searing Purity": {"stats": ["45% of Chaos Damage taken as Fire Damage", "45% of Chaos Damage taken as Lightning Damage"], "reminderText": []},
+    "Soul Drinker": {"stats": ["2% of Damage Leeched as Energy Shield", "20% increased Attack and Cast Speed while Leeching Energy Shield", "Energy Shield Leech effects are not removed when Energy Shield is Filled"], "reminderText": ["(Leeched Energy Shield is recovered over time. Multiple Leeches can occur simultaneously, up to a maximum rate)"]},
+    "Harness the Void": {"stats": ["27% chance to gain 25% of Non-Chaos Damage with Hits as Extra Chaos Damage", "13% chance to gain 50% of Non-Chaos Damage with Hits as Extra Chaos Damage", "7% chance to gain 100% of Non-Chaos Damage with Hits as Extra Chaos Damage"], "reminderText": []},
+    "Fury of Nature" : {"stats": ["Non-Damaging Elemental Ailments you inflict spread to nearby enemies in a radius of 20", "Non-Damaging Elemental Ailments you inflict have 100% more Effect"], "reminderText": ["(Elemental Ailments are Ignited, Scorched, Chilled, Frozen, Brittled, Shocked, and Sapped)"]},
+    "Fatal Flourish": {"stats": ["Final Repeat of Attack Skills deals 60% more Damage", "Non-Travel Attack Skills Repeat an additional Time"], "reminderText": []},
+    "Indomitable Resolve": {"stats": ["Deal 10% less Damage", "Take 25% less Damage"], "reminderText": []},
+    "Unleashed Potential" : {"stats": ["400% increased Endurance, Frenzy and Power Charge Duration", "25% chance to gain a Power, Frenzy or Endurance Charge on Kill", "+1 to Maximum Endurance Charges", "+1 to Maximum Frenzy Charges", "+1 to Maximum Power Charges"], "reminderText": []},
 }
 
 
-def fix_ascendancy_positions(path: os.PathLike) -> None:
+def fix_ascendancy_positions(path: os.PathLike, ruthless: bool) -> None:
     """Normalise the relative positions of ascendancy nodes on the passive skill tree.
 
     Ascendancy positions in the passive skill tree data we receive from GGG look
@@ -127,7 +127,10 @@ def fix_ascendancy_positions(path: os.PathLike) -> None:
             data["sprites"][sprite] = data["sprites"][sprite]["1"]
         elif "0.3835" in data["sprites"][sprite]:
             data["sprites"][sprite] = data["sprites"][sprite]["0.3835"]
-    spritesPath = os.path.join(os.path.dirname(path), "sprites.json")
+    if ruthless:
+        spritesPath = os.path.join(os.path.dirname(path), "sprites_ruthless.json")
+    else:
+        spritesPath = os.path.join(os.path.dirname(path), "sprites.json")
     with open(spritesPath, "w", encoding="utf-8") as o:
         json.dump({"extraImages": data["extraImages"],"sprites": data["sprites"]}, o, indent=4)
     del data["extraImages"]
@@ -140,6 +143,7 @@ def fix_ascendancy_positions(path: os.PathLike) -> None:
 
 def main(root: pathlib.Path) -> None:
     """Fix all passive skill tree JSONs found in root directory.
+    Also moves all asset files to new locations with new names
 
     .. warning: Overwrites all matched files in-place.
 
@@ -147,8 +151,21 @@ def main(root: pathlib.Path) -> None:
     :return:
     """
     for file in root.glob("**/data.json"):
-        fix_ascendancy_positions(file)
+        fileLocation = pathlib.Path(os.path.dirname(file))
+        versionNumber = os.path.basename(os.path.dirname(file))
+        fix_ascendancy_positions(file, False)
         logging.info(f"Found and processed file '{file}'.")
+        fix_ascendancy_positions(os.path.join(fileLocation, "ruthless.json"), True)
+        for file2 in fileLocation.glob("**/*-3.png"):
+            dirPath = pathlib.Path("src/TreeData/Assets/" + os.path.basename(file2).removesuffix(".png"))
+            if not dirPath.is_dir():
+                dirPath.mkdir()
+            file2.rename(os.path.join(dirPath, versionNumber + ".png"))
+        for file2 in fileLocation.glob("**/*-3.jpg"):
+            dirPath = pathlib.Path("src/TreeData/Assets/" + os.path.basename(file2).removesuffix(".jpg"))
+            if not dirPath.is_dir():
+                dirPath.mkdir()
+            file2.rename(os.path.join(dirPath, versionNumber + ".jpg"))
 
 
 if __name__ == "__main__":
