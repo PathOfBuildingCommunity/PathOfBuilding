@@ -5,7 +5,6 @@ services:
     environment:
       HOME: /tmp
     container_name: pathofbuilding-tests
-    user: nobody:nobody
     command: busted --lua=luajit
     security_opt:
       - no-new-privileges:true
