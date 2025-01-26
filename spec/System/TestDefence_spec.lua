@@ -10,6 +10,9 @@ describe("TestDefence", function()
 	-- boring part
 	it("no armour max hits", function()
 		build.configTab.input.enemyIsBoss = "None"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		
 		assert.are.equals(60, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
 		assert.are.equals(38, build.calcsTab.calcsOutput.FireMaximumHitTaken)
 		assert.are.equals(38, build.calcsTab.calcsOutput.ColdMaximumHitTaken)
