@@ -197,6 +197,8 @@ data.misc = { -- magic numbers
 	ehpCalcMaxDamage = 100000000,
 	-- max iterations can be increased for more accuracy this should be perfectly accurate unless it runs out of iterations and so high eHP values will be underestimated.
 	ehpCalcMaxIterationsToCalc = 50,
+	-- more iterations would reduce the cases where max hit would result in overkill damage or leave some life.
+	maxHitSmoothingPasses = 8,
 	-- maximum increase for stat weights, only used in trader for now.
 	maxStatIncrease = 2, -- 100% increased
 	-- PvP scaling used for hogm
