@@ -2908,8 +2908,8 @@ function calcs.offence(env, actor, activeSkill)
 		output.EnergyShieldLeechInstant = 0
 		output.ManaLeech = 0
 		output.ManaLeechInstant = 0
-		output.impaleStoredHitAvg = 0
-		for pass = 1, 2 do
+		output.impaleStoredHitAvg = 0 
+		for _, pass in ipairs(output.CritChance == 100 and { 1 } or output.CritChance == 0 and { 2 } or { 1, 2 }) do
 			-- Pass 1 is critical strike damage, pass 2 is non-critical strike
 			cfg.skillCond["CriticalStrike"] = (pass == 1)
 			local lifeLeechTotal = 0
@@ -3079,15 +3079,15 @@ function calcs.offence(env, actor, activeSkill)
 						if env.mode == "CALCS" then
 							output[damageType.."EffMult"] = effMult
 						end
-						if pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= damageType) and skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
+						if breakdown and (pass == 2 or output.CritChance == 100) and (effMult ~= 1 or sourceRes ~= damageType) and skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
 							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes, useRes, invertChance)
-						elseif pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= damageType) then
+						elseif breakdown and (pass == 2 or output.CritChance == 100) and (effMult ~= 1 or sourceRes ~= damageType) then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
 							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore, sourceRes, useRes, invertChance)
 						end
 					end
-					if pass == 2 and breakdown then
+					if breakdown and (pass == 2 or output.CritChance == 100) then
 						t_insert(breakdown[damageType], s_format("= %d to %d", damageTypeHitMin, damageTypeHitMax))
 					end
 
@@ -3130,12 +3130,13 @@ function calcs.offence(env, actor, activeSkill)
 						}
 					end
 				end
-				if pass == 1 then
+				if pass == 1 or output.CritChance == 0 then
 					output[damageType.."CritAverage"] = damageTypeHitAvg
 					totalCritAvg = totalCritAvg + damageTypeHitAvg
 					totalCritMin = totalCritMin + damageTypeHitMin
 					totalCritMax = totalCritMax + damageTypeHitMax
-				else
+				end
+				if pass == 2 or output.CritChance == 100 then
 					if env.mode == "CALCS" then
 						output[damageType.."Min"] = damageTypeHitMin
 						output[damageType.."Max"] = damageTypeHitMax
@@ -5554,4 +5555,15 @@ function calcs.offence(env, actor, activeSkill)
 	output.CullingDPS = output.CombinedDPS * (bestCull - 1)
 	output.ReservationDPS = output.CombinedDPS * (output.ReservationDpsMultiplier - 1)
 	output.CombinedDPS = output.CombinedDPS * bestCull * output.ReservationDpsMultiplier
+	
+	
+	if output.CritChance == 100 then
+		skillCfg.skillCond["CriticalStrike"] = true
+	end
+	if output.MainHand and output.MainHand.CritChance == 100 then
+		activeSkill.weapon1Cfg.skillCond["CriticalStrike"] = true
+	end
+	if output.OffHand and output.OffHand.CritChance == 100 then
+		activeSkill.weapon2Cfg.skillCond["CriticalStrike"] = true
+	end
 end
