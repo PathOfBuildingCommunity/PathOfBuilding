@@ -13,40 +13,17 @@ local m_floor = math.floor
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
 local catalystList = {"Abrasive", "Accelerating", "Fertile", "Imbued", "Intrinsic", "Noxious", "Prismatic", "Tempering", "Turbulent", "Unstable"}
 local catalystTags = {
-	{ "attack" },
-	{ "speed" },
-	{ "life", "mana", "resource" },
-	{ "caster" },
-	{ "jewellery_attribute", "attribute" },
-	{ "physical_damage", "chaos_damage" },
-	{ "jewellery_resistance", "resistance" },
-	{ "jewellery_defense", "defences" },
-	{ "jewellery_elemental" ,"elemental_damage" },
-	{ "critical" },
+	{ attack = true },
+	{ speed = true },
+	{ life = true, mana = true, resource = true },
+	{ caster = true },
+	{ jewellery_attribute = true, attribute = true },
+	{ physical_damage = true, chaos_damage = true },
+	{ jewellery_resistance = true, resistance = true },
+	{ jewellery_defense = true, defences = true },
+	{ jewellery_elemental = true ,elemental_damage = true },
+	{ critical = true },
 }
-
-local function getCatalystScalar(catalystId, tags, quality)
-	if not catalystId or type(catalystId) ~= "number" or not catalystTags[catalystId] or not tags or type(tags) ~= "table" or #tags == 0 then
-		return 1
-	end
-	if not quality then
-		quality = 20
-	end
-
-	-- Create a fast lookup table for all provided tags
-	local tagLookup = {}
-	for _, curTag in ipairs(tags) do
-		tagLookup[curTag] = true;
-	end
-
-	-- Find if any of the catalyst's tags match the provided tags
-	for _, catalystTag in ipairs(catalystTags[catalystId]) do
-		if tagLookup[catalystTag] then
-			return (100 + quality) / 100
-		end
-	end
-	return 1
-end
 
 local influenceInfo = itemLib.influenceInfo
 
@@ -342,6 +319,18 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			l = l + 1
 		end
 	end
+	-- preprocess looking for modifier effect multipliers
+	local modLineMultipliers = {}
+	for _, line in ipairs(self.rawLines) do
+		if line:find("Modifier magnitudes") then
+			local tag = line:match("ed Explicit (%a+) Modifier magnitudes") or (line:match("ed Suffix Modifier magnitudes") and "Suffix") or (line:match("ed Prefix Modifier magnitudes") and "Prefix") or "AllExplicit"
+			local value = (line:match("^(%d+)%% increased ") or 0) - (line:match("^(%d+)%% reduced ") or 0)
+			modLineMultipliers[tag] = (modLineMultipliers[tag] or 0) + value
+		elseif line:find("effect") then
+			modLineMultipliers["localEffect"] = (modLineMultipliers["localEffect"] or 0) + (line:match("^(%d+)%% increased effect") or 0) - (line:match("^(%d+)%% reduced effect") or 0)
+		end
+	end
+	
 	self.checkSection = false
 	self.sockets = { }
 	self.classRequirementModLines = { }
@@ -720,14 +709,48 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					foundImplicit = true
 					gameModeStage = "IMPLICIT"
 				end
-				local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
-				local rangedLine = itemLib.applyRange(line, 1, catalystScalar)
+				local rangeScalar = 1
+				if self.catalyst and catalystTags[self.catalyst] then
+					for _, curTag in ipairs(modLine.modTags) do
+						if catalystTags[self.catalyst][curTag] then
+							rangeScalar = (100 + self.catalystQuality) / 100
+							break
+						end
+					end
+				elseif self.base.tincture then
+					for _, curTag in ipairs(modLine.modTags) do
+						if curTag == "tincture" then
+							rangeScalar = (100 + (modLineMultipliers["localEffect"] or 0)) / 100 * (100 + (self.quality or 20)) / 100
+							break
+						end
+					end
+				end
+				if not self.base.tincture and gameModeStage == "EXPLICIT" then
+					for searchTag, mult in pairs(modLineMultipliers) do
+						if searchTag == "AllExplicit" then
+							-- this was still matching implicts
+							if line:match("Modifier") then
+								break
+							else
+								rangeScalar = rangeScalar * (100 + mult) / 100
+							end
+						elseif searchTag ~= "localEffect" then
+							for _, curTag in ipairs(modLine.modTags) do
+								if curTag == searchTag:lower() then
+									rangeScalar = rangeScalar * (100 + mult) / 100
+									break
+								end
+							end
+						end
+					end
+				end
+				local rangedLine = itemLib.applyRange(line, 1, rangeScalar)
 				local modList, extra = modLib.parseMod(rangedLine)
 				if (not modList or extra) and self.rawLines[l+1] then
 					-- Try to combine it with the next line
 					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(%l+%)","")
 					local combLine = line.." "..nextLine
-					rangedLine = itemLib.applyRange(combLine, 1, catalystScalar)
+					rangedLine = itemLib.applyRange(combLine, 1, rangeScalar)
 					modList, extra = modLib.parseMod(rangedLine, true)
 					if modList and not extra then
 						line = line.."\n"..nextLine
@@ -783,7 +806,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				if modList then
 					modLine.modList = modList
 					modLine.extra = extra
-					modLine.valueScalar = catalystScalar
+					modLine.valueScalar = rangeScalar
 					modLine.range = modLine.range or main.defaultItemAffixQuality
 					t_insert(modLines, modLine)
 					if mode == "GAME" then
@@ -1185,6 +1208,44 @@ function ItemClass:Craft()
 	self.nameSuffix = ""
 	self.requirements.level = self.base.req.level
 	local statOrder = { }
+	-- preprocess looking for modifier effect multipliers
+	local modLineMultipliers = {}
+	if self.base.tincture then
+		for _, list in ipairs({self.prefixes,self.suffixes}) do
+			for _, affix in ipairs(list) do
+				local mod = self.affixes[affix.modId]
+				if mod then
+					for _, line in ipairs(mod) do
+						if line:find("effect") then
+							line = itemLib.applyRange(line, affix.range or 0.5, nil)
+							modLineMultipliers["localEffect"] = (modLineMultipliers["localEffect"] or 0) + (line:match("^(%d+)%% increased effect") or 0) - (line:match("^(%d+)%% reduced effect") or 0)
+						end
+					end
+				end
+			end
+		end
+	else
+		if self.base.type == "Ring" or self.base.type == "Amulet" then
+			for _, modLine in ipairs(self.implicitModLines) do
+				if modLine.line:find("Modifier magnitudes") then
+					local tag = modLine.line:match("ed Explicit (%a+) Modifier magnitudes") or (modLine.line:match("ed Suffix Modifier magnitudes") and "Suffix") or (modLine.line:match("ed Prefix Modifier magnitudes") and "Prefix") or "AllExplicit"
+					local value = (modLine.line:match("^(%d+)%% increased ") or 0) - (modLine.line:match("^(%d+)%% reduced ") or 0)
+					modLineMultipliers[tag] = (modLineMultipliers[tag] or 0) + value
+				end
+			end
+		end
+		for _, modLine in ipairs(self.enchantModLines) do
+			if modLine.line:find("Modifier magnitudes") then
+				if modLine.line:find("increased") then
+					local value, tag = modLine.line:match("^(%d+)%% increased Explicit (%a+) Modifier magnitudes")
+					modLineMultipliers[tag] = (modLineMultipliers[tag] or 0) + (value or 0)
+				else
+					local value, tag = modLine.line:match("^(%d+)%% reduced Explicit (%a+) Modifier magnitudes")
+					modLineMultipliers[tag] = (modLineMultipliers[tag] or 0) - (value or 0)
+				end
+			end
+		end
+	end
 	for _, list in ipairs({self.prefixes,self.suffixes}) do
 		for i = 1, (list.limit or (self.affixLimit / 2)) do
 			local affix = list[i]
@@ -1198,8 +1259,34 @@ function ItemClass:Craft()
 				elseif mod.type == "Suffix" then
 					self.nameSuffix = self.nameSuffix .. " " .. mod.affix
 				end
-				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))
-				local rangeScalar = getCatalystScalar(self.catalyst, mod.modTags, self.catalystQuality)
+				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))	
+				local rangeScalar = 1
+				if self.catalyst and catalystTags[self.catalyst] then
+					for _, curTag in ipairs(mod.modTags) do
+						if catalystTags[self.catalyst][curTag] then
+							rangeScalar = (100 + self.catalystQuality) / 100
+							break
+						end
+					end
+				elseif self.base.tincture and mod.type == "Suffix" then
+					rangeScalar = (100 + (modLineMultipliers["localEffect"] or 0)) / 100 * (100 + (self.quality or 20)) / 100
+				end
+				if not self.base.tincture then
+					for searchTag, mult in pairs(modLineMultipliers) do
+						if searchTag == "AllExplicit" then
+							--rangeScalar = rangeScalar * (100 + mult) / 100
+						elseif searchTag == mod.type then
+							rangeScalar = rangeScalar * (100 + mult) / 100
+						else
+							-- for _, curTag in ipairs(mod.modTags) do
+								-- if curTag == searchTag:lower() then
+									-- rangeScalar = rangeScalar * (100 + mult) / 100
+									-- break
+								-- end
+							-- end
+						end
+					end
+				end
 				for i, line in ipairs(mod) do
 					line = itemLib.applyRange(line, affix.range or 0.5, rangeScalar)
 					local order = mod.statOrder[i]
@@ -1596,7 +1683,37 @@ function ItemClass:BuildModList()
 			end
 		end
 	end
-	local function processModLine(modLine)
+	-- preprocess looking for modifier effect multipliers
+	local modLineMultipliers = {}
+	if self.base.tincture then
+		for _, modLine in ipairs(self.explicitModLines) do
+			if modLine.line:find("effect") then
+				modLineMultipliers["localEffect"] = (modLineMultipliers["localEffect"] or 0) + (modLine.line:match("^(%d+)%% increased effect") or 0) - (modLine.line:match("^(%d+)%% reduced effect") or 0)
+			end
+		end
+	else
+		if self.base.type == "Ring" or self.base.type == "Amulet" then
+			for _, modLine in ipairs(self.implicitModLines) do
+				if modLine.line:find("Modifier magnitudes") then
+					local tag = modLine.line:match("ed Explicit (%a+) Modifier magnitudes") or "AllExplicit"
+					local value = (modLine.line:match("^(%d+)%% increased Explicit ") or 0) - (modLine.line:match("^(%d+)%% reduced Explicit ") or 0)
+					modLineMultipliers[tag] = (modLineMultipliers[tag] or 0) + value
+				end
+			end
+		end
+		for _, modLine in ipairs(self.enchantModLines) do
+			if modLine.line:find("Modifier magnitudes") then
+				if modLine.line:find("increased") then
+					local value, tag = modLine.line:match("^(%d+)%% increased Explicit (%a+) Modifier magnitudes")
+					modLineMultipliers[tag] = (modLineMultipliers[tag] or 0) + (value or 0)
+				else
+					local value, tag = modLine.line:match("^(%d+)%% reduced Explicit (%a+) Modifier magnitudes")
+					modLineMultipliers[tag] = (modLineMultipliers[tag] or 0) - (value or 0)
+				end
+			end
+		end
+	end
+	local function processModLine(modLine, lineType)
 		if self:CheckModLineVariant(modLine) then
 			-- special section for variant over-ride of pre-modifier item parameters
 			if modLine.line:find("Requires Class") then
@@ -1608,9 +1725,38 @@ function ItemClass:BuildModList()
 					-- Check if line actually has a range
 					if modLine.line:find("%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)") then
 						local strippedModeLine = modLine.line:gsub("\n"," ")						
-						local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
+						local rangeScalar = 1
+						if self.catalyst and catalystTags[self.catalyst] then
+							for _, curTag in ipairs(modLine.modTags) do
+								if catalystTags[self.catalyst][curTag] then
+									rangeScalar = (100 + self.catalystQuality) / 100
+									break
+								end
+							end
+						elseif self.base.tincture then
+							for _, curTag in ipairs(modLine.modTags) do
+								if curTag == "tincture" then
+									rangeScalar = (100 + (modLineMultipliers["localEffect"] or 0)) / 100 * (100 + (self.quality or 20)) / 100
+									break
+								end
+							end
+						end
+						if not self.base.tincture and lineType == "explicitModLines" then
+							for searchTag, mult in pairs(modLineMultipliers) do
+								if searchTag == "AllExplicit" then
+									rangeScalar = rangeScalar * (100 + mult) / 100
+								else
+									for _, curTag in ipairs(modLine.modTags) do
+										if curTag == searchTag:lower() then
+											rangeScalar = rangeScalar * (100 + mult) / 100
+											break
+										end
+									end
+								end
+							end
+						end
 						-- Put the modified value into the string
-						local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar)
+						local line = itemLib.applyRange(strippedModeLine, modLine.range, rangeScalar)
 						-- Check if we can parse it before adding the mods
 						local list, extra = modLib.parseMod(line)
 						if list and not extra then
@@ -1629,22 +1775,22 @@ function ItemClass:BuildModList()
 			end
 		end
 	end
-	for _, modLine in ipairs(self.enchantModLines) do
+	for _, modLine in ipairs(self.enchantModLines, "enchantModLines") do
 		processModLine(modLine)
 	end
-	for _, modLine in ipairs(self.scourgeModLines) do
+	for _, modLine in ipairs(self.scourgeModLines, "scourgeModLines") do
 		processModLine(modLine)
 	end
-	for _, modLine in ipairs(self.classRequirementModLines) do
+	for _, modLine in ipairs(self.classRequirementModLines, "classRequirementModLines") do
 		processModLine(modLine)
 	end
-	for _, modLine in ipairs(self.implicitModLines) do
+	for _, modLine in ipairs(self.implicitModLines, "implicitModLines") do
 		processModLine(modLine)
 	end
-	for _, modLine in ipairs(self.explicitModLines) do
+	for _, modLine in ipairs(self.explicitModLines, "explicitModLines") do
 		processModLine(modLine)
 	end
-	for _, modLine in ipairs(self.crucibleModLines) do
+	for _, modLine in ipairs(self.crucibleModLines, "crucibleModLines") do
 		processModLine(modLine)
 	end
 	if self.name == "Tabula Rasa, Simple Robe" or self.name == "Skin of the Loyal, Simple Robe" or self.name == "Skin of the Lords, Simple Robe" or self.name == "The Apostate, Cabalist Regalia" then
