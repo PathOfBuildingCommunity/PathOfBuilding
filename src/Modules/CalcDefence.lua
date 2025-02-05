@@ -188,9 +188,22 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	end
 	local guard = poolTbl.Guard
 	if not guard then
-		guard = { shared = output.sharedGuardAbsorb or 0 }
-		for damageType in pairs(damageTable) do
-			guard[damageType] = output[damageType.."GuardAbsorb"] or 0
+		-- Assuming max hit guard mode ( EHP should set guard amount )
+		if output.maxHitGuardMode == "NONE" then 
+			guard = { shared = 0 }
+			for damageType in pairs(damageTable) do
+				guard[damageType] = 0
+			end
+		elseif output.maxHitGuardMode == "MAX" then
+			guard = { shared = output.sharedGuardAbsorb or 0 }
+			for damageType in pairs(damageTable) do
+				guard[damageType] = output[damageType.."GuardAbsorb"] or 0
+			end
+		elseif output.maxHitGuardMode == "AVERAGE" then
+			guard = { shared = output.scaledSharedGuardAbsorb or 0 }
+			for damageType in pairs(damageTable) do
+				guard[damageType] = output["Scaled"..damageType.."GuardAbsorb"] or 0
+			end
 		end
 	end
 	
@@ -2191,15 +2204,38 @@ function calcs.buildDefenceEstimations(env, actor)
 	if output["sharedGuardAbsorbRate"] > 0 then
 		output.OnlySharedGuard = true
 		output["sharedGuardAbsorb"] = calcLib.val(modDB, "GuardAbsorbLimit")
-		local lifeProtected = output["sharedGuardAbsorb"] / (output["sharedGuardAbsorbRate"] / 100) * (1 - output["sharedGuardAbsorbRate"] / 100)
+		if output.maxHitGuardMode ~= "NONE" then
+			output.MaxHitGuard = true
+		end
+		if (output.ehpGuardMode == "AVERAGE" or output.maxHitGuardMode == "AVERAGE") then
+			output["scaledSharedGuardAbsorb"] = calcLib.val(modDB, "ScaledGuardAbsorbLimit")
+			if output.ehpGuardMode == "AVERAGE" then
+				output.OnlySharedGuard = false
+				output.OnlyScaledSharedGuard = true
+			end
+		end
 		if breakdown then
-			breakdown["sharedGuardAbsorb"] = {
-				s_format("Total life protected:"),
-				s_format("%d ^8(guard limit)", output["sharedGuardAbsorb"]),
-				s_format("/ %.2f ^8(portion taken from guard)", output["sharedGuardAbsorbRate"] / 100),
-				s_format("x %.2f ^8(portion taken from life and energy shield)", 1 - output["sharedGuardAbsorbRate"] / 100),
-				s_format("= %d", lifeProtected)
-			}
+			if output.OnlyScaledSharedGuard then
+				local lifeProtected = output["scaledSharedGuardAbsorb"] / (output["sharedGuardAbsorbRate"] / 100) * (1 - output["sharedGuardAbsorbRate"] / 100)
+				breakdown["scaledSharedGuardAbsorb"] = {
+					s_format("Total life protected:"),
+					s_format("%d ^8(normal guard limit)", output["sharedGuardAbsorb"]),
+					s_format("x %.2f%% ^8(guard uptime)", output["scaledSharedGuardAbsorb"] / output["sharedGuardAbsorb"] * 100),
+					s_format("= %d ^8(scaled guard limit)", output["scaledSharedGuardAbsorb"]),
+					s_format("/ %.2f ^8(portion taken from guard)", output["sharedGuardAbsorbRate"] / 100),
+					s_format("x %.2f ^8(portion taken from life and energy shield)", 1 - output["sharedGuardAbsorbRate"] / 100),
+					s_format("= %d", lifeProtected)
+				}
+			else
+				local lifeProtected = output["sharedGuardAbsorb"] / (output["sharedGuardAbsorbRate"] / 100) * (1 - output["sharedGuardAbsorbRate"] / 100)
+				breakdown["sharedGuardAbsorb"] = {
+					s_format("Total life protected:"),
+					s_format("%d ^8(guard limit)", output["sharedGuardAbsorb"]),
+					s_format("/ %.2f ^8(portion taken from guard)", output["sharedGuardAbsorbRate"] / 100),
+					s_format("x %.2f ^8(portion taken from life and energy shield)", 1 - output["sharedGuardAbsorbRate"] / 100),
+					s_format("= %d", lifeProtected)
+				}
+			end
 		end
 	end
 	for _, damageType in ipairs(dmgTypeList) do
@@ -2209,15 +2245,39 @@ function calcs.buildDefenceEstimations(env, actor)
 			output.AnyGuard = true
 			output.OnlySharedGuard = false
 			output[damageType.."GuardAbsorb"] = calcLib.val(modDB, damageType.."GuardAbsorbLimit")
-			local lifeProtected = output[damageType.."GuardAbsorb"] / (output[damageType.."GuardAbsorbRate"] / 100) * (1 - output[damageType.."GuardAbsorbRate"] / 100)
+			if output.maxHitGuardMode ~= "NONE" then
+				output.MaxHitGuard = true
+			end
+			if (output.ehpGuardMode == "AVERAGE" or output.maxHitGuardMode == "AVERAGE") then
+				output["Scaled"..damageType.."GuardAbsorb"] = calcLib.val(modDB, "Scaled"..damageType.."GuardAbsorbLimit")
+				if output.ehpGuardMode == "AVERAGE" then
+					output.OnlyScaledSharedGuard = false
+					output.AnyGuard = false
+					output.AnyScaledGuard = true
+				end
+			end
 			if breakdown then
-				breakdown[damageType.."GuardAbsorb"] = {
-					s_format("Total life protected:"),
-					s_format("%d ^8(guard limit)", output[damageType.."GuardAbsorb"]),
-					s_format("/ %.2f ^8(portion taken from guard)", output[damageType.."GuardAbsorbRate"] / 100),
-					s_format("x %.2f ^8(portion taken from life and energy shield)", 1 - output[damageType.."GuardAbsorbRate"] / 100),
-					s_format("= %d", lifeProtected),
-				}
+				if output.AnyScaledGuard then
+					local lifeProtected = output["Scaled"..damageType.."GuardAbsorb"] / (output[damageType.."GuardAbsorbRate"] / 100) * (1 - output[damageType.."GuardAbsorbRate"] / 100)
+					breakdown["Scaled"..damageType.."GuardAbsorb"] = {
+						s_format("Total life protected:"),
+						s_format("%d ^8(normal guard limit)", output[damageType.."GuardAbsorb"]),
+						s_format("x %.2f%% ^8(guard uptime)", output["Scaled"..damageType.."GuardAbsorb"] / output[damageType.."GuardAbsorb"] * 100),
+						s_format("= %d ^8(scaled guard limit)", output["Scaled"..damageType.."GuardAbsorb"]),
+						s_format("/ %.2f ^8(portion taken from guard)", output[damageType.."GuardAbsorbRate"] / 100),
+						s_format("x %.2f ^8(portion taken from life and energy shield)", 1 - output[damageType.."GuardAbsorbRate"] / 100),
+						s_format("= %d", lifeProtected),
+					}
+				else
+					local lifeProtected = output[damageType.."GuardAbsorb"] / (output[damageType.."GuardAbsorbRate"] / 100) * (1 - output[damageType.."GuardAbsorbRate"] / 100)
+					breakdown["Scaled"..damageType.."GuardAbsorb"] = {
+						s_format("Total life protected:"),
+						s_format("%d ^8(guard limit)", output["Scaled"..damageType.."GuardAbsorb"]),
+						s_format("/ %.2f ^8(portion taken from guard)", output[damageType.."GuardAbsorbRate"] / 100),
+						s_format("x %.2f ^8(portion taken from life and energy shield)", 1 - output[damageType.."GuardAbsorbRate"] / 100),
+						s_format("= %d", lifeProtected),
+					}
+				end
 			end
 		end
 	end
@@ -2366,10 +2426,18 @@ function calcs.buildDefenceEstimations(env, actor)
 		aegis["shared"] = output["sharedAegis"] or 0
 		aegis["sharedElemental"] = output["sharedElementalAegis"] or 0
 		local guard = { }
-		guard["shared"] = output.sharedGuardAbsorb or 0
-		for _, damageType in ipairs(dmgTypeList) do
-			aegis[damageType] = output[damageType.."Aegis"] or 0
-			guard[damageType] = output[damageType.."GuardAbsorb"] or 0
+		if output.ehpGuardMode == "AVERAGE" then
+			guard["shared"] = output.scaledSharedGuardAbsorb or 0
+			for _, damageType in ipairs(dmgTypeList) do
+				aegis[damageType] = output[damageType.."Aegis"] or 0
+				guard[damageType] = output["Scaled"..damageType.."GuardAbsorb"] or 0
+			end
+		else
+			guard["shared"] = output.sharedGuardAbsorb or 0
+			for _, damageType in ipairs(dmgTypeList) do
+				aegis[damageType] = output[damageType.."Aegis"] or 0
+				guard[damageType] = output[damageType.."GuardAbsorb"] or 0
+			end
 		end
 		local alliesTakenBeforeYou = {}
 		if output.FrostShieldLife then
@@ -2414,7 +2482,7 @@ function calcs.buildDefenceEstimations(env, actor)
 		DamageIn["WardBypass"] = DamageIn["WardBypass"] or modDB:Sum("BASE", nil, "WardBypass") or 0
 		
 		local VaalArcticArmourHitsLeft = output.VaalArcticArmourLife
-		if DamageIn["cycles"] > 1 then
+		if (DamageIn["cycles"] > 1) or (output.ehpGuardMode == "AVERAGE") then
 			VaalArcticArmourHitsLeft = 0
 		end
 
@@ -2899,8 +2967,13 @@ function calcs.buildDefenceEstimations(env, actor)
 			output[damageType.."TotalHitPool"] = output[damageType.."TotalHitPool"] + m_max(m_max(output[damageType.."Aegis"], output["sharedAegis"]), isElemental[damageType] and output[damageType.."AegisDisplay"] or 0)
 			-- guard skill
 			local GuardAbsorbRate = output["sharedGuardAbsorbRate"] or 0 + output[damageType.."GuardAbsorbRate"] or 0
-			if GuardAbsorbRate > 0 then
-				local GuardAbsorb = output["sharedGuardAbsorb"] or 0 + output[damageType.."GuardAbsorb"] or 0
+			if (GuardAbsorbRate > 0) and (output.maxHitGuardMode ~= "NONE") then
+				local GuardAbsorb = 0
+				if output.maxHitGuardMode == "MAX" then
+					GuardAbsorb = output["sharedGuardAbsorb"] or 0 + output[damageType.."GuardAbsorb"] or 0
+				elseif output.maxHitGuardMode == "AVERAGE" then
+					GuardAbsorb = output["scaledSharedGuardAbsorb"] or 0 + output["Scaled"..damageType.."GuardAbsorb"] or 0
+				end
 				if GuardAbsorbRate >= 100 then
 					output[damageType.."TotalHitPool"] = output[damageType.."TotalHitPool"] + GuardAbsorb
 				else
@@ -2938,6 +3011,12 @@ function calcs.buildDefenceEstimations(env, actor)
 				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["SoulLinkMitigation"] / 100)
 			end
 		end
+		
+		-- Disable Vaal Arctic Armour for max hit unless guard mode is max
+		if output.maxHitGuardMode ~= "MAX" then
+			output["VaalArcticArmourMitigation"] = 0
+		end
+		
 
 		for _, damageType in ipairs(dmgTypeList) do
 			local partMin = m_huge
@@ -3107,12 +3186,23 @@ function calcs.buildDefenceEstimations(env, actor)
 				if receivedElemental and output.sharedElementalAegis and output.sharedElementalAegis > 0 then
 					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Elemental Aegis charge ^7(%d remaining)", output.sharedElementalAegis - poolsRemaining.Aegis.sharedElemental, poolsRemaining.Aegis.sharedElemental))
 				end
-				if output.sharedGuardAbsorb and output.sharedGuardAbsorb > 0 then
-					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.SCOURGE.."Shared Guard charge ^7(%d remaining)", output.sharedGuardAbsorb - poolsRemaining.Guard.shared, poolsRemaining.Guard.shared))
-				end
-				for takenType in pairs(takenDamages) do
-					if  output[takenType.."GuardAbsorb"] and output[takenType.."GuardAbsorb"] > 0 then
-						t_insert(breakdown[maxHitCurType], s_format("\n\t%d "..colorCodes.SCOURGE.."%s Guard charge ^7(%d remaining)", output[takenType.."GuardAbsorb"] - poolsRemaining.Guard[takenType], takenType, poolsRemaining.Guard[takenType]))
+				if output.maxHitGuardMode == "MAX" then
+					if output.sharedGuardAbsorb and output.sharedGuardAbsorb > 0 then
+						t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.SCOURGE.."Shared Guard charge ^7(%d remaining)", output.sharedGuardAbsorb - poolsRemaining.Guard.shared, poolsRemaining.Guard.shared))
+					end
+					for takenType in pairs(takenDamages) do
+						if  output[takenType.."GuardAbsorb"] and output[takenType.."GuardAbsorb"] > 0 then
+							t_insert(breakdown[maxHitCurType], s_format("\n\t%d "..colorCodes.SCOURGE.."%s Guard charge ^7(%d remaining)", output[takenType.."GuardAbsorb"] - poolsRemaining.Guard[takenType], takenType, poolsRemaining.Guard[takenType]))
+						end
+					end
+				elseif output.maxHitGuardMode == "AVERAGE" then
+					if output.scaledSharedGuardAbsorb and output.scaledSharedGuardAbsorb > 0 then
+						t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.SCOURGE.."Shared Guard charge ^7(%d remaining)", output.scaledSharedGuardAbsorb - poolsRemaining.Guard.shared, poolsRemaining.Guard.shared))
+					end
+					for takenType in pairs(takenDamages) do
+						if  output["Scaled"..takenType.."GuardAbsorb"] and output["Scaled"..takenType.."GuardAbsorb"] > 0 then
+							t_insert(breakdown[maxHitCurType], s_format("\n\t%d "..colorCodes.SCOURGE.."%s Guard charge ^7(%d remaining)", output["Scaled"..takenType.."GuardAbsorb"] - poolsRemaining.Guard[takenType], takenType, poolsRemaining.Guard[takenType]))
+						end
 					end
 				end
 				if output.Ward and output.Ward > 0 then

@@ -1834,6 +1834,7 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 
+	output.ehpGuardMode, output.maxHitGuardMode = (env.configInput.guardMode or "AVERAGE,NONE"):match(("^([^%)]+),([^%)]+)"))
 	local appliedCombustion = false
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		local skillModList = activeSkill.skillModList
@@ -1885,6 +1886,18 @@ function calcs.perform(env, skipEHP)
 						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer")
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						if (output.ehpGuardMode == "AVERAGE" or output.maxHitGuardMode == "AVERAGE") then
+							local full_duration = calcSkillDuration(modStore, skillCfg, activeSkill.skillData, env, enemyDB)
+							local cooldownOverride = modStore:Override(skillCfg, "CooldownRecovery")
+							local actual_cooldown = cooldownOverride or (activeSkill.skillData.cooldown  + modStore:Sum("BASE", skillCfg, "CooldownRecovery")) / calcLib.mod(modStore, skillCfg, "CooldownRecovery")
+							local uptime = full_duration / (full_duration + actual_cooldown)
+							for _, mod in ipairs(buff.modList) do
+								if (mod.name == "GuardAbsorbLimit") then
+									srcList:NewMod("ScaledGuardAbsorbLimit", mod.type, m_floor(mod.value*uptime * 100) / 100, mod.source, mod[1], mod[2])
+									break
+								end
+							end
+						end
 						mergeBuff(srcList, guards, buff.name)
 					end
 				end

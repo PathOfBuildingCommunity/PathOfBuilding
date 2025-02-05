@@ -1043,6 +1043,10 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	end
 end
 
+local defaultDisabledGems = {
+	["Metadata/Items/Gems/SkillGemImmortalCall"] = true
+}
+
 function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 	-- Build socket group list
 	local itemSocketGroupList = { }
@@ -1054,6 +1058,8 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 		else
 			local normalizedBasename, qualityType = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.typeLine, nil)
 			local gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
+			local enableGlobal1 = true
+			local enableGlobal2 = false
 			if socketedItem.hybrid then
 				-- Used by transfigured gems and dual-skill gems (currently just Stormbind) 
 				normalizedBasename, qualityType  = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.hybrid.baseTypeName, nil)
@@ -1063,7 +1069,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 				end
 			end
 			if gemId then
-				local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true, gemId = gemId }
+				local gemInstance = { level = 20, quality = 0, enabled = not defaultDisabledGems[gemId], enableGlobal1 = enableGlobal1, enableGlobal2 = enableGlobal2, gemId = gemId }
 				gemInstance.nameSpec = self.build.data.gems[gemId].name
 				gemInstance.support = socketedItem.support
 				gemInstance.qualityId = qualityType
