@@ -740,6 +740,7 @@ local modNameList = {
 	["bleed duration"] = { "EnemyBleedDuration" },
 	["bleeding duration"] = { "EnemyBleedDuration" },
 	["bleed duration on you"] = "SelfBleedDuration",
+	["to aggravate bleeding on targets you hit"] = "AggravateChance",
 	-- Misc modifiers
 	["movement speed"] = "MovementSpeed",
 	["attack, cast and movement speed"] = { "Speed", "MovementSpeed" },
@@ -2096,8 +2097,8 @@ local specialModList = {
 	["energy shield protects mana instead of life"] = { flag("EnergyShieldProtectsMana") },
 	["modifiers to critical strike multiplier also apply to damage over time multiplier for ailments from critical strikes at (%d+)%% of their value"] = function(num) return { mod("CritMultiplierAppliesToDegen", "BASE", num) } end,
 	["damage over time multiplier for ailments is equal to critical strike multiplier"] = { flag("DotMultiplierIsCritMultiplier") },
-	["your bleeding does not deal extra damage while the enemy is moving"] = { flag("Condition:NoExtraBleedDamageToMovingEnemy") },
-	["your bleeding does not deal extra damage while the enemy is moving and cannot be aggravated"] = { flag("Condition:NoExtraBleedDamageToMovingEnemy"), flag("Condition:CannotAggravate") },
+	["your bleeding does not deal extra damage while the enemy is moving"] = { flag("NoExtraBleedDamageToMovingEnemy") },
+	["your bleeding does not deal extra damage while the enemy is moving and cannot be aggravated"] = { flag("NoExtraBleedDamageToMovingEnemy"), flag("CannotAggravateBleeding") },
 	["you and enemies in your presence count as moving while affected by elemental ailments"] = {
 		mod("EnemyModifier", "LIST", { mod = flag("Condition:Moving", { type = "Condition", varList = { "Frozen","Chilled","Shocked","Ignited","Scorched","Brittle","Sapped" } }) }),
 		flag("Condition:Moving", { type = "Condition", varList = { "Frozen","Chilled","Shocked","Ignited","Scorched","Brittle","Sapped" } }),
@@ -2518,6 +2519,7 @@ local specialModList = {
 	["hits ignore enemy monster physical damage reduction if you[' ]h?a?ve blocked in the past (%d+) seconds"] = {
 		flag("IgnoreEnemyPhysicalDamageReduction", { type = "Condition", var = "BlockedRecently" })
 	},
+	["bleeding you inflict is aggravated"] = { flag("BleedingYouInflictIsAggravated") },
 	["(%d+)%% more attack and movement speed per challenger charge"] = function(num) return {
 		mod("Speed", "MORE", num, nil, ModFlag.Attack, 0, { type = "Multiplier", var = "ChallengerCharge" }),
 		mod("MovementSpeed", "MORE", num, { type = "Multiplier", var = "ChallengerCharge" }),
@@ -3338,6 +3340,9 @@ local specialModList = {
 	["causes bleeding on melee critical strike"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Melee, { type = "Condition", var = "CriticalStrike" }) },
 	["melee critical strikes have (%d+)%% chance to cause bleeding"] = function(num) return { mod("BleedChance", "BASE", num, nil, ModFlag.Melee, { type = "Condition", var = "CriticalStrike" }) } end,
 	["attacks always inflict bleeding while you have cat's stealth"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Attack, { type = "Condition", var = "AffectedByCat'sStealth" }) },
+	["(%d+)%% chance to aggravate bleeding on targets you critically strike with attacks"] = function(num) return { mod("AggravateChanceOnCrit", "BASE", num, nil, ModFlag.Attack) } end,
+	["(%d+)%% chance to aggravate bleeding on targets you hit with exerted attacks"] = function(num) return { mod("ExertAggravateChance", "BASE", num, nil, ModFlag.Attack) } end,
+	["(%d+)%% chance to aggravate bleeding on targets you stun with attacks hits"] = function(num) return { mod("AggravateChance", "BASE", num, nil, ModFlag.Attack, { type = "Condition", var = "StunnedEnemyRecently" }) } end,
 	["you have crimson dance while you have cat's stealth"] = { mod("Keystone", "LIST", "Crimson Dance", { type = "Condition", var = "AffectedByCat'sStealth" }) },
 	["you have crimson dance if you have dealt a critical strike recently"] = { mod("Keystone", "LIST", "Crimson Dance", { type = "Condition", var = "CritRecently" }) },
 	["bleeding you inflict deals damage (%d+)%% faster"] = function(num) return { mod("BleedFaster", "INC", num) } end,

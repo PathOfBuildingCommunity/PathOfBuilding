@@ -2003,7 +2003,7 @@ c["10% chance for Energy Shield Recharge to start when you use a Skill Eldritch 
 c["10% chance on Hitting an Enemy for all Impales on that Enemy to last for an additional Hit"]={{[1]={flags=0,keywordFlags=0,name="ImpaleAdditionalDurationChance",type="BASE",value=10}},nil}
 c["10% chance that if you would gain a Crab Barrier, you instead gain up to"]={{}," that if you would gain a Crab Barrier, you instead gain up to "}
 c["10% chance that if you would gain a Crab Barrier, you instead gain up to your maximum number of Crab Barriers"]={{[1]={flags=0,keywordFlags=0,name="CrabBarriersMax",type="BASE",value=10}}," that if you would gain a Crab Barrier, you instead gain up to your  "}
-c["10% chance to Aggravate Bleeding on targets you Hit with Attacks"]={{}," to Aggravate Bleeding on targets you Hit  "}
+c["10% chance to Aggravate Bleeding on targets you Hit with Attacks"]={{[1]={flags=0,keywordFlags=65536,name="AggravateChance",type="BASE",value=10}},nil}
 c["10% chance to Avoid Bleeding"]={{[1]={flags=0,keywordFlags=0,name="AvoidBleed",type="BASE",value=10}},nil}
 c["10% chance to Avoid Elemental Ailments"]={{[1]={flags=0,keywordFlags=0,name="AvoidElementalAilments",type="BASE",value=10}},nil}
 c["10% chance to Avoid Elemental Ailments while Phasing"]={{[1]={[1]={type="Condition",var="Phasing"},flags=0,keywordFlags=0,name="AvoidElementalAilments",type="BASE",value=10}},nil}
@@ -3882,12 +3882,9 @@ c["25% chance that if you would gain Endurance Charges, you instead gain up to m
 c["25% chance that if you would gain Endurance Charges, you instead gain up to maximum Endurance Charges Gain 1 Endurance Charge every second if you've been Hit Recently +1 to Maximum Endurance Charges"]={{[1]={[1]={type="Condition",var="BeenHitRecently"},flags=0,keywordFlags=0,name="EnduranceChargesMax",type="BASE",value=25}}," that if you would gain Endurance Charges, you instead gain up to  Gain 1 Endurance Charge every second  +1 to Maximum Endurance Charges "}
 c["25% chance that if you would gain Power Charges, you instead gain up to"]={{}," that if you would gain Power Charges, you instead gain up to "}
 c["25% chance that if you would gain Power Charges, you instead gain up to your maximum number of Power Charges"]={{}," that if you would gain Power Charges, you instead gain up to your maximum number of Power Charges "}
-c["25% chance to Aggravate Bleeding on targets you Critically Strike with Attacks"]={{}," to Aggravate Bleeding on targets you Critically Strike  "}
-c["25% chance to Aggravate Bleeding on targets you Hit with Attacks"]={{}," to Aggravate Bleeding on targets you Hit  "}
-c["25% chance to Aggravate Bleeding on targets you Hit with Attacks Gain 50% Chance to Block from Equipped Shield instead of the Shield's value"]={{[1]={flags=0,keywordFlags=65536,name="BlockChance",type="BASE",value=25}}," to Aggravate Bleeding on targets you Hit  Gain 50%  from Equipped Shield instead of the Shield's value "}
-c["25% chance to Aggravate Bleeding on targets you Hit with Attacks Gain 50% Chance to Block from Equipped Shield instead of the Shield's value Inherent Bonuses from Dual Wielding are doubled"]={{[1]={flags=0,keywordFlags=65536,name="BlockChance",type="BASE",value=25}}," to Aggravate Bleeding on targets you Hit  Gain 50%  from Equipped Shield instead of the Shield's value Inherent Bonuses from Dual Wielding are doubled "}
-c["25% chance to Aggravate Bleeding on targets you Hit with Attacks Gain 50% Chance to Block from Equipped Shield instead of the Shield's value Inherent Bonuses from Dual Wielding are doubled Deal 1% more Damage with Hits and Ailments to Rare and Unique Enemies for every 2 seconds they've ever been in your Presence, up to a maximum of 50%"]={{[1]={flags=0,keywordFlags=65536,name="BlockChance",type="BASE",value=25}}," to Aggravate Bleeding on targets you Hit  Gain 50%  from Equipped Shield instead of the Shield's value Inherent Bonuses from Dual Wielding are doubled Deal 1% more Damage with Hits and Ailments to Rare and Unique Enemies for every 2 seconds they've ever been in your Presence, up to a maximum of 50% "}
-c["25% chance to Aggravate Bleeding on targets you Hit with Exerted Attacks"]={{}," to Aggravate Bleeding on targets you Hit with Exerted Attacks "}
+c["25% chance to Aggravate Bleeding on targets you Critically Strike with Attacks"]={{[1]={flags=1,keywordFlags=0,name="AggravateChanceOnCrit",type="BASE",value=25}},nil}
+c["25% chance to Aggravate Bleeding on targets you Hit with Attacks"]={{[1]={flags=0,keywordFlags=65536,name="AggravateChance",type="BASE",value=25}},nil}
+c["25% chance to Aggravate Bleeding on targets you Hit with Exerted Attacks"]={{[1]={flags=1,keywordFlags=0,name="ExertAggravateChance",type="BASE",value=25}},nil}
 c["25% chance to Avoid Elemental Ailments"]={{[1]={flags=0,keywordFlags=0,name="AvoidElementalAilments",type="BASE",value=25}},nil}
 c["25% chance to Avoid Elemental Ailments while Phasing"]={{[1]={[1]={type="Condition",var="Phasing"},flags=0,keywordFlags=0,name="AvoidElementalAilments",type="BASE",value=25}},nil}
 c["25% chance to Avoid Fire Damage from Hits"]={{[1]={flags=0,keywordFlags=0,name="AvoidFireDamageChance",type="BASE",value=25}},nil}
@@ -5228,7 +5225,7 @@ c["50% chance for Hits to ignore Enemy Physical Damage Reduction while you have 
 c["50% chance for Impales on Enemies you Kill to Reflect Damage to surrounding Enemies"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="BASE",value=50}}," for Impales  you Kill to Reflect  to surrounding Enemies "}
 c["50% chance for Spell Hits against you to inflict Poison"]={{}," for  Hits  to inflict Poison "}
 c["50% chance for used Retaliation Skills to remain Usable and not consume a Cooldown Use"]={{[1]={flags=0,keywordFlags=0,name="AdditionalCooldownUses",type="BASE",value=50}}," for used Retaliation Skills to remain Usable and not consume a  "}
-c["50% chance to Aggravate Bleeding on targets you Stun with Attacks Hits"]={{}," to Aggravate Bleeding on targets you Stun  Hits "}
+c["50% chance to Aggravate Bleeding on targets you Stun with Attacks Hits"]={{[1]={[1]={type="Condition",var="StunnedEnemyRecently"},flags=1,keywordFlags=0,name="AggravateChance",type="BASE",value=50}},nil}
 c["50% chance to Avoid being Chilled"]={{[1]={flags=0,keywordFlags=0,name="AvoidChill",type="BASE",value=50}},nil}
 c["50% chance to Avoid being Frozen"]={{[1]={flags=0,keywordFlags=0,name="AvoidFreeze",type="BASE",value=50}},nil}
 c["50% chance to Avoid being Stunned while Channelling"]={{[1]={[1]={type="Condition",var="Channelling"},flags=0,keywordFlags=0,name="AvoidStun",type="BASE",value=50}},nil}
@@ -7276,7 +7273,7 @@ c["Bleeding you inflict deals Damage 10% faster"]={{[1]={flags=0,keywordFlags=0,
 c["Bleeding you inflict deals Damage 15% faster"]={{[1]={flags=0,keywordFlags=0,name="BleedFaster",type="INC",value=15}},nil}
 c["Bleeding you inflict deals Damage 4% faster per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="BleedFaster",type="INC",value=4}},nil}
 c["Bleeding you inflict deals Damage 5% faster"]={{[1]={flags=0,keywordFlags=0,name="BleedFaster",type="INC",value=5}},nil}
-c["Bleeding you inflict is Aggravated"]={nil,"Bleeding you inflict is Aggravated "}
+c["Bleeding you inflict is Aggravated"]={{[1]={flags=0,keywordFlags=0,name="BleedingYouInflictIsAggravated",type="FLAG",value=true}},nil}
 c["Bleeding you inflict is Reflected to you"]={nil,"Bleeding you inflict is Reflected to you "}
 c["Bleeding you inflict is Reflected to you +1% to Chaos Resistance per Poison on you"]={nil,"Bleeding you inflict is Reflected to you +1% to Chaos Resistance per Poison on you "}
 c["Blight has 30% increased Hinder Duration"]={{[1]={[1]={includeTransfigured=true,skillName="Blight",type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="INC",value=30}}," Hinder  "}
@@ -11874,7 +11871,7 @@ c["You take no Extra Damage from Critical Strikes while Elusive"]={{[1]={[1]={ty
 c["Your Action Speed is at least 108% of base value"]={{[1]={flags=0,keywordFlags=0,name="MinimumActionSpeed",type="MAX",value=108}},nil}
 c["Your Aura Buffs do not affect allies"]={{[1]={flags=0,keywordFlags=0,name="SelfAurasCannotAffectAllies",type="FLAG",value=true}},nil}
 c["Your Aura Skills are Disabled"]={{[1]={[1]={skillType=43,type="SkillType"},flags=0,keywordFlags=0,name="DisableSkill",type="FLAG",value=true}},nil}
-c["Your Bleeding does not deal extra Damage while the Enemy is moving and cannot be Aggravated"]={{[1]={flags=0,keywordFlags=0,name="Condition:NoExtraBleedDamageToMovingEnemy",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="Condition:CannotAggravate",type="FLAG",value=true}},nil}
+c["Your Bleeding does not deal extra Damage while the Enemy is moving and cannot be Aggravated"]={{[1]={flags=0,keywordFlags=0,name="NoExtraBleedDamageToMovingEnemy",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="CannotAggravateBleeding",type="FLAG",value=true}},nil}
 c["Your Blessing Skills are Disabled"]={{[1]={[1]={skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="DisableSkill",type="FLAG",value=true}},nil}
 c["Your Chaos Damage Poisons Enemies"]={{[1]={flags=0,keywordFlags=0,name="ChaosPoisonChance",type="BASE",value=100}},nil}
 c["Your Chaos Damage can Chill"]={{[1]={flags=0,keywordFlags=0,name="ChaosCanChill",type="FLAG",value=true}},nil}

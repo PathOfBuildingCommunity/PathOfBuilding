@@ -3165,6 +3165,10 @@ function calcs.perform(env, skipEHP)
 
 		buffExports.PlayerMods["MovementSpeedMod|percent|max="..tostring(output["MovementSpeedMod"] * 100)] = true
 		
+		if (output.AggravateOldBleedsChance or 0) > 0 then
+			buffExports.PlayerMods["AggravateOldBleedsChance=100"] = true
+		end
+		
 		for _, mod in ipairs(buffExports["Aura"]["extraAura"].modList) do
 			-- leaving comment to make it easier for future similar mods
 			--if mod.name:match("Parent") then
