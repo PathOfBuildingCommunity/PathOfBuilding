@@ -574,7 +574,23 @@ do
 				end
 			end
 		end
-	end					
+	end
+	data.enchantments["AllOneHandMelee"] = { }
+	for enchantmentType, enchantmentList in pairs(data.enchantments["Weapon"]) do
+		if type(enchantmentList[1]) == "string" then
+			data.enchantments["AllOneHandMelee"][enchantmentType] = enchantmentList
+		elseif type(enchantmentList[1]) == "table" then
+			data.enchantments["AllOneHandMelee"][enchantmentType] = {}
+			for _, enchantment in ipairs(enchantmentList) do
+				for baseType, baseData in pairs(data.weaponTypeInfo) do 
+					if baseData.melee and baseData.oneHand and enchantment.types[baseType] then
+						t_insert(data.enchantments["AllOneHandMelee"][enchantmentType], table.concat(enchantment, "/"))
+						break
+					end
+				end
+			end
+		end
+	end
 end
 data.essences = LoadModule("Data/Essence")
 data.veiledMods = LoadModule("Data/ModVeiled")

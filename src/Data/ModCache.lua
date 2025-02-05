@@ -7346,13 +7346,13 @@ c["Can Allocate Passives from the Templar's starting point"]={{},nil}
 c["Can Allocate Passives from the Witch's starting point"]={{},nil}
 c["Can Consume 4 Support Gems"]={nil,"Can Consume 4 Support Gems "}
 c["Can Consume 4 Support Gems Has not Consumed any Gems"]={nil,"Can Consume 4 Support Gems Has not Consumed any Gems "}
-c["Can be Enchanted by a Kalguuran Runesmith"]={nil,"Can be Enchanted by a Kalguuran Runesmith "}
+c["Can be Enchanted by a Kalguuran Runesmith"]={{},nil}
+c["Can be Runesmithed as though it were all One Handed Melee Weapon Types"]={{},nil}
 c["Can be modified while Corrupted"]={nil,"Can be modified while Corrupted "}
 c["Can be modified while Corrupted 40% increased maximum Life and reduced Fire Resistance"]={nil,"Can be modified while Corrupted 40% increased maximum Life and reduced Fire Resistance "}
 c["Can be modified while Corrupted Can have up to 5 Implicit Modifiers while Item has this Modifier"]={nil,"Can be modified while Corrupted Can have up to 5 Implicit Modifiers while Item has this Modifier "}
 c["Can have 1 additional Siege Ballista Totem per 200 Dexterity"]={{[1]={[1]={includeTransfigured=true,skillName="Siege Ballista",type="SkillName"},[2]={div=200,stat="Dex",type="PerStat"},flags=0,keywordFlags=0,name="ActiveBallistaLimit",type="BASE",value=1}},nil}
-c["Can have 2 additional Runesmithing Enchantments"]={nil,"Can have 2 additional Runesmithing Enchantments "}
-c["Can have 2 additional Runesmithing Enchantments Can be Enchanted by a Kalguuran Runesmith"]={nil,"Can have 2 additional Runesmithing Enchantments Can be Enchanted by a Kalguuran Runesmith "}
+c["Can have 2 additional Runesmithing Enchantments"]={{},nil}
 c["Can have 3 additional Enchantment Modifiers"]={{},nil}
 c["Can have 5 fewer Traps placed at a time"]={{[1]={flags=0,keywordFlags=0,name="ActiveTrapLimit",type="BASE",value=-5}},nil}
 c["Can have a second Enchantment Modifier"]={{},nil}
