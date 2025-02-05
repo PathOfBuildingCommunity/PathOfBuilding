@@ -1870,24 +1870,46 @@ function calcs.offence(env, actor, activeSkill)
 			if output.MainHand[stat] and output.OffHand[stat] then
 				local mainChance = output.MainHand[...] * output.MainHand.HitChance
 				local offChance = output.OffHand[...] * output.OffHand.HitChance
-				local mainPortion = mainChance / (mainChance + offChance)
-				local offPortion = offChance / (mainChance + offChance)
-				output[stat] = output.MainHand[stat] * mainPortion + output.OffHand[stat] * offPortion
-				if breakdown then
-					if not breakdown[stat] then
-						breakdown[stat] = { }
+				if skillData.doubleHitsWhenDualWielding then
+					mainChance = mainChance / 10000
+					offChance = offChance / 10000
+					output[stat] = output.MainHand[stat] * mainChance + output.OffHand[stat] * offChance
+					if breakdown then
+						if not breakdown[stat] then
+							breakdown[stat] = { }
+						end
+						t_insert(breakdown[stat], "Contribution from Main Hand:")
+						t_insert(breakdown[stat], s_format("%.1f", output.MainHand[stat]))
+						t_insert(breakdown[stat], s_format("x %.3f ^8(chance of main hand)", mainChance))
+						t_insert(breakdown[stat], s_format("= %.1f", output.MainHand[stat] * mainChance))
+						t_insert(breakdown[stat], "Contribution from Off Hand:")
+						t_insert(breakdown[stat], s_format("%.1f", output.OffHand[stat]))
+						t_insert(breakdown[stat], s_format("x %.3f ^8(chance of  off hand)", offChance))
+						t_insert(breakdown[stat], s_format("= %.1f", output.OffHand[stat] * offChance))
+						t_insert(breakdown[stat], "Total:")
+						t_insert(breakdown[stat], s_format("%.1f + %.1f", output.MainHand[stat] * mainChance, output.OffHand[stat] * offChance))
+						t_insert(breakdown[stat], s_format("= %.1f", output[stat]))
 					end
-					t_insert(breakdown[stat], "Contribution from Main Hand:")
-					t_insert(breakdown[stat], s_format("%.1f", output.MainHand[stat]))
-					t_insert(breakdown[stat], s_format("x %.3f ^8(portion of instances created by main hand)", mainPortion))
-					t_insert(breakdown[stat], s_format("= %.1f", output.MainHand[stat] * mainPortion))
-					t_insert(breakdown[stat], "Contribution from Off Hand:")
-					t_insert(breakdown[stat], s_format("%.1f", output.OffHand[stat]))
-					t_insert(breakdown[stat], s_format("x %.3f ^8(portion of instances created by off hand)", offPortion))
-					t_insert(breakdown[stat], s_format("= %.1f", output.OffHand[stat] * offPortion))
-					t_insert(breakdown[stat], "Total:")
-					t_insert(breakdown[stat], s_format("%.1f + %.1f", output.MainHand[stat] * mainPortion, output.OffHand[stat] * offPortion))
-					t_insert(breakdown[stat], s_format("= %.1f", output[stat]))
+				else
+					local mainPortion = mainChance / (mainChance + offChance)
+					local offPortion = offChance / (mainChance + offChance)
+					output[stat] = output.MainHand[stat] * mainPortion + output.OffHand[stat] * offPortion
+					if breakdown then
+						if not breakdown[stat] then
+							breakdown[stat] = { }
+						end
+						t_insert(breakdown[stat], "Contribution from Main Hand:")
+						t_insert(breakdown[stat], s_format("%.1f", output.MainHand[stat]))
+						t_insert(breakdown[stat], s_format("x %.3f ^8(portion of instances created by main hand)", mainPortion))
+						t_insert(breakdown[stat], s_format("= %.1f", output.MainHand[stat] * mainPortion))
+						t_insert(breakdown[stat], "Contribution from Off Hand:")
+						t_insert(breakdown[stat], s_format("%.1f", output.OffHand[stat]))
+						t_insert(breakdown[stat], s_format("x %.3f ^8(portion of instances created by off hand)", offPortion))
+						t_insert(breakdown[stat], s_format("= %.1f", output.OffHand[stat] * offPortion))
+						t_insert(breakdown[stat], "Total:")
+						t_insert(breakdown[stat], s_format("%.1f + %.1f", output.MainHand[stat] * mainPortion, output.OffHand[stat] * offPortion))
+						t_insert(breakdown[stat], s_format("= %.1f", output[stat]))
+					end
 				end
 			else
 				output[stat] = output.MainHand[stat] or output.OffHand[stat]
@@ -1908,14 +1930,14 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown[stat], s_format(""))
 					t_insert(breakdown[stat], s_format("%.2f%% of ailment stacks use maximum damage", maxInstanceStacks * 100))
 					t_insert(breakdown[stat], s_format("Max Damage comes from %s", output.MainHand[stat] >= output.OffHand[stat] and "Main Hand" or "Off Hand"))
-					t_insert(breakdown[stat], s_format("= %.1f", maxInstance * maxInstanceStacks))
-					if maxInstanceStacks < 1 then
-						t_insert(breakdown[stat], s_format("%.2f%% of ailment stacks use non-maximum damage", (1-maxInstanceStacks) * 100))
-						t_insert(breakdown[stat], s_format("= %.1f", minInstance * (1 - maxInstanceStacks)))
-					end
-					t_insert(breakdown[stat], "")
-					t_insert(breakdown[stat], "Total:")
-					if maxInstanceStacks < 1 then
+						t_insert(breakdown[stat], s_format("= %.1f", maxInstance * maxInstanceStacks))
+						if maxInstanceStacks < 1 then
+							t_insert(breakdown[stat], s_format("%.2f%% of ailment stacks use non-maximum damage", (1-maxInstanceStacks) * 100))
+							t_insert(breakdown[stat], s_format("= %.1f", minInstance * (1 - maxInstanceStacks)))
+						end
+						t_insert(breakdown[stat], "")
+						t_insert(breakdown[stat], "Total:")
+						if maxInstanceStacks < 1 then
 						t_insert(breakdown[stat], s_format("%.1f + %.1f", maxInstance * maxInstanceStacks, minInstance * (1 - maxInstanceStacks)))
 					end
 					t_insert(breakdown[stat], s_format("= %.1f", output[stat]))
@@ -4250,14 +4272,14 @@ function calcs.offence(env, actor, activeSkill)
 				if groundMult > 0 then
 					local CausticGroundDPSUncapped = baseVal * effectMod * rateMod * effMult * groundMult / 100
 					local CausticGroundDPSCapped = m_min(CausticGroundDPSUncapped, data.misc.DotDpsCap)
-					globalOutput.CausticGroundDPS = CausticGroundDPSCapped
+					output.CausticGroundDPS = CausticGroundDPSCapped
 					globalOutput.CausticGroundFromPoison = true
-					if globalBreakdown then
-						globalBreakdown.CausticGroundDPS = {
+					if breakdown then
+						breakdown.CausticGroundDPS = {
 							s_format("%.1f ^8(single poison damage per second)", baseVal * effectMod * rateMod),
 							s_format("* %.1f%% ^8(percent as Caustic ground)", groundMult),
 							s_format("* %.3f ^8(effect mult)", effMult),
-							s_format("= %.1f ^8per second", globalOutput.CausticGroundDPS)
+							s_format("= %.1f ^8per second", output.CausticGroundDPS)
 						}
 					end
 				end
@@ -4995,6 +5017,7 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("BleedDPS", "CHANCE_AILMENT", "BleedChance")
 		combineStat("PoisonChance", "AVERAGE")
 		combineStat("PoisonDPS", "CHANCE", "PoisonChance")
+		combineStat("CausticGroundDPS", "CHANCE", "PoisonChance")
 		combineStat("TotalPoisonDPS", "DPS")
 		combineStat("PoisonDamage", "CHANCE", "PoisonChance")
 		if skillData.showAverage then
@@ -5472,6 +5495,10 @@ function calcs.offence(env, actor, activeSkill)
 		output.WithBleedDPS = baseDPS
 	end
 	if skillFlags.impale then
+		if skillFlags.attack and skillData.doubleHitsWhenDualWielding and skillFlags.bothWeaponAttack then
+			-- due to how its being combined
+			output.ImpaleModifier = output.ImpaleModifier / 2
+		end
 		output.ImpaleDPS = output.impaleStoredHitAvg * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * skillData.dpsMultiplier
 		if skillData.showAverage then
 			output.WithImpaleDPS = output.AverageDamage + output.ImpaleDPS
