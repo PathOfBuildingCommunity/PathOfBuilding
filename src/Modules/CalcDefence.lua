@@ -2524,7 +2524,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			local suppressionEffect = 1
 			local ExtraAvoidChance = 0
 			local averageAvoidChance = 0
-			if not env.configInput.DisableEHPGainOnBlock then
+			if not env.configInput.DisableEHPGainOnBlock and (output["NumberOfDamagingHits"] > 1) then
 				DamageIn.LifeWhenHit = output.LifeOnBlock * BlockChance
 				DamageIn.ManaWhenHit = output.ManaOnBlock * BlockChance
 				DamageIn.EnergyShieldWhenHit = output.EnergyShieldOnBlock * BlockChance
@@ -2557,7 +2557,7 @@ function calcs.buildDefenceEstimations(env, actor)
 				ExtraAvoidChance = ExtraAvoidChance + output.AvoidProjectilesChance / 2
 			end
 			-- gain when hit (currently just gain on block/suppress)
-			if not env.configInput.DisableEHPGainOnBlock then
+			if not env.configInput.DisableEHPGainOnBlock and (output["NumberOfDamagingHits"] > 1) then
 				if (DamageIn.LifeWhenHit or 0) ~= 0 or (DamageIn.ManaWhenHit or 0) ~= 0 or DamageIn.EnergyShieldWhenHit ~= 0 then
 					DamageIn.GainWhenHit = true
 				end
