@@ -126,6 +126,37 @@ function itemLib.formatModLine(modLine, dbMode)
 	return colorCode..line
 end
 
+function itemLib.stripAdvancedCopyPaste(rawItem)
+	local rawLines = {}
+	for line in rawItem:gmatch("%s*([^\n]*%S)") do
+		t_insert(rawLines, line)
+	end
+	local line = 1
+	local newItem = ""
+	while rawLines[line] do
+		if rawLines[line]:match("^{ .*}") and rawLines[line+1] then
+			local line2 = line + 1
+			while rawLines[line2] and not rawLines[line2]:match("^{ .*}") and not (rawLines[line2] == "--------") do
+				if rawLines[line2]:match("^%(.*%)") then
+					rawLines[line2] = ""
+				else
+					rawLines[line2] = rawLines[line2]:gsub(" — Unscalable Value", ""):gsub(" %- Unscalable Value", "")
+					local val, range = rawLines[line2]:gsub("%-","%%%-"):match("(.*)%((.*)%)[ %%]")
+					while range do
+						rawLines[line2] = rawLines[line2]:gsub("%("..range.."%)","")
+						val, range = rawLines[line2]:gsub("%-","%%%-"):match("(.*)%((.*)%)[ %%]")
+					end
+				end
+				line2 = line2 + 1
+			end
+		else
+			newItem = newItem..rawLines[line]..(rawLines[line+1] and "\n" or "")
+		end
+		line = line + 1
+	end
+	return newItem
+end
+
 itemLib.wiki = {
 	key = "F1",
 	openGem = function(gemData)
