@@ -5119,6 +5119,7 @@ local specialModList = {
 	["this item can be anointed by cassia"] = { },
 	["implicit modifiers cannot be changed"] = { },
 	["has a crucible passive skill tree"] = { },
+	["has elder, shaper and all conqueror influences"] = { },
 	["has a two handed sword crucible passive skill tree"] = { },
 	["has a crucible passive skill tree with only support passive skills"] = { },
 	["crucible passive skill tree is removed if this modifier is removed"] = { },

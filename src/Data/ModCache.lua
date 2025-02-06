@@ -8619,7 +8619,7 @@ c["Has 3 Sockets"]={{[1]={flags=0,keywordFlags=0,name="SocketCount",type="BASE",
 c["Has 4 Abyssal Sockets"]={{[1]={flags=0,keywordFlags=0,name="AbyssalSocketCount",type="BASE",value=4}},nil}
 c["Has 6 Abyssal Sockets"]={{[1]={flags=0,keywordFlags=0,name="AbyssalSocketCount",type="BASE",value=6}},nil}
 c["Has 6 Sockets"]={{[1]={flags=0,keywordFlags=0,name="SocketCount",type="BASE",value=6}},nil}
-c["Has Elder, Shaper and all Conqueror Influences"]={nil,"Has Elder, Shaper and all Conqueror Influences "}
+c["Has Elder, Shaper and all Conqueror Influences"]={{},nil}
 c["Has a Crucible Passive Skill Tree"]={{},nil}
 c["Has a Crucible Passive Skill Tree with only Support Passive Skills"]={{},nil}
 c["Has a Two Handed Sword Crucible Passive Skill Tree"]={{},nil}

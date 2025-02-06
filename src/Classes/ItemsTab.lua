@@ -32,7 +32,7 @@ local socketDropList = {
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
-local influenceInfo = itemLib.influenceInfo
+local influenceInfo = itemLib.influenceInfo.all
 
 local catalystQualityFormat = {
 	"^x7F7F7FQuality (Attack Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
@@ -505,9 +505,15 @@ holding Shift will put it in the second.]])
 	end
 	local function setDisplayItemInfluence(influenceIndexList)
 		self.displayItem:ResetInfluence()
-		for _, index in ipairs(influenceIndexList) do
-			if index > 0 then
-				self.displayItem[influenceInfo[index].key] = true;
+		if self.displayItem.HasElderShaperAndAllConquerorInfluences then
+			for i, curInfluenceInfo in ipairs(itemLib.influenceInfo.default) do
+				self.displayItem[influenceInfo[i].key] = true
+			end
+		else
+			for _, index in ipairs(influenceIndexList) do
+				if index > 0 then
+					self.displayItem[influenceInfo[index].key] = true
+				end
 			end
 		end
 
@@ -1567,6 +1573,12 @@ function ItemsTabClass:SetDisplayItem(item)
 		-- Set both influence dropdowns
 		local influence1 = 1
 		local influence2 = 1
+		local influenceDisplayList = { "Influence" }
+		for i, curInfluenceInfo in ipairs((item.canHaveEldritchInfluence or item.type == "Helmet" or item.type == "Body Armour" or item.type == "Gloves" or item.type == "Boots") and itemLib.influenceInfo.all or itemLib.influenceInfo.default) do
+			influenceDisplayList[i + 1] = curInfluenceInfo.display
+		end
+		self.controls.displayItemInfluence.list = influenceDisplayList
+		self.controls.displayItemInfluence2.list = influenceDisplayList
 		for i, curInfluenceInfo in ipairs(influenceInfo) do
 			if item[curInfluenceInfo.key] then
 				if influence1 == 1 then
