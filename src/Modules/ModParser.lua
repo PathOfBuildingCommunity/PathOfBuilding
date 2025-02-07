@@ -3566,6 +3566,8 @@ local specialModList = {
 	["%+(%d+)%% chance to block attack damage if you have not blocked recently"] = function(num) return { mod("BlockChance", "BASE", num, { type = "Condition", var = "BlockedRecently", neg = true }) } end,
 	["%+(%d+)%% chance to block spell damage if you have not blocked recently"] = function(num) return { mod("SpellBlockChance", "BASE", num, { type = "Condition", var = "BlockedRecently", neg = true }) } end,
 	["y?o?u?r? ?chance to block is lucky"] = { flag("BlockChanceIsLucky"), flag("ProjectileBlockChanceIsLucky"),flag("SpellBlockChanceIsLucky"), flag("SpellProjectileBlockChanceIsLucky") },
+	["y?o?u?r? ?chance to block attack damage is lucky"] = { flag("BlockChanceIsLucky"), flag("ProjectileBlockChanceIsLucky") },
+	["y?o?u?r? ?chance to block attack damage is unlucky"] = { flag("BlockChanceIsUnlucky"), flag("ProjectileBlockChanceIsUnlucky") },
 	["y?o?u?r? ?chance to block is unlucky"] = { flag("BlockChanceIsUnlucky"), flag("ProjectileBlockChanceIsUnlucky"), flag("SpellBlockChanceIsUnlucky"), flag("SpellProjectileBlockChanceIsUnlucky") },
 	["y?o?u?r? ?chance to block spell damage is lucky"] = { flag("SpellBlockChanceIsLucky"), flag("SpellProjectileBlockChanceIsLucky") },
 	["y?o?u?r? ?chance to block spell damage is unlucky"] = { flag("SpellBlockChanceIsUnlucky"), flag("SpellProjectileBlockChanceIsUnlucky") },
