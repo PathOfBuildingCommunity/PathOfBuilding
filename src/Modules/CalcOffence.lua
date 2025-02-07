@@ -2919,7 +2919,7 @@ function calcs.offence(env, actor, activeSkill)
 			local noEnergyShieldLeech = skillModList:Flag(cfg, "CannotLeechEnergyShield") or enemyDB:Flag(nil, "CannotLeechEnergyShieldFromSelf") or skillModList:Flag(cfg, "CannotGainEnergyShield")
 			local noManaLeech = skillModList:Flag(cfg, "CannotLeechMana") or enemyDB:Flag(nil, "CannotLeechManaFromSelf") or skillModList:Flag(cfg, "CannotGainMana")
 			for _, damageType in ipairs(dmgTypeList) do
-				local damageTypeHitMin, damageTypeHitMax, damageTypeHitAvg, damageTypeLuckyChance, damageTypeHitAvgLucky, damageTypeHitAvgNotLucky = 0, 0, 0, 0, 0
+				local damageTypeHitMin, damageTypeHitMax, damageTypeHitAvg, damageTypeLuckyChance, damageTypeHitAvgLucky, damageTypeUnluckyChance, damageTypeHitAvgUnlucky, damageTypeHitAvgNotLucky = 0, 0, 0, 0, 0, 0, 0
 				if skillFlags.hit and canDeal[damageType] then
 					damageTypeHitMin, damageTypeHitMax = calcDamage(activeSkill, output, cfg, pass == 2 and breakdown and breakdown[damageType], damageType, 0)
 					local convMult = activeSkill.conversionTable[damageType].mult
@@ -2973,9 +2973,17 @@ function calcs.offence(env, actor, activeSkill)
 					else
 						damageTypeLuckyChance = m_min(skillModList:Sum("BASE", skillCfg, "LuckyHitsChance"), 100) / 100
 					end
+					if skillModList:Flag(skillCfg, "UnluckyHits") then
+						damageTypeLuckyChance = damageTypeLuckyChance - 1
+					end
 					damageTypeHitAvgNotLucky = (damageTypeHitMin / 2 + damageTypeHitMax / 2)
 					damageTypeHitAvgLucky = (damageTypeHitMin / 3 + 2 * damageTypeHitMax / 3)
-					damageTypeHitAvg = damageTypeHitAvgNotLucky * (1 - damageTypeLuckyChance) + damageTypeHitAvgLucky * damageTypeLuckyChance
+					damageTypeHitAvgUnlucky = (2 * damageTypeHitMin / 3 + damageTypeHitMax / 3)
+					if damageTypeLuckyChance >= 0 then
+						damageTypeHitAvg = damageTypeHitAvgNotLucky * (1 - damageTypeLuckyChance) + damageTypeHitAvgLucky * damageTypeLuckyChance
+						else
+						damageTypeHitAvg = damageTypeHitAvgNotLucky * (1 - m_abs(damageTypeLuckyChance)) + damageTypeHitAvgUnlucky * m_abs(damageTypeLuckyChance)
+					end
 					if (damageTypeHitMin ~= 0 or damageTypeHitMax ~= 0) and env.mode_effective then
 						-- Apply enemy resistances and damage taken modifiers
 						local resist = 0
@@ -3272,11 +3280,18 @@ function calcs.offence(env, actor, activeSkill)
 		if breakdown then
 			if output.CritEffect ~= 1 then
 				breakdown.AverageHit = { }
-				if skillModList:Flag(skillCfg, "LuckyHits") then
+				if skillModList:Flag(skillCfg, "LuckyHits") and not skillModList:Flag(skillCfg, "UnluckyHits") then
 					t_insert(breakdown.AverageHit, s_format("(1/3) x %d + (2/3) x %d = %.1f ^8(average from non-crits)", totalHitMin, totalHitMax, totalHitAvg))
 				end
-				if skillModList:Flag(skillCfg, "CritLucky") or skillModList:Flag(skillCfg, "LuckyHits") then
+				if skillModList:Flag(skillCfg, "UnluckyHits") and not skillModList:Flag(skillCfg, "LuckyHits") then
+					t_insert(breakdown.AverageHit, s_format("(2/3) x %d + (1/3) x %d = %.1f ^8(average from non-crits)", totalHitMin, totalHitMax, totalHitAvg))
+				end
+				if (skillModList:Flag(skillCfg, "CritLucky") or skillModList:Flag(skillCfg, "LuckyHits")) and not skillModList:Flag(skillCfg, "UnluckyHits") then
 					t_insert(breakdown.AverageHit, s_format("(1/3) x %d + (2/3) x %d = %.1f ^8(average from crits)", totalCritMin, totalCritMax, totalCritAvg))
+					t_insert(breakdown.AverageHit, "")
+				end
+				if skillModList:Flag(skillCfg, "UnluckyHits") and not (skillModList:Flag(skillCfg, "CritLucky") or skillModList:Flag(skillCfg, "LuckyHits")) then
+					t_insert(breakdown.AverageHit, s_format("(2/3) x %d + (1/3) x %d = %.1f ^8(average from crits)", totalCritMin, totalCritMax, totalCritAvg))
 					t_insert(breakdown.AverageHit, "")
 				end
 				t_insert(breakdown.AverageHit, s_format("%.1f x (1 - %.4f) ^8(damage from non-crits)", totalHitAvg, output.CritChance / 100))
