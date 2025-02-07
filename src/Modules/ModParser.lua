@@ -4300,6 +4300,7 @@ local specialModList = {
 	["immun[ei]t?y? to ignite during f?l?a?s?k? ?effect"] = { flag("IgniteImmune", { type = "Condition", var = "UsingFlask" }) },
 	["immun[ei]t?y? to bleeding during f?l?a?s?k? ?effect"] = { flag("BleedImmune", { type = "Condition", var = "UsingFlask" }) },
 	["immun[ei]t?y? to curses during f?l?a?s?k? ?effect"] = { flag("CurseImmune", { type = "Condition", var = "UsingFlask" }) },
+	["immun[ei]t?y? to curses while channelling"] = { flag("CurseImmune", { type = "Condition", var = "Channelling" }) },
 	["you are unaffected by (.+) if you've cast (.-) in the past (%d+) seconds"] = function (_, ailment, curse) return {
 		mod("Self"..ailment:gsub("^%l", string.upper).."Effect", "MORE", -100, { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") }, { type = "GlobalEffect", effectType = "Global", unscalable = true })
 	} end,
