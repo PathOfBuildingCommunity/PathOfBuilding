@@ -7,8 +7,8 @@ loadStatFile("passive_skill_stat_descriptions.txt")
 local out = io.open("../Data/TattooPassives.lua", "w")
 
 local stats = dat("Stats")
-local passiveSkillOverridesDat = dat("passiveskilloverrides")
-local passiveSkillTattoosDat = dat("passiveskilltattoos")
+local passiveSkillOverridesDat = dat("PassiveSkillOverrides")
+local passiveSkillTattoosDat = dat("PassiveSkillTattoos")
 local clientStrings = dat("ClientStrings")
 local baseItemTypes= dat("BaseItemTypes")
 
