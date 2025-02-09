@@ -2062,6 +2062,7 @@ local specialModList = {
 	["skills cost %+(%d+) rage"] = function(num) return { mod("RageCostBase", "BASE", num) } end,
 	["non%-aura vaal skills require (%d+)%% reduced souls per use during effect"] = function(num) return { mod("SoulCost", "INC", -num, { type = "Condition", var = "UsingFlask" }, { type = "SkillType", skillType = SkillType.Aura, neg = true }, { type = "SkillType", skillType = SkillType.Vaal }) } end,
 	["non%-aura vaal skills require (%d+)%% reduced souls per use"] = function(num) return { mod("SoulCost", "INC", -num, { type = "SkillType", skillType = SkillType.Aura, neg = true }, { type = "SkillType", skillType = SkillType.Vaal }) } end,
+	["vaal skills require (%d+)%% reduced souls per use"] = function(num) return { mod("SoulCost", "INC", -num, { type = "SkillType", skillType = SkillType.Vaal }) } end,
 	["vaal skills used during effect have (%d+)%% reduced soul gain prevention duration"] = function(num) return { mod("SoulGainPreventionDuration", "INC", -num, { type = "Condition", var = "UsingFlask" }, { type = "SkillType", skillType = SkillType.Vaal }) } end,
 	["vaal volcanic fissure and vaal molten strike have (%d+)%% reduced soul gain prevention duration"] = function(num) return { mod("SoulGainPreventionDuration", "INC", -num, { type = "SkillName", skillNameList = { "Volcanic Fissure", "Molten Strike" }, includeTransfigured = true }, { type = "SkillType", skillType = SkillType.Vaal }) } end,
 	["vaal attack skills cost rage instead of requiring souls to use"] = { flag("CostRageInsteadOfSouls", nil, ModFlag.Attack, { type = "SkillType", skillType = SkillType.Vaal }) },
@@ -3505,6 +3506,7 @@ local specialModList = {
 	} end,
 	["nearby allies' damage with hits is lucky"] = { mod("ExtraAura", "LIST", { onlyAllies = true, mod = flag("LuckyHits") }) },
 	["your damage with hits is lucky"] = { flag("LuckyHits") },
+	["damage with hits is unlucky"] = { flag("UnluckyHits") },
 	["chaos damage with hits is lucky"] = { flag("ChaosLuckyHits") },
 	["elemental damage with hits is lucky while you are shocked"] = { flag("ElementalLuckHits", { type = "Condition", var = "Shocked" }) },
 	["allies' aura buffs do not affect you"] = { flag("AlliesAurasCannotAffectSelf") },
@@ -3565,6 +3567,8 @@ local specialModList = {
 	["%+(%d+)%% chance to block attack damage if you have not blocked recently"] = function(num) return { mod("BlockChance", "BASE", num, { type = "Condition", var = "BlockedRecently", neg = true }) } end,
 	["%+(%d+)%% chance to block spell damage if you have not blocked recently"] = function(num) return { mod("SpellBlockChance", "BASE", num, { type = "Condition", var = "BlockedRecently", neg = true }) } end,
 	["y?o?u?r? ?chance to block is lucky"] = { flag("BlockChanceIsLucky"), flag("ProjectileBlockChanceIsLucky"),flag("SpellBlockChanceIsLucky"), flag("SpellProjectileBlockChanceIsLucky") },
+	["y?o?u?r? ?chance to block attack damage is lucky"] = { flag("BlockChanceIsLucky"), flag("ProjectileBlockChanceIsLucky") },
+	["y?o?u?r? ?chance to block attack damage is unlucky"] = { flag("BlockChanceIsUnlucky"), flag("ProjectileBlockChanceIsUnlucky") },
 	["y?o?u?r? ?chance to block is unlucky"] = { flag("BlockChanceIsUnlucky"), flag("ProjectileBlockChanceIsUnlucky"), flag("SpellBlockChanceIsUnlucky"), flag("SpellProjectileBlockChanceIsUnlucky") },
 	["y?o?u?r? ?chance to block spell damage is lucky"] = { flag("SpellBlockChanceIsLucky"), flag("SpellProjectileBlockChanceIsLucky") },
 	["y?o?u?r? ?chance to block spell damage is unlucky"] = { flag("SpellBlockChanceIsUnlucky"), flag("SpellProjectileBlockChanceIsUnlucky") },
@@ -4297,6 +4301,7 @@ local specialModList = {
 	["immun[ei]t?y? to ignite during f?l?a?s?k? ?effect"] = { flag("IgniteImmune", { type = "Condition", var = "UsingFlask" }) },
 	["immun[ei]t?y? to bleeding during f?l?a?s?k? ?effect"] = { flag("BleedImmune", { type = "Condition", var = "UsingFlask" }) },
 	["immun[ei]t?y? to curses during f?l?a?s?k? ?effect"] = { flag("CurseImmune", { type = "Condition", var = "UsingFlask" }) },
+	["immun[ei]t?y? to curses while channelling"] = { flag("CurseImmune", { type = "Condition", var = "Channelling" }) },
 	["you are unaffected by (.+) if you've cast (.-) in the past (%d+) seconds"] = function (_, ailment, curse) return {
 		mod("Self"..ailment:gsub("^%l", string.upper).."Effect", "MORE", -100, { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") }, { type = "GlobalEffect", effectType = "Global", unscalable = true })
 	} end,
