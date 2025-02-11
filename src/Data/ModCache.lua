@@ -120,22 +120,22 @@ c["+1 Prefix Modifier allowed"]={{},nil}
 c["+1 Suffix Modifier allowed"]={{},nil}
 c["+1 maximum Energy Shield per 5 Strength"]={{[1]={[1]={div=5,stat="Str",type="PerStat"},flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=1}},nil}
 c["+1 second to Summon Skeleton Cooldown"]={{}," second to Summon  Cooldown "}
-c["+1 to Level of Socketed Active Skill Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="active skill",value=1}}},nil}
-c["+1 to Level of Socketed Active Skill Gems per 25 Player Levels"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},[2]={div=25,type="Multiplier",var="Level"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="grants_active_skill",value=1}}},nil}
-c["+1 to Level of Socketed Aura Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="aura",value=1}}},nil}
-c["+1 to Level of Socketed Bow Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="bow",value=1}}},nil}
-c["+1 to Level of Socketed Cold Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="cold",value=1}}},nil}
-c["+1 to Level of Socketed Curse Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="curse",value=1}}},nil}
-c["+1 to Level of Socketed Dexterity Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="dexterity",value=1}}},nil}
-c["+1 to Level of Socketed Elemental Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="elemental",value=1}}},nil}
-c["+1 to Level of Socketed Fire Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="fire",value=1}}},nil}
-c["+1 to Level of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="all",value=1}}},nil}
-c["+1 to Level of Socketed Melee Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="melee",value=1}}},nil}
-c["+1 to Level of Socketed Minion Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="minion",value=1}}},nil}
-c["+1 to Level of Socketed Spell Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="spell",value=1}}},nil}
-c["+1 to Level of Socketed Strength Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="strength",value=1}}},nil}
-c["+1 to Level of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="support",value=1}}},nil}
-c["+1 to Level of Socketed Warcry Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="warcry",value=1}}},nil}
+c["+1 to Level of Socketed Active Skill Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="active skill",value=1}}},nil}
+c["+1 to Level of Socketed Active Skill Gems per 25 Player Levels"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},[2]={div=25,type="Multiplier",var="Level"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="grants_active_skill",value=1}}},nil}
+c["+1 to Level of Socketed Aura Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="aura",value=1}}},nil}
+c["+1 to Level of Socketed Bow Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="bow",value=1}}},nil}
+c["+1 to Level of Socketed Cold Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="cold",value=1}}},nil}
+c["+1 to Level of Socketed Curse Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="curse",value=1}}},nil}
+c["+1 to Level of Socketed Dexterity Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="dexterity",value=1}}},nil}
+c["+1 to Level of Socketed Elemental Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="elemental",value=1}}},nil}
+c["+1 to Level of Socketed Fire Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="fire",value=1}}},nil}
+c["+1 to Level of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="all",value=1}}},nil}
+c["+1 to Level of Socketed Melee Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="melee",value=1}}},nil}
+c["+1 to Level of Socketed Minion Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="minion",value=1}}},nil}
+c["+1 to Level of Socketed Spell Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="spell",value=1}}},nil}
+c["+1 to Level of Socketed Strength Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="strength",value=1}}},nil}
+c["+1 to Level of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="support",value=1}}},nil}
+c["+1 to Level of Socketed Warcry Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="warcry",value=1}}},nil}
 c["+1 to Level of all Chaos Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="chaos",[2]="skill"},value=1}}},nil}
 c["+1 to Level of all Chaos Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="chaos",[2]="spell",[3]="skill"},value=1}}},nil}
 c["+1 to Level of all Cold Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="cold",[2]="spell",[3]="skill"},value=1}}},nil}
@@ -297,7 +297,7 @@ c["+10% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningR
 c["+10% to Melee Critical Strike Multiplier"]={{[1]={flags=256,keywordFlags=0,name="CritMultiplier",type="BASE",value=10}},nil}
 c["+10% to Off Hand Critical Strike Chance"]={{[1]={[1]={type="Condition",var="OffHandAttack"},[2]={skillType=1,type="SkillType"},flags=0,keywordFlags=0,name="CritChance",type="BASE",value=10}},nil}
 c["+10% to Off Hand Critical Strike Multiplier per Murderous Eye Jewel affecting you, up to a maximum of +100%"]={{[1]={[1]={globalLimit=100,globalLimitKey="TecrodGazeOffHand",type="Multiplier",var="MurderousEyeJewel"},[2]={type="Condition",var="OffHandAttack"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=10}},nil}
-c["+10% to Quality of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyword="all",value=10}}},nil}
+c["+10% to Quality of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyOfScaledMod="value",keyword="all",value=10}}},nil}
 c["+10% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=10}},nil}
 c["+10% to all Elemental Resistances and maximum Elemental Resistances while affected by a Non-Vaal Guard Skill"]={{[1]={[1]={type="Condition",var="AffectedByNonVaalGuardSkill"},flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=10},[2]={[1]={type="Condition",var="AffectedByNonVaalGuardSkill"},flags=0,keywordFlags=0,name="ElementalResistMax",type="BASE",value=10}},nil}
 c["+100 Strength Requirement"]={{[1]={flags=0,keywordFlags=0,name="StrRequirement",type="BASE",value=100}},nil}
@@ -353,7 +353,7 @@ c["+113% to Melee Critical Strike Multiplier"]={{[1]={flags=256,keywordFlags=0,n
 c["+114% Critical Strike Multiplier while a Rare or Unique Enemy is Nearby"]={{[1]={[1]={actor="enemy",type="ActorCondition",varList={[1]="NearbyRareOrUniqueEnemy",[2]="RareOrUnique"}},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=114}},nil}
 c["+116 to Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=116}},nil}
 c["+116 to Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="BASE",value=116}},nil}
-c["+12 to Level of Socketed Skill Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="skill",value=12}}},nil}
+c["+12 to Level of Socketed Skill Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="skill",value=12}}},nil}
 c["+12 to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=12}},nil}
 c["+12 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=12}},nil}
 c["+12 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=12}},nil}
@@ -477,7 +477,7 @@ c["+15% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningR
 c["+15% to Lightning and Chaos Resistances"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=15},[2]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=15}},nil}
 c["+15% to Maximum Effect of Shock"]={{[1]={flags=0,keywordFlags=0,name="ShockMax",type="BASE",value=15}},nil}
 c["+15% to Physical Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDotMultiplier",type="BASE",value=15}},nil}
-c["+15% to Quality of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyword="support",value=15}}},nil}
+c["+15% to Quality of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyOfScaledMod="value",keyword="support",value=15}}},nil}
 c["+15% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=15}},nil}
 c["+150 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=150}},nil}
 c["+150 to Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=150}},nil}
@@ -562,22 +562,22 @@ c["+2 maximum Energy Shield per 5 Strength"]={{[1]={[1]={div=5,stat="Str",type="
 c["+2 seconds to Avian's Flight Duration"]={{[1]={[1]={skillName="Aspect of the Avian",type="SkillName"},flags=0,keywordFlags=0,name="SecondaryDuration",type="BASE",value=2}},nil}
 c["+2 seconds to Avian's Might Duration"]={{[1]={[1]={skillName="Aspect of the Avian",type="SkillName"},flags=0,keywordFlags=0,name="PrimaryDuration",type="BASE",value=2}},nil}
 c["+2 to Level of All Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="spell",[2]="skill"},value=2}}},nil}
-c["+2 to Level of Socketed Aura Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="aura",value=2}}},nil}
-c["+2 to Level of Socketed Bow Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="bow",value=2}}},nil}
-c["+2 to Level of Socketed Cold Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="cold",value=2}}},nil}
-c["+2 to Level of Socketed Curse Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="curse",value=2}}},nil}
-c["+2 to Level of Socketed Elemental Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="elemental",value=2}}},nil}
-c["+2 to Level of Socketed Fire Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="fire",value=2}}},nil}
-c["+2 to Level of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="all",value=2}}},nil}
-c["+2 to Level of Socketed Golem Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="golem",value=2}}},nil}
-c["+2 to Level of Socketed Herald Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="herald",value=2}}},nil}
-c["+2 to Level of Socketed Lightning Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="lightning",value=2}}},nil}
-c["+2 to Level of Socketed Minion Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="minion",value=2}}},nil}
-c["+2 to Level of Socketed Movement Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="movement",value=2}}},nil}
-c["+2 to Level of Socketed Skill Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="skill",value=2}}},nil}
-c["+2 to Level of Socketed Spell Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="spell",value=2}}},nil}
-c["+2 to Level of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="support",value=2}}},nil}
-c["+2 to Level of Socketed Vaal Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="vaal",value=2}}},nil}
+c["+2 to Level of Socketed Aura Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="aura",value=2}}},nil}
+c["+2 to Level of Socketed Bow Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="bow",value=2}}},nil}
+c["+2 to Level of Socketed Cold Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="cold",value=2}}},nil}
+c["+2 to Level of Socketed Curse Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="curse",value=2}}},nil}
+c["+2 to Level of Socketed Elemental Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="elemental",value=2}}},nil}
+c["+2 to Level of Socketed Fire Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="fire",value=2}}},nil}
+c["+2 to Level of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="all",value=2}}},nil}
+c["+2 to Level of Socketed Golem Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="golem",value=2}}},nil}
+c["+2 to Level of Socketed Herald Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="herald",value=2}}},nil}
+c["+2 to Level of Socketed Lightning Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="lightning",value=2}}},nil}
+c["+2 to Level of Socketed Minion Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="minion",value=2}}},nil}
+c["+2 to Level of Socketed Movement Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="movement",value=2}}},nil}
+c["+2 to Level of Socketed Skill Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="skill",value=2}}},nil}
+c["+2 to Level of Socketed Spell Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="spell",value=2}}},nil}
+c["+2 to Level of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="support",value=2}}},nil}
+c["+2 to Level of Socketed Vaal Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="vaal",value=2}}},nil}
 c["+2 to Level of all Chaos Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="chaos",[2]="spell",[3]="skill"},value=2}}},nil}
 c["+2 to Level of all Cold Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="cold",[2]="spell",[3]="skill"},value=2}}},nil}
 c["+2 to Level of all Curse Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="curse",[2]="skill"},value=2}}},nil}
@@ -787,7 +787,7 @@ c["+25% to Fire and Lightning Resistances"]={{[1]={flags=0,keywordFlags=0,name="
 c["+25% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=25}},nil}
 c["+25% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=25}},nil}
 c["+25% to Melee Critical Strike Multiplier"]={{[1]={flags=256,keywordFlags=0,name="CritMultiplier",type="BASE",value=25}},nil}
-c["+25% to Quality of all Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyword="grants_active_skill",value=25}}},nil}
+c["+25% to Quality of all Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyOfScaledMod="value",keyword="grants_active_skill",value=25}}},nil}
 c["+25% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=25}},nil}
 c["+25% to all Elemental Resistances while you have at least 200 Strength"]={{[1]={[1]={stat="Str",threshold=200,type="StatThreshold"},flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=25}},nil}
 c["+250 Energy Shield gained on Killing a Shocked Enemy"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Shocked"},flags=0,keywordFlags=0,name="EnergyShieldOnKill",type="BASE",value=250}},nil}
@@ -832,13 +832,13 @@ c["+290 to Armour and Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Armou
 c["+296 to Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="BASE",value=296}},nil}
 c["+3 seconds to Duration of Frenzy and Power Charges on Culling Strike"]={{[1]={[1]={includeTransfigured=true,skillName="Frenzy",type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="BASE",value=3}}," seconds to  ofand Power Charges on Culling Strike "}
 c["+3 seconds to Duration of Frenzy and Power Charges on Culling Strike Gain 150 Life on Culling Strike"]={{[1]={[1]={includeTransfigured=true,skillName="Frenzy",type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="BASE",value=3}}," seconds to  ofand Power Charges on Culling Strike Gain 150 Life on Culling Strike "}
-c["+3 to Level of Socketed Curse Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="curse",value=3}}},nil}
-c["+3 to Level of Socketed Fire Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="fire",value=3}}},nil}
-c["+3 to Level of Socketed Golem Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="golem",value=3}}},nil}
-c["+3 to Level of Socketed Lightning Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="lightning",value=3}}},nil}
-c["+3 to Level of Socketed Minion Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="minion",value=3}}},nil}
-c["+3 to Level of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="support",value=3}}},nil}
-c["+3 to Level of Socketed Warcry Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="warcry",value=3}}},nil}
+c["+3 to Level of Socketed Curse Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="curse",value=3}}},nil}
+c["+3 to Level of Socketed Fire Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="fire",value=3}}},nil}
+c["+3 to Level of Socketed Golem Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="golem",value=3}}},nil}
+c["+3 to Level of Socketed Lightning Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="lightning",value=3}}},nil}
+c["+3 to Level of Socketed Minion Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="minion",value=3}}},nil}
+c["+3 to Level of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="support",value=3}}},nil}
+c["+3 to Level of Socketed Warcry Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="warcry",value=3}}},nil}
 c["+3 to Level of all Chaos Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="chaos",[2]="spell",[3]="skill"},value=3}}},nil}
 c["+3 to Level of all Cold Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="cold",[2]="spell",[3]="skill"},value=3}}},nil}
 c["+3 to Level of all Critical Support Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="critical",[2]="support"},value=3}}},nil}
@@ -922,9 +922,9 @@ c["+30% to Fire and Lightning Resistances"]={{[1]={flags=0,keywordFlags=0,name="
 c["+30% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=30}},nil}
 c["+30% to Global Critical Strike Multiplier while wielding a Staff"]={{[1]={[1]={type="Global"},[2]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=30}},nil}
 c["+30% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=30}},nil}
-c["+30% to Quality of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyword="all",value=30}}},nil}
-c["+30% to Quality of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyword="support",value=30}}},nil}
-c["+30% to Quality of all Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyword="grants_active_skill",value=30}}},nil}
+c["+30% to Quality of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyOfScaledMod="value",keyword="all",value=30}}},nil}
+c["+30% to Quality of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyOfScaledMod="value",keyword="support",value=30}}},nil}
+c["+30% to Quality of all Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyOfScaledMod="value",keyword="grants_active_skill",value=30}}},nil}
 c["+30% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=30}},nil}
 c["+300 Armour if you've Blocked Recently"]={{[1]={[1]={type="Condition",var="BlockedRecently"},flags=0,keywordFlags=0,name="Armour",type="BASE",value=300}},nil}
 c["+300 Armour per Summoned Totem"]={{[1]={[1]={stat="TotemsSummoned",type="PerStat"},flags=0,keywordFlags=0,name="Armour",type="BASE",value=300}},nil}
@@ -1004,8 +1004,8 @@ c["+38% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningR
 c["+39 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=39}},nil}
 c["+4 Accuracy Rating per 2 Intelligence"]={{[1]={[1]={div=2,stat="Int",type="PerStat"},flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=4}},nil}
 c["+4 to Evasion Rating per 1 Maximum Energy Shield on Equipped Helmet"]={{[1]={[1]={div=1,stat="EnergyShieldOnHelmet",type="PerStat"},flags=0,keywordFlags=0,name="Evasion",type="BASE",value=4}},nil}
-c["+4 to Level of Socketed Aura Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="aura",value=4}}},nil}
-c["+4 to Level of Socketed Herald Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="herald",value=4}}},nil}
+c["+4 to Level of Socketed Aura Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="aura",value=4}}},nil}
+c["+4 to Level of Socketed Herald Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="herald",value=4}}},nil}
 c["+4 to Maximum Fanatic Charges"]={{}," Maximum Fanatic Charges "}
 c["+4 to Minimum Endurance Charges"]={{[1]={flags=0,keywordFlags=0,name="EnduranceChargesMin",type="BASE",value=4}},nil}
 c["+4 to Minimum Power Charges"]={{[1]={flags=0,keywordFlags=0,name="PowerChargesMin",type="BASE",value=4}},nil}
@@ -1068,7 +1068,7 @@ c["+40% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=
 c["+40% to Global Critical Strike Multiplier while you have a Frenzy Charge"]={{[1]={[1]={type="Global"},[2]={stat="FrenzyCharges",threshold=1,type="StatThreshold"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=40}},nil}
 c["+40% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=40}},nil}
 c["+40% to Maximum Effect of Shock"]={{[1]={flags=0,keywordFlags=0,name="ShockMax",type="BASE",value=40}},nil}
-c["+40% to Quality of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyword="all",value=40}}},nil}
+c["+40% to Quality of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyOfScaledMod="value",keyword="all",value=40}}},nil}
 c["+40% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=40}},nil}
 c["+400 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=400}},nil}
 c["+400 to Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=400}},nil}
@@ -1125,10 +1125,10 @@ c["+5 to Dexterity per Allocated Mastery Passive Skill"]={{[1]={[1]={type="Multi
 c["+5 to Evasion Rating per 1 Maximum Energy Shield on Equipped Helmet"]={{[1]={[1]={div=1,stat="EnergyShieldOnHelmet",type="PerStat"},flags=0,keywordFlags=0,name="Evasion",type="BASE",value=5}},nil}
 c["+5 to Intelligence"]={{[1]={flags=0,keywordFlags=0,name="Int",type="BASE",value=5}},nil}
 c["+5 to Intelligence per Allocated Mastery Passive Skill"]={{[1]={[1]={type="Multiplier",var="AllocatedMastery"},flags=0,keywordFlags=0,name="Int",type="BASE",value=5}},nil}
-c["+5 to Level of Socketed Aura Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="aura",value=5}}},nil}
-c["+5 to Level of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="all",value=5}}},nil}
-c["+5 to Level of Socketed Movement Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="movement",value=5}}},nil}
-c["+5 to Level of Socketed Vaal Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="vaal",value=5}}},nil}
+c["+5 to Level of Socketed Aura Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="aura",value=5}}},nil}
+c["+5 to Level of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="all",value=5}}},nil}
+c["+5 to Level of Socketed Movement Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="movement",value=5}}},nil}
+c["+5 to Level of Socketed Vaal Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="vaal",value=5}}},nil}
 c["+5 to Maximum Rage"]={{[1]={flags=0,keywordFlags=0,name="MaximumRage",type="BASE",value=5}},nil}
 c["+5 to Maximum Virulence"]={{[1]={flags=0,keywordFlags=0,name="Multiplier:VirulenceStacksMax",type="BASE",value=5}},nil}
 c["+5 to Maximum number of Crab Barriers"]={{[1]={flags=0,keywordFlags=0,name="CrabBarriersMax",type="BASE",value=5}},nil}
@@ -1200,7 +1200,7 @@ c["+50% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",typ
 c["+50% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=50}},nil}
 c["+50% to Global Critical Strike Multiplier while you have a Frenzy Charge"]={{[1]={[1]={type="Global"},[2]={stat="FrenzyCharges",threshold=1,type="StatThreshold"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=50}},nil}
 c["+50% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=50}},nil}
-c["+50% to Quality of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyword="all",value=50}}},nil}
+c["+50% to Quality of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyOfScaledMod="value",keyword="all",value=50}}},nil}
 c["+50% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=50}},nil}
 c["+500 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=500}},nil}
 c["+500 to Accuracy Rating while at Maximum Frenzy Charges"]={{[1]={[1]={stat="FrenzyCharges",thresholdStat="FrenzyChargesMax",type="StatThreshold"},flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=500}},nil}
@@ -1308,11 +1308,11 @@ c["+665 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type=
 c["+68 to Intelligence"]={{[1]={flags=0,keywordFlags=0,name="Int",type="BASE",value=68}},nil}
 c["+68 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=68}},nil}
 c["+69 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=69}},nil}
-c["+7 to Level of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="all",value=7}}},nil}
+c["+7 to Level of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="all",value=7}}},nil}
 c["+7 to Maximum Rage"]={{[1]={flags=0,keywordFlags=0,name="MaximumRage",type="BASE",value=7}},nil}
 c["+7% to All Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=7}},nil}
 c["+7% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=7}},nil}
-c["+7% to Quality of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyword="support",value=7}}},nil}
+c["+7% to Quality of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyOfScaledMod="value",keyword="support",value=7}}},nil}
 c["+7% to Unarmed Melee Attack Critical Strike Chance"]={{[1]={flags=16777477,keywordFlags=0,name="CritChance",type="BASE",value=7}},nil}
 c["+7% to all Elemental Resistances per Grand Spectrum"]={{[1]={[1]={type="Multiplier",var="GrandSpectrum"},flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=7}},nil}
 c["+70 to Dexterity"]={{[1]={flags=0,keywordFlags=0,name="Dex",type="BASE",value=70}},nil}
@@ -1342,7 +1342,7 @@ c["+78 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShie
 c["+78 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=78}},nil}
 c["+8 to Dexterity"]={{[1]={flags=0,keywordFlags=0,name="Dex",type="BASE",value=8}},nil}
 c["+8 to Intelligence"]={{[1]={flags=0,keywordFlags=0,name="Int",type="BASE",value=8}},nil}
-c["+8 to Level of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="all",value=8}}},nil}
+c["+8 to Level of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="all",value=8}}},nil}
 c["+8 to Minimum Rage"]={{[1]={flags=0,keywordFlags=0,name="MinimumRage",type="BASE",value=8}},nil}
 c["+8 to Strength"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=8}},nil}
 c["+8 to all Attributes"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=8},[2]={flags=0,keywordFlags=0,name="Dex",type="BASE",value=8},[3]={flags=0,keywordFlags=0,name="Int",type="BASE",value=8},[4]={flags=0,keywordFlags=0,name="All",type="BASE",value=8}},nil}
@@ -1372,7 +1372,7 @@ c["+8% to Critical Strike Multiplier with Mines"]={{[1]={flags=0,keywordFlags=81
 c["+8% to Critical Strike Multiplier with Traps"]={{[1]={flags=0,keywordFlags=4096,name="CritMultiplier",type="BASE",value=8}},nil}
 c["+8% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=8}},nil}
 c["+8% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=8}},nil}
-c["+8% to Quality of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyword="support",value=8}}},nil}
+c["+8% to Quality of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyOfScaledMod="value",keyword="support",value=8}}},nil}
 c["+8% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=8}},nil}
 c["+8% to maximum Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResistMax",type="BASE",value=8}},nil}
 c["+80 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=80}},nil}
@@ -1471,8 +1471,8 @@ c["-2 Physical Damage taken from Attacks"]={{[1]={flags=0,keywordFlags=0,name="P
 c["-2 Prefix Modifiers allowed"]={{},nil}
 c["-2 Suffix Modifiers allowed"]={{},nil}
 c["-2 to Accuracy Rating per Level"]={{[1]={[1]={type="Multiplier",var="Level"},flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=-2}},nil}
-c["-2 to Level of Socketed Skill Gems per Socketed Gem"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},[2]={type="Multiplier",var="SocketedGemsIn{SlotName}"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="grants_active_skill",value=-2}}},nil}
-c["-2 to Level of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="support",value=-2}}},nil}
+c["-2 to Level of Socketed Skill Gems per Socketed Gem"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},[2]={type="Multiplier",var="SocketedGemsIn{SlotName}"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="grants_active_skill",value=-2}}},nil}
+c["-2 to Level of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="support",value=-2}}},nil}
 c["-2 to Maximum Endurance Charges"]={{[1]={flags=0,keywordFlags=0,name="EnduranceChargesMax",type="BASE",value=-2}},nil}
 c["-2 to Maximum Frenzy Charges"]={{[1]={flags=0,keywordFlags=0,name="FrenzyChargesMax",type="BASE",value=-2}},nil}
 c["-2 to Total Mana Cost of Skills for each Corrupted Item Equipped"]={{[1]={[1]={type="Multiplier",var="CorruptedItem"},flags=0,keywordFlags=0,name="ManaCost",type="BASE",value=-2}},nil}
@@ -1499,7 +1499,7 @@ c["-40 Physical Damage taken from Hits by Animals"]={{[1]={flags=0,keywordFlags=
 c["-40% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=-40}},nil}
 c["-40% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-40}},nil}
 c["-45 Physical Damage taken from Attack Hits"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromAttacks",type="BASE",value=-45}},nil}
-c["-5 to Level of Socketed Non-Vaal Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="non-vaal",value=-5}}},nil}
+c["-5 to Level of Socketed Non-Vaal Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="non-vaal",value=-5}}},nil}
 c["-5 to Total Mana Cost of Skills while affected by Clarity"]={{[1]={[1]={type="Condition",var="AffectedByClarity"},flags=0,keywordFlags=0,name="ManaCost",type="BASE",value=-5}},nil}
 c["-5% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-5}},nil}
 c["-5% to all Resistances for each Corrupted Item Equipped"]={{[1]={[1]={type="Multiplier",var="CorruptedItem"},flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-5},[2]={[1]={type="Multiplier",var="CorruptedItem"},flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=-5}},nil}
@@ -7567,8 +7567,8 @@ c["Create Consecrated Ground when you Shatter an Enemy"]={nil,"Create Consecrate
 c["Create Consecrated Ground when you Shatter an Enemy 40% increased Effect of Chilled Ground"]={nil,"Create Consecrated Ground when you Shatter an Enemy 40% increased Effect of Chilled Ground "}
 c["Create Fungal Ground instead of Consecrated Ground"]={{[1]={flags=0,keywordFlags=0,name="Condition:CreateFungalGround",type="FLAG",value=true}},nil}
 c["Create Profane Ground instead of Consecrated Ground"]={{[1]={flags=0,keywordFlags=0,name="Condition:CreateProfaneGround",type="FLAG",value=true}},nil}
-c["Create a Blighted Spore when you Kill a Rare Monster"]={nil,"Create a Blighted Spore when you Kill a Rare Monster "}
-c["Create a Blighted Spore when you Kill a Rare Monster This item can be anointed by Cassia"]={nil,"Create a Blighted Spore when you Kill a Rare Monster This item can be anointed by Cassia "}
+c["Create a Blighted Spore when your Skills or Minions Kill a Rare Monster"]={nil,"Create a Blighted Spore when your Skills or Minions Kill a Rare Monster "}
+c["Create a Blighted Spore when your Skills or Minions Kill a Rare Monster This item can be anointed by Cassia"]={nil,"Create a Blighted Spore when your Skills or Minions Kill a Rare Monster This item can be anointed by Cassia "}
 c["Creates Consecrated Ground on Critical Strike"]={nil,"Creates Consecrated Ground on Critical Strike "}
 c["Creates Consecrated Ground on Critical Strike 50% increased Rarity of Items Dropped by Enemies killed with a Critical Strike"]={nil,"Creates Consecrated Ground on Critical Strike 50% increased Rarity of Items Dropped by Enemies killed with a Critical Strike "}
 c["Creates Consecrated Ground on Use"]={{},nil}
@@ -7838,6 +7838,7 @@ c["Enemies Hindered by you take 10% increased Chaos Damage"]={{[1]={flags=0,keyw
 c["Enemies Hitting you have 10% chance to gain an Endurance, "]={nil,"Enemies Hitting you have 10% chance to gain an Endurance,  "}
 c["Enemies Hitting you have 10% chance to gain an Endurance,  Frenzy or Power Charge"]={nil,"Enemies Hitting you have 10% chance to gain an Endurance,  Frenzy or Power Charge "}
 c["Enemies Ignited by you during Effect take 10% increased Damage"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Ignited"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=10}}}},nil}
+c["Enemies Ignited by you during Effect take 9% increased Damage"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Ignited"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=9}}}},nil}
 c["Enemies Ignited by you have -5% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Ignited"},flags=0,keywordFlags=0,name="FireResist",type="BASE",value=-5}}}},nil}
 c["Enemies Ignited by you have 13% of Physical Damage they deal converted to Fire"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Ignited"},flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=13}}}},nil}
 c["Enemies Ignited by you have 15% of Physical Damage they deal converted to Fire"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Ignited"},flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=15}}}},nil}
@@ -9223,6 +9224,7 @@ c["Minions gain Unholy Might for 10 seconds on Kill"]={{[1]={flags=0,keywordFlag
 c["Minions gain Unholy Might for 5 seconds on Kill"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={type="Condition",var="KilledRecently"},flags=0,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}}}},nil}
 c["Minions have (15-20)% increased maximum Life"]={nil,"(15-20)% increased maximum Life "}
 c["Minions have (15-20)% increased maximum Life Minions deal (25-35)% increased Damage"]={nil,"(15-20)% increased maximum Life Minions deal (25-35)% increased Damage "}
+c["Minions have +0% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=0}}}},nil}
 c["Minions have +10% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=10}}}},nil}
 c["Minions have +10% to Critical Strike Multiplier per Grand Spectrum"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={type="Multiplier",var="GrandSpectrum"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=10}}}},nil}
 c["Minions have +10% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=10}}}},nil}
@@ -9286,8 +9288,6 @@ c["Minions have 15% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name=
 c["Minions have 15% reduced Life Recovery rate"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="LifeRecoveryRate",type="INC",value=-15}}}},nil}
 c["Minions have 16% increased Attack Speed"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=1,keywordFlags=0,name="Speed",type="INC",value=16}}}},nil}
 c["Minions have 16% increased Cast Speed"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=16,keywordFlags=0,name="Speed",type="INC",value=16}}}},nil}
-c["Minions have 17% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=17}}}},"% to  "}
-c["Minions have 17% to Chaos Resistance Summon Raging Spirit has 30% increased Duration"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={includeTransfigured=true,skillName="Summon Raging Spirit",type="SkillName"},flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=17}}}},"% to has 30% increased Duration "}
 c["Minions have 20% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=20}}}},nil}
 c["Minions have 20% increased Attack Speed"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=1,keywordFlags=0,name="Speed",type="INC",value=20}}}},nil}
 c["Minions have 20% increased Cast Speed"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=16,keywordFlags=0,name="Speed",type="INC",value=20}}}},nil}
