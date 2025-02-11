@@ -2447,7 +2447,7 @@ c["100% increased Evasion Rating if Energy Shield Recharge has started in the pa
 c["100% increased Evasion Rating if you have been Hit Recently"]={{[1]={[1]={type="Condition",var="BeenHitRecently"},flags=0,keywordFlags=0,name="Evasion",type="INC",value=100}},nil}
 c["100% increased Evasion Rating while you have Onslaught"]={{[1]={[1]={type="Condition",var="Onslaught"},flags=0,keywordFlags=0,name="Evasion",type="INC",value=100}},nil}
 c["100% increased Evasion and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EvasionAndEnergyShield",type="INC",value=100}},nil}
-c["100% increased Explicit Modifier magnitudes"]={{}," Explicit Modifier magnitudes "}
+c["100% increased Explicit Modifier magnitudes"]={{},nil}
 c["100% increased Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamage",type="INC",value=100}},nil}
 c["100% increased Fire Damage if you have been Hit Recently"]={{[1]={[1]={type="Condition",var="BeenHitRecently"},flags=0,keywordFlags=0,name="FireDamage",type="INC",value=100}},nil}
 c["100% increased Fire Damage with Hits and Ailments against Bleeding Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=0,keywordFlags=786432,name="FireDamage",type="INC",value=100}},nil}
@@ -4102,8 +4102,7 @@ c["25% increased Stun Duration on Enemies"]={{[1]={flags=0,keywordFlags=0,name="
 c["25% increased Stun Duration with Melee Weapons"]={{[1]={flags=67108864,keywordFlags=0,name="EnemyStunDuration",type="INC",value=25}},nil}
 c["25% increased Stun Duration with Two Handed Melee Weapons on Enemies"]={{[1]={flags=603979780,keywordFlags=0,name="EnemyStunDuration",type="INC",value=25}},nil}
 c["25% increased Stun and Block Recovery"]={{[1]={flags=0,keywordFlags=0,name="StunRecovery",type="INC",value=25}},nil}
-c["25% increased Suffix Modifier magnitudes"]={{}," Suffix Modifier magnitudes "}
-c["25% increased Suffix Modifier magnitudes +27% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="INC",value=25}}," Suffix Modifier magnitudes +27% to  "}
+c["25% increased Suffix Modifier magnitudes"]={{},nil}
 c["25% increased Tincture Cooldown Recovery Rate"]={{[1]={flags=0,keywordFlags=0,name="TinctureCooldownRecovery",type="INC",value=25}},nil}
 c["25% increased Totem Damage"]={{[1]={flags=0,keywordFlags=16384,name="Damage",type="INC",value=25}},nil}
 c["25% increased Totem Life"]={{[1]={flags=0,keywordFlags=0,name="TotemLife",type="INC",value=25}},nil}
