@@ -302,7 +302,7 @@ Requires Class Witch
 {variant:1}+3 to Level of all Herald Skill Gems
 {variant:2}--- Damnation ---
 {variant:2}Gain additional Elemental Damage Reduction equal to half your Chaos Resistance
-{variant:2}Maximum Endurance, Frenzy and Power Charges is O
+{variant:2}Maximum Endurance, Frenzy and Power Charges is 0
 {variant:3}--- Retribution ---
 {variant:3}20% Chance to gain Elemental Conflux for 4 seconds when you Kill an Enemy
 {variant:4}--- Future Guilt ---
