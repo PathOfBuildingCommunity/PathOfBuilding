@@ -354,6 +354,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.burningGroundDPS
 	end
 	if fullDPS.TotalPoisonDPS > 0 then
+		fullDPS.TotalPoisonDPS = m_min(fullDPS.TotalPoisonDPS, data.misc.DotDpsCap)
 		t_insert(fullDPS.skills, { name = "Full Poison DPS", dps = fullDPS.TotalPoisonDPS, count = 1 })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.TotalPoisonDPS
 	end
