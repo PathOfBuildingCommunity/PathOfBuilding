@@ -30,7 +30,7 @@ jobs:
                 gh release view $(basename ${{ github.event.inputs.releaseNoteUrl }}) > temp_change.md
             - name: Tweak changelogs
               run: >
-                sed -i '1,8d' temp_change.md;
+                sed -i '1,10d' temp_change.md;
                 sed -i '1h;1d;$!H;$!d;G' temp_change.md;
                 sed -i -re 's/\*\*Full Changelog\*\*: (.*)/\[Full Changelog\]\(\1\)\n/' temp_change.md;
                 sed -i '/## New Contributors/,$d' temp_change.md;
@@ -41,11 +41,11 @@ jobs:
                 sed -i 's/\[PJacek/\[TPlant/' temp_change.md;
                 sed -i 's/\[justjuangui/\[trompetin17/' temp_change.md;
                 cp temp_change.md changelog_temp.txt;
-                cat CHANGELOG.md | sed '1d' >> temp_change.md;
+                cat CHANGELOG.md | tr \\r \\n | sed '1d' >> temp_change.md;
                 printf "# Changelog\n\n## [v${{ github.event.inputs.releaseVersion }}](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v${{ github.event.inputs.releaseVersion }}) ($(date +'%Y/%m/%d'))\n\n" | cat - temp_change.md > CHANGELOG.md;
 
                 sed -i -re 's/^- (.*) \[.*\) \(\[(.*)\]\(.*/* \1 (\2)/' changelog_temp.txt;
-                echo "VERSION[${{ github.event.inputs.releaseVersion }}][`date +'%Y/%m/%d'`]" | cat - changelog_temp.txt | sed '2,3d' | sed -re 's/^### (.*)\r/--- \1 ---/' | sed -e '/^##.*/,+1 d' | cat - changelog.txt > changelog_new.txt;
+                echo "VERSION[${{ github.event.inputs.releaseVersion }}][`date +'%Y/%m/%d'`]" | cat - changelog_temp.txt | tr -d \\r | sed '2,3d' | sed -re 's/^### (.*)\n/--- \1 ---/' | sed -e '/^##.*/,+1 d' | cat - changelog.txt > changelog_new.txt;
                 rm temp_change.md;
                 rm changelog_temp.txt;
                 mv changelog_new.txt changelog.txt
