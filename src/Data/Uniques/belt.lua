@@ -929,5 +929,16 @@ Implicits: 1
 {variant:2}{tags:attack,mana}2% of Physical Attack Damage Leeched as Mana
 {variant:2}(500-1000)% increased total Recovery per second from Life Leech
 {variant:2}(500-1000)% increased total Recovery per second from Mana Leech
+]],[[
+Ynda's Stand
+Studded Belt
+League: Settlers of Kalguur
+Requires Level 52
+Implicits: 1
+(20-30)% increased Stun Duration on Enemies
+{tags:life}Regenerate 44 Life per second
+{tags:jewellery_resistance}+21% to Fire Resistance
+{tags:jewellery_resistance}+21% to Cold Resistance
+{tags:jewellery_defense}Gain Ward Instead of 50% of Armour and Evasion Rating From Equipped Body Armour
 ]],
 }
