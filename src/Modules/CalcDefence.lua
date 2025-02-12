@@ -542,12 +542,17 @@ function calcs.defence(env, actor)
 	local baseBlockChance = 0
 	if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].armourData then
 		baseBlockChance = baseBlockChance + actor.itemList["Weapon 2"].armourData.BlockChance
+		
 	end
 	if actor.itemList["Weapon 3"] and actor.itemList["Weapon 3"].armourData then
 		baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
 	end
 	output.ShieldBlockChance = baseBlockChance
 	baseBlockChance = modDB:Override(nil, "ReplaceShieldBlock") or baseBlockChance
+
+	-- Apply player block overrides if Necromantic Aegis allocated
+	baseBlockChance = actor == env.minion and env.keystonesAdded["Necromantic Aegis"] and env.player.modDB:Override(nil, "ReplaceShieldBlock") or baseBlockChance
+
 	if modDB:Flag(nil, "BlockAttackChanceIsEqualToParent") then
 		output.BlockChance = m_min(actor.parent.output.BlockChance, output.BlockChanceMax)
 	elseif modDB:Flag(nil, "BlockAttackChanceIsEqualToPartyMember") then
@@ -559,6 +564,7 @@ function calcs.defence(env, actor)
 		output.BlockChance = m_min(totalBlockChance, output.BlockChanceMax)
 		output.BlockChanceOverCap = m_max(0, totalBlockChance - output.BlockChanceMax)
 	end
+
 	output.ProjectileBlockChance = m_min(output.BlockChance + modDB:Sum("BASE", nil, "ProjectileBlockChance") * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax)
 	if modDB:Flag(nil, "SpellBlockChanceMaxIsBlockChanceMax") then
 		output.SpellBlockChanceMax = output.BlockChanceMax
