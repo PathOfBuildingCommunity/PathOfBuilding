@@ -18,7 +18,6 @@ for crucible in dat("WeaponPassiveSkills"):Rows() do
 			end
 			out:write('tier = ', crucible.ModTier, ', ')
 			out:write('"', table.concat(stats, '", "'), '", ')
-			out:write('statOrderKey = "', table.concat(orders, ','), '", ')
 			out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
 			out:write('level = ', crucible.Mod.Level, ', group = "', crucible.Mod.Type.Id, '", ')
 			out:write('nodeType = "', crucible.Type.Id, '", ')

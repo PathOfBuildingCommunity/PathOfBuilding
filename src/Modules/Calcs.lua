@@ -133,8 +133,6 @@ function calcs.getMiscCalculator(build)
 	end
 	return function(override, useFullDPS)
 		local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
-		-- we need to preserve the override somewhere for use by possible trigger-based build-outs with overrides
-		env.override = override
 		calcs.perform(env)
 		if (useFullDPS ~= false or build.viewMode == "TREE") and usedFullDPS then
 			-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up 
@@ -701,17 +699,56 @@ function calcs.buildOutput(build, mode)
 		if env.modDB:Flag(nil, "HerEmbrace") then
 			t_insert(combatList, "Her Embrace")
 		end
-		if env.modDB:Flag(nil, "LesserMassiveShrine") then
-			t_insert(combatList, "Lesser Massive Shrine")
+		if env.modDB:Flag(nil, "AccelerationShrine") then
+			t_insert(combatList, "Acceleration Shrine")
 		end
-		if env.modDB:Flag(nil, "LesserBrutalShrine") then
-			t_insert(combatList, "Lesser Brutal Shrine")
+		if env.modDB:Flag(nil, "BrutalShrine") then
+			t_insert(combatList, "Brutal Shrine")
 		end
 		if env.modDB:Flag(nil, "DiamondShrine") then
 			t_insert(combatList, "Diamond Shrine")
 		end
+		if env.modDB:Flag(nil, "DivineShrine") then
+			t_insert(combatList, "Divine Shrine")
+		end
+		if env.modDB:Flag(nil, "EchoingShrine") then
+			t_insert(combatList, "Echoing Shrine")
+		end
+		if env.modDB:Flag(nil, "GloomShrine") then
+			t_insert(combatList, "Gloom Shrine")
+		end
+		if env.modDB:Flag(nil, "ImpenetrableShrine") then
+			t_insert(combatList, "Impenetrable Shrine")
+		end
 		if env.modDB:Flag(nil, "MassiveShrine") then
 			t_insert(combatList, "Massive Shrine")
+		end
+		if env.modDB:Flag(nil, "ReplenishingShrine") then
+			t_insert(combatList, "Replenishing Shrine")
+		end
+		if env.modDB:Flag(nil, "ResistanceShrine") then
+			t_insert(combatList, "Resistance Shrine")
+		end
+		if env.modDB:Flag(nil, "ResonatingShrine") then
+			t_insert(combatList, "Resonating Shrine")
+		end
+		if env.modDB:Flag(nil, "LesserAccelerationShrine") then
+			t_insert(combatList, "Lesser Acceleration Shrine")
+		end
+		if env.modDB:Flag(nil, "LesserBrutalShrine") then
+			t_insert(combatList, "Lesser Brutal Shrine")
+		end
+		if env.modDB:Flag(nil, "LesserImpenetrableShrine") then
+			t_insert(combatList, "Lesser Impenetrable Shrine")
+		end
+		if env.modDB:Flag(nil, "LesserMassiveShrine") then
+			t_insert(combatList, "Lesser Massive Shrine")
+		end
+		if env.modDB:Flag(nil, "LesserReplenishingShrine") then
+			t_insert(combatList, "Lesser Replenishing Shrine")
+		end
+		if env.modDB:Flag(nil, "LesserResistanceShrine") then
+			t_insert(combatList, "Lesser Resistance Shrine")
 		end
 		for name in pairs(env.buffs) do
 			t_insert(buffList, name)

@@ -75,10 +75,23 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("ChaoticMight", "FLAG", true, "Base", { type = "Condition", var = "ChaoticMight" })
 	modDB:NewMod("Tailwind", "FLAG", true, "Base", { type = "Condition", var = "Tailwind" })
 	modDB:NewMod("Adrenaline", "FLAG", true, "Base", { type = "Condition", var = "Adrenaline" })
-	modDB:NewMod("LesserMassiveShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserMassiveShrine" })
-	modDB:NewMod("LesserBrutalShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserBrutalShrine" })
+	modDB:NewMod("AccelerationShrine", "FLAG", true, "Base", { type = "Condition", var = "AccelerationShrine" })
+	modDB:NewMod("BrutalShrine", "FLAG", true, "Base", { type = "Condition", var = "BrutalShrine" })
 	modDB:NewMod("DiamondShrine", "FLAG", true, "Base", { type = "Condition", var = "DiamondShrine" })
+	modDB:NewMod("DivineShrine", "FLAG", true, "Base", { type = "Condition", var = "DivineShrine" })
+	modDB:NewMod("EchoingShrine", "FLAG", true, "Base", { type = "Condition", var = "EchoingShrine" })
+	modDB:NewMod("GloomShrine", "FLAG", true, "Base", { type = "Condition", var = "GloomShrine" })
+	modDB:NewMod("ImpenetrableShrine", "FLAG", true, "Base", { type = "Condition", var = "ImpenetrableShrine" })
 	modDB:NewMod("MassiveShrine", "FLAG", true, "Base", { type = "Condition", var = "MassiveShrine" })
+	modDB:NewMod("ReplenishingShrine", "FLAG", true, "Base", { type = "Condition", var = "ReplenishingShrine" })
+	modDB:NewMod("ResistanceShrine", "FLAG", true, "Base", { type = "Condition", var = "ResistanceShrine" })
+	modDB:NewMod("ResonatingShrine", "FLAG", true, "Base", { type = "Condition", var = "ResonatingShrine" })
+	modDB:NewMod("LesserAccelerationShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserAccelerationShrine" }, { type = "Condition", var = "AccelerationShrine", neg = true })
+	modDB:NewMod("LesserBrutalShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserBrutalShrine" }, { type = "Condition", var = "BrutalShrine", neg = true })
+	modDB:NewMod("LesserImpenetrableShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserImpenetrableShrine" }, { type = "Condition", var = "ImpenetrableShrine", neg = true })
+	modDB:NewMod("LesserMassiveShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserMassiveShrine" }, { type = "Condition", var = "MassiveShrine", neg = true })
+	modDB:NewMod("LesserReplenishingShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserReplenishingShrine" }, { type = "Condition", var = "ReplenishingShrine", neg = true })
+	modDB:NewMod("LesserResistanceShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserResistanceShrine" }, { type = "Condition", var = "ResistanceShrine", neg = true })
 	modDB:NewMod("AlchemistsGenius", "FLAG", true, "Base", { type = "Condition", var = "AlchemistsGenius" })
 	modDB:NewMod("LuckyHits", "FLAG", true, "Base", { type = "Condition", var = "LuckyHits" })
 	modDB:NewMod("Convergence", "FLAG", true, "Base", { type = "Condition", var = "Convergence" })
@@ -366,6 +379,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.calcsInput = build.calcsTab.input
 		env.mode = mode
 		env.spec = override.spec or build.spec
+		env.override = override
 		env.classId = env.spec.curClassId
 
 		modDB = new("ModDB")

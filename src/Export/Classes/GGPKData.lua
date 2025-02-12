@@ -69,7 +69,7 @@ function GGPKClass:ExtractFiles()
 	local fileList = ''
 	for _, fname in ipairs(datList) do
 		if USE_DAT64 then
-			fileList = fileList .. '"' .. fname .. '64" '
+			fileList = fileList .. '"' .. fname .. 'c64" '
 		else
 			fileList = fileList .. '"' .. fname .. '" '
 		end
@@ -123,7 +123,7 @@ function GGPKClass:AddDatFiles()
 end
 
 function GGPKClass:AddDat64Files()
-	local datFiles = scanDir(self.oozPath .. "Data\\", '%w+%.dat64$')
+	local datFiles = scanDir(self.oozPath .. "Data\\", '%w+%.datc64$')
 	for _, f in ipairs(datFiles) do
 		local record = { }
 		record.name = f
@@ -229,31 +229,31 @@ function GGPKClass:GetNeededFiles()
 		"Data/UniqueStashLayout.dat",
 		"Data/UniqueStashTypes.dat",
 		"Data/Shrines.dat",
-		"Data/passiveoverridelimits.dat",
-		"Data/passiveskilloverrides.dat",
-		"Data/passiveskilloverridetypes.dat",
-		"Data/passiveskilltattoos.dat",
-		"Data/passiveskilltattootargetsets.dat",
-		"Data/displayminionmonstertype.dat",
+		"Data/PassiveOverrideLimits.dat",
+		"Data/PassiveSkillOverrides.dat",
+		"Data/PassiveSkillOverrideTypes.dat",
+		"Data/PassiveSkillTattoos.dat",
+		"Data/PassiveSkillTattooTargetSets.dat",
+		"Data/DisplayMinionMonsterType.dat",
 		"Data/tinctures.dat",
-		"Data/gemeffects.dat",
-		"Data/actiontypes.dat",
-		"Data/azmerilifescalingperlevel.dat",
-		"Data/azmerifeaturerooms.dat",
-		"Data/corpsetypetags.dat",
-		"Data/itemisedcorpse.dat",
-		"Data/indexableskillgems.dat",
-		"Data/indexablesupportgems.dat",
-		"Data/itemclasscategories.dat",
-		"Data/miniontype.dat",
-		"Data/summonedspecificmonsters.dat",
-		"Data/gameconstants.dat",
-		"Data/alternatequalitytypes.dat",
-		"Data/weaponclasses.dat",
-		"Data/monsterconditions.dat",
-		"Data/rarity.dat",
-		"Data/trademarketcategory.dat",
-		"Data/trademarketcategorygroups.dat",
+		"Data/GemEffects.dat",
+		"Data/ActionTypes.dat",
+		"Data/AzmeriLifeScalingPerLevel.dat",
+		"Data/AzmeriFeatureRooms.dat",
+		"Data/CorpseTypeTags.dat",
+		"Data/ItemisedCorpse.dat",
+		"Data/IndexableSkillGems.dat",
+		"Data/IndexableSupportGems.dat",
+		"Data/ItemClassCategories.dat",
+		"Data/MinionType.dat",
+		"Data/SummonedSpecificMonsters.dat",
+		"Data/GameConstants.dat",
+		"Data/AlternateQualityTypes.dat",
+		"Data/WeaponClasses.dat",
+		"Data/MonsterConditions.dat",
+		"Data/Rarity.dat",
+		"Data/TradeMarketCategory.dat",
+		"Data/TradeMarketCategoryGroups.dat",
 		"Data/PlayerTradeWhisperFormats.dat",
 		"Data/TradeMarketCategoryListAllClass.dat",
 		"Data/TradeMarketIndexItemAs.dat",
@@ -261,7 +261,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/Commands.dat",
 		"Data/ModEquivalencies.dat",
 		"Data/InfluenceTags.dat",
-		"Data/leaguenames.dat"
+		"Data/LeagueNames.dat"
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

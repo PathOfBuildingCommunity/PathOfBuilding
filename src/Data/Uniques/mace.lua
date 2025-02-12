@@ -812,6 +812,31 @@ Adds (94-98) to (115-121) Physical Damage
 Enemies killed explode dealing 10% of their Life as Fire Damage
 Recover 5% of Life on Kill
 ]],[[
+Serle's Masterwork
+Phantom Mace
+League: Settlers of Kalguur
+Requires Level 53, 170 Str
+Implicits: 1
+10% reduced Enemy Stun Threshold
++(30-40) to Strength 
++(30-40) to Dexterity
+(150-250)% increased Physical Damage
++(400-500) to Accuracy Rating
+Can have 2 additional Runesmithing Enchantments
+Can be Enchanted by a Kalguuran Runesmith
+]],[[
+Tawhoa's Felling
+Piledriver
+League: Settlers of Kalguur
+Requires Level 61, 212 Str
+Implicits: 1
+20% reduced Enemy Stun Threshold
+Trigger Level 20 Tawhoa's Chosen when you Attack with a Non-Vaal Slam or Strike Skill near an Enemy
++(30-40) to Strength
+(250-300)% increased Physical Damage
+(20-30)% increased Stun Duration on Enemies
+(20-30)% reduced Enemy Stun Threshold with this Weapon
+]],[[
 Tidebreaker
 Imperial Maul
 Variant: Pre 3.5.0

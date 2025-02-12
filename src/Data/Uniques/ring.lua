@@ -565,6 +565,18 @@ Requires Level 64
 Attacks inflict Unnerve on Critical Strike for 4 seconds
 Spells inflict Intimidate on Critical Strike for 4 seconds
 ]],[[
+The Hateful Accuser 
+Nameless Ring
+League: Settlers of Kalguur
+Requires Level 50
+Implicits: 2
+50% increased Elemental Ailment Duration on you
+{tags:caster}50% reduced Effect of Curses on you
+Grants Level 20 Penance Mark
+{tags:caster,speed}(6-12)% increased Cast Speed
+{tags:life}+(30-60) to maximum Life
+{tags:jewellery_resistance}+(7-19)% to Chaos Resistance
+]],[[
 Heartbound Loop
 Moonstone Ring
 Requires Level 20
@@ -1011,6 +1023,18 @@ Implicits: 1
 10% increased Light Radius
 Ignited Enemies you hit are destroyed on Kill
 ]],[[
+The Queller of Minds
+Nameless Ring
+League: Settlers of Kalguur
+Requires Level 50
+Implicits: 2
+50% increased Elemental Ailment Duration on you
+{tags:caster}50% reduced Effect of Curses on you
+Grants Level 20 Pacify
+{tags:caster,speed}(6-12)% increased Cast Speed
+{tags:mana}+(30-60) to maximum Mana
+{tags:jewellery_resistance}+(7-19)% to Chaos Resistance
+]],[[
 Redblade Band
 Unset Ring
 League: Warbands
@@ -1077,6 +1101,18 @@ Curse Auras from Socketed Skills also affect you
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:caster}20% reduced Effect of Curses on you
 (15-25)% increased Damage with Hits and Ailments against Cursed Enemies
+]],[[
+The Selfish Shepherd
+Nameless Ring
+League: Settlers of Kalguur
+Requires Level 50
+Implicits: 2
+50% increased Elemental Ailment Duration on You
+{tags:caster}50% reduced Effect of Curses on You
+Grants Level 20 Affliction
+{tags:caster,speed}(6-12)% increased Cast Speed
+{tags:jewellery_defense}+(30-60) to maximum Energy Shield
+{tags:jewellery_resistance}+(7-19)% to Chaos Resistance
 ]],[[
 Shavronne's Revelation
 Moonstone Ring
