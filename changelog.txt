@@ -1,3 +1,33 @@
+VERSION[2.50.0][2025/02/12]
+
+--- New to Path of Building ---
+* Add support for Legacy Of Phrecia Ascendancies (LocalIdentity)
+  * Add unique jewel for each Ascendancy to make it easier to test
+* Add Support for Shrine buffs from The Gull and staff Rune craft (LocalIdentity)
+* Add poedb.tw to import website list (Chuanhsing)
+* Basic Unicode support (zao)
+* Implement ability to delete folders with contents (Paliak)
+
+--- Fixed Crashes ---
+* Fix crash related to trigger calculations (Paliak)
+
+--- Fixed Calculations ---
+* Fix Viper Strike of Mamba poison (Regisle)
+* Improve EHP accuracy (Edvinas-Smita)
+* Fixed Non-Damaging Ailment issue with Critical Mastery in Calc Screen (Jonathan-Dang)
+
+--- Fixed Behaviours ---
+* Fixed interaction between block replacement effect from Determined Survivor and Necromantic Aegis (Jonathan-Dang)
+* Disable "gain when hit" for builds which cannot survive unlucky hits (Regisle)
+
+--- User Interface ---
+* Show Poison DPS in sidebar as the DPS for a single poison (Regisle)
+
+--- Fixed Bugs ---
+* Fixes Cinderswallow Urn missing the damage taken mod (n1tr0xs)
+* Update Breathstealer's unique mods (n1tr0xs)
+
+
 VERSION[2.49.3][2024/11/24]
 
 --- Fixed Bugs ---

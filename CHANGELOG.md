@@ -1,5 +1,36 @@
 # Changelog
 
+## [v2.50.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.50.0) (2025/02/12)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.49.3...v2.50.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- Add support for Legacy Of Phrecia Ascendancies [\#8449](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8449), [\#8456](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8456) ([LocalIdentity](https://github.com/LocalIdentity))
+  - Add unique jewel for each Ascendancy to make it easier to test
+- Add Support for Shrine buffs from The Gull and staff Rune craft [\#8457](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8457) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add poedb.tw to import website list [\#8401](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8401) ([Chuanhsing](https://github.com/Chuanhsing))
+- Basic Unicode support [\#8412](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8412) ([zao](https://github.com/zao))
+- Implement ability to delete folders with contents [\#8416](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8416) ([Paliak](https://github.com/Paliak))
+### Fixed Crashes
+- Fix crash related to trigger calculations [\#8392](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8392) ([Paliak](https://github.com/Paliak))
+### Fixed Calculations
+- Fix Viper Strike of Mamba poison [\#8253](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8253) ([Regisle](https://github.com/Regisle))
+- Improve EHP accuracy [\#8430](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8430) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
+- Fixed Non-Damaging Ailment issue with Critical Mastery in Calc Screen [\#8393](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8393) ([Jonathan-Dang](https://github.com/Jonathan-Dang))
+### Fixed Behaviours
+- Fixed interaction between block replacement effect from Determined Survivor and Necromantic Aegis [\#8417](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8417) ([Jonathan-Dang](https://github.com/Jonathan-Dang))
+- Disable "gain when hit" for builds which cannot survive unlucky hits [\#8342](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8342) ([Regisle](https://github.com/Regisle))
+### User Interface
+- Show Poison DPS in sidebar as the DPS for a single poison [\#8254](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8254) ([Regisle](https://github.com/Regisle))
+### Fixed Bugs
+- Fixes Cinderswallow Urn missing the damage taken mod [\#8419](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8419) ([n1tr0xs](https://github.com/n1tr0xs))
+- Update Breathstealer's unique mods [\#8390](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8390) ([n1tr0xs](https://github.com/n1tr0xs))
+
+
+
 ## [v2.49.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.49.3) (2024/11/24)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.49.2...v2.49.3)
