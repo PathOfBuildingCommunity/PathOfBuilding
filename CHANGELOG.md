@@ -8,8 +8,8 @@
 
 ## What's Changed
 ### New to Path of Building
-- Add support for Legacy Of Phrecia Ascendancies [\#8456](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8449, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8456) ([LocalIdentity](https://github.com/LocalIdentity))
-  * Add unique jewel for each Ascendancy to make it easier to test
+- Add support for Legacy Of Phrecia Ascendancies [\#8449](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8449), [\#8456](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8456) ([LocalIdentity](https://github.com/LocalIdentity))
+  - Add unique jewel for each Ascendancy to make it easier to test
 - Add Support for Shrine buffs from The Gull and staff Rune craft [\#8457](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8457) ([LocalIdentity](https://github.com/LocalIdentity))
 - Add poedb.tw to import website list [\#8401](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8401) ([Chuanhsing](https://github.com/Chuanhsing))
 - Basic Unicode support [\#8412](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8412) ([zao](https://github.com/zao))
