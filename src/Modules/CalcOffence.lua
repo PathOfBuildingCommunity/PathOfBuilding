@@ -2621,7 +2621,6 @@ function calcs.offence(env, actor, activeSkill)
 					output.RuthlessBlowChance = round(100 / output.RuthlessBlowMaxCount)
 				elseif ruthlessEffect == "MAX" then
 					output.RuthlessBlowChance = 100
-					skillData.dpsMultiplier = skillData.dpsMultiplier / (output.RuthlessBlowMaxCount or 1)
 				end
 			else
 				output.RuthlessBlowChance = 0
