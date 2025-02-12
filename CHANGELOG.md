@@ -5,7 +5,7 @@
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.50.0...v2.50.1)
 
 ## What's Changed
-### Fixed bugs
+### Fixed Calculations
 - Fix "Full Poison DPS" value capping to one stack [\#8460](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8460) ([Wires77](https://github.com/Wires77))
 
 

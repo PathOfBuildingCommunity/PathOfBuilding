@@ -1,4 +1,6 @@
 VERSION[2.50.1][2025/02/12]
+
+--- Fixed Calculations ---
 * Fix "Full Poison DPS" value capping to one stack (Wires77)
 
 

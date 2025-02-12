@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <PoBVersion>
-	<Version number="2.50.0" />
+	<Version number="2.50.1" />
 	<Source part="default" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
-	<File name="changelog.txt" part="default" sha1="6ea8d85b4f93698089bb0ae64cbcb036d17672f3" />
+	<File name="changelog.txt" part="default" sha1="8dc6b95267f57136d6b9a725f4189d86f5e8da18" />
 	<File name="help.txt" part="default" sha1="e486cb63a78f5ca355430b67fa23e02fd30f5771" />
 	<File name="LICENSE.md" part="default" sha1="c77635aa1ba0a2ffe8eb72f93b3376e3a3d2041a" />
 	<File name="Assets/ascendants/ascendant.jpeg" part="program" sha1="c9edaa10dad44c5361f873e68fa39a831338e9ec" />
@@ -261,7 +261,7 @@
 	<File name="Modules/CalcMirages.lua" part="program" sha1="295aa6fc0b3b6d8e1e4e2cab3a3f5c2a23b55f0b" />
 	<File name="Modules/CalcOffence.lua" part="program" sha1="7ec35dba06102bbc5a72f41003ae2bcfea9657c9" />
 	<File name="Modules/CalcPerform.lua" part="program" sha1="de3e5db7cc5ecadd861cd928ef1dbe5580becf92" />
-	<File name="Modules/Calcs.lua" part="program" sha1="6d982fcea31b9a226a2b2eb48791bd5f4c3d6603" />
+	<File name="Modules/Calcs.lua" part="program" sha1="8a3fd9effffe07a3770bd48b23f1a8be3c00de42" />
 	<File name="Modules/CalcSections.lua" part="program" sha1="f4fe5765e8f68b179ef4381e09e812462240acc2" />
 	<File name="Modules/CalcSetup.lua" part="program" sha1="4d8135ef8e6edadf68e92b365446006e65fbfe4d" />
 	<File name="Modules/CalcTools.lua" part="program" sha1="c84a73b982a485cbca75f220c3ab091e355f0436" />
