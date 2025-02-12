@@ -1119,7 +1119,7 @@ function main:OpenUpdatePopup()
 end
 
 function main:OpenAboutPopup(helpSectionIndex)
-	local textSize, titleSize, popupWidth = 16, 24, 810
+	local textSize, subTitleSize, titleSize, popupWidth = 16, 20, 24, 810
 	local changeList = { }
 	local changeVersionHeights = { }
 	local changelogName = launch.devMode and "../changelog.txt" or "changelog.txt"
@@ -1134,6 +1134,8 @@ function main:OpenAboutPopup(helpSectionIndex)
 				end
 				t_insert(changeVersionHeights, #changeList * textSize)
 				t_insert(changeList, { height = titleSize, "^7Version "..ver.." ("..date..")" })
+			elseif line:match("^---") then
+				t_insert(changeList, { height = subTitleSize, "^7"..line })
 			else
 				t_insert(changeList, { height = textSize, "^7"..line })
 			end
