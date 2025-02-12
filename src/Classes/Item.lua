@@ -48,7 +48,7 @@ local function getCatalystScalar(catalystId, tags, quality)
 	return 1
 end
 
-local influenceInfo = itemLib.influenceInfo
+local influenceInfo = itemLib.influenceInfo.all
 
 local ItemClass = newClass("Item", function(self, raw, rarity, highQuality)
 	if raw then
@@ -757,6 +757,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.canHaveTwoEnchants = true
 					self.canHaveThreeEnchants = true
 					self.canHaveFourEnchants = true
+				elseif lineLower == "has elder, shaper and all conqueror influences" then
+					self.HasElderShaperAndAllConquerorInfluences = true
+					for _, curInfluenceInfo in ipairs(itemLib.influenceInfo.default) do
+						self[curInfluenceInfo.key] = true
+					end
+				elseif lineLower:match("if the eater of worlds is dominant") then
+					self.canHaveEldritchInfluence = true
 				elseif lineLower == "has a crucible passive skill tree with only support passive skills" then
 					self.canHaveOnlySupportSkillsCrucibleTree = true
 				elseif lineLower == "has a crucible passive skill tree" then
