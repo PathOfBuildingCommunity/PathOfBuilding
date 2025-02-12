@@ -4926,6 +4926,9 @@ local specialModList = {
 	["gain elusive on critical strike"] = {
 		flag("Condition:CanBeElusive"),
 	},
+	["gain a random shrine buff every (%d+) seconds"] = {
+		flag("Condition:CanHaveRegularShrines"),
+	},
 	["(%d+)%% chance to gain elusive when you block while dual wielding"] = { flag("Condition:CanBeElusive", { type = "Condition", var = "DualWielding" }) },
 	["elusive is removed from you at (%d+)%% effect"] = function(num) return { mod("ElusiveEffectMinThreshold", "OVERRIDE", num) } end,
 	["nearby enemies have (%a+) resistance equal to yours"] = function(_, res) return { flag("Enemy"..(res:gsub("^%l", string.upper)).."ResistEqualToYours") } end,

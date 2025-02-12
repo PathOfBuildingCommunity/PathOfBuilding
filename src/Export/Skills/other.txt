@@ -265,6 +265,7 @@ local skills, mod, flag, skill = ...
 #skill TriggeredSummonLesserShrine
 #flags spell duration
 	fromItem = true,
+#baseMod flag("Condition:CanHaveLesserShrines", { type = "GlobalEffect", effectType = "Buff", effectName = "Shrines" })
 #mods
 
 #noGem
