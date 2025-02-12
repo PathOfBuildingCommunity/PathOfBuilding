@@ -3596,6 +3596,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
+	-- Ailment + Non Damaging Ailment Section
 	local ailmentData = data.nonDamagingAilment
 	for _, ailment in ipairs(ailmentTypeList) do
 		skillFlags[string.lower(ailment)] = false
@@ -3665,6 +3666,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.PoisonChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "PoisonChance") + enemyDB:Sum("BASE", nil, "SelfPoisonChance"))
 			output.ChaosPoisonChance = m_min(100, skillModList:Sum("BASE", cfg, "ChaosPoisonChance"))
 		end
+		-- Elemental Ailment Affliction Chance | Elemental Ailment Additionals
 		for _, ailment in ipairs(elementalAilmentTypeList) do
 			local chance = skillModList:Sum("BASE", cfg, "Enemy"..ailment.."Chance") + enemyDB:Sum("BASE", nil, "Self"..ailment.."Chance")
 			if ailment == "Chill" then
@@ -4713,6 +4715,7 @@ function calcs.offence(env, actor, activeSkill)
 		local enemyTypeMult = isBoss and 7.68 or 1
 		local enemyThreshold = enemyAilmentThreshold * enemyTypeMult * enemyMapLifeMult * enemyDB:More(nil, "Life") * enemyMapAilmentMult * enemyDB:More(nil, "AilmentThreshold")
 
+		-- Defaulting ailments dictionary | Done to organize non-damaging ailments by type and have standardized effect and threshhold calcs
 		local ailments = {
 			["Chill"] = {
 				effList = { 10, 20 },
@@ -4745,6 +4748,7 @@ function calcs.offence(env, actor, activeSkill)
 				ramping = false,
 			},
 		}
+		-- Chilling Area like floor Frost has a different effect and must be done differently
 		if activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.NonHitChill] then
 			skillFlags.chill = true
 			local incChill = skillModList:Sum("INC", cfg, "EnemyChillEffect")
@@ -4763,6 +4767,7 @@ function calcs.offence(env, actor, activeSkill)
 				})
 			end
 		end
+		-- Crit ailments are done differently for Freeze
 		if (output.FreezeChanceOnHit + output.FreezeChanceOnCrit) > 0 then
 			if globalBreakdown then
 				globalBreakdown.FreezeDurationMod = {
@@ -4779,6 +4784,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 		end
+		-- Cycle through all non-damage ailments here, modifying them if needed 
 		for ailment, val in pairs(ailments) do
 			if (output[ailment.."ChanceOnHit"] + output[ailment.."ChanceOnCrit"]) > 0 then
 				if globalBreakdown then
@@ -4786,12 +4792,21 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", ailmentMode == "CRIT" and "Crits Only" or "Average Damage")
 					}
 				end
+				-- Sets the crit strike condition to match ailment mode.
+				if ailmentMode == "CRIT" then
+					cfg.skillCond["CriticalStrike"] = true
+				else
+					cfg.skillCond["CriticalStrike"] = false
+				end
+
 				local damage = calcAilmentDamage(ailment, output.CritChance, calcAverageSourceDamage(ailment)) * skillModList:More(cfg, ailment.."AsThoughDealing")
+				-- We check if there is a damage instance above 0 since if you deal 0 damage, you don't apply anything.
 				if damage > 0 then
 					skillFlags[string.lower(ailment)] = true
 					local incDur = skillModList:Sum("INC", cfg, "Enemy"..ailment.."Duration", "EnemyElementalAilmentDuration", "EnemyAilmentDuration") + enemyDB:Sum("INC", nil, "Self"..ailment.."Duration", "SelfElementalAilmentDuration", "SelfAilmentDuration")
 					local moreDur = skillModList:More(cfg, "Enemy"..ailment.."Duration", "EnemyElementalAilmentDuration", "EnemyAilmentDuration") * enemyDB:More(nil, "Self"..ailment.."Duration", "SelfElementalAilmentDuration", "SelfAilmentDuration")
 					output[ailment.."Duration"] = ailmentData[ailment].duration * (1 + incDur / 100) * moreDur * debuffDurationMult
+					-- Line Controlls Crit Conditional for Crit Mastery
 					output[ailment.."EffectMod"] = calcLib.mod(skillModList, cfg, "Enemy"..ailment.."Effect")
 					if breakdown then
 						local maximum = globalOutput["Maximum"..ailment] or ailmentData[ailment].max
