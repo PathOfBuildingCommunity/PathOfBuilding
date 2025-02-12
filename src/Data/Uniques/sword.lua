@@ -230,6 +230,18 @@ Adds (5-8) to (10-14) Physical Damage
 20% chance to Avoid being Stunned
 (40-30)% reduced Stun and Block Recovery
 ]],[[
+The Living Blade
+Ezomyte Blade
+League: Settlers of Kalguur
+Requires Level 61, 113 Str, 113 Dex
+Implicits: 1
++25% to Global Critical Strike Multiplier
+(100-140)% increased Physical Damage
+(25-35)% increased Attack Speed
+Cannot be Poisoned
+You can have an additional Tincture active
+10% chance to remove 1 Mana Burn on Kill
+]],[[
 Oni-Goroshi
 Charan's Sword
 Source: Drops from unique{Hillock}

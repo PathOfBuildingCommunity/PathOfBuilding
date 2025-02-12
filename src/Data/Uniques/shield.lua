@@ -153,6 +153,19 @@ Implicits: 1
 {variant:2,3}2% of Attack Damage Leeched as Life against Taunted Enemies
 {variant:4}Warcries have infinite Power
 ]],[[
+Svalinn
+Girded Tower Shield
+League: Settlers of Kalguur
+Requires Level 51, 123 Str
+Implicits: 1
++(10-20) to maximum Life
+(10-15)% Chance to Block Spell Damage
++(100-150) to Ward
+-10% to maximum Chance to Block Attack Damage
+-10% to maximum Chance to Block Spell Damage
+Chance to Block is Lucky
+Trigger a Socketed Elemental Spell on Block, with a 0.25 second Cooldown
+]],[[
 Titucius' Span
 Reinforced Tower Shield
 Variant: Pre 2.6.0

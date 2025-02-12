@@ -3,6 +3,15 @@
 return {
 -- Gloves: Armour
 [[
+Admiral's Arrogance
+Antique Gauntlets
+League: Settlers of Kalguur
+Requires Level 39, 58 Str
+(6-12)% increased Attack Speed
+(100-140)% increased Armour
+(10-20)% chance that if you would gain Rage on Hit, you instead gain up to your maximum Rage
++(1-3) to Level of all Melee Skill Gems
+]],[[
 Atziri's Acuity
 Vaal Gauntlets
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}

@@ -131,6 +131,15 @@ Requires Level 55, 114 Str
 {variant:1,2}10% increased Stun and Block Recovery
 {variant:3}Cannot be Frozen or Chilled if you've used a Fire Skill Recently
 ]],[[
+Kaom's Command
+Siege Helmet
+League: Settlers of Kalguur
+Requires Level 48, 101 Str
++(60-80) to maximum Life
+(25-35)% increased Warcry Speed
+Nearby corpses Explode when you Warcry, dealing (5-10)% of their Life as Physical Damage
+Warcry Skills have (25-35)% increased Area of Effect
+]],[[
 Usurper's Penance
 Eternal Burgonet
 League: Expedition
