@@ -253,27 +253,27 @@ Selected Alt Variant: 2
 Selected Alt Variant Two: 3
 Selected Alt Variant Three: 4
 Requires Class Witch
-{variant:1}--- Harbinger of Recovery ---
+{variant:1}--- Harbinger of Thought ---
 {variant:1}30% increased Energy Shield Recovery rate
 {variant:1}30% increased Mana Recovery rate
-{variant:1}--- Harbinger of Arcane ---
+{variant:2}--- Harbinger of Arcane ---
 {variant:2}Grants Summon Greater Harbinger of the Arcane Skill
-{variant:1}--- Harbinger of Curses ---
-{variant:2}100% increased Area of Effect of Hex Skills
-{variant:2}Temporal Chains has no Reservation if Cast as an Aura
-{variant:1}--- Harbinger of Flow ---
-{variant:3}40% increased Cooldown Recovery Rate
-{variant:1}--- Harbinger of Time ---
-{variant:3}Grants Summon Greater Harbinger of Time Skill
-{variant:1}--- Harbinger of Focus ---
-{variant:3}Grants Summon Greater Harbinger of Focus Skill
-{variant:1}--- Harbinger of Will ---
-{variant:4}Immune to Curses while Channelling
-{variant:4}Unaffected by Chill while Channelling
-{variant:4}Unaffected by Shock while Channelling
-{variant:1}--- Harbinger of Faith ---
-{variant:5}Buffs on you expire 30% slower
-{variant:5}Debuffs on you expire 30% faster
+{variant:3}--- Harbinger of Curses ---
+{variant:3}100% increased Area of Effect of Hex Skills
+{variant:3}Temporal Chains has no Reservation if Cast as an Aura
+{variant:4}--- Harbinger of Flow ---
+{variant:4}40% increased Cooldown Recovery Rate
+{variant:5}--- Harbinger of Time ---
+{variant:5}Grants Summon Greater Harbinger of Time Skill
+{variant:6}--- Harbinger of Focus ---
+{variant:6}Grants Summon Greater Harbinger of Focus Skill
+{variant:7}--- Harbinger of Will ---
+{variant:7}Immune to Curses while Channelling
+{variant:7}Unaffected by Chill while Channelling
+{variant:7}Unaffected by Shock while Channelling
+{variant:8}--- Harbinger of Faith ---
+{variant:8}Buffs on you expire 30% slower
+{variant:8}Debuffs on you expire 30% faster
 ]],[[
 Rarity: RELIC
 Witch: Herald 
@@ -477,9 +477,9 @@ Prismatic Jewel
 League: Legacy of Phrecia
 Variant: Devout of Gruthkul
 Variant: Devout of Ralakesh
+Variant: Devout of Brine King
 Variant: Devout of Ryslatha
 Variant: Devout of Garukhan
-Variant: Devout of Lunaris
 Variant: Devout of Lunaris
 Variant: Devout of Yugul
 Variant: Devout of Abberath
