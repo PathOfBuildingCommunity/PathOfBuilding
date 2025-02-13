@@ -15,6 +15,7 @@ local m_cos = math.cos
 local m_pi = math.pi
 
 LoadModule("GameVersions")
+LoadModule("Modules/IconHelper")
 LoadModule("Modules/Common")
 LoadModule("Modules/Data")
 LoadModule("Modules/ModTools")
