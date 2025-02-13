@@ -96,6 +96,55 @@ Requires Class Ranger
 {variant:9}+1 to Maximum Frenzy Charges and Maximum Power Charges
 ]],[[
 Rarity: RELIC
+Ranger: Wildspeaker
+Prismatic Jewel
+League: Legacy of Phrecia
+Variant: Above the Clouds
+Variant: Pack Mentality
+Variant: Feathered Scales
+Variant: Flash of Teeth
+Variant: Scourge of the Wilds
+Variant: Boon of the First Ones
+Variant: Greatwolf's Call
+Variant: Fearful Symmetry
+Variant: Primal Instinct
+Has Alt Variant: true
+Has Alt Variant Two: true
+Has Alt Variant Three: true
+Selected Variant: 1
+Selected Alt Variant: 2
+Selected Alt Variant Two: 3
+Selected Alt Variant Three: 4
+Requires Class Ranger
+{variant:1}--- Above the Clouds ---
+{variant:1}200% increased Aspect of the Avian Buff Effect
+{variant:1}Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allies
+{variant:2}--- Pack Mentality ---
+{variant:2}Trigger Level 20 Summon Spectral Wolf on Critical Strike
+{variant:3}--- Feathered Scales ---
+{variant:3}Grants Level 30 Aspect of the Avian Skill
+{variant:3}Aspect of the Avian has no Reservation
+{variant:4}--- Flash of Teeth ---
+{variant:4}Grants Level 30 Aspect of the Cat Skill
+{variant:4}Aspect of the Cat has no Reservation
+{variant:5}--- Scourge of the Wilds ---
+{variant:5}Minions deal 1% increased Damage per 5 Dexterity
+{variant:5}Increases and Reductions to Minion Damage also affect you at 150% of their value
+{variant:6}--- Boon of the First Ones ---
+{variant:6}On Killing a Rare Monster gain 1 of its Modifiers for 20 seconds
+{variant:6}Nearby Enemies Killed by anyone count as being Killed by you instead
+{variant:7}--- Greatwolf's Call ---
+{variant:7}You and nearby Party Members Share Power, Frenzy and Endurance Charges with each other
+{variant:7}You and nearby Allies have Tailwind
+{variant:8}--- Fearful Symmetry ---
+{variant:8}Gain up to your maximum number of Frenzy and Power Charges when you gain Cat's Stealth
+{variant:8}+1 to Maximum Frenzy Charges
+{variant:8}+1 to Maximum Power Charges
+{variant:9}--- Primal Instinct ---
+{variant:9}-15% to amount of Suppressed Spell Damage Prevented
+{variant:9}+100% chance to Suppress Spell Damage
+]],[[
+Rarity: RELIC
 Marauder: Antiquarian
 Prismatic Jewel
 League: Legacy of Phrecia
@@ -220,6 +269,7 @@ Requires Class Shadow
 {variant:3}Envy has no Reservation
 {variant:4}--- Threadspinner ---
 {variant:4}Grants Level 30 Aspect of the Spider Skill
+{variant:4}Aspect of the Spider has no Reservation
 {variant:5}--- Broodguard ---
 {variant:5}Trigger Level 20 Raise Spiders on Kill
 {variant:6}--- Skincrawlers ---
@@ -232,6 +282,51 @@ Requires Class Shadow
 {variant:8}--- Silk Dancer ---
 {variant:8}Enemies affected by your Spider's Webs deal 15% reduced Damage
 {variant:8}Enemies affected by your Spider's Webs have -15% to All Resistances
+]],[[
+Rarity: RELIC
+Shadow: Blind Prophet
+Prismatic Jewel
+League: Legacy of Phrecia
+Variant: Directionless
+Variant: Sightless
+Variant: Careless
+Variant: Restless
+Variant: Lightless
+Variant: Formless
+Variant: Faithless
+Variant: Shapeless
+Has Alt Variant: true
+Has Alt Variant Two: true
+Has Alt Variant Three: true
+Selected Variant: 1
+Selected Alt Variant: 2
+Selected Alt Variant Two: 3
+Selected Alt Variant Three: 4
+Requires Class Shadow
+{variant:1}--- Directionless ---
+{variant:1}Projectiles have 50% chance to Return to you
+{variant:1}Projectiles are fired in random directions
+{variant:2}--- Sightless ---
+{variant:2}Base Critical Strike Chance for Attacks with Weapons is 12%
+{variant:2}You are Blind
+{variant:3}--- Careless ---
+{variant:3}Skills fire 2 additional Projectiles
+{variant:4}--- Restless ---
+{variant:4}Enemies near corpses affected by your Curses are Blinded
+{variant:4}Non-Aura Curses you inflict are not removed from Dying Enemies
+{variant:4}Enemies Killed near corpses affected by your Curses explode, dealing
+{variant:4}5% of their Life as Physical Damage
+{variant:5}--- Lightless ---
+{variant:5}5% increased Maximum Life per Abyss Jewel affecting you
+{variant:5}5% increased Maximum Mana per Abyss Jewel affecting you
+{variant:6}--- Formless ---
+{variant:6}Trigger Level 30 Shade Form when Hit
+{variant:6}30% increased Skill Effect Duration
+{variant:7}--- Faithless ---
+{variant:7}Your Curse Limit is equal to your maximum Power Charges
+{variant:8}--- Shapeless ---
+{variant:8}50% chance to gain Elusive on Critical Strike
+{variant:8}Elusive is removed from you at 50% effect
 ]],[[
 Rarity: RELIC
 Witch: Harbinger
@@ -427,6 +522,50 @@ Requires Class Duelist
 {variant:10}Grants Level 30 Grace Skill
 ]],[[
 Rarity: RELIC
+Duelist: Aristocrat 
+Prismatic Jewel
+League: Legacy of Phrecia
+Variant: Passive Point
+Variant: Inherited Fortune
+Variant: Private Tuition
+Variant: Illicit Gains
+Variant: Family Heirlooms
+Variant: Gem-lined Cap
+Variant: Centerpiece
+Variant: Dreadful Attitude
+Variant: Fancy Foil
+Has Alt Variant: true
+Has Alt Variant Two: true
+Has Alt Variant Three: true
+Selected Variant: 1
+Selected Alt Variant: 2
+Selected Alt Variant Two: 3
+Selected Alt Variant Three: 4
+Requires Class Duelist
+{variant:1}--- Passive Point ---
+{variant:1}Grants 1 Passive Skill Point
+{variant:2}--- Inherited Fortune ---
+{variant:2}Grants 5 Passive Skill Points
+{variant:3}--- Private Tuition ---
+{variant:3}Cannot be Shocked if Intelligence is higher than Strength
+{variant:3}30% increased Intelligence
+{variant:4}--- Illicit Gains ---
+{variant:4}Cannot be Ignited if Strength is higher than Dexterity
+{variant:4}30% increased Strength
+{variant:5}--- Family Heirlooms ---
+{variant:5}+1 to Level of all Skill Gems
+{variant:6}--- Gem-lined Cap ---
+{variant:6}+3 to Level of all non-Exceptional Support Gems
+{variant:7}--- Centerpiece ---
+{variant:7}+15% to Quality of all Skill Gems
+{variant:8}--- Dreadful Attitude ---
+{variant:8}Items and Gems have 25% reduced Attribute Requirements
+{variant:8}5% increased Damage per 5 of your lowest Attribute
+{variant:9}--- Fancy Foil ---
+{variant:9}Cannot be Frozen if Dexterity is higher than Intelligence
+{variant:9}30% increased Dexterity
+]],[[
+Rarity: RELIC
 Templar: Architect of Chaos 
 Prismatic Jewel
 League: Legacy of Phrecia
@@ -526,6 +665,57 @@ Requires Class Templar
 {variant:9}Nearby Enemies are Blinded
 {variant:9}100% increased Critical Strike Chance against Blinded Enemies
 {variant:9}Enemies Blinded by you have 100% reduced Critical Strike Chance
+]],[[
+Rarity: RELIC
+Templar: Puppeteer
+Prismatic Jewel
+League: Legacy of Phrecia
+Variant: Enervating Presence
+Variant: Hexbearer
+Variant: Marionettes
+Variant: Flesh Puppets
+Variant: Marination
+Variant: Feeding Frenzy
+Variant: Rotting Might
+Variant: Graveyard Shift
+Variant: Putrid Conscription
+Has Alt Variant: true
+Has Alt Variant Two: true
+Has Alt Variant Three: true
+Selected Variant: 1
+Selected Alt Variant: 2
+Selected Alt Variant Two: 3
+Selected Alt Variant Three: 4
+Requires Class Templar
+{variant:1}--- Enervating Presence ---
+{variant:1}Nearby Enemy Monsters have at least 20% of Life Reserved
+{variant:2}--- Hexbearer ---
+{variant:2}You can apply an additional Curse
+{variant:2}Hexes Transfer to all Enemies within 3 metres when Hexed Enemy dies
+{variant:3}--- Marionettes ---
+{variant:3}Weapons you Animate create an additional copy
+{variant:3}Animated Guardian deals 25% increased Damage per Animated Weapon
+{variant:3}Animated Minions' Melee Attacks deal Splash Damage to surrounding targets
+{variant:3}Defences of Items attached to Animated Guardian also apply to Animated Weapons
+{variant:4}--- Flesh Puppets ---
+{variant:4}+4 to Level of all Raise Zombie Gems
+{variant:4}25% increased Raised Zombie Size
+{variant:5}--- Marination ---
+{variant:5}Gain 20% of Maximum Life as Extra Maximum Energy Shield
+{variant:5}Minions gain 20% of Maximum Life as Extra Maximum Energy Shield
+{variant:6}--- Feeding Frenzy ---
+{variant:6}Minions' Base Attack Critical Strike Chance is equal to the Critical
+{variant:6}Strike Chance of your Main Hand Weapon
+{variant:6}Minions are Aggressive
+{variant:7}--- Rotting Might ---
+{variant:7}Half of your Strength is added to your Minions
+{variant:7}25% increased Strength
+{variant:8}--- Graveyard Shift ---
+{variant:8}For each nearby corpse, 1% increased Movement Speed
+{variant:8}Raise Zombie does not require a corpse
+{variant:8}Your Raised Zombies count as corpses
+{variant:9}--- Putrid Conscription ---
+{variant:9}Your Minions spread Caustic Ground on Death, dealing 30% of their maximum Life as Chaos Damage per second
 ]]
 
 }
