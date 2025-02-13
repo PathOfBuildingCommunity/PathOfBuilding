@@ -7,6 +7,16 @@ describe("TestDefence", function()
 		-- newBuild() takes care of resetting everything in setup()
 	end)
 
+	-- a small helper function to calculate damage taken from limited test parameters
+	local function takenHitFromTypeMaxHit(type, enemyDamageMulti)
+		return build.calcsTab.calcs.takenHitFromDamage(build.calcsTab.calcsOutput[type.."MaximumHitTaken"] * (enemyDamageMulti or 1), type, build.calcsTab.calcsEnv.player)
+	end
+
+	local function poolsRemainingAfterTypeMaxHit(type, enemyDamageMulti)
+		local _, takenDamages = takenHitFromTypeMaxHit(type, enemyDamageMulti)
+		return build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
+	end
+
 	-- boring part
 	it("no armour max hits", function()
 		build.configTab.input.enemyIsBoss = "None"
@@ -87,6 +97,30 @@ describe("TestDefence", function()
 		assert.are.equals(3000, build.calcsTab.calcsOutput.ColdMaximumHitTaken)
 		assert.are.equals(3000, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
 		assert.are.equals(3000, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
+		local poolsRemaining = poolsRemainingAfterTypeMaxHit("Lightning", 0.8)
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+
+		build.configTab.input.customMods = "\z
+		+200 to all resistances\n\z
+		+200 to all maximum resistances\n\z
+		50% reduced damage taken\n\z
+		50% less damage taken\n\z
+		Nearby enemies deal 20% less damage\n\z
+		Gain 100% of life as extra maximum energy shield\n\z
+		intelligence provides no bonus to energy shield\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(600, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
+		assert.are.equals(6000, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+		assert.are.equals(6000, build.calcsTab.calcsOutput.ColdMaximumHitTaken)
+		assert.are.equals(6000, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
+		assert.are.equals(3000, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Lightning", 0.8)
+		assert.are.equals(0, floor(poolsRemaining.EnergyShield))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	end)
 	
 	-- a small helper function to calculate damage taken from limited test parameters
@@ -507,9 +541,9 @@ describe("TestDefence", function()
 		"
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		local _, takenDamages = takenHitFromTypeMaxHit("Cold")
-		local poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
-		assert.are.equals(0, round(poolsRemaining.Life))
+		local poolsRemaining = poolsRemainingAfterTypeMaxHit("Cold")
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	end)
 	
 	it("damage conversion to different size pools", function()
@@ -525,10 +559,10 @@ describe("TestDefence", function()
 		"   -- Small amount of conversion into a smaller pool leads to the higher pool damage type (lightning) draining it's own excess pool (mana), and then joining back on the shared pools (life)
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		local _, takenDamages = takenHitFromTypeMaxHit("Lightning")
-		local poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
-		assert.are.equals(0, round(poolsRemaining.Mana))
-		assert.are.not_false(poolsRemaining.Life / 100 < 0.1)
+		local poolsRemaining = poolsRemainingAfterTypeMaxHit("Lightning")
+		assert.are.equals(0, floor(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 		
 		build.configTab.input.customMods = "\z
 		+40 to maximum life\n\z
@@ -541,10 +575,10 @@ describe("TestDefence", function()
 		"   -- This is a case where cold damage drains the whole life pool and lightning damage drains the entire mana pool, leaving nothing
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		_, takenDamages = takenHitFromTypeMaxHit("Lightning")
-		poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
-		assert.are.equals(0, round(poolsRemaining.Life))
-		assert.are.equals(0, round(poolsRemaining.Mana))
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Lightning")
+		assert.are.equals(0, floor(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	
 		build.configTab.input.customMods = "\z
 		+40 to maximum life\n\z
@@ -557,10 +591,10 @@ describe("TestDefence", function()
 		"   -- Any extra mana in this case will not help and be left over after death, since life hits 0 from the cold damage alone
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		_, takenDamages = takenHitFromTypeMaxHit("Lightning")
-		poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
-		assert.are.equals(0, round(poolsRemaining.Life))
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Lightning")
 		assert.are.equals(1000, round(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 		
 		-- conversion into a bigger pool
 		build.configTab.input.customMods = "\z
@@ -574,10 +608,10 @@ describe("TestDefence", function()
 		"   -- With inverted conversion amounts the behaviour of converting into a bigger pool should be exactly the same as converting into a lower one.
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		_, takenDamages = takenHitFromTypeMaxHit("Cold")
-		poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
-		assert.are.equals(0, round(poolsRemaining.Mana))
-		assert.are.not_false(poolsRemaining.Life / 100 < 0.1)
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Cold")
+		assert.are.equals(0, floor(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	
 		build.configTab.input.customMods = "\z
 		+40 to maximum life\n\z
@@ -590,10 +624,10 @@ describe("TestDefence", function()
 		"
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		_, takenDamages = takenHitFromTypeMaxHit("Cold")
-		poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
-		assert.are.equals(0, round(poolsRemaining.Life))
-		assert.are.equals(0, round(poolsRemaining.Mana))
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Cold")
+		assert.are.equals(0, floor(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	
 		build.configTab.input.customMods = "\z
 		+40 to maximum life\n\z
@@ -606,10 +640,34 @@ describe("TestDefence", function()
 		"
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		_, takenDamages = takenHitFromTypeMaxHit("Cold")
-		poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
-		assert.are.equals(0, round(poolsRemaining.Life))
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Cold")
 		assert.are.equals(1000, round(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+
+		build.configTab.input.customMods = "\z
+		+940 to maximum life\n\z
+		+950 to mana\n\z
+		+1000 to energy shield\n\z
+		+10000 to armour\n\z
+		+110% to all elemental resistances\n\z
+		Armour applies to Fire, Cold and Lightning Damage taken from Hits instead of Physical Damage\n\z
+		100% of Lightning Damage is taken from Mana before Life\n\z
+		80% of cold damage taken as lightning damage\n\z
+		50% of fire damage taken as chaos damage\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Cold")
+		assert.are.equals(0, floor(poolsRemaining.EnergyShield))
+		assert.are.equals(0, floor(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Fire")
+		assert.are.not_false(0 < floor(poolsRemaining.EnergyShield))
+		assert.are.equals(1000, floor(poolsRemaining.Mana))
+		assert.are.not_false(1 >= floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	end)
 
 	it("energy shield bypass tests #pet", function()
@@ -625,6 +683,10 @@ describe("TestDefence", function()
 
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
+		local poolsRemaining = poolsRemainingAfterTypeMaxHit("Chaos")
+		assert.are.equals(100, round(poolsRemaining.EnergyShield))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 		assert.are.equals(300, build.calcsTab.calcsOutput.FireMaximumHitTaken)
 		assert.are.equals(200, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
 
@@ -632,18 +694,29 @@ describe("TestDefence", function()
 		build.configTab.input.customMods = [[
 			+40 to maximum life
 			+100 to energy shield
+			physical damage taken bypasses energy shield
 			Chaos damage does not bypass energy shield
 			You have no intelligence
 			+60% to all resistances
 		]]
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
+		assert.are.equals(100, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
 		assert.are.equals(200, build.calcsTab.calcsOutput.FireMaximumHitTaken)
 		assert.are.equals(200, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Physical")
+		assert.are.equals(100, floor(poolsRemaining.EnergyShield))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Chaos")
+		assert.are.equals(0, floor(poolsRemaining.EnergyShield))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 		-- Chaos damage should still bypass
 		build.configTab.input.customMods = build.configTab.input.customMods .. "\nAll damage taken bypasses energy shield"
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
+		assert.are.equals(100, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
 		assert.are.equals(100, build.calcsTab.calcsOutput.FireMaximumHitTaken)
 		assert.are.equals(100, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
 
@@ -666,5 +739,72 @@ describe("TestDefence", function()
 		runCallback("OnFrame")
 		assert.are.equals(100, build.calcsTab.calcsOutput.FireMaximumHitTaken)
 		assert.are.equals(100, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Physical")
+		assert.are.equals(100, floor(poolsRemaining.EnergyShield))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Chaos")
+		assert.are.equals(100, round(poolsRemaining.EnergyShield))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+
+		-- Bypass + MoM
+		build.configTab.input.customMods = [[
+			+40 to maximum life
+			+50 to mana
+			+200 to energy shield
+			50% of non-chaos damage taken bypasses energy shield
+			50% of chaos damage taken does not bypass energy shield
+			50% of Lightning Damage is taken from Mana before Life
+			intelligence provides no bonus to energy shield
+			+60% to all resistances
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(400, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
+		assert.are.equals(200, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+		assert.are.equals(200, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Chaos")
+		assert.are.equals(100, round(poolsRemaining.EnergyShield))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Fire")
+		assert.are.equals(100, round(poolsRemaining.EnergyShield))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Lightning")
+		assert.are.equals(0, round(poolsRemaining.EnergyShield))
+		assert.are.equals(0, floor(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+
+		build.configTab.input.customMods = [[
+			+40 to maximum life
+			+150 to mana
+			+300 to energy shield
+			50% of non-chaos damage taken bypasses energy shield
+			50% of chaos damage taken does not bypass energy shield
+			50% of Lightning Damage is taken from Mana before Life
+			intelligence provides no bonus to energy shield
+			+60% to all resistances
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(400, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
+		assert.are.equals(200, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+		assert.are.equals(200, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Chaos")
+		assert.are.equals(200, round(poolsRemaining.EnergyShield))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Fire")
+		assert.are.equals(200, round(poolsRemaining.EnergyShield))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Lightning")
+		assert.are.equals(100, round(poolsRemaining.EnergyShield))
+		assert.are.equals(100, floor(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	end)
 end)
