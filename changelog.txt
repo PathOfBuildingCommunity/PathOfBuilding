@@ -1,4 +1,5 @@
 VERSION[2.51.0][2025/02/14]
+
 --- New to Path of Building ---
 * Add Wildspeaker, Blind Prophet, Aristocrat and Puppeteer jewels (LocalIdentity)
 * Add Ancestral Commander, Behemoth, Bog Shaman, and Scavenger Ascendancy Jewels (Peechey)
