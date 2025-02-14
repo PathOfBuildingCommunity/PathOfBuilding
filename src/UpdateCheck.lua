@@ -78,8 +78,13 @@ end
 
 ConPrintf("Checking for update...")
 
-local scriptPath = "."
-local runtimePath = "."
+local scriptPath
+local runtimePath
+do
+	local currentDir = io.popen("cd"):read() or io.popen("pwd"):read() or "."
+	scriptPath = currentDir
+	runtimePath = currentDir
+end
 
 -- Load and process local manifest
 local localVer
