@@ -156,6 +156,9 @@ end
 
 -- Copy an Active Skill
 function calcs.copyActiveSkill(env, mode, skill)
+	if not skill.activeEffect.srcInstance then 
+		return skill, env
+	end
 	local activeEffect = {
 		grantedEffect = skill.activeEffect.grantedEffect,
 		level = skill.activeEffect.srcInstance.level,
