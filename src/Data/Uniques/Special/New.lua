@@ -217,7 +217,7 @@ Requires Class Marauder
 {variant:1}Rampage
 {variant:2}--- Dire Rampart ---
 {variant:2}Melee Hits Fortify
-{variant:2}Regenerate 0.2% of Life per second of Fortification
+{variant:2}Regenerate 0.2% of Life per second per Fortification
 {variant:3}--- Tireless Frenzy ---
 {variant:3}1% increased Attack Speed per Fortification
 {variant:3}+10 to maximum Fortification
