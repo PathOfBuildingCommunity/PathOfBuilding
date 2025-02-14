@@ -189,6 +189,119 @@ Requires Class Marauder
 {variant:9}1% increased Duration per 10 Strength
 ]],[[
 Rarity: RELIC
+Marauder: Behemoth
+Prismatic Jewel
+League: Legacy of Phrecia
+Variant: Rampager
+Variant: Dire Rampart
+Variant: Tireless Frenzy
+Variant: Sheer Fury
+Variant: Fueled by Hate
+Variant: Final Blow
+Variant: Mental Conditioning
+Variant: Incorruptible
+Variant: Steel Willed
+Has Alt Variant: true
+Has Alt Variant Two: true
+Has Alt Variant Three: true
+Selected Variant: 1
+Selected Alt Variant: 2
+Selected Alt Variant Two: 3
+Selected Alt Variant Three: 4
+Requires Class Marauder
+{variant:1}--- Rampager ---
+{variant:1}10% increased Character Size
+{variant:1}Spell Skills deal no Damage
+{variant:1}Your Spells are disabled
+{variant:1}Melee Hits count as Rampage Kills
+{variant:1}Rampage
+{variant:2}--- Dire Rampart ---
+{variant:2}Melee Hits Fortify
+{variant:2}Regenerate 0.2% of Life per second per Fortification
+{variant:3}--- Tireless Frenzy ---
+{variant:3}1% increased Attack Speed per Fortification
+{variant:3}+10 to maximum Fortification
+{variant:4}--- Sheer Fury ---
+{variant:4}15% chance that if you would gain Rage on Hit, you instead gain up to your maximum Rage
+{variant:4}+15 to Maximum Rage
+{variant:5}--- Fueled by Hate ---
+{variant:5}50% increased Rage cost of Skills
+{variant:5}Vaal Attack Skills you Use yourself cost Rage instead of requiring Souls
+{variant:5}You cannot gain Rage during Soul Gain Prevention
+{variant:6}--- Final Blow ---
+{variant:6}+10% to Unarmed Melee Attack Critical Strike Chance
+{variant:6}Your Critical Strike Chance is Lucky while on Low Life
+{variant:7}--- Mental Conditioning ---
+{variant:7}+4 Mana per 4 Strength
+{variant:7}Power of Purpose
+{variant:8}--- Incorruptible ---
+{variant:8}Armour also applies to Chaos Damage taken from Hits
+{variant:9}--- Steel Willed ---
+{variant:9}2% increased Attack Damage per 450 Armour
+{variant:9}10% chance to Defend with double your Armour for each time you've been Hit by an Enemy Recently, up to 30%
+]],[[
+Rarity: RELIC
+Marauder: Ancestral Commander
+Prismatic Jewel
+League: Legacy of Phrecia
+Variant: Spirit of Kaom
+Variant: Spirit of Kahuturoa
+Variant: Spirit of Utula
+Variant: Spirit of Kiloava
+Variant: Spirit of Rakiata
+Variant: Forest of Ancestors
+Variant: Ancestral Endurance
+Variant: Ancestral Defiance
+Variant: Toughened Skin
+Variant: Call of the Ancestors
+Variant: Deathrattle
+Variant: Ancestral Reach
+Variant: Ancestral Echo
+Variant: Born under Fire
+Has Alt Variant: true
+Has Alt Variant Two: true
+Has Alt Variant Three: true
+Selected Variant: 1
+Selected Alt Variant: 2
+Selected Alt Variant Two: 3
+Selected Alt Variant Three: 4
+Requires Class Marauder
+{variant:1}--- Spirit of Kaom ---
+{variant:1}Trigger Level 20 Summon Spirit of Kaom Skill when a Totem dies while a Unique Enemy is in your Presence
+{variant:2}--- Spirit of Kahuturoa ---
+{variant:2}Trigger Level 20 Summon Spirit of Kahuturoa Skill when you take a Critical Strike from a Unique Enemy
+{variant:3}--- Spirit of Utula ---
+{variant:3}Trigger Level 20 Summon Spirit of Utula Skill on taking a Savage Hit from a Unique Enemy
+{variant:4}--- Spirit of Kiloava ---
+{variant:4}Trigger Level 20 Summon Spirit of Kiloava Skill when you Block Damage from a Unique Enemy
+{variant:5}--- Spirit of Rakiata ---
+{variant:5}Trigger Level 20 Summon Spirit of Rakiata Skill on Critical Strike against a Marked Unique Enemy
+{variant:6}--- Forest of Ancestors ---
+{variant:6}+1 to maximum number of Summoned Totems
+{variant:6}20% of Damage from Hits is taken from your nearest Totem's Life before you
+{variant:7}--- Ancestral Endurance ---
+{variant:7}+3 to maximum Endurance Charges
+{variant:8}--- Ancestral Defiance ---
+{variant:8}Gain 15% of Missing Unreserved Life before being Hit by an Enemy
+{variant:9}--- Toughened Skin ---
+{variant:9}Action Speed cannot be modified to below Base Value
+{variant:9}Movement Speed cannot be modified to below Base Value
+{variant:9}Armour from Equipped Body Armour is doubled
+{variant:10}--- Call of the Ancestors ---
+{variant:10}30% reduced Warcry Speed
+{variant:10}120% increased Warcry Cooldown Recovery Rate
+{variant:11}--- Deathrattle ---
+{variant:11}Nearby corpses Explode when you Warcry, dealing 12% of their Life as Physical Damage
+{variant:11}Your Warcries open Chests
+{variant:12}--- Ancestral Reach ---
+{variant:12}Strike Skills which target additional Enemies can do so from 50% further away
+{variant:12}Non-Vaal Strike Skills target 1 additional nearby Enemy
+{variant:13}--- Ancestral Echo ---
+{variant:13}Strike Skills also target the previous location they were Used
+{variant:14}--- Born under Fire ---
+{variant:14}Nearby Enemies Convert 50% of their Physical Damage to Fire
+]],[[
+Rarity: RELIC
 Shadow: Surfcaster
 Prismatic Jewel
 League: Legacy of Phrecia
@@ -425,6 +538,59 @@ Requires Class Witch
 {variant:11}--- Future Regret ---
 {variant:11}Herald of Thunder has 100% increased Buff Effect
 {variant:11}+5% to maximum Lightning Resistance while affected by Herald of Thunder
+]],[[
+Rarity: RELIC
+Witch: Bog Shaman
+Prismatic Jewel
+League: Legacy of Phrecia
+Variant: Venom Drinker
+Variant: Fell Fen
+Variant: Eerie Silence
+Variant: Rotten Core
+Variant: Vile Imprecations
+Variant: Nightblood
+Variant: Toad Pact
+Variant: Pandemic
+Variant: Sanguine Power
+Has Alt Variant: true
+Has Alt Variant Two: true
+Has Alt Variant Three: true
+Selected Variant: 1
+Selected Alt Variant: 2
+Selected Alt Variant Two: 3
+Selected Alt Variant Three: 4
+Requires Class Witch
+{variant:1}--- Venom Drinker ---
+{variant:1}+100% chance to be Poisoned
+{variant:1}+5% to all maximum Resistances while Poisoned
+{variant:1}You cannot be Poisoned while there are at least 5 Poisons on you
+{variant:2}--- Fell Fen ---
+{variant:2}Nearby Enemies' Chaos Resistance is 0
+{variant:2}Chaos Resistance is 0
+{variant:3}--- Eerie Silence ---
+{variant:3}Grants Level 20 Pacify Skill
+{variant:3}Enemies Pacified by you take 30% increased Damage
+{variant:4}--- Rotten Core ---
+{variant:4}Your Skills deal you 100% of Mana Spent on Upfront Skill Mana Costs as Physical Damage
+{variant:4}Skills gain Added Chaos Damage equal to 40% of Mana Cost, if Mana Cost is not higher than the maximum you could spend
+{variant:5}--- Vile Imprecations ---
+{variant:5}Nearby Enemies have Malediction
+{variant:5}30% increased Reservation Efficiency of Curse Aura Skills
+{variant:6}--- Nightblood ---
+{variant:6}Skills gain a Base Life Cost equal to 25% of Base Mana Cost
+{variant:6}Spells you cast yourself gain Added Physical Damage equal to 80% of Life Cost, if Life Cost is not higher than the maximum you could spend
+{variant:7}--- Toad Pact ---
+{variant:7}-20% to all Elemental Resistances
+{variant:7}50% increased Projectile Speed
+{variant:7}50% increased Area of Effect
+{variant:7}50% increased Skill Effect Duration
+{variant:8}--- Pandemic ---
+{variant:8}Lose 5% of Life per Second if you have been Hit Recently
+{variant:8}40% more Damage over Time
+{variant:9}--- Sanguine Power ---
+{variant:9}Removes all Energy Shield
+{variant:9}Gain Maximum Life instead of Maximum Energy Shield from Equipped Armour Items
+{variant:9}-3 Maximum Life per Level
 ]],[[
 Rarity: RELIC
 Duelist: Gambler 
@@ -716,6 +882,110 @@ Requires Class Templar
 {variant:8}Your Raised Zombies count as corpses
 {variant:9}--- Putrid Conscription ---
 {variant:9}Your Minions spread Caustic Ground on Death, dealing 30% of their maximum Life as Chaos Damage per second
+]],[[
+Rarity: RELIC
+Scion: Scavenger
+Prismatic Jewel
+League: Legacy of Phrecia
+Variant: Stasis Prison
+Variant: Cloak of Flame
+Variant: Foxshade
+Variant: Shavronne's Wrappings
+Variant: Blunderbore
+Variant: Tainted Pact
+Variant: Fury Valve
+Variant: Doedre's Tongue
+Variant: Leadership's Price
+Variant: Death Rush
+Variant: Zerphi's Heart
+Variant: Nycta's Lantern
+Variant: Cerberus Limb
+Variant: Midnight Bargain
+Variant: Obliteration
+Variant: Void Battery
+Variant: The Fulcrum
+Variant: Sinvicta's Mettle
+Variant: Soul Taker
+Variant: Doomfletch
+Variant: Oro's Sacrifice
+Variant: Starforge
+Variant: Tawhoa's Felling
+Has Alt Variant: true
+Has Alt Variant Two: true
+Selected Variant: 1
+Selected Alt Variant: 6
+Selected Alt Variant Two: 12
+Requires Class Scion
+{variant:1}--- Stasis Prison ---
+{variant:1}50% of Damage taken Recouped as Life
+{variant:1}Debuffs on you expire 50% faster
+{variant:2}--- Cloak of Flame ---
+{variant:2}40% of Physical Damage from Hits taken as Fire Damage
+{variant:3}--- Foxshade ---
+{variant:3}20% increased Movement Speed when on Full Life
+{variant:3}Damage of Enemies Hitting You is Unlucky while you are on Full Life
+{variant:3}80% increased Global Evasion Rating while on Full Life
+{variant:4}--- Shavronne's Wrappings ---
+{variant:4}Chaos Damage taken does not bypass Energy Shield
+{variant:5}--- Blunderbore ---
+{variant:5}40% increased Effect of Shrine Buffs on you
+{variant:5}You have Lesser Brutal Shrine Buff
+{variant:5}You have Lesser Massive Shrine Buff
+{variant:6}--- Tainted Pact ---
+{variant:6}Taking Chaos Damage over Time heals you instead while Leeching Life
+{variant:7}--- Fury Valve ---
+{variant:7}Modifiers to number of Projectiles instead apply to the number of targets Projectiles Split towards
+{variant:7}Skills fire 2 additional Projectiles
+{variant:8}--- Doedre's Tongue ---
+{variant:8}Cursed Enemies cannot inflict Elemental Ailments on You
+{variant:9}--- Leadership's Price ---
+{variant:9}You have Scorching Conflux, Brittle Conflux, and Sapping Conflux while your two highest Attributes are equal
+{variant:9}Cannot Ignite, Chill, Freeze or Shock
+{variant:10}--- Death Rush ---
+{variant:10}Gain Adrenaline for 5 seconds on Kill
+{variant:11}--- Zerphi's Heart ---
+{variant:11}Chaos Damage can Ignite, Chill and Shock
+{variant:12}--- Nycta's Lantern ---
+{variant:12}50% increased Light Radius
+{variant:12}Battlemage
+{variant:13}--- Cerberus Limb ---
+{variant:13}0.5% of Spell Damage Leeched as Life if Equipped Shield has at least 30% Chance to Block
+{variant:13}+1 to Maximum Energy Shield per 5 Armour on Equipped Shield
+{variant:13}+5 to Armour per 5 Evasion Rating on Equipped Shield
+{variant:13}+20 to Evasion Rating per 5 Maximum Energy Shield on Equipped Shield
+{variant:14}--- Midnight Bargain ---
+{variant:14}+3 to maximum number of Summoned Phantasms
+{variant:14}+1 to maximum number of Spectres
+{variant:14}+2 to maximum number of Raised Zombies
+{variant:14}+2 to maximum number of Skeletons
+{variant:14}+3 to maximum number of Summoned Raging Spirits
+{variant:15}--- Obliteration ---
+{variant:15}Enemies you Kill have a 30% chance to Explode, dealing a quarter of their maximum Life as Chaos Damage
+{variant:16}--- Void Battery ---
+{variant:16}25% increased Spell Damage per Power Charge
+{variant:16}+1 to Maximum Power Charges
+{variant:17}--- The Fulcrum ---
+{variant:17}25% of Physical Damage Converted to Fire Damage
+{variant:17}25% of Physical Damage Converted to Cold Damage
+{variant:17}25% of Physical Damage Converted to Lightning Damage
+{variant:17}Elemental Ailments you inflict are Reflected to you
+{variant:18}--- Sinvicta's Mettle ---
+{variant:18}2% increased Area of Effect per 25 Rampage Kills
+{variant:18}Gain a Frenzy Charge on every 50th Rampage Kill
+{variant:18}Rampage
+{variant:19}--- Soul Taker ---
+{variant:19}Insufficient Mana doesn't prevent your Melee Attacks
+{variant:19}Your Physical Damage can Chill
+{variant:20}--- Doomfletch ---
+{variant:20}Gain 20% of Weapon Physical Damage as Extra Damage of Each Element
+{variant:21}--- Oro's Sacrifice ---
+{variant:21}Culling Strike against Burning Enemies
+{variant:21}Gain a Frenzy Charge if an Attack Ignites an Enemy
+{variant:22}--- Starforge ---
+{variant:22}Your Physical Damage can Shock
+{variant:22}20% increased Area of Effect for Attacks
+{variant:23}--- Tawhoa's Felling ---
+{variant:23}Trigger Level 20 Tawhoa's Chosen when you attack with a Non-Vaal Slam or Strike Skill near an Enemy
 ]]
 
 }
