@@ -300,6 +300,7 @@ data.keystones = {
 	"Perfect Agony",
 	"Phase Acrobatics",
 	"Point Blank",
+	"Power of Purpose",
 	"Precise Technique",
 	"Resolute Technique",
 	"Runebinder",
