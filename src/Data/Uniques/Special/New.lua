@@ -577,7 +577,7 @@ Requires Class Witch
 {variant:5}Nearby Enemies have Malediction
 {variant:5}30% increased Reservation Efficiency of Curse Aura Skills
 {variant:6}--- Nightblood ---
-{variant:6}Skills gain Base Life Cost equal to 25% of Base Mana Cost
+{variant:6}Skills gain a Base Life Cost equal to 25% of Base Mana Cost
 {variant:6}Spells you cast yourself gain Added Physical Damage equal to 80% of Life Cost, if Life Cost is not higher than the maximum you could spend
 {variant:7}--- Toad Pact ---
 {variant:7}-20% to all Elemental Resistances
