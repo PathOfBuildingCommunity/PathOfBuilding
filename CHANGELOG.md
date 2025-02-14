@@ -1,5 +1,22 @@
 # Changelog
 
+## [v2.51.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.51.0) (2025/02/14)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.50.0...v2.51.0)
+
+## What's Changed
+### New to Path of Building
+- Add Wildspeaker, Blind Prophet, Aristocrat and Puppeteer ascendancy jewels [\#8471](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8471) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add Ancestral Commander, Behemoth, Bog Shaman, and Scavenger ascendancy jewels [\#8476](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8476) ([Peechey](https://github.com/Peechey))
+### Fixed Calculations
+- Fix maximum virulence parsing for multi-digit increases [\#8463](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8463) ([deathbeam](https://github.com/deathbeam))
+- Fix "Full Poison DPS" value capping to one stack [\#8460](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8460) ([Wires77](https://github.com/Wires77))
+- Fix ES bypass regression [\#8459](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8459) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
+### Accuracy Improvements
+- Fix various issues with Legacy of Phrecia ascendancies [\#8465](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8465) ([Wires77](https://github.com/Wires77))
+
+
+
 ## [v2.50.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.50.1) (2025/02/12)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.50.0...v2.50.1)

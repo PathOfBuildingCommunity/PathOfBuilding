@@ -1,3 +1,18 @@
+VERSION[2.51.0][2025/02/14]
+
+--- New to Path of Building ---
+* Add Wildspeaker, Blind Prophet, Aristocrat and Puppeteer ascendancy jewels (LocalIdentity)
+* Add Ancestral Commander, Behemoth, Bog Shaman, and Scavenger ascendancy jewels (Peechey)
+
+--- Fixed Calculations ---
+* Fix maximum virulence parsing for multi-digit increases (deathbeam)
+* Fix "Full Poison DPS" value capping to one stack (Wires77)
+* Fix ES bypass regression (Edvinas-Smita)
+
+--- Accuracy Improvements ---
+* Fix various issues with Legacy of Phrecia ascendancies (Wires77)
+
+
 VERSION[2.50.1][2025/02/12]
 
 --- Fixed Calculations ---
