@@ -551,7 +551,7 @@ Variant: Vile Imprecations
 Variant: Nightblood
 Variant: Toad Pact
 Variant: Pandemic
-Variant: Sanquine Power
+Variant: Sanguine Power
 Has Alt Variant: true
 Has Alt Variant Two: true
 Has Alt Variant Three: true
@@ -587,7 +587,7 @@ Requires Class Witch
 {variant:8}--- Pandemic ---
 {variant:8}Lose 5% of Life per Second if you have been Hit Recently
 {variant:8}40% more Damage over Time
-{variant:9}--- Sanquine Power ---
+{variant:9}--- Sanguine Power ---
 {variant:9}Removes all Energy Shield
 {variant:9}Gain Maximum Life instead of Maximum Energy Shield from Equipped Armour Items
 {variant:9}-3 Maximum Life per Level
