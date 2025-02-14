@@ -6,10 +6,10 @@
 
 ## What's Changed
 ### New to Path of Building
-- Add Wildspeaker, Blind Prophet, Aristocrat and Puppeteer jewels [\#8471](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8471) ([LocalIdentity](https://github.com/LocalIdentity))
-- Add Ancestral Commander, Behemoth, Bog Shaman, and Scavenger Ascendancy Jewels [\#8476](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8476) ([Peechey](https://github.com/Peechey))
+- Add Wildspeaker, Blind Prophet, Aristocrat and Puppeteer ascendancy jewels [\#8471](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8471) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add Ancestral Commander, Behemoth, Bog Shaman, and Scavenger ascendancy jewels [\#8476](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8476) ([Peechey](https://github.com/Peechey))
 ### Fixed Calculations
-- Fix maximum virulence parsing for multi digit increases [\#8463](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8463) ([deathbeam](https://github.com/deathbeam))
+- Fix maximum virulence parsing for multi-digit increases [\#8463](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8463) ([deathbeam](https://github.com/deathbeam))
 - Fix "Full Poison DPS" value capping to one stack [\#8460](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8460) ([Wires77](https://github.com/Wires77))
 - Fix ES bypass regression [\#8459](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8459) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
 ### Accuracy Improvements
