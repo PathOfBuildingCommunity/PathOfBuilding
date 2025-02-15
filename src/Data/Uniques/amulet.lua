@@ -503,7 +503,7 @@ Implicits: 32
 {variant:30}100% of Lightning Damage from Hits taken as Fire Damage
 {variant:31}Gain (12-24)% of Physical Damage as Extra Damage of a random Element
 {variant:32}Projectiles Pierce (4-6) additional Targets
-{variant:33}(24-36)% Damage over Time Multiplier
+{variant:33}+(24-36)% to Damage over Time Multiplier
 Implicit Modifier magnitudes are doubled
 ]],[[
 The Felbog Fang
