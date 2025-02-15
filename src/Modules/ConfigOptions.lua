@@ -894,6 +894,9 @@ Huge sets the radius to 11.
 	{ var = "buffChaoticMight", type = "check", label = "Do you have Chaotic Might?", tooltip = "This will enable the Chaotic Might buff.\n(Grants 30% of Physical Damage as Extra ^xD02090Chaos ^7Damage)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ChaoticMight", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "buffSacrificialZeal", type = "check", label = "Do you have Sacrificial Zeal?", defaultState = true, ifFlag = "SacrificialZeal", tooltip = "This will enable the Sacrificial Zeal buff.\n(Grants 25% of the skill's mana cost as Physical Damage and causes you to take physical damage over time equal to a percentage of the skill's mana cost.)", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:SacrificialZeal", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "minionbuffChaoticMight", type = "check", label = "Do your minions have Chaotic Might?", ifFlag = "haveMinion", tooltip = "This will enable the Chaotic Might buff on your minions.\n(Grants 30% of Physical Damage as Extra ^xD02090Chaos ^7Damage)", apply = function(val, modList, enemyModList)
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:ChaoticMight", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
 	end },

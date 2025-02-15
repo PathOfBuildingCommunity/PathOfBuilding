@@ -8820,7 +8820,7 @@ c["Gain Onslaught for 4 seconds on Hit while at maximum Frenzy Charges"]={{[1]={
 c["Gain Onslaught for 4 seconds when you Warcry"]={{[1]={[1]={type="Condition",var="UsedWarcryRecently"},flags=0,keywordFlags=0,name="Condition:Onslaught",type="FLAG",value=true}},nil}
 c["Gain Power Charges instead of Frenzy Charges"]={nil,"Power Charges instead of Frenzy Charges "}
 c["Gain Rampage while at Maximum Endurance Charges"]={{[1]={[1]={stat="EnduranceCharges",thresholdStat="EnduranceChargesMax",type="StatThreshold"},flags=0,keywordFlags=0,name="Condition:Rampage",type="FLAG",value=true}},nil}
-c["Gain Sacrificial Zeal when you use a Skill, dealing you 150% of the Skill's Mana Cost as Physical Damage per Second"]={{[1]={flags=0,keywordFlags=0,name="Condition:SacrificialZeal",type="FLAG",value=true}},nil}
+c["Gain Sacrificial Zeal when you use a Skill, dealing you 150% of the Skill's Mana Cost as Physical Damage per Second"]={{[1]={flags=0,keywordFlags=0,name="SacrificialZeal",type="FLAG",value=true}},nil}
 c["Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy"]={{[1]={[1]={type="Condition",var="KilledUniqueEnemy"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="HasShapersPresence",type="FLAG",value=true}}}},nil}
 c["Gain Soul Eater during any Flask Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="Condition:CanHaveSoulEater",type="FLAG",value=true}},nil}
 c["Gain Soul Eater for 10 seconds when you use a Vaal Skill"]={{[1]={[1]={type="Condition",var="UsedVaalSkillRecently"},flags=0,keywordFlags=0,name="Condition:CanHaveSoulEater",type="FLAG",value=true}},nil}
