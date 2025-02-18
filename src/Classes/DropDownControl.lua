@@ -327,6 +327,11 @@ function DropDownClass:Draw(viewPort, noTooltip)
 			SetDrawColor(0, 0, 0)
 		end
 		DrawImage(nil, width - dx - 4 - 22, 0, width - 4, lineHeight)
+		if enabled then
+			SetDrawColor(1, 1, 1)
+		else
+			SetDrawColor(0.66, 0.66, 0.66)
+		end
 		DrawString(width - dx - 22, 0, "LEFT", lineHeight, "VAR", selDetail)
 	end
 	SetViewport()
@@ -393,6 +398,12 @@ function DropDownClass:Draw(viewPort, noTooltip)
 						SetDrawColor(0, 0, 0)
 					end
 					DrawImage(nil, width - dx - 8 - 22, y, width - 4, lineHeight)
+					-- highlight font color if hovered or selected
+					if index == self.hoverSel or index == self.selIndex then
+						SetDrawColor(1, 1, 1)
+					else
+						SetDrawColor(0.66, 0.66, 0.66)
+					end
 					DrawString(width - dx - 4 - 22, y, "LEFT", lineHeight, "VAR", detail)
 				end
 				self:DrawSearchHighlights(label, searchInfo, 0, y, width - 4, lineHeight)
