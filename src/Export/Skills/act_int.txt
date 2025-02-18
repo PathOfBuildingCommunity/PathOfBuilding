@@ -1137,11 +1137,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FirestormAltX
-#flags spell area duration
+#flags spell area
 #mods
 
 #skill FirestormAltY
-#flags spell area
+#flags spell area duration
 #baseMod skill("radiusSecondary", 22)
 #baseMod skill("radiusLabel", "Fire projectile:")
 #baseMod skill("radiusSecondaryLabel", "Target area:")
