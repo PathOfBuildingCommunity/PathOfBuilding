@@ -38434,7 +38434,7 @@ return {
         },
         [18859]= {
             ["skill"]= 18859,
-            ["name"]= "<<HRB34>>",
+            ["name"]= "Harbinger of Focus",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/HarbingerNode1.png",
             ["isNotable"]= true,
             ["ascendancyName"]= "Occultist",
@@ -38454,7 +38454,7 @@ return {
         },
         [3702]= {
             ["skill"]= 3702,
-            ["name"]= "<<HRB35>>",
+            ["name"]= "Harbinger of Flow",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/HarbingerNode1.png",
             ["isNotable"]= true,
             ["ascendancyName"]= "Occultist",
@@ -38473,7 +38473,7 @@ return {
         },
         [60867]= {
             ["skill"]= 60867,
-            ["name"]= "<<HRB36>>",
+            ["name"]= "Harbinger of Time",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/HarbingerNode1.png",
             ["isNotable"]= true,
             ["ascendancyName"]= "Occultist",
@@ -38531,7 +38531,7 @@ return {
         },
         [34822]= {
             ["skill"]= 34822,
-            ["name"]= "<<HRB37>>",
+            ["name"]= "Harbinger of Curses",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/HarbingerNode1.png",
             ["isNotable"]= true,
             ["ascendancyName"]= "Occultist",
@@ -38549,7 +38549,7 @@ return {
         },
         [39702]= {
             ["skill"]= 39702,
-            ["name"]= "<<HRB38>>",
+            ["name"]= "Harbinger of Will",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/HarbingerNode1.png",
             ["isNotable"]= true,
             ["ascendancyName"]= "Occultist",
@@ -38663,7 +38663,7 @@ return {
         },
         [62155]= {
             ["skill"]= 62155,
-            ["name"]= "<<HRB31>>",
+            ["name"]= "Harbinger of Thought",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/HarbingerNode1.png",
             ["isNotable"]= true,
             ["ascendancyName"]= "Occultist",
@@ -38683,7 +38683,7 @@ return {
         },
         [20105]= {
             ["skill"]= 20105,
-            ["name"]= "<<HRB32>>",
+            ["name"]= "Harbinger of Arcane",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/HarbingerNode1.png",
             ["isNotable"]= true,
             ["ascendancyName"]= "Occultist",
@@ -38703,7 +38703,7 @@ return {
         },
         [41042]= {
             ["skill"]= 41042,
-            ["name"]= "<<HRB33>>",
+            ["name"]= "Harbinger of Faith",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/HarbingerNode1.png",
             ["isNotable"]= true,
             ["ascendancyName"]= "Occultist",
