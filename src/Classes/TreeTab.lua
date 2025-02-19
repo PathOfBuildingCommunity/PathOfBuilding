@@ -483,10 +483,11 @@ function TreeTabClass:SetCompareSpec(specId)
 	self.compareSpec = curSpec
 end
 
-function TreeTabClass:ConvertToVersion(version, remove, success, ignoreRuthlessCheck)
-	if not ignoreRuthlessCheck and self.build.spec.treeVersion:match("ruthless") and not version:match("ruthless") then
-		if isValueInTable(treeVersionList, version.."_ruthless") then
-			version = version.."_ruthless"
+function TreeTabClass:ConvertToVersion(version, remove, success, ignoreTreeSubType)
+	local treeSubTypeCapture = self.build.spec.treeVersion:match("(_%l+_?%l*)")
+	if not ignoreTreeSubType and treeSubTypeCapture and not version:match(treeSubTypeCapture) then
+		if isValueInTable(treeVersionList, version..treeSubTypeCapture) then
+			version = version..treeSubTypeCapture
 		end
 	end
 	local newSpec = new("PassiveSpec", self.build, version)
@@ -543,16 +544,16 @@ function TreeTabClass:OpenSpecManagePopup()
 	})
 end
 
-function TreeTabClass:OpenVersionConvertPopup(version, ignoreRuthlessCheck)
+function TreeTabClass:OpenVersionConvertPopup(version, ignoreTreeSubType)
 	local controls = { }
 	controls.warningLabel = new("LabelControl", nil, {0, 20, 0, 16}, "^7Warning: some or all of the passives may be de-allocated due to changes in the tree.\n\n" ..
 		"Convert will replace your current tree.\nCopy + Convert will backup your current tree.\n")
 	controls.convert = new("ButtonControl", nil, {-125, 105, 100, 20}, "Convert", function()
-		self:ConvertToVersion(version, true, false, ignoreRuthlessCheck)
+		self:ConvertToVersion(version, true, false, ignoreTreeSubType)
 		main:ClosePopup()
 	end)
 	controls.convertCopy = new("ButtonControl", nil, {0, 105, 125, 20}, "Copy + Convert", function()
-		self:ConvertToVersion(version, false, false, ignoreRuthlessCheck)
+		self:ConvertToVersion(version, false, false, ignoreTreeSubType)
 		main:ClosePopup()
 	end)
 	controls.cancel = new("ButtonControl", nil, {125, 105, 100, 20}, "Cancel", function()
