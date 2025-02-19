@@ -157,6 +157,10 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	local output = actor.output
 	local modDB = actor.modDB
 	local poolTbl = poolTable or { }
+
+	for damageType, damage in pairs(damageTable) do
+		damageTable[damageType] = damage > 0 and m_ceil(damage) or nil
+	end
 	
 	local alliesTakenBeforeYou = poolTbl.AlliesTakenBeforeYou
 	if not alliesTakenBeforeYou then
@@ -219,7 +223,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 			if not allyValues.damageType or allyValues.damageType == damageType then
 				if allyValues.remaining > 0 then
 					local tempDamage = m_min(damageRemainder * allyValues.percent, allyValues.remaining)
-					allyValues.remaining = allyValues.remaining - tempDamage
+					allyValues.remaining = m_floor(allyValues.remaining - tempDamage)
 					damageRemainder = damageRemainder - tempDamage
 				end
 			end
@@ -243,12 +247,12 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 		end
 		if guard[damageType] > 0 then
 			local tempDamage = m_min(damageRemainder * output[damageType.."GuardAbsorbRate"] / 100, guard[damageType])
-			guard[damageType] = guard[damageType] - tempDamage
+			guard[damageType] = m_floor(guard[damageType] - tempDamage)
 			damageRemainder = damageRemainder - tempDamage
 		end
 		if guard.shared > 0 then
 			local tempDamage = m_min(damageRemainder * output.sharedGuardAbsorbRate / 100, guard.shared)
-			guard.shared = guard.shared - tempDamage
+			guard.shared = m_floor(guard.shared - tempDamage)
 			damageRemainder = damageRemainder - tempDamage
 		end
 		if ward > 0 then
@@ -326,21 +330,22 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 		end
 		overkillDamage = overkillDamage + damageRemainder
 	end
-	local hitPoolRemaining = life + (MoMPoolRemaining ~= m_huge and MoMPoolRemaining or 0) + (esPoolRemaining ~= m_huge and esPoolRemaining or 0)
+	local hitPoolRemaining = calcLifeHitPoolWithLossPrevention(life, output.Life, output.preventedLifeLoss, lifeLossBelowHalfPrevented) +
+		(MoMPoolRemaining ~= m_huge and MoMPoolRemaining or 0) + (esPoolRemaining ~= m_huge and esPoolRemaining or 0)
 
 	return {
 		AlliesTakenBeforeYou = alliesTakenBeforeYou,
 		Aegis = aegis,
 		Guard = guard,
-		Ward = restoreWard,
-		EnergyShield = energyShield,
-		Mana = mana,
-		Life = life,
+		Ward = m_floor(restoreWard),
+		EnergyShield = m_floor(energyShield),
+		Mana = m_floor(mana),
+		Life = m_floor(life),
 		damageTakenThatCanBeRecouped = damageTakenThatCanBeRecouped,
-		LifeLossLostOverTime = LifeLossLostOverTime,
-		LifeBelowHalfLossLostOverTime = LifeBelowHalfLossLostOverTime,
-		OverkillDamage = overkillDamage,
-		hitPoolRemaining = hitPoolRemaining
+		LifeLossLostOverTime = m_ceil(LifeLossLostOverTime),
+		LifeBelowHalfLossLostOverTime = m_ceil(LifeBelowHalfLossLostOverTime),
+		OverkillDamage = m_ceil(overkillDamage),
+		hitPoolRemaining = m_floor(hitPoolRemaining)
 	}
 end
 
