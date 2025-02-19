@@ -50,7 +50,7 @@ Steps:
     * `skills-3.jpg`
     * `skills-disabled-3.jpg`.
 5. Run `./fix_ascendancy_positions.py`.
-6. Open `./src/GameVersions.lua` and update `treeVersionList` and `treeVersions`
+6. Open `./src/GameVersions.lua` and update `treeVersionList`, `treeVersions`, and `poePlannerVersions`.  The latter can be found via https://cdn.poeplanner.com/json/versions.json
    according to the file's format. This is important, otherwise the JSON data converter
    won't trigger.
 7. Restart Path of Building Community. This should result in a new file `tree.lua`.
