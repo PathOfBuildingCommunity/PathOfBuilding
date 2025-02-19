@@ -374,11 +374,11 @@ function PassiveSpecClass:DecodePoePlannerURL(url, return_tree_version_only)
 		return "Invalid tree link (unrecognised format)."
 	end
 	-- Quick debug for when we change tree versions. Print the first 20 or so bytes
-	s = ""
-	for i = 1, 20 do
-		s = s..i..":"..string.format('%02X ', b:byte(i))
-	end
-	print(s)
+	-- s = ""
+	-- for i = 1, 20 do
+	-- 	s = s..i..":"..string.format('%02X ', b:byte(i))
+	-- end
+	-- print(s)
 
 	-- 5-8 is tree version.version
 	major_version = byteToInt(b,5)
