@@ -360,7 +360,7 @@ function PassiveSpecClass:DecodePoePlannerURL(url, return_tree_version_only)
 		-- Translates internal tree version to GGG version.
 		-- Limit poeplanner tree imports to recent versions.
 		tree_versions = { -- poeplanner ID: GGG version
-			[31] = 24, [29] = 23, [27] = 22, [26] = 21, [25] = 20, [24] = 19, [23] = 18,
+			[33] = 25, [31] = 24, [29] = 23, [27] = 22, [26] = 21, [25] = 20, [24] = 19, [23] = 18,
 			}
 		if tree_versions[minor] then
 			return tree_versions[minor]
@@ -374,15 +374,15 @@ function PassiveSpecClass:DecodePoePlannerURL(url, return_tree_version_only)
 		return "Invalid tree link (unrecognised format)."
 	end
 	-- Quick debug for when we change tree versions. Print the first 20 or so bytes
-	-- s = ""
-	-- for i = 1, 20 do
-		-- s = s..i..":"..string.format('%02X ', b:byte(i))
-	-- end
-	-- print(s)
+	s = ""
+	for i = 1, 20 do
+		s = s..i..":"..string.format('%02X ', b:byte(i))
+	end
+	print(s)
 
-	-- 4-7 is tree version.version
-	major_version = byteToInt(b,4)
-	minor_version = translatePoepToGggTreeVersion(byteToInt(b,6))
+	-- 5-8 is tree version.version
+	major_version = byteToInt(b,5)
+	minor_version = translatePoepToGggTreeVersion(byteToInt(b,7))
 	-- If we only want the tree version, exit now
 	if minor_version < 0 then
 		return "Invalid tree version found in link."
