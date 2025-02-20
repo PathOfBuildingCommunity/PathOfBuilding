@@ -3200,6 +3200,82 @@ skills["SummonHarbingerOfTheArcane"] = {
 		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
 	},
 }
+skills["SummonHarbingerOfFocusAscendancy"] = {
+	name = "Summon Visiting Harbinger of Focus",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal Harbinger minion. While you are channelling, the minion will occasionally cast a buff on you that reduces the Damage you take, makes you avoid all Stuns and Elemental Ailments, and prevents Curses affecting you.",
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	cannotBeSupported = true,
+	fromTree = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "alternate_minion", 14 },
+		{ "number_of_harbinger_focus_ascendancy_minions_allowed", 1 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+	},
+}
+skills["SummonHarbingerOfTimeAscendancy"] = {
+	name = "Summon Visiting Harbinger of Time",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal Harbinger minion. The minion will occasionally create an aura on you that increases the Action Speed of you and all allies near you.",
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	cannotBeSupported = true,
+	fromTree = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+		mod("ActionSpeed", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Harbinger of Time", modCond = "HarbingerOfTime" }),
+		skill("buffAllies", true),
+	},
+	constantStats = {
+		{ "alternate_minion", 13 },
+		{ "number_of_harbinger_time_ascendancy_minions_allowed", 1 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+	},
+}
+skills["SummonHarbingerOfTheArcaneAscendancy"] = {
+	name = "Summon Visiting Harbinger of Arcane",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal Harbinger minion. The minion has two buff spells it will cast on you: Arcane Surge, granting increased Cast Speed and Mana Regeneration, and a buff that grants Chance to Shock and Lightning Penetration.",
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	cannotBeSupported = true,
+	fromTree = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "alternate_minion", 12 },
+		{ "number_of_harbinger_arcane_ascendancy_minions_allowed", 1 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+	},
+}
 skills["SummonHarbingerOfBrutality"] = {
 	name = "Summon Harbinger of Brutality",
 	hidden = true,
