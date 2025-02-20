@@ -1,3 +1,7 @@
+VERSION[2.52.1][2025/02/20]
+--- Fixed Bugs ---
+Fixed update error by @Wires77 in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/0000
+
 VERSION[2.52.0][2025/02/20]
 
 --- New to Path of Building ---

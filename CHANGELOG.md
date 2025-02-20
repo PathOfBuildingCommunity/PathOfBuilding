@@ -1,22 +1,53 @@
 # Changelog
 
+## [v2.52.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.52.1) (2025/02/20)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.50.1...v2.52.1)
+
+## What's Changed
+### Fixed Bugs
+Fixed update error by @Wires77 in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/0000
+
+
 ## [v2.52.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.52.0) (2025/02/20)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.50.1...v2.52.0)
 
 ## What's Changed
+
 ### New to Path of Building
-- Add tree for Legacy of Phrecia [\#8494](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8494) ([Wires77](https://github.com/Wires77))
-- Add checkbox for Sacrificial Zeal [\#8481](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8481) ([Paliak](https://github.com/Paliak))
-- Add black background to detail text in character dropdown [\#8487](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8487) ([Paliak](https://github.com/Paliak))
-- Add Molten Strike (+Zenith) ball average overlap calculations [\#8427](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8427) ([andyli00](https://github.com/andyli00))
+
+- Add tree for Legacy of Phrecia [\#8494
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8494
+) ([Wires77](https://github.com/Wires77))
+- Add checkbox for Sacrificial Zeal [\#8481
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8481
+) ([Paliak](https://github.com/Paliak))
+- Add black background to detail text in character dropdown [\#8487
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8487
+) ([Paliak](https://github.com/Paliak))
+- Add Molten Strike (+Zenith) ball average overlap calculations [\#8427
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8427
+) ([andyli00](https://github.com/andyli00))
 ### Fixed Behaviours
-- Fix Firestorm of Pelting skill effect duration [\#8493](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8493) ([Peechey](https://github.com/Peechey))
+
+- Fix Firestorm of Pelting skill effect duration [\#8493
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8493
+) ([Peechey](https://github.com/Peechey))
 ### Accuracy Improvements
-- Fix Eyes of the Greatwolf DoT Multi wording [\#8483](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8483) ([henbe](https://github.com/henbe))
-- Fix influences not importing correctly [\#8500](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8500) ([Wires77](https://github.com/Wires77))
+
+- Fix Eyes of the Greatwolf DoT Multi wording [\#8483
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8483
+) ([henbe](https://github.com/henbe))
+- Fix influences not importing correctly [\#8500
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8500
+) ([Wires77](https://github.com/Wires77))
 ### Fixed Calculations
-- Fix several bugs with infinite EHP and wrong phys max hit [\#8495](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8495) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
+
+- Fix several bugs with infinite EHP and wrong phys max hit [\#8495
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8495
+) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
+
 
 
 ## [v2.51.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.51.0) (2025/02/14)
