@@ -355,6 +355,6 @@ return {
 		{ type = "Runecraft", modTags = { "elemental_damage", "village_runesmithing_enchant", "damage", "elemental", "fire" }, "(7-10)% increased Fire Damage per 1% Fire Resistance above 75%", statOrder = { 6103 }, types = { ["Two Handed Axe"] = true, }, },
 		{ type = "Runecraft", modTags = { "village_runesmithing_enchant" }, "+(50-75)% chance to Suppress Spell Damage while your Off Hand is empty", statOrder = { 9440 }, types = { ["One Handed Mace"] = true, ["Sceptre"] = true, }, },
 		{ type = "Runecraft", modTags = { "village_runesmithing_enchant", "damage", "vaal" }, "Shepherd of Souls", statOrder = { 9993 }, types = { ["Wand"] = true, }, },
-		{ type = "Runecraft", modTags = { "village_runesmithing_enchant" }, "5% increased Quantity of Gold Dropped by Slain Enemies", statOrder = { 6783 }, types = { }, },
+		{ type = "Runecraft", modTags = { "village_runesmithing_enchant" }, "5% increased Quantity of Gold Dropped by Slain Enemies", statOrder = { 6783 }, types = { ["Fishing Rod"] = true, }, },
 	},
 }
