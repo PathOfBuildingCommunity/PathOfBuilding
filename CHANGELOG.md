@@ -6,7 +6,7 @@
 
 ## What's Changed
 ### Fixed Bugs
-Fixed update error by @Wires77 in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/0000
+Fixed update error by ([Wires77](https://github.com/Wires77))
 
 
 ## [v2.52.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.52.0) (2025/02/20)
