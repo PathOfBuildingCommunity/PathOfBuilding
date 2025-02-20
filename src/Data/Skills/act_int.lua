@@ -5850,7 +5850,6 @@ skills["FirestormAltX"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		duration = true,
 	},
 	qualityStats = {
 		Default = {
@@ -5921,6 +5920,7 @@ skills["FirestormAltY"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("radiusSecondary", 22),
