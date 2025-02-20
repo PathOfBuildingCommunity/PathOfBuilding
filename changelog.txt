@@ -1,3 +1,8 @@
+VERSION[2.52.1][2025/02/20]
+
+--- Fixed Bugs ---
+Fixed update error (Wires77)
+
 VERSION[2.52.0][2025/02/20]
 
 --- New to Path of Building ---
