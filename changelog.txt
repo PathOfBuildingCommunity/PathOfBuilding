@@ -1,4 +1,5 @@
 VERSION[2.52.0][2025/02/20]
+
 --- New to Path of Building ---
 * Add tree for Legacy of Phrecia (Wires77)
 * Add checkbox for Sacrificial Zeal (Paliak)
