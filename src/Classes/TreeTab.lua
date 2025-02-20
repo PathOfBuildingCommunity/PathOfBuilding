@@ -158,6 +158,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.versionSelect.maxDroppedWidth = 1000
 	self.controls.versionSelect.enableDroppedWidth = true
 	self.controls.versionSelect.enableChangeBoxWidth = true
+	self.controls.versionSelect:CheckDroppedWidth(true)
 	self.controls.versionSelect.selIndex = #self.treeVersions
 
 	-- Tree Search Textbox
