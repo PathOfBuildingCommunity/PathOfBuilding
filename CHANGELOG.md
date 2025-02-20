@@ -1,5 +1,20 @@
 # Changelog
 
+## [v2.52.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.52.2) (2025/02/20)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.52.1...v2.52.2)
+
+## What's Changed
+### Fixed Crashes
+- Fix Tawhoa's Chosen crash when no active skill is enabled [\#8507](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8507) ([Paliak](https://github.com/Paliak))
+### User Interface
+- Dynamically expand some dropdowns that were too narrow to read [\#8506](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8506) ([Wires77](https://github.com/Wires77))
+### Fixed Behaviours
+- Fix Forbidden jewels not finding the right ascendancy nodes [\#8508](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8508) ([Wires77](https://github.com/Wires77))
+- Update tree data with missing cluster jewel nodes [\#8505](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8505) ([Wires77](https://github.com/Wires77))
+
+
+
 ## [v2.52.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.52.1) (2025/02/20)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.50.1...v2.52.1)

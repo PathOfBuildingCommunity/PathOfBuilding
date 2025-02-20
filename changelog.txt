@@ -1,3 +1,16 @@
+VERSION[2.52.2][2025/02/20]
+
+--- Fixed Crashes ---
+* Fix Tawhoa's Chosen crash when no active skill is enabled (Paliak)
+
+--- User Interface ---
+* Dynamically expand some dropdowns that were too narrow to read (Wires77)
+
+--- Fixed Behaviours ---
+* Fix Forbidden jewels not finding the right ascendancy nodes (Wires77)
+* Update tree data with missing cluster jewel nodes (Wires77)
+
+
 VERSION[2.52.1][2025/02/20]
 
 --- Fixed Bugs ---
