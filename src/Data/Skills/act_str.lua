@@ -7068,7 +7068,7 @@ skills["MoltenStrike"] = {
 	},
 	baseMods = {
 		skill("projectileSpeedAppliesToMSAreaOfEffect", true),
-		skill("radius", 9, { type = "SkillPart", skillPartList = { 2, 3 }}),
+		skill("radius", 9, { type = "SkillPart", skillPartList = { 2, 3 } }),
 		skill("radiusLabel", "Ball area:", { type = "SkillPart", skillPartList = { 2, 3 } }),
 		skill("radiusSecondary", 2, { type = "SkillPart", skillPartList = { 2, 3 } }),
 		skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPartList = { 2, 3 } }),

@@ -19,12 +19,10 @@ skills["RepeatingShockwave"] = {
 		spell = true,
 		area = true,
 	},
-	constantStats = {
-		{ "spell_minimum_base_fire_damage", 50 },
-		{ "spell_maximum_base_fire_damage", 75 },
-		{ "base_chance_to_ignite_%", 10 },
-	},
 	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_chance_to_ignite_%",
 		"cast_on_gain_skill",
 		"cannot_knockback",
 		"spell_uncastable_if_triggerable",
@@ -33,7 +31,8 @@ skills["RepeatingShockwave"] = {
 		"no_cost",
 	},
 	levels = {
-		[7] = { critChance = 5, PvPDamageMultiplier = -80, levelRequirement = 1, },
+		[7] = { 50, 75, 10, critChance = 5, PvPDamageMultiplier = -80, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
+		[20] = { 150, 225, 25, critChance = 5, PvPDamageMultiplier = -80, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
 	},
 }
 skills["Affliction"] = {
@@ -185,9 +184,12 @@ skills["Barkskin"] = {
 		{ "chance_to_evade_attacks_+%_final_per_missing_barkskin_stack", 2 },
 	},
 	stats = {
+		"physical_attack_damage_taken_+_per_barkskin_stack",
+		"chance_to_evade_attacks_+%_final_per_missing_barkskin_stack",
 	},
 	levels = {
-		[20] = { storedUses = 1, manaReservationPercent = 10, cooldown = 10, levelRequirement = 70, },
+		[20] = { -30, 2, storedUses = 1, manaReservationPercent = 10, cooldown = 10, levelRequirement = 70, statInterpolation = { 1, 1, }, },
+		[30] = { -60, 3, storedUses = 1, manaReservationPercent = 10, cooldown = 10, levelRequirement = 90, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["AilmentBearer"] = {
@@ -779,6 +781,7 @@ skills["TriggeredSummonLesserShrine"] = {
 	},
 	levels = {
 		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 20, },
+		[20] = { storedUses = 1, levelRequirement = 1, cooldown = 10, },
 	},
 }
 skills["DeathAura"] = {
@@ -2419,6 +2422,7 @@ skills["RaiseSpiders"] = {
 	},
 	levels = {
 		[1] = { storedUses = 1, levelRequirement = 75, cooldown = 2, },
+		[20] = { storedUses = 1, levelRequirement = 84, cooldown = 2, },
 	},
 }
 skills["UniqueMirageWarriors"] = {
@@ -3030,7 +3034,7 @@ skills["SummonHarbingerOfTheArcaneUber"] = {
 	name = "Summon Greater Harbinger of the Arcane",
 	hidden = true,
 	color = 4,
-	description = "Summons an immortal Harbinger minion. The minion has two buff spells it will cast on you: Arcane Surge, granting More Spell Damage and increased Mana Regeneration, and a buff that grants Chance to Shock and Lightning Penetration.",
+	description = "Summons an immortal Harbinger minion. The minion has two buff spells it will cast on you: Arcane Surge, granting increased Cast Speed and Mana Regeneration, and a buff that grants Chance to Shock and Lightning Penetration.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
@@ -3179,7 +3183,7 @@ skills["SummonHarbingerOfTheArcane"] = {
 	name = "Summon Harbinger of the Arcane",
 	hidden = true,
 	color = 4,
-	description = "Summons an immortal Harbinger minion. The minion will occasionally cast Arcane Surge on you, granting More Spell Damage and increased Mana Regeneration.",
+	description = "Summons an immortal Harbinger minion. The minion will occasionally cast Arcane Surge on you, granting increased Cast Speed and Mana Regeneration.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
