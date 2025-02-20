@@ -6990,7 +6990,7 @@ skills["MoltenStrike"] = {
 		local t_insert = table.insert
 		local s_format = string.format
 
-		-- melee part doesnt need to calc balls
+		-- melee part doesn't need to calc balls
 		if skillPart == 1 then
 			return
 		end
