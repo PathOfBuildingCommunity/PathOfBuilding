@@ -559,25 +559,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	
 	--special rebuild to properly initialise boss placeholders
 	self.configTab:BuildModList()
-
-	-- Initialise class dropdown
-	for classId, class in pairs(self.latestTree.classes) do
-		local ascendancies = {}
-		-- Initialise ascendancy dropdown
-		for i = 0, #class.classes do
-			local ascendClass = class.classes[i]
-			t_insert(ascendancies, {
-				label = ascendClass.name,
-				ascendClassId = i,
-			})
-		end
-		t_insert(self.controls.classDrop.list, {
-			label = class.name,
-			classId = classId,
-			ascendancies = ascendancies,
-		})
-	end
-	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
+	self:UpdateClassDropdowns()
 
 	-- Load legacy bandit and pantheon choices from build section
 	for _, control in ipairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
@@ -1303,6 +1285,29 @@ function buildMode:OpenSpectreLibrary()
 	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {20, 18, 0, 16}, "Raise Spectre gem for their buffs and curses to activate")
 	local spectrePopup = main:OpenPopup(410, 360, "Spectre Library", controls)
 	spectrePopup:SelectControl(spectrePopup.controls.source.controls.searchText)
+end
+
+function buildMode:UpdateClassDropdowns(treeVersion)
+	local classes = main.tree[treeVersion or latestTreeVersion].classes
+	wipeTable(self.controls.classDrop.list)
+	-- Initialise class dropdown
+	for classId, class in pairs(classes) do
+		local ascendancies = {}
+		-- Initialise ascendancy dropdown
+		for i = 0, #class.classes do
+			local ascendClass = class.classes[i]
+			t_insert(ascendancies, {
+				label = ascendClass.name,
+				ascendClassId = i,
+			})
+		end
+		t_insert(self.controls.classDrop.list, {
+			label = class.name,
+			classId = classId,
+			ascendancies = ascendancies,
+		})
+	end
+	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
 end
 
 function buildMode:OpenSimilarPopup()

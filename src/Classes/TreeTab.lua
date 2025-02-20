@@ -447,6 +447,7 @@ function TreeTabClass:SetActiveSpec(specId)
 	self.build.spec = curSpec
 	self.build.buildFlag = true
 	self.build.spec:SetWindowTitleWithBuildClass()
+	self.build:UpdateClassDropdowns(curSpec.treeVersion)
 	for _, slot in pairs(self.build.itemsTab.slots) do
 		if slot.nodeId then
 			if prevSpec then
@@ -483,10 +484,11 @@ function TreeTabClass:SetCompareSpec(specId)
 	self.compareSpec = curSpec
 end
 
-function TreeTabClass:ConvertToVersion(version, remove, success, ignoreRuthlessCheck)
-	if not ignoreRuthlessCheck and self.build.spec.treeVersion:match("ruthless") and not version:match("ruthless") then
-		if isValueInTable(treeVersionList, version.."_ruthless") then
-			version = version.."_ruthless"
+function TreeTabClass:ConvertToVersion(version, remove, success, ignoreTreeSubType)
+	local treeSubTypeCapture = self.build.spec.treeVersion:match("(_%l+_?%l*)")
+	if not ignoreTreeSubType and treeSubTypeCapture and not version:match(treeSubTypeCapture) then
+		if isValueInTable(treeVersionList, version..treeSubTypeCapture) then
+			version = version..treeSubTypeCapture
 		end
 	end
 	local newSpec = new("PassiveSpec", self.build, version)
@@ -543,16 +545,16 @@ function TreeTabClass:OpenSpecManagePopup()
 	})
 end
 
-function TreeTabClass:OpenVersionConvertPopup(version, ignoreRuthlessCheck)
+function TreeTabClass:OpenVersionConvertPopup(version, ignoreTreeSubType)
 	local controls = { }
 	controls.warningLabel = new("LabelControl", nil, {0, 20, 0, 16}, "^7Warning: some or all of the passives may be de-allocated due to changes in the tree.\n\n" ..
 		"Convert will replace your current tree.\nCopy + Convert will backup your current tree.\n")
 	controls.convert = new("ButtonControl", nil, {-125, 105, 100, 20}, "Convert", function()
-		self:ConvertToVersion(version, true, false, ignoreRuthlessCheck)
+		self:ConvertToVersion(version, true, false, ignoreTreeSubType)
 		main:ClosePopup()
 	end)
 	controls.convertCopy = new("ButtonControl", nil, {0, 105, 125, 20}, "Copy + Convert", function()
-		self:ConvertToVersion(version, false, false, ignoreRuthlessCheck)
+		self:ConvertToVersion(version, false, false, ignoreTreeSubType)
 		main:ClosePopup()
 	end)
 	controls.cancel = new("ButtonControl", nil, {125, 105, 100, 20}, "Cancel", function()
@@ -620,7 +622,7 @@ function TreeTabClass:OpenImportPopup()
 			main:ClosePopup()
 		end
 	end
-	local function validateTreeVersion(isRuthless, major, minor)
+	local function validateTreeVersion(alternateType, major, minor)
 		-- Take the Major and Minor version numbers and confirm it is a valid tree version. The point release is also passed in but it is not used
 		-- Return: the passed in tree version as text or latestTreeVersion
 		if major and minor then
@@ -628,12 +630,12 @@ function TreeTabClass:OpenImportPopup()
 			local newTreeVersionNum = tonumber(string.format("%d.%02d", major, minor))
 			if newTreeVersionNum >= treeVersions[defaultTreeVersion].num and newTreeVersionNum <= treeVersions[latestTreeVersion].num then
 				-- no leading 0 here
-				return string.format("%s_%s", major, minor) .. (isRuthless and "_ruthless" or "")
+				return string.format("%s_%s", major, minor) .. (alternateType and ("_" .. alternateType:gsub("-", "_")) or "")
 			else
 				print(string.format("Version '%d_%02d' is out of bounds", major, minor))
 			end
 		end
-		return latestTreeVersion .. (isRuthless and "_ruthless" or "")
+		return latestTreeVersion .. (alternateType and ("_" .. alternateType:gsub("-", "_")) or "")
 	end
 
 	controls.nameLabel = new("LabelControl", nil, {-180, 20, 0, 16}, "Enter name for this passive tree:")
@@ -679,21 +681,23 @@ function TreeTabClass:OpenImportPopup()
 						controls.import.enabled = true
 						return
 					else
-						decodeTreeLink(treeLink, validateTreeVersion(treeLink:match("tree/ruthless"), treeLink:match(versionLookup)))
+						decodeTreeLink(treeLink, validateTreeVersion(treeLink:match("tree/(%w+%-?%w*)"), treeLink:match(versionLookup)))
 					end
 				end)
 			end
 		elseif treeLink:match("poeplanner.com/") then
 			decodePoePlannerTreeLink(treeLink:gsub("/%?v=.+#","/"))
 		elseif treeLink:match("poeskilltree.com/") then
-			local oldStyleVersionLookup = "/%?v=([0-9]+)%.([0-9]+)%.([0-9]+)%-?r?u?t?h?l?e?s?s?#"
+			local oldStyleVersionLookup = "/%?v=([0-9]+)%.([0-9]+)%.([0-9]+)%-?%w?%-?%w?#"
 			-- Strip the version from the tree : https://poeskilltree.com/?v=3.6.0#AAAABAMAABEtfIOFMo6-ksHfsOvu -> https://poeskilltree.com/AAAABAMAABEtfIOFMo6-ksHfsOvu
-			decodeTreeLink(treeLink:gsub("/%?v=.+#","/"), validateTreeVersion(treeLink:match("-ruthless#"), treeLink:match(oldStyleVersionLookup)))
+			decodeTreeLink(treeLink:gsub("/%?v=.+#","/"), validateTreeVersion(treeLink:match("%-(%w+%-?%w*)#"), treeLink:match(oldStyleVersionLookup)))
 		else
 			-- EG: https://www.pathofexile.com/passive-skill-tree/3.15.0/AAAABgMADI6-HwKSwQQHLJwtH9-wTLNfKoP3ES3r5AAA
 			-- EG: https://www.pathofexile.com/fullscreen-passive-skill-tree/3.15.0/AAAABgMADAQHES0fAiycLR9Ms18qg_eOvpLB37Dr5AAA
 			-- EG: https://www.pathofexile.com/passive-skill-tree/ruthless/AAAABgAAAAAA (Ruthless doesn't have versions)
-			decodeTreeLink(treeLink, validateTreeVersion(treeLink:match("tree/ruthless"), treeLink:match(versionLookup)))
+			-- EG: https://www.pathofexile.com/passive-skill-tree/ruthless-alternate/AAAABgAAAAAA
+			-- EG: https://www.pathofexile.com/passive-skill-tree/alternate/AAAABgAAAAAA
+			decodeTreeLink(treeLink, validateTreeVersion(treeLink:match("tree/(%w+%-?%w*)"), treeLink:match(versionLookup)))
 		end
 	end)
 	controls.import.enabled = false
