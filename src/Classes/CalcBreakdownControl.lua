@@ -405,7 +405,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			local nodeId = row.mod.source:match("Tree:(%d+)")
 			if nodeId then
 				local nodeIdNumber = tonumber(nodeId)
-				local node = build.spec.nodes[nodeIdNumber] or build.spec.tree.nodes[nodeIdNumber]
+				local node = build.spec.nodes[nodeIdNumber] or build.spec.tree.nodes[nodeIdNumber] or build.latestTree.nodes[nodeIdNumber]
 				row.sourceName = node.dn
 				row.sourceNameNode = node
 			end
