@@ -1,5 +1,16 @@
 # Changelog
 
+## [v2.52.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.52.3) (2025/02/20)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.52.2...v2.52.3)
+
+## What's Changed
+### New to Path of Building
+- Add new Harbinger skills [\#8519](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8519) ([Wires77](https://github.com/Wires77))
+### Fixed Bugs
+- Fix error when crafting a fishing rod enchant [\#8518](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8518) ([Wires77](https://github.com/Wires77))
+
+
 ## [v2.52.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.52.2) (2025/02/20)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.52.1...v2.52.2)

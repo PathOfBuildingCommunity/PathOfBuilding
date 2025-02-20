@@ -1,3 +1,12 @@
+VERSION[2.52.3][2025/02/20]
+
+--- New to Path of Building ---
+* Add new Harbinger skills (Wires77)
+
+--- Fixed Bugs ---
+* Fix error when crafting a fishing rod enchant (Wires77)
+
+
 VERSION[2.52.2][2025/02/20]
 
 --- Fixed Crashes ---
