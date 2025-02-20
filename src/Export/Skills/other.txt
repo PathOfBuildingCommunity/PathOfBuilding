@@ -871,6 +871,23 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill SummonHarbingerOfFocusAscendancy
+#flags spell minion
+	fromTree = true,
+#mods
+
+#skill SummonHarbingerOfTimeAscendancy
+#flags spell minion
+	fromTree = true,
+#baseMod mod("ActionSpeed", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Harbinger of Time", modCond = "HarbingerOfTime" })
+#baseMod skill("buffAllies", true)
+#mods
+
+#skill SummonHarbingerOfTheArcaneAscendancy
+#flags spell minion
+	fromTree = true,
+#mods
+
 #skill SummonHarbingerOfBrutality
 #flags spell minion
 	fromItem = true,
