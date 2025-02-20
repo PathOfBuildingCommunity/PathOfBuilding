@@ -523,19 +523,25 @@ function ImportTabClass:BuildCharacterList(league)
 				classColor = colorCodes[charClass:upper()]
 
 				if classColor == nil then
-					if (charClass == "Elementalist" or charClass == "Necromancer" or charClass == "Occultist") then
+					if (charClass == "Elementalist" or charClass == "Necromancer" or charClass == "Occultist" or
+						charClass == "Harbinger" or charClass == "Herald" or charClass == "Bog Shaman") then
 						classColor = colorCodes["WITCH"]
-					elseif (charClass == "Guardian" or charClass == "Inquisitor" or charClass == "Hierophant") then
+					elseif (charClass == "Guardian" or charClass == "Inquisitor" or charClass == "Hierophant" or
+						charClass == "Architect of Chaos" or charClass == "Polytheist" or charClass == "Puppeteer") then
 						classColor = colorCodes["TEMPLAR"]
-					elseif (charClass == "Assassin" or charClass == "Trickster" or charClass == "Saboteur") then
+					elseif (charClass == "Assassin" or charClass == "Trickster" or charClass == "Saboteur" or
+						charClass == "Surfcaster" or charClass == "Servant of Arakaali" or charClass == "Blind Prophet") then
 						classColor = colorCodes["SHADOW"]
-					elseif (charClass == "Gladiator" or charClass == "Slayer" or charClass == "Champion") then
+					elseif (charClass == "Gladiator" or charClass == "Slayer" or charClass == "Champion" or
+						charClass == "Gambler" or charClass == "Paladin" or charClass == "Aristocrat") then
 						classColor = colorCodes["DUELIST"]
-					elseif (charClass == "Raider" or charClass == "Pathfinder" or charClass == "Deadeye" or charClass == "Warden") then
+					elseif (charClass == "Raider" or charClass == "Pathfinder" or charClass == "Deadeye" or charClass == "Warden" or
+						charClass == "Daughter of Oshabi" or charClass == "Whisperer" or charClass == "Wildspeaker") then
 						classColor = colorCodes["RANGER"]
-					elseif (charClass == "Juggernaut" or charClass == "Berserker" or charClass == "Chieftain") then
+					elseif (charClass == "Juggernaut" or charClass == "Berserker" or charClass == "Chieftain" or
+						charClass == "Antiquarian" or charClass == "Behemoth" or charClass == "Ancestral Commander") then
 						classColor = colorCodes["MARAUDER"]
-					elseif (charClass == "Ascendant") then
+					elseif (charClass == "Ascendant" or charClass == "Scavenger") then
 						classColor = colorCodes["SCION"]
 					end
 				end
