@@ -676,7 +676,31 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
 
-	self.build.spec:ImportFromNodeList(charPassiveData.character, charPassiveData.ascendancy, charPassiveData.alternate_ascendancy or 0, charPassiveData.hashes, charPassiveData.skill_overrides, charPassiveData.mastery_effects or {}, latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or ""))
+	-- Alternate trees don't have an identifier, so we're forced to look up something that is unique to that tree
+	-- Hopefully this changes, because it's totally unmaintainable
+	local function isAscendancyInTree(className, treeVersion)
+		local classes = main.tree[treeVersion].classes
+		for _, class in pairs(classes) do
+			if class.name == className then
+				return true
+			end
+			for i = 0, #class.classes do
+				local ascendClass = class.classes[i]
+				if ascendClass.name == className then
+					return true
+				end
+			end
+		end
+	end
+
+	self.build.spec:ImportFromNodeList(charPassiveData.character, 
+		charPassiveData.ascendancy, 
+		charPassiveData.alternate_ascendancy or 0, 
+		charPassiveData.hashes, 
+		charPassiveData.skill_overrides, 
+		charPassiveData.mastery_effects or {}, 
+		latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or "") .. (isAscendancyInTree(charData.class, latestTreeVersion) and "" or "_alternate")
+	)
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.characterLevelAutoMode = false
