@@ -1578,6 +1578,17 @@ function buildMode:AddDisplayStatList(statList, actor)
 	if actor.output.VixenModeNoVixenGlovesWarn then
 		InsertIfNew(self.controls.warnings.lines, "Vixen's calculation mode for Doom Blast is selected but you do not have Vixen's Entrapment Embroidered Gloves equipped")
 	end
+
+	do
+		local aspectCount = 0
+		aspectCount = aspectCount + (actor.output.CrabBarriersMax > 0 and actor.output.CrabBarriers > 0 and 1 or 0)
+		aspectCount = aspectCount + (aspectCount < 2 and actor.modDB:Flag(nil, "Condition:AspectOfTheSpiderActive") and 1 or 0)
+		aspectCount = aspectCount + (aspectCount < 2 and (actor.modDB:Flag(nil, "Condition:CatsAgilityActive") or actor.modDB:Flag(nil, "Condition:CatsStealthActive")) and 1 or 0)
+		aspectCount = aspectCount + (aspectCount < 2 and (actor.modDB:Flag(nil, "Condition:AviansFlightActive") or actor.modDB:Flag(nil, "Condition:AviansMightActive")) and 1 or 0)
+		if aspectCount > 1 then
+			InsertIfNew(self.controls.warnings.lines, "You have more than one Aspect skill active")
+		end
+	end
 end
 
 function buildMode:InsertItemWarnings()
