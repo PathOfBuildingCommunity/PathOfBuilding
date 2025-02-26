@@ -139,10 +139,7 @@ local function doOtherEnchantment(fileName, groupsList)
 	out:close()
 end
 
--- Harvest flask enchants stat descriptions don't read properly yet
-doOtherEnchantment("../Data/EnchantmentFlask.lua", { --[3] = { ["FlaskEnchantment"] = "HARVEST" },
-	[21] = { ["FlaskEnchantment"] = "ENKINDLING" },
-	[22] = { ["FlaskEnchantment"] = "INSTILLING" } })
+doOtherEnchantment("../Data/EnchantmentFlask.lua", { [3] = { ["FlaskEnchantment"] = "HARVEST" }, [21] = { ["FlaskEnchantment"] = "ENKINDLING" }, [22] = { ["FlaskEnchantment"] = "INSTILLING" } })
 doOtherEnchantment("../Data/EnchantmentBody.lua", { [3] = { ["AlternateArmourQuality"] = "HARVEST", ["EnchantmentHeistArmour"] = "HEIST" } })
 doOtherEnchantment("../Data/EnchantmentWeapon.lua", { [3] = { ["AlternateWeaponQuality"] = "HARVEST", ["EnchantmentHeistWeapon"] = "HEIST" }, ["Craft"] = { ["Runecrafting"] = "RUNESMITH" } })
 
