@@ -121,7 +121,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 		return self.charImportMode == "GETSESSIONID"
 	end
 	self.controls.sessionRetry = new("ButtonControl", {"TOPLEFT",self.controls.sessionHeader,"TOPLEFT"}, {0, 122, 60, 20}, "Retry", function()
-		self:DownloadCharacterList()
+		self.api:DownloadCharacterList()
 	end)
 	self.controls.sessionCancel = new("ButtonControl", {"LEFT",self.controls.sessionRetry,"RIGHT"}, {8, 0, 60, 20}, "Cancel", function()
 		self.charImportMode = "GETACCOUNTNAME"
@@ -133,11 +133,15 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.sessionInput = new("EditControl", {"TOPLEFT",self.controls.sessionRetry,"BOTTOMLEFT"}, {0, 8, 350, 20}, "", "POESESSID", "%X", 32)
 	self.controls.sessionInput:SetProtected(true)
 	self.controls.sessionGo = new("ButtonControl", {"LEFT",self.controls.sessionInput,"RIGHT"}, {8, 0, 60, 20}, "Go", function()
-		self:DownloadCharacterList()
+		self.api:DownloadCharacterList()
 	end)
 	self.controls.sessionGo.enabled = function()
 		return #self.controls.sessionInput.buf == 32
 	end
+	self.api = new("PoEAPI")
+	self.controls.oauth = new("ButtonControl", {"LEFT",self.controls.sessionInput,"BOTTOMLEFT"}, {0, 8, 200, 20}, "Authenticate with OAuth", function()
+		self.api:FetchAuthToken()
+end)
 
 	-- Stage: select character and import data
 	self.controls.charSelectHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, {6, 40, 200, 16}, "^7Choose character to import data from:")
