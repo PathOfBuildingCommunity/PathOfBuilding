@@ -6249,7 +6249,7 @@ skills["ExplosiveArrow"] = {
 			activeSkill.skillData.dpsMultiplier = activeSkill.skillData.dpsMultiplier / barrageProjectiles  -- cancel out the normal dps multiplier from barrage that applies to most other skills
 		end
 
-		local fuseApplicationRate = (output.HitChance / 100) * globalOutput.Speed * globalOutput.ActionSpeedMod * activeSkill.skillData.dpsMultiplier * (barrageProjectiles or 1)
+		local fuseApplicationRate = (output.HitChance / 100) * globalOutput.Speed * activeSkill.skillData.dpsMultiplier * (barrageProjectiles or 1)
 		local initialApplicationRate = fuseApplicationRate
 		if activeSkill.skillFlags.totem then
 			fuseApplicationRate = fuseApplicationRate * activeTotems
@@ -6283,7 +6283,6 @@ skills["ExplosiveArrow"] = {
 			if output.HitChance < 100 then
 				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(hit chance)", output.HitChance / 100))
 			end
-			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(action speed)", globalOutput.ActionSpeedMod))
 			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(projectiles)", barrageProjectiles or 1))
 			if activeSkill.skillFlags.totem then
 				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %.2f ^8(fuse rate)", initialApplicationRate))
