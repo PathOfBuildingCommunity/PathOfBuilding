@@ -19,6 +19,7 @@ function PoEAPIClass:FetchAuthToken()
 
 	-- TODO: Generate state
 	local state = "test"
+	-- TODO: Make port based on what port is available (See LaunchServer.lua)
 	local authUrl = "https://www.pathofexile.com/oauth/authorize?client_id=pob&response_type=code&scope=account:profile account:leagues account:characters&state=" .. state .. "&redirect_uri=http://localhost:49082&code_challenge=" .. code_challenge .. "&code_challenge_method=S256"
 	OpenURL(authUrl)
 
