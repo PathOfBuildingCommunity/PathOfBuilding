@@ -633,6 +633,8 @@ data.itemTagSpecialExclusionPattern = {
 			"Life as Physical Damage",
 			"Life as Extra Maximum Energy Shield",
 			"maximum Life as Fire Damage",
+			"while on Full Life", -- foxshade
+			"while you are on Full Life", -- foxshade
 			"when on Full Life",
 			"when on Low Life",
 			"Gain Maximum Life instead of Maximum Energy Shield",
