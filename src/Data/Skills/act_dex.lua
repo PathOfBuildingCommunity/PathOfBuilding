@@ -2127,13 +2127,13 @@ skills["VaalBladeFlurry"] = {
 	castTime = 1,
 	statMap = {
 		["vaal_charged_attack_damage_taken_+%_final"] = {
-			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("DamageTaken", "MORE", nil, 0, 0, { type = "Condition", var = "ChannellingVaalBladeFlurry"}, { type = "GlobalEffect", effectType = "Buff",  unscalable = true }),
 		},
 		["vaal_charged_attack_radius_+_per_stage"] = {
 			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "VaalBladeFlurryStage" }),
 		},
 		["charged_attack_damage_per_stack_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "VaalBladeFlurryStage" }),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "VaalBladeFlurryStage" }),
 		},
 	},
 --huge/inf used for now, max stages are when aoe reaches 9m. 89% INC AoE made my max stages 11/12 in game
@@ -12165,9 +12165,6 @@ skills["Reave"] = {
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveStage" }),
 		},
-		["display_reave_base_maximum_stacks"] = {
-			mod("Multiplier:ReaveMaxStages", "BASE", nil),
-		},
 		["reave_additional_max_stacks"] = {
 			mod("Multiplier:ReaveMaxStages", "BASE", nil),
 		},
@@ -12179,6 +12176,7 @@ skills["Reave"] = {
 	},
 	baseMods = {
 		skill("radius", 20),
+		mod("Multiplier:ReaveMaxStages", "BASE", 8),
 	},
 	qualityStats = {
 		Default = {
@@ -12255,12 +12253,9 @@ skills["ReaveAltX"] = {
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveofRefractionStage" }),
 		},
-		["display_reave_base_maximum_stacks"] = {
-			mod("Multiplier:ReaveofRefractionMaxStages", "BASE", nil),
-		},
 		["reave_additional_max_stacks"] = {
 			mod("Multiplier:ReaveofRefractionMaxStages", "BASE", nil),
-		},
+		}
 	},
 	baseFlags = {
 		attack = true,
@@ -12269,6 +12264,7 @@ skills["ReaveAltX"] = {
 	},
 	baseMods = {
 		skill("radius", 20),
+		mod("Multiplier:ReaveofRefractionMaxStages", "BASE", 8),
 	},
 	qualityStats = {
 		Default = {
@@ -12346,9 +12342,6 @@ skills["VaalReave"] = {
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "VaalReaveStage" }),
 		},
-		["display_reave_base_maximum_stacks"] = {
-			mod("Multiplier:VaalReaveMaxStages", "BASE", nil),
-		},
 		["reave_additional_max_stacks"] = {
 			mod("Multiplier:VaalReaveMaxStages", "BASE", nil),
 		},
@@ -12361,6 +12354,7 @@ skills["VaalReave"] = {
 	},
 	baseMods = {
 		skill("radius", 12),
+		mod("Multiplier:VaalReaveMaxStages", "BASE", 4),
 	},
 	qualityStats = {
 		Default = {

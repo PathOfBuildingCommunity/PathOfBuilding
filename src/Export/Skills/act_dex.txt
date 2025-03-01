@@ -2357,14 +2357,12 @@ local skills, mod, flag, skill = ...
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveStage" }),
 		},
-		["display_reave_base_maximum_stacks"] = {
-			mod("Multiplier:ReaveMaxStages", "BASE", nil),
-		},
 		["reave_additional_max_stacks"] = {
 			mod("Multiplier:ReaveMaxStages", "BASE", nil),
 		},
 	},
 #baseMod skill("radius", 20)
+#baseMod mod("Multiplier:ReaveMaxStages", "BASE", 8)
 #mods
 
 #skill ReaveAltX
@@ -2373,14 +2371,12 @@ local skills, mod, flag, skill = ...
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveofRefractionStage" }),
 		},
-		["display_reave_base_maximum_stacks"] = {
-			mod("Multiplier:ReaveofRefractionMaxStages", "BASE", nil),
-		},
 		["reave_additional_max_stacks"] = {
 			mod("Multiplier:ReaveofRefractionMaxStages", "BASE", nil),
-		},
+		}
 	},
 #baseMod skill("radius", 20)
+#baseMod mod("Multiplier:ReaveofRefractionMaxStages", "BASE", 8)
 #mods
 
 #skill VaalReave
@@ -2389,14 +2385,12 @@ local skills, mod, flag, skill = ...
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "VaalReaveStage" }),
 		},
-		["display_reave_base_maximum_stacks"] = {
-			mod("Multiplier:VaalReaveMaxStages", "BASE", nil),
-		},
 		["reave_additional_max_stacks"] = {
 			mod("Multiplier:VaalReaveMaxStages", "BASE", nil),
 		},
 	},
 #baseMod skill("radius", 12)
+#baseMod mod("Multiplier:VaalReaveMaxStages", "BASE", 4)
 #mods
 
 #skill ScourgeArrow
