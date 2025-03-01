@@ -394,8 +394,21 @@ local skills, mod, flag, skill = ...
 		["vaal_charged_attack_damage_taken_+%_final"] = {
 			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["vaal_charged_attack_radius_+_per_stage"] = {
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "VaalBladeFlurryStage" }),
+		},
+		["charged_attack_damage_per_stack_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "VaalBladeFlurryStage" }),
+		},
 	},
+--huge/inf used for now, max stages are when aoe reaches 9m. 89% INC AoE made my max stages 11/12 in game
+--secondary radius around enemy unknown, set to 1m for now
+#baseMod skill("numStages", 1, { type = "Multiplier", var = "VaalBladeFlurryStage" })
+#baseMod mod("Multiplier:VaalBladeFlurryMaxStages", "BASE", math.huge )
+#baseMod skill("radius", 10)
+#baseMod skill("radiusSecondary", 10)
 #mods
+
 
 #skill BladeVortex
 #flags spell area duration
@@ -2344,12 +2357,14 @@ local skills, mod, flag, skill = ...
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveStage" }),
 		},
+		["display_reave_base_maximum_stacks"] = {
+			mod("Multiplier:ReaveMaxStages", "BASE", nil),
+		},
 		["reave_additional_max_stacks"] = {
 			mod("Multiplier:ReaveMaxStages", "BASE", nil),
-		}
+		},
 	},
 #baseMod skill("radius", 20)
-#baseMod mod("Multiplier:ReaveMaxStages", "BASE", 8)
 #mods
 
 #skill ReaveAltX
@@ -2358,26 +2373,30 @@ local skills, mod, flag, skill = ...
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveofRefractionStage" }),
 		},
+		["display_reave_base_maximum_stacks"] = {
+			mod("Multiplier:ReaveofRefractionMaxStages", "BASE", nil),
+		},
 		["reave_additional_max_stacks"] = {
 			mod("Multiplier:ReaveofRefractionMaxStages", "BASE", nil),
-		}
+		},
 	},
 #baseMod skill("radius", 20)
-#baseMod mod("Multiplier:ReaveofRefractionMaxStages", "BASE", 8)
 #mods
 
 #skill VaalReave
 #flags attack melee area vaal
 	statMap = {
 		["reave_area_of_effect_+%_final_per_stage"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveStage" }),
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "VaalReaveStage" }),
+		},
+		["display_reave_base_maximum_stacks"] = {
+			mod("Multiplier:VaalReaveMaxStages", "BASE", nil),
 		},
 		["reave_additional_max_stacks"] = {
-			mod("Multiplier:ReaveMaxStages", "BASE", nil),
+			mod("Multiplier:VaalReaveMaxStages", "BASE", nil),
 		},
 	},
 #baseMod skill("radius", 12)
-#baseMod mod("Multiplier:ReaveMaxStages", "BASE", 4)
 #mods
 
 #skill ScourgeArrow

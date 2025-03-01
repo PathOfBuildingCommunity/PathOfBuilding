@@ -2129,11 +2129,25 @@ skills["VaalBladeFlurry"] = {
 		["vaal_charged_attack_damage_taken_+%_final"] = {
 			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["vaal_charged_attack_radius_+_per_stage"] = {
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "VaalBladeFlurryStage" }),
+		},
+		["charged_attack_damage_per_stack_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "VaalBladeFlurryStage" }),
+		},
 	},
+--huge/inf used for now, max stages are when aoe reaches 9m. 89% INC AoE made my max stages 11/12 in game
+--secondary radius around enemy unknown, set to 1m for now
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		skill("numStages", 1, { type = "Multiplier", var = "VaalBladeFlurryStage" }),
+		mod("Multiplier:VaalBladeFlurryMaxStages", "BASE", math.huge ),
+		skill("radius", 10),
+		skill("radiusSecondary", 10),
 	},
 	qualityStats = {
 		Default = {
@@ -2196,6 +2210,7 @@ skills["VaalBladeFlurry"] = {
 		[40] = { 108, attackSpeedMultiplier = 220, baseMultiplier = 10.859, soulPreventionDuration = 3, storedUses = 1, damageEffectiveness = 10.859, vaalStoredUses = 1, cooldown = 0.5, levelRequirement = 100, statInterpolation = { 1, }, cost = { Soul = 30, }, },
 	},
 }
+
 skills["BladeVortex"] = {
 	name = "Blade Vortex",
 	baseTypeName = "Blade Vortex",
@@ -12150,9 +12165,12 @@ skills["Reave"] = {
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveStage" }),
 		},
+		["display_reave_base_maximum_stacks"] = {
+			mod("Multiplier:ReaveMaxStages", "BASE", nil),
+		},
 		["reave_additional_max_stacks"] = {
 			mod("Multiplier:ReaveMaxStages", "BASE", nil),
-		}
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -12161,7 +12179,6 @@ skills["Reave"] = {
 	},
 	baseMods = {
 		skill("radius", 20),
-		mod("Multiplier:ReaveMaxStages", "BASE", 8),
 	},
 	qualityStats = {
 		Default = {
@@ -12238,9 +12255,12 @@ skills["ReaveAltX"] = {
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveofRefractionStage" }),
 		},
+		["display_reave_base_maximum_stacks"] = {
+			mod("Multiplier:ReaveofRefractionMaxStages", "BASE", nil),
+		},
 		["reave_additional_max_stacks"] = {
 			mod("Multiplier:ReaveofRefractionMaxStages", "BASE", nil),
-		}
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -12249,7 +12269,6 @@ skills["ReaveAltX"] = {
 	},
 	baseMods = {
 		skill("radius", 20),
-		mod("Multiplier:ReaveofRefractionMaxStages", "BASE", 8),
 	},
 	qualityStats = {
 		Default = {
@@ -12325,10 +12344,13 @@ skills["VaalReave"] = {
 	castTime = 1,
 	statMap = {
 		["reave_area_of_effect_+%_final_per_stage"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveStage" }),
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "VaalReaveStage" }),
+		},
+		["display_reave_base_maximum_stacks"] = {
+			mod("Multiplier:VaalReaveMaxStages", "BASE", nil),
 		},
 		["reave_additional_max_stacks"] = {
-			mod("Multiplier:ReaveMaxStages", "BASE", nil),
+			mod("Multiplier:VaalReaveMaxStages", "BASE", nil),
 		},
 	},
 	baseFlags = {
@@ -12339,7 +12361,6 @@ skills["VaalReave"] = {
 	},
 	baseMods = {
 		skill("radius", 12),
-		mod("Multiplier:ReaveMaxStages", "BASE", 4),
 	},
 	qualityStats = {
 		Default = {
