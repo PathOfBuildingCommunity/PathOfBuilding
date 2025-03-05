@@ -5363,8 +5363,6 @@ skills["HeraldOfAsh"] = {
 		},
 	},
 	baseFlags = {
-		spell = true,
-		area = true,
 	},
 	baseMods = {
 		skill("radius", 10),
