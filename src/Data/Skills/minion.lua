@@ -1561,11 +1561,10 @@ skills["SiegebreakerCausticGround"] = {
 	hidden = true,
 	color = 4,
 	baseFlags = {
-		cast = true,
 		area = true,
-		chaos = true,
+		duration = true,
 	},
-	skillTypes = { },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.Triggerable] = true, [SkillType.Chaos] = true, [SkillType.AreaSpell] = true, },
 	baseMods = {
 		skill("ChaosDot", 1, { type = "PercentStat", stat = "Life", percentVar = "SiegebreakerCausticGroundPercent" }),
 		skill("dotIsArea", true),
@@ -1584,11 +1583,10 @@ skills["ReplicaSiegebreakerBurningGround"] = {
 	hidden = true,
 	color = 4,
 	baseFlags = {
-		cast = true,
 		area = true,
-		fire = true,
+		duration = true,
 	},
-	skillTypes = { },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, [SkillType.CausesBurning] = true, },
 	baseMods = {
 		skill("FireDot", 1, { type = "PercentStat", stat = "Life", percentVar = "SiegebreakerBurningGroundPercent" }),
 		skill("dotIsArea", true),
