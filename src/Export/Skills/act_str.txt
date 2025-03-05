@@ -940,7 +940,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill HeraldOfAsh
-#flags spell area
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.FireDot = (activeSkill.skillData.hoaOverkill or 0) * (1 + activeSkill.skillData.hoaMoreBurn / 100) * activeSkill.skillData.hoaOverkillPercent
 	end,
