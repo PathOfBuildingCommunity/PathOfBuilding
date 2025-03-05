@@ -4605,22 +4605,8 @@ skills["DivineIreAltY"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.22,
 	preDamageFunc = function(activeSkill, output)
-		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.hitTimeMultiplier = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:DivineIreofDisintegrationStage")
-		end
+		activeSkill.skillData.hitTimeMultiplier = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:DivineIreofDisintegrationStage")
 	end,
-	parts = {
-		{
-			name = "Channelling",
-			area = false,
-		},
-		{
-			name = "Release",
-			area = true,
-			stages = true,
-			channelRelease = true,
-		},
-	},
 	statMap = {
 		["divine_tempest_hit_damage_+%_final_per_stage"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "DivineIreofDisintegrationStageAfterFirst" }),
@@ -4632,9 +4618,10 @@ skills["DivineIreAltY"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		channelRelease = true,
 	},
 	baseMods = {
-		mod("Multiplier:DivineIreofDisintegrationMaxStages", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		mod("Multiplier:DivineIreofDisintegrationMaxStages", "BASE", 10, 0, 0),
 	},
 	qualityStats = {
 		Default = {
