@@ -761,7 +761,7 @@ function calcs.defence(env, actor)
 							armourBase = armourBase * 2
 						end
 						if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
-							armourBase = armourBase * (1 - ((modDB:Sum("BASE", nil, "BodyArmourArmourEvasionToWardPercent") or 0) / 100))
+							armourBase = armourBase * (1 - ((m_min(modDB:Sum("BASE", nil, "BodyArmourArmourEvasionToWardPercent"), 100) or 0) / 100))
 						end
 					end
 					armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
@@ -780,7 +780,7 @@ function calcs.defence(env, actor)
 							evasionBase = evasionBase * 2
 						end
 						if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
-							evasionBase = evasionBase * (1 - ((modDB:Sum("BASE", nil, "BodyArmourArmourEvasionToWardPercent") or 0) / 100))
+							evasionBase = evasionBase * (1 - ((m_min(modDB:Sum("BASE", nil, "BodyArmourArmourEvasionToWardPercent"), 100) or 0) / 100))
 						end
 					end
 					gearEvasion = gearEvasion + evasionBase
