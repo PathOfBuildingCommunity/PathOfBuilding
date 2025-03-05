@@ -9055,8 +9055,8 @@ c["Minions Leech 5% of Damage as Life against Poisoned Enemies"]={{[1]={flags=0,
 c["Minions Penetrate 8% of Cursed Enemies' Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="enemy",type="ActorCondition",var="Cursed"},flags=0,keywordFlags=0,name="ElementalPenetration",type="BASE",value=8}}}},nil}
 c["Minions Poison Enemies on Hit"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="PoisonChance",type="BASE",value=100}}}},nil}
 c["Minions Recover 10% of Life on Killing a Poisoned Enemy"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={percent=10,stat="Life",type="PercentStat"},[2]={actor="enemy",threshold=1,type="MultiplierThreshold",var="PoisonStack"},flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=1}}}},nil}
-c["Minions Recover 10% of their Life when they Block"]={nil,"Recover 10% of their Life when they Block "}
-c["Minions Recover 2% of their Life when they Block"]={nil,"Recover 2% of their Life when they Block "}
+c["Minions Recover 10% of their Life when they Block"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={percent=10,stat="Life",type="PercentStat"},flags=0,keywordFlags=0,name="LifeOnBlock",type="BASE",value=1}}}},nil}
+c["Minions Recover 2% of their Life when they Block"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={percent=2,stat="Life",type="PercentStat"},flags=0,keywordFlags=0,name="LifeOnBlock",type="BASE",value=1}}}},nil}
 c["Minions Recover 2% of their Maximum Life when they Block"]={nil,"Recover 2% of their Maximum Life when they Block "}
 c["Minions Recover 20% of Life on Killing a Poisoned Enemy"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={percent=20,stat="Life",type="PercentStat"},[2]={actor="enemy",threshold=1,type="MultiplierThreshold",var="PoisonStack"},flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=1}}}},nil}
 c["Minions Recover 4% of Life on Minion Death"]={nil,"Recover 4% of Life on Minion Death "}
