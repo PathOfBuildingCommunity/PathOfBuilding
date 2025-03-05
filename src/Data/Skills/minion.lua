@@ -1567,7 +1567,7 @@ skills["SiegebreakerCausticGround"] = {
 	},
 	skillTypes = { },
 	baseMods = {
-		skill("ChaosDot", 1, { type = "PerStat", stat = "Life", div = 5 }),
+		skill("ChaosDot", 1, { type = "PercentStat", stat = "Life", percentVar = "SiegebreakerCausticGroundPercent" }),
 		skill("dotIsArea", true),
 		flag("dotIsCausticGround"),
 	},
@@ -1590,7 +1590,7 @@ skills["ReplicaSiegebreakerBurningGround"] = {
 	},
 	skillTypes = { },
 	baseMods = {
-		skill("FireDot", 1, { type = "PerStat", stat = "Life", div = 5 }),
+		skill("FireDot", 1, { type = "PercentStat", stat = "Life", percentVar = "SiegebreakerBurningGroundPercent" }),
 		skill("dotIsArea", true),
 		flag("dotIsBurningGround"),
 	},
