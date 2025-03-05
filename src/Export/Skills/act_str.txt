@@ -1668,10 +1668,10 @@ local skills, mod, flag, skill = ...
 #flags spell aura totem area duration
 	statMap = {
 		["base_life_regeneration_rate_per_minute"] = {
-			{mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-			div = 60},
-			{mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "RejuvenationTotemManaRegen" }),
-			div = 400},
+			{ mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60 },
+			{ mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "RejuvenationTotemManaRegen" }),
+			div = 400 },
 		},
 	},
 #baseMod skill("radius", 40)

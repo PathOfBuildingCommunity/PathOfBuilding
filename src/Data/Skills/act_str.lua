@@ -8498,10 +8498,10 @@ skills["RejuvenationTotem"] = {
 	castTime = 0.6,
 	statMap = {
 		["base_life_regeneration_rate_per_minute"] = {
-			{mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-			div = 60},
-			{mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "RejuvenationTotemManaRegen" }),
-			div = 400},
+			{ mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60 },
+			{ mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "RejuvenationTotemManaRegen" }),
+			div = 400 },
 		},
 	},
 	baseFlags = {
