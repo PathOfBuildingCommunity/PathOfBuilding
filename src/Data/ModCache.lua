@@ -10352,7 +10352,7 @@ c["Share Endurance Charges with nearby party members Your nearby party members m
 c["Share Endurance, Frenzy and Power Charges with nearby party members"]={nil,"Share Endurance, Frenzy and Power Charges with nearby party members "}
 c["Share Endurance, Frenzy and Power Charges with nearby party members Limited to 1 Keystone Tattoo"]={nil,"Share Endurance, Frenzy and Power Charges with nearby party members Limited to 1 Keystone Tattoo "}
 c["Shared Suffering"]={nil,"Shared Suffering "}
-c["Shepherd of Souls"]={{[1]={[1]={skillType=42,type="SkillType"},[2]={neg=true,skillType=43,type="SkillType"},flags=0,keywordFlags=0,name="SoulCost",type="MORE",value=-80},[2]={[1]={type="Multiplier",var="VaalSkillsUsedInPast8Seconds"},flags=0,keywordFlags=0,name="SoulCost",type="INC",value=80}},nil}
+c["Shepherd of Souls"]={{[1]={[1]={skillType=42,type="SkillType"},[2]={neg=true,skillType=43,type="SkillType"},flags=0,keywordFlags=0,name="SoulCost",type="MORE",value=-80},[2]={[1]={skillType=42,type="SkillType"},[2]={neg=true,skillType=43,type="SkillType"},[3]={type="Multiplier",var="VaalSkillsUsedInPast8Seconds"},flags=0,keywordFlags=0,name="SoulCost",type="INC",value=100}},nil}
 c["Shock Attackers for 4 seconds on Block"]={{[1]={[1]={type="Condition",var="BlockedRecently"},flags=0,keywordFlags=0,name="ShockBase",type="BASE",value=15},[2]={[1]={type="Condition",var="BlockedRecently"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Shocked",type="FLAG",value=true}}}},nil}
 c["Shock Reflection"]={nil,"Shock Reflection "}
 c["Shock a nearby Enemy for 2 seconds on Killing a Shocked Enemy"]={nil,"Shock a nearby Enemy for 2 seconds on Killing a Shocked Enemy "}
