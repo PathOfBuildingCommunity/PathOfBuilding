@@ -38688,7 +38688,7 @@ return {
             ["isNotable"]= true,
             ["ascendancyName"]= "Occultist",
             ["stats"]= {
-                "Grants Summon Visiting Harbinger of Arcane Skill"
+                "Grants Summon Visiting Harbinger of the Arcane Skill"
             },
             ["reminderText"]= {
                 "(Summons an immortal Harbinger minion. The minion has two buff spells it will cast on you: Arcane Surge, granting increased Cast Speed and Mana Regeneration, and a buff that grants Chance to Shock and Lightning Penetration)"

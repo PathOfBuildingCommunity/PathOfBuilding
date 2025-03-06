@@ -136,6 +136,7 @@ writeMods("../Data/ModItem.lua", function(mod)
 			and (mod.GenerationType == 1 or mod.GenerationType == 2 or (mod.GenerationType == 3 and (mod.Id:match("^Synthesis") or (mod.Family[1].Id ~= "AuraBonus" and mod.Family[1].Id ~= "ArbalestBonus"))) or mod.GenerationType == 5
 			 or mod.GenerationType == 25 or mod.GenerationType == 24 or mod.GenerationType == 28 or mod.GenerationType == 29)
 			and not mod.Id:match("^Hellscape[UpDown]+sideMap") -- Exclude Scourge map mods
+			and not mod.Id:match("Royale")
 			and #mod.AuraFlags == 0
 end)
 writeMods("../Data/ModFlask.lua", function(mod)
