@@ -3849,8 +3849,8 @@ local specialModList = {
 	["totems gain %+(%d+)%% to all elemental resistances"] = function(num) return { mod("TotemElementalResist", "BASE", num) } end,
 	["rejuvenation totem also grants mana regeneration equal to 15%% of its life regeneration"] = { flag("Condition:RejuvenationTotemManaRegen") },
 	-- Minions
-	["your strength is added to your minions"] = { flag("StrengthAddedToMinions") },
-	["half of your strength is added to your minions"] = { flag("HalfStrengthAddedToMinions") },
+	["your strength is added to your minions"] = { mod("StrengthAddedToMinions", "BASE", 100) },
+	["half of your strength is added to your minions"] = { mod("StrengthAddedToMinions", "BASE", 50) },
 	["minions' accuracy rating is equal to yours"] = { flag("MinionAccuracyEqualsAccuracy") },
 	["minions created recently have (%d+)%% increased attack and cast speed"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", num) }, { type = "Condition", var = "MinionsCreatedRecently" }) } end,
 	["minions created recently have (%d+)%% increased movement speed"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", num) }, { type = "Condition", var = "MinionsCreatedRecently" }) } end,

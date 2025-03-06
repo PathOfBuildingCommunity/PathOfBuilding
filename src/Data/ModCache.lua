@@ -8609,7 +8609,7 @@ c["Guard Skills have 20% increased Cooldown Recovery Rate"]={{[1]={[1]={skillTyp
 c["Guard Skills have 25% increased Duration"]={{[1]={[1]={skillType=89,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=25}},nil}
 c["Guard Skills have 40% increased Duration"]={{[1]={[1]={skillType=89,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=40}},nil}
 c["Guard Skills have 6% increased Duration"]={{[1]={[1]={skillType=89,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=6}},nil}
-c["Half of your Strength is added to your Minions"]={{[1]={flags=0,keywordFlags=0,name="HalfStrengthAddedToMinions",type="FLAG",value=true}},nil}
+c["Half of your Strength is added to your Minions"]={{[1]={flags=0,keywordFlags=0,name="StrengthAddedToMinions",type="BASE",value=50}},nil}
 c["Has 1 Abyssal Socket"]={{[1]={flags=0,keywordFlags=0,name="AbyssalSocketCount",type="BASE",value=1}},nil}
 c["Has 1 Socket"]={{[1]={flags=0,keywordFlags=0,name="SocketCount",type="BASE",value=1}},nil}
 c["Has 2 Abyssal Sockets"]={{[1]={flags=0,keywordFlags=0,name="AbyssalSocketCount",type="BASE",value=2}},nil}
