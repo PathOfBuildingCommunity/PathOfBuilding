@@ -1113,11 +1113,8 @@ function calcs.perform(env, skipEHP)
 				end
 			end
 		end
-		if modDB:Flag(nil, "StrengthAddedToMinions") then
-			env.minion.modDB:NewMod("Str", "BASE", round(calcLib.val(modDB, "Str")), "Player")
-		end
-		if modDB:Flag(nil, "HalfStrengthAddedToMinions") then
-			env.minion.modDB:NewMod("Str", "BASE", round(calcLib.val(modDB, "Str") * 0.5), "Player")
+		if modDB:Sum("BASE", nil, "StrengthAddedToMinions") > 0 then
+			env.minion.modDB:NewMod("Str", "BASE", round(calcLib.val(modDB, "Str") * modDB:Sum("BASE", nil, "StrengthAddedToMinions") / 100), "Player")
 		end
 	end
 	if env.aegisModList then
