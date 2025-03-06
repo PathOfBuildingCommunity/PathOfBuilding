@@ -4004,6 +4004,7 @@ local specialModList = {
 	["arrows chain %+(%d) times"] = function(num) return { mod("ChainCountMax", "BASE", num, nil, ModFlag.Bow) } end,
 	["skills chain an additional time while at maximum frenzy charges"] = { mod("ChainCountMax", "BASE", 1, { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }) },
 	["attacks chain an additional time when in main hand"] = { mod("ChainCountMax", "BASE", 1, nil, ModFlag.Attack, { type = "SlotNumber", num = 1 }) },
+	["attacks fire an additional projectile when in off hand"] = { mod("ProjectileCount", "BASE", 1, nil, ModFlag.Attack, { type = "SlotNumber", num = 2 }) },
 	["projectiles chain %+(%d) times while you have phasing"] = function(num) return { mod("ChainCountMax", "BASE", num, nil, ModFlag.Projectile, { type = "Condition", var = "Phasing" }) } end,
 	["projectiles split towards %+(%d) targets"] = function(num) return { mod("SplitCount", "BASE", num) } end,
 	["adds an additional arrow"] = { mod("ProjectileCount", "BASE", 1, nil, ModFlag.Attack) },
