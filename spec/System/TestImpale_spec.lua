@@ -284,4 +284,45 @@ describe("TestAttacks", function()
 		assert.are.near(120*1.3, build.calcsTab.mainOutput.ImpaleDPS, 0.0000001) -- 6 impales * 10% stored damage * 1.3 attacks per second
 	end)
 
+	it("impale dual wield simultaneous attack", function()
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Cleave 20/0 Default  1\n")
+		-- exactly 100
+		build.itemsTab:CreateDisplayItemFromRaw("New Item\nVaal Blade\nQuality: 0\nAdds 54 to 14 physical damage\n50% chance to Impale Enemies on Hit with Attacks")
+		build.itemsTab:AddDisplayItem()
+		-- exactly 200 offhand
+		build.itemsTab:CreateDisplayItemFromRaw("New Item\nVaal Blade\nQuality: 0\nAdds 54 to 14 physical damage\n100% increased Physical Damage\n50% chance to Impale Enemies on Hit with Attacks")
+		build.itemsTab:AddDisplayItem()
+		build.itemsTab:CreateDisplayItemFromRaw("New Item\nPaua Amulet\nYour hits can't be evaded\n-20 strength\n")
+		build.itemsTab:AddDisplayItem()
+
+		-- 0% crit
+		build.configTab.input.customMods = "\z
+		never deal critical strikes\n\z
+		Impale Damage dealt to Enemies Impaled by you Overwhelms 100% Physical Damage Reduction\n\z
+		Overwhelm 100% physical damage reduction\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(50, build.calcsTab.mainOutput.MainHand.ImpaleChance)
+		assert.are.equals(50, build.calcsTab.mainOutput.OffHand.ImpaleChance)
+		assert.are.equals(50, build.calcsTab.mainOutput.MainHand.ImpaleChanceOnCrit)
+		assert.are.equals(50, build.calcsTab.mainOutput.OffHand.ImpaleChanceOnCrit)
+
+		-- level 20 cleave (currently) has 511.2% damage effectiveness and a 40% less modifier for combined attacks
+		-- things get rounded in the calc tab so there's some margin
+		assert.are.near(5.112*100*0.6, build.calcsTab.mainOutput.MainHand.PhysicalHitAverage, 1)
+		assert.are.near(5.112*200*0.6, build.calcsTab.mainOutput.OffHand.PhysicalHitAverage, 1)
+		assert.are.near(5.112*100*0.6, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg, 1)
+		assert.are.near(5.112*200*0.6, build.calcsTab.mainOutput.OffHand.impaleStoredHitAvg, 1)
+		-- 5 impales * 10% stored damage * 50% impale chance
+		assert.are.equals(1+(5*0.1*0.5), build.calcsTab.mainOutput.MainHand.ImpaleModifier)
+		assert.are.equals(1+(5*0.1*0.5), build.calcsTab.mainOutput.OffHand.ImpaleModifier)
+
+		-- stored damage * 0.25 impale modifier * 1.3 attacks per second * 0.8 cleave modifier * 1.1 dual wield modifier
+		assert.are.near(300*5.112*0.6*0.25*1.3*0.8*1.1, build.calcsTab.mainOutput.ImpaleDPS, 0.1)
+
+	end)
+
 end)

@@ -5538,11 +5538,15 @@ function calcs.offence(env, actor, activeSkill)
 		output.WithBleedDPS = baseDPS
 	end
 	if skillFlags.impale then
+		local mainHandImpaleDPS, offHandImpaleDPS
 		if skillFlags.attack and skillData.doubleHitsWhenDualWielding and skillFlags.bothWeaponAttack then
-			-- due to how its being combined
-			output.ImpaleModifier = output.ImpaleModifier / 2
+			-- separately combine
+			mainHandImpaleDPS = output.MainHand.impaleStoredHitAvg * ((output.MainHand.ImpaleModifier or 1) - 1) * output.MainHand.HitChance / 100 * skillData.dpsMultiplier
+			offHandImpaleDPS = output.OffHand.impaleStoredHitAvg * ((output.OffHand.ImpaleModifier or 1) - 1) * output.OffHand.HitChance / 100 * skillData.dpsMultiplier
+			output.ImpaleDPS = mainHandImpaleDPS + offHandImpaleDPS
+		else
+			output.ImpaleDPS = output.impaleStoredHitAvg * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * skillData.dpsMultiplier
 		end
-		output.ImpaleDPS = output.impaleStoredHitAvg * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * skillData.dpsMultiplier
 		if skillData.showAverage then
 			output.WithImpaleDPS = output.AverageDamage + output.ImpaleDPS
 			output.CombinedAvg = output.CombinedAvg + output.ImpaleDPS
@@ -5557,19 +5561,34 @@ function calcs.offence(env, actor, activeSkill)
 		output.CombinedDPS = output.CombinedDPS + output.ImpaleDPS
 		if breakdown then
 			breakdown.ImpaleDPS = {}
-			t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit before mitigation)", output.impaleStoredHitAvg))
-			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
-			if skillFlags.notAverage then
-				t_insert(breakdown.ImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, skillFlags.attack and "attack" or "cast"))
+			if skillFlags.attack and skillData.doubleHitsWhenDualWielding and skillFlags.bothWeaponAttack then
+				t_insert(breakdown.ImpaleDPS, s_format("Main Hand:"))
+				t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(MH average physical hit before mitigation)", output.MainHand.impaleStoredHitAvg))
+				t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(MH chance to hit)", output.MainHand.HitChance / 100))
+				t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(MH impale damage multiplier)\n", ((output.MainHand.ImpaleModifier or 1) - 1)))
+				t_insert(breakdown.ImpaleDPS, s_format("= %.2f", mainHandImpaleDPS))
+				t_insert(breakdown.ImpaleDPS, s_format("Off Hand:"))
+				t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(OH average physical hit before mitigation)", output.OffHand.impaleStoredHitAvg))
+				t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(OH chance to hit)", output.OffHand.HitChance / 100))
+				t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(OH impale damage multiplier)", ((output.OffHand.ImpaleModifier or 1) - 1)))
+				t_insert(breakdown.ImpaleDPS, s_format("= %.2f", offHandImpaleDPS))
+				t_insert(breakdown.ImpaleDPS, s_format("Combined total:"))
+				t_insert(breakdown.ImpaleDPS, s_format("%.2f + %.2f", mainHandImpaleDPS, offHandImpaleDPS))
+			else
+				t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit before mitigation)", output.impaleStoredHitAvg))
+				t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+				t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(impale damage multiplier)", ((output.ImpaleModifier or 1) - 1)))
 			end
-			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(impale damage multiplier)", ((output.ImpaleModifier or 1) - 1)))
-			if skillData.dpsMultiplier ~= 1 then
-				t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(dps multiplier for this skill)", skillData.dpsMultiplier))
-			end
-			if quantityMultiplier > 1 then
-				t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
-			end
-			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
+		if skillFlags.notAverage then
+			t_insert(breakdown.ImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, skillFlags.attack and "attack" or "cast"))
+		end
+		if skillData.dpsMultiplier ~= 1 then
+			t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(dps multiplier for this skill)", skillData.dpsMultiplier))
+		end
+		if quantityMultiplier > 1 then
+			t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
+		end
+		t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
 	end
 
