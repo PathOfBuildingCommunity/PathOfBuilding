@@ -7132,8 +7132,7 @@ c["Attacks against you always Hit"]={{[1]={flags=0,keywordFlags=0,name="CannotEv
 c["Attacks always inflict Bleeding while you have Cat's Stealth"]={{[1]={[1]={type="Condition",var="AffectedByCat'sStealth"},flags=1,keywordFlags=0,name="BleedChance",type="BASE",value=100}},nil}
 c["Attacks cannot Hit you"]={{[1]={flags=0,keywordFlags=0,name="AlwaysEvade",type="FLAG",value=true}},nil}
 c["Attacks fire an additional Projectile"]={{[1]={flags=1,keywordFlags=0,name="ProjectileCount",type="BASE",value=1}},nil}
-c["Attacks fire an additional Projectile when in Off Hand"]={nil,"Attacks fire an additional Projectile when in Off Hand "}
-c["Attacks fire an additional Projectile when in Off Hand 55% increased Elemental Damage with Attack Skills"]={nil,"Attacks fire an additional Projectile when in Off Hand 55% increased Elemental Damage with Attack Skills "}
+c["Attacks fire an additional Projectile when in Off Hand"]={{[1]={[1]={num=2,type="SlotNumber"},flags=1,keywordFlags=0,name="ProjectileCount",type="BASE",value=1}},nil}
 c["Attacks have 10% chance to Ignite"]={{[1]={flags=1,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=10}},nil}
 c["Attacks have 10% chance to Maim on Hit"]={{}," to Maim  "}
 c["Attacks have 10% chance to cause Bleeding"]={{[1]={flags=1,keywordFlags=0,name="BleedChance",type="BASE",value=10}},nil}
