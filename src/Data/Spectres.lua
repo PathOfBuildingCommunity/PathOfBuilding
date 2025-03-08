@@ -5702,7 +5702,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperHigh"] = {
 		mod("BleedChance", "BASE", 100, 0, 0), -- MonsterBleedImplicit [global_bleed_on_hit = 1]
 		-- MonsterNearbyEnemyLifeRegenReduced50 [life_mastery_nearby_enemy_life_regeneration_rate_+% = -50]
 		mod("BleedStacksMax", "OVERRIDE", 16, 0, 0), -- MonsterBleedingStacksAzmeriReaper [bleeding_stacks_up_to_x_times = 16]
-		flag("Condition:NoExtraBleedDamageToMovingEnemy"), --This mod is not currently working correctly,
+		flag("NoExtraBleedDamageToMovingEnemy"),
 	},
 }
 -- Sanguimancer Demon
