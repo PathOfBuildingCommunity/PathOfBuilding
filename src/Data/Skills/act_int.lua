@@ -2261,12 +2261,22 @@ skills["VaalBlight"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Chaos] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.Vaal] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.6,
+	parts = {
+		{
+			name = "Manual Stacks",
+			stages = true,
+		},
+		{
+			name = "Maximum Sustainable Stacks",
+		},
+	},
 	statMap = {
+		["display_max_blight_stacks"] = {
+			mod("Multiplier:VaalBlightMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("BlightBaseMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
 		["hinder_enemy_chaos_damage_taken_+%"] = {
 			mod("ChaosDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Hinder" }),
-		},
-		["display_max_blight_stacks"] = {
-			mod("Multiplier:BlightMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 	},
 	baseFlags = {
@@ -2275,6 +2285,9 @@ skills["VaalBlight"] = {
 		area = true,
 	},
 	baseMods = {
+		mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "VaalBlightStageAfterFirst" }),
+		skill("debuff", true),
+		skill("debuffSecondary", true),
 		skill("radius", 20),
 	},
 	qualityStats = {
@@ -6857,7 +6870,7 @@ skills["VaalFlameblast"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "VaalFlameblastStage" }),
 		},
 		["vaal_flameblast_radius_+_per_stage"] = {
-			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "VaalFlameblastStageAfterFirst" }),
 		},
 	},
 	baseFlags = {
