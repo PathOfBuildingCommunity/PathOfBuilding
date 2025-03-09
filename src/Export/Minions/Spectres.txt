@@ -424,3 +424,5 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh
 -- Wretched Defiler
 #spectre Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber
+-- Karui Backburner
+#spectre Metadata/Monsters/LegionLeague/LegionKaruiMeleeFireSpectre
