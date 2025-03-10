@@ -433,7 +433,7 @@ holding Shift will put it in the second.]])
 		self:EnchantDisplayItem(1)
 	end)
 	self.controls.displayItemEnchant.shown = function()
-		return self.displayItem and self.displayItem.enchantments
+		return self.displayItem and self.displayItem.enchantments and not ({ Life = true, Mana = true, Hybrid = true })[self.displayItem.base.subType]
 	end
 	self.controls.displayItemEnchant2 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemEnchant,"TOPRIGHT",true}, {8, 0, 160, 20}, "Apply Enchantment 2...", function()
 		self:EnchantDisplayItem(2)
