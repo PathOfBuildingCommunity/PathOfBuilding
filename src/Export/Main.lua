@@ -192,6 +192,17 @@ function main:Init()
 		end
 	}
 
+	self.controls.clearOutput = new("ButtonControl", nil, {1190, 10, 100, 18}, "Clear", function()
+		wipeTable(self.scriptOutput)
+	end) {
+		shown = function()
+			return not self.curDatFile 
+		end,
+		enabled = function()
+			return #self.scriptOutput > 0
+		end
+	}
+
 	self.controls.scriptList = new("ScriptListControl", nil, {270, 35, 100, 300}) {
 		shown = function()
 			return not self.curDatFile
