@@ -113,6 +113,7 @@ function calcLib.gemIsType(gem, type, includeTransfigured)
 			(type == "trap or mine" and (gem.tags.trap or gem.tags.mine)) or
 			((type == "active skill" or type == "grants_active_skill" or type == "skill") and gem.tags.grants_active_skill and not gem.tags.support) or
 			(type == "non-vaal" and not gem.tags.vaal) or
+			(type == "non-exceptional" and not gem.tags.exceptional) or
 			(type == gem.name:lower()) or
 			(type == gem.name:lower():gsub("^vaal ", "")) or
 			(includeTransfigured and calcLib.isGemIdSame(gem.name, type, true)) or

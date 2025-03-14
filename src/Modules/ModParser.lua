@@ -2872,7 +2872,7 @@ local specialModList = {
 			return { mod("GemProperty", "LIST", {keyword = skill, key = "level", value = num }) }
 		end
 		local wordList = {}
-		for tag in skill:gmatch("%w+") do
+		for tag in skill:gmatch("%S+") do
 			table.insert(wordList, tag)
 		end
 		return { mod("GemProperty", "LIST", {keywordList = wordList, key = property, value = num }) }
