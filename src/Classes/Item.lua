@@ -813,7 +813,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
 					end
-				elseif foundExplicit then
+				elseif foundExplicit or (not foundExplicit and gameModeStage == "EXPLICIT") then
 					modLine.modList = { }
 					modLine.extra = line
 					t_insert(modLines, modLine)
