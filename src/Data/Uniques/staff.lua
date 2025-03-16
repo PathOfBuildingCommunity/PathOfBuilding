@@ -83,7 +83,7 @@ Source: Drops from unique{The Searing Exarch} (Uber)
 Requires Level 68, 78 Str, 78 Int
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+22% Chance to Block Attack Damage while wielding a Staff
+{variant:2}+22% Chance to Block Spell Damage while wielding a Staff
 (60-70)% reduced Elemental Resistances
 Deal Triple Damage with Elemental Skills
 ]],[[
