@@ -130,7 +130,7 @@ local function mapAffixDropDownFunction(val, modList, enemyModList, build)
 end
 
 return {
-	-- Section: General options
+	--region Section: General options
 	{ section = "General", col = 1 },
 	{ var = "resistancePenalty", type = "list", label = "Resistance penalty:", list = {{val=0,label="None"},{val=-30,label="Act 5 (-30%)"},{val=-60,label="Act 10 (-60%)"}}, defaultIndex = 3 },
 	{ var = "bandit", type = "list", defaultIndex = 1, label = "Bandit quest:", tooltipFunc = banditTooltip, list = {{val="None",label="Kill all"},{val="Oak",label="Help Oak"},{val="Kraityn",label="Help Kraityn"},{val="Alira",label="Help Alira"}} },
@@ -240,8 +240,9 @@ return {
 	{ var = "overrideEmptyGreenSockets", type = "count", label = "# of Empty ^x70FF70Green^7 Sockets", ifMult = "EmptyGreenSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty ^x70FF70Green^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
 	{ var = "overrideEmptyBlueSockets", type = "count", label = "# of Empty ^x7070FFBlue^7 Sockets", ifMult = "EmptyBlueSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty ^x7070FFBlue^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
 	{ var = "overrideEmptyWhiteSockets", type = "count", label = "# of Empty White Sockets", ifMult = "EmptyWhiteSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty White Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
+	--endregion
 
-	-- Section: Skill-specific options
+	--region Section: Skill-specific options
 	{ section = "Skill Options", col = 2 },
 	{ label = "Arcane Cloak:", ifSkill = "Arcane Cloak"},
 	{ var = "arcaneCloakUsedRecentlyCheck", type = "check", label = "Include in ^x7070FFMana ^7spent Recently?", ifSkill = "Arcane Cloak", tooltip = "When enabled, the mana spent by Arcane Cloak used at full mana \nwill be added to the value provided in # of ^x7070FFMana ^7spent Recently.", apply = function(val, modList, enemyModList)
@@ -711,7 +712,9 @@ Huge sets the radius to 11.
 	{ var = "TotalVaalRejuvenationTotemLife", type = "integer", label = "Total Vaal Rejuvenation Totem Life:", ifSkill = { "Vaal Rejuvenation Totem" }, ifMod = "takenFromVaalRejuvenationTotemsBeforeYou", tooltip = "The total life of your Vaal Rejuvenation Totems that can be taken before yours", apply = function(val, modList, enemyModList)
 		modList:NewMod("TotalVaalRejuvenationTotemLife", "BASE", val, "Config")
 	end },
-	-- Section: Map modifiers/curses
+	--endregion
+	
+	--region Section: Map modifiers/curses
 	{ section = "Map Modifiers and Player Debuffs", col = 2 },
 	{ var = "multiplierSextant", type = "count", label = "# of Sextants affecting the area", ifMult = "Sextant", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Sextant", "BASE", m_min(val, 5), "Config")
@@ -772,8 +775,9 @@ Huge sets the radius to 11.
 	{ var = "playerCursedWithWarlordsMark", type = "count", label = "Warlord's Mark:", tooltip = "Sets the level of Warlord's Mark to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "WarlordsMark", level = val, applyToPlayer = true })
 	end },
+	--endregion
 
-	-- Section: Combat options
+	--region Section: Combat options
 	{ section = "When In Combat", col = 1 },
 	{ var = "usePowerCharges", type = "check", label = "Do you use Power Charges?", apply = function(val, modList, enemyModList)
 		modList:NewMod("UsePowerCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1569,7 +1573,9 @@ Huge sets the radius to 11.
 	{ var = "buffLesserResistanceShrine", type = "check", label = "Have Lesser Resistance Shrine?", ifFlag = "Condition:CanHaveLesserShrines", tooltip = "This will enable the Lesser Resistance Shrine buff.\n\t+25% to all Elemental Resistances\n\t+2% to all maximum Resistances", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LesserResistanceShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	-- Section: Effective DPS options
+	--endregion
+	
+	--region Section: Effective DPS options
 	{ section = "For Effective DPS", col = 1 },
 	{ var = "skillForkCount", type = "count", label = "# of times Skill has Forked:", ifFlag = "forking", apply = function(val, modList, enemyModList)
 		modList:NewMod("ForkedCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
@@ -1830,7 +1836,9 @@ Huge sets the radius to 11.
 	{ var = "conditionEnemyLightningResZero", type = "check", label = "Enemy hit you with ^xADAA47Light. Damage^7?", ifFlag = "Condition:HaveTrickstersSmile", tooltip = "This option sets whether or not the enemy has hit you with ^xADAA47Lightning Damage^7 in the last 4 seconds.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("LightningResist", "OVERRIDE", 0, "Config", { type = "Condition", var = "Effective"}, { type = "ActorCondition", actor = "enemy", var = "HaveTrickstersSmile" })
 	end },
-	-- Section: Enemy Stats
+	--endregion
+	
+	--region Section: Enemy Stats
 	{ section = "Enemy Stats", col = 3 },
 	{ var = "enemyLevel", type = "count", label = "Enemy Level:", tooltip = "This overrides the default enemy level used to estimate your hit and ^x33FF77evade ^7chance.\n\nThe default level for normal enemies and standard bosses is 83.\nTheir default level is capped by your character level.\n\nThe default level for pinnacle bosses is 84, and the default level for uber pinnacle bosses is 85.\nTheir default level is not capped by your character level." },
 	{ var = "conditionEnemyRareOrUnique", type = "check", label = "Is the enemy Rare or Unique?", ifEnemyCond = "EnemyRareOrUnique", tooltip = "The enemy will automatically be considered to be Unique if they are a Boss,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
@@ -2127,8 +2135,9 @@ Huge sets the radius to 11.
 	{ var = "enemyFireDamage", type = "countAllowZero", label = "Enemy Skill ^xB97123Fire Damage:"},
 	{ var = "enemyFirePen", type = "countAllowZero", label = "Enemy Skill ^xB97123Fire Pen:"},
 	{ var = "enemyChaosDamage", type = "countAllowZero", label = "Enemy Skill ^xD02090Chaos Damage:"},
+	--endregion
 	
-	-- Section: Custom mods
+	--region Section: Custom mods
 	{ section = "Custom Modifiers", col = 1 },
 	{ var = "customMods", type = "text", label = "", doNotHighlight = true, resizable = true,
 		apply = function(val, modList, enemyModList, build)
@@ -2171,4 +2180,5 @@ Huge sets the radius to 11.
 			end
 			return out
 		end},
+	--endregion
 }
