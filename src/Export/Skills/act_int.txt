@@ -1753,25 +1753,31 @@ local skills, mod, flag, skill = ...
 #skill Hydrosphere
 #flags spell duration area
 	parts = {
-		{
-			name = "Frozen",
-		},
-		{
-			name = "Shocked",
-		},
-		{
-			name = "Frozen & Shocked",
-		}
+			{
+                name = "Frozen (Autopulse)",
+            },
+            {
+                name = "Shocked (Autopulse)",
+            },
+            {
+                name = "Frozen & Shocked (Autopulse)",
+            },
+            {
+                name = "Cast",
+            }
 	},
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HydroSphereFrequency") / 100)
-	end,
+        if activeSkill.skillPart == 1 or activeSkill.skillPart == 2 or activeSkill.skillPart == 3 then
+            activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HydroSphereFrequency") / 100)
+        end
+    end,
 	statMap = {
 		["skill_physical_damage_%_to_convert_to_cold"] = {
 			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 4 }),
 		},
 		["water_sphere_cold_lightning_exposure_%"] = {
 			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" } ),
