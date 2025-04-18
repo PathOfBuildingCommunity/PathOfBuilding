@@ -8644,16 +8644,25 @@ skills["Hydrosphere"] = {
 	castTime = 0.6,
 	parts = {
 			{
-                name = "Frozen (Autopulse)",
+                name = "Autopulse (Frozen)",
             },
             {
-                name = "Shocked (Autopulse)",
+                name = "Autopulse (Shocked)",
             },
             {
-                name = "Frozen & Shocked (Autopulse)",
+                name = "Autopulse (Frozen & Shocked)",
             },
             {
-                name = "Cast",
+                name = "Cast (No Ailment)",
+            },
+            {
+                name = "Cast (Frozen)",
+            },
+            {
+                name = "Cast (Shocked)",
+            },
+            {
+                name = "Cast (Frozen & Shocked)",
             }
 	},
 	preDamageFunc = function(activeSkill, output)
@@ -8668,6 +8677,10 @@ skills["Hydrosphere"] = {
 			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 4 }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 5 }),
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 6 }),
+            mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 7 }),
+            mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 7 }),
 		},
 		["water_sphere_cold_lightning_exposure_%"] = {
 			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" } ),
