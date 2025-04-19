@@ -206,6 +206,8 @@ function main:Init()
 		end
 	}
 
+	self.controls.helpText = new("LabelControl", {"TOPLEFT",self.controls.clearOutput,"BOTTOMLEFT"}, {0, 12, 100, 16}, "Press Ctrl+F5 to re-export\ndata from the game")
+
 	self.controls.scriptList = new("ScriptListControl", nil, {270, 35, 100, 300}) {
 		shown = function()
 			return not self.curDatFile
