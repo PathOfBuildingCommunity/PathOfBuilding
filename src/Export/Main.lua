@@ -334,12 +334,10 @@ end
 
 function main:LoadDatSource(value)
 	self.leagueLabel = nil
-	if self.datSource then
-		local out = io.open(self.datSource.spec..(self.datSource.spec:match("%.lua$") and "" or ".lua"), "w")
-		out:write('return ')
-		writeLuaTable(out, self.datSpecs, 1)
-		out:close()
-	end
+	local out = io.open(self.datSource.spec..(self.datSource.spec:match("%.lua$") and "" or ".lua"), "w")
+	out:write('return ')
+	writeLuaTable(out, self.datSpecs, 1)
+	out:close()
 	self.datSource = value
 	self.datSpecs = LoadModule(self.datSource.spec)
 	self:InitGGPK()
