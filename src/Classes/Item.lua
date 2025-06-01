@@ -1516,7 +1516,8 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 	elseif self.base.tincture then
 		local tinctureData = self.tinctureData
 		tinctureData.manaBurn = (self.base.tincture.manaBurn + 0.01) / (1 + calcLocal(modList, "TinctureManaBurnRate", "INC", 0) / 100) / (1 + calcLocal(modList, "TinctureManaBurnRate", "MORE", 0) / 100)
-		tinctureData.cooldown = self.base.tincture.cooldown / (1 + calcLocal(modList, "TinctureCooldownRecovery", "INC", 0) / 100)
+		tinctureData.cooldownInc = calcLocal(modList, "TinctureCooldownRecovery", "INC", 0) + calcLocal(modList, "CooldownRecovery", "INC", 0)
+		tinctureData.cooldown = self.base.tincture.cooldown / (1 + tinctureData.cooldownInc / 100)
 		tinctureData.effectInc = calcLocal(modList, "TinctureEffect", "INC", 0) + calcLocal(modList, "LocalEffect", "INC", 0)
 		for _, value in ipairs(modList:List(nil, "TinctureData")) do
 			tinctureData[value.key] = value.value
