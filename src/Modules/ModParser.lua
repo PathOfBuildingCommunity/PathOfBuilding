@@ -2906,6 +2906,9 @@ local specialModList = {
 	["your skills deal you (%d+)%% of mana cost as (.+) damage"] = function(dmgMult, _, dmgType) return {
 		mod("ScoldsBridleSelfDamage", "LIST", {dmgMult = dmgMult, damageType = dmgType})
 	}end,
+	["your skills deal you (%d+)%% of mana spent on upfront skill mana costs as (.+) damage"] = function(dmgMult, _, dmgType) return {
+		mod("ScoldsBridleSelfDamage", "LIST", {dmgMult = dmgMult, damageType = dmgType})
+	}end,
 	-- Extra skill/support
 	["grants (%D+)"] = function(_, skill) return grantedExtraSkill(skill, 1) end,
 	["grants level (%d+) (.+)"] = function(num, _, skill) return grantedExtraSkill(skill, num) end,
