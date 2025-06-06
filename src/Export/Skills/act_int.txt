@@ -505,14 +505,27 @@ local skills, mod, flag, skill = ...
 
 #skill VaalBlight
 #flags spell duration area
+	parts = {
+		{
+			name = "Manual Stacks",
+			stages = true,
+		},
+		{
+			name = "Maximum Sustainable Stacks",
+		},
+	},
 	statMap = {
+		["display_max_blight_stacks"] = {
+			mod("Multiplier:VaalBlightMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("BlightBaseMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
 		["hinder_enemy_chaos_damage_taken_+%"] = {
 			mod("ChaosDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Hinder" }),
 		},
-		["display_max_blight_stacks"] = {
-			mod("Multiplier:BlightMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
-		},
 	},
+#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "VaalBlightStageAfterFirst" })
+#baseMod skill("debuff", true)
+#baseMod skill("debuffSecondary", true)
 #baseMod skill("radius", 20)
 #mods
 
@@ -1331,7 +1344,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "VaalFlameblastStage" }),
 		},
 		["vaal_flameblast_radius_+_per_stage"] = {
-			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "VaalFlameblastStageAfterFirst" }),
 		},
 	},
 #baseMod mod("Multiplier:VaalFlameblastMaxStages", "BASE", 15)

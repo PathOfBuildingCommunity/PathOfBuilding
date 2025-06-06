@@ -394,8 +394,21 @@ local skills, mod, flag, skill = ...
 		["vaal_charged_attack_damage_taken_+%_final"] = {
 			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["vaal_charged_attack_radius_+_per_stage"] = {
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "VaalBladeFlurryStage" }),
+		},
+		["charged_attack_damage_per_stack_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "VaalBladeFlurryStage" }),
+		},
 	},
+--huge/inf used for now, max stages are when aoe reaches 9m. 89% INC AoE made my max stages 11/12 in game
+--secondary radius around enemy unknown, set to 1m for now
+#baseMod skill("numStages", 1, { type = "Multiplier", var = "VaalBladeFlurryStage" })
+#baseMod mod("Multiplier:VaalBladeFlurryMaxStages", "BASE", math.huge )
+#baseMod skill("radius", 10)
+#baseMod skill("radiusSecondary", 10)
 #mods
+
 
 #skill BladeVortex
 #flags spell area duration
@@ -2346,7 +2359,7 @@ local skills, mod, flag, skill = ...
 		},
 		["reave_additional_max_stacks"] = {
 			mod("Multiplier:ReaveMaxStages", "BASE", nil),
-		}
+		},
 	},
 #baseMod skill("radius", 20)
 #baseMod mod("Multiplier:ReaveMaxStages", "BASE", 8)
@@ -2370,14 +2383,14 @@ local skills, mod, flag, skill = ...
 #flags attack melee area vaal
 	statMap = {
 		["reave_area_of_effect_+%_final_per_stage"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveStage" }),
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "VaalReaveStage" }),
 		},
 		["reave_additional_max_stacks"] = {
-			mod("Multiplier:ReaveMaxStages", "BASE", nil),
+			mod("Multiplier:VaalReaveMaxStages", "BASE", nil),
 		},
 	},
 #baseMod skill("radius", 12)
-#baseMod mod("Multiplier:ReaveMaxStages", "BASE", 4)
+#baseMod mod("Multiplier:VaalReaveMaxStages", "BASE", 4)
 #mods
 
 #skill ScourgeArrow

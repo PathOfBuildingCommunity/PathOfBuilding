@@ -1864,7 +1864,7 @@ function calcs.perform(env, skipEHP)
 	-- See: https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5164
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if not activeSkill.skillFlags.disable and not (env.limitedSkills and env.limitedSkills[cacheSkillUUID(activeSkill, env)]) then
-			if (activeSkill.activeEffect.grantedEffect.name == "Blight" or activeSkill.activeEffect.grantedEffect.name == "Blight of Contagion" or activeSkill.activeEffect.grantedEffect.name == "Blight of Atrophy") and activeSkill.skillPart == 2 then
+			if (activeSkill.activeEffect.grantedEffect.name == "Blight" or activeSkill.activeEffect.grantedEffect.name == "Vaal Blight" or activeSkill.activeEffect.grantedEffect.name == "Blight of Contagion" or activeSkill.activeEffect.grantedEffect.name == "Blight of Atrophy") and activeSkill.skillPart == 2 then
 				local rate, duration = getCachedOutputValue(env, activeSkill, "Speed", "Duration")
 				local baseMaxStages = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BlightBaseMaxStages")
 				local maximum = m_min((m_floor(rate * duration) - 1), baseMaxStages - 1)
