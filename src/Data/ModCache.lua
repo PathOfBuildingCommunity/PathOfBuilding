@@ -693,6 +693,7 @@ c["+210 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShi
 c["+212 Intelligence Requirement"]={{[1]={flags=0,keywordFlags=0,name="IntRequirement",type="BASE",value=212}},nil}
 c["+22 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=22}},nil}
 c["+22% Chance to Block Attack Damage while wielding a Staff"]={{[1]={[1]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=22}},nil}
+c["+22% Chance to Block Spell Damage while wielding a Staff"]={{[1]={[1]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=22}},nil}
 c["+22% to Cold Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="ColdDotMultiplier",type="BASE",value=22}},nil}
 c["+22% to Critical Strike Multiplier with Bows"]={{[1]={flags=131076,keywordFlags=0,name="CritMultiplier",type="BASE",value=22}},nil}
 c["+22% to Damage over Time Multiplier while affected by Malevolence"]={{[1]={[1]={type="Condition",var="AffectedByMalevolence"},flags=0,keywordFlags=0,name="DotMultiplier",type="BASE",value=22}},nil}
@@ -759,6 +760,7 @@ c["+25% Chance to Block"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type=
 c["+25% Chance to Block Attack Damage while wielding a Staff"]={{[1]={[1]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=25}},nil}
 c["+25% Chance to Block Projectile Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="ProjectileBlockChance",type="BASE",value=25}},nil}
 c["+25% Chance to Block Spell Damage during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=25}},nil}
+c["+25% Chance to Block Spell Damage while wielding a Staff"]={{[1]={[1]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=25}},nil}
 c["+25% Chaos Resistance when on Low Life"]={{[1]={[1]={type="Condition",var="LowLife"},flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=25}},nil}
 c["+25% chance to Suppress Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellSuppressionChance",type="BASE",value=25}},nil}
 c["+25% chance to be Ignited"]={{}," to be Ignited "}
@@ -8168,10 +8170,12 @@ c["Gain 2% of Fire Damage as Extra Chaos Damage per Endurance Charge"]={{[1]={[1
 c["Gain 2% of Life per Enemy Hit with Attacks for 5 seconds"]={{[1]={flags=4,keywordFlags=65536,name="LifeOnHit",type="BASE",value=2}},nil}
 c["Gain 2% of Lightning Damage as Extra Chaos Damage per Power Charge"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="LightningDamageGainAsChaos",type="BASE",value=2}},nil}
 c["Gain 20 Energy Shield for each Enemy you Hit which is affected by a Spider's Web"]={{[1]={[1]={actor="enemy",threshold=1,type="MultiplierThreshold",var="Spider's WebStack"},flags=4,keywordFlags=0,name="EnergyShieldOnHit",type="BASE",value=20}},nil}
+c["Gain 20 Energy Shield per Enemy Hit with Attacks"]={{[1]={flags=4,keywordFlags=65536,name="EnergyShieldOnHit",type="BASE",value=20}},nil}
 c["Gain 20 Energy Shield per Enemy Killed"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldOnKill",type="BASE",value=20}},nil}
 c["Gain 20 Fortification on Melee Kill against a Rare or Unique Enemy"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=67108864,keywordFlags=0,name="MinimumFortification",type="BASE",value=20}},"   against a Rare or Unique Enemy "}
 c["Gain 20 Life per Bleeding Enemy Hit"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=20}},"  per Bleeding Enemy Hit "}
 c["Gain 20 Life per Bleeding Enemy Hit Every 4 seconds, Regenerate 20% of Life over one second"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=20}},"  per Bleeding Enemy Hit Every 4 seconds, Regenerate 20% of Life over one second "}
+c["Gain 20 Life per Enemy Hit with Attacks"]={{[1]={flags=4,keywordFlags=65536,name="LifeOnHit",type="BASE",value=20}},nil}
 c["Gain 20 Life per Enemy Hit with Spells"]={{[1]={flags=4,keywordFlags=131072,name="LifeOnHit",type="BASE",value=20}},nil}
 c["Gain 20 Life per Enemy Killed"]={{[1]={flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=20}},nil}
 c["Gain 20 Mana on Culling Strike"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",value=20}},"  on Culling Strike "}
@@ -8190,7 +8194,8 @@ c["Gain 200 Armour per Grand Spectrum"]={{[1]={[1]={type="Multiplier",var="Grand
 c["Gain 200 Life per Enemy Killed"]={{[1]={flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=200}},nil}
 c["Gain 24 Life per Cursed Enemy Hit with Attacks"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Cursed"},flags=5,keywordFlags=0,name="LifeOnHit",type="BASE",value=24}},nil}
 c["Gain 24% of Physical Damage as Extra Damage of a random Element"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageGainAsRandom",type="BASE",value=24}},nil}
-c["Gain 25 Energy Shield per Enemy Killed"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldOnKill",type="BASE",value=25}},nil}
+c["Gain 25 Energy Shield per Enemy Hit with Attacks"]={{[1]={flags=4,keywordFlags=65536,name="EnergyShieldOnHit",type="BASE",value=25}},nil}
+c["Gain 25 Life per Enemy Hit with Attacks"]={{[1]={flags=4,keywordFlags=65536,name="LifeOnHit",type="BASE",value=25}},nil}
 c["Gain 25 Life per Enemy Hit with Main Hand Claw Attacks"]={{[1]={[1]={type="Condition",var="MainHandAttack"},[2]={skillType=1,type="SkillType"},flags=262148,keywordFlags=0,name="LifeOnHit",type="BASE",value=25}},nil}
 c["Gain 25 Life per Enemy Killed"]={{[1]={flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=25}},nil}
 c["Gain 25 Mana per Enemy Hit with Off Hand Claw Attacks"]={{[1]={[1]={type="Condition",var="OffHandAttack"},[2]={skillType=1,type="SkillType"},flags=262148,keywordFlags=0,name="ManaOnHit",type="BASE",value=25}},nil}
