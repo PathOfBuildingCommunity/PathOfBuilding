@@ -655,23 +655,23 @@ function TradeQueryGeneratorClass:OnFrame()
 end
 
 local currencyTable = {
-    { name = "Chaos Orb Equivalent", id = nil },
-    { name = "Chaos Orb", id = "chaos" },
-    { name = "Divine Orb", id = "divine" },
-    { name = "Orb of Alchemy", id = "alch" },
-    { name = "Orb of Alteration", id = "alt" },
-    { name = "Chromatic Orb", id = "chrome" },
-    { name = "Exalted Orb", id = "exalted" },
-    { name = "Blessed Orb", id = "blessed" },
-    { name = "Cartographer's Chisel", id = "chisel" },
-    { name = "Gemcutter's Prism", id = "gcp" },
-    { name = "Jeweller's Orb", id = "jewellers" },
-    { name = "Orb of Scouring", id = "scour" },
-    { name = "Orb of Regret", id = "regret" },
-    { name = "Orb of Fusing", id = "fusing" },
-    { name = "Orb of Chance", id = "chance" },
-    { name = "Regal Orb", id = "regal" },
-    { name = "Vaal Orb", id = "vaal" }
+	{ name = "Chaos Orb Equivalent", id = nil },
+	{ name = "Chaos Orb", id = "chaos" },
+	{ name = "Divine Orb", id = "divine" },
+	{ name = "Orb of Alchemy", id = "alch" },
+	{ name = "Orb of Alteration", id = "alt" },
+	{ name = "Chromatic Orb", id = "chrome" },
+	{ name = "Exalted Orb", id = "exalted" },
+	{ name = "Blessed Orb", id = "blessed" },
+	{ name = "Cartographer's Chisel", id = "chisel" },
+	{ name = "Gemcutter's Prism", id = "gcp" },
+	{ name = "Jeweller's Orb", id = "jewellers" },
+	{ name = "Orb of Scouring", id = "scour" },
+	{ name = "Orb of Regret", id = "regret" },
+	{ name = "Orb of Fusing", id = "fusing" },
+	{ name = "Orb of Chance", id = "chance" },
+	{ name = "Regal Orb", id = "regal" },
+	{ name = "Vaal Orb", id = "vaal" }
 }
 
 function TradeQueryGeneratorClass:StartQuery(slot, options)
@@ -953,12 +953,12 @@ function TradeQueryGeneratorClass:FinishQuery()
 		end
 	end
 	if not options.includeMirrored then
-	    queryTable.query.filters.misc_filters = {
-	    	disabled = false,
-	    	filters = {
-	    		mirrored = false,
-	    	}
-	    }
+		queryTable.query.filters.misc_filters = {
+			disabled = false,
+			filters = {
+				mirrored = false,
+			}
+		}
 	end
 
 	if options.maxPrice and options.maxPrice > 0 then
