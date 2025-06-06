@@ -2404,6 +2404,7 @@ function calcs.offence(env, actor, activeSkill)
 							else
 								t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.AncestralCryCooldown))
 							end
+							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("* %d ^8(stored uses)", storedUses))
 							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("= %d%%", globalOutput.AncestralUpTimeRatio))
 						end
 						globalOutput.AncestralCryCalculated = true
@@ -2427,6 +2428,7 @@ function calcs.offence(env, actor, activeSkill)
 								else
 									t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.InfernalCryCooldown))
 								end
+								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("* %d ^8(stored uses)", storedUses))
 								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("= %d%%", globalOutput.InfernalUpTimeRatio))
 							end
 						end
@@ -2451,6 +2453,7 @@ function calcs.offence(env, actor, activeSkill)
 							else
 								t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.IntimidatingCryCooldown))
 							end
+							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("* %d ^8(stored uses)", storedUses))
 							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("= %d%%", globalOutput.IntimidatingUpTimeRatio))
 						end
 						local ddChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + exertedDoubleDamage, 100)
@@ -2496,6 +2499,7 @@ function calcs.offence(env, actor, activeSkill)
 							else
 								t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.RallyingCryCooldown))
 							end
+							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("* %d ^8(stored uses)", storedUses))
 							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("= %d%%", globalOutput.RallyingUpTimeRatio))
 						end
 						globalOutput.RallyingAvgDmg = m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5) * (env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100)
@@ -2549,6 +2553,7 @@ function calcs.offence(env, actor, activeSkill)
 							else
 								t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.SeismicCryCooldown))
 							end
+							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("* %d ^8(stored uses)", storedUses))
 							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("= %d%%", globalOutput.SeismicUpTimeRatio))
 						end
 						globalOutput.SeismicCryCalculated = true
@@ -2572,6 +2577,7 @@ function calcs.offence(env, actor, activeSkill)
 								else
 									t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.BattleMageCryCooldown))
 								end
+								t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("* %d ^8(stored uses)", storedUses))
 								t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("= %d%%", globalOutput.BattlemageUpTimeRatio))
 							end
 						end
