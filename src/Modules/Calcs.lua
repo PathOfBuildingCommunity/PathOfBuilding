@@ -236,8 +236,9 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					if usedEnv.minion.output.CullMultiplier and usedEnv.minion.output.CullMultiplier > 1 and usedEnv.minion.output.CullMultiplier > fullDPS.cullingMulti then
 						fullDPS.cullingMulti = usedEnv.minion.output.CullMultiplier
 					end
-					-- This is a fix to prevent Absolution spell hit from being counted multiple times when increasing minions count
-					if activeSkill.activeEffect.grantedEffect.name == "Absolution" and fullEnv.modDB:Flag(false, "Condition:AbsolutionSkillDamageCountedOnce") then
+					-- This is a fix to prevent skills such as Absolution or Dominating Blow from being counted multiple times when increasing minions count
+					if (activeSkill.activeEffect.grantedEffect.name == "Absolution" and fullEnv.modDB:Flag(false, "Condition:AbsolutionSkillDamageCountedOnce"))
+						or (activeSkill.activeEffect.grantedEffect.name == "Dominating Blow" and fullEnv.modDB:Flag(false, "Condition:DominatingBlowSkillDamageCountedOnce")) then
 						activeSkillCount = 1
 						activeSkill.infoMessage2 = "Skill Damage"
 					end
