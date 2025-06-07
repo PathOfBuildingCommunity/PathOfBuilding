@@ -231,13 +231,14 @@ function listMode:BuildList()
 			break
 		end
 	end
-	handle = NewFileSearch(main.buildPath..self.subPath.."*", true)
+handle = NewFileSearch(main.buildPath..self.subPath.."*", true)
 	while handle do
 		local folderName = handle:GetFileName()
 		t_insert(self.list, {
 			folderName = folderName,
 			subPath = self.subPath,
 			fullFileName = main.buildPath..self.subPath..folderName,
+			modified = handle:GetFileModifiedTime()
 		})
 		if not handle:NextFile() then
 			break
@@ -249,35 +250,58 @@ end
 function listMode:SortList()
 	local oldSelFileName = self.controls.buildList.selValue and self.controls.buildList.selValue.fileName
 	table.sort(self.list, function(a, b)
-		if a.folderName and b.folderName then
-			return naturalSortCompare(a.folderName, b.folderName)
-		elseif a.folderName and not b.folderName then
-			return true
-		elseif not a.folderName and b.folderName then
-			return false
-		end
+		local a_is_folder = a.folderName ~= nil
+		local b_is_folder = b.folderName ~= nil
+
+		if a_is_folder and not b_is_folder then return true end
+		if not a_is_folder and b_is_folder then return false end
+
+
 		if main.buildSortMode == "EDITED" then
-			return a.modified > b.modified
-		elseif main.buildSortMode == "CLASS" then
-			if a.className and not b.className then
-				return false
-			elseif not a.className and b.className then
-				return true
-			elseif a.className ~= b.className then
-				return a.className < b.className
-			elseif a.ascendClassName ~= b.ascendClassName then
-				return a.ascendClassName < b.ascendClassName
+			local modA = a.modified or 0 -- Use 0 as fallback if modified time is nil
+			local modB = b.modified or 0
+			if modA ~= modB then
+				return modA > modB -- Newest first maybe allow for inverting of order?
 			end
-		elseif main.buildSortMode == "LEVEL" then
-			if a.level and not b.level then
-				return false
-			elseif not a.level and b.level then
-				return true
+			-- If modified times are the same or both 0 fall back to name sort
+			if a_is_folder then
+				return naturalSortCompare(a.folderName, b.folderName)
 			else
-				return a.level < b.level
+				return naturalSortCompare(a.fileName, b.fileName)
 			end
 		end
-		return naturalSortCompare(a.fileName, b.fileName)
+
+		if a_is_folder then
+			return naturalSortCompare(a.folderName, b.folderName)
+		else
+			if main.buildSortMode == "CLASS" then
+				local a_has_class = a.className ~= nil
+				local b_has_class = b.className ~= nil
+				if not a_has_class and b_has_class then return true
+				elseif a_has_class and not b_has_class then return false
+				elseif a_has_class and b_has_class and a.className ~= b.className then
+					return a.className < b.className
+				end
+
+				local a_has_asc = a.ascendClassName ~= nil
+				local b_has_asc = b.ascendClassName ~= nil
+				if not a_has_asc and b_has_asc then return true
+				elseif a_has_asc and not b_has_asc then return false
+				elseif a_has_asc and b_has_asc and a.ascendClassName ~= b.ascendClassName then
+					return a.ascendClassName < b.ascendClassName
+				end
+				return naturalSortCompare(a.fileName, b.fileName)
+			elseif main.buildSortMode == "LEVEL" then
+				if a.level and not b.level then return false
+				elseif not a.level and b.level then return true
+				elseif a.level and b.level then
+					if a.level ~= b.level then return a.level < b.level end
+				end
+				return naturalSortCompare(a.fileName, b.fileName)
+			else
+				return naturalSortCompare(a.fileName, b.fileName)
+			end
+		end
 	end)
 	if oldSelFileName then
 		self.controls.buildList:SelByFileName(oldSelFileName)
