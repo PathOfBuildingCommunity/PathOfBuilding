@@ -4823,6 +4823,7 @@ local specialModList = {
 		flag("Condition:CanGainRage"),
 	},
 	["warcry skills' cooldown time is (%d+) seconds"] = function(num) return { mod("CooldownRecovery", "OVERRIDE", num, nil, 0, KeywordFlag.Warcry) } end,
+	["non%-instant warcries you use yourself have no cooldown"] = function(num) return { mod("CooldownRecovery", "OVERRIDE", 0, nil, 0, KeywordFlag.Warcry, { type = "SkillType", skillTypeList = { SkillType.Instant, SkillType.Totem, SkillType.Triggered }, neg = true }) } end,
 	["warcry skills have (%+%d+) seconds to cooldown"] = function(num) return { mod("CooldownRecovery", "BASE", num, nil, 0, KeywordFlag.Warcry) } end,
 	["(%d+)%% increased total power counted by warcries"] = function(num) return { mod("WarcryPower", "INC", num) } end,
 	["warcries have a minimum of (%d+) power"] = function(num) return { mod("MinimumWarcryPower", "BASE", num) } end,
