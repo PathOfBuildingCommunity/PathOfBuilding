@@ -688,7 +688,13 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("CritChance", "INC", output.SpellSuppressionChance, mod.source)
 			break
 		end
-
+	end
+	if skillModList:Flag(nil, "FirePenIncreasedByUncappedFireRes") then
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "FirePenIncreasedByUncappedFireRes")) do
+			local mod = value.mod
+			skillModList:NewMod("FirePenetration", "BASE", output.FireResistOverCap, mod.source)
+			break
+		end
 	end
 	if skillModList:Flag(nil, "LightRadiusAppliesToAccuracy") then
 		-- Light Radius conversion from Corona Solaris
