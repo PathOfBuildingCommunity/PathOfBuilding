@@ -43890,7 +43890,7 @@ return {
             },
             ["group"]= 350,
             ["orbit"]= 4,
-            ["orbitIndex"]= 8,
+            ["orbitIndex"]= 10,
             ["out"]= {},
             ["in"]= {
                 "6052"
@@ -43906,29 +43906,28 @@ return {
                 "10% increased Elemental Damage"
             },
             ["group"]= 350,
-            ["orbit"]= 4,
-            ["orbitIndex"]= 13,
+            ["orbit"]= 3,
+            ["orbitIndex"]= 2,
             ["out"]= {
                 "258"
             },
             ["in"]= {
-                "56461"
+                "16023"
             }
         },
         [258]= {
             ["skill"]= 258,
-            ["name"]= "Elemancer",
+            ["name"]= "Bringer of Ruin",
             ["icon"]= "Art/2DArt/SkillIcons/passives/Elementalist/ElemancerIcon.png",
             ["isNotable"]= true,
             ["ascendancyName"]= "Elementalist",
             ["stats"]= {
-                "Summoned Golems are Immune to Elemental Damage",
-                "25% increased Effect of Buffs granted by your Golems per Summoned Golem",
-                "+1 to maximum number of Summoned Golems"
+                "66% increased Mana Reservation Efficiency of Herald Skills",
+                "66% increased Herald Skill Buff Effect"
             },
             ["group"]= 350,
             ["orbit"]= 4,
-            ["orbitIndex"]= 11,
+            ["orbitIndex"]= 5,
             ["out"]= {},
             ["in"]= {
                 "47873"
@@ -44006,7 +44005,7 @@ return {
             ["stats"]= {
                 "Hits always Ignite",
                 "All Damage can Ignite",
-                "25% more Damage with Ignites you inflict with Hits for which the highest Damage Type is Fire"
+                "Enemies Ignited by you to convert 40% of their Physical Damage to Fire"
             },
             ["reminderText"]= {
                 "(Ignite deals Fire Damage over time, based on the base Fire Damage of the Skill, for 4 seconds)"
@@ -44027,9 +44026,8 @@ return {
             ["ascendancyName"]= "Elementalist",
             ["stats"]= {
                 "Hits always Shock",
-                "Shocks from your Hits always increase Damage taken by at least 15%",
-                "All Damage can Shock",
-                "25% more Effect of Lightning Ailments you inflict with Hits if the highest Damage Type is Lightning"
+                "Shocks from your Hits always increase Damage taken by at least 25%",
+                "All Damage can Shock"
             },
             ["reminderText"]= {
                 "(Shock increases Damage taken by up to 50%, depending on the amount of Lightning Damage in the hit, for 2 seconds)",
@@ -44051,9 +44049,8 @@ return {
             ["ascendancyName"]= "Elementalist",
             ["stats"]= {
                 "All Damage with Hits can Chill",
-                "Chills from your Hits always reduce Action Speed by at least 15%",
-                "50% more Effect of Cold Ailments you inflict with Hits for which the highest Damage Type is Cold",
-                "Your Chills can reduce Action Speed by up to a maximum of 40%"
+                "Enemies Chilled by your Hits lessen their Damage dealt by half of Chill Effect",
+                "Enemies Chilled by your Hits have Damage taken increased by Chill Effect"
             },
             ["reminderText"]= {
                 "(Chill reduces Enemy Action Speed by up to 30%, depending on the amount of Cold Damage in the hit, for 2 seconds)",
@@ -44134,7 +44131,7 @@ return {
                 "10% increased Elemental Damage"
             },
             ["group"]= 350,
-            ["orbit"]= 2,
+            ["orbit"]= 3,
             ["orbitIndex"]= 5,
             ["out"]= {},
             ["in"]= {
@@ -44151,14 +44148,14 @@ return {
             ["stats"]= {
                 "100% increased Effect of Buffs granted by your Golems",
                 "Summoned Golems are Resummoned 4 seconds after being Killed",
-                "+1 to maximum number of Summoned Golems"
+                "Summoned Golems are Immune to Elemental Damage",
+                "+2 to maximum number of Summoned Golems"
             },
             ["group"]= 350,
-            ["orbit"]= 3,
-            ["orbitIndex"]= 5,
+            ["orbit"]= 4,
+            ["orbitIndex"]= 13,
             ["out"]= {
                 "54279",
-                "47873"
             },
             ["in"]= {}
         },
@@ -44175,6 +44172,7 @@ return {
             ["out"]= {
                 "37114",
                 "54279",
+                "47873",
                 "6052",
                 "58998",
                 "12475",
