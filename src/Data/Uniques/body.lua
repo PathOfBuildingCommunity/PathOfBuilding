@@ -474,23 +474,32 @@ Implicits: 0
 ]],[[
 Yriel's Fostering
 Exquisite Leather
-Variant: Rhoa
-Variant: Snake
-Variant: Ursa
+Variant: Rhoa Pre 3.26
+Variant: Snake Pre 3.26
+Variant: Ursa Pre 3.26
+Variant: Rhoa Current
+Variant: Snake Current
+Variant: Ursa Current
 Implicits: 0
-{variant:1}Grants Level 20 Summon Bestial Rhoa Skill
-{variant:2}Grants Level 20 Summon Bestial Snake Skill
-{variant:3}Grants Level 20 Summon Bestial Ursa Skill
+{variant:1,4}Grants Level 20 Summon Bestial Rhoa Skill
+{variant:2,5}Grants Level 20 Summon Bestial Snake Skill
+{variant:3,6}Grants Level 20 Summon Bestial Ursa Skill
 +(300-400) to Accuracy Rating
 (130-150)% increased Evasion Rating
 +(90-100) to maximum Life
 Projectile Attack Skills have (40-60)% increased Critical Strike Chance
 {variant:1}Projectiles from Attacks have 20% chance to Maim on Hit while you have a Bestial Minion
+{variant:4}Projectiles from Attacks have 100% chance to Maim on Hit while you have a Bestial Minion
 {variant:2}Projectiles from Attacks have 20% chance to Poison on Hit while you have a Bestial Minion
+{variant:5}Projectiles from Attacks have 100% chance to Poison on Hit while you have a Bestial Minion
 {variant:3}Projectiles from Attacks have 20% chance to inflict Bleeding on Hit while you have a Bestial Minion
+{variant:6}Projectiles from Attacks have 100% chance to inflict Bleeding on Hit while you have a Bestial Minion
 {variant:1}(10-15)% increased Attack and Movement Speed while you have a Bestial Minion
+{variant:4}(10-20)% increased Attack and Movement Speed while you have a Bestial Minion
 {variant:2}Adds (13-19)-(23-29) Chaos Damage to Attacks while you have a Bestial Minion
+{variant:5}Adds (18-24)-(30-36) Chaos Damage to Attacks while you have a Bestial Minion
 {variant:3}Adds (11-16)-(21-25) Physical Damage to Attacks while you have a Bestial Minion
+{variant:6}Adds (23-31)-(37-47) Physical Damage to Attacks while you have a Bestial Minion
 ]],
 -- Body: Energy Shield
 [[

@@ -871,12 +871,17 @@ Riveted Boots
 Variant: Pre 3.19.0
 Variant: Pre 3.23.0
 Variant: Pre 3.24.0
-Variant: Current
+Variant: Pre 3.26.0
+Variant: Endurance Current
+Variant: Frenzy Current
+Variant: Power Current
 Requires Level 36, 35 Str, 35 Int
 +(15-25)% to Cold Resistance
 +(15-25)% to Chaos Resistance
 {variant:1}20% increased Movement Speed
-{variant:2,3}30% increased Movement Speed
+{variant:2,3,4}30% increased Movement Speed
+{variant:5,6,7}(15-25)% increased Movement Speed
+{variant:5,6,7}Immune to Corrupted Blood
 {variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary
 {variant:1,2}Lose all Frenzy, Endurance, and Power Charges when you Move
 {variant:2}Minimum Endurance Charges equal to Maximum while stationary
@@ -885,6 +890,9 @@ Requires Level 36, 35 Str, 35 Int
 {variant:3,4}Count as having maximum number of Endurance Charges
 {variant:3,4}Count as having maximum number of Frenzy Charges
 {variant:3,4}Count as having maximum number of Power Charges
+{variant:5}Count as having maximum number of Endurance Charges
+{variant:6}Count as having maximum number of Frenzy Charges
+{variant:7}Count as having maximum number of Power Charges
 ]],[[
 Wake of Destruction
 Mesh Boots
