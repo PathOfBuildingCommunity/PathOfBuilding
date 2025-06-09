@@ -16,7 +16,7 @@ end
 local FolderListClass = newClass("FolderListControl", "ListControl", function(self, anchor, rect, subPath, onChange)
 	self.ListControl(anchor, rect, 16, "VERTICAL", false, { })
 	self.subPath = subPath or ""
-    self.onChangeCallback = onChange
+	self.onChangeCallback = onChange
 
 	self.controls.path = new("PathControl", {"BOTTOM",self,"TOP"}, {0, -2, self.width, 24}, main.buildPath, self.subPath, function(newSubPath)
 		self.subPath = newSubPath
@@ -31,21 +31,21 @@ local FolderListClass = newClass("FolderListControl", "ListControl", function(se
 end)
 
 function FolderListClass:SortList()
-    if not self.list then return end
-    local sortMode = main.buildSortMode or "NAME"
+	if not self.list then return end
+	local sortMode = main.buildSortMode or "NAME"
 
-    table.sort(self.list, function(a, b)
-        if sortMode == "EDITED" then
-            local modA = a.modified or 0 
-            local modB = b.modified or 0
-            if modA ~= modB then
-                return modA > modB
-            end
-            return naturalSortCompare(a.name, b.name)
-        else
-            return naturalSortCompare(a.name, b.name)
-        end
-    end)
+	table.sort(self.list, function(a, b)
+		if sortMode == "EDITED" then
+			local modA = a.modified or 0 
+			local modB = b.modified or 0
+			if modA ~= modB then
+				return modA > modB
+			end
+			return naturalSortCompare(a.name, b.name)
+		else
+			return naturalSortCompare(a.name, b.name)
+		end
+	end)
 end
 
 function FolderListClass:BuildList()
@@ -56,13 +56,13 @@ function FolderListClass:BuildList()
 		t_insert(self.list, { 
 			name = fileName,
 			fullFileName = main.buildPath..self.subPath..fileName,
-            modified = handle:GetFileModifiedTime()
+			modified = handle:GetFileModifiedTime()
 		})
 		if not handle:NextFile() then
 			break
 		end
 	end
-    if handle and handle.Close then handle:Close() end
+	if handle and handle.Close then handle:Close() end
 
 	self:SortList()
 	if self.UpdateScrollbar then self:UpdateScrollbar() end
