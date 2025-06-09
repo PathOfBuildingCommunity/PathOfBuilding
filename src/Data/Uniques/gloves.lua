@@ -300,8 +300,10 @@ Allelopathy
 {variant:1}Sorcerer Gloves
 {variant:2}Satin Gloves
 Variant: Pre 3.19.0
+Variant: Pre 3.26.0
 Variant: Current
-Grants Level 22 Blight Skill
+{variant:1,2}Grants Level 22 Blight Skill
+{variant:3}Grants Level 25 Blight Skill
 {variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect of Area Skills
@@ -312,10 +314,12 @@ Replica Allelopathy
 {variant:1}Sorcerer Gloves
 {variant:2}Satin Gloves
 Variant: Pre 3.19.0
+Variant: Pre 3.26.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Grants Level 22 Wintertide Brand
+{variant:1,2}Grants Level 22 Wintertide Brand
+{variant:3}Grants Level 25 Wintertide Brand
 {variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect

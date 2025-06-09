@@ -818,21 +818,23 @@ Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
+Variant: Pre 3.26.0
 Variant: Current
 Implicits: 0
 {variant:1,2,3}(160-200)% increased Armour and Evasion
-{variant:4,5}(180-220)% increased Armour and Evasion
+{variant:4,5,6}(180-220)% increased Armour and Evasion
 {variant:1,2}+(40-60) to maximum Life
-{variant:3,4,5}+(60-90) to maximum Life
+{variant:3,4,5,6}+(60-90) to maximum Life
 {variant:1,2,3,4}(0.4-0.6)% of Physical Attack Damage Leeched as Life
 {variant:5}2% of Physical Attack Damage Leeched as Life
+{variant:6}2% of Attack Damage Leeched as Life
 You lose all Endurance Charges when Hit
 You gain an Endurance Charge on Kill
 {variant:1}You gain Onslaught for 1 seconds per Endurance Charge when Hit
 {variant:2}You gain Onslaught for 2 seconds per Endurance Charge when Hit
-{variant:3,4,5}You gain Onslaught for 5 seconds per Endurance Charge when Hit
+{variant:3,4,5,6}You gain Onslaught for 5 seconds per Endurance Charge when Hit
 {variant:3,4}(60-100)% increased Onslaught Effect
-{variant:5}100% increased Onslaught Effect
+{variant:5,6}100% increased Onslaught Effect
 ]],[[
 Farrul's Fur
 Triumphant Lamellar
@@ -1368,9 +1370,12 @@ The Admiral
 Varnished Coat
 League: Heist
 Source: Drops from unique{Admiral Darnaw} in normal{Contract: Death to Darnaw}
+Variant: Pre 3.26.0
+Variant: Current
 Implicits: 0
 +(30-40) to Intelligence
-(100-140)% increased Evasion and Energy Shield
+{variant:1}(100-140)% increased Evasion and Energy Shield
+{variant:2}(120-200)% increased Evasion and Energy Shield
 +(10-20)% to all Elemental Resistances
 (5-10)% chance to Freeze, Shock and Ignite
 Elemental Damage you Deal with Hits is Resisted by lowest Elemental Resistance instead
