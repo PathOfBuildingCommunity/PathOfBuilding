@@ -2149,6 +2149,13 @@ local specialModList = {
 	["gain no inherent bonuses from strength"] = { flag("NoStrengthAttributeBonuses") },
 	["gain no inherent bonuses from dexterity"] = { flag("NoDexterityAttributeBonuses") },
 	["gain no inherent bonuses from intelligence"] = { flag("NoIntelligenceAttributeBonuses") },
+	["gain no (.+) from equipped (.+)"] = function(_, stat, slot)
+		if slot == "shield" then slot = "Weapon 2" end
+		return {
+			flag("GainNo" .. string.gsub(" "..stat, "%W%l", string.upper):sub(2):gsub(" ", "").. "From" .. string.gsub(" "..slot, "%W%l", string.upper):sub(2))
+		}
+	end,
+
 	["all damage taken bypasses energy shield"] = {
 		mod("PhysicalEnergyShieldBypass", "OVERRIDE", 100),
 		mod("LightningEnergyShieldBypass", "OVERRIDE", 100),
