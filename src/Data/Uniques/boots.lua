@@ -135,7 +135,7 @@ Stormcharger
 Plated Greaves
 Variant: Pre 3.19.0
 Variant: Current
-+(1-50)% to Lightning Resistance 
++(1-50)% to Lightning Resistance
 {variant:1}20% increased Movement Speed
 {variant:2}(1-40)% increased Movement Speed
 {variant:1}30% of Physical Damage Converted to Lightning Damage
@@ -270,7 +270,7 @@ Requires Level 22, 42 Dex
 {variant:2,3}15% increased Movement Speed for 9 seconds on Throwing a Trap
 ]],[[
 Orbala's Stand
-Eelskin Boots 
+Eelskin Boots
 (100-150)% increased Evasion Rating
 (20-30)% increased Movement Speed
 Cannot be Stunned by Suppressed Spell Damage
@@ -973,6 +973,7 @@ You have Onslaught while not on Low Mana
 Omeyocan
 Carnal Boots
 Variant: Pre 3.16.0
+Variant: Pre 3.26.0
 Variant: Current
 League: Incursion
 Source: Upgraded from unique{Dance of the Offered} via currency{Vial of the Ritual}
@@ -982,6 +983,7 @@ Requires Level 55, 52 Dex, 52 Int
 30% increased Movement Speed
 {variant:1}2% increased Evasion per 500 Maximum Mana
 {variant:2}10% increased Evasion per 500 Maximum Mana
+{variant:3}20% increased Evasion per 500 Maximum Mana
 You have Onslaught while not on Low Mana
 Lose 7% of maximum Mana per Second
 ]],[[

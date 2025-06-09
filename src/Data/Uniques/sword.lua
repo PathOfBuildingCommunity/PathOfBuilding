@@ -869,19 +869,23 @@ Queen's Decree
 Ornate Sword
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
+Variant: Pre 3.26.0
 Variant: Current
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
-{variant:2,3}+185 to Accuracy Rating
+{variant:2,3,4}+185 to Accuracy Rating
 25% increased Strength Requirement
 {variant:1,2}Minions have (10-15)% increased maximum Life
-{variant:3}Minions have (30-40)% increased maximum Life
+{variant:3,4}Minions have (30-40)% increased maximum Life
 (150-200)% increased Skeleton Duration
 {variant:1,2}Minions deal (10-15)% increased Damage
-{variant:3}Minions deal (30-40)% increased Damage
-+1 to maximum number of Raised Zombies
-+1 to maximum number of Spectres
-+1 to maximum number of Skeletons
+{variant:3,4}Minions deal (30-40)% increased Damage
+{variant:1,2,3}+1 to maximum number of Raised Zombies
+{variant:4}+(1-2) to maximum number of Raised Zombies
+{variant:1,2,3}+1 to maximum number of Spectres
+{variant:4}+(1-2) to maximum number of Spectres
+{variant:1,2,3}+1 to maximum number of Skeletons
+{variant:4}+(1-2) to maximum number of Skeletons
 ]],[[
 Queen's Escape
 Ornate Sword

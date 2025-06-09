@@ -105,14 +105,16 @@ Damage cannot be Reflected
 The Winds of Fate
 Foul Staff
 Variant: Pre 3.25.0
+Variant: Pre 3.26.0
 Variant: Current
 League: Sanctum
 Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+22% Chance to Block Attack Damage while wielding a Staff
+{variant:2,3}+22% Chance to Block Attack Damage while wielding a Staff
 (700-800)% increased Physical Damage
-+100% to Global Critical Strike Multiplier
+{variant:1,2}+100% to Global Critical Strike Multiplier
+{variant:3}+(100-150)% to Global Critical Strike Multiplier
 75% of Physical Damage converted to a random Element
 25% of Physical Damage Converted to Chaos Damage
 Maximum Critical Strike Chance is 50%
@@ -252,34 +254,40 @@ Source: Created from item parts obtained from Boss in The Beachhead
 Upgrade: Upgrades to unique{The Yielding Mortality} via currency{Haemocombustion Scroll}
 Variant: Pre 3.11.0
 Variant: Pre 3.25.0
+Variant: Pre 3.26.0
 Variant: Current
 Requires Level 66, 113 Str, 113 Int
 Implicits: 2
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:3}+25% Chance to Block Spell Damage while wielding a Staff
+{variant:3,4}+25% Chance to Block Spell Damage while wielding a Staff
 {variant:1}Socketed Gems are supported by Level 10 Life Leech
-{variant:2,3}Socketed Gems are supported by Level 1 Chance to Bleed
+{variant:2,3,4}Socketed Gems are supported by Level 1 Chance to Bleed
 Grants Summon Harbinger of Brutality Skill
 5% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}+(30-40)% to Damage over Time Multiplier for Bleeding from Critical Strikes
-Adds (160-185) to (200-225) Physical Damage
+{variant:4}+(60-80)% to Damage over Time Multiplier for Bleeding from Critical Strikes
+{variant:1,2,3}Adds (160-185) to (200-225) Physical Damage
+{variant:4}Adds (225-265) to (315-385) Physical Damage
 (30-40)% increased Critical Strike Chance
 ]],[[
 The Yielding Mortality
 Imperial Staff
 Variant: Pre 3.25.0
+Variant: Pre 3.26.0
 Variant: Current
 League: Harvest
 Source: Upgraded from unique{The Enmity Divine} via currency{Haemocombustion Scroll}
 Requires Level 66, 113 Str, 113 Int
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+25% Chance to Block Spell Damage while wielding a Staff
+{variant:2,3}+25% Chance to Block Spell Damage while wielding a Staff
 Socketed Gems are supported by Level 1 Chance to Bleed
 Grants Summon Greater Harbinger of Brutality Skill
 +5% Chance to Block Attack Damage while wielding a Staff
-+(30-40)% to Damage over Time Multiplier for Bleeding from Critical Strikes
-Adds (160-185) to (200-225) Physical Damage
+{variant:1,2}+(30-40)% to Damage over Time Multiplier for Bleeding from Critical Strikes
+{variant:3}+(60-80)% to Damage over Time Multiplier for Bleeding from Critical Strikes
+{variant:1,2}Adds (160-185) to (200-225) Physical Damage
+{variant:3}Adds (225-265) to (315-385) Physical Damage
 (30-40)% increased Critical Strike Chance
 ]],[[
 Femurs of the Saints
@@ -553,17 +561,20 @@ Ezomyte Staff
 League: Delve
 Variant: Pre 3.11.0
 Variant: Pre 3.25.0
+Variant: Pre 3.26.0
 Variant: Current
 Requires Level 62, 113 Str, 113 Int
 Implicits: 3
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+20% Chance to Block Attack Damage while wielding a Staff
-{variant:3}+25% Chance to Block Attack Damage while wielding a Staff
-Trigger Level 20 Summon Phantasm Skill when you Consume a Corpse
+{variant:3,4}+25% Chance to Block Attack Damage while wielding a Staff
+{variant:1,2,3}Trigger Level 20 Summon Phantasm Skill when you Consume a Corpse
+{variant:4}Trigger Level 25 Summon Phantasm Skill when you Consume a Corpse
 (100-140)% increased Spell Damage
 (25-30)% increased Cast Speed
 (80-100)% increased Mana Regeneration Rate
-Minions deal (45-51) to (66-78) additional Physical Damage
+{variant:1,2,3}Minions deal (45-51) to (66-78) additional Physical Damage
+{variant:4}Minions deal (90-102) to (132-156) additional Physical Damage
 If you Consumed a Corpse Recently, you and nearby Allies regenerate 5% of Life per second
 ]],[[
 The Stormheart
@@ -691,6 +702,7 @@ Xirgil's Crank
 Coiled Staff
 Source: Drops in The Lord's Labyrinth
 Variant: Pre 2.6.0
+Variant: Pre 3.26.0
 Variant: Current
 Requires Level 28, 43 Str, 43 Int
 Implicits: 2
@@ -698,9 +710,11 @@ Implicits: 2
 {variant:2}+20% Chance to Block Attack Damage while wielding a Staff
 +15% Chance to Block Attack Damage while wielding a Staff
 (60-80)% increased Spell Damage
-+(70-100) to maximum Energy Shield
+{variant:1,2}+(70-100) to maximum Energy Shield
+{variant:3}+(70-150) to maximum Energy Shield
 +1 to Level of all Spell Skill Gems
 Reflects 1 to 150 Lightning Damage to Melee Attackers
-20% chance for Energy Shield Recharge to start when you Block
+{variant:1,2}20% chance for Energy Shield Recharge to start when you Block
+{variant:3}(25-35)% chance for Energy Shield Recharge to start when you Block
 ]],
 }

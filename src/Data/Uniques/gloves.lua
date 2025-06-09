@@ -74,6 +74,7 @@ your maximum number of Crab Barriers
 Kaom's Spirit
 Titan Gauntlets
 Variant: Pre 3.23.0
+Variant: Pre 3.26.0
 Variant: Current
 +(50-70) to Maximum Life
 +(20-30)% to Fire Resistance
@@ -81,6 +82,7 @@ Variant: Current
 Life Recovery from Regeneration is not applied
 {variant:1}Regenerate 1 Rage per second for every 100 Life Recovery per second from Regeneration
 {variant:2}Regenerate 1 Rage per second for every 300 Life Recovery per second from Regeneration
+{variant:3}Regenerate 1 Rage per second for every 200 Life Recovery per second from Regeneration
 Does not delay Inherent Loss of Rage
 ]],[[
 Doryani's Fist
@@ -939,15 +941,17 @@ Variant: Pre 1.0.0
 Variant: Pre 2.2.0
 Variant: Pre 2.5.0
 Variant: Pre 3.0.0
+Variant: Pre 3.26.0
 Variant: Current
 Requires Level 16, 14 Dex, 14 Int
 {variant:1,2}+60% to Global Critical Strike Multiplier
 {variant:3}+90% to Global Critical Strike Multiplier
 {variant:4}+45% to Global Critical Strike Multiplier
-{variant:5}+30% to Global Critical Strike Multiplier
+{variant:5,6}+30% to Global Critical Strike Multiplier
 10% reduced Enemy Stun Threshold
 {variant:1}(800-1000)% more Unarmed Physical Damage
 {variant:2,3,4,5}(600-800)% more Physical Damage with Unarmed Melee Attacks
+{variant:6}(600-1000)% more Physical Damage with Unarmed Melee Attacks
 Extra gore
 ]],[[
 Fenumus' Weave

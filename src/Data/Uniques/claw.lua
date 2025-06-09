@@ -161,21 +161,23 @@ Upgrade: Upgrades to unique{Hand of Wisdom and Action} using currency{Blessing o
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.21.0
+Variant: Pre 3.26.0
 Variant: Current
 Implicits: 3
 {variant:1}Grants 10 Life per Enemy Hit
 {variant:2,3}Grants 12 Life per Enemy Hit
-{variant:4}Grants 46 Life per Enemy Hit
+{variant:4,5}Grants 46 Life per Enemy Hit
 {variant:1,2,3}(20-25)% increased Elemental Damage with Attack Skills
 {variant:1,2,3}Adds 1 to (50-60) Lightning Damage
 {variant:1,2,3}(10-15)% increased Attack Speed
-{variant:4}(8-12)% increased Dexterity
-{variant:4}(8-12)% increased Intelligence
-{variant:4}Recover 1% of Life on Kill
+{variant:4,5}(8-12)% increased Dexterity
+{variant:4,5}(8-12)% increased Intelligence
+{variant:4,5}Recover 1% of Life on Kill
 {variant:1,2}Adds 1 to 3 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 {variant:3}Adds 1 to 5 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 {variant:4}Adds 1 to 10 Lightning Damage to Attacks with this Weapon per 10 Dexterity
-{variant:4}5% increased Critical Strike Chance per 25 Intelligence
+{variant:5}Adds 1 to 12 Lightning Damage to Attacks with this Weapon per 10 Dexterity
+{variant:4,5}5% increased Critical Strike Chance per 25 Intelligence
 ]],[[
 Hand of Wisdom and Action
 Imperial Claw
@@ -184,16 +186,18 @@ Source: Upgraded from unique{Hand of Thought and Motion} using currency{Blessing
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.21.0
+Variant: Pre 3.26.0
 Variant: Current
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}Grants 25 Life per Enemy Hit
-{variant:2,3,4}Grants 46 Life per Enemy Hit
+{variant:2,3,4,5}Grants 46 Life per Enemy Hit
 (8-12)% increased Dexterity
 (8-12)% increased Intelligence
-{variant:4}1% of Attack Damage Leeched as Life
+{variant:4,5}1% of Attack Damage Leeched as Life
 {variant:1,2}Adds 1 to 6 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 {variant:3,4}Adds 1 to 10 Lightning Damage to Attacks with this Weapon per 10 Intelligence
+{variant:5}Adds 1 to 12 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 1% increased Attack Speed per 25 Dexterity
 {variant:1,2,3}(20-25)% increased Elemental Damage with Attack Skills
 ]],[[
