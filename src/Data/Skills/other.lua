@@ -1861,7 +1861,7 @@ skills["IcicleBurst"] = {
 	},
 	levels = {
 		[10] = { baseMultiplier = 1.25, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.25, cooldown = 0.5, levelRequirement = 1, },
-		[20] = { baseMultiplier = 2, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2, cooldown = 0.3, levelRequirement = 1, },
+		[20] = { baseMultiplier = 1.5, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.5, cooldown = 0.5, levelRequirement = 1, },
 	},
 }
 skills["IllusoryWarp"] = {
@@ -3905,7 +3905,7 @@ skills["VoidShot"] = {
 	constantStats = {
 		{ "trigger_on_skill_use_%_if_you_have_a_void_arrow", 100 },
 		{ "skill_physical_damage_%_to_convert_to_cold", 50 },
-		{ "active_skill_area_damage_+%_final", 100 },
+		{ "active_skill_area_damage_+%_final", 25 },
 	},
 	stats = {
 		"base_is_projectile",
