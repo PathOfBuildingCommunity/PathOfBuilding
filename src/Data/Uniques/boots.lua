@@ -881,7 +881,7 @@ Requires Level 36, 35 Str, 35 Int
 {variant:1}20% increased Movement Speed
 {variant:2,3,4}30% increased Movement Speed
 {variant:5,6,7}(15-25)% increased Movement Speed
-{variant:5,6,7}Immune to Corrupted Blood
+{variant:5,6,7}Corrupted Blood cannot be inflicted on you
 {variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary
 {variant:1,2}Lose all Frenzy, Endurance, and Power Charges when you Move
 {variant:2}Minimum Endurance Charges equal to Maximum while stationary
