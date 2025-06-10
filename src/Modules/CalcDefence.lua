@@ -761,6 +761,9 @@ function calcs.defence(env, actor)
 			break
 		end
 	end
+	if modDB:Flag(nil, "MaximumEnergyShieldIncreasedByChanceToBlockSpellDamage") then
+		modDB:NewMod("EnergyShield", "INC", output.SpellBlockChance)
+	end
 	-- Primary defences: Energy shield, evasion and armour
 	do
 		local ironReflexes = modDB:Flag(nil, "IronReflexes")

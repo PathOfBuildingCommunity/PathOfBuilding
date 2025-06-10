@@ -3109,6 +3109,7 @@ local specialModList = {
 	["your damage with critical strikes is lucky"] = { flag("CritLucky") },
 	["critical strikes deal no damage"] = { mod("Damage", "MORE", -100, { type = "Condition", var = "CriticalStrike" }) },
 	["critical strike chance is increased by uncapped lightning resistance"] = { flag("CritChanceIncreasedByUncappedLightningRes") },
+	["maximum energy shield is increased by chance to block spell damage"] = { flag("MaximumEnergyShieldIncreasedByChanceToBlockSpellDamage") },
 	["critical strike chance is increased by lightning resistance"] = { flag("CritChanceIncreasedByLightningRes") },
 	["critical strike chance is increased by overcapped lightning resistance"] = { flag("CritChanceIncreasedByOvercappedLightningRes") },
 	["barrage and frenzy have (%d+)%% increased critical strike chance per endurance charge"] = function(num) return { mod("CritChance", "INC", num, { type = "Multiplier", var = "EnduranceCharge" }, { type = "SkillName", skillNameList = { "Barrage", "Frenzy" }, includeTransfigured = true }) } end,
