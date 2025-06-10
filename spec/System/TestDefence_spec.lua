@@ -457,7 +457,40 @@ describe("TestDefence", function()
 		assert.are.equals(1000, takenHitFromTypeMaxHit("Lightning"))
 		assert.are.equals(1250, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
 	end)
-	
+
+	it("energy shield increased by spell block chance if corresponding flag is present", function()
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab.input.customMods = "\z
+		You have no intelligence\n\z
+		100 Energy shield \n\z
+		maximum energy shield is increased by chance to block spell damage\n\z
+		50% chance to block spell damage\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(0, build.calcsTab.calcsOutput.SpellBlockChanceOverCap )
+		assert.are.equals(50, build.calcsTab.calcsOutput.SpellBlockChance)
+		assert.are.equals(150, build.calcsTab.calcsOutput.EnergyShield)
+	end)
+
+	it("energy shield increased by spell block chance if corresponding flag is present should be capped to max block", function()
+		build.configTab.input.enemyIsBoss = "None"
+
+		build.configTab.input.customMods = "\z
+		You have no intelligence\n\z
+		100 Energy shield \n\z
+		maximum energy shield is increased by chance to block spell damage\n\z
+		100% chance to block spell damage\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(25, build.calcsTab.calcsOutput.SpellBlockChanceOverCap )
+		assert.are.equals(75, build.calcsTab.calcsOutput.SpellBlockChance)
+		assert.are.equals(175, build.calcsTab.calcsOutput.EnergyShield)
+	end)
+
 	local function withinTenPercent(value, otherValue)
 		local ratio = otherValue / value
 		return 0.9 < ratio and ratio < 1.1
