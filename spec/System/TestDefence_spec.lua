@@ -463,7 +463,7 @@ describe("TestDefence", function()
 		build.configTab.input.customMods = "\z
 		You have no intelligence\n\z
 		100 Energy shield \n\z
-		maximum energy shield is increased by chance to block spell damage\n\z
+		energy shield is increased by chance to block spell damage\n\z
 		50% chance to block spell damage\n\z
 		"
 		build.configTab:BuildModList()
@@ -480,7 +480,7 @@ describe("TestDefence", function()
 		build.configTab.input.customMods = "\z
 		You have no intelligence\n\z
 		100 Energy shield \n\z
-		maximum energy shield is increased by chance to block spell damage\n\z
+		energy shield is increased by chance to block spell damage\n\z
 		100% chance to block spell damage\n\z
 		"
 		build.configTab:BuildModList()

@@ -761,8 +761,8 @@ function calcs.defence(env, actor)
 			break
 		end
 	end
-	if modDB:Flag(nil, "MaximumEnergyShieldIncreasedByChanceToBlockSpellDamage") then
-		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "MaximumEnergyShieldIncreasedByChanceToBlockSpellDamage")) do
+	if modDB:Flag(nil, "EnergyShieldIncreasedByChanceToBlockSpellDamage") then
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "EnergyShieldIncreasedByChanceToBlockSpellDamage")) do
 			local mod = value.mod
 			modDB:NewMod("EnergyShield", "INC", output.SpellBlockChance, mod.source)
 			break
