@@ -3609,10 +3609,10 @@ local specialModList = {
 	["y?o?u?r? ?chance to block is unlucky"] = { flag("BlockChanceIsUnlucky"), flag("ProjectileBlockChanceIsUnlucky"), flag("SpellBlockChanceIsUnlucky"), flag("SpellProjectileBlockChanceIsUnlucky") },
 	["y?o?u?r? ?chance to block spell damage is lucky"] = { flag("SpellBlockChanceIsLucky"), flag("SpellProjectileBlockChanceIsLucky") },
 	["y?o?u?r? ?chance to block spell damage is unlucky"] = { flag("SpellBlockChanceIsUnlucky"), flag("SpellProjectileBlockChanceIsUnlucky") },
-	["chance to block attack or spell damage is lucky if you've blocked recently"] = { 
-		flag("BlockChanceIsLucky", { type = "Condition", var = "BlockedRecently" }), 
-		flag("ProjectileBlockChanceIsLucky", { type = "Condition", var = "BlockedRecently" }), 
-		flag("SpellBlockChanceIsLucky", { type = "Condition", var = "BlockedRecently" }), 
+	["chance to block attack or spell damage is lucky if you've blocked recently"] = {
+		flag("BlockChanceIsLucky", { type = "Condition", var = "BlockedRecently" }),
+		flag("ProjectileBlockChanceIsLucky", { type = "Condition", var = "BlockedRecently" }),
+		flag("SpellBlockChanceIsLucky", { type = "Condition", var = "BlockedRecently" }),
 		flag("SpellProjectileBlockChanceIsLucky", { type = "Condition", var = "BlockedRecently" })
 	},
 	["([%d%.]+)%% of evasion rating is regenerated as life per second while focus?sed"] = function(num) return { mod("LifeRegen", "BASE", 1, { type = "PercentStat", stat = "Evasion", percent = num }, { type = "Condition", var = "Focused" }) } end,
@@ -3621,8 +3621,8 @@ local specialModList = {
 	["nearby allies have (%d+)%% increased cast speed per (%d+) intelligence you have"] = function(num, _, div) return { mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("Speed", "INC", num, nil, ModFlag.Cast ) }, { type = "PerStat", stat = "Int", div = tonumber(div) }) } end,
 	["quicksilver flasks you use also apply to nearby allies"] = { flag("QuickSilverAppliesToAllies") },
 	["you gain divinity for %d+ seconds on reaching maximum divine charges"] = {
-		mod("ElementalDamage", "MORE", 50, { type = "Condition", var = "Divinity" }),
-		mod("ElementalDamageTaken", "MORE", -20, { type = "Condition", var = "Divinity" }),
+		mod("ElementalDamage", "MORE", 75, { type = "Condition", var = "Divinity" }),
+		mod("ElementalDamageTaken", "MORE", -25, { type = "Condition", var = "Divinity" }),
 	},
 	["your nearby party members maximum endurance charges is equal to yours"] = { flag("PartyMemberMaximumEnduranceChargesEqualToYours") },
 	["your maximum endurance charges is equal to your maximum frenzy charges"] = { flag("MaximumEnduranceChargesIsMaximumFrenzyCharges") },
