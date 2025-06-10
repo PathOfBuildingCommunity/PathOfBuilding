@@ -762,7 +762,11 @@ function calcs.defence(env, actor)
 		end
 	end
 	if modDB:Flag(nil, "MaximumEnergyShieldIncreasedByChanceToBlockSpellDamage") then
-		modDB:NewMod("EnergyShield", "INC", output.SpellBlockChance)
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "MaximumEnergyShieldIncreasedByChanceToBlockSpellDamage")) do
+			local mod = value.mod
+			modDB:NewMod("EnergyShield", "INC", output.SpellBlockChance, mod.source)
+			break
+		end
 	end
 	-- Primary defences: Energy shield, evasion and armour
 	do
