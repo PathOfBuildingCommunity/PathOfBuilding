@@ -74,7 +74,10 @@ function main:Init()
 	self.datFileByName = { }
 
 	self:LoadSettings()
-
+	self.reExportGGPKData = false
+	if IsKeyDown("CTRL") then
+		self.reExportGGPKData = true
+	end
 	self:InitGGPK()
 	if self.datSource then
 		if USE_DAT64 then
@@ -191,6 +194,19 @@ function main:Init()
 			return not self.curDatFile
 		end
 	}
+
+	self.controls.clearOutput = new("ButtonControl", nil, {1190, 10, 100, 18}, "Clear", function()
+		wipeTable(self.scriptOutput)
+	end) {
+		shown = function()
+			return not self.curDatFile 
+		end,
+		enabled = function()
+			return #self.scriptOutput > 0
+		end
+	}
+
+	self.controls.helpText = new("LabelControl", {"TOPLEFT",self.controls.clearOutput,"BOTTOMLEFT"}, {0, 12, 100, 16}, "Press Ctrl+F5 to re-export\ndata from the game")
 
 	self.controls.scriptList = new("ScriptListControl", nil, {270, 35, 100, 300}) {
 		shown = function()
@@ -334,10 +350,14 @@ end
 
 function main:LoadDatSource(value)
 	self.leagueLabel = nil
-	local out = io.open(self.datSource.spec..(self.datSource.spec:match("%.lua$") and "" or ".lua"), "w")
-	out:write('return ')
-	writeLuaTable(out, self.datSpecs, 1)
-	out:close()
+	local reExportState = self.reExportGGPKData
+	self.reExportGGPKData = true
+	if self.datSource then
+		local out = io.open(self.datSource.spec..(self.datSource.spec:match("%.lua$") and "" or ".lua"), "w")
+		out:write('return ')
+		writeLuaTable(out, self.datSpecs, 1)
+		out:close()
+	end
 	self.datSource = value
 	self.datSpecs = LoadModule(self.datSource.spec)
 	self:InitGGPK()
@@ -349,6 +369,7 @@ function main:LoadDatSource(value)
 	if self.datFileByName["leaguenames"] then
 		self.leagueLabel = self.datFileByName["leaguenames"]:ReadValueText({ type = "String" }, self.datFileByName["leaguenames"].rows[2] + 8)
 	end
+	self.reExportGGPKData = reExportState
 end
 
 function main:OpenPathPopup()
@@ -430,10 +451,10 @@ function main:InitGGPK()
 		local now = GetTime()
 		local ggpkPath = self.datSource.ggpkPath
 		if ggpkPath and ggpkPath ~= "" then
-			self.ggpk = new("GGPKData", ggpkPath)
+			self.ggpk = new("GGPKData", ggpkPath, nil, self.reExportGGPKData)
 			ConPrintf("GGPK: %d ms", GetTime() - now)
 		elseif self.datSource.datFilePath then
-			self.ggpk = new("GGPKData", nil, self.datSource.datFilePath)
+			self.ggpk = new("GGPKData", nil, self.datSource.datFilePath, self.reExportGGPKData)
 			ConPrintf("GGPK: %d ms", GetTime() - now)
 		end
 	end
@@ -520,7 +541,7 @@ function main:LoadSettings()
 	end
 	for _, node in ipairs(setXML[1]) do
 		if type(node) == "table" then
-			if node.elem == "DatSource" then
+			if node.elem == "DatSource" and (node.attrib.ggpkPath or node.attrib.path) and node.attrib.datFilePath then
 				self.datSource = self.datSource or { }
 				self.datSource.ggpkPath = node.attrib.ggpkPath or node.attrib.path
 				self.datSource.datFilePath = node.attrib.datFilePath
@@ -530,18 +551,19 @@ function main:LoadSettings()
 			if node.elem == "DatSources" then
 				self.datSources = self.datSources or { }
 				for _, child in ipairs(node) do
-					t_insert(self.datSources, { ggpkPath = child.attrib.ggpkPath, datFilePath = child.attrib.datFilePath, label = child.attrib.label, spec = child.attrib.spec })
+					if (child.attrib.ggpkPath or child.attrib.path) and child.attrib.datFilePath then
+						t_insert(self.datSources, { ggpkPath = child.attrib.ggpkPath, datFilePath = child.attrib.datFilePath, label = child.attrib.label, spec = child.attrib.spec })
+					end
 				end
 			end
 		end
 	end
-	if type(self.datSources) ~= "table" then
-		self.datSources = { }
-	end
-	if not next(self.datSources) then
+	if self.datSources and not next(self.datSources) and self.datSource then
 		t_insert(self.datSources, self.datSource)
 	end
-	self.datSource = self.datSource or self.datSources[1]
+	if not self.datSource and self.datSources then
+		self.datSource = self.datSources[1]
+	end
 end
 
 function main:SaveSettings()

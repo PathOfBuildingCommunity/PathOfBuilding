@@ -8643,18 +8643,32 @@ skills["Hydrosphere"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
 	parts = {
-		{
-			name = "Frozen",
-		},
-		{
-			name = "Shocked",
-		},
-		{
-			name = "Frozen & Shocked",
-		}
+			{
+				name = "Autopulse (Frozen)",
+			},
+			{
+				name = "Autopulse (Shocked)",
+			},
+			{
+				name = "Autopulse (Frozen & Shocked)",
+			},
+			{
+				name = "Cast (No Ailment)",
+			},
+			{
+				name = "Cast (Frozen)",
+			},
+			{
+				name = "Cast (Shocked)",
+			},
+			{
+				name = "Cast (Frozen & Shocked)",
+			}
 	},
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HydroSphereFrequency") / 100)
+		if activeSkill.skillPart == 1 or activeSkill.skillPart == 2 or activeSkill.skillPart == 3 then
+			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HydroSphereFrequency") / 100)
+		end
 	end,
 	statMap = {
 		["skill_physical_damage_%_to_convert_to_cold"] = {
@@ -8662,6 +8676,11 @@ skills["Hydrosphere"] = {
 			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 4 }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 5 }),
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 6 }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 7 }),
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 7 }),
 		},
 		["water_sphere_cold_lightning_exposure_%"] = {
 			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" } ),

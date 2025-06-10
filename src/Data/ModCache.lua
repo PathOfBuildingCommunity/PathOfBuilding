@@ -693,6 +693,7 @@ c["+210 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShi
 c["+212 Intelligence Requirement"]={{[1]={flags=0,keywordFlags=0,name="IntRequirement",type="BASE",value=212}},nil}
 c["+22 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=22}},nil}
 c["+22% Chance to Block Attack Damage while wielding a Staff"]={{[1]={[1]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=22}},nil}
+c["+22% Chance to Block Spell Damage while wielding a Staff"]={{[1]={[1]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=22}},nil}
 c["+22% to Cold Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="ColdDotMultiplier",type="BASE",value=22}},nil}
 c["+22% to Critical Strike Multiplier with Bows"]={{[1]={flags=131076,keywordFlags=0,name="CritMultiplier",type="BASE",value=22}},nil}
 c["+22% to Damage over Time Multiplier while affected by Malevolence"]={{[1]={[1]={type="Condition",var="AffectedByMalevolence"},flags=0,keywordFlags=0,name="DotMultiplier",type="BASE",value=22}},nil}
@@ -759,6 +760,7 @@ c["+25% Chance to Block"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type=
 c["+25% Chance to Block Attack Damage while wielding a Staff"]={{[1]={[1]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=25}},nil}
 c["+25% Chance to Block Projectile Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="ProjectileBlockChance",type="BASE",value=25}},nil}
 c["+25% Chance to Block Spell Damage during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=25}},nil}
+c["+25% Chance to Block Spell Damage while wielding a Staff"]={{[1]={[1]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=25}},nil}
 c["+25% Chaos Resistance when on Low Life"]={{[1]={[1]={type="Condition",var="LowLife"},flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=25}},nil}
 c["+25% chance to Suppress Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellSuppressionChance",type="BASE",value=25}},nil}
 c["+25% chance to be Ignited"]={{}," to be Ignited "}
@@ -8168,10 +8170,12 @@ c["Gain 2% of Fire Damage as Extra Chaos Damage per Endurance Charge"]={{[1]={[1
 c["Gain 2% of Life per Enemy Hit with Attacks for 5 seconds"]={{[1]={flags=4,keywordFlags=65536,name="LifeOnHit",type="BASE",value=2}},nil}
 c["Gain 2% of Lightning Damage as Extra Chaos Damage per Power Charge"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="LightningDamageGainAsChaos",type="BASE",value=2}},nil}
 c["Gain 20 Energy Shield for each Enemy you Hit which is affected by a Spider's Web"]={{[1]={[1]={actor="enemy",threshold=1,type="MultiplierThreshold",var="Spider's WebStack"},flags=4,keywordFlags=0,name="EnergyShieldOnHit",type="BASE",value=20}},nil}
+c["Gain 20 Energy Shield per Enemy Hit with Attacks"]={{[1]={flags=4,keywordFlags=65536,name="EnergyShieldOnHit",type="BASE",value=20}},nil}
 c["Gain 20 Energy Shield per Enemy Killed"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldOnKill",type="BASE",value=20}},nil}
 c["Gain 20 Fortification on Melee Kill against a Rare or Unique Enemy"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=67108864,keywordFlags=0,name="MinimumFortification",type="BASE",value=20}},"   against a Rare or Unique Enemy "}
 c["Gain 20 Life per Bleeding Enemy Hit"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=20}},"  per Bleeding Enemy Hit "}
 c["Gain 20 Life per Bleeding Enemy Hit Every 4 seconds, Regenerate 20% of Life over one second"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=20}},"  per Bleeding Enemy Hit Every 4 seconds, Regenerate 20% of Life over one second "}
+c["Gain 20 Life per Enemy Hit with Attacks"]={{[1]={flags=4,keywordFlags=65536,name="LifeOnHit",type="BASE",value=20}},nil}
 c["Gain 20 Life per Enemy Hit with Spells"]={{[1]={flags=4,keywordFlags=131072,name="LifeOnHit",type="BASE",value=20}},nil}
 c["Gain 20 Life per Enemy Killed"]={{[1]={flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=20}},nil}
 c["Gain 20 Mana on Culling Strike"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",value=20}},"  on Culling Strike "}
@@ -8190,7 +8194,8 @@ c["Gain 200 Armour per Grand Spectrum"]={{[1]={[1]={type="Multiplier",var="Grand
 c["Gain 200 Life per Enemy Killed"]={{[1]={flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=200}},nil}
 c["Gain 24 Life per Cursed Enemy Hit with Attacks"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Cursed"},flags=5,keywordFlags=0,name="LifeOnHit",type="BASE",value=24}},nil}
 c["Gain 24% of Physical Damage as Extra Damage of a random Element"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageGainAsRandom",type="BASE",value=24}},nil}
-c["Gain 25 Energy Shield per Enemy Killed"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldOnKill",type="BASE",value=25}},nil}
+c["Gain 25 Energy Shield per Enemy Hit with Attacks"]={{[1]={flags=4,keywordFlags=65536,name="EnergyShieldOnHit",type="BASE",value=25}},nil}
+c["Gain 25 Life per Enemy Hit with Attacks"]={{[1]={flags=4,keywordFlags=65536,name="LifeOnHit",type="BASE",value=25}},nil}
 c["Gain 25 Life per Enemy Hit with Main Hand Claw Attacks"]={{[1]={[1]={type="Condition",var="MainHandAttack"},[2]={skillType=1,type="SkillType"},flags=262148,keywordFlags=0,name="LifeOnHit",type="BASE",value=25}},nil}
 c["Gain 25 Life per Enemy Killed"]={{[1]={flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=25}},nil}
 c["Gain 25 Mana per Enemy Hit with Off Hand Claw Attacks"]={{[1]={[1]={type="Condition",var="OffHandAttack"},[2]={skillType=1,type="SkillType"},flags=262148,keywordFlags=0,name="ManaOnHit",type="BASE",value=25}},nil}
@@ -8718,8 +8723,8 @@ c["Hits with this Weapon deal 45% increased Damage to Shocked Enemies"]={{[1]={[
 c["Hits with this Weapon deal 60% increased Damage to Frozen Enemies"]={{[1]={[1]={type="Condition",var="{Hand}Attack"},[2]={skillType=1,type="SkillType"},[3]={actor="enemy",type="ActorCondition",var="Frozen"},flags=4,keywordFlags=0,name="Damage",type="INC",value=60}},nil}
 c["Hits with this Weapon deal 60% increased Damage to Ignited Enemies"]={{[1]={[1]={type="Condition",var="{Hand}Attack"},[2]={skillType=1,type="SkillType"},[3]={actor="enemy",type="ActorCondition",var="Ignited"},flags=4,keywordFlags=0,name="Damage",type="INC",value=60}},nil}
 c["Hits with this Weapon deal 60% increased Damage to Shocked Enemies"]={{[1]={[1]={type="Condition",var="{Hand}Attack"},[2]={skillType=1,type="SkillType"},[3]={actor="enemy",type="ActorCondition",var="Shocked"},flags=4,keywordFlags=0,name="Damage",type="INC",value=60}},nil}
-c["Hits with this Weapon gain 100% of Physical Damage as Extra Cold or Lightning Damage"]={{[1]={[1]={type="Condition",var="DualWielding"},[2]={skillType=1,type="SkillType"},flags=4,keywordFlags=0,name="PhysicalDamageGainAsColdOrLightning",type="BASE",value=50},[2]={[1]={neg=true,type="Condition",var="DualWielding"},[2]={skillType=1,type="SkillType"},flags=4,keywordFlags=0,name="PhysicalDamageGainAsColdOrLightning",type="BASE",value=100}},nil}
-c["Hits with this Weapon gain 88% of Physical Damage as Extra Cold or Lightning Damage"]={{[1]={[1]={type="Condition",var="DualWielding"},[2]={skillType=1,type="SkillType"},flags=4,keywordFlags=0,name="PhysicalDamageGainAsColdOrLightning",type="BASE",value=44},[2]={[1]={neg=true,type="Condition",var="DualWielding"},[2]={skillType=1,type="SkillType"},flags=4,keywordFlags=0,name="PhysicalDamageGainAsColdOrLightning",type="BASE",value=88}},nil}
+c["Hits with this Weapon gain 100% of Physical Damage as Extra Cold or Lightning Damage"]={{[1]={[1]={type="Condition",var="DualWielding"},[2]={skillType=1,type="SkillType"},[3]={neg=true,skillType=13,type="SkillType"},flags=4,keywordFlags=0,name="PhysicalDamageGainAsColdOrLightning",type="BASE",value=50},[2]={[1]={neg=true,type="Condition",var="DualWielding"},[2]={skillType=1,type="SkillType"},[3]={neg=true,skillType=13,type="SkillType"},flags=4,keywordFlags=0,name="PhysicalDamageGainAsColdOrLightning",type="BASE",value=100}},nil}
+c["Hits with this Weapon gain 88% of Physical Damage as Extra Cold or Lightning Damage"]={{[1]={[1]={type="Condition",var="DualWielding"},[2]={skillType=1,type="SkillType"},[3]={neg=true,skillType=13,type="SkillType"},flags=4,keywordFlags=0,name="PhysicalDamageGainAsColdOrLightning",type="BASE",value=44},[2]={[1]={neg=true,type="Condition",var="DualWielding"},[2]={skillType=1,type="SkillType"},[3]={neg=true,skillType=13,type="SkillType"},flags=4,keywordFlags=0,name="PhysicalDamageGainAsColdOrLightning",type="BASE",value=88}},nil}
 c["Hits with this Weapon have +10% to Critical Strike Multiplier per Enemy Power"]={{[1]={[1]={type="Condition",var="{Hand}Attack"},[2]={skillType=1,type="SkillType"},[3]={type="Multiplier",var="EnemyPower"},flags=4,keywordFlags=0,name="CritMultiplier",type="BASE",value=10}},nil}
 c["Hits with this Weapon ignore Enemy Physical Damage Reduction"]={{[1]={[1]={type="Condition",var="{Hand}Attack"},[2]={skillType=1,type="SkillType"},flags=4,keywordFlags=0,name="ChanceToIgnoreEnemyPhysicalDamageReduction",type="BASE",value=100}},nil}
 c["Hollow Palm Technique"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Hollow Palm Technique"}},nil}
@@ -9412,7 +9417,7 @@ c["Nearby Enemies are Blinded"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifie
 c["Nearby Enemies are Blinded while Physical Aegis is not depleted"]={{[1]={[1]={neg=true,type="Condition",var="PhysicalAegisDepleted"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Blinded",type="FLAG",value=true}}}},nil}
 c["Nearby Enemies are Chilled"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Chilled",type="FLAG",value=true}}}},nil}
 c["Nearby Enemies are Covered in Ash"]={{[1]={flags=0,keywordFlags=0,name="CoveredInAshEffect",type="BASE",value=20}},nil}
-c["Nearby Enemies are Covered in Ash if you haven't moved in the past 2 seconds"]={nil,"Covered in Ash if you haven't moved in the past 2 seconds "}
+c["Nearby Enemies are Covered in Ash if you haven't moved in the past 2 seconds"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="StationarySeconds"},[2]={type="Condition",var="Stationary"},flags=0,keywordFlags=0,name="CoveredInAshEffect",type="BASE",value=20}},nil}
 c["Nearby Enemies are Crushed"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Crushed",type="FLAG",value=true}}}},nil}
 c["Nearby Enemies are Crushed while you have at least 25 Rage"]={{[1]={[1]={threshold=25,type="MultiplierThreshold",var="RageStack"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Crushed",type="FLAG",value=true}}}},nil}
 c["Nearby Enemies are Hindered, with 25% reduced Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Hindered",type="FLAG",value=true}}}},nil}
