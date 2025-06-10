@@ -8729,8 +8729,6 @@ c["Immune to Bleeding if Equipped Helmet has higher Armour than Evasion Rating"]
 c["Immune to Burning Ground, Shocked Ground and Chilled Ground"]={nil,"Immune to Burning Ground, Shocked Ground and Chilled Ground "}
 c["Immune to Burning Ground, Shocked Ground and Chilled Ground Regenerate 100 Life per second while moving"]={nil,"Immune to Burning Ground, Shocked Ground and Chilled Ground Regenerate 100 Life per second while moving "}
 c["Immune to Chill"]={{[1]={flags=0,keywordFlags=0,name="ChillImmune",type="FLAG",value=true}},nil}
-c["Immune to Corrupted Blood"]={nil,"Immune to Corrupted Blood "}
-c["Immune to Corrupted Blood Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary"]={nil,"Immune to Corrupted Blood Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary "}
 c["Immune to Curses if you've cast Despair in the past 10 seconds"]={{[1]={[1]={type="Condition",var="SelfCastDespair"},flags=0,keywordFlags=0,name="CurseImmune",type="FLAG",value=true}},nil}
 c["Immune to Curses while you have at least 25 Rage"]={{[1]={[1]={threshold=25,type="MultiplierThreshold",var="Rage"},flags=0,keywordFlags=0,name="CurseImmune",type="FLAG",value=true}},nil}
 c["Immune to Elemental Ailments while affected by Glorious Madness"]={{[1]={[1]={type="Condition",var="AffectedByGloriousMadness"},flags=0,keywordFlags=0,name="ElementalAilmentImmune",type="FLAG",value=true}},nil}
