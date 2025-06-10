@@ -803,7 +803,7 @@ skills["DeathAura"] = {
 		skill("radius", 30),
 	},
 	constantStats = {
-		{ "base_chaos_damage_to_deal_per_minute", 60000 },
+		{ "base_chaos_damage_to_deal_per_minute", 75000 },
 	},
 	stats = {
 		"cast_on_gain_skill",

@@ -31,14 +31,14 @@ end
 
 -- Path can be in any format recognized by the extractor at oozPath, ie,
 -- a .ggpk file or a Steam Path of Exile directory
-local GGPKClass = newClass("GGPKData", function(self, path, datPath)
+local GGPKClass = newClass("GGPKData", function(self, path, datPath, reExport)
 	if datPath then
 		self.oozPath = datPath:match("\\$") and datPath or (datPath .. "\\")
 	else
 		self.path = path
 		self.oozPath = io.popen("cd"):read('*l'):gsub('\r?', '') .. "\\ggpk\\"
-		self:CleanDir()
-		self:ExtractFiles()
+		self:CleanDir(reExport)
+		self:ExtractFiles(reExport)
 	end
 
 	self.dat = { }
@@ -51,10 +51,12 @@ local GGPKClass = newClass("GGPKData", function(self, path, datPath)
 	end
 end)
 
-function GGPKClass:CleanDir()
-	local cmd = 'del ' .. self.oozPath .. 'Data ' .. self.oozPath .. 'Metadata /Q /S'
-	ConPrintf(cmd)
-	os.execute(cmd)
+function GGPKClass:CleanDir(reExport)
+	if reExport then
+		local cmd = 'del ' .. self.oozPath .. 'Data ' .. self.oozPath .. 'Metadata /Q /S'
+		ConPrintf(cmd)
+		os.execute(cmd)
+	end
 end
 
 function GGPKClass:ExtractFilesWithBun(fileListStr)
@@ -63,43 +65,45 @@ function GGPKClass:ExtractFilesWithBun(fileListStr)
 	os.execute(cmd)
 end
 
-function GGPKClass:ExtractFiles()
-	local datList, txtList, itList = self:GetNeededFiles()
-	local sweetSpotCharacter = 6000
-	local fileList = ''
-	for _, fname in ipairs(datList) do
-		if USE_DAT64 then
-			fileList = fileList .. '"' .. fname .. 'c64" '
-		else
+function GGPKClass:ExtractFiles(reExport)
+	if reExport then
+		local datList, txtList, itList = self:GetNeededFiles()
+		local sweetSpotCharacter = 6000
+		local fileList = ''
+		for _, fname in ipairs(datList) do
+			if USE_DAT64 then
+				fileList = fileList .. '"' .. fname .. 'c64" '
+			else
+				fileList = fileList .. '"' .. fname .. '" '
+			end
+
+			if fileList:len() > sweetSpotCharacter then
+				self:ExtractFilesWithBun(fileList)
+				fileList = ''
+			end
+		end
+
+		for _, fname in ipairs(txtList) do
 			fileList = fileList .. '"' .. fname .. '" '
+
+			if fileList:len() > sweetSpotCharacter then
+				self:ExtractFilesWithBun(fileList)
+				fileList = ''
+			end
 		end
 
-		if fileList:len() > sweetSpotCharacter then
+		for _, fname in ipairs(itList) do
+			fileList = fileList .. '"' .. fname .. '" '
+
+			if fileList:len() > sweetSpotCharacter then
+				self:ExtractFilesWithBun(fileList)
+				fileList = ''
+			end
+		end
+
+		if (fileList:len() > 0) then
 			self:ExtractFilesWithBun(fileList)
-			fileList = ''
 		end
-	end
-
-	for _, fname in ipairs(txtList) do
-		fileList = fileList .. '"' .. fname .. '" '
-
-		if fileList:len() > sweetSpotCharacter then
-			self:ExtractFilesWithBun(fileList)
-			fileList = ''
-		end
-	end
-
-	for _, fname in ipairs(itList) do
-		fileList = fileList .. '"' .. fname .. '" '
-
-		if fileList:len() > sweetSpotCharacter then
-			self:ExtractFilesWithBun(fileList)
-			fileList = ''
-		end
-	end
-
-	if (fileList:len() > 0) then
-		self:ExtractFilesWithBun(fileList)
 	end
 
 	-- Overwrite Enums

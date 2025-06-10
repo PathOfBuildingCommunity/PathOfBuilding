@@ -103,7 +103,7 @@ end
 
 table.insert(caneOfKulemak, "Requires Level 68, 85 Str, 85 Int")
 table.insert(caneOfKulemak, "Implicits: 1")
-table.insert(caneOfKulemak, "+20% Chance to Block Attack Damage while wielding a Staff")
+table.insert(caneOfKulemak, "+22% Chance to Block Attack Damage while wielding a Staff")
 table.insert(caneOfKulemak, "("..caneOfKulemakMinUnveiledModifierMagnitudes.."-"..caneOfKulemakMaxUnveiledModifierMagnitudes..")% increased Unveiled Modifier magnitudes")
 
 for index, mod in pairs(caneOfKulemakMods) do

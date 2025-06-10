@@ -538,7 +538,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		activeSkill.skillData.attackTime = level.attackTime
 	end
 	if level.attackSpeedMultiplier then
-		skillModList:NewMod("Speed", "MORE", level.attackSpeedMultiplier, activeEffect.grantedEffect.modSource, ModFlag.Attack)
+		activeSkill.skillData.attackSpeedMultiplier = level.attackSpeedMultiplier
 	end
 	if level.cooldown then
 		activeSkill.skillData.cooldown = level.cooldown

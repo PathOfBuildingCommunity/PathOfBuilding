@@ -2081,6 +2081,9 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			local baseTime
 			if isAttack then
+				if skillData.attackSpeedMultiplier and source.AttackRate then
+					source.AttackRate = source.AttackRate * (1 + skillData.attackSpeedMultiplier / 100)
+				end
 				if skillData.castTimeOverridesAttackTime then
 					-- Skill is overriding weapon attack speed
 					baseTime = activeSkill.activeEffect.grantedEffect.castTime / (1 + (source.AttackSpeedInc or 0) / 100)
@@ -2180,7 +2183,13 @@ function calcs.offence(env, actor, activeSkill)
 				skillModList:NewMod("Multiplier:TraumaStacks", "BASE", skillModList:Sum("BASE", skillCfg, "Multiplier:SustainableTraumaStacks"), "Maximum Sustainable Trauma Stacks")
 			end
 			local inc = skillModList:Sum("INC", cfg, "Speed")
-			output.Speed = 1 / baseTime * round((1 + inc/100) * more, 2)
+			
+			if skillFlags.warcry then
+				output.Speed = 1 / output.WarcryCastTime
+			else
+				output.Speed = 1 / (baseTime / round((1 + inc/100) * more, 2) + skillModList:Sum("BASE", cfg, "TotalAttackTime") + skillModList:Sum("BASE", cfg, "TotalCastTime"))
+		
+			end
 			output.CastRate = output.Speed
 			if skillFlags.selfCast then
 				-- Self-cast skill; apply action speed
@@ -2395,6 +2404,7 @@ function calcs.offence(env, actor, activeSkill)
 							else
 								t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.AncestralCryCooldown))
 							end
+							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("* %d ^8(stored uses)", storedUses))
 							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("= %d%%", globalOutput.AncestralUpTimeRatio))
 						end
 						globalOutput.AncestralCryCalculated = true
@@ -2418,6 +2428,7 @@ function calcs.offence(env, actor, activeSkill)
 								else
 									t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.InfernalCryCooldown))
 								end
+								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("* %d ^8(stored uses)", storedUses))
 								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("= %d%%", globalOutput.InfernalUpTimeRatio))
 							end
 						end
@@ -2442,6 +2453,7 @@ function calcs.offence(env, actor, activeSkill)
 							else
 								t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.IntimidatingCryCooldown))
 							end
+							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("* %d ^8(stored uses)", storedUses))
 							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("= %d%%", globalOutput.IntimidatingUpTimeRatio))
 						end
 						local ddChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0) + exertedDoubleDamage, 100)
@@ -2487,6 +2499,7 @@ function calcs.offence(env, actor, activeSkill)
 							else
 								t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.RallyingCryCooldown))
 							end
+							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("* %d ^8(stored uses)", storedUses))
 							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("= %d%%", globalOutput.RallyingUpTimeRatio))
 						end
 						globalOutput.RallyingAvgDmg = m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5) * (env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100)
@@ -2540,6 +2553,7 @@ function calcs.offence(env, actor, activeSkill)
 							else
 								t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.SeismicCryCooldown))
 							end
+							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("* %d ^8(stored uses)", storedUses))
 							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("= %d%%", globalOutput.SeismicUpTimeRatio))
 						end
 						globalOutput.SeismicCryCalculated = true
@@ -2563,6 +2577,7 @@ function calcs.offence(env, actor, activeSkill)
 								else
 									t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.BattleMageCryCooldown))
 								end
+								t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("* %d ^8(stored uses)", storedUses))
 								t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("= %d%%", globalOutput.BattlemageUpTimeRatio))
 							end
 						end
@@ -5538,11 +5553,15 @@ function calcs.offence(env, actor, activeSkill)
 		output.WithBleedDPS = baseDPS
 	end
 	if skillFlags.impale then
+		local mainHandImpaleDPS, offHandImpaleDPS
 		if skillFlags.attack and skillData.doubleHitsWhenDualWielding and skillFlags.bothWeaponAttack then
-			-- due to how its being combined
-			output.ImpaleModifier = output.ImpaleModifier / 2
+			-- separately combine
+			mainHandImpaleDPS = output.MainHand.impaleStoredHitAvg * ((output.MainHand.ImpaleModifier or 1) - 1) * output.MainHand.HitChance / 100 * skillData.dpsMultiplier
+			offHandImpaleDPS = output.OffHand.impaleStoredHitAvg * ((output.OffHand.ImpaleModifier or 1) - 1) * output.OffHand.HitChance / 100 * skillData.dpsMultiplier
+			output.ImpaleDPS = mainHandImpaleDPS + offHandImpaleDPS
+		else
+			output.ImpaleDPS = output.impaleStoredHitAvg * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * skillData.dpsMultiplier
 		end
-		output.ImpaleDPS = output.impaleStoredHitAvg * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * skillData.dpsMultiplier
 		if skillData.showAverage then
 			output.WithImpaleDPS = output.AverageDamage + output.ImpaleDPS
 			output.CombinedAvg = output.CombinedAvg + output.ImpaleDPS
@@ -5557,19 +5576,34 @@ function calcs.offence(env, actor, activeSkill)
 		output.CombinedDPS = output.CombinedDPS + output.ImpaleDPS
 		if breakdown then
 			breakdown.ImpaleDPS = {}
-			t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit before mitigation)", output.impaleStoredHitAvg))
-			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
-			if skillFlags.notAverage then
-				t_insert(breakdown.ImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, skillFlags.attack and "attack" or "cast"))
+			if skillFlags.attack and skillData.doubleHitsWhenDualWielding and skillFlags.bothWeaponAttack then
+				t_insert(breakdown.ImpaleDPS, s_format("Main Hand:"))
+				t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(MH average physical hit before mitigation)", output.MainHand.impaleStoredHitAvg))
+				t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(MH chance to hit)", output.MainHand.HitChance / 100))
+				t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(MH impale damage multiplier)\n", ((output.MainHand.ImpaleModifier or 1) - 1)))
+				t_insert(breakdown.ImpaleDPS, s_format("= %.2f", mainHandImpaleDPS))
+				t_insert(breakdown.ImpaleDPS, s_format("Off Hand:"))
+				t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(OH average physical hit before mitigation)", output.OffHand.impaleStoredHitAvg))
+				t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(OH chance to hit)", output.OffHand.HitChance / 100))
+				t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(OH impale damage multiplier)", ((output.OffHand.ImpaleModifier or 1) - 1)))
+				t_insert(breakdown.ImpaleDPS, s_format("= %.2f", offHandImpaleDPS))
+				t_insert(breakdown.ImpaleDPS, s_format("Combined total:"))
+				t_insert(breakdown.ImpaleDPS, s_format("%.2f + %.2f", mainHandImpaleDPS, offHandImpaleDPS))
+			else
+				t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit before mitigation)", output.impaleStoredHitAvg))
+				t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+				t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(impale damage multiplier)", ((output.ImpaleModifier or 1) - 1)))
 			end
-			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(impale damage multiplier)", ((output.ImpaleModifier or 1) - 1)))
-			if skillData.dpsMultiplier ~= 1 then
-				t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(dps multiplier for this skill)", skillData.dpsMultiplier))
-			end
-			if quantityMultiplier > 1 then
-				t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
-			end
-			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
+		if skillFlags.notAverage then
+			t_insert(breakdown.ImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, skillFlags.attack and "attack" or "cast"))
+		end
+		if skillData.dpsMultiplier ~= 1 then
+			t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(dps multiplier for this skill)", skillData.dpsMultiplier))
+		end
+		if quantityMultiplier > 1 then
+			t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
+		end
+		t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
 	end
 

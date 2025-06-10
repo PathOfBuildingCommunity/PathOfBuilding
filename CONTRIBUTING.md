@@ -208,7 +208,7 @@ Z:\home\dev\.vscode\extensions\tangzx.emmylua-0.8.20-linux-x64\debugger\emmy\win
 
 ## Testing
 
-PoB uses the [Busted](https://olivinelabs.com/busted/) framework to run its tests. Tests are stored under `spec/System` and run automatically when a PR is modified.
+PoB uses the [Busted](https://lunarmodules.github.io/busted/) framework to run its tests. Tests are stored under `spec/System` and run automatically when a PR is modified.
 More tests can be added to this folder to test specific functionality, or new test builds can be added to ensure nothing changed that wasn't intended. 
 
 ### Running tests
