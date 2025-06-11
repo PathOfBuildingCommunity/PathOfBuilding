@@ -37,7 +37,7 @@ The JSON data and required skill tree assets should come in a `.zip` archive.
 Steps:
 1. Download the `.zip` archive.
 2. Create a new directory in `./src/TreeData` with the following schema:
-    `<major_league_version>_<minor_league_version>`. For alternate or ruthless gamemodes, add the suffixing as appropriate.
+    `<major_league_version>_<minor_league_version>`. For alternate or ruthless trees, add the suffixing as appropriate.
     For 3.14, the correct directory name would be `3_14`.
     For 3.25 Ruthless 'alternate' tree, the correct directory name would be `3_25_ruthless_alternate`.
 3. Copy the following file from the `.zip` archive root to the new directory:
