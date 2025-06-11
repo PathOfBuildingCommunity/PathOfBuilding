@@ -2914,6 +2914,9 @@ local specialModList = {
 	["your skills deal you (%d+)%% of mana cost as (.+) damage"] = function(dmgMult, _, dmgType) return {
 		mod("ScoldsBridleSelfDamage", "LIST", {dmgMult = dmgMult, damageType = dmgType})
 	}end,
+	["your skills deal you (%d+)%% of mana spent on upfront skill mana costs as (.+) damage"] = function(dmgMult, _, dmgType) return {
+		mod("ScoldsBridleSelfDamage", "LIST", {dmgMult = dmgMult, damageType = dmgType})
+	}end,
 	["when you attack, take (%d+)%% of life as (.+) damage for each warcry exerting the attack"] = function(dmgMult, _, dmgType) return {
 		mod("EchoesOfCreationSelfDamage", "LIST", {dmgMult = dmgMult, damageType = dmgType})
 	} end,

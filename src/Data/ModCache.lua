@@ -11858,7 +11858,7 @@ c["Your Physical Damage can Shock"]={{[1]={flags=0,keywordFlags=0,name="Physical
 c["Your Raised Spectres also gain Arcane Surge when you do"]={nil,"Your Raised Spectres also gain Arcane Surge when you do "}
 c["Your Raised Spectres also gain Arcane Surge when you do 50% increased Critical Strike Chance for Spells per Raised Spectre"]={nil,"Your Raised Spectres also gain Arcane Surge when you do 50% increased Critical Strike Chance for Spells per Raised Spectre "}
 c["Your Raised Zombies count as Corpses"]={nil,"Your Raised Zombies count as Corpses "}
-c["Your Skills deal you 400% of Mana Cost as Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="ScoldsBridleSelfDamage",type="LIST",value={damageType="physical",dmgMult=400}}},nil}
+c["Your Skills deal you 400% of Mana Spent on Upfront Skill Mana Costs as Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="ScoldsBridleSelfDamage",type="LIST",value={damageType="physical",dmgMult=400}}},nil}
 c["Your Spells are disabled"]={{[1]={[1]={skillType=2,type="SkillType"},flags=0,keywordFlags=0,name="DisableSkill",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="ForceEnableCurseApplication",type="FLAG",value=true}},nil}
 c["Your Spells have Culling Strike"]={{[1]={flags=2,keywordFlags=0,name="CullPercent",type="MAX",value=10}},nil}
 c["Your Warcries do not grant Buffs or Charges to You"]={{[1]={flags=0,keywordFlags=0,name="CannotGainWarcryBuffs",type="FLAG",value=true}},nil}
