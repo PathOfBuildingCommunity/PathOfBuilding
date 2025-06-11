@@ -209,6 +209,7 @@ Mark of the Doubting Knight
 Platinum Kris
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.26.0
 Variant: Current
 Requires Level 64, 76 Dex, 149 Int
 Implicits: 1
@@ -216,13 +217,16 @@ Implicits: 1
 +5% Chance to Block Attack Damage while Dual Wielding
 {variant:1}(180-210)% increased Physical Damage
 {variant:2}(210-240)% increased Physical Damage
-{variant:3}(250-270)% increased Physical Damage
-10% reduced Attack Speed
-+(6-10)% to all Elemental Resistances
+{variant:3,4}(250-270)% increased Physical Damage
+{variant:1,2,3}10% reduced Attack Speed
+{variant:4}20% reduced Attack Speed
+{variant:1,2,3}+(6-10)% to all Elemental Resistances
 {variant:1,2}Melee Critical Strikes have 25% chance to cause Bleeding
-{variant:3}50% chance to Cause Bleeding on Critical Strike
+{variant:3,4}50% chance to Cause Bleeding on Critical Strike
 {variant:1,2}Melee Critical Strikes have 25% chance to Poison the Enemy
-{variant:3}50% chance to Cause Poison on Critical Strike
+{variant:3,4}50% chance to Cause Poison on Critical Strike
+{variant:4}(20-30)% increased Critical Strike Chance
+{variant:4}+(30-40)% to Global Critical Strike Multiplier
 ]],[[
 Mightflay
 Flaying Knife
@@ -283,19 +287,19 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 68, 76 Dex, 149 Int
 Implicits: 1
-40% increased Global Critical Strike Chance 
+40% increased Global Critical Strike Chance
 Adds (85-110) to (130-150) Physical Damage
 Adds (130-160) to (220-240) Fire Damage
 {variant:2}50% chance to cause Bleeding on Hit
-{variant:1}Attacks with this Weapon deal (80-100) to (160-200) added Fire Damage to Bleeding Enemies 
-{variant:1}Attacks with this Weapon deal (80-100) to (160-200) added Physical Damage to Ignited Enemies 
-{variant:1}Attacks with this Weapon have 25% chance to inflict Bleeding against Ignited Enemies 
+{variant:1}Attacks with this Weapon deal (80-100) to (160-200) added Fire Damage to Bleeding Enemies
+{variant:1}Attacks with this Weapon deal (80-100) to (160-200) added Physical Damage to Ignited Enemies
+{variant:1}Attacks with this Weapon have 25% chance to inflict Bleeding against Ignited Enemies
 {variant:2}(75-100)% increased Fire Damage with Hits and Ailments against Bleeding Enemies
 {variant:2}(75-100)% increased Physical Damage with Hits and Ailments against Ignited Enemies
-Every 8 seconds, gain Avatar of Fire for 4 seconds 
-{variant:1}(80-120)% increased Critical Strike Chance while you have Avatar of Fire 
-{variant:2}(160-200)% increased Critical Strike Chance while you have Avatar of Fire 
-50% of Physical Damage Converted to Fire while you have Avatar of Fire 
+Every 8 seconds, gain Avatar of Fire for 4 seconds
+{variant:1}(80-120)% increased Critical Strike Chance while you have Avatar of Fire
+{variant:2}(160-200)% increased Critical Strike Chance while you have Avatar of Fire
+50% of Physical Damage Converted to Fire while you have Avatar of Fire
 {variant:1}+1000 Armour while you do not have Avatar of Fire
 {variant:2}+2000 Armour while you do not have Avatar of Fire
 ]],[[

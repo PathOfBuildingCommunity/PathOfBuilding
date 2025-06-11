@@ -469,18 +469,25 @@ Variant: Fire and Lightning Damage (Pre 3.14)
 Variant: Energy Shield and Life (Pre 3.14)
 Variant: Armour during Soul Gain Prevention (Pre 3.14)
 Variant: Level of Socketed Support Gems (Pre 3.14)
-Variant: Fire and Cold Damage
-Variant: Cold and Lightning Damage
-Variant: Fire and Lightning Damage
-Variant: Energy Shield and Life
-Variant: Armour during Soul Gain Prevention
-Variant: Level of Socketed Support Gems
-(30-50)% increased Spell Damage
+Variant: Fire and Cold Damage (Pre 3.26)
+Variant: Cold and Lightning Damage (Pre 3.26)
+Variant: Fire and Lightning Damage (Pre 3.26)
+Variant: Energy Shield and Life (Pre 3.26)
+Variant: Armour during Soul Gain Prevention (Pre 3.26)
+Variant: Level of Socketed Support Gems (Pre 3.26)
+Variant: Fire and Cold Damage (Current)
+Variant: Cold and Lightning Damage (Current)
+Variant: Fire and Lightning Damage (Current)
+Variant: Energy Shield and Life (Current)
+Variant: Armour during Soul Gain Prevention (Current)
+Variant: Level of Socketed Support Gems (Current)
+{variant:1,2,3,4,5,6,7,8,9,10,11,12}(30-50)% increased Spell Damage
 (180-220)% increased Energy Shield
 Spectres have (50-100)% increased maximum Life
 Gain Arcane Surge when you deal a Critical Strike
 Your Raised Spectres also gain Arcane Surge when you do
-(40-50)% increased Critical Strike Chance for Spells per Raised Spectre
+{variant:1,2,3,4,5,6,7,8,9,10,11,12}(40-50)% increased Critical Strike Chance for Spells per Raised Spectre
+{variant:13,14,15,16,17,18}(50-100)% increased Critical Strike Chance for Spells per Raised Spectre
 {variant:1}{crafted}Adds (3-12) to (5-16) Fire Damage
 {variant:1}{crafted}Adds (3-12) to (5-16) Cold Damage
 {variant:2}{crafted}Adds (3-12) to (5-16) Cold Damage
@@ -491,17 +498,17 @@ Your Raised Spectres also gain Arcane Surge when you do
 {variant:4}{crafted}+(10-28) to maximum Life
 {variant:5}{crafted}+(500-3000) to Armour during Soul Gain Prevention
 {variant:6}{crafted}+(1-2) to Level of Socketed Support Gems
-{variant:7}Adds (14-16) to (20-22) Fire Damage
-{variant:7}Adds (14-16) to (20-22) Cold Damage
-{variant:8}Adds (14-16) to (20-22) Cold Damage
-{variant:8}Adds (14-16) to (20-22) Lightning Damage
-{variant:9}Adds (14-16) to (20-22) Fire Damage
-{variant:9}Adds (14-16) to (20-22) Lightning Damage
-{variant:10}(24-28)% increased Energy Shield
-{variant:10}+(19-22) to maximum Life
-{variant:11}+(3201-4000) to Armour during Soul Gain Prevention
-{variant:12}+2 to Level of Socketed Support Gems
-{variant:12}+(5-8)% to Quality of Socketed Support Gems
+{variant:7,13}Adds (14-16) to (20-22) Fire Damage
+{variant:7,13}Adds (14-16) to (20-22) Cold Damage
+{variant:8,14}Adds (14-16) to (20-22) Cold Damage
+{variant:8,14}Adds (14-16) to (20-22) Lightning Damage
+{variant:9,15}Adds (14-16) to (20-22) Fire Damage
+{variant:9,15}Adds (14-16) to (20-22) Lightning Damage
+{variant:10,16}(24-28)% increased Energy Shield
+{variant:10,16}+(19-22) to maximum Life
+{variant:11,17}+(3201-4000) to Armour during Soul Gain Prevention
+{variant:12,18}+2 to Level of Socketed Support Gems
+{variant:12,18}+(5-8)% to Quality of Socketed Support Gems
 ]],[[
 Brinerot Flag
 Tarnished Spirit Shield
@@ -1018,7 +1025,7 @@ Implicits: 2
 +(100-150) to maximum Life
 {variant:1,2,3,4}50% reduced Freeze Duration on you
 {variant:5}80% reduced Freeze Duration on you
-{variant:3}Regenerate 1% of Life per Second 
+{variant:3}Regenerate 1% of Life per Second
 {variant:4,5}Regenerate 3% of Life per Second
 {variant:1,2}Regenerate 6% of Life per Second while on Low Life
 {variant:3}Regenerate 5% of Life per Second while on Low Life

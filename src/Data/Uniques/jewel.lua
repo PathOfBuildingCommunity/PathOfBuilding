@@ -482,12 +482,15 @@ Effects of Profane Ground you create Linger for 4 seconds
 ]],[[
 Nadir Mode
 Cobalt Jewel
+Variant: Pre 3.26
+Variant: Current
 League: Heist
 Source: Drops from unique{The Unbreakable} in normal{Contract: Breaking the Unbreakable}
 Limited to: 1
 Item Level: 82
 (20-25)% increased Spell Damage
-Spells have 30% increased Critical Strike Chance per Intensity
+{variant:1}Spells have 30% increased Critical Strike Chance per Intensity
+{variant:2}Spells have (30-50)% increased Critical Strike Chance per Intensity
 Spells which have gained Intensity Recently lose 1 Intensity every 0.50 Seconds
 ]],[[
 Natural Affinity
@@ -948,7 +951,7 @@ Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 (10-15)% increased Cold Damage
-With at least 40 Dexterity in Radius, Melee Damage 
+With at least 40 Dexterity in Radius, Melee Damage
 dealt by Frost Blades Penetrates 15% Cold Resistance
 With at least 40 Dexterity in Radius, Frost Blades has 25% increased Projectile Speed
 ]],[[
@@ -957,7 +960,7 @@ Cobalt Jewel
 Source: No longer obtainable
 Limited to: 2
 Radius: Medium
-(7-10)% increased Projectile Damage 
+(7-10)% increased Projectile Damage
 With at least 40 Intelligence in Radius, Freezing Pulse fires 2 additional Projectiles
 With at least 40 Intelligence in Radius, 25% increased Freezing Pulse Damage if
 you've Shattered an Enemy Recently
@@ -1015,10 +1018,10 @@ Cobalt Jewel
 Source: No longer obtainable
 Limited to: 2
 Radius: Medium
-(10-15)% increased Cold Damage 
+(10-15)% increased Cold Damage
 With 40 Intelligence in Radius, 20% of Glacial Cascade Physical Damage
 Converted to Cold Damage
-With 40 Intelligence in Radius, Glacial Cascade has an additional Burst 
+With 40 Intelligence in Radius, Glacial Cascade has an additional Burst
 ]],[[
 Might and Influence
 Viridian Jewel
@@ -1107,7 +1110,7 @@ Variant: Pre 3.17.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-(10-15)% increased Global Physical Damage 
+(10-15)% increased Global Physical Damage
 With at least 40 Dexterity in Radius, Ethereal Knives fires Projectiles in a Nova
 {variant:1}With at least 40 Dexterity in Radius, Ethereal Knives fires 10 additional Projectiles
 {variant:2}With at least 40 Dexterity in Radius, Ethereal Knives fires 5 additional Projectiles
@@ -1193,11 +1196,11 @@ Variant: Current
 Source: No longer obtainable
 Limited to: 1
 Radius: Medium
-(10-15)% increased Fire Damage 
+(10-15)% increased Fire Damage
 {variant:1}With at least 40 Dexterity in Radius, Burning Arrow can inflict an additional Ignite on an Enemy
 {variant:2}Ignited Enemies Killed by your Hits are destroyed
 ]],[[
-Unending Hunger 
+Unending Hunger
 Cobalt Jewel
 Variant: Pre 2.6.0
 Variant: Current
@@ -1225,7 +1228,7 @@ Cobalt Jewel
 Source: No longer obtainable
 Limited to: 2
 Radius: Medium
-Minions deal (10-15)% increased Damage 
+Minions deal (10-15)% increased Damage
 With at least 40 Intelligence in Radius, Raised
 Zombies' Slam Attack has 100% increased Cooldown Recovery Speed
 With at least 40 Intelligence in Radius, Raised Zombies' Slam
@@ -1259,7 +1262,7 @@ Variant: Pre 3.11.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-(10-15)% increased Fire Damage 
+(10-15)% increased Fire Damage
 {variant:1}With at least 40 Strength in Radius, Molten Strike fires 2 additional Projectiles
 {variant:1}With at least 40 Strength in Radius, Molten Strike has 25% increased Area of Effect
 {variant:2}With at least 40 Strength in Radius, Molten Strike Projectiles Chain on impacting ground
@@ -1623,10 +1626,10 @@ Variant: Pre 3.20.0
 Variant: Current
 Limited to: 1
 +2 to maximum number of Spectres
-(40-50)% reduced Mana Cost of Raise Spectre 
-Spectres have (800-1000)% increased Critical Strike Chance 
+(40-50)% reduced Mana Cost of Raise Spectre
+Spectres have (800-1000)% increased Critical Strike Chance
 Spectres have a Base Duration of 20 seconds
-Spectres do not travel between Areas 
+Spectres do not travel between Areas
 {variant:2}Corrupted
 ]],[[
 The Golden Rule
@@ -1634,10 +1637,10 @@ Viridian Jewel
 Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 Variant: Pre 3.20.0
 Variant: Current
-(30-40)% increased Armour while Bleeding 
-Bleeding you inflict is Reflected to you 
-+1% to Chaos Resistance per Poison on you 
-Poison you inflict is Reflected to you 
+(30-40)% increased Armour while Bleeding
+Bleeding you inflict is Reflected to you
++1% to Chaos Resistance per Poison on you
+Poison you inflict is Reflected to you
 {variant:2}Corrupted
 ]],[[
 To Dust

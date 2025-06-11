@@ -457,7 +457,40 @@ describe("TestDefence", function()
 		assert.are.equals(1000, takenHitFromTypeMaxHit("Lightning"))
 		assert.are.equals(1250, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
 	end)
-	
+
+	it("energy shield increased by spell block chance if corresponding flag is present", function()
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab.input.customMods = "\z
+		You have no intelligence\n\z
+		100 Energy shield \n\z
+		energy shield is increased by chance to block spell damage\n\z
+		50% chance to block spell damage\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(0, build.calcsTab.calcsOutput.SpellBlockChanceOverCap )
+		assert.are.equals(50, build.calcsTab.calcsOutput.SpellBlockChance)
+		assert.are.equals(150, build.calcsTab.calcsOutput.EnergyShield)
+	end)
+
+	it("energy shield increased by spell block chance if corresponding flag is present should be capped to max block", function()
+		build.configTab.input.enemyIsBoss = "None"
+
+		build.configTab.input.customMods = "\z
+		You have no intelligence\n\z
+		100 Energy shield \n\z
+		energy shield is increased by chance to block spell damage\n\z
+		100% chance to block spell damage\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(25, build.calcsTab.calcsOutput.SpellBlockChanceOverCap )
+		assert.are.equals(75, build.calcsTab.calcsOutput.SpellBlockChance)
+		assert.are.equals(175, build.calcsTab.calcsOutput.EnergyShield)
+	end)
+
 	local function withinTenPercent(value, otherValue)
 		local ratio = otherValue / value
 		return 0.9 < ratio and ratio < 1.1
@@ -804,6 +837,190 @@ describe("TestDefence", function()
 		poolsRemaining = poolsRemainingAfterTypeMaxHit("Lightning")
 		assert.are.equals(100, round(poolsRemaining.EnergyShield))
 		assert.are.equals(100, floor(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+	end)
+
+	it("MoM + EB", function()
+		build.configTab.input.enemyIsBoss = "None"
+		-- enough mana and es, 0% and 100% bypass
+		build.configTab.input.customMods = [[
+			50% of damage is taken from mana before life
+			energy shield protects mana instead of life
+			+40 to maximum life
+			+1960 to mana
+			+2000 to energy shield
+			You have no intelligence
+			+60% to all resistances
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(200, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+		assert.are.equals(200, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
+		local poolsRemaining = poolsRemainingAfterTypeMaxHit("Chaos")
+		assert.are.equals(2000, round(poolsRemaining.EnergyShield))
+		assert.are.equals(1900, round(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Fire")
+		assert.are.equals(1900, round(poolsRemaining.EnergyShield))
+		assert.are.equals(2000, round(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+		
+		-- enough mana and es, 50% bypass
+		build.configTab.input.customMods = [[
+			50% of damage is taken from mana before life
+			energy shield protects mana instead of life
+			50% of non-chaos damage taken bypasses energy shield
+			+40 to maximum life
+			+1960 to mana
+			+2000 to energy shield
+			You have no intelligence
+			+60% to all resistances
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(200, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Fire")
+		assert.are.equals(1950, round(poolsRemaining.EnergyShield))
+		assert.are.equals(1950, round(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+
+		-- es bottleneck, 0% and 100% bypass
+		build.configTab.input.customMods = [[
+			50% of damage is taken from mana before life
+			energy shield protects mana instead of life
+			+40 to maximum life
+			+1960 to mana
+			+50 to energy shield
+			You have no intelligence
+			+60% to all resistances
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(200, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+		assert.are.equals(200, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Chaos")
+		assert.are.equals(50, round(poolsRemaining.EnergyShield))
+		assert.are.equals(1900, round(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Fire")
+		assert.are.equals(0, round(poolsRemaining.EnergyShield))
+		assert.are.equals(1950, round(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+
+		-- es bottleneck, 50% bypass
+		build.configTab.input.customMods = [[
+			50% of damage is taken from mana before life
+			energy shield protects mana instead of life
+			50% of non-chaos damage taken bypasses energy shield
+			+40 to maximum life
+			+1960 to mana
+			+40 to energy shield
+			You have no intelligence
+			+60% to all resistances
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(200, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Fire")
+		assert.are.equals(0, round(poolsRemaining.EnergyShield))
+		assert.are.equals(1940, round(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+		
+		-- mana bottleneck, 0% and 100% bypass
+		build.configTab.input.customMods = [[
+			50% of damage is taken from mana before life
+			energy shield protects mana instead of life
+			+40 to maximum life
+			+2000 to energy shield
+			You have no intelligence
+			+60% to all resistances
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(200, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+		assert.are.equals(140, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Chaos")
+		assert.are.equals(2000, round(poolsRemaining.EnergyShield))
+		assert.are.equals(0, round(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Fire")
+		assert.are.equals(1900, round(poolsRemaining.EnergyShield))
+		assert.are.equals(40, round(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+
+		-- mana bottleneck, 50% bypass
+		-- taking 160 damage in this scenario:
+		-- 160 damage is split to 80 damage straight to life, 80 damage to MoM pools
+		-- 50% of the 80 MoM pool damage is taken by ES and 50% bypasses
+		-- pool of 20 mana takes 40 damage, gets depleted and the remaining damage continues on to life, for a total of 100 damage to life
+		build.configTab.input.customMods = [[
+			50% of damage is taken from mana before life
+			energy shield protects mana instead of life
+			50% of non-chaos damage taken bypasses energy shield
+			+40 to maximum life
+			-20 to mana
+			+2000 to energy shield
+			You have no intelligence
+			+60% to all resistances
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(160, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Fire")
+		assert.are.equals(1960, round(poolsRemaining.EnergyShield))
+		assert.are.equals(0, round(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+
+		-- mana+es bottleneck, 0% and 100% bypass
+		build.configTab.input.customMods = [[
+			50% of damage is taken from mana before life
+			energy shield protects mana instead of life
+			+940 to maximum life
+			+50 to energy shield
+			You have no intelligence
+			+60% to all resistances
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(1090, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+		assert.are.equals(1040, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Chaos")
+		assert.are.equals(50, round(poolsRemaining.EnergyShield))
+		assert.are.equals(0, round(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Fire")
+		assert.are.equals(0, round(poolsRemaining.EnergyShield))
+		assert.are.equals(0, round(poolsRemaining.Mana))
+		assert.are.equals(0, floor(poolsRemaining.Life))
+		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+
+		-- mana+es bottleneck, 50% bypass
+		build.configTab.input.customMods = [[
+			50% of damage is taken from mana before life
+			energy shield protects mana instead of life
+			50% of non-chaos damage taken bypasses energy shield
+			+940 to maximum life
+			+50 to energy shield
+			You have no intelligence
+			+60% to all resistances
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(1090, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+		poolsRemaining = poolsRemainingAfterTypeMaxHit("Fire")
+		assert.are.equals(0, round(poolsRemaining.EnergyShield))
+		assert.are.equals(0, round(poolsRemaining.Mana))
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	end)
