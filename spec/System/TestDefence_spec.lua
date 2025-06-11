@@ -491,6 +491,60 @@ describe("TestDefence", function()
 		assert.are.equals(175, build.calcsTab.calcsOutput.EnergyShield)
 	end)
 
+	describe("enemy damage lessened by half of chill effect", function ()
+		it("enemy damage lessened by half of chill effect if the corresponding conditions are fulfilled", function()
+			build.configTab.input.enemyIsBoss = "None"
+			build.configTab.input.conditionEnemyChilled = true
+			-- default max chill effect
+			build.configTab.input.conditionEnemyChilledEffect = 30
+			build.configTab.input.customMods = "\z
+			enemies chilled by your hits lessen their damage dealt by half of chill effect\n\z
+			"
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+
+			-- 15% less since it's half of current chill effect
+			assert.are.equals(0.85, build.calcsTab.calcsOutput.PhysicalEnemyDamageMult)
+			assert.are.equals(0.85, build.calcsTab.calcsOutput.LightningEnemyDamageMult)
+			assert.are.equals(0.85, build.calcsTab.calcsOutput.ColdEnemyDamageMult)
+			assert.are.equals(0.85, build.calcsTab.calcsOutput.FireEnemyDamageMult)
+			assert.are.equals(0.85, build.calcsTab.calcsOutput.ChaosEnemyDamageMult)
+		end)
+
+		it("enemy damage is not lessened if the enemy is not chilled", function()
+			build.configTab.input.enemyIsBoss = "None"
+			build.configTab.input.customMods = "\z
+			enemies chilled by your hits lessen their damage dealt by half of chill effect\n\z
+			"
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+
+			assert.are.equals(1, build.calcsTab.calcsOutput.PhysicalEnemyDamageMult)
+			assert.are.equals(1, build.calcsTab.calcsOutput.LightningEnemyDamageMult)
+			assert.are.equals(1, build.calcsTab.calcsOutput.ColdEnemyDamageMult)
+			assert.are.equals(1, build.calcsTab.calcsOutput.FireEnemyDamageMult)
+			assert.are.equals(1, build.calcsTab.calcsOutput.ChaosEnemyDamageMult)
+		end)
+
+		it("lessened enemy damage respects chill cap", function()
+			build.configTab.input.enemyIsBoss = "None"
+			build.configTab.input.conditionEnemyChilled = true
+			-- default max chill effect is 30%, so this shouldn't affect the resulting enemy damage multiplier beyond the cap
+			build.configTab.input.conditionEnemyChilledEffect = 100
+			build.configTab.input.customMods = "\z
+			enemies chilled by your hits lessen their damage dealt by half of chill effect\n\z
+			"
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+
+			assert.are.equals(0.85, build.calcsTab.calcsOutput.PhysicalEnemyDamageMult)
+			assert.are.equals(0.85, build.calcsTab.calcsOutput.LightningEnemyDamageMult)
+			assert.are.equals(0.85, build.calcsTab.calcsOutput.ColdEnemyDamageMult)
+			assert.are.equals(0.85, build.calcsTab.calcsOutput.FireEnemyDamageMult)
+			assert.are.equals(0.85, build.calcsTab.calcsOutput.ChaosEnemyDamageMult)
+		end)
+	end)
+
 	local function withinTenPercent(value, otherValue)
 		local ratio = otherValue / value
 		return 0.9 < ratio and ratio < 1.1
