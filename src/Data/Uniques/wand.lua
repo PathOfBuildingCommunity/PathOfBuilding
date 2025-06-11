@@ -104,12 +104,17 @@ Adds (145-157) to (196-210) Fire Damage to Hits with this Weapon against Blinded
 Grace of the Goddess
 Prophecy Wand
 Source: Drops from unique{The Maven} (Uber)
+Variant: Pre 3.26.0
+Variant: Current
 Implicits: 1
 (36-40)% increased Spell Damage
 (300-350)% Increased Physical Damage
-Gain (10-30)% of Physical Damage as Extra Fire Damage
-Gain (10-30)% of Physical Damage as Extra Cold Damage
-Gain (10-30)% of Physical Damage as Extra Lightning Damage
+{variant:1}Gain (10-30)% of Physical Damage as Extra Fire Damage
+{variant:1}Gain (10-30)% of Physical Damage as Extra Cold Damage
+{variant:1}Gain (10-30)% of Physical Damage as Extra Lightning Damage
+{variant:2}Gain (10-50)% of Physical Damage as Extra Fire Damage
+{variant:2}Gain (10-50)% of Physical Damage as Extra Cold Damage
+{variant:2}Gain (10-50)% of Physical Damage as Extra Lightning Damage
 +1 to Maximum number of Sacred Wisps
 +1 to number of Sacred Wisps Summoned
 ]],[[
@@ -217,10 +222,10 @@ Attacks with this Weapon have (100-115)% increased Elemental Damage
 The Poet's Pen
 Carved Wand
 Implicits: 1
-(11-15)% increased Spell Damage 
-+1 to Level of Socketed Active Skill Gems per 25 Player Levels 
-Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels 
-(8-12)% increased Attack Speed 
+(11-15)% increased Spell Damage
++1 to Level of Socketed Active Skill Gems per 25 Player Levels
+Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels
+(8-12)% increased Attack Speed
 Trigger a Socketed Spell when you Attack with this Weapon, with a 0.25 second Cooldown
 ]],[[
 Reverberation Rod
