@@ -841,7 +841,7 @@ describe("TestDefence", function()
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	end)
 	
-	it("Unreakable + Iron Reflexes", function()
+	it("Unbreakable + Iron Reflexes", function()
 		build.configTab.input.customMods = [[
 			you have no dexterity
 		]]
@@ -903,7 +903,7 @@ describe("TestDefence", function()
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 
-		-- Oath Of Maji double defences stack with Unreakable
+		-- Oath Of Maji double defences stack with Unbreakable
 		assert.are.equals(2*2*ironReflexesArmour + baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
 
 		build.configTab.input.customMods = [[
