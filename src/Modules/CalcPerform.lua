@@ -3019,6 +3019,9 @@ function calcs.perform(env, skipEHP)
 				if modDB:Flag(nil, "ChillEffectIncDamageTaken") then
 					t_insert(mods, modLib.createMod("DamageTaken", "INC", num, "Ahuana's Bite", { type = "Condition", var = "Chilled" }))
 				end
+				if modDB:Flag(nil, "ChillEffectLessDamageDealt") then
+					t_insert(mods, modLib.createMod("Damage", "MORE", -num / 2, "Shaper of Winter", { type = "Condition", var = "Chilled" }))
+				end
 				return mods
 			end
 		},
