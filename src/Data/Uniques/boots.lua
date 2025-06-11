@@ -879,7 +879,7 @@ Requires Level 36, 35 Str, 35 Int
 +(15-25)% to Cold Resistance
 +(15-25)% to Chaos Resistance
 {variant:1}20% increased Movement Speed
-{variant:2,3,4}30% increased Movement Speed
+{variant:2,3}30% increased Movement Speed
 {variant:5,6,7}(15-25)% increased Movement Speed
 {variant:5,6,7}Corrupted Blood cannot be inflicted on you
 {variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary

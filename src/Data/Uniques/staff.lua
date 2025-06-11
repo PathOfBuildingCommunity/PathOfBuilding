@@ -707,7 +707,7 @@ Variant: Current
 Requires Level 28, 43 Str, 43 Int
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+20% Chance to Block Attack Damage while wielding a Staff
+{variant:2,3}+20% Chance to Block Attack Damage while wielding a Staff
 +15% Chance to Block Attack Damage while wielding a Staff
 (60-80)% increased Spell Damage
 {variant:1,2}+(70-100) to maximum Energy Shield

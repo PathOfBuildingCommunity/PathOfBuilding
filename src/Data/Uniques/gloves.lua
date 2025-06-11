@@ -274,7 +274,7 @@ Requires Level 70, 95 Dex
 Mark Skills have (10-15)% increased Cast Speed
 (30-50)% increased Damage with Hits and Ailments against Marked Enemy
 Your Mark transfers to another Enemy when Marked Enemy dies
-{Variant:2}8% of Damage from Hits is taken from Marked Target's Life before you
+{variant:2}8% of Damage from Hits is taken from Marked Target's Life before you
 ]],[[
 Oskarm
 Nubuck Gloves

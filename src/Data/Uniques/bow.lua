@@ -390,8 +390,8 @@ Requires Level 68, 212 Dex
 Implicits: 1
 (30-50)% increased Critical Strike Chance
 No Physical Damage
-{variant:1}Adds (120-140) to (180-210) Cold Damage
-{variant:2}Adds (180-210) to (240-280) Cold Damage
+{variant:1,2}Adds (120-140) to (180-210) Cold Damage
+{variant:3}Adds (180-210) to (240-280) Cold Damage
 (10-15)% increased Attack Speed
 (10-30)% increased Light Radius
 15% chance to create Chilled Ground when you Freeze an Enemy

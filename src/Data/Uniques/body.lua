@@ -1392,7 +1392,8 @@ Implicits: 0
 {variant:1}(100-140)% increased Evasion and Energy Shield
 {variant:2}(120-200)% increased Evasion and Energy Shield
 +(10-20)% to all Elemental Resistances
-(5-10)% chance to Freeze, Shock and Ignite
+{variant:1}(5-10)% chance to Freeze, Shock and Ignite
+{variant:2}(10-25)% chance to Freeze, Shock and Ignite
 Elemental Damage you Deal with Hits is Resisted by lowest Elemental Resistance instead
 ]],[[
 Atziri's Splendour

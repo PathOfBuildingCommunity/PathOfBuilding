@@ -217,14 +217,14 @@ Implicits: 1
 +5% Chance to Block Attack Damage while Dual Wielding
 {variant:1}(180-210)% increased Physical Damage
 {variant:2}(210-240)% increased Physical Damage
-{variant:3}(250-270)% increased Physical Damage
+{variant:3,4}(250-270)% increased Physical Damage
 {variant:1,2,3}10% reduced Attack Speed
 {variant:4}20% reduced Attack Speed
 {variant:1,2,3}+(6-10)% to all Elemental Resistances
 {variant:1,2}Melee Critical Strikes have 25% chance to cause Bleeding
-{variant:3}50% chance to Cause Bleeding on Critical Strike
+{variant:3,4}50% chance to Cause Bleeding on Critical Strike
 {variant:1,2}Melee Critical Strikes have 25% chance to Poison the Enemy
-{variant:3}50% chance to Cause Poison on Critical Strike
+{variant:3,4}50% chance to Cause Poison on Critical Strike
 {variant:4}(20-30)% increased Critical Strike Chance
 {variant:4}+(30-40)% to Global Critical Strike Multiplier
 ]],[[

@@ -498,17 +498,17 @@ Your Raised Spectres also gain Arcane Surge when you do
 {variant:4}{crafted}+(10-28) to maximum Life
 {variant:5}{crafted}+(500-3000) to Armour during Soul Gain Prevention
 {variant:6}{crafted}+(1-2) to Level of Socketed Support Gems
-{variant:7}Adds (14-16) to (20-22) Fire Damage
-{variant:7}Adds (14-16) to (20-22) Cold Damage
-{variant:8}Adds (14-16) to (20-22) Cold Damage
-{variant:8}Adds (14-16) to (20-22) Lightning Damage
-{variant:9}Adds (14-16) to (20-22) Fire Damage
-{variant:9}Adds (14-16) to (20-22) Lightning Damage
-{variant:10}(24-28)% increased Energy Shield
-{variant:10}+(19-22) to maximum Life
-{variant:11}+(3201-4000) to Armour during Soul Gain Prevention
-{variant:12}+2 to Level of Socketed Support Gems
-{variant:12}+(5-8)% to Quality of Socketed Support Gems
+{variant:7,13}Adds (14-16) to (20-22) Fire Damage
+{variant:7,13}Adds (14-16) to (20-22) Cold Damage
+{variant:8,14}Adds (14-16) to (20-22) Cold Damage
+{variant:8,14}Adds (14-16) to (20-22) Lightning Damage
+{variant:9,15}Adds (14-16) to (20-22) Fire Damage
+{variant:9,15}Adds (14-16) to (20-22) Lightning Damage
+{variant:10,16}(24-28)% increased Energy Shield
+{variant:10,16}+(19-22) to maximum Life
+{variant:11,17}+(3201-4000) to Armour during Soul Gain Prevention
+{variant:12,18}+2 to Level of Socketed Support Gems
+{variant:12,18}+(5-8)% to Quality of Socketed Support Gems
 ]],[[
 Brinerot Flag
 Tarnished Spirit Shield
