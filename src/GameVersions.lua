@@ -174,10 +174,8 @@ treeVersions = {
 
 ---Mapping PoEPlanner.com version when importing trees from there
 poePlannerVersions = {
-	[39] = "3_26_ruthless_alternate",
-	[38] = "3_26_alternate",
-	[37] = "3_26_ruthless",
-	[36] = "3_26",
+	[37] = "3_26",
+	[36] = "3_26_ruthless",
 	[35] = "3_25_alternate",
 	[34] = "3_25_ruthless_alternate",
 	[33] = "3_25",
