@@ -688,7 +688,13 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("CritChance", "INC", output.SpellSuppressionChance, mod.source)
 			break
 		end
-
+	end
+	if skillModList:Flag(nil, "FirePenIncreasedByUncappedFireRes") then
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "FirePenIncreasedByUncappedFireRes")) do
+			local mod = value.mod
+			skillModList:NewMod("FirePenetration", "BASE", output.FireResistOverCap, mod.source)
+			break
+		end
 	end
 	if skillModList:Flag(nil, "LightRadiusAppliesToAccuracy") then
 		-- Light Radius conversion from Corona Solaris
@@ -5471,8 +5477,21 @@ function calcs.offence(env, actor, activeSkill)
 					return dmgBreakdown, totalDmgTaken
 				end
 			end,
+			["Enmity's Embrace"] = function(activeSkill, output, breakdown)
+				local dmgType, dmgVal
+				for _, value in ipairs(activeSkill.skillModList:List(nil, "EnmitysEmbraceSelfDamage")) do -- Combines dmg taken from both rings accounting for catalysts
+					dmgVal = (dmgVal or 0) + value.baseDamage
+					dmgType = string.gsub(" "..value.damageType, "%W%l", string.upper):sub(2) -- This assumes both rings deal the same damage type
+				end
+				if dmgType and dmgVal then
+					local dmgBreakdown, totalDmgTaken = calcs.applyDmgTakenConversion(activeSkill, output, breakdown, dmgType, dmgVal)
+					t_insert(dmgBreakdown, 1, s_format("Enmity's Embrace base damage: %d", dmgVal))
+					t_insert(dmgBreakdown, 2, s_format(""))
+					t_insert(dmgBreakdown, s_format("Total Enmity's Embrace damage taken per cast/attack: %.2f ", totalDmgTaken))
+					return dmgBreakdown, totalDmgTaken
+				end
+			end
 		}
-
 		for _, sourceFunc in pairs(nameToHandler) do
 			local selfHitBreakdown, dmgTaken = sourceFunc(activeSkill, output, breakdown)
 			if dmgTaken then

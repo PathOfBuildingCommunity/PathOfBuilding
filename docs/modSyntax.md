@@ -36,6 +36,8 @@ Often a mod will only apply under certain conditions, apply multiple times based
     * var: mod to multiply by
     * limit: The maximum number the mod can go up to
     * limitTotal: boolean that changes the behavior of limit to apply after multiplication.  Defaults to false.
+	* globalLimit: The maximum global number the mod can go up to, even with multiple sources. Useful for mods that say "up to a maximum of ..."
+    * globalLimitKey: string identifier for the global limit. Mods with identical keys cannot go over the globalLimit.
 * MultiplierThreshold: Similar to a condition that only applies when the variable is above a specified threshold
     * var: name of the mod
     * threshold: number to reach before the mod applies

@@ -228,7 +228,7 @@ function ModStoreClass:GetCondition(var, cfg, noMod)
 end
 
 function ModStoreClass:GetMultiplier(var, cfg, noMod)
-	return (self.multipliers[var] or 0) + (self.parent and self.parent:GetMultiplier(var, cfg, true) or 0) + (not noMod and self:Sum("BASE", cfg, multiplierName[var]) or 0)
+	return (not noMod and self:Override(cfg, multiplierName[var])) or (self.multipliers[var] or 0) + (self.parent and self.parent:GetMultiplier(var, cfg, true) or 0) + (not noMod and self:Sum("BASE", cfg, multiplierName[var]) or 0)
 end
 
 function ModStoreClass:GetStat(stat, cfg)

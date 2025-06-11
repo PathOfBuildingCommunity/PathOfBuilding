@@ -561,7 +561,7 @@ function main:LoadSettings()
 	if self.datSources and not next(self.datSources) and self.datSource then
 		t_insert(self.datSources, self.datSource)
 	end
-	if not self.datSoruce and self.datSources then
+	if not self.datSource and self.datSources then
 		self.datSource = self.datSources[1]
 	end
 end

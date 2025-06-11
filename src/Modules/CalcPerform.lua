@@ -613,6 +613,7 @@ local function doActorMisc(env, actor)
 			local minStacks = m_min(modDB:Sum("BASE", nil, "MinimumFortification"), maxStacks)
 			local stacks = modDB:Override(nil, "FortificationStacks") or (alliedFortify > 0 and alliedFortify) or (minStacks > 0 and minStacks) or maxStacks
 			output.FortificationStacks = stacks
+			output.FortificationStacksOver20 = m_min(m_max(0, stacks - 20), maxStacks - 20)
 			if not modDB:Flag(nil,"Condition:NoFortificationMitigation") then
 				local effectScale = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
 				local effect = m_floor(effectScale * stacks)
@@ -657,7 +658,11 @@ local function doActorMisc(env, actor)
 			modDB.conditions["AffectedByArcaneSurge"] = true
 			local effect = 1 + modDB:Sum("INC", nil, "ArcaneSurgeEffect", "BuffEffectOnSelf") / 100
 			modDB:NewMod("ManaRegen", "INC", (modDB:Max(nil, "ArcaneSurgeManaRegen") or 30) * effect, "Arcane Surge")
-			modDB:NewMod("Speed", "INC", (modDB:Max(nil, "ArcaneSurgeCastSpeed") or 10) * effect, "Arcane Surge", ModFlag.Cast)
+			local arcaneSurgeCastSpeed = (modDB:Max(nil, "ArcaneSurgeCastSpeed") or 20) * effect
+			modDB:NewMod("Speed", "INC", arcaneSurgeCastSpeed, "Arcane Surge", ModFlag.Cast)
+			if modDB:Flag(nil, "ArcaneSurgeCastSpeedToMovementSpeed") then
+				modDB:NewMod("MovementSpeed", "INC", arcaneSurgeCastSpeed, "Arcane Surge")
+			end
 			local arcaneSurgeDamage = modDB:Max(nil, "ArcaneSurgeDamage") or 0
 			if arcaneSurgeDamage ~= 0 then modDB:NewMod("Damage", "MORE", arcaneSurgeDamage * effect, "Arcane Surge", ModFlag.Spell) end
 		end

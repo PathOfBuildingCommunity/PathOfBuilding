@@ -114,6 +114,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				self.showHeatMap = not self.showHeatMap
 			elseif event.key == "d" and IsKeyDown("CTRL") then
 				self.showStatDifferences = not self.showStatDifferences
+			elseif event.key == "c" and IsKeyDown("CTRL") and self.hoverNode and self.hoverNode.type ~= "Socket" then
+				local result = "# ".. self.hoverNode.dn .. "\n"
+				for _, line in ipairs(self.hoverNode.sd) do
+					result = result .. line .. "\n"
+				end
+				Copy(result)
 			elseif event.key == "PAGEUP" then
 				self:Zoom(IsKeyDown("SHIFT") and 3 or 1, viewPort)
 			elseif event.key == "PAGEDOWN" then
@@ -1166,5 +1172,6 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Shift or Ctrl to hide this tooltip.")
 	else
 		tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Ctrl to hide this tooltip.")
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+C to copy this node's text.")
 	end
 end
