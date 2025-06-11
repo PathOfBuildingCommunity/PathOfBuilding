@@ -6,13 +6,6 @@
 local ipairs = ipairs
 local t_insert = table.insert
 
-local function naturalSortCompare(a, b)
-    if _G.naturalSortCompare then return _G.naturalSortCompare(a,b)
-    elseif common and common.naturalSortCompare then return common.naturalSortCompare(a,b)
-    else return a < b
-    end
-end
-
 local FolderListClass = newClass("FolderListControl", "ListControl", function(self, anchor, rect, subPath, onChange)
 	self.ListControl(anchor, rect, 16, "VERTICAL", false, { })
 	self.subPath = subPath or ""
