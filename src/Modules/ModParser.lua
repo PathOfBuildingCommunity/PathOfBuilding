@@ -2750,8 +2750,8 @@ local specialModList = {
 	["(%d+)%% more elemental damage while unbound"] = function(num) return { mod("ElementalDamage", "MORE", num, { type = "Condition", var = "Unbound"})} end,
 	-- Warden (Affliction)
 	["defences from equipped body armour are doubled if it has no socketed gems"] = {
-		mod("Defences", "MORE", 100, { type = "MultiplierThreshold", var = "SocketedGemsInBody Armour", threshold = 0, upper = true }, { type = "Condition", var = "UsingBody Armour" }, { type = "SlotName", slotName = "Body Armour"}, { type = "Multiplier", var = "OathoftheMajiDoubled", globalLimit = 100, globalLimitKey = "OathoftheMajiLimit" }),
-		mod("Multiplier:OathoftheMajiDoubled", "OVERRIDE", 1, { type = "SlotName", slotName = "Body Armour"}),
+		mod("Defences", "MORE", 100, { type = "MultiplierThreshold", var = "SocketedGemsInBody Armour", threshold = 0, upper = true }, { type = "Condition", var = "UsingBody Armour" }, { type = "SlotName", slotName = "Body Armour"}, { type = "Multiplier", var = "OathOfTheMajiDoubled", globalLimit = 100, globalLimitKey = "OathOfTheMajiLimit" }),
+		mod("Multiplier:OathOfTheMajiDoubled", "OVERRIDE", 1, { type = "SlotName", slotName = "Body Armour"}),
 	},
 	["([%+%-]%d+)%% to all elemental resistances if you have an equipped helmet with no socketed gems"] = function(num) return { mod("ElementalResist", "BASE", num, { type = "MultiplierThreshold", var = "SocketedGemsInHelmet", threshold = 0, upper = true}, { type = "Condition", var = "UsingHelmet" }) } end,
 	["(%d+)%% increased maximum life if you have equipped gloves with no socketed gems"] = function(num) return { mod("Life", "INC", num, { type = "MultiplierThreshold", var = "SocketedGemsInGloves", threshold = 0, upper = true}, { type = "Condition", var = "UsingGloves" }) } end,
