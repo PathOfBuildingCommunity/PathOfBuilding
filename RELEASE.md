@@ -37,10 +37,12 @@ The JSON data and required skill tree assets should come in a `.zip` archive.
 Steps:
 1. Download the `.zip` archive.
 2. Create a new directory in `./src/TreeData` with the following schema:
-    `<major_league_version>_<minor_league_version>`.
+    `<major_league_version>_<minor_league_version>`. For alternate or ruthless trees, add the suffixing as appropriate.
     For 3.14, the correct directory name would be `3_14`.
+    For 3.25 Ruthless 'alternate' tree, the correct directory name would be `3_25_ruthless_alternate`.
 3. Copy the following file from the `.zip` archive root to the new directory:
    * `data.json`.
+   Note for Ruthless for example, the exported data from GGG will be `ruthless.json`, and this file should be copied into the new directory and renamed to `data.json` for the following steps to pick it up.
 4. Copy the following files from the `assets` subdirectory in the `.zip` archive to the
     new directory:
     * `mastery-active-effect-3.png`
@@ -54,7 +56,7 @@ Steps:
    according to the file's format. This is important, otherwise the JSON data converter
    won't trigger.
 7. Restart Path of Building Community. This should result in a new file `tree.lua`.
-8. Remove `data.json` and `sprites.json` from the new directory. Do not commit these files.
+8. Remove `data.json` and `sprites.json` from the new directories. Do not commit these files.
 
 ## Timeless Jewel updates
 
