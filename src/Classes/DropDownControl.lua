@@ -8,8 +8,8 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost", function(self, anchor, x, y, width, height, list, selFunc, tooltipText)
-	self.Control(anchor, x, y, width, height)
+local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost", function(self, anchor, rect, list, selFunc, tooltipText)
+	self.Control(anchor, rect)
 	self.ControlHost()
 	self.TooltipHost(tooltipText)
 	self.SearchHost(
@@ -19,10 +19,18 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 			end,
 			-- value mapping function
 			function(listVal)
-				return StripEscapes(type(listVal) == "table" and listVal.label or listVal)
+				if type(listVal) == "table" then
+					if listVal.searchFilter then
+						return StripEscapes(listVal.searchFilter)
+					end
+					if listVal.label then
+						return StripEscapes(listVal.label)
+					end
+				end
+				return StripEscapes(listVal)
 			end
 	)
-	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
+	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {-1, 0, 18, 0}, (self.height - 4) * 4)
 	self.controls.scrollBar.height = function()
 		return self.dropHeight + 2
 	end
@@ -135,8 +143,12 @@ function DropDownClass:SelByValue(value, key)
 	end
 end
 
-function DropDownClass:GetSelValue(key)
+function DropDownClass:GetSelValueByKey(key)
 	return self.list[self.selIndex][key]
+end
+
+function DropDownClass:GetSelValue()
+	return self.list[self.selIndex]
 end
 
 function DropDownClass:SetSel(newSel, noCallSelFunc)
@@ -236,7 +248,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 	elseif mOver or self.dropped then
 		SetDrawColor(1, 1, 1)
 	elseif self.borderFunc then
-		r, g, b = self.borderFunc()
+		local r, g, b = self.borderFunc()
 		SetDrawColor(r, g, b)
 	else
 		SetDrawColor(0.5, 0.5, 0.5)
@@ -247,10 +259,8 @@ function DropDownClass:Draw(viewPort, noTooltip)
 		DrawImage(nil, x, dropY, self.droppedWidth, dropExtra)
 		SetDrawLayer(nil, 0)
 	end
-	if not enabled then
+	if not enabled or self.dropped then
 		SetDrawColor(0, 0, 0)
-	elseif self.dropped then
-		SetDrawColor(0.5, 0.5, 0.5)
 	elseif mOver then
 		SetDrawColor(0.33, 0.33, 0.33)
 	else
@@ -292,17 +302,38 @@ function DropDownClass:Draw(viewPort, noTooltip)
 		SetDrawColor(0.66, 0.66, 0.66)
 	end
 	-- draw selected label or search term
-	local selLabel
+	local selLabel = nil
+	local selDetail = nil
 	if self:IsSearchActive() then
 		selLabel = "Search: " .. self:GetSearchTermPretty()
 	else
-		selLabel = self.list[self.selIndex]
-		if type(selLabel) == "table" then
-			selLabel = selLabel.label
+		local selItem = self.list[self.selIndex]
+		if type(selItem) == "table" then
+			selLabel = selItem.label
+			selDetail = selItem.detail
+		else
+			selLabel = selItem
 		end
 	end
 	SetViewport(x + 2, y + 2, width - height, lineHeight)
 	DrawString(0, 0, "LEFT", lineHeight, "VAR", selLabel or "")
+	if selDetail ~= nil then
+		local dx = DrawStringWidth(lineHeight, "VAR", selDetail)
+		if not enabled or self.dropped then
+			SetDrawColor(0, 0, 0)
+		elseif mOver then
+			SetDrawColor(0.33, 0.33, 0.33)
+		else
+			SetDrawColor(0, 0, 0)
+		end
+		DrawImage(nil, width - dx - 4 - 22, 0, width - 4, lineHeight)
+		if enabled then
+			SetDrawColor(1, 1, 1)
+		else
+			SetDrawColor(0.66, 0.66, 0.66)
+		end
+		DrawString(width - dx - 22, 0, "LEFT", lineHeight, "VAR", selDetail)
+	end
 	SetViewport()
 
 	-- draw dropped down part with items
@@ -349,8 +380,32 @@ function DropDownClass:Draw(viewPort, noTooltip)
 					SetDrawColor(0.66, 0.66, 0.66)
 				end
 				-- draw actual item label with search match highlight if available
-				local label = type(listVal) == "table" and listVal.label or listVal
+				local label = nil
+				local detail = nil
+				if type(listVal) == "table" then
+					label = listVal.label
+					detail = listVal.detail
+				else 
+					label = listVal
+				end
 				DrawString(0, y, "LEFT", lineHeight, "VAR", label)
+				if detail ~= nil then
+					local detail = listVal.detail
+					local dx = DrawStringWidth(lineHeight, "VAR", detail)
+					if index == self.hoverSel then
+						SetDrawColor(0.33, 0.33, 0.33)
+					else
+						SetDrawColor(0, 0, 0)
+					end
+					DrawImage(nil, width - dx - 8 - 22, y, width - 4, lineHeight)
+					-- highlight font color if hovered or selected
+					if index == self.hoverSel or index == self.selIndex then
+						SetDrawColor(1, 1, 1)
+					else
+						SetDrawColor(0.66, 0.66, 0.66)
+					end
+					DrawString(width - dx - 4 - 22, y, "LEFT", lineHeight, "VAR", detail)
+				end
 				self:DrawSearchHighlights(label, searchInfo, 0, y, width - 4, lineHeight)
 			end
 		end
@@ -428,7 +483,7 @@ function DropDownClass:OnKeyUp(key)
 			self:SetSel(math.floor((cursorY - dropY + self.controls.scrollBar.offset) / (height - 4)) + 1)
 			self.dropped = false
 		end
-	elseif key == "WHEELDOWN" then
+	elseif self.controls.scrollBar:IsScrollDownKey(key) then
 		if self.dropped and self.controls.scrollBar.enabled then
 			self.controls.scrollBar:Scroll(1)
 		else
@@ -439,7 +494,7 @@ function DropDownClass:OnKeyUp(key)
 		self:SetSel(self:ListIndexToDropIndex(self.selIndex, 0) + 1)
 		self:ScrollSelIntoView()
 		return self
-	elseif key == "WHEELUP" then
+	elseif self.controls.scrollBar:IsScrollUpKey(key) then
 		if self.dropped and self.controls.scrollBar.enabled then
 			self.controls.scrollBar:Scroll(-1)
 		else
@@ -480,7 +535,7 @@ function DropDownClass:CheckDroppedWidth(enable)
 		local dWidth = self.width
 		for _, line in ipairs(self.list) do
 			if type(line) == "table" then
-				line = line.label
+				line = line.label or ""
 			end
 			  -- +10 to stop clipping
 			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", line) + 10)

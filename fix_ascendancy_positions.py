@@ -39,6 +39,9 @@ NODE_GROUPS = {
     "Trickster": Point2D(10200, -3700),
     "Saboteur": Point2D(10200, -2200),
     "Ascendant": Point2D(-7800, 7200),
+    "Warden": Point2D(8250, 8350),
+    "Primalist": Point2D(7200, 9400),
+    "Warlock": Point2D(9300, 7300),
 }
 EXTRA_NODES = {
 	"Necromancer": [{"Node": {"name": "Nine Lives", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Int.png", "isNotable": True, "skill" : 27602}, 
@@ -117,6 +120,20 @@ def fix_ascendancy_positions(path: os.PathLike) -> None:
             if node["Node"]["name"] in EXTRA_NODES_STATS:
                 data["nodes"][node["Node"]["skill"]]["stats"] = EXTRA_NODES_STATS[node["Node"]["name"]]["stats"]
                 data["nodes"][node["Node"]["skill"]]["reminderText"] = EXTRA_NODES_STATS[node["Node"]["name"]]["reminderText"]
+    
+    # Remove unused image zoom levels and data around them
+    for sprite in data["sprites"]:
+        if "1" in data["sprites"][sprite]:
+            data["sprites"][sprite] = data["sprites"][sprite]["1"]
+        elif "0.3835" in data["sprites"][sprite]:
+            data["sprites"][sprite] = data["sprites"][sprite]["0.3835"]
+    spritesPath = os.path.join(os.path.dirname(path), "sprites.json")
+    with open(spritesPath, "w", encoding="utf-8") as o:
+        json.dump({"extraImages": data["extraImages"],"sprites": data["sprites"]}, o, indent=4)
+    del data["extraImages"]
+    del data["sprites"]
+    del data["imageZoomLevels"]
+    
     with open(path, "w", encoding="utf-8") as o:
         json.dump(data, o, indent=4)
 

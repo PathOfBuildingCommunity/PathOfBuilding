@@ -98,6 +98,8 @@ Implicits: 1
 ]],[[
 Bear's Girdle
 Leather Belt
+Variant: Pre 3.25.0
+Variant: Current
 League: Harvest
 Source: Drops from unique{Ersi, Mother of Thorns} in normal{The Sacred Grove}
 LevelReq: 68
@@ -106,8 +108,9 @@ Implicits: 1
 {tags:attack,physical_damage}Adds (5-7) to (11-12) Physical Damage to Attacks
 (20-30)% increased Stun Duration on Enemies
 Nearby Enemies are Crushed while you have at least 25 Rage
-{tags:physical_damage}(4-6)% increased Physical Damage per 10 Rage
-+20 to Maximum Rage
+{variant:1}{tags:physical_damage}(4-6)% increased Physical Damage per 10 Rage
+{variant:1}+20 to Maximum Rage
+{variant:2}+10 to Maximum Rage
 ]],[[
 Belt of the Deceiver
 Heavy Belt
@@ -126,13 +129,32 @@ Implicits: 1
 ]],[[
 Bisco's Leash
 Heavy Belt
+Variant: Pre 3.25.0
+Variant: Current
 LevelReq: 30
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
-5% increased Quantity of Items found
+{variant:1}5% increased Quantity of Items found
+{variant:2}{tags:jewellery_attribute}+(10-15) to all Attributes
 {tags:jewellery_resistance}+(20-40)% to Cold Resistance
 1% increased Rarity of Items found per 15 Rampage Kills
 Rampage
+]],[[
+Bound Fate
+Cloth Belt
+LevelReq: 16
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
+{tags:jewellery_attribute}+(20-30) to Dexterity
+{tags:jewellery_attribute}+(20-30) to Intelligence
+{tags:life}+(60-80) to Maximum Life
+Every 5 seconds, gain one of the following for 5 seconds:
+Your Hits are always Critical Strikes
+Hits against you are always Critical Strikes
+Attacks cannot Hit you
+Attacks against you always Hit
+Your Damage with Hits is Lucky
+Damage of Hits against you is Lucky
 ]],[[
 Chains of Emancipation
 Chain Belt
@@ -459,6 +481,16 @@ Implicits: 1
 {tags:physical_damage}-(50-40) Physical Damage taken from Attack Hits
 {tags:jewellery_defense}40% increased Armour while not Ignited, Frozen or Shocked
 ]],[[
+Kaom's Binding
+Heavy Belt
+LevelReq: 56
+Implicits: 1
+{tags:jewellery_attribute}+(25-35) to Strength
+{tags:jewellery_attribute}+(30-40) to Strength
+{tags:jewellery_defense}+(300-500) to Armour
+Take no Burning Damage if you've stopped taking Burning Damage Recently
+Nearby Enemies Convert 25% of their Physical Damage to Fire
+]],[[
 Leash of Oblation
 Leather Belt
 LevelReq: 49
@@ -549,8 +581,6 @@ Implicits: 1
 ]],[[
 Mother's Embrace
 Heavy Belt
-League: Metamorph
-Source: Drops from unique{Metamorph} in normal{Tane's Laboratory}
 LevelReq: 40
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
@@ -559,6 +589,16 @@ Implicits: 1
 Your Minions use your Flasks when summoned
 Minions have (40-25)% reduced Flask Charges used
 Minions have (50-80)% increased Flask Effect Duration
+]],[[
+Nevalius Inheritance
+Cloth Belt
+League: Necropolis
+Requires Level 16
++(20-30) to Dexterity
+150% Increased Flask Effect Duration
+Flasks applied to you have 60% Reduced Effect
+2% Reduced Flask Effect Duration per Level
+Flasks applied to you have 1% Increased Effect per Level
 ]],[[
 Olesya's Delight
 Cloth Belt
@@ -580,12 +620,14 @@ Gain Affliction Charges instead of Frenzy Charges
 Perandus Blazon
 Cloth Belt
 Variant: Pre 1.1.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:jewellery_attribute}+(20-30) to all Attributes
 {variant:1}(8-12)% increased Quantity of Items found
 {variant:2}(6-8)% increased Quantity of Items found
+{variant:3}(10-12)% increased Rarity of Items found
 {tags:jewellery_resistance}+20% to Fire Resistance
 20% increased Flask Effect Duration
 {tags:physical_damage}-2 Physical Damage taken from Attack Hits
@@ -846,6 +888,20 @@ Implicits: 1
 {tags:jewellery_defense}10% reduced Armour per 50 Strength
 Imbalanced Guard
 ]],[[
+The Tides of Time
+Vanguard Belt
+Shaper Item
+Source: Drops from unique{The Shaper} (Uber)
+Requires Level 78
+Implicits: 1
+{tags:jewellery_defense}+(260-320) to Armour and Evasion Rating
+{tags:life,mana}100% Increased Life Recovery from Flasks
+{tags:life,mana}100% Increased Mana Recovery from Flasks
+Flasks applied to you have 25% Increased Effect
+Life Flasks gain (0-3) charges every 3 seconds
+Mana Flasks gain (0-3) charges every 3 seconds
+Utility Flasks gain (0-3) charges every 3 seconds
+]],[[
 Umbilicus Immortalis
 Leather Belt
 League: Perandus
@@ -855,7 +911,7 @@ Implicits: 1
 {tags:life}(8-12)% increased maximum Life
 {tags:life}Regenerate 2% of Life per second
 Flasks do not apply to you
-Flasks apply to your Raised Zombies and Spectres
+Flasks you Use apply to your Raised Zombies and Spectres
 ]],[[
 Wurm's Molt
 Leather Belt
@@ -874,5 +930,16 @@ Implicits: 1
 {variant:2}{tags:attack,mana}2% of Physical Attack Damage Leeched as Mana
 {variant:2}(500-1000)% increased total Recovery per second from Life Leech
 {variant:2}(500-1000)% increased total Recovery per second from Mana Leech
+]],[[
+Ynda's Stand
+Studded Belt
+League: Settlers of Kalguur
+Requires Level 52
+Implicits: 1
+(20-30)% increased Stun Duration on Enemies
+{tags:life}Regenerate 44 Life per second
+{tags:jewellery_resistance}+21% to Fire Resistance
+{tags:jewellery_resistance}+21% to Cold Resistance
+{tags:jewellery_defense}Gain Ward Instead of 50% of Armour and Evasion Rating From Equipped Body Armour
 ]],
 }

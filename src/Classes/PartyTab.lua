@@ -15,7 +15,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 
 	self.build = build
 
-	self.actor = { Aura = { }, Curse = { }, Link = { }, modDB = new("ModDB"), output = { } }
+	self.actor = { Aura = { }, Curse = { }, Warcry = { }, Link = { }, modDB = new("ModDB"), output = { } }
 	self.actor.modDB.actor = self.actor
 	self.enemyModList = new("ModList")
 	self.buffExports = { }
@@ -24,6 +24,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.lastContent = {
 		Aura = "",
 		Curse = "",
+		Warcry = "",
 		Link = "",
 		EnemyCond = "",
 		EnemyMods = "",
@@ -31,7 +32,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		showAdvancedTools = false,
 	}
 	
-	local partyDestinations = { "All", "Party Member Stats", "Aura", "Curse", "Link Skills", "EnemyConditions", "EnemyMods" }
+	local partyDestinations = { "All", "Party Member Stats", "Aura", "Curse", "Warcry Skills", "Link Skills", "EnemyConditions", "EnemyMods" }
 	
 	local theme = {
 		stringHeight = 16,
@@ -49,7 +50,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		bufferHeightSmall = 106,
 		bufferHeightLeft = function()
 			-- 2 elements
-			return (self.height - 258 - ((self.width > 1350) and 0 or 24) - self.controls.importCodeHeader.y() - self.controls.editAurasLabel.y())
+			return (self.height - 378 - ((self.width > 1350) and 0 or 24) - self.controls.importCodeHeader.y() - self.controls.editAurasLabel.y())
 		end,
 		-- 4 elements
 		bufferHeightRight = 434,
@@ -60,7 +61,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	
 	All of these effects can be found in the Calcs tab]]
 	
-	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, theme.stringHeight, notesDesc)
+	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, {8, 8, 150, theme.stringHeight}, notesDesc)
 	self.controls.notesDesc.width = function()
 		local width = self.width / 2 - 16
 		if width ~= self.controls.notesDesc.lastWidth then
@@ -69,7 +70,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		end
 		return width
 	end
-	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"BOTTOMLEFT"}, 0, 32, 0, theme.stringHeight, "^7Enter a build code/URL below:")
+	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"BOTTOMLEFT"}, {0, 32, 0, theme.stringHeight}, "^7Enter a build code/URL below:")
 	self.controls.importCodeHeader.y = function()
 		return theme.lineCounter(self.controls.notesDesc.label) + 4
 	end
@@ -89,6 +90,12 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			self.controls.editCurses:SetText("")
 			wipeTable(self.actor["Curse"])
 			self.actor["Curse"] = {}
+		end
+		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Warcry Skills" then
+			self.controls.simpleWarcries.label = ""
+			self.controls.editWarcries:SetText("")
+			wipeTable(self.actor["Warcry"])
+			self.actor["Warcry"] = {}
 		end
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Link Skills" then
 			self.controls.simpleLinks.label = ""
@@ -168,6 +175,10 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 				wipeTable(self.actor["Curse"])
 				self.actor["Curse"] = { }
 			end
+			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Warcry Skills" then
+				wipeTable(self.actor["Warcry"])
+				self.actor["Warcry"] = { }
+			end
 			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Link Skills" then
 				 -- only one link can be applied at a time anyway
 				currentLinkBuffer = self.controls.editLinks.buf
@@ -221,6 +232,14 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 								self.controls.editCurses:SetText(node[1] or "")
 								self:ParseBuffs(self.actor["Curse"], self.controls.editCurses.buf, "Curse", self.controls.simpleCurses)
 							end
+						elseif node.attrib.name == "Warcry Skills" then
+							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Warcry Skills" then
+								if #self.controls.editWarcries.buf > 0 then
+									node[1] = self.controls.editWarcries.buf.."\n"..(node[1] or "")
+								end
+								self.controls.editWarcries:SetText(node[1] or "")
+								self:ParseBuffs(self.actor["Warcry"], self.controls.editWarcries.buf, "Warcry", self.controls.simpleWarcries)
+							end
 						elseif node.attrib.name == "Link Skills" then
 							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Link Skills" then
 								if #self.controls.editLinks.buf > 0 then
@@ -261,7 +280,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		end
 	end
 	
-	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, theme.buttonHeight, "", nil, nil, nil, importCodeHandle)
+	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, {0, 4, 328, theme.buttonHeight}, "", nil, nil, nil, importCodeHandle)
 	self.controls.importCodeIn.width = function()
 		return (self.width > 880) and 328 or (self.width / 2 - 100)
 	end
@@ -270,13 +289,13 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			self.controls.importCodeGo.onClick()
 		end
 	end
-	self.controls.importCodeState = new("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 8, 0, 0, theme.stringHeight)
+	self.controls.importCodeState = new("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, {8, 0, 0, theme.stringHeight})
 	self.controls.importCodeState.label = function()
 		return self.importCodeDetail or ""
 	end
-	self.controls.importCodeDestination = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, theme.buttonHeight, partyDestinations)
+	self.controls.importCodeDestination = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, {0, 4, 160, theme.buttonHeight}, partyDestinations)
 	self.controls.importCodeDestination.tooltipText = "Destination for Import/clear\nCurrently Links Skills do not export"
-	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeDestination,"RIGHT"}, 8, 0, 160, theme.buttonHeight, "Import", function()
+	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeDestination,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "Import", function()
 		local importCodeFetching = false
 		if self.importCodeSite and not self.importCodeXML then
 			self.importCodeFetching = true
@@ -304,7 +323,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			self.controls.importCodeGo.onClick()
 		end
 	end
-	self.controls.appendNotReplace = new("CheckBoxControl", {"LEFT",self.controls.importCodeGo,"RIGHT"}, 60, 0, theme.buttonHeight, "Append", function(state)
+	self.controls.appendNotReplace = new("CheckBoxControl", {"LEFT",self.controls.importCodeGo,"RIGHT"}, {60, 0, theme.buttonHeight}, "Append", function(state)
 	end, "This sets the import button to append to the current party lists instead of replacing them (curses will still replace)", false)
 	self.controls.appendNotReplace.x = function()
 		return (self.width > theme.widthThreshold1) and 60 or (-276)
@@ -313,7 +332,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return (self.width > theme.widthThreshold1) and 0 or 24
 	end
 	
-	self.controls.clear = new("ButtonControl", {"LEFT",self.controls.appendNotReplace,"RIGHT"}, 8, 0, 160, theme.buttonHeight, "Clear", function() 
+	self.controls.clear = new("ButtonControl", {"LEFT",self.controls.appendNotReplace,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "Clear", function() 
 		clearInputText()
 		wipeTable(self.enemyModList)
 		self.enemyModList = new("ModList")
@@ -321,31 +340,32 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	end)
 	self.controls.clear.tooltipText = "^7Clears all the party tab imported data"
 	
-	self.controls.ShowAdvanceTools = new("CheckBoxControl", {"TOPLEFT",self.controls.importCodeDestination,"BOTTOMLEFT"}, 140, 4, theme.buttonHeight, "^7Show Advanced Info", function(state)
+	self.controls.ShowAdvanceTools = new("CheckBoxControl", {"TOPLEFT",self.controls.importCodeDestination,"BOTTOMLEFT"}, {140, 4, theme.buttonHeight}, "^7Show Advanced Info", function(state)
 	end, "This shows the advanced info like what stats each aura/curse etc are adding, as well as enables the ability to edit them without a re-export\nDo not edit any boxes unless you know what you are doing, use copy/paste or import instead", false)
 	self.controls.ShowAdvanceTools.y = function()
 		return (self.width > theme.widthThreshold1) and 4 or 28
 	end
 	
-	self.controls.removeEffects = new("ButtonControl", {"LEFT",self.controls.ShowAdvanceTools,"RIGHT"}, 8, 0, 160, theme.buttonHeight, "Disable Party Effects", function() 
+	self.controls.removeEffects = new("ButtonControl", {"LEFT",self.controls.ShowAdvanceTools,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "Disable Party Effects", function() 
 		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
-		self.actor = { Aura = {}, Curse = {}, Link = {}, modDB = new("ModDB"), output = { } }
+		self.actor = { Aura = {}, Curse = {}, Warcry = { }, Link = {}, modDB = new("ModDB"), output = { } }
 		self.actor.modDB.actor = self.actor
 		self.enemyModList = new("ModList")
 		self.build.buildFlag = true
 	end)
 	self.controls.removeEffects.tooltipText = "^7Removes the effects of the supports, without removing the data\nUse \"rebuild all\" to apply the effects again"
 	
-	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.removeEffects,"RIGHT"}, 8, 0, 160, theme.buttonHeight, "^7Rebuild All", function() 
+	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.removeEffects,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "^7Rebuild All", function() 
 		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
-		self.actor = { Aura = {}, Curse = {}, Link = {}, modDB = new("ModDB"), output = { } }
+		self.actor = { Aura = {}, Curse = {}, Warcry = { }, Link = {}, modDB = new("ModDB"), output = { } }
 		self.actor.modDB.actor = self.actor
 		self.enemyModList = new("ModList")
 		self:ParseBuffs(self.actor["modDB"], self.controls.editPartyMemberStats.buf, "PartyMemberStats", self.actor["output"])
 		self:ParseBuffs(self.actor["Aura"], self.controls.editAuras.buf, "Aura", self.controls.simpleAuras)
 		self:ParseBuffs(self.actor["Curse"], self.controls.editCurses.buf, "Curse", self.controls.simpleCurses)
+		self:ParseBuffs(self.actor["Warcry"], self.controls.editWarcries.buf, "Warcry", self.controls.simpleWarcries)
 		self:ParseBuffs(self.actor["Link"], self.controls.editLinks.buf, "Link", self.controls.simpleLinks)
 		self:ParseBuffs(self.enemyModList, self.controls.enemyCond.buf, "EnemyConditions")
 		self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods", self.controls.simpleEnemyMods)
@@ -359,31 +379,50 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return (self.width > theme.widthThreshold1) and 0 or 24
 	end
 
-	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.ShowAdvanceTools,"TOPLEFT"}, -140, 40, 0, theme.stringHeight, "^7Auras")
+	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.ShowAdvanceTools,"TOPLEFT"}, {-140, 40, 0, theme.stringHeight}, "^7Auras")
 	self.controls.editAurasLabel.y = function()
 		return 36 + ((self.width <= theme.widthThreshold1) and 24 or 0)
 	end
-	self.controls.editAuras = new("EditControl", {"TOPLEFT",self.controls.editAurasLabel,"TOPLEFT"}, 0, 18, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editAuras = new("EditControl", {"TOPLEFT",self.controls.editAurasLabel,"TOPLEFT"}, {0, 18, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editAuras.width = function()
 		return self.width / 2 - 16
 	end
 	self.controls.editAuras.height = function()
-		return self.controls.editLinks.hasFocus and theme.bufferHeightSmall or theme.bufferHeightLeft()
+		return (self.controls.editWarcries.hasFocus or self.controls.editLinks.hasFocus) and theme.bufferHeightSmall or theme.bufferHeightLeft()
 	end
 	
 	self.controls.editAuras.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleAuras = new("LabelControl", {"TOPLEFT",self.controls.editAurasLabel,"TOPLEFT"}, 0, 18, 0, theme.stringHeight, "")
+	self.controls.simpleAuras = new("LabelControl", {"TOPLEFT",self.controls.editAurasLabel,"TOPLEFT"}, {0, 18, 0, theme.stringHeight}, "")
 	self.controls.simpleAuras.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.editLinksLabel = new("LabelControl", {"TOPLEFT",self.controls.editAurasLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "^7Link Skills")
-	self.controls.editLinksLabel.y = function()
+	self.controls.editWarcriesLabel = new("LabelControl", {"TOPLEFT",self.controls.editAurasLabel,"BOTTOMLEFT"}, {0, 8, 0, theme.stringHeight}, "^7Warcry Skills")
+	self.controls.editWarcriesLabel.y = function()
 		return self.controls.ShowAdvanceTools.state and (self.controls.editAuras.height() + 8) or (theme.lineCounter(self.controls.simpleAuras.label) + 4)
 	end
-	self.controls.editLinks = new("EditControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, 0, 18, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editWarcries = new("EditControl", {"TOPLEFT",self.controls.editWarcriesLabel,"TOPLEFT"}, {0, 18, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editWarcries.width = function()
+		return self.width / 2 - 16
+	end
+	self.controls.editWarcries.height = function()
+		return (self.controls.editWarcries.hasFocus and theme.bufferHeightLeft() or theme.bufferHeightSmall)
+	end
+	self.controls.editWarcries.shown = function()
+		return self.controls.ShowAdvanceTools.state
+	end
+	self.controls.simpleWarcries = new("LabelControl", {"TOPLEFT",self.controls.editWarcriesLabel,"TOPLEFT"}, {0, 18, 0, theme.stringHeight}, "")
+	self.controls.simpleWarcries.shown = function()
+		return not self.controls.ShowAdvanceTools.state
+	end
+
+	self.controls.editLinksLabel = new("LabelControl", {"TOPLEFT",self.controls.editWarcriesLabel,"BOTTOMLEFT"}, {0, 8, 0, theme.stringHeight}, "^7Link Skills")
+	self.controls.editLinksLabel.y = function()
+		return self.controls.ShowAdvanceTools.state and (self.controls.editWarcries.height() + 8) or (theme.lineCounter(self.controls.simpleWarcries.label) + 4)
+	end
+	self.controls.editLinks = new("EditControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, {0, 18, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editLinks.width = function()
 		return self.width / 2 - 16
 	end
@@ -393,13 +432,13 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.editLinks.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleLinks = new("LabelControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, 0, 18, 0, theme.stringHeight, "")
+	self.controls.simpleLinks = new("LabelControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, {0, 18, 0, theme.stringHeight}, "")
 	self.controls.simpleLinks.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.editPartyMemberStatsLabel = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"TOPRIGHT"}, 8, 0, 0, theme.stringHeight, "^7Party Member Stats")
-	self.controls.editPartyMemberStats = new("EditControl", {"TOPLEFT",self.controls.editPartyMemberStatsLabel,"BOTTOMLEFT"}, 0, 2, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editPartyMemberStatsLabel = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"TOPRIGHT"}, {8, 0, 0, theme.stringHeight}, "^7Party Member Stats")
+	self.controls.editPartyMemberStats = new("EditControl", {"TOPLEFT",self.controls.editPartyMemberStatsLabel,"BOTTOMLEFT"}, {0, 2, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editPartyMemberStats.width = function()
 		return self.width / 2 - 16
 	end
@@ -410,11 +449,11 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.enemyCondLabel = new("LabelControl", {"TOPLEFT",self.controls.editPartyMemberStatsLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "^7Enemy Conditions")
+	self.controls.enemyCondLabel = new("LabelControl", {"TOPLEFT",self.controls.editPartyMemberStatsLabel,"BOTTOMLEFT"}, {0, 8, 0, theme.stringHeight}, "^7Enemy Conditions")
 	self.controls.enemyCondLabel.y = function()
 		return self.controls.ShowAdvanceTools.state and (self.controls.editPartyMemberStats.height() + 8) or 4
 	end
-	self.controls.enemyCond = new("EditControl", {"TOPLEFT",self.controls.enemyCondLabel,"BOTTOMLEFT"}, 0, 2, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.enemyCond = new("EditControl", {"TOPLEFT",self.controls.enemyCondLabel,"BOTTOMLEFT"}, {0, 2, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.enemyCond.width = function()
 		return self.width / 2 - 16
 	end
@@ -424,16 +463,16 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.enemyCond.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleEnemyCond = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"TOPLEFT"}, 0, 18, 0, theme.stringHeight, "^7---------------------------\n")
+	self.controls.simpleEnemyCond = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"TOPLEFT"}, {0, 18, 0, theme.stringHeight}, "^7---------------------------\n")
 	self.controls.simpleEnemyCond.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.enemyModsLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "^7Enemy Modifiers")
+	self.controls.enemyModsLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"BOTTOMLEFT"}, {0, 8, 0, theme.stringHeight}, "^7Enemy Modifiers")
 	self.controls.enemyModsLabel.y = function()
 		return self.controls.ShowAdvanceTools.state and (self.controls.enemyCond.height() + 8) or (theme.lineCounter(self.controls.simpleEnemyCond.label) + 4)
 	end
-	self.controls.enemyMods = new("EditControl", {"TOPLEFT",self.controls.enemyModsLabel,"BOTTOMLEFT"}, 0, 2, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.enemyMods = new("EditControl", {"TOPLEFT",self.controls.enemyModsLabel,"BOTTOMLEFT"}, {0, 2, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.enemyMods.width = function()
 		return self.width / 2 - 16
 	end
@@ -443,16 +482,16 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.enemyMods.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleEnemyMods = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"TOPLEFT"}, 0, 18, 0, theme.stringHeight, "\n")
+	self.controls.simpleEnemyMods = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"TOPLEFT"}, {0, 18, 0, theme.stringHeight}, "\n")
 	self.controls.simpleEnemyMods.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.editCursesLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "^7Curses")
+	self.controls.editCursesLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"BOTTOMLEFT"}, {0, 8, 0, theme.stringHeight}, "^7Curses")
 	self.controls.editCursesLabel.y = function()
 		return self.controls.ShowAdvanceTools.state and (self.controls.enemyMods.height() + 8) or (theme.lineCounter(self.controls.simpleEnemyMods.label) + 4)
 	end
-	self.controls.editCurses = new("EditControl", {"TOPLEFT",self.controls.editCursesLabel,"BOTTOMLEFT"}, 0, 2, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editCurses = new("EditControl", {"TOPLEFT",self.controls.editCursesLabel,"BOTTOMLEFT"}, {0, 2, 0, 0}, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editCurses.width = function()
 		return self.width / 2 - 16
 	end
@@ -462,7 +501,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.editCurses.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleCurses = new("LabelControl", {"TOPLEFT",self.controls.editCursesLabel,"TOPLEFT"}, 0, 18, 0, theme.stringHeight, "")
+	self.controls.simpleCurses = new("LabelControl", {"TOPLEFT",self.controls.editCursesLabel,"TOPLEFT"}, {0, 18, 0, theme.stringHeight}, "")
 	self.controls.simpleCurses.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
@@ -483,6 +522,9 @@ function PartyTabClass:Load(xml, fileName)
 			elseif node.attrib.name == "Curse" then
 				self.controls.editCurses:SetText(node[1] or "")
 				self:ParseBuffs(self.actor["Curse"], node[1] or "", "Curse", self.controls.simpleCurses)
+			elseif node.attrib.name == "Warcry Skills" then
+				self.controls.editWarcries:SetText(node[1] or "")
+				self:ParseBuffs(self.actor["Warcry"], node[1] or "", "Warcry", self.controls.simpleWarcries)
 			elseif node.attrib.name == "Link Skills" then
 				self.controls.editLinks:SetText(node[1] or "")
 				self:ParseBuffs(self.actor["Link"], node[1] or "", "Link", self.controls.simpleLinks)
@@ -503,6 +545,7 @@ function PartyTabClass:Load(xml, fileName)
 			--self:ParseBuffs(self.buffExports, node[1] or "", "PartyMemberStats")
 			--self:ParseBuffs(self.buffExports, node[1] or "", "Aura")
 			--self:ParseBuffs(self.buffExports, node[1] or "", "Curse")
+			--self:ParseBuffs(self.buffExports, node[1] or "", "Warcry")
 			--self:ParseBuffs(self.buffExports, node[1] or "", "Link")
 			--self:ParseBuffs(self.buffExports, node[1] or "", "EnemyConditions")
 			--self:ParseBuffs(self.buffExports, node[1] or "", "EnemyMods")
@@ -511,6 +554,7 @@ function PartyTabClass:Load(xml, fileName)
 	self.lastContent.PartyMemberStats = self.controls.editPartyMemberStats.buf
 	self.lastContent.Aura = self.controls.editAuras.buf
 	self.lastContent.Curse = self.controls.editCurses.buf
+	self.lastContent.Warcry = self.controls.editWarcries.buf
 	self.lastContent.Link = self.controls.editLinks.buf
 	self.lastContent.EnemyCond = self.controls.enemyCond.buf
 	self.lastContent.EnemyMods = self.controls.enemyMods.buf
@@ -538,6 +582,11 @@ function PartyTabClass:Save(xml)
 	if self.controls.editCurses.buf and self.controls.editCurses.buf ~= "" then
 		child = { elem = "ImportedBuffs", attrib = { name = "Curse" } }
 		t_insert(child, self.controls.editCurses.buf)
+		t_insert(xml, child)
+	end
+	if self.controls.editWarcries.buf and self.controls.editWarcries.buf ~= "" then
+		child = { elem = "ImportedBuffs", attrib = { name = "Warcry Skills" } }
+		t_insert(child, self.controls.editWarcries.buf)
 		t_insert(xml, child)
 	end
 	if self.controls.editLinks.buf and self.controls.editLinks.buf ~= "" then
@@ -573,6 +622,12 @@ function PartyTabClass:Save(xml)
 		t_insert(child, exportString)
 		t_insert(xml, child)
 	end
+	exportString = self:exportBuffs("Warcry")
+	if exportString ~= "" then
+		child = { elem = "ExportedBuffs", attrib = { name = "Warcry Skills" } }
+		t_insert(child, exportString)
+		t_insert(xml, child)
+	end
 	exportString = self:exportBuffs("Link")
 	if exportString ~= "" then
 		child = { elem = "ExportedBuffs", attrib = { name = "Link Skills" } }
@@ -594,6 +649,7 @@ function PartyTabClass:Save(xml)
 	self.lastContent.PartyMemberStats = self.controls.editPartyMemberStats.buf
 	self.lastContent.Aura = self.controls.editAuras.buf
 	self.lastContent.Curse = self.controls.editCurses.buf
+	self.lastContent.Warcry = self.controls.editWarcries.buf
 	self.lastContent.Link = self.controls.editLinks.buf
 	self.lastContent.EnemyCond = self.controls.enemyCond.buf
 	self.lastContent.EnemyMods = self.controls.enemyMods.buf
@@ -645,6 +701,7 @@ function PartyTabClass:Draw(viewPort, inputEvents)
 
 	self.modFlag = (self.lastContent.Aura ~= self.controls.editAuras.buf 
 			or self.lastContent.Curse ~= self.controls.editCurses.buf
+			or self.lastContent.Warcry ~= self.controls.editWarcries.buf
 			or self.lastContent.Link ~= self.controls.editLinks.buf
 			or self.lastContent.PartyMemberStats ~= self.controls.editPartyMemberStats.buf
 			or self.lastContent.EnemyCond ~= self.controls.enemyCond.buf
@@ -733,7 +790,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 		local currentName
 		local currentEffect
 		local isMark
-		local currentModType = (buffType == "Link") and "Link" or "Unknown"
+		local currentModType = (buffType == "Link") and "Link" or (buffType == "Warcry") and "Warcry" or "Unknown"
 		for line in buf:gmatch("([^\n]*)\n?") do
 			if line ~= "---" and line:match("%-%-%-") then
 				-- comment but not divider, skip the line
@@ -763,14 +820,14 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 			elseif line == "---" then
 				mode = "Name"
 			else
-				if line:find("|") and currentName ~= "SKIP" then
+				if line:find("|") and currentName ~= "SKIP" and not line:find("MinionModifier|LIST") then
 					if currentModType == "otherEffects" then
-						currentName, currentEffect, line = line:match("([%w ]-%w+)|(%w+)|(.+)")
+						currentName, currentEffect, line = line:match("([%w ']-%w+)|(%w+)|(.+)")
 					end
 					local mod = modLib.parseFormattedSourceMod(line)
 					if mod then
 						for _, tag in ipairs(mod) do
-							if tag.type == "GlobalEffect" and currentModType ~= "Link" and currentModType ~= "otherEffects" then
+							if tag.type == "GlobalEffect" and currentModType ~= "Link" and currentModType ~= "Warcry" and currentModType ~= "otherEffects" then
 								currentModType = tag.effectType
 							end
 						end
@@ -800,8 +857,20 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 						end
 						if currentName ~= "SKIP" then
 							if mod.source:match("Item") then
-								_, mod.source = mod.source:match("Item:(%d+):(.+)")
+								local oldItem
+								oldItem, mod.source = mod.source:match("Item:(%d+):(.+)")
 								mod.source = "Party - "..mod.source
+							end
+							if mod.source:match("Skill") then
+								local skillId = mod.source:match("Skill:(.+)")
+								if not data.skills[skillId] then
+									local minimisedName = currentName:gsub(" %l",string.upper):gsub(" ","")
+									if data.skills[minimisedName] then
+										mod.source = "Skill:"..minimisedName
+									else
+										mod.source = skillId
+									end
+								end
 							end
 							if buffType == "Link" then
 								mod.name = mod.name:gsub("Parent", "PartyMember")
@@ -866,6 +935,17 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 					end
 					label.label = label.label.."---------------------------\n"
 				end
+			elseif buffType == "Warcry" then
+				local labelList = {}
+				for warcry, warcryMod in pairs(list["Warcry"] or {}) do
+					t_insert(labelList, warcry..": "..warcryMod.effectMult.."%\n")
+				end
+				if #labelList > 0 then
+					table.sort(labelList)
+					label.label = "^7---------------------------\n"..table.concat(labelList).."---------------------------\n"
+				else
+					label.label = ""
+				end
 			elseif buffType == "Link" then
 				local labelList = {}
 				for link, linkMod in pairs(list["Link"] or {}) do
@@ -922,7 +1002,7 @@ function PartyTabClass:exportBuffs(buffType)
 				else
 					buf = buf.."\nfalse"
 				end
-			elseif buffType == "Link" or buffType == "Aura" and buffName ~= "extraAura" and buffName ~= "otherEffects" then
+			elseif buffType == "Link" or buffType == "Warcry" or buffType == "Aura" and buffName ~= "extraAura" and buffName ~= "otherEffects" then
 				buf = buf.."\n"..tostring(buff.effectMult * 100)
 			end
 			if buffType == "Aura" and buffName == "otherEffects" then
@@ -932,7 +1012,7 @@ function PartyTabClass:exportBuffs(buffType)
 					end
 				end
 				buf = buf.."\n---"
-			elseif buffType == "Curse" or buffType == "Aura" or buffType == "Link" then
+			elseif buffType == "Curse" or buffType == "Aura" or buffType == "Warcry" or buffType == "Link" then
 				for _, mod in ipairs(buff.modList) do
 					buf = buf.."\n"..modLib.formatSourceMod(mod)
 				end

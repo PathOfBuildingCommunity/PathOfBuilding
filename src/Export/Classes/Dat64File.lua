@@ -21,6 +21,13 @@ local dataTypes = {
 			return bytesToInt(b, o)
 		end,
 	},
+	UInt16 = {
+		size = 2,
+		read = function(b, o, d)
+			if o > #b - 1 then return 1337 end
+			return bytesToUInt(b, o)
+		end,
+	},
 	UInt = {
 		size = 4,
 		read = function(b, o, d)
@@ -93,7 +100,7 @@ local Dat64FileClass = newClass("Dat64File", function(self, name, raw)
 	local colMeta = { __index = function(t, key)
 		local colIndex = self.colMap[key]
 		if not colIndex then
-			error("Unknown key "..key.." for "..self.name..".dat64")
+			error("Unknown key "..key.." for "..self.name..".datc64")
 		end
 		t[key] = self:ReadCell(t._rowIndex, colIndex)
 		return rawget(t, key)
@@ -148,7 +155,7 @@ end
 function Dat64FileClass:GetRow(key, value)
 	local keyIndex = self.colMap[key]
 	if not keyIndex then
-		error("Unknown key "..key.." for "..self.name..".dat64")
+		error("Unknown key "..key.." for "..self.name..".datc64")
 	end
 	if not self.indexes[key] then
 		self.indexes[key] = { }
@@ -180,7 +187,7 @@ end
 function Dat64FileClass:GetRowList(key, value, match)
 	local keyIndex = self.colMap[key]
 	if not keyIndex then
-		error("Unknown key "..key.." for "..self.name..".dat64")
+		error("Unknown key "..key.." for "..self.name..".datc64")
 	end
 	local isList = self.spec[keyIndex].list
 	if not self.indexes[key] then
@@ -274,9 +281,13 @@ function Dat64FileClass:ReadValueText(spec, offset)
 		end
 		local other = main.datFileByName[spec.refTo:lower()]
 		if other then
-			local otherRow = other.rows[val + ((spec.type == "Enum" and spec.refTo:lower() ~= self.name) and 0 or 1)]
+			local newVal = val + ((spec.type == "Enum" and spec.refTo:lower() ~= self.name) and 0 or 1)
+			if (spec.enumBase and spec.enumBase > 0) then
+				newVal = newVal + spec.enumBase
+			end
+			local otherRow = other.rows[newVal]
 			if not otherRow then
-				return "<bad ref #"..val..">"
+				return "<bad ref #"..newVal..">"
 			end
 			if other.spec[1] then
 				return other:ReadValueText(other.spec[1], otherRow)

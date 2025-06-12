@@ -68,7 +68,7 @@ Cannot be Stunned
 ]],[[
 The Formless Flame
 {variant:1,2}Siege Helmet
-{variant:3}Royal Burgonet 
+{variant:3}Royal Burgonet
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{The Formless Inferno} using currency{Blessing of Xoph}
@@ -106,7 +106,7 @@ Requires Level 65, 148 Str
 Echoes of Creation
 Shaper Item
 Royal Burgonet
-Source: Drops from unique{The Shaper}
+Source: Drops from unique{The Shaper} (Uber)
 Requires Level 65, 148 Str
 Socketed Warcry Skills have +1 Cooldown Use
 (80-120)% increased Armour
@@ -131,6 +131,15 @@ Requires Level 55, 114 Str
 {variant:1,2}10% increased Stun and Block Recovery
 {variant:3}Cannot be Frozen or Chilled if you've used a Fire Skill Recently
 ]],[[
+Kaom's Command
+Siege Helmet
+League: Settlers of Kalguur
+Requires Level 48, 101 Str
++(60-80) to maximum Life
+(25-35)% increased Warcry Speed
+Nearby corpses Explode when you Warcry, dealing (5-10)% of their Life as Physical Damage
+Warcry Skills have (25-35)% increased Area of Effect
+]],[[
 Usurper's Penance
 Eternal Burgonet
 League: Expedition
@@ -148,7 +157,7 @@ Onslaught
 ]],[[
 Blood Price
 Reaver Helmet
-(20-30)% reduced maximum Life
+24% reduced maximum Life
 Regenerate (200-250) Life per second
 100% increased Stun and Block Recovery
 Nearby Enemy Monsters have at least 8% of Life Reserved
@@ -216,6 +225,7 @@ Heatshiver
 Leather Hood
 Variant: Pre 3.0.0
 Variant: Pre 3.19.0
+Variant: Pre 3.23.0
 Variant: Current
 Requires Level 20, 46 Dex
 {variant:1}+1 to Level of Socketed Fire Gems
@@ -223,13 +233,24 @@ Requires Level 20, 46 Dex
 (80-100)% increased Evasion Rating
 60% increased Mana Regeneration Rate
 {variant:1}-(20-10)% to Fire Resistance
-{variant:2,3}+(20-30)% to Fire Resistance
+{variant:2,3,4}+(20-30)% to Fire Resistance
 {variant:1}-(20-10)% to Cold Resistance
-{variant:2,3}+(20-30)% to Cold Resistance
+{variant:2,3,4}+(20-30)% to Cold Resistance
 {variant:2}(20-30)% increased Cold Damage if you have used a Fire Skill Recently
 {variant:2}(20-30)% increased Fire Damage if you have used a Cold Skill Recently
-{variant:3}Gain 1% of Cold Damage as Extra Fire Damage per 1% Chill Effect on Enemy
+{variant:3,4}Gain 1% of Cold Damage as Extra Fire Damage per 1% Chill Effect on Enemy
 {variant:3}Gain 100% of Cold Damage as Extra Fire Damage against Frozen Enemies
+{variant:4}Gain 30% of Cold Damage as Extra Fire Damage against Frozen Enemies
+]],[[
+Replica Heatshiver
+Leather Hood
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+(80–100)% increased Evasion Rating
+60% increased Mana Regeneration Rate
++(20–30)% to Cold Resistance
++(20–30)% to Lightning Resistance
+Gain 1% of Lightning Damage as Extra Cold Damage per 2% Shock Effect on Enemy
 ]],[[
 Frostferno
 Leather Hood
@@ -434,6 +455,17 @@ Variant: Focus Spell Trigger Pre 3.16.0
 Variant: Focus Ailment Duration Pre 3.16.0
 Variant: Avoid Elemental Damage Pre 3.16.0
 Variant: Focus Ailment Duration Pre 3.19.0
+Variant: Focus Ailment Duration Pre 3.22.0
+Variant: Fire and Chaos Resistances Pre 3.26.0
+Variant: Cold and Chaos Resistances Pre 3.26.0
+Variant: Lightning and Chaos Resistances Pre 3.26.0
+Variant: Strength and Dexterity Pre 3.26.0
+Variant: Dexterity and Intelligence Pre 3.26.0
+Variant: Strength and Intelligence Pre 3.26.0
+Variant: Mine Laying Speed Pre 3.26.0
+Variant: Focus Spell Trigger Pre 3.26.0
+Variant: Focus Ailment Duration Pre 3.26.0
+Variant: Avoid Elemental Damage Pre 3.26.0
 Variant: Fire and Chaos Resistances
 Variant: Cold and Chaos Resistances
 Variant: Lightning and Chaos Resistances
@@ -444,9 +476,9 @@ Variant: Mine Laying Speed
 Variant: Focus Spell Trigger
 Variant: Focus Ailment Duration
 Variant: Avoid Elemental Damage
-+1 to Level of Socketed Gems
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25}+1 to Level of Socketed Gems
 {variant:1,2,3,4,5,6,7,8,9,10,11,12,13}Socketed Gems have 40% increased Mana Reservation Efficiency
-{variant:14,15,16,17,18,19,20,21,22,23,24}Socketed Gems have 25% increased Reservation Efficiency
+{variant:14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35}Socketed Gems have 25% increased Reservation Efficiency
 Trigger Level 15 Feast of Flesh every 5 seconds
 (180-220)% increased Energy Shield
 10% chance for Energy Shield Recharge to start when you use a Skill
@@ -466,20 +498,21 @@ Eldritch Battery
 {variant:12}{crafted}(81-140)% increased Duration of Ailments you inflict while Focused
 {variant:13}{crafted}(6-9)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
 {variant:14}(161-180)% increased Duration of Ailments you inflict while Focused
-{variant:15}+(16-20)% to Fire and Chaos Resistances
-{variant:16}+(16-20)% to Cold and Chaos Resistances
-{variant:17}+(16-20)% to Lightning and Chaos Resistances
-{variant:18}+(31-35) to Strength and Dexterity
-{variant:19}+(31-35) to Dexterity and Intelligence
-{variant:20}+(31-35) to Strength and Intelligence
-{variant:21}(14-16)% increased Mine Laying Speed
-{variant:22}Trigger Socketed Spells when you Focus, with a 0.25 second Cooldown
-{variant:22}Focus has (5-8)% increased Cooldown Recovery Rate
-{variant:23}(81-90)% increased Duration of Ailments you inflict while Focused
-{variant:24}(10-12)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
+{variant:15}(81-90)% increased Duration of Ailments you inflict while Focused
+{variant:16,26}+(16-20)% to Fire and Chaos Resistances
+{variant:17,27}+(16-20)% to Cold and Chaos Resistances
+{variant:18,28}+(16-20)% to Lightning and Chaos Resistances
+{variant:19,29}+(31-35) to Strength and Dexterity
+{variant:20,30}+(31-35) to Dexterity and Intelligence
+{variant:21,31}+(31-35) to Strength and Intelligence
+{variant:22,32}(14-16)% increased Mine Laying Speed
+{variant:23,33}Trigger Socketed Spells when you Focus, with a 0.25 second Cooldown
+{variant:23,33}Focus has (5-8)% increased Cooldown Recovery Rate
+{variant:24,34}(36-40)% increased Duration of Ailments you inflict while Focused
+{variant:25,35}(10-12)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
 ]],[[
 Wilma's Requital
-Solaris Circlet 
+Solaris Circlet
 +(300-500) to Accuracy Rating
 (200-250)% increased Energy Shield
 Increases and Reductions to Cast Speed apply to Attack Speed
@@ -659,7 +692,7 @@ Requires Level 65, 138 Int
 (80-100)% increased Spell Damage
 15% reduced Cast Speed
 +(30-60) to maximum Mana
-Your Skills deal you 400% of Mana Cost as Physical Damage
+Your Skills deal you 400% of Mana Spent on Upfront Skill Mana Costs as Physical Damage
 ]],[[
 Sudden Dawn
 Steel Circlet
@@ -686,14 +719,18 @@ Cannot inflict Shock
 Wraithlord
 Bone Circlet
 Variant: Pre 3.19.0
+Variant: Pre 3.24.0
 Variant: Current
 Requires Level: 34, 73 Int
-+2 to Level of Socketed Minion Gems
+{variant:3}Has 4 Abyssal Sockets
+{variant:1,2}+2 to Level of Socketed Minion Gems
+{variant:3}+(1-2) to Level of all Minion Skill Gems
 (120-150)% increased Energy Shield
 {variant:1}Minions Regenerate 1% Life per second
 {variant:1}+1000 to Spectre maximum Life
 {variant:2}+2 to maximum number of Spectres
-{variant:2}You cannot have Non-Spectre Minions
+{variant:3}+1 to maximum number of Spectres per Socketed Ghastly Eye Jewel
+{variant:2,3}You cannot have Non-Spectre Minions
 ]],[[
 Wreath of Phrecia
 Iron Circlet
@@ -811,6 +848,17 @@ Requires Level 67, 62 Str, 85 Dex
 20% increased Movement Speed
 Mercury Footprints
 ]],[[
+The Devourer of Minds
+Pig-Faced Bascinet
+Source: Drops from unique{The Elder} (Uber Uber)
+Requires Level 63, 85 Str, 62 Dex
++(30–50) to Intelligence
+(80–120)% increased Armour and Evasion
++1 to Level of all Minion Skill Gems
+25% increased Light Radius
+Minions have the same maximum number of Endurance, Frenzy and Power Charges as you
+Minions count as having the same number of Endurance, Frenzy and Power Charges as you
+]],[[
 The Fledgling
 Lacquered Helmet
 League: Heist
@@ -865,6 +913,16 @@ League: Crucible
 (15-25)% increased Rarity of Items found
 Has a Crucible Passive Skill Tree
 Crucible Passive Skill Tree is removed if this Modifier is removed
+]],[[
+The Trickster's Smile
+Visored Sallet
+League: Affliction
+Requires Level 23, 28 Str, 28 Dex
+(60-100)% increased Armour and Evasion
+Reflects 100 Cold Damage to Melee Attackers
+Reflects 100 Fire Damage to Melee Attackers
+Reflects 100 Lightning Damage to Melee Attackers
+When an Enemy Hit deals Elemental Damage to you, their Resistance to those Elements becomes zero for 4 seconds
 ]],
 -- Helmet: Armour/Energy Shield
 [[
@@ -1154,6 +1212,19 @@ Enemies Cannot Leech Mana From You
 {variant:3}(10-20)% of Damage taken Recouped as Mana
 Cannot Leech Mana
 ]],[[
+Ravenous Passion
+Zealot Helmet
+Variant: Pre 3.25.0
+Variant: Current
+Source: Drops from unique{The Eater of Worlds} (Uber)
+Requires Level: 44, 50 Str, 50 Int
++(30-50) to Strength
+(80-120)% Increased Armour and Energy Shield
+{variant:1}Gain (10-15) Rage after Spending a total of 200 Mana
+{variant:2}Gain (7-10) Rage after Spending a total of 200 Mana
+{variant:1}Rage grants Cast Speed instead of Attack Speed
+Rage grants Spell Damage instead of Attack Damage
+]],[[
 Speaker's Wreath
 Prophet Crown
 Requires Level 63, 85 Str, 62 Int
@@ -1197,6 +1268,14 @@ Variant: Current
 ]],
 -- Helmet: Evasion/Energy Shield
 [[
+Akoya's Gaze
+Regicide Mask
+Requires Level 52, 58 Dex, 58 Int
++100 Strength Requirement
+(20-25)% increased Warcry Speed
+Life Leech from Exerted Attacks is instant
+Non-Exerted Attacks deal no Damage
+]],[[
 Crown of the Pale King
 Regicide Mask
 League: Tempest
@@ -1217,8 +1296,8 @@ Requires Level 20
 +23 to maximum Life
 (15-10)% reduced Mine Throwing Speed
 Mines have (40-50)% increased Detonation Speed
-Skills which Place Mines place up to 1 additional Mine if you have at least 800 Dexterity
-Skills which Place Mines place up to 1 additional Mine if you have at least 800 Intelligence
+Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Dexterity
+Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Intelligence
 ]],[[
 Eye of Malice
 Callous Mask
@@ -1463,7 +1542,7 @@ Socketed Gems have 50% reduced Mana Cost
 Viridi's Veil
 Praetor Crown
 League: Ritual
-Source: Drops from unique{The Maven}
+Source: Drops from unique{The Maven} (Uber)
 Requires Level 68, 62 Str, 91 Int
 +(1-2) to Level of Socketed Gems
 (120-160)% increased Armour and Energy Shield
@@ -1502,7 +1581,6 @@ League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 Requires Level 68, 66 Str, 66 Dex, 66 Int
 Never deal Critical Strikes
-Nearby Enemies cannot deal Critical Strikes
 Battlemage
 ]],
 }

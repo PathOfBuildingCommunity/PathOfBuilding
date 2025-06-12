@@ -3,6 +3,15 @@
 return {
 -- Gloves: Armour
 [[
+Admiral's Arrogance
+Antique Gauntlets
+League: Settlers of Kalguur
+Requires Level 39, 58 Str
+(6-12)% increased Attack Speed
+(100-140)% increased Armour
+(10-20)% chance that if you would gain Rage on Hit, you instead gain up to your maximum Rage
++(1-3) to Level of all Melee Skill Gems
+]],[[
 Atziri's Acuity
 Vaal Gauntlets
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
@@ -41,6 +50,15 @@ Adds (2-3) to (22-26) Physical Damage to Attacks
 (20-30)% chance to gain an Endurance Charge on Hitting an Enemy with no Armour
 (20-30)% chance to gain a Frenzy Charge on Hitting an Enemy with no Evasion Rating
 ]],[[
+The Celestial Brace
+Goliath Gauntlets
+Source: Drops from unique{The Searing Exarch} (Uber)
+Requires Level: 53, 77 Str
+(80-120)% Increased Armour
+1% Increased Attack Speed per Fortification
++(1-10) to Maximum Fortification
+Melee Hits from Strike Skills Fortify
+]],[[
 Craiceann's Pincers
 Titan Gauntlets
 League: Bestiary
@@ -55,11 +73,17 @@ your maximum number of Crab Barriers
 ]],[[
 Kaom's Spirit
 Titan Gauntlets
+Variant: Pre 3.23.0
+Variant: Pre 3.26.0
+Variant: Current
 +(50-70) to Maximum Life
 +(20-30)% to Fire Resistance
 (0.3-0.5)% of Physical Attack Damage Leeched as Life
 Life Recovery from Regeneration is not applied
-Regenerate 1 Rage per second for every 100 Life Recovery per second from Regeneration
+{variant:1}Regenerate 1 Rage per second for every 100 Life Recovery per second from Regeneration
+{variant:2}Regenerate 1 Rage per second for every 300 Life Recovery per second from Regeneration
+{variant:3}Regenerate 1 Rage per second for every 200 Life Recovery per second from Regeneration
+Does not delay Inherent Loss of Rage
 ]],[[
 Doryani's Fist
 Vaal Gauntlets
@@ -242,12 +266,15 @@ Requires Level 21, 33 Dex
 Mercenary's Lot
 Slink Gloves
 League: Heist
+Variant: Pre 3.26.0
+Variant: Current
 Requires Level 70, 95 Dex
 +(80-120) to Evasion Rating
 (5-8)% increased Attack and Cast Speed
 Mark Skills have (10-15)% increased Cast Speed
 (30-50)% increased Damage with Hits and Ailments against Marked Enemy
 Your Mark transfers to another Enemy when Marked Enemy dies
+{variant:2}8% of Damage from Hits is taken from Marked Target's Life before you
 ]],[[
 Oskarm
 Nubuck Gloves
@@ -278,8 +305,10 @@ Allelopathy
 {variant:1}Sorcerer Gloves
 {variant:2}Satin Gloves
 Variant: Pre 3.19.0
+Variant: Pre 3.26.0
 Variant: Current
-Grants Level 22 Blight Skill
+{variant:1,2}Grants Level 22 Blight Skill
+{variant:3}Grants Level 25 Blight Skill
 {variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect of Area Skills
@@ -290,10 +319,12 @@ Replica Allelopathy
 {variant:1}Sorcerer Gloves
 {variant:2}Satin Gloves
 Variant: Pre 3.19.0
+Variant: Pre 3.26.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Grants Level 22 Wintertide Brand
+{variant:1,2}Grants Level 22 Wintertide Brand
+{variant:3}Grants Level 25 Wintertide Brand
 {variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect
@@ -423,6 +454,7 @@ Sadima's Touch
 Wool Gloves
 Variant: Pre 1.1.0
 Variant: Pre 3.5.0
+Variant: Pre 3.25.0
 Variant: Current
 Requires Level 11
 Adds 4 to 8 Fire Damage to Attacks
@@ -431,6 +463,7 @@ Adds 1 to 13 Lightning Damage to Attacks
 {variant:1}(18-24)% increased Quantity of Items found
 {variant:2}(12-16)% increased Quantity of Items found
 {variant:3}(5-10)% increased Quantity of Items found
+{variant:4}(10-15)% increased Rarity of Items found
 ]],[[
 Voidbringer
 Conjurer Gloves
@@ -467,7 +500,7 @@ Source: Drops in Blighted Maps
 +(30-50) to maximum Mana
 +(10-16)% to all Elemental Resistances
 (5-10)% increased Attack and Cast Speed
-Create a Blighted Spore when you Kill a Rare Monster
+Create a Blighted Spore when your Skills or Minions Kill a Rare Monster
 This item can be anointed by Cassia
 ]],[[
 Farrul's Pounce
@@ -633,15 +666,28 @@ Requires Level 37, 29 Str, 29 Int
 With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
 With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
 ]],[[
+The Hand of Phrecia
+Mesh Gloves
+League: Necropolis
+Requires Level 32, 26 Str, 26 Int
+(50–70)% increased Armour and Energy Shield
++(10–15)% to all Elemental Resistances
+(20–40)% increased Effect of Non-Curse Auras from your Skills while you have a Linked Target
+Linked Targets always count as in range of Non-Curse Auras from your Skills
+Non-Curse Auras from your Skills only apply to you and Linked Targets
+]],[[
 Hand of the Fervent
 Zealot Gloves
+Variant: Pre 3.25.0
+Variant: Current
 League: Ritual
 Source: Purchase from Ritual Reward
 Requires Level 43, 34 Str, 34 Int
 (70-130)% increased Armour and Energy Shield
 +(50-70) to maximum Life
 Gain Sacrificial Zeal when you use a Skill, dealing you 150% of the Skill's Mana Cost as Physical Damage per Second
-Hits Overwhelm (10-15)% of Physical Damage Reduction while you have Sacrificial Zeal
+{variant:1}Hits Overwhelm (10-15)% of Physical Damage Reduction while you have Sacrificial Zeal
+{variant:2}(35-50)% chance for Hits to ignore Enemy Physical Damage Reduction while you have Sacrificial Zeal
 ]],[[
 Hands of the High Templar
 Crusader Gloves
@@ -674,7 +720,7 @@ Requires Level 57, 44 Str, 44 Int
 50% reduced Maximum Recovery per Life Leech
 (6-10)% increased Attack and Cast Speed
 (15-25)% increased Damage while Leeching
-Life Leech effects are not removed at Full Life
+Life Leech effects are not removed when Unreserved Life is Filled
 ]],[[
 Repentance
 Crusader Gloves
@@ -898,15 +944,17 @@ Variant: Pre 1.0.0
 Variant: Pre 2.2.0
 Variant: Pre 2.5.0
 Variant: Pre 3.0.0
+Variant: Pre 3.26.0
 Variant: Current
 Requires Level 16, 14 Dex, 14 Int
 {variant:1,2}+60% to Global Critical Strike Multiplier
 {variant:3}+90% to Global Critical Strike Multiplier
 {variant:4}+45% to Global Critical Strike Multiplier
-{variant:5}+30% to Global Critical Strike Multiplier
+{variant:5,6}+30% to Global Critical Strike Multiplier
 10% reduced Enemy Stun Threshold
 {variant:1}(800-1000)% more Unarmed Physical Damage
 {variant:2,3,4,5}(600-800)% more Physical Damage with Unarmed Melee Attacks
+{variant:6}(600-1000)% more Physical Damage with Unarmed Melee Attacks
 Extra gore
 ]],[[
 Fenumus' Weave
@@ -923,13 +971,15 @@ Adds (8-10) to (13-15) Chaos Damage for each Spider's Web on the Enemy
 ]],[[
 Soul Ascension
 Carnal Mitts
+Variant: Pre 3.24.0
+Variant: Current
 Elder Item
 Source: Drops from unique{The Elder} (Uber Uber)
 (120-150)% increased Evasion and Energy Shield
 +(17-29)% to Chaos Resistance
-Eat a Soul when you Hit a Unique Enemy, no more than once every second
-Lose an Eaten Soul every 3 seconds while no Unique Enemy is in your Presence
-Maximum 50 Eaten Souls
+{variant:1}Eat a Soul when you Hit a Unique Enemy, no more than once every second
+{variant:2}Eat a Soul when you Hit a Rare or Unique Enemy, no more than once every 0.5 seconds
++(-10-10) to maximum number of Eaten Souls
 ]],[[
 Machina Mitts
 Murder Mitts
@@ -961,8 +1011,8 @@ Murder Mitts
 Requires Level 67, 51 Dex, 51 Int
 (80-100)% increased Evasion and Energy Shield
 +(60-80) to maximum Life
-Gain (15-25) Life per Enemy Killed
-Gain (15-25) Energy Shield per Enemy Killed
+Gain (15-25) Life per Enemy Hit with Attacks
+Gain (15-25) Energy Shield per Enemy Hit with Attacks
 Grants Malachai's Endurance, Frenzy and Power for 6 seconds each, in sequence
 ]],[[
 Shadows and Dust
@@ -1000,7 +1050,6 @@ Requires Level 58, 45 Dex, 45 Int
 Storm's Gift
 Assassin's Mitts
 League: Synthesis
-Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 58, 45 Dex, 45 Int
 (20-30)% increased Damage over Time
 (250-300)% increased Evasion and Energy Shield
@@ -1050,6 +1099,7 @@ Flasks gain 1 Charge per second if you've Hit a Unique Enemy Recently
 Nightgrip
 Runic Gages
 Variant: Pre 3.16.0
+Variant: Pre 3.25.0
 Variant: Current
 League: Expedition
 Requires Level 48, 31 Str, 31 Dex, 31 Int
@@ -1057,6 +1107,7 @@ Requires Level 48, 31 Str, 31 Dex, 31 Int
 +(17-23)% to Chaos Resistance
 {variant:1}Gain Added Chaos Damage equal to 25% of Ward
 {variant:2}Gain Added Chaos Damage equal to 20% of Ward
-75% of Damage bypasses Ward
+{variant:3}Gain Added Chaos Damage equal to 10% of Ward
+75% of Damage taken bypasses Ward
 ]],
 }

@@ -48,7 +48,7 @@ itemBases["Gold Amulet"] = {
 	tags = { amulet = true, default = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(12-20)% increased Rarity of Items found",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "drop" }, },
 	req = { level = 8, },
 }
 itemBases["Onyx Amulet"] = {
@@ -135,7 +135,15 @@ itemBases["Simplex Amulet"] = {
 	type = "Amulet",
 	tags = { not_for_sale = true, experimental_base = true, default = true, amulet = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
-	implicit = "-1 Prefix Modifier allowed\n-1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed\n25% increased Explicit Modifier magnitudes",
+	implicit = "-2 Prefix Modifiers allowed\n-1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed\n100% increased Explicit Modifier magnitudes",
+	implicitModTypes = { {  }, {  }, {  }, {  }, },
+	req = { level = 24, },
+}
+itemBases["Focused Amulet"] = {
+	type = "Amulet",
+	tags = { not_for_sale = true, experimental_base = true, default = true, amulet = true, },
+	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
+	implicit = "-1 Prefix Modifier allowed\n-2 Suffix Modifiers allowed\nImplicit Modifiers Cannot Be Changed\n100% increased Explicit Modifier magnitudes",
 	implicitModTypes = { {  }, {  }, {  }, {  }, },
 	req = { level = 24, },
 }
@@ -379,8 +387,8 @@ itemBases["Spinefuse Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, talisman = true, amulet = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
-	implicit = "(6-10)% increased Quantity of Items found",
-	implicitModTypes = { {  }, },
+	implicit = "+(12-18)% to Damage over Time Multiplier",
+	implicitModTypes = { { "dot_multi", "damage" }, },
 	req = { },
 }
 itemBases["Three Rat Talisman"] = {

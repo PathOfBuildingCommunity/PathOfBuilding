@@ -51,6 +51,8 @@ end
 local function applySpecial(val, spec)
 	if spec.k == "negate" then
 		val[spec.v].max, val[spec.v].min = -val[spec.v].min, -val[spec.v].max
+	elseif spec.k == "invert_chance" then
+		val[spec.v].max, val[spec.v].min = 100 - val[spec.v].min, 100 - val[spec.v].max
 	elseif spec.k == "negate_and_double" then
 		val[spec.v].max, val[spec.v].min = -2 * val[spec.v].min, -2 * val[spec.v].max
 	elseif spec.k == "divide_by_two_0dp" then
@@ -85,6 +87,10 @@ local function applySpecial(val, spec)
 	elseif spec.k == "divide_by_one_hundred" then
 		val[spec.v].min = val[spec.v].min / 100
 		val[spec.v].max = val[spec.v].max / 100
+		val[spec.v].fmt = "g"
+	elseif spec.k == "divide_by_one_hundred_1dp" then
+		val[spec.v].min = round(val[spec.v].min / 100, 1)
+		val[spec.v].max = round(val[spec.v].max / 100, 1)
 		val[spec.v].fmt = "g"
 	elseif spec.k == "divide_by_one_hundred_2dp_if_required" or spec.k == "divide_by_one_hundred_2dp" then
 		val[spec.v].min = round(val[spec.v].min / 100, 2)
@@ -188,7 +194,7 @@ return function(stats, scopeName)
 			for depth, scope in ipairs(rootScope.scopeList) do
 				if scope[s] then
 					local descriptor = scope[scope[s]]
-					if descriptor.lang then
+					if descriptor[1] then
 						describeStats[descriptor.stats[1]] = { depth = depth, order = scope[s], description = scope[scope[s]] }
 					end
 					break
@@ -223,7 +229,7 @@ return function(stats, scopeName)
 			end
 			val[i].fmt = "d"
 		end
-		local desc = matchLimit(descriptor.description.lang["English"], val)
+		local desc = matchLimit(descriptor.description[1], val)
 		if desc then
 			for _, spec in ipairs(desc) do
 				applySpecial(val, spec)

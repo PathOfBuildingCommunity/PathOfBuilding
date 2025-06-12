@@ -32,10 +32,13 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 	self.colWidth = 230
 	self.sectionList = { }
 
+	self.controls.search = new("EditControl", {"TOPLEFT",self,"TOPLEFT"}, {4, 5, 260, 20}, "", "Search", "%c", 100, nil, nil, nil, true)
+	t_insert(self.controls, self.controls.search)
+
 	-- Special section for skill/mode selection
 	self:NewSection(3, "SkillSelect", 1, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "View Skill Details", data = {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
-			control = new("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value) 
+			control = new("DropDownControl", nil, {0, 0, 300, 16}, nil, function(index, value) 
 				self.input.skill_number = index
 				self:AddUndoState()
 				self.build.buildFlag = true
@@ -49,14 +52,14 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 			}
 		}, },
 		{ label = "Active Skill", { controlName = "mainSkill", 
-			control = new("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value)
+			control = new("DropDownControl", nil, {0, 0, 300, 16}, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				mainSocketGroup.mainActiveSkillCalcs = index
 				self.build.buildFlag = true
 			end)
 		}, },
 		{ label = "Skill Part", playerFlag = "multiPart", { controlName = "mainSkillPart", 
-			control = new("DropDownControl", nil, 0, 0, 250, 16, nil, function(index, value)
+			control = new("DropDownControl", nil, {0, 0, 250, 16}, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillPartCalcs = index
@@ -64,7 +67,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				self.build.buildFlag = true
 			end)
 		}, },{ label = "Skill Stages", playerFlag = "multiStage", { controlName = "mainSkillStageCount",
-			control = new("EditControl", nil, 0, 0, 52, 16, nil, nil, "%D", nil, function(buf)
+			control = new("EditControl", nil, {0, 0, 52, 16}, nil, nil, "%D", nil, function(buf)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillStageCountCalcs = tonumber(buf)
@@ -73,7 +76,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 			end)
 		}, },
 		{ label = "Active Mines", playerFlag = "mine", { controlName = "mainSkillMineCount",
-			control = new("EditControl", nil, 0, 0, 52, 16, nil, nil, "%D", nil, function(buf)
+			control = new("EditControl", nil, {0, 0, 52, 16}, nil, nil, "%D", nil, function(buf)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillMineCountCalcs = tonumber(buf)
@@ -82,13 +85,13 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 			end)
 		}, },
 		{ label = "Show Minion Stats", flag = "haveMinion", { controlName = "showMinion", 
-			control = new("CheckBoxControl", nil, 0, 0, 18, nil, function(state)
+			control = new("CheckBoxControl", nil, {0, 0, 18}, nil, function(state)
 				self.input.showMinion = state
 				self:AddUndoState()
 			end, "Show stats for the minion instead of the player.")
 		}, },
 		{ label = "Minion", flag = "minion", { controlName = "mainSkillMinion",
-			control = new("DropDownControl", nil, 0, 0, 160, 16, nil, function(index, value)
+			control = new("DropDownControl", nil, {0, 0, 160, 16}, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				if value.itemSetId then
@@ -101,12 +104,12 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 			end)
 		} },
 		{ label = "Spectre Library", flag = "spectre", { controlName = "mainSkillMinionLibrary",
-			control = new("ButtonControl", nil, 0, 0, 100, 16, "Manage Spectres...", function()
+			control = new("ButtonControl", nil, {0, 0, 100, 16}, "Manage Spectres...", function()
 				self.build:OpenSpectreLibrary()
 			end)
 		} },
 		{ label = "Minion Skill", flag = "haveMinion", { controlName = "mainSkillMinionSkill",
-			control = new("DropDownControl", nil, 0, 0, 200, 16, nil, function(index, value)
+			control = new("DropDownControl", nil, {0, 0, 200, 16}, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillMinionSkillCalcs = index
@@ -116,7 +119,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 		} },
 		{ label = "Calculation Mode", { 
 			controlName = "mode", 
-			control = new("DropDownControl", nil, 0, 0, 100, 16, buffModeDropList, function(index, value) 
+			control = new("DropDownControl", nil, {0, 0, 100, 16}, buffModeDropList, function(index, value) 
 				self.input.misc_buffMode = value.buffMode 
 				self:AddUndoState()
 				self.build.buildFlag = true
@@ -146,7 +149,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 
 	self.controls.breakdown = new("CalcBreakdownControl", self)
 
-	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
+	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
 	self.powerBuilderInitialized = nil
 end)
 
@@ -221,7 +224,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 
 	-- Arrange the sections
 	local baseX = viewPort.x + 4
-	local baseY = viewPort.y + 4
+	local baseY = viewPort.y + 30
 	local maxCol = m_floor(viewPort.width / (self.colWidth + 8))
 	if main.portraitMode then maxCol = 3 end
 	local colY = { }
@@ -297,14 +300,16 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 		end
 	end
 	self.controls.scrollBar.height = viewPort.height
-	self.controls.scrollBar:SetContentDimension(maxY - baseY, viewPort.height)
+	self.controls.scrollBar:SetContentDimension(maxY - (baseY - 26), viewPort.height)
 	for _, section in ipairs(self.sectionList) do
 		-- Give sections their actual Y position and let them update
 		section.y = section.y - self.controls.scrollBar.offset
 		section:UpdatePos()
 	end
+	
+	self.controls.search.y = 4 - self.controls.scrollBar.offset
 
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if event.key == "z" and IsKeyDown("CTRL") then
 				self:Undo()
@@ -312,15 +317,17 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 			elseif event.key == "y" and IsKeyDown("CTRL") then
 				self:Redo()
 				self.build.buildFlag = true
+			elseif event.key == "f" and IsKeyDown("CTRL") then
+				self:SelectControl(self.controls.search)
 			end
 		end
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyUp" then
-			if event.key == "WHEELDOWN" then
+			if self.controls.scrollBar:IsScrollDownKey(event.key) then
 				self.controls.scrollBar:Scroll(1)
-			elseif event.key == "WHEELUP" then
+			elseif self.controls.scrollBar:IsScrollUpKey(event.key) then
 				self.controls.scrollBar:Scroll(-1)
 			end
 		end
@@ -404,6 +411,11 @@ function CalcsTabClass:CheckFlag(obj)
 	return true
 end
 
+function CalcsTabClass:SearchMatch(txt)
+	local searchStr = self.controls.search.buf:lower()
+	return string.len(searchStr) > 0 and txt:lower():find(searchStr)
+end
+
 -- Build the calculation output tables
 function CalcsTabClass:BuildOutput()
 	self.powerBuildFlag = true
@@ -442,6 +454,7 @@ end
 function CalcsTabClass:BuildPower()
 	if self.powerBuildFlag then
 		self.powerBuildFlag = false
+		self.powerMax = nil
 		self.powerBuilder = coroutine.create(self.PowerBuilder)
 	end
 	if self.powerBuilder then
@@ -461,9 +474,11 @@ end
 -- Estimate the offensive and defensive power of all unallocated nodes
 function CalcsTabClass:PowerBuilder()
 	--local timer_start = GetTime()
-	GlobalCache.useFullDPS = self.powerStat and self.powerStat.stat == "FullDPS" or false
+	local useFullDPS = self.powerStat and self.powerStat.stat == "FullDPS"
 	local calcFunc, calcBase = self:GetMiscCalculator()
 	local cache = { }
+	local distanceMap = { }
+	local distanceList = { }
 	local newPowerMax = {
 		singleStat = 0,
 		offence = 0,
@@ -477,14 +492,29 @@ function CalcsTabClass:PowerBuilder()
 	if coroutine.running() then
 		coroutine.yield()
 	end
-
+	
 	local start = GetTime()
 	for nodeId, node in pairs(self.build.spec.nodes) do
 		wipeTable(node.power)
-		if self.nodePowerMaxDepth == nil or self.nodePowerMaxDepth >= node.pathDist then
+		if node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
+			distanceMap[node.pathDist or 1000] = distanceMap[node.pathDist or 1000] or { }
+			distanceMap[node.pathDist or 1000][nodeId] = node
+		end
+	end
+	for distance, nodes in pairs(distanceMap) do
+		t_insert(distanceList, { distance, nodes })
+	end
+	distanceMap = nil
+	table.sort(distanceList, function(a, b) return a[1] < b[1] end)
+	for _, data in ipairs(distanceList) do
+		local distance, nodes = data[1], data[2]
+		if self.nodePowerMaxDepth and self.nodePowerMaxDepth < distance then
+			break
+		end
+		for nodeId, node in pairs(nodes) do
 			if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
 				if not cache[node.modKey] then
-					cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+					cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
 				end
 				local output = cache[node.modKey]
 				if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
@@ -497,31 +527,24 @@ function CalcsTabClass:PowerBuilder()
 							pathNodes[node] = true
 						end
 						if node.pathDist > 1 then
-							node.power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ addNodes = pathNodes }, { requirementsItems = true, requirementsGems = true, skills = true }), calcBase)
+							node.power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ addNodes = pathNodes }, useFullDPS), calcBase)
 						end
 					end
-				else
-					if calcBase.Minion then
-						node.power.offence = (output.Minion.CombinedDPS - calcBase.Minion.CombinedDPS) / calcBase.Minion.CombinedDPS
-					else
-						node.power.offence = (output.CombinedDPS - calcBase.CombinedDPS) / calcBase.CombinedDPS
-					end
-					node.power.defence = (output.LifeUnreserved - calcBase.LifeUnreserved) / m_max(3000, calcBase.Life) +
-									(output.Armour - calcBase.Armour) / m_max(10000, calcBase.Armour) +
-									((output.EnergyShieldRecoveryCap or output.EnergyShield) - (calcBase.EnergyShieldRecoveryCap or calcBase.EnergyShield)) / m_max(3000, (calcBase.EnergyShieldRecoveryCap or calcBase.EnergyShield)) +
-									(output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
-									(output.LifeRegenRecovery - calcBase.LifeRegenRecovery) / 500 +
-									(output.EnergyShieldRegenRecovery - calcBase.EnergyShieldRegenRecovery) / 1000
+				elseif not self.powerStat or not self.powerStat.ignoreForNodes then
+					node.power.offence, node.power.defence = self:CalculateCombinedOffDefStat(output, calcBase)
+					node.power.singleStat = node.power.offence
 					if node.path and not node.ascendancyName then
 						newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
 						newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
 						newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, node.power.offence / node.pathDist)
 						newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, node.power.defence / node.pathDist)
-
 					end
 				end
 			elseif node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
-				local output = calcFunc({ removeNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+				if not cache[node.modKey.."_remove"] then
+					cache[node.modKey.."_remove"] = calcFunc({ removeNodes = { [node] = true } }, useFullDPS)
+				end
+				local output = cache[node.modKey.."_remove"]
 				if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 					node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 					if node.depends and not node.ascendancyName then
@@ -531,15 +554,15 @@ function CalcsTabClass:PowerBuilder()
 							pathNodes[node] = true
 						end
 						if #node.depends > 1 then
-							node.power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ removeNodes = pathNodes }, { requirementsItems = true, requirementsGems = true, skills = true }), calcBase)
+							node.power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ removeNodes = pathNodes }, useFullDPS), calcBase)
 						end
 					end
 				end
 			end
-		end
-		if coroutine.running() and GetTime() - start > 100 then
-			coroutine.yield()
-			start = GetTime()
+			if coroutine.running() and GetTime() - start > 100 then
+				coroutine.yield()
+				start = GetTime()
+			end
 		end
 	end
 
@@ -552,7 +575,7 @@ function CalcsTabClass:PowerBuilder()
 		wipeTable(node.power)
 		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
 			if not cache[node.modKey] then
-				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
 			end
 			local output = cache[node.modKey]
 			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
@@ -581,6 +604,19 @@ function CalcsTabClass:CalculatePowerStat(selection, original, modified)
 		modifiedValue = selection.transform(modifiedValue)
 	end
 	return originalValue - modifiedValue
+end
+
+function CalcsTabClass:CalculateCombinedOffDefStat(original, modified)
+	local defence = (original.LifeUnreserved - modified.LifeUnreserved) / m_max(3000, modified.Life) +
+					(original.Armour - modified.Armour) / m_max(10000, modified.Armour) +
+					((original.EnergyShieldRecoveryCap or original.EnergyShield) - (modified.EnergyShieldRecoveryCap or modified.EnergyShield)) / m_max(3000, (modified.EnergyShieldRecoveryCap or modified.EnergyShield)) +
+					(original.Evasion - modified.Evasion) / m_max(10000, modified.Evasion) +
+					(original.LifeRegenRecovery - modified.LifeRegenRecovery) / 500 +
+					(original.EnergyShieldRegenRecovery - modified.EnergyShieldRegenRecovery) / 1000
+	if modified.Minion then
+		return (original.Minion.CombinedDPS - modified.Minion.CombinedDPS) / modified.Minion.CombinedDPS, defence
+	end
+	return (original.CombinedDPS - modified.CombinedDPS) / modified.CombinedDPS, defence
 end
 
 function CalcsTabClass:GetNodeCalculator()

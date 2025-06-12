@@ -24,7 +24,7 @@ local CalcBreakdownClass = newClass("CalcBreakdownControl", "Control", "ControlH
 	self.rangeGuide:Load("Assets/range_guide.png")
 	self.uiOverlay = NewImageHandle()
 	self.uiOverlay:Load("Assets/game_ui_small.png")
-	self.controls.scrollBar = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -2, 0, 18, 0, 80, "VERTICAL", true)
+	self.controls.scrollBar = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, {-2, 0, 18, 0}, 80, "VERTICAL", true)
 end)
 
 function CalcBreakdownClass:IsMouseOver()
@@ -148,12 +148,24 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 	end
 
 	if breakdown.rowList and #breakdown.rowList > 0 then
+		-- sort by the first column (the value)
+		local rowList = copyTable(breakdown.rowList, true)
+		local colKey = breakdown.colList[1].key
+		-- avoid sorting ailment breakdowns
+		if breakdown.source then
+			table.sort(rowList, function(a, b)
+				if a.reqNum then
+					return a.reqNum > b.reqNum
+				end
+				return a[colKey] > b[colKey]
+			end)
+		end
 		-- Generic table
 		local section = {
 			type = "TABLE",
 			label = breakdown.label,
 			footer = breakdown.footer,
-			rowList = breakdown.rowList,
+			rowList = rowList,
 			colList = breakdown.colList,
 		}
 		t_insert(self.sectionList, section)
@@ -225,6 +237,10 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 			rowList = breakdown.slots
 		end
 
+		table.sort(rowList, function(a, b)
+			return a['base'] > b['base']
+		end)
+		
 		local section = { 
 			type = "TABLE",
 			rowList = rowList,
@@ -260,8 +276,8 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 	cfg.actor = sectionData.actor
 	local rowList
 	local modStore = (sectionData.enemy and actor.enemy.modDB) or (sectionData.cfg and actor.mainSkill.skillModList) or actor.modDB
-	if modList then	
-		rowList = modList
+	if modList then
+		rowList = copyTable(modList)
 	else
 		if type(sectionData.modName) == "table" then
 			rowList = modStore:Tabulate(sectionData.modType, cfg, unpack(sectionData.modName))
@@ -291,15 +307,16 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 
 	if not modList and not sectionData.modType then
 		-- Sort modifiers by type
-		for i, row in ipairs(rowList) do
-			row.index = i
-		end
 		table.sort(rowList, function(a, b)
 			if a.mod.type == b.mod.type then
-				return a.index < b.index
+				return a.mod.name > b.mod.name or (a.mod.name == b.mod.name and type(a.value) == "number" and type(b.value) == "number") and a.value > b.value
 			else
 				return a.mod.type < b.mod.type
 			end
+		end)
+	else -- Sort modifiers by value
+		table.sort(rowList, function(a, b)
+			return a.mod.name > b.mod.name or (a.mod.name == b.mod.name and type(a.value) == "number" and type(b.value) == "number") and a.value > b.value
 		end)
 	end
 
@@ -388,7 +405,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			local nodeId = row.mod.source:match("Tree:(%d+)")
 			if nodeId then
 				local nodeIdNumber = tonumber(nodeId)
-				local node = build.spec.nodes[nodeIdNumber] or build.spec.tree.nodes[nodeIdNumber]
+				local node = build.spec.nodes[nodeIdNumber] or build.spec.tree.nodes[nodeIdNumber] or build.latestTree.nodes[nodeIdNumber]
 				row.sourceName = node.dn
 				row.sourceNameNode = node
 			end
@@ -397,7 +414,10 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			row.sourceName = build.data.skills[row.mod.source:match("Skill:(.+)")].name
 		elseif sourceType == "Pantheon" then
 			row.sourceName = row.mod.source:match("Pantheon:(.+)")
+		elseif sourceType == "Spectre" then
+			row.sourceName = row.mod.source:match("Spectre:(.+)")
 		end
+
 		if row.mod.flags ~= 0 or row.mod.keywordFlags ~= 0 then
 			-- Combine, sort and format modifier flags
 			local flagNames = { }
@@ -434,7 +454,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 					desc = base.."% of "..(tag.actor and (tag.actor.." ") or "")..self:FormatVarNameOrList(tag.percentVar or tag.stat, tag.statList)
 					baseVal = ""
 				elseif tag.type == "MultiplierThreshold" or tag.type == "StatThreshold" then
-					desc = "If "..self:FormatVarNameOrList(tag.var or tag.stat, tag.varList or tag.statList)..(tag.upper and " <= " or " >= ")..(tag.threshold or self:FormatModName(tag.thresholdVar or tag.thresholdStat))
+					desc = "If "..self:FormatVarNameOrList(tag.var or tag.stat, tag.varList or tag.statList)..(tag.upper and " <= " or " >= ")..(tag.thresholdPercent and tag.thresholdPercent.."% " or "")..(tag.threshold or self:FormatModName(tag.thresholdVar or tag.thresholdStat))
 				elseif tag.type == "SkillName" then
 					desc = "Skill: "..(tag.skillNameList and table.concat(tag.skillNameList, "/") or tag.skillName)
 				elseif tag.type == "SkillId" then
@@ -455,6 +475,8 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 					desc = self:FormatModName(tag.effectType)
 				elseif tag.type == "Limit" then
 					desc = "Limited to "..(tag.limitVar and self:FormatModName(tag.limitVar) or self:FormatModBase(row.mod, tag.limit))
+				elseif tag.type == "MonsterTag" then
+					desc = "Monster Tag: "..(tag.monsterTagList and table.concat(tag.monsterTagList, "/") or tag.monsterTag)
 				else
 					desc = self:FormatModName(tag.type)
 				end
@@ -715,9 +737,9 @@ function CalcBreakdownClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
-	if key == "WHEELDOWN" then
+	if self.controls.scrollBar:IsScrollDownKey(key) then
 		self.controls.scrollBar:Scroll(1)
-	elseif key == "WHEELUP" then
+	elseif self.controls.scrollBar:IsScrollUpKey(key) then
 		self.controls.scrollBar:Scroll(-1)
 	end
 	return self

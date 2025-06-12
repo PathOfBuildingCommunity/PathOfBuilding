@@ -20,3 +20,8 @@ local itemBases = ...
 
 #subType Timeless
 #base Metadata/Items/Jewels/JewelTimeless
+
+#subType Charm
+#base Metadata/Items/AnimalCharms/StrAnimalCharm
+#base Metadata/Items/AnimalCharms/DexAnimalCharm
+#base Metadata/Items/AnimalCharms/IntAnimalCharm

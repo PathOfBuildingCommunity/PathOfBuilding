@@ -316,7 +316,7 @@ Adds (25-35) to (36-45) Physical Damage
 +(350-400) to Accuracy Rating
 Cannot Leech Mana
 Projectiles from Attacks Fork
-Projectiles from Attacks Fork an additional time
+Projectiles from Attacks can Fork 1 additional time
 ]],[[
 Iron Commander
 Death Bow
@@ -364,11 +364,12 @@ Implicits: 2
 (10-20)% increased Attack Speed
 +(80-100) to maximum Mana
 Hits can't be Evaded
-{variant:4,5}Far Shot
+{variant:4,5,6}Far Shot
 ]],[[
 Null's Inclination
 Ranger Bow
 Variant: Pre 3.14.0
+Variant: Pre 3.26.0
 Variant: Current
 Requires Level 60, 212 Dex, 212 Int
 Adds (50-80) to (130-180) Chaos Damage
@@ -376,23 +377,28 @@ Adds (50-80) to (130-180) Chaos Damage
 +(7-11)% to Chaos Resistance
 {variant:1}Minions deal 1% increased Damage per 10 Dexterity
 {variant:2}Minions deal 1% increased Damage per 5 Dexterity
+{variant:3}Minions deal 2% increased Damage per 5 Dexterity
 +212 Intelligence Requirement
 Cast Socketed Minion Spells on Kill with this Weapon
 ]],[[
 Nuro's Harp
 Harbinger Bow
 Variant: Pre 2.5.0
+Variant: Pre 3.26.0
 Variant: Current
 Requires Level 68, 212 Dex
 Implicits: 1
 (30-50)% increased Critical Strike Chance
 No Physical Damage
-Adds (120-140) to (180-210) Cold Damage
+{variant:1,2}Adds (120-140) to (180-210) Cold Damage
+{variant:3}Adds (180-210) to (240-280) Cold Damage
 (10-15)% increased Attack Speed
 (10-30)% increased Light Radius
 15% chance to create Chilled Ground when you Freeze an Enemy
 Create Consecrated Ground when you Shatter an Enemy
 {variant:2}40% increased Effect of Chilled Ground
+{variant:3}(30-50)% increased Effect of Chilled Ground
+{variant:3}(30-50)% increased Effect of Consecrated Ground
 ]],[[
 Quill Rain
 Short Bow
@@ -549,25 +555,27 @@ Variant: Pre 1.1.2
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
+Variant: Pre 3.25.0
 Variant: Current
 Requires Level 66, 212 Dex
 Implicits: 2
 {variant:3}(6-12)% increased Elemental Damage with Attack Skills
-{variant:4,5}(20-24)% increased Elemental Damage with Attack Skills
+{variant:4,5,6}(20-24)% increased Elemental Damage with Attack Skills
 {variant:1}Adds 40 to 60 Cold Damage
 {variant:2,3,4}Adds (32-40) to (48-60) Cold Damage
-{variant:5}Adds (48-60) to (72-90) Cold Damage
+{variant:5,6}Adds (48-60) to (72-90) Cold Damage
 {variant:1}Adds 1 to 100 Lightning Damage
 {variant:2,3,4}Adds 1 to (80-100) Lightning Damage
-{variant:5}Adds 1 to (120-150) Lightning Damage
+{variant:5,6}Adds 1 to (120-150) Lightning Damage
 (10-15)% increased Attack Speed
 {variant:1,2}(80-100)% increased Critical Strike Chance
 {variant:3,4}(60-80)% increased Critical Strike Chance
-{variant:5}(30-40)% increased Critical Strike Chance
+{variant:5,6}(30-40)% increased Critical Strike Chance
 {variant:1,2}25% increased Quantity of Items Dropped by Slain Frozen enemies
 {variant:3,4,5}15% increased Quantity of Items Dropped by Slain Frozen Enemies
+{variant:6}30% increased Rarity of Items Dropped by Slain Frozen Enemies
 {variant:1,2}50% increased Rarity of Items Dropped by Slain Shocked enemies
-{variant:3,4,5}30% increased Rarity of Items Dropped by Slain Shocked Enemies
+{variant:3,4,5,6}30% increased Rarity of Items Dropped by Slain Shocked Enemies
 ]],[[
 Replica Windripper
 Imperial Bow

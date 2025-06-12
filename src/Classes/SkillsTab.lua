@@ -93,23 +93,22 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.defaultGemQuality = main.defaultGemQuality
 
 	-- Set selector
-	self.controls.setSelect = new("DropDownControl", { "TOPLEFT", self, "TOPLEFT" }, 76, 8, 210, 20, nil, function(index, value)
+	self.controls.setSelect = new("DropDownControl", { "TOPLEFT", self, "TOPLEFT" }, { 76, 8, 210, 20 }, nil, function(index, value)
 		self:SetActiveSkillSet(self.skillSetOrderList[index])
-		self:SetDisplayGroup(self.socketGroupList[1])
 		self:AddUndoState()
 	end)
 	self.controls.setSelect.enableDroppedWidth = true
 	self.controls.setSelect.enabled = function()
 		return #self.skillSetOrderList > 1
 	end
-	self.controls.setLabel = new("LabelControl", { "RIGHT", self.controls.setSelect, "LEFT" }, -2, 0, 0, 16, "^7Skill set:")
-	self.controls.setManage = new("ButtonControl", { "LEFT", self.controls.setSelect, "RIGHT" }, 4, 0, 90, 20, "Manage...", function()
+	self.controls.setLabel = new("LabelControl", { "RIGHT", self.controls.setSelect, "LEFT" }, { -2, 0, 0, 16 }, "^7Skill set:")
+	self.controls.setManage = new("ButtonControl", { "LEFT", self.controls.setSelect, "RIGHT" }, { 4, 0, 90, 20 }, "Manage...", function()
 		self:OpenSkillSetManagePopup()
 	end)
 
 	-- Socket group list
-	self.controls.groupList = new("SkillListControl", { "TOPLEFT", self, "TOPLEFT" }, 20, 54, 360, 300, self)
-	self.controls.groupTip = new("LabelControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, 0, 8, 0, 14, 
+	self.controls.groupList = new("SkillListControl", { "TOPLEFT", self, "TOPLEFT" }, { 20, 54, 360, 300 }, self)
+	self.controls.groupTip = new("LabelControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { 0, 8, 0, 14 }, 
 [[
 ^7Usage Tips:
 - You can copy/paste socket groups using Ctrl+C and Ctrl+V.
@@ -122,14 +121,14 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	-- Gem options
 	local optionInputsX = 170
 	local optionInputsY = 45
-	self.controls.optionSection = new("SectionControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, 0, optionInputsY + 50, 360, 156, "Gem Options")
-	self.controls.sortGemsByDPS = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 70, 20, "Sort gems by DPS:", function(state)
+	self.controls.optionSection = new("SectionControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { 0, optionInputsY + 50, 360, 156 }, "Gem Options")
+	self.controls.sortGemsByDPS = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 70, 20 }, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
 	end, nil, true)
-	self.controls.sortGemsByDPSFieldControl = new("DropDownControl", { "LEFT", self.controls.sortGemsByDPS, "RIGHT" }, 10, 0, 140, 20, sortGemTypeList, function(index, value)
+	self.controls.sortGemsByDPSFieldControl = new("DropDownControl", { "LEFT", self.controls.sortGemsByDPS, "RIGHT" }, { 10, 0, 140, 20 }, sortGemTypeList, function(index, value)
 		self.sortGemsByDPSField = value.type
 	end)
-	self.controls.defaultLevel = new("DropDownControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 94, 170, 20, defaultGemLevelList, function(index, value)
+	self.controls.defaultLevel = new("DropDownControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 94, 170, 20 }, defaultGemLevelList, function(index, value)
 		self.defaultGemLevel = value.gemLevel
 	end)
 	self.controls.defaultLevel.tooltipFunc = function(tooltip, mode, index, value)
@@ -138,36 +137,36 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 			tooltip:AddLine(16, "^7" .. value.description)
 		end
 	end
-	self.controls.defaultLevelLabel = new("LabelControl", { "RIGHT", self.controls.defaultLevel, "LEFT" }, -4, 0, 0, 16, "^7Default gem level:")
-	self.controls.defaultQuality = new("EditControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 118, 60, 20, nil, nil, "%D", 2, function(buf)
+	self.controls.defaultLevelLabel = new("LabelControl", { "RIGHT", self.controls.defaultLevel, "LEFT" }, { -4, 0, 0, 16 }, "^7Default gem level:")
+	self.controls.defaultQuality = new("EditControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 118, 60, 20 }, nil, nil, "%D", 2, function(buf)
 		self.defaultGemQuality = m_min(tonumber(buf) or 0, 23)
 	end)
-	self.controls.defaultQualityLabel = new("LabelControl", { "RIGHT", self.controls.defaultQuality, "LEFT" }, -4, 0, 0, 16, "^7Default gem quality:")
-	self.controls.showSupportGemTypes = new("DropDownControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 142, 170, 20, showSupportGemTypeList, function(index, value)
+	self.controls.defaultQualityLabel = new("LabelControl", { "RIGHT", self.controls.defaultQuality, "LEFT" }, { -4, 0, 0, 16 }, "^7Default gem quality:")
+	self.controls.showSupportGemTypes = new("DropDownControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 142, 170, 20 }, showSupportGemTypeList, function(index, value)
 		self.showSupportGemTypes = value.show
 	end)
-	self.controls.showSupportGemTypesLabel = new("LabelControl", { "RIGHT", self.controls.showSupportGemTypes, "LEFT" }, -4, 0, 0, 16, "^7Show support gems:")
-	self.controls.showAltQualityGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 166, 20, "^7Show quality variants:", function(state)
+	self.controls.showSupportGemTypesLabel = new("LabelControl", { "RIGHT", self.controls.showSupportGemTypes, "LEFT" }, { -4, 0, 0, 16 }, "^7Show support gems:")
+	self.controls.showAltQualityGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 166, 20 }, "^7Show quality variants:", function(state)
 		self.showAltQualityGems = state
 	end)
 
 	-- Socket group details
 	if main.portraitMode then
-		self.anchorGroupDetail = new("Control", { "TOPLEFT", self.controls.optionSection, "BOTTOMLEFT" }, 0, 20, 0, 0)
+		self.anchorGroupDetail = new("Control", { "TOPLEFT", self.controls.optionSection, "BOTTOMLEFT" }, { 0, 20, 0, 0 })
 	else
-		self.anchorGroupDetail = new("Control", { "TOPLEFT", self.controls.groupList, "TOPRIGHT" }, 20, 0, 0, 0)
+		self.anchorGroupDetail = new("Control", { "TOPLEFT", self.controls.groupList, "TOPRIGHT" }, { 20, 0, 0, 0 })
 	end
 	self.anchorGroupDetail.shown = function()
 		return self.displayGroup ~= nil
 	end
-	self.controls.groupLabel = new("EditControl", { "TOPLEFT", self.anchorGroupDetail, "TOPLEFT" }, 0, 0, 380, 20, nil, "Label", "%c", 50, function(buf)
+	self.controls.groupLabel = new("EditControl", { "TOPLEFT", self.anchorGroupDetail, "TOPLEFT" }, { 0, 0, 380, 20 }, nil, "Label", "%c", 50, function(buf)
 		self.displayGroup.label = buf
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
-	self.controls.groupSlotLabel = new("LabelControl", { "TOPLEFT", self.anchorGroupDetail, "TOPLEFT" }, 0, 30, 0, 16, "^7Socketed in:")
-	self.controls.groupSlot = new("DropDownControl", { "TOPLEFT", self.anchorGroupDetail, "TOPLEFT" }, 85, 28, 130, 20, groupSlotDropList, function(index, value)
+	self.controls.groupSlotLabel = new("LabelControl", { "TOPLEFT", self.anchorGroupDetail, "TOPLEFT" }, { 0, 30, 0, 16 }, "^7Socketed in:")
+	self.controls.groupSlot = new("DropDownControl", { "TOPLEFT", self.anchorGroupDetail, "TOPLEFT" }, { 85, 28, 130, 20 }, groupSlotDropList, function(index, value)
 		self.displayGroup.slot = value.slotName
 		self:AddUndoState()
 		self.build.buildFlag = true
@@ -190,21 +189,21 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.groupSlot.enabled = function()
 		return self.displayGroup.source == nil
 	end
-	self.controls.groupEnabled = new("CheckBoxControl", { "LEFT", self.controls.groupSlot, "RIGHT" }, 70, 0, 20, "Enabled:", function(state)
+	self.controls.groupEnabled = new("CheckBoxControl", { "LEFT", self.controls.groupSlot, "RIGHT" }, { 70, 0, 20 }, "Enabled:", function(state)
 		self.displayGroup.enabled = state
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
-	self.controls.includeInFullDPS = new("CheckBoxControl", { "LEFT", self.controls.groupEnabled, "RIGHT" }, 145, 0, 20, "Include in Full DPS:", function(state)
+	self.controls.includeInFullDPS = new("CheckBoxControl", { "LEFT", self.controls.groupEnabled, "RIGHT" }, { 145, 0, 20 }, "Include in Full DPS:", function(state)
 		self.displayGroup.includeInFullDPS = state
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
-	self.controls.groupCountLabel = new("LabelControl", { "LEFT", self.controls.includeInFullDPS, "RIGHT" }, 16, 0, 0, 16, "Count:")
+	self.controls.groupCountLabel = new("LabelControl", { "LEFT", self.controls.includeInFullDPS, "RIGHT" }, { 16, 0, 0, 16 }, "Count:")
 	self.controls.groupCountLabel.shown = function()
 		return self.displayGroup.source ~= nil
 	end
-	self.controls.groupCount = new("EditControl", { "LEFT", self.controls.groupCountLabel, "RIGHT" }, 4, 0, 60, 20, nil, nil, "%D", 2, function(buf)
+	self.controls.groupCount = new("EditControl", { "LEFT", self.controls.groupCountLabel, "RIGHT" }, { 4, 0, 60, 20 }, nil, nil, "%D", 2, function(buf)
 		self.displayGroup.groupCount = tonumber(buf) or 1
 		self:AddUndoState()
 		self.build.buildFlag = true
@@ -212,7 +211,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.groupCount.shown = function()
 		return self.displayGroup.source ~= nil
 	end
-	self.controls.sourceNote = new("LabelControl", { "TOPLEFT", self.controls.groupSlotLabel, "TOPLEFT" }, 0, 30, 0, 16)
+	self.controls.sourceNote = new("LabelControl", { "TOPLEFT", self.controls.groupSlotLabel, "TOPLEFT" }, { 0, 30, 0, 16 })
 	self.controls.sourceNote.shown = function()
 		return self.displayGroup.source ~= nil
 	end
@@ -249,7 +248,7 @@ will automatically apply to the skill.]]
 	end
 
 	-- Scroll bar
-	self.controls.scrollBarH = new("ScrollBarControl", nil, 0, 0, 0, 18, 100, "HORIZONTAL", true)
+	self.controls.scrollBarH = new("ScrollBarControl", nil, {0, 0, 0, 18}, 100, "HORIZONTAL", true)
 
 	-- Initialise skill sets
 	self.skillSets = { }
@@ -258,19 +257,20 @@ will automatically apply to the skill.]]
 	self:SetActiveSkillSet(1)
 
 	-- Skill gem slots
-	self.anchorGemSlots = new("Control", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 28 + 28 + 16, 0, 0)
+	self.anchorGemSlots = new("Control", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, {0, 28 + 28 + 16, 0, 0})
 	self.gemSlots = { }
 	self:CreateGemSlot(1)
-	self.controls.gemNameHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].nameSpec, "TOPLEFT" }, 0, -2, 0, 16, "^7Gem name:")
-	self.controls.gemLevelHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].level, "TOPLEFT" }, 0, -2, 0, 16, "^7Level:")
-	self.controls.gemQualityIdHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].qualityId, "TOPLEFT" }, 0, -2, 0, 16, "^7Variant:")
-	self.controls.gemQualityHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].quality, "TOPLEFT" }, 0, -2, 0, 16, "^7Quality:")
-	self.controls.gemEnableHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].enabled, "TOPLEFT" }, -16, -2, 0, 16, "^7Enabled:")
-	self.controls.gemCountHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].count, "TOPLEFT" }, 8, -2, 0, 16, "^7Count:")
+	self.controls.gemNameHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].nameSpec, "TOPLEFT"}, {0, -2, 0, 16}, "^7Gem name:")
+	self.controls.gemLevelHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].level, "TOPLEFT"}, {0, -2, 0, 16}, "^7Level:")
+	self.controls.gemQualityIdHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].qualityId, "TOPLEFT"}, {0, -2, 0, 16}, "^7Variant:")
+	self.controls.gemQualityHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].quality, "TOPLEFT"}, {0, -2, 0, 16}, "^7Quality:")
+	self.controls.gemEnableHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].enabled, "TOPLEFT"}, {-16, -2, 0, 16}, "^7Enabled:")
+	self.controls.gemCountHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].count, "TOPLEFT"}, {8, -2, 0, 16}, "^7Count:")
 end)
 
 -- parse real gem name and quality by omitting the first word if alt qual is set
 function SkillsTabClass:GetBaseNameAndQuality(gemTypeLine, quality)
+	gemTypeLine = sanitiseText(gemTypeLine)
 	-- if quality is default or nil check the gem type line if we have alt qual by comparing to the existing list
 	if gemTypeLine and (quality == nil or quality == "" or quality == "Default") then
 		local firstword, otherwords = gemTypeLine:match("(%w+)%s(.+)")
@@ -307,9 +307,25 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 	socketGroup.gemList = { }
 	for _, child in ipairs(node) do
 		local gemInstance = { }
-		gemInstance.nameSpec = child.attrib.nameSpec or ""
+		gemInstance.nameSpec = sanitiseText(child.attrib.nameSpec or "")
 		if child.attrib.gemId then
-			local gemData = self.build.data.gems[child.attrib.gemId]
+			local gemData
+			local possibleVariants = self.build.data.gemsByGameId[child.attrib.gemId]
+			if possibleVariants then
+				-- If it is a known gem, try to determine which variant is used
+				if child.attrib.variantId then
+					-- New save format from 3.23 that stores the specific variation (transfiguration)
+					gemData = possibleVariants[child.attrib.variantId]
+				elseif child.attrib.skillId then
+					-- Old format relying on the uniqueness of the granted effects id
+					for _, variant in pairs(possibleVariants) do
+						if variant.grantedEffectId == child.attrib.skillId then
+							gemData = variant
+							break
+						end
+					end
+				end
+			end
 			if gemData then
 				gemInstance.gemId = gemData.id
 				gemInstance.skillId = gemData.grantedEffectId
@@ -369,7 +385,7 @@ function SkillsTabClass:Load(xml, fileName)
 	else
 		self.controls.defaultLevel:SelByValue("normalMaximum", "gemLevel")
 	end
-	self.defaultGemLevel = self.controls.defaultLevel:GetSelValue("gemLevel")
+	self.defaultGemLevel = self.controls.defaultLevel:GetSelValueByKey("gemLevel")
 	self.defaultGemQuality = m_max(m_min(tonumber(xml.attrib.defaultGemQuality) or 0, 23), 0)
 	self.controls.defaultQuality:SetText(self.defaultGemQuality or "")
 	if xml.attrib.sortGemsByDPS then
@@ -382,8 +398,8 @@ function SkillsTabClass:Load(xml, fileName)
 	self.controls.showAltQualityGems.state = self.showAltQualityGems
 	self.controls.showSupportGemTypes:SelByValue(xml.attrib.showSupportGemTypes or "ALL", "show")
 	self.controls.sortGemsByDPSFieldControl:SelByValue(xml.attrib.sortGemsByDPSField or "CombinedDPS", "type") 
-	self.showSupportGemTypes = self.controls.showSupportGemTypes:GetSelValue("show")
-	self.sortGemsByDPSField = self.controls.sortGemsByDPSFieldControl:GetSelValue("type")
+	self.showSupportGemTypes = self.controls.showSupportGemTypes:GetSelValueByKey("show")
+	self.sortGemsByDPSField = self.controls.sortGemsByDPSFieldControl:GetSelValueByKey("type")
 	for _, node in ipairs(xml) do
 		if node.elem == "Skill" then
 			-- Old format, initialize skill sets if needed
@@ -404,7 +420,6 @@ function SkillsTabClass:Load(xml, fileName)
 		end
 	end
 	self:SetActiveSkillSet(tonumber(xml.attrib.activeSkillSet) or 1)
-	self:SetDisplayGroup(self.socketGroupList[1])
 	self:ResetUndo()
 end
 
@@ -438,7 +453,8 @@ function SkillsTabClass:Save(xml)
 				t_insert(node, { elem = "Gem", attrib = {
 					nameSpec = gemInstance.nameSpec,
 					skillId = gemInstance.skillId,
-					gemId = gemInstance.gemId,
+					gemId = gemInstance.gemData and gemInstance.gemData.gameId,
+					variantId = gemInstance.gemData and gemInstance.gemData.variantId,
 					level = tostring(gemInstance.level),
 					quality = tostring(gemInstance.quality),
 					qualityId = gemInstance.qualityId,
@@ -481,7 +497,7 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 	end
 	self.x = self.x - self.controls.scrollBarH.offset
 
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if event.key == "z" and IsKeyDown("CTRL") then
 				self:Undo()
@@ -495,11 +511,11 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 		end
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyUp" then
-			if event.key == "WHEELDOWN" or event.key == "PAGEDOWN" then
+			if self.controls.scrollBarH:IsScrollDownKey(event.key) then
 				self.controls.scrollBarH:Scroll(1)
-			elseif event.key == "WHEELUP" or event.key == "PAGEUP" then
+			elseif self.controls.scrollBarH:IsScrollUpKey(event.key) then
 				self.controls.scrollBarH:Scroll(-1)
 			end
 		end
@@ -543,7 +559,7 @@ function SkillsTabClass:CopySocketGroup(socketGroup)
 end
 
 function SkillsTabClass:PasteSocketGroup(testInput)
-	local skillText = Paste() or testInput
+	local skillText = sanitiseText(Paste() or testInput)
 	if skillText then
 		local newGroup = { label = "", enabled = true, gemList = { } }
 		local label = skillText:match("Label: (%C+)")
@@ -583,7 +599,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.gemSlots[index] = slot
 
 	-- Delete gem
-	slot.delete = new("ButtonControl", nil, 0, 0, 20, 20, "x", function()
+	slot.delete = new("ButtonControl", nil, {0, 0, 20, 20}, "x", function()
 		t_remove(self.displayGroup.gemList, index)
 		for index2 = index, #self.displayGroup.gemList do
 			-- Update the other gem slot controls
@@ -619,7 +635,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Delete"] = slot.delete
 
 	-- Gem name specification
-	slot.nameSpec = new("GemSelectControl", { "LEFT", slot.delete, "RIGHT" }, 2, 0, 300, 20, self, index, function(gemId, qualityId, addUndo)
+	slot.nameSpec = new("GemSelectControl", { "LEFT", slot.delete, "RIGHT" }, { 2, 0, 300, 20 }, self, index, function(gemId, qualityId, addUndo)
 		if not self.displayGroup then
 			return
 		end
@@ -648,6 +664,9 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enableGlobal2.state = true
 			slot.count:SetText(gemInstance.count)
 		elseif gemId == gemInstance.gemId then
+			if addUndo then
+				self:AddUndoState()
+			end
 			return
 		end
 		gemInstance.gemId = gemId
@@ -671,7 +690,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Name"] = slot.nameSpec
 
 	-- Gem level
-	slot.level = new("EditControl", { "LEFT", slot.nameSpec, "RIGHT" }, 2, 0, 60, 20, nil, nil, "%D", 2, function(buf)
+	slot.level = new("EditControl", { "LEFT", slot.nameSpec, "RIGHT" }, { 2, 0, 60, 20 }, nil, nil, "%D", 2, function(buf)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
 			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
@@ -695,7 +714,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Level"] = slot.level
 
 	-- Gem quality id
-	slot.qualityId = new("DropDownControl",  {"LEFT",slot.level,"RIGHT"}, 2, 0, 90, 20, alternateGemQualityList, function(dropDownIndex, value)
+	slot.qualityId = new("DropDownControl",  {"LEFT",slot.level,"RIGHT"}, {2, 0, 90, 20}, alternateGemQualityList, function(dropDownIndex, value)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
 			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
@@ -773,10 +792,7 @@ function SkillsTabClass:CreateGemSlot(index)
 				local tempQual = self.displayGroup.gemList[index].qualityId
 				self.displayGroup.gemList[index].qualityId = hoveredQuality.type
 				self:ProcessSocketGroup(self.displayGroup)
-				local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-				GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-				local output = calcFunc({}, {})
-				GlobalCache.useFullDPS = storedGlobalCacheDPSView
+				local output = calcFunc()
 				self.displayGroup.gemList[index].qualityId = tempQual
 				tooltip:AddSeparator(10)
 				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Switching to this quality variant will give you:")
@@ -786,7 +802,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."QualityId"] = slot.qualityId
 
 	-- Gem quality
-	slot.quality = new("EditControl", {"LEFT",slot.qualityId,"RIGHT"}, 2, 0, 60, 20, nil, nil, "%D", 2, function(buf)
+	slot.quality = new("EditControl", {"LEFT",slot.qualityId,"RIGHT"}, {2, 0, 60, 20}, nil, nil, "%D", 2, function(buf)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
 			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
@@ -808,10 +824,7 @@ function SkillsTabClass:CreateGemSlot(index)
 				if calcFunc then
 					local storedQuality = self.displayGroup.gemList[index].quality
 					self.displayGroup.gemList[index].quality = 20
-					local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-					GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-					local output = calcFunc({}, {})
-					GlobalCache.useFullDPS = storedGlobalCacheDPSView
+					local output = calcFunc()
 					self.displayGroup.gemList[index].quality = storedQuality
 					self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Setting to 20 quality will give you:")
 				end
@@ -825,7 +838,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Quality"] = slot.quality
 
 	-- Enable gem
-	slot.enabled = new("CheckBoxControl", {"LEFT",slot.quality,"RIGHT"}, 18, 0, 20, nil, function(state)
+	slot.enabled = new("CheckBoxControl", {"LEFT",slot.quality,"RIGHT"}, {18, 0, 20}, nil, function(state)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
 			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
@@ -853,10 +866,7 @@ function SkillsTabClass:CreateGemSlot(index)
 				local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
 				if calcFunc then
 					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
-					local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-					GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-					local output = calcFunc({}, {})
-					GlobalCache.useFullDPS = storedGlobalCacheDPSView
+					local output = calcFunc()
 					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
 					self.build:AddStatComparesToTooltip(tooltip, calcBase, output, self.displayGroup.gemList[index].enabled and "^7Disabling this gem will give you:" or "^7Enabling this gem will give you:")
 				end
@@ -869,7 +879,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Enable"] = slot.enabled
 
 	-- Count gem
-	slot.count = new("EditControl", {"LEFT",slot.enabled,"RIGHT"}, 18, 0, 60, 20, nil, nil, "%D", 2, function(buf)
+	slot.count = new("EditControl", {"LEFT",slot.enabled,"RIGHT"}, {18, 0, 60, 20}, nil, nil, "%D", 2, function(buf)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
 			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, count = 1, new = true }
@@ -912,14 +922,14 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Count"] = slot.count
 
 	-- Parser/calculator error message
-	slot.errMsg = new("LabelControl", {"LEFT",slot.count,"RIGHT"}, 2, 2, 0, 16, function()
+	slot.errMsg = new("LabelControl", {"LEFT",slot.count,"RIGHT"}, {2, 2, 0, 16}, function()
 		local gemInstance = self.displayGroup and self.displayGroup.gemList[index]
 		return "^1"..(gemInstance and gemInstance.errMsg or "")
 	end)
 	self.controls["gemSlot"..index.."ErrMsg"] = slot.errMsg
 
 	-- Enable global-effect skill 1
-	slot.enableGlobal1 = new("CheckBoxControl", {"TOPLEFT",slot.delete,"BOTTOMLEFT"}, 0, 2, 20, "", function(state)
+	slot.enableGlobal1 = new("CheckBoxControl", {"TOPLEFT",slot.delete,"BOTTOMLEFT"}, {0, 2, 20}, "", function(state)
 		local gemInstance = self.displayGroup.gemList[index]
 		gemInstance.enableGlobal1 = state
 		self:AddUndoState()
@@ -938,7 +948,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."EnableGlobal1"] = slot.enableGlobal1
 
 	-- Enable global-effect skill 2
-	slot.enableGlobal2 = new("CheckBoxControl", {"LEFT",slot.enableGlobal1,"RIGHT",true}, 0, 0, 20, "", function(state)
+	slot.enableGlobal2 = new("CheckBoxControl", {"LEFT",slot.enableGlobal1,"RIGHT",true}, {0, 0, 20}, "", function(state)
 		local gemInstance = self.displayGroup.gemList[index]
 		gemInstance.enableGlobal2 = state
 		self:AddUndoState()
@@ -1078,7 +1088,6 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 				if gemInstance.grantedEffect.levels[gemInstance.level] then
 					gemInstance.grantedEffect.levels[gemInstance.level].cost = {}
 				end
-				gemInstance.grantedEffect.triggered = gemInstance.triggered
 			end
 		elseif gemInstance.nameSpec:match("%S") then
 			-- Specified by gem/skill name, try to match it
@@ -1204,7 +1213,7 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 		end
 	end
 	local showOtherHeader = true
-	for _, gemInstance in ipairs(socketGroup.gemList) do
+	for _, gemInstance in ipairs(socketGroup.displayGemList or socketGroup.gemList) do
 		if not gemShown[gemInstance] then
 			if showOtherHeader then
 				showOtherHeader = false
@@ -1286,8 +1295,8 @@ end
 -- Opens the skill set manager
 function SkillsTabClass:OpenSkillSetManagePopup()
 	main:OpenPopup(370, 290, "Manage Skill Sets", {
-		new("SkillSetListControl", nil, 0, 50, 350, 200, self),
-		new("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
+		new("SkillSetListControl", nil, {0, 50, 350, 200}, self),
+		new("ButtonControl", nil, {0, 260, 90, 20}, "Done", function()
 			main:ClosePopup()
 		end),
 	})
@@ -1326,4 +1335,8 @@ function SkillsTabClass:SetActiveSkillSet(skillSetId)
 	self.controls.groupList.list = self.socketGroupList
 	self.activeSkillSetId = skillSetId
 	self.build.buildFlag = true
+
+	-- set the loadout option to the dummy option since it is now dirty
+	self:SetDisplayGroup(self.socketGroupList[1])
+	self.build:SyncLoadouts()
 end

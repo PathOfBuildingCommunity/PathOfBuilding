@@ -7,9 +7,10 @@ loadStatFile("passive_skill_stat_descriptions.txt")
 local out = io.open("../Data/TattooPassives.lua", "w")
 
 local stats = dat("Stats")
-local passiveSkillOverridesDat = dat("passiveskilloverrides")
-local passiveSkillTattoosDat = dat("passiveskilltattoos")
+local passiveSkillOverridesDat = dat("PassiveSkillOverrides")
+local passiveSkillTattoosDat = dat("PassiveSkillTattoos")
 local clientStrings = dat("ClientStrings")
+local baseItemTypes= dat("BaseItemTypes")
 
 local tattoo_PASSIVE_GROUP = 1e9
 
@@ -161,6 +162,11 @@ for i=1, passiveSkillOverridesDat.rowCount do
 
 	-- node name
 	tattooPassiveNode.dn = datFileRow.Name
+	-- legacy tattoo
+	if tattooPassiveNode.dn and tattooPassiveNode.ks == false then
+		tattooPassiveNode.legacy = baseItemTypes:GetRow("Name", datFileRow.Name).Hidden == 2 and true or false
+	end
+
 	-- icon
 	tattooPassiveNode.icon = datFileRow.Icon:gsub("%.dds$", ".png")
 	tattooPassiveNode.sd[#tattooPassiveNode.sd + 1] = limitText

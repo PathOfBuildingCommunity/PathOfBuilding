@@ -3,6 +3,16 @@
 return {
 -- Quiver
 [[
+Ahuana's Bite
+Sharktooth Arrow Quiver
+LevelReq: 56
+Implicits: 1
+Gain (6-8) Life per Enemy Hit with Attacks
+Adds (30-40) to (60-70) Cold Damage to Attacks
++(20-30)% to Cold Resistance
+Enemies Chilled by your Hits have Damage taken increased by Chill Effect
+Chill Enemies as though dealing (60-100)% more Damage
+]],[[
 Asphyxia's Wrath
 {variant:1,2}Two-Point Arrow Quiver
 {variant:3}Feathered Arrow Quiver
@@ -285,17 +295,18 @@ Attack skills can have 1 additional Totem Summoned at a time
 Steelworm
 Broadhead Arrow Quiver
 Variant: Pre 3.17.0
+Variant: Pre 3.26.0
 Variant: Current
 LevelReq: 52
 Implicits: 2
 {variant:1}6 to 12 Added Physical Damage with Bow Attacks
-{variant:2}(8-10)% increased Attack Speed
+{variant:2,3}(8-10)% increased Attack Speed
 Grants Call of Steel
 (30-60)% increased Evasion Rating and Armour
 Deal no Non-Physical Damage
 Attacks that Fire Projectiles Consume up to 1 additional Steel Shard
-Skills Fire 3 additional Projectiles for 4 seconds after
-you consume a total of 12 Steel Shards
+{variant:1,2}Skills Fire 3 additional Projectiles for 4 seconds after you consume a total of 12 Steel Shards
+{variant:3}Skills Fire 3 additional Projectiles for 4 seconds after you consume a total of 8 Steel Shards
 ]],[[
 Soul Strike
 Spike-Point Arrow Quiver

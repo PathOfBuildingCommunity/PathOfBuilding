@@ -186,7 +186,7 @@ Skills Chain +1 times
 Nebulis
 Void Sceptre
 League: Synthesis
-Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
+Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage
@@ -214,12 +214,12 @@ Variant: Current
 Requires Level 68, 212 Str
 Implicits: 1
 10% reduced Enemy Stun Threshold
-Adds (45-60) to (100-120) Physical Damage 
-Gain (30-40)% of Physical Attack Damage as Extra Fire Damage 
-+4% to Chaos Resistance per Endurance Charge 
-1% reduced Elemental Damage taken from Hits per Endurance Charge 
-Adds 5 to 8 Physical Damage per Endurance Charge 
-+500 to Armour per Endurance Charge 
+Adds (45-60) to (100-120) Physical Damage
+Gain (30-40)% of Physical Attack Damage as Extra Fire Damage
++4% to Chaos Resistance per Endurance Charge
+1% reduced Elemental Damage taken from Hits per Endurance Charge
+Adds 5 to 8 Physical Damage per Endurance Charge
++500 to Armour per Endurance Charge
 {variant:1}400 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
 {variant:2}200 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
 ]],
@@ -232,12 +232,12 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
-40% increased Elemental Damage 
-(180-200)% increased Physical Damage 
-(10-15)% increased Attack Speed 
-(80-100)% increased Critical Strike Chance 
-50% of Physical Damage Converted to Lightning Damage 
-Every 16 seconds you gain Elemental Overload for 8 seconds 
+40% increased Elemental Damage
+(180-200)% increased Physical Damage
+(10-15)% increased Attack Speed
+(80-100)% increased Critical Strike Chance
+50% of Physical Damage Converted to Lightning Damage
+Every 16 seconds you gain Elemental Overload for 8 seconds
 You have Resolute Technique while you do not have Elemental Overload
 {variant:2}100% increased Physical Damage while you have Resolute Technique
 ]],[[
@@ -261,7 +261,7 @@ Requires Level 60, 95 Str, 131 Int
 Implicits: 1
 40% increased Elemental Damage
 Grants Level 25 Scorching Ray Skill
-(12-20)% increased Cast Speed 
+(12-20)% increased Cast Speed
 Recover (1-3)% of Life on Kill
 Recover (1-3)% of Mana on Kill
 10% increased Scorching Ray beam length
@@ -280,12 +280,15 @@ Socketed Gems are Supported by Level 15 Inspiration
 ]],[[
 Replica Bitterdream
 Shadow Sceptre
+Variant: Pre 3.23.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 32, 52 Str, 62 Int
 Implicits: 1
 22% increased Elemental Damage
-Socketed Gems are Supported by Level 1 Elemental Penetration
+{variant:1}Socketed Gems are Supported by Level 1 Elemental Penetration
+{variant:2}Socketed Gems are Supported by Level 15 Elemental Penetration
 Socketed Gems are Supported by Level 15 Immolate
 Socketed Gems are Supported by Level 15 Unbound Ailments
 Socketed Gems are Supported by Level 15 Ice Bite
@@ -358,24 +361,31 @@ Variant: Pre 3.0.0
 Variant: Pre 3.11.0 (Life/Mana)
 Variant: Pre 3.11.0 (Life/ES)
 Variant: Pre 3.11.0 (Mana/ES)
+Variant: Pre 3.24.0 (Life/Mana)
+Variant: Pre 3.24.0 (Life/ES)
+Variant: Pre 3.24.0 (Mana/ES)
 Variant: Current (Life/Mana)
 Variant: Current (Life/ES)
 Variant: Current (Mana/ES)
 Requires Level 32, 52 Str, 62 Int
 Implicits: 2
 {variant:1}15% increased Elemental Damage
-{variant:2,3,4,5,6,7,8}22% increased Elemental Damage
+{variant:2,3,4,5,6,7,8,9,10,11}22% increased Elemental Damage
 {variant:1,2,3,4,5}(30-50)% increased Global Damage
 {variant:6,7,8}(40-60)% increased Global Damage
+{variant:9,10,11}+2 to Level of All Spell Skill Gems
 {variant:1,2,3,4,5}7% Global chance to Blind Enemies on hit
-{variant:6,7,8}10% Global chance to Blind Enemies on hit
+{variant:6,7,8,9,10,11}10% Global chance to Blind Enemies on hit
 Blind does not affect your Chance to Hit
-Enemies Blinded by you while you are Blinded have Malediction
+Enemies Blinded by you have Malediction
 {variant:1,2}Gain 1 Mana on Kill per Level
 {variant:1,2}Gain 1 Energy Shield on Kill per Level
 {variant:3,4,6,7}+1 to maximum Life per Level
+{variant:9,10}+(1-2) to maximum Life per Level
 {variant:3,5,6,8}+1 to maximum Mana per Level
+{variant:9,11}+(1-2) to maximum Mana per Level
 {variant:4,5,7,8}+1 to maximum Energy Shield per Level
+{variant:10,11}+(1-2) to maximum Energy Shield per Level
 ]],[[
 Death's Hand
 Karui Sceptre
@@ -447,6 +457,18 @@ Minions deal (30-40)% increased Damage
 Raised Zombies Cover Enemies in Ash on Hit
 Raised Zombies take (15.0-30.0)% of their Maximum Life per second as Fire Damage
 Raised Zombies have Avatar of Fire
+]],[[
+Maata's Teaching
+Karui Sceptre
+Variant: Pre 3.25.0
+Variant: Current
+Requires Level 56, 96 Str, 96 Int
+Implicits: 1
++(30-40) to Intelligence
+{variant:1}(25-50)% increased Critical Strike Chance
+{variant:2}(15-30)% increased Critical Strike Chance
++(1-2) to Level of all Minion Skill Gems
+Minions' Base Attack Critical Strike Chance is equal to the Critical Strike Chance of your Main Hand Weapon
 ]],[[
 Mon'tregul's Grasp
 Void Sceptre
@@ -571,25 +593,27 @@ Shepherd of Souls
 ]],
 -- Weapon: Two Handed Mace
 [[
-Brain Rattler 
+Brain Rattler
 Meatgrinder
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.26.0
 Variant: Current
 Implicits: 3
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}30% increased Stun Duration on Enemies
-{variant:3}5% chance to deal Double Damage
+{variant:3,4}5% chance to deal Double Damage
 {variant:1,2}Adds (80-100) to (320-370) Physical Damage
 {variant:3}Adds (60-80) to (270-320) Physical Damage
+{variant:4}Adds (100-130) to (360-430) Physical Damage
 50% of Physical Damage Converted to Lightning Damage
 {variant:1,2}15% chance to Shock
-{variant:3}50% chance to Shock
+{variant:3,4}50% chance to Shock
 {variant:1,2}10% chance to Cause Monsters to Flee
 Damage Penetrates 20% Lightning Resistance
 Enemies you Shock have 30% reduced Cast Speed
 Enemies you Shock have 20% reduced Movement Speed
-{variant:3}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
+{variant:3,4}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
 ]],[[
 Chober Chaber
 Great Mallet
@@ -789,6 +813,31 @@ Adds (94-98) to (115-121) Physical Damage
 +(25-50) to all Attributes
 Enemies killed explode dealing 10% of their Life as Fire Damage
 Recover 5% of Life on Kill
+]],[[
+Serle's Masterwork
+Phantom Mace
+League: Settlers of Kalguur
+Requires Level 53, 170 Str
+Implicits: 1
+10% reduced Enemy Stun Threshold
++(30-40) to Strength
++(30-40) to Dexterity
+(150-250)% increased Physical Damage
++(400-500) to Accuracy Rating
+Can have 2 additional Runesmithing Enchantments
+Can be Enchanted by a Kalguuran Runesmith
+]],[[
+Tawhoa's Felling
+Piledriver
+League: Settlers of Kalguur
+Requires Level 61, 212 Str
+Implicits: 1
+20% reduced Enemy Stun Threshold
+Trigger Level 20 Tawhoa's Chosen when you Attack with a Non-Vaal Slam or Strike Skill near an Enemy
++(30-40) to Strength
+(250-300)% increased Physical Damage
+(20-30)% increased Stun Duration on Enemies
+(20-30)% reduced Enemy Stun Threshold with this Weapon
 ]],[[
 Tidebreaker
 Imperial Maul

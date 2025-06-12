@@ -1,7 +1,7 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
-loadStatFile("stat_descriptions.txt")
+loadStatFile("tincture_stat_descriptions.txt")
 
 function table.containsId(table, element)
   for _, value in pairs(table) do
@@ -33,7 +33,7 @@ local function writeMods(outName, condFunc)
 					print("[Jewel]: Skipping '" .. mod.Id .. "'")
 					goto continue
 				end
-			elseif mod.Family[1].Id ~= "AuraBonus" and mod.Family[1].Id ~= "ArbalestBonus" and mod.GenerationType == 3 and not (mod.Domain == 16 or (mod.Domain == 1 and mod.Id:match("^Synthesis"))) then
+			elseif mod.Family[1] and mod.Family[1].Id ~= "AuraBonus" and mod.Family[1].Id ~= "ArbalestBonus" and mod.GenerationType == 3 and not (mod.Domain == 16 or (mod.Domain == 1 and mod.Id:match("^Synthesis"))) then
 				goto continue
 			end
 			local stats, orders = describeMod(mod)
@@ -79,7 +79,6 @@ local function writeMods(outName, condFunc)
 					end
 				end
 				out:write('"', table.concat(stats, '", "'), '", ')
-				out:write('statOrderKey = "', table.concat(orders, ','), '", ')
 				out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
 				out:write('level = ', mod.Level, ', group = "', mod.Type.Id, '", ')
 				out:write('weightKey = { ')
@@ -88,18 +87,37 @@ local function writeMods(outName, condFunc)
 				end
 				out:write('}, ')
 				out:write('weightVal = { ', table.concat(mod.SpawnWeights, ', '), ' }, ')
-				out:write('weightMultiplierKey = { ')
-				for _, tag in ipairs(mod.GenerationWeightTags) do
-					out:write('"', tag.Id, '", ')
-				end
-				out:write('}, ')
-				out:write('weightMultiplierVal = { ', table.concat(mod.GenerationWeightValues, ', '), ' }, ')
-				if mod.Tags[1] then
-					out:write('tags = { ')
-					for _, tag in ipairs(mod.Tags) do
-						out:write('"', tag.Id, '", ')
+				if mod.GenerationWeightTags[1] then
+					-- make large clusters only have 1 notable suffix
+					if mod.GenerationType == 2 and mod.Tags[1] and outName == "../Data/ModJewelCluster.lua" and mod.Tags[1].Id == "has_affliction_notable" then
+						out:write('weightMultiplierKey = { "has_affliction_notable2", ')
+						for _, tag in ipairs(mod.GenerationWeightTags) do
+							out:write('"', tag.Id, '", ')
+						end
+						out:write('}, ')
+						out:write('weightMultiplierVal = { 0, ', table.concat(mod.GenerationWeightValues, ', '), ' }, ')
+						if mod.Tags[1] then
+							out:write('tags = { "has_affliction_notable2", ')
+							for _, tag in ipairs(mod.Tags) do
+								out:write('"', tag.Id, '", ')
+							end
+							out:write('}, ')
+						end
+					else
+						out:write('weightMultiplierKey = { ')
+						for _, tag in ipairs(mod.GenerationWeightTags) do
+							out:write('"', tag.Id, '", ')
+						end
+						out:write('}, ')
+						out:write('weightMultiplierVal = { ', table.concat(mod.GenerationWeightValues, ', '), ' }, ')
+						if mod.Tags[1] then
+							out:write('tags = { ')
+							for _, tag in ipairs(mod.Tags) do
+								out:write('"', tag.Id, '", ')
+							end
+							out:write('}, ')
+						end
 					end
-					out:write('}, ')
 				end
 				out:write('modTags = { ', stats.modTags, ' }, ')
 				out:write('},\n')
@@ -118,10 +136,14 @@ writeMods("../Data/ModItem.lua", function(mod)
 			and (mod.GenerationType == 1 or mod.GenerationType == 2 or (mod.GenerationType == 3 and (mod.Id:match("^Synthesis") or (mod.Family[1].Id ~= "AuraBonus" and mod.Family[1].Id ~= "ArbalestBonus"))) or mod.GenerationType == 5
 			 or mod.GenerationType == 25 or mod.GenerationType == 24 or mod.GenerationType == 28 or mod.GenerationType == 29)
 			and not mod.Id:match("^Hellscape[UpDown]+sideMap") -- Exclude Scourge map mods
+			and not mod.Id:match("Royale")
 			and #mod.AuraFlags == 0
 end)
 writeMods("../Data/ModFlask.lua", function(mod)
 	return mod.Domain == 2 and (mod.GenerationType == 1 or mod.GenerationType == 2)
+end)
+writeMods("../Data/ModTincture.lua", function(mod)
+	return (mod.Domain == 34) and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 3)
 end)
 writeMods("../Data/ModJewel.lua", function(mod)
 	return (mod.Domain == 10 or mod.Domain == 16) and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
@@ -132,11 +154,17 @@ end)
 writeMods("../Data/ModJewelCluster.lua", function(mod)
 	return (mod.Domain == 21 and (mod.GenerationType == 1 or mod.GenerationType == 2)) or (mod.Domain == 10 and mod.GenerationType == 5)
 end)
+writeMods("../Data/ModJewelCharm.lua", function(mod)
+	return (mod.Domain == 35) and (mod.GenerationType == 1 or mod.GenerationType == 2)
+end)
 writeMods("../Data/Uniques/Special/WatchersEye.lua", function(mod)
-	return (mod.Family[1].Id == "AuraBonus" or mod.Family[1].Id == "ArbalestBonus") and mod.GenerationType == 3 and not mod.Id:match("^Synthesis")
+	return mod.Family[1] and (mod.Family[1].Id == "AuraBonus" or mod.Family[1].Id == "ArbalestBonus") and mod.GenerationType == 3 and not mod.Id:match("^Synthesis")
 end)
 writeMods("../Data/ModVeiled.lua", function(mod)
 	return mod.Domain == 28 and (mod.GenerationType == 1 or mod.GenerationType == 2)
+end)
+writeMods("../Data/ModNecropolis.lua", function(mod)
+	return mod.Domain == 1 and mod.Id:match("^NecropolisCrafting")
 end)
 
 

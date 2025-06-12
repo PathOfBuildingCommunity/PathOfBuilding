@@ -59,6 +59,10 @@ function modLib.parseTags(line)
 				if tag ~= "" then
 					local tagName, tagValue = tag:match("^(%a+)=(.+)")
 					if tagName then
+						-- list of all the tag parts that should be numbers
+						if ({threshold = true})[tagName] then
+							tagValue = tonumber(tagValue)
+						end
 						tagSet[tagName] = tagValue == "true" and true or tagValue
 					else
 						ConPrintf("Error tag invalid: "..tag)
@@ -207,7 +211,7 @@ function modLib.formatMod(mod)
 end
 
 function modLib.formatSourceMod(mod)
-    return s_format("%s|%s|%s", mod.value, mod.source, modLib.formatModParams(mod))
+    return s_format("%s|%s|%s", modLib.formatValue(mod.value), mod.source, modLib.formatModParams(mod))
 end
 
 function modLib.setSource(mod, source)

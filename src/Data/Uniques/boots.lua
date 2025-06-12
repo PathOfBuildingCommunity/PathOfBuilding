@@ -96,6 +96,14 @@ Gain a Power Charge on Hit while Poisoned
 Necrotic Footprints
 50% chance for Spell Hits against you to inflict Poison
 ]],[[
+Kahuturoa's Certainty
+Ancient Greaves
+Requires Level 46, 82 Str
+(100-150)% increased Armour
+5% reduced Movement Speed
+(100-200)% increased Stun and Block Recovery
+Unaffected by Damaging Ailments
+]],[[
 Kaom's Roots
 Titan Greaves
 Variant: Pre 2.6.0
@@ -127,7 +135,7 @@ Stormcharger
 Plated Greaves
 Variant: Pre 3.19.0
 Variant: Current
-+(1-50)% to Lightning Resistance 
++(1-50)% to Lightning Resistance
 {variant:1}20% increased Movement Speed
 {variant:2}(1-40)% increased Movement Speed
 {variant:1}30% of Physical Damage Converted to Lightning Damage
@@ -136,6 +144,16 @@ Variant: Current
 {variant:1}(15-25)% increased Effect of Lightning Ailments
 {variant:2}(1-50)% increased Effect of Lightning Ailments
 {variant:2}Unaffected by Shocked Ground
+]],[[
+The Tempest Rising
+Goliath Greaves
+Source: Drops from unique{Sirus, Awakener of Worlds} (Uber)
+Requires Level 54, 95 Str
+(80–120)% increased Armour
+30% increased Movement Speed
+(5–25)% increased Duration of Ailments on Enemies
+Damaging Ailments deal damage (5–25)% faster
+You and Enemies in your Presence count as moving while affected by Elemental Ailments
 ]],[[
 Torchoak Step
 Antique Greaves
@@ -178,12 +196,17 @@ You can apply an additional Curse
 ]],[[
 Dawnstrider
 Vaal Greaves
+Variant: Pre 3.25.0
+Variant: Current
 Source: Drops from unique{The Searing Exarch}
 +(80-100) to maximum Life
 30% increased Movement Speed
-100% increased Effect of Buffs your Ancestor Totems grant while Active
-Buffs from Active Ancestor Totems Linger for 4 seconds
-Maximum 1 Buff from an Active Ancestor Totem at a time
+{variant:1}100% increased Effect of Buffs your Ancestor Totems grant while Active
+{variant:1}Buffs from Active Ancestor Totems Linger for 4 seconds
+{variant:1}Maximum 1 Buff from an Active Ancestor Totem at a time
+{variant:2}Socketed Slam Gems are Supported by Level 25 Earthbreaker
+{variant:2}Ancestral Bond
+{variant:2}(3-5)% of Damage from hits is taken from your nearest Totem's Life before you
 ]],
 -- Boots: Evasion
 [[
@@ -247,7 +270,7 @@ Requires Level 22, 42 Dex
 {variant:2,3}15% increased Movement Speed for 9 seconds on Throwing a Trap
 ]],[[
 Orbala's Stand
-Eelskin Boots 
+Eelskin Boots
 (100-150)% increased Evasion Rating
 (20-30)% increased Movement Speed
 Cannot be Stunned by Suppressed Spell Damage
@@ -292,11 +315,13 @@ Trigger Level 20 Intimidating Cry when you lose Cat's Stealth
 Goldwyrm
 Nubuck Boots
 Variant: Pre 1.1.0
+Variant: Pre 3.25.0
 Variant: Current
 Requires Level 34, 62 Dex
 60% increased Mana Regeneration Rate
 {variant:1}(20-30)% increased Quantity of Items Found
 {variant:2}(14-20)% increased Quantity of Items Found
+{variant:3}(20-40)% increased Rarity of Items Found
 +(40-50)% to Fire Resistance
 10% increased Movement Speed
 ]],[[
@@ -412,6 +437,8 @@ Requires Level 22, 42 Int
 ]],[[
 Replica Bones of Ullr
 Silk Slippers
+Variant: Pre 3.23.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 22, 42 Int
@@ -419,8 +446,10 @@ Requires Level 22, 42 Int
 +20 to maximum Life
 +20 to maximum Mana
 (5-15)% increased Movement Speed
-Summoned Phantasms have 10% chance to refresh their Duration when they Hit a Unique Enemy
-Summoned Raging Spirits have 10% chance to refresh their Duration when they Hit a Unique Enemy
+{variant:1}Summoned Phantasms have 10% chance to refresh their Duration when they Hit a Unique Enemy
+{variant:2}Summoned Phantasms have 10% chance to refresh their Duration when they Hit a Rare or Unique Enemy
+{variant:1}Summoned Raging Spirits have 10% chance to refresh their Duration when they Hit a Unique Enemy
+{variant:2}Summoned Raging Spirits have 10% chance to refresh their Duration when they Hit a Rare or Unique Enemy
 ]],[[
 Doryani's Delusion
 Sorcerer Boots
@@ -611,10 +640,13 @@ Implicits: 3
 {variant:3}+(8-12)% to Cold and Lightning Resistances
 Grants Level 1 Embrace Madness Skill
 30% increased Movement Speed
+{variant:1}(150-300)% increased Armour and Evasion
 {variant:1}+15 to maximum Fortification while affected by Glorious Madness
 {variant:1}20% chance to deal Double Damage while affected by Glorious Madness
+{variant:2}(20-40)% increased Effect of Non-Damaging Ailments
 {variant:2}You have Igniting, Chilling and Shocking Conflux while affected by Glorious Madness
 {variant:2}Immune to Elemental Ailments while affected by Glorious Madness
+{variant:3}(20-40)% increased Chaos Damage
 {variant:3}Enemies you Kill while affected by Glorious Madness have a 40% chance to Explode, dealing a quarter of their Life as Chaos Damage
 {variant:3}All Damage inflicts Poison while affected by Glorious Madness
 ]],[[
@@ -687,15 +719,27 @@ Requires Level 69, 48 Str, 48 Dex
 ]],[[
 Annihilation's Approach
 Dragonscale Boots
+Variant: Pre 3.23.0
+Variant: Current
 Source: Drops from unique{The Searing Exarch} (Uber)
 Grants Level 20 Approaching Flames Skill
 (60-100)% increased Armour and Evasion
 30% increased Movement Speed
 Cannot be Chilled
 Cannot be Frozen
-Take 10000 Fire Damage per Second while Flame-Touched
+{variant:1}Take 10000 Fire Damage per Second while Flame-Touched
+{variant:2}Take 6000 Fire Damage per Second while Flame-Touched
 Gain Adrenaline when you become Flame-Touched
 Lose Adrenaline when you cease to be Flame-Touched
+]],[[
+Gamblesprint
+Hydrascale Boots
+League: Affliction
+Requires Level 59, 56 Str, 56 Dex
++(30-40) to Dexterity
+(100-150)% increased Armour and Evasion
++(20-40)% to Lightning Resistance
+When Hit, gain a random Movement Speed modifier from 40% reduced to 100% increased until Hit again
 ]],[[
 Lioneye's Paws
 Bronzescale Boots
@@ -825,17 +869,30 @@ Socketed Gems are Supported by Level 25 Divine Blessing
 Ralakesh's Impatience
 Riveted Boots
 Variant: Pre 3.19.0
-Variant: Current
+Variant: Pre 3.23.0
+Variant: Pre 3.24.0
+Variant: Pre 3.26.0
+Variant: Endurance Current
+Variant: Frenzy Current
+Variant: Power Current
 Requires Level 36, 35 Str, 35 Int
 +(15-25)% to Cold Resistance
 +(15-25)% to Chaos Resistance
 {variant:1}20% increased Movement Speed
-{variant:2}30% increased Movement Speed
+{variant:2,3}30% increased Movement Speed
+{variant:5,6,7}(15-25)% increased Movement Speed
+{variant:5,6,7}Corrupted Blood cannot be inflicted on you
 {variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary
-Lose all Frenzy, Endurance, and Power Charges when you Move
+{variant:1,2}Lose all Frenzy, Endurance, and Power Charges when you Move
 {variant:2}Minimum Endurance Charges equal to Maximum while stationary
 {variant:2}Minimum Frenzy Charges equal to Maximum while stationary
 {variant:2}Minimum Power Charges equal to Maximum while stationary
+{variant:3,4}Count as having maximum number of Endurance Charges
+{variant:3,4}Count as having maximum number of Frenzy Charges
+{variant:3,4}Count as having maximum number of Power Charges
+{variant:5}Count as having maximum number of Endurance Charges
+{variant:6}Count as having maximum number of Frenzy Charges
+{variant:7}Count as having maximum number of Power Charges
 ]],[[
 Wake of Destruction
 Mesh Boots
@@ -924,6 +981,7 @@ You have Onslaught while not on Low Mana
 Omeyocan
 Carnal Boots
 Variant: Pre 3.16.0
+Variant: Pre 3.26.0
 Variant: Current
 League: Incursion
 Source: Upgraded from unique{Dance of the Offered} via currency{Vial of the Ritual}
@@ -933,6 +991,7 @@ Requires Level 55, 52 Dex, 52 Int
 30% increased Movement Speed
 {variant:1}2% increased Evasion per 500 Maximum Mana
 {variant:2}10% increased Evasion per 500 Maximum Mana
+{variant:3}20% increased Evasion per 500 Maximum Mana
 You have Onslaught while not on Low Mana
 Lose 7% of maximum Mana per Second
 ]],[[
@@ -1026,6 +1085,16 @@ Requires Level 59, 27 Dex, 27 Int
 (10-20)% increased Movement Speed while Ignited
 +25% chance to be Ignited
 Regenerate (75-125) Life per second while Ignited
+]],[[
+Veruso's Ambition
+Shackled Boots
+League: Necropolis
+Requires Level 34, 34 Dex, 34 Int
+Grants Level 20 Ravenous Skill
+(80–120)% increased Evasion and Energy Shield
++(13–23)% to Chaos Resistance
+(20–30)% increased Movement Speed
+Enemies display their Monster Category
 ]],[[
 Voidwalker
 Murder Boots

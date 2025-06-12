@@ -25,17 +25,17 @@ local slot_map = {
 	["Belt"] 			= { icon = NewImageHandle(), path = "Assets/icon_belt.png" },
 }
 
-local SkillListClass = newClass("SkillListControl", "ListControl", function(self, anchor, x, y, width, height, skillsTab)
-	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, skillsTab.socketGroupList)
+local SkillListClass = newClass("SkillListControl", "ListControl", function(self, anchor, rect, skillsTab)
+	self.ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.socketGroupList)
 	self.skillsTab = skillsTab
 	self.label = "^7Socket Groups:"
-	self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Delete", function()
+	self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Delete", function()
 		self:OnSelDelete(self.selIndex, self.selValue)
 	end)
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil and self.selValue.source == nil
 	end
-	self.controls.deleteAll = new("ButtonControl", {"RIGHT",self.controls.delete,"LEFT"}, -4, 0, 70, 18, "Delete All", function()
+	self.controls.deleteAll = new("ButtonControl", {"RIGHT",self.controls.delete,"LEFT"}, {-4, 0, 70, 18}, "Delete All", function()
 		main:OpenConfirmPopup("Delete All", "Are you sure you want to delete all socket groups in this build?", "Delete", function()
 			wipeTable(self.list)
 			skillsTab:SetDisplayGroup()
@@ -48,7 +48,7 @@ local SkillListClass = newClass("SkillListControl", "ListControl", function(self
 	self.controls.deleteAll.enabled = function()
 		return #self.list > 0 
 	end
-	self.controls.new = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, -4, 0, 60, 18, "New", function()
+	self.controls.new = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, {-4, 0, 60, 18}, "New", function()
 		local newGroup = { 
 			label = "", 
 			enabled = true, 
@@ -171,7 +171,8 @@ function SkillListClass:OnHoverKeyUp(key)
 			-- Get the first gem in the group
 			local gem = item.gemList[1]
 			if gem then
-				itemLib.wiki.openGem(gem.gemData)
+				-- either the skill is from a gem or granted from an item/passive
+				itemLib.wiki.openGem(gem.gemData or gem.grantedEffect.name)
 			end
 		elseif key == "RIGHTBUTTON" then
 			if IsKeyDown("CTRL") then
@@ -207,10 +208,7 @@ end
 
 function SkillListClass:GetRowIcon(column, index, socketGroup)
 	if column == 1 then
-		local slot = socketGroup.slot or nil
-		local color = "^7"
-		local currentMainSkill = self.skillsTab.build.mainSocketGroup == index
-		local disabled = not socketGroup.enabled or not socketGroup.slotEnabled
+		local slot = socketGroup.slot
 		local itemsTab = self.skillsTab.build.itemsTab
 		local weapon1Sel = itemsTab.activeItemSet["Weapon 1"].selItemId or 0
 		local weapon1Type = itemsTab.items[weapon1Sel] and itemsTab.items[weapon1Sel].base.type or "None"
@@ -232,10 +230,6 @@ function SkillListClass:GetRowIcon(column, index, socketGroup)
 		if slot == "Weapon 2 Swap" and (weapon2SwapType == "Quiver" or weapon2SwapType == "Shield") then
 			slot = weapon2SwapType.." Swap"
 		end
-		if slot_map[slot] then
-			return slot_map[slot].icon
-		else
-			return nil
-		end
+		return slot_map[slot] and slot_map[slot].icon
 	end
 end

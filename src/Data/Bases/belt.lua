@@ -54,7 +54,7 @@ itemBases["Micro-Distillery Belt"] = {
 	type = "Belt",
 	tags = { experimental_base = true, default = true, belt = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
-	implicit = "Flasks applied to you have 20% increased Effect\nCan't use Flask in Fifth Slot",
+	implicit = "Flasks applied to you have 30% increased Effect\nCan't use Flask in Fifth Slot",
 	implicitModTypes = { {  }, {  }, },
 	req = { level = 24, },
 }
@@ -63,6 +63,14 @@ itemBases["Mechalarm Belt"] = {
 	tags = { experimental_base = true, default = true, belt = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "Trigger Level 20 Summon Taunting Contraption when you use a Flask",
+	implicitModTypes = { {  }, },
+	req = { level = 56, },
+}
+itemBases["Mechanical Belt"] = {
+	type = "Belt",
+	tags = { experimental_base = true, default = true, belt = true, },
+	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
+	implicit = "Has 1 Socket",
 	implicitModTypes = { {  }, },
 	req = { level = 56, },
 }
@@ -96,6 +104,6 @@ itemBases["Golden Obi"] = {
 	tags = { demigods = true, not_for_sale = true, default = true, belt = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "(20-30)% increased Rarity of Items found",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "drop" }, },
 	req = { },
 }

@@ -93,14 +93,34 @@ itemBases["Titan Greaves"] = {
 	armour = { ArmourBaseMin = 241, ArmourBaseMax = 278, },
 	req = { level = 68, str = 120, },
 }
+itemBases["Precursor Greaves"] = {
+	type = "Boots",
+	subType = "Armour",
+	socketLimit = 4,
+	tags = { boots = true, str_armour = true, not_for_sale = true, armour = true, top_tier_base_item_type = true, default = true, },
+	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 307, ArmourBaseMax = 353, },
+	req = { level = 78, str = 153, },
+}
+itemBases["Leviathan Greaves"] = {
+	type = "Boots",
+	subType = "Armour",
+	socketLimit = 4,
+	tags = { boots = true, str_armour = true, not_for_sale = true, armour = true, top_tier_base_item_type = true, default = true, },
+	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 359, ArmourBaseMax = 413, },
+	req = { level = 84, str = 177, },
+}
 itemBases["Basemetal Treads"] = {
 	type = "Boots",
 	subType = "Armour",
 	socketLimit = 4,
 	tags = { boots = true, str_armour = true, not_for_sale = true, armour = true, default = true, },
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
-	implicit = "+(4-5)% Chance to Block Attack Damage\nYou take 20% of Damage from Blocked Hits",
-	implicitModTypes = { { "block" }, { "block" }, },
+	implicit = "30% increased Stun and Block Recovery\n20% reduced Stun Threshold",
+	implicitModTypes = { {  }, {  }, },
 	armour = { ArmourBaseMin = 68, ArmourBaseMax = 78, },
 	req = { level = 20, str = 39, },
 }
@@ -110,8 +130,8 @@ itemBases["Darksteel Treads"] = {
 	socketLimit = 4,
 	tags = { boots = true, str_armour = true, not_for_sale = true, armour = true, default = true, },
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
-	implicit = "+(4-5)% Chance to Block Attack Damage\nYou take 20% of Damage from Blocked Hits",
-	implicitModTypes = { { "block" }, { "block" }, },
+	implicit = "40% increased Stun and Block Recovery\n20% reduced Stun Threshold",
+	implicitModTypes = { {  }, {  }, },
 	armour = { ArmourBaseMin = 164, ArmourBaseMax = 189, },
 	req = { level = 50, str = 89, },
 }
@@ -121,8 +141,8 @@ itemBases["Brimstone Treads"] = {
 	socketLimit = 4,
 	tags = { boots = true, str_armour = true, not_for_sale = true, armour = true, default = true, },
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
-	implicit = "+(4-5)% Chance to Block Attack Damage\nYou take 20% of Damage from Blocked Hits",
-	implicitModTypes = { { "block" }, { "block" }, },
+	implicit = "50% increased Stun and Block Recovery\n20% reduced Stun Threshold",
+	implicitModTypes = { {  }, {  }, },
 	armour = { ArmourBaseMin = 236, ArmourBaseMax = 271, },
 	req = { level = 80, str = 124, },
 }
@@ -216,6 +236,26 @@ itemBases["Slink Boots"] = {
 	implicitModTypes = { },
 	armour = { EvasionBaseMin = 246, EvasionBaseMax = 283, },
 	req = { level = 69, dex = 120, },
+}
+itemBases["Harpyskin Boots"] = {
+	type = "Boots",
+	subType = "Evasion",
+	socketLimit = 4,
+	tags = { boots = true, top_tier_base_item_type = true, dex_armour = true, armour = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
+	implicitModTypes = { },
+	armour = { EvasionBaseMin = 307, EvasionBaseMax = 353, },
+	req = { level = 78, dex = 153, },
+}
+itemBases["Velour Boots"] = {
+	type = "Boots",
+	subType = "Evasion",
+	socketLimit = 4,
+	tags = { boots = true, top_tier_base_item_type = true, dex_armour = true, armour = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
+	implicitModTypes = { },
+	armour = { EvasionBaseMin = 359, EvasionBaseMax = 413, },
+	req = { level = 84, dex = 177, },
 }
 itemBases["Cloudwhisper Boots"] = {
 	type = "Boots",
@@ -341,13 +381,33 @@ itemBases["Sorcerer Boots"] = {
 	armour = { EnergyShieldBaseMin = 51, EnergyShieldBaseMax = 59, },
 	req = { level = 67, int = 123, },
 }
+itemBases["Sage Slippers"] = {
+	type = "Boots",
+	subType = "Energy Shield",
+	socketLimit = 4,
+	tags = { boots = true, top_tier_base_item_type = true, int_armour = true, armour = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
+	implicitModTypes = { },
+	armour = { EnergyShieldBaseMin = 62, EnergyShieldBaseMax = 71, },
+	req = { level = 78, int = 153, },
+}
+itemBases["Warlock Boots"] = {
+	type = "Boots",
+	subType = "Energy Shield",
+	socketLimit = 4,
+	tags = { boots = true, top_tier_base_item_type = true, int_armour = true, armour = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
+	implicitModTypes = { },
+	armour = { EnergyShieldBaseMin = 72, EnergyShieldBaseMax = 83, },
+	req = { level = 84, int = 177, },
+}
 itemBases["Duskwalk Slippers"] = {
 	type = "Boots",
 	subType = "Energy Shield",
 	socketLimit = 4,
 	tags = { boots = true, int_armour = true, armour = true, not_for_sale = true, default = true, },
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
-	implicit = "10% reduced Movement Speed\n(30-40)% increased Cooldown Recovery Rate of Movement Skills",
+	implicit = "10% reduced Movement Speed\n(45-50)% increased Cooldown Recovery Rate of Movement Skills",
 	implicitModTypes = { { "speed" }, { "speed" }, },
 	armour = { EnergyShieldBaseMin = 15, EnergyShieldBaseMax = 18, },
 	req = { level = 20, int = 39, },
@@ -358,7 +418,7 @@ itemBases["Nightwind Slippers"] = {
 	socketLimit = 4,
 	tags = { boots = true, int_armour = true, armour = true, not_for_sale = true, default = true, },
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
-	implicit = "10% reduced Movement Speed\n(30-40)% increased Cooldown Recovery Rate of Movement Skills",
+	implicit = "10% reduced Movement Speed\n(45-50)% increased Cooldown Recovery Rate of Movement Skills",
 	implicitModTypes = { { "speed" }, { "speed" }, },
 	armour = { EnergyShieldBaseMin = 34, EnergyShieldBaseMax = 39, },
 	req = { level = 50, int = 89, },
@@ -369,7 +429,7 @@ itemBases["Dreamquest Slippers"] = {
 	socketLimit = 4,
 	tags = { boots = true, int_armour = true, armour = true, not_for_sale = true, default = true, },
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
-	implicit = "10% reduced Movement Speed\n(30-40)% increased Cooldown Recovery Rate of Movement Skills",
+	implicit = "10% reduced Movement Speed\n(45-50)% increased Cooldown Recovery Rate of Movement Skills",
 	implicitModTypes = { { "speed" }, { "speed" }, },
 	armour = { EnergyShieldBaseMin = 50, EnergyShieldBaseMax = 57, },
 	req = { level = 80, int = 124, },
@@ -454,6 +514,26 @@ itemBases["Dragonscale Boots"] = {
 	implicitModTypes = { },
 	armour = { ArmourBaseMin = 121, ArmourBaseMax = 139, EvasionBaseMin = 121, EvasionBaseMax = 139, },
 	req = { level = 65, str = 62, dex = 62, },
+}
+itemBases["Chimerascale Boots"] = {
+	type = "Boots",
+	subType = "Armour/Evasion",
+	socketLimit = 4,
+	tags = { str_dex_armour = true, top_tier_base_item_type = true, not_for_sale = true, armour = true, boots = true, default = true, },
+	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 176, ArmourBaseMax = 203, EvasionBaseMin = 176, EvasionBaseMax = 203, },
+	req = { level = 78, str = 85, dex = 85, },
+}
+itemBases["Wyvernscale Boots"] = {
+	type = "Boots",
+	subType = "Armour/Evasion",
+	socketLimit = 4,
+	tags = { str_dex_armour = true, top_tier_base_item_type = true, not_for_sale = true, armour = true, boots = true, default = true, },
+	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 205, ArmourBaseMax = 236, EvasionBaseMin = 205, EvasionBaseMax = 236, },
+	req = { level = 84, str = 98, dex = 98, },
 }
 itemBases["Two-Toned Boots (Armour/Evasion)"] = {
 	type = "Boots",
@@ -546,6 +626,26 @@ itemBases["Crusader Boots"] = {
 	implicitModTypes = { },
 	armour = { ArmourBaseMin = 121, ArmourBaseMax = 139, EnergyShieldBaseMin = 25, EnergyShieldBaseMax = 28, },
 	req = { level = 64, str = 62, int = 62, },
+}
+itemBases["Martyr Boots"] = {
+	type = "Boots",
+	subType = "Armour/Energy Shield",
+	socketLimit = 4,
+	tags = { str_int_armour = true, top_tier_base_item_type = true, not_for_sale = true, armour = true, boots = true, default = true, },
+	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 176, ArmourBaseMax = 203, EnergyShieldBaseMin = 35, EnergyShieldBaseMax = 41, },
+	req = { level = 78, str = 85, int = 85, },
+}
+itemBases["Paladin Boots"] = {
+	type = "Boots",
+	subType = "Armour/Energy Shield",
+	socketLimit = 4,
+	tags = { str_int_armour = true, top_tier_base_item_type = true, not_for_sale = true, armour = true, boots = true, default = true, },
+	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
+	implicitModTypes = { },
+	armour = { ArmourBaseMin = 205, ArmourBaseMax = 236, EnergyShieldBaseMin = 41, EnergyShieldBaseMax = 47, },
+	req = { level = 84, str = 98, int = 98, },
 }
 itemBases["Two-Toned Boots (Armour/Energy Shield)"] = {
 	type = "Boots",
@@ -648,6 +748,26 @@ itemBases["Murder Boots"] = {
 	implicitModTypes = { },
 	armour = { EvasionBaseMin = 185, EvasionBaseMax = 213, EnergyShieldBaseMin = 18, EnergyShieldBaseMax = 21, },
 	req = { level = 69, dex = 82, int = 42, },
+}
+itemBases["Infiltrator Boots"] = {
+	type = "Boots",
+	subType = "Evasion/Energy Shield",
+	socketLimit = 4,
+	tags = { boots = true, top_tier_base_item_type = true, not_for_sale = true, armour = true, default = true, dex_int_armour = true, },
+	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
+	implicitModTypes = { },
+	armour = { EvasionBaseMin = 176, EvasionBaseMax = 203, EnergyShieldBaseMin = 35, EnergyShieldBaseMax = 41, },
+	req = { level = 78, dex = 85, int = 85, },
+}
+itemBases["Phantom Boots"] = {
+	type = "Boots",
+	subType = "Evasion/Energy Shield",
+	socketLimit = 4,
+	tags = { boots = true, top_tier_base_item_type = true, not_for_sale = true, armour = true, default = true, dex_int_armour = true, },
+	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
+	implicitModTypes = { },
+	armour = { EvasionBaseMin = 205, EvasionBaseMax = 236, EnergyShieldBaseMin = 41, EnergyShieldBaseMax = 47, },
+	req = { level = 84, dex = 98, int = 98, },
 }
 itemBases["Fugitive Boots"] = {
 	type = "Boots",

@@ -113,7 +113,7 @@ function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore, sour
 	local resistForm = (damageType == "Physical") and "physical damage reduction" or "resistance"
 	local resistLabel = resistForm
 
-	if invertChance ~= 0 then
+	if invertChance and invertChance ~= 0 then
 		resistLabel = "average inverted "..resistForm
 	end
 	if sourceRes and sourceRes ~= damageType then

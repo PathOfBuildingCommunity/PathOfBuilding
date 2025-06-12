@@ -8,9 +8,9 @@ local m_max = math.max
 local m_ceil = math.ceil
 local m_floor = math.floor
 
-local ScrollBarClass = newClass("ScrollBarControl", "Control", function(self, anchor, x, y, width, height, step, dir, autoHide)
-	self.Control(anchor, x, y, width, height)
-	self.step = step or width * 2
+local ScrollBarClass = newClass("ScrollBarControl", "Control", function(self, anchor, rect, step, dir, autoHide)
+	self.Control(anchor, rect)
+	self.step = step or self.width * 2
 	self.dir = dir or "VERTICAL"
 	self.offset = 0
 	self.enabled = false
@@ -306,9 +306,18 @@ function ScrollBarClass:OnKeyUp(key)
 			self.holdRepeating = nil
 			self.holdPauseTime = nil
 		end
-	elseif key == "WHEELDOWN" then
+
+	elseif self:IsScrollDownKey(key) then
 		self:Scroll(1)
-	elseif key == "WHEELUP" then
+	elseif self:IsScrollUpKey(key) then
 		self:Scroll(-1)
 	end
+end
+
+-- Centralize inputs allowed to keep consistent scroll behavior for all scrollBars
+function ScrollBarClass:IsScrollDownKey(key)
+	return isValueInTable({"WHEELDOWN", "PAGEDOWN"}, key)
+end
+function ScrollBarClass:IsScrollUpKey(key)
+	return isValueInTable({"WHEELUP", "PAGEUP"}, key)
 end

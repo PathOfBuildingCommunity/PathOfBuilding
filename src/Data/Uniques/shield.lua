@@ -43,15 +43,16 @@ League: Breach
 Source: Upgraded from unique{The Anticipation} using currency{Blessing of Uul-Netol}
 Variant: Pre 3.0.0
 Variant: Pre 3.21.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 1
-{variant:2,3}+(30-40) to maximum Life
-Grants Level 30 Reckoning Skill
+{variant:2,3,4}+(30-40) to maximum Life
+{variant:1,2,3}Grants Level 30 Crushing Fist Skill
 {variant:1,2}(130-170)% increased Armour
-{variant:3}(165-205)% increased Armour
+{variant:3,4}(165-205)% increased Armour
 +(65-80) to maximum Life
 {variant:1,2}Recover 250 Life when you Block
-{variant:3}Recover (250-500) Life when you Block
+{variant:3,4}Recover (250-500) Life when you Block
 +6% Chance to Block
 {variant:1,2}+1500 Armour if you've Blocked Recently
 ]],[[
@@ -106,14 +107,16 @@ Implicits: 1
 Lycosidae
 Rawhide Tower Shield
 Variant: Pre 3.0.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 1
-{variant:2}+(10-20) to maximum Life
+{variant:2,3}+(10-20) to maximum Life
 +(120-160) to Armour
 +(30-40) to maximum Life
 Your hits can't be Evaded
 +(3-5)% Chance to Block
-Adds 250 to 300 Cold Damage to Counterattacks
+{variant:1,2}Adds 250 to 300 Cold Damage to Counterattacks
+{variant:3}Adds 250 to 300 Cold Damage to Retaliation Skills
 ]],[[
 Magna Eclipsis
 Pinnacle Tower Shield
@@ -149,6 +152,19 @@ Implicits: 1
 {variant:2,3,4}50% increased Warcry Cooldown Recovery Rate
 {variant:2,3}2% of Attack Damage Leeched as Life against Taunted Enemies
 {variant:4}Warcries have infinite Power
+]],[[
+Svalinn
+Girded Tower Shield
+League: Settlers of Kalguur
+Requires Level 51, 123 Str
+Implicits: 1
++(10-20) to maximum Life
+(10-15)% Chance to Block Spell Damage
++(100-150) to Ward
+-10% to maximum Chance to Block Attack Damage
+-10% to maximum Chance to Block Spell Damage
+Chance to Block is Lucky
+Trigger a Socketed Elemental Spell on Block, with a 0.25 second Cooldown
 ]],[[
 Titucius' Span
 Reinforced Tower Shield
@@ -332,6 +348,17 @@ Reflects (25-50) Cold Damage to Melee Attackers
 +5% Chance to Block
 20% of Fire Damage from Hits taken as Cold Damage
 ]],[[
+Kiloava's Bluster
+Ironwood Buckler
+Requires Level 57, 137 Dex
+Implicits: 1
+3% increased Movement Speed
+(100-150)% increased Evasion Rating
+(15-25)% chance to Avoid Elemental Ailments
++(3-8)% Chance to Block
+(30-40)% chance for Elemental Resistances to count as being 90% against Enemy Hits
+]],
+[[
 Mistwall
 Lacquered Buckler
 Implicits: 1
@@ -345,6 +372,8 @@ You have Phasing if you have Blocked Recently
 ]],[[
 Replica Mistwall
 Lacquered Buckler
+Variant: Pre 3.23.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
@@ -352,7 +381,8 @@ Implicits: 1
 (120-150)% increased Evasion Rating
 10% increased Movement Speed
 +(10-20)% to Fire and Cold Resistances
-+75% Chance to Block Spell Damage if you have not Blocked Recently
+{variant:1}+75% Chance to Block Spell Damage if you have not Blocked Recently
+{variant:2}You are at Maximum Chance to Block Spell Damage if you have not Blocked Recently
 +(8-15)% chance to Avoid Physical Damage from Hits while Phasing
 You have Phasing if you have Blocked Recently
 ]],[[
@@ -362,18 +392,20 @@ League: Warbands
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
+Variant: Pre 3.24.0
 Variant: Current
 Implicits: 1
-{variant:3,4}6% increased Movement Speed
+{variant:3,4,5}6% increased Movement Speed
 {variant:1}+1 to Level of Socketed Warcry Gems
 {variant:1}(20-30)% increased Chaos Damage
-{variant:2,3,4}(80-100)% Increased Evasion Rating
+{variant:2,3,4,5}(80-100)% Increased Evasion Rating
 +(20-40)% to Cold Resistance
 10% increased Area of Effect
 {variant:1}You gain Onslaught for 2 seconds on Killing Taunted Enemies
-{variant:2,3,4}Gain Onslaught for 4 seconds when you Warcry
-{variant:2,3,4}25% increased Warcry Buff Effect
+{variant:2,3,4,5}Gain Onslaught for 4 seconds when you Warcry
+{variant:2,3,4,5}25% increased Warcry Buff Effect
 {variant:4}Call to Arms
+{variant:5}Warlord's Call
 ]],[[
 Thousand Teeth Temu
 Vaal Buckler
@@ -437,18 +469,25 @@ Variant: Fire and Lightning Damage (Pre 3.14)
 Variant: Energy Shield and Life (Pre 3.14)
 Variant: Armour during Soul Gain Prevention (Pre 3.14)
 Variant: Level of Socketed Support Gems (Pre 3.14)
-Variant: Fire and Cold Damage
-Variant: Cold and Lightning Damage
-Variant: Fire and Lightning Damage
-Variant: Energy Shield and Life
-Variant: Armour during Soul Gain Prevention
-Variant: Level of Socketed Support Gems
-(30-50)% increased Spell Damage
+Variant: Fire and Cold Damage (Pre 3.26)
+Variant: Cold and Lightning Damage (Pre 3.26)
+Variant: Fire and Lightning Damage (Pre 3.26)
+Variant: Energy Shield and Life (Pre 3.26)
+Variant: Armour during Soul Gain Prevention (Pre 3.26)
+Variant: Level of Socketed Support Gems (Pre 3.26)
+Variant: Fire and Cold Damage (Current)
+Variant: Cold and Lightning Damage (Current)
+Variant: Fire and Lightning Damage (Current)
+Variant: Energy Shield and Life (Current)
+Variant: Armour during Soul Gain Prevention (Current)
+Variant: Level of Socketed Support Gems (Current)
+{variant:1,2,3,4,5,6,7,8,9,10,11,12}(30-50)% increased Spell Damage
 (180-220)% increased Energy Shield
 Spectres have (50-100)% increased maximum Life
 Gain Arcane Surge when you deal a Critical Strike
 Your Raised Spectres also gain Arcane Surge when you do
-(40-50)% increased Critical Strike Chance for Spells per Raised Spectre
+{variant:1,2,3,4,5,6,7,8,9,10,11,12}(40-50)% increased Critical Strike Chance for Spells per Raised Spectre
+{variant:13,14,15,16,17,18}(50-100)% increased Critical Strike Chance for Spells per Raised Spectre
 {variant:1}{crafted}Adds (3-12) to (5-16) Fire Damage
 {variant:1}{crafted}Adds (3-12) to (5-16) Cold Damage
 {variant:2}{crafted}Adds (3-12) to (5-16) Cold Damage
@@ -459,17 +498,17 @@ Your Raised Spectres also gain Arcane Surge when you do
 {variant:4}{crafted}+(10-28) to maximum Life
 {variant:5}{crafted}+(500-3000) to Armour during Soul Gain Prevention
 {variant:6}{crafted}+(1-2) to Level of Socketed Support Gems
-{variant:7}Adds (14-16) to (20-22) Fire Damage
-{variant:7}Adds (14-16) to (20-22) Cold Damage
-{variant:8}Adds (14-16) to (20-22) Cold Damage
-{variant:8}Adds (14-16) to (20-22) Lightning Damage
-{variant:9}Adds (14-16) to (20-22) Fire Damage
-{variant:9}Adds (14-16) to (20-22) Lightning Damage
-{variant:10}(24-28)% increased Energy Shield
-{variant:10}+(19-22) to maximum Life
-{variant:11}+(3201-4000) to Armour during Soul Gain Prevention
-{variant:12}+2 to Level of Socketed Support Gems
-{variant:12}+(5-8)% to Quality of Socketed Support Gems
+{variant:7,13}Adds (14-16) to (20-22) Fire Damage
+{variant:7,13}Adds (14-16) to (20-22) Cold Damage
+{variant:8,14}Adds (14-16) to (20-22) Cold Damage
+{variant:8,14}Adds (14-16) to (20-22) Lightning Damage
+{variant:9,15}Adds (14-16) to (20-22) Fire Damage
+{variant:9,15}Adds (14-16) to (20-22) Lightning Damage
+{variant:10,16}(24-28)% increased Energy Shield
+{variant:10,16}+(19-22) to maximum Life
+{variant:11,17}+(3201-4000) to Armour during Soul Gain Prevention
+{variant:12,18}+2 to Level of Socketed Support Gems
+{variant:12,18}+(5-8)% to Quality of Socketed Support Gems
 ]],[[
 Brinerot Flag
 Tarnished Spirit Shield
@@ -598,17 +637,24 @@ Shocks you when you reach Maximum Power Charges
 ]],[[
 Manastorm
 {variant:1}Fossilised Spirit Shield
-{variant:2}Lacewood Spirit Shield
+{variant:2,3}Lacewood Spirit Shield
 Variant: Pre 3.19.0
+Variant: Pre 3.24.0
 Variant: Current
 Implicits: 2
 {variant:1}(15-20)% increased Spell Damage
-{variant:2}(5-10)% increased Spell Damage
-(80-120)% increased Energy Shield
-+(50-70) to maximum Mana
-(30-50)% increased Mana Regeneration Rate
-When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage
-equal to 25% of Sacrificed Mana for 4 seconds
+{variant:2,3}(5-10)% increased Spell Damage
+{variant:1,2}(80-120)% increased Energy Shield
+{variant:1,2}+(50-70) to maximum Mana
+{variant:1,2}(30-50)% increased Mana Regeneration Rate
+{variant:1,2}When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage
+{variant:1,2}equal to 25% of Sacrificed Mana for 4 seconds
+{variant:3}+(1-100) to maximum Mana
+{variant:3}(1-100)% Increased Mana Regeneration Rate
+{variant:3}Gain (1-100) Mana per Enemy Killed
+{variant:3}(1-100)% Increased Mana Recovery from Flasks
+{variant:3}When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage
+{variant:3}equal to 50% of Sacrificed Mana for 4 seconds
 ]],[[
 Matua Tupuna
 Tarnished Spirit Shield
@@ -677,12 +723,13 @@ Unaffected by Ignite or Shock if Maximum Life and Maximum Mana are within 500
 Sentari's Answer
 Brass Spirit Shield
 Variant: Pre 3.4.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
 {variant:1}7% Chance to Block Spell Damage
-{variant:2}10% Chance to Block Spell Damage
+{variant:2,3}10% Chance to Block Spell Damage
 +(20-30) to Intelligence
-(4-8)% increased Quantity of Items found
+{variant:1,2}(4-8)% increased Quantity of Items found
 +5% Chance to Block
 Curse Enemies with Punishment when you Block their Melee Damage, ignoring Curse Limit
 Curse Enemies with Temporal Chains when you Block their Projectile Attack Damage, ignoring Curse Limit
@@ -690,6 +737,17 @@ Curse Enemies with Elemental Weakness when you Block their Spell Damage, ignorin
 ]],
 -- Shield: Armour/Evasion
 [[
+The Flawed Refuge
+Maple Round Shield
+League: Affliction
+Requires Level 39, 52 Str, 52 Dex
+Implicits: 1
+180% increased Block Recovery
+(100–150)% increased Armour and Evasion
++15% Chance to Block
+You take 100% of Elemental Damage from Blocked Hits
+40% of Elemental Damage from Hits taken as Physical Damage
+]],[[
 Daresso's Courage
 Baroque Round Shield
 Variant: Pre 2.6.0
@@ -967,7 +1025,7 @@ Implicits: 2
 +(100-150) to maximum Life
 {variant:1,2,3,4}50% reduced Freeze Duration on you
 {variant:5}80% reduced Freeze Duration on you
-{variant:3}Regenerate 1% of Life per Second 
+{variant:3}Regenerate 1% of Life per Second
 {variant:4,5}Regenerate 3% of Life per Second
 {variant:1,2}Regenerate 6% of Life per Second while on Low Life
 {variant:3}Regenerate 5% of Life per Second while on Low Life
@@ -1153,5 +1211,4 @@ Implicits: 1
 +(50-70) to maximum Life
 1% increased Area of Effect per Enemy killed recently, up to 50%
 You have Zealot's Oath if you haven't been hit recently
-]],
-}
+]],}

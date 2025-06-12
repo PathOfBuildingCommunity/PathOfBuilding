@@ -45,28 +45,77 @@ return {
 		speed = 3510,
 		UberSpeed = 1755,
 		critChance = 0,
+		additionalStats = {
+			uber = {
+				CannotBeDodged = "flag",
+				CannotBeEvaded = "flag",
+				CannotBeSuppressed = "flag",
+				CannotBeBlocked = "flag"
+			}
+		},
 		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds increases Damage by a further 100% (Applied on Uber) and cannot be blocked or dodged"
+	},
+	["Shaper Beam"] = {
+		DamageType = "DamageOverTime",
+		DamageMultipliers = {
+			Lightning = { 12.58958162968, 0 },
+			Cold = { 9.1363649598343, 0 },
+			Fire = { 11.141451836499, 0 }
+		},
+		speed = 1000,
+		critChance = 0,
+		tooltip = "Damage Over Time skill"
 	},
 	["Sirus Meteor"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
-			Physical = { 11.2718900614, 0.056354278291738 },
-			Lightning = { 11.2718900614, 0.056354278291738 },
-			Fire = { 11.2718900614, 0.056354278291738 },
-			Chaos = { 11.2718900614, 0.056354278291738 }
+			Physical = { 45.087560245599, 0.22541711316695 }
 		},
 		UberDamageMultiplier = 1.52,
 		speed = 1500,
+		additionalStats = {
+			base = {
+				PhysicalDamageSkillConvertToFire = 25,
+				PhysicalDamageSkillConvertToLightning = 25,
+				PhysicalDamageSkillConvertToChaos = 25
+			},
+			uber = {
+				PhysicalDamageSkillConvertToFire = 25,
+				PhysicalDamageSkillConvertToLightning = 25,
+				PhysicalDamageSkillConvertToChaos = 25
+			}
+		},
 		tooltip = "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50% (Applied on Uber)"
 	},
+	["Cortex Ground Degen"] = {
+		DamageType = "DamageOverTime",
+		DamageMultipliers = {
+			Physical = { 5.3012106087214, 0 }
+		},
+		speed = 1630,
+		critChance = 0,
+		tooltip = "Damage Over Time skill"
+	},
 	["Exarch Ball"] = {
-		DamageType = "SpellProjectile",
+		DamageType = "Spell",
 		DamageMultipliers = {
 			Fire = { 14.924946784635, 0.074624733923175 }
 		},
 		speed = 1000,
 		critChance = 0,
-		tooltip = "Spawns 8-18 waves of balls depending on which fight and which ball phase"
+		additionalStats = {
+			base = {
+				CannotBeBlocked = "flag",
+				CannotBeSuppressed = "flag",
+				CannotBeDodged = "flag"
+			},
+			uber = {
+				CannotBeBlocked = "flag",
+				CannotBeSuppressed = "flag",
+				CannotBeDodged = "flag"
+			}
+		},
+		tooltip = "Spawns 8-18 waves of balls depending on which fight and which ball phase, Cannot be Blocked, Dodged, or Suppressed"
 	},
 	["Eater Beam"] = {
 		DamageType = "Spell",
@@ -92,22 +141,40 @@ return {
 		tooltip = "Allocating Throw the Gauntlet increases Damage by a further 100% (Applied on Uber) and causes the fireball to have 30 ^xB97123Fire^7 penetration (Applied on Uber)"
 	},
 	["Maven Memory Game"] = {
-		DamageType = "Melee",
+		DamageType = "Spell",
 		DamageMultipliers = {
-			Lightning = { 34.763635149472, 0.17381817574736 },
-			Cold = { 34.763635149472, 0.17381817574736 },
-			Fire = { 34.763635149472, 0.17381817574736 }
+			Physical = { 104.29090544842, 0.52145452724208 }
 		},
 		UberDamageMultiplier = 1.0086206896552,
 		speed = 7500,
-		tooltip = "Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n	i.e. Hits before death should be more than 3 to survive"
+		additionalStats = {
+			base = {
+				CannotBeBlocked = "flag",
+				PhysicalDamageSkillConvertToLightning = 100,
+				PhysicalDamageSkillConvertToCold = 100,
+				PhysicalDamageSkillConvertToFire = 100,
+				CannotBeSuppressed = "flag",
+				CannotBeDodged = "flag"
+			},
+			uber = {
+				CannotBeBlocked = "flag",
+				PhysicalDamageSkillConvertToLightning = 100,
+				PhysicalDamageSkillConvertToCold = 100,
+				PhysicalDamageSkillConvertToFire = 100,
+				CannotBeSuppressed = "flag",
+				CannotBeDodged = "flag"
+			}
+		},
+		tooltip = "Cannot be Blocked, Dodged, or Suppressed. \n	It is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n		i.e. Hits before death should be more than 3 to survive"
 	},
 },{
     { val = "None", label = "None" },
     { val = "Atziri Flameblast", label = "Atziri Flameblast" },
     { val = "Shaper Ball", label = "Shaper Ball" },
     { val = "Shaper Slam", label = "Shaper Slam" },
+    { val = "Shaper Beam", label = "Shaper Beam" },
     { val = "Sirus Meteor", label = "Sirus Meteor" },
+    { val = "Cortex Ground Degen", label = "Cortex Ground Degen" },
     { val = "Exarch Ball", label = "Exarch Ball" },
     { val = "Eater Beam", label = "Eater Beam" },
     { val = "Maven Fireball", label = "Maven Fireball" },
