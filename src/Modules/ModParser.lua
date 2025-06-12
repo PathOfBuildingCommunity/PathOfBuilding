@@ -3017,7 +3017,7 @@ local specialModList = {
 		mod("ExtraSkill", "LIST", { skillId = gemIdLookup[skill2], level = num, triggered = true }),
 		mod("ExtraSkill", "LIST", { skillId = gemIdLookup[skill3], level = num, triggered = true }),
 	} end,
-	["offering skills triggered this way also affect you"] = { mod("ExtraSkillMod", "LIST", { mod = mod("SkillData", "LIST", { key = "buffNotPlayer", value = false }) }, { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering" } }, { type = "SocketedIn", slotName = "{SlotName}" }) },
+	["offering skills triggered this way also affect you"] = { mod("ExtraSkillMod", "LIST", { mod = mod("SkillData", "LIST", { key = "buffNotPlayer", value = false }) }, { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering" } }) },
 	["trigger level (%d+) (.+) after spending a total of (%d+) mana"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["consumes a void charge to trigger level (%d+) (.+) when you fire arrows"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["consumes a void charge to trigger level (%d+) (.+) when you fire arrows with a non%-triggered skill"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
