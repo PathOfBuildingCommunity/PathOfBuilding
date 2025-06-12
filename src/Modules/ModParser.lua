@@ -4281,7 +4281,7 @@ local specialModList = {
 		mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "INC", num) }),
 	} end,
 	["nearby enemies are blinded while physical aegis is not depleted"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Blinded") }, { type = "Condition", var = "PhysicalAegisDepleted", neg = true }) },
-	["[Mm]?a?x?i?m?u?m? ?energy shield is increased by chance to block spell damage"] = { flag("EnergyShieldIncreasedByChanceToBlockSpellDamage") },
+	["maximum energy shield is increased by chance to block spell damage"] = { flag("EnergyShieldIncreasedByChanceToBlockSpellDamage") },
 	["armour is increased by uncapped fire resistance"] = { flag( "ArmourIncreasedByUncappedFireRes") },
 	["armour is increased by overcapped fire resistance"] = { flag( "ArmourIncreasedByOvercappedFireRes") },
 	["minion life is increased by t?h?e?i?r? ?overcapped fire resistance"] = { mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 1, { type = "PerStat", stat = "FireResistOverCap", div = 1 }) }) },
