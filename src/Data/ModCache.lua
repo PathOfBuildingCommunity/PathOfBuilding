@@ -377,8 +377,7 @@ c["+12% to Critical Strike Multiplier with Lightning Skills"]={{[1]={flags=0,key
 c["+12% to Critical Strike Multiplier with Staves"]={{[1]={flags=2097156,keywordFlags=0,name="CritMultiplier",type="BASE",value=12}},nil}
 c["+12% to Critical Strike Multiplier with Swords"]={{[1]={flags=4194308,keywordFlags=0,name="CritMultiplier",type="BASE",value=12}},nil}
 c["+12% to Critical Strike Multiplier with Wands"]={{[1]={flags=8388612,keywordFlags=0,name="CritMultiplier",type="BASE",value=12}},nil}
-c["+12% to Damage Over Time Multiplier with Spell Skills"]={{[1]={flags=2,keywordFlags=0,name="DotMultiplier",type="BASE",value=12}},"  with  Skills "}
-c["+12% to Damage Over Time Multiplier with Spell Skills 20% reduced Duration of Ailments on You"]={{[1]={flags=2,keywordFlags=0,name="DotMultiplier",type="BASE",value=12}},"  with  Skills 20% reduced Duration of Ailments on You "}
+c["+12% to Damage Over Time Multiplier with Spell Skills"]={{[1]={flags=0,keywordFlags=131072,name="DotMultiplier",type="BASE",value=12}},nil}
 c["+12% to Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="DotMultiplier",type="BASE",value=12}},nil}
 c["+12% to Damage over Time Multiplier for Bleeding"]={{[1]={flags=0,keywordFlags=4194304,name="DotMultiplier",type="BASE",value=12}},nil}
 c["+12% to Damage over Time Multiplier for Poison you inflict on Bleeding Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=0,keywordFlags=1075838976,name="DotMultiplier",type="BASE",value=12}},nil}
@@ -1037,8 +1036,7 @@ c["+4% to Chaos Resistance per Endurance Charge"]={{[1]={[1]={type="Multiplier",
 c["+4% to Cold Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="ColdDotMultiplier",type="BASE",value=4}},nil}
 c["+4% to Critical Strike Multiplier for each Mine Detonated"]={{[1]={flags=0,keywordFlags=8192,name="CritMultiplier",type="BASE",value=4}},"  for each  Detonated "}
 c["+4% to Critical Strike Multiplier for each Mine Detonated Recently, up to 40%"]={{[1]={[1]={limit=40,limitTotal=true,type="Multiplier",var="MineDetonatedRecently"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=4}},nil}
-c["+4% to Damage Over Time Multiplier with Spell Skills"]={{[1]={flags=2,keywordFlags=0,name="DotMultiplier",type="BASE",value=4}},"  with  Skills "}
-c["+4% to Damage Over Time Multiplier with Spell Skills 6% increased Skill Effect Duration"]={{[1]={flags=2,keywordFlags=0,name="DotMultiplier",type="BASE",value=4}},"  with  Skills 6% increased Skill Effect Duration "}
+c["+4% to Damage Over Time Multiplier with Spell Skills"]={{[1]={flags=0,keywordFlags=131072,name="DotMultiplier",type="BASE",value=4}},nil}
 c["+4% to Damage over Time Multiplier for Ailments per Elder Item Equipped"]={{[1]={[1]={type="Multiplier",var="ElderItem"},flags=2048,keywordFlags=0,name="DotMultiplier",type="BASE",value=4}},nil}
 c["+4% to Damage over Time Multiplier for Bleeding per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=4194304,name="DotMultiplier",type="BASE",value=4}},nil}
 c["+4% to Damage over Time Multiplier for Poison"]={{[1]={flags=0,keywordFlags=1075838976,name="DotMultiplier",type="BASE",value=4}},nil}
@@ -1261,7 +1259,7 @@ c["+6% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",ty
 c["+6% to Cold Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="ColdDotMultiplier",type="BASE",value=6}},nil}
 c["+6% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=6}},nil}
 c["+6% to Critical Strike Multiplier per Power Charge"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=6}},nil}
-c["+6% to Damage Over Time Multiplier with Spell Skills"]={{[1]={flags=2,keywordFlags=0,name="DotMultiplier",type="BASE",value=6}},"  with  Skills "}
+c["+6% to Damage Over Time Multiplier with Spell Skills"]={{[1]={flags=0,keywordFlags=131072,name="DotMultiplier",type="BASE",value=6}},nil}
 c["+6% to Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="DotMultiplier",type="BASE",value=6}},nil}
 c["+6% to Damage over Time Multiplier for Bleeding"]={{[1]={flags=0,keywordFlags=4194304,name="DotMultiplier",type="BASE",value=6}},nil}
 c["+6% to Damage over Time Multiplier for Bleeding per Impale on Enemy"]={{[1]={[1]={actor="enemy",type="Multiplier",var="ImpaleStacks"},flags=0,keywordFlags=4194304,name="DotMultiplier",type="BASE",value=6}},nil}
@@ -2601,7 +2599,7 @@ c["12% increased Critical Strike Chance per Endurance Charge"]={{[1]={[1]={type=
 c["12% increased Critical Strike Chance per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=12}},nil}
 c["12% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=12}},nil}
 c["12% increased Damage Over Time with Bow Skills"]={{[1]={flags=8,keywordFlags=1024,name="Damage",type="INC",value=12}},nil}
-c["12% increased Damage Over Time with Spell Skills"]={{[1]={flags=10,keywordFlags=0,name="Damage",type="INC",value=12}},"  with  Skills "}
+c["12% increased Damage Over Time with Spell Skills"]={{[1]={flags=8,keywordFlags=131072,name="Damage",type="INC",value=12}},nil}
 c["12% increased Damage over Time"]={{[1]={flags=8,keywordFlags=0,name="Damage",type="INC",value=12}},nil}
 c["12% increased Damage with Ailments from Attack Skills"]={{[1]={flags=2048,keywordFlags=65536,name="Damage",type="INC",value=12}},nil}
 c["12% increased Damage with Bows"]={{[1]={flags=131076,keywordFlags=0,name="Damage",type="INC",value=12}},nil}
@@ -3113,7 +3111,7 @@ c["16% increased Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamage"
 c["16% increased Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamage",type="INC",value=16}},nil}
 c["16% increased Critical Strike Chance with Maces or Sceptres"]={{[1]={flags=1048580,keywordFlags=0,name="CritChance",type="INC",value=16}},nil}
 c["16% increased Damage Over Time with Bow Skills"]={{[1]={flags=8,keywordFlags=1024,name="Damage",type="INC",value=16}},nil}
-c["16% increased Damage Over Time with Spell Skills"]={{[1]={flags=10,keywordFlags=0,name="Damage",type="INC",value=16}},"  with  Skills "}
+c["16% increased Damage Over Time with Spell Skills"]={{[1]={flags=8,keywordFlags=131072,name="Damage",type="INC",value=16}},nil}
 c["16% increased Damage if you have Consumed a corpse Recently"]={{[1]={[1]={type="Condition",var="ConsumedCorpseRecently"},flags=0,keywordFlags=0,name="Damage",type="INC",value=16}},nil}
 c["16% increased Damage over Time"]={{[1]={flags=8,keywordFlags=0,name="Damage",type="INC",value=16}},nil}
 c["16% increased Elemental Damage"]={{[1]={flags=0,keywordFlags=0,name="ElementalDamage",type="INC",value=16}},nil}
@@ -4408,9 +4406,7 @@ c["30% increased Critical Strike Chance with Staves"]={{[1]={flags=2097156,keywo
 c["30% increased Critical Strike Chance with Wands"]={{[1]={flags=8388612,keywordFlags=0,name="CritChance",type="INC",value=30}},nil}
 c["30% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=30}},nil}
 c["30% increased Damage Over Time with Bow Skills"]={{[1]={flags=8,keywordFlags=1024,name="Damage",type="INC",value=30}},nil}
-c["30% increased Damage Over Time with Spell Skills"]={{[1]={flags=10,keywordFlags=0,name="Damage",type="INC",value=30}},"  with  Skills "}
-c["30% increased Damage Over Time with Spell Skills 8% increased Cast Speed"]={{[1]={flags=10,keywordFlags=0,name="Damage",type="INC",value=30}},"  with  Skills 8% increased Cast Speed "}
-c["30% increased Damage Over Time with Spell Skills 8% increased Cast Speed 10% reduced Skill Effect Duration"]={{[1]={flags=10,keywordFlags=0,name="Damage",type="INC",value=30}},"  with  Skills 8% increased Cast Speed 10% reduced Skill Effect Duration "}
+c["30% increased Damage Over Time with Spell Skills"]={{[1]={flags=8,keywordFlags=131072,name="Damage",type="INC",value=30}},nil}
 c["30% increased Damage if you Summoned a Golem in the past 8 seconds"]={{[1]={[1]={type="Condition",var="SummonedGolemInPast8Sec"},flags=0,keywordFlags=0,name="Damage",type="INC",value=30}},nil}
 c["30% increased Damage if you have Consumed a corpse Recently"]={{[1]={[1]={type="Condition",var="ConsumedCorpseRecently"},flags=0,keywordFlags=0,name="Damage",type="INC",value=30}},nil}
 c["30% increased Damage if you have Shocked an Enemy Recently"]={{[1]={[1]={type="Condition",var="ShockedEnemyRecently"},flags=0,keywordFlags=0,name="Damage",type="INC",value=30}},nil}
