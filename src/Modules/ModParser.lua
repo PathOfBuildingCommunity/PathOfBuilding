@@ -2546,6 +2546,7 @@ local specialModList = {
 		flag("EnableSkill", { type = "SkillName", skillId = "Primal Aegis" }),
 	},
 	["primal aegis can take (%d+) elemental damage per allocated notable passive skill"] = function(num) return { mod("ElementalAegisValue", "MAX", num, 0, 0, { type = "Multiplier", var = "AllocatedNotable" }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }) } end,
+	["enemies chilled by your hits lessen their damage dealt by half of chill effect"] = { flag("ChillEffectLessDamageDealt") },
 	-- Gladiator
 	["chance to block spell damage is equal to chance to block attack damage"] = { flag("SpellBlockChanceIsBlockChance") },
 	["maximum chance to block spell damage is equal to maximum chance to block attack damage"] = { flag("SpellBlockChanceMaxIsBlockChanceMax") },
