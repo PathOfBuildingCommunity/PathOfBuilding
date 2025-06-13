@@ -2344,6 +2344,7 @@ local specialModList = {
 	["cannot be stunned while fortified"] = { flag("StunImmune", { type = "Condition", var = "Fortified" }) },
 	["you cannot be stunned while at maximum endurance charges"] = { flag("StunImmune", { type = "StatThreshold", stat = "EnduranceCharges", thresholdStat = "EnduranceChargesMax" }) },
 	["fortify"] = { flag("Condition:Fortified") },
+	["you have your maximum fortification"] = { flag("Condition:Fortified"), flag("Condition:HaveMaxFortification") },
 	["you have (%d+) fortification"] = function(num) return { mod("MinimumFortification", "BASE", num) } end,
 	["nearby allies count as having fortification equal to yours"] = { mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("YourFortifyEqualToParent", "FLAG", true, { type = "GlobalEffect", effectType = "Global", unscalable = true } ) }) },
 	["enemies taunted by you cannot evade attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("CannotEvade", { type = "Condition", var = "Taunted" }) }) },
