@@ -1939,7 +1939,7 @@ skills["BladeFlurry"] = {
 			mod("Multiplier:BladeFlurryMaxStages", "BASE", nil),
 		},
 		["blade_flurry_damage_+%_final_while_at_max_stages"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "MultiplierThreshold", var = "BladeFlurryStage", threshold = 6 }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "MultiplierThreshold", var = "BladeFlurryStage", thresholdVar = "BladeFlurryMaxStages" }),
 		},
 		["quality_display_charged_attack_is_gem"] = {
 			--Display only
@@ -2055,7 +2055,7 @@ skills["BladeFlurryAltX"] = {
 			mod("CritChance", "MORE", nil, 0, 0, { type = "Multiplier", var = "BladeFlurryofIncisionStage" }),
 		},
 		["blade_flurry_critical_strike_multiplier_+_while_at_max_stages"] = {
-			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "BladeFlurryofIncisionStage", threshold = 6 }),
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "BladeFlurryofIncisionStage", thresholdVar = "BladeFlurryofIncisionMaxStages" }),
 		},
 		["display_max_charged_attack_stats"] = {
 			mod("Multiplier:BladeFlurryofIncisionMaxStages", "BASE", nil),
