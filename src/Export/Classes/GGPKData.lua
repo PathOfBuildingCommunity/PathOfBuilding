@@ -190,7 +190,6 @@ function GGPKClass:GetNeededFiles()
 		"Data/NPCs.dat",
 		"Data/CraftingBenchOptions.dat",
 		"Data/CraftingItemClassCategories.dat",
-		"Data/CraftingBenchUnlockCategories.dat",
 		"Data/CraftingBenchSortCategories.dat",
 		"Data/MonsterVarieties.dat",
 		"Data/MonsterResistances.dat",
