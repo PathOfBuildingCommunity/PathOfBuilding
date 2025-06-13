@@ -3386,8 +3386,8 @@ return {
 		},
 		[22]={
 			list=false,
-			name="UnlockCategories",
-			refTo="CraftingBenchUnlockCategories",
+			name="",
+			refTo="",
 			type="Key",
 			width=150
 		},
@@ -3510,6 +3510,13 @@ return {
 			name="IsVisible",
 			refTo="",
 			type="Bool",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
 			width=150
 		}
 	},
@@ -9011,6 +9018,13 @@ return {
 			refTo="",
 			type="String",
 			width=200
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=100
 		}
 	},
 	passiveskillbuffs={
@@ -9277,6 +9291,13 @@ return {
 			refTo="",
 			type="Bool",
 			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
 		}
 	},
 	passiveskills={

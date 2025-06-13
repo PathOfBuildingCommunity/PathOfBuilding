@@ -1989,13 +1989,13 @@ return {
 	},
 	["Raise Spectre"] = {
 		["MERCILESS"] = {
-			"Spectres have 25% increased Damage",
-			"Spectres have 8% increased Attack and Cast Speed",
+			"Raised Spectres have 25% increased Damage",
+			"Raised Spectres have 8% increased Attack and Cast Speed",
 			"+24% to Raised Spectre Elemental Resistances",
 		},
 		["ENDGAME"] = {
-			"Spectres have 40% increased Damage",
-			"Spectres have 12% increased Attack and Cast Speed",
+			"Raised Spectres have 40% increased Damage",
+			"Raised Spectres have 12% increased Attack and Cast Speed",
 			"+36% to Raised Spectre Elemental Resistances",
 		},
 	},

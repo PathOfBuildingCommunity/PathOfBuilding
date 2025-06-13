@@ -46,13 +46,13 @@ return {
 					[1] = { line = "20% increased Recovery rate of Life and Energy Shield if you've stopped taking Damage Over Time Recently", value = { 20 }, },
 				},
 			},
-			[3] = { name = "Hybrid Widow",
+			[3] = { name = "Legius Garhall",
 				mods = {
 					-- debuff_time_passed_+%
 					[1] = { line = "Debuffs on you expire 20% faster", value = { 20 }, },
 				},
 			},
-			[4] = { name = "Shadow of the Vaal",
+			[4] = { name = "Armala, the Widow",
 				mods = {
 					-- additional_chaos_resistance_against_damage_over_time_%
 					[1] = { line = "+40% Chaos Resistance against Damage Over Time", value = { 40 }, },
@@ -71,13 +71,13 @@ return {
 					[2] = { line = "20% chance to take 50% less Area Damage from Hits", value = { 20 }, },
 				},
 			},
-			[2] = { name = "Kitava, The Destroyer",
+			[2] = { name = "Woad, Mockery of Man",
 				mods = {
 					-- elemental_damage_taken_+%_if_not_hit_recently
 					[1] = { line = "8% reduced Elemental Damage taken if you haven't been Hit Recently", value = { -8 }, },
 				},
 			},
-			[3] = { name = "The Gorgon",
+			[3] = { name = "Kitava, The Destroyer",
 				mods = {
 					-- self_take_no_extra_damage_from_critical_strikes_if_have_been_crit_recently
 					[1] = { line = "Take no Extra Damage from Critical Strikes if you have taken a Critical Strike Recently", value = { 1 }, },
@@ -108,13 +108,13 @@ return {
 					[1] = { line = "10% chance to avoid Projectiles", value = { 10 }, },
 				},
 			},
-			[3] = { name = "Khor, Sister of Shadows",
+			[3] = { name = "Fragment of Winter",
 				mods = {
 					-- elemental_damage_taken_+%_if_been_hit_recently
 					[1] = { line = "6% reduced Elemental Damage taken if you have been Hit Recently", value = { -6 }, },
 				},
 			},
-			[4] = { name = "It That Fell",
+			[4] = { name = "Khor, Sister of Shadows",
 				mods = {
 					-- avoid_chained_projectile_%_chance
 					[1] = { line = "Avoid Projectiles that have Chained", value = { 100 }, },
@@ -131,7 +131,7 @@ return {
 					[1] = { line = "60% less Duration of Ignite on You", value = { -60 }, },
 				},
 			},
-			[2] = { name = "Mephod, the Earth Scorcher",
+			[2] = { name = "Sumter the Twisted",
 				mods = {
 					-- unaffected_by_burning_ground
 					[1] = { line = "Unaffected by Burning Ground", value = { 1 }, },
@@ -226,7 +226,7 @@ return {
 					[2] = { line = "Moving while Bleeding doesn't cause you to take extra Damage", value = { 1 }, },
 				},
 			},
-			[2] = { name = "Drek, Apex Hunter",
+			[2] = { name = "Leif, the Swift-Handed",
 				mods = {
 					-- cannot_gain_corrupted_blood_while_you_have_at_least_5_stacks
 					[1] = { line = "Corrupted Blood cannot be inflicted on you if you have at least 5 Corrupted Blood Debuffs on you", value = { 1 }, },
@@ -264,7 +264,7 @@ return {
 					[2] = { line = "60% increased Life Recovery from Flasks used when on Low Life", value = { 60 }, },
 				},
 			},
-			[2] = { name = "Gorulis, Will-Thief",
+			[2] = { name = "Arachnoxia",
 				mods = {
 					-- enemy_life_regeneration_rate_+%_for_4_seconds_on_hit
 					[1] = { line = "Enemies you've Hit Recently have 50% reduced Life Regeneration rate", value = { -50 }, },
