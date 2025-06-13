@@ -1,3 +1,15 @@
+VERSION[2.53.1][2025/06/13]
+
+--- User Interface ---
+* Enable Sorting of folders by date and inherit the sort order in the build save dialogue (Noologos)
+
+--- Fixed Calculations ---
+* Fix CWC not supporting triggerbots (Paliak)
+
+--- Fixed Behaviours ---
+* Fix Champions' new maximum Fortification mod not working (LocalIdentity)
+* Fix Nebulis and similar mods being treated as uncapped (Paliak)
+
 VERSION[2.53.0][2025/06/13]
 
 --- 3.26 Mercenaries of Trarthus ---

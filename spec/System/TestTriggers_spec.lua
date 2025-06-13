@@ -1359,4 +1359,54 @@ describe("TestTriggers", function()
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
+
+	it("Triggerbots CWCHandler", function()
+		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1\nCast while Channelling 20/0 Default  1\nBlight 20/0 Default  1\n")
+		runCallback("OnFrame")
+		local baseRate = build.calcsTab.mainOutput.SkillTriggerRate
+		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
+
+		build.configTab.input.customMods = [[
+			Triggers Level 20 Summon Triggerbots when Allocated
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.not_equals(math.floor(build.calcsTab.mainOutput.SkillTriggerRate * 100), math.floor(baseRate * 100))
+	end)
+
+	it("Triggerbots defaultHandler", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[Elemental 1H Sword
+		Eternal Sword
+		Crafted: true
+		Prefix: {range:0.5}WeaponElementalDamageOnWeapons4
+		Prefix: None
+		Prefix: None
+		Suffix: {range:0.5}LocalIncreasedAttackSpeed3
+		Suffix: {range:0.5}LocalCriticalStrikeChance3
+		Suffix: {range:0.5}LocalCriticalMultiplier4
+		Quality: 20
+		Sockets: G-G-G
+		LevelReq: 66
+		Implicits: 1
+		{tags:attack}+475 to Accuracy Rating
+		12% increased Attack Speed
+		22% increased Critical Strike Chance
+		+27% to Global Critical Strike Multiplier
+		40% increased Elemental Damage with Attack Skills]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		build.skillsTab:PasteSocketGroup("Cast On Critical Strike 20/0 Default  1\nArc 20/0 Default  1\nCyclone 20/0 Default  1\n")
+		runCallback("OnFrame")
+
+		local baseRate = build.calcsTab.mainOutput.SkillTriggerRate
+		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
+
+		build.configTab.input.customMods = [[
+			Triggers Level 20 Summon Triggerbots when Allocated
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.not_equals(math.floor(build.calcsTab.mainOutput.SkillTriggerRate * 100), math.floor(baseRate * 100))
+	end)
 end)

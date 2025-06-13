@@ -1,5 +1,19 @@
 # Changelog
 
+## [v2.53.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.53.1) (2025/06/13)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.53.0...v2.53.1)
+
+## What's Changed
+### User Interface
+- Enable Sorting of folders by date and inherit the sort order in the build save dialogue [\#8624](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8624) ([Noologos](https://github.com/Noologos))
+### Fixed Calculations
+- Fix CWC not supporting triggerbots [\#8671](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8671) ([Paliak](https://github.com/Paliak))
+### Fixed Behaviours
+- Fix Champions' new maximum Fortification mod not working [\#8668](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8668) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Nebulis and similar mods being treated as uncapped [\#8666](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8666) ([Paliak](https://github.com/Paliak))
+
+
 ## [v2.53.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.53.0) (2025/06/13)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.52.3...v2.53.0)

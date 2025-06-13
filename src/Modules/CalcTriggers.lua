@@ -261,6 +261,10 @@ local function CWCHandler(env)
 			local simBreakdown = nil
 			output.TriggerRateCap = m_min(1 / effCDTriggeredSkill, triggerRateOfTrigger)
 			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, triggeredSkills, triggerRateOfTrigger, 0)
+			local triggerBotsEffective = env.player.modDB:Flag(nil, "HaveTriggerBots") and env.player.mainSkill.skillTypes[SkillType.Spell]
+			if triggerBotsEffective then
+				output.SkillTriggerRate = 2 * output.SkillTriggerRate
+			end
 
 			if breakdown then
 				if triggeredCD or cooldownOverride then
@@ -331,13 +335,16 @@ local function CWCHandler(env)
 				t_insert(breakdown.TriggerRateCap, s_format("1 / %.3f ^8(trigger rate adjusted for triggering interval)", 1 / output.TriggerRateCap))
 				t_insert(breakdown.TriggerRateCap, s_format("= %.2f ^8 %s casts per second", output.TriggerRateCap, triggeredName))
 
+				-- Hide Skill Trigger Rate breakdown if there's only one skill to av
 				if #triggeredSkills > 1 then
 					breakdown.SkillTriggerRate = {
 						s_format("%.2f ^8(%s triggers per second)", triggerRateOfTrigger, triggerName),
 						s_format("/ %.2f ^8(Estimated impact of linked spells)", (triggerRateOfTrigger / output.SkillTriggerRate) or 1),
 						s_format("= %.2f ^8%s casts per second", output.SkillTriggerRate, triggeredName),
 					}
-
+					if triggerBotsEffective then
+						t_insert(breakdown.SkillTriggerRate, 3, "x 2 ^8(Trigger bots effectively cause the skill to trigger twice)")
+					end
 					if simBreakdown.extraSimInfo then
 						t_insert(breakdown.SkillTriggerRate, "")
 						t_insert(breakdown.SkillTriggerRate, simBreakdown.extraSimInfo)
@@ -809,6 +816,12 @@ local function defaultTriggerHandler(env, config)
 							s_format("/ %.2f ^8(Estimated impact of skill rotation, cooldown alignment and trigger chance)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
 							s_format("= %.2f ^8per second", output.SkillTriggerRate),
 						}
+						if triggerBotsEffective then
+							t_insert(breakdown.SkillTriggerRate, 3, "x 2 ^8(Trigger bots effectively cause the skill to trigger twice)")
+						end
+						if hits_per_cast > 1 then
+							t_insert(breakdown.SkillTriggerRate, 3, s_format("x %.2f ^8(hits per triggered skill cast)", hits_per_cast))
+						end
 						if triggerChance ~= 100 then
 							t_insert(breakdown.SkillTriggerRate, 1, "")
 							t_insert(breakdown.SkillTriggerRate, 1, s_format("= %.2f%% ^8(Effective chance to trigger)", triggerChance))
@@ -816,12 +829,6 @@ local function defaultTriggerHandler(env, config)
 								t_insert(breakdown.SkillTriggerRate, 1, line)
 							end
 							t_insert(breakdown.SkillTriggerRate, 1, "100% ^8(Base chance)")
-						end
-						if triggerBotsEffective then
-							t_insert(breakdown.SkillTriggerRate, 3, "x 2 ^8(Trigger bots effectively cause the skill to trigger twice)")
-						end
-						if hits_per_cast > 1 then
-							t_insert(breakdown.SkillTriggerRate, 3, s_format("x %.2f ^8(hits per triggered skill cast)", hits_per_cast))
 						end
 						if simBreakdown.extraSimInfo then
 							t_insert(breakdown.SkillTriggerRate, "")

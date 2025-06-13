@@ -11920,7 +11920,7 @@ c["You have Zealot's Oath if you haven't been hit recently"]={{[1]={[1]={neg=tru
 c["You have no Armour or Maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="MORE",value=-100},[2]={flags=0,keywordFlags=0,name="EnergyShield",type="MORE",value=-100}},nil}
 c["You have no Intelligence"]={{[1]={flags=0,keywordFlags=0,name="Int",type="MORE",value=-100}},nil}
 c["You have no Life Regeneration"]={{[1]={flags=0,keywordFlags=0,name="NoLifeRegen",type="FLAG",value=true}},nil}
-c["You have your maximum Fortification"]={nil,"your maximum Fortification "}
+c["You have your maximum Fortification"]={{[1]={flags=0,keywordFlags=0,name="Condition:Fortified",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="Condition:HaveMaxFortification",type="FLAG",value=true}},nil}
 c["You lose all Endurance Charges on reaching maximum Endurance Charges"]={nil,"You lose all Endurance Charges on reaching maximum Endurance Charges "}
 c["You lose all Endurance Charges on reaching maximum Endurance Charges Cannot Block"]={nil,"You lose all Endurance Charges on reaching maximum Endurance Charges Cannot Block "}
 c["You lose all Endurance Charges when Hit"]={nil,"You lose all Endurance Charges when Hit "}
