@@ -124,11 +124,7 @@ local skillTypes = {
 	"DisallowTriggerSupports",
 	"ProjectileCannotReturn",
 	"Offering",
-<<<<<<< 3.26_export
-	"SupportedByBane"
-=======
 	"SupportedByBane",
->>>>>>> dev
 }
 
 -- This is here to fix name collisions like in the case of Barrage

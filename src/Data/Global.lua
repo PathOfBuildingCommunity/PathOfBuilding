@@ -317,11 +317,7 @@ SkillType = {
 	DisallowTriggerSupports = 134,
 	ProjectileCannotReturn = 135,
 	Offering = 136,
-<<<<<<< 3.26_export
-	SupportByBane = 137,
-=======
 	SupportedByBane = 137,
->>>>>>> dev
 }
 
 GlobalCache = { 
