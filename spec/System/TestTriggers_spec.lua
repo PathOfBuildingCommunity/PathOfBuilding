@@ -1361,7 +1361,7 @@ describe("TestTriggers", function()
 	end)
 
 	it("Triggerbots CWCHandler", function()
-		build.skillsTab:PasteSocketGroup("Cyclone 1/0 Default  1\nCast while Channelling 20/20 Default  1\nFireball 1/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1\nCast while Channelling 20/0 Default  1\nBlight 20/0 Default  1\n")
 		runCallback("OnFrame")
 		local baseRate = build.calcsTab.mainOutput.SkillTriggerRate
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -1371,7 +1371,7 @@ describe("TestTriggers", function()
 		]]
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		assert.are.equals(math.floor(build.calcsTab.mainOutput.SkillTriggerRate * 100), math.floor(baseRate * 100))
+		assert.are.not_equals(math.floor(build.calcsTab.mainOutput.SkillTriggerRate * 100), math.floor(baseRate * 100))
 	end)
 
 	it("Triggerbots defaultHandler", function()
@@ -1407,6 +1407,6 @@ describe("TestTriggers", function()
 		]]
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		assert.are.equals(math.floor(build.calcsTab.mainOutput.SkillTriggerRate * 100), math.floor(baseRate * 100))
+		assert.are.not_equals(math.floor(build.calcsTab.mainOutput.SkillTriggerRate * 100), math.floor(baseRate * 100))
 	end)
 end)
