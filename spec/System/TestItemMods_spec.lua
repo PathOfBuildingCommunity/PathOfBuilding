@@ -509,4 +509,48 @@ describe("TetsItemMods", function()
 
 		assert.are_not.equals(baseLife, build.calcsTab.mainOutput.Life)
 	end)
+
+	it("globalLimit mods", function()
+		build.configTab.input.customMods = [[
+			-1000% to cold resistance
+		]]
+		build.configTab:BuildModList()
+		build.itemsTab:CreateDisplayItemFromRaw([[Replica Nebulis
+			Void Sceptre
+			League: Heist
+			Quality: 20
+			Sockets: B-B-B
+			LevelReq: 68
+			Implicits: 1
+			40% increased Elemental Damage
+			{fractured}{range:1}(15-20)% increased Cast Speed
+			{range:1}(15-20)% increased Cold Damage per 1% Missing Cold Resistance, up to a maximum of 300%
+			{range:1}(15-20)% increased Fire Damage per 1% Missing Fire Resistance, up to a maximum of 300%]])
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFireball 20/0 Default  1\n")
+		runCallback("OnFrame")
+
+		assert.are_not.equals(340, build.calcsTab.mainEnv.modDB:Sum("INC", "FireDamage"))
+		assert.are_not.equals(340, build.calcsTab.mainEnv.modDB:Sum("INC", "ColdDamage"))
+
+		newBuild()
+
+		build.configTab.input.customMods = [[
+			Gain 25% increased Armour per 5 Power for 8 seconds when you Warcry, up to a maximum of 100%
+			Warcries have infinite Power
+			warcries grant arcane surge to you and allies, with 10% increased effect per 5 power, up to 100%
+		]]
+		build.configTab:BuildModList()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			New Item
+			Plate Vest
+			Armour: 32
+		]])
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1")
+
+		assert.are_not.equals(40, build.calcsTab.mainEnv.modDB:Sum("INC", { flags = ModFlag.Cast }, "Speed"))
+		assert.are_not.equals(64, build.calcsTab.mainOutput.Armour)
+		runCallback("OnFrame")
+	end)
 end)
