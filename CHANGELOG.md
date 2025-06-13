@@ -5,7 +5,7 @@
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.52.3...v2.53.0)
 
 ## What's Changed
-### 3.26
+### 3.26 - Mercenaries of Trarthus
 - Add new skill trees [\#8646](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8646) ([Ariacell](https://github.com/Ariacell))
 - Add showcased Mercenaries of Trarthus uniques [\#8619](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8619) ([Paliak](https://github.com/Paliak))
 - Update uniques from patch notes [\#8642](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8642) ([Tandrial](https://github.com/Tandrial))
@@ -18,7 +18,7 @@
 - Update Death Aura damage [\#8637](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8637) ([samimisami](https://github.com/samimisami))
 ### New to Path of Building
 - Add support for Wintertide Brand average DOT calculation [\#6868](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6868) ([czarandy](https://github.com/czarandy))
-- Add support for self cast Hydrosphere DPS [\#8598](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8598) ([CedrN](https://github.com/CedrN))
+- Add support for self-cast Hydrosphere DPS [\#8598](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8598) ([CedrN](https://github.com/CedrN))
 - Add Karui Backburner Spectre [\#8559](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8559) ([LollashTTV](https://github.com/LollashTTV))
 - Add support for Rejuvenation Totem Mana helm enchant [\#8546](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8546) ([Blitz54](https://github.com/Blitz54))
 - Add support for Tornado Shot legacy Helm Enchant [\#8567](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8567) ([Blitz54](https://github.com/Blitz54))
@@ -35,7 +35,7 @@
 ### User Interface
 - Add shortcut to copy node text from Passive Tree to the clipboard [\#8635](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8635) ([rexfox147](https://github.com/rexfox147))
 - Keep Max Price and Max Level between Trade Queries [\#8586](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8586) ([mcagnion](https://github.com/mcagnion))
-- Change wording for "Base Damage Reduction" on Hit taken mult. section… [\#8607](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8607) ([DarkJaslo](https://github.com/DarkJaslo))
+- Change wording for Base Damage Reduction in Hit taken breakdown [\#8607](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8607) ([DarkJaslo](https://github.com/DarkJaslo))
 - Show stored uses in Warcry uptime tooltip [\#8599](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8599) ([CedrN](https://github.com/CedrN))
 ### Fixed Crashes
 - Fix crash when importing skill tree [\#8644](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8644) ([Wires77](https://github.com/Wires77))
@@ -67,8 +67,8 @@
 - Fix Dominating Blow Hit counting multiple times when used in FullDPS [\#8574](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8574) ([Paliak](https://github.com/Paliak))
 - Fix Gem-lined Cap Ascendancy Notable not applying [\#8575](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8575) ([Paliak](https://github.com/Paliak))
 - Fix first explicit mod missing when importing some uniques [\#8576](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8576) ([Paliak](https://github.com/Paliak))
-- Update Scold's Bridle self damage wording [\#8618](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8618) ([HeffU](https://github.com/HeffU))
-- Remove channeling part from Divine Ire of Disintegration [\#8549](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8549) ([Tntmister](https://github.com/Tntmister))
+- Update Scold's Bridle self-damage wording [\#8618](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8618) ([HeffU](https://github.com/HeffU))
+- Remove channelling part from Divine Ire of Disintegration [\#8549](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8549) ([Tntmister](https://github.com/Tntmister))
 
 
 
