@@ -4254,6 +4254,12 @@ local specialModList = {
 	["you have no intelligence"] = {
 		mod("Int", "MORE", -100),
 	},
+	["you have no dexterity"] = {
+		mod("Dex", "MORE", -100),
+	},
+	["you have no strength"] = {
+		mod("Str", "MORE", -100),
+	},
 	["elemental resistances are zero"] = {
 		mod("FireResist", "OVERRIDE", 0),
 		mod("ColdResist", "OVERRIDE", 0),

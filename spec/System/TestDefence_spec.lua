@@ -844,7 +844,102 @@ describe("TestDefence", function()
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	end)
+	
+	it("Unbreakable + Iron Reflexes", function()
+		build.configTab.input.customMods = [[
+			you have no dexterity
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
 
+		-- Get the base to make this test more adaptable to changes
+		local baseArmour = build.calcsTab.mainOutput.Armour
+		local baseEvasion = build.calcsTab.mainOutput.Evasion
+
+		build.configTab.input.customMods = [[
+			Converts all Evasion Rating to Armour. Dexterity provides no bonus to Evasion Rating
+			you have no dexterity
+		]]
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			New Item
+			Shabby Jerkin
+			Quality: 20
+		]])
+		build.itemsTab:AddDisplayItem()
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- Get the base + Shabby Jerkin to make this test more adaptable to changes
+		local ironReflexesArmour = build.calcsTab.mainOutput.Armour - baseArmour - baseEvasion
+
+		print("build.calcsTab.mainOutput.Armour:" .. build.calcsTab.mainOutput.Armour)
+
+		build.configTab.input.customMods = [[
+			Armour from Equipped Body Armour is doubled
+			Converts all Evasion Rating to Armour. Dexterity provides no bonus to Evasion Rating
+			you have no dexterity
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- Evasion from Body Armour is converted to Armour before being doubled
+		assert.are.equals(2*ironReflexesArmour + baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
+
+		build.configTab.input.customMods = [[
+			Armour from Equipped Body Armour is doubled
+			Converts all Evasion Rating to Armour. Dexterity provides no bonus to Evasion Rating
+			Gain no armour from equipped body armour
+			you have no dexterity
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- Only the base armour from the chest is affected.
+		-- Armour converted with Iron Reflexes still applies
+		assert.are.equals(2*ironReflexesArmour + baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
+		build.configTab.input.customMods = [[
+			Armour from Equipped Body Armour is doubled
+			Converts all Evasion Rating to Armour. Dexterity provides no bonus to Evasion Rating
+			Gain no armour from equipped body armour
+			defences from equipped body armour are doubled if it has no socketed gems
+			you have no dexterity
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- Oath Of Maji double defences stack with Unbreakable
+		assert.are.equals(2*2*ironReflexesArmour + baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
+
+		build.configTab.input.customMods = [[
+			Armour from Equipped Body Armour is doubled
+			Armour from Equipped Body Armour is doubled
+			Converts all Evasion Rating to Armour. Dexterity provides no bonus to Evasion Rating
+			Gain no armour from equipped body armour
+			defences from equipped body armour are doubled if it has no socketed gems
+			you have no dexterity
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- Mod form unbreakable should apply only once
+		assert.are.equals(2*2*ironReflexesArmour + baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
+
+		build.configTab.input.customMods = [[
+			Armour from Equipped Body Armour is doubled
+			Armour from Equipped Body Armour is doubled
+			Converts all Evasion Rating to Armour. Dexterity provides no bonus to Evasion Rating
+			Gain no armour from equipped body armour
+			defences from equipped body armour are doubled if it has no socketed gems
+			defences from equipped body armour are doubled if it has no socketed gems
+			you have no dexterity
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- Oath Of Maji should apply only once
+		assert.are.equals(2*2*ironReflexesArmour + baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
+	end)
+	
 	it("MoM + EB", function()
 		build.configTab.input.enemyIsBoss = "None"
 		-- enough mana and es, 0% and 100% bypass

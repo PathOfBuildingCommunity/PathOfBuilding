@@ -98,14 +98,7 @@ function ModDBClass:SumInternal(context, modType, cfg, flags, keywordFlags, sour
 				local mod = modList[i]
 				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or ( mod.source and mod.source:match("[^:]+") == source )) then
 					if mod[1] then
-						local value = context:EvalMod(mod, cfg) or 0
-						if mod[1].globalLimit and mod[1].globalLimitKey then
-							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] or 0
-							if globalLimits[mod[1].globalLimitKey] + value > mod[1].globalLimit then
-								value = mod[1].globalLimit - globalLimits[mod[1].globalLimitKey]
-							end
-							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] + value
-						end
+						local value = context:EvalMod(mod, cfg, globalLimits) or 0
 						result = result + value
 					else
 						result = result + mod.value
@@ -133,14 +126,7 @@ function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 				if mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 					local value
 					if mod[1] then
-						value = context:EvalMod(mod, cfg) or 0
-						if mod[1].globalLimit and mod[1].globalLimitKey then
-							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] or 0
-							if globalLimits[mod[1].globalLimitKey] + value > mod[1].globalLimit then
-								value = mod[1].globalLimit - globalLimits[mod[1].globalLimitKey]
-							end
-							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] + value
-						end
+						value = context:EvalMod(mod, cfg, globalLimits) or 0
 					else
 						value = mod.value or 0
 					end
@@ -249,15 +235,7 @@ function ModDBClass:TabulateInternal(context, result, modType, cfg, flags, keywo
 				if (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 					local value
 					if mod[1] then
-						value = context:EvalMod(mod, cfg)
-						if mod[1].globalLimit and mod[1].globalLimitKey then
-							value = value or 0
-							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] or 0
-							if globalLimits[mod[1].globalLimitKey] + value > mod[1].globalLimit then
-								value = mod[1].globalLimit - globalLimits[mod[1].globalLimitKey]
-							end
-							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] + value
-						end
+						value = context:EvalMod(mod, cfg, globalLimits)
 					else
 						value = mod.value
 					end
