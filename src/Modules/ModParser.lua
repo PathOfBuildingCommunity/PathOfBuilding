@@ -3952,10 +3952,9 @@ local specialModList = {
 		mod("MinionModifier", "LIST", { mod = flag("DealNoCold") }),
 		mod("MinionModifier", "LIST", { mod = flag("DealNoFire") }),
 	},
-	["minions convert (%d+)%% of physical damage to lightning damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToLightning", "BASE", num) }) } end,
-	["minions convert (%d+)%% of physical damage to cold damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToCold", "BASE", num) }) } end,
-	["minions convert (%d+)%% of physical damage to fire damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToFire", "BASE", num) }) } end,
-	["minions convert (%d+)%% of physical damage to chaos damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToChaos", "BASE", num) }) } end,
+	["minions convert (%d+)%% of (.+) damage to (.+) damage"] = function(num, _, source, target) return {
+		mod("MinionModifier", "LIST", { mod = mod(source:gsub("^%l", string.upper) .. "DamageConvertTo" .. target:gsub("^%l", string.upper), "BASE", num) })
+	} end,
 	["summoned skeletons have avatar of fire"] = { mod("MinionModifier", "LIST", { mod = mod("Keystone", "LIST", "Avatar of Fire") }, { type = "SkillName", skillName = "Summon Skeletons", includeTransfigured = true }) },
 	["summoned skeletons take ([%d%.]+)%% of their maximum life per second as fire damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("FireDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }) }, { type = "SkillName", skillName = "Summon Skeletons", includeTransfigured = true }) } end,
 	["summoned skeletons have (%d+)%% chance to wither enemies for (%d+) seconds on hit"] = { mod("ExtraSkillMod", "LIST", { mod = flag("Condition:CanWither") }, { type = "SkillName", skillName = "Summon Skeletons", includeTransfigured = true }) },
@@ -3968,10 +3967,9 @@ local specialModList = {
 		mod("MinionModifier", "LIST", { mod = mod("ChaosMin", "BASE", 1, { type = "PercentStat", stat = "EnergyShieldOnWeapon 2", actor = "parent", percent = num }) }),
 		mod("MinionModifier", "LIST", { mod = mod("ChaosMax", "BASE", 1, { type = "PercentStat", stat = "EnergyShieldOnWeapon 2", actor = "parent", percent = num }) }),
 	} end,
-	["minions convert (%d+)%% of physical damage to fire damage per red socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToFire", "BASE", num) }, { type = "Multiplier", var = "RedSocketIn{SlotName}" }) } end,
-	["minions convert (%d+)%% of physical damage to cold damage per green socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToCold", "BASE", num) }, { type = "Multiplier", var = "GreenSocketIn{SlotName}" }) } end,
-	["minions convert (%d+)%% of physical damage to lightning damage per blue socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToLightning", "BASE", num) }, { type = "Multiplier", var = "BlueSocketIn{SlotName}" }) } end,
-	["minions convert (%d+)%% of physical damage to chaos damage per white socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToChaos", "BASE", num) }, { type = "Multiplier", var = "WhiteSocketIn{SlotName}" }) } end,
+	["minions convert (%d+)%% of (.+) damage to (.+) damage per (.+) socket"] = function(num, _, source, target, socketColor) return {
+		mod("MinionModifier", "LIST", { mod = mod(source:gsub("^%l", string.upper) .. "DamageConvertTo" .. target:gsub("^%l", string.upper), "BASE", num) }, { type = "Multiplier", var = socketColor:gsub("^%l", string.upper) .. "SocketIn{SlotName}" })
+	} end,
 	["minions have a (%d+)%% chance to impale on hit with attacks"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("ImpaleChance", "BASE", num ) }) } end,
 	["minions from herald skills deal (%d+)%% more damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", num) }, { type = "SkillType", skillType = SkillType.Herald }) } end,
 	["minions have (%d+)%% increased movement speed for each herald affecting you"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", num, { type = "Multiplier", var = "Herald", actor = "parent" }) }) } end,
@@ -4002,12 +4000,12 @@ local specialModList = {
 		mod("MinionModifier", "LIST", { mod = mod("ForkCountMax", "BASE", 1) }, { type = "SkillName", skillName = "Summon Arbalists" })
 	},
 	["summoned arbalists' projectiles chain %+(%d+) times"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("ChainCountMax", "BASE", num) }, { type = "SkillName", skillName = "Summon Arbalists" }) } end,
-	["summoned arbalists have (%d+)%% chance to inflict fire exposure on hit"] = function(num) return { mod("FireExposureChance", "BASE", num, { type = "SkillName", skillName = "Summon Arbalists" }) } end,
-	["summoned arbalists have (%d+)%% chance to inflict cold exposure on hit"] = function(num) return { mod("ColdExposureChance", "BASE", num, { type = "SkillName", skillName = "Summon Arbalists" }) } end,
-	["summoned arbalists have (%d+)%% chance to inflict lightning exposure on hit"] = function(num) return { mod("LightningExposureChance", "BASE", num, { type = "SkillName", skillName = "Summon Arbalists" }) } end,
-	["summoned arbalists convert (%d+)%% of physical damage to fire damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToFire", "BASE", num) }, { type = "SkillName", skillName = "Summon Arbalists" }) } end,
-	["summoned arbalists convert (%d+)%% of physical damage to cold damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToCold", "BASE", num) }, { type = "SkillName", skillName = "Summon Arbalists" }) } end,
-	["summoned arbalists convert (%d+)%% of physical damage to lightning damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToLightning", "BASE", num) }, { type = "SkillName", skillName = "Summon Arbalists" }) } end,
+	["summoned arbalists have (%d+)%% chance to inflict (.+) exposure on hit"] = function(num, _, type) return {
+		mod(type:gsub("^%l", string.upper) .. "ExposureChance", "BASE", num, { type = "SkillName", skillName = "Summon Arbalists" })
+	} end,
+	["summoned arbalists convert (%d+)%% of (.+) damage to (.+) damage"] = function(num, _, source, target) return {
+		mod("MinionModifier", "LIST", { mod = mod(source:gsub("^%l", string.upper) .. "DamageConvertTo" .. target:gsub("^%l", string.upper), "BASE", num) }, { type = "SkillName", skillName = "Summon Arbalists" })
+	} end,
 	["summoned arbalists have (%d+)%% chance to freeze, shock, and ignite"] = function(num) return {
 		mod("MinionModifier", "LIST", { mod = mod("EnemyFreezeChance", "BASE", num) }, { type = "SkillName", skillName = "Summon Arbalists" }),
 		mod("MinionModifier", "LIST", { mod = mod("EnemyShockChance", "BASE", num) }, { type = "SkillName", skillName = "Summon Arbalists" }),
