@@ -121,6 +121,10 @@ local skillTypes = {
 	"NoVolley",
 	"Retaliation",
 	"NeverExertable",
+	"DisallowTriggerSupports",
+	"ProjectileCannotReturn",
+	"Offering",
+	"SupportedByBane"
 }
 
 -- This is here to fix name collisions like in the case of Barrage
