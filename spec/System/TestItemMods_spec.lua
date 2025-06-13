@@ -538,6 +538,7 @@ describe("TetsItemMods", function()
 		build.configTab.input.customMods = [[
 			Gain 25% increased Armour per 5 Power for 8 seconds when you Warcry, up to a maximum of 100%
 			Warcries have infinite Power
+			warcries grant arcane surge to you and allies, with 10% increased effect per 5 power, up to 100%
 		]]
 		build.configTab:BuildModList()
 		build.itemsTab:CreateDisplayItemFromRaw([[
@@ -546,6 +547,9 @@ describe("TetsItemMods", function()
 			Armour: 32
 		]])
 		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1")
+
+		assert.are_not.equals(40, build.calcsTab.mainEnv.modDB:Sum("INC", { flags = ModFlag.Cast }, "Speed"))
 		assert.are_not.equals(64, build.calcsTab.mainOutput.Armour)
 		runCallback("OnFrame")
 	end)
