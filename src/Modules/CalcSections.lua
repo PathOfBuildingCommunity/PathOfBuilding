@@ -648,7 +648,7 @@ return {
 	{ label = "Reserve Uptime", haveOutput = "ReserveDurationUptime", { format = "{2:output:ReserveDurationUptime}%", { breakdown = "ReserveDurationUptime" }, }, },
 	{ label = "Sustainable Trauma", haveOutput = "SustainableTrauma", { format = "{0:output:SustainableTrauma}", { breakdown = "SustainableTrauma" }, { modName = { "ExtraTrauma", "RepeatCount", "Duration", "PrimaryDuration", "SecondaryDuration", "SkillAndDamagingAilmentDuration"}, cfg = "skill" }, }, },
 	{ label = "Repeat Count", haveOutput = "RepeatCount", { format = "{output:Repeats}", { modName = { "RepeatCount" }, cfg = "skill" }, }, },
-	{ label = "Projectile Count", flag = "projectile", { format = "{output:ProjectileCount}", { modName = { "NoAdditionalProjectiles" , "ProjectileCount" }, cfg = "skill" }, }, },
+	{ label = "Projectile Count", flag = "projectile", { format = "{output:ProjectileCount}", { modName = { "NoAdditionalProjectiles" , "ProjectileCount", "ProjectileCountMinimum" }, cfg = "skill" }, }, },
 	{ label = "Pierce Count", haveOutput = "PierceCount", { format = "{output:PierceCountString}", { modName = { "CannotPierce", "PierceCount", "PierceAllTargets" }, cfg = "skill" }, }, },
 	{ label = "Fork Count", haveOutput = "ForkCountMax", { format = "{output:ForkCountString}", { modName = { "CannotFork", "ForkCountMax" }, cfg = "skill" }, }, },
 	{ label = "Max Chain Count", haveOutput = "ChainMax", { format = "{output:ChainMaxString}", { modName = { "CannotChain", "ChainCountMax", "NoAdditionalChains" }, cfg = "skill" }, }, },

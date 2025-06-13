@@ -1947,6 +1947,9 @@ local skills, mod, flag, skill = ...
 		["fire_golem_grants_damage_+%"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["fire_golem_grants_area_of_effect_+%"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 #baseMod skill("allowTotemBuff", true)
 #baseMod flag("Condition:HaveFireGolem", { type = "GlobalEffect", effectType = "Buff" })
@@ -1979,6 +1982,9 @@ local skills, mod, flag, skill = ...
 		["stone_golem_grants_base_life_regeneration_rate_per_minute"] = {
 			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 60,
+		},
+		["stone_golem_grants_defences_+%"] = {
+			mod("Defences", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #baseMod skill("allowTotemBuff", true)

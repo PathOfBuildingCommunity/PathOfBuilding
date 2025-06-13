@@ -552,6 +552,10 @@ local skills, mod, flag, skill = ...
 		["greater_projectile_intensity_projectile_damage_+%_final_per_intensity"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "Multiplier", var = "Intensity" , limitVar = "IntensityLimit" }),
 		},
+		["minimum_number_of_projectiles_to_fire_is_1"] = {
+			mod("ProjectileCountMinimum", "BASE", nil),
+			value = 1,
+		},
 	},
 #mods
 
