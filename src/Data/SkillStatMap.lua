@@ -663,6 +663,9 @@ return {
 ["chance_to_deal_double_damage_%"] = {
 	mod("DoubleDamageChance", "BASE", nil)
 },
+["chance_to_deal_double_damage_%_per_10_intelligence"] = {
+	mod("DoubleDamageChance", "BASE", nil, 0, 0, { type = "PerStat", stat = "Int", div = 10 }),
+},
 ["chance_to_deal_double_damage_%_vs_bleeding_enemies"] = {
 	mod("DoubleDamageChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Bleeding"}),
 },
