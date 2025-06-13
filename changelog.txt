@@ -1,3 +1,77 @@
+VERSION[2.53.0][2025/06/13]
+
+--- 3.26 ---
+* Add new skill trees (Ariacell)
+* Add showcased Mercenaries of Trarthus uniques (Paliak)
+* Update uniques from patch notes (Tandrial)
+* Add support for Vile Bastion Energy Shield per Spell Block mod (Ariacell)
+* Add support for Fortification stacks above 20 (Zpooks)
+* Add support for Minion Elemental conversion mods (Paliak)
+* Add support for "with spell skills" mods (NL908)
+* Add support for Shaper of Winter/Call of the Void damage taken mod (dcepil)
+* Update Arcane Surge cast speed from 10% to 20% (Ariacell, Paliak)
+* Update Death Aura damage (samimisami)
+
+--- New to Path of Building ---
+* Add support for Wintertide Brand average DOT calculation (czarandy)
+* Add support for self cast Hydrosphere DPS (CedrN)
+* Add Karui Backburner Spectre (LollashTTV)
+* Add support for Rejuvenation Totem Mana helm enchant (Blitz54)
+* Add support for Tornado Shot legacy Helm Enchant (Blitz54)
+* Add support for +1 Rallying/Battlemage Cry exerted attacks Helm Enchant (Blitz54)
+* Add support for Felbog Fang Hindered mod (Blitz54)
+* Add support for "minions recover #% life on block" (Blitz54)
+* Add support for Assured Strike tree node (Blitz54)
+* Add support for Settling Ash tree passive (Blitz54)
+* Add a warning when more than one Aspect skill is active (Paliak)
+* Add support for Ewar's Mirage +1 projectile when in off-hand (Blitz54)
+* Add resource lost information to enemy damage breakdown (Edvinas-Smita)
+* Add support for Aquamarine Flask "reduced effect of freeze on you" (Blitz54)
+* Resume failed update feature (Wires77)
+
+--- User Interface ---
+* Add shortcut to copy node text from Passive Tree to the clipboard (rexfox147)
+* Keep Max Price and Max Level between Trade Queries (mcagnion)
+* Change wording for "Base Damage Reduction" on Hit taken mult. section… (DarkJaslo)
+* Show stored uses in Warcry uptime tooltip (CedrN)
+
+--- Fixed Crashes ---
+* Fix crash when importing skill tree (Wires77)
+
+--- Fixed Calculations ---
+* Fix Explosive Arrow multiplying fuse rate by action speed twice (NL908)
+* Fix Gain Ward instead of Armour/Evasion mod when total is above 100 (LocalIdentity)
+* Fix Herald of Ash damage showing negative values (LocalIdentity)
+* Fix Puppeteer Caustic Ground on death calculation (LocalIdentity)
+* Fix Tincture CDR mod and Mana Burn rate display bug (LocalIdentity)
+* Fix Relic Flask's combining effect with Unique flask of the same name (LocalIdentity)
+* Fix negative Impale DPS for dual wielding combined attacks (andyli00)
+* Improve MoM + EB (+ES bypass) calculations (Edvinas-Smita)
+
+--- Fixed Behaviours ---
+* Fix issues around importing to the wrong tree (Wires77)
+* Fix Sacrificial Zeal appearing on new builds (Paliak)
+* Fix Foxshade Life modifiers preventing Life mastery (Blitz54)
+* Fix Gruthkul's Pelt disabling on hit curses (Paliak)
+* Fix Minion supports not scaling Siegebreaker ground DoT (LocalIdentity)
+* Fix The Baron and Rotting Might not stacking correctly (LocalIdentity)
+* Fix Wiki hotkey (F1) not working correctly on Relic Items (LocalIdentity)
+* Fix Moonbender's Wing applying to Shield skills (LocalIdentity)
+* Fix Queen's Hunger mod not working (Wires77)
+
+--- Accuracy Improvements ---
+* Remove Royale mods from craft menu and exporter (Blitz54)
+* Update Shepherd of Souls Keystone mods (rexfox147)
+* Fix many unique staves with Attack block instead of Spell block implicit (Blitz54, LocalIdentity)
+* Update Malachai's Mark mods (Blitz54)
+* Fix Tides of Time unique belt not having Shaper influence (RealWhimsy)
+* Fix Dominating Blow Hit counting multiple times when used in FullDPS (Paliak)
+* Fix Gem-lined Cap Ascendancy Notable not applying (Paliak)
+* Fix first explicit mod missing when importing some uniques (Paliak)
+* Update Scold's Bridle self damage wording (HeffU)
+* Remove channeling part from Divine Ire of Disintegration (Tntmister)
+
+
 VERSION[2.52.3][2025/02/20]
 
 --- New to Path of Building ---
