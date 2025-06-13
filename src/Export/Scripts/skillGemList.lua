@@ -52,7 +52,7 @@ for i, _ in ipairs(types) do
 				local gemName = gemEffect.GrantedEffect.ActiveSkill.DisplayName
 				local gemId = gemEffect.Id
 				 if gemName ~= "" and types[i] == colour and not gemId:match("Unknown") and not gemId:match("Playtest") and not gemId:match("Royale") and not gemName:match("%.%.%.") and not gemName:match("DNT") and not gemName:match("UNUSED") and not gemName:match("NOT CURRENTLY USED") and not gemName:match("Unnamed") and not gemEffect.GrantedEffect.Id:match("HardMode") and not skillGem.BaseItemType.Name:match("DNT") 
-				 and not (skillGem.IsVaalGem and gemEffect.Variant ~= 3) then
+				 and not (skillGem.IsVaalGem and gemEffect.Variant ~= 4) then
 					local temp = gemName..string.rep(" ", 45 - string.len(gemName)).."\t\t----\t\t"..gemEffect.GrantedEffect.Id
 					local temp1 = gemName..grantedEffectString(gemEffect.GrantedEffect)
 				 	if gemEffect.GrantedEffect2 and not skillGem.IsVaalGem then

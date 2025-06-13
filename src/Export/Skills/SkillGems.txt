@@ -21,6 +21,7 @@ Boneshatter                                  		----		Boneshatter
 Boneshatter of Carnage                       		----		BoneshatterAltY
 Boneshatter of Complex Trauma                		----		BoneshatterAltX
 Chain Hook                                   		----		ChainHook
+Chain Hook of Trarthus                       		----		ChainHookAltY
 Cleave                                       		----		Cleave
 Cleave of Rage                               		----		CleaveAltX
 Consecrated Path                             		----		ConsecratedPath
@@ -54,6 +55,7 @@ Glacial Hammer of Shattering                 		----		GlacialHammerAltX
 Ground Slam                                  		----		GroundSlam
 Ground Slam of Earthshaking                  		----		GroundSlamAltX
 Heavy Strike                                 		----		HeavyStrike
+Heavy Strike of Trarthus                     		----		HeavyStrikeAltY
 Herald of Ash                                		----		HeraldOfAsh
 Herald of Purity                             		----		HeraldOfPurity
 Holy Flame Totem                             		----		HolyFlameTotem
@@ -103,6 +105,7 @@ Summon Stone Golem of Hordes                 		----		SummonStoneGolemAltX
 Summon Stone Golem of Safeguarding           		----		SummonStoneGolemAltY
 Sunder                                       		----		Sunder
 Sunder of Earthbreaking                      		----		SunderAltX
+Sunder of Trarthus                           		----		SunderAltY
 Sweep                                        		----		Sweep
 Swordstorm                                   		----		Swordstorm
 Tectonic Slam                                		----		TectonicSlam
@@ -231,8 +234,10 @@ Blade Vortex                                 		----		NewNewBladeVortex
 Blade Vortex of the Scythe                   		----		BladeVortexAltX
 Bladefall                                    		----		Bladefall
 Bladefall of Impaling                        		----		BladefallAltY
+Bladefall of Trarthus                        		----		BladefallAltZ
 Bladefall of Volleys                         		----		BladefallAltX
 Blast Rain                                   		----		BlastRain
+Blast Rain of Trarthus                       		----		BlastRainAltX
 Blink Arrow                                  		----		BlinkArrow
 Blink Arrow of Bombarding Clones             		----		BlinkArrowAltX
 Blink Arrow of Prismatic Clones              		----		BlinkArrowAltY
@@ -333,15 +338,19 @@ Shrapnel Ballista                            		----		ShrapnelBallista
 Shrapnel Ballista of Steel                   		----		ShrapnelBallistaAltX
 Siege Ballista                               		----		SiegeBallista
 Siege Ballista of Splintering                		----		SiegeBallistaAltX
+Siege Ballista of Trarthus                   		----		SiegeBallistaAltY
 Smoke Mine                                   		----		SmokeMine
 Snipe                                        		----		Snipe	ChannelledSnipeSupport
 Sniper's Mark                                		----		SnipersMark
 Spectral Helix                               		----		SpectralHelix
+Spectral Helix of Trarthus                   		----		SpectralHelixAltY
 Spectral Shield Throw                        		----		SpectralShieldThrow
 Spectral Shield Throw of Shattering          		----		SpectralShieldThrowAltX
+Spectral Shield Throw of Trarthus            		----		SpectralShieldThrowAltY
 Spectral Spinning Weapon                     		----		SpectralSpinningWeapon
 Spectral Throw                               		----		SpectralThrow
 Spectral Throw of Materialising              		----		SpectralThrowAltX
+Spectral Throw of Trarthus                   		----		SpectralThrowAltY
 Split Arrow                                  		----		SplitArrow
 Split Arrow of Splitting                     		----		SplitArrowAltX
 Splitting Steel                              		----		SplittingSteel
@@ -507,6 +516,7 @@ Crackling Lance of Disintegration            		----		CracklingLanceAltY
 Creeping Frost                               		----		CreepingFrost
 Damage Infusion                              		----		DamageInfusion
 Dark Pact                                    		----		DarkPact
+Dark Pact of Trarthus                        		----		DarkPactAltX
 Despair                                      		----		Despair
 Destructive Link                             		----		DestructiveLink
 Discharge                                    		----		Discharge
@@ -636,6 +646,7 @@ Storm Brand                                  		----		StormBrand
 Storm Brand of Indecision                    		----		StormBrandAltX
 Storm Burst                                  		----		StormBurst
 Storm Call                                   		----		StormCall
+Storm Call of Trarthus                       		----		StormCallAltX
 Stormbind                                    		----		Stormbind	RuneBlast
 Stormbind of Teleportation                   		----		StormbindAltX	RuneBlastAltX
 Stormblast Mine                              		----		StormblastMine
@@ -684,6 +695,7 @@ Voltaxic Burst                               		----		VoltaxicBurst
 Vortex                                       		----		Vortex
 Vortex of Projection                         		----		VortexAltX
 Wave of Conviction                           		----		WaveOfConviction
+Wave of Conviction of Trarthus               		----		WaveOfConvictionAltY
 Wildfire                                     		----		InfernalSwarm
 Winter Orb                                   		----		WinterOrb
 Wintertide Brand                             		----		WintertideBrand
@@ -732,6 +744,7 @@ Energy Leech Support                         		----		SupportEnergyLeech
 Enlighten Support                            		----		SupportEnlighten
 Faster Casting Support                       		----		SupportFasterCasting
 Feeding Frenzy Support                       		----		SupportFeedingFrenzy
+Focused Channelling Support                  		----		SupportFocusedChannelling
 Fresh Meat Support                           		----		SupportFreshMeat
 Frigid Bond Support                          		----		SupportFrigidBond
 Hex Bloom Support                            		----		SupportHexBloom
@@ -777,6 +790,7 @@ Capture Monster                              		----		CaptureMonster
 Death Aura                                   		----		DeathAura
 Detonate Mines                               		----		GemDetonateMines
 Gluttony of Elements                         		----		GluttonyOfElements
+Order: To me!                                		----		CallMercenary
 Portal                                       		----		Portal
 Static Tether                                		----		StaticTether
 Vaal Breach                                  		----		VaalBreach
