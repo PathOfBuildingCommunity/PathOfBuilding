@@ -14,7 +14,7 @@
 - Add support for Minion Elemental conversion mods [\#8655](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8655) ([Paliak](https://github.com/Paliak))
 - Add support for "with spell skills" mods [\#8654](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8654) ([NL908](https://github.com/NL908))
 - Add support for Shaper of Winter/Call of the Void damage taken mod [\#8649](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8649) ([dcepil](https://github.com/dcepil))
-* Update Arcane Surge cast speed from 10% to 20% by (@Ariacell, @Paliak) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8625, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8658
+- Update Arcane Surge cast speed from 10% to 20% [\#8625](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8625), [\#8658](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8658) ([Ariacell](https://github.com/Ariacell), [Paliak](https://github.com/Paliak))
 - Update Death Aura damage [\#8637](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8637) ([samimisami](https://github.com/samimisami))
 ### New to Path of Building
 - Add support for Wintertide Brand average DOT calculation [\#6868](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6868) ([czarandy](https://github.com/czarandy))
@@ -61,7 +61,7 @@
 ### Accuracy Improvements
 - Remove Royale mods from craft menu and exporter [\#8547](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8547) ([Blitz54](https://github.com/Blitz54))
 - Update Shepherd of Souls Keystone mods [\#8540](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8540) ([rexfox147](https://github.com/rexfox147))
-* Fix many unique staves with Attack block instead of Spell block implicit by (@Blitz54, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8580
+- Fix many unique staves with Attack block instead of Spell block implicit [\#8580](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8580) ([Blitz54](https://github.com/Blitz54), [LocalIdentity](https://github.com/LocalIdentity))
 - Update Malachai's Mark mods [\#8571](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8571) ([Blitz54](https://github.com/Blitz54))
 - Fix Tides of Time unique belt not having Shaper influence [\#8569](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8569) ([RealWhimsy](https://github.com/RealWhimsy))
 - Fix Dominating Blow Hit counting multiple times when used in FullDPS [\#8574](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8574) ([Paliak](https://github.com/Paliak))
@@ -112,39 +112,18 @@ Fixed update error by ([Wires77](https://github.com/Wires77))
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.50.1...v2.52.0)
 
 ## What's Changed
-
 ### New to Path of Building
-
-- Add tree for Legacy of Phrecia [\#8494
-](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8494
-) ([Wires77](https://github.com/Wires77))
-- Add checkbox for Sacrificial Zeal [\#8481
-](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8481
-) ([Paliak](https://github.com/Paliak))
-- Add black background to detail text in character dropdown [\#8487
-](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8487
-) ([Paliak](https://github.com/Paliak))
-- Add Molten Strike (+Zenith) ball average overlap calculations [\#8427
-](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8427
-) ([andyli00](https://github.com/andyli00))
+- Add tree for Legacy of Phrecia [\#8494](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8494) ([Wires77](https://github.com/Wires77))
+- Add checkbox for Sacrificial Zeal [\#8481](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8481) ([Paliak](https://github.com/Paliak))
+- Add black background to detail text in character dropdown [\#8487](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8487) ([Paliak](https://github.com/Paliak))
+- Add Molten Strike (+Zenith) ball average overlap calculations [\#8427](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8427) ([andyli00](https://github.com/andyli00))
 ### Fixed Behaviours
-
-- Fix Firestorm of Pelting skill effect duration [\#8493
-](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8493
-) ([Peechey](https://github.com/Peechey))
+- Fix Firestorm of Pelting skill effect duration [\#8493](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8493) ([Peechey](https://github.com/Peechey))
 ### Accuracy Improvements
-
-- Fix Eyes of the Greatwolf DoT Multi wording [\#8483
-](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8483
-) ([henbe](https://github.com/henbe))
-- Fix influences not importing correctly [\#8500
-](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8500
-) ([Wires77](https://github.com/Wires77))
+- Fix Eyes of the Greatwolf DoT Multi wording [\#8483](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8483) ([henbe](https://github.com/henbe))
+- Fix influences not importing correctly [\#8500](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8500) ([Wires77](https://github.com/Wires77))
 ### Fixed Calculations
-
-- Fix several bugs with infinite EHP and wrong phys max hit [\#8495
-](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8495
-) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
+- Fix several bugs with infinite EHP and wrong phys max hit [\#8495](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8495) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
 
 
 
@@ -155,30 +134,14 @@ Fixed update error by ([Wires77](https://github.com/Wires77))
 ## What's Changed
 
 ### New to Path of Building
-
-- Add Wildspeaker, Blind Prophet, Aristocrat and Puppeteer ascendancy jewels [\#8471
-](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8471
-) ([LocalIdentity](https://github.com/LocalIdentity))
-- Add Ancestral Commander, Behemoth, Bog Shaman, and Scavenger ascendancy jewels [\#8476
-](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8476
-) ([Peechey](https://github.com/Peechey))
+- Add Wildspeaker, Blind Prophet, Aristocrat and Puppeteer ascendancy jewels [\#8471](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8471) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add Ancestral Commander, Behemoth, Bog Shaman, and Scavenger ascendancy jewels [\#8476](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8476) ([Peechey](https://github.com/Peechey))
 ### Fixed Calculations
-
-- Fix maximum virulence parsing for multi-digit increases [\#8463
-](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8463
-) ([deathbeam](https://github.com/deathbeam))
-- Fix "Full Poison DPS" value capping to one stack [\#8460
-](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8460
-) ([Wires77](https://github.com/Wires77))
-- Fix ES bypass regression [\#8459
-](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8459
-) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
+- Fix maximum virulence parsing for multi-digit increases [\#8463](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8463) ([deathbeam](https://github.com/deathbeam))
+- Fix "Full Poison DPS" value capping to one stack [\#8460](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8460) ([Wires77](https://github.com/Wires77))
+- Fix ES bypass regression [\#8459](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8459) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
 ### Accuracy Improvements
-
-- Fix various issues with Legacy of Phrecia ascendancies [\#8465
-](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8465
-) ([Wires77](https://github.com/Wires77))
-
+- Fix various issues with Legacy of Phrecia ascendancies [\#8465](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8465) ([Wires77](https://github.com/Wires77))
 
 
 

@@ -1,4 +1,5 @@
 VERSION[2.53.0][2025/06/13]
+
 --- 3.26 ---
 * Add new skill trees (Ariacell)
 * Add showcased Mercenaries of Trarthus uniques (Paliak)
@@ -8,7 +9,7 @@ VERSION[2.53.0][2025/06/13]
 * Add support for Minion Elemental conversion mods (Paliak)
 * Add support for "with spell skills" mods (NL908)
 * Add support for Shaper of Winter/Call of the Void damage taken mod (dcepil)
-* Update Arcane Surge cast speed from 10% to 20% by (@Ariacell, @Paliak) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8625, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8658
+* Update Arcane Surge cast speed from 10% to 20% (Ariacell, Paliak)
 * Update Death Aura damage (samimisami)
 
 --- New to Path of Building ---
@@ -61,7 +62,7 @@ VERSION[2.53.0][2025/06/13]
 --- Accuracy Improvements ---
 * Remove Royale mods from craft menu and exporter (Blitz54)
 * Update Shepherd of Souls Keystone mods (rexfox147)
-* Fix many unique staves with Attack block instead of Spell block implicit by (@Blitz54, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8580
+* Fix many unique staves with Attack block instead of Spell block implicit (Blitz54, LocalIdentity)
 * Update Malachai's Mark mods (Blitz54)
 * Fix Tides of Time unique belt not having Shaper influence (RealWhimsy)
 * Fix Dominating Blow Hit counting multiple times when used in FullDPS (Paliak)
