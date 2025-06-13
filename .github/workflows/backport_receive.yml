@@ -1,0 +1,28 @@
+name: Update code with code from PoB2
+
+on:
+    repository_dispatch:
+        types:
+            - port-changes
+
+jobs:
+    apply-patch:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+              with:
+                ref: 'dev'
+            - name: Apply patch
+              run: |
+                curl -L ${{ github.event.client_payload.patch_url }} | git apply -v --index
+            - name: Create Pull Request
+              uses: peter-evans/create-pull-request@v5
+              with:
+                title: "[pob2-port] ${{ github.event.client_payload.title }}"
+                branch: pob2-pr-${{ github.event.client_payload.id }}
+                body: |
+                  ${{ github.event.client_payload.msg }}
+                author: ${{ github.event.client_payload.name || github.event.client_payload.user }} <${{ github.event.client_payload.user }}@users.noreply.github.com>
+                commit-message: ${{ github.event.client_payload.msg }}
+                labels: ${{ github.event.client_payload.labels }}

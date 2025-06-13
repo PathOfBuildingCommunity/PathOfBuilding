@@ -68,7 +68,7 @@ Cannot be Stunned
 ]],[[
 The Formless Flame
 {variant:1,2}Siege Helmet
-{variant:3}Royal Burgonet 
+{variant:3}Royal Burgonet
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{The Formless Inferno} using currency{Blessing of Xoph}
@@ -456,6 +456,16 @@ Variant: Focus Ailment Duration Pre 3.16.0
 Variant: Avoid Elemental Damage Pre 3.16.0
 Variant: Focus Ailment Duration Pre 3.19.0
 Variant: Focus Ailment Duration Pre 3.22.0
+Variant: Fire and Chaos Resistances Pre 3.26.0
+Variant: Cold and Chaos Resistances Pre 3.26.0
+Variant: Lightning and Chaos Resistances Pre 3.26.0
+Variant: Strength and Dexterity Pre 3.26.0
+Variant: Dexterity and Intelligence Pre 3.26.0
+Variant: Strength and Intelligence Pre 3.26.0
+Variant: Mine Laying Speed Pre 3.26.0
+Variant: Focus Spell Trigger Pre 3.26.0
+Variant: Focus Ailment Duration Pre 3.26.0
+Variant: Avoid Elemental Damage Pre 3.26.0
 Variant: Fire and Chaos Resistances
 Variant: Cold and Chaos Resistances
 Variant: Lightning and Chaos Resistances
@@ -466,9 +476,9 @@ Variant: Mine Laying Speed
 Variant: Focus Spell Trigger
 Variant: Focus Ailment Duration
 Variant: Avoid Elemental Damage
-+1 to Level of Socketed Gems
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25}+1 to Level of Socketed Gems
 {variant:1,2,3,4,5,6,7,8,9,10,11,12,13}Socketed Gems have 40% increased Mana Reservation Efficiency
-{variant:14,15,16,17,18,19,20,21,22,23,24,25}Socketed Gems have 25% increased Reservation Efficiency
+{variant:14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35}Socketed Gems have 25% increased Reservation Efficiency
 Trigger Level 15 Feast of Flesh every 5 seconds
 (180-220)% increased Energy Shield
 10% chance for Energy Shield Recharge to start when you use a Skill
@@ -489,20 +499,20 @@ Eldritch Battery
 {variant:13}{crafted}(6-9)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
 {variant:14}(161-180)% increased Duration of Ailments you inflict while Focused
 {variant:15}(81-90)% increased Duration of Ailments you inflict while Focused
-{variant:16}+(16-20)% to Fire and Chaos Resistances
-{variant:17}+(16-20)% to Cold and Chaos Resistances
-{variant:18}+(16-20)% to Lightning and Chaos Resistances
-{variant:19}+(31-35) to Strength and Dexterity
-{variant:20}+(31-35) to Dexterity and Intelligence
-{variant:21}+(31-35) to Strength and Intelligence
-{variant:22}(14-16)% increased Mine Laying Speed
-{variant:23}Trigger Socketed Spells when you Focus, with a 0.25 second Cooldown
-{variant:23}Focus has (5-8)% increased Cooldown Recovery Rate
-{variant:24}(36-40)% increased Duration of Ailments you inflict while Focused
-{variant:25}(10-12)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
+{variant:16,26}+(16-20)% to Fire and Chaos Resistances
+{variant:17,27}+(16-20)% to Cold and Chaos Resistances
+{variant:18,28}+(16-20)% to Lightning and Chaos Resistances
+{variant:19,29}+(31-35) to Strength and Dexterity
+{variant:20,30}+(31-35) to Dexterity and Intelligence
+{variant:21,31}+(31-35) to Strength and Intelligence
+{variant:22,32}(14-16)% increased Mine Laying Speed
+{variant:23,33}Trigger Socketed Spells when you Focus, with a 0.25 second Cooldown
+{variant:23,33}Focus has (5-8)% increased Cooldown Recovery Rate
+{variant:24,34}(36-40)% increased Duration of Ailments you inflict while Focused
+{variant:25,35}(10-12)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
 ]],[[
 Wilma's Requital
-Solaris Circlet 
+Solaris Circlet
 +(300-500) to Accuracy Rating
 (200-250)% increased Energy Shield
 Increases and Reductions to Cast Speed apply to Attack Speed
@@ -682,7 +692,7 @@ Requires Level 65, 138 Int
 (80-100)% increased Spell Damage
 15% reduced Cast Speed
 +(30-60) to maximum Mana
-Your Skills deal you 400% of Mana Cost as Physical Damage
+Your Skills deal you 400% of Mana Spent on Upfront Skill Mana Costs as Physical Damage
 ]],[[
 Sudden Dawn
 Steel Circlet

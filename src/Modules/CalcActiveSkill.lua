@@ -463,7 +463,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		skillModList:NewMod("Speed", "MORE", 100 * activeSkill.actor.minionData.damageFixup, "Damage Fixup", ModFlag.Attack)
 	end
 
-	if skillModList:Flag(activeSkill.skillCfg, "DisableSkill") and not skillModList:Flag(activeSkill.skillCfg, "EnableSkill") then
+	-- Mods which apply curses are not disabled by Gruthkul's Pelt
+	local curseApplicationSkill = activeSkill.socketGroup and activeSkill.socketGroup.sourceItem ~= nil and activeSkill.skillFlags.curse and activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.noSupports and activeSkill.activeEffect.srcInstance.triggered
+	if skillModList:Flag(activeSkill.skillCfg, "DisableSkill") and not (skillModList:Flag(activeSkill.skillCfg, "EnableSkill") or (curseApplicationSkill and skillModList:Flag(nil, "ForceEnableCurseApplication"))) then
 		skillFlags.disable = true
 		activeSkill.disableReason = "Skills of this type are disabled"
 	end
@@ -536,7 +538,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		activeSkill.skillData.attackTime = level.attackTime
 	end
 	if level.attackSpeedMultiplier then
-		skillModList:NewMod("Speed", "MORE", level.attackSpeedMultiplier, activeEffect.grantedEffect.modSource, ModFlag.Attack)
+		activeSkill.skillData.attackSpeedMultiplier = level.attackSpeedMultiplier
 	end
 	if level.cooldown then
 		activeSkill.skillData.cooldown = level.cooldown

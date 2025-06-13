@@ -78,8 +78,13 @@ end
 
 ConPrintf("Checking for update...")
 
-local scriptPath = "."
-local runtimePath = "."
+local scriptPath
+local runtimePath
+do
+	local currentDir = io.popen("cd"):read() or io.popen("pwd"):read() or "."
+	scriptPath = currentDir
+	runtimePath = currentDir
+end
 
 -- Load and process local manifest
 local localVer
@@ -214,7 +219,6 @@ for index, data in ipairs(updateFiles) do
 	source = source:gsub("{branch}", localBranch)
 	local fileName = scriptPath.."/Update/"..data.name:gsub("[\\/]","{slash}")
 	data.updateFileName = fileName
-	local content
 	local zipName = source:match("/([^/]+%.zip)$")
 	if zipName then
 		if not zipFiles[zipName] then
@@ -238,8 +242,20 @@ for index, data in ipairs(updateFiles) do
 			ConPrintf("Couldn't extract '%s' from '%s' (zip open failed)", data.name, zipName)
 		end
 	else
-		ConPrintf("Downloading %s... (%d of %d)", data.name, index, #updateFiles)
-		downloadFile(source, data.name, fileName)
+		local skipDownload
+		local file = io.open(fileName, "rb")
+		if file then
+			local content = file:read("*all")
+			if data.sha1 == sha1(content) or data.sha1 == sha1(content:gsub("\n", "\r\n")) then
+				ConPrintf("Using file from previous update attempt '%s'", fileName)
+				skipDownload = true
+			end
+			file:close()
+		end
+		if not skipDownload then
+			ConPrintf("Downloading %s... (%d of %d)", data.name, index, #updateFiles)
+			downloadFile(source, data.name, fileName)
+		end
 	end
 	local file = io.open(fileName, "rb")
 	if not file then

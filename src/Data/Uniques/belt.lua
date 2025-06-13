@@ -890,6 +890,7 @@ Imbalanced Guard
 ]],[[
 The Tides of Time
 Vanguard Belt
+Shaper Item
 Source: Drops from unique{The Shaper} (Uber)
 Requires Level 78
 Implicits: 1

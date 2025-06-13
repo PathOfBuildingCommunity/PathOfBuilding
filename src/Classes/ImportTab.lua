@@ -707,6 +707,8 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 		charPassiveData.mastery_effects or {}, 
 		latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or "") .. (isAscendancyInTree(charData.class, latestTreeVersion) and "" or "_alternate")
 	)
+	self.build.treeTab:SetActiveSpec(self.build.treeTab.activeSpec)
+	self.build.spec:BuildClusterJewelGraphs()
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.characterLevelAutoMode = false
@@ -723,7 +725,6 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 		end
 	end
 	self.build.configTab.varControls["resistancePenalty"]:SetSel(resistancePenaltyIndex)
-	self.build.buildFlag = true
 	main:SetWindowTitleSubtext(string.format("%s (%s, %s, %s)", self.build.buildName, charData.name, charData.class, charData.league))
 end
 

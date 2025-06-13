@@ -4605,22 +4605,8 @@ skills["DivineIreAltY"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.22,
 	preDamageFunc = function(activeSkill, output)
-		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.hitTimeMultiplier = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:DivineIreofDisintegrationStage")
-		end
+		activeSkill.skillData.hitTimeMultiplier = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:DivineIreofDisintegrationStage")
 	end,
-	parts = {
-		{
-			name = "Channelling",
-			area = false,
-		},
-		{
-			name = "Release",
-			area = true,
-			stages = true,
-			channelRelease = true,
-		},
-	},
 	statMap = {
 		["divine_tempest_hit_damage_+%_final_per_stage"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "DivineIreofDisintegrationStageAfterFirst" }),
@@ -4632,9 +4618,10 @@ skills["DivineIreAltY"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		channelRelease = true,
 	},
 	baseMods = {
-		mod("Multiplier:DivineIreofDisintegrationMaxStages", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		mod("Multiplier:DivineIreofDisintegrationMaxStages", "BASE", 10, 0, 0),
 	},
 	qualityStats = {
 		Default = {
@@ -8656,18 +8643,32 @@ skills["Hydrosphere"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
 	parts = {
-		{
-			name = "Frozen",
-		},
-		{
-			name = "Shocked",
-		},
-		{
-			name = "Frozen & Shocked",
-		}
+			{
+				name = "Autopulse (Frozen)",
+			},
+			{
+				name = "Autopulse (Shocked)",
+			},
+			{
+				name = "Autopulse (Frozen & Shocked)",
+			},
+			{
+				name = "Cast (No Ailment)",
+			},
+			{
+				name = "Cast (Frozen)",
+			},
+			{
+				name = "Cast (Shocked)",
+			},
+			{
+				name = "Cast (Frozen & Shocked)",
+			}
 	},
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HydroSphereFrequency") / 100)
+		if activeSkill.skillPart == 1 or activeSkill.skillPart == 2 or activeSkill.skillPart == 3 then
+			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HydroSphereFrequency") / 100)
+		end
 	end,
 	statMap = {
 		["skill_physical_damage_%_to_convert_to_cold"] = {
@@ -8675,6 +8676,11 @@ skills["Hydrosphere"] = {
 			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 4 }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 5 }),
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 6 }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 7 }),
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 7 }),
 		},
 		["water_sphere_cold_lightning_exposure_%"] = {
 			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" } ),
@@ -19191,12 +19197,34 @@ skills["WintertideBrand"] = {
 	castTime = 0.7,
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+		if activeSkill.skillPart == 2 then
+			local skillMaxStages = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:WintertideBrandMaxStages")
+			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, {})
+			local maxStages = math.min(duration / activeSkill.skillData.hitTimeOverride + 1, skillMaxStages)
+			local timeToReachMaxStages = (maxStages - 1) * activeSkill.skillData.hitTimeOverride
+			local timeAtMaxStages = duration - timeToReachMaxStages
+			local damagePerStage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:WintertideBrandDamagePerStage")
+			-- Get the average damage before reaching max stages and then damage at max stages
+			local dpsMultiplier = ((2 + damagePerStage + maxStages * damagePerStage)/2*timeToReachMaxStages+timeAtMaxStages*(1+maxStages*damagePerStage))/duration
+			activeSkill.skillModList:NewMod("Damage", "MORE", dpsMultiplier, "Wintertide Brand Average Multiplier")
+		end
 	end,
+	parts = {
+		{
+			name = "Manual Stages",
+			stages = true
+		},
+		{
+			name = "Average Damage",
+		}
+	},
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["immolation_brand_burn_damage_+%_final_per_stage"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "WintertideBrandStage", limitVar = "WintertideBrandMaxStages" }),
+			-- Only apply to Manual Stages part
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "WintertideBrandStage", limitVar = "WintertideBrandMaxStages" }, { type = "SkillPart", skillPart = 1 }),
+			mod("Multiplier:WintertideBrandDamagePerStage", "BASE", nil),
 		},
 		["winter_brand_max_number_of_stages"] = {
 			mod("Multiplier:WintertideBrandMaxStages", "BASE", nil),

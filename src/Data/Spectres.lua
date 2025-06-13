@@ -6786,3 +6786,33 @@ minions["Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber"] = {
 	modList = {
 	},
 }
+-- Karui Backburner
+minions["Metadata/Monsters/LegionLeague/LegionKaruiMeleeFireSpectre"] = {
+	name = "Karui Backburner",
+	monsterTags = { "bludgeoning_weapon", "fast_movement", "fire_affinity", "flesh_armour", "humanoid", "is_unarmed", "legion_monster", "melee", "no_pantheon_mod", "red_blood", },
+	life = 3.3,
+	lifeScaling = "AltLife1",
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.1,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "None",
+	skillList = {
+		"MeleeFire",
+		"LegionKaruiMeleeLeapSlam",
+		"EmptyActionLegionKaruiMelee",
+		"LegionKaruiMeleeCombo1",
+		"LegionKaruiMeleeCombo2",
+		"LegionKaruiMeleeCombo3",
+	},
+	modList = {
+		-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+	},
+}

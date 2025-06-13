@@ -803,7 +803,7 @@ skills["DeathAura"] = {
 		skill("radius", 30),
 	},
 	constantStats = {
-		{ "base_chaos_damage_to_deal_per_minute", 60000 },
+		{ "base_chaos_damage_to_deal_per_minute", 75000 },
 	},
 	stats = {
 		"cast_on_gain_skill",
@@ -3253,7 +3253,7 @@ skills["SummonHarbingerOfTimeAscendancy"] = {
 	},
 }
 skills["SummonHarbingerOfTheArcaneAscendancy"] = {
-	name = "Summon Visiting Harbinger of Arcane",
+	name = "Summon Visiting Harbinger of the Arcane",
 	hidden = true,
 	color = 4,
 	description = "Summons an immortal Harbinger minion. The minion has two buff spells it will cast on you: Arcane Surge, granting increased Cast Speed and Mana Regeneration, and a buff that grants Chance to Shock and Lightning Penetration.",

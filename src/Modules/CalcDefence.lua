@@ -134,7 +134,8 @@ function calcs.takenHitFromDamage(rawDamage, damageType, actor)
 		local takenFlat = output[damageConvertedType.."takenFlat"]
 		if convertPercent > 0 or takenFlat ~= 0 then
 			local convertedDamage = rawDamage * convertPercent / 100
-			local reducedDamage = round(m_max(convertedDamage * damageMitigationMultiplierForType(convertedDamage, damageConvertedType) + takenFlat, 0) * output[damageConvertedType .."AfterReductionTakenHitMulti"]) * (1 - output["VaalArcticArmourMitigation"])
+			local vaalArctic = m_min(-modDB:Sum("MORE", nil, "VaalArcticArmourMitigation") / 100, 1)
+			local reducedDamage = round(m_max(convertedDamage * damageMitigationMultiplierForType(convertedDamage, damageConvertedType) + takenFlat, 0) * output[damageConvertedType .."AfterReductionTakenHitMulti"]) * (1 - vaalArctic)
 			receivedDamageSum = receivedDamageSum + reducedDamage
 			damages[damageConvertedType] = (reducedDamage > 0 or convertPercent > 0) and reducedDamage or nil
 		end
@@ -169,7 +170,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 			alliesTakenBeforeYou["frostShield"] = { remaining = output.FrostShieldLife, percent = output.FrostShieldDamageMitigation / 100 }
 		end
 		if output.TotalSpectreLife then
-			alliesTakenBeforeYou["specters"] = { remaining = output.TotalSpectreLife, percent = output.SpectreAllyDamageMitigation / 100 }
+			alliesTakenBeforeYou["spectres"] = { remaining = output.TotalSpectreLife, percent = output.SpectreAllyDamageMitigation / 100 }
 		end
 		if output.TotalTotemLife then
 			alliesTakenBeforeYou["totems"] = { remaining = output.TotalTotemLife, percent = output.TotemAllyDamageMitigation / 100 }
@@ -214,123 +215,171 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	local LifeLossLostOverTime = poolTbl.LifeLossLostOverTime or 0
 	local LifeBelowHalfLossLostOverTime = poolTbl.LifeBelowHalfLossLostOverTime or 0
 	local overkillDamage = 0
-	local MoMPoolRemaining = m_huge
-	local esPoolRemaining = m_huge
-	
-	for damageType, damage in pairs(damageTable) do
-		local damageRemainder = damage
-		for _, allyValues in pairs(alliesTakenBeforeYou) do
-			if not allyValues.damageType or allyValues.damageType == damageType then
-				if allyValues.remaining > 0 then
-					local tempDamage = m_min(damageRemainder * allyValues.percent, allyValues.remaining)
-					allyValues.remaining = m_floor(allyValues.remaining - tempDamage)
-					damageRemainder = damageRemainder - tempDamage
+
+	ward = ward >= 0 and ward or 0
+	energyShield = energyShield >= 0 and energyShield or 0
+	mana = mana >= 0 and mana or 0
+	life = life >= 0 and life or 0
+
+	-- Initializing MoM(+EB(+Bypass)) pools here saves logic later to avoid overusing pools for every damageType
+	local resourcesLostToTypeDamage = { Physical = { }, Lightning = { }, Cold = { }, Fire = { }, Chaos = { } }
+	local lifeHitPoolInitial = calcLifeHitPoolWithLossPrevention(life, output.Life, output.preventedLifeLoss, lifeLossBelowHalfPrevented)
+	local MoMPoolsRemaining = { }
+	local esPoolsRemaining = { }
+	for damageType, _ in pairs(damageTable) do
+		local MoMEffect = m_min(output.sharedMindOverMatter + output[damageType.."MindOverMatter"], 100) / 100
+		local maxMoM = lifeHitPoolInitial / (1 - MoMEffect) - lifeHitPoolInitial
+		local MoMPool = MoMEffect < 1 and m_min(maxMoM, mana) or mana
+		local lifePlusMoMHitPool = lifeHitPoolInitial + MoMPool
+		local esBypass = output[damageType.."EnergyShieldBypass"] / 100 or 0
+		local esPool = esBypass > 0 and m_min(lifePlusMoMHitPool / esBypass - lifePlusMoMHitPool, energyShield) or energyShield
+		if modDB:Flag(nil, "EnergyShieldProtectsMana") and esBypass < 1 then
+			esPoolsRemaining[damageType] = m_floor(m_min(maxMoM * (1 - esBypass), energyShield, lifePlusMoMHitPool / (1 - (1 - esBypass) * MoMEffect) - lifePlusMoMHitPool))
+			MoMPoolsRemaining[damageType] = m_floor(m_min(maxMoM - esPoolsRemaining[damageType], MoMPool))
+		else
+			esPoolsRemaining[damageType] = m_floor(esPool)
+			MoMPoolsRemaining[damageType] = m_floor(MoMPool)
+		end
+	end
+
+	for _, damageType in ipairs(dmgTypeList) do
+		local damageRemainder = damageTable[damageType]
+		if damageRemainder then
+			for ally, allyValues in pairs(alliesTakenBeforeYou) do
+				if not allyValues.damageType or allyValues.damageType == damageType then
+					if allyValues.remaining > 0 then
+						local tempDamage = m_min(damageRemainder * allyValues.percent, allyValues.remaining)
+						allyValues.remaining = m_floor(allyValues.remaining - tempDamage)
+						damageRemainder = damageRemainder - tempDamage
+						resourcesLostToTypeDamage[damageType][ally] = tempDamage >= 1 and tempDamage or nil
+					end
 				end
 			end
-		end
-		-- frost shield / soul link / other taken before you does not count as you taking damage
-		damageTakenThatCanBeRecouped[damageType] = (damageTakenThatCanBeRecouped[damageType] or 0) + damageRemainder
-		if aegis[damageType] > 0 then
-			local tempDamage = m_min(damageRemainder, aegis[damageType])
-			aegis[damageType] = aegis[damageType] - tempDamage
-			damageRemainder = damageRemainder - tempDamage
-		end
-		if isElemental[damageType] and aegis.sharedElemental > 0 then
-			local tempDamage = m_min(damageRemainder, aegis.sharedElemental)
-			aegis.sharedElemental = aegis.sharedElemental - tempDamage
-			damageRemainder = damageRemainder - tempDamage
-		end
-		if aegis.shared > 0 then
-			local tempDamage = m_min(damageRemainder, aegis.shared)
-			aegis.shared = aegis.shared - tempDamage
-			damageRemainder = damageRemainder - tempDamage
-		end
-		if guard[damageType] > 0 then
-			local tempDamage = m_min(damageRemainder * output[damageType.."GuardAbsorbRate"] / 100, guard[damageType])
-			guard[damageType] = m_floor(guard[damageType] - tempDamage)
-			damageRemainder = damageRemainder - tempDamage
-		end
-		if guard.shared > 0 then
-			local tempDamage = m_min(damageRemainder * output.sharedGuardAbsorbRate / 100, guard.shared)
-			guard.shared = m_floor(guard.shared - tempDamage)
-			damageRemainder = damageRemainder - tempDamage
-		end
-		if ward > 0 then
-			local tempDamage = m_min(damageRemainder * (1 - (modDB:Sum("BASE", nil, "WardBypass") or 0) / 100), ward)
-			ward = ward - tempDamage
-			damageRemainder = damageRemainder - tempDamage
-		end
-		local esBypass = output[damageType.."EnergyShieldBypass"] / 100 or 0
-		local lifeHitPool = calcLifeHitPoolWithLossPrevention(life, output.Life, output.preventedLifeLoss, lifeLossBelowHalfPrevented)
-		local MoMEffect = m_min(output.sharedMindOverMatter + output[damageType.."MindOverMatter"], 100) / 100
-		local MoMPool = MoMEffect < 1 and m_min(lifeHitPool / (1 - MoMEffect) - lifeHitPool, mana) or mana
-		local lifePlusMoMHitPool = lifeHitPool + MoMPool
-		if energyShield > 0 and not modDB:Flag(nil, "EnergyShieldProtectsMana") and esBypass < 1 then
-			local esPool = esBypass > 0 and m_min(lifePlusMoMHitPool / esBypass - lifePlusMoMHitPool, energyShield) or energyShield
-			local tempDamage = m_min(damageRemainder * (1 - esBypass), esPool)
-			esPoolRemaining = m_min(esPoolRemaining, esPool - tempDamage)
-			energyShield = energyShield - tempDamage
-			damageRemainder = damageRemainder - tempDamage
-		elseif esBypass == 1 then
-			esPoolRemaining = 0
-		end
-		if MoMEffect > 0 and mana > 0 then
-			local MoMDamage = damageRemainder * MoMEffect
-			if modDB:Flag(nil, "EnergyShieldProtectsMana") and energyShield > 0 and esBypass < 1 then
-				local MoMEBPool = esBypass > 0 and m_min(MoMPool / esBypass - MoMPool, energyShield) or energyShield
-				local tempDamage = m_min(MoMDamage * (1 - esBypass), MoMEBPool)
-				esPoolRemaining = m_min(esPoolRemaining, MoMEBPool - tempDamage)
+			-- frost shield / soul link / other taken before you does not count as you taking damage
+			damageTakenThatCanBeRecouped[damageType] = (damageTakenThatCanBeRecouped[damageType] or 0) + damageRemainder
+			if aegis[damageType] > 0 then
+				local tempDamage = m_min(damageRemainder, aegis[damageType])
+				aegis[damageType] = aegis[damageType] - tempDamage
+				damageRemainder = damageRemainder - tempDamage
+				resourcesLostToTypeDamage[damageType].aegis = tempDamage >= 1 and tempDamage or nil
+			end
+			if isElemental[damageType] and aegis.sharedElemental > 0 then
+				local tempDamage = m_min(damageRemainder, aegis.sharedElemental)
+				aegis.sharedElemental = aegis.sharedElemental - tempDamage
+				damageRemainder = damageRemainder - tempDamage
+				resourcesLostToTypeDamage[damageType].sharedElementalAegis = tempDamage >= 1 and tempDamage or nil
+			end
+			if aegis.shared > 0 then
+				local tempDamage = m_min(damageRemainder, aegis.shared)
+				aegis.shared = aegis.shared - tempDamage
+				damageRemainder = damageRemainder - tempDamage
+				resourcesLostToTypeDamage[damageType].sharedAegis = tempDamage >= 1 and tempDamage or nil
+			end
+			if guard[damageType] > 0 then
+				local tempDamage = m_min(damageRemainder * output[damageType.."GuardAbsorbRate"] / 100, guard[damageType])
+				guard[damageType] = m_floor(guard[damageType] - tempDamage)
+				damageRemainder = damageRemainder - tempDamage
+				resourcesLostToTypeDamage[damageType].guard = tempDamage >= 1 and tempDamage or nil
+			end
+			if guard.shared > 0 then
+				local tempDamage = m_min(damageRemainder * output.sharedGuardAbsorbRate / 100, guard.shared)
+				guard.shared = m_floor(guard.shared - tempDamage)
+				damageRemainder = damageRemainder - tempDamage
+				resourcesLostToTypeDamage[damageType].sharedGuard = tempDamage >= 1 and tempDamage or nil
+			end
+			if ward > 0 then
+				local tempDamage = m_min(damageRemainder * (1 - (modDB:Sum("BASE", nil, "WardBypass") or 0) / 100), ward)
+				ward = ward - tempDamage
+				damageRemainder = damageRemainder - tempDamage
+				resourcesLostToTypeDamage[damageType].ward = tempDamage >= 1 and tempDamage or nil
+			end
+			local MoMEffect = m_min(output.sharedMindOverMatter + output[damageType.."MindOverMatter"], 100) / 100
+			local esBypass = output[damageType.."EnergyShieldBypass"] / 100 or 0
+			local esPool = esPoolsRemaining[damageType]
+			if energyShield > 0 and not modDB:Flag(nil, "EnergyShieldProtectsMana") and esBypass < 1 then
+				local tempDamage = m_min(damageRemainder * (1 - esBypass), esPool)
+				for damageType2, _ in pairs(damageTable) do
+					esPoolsRemaining[damageType2] = m_max(esPoolsRemaining[damageType2] - tempDamage, 0)
+				end
 				energyShield = energyShield - tempDamage
 				damageRemainder = damageRemainder - tempDamage
-				MoMDamage = MoMDamage - tempDamage
+				resourcesLostToTypeDamage[damageType].energyShield = tempDamage >= 1 and tempDamage or nil
 			end
-			local tempDamage = m_min(MoMDamage, MoMPool)
-			MoMPoolRemaining = m_min(MoMPoolRemaining, MoMPool - tempDamage)
-			mana = mana - tempDamage
-			damageRemainder = damageRemainder - tempDamage
-		else
-			MoMPoolRemaining = 0
-		end
-		if output.preventedLifeLossTotal > 0 then
-			local halfLife = output.Life * 0.5
-			local lifeOverHalfLife = m_max(life - halfLife, 0)
-			local preventPercent = output.preventedLifeLoss / 100
-			local poolAboveLow = lifeOverHalfLife / (1 - preventPercent)
-			local preventBelowHalfPercent = lifeLossBelowHalfPrevented / 100
-			local damageThatLifeCanStillTake = poolAboveLow + m_max(m_min(life, halfLife), 0) / (1 - preventBelowHalfPercent) / (1 - output.preventedLifeLoss / 100)
-			if damageThatLifeCanStillTake < damageRemainder  then
-				overkillDamage = overkillDamage + damageRemainder - damageThatLifeCanStillTake
-				damageRemainder = damageThatLifeCanStillTake
-			end
-			if output.preventedLifeLossBelowHalf ~= 0 then
-				local damageToSplit = m_min(damageRemainder, poolAboveLow)
-				local lostLife = damageToSplit * (1 - preventPercent)
-				local preventedLoss = damageToSplit * preventPercent
-				damageRemainder = damageRemainder - damageToSplit
-				LifeLossLostOverTime = LifeLossLostOverTime + preventedLoss
-				life = life - lostLife
-				if life <= halfLife then
-					local unspecificallyLowLifePreventedDamage = damageRemainder * preventPercent
-					LifeLossLostOverTime = LifeLossLostOverTime + unspecificallyLowLifePreventedDamage
-					damageRemainder = damageRemainder - unspecificallyLowLifePreventedDamage
-					local specificallyLowLifePreventedDamage = damageRemainder * preventBelowHalfPercent
-					LifeBelowHalfLossLostOverTime = LifeBelowHalfLossLostOverTime + specificallyLowLifePreventedDamage
-					damageRemainder = damageRemainder - specificallyLowLifePreventedDamage
+			if MoMEffect > 0 then
+				local MoMDamage = m_ceil(damageRemainder * MoMEffect)
+				if modDB:Flag(nil, "EnergyShieldProtectsMana") and energyShield > 0 and esBypass < 1 then
+					local tempDamage = m_ceil(m_min(MoMDamage * (1 - esBypass), esPool))
+					for damageType2, _ in pairs(damageTable) do
+						esPoolsRemaining[damageType2] = m_floor(m_max(esPoolsRemaining[damageType2] - tempDamage, 0))
+					end
+					energyShield = energyShield - tempDamage
+					damageRemainder = damageRemainder - tempDamage
+					MoMDamage = MoMDamage - tempDamage
+					resourcesLostToTypeDamage[damageType].energyShield = tempDamage >= 1 and tempDamage or nil
 				end
-			else
-				local tempDamage = damageRemainder * output.preventedLifeLoss / 100
-				LifeLossLostOverTime = LifeLossLostOverTime + tempDamage
+				local tempDamage = m_ceil(m_min(MoMDamage, MoMPoolsRemaining[damageType]))
+				for damageType2, _ in pairs(damageTable) do
+					MoMPoolsRemaining[damageType2] = m_floor(m_max(MoMPoolsRemaining[damageType2] - tempDamage, 0))
+				end
+				mana = mana - tempDamage
 				damageRemainder = damageRemainder - tempDamage
+				resourcesLostToTypeDamage[damageType].mana = tempDamage >= 1 and tempDamage or nil
 			end
+			if output.preventedLifeLossTotal > 0 then
+				local halfLife = output.Life * 0.5
+				local lifeOverHalfLife = m_max(life - halfLife, 0)
+				local preventPercent = output.preventedLifeLoss / 100
+				local poolAboveLow = lifeOverHalfLife / (1 - preventPercent)
+				local preventBelowHalfPercent = lifeLossBelowHalfPrevented / 100
+				local damageThatLifeCanStillTake = poolAboveLow + m_max(m_min(life, halfLife), 0) / (1 - preventBelowHalfPercent) / (1 - output.preventedLifeLoss / 100)
+				if damageThatLifeCanStillTake < damageRemainder  then
+					overkillDamage = overkillDamage + damageRemainder - damageThatLifeCanStillTake
+					damageRemainder = damageThatLifeCanStillTake
+				end
+				if output.preventedLifeLossBelowHalf ~= 0 then
+					local damageToSplit = m_min(damageRemainder, poolAboveLow)
+					local lostLife = damageToSplit * (1 - preventPercent)
+					local preventedLoss = damageToSplit * preventPercent
+					damageRemainder = damageRemainder - damageToSplit
+					LifeLossLostOverTime = LifeLossLostOverTime + preventedLoss
+					life = life - lostLife
+					resourcesLostToTypeDamage[damageType].life = lostLife
+					resourcesLostToTypeDamage[damageType].lifeLossPrevented = preventedLoss
+					if life <= halfLife then
+						local unspecificallyLowLifePreventedDamage = damageRemainder * preventPercent
+						LifeLossLostOverTime = LifeLossLostOverTime + unspecificallyLowLifePreventedDamage
+						damageRemainder = damageRemainder - unspecificallyLowLifePreventedDamage
+						local specificallyLowLifePreventedDamage = damageRemainder * preventBelowHalfPercent
+						LifeBelowHalfLossLostOverTime = LifeBelowHalfLossLostOverTime + specificallyLowLifePreventedDamage
+						damageRemainder = damageRemainder - specificallyLowLifePreventedDamage
+						resourcesLostToTypeDamage[damageType].lifeLossPrevented = resourcesLostToTypeDamage[damageType].lifeLossPrevented + unspecificallyLowLifePreventedDamage + specificallyLowLifePreventedDamage
+					end
+					resourcesLostToTypeDamage[damageType].lifeLossPrevented = resourcesLostToTypeDamage[damageType].lifeLossPrevented >= 1 and resourcesLostToTypeDamage[damageType].lifeLossPrevented or nil
+				else
+					local tempDamage = damageRemainder * output.preventedLifeLoss / 100
+					LifeLossLostOverTime = LifeLossLostOverTime + tempDamage
+					damageRemainder = damageRemainder - tempDamage
+					resourcesLostToTypeDamage[damageType].lifeLossPrevented = tempDamage >= 1 and tempDamage or nil
+				end
+			end
+			if life > 0 then
+				local tempDamage = m_min(damageRemainder, life)
+				life = life - tempDamage
+				damageRemainder = damageRemainder - tempDamage
+				resourcesLostToTypeDamage[damageType].life = (resourcesLostToTypeDamage[damageType].life or 0) + (tempDamage > 0 and tempDamage or 0)
+			end
+			overkillDamage = overkillDamage + damageRemainder
+			resourcesLostToTypeDamage[damageType].overkill = damageRemainder >= 1 and damageRemainder or nil
 		end
-		if life > 0 then
-			local tempDamage = m_min(damageRemainder, life)
-			life = life - tempDamage
-			damageRemainder = damageRemainder - tempDamage
-		end
-		overkillDamage = overkillDamage + damageRemainder
 	end
-	local hitPoolRemaining = calcLifeHitPoolWithLossPrevention(life, output.Life, output.preventedLifeLoss, lifeLossBelowHalfPrevented) +
+	
+	local MoMPoolRemaining = m_huge
+	local esPoolRemaining = m_huge
+	for damageType, _ in pairs(damageTable) do
+		MoMPoolRemaining = m_min(MoMPoolRemaining, MoMPoolsRemaining[damageType])
+		esPoolRemaining = m_min(esPoolRemaining, esPoolsRemaining[damageType])
+	end
+	local hitPoolRemaining = (life >= 1 and calcLifeHitPoolWithLossPrevention(life, output.Life, output.preventedLifeLoss, lifeLossBelowHalfPrevented) or 0) +
 		(MoMPoolRemaining ~= m_huge and MoMPoolRemaining or 0) + (esPoolRemaining ~= m_huge and esPoolRemaining or 0)
 
 	return {
@@ -345,8 +394,74 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 		LifeLossLostOverTime = m_ceil(LifeLossLostOverTime),
 		LifeBelowHalfLossLostOverTime = m_ceil(LifeBelowHalfLossLostOverTime),
 		OverkillDamage = m_ceil(overkillDamage),
-		hitPoolRemaining = m_floor(hitPoolRemaining)
+		hitPoolRemaining = m_floor(hitPoolRemaining),
+		resourcesLostToTypeDamage = resourcesLostToTypeDamage
 	}
+end
+
+---Inserts breakdown of resources drained by a hit
+---@param breakdownTable table table to insert items to
+---@param poolsRemaining table remaining pools after running reducePoolsByDamage on damage to beak down
+---@param output table must already contain things like guard, aegis, ally life...
+---@return table breakdownTable with drained resource list
+local function incomingDamageBreakdown(breakdownTable, poolsRemaining, output)
+	--region Breakdown inserts
+	if output.FrostShieldLife and output.FrostShieldLife > 0 then
+		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Frost Shield Life ^7(%d remaining)", output.FrostShieldLife - poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining, poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining))
+	end
+	if output.TotalSpectreLife and output.TotalSpectreLife > 0 then
+		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Spectre Life ^7(%d remaining)", output.TotalSpectreLife - poolsRemaining.AlliesTakenBeforeYou["spectres"].remaining, poolsRemaining.AlliesTakenBeforeYou["spectres"].remaining))
+	end
+	if output.TotalTotemLife and output.TotalTotemLife > 0 then
+		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Totem Life ^7(%d remaining)", output.TotalTotemLife - poolsRemaining.AlliesTakenBeforeYou["totems"].remaining, poolsRemaining.AlliesTakenBeforeYou["totems"].remaining))
+	end
+	if output.TotalVaalRejuvenationTotemLife and output.TotalVaalRejuvenationTotemLife > 0 then
+		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Vaal Rejuvenation Totem Life ^7(%d remaining)", output.TotalVaalRejuvenationTotemLife - poolsRemaining.AlliesTakenBeforeYou["vaalRejuvenationTotems"].remaining, poolsRemaining.AlliesTakenBeforeYou["vaalRejuvenationTotems"].remaining))
+	end
+	if output.TotalRadianceSentinelLife and output.TotalRadianceSentinelLife > 0 then
+		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Sentinel of Radiance Life ^7(%d remaining)", output.TotalRadianceSentinelLife - poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining, poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining))
+	end
+	if output.AlliedEnergyShield and output.AlliedEnergyShield > 0 then
+		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Allied Energy shield ^7(%d remaining)", output.AlliedEnergyShield - poolsRemaining.AlliesTakenBeforeYou["soulLink"].remaining, poolsRemaining.AlliesTakenBeforeYou["soulLink"].remaining))
+	end
+	for _, damageType in ipairs(dmgTypeList) do
+		if poolsRemaining.resourcesLostToTypeDamage[damageType].aegis then
+			t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."%s Aegis charge ^7(%d remaining)", poolsRemaining.resourcesLostToTypeDamage[damageType].aegis, damageType, poolsRemaining.Aegis[damageType]))
+		end
+	end
+	if output.sharedElementalAegis and output.sharedElementalAegis ~= poolsRemaining.Aegis.sharedElemental then
+		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Elemental Aegis charge ^7(%d remaining)", output.sharedElementalAegis - poolsRemaining.Aegis.sharedElemental, poolsRemaining.Aegis.sharedElemental))
+	end
+	if output.sharedAegis and output.sharedAegis > 0 then
+		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Shared Aegis charge ^7(%d remaining)", output.sharedAegis - poolsRemaining.Aegis.shared, poolsRemaining.Aegis.shared))
+	end
+	for _, damageType in ipairs(dmgTypeList) do
+		if poolsRemaining.resourcesLostToTypeDamage[damageType].guard then
+			t_insert(breakdownTable, s_format("\n\t%d "..colorCodes.SCOURGE.."%s Guard charge ^7(%d remaining)", poolsRemaining.resourcesLostToTypeDamage[damageType].guard, damageType, poolsRemaining.Guard[damageType]))
+		end
+	end
+	if output.sharedGuardAbsorb and output.sharedGuardAbsorb > 0 then
+		t_insert(breakdownTable, s_format("\t%d "..colorCodes.SCOURGE.."Shared Guard charge ^7(%d remaining)", output.sharedGuardAbsorb - poolsRemaining.Guard.shared, poolsRemaining.Guard.shared))
+	end
+	if output.Ward and output.Ward > 0 then
+		t_insert(breakdownTable, s_format("\t%d "..colorCodes.WARD.."Ward", output.Ward))
+	end
+	if output.EnergyShieldRecoveryCap ~= poolsRemaining.EnergyShield and output.EnergyShieldRecoveryCap and output.EnergyShieldRecoveryCap > 0 then
+		t_insert(breakdownTable, s_format("\t%d "..colorCodes.ES.."Energy Shield ^7(%d remaining)", output.EnergyShieldRecoveryCap - poolsRemaining.EnergyShield, poolsRemaining.EnergyShield))
+	end
+	if output.ManaUnreserved ~= poolsRemaining.Mana and output.ManaUnreserved and output.ManaUnreserved > 0 then
+		t_insert(breakdownTable, s_format("\t%d "..colorCodes.MANA.."Mana ^7(%d remaining)", output.ManaUnreserved - poolsRemaining.Mana, poolsRemaining.Mana))
+	end
+	if poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime > 0 then
+		t_insert(breakdownTable, s_format("\t%d "..colorCodes.LIFE.."Life ^7Loss Prevented", poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime))
+	end
+	t_insert(breakdownTable, s_format("\t%d "..colorCodes.LIFE.."Life ^7(%d remaining)", output.LifeRecoverable - poolsRemaining.Life, poolsRemaining.Life))
+	if poolsRemaining.OverkillDamage >= 1 then
+		t_insert(breakdownTable, s_format("\t%d "..colorCodes.NEGATIVE.."Overkill damage", poolsRemaining.OverkillDamage))
+	end
+	--endregion
+
+	return breakdownTable
 end
 
 -- Performs all ingame and related defensive calculations
@@ -365,42 +480,20 @@ function calcs.defence(env, actor)
 	for _, slot in pairs({"Helmet","Gloves","Boots","Body Armour","Weapon 2","Weapon 3"}) do
 		local armourData = actor.itemList[slot] and actor.itemList[slot].armourData
 		if armourData then
-			wardBase = armourData.Ward or 0
+			wardBase = not modDB:Flag(nil, "GainNoWardFrom" .. slot) and armourData.Ward or 0
 			if wardBase > 0 then
-				if slot == "Body Armour" and modDB:Flag(nil, "DoubleBodyArmourDefence") then
-					wardBase = wardBase * 2
-				end
 				output["WardOn"..slot] = wardBase
 			end
-			energyShieldBase = armourData.EnergyShield or 0
+			energyShieldBase = not modDB:Flag(nil, "GainNoEnergyShieldFrom" .. slot) and armourData.EnergyShield or 0
 			if energyShieldBase > 0 then
-				if slot == "Body Armour" and modDB:Flag(nil, "DoubleBodyArmourDefence") then
-					energyShieldBase = energyShieldBase * 2
-				end
 				output["EnergyShieldOn"..slot] = energyShieldBase
 			end
-			armourBase = armourData.Armour or 0
+			armourBase = not modDB:Flag(nil, "GainNoArmourFrom" .. slot) and armourData.Armour or 0
 			if armourBase > 0 then
-				if slot == "Body Armour" then 
-					if modDB:Flag(nil, "DoubleBodyArmourDefence") then
-						armourBase = armourBase * 2
-					end
-					if modDB:Flag(nil, "Unbreakable") then
-						armourBase = armourBase * 2
-					end
-				end
 				output["ArmourOn"..slot] = armourBase
 			end
-			evasionBase = armourData.Evasion or 0
+			evasionBase = not modDB:Flag(nil, "GainNoEvasionFrom" .. slot) and armourData.Evasion or 0
 			if evasionBase > 0 then
-				if slot == "Body Armour" then
-					if modDB:Flag(nil, "DoubleBodyArmourDefence") then
-						evasionBase = evasionBase * 2
-					end
-				 	if modDB:Flag(nil, "Unbreakable") and modDB:Flag(nil, "IronReflexes") then
-						evasionBase = evasionBase * 2
-					end
-				end
 				output["EvasionOn"..slot] = evasionBase
 			end
 		end
@@ -674,6 +767,13 @@ function calcs.defence(env, actor)
 			break
 		end
 	end
+	if modDB:Flag(nil, "EnergyShieldIncreasedByChanceToBlockSpellDamage") then
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "EnergyShieldIncreasedByChanceToBlockSpellDamage")) do
+			local mod = value.mod
+			modDB:NewMod("EnergyShield", "INC", output.SpellBlockChance, mod.source)
+			break
+		end
+	end
 	-- Primary defences: Energy shield, evasion and armour
 	do
 		local ironReflexes = modDB:Flag(nil, "IronReflexes")
@@ -697,11 +797,8 @@ function calcs.defence(env, actor)
 			local armourData = actor.itemList[slot] and actor.itemList[slot].armourData
 			if armourData then
 				slotCfg.slotName = slot
-				wardBase = armourData.Ward or 0
+				wardBase = not modDB:Flag(nil, "GainNoWardFrom" .. slot) and armourData.Ward or 0
 				if wardBase > 0 then
-					if slot == "Body Armour" and modDB:Flag(nil, "DoubleBodyArmourDefence") then
-						wardBase = wardBase * 2
-					end
 					if modDB:Flag(nil, "EnergyShieldToWard") then
 						local inc = modDB:Sum("INC", slotCfg, "Ward", "Defences", "EnergyShield")
 						local more = modDB:More(slotCfg, "Ward", "Defences")
@@ -725,11 +822,8 @@ function calcs.defence(env, actor)
 						end
 					end
 				end
-				energyShieldBase = armourData.EnergyShield or 0
+				energyShieldBase = not modDB:Flag(nil, "GainNoEnergyShieldFrom" .. slot) and armourData.EnergyShield or 0
 				if energyShieldBase > 0 then
-					if slot == "Body Armour" and modDB:Flag(nil, "DoubleBodyArmourDefence") then
-						energyShieldBase = energyShieldBase * 2
-					end
 					if modDB:Flag(nil, "EnergyShieldToWard") then
 						local more = modDB:More(slotCfg, "EnergyShield", "Defences")
 						energyShield = energyShield + energyShieldBase * more
@@ -751,18 +845,10 @@ function calcs.defence(env, actor)
 						end
 					end
 				end
-				armourBase = armourData.Armour or 0
+				armourBase = not modDB:Flag(nil, "GainNoArmourFrom" .. slot) and armourData.Armour or 0
 				if armourBase > 0 then
-					if slot == "Body Armour" then
-						if modDB:Flag(nil, "DoubleBodyArmourDefence") then
-							armourBase = armourBase * 2
-						end
-						if modDB:Flag(nil, "Unbreakable") then 
-							armourBase = armourBase * 2
-						end
-						if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
-							armourBase = armourBase * (1 - ((modDB:Sum("BASE", nil, "BodyArmourArmourEvasionToWardPercent") or 0) / 100))
-						end
+					if slot == "Body Armour" and modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard")then
+						armourBase = armourBase * (1 - ((m_min(modDB:Sum("BASE", nil, "BodyArmourArmourEvasionToWardPercent"), 100) or 0) / 100))
 					end
 					armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
 					gearArmour = gearArmour + armourBase
@@ -770,18 +856,10 @@ function calcs.defence(env, actor)
 						breakdown.slot(slot, nil, slotCfg, armourBase, nil, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
 					end
 				end
-				evasionBase = armourData.Evasion or 0
+				evasionBase = not modDB:Flag(nil, "GainNoEvasionFrom" .. slot) and armourData.Evasion or 0
 				if evasionBase > 0 then
-					if slot == "Body Armour" then
-						if modDB:Flag(nil, "DoubleBodyArmourDefence") then
-							evasionBase = evasionBase * 2
-						end
-						if modDB:Flag(nil, "Unbreakable") and ironReflexes then
-							evasionBase = evasionBase * 2
-						end
-						if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
-							evasionBase = evasionBase * (1 - ((modDB:Sum("BASE", nil, "BodyArmourArmourEvasionToWardPercent") or 0) / 100))
-						end
+					if slot == "Body Armour" and modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard")then
+						evasionBase = evasionBase * (1 - ((m_min(modDB:Sum("BASE", nil, "BodyArmourArmourEvasionToWardPercent"), 100) or 0) / 100))
 					end
 					gearEvasion = gearEvasion + evasionBase
 					if breakdown then
@@ -1868,7 +1946,7 @@ function calcs.buildDefenceEstimations(env, actor)
 				t_insert(breakdown[damageType.."TakenHitMult"], s_format("= %.2f", resMult))
 			end
 			if reduction ~= 0 then
-				t_insert(breakdown[damageType.."TakenHitMult"], s_format("Base %s Damage Reduction: %.2f", damageType, 1 - reduction / 100))
+				t_insert(breakdown[damageType.."TakenHitMult"], s_format("Base %s Damage Taken: %.2f", damageType, 1 - reduction / 100))
 			end
 			if armourReduct ~= 0 then
 				if resMult ~= 1 then
@@ -1905,18 +1983,6 @@ function calcs.buildDefenceEstimations(env, actor)
 			if takenMult ~= 1 or takenFlat ~= 0 or spellSuppressMult ~= 1 or impaleDamage ~= 0 then
 				t_insert(breakdown[damageType.."TakenHitMult"], s_format("= %.3f", output[damageType.."TakenHitMult"]))
 			end
-			breakdown[damageType.."TakenHit"] = {
-				s_format("Final %s Damage taken:", damageType),
-				s_format("%.1f incoming damage", damage),
-				s_format("x %.3f damage mult", output[damageType.."TakenHitMult"]),
-				s_format("= %.1f", output[damageType.."TakenHit"]),
-			}
-			t_insert(breakdown["totalTakenHit"].rowList, {
-				type = s_format("%s", damageType),
-				incoming = s_format("%.1f incoming damage", damage),
-				mult = s_format("x %.3f damage mult", output[damageType.."TakenHitMult"] ),
-				value = s_format("%d", output[damageType.."TakenHit"]),
-			})
 			if output.AnyTakenReflect then
 				breakdown[damageType.."TakenReflectMult"] = {
 					s_format("Resistance: %.3f", 1 - resist / 100),
@@ -2128,43 +2194,39 @@ function calcs.buildDefenceEstimations(env, actor)
 	output.OnlySharedMindOverMatter = false
 	output.AnySpecificMindOverMatter = false
 	output["sharedMindOverMatter"] = m_min(modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife"), 100)
+	local function calcMoMEBPool(lifePool, MoMEffect, esBypass)
+		local mana = m_max(output.ManaUnreserved or 0, 0)
+		local maxMoMPool = MoMEffect < 1 and lifePool / (1 - MoMEffect) - lifePool or m_huge
+		local maxManaUsable = m_floor(m_min(mana, maxMoMPool))
+		local maxESUsable = modDB:Flag(nil, "EnergyShieldProtectsMana") and esBypass < 1 and
+			m_floor(m_min(
+				output.EnergyShieldRecoveryCap,
+				maxMoMPool * (1 - esBypass),
+				(lifePool + maxManaUsable) / (1 - (1 - esBypass) * MoMEffect) - (lifePool + maxManaUsable)
+			)) or 0
+		local manaUsed = m_floor(m_min(maxMoMPool - maxESUsable, maxManaUsable))
+		return lifePool + manaUsed + maxESUsable, maxManaUsable, manaUsed, maxESUsable
+	end
 	if output["sharedMindOverMatter"] > 0 then
-		output.OnlySharedMindOverMatter = true
-		local sourcePool = m_max(output.ManaUnreserved or 0, 0)
-		local sourceHitPool = sourcePool
-		local manatext = "unreserved mana"
+		local MindOverMatter = output["sharedMindOverMatter"] / 100
 		local esBypass = output.MinimumBypass / 100
-		if modDB:Flag(nil, "EnergyShieldProtectsMana") and esBypass < 1 then
-			manatext = manatext.." + non-bypassed energy shield"
-			if esBypass > 0 then
-				local manaProtected = m_min(sourcePool / esBypass - sourcePool, output.EnergyShieldRecoveryCap)
-				sourcePool = m_max(sourcePool - manaProtected, -output.LifeRecoverable) + m_min(sourcePool + output.LifeRecoverable, manaProtected) / esBypass
-				sourceHitPool = m_max(sourceHitPool - manaProtected, -output.LifeHitPool) + m_min(sourceHitPool + output.LifeHitPool, manaProtected) / esBypass
-			else
-				sourcePool = sourcePool + output.EnergyShieldRecoveryCap
-				sourceHitPool = sourcePool
-			end
-		end
-		local poolProtected = sourcePool / (output["sharedMindOverMatter"] / 100) * (1 - output["sharedMindOverMatter"] / 100)
-		local hitPoolProtected = sourceHitPool / (output["sharedMindOverMatter"] / 100) * (1 - output["sharedMindOverMatter"] / 100)
-		if output["sharedMindOverMatter"] >= 100 then
-			poolProtected = m_huge
-			output["sharedManaEffectiveLife"] = output.LifeRecoverable + sourcePool
-			output["sharedMoMHitPool"] = output.LifeHitPool + sourceHitPool
-		else
-			output["sharedManaEffectiveLife"] = m_max(output.LifeRecoverable - poolProtected, 0) + m_min(output.LifeRecoverable, poolProtected) / (1 - output["sharedMindOverMatter"] / 100)
-			output["sharedMoMHitPool"] = m_max(output.LifeHitPool - hitPoolProtected, 0) + m_min(output.LifeHitPool, hitPoolProtected) / (1 - output["sharedMindOverMatter"] / 100)
-		end
+		
+		local sharedMoMPool, breakdownMaxMana, breakdownMana, breakdownES = calcMoMEBPool(output.LifeRecoverable, MindOverMatter, esBypass)
+		output["sharedManaEffectiveLife"] = sharedMoMPool
+		output["sharedMoMHitPool"] = calcMoMEBPool(output.LifeHitPool, MindOverMatter, esBypass)
+
 		if breakdown then
 			if output["sharedMindOverMatter"] then
+				local lifeProtected = (breakdownMana + breakdownES) / MindOverMatter - (breakdownMana + breakdownES)
 				breakdown["sharedMindOverMatter"] = {
-					s_format("Total life protected:"),
-					s_format("%d ^8(%s)", sourcePool, manatext),
-					s_format("/ %.2f ^8(portion taken from mana)", output["sharedMindOverMatter"] / 100),
-					s_format("x %.2f ^8(portion taken from life)", 1 - output["sharedMindOverMatter"] / 100),
-					s_format("= %d", poolProtected),
-					s_format("Effective life: %d", output["sharedManaEffectiveLife"])
+					s_format("Effective life from Mind over Matter:"),
+					s_format("%d life (%d life is protected)", output.LifeRecoverable, lifeProtected),
+					s_format("%d mana%s", breakdownMana, breakdownMana == breakdownMaxMana and "" or s_format(" (%d mana shadowed by energy shield)", breakdownMaxMana - breakdownMana)),
 				}
+				if modDB:Flag(nil, "EnergyShieldProtectsMana") then t_insert(breakdown["sharedMindOverMatter"], s_format("%d energy shield", breakdownES)) end
+				t_insert(breakdown["sharedMindOverMatter"], s_format("%d + %d %s= %d", output.LifeRecoverable, breakdownMana,
+					modDB:Flag(nil, "EnergyShieldProtectsMana") and s_format("+ %d ", breakdownES) or "", sharedMoMPool)
+				)
 			end
 		end
 	else
@@ -2174,44 +2236,28 @@ function calcs.buildDefenceEstimations(env, actor)
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."MindOverMatter"] = m_min(modDB:Sum("BASE", nil, damageType.."DamageTakenFromManaBeforeLife"), 100 - output["sharedMindOverMatter"])
 		if output[damageType.."MindOverMatter"] > 0 or (output[damageType.."EnergyShieldBypass"] > output.MinimumBypass and output["sharedMindOverMatter"] > 0) then
-			local MindOverMatter = output[damageType.."MindOverMatter"] + output["sharedMindOverMatter"]
 			output.ehpSectionAnySpecificTypes = true
 			output.AnySpecificMindOverMatter = true
 			output.OnlySharedMindOverMatter = false
-			local sourcePool = m_max(output.ManaUnreserved or 0, 0)
-			local sourceHitPool = sourcePool
-			local manatext = "unreserved mana"
-			if modDB:Flag(nil, "EnergyShieldProtectsMana") and output[damageType.."EnergyShieldBypass"] < 100 then
-				manatext = manatext.." + non-bypassed energy shield"
-				if output[damageType.."EnergyShieldBypass"] > 0 then
-					local manaProtected = output.EnergyShieldRecoveryCap / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
-					sourcePool = m_max(sourcePool - manaProtected, -output.LifeRecoverable) + m_min(sourcePool + output.LifeRecoverable, manaProtected) / (output[damageType.."EnergyShieldBypass"] / 100)
-					sourceHitPool = m_max(sourceHitPool - manaProtected, -output.LifeHitPool) + m_min(sourceHitPool + output.LifeHitPool, manaProtected) / (output[damageType.."EnergyShieldBypass"] / 100)
-				else
-					sourcePool = sourcePool + output.EnergyShieldRecoveryCap
-					sourceHitPool = sourcePool
-				end
-			end
-			local poolProtected = sourcePool / (MindOverMatter / 100) * (1 - MindOverMatter / 100)
-			local hitPoolProtected = sourceHitPool / (MindOverMatter / 100) * (1 - MindOverMatter / 100)
-			if MindOverMatter >= 100 then
-				poolProtected = m_huge
-				output[damageType.."ManaEffectiveLife"] = output.LifeRecoverable + sourcePool
-				output[damageType.."MoMHitPool"] = output.LifeHitPool + sourceHitPool
-			else
-				output[damageType.."ManaEffectiveLife"] = m_max(output.LifeRecoverable - poolProtected, 0) + m_min(output.LifeRecoverable, poolProtected) / (1 - MindOverMatter / 100)
-				output[damageType.."MoMHitPool"] = m_max(output.LifeHitPool - hitPoolProtected, 0) + m_min(output.LifeHitPool, hitPoolProtected) / (1 - MindOverMatter / 100)
-			end
+			local MindOverMatter = (output[damageType.."MindOverMatter"] + output["sharedMindOverMatter"]) / 100
+			local esBypass = output[damageType.."EnergyShieldBypass"] / 100
+
+			local typedMoMPool, breakdownMaxMana, breakdownMana, breakdownES = calcMoMEBPool(output.LifeRecoverable, MindOverMatter, esBypass)
+			output[damageType.."ManaEffectiveLife"] = typedMoMPool
+			output[damageType.."MoMHitPool"] = calcMoMEBPool(output.LifeHitPool, MindOverMatter, esBypass)
+
 			if breakdown then
 				if output[damageType.."MindOverMatter"] then
+					local lifeProtected = (breakdownMana + breakdownES) / MindOverMatter - (breakdownMana + breakdownES)
 					breakdown[damageType.."MindOverMatter"] = {
-						s_format("Total life protected:"),
-						s_format("%d ^8(%s)", sourcePool, manatext),
-						s_format("/ %.2f ^8(portion taken from mana)", MindOverMatter / 100),
-						s_format("x %.2f ^8(portion taken from life)", 1 - MindOverMatter / 100),
-						s_format("= %d", poolProtected),
-						s_format("Effective life: %d", output[damageType.."ManaEffectiveLife"])
+						s_format("Effective life from Mind over Matter:"),
+						s_format("%d life (%d life is protected)", output.LifeRecoverable, lifeProtected),
+						s_format("%d mana%s", breakdownMana, breakdownMana == breakdownMaxMana and "" or s_format(" (%d mana shadowed by energy shield)", breakdownMaxMana - breakdownMana)),
 					}
+					if modDB:Flag(nil, "EnergyShieldProtectsMana") then t_insert(breakdown[damageType.."MindOverMatter"], s_format("%d energy shield", breakdownES)) end
+					t_insert(breakdown[damageType.."MindOverMatter"], s_format("%d + %d %s= %d", output.LifeRecoverable, breakdownMana,
+						modDB:Flag(nil, "EnergyShieldProtectsMana") and s_format("+ %d ", breakdownES) or "", typedMoMPool)
+					)
 				end
 			end
 		else
@@ -2299,7 +2345,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			}
 		end
 		
-		-- from specters
+		-- from spectres
 		output["SpectreAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromSpectresBeforeYou")
 		if output["SpectreAllyDamageMitigation"] ~= 0 then
 			output["TotalSpectreLife"] = modDB:Sum("BASE", nil, "TotalSpectreLife")
@@ -2411,7 +2457,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			alliesTakenBeforeYou["frostShield"] = { remaining = output.FrostShieldLife, percent = output.FrostShieldDamageMitigation / 100 }
 		end
 		if output.TotalSpectreLife then
-			alliesTakenBeforeYou["specters"] = { remaining = output.TotalSpectreLife, percent = output.SpectreAllyDamageMitigation / 100 }
+			alliesTakenBeforeYou["spectres"] = { remaining = output.TotalSpectreLife, percent = output.SpectreAllyDamageMitigation / 100 }
 		end
 		if output.TotalTotemLife then
 			alliesTakenBeforeYou["totems"] = { remaining = output.TotalTotemLife, percent = output.TotemAllyDamageMitigation / 100 }
@@ -3103,65 +3149,9 @@ function calcs.buildDefenceEstimations(env, actor)
 					t_insert(breakdown[maxHitCurType], s_format("/ %.2f ^8(modifiers to enemy damage)", enemyDamageMult))
 				end
 				t_insert(breakdown[maxHitCurType], s_format("= %.0f ^8maximum survivable enemy damage%s", finalMaxHit, useConversionSmoothing and " (approximate)" or ""))
-				
-				local poolsRemaining = calcs.reducePoolsByDamage(nil, takenDamages, actor)
-				
-				t_insert(breakdown[maxHitCurType], s_format("^8Such a hit would drain the following:"))
-				if output.FrostShieldLife and output.FrostShieldLife > 0 then
-					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Frost Shield Life ^7(%d remaining)", output.FrostShieldLife - poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining, poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining))
-				end
-				if output.TotalSpectreLife and output.TotalSpectreLife > 0 then
-					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Spectre Life ^7(%d remaining)", output.TotalSpectreLife - poolsRemaining.AlliesTakenBeforeYou["specters"].remaining, poolsRemaining.AlliesTakenBeforeYou["specters"].remaining))
-				end
-				if output.TotalTotemLife and output.TotalTotemLife > 0 then
-					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Totem Life ^7(%d remaining)", output.TotalTotemLife - poolsRemaining.AlliesTakenBeforeYou["totems"].remaining, poolsRemaining.AlliesTakenBeforeYou["totems"].remaining))
-				end
-				if output.TotalVaalRejuvenationTotemLife and output.TotalVaalRejuvenationTotemLife > 0 then
-					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Vaal Rejuvenation Totem Life ^7(%d remaining)", output.TotalVaalRejuvenationTotemLife - poolsRemaining.AlliesTakenBeforeYou["vaalRejuvenationTotems"].remaining, poolsRemaining.AlliesTakenBeforeYou["vaalRejuvenationTotems"].remaining))
-				end
-				if output.TotalRadianceSentinelLife and output.TotalRadianceSentinelLife > 0 then
-					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Sentinel of Radiance Life ^7(%d remaining)", output.TotalRadianceSentinelLife - poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining, poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining))
-				end
-				if output.AlliedEnergyShield and output.AlliedEnergyShield > 0 then
-					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Allied Energy shield ^7(%d remaining)", output.AlliedEnergyShield - poolsRemaining.AlliesTakenBeforeYou["soulLink"].remaining, poolsRemaining.AlliesTakenBeforeYou["soulLink"].remaining))
-				end
-				if output.sharedAegis and output.sharedAegis > 0 then
-					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Shared Aegis charge ^7(%d remaining)", output.sharedAegis - poolsRemaining.Aegis.shared, poolsRemaining.Aegis.shared))
-				end
-				local receivedElemental = false
-				for takenType in pairs(takenDamages) do
-					receivedElemental = receivedElemental or isElemental[takenType]
-					if output[takenType.."Aegis"] and output[takenType.."Aegis"] > 0 then
-						t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."%s Aegis charge ^7(%d remaining)", output[takenType.."Aegis"] - poolsRemaining.Aegis[takenType], takenType, poolsRemaining.Aegis[takenType]))
-					end
-				end
-				if receivedElemental and output.sharedElementalAegis and output.sharedElementalAegis > 0 then
-					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Elemental Aegis charge ^7(%d remaining)", output.sharedElementalAegis - poolsRemaining.Aegis.sharedElemental, poolsRemaining.Aegis.sharedElemental))
-				end
-				if output.sharedGuardAbsorb and output.sharedGuardAbsorb > 0 then
-					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.SCOURGE.."Shared Guard charge ^7(%d remaining)", output.sharedGuardAbsorb - poolsRemaining.Guard.shared, poolsRemaining.Guard.shared))
-				end
-				for takenType in pairs(takenDamages) do
-					if  output[takenType.."GuardAbsorb"] and output[takenType.."GuardAbsorb"] > 0 then
-						t_insert(breakdown[maxHitCurType], s_format("\n\t%d "..colorCodes.SCOURGE.."%s Guard charge ^7(%d remaining)", output[takenType.."GuardAbsorb"] - poolsRemaining.Guard[takenType], takenType, poolsRemaining.Guard[takenType]))
-					end
-				end
-				if output.Ward and output.Ward > 0 then
-					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.WARD.."Ward", output.Ward))
-				end
-				if output.EnergyShieldRecoveryCap ~= poolsRemaining.EnergyShield and output.EnergyShieldRecoveryCap and output.EnergyShieldRecoveryCap > 0 then
-					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.ES.."Energy Shield ^7(%d remaining)", output.EnergyShieldRecoveryCap - poolsRemaining.EnergyShield, poolsRemaining.EnergyShield))
-				end
-				if output.ManaUnreserved ~= poolsRemaining.Mana and output.ManaUnreserved and output.ManaUnreserved > 0 then
-					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.MANA.."Mana ^7(%d remaining)", output.ManaUnreserved - poolsRemaining.Mana, poolsRemaining.Mana))
-				end
-				if poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime > 0 then
-					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.LIFE.."Life ^7Loss Prevented", poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime))
-				end
-				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.LIFE.."Life ^7(%d remaining)", output.LifeRecoverable - poolsRemaining.Life, poolsRemaining.Life))
-				if poolsRemaining.OverkillDamage >= 1 then
-					t_insert(breakdown[maxHitCurType], s_format("\t%d Overkill damage", poolsRemaining.OverkillDamage))
-				end
+
+				t_insert(breakdown[maxHitCurType], "^8Such a hit would drain the following resources:")
+				breakdown[maxHitCurType] = incomingDamageBreakdown(breakdown[maxHitCurType], calcs.reducePoolsByDamage(nil, takenDamages, actor), output)
 			end
 		end
 
@@ -3595,4 +3585,106 @@ function calcs.buildDefenceEstimations(env, actor)
 			end
 		end
 	end
+
+	--region Add breakdown to enemy incoming damage
+	if breakdown then
+		local takenHit = { }
+		for _, damageType in ipairs(dmgTypeList) do
+			takenHit[damageType] = output[damageType.."TakenHit"] > 0 and output[damageType.."TakenHit"] or nil
+			t_insert(breakdown["totalTakenHit"].rowList, {
+				type = s_format("%s", damageType),
+				incoming = s_format("%.1f incoming damage", output[damageType.."TakenDamage"]),
+				mult = s_format("x %.3f damage mult", output[damageType.."TakenHitMult"] ),
+				value = s_format("%d", m_ceil(output[damageType.."TakenHit"])),
+			})
+		end
+		local poolsRemaining = calcs.reducePoolsByDamage(nil, takenHit, actor)
+		
+		t_insert(breakdown["totalTakenHit"], "Such a hit would drain the following resources:")
+		breakdown["totalTakenHit"] = incomingDamageBreakdown(breakdown["totalTakenHit"], poolsRemaining, output)
+
+		for _, damageType in ipairs(dmgTypeList) do
+			local breakdownTable = {}
+			local resourcesLost = poolsRemaining.resourcesLostToTypeDamage[damageType]
+			local resourcesLostSum = 0
+
+			t_insert(breakdownTable, s_format("Final %s Damage taken:", damageType))
+			t_insert(breakdownTable, s_format("%.1f incoming damage", output[damageType.."TakenDamage"]))
+			t_insert(breakdownTable, s_format("x %.3f damage mult", output[damageType.."TakenHitMult"]))
+			t_insert(breakdownTable, s_format("= %.1f", output[damageType.."TakenHit"]))
+
+			t_insert(breakdownTable, "This part of the hit drains the following resources:")
+			if resourcesLost.frostShield then
+				resourcesLostSum = resourcesLostSum + resourcesLost.frostShield
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Frost Shield Life", resourcesLost.frostShield))
+			end
+			if resourcesLost.spectres then
+				resourcesLostSum = resourcesLostSum + resourcesLost.spectres
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Spectre Life", resourcesLost.spectres))
+			end
+			if resourcesLost.totems then
+				resourcesLostSum = resourcesLostSum + resourcesLost.totems
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Totem Life", resourcesLost.totems))
+			end
+			if resourcesLost.vaalRejuvenationTotems then
+				resourcesLostSum = resourcesLostSum + resourcesLost.vaalRejuvenationTotems
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Vaal Rejuvenation Totem Life", resourcesLost.vaalRejuvenationTotems))
+			end
+			if resourcesLost.radianceSentinel then
+				resourcesLostSum = resourcesLostSum + resourcesLost.radianceSentinel
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Sentinel of Radiance Life", resourcesLost.radianceSentinel))
+			end
+			if resourcesLost.soulLink then
+				resourcesLostSum = resourcesLostSum + resourcesLost.soulLink
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Allied Energy shield", resourcesLost.soulLink))
+			end
+			if resourcesLost.aegis then
+				resourcesLostSum = resourcesLostSum + resourcesLost.aegis
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."%s Aegis charge", resourcesLost.aegis, damageType))
+			end
+			if resourcesLost.sharedElementalAegis then
+				resourcesLostSum = resourcesLostSum + resourcesLost.sharedElementalAegis
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Elemental Aegis charge", resourcesLost.sharedElementalAegis))
+			end
+			if resourcesLost.sharedAegis then
+				resourcesLostSum = resourcesLostSum + resourcesLost.sharedAegis
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Shared Aegis charge", resourcesLost.sharedAegis))
+			end
+			if resourcesLost.guard then
+				resourcesLostSum = resourcesLostSum + resourcesLost.guard
+				t_insert(breakdownTable, s_format("\n\t%d "..colorCodes.SCOURGE.."%s Guard charge", resourcesLost.guard, damageType))
+			end
+			if resourcesLost.sharedGuard then
+				resourcesLostSum = resourcesLostSum + resourcesLost.sharedGuard
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.SCOURGE.."Shared Guard charge", resourcesLost.sharedGuard))
+			end
+			if resourcesLost.ward then
+				resourcesLostSum = resourcesLostSum + resourcesLost.ward
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.WARD.."Ward", resourcesLost.ward))
+			end
+			if resourcesLost.energyShield then
+				resourcesLostSum = resourcesLostSum + resourcesLost.energyShield
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.ES.."Energy Shield", resourcesLost.energyShield))
+			end
+			if resourcesLost.mana then
+				resourcesLostSum = resourcesLostSum + resourcesLost.mana
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.MANA.."Mana", resourcesLost.mana))
+			end
+			if resourcesLost.lifeLossPrevented and resourcesLost.lifeLossPrevented > 0 then
+				resourcesLostSum = resourcesLostSum + resourcesLost.lifeLossPrevented
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.LIFE.."Life ^7Loss Prevented", resourcesLost.lifeLossPrevented))
+			end
+			if resourcesLost.life and resourcesLost.life > 0 then
+				resourcesLostSum = resourcesLostSum + resourcesLost.life
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.LIFE.."Life", resourcesLost.life))
+			end
+			if resourcesLost.overkill then
+				resourcesLostSum = resourcesLostSum + resourcesLost.overkill
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.NEGATIVE.."Overkill damage", resourcesLost.overkill))
+			end
+			t_insert(breakdownTable, s_format("\t^8(%d total)", resourcesLostSum))
+			breakdown[damageType.."TakenHit"] = breakdownTable
+		end
+	end
+	--endregion
 end
