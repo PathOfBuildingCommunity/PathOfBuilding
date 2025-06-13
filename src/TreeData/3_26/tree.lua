@@ -11267,6 +11267,7 @@ return {
                 "64785",
                 "16940",
                 "65085",
+                "1953",
                 "41081",
                 "5087",
                 "63135",
@@ -78174,7 +78175,7 @@ return {
             },
             ["group"]= 716,
             ["orbit"]= 2,
-            ["orbitIndex"]= 13,
+            ["orbitIndex"]= 12,
             ["out"]= {
                 "5087"
             },
@@ -78214,7 +78215,7 @@ return {
             },
             ["group"]= 716,
             ["orbit"]= 3,
-            ["orbitIndex"]= 12,
+            ["orbitIndex"]= 11,
             ["out"]= {
                 "39834"
             },
@@ -78237,7 +78238,7 @@ return {
             },
             ["group"]= 716,
             ["orbit"]= 4,
-            ["orbitIndex"]= 29,
+            ["orbitIndex"]= 27,
             ["out"]= {},
             ["in"]= {
                 "25167",
@@ -78370,8 +78371,8 @@ return {
                 "10% increased Projectile Damage"
             },
             ["group"]= 716,
-            ["orbit"]= 2,
-            ["orbitIndex"]= 5,
+            ["orbit"]= 3,
+            ["orbitIndex"]= 4,
             ["out"]= {
                 "57175"
             },
@@ -78400,7 +78401,9 @@ return {
                 "26446",
                 "47366"
             },
-            ["in"]= {}
+            ["in"]= {
+                "1953"
+            }
         },
         [65085]= {
             ["skill"]= 65085,
@@ -78421,6 +78424,26 @@ return {
                 "57175"
             }
         },
+        [1953]= {
+            ["skill"]= 1953,
+            ["name"]= "Area of Effect, Trap and Mine Throwing Speed",
+            ["icon"]= "Art/2DArt/SkillIcons/passives/Saboteur/ElementalDamageElementalResistance.png",
+            ["ascendancyName"]= "Saboteur",
+            ["stats"]= {
+                "8% increased Area of Effect",
+                "5% increased Trap Throwing Speed",
+                "5% increased Mine Throwing Speed"
+            },
+            ["group"]= 716,
+            ["orbit"]= 3,
+            ["orbitIndex"]= 13,
+            ["out"]= {
+                "16940"
+            },
+            ["in"]= {
+                "5087"
+            }
+        },
         [41081]= {
             ["skill"]= 41081,
             ["name"]= "Area of Effect, Movement Speed",
@@ -78431,8 +78454,8 @@ return {
                 "8% increased Area of Effect"
             },
             ["group"]= 716,
-            ["orbit"]= 3,
-            ["orbitIndex"]= 11,
+            ["orbit"]= 2,
+            ["orbitIndex"]= 5,
             ["out"]= {
                 "51462"
             },
@@ -78458,8 +78481,10 @@ return {
             },
             ["group"]= 716,
             ["orbit"]= 3,
-            ["orbitIndex"]= 13,
-            ["out"]= {},
+            ["orbitIndex"]= 12,
+            ["out"]= {
+                "1953"
+            },
             ["in"]= {
                 "64842"
             }
@@ -78535,8 +78560,8 @@ return {
                 "Nearby Enemies have 10% reduced Cooldown Recovery Rate"
             },
             ["group"]= 716,
-            ["orbit"]= 4,
-            ["orbitIndex"]= 26,
+            ["orbit"]= 2,
+            ["orbitIndex"]= 8,
             ["out"]= {},
             ["in"]= {
                 "41081"
