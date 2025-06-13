@@ -1,7 +1,7 @@
 VERSION[2.53.1][2025/06/13]
 
 --- User Interface ---
-* Enable Sorting of folders by date and inherit the sort order in the build save dialog (Noologos)
+* Enable Sorting of folders by date and inherit the sort order in the build save dialogue (Noologos)
 
 --- Fixed Calculations ---
 * Fix CWC not supporting triggerbots (Paliak)

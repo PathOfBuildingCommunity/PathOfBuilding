@@ -6,7 +6,7 @@
 
 ## What's Changed
 ### User Interface
-- Enable Sorting of folders by date and inherit the sort order in the build save dialog [\#8624](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8624) ([Noologos](https://github.com/Noologos))
+- Enable Sorting of folders by date and inherit the sort order in the build save dialogue [\#8624](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8624) ([Noologos](https://github.com/Noologos))
 ### Fixed Calculations
 - Fix CWC not supporting triggerbots [\#8671](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8671) ([Paliak](https://github.com/Paliak))
 ### Fixed Behaviours
