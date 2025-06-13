@@ -6487,6 +6487,27 @@ return {
 	leagueinfopanelversions={
 	},
 	leaguenames={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	leagueprogressquestflags={
 	},
