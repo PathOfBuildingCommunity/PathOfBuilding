@@ -15,6 +15,9 @@ end
 
 function ScriptListClass:OnSelClick(index, script, doubleClick)
 	if doubleClick then
+		if main.controls.clearAutoClearOutput.state then
+			wipeTable(main.scriptOutput)
+		end
 		local errMsg = PLoadModule("Scripts/"..script..".lua")
 		if errMsg then
 			print(errMsg)
