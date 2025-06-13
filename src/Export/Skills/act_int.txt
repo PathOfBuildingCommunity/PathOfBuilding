@@ -3206,6 +3206,9 @@ local skills, mod, flag, skill = ...
 			skill("RFManaMultiplier", nil),
 			div = 6000,
 		},
+		["righteous_fire_spell_damage_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 #baseMod skill("dotIsArea", true)
 #mods
@@ -3727,8 +3730,11 @@ local skills, mod, flag, skill = ...
 		"SummonedChaosGolem",
 	},
 	statMap = {
-		["chaos_golem_grants_additional_physical_damage_reduction_%"] = {
-			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		["chaos_golem_grants_dot_multiplier_+"] = {
+			mod("DotMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["chaos_golem_grants_chaos_resistance_%"] = {
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #baseMod skill("allowTotemBuff", true)
@@ -3748,6 +3754,12 @@ local skills, mod, flag, skill = ...
 #flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedChaosGolem",
+	},
+	statMap = {
+		-- Minions applying Wither from a skill does not work yet
+		--["minion_withered_effect_+%"] = {
+			--mod("MinionWitherEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		--},
 	},
 #baseMod skill("allowTotemBuff", true)
 #baseMod flag("Condition:HaveChaosGolem", { type = "GlobalEffect", effectType = "Buff" })
@@ -3792,6 +3804,10 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["lightning_golem_grants_attack_and_cast_speed_+%"] = {
 			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["lightning_golem_grants_base_mana_regeneration_rate_per_minute"] = {
+			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 60,
 		},
 	},
 #baseMod skill("allowTotemBuff", true)

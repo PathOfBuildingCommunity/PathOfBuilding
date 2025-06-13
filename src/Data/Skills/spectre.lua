@@ -1791,6 +1791,7 @@ skills["MonsterDischarge"] = {
 	},
 	constantStats = {
 		{ "spell_maximum_action_distance_+%", -75 },
+		{ "active_skill_base_area_of_effect_radius", 25 },
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage_per_removable_power_charge",
