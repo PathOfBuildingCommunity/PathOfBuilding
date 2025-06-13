@@ -346,10 +346,12 @@ function ListClass:OnKeyDown(key, doubleClick)
 				newSelect = index
 			end
 		else
+			local scrollOffsetH = self.controls.scrollBarH.offset
 			for colIndex, column in ipairs(self.colList) do
 				local relX = cursorX - (x + 2)
 				local relY = cursorY - (y + 2)
-				local mOver = relX >= column._offset and relX <= column._offset + column._width and relY >= 0 and relY <= 18
+				local adjustedRelX = relX + scrollOffsetH
+				local mOver = adjustedRelX >= column._offset and adjustedRelX <= column._offset + column._width and relY >= 0 and relY <= 18
 				if self:GetColumnProperty(column, "sortable") and mOver and self.ReSort then
 					self:ReSort(colIndex)
 				end

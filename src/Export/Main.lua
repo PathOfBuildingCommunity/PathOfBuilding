@@ -205,8 +205,10 @@ function main:Init()
 			return #self.scriptOutput > 0
 		end
 	}
-
-	self.controls.helpText = new("LabelControl", {"TOPLEFT",self.controls.clearOutput,"BOTTOMLEFT"}, {0, 12, 100, 16}, "Press Ctrl+F5 to re-export\ndata from the game")
+	self.controls.clearAutoClearOutput = new("CheckBoxControl", { "TOPLEFT", self.controls.clearOutput, "BOTTOMLEFT" }, { 120, 10, 20, 20 }, "Auto Clear Output:", function(state)
+		self.clearAutoClearOutput = state
+	end, nil, false)
+	self.controls.helpText = new("LabelControl", {"TOPLEFT",self.controls.clearOutput,"BOTTOMLEFT"}, {0, 42, 100, 16}, "Press Ctrl+F5 to re-export\ndata from the game")
 
 	self.controls.scriptList = new("ScriptListControl", nil, {270, 35, 100, 300}) {
 		shown = function()
@@ -219,7 +221,12 @@ function main:Init()
 		end
 	}
 
-	self.controls.datList = new("DatListControl", nil, {10, 70, 250, function() return self.screenH - 70 end})
+	self.controls.datSearch = new("EditControl", {"TOPLEFT", self.controls.datSource, "BOTTOMLEFT"}, {0, 2, 250, 18}, nil, "^7Search", nil, nil, function(buf)
+		self.controls.datList.searchBuf = buf
+		self.controls.datList:BuildFilteredList()
+	end, nil, nil, true)
+
+	self.controls.datList = new("DatListControl", {"TOPLEFT",self.controls.datSearch,"BOTTOMLEFT"}, {0, 2, 250, function() return self.screenH - 100 end})
 
 	self.controls.specEditToggle = new("ButtonControl", nil, {270, 10, 100, 18}, function() return self.editSpec and "Done <<" or "Edit >>" end, function()
 		self.editSpec = not self.editSpec
@@ -316,6 +323,7 @@ function main:Init()
 	}
 	self.controls.filter.tooltipText = "Takes a Lua expression that returns true or false for a row.\nE.g. `Id:match(\"test\")` or for a key column, `Col and Col.Id:match(\"test\")`"
 	self.controls.filterError = new("LabelControl", {"LEFT",self.controls.filter,"RIGHT"}, {4, 2, 0, 14}, "")
+	self.controls.showRaw = new("LabelControl", {"LEFT",self.controls.filter,"RIGHT"}, {600, 2, 0, 14}, "^7Hold ALT to show raw data.")
 
 	self.controls.rowList = new("RowListControl", nil, {270, 0, 0, 0}) {
 		y = function()
@@ -428,6 +436,19 @@ function main:OnFrame()
 end
 
 function main:OnKeyDown(key, doubleClick)
+	-- Ctrl+F shortcut for focusing dat file Search
+	if key == "f" and IsKeyDown("CTRL") then
+		if self.controls and self.controls.datSearch and self.SelectControl then
+			self:SelectControl(self.controls.datSearch)
+		end
+		return
+	-- ESC key closes Dat window so that the script menu is shown.
+	elseif key == "ESCAPE" then
+		if self.controls and self.controls.scripts and self.SelectControl then
+			self:SetCurrentDat()
+		end
+		return
+	end
 	t_insert(self.inputEvents, { type = "KeyDown", key = key, doubleClick = doubleClick })
 end
 

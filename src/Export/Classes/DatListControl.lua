@@ -4,8 +4,26 @@
 -- Dat list control.
 --
 local DatListClass = newClass("DatListControl", "ListControl", function(self, anchor, rect)
-	self.ListControl(anchor, rect, 14, "VERTICAL", false, main.datFileList)
+	self.originalList = main.datFileList
+	self.searchBuf = ""
+	self.filteredList = self.originalList
+	self.ListControl(anchor, rect, 14, "VERTICAL", false, self.filteredList)
 end)
+
+function DatListClass:BuildFilteredList()
+	local search = self.searchBuf:lower()
+	if search == "" then
+		self.filteredList = self.originalList
+	else
+		self.filteredList = {}
+		for _, file in ipairs(self.originalList) do
+			if file.name:lower():find(search, 1, true) then
+				table.insert(self.filteredList, file)
+			end
+		end
+	end
+	self.list = self.filteredList
+end
 
 function DatListClass:GetRowValue(column, index, datFile)
 	if column == 1 then
