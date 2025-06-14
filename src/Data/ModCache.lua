@@ -4290,8 +4290,7 @@ c["3% increased effect of Non-Curse Auras from your Skills"]={{[1]={[1]={skillTy
 c["3% increased effect of Non-Curse Auras you Cast"]={{[1]={[1]={skillType=43,type="SkillType"},[2]={neg=true,skillType=79,type="SkillType"},flags=0,keywordFlags=0,name="AuraEffect",type="INC",value=3}},nil}
 c["3% increased maximum Energy Shield"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=3}},nil}
 c["3% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=3}},nil}
-c["3% increased maximum Life per Red Socket on equipped Staff"]={{[1]={[1]={type="Multiplier",var="RedSocketIn{SlotName}"},flags=0,keywordFlags=0,name="Life",type="INC",value=3}},"   on equipped Staff "}
-c["3% increased maximum Life per Red Socket on equipped Staff 5% increased maximum Mana per Blue Socket on equipped Staff"]={{[1]={[1]={type="Multiplier",var="RedSocketIn{SlotName}"},[2]={type="Multiplier",var="BlueSocketIn{SlotName}"},flags=0,keywordFlags=0,name="Life",type="INC",value=3}},"   on equipped Staff 5% increased maximum Mana  on equipped Staff "}
+c["3% increased maximum Life per Red Socket on equipped Staff"]={{[1]={[1]={type="Multiplier",var="RedSocketInWeapon 1"},[2]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="Life",type="INC",value=3}},nil}
 c["3% more Armour and Evasion Rating per Fortification above 20"]={{[1]={[1]={stat="FortificationStacksOver20",type="PerStat"},flags=0,keywordFlags=0,name="ArmourAndEvasion",type="MORE",value=3}},nil}
 c["3% more Spell Damage per Power Charge"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},flags=2,keywordFlags=0,name="Damage",type="MORE",value=3}},nil}
 c["3% of Armour applies to Fire, Cold and Lightning Damage taken from Hits"]={{[1]={flags=0,keywordFlags=0,name="ArmourAppliesToFireDamageTaken",type="BASE",value=3},[2]={flags=0,keywordFlags=0,name="ArmourAppliesToColdDamageTaken",type="BASE",value=3},[3]={flags=0,keywordFlags=0,name="ArmourAppliesToLightningDamageTaken",type="BASE",value=3}},nil}
@@ -5214,7 +5213,7 @@ c["5% increased effect of Non-Curse Auras from your Skills"]={{[1]={[1]={skillTy
 c["5% increased maximum Energy Shield"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=5}},nil}
 c["5% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=5}},nil}
 c["5% increased maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="INC",value=5}},nil}
-c["5% increased maximum Mana per Blue Socket on equipped Staff"]={{[1]={[1]={type="Multiplier",var="BlueSocketIn{SlotName}"},flags=0,keywordFlags=0,name="Mana",type="INC",value=5}},"   on equipped Staff "}
+c["5% increased maximum Mana per Blue Socket on equipped Staff"]={{[1]={[1]={type="Multiplier",var="BlueSocketInWeapon 1"},[2]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="Mana",type="INC",value=5}},nil}
 c["5% more Accuracy Rating per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="Accuracy",type="MORE",value=5}},nil}
 c["5% more Damage per Summoned Totem"]={{[1]={[1]={stat="TotemsSummoned",type="PerStat"},flags=0,keywordFlags=0,name="Damage",type="MORE",value=5}},nil}
 c["5% more chance to Evade Melee Attacks"]={{[1]={flags=0,keywordFlags=0,name="MeleeEvadeChance",type="MORE",value=5}},nil}
