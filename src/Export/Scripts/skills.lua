@@ -312,7 +312,7 @@ directiveTable.skill = function(state, args, out)
 		out:write('\tstatDescriptionScope = "gem_stat_descriptions",\n')
 	else
 		if #granted.ActiveSkill.Description > 0 then
-			out:write('\tdescription = "', granted.ActiveSkill.Description:gsub('"','\\"'):gsub('\n','\\n'), '",\n')
+			out:write('\tdescription = "', granted.ActiveSkill.Description:gsub('"','\\"'):gsub('\r',''):gsub('\n','\\n'), '",\n')
 		end
 		out:write('\tskillTypes = { ')
 		for _, type in ipairs(granted.ActiveSkill.SkillTypes) do

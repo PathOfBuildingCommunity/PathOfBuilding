@@ -2708,7 +2708,7 @@ skills["TriggeredStarfall"] = {
 	hidden = true,
 	color = 2,
 	baseEffectiveness = 0,
-	description = "Stars fall, raining destruction down over an area. Falling stars deal Attack Damage.\nCannot be Supported by Trigger Support Gems.",
+	description = "Stars fall, raining destruction down over an area. Falling stars deal Attack Damage.\nCannot be Supported by Trigger Support Gems.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.ProjectileNumber] = true, [SkillType.Triggerable] = true, [SkillType.Rain] = true, [SkillType.Triggered] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, [SkillType.DisallowTriggerSupports] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
