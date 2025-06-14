@@ -807,12 +807,12 @@ local skills, mod, flag, skill = ...
 		end
 		local add = life * activeSkill.skillData.percentageLifeSacrificed / 100 * (activeSkill.skillData.percentageSacrificedDealtAsChaos / 100)
 		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + add
-			activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + add
+			activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + math.floor(add)
+			activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + math.floor(add)
 		else
-			local avgCastsTillRuin = 7 / (1 + math.max(100, activeSkill.skillData.additionalRuinChance or 0) / 100)
-			activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + add / avgCastsTillRuin
-			activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + add / avgCastsTillRuin
+			local avgCastsTillRuin = 7 / (1 + math.min(100, activeSkill.skillData.additionalRuinChance or 0) / 100)
+			activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + math.floor(add / avgCastsTillRuin)
+			activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + math.floor(add / avgCastsTillRuin)
 		end
 	end,
 	statMap = {
