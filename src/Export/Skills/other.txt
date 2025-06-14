@@ -262,12 +262,6 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill TriggeredStarfall
-#flags spell
-#baseMod skill("showAverage", true)
-	fromItem = true,
-#mods
-
 #skill TriggeredSummonLesserShrine
 #flags spell duration
 	fromItem = true,
@@ -751,6 +745,12 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radiusLabel", "Orb explosion:")
 #baseMod skill("radiusSecondaryLabel", "Corpse explosion:")
+#mods
+
+#skill TriggeredStarfall
+#flags spell
+	fromItem = true,
+#baseMod skill("showAverage", true)
 #mods
 
 #skill StormCascadeTriggered
