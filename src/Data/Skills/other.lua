@@ -766,8 +766,9 @@ skills["TriggeredSummonLesserShrine"] = {
 	castTime = 1,
 	fromItem = true,
 	baseFlags = {
-		spell = true,
-		duration = true,
+		attack = true,
+		projectile = true,
+		area = true,
 	},
 	baseMods = {
 		flag("Condition:CanHaveLesserShrines", { type = "GlobalEffect", effectType = "Buff", effectName = "Shrines" }),

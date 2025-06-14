@@ -748,9 +748,8 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill TriggeredStarfall
-#flags spell
+#flags attack projectile area
 	fromItem = true,
-#baseMod skill("showAverage", true)
 #mods
 
 #skill StormCascadeTriggered
