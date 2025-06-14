@@ -1,4 +1,5 @@
 VERSION[2.54.0][2025/06/14]
+
 --- New to Path of Building ---
 * Add full support for new 3.26 Gems (LocalIdentity, Wires77, TPlant)
 * Update existing gems with changes from 3.26 (LocalIdentity, Wires77)
