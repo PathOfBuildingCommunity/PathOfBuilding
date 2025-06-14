@@ -1,3 +1,9 @@
+VERSION[2.54.0][2025/06/14]
+--- New to Path of Building ---
+* Add full support for new 3.26 Gems by (@LocalIdentity, @Wires77, @PJacek) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8676, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8679
+* Update existing gems with changes from 3.26 by (@LocalIdentity, @Wires77) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8673
+
+
 VERSION[2.53.1][2025/06/13]
 
 --- User Interface ---

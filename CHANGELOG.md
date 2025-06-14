@@ -1,5 +1,16 @@
 # Changelog
 
+## [v2.54.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.54.0) (2025/06/14)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.53.1...v2.54.0)
+
+## What's Changed
+### New to Path of Building
+* Add full support for new 3.26 Gems by (@LocalIdentity, @Wires77, @PJacek) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8676, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8679
+* Update existing gems with changes from 3.26 by (@LocalIdentity, @Wires77) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8673
+
+
+
 ## [v2.53.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.53.1) (2025/06/13)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.53.0...v2.53.1)
