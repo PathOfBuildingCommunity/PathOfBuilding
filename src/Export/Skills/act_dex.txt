@@ -530,6 +530,25 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill BladefallAltZ
+#flags spell area
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillData.incVolleyFrequency / 100)
+	end,
+	statMap = {
+		["quality_display_bladefall_is_gem"] = {
+			--Display only
+		},
+		["bladefall_base_volley_frequency_ms"] = {
+			skill("hitFrequency", nil),
+			div = 1000,
+		},
+		["bladefall_volley_frequency_+%_per_100_maximum_mana"] = {
+			skill("incVolleyFrequency", nil, { type = "PerStat", stat = "Mana", div = 100 }),
+		},
+	},
+#mods
+
 #skill BlastRain
 #flags attack projectile area
 	parts = {
@@ -547,6 +566,10 @@ local skills, mod, flag, skill = ...
 	end,
 #baseMod skill("radius", 24)
 #baseMod flag("OneShotProj")
+#mods
+
+#skill BlastRainAltX
+#flags attack projectile area
 #mods
 
 #skill BlinkArrow
@@ -2787,6 +2810,18 @@ local skills, mod, flag, skill = ...
 #baseMod flag("ProjectileRain")
 #mods
 
+#skill SiegeBallistaAltY
+#flags attack projectile totem ballista
+	statMap = {
+		["totem_fire_in_formation"] = {
+			skill("totemFireOnce", true),
+		},
+		["active_skill_summon_X_totems_in_ring_override"] = {
+			skill("dpsMultiplier", nil),
+		},
+	},
+#mods
+
 #skill SmokeMine
 #flags spell mine area buff
 	statMap = {
@@ -2840,6 +2875,27 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SpectralShieldThrowAltY
+#flags attack projectile shieldAttack
+	parts = {
+		{
+			name = "Shield",
+		},
+		{
+			name = "Shards",
+		},
+	},
+	statMap = {
+		["thrown_shield_secondary_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["stationary_shield_throw_firing_interval_ms"] = {
+			skill("hitTimeOverride", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 1000,
+		},
+	},
+#mods
+
 #skill SpectralThrow
 #flags attack projectile
 #baseMod mod("PierceChance", "BASE", 100)
@@ -2847,6 +2903,11 @@ local skills, mod, flag, skill = ...
 
 #skill SpectralThrowAltX
 #flags attack projectile
+#baseMod mod("PierceChance", "BASE", 100)
+#mods
+
+#skill SpectralThrowAltY
+#flags attack projectile trap
 #baseMod mod("PierceChance", "BASE", 100)
 #mods
 
@@ -2900,6 +2961,17 @@ local skills, mod, flag, skill = ...
 
 #skill SpectralHelix
 #flags attack projectile bounce
+	statMap = {
+		["spectral_spiral_weapon_base_number_of_bounces"] = {
+			mod("BounceCount", "BASE", nil),
+		},
+	},
+#baseMod flag("NoAdditionalProjectiles")
+#baseMod flag("AdditionalProjectilesAddBouncesInstead")
+#mods
+
+#skill SpectralHelixAltY
+#flags attack projectile bounce trap
 	statMap = {
 		["spectral_spiral_weapon_base_number_of_bounces"] = {
 			mod("BounceCount", "BASE", nil),

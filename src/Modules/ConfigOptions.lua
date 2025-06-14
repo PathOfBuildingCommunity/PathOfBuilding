@@ -402,6 +402,10 @@ return {
 	{ var = "FlickerStrikeBypassCD", type = "check", label = "Bypass CD?", ifSkill = "Flicker Strike", includeTransfigured = true, defaultState = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("CooldownRecovery", "OVERRIDE", 0, "Config", { type = "SkillName", skillName = "Flicker Strike", includeTransfigured = true })
 	end },
+	{ label = "Focused Channelling Support:", ifSkill = "Focused Channelling" },
+	{ var = "channellingSeconds", type = "count", label = "Seconds spent Channelling:", ifSkill = "Focused Channelling", tooltip = "Sets the amount of time you've spent channelling in seconds.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:ChannellingSeconds", "BASE", val, "Config")
+	end },
 	{ label = "Fresh Meat:", ifSkill = "Fresh Meat" },
 	{ var = "freshMeatBuffs", type = "check", label = "Is Fresh Meat active?", ifSkill = "Fresh Meat", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FreshMeatActive", "FLAG", true, "Config")

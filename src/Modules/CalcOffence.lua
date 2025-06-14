@@ -1304,6 +1304,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if skillFlags.totem then
+		local baseSpeed
 		if skillFlags.ballista then
 			baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "BallistaPlacementTime")
 		else
@@ -2209,6 +2210,10 @@ function calcs.offence(env, actor, activeSkill)
 				output.TotemActionSpeed = totemActionSpeed
 				output.Speed = output.Speed * totemActionSpeed
 				output.CastRate = output.Speed
+				if skillData.totemFireOnce then
+					output.HitTime = 1 / output.Speed + globalOutput.TotemPlacementTime
+					output.HitSpeed = 1 / output.HitTime
+				end
 			end
 			if globalOutput.Cooldown then
 				output.Cooldown = globalOutput.Cooldown

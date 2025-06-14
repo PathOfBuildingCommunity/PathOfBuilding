@@ -1696,6 +1696,9 @@ return {
 ["active_skill_trap_throwing_speed_+%_final"] = {
 	mod("TrapThrowingSpeed", "MORE", nil),
 },
+["trap_throwing_speed_+%_while_wielding_2hand"] = {
+	mod("TrapThrowingSpeed", "INC", nil, 0, 0, { type = "Condition", var = "UsingTwoHandedWeapon" }),
+},
 ["trap_critical_strike_multiplier_+_per_power_charge"] = {
 	mod("CritMultiplier", "BASE", nil, 0, KeywordFlag.Trap, { type = "Multiplier", var = "PowerCharge" }),
 },
@@ -1707,6 +1710,9 @@ return {
 },
 ["number_of_additional_traps_to_throw"] = {
 	mod("TrapThrowCount", "BASE", nil)
+},
+["throw_X_additional_traps_if_dual_wielding"] = {
+	mod("TrapThrowCount", "BASE", nil, 0, 0, { type = "Condition", var = "DualWielding" })
 },
 -- Mine
 ["number_of_additional_remote_mines_allowed"] = {

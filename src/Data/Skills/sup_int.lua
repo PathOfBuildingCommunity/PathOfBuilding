@@ -2315,6 +2315,14 @@ skills["SupportFocusedChannelling"] = {
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_focus_channel_cost_+%_final_per_second_channelling_up_to_100%"] = {
+			mod("Cost", "MORE", nil, 0, 0, { type = "Multiplier", var = "ChannellingSeconds", limit = 100, limitTotal = true }),
+		},
+		["support_focus_channel_damage_+%_final_per_second_channelling_up_to_60%"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ChannellingSeconds", limit = 60, limitTotal = true }),
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "base_cast_speed_+%", 0.5 },
