@@ -966,6 +966,9 @@ local configTable = {
 	["cameria's avarice"] = function()
 		return {triggerName = "Icicle Burst", triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
 	end,
+	["starcaller"] = function()
+		return {triggerName = "Starfall", triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
+	end,
 	["uul-netol's embrace"] = function()
 		return {triggerName = "Bone Nova", triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
 	end,

@@ -3904,6 +3904,118 @@ skills["DarkPact"] = {
 		[40] = { 0.80000001192093, 1.2000000476837, 199, critChance = 5, levelRequirement = 100, statInterpolation = { 3, 3, 1, }, cost = { Mana = 17, }, },
 	},
 }
+skills["DarkPactAltX"] = {
+	name = "Dark Pact of Trarthus",
+	baseTypeName = "Dark Pact of Trarthus",
+	color = 3,
+	baseEffectiveness = 0.80000001192093,
+	incrementalEffectiveness = 0.037999998778105,
+	description = "This spell deals chaos damage in an area around you. Casting this spell will cause you to gain Ruin. If this spell inflicts your seventh Ruin, it will sacrifice a large portion of your life to deal extra chaos damage based on the amount sacrificed, and remove all Ruin from you.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Chaos] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.5,
+	parts = {
+		{
+			name = "Average",
+		},
+		{
+			name = "Max Ruin",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local life
+		if activeSkill.skillFlags.totem then
+			life = output.TotemLife
+		else
+			life = output.Life
+		end
+		local add = life * activeSkill.skillData.percentageLifeSacrificed / 100 * (activeSkill.skillData.percentageSacrificedDealtAsChaos / 100)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + math.floor(add)
+			activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + math.floor(add)
+		else
+			local avgCastsTillRuin = 7 / (1 + math.min(100, activeSkill.skillData.additionalRuinChance or 0) / 100)
+			activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + math.floor(add / avgCastsTillRuin)
+			activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + math.floor(add / avgCastsTillRuin)
+		end
+	end,
+	statMap = {
+		["dark_pact_sacrifice_%_life_from_max_ruin"] = {
+			skill("percentageLifeSacrificed", nil),
+		},
+		["dark_pact_chaos_damage_added_from_sacrifice_+%"] = {
+			skill("percentageSacrificedDealtAsChaos", nil),
+		},
+		["dark_pact_chance_to_gain_an_additional_ruin_%"] = {
+			skill("additionalRuinChance"),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+		skill("radius", 26),
+		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
+	},
+	qualityStats = {
+		Default = {
+			{ "dark_pact_chance_to_gain_an_additional_ruin_%", 1 },
+		},
+	},
+	constantStats = {
+		{ "dark_pact_sacrifice_%_life_from_max_ruin", 50 },
+		{ "dark_pact_chaos_damage_added_from_sacrifice_+%", 400 },
+		{ "active_skill_ailment_damage_+%_final", -50 },
+	},
+	stats = {
+		"spell_minimum_base_chaos_damage",
+		"spell_maximum_base_chaos_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 28, statInterpolation = { 3, 3, }, cost = { Mana = 7, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 31, statInterpolation = { 3, 3, }, cost = { Mana = 7, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 34, statInterpolation = { 3, 3, }, cost = { Mana = 8, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 37, statInterpolation = { 3, 3, }, cost = { Mana = 8, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 40, statInterpolation = { 3, 3, }, cost = { Mana = 9, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 42, statInterpolation = { 3, 3, }, cost = { Mana = 9, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 44, statInterpolation = { 3, 3, }, cost = { Mana = 9, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 46, statInterpolation = { 3, 3, }, cost = { Mana = 10, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 48, statInterpolation = { 3, 3, }, cost = { Mana = 10, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 50, statInterpolation = { 3, 3, }, cost = { Mana = 10, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 52, statInterpolation = { 3, 3, }, cost = { Mana = 11, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 54, statInterpolation = { 3, 3, }, cost = { Mana = 11, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 56, statInterpolation = { 3, 3, }, cost = { Mana = 11, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 58, statInterpolation = { 3, 3, }, cost = { Mana = 11, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 60, statInterpolation = { 3, 3, }, cost = { Mana = 12, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 62, statInterpolation = { 3, 3, }, cost = { Mana = 12, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 64, statInterpolation = { 3, 3, }, cost = { Mana = 12, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 66, statInterpolation = { 3, 3, }, cost = { Mana = 13, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, }, cost = { Mana = 13, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, }, cost = { Mana = 13, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 72, statInterpolation = { 3, 3, }, cost = { Mana = 13, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 74, statInterpolation = { 3, 3, }, cost = { Mana = 14, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 76, statInterpolation = { 3, 3, }, cost = { Mana = 14, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 78, statInterpolation = { 3, 3, }, cost = { Mana = 14, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 80, statInterpolation = { 3, 3, }, cost = { Mana = 15, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, }, cost = { Mana = 15, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, }, cost = { Mana = 15, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 86, statInterpolation = { 3, 3, }, cost = { Mana = 15, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 88, statInterpolation = { 3, 3, }, cost = { Mana = 16, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 90, statInterpolation = { 3, 3, }, cost = { Mana = 16, }, },
+		[31] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 91, statInterpolation = { 3, 3, }, cost = { Mana = 16, }, },
+		[32] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 92, statInterpolation = { 3, 3, }, cost = { Mana = 16, }, },
+		[33] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 93, statInterpolation = { 3, 3, }, cost = { Mana = 16, }, },
+		[34] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 94, statInterpolation = { 3, 3, }, cost = { Mana = 17, }, },
+		[35] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 95, statInterpolation = { 3, 3, }, cost = { Mana = 17, }, },
+		[36] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 96, statInterpolation = { 3, 3, }, cost = { Mana = 17, }, },
+		[37] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 97, statInterpolation = { 3, 3, }, cost = { Mana = 17, }, },
+		[38] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 98, statInterpolation = { 3, 3, }, cost = { Mana = 17, }, },
+		[39] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 99, statInterpolation = { 3, 3, }, cost = { Mana = 17, }, },
+		[40] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 100, statInterpolation = { 3, 3, }, cost = { Mana = 17, }, },
+	},
+}
 skills["Despair"] = {
 	name = "Despair",
 	baseTypeName = "Despair",
@@ -16674,6 +16786,90 @@ skills["StormCall"] = {
 		[40] = { 0.69999998807907, 1.2999999523163, 11, damageEffectiveness = 2.5, critChance = 6, levelRequirement = 100, statInterpolation = { 3, 3, 1, }, cost = { Mana = 22, }, },
 	},
 }
+skills["StormCallAltX"] = {
+	name = "Storm Call of Trarthus",
+	baseTypeName = "Storm Call of Trarthus",
+	color = 3,
+	baseEffectiveness = 2.4012999534607,
+	incrementalEffectiveness = 0.044100001454353,
+	description = "Sets a marker at a location. After a short duration, a bolt strikes the marker, dealing physical damage around it and causing bolts to strike at any other markers you've cast. Bolt impacts will leave behind a pool of boiling blood, which deals physical damage over time to enemies within it for a secondary duration.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.DamageOverTime] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.75,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("radius", 20),
+	},
+	qualityStats = {
+		Default = {
+			{ "base_secondary_skill_effect_duration", 50 },
+		},
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 2000 },
+		{ "base_secondary_skill_effect_duration", 4000 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_physical_damage_to_deal_per_minute",
+		"active_skill_base_radius_+",
+		"is_area_damage",
+		"base_skill_show_average_damage_instead_of_dps",
+		"console_skill_dont_chase",
+		"spell_damage_modifiers_apply_to_skill_dot",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 100.66666828096, 0, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 12, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 13, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 98.499999658515, 0, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 15, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 14, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 96.50000152116, 1, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 19, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 17, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, 94.333332898716, 1, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 23, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 18, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, 92.333334761361, 1, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 27, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 20, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, 91.000002669791, 2, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 31, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 21, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, 89.666670578222, 2, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 35, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 22, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, 88.333338486652, 2, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 38, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 24, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, 87.166668932885, 3, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 41, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 26, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, 85.833336841315, 3, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 44, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 26, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, 84.666667287548, 3, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 47, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 27, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, 83.500005681068, 4, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 50, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 28, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, 82.333336127301, 4, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 53, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 30, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, 81.166666573534, 4, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 56, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 31, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, 80.000004967054, 5, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 59, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 32, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, 78.833335413287, 5, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 62, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 34, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, 77.500003321717, 5, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 64, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 34, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, 76.166671230147, 6, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 66, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 35, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, 75.500005184362, 6, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 68, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 36, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, 74.499998168399, 6, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 70, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 37, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, 73.499999099721, 7, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 72, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 38, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, 72.333337493241, 7, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 74, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 38, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, 71.333338424564, 7, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 76, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 39, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, 70.3333314086, 8, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 78, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 40, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, 69.333332339923, 8, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 80, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 41, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, 68.333333271245, 8, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 82, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 42, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, 67.333334202568, 9, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 84, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 42, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, 66.500001645337, 9, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 86, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 43, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, 65.500002576659, 9, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 88, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 44, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, 64.499999534339, 10, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 90, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 45, }, },
+		[31] = { 0.80000001192093, 1.2000000476837, 64, 10, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 91, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 46, }, },
+		[32] = { 0.80000001192093, 1.2000000476837, 63.666666977108, 10, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 92, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 46, }, },
+		[33] = { 0.80000001192093, 1.2000000476837, 63.166667442769, 10, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 93, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 46, }, },
+		[34] = { 0.80000001192093, 1.2000000476837, 62.66666790843, 10, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 94, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 47, }, },
+		[35] = { 0.80000001192093, 1.2000000476837, 62.333334885538, 10, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 95, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 47, }, },
+		[36] = { 0.80000001192093, 1.2000000476837, 61.833335351199, 11, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 96, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 48, }, },
+		[37] = { 0.80000001192093, 1.2000000476837, 61.33333581686, 11, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 97, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 48, }, },
+		[38] = { 0.80000001192093, 1.2000000476837, 61.000002793968, 11, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 98, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 48, }, },
+		[39] = { 0.80000001192093, 1.2000000476837, 60.500003259629, 11, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 99, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 49, }, },
+		[40] = { 0.80000001192093, 1.2000000476837, 59.999999751647, 11, damageEffectiveness = 2.35, critChance = 6, levelRequirement = 100, statInterpolation = { 3, 3, 3, 1, }, cost = { Life = 49, }, },
+	},
+}
 skills["VaalStormCall"] = {
 	name = "Vaal Storm Call",
 	baseTypeName = "Vaal Storm Call",
@@ -19073,6 +19269,85 @@ skills["WaveOfConviction"] = {
 		[38] = { 0.80000001192093, 1.2000000476837, 830, damageEffectiveness = 3.3, critChance = 6, levelRequirement = 98, statInterpolation = { 3, 3, 1, }, cost = { Mana = 30, }, },
 		[39] = { 0.80000001192093, 1.2000000476837, 835, damageEffectiveness = 3.3, critChance = 6, levelRequirement = 99, statInterpolation = { 3, 3, 1, }, cost = { Mana = 30, }, },
 		[40] = { 0.80000001192093, 1.2000000476837, 840, damageEffectiveness = 3.3, critChance = 6, levelRequirement = 100, statInterpolation = { 3, 3, 1, }, cost = { Mana = 31, }, },
+	},
+}
+skills["WaveOfConvictionAltY"] = {
+	name = "Wave of Conviction of Trarthus",
+	baseTypeName = "Wave of Conviction of Trarthus",
+	color = 3,
+	baseEffectiveness = 1.8079999685287,
+	incrementalEffectiveness = 0.049699999392033,
+	description = "An expanding wave of energy surges outwards from you, damaging enemies in a ring-shaped area over a duration. The ring then returns, damaging enemies again on the way back. Only one Wave of Conviction can be active at a time",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Multicastable] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.Fire] = true, [SkillType.Nova] = true, },
+	statDescriptionScope = "debuff_skill_stat_descriptions",
+	castTime = 0.7,
+	preDamageFunc = function(activeSkill, output)
+		local duration = math.floor(math.ceil(activeSkill.skillData.duration * data.misc.ServerTickRate) / data.misc.ServerTickRate * output.DurationMod * 10)
+		activeSkill.skillModList:NewMod("DotMultiplier", "BASE", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "WaveOfConvictionDurationDotMulti") * duration / 100, "Skill:Purge", 0, { type = "Multiplier", var = "WoCDurationExpired"})
+	end,
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	qualityStats = {
+		Default = {
+			{ "base_penetrate_elemental_resistances_%", 0.75 },
+		},
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
+		{ "shock_art_variation", 2 },
+		{ "ignite_art_variation", 7 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_skill_effect_duration",
+		"is_area_damage",
+		"visual_hit_effect_elemental_is_holy",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 400, damageEffectiveness = 1.8, critChance = 6, levelRequirement = 16, statInterpolation = { 3, 3, 1, }, cost = { Mana = 9, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 410, damageEffectiveness = 1.8, critChance = 6, levelRequirement = 20, statInterpolation = { 3, 3, 1, }, cost = { Mana = 10, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 410, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 24, statInterpolation = { 3, 3, 1, }, cost = { Mana = 11, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, 420, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 28, statInterpolation = { 3, 3, 1, }, cost = { Mana = 12, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, 420, damageEffectiveness = 2, critChance = 6, levelRequirement = 31, statInterpolation = { 3, 3, 1, }, cost = { Mana = 13, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, 430, damageEffectiveness = 2, critChance = 6, levelRequirement = 34, statInterpolation = { 3, 3, 1, }, cost = { Mana = 14, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, 430, damageEffectiveness = 2.1, critChance = 6, levelRequirement = 37, statInterpolation = { 3, 3, 1, }, cost = { Mana = 15, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, 440, damageEffectiveness = 2.1, critChance = 6, levelRequirement = 40, statInterpolation = { 3, 3, 1, }, cost = { Mana = 15, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, 440, damageEffectiveness = 2.2, critChance = 6, levelRequirement = 43, statInterpolation = { 3, 3, 1, }, cost = { Mana = 16, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, 450, damageEffectiveness = 2.2, critChance = 6, levelRequirement = 46, statInterpolation = { 3, 3, 1, }, cost = { Mana = 17, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, 450, damageEffectiveness = 2.3, critChance = 6, levelRequirement = 49, statInterpolation = { 3, 3, 1, }, cost = { Mana = 18, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, 460, damageEffectiveness = 2.3, critChance = 6, levelRequirement = 52, statInterpolation = { 3, 3, 1, }, cost = { Mana = 18, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, 460, damageEffectiveness = 2.4, critChance = 6, levelRequirement = 55, statInterpolation = { 3, 3, 1, }, cost = { Mana = 19, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, 470, damageEffectiveness = 2.4, critChance = 6, levelRequirement = 58, statInterpolation = { 3, 3, 1, }, cost = { Mana = 20, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, 470, damageEffectiveness = 2.5, critChance = 6, levelRequirement = 60, statInterpolation = { 3, 3, 1, }, cost = { Mana = 20, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, 480, damageEffectiveness = 2.5, critChance = 6, levelRequirement = 62, statInterpolation = { 3, 3, 1, }, cost = { Mana = 21, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, 480, damageEffectiveness = 2.5, critChance = 6, levelRequirement = 64, statInterpolation = { 3, 3, 1, }, cost = { Mana = 21, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, 490, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 66, statInterpolation = { 3, 3, 1, }, cost = { Mana = 22, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, 490, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 68, statInterpolation = { 3, 3, 1, }, cost = { Mana = 22, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, 500, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 70, statInterpolation = { 3, 3, 1, }, cost = { Mana = 23, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, 500, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 72, statInterpolation = { 3, 3, 1, }, cost = { Mana = 24, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, 510, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 74, statInterpolation = { 3, 3, 1, }, cost = { Mana = 24, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, 510, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 76, statInterpolation = { 3, 3, 1, }, cost = { Mana = 25, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, 520, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 78, statInterpolation = { 3, 3, 1, }, cost = { Mana = 25, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, 520, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 80, statInterpolation = { 3, 3, 1, }, cost = { Mana = 26, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, 530, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 82, statInterpolation = { 3, 3, 1, }, cost = { Mana = 26, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, 530, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 84, statInterpolation = { 3, 3, 1, }, cost = { Mana = 27, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, 540, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 86, statInterpolation = { 3, 3, 1, }, cost = { Mana = 27, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, 540, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 88, statInterpolation = { 3, 3, 1, }, cost = { Mana = 28, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, 550, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 90, statInterpolation = { 3, 3, 1, }, cost = { Mana = 28, }, },
+		[31] = { 0.80000001192093, 1.2000000476837, 550, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 91, statInterpolation = { 3, 3, 1, }, cost = { Mana = 28, }, },
+		[32] = { 0.80000001192093, 1.2000000476837, 550, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 92, statInterpolation = { 3, 3, 1, }, cost = { Mana = 29, }, },
+		[33] = { 0.80000001192093, 1.2000000476837, 550, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 93, statInterpolation = { 3, 3, 1, }, cost = { Mana = 29, }, },
+		[34] = { 0.80000001192093, 1.2000000476837, 560, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 94, statInterpolation = { 3, 3, 1, }, cost = { Mana = 29, }, },
+		[35] = { 0.80000001192093, 1.2000000476837, 560, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 95, statInterpolation = { 3, 3, 1, }, cost = { Mana = 29, }, },
+		[36] = { 0.80000001192093, 1.2000000476837, 560, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 96, statInterpolation = { 3, 3, 1, }, cost = { Mana = 30, }, },
+		[37] = { 0.80000001192093, 1.2000000476837, 560, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 97, statInterpolation = { 3, 3, 1, }, cost = { Mana = 30, }, },
+		[38] = { 0.80000001192093, 1.2000000476837, 570, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 98, statInterpolation = { 3, 3, 1, }, cost = { Mana = 30, }, },
+		[39] = { 0.80000001192093, 1.2000000476837, 570, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 99, statInterpolation = { 3, 3, 1, }, cost = { Mana = 30, }, },
+		[40] = { 0.80000001192093, 1.2000000476837, 570, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 100, statInterpolation = { 3, 3, 1, }, cost = { Mana = 31, }, },
 	},
 }
 skills["WinterOrb"] = {

@@ -756,6 +756,36 @@ skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"] = {
 		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 0.25, },
 	},
 }
+skills["TriggeredStarfall"] = {
+	name = "Starfall",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 0,
+	description = "Stars fall, raining destruction down over an area. Falling stars deal Attack Damage.\nCannot be Supported by Trigger Support Gems.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.ProjectileNumber] = true, [SkillType.Triggerable] = true, [SkillType.Rain] = true, [SkillType.Triggered] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, [SkillType.DisallowTriggerSupports] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	constantStats = {
+		{ "skill_art_variation", 11 },
+		{ "attack_trigger_on_melee_critical_hit_%", 100 },
+	},
+	stats = {
+		"base_number_of_projectiles",
+		"base_is_projectile",
+		"is_area_damage",
+		"cannot_pierce",
+	},
+	levels = {
+		[20] = { 22, baseMultiplier = 0.6, storedUses = 1, damageEffectiveness = 0.6, cooldown = 0.15, levelRequirement = 0, statInterpolation = { 1, }, },
+	},
+}
 skills["TriggeredSummonLesserShrine"] = {
 	name = "Create Lesser Shrine",
 	hidden = true,
