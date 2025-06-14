@@ -164,7 +164,7 @@ for i=1, passiveSkillOverridesDat.rowCount do
 	tattooPassiveNode.dn = datFileRow.Name
 	-- legacy tattoo
 	if tattooPassiveNode.dn and tattooPassiveNode.ks == false then
-		tattooPassiveNode.legacy = baseItemTypes:GetRow("Name", datFileRow.Name).Hidden == 2 and true or false
+		tattooPassiveNode.legacy = baseItemTypes:GetRow("Name", datFileRow.Name) and baseItemTypes:GetRow("Name", datFileRow.Name).Hidden == 2 and true or false
 	end
 
 	-- icon

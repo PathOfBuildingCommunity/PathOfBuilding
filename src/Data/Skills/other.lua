@@ -103,7 +103,7 @@ skills["AnimateGuardiansWeapon"] = {
 		"chance_to_trigger_on_animate_weapon_kill_%",
 		"attack_minimum_added_physical_damage",
 		"attack_maximum_added_physical_damage",
-		"number_of_animated_weapons_allowed",
+		"base_number_of_animated_weapons_allowed",
 		"chance_to_trigger_on_animate_guardian_kill_%",
 	},
 	levels = {
@@ -396,7 +396,7 @@ skills["BloodOffering"] = {
 	hidden = true,
 	color = 3,
 	description = "Consumes a corpse, and sacrifices a portion of your life, granting your minions life regeneration based on the life sacrificed, and a bonus to damage. The skill consumes other nearby corpses, increasing the duration and life regeneration for each corpse consumed.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Offering] = true, },
 	statDescriptionScope = "offering_skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
@@ -1039,6 +1039,7 @@ skills["SupportDivineBlessing"] = {
 		"aura_effect_+%",
 		"base_mana_cost_+",
 		"skill_is_blessing_skill",
+		"cannot_cancel_skill_before_contact_point",
 	},
 	levels = {
 		[1] = { 9000, 10, 90, levelRequirement = 31, statInterpolation = { 1, 1, 1, }, },
@@ -1219,7 +1220,6 @@ skills["SupportEarthbreaker"] = {
 		{ "ancestor_totem_parent_activiation_range", 70 },
 		{ "summon_totem_cast_speed_+%", 50 },
 		{ "support_ancestor_slam_totem_attack_speed_+%_final", -30 },
-		{ "support_skill_totem_type_override", 20 },
 	},
 	stats = {
 		"totem_support_gem_level",
@@ -1229,6 +1229,7 @@ skills["SupportEarthbreaker"] = {
 		"leap_slam_no_epk",
 		"totem_targets_ignoring_action_distance",
 		"force_lite_skill_effects",
+		"support_totem_type_override_to_support_slam_ancestor",
 	},
 	levels = {
 		[1] = { 8, 0, manaMultiplier = 100, levelRequirement = 8, statInterpolation = { 1, 1, }, },
@@ -1782,7 +1783,7 @@ skills["SupportGreaterSpellEcho"] = {
 	stats = {
 	},
 	levels = {
-		[30] = { manaMultiplier = 50, levelRequirement = 90, },
+		[30] = { manaMultiplier = 40, levelRequirement = 90, },
 	},
 }
 skills["Icestorm"] = {
@@ -1861,7 +1862,7 @@ skills["IcicleBurst"] = {
 	},
 	levels = {
 		[10] = { baseMultiplier = 1.25, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.25, cooldown = 0.5, levelRequirement = 1, },
-		[20] = { baseMultiplier = 1.5, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.5, cooldown = 0.5, levelRequirement = 1, },
+		[20] = { baseMultiplier = 2, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2, cooldown = 0.3, levelRequirement = 1, },
 	},
 }
 skills["IllusoryWarp"] = {
@@ -2492,7 +2493,7 @@ skills["ShieldShatter"] = {
 	name = "Shield Shatter",
 	hidden = true,
 	color = 1,
-	baseEffectiveness = 0.34000000357628,
+	baseEffectiveness = 0.68000000715256,
 	incrementalEffectiveness = 0.045000001788139,
 	description = "Your shield shatters, dealing physical spell damage to enemies in an area, based on the shield's quality. For a short duration after this, you will be unable to block and will gain no defences from your shield, but your spells will deal added physical damage.",
 	skillTypes = { [SkillType.Damage] = true, [SkillType.Physical] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Duration] = true, },
@@ -2523,6 +2524,7 @@ skills["ShieldShatter"] = {
 	constantStats = {
 		{ "trigger_on_block_%_chance", 100 },
 		{ "base_skill_effect_duration", 4000 },
+		{ "active_skill_ailment_damage_+%_final", -40 },
 	},
 	stats = {
 		"spell_minimum_base_physical_damage_per_shield_quality",
@@ -2532,7 +2534,7 @@ skills["ShieldShatter"] = {
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 1, 2, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, }, },
-		[20] = { 0.80000001192093, 1.2000000476837, 10, 16, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, 15, 23, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, }, },
 	},
 }
 skills["TriggeredShockedGround"] = {
@@ -2699,6 +2701,36 @@ skills["StalkingPustule"] = {
 	},
 	levels = {
 		[15] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.4, cooldown = 2, levelRequirement = 59, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["TriggeredStarfall"] = {
+	name = "Starfall",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 0,
+	description = "Stars fall, raining destruction down over an area. Falling stars deal Attack Damage.\nCannot be Supported by Trigger Support Gems.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.ProjectileNumber] = true, [SkillType.Triggerable] = true, [SkillType.Rain] = true, [SkillType.Triggered] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, [SkillType.DisallowTriggerSupports] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	constantStats = {
+		{ "skill_art_variation", 11 },
+		{ "attack_trigger_on_melee_critical_hit_%", 100 },
+	},
+	stats = {
+		"base_number_of_projectiles",
+		"base_is_projectile",
+		"is_area_damage",
+		"cannot_pierce",
+	},
+	levels = {
+		[20] = { 22, baseMultiplier = 0.6, storedUses = 1, damageEffectiveness = 0.6, cooldown = 0.15, levelRequirement = 0, statInterpolation = { 1, }, },
 	},
 }
 skills["StormCascadeTriggered"] = {
@@ -3426,16 +3458,16 @@ skills["TriggeredSummonGhostOnKill"] = {
 	constantStats = {
 		{ "trigger_on_corpse_consume_%_chance", 100 },
 		{ "base_skill_effect_duration", 15000 },
-		{ "base_number_of_support_ghosts_allowed", 10 },
-		{ "phantasm_minimum_added_physical_damage_to_grant", 42 },
-		{ "phantasm_maximum_added_physical_damage_to_grant", 65 },
+		{ "base_number_of_support_ghosts_allowed", 11 },
+		{ "phantasm_minimum_added_physical_damage_to_grant", 48 },
+		{ "phantasm_maximum_added_physical_damage_to_grant", 74 },
 	},
 	stats = {
 		"skill_can_own_support_ghosts",
 		"skill_has_trigger_from_unique_item",
 	},
 	levels = {
-		[20] = { manaMultiplier = 20, levelRequirement = 70, },
+		[25] = { manaMultiplier = 20, levelRequirement = 80, },
 	},
 }
 skills["SummonSentinelOfRadiance"] = {
@@ -3905,7 +3937,7 @@ skills["VoidShot"] = {
 	constantStats = {
 		{ "trigger_on_skill_use_%_if_you_have_a_void_arrow", 100 },
 		{ "skill_physical_damage_%_to_convert_to_cold", 50 },
-		{ "active_skill_area_damage_+%_final", 25 },
+		{ "active_skill_area_damage_+%_final", 100 },
 	},
 	stats = {
 		"base_is_projectile",

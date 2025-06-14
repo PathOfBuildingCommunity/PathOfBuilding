@@ -990,9 +990,10 @@ function calcs.offence(env, actor, activeSkill)
 		if skillModList:Flag(skillCfg, "NoAdditionalProjectiles") then
 			output.ProjectileCount = 1
 		else
+			local projMin = skillModList:Sum("BASE", skillCfg, "ProjectileCountMinimum")
 			local projBase = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
 			local projMore = skillModList:More(skillCfg, "ProjectileCount")
-			output.ProjectileCount = m_floor(projBase * projMore)
+			output.ProjectileCount = m_max(m_floor(projBase * projMore), projMin)
 		end
 		if skillModList:Flag(skillCfg, "AdditionalProjectilesAddBouncesInstead") then
 			local projBase = skillModList:Sum("BASE", skillCfg, "ProjectileCount") + skillModList:Sum("BASE", skillCfg, "BounceCount") - 1
@@ -1303,6 +1304,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if skillFlags.totem then
+		local baseSpeed
 		if skillFlags.ballista then
 			baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "BallistaPlacementTime")
 		else
@@ -2208,6 +2210,10 @@ function calcs.offence(env, actor, activeSkill)
 				output.TotemActionSpeed = totemActionSpeed
 				output.Speed = output.Speed * totemActionSpeed
 				output.CastRate = output.Speed
+				if skillData.totemFireOnce then
+					output.HitTime = 1 / output.Speed + globalOutput.TotemPlacementTime
+					output.HitSpeed = 1 / output.HitTime
+				end
 			end
 			if globalOutput.Cooldown then
 				output.Cooldown = globalOutput.Cooldown

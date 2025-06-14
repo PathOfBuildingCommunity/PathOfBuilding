@@ -747,6 +747,12 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "Corpse explosion:")
 #mods
 
+#skill TriggeredStarfall
+#flags spell
+	fromItem = true,
+#baseMod skill("showAverage", true)
+#mods
+
 #skill StormCascadeTriggered
 #flags spell area
 	fromItem = true,

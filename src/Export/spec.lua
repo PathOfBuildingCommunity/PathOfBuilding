@@ -3006,6 +3006,13 @@ return {
 			refTo="",
 			type="String",
 			width=150
+		},
+		[7]={
+			list=false,
+			name="A",
+			refTo="",
+			type="String",
+			width=150
 		}
 	},
 	clientuiscreens={
@@ -3379,131 +3386,103 @@ return {
 		},
 		[22]={
 			list=false,
-			name="UnlockCategories",
-			refTo="CraftingBenchUnlockCategories",
+			name="",
+			refTo="",
 			type="Key",
 			width=150
 		},
 		[23]={
-			list=false,
-			name="UnveilsRequired",
-			refTo="",
-			type="Int",
-			width=100
+			list=true,
+			name="Achievement",
+			refTo="AchievementItems",
+			type="Key",
+			width=240
 		},
 		[24]={
 			list=false,
-			name="UnveilsRequired2",
+			name="",
 			refTo="",
 			type="Int",
-			width=100
+			width=150
 		},
 		[25]={
-			list=true,
+			list=false,
 			name="",
 			refTo="",
-			type="Key",
-			width=50
+			type="Int",
+			width=150
 		},
 		[26]={
-			list=true,
-			name="KalandraAchievement",
-			refTo="AchievementItems",
-			type="Key",
-			width=150
-		},
-		[27]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[28]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[29]={
-			list=false,
-			name="VeiledMods",
-			refTo="Mods",
-			type="Key",
-			width=470
-		},
-		[30]={
 			list=false,
 			name="AddEnchantment",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
-		[31]={
+		[27]={
 			list=false,
 			name="SortCategory",
 			refTo="CraftingBenchSortCategories",
 			type="Key",
 			width=150
 		},
-		[32]={
+		[28]={
 			list=false,
 			name="ModType",
 			refTo="ModType",
 			type="Key",
 			width=330
 		},
-		[33]={
+		[29]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=150
 		},
-		[34]={
+		[30]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
 			width=150
 		},
-		[35]={
+		[31]={
 			list=false,
 			name="Stat1",
 			refTo="Stats",
 			type="Key",
 			width=150
 		},
-		[36]={
+		[32]={
 			list=false,
 			name="Stat2",
 			refTo="Stats",
 			type="Key",
 			width=150
 		},
-		[37]={
+		[33]={
 			list=false,
 			name="Stat3",
 			refTo="Stats",
 			type="Key",
 			width=150
 		},
-		[38]={
+		[34]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=150
 		},
-		[39]={
+		[35]={
 			list=true,
 			name="",
 			refTo="",
 			type="Key",
-			width=260
+			width=510
 		},
-		[40]={
+		[36]={
 			list=true,
 			name="Tags",
 			refTo="Tags",
@@ -3531,6 +3510,13 @@ return {
 			name="IsVisible",
 			refTo="",
 			type="Bool",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
 			width=150
 		}
 	},
@@ -6508,6 +6494,27 @@ return {
 	leagueinfopanelversions={
 	},
 	leaguenames={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	leagueprogressquestflags={
 	},
@@ -7801,68 +7808,75 @@ return {
 		},
 		[2]={
 			list=false,
+			name="OTFile",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=false,
 			name="Accuracy",
 			refTo="",
 			type="Int",
 			width=70
 		},
-		[3]={
+		[4]={
 			list=false,
 			name="IsPlayerMinion",
 			refTo="",
 			type="Bool",
 			width=80
 		},
-		[4]={
+		[5]={
 			list=false,
 			name="Armour",
 			refTo="",
 			type="Int",
 			width=60
 		},
-		[5]={
+		[6]={
 			list=false,
 			name="Evasion",
 			refTo="",
 			type="Int",
 			width=60
 		},
-		[6]={
+		[7]={
 			list=false,
 			name="EnergyShield",
 			refTo="",
 			type="Int",
 			width=70
 		},
-		[7]={
+		[8]={
 			list=false,
 			name="DamageSpread",
 			refTo="",
 			type="Int",
 			width=100
 		},
-		[8]={
+		[9]={
 			list=false,
 			name="Resistances",
 			refTo="MonsterResistances",
 			type="Key",
 			width=150
 		},
-		[9]={
+		[10]={
 			list=false,
 			name="AltLife1",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[10]={
+		[11]={
 			list=false,
 			name="AltLife2",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[11]={
+		[12]={
 			list=false,
 			name="BaseDamageIgnoresAttackSpeed",
 			refTo="",
@@ -9004,6 +9018,13 @@ return {
 			refTo="",
 			type="String",
 			width=200
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=100
 		}
 	},
 	passiveskillbuffs={
@@ -9270,6 +9291,13 @@ return {
 			refTo="",
 			type="Bool",
 			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
 		}
 	},
 	passiveskills={

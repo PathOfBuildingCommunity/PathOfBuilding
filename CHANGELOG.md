@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.54.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.54.0) (2025/06/14)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.53.1...v2.54.0)
+
+## What's Changed
+### New to Path of Building
+- Add full support for new 3.26 Gems [\#8676](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8676), [\#8679](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8679) ([LocalIdentity](https://github.com/LocalIdentity), [Wires77](https://github.com/Wires77), [TPlant](https://github.com/PJacek))
+- Update existing gems with changes from 3.26 [\#8673](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8673) ([LocalIdentity](https://github.com/LocalIdentity), [Wires77](https://github.com/Wires77))
+- Add support for Cold Dot Multiplier per Overcapped Cold Res Mastery [\#8681](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8681) ([Peechey](https://github.com/Peechey))
+- Add support for Life / Mana per red / blue socket Staff Mastery ([LocalIdentity](https://github.com/LocalIdentity))
+
+
 ## [v2.53.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.53.1) (2025/06/13)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.53.0...v2.53.1)

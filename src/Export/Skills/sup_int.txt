@@ -297,6 +297,17 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportFocusedChannelling
+	statMap = {
+		["support_focus_channel_cost_+%_final_per_second_channelling_up_to_100%"] = {
+			mod("Cost", "MORE", nil, 0, 0, { type = "Multiplier", var = "ChannellingSeconds", limit = 100, limitTotal = true }),
+		},
+		["support_focus_channel_damage_+%_final_per_second_channelling_up_to_60%"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ChannellingSeconds", limit = 60, limitTotal = true }),
+		},
+	},
+#mods
+
 #skill SupportFreshMeat
 	statMap = {
 		["support_recent_minions_additional_critical_strike_chance_from_wakened_fury"] = {
@@ -551,6 +562,10 @@ local skills, mod, flag, skill = ...
 		},
 		["greater_projectile_intensity_projectile_damage_+%_final_per_intensity"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "Multiplier", var = "Intensity" , limitVar = "IntensityLimit" }),
+		},
+		["minimum_number_of_projectiles_to_fire_is_1"] = {
+			mod("ProjectileCountMinimum", "BASE", nil),
+			value = 1,
 		},
 	},
 #mods

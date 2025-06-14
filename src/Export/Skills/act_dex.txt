@@ -62,7 +62,7 @@ local skills, mod, flag, skill = ...
 		["attack_maximum_added_physical_damage_for_ethereal_blades"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "ActorCondition", actor = "parent", var = "AnimatingLingeringBlades" }) }),
 		},
-		["number_of_animated_weapons_allowed"] = {
+		["base_number_of_animated_weapons_allowed"] = {
 			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 		},
 	},
@@ -78,7 +78,7 @@ local skills, mod, flag, skill = ...
 		"AnimatedWeapon",
 	},
 	statMap = {
-		["number_of_animated_weapons_allowed"] = {
+		["base_number_of_animated_weapons_allowed"] = {
 			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 		},
 	},
@@ -106,7 +106,7 @@ local skills, mod, flag, skill = ...
 		["attack_maximum_added_physical_damage_for_ethereal_blades"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "ActorCondition", actor = "parent", var = "AnimatingLingeringBlades" }) }),
 		},
-		["number_of_animated_weapons_allowed"] = {
+		["base_number_of_animated_weapons_allowed"] = {
 			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 		},
 	},
@@ -125,7 +125,7 @@ local skills, mod, flag, skill = ...
 		["base_movement_velocity_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", nil) }),
 		},
-		["number_of_animated_weapons_allowed"] = {
+		["base_number_of_animated_weapons_allowed"] = {
 			mod("Multiplier:VaalAnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 		},
 	},
@@ -276,7 +276,16 @@ local skills, mod, flag, skill = ...
 			activeSkill.skillData.hitTimeOverride = 1
 		end
 	end,
-#baseMod mod("Multiplier:BladeBlastofUnloadingMaxStages", "BASE", 900, 0, 0)
+	statMap = {
+		["blade_burst_area_of_effect_+%_final_per_blade_vortex_blade_detonated"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "BladeBlastofUnloadingStage" })
+		},
+		["blade_vortex_damage_+%_per_blade_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "BladeBlastofUnloadingStage" })
+		},
+		["damage_per_blade_vortex_blade_description_mode"] = {},
+	},
+#baseMod mod("Multiplier:BladeBlastofUnloadingMaxStages", "BASE", 10, 0, 0)
 #baseMod skill("dpsBaseMultiplier", 1, { type = "Multiplier", var = "BladeBlastofUnloadingStage" })
 #mods
 
@@ -338,6 +347,9 @@ local skills, mod, flag, skill = ...
 		["display_max_charged_attack_stats"] = {
 			mod("Multiplier:BladeFlurryMaxStages", "BASE", nil),
 		},
+		["blade_flurry_damage_+%_final_while_at_max_stages"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "MultiplierThreshold", var = "BladeFlurryStage", thresholdVar = "BladeFlurryMaxStages" }),
+		},
 		["quality_display_charged_attack_is_gem"] = {
 			--Display only
 		},
@@ -375,6 +387,9 @@ local skills, mod, flag, skill = ...
 		},
 		["blade_flurry_critical_strike_chance_per_stage_+%_final"] = {
 			mod("CritChance", "MORE", nil, 0, 0, { type = "Multiplier", var = "BladeFlurryofIncisionStage" }),
+		},
+		["blade_flurry_critical_strike_multiplier_+_while_at_max_stages"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "BladeFlurryofIncisionStage", thresholdVar = "BladeFlurryofIncisionMaxStages" }),
 		},
 		["display_max_charged_attack_stats"] = {
 			mod("Multiplier:BladeFlurryofIncisionMaxStages", "BASE", nil),
@@ -515,6 +530,25 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill BladefallAltZ
+#flags spell area
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillData.incVolleyFrequency / 100)
+	end,
+	statMap = {
+		["quality_display_bladefall_is_gem"] = {
+			--Display only
+		},
+		["bladefall_base_volley_frequency_ms"] = {
+			skill("hitFrequency", nil),
+			div = 1000,
+		},
+		["bladefall_volley_frequency_+%_per_100_maximum_mana"] = {
+			skill("incVolleyFrequency", nil, { type = "PerStat", stat = "Mana", div = 100 }),
+		},
+	},
+#mods
+
 #skill BlastRain
 #flags attack projectile area
 	parts = {
@@ -532,6 +566,10 @@ local skills, mod, flag, skill = ...
 	end,
 #baseMod skill("radius", 24)
 #baseMod flag("OneShotProj")
+#mods
+
+#skill BlastRainAltX
+#flags attack projectile area
 #mods
 
 #skill BlinkArrow
@@ -1622,6 +1660,11 @@ local skills, mod, flag, skill = ...
 			projectile = true,
 		},
 	},
+	statMap = {
+		["active_skill_hit_ailment_damage_with_projectile_+%_final"] = {
+			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPart = 2 })
+		},
+	},
 #mods
 
 #skill FrostBladesAltX
@@ -2017,6 +2060,11 @@ local skills, mod, flag, skill = ...
 			projectile = true,
 		},
 	},
+	statMap = {
+		["active_skill_hit_ailment_damage_with_projectile_+%_final"] = {
+			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPart = 2 })
+		},
+	},
 #mods
 
 #skill LightningStrikeAltX
@@ -2036,6 +2084,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["skill_damage_+%_final_per_chain_from_skill_specific_stat"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "Chain" }),
+		},
+		["active_skill_hit_ailment_damage_with_projectile_+%_final"] = {
+			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPart = 2 })
 		},
 	},
 #mods
@@ -2759,6 +2810,18 @@ local skills, mod, flag, skill = ...
 #baseMod flag("ProjectileRain")
 #mods
 
+#skill SiegeBallistaAltY
+#flags attack projectile totem ballista
+	statMap = {
+		["totem_fire_in_formation"] = {
+			skill("totemFireOnce", true),
+		},
+		["active_skill_summon_X_totems_in_ring_override"] = {
+			skill("dpsMultiplier", nil),
+		},
+	},
+#mods
+
 #skill SmokeMine
 #flags spell mine area buff
 	statMap = {
@@ -2812,6 +2875,27 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SpectralShieldThrowAltY
+#flags attack projectile shieldAttack
+	parts = {
+		{
+			name = "Shield",
+		},
+		{
+			name = "Shards",
+		},
+	},
+	statMap = {
+		["thrown_shield_secondary_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["stationary_shield_throw_firing_interval_ms"] = {
+			skill("hitTimeOverride", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 1000,
+		},
+	},
+#mods
+
 #skill SpectralThrow
 #flags attack projectile
 #baseMod mod("PierceChance", "BASE", 100)
@@ -2819,6 +2903,11 @@ local skills, mod, flag, skill = ...
 
 #skill SpectralThrowAltX
 #flags attack projectile
+#baseMod mod("PierceChance", "BASE", 100)
+#mods
+
+#skill SpectralThrowAltY
+#flags attack projectile trap
 #baseMod mod("PierceChance", "BASE", 100)
 #mods
 
@@ -2881,6 +2970,17 @@ local skills, mod, flag, skill = ...
 #baseMod flag("AdditionalProjectilesAddBouncesInstead")
 #mods
 
+#skill SpectralHelixAltY
+#flags attack projectile bounce trap
+	statMap = {
+		["spectral_spiral_weapon_base_number_of_bounces"] = {
+			mod("BounceCount", "BASE", nil),
+		},
+	},
+#baseMod flag("NoAdditionalProjectiles")
+#baseMod flag("AdditionalProjectilesAddBouncesInstead")
+#mods
+
 #skill SplitArrow
 #flags attack projectile
 #mods
@@ -2906,8 +3006,8 @@ local skills, mod, flag, skill = ...
 		["ice_golem_grants_critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
-		["ice_golem_grants_accuracy_+%"] = {
-			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		["ice_golem_grants_accuracy_rating_+"] = {
+			mod("Accuracy", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #baseMod skill("allowTotemBuff", true)

@@ -663,6 +663,9 @@ return {
 ["chance_to_deal_double_damage_%"] = {
 	mod("DoubleDamageChance", "BASE", nil)
 },
+["chance_to_deal_double_damage_%_per_10_intelligence"] = {
+	mod("DoubleDamageChance", "BASE", nil, 0, 0, { type = "PerStat", stat = "Int", div = 10 }),
+},
 ["chance_to_deal_double_damage_%_vs_bleeding_enemies"] = {
 	mod("DoubleDamageChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Bleeding"}),
 },
@@ -705,6 +708,9 @@ return {
 ["active_skill_damage_+%_final"] = {
 	mod("Damage", "MORE", nil),
 },
+["active_skill_physical_damage_+%_final"] = {
+	mod("PhysicalDamage", "MORE", nil),
+},
 ["sigil_attached_target_hit_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 },
@@ -734,6 +740,9 @@ return {
 },
 ["damage_+%_vs_frozen_enemies"] = {
 	mod("Damage", "INC", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
+},
+["damage_+%_final_vs_stunned_enemies"] = {
+	mod("Damage", "MORE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Stunned" }),
 },
 ["base_reduce_enemy_fire_resistance_%"] = {
 	mod("FirePenetration", "BASE", nil),
@@ -1687,6 +1696,9 @@ return {
 ["active_skill_trap_throwing_speed_+%_final"] = {
 	mod("TrapThrowingSpeed", "MORE", nil),
 },
+["trap_throwing_speed_+%_while_wielding_2hand"] = {
+	mod("TrapThrowingSpeed", "INC", nil, 0, 0, { type = "Condition", var = "UsingTwoHandedWeapon" }),
+},
 ["trap_critical_strike_multiplier_+_per_power_charge"] = {
 	mod("CritMultiplier", "BASE", nil, 0, KeywordFlag.Trap, { type = "Multiplier", var = "PowerCharge" }),
 },
@@ -1698,6 +1710,9 @@ return {
 },
 ["number_of_additional_traps_to_throw"] = {
 	mod("TrapThrowCount", "BASE", nil)
+},
+["throw_X_additional_traps_if_dual_wielding"] = {
+	mod("TrapThrowCount", "BASE", nil, 0, 0, { type = "Condition", var = "DualWielding" })
 },
 -- Mine
 ["number_of_additional_remote_mines_allowed"] = {

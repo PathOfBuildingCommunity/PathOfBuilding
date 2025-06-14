@@ -338,6 +338,25 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 24)
 #mods
 
+#skill ChainHookAltY
+#flags attack melee area
+	statMap = {
+		["chain_strike_cone_radius_+_per_x_rage"] = {
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "Rage", div = 5 }),
+			div = 5,
+		},
+		["chain_hook_attachment_rage_to_gain_per_hit"] = {
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff", effectName = "Rage" } ),
+		},
+		["chain_hook_attachment_range"] = {
+			skill("radiusSecondary", nil),
+		}
+	},
+#baseMod skill("radius", 24)
+#baseMod skill("radiusLabel", "Strike area:")
+#baseMod skill("radiusSecondaryLabel", "Chain length:")
+#mods
+
 #skill Cleave
 #flags attack melee area
 	statMap = {
@@ -937,6 +956,10 @@ local skills, mod, flag, skill = ...
 			mod("DoubleDamageChance", "BASE", nil),
 		},
 	},
+#mods
+
+#skill HeavyStrikeAltY
+#flags attack melee
 #mods
 
 #skill HeraldOfAsh
@@ -1947,6 +1970,9 @@ local skills, mod, flag, skill = ...
 		["fire_golem_grants_damage_+%"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["fire_golem_grants_area_of_effect_+%"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 #baseMod skill("allowTotemBuff", true)
 #baseMod flag("Condition:HaveFireGolem", { type = "GlobalEffect", effectType = "Buff" })
@@ -1979,6 +2005,9 @@ local skills, mod, flag, skill = ...
 		["stone_golem_grants_base_life_regeneration_rate_per_minute"] = {
 			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 60,
+		},
+		["stone_golem_grants_defences_+%"] = {
+			mod("Defences", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #baseMod skill("allowTotemBuff", true)
@@ -2047,6 +2076,37 @@ local skills, mod, flag, skill = ...
 		},
 		["active_skill_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil),
+		},
+	},
+#baseMod skill("radius", 12)
+#mods
+
+#skill SunderAltY
+#flags attack melee area
+	parts = {
+		{
+			name = "First Wave Area",
+		},
+		{
+			name = "Final Wave Area",
+		},
+		{
+			name = "Shockwaves",
+		},
+	},
+	statMap = {
+		["shockwave_slam_explosion_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		},
+		["sunder_wave_radius_+_per_step"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "SunderWaveArea" }),
+		},
+		["sunder_wave_max_steps"] = {
+			mod("Multiplier:SunderWaveArea", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			base = -1,
+		},
+		["sunder_number_of_fake_chains"] = {
+			-- Display only
 		},
 	},
 #baseMod skill("radius", 12)

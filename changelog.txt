@@ -1,3 +1,11 @@
+VERSION[2.54.0][2025/06/14]
+--- New to Path of Building ---
+* Add full support for new 3.26 Gems (LocalIdentity, Wires77, TPlant)
+* Update existing gems with changes from 3.26 (LocalIdentity, Wires77)
+* Add support for Cold Dot Multiplier per Overcapped Cold Res Mastery (Peechey)
+* Add support for Life / Mana per red / blue socket Staff Mastery (LocalIdentity)
+
+
 VERSION[2.53.1][2025/06/13]
 
 --- User Interface ---

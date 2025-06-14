@@ -788,6 +788,48 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 26)
 #mods
 
+#skill DarkPactAltX
+#flags spell area
+	parts = {
+		{
+			name = "Average",
+		},
+		{
+			name = "Max Ruin",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local life
+		if activeSkill.skillFlags.totem then
+			life = output.TotemLife
+		else
+			life = output.Life
+		end
+		local add = life * activeSkill.skillData.percentageLifeSacrificed / 100 * (activeSkill.skillData.percentageSacrificedDealtAsChaos / 100)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + math.floor(add)
+			activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + math.floor(add)
+		else
+			local avgCastsTillRuin = 7 / (1 + math.min(100, activeSkill.skillData.additionalRuinChance or 0) / 100)
+			activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + math.floor(add / avgCastsTillRuin)
+			activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + math.floor(add / avgCastsTillRuin)
+		end
+	end,
+	statMap = {
+		["dark_pact_sacrifice_%_life_from_max_ruin"] = {
+			skill("percentageLifeSacrificed", nil),
+		},
+		["dark_pact_chaos_damage_added_from_sacrifice_+%"] = {
+			skill("percentageSacrificedDealtAsChaos", nil),
+		},
+		["dark_pact_chance_to_gain_an_additional_ruin_%"] = {
+			skill("additionalRuinChance"),
+		},
+	},
+#baseMod skill("radius", 26)
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
+#mods
+
 #skill Despair
 #flags spell curse area duration hex
 	statMap = {
@@ -3206,6 +3248,9 @@ local skills, mod, flag, skill = ...
 			skill("RFManaMultiplier", nil),
 			div = 6000,
 		},
+		["righteous_fire_spell_damage_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 #baseMod skill("dotIsArea", true)
 #mods
@@ -3664,6 +3709,15 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 20)
 #mods
 
+#skill StormCallAltX
+#flags spell area duration
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+	},
+#baseMod skill("radius", 20)
+#mods
+
 #skill VaalStormCall
 #flags spell area duration
 #baseMod skill("radius", 16)
@@ -3727,8 +3781,11 @@ local skills, mod, flag, skill = ...
 		"SummonedChaosGolem",
 	},
 	statMap = {
-		["chaos_golem_grants_additional_physical_damage_reduction_%"] = {
-			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		["chaos_golem_grants_dot_multiplier_+"] = {
+			mod("DotMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["chaos_golem_grants_chaos_resistance_%"] = {
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #baseMod skill("allowTotemBuff", true)
@@ -3748,6 +3805,12 @@ local skills, mod, flag, skill = ...
 #flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedChaosGolem",
+	},
+	statMap = {
+		-- Minions applying Wither from a skill does not work yet
+		--["minion_withered_effect_+%"] = {
+			--mod("MinionWitherEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		--},
 	},
 #baseMod skill("allowTotemBuff", true)
 #baseMod flag("Condition:HaveChaosGolem", { type = "GlobalEffect", effectType = "Buff" })
@@ -3792,6 +3855,10 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["lightning_golem_grants_attack_and_cast_speed_+%"] = {
 			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["lightning_golem_grants_base_mana_regeneration_rate_per_minute"] = {
+			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 60,
 		},
 	},
 #baseMod skill("allowTotemBuff", true)
@@ -4031,6 +4098,14 @@ local skills, mod, flag, skill = ...
 			mod("LightningExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Lightning Exposure", effectCond = "WaveOfConvictionLightningExposureActive" }),
 		},
 	},
+#mods
+
+#skill WaveOfConvictionAltY
+#flags spell area duration
+	preDamageFunc = function(activeSkill, output)
+		local duration = math.floor(math.ceil(activeSkill.skillData.duration * data.misc.ServerTickRate) / data.misc.ServerTickRate * output.DurationMod * 10)
+		activeSkill.skillModList:NewMod("DotMultiplier", "BASE", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "WaveOfConvictionDurationDotMulti") * duration / 100, "Skill:Purge", 0, { type = "Multiplier", var = "WoCDurationExpired"})
+	end,
 #mods
 
 #skill WinterOrb

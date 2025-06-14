@@ -86,7 +86,7 @@ function main:Init()
 			self:LoadDatFiles()
 		end
 		if self.datFileByName["leaguenames"] then
-			self.leagueLabel = self.datFileByName["leaguenames"]:ReadValueText({ type = "String" }, self.datFileByName["leaguenames"].rows[2] + 8)
+			self.leagueLabel = self.datFileByName["leaguenames"]:ReadValueText({ type = "String" }, self.datFileByName["leaguenames"].rows[#self.datFileByName["leaguenames"].rows] + 8)
 		end
 	end
 

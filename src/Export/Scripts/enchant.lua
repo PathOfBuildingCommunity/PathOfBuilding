@@ -45,7 +45,7 @@ local lab = {
 	[75] = "ENDGAME",
 	[83] = "DEDICATION",
 }
-local sourceOrder = { "NORMAL", "CRUEL", "MERCILESS", "ENDGAME", "DEDICATION", "ENKINDLING", "INSTILLING", "HARVEST", "HEIST", "RUNESMITH" }
+local sourceOrder = { "NORMAL", "CRUEL", "MERCILESS", "ENDGAME", "DEDICATION", "ENKINDLING", "INSTILLING", "HARVEST", "HEIST" }
 
 local function doLabEnchantment(fileName, group)
 	local byDiff = { }
@@ -144,7 +144,7 @@ doOtherEnchantment("../Data/EnchantmentFlask.lua", { --[3] = { ["FlaskEnchantmen
 	[21] = { ["FlaskEnchantment"] = "ENKINDLING" },
 	[22] = { ["FlaskEnchantment"] = "INSTILLING" } })
 doOtherEnchantment("../Data/EnchantmentBody.lua", { [3] = { ["AlternateArmourQuality"] = "HARVEST", ["EnchantmentHeistArmour"] = "HEIST" } })
-doOtherEnchantment("../Data/EnchantmentWeapon.lua", { [3] = { ["AlternateWeaponQuality"] = "HARVEST", ["EnchantmentHeistWeapon"] = "HEIST" }, ["Craft"] = { ["Runecrafting"] = "RUNESMITH" } })
+doOtherEnchantment("../Data/EnchantmentWeapon.lua", { [3] = { ["AlternateWeaponQuality"] = "HARVEST", ["EnchantmentHeistWeapon"] = "HEIST" } })
 
 local skillMap = {
 	["Summone?d?RagingSpirit"] = "Summon Raging Spirit",

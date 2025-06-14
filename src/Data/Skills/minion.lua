@@ -85,6 +85,7 @@ skills["SandstormChaosElementalSummonedEmpowered"] = {
 		{ "base_skill_effect_duration", 8000 },
 		{ "active_skill_area_of_effect_radius_+%_final", 50 },
 		{ "chaos_damage_taken_+%", 6 },
+		{ "wither_expire_speed_+%", -100 },
 	},
 	stats = {
 		"base_chaos_damage_to_deal_per_minute",
@@ -210,8 +211,8 @@ skills["FireElementalMeteorSummoned"] = {
 	name = "Meteor",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 13.5,
-	incrementalEffectiveness = 0.054999999701977,
+	baseEffectiveness = 14,
+	incrementalEffectiveness = 0.056000001728535,
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.Damage] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.5,
@@ -232,7 +233,7 @@ skills["FireElementalMeteorSummoned"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 21.666666356226, damageEffectiveness = 5.25, baseMultiplier = 5.25, levelRequirement = 1, statInterpolation = { 3, }, },
+		[1] = { 21.666666356226, damageEffectiveness = 6.8, baseMultiplier = 6.8, levelRequirement = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["IceElementalIceCyclone"] = {
@@ -542,6 +543,9 @@ skills["SkeletonMinionProjectileCold"] = {
 		spell = true,
 		projectile = true,
 	},
+	constantStats = {
+		{ "base_chance_to_freeze_%", 20 },
+	},
 	stats = {
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
@@ -564,6 +568,9 @@ skills["SkeletonMinionProjectileFire"] = {
 		spell = true,
 		projectile = true,
 	},
+	constantStats = {
+		{ "base_chance_to_ignite_%", 20 },
+	},
 	stats = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
@@ -585,6 +592,9 @@ skills["SkeletonMinionProjectileLightning"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
+	},
+	constantStats = {
+		{ "base_chance_to_shock_%", 20 },
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -1398,7 +1408,7 @@ skills["BoneGolemMultiAttack"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { damageEffectiveness = 1.35, baseMultiplier = 1.35, levelRequirement = 1, },
+		[1] = { damageEffectiveness = 1.6, baseMultiplier = 1.6, levelRequirement = 1, },
 	},
 }
 skills["BoneGolemCascade"] = {
@@ -1463,7 +1473,7 @@ skills["BoneGolemLeapSlam"] = {
 		"disable_attack_repeats",
 	},
 	levels = {
-		[1] = { attackSpeedMultiplier = -44, storedUses = 1, damageEffectiveness = 1.8, baseMultiplier = 1.8, cooldown = 4, levelRequirement = 1, },
+		[1] = { attackSpeedMultiplier = -44, storedUses = 1, damageEffectiveness = 2.25, baseMultiplier = 2.25, cooldown = 4, levelRequirement = 1, },
 	},
 }
 skills["EGBoneGolemConsumeCorpse"] = {
@@ -1507,7 +1517,7 @@ skills["BoneGolemCascadeEmpowered"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { attackSpeedMultiplier = -10, baseMultiplier = 1.85, damageEffectiveness = 1.85, levelRequirement = 1, },
+		[1] = { attackSpeedMultiplier = -10, baseMultiplier = 2.3, damageEffectiveness = 2.3, levelRequirement = 1, },
 	},
 }
 skills["SkitterbotWait"] = {
