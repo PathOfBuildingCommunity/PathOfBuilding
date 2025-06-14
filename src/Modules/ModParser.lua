@@ -2955,6 +2955,7 @@ local specialModList = {
 	["trigger level (%d+) (.+) when you gain avian's might or avian's flight"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) on melee hit if you have at least (%d+) strength"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) on critical strike with cleave or reave"] = function(num, _, skill) return triggerExtraSkill(skill, num, {onCrit = true}) end,
+	["trigger level (%d+) (.+) on melee critical strike"] = function(num, _, skill) return triggerExtraSkill(skill, num, {onCrit = true}) end,
 	["triggers level (%d+) (.+)"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["triggers level (%d+) (.+) when equipped"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["triggers level (%d+) (.+) when allocated"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
