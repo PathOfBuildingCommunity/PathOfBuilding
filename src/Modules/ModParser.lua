@@ -1321,6 +1321,8 @@ local modTagList = {
 	["per green socket on main hand weapon"] = { tag = { type = "Multiplier", var = "GreenSocketInWeapon 1" } },
 	["per green socket on"] = { tag = { type = "Multiplier", var = "GreenSocketInWeapon 1" } },
 	["per red socket on main hand weapon"] = { tag = { type = "Multiplier", var = "RedSocketInWeapon 1" } },
+	["per red socket on equipped staff"] = { tagList = { { type = "Multiplier", var = "RedSocketInWeapon 1" }, { type = "Condition", var = "UsingStaff" } } },
+	["per blue socket on equipped staff"] = { tagList = { { type = "Multiplier", var = "BlueSocketInWeapon 1" }, { type = "Condition", var = "UsingStaff" } } },
 	["per green socket"] = { tag = { type = "Multiplier", var = "GreenSocketIn{SlotName}" } },
 	["per blue socket"] = { tag = { type = "Multiplier", var = "BlueSocketIn{SlotName}" } },
 	["per white socket"] = { tag = { type = "Multiplier", var = "WhiteSocketIn{SlotName}" } },
