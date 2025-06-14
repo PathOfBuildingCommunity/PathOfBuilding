@@ -1,7 +1,9 @@
 VERSION[2.54.0][2025/06/14]
 --- New to Path of Building ---
-* Add full support for new 3.26 Gems by (@LocalIdentity, @Wires77, @PJacek) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8676, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8679
-* Update existing gems with changes from 3.26 by (@LocalIdentity, @Wires77) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8673
+* Add full support for new 3.26 Gems (LocalIdentity, Wires77, TPlant)
+* Update existing gems with changes from 3.26 (LocalIdentity, Wires77)
+* Add support for Cold Dot Multiplier per Overcapped Cold Res Mastery (Peechey)
+* Add support for Life / Mana per red / blue socket Staff Mastery (LocalIdentity)
 
 
 VERSION[2.53.1][2025/06/13]
