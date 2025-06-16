@@ -264,7 +264,18 @@ function GGPKClass:GetNeededFiles()
 		"Data/Commands.dat",
 		"Data/ModEquivalencies.dat",
 		"Data/InfluenceTags.dat",
-		"Data/LeagueNames.dat"
+		"Data/LeagueNames.dat",
+		"Data/DivinationBuffTemplates.dat",
+		"Data/MinionDoublingStatTypes.dat",
+		"Data/MercenaryAttributes.dat",
+		"Data/MercenaryBuilds.dat",
+		"Data/MercenaryClasses.dat",
+		"Data/MercenarySkillFamilies.dat",
+		"Data/MercenarySkills.dat",
+		"Data/MercenarySupportCounts.dat",
+		"Data/MercenarySupportFamilies.dat",
+		"Data/MercenarySupports.dat",
+		"Data/MercenaryWieldableTypes.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
