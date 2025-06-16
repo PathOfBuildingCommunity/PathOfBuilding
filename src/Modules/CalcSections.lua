@@ -708,7 +708,7 @@ return {
 		{ breakdown = "StrikeTargets" }, 
 		{ modName = "AdditionalStrikeTarget", cfg = "skill" }
 	}, },
-	{ label = "Attachment Range", flag = "brand", { format = "{1:output:BrandAttachmentRangeMetre}m",
+	{ label = "Attachment Range", haveOutput = "BrandAttachmentRangeMetre", { format = "{1:output:BrandAttachmentRangeMetre}m",
 		{ breakdown = "BrandAttachmentRange" },
 		{ modName = "BrandAttachmentRange", cfg = "skill"},
 	}, },
@@ -790,7 +790,7 @@ return {
 		{ breakdown = "TotemArmour" },
 		{ modName = "TotemArmour", cfg = "skill" },
 	}, },
-	{ label = "Active Brand Limit", flag = "brand", { format = "{0:output:ActiveBrandLimit}", { modName = "ActiveBrandLimit", cfg = "skill" }, }, },
+	{ label = "Active Brand Limit", haveOutput = "ActiveBrandLimit", { format = "{0:output:ActiveBrandLimit}", { modName = "ActiveBrandLimit", cfg = "skill" }, }, },
 	{ label = "Totem Fire Res", flag = "totem", notFlag = "triggered",{ format = "{0:output:TotemFireResist}% (+{0:output:TotemFireResistOverCap}%)",
 		{ breakdown = "TotemFireResist" }, 
 		{ modName = { "TotemFireResistMax", "TotemElementalResistMax", "TotemFireResist", "TotemElementalResist" }, },

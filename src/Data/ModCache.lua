@@ -908,7 +908,7 @@ c["+30% Chance to Block Spell Damage during Effect"]={{[1]={[1]={type="Condition
 c["+30% Chance to Block Spell Damage while on Low Life"]={{[1]={[1]={type="Condition",var="LowLife"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=30}},nil}
 c["+30% Chaos Resistance against Damage Over Time"]={{[1]={flags=8,keywordFlags=0,name="ChaosResist",type="BASE",value=30}},nil}
 c["+30% chance to Suppress Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellSuppressionChance",type="BASE",value=30}},nil}
-c["+30% to Brand Critical Strike Multiplier"]={{[1]={[1]={skillType=75,type="SkillType"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=30}},nil}
+c["+30% to Brand Critical Strike Multiplier"]={{[1]={flags=0,keywordFlags=1048576,name="CritMultiplier",type="BASE",value=30}},nil}
 c["+30% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=30}},nil}
 c["+30% to Chaos Resistance while stationary"]={{[1]={[1]={type="Condition",var="Stationary"},flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=30}},nil}
 c["+30% to Cold Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="ColdDotMultiplier",type="BASE",value=30}},nil}
@@ -2155,7 +2155,7 @@ c["10% increased Attack and Cast Speed"]={{[1]={flags=0,keywordFlags=0,name="Spe
 c["10% increased Attack and Cast Speed if you've summoned a Totem Recently"]={{[1]={[1]={type="Condition",var="SummonedTotemRecently"},flags=0,keywordFlags=0,name="Speed",type="INC",value=10}},nil}
 c["10% increased Attributes"]={{[1]={flags=0,keywordFlags=0,name="Str",type="INC",value=10},[2]={flags=0,keywordFlags=0,name="Dex",type="INC",value=10},[3]={flags=0,keywordFlags=0,name="Int",type="INC",value=10},[4]={flags=0,keywordFlags=0,name="All",type="INC",value=10}},nil}
 c["10% increased Brand Attachment range"]={{[1]={flags=0,keywordFlags=0,name="BrandAttachmentRange",type="INC",value=10}},nil}
-c["10% increased Brand Damage"]={{[1]={[1]={skillType=75,type="SkillType"},flags=0,keywordFlags=0,name="Damage",type="INC",value=10}},nil}
+c["10% increased Brand Damage"]={{[1]={flags=0,keywordFlags=1048576,name="Damage",type="INC",value=10}},nil}
 c["10% increased Burning Damage for each time you have Shocked a Non-Shocked Enemy Recently, up to a maximum of 120%"]={{[1]={[1]={limit=120,limitTotal=true,type="Multiplier",var="ShockedNonShockedEnemyRecently"},flags=0,keywordFlags=134217728,name="FireDamage",type="INC",value=10}},nil}
 c["10% increased Cast Speed"]={{[1]={flags=16,keywordFlags=0,name="Speed",type="INC",value=10}},nil}
 c["10% increased Cast Speed during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=16,keywordFlags=0,name="Speed",type="INC",value=10}},nil}
@@ -2589,7 +2589,7 @@ c["12% increased Attack Speed if you've dealt a Critical Strike Recently"]={{[1]
 c["12% increased Attack Speed with Claws"]={{[1]={flags=262149,keywordFlags=0,name="Speed",type="INC",value=12}},nil}
 c["12% increased Attack Speed with Daggers"]={{[1]={flags=524293,keywordFlags=0,name="Speed",type="INC",value=12}},nil}
 c["12% increased Attack and Cast Speed while Physical Aegis is depleted"]={{[1]={[1]={type="Condition",var="PhysicalAegisDepleted"},flags=0,keywordFlags=0,name="Speed",type="INC",value=12}},nil}
-c["12% increased Brand Damage"]={{[1]={[1]={skillType=75,type="SkillType"},flags=0,keywordFlags=0,name="Damage",type="INC",value=12}},nil}
+c["12% increased Brand Damage"]={{[1]={flags=0,keywordFlags=1048576,name="Damage",type="INC",value=12}},nil}
 c["12% increased Burning Damage"]={{[1]={flags=0,keywordFlags=134217728,name="FireDamage",type="INC",value=12}},nil}
 c["12% increased Burning Damage for each time you have Shocked a Non-Shocked Enemy Recently, up to a maximum of 120%"]={{[1]={[1]={limit=120,limitTotal=true,type="Multiplier",var="ShockedNonShockedEnemyRecently"},flags=0,keywordFlags=134217728,name="FireDamage",type="INC",value=12}},nil}
 c["12% increased Cast Speed"]={{[1]={flags=16,keywordFlags=0,name="Speed",type="INC",value=12}},nil}
@@ -2787,7 +2787,7 @@ c["14% increased Accuracy Rating with Staves"]={{[1]={flags=2097156,keywordFlags
 c["14% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC",value=14}},nil}
 c["14% increased Attack Physical Damage"]={{[1]={flags=1,keywordFlags=0,name="PhysicalDamage",type="INC",value=14}},nil}
 c["14% increased Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=14}},nil}
-c["14% increased Brand Damage"]={{[1]={[1]={skillType=75,type="SkillType"},flags=0,keywordFlags=0,name="Damage",type="INC",value=14}},nil}
+c["14% increased Brand Damage"]={{[1]={flags=0,keywordFlags=1048576,name="Damage",type="INC",value=14}},nil}
 c["14% increased Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamage",type="INC",value=14}},nil}
 c["14% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=14}},nil}
 c["14% increased Damage Over Time with Bow Skills"]={{[1]={flags=8,keywordFlags=1024,name="Damage",type="INC",value=14}},nil}
@@ -3487,7 +3487,7 @@ c["20% increased Attack and Movement Speed while you have a Bestial Minion Adds 
 c["20% increased Attack and Movement Speed with Her Blessing"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=20}}," Attack and  with Her Blessing "}
 c["20% increased Bleeding Duration"]={{[1]={flags=0,keywordFlags=0,name="EnemyBleedDuration",type="INC",value=20}},nil}
 c["20% increased Blind Effect"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="BlindEffect",type="INC",value=20}}}},nil}
-c["20% increased Brand Damage"]={{[1]={[1]={skillType=75,type="SkillType"},flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},nil}
+c["20% increased Brand Damage"]={{[1]={flags=0,keywordFlags=1048576,name="Damage",type="INC",value=20}},nil}
 c["20% increased Buff Effect of your Links for which 50% of Link Duration has Expired"]={{[1]={flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=20}},"  of your Links for which 50% of Link Duration has Expired "}
 c["20% increased Buff Effect of your Links for which 50% of Link Duration has Expired Curses are inflicted on you instead of Linked targets"]={{[1]={flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=20}},"  of your Links for which 50% of Link Duration has Expired Curses are inflicted on you instead of Linked targets "}
 c["20% increased Cast Speed"]={{[1]={flags=16,keywordFlags=0,name="Speed",type="INC",value=20}},nil}
@@ -4013,8 +4013,8 @@ c["25% increased Attack Speed if you've changed Stance Recently"]={{[1]={[1]={ty
 c["25% increased Attack Speed when on Low Life"]={{[1]={[1]={type="Condition",var="LowLife"},flags=1,keywordFlags=0,name="Speed",type="INC",value=25}},nil}
 c["25% increased Attack and Cast Speed while at maximum Fortification"]={{[1]={[1]={type="Condition",var="HaveMaximumFortification"},flags=0,keywordFlags=0,name="Speed",type="INC",value=25}},nil}
 c["25% increased Bleeding Duration"]={{[1]={flags=0,keywordFlags=0,name="EnemyBleedDuration",type="INC",value=25}},nil}
-c["25% increased Brand Critical Strike Chance"]={{[1]={[1]={skillType=75,type="SkillType"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=25}},nil}
-c["25% increased Brand Damage"]={{[1]={[1]={skillType=75,type="SkillType"},flags=0,keywordFlags=0,name="Damage",type="INC",value=25}},nil}
+c["25% increased Brand Critical Strike Chance"]={{[1]={flags=0,keywordFlags=1048576,name="CritChance",type="INC",value=25}},nil}
+c["25% increased Brand Damage"]={{[1]={flags=0,keywordFlags=1048576,name="Damage",type="INC",value=25}},nil}
 c["25% increased Burning Damage"]={{[1]={flags=0,keywordFlags=134217728,name="FireDamage",type="INC",value=25}},nil}
 c["25% increased Cast Speed"]={{[1]={flags=16,keywordFlags=0,name="Speed",type="INC",value=25}},nil}
 c["25% increased Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamage",type="INC",value=25}},nil}
@@ -4781,7 +4781,7 @@ c["4% increased Attack Speed with Swords"]={{[1]={flags=4194309,keywordFlags=0,n
 c["4% increased Attack Speed with Two Handed Melee Weapons"]={{[1]={flags=603979781,keywordFlags=0,name="Speed",type="INC",value=4}},nil}
 c["4% increased Attack Speed with Wands"]={{[1]={flags=8388613,keywordFlags=0,name="Speed",type="INC",value=4}},nil}
 c["4% increased Attack and Cast Speed"]={{[1]={flags=0,keywordFlags=0,name="Speed",type="INC",value=4}},nil}
-c["4% increased Brand Damage per 10 Devotion"]={{[1]={[1]={skillType=75,type="SkillType"},[2]={actor="parent",div=10,stat="Devotion",type="PerStat"},flags=0,keywordFlags=0,name="Damage",type="INC",value=4}},nil}
+c["4% increased Brand Damage per 10 Devotion"]={{[1]={[1]={actor="parent",div=10,stat="Devotion",type="PerStat"},flags=0,keywordFlags=1048576,name="Damage",type="INC",value=4}},nil}
 c["4% increased Cast Speed"]={{[1]={flags=16,keywordFlags=0,name="Speed",type="INC",value=4}},nil}
 c["4% increased Cast Speed while Dual Wielding"]={{[1]={[1]={type="Condition",var="DualWielding"},flags=16,keywordFlags=0,name="Speed",type="INC",value=4}},nil}
 c["4% increased Cast Speed while holding a Shield"]={{[1]={[1]={type="Condition",varList={[1]="UsingShield"}},flags=16,keywordFlags=0,name="Speed",type="INC",value=4}},nil}
@@ -4857,7 +4857,7 @@ c["40% increased Attack and Cast Speed"]={{[1]={flags=0,keywordFlags=0,name="Spe
 c["40% increased Blind Effect"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="BlindEffect",type="INC",value=40}}}},nil}
 c["40% increased Blind duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="INC",value=40}}," Blind  "}
 c["40% increased Brand Attachment range"]={{[1]={flags=0,keywordFlags=0,name="BrandAttachmentRange",type="INC",value=40}},nil}
-c["40% increased Brand Damage"]={{[1]={[1]={skillType=75,type="SkillType"},flags=0,keywordFlags=0,name="Damage",type="INC",value=40}},nil}
+c["40% increased Brand Damage"]={{[1]={flags=0,keywordFlags=1048576,name="Damage",type="INC",value=40}},nil}
 c["40% increased Cast Speed"]={{[1]={flags=16,keywordFlags=0,name="Speed",type="INC",value=40}},nil}
 c["40% increased Cast Speed while Ignited"]={{[1]={[1]={type="Condition",var="Ignited"},flags=16,keywordFlags=0,name="Speed",type="INC",value=40}},nil}
 c["40% increased Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamage",type="INC",value=40}},nil}
@@ -7300,20 +7300,20 @@ c["Bow Knockback at Close Range"]={{[1]={[1]={type="Condition",var="AtCloseRange
 c["Bow Skills have +6% to Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=1024,name="DotMultiplier",type="BASE",value=6}},nil}
 c["Bow Skills have 10% increased Skill Effect Duration"]={{[1]={flags=0,keywordFlags=1024,name="Duration",type="INC",value=10}},nil}
 c["Bow Skills have 25% increased Area of Effect"]={{[1]={flags=0,keywordFlags=1024,name="AreaOfEffect",type="INC",value=25}},nil}
-c["Brand Recall grants 20% increased Brand Attachment range to recalled Brands"]={{[1]={[1]={skillType=75,type="SkillType"},[2]={includeTransfigured=true,skillName="Brand Recall",type="SkillName"},[3]={type="Condition",var="{Hand}Attack"},flags=0,keywordFlags=0,name="BrandAttachmentRange",type="BASE",value=20}},"% increased  to recalled s "}
-c["Brand Recall grants 20% increased Brand Attachment range to recalled Brands Brand Recall has 4% increased Cooldown Recovery Rate per Brand, up to a maximum of 40%"]={{[1]={[1]={skillType=75,type="SkillType"},[2]={limit=40,limitTotal=true,type="Multiplier",var="ActiveBrand"},[3]={includeTransfigured=true,skillName="Brand Recall",type="SkillName"},[4]={type="Condition",var="{Hand}Attack"},flags=0,keywordFlags=0,name="BrandAttachmentRange",type="BASE",value=20}},"% increased  to recalled s Brand Recall has 4% increased Cooldown Recovery Rate  "}
+c["Brand Recall grants 20% increased Brand Attachment range to recalled Brands"]={{[1]={[1]={includeTransfigured=true,skillName="Brand Recall",type="SkillName"},[2]={type="Condition",var="{Hand}Attack"},flags=0,keywordFlags=1048576,name="BrandAttachmentRange",type="BASE",value=20}},"% increased  to recalled s "}
+c["Brand Recall grants 20% increased Brand Attachment range to recalled Brands Brand Recall has 4% increased Cooldown Recovery Rate per Brand, up to a maximum of 40%"]={{[1]={[1]={limit=40,limitTotal=true,type="Multiplier",var="ActiveBrand"},[2]={includeTransfigured=true,skillName="Brand Recall",type="SkillName"},[3]={type="Condition",var="{Hand}Attack"},flags=0,keywordFlags=1048576,name="BrandAttachmentRange",type="BASE",value=20}},"% increased  to recalled s Brand Recall has 4% increased Cooldown Recovery Rate  "}
 c["Brand Recall has 10% increased Cooldown Recovery Rate"]={{[1]={[1]={includeTransfigured=true,skillName="Brand Recall",type="SkillName"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=10}},nil}
 c["Brand Recall has 100% increased Cooldown Recovery Rate"]={{[1]={[1]={includeTransfigured=true,skillName="Brand Recall",type="SkillName"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=100}},nil}
 c["Brand Recall has 15% increased Cooldown Recovery Rate"]={{[1]={[1]={includeTransfigured=true,skillName="Brand Recall",type="SkillName"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=15}},nil}
 c["Brand Recall has 20% increased Cooldown Recovery Rate"]={{[1]={[1]={includeTransfigured=true,skillName="Brand Recall",type="SkillName"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=20}},nil}
 c["Brand Recall has 4% increased Cooldown Recovery Rate per Brand, up to a maximum of 40%"]={{[1]={[1]={limit=40,limitTotal=true,type="Multiplier",var="ActiveBrand"},[2]={includeTransfigured=true,skillName="Brand Recall",type="SkillName"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=4}},nil}
 c["Brand Recall has 50% increased Cooldown Recovery Rate"]={{[1]={[1]={includeTransfigured=true,skillName="Brand Recall",type="SkillName"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=50}},nil}
-c["Brand Skills have 10% increased Duration"]={{[1]={flags=0,keywordFlags=1048576,name="Duration",type="INC",value=10}},nil}
-c["Brand Skills have 100% increased Duration"]={{[1]={flags=0,keywordFlags=1048576,name="Duration",type="INC",value=100}},nil}
-c["Brand Skills have 12% increased Duration"]={{[1]={flags=0,keywordFlags=1048576,name="Duration",type="INC",value=12}},nil}
-c["Brand Skills have 15% increased Duration"]={{[1]={flags=0,keywordFlags=1048576,name="Duration",type="INC",value=15}},nil}
-c["Brand Skills have 20% increased Duration"]={{[1]={flags=0,keywordFlags=1048576,name="Duration",type="INC",value=20}},nil}
-c["Brand Skills have 75% increased Duration"]={{[1]={flags=0,keywordFlags=1048576,name="Duration",type="INC",value=75}},nil}
+c["Brand Skills have 10% increased Duration"]={{[1]={[1]={skillType=75,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=10}},nil}
+c["Brand Skills have 100% increased Duration"]={{[1]={[1]={skillType=75,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=100}},nil}
+c["Brand Skills have 12% increased Duration"]={{[1]={[1]={skillType=75,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=12}},nil}
+c["Brand Skills have 15% increased Duration"]={{[1]={[1]={skillType=75,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=15}},nil}
+c["Brand Skills have 20% increased Duration"]={{[1]={[1]={skillType=75,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=20}},nil}
+c["Brand Skills have 75% increased Duration"]={{[1]={[1]={skillType=75,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=75}},nil}
 c["Brands Attach to a new Enemy each time they Activate, no more than once every 0.3 seconds"]={nil,"Brands Attach to a new Enemy each time they Activate, no more than once every 0.3 seconds "}
 c["Brands have 100% more Activation Frequency if 75% of Attached Duration expired"]={{[1]={[1]={type="Condition",var="BrandLastQuarter"},flags=0,keywordFlags=0,name="BrandActivationFrequency",type="MORE",value=100}},nil}
 c["Brands have 25% increased Area of Effect if 50% of Attached Duration expired"]={{[1]={[1]={type="Condition",var="BrandLastHalf"},[2]={skillType=75,type="SkillType"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=25}},nil}
