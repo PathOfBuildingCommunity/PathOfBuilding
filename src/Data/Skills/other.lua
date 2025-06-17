@@ -766,9 +766,8 @@ skills["TriggeredSummonLesserShrine"] = {
 	castTime = 1,
 	fromItem = true,
 	baseFlags = {
-		attack = true,
-		projectile = true,
-		area = true,
+		spell = true,
+		duration = true,
 	},
 	baseMods = {
 		flag("Condition:CanHaveLesserShrines", { type = "GlobalEffect", effectType = "Buff", effectName = "Shrines" }),
@@ -2715,10 +2714,9 @@ skills["TriggeredStarfall"] = {
 	castTime = 1,
 	fromItem = true,
 	baseFlags = {
-		spell = true,
-	},
-	baseMods = {
-		skill("showAverage", true),
+		attack = true,
+		projectile = true,
+		area = true,
 	},
 	constantStats = {
 		{ "skill_art_variation", 11 },
