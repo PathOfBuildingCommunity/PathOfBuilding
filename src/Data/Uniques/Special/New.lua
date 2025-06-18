@@ -7,6 +7,7 @@ data.uniques.new = {
 [[
 Azadi Crest
 Lacquered Buckler
+Source: Drops from unique{Mercenary} after winning a duel
 League: Mercenaries of Trarthus
 Requires Level 54, 154 Dex
 Implicits: 1
@@ -19,7 +20,7 @@ worst from three rolls instead of two
 ]],[[
 Betrayal's Sting
 Steel Ring
-League: Mercenaries of Trarthus
+Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
 Requires Level 80
 Implicits: 1
 {tags:attack}Adds (3-4) to (10-14) Physical Damage to Attacks
@@ -31,6 +32,7 @@ Implicits: 1
 ]],[[
 Binds of Bloody Vengeance
 Vanguard Belt
+Source: Drops from unique{Mercenary} after winning a duel
 League: Mercenaries of Trarthus
 Requires Level 78
 Implicits: 1
@@ -42,7 +44,7 @@ All Hits with your next Non-Channelling Attack within 4 seconds of taking a Crit
 ]],[[
 Coiling Whisper
 Amethyst Ring
-League: Mercenaries of Trarthus
+Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
 Requires Level 32
 Implicits: 1
 {tags:jewellery_resistance}+(17-23)% to Chaos Resistance
@@ -52,7 +54,7 @@ When 90% of your Hex's Duration Expires on an Enemy, Eat 1 Soul per Enemy Power
 ]],[[
 Enmity's Embrace
 Vermillion Ring
-League: Mercenaries of Trarthus
+Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
 Requires Level 80
 Implicits: 1
 {tags:life}(5-7)% increased Maximum Life
@@ -64,6 +66,7 @@ Damage Penetrates Fire Resistance equal to your Overcapped Fire Resistance, up t
 ]],[[
 Hand of Heresy
 Martyr Gloves
+Source: Drops from unique{Mercenary} after winning a duel
 League: Mercenaries of Trarthus
 Requires Level 77, 70 Str, 70 Int
 (40-80)% increased Armour and Energy Shield
@@ -73,6 +76,7 @@ Excommunicate Enemies on Melee Hit for 3 seconds
 ]],[[
 Howlcrack
 Ezomyte Burgonet
+Source: Drops from unique{Mercenary} after winning a duel
 League: Mercenaries of Trarthus
 Requires Level 60, 138 Str
 +(30-40) to Strength
@@ -83,12 +87,17 @@ Warcries cost +15% of Life
 ]],[[
 Legacy of the Rose
 Judgement Staff
-League: Mercenaries of Trarthus
+Variant: Shaper's Despair
+Variant: Shaper's Ire
+Variant: Shaper's Devastation
+Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
 Requires Level 68, 113 Str, 113 Int
 Implicits: 1
 +25% Chance to Block Attack Damage while wielding a Staff
 Grants Level 20 Summon Shaper Memory
-Grants Level 20 Shaper's Devastation, which will be used by Shaper Memory
+{variant:1}Grants Level 20 Shaper's Despair, which will be used by Shaper Memory
+{variant:2}Grants Level 20 Shaper's Ire, which will be used by Shaper Memory
+{variant:3}Grants Level 20 Shaper's Devastation, which will be used by Shaper Memory
 (200-300)% increased Physical Damage
 (25-40)% increased Cast Speed
 +(3-5) to Level of all Spell Skill Gems
@@ -99,7 +108,6 @@ Eldritch Battery
 ]],[[
 Mystic Refractor
 Pagan Wand
-League: Mercenaries of Trarthus
 Requires Level 33, 118 Int
 Implicits: 1
 10% increased Cast Speed
@@ -110,7 +118,6 @@ Projectiles cannot continue after colliding with targets
 ]],[[
 Prospero's Protection
 Iron Ring
-League: Mercenaries of Trarthus
 Requires Level 32
 Implicits: 1
 {tags:attack}Adds 1 to 4 Physical Damage to Attacks
@@ -122,6 +129,7 @@ Implicits: 1
 ]],[[
 Scornflux
 Satin Slippers
+Source: Drops from unique{Mercenary} after winning a duel
 League: Mercenaries of Trarthus
 Requires Level 54, 69 Int
 +(5-15) to Intelligence
@@ -132,7 +140,7 @@ Increase to Cast Speed from Arcane Surge also applies to Movement Speed
 ]],[[
 Servant of Decay
 Torturer Garb
-League: Mercenaries of Trarthus
+Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
 Requires Level 77, 151 Dex, 151 Int
 Trigger Level 20 Summon Void Spawn every 4 seconds
 (150-200)% increased Energy Shield
@@ -142,7 +150,7 @@ Gain (4-6)% of Non-Chaos Damage as Extra Chaos Damage per Summoned Void Spawn
 ]],[[
 Seven Teachings
 Waxed Garb
-League: Mercenaries of Trarthus
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
 Requires Level 77, 48 Dex, 48 Int
 Trigger a Socketed Spell on Unarmed Melee Critical Strike, with a 0.25 second Cooldown
 (1-7)% more Attack Speed with Unarmed Melee Attacks
@@ -154,7 +162,6 @@ Trigger a Socketed Spell on Unarmed Melee Critical Strike, with a 0.25 second Co
 ]],[[
 Spinehail
 Vile Arrow Quiver
-League: Mercenaries of Trarthus
 Source: Drops from unique{Catarina} in normal{Mastermind's Lair}
 Variant: Minion Damage affects you
 Variant: Minion Attack Speed affects you
@@ -197,7 +204,6 @@ Bow Attacks Sacrifice a random Damageable Minion to fire (1-3) additional Arrow
 ]],[[
 Squirming Terror
 Unset Ring
-League: Mercenaries of Trarthus
 Requires Level 32
 Implicits: 1
 Has 1 Socket
@@ -209,7 +215,6 @@ An Enemy Writhing Worm spawns every 2 seconds
 Starcaller
 Abyssal Axe
 Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
-League: Mercenaries of Trarthus
 Requires Level 55, 128 Str, 60 Dex
 Trigger Level 20 Starfall on Melee Critical Strike
 +(10-20) to all Attributes
@@ -220,7 +225,7 @@ Gain (40-60)% of Weapon Physical Damage as Extra Damage of a Random Element
 ]],[[
 The Arkhon's Tools
 Cloth Belt
-League: Mercenaries of Trarthus
+Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
 Requires Level 16
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
@@ -247,7 +252,7 @@ Variant: Summoned Holy Relics
 Variant: Summoned Phantasms
 Variant: Summoned Skeletons
 Variant: Summoned Spectral Wolves
-League: Mercenaries of Trarthus
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
 Requires Level 80, 224 Int
 +(50-100) to maximum Energy Shield
 +1 to Level of all Minion Skill Gems
@@ -284,7 +289,7 @@ Requires Level 80, 224 Int
 ]],[[
 Venarius' Astrolabe
 Astrolabe Amulet
-League: Mercenaries of Trarthus
+Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
 Requires Level 69
 Implicits: 2
 Implicit Modifiers Cannot Be Changed
@@ -296,7 +301,7 @@ You have Elemental Conflux if the stars are aligned
 ]],[[
 Whispers of Infinity
 Seaglass Amulet
-League: Mercenaries of Trarthus
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
 Requires Level 74
 Implicits: 1
 (10-15)% faster start of Energy Shield Recharge
@@ -307,7 +312,7 @@ Skills Cost Energy Shield instead of Mana or Life
 ]],[[
 Wine of the Prophet
 Gold Flask
-League: Mercenaries of Trarthus
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
 Requires Level 27
 +60 to Maximum Charges
 (20-100)% increased Charges per Use
