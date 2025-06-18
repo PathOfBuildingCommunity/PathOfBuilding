@@ -585,6 +585,21 @@ Selected Alt Variant Three: 13
 ]]
 }
 
+local boundByDestiny = {
+[[
+Bound by Destiny
+Prismatic Jewel
+League: Mercenaries of Trarthus
+Source: Drops from unique{Incarnation of Neglect} or unique{Incarnation of Fear} or unique{Incarnation of Dread}
+Limited to: 1
+Has Alt Variant: true
+Has Alt Variant Two: true
+Selected Variant: 1
+Selected Alt Variant: 19
+Selected Alt Variant Two: 37
+]]
+}
+
 local abbreviateModId = function(string)
 	return (string:
 	gsub("Increased", "Inc"):
@@ -623,6 +638,28 @@ for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 		local variantName = abbreviateModId(mod.Id):gsub("SummonArbalist", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("Percent To ", ""):gsub("Chance To ", ""):gsub("Targets To ", ""):gsub("[fF]or 4 ?[Ss]econds On Hit", ""):gsub(" Percent", ""):gsub("Number Of ", "")
 		table.insert(voranasMarch, "Variant:" .. variantName)
 	end
+end
+
+local unsortedMods = LoadModule("Data/Uniques/Special/BoundByDestiny")
+local sortedMods = { }
+local boundByDestinyMods = { }
+
+for i, mod in pairs(unsortedMods) do
+	table.insert(sortedMods, { mod.type, i} )
+end
+table.sort(sortedMods, function (m1, m2) return m1[1] < m2[1] end )
+for _, modId in ipairs(sortedMods) do
+	table.insert(boundByDestinyMods, {
+		Id = modId[2],
+		mod = unsortedMods[modId[2]],
+	})
+end
+for _, mod in ipairs(boundByDestinyMods) do
+	local variantName = mod.mod.type:gsub("(%d+)(%a+)", "%2 %1:")..abbreviateModId(mod.Id):gsub(mod.mod.type .. ".*", ""):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
+	table.insert(boundByDestiny, "Variant: " .. variantName)
+end
+for i, mod in ipairs(boundByDestinyMods) do
+	table.insert(boundByDestiny, "{variant:" .. i .. "}" .. mod.mod[1])
 end
 
 table.insert(watchersEye,
@@ -671,6 +708,7 @@ end
 table.insert(data.uniques.generated, table.concat(watchersEye, "\n"))
 table.insert(data.uniques.generated, table.concat(sublimeVision, "\n"))
 table.insert(data.uniques.generated, table.concat(voranasMarch, "\n"))
+table.insert(data.uniques.generated, table.concat(boundByDestiny, "\n"))
 
 function buildTreeDependentUniques(tree)
 	buildForbidden(tree.classNotables)
