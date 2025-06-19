@@ -7447,10 +7447,10 @@ return {
 		},
 		[4]={
 			list=false,
-			name="UnknownKey",
-			refTo="",
+			name="Terrain",
+			refTo="ExtraTerrainFeatures",
 			type="Key",
-			width=250
+			width=50
 		},
 		[5]={
 			list=false,
