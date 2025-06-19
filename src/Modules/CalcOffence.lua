@@ -2310,7 +2310,7 @@ function calcs.offence(env, actor, activeSkill)
 		if output.Time > 1 then
 			modDB:NewMod("Condition:OneSecondAttackTime", "FLAG", true)
 		end
-		if skillModList:Flag(nil, "UseOffhandAttackSpeed") then
+		if skillModList:Flag(nil, "UseOffhandAttackSpeed") and not skillFlags.forceMainHand then
 			output.Speed = output.OffHand.Speed
 			output.Time = output.OffHand.Time
 			if breakdown then
