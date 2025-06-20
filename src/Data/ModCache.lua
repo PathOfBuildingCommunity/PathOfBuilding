@@ -9655,13 +9655,13 @@ c["Projectiles Pierce 6 additional Targets"]={{[1]={flags=0,keywordFlags=0,name=
 c["Projectiles Pierce all Burning Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Burning"},flags=0,keywordFlags=0,name="PierceAllTargets",type="FLAG",value=true}},nil}
 c["Projectiles Pierce all Targets while you have Phasing"]={{[1]={[1]={type="Condition",var="Phasing"},flags=0,keywordFlags=0,name="PierceAllTargets",type="FLAG",value=true}},nil}
 c["Projectiles Pierce an additional Target"]={{[1]={flags=0,keywordFlags=0,name="PierceCount",type="BASE",value=1}},nil}
-c["Projectiles Return to you at end of flight"]={nil,"Projectiles Return to you at end of flight "}
-c["Projectiles Return to you at end of flight Projectiles are fired in random directions"]={nil,"Projectiles Return to you at end of flight Projectiles are fired in random directions "}
-c["Projectiles Return to you from final target"]={nil,"Projectiles Return to you from final target "}
-c["Projectiles are fired in random directions"]={nil,"Projectiles are fired in random directions "}
+c["Projectiles Return to you at end of flight"]={nil,"Return to you at end of flight "}
+c["Projectiles Return to you at end of flight Projectiles are fired in random directions"]={nil,"Return to you at end of flight Projectiles are fired in random directions "}
+c["Projectiles Return to you from final target"]={nil,"Return to you from final target "}
+c["Projectiles are fired in random directions"]={nil,"fired in random directions "}
 c["Projectiles cannot Pierce, Fork or Chain"]={{[1]={flags=1024,keywordFlags=0,name="CannotPierce",type="FLAG",value=true},[2]={flags=1024,keywordFlags=0,name="CannotChain",type="FLAG",value=true},[3]={flags=1024,keywordFlags=0,name="CannotFork",type="FLAG",value=true}},nil}
-c["Projectiles cannot collide with Enemies at Close Range"]={nil,"Projectiles cannot collide with Enemies at Close Range "}
-c["Projectiles cannot collide with Enemies at Close Range Far Shot"]={nil,"Projectiles cannot collide with Enemies at Close Range Far Shot "}
+c["Projectiles cannot collide with Enemies at Close Range"]={nil,"cannot collide with Enemies at Close Range "}
+c["Projectiles cannot collide with Enemies at Close Range Far Shot"]={nil,"cannot collide with Enemies at Close Range Far Shot "}
 c["Projectiles deal 15% increased Damage with Hits and Ailments for each remaining Chain"]={{[1]={[1]={stat="ChainRemaining",type="PerStat"},[2]={skillType=3,type="SkillType"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=15}},nil}
 c["Projectiles deal 20% increased Damage with Hits and Ailments for each Enemy Pierced"]={{[1]={[1]={stat="PiercedCount",type="PerStat"},[2]={skillType=3,type="SkillType"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=20}},nil}
 c["Projectiles deal 20% increased Damage with Hits and Ailments for each time they have Chained"]={{[1]={[1]={stat="Chain",type="PerStat"},[2]={skillType=3,type="SkillType"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=20}},nil}
@@ -9680,14 +9680,14 @@ c["Projectiles from Attacks have 20% chance to Poison on Hit while you have a Be
 c["Projectiles from Attacks have 20% chance to inflict Bleeding on Hit while you have a Bestial Minion"]={{[1]={[1]={skillType=47,type="SkillType"},[2]={type="Condition",var="HaveBestialMinion"},flags=0,keywordFlags=0,name="BleedChance",type="BASE",value=20}},nil}
 c["Projectiles from Spells cannot Pierce"]={{[1]={flags=2,keywordFlags=0,name="CannotPierce",type="FLAG",value=true}},nil}
 c["Projectiles gain 20% of Non-Chaos Damage as extra Chaos Damage per Chain"]={{[1]={[1]={stat="Chain",type="PerStat"},flags=1024,keywordFlags=0,name="NonChaosDamageGainAsChaos",type="BASE",value=20}},nil}
-c["Projectiles gain Damage as they travel farther, dealing up"]={nil,"Projectiles gain Damage as they travel farther, dealing up "}
+c["Projectiles gain Damage as they travel farther, dealing up"]={nil,"Damage as they travel farther, dealing up "}
 c["Projectiles gain Damage as they travel farther, dealing up to 30% more Damage with Hits and Ailments"]={{[1]={[1]={ramp={[1]={[1]=35,[2]=0},[2]={[1]=70,[2]=1}},type="DistanceRamp"},flags=0,keywordFlags=786432,name="Damage",type="MORE",value=30}},nil}
 c["Projectiles gain Damage as they travel farther, dealing up to 60% increased Damage with Hits to targets"]={{[1]={[1]={ramp={[1]={[1]=35,[2]=0},[2]={[1]=70,[2]=1}},type="DistanceRamp"},flags=1028,keywordFlags=0,name="Damage",type="INC",value=60}},nil}
-c["Projectiles have 20% chance to be able to Chain when colliding with terrain"]={{}," to be able to Chain when colliding with terrain "}
-c["Projectiles have 20% chance to be able to Chain when colliding with terrain Projectiles gain Damage as they travel farther, dealing up"]={{[1]={flags=1024,keywordFlags=0,name="ProjectileCount",type="BASE",value=20}}," to be able to Chain when colliding with terrain  gain Damage as they travel farther, dealing up "}
+c["Projectiles have 20% chance to be able to Chain when colliding with terrain"]={{[1]={flags=1024,keywordFlags=0,name="ChainCountMax",type="BASE",value=20}}," to be able to when colliding with terrain "}
+c["Projectiles have 20% chance to be able to Chain when colliding with terrain Projectiles gain Damage as they travel farther, dealing up"]={{[1]={flags=1024,keywordFlags=0,name="ChainCountMax",type="BASE",value=20}}," to be able to when colliding with terrain Projectiles gain Damage as they travel farther, dealing up "}
 c["Projectiles have 25% chance for an additional Projectile when Forking"]={{[1]={flags=1024,keywordFlags=0,name="ProjectileCount",type="BASE",value=25}}," for an additional  when Forking "}
-c["Projectiles have 30% chance to be able to Chain when colliding with terrain"]={{}," to be able to Chain when colliding with terrain "}
-c["Projectiles have 4% chance to be able to Chain when colliding with terrain per Searching Eye Jewel affecting you, up to a maximum of 20%"]={{}," to be able to Chain when colliding with terrain  "}
+c["Projectiles have 30% chance to be able to Chain when colliding with terrain"]={{[1]={flags=1024,keywordFlags=0,name="ChainCountMax",type="BASE",value=30}}," to be able to when colliding with terrain "}
+c["Projectiles have 4% chance to be able to Chain when colliding with terrain per Searching Eye Jewel affecting you, up to a maximum of 20%"]={{[1]={[1]={limit=20,limitTotal=true,type="Multiplier",var="SearchingEyeJewel"},flags=1024,keywordFlags=0,name="ChainCountMax",type="BASE",value=4}}," to be able to when colliding with terrain  "}
 c["Projectiles have 50% chance for an additional Projectile when Forking"]={{[1]={flags=1024,keywordFlags=0,name="ProjectileCount",type="BASE",value=50}}," for an additional  when Forking "}
 c["Projectiles have 50% chance to Return to you"]={{}," to Return to you "}
 c["Projectiles have 50% chance to Return to you Projectiles are fired in random directions"]={{[1]={flags=1024,keywordFlags=0,name="ProjectileCount",type="BASE",value=50}}," to Return to you  are fired in random directions "}
