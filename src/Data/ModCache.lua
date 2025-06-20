@@ -8156,7 +8156,7 @@ c["Every fourth Retaliation Skill you use always Critically Strikes Retaliation 
 c["Every second, Consume a nearby Corpse to Recover 5% of Life and Mana"]={nil,"Every second, Consume a nearby Corpse to Recover 5% of Life and Mana "}
 c["Every second, Consume a nearby Corpse to Recover 5% of Life and Mana 10% more Damage taken if you haven't Consumed a Corpse Recently"]={nil,"Every second, Consume a nearby Corpse to Recover 5% of Life and Mana 10% more Damage taken if you haven't Consumed a Corpse Recently "}
 c["Every second, inflict Withered on nearby Enemies for 15 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanWither",type="FLAG",value=true}},nil}
-c["Excommunicate Enemies on Melee Hit for 3 seconds"]={{flags=0,keywordFlags=0,name="Condition:Excommunicated",type="FLAG",value=true},nil}
+c["Excommunicate Enemies on Melee Hit for 3 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanExcommunicate",type="FLAG",value=true}},nil}
 c["Exerted Attacks Knock Enemies Back on Hit"]={nil,"Exerted Attacks Knock Enemies Back on Hit "}
 c["Exerted Attacks deal 15% increased Damage"]={{[1]={flags=1,keywordFlags=0,name="ExertIncrease",type="INC",value=15}},nil}
 c["Exerted Attacks deal 20% increased Damage"]={{[1]={flags=1,keywordFlags=0,name="ExertIncrease",type="INC",value=20}},nil}
