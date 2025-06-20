@@ -3492,6 +3492,7 @@ local specialModList = {
 		mod("Damage", "INC", num, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "SinglePoison" }, { type = "SkillName", skillNameList = { "Sunder", "Ground Slam" }, includeTransfigured = true })
 	} end,
 	["poisons on you expire (%d+)%% slower"] = function(num) return { mod("SelfPoisonDebuffExpirationRate", "BASE", -num) } end,
+	["(%d+)%% chance to inflict an additional poison on the same target when you inflict poison"] = function(num) return { mod("DoublePoisonChance", "BASE", num) } end,
 	-- Suppression
 	["y?o?u?r? ?chance to suppress spell damage is lucky"] = { flag("SpellSuppressionChanceIsLucky") },
 	["y?o?u?r? ?chance to suppress spell damage is unlucky"] = { flag("SpellSuppressionChanceIsUnlucky") },

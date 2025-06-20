@@ -4189,8 +4189,9 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.PoisonDuration = durationBase * durationMod / rateMod * debuffDurationMult
 			-- The chance any given hit applies poison
 			local poisonChance = output.PoisonChanceOnHit / 100 * (1 - output.CritChance / 100) + output.PoisonChanceOnCrit / 100 * output.CritChance / 100
+			local doublePoisonChance = 1 + m_min(skillModList:Sum("BASE", cfg, "DoublePoisonChance")/ 100, 1)
 			-- The average number of poisons that will be active on the enemy at once
-			local PoisonStacks = output.HitChance / 100 * poisonChance * skillData.dpsMultiplier * (skillData.stackMultiplier or 1) * quantityMultiplier
+			local PoisonStacks = output.HitChance / 100 * poisonChance * doublePoisonChance * skillData.dpsMultiplier * (skillData.stackMultiplier or 1) * quantityMultiplier
 			if (globalOutput.HitSpeed or globalOutput.Speed) > 0 then
 				--assume skills with no cast, attack, or cooldown time are single cast
 				PoisonStacks = PoisonStacks * globalOutput.PoisonDuration * (globalOutput.HitSpeed or globalOutput.Speed) 
@@ -4204,6 +4205,7 @@ function calcs.offence(env, actor, activeSkill)
 					base = { "%.2fs ^8(poison duration)", globalOutput.PoisonDuration },
 					{ "%.2f ^8(poison chance)", poisonChance },
 					{ "%.2f ^8(hit chance)", output.HitChance / 100 },
+					{ "%.2f ^8(double poison chance)", doublePoisonChance },
 					{ "%.2f ^8(hits per second)", globalOutput.HitSpeed or globalOutput.Speed },
 					{ "%g ^8(dps multiplier for this skill)", skillData.dpsMultiplier or 1 },
 					{ "%g ^8(stack multiplier for this skill)", skillData.stackMultiplier or 1 },
