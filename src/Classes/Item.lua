@@ -435,13 +435,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						end
 					end
 				elseif specName == "Radius" and self.type == "Jewel" then
-					self.jewelRadiusLabel = specVal:match("^%a+")
+					self.jewelRadiusLabel = specVal:match("^%[a ]+")
 					if specVal:match("^%a+") == "Variable" then
                         -- Jewel radius is variable and must be read from it's mods instead after they are parsed
                         deferJewelRadiusIndexAssignment = true
                     else
                         for index, data in pairs(data.jewelRadius) do
-                            if specVal:match("^%a+") == data.label then
+                            if specVal:match("^%[a ]+") == data.label then
                                 self.jewelRadiusIndex = index
                                 break
                             end

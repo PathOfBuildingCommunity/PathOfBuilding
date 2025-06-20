@@ -44,7 +44,7 @@ function loadStatFile(fileName)
 				curLang = { }
 				--curDescriptor.lang[langName] = curLang
 			else
-				local statLimits, text, special = line:match('([%d%-#| ]+) "(.-)"%s*(.*)')
+				local statLimits, text, special = line:match('([%d%-#| !]+) "(.-)"%s*(.*)')
 				if statLimits then
 					local desc = { text = text, limit = { } }
 					for statLimit in statLimits:gmatch("[!%d%-#|]+") do
@@ -96,7 +96,12 @@ local function matchLimit(lang, val)
 	for _, desc in ipairs(lang) do
 		local match = true
 		for i, limit in ipairs(desc.limit) do
-			if (limit[2] ~= "#" and val[i].min > limit[2]) or (limit[1] ~= "#" and val[i].min < limit[1]) then
+			if limit[1] == "!" then
+				if val[i].min == limit[2] then
+					match = false
+					break
+				end
+			elseif (limit[2] ~= "#" and val[i].min > limit[2]) or (limit[1] ~= "#" and val[i].min < limit[1]) then
 				match = false
 				break
 			end
@@ -145,6 +150,24 @@ function describeStats(stats)
 			val[i].fmt = "d"
 		end
 		local desc = matchLimit(descriptor[1], val)
+		-- Hack to handle ranges starting or ending at 0 where no descriptor is defined for 0
+		-- Attempt to adapt existing ranges
+		if not desc then
+			for _, s in ipairs(val) do
+				if s.min == 0 and s.max > 0 then
+					s.min = 1
+					s.minz = true
+				elseif s.min < 0 and s.max == 0 then
+					s.max = -1
+					s.maxz = true
+				end
+			end
+			desc = matchLimit(descriptor[1], val)
+			for _, s in ipairs(val) do
+				if s.minz then s.min = 0 end
+				if s.maxz then s.max = 0 end
+			end
+		end
 		if desc then
 			for _, spec in ipairs(desc) do
 				if spec.k == "negate" then
