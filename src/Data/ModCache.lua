@@ -10987,8 +10987,8 @@ c["Socketed Gems are supported by Level 5 Blind"]={{[1]={[1]={slotName="{SlotNam
 c["Socketed Gems are supported by level 30 Infernal Legion"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=30,skillId="SupportInfernalLegion"}}},nil}
 c["Socketed Gems deal 63 to 94 additional Fire Damage"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="FireMin",type="BASE",value=63}}},[2]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="FireMax",type="BASE",value=94}}}},nil}
 c["Socketed Gems fire 4 additional Projectiles"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=4}}}},nil}
-c["Socketed Gems fire Projectiles in a Nova"]={nil,"Socketed Gems fire Projectiles in a Nova "}
-c["Socketed Gems fire Projectiles in a Nova +20 to All Attributes"]={nil,"Socketed Gems fire Projectiles in a Nova +20 to All Attributes "}
+c["Socketed Gems fire Projectiles in a Nova"]={nil,"fire Projectiles in a Nova "}
+c["Socketed Gems fire Projectiles in a Nova +20 to All Attributes"]={nil,"fire Projectiles in a Nova +20 to All Attributes "}
 c["Socketed Gems fire an additional Projectile"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=1}}}},nil}
 c["Socketed Gems have 10% chance to cause Enemies to Flee on Hit"]={{}," to cause Enemies to Flee  "}
 c["Socketed Gems have 10% chance to cause Enemies to Flee on Hit Trigger Level 1 Intimidating Cry on Hit"]={{}," to cause Enemies to Flee  Trigger Level 1on Hit "}
