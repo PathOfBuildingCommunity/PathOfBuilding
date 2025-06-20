@@ -2144,6 +2144,12 @@ local specialModList = {
 		flag("CannotChain", nil, ModFlag.Projectile),
 		flag("CannotFork", nil, ModFlag.Projectile),
 	},
+	["projectiles cannot continue after colliding with targets"] = {
+		flag("CannotPierce", nil, ModFlag.Projectile),
+		flag("CannotChain", nil, ModFlag.Projectile),
+		flag("CannotFork", nil, ModFlag.Projectile),
+		flag("CannotSplit", nil, ModFlag.Projectile),
+	},
 	["critical strikes inflict scorch, brittle and sapped"] = { flag("CritAlwaysAltAilments") },
 	["chance to block attack damage is doubled"] = { mod("BlockChance", "MORE", 100) },
 	["chance to block spell damage is doubled"] = { mod("SpellBlockChance", "MORE", 100) },
