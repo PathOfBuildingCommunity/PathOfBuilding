@@ -5356,6 +5356,7 @@ local flagTypes = {
 	["hindered,? with (%d+)%% reduced movement speed"] = "Condition:Hindered",
 	["unnerved"] = "Condition:Unnerved",
 	["malediction"] = "HasMalediction",
+	["debilitated"] = "Condition:Debilitated"
 }
 
 -- Build active skill name lookup
