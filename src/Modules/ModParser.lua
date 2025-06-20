@@ -4704,6 +4704,7 @@ local specialModList = {
 	["attack skills cost life instead of (%d+)%% of mana cost"] = function(num) return { 
 		mod("HybridManaAndLifeCost_Life", "BASE", num, nil, ModFlag.Attack) 
 	} end,
+	["skills cost energy shield instead of mana or life"] = { flag("CostESInsteadOfManaOrLife") },
 	["warcries have an additional life cost equal to (%d+)%% of your maximum life"] = function(num) return {
 		mod("LifeCostNoMult", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num })
 	} end,

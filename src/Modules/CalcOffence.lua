@@ -1566,21 +1566,28 @@ function calcs.offence(env, actor, activeSkill)
 
 	-- Calculate costs (may be slightly off due to rounding differences)
 	local costs = {
-		["Mana"] = { type = "Mana", upfront = true, percent = false, text = "mana", baseCost = 0, baseCostRaw = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
-		["Life"] = { type = "Life", upfront = true, percent = false, text = "life", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
-		["ES"] = { type = "ES", upfront = true, percent = false, text = "ES", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
-		["Soul"] = { type = "Soul", upfront = true, percent = false, unaffectedByGenericCostMults = true, text = "soul", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
-		["Rage"] = { type = "Rage", upfront = true, percent = false, text = "rage", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
-		["ManaPercent"] = { type = "Mana", upfront = true, percent = true, text = "mana", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
-		["LifePercent"] = { type = "Life", upfront = true, percent = true, text = "life", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
-		["ManaPerMinute"] = { type = "Mana", upfront = false, percent = false, text = "mana/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
-		["LifePerMinute"] = { type = "Life", upfront = false, percent = false, text = "life/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
-		["ManaPercentPerMinute"] = { type = "Mana", upfront = false, percent = true, text = "mana/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
-		["LifePercentPerMinute"] = { type = "Life", upfront = false, percent = true, text = "life/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
-		["ESPerMinute"] = { type = "ES", upfront = false, percent = false, text = "ES/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
-		["ESPercentPerMinute"] = { type = "ES", upfront = false, percent = true, text = "ES/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
+		[1] = { name = "Mana", type = "Mana", upfront = true, percent = false, text = "mana", baseCost = 0, baseCostRaw = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
+		[2] = { name = "Life", type = "Life", upfront = true, percent = false, text = "life", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
+		[3] = { name = "ES", type = "ES", upfront = true, percent = false, text = "ES", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
+		[4] = { name = "Soul", type = "Soul", upfront = true, percent = false, unaffectedByGenericCostMults = true, text = "soul", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
+		[5] = { name = "Rage", type = "Rage", upfront = true, percent = false, text = "rage", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
+		[6] = { name = "ManaPercent", type = "Mana", upfront = true, percent = true, text = "mana", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
+		[7] = { name = "LifePercent", type = "Life", upfront = true, percent = true, text = "life", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
+		[8] = { name = "ManaPerMinute", type = "Mana", upfront = false, percent = false, text = "mana/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
+		[9] = { name = "LifePerMinute", type = "Life", upfront = false, percent = false, text = "life/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
+		[10] = { name = "ManaPercentPerMinute", type = "Mana", upfront = false, percent = true, text = "mana/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
+		[11] = { name = "LifePercentPerMinute", type = "Life", upfront = false, percent = true, text = "life/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
+		[12] = { name = "ESPerMinute", type = "ES", upfront = false, percent = false, text = "ES/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
+		[13] = { name = "ESPercentPerMinute", type = "ES", upfront = false, percent = true, text = "ES/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0, finalBaseCost = 0 },
 	}
-
+	local function getCostIndexByName(name)
+		for index, cost in pairs(costs) do
+			if cost.name == name then
+				return index
+			end
+		end
+		return nil -- if not found
+	end
 	if not skillModList:Flag(skillCfg, "HasNoCost") then
 		--Support cost multipliers are calculated first and rounded down after 4 digits
 		local mult = floor(skillModList:More(skillCfg, "SupportManaMultiplier"), 4)
@@ -1588,7 +1595,8 @@ function calcs.offence(env, actor, activeSkill)
 		local additionalLifeCost = skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") / 100 -- Extra cost (e.g. Petrified Blood) calculations
 		local additionalESCost = skillModList:Sum("BASE", skillCfg, "ManaCostAsEnergyShieldCost") / 100 -- Extra cost (e.g. Replica Covenant) calculations
 		local hybridLifeCost = skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Life") / 100 -- Life/Mana mastery
-		for resource, val in pairs(costs) do
+		for _, val in ipairs(costs) do
+			local resource = val.name
 			local skillCost = skillModList:Override(skillCfg, "Base"..resource.."CostOverride") or activeSkill.activeEffect.grantedEffectLevel.cost and activeSkill.activeEffect.grantedEffectLevel.cost[resource] or nil
 			local baseCost = round(skillCost and skillCost / data.costs[resource].Divisor or 0, 2)
 			local baseCostNoMult = skillModList:Sum("BASE", skillCfg, resource.."CostNoMult") or 0 -- Flat cost from gem e.g. Divine Blessing
@@ -1596,7 +1604,7 @@ function calcs.offence(env, actor, activeSkill)
 			if val.upfront then
 				baseCost = baseCost + skillModList:Sum("BASE", skillCfg, resource.."CostBase") -- Rage Cost
 				val.totalCost = skillModList:Sum("BASE", skillCfg, resource.."Cost", "Cost")
-				if resource == "Mana" and activeSkill.skillTypes[SkillType.ReservationBecomesCost] and val.percent == false then --Divine Blessing / Totem auras
+				if resource == "Mana" and activeSkill.skillTypes[SkillType.ReservationBecomesCost] and val.percent == false and not skillModList:Flag(skillCfg, "CostESInsteadOfManaOrLife") and not skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then -- Divine Blessing / Totem auras
 					local reservedFlat = activeSkill.skillData[val.text.."ReservationFlat"] or activeSkill.activeEffect.grantedEffectLevel[val.text.."ReservationFlat"] or 0
 					baseCost = baseCost + reservedFlat
 					local reservedPercent = activeSkill.skillData[val.text.."ReservationPercent"] or activeSkill.activeEffect.grantedEffectLevel[val.text.."ReservationPercent"] or 0
@@ -1610,7 +1618,7 @@ function calcs.offence(env, actor, activeSkill)
 			val.finalBaseCost = (m_floor(val.baseCost * mult) + val.baseCostNoMult) + divineBlessingCorrection
 			val.baseCostRaw = val.baseCostRaw and (val.baseCost * mult + val.baseCostNoMult + divineBlessingCorrection)
 			if val.type == "Life" then
-				local manaType = resource:gsub("Life", "Mana")
+				local manaType = getCostIndexByName(resource:gsub("Life", "Mana"))
 				if skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then -- Blood Magic / Lifetap
 					val.baseCost = val.baseCost + costs[manaType].baseCost
 					val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult
@@ -1619,30 +1627,44 @@ function calcs.offence(env, actor, activeSkill)
 					costs[manaType].baseCostRaw = 0
 					costs[manaType].finalBaseCost = 0
 					costs[manaType].baseCostNoMult = 0
-				elseif additionalLifeCost > 0 or hybridLifeCost > 0 then
+				elseif (additionalLifeCost > 0 or hybridLifeCost > 0) and not skillModList:Flag(skillCfg, "CostESInsteadOfManaOrLife") then
 					val.baseCost = costs[manaType].baseCost
 					val.finalBaseCost = val.finalBaseCost + round(costs[manaType].finalBaseCost * (hybridLifeCost + additionalLifeCost))
 				end
 			elseif val.type == "ES" then
-				local manaType = resource:gsub("ES", "Mana")
-			  	if additionalESCost > 0 then
+				local manaType = getCostIndexByName(resource:gsub("ES", "Mana"))
+				local lifeType = getCostIndexByName(resource:gsub("ES", "Life"))
+			  	if skillModList:Flag(skillCfg, "CostESInsteadOfManaOrLife") then -- Whispers of Infinity
+					val.baseCost = val.baseCost + costs[manaType].baseCost+ costs[lifeType].baseCost
+					val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult + costs[lifeType].baseCostNoMult
+					val.finalBaseCost = val.finalBaseCost + costs[manaType].finalBaseCost + costs[lifeType].finalBaseCost
+					costs[manaType].baseCost = 0
+					costs[manaType].baseCostRaw = 0
+					costs[manaType].finalBaseCost = 0
+					costs[manaType].baseCostNoMult = 0
+					costs[lifeType].baseCost = 0
+					costs[lifeType].baseCostRaw = 0
+					costs[lifeType].finalBaseCost = 0
+					costs[lifeType].baseCostNoMult = 0
+				elseif additionalESCost > 0 then
 			  		val.baseCost = costs[manaType].baseCost
 			  		val.finalBaseCost = val.finalBaseCost + round(costs[manaType].finalBaseCost * additionalESCost)
 				end
 			elseif val.type == "Rage" then
 				if skillModList:Flag(skillCfg, "CostRageInsteadOfSouls") then -- Hateforge
-					val.baseCost = costs.Soul.baseCost
-					val.baseCostNoMult = val.baseCostNoMult + costs.Soul.baseCostNoMult
-					val.finalBaseCost = costs.Soul.baseCost
+					local soul = getCostIndexByName("Soul")
+					val.baseCost = costs[soul].baseCost
+					val.baseCostNoMult = val.baseCostNoMult + costs[soul].baseCostNoMult
+					val.finalBaseCost = costs[soul].baseCost
 					mult = 1
-					costs.Soul.baseCost = 0
-					costs.Soul.baseCostNoMult = 0
-					costs.Soul.finalBaseCost = 0
+					costs[soul].baseCost = 0
+					costs[soul].baseCostNoMult = 0
+					costs[soul].finalBaseCost = 0
 				end
 			end
 		end
-		for resource, val in pairs(costs) do
-			local resource = val.upfront and resource or resource:gsub("Minute", "Second")
+		for _, val in ipairs(costs) do
+			local resource = val.upfront and val.name or val.name:gsub("Minute", "Second")
 			local hasCost = val.baseCost > 0 or val.totalCost > 0 or val.baseCostNoMult > 0 or val.finalBaseCost > 0
 			output[resource.."HasCost"] = hasCost
 			local costName = resource.."Cost"
@@ -1698,7 +1720,7 @@ function calcs.offence(env, actor, activeSkill)
 				if val.type == "Life" and (hybridLifeCost + additionalLifeCost) ~= 0 and not skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then
 					t_insert(breakdown[costName], s_format("* %.2f ^8(mana cost conversion)", hybridLifeCost + additionalLifeCost))
 				end
-				if val.type == "ES" and additionalESCost ~= 0 and not skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then
+				if val.type == "ES" and additionalESCost ~= 0 and not skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") and not skillModList:Flag(skillCfg, "CostESInsteadOfManaOrLife") then
 					t_insert(breakdown[costName], s_format("* %.2f ^8(mana cost conversion)", additionalESCost))
 				end
 				if inc ~= 0 then
@@ -5347,7 +5369,8 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	--Calculates and displays cost per second for skills that don't already have one (link skills)
-	for resource, val in pairs(costs) do
+	for i, val in ipairs(costs) do
+		local resource = val.name
 		local EB = env.modDB:Flag(nil, "EnergyShieldProtectsMana")
 		if(val.upfront and output[resource.."HasCost"] and output[resource.."Cost"] > 0 and not (output[resource.."PerSecondHasCost"] and not (EB and skillModList:Sum("BASE", skillCfg, "ManaCostAsEnergyShieldCost"))) and (output.Speed > 0 or output.Cooldown)) then
 			local usedResource = resource
