@@ -7844,7 +7844,7 @@ c["Damage Penetrates 7% Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="C
 c["Damage Penetrates 8% Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningPenetration",type="BASE",value=8}},nil}
 c["Damage Penetrates 8% of Enemy Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalPenetration",type="BASE",value=8}},nil}
 c["Damage Penetrates 9% Elemental Resistances while you are Chilled"]={{[1]={[1]={type="Condition",var="Chilled"},flags=0,keywordFlags=0,name="ElementalPenetration",type="BASE",value=9}},nil}
-c["Damage Penetrates Fire Resistance equal to your Overcapped Fire Resistance, up to a maximum of 200%"]={nil,"Damage Penetrates Fire Resistance equal to your Overcapped Fire Resistance, up to a maximum of 200% "}
+c["Damage Penetrates Fire Resistance equal to your Overcapped Fire Resistance, up to a maximum of 200%"]={{[1]={[1]={limit=200,limitTotal=true,stat="FireResistOverCap",type="PerStat"},flags=0,keywordFlags=0,name="FirePenetration",type="BASE",value=1}},nil}
 c["Damage cannot be Reflected"]={{[1]={[1]={effectType="Global",type="GlobalEffect",unscalable=true},flags=0,keywordFlags=0,name="ReflectedDamageTaken",type="MORE",value=-100}},nil}
 c["Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability"]={nil,"Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability "}
 c["Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability You count as on Full Life while you are Cursed with Vulnerability"]={nil,"Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability You count as on Full Life while you are Cursed with Vulnerability "}
@@ -9755,8 +9755,7 @@ c["Non-critical strikes deal 40% Damage"]={{[1]={[1]={neg=true,type="Condition",
 c["Non-critical strikes deal 80% less Damage"]={{[1]={[1]={neg=true,type="Condition",var="CriticalStrike"},flags=4,keywordFlags=0,name="Damage",type="MORE",value=-80}},nil}
 c["Non-instant Mana Recovery from Flasks is also Recovered as Life"]={{[1]={flags=0,keywordFlags=0,name="ManaFlaskAppliesToLife",type="FLAG",value=true}},nil}
 c["Non-instant Mana recovery from Flasks is also recovered as Life"]={{[1]={flags=0,keywordFlags=0,name="ManaFlaskAppliesToLife",type="FLAG",value=true}},nil}
-c["Non-instant Warcries ignore their Cooldown when used"]={nil,"Non-instant Warcries ignore their Cooldown when used "}
-c["Non-instant Warcries ignore their Cooldown when used Warcry Skills have 25% increased Area of Effect"]={nil,"Non-instant Warcries ignore their Cooldown when used Warcry Skills have 25% increased Area of Effect "}
+c["Non-instant Warcries ignore their Cooldown when used"]={{[1]={[1]={neg=true,skillType=74,type="SkillType"},flags=0,keywordFlags=4,name="CooldownRecovery",type="OVERRIDE",value=0}},nil}
 c["Nova Spells Cast at a Marked target instead of around you if possible"]={nil,"Nova Spells Cast at a Marked target instead of around you if possible "}
 c["Nova Spells Cast at a Marked target instead of around you if possible Limited to 1 Runegraft of the Novamark"]={nil,"Nova Spells Cast at a Marked target instead of around you if possible Limited to 1 Runegraft of the Novamark "}
 c["Nova Spells Cast at the targeted location instead of around you"]={nil,"Nova Spells Cast at the targeted location instead of around you "}

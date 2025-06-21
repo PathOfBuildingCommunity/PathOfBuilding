@@ -4545,6 +4545,7 @@ local specialModList = {
 		mod("FirePenetration", "BASE", num, { type = "StatThreshold", stat = "FireResistTotal", thresholdStat = "LightningResistTotal" }, { type = "StatThreshold", stat = "FireResistTotal", thresholdStat = "ColdResistTotal" }),
 	} end,
 	["damage penetrates fire resistance equal to your overcapped fire resistance"] = { flag("FirePenIncreasedByUncappedFireRes") },
+	["damage penetrates fire resistance equal to your overcapped fire resistance, up to a maximum of (%d+)%%"] = function(num) return { mod("FirePenetration", "BASE", 1, { type = "PerStat", stat = "FireResistOverCap", limit = num, limitTotal = true }) } end,
 	["recover (%d+)%% of life when you kill an enemy during f?l?a?s?k? ?effect"] = function(num) return { mod("LifeOnKill", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }, { type = "Condition", var = "UsingFlask" }) } end,
 	["recover (%d+)%% of mana when you kill an enemy during f?l?a?s?k? ?effect"] = function(num) return { mod("ManaOnKill", "BASE", 1, { type = "PercentStat", stat = "Mana", percent = num }, { type = "Condition", var = "UsingFlask" }) } end,
 	["recover (%d+)%% of energy shield when you kill an enemy during f?l?a?s?k? ?effect"] = function(num) return { mod("EnergyShieldOnKill", "BASE", 1, { type = "PercentStat", stat = "EnergyShield", percent = num }, { type = "Condition", var = "UsingFlask" }) } end,
