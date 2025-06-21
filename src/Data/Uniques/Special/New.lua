@@ -82,8 +82,8 @@ Requires Level 60, 138 Str
 +(30-40) to Strength
 (100-160)% increased Armour
 Non-instant Warcries ignore their Cooldown when used
-Warcry Skills have (15-25)% increased Area of Effect
 Warcries cost +15% of Life
+Warcry Skills have (15-25)% increased Area of Effect
 ]],[[
 Legacy of the Rose
 Judgement Staff

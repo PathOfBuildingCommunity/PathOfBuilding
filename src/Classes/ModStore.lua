@@ -423,6 +423,9 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			end
 			local percent = tag.percent or self:GetMultiplier(tag.percentVar, cfg)
 			local mult = base * (percent and percent / 100 or 1)
+			if tag.floor then
+				mult = m_floor(mult)
+			end
 			local limitTotal
 			if tag.limit or tag.limitVar then
 				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
