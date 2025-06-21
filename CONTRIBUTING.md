@@ -141,12 +141,14 @@ such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.or
 1. Create a new <kbd>Debug Configuration</kbd> of type <kbd>EmmyLua New Debug</kbd>
 1. Open `./src/Launch.lua`
 1. Click the beginning of the line directly after `function launch:OnInit()`
-1. Insert the debugger code<br />
-   > Automatically:
+1. Insert the debugger code
+   
+   Automatically:
    1. Open the Command Palette (<kbd>F1</kbd>)
    1. Type <kbd>EmmyLua: Insert Emmy Debugger Code</kbd>
    1. Choose `x64` from the drop-down list
-   > Or manually:
+   
+   Or manually:
    1. Open the Visual Studio Code extensions folder. On Windows, this defaults to `%USERPROFILE%/.vscode/extensions` 
    1. Find the sub-folder that contains `emmy_core.dll`. You should find both x86 and x64; pick x64. For example, `C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.9.22-win32-x64/debugger/emmy/windows/x64`.  Uses this in the snippet below.  Note the version number will change with every update.
    1. Copy-paste the following code snippet:
