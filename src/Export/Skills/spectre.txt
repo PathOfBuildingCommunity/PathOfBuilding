@@ -2168,6 +2168,7 @@ skills["DarkMarionetteExplodePerfect"] = {
 #flags spell area hit
 #mods
 
+#addSkillTypes Damage Multicastable
 #skill RevenantBossSpellProjectile Lightning Projectile
 #flags spell projectile triggerable
 #mods
