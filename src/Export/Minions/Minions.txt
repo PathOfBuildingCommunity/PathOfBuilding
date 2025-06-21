@@ -195,3 +195,7 @@ minions["GuardianRelicAll"] = {
 
 #monster Metadata/Monsters/AnimatedItem/ElementalLivingRelicLightning GuardianRelicLightning
 #emit
+
+#monster Metadata/Monsters/ElderTentacle/ElderTentacleMinionLargePlayer VoidSpawn
+#limit ActiveVoidSpawnLimit
+#emit

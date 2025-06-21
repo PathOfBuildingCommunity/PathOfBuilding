@@ -1406,6 +1406,7 @@ local modTagList = {
 	["for each golem you have summoned"] = { tag = { type = "PerStat", stat = "ActiveGolemLimit" } },
 	["per summoned golem"] = { tag = { type = "PerStat", stat = "ActiveGolemLimit" } },
 	["per summoned sentinel of purity"] = { tag = { type = "PerStat", stat = "ActiveSentinelOfPurityLimit" } },
+	["per summoned void spawn"] = { tag = { type = "PerStat", stat = "ActiveVoidSpawnLimit" } },
 	["per summoned skeleton"] = { tag = { type = "PerStat", stat = "ActiveSkeletonLimit" } },
 	["per skeleton you own"] = { tag = { type = "PerStat", stat = "ActiveSkeletonLimit", actor = "parent" } },
 	["per summoned raging spirit"] = { tag = { type = "PerStat", stat = "ActiveRagingSpiritLimit" } },
@@ -4469,6 +4470,7 @@ local specialModList = {
 	} end,
 	["(%d+)%% of damage from hits is taken from your spectres' life before you"] = function(num) return { mod("takenFromSpectresBeforeYou", "BASE", num) } end,
 	["(%d+)%% of damage from hits is taken from your nearest totem's life before you"] = function(num) return { mod("takenFromTotemsBeforeYou", "BASE", num, { type = "Condition", var = "HaveTotem" }) } end,
+	["(%d+)%% of damage from hits is taken from void spawns' life before you per void spawn"] = function(num) return { mod("takenFromVoidSpawnBeforeYou", "BASE", num, { type = "PerStat", stat = "ActiveVoidSpawnLimit" }) } end,
 	["(%a+) resistance cannot be penetrated"] = function(_, res) return { flag("EnemyCannotPen"..(res:gsub("^%l", string.upper)).."Resistance") } end,
 	-- Knockback
 	["cannot knock enemies back"] = { flag("CannotKnockback") },

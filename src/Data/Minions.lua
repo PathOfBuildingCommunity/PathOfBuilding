@@ -1159,3 +1159,32 @@ minions["GuardianRelicLightning"] = {
 		-- EmergeSpeedHigh [emerge_speed_+% = 0]
 	},
 }
+
+minions["VoidSpawn"] = {
+	name = "Void Spawn",
+	monsterTags = { "caster", "construct", "elder_monster", "eldritch", "extra_large_height", "flesh_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", },
+	life = 3,
+	energyShield = 0.2,
+	fireResist = 30,
+	coldResist = 30,
+	lightningResist = 30,
+	chaosResist = 20,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 9,
+	accuracy = 1,
+	limit = "ActiveVoidSpawnLimit",
+	skillList = {
+		"ElderTentacleMinionProjectileDeepcaller",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+	},
+}

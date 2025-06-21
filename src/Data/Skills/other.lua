@@ -3596,6 +3596,43 @@ skills["SummonTauntingContraption"] = {
 		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 8, },
 	},
 }
+skills["SummonVoidSpawn"] = {
+	name = "Summon Void Spawn",
+	hidden = true,
+	color = 3,
+	description = "Summon a Void Spawn minion, which casts a lightning projectile spell with a chance to shock enemies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	minionList = {
+		"VoidSpawn",
+	},
+	statMap = {
+		["void_spawn_withered_on_hit_chance_%"] = {
+			flag("Condition:CanWither"),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_number_of_void_spawns_allowed", 4 },
+		{ "display_minion_monster_type", 27 },
+		{ "void_spawn_withered_on_hit_chance_%", 100 },
+		{ "void_spawn_withered_base_duration_ms", 2000 },
+		{ "triggered_by_item_buff", 1 },
+	},
+	stats = {
+		"base_display_minion_actor_level",
+		"infinite_minion_duration",
+	},
+	levels = {
+		[20] = { 70, levelRequirement = 70, statInterpolation = { 1, }, },
+	},
+}
 skills["VolatileAnomaly"] = {
 	name = "Summon Volatile Anomaly",
 	hidden = true,

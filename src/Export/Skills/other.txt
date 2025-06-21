@@ -981,6 +981,19 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill SummonVoidSpawn
+#flags spell minion
+	fromItem = true,
+	minionList = {
+		"VoidSpawn",
+	},
+	statMap = {
+		["void_spawn_withered_on_hit_chance_%"] = {
+			flag("Condition:CanWither"),
+		},
+	},
+#mods
+
 #skill VolatileAnomaly Summon Volatile Anomaly
 #flags spell area duration
 	fromItem = true,

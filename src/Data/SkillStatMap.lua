@@ -1890,6 +1890,9 @@ return {
 ["number_of_spider_minions_allowed"] = {
 	mod("ActiveSpiderLimit", "BASE", nil),
 },
+["base_number_of_void_spawns_allowed"] = {
+	mod("ActiveVoidSpawnLimit", "BASE", nil),
+},
 ["active_skill_minion_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
 },

@@ -1969,3 +1969,31 @@ skills["AnimateGuardianSmite"] = {
 		[1] = { damageEffectiveness = 3.25, baseMultiplier = 3.25, levelRequirement = 1, },
 	},
 }
+skills["ElderTentacleMinionProjectileDeepcaller"] = {
+	name = "Projectile Spell",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 5.5,
+	incrementalEffectiveness = 0.029999999329448,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.17,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 44 },
+		{ "skill_visual_scale_+%", 50 },
+		{ "base_chance_to_shock_%", 60 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}

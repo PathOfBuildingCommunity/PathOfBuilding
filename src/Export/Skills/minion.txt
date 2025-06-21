@@ -430,3 +430,7 @@ skills["GuardianSentinelFireAura"] = {
 #skill AnimateGuardianSmite Smite
 #flags attack melee area
 #mods
+
+#skill ElderTentacleMinionProjectileDeepcaller Projectile Spell
+#flags spell projectile
+#mods

@@ -715,6 +715,9 @@ Huge sets the radius to 11.
 	{ var = "TotalRadianceSentinelLife", type = "integer", label = "Total life pool of Sentinel of Radiance", ifMod = "takenFromRadianceSentinelBeforeYou", apply = function(val, modList, enemyModList)
 		modList:NewMod("TotalRadianceSentinelLife", "BASE", val, "Config")
 	end },
+	{ var = "TotalVoidSpawnLife", type = "integer", label = "Total life pool of Void Spawn", ifMod = "takenFromVoidSpawnBeforeYou", apply = function(val, modList, enemyModList)
+		modList:NewMod("TotalVoidSpawnLife", "BASE", val, "Config")
+	end },
 	{ var = "TotalVaalRejuvenationTotemLife", type = "integer", label = "Total Vaal Rejuvenation Totem Life:", ifSkill = { "Vaal Rejuvenation Totem" }, ifMod = "takenFromVaalRejuvenationTotemsBeforeYou", tooltip = "The total life of your Vaal Rejuvenation Totems that can be taken before yours", apply = function(val, modList, enemyModList)
 		modList:NewMod("TotalVaalRejuvenationTotemLife", "BASE", val, "Config")
 	end },

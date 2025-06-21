@@ -5325,6 +5325,7 @@ c["5% increased maximum Mana per Blue Socket on equipped Staff"]={{[1]={[1]={typ
 c["5% more Accuracy Rating per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="Accuracy",type="MORE",value=5}},nil}
 c["5% more Damage per Summoned Totem"]={{[1]={[1]={stat="TotemsSummoned",type="PerStat"},flags=0,keywordFlags=0,name="Damage",type="MORE",value=5}},nil}
 c["5% more chance to Evade Melee Attacks"]={{[1]={flags=0,keywordFlags=0,name="MeleeEvadeChance",type="MORE",value=5}},nil}
+c["5% of Damage from Hits is taken from Void Spawns' Life before you per Void Spawn"]={{[1]={[1]={stat="ActiveVoidSpawnLimit",type="PerStat"},flags=0,keywordFlags=0,name="takenFromVoidSpawnBeforeYou",type="BASE",value=5}},nil}
 c["5% of Damage from Hits is taken from your nearest Totem's Life before you"]={{[1]={[1]={type="Condition",var="HaveTotem"},flags=0,keywordFlags=0,name="takenFromTotemsBeforeYou",type="BASE",value=5}},nil}
 c["5% of Damage from hits is taken from your nearest Totem's Life before you"]={{[1]={[1]={type="Condition",var="HaveTotem"},flags=0,keywordFlags=0,name="takenFromTotemsBeforeYou",type="BASE",value=5}},nil}
 c["5% of Leech from Hits with this Weapon is Instant per Enemy Power"]={{[1]={[1]={type="Condition",var="{Hand}Attack"},[2]={skillType=1,type="SkillType"},[3]={type="Multiplier",var="EnemyPower"},flags=4,keywordFlags=0,name="InstantLifeLeech",type="BASE",value=5}},nil}
@@ -5687,8 +5688,7 @@ c["6% increased effect of Non-Curse Auras from your Skills"]={{[1]={[1]={skillTy
 c["6% increased maximum Energy Shield"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=6}},nil}
 c["6% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=6}},nil}
 c["6% increased maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="INC",value=6}},nil}
-c["6% of Damage from Hits is taken from Void Spawns' Life before you per Void Spawn"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="BASE",value=6}},"  from Hits is taken from Void Spawns' Life before you per Void Spawn "}
-c["6% of Damage from Hits is taken from Void Spawns' Life before you per Void Spawn Gain 6% of Non-Chaos Damage as Extra Chaos Damage per Summoned Void Spawn"]={{[1]={flags=0,keywordFlags=0,name="DamageGainAsChaos",type="BASE",value=6}},"  from Hits is taken from Void Spawns' Life before you per Void Spawn Gain 6% of Non-Chaos Damage  per Summoned Void Spawn "}
+c["6% of Damage from Hits is taken from Void Spawns' Life before you per Void Spawn"]={{[1]={[1]={stat="ActiveVoidSpawnLimit",type="PerStat"},flags=0,keywordFlags=0,name="takenFromVoidSpawnBeforeYou",type="BASE",value=6}},nil}
 c["6% of Damage taken Recouped as Life"]={{[1]={flags=0,keywordFlags=0,name="LifeRecoup",type="BASE",value=6}},nil}
 c["6% reduced Cost of Skills"]={{[1]={flags=0,keywordFlags=0,name="Cost",type="INC",value=-6}},nil}
 c["6% reduced Effect of Curses on you"]={{[1]={flags=0,keywordFlags=0,name="CurseEffectOnSelf",type="INC",value=-6}},nil}
@@ -8450,6 +8450,7 @@ c["Gain 5% of Lightning Damage as Extra Chaos Damage"]={{[1]={flags=0,keywordFla
 c["Gain 5% of Maximum Life as Extra Maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="LifeGainAsEnergyShield",type="BASE",value=5}},nil}
 c["Gain 5% of Maximum Mana as Extra Maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ManaGainAsEnergyShield",type="BASE",value=5}},nil}
 c["Gain 5% of Maximum Mana as Extra Maximum Energy Shield while you have at least 150 Devotion"]={{[1]={[1]={stat="Devotion",threshold=150,type="StatThreshold"},flags=0,keywordFlags=0,name="ManaGainAsEnergyShield",type="BASE",value=5}},nil}
+c["Gain 5% of Non-Chaos Damage as Extra Chaos Damage per Summoned Void Spawn"]={{[1]={[1]={stat="ActiveVoidSpawnLimit",type="PerStat"},flags=0,keywordFlags=0,name="NonChaosDamageGainAsChaos",type="BASE",value=5}},nil}
 c["Gain 5% of Non-Chaos Damage as extra Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="NonChaosDamageGainAsChaos",type="BASE",value=5}},nil}
 c["Gain 5% of Physical Damage as Extra Chaos Damage per Elder Item Equipped"]={{[1]={[1]={type="Multiplier",var="ElderItem"},flags=0,keywordFlags=0,name="PhysicalDamageGainAsChaos",type="BASE",value=5}},nil}
 c["Gain 5% of Physical Damage as Extra Damage of each Element per Spirit Charge"]={{[1]={[1]={type="Multiplier",var="SpiritCharge"},flags=0,keywordFlags=0,name="PhysicalDamageGainAsLightning",type="BASE",value=5},[2]={[1]={type="Multiplier",var="SpiritCharge"},flags=0,keywordFlags=0,name="PhysicalDamageGainAsCold",type="BASE",value=5},[3]={[1]={type="Multiplier",var="SpiritCharge"},flags=0,keywordFlags=0,name="PhysicalDamageGainAsFire",type="BASE",value=5}},nil}
@@ -8468,7 +8469,7 @@ c["Gain 51 Mana per Enemy Killed"]={{[1]={flags=0,keywordFlags=0,name="ManaOnKil
 c["Gain 6 Life per Enemy Hit with Attacks"]={{[1]={flags=4,keywordFlags=65536,name="LifeOnHit",type="BASE",value=6}},nil}
 c["Gain 6 Life per Enemy Killed"]={{[1]={flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=6}},nil}
 c["Gain 6% of Maximum Life as Extra Maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="LifeGainAsEnergyShield",type="BASE",value=6}},nil}
-c["Gain 6% of Non-Chaos Damage as Extra Chaos Damage per Summoned Void Spawn"]={{[1]={flags=0,keywordFlags=0,name="NonChaosDamageGainAsChaos",type="BASE",value=6}},"   per Summoned Void Spawn "}
+c["Gain 6% of Non-Chaos Damage as Extra Chaos Damage per Summoned Void Spawn"]={{[1]={[1]={stat="ActiveVoidSpawnLimit",type="PerStat"},flags=0,keywordFlags=0,name="NonChaosDamageGainAsChaos",type="BASE",value=6}},nil}
 c["Gain 60 Life per Enemy Hit with Attacks"]={{[1]={flags=4,keywordFlags=65536,name="LifeOnHit",type="BASE",value=60}},nil}
 c["Gain 60% of Physical Damage as Extra Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageGainAsChaos",type="BASE",value=60}},nil}
 c["Gain 60% of Weapon Physical Damage as Extra Damage of a Random Element"]={{[1]={flags=8192,keywordFlags=0,name="PhysicalDamageGainAsRandom",type="BASE",value=60}},nil}
@@ -11586,7 +11587,7 @@ c["Trigger Level 20 Spirit Burst when you Use a Skill while you have a Spirit Ch
 c["Trigger Level 20 Starfall on Melee Critical Strike"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="TriggeredStarfall",triggered=true}},[2]={[1]={skillId="TriggeredStarfall",type="SkillId"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="triggerOnCrit",value=true}}}}},nil}
 c["Trigger Level 20 Storm Cascade when you Attack"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="StormCascadeTriggered",triggered=true}}},nil}
 c["Trigger Level 20 Summon Phantasm Skill when you Consume a Corpse"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="TriggeredSummonGhostOnKill",triggered=true}}},nil}
-c["Trigger Level 20 Summon Void Spawn every 4 seconds"]={{},nil}
+c["Trigger Level 20 Summon Void Spawn every 4 seconds"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SummonVoidSpawn",triggered=true}}},nil}
 c["Trigger Level 20 Tawhoa's Chosen when you Attack with a Non-Vaal Slam or Strike Skill near an Enemy"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SummonMirageChieftain",triggered=true}}},nil}
 c["Trigger Level 20 Twister when you gain Avian's Might or Avian's Flight"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="Twister",triggered=true}}},nil}
 c["Trigger Level 20 Unseen Strike every 0.5 seconds while Phasing"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="UnseenStrike",triggered=true}}},nil}
