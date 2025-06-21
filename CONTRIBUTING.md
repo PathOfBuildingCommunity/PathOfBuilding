@@ -174,7 +174,7 @@ such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.or
 Depending on the amount of system ram you have available and the amount that gets assigned to the jvm running the emmylua language server you might run into issues when trying to debug Path of building.
 Files in `/Data` `/Export` and `/TreeData` can be massive and cause the EmmyLua language server to use a significant amount of memory. Sometimes causing the language server to crash. To avoid this and speed up initialization consider adding an `.emmyrc.json` file to the `.vscode` folder in the root of the Path of building folder with the following content:
 
-```
+```json
 {
     "$schema": "https://raw.githubusercontent.com/EmmyLuaLs/emmylua-analyzer-rust/refs/heads/main/crates/emmylua_code_analysis/resources/schema.json",
     "workspace": {
