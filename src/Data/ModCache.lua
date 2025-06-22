@@ -8745,12 +8745,9 @@ c["Grants Level 20 Pacify"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type
 c["Grants Level 20 Penance Mark"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="PenanceMark"}}},nil}
 c["Grants Level 20 Queen's Demand Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="QueensDemand"}}},nil}
 c["Grants Level 20 Ravenous Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="Ravenous"}}},nil}
-c["Grants Level 20 Shaper's Despair, which will be used by Shaper Memory"]={nil,nil}
-c["Grants Level 20 Shaper's Despair, which will be used by Shaper Memory Grants Level 20 Shaper's Ire, which will be used by Shaper Memory"]={nil,nil}
-c["Grants Level 20 Shaper's Devastation, which will be used by Shaper Memory"]={nil,nil}
-c["Grants Level 20 Shaper's Devastation, which will be used by Shaper Memory 300% increased Physical Damage"]={nil,nil}
-c["Grants Level 20 Shaper's Ire, which will be used by Shaper Memory"]={nil,nil}
-c["Grants Level 20 Shaper's Ire, which will be used by Shaper Memory Grants Level 20 Shaper's Devastation, which will be used by Shaper Memory"]={nil,nil}
+c["Grants Level 20 Shaper's Despair, which will be used by Shaper Memory"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="ShaperApparitionProjectiles"}}},nil}
+c["Grants Level 20 Shaper's Devastation, which will be used by Shaper Memory"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="ShaperApparitionTeleportSlam"}}},nil}
+c["Grants Level 20 Shaper's Ire, which will be used by Shaper Memory"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="ShaperApparitionBeam"}}},nil}
 c["Grants Level 20 Snipe Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="Snipe"}},[2]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=20,skillId="ChannelledSnipeSupport"}}},nil}
 c["Grants Level 20 Summon Bestial Rhoa Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SummonBeastialRhoa"}}},nil}
 c["Grants Level 20 Summon Bestial Snake Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SummonBeastialSnake"}}},nil}
@@ -8759,8 +8756,7 @@ c["Grants Level 20 Summon Doedre's Effigy Skill"]={{[1]={flags=0,keywordFlags=0,
 c["Grants Level 20 Summon Petrification Statue Skill"]={nil,nil}
 c["Grants Level 20 Summon Petrification Statue Skill 250% increased Energy Shield"]={nil,nil}
 c["Grants Level 20 Summon Sentinel of Radiance Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SummonSentinelOfRadiance"}}},nil}
-c["Grants Level 20 Summon Shaper Memory"]={nil,nil}
-c["Grants Level 20 Summon Shaper Memory Grants Level 20 Shaper's Despair, which will be used by Shaper Memory"]={nil,nil}
+c["Grants Level 20 Summon Shaper Memory"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SummonShaperApparition"}}},nil}
 c["Grants Level 20 Thirst for Blood Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="ThirstForBlood"}}},nil}
 c["Grants Level 20 Unbound Avatar Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="AilmentBearer"}}},nil}
 c["Grants Level 20 Unhinge Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="Unhinge"}}},nil}

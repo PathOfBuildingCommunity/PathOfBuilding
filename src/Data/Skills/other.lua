@@ -2110,30 +2110,6 @@ skills["ManifestDancingDervishes"] = {
 		[15] = { storedUses = 1, levelRequirement = 1, cooldown = 0.5, },
 	},
 }
-skills["SupportTriggerSpellOnUnarmedMeleeCriticalHit"] = {
-	name = "Seven Teachings",
-	hidden = true,
-	color = 4,
-	support = true,
-	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
-	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
-	isTrigger = true,
-	statDescriptionScope = "gem_stat_descriptions",
-	fromItem = true,
-	statMap = {
-		["spell_is_triggered_on_hit"] = {
-			skill("triggeredBySevenTeachings", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
-			skill("triggerOnCrit", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
-		},
-	},
-	stats = {
-		"spell_is_triggered_on_hit",
-	},
-	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 0.25, },
-	},
-}
 skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 	name = "Mjolner",
 	hidden = true,
@@ -2488,6 +2464,30 @@ skills["UniqueMirageWarriors"] = {
 		[20] = { levelRequirement = 1, },
 	},
 }
+skills["SupportTriggerSpellOnUnarmedMeleeCriticalHit"] = {
+	name = "Seven Teachings",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	statMap = {
+		["spell_is_triggered_on_hit"] = {
+			skill("triggeredBySevenTeachings", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+			skill("triggerOnCrit", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+		},
+	},
+	stats = {
+		"spell_is_triggered_on_hit",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 0.25, },
+	},
+}
 skills["ShadeForm"] = {
 	name = "Shade Form",
 	hidden = true,
@@ -2511,6 +2511,124 @@ skills["ShadeForm"] = {
 	},
 	levels = {
 		[20] = { storedUses = 1, levelRequirement = 1, cooldown = 40, },
+	},
+}
+skills["SummonShaperApparition"] = {
+	name = "Summon Shaper Memory",
+	hidden = true,
+	color = 4,
+	description = "Consume Remembrance to summon a memory of the Shaper, which will use a skill once before fading away.",
+	skillTypes = { [SkillType.Spell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+	},
+	constantStats = {
+		{ "display_shaper_memory_uses_skill_once", 1 },
+	},
+	stats = {
+	},
+	levels = {
+		[20] = { levelRequirement = 0, },
+	},
+}
+skills["ShaperApparitionTeleportSlam"] = {
+	name = "Shaper's Devastation",
+	hidden = true,
+	color = 4,
+	description = "Shaper's Memory uses this attack for you to teleport to an enemy and attack with a powerful blow, dealing area damage based on your weapon.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2,
+	fromItem = true,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	constantStats = {
+		{ "skill_disabled_unless_cloned", 3 },
+		{ "active_skill_ailment_damage_+%_final", -70 },
+	},
+	stats = {
+		"active_skill_attack_speed_+%_final",
+		"is_area_damage",
+		"global_always_hit",
+	},
+	levels = {
+		[20] = { 25, damageEffectiveness = 41, baseMultiplier = 41, levelRequirement = 72, statInterpolation = { 1, }, },
+	},
+}
+skills["ShaperApparitionBeam"] = {
+	name = "Shaper's Ire",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 9,
+	incrementalEffectiveness = 0.052000001072884,
+	description = "Shaper's Memory casts this spell for you to fire a damaging beam for a duration that deals damage over time to things in it.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.DamageOverTime] = true, [SkillType.Duration] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.Fire] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	constantStats = {
+		{ "skill_disabled_unless_cloned", 3 },
+		{ "base_skill_effect_duration", 3000 },
+	},
+	stats = {
+		"base_fire_damage_to_deal_per_minute",
+		"base_cold_damage_to_deal_per_minute",
+		"base_lightning_damage_to_deal_per_minute",
+		"spell_damage_modifiers_apply_to_skill_dot",
+	},
+	levels = {
+		[20] = { 50.000001117587, 50.000001117587, 50.000001117587, levelRequirement = 72, statInterpolation = { 3, 3, 3, }, },
+	},
+}
+skills["ShaperApparitionProjectiles"] = {
+	name = "Shaper's Despair",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 4,
+	incrementalEffectiveness = 0.052000001072884,
+	description = "Shaper's Memory casts this spell for you to fire piercing projectiles in front of you that deal cold damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.Cold] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Multicastable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.4,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	constantStats = {
+		{ "skill_disabled_unless_cloned", 3 },
+		{ "skill_repeat_count", 2 },
+		{ "display_fires_x_times", 3 },
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"base_reduce_enemy_cold_resistance_%",
+		"base_is_projectile",
+		"always_pierce",
+		"projectile_uses_contact_position",
+	},
+	levels = {
+		[20] = { 0.80000001192093, 1.2000000476837, 200, levelRequirement = 72, statInterpolation = { 3, 3, 1, }, },
 	},
 }
 skills["ShieldShatter"] = {
