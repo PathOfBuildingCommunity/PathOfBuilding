@@ -597,6 +597,16 @@ local skills, mod, flag, skill = ...
 #baseMod skill("minionLevel", 65)
 #mods
 
+#skill SupportTriggerSpellOnUnarmedMeleeCriticalHit Seven Teachings
+	fromItem = true,
+	statMap = {
+		["spell_is_triggered_on_hit"] = {
+			skill("triggeredBySevenTeachings", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+			skill("triggerOnCrit", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+		},
+	},
+#mods
+
 #skill SupportUniqueMjolnerLightningSpellsCastOnHit Mjolner
 	fromItem = true,
 #mods
