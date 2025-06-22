@@ -519,6 +519,7 @@ minions["AnimatedWeapon"] = {
 	attackTime = 1,
 	attackRange = 6,
 	accuracy = 3.4,
+	limit = "ActiveAnimatedWeaponLimit",
 	skillList = {
 		"Melee",
 	},
@@ -588,6 +589,7 @@ minions["UniqueAnimatedWeapon"] = {
 	attackTime = 1,
 	attackRange = 105,
 	accuracy = 3.4,
+	limit = "ActiveAnimatedWeaponLimit",
 	skillList = {
 		"Melee",
 		"DancingDervishCycloneChannelled",
@@ -718,6 +720,7 @@ minions["AxisEliteSoldierDominatingBlow"] = {
 	accuracy = 3.4,
 	weaponType1 = "One Handed Mace",
 	weaponType2 = "Shield",
+	limit = "ActiveSentinelOfDominanceLimit",
 	skillList = {
 		"Melee",
 		"DominatingBlowMinionCharge",
@@ -744,6 +747,7 @@ minions["AxisEliteSoldierDominatingBlowVaal"] = {
 	attackTime = 0.83,
 	attackRange = 28,
 	accuracy = 3.4,
+	limit = "ActiveSentinelOfDominanceLimit",
 	skillList = {
 		"TeleportVaalDomination",
 		"GAVaalDominationTeleportSlam",
@@ -773,6 +777,7 @@ minions["AbsolutionTemplarJudge"] = {
 	attackRange = 9,
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
+	limit = "ActiveSentinelOfAbsolutionLimit",
 	skillList = {
 		"Melee",
 		"AbsolutionMinion",
@@ -796,6 +801,7 @@ minions["AbsolutionTemplarJudgeVaal"] = {
 	attackTime = 1.17,
 	attackRange = 9,
 	accuracy = 1,
+	limit = "ActiveSentinelOfAbsolutionLimit",
 	skillList = {
 		"AbsolutionMinionVaal",
 		"AbsolutionMinionVaalCascade",
@@ -994,6 +1000,7 @@ minions["SummonedReaper"] = {
 	accuracy = 3.4,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
+	limit = "ActiveReaperLimit",
 	skillList = {
 		"ReaperConsumeMinionForHeal",
 		"ReaperConsumeMinionForBuff",
