@@ -3942,6 +3942,24 @@ skills["SupportTriggerElementalSpellOnBlock"] = {
 		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 0.25, },
 	},
 }
+skills["SupportTriggerSpellOnKill"] = {
+	name = "Squirming Terror",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	stats = {
+		"chance_to_cast_on_kill_%",
+	},
+	levels = {
+		[1] = { 20, storedUses = 1, levelRequirement = 1, cooldown = 0.5, statInterpolation = { 1, }, },
+	},
+}
 skills["Twister"] = {
 	name = "Twister",
 	hidden = true,

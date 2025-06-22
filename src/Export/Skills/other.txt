@@ -1073,6 +1073,10 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill SupportTriggerSpellOnKill Squirming Terror
+	fromItem = true,
+#mods
+
 #skill Twister
 #flags spell projectile duration
 	fromItem = true,
