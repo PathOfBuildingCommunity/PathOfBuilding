@@ -143,24 +143,19 @@ c["+1 to Level of Socketed Strength Gems"]={{[1]={[1]={slotName="{SlotName}",typ
 c["+1 to Level of Socketed Support Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="support",value=1}}},nil}
 c["+1 to Level of Socketed Warcry Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="warcry",value=1}}},nil}
 c["+1 to Level of all Chaos Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="chaos",[2]="skill"},value=1}}},nil}
-c["+1 to Level of all Chaos Skill Gems if 6 Hunter Items are Equipped"]={{}," Level of all Chaos Skill Gems if 6 Hunter Items are Equipped "}
-c["+1 to Level of all Chaos Skill Gems if 6 Hunter Items are Equipped Skills fire an additional Projectile if 6 Hunter Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=1}}," Level of all Chaos Skill Gems if 6 Hunter Items are Equipped Skills fire an additional  if 6 Hunter Items are Equipped "}
+c["+1 to Level of all Chaos Skill Gems if 6 Hunter Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="HunterItem"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="chaos",value=1}}},nil}
 c["+1 to Level of all Chaos Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="chaos",[2]="spell",[3]="skill"},value=1}}},nil}
 c["+1 to Level of all Cold Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="cold",[2]="skill"},value=1}}},nil}
-c["+1 to Level of all Cold Skill Gems if 6 Redeemer Items are Equipped"]={{}," Level of all Cold Skill Gems if 6 Redeemer Items are Equipped "}
-c["+1 to Level of all Cold Skill Gems if 6 Redeemer Items are Equipped +1 to Maximum Frenzy Charges if 6 Redeemer Items are Equipped"]={{}," Level of all Cold Skill Gems if 6 Redeemer Items are Equipped +1 to MaximumCharges if 6 Redeemer Items are Equipped "}
+c["+1 to Level of all Cold Skill Gems if 6 Redeemer Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="RedeemerItem"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="cold",value=1}}},nil}
 c["+1 to Level of all Cold Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="cold",[2]="spell",[3]="skill"},value=1}}},nil}
 c["+1 to Level of all Dexterity Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="dexterity",[2]="skill"},value=1}}},nil}
-c["+1 to Level of all Fire Skill Gems if 6 Warlord Items are Equipped"]={{}," Level of all Fire Skill Gems if 6 Warlord Items are Equipped "}
-c["+1 to Level of all Fire Skill Gems if 6 Warlord Items are Equipped Melee Hits Fortify if 6 Warlord Items are Equipped"]={{}," Level of all Fire Skill Gems if 6 Warlord Items are Equipped  Hits Fortify if 6 Warlord Items are Equipped "}
+c["+1 to Level of all Fire Skill Gems if 6 Warlord Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="WarlordItem"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="fire",value=1}}},nil}
 c["+1 to Level of all Fire Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="fire",[2]="spell",[3]="skill"},value=1}}},nil}
 c["+1 to Level of all Intelligence Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="intelligence",[2]="skill"},value=1}}},nil}
-c["+1 to Level of all Lightning Skill Gems if 6 Crusader Items are Equipped"]={{}," Level of all Lightning Skill Gems if 6 Crusader Items are Equipped "}
-c["+1 to Level of all Lightning Skill Gems if 6 Crusader Items are Equipped 30% of Physical Damage Prevented Recently is Regenerated as Energy Shield Per Second if 6 Crusader Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=1}}," Level of all Lightning Skill Gems if 6 Crusader Items are Equipped 30% of  Prevented Recently is Regenerated as Energy Shield Per Second if 6 Crusader Items are Equipped "}
+c["+1 to Level of all Lightning Skill Gems if 6 Crusader Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="CrusaderItem"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="lightning",value=1}}},nil}
 c["+1 to Level of all Lightning Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="lightning",[2]="spell",[3]="skill"},value=1}}},nil}
 c["+1 to Level of all Minion Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="minion",[2]="skill"},value=1}}},nil}
-c["+1 to Level of all Physical Skill Gems if 6 Elder Items are Equipped"]={{}," Level of all Physical Skill Gems if 6 Elder Items are Equipped "}
-c["+1 to Level of all Physical Skill Gems if 6 Elder Items are Equipped Cannot be Stunned if 6 Elder Items are Equipped"]={{}," Level of all Physical Skill Gems if 6 Elder Items are Equipped Cannot be Stunned if 6 Elder Items are Equipped "}
+c["+1 to Level of all Physical Skill Gems if 6 Elder Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="ElderItem"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="physical",value=1}}},nil}
 c["+1 to Level of all Physical Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="physical",[2]="spell",[3]="skill"},value=1}}},nil}
 c["+1 to Level of all Raise Spectre Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="raise spectre",value=1}}},nil}
 c["+1 to Level of all Raise Zombie Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="raise zombie",value=1}}},nil}
@@ -169,27 +164,23 @@ c["+1 to Level of all Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="Gem
 c["+1 to Level of all Strength Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="strength",[2]="skill"},value=1}}},nil}
 c["+1 to Level of all Vaal Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="vaal",[2]="skill"},value=1}}},nil}
 c["+1 to Level of all non-Exceptional Support Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="non-exceptional",[2]="support"},value=1}}},nil}
-c["+1 to Level of all non-Exceptional Support Gems if 6 Shaper Items are Equipped"]={{}," Level of all non-Exceptional Support Gems if 6 Shaper Items are Equipped "}
-c["+1 to Level of all non-Exceptional Support Gems if 6 Shaper Items are Equipped +2% to all maximum Elemental Resistances if 6 Shaper Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="ElementalResistMax",type="BASE",value=1}}," Level of all non-Exceptional Support Gems if 6 Shaper Items are Equipped +2% to  if 6 Shaper Items are Equipped "}
+c["+1 to Level of all non-Exceptional Support Gems if 6 Shaper Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="ShaperItem"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="non-exceptional",value=1}}},nil}
 c["+1 to Maximum Endurance Charge"]={{[1]={flags=0,keywordFlags=0,name="EnduranceChargesMax",type="BASE",value=1}},nil}
 c["+1 to Maximum Endurance Charges"]={{[1]={flags=0,keywordFlags=0,name="EnduranceChargesMax",type="BASE",value=1}},nil}
-c["+1 to Maximum Endurance Charges if 6 Warlord Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="EnduranceChargesMax",type="BASE",value=1}},"  if 6 Warlord Items are Equipped "}
-c["+1 to Maximum Endurance Charges if 6 Warlord Items are Equipped +1 to Level of all Fire Skill Gems if 6 Warlord Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="EnduranceChargesMax",type="BASE",value=1}},"  if 6 Warlord Items are Equipped +1 to Level of all Fire Skill Gems if 6 Warlord Items are Equipped "}
+c["+1 to Maximum Endurance Charges if 6 Warlord Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="WarlordItem"},flags=0,keywordFlags=0,name="EnduranceChargesMax",type="BASE",value=1}},nil}
 c["+1 to Maximum Endurance Charges while affected by Determination"]={{[1]={[1]={type="Condition",var="AffectedByDetermination"},flags=0,keywordFlags=0,name="EnduranceChargesMax",type="BASE",value=1}},nil}
 c["+1 to Maximum Energy Shield per 5 Armour on Equipped Shield"]={{[1]={[1]={div=5,stat="ArmourOnWeapon 2",type="PerStat"},flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=1}},nil}
 c["+1 to Maximum Fortification per Endurance Charge"]={{[1]={[1]={type="Multiplier",var="EnduranceCharge"},flags=0,keywordFlags=0,name="MaximumFortification",type="BASE",value=1}},nil}
 c["+1 to Maximum Frenzy Charge"]={{[1]={flags=0,keywordFlags=0,name="FrenzyChargesMax",type="BASE",value=1}},nil}
 c["+1 to Maximum Frenzy Charges"]={{[1]={flags=0,keywordFlags=0,name="FrenzyChargesMax",type="BASE",value=1}},nil}
-c["+1 to Maximum Frenzy Charges if 6 Redeemer Items are Equipped"]={{}," MaximumCharges if 6 Redeemer Items are Equipped "}
-c["+1 to Maximum Frenzy Charges if 6 Redeemer Items are Equipped Cannot be Frozen if 6 Redeemer Items are Equipped"]={{}," MaximumCharges if 6 Redeemer Items are Equipped Cannot be Frozen if 6 Redeemer Items are Equipped "}
+c["+1 to Maximum Frenzy Charges if 6 Redeemer Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="RedeemerItem"},flags=0,keywordFlags=0,name="FrenzyChargesMax",type="BASE",value=1}},nil}
 c["+1 to Maximum Frenzy Charges while affected by Grace"]={{[1]={[1]={type="Condition",var="AffectedByGrace"},flags=0,keywordFlags=0,name="FrenzyChargesMax",type="BASE",value=1}},nil}
 c["+1 to Maximum Life per 10 Dexterity"]={{[1]={[1]={div=10,stat="Dex",type="PerStat"},flags=0,keywordFlags=0,name="Life",type="BASE",value=1}},nil}
 c["+1 to Maximum Life per 2 Intelligence"]={{[1]={[1]={div=2,stat="Int",type="PerStat"},flags=0,keywordFlags=0,name="Life",type="BASE",value=1}},nil}
 c["+1 to Maximum Power Charge"]={{[1]={flags=0,keywordFlags=0,name="PowerChargesMax",type="BASE",value=1}},nil}
 c["+1 to Maximum Power Charges"]={{[1]={flags=0,keywordFlags=0,name="PowerChargesMax",type="BASE",value=1}},nil}
 c["+1 to Maximum Power Charges and Maximum Endurance Charges"]={{[1]={flags=0,keywordFlags=0,name="PowerChargesMax",type="BASE",value=1},[2]={flags=0,keywordFlags=0,name="EnduranceChargesMax",type="BASE",value=1}},nil}
-c["+1 to Maximum Power Charges if 6 Crusader Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="PowerChargesMax",type="BASE",value=1}},"  if 6 Crusader Items are Equipped "}
-c["+1 to Maximum Power Charges if 6 Crusader Items are Equipped +1 to Level of all Lightning Skill Gems if 6 Crusader Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="PowerChargesMax",type="BASE",value=1}},"  if 6 Crusader Items are Equipped +1 to Level of all Lightning Skill Gems if 6 Crusader Items are Equipped "}
+c["+1 to Maximum Power Charges if 6 Crusader Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="CrusaderItem"},flags=0,keywordFlags=0,name="PowerChargesMax",type="BASE",value=1}},nil}
 c["+1 to Maximum Power Charges while affected by Discipline"]={{[1]={[1]={type="Condition",var="AffectedByDiscipline"},flags=0,keywordFlags=0,name="PowerChargesMax",type="BASE",value=1}},nil}
 c["+1 to Maximum Siphoning Charges per Elder or Shaper Item Equipped"]={{[1]={[1]={type="Multiplier",var="ShaperOrElderItem"},flags=0,keywordFlags=0,name="SiphoningChargesMax",type="BASE",value=1}},nil}
 c["+1 to Maximum Spirit Charges per Abyss Jewel affecting you"]={{[1]={[1]={type="Multiplier",var="AbyssJewel"},flags=0,keywordFlags=0,name="SpiritChargesMax",type="BASE",value=1}},nil}
@@ -256,8 +247,7 @@ c["+1% to maximum Fire Resistance while affected by Herald of Ash"]={{[1]={[1]={
 c["+1% to maximum Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResistMax",type="BASE",value=1}},nil}
 c["+1% to maximum Lightning Resistance while affected by Herald of Thunder"]={{[1]={[1]={type="Condition",var="AffectedByHeraldofThunder"},flags=0,keywordFlags=0,name="LightningResistMax",type="BASE",value=1}},nil}
 c["+1.5% Critical Strike Chance while at maximum Power Charges"]={{[1]={[1]={stat="PowerCharges",thresholdStat="PowerChargesMax",type="StatThreshold"},flags=0,keywordFlags=0,name="CritChance",type="BASE",value=1.5}},nil}
-c["+1.5% to Spell Critical Strike Chance if 4 Shaper Items are Equipped"]={{[1]={flags=2,keywordFlags=0,name="CritChance",type="BASE",value=1.5}},"   if 4 Shaper Items are Equipped "}
-c["+1.5% to Spell Critical Strike Chance if 4 Shaper Items are Equipped Cannot take Reflected Elemental Damage if 4 Shaper Items are Equipped"]={{[1]={flags=2,keywordFlags=0,name="CritChance",type="BASE",value=1.5}},"   if 4 Shaper Items are Equipped Cannot take Reflected Elemental Damage if 4 Shaper Items are Equipped "}
+c["+1.5% to Spell Critical Strike Chance if 4 Shaper Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="ShaperItem"},flags=2,keywordFlags=0,name="CritChance",type="BASE",value=1.5}},nil}
 c["+1.8% to Critical Strike Chance while affected by Hatred"]={{[1]={[1]={type="Condition",var="AffectedByHatred"},flags=0,keywordFlags=0,name="CritChance",type="BASE",value=1.8}},nil}
 c["+10 to Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=10}},nil}
 c["+10 to Devotion"]={{[1]={flags=0,keywordFlags=0,name="Devotion",type="BASE",value=10}},nil}
@@ -611,8 +601,8 @@ c["+2 to Level of Socketed Vaal Gems"]={{[1]={[1]={slotName="{SlotName}",type="S
 c["+2 to Level of all Chaos Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="chaos",[2]="spell",[3]="skill"},value=2}}},nil}
 c["+2 to Level of all Cold Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="cold",[2]="spell",[3]="skill"},value=2}}},nil}
 c["+2 to Level of all Curse Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="curse",[2]="skill"},value=2}}},nil}
-c["+2 to Level of all Elemental Skill Gems if the stars are aligned"]={{[1]={[1]={type="Condition",var="StarsAreAligned"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="grants_active_skill",value=2}}},nil}
-c["+2 to Level of all Elemental Support Gems if the stars are aligned"]={{[1]={[1]={type="Condition",var="StarsAreAligned"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="support",value=2}}},nil}
+c["+2 to Level of all Elemental Skill Gems if the stars are aligned"]={{[1]={[1]={type="Condition",var="StarsAreAligned"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keywordList={[1]="elemental",[2]="grants_active_skill"},value=2}}},nil}
+c["+2 to Level of all Elemental Support Gems if the stars are aligned"]={{[1]={[1]={type="Condition",var="StarsAreAligned"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keywordList={[1]="elemental",[2]="support"},value=2}}},nil}
 c["+2 to Level of all Fire Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="fire",[2]="spell",[3]="skill"},value=2}}},nil}
 c["+2 to Level of all Lightning Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="lightning",[2]="spell",[3]="skill"},value=2}}},nil}
 c["+2 to Level of all Link Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="link",[2]="skill"},value=2}}},nil}
@@ -645,12 +635,10 @@ c["+2% Chance to Block Spell Damage per Power Charge"]={{[1]={[1]={type="Multipl
 c["+2% chance to Suppress Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellSuppressionChance",type="BASE",value=2}},nil}
 c["+2% to Critical Strike Chance against Enemies on Consecrated Ground during Effect"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="OnConsecratedGround"},[2]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="CritChance",type="BASE",value=2}},nil}
 c["+2% to Critical Strike Chance while affected by Hatred"]={{[1]={[1]={type="Condition",var="AffectedByHatred"},flags=0,keywordFlags=0,name="CritChance",type="BASE",value=2}},nil}
-c["+2% to Spell Critical Strike Chance if 4 Shaper Items are Equipped"]={{[1]={flags=2,keywordFlags=0,name="CritChance",type="BASE",value=2}},"   if 4 Shaper Items are Equipped "}
-c["+2% to Spell Critical Strike Chance if 4 Shaper Items are Equipped Cannot take Reflected Elemental Damage if 4 Shaper Items are Equipped"]={{[1]={flags=2,keywordFlags=0,name="CritChance",type="BASE",value=2}},"   if 4 Shaper Items are Equipped Cannot take Reflected Elemental Damage if 4 Shaper Items are Equipped "}
+c["+2% to Spell Critical Strike Chance if 4 Shaper Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="ShaperItem"},flags=2,keywordFlags=0,name="CritChance",type="BASE",value=2}},nil}
 c["+2% to all Elemental Resistances per 10 Devotion"]={{[1]={[1]={actor="parent",div=10,stat="Devotion",type="PerStat"},flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=2}},nil}
 c["+2% to all maximum Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResistMax",type="BASE",value=2}},nil}
-c["+2% to all maximum Elemental Resistances if 6 Shaper Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="ElementalResistMax",type="BASE",value=2}},"  if 6 Shaper Items are Equipped "}
-c["+2% to all maximum Elemental Resistances if 6 Shaper Items are Equipped +1 to Maximum Endurance Charges if 6 Warlord Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="ElementalResistMax",type="BASE",value=2}},"  if 6 Shaper Items are Equipped +1 to Maximum Endurance Charges if 6 Warlord Items are Equipped "}
+c["+2% to all maximum Elemental Resistances if 6 Shaper Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="ShaperItem"},flags=0,keywordFlags=0,name="ElementalResistMax",type="BASE",value=2}},nil}
 c["+2% to all maximum Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResistMax",type="BASE",value=2},[2]={flags=0,keywordFlags=0,name="ChaosResistMax",type="BASE",value=2}},nil}
 c["+2% to all maximum Resistances while you have no Endurance Charges"]={{[1]={[1]={stat="EnduranceCharges",threshold=0,type="StatThreshold",upper=true},flags=0,keywordFlags=0,name="ElementalResistMax",type="BASE",value=2},[2]={[1]={stat="EnduranceCharges",threshold=0,type="StatThreshold",upper=true},flags=0,keywordFlags=0,name="ChaosResistMax",type="BASE",value=2}},nil}
 c["+2% to maximum Chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChanceMax",type="BASE",value=2}},nil}
@@ -882,8 +870,8 @@ c["+3 to Level of Socketed Warcry Gems"]={{[1]={[1]={slotName="{SlotName}",type=
 c["+3 to Level of all Chaos Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="chaos",[2]="spell",[3]="skill"},value=3}}},nil}
 c["+3 to Level of all Cold Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="cold",[2]="spell",[3]="skill"},value=3}}},nil}
 c["+3 to Level of all Critical Support Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="critical",[2]="support"},value=3}}},nil}
-c["+3 to Level of all Elemental Skill Gems if the stars are aligned"]={{[1]={[1]={type="Condition",var="StarsAreAligned"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="grants_active_skill",value=3}}},nil}
-c["+3 to Level of all Elemental Support Gems if the stars are aligned"]={{[1]={[1]={type="Condition",var="StarsAreAligned"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="support",value=3}}},nil}
+c["+3 to Level of all Elemental Skill Gems if the stars are aligned"]={{[1]={[1]={type="Condition",var="StarsAreAligned"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keywordList={[1]="elemental",[2]="grants_active_skill"},value=3}}},nil}
+c["+3 to Level of all Elemental Support Gems if the stars are aligned"]={{[1]={[1]={type="Condition",var="StarsAreAligned"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keywordList={[1]="elemental",[2]="support"},value=3}}},nil}
 c["+3 to Level of all Fire Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="fire",[2]="spell",[3]="skill"},value=3}}},nil}
 c["+3 to Level of all Lightning Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="lightning",[2]="spell",[3]="skill"},value=3}}},nil}
 c["+3 to Level of all Melee Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keywordList={[1]="melee",[2]="skill"},value=3}}},nil}
@@ -918,25 +906,17 @@ c["+3% to all maximum Resistances"]={{[1]={flags=0,keywordFlags=0,name="Elementa
 c["+3% to all maximum Resistances while Poisoned"]={{[1]={[1]={type="Condition",var="Poisoned"},flags=0,keywordFlags=0,name="ElementalResistMax",type="BASE",value=3},[2]={[1]={type="Condition",var="Poisoned"},flags=0,keywordFlags=0,name="ChaosResistMax",type="BASE",value=3}},nil}
 c["+3% to all maximum Resistances while you have no Endurance Charges"]={{[1]={[1]={stat="EnduranceCharges",threshold=0,type="StatThreshold",upper=true},flags=0,keywordFlags=0,name="ElementalResistMax",type="BASE",value=3},[2]={[1]={stat="EnduranceCharges",threshold=0,type="StatThreshold",upper=true},flags=0,keywordFlags=0,name="ChaosResistMax",type="BASE",value=3}},nil}
 c["+3% to maximum Chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChanceMax",type="BASE",value=3}},nil}
-c["+3% to maximum Chance to Block Attack Damage if 4 Elder Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="BlockChanceMax",type="BASE",value=3}},"  if 4 Elder Items are Equipped "}
-c["+3% to maximum Chance to Block Attack Damage if 4 Elder Items are Equipped Attacks have +1.5% to Critical Strike Chance if 4 Elder Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="BlockChanceMax",type="BASE",value=3}},"  if 4 Elder Items are Equipped Attacks have +1.5% to Critical Strike Chance if 4 Elder Items are Equipped "}
-c["+3% to maximum Chance to Block Attack Damage if 4 Elder Items are Equipped Attacks have +2% to Critical Strike Chance if 4 Elder Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="BlockChanceMax",type="BASE",value=3}},"  if 4 Elder Items are Equipped Attacks have +2% to Critical Strike Chance if 4 Elder Items are Equipped "}
+c["+3% to maximum Chance to Block Attack Damage if 4 Elder Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="ElderItem"},flags=0,keywordFlags=0,name="BlockChanceMax",type="BASE",value=3}},nil}
 c["+3% to maximum Chance to Block Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChanceMax",type="BASE",value=3}},nil}
-c["+3% to maximum Chance to Block Spell Damage if 4 Shaper Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChanceMax",type="BASE",value=3}},"  if 4 Shaper Items are Equipped "}
-c["+3% to maximum Chance to Block Spell Damage if 4 Shaper Items are Equipped 10% of Physical Damage taken as Fire Damage if 4 Warlord Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChanceMaxAsFire",type="BASE",value=3}},"  if 4 Shaper Items are Equipped 10% of Physical Damage taken  if 4 Warlord Items are Equipped "}
+c["+3% to maximum Chance to Block Spell Damage if 4 Shaper Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="ShaperItem"},flags=0,keywordFlags=0,name="SpellBlockChanceMax",type="BASE",value=3}},nil}
 c["+3% to maximum Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResistMax",type="BASE",value=3}},nil}
-c["+3% to maximum Chaos Resistance if 4 Hunter Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="ChaosResistMax",type="BASE",value=3}},"  if 4 Hunter Items are Equipped "}
-c["+3% to maximum Chaos Resistance if 4 Hunter Items are Equipped 15% chance to gain a Frenzy Charge on Hit if 4 Redeemer Items are Equipped"]={{[1]={[1]={includeTransfigured=true,skillName="Frenzy",type="SkillName"},flags=4,keywordFlags=0,name="ChaosResistMax",type="BASE",value=3}},"  if 4 Hunter Items are Equipped 15% chance to gain aCharge  if 4 Redeemer Items are Equipped "}
+c["+3% to maximum Chaos Resistance if 4 Hunter Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="HunterItem"},flags=0,keywordFlags=0,name="ChaosResistMax",type="BASE",value=3}},nil}
 c["+3% to maximum Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResistMax",type="BASE",value=3}},nil}
-c["+3% to maximum Cold Resistance if 4 Redeemer Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="ColdResistMax",type="BASE",value=3}},"  if 4 Redeemer Items are Equipped "}
-c["+3% to maximum Cold Resistance if 4 Redeemer Items are Equipped +1.5% to Spell Critical Strike Chance if 4 Shaper Items are Equipped"]={{[1]={flags=2,keywordFlags=0,name="ColdResistMax",type="BASE",value=3}},"  if 4 Redeemer Items are Equipped +1.5% to  Critical Strike Chance if 4 Shaper Items are Equipped "}
-c["+3% to maximum Cold Resistance if 4 Redeemer Items are Equipped +2% to Spell Critical Strike Chance if 4 Shaper Items are Equipped"]={{[1]={flags=2,keywordFlags=0,name="ColdResistMax",type="BASE",value=3}},"  if 4 Redeemer Items are Equipped +2% to  Critical Strike Chance if 4 Shaper Items are Equipped "}
+c["+3% to maximum Cold Resistance if 4 Redeemer Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="RedeemerItem"},flags=0,keywordFlags=0,name="ColdResistMax",type="BASE",value=3}},nil}
 c["+3% to maximum Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResistMax",type="BASE",value=3}},nil}
-c["+3% to maximum Fire Resistance if 4 Warlord Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="FireResistMax",type="BASE",value=3}},"  if 4 Warlord Items are Equipped "}
-c["+3% to maximum Fire Resistance if 4 Warlord Items are Equipped +1 to Maximum Power Charges if 6 Crusader Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="FireResistMax",type="BASE",value=3}},"  if 4 Warlord Items are Equipped +1 to Maximum Power Charges if 6 Crusader Items are Equipped "}
+c["+3% to maximum Fire Resistance if 4 Warlord Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="WarlordItem"},flags=0,keywordFlags=0,name="FireResistMax",type="BASE",value=3}},nil}
 c["+3% to maximum Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResistMax",type="BASE",value=3}},nil}
-c["+3% to maximum Lightning Resistance if 4 Crusader Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="LightningResistMax",type="BASE",value=3}},"  if 4 Crusader Items are Equipped "}
-c["+3% to maximum Lightning Resistance if 4 Crusader Items are Equipped 15% chance to gain a Power Charge on Hit if 4 Crusader Items are Equipped"]={{[1]={flags=4,keywordFlags=0,name="LightningResistMax",type="BASE",value=3}},"  if 4 Crusader Items are Equipped 15% chance to gain a Power Charge  if 4 Crusader Items are Equipped "}
+c["+3% to maximum Lightning Resistance if 4 Crusader Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="CrusaderItem"},flags=0,keywordFlags=0,name="LightningResistMax",type="BASE",value=3}},nil}
 c["+30 Energy Shield gained on Killing a Shocked Enemy"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Shocked"},flags=0,keywordFlags=0,name="EnergyShieldOnKill",type="BASE",value=30}},nil}
 c["+30 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=30}},nil}
 c["+30 to Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=30}},nil}
@@ -2392,8 +2372,7 @@ c["10% of Damage taken Recouped as Mana"]={{[1]={flags=0,keywordFlags=0,name="Ma
 c["10% of Damage taken from Mana before Life while affected by Clarity"]={{[1]={[1]={type="Condition",var="AffectedByClarity"},flags=0,keywordFlags=0,name="DamageTakenFromManaBeforeLife",type="BASE",value=10}},nil}
 c["10% of Damage taken from Stunning Hits is Recovered as Life"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="BASE",value=10}},"  from Stunning Hits is Recovered as Life "}
 c["10% of Damage you Reflect to Enemies when Hit is gained as Life"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="BASE",value=10}},"  you Reflect to Enemies when Hit is gained as Life "}
-c["10% of Elemental taken as Chaos Damage if 4 Hunter Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamage",type="BASE",value=10}}," Elemental taken as  if 4 Hunter Items are Equipped "}
-c["10% of Elemental taken as Chaos Damage if 4 Hunter Items are Equipped 15% increased Movement Speed if 4 Hunter Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamage",type="BASE",value=10}}," Elemental taken as  if 4 Hunter Items are Equipped 15% increased Movement Speed if 4 Hunter Items are Equipped "}
+c["10% of Elemental taken as Chaos Damage if 4 Hunter Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="HunterItem"},flags=0,keywordFlags=0,name="ElementalDamageTakenAsChaos",type="BASE",value=10}},nil}
 c["10% of Fire Damage from Hits taken as Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageFromHitsTakenAsPhysical",type="BASE",value=10}},nil}
 c["10% of Leech is Instant per Equipped Claw"]={{[1]={[1]={type="Multiplier",var="ClawItem"},flags=0,keywordFlags=0,name="InstantEnergyShieldLeech",type="BASE",value=10},[2]={[1]={type="Multiplier",var="ClawItem"},flags=0,keywordFlags=0,name="InstantManaLeech",type="BASE",value=10},[3]={[1]={type="Multiplier",var="ClawItem"},flags=0,keywordFlags=0,name="InstantLifeLeech",type="BASE",value=10}},nil}
 c["10% of Physical Damage Converted to Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToChaos",type="BASE",value=10}},nil}
@@ -2404,12 +2383,9 @@ c["10% of Physical Damage from Hits taken as Chaos Damage"]={{[1]={flags=0,keywo
 c["10% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Ice"]={{[1]={[1]={type="Condition",var="AffectedByPurityofIce"},flags=0,keywordFlags=0,name="PhysicalDamageFromHitsTakenAsCold",type="BASE",value=10}},nil}
 c["10% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Fire"]={{[1]={[1]={type="Condition",var="AffectedByPurityofFire"},flags=0,keywordFlags=0,name="PhysicalDamageFromHitsTakenAsFire",type="BASE",value=10}},nil}
 c["10% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Lightning"]={{[1]={[1]={type="Condition",var="AffectedByPurityofLightning"},flags=0,keywordFlags=0,name="PhysicalDamageFromHitsTakenAsLightning",type="BASE",value=10}},nil}
-c["10% of Physical Damage taken as Cold Damage if 4 Redeemer Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsCold",type="BASE",value=10}},"   if 4 Redeemer Items are Equipped "}
-c["10% of Physical Damage taken as Cold Damage if 4 Redeemer Items are Equipped +3% to maximum Cold Resistance if 4 Redeemer Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsCold",type="BASE",value=10}},"   if 4 Redeemer Items are Equipped +3% to maximum Cold Resistance if 4 Redeemer Items are Equipped "}
-c["10% of Physical Damage taken as Fire Damage if 4 Warlord Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsFire",type="BASE",value=10}},"   if 4 Warlord Items are Equipped "}
-c["10% of Physical Damage taken as Fire Damage if 4 Warlord Items are Equipped Gain 1 Endurance Charge every second if you've been Hit Recently and"]={{[1]={[1]={type="Condition",var="BeenHitRecently"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsFire",type="BASE",value=10}},"   if 4 Warlord Items are Equipped Gain 1 Endurance Charge every second  and "}
-c["10% of Physical Damage taken as Lightning Damage if 4 Crusader Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsLightning",type="BASE",value=10}},"   if 4 Crusader Items are Equipped "}
-c["10% of Physical Damage taken as Lightning Damage if 4 Crusader Items are Equipped +3% to maximum Lightning Resistance if 4 Crusader Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsLightning",type="BASE",value=10}},"   if 4 Crusader Items are Equipped +3% to maximum Lightning Resistance if 4 Crusader Items are Equipped "}
+c["10% of Physical Damage taken as Cold Damage if 4 Redeemer Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="RedeemerItem"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsCold",type="BASE",value=10}},nil}
+c["10% of Physical Damage taken as Fire Damage if 4 Warlord Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="WarlordItem"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsFire",type="BASE",value=10}},nil}
+c["10% of Physical Damage taken as Lightning Damage if 4 Crusader Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="CrusaderItem"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsLightning",type="BASE",value=10}},nil}
 c["10% reduced Armour per 50 Strength"]={{[1]={[1]={div=50,stat="Str",type="PerStat"},flags=0,keywordFlags=0,name="Armour",type="INC",value=-10}},nil}
 c["10% reduced Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=-10}},nil}
 c["10% reduced Attributes"]={{[1]={flags=0,keywordFlags=0,name="Str",type="INC",value=-10},[2]={flags=0,keywordFlags=0,name="Dex",type="INC",value=-10},[3]={flags=0,keywordFlags=0,name="Int",type="INC",value=-10},[4]={flags=0,keywordFlags=0,name="All",type="INC",value=-10}},nil}
@@ -2813,6 +2789,7 @@ c["13% increased Energy Shield Recovery rate"]={{[1]={flags=0,keywordFlags=0,nam
 c["13% increased Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamage",type="INC",value=13}},nil}
 c["13% increased Global Defences"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Defences",type="INC",value=13}},nil}
 c["13% increased Global Physical Damage"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=13}},nil}
+c["13% increased Intelligence if 2 Crusader Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="CrusaderItem"},flags=0,keywordFlags=0,name="Int",type="INC",value=13}},nil}
 c["13% increased Life Recovery rate"]={{[1]={flags=0,keywordFlags=0,name="LifeRecoveryRate",type="INC",value=13}},nil}
 c["13% increased Light Radius"]={{[1]={flags=0,keywordFlags=0,name="LightRadius",type="INC",value=13}},nil}
 c["13% increased Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="INC",value=13}},nil}
@@ -2927,16 +2904,16 @@ c["15% chance to create Chilled Ground when you Freeze an Enemy Create Consecrat
 c["15% chance to gain 200 Life on Hit with Attacks"]={{[1]={[1]={type="Condition",var="AverageResourceGain"},flags=5,keywordFlags=0,name="LifeOnHit",type="BASE",value=30},[2]={[1]={type="Condition",var="MaxResourceGain"},flags=5,keywordFlags=0,name="LifeOnHit",type="BASE",value=200}},nil}
 c["15% chance to gain Arcane Surge when you Kill an Enemy"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=0,keywordFlags=0,name="Condition:ArcaneSurge",type="FLAG",value=true}},nil}
 c["15% chance to gain a Flask Charge when you deal a Critical Strike"]={{[1]={flags=0,keywordFlags=0,name="FlaskChargeOnCritChance",type="BASE",value=15}},nil}
-c["15% chance to gain a Frenzy Charge on Hit if 4 Redeemer Items are Equipped"]={nil,"a Frenzy Charge on Hit if 4 Redeemer Items are Equipped "}
-c["15% chance to gain a Frenzy Charge on Hit if 4 Redeemer Items are Equipped 10% of Physical Damage taken as Cold Damage if 4 Redeemer Items are Equipped"]={nil,"a Frenzy Charge on Hit if 4 Redeemer Items are Equipped 10% of Physical Damage taken as Cold Damage if 4 Redeemer Items are Equipped "}
+c["15% chance to gain a Frenzy Charge on Hit if 4 Redeemer Items are Equipped"]={nil,"a Frenzy Charge on Hit  "}
+c["15% chance to gain a Frenzy Charge on Hit if 4 Redeemer Items are Equipped 10% of Physical Damage taken as Cold Damage if 4 Redeemer Items are Equipped"]={nil,"a Frenzy Charge on Hit  10% of Physical Damage taken as Cold Damage  "}
 c["15% chance to gain a Frenzy Charge on Kill"]={nil,"a Frenzy Charge  "}
 c["15% chance to gain a Frenzy Charge on Kill Each Rage also grants +1% to Damage over Time Multiplier for Bleeding while wielding an Axe"]={nil,"a Frenzy Charge  Each Rage also grants +1% to Damage over Time Multiplier for Bleeding  "}
 c["15% chance to gain a Frenzy Charge when you Stun an Enemy"]={nil,"a Frenzy Charge when you Stun an Enemy "}
 c["15% chance to gain a Frenzy Charge when your Trap is triggered by an Enemy"]={nil,"a Frenzy Charge  "}
 c["15% chance to gain a Frenzy Charge when your Trap is triggered by an Enemy 30% chance to gain Phasing for 4 seconds when your Trap is triggered by an Enemy"]={{[1]={[1]={type="Condition",var="TriggeredTrapsRecently"},[2]={includeTransfigured=true,skillName="Frenzy",type="SkillName"},flags=0,keywordFlags=4096,name="Condition:Phasing",type="FLAG",value=true}},"aCharge  30% chance to gain   when your  is triggered by an Enemy "}
 c["15% chance to gain a Power Charge on Critical Strike"]={nil,"a Power Charge "}
-c["15% chance to gain a Power Charge on Hit if 4 Crusader Items are Equipped"]={nil,"a Power Charge on Hit if 4 Crusader Items are Equipped "}
-c["15% chance to gain a Power Charge on Hit if 4 Crusader Items are Equipped Cannot take Reflected Physical Damage if 4 Elder Items are Equipped"]={nil,"a Power Charge on Hit if 4 Crusader Items are Equipped Cannot take Reflected Physical Damage if 4 Elder Items are Equipped "}
+c["15% chance to gain a Power Charge on Hit if 4 Crusader Items are Equipped"]={nil,"a Power Charge on Hit  "}
+c["15% chance to gain a Power Charge on Hit if 4 Crusader Items are Equipped Cannot take Reflected Physical Damage if 4 Elder Items are Equipped"]={nil,"a Power Charge on Hit  Cannot take Reflected Physical Damage  "}
 c["15% chance to gain a Power Charge on Kill"]={nil,"a Power Charge  "}
 c["15% chance to gain a Power Charge on Killing an Enemy affected by fewer than 5 Poisons"]={nil,"a Power Charge ing an Enemy affected by fewer than 5 Poisons "}
 c["15% chance to gain a Power Charge on Killing an Enemy affected by fewer than 5 Poisons 10% increased Damage with Poison per Frenzy Charge"]={nil,"a Power Charge ing an Enemy affected by fewer than 5 Poisons 10% increased Damage with Poison  "}
@@ -2982,8 +2959,7 @@ c["15% increased Attack and Cast Speed while Physical Aegis is depleted"]={{[1]=
 c["15% increased Attack and Movement Speed while you have a Bestial Minion"]={{[1]={[1]={type="Condition",var="HaveBestialMinion"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=15}}," Attack and   "}
 c["15% increased Attack and Movement Speed while you have a Bestial Minion 20% increased Attack and Movement Speed while you have a Bestial Minion"]={{[1]={[1]={type="Condition",var="HaveBestialMinion"},[2]={type="Condition",var="HaveBestialMinion"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=15}}," Attack and   20% increased Attack and Movement Speed  "}
 c["15% increased Attributes"]={{[1]={flags=0,keywordFlags=0,name="Str",type="INC",value=15},[2]={flags=0,keywordFlags=0,name="Dex",type="INC",value=15},[3]={flags=0,keywordFlags=0,name="Int",type="INC",value=15},[4]={flags=0,keywordFlags=0,name="All",type="INC",value=15}},nil}
-c["15% increased Attributes if 6 Elder Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="Str",type="INC",value=15},[2]={flags=0,keywordFlags=0,name="Dex",type="INC",value=15},[3]={flags=0,keywordFlags=0,name="Int",type="INC",value=15},[4]={flags=0,keywordFlags=0,name="All",type="INC",value=15}},"  if 6 Elder Items are Equipped "}
-c["15% increased Attributes if 6 Elder Items are Equipped +1 to Level of all Physical Skill Gems if 6 Elder Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="Str",type="INC",value=15},[2]={flags=0,keywordFlags=0,name="Dex",type="INC",value=15},[3]={flags=0,keywordFlags=0,name="Int",type="INC",value=15},[4]={flags=0,keywordFlags=0,name="All",type="INC",value=15}},"  if 6 Elder Items are Equipped +1 to Level of all Physical Skill Gems if 6 Elder Items are Equipped "}
+c["15% increased Attributes if 6 Elder Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="ElderItem"},flags=0,keywordFlags=0,name="Str",type="INC",value=15},[2]={[1]={threshold=6,type="MultiplierThreshold",var="ElderItem"},flags=0,keywordFlags=0,name="Dex",type="INC",value=15},[3]={[1]={threshold=6,type="MultiplierThreshold",var="ElderItem"},flags=0,keywordFlags=0,name="Int",type="INC",value=15},[4]={[1]={threshold=6,type="MultiplierThreshold",var="ElderItem"},flags=0,keywordFlags=0,name="All",type="INC",value=15}},nil}
 c["15% increased Bleeding Duration"]={{[1]={flags=0,keywordFlags=0,name="EnemyBleedDuration",type="INC",value=15}},nil}
 c["15% increased Blind Effect"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="BlindEffect",type="INC",value=15}}}},nil}
 c["15% increased Cast Speed"]={{[1]={flags=16,keywordFlags=0,name="Speed",type="INC",value=15}},nil}
@@ -3021,8 +2997,7 @@ c["15% increased Damage with Bows"]={{[1]={flags=131076,keywordFlags=0,name="Dam
 c["15% increased Damage with Hits against Shocked Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Shocked"},flags=0,keywordFlags=262144,name="Damage",type="INC",value=15}},nil}
 c["15% increased Damage with Poison"]={{[1]={flags=0,keywordFlags=2097152,name="Damage",type="INC",value=15}},nil}
 c["15% increased Dexterity"]={{[1]={flags=0,keywordFlags=0,name="Dex",type="INC",value=15}},nil}
-c["15% increased Dexterity if 2 Redeemer Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="Dex",type="INC",value=15}},"  if 2 Redeemer Items are Equipped "}
-c["15% increased Dexterity if 2 Redeemer Items are Equipped Nearby Enemies are Blinded if 2 Redeemer Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="Dex",type="INC",value=15}},"  if 2 Redeemer Items are Equipped Nearby Enemies are Blinded if 2 Redeemer Items are Equipped "}
+c["15% increased Dexterity if 2 Redeemer Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="RedeemerItem"},flags=0,keywordFlags=0,name="Dex",type="INC",value=15}},nil}
 c["15% increased Dexterity if Strength is higher than Intelligence"]={{[1]={[1]={type="Condition",var="StrHigherThanInt"},flags=0,keywordFlags=0,name="Dex",type="INC",value=15}},nil}
 c["15% increased Duration of Ailments on Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyAilmentDuration",type="INC",value=15}},nil}
 c["15% increased Duration of Elemental Ailments on Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyElementalAilmentDuration",type="INC",value=15}},nil}
@@ -3051,8 +3026,7 @@ c["15% increased Global Physical Damage"]={{[1]={[1]={type="Global"},flags=0,key
 c["15% increased Ignite Duration on Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteDuration",type="INC",value=15}},nil}
 c["15% increased Impale Effect"]={{[1]={flags=0,keywordFlags=0,name="ImpaleEffect",type="INC",value=15}},nil}
 c["15% increased Intelligence"]={{[1]={flags=0,keywordFlags=0,name="Int",type="INC",value=15}},nil}
-c["15% increased Intelligence if 2 Crusader Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="Int",type="INC",value=15}},"  if 2 Crusader Items are Equipped "}
-c["15% increased Intelligence if 2 Crusader Items are Equipped Unaffected by Shock if 2 Crusader Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="Int",type="INC",value=15}},"  if 2 Crusader Items are Equipped Unaffected by Shock if 2 Crusader Items are Equipped "}
+c["15% increased Intelligence if 2 Crusader Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="CrusaderItem"},flags=0,keywordFlags=0,name="Int",type="INC",value=15}},nil}
 c["15% increased Item Quantity per White Socket"]={{[1]={[1]={type="Multiplier",var="WhiteSocketIn{SlotName}"},flags=0,keywordFlags=0,name="LootQuantity",type="INC",value=15}},nil}
 c["15% increased Life Recovery Rate while affected by Vitality"]={{[1]={[1]={type="Condition",var="AffectedByVitality"},flags=0,keywordFlags=0,name="LifeRecoveryRate",type="INC",value=15}},nil}
 c["15% increased Life Recovery from Flasks"]={{[1]={flags=0,keywordFlags=0,name="FlaskLifeRecovery",type="INC",value=15}},nil}
@@ -3073,8 +3047,7 @@ c["15% increased Mirage Archer Duration"]={{[1]={flags=0,keywordFlags=0,name="Mi
 c["15% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=15}},nil}
 c["15% increased Movement Speed during any Flask Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=15}},nil}
 c["15% increased Movement Speed for 9 seconds on Throwing a Trap"]={{[1]={[1]={type="Condition",var="TrapOrMineThrownRecently"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=15}},nil}
-c["15% increased Movement Speed if 4 Hunter Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=15}},"  if 4 Hunter Items are Equipped "}
-c["15% increased Movement Speed if 4 Hunter Items are Equipped +3% to maximum Chaos Resistance if 4 Hunter Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=15}},"  if 4 Hunter Items are Equipped +3% to maximum Chaos Resistance if 4 Hunter Items are Equipped "}
+c["15% increased Movement Speed if 4 Hunter Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="HunterItem"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=15}},nil}
 c["15% increased Movement Speed if you've Killed Recently"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=15}},nil}
 c["15% increased Movement Speed if you've used a Warcry Recently"]={{[1]={[1]={type="Condition",var="UsedWarcryRecently"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=15}},nil}
 c["15% increased Movement Speed when on Full Life"]={{[1]={[1]={type="Condition",var="FullLife"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=15}},nil}
@@ -3100,8 +3073,7 @@ c["15% increased Skill Effect Duration"]={{[1]={flags=0,keywordFlags=0,name="Dur
 c["15% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=15}},nil}
 c["15% increased Spell Damage taken when on Low Mana"]={{[1]={[1]={type="Condition",var="LowMana"},flags=0,keywordFlags=0,name="SpellDamageTaken",type="INC",value=15}},nil}
 c["15% increased Strength"]={{[1]={flags=0,keywordFlags=0,name="Str",type="INC",value=15}},nil}
-c["15% increased Strength if 2 Warlord Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="Str",type="INC",value=15}},"  if 2 Warlord Items are Equipped "}
-c["15% increased Strength if 2 Warlord Items are Equipped Nearby Enemies are Intimidated if 2 Warlord Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="Str",type="INC",value=15}},"  if 2 Warlord Items are Equipped Nearby Enemies are Intimidated if 2 Warlord Items are Equipped "}
+c["15% increased Strength if 2 Warlord Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="WarlordItem"},flags=0,keywordFlags=0,name="Str",type="INC",value=15}},nil}
 c["15% increased Stun Duration on Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyStunDuration",type="INC",value=15}},nil}
 c["15% increased Stun Threshold"]={{[1]={flags=0,keywordFlags=0,name="StunThreshold",type="INC",value=15}},nil}
 c["15% increased Stun and Block Recovery"]={{[1]={flags=0,keywordFlags=0,name="StunRecovery",type="INC",value=15}},nil}
@@ -3115,13 +3087,11 @@ c["15% increased Warcry Speed"]={{[1]={flags=0,keywordFlags=4,name="WarcrySpeed"
 c["15% increased effect of Non-Curse Auras from your Skills"]={{[1]={[1]={skillType=43,type="SkillType"},[2]={neg=true,skillType=79,type="SkillType"},flags=0,keywordFlags=0,name="AuraEffect",type="INC",value=15}},nil}
 c["15% increased maximum Energy Shield"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=15}},nil}
 c["15% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=15}},nil}
-c["15% increased maximum Life if 2 Elder Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=15}},"  if 2 Elder Items are Equipped "}
-c["15% increased maximum Life if 2 Elder Items are Equipped 3% of Physical Damage Leeched as Energy Shield if 2 Elder Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=15}},"  if 2 Elder Items are Equipped 3% of Physical Damage Leeched as Energy Shield if 2 Elder Items are Equipped "}
+c["15% increased maximum Life if 2 Elder Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="ElderItem"},flags=0,keywordFlags=0,name="Life",type="INC",value=15}},nil}
 c["15% increased maximum Life if there are no Life Modifiers on Equipped Body Armour"]={{[1]={[1]={itemSlot="body armour ",neg=true,searchCond="life",type="ItemCondition"},flags=0,keywordFlags=0,name="Life",type="INC",value=15}},nil}
 c["15% increased maximum Life, Mana and Global Energy Shield"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Life",type="INC",value=15},[2]={[1]={type="Global"},flags=0,keywordFlags=0,name="Mana",type="INC",value=15},[3]={[1]={type="Global"},flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=15}},nil}
 c["15% increased maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="INC",value=15}},nil}
-c["15% increased maximum Mana if 2 Shaper Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="INC",value=15}},"  if 2 Shaper Items are Equipped "}
-c["15% increased maximum Mana if 2 Shaper Items are Equipped 20% increased Cooldown Recovery Rate if 2 Shaper Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="INC",value=15}},"  if 2 Shaper Items are Equipped 20% increased Cooldown Recovery Rate if 2 Shaper Items are Equipped "}
+c["15% increased maximum Mana if 2 Shaper Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="ShaperItem"},flags=0,keywordFlags=0,name="Mana",type="INC",value=15}},nil}
 c["15% less Projectile Speed"]={{[1]={flags=0,keywordFlags=0,name="ProjectileSpeed",type="MORE",value=-15}},nil}
 c["15% more Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamage",type="MORE",value=15}},nil}
 c["15% more Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamage",type="MORE",value=15}},nil}
@@ -3590,8 +3560,7 @@ c["20% increased Cold Damage per 1% Cold Resistance above 75%"]={{[1]={[1]={div=
 c["20% increased Cold Damage per 1% Missing Cold Resistance, up to a maximum of 300%"]={{[1]={[1]={div=1,globalLimit=300,globalLimitKey="ReplicaNebulisCold",stat="MissingColdResist",type="PerStat"},flags=0,keywordFlags=0,name="ColdDamage",type="INC",value=20}},nil}
 c["20% increased Cold Damage per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="ColdDamage",type="INC",value=20}},nil}
 c["20% increased Cooldown Recovery Rate"]={{[1]={flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=20}},nil}
-c["20% increased Cooldown Recovery Rate if 2 Shaper Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=20}},"  if 2 Shaper Items are Equipped "}
-c["20% increased Cooldown Recovery Rate if 2 Shaper Items are Equipped 15% increased Strength if 2 Warlord Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=20}},"  if 2 Shaper Items are Equipped 15% increased Strength if 2 Warlord Items are Equipped "}
+c["20% increased Cooldown Recovery Rate if 2 Shaper Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="ShaperItem"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=20}},nil}
 c["20% increased Critical Strike Chance"]={{[1]={flags=0,keywordFlags=0,name="CritChance",type="INC",value=20}},nil}
 c["20% increased Critical Strike Chance for Attacks"]={{[1]={flags=1,keywordFlags=0,name="CritChance",type="INC",value=20}},nil}
 c["20% increased Critical Strike Chance per Brand"]={{[1]={[1]={type="Multiplier",var="ActiveBrand"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=20}},nil}
@@ -4391,12 +4360,10 @@ c["3% of Armour applies to Fire, Cold and Lightning Damage taken from Hits"]={{[
 c["3% of Attack Damage leeched as Life against Bleeding Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=1,keywordFlags=0,name="DamageLifeLeech",type="BASE",value=3}},nil}
 c["3% of Damage from Hits is taken from your nearest Totem's Life before you"]={{[1]={[1]={type="Condition",var="HaveTotem"},flags=0,keywordFlags=0,name="takenFromTotemsBeforeYou",type="BASE",value=3}},nil}
 c["3% of Damage is taken from Mana before Life"]={{[1]={flags=0,keywordFlags=0,name="DamageTakenFromManaBeforeLife",type="BASE",value=3}},nil}
-c["3% of Elemental Damage Leeched as Energy Shield if 2 Shaper Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="ElementalDamageEnergyShieldLeech",type="BASE",value=3}},"   if 2 Shaper Items are Equipped "}
-c["3% of Elemental Damage Leeched as Energy Shield if 2 Shaper Items are Equipped 15% increased maximum Mana if 2 Shaper Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="ElementalDamageEnergyShieldLeech",type="BASE",value=3}},"   if 2 Shaper Items are Equipped 15% increased maximum Mana if 2 Shaper Items are Equipped "}
+c["3% of Elemental Damage Leeched as Energy Shield if 2 Shaper Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="ShaperItem"},flags=0,keywordFlags=0,name="ElementalDamageEnergyShieldLeech",type="BASE",value=3}},nil}
 c["3% of Life Regenerated per Second if you've dealt a Critical Strike in the past 8 seconds"]={{[1]={[1]={type="Condition",var="CritInPast8Sec"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=3}},nil}
 c["3% of Physical Attack Damage Leeched as Life"]={{[1]={flags=1,keywordFlags=0,name="PhysicalDamageLifeLeech",type="BASE",value=3}},nil}
-c["3% of Physical Damage Leeched as Energy Shield if 2 Elder Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageEnergyShieldLeech",type="BASE",value=3}},"   if 2 Elder Items are Equipped "}
-c["3% of Physical Damage Leeched as Energy Shield if 2 Elder Items are Equipped Nearby Enemies are Unnerved if 2 Elder Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageEnergyShieldLeech",type="BASE",value=3}},"   if 2 Elder Items are Equipped Nearby Enemies are Unnerved if 2 Elder Items are Equipped "}
+c["3% of Physical Damage Leeched as Energy Shield if 2 Elder Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="ElderItem"},flags=0,keywordFlags=0,name="PhysicalDamageEnergyShieldLeech",type="BASE",value=3}},nil}
 c["3% of Physical Damage prevented from Hits Recently is Regenerated as Energy Shield per second"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageMitigatedEnergyShieldPseudoRecoup",type="BASE",value=12}},nil}
 c["3% reduced Attack and Cast Speed per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="Speed",type="INC",value=-3}},nil}
 c["3% reduced Cost of Skills"]={{[1]={flags=0,keywordFlags=0,name="Cost",type="INC",value=-3}},nil}
@@ -4686,8 +4653,7 @@ c["30% of Lightning Damage is taken from Mana before Life"]={{[1]={flags=0,keywo
 c["30% of Physical Damage Converted to Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToChaos",type="BASE",value=30}},nil}
 c["30% of Physical Damage Converted to Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=30}},nil}
 c["30% of Physical Damage Converted to Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=30}},nil}
-c["30% of Physical Damage Prevented Recently is Regenerated as Energy Shield Per Second if 6 Crusader Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=30}},"  Prevented Recently is Regenerated as Energy Shield Per Second if 6 Crusader Items are Equipped "}
-c["30% of Physical Damage Prevented Recently is Regenerated as Energy Shield Per Second if 6 Crusader Items are Equipped 15% increased Attributes if 6 Elder Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=30}},"  Prevented Recently is Regenerated as Energy Shield Per Second if 6 Crusader Items are Equipped 15% increased Attributes if 6 Elder Items are Equipped "}
+c["30% of Physical Damage Prevented Recently is Regenerated as Energy Shield Per Second if 6 Crusader Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="CrusaderItem"},flags=0,keywordFlags=0,name="PhysicalDamageMitigatedEnergyShieldPseudoRecoup",type="BASE",value=120}},nil}
 c["30% of Physical Damage from Hits taken as Cold Damage during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="PhysicalDamageFromHitsTakenAsCold",type="BASE",value=30}},nil}
 c["30% of Physical Damage from Hits taken as Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageFromHitsTakenAsLightning",type="BASE",value=30}},nil}
 c["30% reduced Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=-30}},nil}
@@ -4859,6 +4825,8 @@ c["38% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type
 c["38% reduced Area of Effect of Hex Skills"]={{[1]={[1]={skillType=108,type="SkillType"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=-38}},nil}
 c["380% increased Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="INC",value=380}},nil}
 c["39% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=39}},nil}
+c["4 Warlord Items are Equipped"]={{}," Warlord Items are Equipped "}
+c["4 Warlord Items are Equipped +3% to maximum Fire Resistance if 4 Warlord Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="WarlordItem"},flags=0,keywordFlags=0,name="FireResistMax",type="BASE",value=4}}," Warlord Items are Equipped +3% to   "}
 c["4 additional Arrows"]={{[1]={flags=1,keywordFlags=0,name="ProjectileCount",type="BASE",value=4}},nil}
 c["4 to 8 Added Fire Damage with Bow Attacks"]={{[1]={flags=131076,keywordFlags=0,name="FireMin",type="BASE",value=4},[2]={flags=131076,keywordFlags=0,name="FireMax",type="BASE",value=8}},nil}
 c["4 to 8 added Fire Damage per 100 of Maximum Life or Maximum Mana, whichever is lower"]={{[1]={[1]={div=100,stat="LowestOfMaximumLifeAndMaximumMana",type="PerStat"},flags=0,keywordFlags=0,name="FireMin",type="BASE",value=4},[2]={[1]={div=100,stat="LowestOfMaximumLifeAndMaximumMana",type="PerStat"},flags=0,keywordFlags=0,name="FireMax",type="BASE",value=8}},nil}
@@ -6038,6 +6006,7 @@ c["8% of Damage taken Recouped as Mana"]={{[1]={flags=0,keywordFlags=0,name="Man
 c["8% of Leech is Instant"]={{[1]={flags=0,keywordFlags=0,name="InstantEnergyShieldLeech",type="BASE",value=8},[2]={flags=0,keywordFlags=0,name="InstantManaLeech",type="BASE",value=8},[3]={flags=0,keywordFlags=0,name="InstantLifeLeech",type="BASE",value=8}},nil}
 c["8% of Maximum Life taken as Chaos Damage per second"]={{[1]={[1]={percent=8,stat="Life",type="PercentStat"},flags=0,keywordFlags=0,name="ChaosDegen",type="BASE",value=1}},nil}
 c["8% of Physical Damage from Hits taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageFromHitsTakenAsFire",type="BASE",value=8}},nil}
+c["8% of Physical Damage taken as Lightning Damage if 4 Crusader Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="CrusaderItem"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsLightning",type="BASE",value=8}},nil}
 c["8% reduced Enemy Stun Threshold"]={{[1]={flags=0,keywordFlags=0,name="EnemyStunThreshold",type="INC",value=-8}},nil}
 c["8% reduced Mana Cost of Attacks"]={{[1]={[1]={skillType=1,type="SkillType"},flags=0,keywordFlags=0,name="ManaCost",type="INC",value=-8}},nil}
 c["8% reduced Mana Cost of Skills"]={{[1]={flags=0,keywordFlags=0,name="ManaCost",type="INC",value=-8}},nil}
@@ -7267,10 +7236,8 @@ c["Attacks always inflict Bleeding while you have Cat's Stealth"]={{[1]={[1]={ty
 c["Attacks cannot Hit you"]={{[1]={flags=0,keywordFlags=0,name="AlwaysEvade",type="FLAG",value=true}},nil}
 c["Attacks fire an additional Projectile"]={{[1]={flags=1,keywordFlags=0,name="ProjectileCount",type="BASE",value=1}},nil}
 c["Attacks fire an additional Projectile when in Off Hand"]={{[1]={[1]={num=2,type="SlotNumber"},flags=1,keywordFlags=0,name="ProjectileCount",type="BASE",value=1}},nil}
-c["Attacks have +1.5% to Critical Strike Chance if 4 Elder Items are Equipped"]={{[1]={flags=1,keywordFlags=0,name="CritChance",type="BASE",value=1.5}},"  if 4 Elder Items are Equipped "}
-c["Attacks have +1.5% to Critical Strike Chance if 4 Elder Items are Equipped 10% of Elemental taken as Chaos Damage if 4 Hunter Items are Equipped"]={{[1]={flags=1,keywordFlags=0,name="CritChanceAsChaos",type="BASE",value=1.5}},"  if 4 Elder Items are Equipped 10% of Elemental taken  if 4 Hunter Items are Equipped "}
-c["Attacks have +2% to Critical Strike Chance if 4 Elder Items are Equipped"]={{[1]={flags=1,keywordFlags=0,name="CritChance",type="BASE",value=2}},"  if 4 Elder Items are Equipped "}
-c["Attacks have +2% to Critical Strike Chance if 4 Elder Items are Equipped 10% of Elemental taken as Chaos Damage if 4 Hunter Items are Equipped"]={{[1]={flags=1,keywordFlags=0,name="CritChanceAsChaos",type="BASE",value=2}},"  if 4 Elder Items are Equipped 10% of Elemental taken  if 4 Hunter Items are Equipped "}
+c["Attacks have +1.5% to Critical Strike Chance if 4 Elder Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="ElderItem"},flags=1,keywordFlags=0,name="CritChance",type="BASE",value=1.5}},nil}
+c["Attacks have +2% to Critical Strike Chance if 4 Elder Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="ElderItem"},flags=1,keywordFlags=0,name="CritChance",type="BASE",value=2}},nil}
 c["Attacks have 10% chance to Ignite"]={{[1]={flags=1,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=10}},nil}
 c["Attacks have 10% chance to Maim on Hit"]={{}," to Maim  "}
 c["Attacks have 10% chance to cause Bleeding"]={{[1]={flags=1,keywordFlags=0,name="BleedChance",type="BASE",value=10}},nil}
@@ -7533,8 +7500,7 @@ c["Cannot be Chilled"]={{[1]={flags=0,keywordFlags=0,name="ChillImmune",type="FL
 c["Cannot be Chilled while Burning"]={{[1]={[1]={type="Condition",var="Burning"},flags=0,keywordFlags=0,name="ChillImmune",type="FLAG",value=true}},nil}
 c["Cannot be Chilled while at maximum Frenzy Charges"]={{[1]={[1]={stat="FrenzyCharges",thresholdStat="FrenzyChargesMax",type="StatThreshold"},flags=0,keywordFlags=0,name="ChillImmune",type="FLAG",value=true}},nil}
 c["Cannot be Frozen"]={{[1]={flags=0,keywordFlags=0,name="FreezeImmune",type="FLAG",value=true}},nil}
-c["Cannot be Frozen if 6 Redeemer Items are Equipped"]={nil,"Cannot be Frozen if 6 Redeemer Items are Equipped "}
-c["Cannot be Frozen if 6 Redeemer Items are Equipped Gain 15% of Physical Damage as Extra Damage of each Element if"]={nil,"Cannot be Frozen if 6 Redeemer Items are Equipped Gain 15% of Physical Damage as Extra Damage of each Element if "}
+c["Cannot be Frozen if 6 Redeemer Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="RedeemerItem"},flags=0,keywordFlags=0,name="FreezeImmune",type="FLAG",value=true}},nil}
 c["Cannot be Frozen if Dexterity is higher than Intelligence"]={{[1]={[1]={type="Condition",var="DexHigherThanInt"},flags=0,keywordFlags=0,name="FreezeImmune",type="FLAG",value=true}},nil}
 c["Cannot be Frozen or Chilled if you've used a Fire Skill Recently"]={{[1]={[1]={type="Condition",var="UsedFireSkillRecently"},flags=0,keywordFlags=0,name="FreezeImmune",type="FLAG",value=true},[2]={[1]={type="Condition",var="UsedFireSkillRecently"},flags=0,keywordFlags=0,name="ChillImmune",type="FLAG",value=true}},nil}
 c["Cannot be Ignited"]={{[1]={flags=0,keywordFlags=0,name="IgniteImmune",type="FLAG",value=true}},nil}
@@ -7558,8 +7524,7 @@ c["Cannot be Stunned by Spells if your other Ring is a Shaper Item"]={nil,"Canno
 c["Cannot be Stunned by Spells if your other Ring is a Shaper Item 20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill"]={nil,"Cannot be Stunned by Spells if your other Ring is a Shaper Item 20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill "}
 c["Cannot be Stunned by Suppressed Spell Damage"]={nil,"Cannot be Stunned by Suppressed Spell Damage "}
 c["Cannot be Stunned by Suppressed Spell Damage Debilitate Enemies for 4 Seconds when you Suppress their Spell Damage"]={nil,"Cannot be Stunned by Suppressed Spell Damage Debilitate Enemies for 4 Seconds when you Suppress their Spell Damage "}
-c["Cannot be Stunned if 6 Elder Items are Equipped"]={nil,"Cannot be Stunned if 6 Elder Items are Equipped "}
-c["Cannot be Stunned if 6 Elder Items are Equipped +1 to Level of all Chaos Skill Gems if 6 Hunter Items are Equipped"]={nil,"Cannot be Stunned if 6 Elder Items are Equipped +1 to Level of all Chaos Skill Gems if 6 Hunter Items are Equipped "}
+c["Cannot be Stunned if 6 Elder Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="ElderItem"},flags=0,keywordFlags=0,name="StunImmune",type="FLAG",value=true}},nil}
 c["Cannot be Stunned if you have at least 10 Crab Barriers"]={{[1]={[1]={stat="CrabBarriers",threshold=10,type="StatThreshold"},flags=0,keywordFlags=0,name="StunImmune",type="FLAG",value=true}},nil}
 c["Cannot be Stunned if you haven't been Hit Recently"]={{[1]={[1]={neg=true,type="Condition",var="BeenHitRecently"},flags=0,keywordFlags=0,name="StunImmune",type="FLAG",value=true}},nil}
 c["Cannot be Stunned when on Low Life"]={{[1]={[1]={type="Condition",var="LowLife"},flags=0,keywordFlags=0,name="StunImmune",type="FLAG",value=true}},nil}
@@ -7611,11 +7576,9 @@ c["Cannot inflict Shock"]={{[1]={flags=0,keywordFlags=0,name="CannotShock",type=
 c["Cannot lose Crab Barriers if you have lost Crab Barriers Recently"]={nil,"Cannot lose Crab Barriers if you have lost Crab Barriers Recently "}
 c["Cannot lose Crab Barriers if you have lost Crab Barriers Recently +3% Chance to Block Attack Damage while you have at least 5 Crab Barriers"]={nil,"Cannot lose Crab Barriers if you have lost Crab Barriers Recently +3% Chance to Block Attack Damage while you have at least 5 Crab Barriers "}
 c["Cannot take Reflected Elemental Damage"]={{[1]={[1]={effectType="Global",type="GlobalEffect",unscalable=true},flags=0,keywordFlags=0,name="ElementalReflectedDamageTaken",type="MORE",value=-100}},nil}
-c["Cannot take Reflected Elemental Damage if 4 Shaper Items are Equipped"]={nil,"Cannot take Reflected Elemental Damage if 4 Shaper Items are Equipped "}
-c["Cannot take Reflected Elemental Damage if 4 Shaper Items are Equipped +3% to maximum Chance to Block Spell Damage if 4 Shaper Items are Equipped"]={nil,"Cannot take Reflected Elemental Damage if 4 Shaper Items are Equipped +3% to maximum Chance to Block Spell Damage if 4 Shaper Items are Equipped "}
+c["Cannot take Reflected Elemental Damage if 4 Shaper Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="ShaperItem"},flags=0,keywordFlags=0,name="ElementalReflectedDamageTaken",type="MORE",value=-100}},nil}
 c["Cannot take Reflected Physical Damage"]={{[1]={[1]={effectType="Global",type="GlobalEffect",unscalable=true},flags=0,keywordFlags=0,name="PhysicalReflectedDamageTaken",type="MORE",value=-100}},nil}
-c["Cannot take Reflected Physical Damage if 4 Elder Items are Equipped"]={nil,"Cannot take Reflected Physical Damage if 4 Elder Items are Equipped "}
-c["Cannot take Reflected Physical Damage if 4 Elder Items are Equipped +3% to maximum Chance to Block Attack Damage if 4 Elder Items are Equipped"]={nil,"Cannot take Reflected Physical Damage if 4 Elder Items are Equipped +3% to maximum Chance to Block Attack Damage if 4 Elder Items are Equipped "}
+c["Cannot take Reflected Physical Damage if 4 Elder Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="ElderItem"},flags=0,keywordFlags=0,name="PhysicalReflectedDamageTaken",type="MORE",value=-100}},nil}
 c["Carved to glorify 10000 new faithful converted by High Templar Avarius"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=3,type="templar"},id=10000}}}},nil}
 c["Carved to glorify 10000 new faithful converted by High Templar Dominus"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=2,type="templar"},id=10000}}}},nil}
 c["Carved to glorify 10000 new faithful converted by High Templar Maxarius"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="1_v2",type="templar"},id=10000}}}},nil}
@@ -7695,8 +7658,7 @@ c["Commissioned 81000 coins to commemorate Caspiro"]={{[1]={flags=0,keywordFlags
 c["Conductivity can affect Hexproof Enemies"]={{[1]={[1]={skillId="Conductivity",type="SkillId"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="ignoreHexproof",value=true}}},nil}
 c["Conductivity has no Reservation if Cast as an Aura"]={{[1]={[1]={skillId="Conductivity",type="SkillId"},[2]={skillType=43,type="SkillType"},[3]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationFlat",value=0}},[2]={[1]={skillId="Conductivity",type="SkillId"},[2]={skillType=43,type="SkillType"},[3]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationFlat",value=0}},[3]={[1]={skillId="Conductivity",type="SkillId"},[2]={skillType=43,type="SkillType"},[3]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationPercent",value=0}},[4]={[1]={skillId="Conductivity",type="SkillId"},[2]={skillType=43,type="SkillType"},[3]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationPercent",value=0}}},nil}
 c["Conduit"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Conduit"}},nil}
-c["Consecrated Ground around you while stationary if 2 Crusader Items are Equipped"]={nil,"Consecrated Ground around you while stationary if 2 Crusader Items are Equipped "}
-c["Consecrated Ground around you while stationary if 2 Crusader Items are Equipped 15% increased maximum Life if 2 Elder Items are Equipped"]={nil,"Consecrated Ground around you while stationary if 2 Crusader Items are Equipped 15% increased maximum Life if 2 Elder Items are Equipped "}
+c["Consecrated Ground around you while stationary if 2 Crusader Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="CrusaderItem"},flags=0,keywordFlags=0,name="Condition:OnConsecratedGround",type="FLAG",value=true}},nil}
 c["Consecrated Ground created by this Flask has Tripled Radius"]={nil,"Consecrated Ground created by this Flask has Tripled Radius "}
 c["Consecrated Ground created by this Flask has Tripled Radius +2% to Critical Strike Chance against Enemies on Consecrated Ground during Effect"]={nil,"Consecrated Ground created by this Flask has Tripled Radius +2% to Critical Strike Chance against Enemies on Consecrated Ground during Effect "}
 c["Consecrated Ground created during Effect applies 10% increased Damage taken to Enemies"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=10}}}},nil}
@@ -8136,8 +8098,7 @@ c["Every 4 seconds, Regenerate 10% of Life over one second"]={{[1]={[1]={type="C
 c["Every 4 seconds, Regenerate 100% of Life over one second"]={{[1]={[1]={type="Condition",var="LifeRegenBurstFull"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=100},[2]={[1]={type="Condition",var="LifeRegenBurstAvg"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=25}},nil}
 c["Every 4 seconds, Regenerate 15% of Life over one second"]={{[1]={[1]={type="Condition",var="LifeRegenBurstFull"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=15},[2]={[1]={type="Condition",var="LifeRegenBurstAvg"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=3.75}},nil}
 c["Every 4 seconds, Regenerate 20% of Life over one second"]={{[1]={[1]={type="Condition",var="LifeRegenBurstFull"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=20},[2]={[1]={type="Condition",var="LifeRegenBurstAvg"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=5}},nil}
-c["Every 4 seconds, Regenerate 35% of Life over one second if 2 Hunter Items are Equipped"]={nil,"Every 4 seconds, Regenerate 35% of Life over one second if 2 Hunter Items are Equipped "}
-c["Every 4 seconds, Regenerate 35% of Life over one second if 2 Hunter Items are Equipped 15% increased Dexterity if 2 Redeemer Items are Equipped"]={nil,"Every 4 seconds, Regenerate 35% of Life over one second if 2 Hunter Items are Equipped 15% increased Dexterity if 2 Redeemer Items are Equipped "}
+c["Every 4 seconds, Regenerate 35% of Life over one second if 2 Hunter Items are Equipped"]={{[1]={[1]={type="Condition",var="LifeRegenBurstFull"},[2]={threshold=2,type="MultiplierThreshold",var="HunterItem"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=35},[2]={[1]={type="Condition",var="LifeRegenBurstAvg"},[2]={threshold=2,type="MultiplierThreshold",var="HunterItem"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=8.75}},nil}
 c["Every 4 seconds, Regenerate 50% of Life over one second"]={{[1]={[1]={type="Condition",var="LifeRegenBurstFull"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=50},[2]={[1]={type="Condition",var="LifeRegenBurstAvg"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=12.5}},nil}
 c["Every 4 seconds, Regenerate Energy Shield equal to 1% of Evasion Rating over 1 second"]={{[1]={[1]={type="Condition",var="LifeRegenBurstFull"},[2]={percent="1",stat="Evasion",type="PercentStat"},flags=0,keywordFlags=0,name="EnergyShieldRegen",type="BASE",value=1},[2]={[1]={type="Condition",var="LifeRegenBurstAvg"},[2]={percent="1",stat="Evasion",type="PercentStat"},flags=0,keywordFlags=0,name="EnergyShieldRegen",type="BASE",value=0.25}},nil}
 c["Every 4 seconds, Regenerate Life equal to 1% of Armour and Evasion Rating over 1 second"]={{[1]={[1]={type="Condition",var="LifeRegenBurstFull"},[2]={percent="1",stat="Armour",type="PercentStat"},flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=1},[2]={[1]={type="Condition",var="LifeRegenBurstAvg"},[2]={percent="1",stat="Armour",type="PercentStat"},flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=0.25},[3]={[1]={type="Condition",var="LifeRegenBurstFull"},[2]={percent="1",stat="Evasion",type="PercentStat"},flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=1},[4]={[1]={type="Condition",var="LifeRegenBurstAvg"},[2]={percent="1",stat="Evasion",type="PercentStat"},flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=0.25}},nil}
@@ -8237,7 +8198,7 @@ c["Gain +50 Life when you Taunt an Enemy You gain Onslaught for 1 seconds on Kil
 c["Gain 1 Endurance Charge every second if you've been Hit Recently"]={{}," Endurance Charge every second  "}
 c["Gain 1 Endurance Charge every second if you've been Hit Recently +1 to Maximum Endurance Charges"]={{[1]={[1]={type="Condition",var="BeenHitRecently"},flags=0,keywordFlags=0,name="EnduranceChargesMax",type="BASE",value=1}}," Endurance Charge every second  +1 to  "}
 c["Gain 1 Endurance Charge every second if you've been Hit Recently and"]={{}," Endurance Charge every second  and "}
-c["Gain 1 Endurance Charge every second if you've been Hit Recently and +3% to maximum Fire Resistance if 4 Warlord Items are Equipped"]={{[1]={[1]={type="Condition",var="BeenHitRecently"},flags=0,keywordFlags=0,name="FireResistMax",type="BASE",value=1}}," Endurance Charge every second  and +3% to  if 4 Warlord Items are Equipped "}
+c["Gain 1 Endurance Charge every second if you've been Hit Recently and 4 Warlord Items are Equipped"]={{}," Endurance Charge every second  and 4 Warlord Items are Equipped "}
 c["Gain 1 Endurance Charge on use"]={{}," Endurance Charge on use "}
 c["Gain 1 Endurance Charge on use Gain 1 Frenzy Charge on use"]={{}," Endurance Charge on use Gain 1Charge on use "}
 c["Gain 1 Endurance Charge on use Petrified during Effect"]={{}," Endurance Charge on use Petrified  "}
@@ -8322,7 +8283,7 @@ c["Gain 15% of Physical Damage as Extra Chaos Damage"]={{[1]={flags=0,keywordFla
 c["Gain 15% of Physical Damage as Extra Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageGainAsCold",type="BASE",value=15}},nil}
 c["Gain 15% of Physical Damage as Extra Cold Damage during effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="PhysicalDamageGainAsCold",type="BASE",value=15}},nil}
 c["Gain 15% of Physical Damage as Extra Damage of each Element if"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=15}},"  as Extra Damage of each Element if "}
-c["Gain 15% of Physical Damage as Extra Damage of each Element if +1 to Level of all non-Exceptional Support Gems if 6 Shaper Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=15}},"  as Extra Damage of each Element if +1 to Level of all non-Exceptional Support Gems if 6 Shaper Items are Equipped "}
+c["Gain 15% of Physical Damage as Extra Damage of each Element if 6 Shaper Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="ShaperItem"},flags=0,keywordFlags=0,name="PhysicalDamageGainAsLightning",type="BASE",value=15},[2]={[1]={threshold=6,type="MultiplierThreshold",var="ShaperItem"},flags=0,keywordFlags=0,name="PhysicalDamageGainAsCold",type="BASE",value=15},[3]={[1]={threshold=6,type="MultiplierThreshold",var="ShaperItem"},flags=0,keywordFlags=0,name="PhysicalDamageGainAsFire",type="BASE",value=15}},nil}
 c["Gain 150 Life on Culling Strike"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=150}},"  on Culling Strike "}
 c["Gain 150 Life on Culling Strike Gain 20 Mana on Culling Strike"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=150}},"  on Culling Strike Gain 20 Mana on Culling Strike "}
 c["Gain 150 Life per Enemy Killed"]={{[1]={flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=150}},nil}
@@ -9657,8 +9618,7 @@ c["Nearby Chilled Enemies deal 10% reduced Damage with Hits"]={{[1]={[1]={actor=
 c["Nearby Enemies Convert 25% of their Physical Damage to Fire"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=25}}}},nil}
 c["Nearby Enemies Killed by anyone count as being Killed by you instead"]={nil,"Killed by anyone count as being Killed by you instead "}
 c["Nearby Enemies are Blinded"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Blinded",type="FLAG",value=true}}}},nil}
-c["Nearby Enemies are Blinded if 2 Redeemer Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Blinded",type="FLAG",value=true}}}}," if 2 Redeemer Items are Equipped "}
-c["Nearby Enemies are Blinded if 2 Redeemer Items are Equipped Unaffected by Chill if 2 Redeemer Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Blinded",type="FLAG",value=true}}}}," if 2 Redeemer Items are Equipped Unaffected by Chill if 2 Redeemer Items are Equipped "}
+c["Nearby Enemies are Blinded if 2 Redeemer Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={threshold=2,type="MultiplierThreshold",var="RedeemerItem"},flags=0,keywordFlags=0,name="Condition:Blinded",type="FLAG",value=true}}}},nil}
 c["Nearby Enemies are Blinded while Physical Aegis is not depleted"]={{[1]={[1]={neg=true,type="Condition",var="PhysicalAegisDepleted"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Blinded",type="FLAG",value=true}}}},nil}
 c["Nearby Enemies are Chilled"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Chilled",type="FLAG",value=true}}}},nil}
 c["Nearby Enemies are Covered in Ash"]={{[1]={flags=0,keywordFlags=0,name="CoveredInAshEffect",type="BASE",value=20}},nil}
@@ -9667,12 +9627,10 @@ c["Nearby Enemies are Crushed"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifie
 c["Nearby Enemies are Crushed while you have at least 25 Rage"]={{[1]={[1]={threshold=25,type="MultiplierThreshold",var="RageStack"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Crushed",type="FLAG",value=true}}}},nil}
 c["Nearby Enemies are Hindered, with 25% reduced Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Hindered",type="FLAG",value=true}}}},nil}
 c["Nearby Enemies are Intimidated"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Intimidated",type="FLAG",value=true}}}},nil}
-c["Nearby Enemies are Intimidated if 2 Warlord Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Intimidated",type="FLAG",value=true}}}}," if 2 Warlord Items are Equipped "}
-c["Nearby Enemies are Intimidated if 2 Warlord Items are Equipped Unaffected by Ignite if 2 Warlord Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Intimidated",type="FLAG",value=true}}}}," if 2 Warlord Items are Equipped Unaffected by Ignite if 2 Warlord Items are Equipped "}
+c["Nearby Enemies are Intimidated if 2 Warlord Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={threshold=2,type="MultiplierThreshold",var="WarlordItem"},flags=0,keywordFlags=0,name="Condition:Intimidated",type="FLAG",value=true}}}},nil}
 c["Nearby Enemies are Intimidated while you have Rage"]={{[1]={[1]={threshold=1,type="MultiplierThreshold",var="RageStack"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Intimidated",type="FLAG",value=true}}}},nil}
 c["Nearby Enemies are Scorched"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Scorched",type="FLAG",value=true}}},[2]={flags=0,keywordFlags=0,name="ScorchBase",type="BASE",value=10}},nil}
-c["Nearby Enemies are Unnerved if 2 Elder Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Unnerved",type="FLAG",value=true}}}}," if 2 Elder Items are Equipped "}
-c["Nearby Enemies are Unnerved if 2 Elder Items are Equipped Unaffected by Poison if 2 Hunter Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Unnerved",type="FLAG",value=true}}}}," if 2 Elder Items are Equipped Unaffected by Poison if 2 Hunter Items are Equipped "}
+c["Nearby Enemies are Unnerved if 2 Elder Items are Equipped"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={threshold=2,type="MultiplierThreshold",var="ElderItem"},flags=0,keywordFlags=0,name="Condition:Unnerved",type="FLAG",value=true}}}},nil}
 c["Nearby Enemies cannot deal Critical Strikes"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="NeverCrit",type="FLAG",value=true}}},[2]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:NeverCrit",type="FLAG",value=true}}}},nil}
 c["Nearby Enemies cannot gain Power, Frenzy or Endurance Charges"]={nil,"cannot gain Power, Frenzy or Endurance Charges "}
 c["Nearby Enemies cannot gain Power, Frenzy or Endurance Charges Projectile Barrages have no spread"]={nil,"cannot gain Power, Frenzy or Endurance Charges Projectile Barrages have no spread "}
@@ -9874,8 +9832,7 @@ c["Projectile Barrages have no spread You take no Extra Damage from Critical Str
 c["Projectiles Chain +1 times while you have Phasing"]={{[1]={[1]={type="Condition",var="Phasing"},flags=1024,keywordFlags=0,name="ChainCountMax",type="BASE",value=1}},nil}
 c["Projectiles Fork"]={{[1]={flags=1024,keywordFlags=0,name="ForkOnce",type="FLAG",value=true},[2]={flags=1024,keywordFlags=0,name="ForkCountMax",type="BASE",value=1}},nil}
 c["Projectiles Pierce 2 additional Targets"]={{[1]={flags=0,keywordFlags=0,name="PierceCount",type="BASE",value=2}},nil}
-c["Projectiles Pierce 2 additional Targets if 2 Hunter Items are Equipped"]={nil,"Projectiles Pierce 2 additional Targets if 2 Hunter Items are Equipped "}
-c["Projectiles Pierce 2 additional Targets if 2 Hunter Items are Equipped Every 4 seconds, Regenerate 35% of Life over one second if 2 Hunter Items are Equipped"]={nil,"Projectiles Pierce 2 additional Targets if 2 Hunter Items are Equipped Every 4 seconds, Regenerate 35% of Life over one second if 2 Hunter Items are Equipped "}
+c["Projectiles Pierce 2 additional Targets if 2 Hunter Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="HunterItem"},flags=0,keywordFlags=0,name="PierceCount",type="BASE",value="2"}},nil}
 c["Projectiles Pierce 5 additional Targets while you have Phasing"]={{[1]={[1]={type="Condition",var="Phasing"},flags=0,keywordFlags=0,name="PierceCount",type="BASE",value=5}},nil}
 c["Projectiles Pierce 6 additional Targets"]={{[1]={flags=0,keywordFlags=0,name="PierceCount",type="BASE",value=6}},nil}
 c["Projectiles Pierce all Burning Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Burning"},flags=0,keywordFlags=0,name="PierceAllTargets",type="FLAG",value=true}},nil}
@@ -10768,8 +10725,7 @@ c["Skills fire 2 additional Projectiles if you've been Hit Recently"]={{[1]={[1]
 c["Skills fire 2 additional Projectiles if you've used a Movement Skill Recently"]={{[1]={[1]={type="Condition",var="UsedMovementSkillRecently"},flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=2}},nil}
 c["Skills fire 3 additional Projectiles"]={{[1]={flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=3}},nil}
 c["Skills fire an additional Projectile"]={{[1]={flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=1}},nil}
-c["Skills fire an additional Projectile if 6 Hunter Items are Equipped"]={nil,"an additional Projectile if 6 Hunter Items are Equipped "}
-c["Skills fire an additional Projectile if 6 Hunter Items are Equipped You can apply an additional Curse if 6 Hunter Items are Equipped"]={nil,"an additional Projectile if 6 Hunter Items are Equipped You can apply an additional Curse if 6 Hunter Items are Equipped "}
+c["Skills fire an additional Projectile if 6 Hunter Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="HunterItem"},flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=1}},nil}
 c["Skills from Equipped Body Armour are Supported by Level 20 Fist of War"]={{[1]={[1]={slotName="Body Armour",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=20,skillId="SupportFistofWar"}}},nil}
 c["Skills from Equipped Body Armour are Supported by Level 30 Ancestral Call"]={{[1]={[1]={slotName="Body Armour",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=30,skillId="SupportAncestralCall"}}},nil}
 c["Skills gain a Base Energy Shield Cost equal to 200% of Base Mana Cost"]={{[1]={flags=0,keywordFlags=0,name="ManaCostAsEnergyShieldCost",type="BASE",value=200}},nil}
@@ -11654,8 +11610,7 @@ c["Unaffected by Bleeding while affected by Malevolence Unaffected by Poison whi
 c["Unaffected by Burning Ground"]={nil,"Unaffected by Burning Ground "}
 c["Unaffected by Burning Ground while affected by Purity of Fire"]={nil,"Unaffected by Burning Ground while affected by Purity of Fire "}
 c["Unaffected by Burning Ground while affected by Purity of Fire Unaffected by Flammability while affected by Purity of Fire"]={nil,"Unaffected by Burning Ground while affected by Purity of Fire Unaffected by Flammability while affected by Purity of Fire "}
-c["Unaffected by Chill if 2 Redeemer Items are Equipped"]={nil,"Unaffected by Chill if 2 Redeemer Items are Equipped "}
-c["Unaffected by Chill if 2 Redeemer Items are Equipped 3% of Elemental Damage Leeched as Energy Shield if 2 Shaper Items are Equipped"]={nil,"Unaffected by Chill if 2 Redeemer Items are Equipped 3% of Elemental Damage Leeched as Energy Shield if 2 Shaper Items are Equipped "}
+c["Unaffected by Chill if 2 Redeemer Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="RedeemerItem"},flags=0,keywordFlags=0,name="SelfChillEffect",type="MORE",value=-100}},nil}
 c["Unaffected by Chill while Channelling"]={{[1]={[1]={type="Condition",var="Channelling"},flags=0,keywordFlags=0,name="SelfChillEffect",type="MORE",value=-100}},nil}
 c["Unaffected by Chill while Leeching Mana"]={{[1]={[1]={type="Condition",var="LeechingMana"},flags=0,keywordFlags=0,name="SelfChillEffect",type="MORE",value=-100}},nil}
 c["Unaffected by Chilled Ground"]={nil,"Unaffected by Chilled Ground "}
@@ -11676,18 +11631,15 @@ c["Unaffected by Flammability while affected by Purity of Fire 20% of Fire and L
 c["Unaffected by Frostbite while affected by Purity of Ice"]={nil,"Unaffected by Frostbite while affected by Purity of Ice "}
 c["Unaffected by Frostbite while affected by Purity of Ice 20% of Fire and Cold Damage taken as Lightning Damage while"]={nil,"Unaffected by Frostbite while affected by Purity of Ice 20% of Fire and Cold Damage taken as Lightning Damage while "}
 c["Unaffected by Ignite"]={{[1]={flags=0,keywordFlags=0,name="SelfIgniteEffect",type="MORE",value=-100}},nil}
-c["Unaffected by Ignite if 2 Warlord Items are Equipped"]={nil,"Unaffected by Ignite if 2 Warlord Items are Equipped "}
-c["Unaffected by Ignite if 2 Warlord Items are Equipped 10% of Physical Damage taken as Lightning Damage if 4 Crusader Items are Equipped"]={nil,"Unaffected by Ignite if 2 Warlord Items are Equipped 10% of Physical Damage taken as Lightning Damage if 4 Crusader Items are Equipped "}
+c["Unaffected by Ignite if 2 Warlord Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="WarlordItem"},flags=0,keywordFlags=0,name="SelfIgniteEffect",type="MORE",value=-100}},nil}
 c["Unaffected by Ignite or Shock if Maximum Life and Maximum Mana are within 500"]={nil,"Unaffected by Ignite or Shock if Maximum Life and Maximum Mana are within 500 "}
 c["Unaffected by Poison"]={nil,"Unaffected by Poison "}
 c["Unaffected by Poison 20% of Damage taken Recouped as Life"]={nil,"Unaffected by Poison 20% of Damage taken Recouped as Life "}
-c["Unaffected by Poison if 2 Hunter Items are Equipped"]={nil,"Unaffected by Poison if 2 Hunter Items are Equipped "}
-c["Unaffected by Poison if 2 Hunter Items are Equipped Projectiles Pierce 2 additional Targets if 2 Hunter Items are Equipped"]={nil,"Unaffected by Poison if 2 Hunter Items are Equipped Projectiles Pierce 2 additional Targets if 2 Hunter Items are Equipped "}
+c["Unaffected by Poison if 2 Hunter Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="HunterItem"},flags=0,keywordFlags=0,name="SelfPoisonEffect",type="MORE",value=-100}},nil}
 c["Unaffected by Poison while affected by Malevolence"]={nil,"Unaffected by Poison while affected by Malevolence "}
 c["Unaffected by Poison while affected by Malevolence Damaging Ailments you inflict deal Damage 15% faster while affected by Malevolence"]={nil,"Unaffected by Poison while affected by Malevolence Damaging Ailments you inflict deal Damage 15% faster while affected by Malevolence "}
 c["Unaffected by Shock"]={{[1]={flags=0,keywordFlags=0,name="SelfShockEffect",type="MORE",value=-100}},nil}
-c["Unaffected by Shock if 2 Crusader Items are Equipped"]={nil,"Unaffected by Shock if 2 Crusader Items are Equipped "}
-c["Unaffected by Shock if 2 Crusader Items are Equipped Consecrated Ground around you while stationary if 2 Crusader Items are Equipped"]={nil,"Unaffected by Shock if 2 Crusader Items are Equipped Consecrated Ground around you while stationary if 2 Crusader Items are Equipped "}
+c["Unaffected by Shock if 2 Crusader Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="CrusaderItem"},flags=0,keywordFlags=0,name="SelfShockEffect",type="MORE",value=-100}},nil}
 c["Unaffected by Shock while Leeching Energy Shield"]={{[1]={[1]={type="Condition",var="LeechingEnergyShield"},flags=0,keywordFlags=0,name="SelfShockEffect",type="MORE",value=-100}},nil}
 c["Unaffected by Shocked Ground"]={nil,"Unaffected by Shocked Ground "}
 c["Unaffected by Shocked Ground while affected by Purity of Lightning"]={nil,"Unaffected by Shocked Ground while affected by Purity of Lightning "}
@@ -11943,8 +11895,7 @@ c["You are cursed with Vulnerability"]={{[1]={flags=0,keywordFlags=0,name="Extra
 c["You can Cast 2 additional Brands"]={{[1]={flags=0,keywordFlags=0,name="ActiveBrandLimit",type="BASE",value=2}},nil}
 c["You can Cast an additional Brand"]={{[1]={flags=0,keywordFlags=0,name="ActiveBrandLimit",type="BASE",value=1}},nil}
 c["You can apply an additional Curse"]={{[1]={flags=0,keywordFlags=0,name="EnemyCurseLimit",type="BASE",value=1}},nil}
-c["You can apply an additional Curse if 6 Hunter Items are Equipped"]={nil,"You can apply an additional Curse if 6 Hunter Items are Equipped "}
-c["You can apply an additional Curse if 6 Hunter Items are Equipped +1 to Level of all Cold Skill Gems if 6 Redeemer Items are Equipped"]={nil,"You can apply an additional Curse if 6 Hunter Items are Equipped +1 to Level of all Cold Skill Gems if 6 Redeemer Items are Equipped "}
+c["You can apply an additional Curse if 6 Hunter Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="HunterItem"},flags=0,keywordFlags=0,name="EnemyCurseLimit",type="BASE",value=1}},nil}
 c["You can apply an additional Curse while affected by Malevolence"]={{[1]={[1]={type="Condition",var="AffectedByMalevolence"},flags=0,keywordFlags=0,name="EnemyCurseLimit",type="BASE",value=1}},nil}
 c["You can apply an additional Curse while at maximum Power Charges"]={{[1]={[1]={stat="PowerCharges",thresholdStat="PowerChargesMax",type="StatThreshold"},flags=0,keywordFlags=0,name="EnemyCurseLimit",type="BASE",value=1}},nil}
 c["You can apply one fewer Curse"]={{[1]={flags=0,keywordFlags=0,name="EnemyCurseLimit",type="BASE",value=-1}},nil}

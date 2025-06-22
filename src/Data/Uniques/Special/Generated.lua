@@ -589,7 +589,6 @@ local boundByDestiny = {
 [[
 Bound by Destiny
 Prismatic Jewel
-League: Mercenaries of Trarthus
 Source: Drops from unique{Incarnation of Neglect} or unique{Incarnation of Fear} or unique{Incarnation of Dread}
 Limited to: 1
 Has Alt Variant: true
@@ -659,7 +658,9 @@ for _, mod in ipairs(boundByDestinyMods) do
 	table.insert(boundByDestiny, "Variant: " .. variantName)
 end
 for i, mod in ipairs(boundByDestinyMods) do
-	table.insert(boundByDestiny, "{variant:" .. i .. "}" .. mod.mod[1])
+	for j, _ in ipairs(mod.mod) do
+		table.insert(boundByDestiny, "{variant:" .. i .. "}" .. mod.mod[j])
+	end
 end
 
 table.insert(watchersEye,
