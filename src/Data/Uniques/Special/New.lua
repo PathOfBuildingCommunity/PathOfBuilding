@@ -186,7 +186,7 @@ Bow Attacks Sacrifice a random Damageable Minion to fire (1-3) additional Arrow
 {variant:1}Increases and Reductions to Minion Damage also affect you
 {variant:2}Increases and Reductions to Minion Attack Speed also affect you
 {variant:3}Increases and Reductions to Minion Cast Speed also affect you
-{variant:4}#% increased Cast Speed with Minion Skills
+{variant:4}(20-40)% increased Cast Speed with Minion Skills
 {variant:5}Minions are Aggressive
 {variant:6}+(365-400) to Armour and Evasion Rating
 {variant:7}+(365-400) to Evasion Rating
