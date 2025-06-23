@@ -983,6 +983,34 @@ minions["SkitterbotLightning"] = {
 	},
 }
 
+minions["SkitterbotFire"] = {
+	name = "Scorching Skitterbot",
+	monsterTags = { "construct", "extra_extra_small_height", "is_unarmed", "non_attacking", "stone_armour", "very_fast_movement", },
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"SkitterbotDetonateMines",
+		"SkitterbotWait",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+	},
+}
+
 minions["SummonedReaper"] = {
 	name = "Reaper",
 	monsterTags = { "bone_armour", "bones", "fast_movement", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "melee", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", },

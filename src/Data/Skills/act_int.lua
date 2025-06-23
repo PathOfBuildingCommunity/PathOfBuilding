@@ -18580,6 +18580,7 @@ skills["SummonSkitterbots"] = {
 	minionList = {
 		"SkitterbotCold",
 		"SkitterbotLightning",
+		"SkitterbotFire",
 	},
 	statMap = {
 		["skitterbots_trap_mine_damage_+%_final"] = {

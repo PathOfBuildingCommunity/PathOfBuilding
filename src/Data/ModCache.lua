@@ -5772,6 +5772,7 @@ c["62% increased Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="Lightnin
 c["62% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=62}},nil}
 c["63% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=63}},nil}
 c["63% increased Critical Strike Chance"]={{[1]={flags=0,keywordFlags=0,name="CritChance",type="INC",value=63}},nil}
+c["63% increased Effect of Non-Damaging Ailments inflicted by Summoned Skitterbots"]={{[1]={flags=0,keywordFlags=0,name="SkitterbotAilmentEffect",type="INC",value=63}},nil}
 c["63% increased Effect of Shrine Buffs on you"]={{[1]={flags=0,keywordFlags=0,name="ShrineBuffEffect",type="INC",value=63}},nil}
 c["63% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=63}},nil}
 c["63% reduced Trap Duration"]={{[1]={flags=0,keywordFlags=0,name="TrapDuration",type="INC",value=-63}},nil}
@@ -5874,7 +5875,7 @@ c["75% increased Critical Strike Chance"]={{[1]={flags=0,keywordFlags=0,name="Cr
 c["75% increased Critical Strike Chance for Spells per Raised Spectre"]={{[1]={[1]={stat="ActiveSpectreLimit",type="PerStat"},flags=2,keywordFlags=0,name="CritChance",type="INC",value=75}},nil}
 c["75% increased Damage with Ignite from Melee Weapons"]={{[1]={flags=67108864,keywordFlags=8388608,name="Damage",type="INC",value=75}},nil}
 c["75% increased Duration of Poisons you inflict during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="EnemyPoisonDuration",type="INC",value=75}},nil}
-c["75% increased Effect of Non-Damaging Ailments inflicted by Summoned Skitterbots"]={{[1]={flags=0,keywordFlags=0,name="EnemyShockEffect",type="INC",value=75},[2]={flags=0,keywordFlags=0,name="EnemyChillEffect",type="INC",value=75},[3]={flags=0,keywordFlags=0,name="EnemyFreezeEffect",type="INC",value=75},[4]={flags=0,keywordFlags=0,name="EnemyScorchEffect",type="INC",value=75},[5]={flags=0,keywordFlags=0,name="EnemyBrittleEffect",type="INC",value=75},[6]={flags=0,keywordFlags=0,name="EnemySapEffect",type="INC",value=75}},"  inflicted by Summoned Skitterbots "}
+c["75% increased Effect of Non-Damaging Ailments inflicted by Summoned Skitterbots"]={{[1]={flags=0,keywordFlags=0,name="SkitterbotAilmentEffect",type="INC",value=75}},nil}
 c["75% increased Effect of Shrine Buffs on you"]={{[1]={flags=0,keywordFlags=0,name="ShrineBuffEffect",type="INC",value=75}},nil}
 c["75% increased Effect of Socketed Abyss Jewels"]={{[1]={flags=0,keywordFlags=0,name="SocketedJewelEffect",type="INC",value=75}},nil}
 c["75% increased Effect of your Marks"]={{[1]={[1]={skillType=109,type="SkillType"},flags=0,keywordFlags=0,name="CurseEffect",type="INC",value=75}},nil}
@@ -11293,8 +11294,7 @@ c["Summon 4 additional Skeleton Warriors with Summon Skeleton +1 second to Summo
 c["Summon Raging Spirit has 25% increased Duration"]={{[1]={[1]={includeTransfigured=true,skillName="Summon Raging Spirit",type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="INC",value=25}},nil}
 c["Summon Raging Spirit has 30% increased Duration"]={{[1]={[1]={includeTransfigured=true,skillName="Summon Raging Spirit",type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="INC",value=30}},nil}
 c["Summon Skeletons cannot Summon more than 1 Skeleton Warrior"]={nil,"cannot Summon more than 1 Skeleton Warrior "}
-c["Summon Skitterbots also summons a Scorching Skitterbot"]={nil,"also summons a Scorching Skitterbot "}
-c["Summon Skitterbots also summons a Scorching Skitterbot Summoned Skitterbots' Auras affect you as well as Enemies"]={nil,"also summons a Scorching Skitterbot Summoned Skitterbots' Auras affect you as well as Enemies "}
+c["Summon Skitterbots also summons a Scorching Skitterbot"]={{[1]={flags=0,keywordFlags=0,name="ScorchingSkitterbot",type="FLAG",value=true}},nil}
 c["Summoned Arbalists Convert 100% of Physical Damage to Cold Damage"]={{[1]={[1]={skillName="Summon Arbalists",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="PhysicalDamageConvertToCold",type="BASE",value=100}}}},nil}
 c["Summoned Arbalists Convert 100% of Physical Damage to Fire Damage"]={{[1]={[1]={skillName="Summon Arbalists",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=100}}}},nil}
 c["Summoned Arbalists Convert 100% of Physical Damage to Lightning Damage"]={{[1]={[1]={skillName="Summon Arbalists",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=100}}}},nil}
@@ -11373,8 +11373,7 @@ c["Summoned Skeletons have 30% of Physical Damage Converted to Chaos Damage"]={{
 c["Summoned Skeletons have Avatar of Fire"]={{[1]={[1]={includeTransfigured=true,skillName="Summon Skeletons",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Avatar of Fire"}}}},nil}
 c["Summoned Skeletons take 23% of their Maximum Life per second as Fire Damage"]={{[1]={[1]={includeTransfigured=true,skillName="Summon Skeletons",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={percent=23,stat="Life",type="PercentStat"},flags=0,keywordFlags=0,name="FireDegen",type="BASE",value=1}}}},nil}
 c["Summoned Skeletons take 30% of their Maximum Life per second as Fire Damage"]={{[1]={[1]={includeTransfigured=true,skillName="Summon Skeletons",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={percent=30,stat="Life",type="PercentStat"},flags=0,keywordFlags=0,name="FireDegen",type="BASE",value=1}}}},nil}
-c["Summoned Skitterbots' Auras affect you as well as Enemies"]={nil,"Summoned Skitterbots' Auras affect you as well as Enemies "}
-c["Summoned Skitterbots' Auras affect you as well as Enemies 75% increased Effect of Non-Damaging Ailments inflicted by Summoned Skitterbots"]={nil,"Summoned Skitterbots' Auras affect you as well as Enemies 75% increased Effect of Non-Damaging Ailments inflicted by Summoned Skitterbots "}
+c["Summoned Skitterbots' Auras affect you as well as Enemies"]={{[1]={flags=0,keywordFlags=0,name="SkitterbotAffectPlayer",type="FLAG",value=true}},nil}
 c["Suppressed Spell Damage cannot inflict Elemental Ailments on you"]={nil,"Suppressed Spell Damage cannot inflict Elemental Ailments on you "}
 c["Supreme Decadence"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Supreme Decadence"}},nil}
 c["Supreme Ego"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Supreme Ego"}},nil}
@@ -11436,7 +11435,7 @@ c["Temporal Rift has no Reservation"]={{[1]={[1]={skillId="TemporalRift",type="S
 c["Thaumaturgical Lure"]={nil,"Thaumaturgical Lure "}
 c["Thaumaturgical Lure 40% increased Quantity of Fish Caught"]={nil,"Thaumaturgical Lure 40% increased Quantity of Fish Caught "}
 c["The Agnostic"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="The Agnostic"}},nil}
-c["The Effect of Chill on you is reversed"]={{[1]={flags=0,keywordFlags=0,name="SelfChillEffectIsReversed",type="FLAG",value=true}},nil}
+c["The Effect of Chill on you is reversed"]={{[1]={flags=0,keywordFlags=0,name="SelfChillEffectIsReversed",type="FLAG",value=true},[2]={[1]={type="Condition",var="Chilled"},flags=0,keywordFlags=0,name="Dummy",source="",type="DUMMY",value=1}},nil}
 c["The Impaler"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="The Impaler"}},nil}
 c["The first 6 Mana Burn applied to you have no effect"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="EffectiveManaBurnStacks",type="BASE",value=-6}},nil}
 c["The stars are aligned if you have 6 Influence types among other Equipped Items"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="ShaperItem"},[2]={threshold=2,type="MultiplierThreshold",var="ElderItem"},[3]={threshold=2,type="MultiplierThreshold",var="WarlordItem"},[4]={threshold=2,type="MultiplierThreshold",var="HunterItem"},[5]={threshold=2,type="MultiplierThreshold",var="CrusaderItem"},[6]={threshold=2,type="MultiplierThreshold",var="RedeemerItem"},flags=0,keywordFlags=0,name="Condition:StarsAreAligned",type="FLAG",value=true}},nil}
