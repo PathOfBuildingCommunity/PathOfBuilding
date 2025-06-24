@@ -51,7 +51,7 @@ local function matchFlags(reqFlags, notFlags, flags)
 			end
 		end
 	end
-	-- Both flag settings falsy
+	-- Both flag checks passed, default true
 	return true
 end
 

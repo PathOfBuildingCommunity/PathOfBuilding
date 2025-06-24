@@ -465,7 +465,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	runSkillFunc("initialFunc")
-	
+
 	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered
 	if skillCfg.skillCond["SkillIsTriggered"] then
 		skillFlags.triggered = true
