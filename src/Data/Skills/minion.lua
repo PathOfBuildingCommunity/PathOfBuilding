@@ -40,7 +40,7 @@ skills["SandstormChaosElementalSummoned"] = {
 	color = 4,
 	baseEffectiveness = 6.1421999931335,
 	incrementalEffectiveness = 0.052099999040365,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.DamageOverTime] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -70,7 +70,7 @@ skills["SandstormChaosElementalSummonedEmpowered"] = {
 	color = 4,
 	baseEffectiveness = 19.89999961853,
 	incrementalEffectiveness = 0.052099999040365,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.DamageOverTime] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
 	baseFlags = {
@@ -287,7 +287,7 @@ skills["IceElementalSpearSummoned"] = {
 	color = 3,
 	baseEffectiveness = 2.2813000679016,
 	incrementalEffectiveness = 0.034600000828505,
-	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Multicastable] = true, },
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -362,7 +362,7 @@ skills["LightningGolemArcSummoned"] = {
 	color = 3,
 	baseEffectiveness = 0.78420001268387,
 	incrementalEffectiveness = 0.028500000014901,
-	skillTypes = { [SkillType.Duration] = true, [SkillType.Lightning] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, },
+	skillTypes = { [SkillType.Duration] = true, [SkillType.Lightning] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	baseFlags = {
@@ -387,7 +387,7 @@ skills["MonsterProjectileSpellLightningGolemSummoned"] = {
 	color = 4,
 	baseEffectiveness = 3.2934999465942,
 	incrementalEffectiveness = 0.036100000143051,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Multicastable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -610,7 +610,7 @@ skills["RockGolemSlam"] = {
 	hidden = true,
 	color = 1,
 	baseEffectiveness = 0,
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Melee] = true, [SkillType.Multistrikeable] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
