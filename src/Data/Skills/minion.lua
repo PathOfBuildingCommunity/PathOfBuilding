@@ -30,6 +30,10 @@ skills["ChaosElementalCascadeSummoned"] = {
 		"spell_maximum_base_physical_damage",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 1, levelRequirement = 4, cooldown = 3, statInterpolation = { 3, 3, }, },
 	},
@@ -123,6 +127,10 @@ skills["FireElementalFlameRedSummoned"] = {
 		"base_is_projectile",
 		"always_pierce",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.8, critChance = 5, levelRequirement = 3, statInterpolation = { 3, 3, }, },
 	},
@@ -152,6 +160,10 @@ skills["FireElementalMortarSummoned"] = {
 		"is_area_damage",
 		"base_is_projectile",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 2, cooldown = 6, levelRequirement = 34, statInterpolation = { 3, 3, }, },
 	},
@@ -173,6 +185,10 @@ skills["FireElementalConeSummoned"] = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
 		"is_area_damage",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.25, critChance = 5, storedUses = 1, damageEffectiveness = 2, cooldown = 2, levelRequirement = 34, statInterpolation = { 3, 3, }, },
@@ -231,6 +247,9 @@ skills["FireElementalMeteorSummoned"] = {
 	stats = {
 		"base_fire_damage_to_deal_per_minute",
 		"is_area_damage",
+	},
+	notMinionStat = {
+		"base_fire_damage_to_deal_per_minute",
 	},
 	levels = {
 		[1] = { 21.666666356226, damageEffectiveness = 6.8, baseMultiplier = 6.8, levelRequirement = 1, statInterpolation = { 3, }, },
@@ -302,6 +321,10 @@ skills["IceElementalSpearSummoned"] = {
 		"spell_maximum_base_cold_damage",
 		"base_is_projectile",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, storedUses = 1, levelRequirement = 3, cooldown = 4, statInterpolation = { 3, 3, }, },
 	},
@@ -330,6 +353,10 @@ skills["IceElementalSpearSummonedDeathNova"] = {
 		"base_is_projectile",
 		"projectiles_nova",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
@@ -351,6 +378,10 @@ skills["DeathExplodeIceElementalSummoned"] = {
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
 		"is_area_damage",
+	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, statInterpolation = { 3, 3, }, },
@@ -374,6 +405,10 @@ skills["LightningGolemArcSummoned"] = {
 		{ "base_skill_effect_duration", 8000 },
 	},
 	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
+	notMinionStat = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
 	},
@@ -403,6 +438,10 @@ skills["MonsterProjectileSpellLightningGolemSummoned"] = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
 		"base_is_projectile",
+	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
 		[1] = { 0.20000000298023, 1.7999999523163, damageEffectiveness = 2.5, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, }, },
@@ -504,6 +543,9 @@ skills["RagingSpiritMeleeAttack"] = {
 	stats = {
 		"active_skill_damage_+%_final",
 	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
+	},
 	levels = {
 		[1] = { 76, levelRequirement = 4, statInterpolation = { 1, }, },
 		[2] = { 71, levelRequirement = 6, statInterpolation = { 1, }, },
@@ -551,6 +593,10 @@ skills["SkeletonMinionProjectileCold"] = {
 		"spell_maximum_base_cold_damage",
 		"base_is_projectile",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
@@ -576,6 +622,10 @@ skills["SkeletonMinionProjectileFire"] = {
 		"spell_maximum_base_fire_damage",
 		"base_is_projectile",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, }, },
 	},
@@ -600,6 +650,10 @@ skills["SkeletonMinionProjectileLightning"] = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
 		"base_is_projectile",
+	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
 		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
@@ -814,6 +868,10 @@ skills["SummonPhantasmFadingProjectile"] = {
 		"base_is_projectile",
 		"always_pierce",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
@@ -970,6 +1028,11 @@ skills["RelicTriggeredNova"] = {
 		{ "base_skill_effect_duration", 4000 },
 	},
 	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"active_skill_area_of_effect_radius_+%_final",
+	},
+	notMinionStat = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
 		"active_skill_area_of_effect_radius_+%_final",
@@ -1142,6 +1205,10 @@ skills["AbsolutionMinion"] = {
 		"spell_maximum_base_physical_damage",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.8, critChance = 6, levelRequirement = 12, statInterpolation = { 3, 3, }, },
 	},
@@ -1171,6 +1238,10 @@ skills["AbsolutionMinionEmpowered"] = {
 		"spell_maximum_base_physical_damage",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, storedUses = 1, damageEffectiveness = 1.3, cooldown = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
@@ -1197,6 +1268,10 @@ skills["AbsolutionMinionVaal"] = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
 		"is_area_damage",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.8, critChance = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
@@ -1227,6 +1302,10 @@ skills["AbsolutionMinionVaalCascade"] = {
 		"support_spell_cascade_sideways",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 2.4, critChance = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
@@ -1251,6 +1330,10 @@ skills["VaalAbsolutionDelayedBlast"] = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
 		"is_area_damage",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, storedUses = 1, damageEffectiveness = 3.2, cooldown = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
@@ -1698,6 +1781,9 @@ skills["SummonedReaperMelee"] = {
 		"active_skill_damage_+%_final",
 		"action_attack_or_cast_time_uses_animation_length",
 	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
+	},
 	levels = {
 		[1] = { 1, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 28, statInterpolation = { 2, }, },
 		[2] = { 60, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 80, statInterpolation = { 2, }, },
@@ -1719,6 +1805,9 @@ skills["SummonedReaperUltimate"] = {
 		"active_skill_damage_+%_final",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
+	},
 	levels = {
 		[1] = { 1, damageEffectiveness = 1.5, baseMultiplier = 1.5, levelRequirement = 28, statInterpolation = { 2, }, },
 		[2] = { 60, damageEffectiveness = 1.65, baseMultiplier = 1.65, levelRequirement = 80, statInterpolation = { 2, }, },
@@ -1738,6 +1827,9 @@ skills["GASummonReaperUltimateLeftSlash"] = {
 	stats = {
 		"active_skill_damage_+%_final",
 		"is_area_damage",
+	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
 	},
 	levels = {
 		[1] = { 1, damageEffectiveness = 1.5, baseMultiplier = 1.5, levelRequirement = 28, statInterpolation = { 2, }, },
@@ -1759,6 +1851,9 @@ skills["GASummonReaperComboWhirl"] = {
 		"active_skill_damage_+%_final",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
+	},
 	levels = {
 		[1] = { 1, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 28, statInterpolation = { 2, }, },
 		[2] = { 60, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 80, statInterpolation = { 2, }, },
@@ -1778,6 +1873,9 @@ skills["GASummonReaperComboLeftSlash"] = {
 	stats = {
 		"active_skill_damage_+%_final",
 		"is_area_damage",
+	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
 	},
 	levels = {
 		[1] = { 1, levelRequirement = 28, statInterpolation = { 2, }, },

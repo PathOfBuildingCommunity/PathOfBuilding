@@ -898,6 +898,9 @@ skills["SupportCastWhenDamageTaken"] = {
 		"spell_uncastable_if_triggerable",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
+	notMinionStat = {
+		"cast_on_damage_taken_threshold",
+	},
 	levels = {
 		[1] = { 528, -65, 38, PvPDamageMultiplier = -80, cooldown = 0.25, storedUses = 1, manaMultiplier = 150, levelRequirement = 38, statInterpolation = { 1, 1, 1, }, },
 		[2] = { 583, -63, 40, PvPDamageMultiplier = -80, cooldown = 0.25, storedUses = 1, manaMultiplier = 150, levelRequirement = 40, statInterpolation = { 1, 1, 1, }, },
@@ -2924,6 +2927,10 @@ skills["SupportLifetap"] = {
 		"base_skill_cost_life_instead_of_mana",
 		"quality_display_lifetap_is_gem",
 	},
+	notMinionStat = {
+		"support_lifetap_damage_+%_final_while_buffed",
+		"support_lifetap_spent_life_threshold",
+	},
 	levels = {
 		[1] = { 10, 23, manaMultiplier = 200, levelRequirement = 8, statInterpolation = { 1, 1, }, },
 		[2] = { 10, 27, manaMultiplier = 200, levelRequirement = 10, statInterpolation = { 1, 1, }, },
@@ -3692,6 +3699,9 @@ skills["SupportBallistaTotem"] = {
 		"is_ranged_attack_totem",
 		"is_totem",
 	},
+	notMinionStat = {
+		"totem_support_gem_level",
+	},
 	levels = {
 		[1] = { -32, 8, manaMultiplier = 20, levelRequirement = 8, statInterpolation = { 1, 1, }, },
 		[2] = { -32, 10, manaMultiplier = 20, levelRequirement = 10, statInterpolation = { 1, 1, }, },
@@ -3765,6 +3775,12 @@ skills["SupportInspiration"] = {
 		{ "gain_righteous_charge_on_mana_spent_%", 100 },
 	},
 	stats = {
+		"support_inspiration_mana_cost_+%_final",
+		"lose_all_righteous_charges_on_mana_use_threshold",
+		"elemental_damage_+%_final_per_righteous_charge",
+		"critical_strike_chance_+%_per_righteous_charge",
+	},
+	notMinionStat = {
 		"support_inspiration_mana_cost_+%_final",
 		"lose_all_righteous_charges_on_mana_use_threshold",
 		"elemental_damage_+%_final_per_righteous_charge",
@@ -3999,6 +4015,10 @@ skills["SupportBluntWeaponShockwave"] = {
 		"is_area_damage",
 		"triggered_by_shockwave_support",
 	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
+		"base_cooldown_speed_+%",
+	},
 	levels = {
 		[1] = { 0, 0, baseMultiplier = 2.307, storedUses = 1, damageEffectiveness = 2.307, cooldown = 1, levelRequirement = 18, statInterpolation = { 1, 1, }, },
 		[2] = { 0, 2, baseMultiplier = 2.353, storedUses = 1, damageEffectiveness = 2.353, cooldown = 1, levelRequirement = 22, statInterpolation = { 1, 1, }, },
@@ -4078,6 +4098,9 @@ skills["SupportSpellTotem"] = {
 		"totem_support_gem_level",
 		"base_skill_is_totemified",
 		"is_totem",
+	},
+	notMinionStat = {
+		"totem_support_gem_level",
 	},
 	levels = {
 		[1] = { -49, 8, manaMultiplier = 100, levelRequirement = 8, statInterpolation = { 1, 1, }, },
@@ -4235,6 +4258,13 @@ skills["SupportTrauma"] = {
 		"support_trauma_stun_duration_+%_per_trauma",
 		"support_trauma_base_duration_ms",
 		"supported_skill_can_only_use_axe_mace_and_staff",
+	},
+	notMinionStat = {
+		"trauma_strike_self_damage_per_trauma",
+		"attack_minimum_added_physical_damage_with_weapons_per_trauma",
+		"attack_maximum_added_physical_damage_with_weapons_per_trauma",
+		"support_trauma_stun_duration_+%_per_trauma",
+		"support_trauma_base_duration_ms",
 	},
 	levels = {
 		[1] = { 1, 2, 3, 5, 5000, manaMultiplier = 40, levelRequirement = 38, statInterpolation = { 3, 1, 1, 1, 1, }, },

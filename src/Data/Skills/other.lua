@@ -30,6 +30,10 @@ skills["RepeatingShockwave"] = {
 		"skill_can_add_multiple_charges_per_action",
 		"no_cost",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
 		[7] = { 50, 75, 10, critChance = 5, PvPDamageMultiplier = -80, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
 		[20] = { 150, 225, 25, critChance = 5, PvPDamageMultiplier = -80, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
@@ -105,6 +109,9 @@ skills["AnimateGuardiansWeapon"] = {
 		"attack_maximum_added_physical_damage",
 		"base_number_of_animated_weapons_allowed",
 		"chance_to_trigger_on_animate_guardian_kill_%",
+	},
+	notMinionStat = {
+		"chance_to_trigger_on_animate_weapon_kill_%",
 	},
 	levels = {
 		[18] = { 10, 108, 159, 13, storedUses = 1, levelRequirement = 64, cooldown = 0.05, statInterpolation = { 1, 1, 1, 1, }, },
@@ -495,6 +502,10 @@ skills["BloodSacramentUnique"] = {
 		"is_area_damage",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 1, damageEffectiveness = 0.03, lifeReservationPercent = 2, cooldown = 0.35, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
@@ -592,6 +603,10 @@ skills["Brandsurge"] = {
 		"display_brand_deonate_tag_conversion",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[20] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 1, damageEffectiveness = 5.1, cooldown = 1.5, levelRequirement = 70, statInterpolation = { 3, 3, }, cost = { Mana = 20, }, },
 	},
@@ -657,6 +672,10 @@ skills["UniqueEnchantmentOfInfernoOnCrit"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
 	},
 	levels = {
 		[1] = { 2.4000000953674, 3.7999999523163, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 3, levelRequirement = 75, statInterpolation = { 3, 3, }, },
@@ -924,6 +943,10 @@ skills["DeathWish"] = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
 		"is_area_damage",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
 	},
 	levels = {
 		[20] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 70, statInterpolation = { 3, 3, }, cost = { Mana = 7, }, },
@@ -1231,6 +1254,9 @@ skills["SupportEarthbreaker"] = {
 		"force_lite_skill_effects",
 		"support_totem_type_override_to_support_slam_ancestor",
 	},
+	notMinionStat = {
+		"totem_support_gem_level",
+	},
 	levels = {
 		[1] = { 8, 0, manaMultiplier = 100, levelRequirement = 8, statInterpolation = { 1, 1, }, },
 		[2] = { 10, 1, manaMultiplier = 100, levelRequirement = 10, statInterpolation = { 1, 1, }, },
@@ -1381,6 +1407,10 @@ skills["ElementalWarding"] = {
 		"spell_uncastable_if_triggerable",
 		"disable_visual_hit_effect",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[20] = { 0.80000001192093, 1.2000000476837, critChance = 7, storedUses = 1, levelRequirement = 70, cooldown = 1, statInterpolation = { 3, 3, }, },
 	},
@@ -1449,6 +1479,9 @@ skills["Envy"] = {
 		"active_skill_base_radius_+",
 		"base_deal_no_damage",
 	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
+	},
 	levels = {
 		[1] = { 0.5, 0.69999998807907, 0.44999998807907, 0.60000002384186, 14, storedUses = 1, manaReservationPercent = 50, cooldown = 1.2, levelRequirement = 60, statInterpolation = { 3, 3, 3, 3, 1, }, },
 		[15] = { 0.5, 0.69999998807907, 0.44999998807907, 0.60000002384186, 14, storedUses = 1, manaReservationPercent = 50, cooldown = 1.2, levelRequirement = 60, statInterpolation = { 3, 3, 3, 3, 1, }, },
@@ -1512,6 +1545,10 @@ skills["FireBurstOnHit"] = {
 		"spell_maximum_base_fire_damage",
 		"is_area_damage",
 		"spell_uncastable_if_triggerable",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
@@ -1615,6 +1652,10 @@ skills["AtziriUniqueStaffFlameblast"] = {
 		"is_area_damage",
 		"base_skill_show_average_damage_instead_of_dps",
 		"skill_has_trigger_from_unique_item",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
 	},
 	levels = {
 		[20] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -30, storedUses = 1, damageEffectiveness = 8.5, cooldown = 1.5, levelRequirement = 70, statInterpolation = { 3, 3, }, },
@@ -1748,6 +1789,10 @@ skills["GoreShockwave"] = {
 		"active_skill_base_radius_+",
 		"base_cooldown_speed_+%",
 		"is_area_damage",
+	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
+		"base_cooldown_speed_+%",
 	},
 	levels = {
 		[1] = { 1, 0, baseMultiplier = 2.307, storedUses = 1, damageEffectiveness = 2.307, cooldown = 1, levelRequirement = 1, statInterpolation = { 1, 1, }, },
@@ -2010,6 +2055,10 @@ skills["LightningBolt"] = {
 		"spell_maximum_base_lightning_damage",
 		"is_area_damage",
 		"spell_uncastable_if_triggerable",
+	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
 		[1] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
@@ -2657,6 +2706,10 @@ skills["SpiritBurst"] = {
 		"base_is_projectile",
 		"projectiles_nova",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[20] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.2, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 70, statInterpolation = { 3, 3, }, },
 	},
@@ -2698,6 +2751,10 @@ skills["StalkingPustule"] = {
 		"is_area_damage",
 		"base_skill_show_average_damage_instead_of_dps",
 		"spell_uncastable_if_triggerable",
+	},
+	notMinionStat = {
+		"spell_minimum_base_chaos_damage",
+		"spell_maximum_base_chaos_damage",
 	},
 	levels = {
 		[15] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.4, cooldown = 2, levelRequirement = 59, statInterpolation = { 3, 3, }, },
@@ -2758,6 +2815,10 @@ skills["StormCascadeTriggered"] = {
 		"spell_maximum_base_physical_damage",
 		"is_area_damage",
 		"spell_uncastable_if_triggerable",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 28, statInterpolation = { 3, 3, }, },
@@ -2825,6 +2886,10 @@ skills["AtziriUniqueStaffStormCall"] = {
 		"console_skill_dont_chase",
 		"atziri_do_not_gain_skill_charges",
 		"skill_has_trigger_from_unique_item",
+	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
 		[20] = { 0.69999998807907, 1.2999999523163, critChance = 6, PvPDamageMultiplier = -50, storedUses = 1, damageEffectiveness = 3.2, cooldown = 1.5, levelRequirement = 70, statInterpolation = { 3, 3, }, },
@@ -3055,6 +3120,9 @@ skills["SummonElementalRelic"] = {
 		{ "skill_triggered_by_nearby_allies_kill_or_hit_rare_unique_%_chance", 25 },
 	},
 	stats = {
+		"base_skill_effect_duration",
+	},
+	notMinionStat = {
 		"base_skill_effect_duration",
 	},
 	levels = {
@@ -3562,6 +3630,10 @@ skills["SummonSpectralWolf"] = {
 		"modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance",
 		"modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier",
 	},
+	notMinionStat = {
+		"chance_to_cast_on_kill_%_target_self",
+		"skill_has_trigger_from_unique_item",
+	},
 	levels = {
 		[10] = { 100, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, }, },
 		[25] = { 0, 8, 16, levelRequirement = 78, statInterpolation = { 0, 1, 1, }, },
@@ -3630,6 +3702,10 @@ skills["VolatileAnomaly"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 		"spell_damage_modifiers_apply_to_skill_dot",
 		"spell_uncastable_if_triggerable",
+	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
 	},
 	levels = {
 		[20] = { 0.80000001192093, 1.2000000476837, 83.333335195979, storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 70, cooldown = 2, statInterpolation = { 3, 3, 3, }, },
@@ -3794,6 +3870,10 @@ skills["Twister"] = {
 		"projectiles_nova",
 		"always_pierce",
 		"spell_uncastable_if_triggerable",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[20] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.1, levelRequirement = 70, statInterpolation = { 3, 3, }, },
