@@ -1271,21 +1271,210 @@ function buildMode:OpenSpectreLibrary()
 		end
 	end)
 	local controls = { }
-	controls.list = new("MinionListControl", nil, {-100, 40, 190, 250}, self.data, destList)
-	controls.source = new("MinionSearchListControl", nil, {100, 60, 190, 230}, self.data, sourceList, controls.list)
-	controls.save = new("ButtonControl", nil, {-45, 330, 80, 20}, "Save", function()
+	local function UpdateMinionDisplay(selected)
+		self.lastSelectedMinion = selected
+		local minion = self.data.minions[selected]
+		local gemLevel = m_max(controls.minionGemLevel.buf,1)
+		local baseLife = self.data.monsterLifeTable[m_min(gemLevel, 100)]
+		local totalLife = baseLife * minion.life
+		local totalES
+		if minion.energyShield then
+			totalES = totalLife * minion.energyShield
+		else
+			totalES = 0
+		end
+		local totalArmour = self.data.monsterArmourTable[m_min(gemLevel, 100)]
+		local totalEvasion = self.data.monsterEvasionTable[m_min(gemLevel, 100)]
+		if minion.armour then
+			totalArmour = (1 + minion.armour) * totalArmour
+		end
+		if minion.evasion then
+			totalEvasion = (1 + minion.evasion) * totalEvasion
+		end
+		-- Check if minion.modList contains a mod for BlockChance and use it for blockLabel
+		local blockChance = 0
+		if minion.modList then
+			for _, mod in ipairs(minion.modList) do
+				if mod.name == "BlockChance" then
+					blockChance = mod.value
+					break
+				end
+			end
+		end
+		local spawnLocationList = {}
+		if minion.spawnLocation then
+			for _, spawn in ipairs(minion.spawnLocation) do
+				t_insert(spawnLocationList, spawn)
+			end
+		end
+		local movementSpeed = minion.baseMovementSpeed / 10 .. " m/s"
+		controls.minionNameLabel.labelText = "^7" .. minion.name
+		controls.lifeLabel.lifeValue = round(totalLife)
+		controls.energyshieldLabel.energyShieldValue = round(totalES)
+		controls.armourLabel.armourValue = round(totalArmour)
+		controls.blockLabel.blockValue = blockChance
+		controls.evasionLabel.evasionValue = round(totalEvasion)
+		controls.resistsLabel.resistsValue = (
+			colorCodes.FIRE..minion.fireResist.."^7 / "..
+			colorCodes.COLD..minion.coldResist.."^7 / "..
+			colorCodes.LIGHTNING..minion.lightningResist.."^7 / "..
+			colorCodes.CHAOS..minion.chaosResist)
+		controls.movementSpeedLabel.movementSpeedValue = movementSpeed
+	end
+
+	controls.list = new("MinionListControl", nil, {-230, 40, 210, 270}, self.data, destList)
+	controls.source = new("MinionSearchListControl", nil, {0, 80, 210, 230}, self.data, sourceList, controls.list)
+	controls.source.OnSelect = function()
+			UpdateMinionDisplay(controls.source.selValue)
+	end
+	controls.save = new("ButtonControl", nil, {-45, 420, 80, 20}, "Save", function()
 		self.spectreList = destList
 		self.modFlag = true
 		self.buildFlag = true
 		main:ClosePopup()
 	end)
-	controls.cancel = new("ButtonControl", nil, {45, 330, 80, 20}, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, {45, 420, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
-	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {24, 2, 0, 16}, "Spectres in your Library must be assigned to an active")
-	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {20, 18, 0, 16}, "Raise Spectre gem for their buffs and curses to activate")
-	local spectrePopup = main:OpenPopup(410, 360, "Spectre Library", controls)
+	controls.noteLine1 = new("LabelControl", {"TOP",controls.save,"BOTTOM"}, {45, -60, 0, 16}, "^7Spectres in your Library must be assigned to an active") 
+	controls.noteLine2 = new("LabelControl", {"TOP",controls.save,"BOTTOM"}, {45, -42, 0, 16}, "Raise Spectre gem for their buffs and curses to activate")
+	local spectrePopup = main:OpenPopup(720, 450, "Spectre Library", controls)
 	spectrePopup:SelectControl(spectrePopup.controls.source.controls.searchText)
+	controls.minionNameLabel = new("LabelControl", {"TOP",controls.source,"TOP"}, {230, -50, 0, 18}, "Minion Stats")
+	controls.minionNameLabel.Draw = function(self, view)
+		local xPos, yPos = self:GetPos()
+		SetDrawColor(colorCodes.RELIC)
+		DrawImage(nil, xPos-78, yPos-10, 245, 38)
+		SetDrawColor(0,0,0,1)
+		DrawImage(nil, xPos-76, yPos-8, 241, 34)
+		SetDrawColor(1, 1, 1)
+		DrawString(xPos + 45, yPos, "CENTER_X", 18, "VAR BOLD", self.labelText or "Monster Stats")
+	end
+	controls.minionGemLevelLabel = new("LabelControl", {"BOTTOM", controls.minionNameLabel, "TOP"}, {24, 271, 0, 16}, "Gem Level:")
+	controls.minionGemLevel = new("EditControl", {"LEFT", controls.minionGemLevelLabel, "RIGHT"}, {4, 0, 60, 20}, 20, nil, "%D", 3, function()
+		if self.lastSelectedMinion then
+			UpdateMinionDisplay(self.lastSelectedMinion)
+		end
+	end)
+	controls.lifeLabel = new("LabelControl", {"TOP", controls.source, "TOP"}, {170, -9, 0, 16}, colorCodes.LIFE.."LIFE")
+	controls.lifeLabel.Draw = function(self, view)
+		local xPos, yPos = self:GetPos()
+		local boxWidth, boxHeight = 120, 50
+		local labelWidth = DrawStringWidth(16, "VAR BOLD", "LIFE")
+		SetDrawColor(colorCodes.LIFE)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2), yPos - 3, boxWidth, boxHeight)
+		SetDrawColor(0, 0, 0, 1)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2) + 2, yPos - 1, boxWidth - 4, boxHeight - 4)
+		SetDrawColor(colorCodes.LIFE)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2), yPos + 16, boxWidth, 2)
+		SetDrawColor(1, 1, 1)
+		DrawString(xPos + (labelWidth / 2), yPos, "CENTER_X", 16, "VAR BOLD", "LIFE")
+		if self.lifeValue then
+			DrawString(xPos + (labelWidth / 2), yPos + 24, "CENTER_X", 16, "VAR", self.lifeValue)
+		end
+	end
+	controls.energyshieldLabel = new("LabelControl", {"TOP",controls.source,"TOP"}, {293, -9, 0, 16}, colorCodes.ES.."ENERGY SHIELD")
+	controls.energyshieldLabel.Draw = function(self, view)
+		local xPos, yPos = self:GetPos()
+		local boxWidth, boxHeight = 120, 50
+		local labelWidth = DrawStringWidth(16, "VAR BOLD", "ENERGY SHIELD")
+		SetDrawColor(colorCodes.ES)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2), yPos - 3, boxWidth, boxHeight)
+		SetDrawColor(0, 0, 0, 1)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2) + 2, yPos - 1, boxWidth - 4, boxHeight - 4)
+		SetDrawColor(colorCodes.ES)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2), yPos + 16, boxWidth, 2)
+		SetDrawColor(1, 1, 1)
+		DrawString(xPos + (labelWidth / 2), yPos, "CENTER_X", 16, "VAR BOLD", "ENERGY SHIELD")
+		if self.energyShieldValue then
+			DrawString(xPos + (labelWidth / 2), yPos + 24, "CENTER_X", 16, "VAR", self.energyShieldValue)
+		end
+	end
+	controls.armourLabel = new("LabelControl", {"TOP",controls.lifeLabel,"TOP"}, {0, 54, 0, 16}, colorCodes.ARMOUR.."ARMOUR")
+	controls.armourLabel.Draw = function(self, view)
+		local xPos, yPos = self:GetPos()
+		local boxWidth, boxHeight = 120, 50
+		local labelWidth = DrawStringWidth(16, "VAR BOLD", "ARMOUR")
+		SetDrawColor(colorCodes.NORMAL)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2), yPos - 3, boxWidth, boxHeight)
+		SetDrawColor(0, 0, 0, 1)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2) + 2, yPos - 1, boxWidth - 4, boxHeight - 4)
+		SetDrawColor(colorCodes.NORMAL)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2), yPos + 16, boxWidth, 2)
+		SetDrawColor(1, 1, 1)
+		DrawString(xPos + (labelWidth / 2), yPos, "CENTER_X", 16, "VAR BOLD", "ARMOUR")
+		if self.armourValue then
+			DrawString(xPos + (labelWidth / 2), yPos + 24, "CENTER_X", 16, "VAR", self.armourValue)
+		end
+	end
+	controls.evasionLabel = new("LabelControl", {"TOP",controls.energyshieldLabel,"TOP"}, {1, 54, 0, 16}, colorCodes.EVASION.."EVASION")
+	controls.evasionLabel.Draw = function(self, view)
+		local xPos, yPos = self:GetPos()
+		local boxWidth, boxHeight = 120, 50
+		local labelWidth = DrawStringWidth(16, "VAR BOLD", "EVASION")
+		SetDrawColor(colorCodes.EVASION)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2), yPos - 3, boxWidth, boxHeight)
+		SetDrawColor(0, 0, 0, 1)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2) + 2, yPos - 1, boxWidth - 4, boxHeight - 4)
+		SetDrawColor(colorCodes.EVASION)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2), yPos + 16, boxWidth, 2)
+		SetDrawColor(1, 1, 1)
+		DrawString(xPos + (labelWidth / 2), yPos, "CENTER_X", 16, "VAR BOLD", "EVASION")
+		if self.evasionValue then
+			DrawString(xPos + (labelWidth / 2), yPos + 24, "CENTER_X", 16, "VAR", self.evasionValue)
+		end
+	end
+	controls.blockLabel = new("LabelControl", {"TOP",controls.armourLabel,"TOP"}, {1, 54, 0, 16}, colorCodes.NORMAL.."BLOCK")
+	controls.blockLabel.Draw = function(self, view)
+		local xPos, yPos = self:GetPos()
+		local boxWidth, boxHeight = 120, 50
+		local labelWidth = DrawStringWidth(16, "VAR BOLD", "BLOCK")
+		SetDrawColor(colorCodes.NORMAL)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2), yPos - 3, boxWidth, boxHeight)
+		SetDrawColor(0, 0, 0, 1)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2) + 2, yPos - 1, boxWidth - 4, boxHeight - 4)
+		SetDrawColor(colorCodes.NORMAL)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2), yPos + 16, boxWidth, 2)
+		SetDrawColor(1, 1, 1)
+		DrawString(xPos + labelWidth / 2, yPos, "CENTER_X", 16, "VAR BOLD", "BLOCK")
+		if self.blockValue then
+			DrawString(xPos + (labelWidth / 2), yPos + 24, "CENTER_X", 16, "VAR", self.blockValue)
+		end
+	end
+	controls.resistsLabel = new("LabelControl", {"TOP",controls.evasionLabel,"TOP"}, {1, 54, 0, 16}, "RESISTS")
+	controls.resistsLabel.Draw = function(self, view)
+		local xPos, yPos = self:GetPos()
+		local boxWidth, boxHeight = 120, 50
+		local labelWidth = DrawStringWidth(16, "VAR BOLD", "RESISTS")
+		SetDrawColor(colorCodes.DEFENCE)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2), yPos - 3, boxWidth, boxHeight)
+		SetDrawColor(0, 0, 0, 1)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2) + 2, yPos - 1, boxWidth - 4, boxHeight - 4)
+		SetDrawColor(colorCodes.DEFENCE)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2), yPos + 16, boxWidth, 2)
+		SetDrawColor(1, 1, 1)
+		DrawString(xPos + labelWidth / 2, yPos, "CENTER_X", 16, "VAR BOLD", "RESISTS")
+		if self.resistsValue then
+			DrawString(xPos + (labelWidth / 2), yPos + 24, "CENTER_X", 16, "VAR", self.resistsValue)
+		end
+	end
+	controls.movementSpeedLabel = new("LabelControl", {"TOP",controls.blockLabel,"TOP"}, {61, 54, 0, 16}, "MOVEMENT SPEED")
+	controls.movementSpeedLabel.Draw = function(self, view)
+		local xPos, yPos = self:GetPos()
+		local boxWidth, boxHeight = 244, 50
+		local labelWidth = DrawStringWidth(16, "VAR BOLD", "MOVEMENT SPEED")
+		SetDrawColor(colorCodes.DEFENCE)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2), yPos - 3, boxWidth, boxHeight)
+		SetDrawColor(0, 0, 0, 1)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2) + 2, yPos - 1, boxWidth - 4, boxHeight - 4)
+		SetDrawColor(colorCodes.DEFENCE)
+		DrawImage(nil, xPos + (labelWidth / 2) - (boxWidth / 2), yPos + 16, boxWidth, 2)
+		SetDrawColor(1, 1, 1)
+		DrawString(xPos + labelWidth / 2, yPos, "CENTER_X", 16, "VAR BOLD", "MOVEMENT SPEED")
+		if self.movementSpeedValue then
+			DrawString(xPos + (labelWidth / 2), yPos + 24, "CENTER_X", 16, "VAR", self.movementSpeedValue)
+		end	
+	end
 end
 
 function buildMode:UpdateClassDropdowns(treeVersion)

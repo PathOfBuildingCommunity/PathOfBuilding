@@ -269,6 +269,11 @@ function GGPKClass:GetNeededFiles()
 		"Data/MercenarySupportFamilies.dat",
 		"Data/MercenarySupports.dat",
 		"Data/MercenaryWieldableTypes.dat",
+		"Data/SpectreOverrides.dat",
+		"Data/WorldAreas.dat",
+		"Data/MonsterPackEntries.dat",
+		"Data/MonsterPacks.dat",
+		"Data/Maps.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

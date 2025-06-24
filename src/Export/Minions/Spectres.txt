@@ -7,422 +7,582 @@ local minions, mod, flag = ...
 
 -- Blackguard
 #spectre Metadata/Monsters/Axis/AxisCaster
+#emit
 #spectre Metadata/Monsters/Axis/AxisCasterArc
+#emit
 #spectre Metadata/Monsters/Axis/AxisCasterLunaris
+#emit
 #spectre Metadata/Monsters/Axis/AxisEliteSoldier3Champion
+#emit
 #spectre Metadata/Monsters/Axis/AxisExperimenter
+#emit
 #spectre Metadata/Monsters/Axis/AxisExperimenter2
+#emit
 #spectre Metadata/Monsters/Axis/AxisExperimenterRaiseZombie
+#emit
 -- Bandit
 #spectre Metadata/Monsters/Bandits/BanditBowExplosiveArrow
+#emit
 #spectre Metadata/Monsters/Bandits/BanditBowPoisonArrow
+#emit
 #spectre Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaul
+#emit
 #spectre Metadata/Monsters/Bandit/DockworkerChampion_
+#emit
 #spectre Metadata/Monsters/Bandits/BanditBowChampion
+#emit
 #spectre Metadata/Monsters/Bandits/BanditRangedTornadoShotPetrified
+#emit
 -- Beast
 #spectre Metadata/Monsters/Beasts/BeastCaveDegenAura
+#emit
 #spectre Metadata/Monsters/Beasts/BeastVulnerabilityCurse # MonsterVulnerabilityOnHit1
+#emit
 #spectre Metadata/Monsters/Beasts/BeastCleaveEnduringCry
+#emit
 -- Blood Apes
 #spectre Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage
+#emit
 #spectre Metadata/Monsters/BloodChieftain/MonkeyChiefBloodParasite
+#emit
 -- Bone Stalker
 #spectre Metadata/Monsters/BoneStalker/BoneStalker
+#emit
 -- Bull
 #spectre Metadata/Monsters/Bull/Bull
+#emit
 -- Cage Spider
 #spectre Metadata/Monster/CageSpider/CageSpider2
+#emit
 -- Cannibals
 #spectre Metadata/Monsters/Cannibal/CannibalMaleChampion
+#emit
 -- Goatmen
 #spectre Metadata/Monsters/Goatman/GoatmanLeapSlam
+#emit
 #spectre Metadata/Monsters/Goatman/GoatmanLightningLeapSlamMaps
+#emit
 #spectre Metadata/Monsters/Goatman/GoatmanShamanFireball
+#emit
 #spectre Metadata/Monsters/Goatman/GoatmanShamanFireChampion
+#emit
 #spectre Metadata/Monsters/Goatman/GoatmanShamanLightning
+#emit
 #spectre Metadata/Monsters/Goatman/MountainGoatmanChampion
+#emit
 #spectre Metadata/Monsters/Goatman/MountainGoatmanShamanIceSpear
+#emit
 -- Miscreation
 #spectre Metadata/Monsters/DemonFemale/DemonFemale
+#emit
 #spectre Metadata/Monsters/DemonModular/DemonFemaleRanged
+#emit
 #spectre Metadata/Monsters/DemonModular/DemonFemaleRanged2
+#emit
 #spectre Metadata/Monsters/DemonModular/DemonModularBladeVortex
+#emit
 #spectre Metadata/Monsters/DemonModular/DemonModularFire
+#emit
 -- Maw
 #spectre Metadata/Monsters/Frog/Frog
+#emit
 #spectre Metadata/Monsters/Frog/Frog2
+#emit
 -- Chimeral
 #spectre Metadata/Monsters/GemMonster/Iguana
+#emit
 #spectre Metadata/Monsters/GemMonster/IguanaChrome
+#emit
 -- Ghost Pirate
 #spectre Metadata/Monsters/GhostPirates/GhostPirateBlackBowMaps
+#emit
 #spectre Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps
+#emit
 #spectre Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex
+#emit
 -- Undying Grappler
 #spectre Metadata/Monsters/Grappler/Grappler
+#emit
 #spectre Metadata/Monsters/Grappler/GrapplerLabyrinth
+#emit
 -- Ribbon
 #spectre Metadata/Monsters/Guardians/GuardianFire
+#emit
 #spectre Metadata/Monsters/Guardians/GuardianFire_BlueMaps
+#emit
 #spectre Metadata/Monsters/Guardians/GuardianLightning
+#emit
 -- Gut flayer
 #spectre Metadata/Monsters/HalfSkeleton/HalfSkeleton
+#emit
 -- Solar Guard
 #spectre Metadata/Monsters/HolyFireElemental/HolyFireElementalSolarisBeam
+#emit
 -- Construct
 #spectre Metadata/Monsters/incaminion/Fragment
+#emit
 -- Carrion Queen
 #spectre Metadata/Monsters/InsectSpawner/InsectSpawner
+#emit
 -- Kaom's Warriors
 #spectre Metadata/Monsters/KaomWarrior/KaomWarrior2
+#emit
 #spectre Metadata/Monsters/KaomWarrior/KaomWarrior3
+#emit
 #spectre Metadata/Monsters/KaomWarrior/KaomWarrior7
+#emit
 -- Kitava's Cultist
 #spectre Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodDelve
+#emit
 #spectre Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve
+#emit
 #spectre Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosDelve
+#emit
 #spectre Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve
+#emit
 #spectre Metadata/Monsters/KitavaCultist/VaalCultistSpearFireDelve
+#emit
 #spectre Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_
+#emit
 #spectre Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningDelve
+#emit
 #spectre Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_
+#emit
 -- Kitava's Herald
 #spectre Metadata/Monster/KitavaDemon/KitavaDemon
+#emit
 -- Birdman
 #spectre Metadata/Monsters/Kiweth/Kiweth
+#emit
 #spectre Metadata/Monsters/Kiweth/KiwethSeagull
+#emit
 -- Delve League
 #spectre Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite
+#emit
 -- Hellion
 #spectre Metadata/Monsters/Lion/LionDesertSkinPuncture
+#emit
 #spectre Metadata/Monsters/Lion/LionWolf3Champion
+#emit
 -- Knitted Horror
 #spectre Metadata/Monsters/MassSkeleton/MassSkeleton
+#emit
 -- Miners
 #spectre Metadata/Monsters/Miner/MinerLantern
+#emit
 #spectre Metadata/Monsters/Miner/MinerLanternCrystalVeins
+#emit
 -- Voidbearer
 #spectre Metadata/Monsters/Monkeys/FlameBearer
+#emit
 -- Stone golem
 #spectre Metadata/Monsters/MossMonster/FireMonster
+#emit
 -- Mother of Flames
 #spectre Metadata/Monsters/MotherOfFlames/MotherOfFlamesZombie
+#emit
 -- Necromancer
 #spectre Metadata/Monsters/Necromancer/NecromancerConductivity
+#emit
 #spectre Metadata/Monsters/Necromancer/NecromancerEnfeebleCurse
+#emit
 #spectre Metadata/Monsters/Necromancer/NecromancerFlamability
+#emit
 #spectre Metadata/Monsters/Necromancer/NecromancerFrostbite
+#emit
 #spectre Metadata/Monsters/Necromancer/NecromancerElementalWeakness
+#emit
 #spectre Metadata/Monsters/Necromancer/NecromancerProjectileWeakness
+#emit
 #spectre Metadata/Monsters/Necromancer/NecromancerVulnerability
+#emit
 -- Undying Bomber
 #spectre Metadata/Monsters/Pyromaniac/PyromaniacFire
+#emit
 #spectre Metadata/Monsters/Pyromaniac/PyromaniacPoison
+#emit
 -- Stygian Revenant
 #spectre Metadata/Monsters/Revenant/Revenant
+#emit
 -- Sea Witch
 #spectre Metadata/Monsters/Seawitch/SeaWitchFrostBolt
+#emit
 #spectre Metadata/Monsters/Seawitch/SeaWitchScreech
+#emit
 #spectre Metadata/Monsters/Seawitch/SeaWitchSpawnExploding
+#emit
 #spectre Metadata/Monsters/Seawitch/SeaWitchSpawnTemporalChains
+#emit
 #spectre Metadata/Monsters/Seawitch/SeaWitchVulnerabilityCurse
+#emit
 -- Skeleton
 #spectre Metadata/Monsters/Skeletons/SkeletonBowPuncture
+#emit
 #spectre Metadata/Monsters/Skeletons/SkeletonBowLightning
+#emit
 #spectre Metadata/Monsters/Skeletons/SkeletonMeleeLarge
+#emit
 #spectre Metadata/Monsters/Skeletons/SkeletonBowLightning3
+#emit
 #spectre Metadata/Monsters/Skeletons/SkeletonCasterColdMultipleProjectiles
+#emit
 #spectre Metadata/Monsters/Skeletons/SkeletonCasterFireMultipleProjectiles2
+#emit
 #spectre Metadata/Monsters/Skeletons/SkeletonBowPoison
+#emit
 #spectre Metadata/Monsters/Skeletons/SkeletonBowLightning2
+#emit
 #spectre Metadata/Monsters/Skeletons/SkeletonBowLightning4
+#emit
 #spectre Metadata/Monsters/Skeletons/SkeletonCasterLightningSpark
+#emit
 #spectre Metadata/Monsters/Skeletons/SkeletonBlackCaster1_
+#emit
 #spectre Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse
+#emit
 #spectre Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampion
+#emit
 #spectre Metadata/Monsters/Skeletons/SkeletonBowKnightElemental
+#emit
 #spectre Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance
+#emit
 #spectre Metadata/Monsters/SkeletonCannon/SkeletonCannon1
+#emit
 -- Snake
 #spectre Metadata/Monsters/Snake/SnakeMeleeSpit
+#emit
 #spectre Metadata/Monsters/Snake/SnakeScorpionMultiShot
+#emit
 -- Spider
 #spectre Metadata/Monsters/Spiders/SpiderThornFlickerStrike
+#emit
 #spectre Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrike
+#emit
 -- Statue
 #spectre Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear
+#emit
 #spectre Metadata/Monsters/Statue/StoneStatueMaleBow
+#emit
 -- Ophidian
 #spectre Metadata/Monsters/Taster/Taster
+#emit
 -- Templar
 #spectre Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriver
+#emit
 #spectre Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriverKitava
+#emit
 -- Undying
 #spectre Metadata/Monsters/Undying/CityStalkerMaleCasterArmour
+#emit
 #spectre Metadata/Monsters/Undying/UndyingOutcastPuncture
+#emit
 #spectre Metadata/Monsters/Undying/UndyingOutcastWhirlingBlades
+#emit
 -- Wicker Man
 #spectre Metadata/Monsters/WickerMan/WickerMan
+#emit
 -- Redemption Sentry
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcherSpectre
+#emit
 -- Baranite Thaumaturge
 #spectre Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMageguardCasterSpectre
+#emit
 -- Baranite Sister
 #spectre Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlessedSisterSpectre
+#emit
 -- Baranite Preacher
 #spectre Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderTemplarJudgeSpectre
+#emit
 -- Scale of Esh
 #spectre Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_
+#emit
 -- Scinteel Synthete
 #spectre Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer3Spectre
+#emit
 -- Redemption Knight
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighterSpectre_
+#emit
 -- Primal Crushclaw
 #spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre # HarvestNessaCrabScreechDebuff
+#emit
 -- Primal Rhex Matriarch
 #spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre # HarvestRhexScreechDebuff
+#emit
 -- Templar Tactician
 #spectre Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre
+#emit
 -- Frost Auto-Scout
 #spectre Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre
+#emit
 -- Syndicate Operative
 #spectre Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_
+#emit
 -- Cloud Retch
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre
+#emit
 -- Artless Assassin
 #spectre Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre
+#emit
 -- Ashblessed Warden
 #spectre Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre
+#emit
 -- Snow Rhex
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArmouredBirdSpectre__
+#emit
 -- Flickershade
 #spectre Metadata/Monsters/Maligaro/SecretDesecrateMonster
+#emit
 -- Trial Galecaller
 #spectre Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdWeakSpectre
+#emit
 -- Trial Windchaser
 #spectre Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdSpectre
+#emit
 -- Hyrri's Watch
 #spectre Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre
+#emit
 -- Demon Harpy
 #spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spectre
+#emit
 -- Pale Angel
 #spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite1Spectre
+#emit
 -- Demon Herder
 #spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite2_Spectre
+#emit
 -- Pale Seraphim
 #spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectre
+#emit
 -- Ravenous Mishapen
 #spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spectre
+#emit
 -- Aurid Synthete
 #spectre Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre
+#emit
 -- Ruins Hellion
 #spectre Metadata/Monsters/Hellion/Hellion3Spectre
+#emit
 -- Arena Master
 #spectre Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorGrandMasterSpectre
+#emit
 -- They of Tul
 #spectre Metadata/Monsters/MinerLarge/MinerLargeCommanderBreachSpectre
+#emit
 -- Ancient Suffering
 #spectre Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple # MonsterChanceToTemporalChainsOnHit1
+#emit
 -- Ancient Wraith
 #spectre Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith # DelveMonsterEnfeebleOnHit
+#emit
 -- Forged Frostbearer
 #spectre Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac
+#emit
 
 	-- Affliction Corpses
 -- Frozen Cannibal
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeMid
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeHigh
+#emit
 -- Fiery Cannibal
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryMid
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryHigh_
+#emit
 -- Hydra
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraMid
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraHigh_
+#emit
 -- Dark Marionette
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinMid # DarkMarionetteExplode
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinHigh_ # DarkMarionetteExplodePerfect
+#emit
 -- Hulking Miscreation
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusLow
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusMid
-#mod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterTag", monsterTag = "Construct" })})
-#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterTag", monsterTag = "Construct" })})
-#emit
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusHigh__
-#mod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterTag", monsterTag = "Construct" })})
-#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterTag", monsterTag = "Construct" })})
 #emit
 -- Spirit of Fortune
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh
-#mod mod("AllyModifier", "LIST", { mod = flag("LightningLuckHits") })
 #emit
 -- Naval Officer
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralMid__
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_
-#mod mod("AllyModifier", "LIST", { mod = mod("ColdDamageTaken", "INC", -5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PerfectNavalOfficer", unscaleable = true })})
 #emit
 -- Dancing Sword
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordLow
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordMid
-#mod mod("AllyModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
-#emit
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_
-#mod mod("AllyModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
-#mod mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
 #emit
 -- Needle Horror
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonMid
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonHigh_
-#mod mod("PlayerModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "NeedleHorror", unscaleable = true })})
 #emit
 -- Serpent Warrior
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskLow
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskMid
-#mod mod("AllyModifier", "LIST", { mod = flag("Condition:CanWither") })
-#emit
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskHigh
-#mod mod("AllyModifier", "LIST", { mod = flag("Condition:CanWither") })
 #emit
 -- Pain Artist
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonLow
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonMid
-#mod mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscaleable = true })})
-#emit
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonHigh
-#mod mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscaleable = true })})
 #emit
 -- Sawblade Horror
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonMid
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonHigh
+#emit
 -- Restless Knight
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightMid
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightHigh
+#emit
 -- Slashing Horror
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonLow
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonMid
-#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
-#emit
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonHigh
-#mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageGainAsFire", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SlashingHorror", unscaleable = true })})
-#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
 #emit
 -- Druidic Alchemist
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverLow__
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverMid
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverHigh
-#mod mod("PlayerModifier", "LIST", { mod = mod("LifeFlaskChargesGenerated", "BASE", 1/3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "RestlessKnight", unscaleable = true })})
 #emit
 -- Escaped Prototype
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundMid
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundHigh_
+#emit
 -- Blasphemer
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriLow # TalismanT1TemporalChains TalismanT2EnfeebleAura TalismanT1Vulnerability
-#mod mod("EnemyCurseLimit", "BASE", 3)
-#emit
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriMid_ # TalismanT1TemporalChains TalismanT2EnfeebleAura TalismanT1Vulnerability
-#mod mod("EnemyCurseLimit", "BASE", 3)
-#emit
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriHigh # TalismanT1TemporalChains TalismanT2EnfeebleAura TalismanT1Vulnerability
-#mod mod("EnemyCurseLimit", "BASE", 3)
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriLow # TalismanT1TemporalChains TalismanT2EnfeebleAura TalismanT1Vulnerability
 #emit
 -- Judgemental Spirit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessMid
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessHigh
+#emit
 -- Primal Thunderbird
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdMid
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdHigh
+#emit
 -- Primal Demiurge
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmLow__
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmMid
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmHigh
+#emit
 -- Runic Skeleton
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonMid
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonHigh
-#mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamage", "MORE", 5, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PrimalDemiurge", unscaleable = true })})
 #emit
 -- Warlord
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakMid
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakHigh
+#emit
 -- Dark Reaper
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperMid
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperHigh
-#mod flag("Condition:NoExtraBleedDamageToMovingEnemy"), --This mod is not currently working correctly
 #emit
 -- Sanguimancer Demon
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdMid_
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdHigh
+#emit
 -- Spider Matriarch
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderMid
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderHigh_
-#mod mod("PlayerModifier", "LIST", { mod = mod("WitherEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SpiderMatriarch", unscaleable = true })}) --Does not work
 #emit
 -- Meatsack
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieMid
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieHigh
-#mod mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 40, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Meatsack", unscaleable = true })})
 #emit
 -- Eldritch Eye
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionMid
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionHigh
+#emit
 -- Forest Tiger
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerMid
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerHigh
+#emit
 -- Guardian Turtle
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleLow
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleMid_
-#mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscaleable = true })})
-#emit
-#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleHigh
-#mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscaleable = true })})
 #emit
 -- Shadow Construct
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulMid
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulHigh
+#emit
 -- Forest Warrior
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingMid
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingHigh
 #mod mod("AllyModifier", "LIST", { mod = flag("Condition:Onslaught", { type = "GlobalEffect", effectType = "Buff", effectName = "ForestWarrior", unscaleable = true })})
 #emit
 -- Shadow Berserker
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonMid
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonHigh
+#emit
 -- Riftcaster
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterLow_
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterMid_
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterHigh_
+#emit
 -- Blood Demon
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossMid
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossHigh
+#emit
 -- Half-remembered Goliath
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemLow
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemMid
+#emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh
+#emit
 -- Wretched Defiler
 #spectre Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber
+#emit
 -- Karui Backburner
 #spectre Metadata/Monsters/LegionLeague/LegionKaruiMeleeFireSpectre
+#emit

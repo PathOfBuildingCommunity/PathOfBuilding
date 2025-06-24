@@ -25,6 +25,14 @@ minions["Metadata/Monsters/Axis/AxisCaster"] = {
 	accuracy = 1,
 	weaponType1 = "Wand",
 	weaponType2 = "Shield",
+	baseMovementSpeed = 33,
+	spawnLocation = {
+		"Blackguard Salute (Map)",
+		"Fragmented Memory",
+		"Memory Void",
+		"The Battlefront (Act 3)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AxisCasterSpark",
@@ -54,6 +62,15 @@ minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
 	accuracy = 1,
 	weaponType1 = "Wand",
 	weaponType2 = "Shield",
+	baseMovementSpeed = 33,
+	spawnLocation = {
+		"Blackguard Salute (Map)",
+		"Fragmented Memory",
+		"Memory Void",
+		"The Ebony Barracks (Act 3)",
+		"The Eternal Laboratory (Act 8)",
+		"The Lunaris Temple Level 1 (Act 3)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterLightningThorns",
@@ -83,6 +100,15 @@ minions["Metadata/Monsters/Axis/AxisCasterLunaris"] = {
 	accuracy = 1,
 	weaponType1 = "Wand",
 	weaponType2 = "Shield",
+	baseMovementSpeed = 33,
+	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+		"The Harbour Bridge (Act 8)",
+		"The Lunaris Concourse (Act 8)",
+		"The Lunaris Temple Level 1 (Act 8)",
+		"The Lunaris Temple Level 2 (Act 8)",
+		"The Twilight Temple (Map)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AxisCasterGlacialCascade",
@@ -109,6 +135,15 @@ minions["Metadata/Monsters/Axis/AxisEliteSoldier3Champion"] = {
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "Two Handed Sword",
+	baseMovementSpeed = 31,
+	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+		"The Harbour Bridge (Act 8)",
+		"The Solaris Concourse (Act 8)",
+		"The Solaris Temple Level 1 (Act 8)",
+		"The Solaris Temple Level 2 (Act 8)",
+		"The Twilight Temple (Map)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"BreachCleave",
@@ -137,6 +172,16 @@ minions["Metadata/Monsters/Axis/AxisExperimenter"] = {
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Wand",
+	baseMovementSpeed = 17,
+	spawnLocation = {
+		"Blackguard Salute (Map)",
+		"Fragmented Memory",
+		"Memory Void",
+		"Poorjoy's Asylum (Map)",
+		"The Ebony Barracks (Act 3)",
+		"The Eternal Laboratory (Act 8)",
+		"The Lunaris Temple Level 1 (Act 3)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AxisTemporalChains",
@@ -162,6 +207,13 @@ minions["Metadata/Monsters/Axis/AxisExperimenter2"] = {
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Wand",
+	baseMovementSpeed = 17,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Poorjoy's Asylum (Map)",
+		"The Lunaris Temple Level 2 (Act 3)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AxisEnfeeble",
@@ -187,6 +239,14 @@ minions["Metadata/Monsters/Axis/AxisExperimenterRaiseZombie"] = {
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Wand",
+	baseMovementSpeed = 17,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Poorjoy's Asylum (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Lunaris Temple Level 1 (Act 3)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AxisEnfeeble",
@@ -214,6 +274,13 @@ minions["Metadata/Monsters/Bandits/BanditBowExplosiveArrow"] = {
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 19,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+		"The Wetlands (Act 2)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"BanditExplosiveArrowAtAnimationSpeed",
@@ -239,6 +306,13 @@ minions["Metadata/Monsters/Bandits/BanditBowPoisonArrow"] = {
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 19,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Olmec's Sanctum (Map)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterCausticArrowAtAnimationSpeed",
@@ -263,6 +337,11 @@ minions["Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaul"] = {
 	attackRange = 11,
 	accuracy = 1,
 	weaponType1 = "Two Handed Mace",
+	baseMovementSpeed = 19,
+	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+		"The Wetlands (Act 2)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterWarlordsMark",
@@ -286,6 +365,11 @@ minions["Metadata/Monsters/Bandit/DockworkerChampion_"] = {
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "Two Handed Mace",
+	baseMovementSpeed = 25,
+	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+		"The Quay (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"GroundEffectsSlamDockworkerChampion",
@@ -309,6 +393,10 @@ minions["Metadata/Monsters/Bandits/BanditBowChampion"] = {
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 22,
+	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"BanditExplosiveArrowChampion",
@@ -335,6 +423,9 @@ minions["Metadata/Monsters/Bandits/BanditRangedTornadoShotPetrified"] = {
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 19,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"SkeletonSoldierTornadoShot",
@@ -356,6 +447,13 @@ minions["Metadata/Monsters/Beasts/BeastCaveDegenAura"] = {
 	attackTime = 1.095,
 	attackRange = 14,
 	accuracy = 1,
+	baseMovementSpeed = 19,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Caverns (Act 2)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"ChaosDegenAura",
@@ -377,6 +475,11 @@ minions["Metadata/Monsters/Beasts/BeastVulnerabilityCurse"] = {
 	attackTime = 1.095,
 	attackRange = 14,
 	accuracy = 1,
+	baseMovementSpeed = 19,
+	spawnLocation = {
+		"The Caverns (Act 2)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterVulnerabilityOnHit1",
@@ -398,6 +501,19 @@ minions["Metadata/Monsters/Beasts/BeastCleaveEnduringCry"] = {
 	attackTime = 1.095,
 	attackRange = 14,
 	accuracy = 1,
+	baseMovementSpeed = 19,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Ashen Fields (Act 7)",
+		"The Broken Bridge (Act 2)",
+		"The Broken Bridge (Act 7)",
+		"The Crossroads (Act 2)",
+		"The Eternal Laboratory (Act 8)",
+		"The Northern Forest (Act 2)",
+		"The Old Fields (Act 2)",
+		"The Wetlands (Act 2)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"BeastEnduringCry",
@@ -424,6 +540,15 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"] = {
 	attackRange = 13,
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 36,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Ashen Fields (Act 7)",
+		"The Broken Bridge (Act 2)",
+		"The Eternal Laboratory (Act 8)",
+		"The Old Fields (Act 2)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"BloodChieftainSummonMonkeys",
@@ -448,6 +573,13 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodParasite"] = {
 	attackRange = 13,
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 36,
+	spawnLocation = {
+		"The Ashen Fields (Act 7)",
+		"The Eternal Laboratory (Act 8)",
+		"The Riverways (Act 6)",
+		"The Southern Forest (Act 6)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"BloodChieftainSummonParasiteMonkeys",
@@ -472,6 +604,14 @@ minions["Metadata/Monsters/BoneStalker/BoneStalker"] = {
 	attackRange = 12,
 	accuracy = 1,
 	weaponType1 = "One Handed Axe",
+	baseMovementSpeed = 30,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+		"The Ossuary (Act 10)",
+		"The Ossuary (Act 5)",
+	},
 	skillList = {
 		"Melee",
 		"BoneStalkerEarthquake",
@@ -497,6 +637,11 @@ minions["Metadata/Monsters/Bull/Bull"] = {
 	attackRange = 9,
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 30,
+	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+		"The Grand Arena (Act 4)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"BullCharge",
@@ -519,6 +664,11 @@ minions["Metadata/Monster/CageSpider/CageSpider2"] = {
 	attackTime = 1.755,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 22,
+	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+		"The Vastiri Desert (Act 9)",
+	},
 	skillList = {
 		"Melee",
 		"CageSpiderCycloneTriggerSandstorms",
@@ -543,6 +693,12 @@ minions["Metadata/Monsters/Cannibal/CannibalMaleChampion"] = {
 	attackRange = 12,
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 44,
+	spawnLocation = {
+		"The Coast (Act 1)",
+		"The Eternal Laboratory (Act 8)",
+		"The Ledge (Act 1)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterFlameRedCannibal",
@@ -567,6 +723,16 @@ minions["Metadata/Monsters/Goatman/GoatmanLeapSlam"] = {
 	attackTime = 1.2,
 	attackRange = 7,
 	accuracy = 1,
+	baseMovementSpeed = 25,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Olmec's Sanctum (Map)",
+		"The Climb (Act 1)",
+		"The Eternal Laboratory (Act 8)",
+		"The Ledge (Act 1)",
+		"The Old Fields (Act 2)",
+	},
 	skillList = {
 		"GoatmanLeapSlam",
 		"MeleeAtAnimationSpeed",
@@ -591,6 +757,14 @@ minions["Metadata/Monsters/Goatman/GoatmanLightningLeapSlamMaps"] = {
 	attackTime = 1.455,
 	attackRange = 7,
 	accuracy = 1,
+	baseMovementSpeed = 25,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Olmec's Sanctum (Map)",
+		"Prisoner's Gate (Act 1)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"GoatmanLeapSlam",
 		"GAGoatmanLeapSlamDamage",
@@ -618,6 +792,14 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanFireball"] = {
 	attackRange = 12,
 	accuracy = 1,
 	weaponType1 = "Staff",
+	baseMovementSpeed = 23,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Olmec's Sanctum (Map)",
+		"The Climb (Act 1)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MonsterFireballContactPos",
 		"GoatmanMoltenShell",
@@ -641,6 +823,10 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanFireChampion"] = {
 	attackRange = 12,
 	accuracy = 1,
 	weaponType1 = "Staff",
+	baseMovementSpeed = 25,
+	spawnLocation = {
+		"Prisoner's Gate (Act 6)",
+	},
 	skillList = {
 		"MonsterFireballContactPos",
 		"GoatmanMoltenShell",
@@ -666,6 +852,14 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanLightning"] = {
 	attackRange = 12,
 	accuracy = 1,
 	weaponType1 = "Staff",
+	baseMovementSpeed = 23,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Olmec's Sanctum (Map)",
+		"Prisoner's Gate (Act 1)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterShockNova",
@@ -691,6 +885,14 @@ minions["Metadata/Monsters/Goatman/MountainGoatmanChampion"] = {
 	attackRange = 12,
 	accuracy = 1,
 	weaponType1 = "Two Handed Mace",
+	baseMovementSpeed = 30,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Descent (Act 9)",
+		"The Eternal Laboratory (Act 8)",
+		"The Foothills (Act 9)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"GoatmanEarthquake",
@@ -715,6 +917,14 @@ minions["Metadata/Monsters/Goatman/MountainGoatmanShamanIceSpear"] = {
 	attackRange = 12,
 	accuracy = 1,
 	weaponType1 = "Staff",
+	baseMovementSpeed = 23,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Ascent (Act 4)",
+		"The Descent (Act 9)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MountainGoatmanIceSpear",
 	},
@@ -735,6 +945,16 @@ minions["Metadata/Monsters/DemonFemale/DemonFemale"] = {
 	attackTime = 2.445,
 	attackRange = 18,
 	accuracy = 1,
+	baseMovementSpeed = 43,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Poorjoy's Asylum (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Lunaris Temple Level 2 (Act 3)",
+		"The Upper Sceptre of God (Act 3)",
+		"Whakawairua Tuahu (Map)",
+	},
 	skillList = {
 		"Melee",
 		"MeleeDemonFemale",
@@ -758,6 +978,17 @@ minions["Metadata/Monsters/DemonModular/DemonFemaleRanged"] = {
 	attackTime = 3,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 32,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Oba's Cursed Trove (Map)",
+		"Poorjoy's Asylum (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Lunaris Temple Level 2 (Act 3)",
+		"The Upper Sceptre of God (Act 3)",
+		"Whakawairua Tuahu (Map)",
+	},
 	skillList = {
 		"DemonFemaleRangedGeometryProjectileLeft",
 		"DemonFemaleRangedGeometryProjectileRight",
@@ -786,6 +1017,14 @@ minions["Metadata/Monsters/DemonModular/DemonFemaleRanged2"] = {
 	attackTime = 3,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 32,
+	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+		"The Harbour Bridge (Act 8)",
+		"The Lunaris Concourse (Act 8)",
+		"The Lunaris Temple Level 2 (Act 8)",
+		"The Twilight Temple (Map)",
+	},
 	skillList = {
 		"DemonFemaleRangedProjectile2",
 	},
@@ -807,6 +1046,12 @@ minions["Metadata/Monsters/DemonModular/DemonModularBladeVortex"] = {
 	attackTime = 1.5,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 20,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"DemonModularBladeVortex",
@@ -829,6 +1074,16 @@ minions["Metadata/Monsters/DemonModular/DemonModularFire"] = {
 	attackTime = 1.5,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 20,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Oba's Cursed Trove (Map)",
+		"Poorjoy's Asylum (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Lunaris Temple Level 1 (Act 3)",
+		"The Lunaris Temple Level 2 (Act 3)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterRighteousFire",
@@ -853,6 +1108,13 @@ minions["Metadata/Monsters/Frog/Frog"] = {
 	attackTime = 1.455,
 	attackRange = 7,
 	accuracy = 1,
+	baseMovementSpeed = 25,
+	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+		"The Riverways (Act 6)",
+		"The Sewers (Act 3)",
+		"The Wetlands (Act 6)",
+	},
 	skillList = {
 		"MonsterLeapSlam",
 		"Melee",
@@ -875,6 +1137,9 @@ minions["Metadata/Monsters/Frog/Frog2"] = {
 	attackTime = 1.455,
 	attackRange = 7,
 	accuracy = 1,
+	baseMovementSpeed = 25,
+	spawnLocation = {
+	},
 	skillList = {
 		"MonsterLeapSlam",
 		"Melee",
@@ -900,6 +1165,16 @@ minions["Metadata/Monsters/GemMonster/Iguana"] = {
 	attackTime = 1.005,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 25,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+		"The High Gardens (Act 8)",
+		"The Sceptre of God (Act 3)",
+		"The Temple of Atzoatl",
+		"The Upper Sceptre of God (Act 3)",
+	},
 	skillList = {
 		"IguanaProjectile",
 		"MeleeAtAnimationSpeed",
@@ -924,6 +1199,11 @@ minions["Metadata/Monsters/GemMonster/IguanaChrome"] = {
 	attackTime = 1.005,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 25,
+	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+		"The High Gardens (Act 8)",
+	},
 	skillList = {
 		"IguanaProjectileChrome",
 		"MeleeAtAnimationSpeed",
@@ -952,6 +1232,14 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackBowMaps"] = {
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Cavern of Wrath (Act 1)",
+		"The Eternal Laboratory (Act 8)",
+		"The Ship Graveyard Cave (Act 1)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterPuncture",
@@ -979,6 +1267,13 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
+	baseMovementSpeed = 42,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+		"The Ship Graveyard Cave (Act 1)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterFlickerStrikeExtraRange",
@@ -1009,6 +1304,12 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
+	baseMovementSpeed = 42,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"GhostPirateBladeVortex",
@@ -1037,6 +1338,16 @@ minions["Metadata/Monsters/Grappler/Grappler"] = {
 	attackTime = 1.245,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 37,
+	spawnLocation = {
+		"Doedre's Cesspool (Act 8)",
+		"Fragmented Memory",
+		"Memory Void",
+		"Perandus Manor (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Refinery (Act 9)",
+		"The Sewers (Act 3)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterFlickerStrike",
@@ -1063,6 +1374,9 @@ minions["Metadata/Monsters/Grappler/GrapplerLabyrinth"] = {
 	attackTime = 1.245,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterFlickerStrike",
@@ -1091,6 +1405,21 @@ minions["Metadata/Monsters/Guardians/GuardianFire"] = {
 	attackTime = 1.5,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 26,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Battlefront (Act 3)",
+		"The Eternal Laboratory (Act 8)",
+		"The Harbour Bridge (Act 8)",
+		"The Imperial Fields (Act 8)",
+		"The Solaris Concourse (Act 8)",
+		"The Solaris Temple Level 1 (Act 3)",
+		"The Solaris Temple Level 1 (Act 8)",
+		"The Solaris Temple Level 2 (Act 3)",
+		"The Solaris Temple Level 2 (Act 8)",
+		"The Twilight Temple (Map)",
+	},
 	skillList = {
 		"MonsterMultiFireball",
 		"MonsterSplitFireball",
@@ -1118,6 +1447,15 @@ minions["Metadata/Monsters/Guardians/GuardianFire_BlueMaps"] = {
 	attackTime = 1.5,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 26,
+	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+		"The Harbour Bridge (Act 8)",
+		"The Lunaris Concourse (Act 8)",
+		"The Lunaris Temple Level 1 (Act 8)",
+		"The Lunaris Temple Level 2 (Act 8)",
+		"The Twilight Temple (Map)",
+	},
 	skillList = {
 		"MonsterMultiIceSpear",
 		"MonsterSplitIceSpear",
@@ -1142,6 +1480,16 @@ minions["Metadata/Monsters/Guardians/GuardianLightning"] = {
 	attackTime = 1.5,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 26,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Olmec's Sanctum (Map)",
+		"The Battlefront (Act 3)",
+		"The Eternal Laboratory (Act 8)",
+		"The Solaris Temple Level 1 (Act 3)",
+		"The Solaris Temple Level 2 (Act 3)",
+	},
 	skillList = {
 		"GuardianArc",
 	},
@@ -1165,6 +1513,18 @@ minions["Metadata/Monsters/HalfSkeleton/HalfSkeleton"] = {
 	attackRange = 10,
 	accuracy = 1,
 	weaponType1 = "Dagger",
+	baseMovementSpeed = 32,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Path of Exile Royale (Act 1)",
+		"The Belly of the Beast (Act 9)",
+		"The Belly of the Beast Level 1 (Act 4)",
+		"The Belly of the Beast Level 2 (Act 4)",
+		"The Eternal Laboratory (Act 8)",
+		"The Harvest (Act 4)",
+		"The Rotting Core (Act 9)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"HalfSkeletonPuncture",
@@ -1189,6 +1549,15 @@ minions["Metadata/Monsters/HolyFireElemental/HolyFireElementalSolarisBeam"] = {
 	attackTime = 1.5,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 35,
+	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+		"The Harbour Bridge (Act 8)",
+		"The Solaris Concourse (Act 8)",
+		"The Solaris Temple Level 1 (Act 8)",
+		"The Solaris Temple Level 2 (Act 8)",
+		"The Twilight Temple (Map)",
+	},
 	skillList = {
 		"SpecialBeamCannon",
 		"HolyFireElementalFireball",
@@ -1213,6 +1582,19 @@ minions["Metadata/Monsters/incaminion/Fragment"] = {
 	attackTime = 1.32,
 	attackRange = 25,
 	accuracy = 1,
+	baseMovementSpeed = 32,
+	spawnLocation = {
+		"Doryani's Machinarium (Map)",
+		"Path of Exile Royale (Act 1)",
+		"The Alluring Abyss (Map)",
+		"The Ancient Pyramid (Act 2)",
+		"The Apex of Sacrifice (Map)",
+		"The Caverns (Act 2)",
+		"The Eternal Laboratory (Act 8)",
+		"The Temple of Atzoatl",
+		"The Temple of Decay Level 2 (Act 7)",
+		"The Vaal Ruins (Act 2)",
+	},
 	skillList = {
 		"IncaMinionProjectile",
 		"MonsterWaitVeryShort",
@@ -1235,6 +1617,15 @@ minions["Metadata/Monsters/InsectSpawner/InsectSpawner"] = {
 	attackTime = 1.5,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 16,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+		"The Imperial Fields (Act 8)",
+		"The Sarn Ramparts (Act 8)",
+		"The Slums (Act 3)",
+	},
 	skillList = {
 		"InsectSpawnerSpit",
 		"InsectSpawnerSpawn",
@@ -1259,6 +1650,13 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior2"] = {
 	attackTime = 1.755,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 28,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Kaom's Stronghold (Act 4)",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"KaomWarriorMoltenStrike",
@@ -1281,6 +1679,13 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior3"] = {
 	attackTime = 1.5,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 28,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Kaom's Stronghold (Act 4)",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"KaomWarriorGroundSlam",
@@ -1302,6 +1707,15 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior7"] = {
 	attackTime = 1.5,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 28,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Coast (Act 6)",
+		"The Eternal Laboratory (Act 8)",
+		"The Karui Fortress (Act 6)",
+		"The Mud Flats (Act 6)",
+	},
 	skillList = {
 		"Melee",
 		"KaomFireBeamTotem",
@@ -1334,6 +1748,10 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodDelve"] = {
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 35,
+	spawnLocation = {
+		"The Temple of Atzoatl",
+	},
 	skillList = {
 		"VaalincursionMortar",
 	},
@@ -1357,6 +1775,10 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve"] = 
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 35,
+	spawnLocation = {
+		"The Temple of Atzoatl",
+	},
 	skillList = {
 		"VaalincursionMortar",
 		"VaalIncursionSpecialBeamCannonBlood",
@@ -1381,6 +1803,10 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosDelve"] = {
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 35,
+	spawnLocation = {
+		"The Temple of Atzoatl",
+	},
 	skillList = {
 		"FireballIncursionChaos",
 	},
@@ -1404,6 +1830,10 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve"] = 
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 35,
+	spawnLocation = {
+		"The Temple of Atzoatl",
+	},
 	skillList = {
 		"FireballIncursionChaos",
 		"IncursionSummonPhantasms",
@@ -1429,6 +1859,10 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireDelve"] = {
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 35,
+	spawnLocation = {
+		"The Temple of Atzoatl",
+	},
 	skillList = {
 		"FireballIncusionFire",
 	},
@@ -1452,6 +1886,10 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_"] = 
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 35,
+	spawnLocation = {
+		"The Temple of Atzoatl",
+	},
 	skillList = {
 		"FireballIncusionFire",
 		"VaalIncursionFirestorm",
@@ -1476,6 +1914,10 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningDelve"] = {
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 35,
+	spawnLocation = {
+		"The Temple of Atzoatl",
+	},
 	skillList = {
 		"FireballIncusionLightning",
 	},
@@ -1499,6 +1941,10 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 35,
+	spawnLocation = {
+		"The Temple of Atzoatl",
+	},
 	skillList = {
 		"FireballIncusionLightning",
 		"DelayedLightningSpark",
@@ -1525,6 +1971,17 @@ minions["Metadata/Monster/KitavaDemon/KitavaDemon"] = {
 	accuracy = 1,
 	damageFixup = 0.33,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 28,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Canals (Act 10)",
+		"The Cathedral Rooftop (Act 10)",
+		"The Cathedral Rooftop (Act 5)",
+		"The Eternal Laboratory (Act 8)",
+		"The Feeding Trough (Act 10)",
+		"The Torched Courts (Act 10)",
+	},
 	skillList = {
 		"KitavaDemonLeapSlam",
 		"KitavaDemonCleave",
@@ -1553,6 +2010,13 @@ minions["Metadata/Monsters/Kiweth/Kiweth"] = {
 	attackTime = 1.11,
 	attackRange = 11,
 	accuracy = 1,
+	baseMovementSpeed = 27,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+		"The Imperial Gardens (Act 3)",
+	},
 	skillList = {
 		"BirdmanConsumeCorpse",
 		"BirdmanBloodProjectileMortar",
@@ -1579,6 +2043,13 @@ minions["Metadata/Monsters/Kiweth/KiwethSeagull"] = {
 	attackTime = 1.11,
 	attackRange = 11,
 	accuracy = 1,
+	baseMovementSpeed = 27,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+		"The Ledge (Act 1)",
+	},
 	skillList = {
 		"BirdmanConsumeCorpse",
 		"MeleeAtAnimationSpeed",
@@ -1609,6 +2080,9 @@ minions["Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
+	baseMovementSpeed = 43,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"DelveProtovaalWhirlingCharge",
@@ -1632,6 +2106,12 @@ minions["Metadata/Monsters/Lion/LionDesertSkinPuncture"] = {
 	attackTime = 1.5,
 	attackRange = 10,
 	accuracy = 1,
+	baseMovementSpeed = 37,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterPuncture",
@@ -1655,6 +2135,11 @@ minions["Metadata/Monsters/Lion/LionWolf3Champion"] = {
 	attackRange = 10,
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 37,
+	spawnLocation = {
+		"The Descent (Act 9)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"Melee",
 		"MonsterLeapSlamFoothills",
@@ -1679,6 +2164,14 @@ minions["Metadata/Monsters/MassSkeleton/MassSkeleton"] = {
 	attackTime = 1.5,
 	attackRange = 11,
 	accuracy = 1,
+	baseMovementSpeed = 30,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Dried Lake (Act 4)",
+		"The Eternal Laboratory (Act 8)",
+		"The Foothills (Act 9)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"SkeletonMassBowProjectile",
@@ -1703,6 +2196,14 @@ minions["Metadata/Monsters/Miner/MinerLantern"] = {
 	attackTime = 1.395,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 10,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+		"The Mines Level 1 (Act 4)",
+		"The Mines Level 2 (Act 4)",
+	},
 	skillList = {
 		"MinerThrowFire",
 		"MinerThrowFireSpectre",
@@ -1726,6 +2227,10 @@ minions["Metadata/Monsters/Miner/MinerLanternCrystalVeins"] = {
 	attackTime = 1.395,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 10,
+	spawnLocation = {
+		"The Crystal Veins (Act 4)",
+	},
 	skillList = {
 		"MinerThrowFire",
 		"MinerThrowFireSpectre",
@@ -1749,6 +2254,14 @@ minions["Metadata/Monsters/Monkeys/FlameBearer"] = {
 	attackTime = 1.5,
 	attackRange = 7,
 	accuracy = 1,
+	baseMovementSpeed = 33,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Docks (Act 3)",
+		"The Eternal Laboratory (Act 8)",
+		"The Upper Sceptre of God (Act 3)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"FlamebearerFlameBlue",
@@ -1772,6 +2285,12 @@ minions["Metadata/Monsters/MossMonster/FireMonster"] = {
 	attackTime = 1.17,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 12,
+	spawnLocation = {
+		"Olmec's Sanctum (Map)",
+		"The Crematorium (Act 3)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"FireMonsterWhirlingBlades",
@@ -1795,6 +2314,13 @@ minions["Metadata/Monsters/MotherOfFlames/MotherOfFlamesZombie"] = {
 	attackTime = 1.8,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 28,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+		"The Ravaged Square (Act 10)",
+	},
 	skillList = {
 		"MotherOfFlamesMagmaOrb3",
 		"Melee",
@@ -1818,6 +2344,16 @@ minions["Metadata/Monsters/Necromancer/NecromancerConductivity"] = {
 	attackTime = 1.17,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 13,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Ancient Pyramid (Act 2)",
+		"The Caverns (Act 2)",
+		"The Chamber of Sins Level 1 (Act 7)",
+		"The Chamber of Sins Level 2 (Act 2)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"NecromancerReviveSkeleton",
@@ -1842,6 +2378,12 @@ minions["Metadata/Monsters/Necromancer/NecromancerEnfeebleCurse"] = {
 	attackTime = 1.17,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 13,
+	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+		"The Lower Prison (Act 1)",
+		"The Upper Prison (Act 1)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"NecromancerReviveSkeleton",
@@ -1867,6 +2409,16 @@ minions["Metadata/Monsters/Necromancer/NecromancerFlamability"] = {
 	attackTime = 1.17,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 13,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Ancient Pyramid (Act 2)",
+		"The Caverns (Act 2)",
+		"The Crematorium (Act 3)",
+		"The Eternal Laboratory (Act 8)",
+		"The Lower Prison (Act 6)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"NecromancerReviveSkeleton",
@@ -1892,6 +2444,16 @@ minions["Metadata/Monsters/Necromancer/NecromancerFrostbite"] = {
 	attackTime = 1.17,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 13,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Olmec's Sanctum (Map)",
+		"The Ancient Pyramid (Act 2)",
+		"The Catacombs (Act 3)",
+		"The Caverns (Act 2)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"NecromancerReviveSkeleton",
@@ -1916,6 +2478,15 @@ minions["Metadata/Monsters/Necromancer/NecromancerElementalWeakness"] = {
 	attackTime = 1.17,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 13,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Oba's Cursed Trove (Map)",
+		"Olmec's Sanctum (Map)",
+		"The Crypt Level 2 (Act 2)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"NecromancerReviveSkeleton",
@@ -1940,6 +2511,13 @@ minions["Metadata/Monsters/Necromancer/NecromancerProjectileWeakness"] = {
 	attackTime = 1.17,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 13,
+	spawnLocation = {
+		"The Chamber of Sins Level 1 (Act 2)",
+		"The Coward's Trial (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Fellshrine Ruins (Act 2)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"NecromancerReviveSkeleton",
@@ -1964,6 +2542,13 @@ minions["Metadata/Monsters/Necromancer/NecromancerVulnerability"] = {
 	attackTime = 1.17,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 13,
+	spawnLocation = {
+		"The Chamber of Sins Level 1 (Act 2)",
+		"The Coward's Trial (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Fellshrine Ruins (Act 2)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"NecromancerReviveSkeleton",
@@ -1989,6 +2574,15 @@ minions["Metadata/Monsters/Pyromaniac/PyromaniacFire"] = {
 	attackTime = 1.5,
 	attackRange = 7,
 	accuracy = 1,
+	baseMovementSpeed = 27,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Oba's Cursed Trove (Map)",
+		"Olmec's Sanctum (Map)",
+		"The Crematorium (Act 3)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"PyroFireball",
 		"PyroSuicideExplosion",
@@ -2014,6 +2608,15 @@ minions["Metadata/Monsters/Pyromaniac/PyromaniacPoison"] = {
 	attackTime = 1.5,
 	attackRange = 7,
 	accuracy = 1,
+	baseMovementSpeed = 27,
+	spawnLocation = {
+		"Doedre's Cesspool (Act 8)",
+		"Fragmented Memory",
+		"Memory Void",
+		"Olmec's Sanctum (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Sewers (Act 3)",
+	},
 	skillList = {
 		"MonsterCausticBomb",
 		"PyroChaosFireball",
@@ -2037,6 +2640,17 @@ minions["Metadata/Monsters/Revenant/Revenant"] = {
 	attackTime = 1.5,
 	attackRange = 10,
 	accuracy = 1,
+	baseMovementSpeed = 38,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Belly of the Beast (Act 9)",
+		"The Belly of the Beast Level 1 (Act 4)",
+		"The Belly of the Beast Level 2 (Act 4)",
+		"The Eternal Laboratory (Act 8)",
+		"The Harvest (Act 4)",
+		"The Rotting Core (Act 9)",
+	},
 	skillList = {
 		"RevenantReviveUndead",
 		"RevenantSpellProjectile",
@@ -2062,6 +2676,12 @@ minions["Metadata/Monsters/Seawitch/SeaWitchFrostBolt"] = {
 	attackTime = 1.005,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 24,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"SeawitchFrostbolt",
@@ -2085,6 +2705,15 @@ minions["Metadata/Monsters/Seawitch/SeaWitchScreech"] = {
 	attackTime = 1.005,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 21,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Cavern of Anger (Act 1)",
+		"The Cavern of Anger (Act 6)",
+		"The Cavern of Wrath (Act 1)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"SeaWitchScreech",
@@ -2108,6 +2737,14 @@ minions["Metadata/Monsters/Seawitch/SeaWitchSpawnExploding"] = {
 	attackTime = 1.005,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 22,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Cavern of Anger (Act 1)",
+		"The Eternal Laboratory (Act 8)",
+		"Whakawairua Tuahu (Map)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"SeaWitchScreech",
@@ -2132,6 +2769,13 @@ minions["Metadata/Monsters/Seawitch/SeaWitchSpawnTemporalChains"] = {
 	attackTime = 1.005,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 22,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+		"Whakawairua Tuahu (Map)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"SeawitchTemporalChains",
@@ -2156,6 +2800,10 @@ minions["Metadata/Monsters/Seawitch/SeaWitchVulnerabilityCurse"] = {
 	attackTime = 1.005,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 22,
+	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"SeawitchVulnerability",
@@ -2181,6 +2829,11 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowPuncture"] = {
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 11,
+	spawnLocation = {
+		"The Coward's Trial (Map)",
+		"The Upper Prison (Act 1)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterPuncture",
@@ -2208,6 +2861,17 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowLightning"] = {
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 11,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Beacon (Act 6)",
+		"The Coward's Trial (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Lower Prison (Act 1)",
+		"The Lower Prison (Act 6)",
+		"The Refinery (Act 9)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"SkeletonArcherLightningArrow",
@@ -2233,6 +2897,12 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeLarge"] = {
 	attackRange = 9,
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 16,
+	spawnLocation = {
+		"The Archives (Act 3)",
+		"The Eternal Laboratory (Act 8)",
+		"The Library (Act 3)",
+	},
 	skillList = {
 		"Melee",
 	},
@@ -2256,6 +2926,9 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowLightning3"] = {
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 11,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterLightningArrow",
@@ -2279,6 +2952,13 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterColdMultipleProjectiles"] = {
 	attackTime = 1.605,
 	attackRange = 46,
 	accuracy = 1,
+	baseMovementSpeed = 10,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Coward's Trial (Map)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"SkeletonProjectileCold",
 	},
@@ -2302,6 +2982,12 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterFireMultipleProjectiles2"] = 
 	attackTime = 1.605,
 	attackRange = 46,
 	accuracy = 1,
+	baseMovementSpeed = 14,
+	spawnLocation = {
+		"Olmec's Sanctum (Map)",
+		"The Crematorium (Act 3)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"SkeletonProjectileFire",
 	},
@@ -2327,6 +3013,11 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowPoison"] = {
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 11,
+	spawnLocation = {
+		"The Coward's Trial (Map)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterCausticArrow",
@@ -2352,6 +3043,11 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowLightning2"] = {
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 11,
+	spawnLocation = {
+		"The City of Sarn (Act 3)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterLightningArrow",
@@ -2376,6 +3072,12 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowLightning4"] = {
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 11,
+	spawnLocation = {
+		"The Chamber of Sins Level 1 (Act 2)",
+		"The Chamber of Sins Level 1 (Act 7)",
+		"The Chamber of Sins Level 2 (Act 2)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterLightningArrow",
@@ -2398,6 +3100,15 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterLightningSpark"] = {
 	attackTime = 1.605,
 	attackRange = 46,
 	accuracy = 1,
+	baseMovementSpeed = 10,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Olmec's Sanctum (Map)",
+		"The Chamber of Sins Level 2 (Act 2)",
+		"The Coward's Trial (Map)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"SkeletonProjectileLightning",
 		"SkeletonSpark",
@@ -2422,6 +3133,14 @@ minions["Metadata/Monsters/Skeletons/SkeletonBlackCaster1_"] = {
 	attackTime = 1.605,
 	attackRange = 46,
 	accuracy = 1,
+	baseMovementSpeed = 11,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+		"The Ossuary (Act 10)",
+		"The Ossuary (Act 5)",
+	},
 	skillList = {
 		"SkeletonProjectileBlack",
 	},
@@ -2446,6 +3165,9 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse"] = {
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 11,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterProjectileWeakness",
@@ -2472,6 +3194,10 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionC
 	attackRange = 11,
 	accuracy = 1,
 	weaponType1 = "Two Handed Sword",
+	baseMovementSpeed = 10,
+	spawnLocation = {
+		"The Temple of Atzoatl",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"ElementalHitSkeletonKnightIncursion",
@@ -2496,6 +3222,15 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowKnightElemental"] = {
 	attackRange = 40,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 11,
+	spawnLocation = {
+		"Death and Taxes (Map)",
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+		"The Temple of Atzoatl",
+		"The Temple of Decay Level 2 (Act 7)",
+	},
 	skillList = {
 		"Melee",
 		"ElementalHitSkeletonKnight",
@@ -2520,6 +3255,10 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance"] = {
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "Two Handed Mace",
+	baseMovementSpeed = 23,
+	spawnLocation = {
+		"Ziggurat (Map)",
+	},
 	skillList = {
 		"Melee",
 		"SkeletonBlackAbyssBoneLance",
@@ -2546,6 +3285,14 @@ minions["Metadata/Monsters/SkeletonCannon/SkeletonCannon1"] = {
 	attackTime = 1.8,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 30,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+		"The Ossuary (Act 10)",
+		"The Ossuary (Act 5)",
+	},
 	skillList = {
 		"SkeletonCannonMortar",
 		"SkeletonCannonBoneMortar",
@@ -2571,6 +3318,20 @@ minions["Metadata/Monsters/Snake/SnakeMeleeSpit"] = {
 	attackTime = 1.095,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 30,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Olmec's Sanctum (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Northern Forest (Act 2)",
+		"The Riverways (Act 2)",
+		"The Riverways (Act 6)",
+		"The Southern Forest (Act 2)",
+		"The Southern Forest (Act 6)",
+		"The Temple of Atzoatl",
+		"The Wetlands (Act 2)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"SnakeProjectile",
@@ -2594,6 +3355,9 @@ minions["Metadata/Monsters/Snake/SnakeScorpionMultiShot"] = {
 	attackTime = 1.095,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"SnakeSpineProjectile",
@@ -2618,6 +3382,13 @@ minions["Metadata/Monsters/Spiders/SpiderThornFlickerStrike"] = {
 	attackTime = 0.945,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 26,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+		"The Temple of Decay Level 1 (Act 7)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterFlickerStrike",
@@ -2639,6 +3410,9 @@ minions["Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrike"] = {
 	attackTime = 0.945,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 26,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterViperStrike",
@@ -2664,6 +3438,9 @@ minions["Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear"] = {
 	accuracy = 1,
 	damageFixup = 0.33,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 22,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"MonsterPuncture",
@@ -2690,6 +3467,10 @@ minions["Metadata/Monsters/Statue/StoneStatueMaleBow"] = {
 	accuracy = 1,
 	damageFixup = 0.11,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 19,
+	spawnLocation = {
+		"Oba's Cursed Trove (Map)",
+	},
 	skillList = {
 		"Melee",
 		"MonsterIceShot",
@@ -2716,6 +3497,17 @@ minions["Metadata/Monsters/Taster/Taster"] = {
 	attackRange = 6,
 	accuracy = 1,
 	weaponType1 = "Dagger",
+	baseMovementSpeed = 36,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Belly of the Beast (Act 9)",
+		"The Belly of the Beast Level 1 (Act 4)",
+		"The Belly of the Beast Level 2 (Act 4)",
+		"The Eternal Laboratory (Act 8)",
+		"The Harvest (Act 4)",
+		"The Rotting Core (Act 9)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"TarMortarTaster",
@@ -2741,6 +3533,13 @@ minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriver"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
 	weaponType2 = "One Handed Mace",
+	baseMovementSpeed = 32,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Control Blocks (Act 5)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"SlaverTaunt",
 		"Melee",
@@ -2767,6 +3566,11 @@ minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriverKitava"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
 	weaponType2 = "One Handed Mace",
+	baseMovementSpeed = 32,
+	spawnLocation = {
+		"The Control Blocks (Act 10)",
+		"The Eternal Laboratory (Act 8)",
+	},
 	skillList = {
 		"SlaverTaunt",
 		"Melee",
@@ -2793,6 +3597,16 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleCasterArmour"] = {
 	attackTime = 1.245,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 37,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Perandus Manor (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Grand Promenade (Act 8)",
+		"The Sceptre of God (Act 3)",
+		"The Upper Sceptre of God (Act 3)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"DelayedBlast",
@@ -2816,6 +3630,13 @@ minions["Metadata/Monsters/Undying/UndyingOutcastPuncture"] = {
 	attackTime = 1.65,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 38,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+		"The Marketplace (Act 3)",
+	},
 	skillList = {
 		"Melee",
 		"MonsterPuncture",
@@ -2838,6 +3659,18 @@ minions["Metadata/Monsters/Undying/UndyingOutcastWhirlingBlades"] = {
 	attackTime = 1.65,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 38,
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The City of Sarn (Act 3)",
+		"The Eternal Laboratory (Act 8)",
+		"The Grain Gate (Act 8)",
+		"The Marketplace (Act 3)",
+		"The Quay (Act 8)",
+		"The Sarn Ramparts (Act 8)",
+		"The Slums (Act 3)",
+	},
 	skillList = {
 		"Melee",
 		"UndyingWhirlingBlades",
@@ -2861,6 +3694,13 @@ minions["Metadata/Monsters/WickerMan/WickerMan"] = {
 	attackRange = 10,
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 28,
+	spawnLocation = {
+		"The Canals (Act 10)",
+		"The Eternal Laboratory (Act 8)",
+		"The Feeding Trough (Act 10)",
+		"The Ravaged Square (Act 10)",
+	},
 	skillList = {
 		"Melee",
 		"WickerManRighteousFire",
@@ -2887,6 +3727,9 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcherS
 	attackRange = 70,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"WalkEmergeAtlasInfluenceMonster",
 		"MeleeEyrieArrow",
@@ -2918,6 +3761,9 @@ minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMagegua
 	attackTime = 1.5,
 	attackRange = 14,
 	accuracy = 1,
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"AtlasExilesCrusaderMageguardProjectile",
 		"EmptyActionSpellCrusaderMageguard",
@@ -2945,6 +3791,9 @@ minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlessed
 	attackTime = 1.8,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 28,
+	spawnLocation = {
+	},
 	skillList = {
 		"AtlasCrusaderSisterMortarSpectre",
 		"WalkEmergeAtlasInfluenceMonster",
@@ -2968,6 +3817,9 @@ minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderTemplar
 	attackTime = 1.755,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 32,
+	spawnLocation = {
+	},
 	skillList = {
 		"AtlasCrusaderJudgeBallLightning",
 		"AtlasCruasderJudgeFadingNova",
@@ -2993,6 +3845,10 @@ minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
 	attackTime = 0.99,
 	attackRange = 7,
 	accuracy = 1,
+	baseMovementSpeed = 75,
+	spawnLocation = {
+		"Esh's Domain (Map)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"SandLeaperDodgeLeft",
@@ -3024,6 +3880,15 @@ minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer3Spectre"] = {
 	attackTime = 1.305,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 40,
+	spawnLocation = {
+		"Cortex (Act 11)",
+		"Distant Memory",
+		"Fractured Laboratory",
+		"Fragmented Memory",
+		"Memory Void",
+		"Twisted Distant Memory (Act 11)",
+	},
 	skillList = {
 		"SynthesisSoulstealerProjectileLightning",
 		"EmptyActionSynthesisSoulstealerArc",
@@ -3052,6 +3917,9 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighter
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeCold",
 		"WalkEmergeAtlasInfluenceMonster",
@@ -3078,6 +3946,9 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
 	attackTime = 1.17,
 	attackRange = 14,
 	accuracy = 1,
+	baseMovementSpeed = 25,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeCold",
 		"HarvestCrabDashSlam",
@@ -3108,6 +3979,9 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre"] = {
 	attackTime = 0.99,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"HarvestRhexLeapSlam",
@@ -3139,6 +4013,9 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
 	attackTime = 1.17,
 	attackRange = 10,
 	accuracy = 1,
+	baseMovementSpeed = 32,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"LegionTemplarJudgeStormCall",
@@ -3167,6 +4044,9 @@ minions["Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre"] = 
 	attackTime = 1.17,
 	attackRange = 10,
 	accuracy = 1,
+	baseMovementSpeed = 23,
+	spawnLocation = {
+	},
 	skillList = {
 		"DoLiterallyNothing",
 		"MPSHeistRobotClockworkGolemBasicProjectile",
@@ -3193,6 +4073,10 @@ minions["Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_"] = {
 	attackTime = 0.6,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 40,
+	spawnLocation = {
+		"Syndicate Hideout",
+	},
 	skillList = {
 		"Melee",
 		"WalkEmergeBetrayal",
@@ -3220,6 +4104,9 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre
 	attackTime = 1.005,
 	attackRange = 11,
 	accuracy = 1,
+	baseMovementSpeed = 22,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeCold",
 		"WalkEmergeAtlasInfluenceMonster",
@@ -3247,6 +4134,10 @@ minions["Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre"] = {
 	attackRange = 60,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 43,
+	spawnLocation = {
+		"The Hidden Underbelly (Act 8)",
+	},
 	skillList = {
 		"MPWHeistThugRangedBurningArrow",
 		"DoLiterallyNothing",
@@ -3280,6 +4171,9 @@ minions["Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre"] = {
 	attackTime = 1.17,
 	attackRange = 10,
 	accuracy = 1,
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"DoLiterallyNothing",
 		"WalkEmergeHeistRobotElevator",
@@ -3309,6 +4203,9 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArmouredBirdS
 	attackTime = 1.005,
 	attackRange = 14,
 	accuracy = 1,
+	baseMovementSpeed = 44,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeCold",
 		"WalkEmergeAtlasInfluenceMonster",
@@ -3335,6 +4232,9 @@ minions["Metadata/Monsters/Maligaro/SecretDesecrateMonster"] = {
 	attackRange = 25,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 49,
+	spawnLocation = {
+	},
 	skillList = {
 		"SecretDesecrateMonsterTeleport",
 		"SecretDesecrateMonsterEarthquakeTriggered",
@@ -3363,6 +4263,9 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdWeakSpectre"] = {
 	attackRange = 58,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"UltimatumGuardMeleeCold",
 		"UltimatumGuardConeArrowCold",
@@ -3388,6 +4291,9 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdSpectre"] = {
 	attackRange = 58,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"UltimatumGuardMeleeCold",
 		"EAAVaalGuardBarrage",
@@ -3414,6 +4320,9 @@ minions["Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre"] = {
 	attackRange = 50,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeKaruiArcher",
 		"LegionKaruiArcherSnipe",
@@ -3441,6 +4350,9 @@ minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spec
 	attackRange = 12,
 	accuracy = 1,
 	weaponType1 = "None",
+	baseMovementSpeed = 45,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedFire",
 		"DTTHellscapeDemonElite1",
@@ -3468,6 +4380,10 @@ minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite1Spectr
 	attackRange = 9,
 	accuracy = 1,
 	weaponType1 = "None",
+	baseMovementSpeed = 37,
+	spawnLocation = {
+		"Sanctuary (Map)",
+	},
 	skillList = {
 		"TBHellscapePaleLightningBoltSpammableLeft",
 		"TBHellscapePaleLightningBoltSpammableRight",
@@ -3498,6 +4414,9 @@ minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite2_Spe
 	accuracy = 1,
 	weaponType1 = "None",
 	weaponType2 = "One Handed Mace",
+	baseMovementSpeed = 53,
+	spawnLocation = {
+	},
 	skillList = {
 		"GTHellscapeDemonEliteVomit",
 		"MMSHellscapeDemonEliteTripleMortar",
@@ -3524,6 +4443,10 @@ minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectr
 	attackRange = 13,
 	accuracy = 1,
 	weaponType1 = "None",
+	baseMovementSpeed = 37,
+	spawnLocation = {
+		"Sanctuary (Map)",
+	},
 	skillList = {
 		"EAAHellscapeStabbyStab",
 		"DTTHellscapeStabbySkyStab",
@@ -3555,6 +4478,9 @@ minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spe
 	attackRange = 8,
 	accuracy = 1,
 	weaponType1 = "None",
+	baseMovementSpeed = 32,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"HellscapeFleshFodderArc",
@@ -3579,6 +4505,15 @@ minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre"] = {
 	attackTime = 1.305,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 40,
+	spawnLocation = {
+		"Cortex (Act 11)",
+		"Distant Memory",
+		"Fractured Laboratory",
+		"Fragmented Memory",
+		"Memory Void",
+		"Rewritten Distant Memory (Act 11)",
+	},
 	skillList = {
 		"SynthesisSoulstealerProjectilePhysical",
 		"SynthesisSoulstealerQuicksand",
@@ -3611,6 +4546,11 @@ minions["Metadata/Monsters/Hellion/Hellion3Spectre"] = {
 	attackTime = 1.5,
 	attackRange = 10,
 	accuracy = 1,
+	baseMovementSpeed = 37,
+	spawnLocation = {
+		"The Grain Gate (Act 8)",
+		"The Quay (Act 8)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"HellionRallyingCry",
@@ -3636,6 +4576,9 @@ minions["Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorG
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"WalkEmergeAtlasInfluenceMonster",
@@ -3664,6 +4607,10 @@ minions["Metadata/Monsters/MinerLarge/MinerLargeCommanderBreachSpectre"] = {
 	attackTime = 1.755,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 16,
+	spawnLocation = {
+		"Tul's Domain (Map)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"BreachBlizzardSpectre",
@@ -3690,6 +4637,9 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple"] = {
 	attackTime = 1.755,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"DelveWraithScreechChaos",
 		"DelveWraithScreechChaosGeometrySpell",
@@ -3715,6 +4665,9 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
 	attackTime = 1.755,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"WraithEtherealKnives",
 		"Melee",
@@ -3741,6 +4694,9 @@ minions["Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac"] = {
 	attackTime = 1.5,
 	attackRange = 7,
 	accuracy = 1,
+	baseMovementSpeed = 31,
+	spawnLocation = {
+	},
 	skillList = {
 		"MMSPyromaniacIceMortar",
 		"CrucibleIceStormTrap",
@@ -3767,6 +4723,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeLow"] = 
 	attackRange = 12,
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 38,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriHailrakeGlacialCascade",
@@ -3793,6 +4752,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeMid"] = 
 	attackRange = 12,
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 38,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriHailrakeGlacialCascade",
@@ -3820,6 +4782,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeHigh"] =
 	attackRange = 12,
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 38,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriHailrakeGlacialCascade",
@@ -3849,6 +4814,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryLow"] = 
 	attackRange = 13,
 	accuracy = 1,
 	weaponType1 = "Staff",
+	baseMovementSpeed = 38,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedFire",
 		"FemaleCannibalBossFireStorm",
@@ -3874,6 +4842,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryMid"] = 
 	attackRange = 13,
 	accuracy = 1,
 	weaponType1 = "Staff",
+	baseMovementSpeed = 38,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedFire",
 		"AzmeriFireFuryMoltenStrike",
@@ -3900,6 +4871,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryHigh_"] 
 	attackRange = 13,
 	accuracy = 1,
 	weaponType1 = "Staff",
+	baseMovementSpeed = 38,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedFire",
 		"AzmeriFireFuryMoltenStrike",
@@ -3929,6 +4903,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraLow"] = {
 	attackRange = 80,
 	accuracy = 1.2,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 45,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriHydraDoomArrow",
 		"AzmeriHydraBarrage",
@@ -3953,6 +4930,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraMid"] = {
 	attackRange = 80,
 	accuracy = 1.2,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 45,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriHydraDoomArrow",
 		"AzmeriHydraBarrage",
@@ -3978,6 +4958,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraHigh_"] = {
 	attackRange = 80,
 	accuracy = 1.2,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 45,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriHydraDoomArrow",
 		"AzmeriHydraBarrage",
@@ -4003,6 +4986,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinLow"] 
 	attackTime = 1.5,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 36,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 	},
@@ -4025,6 +5011,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinMid"] 
 	attackTime = 1.5,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 36,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"DarkMarionetteExplode",
@@ -4048,6 +5037,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinHigh_"
 	attackTime = 1.5,
 	attackRange = 8,
 	accuracy = 1,
+	baseMovementSpeed = 36,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"DarkMarionetteExplodePerfect",
@@ -4073,6 +5065,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusLow"] = {
 	attackTime = 1.785,
 	attackRange = 21,
 	accuracy = 1,
+	baseMovementSpeed = 58,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriArgusMeleeAtAnimationSpeed",
 		"GAAzmeriRobotArgusSlam",
@@ -4099,6 +5094,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusMid"] = {
 	attackTime = 1.785,
 	attackRange = 21,
 	accuracy = 1,
+	baseMovementSpeed = 58,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriArgusMeleeAtAnimationSpeed",
 		"GAAzmeriRobotArgusSlam",
@@ -4128,6 +5126,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusHigh__"] = {
 	attackTime = 1.785,
 	attackRange = 21,
 	accuracy = 1,
+	baseMovementSpeed = 58,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriArgusMeleeAtAnimationSpeed",
 		"GAAzmeriRobotArgusSlam",
@@ -4158,6 +5159,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuLow"] = {
 	attackTime = 1.5,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 0,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriKudukuShockNova",
 		"AzmeriKudukuSparkExtraProj",
@@ -4181,6 +5185,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid"] = {
 	attackTime = 1.5,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 0,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriKudukuShockNova",
 		"AzmeriKudukuSparkExtraProj",
@@ -4205,6 +5212,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh"] = {
 	attackTime = 1.5,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 0,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriKudukuShockNova",
 		"AzmeriKudukuSparkExtraProj",
@@ -4233,6 +5243,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralLow"] = {
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 44,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedCold",
 		"AzmeriAdmiralDoubleStrike",
@@ -4270,6 +5283,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralMid__"] = {
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 44,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedCold",
 		"AzmeriAdmiralDoubleStrike",
@@ -4308,6 +5324,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_"] = {
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 44,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedCold",
 		"AzmeriAdmiralDoubleStrike",
@@ -4346,6 +5365,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordLow"] = {
 	attackTime = 1.5,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 32,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriSawbladeAnimatedWeaponCyclone",
 		"MeleeAtAnimationSpeed",
@@ -4370,6 +5392,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordMid"] = {
 	attackTime = 1.5,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 32,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriSawbladeAnimatedWeaponCyclone",
 		"MeleeAtAnimationSpeed",
@@ -4395,6 +5420,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_"] = {
 	attackTime = 1.5,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 32,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriSawbladeAnimatedWeaponCyclone",
 		"MeleeAtAnimationSpeed",
@@ -4424,6 +5452,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonLow"] = {
 	attackRange = 50,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriBarrageDemonSpineProjectile",
 		"AzmeriBarrageDemonRainOfSpines",
@@ -4449,6 +5480,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonMid"] = {
 	attackRange = 50,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriBarrageDemonSpineProjectile",
 		"AzmeriBarrageDemonRainOfSpines",
@@ -4475,6 +5509,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonHigh_"] = {
 	attackRange = 50,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriBarrageDemonSpineProjectile",
 		"AzmeriBarrageDemonRainOfSpines",
@@ -4504,6 +5541,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskLow"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Dagger",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedChaos",
 		"AzmeriBasiliskShoulderMortar",
@@ -4546,6 +5586,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskMid"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Dagger",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedChaos",
 		"AzmeriBasiliskShoulderMortar",
@@ -4590,6 +5633,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskHigh"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Dagger",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedChaos",
 		"AzmeriBasiliskShoulderMortar",
@@ -4633,6 +5679,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonLow"] = {
 	attackTime = 1.32,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 32,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriCasterDemonProjectile",
 		"DeceleratingProjectileAzmeriCasterDemon",
@@ -4657,6 +5706,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonMid"] = {
 	attackTime = 1.32,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 32,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriCasterDemonProjectile",
 		"DeceleratingProjectileAzmeriCasterDemon",
@@ -4683,6 +5735,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonHigh"] = {
 	attackTime = 1.32,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 32,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriCasterDemonProjectile",
 		"DeceleratingProjectileAzmeriCasterDemon",
@@ -4713,6 +5768,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonLow"] = {
 	attackRange = 13,
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
+	baseMovementSpeed = 24,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriCycloneDemonCleave",
@@ -4738,6 +5796,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonMid"] = {
 	attackRange = 13,
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
+	baseMovementSpeed = 24,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriCycloneDemonCleave",
@@ -4764,6 +5825,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonHigh"] = {
 	attackRange = 13,
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
+	baseMovementSpeed = 24,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriCycloneDemonCleave",
@@ -4790,6 +5854,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightLow"] = {
 	attackRange = 22,
 	accuracy = 1,
 	weaponType1 = "Two Handed Mace",
+	baseMovementSpeed = 17,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"GAExpeditionDeathKnightSlam",
@@ -4815,6 +5882,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightMid"] = {
 	attackRange = 22,
 	accuracy = 1,
 	weaponType1 = "Two Handed Mace",
+	baseMovementSpeed = 17,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"GAExpeditionDeathKnightSlam",
@@ -4840,6 +5910,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightHigh"] = {
 	attackRange = 22,
 	accuracy = 1,
 	weaponType1 = "Two Handed Mace",
+	baseMovementSpeed = 17,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"GAExpeditionDeathKnightSlam",
@@ -4868,6 +5941,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonLow"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
+	baseMovementSpeed = 36,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriDualStrikeDemonFireEnrage",
@@ -4894,6 +5970,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonMid"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
+	baseMovementSpeed = 36,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriDualStrikeDemonFireEnrage",
@@ -4921,6 +6000,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonHigh"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
+	baseMovementSpeed = 36,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriDualStrikeDemonFireEnrage",
@@ -4948,6 +6030,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverLow__"] = {
 	attackTime = 1.5,
 	attackRange = 10,
 	accuracy = 1,
+	baseMovementSpeed = 32,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MPSAncestralDruidFlask",
@@ -4975,6 +6060,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverMid"] = {
 	attackTime = 1.5,
 	attackRange = 10,
 	accuracy = 1,
+	baseMovementSpeed = 32,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MPSAncestralDruidFlask",
@@ -5003,6 +6091,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverHigh"] = {
 	attackTime = 1.5,
 	attackRange = 10,
 	accuracy = 1,
+	baseMovementSpeed = 32,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MPSAncestralDruidFlask",
@@ -5032,6 +6123,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundLow"] = {
 	attackTime = 1.56,
 	attackRange = 10,
 	accuracy = 1,
+	baseMovementSpeed = 31,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"DoLiterallyNothing",
@@ -5057,6 +6151,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundMid"] = {
 	attackTime = 1.56,
 	attackRange = 10,
 	accuracy = 1,
+	baseMovementSpeed = 31,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"DoLiterallyNothing",
@@ -5082,6 +6179,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundHigh_"] = {
 	attackTime = 1.56,
 	attackRange = 10,
 	accuracy = 1,
+	baseMovementSpeed = 31,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"DoLiterallyNothing",
@@ -5109,6 +6209,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriLow"] = {
 	attackTime = 1.5,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 16,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriGeofriSlam",
@@ -5139,6 +6242,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriMid_"] = {
 	attackTime = 1.5,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 16,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriGeofriSlam",
@@ -5170,6 +6276,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriHigh"] = {
 	attackTime = 1.5,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 16,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriGeofriSlam",
@@ -5201,6 +6310,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessLow"] = {
 	attackTime = 1.5,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriGoddessSpiritMortar",
 		"AzmeriGoddessSummonSkeletonGhostflame",
@@ -5226,6 +6338,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessMid"] = {
 	attackTime = 1.5,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriGoddessSpiritMortar",
 		"AzmeriGoddessSummonSkeletonGhostflame",
@@ -5252,6 +6367,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessHigh"] = {
 	attackTime = 1.5,
 	attackRange = 12,
 	accuracy = 1,
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriGoddessSpiritMortar",
 		"AzmeriGoddessSummonSkeletonGhostflame",
@@ -5282,6 +6400,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdLow"] = {
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "Dagger",
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedLightning",
 		"AzmeriRavenScreechOfSplendour",
@@ -5312,6 +6433,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdMid"] = {
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "Dagger",
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedLightning",
 		"AzmeriRavenScreechOfSplendour",
@@ -5342,6 +6466,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdHigh"] = {
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "Dagger",
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedLightning",
 		"AzmeriRavenScreechOfSplendour",
@@ -5373,6 +6500,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmLow__"] = {
 	attackTime = 1.755,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriPhantasmExplode",
 		"AzmeriLightningMelee",
@@ -5396,6 +6526,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmMid"] = {
 	attackTime = 1.755,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriPhantasmExplode",
 		"AzmeriLightningMelee",
@@ -5420,6 +6553,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmHigh"] = {
 	attackTime = 1.755,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriPhantasmExplodeSap",
 		"AzmeriLightningMelee",
@@ -5446,6 +6582,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonLow"] = {
 	attackRange = 15,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriMegaSkeletonHeavyMelee",
@@ -5471,6 +6610,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonMid"] = {
 	attackRange = 15,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriMegaSkeletonHeavyMelee",
@@ -5497,6 +6639,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonHigh"] = {
 	attackRange = 15,
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriMegaSkeletonHeavyMelee",
@@ -5525,6 +6670,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakLow"] = {
 	attackTime = 1.5,
 	attackRange = 13,
 	accuracy = 1,
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriOakSweep",
@@ -5551,6 +6699,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakMid"] = {
 	attackTime = 1.5,
 	attackRange = 13,
 	accuracy = 1,
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriOakSweep",
@@ -5578,6 +6729,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakHigh"] = {
 	attackTime = 1.5,
 	attackRange = 13,
 	accuracy = 1,
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriOakSweep",
@@ -5608,6 +6762,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperLow"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
+	baseMovementSpeed = 17,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriReaperMelee",
 		"GAAzmeriReaperLacerate",
@@ -5645,6 +6802,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperMid"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
+	baseMovementSpeed = 17,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriReaperMelee",
 		"GAAzmeriReaperLacerate",
@@ -5683,6 +6843,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperHigh"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
+	baseMovementSpeed = 17,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriReaperMelee",
 		"GAAzmeriReaperLacerate",
@@ -5723,6 +6886,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdLow"] = {
 	accuracy = 1,
 	weaponType1 = "None",
 	weaponType2 = "One Handed Mace",
+	baseMovementSpeed = 53,
+	spawnLocation = {
+	},
 	skillList = {
 		"GTAzmeriShepherdVomit",
 		"MMSAzmeriShepherdTripleMortar",
@@ -5749,6 +6915,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdMid_"] = {
 	accuracy = 1,
 	weaponType1 = "None",
 	weaponType2 = "One Handed Mace",
+	baseMovementSpeed = 53,
+	spawnLocation = {
+	},
 	skillList = {
 		"GTAzmeriShepherdVomit",
 		"MMSAzmeriShepherdTripleMortar",
@@ -5775,6 +6944,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdHigh"] = {
 	accuracy = 1,
 	weaponType1 = "None",
 	weaponType2 = "One Handed Mace",
+	baseMovementSpeed = 53,
+	spawnLocation = {
+	},
 	skillList = {
 		"GTAzmeriShepherdVomit",
 		"MMSAzmeriShepherdTripleMortar",
@@ -5802,6 +6974,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderLow"] = {
 	attackTime = 0.945,
 	attackRange = 13,
 	accuracy = 1,
+	baseMovementSpeed = 45,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterViperStrikeAtAnimationSpeed",
@@ -5826,6 +7001,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderMid"] = {
 	attackTime = 0.945,
 	attackRange = 13,
 	accuracy = 1,
+	baseMovementSpeed = 45,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterViperStrikeAtAnimationSpeed",
@@ -5851,6 +7029,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderHigh_"] = {
 	attackTime = 0.945,
 	attackRange = 13,
 	accuracy = 1,
+	baseMovementSpeed = 45,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"MonsterViperStrikeAtAnimationSpeed",
@@ -5877,6 +7058,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieLow"] = {
 	attackTime = 1.5,
 	attackRange = 11,
 	accuracy = 1,
+	baseMovementSpeed = 48,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 	},
@@ -5898,6 +7082,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieMid"] = {
 	attackTime = 1.5,
 	attackRange = 11,
 	accuracy = 1,
+	baseMovementSpeed = 48,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriZombieCausticGroundWhenHit",
@@ -5920,6 +7107,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieHigh"] = {
 	attackTime = 1.5,
 	attackRange = 11,
 	accuracy = 1,
+	baseMovementSpeed = 48,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriZombieCausticGroundWhenHit",
@@ -5945,6 +7135,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionLow"] = {
 	attackTime = 1.5,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"ElderTentacleMinionProjectile",
 		"ElderTentacleMinionProjectileEpic",
@@ -5970,6 +7163,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionMid"] = {
 	attackTime = 1.5,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"ElderTentacleMinionProjectile",
 		"ElderTentacleMinionProjectileEpic",
@@ -5996,6 +7192,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionHigh"] = {
 	attackTime = 1.5,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"ElderTentacleMinionProjectile",
 		"ElderTentacleMinionProjectileEpic",
@@ -6026,6 +7225,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerLow"] = {
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "Claw",
+	baseMovementSpeed = 57,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriTigerSpiritFangs",
@@ -6057,6 +7259,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerMid"] = {
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "Claw",
+	baseMovementSpeed = 57,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriTigerSpiritFangs",
@@ -6089,6 +7294,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerHigh"] = {
 	attackRange = 14,
 	accuracy = 1,
 	weaponType1 = "Claw",
+	baseMovementSpeed = 57,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"AzmeriTigerSpiritFangs",
@@ -6121,6 +7329,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleLow"] = {
 	attackTime = 1.5,
 	attackRange = 19,
 	accuracy = 1,
+	baseMovementSpeed = 5,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"ABTTAzmeriTurtleInvulnerability",
@@ -6143,6 +7354,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleMid_"] = {
 	attackTime = 1.5,
 	attackRange = 19,
 	accuracy = 1,
+	baseMovementSpeed = 5,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"ABTTAzmeriTurtleInvulnerability",
@@ -6166,6 +7380,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleHigh"] = {
 	attackTime = 1.5,
 	attackRange = 19,
 	accuracy = 1,
+	baseMovementSpeed = 5,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"ABTTAzmeriTurtleInvulnerability",
@@ -6192,6 +7409,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulLow"] = {
 	attackTime = 4.005,
 	attackRange = 7,
 	accuracy = 1,
+	baseMovementSpeed = 25,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriOversoulRocks",
 		"AzmeriOversoulSpray",
@@ -6218,6 +7438,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulMid"] = {
 	attackTime = 4.005,
 	attackRange = 7,
 	accuracy = 1,
+	baseMovementSpeed = 25,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriOversoulRocks",
 		"AzmeriOversoulSpray",
@@ -6244,6 +7467,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulHigh"] = {
 	attackTime = 4.005,
 	attackRange = 7,
 	accuracy = 1,
+	baseMovementSpeed = 25,
+	spawnLocation = {
+	},
 	skillList = {
 		"AzmeriOversoulRocks",
 		"AzmeriOversoulSpray",
@@ -6273,6 +7499,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingLow"] = {
 	attackRange = 8,
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedFire",
 		"AzmeriVikingCyclone",
@@ -6298,6 +7527,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingMid"] = {
 	attackRange = 8,
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedFire",
 		"AzmeriVikingCyclone",
@@ -6324,6 +7556,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingHigh"] = {
 	attackRange = 8,
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedFire",
 		"AzmeriVikingCyclone",
@@ -6349,6 +7584,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonLow"] = {
 	attackTime = 1.17,
 	attackRange = 14,
 	accuracy = 1,
+	baseMovementSpeed = 35,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"EmptyActionAttackAfflictionMinionTripleSlam",
@@ -6373,6 +7611,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonMid"] = {
 	attackTime = 1.17,
 	attackRange = 14,
 	accuracy = 1,
+	baseMovementSpeed = 35,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"EmptyActionAttackAfflictionMinionTripleSlam",
@@ -6397,6 +7638,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonHigh"] = {
 	attackTime = 1.17,
 	attackRange = 14,
 	accuracy = 1,
+	baseMovementSpeed = 35,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"EmptyActionAttackAfflictionMinionTripleSlam",
@@ -6425,6 +7669,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterLow_"] = {
 	attackRange = 13,
 	accuracy = 1,
 	weaponType1 = "Staff",
+	baseMovementSpeed = 39,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"DoLiterallyNothing",
@@ -6462,6 +7709,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterMid_"] = {
 	attackRange = 13,
 	accuracy = 1,
 	weaponType1 = "Staff",
+	baseMovementSpeed = 39,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"DoLiterallyNothing",
@@ -6499,6 +7749,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterHigh_"] = {
 	attackRange = 13,
 	accuracy = 1,
 	weaponType1 = "Staff",
+	baseMovementSpeed = 39,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"DoLiterallyNothing",
@@ -6536,6 +7789,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossLow"] = {
 	attackRange = 24,
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
+	baseMovementSpeed = 55,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedFire",
 		"AzmeriDemonTeethShot",
@@ -6571,6 +7827,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossMid"] = {
 	attackRange = 24,
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
+	baseMovementSpeed = 55,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedFire",
 		"AzmeriDemonTeethShot",
@@ -6607,6 +7866,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossHigh"] = {
 	attackRange = 24,
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
+	baseMovementSpeed = 55,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedFire",
 		"AzmeriDemonTeethShot",
@@ -6645,6 +7907,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemLow"] = {
 	attackTime = 1.995,
 	attackRange = 20,
 	accuracy = 1,
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"EmptyActionAttackAzmeriGolemVSlam",
 		"GeometryAttackAzmeriGolemCircle",
@@ -6688,6 +7953,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemMid"] = {
 	attackTime = 1.995,
 	attackRange = 20,
 	accuracy = 1,
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"EmptyActionAttackAzmeriGolemVSlam",
 		"GeometryAttackAzmeriGolemCircle",
@@ -6732,6 +8000,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh"] = {
 	attackTime = 1.995,
 	attackRange = 20,
 	accuracy = 1,
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"EmptyActionAttackAzmeriGolemVSlam",
 		"GeometryAttackAzmeriGolemCircle",
@@ -6776,6 +8047,14 @@ minions["Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber"] = {
 	attackTime = 1.5,
 	attackRange = 10,
 	accuracy = 1,
+	baseMovementSpeed = 38,
+	spawnLocation = {
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Sanctuary (Map)",
+		"Ziggurat (Map)",
+	},
 	skillList = {
 		"RevenantReviveUndead",
 		"RevenantBossSpellProjectile",
@@ -6802,6 +8081,9 @@ minions["Metadata/Monsters/LegionLeague/LegionKaruiMeleeFireSpectre"] = {
 	attackRange = 9,
 	accuracy = 1,
 	weaponType1 = "None",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeFire",
 		"LegionKaruiMeleeLeapSlam",

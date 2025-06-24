@@ -250,6 +250,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	end
 	DrawImage(nil, ttX, ttY, ttW * columns, BORDER_WIDTH) -- top border
 	DrawImage(nil, ttX, ttY + maxColumnHeight - BORDER_WIDTH, ttW * columns, BORDER_WIDTH) -- bottom border
+	SetDrawColor(1, 1, 1) -- Reset draw color to white as it messes with Spectre Library
 
 	return ttW, ttH
 end

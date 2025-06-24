@@ -20,6 +20,9 @@ minions["RaisedZombie"] = {
 	attackRange = 11,
 	accuracy = 3.4,
 	limit = "ActiveZombieLimit",
+	baseMovementSpeed = 39,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"ZombieSlam",
@@ -47,6 +50,9 @@ minions["SummonedChaosGolem"] = {
 	attackRange = 8,
 	accuracy = 3.4,
 	limit = "ActiveGolemLimit",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"SandstormChaosElementalSummoned",
@@ -81,6 +87,9 @@ minions["SummonedFlameGolem"] = {
 	accuracy = 3.4,
 	damageFixup = 0.22,
 	limit = "ActiveGolemLimit",
+	baseMovementSpeed = 42,
+	spawnLocation = {
+	},
 	skillList = {
 		"FireElementalFlameRedSummoned",
 		"FireElementalConeSummoned",
@@ -115,6 +124,9 @@ minions["SummonedIceGolem"] = {
 	attackRange = 6,
 	accuracy = 3.4,
 	limit = "ActiveGolemLimit",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"IceElementalIceCyclone",
@@ -150,6 +162,9 @@ minions["SummonedLightningGolem"] = {
 	accuracy = 3.4,
 	damageFixup = 0.22,
 	limit = "ActiveGolemLimit",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"LightningGolemArcSummoned",
 		"LightningGolemWrath",
@@ -185,6 +200,9 @@ minions["SummonedStoneGolem"] = {
 	accuracy = 3.4,
 	weaponType1 = "One Handed Sword",
 	limit = "ActiveGolemLimit",
+	baseMovementSpeed = 42,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"RockGolemSlam",
@@ -209,6 +227,9 @@ minions["SummonedRagingSpirit"] = {
 	attackRange = 8,
 	accuracy = 3.4,
 	limit = "ActiveRagingSpiritLimit",
+	baseMovementSpeed = 45,
+	spawnLocation = {
+	},
 	skillList = {
 		"SumonRagingSpiritMelee",
 	},
@@ -240,6 +261,9 @@ minions["SummonedEssenceSpirit"] = {
 	attackTime = 0.57,
 	attackRange = 8,
 	accuracy = 3.4,
+	baseMovementSpeed = 45,
+	spawnLocation = {
+	},
 	skillList = {
 		"RagingSpiritMeleeAttack",
 		"SpectralSkullShieldCharge",
@@ -265,6 +289,9 @@ minions["SummonedSpectralWolf"] = {
 	accuracy = 3.4,
 	weaponType1 = "Dagger",
 	limit = "ActiveWolfLimit",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 	},
@@ -289,6 +316,9 @@ minions["RaisedSkeleton"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
 	limit = "ActiveSkeletonLimit",
+	baseMovementSpeed = 28,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"MonsterQuickDodgeRunUnarmed",
@@ -315,6 +345,9 @@ minions["RaisedSkeletonCaster"] = {
 	attackRange = 46,
 	accuracy = 3.4,
 	limit = "ActiveSkeletonLimit",
+	baseMovementSpeed = 14,
+	spawnLocation = {
+	},
 	skillList = {
 		"SkeletonMinionProjectileCold",
 		"SkeletonMinionProjectileFire",
@@ -342,6 +375,9 @@ minions["RaisedSkeletonMeleeVaal"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
 	limit = "ActiveSkeletonLimit",
+	baseMovementSpeed = 22,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 	},
@@ -368,6 +404,9 @@ minions["RaisedSkeletonArcherVaal"] = {
 	accuracy = 3.4,
 	weaponType1 = "Bow",
 	limit = "ActiveSkeletonLimit",
+	baseMovementSpeed = 18,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 	},
@@ -391,6 +430,9 @@ minions["RaisedSkeletonArcher"] = {
 	accuracy = 3.4,
 	weaponType1 = "Bow",
 	limit = "ActiveSkeletonLimit",
+	baseMovementSpeed = 9,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 	},
@@ -411,6 +453,9 @@ minions["Clone"] = {
 	attackTime = 0.83,
 	attackRange = 6,
 	accuracy = 3.4,
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 	},
@@ -432,6 +477,9 @@ minions["ArrowClone"] = {
 	attackTime = 0.83,
 	attackRange = 6,
 	accuracy = 3.4,
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"BlinkMirrorArrowMelee",
 	},
@@ -453,6 +501,9 @@ minions["ArrowCloneRoA"] = {
 	attackTime = 0.83,
 	attackRange = 6,
 	accuracy = 3.4,
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"RainOfArrowsCloneShot",
 	},
@@ -474,6 +525,9 @@ minions["ArrowCloneEle"] = {
 	attackTime = 0.83,
 	attackRange = 6,
 	accuracy = 3.4,
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"ElementalHitCloneShot",
 	},
@@ -497,6 +551,9 @@ minions["SpiderMinion"] = {
 	accuracy = 3.4,
 	weaponType1 = "One Handed Sword",
 	limit = "ActiveSpiderLimit",
+	baseMovementSpeed = 52,
+	spawnLocation = {
+	},
 	skillList = {
 		"SummonedSpiderViperStrike",
 	},
@@ -519,6 +576,9 @@ minions["AnimatedWeapon"] = {
 	attackTime = 1,
 	attackRange = 6,
 	accuracy = 3.4,
+	baseMovementSpeed = 45,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 	},
@@ -541,6 +601,9 @@ minions["AnimatedArmour"] = {
 	attackTime = 1,
 	attackRange = 6,
 	accuracy = 3.4,
+	baseMovementSpeed = 32,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"AnimateGuardianSmite",
@@ -565,6 +628,9 @@ minions["IcyRagingSpirit"] = {
 	attackTime = 0.57,
 	attackRange = 8,
 	accuracy = 3.4,
+	baseMovementSpeed = 45,
+	spawnLocation = {
+	},
 	skillList = {
 		"RagingSpiritMeleeAttack",
 	},
@@ -588,6 +654,9 @@ minions["UniqueAnimatedWeapon"] = {
 	attackTime = 1,
 	attackRange = 105,
 	accuracy = 3.4,
+	baseMovementSpeed = 44,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"DancingDervishCycloneChannelled",
@@ -616,6 +685,9 @@ minions["SummonedPhantasm"] = {
 	attackRange = 6,
 	accuracy = 1,
 	limit = "ActivePhantasmLimit",
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"SummonPhantasmFadingProjectile",
@@ -639,6 +711,9 @@ minions["HeraldOfAgonySpiderPlated"] = {
 	attackRange = 12,
 	accuracy = 3.4,
 	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 50,
+	spawnLocation = {
+	},
 	skillList = {
 		"HeraldOfAgonyMinionMortar",
 		"HeraldOfAgonyMinionTailSpike",
@@ -668,6 +743,9 @@ minions["AxisEliteSoldierHeraldOfLight"] = {
 	accuracy = 3.4,
 	weaponType1 = "Staff",
 	limit = "ActiveSentinelOfPurityLimit",
+	baseMovementSpeed = 38,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"HeraldOfLightMinionSlam",
@@ -693,6 +771,9 @@ minions["HolyLivingRelic"] = {
 	attackRange = 6,
 	accuracy = 1,
 	limit = "ActiveHolyRelicLimit",
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"RelicTriggeredNova",
 		"RelicTeleport",
@@ -718,6 +799,9 @@ minions["AxisEliteSoldierDominatingBlow"] = {
 	accuracy = 3.4,
 	weaponType1 = "One Handed Mace",
 	weaponType2 = "Shield",
+	baseMovementSpeed = 38,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"DominatingBlowMinionCharge",
@@ -744,6 +828,9 @@ minions["AxisEliteSoldierDominatingBlowVaal"] = {
 	attackTime = 0.83,
 	attackRange = 28,
 	accuracy = 3.4,
+	baseMovementSpeed = 18,
+	spawnLocation = {
+	},
 	skillList = {
 		"TeleportVaalDomination",
 		"GAVaalDominationTeleportSlam",
@@ -773,6 +860,9 @@ minions["AbsolutionTemplarJudge"] = {
 	attackRange = 9,
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"AbsolutionMinion",
@@ -796,6 +886,9 @@ minions["AbsolutionTemplarJudgeVaal"] = {
 	attackTime = 1.17,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"AbsolutionMinionVaal",
 		"AbsolutionMinionVaalCascade",
@@ -824,6 +917,9 @@ minions["RhoaUniqueSummoned"] = {
 	attackRange = 14,
 	accuracy = 3.4,
 	limit = "ActiveBeastMinionLimit",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedUnique",
 		"SummonedRhoaShieldCharge",
@@ -851,6 +947,9 @@ minions["SnakeSpitUniqueSummoned"] = {
 	attackRange = 9,
 	accuracy = 3.4,
 	limit = "ActiveBeastMinionLimit",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"SummonedSnakeProjectile",
 	},
@@ -877,6 +976,9 @@ minions["DropBearUniqueSummoned"] = {
 	accuracy = 3.4,
 	weaponType1 = "One Handed Mace",
 	limit = "ActiveBeastMinionLimit",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedUnique",
 		"DropBearSummonedGroundSlam",
@@ -902,6 +1004,9 @@ minions["SummonedCarrionGolem"] = {
 	attackRange = 13,
 	accuracy = 3.4,
 	limit = "ActiveGolemLimit",
+	baseMovementSpeed = 42,
+	spawnLocation = {
+	},
 	skillList = {
 		"BoneGolemMultiAttack",
 		"BoneGolemCascade",
@@ -934,6 +1039,9 @@ minions["SkitterbotCold"] = {
 	attackTime = 1,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 69,
+	spawnLocation = {
+	},
 	skillList = {
 		"SkitterbotDetonateMines",
 		"SkitterbotWait",
@@ -962,6 +1070,9 @@ minions["SkitterbotLightning"] = {
 	attackTime = 1,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 69,
+	spawnLocation = {
+	},
 	skillList = {
 		"SkitterbotDetonateMines",
 		"SkitterbotWait",
@@ -994,6 +1105,9 @@ minions["SummonedReaper"] = {
 	accuracy = 3.4,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
+	baseMovementSpeed = 42,
+	spawnLocation = {
+	},
 	skillList = {
 		"ReaperConsumeMinionForHeal",
 		"ReaperConsumeMinionForBuff",
@@ -1036,6 +1150,9 @@ minions["SummonedArbalists"] = {
 	attackRange = 60,
 	accuracy = 3.4,
 	limit = "ActiveArbalistLimit",
+	baseMovementSpeed = 41,
+	spawnLocation = {
+	},
 	skillList = {
 		"MPWExpeditionSummonedArbalestProjectile",
 	},
@@ -1058,6 +1175,9 @@ minions["GuardianSentinel"] = {
 	attackTime = 0.83,
 	attackRange = 17,
 	accuracy = 3.4,
+	baseMovementSpeed = 11,
+	spawnLocation = {
+	},
 	skillList = {
 		"TeleportVaalDomination",
 		"VaalDominationMelee",
@@ -1105,6 +1225,9 @@ minions["GuardianRelicFire"] = {
 	attackTime = 1,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"RelicTeleport",
 		"Anger",
@@ -1128,6 +1251,9 @@ minions["GuardianRelicCold"] = {
 	attackTime = 1,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"RelicTeleport",
 		"Hatred",
@@ -1151,6 +1277,9 @@ minions["GuardianRelicLightning"] = {
 	attackTime = 1,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"RelicTeleport",
 		"Wrath",
