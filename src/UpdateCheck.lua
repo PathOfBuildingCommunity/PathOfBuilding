@@ -78,13 +78,9 @@ end
 
 ConPrintf("Checking for update...")
 
-local scriptPath
-local runtimePath
-do
-	local currentDir = io.popen("cd"):read() or io.popen("pwd"):read() or "."
-	scriptPath = currentDir
-	runtimePath = currentDir
-end
+-- Use built-in helpers to obtain absolute paths without spawning a shell.
+scriptPath = (GetScriptPath and GetScriptPath()) or "."
+runtimePath = (GetRuntimePath and GetRuntimePath()) or scriptPath
 
 -- Load and process local manifest
 local localVer
