@@ -583,7 +583,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillModList:Flag(nil, "MinionCastSpeedAppliesToPlayer") then
 		-- Minion Cast Speed conversion from Spinehail
-		local multiplier = (skillModList:Max(skillCfg, "ImprovedMinionAttackSpeedAppliesToPlayer") or 100) / 100
+		local multiplier = (skillModList:Max(skillCfg, "ImprovedMinionCastSpeedAppliesToPlayer") or 100) / 100
 		for _, value in ipairs(skillModList:List(skillCfg, "MinionModifier")) do
 			if value.mod.name == "Speed" and value.mod.type == "INC" and (value.mod.flags == 0 or band(value.mod.flags, ModFlag.Cast) ~= 0) then
 				local modifiers = calcLib.getConvertedModTags(value.mod, multiplier, true)

@@ -10,6 +10,7 @@ local ipairs = ipairs
 local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
+local m_abs = math.abs
 local m_floor = math.floor
 local m_ceil = math.ceil
 local m_sqrt = math.sqrt
@@ -3110,7 +3111,7 @@ function calcs.buildDefenceEstimations(env, actor)
 					for partType, _ in pairs(passDamages) do
 						passRatio = m_max(passRatio, (passOverkill + output[partType.."TotalHitPool"]) / output[partType.."TotalHitPool"])
 					end
-					local stepSize = n > 1 and m_min(math.abs((passOverkill - previousOverkill) / previousOverkill), 2) or 1
+					local stepSize = n > 1 and m_min(m_abs((passOverkill - previousOverkill) / previousOverkill), 2) or 1
 					local stepAdjust = stepSize > 1 and -passOverkill / stepSize or n > 1 and -passOverkill * stepSize or 0
 					previousOverkill = passOverkill
 					passIncomingDamage = (passIncomingDamage + stepAdjust) / m_sqrt(passRatio)

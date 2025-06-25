@@ -654,7 +654,7 @@ for _, modId in ipairs(sortedMods) do
 	})
 end
 for _, mod in ipairs(boundByDestinyMods) do
-	local variantName = mod.mod.type:gsub("(%d+)(%a+)", "%2 %1:")..abbreviateModId(mod.Id):gsub(mod.mod.type .. ".*", ""):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
+	local variantName = mod.mod.type:gsub("(%d+)(%a+)", "%2 %1:")..abbreviateModId(mod.Id):gsub(mod.mod.type .. ".*", ""):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES"):gsub("Velocity", "Speed"):gsub("Permyriad", "")
 	table.insert(boundByDestiny, "Variant: " .. variantName)
 end
 for i, mod in ipairs(boundByDestinyMods) do
