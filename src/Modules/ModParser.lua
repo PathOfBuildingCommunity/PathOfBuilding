@@ -3689,6 +3689,7 @@ local specialModList = {
 	["y?o?u?r? ?chance to block is unlucky"] = { flag("BlockChanceIsUnlucky"), flag("ProjectileBlockChanceIsUnlucky"), flag("SpellBlockChanceIsUnlucky"), flag("SpellProjectileBlockChanceIsUnlucky") },
 	["y?o?u?r? ?chance to block spell damage is lucky"] = { flag("SpellBlockChanceIsLucky"), flag("SpellProjectileBlockChanceIsLucky") },
 	["y?o?u?r? ?chance to block spell damage is unlucky"] = { flag("SpellBlockChanceIsUnlucky"), flag("SpellProjectileBlockChanceIsUnlucky") },
+	["your lucky or unlucky effects use the best or worst from three rolls instead of two"] = { flag("ExtremeLuck")},
 	["chance to block attack or spell damage is lucky if you've blocked recently"] = {
 		flag("BlockChanceIsLucky", { type = "Condition", var = "BlockedRecently" }),
 		flag("ProjectileBlockChanceIsLucky", { type = "Condition", var = "BlockedRecently" }),

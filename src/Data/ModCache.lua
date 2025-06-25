@@ -12095,7 +12095,7 @@ c["Your Lightning Damage can Poison"]={{[1]={flags=0,keywordFlags=0,name="Lightn
 c["Your Lucky or Unlucky effects are instead Unexciting"]={nil,"Your Lucky or Unlucky effects are instead Unexciting "}
 c["Your Lucky or Unlucky effects are instead Unexciting Limited to 1 Runegraft of Stability"]={nil,"Your Lucky or Unlucky effects are instead Unexciting Limited to 1 Runegraft of Stability "}
 c["Your Lucky or Unlucky effects use the best or"]={nil,"Your Lucky or Unlucky effects use the best or "}
-c["Your Lucky or Unlucky effects use the best or worst from three rolls instead of two"]={nil,"Your Lucky or Unlucky effects use the best or worst from three rolls instead of two "}
+c["Your Lucky or Unlucky effects use the best or worst from three rolls instead of two"]={{[1]={flags=0,keywordFlags=0,name="ExtremeLuck",type="FLAG",value=true}},nil}
 c["Your Mark Transfers to another Enemy when Marked Enemy dies"]={nil,"Your Mark Transfers to another Enemy when Marked Enemy dies "}
 c["Your Mark transfers to another Enemy when Marked Enemy dies"]={nil,"Your Mark transfers to another Enemy when Marked Enemy dies "}
 c["Your Mark transfers to another Enemy when Marked Enemy dies 8% of Damage from Hits is taken from Marked Target's Life before you"]={nil,"Your Mark transfers to another Enemy when Marked Enemy dies 8% of Damage from Hits is taken from Marked Target's Life before you "}
@@ -12160,6 +12160,5 @@ c["to surrounding targets while wielding a Mace With at least 40 Dexterity in Ra
 c["until you take no Damage to Life for 2 seconds"]={nil,"until you take no Damage to Life for 2 seconds "}
 c["until you take no Damage to Life for 2 seconds 30% more Maximum Life"]={nil,"until you take no Damage to Life for 2 seconds 30% more Maximum Life "}
 c["used if you've Hit an enemy with a Weapon Recently"]={nil,"used if you've Hit an enemy with a Weapon Recently "}
-c["worst from three rolls instead of two"]={nil,"worst from three rolls instead of two "}
 c["your maximum number of Crab Barriers"]={nil,"your maximum number of Crab Barriers "}
 c["your maximum number of Power Charges"]={nil,"your maximum number of Power Charges "}

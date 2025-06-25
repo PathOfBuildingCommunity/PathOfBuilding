@@ -2826,8 +2826,19 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				output.PreEffectiveCritChance = output.CritChance
 				local preLuckyCritChance = output.CritChance
+				local critRolls = 0
+				
 				if env.mode_effective and skillModList:Flag(cfg, "CritChanceLucky") then
-					output.CritChance = (1 - (1 - output.CritChance / 100) ^ 2) * 100
+					critRolls = critRolls + 1
+				end
+				if skillModList:Flag(skillCfg, "ExtremeLuck") then
+					critRolls = critRolls * 2
+				end
+				if skillModList:Flag(skillCfg, "Unexciting") then
+					critRolls = 0
+				end
+				if critRolls ~= 0 then
+					output.CritChance = (1 - (1 - output.CritChance / 100) ^ (critRolls + 1)) * 100
 				end
 				local preHitCheckCritChance = output.CritChance
 				if env.mode_effective then
@@ -2852,9 +2863,9 @@ function calcs.offence(env, actor, activeSkill)
 						local overCap = preCapCritChance - 100
 						t_insert(breakdown.CritChance, s_format("Crit is overcapped by %.2f%% (%d%% increased Critical Strike Chance)", overCap, overCap / more / (baseCrit + base) * 100))
 					end
-					if env.mode_effective and skillModList:Flag(cfg, "CritChanceLucky") then
+					if env.mode_effective and critRolls ~= 0 then
 						t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
-						t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f) x (1 - %.4f)", preLuckyCritChance / 100, preLuckyCritChance / 100))
+						t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f)^ %d", preLuckyCritChance / 100, critRolls + 1))
 						t_insert(breakdown.CritChance, s_format("= %.2f%%", preHitCheckCritChance))
 					end
 					if env.mode_effective and output.AccuracyHitChance < 100 then
@@ -3056,9 +3067,18 @@ function calcs.offence(env, actor, activeSkill)
 					if skillModList:Flag(skillCfg, "UnluckyHits") then
 						damageTypeLuckyChance = damageTypeLuckyChance - 1
 					end
-					damageTypeHitAvgNotLucky = (damageTypeHitMin / 2 + damageTypeHitMax / 2)
-					damageTypeHitAvgLucky = (damageTypeHitMin / 3 + 2 * damageTypeHitMax / 3)
-					damageTypeHitAvgUnlucky = (2 * damageTypeHitMin / 3 + damageTypeHitMax / 3)
+					local rolls = damageTypeLuckyChance
+					if skillModList:Flag(skillCfg, "ExtremeLuck") then
+						rolls = rolls * 2
+					end
+					if skillModList:Flag(skillCfg, "Unexciting") then
+						rolls = 0
+					end
+					output.DamageRolls = rolls
+					rolls = m_abs(rolls) + 2
+					damageTypeHitAvgNotLucky = (damageTypeHitMin / rolls + damageTypeHitMax / rolls)
+					damageTypeHitAvgLucky = (damageTypeHitMin / rolls + (rolls - 1) * damageTypeHitMax / rolls)
+					damageTypeHitAvgUnlucky = ((rolls - 1) * damageTypeHitMin / rolls + damageTypeHitMax / rolls)
 					if damageTypeLuckyChance >= 0 then
 						damageTypeHitAvg = damageTypeHitAvgNotLucky * (1 - damageTypeLuckyChance) + damageTypeHitAvgLucky * damageTypeLuckyChance
 						else
@@ -3360,18 +3380,19 @@ function calcs.offence(env, actor, activeSkill)
 		if breakdown then
 			if output.CritEffect ~= 1 then
 				breakdown.AverageHit = { }
-				if skillModList:Flag(skillCfg, "LuckyHits") and not skillModList:Flag(skillCfg, "UnluckyHits") then
-					t_insert(breakdown.AverageHit, s_format("(1/3) x %d + (2/3) x %d = %.1f ^8(average from non-crits)", totalHitMin, totalHitMax, totalHitAvg))
+				local rolls = m_abs(output.DamageRolls) + 2
+				if output.DamageRolls > 0 then
+					t_insert(breakdown.AverageHit, s_format("(1/%d) x %d + (%d/%d) x %d = %.1f ^8(average from non-crits)", rolls, totalHitMin, rolls - 1, rolls, totalHitMax, totalHitAvg))
 				end
-				if skillModList:Flag(skillCfg, "UnluckyHits") and not skillModList:Flag(skillCfg, "LuckyHits") then
-					t_insert(breakdown.AverageHit, s_format("(2/3) x %d + (1/3) x %d = %.1f ^8(average from non-crits)", totalHitMin, totalHitMax, totalHitAvg))
+				if output.DamageRolls < 0 then
+					t_insert(breakdown.AverageHit, s_format("(%d/%d) x %d + (1/%d) x %d = %.1f ^8(average from non-crits)", rolls - 1, rolls, totalHitMin, rolls, totalHitMax, totalHitAvg))
 				end
-				if (skillModList:Flag(skillCfg, "CritLucky") or skillModList:Flag(skillCfg, "LuckyHits")) and not skillModList:Flag(skillCfg, "UnluckyHits") then
-					t_insert(breakdown.AverageHit, s_format("(1/3) x %d + (2/3) x %d = %.1f ^8(average from crits)", totalCritMin, totalCritMax, totalCritAvg))
+				if output.DamageRolls > 0 or skillModList:Flag(skillCfg, "CritLucky") then
+					t_insert(breakdown.AverageHit, s_format("(1/%d) x %d + (%d/%d) x %d = %.1f ^8(average from crits)", rolls, totalCritMin, rolls - 1, rolls, totalCritMax, totalCritAvg))
 					t_insert(breakdown.AverageHit, "")
 				end
-				if skillModList:Flag(skillCfg, "UnluckyHits") and not (skillModList:Flag(skillCfg, "CritLucky") or skillModList:Flag(skillCfg, "LuckyHits")) then
-					t_insert(breakdown.AverageHit, s_format("(2/3) x %d + (1/3) x %d = %.1f ^8(average from crits)", totalCritMin, totalCritMax, totalCritAvg))
+				if output.DamageRolls < 0 and not skillModList:Flag(skillCfg, "CritLucky") then
+					t_insert(breakdown.AverageHit, s_format("(%d/%d) x %d + (1/%d) x %d = %.1f ^8(average from crits)", rolls - 1, rolls, totalCritMin, rolls, totalCritMax, totalCritAvg))
 					t_insert(breakdown.AverageHit, "")
 				end
 				t_insert(breakdown.AverageHit, s_format("%.1f x (1 - %.4f) ^8(damage from non-crits)", totalHitAvg, output.CritChance / 100))

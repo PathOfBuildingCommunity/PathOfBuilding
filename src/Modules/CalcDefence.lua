@@ -707,23 +707,32 @@ function calcs.defence(env, actor)
 		output.SpellBlockChance = 0
 		output.SpellProjectileBlockChance = 0
 	end
-	do
-		for _, blockType in ipairs({"BlockChance", "ProjectileBlockChance", "SpellBlockChance", "SpellProjectileBlockChance"}) do
-			output["Effective"..blockType] = env.mode_effective and m_max(output[blockType] - enemyDB:Sum("BASE", nil, "reduceEnemyBlock"), 0) or output[blockType]
-			local luck = 1
-			if env.mode_effective then
-				luck = luck * (modDB:Flag(nil, blockType.."IsLucky") and 2 or 1) / (modDB:Flag(nil, blockType.."IsUnlucky") and 2 or 1)
+	for _, blockType in ipairs({"BlockChance", "ProjectileBlockChance", "SpellBlockChance", "SpellProjectileBlockChance"}) do
+		output["Effective"..blockType] = env.mode_effective and m_max(output[blockType] - enemyDB:Sum("BASE", nil, "reduceEnemyBlock"), 0) or output[blockType]
+		local blockRolls = 0
+		if env.mode_effective then
+			if modDB:Flag(nil, blockType.."IsLucky") then
+				blockRolls = blockRolls + 1
 			end
-			-- unlucky config to lower the value of block, dodge, evade etc for ehp
-			luck = luck / (env.configInput.EHPUnluckyWorstOf or 1)
-			while luck ~= 1 do
-				if luck > 1 then
-					luck = luck / 2
-					output["Effective"..blockType] = (1 - (1 - output["Effective"..blockType] / 100) ^ 2) * 100
-				else
-					luck = luck * 2
-					output["Effective"..blockType] = output["Effective"..blockType] / 100 * output["Effective"..blockType]
-				end
+			if modDB:Flag(nil, blockType.."IsUnlucky") then
+				blockRolls = blockRolls - 1
+			end
+			if modDB:Flag(nil, "ExtremeLuck") then
+				blockRolls = blockRolls * 2
+			end
+			if modDB:Flag(nil, "Unexciting") then
+				blockRolls = 0
+			end
+		end
+		-- unlucky config to lower the value of block, dodge, evade etc for ehp
+		if env.configInput.EHPUnluckyWorstOf and env.configInput.EHPUnluckyWorstOf ~= 1 then
+			blockRolls = -env.configInput.EHPUnluckyWorstOf / 2
+		end
+		if blockRolls ~= 0 then
+			if blockRolls > 0 then
+				output["Effective"..blockType] = (1 - (1 - output["Effective"..blockType] / 100) ^ (blockRolls + 1)) * 100
+			else
+				output["Effective"..blockType] = (output["Effective"..blockType] / 100) ^ m_abs(blockRolls) * output["Effective"..blockType]
 			end
 		end
 	end
@@ -1077,22 +1086,31 @@ function calcs.defence(env, actor)
 	output.SpellSuppressionChance = m_min(totalSpellSuppressionChance, data.misc.SuppressionChanceCap)
 	output.SpellSuppressionEffect = m_max(data.misc.SuppressionEffect + modDB:Sum("BASE", nil, "SpellSuppressionEffect"), 0)
 	
-	do
-		output.EffectiveSpellSuppressionChance = enemyDB:Flag(nil, "CannotBeSuppressed") and 0 or output.SpellSuppressionChance
-		local luck = 1
-		if env.mode_effective then
-			luck = luck * (modDB:Flag(nil, "SpellSuppressionChanceIsLucky") and 2 or 1) / (modDB:Flag(nil, "SpellSuppressionChanceIsUnlucky") and 2 or 1)
+	output.EffectiveSpellSuppressionChance = enemyDB:Flag(nil, "CannotBeSuppressed") and 0 or output.SpellSuppressionChance
+	local suppressRolls = 0
+	if env.mode_effective then
+		if modDB:Flag(nil, "SpellSuppressionChanceIsLucky") then
+			suppressRolls = suppressRolls + 1
 		end
-		-- unlucky config to lower the value of block, dodge, evade etc for ehp
-		luck = luck / (env.configInput.EHPUnluckyWorstOf or 1)
-		while luck ~= 1 do
-			if luck > 1 then
-				luck = luck / 2
-				output.EffectiveSpellSuppressionChance = (1 - (1 - output.EffectiveSpellSuppressionChance / 100) ^ 2) * 100
-			else
-				luck = luck * 2
-				output.EffectiveSpellSuppressionChance = output.EffectiveSpellSuppressionChance / 100 * output.EffectiveSpellSuppressionChance
-			end
+		if modDB:Flag(nil, "SpellSuppressionChanceIsUnlucky") then
+			suppressRolls = suppressRolls - 1
+		end
+		if modDB:Flag(nil, "ExtremeLuck") then
+			suppressRolls = suppressRolls * 2
+		end
+		if modDB:Flag(nil, "Unexciting") then
+			suppressRolls = 0
+		end
+	end
+	-- unlucky config to lower the value of block, dodge, evade etc for ehp
+	if env.configInput.EHPUnluckyWorstOf and env.configInput.EHPUnluckyWorstOf ~= 1 then
+		suppressRolls = -env.configInput.EHPUnluckyWorstOf / 2
+	end
+	if suppressRolls ~= 0 then
+		if suppressRolls > 0 then
+			output.EffectiveSpellSuppressionChance = (1 - (1 - output.EffectiveSpellSuppressionChance / 100) ^ (suppressRolls + 1)) * 100
+		else
+			output.EffectiveSpellSuppressionChance = (output.EffectiveSpellSuppressionChance / 100) ^ m_abs(suppressRolls) * output.EffectiveSpellSuppressionChance
 		end
 	end
 	
