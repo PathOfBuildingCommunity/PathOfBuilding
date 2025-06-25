@@ -42,6 +42,18 @@ Implicits: 1
 (20-40)% increased Attack Damage if you've been Hit Recently
 All Hits with your next Non-Channelling Attack within 4 seconds of taking a Critical Strike will be Critical Strikes
 ]],[[
+Cadigan's Authority
+Platinum Sceptre
+Source: Obtained from unique{Shipping} in normal{Kingsmarch}
+Requires Level 62, 113 Str, 113 Int
+Implicits: 1
+30% increased Elemental Damage
+Adds (60-85) to (100-133) Physical Damage
++(3-5) to maximum number of Summoned Totems
+You cannot have more than 2 Summoned Totems of the same type
+(40-70)% increased Totem Placement speed
+Battlemage
+]],[[
 Coiling Whisper
 Amethyst Ring
 Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
