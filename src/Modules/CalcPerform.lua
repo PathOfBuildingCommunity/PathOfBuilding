@@ -1120,6 +1120,9 @@ function calcs.perform(env, skipEHP)
 			if env.player.itemList["Weapon 2"] and env.player.itemList["Weapon 2"].type == "Quiver" then
 				env.minion.modDB:ScaleAddList(env.player.itemList["Weapon 2"].modList, m_max(modDB:Sum("BASE", nil, "WidowHailMultiplier"), 1))
 			end
+			if modDB:Flag(nil, "BlinkAndMirrorUseGloves") and env.player.itemList["Gloves"] then
+				env.minion.modDB:AddList(env.player.itemList["Gloves"].modList)
+			end
 		end
 		if env.minion.itemSet or env.minion.uses then
 			for slotName, slot in pairs(env.build.itemsTab.slots) do
