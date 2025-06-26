@@ -2415,7 +2415,7 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Exerted Attack members
 		local exertedDoubleDamage = env.modDB:Sum("BASE", cfg, "ExertDoubleDamageChance")
-		local exertingWarcryCount = env.modDB:Sum("BASE", nil, "ExertingWarcryCount")
+		local exertingWarcryCount = env.modDB:Sum("BASE", nil, "Multiplier:ExertingWarcryCount")
 		globalOutput.OffensiveWarcryEffect = 1
 		globalOutput.MaxOffensiveWarcryEffect = 1
 		globalOutput.TheoreticalOffensiveWarcryEffect = 1
@@ -2841,7 +2841,12 @@ function calcs.offence(env, actor, activeSkill)
 					output.CritChance = (1 - (1 - output.CritChance / 100) ^ (critRolls + 1)) * 100
 				end
 				local preHitCheckCritChance = output.CritChance
+				local pre3rdUseCritChance= output.CritChance
 				if env.mode_effective then
+					if skillModList:Flag(skillCfg, "Every3UseCrit") then
+						output.CritChance = (2 * output.CritChance + 100) / 3
+					end
+					preHitCheckCritChance = output.CritChance
 					output.CritChance = output.CritChance * output.AccuracyHitChance / 100
 				end
 				if breakdown and output.CritChance ~= baseCrit then
@@ -2863,9 +2868,14 @@ function calcs.offence(env, actor, activeSkill)
 						local overCap = preCapCritChance - 100
 						t_insert(breakdown.CritChance, s_format("Crit is overcapped by %.2f%% (%d%% increased Critical Strike Chance)", overCap, overCap / more / (baseCrit + base) * 100))
 					end
-					if env.mode_effective and critRolls ~= 0 then
-						t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
-						t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f)^ %d", preLuckyCritChance / 100, critRolls + 1))
+					if env.mode_effective and (critRolls ~= 0 or skillModList:Flag(skillCfg, "Every3UseCrit")) then
+						if critRolls ~= 0 then
+							t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
+							t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f)^ %d", preLuckyCritChance / 100, critRolls + 1))
+						end
+						if skillModList:Flag(skillCfg, "Every3UseCrit") then
+							t_insert(breakdown.CritChance, s_format("+ %.2f%% ^8(crit every 3rd use)", (2 * pre3rdUseCritChance + 100) / 3 - pre3rdUseCritChance))
+						end
 						t_insert(breakdown.CritChance, s_format("= %.2f%%", preHitCheckCritChance))
 					end
 					if env.mode_effective and output.AccuracyHitChance < 100 then
@@ -5500,7 +5510,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				local averageWarcryCount = output.GlobalWarcryUptimeRatio / 100
 				if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
-					averageWarcryCount = env.modDB:Sum("BASE", nil, "ExertingWarcryCount")
+					averageWarcryCount = env.modDB:Sum("BASE", nil, "Multiplier:ExertingWarcryCount")
 				end
 				if averageWarcryCount and dmgType and dmgMult then
 					local dmgBreakdown, totalDmgTaken = calcs.applyDmgTakenConversion(activeSkill, output, breakdown, dmgType, (output.Life or 0) * dmgMult/100 * averageWarcryCount)
