@@ -3995,6 +3995,7 @@ local skills, mod, flag, skill = ...
 	minionList = {
 		"SkitterbotCold",
 		"SkitterbotLightning",
+		"SkitterbotFire",
 	},
 	statMap = {
 		["skitterbots_trap_mine_damage_+%_final"] = {

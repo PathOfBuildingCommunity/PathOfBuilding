@@ -214,6 +214,9 @@ return {
 ["cast_spell_on_linked_melee_kill"] = {
 	skill("triggeredByMeleeKill", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }, { type = "Condition", var = "KilledRecently" }),
 },
+["chance_to_cast_on_kill_%"] = {
+	skill("triggeredBySquirmingTerror", true , { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }, { type = "Condition", var = "KilledRecently" })
+},
 ["cast_linked_spells_on_melee_kill_%"] = {
 	skill("chanceToTriggerOnMeleeKill", nil , { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Melee })
 },
@@ -264,6 +267,9 @@ return {
 },
 ["base_melee_attack_repeat_count"] = {
 	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Multistrikeable }),
+},
+["skill_repeat_count"] = {
+	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Multicastable }),
 },
 ["display_skill_minions_level_is_corpse_level"] = {
 	skill("minionLevelIsEnemyLevel", true),
@@ -1889,6 +1895,9 @@ return {
 },
 ["number_of_spider_minions_allowed"] = {
 	mod("ActiveSpiderLimit", "BASE", nil),
+},
+["base_number_of_void_spawns_allowed"] = {
+	mod("ActiveVoidSpawnLimit", "BASE", nil),
 },
 ["active_skill_minion_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),

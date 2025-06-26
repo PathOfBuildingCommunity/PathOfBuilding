@@ -519,6 +519,7 @@ minions["AnimatedWeapon"] = {
 	attackTime = 1,
 	attackRange = 6,
 	accuracy = 3.4,
+	limit = "ActiveAnimatedWeaponLimit",
 	skillList = {
 		"Melee",
 	},
@@ -588,6 +589,7 @@ minions["UniqueAnimatedWeapon"] = {
 	attackTime = 1,
 	attackRange = 105,
 	accuracy = 3.4,
+	limit = "ActiveAnimatedWeaponLimit",
 	skillList = {
 		"Melee",
 		"DancingDervishCycloneChannelled",
@@ -718,6 +720,7 @@ minions["AxisEliteSoldierDominatingBlow"] = {
 	accuracy = 3.4,
 	weaponType1 = "One Handed Mace",
 	weaponType2 = "Shield",
+	limit = "ActiveSentinelOfDominanceLimit",
 	skillList = {
 		"Melee",
 		"DominatingBlowMinionCharge",
@@ -744,6 +747,7 @@ minions["AxisEliteSoldierDominatingBlowVaal"] = {
 	attackTime = 0.83,
 	attackRange = 28,
 	accuracy = 3.4,
+	limit = "ActiveSentinelOfDominanceLimit",
 	skillList = {
 		"TeleportVaalDomination",
 		"GAVaalDominationTeleportSlam",
@@ -773,6 +777,7 @@ minions["AbsolutionTemplarJudge"] = {
 	attackRange = 9,
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
+	limit = "ActiveSentinelOfAbsolutionLimit",
 	skillList = {
 		"Melee",
 		"AbsolutionMinion",
@@ -796,6 +801,7 @@ minions["AbsolutionTemplarJudgeVaal"] = {
 	attackTime = 1.17,
 	attackRange = 9,
 	accuracy = 1,
+	limit = "ActiveSentinelOfAbsolutionLimit",
 	skillList = {
 		"AbsolutionMinionVaal",
 		"AbsolutionMinionVaalCascade",
@@ -977,6 +983,34 @@ minions["SkitterbotLightning"] = {
 	},
 }
 
+minions["SkitterbotFire"] = {
+	name = "Scorching Skitterbot",
+	monsterTags = { "construct", "extra_extra_small_height", "is_unarmed", "non_attacking", "stone_armour", "very_fast_movement", },
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"SkitterbotDetonateMines",
+		"SkitterbotWait",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+	},
+}
+
 minions["SummonedReaper"] = {
 	name = "Reaper",
 	monsterTags = { "bone_armour", "bones", "fast_movement", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "melee", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", },
@@ -994,6 +1028,7 @@ minions["SummonedReaper"] = {
 	accuracy = 3.4,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
+	limit = "ActiveReaperLimit",
 	skillList = {
 		"ReaperConsumeMinionForHeal",
 		"ReaperConsumeMinionForBuff",
@@ -1157,5 +1192,34 @@ minions["GuardianRelicLightning"] = {
 	},
 	modList = {
 		-- EmergeSpeedHigh [emerge_speed_+% = 0]
+	},
+}
+
+minions["VoidSpawn"] = {
+	name = "Void Spawn",
+	monsterTags = { "caster", "construct", "elder_monster", "eldritch", "extra_large_height", "flesh_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", },
+	life = 3,
+	energyShield = 0.2,
+	fireResist = 30,
+	coldResist = 30,
+	lightningResist = 30,
+	chaosResist = 20,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 9,
+	accuracy = 1,
+	limit = "ActiveVoidSpawnLimit",
+	skillList = {
+		"ElderTentacleMinionProjectileDeepcaller",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
 	},
 }

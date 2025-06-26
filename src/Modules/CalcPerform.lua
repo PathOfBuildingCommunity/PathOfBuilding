@@ -743,6 +743,9 @@ local function doActorMisc(env, actor)
 			local effect = 6 * (100 + modDB:Sum("INC", nil, "WitherEffectOnSelf")) / 100 * modDB:More(nil, "WitherEffectOnSelf")
 			modDB:NewMod("ChaosDamageTaken", "INC", effect, "Withered", { type = "Multiplier", var = "WitheredStack", limit = 15 } )
 		end
+		if modDB:Flag(nil, "Excommunicated") then
+			modDB:NewMod("ChaosDamage", "MORE", -100, "Excommunicated")
+		end
 		if modDB:Flag(nil, "Blind") and not modDB:Flag(nil, "CannotBeBlinded") then
 			if not modDB:Flag(nil, "IgnoreBlindHitChance") then
 				local effect = 1 + modDB:Sum("INC", nil, "BlindEffect", "BuffEffectOnSelf") / 100
@@ -756,14 +759,33 @@ local function doActorMisc(env, actor)
 		end
 		if modDB:Flag(nil, "Chill") then
 			local ailmentData = data.nonDamagingAilment
-			local chillValue = modDB:Override(nil, "ChillVal") or ailmentData.Chill.default
-
-			local chillSelf = (modDB:Flag(nil, "Condition:ChilledSelf") and modDB:Sum("INC", nil, "EnemyChillEffect") / 100) or 0
-			local totalChillSelfEffect = calcLib.mod(modDB, nil, "SelfChillEffect") + chillSelf
-
-			local effect = m_min(m_max(m_floor(chillValue *  totalChillSelfEffect), 0), modDB:Override(nil, "ChillMax") or ailmentData.Chill.max)
-
+			local chillValue = m_max(modDB:Sum("BASE", nil, "SelfChillOverride"), modDB:Override(nil, "ChillVal")) or ailmentData.Chill.default
+			local totalChillSelfEffect = calcLib.mod(modDB, nil, "SelfChillEffect")
+			local avoidChill = modDB:Flag(nil, "ChillImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidChill", "AvoidAilments", "AvoidElementalAilments") + (modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") and modDB:Sum("BASE", nil, "AvoidShock") or 0), 100))
+			
+			local effect = avoidChill == 100 and 0 or m_min(m_max(m_floor(chillValue *  totalChillSelfEffect), 0), modDB:Override(nil, "ChillMax") or ailmentData.Chill.max)
+			if modDB:Flag(nil, "SkitterbotBonechill") then
+				modDB:NewMod("ColdDamageTaken", "INC", effect * (modDB:Flag(nil, "SelfChillEffectIsReversed") and -1 or 1), "Bonechill")
+			end
 			modDB:NewMod("ActionSpeed", "INC", effect * (modDB:Flag(nil, "SelfChillEffectIsReversed") and 1 or -1), "Chill")
+		end
+		if modDB:Flag(nil, "Shock") then
+			local ailmentData = data.nonDamagingAilment
+			local shockValue = m_max(modDB:Sum("BASE", nil, "SelfShockOverride"), modDB:Override(nil, "ShockVal")) or ailmentData.Shock.default
+			local totalShockSelfEffect = calcLib.mod(modDB, nil, "SelfShockEffect")
+			local avoidShock = modDB:Flag(nil, "ShockImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidShock", "AvoidAilments", "AvoidElementalAilments"), 100))
+			
+			local effect = avoidShock == 100 and 0 or m_min(m_max(m_floor(shockValue *  totalShockSelfEffect), 0), modDB:Override(nil, "ShockMax") or ailmentData.Shock.max)
+			modDB:NewMod("DamageTaken", "INC", effect, "Shock")
+		end
+		if modDB:Flag(nil, "Scorch") then
+			local ailmentData = data.nonDamagingAilment
+			local scorchValue = m_max(modDB:Sum("BASE", nil, "SelfScorchOverride"), modDB:Override(nil, "ScorchVal")) or ailmentData.Scorch.default
+			local totalScorchSelfEffect = calcLib.mod(modDB, nil, "SelfScorchEffect")
+			local avoidScorch = modDB:Flag(nil, "ScorchImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidScorch", "AvoidAilments", "AvoidElementalAilments") + (modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") and modDB:Sum("BASE", nil, "AvoidShock") or 0), 100))
+			
+			local effect = avoidScorch == 100 and 0 or m_min(m_max(m_floor(scorchValue *  totalScorchSelfEffect), 0), modDB:Override(nil, "ScorchMax") or ailmentData.Scorch.max)
+			modDB:NewMod("ElementalResist", "BASE", -effect, "Scorch")
 		end
 		if modDB:Flag(nil, "Freeze") then
 			local effect = m_max(m_floor(70 * calcLib.mod(modDB, nil, "SelfChillEffect")), 0)
@@ -1187,17 +1209,36 @@ function calcs.perform(env, skipEHP)
 			output.HasBonechill = true
 		end
 		if activeSkill.activeEffect.grantedEffect.name == "Summon Skitterbots" then
+			local skitterbotAilmentEffect = activeSkill.skillModList:Sum("INC", nil, "SkitterbotAilmentEffect")
 			if not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotShock") then
-				local effect = data.nonDamagingAilment.Shock.default * (1 + activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyShockEffect") / 100)
+				local effect = data.nonDamagingAilment.Shock.default * (1 + (activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyShockEffect") + skitterbotAilmentEffect) / 100)
 				modDB:NewMod("ShockOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
 				enemyDB:NewMod("Condition:Shocked", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
+				if activeSkill.skillModList:Flag(nil, "SkitterbotAffectPlayer") then
+					modDB:NewMod("Shock", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
+					modDB:NewMod("SelfShockOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
+				end
 			end
 			if not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotChill") then
-				local effect = data.nonDamagingAilment.Chill.default * (1 + activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyChillEffect") / 100)
+				local effect = data.nonDamagingAilment.Chill.default * (1 + (activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyChillEffect") + skitterbotAilmentEffect) / 100)
 				modDB:NewMod("ChillOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
 				enemyDB:NewMod("Condition:Chilled", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
+				if activeSkill.skillModList:Flag(nil, "SkitterbotAffectPlayer") then
+					modDB:NewMod("Chill", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
+					modDB:NewMod("SelfChillOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
+				end
 				if activeSkill.skillData.supportBonechill then
 					hasGuaranteedBonechill = true
+					modDB:NewMod("SkitterbotBonechill", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
+				end
+			end
+			if activeSkill.skillModList:Flag(nil, "ScorchingSkitterbot") then
+				local effect = data.nonDamagingAilment.Scorch.default * (1 + (activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyScorchEffect") + skitterbotAilmentEffect) / 100)
+				modDB:NewMod("ScorchOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
+				enemyDB:NewMod("Condition:Scorched", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
+				if activeSkill.skillModList:Flag(nil, "SkitterbotAffectPlayer") then
+					modDB:NewMod("Scorch", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
+					modDB:NewMod("SelfScorchOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
 				end
 			end
 		elseif activeSkill.skillTypes[SkillType.ChillingArea] or (activeSkill.skillTypes[SkillType.NonHitChill] and not activeSkill.skillModList:Flag(nil, "CannotChill")) then
@@ -1211,6 +1252,9 @@ function calcs.perform(env, skipEHP)
 		if activeSkill.minion and activeSkill.minion.minionData and activeSkill.minion.minionData.limit then
 			local limit = activeSkill.skillModList:Sum("BASE", nil, activeSkill.minion.minionData.limit)
 			output[activeSkill.minion.minionData.limit] = m_max(limit, output[activeSkill.minion.minionData.limit] or 0)
+		end
+		if activeSkill.skillTypes[SkillType.CreatesMinion] and not activeSkill.skillTypes[SkillType.MinionsAreUndamageable] then
+			modDB:NewMod("Condition:HaveDamageableMinion", "FLAG", true)
 		end
 		if env.mode_buffs and activeSkill.skillFlags.warcry then
 			if activeSkill.activeEffect.grantedEffect.name == "Rallying Cry" and not activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") and not modDB:Flag(nil, "RallyingActive") then

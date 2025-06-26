@@ -1096,6 +1096,22 @@ local configTable = {
 				end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCospris and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot end}
 	end,
+	["seven teachings"] = function()
+		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Unarmed, ModFlag.Melee)) == bor(ModFlag.Unarmed, ModFlag.Melee) end,
+				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredBySevenTeachings and slotMatch(env, skill) end}
+	end,
+	["squirming terror"] = function(env)
+		if env.player.modDB:Flag(nil, "Condition:KilledRecently") then
+			return {assumingEveryHitKills = true,
+					triggerSkillCond = function(env, skill)
+						return skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Melee]
+					end,
+					triggeredSkillCond = function(env, skill) return skill.skillData.triggeredBySquirmingTerror and slotMatch(env, skill) end}
+		else
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+			env.player.mainSkill.infoMessage = "Squirming Terror requires recent kills"
+		end
+	end,
 	["cast on critical strike"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCoc and slotMatch(env, skill) end}
