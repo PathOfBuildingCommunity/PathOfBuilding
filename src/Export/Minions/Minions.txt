@@ -80,6 +80,7 @@ local minions, mod = ...
 #emit
 
 #monster Metadata/Monsters/AnimatedItem/AnimatedWeapon AnimatedWeapon
+#limit ActiveAnimatedWeaponLimit
 #emit
 
 #monster Metadata/Monsters/AnimatedItem/AnimatedArmour AnimatedArmour
@@ -91,6 +92,7 @@ local minions, mod = ...
 #emit
 
 #monster Metadata/Monsters/AnimatedItem/UniqueAnimatedWeapon UniqueAnimatedWeapon
+#limit ActiveAnimatedWeaponLimit
 #mod mod("Life", "MORE", 698), -- MonsterUnique2
 #mod mod("Damage", "MORE", 70), -- MonsterUnique5
 #mod mod("Speed", "MORE", 33, ModFlag.Attack), -- MonsterUnique8
@@ -115,17 +117,21 @@ local minions, mod = ...
 #emit
 
 #monster Metadata/Monsters/Axis/AxisEliteSoldierDominatingBlow AxisEliteSoldierDominatingBlow
+#limit ActiveSentinelOfDominanceLimit
 #emit
 
 #monster Metadata/Monsters/Axis/AxisEliteSoldierDominatingBlowVaal AxisEliteSoldierDominatingBlowVaal
+#limit ActiveSentinelOfDominanceLimit
 #mod mod("Damage", "MORE", 200)
 #mod mod("DamageTaken", "MORE", -70)
 #emit
 
 #monster Metadata/Monsters/TemplarJudge/AbsolutionTemplarJudge AbsolutionTemplarJudge
+#limit ActiveSentinelOfAbsolutionLimit
 #emit
 
 #monster Metadata/Monsters/TemplarJudge/AbsolutionTemplarJudgeVaal AbsolutionTemplarJudgeVaal
+#limit ActiveSentinelOfAbsolutionLimit
 #mod mod("Damage", "MORE", 200)
 #mod mod("DamageTaken", "MORE", -70)
 #emit
@@ -152,7 +158,11 @@ local minions, mod = ...
 #monster Metadata/Monsters/Skitterbot/SkitterbotLightning SkitterbotLightning
 #emit
 
+#monster Metadata/Monsters/Skitterbot/SkitterbotFire SkitterbotFire
+#emit
+
 #monster Metadata/Monsters/SummonedReaper/SummonedReaper SummonedReaper
+#limit ActiveReaperLimit
 #emit
 
 #monster Metadata/Monsters/LeagueExpedition/Arbalest/SummonedArbalest SummonedArbalists
@@ -194,4 +204,8 @@ minions["GuardianRelicAll"] = {
 #emit
 
 #monster Metadata/Monsters/AnimatedItem/ElementalLivingRelicLightning GuardianRelicLightning
+#emit
+
+#monster Metadata/Monsters/ElderTentacle/ElderTentacleMinionLargePlayer VoidSpawn
+#limit ActiveVoidSpawnLimit
 #emit
