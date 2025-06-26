@@ -8305,7 +8305,7 @@ c["Gain 2 Endurance, Frenzy or Power Charges every 6 seconds Adds 70 to 130 Fire
 c["Gain 2 Grasping Vines each second while stationary"]={{[1]={[1]={limit=10,limitTotal=true,type="Multiplier",var="StationarySeconds"},[2]={type="Condition",var="Stationary"},flags=0,keywordFlags=0,name="Multiplier:GraspingVinesCount",type="BASE",value=2}},nil}
 c["Gain 2 Mana per Enemy Hit with Attacks"]={{[1]={flags=4,keywordFlags=65536,name="ManaOnHit",type="BASE",value=2}},nil}
 c["Gain 2 Power Charges on Using a Warcry"]={{}," Power Charges on Using a  "}
-c["Gain 2 Power Charges on Using a Warcry Warcries grant Arcane Surge to you and Allies, with 10% increased effect per 5 power, up to 50%"]={{[1]={flags=0,keywordFlags=4,name="Condition:ArcaneSurge",type="BASE",value=2}}," Power Charges on Using a  Warcries grant  , with 10% increased effect per 5 power, up to 50% "}
+c["Gain 2 Power Charges on Using a Warcry Warcries grant Arcane Surge to you and Allies, with 10% increased effect per 5 power, up to 50%"]={{[1]={flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=4,name="Condition:ArcaneSurge",type="BASE",value=2}}}}," Power Charges on Using a  Warcries grant  , with 10% increased effect per 5 power, up to 50% "}
 c["Gain 2 Rage on Hit with Axes"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Gain 2 Rage on Hit with Axes or Swords"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Gain 2 Rage on Melee Hit"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
@@ -8402,8 +8402,7 @@ c["Gain 40% of Physical Attack Damage as Extra Fire Damage"]={{[1]={flags=1,keyw
 c["Gain 40% of Physical Damage as Extra Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageGainAsChaos",type="BASE",value=40}},nil}
 c["Gain 40% of Physical Damage as Extra Damage of a random Element while you are Ignited"]={{[1]={[1]={type="Condition",var="Ignited"},flags=0,keywordFlags=0,name="PhysicalDamageGainAsRandom",type="BASE",value=40}},nil}
 c["Gain 40% of Physical Damage as a Random Element if you've cast Elemental Weakness in the past 10 seconds"]={{[1]={[1]={type="Condition",var="SelfCastElementalWeakness"},flags=0,keywordFlags=0,name="PhysicalDamageGainAsRandom",type="BASE",value=40}},nil}
-c["Gain 5 Life for each Ignited Enemy hit with Attacks"]={{[1]={flags=0,keywordFlags=65536,name="Life",type="BASE",value=5}},"  for each Ignited Enemy hit  "}
-c["Gain 5 Life for each Ignited Enemy hit with Attacks 15% increased Ignite Duration on Enemies"]={{[1]={flags=0,keywordFlags=65536,name="Life",type="BASE",value=5}},"  for each Ignited Enemy hit  15% increased Ignite Duration  "}
+c["Gain 5 Life for each Ignited Enemy hit with Attacks"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Ignited"},flags=5,keywordFlags=0,name="LifeOnHit",type="BASE",value=5}},nil}
 c["Gain 5 Life per Enemy Hit with Attacks"]={{[1]={flags=4,keywordFlags=65536,name="LifeOnHit",type="BASE",value=5}},nil}
 c["Gain 5 Mana per Enemy Killed"]={{[1]={flags=0,keywordFlags=0,name="ManaOnKill",type="BASE",value=5}},nil}
 c["Gain 5 Rage on Hit with Retaliation Skills"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}

@@ -2003,7 +2003,7 @@ function calcs.perform(env, skipEHP)
 						local extraExertions = modStore:Sum("BASE", nil, "ExtraExertedAttacks") or 0
 						local exertMultiplier = modStore:More(nil, "ExtraExertedAttacks")
 						env.player.modDB:NewMod("Num"..warcryName.."Exerts", "BASE", m_floor((baseExerts + extraExertions) * exertMultiplier))
-						env.player.modDB:NewMod("ExertingWarcryCount", "BASE", 1)
+						env.player.modDB:NewMod("Multiplier:ExertingWarcryCount", "BASE", 1)
 					end
 					if not activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") then
 						local warcryPower = modDB:Override(nil, "WarcryPower") or m_max((modDB:Sum("BASE", nil, "WarcryPower") or 0) * (1 + (modDB:Sum("INC", nil, "WarcryPower") or 0)/100), (modDB:Sum("BASE", nil, "MinimumWarcryPower") or 0))
