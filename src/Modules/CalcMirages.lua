@@ -361,7 +361,7 @@ function calcs.mirages(env)
 			end
 		}
 	elseif env.player.mainSkill.skillData.triggeredByGeneralsCry then
-		env.player.mainSkill[SkillType.Triggered] = true
+		env.player.mainSkill.skillTypes[SkillType.Triggered] = true
 		local maxMirageWarriors = 0
 		local cooldown = 1
 		local generalsCryActiveSkill

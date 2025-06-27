@@ -10,6 +10,7 @@ local ipairs = ipairs
 local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
+local m_abs = math.abs
 local m_floor = math.floor
 local m_ceil = math.ceil
 local m_sqrt = math.sqrt
@@ -180,6 +181,9 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 		end
 		if output.TotalRadianceSentinelLife then
 			alliesTakenBeforeYou["radianceSentinel"] = { remaining = output.TotalRadianceSentinelLife, percent = output.RadianceSentinelAllyDamageMitigation / 100 }
+		end
+		if output.TotalVoidSpawnLife then
+			alliesTakenBeforeYou["voidSpawn"] = { remaining = output.TotalVoidSpawnLife, percent = output.VoidSpawnAllyDamageMitigation / 100 }
 		end
 		if output.AlliedEnergyShield then
 			alliesTakenBeforeYou["soulLink"] = { remaining = output.AlliedEnergyShield, percent = output.SoulLinkMitigation / 100 }
@@ -420,6 +424,9 @@ local function incomingDamageBreakdown(breakdownTable, poolsRemaining, output)
 	end
 	if output.TotalRadianceSentinelLife and output.TotalRadianceSentinelLife > 0 then
 		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Sentinel of Radiance Life ^7(%d remaining)", output.TotalRadianceSentinelLife - poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining, poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining))
+	end
+	if output.TotalVoidSpawnLife and output.TotalVoidSpawnLife > 0 then
+		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Void Spawn Life ^7(%d remaining)", output.TotalVoidSpawnLife - poolsRemaining.AlliesTakenBeforeYou["voidSpawn"].remaining, poolsRemaining.AlliesTakenBeforeYou["voidSpawn"].remaining))
 	end
 	if output.AlliedEnergyShield and output.AlliedEnergyShield > 0 then
 		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Allied Energy shield ^7(%d remaining)", output.AlliedEnergyShield - poolsRemaining.AlliesTakenBeforeYou["soulLink"].remaining, poolsRemaining.AlliesTakenBeforeYou["soulLink"].remaining))
@@ -700,31 +707,38 @@ function calcs.defence(env, actor)
 		output.SpellBlockChance = 0
 		output.SpellProjectileBlockChance = 0
 	end
-	do
-		for _, blockType in ipairs({"BlockChance", "ProjectileBlockChance", "SpellBlockChance", "SpellProjectileBlockChance"}) do
-			output["Effective"..blockType] = env.mode_effective and m_max(output[blockType] - enemyDB:Sum("BASE", nil, "reduceEnemyBlock"), 0) or output[blockType]
-			local luck = 1
-			if env.mode_effective then
-				luck = luck * (modDB:Flag(nil, blockType.."IsLucky") and 2 or 1) / (modDB:Flag(nil, blockType.."IsUnlucky") and 2 or 1)
+	for _, blockType in ipairs({"BlockChance", "ProjectileBlockChance", "SpellBlockChance", "SpellProjectileBlockChance"}) do
+		output["Effective"..blockType] = env.mode_effective and m_max(output[blockType] - enemyDB:Sum("BASE", nil, "reduceEnemyBlock"), 0) or output[blockType]
+		local blockRolls = 0
+		if env.mode_effective then
+			if modDB:Flag(nil, blockType.."IsLucky") then
+				blockRolls = blockRolls + 1
 			end
-			-- unlucky config to lower the value of block, dodge, evade etc for ehp
-			luck = luck / (env.configInput.EHPUnluckyWorstOf or 1)
-			while luck ~= 1 do
-				if luck > 1 then
-					luck = luck / 2
-					output["Effective"..blockType] = (1 - (1 - output["Effective"..blockType] / 100) ^ 2) * 100
-				else
-					luck = luck * 2
-					output["Effective"..blockType] = output["Effective"..blockType] / 100 * output["Effective"..blockType]
-				end
+			if modDB:Flag(nil, blockType.."IsUnlucky") then
+				blockRolls = blockRolls - 1
+			end
+			if modDB:Flag(nil, "ExtremeLuck") then
+				blockRolls = blockRolls * 2
+			end
+			if modDB:Flag(nil, "Unexciting") then
+				blockRolls = 0
+			end
+		end
+		-- unlucky config to lower the value of block, dodge, evade etc for ehp
+		if env.configInput.EHPUnluckyWorstOf and env.configInput.EHPUnluckyWorstOf ~= 1 then
+			blockRolls = -env.configInput.EHPUnluckyWorstOf / 2
+		end
+		if blockRolls ~= 0 then
+			if blockRolls > 0 then
+				output["Effective"..blockType] = (1 - (1 - output["Effective"..blockType] / 100) ^ (blockRolls + 1)) * 100
+			else
+				output["Effective"..blockType] = (output["Effective"..blockType] / 100) ^ m_abs(blockRolls) * output["Effective"..blockType]
 			end
 		end
 	end
 	output.EffectiveAverageBlockChance = (output.EffectiveBlockChance + output.EffectiveProjectileBlockChance + output.EffectiveSpellBlockChance + output.EffectiveSpellProjectileBlockChance) / 4
-	output.BlockEffect = m_max(100 - modDB:Sum("BASE", nil, "BlockEffect"), 0)
-	if output.BlockEffect == 0 or output.BlockEffect == 100 then
-		output.BlockEffect = 100
-	else
+    output.BlockEffect = 100 - modDB:Sum("BASE", nil, "BlockEffect")
+	if output.BlockEffect ~= 0 then
 		output.ShowBlockEffect = true
 		output.DamageTakenOnBlock = 100 - output.BlockEffect
 	end
@@ -1070,22 +1084,31 @@ function calcs.defence(env, actor)
 	output.SpellSuppressionChance = m_min(totalSpellSuppressionChance, data.misc.SuppressionChanceCap)
 	output.SpellSuppressionEffect = m_max(data.misc.SuppressionEffect + modDB:Sum("BASE", nil, "SpellSuppressionEffect"), 0)
 	
-	do
-		output.EffectiveSpellSuppressionChance = enemyDB:Flag(nil, "CannotBeSuppressed") and 0 or output.SpellSuppressionChance
-		local luck = 1
-		if env.mode_effective then
-			luck = luck * (modDB:Flag(nil, "SpellSuppressionChanceIsLucky") and 2 or 1) / (modDB:Flag(nil, "SpellSuppressionChanceIsUnlucky") and 2 or 1)
+	output.EffectiveSpellSuppressionChance = enemyDB:Flag(nil, "CannotBeSuppressed") and 0 or output.SpellSuppressionChance
+	local suppressRolls = 0
+	if env.mode_effective then
+		if modDB:Flag(nil, "SpellSuppressionChanceIsLucky") then
+			suppressRolls = suppressRolls + 1
 		end
-		-- unlucky config to lower the value of block, dodge, evade etc for ehp
-		luck = luck / (env.configInput.EHPUnluckyWorstOf or 1)
-		while luck ~= 1 do
-			if luck > 1 then
-				luck = luck / 2
-				output.EffectiveSpellSuppressionChance = (1 - (1 - output.EffectiveSpellSuppressionChance / 100) ^ 2) * 100
-			else
-				luck = luck * 2
-				output.EffectiveSpellSuppressionChance = output.EffectiveSpellSuppressionChance / 100 * output.EffectiveSpellSuppressionChance
-			end
+		if modDB:Flag(nil, "SpellSuppressionChanceIsUnlucky") then
+			suppressRolls = suppressRolls - 1
+		end
+		if modDB:Flag(nil, "ExtremeLuck") then
+			suppressRolls = suppressRolls * 2
+		end
+		if modDB:Flag(nil, "Unexciting") then
+			suppressRolls = 0
+		end
+	end
+	-- unlucky config to lower the value of block, dodge, evade etc for ehp
+	if env.configInput.EHPUnluckyWorstOf and env.configInput.EHPUnluckyWorstOf ~= 1 then
+		suppressRolls = -env.configInput.EHPUnluckyWorstOf / 2
+	end
+	if suppressRolls ~= 0 then
+		if suppressRolls > 0 then
+			output.EffectiveSpellSuppressionChance = (1 - (1 - output.EffectiveSpellSuppressionChance / 100) ^ (suppressRolls + 1)) * 100
+		else
+			output.EffectiveSpellSuppressionChance = (output.EffectiveSpellSuppressionChance / 100) ^ m_abs(suppressRolls) * output.EffectiveSpellSuppressionChance
 		end
 	end
 	
@@ -2369,6 +2392,12 @@ function calcs.buildDefenceEstimations(env, actor)
 			output["TotalRadianceSentinelLife"] = modDB:Sum("BASE", nil, "TotalRadianceSentinelLife")
 		end
 		
+		-- from Void Spawn
+		output["VoidSpawnAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromVoidSpawnBeforeYou")
+		if output["VoidSpawnAllyDamageMitigation"] ~= 0 then
+			output["TotalVoidSpawnLife"] = modDB:Sum("BASE", nil, "TotalVoidSpawnLife")
+		end
+		
 		-- from Allied Energy Shield
 		output["SoulLinkMitigation"] = modDB:Sum("BASE", nil, "TakenFromParentESBeforeYou")
 		if output["SoulLinkMitigation"] ~= 0 then
@@ -2467,6 +2496,9 @@ function calcs.buildDefenceEstimations(env, actor)
 		end
 		if output.TotalRadianceSentinelLife then
 			alliesTakenBeforeYou["radianceSentinel"] = { remaining = output.TotalRadianceSentinelLife, percent = output.RadianceSentinelAllyDamageMitigation / 100 }
+		end
+		if output.TotalVoidSpawnLife then
+			alliesTakenBeforeYou["voidSpawn"] = { remaining = output.TotalVoidSpawnLife, percent = output.VoidSpawnAllyDamageMitigation / 100 }
 		end
 		if output.AlliedEnergyShield then
 			alliesTakenBeforeYou["soulLink"] = { remaining = output.AlliedEnergyShield, percent = output.SoulLinkMitigation / 100 }
@@ -3011,6 +3043,10 @@ function calcs.buildDefenceEstimations(env, actor)
 				local poolProtected = output["TotalRadianceSentinelLife"] / (output["RadianceSentinelAllyDamageMitigation"] / 100) * (1 - output["RadianceSentinelAllyDamageMitigation"] / 100)
 				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["RadianceSentinelAllyDamageMitigation"] / 100)
 			end
+			if output["TotalVoidSpawnLife"] and output["TotalVoidSpawnLife"] > 0 then
+				local poolProtected = output["TotalVoidSpawnLife"] / (output["VoidSpawnAllyDamageMitigation"] / 100) * (1 - output["VoidSpawnAllyDamageMitigation"] / 100)
+				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["VoidSpawnAllyDamageMitigation"] / 100)
+			end
 			-- soul link
 			if output["AlliedEnergyShield"] and output["AlliedEnergyShield"] > 0 then
 				local poolProtected = output["AlliedEnergyShield"] / (output["SoulLinkMitigation"] / 100) * (1 - output["SoulLinkMitigation"] / 100)
@@ -3091,7 +3127,7 @@ function calcs.buildDefenceEstimations(env, actor)
 					for partType, _ in pairs(passDamages) do
 						passRatio = m_max(passRatio, (passOverkill + output[partType.."TotalHitPool"]) / output[partType.."TotalHitPool"])
 					end
-					local stepSize = n > 1 and m_min(math.abs((passOverkill - previousOverkill) / previousOverkill), 2) or 1
+					local stepSize = n > 1 and m_min(m_abs((passOverkill - previousOverkill) / previousOverkill), 2) or 1
 					local stepAdjust = stepSize > 1 and -passOverkill / stepSize or n > 1 and -passOverkill * stepSize or 0
 					previousOverkill = passOverkill
 					passIncomingDamage = (passIncomingDamage + stepAdjust) / m_sqrt(passRatio)
@@ -3633,6 +3669,10 @@ function calcs.buildDefenceEstimations(env, actor)
 			if resourcesLost.radianceSentinel then
 				resourcesLostSum = resourcesLostSum + resourcesLost.radianceSentinel
 				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Sentinel of Radiance Life", resourcesLost.radianceSentinel))
+			end
+			if resourcesLost.voidSpawn then
+				resourcesLostSum = resourcesLostSum + resourcesLost.voidSpawn
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Void Spawn Life", resourcesLost.voidSpawn))
 			end
 			if resourcesLost.soulLink then
 				resourcesLostSum = resourcesLostSum + resourcesLost.soulLink
