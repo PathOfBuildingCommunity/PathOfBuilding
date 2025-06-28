@@ -156,6 +156,10 @@ for i=1, passiveSkillOverridesDat.rowCount do
 		tattooPassiveNode.ks = true
 		datFileRow = datFileRow.PassiveSkill
 		parsePassiveStats(datFileRow, tattooPassiveNode)
+	elseif datFileRow.TattooType.Id == "AlternateMastery" then
+		-- is runegraft mastery
+		tattooPassiveNode.name = "Runegraft Mastery"
+		parseStats(datFileRow, tattooPassiveNode)
 	else
 		parseStats(datFileRow, tattooPassiveNode)
 	end

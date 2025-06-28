@@ -1390,6 +1390,7 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	end
 	old.dn = newNode.dn
 	old.sd = newNode.sd
+	old.name = newNode.name
 	old.mods = newNode.mods
 	old.modKey = newNode.modKey
 	old.modList = new("ModList")
