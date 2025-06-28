@@ -171,7 +171,7 @@ for i=1, passiveSkillOverridesDat.rowCount do
 	tattooPassiveNode.icon = datFileRow.Icon:gsub("%.dds$", ".png")
 	tattooPassiveNode.sd[#tattooPassiveNode.sd + 1] = limitText
 
-	if datFileRow.Id ~= "DisplayRandomKeystone" then
+	if datFileRow.Id ~= "DisplayRandomKeystone" and not datFileRow.Name:match("DNT") then
 		data.nodes[datFileRow.Name] = tattooPassiveNode
 	end
 end

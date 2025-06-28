@@ -800,10 +800,13 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		local numLinkedNodes = selectedNode.linkedId and #selectedNode.linkedId or 0
 		local nodeValue = treeNodes[selectedNode.id].sd[1] or ""
 		for id, node in pairs(self.build.spec.tree.tattoo.nodes) do
-			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and not node.ks and nodeValue:match(node.targetValue)) or
-					(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity"))
-					or (node.ks == true and treeNodes[selectedNode.id].type == "Keystone"))
-					and node.MinimumConnected <= numLinkedNodes and (node.legacy == false or node.legacy == self.showLegacyTattoo) then
+			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
+				(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity")) or
+				(node.ks == true and treeNodes[selectedNode.id].type == "Keystone"))
+				and node.MinimumConnected <= numLinkedNodes
+				and ((node.legacy == nil or node.legacy == false) or node.legacy == self.showLegacyTattoo)
+				and (node.ks ~= true or treeNodes[selectedNode.id].type == "Keystone")  -- <-- prevent keystones on mastery nodes
+			then
 				local combine = false
 				for id, desc in pairs(node.stats) do
 					combine = (id:match("^local_display.*") and #node.stats == (#node.sd - 1)) or combine
