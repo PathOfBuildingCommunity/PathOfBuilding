@@ -141,7 +141,7 @@ such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.or
 1. Create a new <kbd>Debug Configuration</kbd> of type <kbd>EmmyLua New Debug</kbd>
 1. Open `./src/Launch.lua`
 1. Click the beginning of the line directly after `function launch:OnInit()`
-1. Insert the debugger code
+1. Insert the debugger code:
    
    Automatically:
    1. Open the Command Palette (<kbd>F1</kbd>)
@@ -153,13 +153,13 @@ such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.or
    1. Find the sub-folder that contains `emmy_core.dll`. You should find both x86 and x64; pick x64. For example, `C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.9.22-win32-x64/debugger/emmy/windows/x64`.  Uses this in the snippet below.  Note the version number will change with every update.
    1. Copy-paste the following code snippet:
    ```lua
-   -- Path to emmy_core.dll. You will need to update it to point to the EmmyLua dlls in YOUR installation.
-   -- Note the "?.dll" at the end of the path is mandatory.
-   package.cpath = package.cpath .. ";C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.5.19/debugger/emmy/windows/x64/?.dll"
-   local dbg = require("emmy_core")
-   -- This port must match the IDE configuration. Default is 9966.
-   dbg.tcpListen("localhost", 9966)
-   --dbg.waitIDE() -- Uncomment this line if you want PoB to wait until the debugger is attached.
+   	-- Path to emmy_core.dll. You will need to update it to point to the EmmyLua dlls in YOUR installation.
+   	-- Note the "?.dll" at the end of the path is mandatory.
+   	package.cpath = package.cpath .. ";C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.5.19/debugger/emmy/windows/x64/?.dll"
+   	local dbg = require("emmy_core")
+   	-- This port must match the IDE configuration. Default is 9966.
+   	dbg.tcpListen("localhost", 9966)
+   	--dbg.waitIDE() -- Uncomment this line if you want PoB to wait until the debugger is attached.
    ```
 1. Set breakpoints in the source with VSCode's built-in breakpoint system (or use a non-local `dbg` and call `_G.dbg.breakHere()`)
 1. Click the <kbd>Run and Debug</kbd> icon on the *Activity Bar*
@@ -221,15 +221,9 @@ More tests can be added to this folder to test specific functionality, or new te
 Please try to include tests for your new features in your pull request. Additionally, if your pr breaks a test that should be passing please update it accordingly.
 
 ### Debugging tests
-When running tests with a docker container it is possible to use emmylua for debugging. Paste in the following right under `function launch:OnInit()` in `./src/Launch.lua`:
-```lua
-package.cpath = package.cpath .. ";/usr/local/bin/?.so"
-local dbg = require("emmy_core")
--- This port must match the IDE Code configuration. Default is 9966.
-dbg.tcpListen("localhost", 9966)
-dbg.waitIDE()
-```
-After running `docker-compose up` the code will wait at the `dbg.waitIDE()` line until a debugger is attached. This will allow stepping through any code that is internal to POB but will not work for busted related code. Note that this only works for unit tests described above.
+When running tests with a docker container it is possible to use EmmyLua for debugging. Follow the instructions for inserting the debugger snippet as shown above in [Visual Studio Code](#Visual-Studio-Code), then uncomment the `dbg.waitIDE()` line.  
+
+After running `docker-compose up` the code will wait at that line until a debugger is attached. This will allow stepping through any code that is internal to POB but will not work for busted related code. Note that this only works for unit tests described above.
 
 ## Path of Building development tutorials
 

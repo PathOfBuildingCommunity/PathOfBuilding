@@ -2215,8 +2215,7 @@ c["10% increased Critical Strike Chance for each Mine Detonated Recently, up to 
 c["10% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=10}},nil}
 c["10% increased Damage Over Time with Bow Skills"]={{[1]={flags=8,keywordFlags=1024,name="Damage",type="INC",value=10}},nil}
 c["10% increased Damage for each type of Abyssal Jewel affecting you"]={{[1]={[1]={type="Multiplier",var="AbyssJewelType"},flags=0,keywordFlags=0,name="Damage",type="INC",value=10}},nil}
-c["10% increased Damage for each unlinked Socket in Equipped Two Handed Weapon"]={{[1]={flags=8192,keywordFlags=0,name="Damage",type="INC",value=10}},"  for each unlinked Socket in Equipped Two Handed  "}
-c["10% increased Damage for each unlinked Socket in Equipped Two Handed Weapon Limited to 1 Runegraft of the Jeweller"]={{[1]={flags=8192,keywordFlags=0,name="Damage",type="INC",value=10}},"  for each unlinked Socket in Equipped Two Handed  Limited to 1 Runegraft of the Jeweller "}
+c["10% increased Damage for each unlinked Socket in Equipped Two Handed Weapon"]={{[1]={[1]={type="Multiplier",var="UnlinkedSocketInWeapon 1"},[2]={type="Condition",var="UsingTwoHandedWeapon"},flags=0,keywordFlags=0,name="Damage",type="INC",value=10}},nil}
 c["10% increased Damage over Time"]={{[1]={flags=8,keywordFlags=0,name="Damage",type="INC",value=10}},nil}
 c["10% increased Damage per Endurance Charge"]={{[1]={[1]={type="Multiplier",var="EnduranceCharge"},flags=0,keywordFlags=0,name="Damage",type="INC",value=10}},nil}
 c["10% increased Damage per Freeze, Shock and Ignite on Enemy"]={{[1]={[1]={type="Multiplier",var="FreezeShockIgniteOnEnemy"},flags=0,keywordFlags=0,name="Damage",type="INC",value=10}},nil}
@@ -2355,8 +2354,7 @@ c["10% less Damage Taken from Damage over Time"]={{[1]={flags=0,keywordFlags=0,n
 c["10% less Physical Damage Taken while on Full Energy Shield"]={{[1]={[1]={type="Condition",var="FullEnergyShield"},flags=0,keywordFlags=0,name="PhysicalDamageTaken",type="MORE",value=-10}},nil}
 c["10% less Skill Effect Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="MORE",value=-10}},nil}
 c["10% more Attack Damage for each Non-Instant Spell you've Cast in the past 8 seconds, up to a maximum of 30%"]={{[1]={[1]={limit="30",limitTotal=true,type="Multiplier",var="CastLast8Seconds"},flags=1,keywordFlags=0,name="Damage",type="MORE",value=10}},nil}
-c["10% more Attack speed with Offhand"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="MORE",value=10}},"  with Offhand "}
-c["10% more Attack speed with Offhand Limited to 1 Runegraft of the Sinistral"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="MORE",value=10}},"  with Offhand Limited to 1 Runegraft of the Sinistral "}
+c["10% more Attack speed with Offhand"]={{[1]={[1]={type="Condition",var="OffHandAttack"},[2]={skillType=1,type="SkillType"},flags=1,keywordFlags=0,name="Speed",type="MORE",value=10}},nil}
 c["10% more Damage if you've Killed Recently"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=0,keywordFlags=0,name="Damage",type="MORE",value=10}},nil}
 c["10% more Damage taken if you haven't Consumed a Corpse Recently"]={{[1]={[1]={neg=true,type="Condition",var="ConsumedCorpseRecently"},flags=0,keywordFlags=0,name="DamageTaken",type="MORE",value=10}},nil}
 c["10% more Damage with Hits and Ailments against Enemies that are on Low Life"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="LowLife"},flags=0,keywordFlags=786432,name="Damage",type="MORE",value=10}},nil}
@@ -2545,8 +2543,7 @@ c["100% increased Stun and Block Recovery"]={{[1]={flags=0,keywordFlags=0,name="
 c["100% increased Totem Duration"]={{[1]={flags=0,keywordFlags=0,name="TotemDuration",type="INC",value=100}},nil}
 c["100% increased Totem Placement speed"]={{[1]={flags=0,keywordFlags=0,name="TotemPlacementSpeed",type="INC",value=100}},nil}
 c["100% increased Vaal Skill Critical Strike Chance"]={{[1]={flags=0,keywordFlags=512,name="CritChance",type="INC",value=100}},nil}
-c["100% increased Warcry Speed if you have not Warcried Recently"]={{[1]={flags=0,keywordFlags=4,name="WarcrySpeed",type="INC",value=100}},"  if you have not Warcried Recently "}
-c["100% increased Warcry Speed if you have not Warcried Recently Limited to 1 Runegraft of Bellows"]={{[1]={flags=0,keywordFlags=4,name="WarcrySpeed",type="INC",value=100}},"  if you have not Warcried Recently Limited to 1 Runegraft of Bellows "}
+c["100% increased Warcry Speed if you have not Warcried Recently"]={{[1]={[1]={neg=true,type="Condition",var="UsedWarcryRecently"},flags=0,keywordFlags=4,name="WarcrySpeed",type="INC",value=100}},nil}
 c["100% increased maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="INC",value=100}},nil}
 c["100% increased total Recovery per second from Life Leech"]={{[1]={flags=0,keywordFlags=0,name="LifeLeechRate",type="INC",value=100}},nil}
 c["100% increased total Recovery per second from Life, Mana, or Energy Shield Leech"]={{[1]={flags=0,keywordFlags=0,name="LifeLeechRate",type="INC",value=100},[2]={flags=0,keywordFlags=0,name="ManaLeechRate",type="INC",value=100},[3]={flags=0,keywordFlags=0,name="EnergyShieldLeechRate",type="INC",value=100}},nil}
@@ -3713,8 +3710,7 @@ c["20% increased Vaal Skill Effect Duration"]={{[1]={flags=0,keywordFlags=512,na
 c["20% increased Valour gained"]={{}," Valour gained "}
 c["20% increased Warcry Buff Effect"]={{[1]={flags=0,keywordFlags=4,name="BuffEffect",type="INC",value=20}},nil}
 c["20% increased Warcry Speed"]={{[1]={flags=0,keywordFlags=4,name="WarcrySpeed",type="INC",value=20}},nil}
-c["20% increased bonuses gained from Equipped Gloves"]={{}," bonuses gained from Equipped Gloves "}
-c["20% increased bonuses gained from Equipped Gloves Limited to 1 Runegraft of the Bound"]={{}," bonuses gained from Equipped Gloves Limited to 1 Runegraft of the Bound "}
+c["20% increased bonuses gained from Equipped Gloves"]={{[1]={flags=0,keywordFlags=0,name="EffectOfBonusesFromGloves",type="INC",value=20}},nil}
 c["20% increased effect of Non-Curse Auras from your Skills"]={{[1]={[1]={skillType=43,type="SkillType"},[2]={neg=true,skillType=79,type="SkillType"},flags=0,keywordFlags=0,name="AuraEffect",type="INC",value=20}},nil}
 c["20% increased effect of Non-Curse Auras from your Skills on your Minions"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={skillType=43,type="SkillType"},[2]={neg=true,skillType=79,type="SkillType"},flags=0,keywordFlags=0,name="AuraEffectOnSelf",type="INC",value=20}}}},nil}
 c["20% increased effect of Offerings"]={{[1]={[1]={skillNameList={[1]="Bone Offering",[2]="Flesh Offering",[3]="Spirit Offering",[4]="Blood Offering"},type="SkillName"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=20}},nil}
@@ -3798,9 +3794,7 @@ c["20% reduced Skeleton Duration"]={{[1]={[1]={includeTransfigured=true,skillNam
 c["20% reduced Skill Effect Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="INC",value=-20}},nil}
 c["20% reduced Strength Requirement"]={{[1]={flags=0,keywordFlags=0,name="StrRequirement",type="INC",value=-20}},nil}
 c["20% reduced Stun Threshold"]={{[1]={flags=0,keywordFlags=0,name="StunThreshold",type="INC",value=-20}},nil}
-c["20% reduced bonuses gained from Equipped Boots"]={{}," bonuses gained from Equipped Boots "}
-c["20% reduced bonuses gained from Equipped Boots 20% increased bonuses gained from Equipped Gloves"]={{}," bonuses gained from Equipped Boots 20% increased bonuses gained from Equipped Gloves "}
-c["20% reduced bonuses gained from Equipped Boots 20% increased bonuses gained from Equipped Gloves Limited to 1 Runegraft of the Bound"]={{}," bonuses gained from Equipped Boots 20% increased bonuses gained from Equipped Gloves Limited to 1 Runegraft of the Bound "}
+c["20% reduced bonuses gained from Equipped Boots"]={{[1]={flags=0,keywordFlags=0,name="EffectOfBonusesFromBoots",type="INC",value=-20}},nil}
 c["20% reduced maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=-20}},nil}
 c["200 Cold Damage taken per second per Frenzy Charge while moving"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},[2]={type="Condition",var="Moving"},flags=0,keywordFlags=0,name="ColdDegen",type="BASE",value=200}},nil}
 c["200 Fire Damage taken per second per Endurance Charge if you've been Hit Recently"]={{[1]={[1]={type="Multiplier",var="EnduranceCharge"},[2]={type="Condition",var="BeenHitRecently"},flags=0,keywordFlags=0,name="FireDegen",type="BASE",value=200}},nil}
@@ -5370,8 +5364,7 @@ c["50% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="
 c["50% increased Armour and Evasion"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=50}},nil}
 c["50% increased Armour while stationary"]={{[1]={[1]={type="Condition",var="Stationary"},flags=0,keywordFlags=0,name="Armour",type="INC",value=50}},nil}
 c["50% increased Aspect of the Spider Debuff Duration"]={{[1]={[1]={skillName="Aspect of the Spider",type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="INC",value=50}},nil}
-c["50% increased Attack Damage against Enemies with a higher percentage of their Life remaining than you"]={{[1]={flags=1,keywordFlags=0,name="Damage",type="INC",value=50}},"  against Enemies with a higher percentage of their Life remaining than you "}
-c["50% increased Attack Damage against Enemies with a higher percentage of their Life remaining than you Limited to 1 Runegraft of the Combatant"]={{[1]={flags=1,keywordFlags=0,name="Damage",type="INC",value=50}},"  against Enemies with a higher percentage of their Life remaining than you Limited to 1 Runegraft of the Combatant "}
+c["50% increased Attack Damage against Enemies with a higher percentage of their Life remaining than you"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="HigherLifePercentThanPlayer"},flags=1,keywordFlags=0,name="Damage",type="INC",value=50}},nil}
 c["50% increased Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=50}},nil}
 c["50% increased Attack Speed when on Low Life"]={{[1]={[1]={type="Condition",var="LowLife"},flags=1,keywordFlags=0,name="Speed",type="INC",value=50}},nil}
 c["50% increased Block Recovery"]={{[1]={flags=0,keywordFlags=0,name="BlockRecovery",type="INC",value=50}},nil}
@@ -7330,8 +7323,7 @@ c["Auras from your Skills have 30% increased Effect on you"]={{[1]={flags=0,keyw
 c["Auras from your Skills have 40% increased Effect on you"]={{[1]={flags=0,keywordFlags=0,name="SkillAuraEffectOnSelf",type="INC",value=40}},nil}
 c["Auras from your Skills have 8% increased Effect on you for"]={nil,"Auras from your Skills have 8% increased Effect on you for "}
 c["Auras from your Skills have 8% increased Effect on you for each Herald affecting you, up to 40%"]={{[1]={[1]={globalLimit=40,globalLimitKey="PurposefulHarbinger",type="Multiplier",var="Herald"},flags=0,keywordFlags=0,name="SkillAuraEffectOnSelf",type="INC",value=8}},nil}
-c["Auras from your Skills which affect Allies also affect Enemies"]={nil,"Auras from your Skills which affect Allies also affect Enemies "}
-c["Auras from your Skills which affect Allies also affect Enemies Limited to 1 Runegraft of Treachery"]={nil,"Auras from your Skills which affect Allies also affect Enemies Limited to 1 Runegraft of Treachery "}
+c["Auras from your Skills which affect Allies also affect Enemies"]={{[1]={flags=0,keywordFlags=0,name="AurasAffectEnemies",type="FLAG",value=true}},nil}
 c["Avatar of Fire"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Avatar of Fire"}},nil}
 c["Axe Attacks deal 10% increased Damage with Hits and Ailments"]={{[1]={flags=65536,keywordFlags=786432,name="Damage",type="INC",value=10}},nil}
 c["Axe Attacks deal 12% increased Damage with Ailments"]={{[1]={flags=67584,keywordFlags=0,name="Damage",type="INC",value=12}},nil}
@@ -11259,8 +11251,7 @@ c["Spells have 30% increased Critical Strike Chance per Intensity"]={{[1]={[1]={
 c["Spells have 40% increased Critical Strike Chance per Intensity"]={{[1]={[1]={type="Multiplier",var="Intensity"},flags=2,keywordFlags=0,name="CritChance",type="INC",value=40}},nil}
 c["Spells have 50% increased Critical Strike Chance per Intensity"]={{[1]={[1]={type="Multiplier",var="Intensity"},flags=2,keywordFlags=0,name="CritChance",type="INC",value=50}},nil}
 c["Spells have a 20% chance to deal Double Damage"]={{[1]={flags=2,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=20}},nil}
-c["Spells have an additional Life cost equal to 8% of your Maximum Life"]={nil,"n additional Life cost equal to 8% of your Maximum Life "}
-c["Spells have an additional Life cost equal to 8% of your Maximum Life Limited to 1 Runegraft of the Witchmark"]={nil,"n additional Life cost equal to 8% of your Maximum Life Limited to 1 Runegraft of the Witchmark "}
+c["Spells have an additional Life cost equal to 8% of your Maximum Life"]={{[1]={[1]={floor=true,percent=8,stat="Life",type="PercentStat"},[2]={skillType=2,type="SkillType"},flags=0,keywordFlags=0,name="LifeCostBase",type="BASE",value=1}},nil}
 c["Spells inflict Intimidate on Critical Strike for 4 seconds"]={nil,"Spells inflict Intimidate on Critical Strike for 4 seconds "}
 c["Spells which can gain Intensity have +1 to maximum Intensity"]={{[1]={flags=0,keywordFlags=0,name="Multiplier:IntensityLimit",type="BASE",value=1}},nil}
 c["Spells which have gained Intensity Recently gain 1 Intensity every 0.5 Seconds"]={nil,"Spells which have gained Intensity Recently gain 1 Intensity every 0.5 Seconds "}
@@ -12099,8 +12090,7 @@ c["Your Hits treat Cold Resistance as 10% higher than actual value"]={{[1]={flag
 c["Your Lightning Damage can Freeze but not Shock"]={{[1]={flags=0,keywordFlags=0,name="LightningCanFreeze",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="LightningCannotShock",type="FLAG",value=true}},nil}
 c["Your Lightning Damage can Ignite"]={{[1]={flags=0,keywordFlags=0,name="LightningCanIgnite",type="FLAG",value=true}},nil}
 c["Your Lightning Damage can Poison"]={{[1]={flags=0,keywordFlags=0,name="LightningCanPoison",type="FLAG",value=true}},nil}
-c["Your Lucky or Unlucky effects are instead Unexciting"]={nil,"Your Lucky or Unlucky effects are instead Unexciting "}
-c["Your Lucky or Unlucky effects are instead Unexciting Limited to 1 Runegraft of Stability"]={nil,"Your Lucky or Unlucky effects are instead Unexciting Limited to 1 Runegraft of Stability "}
+c["Your Lucky or Unlucky effects are instead Unexciting"]={{[1]={flags=0,keywordFlags=0,name="Unexciting",type="FLAG",value=true}},nil}
 c["Your Lucky or Unlucky effects use the best or"]={nil,"Your Lucky or Unlucky effects use the best or "}
 c["Your Lucky or Unlucky effects use the best or worst from three rolls instead of two"]={{[1]={flags=0,keywordFlags=0,name="ExtremeLuck",type="FLAG",value=true}},nil}
 c["Your Mark Transfers to another Enemy when Marked Enemy dies"]={nil,"Your Mark Transfers to another Enemy when Marked Enemy dies "}
