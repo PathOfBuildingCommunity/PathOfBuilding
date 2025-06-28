@@ -1335,11 +1335,21 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			B = "Multiplier:BlueSocketIn"..slotName,
 			W = "Multiplier:WhiteSocketIn"..slotName,
 		}
+		local groupCounts = {}
 		for _, socket in ipairs(self.sockets) do
+			local group = socket.group
+    		groupCounts[group] = (groupCounts[group] or 0) + 1
 			if multiName[socket.color] then
 				modList:NewMod(multiName[socket.color], "BASE", 1, "Item Sockets")
 			end
 		end
+		local unlinkedSockets = 0
+		for _, count in pairs(groupCounts) do
+			if count == 1 then
+				unlinkedSockets = unlinkedSockets + 1
+			end
+		end
+		modList:NewMod("Multiplier:UnlinkedSocketIn"..slotName, "BASE", unlinkedSockets, "Unlinked Item Sockets")
 	end
 	local craftedQuality = calcLocal(modList,"Quality","BASE",0) or 0
 	if craftedQuality ~= self.craftedQuality then
