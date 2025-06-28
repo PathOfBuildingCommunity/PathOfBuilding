@@ -1820,6 +1820,9 @@ Huge sets the radius to 11.
 	{ var = "conditionEnemyInFrostGlobe", type = "check", label = "Is the enemy in the Frost Shield area?", ifEnemyCond = "EnemyInFrostGlobe", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:EnemyInFrostGlobe", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "conditionEnemyLifeHigherThanPlayer", type = "check", label = "Is the enemy ^xE05030Life^7% higher than yours?", ifEnemyCond = "HigherLifePercentThanPlayer", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:HigherLifePercentThanPlayer", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "enemyConditionHitByFireDamage", type = "check", label = "Enemy was Hit by ^xB97123Fire ^7Damage?", ifFlag = "ElementalEquilibrium", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:HitByFireDamage", "FLAG", true, "Config")
 	end },

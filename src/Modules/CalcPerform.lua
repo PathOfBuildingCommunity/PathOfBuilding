@@ -2133,6 +2133,20 @@ function calcs.perform(env, skipEHP)
 							buffExports["Aura"][buff.name.."_Debuff"] = buffExports["Aura"][buff.name]
 						end
 						buffExports["Aura"][buff.name] = { effectMult = mult, modList = newModList }
+						if modDB:Flag(nil, "AurasAffectEnemies") then
+							local newModList = {}
+							local srcList = new("ModList")
+							for _, mod in ipairs(buff.modList) do
+								t_insert(newModList, mod)
+							end
+							for _, mod in ipairs(extraAuraModList) do
+								t_insert(newModList, mod)
+							end
+							buffExports["Aura"][buff.name..(buffExports["Aura"][buff.name] and "_Debuff" or "")] = { effectMult = mult, modList = newModList }
+							srcList:ScaleAddList(buff.modList, mult)
+							srcList:ScaleAddList(extraAuraModList, mult)
+							mergeBuff(srcList, debuffs, buff.name)
+						end
 					end
 					if env.player.mainSkill.skillFlags.totem and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
 						activeSkill.totemBuffSkill = true
