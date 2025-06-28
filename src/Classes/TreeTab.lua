@@ -800,9 +800,9 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		local numLinkedNodes = selectedNode.linkedId and #selectedNode.linkedId or 0
 		local nodeValue = treeNodes[selectedNode.id].sd[1] or ""
 		for id, node in pairs(self.build.spec.tree.tattoo.nodes) do
-			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
+			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and not node.ks and nodeValue:match(node.targetValue)) or
 					(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity"))
-					or (node.targetType == "Keystone" and treeNodes[selectedNode.id].type == node.targetType))
+					or (node.ks == true and treeNodes[selectedNode.id].type == "Keystone"))
 					and node.MinimumConnected <= numLinkedNodes and (node.legacy == false or node.legacy == self.showLegacyTattoo) then
 				local combine = false
 				for id, desc in pairs(node.stats) do
@@ -886,6 +886,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		self:RemoveTattooFromNode(selectedNode)
 		self.modFlag = true
 		self.build.buildFlag = true
+		self.defaultTattoo[nodeName] = nil
 		main:ClosePopup()
 	end)
 	controls.close = new("ButtonControl", nil, {90, 75, 80, 20}, "Cancel", function()

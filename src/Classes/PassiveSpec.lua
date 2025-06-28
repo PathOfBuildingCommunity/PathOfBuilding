@@ -1176,7 +1176,11 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			if node.type == "Mastery" and self.masterySelections[id] then
 				local effect = self.tree.masteryEffects[self.masterySelections[id]]
 				if effect and self.allocNodes[id] then
-					node.sd = effect.sd
+					if self.hashOverrides and self.hashOverrides[id] then
+						self:ReplaceNode(node, self.hashOverrides[id])
+					else
+						node.sd = effect.sd
+					end
 					node.allMasteryOptions = false
 					node.reminderText = { "Tip: Right click to select a different effect" }
 					self.tree:ProcessStats(node)
