@@ -5822,7 +5822,7 @@ c["70% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC"
 c["70% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=70}},nil}
 c["70% increased Armour and Evasion"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=70}},nil}
 c["70% increased Aspect of the Spider Area of Effect"]={{[1]={[1]={skillName="Aspect of the Spider",type="SkillName"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=70}},nil}
-c["70% increased Attack Damage if your other Ring is a Shaper Item"]={{[1]={[1]={itemSlot="Ring {OtherSlotNum}",shapeRrCond=true,type="ItemCondition"},flags=1,keywordFlags=0,name="Damage",type="INC",value=70}},nil}
+c["70% increased Attack Damage if your other Ring is a Shaper Item"]={{[1]={[1]={itemSlot="Ring {OtherSlotNum}",shaperCond=true,type="ItemCondition"},flags=1,keywordFlags=0,name="Damage",type="INC",value=70}},nil}
 c["70% increased Burning Damage"]={{[1]={flags=0,keywordFlags=134217728,name="FireDamage",type="INC",value=70}},nil}
 c["70% increased Charges per use"]={{[1]={flags=0,keywordFlags=0,name="FlaskChargesUsed",type="INC",value=70}},nil}
 c["70% increased Critical Strike Chance"]={{[1]={flags=0,keywordFlags=0,name="CritChance",type="INC",value=70}},nil}
@@ -6017,7 +6017,7 @@ c["80% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC"
 c["80% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=80}},nil}
 c["80% increased Armour and Evasion"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=80}},nil}
 c["80% increased Armour while stationary"]={{[1]={[1]={type="Condition",var="Stationary"},flags=0,keywordFlags=0,name="Armour",type="INC",value=80}},nil}
-c["80% increased Attack Damage if your other Ring is a Shaper Item"]={{[1]={[1]={itemSlot="Ring {OtherSlotNum}",shapeRrCond=true,type="ItemCondition"},flags=1,keywordFlags=0,name="Damage",type="INC",value=80}},nil}
+c["80% increased Attack Damage if your other Ring is a Shaper Item"]={{[1]={[1]={itemSlot="Ring {OtherSlotNum}",shaperCond=true,type="ItemCondition"},flags=1,keywordFlags=0,name="Damage",type="INC",value=80}},nil}
 c["80% increased Burning Damage"]={{[1]={flags=0,keywordFlags=134217728,name="FireDamage",type="INC",value=80}},nil}
 c["80% increased Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamage",type="INC",value=80}},nil}
 c["80% increased Charges per use"]={{[1]={flags=0,keywordFlags=0,name="FlaskChargesUsed",type="INC",value=80}},nil}
