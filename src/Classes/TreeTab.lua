@@ -899,7 +899,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	local function getTattooCount()
 		local count = 0
 		for _, node in pairs(self.build.spec.hashOverrides) do
-			if node.isTattoo then
+			if node.isTattoo and not node.dn:find("Runegraft") then
 				count = count + 1
 			end
 		end
