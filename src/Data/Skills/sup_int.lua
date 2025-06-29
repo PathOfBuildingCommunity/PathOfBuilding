@@ -5194,9 +5194,6 @@ skills["SupportSummonPhantasm"] = {
 	addSkillTypes = { SkillType.CreatesMinion, SkillType.MinionsCanExplode, },
 	excludeSkillTypes = { SkillType.MinionsPersistWhenSkillRemoved, },
 	statDescriptionScope = "gem_stat_descriptions",
-	addFlags = {
-		minion = true,
-	},
 	addMinionList = {
 		"SummonedPhantasm"
 	},

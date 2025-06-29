@@ -615,6 +615,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 
 	-- Create minion
 	local minionList, isSpectre
+	local minionSupportLevel = { }
 	if activeGrantedEffect.minionList then
 		if activeGrantedEffect.minionList[1] then
 			minionList = copyTable(activeGrantedEffect.minionList)
@@ -629,6 +630,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		if skillEffect.grantedEffect.support and skillEffect.grantedEffect.addMinionList then
 			for _, minionType in ipairs(skillEffect.grantedEffect.addMinionList) do
 				t_insert(minionList, minionType)
+				minionSupportLevel[minionType] = skillEffect.grantedEffect.levels[skillEffect.level].levelRequirement
 			end
 		end
 	end
@@ -654,7 +656,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			minion.minionData = env.data.minions[minionType]
 			minion.level = activeSkill.skillData.minionLevelIsEnemyLevel and env.enemyLevel or 
 								activeSkill.skillData.minionLevelIsPlayerLevel and (m_min(env.build and env.build.characterLevel or activeSkill.skillData.minionLevel or activeEffect.grantedEffectLevel.levelRequirement, activeSkill.skillData.minionLevelIsPlayerLevel)) or 
-								activeSkill.skillData.minionLevel or activeEffect.grantedEffectLevel.levelRequirement
+								minionSupportLevel[minion.type] or activeSkill.skillData.minionLevel or activeEffect.grantedEffectLevel.levelRequirement
 			-- fix minion level between 1 and 100
 			minion.level = m_min(m_max(minion.level,1),100) 
 			minion.itemList = { }
