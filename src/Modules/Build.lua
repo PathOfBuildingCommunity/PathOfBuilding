@@ -23,6 +23,38 @@ local function InsertIfNew(t, val)
 	table.insert(t, val)
 end
 
+---matchFlags
+---  Compares the skill flags table against the line flag settings
+---  Required enabling flags check takes precedence over disabling flags check
+---@param reqFlags table containing the required flags
+---@param notFlags table containing the disabling flags
+---@param flags table containing the flags to match against
+local function matchFlags(reqFlags, notFlags, flags)
+	if type(reqFlags) == "string" then
+		reqFlags = { reqFlags }
+	end
+	if reqFlags then
+		for _, flag in ipairs(reqFlags) do
+			if not flags[flag] then
+				return
+			end
+		end
+	end
+
+	if type(notFlags) == "string" then
+		notFlags = { notFlags }
+	end
+	if notFlags then
+		for _, flag in ipairs(notFlags) do
+			if flags[flag] then
+				return
+			end
+		end
+	end
+	-- Both flag checks passed, default true
+	return true
+end
+
 function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLink)
 	self.dbFileName = dbFileName
 	self.buildName = buildName
@@ -934,7 +966,7 @@ function buildMode:Save(xml)
 	end
 	local addedStatNames = { }
 	for index, statData in ipairs(self.displayStats) do
-		if not statData.flag or self.calcsTab.mainEnv.player.mainSkill.skillFlags[statData.flag] then
+		if matchFlags(statData.flag, statData.notFlag, self.calcsTab.mainEnv.player.mainSkill.skillFlags) then
 			local statName = statData.stat and statData.stat..(statData.childStat or "")
 			if statName and not addedStatNames[statName] then
 				if statData.stat == "SkillDPS" then
@@ -1219,7 +1251,7 @@ function buildMode:OpenSaveAsPopup()
 	end
 	controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter new build name:")
 	controls.edit = new("EditControl", nil, {0, 40, 450, 20},
-	(self.buildName or self.dbFileName):gsub("[\\/:%*%?\"<>|%c]", "-"), nil, "\\/:%*%?\"<>|%c", 100, function(buf)
+	not self.dbFileName and main.predefinedBuildName or (self.buildName or self.dbFileName):gsub("[\\/:%*%?\"<>|%c]", "-"), nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 		updateBuildName()
 	end)
 	controls.folderLabel = new("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, {10, 70, 0, 16}, "^7Folder:")
@@ -1479,7 +1511,7 @@ end
 function buildMode:AddDisplayStatList(statList, actor)
 	local statBoxList = self.controls.statBox.list
 	for index, statData in ipairs(statList) do
-		if not statData.flag or actor.mainSkill.skillFlags[statData.flag] then
+		if matchFlags(statData.flag, statData.notFlag, actor.mainSkill.skillFlags) then
 			local labelColor = "^7"
 			if statData.color then
 				labelColor = statData.color
@@ -1650,7 +1682,7 @@ end
 function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compareOutput, header, nodeCount)
 	local count = 0
 	for _, statData in ipairs(statList) do
-		if statData.stat and (not statData.flag or actor.mainSkill.skillFlags[statData.flag]) and not statData.childStat and statData.stat ~= "SkillDPS" then
+		if statData.stat and matchFlags(statData.flag, statData.notFlag, actor.mainSkill.skillFlags) and not statData.childStat and statData.stat ~= "SkillDPS" then
 			local statVal1 = compareOutput[statData.stat] or 0
 			local statVal2 = baseOutput[statData.stat] or 0
 			local diff = statVal1 - statVal2

@@ -798,12 +798,12 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	local function buildMods(selectedNode)
 		wipeTable(modGroups)
 		local numLinkedNodes = selectedNode.linkedId and #selectedNode.linkedId or 0
-		local nodeValue = treeNodes[selectedNode.id].sd[1]
+		local nodeValue = treeNodes[selectedNode.id].sd[1] or ""
 		for id, node in pairs(self.build.spec.tree.tattoo.nodes) do
 			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
 					(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity"))
 					or (node.targetType == "Keystone" and treeNodes[selectedNode.id].type == node.targetType))
-					and node.MinimumConnected <= numLinkedNodes and (node.legacy == false or node.legacy == self.showLegacyTattoo) then
+					and node.MinimumConnected <= numLinkedNodes and ((node.legacy == nil or node.legacy == false) or node.legacy == self.showLegacyTattoo) then
 				local combine = false
 				for id, desc in pairs(node.stats) do
 					combine = (id:match("^local_display.*") and #node.stats == (#node.sd - 1)) or combine
@@ -886,6 +886,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		self:RemoveTattooFromNode(selectedNode)
 		self.modFlag = true
 		self.build.buildFlag = true
+		self.defaultTattoo[nodeName] = nil
 		main:ClosePopup()
 	end)
 	controls.close = new("ButtonControl", nil, {90, 75, 80, 20}, "Cancel", function()
@@ -895,7 +896,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	local function getTattooCount()
 		local count = 0
 		for _, node in pairs(self.build.spec.hashOverrides) do
-			if node.isTattoo then
+			if node.isTattoo and not node.dn:find("Runegraft") then
 				count = count + 1
 			end
 		end

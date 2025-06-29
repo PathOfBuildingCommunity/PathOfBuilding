@@ -595,6 +595,9 @@ skills["SupportCastWhenStunned"] = {
 		"spell_uncastable_if_triggerable",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
+	notMinionStat = {
+		"cast_on_stunned_%",
+	},
 	levels = {
 		[1] = { 50, storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 38, cooldown = 0.1, statInterpolation = { 1, }, },
 		[2] = { 51, storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 40, cooldown = 0.1, statInterpolation = { 1, }, },
@@ -661,6 +664,9 @@ skills["SupportCastWhileChannelling"] = {
 		},
 	},
 	stats = {
+		"cast_while_channelling_time_ms",
+	},
+	notMinionStat = {
 		"cast_while_channelling_time_ms",
 	},
 	levels = {
@@ -802,6 +808,9 @@ skills["SupportAwakenedCastWhileChannelling"] = {
 	stats = {
 		"cast_while_channelling_time_ms",
 		"avoid_interruption_while_using_this_skill_%",
+	},
+	notMinionStat = {
+		"cast_while_channelling_time_ms",
 	},
 	levels = {
 		[1] = { 340, 0, PvPDamageMultiplier = -80, levelRequirement = 72, manaMultiplier = 20, statInterpolation = { 1, 1, }, },
@@ -2334,6 +2343,9 @@ skills["SupportFocusedChannelling"] = {
 	stats = {
 		"support_focus_channel_damage_+%_final_per_second_channelling_up_to_60%",
 	},
+	notMinionStat = {
+		"support_focus_channel_damage_+%_final_per_second_channelling_up_to_60%",
+	},
 	levels = {
 		[1] = { 15, levelRequirement = 31, statInterpolation = { 1, }, },
 		[2] = { 15, levelRequirement = 34, statInterpolation = { 1, }, },
@@ -2898,6 +2910,10 @@ skills["DoomBlast"] = {
 		"triggered_vicious_hex_explosion",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_chaos_damage",
+		"spell_maximum_base_chaos_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 2.2, cooldown = 0.15, levelRequirement = 31, statInterpolation = { 3, 3, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 2.3, cooldown = 0.15, levelRequirement = 34, statInterpolation = { 3, 3, }, },
@@ -3280,6 +3296,9 @@ skills["SupportInfusedChannelling"] = {
 	stats = {
 		"support_storm_barrier_damage_+%_final",
 	},
+	notMinionStat = {
+		"support_storm_barrier_damage_+%_final",
+	},
 	levels = {
 		[1] = { 20, manaMultiplier = 30, levelRequirement = 4, statInterpolation = { 1, }, },
 		[2] = { 20, manaMultiplier = 30, levelRequirement = 6, statInterpolation = { 1, }, },
@@ -3430,6 +3449,9 @@ skills["SupportIntensify"] = {
 		"support_spell_boost_area_damage_+%_final_per_charge",
 		"base_skill_area_of_effect_+%",
 		"display_base_intensity_loss",
+	},
+	notMinionStat = {
+		"support_spell_boost_area_damage_+%_final_per_charge",
 	},
 	levels = {
 		[1] = { 12, 30, manaMultiplier = 30, levelRequirement = 31, statInterpolation = { 1, 1, }, },
@@ -4361,6 +4383,16 @@ skills["PrismaticBurst"] = {
 		"is_area_damage",
 		"prismatic_burst_unchosen_type_damage_-100%_final",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"active_skill_base_radius_+",
+		"base_cooldown_speed_+%",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 0, 0, critChance = 5, storedUses = 1, levelRequirement = 1, cooldown = 0.8, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, 0.80000001192093, 1.2000000476837, 0.10000000149012, 1.8999999761581, 0, 3, critChance = 5, storedUses = 1, levelRequirement = 2, cooldown = 0.8, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, }, },
@@ -4443,6 +4475,9 @@ skills["SupportPinpoint"] = {
 		"support_greater_projectile_intensity_projectile_damage_+%_final",
 		"display_base_intensity_loss",
 		"minimum_number_of_projectiles_to_fire_is_1",
+	},
+	notMinionStat = {
+		"support_greater_projectile_intensity_projectile_damage_+%_final",
 	},
 	levels = {
 		[1] = { -19, manaMultiplier = 30, levelRequirement = 31, statInterpolation = { 1, }, },
@@ -4813,6 +4848,10 @@ skills["SupportSacrifice"] = {
 		"support_sacrifice_sacrifice_%_of_current_life",
 		"support_sacrifice_gain_%_of_sacrificed_life_as_added_chaos_damage",
 	},
+	notMinionStat = {
+		"support_sacrifice_sacrifice_%_of_current_life",
+		"support_sacrifice_gain_%_of_sacrificed_life_as_added_chaos_damage",
+	},
 	levels = {
 		[1] = { 20, 35, levelRequirement = 31, statInterpolation = { 1, 1, }, },
 		[2] = { 20, 36, levelRequirement = 34, statInterpolation = { 1, 1, }, },
@@ -4877,6 +4916,9 @@ skills["SupportSpellblade"] = {
 		},
 	},
 	stats = {
+		"support_spell_weapon_damage_gain_%_of_one_hand_melee_weapon_damage_as_added_spell_damage",
+	},
+	notMinionStat = {
 		"support_spell_weapon_damage_gain_%_of_one_hand_melee_weapon_damage_as_added_spell_damage",
 	},
 	levels = {
@@ -4949,6 +4991,10 @@ skills["SupportSpellCascade"] = {
 		{ "support_spell_cascade_number_of_cascades_per_side", 1 },
 	},
 	stats = {
+		"support_spell_cascade_area_of_effect_+%_final",
+		"support_spell_cascade_damage_+%_final",
+	},
+	notMinionStat = {
 		"support_spell_cascade_area_of_effect_+%_final",
 		"support_spell_cascade_damage_+%_final",
 	},
@@ -5026,6 +5072,10 @@ skills["SupportAwakenedSpellCascade"] = {
 		"support_spell_cascade_area_of_effect_+%_final",
 		"support_spell_cascade_damage_+%_final",
 		"support_spell_cascade_sideways",
+	},
+	notMinionStat = {
+		"support_spell_cascade_area_of_effect_+%_final",
+		"support_spell_cascade_damage_+%_final",
 	},
 	levels = {
 		[1] = { -30, -30, PvPDamageMultiplier = -20, levelRequirement = 72, manaMultiplier = 30, statInterpolation = { 1, 1, }, },
@@ -5194,9 +5244,6 @@ skills["SupportSummonPhantasm"] = {
 	addSkillTypes = { SkillType.CreatesMinion, SkillType.MinionsCanExplode, },
 	excludeSkillTypes = { SkillType.MinionsPersistWhenSkillRemoved, },
 	statDescriptionScope = "gem_stat_descriptions",
-	addFlags = {
-		minion = true,
-	},
 	addMinionList = {
 		"SummonedPhantasm"
 	},
@@ -5375,6 +5422,9 @@ skills["SupportTrinity"] = {
 	stats = {
 		"damage_penetrates_%_elemental_resistances_while_all_resonance_is_25",
 		"gain_resonance_of_majority_damage_on_hit_for_2_seconds",
+	},
+	notMinionStat = {
+		"damage_penetrates_%_elemental_resistances_while_all_resonance_is_25",
 	},
 	levels = {
 		[1] = { 7, manaMultiplier = 40, levelRequirement = 18, statInterpolation = { 1, }, },
@@ -5570,6 +5620,9 @@ skills["SupportUnleash"] = {
 		"support_anticipation_charge_gain_interval_ms",
 		"support_spell_rapid_fire_repeat_use_damage_+%_final",
 	},
+	notMinionStat = {
+		"support_anticipation_charge_gain_interval_ms",
+	},
 	levels = {
 		[1] = { 900, -45, PvPDamageMultiplier = -40, levelRequirement = 38, manaMultiplier = 40, statInterpolation = { 1, 1, }, },
 		[2] = { 890, -45, PvPDamageMultiplier = -40, levelRequirement = 40, manaMultiplier = 40, statInterpolation = { 1, 1, }, },
@@ -5647,6 +5700,10 @@ skills["SupportAwakenedUnleash"] = {
 		"support_anticipation_rapid_fire_count",
 		"support_anticipation_charge_gain_interval_ms",
 		"support_spell_rapid_fire_repeat_use_damage_+%_final",
+	},
+	notMinionStat = {
+		"support_anticipation_rapid_fire_count",
+		"support_anticipation_charge_gain_interval_ms",
 	},
 	levels = {
 		[1] = { 3, 700, -35, PvPDamageMultiplier = -40, levelRequirement = 72, manaMultiplier = 40, statInterpolation = { 1, 1, 1, }, },

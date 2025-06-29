@@ -1,3 +1,32 @@
+VERSION[2.55.0][2025/06/29]
+
+--- New to Path of Building ---
+* Add support for all new 3.26 uniques (LocalIdentity)
+* Add support for various "Infamous" (Mercenary exclusive) item modifiers (LocalIdentity, majochem)
+* Support selecting Runegrafts on Masteries (Blitz54)
+* Add support for Runegraft mods (LocalIdentity)
+* Update Timeless Jewels to work with 3.26 Tree (LocalIdentity)
+* Default build name on new builds to use the account and character name if imported (n1tr0xs)
+* Add Cast Time breakdown to Calcs page for Warcries (n1tr0xs)
+
+--- Fixed Crashes ---
+* Fix Dual Strike of Ambidexterity causing crash (Paliak)
+* Fix crash when right-clicking on a Keystone / Mastery (Blitz54)
+* Fix crash when trying to copy a blank skill set (Blitz54)
+
+--- Fixed Calculations ---
+* Fix Trigger rate calculation for SpellSlinger, Automation and Autoexertion (Paliak)
+* Fix Summon Phantasm using the active gem level instead of the support's level (LocalIdentity)
+* Fixed EHP based on block effect calculation (n1tr0xs)
+
+--- Fixed Behaviours ---
+* Fix many support gems not working correctly with Minion skills (Paliak)
+* Fix Brand Damage and Crit nodes not affecting Arcanist Brand Triggered skills (LocalIdentity)
+* Fix Watchers Eye Purity of Lightning damage taken as mod in Unique database (LocalIdentity)
+
+--- Other changes ---
+* Fix flashing cmd window during update check (ccitro)
+
 VERSION[2.54.0][2025/06/14]
 
 --- New to Path of Building ---

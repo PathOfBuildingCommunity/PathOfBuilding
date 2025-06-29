@@ -690,9 +690,42 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportTriggerSpellOnUnarmedMeleeCriticalHit Seven Teachings
+	fromItem = true,
+	statMap = {
+		["spell_is_triggered_on_hit"] = {
+			skill("triggeredBySevenTeachings", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+			skill("triggerOnCrit", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+		},
+	},
+#mods
+
 #skill ShadeForm
 #flags spell duration
 	fromItem = true,
+#mods
+
+#skill SummonShaperApparition
+#flags spell
+	fromItem = true,
+#mods
+
+#skill ShaperApparitionTeleportSlam
+#flags attack area melee
+	fromItem = true,
+#baseMod skill("showAverage", true)
+#mods
+
+#skill ShaperApparitionBeam
+#flags spell duration
+	fromItem = true,
+#baseMod skill("showAverage", true)
+#mods
+
+#skill ShaperApparitionProjectiles
+#flags spell projectile
+	fromItem = true,
+#baseMod skill("showAverage", true)
 #mods
 
 #skill ShieldShatter
@@ -748,9 +781,8 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill TriggeredStarfall
-#flags spell
+#flags attack projectile area
 	fromItem = true,
-#baseMod skill("showAverage", true)
 #mods
 
 #skill StormCascadeTriggered
@@ -982,6 +1014,19 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill SummonVoidSpawn
+#flags spell minion
+	fromItem = true,
+	minionList = {
+		"VoidSpawn",
+	},
+	statMap = {
+		["void_spawn_withered_on_hit_chance_%"] = {
+			flag("Condition:CanWither"),
+		},
+	},
+#mods
+
 #skill VolatileAnomaly Summon Volatile Anomaly
 #flags spell area duration
 	fromItem = true,
@@ -1025,6 +1070,10 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportTriggerElementalSpellOnBlock
+	fromItem = true,
+#mods
+
+#skill SupportTriggerSpellOnKill Squirming Terror
 	fromItem = true,
 #mods
 

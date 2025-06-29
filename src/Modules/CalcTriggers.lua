@@ -719,7 +719,7 @@ local function defaultTriggerHandler(env, config)
 
 			local skillName = (source and source.activeEffect.grantedEffect.name) or (actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name) or actor.mainSkill.activeEffect.grantedEffect.name
 
-			if output.EffectiveSourceRate ~= 0 then
+			if output.EffectiveSourceRate ~= 0 and not env.player.mainSkill.skillFlags.skipEffectiveRate then
 				local triggerChance = 100
 				local triggerChanceBreakdown = {}
 
@@ -967,7 +967,7 @@ local configTable = {
 		return {triggerName = "Icicle Burst", triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
 	end,
 	["starcaller"] = function()
-		return {triggerName = "Starfall", triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
+		return {triggerName = "Starfall", triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) end}
 	end,
 	["uul-netol's embrace"] = function()
 		return {triggerName = "Bone Nova", triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
@@ -1096,6 +1096,22 @@ local configTable = {
 				end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCospris and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot end}
 	end,
+	["seven teachings"] = function()
+		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Unarmed, ModFlag.Melee)) == bor(ModFlag.Unarmed, ModFlag.Melee) end,
+				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredBySevenTeachings and slotMatch(env, skill) end}
+	end,
+	["squirming terror"] = function(env)
+		if env.player.modDB:Flag(nil, "Condition:KilledRecently") then
+			return {assumingEveryHitKills = true,
+					triggerSkillCond = function(env, skill)
+						return skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Melee]
+					end,
+					triggeredSkillCond = function(env, skill) return skill.skillData.triggeredBySquirmingTerror and slotMatch(env, skill) end}
+		else
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+			env.player.mainSkill.infoMessage = "Squirming Terror requires recent kills"
+		end
+	end,
 	["cast on critical strike"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCoc and slotMatch(env, skill) end}
@@ -1121,84 +1137,89 @@ local configTable = {
 		end
 	end,
 	["cast when damage taken"] = function(env)
-		local thresholdMod = calcLib.mod(env.player.mainSkill.skillModList, nil, "CWDTThreshold")
-		env.player.output.CWDTThreshold = env.player.mainSkill.skillData.triggeredByDamageTaken * thresholdMod
-		if env.player.breakdown and env.player.output.CWDTThreshold ~= env.player.mainSkill.skillData.triggeredByDamageTaken then
-			env.player.breakdown.CWDTThreshold = {
-				s_format("%.2f ^8(base threshold)", env.player.mainSkill.skillData.triggeredByDamageTaken),
-				s_format("x %.2f ^8(threshold modifier)", thresholdMod),
-				s_format("= %.2f", env.player.output.CWDTThreshold),
-			}
+		if env.player.mainSkill.skillData.triggeredByDamageTaken then
+			local thresholdMod = calcLib.mod(env.player.mainSkill.skillModList, nil, "CWDTThreshold")
+			env.player.output.CWDTThreshold = env.player.mainSkill.skillData.triggeredByDamageTaken * thresholdMod
+			if env.player.breakdown and env.player.output.CWDTThreshold ~= env.player.mainSkill.skillData.triggeredByDamageTaken then
+				env.player.breakdown.CWDTThreshold = {
+					s_format("%.2f ^8(base threshold)", env.player.mainSkill.skillData.triggeredByDamageTaken),
+					s_format("x %.2f ^8(threshold modifier)", thresholdMod),
+					s_format("= %.2f", env.player.output.CWDTThreshold),
+				}
+			end
+			env.player.mainSkill.skillFlags.globalTrigger = true
+			return  {source = env.player.mainSkill}
 		end
-        env.player.mainSkill.skillFlags.globalTrigger = true
-		return  {source = env.player.mainSkill}
 	end,
 	["cast when stunned"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
 		return {triggerChance =  env.player.mainSkill.skillData.chanceToTriggerOnStun,
 				source = env.player.mainSkill}
 	end,
-	["automation"] = function(env)
-		if env.player.mainSkill.activeEffect.grantedEffect.name == "Automation" then
-			-- This calculated the trigger rate of the Automation gem it self
-			env.player.mainSkill.skillFlags.globalTrigger = true
-			return {source = env.player.mainSkill}
-		end
-		env.player.mainSkill.skillData.sourceRateIsFinal = true
-
-		-- Trigger rate of the triggered skill is capped by the cooldown of Automation
-		-- which will likely be different from the cooldown of the triggered skill
-		-- and is affected by different cooldown modifiers
-		env.player.mainSkill.skillData.ignoresTickRate = true
-
-		-- This basically does min(trigger rate of steelskin assuming no trigger cooldown, trigger rate of Automation)
-		return {triggerOnUse = true,
-				useCastRate = true,
-				triggerSkillCond = function(env, skill)
-					return skill.activeEffect.grantedEffect.name == "Automation"
-				end}
-	end,
 	["spellslinger"] = function(env)
 		if env.player.mainSkill.activeEffect.grantedEffect.name == "Spellslinger" then
-			return {triggerName = "Spellslinger",
+			env.player.mainSkill.skillFlags.skipEffectiveRate = true
+		end
+		-- Spell slinger adds a cooldown with its support part
+		env.player.mainSkill.skillData.sourceRateIsFinal = true
+		return {triggerName = "Spellslinger",
 				triggerOnUse = true,
 				triggerSkillCond = function(env, skill)
 					local isWandAttack = (not skill.weaponTypes or (skill.weaponTypes and skill.weaponTypes["Wand"])) and skill.skillTypes[SkillType.Attack]
 					return isWandAttack and not skill.skillData.triggeredBySpellSlinger
 				end}
-		end
-		env.player.mainSkill.skillData.sourceRateIsFinal = true
-		return {triggerOnUse = true,
-				useCastRate = true,
-				triggerSkillCond = function(env, skill)
-					return skill.activeEffect.grantedEffect.name == "Spellslinger"
-				end}
 	end,
 	["call to arms"] = function(env)
 		if env.player.mainSkill.activeEffect.grantedEffect.name == "Call to Arms" then
 			env.player.mainSkill.skillFlags.globalTrigger = true
-			return {source = env.player.mainSkill}
+			env.player.mainSkill.skillFlags.skipEffectiveRate = true
+		else -- Needed to get the cooldown form the active part
+			for _, skill in ipairs(env.player.activeSkillList) do
+				if skill.activeEffect.grantedEffect.name == "Call to Arms" then
+					env.player.mainSkill.triggeredBy.grantedEffect = skill.activeEffect.grantedEffect
+					break
+				end
+			end
 		end
 		env.player.mainSkill.skillData.sourceRateIsFinal = true
 		env.player.mainSkill.skillData.ignoresTickRate = true
 		return {triggerOnUse = true,
 				useCastRate = true,
-				triggerSkillCond = function(env, skill)
-					return skill.activeEffect.grantedEffect.name == "Call to Arms"
-				end}
+				source = env.player.mainSkill}
+	end,
+	["automation"] = function(env)
+		if env.player.mainSkill.activeEffect.grantedEffect.name == "Automation" then
+			env.player.mainSkill.skillFlags.globalTrigger = true
+			env.player.mainSkill.skillFlags.skipEffectiveRate = true
+		else -- Needed to get the cooldown form the active part
+			for _, skill in ipairs(env.player.activeSkillList) do
+				if skill.activeEffect.grantedEffect.name == "Automation" then
+					env.player.mainSkill.triggeredBy.grantedEffect = skill.activeEffect.grantedEffect
+					break
+				end
+			end
+		end
+		return {triggerOnUse = true,
+				useCastRate = true,
+				source = env.player.mainSkill}
 	end,
 	["autoexertion"] = function(env)
 		if env.player.mainSkill.activeEffect.grantedEffect.name == "Autoexertion" then
 			env.player.mainSkill.skillFlags.globalTrigger = true
-			return {source = env.player.mainSkill}
+			env.player.mainSkill.skillFlags.skipEffectiveRate = true
+		else -- Needed to get the cooldown form the active part
+			for _, skill in ipairs(env.player.activeSkillList) do
+				if skill.activeEffect.grantedEffect.name == "Automation" then
+					env.player.mainSkill.triggeredBy.grantedEffect = skill.activeEffect.grantedEffect
+					break
+				end
+			end
 		end
 		env.player.mainSkill.skillData.sourceRateIsFinal = true
 		env.player.mainSkill.skillData.ignoresTickRate = true
 		return {triggerOnUse = true,
 				useCastRate = true,
-				triggerSkillCond = function(env, skill)
-					return skill.activeEffect.grantedEffect.name == "Autoexertion"
-				end}
+				source = env.player.mainSkill}
 	end,
 	["mark on hit"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] end}
@@ -1256,8 +1277,8 @@ local configTable = {
 				end
 			end
 
-			local activationFreqInc = (100 + env.player.mainSkill.triggeredBy.mainSkill.skillModList:Sum("INC", env.player.mainSkill.skillCfg, "Speed", "BrandActivationFrequency")) / 100
-			local activationFreqMore = env.player.mainSkill.triggeredBy.mainSkill.skillModList:More(env.player.mainSkill.skillCfg, "BrandActivationFrequency")
+			local activationFreqInc = (100 + env.player.mainSkill.triggeredBy.mainSkill.skillModList:Sum("INC", env.player.mainSkill.triggeredBy.mainSkill.skillCfg, "Speed", "BrandActivationFrequency")) / 100
+			local activationFreqMore = env.player.mainSkill.triggeredBy.mainSkill.skillModList:More(env.player.mainSkill.triggeredBy.mainSkill.skillCfg, "BrandActivationFrequency")
 			env.player.mainSkill.triggeredBy.activationFreqInc = activationFreqInc
 			env.player.mainSkill.triggeredBy.activationFreqMore = activationFreqMore
 			env.player.mainSkill.triggeredBy.ignoresTickRate = true

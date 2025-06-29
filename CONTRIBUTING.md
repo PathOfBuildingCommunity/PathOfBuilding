@@ -136,53 +136,54 @@ It is recommended to use it over the built-in Lua plugins.
 Please note that EmmyLua is not available for other editors based on Visual Studio Code,
 such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.org) but can be built from source if needed.
 
-Note that you will need to have [Java](https://www.java.com/) installed to use emmyLua, and have either the JAVA_HOME environment variable correctly set up or have the path to java added to the `settings.json` file. Example:
-
-```"emmylua.java.home": "C:/Program Files (x86)/Java/jre1.8.0_201/"```
-
-To do this in VSCode find the Java installation folder on your computer as displayed above.
-1. Navigate to extensions inside VSCode
-2. Click the cog icon next to EmmyLua -> Extension Settings
-3. Find "Java: Home" -> Edit settings
-4. Place the directory address between the quotes
-5. File -> Save
-
-
 ### Visual Studio Code
 
-1. Create a new "Debug Configuration" of type "EmmyLua New Debug"
-2. Open the Visual Studio Code extensions folder. On Windows, this defaults to `%USERPROFILE%/.vscode/extensions`.
-3. Find the sub-folder that contains `emmy_core.dll`. You should find both x86 and x64; pick x64. For example, `C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.5.19/debugger/emmy/windows/x64`.
-4. Paste the following code snippet directly below `function launch:OnInit()` in `./src/Launch.lua`:
-  ```lua
--- This is the path to emmy_core.dll. The ?.dll at the end is intentional.
-package.cpath = package.cpath .. ";C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.5.19/debugger/emmy/windows/x64/?.dll"
-local dbg = require("emmy_core")
--- This port must match the IDE configuration. Default is 9966.
-dbg.tcpListen("localhost", 9966)
--- Uncomment the next line if you want Path of Building to block until the debugger is attached
---dbg.waitIDE()
-  ```
-5. Start Path of Building Community
-6. Attach the debugger
+1. Create a new <kbd>Debug Configuration</kbd> of type <kbd>EmmyLua New Debug</kbd>
+1. Open `./src/Launch.lua`
+1. Click the beginning of the line directly after `function launch:OnInit()`
+1. Insert the debugger code:
+   
+   Automatically:
+   1. Open the Command Palette (<kbd>F1</kbd>)
+   1. Type <kbd>EmmyLua: Insert Emmy Debugger Code</kbd>
+   1. Choose `x64` from the drop-down list
+   
+   Or manually:
+   1. Open the Visual Studio Code extensions folder. On Windows, this defaults to `%USERPROFILE%/.vscode/extensions` 
+   1. Find the sub-folder that contains `emmy_core.dll`. You should find both x86 and x64; pick x64. For example, `C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.9.22-win32-x64/debugger/emmy/windows/x64`.  Uses this in the snippet below.  Note the version number will change with every update.
+   1. Copy-paste the following code snippet:
+   ```lua
+   	-- Path to emmy_core.dll. You will need to update it to point to the EmmyLua dlls in YOUR installation.
+   	-- Note the "?.dll" at the end of the path is mandatory.
+   	package.cpath = package.cpath .. ";C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.5.19/debugger/emmy/windows/x64/?.dll"
+   	local dbg = require("emmy_core")
+   	-- This port must match the IDE configuration. Default is 9966.
+   	dbg.tcpListen("localhost", 9966)
+   	--dbg.waitIDE() -- Uncomment this line if you want PoB to wait until the debugger is attached.
+   ```
+1. Set breakpoints in the source with VSCode's built-in breakpoint system (or use a non-local `dbg` and call `_G.dbg.breakHere()`)
+1. Click the <kbd>Run and Debug</kbd> icon on the *Activity Bar*
+1. Make sure <kbd>EmmyLua New Debug</kbd> is selected in the "Run and Debug" dropdown
+1. Start your modified <kbd>Path of Building Community</kbd>
+1. In VSCode click <kbd>Start Debugging</kbd> (the green icon) or press <kbd>F5</kbd>
+1. The debugger should connect
 
-#### Excluding directories from emmyLua
+
+#### Excluding directories from EmmyLua
 
 Depending on the amount of system ram you have available and the amount that gets assigned to the jvm running the emmylua language server you might run into issues when trying to debug Path of building.
-Files in /Data /Export and /TreeData can be massive and cause the emmyLua language server to use a significant amount of memory. Sometimes causing the language server to crash. To avoid this and speed up initialization consider adding an `emmy.config.json` file to the .vscode folder in the root of the Path of building repository with the following content:
+Files in `/Data` `/Export` and `/TreeData` can be massive and cause the EmmyLua language server to use a significant amount of memory. Sometimes causing the language server to crash. To avoid this and speed up initialization consider adding an `.emmyrc.json` file to the `.vscode` folder in the root of the Path of building folder with the following content:
 
-```
+```json
 {
-    "source": [
-        {
-            "dir": "../",
-            "exclude": [
-                "src/Export/**.lua",
-                "src/Data/**.lua",
-                "src/TreeData/**.lua"
-            ]
-        }
-    ]
+    "$schema": "https://raw.githubusercontent.com/EmmyLuaLs/emmylua-analyzer-rust/refs/heads/main/crates/emmylua_code_analysis/resources/schema.json",
+    "workspace": {
+        "ignoreGlobs": [
+            "src/Data/**.lua",
+            "src/TreeData/**.lua",
+            "src/Modules/ModParser.lua"
+        ]
+    }
 }
 ```
 
@@ -220,15 +221,9 @@ More tests can be added to this folder to test specific functionality, or new te
 Please try to include tests for your new features in your pull request. Additionally, if your pr breaks a test that should be passing please update it accordingly.
 
 ### Debugging tests
-When running tests with a docker container it is possible to use emmylua for debugging. Paste in the following right under `function launch:OnInit()` in `./src/Launch.lua`:
-```lua
-package.cpath = package.cpath .. ";/usr/local/bin/?.so"
-local dbg = require("emmy_core")
--- This port must match the IDE Code configuration. Default is 9966.
-dbg.tcpListen("localhost", 9966)
-dbg.waitIDE()
-```
-After running `docker-compose up` the code will wait at the `dbg.waitIDE()` line until a debugger is attached. This will allow stepping through any code that is internal to POB but will not work for busted related code. Note that this only works for unit tests described above.
+When running tests with a docker container it is possible to use EmmyLua for debugging. Follow the instructions for inserting the debugger snippet as shown above in [Visual Studio Code](#Visual-Studio-Code), then uncomment the `dbg.waitIDE()` line.  
+
+After running `docker-compose up` the code will wait at that line until a debugger is attached. This will allow stepping through any code that is internal to POB but will not work for busted related code. Note that this only works for unit tests described above.
 
 ## Path of Building development tutorials
 

@@ -76,6 +76,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBrandSupport
+	addFlags = {
+		brand = true,
+	},
 	statMap = {
 		["support_brand_damage_+%_final"] = {
 			mod("TriggeredDamage", "MORE", nil),
@@ -3995,6 +3998,7 @@ local skills, mod, flag, skill = ...
 	minionList = {
 		"SkitterbotCold",
 		"SkitterbotLightning",
+		"SkitterbotFire",
 	},
 	statMap = {
 		["skitterbots_trap_mine_damage_+%_final"] = {
@@ -4088,8 +4092,10 @@ local skills, mod, flag, skill = ...
 #skill WaveOfConviction
 #flags spell area duration
 	preDamageFunc = function(activeSkill, output)
-		local duration = math.floor(math.ceil(activeSkill.skillData.duration * data.misc.ServerTickRate) / data.misc.ServerTickRate * output.DurationMod * 10)
-		activeSkill.skillModList:NewMod("DotMultiplier", "BASE", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "WaveOfConvictionDurationDotMulti") * duration / 100, "Skill:Purge", 0, { type = "Multiplier", var = "WoCDurationExpired"})
+		if activeSkill.skillData.duration then
+			local duration = math.floor(math.ceil(activeSkill.skillData.duration * data.misc.ServerTickRate) / data.misc.ServerTickRate * output.DurationMod * 10)
+			activeSkill.skillModList:NewMod("DotMultiplier", "BASE", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "WaveOfConvictionDurationDotMulti") * duration / 100, "Skill:WaveOfConviction", 0, { type = "Multiplier", var = "WoCDurationExpired"})
+		end
 	end,
 	statMap = {
 		["purge_expose_resist_%_matching_highest_element_damage"] = {
@@ -4103,8 +4109,10 @@ local skills, mod, flag, skill = ...
 #skill WaveOfConvictionAltY
 #flags spell area duration
 	preDamageFunc = function(activeSkill, output)
-		local duration = math.floor(math.ceil(activeSkill.skillData.duration * data.misc.ServerTickRate) / data.misc.ServerTickRate * output.DurationMod * 10)
-		activeSkill.skillModList:NewMod("DotMultiplier", "BASE", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "WaveOfConvictionDurationDotMulti") * duration / 100, "Skill:Purge", 0, { type = "Multiplier", var = "WoCDurationExpired"})
+		if activeSkill.skillData.duration then
+			local duration = math.floor(math.ceil(activeSkill.skillData.duration * data.misc.ServerTickRate) / data.misc.ServerTickRate * output.DurationMod * 10)
+			activeSkill.skillModList:NewMod("DotMultiplier", "BASE", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "WaveOfConvictionDurationDotMulti") * duration / 100, "Skill:WaveOfConvictionAltY", 0, { type = "Multiplier", var = "WoCDurationExpired"})
+		end
 	end,
 #mods
 

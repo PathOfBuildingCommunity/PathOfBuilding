@@ -25,7 +25,7 @@ local dataTypes = {
 		size = 2,
 		read = function(b, o, d)
 			if o > #b - 1 then return 1337 end
-			return bytesToUInt(b, o)
+			return bytesToUShort(b, o)
 		end,
 	},
 	UInt = {

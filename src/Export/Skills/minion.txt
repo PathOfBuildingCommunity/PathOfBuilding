@@ -9,13 +9,11 @@ local skills, mod, flag, skill = ...
 #flags spell area
 #mods
 
-#addSkillTypes DamageOverTime
 #skill SandstormChaosElementalSummoned Chaos Aura
 #flags spell duration area
 #baseMod skill("dotIsArea", true)
 #mods
 
-#addSkillTypes DamageOverTime
 #skill SandstormChaosElementalSummonedEmpowered Empowered Chaos Aura
 #flags spell duration area
 #baseMod skill("dotIsArea", true)
@@ -43,7 +41,6 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dpsMultiplier", 2)
 #mods
 
-#addSkillTypes Damage Multicastable
 #skill IceElementalSpearSummoned Ice Spear
 #flags spell projectile
 #mods
@@ -56,12 +53,10 @@ local skills, mod, flag, skill = ...
 #flags spell area
 #mods
 
-#addSkillTypes Damage
 #skill LightningGolemArcSummoned Storm Orb
 #flags spell projectile duration
 #mods
 
-#addSkillTypes Damage Multicastable 
 #skill MonsterProjectileSpellLightningGolemSummoned Lightning Projectile
 #flags spell projectile
 #mods
@@ -104,7 +99,6 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 #mods
 
-#addSkillTypes Melee Multistrikeable
 #skill RockGolemSlam Slam
 #flags attack melee area
 #mods
@@ -429,4 +423,8 @@ skills["GuardianSentinelFireAura"] = {
 
 #skill AnimateGuardianSmite Smite
 #flags attack melee area
+#mods
+
+#skill ElderTentacleMinionProjectileDeepcaller Projectile Spell
+#flags spell projectile
 #mods
