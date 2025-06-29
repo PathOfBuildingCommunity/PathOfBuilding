@@ -3,6 +3,15 @@
 return {
 -- Gloves: Armour
 [[
+Admiral's Arrogance
+Antique Gauntlets
+League: Settlers of Kalguur
+Requires Level 39, 58 Str
+(6-12)% increased Attack Speed
+(100-140)% increased Armour
+(10-20)% chance that if you would gain Rage on Hit, you instead gain up to your maximum Rage
++(1-3) to Level of all Melee Skill Gems
+]],[[
 Atziri's Acuity
 Vaal Gauntlets
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
@@ -65,6 +74,7 @@ your maximum number of Crab Barriers
 Kaom's Spirit
 Titan Gauntlets
 Variant: Pre 3.23.0
+Variant: Pre 3.26.0
 Variant: Current
 +(50-70) to Maximum Life
 +(20-30)% to Fire Resistance
@@ -72,6 +82,8 @@ Variant: Current
 Life Recovery from Regeneration is not applied
 {variant:1}Regenerate 1 Rage per second for every 100 Life Recovery per second from Regeneration
 {variant:2}Regenerate 1 Rage per second for every 300 Life Recovery per second from Regeneration
+{variant:3}Regenerate 1 Rage per second for every 200 Life Recovery per second from Regeneration
+Does not delay Inherent Loss of Rage
 ]],[[
 Doryani's Fist
 Vaal Gauntlets
@@ -254,12 +266,15 @@ Requires Level 21, 33 Dex
 Mercenary's Lot
 Slink Gloves
 League: Heist
+Variant: Pre 3.26.0
+Variant: Current
 Requires Level 70, 95 Dex
 +(80-120) to Evasion Rating
 (5-8)% increased Attack and Cast Speed
 Mark Skills have (10-15)% increased Cast Speed
 (30-50)% increased Damage with Hits and Ailments against Marked Enemy
 Your Mark transfers to another Enemy when Marked Enemy dies
+{variant:2}8% of Damage from Hits is taken from Marked Target's Life before you
 ]],[[
 Oskarm
 Nubuck Gloves
@@ -290,8 +305,10 @@ Allelopathy
 {variant:1}Sorcerer Gloves
 {variant:2}Satin Gloves
 Variant: Pre 3.19.0
+Variant: Pre 3.26.0
 Variant: Current
-Grants Level 22 Blight Skill
+{variant:1,2}Grants Level 22 Blight Skill
+{variant:3}Grants Level 25 Blight Skill
 {variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect of Area Skills
@@ -302,10 +319,12 @@ Replica Allelopathy
 {variant:1}Sorcerer Gloves
 {variant:2}Satin Gloves
 Variant: Pre 3.19.0
+Variant: Pre 3.26.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Grants Level 22 Wintertide Brand
+{variant:1,2}Grants Level 22 Wintertide Brand
+{variant:3}Grants Level 25 Wintertide Brand
 {variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect
@@ -481,7 +500,7 @@ Source: Drops in Blighted Maps
 +(30-50) to maximum Mana
 +(10-16)% to all Elemental Resistances
 (5-10)% increased Attack and Cast Speed
-Create a Blighted Spore when you Kill a Rare Monster
+Create a Blighted Spore when your Skills or Minions Kill a Rare Monster
 This item can be anointed by Cassia
 ]],[[
 Farrul's Pounce
@@ -701,7 +720,7 @@ Requires Level 57, 44 Str, 44 Int
 50% reduced Maximum Recovery per Life Leech
 (6-10)% increased Attack and Cast Speed
 (15-25)% increased Damage while Leeching
-Life Leech effects are not removed at Full Life
+Life Leech effects are not removed when Unreserved Life is Filled
 ]],[[
 Repentance
 Crusader Gloves
@@ -925,15 +944,17 @@ Variant: Pre 1.0.0
 Variant: Pre 2.2.0
 Variant: Pre 2.5.0
 Variant: Pre 3.0.0
+Variant: Pre 3.26.0
 Variant: Current
 Requires Level 16, 14 Dex, 14 Int
 {variant:1,2}+60% to Global Critical Strike Multiplier
 {variant:3}+90% to Global Critical Strike Multiplier
 {variant:4}+45% to Global Critical Strike Multiplier
-{variant:5}+30% to Global Critical Strike Multiplier
+{variant:5,6}+30% to Global Critical Strike Multiplier
 10% reduced Enemy Stun Threshold
 {variant:1}(800-1000)% more Unarmed Physical Damage
 {variant:2,3,4,5}(600-800)% more Physical Damage with Unarmed Melee Attacks
+{variant:6}(600-1000)% more Physical Damage with Unarmed Melee Attacks
 Extra gore
 ]],[[
 Fenumus' Weave
@@ -990,8 +1011,8 @@ Murder Mitts
 Requires Level 67, 51 Dex, 51 Int
 (80-100)% increased Evasion and Energy Shield
 +(60-80) to maximum Life
-Gain (15-25) Life per Enemy Killed
-Gain (15-25) Energy Shield per Enemy Killed
+Gain (15-25) Life per Enemy Hit with Attacks
+Gain (15-25) Energy Shield per Enemy Hit with Attacks
 Grants Malachai's Endurance, Frenzy and Power for 6 seconds each, in sequence
 ]],[[
 Shadows and Dust

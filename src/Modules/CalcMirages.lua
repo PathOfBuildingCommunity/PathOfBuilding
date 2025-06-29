@@ -37,7 +37,8 @@ local function calculateMirage(env, config)
 	if mirageSkill then
 		local newSkill, newEnv = calcs.copyActiveSkill(env, env.mode, mirageSkill)
 		newSkill.skillCfg.skillCond["usedByMirage"] = true
-		newSkill.skillData.limitedProcessing = true
+		newEnv.limitedSkills = newEnv.limitedSkills or {}
+		newEnv.limitedSkills[cacheSkillUUID(newSkill, newEnv)] = true
 		newSkill.skillData.mirageUses = env.player.mainSkill.skillData.storedUses
 		newSkill.skillTypes[SkillType.OtherThingUsesSkill] = true
 
@@ -360,7 +361,7 @@ function calcs.mirages(env)
 			end
 		}
 	elseif env.player.mainSkill.skillData.triggeredByGeneralsCry then
-		env.player.mainSkill[SkillType.Triggered] = true
+		env.player.mainSkill.skillTypes[SkillType.Triggered] = true
 		local maxMirageWarriors = 0
 		local cooldown = 1
 		local generalsCryActiveSkill

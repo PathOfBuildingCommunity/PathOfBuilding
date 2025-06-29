@@ -183,7 +183,7 @@ Implicits: 0
 {variant:7}Recharges 1 Charge when you Consume an Ignited corpse
 {variant:9}Recharges 5 Charges when you Consume an Ignited corpse
 {variant:7}Enemies Ignited by you during Effect take 10% increased Damage
-{variant:8}Enemies Ignited by you during Effect take (7-10)% increased Damage
+{variant:8,9}Enemies Ignited by you during Effect take (7-10)% increased Damage
 {variant:7,9}Recover (1-3)% of Life when you Kill an Enemy during Effect
 {variant:7,9}Recover (1-3)% of Mana when you Kill an Enemy during Effect
 {variant:7,9}Recover (1-3)% of Energy Shield when you Kill an Enemy during Effect

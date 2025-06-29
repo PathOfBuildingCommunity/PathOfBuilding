@@ -197,6 +197,8 @@ data.misc = { -- magic numbers
 	ehpCalcMaxDamage = 100000000,
 	-- max iterations can be increased for more accuracy this should be perfectly accurate unless it runs out of iterations and so high eHP values will be underestimated.
 	ehpCalcMaxIterationsToCalc = 50,
+	-- more iterations would reduce the cases where max hit would result in overkill damage or leave some life.
+	maxHitSmoothingPasses = 8,
 	-- maximum increase for stat weights, only used in trader for now.
 	maxStatIncrease = 2, -- 100% increased
 	-- PvP scaling used for hogm
@@ -298,6 +300,7 @@ data.keystones = {
 	"Perfect Agony",
 	"Phase Acrobatics",
 	"Point Blank",
+	"Power of Purpose",
 	"Precise Technique",
 	"Resolute Technique",
 	"Runebinder",
@@ -522,6 +525,7 @@ data.jewelRadius = data.setJewelRadiiGlobally(latestTreeVersion)
 data.enchantmentSource = {
 	{ name = "ENKINDLING", label = "Enkindling Orb" },
 	{ name = "INSTILLING", label = "Instilling Orb" },
+	{ name = "RUNESMITH", label = "Runecraft Bench" },
 	{ name = "HEIST", label = "Heist" },
 	{ name = "HARVEST", label = "Harvest" },
 	{ name = "DEDICATION", label = "Dedication to the Goddess" },
@@ -555,8 +559,26 @@ data.enchantments = {
 	["Belt"] = LoadModule("Data/EnchantmentBelt"),
 	["Body Armour"] = LoadModule("Data/EnchantmentBody"),
 	["Weapon"] = LoadModule("Data/EnchantmentWeapon"),
-	["Flask"] = LoadModule("Data/EnchantmentFlask"),
+	["UtilityFlask"] = LoadModule("Data/EnchantmentFlask"),
 }
+do
+	data.enchantments["Flask"] = data.enchantments["UtilityFlask"]--["HARVEST"]
+	for baseType, _ in pairs(data.weaponTypeInfo) do
+		data.enchantments[baseType] = { }
+		for enchantmentType, enchantmentList in pairs(data.enchantments["Weapon"]) do
+			if type(enchantmentList[1]) == "string" then
+				data.enchantments[baseType][enchantmentType] = enchantmentList
+			elseif type(enchantmentList[1]) == "table" then
+				data.enchantments[baseType][enchantmentType] = {}
+				for _, enchantment in ipairs(enchantmentList) do
+					if enchantment.types[baseType] then
+						t_insert(data.enchantments[baseType][enchantmentType], table.concat(enchantment, "/"))
+					end
+				end
+			end
+		end
+	end					
+end
 data.essences = LoadModule("Data/Essence")
 data.veiledMods = LoadModule("Data/ModVeiled")
 data.necropolisMods = LoadModule("Data/ModNecropolis")
@@ -611,6 +633,8 @@ data.itemTagSpecialExclusionPattern = {
 			"Life as Physical Damage",
 			"Life as Extra Maximum Energy Shield",
 			"maximum Life as Fire Damage",
+			"while on Full Life", -- foxshade
+			"while you are on Full Life", -- foxshade
 			"when on Full Life",
 			"when on Low Life",
 			"Gain Maximum Life instead of Maximum Energy Shield",

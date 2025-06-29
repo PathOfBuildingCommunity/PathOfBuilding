@@ -39,7 +39,7 @@ Implicits: 1
 Every 10 seconds:
 Gain 2% of Life per Enemy Hit with Attacks for 5 seconds
 Gain 5% of Life per Enemy Killed for 5 seconds
-]],[[  
+]],[[
 Araku Tiki
 Coral Amulet
 Variant: Pre 3.19.0
@@ -503,7 +503,7 @@ Implicits: 32
 {variant:30}100% of Lightning Damage from Hits taken as Fire Damage
 {variant:31}Gain (12-24)% of Physical Damage as Extra Damage of a random Element
 {variant:32}Projectiles Pierce (4-6) additional Targets
-{variant:33}(24-36)% Damage over Time Multiplier
+{variant:33}+(24-36)% to Damage over Time Multiplier
 Implicit Modifier magnitudes are doubled
 ]],[[
 The Felbog Fang
@@ -873,13 +873,17 @@ The Primordial Chain
 Coral Amulet
 League: Delve
 Requires Level 34
+Variant: Pre 3.26.0
+Variant: Current
 Implicits: 1
 {tags:life}Regenerate (2-4) Life per second
 +3 to maximum number of Golems
 You cannot have non-Golem Minions
 25% reduced Golem Size
-Golems Deal (35-45)% less Damage
-{tags:life}Golems have (35-45)% less Life
+{variant:1}Golems Deal (35-45)% less Damage
+{variant:2}Golems Deal (25-35)% less Damage
+{variant:1}{tags:life}Golems have (35-45)% less Life
+{variant:2}{tags:life}Golems have (25-35)% less Life
 {tags:speed}Golems have (80-100)% increased Movement Speed
 Primordial
 ]],[[
@@ -1084,7 +1088,7 @@ Requires Level 54
 Implicits: 1
 {tags:life}Regenerate (2-4) Life per second
 {tags:jewellery_attribute}+(30-40) to Intelligence
-{tags:jewellery_resistance}Minions have (-17-17)% to Chaos Resistance
+{tags:jewellery_resistance}Minions have +(-17-17)% to Chaos Resistance
 Summon Raging Spirit has (20-30)% increased Duration
 {variant:1}Summoned Raging Spirits deal (60-80)% increased Damage
 {variant:2}Summoned Raging Spirits deal (25-40)% increased Damage

@@ -121,6 +121,10 @@ local skillTypes = {
 	"NoVolley",
 	"Retaliation",
 	"NeverExertable",
+	"DisallowTriggerSupports",
+	"ProjectileCannotReturn",
+	"Offering",
+	"SupportedByBane",
 }
 
 -- This is here to fix name collisions like in the case of Barrage
@@ -308,7 +312,7 @@ directiveTable.skill = function(state, args, out)
 		out:write('\tstatDescriptionScope = "gem_stat_descriptions",\n')
 	else
 		if #granted.ActiveSkill.Description > 0 then
-			out:write('\tdescription = "', granted.ActiveSkill.Description:gsub('"','\\"'):gsub('\n','\\n'), '",\n')
+			out:write('\tdescription = "', granted.ActiveSkill.Description:gsub('"','\\"'):gsub('\r',''):gsub('\n','\\n'), '",\n')
 		end
 		out:write('\tskillTypes = { ')
 		for _, type in ipairs(granted.ActiveSkill.SkillTypes) do
@@ -341,7 +345,7 @@ directiveTable.skill = function(state, args, out)
 			out:write('\t},\n')
 		end
 		out:write('\tstatDescriptionScope = "', skillStatScope[granted.ActiveSkill.Id] or "skill_stat_descriptions", '",\n')
-		if granted.ActiveSkill.SkillTotem <= dat("SkillTotems").rowCount then
+		if granted.ActiveSkill.SkillTotem <= 21 then
 			out:write('\tskillTotemId = ', granted.ActiveSkill.SkillTotem, ',\n')
 		end
 		out:write('\tcastTime = ', granted.CastTime / 1000, ',\n')

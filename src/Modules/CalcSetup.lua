@@ -54,14 +54,15 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("TotemPlacementTime", "BASE", 0.6, "Base")
 	modDB:NewMod("BallistaPlacementTime", "BASE", 0.35, "Base")
 	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
-	modDB:NewMod("ShockStacksMax", "BASE", 0, "Base")
-	modDB:NewMod("ScorchStacksMax", "BASE", 0, "Base")
+	modDB:NewMod("ShockStacksMax", "BASE", 1, "Base")
+	modDB:NewMod("ScorchStacksMax", "BASE", 1, "Base")
 	modDB:NewMod("MovementSpeed", "INC", -30, "Base", { type = "Condition", var = "Maimed" })
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Attack, { type = "Condition", var = "Intimidated"})
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Attack, { type = "Condition", var = "Intimidated", neg = true}, { type = "Condition", var = "Party:Intimidated"})
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Spell, { type = "Condition", var = "Unnerved"})
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Spell, { type = "Condition", var = "Unnerved", neg = true}, { type = "Condition", var = "Party:Unnerved"})
-	modDB:NewMod("Damage", "MORE", -10, "Base", { type = "Condition", var = "Debilitated"})
+	modDB:NewMod("Damage", "MORE", -10, "Base", { type = "Condition", var = "Debilitated"}, { type = "GlobalEffect", effectName = "Debilitated", effectType = "Debuff"})
+	modDB:NewMod("MovementSpeed", "MORE", -20, "Base", { type = "Condition", var = "Debilitated"}, { type = "GlobalEffect", effectName = "Debilitated", effectType = "Debuff"})
 	modDB:NewMod("Condition:Burning", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "Condition", var = "Ignited" })
 	modDB:NewMod("Condition:Poisoned", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "MultiplierThreshold", var = "PoisonStack", threshold = 1 })
 	modDB:NewMod("Blind", "FLAG", true, "Base", { type = "Condition", var = "Blinded" })
@@ -69,16 +70,30 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("Freeze", "FLAG", true, "Base", { type = "Condition", var = "Frozen" })
 	modDB:NewMod("Fortify", "FLAG", true, "Base", { type = "Condition", var = "Fortify" })
 	modDB:NewMod("Fortified", "FLAG", true, "Base", { type = "Condition", var = "Fortified" })
+	modDB:NewMod("Excommunicated", "FLAG", true, "Base", { type = "Condition", var = "Excommunicated" })
 	modDB:NewMod("Fanaticism", "FLAG", true, "Base", { type = "Condition", var = "Fanaticism" })
 	modDB:NewMod("Onslaught", "FLAG", true, "Base", { type = "Condition", var = "Onslaught" })
 	modDB:NewMod("UnholyMight", "FLAG", true, "Base", { type = "Condition", var = "UnholyMight" })
 	modDB:NewMod("ChaoticMight", "FLAG", true, "Base", { type = "Condition", var = "ChaoticMight" })
 	modDB:NewMod("Tailwind", "FLAG", true, "Base", { type = "Condition", var = "Tailwind" })
 	modDB:NewMod("Adrenaline", "FLAG", true, "Base", { type = "Condition", var = "Adrenaline" })
-	modDB:NewMod("LesserMassiveShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserMassiveShrine" })
-	modDB:NewMod("LesserBrutalShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserBrutalShrine" })
+	modDB:NewMod("AccelerationShrine", "FLAG", true, "Base", { type = "Condition", var = "AccelerationShrine" })
+	modDB:NewMod("BrutalShrine", "FLAG", true, "Base", { type = "Condition", var = "BrutalShrine" })
 	modDB:NewMod("DiamondShrine", "FLAG", true, "Base", { type = "Condition", var = "DiamondShrine" })
+	modDB:NewMod("DivineShrine", "FLAG", true, "Base", { type = "Condition", var = "DivineShrine" })
+	modDB:NewMod("EchoingShrine", "FLAG", true, "Base", { type = "Condition", var = "EchoingShrine" })
+	modDB:NewMod("GloomShrine", "FLAG", true, "Base", { type = "Condition", var = "GloomShrine" })
+	modDB:NewMod("ImpenetrableShrine", "FLAG", true, "Base", { type = "Condition", var = "ImpenetrableShrine" })
 	modDB:NewMod("MassiveShrine", "FLAG", true, "Base", { type = "Condition", var = "MassiveShrine" })
+	modDB:NewMod("ReplenishingShrine", "FLAG", true, "Base", { type = "Condition", var = "ReplenishingShrine" })
+	modDB:NewMod("ResistanceShrine", "FLAG", true, "Base", { type = "Condition", var = "ResistanceShrine" })
+	modDB:NewMod("ResonatingShrine", "FLAG", true, "Base", { type = "Condition", var = "ResonatingShrine" })
+	modDB:NewMod("LesserAccelerationShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserAccelerationShrine" }, { type = "Condition", var = "AccelerationShrine", neg = true })
+	modDB:NewMod("LesserBrutalShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserBrutalShrine" }, { type = "Condition", var = "BrutalShrine", neg = true })
+	modDB:NewMod("LesserImpenetrableShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserImpenetrableShrine" }, { type = "Condition", var = "ImpenetrableShrine", neg = true })
+	modDB:NewMod("LesserMassiveShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserMassiveShrine" }, { type = "Condition", var = "MassiveShrine", neg = true })
+	modDB:NewMod("LesserReplenishingShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserReplenishingShrine" }, { type = "Condition", var = "ReplenishingShrine", neg = true })
+	modDB:NewMod("LesserResistanceShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserResistanceShrine" }, { type = "Condition", var = "ResistanceShrine", neg = true })
 	modDB:NewMod("AlchemistsGenius", "FLAG", true, "Base", { type = "Condition", var = "AlchemistsGenius" })
 	modDB:NewMod("LuckyHits", "FLAG", true, "Base", { type = "Condition", var = "LuckyHits" })
 	modDB:NewMod("Convergence", "FLAG", true, "Base", { type = "Condition", var = "Convergence" })
@@ -271,12 +286,13 @@ local function getGemModList(env, groupCfg, socketColor, socketNum)
 	local gemCfg = copyTable(groupCfg, true)
 	gemCfg.socketColor = socketColor
 	gemCfg.socketNum = socketNum
-	return env.modDB:List(gemCfg, "GemProperty")
+	return env.modDB:Tabulate("LIST", gemCfg, "GemProperty")
 end
 
 local function applyGemMods(effect, modList)
-	for _, value in ipairs(modList) do
+	for _, mod in ipairs(modList) do
 		local match = true
+		local value = mod.value
 		if value.keywordList then
 			for _, keyword in ipairs(value.keywordList) do
 				if not calcLib.gemIsType(effect.gemData, keyword, true) then
@@ -289,6 +305,8 @@ local function applyGemMods(effect, modList)
 		end
 		if match then
 			effect[value.key] = (effect[value.key] or 0) + value.value
+			effect.gemPropertyInfo = effect.gemPropertyInfo or {}
+			t_insert(effect.gemPropertyInfo, mod)
 		end
 	end
 end
@@ -363,6 +381,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.calcsInput = build.calcsTab.input
 		env.mode = mode
 		env.spec = override.spec or build.spec
+		env.override = override
 		env.classId = env.spec.curClassId
 
 		modDB = new("ModDB")
@@ -510,7 +529,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
 		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")
 		modDB:NewMod("TinctureLimit", "BASE", 1, "Base")
-		modDB:NewMod("ManaDegenPercent", "BASE", 1, "Base", { type = "Multiplier", var = "ManaBurnStacks" })
+		modDB:NewMod("ManaDegenPercent", "BASE", 1, "Base", { type = "Multiplier", var = "EffectiveManaBurnStacks" })
 		modDB:NewMod("LifeDegenPercent", "BASE", 1, "Base", { type = "Multiplier", var = "WeepingWoundsStacks" })
 
 		-- Add bandit mods
@@ -970,7 +989,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				elseif item.name:match("Kalandra's Touch") then
 					-- Reset mult counters since they don't work for kalandra
-					for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder"}) do
+					for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder", ["WarlordItem"] = "warlord", ["HunterItem"] = "hunter", ["CrusaderItem"] = "crusader", ["RedeemerItem"] = "redeemer"}) do
 						if item[property] then
 							env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) - 1
 						else
@@ -980,21 +999,24 @@ function calcs.initEnv(build, mode, override, specEnv)
 					if item.shaper or item.elder then
 						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) - 1
 					end
-					local otherRing = (slotName == "Ring 1" and build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId]) or (slotName == "Ring 2" and build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId])
+					local otherRing = items[(slotName == "Ring 1" and "Ring 2") or (slotName == "Ring 2" and "Ring 1")]
 					if otherRing and not otherRing.name:match("Kalandra's Touch") then
-						local otherRingList = otherRing and copyTable(otherRing.modList or otherRing.slotModList[slot.slotNum]) or {}
-						for index, mod in ipairs(otherRingList) do
-							modLib.setSource(mod, item.modSource)
+						for _, mod in ipairs(otherRing.modList or otherRing.slotModList[slot.slotNum] or {}) do
+							-- Filter out SocketedIn type mods
 							for _, tag in ipairs(mod) do
 								if tag.type == "SocketedIn" then
-									otherRingList[index] = nil
-									break
+									goto skip_mod
 								end
 							end
+
+							local modCopy = copyTable(mod)
+							modLib.setSource(modCopy, item.modSource)
+							env.itemModDB:ScaleAddMod(modCopy, scale)
+
+							::skip_mod::
 						end
-						env.itemModDB:ScaleAddList(otherRingList, scale)
 						-- Adjust multipliers based on other ring
-						for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder"}) do
+						for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder", ["WarlordItem"] = "warlord", ["HunterItem"] = "hunter", ["CrusaderItem"] = "crusader", ["RedeemerItem"] = "redeemer"}) do
 							if otherRing[property] then
 								env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) + 1
 								env.itemModDB.multipliers["Non"..mult] = (env.itemModDB.multipliers["Non"..mult] or 0) - 1
@@ -1015,6 +1037,22 @@ function calcs.initEnv(build, mode, override, specEnv)
 					local widowHailMod=(1 + (items["Weapon 1"].baseModList:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
 					scale = scale * widowHailMod
 					env.modDB:NewMod("WidowHailMultiplier", "BASE", widowHailMod, "Widowhail")
+					local combinedList = new("ModList")
+					for _, mod in ipairs(srcList) do
+						combinedList:MergeMod(mod)
+					end
+					env.itemModDB:ScaleAddList(combinedList, scale)
+				elseif item.type == "Gloves" and items["Gloves"] then
+					local bonusMod=(1 + (env.modDB:Sum("INC", nil, "EffectOfBonusesFromGloves") or 100) / 100)
+					scale = scale * bonusMod
+					local combinedList = new("ModList")
+					for _, mod in ipairs(srcList) do
+						combinedList:MergeMod(mod)
+					end
+					env.itemModDB:ScaleAddList(combinedList, scale)
+				elseif item.type == "Boots" and items["Boots"] then
+					local bonusMod=(1 + (env.modDB:Sum("INC", nil, "EffectOfBonusesFromBoots") or 100) / 100)
+					scale = scale * bonusMod
 					local combinedList = new("ModList")
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
@@ -1048,7 +1086,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 					env.itemModDB.multipliers[key] = (env.itemModDB.multipliers[key] or 0) + 1
 					env.itemModDB.conditions[key .. "In" .. slotName] = true
-					for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder"}) do
+					for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder", ["WarlordItem"] = "adjudicator", ["HunterItem"] = "basilisk", ["CrusaderItem"] = "crusader", ["RedeemerItem"] = "eyrie"}) do
 						if item[property] then
 							env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) + 1
 						else
@@ -1138,7 +1176,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		local name = ascTbl.name
 		if matchedName[name] and matchedName[name].side ~= ascTbl.side and matchedName[name].matched == false then
 			matchedName[name].matched = true
-			local node = env.spec.tree.ascendancyMap[name]
+			local node = env.spec.tree.ascendancyMap[name] or build.latestTree.ascendancyMap[name]
 			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
 				if env.itemModDB.conditions["ForbiddenFlesh"] == env.spec.curClassName and env.itemModDB.conditions["ForbiddenFlame"] == env.spec.curClassName then
 					env.allocNodes[node.id] = node
@@ -1297,8 +1335,19 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.player.weaponData1 = env.player.itemList["Weapon 1"] and env.player.itemList["Weapon 1"].weaponData and env.player.itemList["Weapon 1"].weaponData[1] or copyTable(env.data.unarmedWeaponData[env.classId])
 		if env.player.weaponData1.countsAsDualWielding then
 			env.player.weaponData2 = env.player.itemList["Weapon 1"].weaponData[2]
+		elseif not env.player.itemList["Weapon 2"] then
+			-- Hollow Palm Technique
+			if (not env.player.itemList["Weapon 1"]) and (not env.player.itemList["Gloves"]) and env.modDB.mods.Keystone then
+				for _, keystone in ipairs(env.modDB.mods.Keystone) do
+					if keystone.value == "Hollow Palm Technique" then
+						env.player.weaponData2 = copyTable(env.data.unarmedWeaponData[env.classId])
+						break
+					end
+				end
+			end
+			env.player.weaponData2 = env.player.weaponData2 or { }
 		else
-			env.player.weaponData2 = env.player.itemList["Weapon 2"] and env.player.itemList["Weapon 2"].weaponData and env.player.itemList["Weapon 2"].weaponData[2] or { }
+			env.player.weaponData2 = env.player.itemList["Weapon 2"].weaponData and env.player.itemList["Weapon 2"].weaponData[2] or { }
 		end
 
 		-- Determine main skill group
@@ -1330,7 +1379,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				groupCfgList[slotName or "noSlot"] = groupCfgList[slotName or "noSlot"] or {}
 				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
-					propertyModList = env.modDB:List({slotName = slotName}, "GemProperty")
+					propertyModList = env.modDB:Tabulate("LIST", {slotName = slotName}, "GemProperty")
 				}
 				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				local propertyModList = groupCfg.propertyModList
@@ -1433,7 +1482,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				local slotName = group.slot and group.slot:gsub(" Swap","")
 				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
-					propertyModList = env.modDB:List({slotName = slotName}, "GemProperty")
+					propertyModList = env.modDB:Tabulate("LIST", {slotName = slotName}, "GemProperty")
 				}
 				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				local propertyModList = groupCfg.propertyModList
@@ -1555,7 +1604,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if index == env.mainSocketGroup or (group.enabled and group.slotEnabled) then
 				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
-					propertyModList = env.modDB:List({slotName = slotName}, "GemProperty")
+					propertyModList = env.modDB:Tabulate("LIST", {slotName = slotName}, "GemProperty")
 				}
 				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				for _, value in ipairs(env.modDB:List(groupCfg, "GroupProperty")) do

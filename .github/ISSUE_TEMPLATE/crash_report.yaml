@@ -1,12 +1,13 @@
 name: Crash report
-description: Create a crash report to help us fix critical issues
+description: Create a crash report to help us fix critical issues in Path of Building for PoE1.
 labels: [bug, crash]
 body:
   - type: markdown
     attributes:
       value: |
-        Thank you for reporting a crash or severe graphical issue.
-        Please try to fill in as much of the form below as you're able to. Some of the fields marked with an asterisk (*) are required.
+        Thank you for reporting a crash or severe graphical issue in PoB-**PoE1**.
+        [Issues with PoB-PoE2 go here.](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/issues)
+        Please try to fill in as much of the form below as you're able to. Fields marked with an asterisk (*) are required.
   - type: checkboxes
     id: version
     attributes:
@@ -70,10 +71,10 @@ body:
   - type: textarea
     id: build_code
     attributes:
-      label: Character build code
+      label: PoB for PoE1 build code
       description: Provide a build code if the crash/graphical issue is caused by a certain build.
       placeholder: |
-        This can be either a code copied from the "Import/Export Build" tab or a link to a shared build. 
+        This can be either a code copied from the "Import/Export Build" tab or a link to a PoB build. 
         In the case where Path of Building crashes/doesn't work on startup or when you open a build.
         Go to your builds folder (default %userprofile%/Documents/Path of Building/Builds) and copy the problematic build's .xml contents into a pastebin and supply the link.
       render: shell

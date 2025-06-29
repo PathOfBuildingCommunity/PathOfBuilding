@@ -555,7 +555,7 @@ itemBases["Chimerascale Gauntlets"] = {
 	tags = { str_dex_armour = true, top_tier_base_item_type = true, not_for_sale = true, armour = true, gloves = true, default = true, },
 	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
 	implicitModTypes = { },
-	armour = { ArmourBaseMin = 176, ArmourBaseMax = 176, EvasionBaseMin = 176, EvasionBaseMax = 176, },
+	armour = { ArmourBaseMin = 176, ArmourBaseMax = 203, EvasionBaseMin = 176, EvasionBaseMax = 203, },
 	req = { level = 78, str = 70, dex = 70, },
 }
 itemBases["Wyvernscale Gauntlets"] = {
@@ -565,7 +565,7 @@ itemBases["Wyvernscale Gauntlets"] = {
 	tags = { str_dex_armour = true, top_tier_base_item_type = true, not_for_sale = true, armour = true, gloves = true, default = true, },
 	influenceTags = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", cleansing = "gloves_cleansing", tangle = "gloves_tangle" },
 	implicitModTypes = { },
-	armour = { ArmourBaseMin = 205, ArmourBaseMax = 205, EvasionBaseMin = 205, EvasionBaseMax = 205, },
+	armour = { ArmourBaseMin = 205, ArmourBaseMax = 236, EvasionBaseMin = 205, EvasionBaseMax = 236, },
 	req = { level = 84, str = 80, dex = 80, },
 }
 

@@ -8,8 +8,8 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost", function(self, anchor, x, y, width, height, list, selFunc, tooltipText)
-	self.Control(anchor, x, y, width, height)
+local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost", function(self, anchor, rect, list, selFunc, tooltipText)
+	self.Control(anchor, rect)
 	self.ControlHost()
 	self.TooltipHost(tooltipText)
 	self.SearchHost(
@@ -30,7 +30,7 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 				return StripEscapes(listVal)
 			end
 	)
-	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
+	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {-1, 0, 18, 0}, (self.height - 4) * 4)
 	self.controls.scrollBar.height = function()
 		return self.dropHeight + 2
 	end
@@ -319,6 +319,19 @@ function DropDownClass:Draw(viewPort, noTooltip)
 	DrawString(0, 0, "LEFT", lineHeight, "VAR", selLabel or "")
 	if selDetail ~= nil then
 		local dx = DrawStringWidth(lineHeight, "VAR", selDetail)
+		if not enabled or self.dropped then
+			SetDrawColor(0, 0, 0)
+		elseif mOver then
+			SetDrawColor(0.33, 0.33, 0.33)
+		else
+			SetDrawColor(0, 0, 0)
+		end
+		DrawImage(nil, width - dx - 4 - 22, 0, width - 4, lineHeight)
+		if enabled then
+			SetDrawColor(1, 1, 1)
+		else
+			SetDrawColor(0.66, 0.66, 0.66)
+		end
 		DrawString(width - dx - 22, 0, "LEFT", lineHeight, "VAR", selDetail)
 	end
 	SetViewport()
@@ -378,7 +391,19 @@ function DropDownClass:Draw(viewPort, noTooltip)
 				DrawString(0, y, "LEFT", lineHeight, "VAR", label)
 				if detail ~= nil then
 					local detail = listVal.detail
-					dx = DrawStringWidth(lineHeight, "VAR", detail)
+					local dx = DrawStringWidth(lineHeight, "VAR", detail)
+					if index == self.hoverSel then
+						SetDrawColor(0.33, 0.33, 0.33)
+					else
+						SetDrawColor(0, 0, 0)
+					end
+					DrawImage(nil, width - dx - 8 - 22, y, width - 4, lineHeight)
+					-- highlight font color if hovered or selected
+					if index == self.hoverSel or index == self.selIndex then
+						SetDrawColor(1, 1, 1)
+					else
+						SetDrawColor(0.66, 0.66, 0.66)
+					end
 					DrawString(width - dx - 4 - 22, y, "LEFT", lineHeight, "VAR", detail)
 				end
 				self:DrawSearchHighlights(label, searchInfo, 0, y, width - 4, lineHeight)

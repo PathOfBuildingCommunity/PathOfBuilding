@@ -314,12 +314,13 @@ SkillType = {
 	NoVolley = 131,
 	Retaliation = 132,
 	NeverExertable = 133,
+	DisallowTriggerSupports = 134,
+	ProjectileCannotReturn = 135,
+	Offering = 136,
+	SupportedByBane = 137,
 }
 
 GlobalCache = { 
 	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {}, CACHE = {}, },
-	noCache = nil,
-	useFullDPS = false,
-	numActiveSkillInFullDPS = 0,
 }
 

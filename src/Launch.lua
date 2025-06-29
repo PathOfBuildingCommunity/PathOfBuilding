@@ -153,6 +153,8 @@ function launch:OnKeyDown(key, doubleClick)
 		if not self.devMode then
 			self:CheckForUpdate()
 		end
+	elseif key == "PRINTSCREEN" and IsKeyDown("CTRL") then
+		TakeScreenshot()
 	elseif self.promptMsg then
 		self:RunPromptFunc(key)
 	else

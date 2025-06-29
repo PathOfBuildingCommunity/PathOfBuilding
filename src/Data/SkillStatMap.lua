@@ -214,6 +214,9 @@ return {
 ["cast_spell_on_linked_melee_kill"] = {
 	skill("triggeredByMeleeKill", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }, { type = "Condition", var = "KilledRecently" }),
 },
+["chance_to_cast_on_kill_%"] = {
+	skill("triggeredBySquirmingTerror", true , { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }, { type = "Condition", var = "KilledRecently" })
+},
 ["cast_linked_spells_on_melee_kill_%"] = {
 	skill("chanceToTriggerOnMeleeKill", nil , { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Melee })
 },
@@ -264,6 +267,9 @@ return {
 },
 ["base_melee_attack_repeat_count"] = {
 	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Multistrikeable }),
+},
+["skill_repeat_count"] = {
+	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Multicastable }),
 },
 ["display_skill_minions_level_is_corpse_level"] = {
 	skill("minionLevelIsEnemyLevel", true),
@@ -663,6 +669,9 @@ return {
 ["chance_to_deal_double_damage_%"] = {
 	mod("DoubleDamageChance", "BASE", nil)
 },
+["chance_to_deal_double_damage_%_per_10_intelligence"] = {
+	mod("DoubleDamageChance", "BASE", nil, 0, 0, { type = "PerStat", stat = "Int", div = 10 }),
+},
 ["chance_to_deal_double_damage_%_vs_bleeding_enemies"] = {
 	mod("DoubleDamageChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Bleeding"}),
 },
@@ -705,6 +714,9 @@ return {
 ["active_skill_damage_+%_final"] = {
 	mod("Damage", "MORE", nil),
 },
+["active_skill_physical_damage_+%_final"] = {
+	mod("PhysicalDamage", "MORE", nil),
+},
 ["sigil_attached_target_hit_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 },
@@ -734,6 +746,9 @@ return {
 },
 ["damage_+%_vs_frozen_enemies"] = {
 	mod("Damage", "INC", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
+},
+["damage_+%_final_vs_stunned_enemies"] = {
+	mod("Damage", "MORE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Stunned" }),
 },
 ["base_reduce_enemy_fire_resistance_%"] = {
 	mod("FirePenetration", "BASE", nil),
@@ -1687,6 +1702,9 @@ return {
 ["active_skill_trap_throwing_speed_+%_final"] = {
 	mod("TrapThrowingSpeed", "MORE", nil),
 },
+["trap_throwing_speed_+%_while_wielding_2hand"] = {
+	mod("TrapThrowingSpeed", "INC", nil, 0, 0, { type = "Condition", var = "UsingTwoHandedWeapon" }),
+},
 ["trap_critical_strike_multiplier_+_per_power_charge"] = {
 	mod("CritMultiplier", "BASE", nil, 0, KeywordFlag.Trap, { type = "Multiplier", var = "PowerCharge" }),
 },
@@ -1698,6 +1716,9 @@ return {
 },
 ["number_of_additional_traps_to_throw"] = {
 	mod("TrapThrowCount", "BASE", nil)
+},
+["throw_X_additional_traps_if_dual_wielding"] = {
+	mod("TrapThrowCount", "BASE", nil, 0, 0, { type = "Condition", var = "DualWielding" })
 },
 -- Mine
 ["number_of_additional_remote_mines_allowed"] = {
@@ -1874,6 +1895,9 @@ return {
 },
 ["number_of_spider_minions_allowed"] = {
 	mod("ActiveSpiderLimit", "BASE", nil),
+},
+["base_number_of_void_spawns_allowed"] = {
+	mod("ActiveVoidSpawnLimit", "BASE", nil),
 },
 ["active_skill_minion_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
@@ -2060,7 +2084,7 @@ return {
 	flag("SpellCastTimeAddedToCooldownIfTriggered"),
 },
 ["gain_x_rage_on_attack_hit"] = {
-	flag("Condition:CanGainRage", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+	flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff", effectName = "Rage" } ),
 },
 ["warcry_count_power_from_enemies"] = {
 	flag("UsesWarcryPower", { type = "GlobalEffect", effectType = "Buff" })
