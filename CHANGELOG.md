@@ -1,5 +1,34 @@
 # Changelog
 
+## [v2.55.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.55.0) (2025/06/29)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.54.0...v2.55.0)
+
+## What's Changed
+### New to Path of Building
+- Add support for all new 3.26 uniques [\#8691](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8691) ([LocalIdentity](https://github.com/LocalIdentity))
+* Add support for various "Infamous" (Mercenary exclusive) item modifiers by (@LocalIdentity, @majochem) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8698
+- Support selecting Runegrafts on Masteries [\#8734](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8734) ([Blitz54](https://github.com/Blitz54))
+- Add support for Runegraft mods [\#8735](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8735) ([LocalIdentity](https://github.com/LocalIdentity))
+- Update Timeless Jewels to work with 3.26 Tree [\#8736](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8736) ([LocalIdentity](https://github.com/LocalIdentity))
+- Default build name on new builds to use the account and character name if imported [\#8185](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8185) ([n1tr0xs](https://github.com/n1tr0xs))
+- Add Cast Time breakdown to Calcs page for Warcries [\#8190](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8190) ([n1tr0xs](https://github.com/n1tr0xs))
+### Fixed Crashes
+- Fix Dual Strike of Ambidexterity causing crash [\#8694](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8694) ([Paliak](https://github.com/Paliak))
+- Fix crash when right-clicking on a Keystone / Mastery [\#8734](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8734) ([Blitz54](https://github.com/Blitz54))
+- Fix crash when trying to copy a blank skill set [\#8738](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8738) ([Blitz54](https://github.com/Blitz54))
+### Fixed Calculations
+- Fix Trigger rate calculation for SpellSlinger, Automation and Autoexertion [\#8717](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8717) ([Paliak](https://github.com/Paliak))
+- Fix Summon Phantasm using the active gem level instead of the support's level [\#8740](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8740) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fixed EHP based on block effect calculation [\#8711](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8711) ([n1tr0xs](https://github.com/n1tr0xs))
+### Fixed Behaviours
+- Fix many support gems not working correctly with Minion skills [\#8719](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8719) ([Paliak](https://github.com/Paliak))
+- Fix Brand Damage and Crit nodes not affecting Arcanist Brand Triggered skills [\#8685](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8685) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Watchers Eye Purity of Lightning damage taken as mod in Unique database [\#8739](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8739) ([LocalIdentity](https://github.com/LocalIdentity))
+### Other changes
+- Fix flashing cmd window during update check [\#8721](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8721) ([ccitro](https://github.com/ccitro))
+
+
 ## [v2.54.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.54.0) (2025/06/14)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.53.1...v2.54.0)
