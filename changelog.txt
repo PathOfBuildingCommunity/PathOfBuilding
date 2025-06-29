@@ -1,4 +1,5 @@
 VERSION[2.55.0][2025/06/29]
+
 --- New to Path of Building ---
 * Add support for all new 3.26 uniques (LocalIdentity)
 * Add support for various "Infamous" (Mercenary exclusive) item modifiers (LocalIdentity, majochem)
