@@ -45,7 +45,6 @@ function ModStoreClass:ScaleAddMod(mod, scale)
 	if scale == 1 or unscalable then
 		self:AddMod(mod)
 	else
-		scale = m_max(scale, 0)
 		local scaledMod = copyTable(mod)
 		local subMod = scaledMod
 		if type(scaledMod.value) == "table" then

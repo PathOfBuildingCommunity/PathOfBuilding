@@ -1042,22 +1042,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 						combinedList:MergeMod(mod)
 					end
 					env.itemModDB:ScaleAddList(combinedList, scale)
-				elseif item.type == "Gloves" and items["Gloves"] then
-					local bonusMod=(1 + (env.modDB:Sum("INC", nil, "EffectOfBonusesFromGloves") or 100) / 100)
-					scale = scale * bonusMod
-					local combinedList = new("ModList")
-					for _, mod in ipairs(srcList) do
-						combinedList:MergeMod(mod)
-					end
-					env.itemModDB:ScaleAddList(combinedList, scale)
-				elseif item.type == "Boots" and items["Boots"] then
-					local bonusMod=(1 + (env.modDB:Sum("INC", nil, "EffectOfBonusesFromBoots") or 100) / 100)
-					scale = scale * bonusMod
-					local combinedList = new("ModList")
-					for _, mod in ipairs(srcList) do
-						combinedList:MergeMod(mod)
-					end
-					env.itemModDB:ScaleAddList(combinedList, scale)
 				elseif env.modDB.multipliers["CorruptedMagicJewelEffect"] and item.type == "Jewel" and item.rarity == "MAGIC" and item.corrupted and slot.nodeId and item.base.subType ~= "Charm" then
 					scale = scale + env.modDB.multipliers["CorruptedMagicJewelEffect"]
 					local combinedList = new("ModList")
@@ -1200,6 +1184,29 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		if #override.extraJewelFuncs > 0 then
 			return calcs.initEnv(build, mode, override, specEnv)
+		end
+	end
+	
+	if env.player.itemList["Gloves"] then
+		local gloveEffectMod = env.modDB:Sum("INC", nil, "EffectOfBonusesFromGloves") / 100
+		if gloveEffectMod ~= 0 then
+			local modList = env.player.itemList["Gloves"].modList
+			for _, mod in ipairs(modList) do
+				local modCopy = copyTable(mod)
+				modCopy.source = "Many Sources:" .. tostring(gloveEffectMod * 100) .. "% Gloves Bonus Effect"
+				modDB:ScaleAddMod(modCopy, gloveEffectMod)
+			end
+		end
+	end
+	if env.player.itemList["Boots"] then
+		local bootEffectMod = env.modDB:Sum("INC", nil, "EffectOfBonusesFromBoots") / 100
+		if bootEffectMod ~= 0 then
+			local modList = env.player.itemList["Boots"].modList
+			for _, mod in ipairs(modList) do
+				local modCopy = copyTable(mod)
+				modCopy.source = "Many Sources:" .. tostring(bootEffectMod * 100) .. "% Boots Bonus Effect"
+				modDB:ScaleAddMod(modCopy, bootEffectMod)
+			end
 		end
 	end
 
