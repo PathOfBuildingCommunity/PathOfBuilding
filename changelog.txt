@@ -1,7 +1,7 @@
 VERSION[2.55.0][2025/06/29]
 --- New to Path of Building ---
 * Add support for all new 3.26 uniques (LocalIdentity)
-* Add support for various "Infamous" (Mercenary exclusive) item modifiers by (@LocalIdentity, @majochem) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8698
+* Add support for various "Infamous" (Mercenary exclusive) item modifiers (LocalIdentity, majochem)
 * Support selecting Runegrafts on Masteries (Blitz54)
 * Add support for Runegraft mods (LocalIdentity)
 * Update Timeless Jewels to work with 3.26 Tree (LocalIdentity)
