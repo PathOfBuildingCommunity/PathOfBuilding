@@ -488,6 +488,7 @@ end
 function main:SetMode(newMode, ...)
 	self.newMode = newMode
 	self.newModeArgs = {...}
+	self.predefinedBuildName = nil
 end
 
 function main:CallMode(func, ...)

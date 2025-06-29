@@ -161,6 +161,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 		else
 			self:DownloadPassiveTree()
 		end
+		self:SetPredefinedBuildName()
 	end)
 	self.controls.charImportTree.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
@@ -168,6 +169,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.charImportTreeClearJewels = new("CheckBoxControl", {"LEFT",self.controls.charImportTree,"RIGHT"}, {90, 0, 18}, "Delete jewels:", nil, "Delete all existing jewels when importing.", true)
 	self.controls.charImportItems = new("ButtonControl", {"LEFT",self.controls.charImportTree, "LEFT"}, {0, 36, 110, 20}, "Items and Skills", function()
 		self:DownloadItems()
+		self:SetPredefinedBuildName()
 	end)
 	self.controls.charImportItems.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
@@ -1190,4 +1192,12 @@ function ImportTabClass:ProcessJSON(json)
 		return nil, "Return type is not a table"
 	end
 	return data
+end
+
+function ImportTabClass:SetPredefinedBuildName()
+	local accountName = self.controls.accountName.buf:gsub('%s+', ''):gsub("#%d+", "")
+	local charSelect = self.controls.charSelect
+	local charData = charSelect.list[charSelect.selIndex].char
+	local charName = charData.name
+	main.predefinedBuildName = accountName.." - "..charName
 end
