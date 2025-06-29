@@ -688,6 +688,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportSummonPhantasm
+	addFlags = {
+		minion = true,
+	},
 	addMinionList = {
 		"SummonedPhantasm"
 	},
