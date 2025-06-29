@@ -2609,6 +2609,9 @@ skills["ShaperApparitionTeleportSlam"] = {
 		"is_area_damage",
 		"global_always_hit",
 	},
+	notMinionStat = {
+		"active_skill_attack_speed_+%_final",
+	},
 	levels = {
 		[20] = { 25, damageEffectiveness = 41, baseMultiplier = 41, levelRequirement = 72, statInterpolation = { 1, }, },
 	},
@@ -2640,6 +2643,9 @@ skills["ShaperApparitionBeam"] = {
 		"base_cold_damage_to_deal_per_minute",
 		"base_lightning_damage_to_deal_per_minute",
 		"spell_damage_modifiers_apply_to_skill_dot",
+	},
+	notMinionStat = {
+		"base_fire_damage_to_deal_per_minute",
 	},
 	levels = {
 		[20] = { 50.000001117587, 50.000001117587, 50.000001117587, levelRequirement = 72, statInterpolation = { 3, 3, 3, }, },
@@ -2675,6 +2681,10 @@ skills["ShaperApparitionProjectiles"] = {
 		"base_is_projectile",
 		"always_pierce",
 		"projectile_uses_contact_position",
+	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
 	},
 	levels = {
 		[20] = { 0.80000001192093, 1.2000000476837, 200, levelRequirement = 72, statInterpolation = { 3, 3, 1, }, },
@@ -4030,6 +4040,9 @@ skills["SupportTriggerSpellOnKill"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	stats = {
+		"chance_to_cast_on_kill_%",
+	},
+	notMinionStat = {
 		"chance_to_cast_on_kill_%",
 	},
 	levels = {

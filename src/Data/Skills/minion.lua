@@ -2091,6 +2091,10 @@ skills["ElderTentacleMinionProjectileDeepcaller"] = {
 		"base_is_projectile",
 		"projectile_uses_contact_position",
 	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
 	levels = {
 		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},

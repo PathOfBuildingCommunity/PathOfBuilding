@@ -19845,7 +19845,7 @@ skills["WaveOfConviction"] = {
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillData.duration then
 			local duration = math.floor(math.ceil(activeSkill.skillData.duration * data.misc.ServerTickRate) / data.misc.ServerTickRate * output.DurationMod * 10)
-			activeSkill.skillModList:NewMod("DotMultiplier", "BASE", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "WaveOfConvictionDurationDotMulti") * duration / 100, "Skill:Purge", 0, { type = "Multiplier", var = "WoCDurationExpired"})
+			activeSkill.skillModList:NewMod("DotMultiplier", "BASE", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "WaveOfConvictionDurationDotMulti") * duration / 100, "Skill:WaveOfConviction", 0, { type = "Multiplier", var = "WoCDurationExpired"})
 		end
 	end,
 	statMap = {
@@ -19939,8 +19939,10 @@ skills["WaveOfConvictionAltY"] = {
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.7,
 	preDamageFunc = function(activeSkill, output)
-		local duration = math.floor(math.ceil(activeSkill.skillData.duration * data.misc.ServerTickRate) / data.misc.ServerTickRate * output.DurationMod * 10)
-		activeSkill.skillModList:NewMod("DotMultiplier", "BASE", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "WaveOfConvictionDurationDotMulti") * duration / 100, "Skill:Purge", 0, { type = "Multiplier", var = "WoCDurationExpired"})
+		if activeSkill.skillData.duration then
+			local duration = math.floor(math.ceil(activeSkill.skillData.duration * data.misc.ServerTickRate) / data.misc.ServerTickRate * output.DurationMod * 10)
+			activeSkill.skillModList:NewMod("DotMultiplier", "BASE", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "WaveOfConvictionDurationDotMulti") * duration / 100, "Skill:WaveOfConvictionAltY", 0, { type = "Multiplier", var = "WoCDurationExpired"})
+		end
 	end,
 	baseFlags = {
 		spell = true,

@@ -4921,7 +4921,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3262721796", 
+				["id"] = "implicit.stat_3457821036", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Withered you Inflict expires #% faster", 
 				["type"] = "implicit", 
 			}, 
@@ -4935,7 +4935,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3457821036", 
+				["id"] = "implicit.stat_3262721796", 
 				["text"] = "While a Unique Enemy is in your Presence, Withered you Inflict expires #% faster", 
 				["type"] = "implicit", 
 			}, 
@@ -4963,7 +4963,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3550578554", 
+				["id"] = "implicit.stat_2293353005", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Zealotry has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -4977,7 +4977,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2293353005", 
+				["id"] = "implicit.stat_3550578554", 
 				["text"] = "While a Unique Enemy is in your Presence, Zealotry has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -5013,7 +5013,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_725501141", 
+				["id"] = "implicit.stat_3326567914", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% Chance to Block Attack Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -5031,7 +5031,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3326567914", 
+				["id"] = "implicit.stat_725501141", 
 				["text"] = "While a Unique Enemy is in your Presence, #% Chance to Block Attack Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -5067,7 +5067,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3998961962", 
+				["id"] = "implicit.stat_2998245080", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Suppress Spell Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -5085,7 +5085,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2998245080", 
+				["id"] = "implicit.stat_3998961962", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Suppress Spell Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -5121,7 +5121,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1358320252", 
+				["id"] = "implicit.stat_2996280658", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% Chance to Block Spell Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -5139,7 +5139,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2996280658", 
+				["id"] = "implicit.stat_1358320252", 
 				["text"] = "While a Unique Enemy is in your Presence, #% Chance to Block Spell Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -5175,7 +5175,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4061200499", 
+				["id"] = "implicit.stat_3133935886", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Attack Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -5193,7 +5193,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3133935886", 
+				["id"] = "implicit.stat_4061200499", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Attack Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -5229,7 +5229,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4136821316", 
+				["id"] = "implicit.stat_817495383", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Spell Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -5247,7 +5247,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_817495383", 
+				["id"] = "implicit.stat_4136821316", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Spell Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -5275,7 +5275,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2423625781", 
+				["id"] = "implicit.stat_2086047206", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Global Accuracy Rating", 
 				["type"] = "implicit", 
 			}, 
@@ -5289,7 +5289,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2086047206", 
+				["id"] = "implicit.stat_2423625781", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Global Accuracy Rating", 
 				["type"] = "implicit", 
 			}, 
@@ -5325,7 +5325,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1980216452", 
+				["id"] = "implicit.stat_1371764251", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Armour", 
 				["type"] = "implicit", 
 			}, 
@@ -5343,7 +5343,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1371764251", 
+				["id"] = "implicit.stat_1980216452", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Armour", 
 				["type"] = "implicit", 
 			}, 
@@ -5379,7 +5379,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3394288644", 
+				["id"] = "implicit.stat_2386062386", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Evasion Rating", 
 				["type"] = "implicit", 
 			}, 
@@ -5397,7 +5397,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2386062386", 
+				["id"] = "implicit.stat_3394288644", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Evasion Rating", 
 				["type"] = "implicit", 
 			}, 
@@ -5433,7 +5433,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1114962813", 
+				["id"] = "implicit.stat_1917716710", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased maximum Energy Shield", 
 				["type"] = "implicit", 
 			}, 
@@ -5451,7 +5451,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1917716710", 
+				["id"] = "implicit.stat_1114962813", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased maximum Energy Shield", 
 				["type"] = "implicit", 
 			}, 
@@ -5487,7 +5487,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3806837783", 
+				["id"] = "implicit.stat_26006636", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Energy Shield Recharge Rate", 
 				["type"] = "implicit", 
 			}, 
@@ -5505,7 +5505,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_26006636", 
+				["id"] = "implicit.stat_3806837783", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Energy Shield Recharge Rate", 
 				["type"] = "implicit", 
 			}, 
@@ -5533,7 +5533,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_587322642", 
+				["id"] = "implicit.stat_92591094", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Energy Shield Recovery rate", 
 				["type"] = "implicit", 
 			}, 
@@ -5547,7 +5547,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_92591094", 
+				["id"] = "implicit.stat_587322642", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Energy Shield Recovery rate", 
 				["type"] = "implicit", 
 			}, 
@@ -5575,7 +5575,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1123587207", 
+				["id"] = "implicit.stat_3225230656", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Regenerate #% of Life per second per Endurance Charge", 
 				["type"] = "implicit", 
 			}, 
@@ -5589,7 +5589,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3225230656", 
+				["id"] = "implicit.stat_1123587207", 
 				["text"] = "While a Unique Enemy is in your Presence, Regenerate #% of Life per second per Endurance Charge", 
 				["type"] = "implicit", 
 			}, 
@@ -5625,7 +5625,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1916766878", 
+				["id"] = "implicit.stat_498250787", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Life Regeneration rate", 
 				["type"] = "implicit", 
 			}, 
@@ -5643,7 +5643,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_498250787", 
+				["id"] = "implicit.stat_1916766878", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Life Regeneration rate", 
 				["type"] = "implicit", 
 			}, 
@@ -5671,7 +5671,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1481249164", 
+				["id"] = "implicit.stat_2761472996", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Life Recovery rate", 
 				["type"] = "implicit", 
 			}, 
@@ -5685,7 +5685,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2761472996", 
+				["id"] = "implicit.stat_1481249164", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Life Recovery rate", 
 				["type"] = "implicit", 
 			}, 
@@ -5713,7 +5713,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_760444887", 
+				["id"] = "implicit.stat_4222133389", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Mana Regeneration Rate", 
 				["type"] = "implicit", 
 			}, 
@@ -5727,7 +5727,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4222133389", 
+				["id"] = "implicit.stat_760444887", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Regeneration Rate", 
 				["type"] = "implicit", 
 			}, 
@@ -5755,7 +5755,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1217759839", 
+				["id"] = "implicit.stat_4117139221", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Mana Recovery rate", 
 				["type"] = "implicit", 
 			}, 
@@ -5769,7 +5769,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4117139221", 
+				["id"] = "implicit.stat_1217759839", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Recovery rate", 
 				["type"] = "implicit", 
 			}, 
@@ -5797,7 +5797,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2358153166", 
+				["id"] = "implicit.stat_2251516251", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to all Elemental Resistances", 
 				["type"] = "implicit", 
 			}, 
@@ -5811,7 +5811,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2251516251", 
+				["id"] = "implicit.stat_2358153166", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to all Elemental Resistances", 
 				["type"] = "implicit", 
 			}, 
@@ -5839,7 +5839,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2443166200", 
+				["id"] = "implicit.stat_2500914030", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage Leeched as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -5853,7 +5853,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2500914030", 
+				["id"] = "implicit.stat_2443166200", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Leeched as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -5881,7 +5881,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3430693940", 
+				["id"] = "implicit.stat_1954944666", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Fire Damage Leeched as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -5895,7 +5895,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1954944666", 
+				["id"] = "implicit.stat_3430693940", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Fire Damage Leeched as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -5923,7 +5923,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3357881628", 
+				["id"] = "implicit.stat_339123312", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Cold Damage Leeched as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -5937,7 +5937,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_339123312", 
+				["id"] = "implicit.stat_3357881628", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Cold Damage Leeched as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -5965,7 +5965,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2824722288", 
+				["id"] = "implicit.stat_1896842319", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Lightning Damage Leeched as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -5979,7 +5979,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1896842319", 
+				["id"] = "implicit.stat_2824722288", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Lightning Damage Leeched as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -6007,7 +6007,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1172401338", 
+				["id"] = "implicit.stat_10259064", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Chaos Damage Leeched as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -6021,7 +6021,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_10259064", 
+				["id"] = "implicit.stat_1172401338", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Chaos Damage Leeched as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -6050,7 +6050,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3924473787", 
+				["id"] = "implicit.stat_4045839821", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Projectiles Pierce # additional Targets", 
 				["type"] = "implicit", 
 			}, 
@@ -6064,7 +6064,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4045839821", 
+				["id"] = "implicit.stat_3924473787", 
 				["text"] = "While a Unique Enemy is in your Presence, Projectiles Pierce # additional Targets", 
 				["type"] = "implicit", 
 			}, 
@@ -6092,7 +6092,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3264420229", 
+				["id"] = "implicit.stat_4241033239", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid Elemental Ailments", 
 				["type"] = "implicit", 
 			}, 
@@ -6106,7 +6106,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4241033239", 
+				["id"] = "implicit.stat_3264420229", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid Elemental Ailments", 
 				["type"] = "implicit", 
 			}, 
@@ -6134,7 +6134,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3553907672", 
+				["id"] = "implicit.stat_2714750784", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Poisoned", 
 				["type"] = "implicit", 
 			}, 
@@ -6148,7 +6148,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2714750784", 
+				["id"] = "implicit.stat_3553907672", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid being Poisoned", 
 				["type"] = "implicit", 
 			}, 
@@ -6184,7 +6184,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3341892633", 
+				["id"] = "implicit.stat_867827325", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Duration of Ailments on Enemies", 
 				["type"] = "implicit", 
 			}, 
@@ -6202,7 +6202,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_867827325", 
+				["id"] = "implicit.stat_3341892633", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Duration of Ailments on Enemies", 
 				["type"] = "implicit", 
 			}, 
@@ -6230,7 +6230,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3985862221", 
+				["id"] = "implicit.stat_928972227", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% reduced Freeze Duration on you", 
 				["type"] = "implicit", 
 			}, 
@@ -6244,7 +6244,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_928972227", 
+				["id"] = "implicit.stat_3985862221", 
 				["text"] = "While a Unique Enemy is in your Presence, #% reduced Freeze Duration on you", 
 				["type"] = "implicit", 
 			}, 
@@ -6272,7 +6272,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2520245478", 
+				["id"] = "implicit.stat_3042217102", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% reduced Ignite Duration on you", 
 				["type"] = "implicit", 
 			}, 
@@ -6286,7 +6286,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3042217102", 
+				["id"] = "implicit.stat_2520245478", 
 				["text"] = "While a Unique Enemy is in your Presence, #% reduced Ignite Duration on you", 
 				["type"] = "implicit", 
 			}, 
@@ -6356,7 +6356,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3549954477", 
+				["id"] = "implicit.stat_1335630001", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain #% of Physical Damage as Extra Fire Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6370,7 +6370,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1335630001", 
+				["id"] = "implicit.stat_3549954477", 
 				["text"] = "While a Unique Enemy is in your Presence, Gain #% of Physical Damage as Extra Fire Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6398,7 +6398,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3171354842", 
+				["id"] = "implicit.stat_1425454108", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain #% of Physical Damage as Extra Cold Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6412,7 +6412,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1425454108", 
+				["id"] = "implicit.stat_3171354842", 
 				["text"] = "While a Unique Enemy is in your Presence, Gain #% of Physical Damage as Extra Cold Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6440,7 +6440,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1918094957", 
+				["id"] = "implicit.stat_632297605", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain #% of Physical Damage as Extra Lightning Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6454,7 +6454,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_632297605", 
+				["id"] = "implicit.stat_1918094957", 
 				["text"] = "While a Unique Enemy is in your Presence, Gain #% of Physical Damage as Extra Lightning Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6482,7 +6482,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_620552892", 
+				["id"] = "implicit.stat_3490650294", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain #% of Physical Damage as Extra Chaos Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6496,7 +6496,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3490650294", 
+				["id"] = "implicit.stat_620552892", 
 				["text"] = "While a Unique Enemy is in your Presence, Gain #% of Physical Damage as Extra Chaos Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6524,7 +6524,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_380027104", 
+				["id"] = "implicit.stat_3764409984", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage Converted to Fire Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6538,7 +6538,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3764409984", 
+				["id"] = "implicit.stat_380027104", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Converted to Fire Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6566,7 +6566,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1153825002", 
+				["id"] = "implicit.stat_3567752586", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage Converted to Cold Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6580,7 +6580,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3567752586", 
+				["id"] = "implicit.stat_1153825002", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Converted to Cold Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6608,7 +6608,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1516273114", 
+				["id"] = "implicit.stat_3718361973", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage Converted to Lightning Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6622,7 +6622,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3718361973", 
+				["id"] = "implicit.stat_1516273114", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Converted to Lightning Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6636,7 +6636,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1623369100", 
+				["id"] = "implicit.stat_2204282073", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage Converted to Chaos Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6650,7 +6650,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2204282073", 
+				["id"] = "implicit.stat_1623369100", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Converted to Chaos Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6692,7 +6692,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1918872160", 
+				["id"] = "implicit.stat_2425364074", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Mana Regeneration Rate per Power Charge", 
 				["type"] = "implicit", 
 			}, 
@@ -6706,7 +6706,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2425364074", 
+				["id"] = "implicit.stat_1918872160", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Regeneration Rate per Power Charge", 
 				["type"] = "implicit", 
 			}, 
@@ -6734,7 +6734,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_874990741", 
+				["id"] = "implicit.stat_1030674088", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Ignite", 
 				["type"] = "implicit", 
 			}, 
@@ -6748,7 +6748,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1030674088", 
+				["id"] = "implicit.stat_874990741", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Ignite", 
 				["type"] = "implicit", 
 			}, 
@@ -6776,7 +6776,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1096728982", 
+				["id"] = "implicit.stat_4146719724", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Freeze", 
 				["type"] = "implicit", 
 			}, 
@@ -6790,7 +6790,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4146719724", 
+				["id"] = "implicit.stat_1096728982", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Freeze", 
 				["type"] = "implicit", 
 			}, 
@@ -6818,7 +6818,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2621869142", 
+				["id"] = "implicit.stat_2459490852", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Shock", 
 				["type"] = "implicit", 
 			}, 
@@ -6832,7 +6832,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2459490852", 
+				["id"] = "implicit.stat_2621869142", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Shock", 
 				["type"] = "implicit", 
 			}, 
@@ -6868,7 +6868,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2358903592", 
+				["id"] = "implicit.stat_4213793369", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Mana Reservation Efficiency of Skills", 
 				["type"] = "implicit", 
 			}, 
@@ -6886,7 +6886,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4213793369", 
+				["id"] = "implicit.stat_2358903592", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Reservation Efficiency of Skills", 
 				["type"] = "implicit", 
 			}, 
@@ -6914,7 +6914,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1283684786", 
+				["id"] = "implicit.stat_3995172058", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage from Hits taken as Fire Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6928,7 +6928,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3995172058", 
+				["id"] = "implicit.stat_1283684786", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Fire Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6956,7 +6956,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1283684786", 
+				["id"] = "implicit.stat_3995172058", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage from Hits taken as Fire Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6970,7 +6970,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3995172058", 
+				["id"] = "implicit.stat_1283684786", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Fire Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -6998,7 +6998,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_848890513", 
+				["id"] = "implicit.stat_2466412811", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage from Hits taken as Cold Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -7012,7 +7012,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2466412811", 
+				["id"] = "implicit.stat_848890513", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Cold Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -7040,7 +7040,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_848890513", 
+				["id"] = "implicit.stat_2466412811", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage from Hits taken as Cold Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -7054,7 +7054,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2466412811", 
+				["id"] = "implicit.stat_848890513", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Cold Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -7082,7 +7082,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_196824923", 
+				["id"] = "implicit.stat_3947691353", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage from Hits taken as Lightning Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -7096,7 +7096,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3947691353", 
+				["id"] = "implicit.stat_196824923", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Lightning Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -7124,7 +7124,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_196824923", 
+				["id"] = "implicit.stat_3947691353", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage from Hits taken as Lightning Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -7138,7 +7138,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3947691353", 
+				["id"] = "implicit.stat_196824923", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Lightning Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -7166,7 +7166,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2393004388", 
+				["id"] = "implicit.stat_3904394775", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage from Hits taken as Chaos Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -7180,7 +7180,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3904394775", 
+				["id"] = "implicit.stat_2393004388", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Chaos Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -7208,7 +7208,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2393004388", 
+				["id"] = "implicit.stat_3904394775", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage from Hits taken as Chaos Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -7222,7 +7222,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3904394775", 
+				["id"] = "implicit.stat_2393004388", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Chaos Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -7250,7 +7250,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_64193828", 
+				["id"] = "implicit.stat_4014428128", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Attacks have #% chance to cause Bleeding", 
 				["type"] = "implicit", 
 			}, 
@@ -7264,7 +7264,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4014428128", 
+				["id"] = "implicit.stat_64193828", 
 				["text"] = "While a Unique Enemy is in your Presence, Attacks have #% chance to cause Bleeding", 
 				["type"] = "implicit", 
 			}, 
@@ -7292,7 +7292,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2349328837", 
+				["id"] = "implicit.stat_1053495752", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Ignites you inflict deal Damage #% faster", 
 				["type"] = "implicit", 
 			}, 
@@ -7306,7 +7306,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1053495752", 
+				["id"] = "implicit.stat_2349328837", 
 				["text"] = "While a Unique Enemy is in your Presence, Ignites you inflict deal Damage #% faster", 
 				["type"] = "implicit", 
 			}, 
@@ -7334,7 +7334,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_505694848", 
+				["id"] = "implicit.stat_1138753695", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of your Marks", 
 				["type"] = "implicit", 
 			}, 
@@ -7348,7 +7348,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1138753695", 
+				["id"] = "implicit.stat_505694848", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of your Marks", 
 				["type"] = "implicit", 
 			}, 
@@ -7384,7 +7384,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3425675761", 
+				["id"] = "implicit.stat_1175129684", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Damage Penetrates #% Fire Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -7402,7 +7402,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1175129684", 
+				["id"] = "implicit.stat_3425675761", 
 				["text"] = "While a Unique Enemy is in your Presence, Damage Penetrates #% Fire Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -7438,7 +7438,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1477049675", 
+				["id"] = "implicit.stat_403285636", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Damage Penetrates #% Cold Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -7456,7 +7456,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_403285636", 
+				["id"] = "implicit.stat_1477049675", 
 				["text"] = "While a Unique Enemy is in your Presence, Damage Penetrates #% Cold Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -7492,7 +7492,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1598254831", 
+				["id"] = "implicit.stat_550672859", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Damage Penetrates #% Lightning Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -7510,7 +7510,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_550672859", 
+				["id"] = "implicit.stat_1598254831", 
 				["text"] = "While a Unique Enemy is in your Presence, Damage Penetrates #% Lightning Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -7538,7 +7538,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2433754249", 
+				["id"] = "implicit.stat_532792006", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Poison on Hit", 
 				["type"] = "implicit", 
 			}, 
@@ -7552,7 +7552,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_532792006", 
+				["id"] = "implicit.stat_2433754249", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Poison on Hit", 
 				["type"] = "implicit", 
 			}, 
@@ -7580,7 +7580,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_266654028", 
+				["id"] = "implicit.stat_1513279759", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Stun Threshold", 
 				["type"] = "implicit", 
 			}, 
@@ -7594,7 +7594,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1513279759", 
+				["id"] = "implicit.stat_266654028", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Stun Threshold", 
 				["type"] = "implicit", 
 			}, 
@@ -7622,7 +7622,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2255001736", 
+				["id"] = "implicit.stat_2117066923", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Warcry Speed", 
 				["type"] = "implicit", 
 			}, 
@@ -7636,7 +7636,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2117066923", 
+				["id"] = "implicit.stat_2255001736", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Warcry Speed", 
 				["type"] = "implicit", 
 			}, 
@@ -7664,7 +7664,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3163099942", 
+				["id"] = "implicit.stat_664899091", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of Arcane Surge on you", 
 				["type"] = "implicit", 
 			}, 
@@ -7678,7 +7678,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_664899091", 
+				["id"] = "implicit.stat_3163099942", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of Arcane Surge on you", 
 				["type"] = "implicit", 
 			}, 
@@ -7706,7 +7706,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_778803098", 
+				["id"] = "implicit.stat_1167349834", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Anger has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -7720,7 +7720,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1167349834", 
+				["id"] = "implicit.stat_778803098", 
 				["text"] = "While a Unique Enemy is in your Presence, Anger has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -7748,7 +7748,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_348693938", 
+				["id"] = "implicit.stat_221690080", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Purity of Elements has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -7762,7 +7762,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_221690080", 
+				["id"] = "implicit.stat_348693938", 
 				["text"] = "While a Unique Enemy is in your Presence, Purity of Elements has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -7790,7 +7790,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1926772156", 
+				["id"] = "implicit.stat_2034940983", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Purity of Fire has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -7804,7 +7804,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2034940983", 
+				["id"] = "implicit.stat_1926772156", 
 				["text"] = "While a Unique Enemy is in your Presence, Purity of Fire has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -7832,7 +7832,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3499126604", 
+				["id"] = "implicit.stat_3786274521", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Purity of Ice has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -7846,7 +7846,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3786274521", 
+				["id"] = "implicit.stat_3499126604", 
 				["text"] = "While a Unique Enemy is in your Presence, Purity of Ice has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -7874,7 +7874,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_908556575", 
+				["id"] = "implicit.stat_1445513967", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Purity of Lightning has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -7888,7 +7888,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1445513967", 
+				["id"] = "implicit.stat_908556575", 
 				["text"] = "While a Unique Enemy is in your Presence, Purity of Lightning has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -7916,7 +7916,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_399528178", 
+				["id"] = "implicit.stat_1850144024", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Wrath has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -7930,7 +7930,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1850144024", 
+				["id"] = "implicit.stat_399528178", 
 				["text"] = "While a Unique Enemy is in your Presence, Wrath has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -7958,7 +7958,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3303144948", 
+				["id"] = "implicit.stat_81526858", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Grace has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -7972,7 +7972,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_81526858", 
+				["id"] = "implicit.stat_3303144948", 
 				["text"] = "While a Unique Enemy is in your Presence, Grace has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -8000,7 +8000,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1060820709", 
+				["id"] = "implicit.stat_1065477979", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Haste has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -8014,7 +8014,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1065477979", 
+				["id"] = "implicit.stat_1060820709", 
 				["text"] = "While a Unique Enemy is in your Presence, Haste has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -8042,7 +8042,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4218330172", 
+				["id"] = "implicit.stat_1253537227", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Hatred has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -8056,7 +8056,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1253537227", 
+				["id"] = "implicit.stat_4218330172", 
 				["text"] = "While a Unique Enemy is in your Presence, Hatred has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -8084,7 +8084,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2366356855", 
+				["id"] = "implicit.stat_1324460486", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Determination has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -8098,7 +8098,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1324460486", 
+				["id"] = "implicit.stat_2366356855", 
 				["text"] = "While a Unique Enemy is in your Presence, Determination has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -8126,7 +8126,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_334238649", 
+				["id"] = "implicit.stat_2752131673", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Discipline has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -8140,7 +8140,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2752131673", 
+				["id"] = "implicit.stat_334238649", 
 				["text"] = "While a Unique Enemy is in your Presence, Discipline has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -8168,7 +8168,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2792560229", 
+				["id"] = "implicit.stat_906749304", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Enduring Cry has #% increased Cooldown Recovery Rate", 
 				["type"] = "implicit", 
 			}, 
@@ -8182,7 +8182,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_906749304", 
+				["id"] = "implicit.stat_2792560229", 
 				["text"] = "While a Unique Enemy is in your Presence, Enduring Cry has #% increased Cooldown Recovery Rate", 
 				["type"] = "implicit", 
 			}, 
@@ -8210,7 +8210,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1381761351", 
+				["id"] = "implicit.stat_2063107864", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Rallying Cry Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -8224,7 +8224,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2063107864", 
+				["id"] = "implicit.stat_1381761351", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Rallying Cry Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -8252,7 +8252,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2651293339", 
+				["id"] = "implicit.stat_2610114836", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid Bleeding", 
 				["type"] = "implicit", 
 			}, 
@@ -8266,7 +8266,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2610114836", 
+				["id"] = "implicit.stat_2651293339", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid Bleeding", 
 				["type"] = "implicit", 
 			}, 
@@ -8294,7 +8294,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1941017392", 
+				["id"] = "implicit.stat_3178090061", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% reduced Reflected Damage taken", 
 				["type"] = "implicit", 
 			}, 
@@ -8308,7 +8308,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3178090061", 
+				["id"] = "implicit.stat_1941017392", 
 				["text"] = "While a Unique Enemy is in your Presence, #% reduced Reflected Damage taken", 
 				["type"] = "implicit", 
 			}, 
@@ -8336,7 +8336,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2986495340", 
+				["id"] = "implicit.stat_850668052", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Cooldown Recovery Rate of Travel Skills", 
 				["type"] = "implicit", 
 			}, 
@@ -8350,7 +8350,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_850668052", 
+				["id"] = "implicit.stat_2986495340", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Cooldown Recovery Rate of Travel Skills", 
 				["type"] = "implicit", 
 			}, 
@@ -8364,7 +8364,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_475859964", 
+				["id"] = "implicit.stat_490830332", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, # to Accuracy Rating per Frenzy Charge", 
 				["type"] = "implicit", 
 			}, 
@@ -8378,7 +8378,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_490830332", 
+				["id"] = "implicit.stat_475859964", 
 				["text"] = "While a Unique Enemy is in your Presence, # to Accuracy Rating per Frenzy Charge", 
 				["type"] = "implicit", 
 			}, 
@@ -8420,7 +8420,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2543125349", 
+				["id"] = "implicit.stat_466064970", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Aggravate Bleeding on targets you Hit with Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -8434,7 +8434,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_466064970", 
+				["id"] = "implicit.stat_2543125349", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Aggravate Bleeding on targets you Hit with Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -8462,7 +8462,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3598887112", 
+				["id"] = "implicit.stat_1799586622", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Attacks Exerted by Ancestral Cry deal #% increased Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -8476,7 +8476,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1799586622", 
+				["id"] = "implicit.stat_3598887112", 
 				["text"] = "While a Unique Enemy is in your Presence, Attacks Exerted by Ancestral Cry deal #% increased Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -8504,7 +8504,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1586470077", 
+				["id"] = "implicit.stat_3330140563", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Armour from Equipped Helmet and Gloves", 
 				["type"] = "implicit", 
 			}, 
@@ -8518,7 +8518,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3330140563", 
+				["id"] = "implicit.stat_1586470077", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Armour from Equipped Helmet and Gloves", 
 				["type"] = "implicit", 
 			}, 
@@ -8546,7 +8546,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2391907787", 
+				["id"] = "implicit.stat_2838459808", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Impale Enemies on Hit with Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -8560,7 +8560,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2838459808", 
+				["id"] = "implicit.stat_2391907787", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Impale Enemies on Hit with Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -8588,7 +8588,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2491353340", 
+				["id"] = "implicit.stat_668321613", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Cooldown Recovery Rate", 
 				["type"] = "implicit", 
 			}, 
@@ -8602,7 +8602,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_668321613", 
+				["id"] = "implicit.stat_2491353340", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Cooldown Recovery Rate", 
 				["type"] = "implicit", 
 			}, 
@@ -8630,7 +8630,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3173180145", 
+				["id"] = "implicit.stat_1455812442", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Battlemage's Cry Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -8644,7 +8644,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1455812442", 
+				["id"] = "implicit.stat_3173180145", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Battlemage's Cry Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -8672,7 +8672,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_886650454", 
+				["id"] = "implicit.stat_4122616021", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Blind Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -8686,7 +8686,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4122616021", 
+				["id"] = "implicit.stat_886650454", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Blind Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -8714,7 +8714,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1682072497", 
+				["id"] = "implicit.stat_2216092051", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, 1% less Damage Taken per # Dexterity", 
 				["type"] = "implicit", 
 			}, 
@@ -8728,7 +8728,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2216092051", 
+				["id"] = "implicit.stat_1682072497", 
 				["text"] = "While a Unique Enemy is in your Presence, 1% less Damage Taken per # Dexterity", 
 				["type"] = "implicit", 
 			}, 
@@ -8756,7 +8756,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_553122931", 
+				["id"] = "implicit.stat_3801851872", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, 1% less Damage Taken per # Intelligence", 
 				["type"] = "implicit", 
 			}, 
@@ -8770,7 +8770,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3801851872", 
+				["id"] = "implicit.stat_553122931", 
 				["text"] = "While a Unique Enemy is in your Presence, 1% less Damage Taken per # Intelligence", 
 				["type"] = "implicit", 
 			}, 
@@ -8798,7 +8798,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3389591826", 
+				["id"] = "implicit.stat_125264229", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, 1% less Damage Taken per # Strength", 
 				["type"] = "implicit", 
 			}, 
@@ -8812,7 +8812,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_125264229", 
+				["id"] = "implicit.stat_3389591826", 
 				["text"] = "While a Unique Enemy is in your Presence, 1% less Damage Taken per # Strength", 
 				["type"] = "implicit", 
 			}, 
@@ -8840,7 +8840,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1699220089", 
+				["id"] = "implicit.stat_3658662726", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Inflict Cold Exposure on Hit, applying #% to Cold Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -8854,7 +8854,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3658662726", 
+				["id"] = "implicit.stat_1699220089", 
 				["text"] = "While a Unique Enemy is in your Presence, Inflict Cold Exposure on Hit, applying #% to Cold Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -8882,7 +8882,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_535580777", 
+				["id"] = "implicit.stat_1870591253", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per 100 Dexterity", 
 				["type"] = "implicit", 
 			}, 
@@ -8896,7 +8896,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1870591253", 
+				["id"] = "implicit.stat_535580777", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Damage per 100 Dexterity", 
 				["type"] = "implicit", 
 			}, 
@@ -8924,7 +8924,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1894390763", 
+				["id"] = "implicit.stat_2532279515", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per 100 Intelligence", 
 				["type"] = "implicit", 
 			}, 
@@ -8938,7 +8938,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2532279515", 
+				["id"] = "implicit.stat_1894390763", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Damage per 100 Intelligence", 
 				["type"] = "implicit", 
 			}, 
@@ -8966,7 +8966,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4224921626", 
+				["id"] = "implicit.stat_3183308031", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per 100 Strength", 
 				["type"] = "implicit", 
 			}, 
@@ -8980,7 +8980,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3183308031", 
+				["id"] = "implicit.stat_4224921626", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Damage per 100 Strength", 
 				["type"] = "implicit", 
 			}, 
@@ -9008,7 +9008,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1327020319", 
+				["id"] = "implicit.stat_1033279468", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Malevolence has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -9022,7 +9022,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1033279468", 
+				["id"] = "implicit.stat_1327020319", 
 				["text"] = "While a Unique Enemy is in your Presence, Malevolence has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -9050,7 +9050,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2413932980", 
+				["id"] = "implicit.stat_3173079195", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Elusive Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -9064,7 +9064,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3173079195", 
+				["id"] = "implicit.stat_2413932980", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Elusive Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -9092,7 +9092,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3291139981", 
+				["id"] = "implicit.stat_376260015", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Exerted Attacks deal #% increased Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -9106,7 +9106,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_376260015", 
+				["id"] = "implicit.stat_3291139981", 
 				["text"] = "While a Unique Enemy is in your Presence, Exerted Attacks deal #% increased Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -9134,7 +9134,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2570471069", 
+				["id"] = "implicit.stat_3407071583", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Enemies you've Hit Recently have #% reduced Life Regeneration rate", 
 				["type"] = "implicit", 
 			}, 
@@ -9148,7 +9148,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3407071583", 
+				["id"] = "implicit.stat_2570471069", 
 				["text"] = "While a Unique Enemy is in your Presence, Enemies you've Hit Recently have #% reduced Life Regeneration rate", 
 				["type"] = "implicit", 
 			}, 
@@ -9176,7 +9176,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4288334466", 
+				["id"] = "implicit.stat_1388739249", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Maximum Energy Shield from Equipped Gloves and Boots", 
 				["type"] = "implicit", 
 			}, 
@@ -9190,7 +9190,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1388739249", 
+				["id"] = "implicit.stat_4288334466", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Maximum Energy Shield from Equipped Gloves and Boots", 
 				["type"] = "implicit", 
 			}, 
@@ -9218,7 +9218,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2408490382", 
+				["id"] = "implicit.stat_2980409921", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Evasion Rating from Equipped Helmet and Boots", 
 				["type"] = "implicit", 
 			}, 
@@ -9232,7 +9232,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2980409921", 
+				["id"] = "implicit.stat_2408490382", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Evasion Rating from Equipped Helmet and Boots", 
 				["type"] = "implicit", 
 			}, 
@@ -9260,7 +9260,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_738837643", 
+				["id"] = "implicit.stat_4106235309", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Bleeding you inflict deals Damage #% faster", 
 				["type"] = "implicit", 
 			}, 
@@ -9274,7 +9274,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4106235309", 
+				["id"] = "implicit.stat_738837643", 
 				["text"] = "While a Unique Enemy is in your Presence, Bleeding you inflict deals Damage #% faster", 
 				["type"] = "implicit", 
 			}, 
@@ -9302,7 +9302,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3828039449", 
+				["id"] = "implicit.stat_995369618", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Poisons you inflict deal Damage #% faster", 
 				["type"] = "implicit", 
 			}, 
@@ -9316,7 +9316,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_995369618", 
+				["id"] = "implicit.stat_3828039449", 
 				["text"] = "While a Unique Enemy is in your Presence, Poisons you inflict deal Damage #% faster", 
 				["type"] = "implicit", 
 			}, 
@@ -9344,7 +9344,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_732411542", 
+				["id"] = "implicit.stat_1629531681", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Inflict Fire Exposure on Hit, applying #% to Fire Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -9358,7 +9358,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1629531681", 
+				["id"] = "implicit.stat_732411542", 
 				["text"] = "While a Unique Enemy is in your Presence, Inflict Fire Exposure on Hit, applying #% to Fire Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -9386,7 +9386,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_942266300", 
+				["id"] = "implicit.stat_133006298", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, General's Cry has #% increased Cooldown Recovery Rate", 
 				["type"] = "implicit", 
 			}, 
@@ -9400,7 +9400,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_133006298", 
+				["id"] = "implicit.stat_942266300", 
 				["text"] = "While a Unique Enemy is in your Presence, General's Cry has #% increased Cooldown Recovery Rate", 
 				["type"] = "implicit", 
 			}, 
@@ -9428,7 +9428,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_71573030", 
+				["id"] = "implicit.stat_4022700734", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Hits have #% chance to ignore Enemy Physical Damage Reduction", 
 				["type"] = "implicit", 
 			}, 
@@ -9442,7 +9442,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4022700734", 
+				["id"] = "implicit.stat_71573030", 
 				["text"] = "While a Unique Enemy is in your Presence, Hits have #% chance to ignore Enemy Physical Damage Reduction", 
 				["type"] = "implicit", 
 			}, 
@@ -9470,7 +9470,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3199255605", 
+				["id"] = "implicit.stat_1774377226", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Infernal Cry has #% increased Area of Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -9484,7 +9484,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1774377226", 
+				["id"] = "implicit.stat_3199255605", 
 				["text"] = "While a Unique Enemy is in your Presence, Infernal Cry has #% increased Area of Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -9512,7 +9512,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3381588096", 
+				["id"] = "implicit.stat_3945581778", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Intimidating Cry has #% increased Cooldown Recovery Rate", 
 				["type"] = "implicit", 
 			}, 
@@ -9526,7 +9526,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3945581778", 
+				["id"] = "implicit.stat_3381588096", 
 				["text"] = "While a Unique Enemy is in your Presence, Intimidating Cry has #% increased Cooldown Recovery Rate", 
 				["type"] = "implicit", 
 			}, 
@@ -9554,7 +9554,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2876365933", 
+				["id"] = "implicit.stat_1762412317", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Inflict Lightning Exposure on Hit, applying #% to Lightning Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -9568,7 +9568,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1762412317", 
+				["id"] = "implicit.stat_2876365933", 
 				["text"] = "While a Unique Enemy is in your Presence, Inflict Lightning Exposure on Hit, applying #% to Lightning Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -9596,7 +9596,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_720015764", 
+				["id"] = "implicit.stat_4065516297", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Attacks have #% chance to Maim on Hit", 
 				["type"] = "implicit", 
 			}, 
@@ -9610,7 +9610,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4065516297", 
+				["id"] = "implicit.stat_720015764", 
 				["text"] = "While a Unique Enemy is in your Presence, Attacks have #% chance to Maim on Hit", 
 				["type"] = "implicit", 
 			}, 
@@ -9638,7 +9638,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1499657170", 
+				["id"] = "implicit.stat_505327219", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Minions take #% reduced Reflected Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -9652,7 +9652,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_505327219", 
+				["id"] = "implicit.stat_1499657170", 
 				["text"] = "While a Unique Enemy is in your Presence, Minions take #% reduced Reflected Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -9688,7 +9688,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2950684886", 
+				["id"] = "implicit.stat_1016769968", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of Non-Damaging Ailments", 
 				["type"] = "implicit", 
 			}, 
@@ -9706,7 +9706,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1016769968", 
+				["id"] = "implicit.stat_2950684886", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of Non-Damaging Ailments", 
 				["type"] = "implicit", 
 			}, 
@@ -9734,7 +9734,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4039774101", 
+				["id"] = "implicit.stat_2163876658", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Pride has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -9748,7 +9748,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2163876658", 
+				["id"] = "implicit.stat_4039774101", 
 				["text"] = "While a Unique Enemy is in your Presence, Pride has #% increased Aura Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -9776,7 +9776,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1505297139", 
+				["id"] = "implicit.stat_1714653952", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Attacks Exerted by Seismic Cry deal #% increased Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -9790,7 +9790,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1714653952", 
+				["id"] = "implicit.stat_1505297139", 
 				["text"] = "While a Unique Enemy is in your Presence, Attacks Exerted by Seismic Cry deal #% increased Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -9818,7 +9818,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1343931641", 
+				["id"] = "implicit.stat_433740375", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% reduced Effect of Shock on you", 
 				["type"] = "implicit", 
 			}, 
@@ -9832,7 +9832,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_433740375", 
+				["id"] = "implicit.stat_1343931641", 
 				["text"] = "While a Unique Enemy is in your Presence, #% reduced Effect of Shock on you", 
 				["type"] = "implicit", 
 			}, 
@@ -9860,7 +9860,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3423886807", 
+				["id"] = "implicit.stat_604515066", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Hinder Enemies on Hit with Spells", 
 				["type"] = "implicit", 
 			}, 
@@ -9874,7 +9874,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_604515066", 
+				["id"] = "implicit.stat_3423886807", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Hinder Enemies on Hit with Spells", 
 				["type"] = "implicit", 
 			}, 
@@ -9904,7 +9904,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3611265227", 
+				["id"] = "implicit.stat_794753348", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Warcry Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -9918,7 +9918,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_794753348", 
+				["id"] = "implicit.stat_3611265227", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Warcry Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -9946,7 +9946,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2290911895", 
+				["id"] = "implicit.stat_3774100463", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Bone Offering has #% increased Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -9960,7 +9960,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3774100463", 
+				["id"] = "implicit.stat_2290911895", 
 				["text"] = "While a Unique Enemy is in your Presence, Bone Offering has #% increased Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -9988,7 +9988,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3599488608", 
+				["id"] = "implicit.stat_862077496", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Flesh Offering has #% increased Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -10002,7 +10002,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_862077496", 
+				["id"] = "implicit.stat_3599488608", 
 				["text"] = "While a Unique Enemy is in your Presence, Flesh Offering has #% increased Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -10030,7 +10030,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2814835155", 
+				["id"] = "implicit.stat_2399066987", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Spirit Offering has #% increased Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -10044,7 +10044,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2399066987", 
+				["id"] = "implicit.stat_2814835155", 
 				["text"] = "While a Unique Enemy is in your Presence, Spirit Offering has #% increased Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -10080,7 +10080,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_604852150", 
+				["id"] = "implicit.stat_2545907302", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Global Physical Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -10098,7 +10098,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2545907302", 
+				["id"] = "implicit.stat_604852150", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Global Physical Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -10134,7 +10134,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_841219865", 
+				["id"] = "implicit.stat_4084536353", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to Physical Damage over Time Multiplier", 
 				["type"] = "implicit", 
 			}, 
@@ -10152,7 +10152,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4084536353", 
+				["id"] = "implicit.stat_841219865", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to Physical Damage over Time Multiplier", 
 				["type"] = "implicit", 
 			}, 
@@ -10188,7 +10188,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2112874376", 
+				["id"] = "implicit.stat_1870961528", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to Fire Damage over Time Multiplier", 
 				["type"] = "implicit", 
 			}, 
@@ -10206,7 +10206,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1870961528", 
+				["id"] = "implicit.stat_2112874376", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to Fire Damage over Time Multiplier", 
 				["type"] = "implicit", 
 			}, 
@@ -10242,7 +10242,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_621576159", 
+				["id"] = "implicit.stat_2619970520", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to Cold Damage over Time Multiplier", 
 				["type"] = "implicit", 
 			}, 
@@ -10260,7 +10260,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2619970520", 
+				["id"] = "implicit.stat_621576159", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to Cold Damage over Time Multiplier", 
 				["type"] = "implicit", 
 			}, 
@@ -10296,7 +10296,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2634574895", 
+				["id"] = "implicit.stat_2163155983", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to Chaos Damage over Time Multiplier", 
 				["type"] = "implicit", 
 			}, 
@@ -10314,7 +10314,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2163155983", 
+				["id"] = "implicit.stat_2634574895", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to Chaos Damage over Time Multiplier", 
 				["type"] = "implicit", 
 			}, 
@@ -10342,7 +10342,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2521809744", 
+				["id"] = "implicit.stat_3477311591", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Physical Damage to Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -10356,7 +10356,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3477311591", 
+				["id"] = "implicit.stat_2521809744", 
 				["text"] = "While a Unique Enemy is in your Presence, Adds # to # Physical Damage to Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -10392,7 +10392,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1590336483", 
+				["id"] = "implicit.stat_2782184338", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Fire Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -10410,7 +10410,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2782184338", 
+				["id"] = "implicit.stat_1590336483", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Fire Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -10438,7 +10438,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2067485824", 
+				["id"] = "implicit.stat_3972399670", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Fire Damage to Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -10452,7 +10452,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3972399670", 
+				["id"] = "implicit.stat_2067485824", 
 				["text"] = "While a Unique Enemy is in your Presence, Adds # to # Fire Damage to Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -10488,7 +10488,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2127607252", 
+				["id"] = "implicit.stat_1576689223", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Cold Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -10506,7 +10506,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1576689223", 
+				["id"] = "implicit.stat_2127607252", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Cold Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -10534,7 +10534,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4057155645", 
+				["id"] = "implicit.stat_1016130575", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Cold Damage to Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -10548,7 +10548,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1016130575", 
+				["id"] = "implicit.stat_4057155645", 
 				["text"] = "While a Unique Enemy is in your Presence, Adds # to # Cold Damage to Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -10584,7 +10584,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2668120423", 
+				["id"] = "implicit.stat_1328859059", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Lightning Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -10602,7 +10602,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1328859059", 
+				["id"] = "implicit.stat_2668120423", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Lightning Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -10630,7 +10630,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2111629859", 
+				["id"] = "implicit.stat_2925105924", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Lightning Damage to Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -10644,7 +10644,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2925105924", 
+				["id"] = "implicit.stat_2111629859", 
 				["text"] = "While a Unique Enemy is in your Presence, Adds # to # Lightning Damage to Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -10680,7 +10680,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2875239648", 
+				["id"] = "implicit.stat_2070979181", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Chaos Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -10698,7 +10698,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2070979181", 
+				["id"] = "implicit.stat_2875239648", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Chaos Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -10726,7 +10726,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2444070126", 
+				["id"] = "implicit.stat_3953801646", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Chaos Damage to Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -10740,7 +10740,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3953801646", 
+				["id"] = "implicit.stat_2444070126", 
 				["text"] = "While a Unique Enemy is in your Presence, Adds # to # Chaos Damage to Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -10768,7 +10768,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4272276606", 
+				["id"] = "implicit.stat_485268361", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Physical Damage to Spells", 
 				["type"] = "implicit", 
 			}, 
@@ -10782,7 +10782,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_485268361", 
+				["id"] = "implicit.stat_4272276606", 
 				["text"] = "While a Unique Enemy is in your Presence, Adds # to # Physical Damage to Spells", 
 				["type"] = "implicit", 
 			}, 
@@ -10810,7 +10810,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_661603414", 
+				["id"] = "implicit.stat_3954869480", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Fire Damage to Spells", 
 				["type"] = "implicit", 
 			}, 
@@ -10824,7 +10824,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3954869480", 
+				["id"] = "implicit.stat_661603414", 
 				["text"] = "While a Unique Enemy is in your Presence, Adds # to # Fire Damage to Spells", 
 				["type"] = "implicit", 
 			}, 
@@ -10852,7 +10852,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1018817416", 
+				["id"] = "implicit.stat_3349767748", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Cold Damage to Spells", 
 				["type"] = "implicit", 
 			}, 
@@ -10866,7 +10866,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3349767748", 
+				["id"] = "implicit.stat_1018817416", 
 				["text"] = "While a Unique Enemy is in your Presence, Adds # to # Cold Damage to Spells", 
 				["type"] = "implicit", 
 			}, 
@@ -10894,7 +10894,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_371531651", 
+				["id"] = "implicit.stat_3874289", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Lightning Damage to Spells", 
 				["type"] = "implicit", 
 			}, 
@@ -10908,7 +10908,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3874289", 
+				["id"] = "implicit.stat_371531651", 
 				["text"] = "While a Unique Enemy is in your Presence, Adds # to # Lightning Damage to Spells", 
 				["type"] = "implicit", 
 			}, 
@@ -10936,7 +10936,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1554912650", 
+				["id"] = "implicit.stat_3206883665", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Chaos Damage to Spells", 
 				["type"] = "implicit", 
 			}, 
@@ -10950,7 +10950,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3206883665", 
+				["id"] = "implicit.stat_1554912650", 
 				["text"] = "While a Unique Enemy is in your Presence, Adds # to # Chaos Damage to Spells", 
 				["type"] = "implicit", 
 			}, 
@@ -10978,7 +10978,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3401410854", 
+				["id"] = "implicit.stat_2446980928", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Attack Speed", 
 				["type"] = "implicit", 
 			}, 
@@ -10992,7 +10992,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2446980928", 
+				["id"] = "implicit.stat_3401410854", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Attack Speed", 
 				["type"] = "implicit", 
 			}, 
@@ -11020,7 +11020,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2016247664", 
+				["id"] = "implicit.stat_4098747485", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Cast Speed", 
 				["type"] = "implicit", 
 			}, 
@@ -11034,7 +11034,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4098747485", 
+				["id"] = "implicit.stat_2016247664", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Cast Speed", 
 				["type"] = "implicit", 
 			}, 
@@ -11070,7 +11070,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4191234472", 
+				["id"] = "implicit.stat_1412947753", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Spell Critical Strike Chance", 
 				["type"] = "implicit", 
 			}, 
@@ -11088,7 +11088,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1412947753", 
+				["id"] = "implicit.stat_4191234472", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Spell Critical Strike Chance", 
 				["type"] = "implicit", 
 			}, 
@@ -11116,7 +11116,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_26879978", 
+				["id"] = "implicit.stat_2825010848", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to Critical Strike Multiplier for Attack Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -11130,7 +11130,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2825010848", 
+				["id"] = "implicit.stat_26879978", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to Critical Strike Multiplier for Attack Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -11158,7 +11158,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_865433929", 
+				["id"] = "implicit.stat_2955927568", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to Critical Strike Multiplier for Spell Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -11172,7 +11172,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2955927568", 
+				["id"] = "implicit.stat_865433929", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to Critical Strike Multiplier for Spell Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -11200,7 +11200,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_944211673", 
+				["id"] = "implicit.stat_2169620689", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% reduced Enemy Stun Threshold", 
 				["type"] = "implicit", 
 			}, 
@@ -11214,7 +11214,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2169620689", 
+				["id"] = "implicit.stat_944211673", 
 				["text"] = "While a Unique Enemy is in your Presence, #% reduced Enemy Stun Threshold", 
 				["type"] = "implicit", 
 			}, 
@@ -11242,7 +11242,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_475684070", 
+				["id"] = "implicit.stat_1133929401", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to maximum Fire Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11256,7 +11256,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1133929401", 
+				["id"] = "implicit.stat_475684070", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to maximum Fire Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11284,7 +11284,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_475684070", 
+				["id"] = "implicit.stat_1133929401", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to maximum Fire Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11298,7 +11298,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1133929401", 
+				["id"] = "implicit.stat_475684070", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to maximum Fire Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11326,7 +11326,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3521653836", 
+				["id"] = "implicit.stat_1299790658", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to Fire Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11340,7 +11340,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1299790658", 
+				["id"] = "implicit.stat_3521653836", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to Fire Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11368,7 +11368,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3444931985", 
+				["id"] = "implicit.stat_3415855998", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to maximum Cold Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11382,7 +11382,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3415855998", 
+				["id"] = "implicit.stat_3444931985", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to maximum Cold Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11410,7 +11410,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3444931985", 
+				["id"] = "implicit.stat_3415855998", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to maximum Cold Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11424,7 +11424,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3415855998", 
+				["id"] = "implicit.stat_3444931985", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to maximum Cold Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11452,7 +11452,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2240274773", 
+				["id"] = "implicit.stat_3864103630", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to Cold Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11466,7 +11466,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3864103630", 
+				["id"] = "implicit.stat_2240274773", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to Cold Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11494,7 +11494,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_789714862", 
+				["id"] = "implicit.stat_4136085904", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to maximum Lightning Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11508,7 +11508,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4136085904", 
+				["id"] = "implicit.stat_789714862", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to maximum Lightning Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11536,7 +11536,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_789714862", 
+				["id"] = "implicit.stat_4136085904", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to maximum Lightning Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11550,7 +11550,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4136085904", 
+				["id"] = "implicit.stat_789714862", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to maximum Lightning Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11578,7 +11578,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3556129896", 
+				["id"] = "implicit.stat_3980173235", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to Lightning Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11592,7 +11592,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3980173235", 
+				["id"] = "implicit.stat_3556129896", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to Lightning Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11620,7 +11620,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_575726461", 
+				["id"] = "implicit.stat_944522962", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to maximum Chaos Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11634,7 +11634,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_944522962", 
+				["id"] = "implicit.stat_575726461", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to maximum Chaos Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11662,7 +11662,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_744196525", 
+				["id"] = "implicit.stat_74135418", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to Chaos Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11676,7 +11676,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_74135418", 
+				["id"] = "implicit.stat_744196525", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to Chaos Resistance", 
 				["type"] = "implicit", 
 			}, 
@@ -11712,7 +11712,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3062531896", 
+				["id"] = "implicit.stat_673499528", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% to all maximum Resistances", 
 				["type"] = "implicit", 
 			}, 
@@ -11730,7 +11730,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_673499528", 
+				["id"] = "implicit.stat_3062531896", 
 				["text"] = "While a Unique Enemy is in your Presence, #% to all maximum Resistances", 
 				["type"] = "implicit", 
 			}, 
@@ -11758,7 +11758,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3044748809", 
+				["id"] = "implicit.stat_4057257145", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Minions have #% increased maximum Life", 
 				["type"] = "implicit", 
 			}, 
@@ -11772,7 +11772,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4057257145", 
+				["id"] = "implicit.stat_3044748809", 
 				["text"] = "While a Unique Enemy is in your Presence, Minions have #% increased maximum Life", 
 				["type"] = "implicit", 
 			}, 
@@ -11800,7 +11800,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_93625449", 
+				["id"] = "implicit.stat_2809900883", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Minions have #% increased Movement Speed", 
 				["type"] = "implicit", 
 			}, 
@@ -11814,7 +11814,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2809900883", 
+				["id"] = "implicit.stat_93625449", 
 				["text"] = "While a Unique Enemy is in your Presence, Minions have #% increased Movement Speed", 
 				["type"] = "implicit", 
 			}, 
@@ -11850,7 +11850,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3019083030", 
+				["id"] = "implicit.stat_1702124724", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Movement Speed", 
 				["type"] = "implicit", 
 			}, 
@@ -11868,7 +11868,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1702124724", 
+				["id"] = "implicit.stat_3019083030", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Movement Speed", 
 				["type"] = "implicit", 
 			}, 
@@ -11896,7 +11896,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3887072924", 
+				["id"] = "implicit.stat_2661498709", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Frozen", 
 				["type"] = "implicit", 
 			}, 
@@ -11910,7 +11910,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2661498709", 
+				["id"] = "implicit.stat_3887072924", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid being Frozen", 
 				["type"] = "implicit", 
 			}, 
@@ -11938,7 +11938,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2796083262", 
+				["id"] = "implicit.stat_911929910", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Ignited", 
 				["type"] = "implicit", 
 			}, 
@@ -11952,7 +11952,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_911929910", 
+				["id"] = "implicit.stat_2796083262", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid being Ignited", 
 				["type"] = "implicit", 
 			}, 
@@ -11980,7 +11980,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3401199213", 
+				["id"] = "implicit.stat_3823702653", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Shocked", 
 				["type"] = "implicit", 
 			}, 
@@ -11994,7 +11994,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3823702653", 
+				["id"] = "implicit.stat_3401199213", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid being Shocked", 
 				["type"] = "implicit", 
 			}, 
@@ -12022,7 +12022,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3322913142", 
+				["id"] = "implicit.stat_990874979", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Stunned", 
 				["type"] = "implicit", 
 			}, 
@@ -12036,7 +12036,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_990874979", 
+				["id"] = "implicit.stat_3322913142", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid being Stunned", 
 				["type"] = "implicit", 
 			}, 
@@ -12072,7 +12072,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1847660463", 
+				["id"] = "implicit.stat_568930056", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Area of Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12090,7 +12090,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_568930056", 
+				["id"] = "implicit.stat_1847660463", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Area of Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12118,7 +12118,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2479119864", 
+				["id"] = "implicit.stat_547463927", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Trap Throwing Speed", 
 				["type"] = "implicit", 
 			}, 
@@ -12132,7 +12132,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_547463927", 
+				["id"] = "implicit.stat_2479119864", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Trap Throwing Speed", 
 				["type"] = "implicit", 
 			}, 
@@ -12160,7 +12160,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1516326076", 
+				["id"] = "implicit.stat_3827973062", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Mine Throwing Speed", 
 				["type"] = "implicit", 
 			}, 
@@ -12174,7 +12174,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3827973062", 
+				["id"] = "implicit.stat_1516326076", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Mine Throwing Speed", 
 				["type"] = "implicit", 
 			}, 
@@ -12210,7 +12210,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4189960647", 
+				["id"] = "implicit.stat_3141084961", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Minions deal #% increased Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -12228,7 +12228,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3141084961", 
+				["id"] = "implicit.stat_4189960647", 
 				["text"] = "While a Unique Enemy is in your Presence, Minions deal #% increased Damage", 
 				["type"] = "implicit", 
 			}, 
@@ -12256,7 +12256,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2033289503", 
+				["id"] = "implicit.stat_100371300", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Totem Placement speed", 
 				["type"] = "implicit", 
 			}, 
@@ -12270,7 +12270,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_100371300", 
+				["id"] = "implicit.stat_2033289503", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Totem Placement speed", 
 				["type"] = "implicit", 
 			}, 
@@ -12306,7 +12306,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2669364207", 
+				["id"] = "implicit.stat_1350472585", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of your Curses", 
 				["type"] = "implicit", 
 			}, 
@@ -12324,7 +12324,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1350472585", 
+				["id"] = "implicit.stat_2669364207", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of your Curses", 
 				["type"] = "implicit", 
 			}, 
@@ -12344,7 +12344,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1749598944", 
+				["id"] = "implicit.stat_699673918", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Damage is taken from Mana before Life", 
 				["type"] = "implicit", 
 			}, 
@@ -12354,7 +12354,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_699673918", 
+				["id"] = "implicit.stat_1749598944", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Damage is taken from Mana before Life", 
 				["type"] = "implicit", 
 			}, 
@@ -12382,7 +12382,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3610955422", 
+				["id"] = "implicit.stat_4155771029", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Flasks applied to you have #% increased Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12396,7 +12396,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4155771029", 
+				["id"] = "implicit.stat_3610955422", 
 				["text"] = "While a Unique Enemy is in your Presence, Flasks applied to you have #% increased Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12424,7 +12424,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2193147166", 
+				["id"] = "implicit.stat_740797388", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per Endurance Charge", 
 				["type"] = "implicit", 
 			}, 
@@ -12438,7 +12438,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_740797388", 
+				["id"] = "implicit.stat_2193147166", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Damage per Endurance Charge", 
 				["type"] = "implicit", 
 			}, 
@@ -12466,7 +12466,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2415020123", 
+				["id"] = "implicit.stat_1855179125", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per Frenzy Charge", 
 				["type"] = "implicit", 
 			}, 
@@ -12480,7 +12480,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1855179125", 
+				["id"] = "implicit.stat_2415020123", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Damage per Frenzy Charge", 
 				["type"] = "implicit", 
 			}, 
@@ -12508,7 +12508,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_491577732", 
+				["id"] = "implicit.stat_3209267362", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of Onslaught on you", 
 				["type"] = "implicit", 
 			}, 
@@ -12522,7 +12522,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3209267362", 
+				["id"] = "implicit.stat_491577732", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of Onslaught on you", 
 				["type"] = "implicit", 
 			}, 
@@ -12550,7 +12550,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2150799098", 
+				["id"] = "implicit.stat_1519845279", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Flasks gain # Charges every 3 seconds", 
 				["type"] = "implicit", 
 			}, 
@@ -12564,7 +12564,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1519845279", 
+				["id"] = "implicit.stat_2150799098", 
 				["text"] = "While a Unique Enemy is in your Presence, Flasks gain # Charges every 3 seconds", 
 				["type"] = "implicit", 
 			}, 
@@ -12600,7 +12600,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2558323947", 
+				["id"] = "implicit.stat_3788782813", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased effect of Non-Curse Auras from your Skills", 
 				["type"] = "implicit", 
 			}, 
@@ -12618,7 +12618,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3788782813", 
+				["id"] = "implicit.stat_2558323947", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased effect of Non-Curse Auras from your Skills", 
 				["type"] = "implicit", 
 			}, 
@@ -12646,7 +12646,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_485385046", 
+				["id"] = "implicit.stat_3695602451", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Temporal Chains Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12660,7 +12660,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3695602451", 
+				["id"] = "implicit.stat_485385046", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Temporal Chains Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12688,7 +12688,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3547319552", 
+				["id"] = "implicit.stat_2095999895", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Conductivity Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12702,7 +12702,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2095999895", 
+				["id"] = "implicit.stat_3547319552", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Conductivity Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12730,7 +12730,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_771845579", 
+				["id"] = "implicit.stat_2029969019", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Elemental Weakness Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12744,7 +12744,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2029969019", 
+				["id"] = "implicit.stat_771845579", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Elemental Weakness Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12772,7 +12772,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_937462392", 
+				["id"] = "implicit.stat_38083709", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Enfeeble Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12786,7 +12786,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_38083709", 
+				["id"] = "implicit.stat_937462392", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Enfeeble Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12814,7 +12814,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1394267723", 
+				["id"] = "implicit.stat_323292443", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Flammability Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12828,7 +12828,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_323292443", 
+				["id"] = "implicit.stat_1394267723", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Flammability Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12856,7 +12856,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3199183447", 
+				["id"] = "implicit.stat_2068042138", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Frostbite Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12870,7 +12870,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2068042138", 
+				["id"] = "implicit.stat_3199183447", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Frostbite Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12898,7 +12898,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4171615823", 
+				["id"] = "implicit.stat_40584863", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Punishment Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12912,7 +12912,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_40584863", 
+				["id"] = "implicit.stat_4171615823", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Punishment Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12940,7 +12940,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2638071469", 
+				["id"] = "implicit.stat_1668340466", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Vulnerability Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12954,7 +12954,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1668340466", 
+				["id"] = "implicit.stat_2638071469", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Vulnerability Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12982,7 +12982,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4047779849", 
+				["id"] = "implicit.stat_3744585764", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Arctic Armour Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -12996,7 +12996,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3744585764", 
+				["id"] = "implicit.stat_4047779849", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Arctic Armour Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -13024,7 +13024,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1132843482", 
+				["id"] = "implicit.stat_2526554500", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased effect of Offerings", 
 				["type"] = "implicit", 
 			}, 
@@ -13038,7 +13038,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2526554500", 
+				["id"] = "implicit.stat_1132843482", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased effect of Offerings", 
 				["type"] = "implicit", 
 			}, 
@@ -13066,7 +13066,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1722486495", 
+				["id"] = "implicit.stat_438468314", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Stone Golems", 
 				["type"] = "implicit", 
 			}, 
@@ -13080,7 +13080,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_438468314", 
+				["id"] = "implicit.stat_1722486495", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of the Buff granted by your Stone Golems", 
 				["type"] = "implicit", 
 			}, 
@@ -13108,7 +13108,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3591219299", 
+				["id"] = "implicit.stat_783010498", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Flame Golems", 
 				["type"] = "implicit", 
 			}, 
@@ -13122,7 +13122,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_783010498", 
+				["id"] = "implicit.stat_3591219299", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of the Buff granted by your Flame Golems", 
 				["type"] = "implicit", 
 			}, 
@@ -13150,7 +13150,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3588695478", 
+				["id"] = "implicit.stat_168204696", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Ice Golems", 
 				["type"] = "implicit", 
 			}, 
@@ -13164,7 +13164,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_168204696", 
+				["id"] = "implicit.stat_3588695478", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of the Buff granted by your Ice Golems", 
 				["type"] = "implicit", 
 			}, 
@@ -13192,7 +13192,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1747983672", 
+				["id"] = "implicit.stat_2527345629", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Lightning Golems", 
 				["type"] = "implicit", 
 			}, 
@@ -13206,7 +13206,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2527345629", 
+				["id"] = "implicit.stat_1747983672", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of the Buff granted by your Lightning Golems", 
 				["type"] = "implicit", 
 			}, 
@@ -13234,7 +13234,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1807607778", 
+				["id"] = "implicit.stat_510803146", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Chaos Golems", 
 				["type"] = "implicit", 
 			}, 
@@ -13248,7 +13248,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_510803146", 
+				["id"] = "implicit.stat_1807607778", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of the Buff granted by your Chaos Golems", 
 				["type"] = "implicit", 
 			}, 
@@ -13276,7 +13276,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1829486532", 
+				["id"] = "implicit.stat_2251857767", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Action Speed", 
 				["type"] = "implicit", 
 			}, 
@@ -13290,7 +13290,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2251857767", 
+				["id"] = "implicit.stat_1829486532", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Action Speed", 
 				["type"] = "implicit", 
 			}, 
@@ -13326,7 +13326,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3710240762", 
+				["id"] = "implicit.stat_1840069423", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Critical Strike Chance for Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -13344,7 +13344,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1840069423", 
+				["id"] = "implicit.stat_3710240762", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Critical Strike Chance for Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -13372,7 +13372,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1116269888", 
+				["id"] = "implicit.stat_3671920033", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% reduced Mana Cost of Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -13386,7 +13386,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3671920033", 
+				["id"] = "implicit.stat_1116269888", 
 				["text"] = "While a Unique Enemy is in your Presence, #% reduced Mana Cost of Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -13414,7 +13414,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2917444195", 
+				["id"] = "implicit.stat_1080711147", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Carrion Golems", 
 				["type"] = "implicit", 
 			}, 
@@ -13428,7 +13428,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1080711147", 
+				["id"] = "implicit.stat_2917444195", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of the Buff granted by your Carrion Golems", 
 				["type"] = "implicit", 
 			}, 
@@ -13456,7 +13456,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2441896589", 
+				["id"] = "implicit.stat_951862199", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain an Endurance Charge every # seconds", 
 				["type"] = "implicit", 
 			}, 
@@ -13470,7 +13470,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_951862199", 
+				["id"] = "implicit.stat_2441896589", 
 				["text"] = "While a Unique Enemy is in your Presence, Gain an Endurance Charge every # seconds", 
 				["type"] = "implicit", 
 			}, 
@@ -13498,7 +13498,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2847070982", 
+				["id"] = "implicit.stat_560848642", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain a Frenzy Charge every # seconds", 
 				["type"] = "implicit", 
 			}, 
@@ -13512,7 +13512,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_560848642", 
+				["id"] = "implicit.stat_2847070982", 
 				["text"] = "While a Unique Enemy is in your Presence, Gain a Frenzy Charge every # seconds", 
 				["type"] = "implicit", 
 			}, 
@@ -13540,7 +13540,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_46472075", 
+				["id"] = "implicit.stat_2703923310", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain a Power Charge every # seconds", 
 				["type"] = "implicit", 
 			}, 
@@ -13554,7 +13554,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2703923310", 
+				["id"] = "implicit.stat_46472075", 
 				["text"] = "While a Unique Enemy is in your Presence, Gain a Power Charge every # seconds", 
 				["type"] = "implicit", 
 			}, 
@@ -13582,7 +13582,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1771822543", 
+				["id"] = "implicit.stat_235328972", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Drops Brittle Ground while moving, lasting # seconds", 
 				["type"] = "implicit", 
 			}, 
@@ -13596,7 +13596,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_235328972", 
+				["id"] = "implicit.stat_1771822543", 
 				["text"] = "While a Unique Enemy is in your Presence, Drops Brittle Ground while moving, lasting # seconds", 
 				["type"] = "implicit", 
 			}, 
@@ -13624,7 +13624,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2220831041", 
+				["id"] = "implicit.stat_1296291315", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Drops Sapped Ground while moving, lasting # seconds", 
 				["type"] = "implicit", 
 			}, 
@@ -13638,7 +13638,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1296291315", 
+				["id"] = "implicit.stat_2220831041", 
 				["text"] = "While a Unique Enemy is in your Presence, Drops Sapped Ground while moving, lasting # seconds", 
 				["type"] = "implicit", 
 			}, 
@@ -13666,7 +13666,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_493814995", 
+				["id"] = "implicit.stat_4054012096", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Drops Scorched Ground while moving, lasting # seconds", 
 				["type"] = "implicit", 
 			}, 
@@ -13680,7 +13680,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4054012096", 
+				["id"] = "implicit.stat_493814995", 
 				["text"] = "While a Unique Enemy is in your Presence, Drops Scorched Ground while moving, lasting # seconds", 
 				["type"] = "implicit", 
 			}, 
@@ -13694,7 +13694,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2089652545", 
+				["id"] = "implicit.stat_78985352", 
 				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit", 
 				["type"] = "implicit", 
 			}, 
@@ -13708,7 +13708,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_144453866", 
+				["id"] = "implicit.stat_3004272949", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Intimidate Enemies for 4 seconds on Hit", 
 				["type"] = "implicit", 
 			}, 
@@ -13722,7 +13722,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3004272949", 
+				["id"] = "implicit.stat_144453866", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Intimidate Enemies for 4 seconds on Hit", 
 				["type"] = "implicit", 
 			}, 
@@ -13750,7 +13750,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1708506642", 
+				["id"] = "implicit.stat_4018420421", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Unnerve Enemies for 4 seconds on Hit", 
 				["type"] = "implicit", 
 			}, 
@@ -13764,7 +13764,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4018420421", 
+				["id"] = "implicit.stat_1708506642", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Unnerve Enemies for 4 seconds on Hit", 
 				["type"] = "implicit", 
 			}, 
@@ -13792,7 +13792,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1739741837", 
+				["id"] = "implicit.stat_2181576428", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Cold Damage taken Recouped as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -13806,7 +13806,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2181576428", 
+				["id"] = "implicit.stat_1739741837", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Cold Damage taken Recouped as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -13834,7 +13834,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1394771132", 
+				["id"] = "implicit.stat_2809284200", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per Power Charge", 
 				["type"] = "implicit", 
 			}, 
@@ -13848,7 +13848,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2809284200", 
+				["id"] = "implicit.stat_1394771132", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Damage per Power Charge", 
 				["type"] = "implicit", 
 			}, 
@@ -13876,7 +13876,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2080582538", 
+				["id"] = "implicit.stat_2525287976", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Damage taken Recouped as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -13890,7 +13890,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2525287976", 
+				["id"] = "implicit.stat_2080582538", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Damage taken Recouped as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -13918,7 +13918,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2909684383", 
+				["id"] = "implicit.stat_2775855429", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Despair Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -13932,7 +13932,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2775855429", 
+				["id"] = "implicit.stat_2909684383", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Despair Curse Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -13960,7 +13960,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4163073767", 
+				["id"] = "implicit.stat_3854721949", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Extinguish Enemies on Hit", 
 				["type"] = "implicit", 
 			}, 
@@ -13974,7 +13974,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3854721949", 
+				["id"] = "implicit.stat_4163073767", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Extinguish Enemies on Hit", 
 				["type"] = "implicit", 
 			}, 
@@ -14002,7 +14002,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2143647966", 
+				["id"] = "implicit.stat_1613190388", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Fire Damage taken Recouped as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -14016,7 +14016,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1613190388", 
+				["id"] = "implicit.stat_2143647966", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Fire Damage taken Recouped as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -14044,7 +14044,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1472965536", 
+				["id"] = "implicit.stat_3393490212", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Flesh and Stone has #% increased Area of Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -14058,7 +14058,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3393490212", 
+				["id"] = "implicit.stat_1472965536", 
 				["text"] = "While a Unique Enemy is in your Presence, Flesh and Stone has #% increased Area of Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -14086,7 +14086,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3134649750", 
+				["id"] = "implicit.stat_3509416536", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain # Rage on Attack Hit", 
 				["type"] = "implicit", 
 			}, 
@@ -14100,7 +14100,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3509416536", 
+				["id"] = "implicit.stat_3134649750", 
 				["text"] = "While a Unique Enemy is in your Presence, Gain # Rage on Attack Hit", 
 				["type"] = "implicit", 
 			}, 
@@ -14118,7 +14118,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2076129434", 
+				["id"] = "implicit.stat_1270539481", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain 1 Rage on Hit with Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -14127,7 +14127,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1270539481", 
+				["id"] = "implicit.stat_2076129434", 
 				["text"] = "While a Unique Enemy is in your Presence, Gain 1 Rage on Hit with Attacks", 
 				["type"] = "implicit", 
 			}, 
@@ -14155,7 +14155,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2159248495", 
+				["id"] = "implicit.stat_4128294206", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of Buffs granted by your Golems", 
 				["type"] = "implicit", 
 			}, 
@@ -14169,7 +14169,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4128294206", 
+				["id"] = "implicit.stat_2159248495", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of Buffs granted by your Golems", 
 				["type"] = "implicit", 
 			}, 
@@ -14197,7 +14197,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_503887731", 
+				["id"] = "implicit.stat_3001066983", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Agony has #% increased Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -14211,7 +14211,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3001066983", 
+				["id"] = "implicit.stat_503887731", 
 				["text"] = "While a Unique Enemy is in your Presence, Herald of Agony has #% increased Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -14239,7 +14239,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_109112452", 
+				["id"] = "implicit.stat_3045509476", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Ash has #% increased Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -14253,7 +14253,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3045509476", 
+				["id"] = "implicit.stat_109112452", 
 				["text"] = "While a Unique Enemy is in your Presence, Herald of Ash has #% increased Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -14281,7 +14281,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3593717239", 
+				["id"] = "implicit.stat_1609260458", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Ice has #% increased Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -14295,7 +14295,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1609260458", 
+				["id"] = "implicit.stat_3593717239", 
 				["text"] = "While a Unique Enemy is in your Presence, Herald of Ice has #% increased Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -14323,7 +14323,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_4093169696", 
+				["id"] = "implicit.stat_3005679448", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Purity has #% increased Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -14337,7 +14337,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3005679448", 
+				["id"] = "implicit.stat_4093169696", 
 				["text"] = "While a Unique Enemy is in your Presence, Herald of Purity has #% increased Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -14365,7 +14365,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_649027123", 
+				["id"] = "implicit.stat_1553385903", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Thunder has #% increased Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -14379,7 +14379,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1553385903", 
+				["id"] = "implicit.stat_649027123", 
 				["text"] = "While a Unique Enemy is in your Presence, Herald of Thunder has #% increased Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -14407,7 +14407,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1146717028", 
+				["id"] = "implicit.stat_3870554516", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Lightning Damage taken Recouped as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -14421,7 +14421,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3870554516", 
+				["id"] = "implicit.stat_1146717028", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Lightning Damage taken Recouped as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -14463,7 +14463,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_3796902731", 
+				["id"] = "implicit.stat_1300694383", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage taken Recouped as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -14477,7 +14477,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_1300694383", 
+				["id"] = "implicit.stat_3796902731", 
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage taken Recouped as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -14505,7 +14505,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_636616197", 
+				["id"] = "implicit.stat_2391109128", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Brand Attachment range", 
 				["type"] = "implicit", 
 			}, 
@@ -14519,7 +14519,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2391109128", 
+				["id"] = "implicit.stat_636616197", 
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Brand Attachment range", 
 				["type"] = "implicit", 
 			}, 
@@ -14547,7 +14547,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_942478380", 
+				["id"] = "implicit.stat_2601015548", 
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Tempest Shield has #% increased Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -14561,7 +14561,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2601015548", 
+				["id"] = "implicit.stat_942478380", 
 				["text"] = "While a Unique Enemy is in your Presence, Tempest Shield has #% increased Buff Effect", 
 				["type"] = "implicit", 
 			}, 
@@ -14675,6 +14675,16 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_3444518809", 
 				["text"] = "Wrath has #% increased Mana Reservation Efficiency", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["10143_ConsecratedChaosRes"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1235229114", 
+				["text"] = "Consecrated Ground you create grants +#% maximum Chaos Resistance to you and Allies", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -15197,10 +15207,6 @@ return {
 			}, 
 		}, 
 		["1031_ChanceToSuppressSpellsOld"] = {
-			["Chest"] = {
-				["max"] = 21, 
-				["min"] = 18, 
-			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -32259,6 +32265,16 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["1662_CurseEffectReduceCurseDuration"] = {
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3824372849", 
+				["text"] = "#% increased Curse Duration", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["166_IncreasedSocketedTrapOrMineGemLevel"] = {
 			["sign"] = "", 
 			["specialCaseData"] = {
@@ -42690,27 +42706,26 @@ return {
 		}, 
 		["280_IncreasedCastSpeedSpellEcho"] = {
 			["1HMace"] = {
-				["max"] = 20, 
-				["min"] = 18, 
+				["max"] = 1, 
+				["min"] = 1, 
 			}, 
 			["1HWeapon"] = {
-				["max"] = 20, 
-				["min"] = 18, 
+				["max"] = 1, 
+				["min"] = 1, 
 			}, 
 			["Dagger"] = {
-				["max"] = 20, 
-				["min"] = 18, 
+				["max"] = 1, 
+				["min"] = 1, 
 			}, 
 			["Wand"] = {
-				["max"] = 20, 
-				["min"] = 18, 
+				["max"] = 1, 
+				["min"] = 1, 
 			}, 
-			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_438778966", 
-				["text"] = "Socketed Gems are Supported by Level # Spell Echo", 
+				["id"] = "explicit.stat_725896422", 
+				["text"] = "Socketed Gems are Supported by Level 10 Spell Echo", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -45549,6 +45564,15 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["3616_MinionCastSpeedAlsoAffectsYou"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2284852387", 
+				["text"] = "Increases and Reductions to Minion Cast Speed also affect you", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["3624_LocalAttackReduceEnemyElementalResistance"] = {
 			["1HAxe"] = {
 				["max"] = 16, 
@@ -47550,6 +47574,16 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["4406_AddCritPerExert"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3528761893", 
+				["text"] = "Skills have +#% to Critical Strike Chance for each Warcry Exerting them", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["440_ShockEffectSupported"] = {
 			["Helmet"] = {
 				["max"] = 25, 
@@ -47817,6 +47851,15 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["4478_Allow2Offerings"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3639765866", 
+				["text"] = "You can have two Offerings of different types", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["447_DisplaySocketedGemsGetReducedReservation"] = {
 			["Shield"] = {
 				["max"] = 30, 
@@ -47882,6 +47925,16 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_2351239732", 
 				["text"] = "Arctic Armour has #% increased Mana Reservation Efficiency", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["4551_SingleProjAOE"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2379109976", 
+				["text"] = "#% more Area of Effect with Bow Attacks that fire a single Projectile", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -48091,6 +48144,16 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_2572042788", 
 				["text"] = "Attacks have +#% to Critical Strike Chance", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["4631_AttackAndCastSpeedIfCorpseConsumedRecently"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_672563185", 
+				["text"] = "#% increased Attack and Cast Speed if you've Consumed a Corpse Recently", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -50236,6 +50299,16 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["5484_CurseEffectChillingAreas"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_608898129", 
+				["text"] = "Curses on Enemies in your Chilling Areas have #% increased Effect", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["5503_ColdAilmentDuration"] = {
 			["sign"] = "", 
 			["specialCaseData"] = {
@@ -51148,6 +51221,16 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["5821_RecoupWhileFrozen"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2585984986", 
+				["text"] = "#% of Damage taken while Frozen Recouped as Life", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["5823_FasterAilmentDamageForJewel"] = {
 			["AnyJewel"] = {
 				["max"] = 6, 
@@ -51625,6 +51708,16 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_2698606393", 
 				["text"] = "#% increased Energy Shield Recovery Rate if you haven't Killed Recently", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["6132_EnergyShieldRegenerationRatePercentageIfCorpseConsumedRecently"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2160190507", 
+				["text"] = "Regenerate #% of Energy Shield per second if you've Consumed a Corpse Recently", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -52981,6 +53074,16 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["7025_LifeRegenerationRatePercentageIfCorpseConsumedRecently"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1107877645", 
+				["text"] = "Regenerate #% of Life per second if you've Consumed a corpse Recently", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["7036_LifeRegenerationRateWhileMoving"] = {
 			["AbyssJewel"] = {
 				["max"] = 1, 
@@ -53145,6 +53248,16 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_1147690586", 
 				["text"] = "+# to Level of all Lightning Skill Gems", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["7078_LightningSkillManaCostWhileShocked"] = {
+			["inverseKey"] = "less", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3964669425", 
+				["text"] = "#% more Mana cost of Lightning Skills while Shocked", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -54700,6 +54813,16 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["7766_ManaRegenerationRatePercentageIfCorpseConsumedRecently"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1309492287", 
+				["text"] = "Regenerate #% of Mana per second if you've Consumed a corpse Recently", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["7771_ManaRegeneratedIfYouveHitRecently"] = {
 			["1HAxe"] = {
 				["max"] = 0.4, 
@@ -54844,50 +54967,46 @@ return {
 			}, 
 		}, 
 		["799_FlaskDispellsPoison"] = {
-			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_542375676", 
-				["text"] = "Grants Immunity to Poison for # seconds if used while Poisoned", 
+				["id"] = "explicit.stat_3596333054", 
+				["text"] = "Grants Immunity to Poison for 4 seconds if used while Poisoned", 
 				["type"] = "explicit", 
 			}, 
 		}, 
 		["800_FlaskPoisonImmunity"] = {
 			["Flask"] = {
-				["max"] = 17, 
-				["min"] = 6, 
+				["max"] = 1, 
+				["min"] = 1, 
 			}, 
-			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_542375676", 
-				["text"] = "Grants Immunity to Poison for # seconds if used while Poisoned", 
+				["id"] = "explicit.stat_3596333054", 
+				["text"] = "Grants Immunity to Poison for 4 seconds if used while Poisoned", 
 				["type"] = "explicit", 
 			}, 
 		}, 
 		["801_FlaskRemovesShock"] = {
-			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_3854439683", 
-				["text"] = "Grants Immunity to Shock for # seconds if used while Shocked", 
+				["id"] = "explicit.stat_1823903967", 
+				["text"] = "Grants Immunity to Shock for 4 seconds if used while Shocked", 
 				["type"] = "explicit", 
 			}, 
 		}, 
 		["802_FlaskShockImmunity"] = {
 			["Flask"] = {
-				["max"] = 17, 
-				["min"] = 6, 
+				["max"] = 1, 
+				["min"] = 1, 
 			}, 
-			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_3854439683", 
-				["text"] = "Grants Immunity to Shock for # seconds if used while Shocked", 
+				["id"] = "explicit.stat_1823903967", 
+				["text"] = "Grants Immunity to Shock for 4 seconds if used while Shocked", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -55260,10 +55379,6 @@ return {
 			}, 
 		}, 
 		["866_LocalFlaskCriticalStrikeChanceDuringFlaskEffect"] = {
-			["Flask"] = {
-				["max"] = 60, 
-				["min"] = 40, 
-			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -55386,6 +55501,25 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_3822999954", 
 				["text"] = "+# to maximum Mana per 2 Intelligence", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["871_LocalFlaskIgnitedEnemiesHaveMalediction"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1558071928", 
+				["text"] = "Enemies Ignited by you during Effect have Malediction", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8721_MaxBlades"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3954265754", 
+				["text"] = "Skills that leave Lingering Blades have +# to Maximum Lingering Blades", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -55700,6 +55834,16 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["879_LocalFlaskIgniteDamageLifeLeech"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_96869632", 
+				["text"] = "Leech #% of Expected Ignite Damage as Life when you Ignite an Enemy during Effect", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["8804_MinionAccuracyRatingFlat"] = {
 			["AbyssJewel"] = {
 				["max"] = 250, 
@@ -55818,6 +55962,16 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["8818_MinionFireConvertToChaos"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2727256287", 
+				["text"] = "Minions convert #% of Fire Damage to Chaos Damage", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["881_LocalFlaskLifeLeechOnDamageTakenPermyriadDuringFlaskEffect"] = {
 			["Flask"] = {
 				["max"] = 15, 
@@ -55857,6 +56011,16 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_3945908658", 
 				["text"] = "Minions have #% chance to Ignite", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8828_MinionCooldownRecovery"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1691403182", 
+				["text"] = "Minions have #% increased Cooldown Recovery Rate", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -55979,6 +56143,25 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_2323739383", 
 				["text"] = "Minions have #% chance to Hinder Enemies on Hit with Spells", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8875_RecentMinionCrit"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3913090641", 
+				["text"] = "Minions created Recently have #% increased Critical Hit Chance", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["887_LocalFlaskPhysicalDamageCanIgnite"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3914001710", 
+				["text"] = "Your Physical Damage can Ignite during Effect", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -56131,6 +56314,16 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_774474440", 
 				["text"] = "#% increased Freeze Duration on you during Effect", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8984_FortificationDamageAura"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_4187518631", 
+				["text"] = "Nearby Enemies take #% increased Physical Damage per two Fortification on you", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -56877,6 +57070,15 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["9468_TakeNoExtraDamageFromCriticalStrikesIfEnergyShieldRechargeStartedRecently"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3753680856", 
+				["text"] = "Take no Extra Damage from Critical Strikes if Energy Shield Recharge started Recently", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["9493_ChanceToShockAttackersOnBlock"] = {
 			["2HWeapon"] = {
 				["max"] = 50, 
@@ -57023,6 +57225,16 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["9545_LifeCostOnLowLife"] = {
+			["inverseKey"] = "less", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3452986510", 
+				["text"] = "#% more Life cost of Skills while on Low Life", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["9547_ManaCostTotalChannelled"] = {
 			["Amulet"] = {
 				["max"] = 3, 
@@ -57124,6 +57336,26 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_2341487846", 
 				["text"] = "Raised Spectres have +#% to Critical Strike Chance", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9602_SpectresBaseMaximumAllResistance"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2472962676", 
+				["text"] = "Raised Spectres have +#% to all maximum Resistances", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9603_SpectresAreaOfEffect"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3724637507", 
+				["text"] = "Raised Spectres have #% increased Area of Effect", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -57634,6 +57866,15 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_1473289174", 
 				["text"] = "Unaffected by Shock", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9954_UnaffectedByShockWhileChannel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2967697688", 
+				["text"] = "Unaffected by Shock while Channelling", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -75914,7 +76155,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2089652545", 
+				["id"] = "implicit.stat_78985352", 
 				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit", 
 				["type"] = "implicit", 
 			}, 
