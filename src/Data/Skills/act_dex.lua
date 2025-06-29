@@ -241,6 +241,10 @@ skills["AnimateWeapon"] = {
 		"base_display_minion_actor_level",
 		"quality_display_animate_weapon_is_gem",
 	},
+	notMinionStat = {
+		"active_skill_minion_damage_+%_final",
+		"active_skill_minion_attack_speed_+%_final",
+	},
 	levels = {
 		[1] = { 0.34999999403954, 1.6499999761581, 9, 0, 0, 5, 8, 5, 4, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 4, }, },
 		[2] = { 0.34999999403954, 1.6499999761581, 11, 2, 2, 6, 11, 5, 6, levelRequirement = 6, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 5, }, },
@@ -341,6 +345,10 @@ skills["AnimateWeaponAltX"] = {
 		"base_display_minion_actor_level",
 		"base_number_of_animated_weapons_allowed",
 		"quality_display_animate_weapon_is_gem",
+	},
+	notMinionStat = {
+		"active_skill_minion_damage_+%_final",
+		"active_skill_minion_attack_speed_+%_final",
 	},
 	levels = {
 		[1] = { 9, 0, 0, 4, 6, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Mana = 4, }, },
@@ -447,6 +455,10 @@ skills["AnimateWeaponAltY"] = {
 		"quality_display_animate_weapon_is_gem",
 		"animate_weapon_can_only_animate_range_weapons",
 	},
+	notMinionStat = {
+		"active_skill_minion_damage_+%_final",
+		"active_skill_minion_attack_speed_+%_final",
+	},
 	levels = {
 		[1] = { 0.34999999403954, 1.6499999761581, 9, 0, 0, 5, 8, 5, 4, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 5, }, },
 		[2] = { 0.34999999403954, 1.6499999761581, 11, 2, 2, 6, 11, 5, 6, levelRequirement = 6, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 6, }, },
@@ -543,6 +555,10 @@ skills["VaalAnimateWeapon"] = {
 		"quality_display_animate_weapon_is_gem",
 		"skill_cannot_be_stunned_before_contact_point",
 	},
+	notMinionStat = {
+		"active_skill_minion_damage_+%_final",
+		"active_skill_minion_attack_speed_+%_final",
+	},
 	levels = {
 		[1] = { 9, 50, 0, 5, 4, 1, 5, vaalStoredUses = 1, soulPreventionDuration = 40, levelRequirement = 4, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
 		[2] = { 11, 53, 2, 5, 6, 1, 5, vaalStoredUses = 1, soulPreventionDuration = 40, levelRequirement = 6, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
@@ -624,6 +640,9 @@ skills["ArcticArmour"] = {
 		"new_arctic_armour_fire_damage_taken_when_hit_+%_final",
 		"base_skill_effect_duration",
 		"base_immune_to_freeze",
+	},
+	notMinionStat = {
+		"base_skill_effect_duration",
 	},
 	levels = {
 		[1] = { -11, -11, 2500, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 16, statInterpolation = { 1, 1, 1, }, },
@@ -711,6 +730,9 @@ skills["VaalArcticArmour"] = {
 		"base_mana_regeneration_rate_per_minute",
 		"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration",
 		"skill_cannot_be_stunned_before_contact_point",
+	},
+	notMinionStat = {
+		"base_skill_effect_duration",
 	},
 	levels = {
 		[1] = { 5000, 1200, 300, vaalStoredUses = 1, soulPreventionDuration = 24, levelRequirement = 16, statInterpolation = { 1, 1, 1, }, cost = { Soul = 50, }, },
@@ -1242,6 +1264,10 @@ skills["BearTrap"] = {
 		"is_trap",
 		"quality_display_trap_duration_is_gem",
 	},
+	notMinionStat = {
+		"secondary_minimum_base_physical_damage",
+		"secondary_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 1, 1.3999999761581, critChance = 6, PvPDamageMultiplier = -30, storedUses = 3, damageEffectiveness = 3, cooldown = 4, levelRequirement = 4, statInterpolation = { 3, 3, }, cost = { Mana = 6, }, },
 		[2] = { 1, 1.3999999761581, critChance = 6, PvPDamageMultiplier = -30, storedUses = 3, damageEffectiveness = 3, cooldown = 4, levelRequirement = 6, statInterpolation = { 3, 3, }, cost = { Mana = 7, }, },
@@ -1322,6 +1348,10 @@ skills["BearTrapAltX"] = {
 		"traps_do_not_explode_on_timeout",
 		"is_trap",
 		"quality_display_trap_duration_is_gem",
+	},
+	notMinionStat = {
+		"secondary_minimum_base_physical_damage",
+		"secondary_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 1, 1.3999999761581, 100, critChance = 6, PvPDamageMultiplier = -30, storedUses = 3, damageEffectiveness = 1.5, cooldown = 4, levelRequirement = 4, statInterpolation = { 3, 3, 1, }, cost = { Mana = 6, }, },
@@ -1412,6 +1442,10 @@ skills["BladeBlast"] = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
 		"is_area_damage",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.7, critChance = 6, levelRequirement = 16, statInterpolation = { 3, 3, }, cost = { Mana = 6, }, },
@@ -1515,6 +1549,10 @@ skills["BladeBlastAltX"] = {
 		"spell_maximum_base_physical_damage",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 2.5, critChance = 6, levelRequirement = 16, statInterpolation = { 3, 3, }, cost = { Mana = 8, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 2.5, critChance = 6, levelRequirement = 20, statInterpolation = { 3, 3, }, cost = { Mana = 9, }, },
@@ -1590,6 +1628,10 @@ skills["BladeBlastAltY"] = {
 		"spell_maximum_base_physical_damage",
 		"gain_%_of_base_dagger_damage_as_added_spell_damage",
 		"is_area_damage",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 200, critChance = 6, levelRequirement = 16, statInterpolation = { 3, 3, 1, }, cost = { Mana = 8, }, },
@@ -2296,6 +2338,11 @@ skills["BladeVortex"] = {
 		"skill_cannot_gain_repeat_bonuses",
 		"quality_display_blade_vortex_is_gem",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"active_skill_base_radius_+",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 0, damageEffectiveness = 0.3, critChance = 6, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { Mana = 6, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, 0, damageEffectiveness = 0.3, critChance = 6, levelRequirement = 15, statInterpolation = { 3, 3, 1, }, cost = { Mana = 6, }, },
@@ -2386,6 +2433,11 @@ skills["BladeVortexAltX"] = {
 		"damage_originates_from_initiator_location",
 		"skill_cannot_gain_repeat_bonuses",
 		"quality_display_blade_vortex_is_gem",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"active_skill_base_radius_+",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 10, damageEffectiveness = 3, critChance = 6, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { Mana = 14, }, },
@@ -2486,6 +2538,11 @@ skills["VaalBladeVortex"] = {
 		"cannot_cancel_skill_before_contact_point",
 		"skill_cannot_be_stunned_before_contact_point",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"active_skill_base_radius_+",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 8, critChance = 6, damageEffectiveness = 0.6, vaalStoredUses = 2, levelRequirement = 12, soulPreventionDuration = 6, statInterpolation = { 3, 3, 1, }, cost = { Soul = 30, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, 8, critChance = 6, damageEffectiveness = 0.6, vaalStoredUses = 2, levelRequirement = 15, soulPreventionDuration = 6, statInterpolation = { 3, 3, 1, }, cost = { Soul = 30, }, },
@@ -2570,6 +2627,10 @@ skills["Bladefall"] = {
 		"spell_maximum_base_physical_damage",
 		"is_area_damage",
 		"quality_display_bladefall_is_gem",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.4, critChance = 6, levelRequirement = 28, statInterpolation = { 3, 3, }, cost = { Mana = 12, }, },
@@ -2658,6 +2719,10 @@ skills["BladefallAltX"] = {
 		"is_area_damage",
 		"quality_display_bladefall_is_gem",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 28, statInterpolation = { 3, 3, }, cost = { Mana = 12, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 31, statInterpolation = { 3, 3, }, cost = { Mana = 13, }, },
@@ -2736,6 +2801,10 @@ skills["BladefallAltY"] = {
 		"is_area_damage",
 		"quality_display_bladefall_is_gem",
 		"no_critical_strike_multiplier",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 50, damageEffectiveness = 1.4, critChance = 10, levelRequirement = 28, statInterpolation = { 3, 3, 1, }, cost = { Mana = 12, }, },
@@ -2831,6 +2900,10 @@ skills["BladefallAltZ"] = {
 		"is_area_damage",
 		"quality_display_bladefall_is_gem",
 		"skill_can_add_multiple_charges_per_action",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, storedUses = 1, damageEffectiveness = 1.2, cooldown = 0.3, levelRequirement = 28, statInterpolation = { 3, 3, }, cost = { ManaPercentPerMinute = 300, }, },
@@ -3008,6 +3081,9 @@ skills["BlastRainAltX"] = {
 		"projectile_damage_modifiers_apply_to_skill_dot",
 		"modifiers_to_projectile_count_do_not_apply",
 	},
+	notMinionStat = {
+		"base_fire_damage_to_deal_per_minute",
+	},
 	levels = {
 		[1] = { 53.833334854494, attackSpeedMultiplier = -20, baseMultiplier = 0.9, damageEffectiveness = 0.9, levelRequirement = 28, statInterpolation = { 3, }, cost = { Mana = 9, }, },
 		[2] = { 53.833334854494, attackSpeedMultiplier = -20, baseMultiplier = 0.908, damageEffectiveness = 0.908, levelRequirement = 31, statInterpolation = { 3, }, cost = { Mana = 9, }, },
@@ -3091,6 +3167,10 @@ skills["BlinkArrow"] = {
 		"active_skill_minion_damage_+%_final",
 		"base_is_projectile",
 		"base_skill_show_average_damage_instead_of_dps",
+	},
+	notMinionStat = {
+		"base_cooldown_speed_+%",
+		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
 		[1] = { 10, 0, 0, storedUses = 1, levelRequirement = 10, cooldown = 3, statInterpolation = { 1, 1, 1, }, cost = { Mana = 14, }, },
@@ -3176,6 +3256,9 @@ skills["BlinkArrowAltX"] = {
 		"base_is_projectile",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
+	notMinionStat = {
+		"active_skill_minion_damage_+%_final",
+	},
 	levels = {
 		[1] = { 10, 0, storedUses = 1, levelRequirement = 10, cooldown = 3, statInterpolation = { 1, 1, }, cost = { Mana = 14, }, },
 		[2] = { 13, 3, storedUses = 1, levelRequirement = 13, cooldown = 3, statInterpolation = { 1, 1, }, cost = { Mana = 14, }, },
@@ -3259,6 +3342,9 @@ skills["BlinkArrowAltY"] = {
 		"active_skill_minion_damage_+%_final",
 		"base_is_projectile",
 		"base_skill_show_average_damage_instead_of_dps",
+	},
+	notMinionStat = {
+		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
 		[1] = { 10, 0, storedUses = 1, levelRequirement = 10, cooldown = 3, statInterpolation = { 1, 1, }, cost = { Mana = 14, }, },
@@ -3351,6 +3437,9 @@ skills["BloodRage"] = {
 		"attack_speed_+%_granted_from_skill",
 		"base_skill_effect_duration",
 		"skill_level",
+	},
+	notMinionStat = {
+		"base_skill_effect_duration",
 	},
 	levels = {
 		[1] = { 5, 7000, 1, storedUses = 1, levelRequirement = 16, cooldown = 1, statInterpolation = { 1, 1, 1, }, cost = { Life = 12, }, },
@@ -3670,6 +3759,9 @@ skills["CausticArrow"] = {
 		"projectile_damage_modifiers_apply_to_skill_dot",
 		"visual_hit_effect_chaos_is_green",
 	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
+	},
 	levels = {
 		[1] = { 16.666667039196, 0, damageEffectiveness = 0.55, PvPDamageMultiplier = -30, baseMultiplier = 0.55, levelRequirement = 1, statInterpolation = { 3, 1, }, cost = { Mana = 6, }, },
 		[2] = { 16.666667039196, 0, damageEffectiveness = 0.55, PvPDamageMultiplier = -30, baseMultiplier = 0.555, levelRequirement = 2, statInterpolation = { 3, 1, }, cost = { Mana = 6, }, },
@@ -3751,6 +3843,9 @@ skills["CausticArrowAltX"] = {
 		"active_skill_base_radius_+",
 		"skill_can_fire_arrows",
 		"visual_hit_effect_chaos_is_green",
+	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
 	},
 	levels = {
 		[1] = { 0, damageEffectiveness = 0.715, PvPDamageMultiplier = -30, baseMultiplier = 0.715, levelRequirement = 1, statInterpolation = { 1, }, cost = { Mana = 6, }, },
@@ -4190,6 +4285,11 @@ skills["Cremation"] = {
 		"projectile_behaviour_only_explode",
 		"quality_display_base_number_of_projectiles_is_gem",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"active_skill_base_radius_+",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 0, 40, critChance = 5, PvPDamageMultiplier = -40, levelRequirement = 28, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 11, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, 0, 41, critChance = 5, PvPDamageMultiplier = -40, levelRequirement = 31, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 11, }, },
@@ -4306,6 +4406,11 @@ skills["CremationAltX"] = {
 		"projectile_behaviour_only_explode",
 		"quality_display_base_number_of_projectiles_is_gem",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"active_skill_base_radius_+",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 0, 50, critChance = 5, PvPDamageMultiplier = -40, levelRequirement = 28, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 14, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, 0, 51, critChance = 5, PvPDamageMultiplier = -40, levelRequirement = 31, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 15, }, },
@@ -4402,6 +4507,10 @@ skills["CremationAltY"] = {
 		"base_is_projectile",
 		"projectile_behaviour_only_explode",
 		"quality_display_base_number_of_projectiles_is_gem",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.7, PvPDamageMultiplier = -40, critChance = 5, levelRequirement = 28, statInterpolation = { 3, 3, }, cost = { Mana = 14, }, },
@@ -4812,6 +4921,9 @@ skills["Dash"] = {
 		"skill_cannot_be_stunned",
 		"spell_cast_time_cannot_be_modified",
 	},
+	notMinionStat = {
+		"base_cooldown_speed_+%",
+	},
 	levels = {
 		[1] = { 0, 0, storedUses = 1, levelRequirement = 4, cooldown = 2.5, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
 		[2] = { 1, 3, storedUses = 1, levelRequirement = 6, cooldown = 2.5, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
@@ -4984,6 +5096,10 @@ skills["DetonateDead"] = {
 		"corpse_explosion_monster_life_permillage_fire",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
 		[1] = { 0.69999998807907, 1, 0, 60, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, 0, 61, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 6, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 6, }, },
@@ -5152,6 +5268,10 @@ skills["DetonateDeadAltY"] = {
 		"corpse_explosion_monster_life_permillage_fire",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
 		[1] = { 0.69999998807907, 1, 0, 40, damageEffectiveness = 0.65, critChance = 6, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 7, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, 0, 41, damageEffectiveness = 0.65, critChance = 6, levelRequirement = 6, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 8, }, },
@@ -5247,6 +5367,10 @@ skills["VaalDetonateDead"] = {
 		"corpse_explosion_monster_life_permillage_fire",
 		"cannot_cancel_skill_before_contact_point",
 		"skill_cannot_be_stunned_before_contact_point",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
 	},
 	levels = {
 		[1] = { 0.69999998807907, 1, 0, 60, critChance = 5, damageEffectiveness = 2, vaalStoredUses = 1, levelRequirement = 4, soulPreventionDuration = 8, statInterpolation = { 3, 3, 1, 1, }, cost = { Soul = 30, }, },
@@ -6202,6 +6326,10 @@ skills["EtherealKnives"] = {
 		"console_skill_dont_chase",
 		"quality_display_base_number_of_projectiles_is_gem",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 10, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { Mana = 5, }, },
 		[2] = { 0.89999997615814, 1.2000000476837, 10, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 2, statInterpolation = { 3, 3, 1, }, cost = { Mana = 5, }, },
@@ -6278,6 +6406,10 @@ skills["EtherealKnivesAltX"] = {
 		"console_skill_dont_chase",
 		"quality_display_base_number_of_projectiles_is_gem",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 6, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { Mana = 5, }, },
 		[2] = { 0.89999997615814, 1.2000000476837, 6, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 2, statInterpolation = { 3, 3, 1, }, cost = { Mana = 5, }, },
@@ -6351,6 +6483,10 @@ skills["EtherealKnivesAltY"] = {
 		"console_skill_dont_chase",
 		"quality_display_base_number_of_projectiles_is_gem",
 		"projectiles_nova",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 12, damageEffectiveness = 1.9, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { Mana = 6, }, },
@@ -6999,6 +7135,10 @@ skills["ExplosiveTrap"] = {
 		"quality_display_trap_duration_is_gem",
 		"quality_display_explosive_trap_is_gem",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.56999999284744, 0.86000001430511, 3, 0, 0, 0, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 6, }, },
 		[2] = { 0.64999997615814, 0.97000002861023, 3, 0, 0, 0, critChance = 6, levelRequirement = 2, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 6, }, },
@@ -7089,6 +7229,10 @@ skills["ExplosiveTrapAltX"] = {
 		"quality_display_trap_duration_is_gem",
 		"quality_display_explosive_trap_is_gem",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.56999999284744, 0.86000001430511, 3, 0, 0, 0, damageEffectiveness = 1.4, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 6, }, },
 		[2] = { 0.64999997615814, 0.97000002861023, 3, 0, 0, 0, damageEffectiveness = 1.4, critChance = 6, levelRequirement = 2, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { Mana = 6, }, },
@@ -7168,6 +7312,10 @@ skills["ExplosiveTrapAltY"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_trap",
 		"quality_display_trap_duration_is_gem",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 0.56999999284744, 0.86000001430511, 0, damageEffectiveness = 3.3, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { Mana = 8, }, },
@@ -7257,6 +7405,12 @@ skills["FireTrap"] = {
 		"is_trap",
 		"quality_display_trap_duration_is_gem",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_fire_damage_to_deal_per_minute",
+		"active_skill_base_radius_+",
+	},
 	levels = {
 		[1] = { 0.31999999284744, 0.47999998927116, 53.833334854494, 0.10000000149012, 0.15000000596046, 0, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 12, statInterpolation = { 3, 3, 3, 3, 3, 1, }, cost = { Mana = 8, }, },
 		[2] = { 0.31999999284744, 0.47999998927116, 53.833334854494, 0.10000000149012, 0.15000000596046, 0, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 15, statInterpolation = { 3, 3, 3, 3, 3, 1, }, cost = { Mana = 8, }, },
@@ -7340,6 +7494,11 @@ skills["FireTrapAltX"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_trap",
 		"quality_display_trap_duration_is_gem",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"active_skill_base_radius_+",
 	},
 	levels = {
 		[1] = { 0.31999999284744, 0.47999998927116, 0.76999998092651, 1.1499999761581, 0, damageEffectiveness = 2.6, critChance = 6, levelRequirement = 12, statInterpolation = { 3, 3, 3, 3, 1, }, cost = { Mana = 8, }, },
@@ -7470,6 +7629,10 @@ skills["FlamethrowerTrap"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_trap",
 		"quality_display_trap_duration_is_gem",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 0.15, cooldown = 8, levelRequirement = 28, statInterpolation = { 3, 3, }, cost = { Mana = 13, }, },
@@ -8260,6 +8423,9 @@ skills["GalvanicArrow"] = {
 		"additive_arrow_speed_modifiers_apply_to_area_of_effect",
 		"quality_display_base_additional_arrows_is_gem",
 	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
+	},
 	levels = {
 		[1] = { 0, damageEffectiveness = 0.92, baseMultiplier = 0.92, levelRequirement = 1, statInterpolation = { 1, }, cost = { Mana = 6, }, },
 		[2] = { 0, damageEffectiveness = 0.931, baseMultiplier = 0.931, levelRequirement = 2, statInterpolation = { 1, }, cost = { Mana = 6, }, },
@@ -8333,6 +8499,9 @@ skills["GalvanicArrowAltX"] = {
 	stats = {
 		"active_skill_base_radius_+",
 		"quality_display_base_additional_arrows_is_gem",
+	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
 	},
 	levels = {
 		[1] = { 0, damageEffectiveness = 2.013, baseMultiplier = 2.013, levelRequirement = 1, statInterpolation = { 1, }, cost = { Mana = 6, }, },
@@ -8503,6 +8672,10 @@ skills["GlacialShieldSwipe"] = {
 		"always_freeze",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
+	notMinionStat = {
+		"off_hand_local_minimum_added_physical_damage",
+		"off_hand_local_maximum_added_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 17, 25, attackTime = 700, storedUses = 1, critChance = 5, cooldown = 3.5, levelRequirement = 16, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 7, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, 18, 26, attackTime = 700, storedUses = 1, critChance = 5, cooldown = 3.5, levelRequirement = 20, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 7, }, },
@@ -8580,6 +8753,9 @@ skills["Grace"] = {
 		"base_evasion_rating",
 		"active_skill_base_radius_+",
 		"base_deal_no_damage",
+	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
 	},
 	levels = {
 		[1] = { 20, 136, 0, storedUses = 1, manaReservationPercent = 50, cooldown = 1.2, levelRequirement = 24, statInterpolation = { 1, 1, 1, }, },
@@ -8662,6 +8838,9 @@ skills["VaalGrace"] = {
 		"modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration",
 		"damage_taken_from_suppressed_hits_is_unlucky",
 	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
+	},
 	levels = {
 		[1] = { 0, storedUses = 1, soulPreventionDuration = 9, vaalStoredUses = 1, cooldown = 0.5, levelRequirement = 24, statInterpolation = { 1, }, cost = { Soul = 50, }, },
 		[2] = { 1, storedUses = 1, soulPreventionDuration = 9, vaalStoredUses = 1, cooldown = 0.5, levelRequirement = 27, statInterpolation = { 1, }, cost = { Soul = 50, }, },
@@ -8743,6 +8922,9 @@ skills["Haste"] = {
 		"base_movement_velocity_+%",
 		"active_skill_base_radius_+",
 		"base_deal_no_damage",
+	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
 	},
 	levels = {
 		[1] = { 15, 15, 10, 0, storedUses = 1, manaReservationPercent = 50, cooldown = 1.2, levelRequirement = 24, statInterpolation = { 1, 1, 1, 1, }, },
@@ -8832,6 +9014,9 @@ skills["VaalHaste"] = {
 		"base_deal_no_damage",
 		"modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration",
 	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
+	},
 	levels = {
 		[1] = { 25, 24, 16, 0, storedUses = 1, soulPreventionDuration = 6, vaalStoredUses = 1, cooldown = 0.5, levelRequirement = 24, statInterpolation = { 1, 1, 1, 1, }, cost = { Soul = 50, }, },
 		[2] = { 25, 25, 16, 1, storedUses = 1, soulPreventionDuration = 6, vaalStoredUses = 1, cooldown = 0.5, levelRequirement = 27, statInterpolation = { 1, 1, 1, 1, }, cost = { Soul = 50, }, },
@@ -8907,6 +9092,9 @@ skills["Hatred"] = {
 		"physical_damage_%_to_add_as_cold",
 		"active_skill_base_radius_+",
 		"base_deal_no_damage",
+	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
 	},
 	levels = {
 		[1] = { 30, 0, storedUses = 1, manaReservationPercent = 50, cooldown = 1.2, levelRequirement = 24, statInterpolation = { 1, 1, }, },
@@ -9109,6 +9297,10 @@ skills["HeraldOfIce"] = {
 		"display_skill_deals_secondary_damage",
 		"damage_cannot_be_reflected",
 		"skill_can_add_multiple_charges_per_action",
+	},
+	notMinionStat = {
+		"secondary_minimum_base_cold_damage",
+		"secondary_maximum_base_cold_damage",
 	},
 	levels = {
 		[1] = { 0.20000000298023, 0.30000001192093, 0.20000000298023, 0.30000001192093, 18, 26, storedUses = 1, damageEffectiveness = 0.8, manaReservationPercent = 25, cooldown = 1, levelRequirement = 16, statInterpolation = { 3, 3, 3, 3, 1, 1, }, },
@@ -9445,6 +9637,10 @@ skills["IceTrap"] = {
 		"is_trap",
 		"quality_display_trap_duration_is_gem",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 2.3, critChance = 5, levelRequirement = 28, statInterpolation = { 3, 3, }, cost = { Mana = 13, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 2.4, critChance = 5, levelRequirement = 31, statInterpolation = { 3, 3, }, cost = { Mana = 13, }, },
@@ -9525,6 +9721,10 @@ skills["IceTrapAltX"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_trap",
 		"quality_display_trap_duration_is_gem",
+	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 2.8, critChance = 5, levelRequirement = 28, statInterpolation = { 3, 3, }, cost = { Mana = 13, }, },
@@ -9621,6 +9821,9 @@ skills["Lacerate"] = {
 		"is_area_damage",
 		"console_skill_dont_chase",
 	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
+	},
 	levels = {
 		[1] = { 0, 50, attackSpeedMultiplier = -40, baseMultiplier = 1.711, damageEffectiveness = 1.711, levelRequirement = 12, statInterpolation = { 1, 1, }, cost = { Mana = 10, }, },
 		[2] = { 0, 52, attackSpeedMultiplier = -40, baseMultiplier = 1.788, damageEffectiveness = 1.788, levelRequirement = 15, statInterpolation = { 1, 1, }, cost = { Mana = 11, }, },
@@ -9706,6 +9909,9 @@ skills["LacerateAltX"] = {
 		"is_area_damage",
 		"console_skill_dont_chase",
 		"display_active_skill_forced_stance",
+	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
 	},
 	levels = {
 		[1] = { 4, attackSpeedMultiplier = -60, baseMultiplier = 2.738, damageEffectiveness = 2.738, levelRequirement = 12, statInterpolation = { 1, }, cost = { Mana = 16, }, },
@@ -9793,6 +9999,9 @@ skills["LacerateAltY"] = {
 		"is_area_damage",
 		"console_skill_dont_chase",
 		"quality_display_active_skill_bleed_damage_final_is_gem",
+	},
+	notMinionStat = {
+		"active_skill_bleeding_damage_+%_final",
 	},
 	levels = {
 		[1] = { 75, attackSpeedMultiplier = -20, baseMultiplier = 1.506, damageEffectiveness = 1.506, levelRequirement = 12, statInterpolation = { 1, }, cost = { Mana = 8, }, },
@@ -10660,6 +10869,10 @@ skills["MirrorArrow"] = {
 		"base_is_projectile",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
+	notMinionStat = {
+		"base_cooldown_speed_+%",
+		"active_skill_minion_damage_+%_final",
+	},
 	levels = {
 		[1] = { 10, 0, 0, storedUses = 1, levelRequirement = 10, cooldown = 3, statInterpolation = { 1, 1, 1, }, cost = { Mana = 14, }, },
 		[2] = { 13, 2, 3, storedUses = 1, levelRequirement = 13, cooldown = 3, statInterpolation = { 1, 1, 1, }, cost = { Mana = 14, }, },
@@ -10744,6 +10957,9 @@ skills["MirrorArrowAltX"] = {
 		"base_is_projectile",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
+	notMinionStat = {
+		"active_skill_minion_damage_+%_final",
+	},
 	levels = {
 		[1] = { 10, 0, storedUses = 1, levelRequirement = 10, cooldown = 3, statInterpolation = { 1, 1, }, cost = { Mana = 14, }, },
 		[2] = { 13, 3, storedUses = 1, levelRequirement = 13, cooldown = 3, statInterpolation = { 1, 1, }, cost = { Mana = 14, }, },
@@ -10827,6 +11043,9 @@ skills["MirrorArrowAltY"] = {
 		"active_skill_minion_damage_+%_final",
 		"base_is_projectile",
 		"base_skill_show_average_damage_instead_of_dps",
+	},
+	notMinionStat = {
+		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
 		[1] = { 10, 0, storedUses = 1, levelRequirement = 10, cooldown = 3, statInterpolation = { 1, 1, }, cost = { Mana = 14, }, },
@@ -11069,6 +11288,9 @@ skills["PlagueBearer"] = {
 		"base_deal_no_damage",
 		"quality_display_plague_bearer_is_gem",
 	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
+	},
 	levels = {
 		[1] = { 1, 0, storedUses = 1, levelRequirement = 24, cooldown = 0.5, statInterpolation = { 3, 1, }, cost = { Mana = 6, }, },
 		[2] = { 1, 0, storedUses = 1, levelRequirement = 27, cooldown = 0.5, statInterpolation = { 3, 1, }, cost = { Mana = 7, }, },
@@ -11241,6 +11463,9 @@ skills["Precision"] = {
 		"skill_buff_grants_critical_strike_chance_+%",
 		"active_skill_base_radius_+",
 		"base_deal_no_damage",
+	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
 	},
 	levels = {
 		[1] = { 93, 20, 0, storedUses = 1, cooldown = 1.2, manaReservationFlat = 22, levelRequirement = 10, statInterpolation = { 1, 1, 1, }, },
@@ -11737,6 +11962,9 @@ skills["Puncture"] = {
 		"bleed_duration_is_skill_duration",
 		"quality_display_active_skill_bleed_damage_final_is_gem",
 	},
+	notMinionStat = {
+		"active_skill_bleeding_damage_+%_final",
+	},
 	levels = {
 		[1] = { 30, attackSpeedMultiplier = -30, baseMultiplier = 1.684, damageEffectiveness = 1.684, levelRequirement = 4, statInterpolation = { 1, }, cost = { Mana = 8, }, },
 		[2] = { 31, attackSpeedMultiplier = -30, baseMultiplier = 1.704, damageEffectiveness = 1.704, levelRequirement = 6, statInterpolation = { 1, }, cost = { Mana = 8, }, },
@@ -11823,6 +12051,9 @@ skills["PunctureAltX"] = {
 		"bleed_duration_is_skill_duration",
 		"quality_display_active_skill_bleed_damage_final_is_gem",
 	},
+	notMinionStat = {
+		"active_skill_bleeding_damage_+%_final",
+	},
 	levels = {
 		[1] = { 30, 80, attackSpeedMultiplier = -30, baseMultiplier = 1.703, damageEffectiveness = 1.703, levelRequirement = 4, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
 		[2] = { 31, 82, attackSpeedMultiplier = -30, baseMultiplier = 1.786, damageEffectiveness = 1.786, levelRequirement = 6, statInterpolation = { 1, 1, }, cost = { Mana = 8, }, },
@@ -11900,6 +12131,9 @@ skills["PurityOfIce"] = {
 		"base_maximum_cold_damage_resistance_%",
 		"active_skill_base_radius_+",
 		"base_deal_no_damage",
+	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
 	},
 	levels = {
 		[1] = { 22, 0, 0, storedUses = 1, manaReservationPercent = 35, cooldown = 1.2, levelRequirement = 24, statInterpolation = { 1, 1, 1, }, },
@@ -11989,6 +12223,9 @@ skills["VaalImpurityOfIce"] = {
 		"hits_ignore_my_cold_resistance",
 		"base_immune_to_chill",
 		"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration",
+	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
 	},
 	levels = {
 		[1] = { 14, 0, storedUses = 1, soulPreventionDuration = 8, vaalStoredUses = 1, cooldown = 0.5, levelRequirement = 24, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
@@ -12393,6 +12630,9 @@ skills["Reave"] = {
 		"is_area_damage",
 		"console_skill_dont_chase",
 	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
+	},
 	levels = {
 		[1] = { 0, damageEffectiveness = 2.327, baseMultiplier = 2.327, levelRequirement = 12, statInterpolation = { 1, }, cost = { Mana = 6, }, },
 		[2] = { 0, damageEffectiveness = 2.431, baseMultiplier = 2.431, levelRequirement = 15, statInterpolation = { 1, }, cost = { Mana = 6, }, },
@@ -12481,6 +12721,9 @@ skills["ReaveAltX"] = {
 		"active_skill_base_radius_+",
 		"is_area_damage",
 		"console_skill_dont_chase",
+	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
 	},
 	levels = {
 		[1] = { 0, damageEffectiveness = 2.327, baseMultiplier = 2.327, levelRequirement = 12, statInterpolation = { 1, }, cost = { Mana = 6, }, },
@@ -12575,6 +12818,9 @@ skills["VaalReave"] = {
 		"global_always_hit",
 		"cannot_cancel_skill_before_contact_point",
 		"skill_cannot_be_stunned_before_contact_point",
+	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
 	},
 	levels = {
 		[1] = { 0, attackSpeedMultiplier = 150, baseMultiplier = 2.951, damageEffectiveness = 2.951, vaalStoredUses = 3, levelRequirement = 12, soulPreventionDuration = 2, statInterpolation = { 1, }, cost = { Soul = 25, }, },
@@ -13215,6 +13461,10 @@ skills["SeismicTrap"] = {
 		"quality_display_trap_duration_is_gem",
 		"modifiers_to_trap_throw_speed_apply_to_seismic_trap_frequency",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 1.4, cooldown = 8, levelRequirement = 28, statInterpolation = { 3, 3, }, cost = { Mana = 13, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 1.4, cooldown = 8, levelRequirement = 31, statInterpolation = { 3, 3, }, cost = { Mana = 13, }, },
@@ -13367,6 +13617,10 @@ skills["SeismicTrapAltX"] = {
 		"is_trap",
 		"quality_display_phys_cascade_trap_is_gem",
 		"quality_display_trap_duration_is_gem",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 6, damageEffectiveness = 2.2, cooldown = 0.75, levelRequirement = 28, statInterpolation = { 3, 3, }, cost = { Mana = 13, }, },
@@ -13905,6 +14159,9 @@ skills["SmokeMine"] = {
 		"additive_mine_duration_modifiers_apply_to_buff_effect_duration",
 		"mine_cannot_rearm",
 	},
+	notMinionStat = {
+		"base_skill_effect_duration",
+	},
 	levels = {
 		[1] = { 4000, 20, storedUses = 3, cooldown = 5, manaReservationFlat = 6, levelRequirement = 10, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
 		[2] = { 4100, 20, storedUses = 3, cooldown = 5, manaReservationFlat = 6, levelRequirement = 13, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
@@ -14002,6 +14259,10 @@ skills["SpectralShieldThrow"] = {
 		"off_hand_maximum_added_physical_damage_per_15_shield_armour_and_evasion_rating",
 		"base_is_projectile",
 		"thrown_shield_projectile_fire_random_directions",
+	},
+	notMinionStat = {
+		"off_hand_local_minimum_added_physical_damage",
+		"off_hand_local_maximum_added_physical_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 3, 5, attackTime = 650, critChance = 5, levelRequirement = 28, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 7, }, },
@@ -14187,6 +14448,10 @@ skills["SpectralShieldThrowAltY"] = {
 		"off_hand_maximum_added_physical_damage_per_15_shield_armour_and_evasion_rating",
 		"base_is_projectile",
 		"thrown_shield_projectile_fire_random_directions",
+	},
+	notMinionStat = {
+		"off_hand_local_minimum_added_physical_damage",
+		"off_hand_local_maximum_added_physical_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 0, 2, 3, attackTime = 800, critChance = 5, levelRequirement = 28, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 9, }, },
@@ -15668,6 +15933,10 @@ skills["TemporalChains"] = {
 		"temporal_chains_action_speed_+%_vs_rare_or_unique_final",
 		"base_deal_no_damage",
 	},
+	notMinionStat = {
+		"base_skill_effect_duration",
+		"active_skill_base_radius_+",
+	},
 	levels = {
 		[1] = { 5000, 0, -15, -9, levelRequirement = 24, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 16, }, },
 		[2] = { 5200, 1, -15, -9, levelRequirement = 27, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 17, }, },
@@ -15918,6 +16187,10 @@ skills["Unearth"] = {
 		"unearth_base_corpse_level",
 		"base_is_projectile",
 		"always_pierce",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 10, damageEffectiveness = 1.4, critChance = 6, levelRequirement = 10, statInterpolation = { 3, 3, 1, }, cost = { Mana = 4, }, },
@@ -16385,6 +16658,10 @@ skills["VolatileDead"] = {
 		"is_area_damage",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 30, damageEffectiveness = 1.7, PvPDamageMultiplier = -80, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { Mana = 9, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, 31, damageEffectiveness = 1.7, PvPDamageMultiplier = -80, critChance = 5, levelRequirement = 15, statInterpolation = { 3, 3, 1, }, cost = { Mana = 10, }, },
@@ -16487,6 +16764,10 @@ skills["VolatileDeadAltX"] = {
 		"is_area_damage",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 30, damageEffectiveness = 2.1, PvPDamageMultiplier = -80, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { Mana = 9, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, 31, damageEffectiveness = 2.1, PvPDamageMultiplier = -80, critChance = 5, levelRequirement = 15, statInterpolation = { 3, 3, 1, }, cost = { Mana = 10, }, },
@@ -16587,6 +16868,10 @@ skills["VolatileDeadAltY"] = {
 		"corpse_explosion_monster_life_permillage_fire",
 		"is_area_damage",
 		"base_skill_show_average_damage_instead_of_dps",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 30, damageEffectiveness = 1.7, PvPDamageMultiplier = -80, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { Mana = 9, }, },
@@ -17038,6 +17323,9 @@ skills["WitheringStep"] = {
 		"base_deal_no_damage",
 		"quality_display_withering_step_is_gem",
 	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
+	},
 	levels = {
 		[1] = { 0, 4, 0, storedUses = 1, levelRequirement = 10, cooldown = 3, statInterpolation = { 1, 1, 1, }, cost = { Mana = 8, }, },
 		[2] = { 0, 4, 2, storedUses = 1, levelRequirement = 13, cooldown = 3, statInterpolation = { 1, 1, 1, }, cost = { Mana = 9, }, },
@@ -17474,6 +17762,9 @@ skills["TemporalRift"] = {
 		"spell_cast_time_cannot_be_modified",
 		"unaffected_by_temporal_chains",
 	},
+	notMinionStat = {
+		"base_cooldown_speed_+%",
+	},
 	levels = {
 		[1] = { 0, storedUses = 1, manaReservationPercent = 10, cooldown = 5, levelRequirement = 34, statInterpolation = { 1, }, },
 		[2] = { 2, storedUses = 1, manaReservationPercent = 10, cooldown = 5, levelRequirement = 36, statInterpolation = { 1, }, },
@@ -17564,6 +17855,10 @@ skills["Tornado"] = {
 		"damage_cannot_be_reflected_or_leech_if_used_by_other_object",
 		"is_area_damage",
 		"tornado_hinder",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 0, damageEffectiveness = 0.55, critChance = 5, levelRequirement = 34, statInterpolation = { 3, 3, 1, }, cost = { Mana = 15, }, },
@@ -17677,6 +17972,10 @@ skills["TornadoAltY"] = {
 		"is_area_damage",
 		"tornado_hinder",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 0, damageEffectiveness = 0.65, critChance = 5, levelRequirement = 34, statInterpolation = { 3, 3, 1, }, cost = { Mana = 15, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, 3, damageEffectiveness = 0.65, critChance = 5, levelRequirement = 36, statInterpolation = { 3, 3, 1, }, cost = { Mana = 15, }, },
@@ -17747,6 +18046,9 @@ skills["IntuitiveLink"] = {
 		"skill_cost_over_time_is_not_removed_with_skill",
 		"display_trigger_link",
 		"display_link_stuff",
+	},
+	notMinionStat = {
+		"base_skill_effect_duration",
 	},
 	levels = {
 		[1] = { 8000, levelRequirement = 34, statInterpolation = { 1, }, cost = { ManaPerMinute = 900, }, },
@@ -17894,6 +18196,9 @@ skills["VampiricLink"] = {
 		"skill_cost_over_time_is_not_removed_with_skill",
 		"display_link_stuff",
 		"life_leech_is_applied_to_remora_link_targets_instead",
+	},
+	notMinionStat = {
+		"base_skill_effect_duration",
 	},
 	levels = {
 		[1] = { 120, 8000, levelRequirement = 34, statInterpolation = { 1, 1, }, cost = { ManaPerMinute = 900, }, },

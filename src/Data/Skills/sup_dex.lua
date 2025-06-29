@@ -1780,6 +1780,10 @@ skills["SupportFocusedBallista"] = {
 		"summon_totem_cast_speed_+%",
 		"ranged_attack_totem_only_attacks_when_owner_attacks",
 	},
+	notMinionStat = {
+		"support_focused_ballista_totem_attack_speed_+%_final",
+		"support_focused_ballista_totem_damage_+%_final",
+	},
 	levels = {
 		[1] = { 25, 0, 40, PvPDamageMultiplier = -60, levelRequirement = 31, manaMultiplier = 40, statInterpolation = { 1, 1, 1, }, },
 		[2] = { 26, 0, 41, PvPDamageMultiplier = -60, levelRequirement = 34, manaMultiplier = 40, statInterpolation = { 1, 1, 1, }, },
@@ -3282,6 +3286,9 @@ skills["SupportSecondWind"] = {
 		{ "support_added_cooldown_count_if_not_instant", 1 },
 	},
 	stats = {
+		"base_cooldown_speed_+%",
+	},
+	notMinionStat = {
 		"base_cooldown_speed_+%",
 	},
 	levels = {

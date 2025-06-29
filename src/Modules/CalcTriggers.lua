@@ -1137,17 +1137,19 @@ local configTable = {
 		end
 	end,
 	["cast when damage taken"] = function(env)
-		local thresholdMod = calcLib.mod(env.player.mainSkill.skillModList, nil, "CWDTThreshold")
-		env.player.output.CWDTThreshold = env.player.mainSkill.skillData.triggeredByDamageTaken * thresholdMod
-		if env.player.breakdown and env.player.output.CWDTThreshold ~= env.player.mainSkill.skillData.triggeredByDamageTaken then
-			env.player.breakdown.CWDTThreshold = {
-				s_format("%.2f ^8(base threshold)", env.player.mainSkill.skillData.triggeredByDamageTaken),
-				s_format("x %.2f ^8(threshold modifier)", thresholdMod),
-				s_format("= %.2f", env.player.output.CWDTThreshold),
-			}
+		if env.player.mainSkill.skillData.triggeredByDamageTaken then
+			local thresholdMod = calcLib.mod(env.player.mainSkill.skillModList, nil, "CWDTThreshold")
+			env.player.output.CWDTThreshold = env.player.mainSkill.skillData.triggeredByDamageTaken * thresholdMod
+			if env.player.breakdown and env.player.output.CWDTThreshold ~= env.player.mainSkill.skillData.triggeredByDamageTaken then
+				env.player.breakdown.CWDTThreshold = {
+					s_format("%.2f ^8(base threshold)", env.player.mainSkill.skillData.triggeredByDamageTaken),
+					s_format("x %.2f ^8(threshold modifier)", thresholdMod),
+					s_format("= %.2f", env.player.output.CWDTThreshold),
+				}
+			end
+			env.player.mainSkill.skillFlags.globalTrigger = true
+			return  {source = env.player.mainSkill}
 		end
-        env.player.mainSkill.skillFlags.globalTrigger = true
-		return  {source = env.player.mainSkill}
 	end,
 	["cast when stunned"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
