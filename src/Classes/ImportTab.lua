@@ -1195,7 +1195,7 @@ function ImportTabClass:ProcessJSON(json)
 end
 
 function ImportTabClass:SetPredefinedBuildName()
-	local accountName = self.controls.accountName.buf:gsub('%s+', '')
+	local accountName = self.controls.accountName.buf:gsub('%s+', ''):gsub("#%d+", "")
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
 	local charName = charData.name
