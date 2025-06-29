@@ -914,9 +914,9 @@ end
 
 table.insert(replicaDragonfangsFlight,
 [[Implicits: 1
-{tags:jewellery_attribute}{range:1}+(10-16) to all Attributes
-{tags:jewellery_resistance}{variant:1}{range:1}+(10-15)% to all Elemental Resistances
-{tags:jewellery_resistance}{variant:2}{range:1}+(5-10)% to all Elemental Resistances
+{tags:jewellery_attribute}+(10-16) to all Attributes
+{tags:jewellery_resistance}{variant:1}+(10-15)% to all Elemental Resistances
+{tags:jewellery_resistance}{variant:2}+(5-10)% to all Elemental Resistances
 ]]
 )
 
@@ -928,10 +928,10 @@ end
 
 table.insert(replicaDragonfangsFlight,
 [[
-{variant:1}{range:1}(10-15)% increased Reservation Efficiency of Skills
-{variant:2}{range:1}(5-10)% increased Reservation Efficiency of Skills
-{variant:1}{range:1}Items and Gems have (10-15)% reduced Attribute Requirements
-{variant:2}{range:1}Items and Gems have (5-10)% reduced Attribute Requirements
+{variant:1}(10-15)% increased Reservation Efficiency of Skills
+{variant:2}(5-10)% increased Reservation Efficiency of Skills
+{variant:1}Items and Gems have (10-15)% reduced Attribute Requirements
+{variant:2}Items and Gems have (5-10)% reduced Attribute Requirements
 ]]
 )
 
