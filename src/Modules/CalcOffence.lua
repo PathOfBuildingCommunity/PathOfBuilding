@@ -967,7 +967,7 @@ function calcs.offence(env, actor, activeSkill)
 	runSkillFunc("preSkillTypeFunc")
 
 	-- Calculate skill type stats
-	if skillFlags.minion then
+	if activeSkill.minion then
 		if activeSkill.minion and activeSkill.minion.minionData.limit then
 			output.ActiveMinionLimit = m_floor(env.modDB:Override(nil, activeSkill.minion.minionData.limit) or calcLib.val(skillModList, activeSkill.minion.minionData.limit, skillCfg))
 		end
@@ -3649,7 +3649,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	
-	if skillFlags.minion then
+	if activeSkill.minion then
 		skillData.summonSpeed = output.SummonedMinionsPerCast * (output.HitSpeed or output.Speed) * skillData.dpsMultiplier
 	end
 
