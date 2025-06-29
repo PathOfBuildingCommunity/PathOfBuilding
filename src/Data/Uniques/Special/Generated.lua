@@ -680,19 +680,25 @@ local indexSublimeVision = 1
 local indexVoranasMarch = 2
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 	if not (mod.Id:match("^SublimeVision") or mod.Id:match("^SummonArbalist")) then
-		if watchersEyeLegacyMods[mod.Id] then
-			if watchersEyeLegacyMods[mod.Id].legacyMod then
-				table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. watchersEyeLegacyMods[mod.Id].legacyMod(mod.mod[1]))
+			if watchersEyeLegacyMods[mod.Id] then
+				if watchersEyeLegacyMods[mod.Id].legacyMod then
+					for i, _ in ipairs(mod.mod) do
+						table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. watchersEyeLegacyMods[mod.Id].legacyMod(mod.mod[i]))
+					end
+					indexWatchersEye = indexWatchersEye + 1
+				end
+				if watchersEyeLegacyMods[mod.Id].version or watchersEyeLegacyMods[mod.Id].rename then
+					for i, _ in ipairs(mod.mod) do
+						table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. mod.mod[i])
+					end
+					indexWatchersEye = indexWatchersEye + 1
+				end
+			else
+				for i, _ in ipairs(mod.mod) do
+					table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. mod.mod[i])
+				end
 				indexWatchersEye = indexWatchersEye + 1
 			end
-			if watchersEyeLegacyMods[mod.Id].version or watchersEyeLegacyMods[mod.Id].rename then
-				table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. mod.mod[1])
-				indexWatchersEye = indexWatchersEye + 1
-			end
-		else
-			table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. mod.mod[1])
-			indexWatchersEye = indexWatchersEye + 1
-		end
 	elseif not mod.Id:match("^SummonArbalist") then
 		for i, _ in ipairs(mod.mod) do
 			table.insert(sublimeVision, "{variant:" .. indexSublimeVision .. "}" .. mod.mod[i])
