@@ -11409,7 +11409,7 @@ c["Take no Extra Damage from Critical Strikes"]={{[1]={[1]={effectType="Global",
 c["Take no Extra Damage from Critical Strikes if you have a Magic Ring in left slot"]={{[1]={[1]={effectType="Global",type="GlobalEffect",unscalable=true},[2]={type="Condition",var="MagicItemInRing 1"},flags=0,keywordFlags=0,name="ReduceCritExtraDamage",type="BASE",value=100}},nil}
 c["Take no Extra Damage from Critical Strikes if you've cast Enfeeble in the past 10 seconds"]={{[1]={[1]={effectType="Global",type="GlobalEffect",unscalable=true},[2]={type="Condition",var="SelfCastEnfeeble"},flags=0,keywordFlags=0,name="ReduceCritExtraDamage",type="BASE",value=100}},nil}
 c["Taking Chaos Damage over Time heals you instead while Leeching Life"]={nil,"Taking Chaos Damage over Time heals you instead while Leeching Life "}
-c["Targets are Unaffected by your Hexes"]={{[1]={flags=0,keywordFlags=0,name="CurseEffect",type="MORE",value=-100}},nil}
+c["Targets are Unaffected by your Hexes"]={{[1]={[1]={skillType=108,type="SkillType"},flags=0,keywordFlags=0,name="CurseEffect",type="MORE",value=-100}},nil}
 c["Taunt on Hit"]={nil,"Taunt on Hit "}
 c["Taunt on Hit 15% increased effect of Non-Curse Auras from your Skills"]={nil,"Taunt on Hit 15% increased effect of Non-Curse Auras from your Skills "}
 c["Taunt on Hit 15% increased effect of Non-Curse Auras from your Skills Your Hits permanently Intimidate Enemies that are on Full Life"]={nil,"Taunt on Hit 15% increased effect of Non-Curse Auras from your Skills Your Hits permanently Intimidate Enemies that are on Full Life "}
