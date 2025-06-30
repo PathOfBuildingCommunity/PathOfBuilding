@@ -1,4 +1,5 @@
 VERSION[2.55.1][2025/06/30]
+
 --- Fixed Crashes ---
 * Fix crash when trying to edit Config/Item Set after saving a new Set (Blitz54)
 
