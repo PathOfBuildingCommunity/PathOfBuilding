@@ -1,3 +1,15 @@
+VERSION[2.55.1][2025/06/30]
+
+--- Fixed Crashes ---
+* Fix crash when trying to edit Config/Item Set after saving a new Set (Blitz54)
+
+--- Fixed Behaviours ---
+* Fix Summoned Phantasm not working correctly when used in Soulwrest (LocalIdentity)
+* Fix The Dark Monarch not scaling "per summoned x" mods (LocalIdentity)
+* Fix Swift Affliction less duration and damaging ailment duration not applying individually (deathbeam)
+* Fix Coiling Whisper applying to all Curses instead of just Hexes (pjo256)
+* Fix Runegraft bonus for Boots / Gloves not working (LocalIdentity)
+
 VERSION[2.55.0][2025/06/29]
 
 --- New to Path of Building ---

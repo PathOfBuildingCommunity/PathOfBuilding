@@ -654,7 +654,8 @@ return {
 	mod("FortifyDuration", "INC", nil),
 },
 ["support_swift_affliction_skill_effect_and_damaging_ailment_duration_+%_final"] = {
-	mod("SkillAndDamagingAilmentDuration", "MORE", nil),
+	mod("Duration", "MORE", nil),
+	mod("DamagingAilmentDuration", "MORE", nil),
 },
 ["base_bleed_duration_+%"] = {
 	mod("EnemyBleedDuration", "INC", nil),

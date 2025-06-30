@@ -3674,7 +3674,7 @@ local specialModList = {
 	} end,
 	["temporal chains has (%d+)%% reduced effect on you"] = function(num) return { mod("CurseEffectOnSelf", "INC", -num, { type = "SkillName", skillName = "Temporal Chains" }) } end,
 	["unaffected by temporal chains"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "SkillName", skillName = "Temporal Chains" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
-	["targets are unaffected by your hexes"] = { mod("CurseEffect", "MORE", -100) },
+	["targets are unaffected by your hexes"] = { mod("CurseEffect", "MORE", -100, { type = "SkillType", skillType = SkillType.Hex }) },
 	["([%+%-][%d%.]+) seconds to cat's stealth duration"] = function(num) return { mod("PrimaryDuration", "BASE", num, { type = "SkillName", skillName = "Aspect of the Cat" }) } end,
 	["([%+%-][%d%.]+) seconds to cat's agility duration"] = function(num) return { mod("SecondaryDuration", "BASE", num, { type = "SkillName", skillName = "Aspect of the Cat" }) } end,
 	["([%+%-][%d%.]+) seconds to avian's might duration"] = function(num) return { mod("PrimaryDuration", "BASE", num, { type = "SkillName", skillName = "Aspect of the Avian" }) } end,
