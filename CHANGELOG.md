@@ -1,5 +1,20 @@
 # Changelog
 
+## [v2.55.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.55.1) (2025/06/30)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.55.0...v2.55.1)
+
+## What's Changed
+### Fixed Crashes
+- Fix crash when trying to edit Config/Item Set after saving a new Set [\#8749](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8749) ([Blitz54](https://github.com/Blitz54))
+### Fixed Behaviours
+- Fix Summoned Phantasm not working correctly when used in Soulwrest [\#8757](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8757) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix The Dark Monarch not scaling "per summoned x" mods [\#8756](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8756) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Swift Affliction less duration and damaging ailment duration not applying individually [\#8754](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8754) ([deathbeam](https://github.com/deathbeam))
+- Fix Coiling Whisper applying to all Curses instead of just Hexes [\#8752](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8752) ([pjo256](https://github.com/pjo256))
+- Fix Runegraft bonus for Boots / Gloves not working [\#8746](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8746) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
 ## [v2.55.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.55.0) (2025/06/29)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.54.0...v2.55.0)
