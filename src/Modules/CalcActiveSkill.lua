@@ -629,8 +629,10 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	for _, skillEffect in ipairs(activeSkill.effectList) do
 		if skillEffect.grantedEffect.support and skillEffect.grantedEffect.addMinionList then
 			for _, minionType in ipairs(skillEffect.grantedEffect.addMinionList) do
-				t_insert(minionList, minionType)
-				minionSupportLevel[minionType] = skillEffect.grantedEffect.levels[skillEffect.level].levelRequirement
+				if not isValueInArray(minionList, minionType) then
+					minionSupportLevel[minionType] = skillEffect.grantedEffect.levels[skillEffect.level].levelRequirement
+					t_insert(minionList, minionType)
+				end
 			end
 		end
 	end
