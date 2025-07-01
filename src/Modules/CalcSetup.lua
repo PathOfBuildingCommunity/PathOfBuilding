@@ -1192,9 +1192,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		if gloveEffectMod ~= 0 then
 			local modList = env.player.itemList["Gloves"].modList
 			for _, mod in ipairs(modList) do
-				local modCopy = copyTable(mod)
-				modCopy.source = "Many Sources:" .. tostring(gloveEffectMod * 100) .. "% Gloves Bonus Effect"
-				modDB:ScaleAddMod(modCopy, gloveEffectMod)
+				if not (mod.name == "ExtraSupport" or mod.name == "ExtraSkill" or mod.name == "ExtraSupport" or mod.name == "ExtraSkillMod" or (mod[1] and mod[1].type == "SocketedIn")) then
+					local modCopy = copyTable(mod)
+					modCopy.source = tostring(gloveEffectMod * 100) .. "% Gloves Bonus Effect"
+					modDB:ScaleAddMod(modCopy, gloveEffectMod)
+				end
 			end
 		end
 	end
@@ -1203,9 +1205,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		if bootEffectMod ~= 0 then
 			local modList = env.player.itemList["Boots"].modList
 			for _, mod in ipairs(modList) do
-				local modCopy = copyTable(mod)
-				modCopy.source = "Many Sources:" .. tostring(bootEffectMod * 100) .. "% Boots Bonus Effect"
-				modDB:ScaleAddMod(modCopy, bootEffectMod)
+				if not (mod.name == "ExtraSupport" or mod.name == "ExtraSkill" or mod.name == "ExtraSupport" or mod.name == "ExtraSkillMod" or (mod[1] and mod[1].type == "SocketedIn")) then
+					local modCopy = copyTable(mod)
+					modCopy.source = tostring(bootEffectMod * 100) .. "% Boots Bonus Effect"
+					modDB:ScaleAddMod(modCopy, bootEffectMod)
+				end
 			end
 		end
 	end
