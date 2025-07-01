@@ -1,3 +1,10 @@
+VERSION[2.55.2][2025/07/01]
+
+--- Fixed Behaviours ---
+* Fix Runegraft bonus for Boots / Gloves scaling skill gems (LocalIdentity)
+* Fix Hand of Phrecia applying auras on enemies (LocalIdentity)
+
+
 VERSION[2.55.1][2025/06/30]
 
 --- Fixed Crashes ---
