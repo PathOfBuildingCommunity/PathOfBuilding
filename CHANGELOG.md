@@ -1,5 +1,16 @@
 # Changelog
 
+## [v2.55.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.55.2) (2025/07/01)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.55.1...v2.55.2)
+
+## What's Changed
+### Fixed Behaviours
+- Fix Runegraft bonus for Boots / Gloves scaling skill gems [\#8764](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8764) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Hand of Phrecia applying auras on enemies [\#8763](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8763) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
+
 ## [v2.55.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.55.1) (2025/06/30)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.55.0...v2.55.1)
