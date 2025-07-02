@@ -236,9 +236,6 @@ local function doActorAttribsConditions(env, actor)
 		end
 	end
 	if env.mode_combat then
-		if not modDB:Flag(env.player.mainSkill.skillCfg, "NeverCrit") then
-			condList["CritInPast8Sec"] = true
-		end
 		if not actor.mainSkill.skillData.triggered and not actor.mainSkill.skillFlags.trap and not actor.mainSkill.skillFlags.mine and not actor.mainSkill.skillFlags.totem then
 			if actor.mainSkill.skillFlags.attack then
 				condList["AttackedRecently"] = true

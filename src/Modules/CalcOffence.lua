@@ -2921,6 +2921,9 @@ function calcs.offence(env, actor, activeSkill)
 				}
 			end
 		end
+		if output.CritChance ~= 0 then
+			skillModList.conditions["CritInPast8Sec"] = true
+		end
 
 		output.ScaledDamageEffect = 1
 
