@@ -1,5 +1,20 @@
 # Changelog
 
+## [v2.55.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.55.3) (2025/07/02)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.55.2...v2.55.3)
+
+## What's Changed
+### Fixed Calculations
+- Fix Elemental Overload not reducing Ailment on crit chance to 0 [\#8325](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8325) ([Paliak](https://github.com/Paliak))
+- Fix Multistrike + Awakened Spell Echo not working properly with minions [\#8771](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8771) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Behaviours
+- Fix Phantasmal Might not working when Summon Phantasm was linked to Spell Totem [\#8773](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8773) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Elemental Overload applying to skills with 0 Crit Chance [\#8772](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8772) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Minion Duration affecting skills supported by Summon Phantasm [\#8775](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8775) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
+
 ## [v2.55.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.55.2) (2025/07/01)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.55.1...v2.55.2)
