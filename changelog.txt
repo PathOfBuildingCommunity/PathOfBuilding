@@ -1,4 +1,5 @@
 VERSION[2.55.3][2025/07/02]
+
 --- Fixed Calculations ---
 * Fix Elemental Overload not reducing Ailment on crit chance to 0 (Paliak)
 * Fix Multistrike + Awakened Spell Echo not working properly with minions (LocalIdentity)
