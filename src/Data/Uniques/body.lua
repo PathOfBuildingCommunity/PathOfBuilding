@@ -961,7 +961,7 @@ Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy
 Animated Guardian deals 5% increased Damage per Animated Weapon
 Animated Minions' Melee Attacks deal Splash Damage to surrounding targets
 Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets
-You cannot have non-Animated Minions
+You cannot have Non-Animated, Non-Manifested Minions
 ]],[[
 Doryani's Prototype
 Saint's Hauberk

@@ -29052,7 +29052,7 @@ return {
 						[2]=0
 					}
 				},
-				text="Cannot Knockback Unique Enemies more than once per second\nFinal Burst Deals {0}% more Damage\nFinal Burst has 100% more Area of Effect\nFinal Burst cannot Knockback"
+				text="Cannot Knockback Unique Enemies more than once per second\nFinal Burst Deals {0}% more Damage\nFinal Burst has 100% more Radius\nFinal Burst cannot Knockback"
 			},
 			[2]={
 				limit={
@@ -29065,7 +29065,7 @@ return {
 						[2]=0
 					}
 				},
-				text="Cannot Knockback Unique Enemies more than once per second\nFinal Burst Deals {0}% less Damage\nFinal Burst has 100% more Area of Effect\nFinal Burst cannot Knockback"
+				text="Cannot Knockback Unique Enemies more than once per second\nFinal Burst Deals {0}% less Damage\nFinal Burst has 100% more Radius\nFinal Burst cannot Knockback"
 			},
 			[3]={
 				limit={
