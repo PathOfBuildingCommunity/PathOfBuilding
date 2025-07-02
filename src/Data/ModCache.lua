@@ -2682,7 +2682,7 @@ c["12% increased Mine Laying Speed"]={{[1]={flags=0,keywordFlags=0,name="MineLay
 c["12% increased Mine Throwing Speed"]={{[1]={flags=0,keywordFlags=0,name="MineLayingSpeed",type="INC",value=12}},nil}
 c["12% increased Minion Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Accuracy",type="INC",value=12}}}},nil}
 c["12% increased Minion Damage per Spectre you own"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",stat="ActiveSpectreLimit",type="PerStat"},flags=0,keywordFlags=0,name="Damage",type="INC",value=12}}}},nil}
-c["12% increased Minion Duration"]={{[1]={[1]={skillType=88,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=12}},nil}
+c["12% increased Minion Duration"]={{[1]={[1]={skillType=88,type="SkillType"},[2]={skillType=9,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=12}},nil}
 c["12% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=12}},nil}
 c["12% increased Movement Speed during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=12}},nil}
 c["12% increased Physical Attack Damage while holding a Shield"]={{[1]={[1]={type="Condition",varList={[1]="UsingShield"}},flags=1,keywordFlags=0,name="PhysicalDamage",type="INC",value=12}},nil}
@@ -3378,7 +3378,7 @@ c["2% increased Mana Reservation Efficiency of Skills per 250 total Attributes"]
 c["2% increased Melee Physical Damage per 10 Dexterity"]={{[1]={[1]={div=10,stat="Dex",type="PerStat"},flags=256,keywordFlags=0,name="PhysicalDamage",type="INC",value=2}},nil}
 c["2% increased Minion Attack Speed per 50 Dexterity"]={{[1]={[1]={div=50,stat="Dex",type="PerStat"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=1,keywordFlags=0,name="Speed",type="INC",value=2}}}},nil}
 c["2% increased Minion Attack and Cast Speed per Skeleton you own"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",stat="ActiveSkeletonLimit",type="PerStat"},flags=0,keywordFlags=0,name="Speed",type="INC",value=2}}}},nil}
-c["2% increased Minion Duration per Zombie you own"]={{[1]={[1]={skillType=88,type="SkillType"},[2]={actor="parent",stat="ActiveZombieLimit",type="PerStat"},flags=0,keywordFlags=0,name="Duration",type="INC",value=2}},nil}
+c["2% increased Minion Duration per Zombie you own"]={{[1]={[1]={skillType=88,type="SkillType"},[2]={skillType=9,type="SkillType"},[3]={actor="parent",stat="ActiveZombieLimit",type="PerStat"},flags=0,keywordFlags=0,name="Duration",type="INC",value=2}},nil}
 c["2% increased Minion Movement Speed per 50 Dexterity"]={{[1]={[1]={div=50,stat="Dex",type="PerStat"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=2}}}},nil}
 c["2% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=2}},nil}
 c["2% increased Movement Speed per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=2}},nil}
@@ -3658,7 +3658,7 @@ c["20% increased Melee Critical Strike Chance"]={{[1]={flags=256,keywordFlags=0,
 c["20% increased Melee Damage"]={{[1]={flags=256,keywordFlags=0,name="Damage",type="INC",value=20}},nil}
 c["20% increased Mine Damage"]={{[1]={flags=0,keywordFlags=8192,name="Damage",type="INC",value=20}},nil}
 c["20% increased Minion Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Accuracy",type="INC",value=20}}}},nil}
-c["20% increased Minion Duration"]={{[1]={[1]={skillType=88,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=20}},nil}
+c["20% increased Minion Duration"]={{[1]={[1]={skillType=88,type="SkillType"},[2]={skillType=9,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=20}},nil}
 c["20% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=20}},nil}
 c["20% increased Movement Speed on Shocked Ground"]={{[1]={[1]={type="Condition",var="OnShockedGround"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=20}},nil}
 c["20% increased Movement Speed when on Full Energy Shield"]={{[1]={[1]={type="Condition",var="FullEnergyShield"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=20}},nil}
