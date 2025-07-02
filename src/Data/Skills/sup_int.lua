@@ -5252,11 +5252,11 @@ skills["SupportSummonPhantasm"] = {
 			mod("ActivePhantasmLimit", "BASE", nil),
 		},
 		["phantasm_minimum_added_physical_damage_to_grant"] = {
-			mod("PhysicalMin", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight" })
+			mod("PhysicalMin", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight", allowTotemBuff = true })
 		},
 		["phantasm_maximum_added_physical_damage_to_grant"] = {
-			mod("PhysicalMax", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight" })
-		}
+			mod("PhysicalMax", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight", allowTotemBuff = true  })
+		},
 	},
 	qualityStats = {
 		Default = {
