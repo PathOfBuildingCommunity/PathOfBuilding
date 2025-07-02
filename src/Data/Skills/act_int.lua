@@ -8936,7 +8936,7 @@ skills["GlacialCascade"] = {
 	},
 	baseMods = {
 		skill("radius", 12),
-		mod("AreaOfEffect", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		skill("radiusExtra", 12, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {

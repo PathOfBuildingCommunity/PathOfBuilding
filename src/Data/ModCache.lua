@@ -2682,7 +2682,7 @@ c["12% increased Mine Laying Speed"]={{[1]={flags=0,keywordFlags=0,name="MineLay
 c["12% increased Mine Throwing Speed"]={{[1]={flags=0,keywordFlags=0,name="MineLayingSpeed",type="INC",value=12}},nil}
 c["12% increased Minion Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Accuracy",type="INC",value=12}}}},nil}
 c["12% increased Minion Damage per Spectre you own"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",stat="ActiveSpectreLimit",type="PerStat"},flags=0,keywordFlags=0,name="Damage",type="INC",value=12}}}},nil}
-c["12% increased Minion Duration"]={{[1]={[1]={skillType=88,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=12}},nil}
+c["12% increased Minion Duration"]={{[1]={[1]={skillType=88,type="SkillType"},[2]={skillType=9,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=12}},nil}
 c["12% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=12}},nil}
 c["12% increased Movement Speed during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=12}},nil}
 c["12% increased Physical Attack Damage while holding a Shield"]={{[1]={[1]={type="Condition",varList={[1]="UsingShield"}},flags=1,keywordFlags=0,name="PhysicalDamage",type="INC",value=12}},nil}
@@ -3378,7 +3378,7 @@ c["2% increased Mana Reservation Efficiency of Skills per 250 total Attributes"]
 c["2% increased Melee Physical Damage per 10 Dexterity"]={{[1]={[1]={div=10,stat="Dex",type="PerStat"},flags=256,keywordFlags=0,name="PhysicalDamage",type="INC",value=2}},nil}
 c["2% increased Minion Attack Speed per 50 Dexterity"]={{[1]={[1]={div=50,stat="Dex",type="PerStat"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=1,keywordFlags=0,name="Speed",type="INC",value=2}}}},nil}
 c["2% increased Minion Attack and Cast Speed per Skeleton you own"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",stat="ActiveSkeletonLimit",type="PerStat"},flags=0,keywordFlags=0,name="Speed",type="INC",value=2}}}},nil}
-c["2% increased Minion Duration per Zombie you own"]={{[1]={[1]={skillType=88,type="SkillType"},[2]={actor="parent",stat="ActiveZombieLimit",type="PerStat"},flags=0,keywordFlags=0,name="Duration",type="INC",value=2}},nil}
+c["2% increased Minion Duration per Zombie you own"]={{[1]={[1]={skillType=88,type="SkillType"},[2]={skillType=9,type="SkillType"},[3]={actor="parent",stat="ActiveZombieLimit",type="PerStat"},flags=0,keywordFlags=0,name="Duration",type="INC",value=2}},nil}
 c["2% increased Minion Movement Speed per 50 Dexterity"]={{[1]={[1]={div=50,stat="Dex",type="PerStat"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=2}}}},nil}
 c["2% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=2}},nil}
 c["2% increased Movement Speed per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=2}},nil}
@@ -3658,7 +3658,7 @@ c["20% increased Melee Critical Strike Chance"]={{[1]={flags=256,keywordFlags=0,
 c["20% increased Melee Damage"]={{[1]={flags=256,keywordFlags=0,name="Damage",type="INC",value=20}},nil}
 c["20% increased Mine Damage"]={{[1]={flags=0,keywordFlags=8192,name="Damage",type="INC",value=20}},nil}
 c["20% increased Minion Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Accuracy",type="INC",value=20}}}},nil}
-c["20% increased Minion Duration"]={{[1]={[1]={skillType=88,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=20}},nil}
+c["20% increased Minion Duration"]={{[1]={[1]={skillType=88,type="SkillType"},[2]={skillType=9,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=20}},nil}
 c["20% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=20}},nil}
 c["20% increased Movement Speed on Shocked Ground"]={{[1]={[1]={type="Condition",var="OnShockedGround"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=20}},nil}
 c["20% increased Movement Speed when on Full Energy Shield"]={{[1]={[1]={type="Condition",var="FullEnergyShield"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=20}},nil}
@@ -7153,7 +7153,7 @@ c["Anger has 60% increased Aura Effect"]={{[1]={[1]={includeTransfigured=true,sk
 c["Anger has no Reservation"]={{[1]={[1]={skillId="Anger",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationFlat",value=0}},[2]={[1]={skillId="Anger",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationFlat",value=0}},[3]={[1]={skillId="Anger",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationPercent",value=0}},[4]={[1]={skillId="Anger",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationPercent",value=0}}},nil}
 c["Animated Guardian deals 5% increased Damage per Animated Weapon"]={{[1]={[1]={includeTransfigured=true,skillName="Animate Guardian",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",type="Multiplier",var="AnimatedWeapon"},flags=0,keywordFlags=0,name="Damage",type="INC",value=5}}}},nil}
 c["Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets"]={nil,"Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets "}
-c["Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets You cannot have non-Animated Minions"]={nil,"Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets You cannot have non-Animated Minions "}
+c["Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets You cannot have Non-Animated, Non-Manifested Minions"]={nil,"Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets You cannot have Non-Animated, Non-Manifested Minions "}
 c["Animated Minions' Melee Attacks deal Splash Damage to surrounding targets"]={nil,"Animated Minions' Melee Attacks deal Splash Damage to surrounding targets "}
 c["Animated Minions' Melee Attacks deal Splash Damage to surrounding targets Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets"]={nil,"Animated Minions' Melee Attacks deal Splash Damage to surrounding targets Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets "}
 c["Arcane Surge grants 10% more Spell Damage to you"]={{[1]={flags=0,keywordFlags=0,name="ArcaneSurgeDamage",type="MAX",value=10}},nil}
@@ -11925,10 +11925,10 @@ c["You cannot be Shocked if you've been Shocked Recently 30% reduced Effect of S
 c["You cannot be Shocked while at maximum Endurance Charges"]={{[1]={[1]={stat="EnduranceCharges",thresholdStat="EnduranceChargesMax",type="StatThreshold"},flags=0,keywordFlags=0,name="ShockImmune",type="FLAG",value=true}},nil}
 c["You cannot be Stunned while at maximum Endurance Charges"]={{[1]={[1]={stat="EnduranceCharges",thresholdStat="EnduranceChargesMax",type="StatThreshold"},flags=0,keywordFlags=0,name="StunImmune",type="FLAG",value=true}},nil}
 c["You cannot gain Rage during Soul Gain Prevention"]={{[1]={[1]={type="Condition",var="SoulGainPrevention"},flags=0,keywordFlags=0,name="RageRegen",type="MORE",value=-100}},nil}
+c["You cannot have Non-Animated, Non-Manifested Minions"]={nil,"You cannot have Non-Animated, Non-Manifested Minions "}
 c["You cannot have Non-Spectre Minions"]={nil,"You cannot have Non-Spectre Minions "}
 c["You cannot have more than 2 Summoned Totems of the same type"]={nil,"You cannot have more than 2 Summoned Totems of the same type "}
 c["You cannot have more than 2 Summoned Totems of the same type 70% increased Totem Placement speed"]={nil,"You cannot have more than 2 Summoned Totems of the same type 70% increased Totem Placement speed "}
-c["You cannot have non-Animated Minions"]={nil,"You cannot have non-Animated Minions "}
 c["You cannot have non-Golem Minions"]={nil,"You cannot have non-Golem Minions "}
 c["You cannot have non-Golem Minions 25% reduced Golem Size"]={nil,"You cannot have non-Golem Minions 25% reduced Golem Size "}
 c["You count as Dual Wielding while you are Unencumbered"]={{[1]={[1]={type="Condition",var="Unencumbered"},flags=0,keywordFlags=0,name="Condition:DualWielding",type="FLAG",value=true}},nil}

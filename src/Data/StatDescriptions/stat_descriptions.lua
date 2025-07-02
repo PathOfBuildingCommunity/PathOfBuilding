@@ -103750,7 +103750,7 @@ return {
 						[2]="#"
 					}
 				},
-				text="Animated Minions' Melee Attacks deal Splash Damage to surrounding targets"
+				text="Animated and Manifested Minions' Melee Strikes deal Splash\nDamage to surrounding targets"
 			}
 		},
 		stats={
@@ -151310,7 +151310,7 @@ return {
 						[2]="#"
 					}
 				},
-				text="Animated Minions' Melee Attacks deal {0}% more Splash Damage to surrounding targets"
+				text="Animated and Manifested Minions' Melee Strikes deal {0}% more Splash Damage"
 			},
 			[2]={
 				[1]={
@@ -151323,7 +151323,7 @@ return {
 						[2]=-1
 					}
 				},
-				text="Animated Minions' Melee Attacks deal {0}% less Splash Damage to surrounding targets"
+				text="Animated and Manifested Minions' Melee Strikes deal {0}% less Splash Damage"
 			}
 		},
 		stats={
@@ -231067,7 +231067,7 @@ return {
 						[2]="#"
 					}
 				},
-				text="You cannot have non-Animated Minions"
+				text="You cannot have Non-Animated, Non-Manifested Minions"
 			}
 		},
 		stats={

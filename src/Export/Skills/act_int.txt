@@ -1787,7 +1787,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 12)
-#baseMod mod("AreaOfEffect", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radiusExtra", 12, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill GlacialCascadeAltX

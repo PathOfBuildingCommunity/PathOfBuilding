@@ -585,7 +585,7 @@ local modNameList = {
 	["maximum number of sentinels of purity"] = "ActiveSentinelOfPurityLimit",
 	["maximum number of summoned spectral wolves"] = "ActiveWolfLimit",
 	["number of summoned arbalists"] = "ActiveArbalistLimit",
-	["minion duration"] = { "Duration", tag = { type = "SkillType", skillType = SkillType.CreatesMinion } },
+	["minion duration"] = { "Duration", tagList = { { type = "SkillType", skillType = SkillType.CreatesMinion }, { type = "SkillType", skillType = SkillType.Minion } }},
 	["skeleton duration"] = { "Duration", tag = { type = "SkillName", skillName = "Summon Skeletons", includeTransfigured = true } },
 	["sentinel of dominance duration"] = { "Duration", tag = { type = "SkillName", skillName = "Dominating Blow", includeTransfigured = true } },
 	-- Other skill modifiers
