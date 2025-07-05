@@ -2569,7 +2569,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			local excludeGroups = { }
 			for _, modLine in ipairs({ self.displayItem.prefixes, self.displayItem.suffixes }) do
 				for i = 1, (modLine.limit or (self.displayItem.affixLimit / 2)) do
-					if modLine[i].modId ~= "None" then
+					if modLine[i] and modLine[i].modId ~= "None" then
 						excludeGroups[self.displayItem.affixes[modLine[i].modId].group] = true
 					end
 				end
