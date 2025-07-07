@@ -486,9 +486,6 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			if level.manaMultiplier then
 				skillModList:NewMod("SupportManaMultiplier", "MORE", level.manaMultiplier, skillEffect.grantedEffect.modSource)
 			end
-			if level.manaReservationPercent then
-				activeSkill.skillData.manaReservationPercent = level.manaReservationPercent
-			end	
 			-- Handle multiple triggers situation and if triggered by a trigger skill save a reference to the trigger.
 			local match = skillEffect.grantedEffect.addSkillTypes and (not skillFlags.disable)
 			if match and skillEffect.grantedEffect.isTrigger then
@@ -498,12 +495,23 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				else
 					activeSkill.triggeredBy = skillEffect
 				end
+			elseif level.manaReservationPercent then
+				activeSkill.skillData.manaReservationPercent = level.manaReservationPercent
 			end
 			if level.PvPDamageMultiplier then
 				skillModList:NewMod("PvpDamageMultiplier", "MORE", level.PvPDamageMultiplier, skillEffect.grantedEffect.modSource)
 			end
 			if level.storedUses then
 				activeSkill.skillData.storedUses = level.storedUses
+			end
+		end
+	end
+
+	if activeSkill.activeEffect.srcInstance then
+		local supportEffect = activeSkill.activeEffect.srcInstance.supportEffect
+		if supportEffect and supportEffect.grantedEffect.isTrigger then
+			for effect, _ in pairs(supportEffect.isSupporting) do
+				activeSkill.skillData.manaReservationPercent = (activeSkill.skillData.manaReservationPercent or 0) + (supportEffect.grantedEffect.levels[supportEffect.level].manaReservationPercent or 0)
 			end
 		end
 	end
