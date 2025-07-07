@@ -8669,7 +8669,7 @@ c["Grants Call of Steel"]={nil,nil}
 c["Grants Call of Steel 150% increased Evasion and Energy Shield"]={nil,"Grants Call of Steel 150% increased Evasion and Energy Shield "}
 c["Grants Call of Steel 60% increased Evasion Rating and Armour"]={nil,"Grants Call of Steel 60% increased Evasion Rating and Armour "}
 c["Grants Immunity to Bleeding for 12 seconds if used while Bleeding"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="BleedImmune",type="FLAG",value=true}},nil}
-c["Grants Immunity to Corrupted Blood for 12 seconds if used while affected by Corrupted Blood"]={nil,"Grants Immunity to Corrupted Blood for 12 seconds if used while affected by Corrupted Blood "}
+c["Grants Immunity to Corrupted Blood for 12 seconds if used while affected by Corrupted Blood"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="CorruptedBloodImmune",type="FLAG",value=true}},nil}
 c["Grants Immunity to Ignite for 4 seconds if used while Ignited"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="IgniteImmune",type="FLAG",value=true}},nil}
 c["Grants Last Breath when you Use a Skill during Effect, for 600% of Mana Cost"]={nil,"Grants Last Breath when you Use a Skill during Effect, for 600% of Mana Cost "}
 c["Grants Last Breath when you Use a Skill during Effect, for 800% of Mana Cost"]={nil,"Grants Last Breath when you Use a Skill during Effect, for 800% of Mana Cost "}
