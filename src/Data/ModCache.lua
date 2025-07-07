@@ -9644,6 +9644,7 @@ c["Nearby Enemy Monsters have at least 8% of Life Reserved"]={{[1]={flags=0,keyw
 c["Nearby Enemy Monsters' Action Speed is at most 92% of base value"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="MaximumActionSpeedReduction",type="MAX",value=8}}}},nil}
 c["Nearby Enemy Monsters' Fire Resistance against"]={nil,"Fire Resistance against "}
 c["Nearby Enemy Monsters' Fire Resistance against Damage over Time is -20% while you are Stationary"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={actor="player",type="ActorCondition",var="Stationary"},flags=8,keywordFlags=0,name="FireResist",type="OVERRIDE",value=-20}}}},nil}
+c["Nearby Enemy Monsters have no Fire Resistance against Damage over Time while you are Stationary"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={actor="player",type="ActorCondition",var="Stationary"},flags=8,keywordFlags=0,name="FireResist",type="OVERRIDE",value=0}}}},nil}
 c["Nearby Hindered Enemies deal 15% reduced Damage over Time"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="DamageOverTime",type="INC",value=-15}}}},nil}
 c["Nearby allies Recover 1% of your Maximum Life when you Die"]={nil,"Nearby allies Recover 1% of your Maximum Life when you Die "}
 c["Nearby allies Recover 2% of your Maximum Life when you Die"]={nil,"Nearby allies Recover 2% of your Maximum Life when you Die "}
