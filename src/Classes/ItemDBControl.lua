@@ -128,7 +128,7 @@ function ItemDBClass:DoesItemMatchFilters(item)
 		if (self.controls.requirement.selIndex == 2 or self.controls.requirement.selIndex == 4) and item.requirements.level and item.requirements.level > self.itemsTab.build.characterLevel then
 			return false
 		end
-		if self.controls.requirement.selIndex > 2 and item.requirements and (item.requirements.str > self.itemsTab.build.calcsTab.mainOutput.Str or item.requirements.dex > self.itemsTab.build.calcsTab.mainOutput.Dex or item.requirements.int > self.itemsTab.build.calcsTab.mainOutput.Int) then
+		if self.controls.requirement.selIndex > 2 and item.requirements and (item.requirements.strMod > self.itemsTab.build.calcsTab.mainOutput.Str or item.requirements.dexMod > self.itemsTab.build.calcsTab.mainOutput.Dex or item.requirements.intMod > self.itemsTab.build.calcsTab.mainOutput.Int) then
 			return false
 		end
 	end

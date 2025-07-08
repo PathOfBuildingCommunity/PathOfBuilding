@@ -1651,7 +1651,7 @@ function calcs.perform(env, skipEHP)
 		breakdown.ManaReserved = { reservations = { } }
 	end
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		if (activeSkill.skillTypes[SkillType.HasReservation] or activeSkill.skillData.triggeredByAutoexertion) and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
+		if activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
 			local skillModList = activeSkill.skillModList
 			local skillCfg = activeSkill.skillCfg
 			local mult = floor(skillModList:More(skillCfg, "SupportManaMultiplier"), 4)
@@ -2775,7 +2775,7 @@ function calcs.perform(env, skipEHP)
 						local cfg = { skillName = grantedEffect.name }
 						local inc = modDB:Sum("INC", cfg, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
 						local more = modDB:More(cfg, "CurseEffectOnSelf") * gemModList:More(nil, "CurseEffectAgainstPlayer")
-						modDB:ScaleAddList(curseModList, (1 + inc / 100) * more)
+						modDB:ScaleAddList(curseModList, m_max((1 + inc / 100) * more, 0))
 					end
 				elseif not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof") then
 					local curse = {
