@@ -881,3 +881,58 @@ for _, modId in ipairs(sortedCharmsMods) do
 end
 
 table.insert(data.uniques.generated, table.concat(thatWhichWasTaken, "\n"))
+
+
+local replicaDragonfangsFlightMods = {}
+
+LoadModule("Modules/CalcTools")
+for _, gem in pairs(data.gems) do
+	if not string.match(gem.grantedEffectId, "Alt[XY]$") and calcLib.gemIsType(gem, "active skill", false) and calcLib.gemIsType(gem, "non-vaal", false) then
+		replicaDragonfangsFlightMods[gem.name] = "+3 to Level of all "..gem.name.." Gems"
+	end
+end
+
+local replicaDragonfangsFlight = {
+    [[Replica Dragonfang's Flight
+    Onyx Amulet
+    Selected Variant: 2
+    Has Alt Variant: true
+    Selected Alt Variant: 3
+    LevelReq: 56
+	]]
+}
+
+table.insert(replicaDragonfangsFlight,
+[[Variant: Pre 3.23.0
+Variant: Current
+]]
+)
+
+for name, _ in pairs(replicaDragonfangsFlightMods) do
+	table.insert(replicaDragonfangsFlight, "Variant: "..name)
+end
+
+table.insert(replicaDragonfangsFlight,
+[[Implicits: 1
+{tags:jewellery_attribute}+(10-16) to all Attributes
+{tags:jewellery_resistance}{variant:1}+(10-15)% to all Elemental Resistances
+{tags:jewellery_resistance}{variant:2}+(5-10)% to all Elemental Resistances
+]]
+)
+
+local index = 3
+for _, line in pairs(replicaDragonfangsFlightMods) do
+	table.insert(replicaDragonfangsFlight, "{variant:"..index.."}"..line)
+	index = index + 1
+end
+
+table.insert(replicaDragonfangsFlight,
+[[
+{variant:1}(10-15)% increased Reservation Efficiency of Skills
+{variant:2}(5-10)% increased Reservation Efficiency of Skills
+{variant:1}Items and Gems have (10-15)% reduced Attribute Requirements
+{variant:2}Items and Gems have (5-10)% reduced Attribute Requirements
+]]
+)
+
+table.insert(data.uniques.generated, table.concat(replicaDragonfangsFlight, "\n"))
