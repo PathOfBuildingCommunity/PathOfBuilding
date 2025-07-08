@@ -4357,6 +4357,7 @@ c["3% of Elemental Damage Leeched as Energy Shield if 2 Shaper Items are Equippe
 c["3% of Life Regenerated per Second if you've dealt a Critical Strike in the past 8 seconds"]={{[1]={[1]={type="Condition",var="CritInPast8Sec"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=3}},nil}
 c["3% of Physical Attack Damage Leeched as Life"]={{[1]={flags=1,keywordFlags=0,name="PhysicalDamageLifeLeech",type="BASE",value=3}},nil}
 c["3% of Physical Damage Leeched as Energy Shield if 2 Elder Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="ElderItem"},flags=0,keywordFlags=0,name="PhysicalDamageEnergyShieldLeech",type="BASE",value=3}},nil}
+c["3% of Physical Damage Prevented Recently is Regenerated as Energy Shield Per Second if 6 Crusader Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="CrusaderItem"},flags=0,keywordFlags=0,name="PhysicalDamageMitigatedEnergyShieldPseudoRecoup",type="BASE",value=12}},nil}
 c["3% of Physical Damage prevented from Hits Recently is Regenerated as Energy Shield per second"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageMitigatedEnergyShieldPseudoRecoup",type="BASE",value=12}},nil}
 c["3% reduced Attack and Cast Speed per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="Speed",type="INC",value=-3}},nil}
 c["3% reduced Cost of Skills"]={{[1]={flags=0,keywordFlags=0,name="Cost",type="INC",value=-3}},nil}
@@ -4646,7 +4647,6 @@ c["30% of Lightning Damage is taken from Mana before Life"]={{[1]={flags=0,keywo
 c["30% of Physical Damage Converted to Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToChaos",type="BASE",value=30}},nil}
 c["30% of Physical Damage Converted to Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=30}},nil}
 c["30% of Physical Damage Converted to Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=30}},nil}
-c["30% of Physical Damage Prevented Recently is Regenerated as Energy Shield Per Second if 6 Crusader Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="CrusaderItem"},flags=0,keywordFlags=0,name="PhysicalDamageMitigatedEnergyShieldPseudoRecoup",type="BASE",value=120}},nil}
 c["30% of Physical Damage from Hits taken as Cold Damage during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="PhysicalDamageFromHitsTakenAsCold",type="BASE",value=30}},nil}
 c["30% of Physical Damage from Hits taken as Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageFromHitsTakenAsLightning",type="BASE",value=30}},nil}
 c["30% reduced Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=-30}},nil}
