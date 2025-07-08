@@ -282,7 +282,7 @@ local function calcWarcryCastTime(skillModList, skillCfg, skillData, actor)
 	local warcryCastTime = baseSpeed * calcLib.mod(skillModList, skillCfg, "WarcrySpeed") * calcs.actionSpeedMod(actor)
 	warcryCastTime = m_min(warcryCastTime, data.misc.ServerTickRate)
 	warcryCastTime = 1 / warcryCastTime
-	if skillModList:Flag(skillCfg, "InstantWarcry") or skillData.SupportedByAutoexertion then
+	if skillModList:Flag(skillCfg, "InstantWarcry") or skillData.triggeredByAutoexertion then
 		warcryCastTime = 0
 	end
 	return warcryCastTime
