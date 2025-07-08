@@ -2297,7 +2297,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.HitSpeed = 1 / output.HitTime
 			--Brands always have hitTimeOverride
 			if activeSkill.skillTypes[SkillType.Brand] and not skillModList:Flag(nil, "UnlimitedBrandDuration") then
-				output.BrandTicks = m_floor(output.Duration * output.HitSpeed)
+				output.BrandTicks = m_floor(output.Duration * output.HitSpeed * debuffDurationMult)
 			end
 		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
 			output.HitTime = output.Time * skillData.hitTimeMultiplier
