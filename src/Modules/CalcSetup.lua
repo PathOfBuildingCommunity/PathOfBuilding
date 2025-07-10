@@ -1049,6 +1049,20 @@ function calcs.initEnv(build, mode, override, specEnv)
 						combinedList:MergeMod(mod)
 					end	
 					env.itemModDB:ScaleAddList(combinedList, scale)
+				elseif item.type == "Gloves" and calcLib.mod(env.modDB, nil, "EffectOfBonusesFromGloves") ~=1 then
+					scale = calcLib.mod(env.modDB, nil, "EffectOfBonusesFromGloves")
+					local combinedList = new("ModList")
+					for _, mod in ipairs(srcList) do
+						combinedList:MergeMod(mod)
+					end
+					env.itemModDB:ScaleAddList(combinedList, scale)
+				elseif item.type == "Boots" and calcLib.mod(env.modDB, nil, "EffectOfBonusesFromBoots") ~= 1 then
+					scale = calcLib.mod(env.modDB, nil, "EffectOfBonusesFromBoots")
+					local combinedList = new("ModList")
+					for _, mod in ipairs(srcList) do
+						combinedList:MergeMod(mod)
+					end
+					env.itemModDB:ScaleAddList(combinedList, scale)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
 				end
@@ -1184,29 +1198,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		if #override.extraJewelFuncs > 0 then
 			return calcs.initEnv(build, mode, override, specEnv)
-		end
-	end
-	
-	if env.player.itemList["Gloves"] then
-		local gloveEffectMod = calcLib.mod(env.modDB, nil, "EffectOfBonusesFromGloves")
-		if gloveEffectMod ~= 1 then
-			local modList = env.player.itemList["Gloves"].modList
-			for _, mod in ipairs(modList) do
-				if not (mod.name == "ExtraSupport" or mod.name == "ExtraSkill" or mod.name == "ExtraSupport" or mod.name == "ExtraSkillMod" or (mod[1] and mod[1].type == "SocketedIn")) then
-					modDB:ScaleAddMod(mod, gloveEffectMod, true)
-				end
-			end
-		end
-	end
-	if env.player.itemList["Boots"] then
-		local bootEffectMod = calcLib.mod(env.modDB, nil, "EffectOfBonusesFromBoots")
-		if bootEffectMod ~= 1 then
-			local modList = env.player.itemList["Boots"].modList
-			for _, mod in ipairs(modList) do
-				if not (mod.name == "ExtraSupport" or mod.name == "ExtraSkill" or mod.name == "ExtraSupport" or mod.name == "ExtraSkillMod" or (mod[1] and mod[1].type == "SocketedIn")) then
-					modDB:ScaleAddMod(mod, bootEffectMod, true)
-				end
-			end
 		end
 	end
 
