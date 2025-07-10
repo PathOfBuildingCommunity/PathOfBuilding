@@ -109,7 +109,17 @@ function calcs.buildModListForNode(env, node)
 	if node.type == "Keystone" then
 		modList:AddMod(node.keystoneMod)
 	else
-		modList:AddList(node.modList)
+		-- Apply effect scaling
+		local scale = calcLib.mod(node.modList, nil, "PassiveSkillEffect")
+		if scale ~= 1 then
+			local combinedList = new("ModList")
+			for _, mod in ipairs(node.modList) do
+				combinedList:MergeMod(mod)
+			end
+			modList:ScaleAddList(combinedList, scale)
+		else
+			modList:AddList(node.modList)
+		end
 	end
 
 	-- Run first pass radius jewels
@@ -121,14 +131,6 @@ function calcs.buildModListForNode(env, node)
 
 	if modList:Flag(nil, "PassiveSkillHasNoEffect") or (env.allocNodes[node.id] and modList:Flag(nil, "AllocatedPassiveSkillHasNoEffect")) then
 		wipeTable(modList)
-	end
-
-	-- Apply effect scaling
-	local scale = calcLib.mod(modList, nil, "PassiveSkillEffect")
-	if scale ~= 1 then
-		local scaledList = new("ModList")
-		scaledList:ScaleAddList(modList, scale)
-		modList = scaledList
 	end
 
 	-- Run second pass radius jewels
