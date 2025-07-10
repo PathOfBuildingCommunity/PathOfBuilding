@@ -364,3 +364,8 @@ function ItemDBClass:OnHoverKeyUp(key)
 		end
 	end
 end
+
+function ItemDBClass:GetRowIcon(column, index, item)
+	local slotName = item:GetPrimarySlot()
+	return icons.getIconForSlot(slotName)
+end
