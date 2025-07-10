@@ -1188,27 +1188,23 @@ function calcs.initEnv(build, mode, override, specEnv)
 	end
 	
 	if env.player.itemList["Gloves"] then
-		local gloveEffectMod = env.modDB:Sum("INC", nil, "EffectOfBonusesFromGloves") / 100
-		if gloveEffectMod ~= 0 then
+		local gloveEffectMod = calcLib.mod(env.modDB, nil, "EffectOfBonusesFromGloves")
+		if gloveEffectMod ~= 1 then
 			local modList = env.player.itemList["Gloves"].modList
 			for _, mod in ipairs(modList) do
 				if not (mod.name == "ExtraSupport" or mod.name == "ExtraSkill" or mod.name == "ExtraSupport" or mod.name == "ExtraSkillMod" or (mod[1] and mod[1].type == "SocketedIn")) then
-					local modCopy = copyTable(mod)
-					modCopy.source = tostring(gloveEffectMod * 100) .. "% Gloves Bonus Effect"
-					modDB:ScaleAddMod(modCopy, gloveEffectMod)
+					modDB:ScaleAddMod(mod, gloveEffectMod, true)
 				end
 			end
 		end
 	end
 	if env.player.itemList["Boots"] then
-		local bootEffectMod = env.modDB:Sum("INC", nil, "EffectOfBonusesFromBoots") / 100
-		if bootEffectMod ~= 0 then
+		local bootEffectMod = calcLib.mod(env.modDB, nil, "EffectOfBonusesFromBoots")
+		if bootEffectMod ~= 1 then
 			local modList = env.player.itemList["Boots"].modList
 			for _, mod in ipairs(modList) do
 				if not (mod.name == "ExtraSupport" or mod.name == "ExtraSkill" or mod.name == "ExtraSupport" or mod.name == "ExtraSkillMod" or (mod[1] and mod[1].type == "SocketedIn")) then
-					local modCopy = copyTable(mod)
-					modCopy.source = tostring(bootEffectMod * 100) .. "% Boots Bonus Effect"
-					modDB:ScaleAddMod(modCopy, bootEffectMod)
+					modDB:ScaleAddMod(mod, bootEffectMod, true)
 				end
 			end
 		end

@@ -45,8 +45,9 @@ function ModDBClass:ReplaceModInternal(mod)
 	local modIndex = -1
 	for i = 1, #modList do
 		local curMod = modList[i]
-		if mod.name == curMod.name and mod.type == curMod.type and mod.flags == curMod.flags and mod.keywordFlags == curMod.keywordFlags and mod.source == curMod.source then
+		if mod.name == curMod.name and mod.type == curMod.type and mod.flags == curMod.flags and mod.keywordFlags == curMod.keywordFlags and mod.source == curMod.source and not curMod.replaced then
 			modIndex = i
+			mod.replaced = true
 			break;
 		end
 	end

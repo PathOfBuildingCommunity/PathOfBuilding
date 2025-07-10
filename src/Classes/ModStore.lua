@@ -34,7 +34,7 @@ local ModStoreClass = newClass("ModStore", function(self, parent)
 	self.conditions = { }
 end)
 
-function ModStoreClass:ScaleAddMod(mod, scale)
+function ModStoreClass:ScaleAddMod(mod, scale, replace)
 	local unscalable = false
 	for _, effects in ipairs(mod) do
 		if effects.unscalable then
@@ -63,7 +63,11 @@ function ModStoreClass:ScaleAddMod(mod, scale)
 				subMod.value = m_modf(round(subMod.value * scale, 2))
 			end
 		end
-		self:AddMod(scaledMod)
+		if replace then
+			self:ReplaceModInternal(scaledMod)
+		else
+			self:AddMod(scaledMod)
+		end
 	end
 end
 
