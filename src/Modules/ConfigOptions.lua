@@ -533,8 +533,9 @@ return {
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = false }, "Config", { type = "SkillId", skillId = "ABTTAzmeriShepherdSpellDamage" })
 	end },
 	{ label = "Raise Spiders:", ifSkill = "Raise Spiders" },
-	{ var = "raiseSpidersSpiderCount", type = "count", label = "# of Spiders:", ifSkill = "Raise Spiders", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:RaisedSpider", "BASE", m_min(val, 20), "Config")
+	{ var = "raiseSpidersSpiderCount", type = "count", label = "# of Spiders:", ifSkill = "Raise Spiders", tooltip = "Sets the number of active Spiders.\nThe base maximum number of Spiders is 20.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:RaisedSpiderConfig", "BASE", val, "Config")
+		modList:NewMod("Multiplier:RaisedSpider", "BASE", 1, "Config", { type = "Multiplier", var = "RaisedSpiderConfig", limitStat = "ActiveSpiderLimit" })
 	end },
 	{ label = "Raise Zombie:", ifSkill = "Raise Zombie", includeTransfigured = true, ifCond = "SummonedZombieInPast8Sec" },
 	{ var = "conditionSummonedZombieInPast8Sec", type = "check", label = "Summoned Zombie in past 8 Seconds?", ifCond = "SummonedZombieInPast8Sec", ifSkill = "Raise Zombie", includeTransfigured = true, apply = function(val, modList, enemyModList)
@@ -561,8 +562,9 @@ return {
 		modList:NewMod("Multiplier:SnipeStage", "BASE", val, "Config")
 	end },
 	{ label = "Spectral Wolf:", ifSkill = "Summon Spectral Wolf" },
-	{ var = "configSpectralWolfCount", type = "count", label = "# of Active Spectral Wolves:", ifSkill = "Summon Spectral Wolf", tooltip = "Sets the number of active Spectral Wolves.\nThe maximum number of Spectral Wolves is 10.", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:SpectralWolfCount", "BASE", m_min(val, 10), "Config")
+	{ var = "configSpectralWolfCount", type = "count", label = "# of Active Spectral Wolves:", ifSkill = "Summon Spectral Wolf", tooltip = "Sets the number of active Spectral Wolves.\nThe base maximum number of Spectral Wolves is 10.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:SpectralWolfConfig", "BASE", val, "Config")
+		modList:NewMod("Multiplier:SpectralWolfCount", "BASE", 1, "Config", { type = "Multiplier", var = "SpectralWolfConfig", limitStat = "ActiveWolfLimit" })
 	end },
 	{ label = "Stance Skills:", ifSkill = { "Blood and Sand", "Flesh and Stone", "Lacerate", "Bladestorm", "Perforate", "Perforate of Duality" } },
 	{ var = "bloodSandStance", type = "list", label = "Stance:", ifSkill = { "Blood and Sand", "Flesh and Stone", "Lacerate", "Bladestorm", "Perforate", "Perforate of Duality" }, list = {{val="BLOOD",label="Blood Stance"},{val="SAND",label="Sand Stance"}}, apply = function(val, modList, enemyModList)
