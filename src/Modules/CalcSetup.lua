@@ -636,6 +636,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			nodes = copyTable(env.spec.allocNodes, true)
 		end
 		env.allocNodes = nodes
+		env.initialNodeModDB = calcs.buildModListForNodeList(env, env.allocNodes, true)
 	end
 
 	if allocatedNotableCount and allocatedNotableCount > 0 then
@@ -1049,15 +1050,15 @@ function calcs.initEnv(build, mode, override, specEnv)
 						combinedList:MergeMod(mod)
 					end	
 					env.itemModDB:ScaleAddList(combinedList, scale)
-				elseif item.type == "Gloves" and calcLib.mod(env.modDB, nil, "EffectOfBonusesFromGloves") ~=1 then
-					scale = calcLib.mod(env.modDB, nil, "EffectOfBonusesFromGloves")
+				elseif item.type == "Gloves" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves") ~=1 then
+					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves")
 					local combinedList = new("ModList")
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
 					end
 					env.itemModDB:ScaleAddList(combinedList, scale)
-				elseif item.type == "Boots" and calcLib.mod(env.modDB, nil, "EffectOfBonusesFromBoots") ~= 1 then
-					scale = calcLib.mod(env.modDB, nil, "EffectOfBonusesFromBoots")
+				elseif item.type == "Boots" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots") ~= 1 then
+					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots")
 					local combinedList = new("ModList")
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
@@ -1200,6 +1201,28 @@ function calcs.initEnv(build, mode, override, specEnv)
 			return calcs.initEnv(build, mode, override, specEnv)
 		end
 	end
+
+	-- if env.player.itemList["Gloves"] then
+	-- 	local scale = calcLib.mod(env.modDB, nil, "EffectOfBonusesFromGloves")
+	-- 	if scale ~= 1 then
+	-- 		local combinedList = new("ModList")
+	-- 		for _, mod in ipairs(env.player.itemList["Gloves"].modList) do
+	-- 			combinedList:MergeMod(mod)
+	-- 		end
+	-- 		modDB:ScaleAddList(combinedList, scale, true)
+	-- 	end
+	-- end
+	-- if env.player.itemList["Boots"] then
+	-- 	local scale = calcLib.mod(env.modDB, nil, "EffectOfBonusesFromBoots")
+	-- 	if scale ~= 1 then
+	-- 		local combinedList = new("ModList")
+	-- 		for _, mod in ipairs(env.player.itemList["Boots"].modList) do
+	-- 			combinedList:MergeMod(mod)
+	-- 			modDB:RemoveMod
+	-- 		end
+	-- 		modDB:ScaleAddList(combinedList, scale, true)
+	-- 	end
+	-- end
 
 	-- Find skills granted by tree nodes
 	if not accelerate.nodeAlloc then
