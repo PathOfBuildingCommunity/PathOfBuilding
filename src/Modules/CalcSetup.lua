@@ -636,6 +636,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			nodes = copyTable(env.spec.allocNodes, true)
 		end
 		env.allocNodes = nodes
+		env.initialNodeModDB = calcs.buildModListForNodeList(env, env.allocNodes, true)
 	end
 
 	if allocatedNotableCount and allocatedNotableCount > 0 then
@@ -1049,6 +1050,20 @@ function calcs.initEnv(build, mode, override, specEnv)
 						combinedList:MergeMod(mod)
 					end	
 					env.itemModDB:ScaleAddList(combinedList, scale)
+				elseif item.type == "Gloves" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves") ~=1 then
+					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves")
+					local combinedList = new("ModList")
+					for _, mod in ipairs(srcList) do
+						combinedList:MergeMod(mod)
+					end
+					env.itemModDB:ScaleAddList(combinedList, scale)
+				elseif item.type == "Boots" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots") ~= 1 then
+					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots")
+					local combinedList = new("ModList")
+					for _, mod in ipairs(srcList) do
+						combinedList:MergeMod(mod)
+					end
+					env.itemModDB:ScaleAddList(combinedList, scale)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
 				end
@@ -1186,33 +1201,28 @@ function calcs.initEnv(build, mode, override, specEnv)
 			return calcs.initEnv(build, mode, override, specEnv)
 		end
 	end
-	
-	if env.player.itemList["Gloves"] then
-		local gloveEffectMod = env.modDB:Sum("INC", nil, "EffectOfBonusesFromGloves") / 100
-		if gloveEffectMod ~= 0 then
-			local modList = env.player.itemList["Gloves"].modList
-			for _, mod in ipairs(modList) do
-				if not (mod.name == "ExtraSupport" or mod.name == "ExtraSkill" or mod.name == "ExtraSupport" or mod.name == "ExtraSkillMod" or (mod[1] and mod[1].type == "SocketedIn")) then
-					local modCopy = copyTable(mod)
-					modCopy.source = tostring(gloveEffectMod * 100) .. "% Gloves Bonus Effect"
-					modDB:ScaleAddMod(modCopy, gloveEffectMod)
-				end
-			end
-		end
-	end
-	if env.player.itemList["Boots"] then
-		local bootEffectMod = env.modDB:Sum("INC", nil, "EffectOfBonusesFromBoots") / 100
-		if bootEffectMod ~= 0 then
-			local modList = env.player.itemList["Boots"].modList
-			for _, mod in ipairs(modList) do
-				if not (mod.name == "ExtraSupport" or mod.name == "ExtraSkill" or mod.name == "ExtraSupport" or mod.name == "ExtraSkillMod" or (mod[1] and mod[1].type == "SocketedIn")) then
-					local modCopy = copyTable(mod)
-					modCopy.source = tostring(bootEffectMod * 100) .. "% Boots Bonus Effect"
-					modDB:ScaleAddMod(modCopy, bootEffectMod)
-				end
-			end
-		end
-	end
+
+	-- if env.player.itemList["Gloves"] then
+	-- 	local scale = calcLib.mod(env.modDB, nil, "EffectOfBonusesFromGloves")
+	-- 	if scale ~= 1 then
+	-- 		local combinedList = new("ModList")
+	-- 		for _, mod in ipairs(env.player.itemList["Gloves"].modList) do
+	-- 			combinedList:MergeMod(mod)
+	-- 		end
+	-- 		modDB:ScaleAddList(combinedList, scale, true)
+	-- 	end
+	-- end
+	-- if env.player.itemList["Boots"] then
+	-- 	local scale = calcLib.mod(env.modDB, nil, "EffectOfBonusesFromBoots")
+	-- 	if scale ~= 1 then
+	-- 		local combinedList = new("ModList")
+	-- 		for _, mod in ipairs(env.player.itemList["Boots"].modList) do
+	-- 			combinedList:MergeMod(mod)
+	-- 			modDB:RemoveMod
+	-- 		end
+	-- 		modDB:ScaleAddList(combinedList, scale, true)
+	-- 	end
+	-- end
 
 	-- Find skills granted by tree nodes
 	if not accelerate.nodeAlloc then
