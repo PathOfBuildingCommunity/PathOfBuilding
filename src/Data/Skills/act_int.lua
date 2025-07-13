@@ -14941,7 +14941,7 @@ skills["RighteousFireAltX"] = {
 			skill("RFManaMultiplier", nil),
 			div = 6000,
 		},
-		["righteous_fire_spell_damage_+%_final"] = {
+		["righteous_fire_cast_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
