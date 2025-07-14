@@ -54967,24 +54967,26 @@ return {
 			}, 
 		}, 
 		["799_FlaskDispellsPoison"] = {
+			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_3596333054", 
-				["text"] = "Grants Immunity to Poison for 4 seconds if used while Poisoned", 
+				["id"] = "explicit.stat_542375676", 
+				["text"] = "Grants Immunity to Poison for # seconds if used while Poisoned", 
 				["type"] = "explicit", 
 			}, 
 		}, 
 		["800_FlaskPoisonImmunity"] = {
 			["Flask"] = {
-				["max"] = 1, 
-				["min"] = 1, 
+				["max"] = 17, 
+				["min"] = 6, 
 			}, 
+			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_3596333054", 
-				["text"] = "Grants Immunity to Poison for 4 seconds if used while Poisoned", 
+				["id"] = "explicit.stat_542375676", 
+				["text"] = "Grants Immunity to Poison for # seconds if used while Poisoned", 
 				["type"] = "explicit", 
 			}, 
 		}, 
