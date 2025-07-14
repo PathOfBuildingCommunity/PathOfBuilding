@@ -1,5 +1,40 @@
 # Changelog
 
+## [v2.55.4](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.55.4) (2025/07/14)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.55.3...v2.55.4)
+
+## What's Changed
+### New to Path of Building
+- Add support for Corrupted Blood flask mods [\#8798](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8798) ([Blitz54](https://github.com/Blitz54))
+- Add support for Righteous Fire of Arcane Devotion more Cast Speed mod [\#8830](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8830) ([oskar94](https://github.com/oskar94))
+### Fixed Crashes
+- Fix Crash when copying and pasting item into PoB sometimes [\#8789](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8789) ([Nightblade](https://github.com/Nightblade))
+### User Interface
+- Fix Attribute Requirement sorting [\#8814](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8814) ([Blitz54](https://github.com/Blitz54))
+- Remove Channelling time config box for Focused Channelling - Existing users should update their config [\#8823](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8823) ([Wires77](https://github.com/Wires77))
+- Fix gems being added to skill groups when sorting dropdown [\#8802](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8802) ([Paliak](https://github.com/Paliak))
+### Fixed Calculations
+- Fix Runegraft of the Bound scaling Facebreaker's incorrectly [\#8820](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8820) ([LocalIdentity](https://github.com/LocalIdentity), [Wires77](https://github.com/Wires77))
+- Fix Minion Scaling mods on Spinehail scaling with Widowhail [\#8779](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8779) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Full DPS depending on order of skill groups [\#8800](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8800) ([Paliak](https://github.com/Paliak))
+- Fix Spark maximum hits being calculated incorrectly [\#8833](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8833) ([jeremykvlim](https://github.com/jeremykvlim))
+- Fix Minion DoT DPS not including +50% DoT multiplier from Crits [\#8826](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8826) ([Wires77](https://github.com/Wires77))
+- Fix Aura effect scaling when using Hand of Phrecia and  "effect of auras on you" mods [\#8815](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8815) ([Wires77](https://github.com/Wires77))
+- Fix inc effect on Cluster Jewel causing rounding issues [\#8821](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8821) ([Wires77](https://github.com/Wires77))
+### Fixed Behaviours
+- Fix Autoexertion not working correctly with Arrogance [\#8804](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8804) ([Paliak](https://github.com/Paliak))
+- Fix Summon Spider / Spectral Wolf count config not scaling with Dark Monarch [\#8819](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8819) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Brand attachment duration not being scaled by Temporal Chains [\#8796](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8796) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Reduced Effect of Curses on Self scaling beyond 100% reduced effect [\#8783](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8783) ([Blitz54](https://github.com/Blitz54))
+- Fix Maven Memory Game skill breaking Vile Bastion from working [\#8781](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8781) ([Blitz54](https://github.com/Blitz54))
+- Fix Nametaker not instant leeching Mana and Energy Shield [\#8812](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8812) ([Blitz54](https://github.com/Blitz54))
+- Fix Item sort option for "Current Usable" not taking into account local attribute requirement mods [\#8803](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8803) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Plague Bearer default config not applying [\#8810](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8810) ([Blitz54](https://github.com/Blitz54))
+### Accuracy Improvements
+- Fix Bound by Destiny Phys prevented as ES Regen mod value [\#8795](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8795) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
 ## [v2.55.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.55.3) (2025/07/02)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.55.2...v2.55.3)
