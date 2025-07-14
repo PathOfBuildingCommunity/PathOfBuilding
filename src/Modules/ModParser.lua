@@ -2860,7 +2860,11 @@ local specialModList = {
 	["mana leech from hits with this weapon is instant"] = { mod("InstantManaLeech", "BASE", 100, { type = "Condition", var = "{Hand}Attack" }) },
 	["life leech from melee damage is instant"] = { mod("InstantLifeLeech", "BASE", 100, nil, ModFlag.Melee) },
 	["gain life from leech instantly from hits with this weapon"] = { mod("InstantLifeLeech", "BASE", 100, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }) },
-	["(%d+)%% of leech from hits with this weapon is instant per enemy power"] = function(num) return { mod("InstantLifeLeech", "BASE", num, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }, { type = "Multiplier", var = "EnemyPower"}) } end,
+	["(%d+)%% of leech from hits with this weapon is instant per enemy power"] = function(num) return {
+		mod("InstantLifeLeech", "BASE", num, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }, { type = "Multiplier", var = "EnemyPower"}),
+		mod("InstantManaLeech", "BASE", num, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }, { type = "Multiplier", var = "EnemyPower"}),
+		mod("InstantEnergyShieldLeech", "BASE", num, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }, { type = "Multiplier", var = "EnemyPower"}),
+	} end,
 	["instant recovery"] = {  mod("FlaskInstantRecovery", "BASE", 100) },
 	["life flasks used while on low life apply recovery instantly"] = { mod("LifeFlaskInstantRecovery", "BASE", 100, { type = "Condition", var = "LowLife" }) },
 	["mana flasks used while on low mana apply recovery instantly"] = { mod("ManaFlaskInstantRecovery", "BASE", 100, { type = "Condition", var = "LowMana" }) },
