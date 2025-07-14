@@ -1202,28 +1202,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 	end
 
-	-- if env.player.itemList["Gloves"] then
-	-- 	local scale = calcLib.mod(env.modDB, nil, "EffectOfBonusesFromGloves")
-	-- 	if scale ~= 1 then
-	-- 		local combinedList = new("ModList")
-	-- 		for _, mod in ipairs(env.player.itemList["Gloves"].modList) do
-	-- 			combinedList:MergeMod(mod)
-	-- 		end
-	-- 		modDB:ScaleAddList(combinedList, scale, true)
-	-- 	end
-	-- end
-	-- if env.player.itemList["Boots"] then
-	-- 	local scale = calcLib.mod(env.modDB, nil, "EffectOfBonusesFromBoots")
-	-- 	if scale ~= 1 then
-	-- 		local combinedList = new("ModList")
-	-- 		for _, mod in ipairs(env.player.itemList["Boots"].modList) do
-	-- 			combinedList:MergeMod(mod)
-	-- 			modDB:RemoveMod
-	-- 		end
-	-- 		modDB:ScaleAddList(combinedList, scale, true)
-	-- 	end
-	-- end
-
 	-- Find skills granted by tree nodes
 	if not accelerate.nodeAlloc then
 		for _, node in pairs(env.allocNodes) do
