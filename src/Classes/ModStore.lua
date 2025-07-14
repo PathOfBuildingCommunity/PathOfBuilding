@@ -297,8 +297,8 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
 			local limitNegTotal
-			if tag.limit or tag.limitVar then
-				local limit = tag.limit or limitTarget:GetMultiplier(tag.limitVar, cfg)
+			if tag.limit or tag.limitVar or tag.limitStat then
+				local limit = tag.limit or tag.limitVar and limitTarget:GetMultiplier(tag.limitVar, cfg) or tag.limitStat and limitTarget:GetStat(tag.limitStat, cfg)
 				if tag.limitTotal then
 					limitTotal = limit
 				elseif tag.limitNegTotal then
