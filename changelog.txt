@@ -1,4 +1,5 @@
 VERSION[2.55.4][2025/07/14]
+
 --- New to Path of Building ---
 * Add support for Corrupted Blood flask mods (Blitz54)
 * Add support for Righteous Fire of Arcane Devotion more Cast Speed mod (oskar94)
@@ -12,7 +13,7 @@ VERSION[2.55.4][2025/07/14]
 * Fix gems being added to skill groups when sorting dropdown (Paliak)
 
 --- Fixed Calculations ---
-* Fix Runegraft of the Bound scaling Facebreaker's incorrectly by (@LocalIdentity, @Wires77) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8820
+* Fix Runegraft of the Bound scaling Facebreaker's incorrectly (LocalIdentity, Wires77)
 * Fix Minion Scaling mods on Spinehail scaling with Widowhail (LocalIdentity)
 * Fix Full DPS depending on order of skill groups (Paliak)
 * Fix Spark maximum hits being calculated incorrectly (jeremykvlim)

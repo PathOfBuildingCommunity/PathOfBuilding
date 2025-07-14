@@ -15,7 +15,7 @@
 - Remove Channelling time config box for Focused Channelling - Existing users should update their config [\#8823](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8823) ([Wires77](https://github.com/Wires77))
 - Fix gems being added to skill groups when sorting dropdown [\#8802](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8802) ([Paliak](https://github.com/Paliak))
 ### Fixed Calculations
-* Fix Runegraft of the Bound scaling Facebreaker's incorrectly by (@LocalIdentity, @Wires77) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8820
+- Fix Runegraft of the Bound scaling Facebreaker's incorrectly [\#8820](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8820) ([LocalIdentity](https://github.com/LocalIdentity), [Wires77](https://github.com/Wires77))
 - Fix Minion Scaling mods on Spinehail scaling with Widowhail [\#8779](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8779) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Full DPS depending on order of skill groups [\#8800](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8800) ([Paliak](https://github.com/Paliak))
 - Fix Spark maximum hits being calculated incorrectly [\#8833](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8833) ([jeremykvlim](https://github.com/jeremykvlim))
