@@ -73,6 +73,7 @@ local skills, mod, flag, skill = ...
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
 	end,
+#baseMod skill("debuff", true)
 #mods
 
 #skill SupportBrandSupport
@@ -110,6 +111,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radiusSecondary", 8)
+#baseMod skill("debuff", true)
 #mods
 
 #skill ArmageddonBrandAltX
@@ -129,6 +131,7 @@ local skills, mod, flag, skill = ...
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 	},
+#baseMod skill("debuff", true)
 #mods
 
 #skill AssassinsMark
@@ -2939,6 +2942,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 28)
 #baseMod mod("Multiplier:PenanceBrandofDissipationMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 1 })
+#baseMod skill("debuff", true)
 #mods
 
 #skill PenanceBrandAltY
@@ -2948,6 +2952,7 @@ local skills, mod, flag, skill = ...
 	end,
 #baseMod skill("radius", 28)
 #baseMod skill("showAverage", true)
+#baseMod skill("debuff", true)
 #mods
 
 #skill PowerSiphon
@@ -3251,7 +3256,7 @@ local skills, mod, flag, skill = ...
 			skill("RFManaMultiplier", nil),
 			div = 6000,
 		},
-		["righteous_fire_spell_damage_+%_final"] = {
+		["righteous_fire_cast_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
@@ -3438,7 +3443,7 @@ local skills, mod, flag, skill = ...
 	preDamageFunc = function(activeSkill, output)
 		local skillData = activeSkill.skillData
 		if activeSkill.skillPart == 2 then
-			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * (1 + math.floor( output.Duration / 0.66 ))
 			output.SkillDPSMultiplier = skillData.dpsMultiplier
 		end
 	end,
@@ -3457,7 +3462,7 @@ local skills, mod, flag, skill = ...
 	preDamageFunc = function(activeSkill, output) 
 		local skillData = activeSkill.skillData
 		if activeSkill.skillPart == 2 then
-			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * (1 + math.floor( output.Duration / 0.66 ))
 			output.SkillDPSMultiplier = skillData.dpsMultiplier
 		end
 	end,
@@ -3476,7 +3481,7 @@ local skills, mod, flag, skill = ...
 	preDamageFunc = function(activeSkill, output)
 		local skillData = activeSkill.skillData
 		if activeSkill.skillPart == 2 then
-			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * math.floor( output.Duration / 0.66 )
+			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * (1 + math.floor( output.Duration / 0.66 ))
 			output.SkillDPSMultiplier = skillData.dpsMultiplier
 		end
 	end,
@@ -3553,6 +3558,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 9)
+#baseMod skill("debuff", true)
 #mods
 
 #skill StormBrandAltX
@@ -3565,6 +3571,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 9)
+#baseMod skill("debuff", true)
 #mods
 
 #skill StormblastMine
@@ -4168,13 +4175,14 @@ local skills, mod, flag, skill = ...
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
 		if activeSkill.skillPart == 2 then
 			local skillMaxStages = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:WintertideBrandMaxStages")
-			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, {})
+			local debuffDurationMult = 1 / math.max(data.misc.BuffExpirationSlowCap, calcLib.mod(activeSkill.actor.enemy.modDB, activeSkill.skillCfg, "BuffExpireFaster"))
+			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, {}) * debuffDurationMult
 			local maxStages = math.min(duration / activeSkill.skillData.hitTimeOverride + 1, skillMaxStages)
 			local timeToReachMaxStages = (maxStages - 1) * activeSkill.skillData.hitTimeOverride
 			local timeAtMaxStages = duration - timeToReachMaxStages
 			local damagePerStage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:WintertideBrandDamagePerStage")
 			-- Get the average damage before reaching max stages and then damage at max stages
-			local dpsMultiplier = ((2 + damagePerStage + maxStages * damagePerStage)/2*timeToReachMaxStages+timeAtMaxStages*(1+maxStages*damagePerStage))/duration
+			local dpsMultiplier = ((2 + damagePerStage + maxStages * damagePerStage) / 2 * timeToReachMaxStages + timeAtMaxStages * (1 + maxStages * damagePerStage)) / duration
 			activeSkill.skillModList:NewMod("Damage", "MORE", dpsMultiplier, "Wintertide Brand Average Multiplier")
 		end
 	end,
@@ -4203,6 +4211,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 20)
+#baseMod skill("debuff", true)
 #baseMod skill("debuffTertiary", true)
 #mods
 

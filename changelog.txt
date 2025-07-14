@@ -1,3 +1,39 @@
+VERSION[2.55.4][2025/07/14]
+
+--- New to Path of Building ---
+* Add support for Corrupted Blood flask mods (Blitz54)
+* Add support for Righteous Fire of Arcane Devotion more Cast Speed mod (oskar94)
+
+--- Fixed Crashes ---
+* Fix Crash when copying and pasting item into PoB sometimes (Nightblade)
+
+--- User Interface ---
+* Fix Attribute Requirement sorting (Blitz54)
+* Remove Channelling time config box for Focused Channelling - Existing users should update their config (Wires77)
+* Fix gems being added to skill groups when sorting dropdown (Paliak)
+
+--- Fixed Calculations ---
+* Fix Runegraft of the Bound scaling Facebreaker's incorrectly (LocalIdentity, Wires77)
+* Fix Minion Scaling mods on Spinehail scaling with Widowhail (LocalIdentity)
+* Fix Full DPS depending on order of skill groups (Paliak)
+* Fix Spark maximum hits being calculated incorrectly (jeremykvlim)
+* Fix Minion DoT DPS not including +50% DoT multiplier from Crits (Wires77)
+* Fix Aura effect scaling when using Hand of Phrecia and  "effect of auras on you" mods (Wires77)
+* Fix inc effect on Cluster Jewel causing rounding issues (Wires77)
+
+--- Fixed Behaviours ---
+* Fix Autoexertion not working correctly with Arrogance (Paliak)
+* Fix Summon Spider / Spectral Wolf count config not scaling with Dark Monarch (LocalIdentity)
+* Fix Brand attachment duration not being scaled by Temporal Chains (LocalIdentity)
+* Fix Reduced Effect of Curses on Self scaling beyond 100% reduced effect (Blitz54)
+* Fix Maven Memory Game skill breaking Vile Bastion from working (Blitz54)
+* Fix Nametaker not instant leeching Mana and Energy Shield (Blitz54)
+* Fix Item sort option for "Current Usable" not taking into account local attribute requirement mods (LocalIdentity)
+* Fix Plague Bearer default config not applying (Blitz54)
+
+--- Accuracy Improvements ---
+* Fix Bound by Destiny Phys prevented as ES Regen mod value (LocalIdentity)
+
 VERSION[2.55.3][2025/07/02]
 
 --- Fixed Calculations ---

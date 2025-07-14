@@ -1169,7 +1169,7 @@ local configTable = {
 					return isWandAttack and not skill.skillData.triggeredBySpellSlinger
 				end}
 	end,
-	["call to arms"] = function(env)
+	["call to arms"] = function(env) -- This is for backwards compatibility only
 		if env.player.mainSkill.activeEffect.grantedEffect.name == "Call to Arms" then
 			env.player.mainSkill.skillFlags.globalTrigger = true
 			env.player.mainSkill.skillFlags.skipEffectiveRate = true
@@ -1208,8 +1208,12 @@ local configTable = {
 			env.player.mainSkill.skillFlags.globalTrigger = true
 			env.player.mainSkill.skillFlags.skipEffectiveRate = true
 		else -- Needed to get the cooldown form the active part
+			-- Autoexertion has cooldown as part of its support part
+			-- Not really sure which one should apply here
+			-- Applying the one form the active part to be consistant
+			-- with skills like Automation and Spellslinger
 			for _, skill in ipairs(env.player.activeSkillList) do
-				if skill.activeEffect.grantedEffect.name == "Automation" then
+				if skill.activeEffect.grantedEffect.name == "Autoexertion" then
 					env.player.mainSkill.triggeredBy.grantedEffect = skill.activeEffect.grantedEffect
 					break
 				end

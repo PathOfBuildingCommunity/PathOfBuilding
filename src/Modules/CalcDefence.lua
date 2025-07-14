@@ -699,11 +699,11 @@ function calcs.defence(env, actor)
 			"Total: "..output.SpellBlockChance+output.SpellBlockChanceOverCap.."%",
 		}
 	end
-	if modDB:Flag(nil, "CannotBlockAttacks") or enemyDB:Flag(nil, "CannotBeBlocked") then
+	if modDB:Flag(nil, "CannotBlockAttacks") then
 		output.BlockChance = 0
 		output.ProjectileBlockChance = 0
 	end
-	if modDB:Flag(nil, "CannotBlockSpells") or enemyDB:Flag(nil, "CannotBeBlocked") then
+	if modDB:Flag(nil, "CannotBlockSpells") then
 		output.SpellBlockChance = 0
 		output.SpellProjectileBlockChance = 0
 	end
@@ -1517,7 +1517,7 @@ function calcs.defence(env, actor)
 	if breakdown then
 		breakdown.LightRadiusMod = breakdown.mod(modDB, nil, "LightRadius")
 	end
-	output.CurseEffectOnSelf = modDB:More(nil, "CurseEffectOnSelf") * (100 + modDB:Sum("INC", nil, "CurseEffectOnSelf"))
+	output.CurseEffectOnSelf = m_max(modDB:More(nil, "CurseEffectOnSelf") * (100 + modDB:Sum("INC", nil, "CurseEffectOnSelf")), 0)
 	output.ExposureEffectOnSelf = modDB:More(nil, "ExposureEffectOnSelf") * (100 + modDB:Sum("INC", nil, "ExposureEffectOnSelf"))
 	output.WitherEffectOnSelf = modDB:More(nil, "WitherEffectOnSelf") * (100 + modDB:Sum("INC", nil, "WitherEffectOnSelf"))
 
@@ -2623,12 +2623,14 @@ function calcs.buildDefenceEstimations(env, actor)
 			output["NumberOfDamagingHits"] = numberOfHitsToDie(DamageIn)
 		end
 
-	
 		do
 			local DamageIn = { }
 			local BlockChance = output.EffectiveBlockChance / 100
 			if damageCategoryConfig ~= "Melee" and damageCategoryConfig ~= "Untyped" then
 				BlockChance = output["Effective"..damageCategoryConfig.."BlockChance"] / 100
+			end
+			if enemyDB:Flag(nil, "CannotBeBlocked") then
+				BlockChance = 0
 			end
 			local blockEffect = (1 - BlockChance * output.BlockEffect / 100)
 			local suppressChance = 0
