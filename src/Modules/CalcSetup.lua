@@ -111,7 +111,9 @@ function calcs.buildModListForNode(env, node)
 		modList:AddMod(node.keystoneMod)
 	else
 		-- Apply effect scaling
-		local scale = calcLib.mod(node.modList, nil, "PassiveSkillEffect")
+		local modListToMerge = new("ModList") -- Timeless jewel finder nodes don't have a real modList
+		modListToMerge:AddList(node.modList)
+		local scale = calcLib.mod(modListToMerge, nil, "PassiveSkillEffect")
 		if scale ~= 1 then
 			local combinedList = new("ModList")
 			for _, mod in ipairs(node.modList) do
