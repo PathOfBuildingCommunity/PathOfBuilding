@@ -617,7 +617,11 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 					t_insert(matches, item.elder == tag.elderCond)
 				end
 			end
-
+			if tag.nameCond then
+				for _, item in pairs(items) do
+					t_insert(matches, item.name and item.name:lower() == tag.nameCond:lower())
+				end
+			end
 			local hasItems = false
 			for _, item in pairs(items) do
 				hasItems = true
