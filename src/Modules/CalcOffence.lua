@@ -282,7 +282,7 @@ local function calcWarcryCastTime(skillModList, skillCfg, skillData, actor)
 	local warcryCastTime = baseSpeed * calcLib.mod(skillModList, skillCfg, "WarcrySpeed") * calcs.actionSpeedMod(actor)
 	warcryCastTime = m_min(warcryCastTime, data.misc.ServerTickRate)
 	warcryCastTime = 1 / warcryCastTime
-	if skillModList:Flag(skillCfg, "InstantWarcry") or skillData.SupportedByAutoexertion then
+	if skillModList:Flag(skillCfg, "InstantWarcry") or skillData.triggeredByAutoexertion then
 		warcryCastTime = 0
 	end
 	return warcryCastTime
@@ -1093,9 +1093,9 @@ function calcs.offence(env, actor, activeSkill)
 		calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, breakdown)
 	end
 	if activeSkill.skillTypes[SkillType.Aura] then
-		output.AuraEffectMod = calcLib.mod(skillModList, skillCfg, "AuraEffect", not skillData.auraCannotAffectSelf or skillModList:Flag(skillCfg, "SelfAurasAffectYouAndLinkedTarget") and "SkillAuraEffectOnSelf" or nil)
+		output.AuraEffectMod = calcLib.mod(skillModList, skillCfg, "AuraEffect", not (skillData.auraCannotAffectSelf or activeSkill.skillTypes[SkillType.AuraAffectsEnemies]) and "SkillAuraEffectOnSelf" or nil)
 		if breakdown then
-			breakdown.AuraEffectMod = breakdown.mod(skillModList, skillCfg, "AuraEffect", not skillData.auraCannotAffectSelf or skillModList:Flag(skillCfg, "SelfAurasAffectYouAndLinkedTarget") and "SkillAuraEffectOnSelf" or nil)
+			breakdown.AuraEffectMod = breakdown.mod(skillModList, skillCfg, "AuraEffect", not (skillData.auraCannotAffectSelf or activeSkill.skillTypes[SkillType.AuraAffectsEnemies]) and "SkillAuraEffectOnSelf" or nil)
 		end
 	end
 	if activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
@@ -2297,7 +2297,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.HitSpeed = 1 / output.HitTime
 			--Brands always have hitTimeOverride
 			if activeSkill.skillTypes[SkillType.Brand] and not skillModList:Flag(nil, "UnlimitedBrandDuration") then
-				output.BrandTicks = m_floor(output.Duration * output.HitSpeed)
+				output.BrandTicks = m_floor(output.Duration * output.HitSpeed * debuffDurationMult)
 			end
 		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
 			output.HitTime = output.Time * skillData.hitTimeMultiplier

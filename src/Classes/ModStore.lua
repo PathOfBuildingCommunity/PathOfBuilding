@@ -34,7 +34,7 @@ local ModStoreClass = newClass("ModStore", function(self, parent)
 	self.conditions = { }
 end)
 
-function ModStoreClass:ScaleAddMod(mod, scale)
+function ModStoreClass:ScaleAddMod(mod, scale, replace)
 	local unscalable = false
 	for _, effects in ipairs(mod) do
 		if effects.unscalable then
@@ -63,7 +63,11 @@ function ModStoreClass:ScaleAddMod(mod, scale)
 				subMod.value = m_modf(round(subMod.value * scale, 2))
 			end
 		end
-		self:AddMod(scaledMod)
+		if replace then
+			self:ReplaceModInternal(scaledMod)
+		else
+			self:AddMod(scaledMod)
+		end
 	end
 end
 
@@ -73,12 +77,12 @@ function ModStoreClass:CopyList(modList)
 	end
 end
 
-function ModStoreClass:ScaleAddList(modList, scale)
+function ModStoreClass:ScaleAddList(modList, scale, replace)
 	if scale == 1 then
 		self:AddList(modList)
 	else
 		for i = 1, #modList do
-			self:ScaleAddMod(modList[i], scale)
+			self:ScaleAddMod(modList[i], scale, replace)
 		end
 	end
 end
@@ -297,8 +301,8 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
 			local limitNegTotal
-			if tag.limit or tag.limitVar then
-				local limit = tag.limit or limitTarget:GetMultiplier(tag.limitVar, cfg)
+			if tag.limit or tag.limitVar or tag.limitStat then
+				local limit = tag.limit or tag.limitVar and limitTarget:GetMultiplier(tag.limitVar, cfg) or tag.limitStat and limitTarget:GetStat(tag.limitStat, cfg)
 				if tag.limitTotal then
 					limitTotal = limit
 				elseif tag.limitNegTotal then

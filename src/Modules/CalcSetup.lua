@@ -62,6 +62,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Spell, { type = "Condition", var = "Unnerved"})
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Spell, { type = "Condition", var = "Unnerved", neg = true}, { type = "Condition", var = "Party:Unnerved"})
 	modDB:NewMod("Damage", "MORE", -10, "Base", { type = "Condition", var = "Debilitated"}, { type = "GlobalEffect", effectName = "Debilitated", effectType = "Debuff"})
+	modDB:NewMod("DotMultiplier", "BASE", 50, "Base", { type = "Condition", var = "CriticalStrike" })
 	modDB:NewMod("MovementSpeed", "MORE", -20, "Base", { type = "Condition", var = "Debilitated"}, { type = "GlobalEffect", effectName = "Debilitated", effectType = "Debuff"})
 	modDB:NewMod("Condition:Burning", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "Condition", var = "Ignited" })
 	modDB:NewMod("Condition:Poisoned", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "MultiplierThreshold", var = "PoisonStack", threshold = 1 })
@@ -109,7 +110,17 @@ function calcs.buildModListForNode(env, node)
 	if node.type == "Keystone" then
 		modList:AddMod(node.keystoneMod)
 	else
-		modList:AddList(node.modList)
+		-- Apply effect scaling
+		local scale = calcLib.mod(node.modList, nil, "PassiveSkillEffect")
+		if scale ~= 1 then
+			local combinedList = new("ModList")
+			for _, mod in ipairs(node.modList) do
+				combinedList:MergeMod(mod)
+			end
+			modList:ScaleAddList(combinedList, scale)
+		else
+			modList:AddList(node.modList)
+		end
 	end
 
 	-- Run first pass radius jewels
@@ -121,14 +132,6 @@ function calcs.buildModListForNode(env, node)
 
 	if modList:Flag(nil, "PassiveSkillHasNoEffect") or (env.allocNodes[node.id] and modList:Flag(nil, "AllocatedPassiveSkillHasNoEffect")) then
 		wipeTable(modList)
-	end
-
-	-- Apply effect scaling
-	local scale = calcLib.mod(modList, nil, "PassiveSkillEffect")
-	if scale ~= 1 then
-		local scaledList = new("ModList")
-		scaledList:ScaleAddList(modList, scale)
-		modList = scaledList
 	end
 
 	-- Run second pass radius jewels
@@ -483,7 +486,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("Evasion", "BASE", 15, "Base")
 		modDB:NewMod("Accuracy", "BASE", 2, "Base", { type = "Multiplier", var = "Level", base = -2 })
 		modDB:NewMod("CritMultiplier", "BASE", 50, "Base")
-		modDB:NewMod("DotMultiplier", "BASE", 50, "Base", { type = "Condition", var = "CriticalStrike" })
 		modDB:NewMod("FireResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
 		modDB:NewMod("ColdResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
 		modDB:NewMod("LightningResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
@@ -636,6 +638,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			nodes = copyTable(env.spec.allocNodes, true)
 		end
 		env.allocNodes = nodes
+		env.initialNodeModDB = calcs.buildModListForNodeList(env, env.allocNodes, true)
 	end
 
 	if allocatedNotableCount and allocatedNotableCount > 0 then
@@ -1049,6 +1052,20 @@ function calcs.initEnv(build, mode, override, specEnv)
 						combinedList:MergeMod(mod)
 					end	
 					env.itemModDB:ScaleAddList(combinedList, scale)
+				elseif item.type == "Gloves" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves") ~=1 then
+					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves")
+					local combinedList = new("ModList")
+					for _, mod in ipairs(srcList) do
+						combinedList:MergeMod(mod)
+					end
+					env.itemModDB:ScaleAddList(combinedList, scale)
+				elseif item.type == "Boots" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots") ~= 1 then
+					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots")
+					local combinedList = new("ModList")
+					for _, mod in ipairs(srcList) do
+						combinedList:MergeMod(mod)
+					end
+					env.itemModDB:ScaleAddList(combinedList, scale)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
 				end
@@ -1184,33 +1201,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		if #override.extraJewelFuncs > 0 then
 			return calcs.initEnv(build, mode, override, specEnv)
-		end
-	end
-	
-	if env.player.itemList["Gloves"] then
-		local gloveEffectMod = env.modDB:Sum("INC", nil, "EffectOfBonusesFromGloves") / 100
-		if gloveEffectMod ~= 0 then
-			local modList = env.player.itemList["Gloves"].modList
-			for _, mod in ipairs(modList) do
-				if not (mod.name == "ExtraSupport" or mod.name == "ExtraSkill" or mod.name == "ExtraSupport" or mod.name == "ExtraSkillMod" or (mod[1] and mod[1].type == "SocketedIn")) then
-					local modCopy = copyTable(mod)
-					modCopy.source = tostring(gloveEffectMod * 100) .. "% Gloves Bonus Effect"
-					modDB:ScaleAddMod(modCopy, gloveEffectMod)
-				end
-			end
-		end
-	end
-	if env.player.itemList["Boots"] then
-		local bootEffectMod = env.modDB:Sum("INC", nil, "EffectOfBonusesFromBoots") / 100
-		if bootEffectMod ~= 0 then
-			local modList = env.player.itemList["Boots"].modList
-			for _, mod in ipairs(modList) do
-				if not (mod.name == "ExtraSupport" or mod.name == "ExtraSkill" or mod.name == "ExtraSupport" or mod.name == "ExtraSkillMod" or (mod[1] and mod[1].type == "SocketedIn")) then
-					local modCopy = copyTable(mod)
-					modCopy.source = tostring(bootEffectMod * 100) .. "% Boots Bonus Effect"
-					modDB:ScaleAddMod(modCopy, bootEffectMod)
-				end
-			end
 		end
 	end
 
@@ -1705,6 +1695,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 			activeSkill.skillData.storedUses = skillData.storedUses
 			activeSkill.skillData.CritChance = skillData.CritChance
 			activeSkill.skillData.attackTime = skillData.attackTime
+			activeSkill.skillData.attackSpeedMultiplier = skillData.attackSpeedMultiplier
+			activeSkill.skillData.soulPreventionDuration = activeSkill.soulPreventionDuration
 			activeSkill.skillData.totemLevel = skillData.totemLevel
 			activeSkill.skillData.damageEffectiveness = skillData.damageEffectiveness
 			activeSkill.skillData.manaReservationPercent = skillData.manaReservationPercent
