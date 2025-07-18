@@ -1051,19 +1051,29 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end	
 					env.itemModDB:ScaleAddList(combinedList, scale)
 				elseif item.type == "Gloves" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves") ~=1 then
-					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves")
+					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves") - 1
 					local combinedList = new("ModList")
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
 					end
-					env.itemModDB:ScaleAddList(combinedList, scale)
+					local scaledList = new("ModList")
+					scaledList:ScaleAddList(combinedList, scale)
+					for _, mod in ipairs(scaledList) do
+						combinedList:MergeMod(mod)
+					end
+					env.itemModDB:AddList(combinedList)
 				elseif item.type == "Boots" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots") ~= 1 then
-					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots")
+					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots") - 1
 					local combinedList = new("ModList")
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
 					end
-					env.itemModDB:ScaleAddList(combinedList, scale)
+					local scaledList = new("ModList")
+					scaledList:ScaleAddList(combinedList, scale)
+					for _, mod in ipairs(scaledList) do
+						combinedList:MergeMod(mod)
+					end
+					env.itemModDB:AddList(combinedList)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
 				end
