@@ -2895,19 +2895,19 @@ local specialModList = {
 	} end,
 	["trigger a socketed fire spell on hit, with a ([%d%.]+) second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerFireSpellOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	-- Socketed gem modifiers
-	["([%+%-]%d+) to level of socketed gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "level", value = num, keyOfScaledMod = "value" }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
+	["([%+%-]%d+) to level of socketed gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["([%+%-]%d+)%%? to (%a+) of socketed ?([%a%- ]*) gems"] = function(num, _, property, type)
 		if type == "" then type = "all" end
-		return { mod("GemProperty", "LIST", { keyword = type, key = property, value = num, keyOfScaledMod = "value" }, { type = "SocketedIn", slotName = "{SlotName}" }) }
+		return { mod("GemProperty", "LIST", { keyword = type, key = property, value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) }
 	end,
 	["([%+%-]%d+) to level of socketed skill gems per socketed gem"] = function(num) return { mod("GemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = num, keyOfScaledMod = "value" }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "Multiplier", var="SocketedGemsIn{SlotName}"}) } end,
 	["([%+%-]%d+)%% to quality of all skill gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "grants_active_skill", key = "quality", value = num, keyOfScaledMod = "value" }) } end,
 	["([%+%-]%d+) to level of all elemental skill gems if the stars are aligned"] = function(num) return {	mod("GemProperty", "LIST", { keywordList = { "elemental", "grants_active_skill" }, key = "level", value = num, keyOfScaledMod = "value" }, { type = "Condition", var = "StarsAreAligned" })} end,
 	["([%+%-]%d+) to level of all elemental support gems if the stars are aligned"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "elemental", "support" }, key = "level", value = num, keyOfScaledMod = "value" }, { type = "Condition", var = "StarsAreAligned" })} end,
-	["([%+%-]%d+) to level of socketed active skill gems per (%d+) player levels"] = function(num, _, div) return { mod("GemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = num, keyOfScaledMod = "value" }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "Multiplier", var = "Level", div = tonumber(div) }) } end,
+	["([%+%-]%d+) to level of socketed active skill gems per (%d+) player levels"] = function(num, _, div) return { mod("GemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "Multiplier", var = "Level", div = tonumber(div) }) } end,
 	["([%+%-]%d+) to level of all (%a+) skill gems if (%d+) (%a+) items are equipped"] = function(num, _, element, thresh, influence) return { mod("GemProperty", "LIST", { keyword = element, key = "level", value = num, keyOfScaledMod = "value" }, { type = "MultiplierThreshold", var = firstToUpper(influence) .. "Item", threshold = tonumber(thresh) }) } end,
 	["([%+%-]%d+) to level of all ?([%a%- ]*) support gems if (%d+) (%a+) items are equipped"] = function(num, _, element, thresh, influence) return { mod("GemProperty", "LIST", { keyword = element, key = "level", value = num, keyOfScaledMod = "value" }, { type = "MultiplierThreshold", var = firstToUpper(influence) .. "Item", threshold = tonumber(thresh) }) } end,
-	["([%+%-]%d+) to level of socketed skill gems per (%d+) player levels"] = function(num, _, div) return { mod("GemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = num, keyOfScaledMod = "value" }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "Multiplier", var = "Level", div = tonumber(div) }) } end,
+	["([%+%-]%d+) to level of socketed skill gems per (%d+) player levels"] = function(num, _, div) return { mod("GemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "Multiplier", var = "Level", div = tonumber(div) }) } end,
 	["socketed gems fire an additional projectile"] = { mod("ExtraSkillMod", "LIST", { mod = mod("ProjectileCount", "BASE", 1) }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["socketed gems fire (%d+) additional projectiles"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("ProjectileCount", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["socketed gems reserve no mana"] = { mod("ManaReserved", "MORE", -100, { type = "SocketedIn", slotName = "{SlotName}" }) },
@@ -2945,13 +2945,13 @@ local specialModList = {
 	-- Global gem modifiers
 	["([%+%-]%d+)%%? to (%a+) of all (.+) gems"] = function(num, _, property, skill)
 		if gemIdLookup[skill] then
-			return { mod("GemProperty", "LIST", {keyword = skill, key = "level", value = num }) }
+			return { mod("GemProperty", "LIST", {keyword = skill, key = "level", value = num, keyOfScaledMod = "value" }) }
 		end
 		local wordList = {}
 		for tag in skill:gmatch("%S+") do
 			table.insert(wordList, tag)
 		end
-		return { mod("GemProperty", "LIST", {keywordList = wordList, key = property, value = num }) }
+		return { mod("GemProperty", "LIST", {keywordList = wordList, key = property, value = num, keyOfScaledMod = "value" }) }
 	end,
 	["gems socketed in red sockets have [%+%-](%d+) to level"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}", socketColor = "R" }) } end,
 	["gems socketed in green sockets have [%+%-](%d+)%% to quality"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "quality", value = num }, { type = "SocketedIn", slotName = "{SlotName}", socketColor = "G" }) } end,
