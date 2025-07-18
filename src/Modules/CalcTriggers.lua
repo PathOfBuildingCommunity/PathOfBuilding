@@ -1176,7 +1176,7 @@ local configTable = {
 		else -- Needed to get the cooldown form the active part
 			for _, skill in ipairs(env.player.activeSkillList) do
 				if skill.activeEffect.grantedEffect.name == "Call to Arms" then
-					env.player.mainSkill.triggeredBy.grantedEffect = skill.activeEffect.grantedEffect
+					env.player.mainSkill.triggeredBy = skill.activeEffect
 					break
 				end
 			end
@@ -1194,7 +1194,7 @@ local configTable = {
 		else -- Needed to get the cooldown form the active part
 			for _, skill in ipairs(env.player.activeSkillList) do
 				if skill.activeEffect.grantedEffect.name == "Automation" then
-					env.player.mainSkill.triggeredBy.grantedEffect = skill.activeEffect.grantedEffect
+					env.player.mainSkill.triggeredBy = skill.activeEffect
 					break
 				end
 			end
@@ -1214,7 +1214,7 @@ local configTable = {
 			-- with skills like Automation and Spellslinger
 			for _, skill in ipairs(env.player.activeSkillList) do
 				if skill.activeEffect.grantedEffect.name == "Autoexertion" then
-					env.player.mainSkill.triggeredBy.grantedEffect = skill.activeEffect.grantedEffect
+					env.player.mainSkill.triggeredBy = skill.activeEffect
 					break
 				end
 			end
