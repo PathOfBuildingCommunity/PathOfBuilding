@@ -864,16 +864,294 @@ c["+3 to Level of Socketed Golem Gems"]={{[1]={[1]={slotName="{SlotName}",type="
 c["+3 to Level of Socketed Lightning Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="lightning",value=3}}},nil}
 c["+3 to Level of Socketed Minion Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="minion",value=3}}},nil}
 c["+3 to Level of Socketed Warcry Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="warcry",value=3}}},nil}
+c["+3 to Level of all Absolution Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="absolution",value=3}}},nil}
+c["+3 to Level of all Alchemist's Mark Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="alchemist's mark",value=3}}},nil}
+c["+3 to Level of all Ambush Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="ambush",value=3}}},nil}
+c["+3 to Level of all Ancestral Cry Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="ancestral cry",value=3}}},nil}
+c["+3 to Level of all Anger Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="anger",value=3}}},nil}
+c["+3 to Level of all Animate Guardian Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="animate guardian",value=3}}},nil}
+c["+3 to Level of all Animate Weapon Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="animate weapon",value=3}}},nil}
+c["+3 to Level of all Arc Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="arc",value=3}}},nil}
+c["+3 to Level of all Arcane Cloak Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="arcane cloak",value=3}}},nil}
+c["+3 to Level of all Arcanist Brand Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="arcanist brand",value=3}}},nil}
+c["+3 to Level of all Arctic Armour Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="arctic armour",value=3}}},nil}
+c["+3 to Level of all Armageddon Brand Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="armageddon brand",value=3}}},nil}
+c["+3 to Level of all Artillery Ballista Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="artillery ballista",value=3}}},nil}
+c["+3 to Level of all Assassin's Mark Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="assassin's mark",value=3}}},nil}
+c["+3 to Level of all Autoexertion Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="autoexertion",value=3}}},nil}
+c["+3 to Level of all Automation Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="automation",value=3}}},nil}
+c["+3 to Level of all Ball Lightning Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="ball lightning",value=3}}},nil}
+c["+3 to Level of all Bane Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="bane",value=3}}},nil}
+c["+3 to Level of all Barrage Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="barrage",value=3}}},nil}
+c["+3 to Level of all Battlemage's Cry Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="battlemage's cry",value=3}}},nil}
+c["+3 to Level of all Bear Trap Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="bear trap",value=3}}},nil}
+c["+3 to Level of all Berserk Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="berserk",value=3}}},nil}
+c["+3 to Level of all Blade Blast Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="blade blast",value=3}}},nil}
+c["+3 to Level of all Blade Flurry Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="blade flurry",value=3}}},nil}
+c["+3 to Level of all Blade Trap Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="blade trap",value=3}}},nil}
+c["+3 to Level of all Blade Vortex Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="blade vortex",value=3}}},nil}
+c["+3 to Level of all Bladefall Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="bladefall",value=3}}},nil}
+c["+3 to Level of all Bladefall of Trarthus Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="bladefall of trarthus",value=3}}},nil}
+c["+3 to Level of all Bladestorm Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="bladestorm",value=3}}},nil}
+c["+3 to Level of all Blast Rain Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="blast rain",value=3}}},nil}
+c["+3 to Level of all Blazing Salvo Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="blazing salvo",value=3}}},nil}
+c["+3 to Level of all Blight Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="blight",value=3}}},nil}
+c["+3 to Level of all Blink Arrow Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="blink arrow",value=3}}},nil}
+c["+3 to Level of all Blood Rage Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="blood rage",value=3}}},nil}
+c["+3 to Level of all Blood and Sand Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="blood and sand",value=3}}},nil}
+c["+3 to Level of all Bodyswap Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="bodyswap",value=3}}},nil}
+c["+3 to Level of all Bone Offering Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="bone offering",value=3}}},nil}
+c["+3 to Level of all Boneshatter Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="boneshatter",value=3}}},nil}
+c["+3 to Level of all Brand Recall Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="brand recall",value=3}}},nil}
+c["+3 to Level of all Burning Arrow Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="burning arrow",value=3}}},nil}
+c["+3 to Level of all Caustic Arrow Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="caustic arrow",value=3}}},nil}
+c["+3 to Level of all Chain Hook Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="chain hook",value=3}}},nil}
 c["+3 to Level of all Chaos Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keywordList={[1]="chaos",[2]="spell",[3]="skill"},value=3}}},nil}
+c["+3 to Level of all Charged Dash Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="charged dash",value=3}}},nil}
+c["+3 to Level of all Clarity Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="clarity",value=3}}},nil}
+c["+3 to Level of all Cleave Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="cleave",value=3}}},nil}
+c["+3 to Level of all Cobra Lash Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="cobra lash",value=3}}},nil}
+c["+3 to Level of all Cold Snap Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="cold snap",value=3}}},nil}
 c["+3 to Level of all Cold Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keywordList={[1]="cold",[2]="spell",[3]="skill"},value=3}}},nil}
+c["+3 to Level of all Conductivity Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="conductivity",value=3}}},nil}
+c["+3 to Level of all Consecrated Path Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="consecrated path",value=3}}},nil}
+c["+3 to Level of all Contagion Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="contagion",value=3}}},nil}
+c["+3 to Level of all Conversion Trap Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="conversion trap",value=3}}},nil}
+c["+3 to Level of all Convocation Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="convocation",value=3}}},nil}
+c["+3 to Level of all Corrupting Fever Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="corrupting fever",value=3}}},nil}
+c["+3 to Level of all Crackling Lance Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="crackling lance",value=3}}},nil}
+c["+3 to Level of all Creeping Frost Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="creeping frost",value=3}}},nil}
+c["+3 to Level of all Cremation Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="cremation",value=3}}},nil}
 c["+3 to Level of all Critical Support Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keywordList={[1]="critical",[2]="support"},value=3}}},nil}
+c["+3 to Level of all Crushing Fist Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="crushing fist",value=3}}},nil}
+c["+3 to Level of all Cyclone Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="cyclone",value=3}}},nil}
+c["+3 to Level of all Dark Pact Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="dark pact",value=3}}},nil}
+c["+3 to Level of all Dash Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="dash",value=3}}},nil}
+c["+3 to Level of all Decoy Totem Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="decoy totem",value=3}}},nil}
+c["+3 to Level of all Defiance Banner Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="defiance banner",value=3}}},nil}
+c["+3 to Level of all Desecrate Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="desecrate",value=3}}},nil}
+c["+3 to Level of all Despair Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="despair",value=3}}},nil}
+c["+3 to Level of all Destructive Link Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="destructive link",value=3}}},nil}
+c["+3 to Level of all Determination Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="determination",value=3}}},nil}
+c["+3 to Level of all Detonate Dead Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="detonate dead",value=3}}},nil}
+c["+3 to Level of all Detonate Mines Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="detonate mines",value=3}}},nil}
+c["+3 to Level of all Devouring Totem Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="devouring totem",value=3}}},nil}
+c["+3 to Level of all Discharge Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="discharge",value=3}}},nil}
+c["+3 to Level of all Discipline Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="discipline",value=3}}},nil}
+c["+3 to Level of all Divine Ire Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="divine ire",value=3}}},nil}
+c["+3 to Level of all Divine Retribution Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="divine retribution",value=3}}},nil}
+c["+3 to Level of all Dominating Blow Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="dominating blow",value=3}}},nil}
+c["+3 to Level of all Double Strike Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="double strike",value=3}}},nil}
+c["+3 to Level of all Dread Banner Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="dread banner",value=3}}},nil}
+c["+3 to Level of all Dual Strike Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="dual strike",value=3}}},nil}
+c["+3 to Level of all Earthquake Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="earthquake",value=3}}},nil}
+c["+3 to Level of all Earthshatter Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="earthshatter",value=3}}},nil}
+c["+3 to Level of all Elemental Hit Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="elemental hit",value=3}}},nil}
 c["+3 to Level of all Elemental Skill Gems if the stars are aligned"]={{[1]={[1]={type="Condition",var="StarsAreAligned"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keywordList={[1]="elemental",[2]="grants_active_skill"},value=3}}},nil}
 c["+3 to Level of all Elemental Support Gems if the stars are aligned"]={{[1]={[1]={type="Condition",var="StarsAreAligned"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keywordList={[1]="elemental",[2]="support"},value=3}}},nil}
+c["+3 to Level of all Elemental Weakness Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="elemental weakness",value=3}}},nil}
+c["+3 to Level of all Enduring Cry Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="enduring cry",value=3}}},nil}
+c["+3 to Level of all Energy Blade Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="energy blade",value=3}}},nil}
+c["+3 to Level of all Enfeeble Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="enfeeble",value=3}}},nil}
+c["+3 to Level of all Ensnaring Arrow Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="ensnaring arrow",value=3}}},nil}
+c["+3 to Level of all Essence Drain Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="essence drain",value=3}}},nil}
+c["+3 to Level of all Ethereal Knives Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="ethereal knives",value=3}}},nil}
+c["+3 to Level of all Eviscerate Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="eviscerate",value=3}}},nil}
+c["+3 to Level of all Explosive Arrow Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="explosive arrow",value=3}}},nil}
+c["+3 to Level of all Explosive Concoction Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="explosive concoction",value=3}}},nil}
+c["+3 to Level of all Explosive Trap Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="explosive trap",value=3}}},nil}
+c["+3 to Level of all Exsanguinate Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="exsanguinate",value=3}}},nil}
+c["+3 to Level of all Eye of Winter Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="eye of winter",value=3}}},nil}
 c["+3 to Level of all Fire Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keywordList={[1]="fire",[2]="spell",[3]="skill"},value=3}}},nil}
+c["+3 to Level of all Fire Trap Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="fire trap",value=3}}},nil}
+c["+3 to Level of all Fireball Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="fireball",value=3}}},nil}
+c["+3 to Level of all Firestorm Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="firestorm",value=3}}},nil}
+c["+3 to Level of all Flame Dash Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="flame dash",value=3}}},nil}
+c["+3 to Level of all Flame Link Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="flame link",value=3}}},nil}
+c["+3 to Level of all Flame Surge Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="flame surge",value=3}}},nil}
+c["+3 to Level of all Flame Wall Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="flame wall",value=3}}},nil}
+c["+3 to Level of all Flameblast Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="flameblast",value=3}}},nil}
+c["+3 to Level of all Flamethrower Trap Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="flamethrower trap",value=3}}},nil}
+c["+3 to Level of all Flammability Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="flammability",value=3}}},nil}
+c["+3 to Level of all Flesh Offering Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="flesh offering",value=3}}},nil}
+c["+3 to Level of all Flesh and Stone Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="flesh and stone",value=3}}},nil}
+c["+3 to Level of all Flicker Strike Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="flicker strike",value=3}}},nil}
+c["+3 to Level of all Forbidden Rite Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="forbidden rite",value=3}}},nil}
+c["+3 to Level of all Freezing Pulse Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="freezing pulse",value=3}}},nil}
+c["+3 to Level of all Frenzy Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="frenzy",value=3}}},nil}
+c["+3 to Level of all Frost Blades Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="frost blades",value=3}}},nil}
+c["+3 to Level of all Frost Bomb Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="frost bomb",value=3}}},nil}
+c["+3 to Level of all Frost Shield Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="frost shield",value=3}}},nil}
+c["+3 to Level of all Frost Wall Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="frost wall",value=3}}},nil}
+c["+3 to Level of all Frostbite Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="frostbite",value=3}}},nil}
+c["+3 to Level of all Frostblink Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="frostblink",value=3}}},nil}
+c["+3 to Level of all Frostbolt Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="frostbolt",value=3}}},nil}
+c["+3 to Level of all Frozen Legion Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="frozen legion",value=3}}},nil}
+c["+3 to Level of all Galvanic Arrow Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="galvanic arrow",value=3}}},nil}
+c["+3 to Level of all Galvanic Field Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="galvanic field",value=3}}},nil}
+c["+3 to Level of all General's Cry Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="general's cry",value=3}}},nil}
+c["+3 to Level of all Glacial Cascade Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="glacial cascade",value=3}}},nil}
+c["+3 to Level of all Glacial Hammer Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="glacial hammer",value=3}}},nil}
+c["+3 to Level of all Glacial Shield Swipe Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="glacial shield swipe",value=3}}},nil}
+c["+3 to Level of all Grace Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="grace",value=3}}},nil}
+c["+3 to Level of all Ground Slam Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="ground slam",value=3}}},nil}
+c["+3 to Level of all Haste Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="haste",value=3}}},nil}
+c["+3 to Level of all Hatred Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="hatred",value=3}}},nil}
+c["+3 to Level of all Heavy Strike Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="heavy strike",value=3}}},nil}
+c["+3 to Level of all Herald of Agony Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="herald of agony",value=3}}},nil}
+c["+3 to Level of all Herald of Ash Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="herald of ash",value=3}}},nil}
+c["+3 to Level of all Herald of Ice Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="herald of ice",value=3}}},nil}
+c["+3 to Level of all Herald of Purity Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="herald of purity",value=3}}},nil}
+c["+3 to Level of all Herald of Thunder Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="herald of thunder",value=3}}},nil}
+c["+3 to Level of all Hexblast Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="hexblast",value=3}}},nil}
+c["+3 to Level of all Holy Flame Totem Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="holy flame totem",value=3}}},nil}
+c["+3 to Level of all Hydrosphere Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="hydrosphere",value=3}}},nil}
+c["+3 to Level of all Ice Crash Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="ice crash",value=3}}},nil}
+c["+3 to Level of all Ice Nova Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="ice nova",value=3}}},nil}
+c["+3 to Level of all Ice Shot Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="ice shot",value=3}}},nil}
+c["+3 to Level of all Ice Spear Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="ice spear",value=3}}},nil}
+c["+3 to Level of all Ice Trap Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="ice trap",value=3}}},nil}
+c["+3 to Level of all Icicle Mine Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="icicle mine",value=3}}},nil}
+c["+3 to Level of all Immortal Call Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="immortal call",value=3}}},nil}
+c["+3 to Level of all Incinerate Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="incinerate",value=3}}},nil}
+c["+3 to Level of all Infernal Blow Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="infernal blow",value=3}}},nil}
+c["+3 to Level of all Infernal Cry Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="infernal cry",value=3}}},nil}
+c["+3 to Level of all Intimidating Cry Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="intimidating cry",value=3}}},nil}
+c["+3 to Level of all Intuitive Link Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="intuitive link",value=3}}},nil}
+c["+3 to Level of all Kinetic Blast Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="kinetic blast",value=3}}},nil}
+c["+3 to Level of all Kinetic Bolt Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="kinetic bolt",value=3}}},nil}
+c["+3 to Level of all Lacerate Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="lacerate",value=3}}},nil}
+c["+3 to Level of all Lancing Steel Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="lancing steel",value=3}}},nil}
+c["+3 to Level of all Leap Slam Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="leap slam",value=3}}},nil}
+c["+3 to Level of all Lightning Arrow Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="lightning arrow",value=3}}},nil}
+c["+3 to Level of all Lightning Conduit Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="lightning conduit",value=3}}},nil}
 c["+3 to Level of all Lightning Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keywordList={[1]="lightning",[2]="spell",[3]="skill"},value=3}}},nil}
+c["+3 to Level of all Lightning Spire Trap Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="lightning spire trap",value=3}}},nil}
+c["+3 to Level of all Lightning Strike Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="lightning strike",value=3}}},nil}
+c["+3 to Level of all Lightning Tendrils Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="lightning tendrils",value=3}}},nil}
+c["+3 to Level of all Lightning Trap Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="lightning trap",value=3}}},nil}
+c["+3 to Level of all Lightning Warp Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="lightning warp",value=3}}},nil}
+c["+3 to Level of all Malevolence Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="malevolence",value=3}}},nil}
+c["+3 to Level of all Manabond Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="manabond",value=3}}},nil}
 c["+3 to Level of all Melee Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keywordList={[1]="melee",[2]="skill"},value=3}}},nil}
+c["+3 to Level of all Mirror Arrow Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="mirror arrow",value=3}}},nil}
+c["+3 to Level of all Molten Shell Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="molten shell",value=3}}},nil}
+c["+3 to Level of all Molten Strike Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="molten strike",value=3}}},nil}
+c["+3 to Level of all Orb of Storms Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="orb of storms",value=3}}},nil}
+c["+3 to Level of all Penance Brand Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="penance brand",value=3}}},nil}
+c["+3 to Level of all Perforate Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="perforate",value=3}}},nil}
+c["+3 to Level of all Pestilent Strike Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="pestilent strike",value=3}}},nil}
+c["+3 to Level of all Petrified Blood Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="petrified blood",value=3}}},nil}
+c["+3 to Level of all Phase Run Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="phase run",value=3}}},nil}
 c["+3 to Level of all Physical Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keywordList={[1]="physical",[2]="spell",[3]="skill"},value=3}}},nil}
+c["+3 to Level of all Plague Bearer Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="plague bearer",value=3}}},nil}
+c["+3 to Level of all Poacher's Mark Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="poacher's mark",value=3}}},nil}
+c["+3 to Level of all Poisonous Concoction Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="poisonous concoction",value=3}}},nil}
+c["+3 to Level of all Portal Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="portal",value=3}}},nil}
+c["+3 to Level of all Power Siphon Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="power siphon",value=3}}},nil}
+c["+3 to Level of all Precision Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="precision",value=3}}},nil}
+c["+3 to Level of all Pride Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="pride",value=3}}},nil}
+c["+3 to Level of all Protective Link Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="protective link",value=3}}},nil}
+c["+3 to Level of all Puncture Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="puncture",value=3}}},nil}
+c["+3 to Level of all Punishment Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="punishment",value=3}}},nil}
+c["+3 to Level of all Purifying Flame Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="purifying flame",value=3}}},nil}
+c["+3 to Level of all Purity of Elements Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="purity of elements",value=3}}},nil}
+c["+3 to Level of all Purity of Fire Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="purity of fire",value=3}}},nil}
+c["+3 to Level of all Purity of Ice Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="purity of ice",value=3}}},nil}
+c["+3 to Level of all Purity of Lightning Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="purity of lightning",value=3}}},nil}
+c["+3 to Level of all Pyroclast Mine Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="pyroclast mine",value=3}}},nil}
+c["+3 to Level of all Quickstep Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="quickstep",value=3}}},nil}
+c["+3 to Level of all Rage Vortex Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="rage vortex",value=3}}},nil}
+c["+3 to Level of all Rain of Arrows Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="rain of arrows",value=3}}},nil}
+c["+3 to Level of all Raise Spectre Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="raise spectre",value=3}}},nil}
+c["+3 to Level of all Raise Zombie Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="raise zombie",value=3}}},nil}
+c["+3 to Level of all Rallying Cry Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="rallying cry",value=3}}},nil}
+c["+3 to Level of all Reap Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="reap",value=3}}},nil}
+c["+3 to Level of all Reave Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="reave",value=3}}},nil}
+c["+3 to Level of all Rejuvenation Totem Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="rejuvenation totem",value=3}}},nil}
+c["+3 to Level of all Righteous Fire Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="righteous fire",value=3}}},nil}
+c["+3 to Level of all Rolling Magma Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="rolling magma",value=3}}},nil}
+c["+3 to Level of all Scorching Ray Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="scorching ray",value=3}}},nil}
+c["+3 to Level of all Scourge Arrow Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="scourge arrow",value=3}}},nil}
+c["+3 to Level of all Searing Bond Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="searing bond",value=3}}},nil}
+c["+3 to Level of all Seismic Cry Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="seismic cry",value=3}}},nil}
+c["+3 to Level of all Seismic Trap Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="seismic trap",value=3}}},nil}
+c["+3 to Level of all Shattering Steel Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="shattering steel",value=3}}},nil}
+c["+3 to Level of all Shield Charge Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="shield charge",value=3}}},nil}
+c["+3 to Level of all Shield Crush Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="shield crush",value=3}}},nil}
+c["+3 to Level of all Shock Nova Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="shock nova",value=3}}},nil}
+c["+3 to Level of all Shockwave Totem Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="shockwave totem",value=3}}},nil}
+c["+3 to Level of all Shrapnel Ballista Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="shrapnel ballista",value=3}}},nil}
+c["+3 to Level of all Siege Ballista Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="siege ballista",value=3}}},nil}
+c["+3 to Level of all Sigil of Power Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="sigil of power",value=3}}},nil}
+c["+3 to Level of all Siphoning Trap Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="siphoning trap",value=3}}},nil}
+c["+3 to Level of all Smite Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="smite",value=3}}},nil}
+c["+3 to Level of all Smoke Mine Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="smoke mine",value=3}}},nil}
+c["+3 to Level of all Snipe Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="snipe",value=3}}},nil}
+c["+3 to Level of all Sniper's Mark Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="sniper's mark",value=3}}},nil}
+c["+3 to Level of all Soul Link Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="soul link",value=3}}},nil}
+c["+3 to Level of all Soulrend Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="soulrend",value=3}}},nil}
 c["+3 to Level of all Spark Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="spark",value=3}}},nil}
+c["+3 to Level of all Spectral Helix Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="spectral helix",value=3}}},nil}
+c["+3 to Level of all Spectral Shield Throw Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="spectral shield throw",value=3}}},nil}
+c["+3 to Level of all Spectral Throw Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="spectral throw",value=3}}},nil}
+c["+3 to Level of all Spellslinger Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="spellslinger",value=3}}},nil}
+c["+3 to Level of all Spirit Offering Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="spirit offering",value=3}}},nil}
+c["+3 to Level of all Split Arrow Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="split arrow",value=3}}},nil}
+c["+3 to Level of all Splitting Steel Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="splitting steel",value=3}}},nil}
+c["+3 to Level of all Static Strike Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="static strike",value=3}}},nil}
+c["+3 to Level of all Steelskin Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="steelskin",value=3}}},nil}
+c["+3 to Level of all Storm Brand Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="storm brand",value=3}}},nil}
+c["+3 to Level of all Storm Burst Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="storm burst",value=3}}},nil}
+c["+3 to Level of all Storm Call Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="storm call",value=3}}},nil}
+c["+3 to Level of all Storm Rain Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="storm rain",value=3}}},nil}
+c["+3 to Level of all Stormbind Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="stormbind",value=3}}},nil}
+c["+3 to Level of all Stormblast Mine Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="stormblast mine",value=3}}},nil}
+c["+3 to Level of all Summon Carrion Golem Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="summon carrion golem",value=3}}},nil}
+c["+3 to Level of all Summon Chaos Golem Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="summon chaos golem",value=3}}},nil}
+c["+3 to Level of all Summon Flame Golem Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="summon flame golem",value=3}}},nil}
+c["+3 to Level of all Summon Holy Relic Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="summon holy relic",value=3}}},nil}
+c["+3 to Level of all Summon Ice Golem Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="summon ice golem",value=3}}},nil}
+c["+3 to Level of all Summon Lightning Golem Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="summon lightning golem",value=3}}},nil}
+c["+3 to Level of all Summon Raging Spirit Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="summon raging spirit",value=3}}},nil}
+c["+3 to Level of all Summon Reaper Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="summon reaper",value=3}}},nil}
+c["+3 to Level of all Summon Skeletons Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="summon skeletons",value=3}}},nil}
+c["+3 to Level of all Summon Skitterbots Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="summon skitterbots",value=3}}},nil}
+c["+3 to Level of all Summon Stone Golem Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="summon stone golem",value=3}}},nil}
+c["+3 to Level of all Sunder Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="sunder",value=3}}},nil}
+c["+3 to Level of all Sweep Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="sweep",value=3}}},nil}
+c["+3 to Level of all Swordstorm Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="swordstorm",value=3}}},nil}
+c["+3 to Level of all Tectonic Slam Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="tectonic slam",value=3}}},nil}
+c["+3 to Level of all Tempest Shield Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="tempest shield",value=3}}},nil}
+c["+3 to Level of all Temporal Chains Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="temporal chains",value=3}}},nil}
+c["+3 to Level of all Temporal Rift Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="temporal rift",value=3}}},nil}
+c["+3 to Level of all Tornado Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="tornado",value=3}}},nil}
+c["+3 to Level of all Tornado Shot Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="tornado shot",value=3}}},nil}
+c["+3 to Level of all Toxic Rain Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="toxic rain",value=3}}},nil}
+c["+3 to Level of all Unearth Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="unearth",value=3}}},nil}
+c["+3 to Level of all Vampiric Link Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="vampiric link",value=3}}},nil}
+c["+3 to Level of all Vengeful Cry Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="vengeful cry",value=3}}},nil}
+c["+3 to Level of all Venom Gyre Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="venom gyre",value=3}}},nil}
+c["+3 to Level of all Vigilant Strike Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="vigilant strike",value=3}}},nil}
+c["+3 to Level of all Viper Strike Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="viper strike",value=3}}},nil}
+c["+3 to Level of all Vitality Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="vitality",value=3}}},nil}
+c["+3 to Level of all Void Sphere Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="void sphere",value=3}}},nil}
+c["+3 to Level of all Volatile Dead Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="volatile dead",value=3}}},nil}
+c["+3 to Level of all Volcanic Fissure Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="volcanic fissure",value=3}}},nil}
+c["+3 to Level of all Voltaxic Burst Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="voltaxic burst",value=3}}},nil}
+c["+3 to Level of all Vortex Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="vortex",value=3}}},nil}
+c["+3 to Level of all Vulnerability Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="vulnerability",value=3}}},nil}
+c["+3 to Level of all War Banner Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="war banner",value=3}}},nil}
+c["+3 to Level of all Warlord's Mark Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="warlord's mark",value=3}}},nil}
+c["+3 to Level of all Wave of Conviction Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="wave of conviction",value=3}}},nil}
+c["+3 to Level of all Whirling Blades Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="whirling blades",value=3}}},nil}
+c["+3 to Level of all Wild Strike Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="wild strike",value=3}}},nil}
+c["+3 to Level of all Winter Orb Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="winter orb",value=3}}},nil}
+c["+3 to Level of all Wintertide Brand Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="wintertide brand",value=3}}},nil}
+c["+3 to Level of all Wither Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="wither",value=3}}},nil}
+c["+3 to Level of all Withering Step Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="withering step",value=3}}},nil}
+c["+3 to Level of all Wrath Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="wrath",value=3}}},nil}
+c["+3 to Level of all Zealotry Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="zealotry",value=3}}},nil}
 c["+3 to Maximum Rage"]={{[1]={flags=0,keywordFlags=0,name="MaximumRage",type="BASE",value=3}},nil}
 c["+3 to maximum Fortification"]={{[1]={flags=0,keywordFlags=0,name="MaximumFortification",type="BASE",value=3}},nil}
 c["+3 to maximum number of Golems"]={{[1]={flags=0,keywordFlags=0,name="ActiveGolemLimit",type="BASE",value=3}},nil}
@@ -11356,7 +11634,7 @@ c["Summoned Raging Spirits' Melee Strikes deal Fire-only Splash"]={nil,"Summoned
 c["Summoned Raging Spirits' Melee Strikes deal Fire-only Splash Damage to Surrounding Targets"]={nil,"Summoned Raging Spirits' Melee Strikes deal Fire-only Splash Damage to Surrounding Targets "}
 c["Summoned Sentinels have 25% increased Cooldown Recovery Rate"]={{[1]={[1]={includeTransfigured=true,skillNameList={[1]="Herald of Purity",[2]="Dominating Blow",[3]="Absolution"},type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=25}}}},nil}
 c["Summoned Skeleton Warriors and Soldiers deal Triple Damage with this"]={nil,"Summoned Skeleton Warriors and Soldiers deal Triple Damage with this "}
-c["Summoned Skeleton Warriors and Soldiers deal Triple Damage with this Weapon if you've Hit with this Weapon Recently"]={{[1]={[1]={type="Condition",var="HitRecentlyWithWeapon"},flags=0,keywordFlags=0,name="Dummy",type="DUMMY",value=1},[2]={[1]={skillName="Summon Skeletons",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",type="ActorCondition",var="HitRecentlyWithWeapon"},flags=0,keywordFlags=0,name="TripleDamageChance",type="BASE",value=100}}}},nil}
+c["Summoned Skeleton Warriors and Soldiers deal Triple Damage with this Weapon if you've Hit with this Weapon Recently"]={{[1]={[1]={skillName="Summon Skeletons",type="SkillName"},[2]={itemSlot="Weapon 1",nameCond="The Iron Mass, Gladius",type="ItemCondition"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",type="ActorCondition",var="HitRecentlyWithWeapon"},flags=0,keywordFlags=0,name="TripleDamageChance",type="BASE",value=100}}}},nil}
 c["Summoned Skeleton Warriors and Soldiers wield this Weapon while in your Main Hand"]={{},nil}
 c["Summoned Skeleton Warriors are Permanent and Follow you"]={{[1]={[1]={skillName="Summon Skeletons",type="SkillName"},flags=0,keywordFlags=0,name="RaisedSkeletonPermanentDuration",type="FLAG",value=true}},nil}
 c["Summoned Skeletons Cover Enemies in Ash on Hit"]={nil,"Summoned Skeletons Cover Enemies in Ash on Hit "}
