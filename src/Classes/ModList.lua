@@ -46,11 +46,13 @@ function ModListClass:ReplaceModInternal(mod)
 end
 
 function ModListClass:MergeMod(mod)
-	for i = 1, #self do
-		if modLib.compareModParams(self[i], mod) then
-			self[i] = copyTable(self[i], true)
-			self[i].value = self[i].value + mod.value
-			return
+	if mod.type == "BASE" or mod.type == "INC" or mod.type == "MORE" then
+		for i = 1, #self do
+			if modLib.compareModParams(self[i], mod) then
+				self[i] = copyTable(self[i], true)
+				self[i].value = self[i].value + mod.value
+				return
+			end
 		end
 	end
 	self:AddMod(mod)
