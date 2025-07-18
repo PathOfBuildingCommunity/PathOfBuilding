@@ -1097,6 +1097,7 @@ function calcs.perform(env, skipEHP)
 		env.minion.modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
 		env.minion.modDB:NewMod("MaximumFortification", "BASE", 20, "Base")
 		env.minion.modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" })
+		env.minion.modDB:NewMod("DotMultiplier", "BASE", 30, "Base", { type = "Condition", var = "CriticalStrike" })
 		for _, mod in ipairs(env.minion.minionData.modList) do
 			env.minion.modDB:AddMod(mod)
 		end
