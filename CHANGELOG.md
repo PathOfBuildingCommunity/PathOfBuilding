@@ -8,7 +8,7 @@
 ### New to Path of Building
 - Add support for Replica Dragonfang's Flight variants [\#8747](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8747) ([linusalpsten](https://github.com/linusalpsten))
 ### Fixed Crashes
-- Fix autoexertion modifying active skill tables [\#8852](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8852) ([Paliak](https://github.com/Paliak))
+- Fix Autoexertion modifying active skill tables [\#8852](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8852) ([Paliak](https://github.com/Paliak))
 ### Fixed Calculations
 - Fix various node scaling issues [\#8858](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8858) ([Wires77](https://github.com/Wires77))
 - Fix missing Minion DoT multiplier from critical hits [\#8841](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8841) ([Wires77](https://github.com/Wires77))
