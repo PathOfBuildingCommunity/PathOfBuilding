@@ -1,5 +1,22 @@
 # Changelog
 
+## [v2.55.5](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.55.5) (2025/07/18)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.55.4...v2.55.5)
+
+## What's Changed
+### New to Path of Building
+- Add support for Replica Dragonfang's Flight variants [\#8747](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8747) ([linusalpsten](https://github.com/linusalpsten))
+### Fixed Crashes
+- Fix Autoexertion modifying active skill tables [\#8852](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8852) ([Paliak](https://github.com/Paliak))
+### Fixed Calculations
+- Fix various node scaling issues [\#8858](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8858) ([Wires77](https://github.com/Wires77))
+- Fix missing Minion DoT multiplier from critical hits [\#8841](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8841) ([Wires77](https://github.com/Wires77))
+### Fixed Behaviours
+- Fix issue where socketed gem modifiers were scalable by Runegraft of the Bound [\#8844](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8844) ([Wires77](https://github.com/Wires77))
+- Fix Iron Mass giving Skeletons Triple Damage in Offhand [\#8846](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8846) ([Blitz54](https://github.com/Blitz54))
+
+
 ## [v2.55.4](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.55.4) (2025/07/14)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.55.3...v2.55.4)

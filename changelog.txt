@@ -1,3 +1,18 @@
+VERSION[2.55.5][2025/07/18]
+--- New to Path of Building ---
+* Add support for Replica Dragonfang's Flight variants (linusalpsten)
+
+--- Fixed Crashes ---
+* Fix Autoexertion modifying active skill tables (Paliak)
+
+--- Fixed Calculations ---
+* Fix various node scaling issues (Wires77)
+* Fix missing Minion DoT multiplier from critical hits (Wires77)
+
+--- Fixed Behaviours ---
+* Fix issue where socketed gem modifiers were scalable by Runegraft of the Bound (Wires77)
+* Fix Iron Mass giving Skeletons Triple Damage in Offhand (Blitz54)
+
 VERSION[2.55.4][2025/07/14]
 
 --- New to Path of Building ---
