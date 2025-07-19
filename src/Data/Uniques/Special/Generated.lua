@@ -258,6 +258,44 @@ table.insert(replicaForbiddenShako, "+(25-30) to all Attributes")
 table.insert(data.uniques.generated, table.concat(forbiddenShako, "\n"))
 table.insert(data.uniques.generated, table.concat(replicaForbiddenShako, "\n"))
 
+local replicaDragonfangsFlight = {
+	"Replica Dragonfang's Flight",
+	"Onyx Amulet",
+	"Variant: Pre 3.23.0",
+	"Variant: Current"
+}
+local excludedGems = {
+}
+local gems = { }
+for _, gemData in pairs(data.gems) do
+	local grantedEffect = gemData.grantedEffect
+	if not grantedEffect.support and not isValueInArray(excludedGems, grantedEffect.name) and not grantedEffect.id:match("AltX") and not grantedEffect.id:match("AltY") and not grantedEffect.id:match("AltZ") and not grantedEffect.id:match("^Vaal") then
+		table.insert(gems, grantedEffect.name)
+	end
+end
+table.sort(gems)
+for index, name in ipairs(gems) do
+	table.insert(replicaDragonfangsFlight, "Variant: "..name)
+end
+
+	
+table.insert(replicaDragonfangsFlight, "Selected Variant: 2")
+table.insert(replicaDragonfangsFlight, "Has Alt Variant: true")
+table.insert(replicaDragonfangsFlight, "LevelReq: 56")
+table.insert(replicaDragonfangsFlight, "Implicits: 1")
+table.insert(replicaDragonfangsFlight, "{tags: jewellery_attribute}+(10-16) to all Attributes")
+table.insert(replicaDragonfangsFlight, "{variant:1}{tags:jewellery_resistance}+(10-15)% to all Elemental Resistances")
+table.insert(replicaDragonfangsFlight, "{variant:2}{tags:jewellery_resistance}+(5-10)% to all Elemental Resistances")
+for index, name in ipairs(gems) do
+	table.insert(replicaDragonfangsFlight, "{variant:"..(index + 2).."}+3 to Level of all "..name.." Gems")
+end
+table.insert(replicaDragonfangsFlight, "{variant:1}(10-15)% increased Reservation Efficiency of Skills")
+table.insert(replicaDragonfangsFlight, "{variant:2}(5-10)% increased Reservation Efficiency of Skills")
+table.insert(replicaDragonfangsFlight, "{variant:1}Items and Gems have (10-15)% reduced Attribute Requirements")
+table.insert(replicaDragonfangsFlight, "{variant:2}Items and Gems have (5-10)% reduced Attribute Requirements")
+table.insert(data.uniques.generated, table.concat(replicaDragonfangsFlight, "\n"))
+
+
 local enduranceChargeMods = {
 	[3] = {
 		["Up to Max."] = "15% chance that if you would gain Endurance Charges, you instead gain up to your maximum number of Endurance Charges",
