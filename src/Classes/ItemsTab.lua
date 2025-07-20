@@ -1865,20 +1865,39 @@ local function checkLineForAllocates(line, nodes)
 	return line
 end
 
+local cache = { }
+local cachedItemUniqueId = nil
 function ItemsTabClass:AddModComparisonTooltip(tooltip, mod)
 	local slotName = self.displayItem:GetPrimarySlot()
 	local newItem = new("Item", self.displayItem:BuildRaw())
+
+	if cachedItemUniqueId ~= newItem.uniqueId then
+		cache = { }
+		cachedItemUniqueId = newItem.uniqueId
+	end
 	
 	for _, subMod in ipairs(mod) do
 		t_insert(newItem.explicitModLines, { line = checkLineForAllocates(subMod, self.build.spec.nodes), modTags = mod.modTags, [mod.type] = true })
 	end
 
-	newItem:BuildAndParseRaw()
+    if cachedItemUniqueId ~= newItem.uniqueId then
+        cache = { }
+        cachedItemUniqueId = newItem.uniqueId
+    end
+    
+    for _, subMod in ipairs(mod) do
+        t_insert(newItem.explicitModLines, { line = checkLineForAllocates(subMod, self.build.spec.nodes), modTags = mod.modTags, [mod.type] = true })
+    end
 
-	local calcFunc = self.build.calcsTab:GetMiscCalculator()
-	local outputBase = calcFunc({ repSlotName = slotName, repItem = self.displayItem })
-	local outputNew = calcFunc({ repSlotName = slotName, repItem = newItem })
-	self.build:AddStatComparesToTooltip(tooltip, outputBase, outputNew, "\nAdding this mod will give: ")	
+	if not cache[mod] then
+		local calcFunc = self.build.calcsTab:GetMiscCalculator()
+		local outputBase = calcFunc({ repSlotName = slotName, repItem = self.displayItem })
+		local outputNew = calcFunc({ repSlotName = slotName, repItem = newItem })
+		cache[mod] = { outputBase = outputBase, outputNew = outputNew }
+	end
+
+	local result = cache[mod]
+	self.build:AddStatComparesToTooltip(tooltip, result.outputBase, result.outputNew, "\nAdding this mod will give: ")
 end
 
 -- Returns the first slot in which the given item is equipped
