@@ -375,9 +375,6 @@ function calcs.mirages(env)
 			end
 		end
 
-		-- Scale dps with GC's cooldown
-		env.player.mainSkill.skillData.dpsMultiplier = (env.player.mainSkill.skillData.dpsMultiplier or 1) * (1 / cooldown)
-
 		-- Does not use player resources
 		env.player.mainSkill.skillModList:NewMod("HasNoCost", "FLAG", true, "Used by mirage")
 
@@ -414,7 +411,19 @@ function calcs.mirages(env)
 			env.player.mainSkill.skillModList:NewMod("QuantityMultiplier", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
 			maxMirageWarriors = maxMirageWarriors + mod.value
 		end
+		
+		-- Scale cooldown to have maximum number of Mirages at once. 0.3s for first mirage then 0.2s for each extra
+		local mirageSpawnTime = 0.3 + 0.2 * maxMirageWarriors
+		if env.player.mainSkill.skillTypes[SkillType.Channel] then
+			mirageSpawnTime = mirageSpawnTime + 1
+		end
+		cooldown = m_max(cooldown, mirageSpawnTime)
+		
+		-- Scale dps with GC's cooldown
+		env.player.mainSkill.skillData.dpsMultiplier = (env.player.mainSkill.skillData.dpsMultiplier or 1) * (1 / cooldown)
+		
 		env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " GC Mirage Warriors using " .. env.player.mainSkill.activeEffect.grantedEffect.name
+		env.player.mainSkill.infoMessage2 = tostring(mirageSpawnTime) .. "s for " .. tostring(maxMirageWarriors) .. " Mirages to finish Attacking"
 	end
 
 	return calculateMirage(env, config)
