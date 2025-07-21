@@ -5323,6 +5323,7 @@ local specialModList = {
 	["take no extra damage from critical strikes if you have a magic ring in left slot"] = {
 		mod("ReduceCritExtraDamage", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "Condition", var = "MagicItemInRing 1" })
 	},
+	["take no extra damage from critical strikes if energy shield recharge started recently"] = { mod("ReduceCritExtraDamage", "BASE", 100, { type = "Condition", var = "EnergyShieldRechargeRecently" }) },
 	["you take (%d+)%% reduced extra damage from critical strikes while affected by determination"] = function(num) return {
 		mod("ReduceCritExtraDamage", "BASE", num, { type = "Condition", var = "AffectedByDetermination" })
 	} end,
