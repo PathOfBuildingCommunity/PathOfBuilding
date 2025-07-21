@@ -27,8 +27,8 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-35) to Dexterity
 {tags:jewellery_resistance}(-30--20)% to all Elemental Resistances
 {tags:jewellery_resistance}+(20-30)% to Chaos Resistance
-5% increased Movement Speed
-(25-40)% chance to inflict an additional Poison on the same Target when you inflict Poison
+{tags:speed}5% increased Movement Speed
+{tags:chaos_damage}(25-40)% chance to inflict an additional Poison on the same Target when you inflict Poison
 ]],[[
 Binds of Bloody Vengeance
 Vanguard Belt

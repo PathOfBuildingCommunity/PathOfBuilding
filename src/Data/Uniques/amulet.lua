@@ -260,14 +260,14 @@ League: Talisman Hardcore
 Talisman Tier: 2
 Requires Level 28
 Implicits: 1
-(15-25)% increased Global Defences
-+(20-30) to maximum Energy Shield
+{tags:defences}(15-25)% increased Global Defences
+{tags:defences}+(20-30) to maximum Energy Shield
 {tags:jewellery_resistance}+(15-30)% to Fire Resistance
 {tags:jewellery_resistance}+(15-30)% to Lightning Resistance
-{variant:1}30% slower start of Energy Shield Recharge during any Flask Effect
-{variant:2}50% slower start of Energy Shield Recharge during any Flask Effect
-{variant:1}400% increased Energy Shield Recharge Rate during any Flask Effect
-{variant:2}(150-200)% increased Energy Shield Recharge Rate during any Flask Effect
+{variant:1}{tags:defences}30% slower start of Energy Shield Recharge during any Flask Effect
+{variant:2}{tags:defences}50% slower start of Energy Shield Recharge during any Flask Effect
+{variant:1}{tags:defences}400% increased Energy Shield Recharge Rate during any Flask Effect
+{variant:2}{tags:defences}(150-200)% increased Energy Shield Recharge Rate during any Flask Effect
 Corrupted
 ]],[[
 Blood of Corruption
@@ -471,37 +471,37 @@ Variant: Gain Physical as random Element
 Variant: Extra Pierces
 Variant: Damage over Time Multiplier
 Implicits: 32
-{variant:1}(24-32)% increased Attributes
-{variant:2}(30-50)% increased Global Defences
-{variant:3}(38-62)% increased Chaos Damage
-{variant:4}(40-60)% increased Attack Damage
-{variant:5}(40-60)% increased Cold Damage
-{variant:6}(40-60)% increased Fire Damage
-{variant:7}(40-60)% increased Lightning Damage
-{variant:8}(40-60)% increased Spell Damage
-{variant:9}(40-60)% increased Global Physical Damage
-{variant:10}(40-60)% increased maximum Mana
+{variant:1}{tags:jewellery_attribute}(24-32)% increased Attributes
+{variant:2}{tags:jewellery_defense}(30-50)% increased Global Defences
+{variant:3}{tags:chaos_damage}(38-62)% increased Chaos Damage
+{variant:4}{tags:attack}(40-60)% increased Attack Damage
+{variant:5}{tags:elemental_damage}(40-60)% increased Cold Damage
+{variant:6}{tags:elemental_damage}(40-60)% increased Fire Damage
+{variant:7}{tags:elemental_damage}(40-60)% increased Lightning Damage
+{variant:8}{tags:caster}(40-60)% increased Spell Damage
+{variant:9}{tags:physical_damage}(40-60)% increased Global Physical Damage
+{variant:10}{tags:mana}(40-60)% increased maximum Mana
 {variant:11}(50-70)% increased Damage
-{variant:12}(8-12)% additional Physical Damage Reduction
-{variant:13}(8-12)% chance to Freeze, Shock and Ignite
-{variant:14}(80-100)% increased Global Critical Strike Chance
+{variant:12}{tags:physical_damage}(8-12)% additional Physical Damage Reduction
+{variant:13}{tags:jewellery_elemental}(8-12)% chance to Freeze, Shock and Ignite
+{variant:14}{tags:critical}(80-100)% increased Global Critical Strike Chance
 {variant:15}(10-16)% increased Area of Effect
-{variant:16}(12-20)% increased Attack and Cast Speed
+{variant:16}{tags:caster,attack,speed}(12-20)% increased Attack and Cast Speed
 {variant:17}(12-20)% increased Quantity of Items found
-{variant:18}(16-24)% increased maximum Life
-{variant:19}+(48-72)% to Global Critical Strike Multiplier
+{variant:18}{tags:life}(16-24)% increased maximum Life
+{variant:19}{tags:critical}+(48-72)% to Global Critical Strike Multiplier
 {variant:20}+2 to maximum number of Raised Zombies
 {variant:21}20% chance to gain a Frenzy Charge on Kill
 {variant:22}20% chance to gain a Power Charge on Kill
 {variant:23}20% chance to gain a Endurance Charge on Kill
-{variant:24}Regenerate 4% of Life per second
-{variant:25}100% of Cold Damage from Hits taken as Fire Damage
-{variant:26}100% of Cold Damage from Hits taken as Lightning Damage
-{variant:27}100% of Fire Damage from Hits taken as Cold Damage
-{variant:28}100% of Fire Damage from Hits taken as Lightning Damage
-{variant:29}100% of Lightning Damage from Hits taken as Cold Damage
-{variant:30}100% of Lightning Damage from Hits taken as Fire Damage
-{variant:31}Gain (12-24)% of Physical Damage as Extra Damage of a random Element
+{variant:24}{tags:life}Regenerate 4% of Life per second
+{variant:25}{tags:jewellery_elemental}100% of Cold Damage from Hits taken as Fire Damage
+{variant:26}{tags:jewellery_elemental}100% of Cold Damage from Hits taken as Lightning Damage
+{variant:27}{tags:jewellery_elemental}100% of Fire Damage from Hits taken as Cold Damage
+{variant:28}{tags:jewellery_elemental}100% of Fire Damage from Hits taken as Lightning Damage
+{variant:29}{tags:jewellery_elemental}100% of Lightning Damage from Hits taken as Cold Damage
+{variant:30}{tags:jewellery_elemental}100% of Lightning Damage from Hits taken as Fire Damage
+{variant:31}{tags:physical_damage,elemental_damage}Gain (12-24)% of Physical Damage as Extra Damage of a random Element
 {variant:32}Projectiles Pierce (4-6) additional Targets
 {variant:33}+(24-36)% to Damage over Time Multiplier
 Implicit Modifier magnitudes are doubled
@@ -839,11 +839,11 @@ Talisman Tier: 3
 Requires Level 44
 Implicits: 1
 (25-35)% increased Damage
-(10-15)% increased Global Physical Damage
-(25-30)% increased Fire Damage
-(20-25)% increased Cold Damage
-(15-20)% increased Lightning Damage
-(30-35)% increased Chaos Damage
+{tags:physical_damage}(10-15)% increased Global Physical Damage
+{tags:elemental_damage}(25-30)% increased Fire Damage
+{tags:elemental_damage}(20-25)% increased Cold Damage
+{tags:elemental_damage}(15-20)% increased Lightning Damage
+{tags:chaos_damage}(30-35)% increased Chaos Damage
 Corrupted
 ]],[[
 Night's Hold
@@ -927,9 +927,9 @@ Variant: Current
 Talisman Tier: 2
 Requires Level 28
 Implicits: 2
-{variant:1}+(16-24)% to Global Critical Strike Multiplier
-{variant:2}+(24-36)% to Global Critical Strike Multiplier
-+7% to Unarmed Melee Attack Critical Strike Chance
+{variant:1}{tags:critical}+(16-24)% to Global Critical Strike Multiplier
+{variant:2}{tags:critical}+(24-36)% to Global Critical Strike Multiplier
+{tags:critical}+7% to Unarmed Melee Attack Critical Strike Chance
 Modifiers to Claw Damage also apply to Unarmed Attack Damage with Melee Skills
 Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed with Melee Skills
 Modifiers to Claw Critical Strike Chance also apply to Unarmed Critical Strike Chance with Melee Skills
