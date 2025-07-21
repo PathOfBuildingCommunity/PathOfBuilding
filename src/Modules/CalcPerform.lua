@@ -2238,7 +2238,7 @@ function calcs.perform(env, skipEHP)
 							end
 						end
 						mult = 0
-						if not (modDB:Flag(nil, "SelfAurasOnlyAffectYou") or activeSkill.skillModList:Flag(skillCfg, "SelfAurasAffectYouAndLinkedTarget")) then
+						if not (modDB:Flag(nil, "SelfAurasOnlyAffectYou")) then
 							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							mult = (1 + inc / 100) * more
