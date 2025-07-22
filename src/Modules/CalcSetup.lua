@@ -989,17 +989,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				elseif item.name:match("Kalandra's Touch") then
-					-- Reset mult counters since they don't work for kalandra
-					for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder", ["WarlordItem"] = "warlord", ["HunterItem"] = "hunter", ["CrusaderItem"] = "crusader", ["RedeemerItem"] = "redeemer"}) do
-						if item[property] then
-							env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) - 1
-						else
-							env.itemModDB.multipliers["Non"..mult] = (env.itemModDB.multipliers["Non"..mult] or 0) + 1
-						end
-					end
-					if item.shaper or item.elder then
-						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) - 1
-					end
 					local otherRing = items[(slotName == "Ring 1" and "Ring 2") or (slotName == "Ring 2" and "Ring 1")]
 					if otherRing and not otherRing.name:match("Kalandra's Touch") then
 						for _, mod in ipairs(otherRing.modList or otherRing.slotModList[slot.slotNum] or {}) do
@@ -1017,7 +1006,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 							::skip_mod::
 						end
 						-- Adjust multipliers based on other ring
-						for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder", ["WarlordItem"] = "warlord", ["HunterItem"] = "hunter", ["CrusaderItem"] = "crusader", ["RedeemerItem"] = "redeemer"}) do
+						for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder", ["WarlordItem"] = "adjudicator", ["HunterItem"] = "basilisk", ["CrusaderItem"] = "crusader", ["RedeemerItem"] = "eyrie"}) do
 							if otherRing[property] then
 								env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) + 1
 								env.itemModDB.multipliers["Non"..mult] = (env.itemModDB.multipliers["Non"..mult] or 0) - 1
