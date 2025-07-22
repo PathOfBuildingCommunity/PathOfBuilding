@@ -376,7 +376,7 @@ function calcs.mirages(env)
 		env.player.mainSkill.skillTypes[SkillType.OtherThingUsesSkill] = true
 
 		if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-			calcs.buildActiveSkill(env, env.mode, env.player.mainSkill, uuid, {[uuid] = true})
+			calcs.buildActiveSkill(env, env.mode, env.player.mainSkill, uuid, {uuid})
 		end
 		local mainSkillOutputCache = GlobalCache.cachedData[env.mode][uuid].Env.player.output
 
