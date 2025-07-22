@@ -24,7 +24,7 @@ local function calculateMirage(env, config)
 		return
 	end
 
-	local mirageSkill = nil
+	local mirageSkill = config.mirageSkill
 
 	if config.compareFunc then
 		for _, skill in ipairs(env.player.activeSkillList) do
@@ -63,11 +63,7 @@ function calcs.mirages(env)
 	if env.player.mainSkill.skillData.triggeredByMirageArcher then
 		config = {
 			calcMainSkillOffence = true,
-			compareFunc = function(skill, env, config, mirageSkill)
-				if not env.player.mainSkill.skillCfg.skillCond["usedByMirage"] and env.player.weaponData1.type == "Bow" then
-					return env.player.mainSkill
-				end
-			end,
+			mirageSkill = env.player.mainSkill,
 			preCalcFunc = function(env, newSkill, newEnv)
 				local moreDamage =  newSkill.skillModList:Sum("BASE", newSkill.skillCfg, "MirageArcherLessDamage")
 				local moreAttackSpeed = newSkill.skillModList:Sum("BASE", newSkill.skillCfg, "MirageArcherLessAttackSpeed")
@@ -297,11 +293,7 @@ function calcs.mirages(env)
 	elseif env.player.mainSkill.skillData.triggeredBySacredWisps then
 		config = {
 			calcMainSkillOffence = true,
-			compareFunc = function(skill, env, config, mirageSkill)
-				if not env.player.mainSkill.skillCfg.skillCond["usedByMirage"] and env.player.weaponData1.type == "Wand" then
-					return env.player.mainSkill
-				end
-			end,
+			mirageSkill = env.player.mainSkill,
 			preCalcFunc = function(env, newSkill, newEnv)
 				local lessDamage =  newSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SacredWispsLessDamage")
 				local wispsMaxCount
