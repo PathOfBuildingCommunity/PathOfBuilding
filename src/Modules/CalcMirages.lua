@@ -361,69 +361,85 @@ function calcs.mirages(env)
 			end
 		}
 	elseif env.player.mainSkill.skillData.triggeredByGeneralsCry then
-		env.player.mainSkill.skillTypes[SkillType.Triggered] = true
-		local maxMirageWarriors = 0
-		local cooldown = 1
-		local generalsCryActiveSkill
-
-		-- Find the active General's Cry gem to get active properties
-		for _, skill in ipairs(env.player.activeSkillList) do
-			if skill.activeEffect.grantedEffect.name == "General's Cry" and env.player.mainSkill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
-				cooldown = calcSkillCooldown(skill.skillModList, skill.skillCfg, skill.skillData)
-				generalsCryActiveSkill = skill
-				break
-			end
-		end
-
-		-- Does not use player resources
-		env.player.mainSkill.skillModList:NewMod("HasNoCost", "FLAG", true, "Used by mirage")
-
-		-- Non-channelled skills only attack once, disregard attack rate
-		if not env.player.mainSkill.skillTypes[SkillType.Channel] then
-			env.player.mainSkill.skillData.timeOverride = 1
-		end
-
-		-- Supported Attacks Count as Exerted
-		for _, value in ipairs(env.player.mainSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "ExertIncrease")) do
-			local mod = value.mod
-			env.player.mainSkill.skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
-		end
-		for _, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "ExertIncrease")) do
-			local mod = value.mod
-			env.player.mainSkill. skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
-		end
-		for _, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "ExertAttackIncrease")) do
-			local mod = value.mod
-			env.player.mainSkill.skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
-		end
-		for _, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "OverexertionExertAverageIncrease")) do
-			local mod = value.mod
-			env.player.mainSkill.skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
-		end
-		for _, value in ipairs(env.player.mainSkill.skillModList:Tabulate("BASE", env.player.mainSkill.skillCfg, "ExertDoubleDamageChance")) do
-			local mod = value.mod
-			env.player.mainSkill.skillModList:NewMod("DoubleDamageChance", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
-		end
-
-		-- Scale dps with mirage quantity
-		for _, value in ipairs(generalsCryActiveSkill.skillModList:Tabulate("BASE", generalsCryActiveSkill.skillCfg, "GeneralsCryDoubleMaxCount")) do
-			local mod = value.mod
-			env.player.mainSkill.skillModList:NewMod("QuantityMultiplier", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
-			maxMirageWarriors = maxMirageWarriors + mod.value
-		end
+		config = {
+			calcMainSkillOffence = true,
+			compareFunc = function(skill, env, config, mirageSkill)
+				if not env.player.mainSkill.skillCfg.skillCond["usedByMirage"] then
+					return env.player.mainSkill
+				end
+			end,
+			preCalcFunc = function(env, newSkill, newEnv)
+			end,
+			postCalcFunc = function(env, newSkill, newEnv)
+				env.player.mainSkill.skillTypes[SkillType.Triggered] = true
+				local maxMirageWarriors = 0
+				local cooldown = 1
+				local generalsCryActiveSkill
+				local uuid = cacheSkillUUID(env.player.mainSkill, env)
+				local hitTime = round(1 / GlobalCache.cachedData[env.mode][uuid].Speed, 2)
 		
-		-- Scale cooldown to have maximum number of Mirages at once. 0.3s for first mirage then 0.2s for each extra
-		local mirageSpawnTime = 0.3 + 0.2 * maxMirageWarriors
-		if env.player.mainSkill.skillTypes[SkillType.Channel] then
-			mirageSpawnTime = mirageSpawnTime + 1
-		end
-		cooldown = m_max(cooldown, mirageSpawnTime)
+				-- Find the active General's Cry gem to get active properties
+				for _, skill in ipairs(env.player.activeSkillList) do
+					if skill.activeEffect.grantedEffect.name == "General's Cry" and env.player.mainSkill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
+						cooldown = calcSkillCooldown(skill.skillModList, skill.skillCfg, skill.skillData)
+						generalsCryActiveSkill = skill
+						break
+					end
+				end
 		
-		-- Scale dps with GC's cooldown
-		env.player.mainSkill.skillData.dpsMultiplier = (env.player.mainSkill.skillData.dpsMultiplier or 1) * (1 / cooldown)
+				-- Does not use player resources
+				env.player.mainSkill.skillModList:NewMod("HasNoCost", "FLAG", true, "Used by mirage")
 		
-		env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " GC Mirage Warriors using " .. env.player.mainSkill.activeEffect.grantedEffect.name
-		env.player.mainSkill.infoMessage2 = tostring(mirageSpawnTime) .. "s for " .. tostring(maxMirageWarriors) .. " Mirages to finish Attacking"
+				-- Non-channelled skills only attack once, disregard attack rate
+				if not env.player.mainSkill.skillTypes[SkillType.Channel] then
+					env.player.mainSkill.skillData.timeOverride = 1
+				end
+		
+				-- Supported Attacks Count as Exerted
+				for _, value in ipairs(env.player.mainSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "ExertIncrease")) do
+					local mod = value.mod
+					env.player.mainSkill.skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+				end
+				for _, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "ExertIncrease")) do
+					local mod = value.mod
+					env.player.mainSkill. skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+				end
+				for _, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "ExertAttackIncrease")) do
+					local mod = value.mod
+					env.player.mainSkill.skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+				end
+				for _, value in ipairs(env.player.mainSkill.skillModList:Tabulate("MORE", env.player.mainSkill.skillCfg, "OverexertionExertAverageIncrease")) do
+					local mod = value.mod
+					env.player.mainSkill.skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+				end
+				for _, value in ipairs(env.player.mainSkill.skillModList:Tabulate("BASE", env.player.mainSkill.skillCfg, "ExertDoubleDamageChance")) do
+					local mod = value.mod
+					env.player.mainSkill.skillModList:NewMod("DoubleDamageChance", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+				end
+		
+				-- Scale dps with mirage quantity
+				for _, value in ipairs(generalsCryActiveSkill.skillModList:Tabulate("BASE", generalsCryActiveSkill.skillCfg, "GeneralsCryDoubleMaxCount")) do
+					local mod = value.mod
+					env.player.mainSkill.skillModList:NewMod("QuantityMultiplier", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+					maxMirageWarriors = maxMirageWarriors + mod.value
+				end
+				
+				-- Scale cooldown to have maximum number of Mirages at once. 0.3s for first mirage then 0.2s for each extra
+				local mirageSpawnTime = 0.3 + 0.2 * maxMirageWarriors
+				if env.player.mainSkill.skillTypes[SkillType.Channel] then
+					mirageSpawnTime = mirageSpawnTime + 1
+				else
+					mirageSpawnTime = mirageSpawnTime + hitTime
+				end
+				cooldown = m_max(cooldown, mirageSpawnTime)
+				
+				-- Scale dps with GC's cooldown
+				env.player.mainSkill.skillData.dpsMultiplier = (env.player.mainSkill.skillData.dpsMultiplier or 1) * (1 / cooldown)
+				
+				env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " GC Mirages using " .. env.player.mainSkill.activeEffect.grantedEffect.name
+				env.player.mainSkill.infoMessage2 = tostring(mirageSpawnTime) .. "s for " .. tostring(maxMirageWarriors) .. " Mirages to finish Attacking"
+			end,
+		}
 	end
 
 	return calculateMirage(env, config)
