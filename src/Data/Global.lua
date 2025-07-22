@@ -321,6 +321,6 @@ SkillType = {
 }
 
 GlobalCache = { 
-	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {}, CACHE = {}, },
+	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {} },
 }
 
