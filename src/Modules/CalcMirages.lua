@@ -358,7 +358,7 @@ function calcs.mirages(env)
 		local generalsCryActiveSkill
 		local uuid = cacheSkillUUID(env.player.mainSkill, env)
 
-		-- Prevent infinite recusion
+		-- Prevent infinite recursion
 		if env.limitedSkills and env.limitedSkills[uuid] then
 			return
 		end
