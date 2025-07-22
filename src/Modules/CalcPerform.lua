@@ -1558,7 +1558,9 @@ function calcs.perform(env, skipEHP)
 			if item.rarity == "MAGIC" then
 				tinctureEffectInc = tinctureEffectInc + effectIncMagic
 			end
-			local effectMod = (1 + (tinctureEffectInc) / 100) * (1 + (item.quality or 0) / 100)
+			-- Compute tincture effect multiplier.
+			-- Tincture effect multiplier is rounded to 2 decimal places before applying it.
+			local effectMod = math.floor((1 + (tinctureEffectInc) / 100) * (1 + (item.quality or 0) / 100) * 100) / 100 
 
 			-- same deal as flasks, go look at the comment there
 			if buffModList[1] then
@@ -2238,7 +2240,7 @@ function calcs.perform(env, skipEHP)
 							end
 						end
 						mult = 0
-						if not (modDB:Flag(nil, "SelfAurasOnlyAffectYou") or activeSkill.skillModList:Flag(skillCfg, "SelfAurasAffectYouAndLinkedTarget")) then
+						if not (modDB:Flag(nil, "SelfAurasOnlyAffectYou")) then
 							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							mult = (1 + inc / 100) * more
@@ -2284,7 +2286,7 @@ function calcs.perform(env, skipEHP)
 						socketedCursesHexLimit = modDB:Flag(activeSkill.skillCfg, "SocketedCursesAdditionalLimit")
 					}
 					local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
-					if activeSkill.skillTypes[SkillType.Aura] then
+					if activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillTypes[SkillType.RemoteMined] then
 						inc = inc + skillModList:Sum("INC", skillCfg, "AuraEffect")
 					end
 					local more = skillModList:More(skillCfg, "CurseEffect")

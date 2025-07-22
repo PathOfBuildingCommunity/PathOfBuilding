@@ -665,7 +665,7 @@ League: Blight
 {tags:attack,physical_damage}Adds 1 to 4 Physical Damage to Attacks
 {tags:jewellery_attribute}+(20-30) to Dexterity
 25% chance to Poison on Hit
-{tags:chaos}(40-60)% increased Damage with Poison
+{tags:chaos_damage}(40-60)% increased Damage with Poison
 You are Chilled while you are Poisoned
 Non-Chilled Enemies you Poison are Chilled
 Poisoned Enemies you Kill with Hits Shatter
