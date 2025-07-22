@@ -397,7 +397,7 @@ function calcs.mirages(env)
 			env.player.mainSkill.skillData.timeOverride = 1
 		end
 
-		-- This is so that it's consistant with the info messege but removing this could make it more accurate numbers wise
+		-- This is so that it's consistant with the info message but removing this could make it more accurate numbers wise
 		mirageSpawnTime = round(mirageSpawnTime, 2)
 		cooldown = m_max(cooldown, mirageSpawnTime)
 
