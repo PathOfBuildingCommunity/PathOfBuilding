@@ -35,7 +35,7 @@ local function calculateMirage(env, config)
 	end
 
 	if mirageSkill then
-		local newSkill, newEnv = calcs.copyActiveSkill(env, env.mode, mirageSkill)
+		local newSkill, newEnv = calcs.copyActiveSkill(env, "CALCULATOR", mirageSkill)
 		newSkill.skillCfg.skillCond["usedByMirage"] = true
 		newEnv.limitedSkills = newEnv.limitedSkills or {}
 		newEnv.limitedSkills[cacheSkillUUID(newSkill, newEnv)] = true
