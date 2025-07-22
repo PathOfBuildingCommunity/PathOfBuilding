@@ -372,6 +372,7 @@ function calcs.mirages(env)
 			end,
 			postCalcFunc = function(env, newSkill, newEnv)
 				env.player.mainSkill.skillTypes[SkillType.Triggered] = true
+				env.player.mainSkill.skillCfg.skillCond["usedByMirage"] = true
 				local maxMirageWarriors = 0
 				local cooldown = 1
 				local generalsCryActiveSkill

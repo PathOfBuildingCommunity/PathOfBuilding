@@ -2406,6 +2406,9 @@ local specialModList = {
 	["(%d+)%% more damage for each endurance charge lost recently, up to (%d+)%%"] = function(num, _, limit) return {
 		mod("Damage", "MORE", num, { type = "Multiplier", var = "EnduranceChargesLostRecently", limit = tonumber(limit), limitTotal = true }),
 	} end,
+	["nearby enemy monsters have no fire resistance against damage over time while you are stationary"] = {
+		mod("EnemyModifier", "LIST", { mod = mod("FireResist", "OVERRIDE", 0, nil, ModFlag.Dot, { type = "ActorCondition", actor = "player", var = "Stationary" }) }),
+	},
 	["(%d+)%% more damage if you've lost an endurance charge in the past 8 seconds"] = function(num) return { mod("Damage", "MORE", num, { type = "Condition", var = "LostEnduranceChargeInPast8Sec" })	} end,
 	["trigger level (%d+) (.+) when you attack with a non%-vaal slam or strike skill near an enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["non%-unique jewels cause increases and reductions to other damage types in a (%a+) radius to be transformed to apply to (%a+) damage"] = function(_, radius, dmgType) return {
@@ -5323,6 +5326,7 @@ local specialModList = {
 	["take no extra damage from critical strikes if you have a magic ring in left slot"] = {
 		mod("ReduceCritExtraDamage", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "Condition", var = "MagicItemInRing 1" })
 	},
+	["take no extra damage from critical strikes if energy shield recharge started recently"] = { mod("ReduceCritExtraDamage", "BASE", 100, { type = "Condition", var = "EnergyShieldRechargeRecently" }) },
 	["you take (%d+)%% reduced extra damage from critical strikes while affected by determination"] = function(num) return {
 		mod("ReduceCritExtraDamage", "BASE", num, { type = "Condition", var = "AffectedByDetermination" })
 	} end,
@@ -5586,7 +5590,7 @@ local jewelOtherFuncs = {
 		end
 	end,
 	["50% increased Effect of non-Keystone Passive Skills in Radius"] = function(node, out, data)
-		if node and node.type ~= "Keystone" then
+		if node and node.type ~= "Keystone" and node.type ~= "ClassStart" then
 			out:NewMod("PassiveSkillEffect", "INC", 50, data.modSource)
 		end
 	end,
@@ -5607,7 +5611,7 @@ local jewelOtherFuncs = {
 	end,
 	["Passive Skills in Radius also grant: Traps and Mines deal (%d+) to (%d+) added Physical Damage"] = function(min, max)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "ClassStart" then
 				out:NewMod("PhysicalMin", "BASE", min, data.modSource, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine))
 				out:NewMod("PhysicalMax", "BASE", max, data.modSource, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine))
 			end
@@ -5615,56 +5619,56 @@ local jewelOtherFuncs = {
 	end,
 	["Passive Skills in Radius also grant: (%d+)%% increased Unarmed Attack Speed with Melee Skills"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "ClassStart" then
 				out:NewMod("Speed", "INC", num, data.modSource, bor(ModFlag.Unarmed, ModFlag.Attack, ModFlag.Melee))
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased Global Critical Strike Chance"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod("CritChance", "INC", tonumber(num), data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant %+(%d+) to Maximum Life"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod("Life", "BASE", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant %+(%d+) to Maximum Mana"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod("Mana", "BASE", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased Energy Shield"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod("EnergyShield", "INC", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased Armour"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod("Armour", "INC", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased Evasion Rating"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod("Evasion", "INC", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant %+(%d+) to all Attributes"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod("Str", "BASE", num, data.modSource)
 				out:NewMod("Dex", "BASE", num, data.modSource)
 				out:NewMod("Int", "BASE", num, data.modSource)
@@ -5674,14 +5678,14 @@ local jewelOtherFuncs = {
 	end,
 	["Passive Skills in Radius also grant %+(%d+)%% to Chaos Resistance"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod("ChaosResist", "BASE", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased (%w+) Damage"] = function(num, type)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod(firstToUpper(type).."Damage", "INC", num, data.modSource)
 			end
 		end

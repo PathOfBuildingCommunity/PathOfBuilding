@@ -1262,6 +1262,8 @@ function ItemClass:GetPrimarySlot()
 		return "Ring 1"
 	elseif self.type == "Flask" then
 		return "Flask 1"
+	elseif self.type == "Tincture" then
+		return "Flask 1"
 	else
 		return self.type
 	end

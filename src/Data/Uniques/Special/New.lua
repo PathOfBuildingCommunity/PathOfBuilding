@@ -27,8 +27,8 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-35) to Dexterity
 {tags:jewellery_resistance}(-30--20)% to all Elemental Resistances
 {tags:jewellery_resistance}+(20-30)% to Chaos Resistance
-5% increased Movement Speed
-(25-40)% chance to inflict an additional Poison on the same Target when you inflict Poison
+{tags:speed}5% increased Movement Speed
+{tags:chaos_damage}(25-40)% chance to inflict an additional Poison on the same Target when you inflict Poison
 ]],[[
 Binds of Bloody Vengeance
 Vanguard Belt
@@ -316,10 +316,10 @@ Seaglass Amulet
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
 Requires Level 74
 Implicits: 1
-(10-15)% faster start of Energy Shield Recharge
-(5-10) to (20-25) Added Attack Chaos Damage per 100 Maximum Mana
-+(200-400) to maximum Energy Shield
-(40-60)% reduced maximum Mana
+{tags:jewellery_defense}(10-15)% faster start of Energy Shield Recharge
+{tags:attack,chaos_damage}(5-10) to (20-25) Added Attack Chaos Damage per 100 Maximum Mana
+{tags:jewellery_defense}+(200-400) to maximum Energy Shield
+{tags:mana}(40-60)% reduced maximum Mana
 Skills Cost Energy Shield instead of Mana or Life
 ]],[[
 Wine of the Prophet
