@@ -168,34 +168,51 @@ Silver Flask
 League: Betrayal
 Source: Drops from unique{Catarina, Master of Undeath}
 Has Alt Variant: true
-Variant: Crit Chance
+Selected Variant: 16
+Selected Alt Variant: 6
+Variant: Pre 3.26 Crit Chance
 Variant: Damage Taken is Leeched as Life
 Variant: Item Rarity
-Variant: Movement Speed/Stun Avoidance
+Variant: Pre 3.26 Movement Speed/Stun Avoidance
+Variant: Stun Avoidance
 Variant: Life Regen
 Variant: Reduced Reflected Damage Taken
+Variant: Physical Damage can Ignite
+Variant: Ignited enemies have Malediction
+Variant: Additional Curse
+Variant: Ignite Spread
+Variant: Ignite Leech
 Variant: Pre 3.15.0
 Variant: Pre 3.16.0 Crit Chance
-Variant: Current
+Variant: Pre 3.26
+Variant: Life on Kill
+Variant: Mana on Kill
+Variant: ES on Kill
 LevelReq: 48
 Implicits: 0
-{variant:9}+90 to maximum Charges
-{variant:7}Recharges 1 Charge when you Consume an Ignited corpse
-{variant:9}Recharges 5 Charges when you Consume an Ignited corpse
-{variant:7}Enemies Ignited by you during Effect take 10% increased Damage
-{variant:8,9}Enemies Ignited by you during Effect take (7-10)% increased Damage
-{variant:7,9}Recover (1-3)% of Life when you Kill an Enemy during Effect
-{variant:7,9}Recover (1-3)% of Mana when you Kill an Enemy during Effect
-{variant:7,9}Recover (1-3)% of Energy Shield when you Kill an Enemy during Effect
-{variant:9}(175-200)% increased Charges per use
-{variant:9}{crafted}(60-80)% increased Critical Strike Chance during Effect
+{variant:15}+90 to maximum Charges
+{variant:16,17,18}+(10-20) to maximum Charges
+{variant:13}Recharges 1 Charge when you Consume an Ignited corpse
+{variant:15,16,17,18}Recharges 5 Charges when you Consume an Ignited corpse
+{variant:13}Enemies Ignited by you during Effect take 10% increased Damage
+{variant:14,15,16,17,18}Enemies Ignited by you during Effect take (7-10)% increased Damage
+{variant:13,15,16}Recover (1-3)% of Life when you Kill an Enemy during Effect
+{variant:13,15,17}Recover (1-3)% of Mana when you Kill an Enemy during Effect
+{variant:13,15,18}Recover (1-3)% of Energy Shield when you Kill an Enemy during Effect
+{variant:14}(175-200)% increased Charges per use
+{variant:14}{crafted}(60-80)% increased Critical Strike Chance during Effect
 {variant:1}{crafted}(45-55)% increased Critical Strike Chance during Effect
 {variant:2}{crafted}15% of Damage Taken from Hits is Leeched as Life during Effect
 {variant:3}{crafted}(20-30)% increased Rarity of Items found during Effect
 {variant:4}{crafted}(8-12)% increased Movement Speed during Effect
-{variant:4}{crafted}50% Chance to avoid being Stunned during Effect
-{variant:5}{crafted}Regenerate 3% of Life per second during Effect
-{variant:6}{crafted}(60-80)% reduced Reflected Damage taken during Effect
+{variant:4,5}{crafted}50% Chance to avoid being Stunned during Effect
+{variant:6}{crafted}Regenerate 3% of Life per second during Effect
+{variant:7}{crafted}(60-80)% reduced Reflected Damage taken during Effect
+{variant:8}{crafted}Your Physical Damage can Ignite during Effect
+{variant:9}{crafted}Enemies Ignited by you during Effect have Malediction
+{variant:10}{crafted}You can apply an additional Curse during Effect
+{variant:11}{crafted}Ignites you inflict during Effect spread to other Enemies within 1.5 metres
+{variant:12}{crafted}Leech 1.5% of Expected Ignite Damage as Life when you Ignite an Enemy during Effect
 ]],[[
 Dying Sun
 Ruby Flask
