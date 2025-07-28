@@ -2702,18 +2702,18 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 							type = "custom",
 							defaultOrder = i,
 						})
+					end
+				else -- Aspect skills have 0 spawn weight
+					if mod.modTags[1] == "skill" then
+						t_insert(modList, {
+								label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
+								mod = mod,
+								affixType = mod.type,
+								type = "custom",
+								defaultOrder = i,
+							})
+					end
 				end
-			else -- Aspect skills have 0 spawn weight
-				if mod.modTags[1] == "skill" then
-					t_insert(modList, {
-							label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
-							mod = mod,
-							affixType = mod.type,
-							type = "custom",
-							defaultOrder = i,
-						})
-				end
-			end
 			
 			table.sort(modList, function(a, b)
 				if a.affixType ~= b.affixType then
