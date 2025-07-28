@@ -30,7 +30,7 @@ local bnot = bit.bnot
 local function getCachedOutputValue(env, activeSkill, ...)
 	local uuid = cacheSkillUUID(activeSkill, env)
 	if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-		calcs.buildActiveSkill(env, env.mode, activeSkill, uuid, {[uuid] = true})
+		calcs.buildActiveSkill(env, env.mode, activeSkill, uuid, {uuid})
 	end
 
 	local tempValues = {}
