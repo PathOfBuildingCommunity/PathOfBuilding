@@ -2691,10 +2691,43 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					return a.defaultOrder < b.defaultOrder
 				end
 			end)
+		elseif sourceId == "BEASTCRAFT" then
+			for i, mod in pairs(self.build.data.beastCraft) do
+				if self.displayItem.type == "Flask" then
+					if self.displayItem:GetModSpawnWeight(mod) > 0 then
+						t_insert(modList, {
+							label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
+							mod = mod,
+							affixType = mod.type,
+							type = "custom",
+							defaultOrder = i,
+						})
+				end
+			else -- Aspect skills have 0 spawn weight
+				if mod.modTags[1] == "skill" then
+					t_insert(modList, {
+							label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
+							mod = mod,
+							affixType = mod.type,
+							type = "custom",
+							defaultOrder = i,
+						})
+				end
+			end
+			
+			table.sort(modList, function(a, b)
+				if a.affixType ~= b.affixType then
+					return a.affixType == "Prefix" and b.affixType == "Suffix"
+				else
+					return a.defaultOrder < b.defaultOrder
+				end
+			end)
 		end
 	end
+end
 	if self.displayItem.type ~= "Jewel" then
 		t_insert(sourceList, { label = "Crafting Bench", sourceId = "MASTER" })
+		t_insert(sourceList, { label = "Beastcraft", sourceId = "BEASTCRAFT" })
 	end
 	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Essence", sourceId = "ESSENCE" })

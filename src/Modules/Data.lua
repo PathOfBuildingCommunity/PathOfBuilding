@@ -598,6 +598,8 @@ data.necropolisMods = LoadModule("Data/ModNecropolis")
 data.crucible = LoadModule("Data/Crucible")
 data.pantheons = LoadModule("Data/Pantheons")
 data.costs = LoadModule("Data/Costs")
+data.beastCraft = LoadModule("Data/BeastCraft")
+
 do
 	local map = { }
 	for i, value in ipairs(data.costs) do
