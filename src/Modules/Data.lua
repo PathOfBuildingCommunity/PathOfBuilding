@@ -594,11 +594,11 @@ do
 end
 data.essences = LoadModule("Data/Essence")
 data.veiledMods = LoadModule("Data/ModVeiled")
+data.beastCraft = LoadModule("Data/BeastCraft")
 data.necropolisMods = LoadModule("Data/ModNecropolis")
 data.crucible = LoadModule("Data/Crucible")
 data.pantheons = LoadModule("Data/Pantheons")
 data.costs = LoadModule("Data/Costs")
-data.beastCraft = LoadModule("Data/BeastCraft")
 
 do
 	local map = { }
