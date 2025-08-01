@@ -69,7 +69,7 @@ skills["SupportAddedColdDamage"] = {
 		[40] = { 0.80000001192093, 1.2000000476837, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 3, 3, }, },
 	},
 }
-skills["SupportAddedColdDamagePlus"] = {
+skills["SupportAwakenedAddedColdDamage"] = {
 	name = "Awakened Added Cold Damage",
 	description = "Supports any skill that hits enemies.",
 	color = 2,
@@ -252,7 +252,7 @@ skills["SupportArrowNova"] = {
 		[40] = { -5, PvPDamageMultiplier = -25, levelRequirement = 100, manaMultiplier = 50, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportArrowNovaPlus"] = {
+skills["SupportAwakenedArrowNova"] = {
 	name = "Awakened Arrow Nova",
 	description = "Supports bow attack skills that fire arrows forwards as projectiles. These skills will instead fire a payload arrow into the air to land at a targeted location. The supported skills' arrows will then fire out in a circle from where it lands. Cannot support skills that already fire arrows into the air, channelled skills, or skills that create Minions.",
 	color = 2,
@@ -459,7 +459,7 @@ skills["SupportBlind"] = {
 		[40] = { 68, manaMultiplier = 10, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportBlockReduction"] = {
+skills["SupportBlockChanceReduction"] = {
 	name = "Block Chance Reduction",
 	description = "Supports any skill that hits enemies.",
 	color = 2,
@@ -531,14 +531,14 @@ skills["SupportBlockReduction"] = {
 		[40] = { 28, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportCastOnCrit"] = {
+skills["SupportCastOnCriticalStrike"] = {
 	name = "Cast On Critical Strike",
 	description = "Must support both an attack skill and a spell skill to work. The attack skill will trigger a spell when it critically strikes an enemy. Cannot support totems, traps, or mines. Vaal skills, channelling skills, and skills with a reservation cannot be triggered.",
 	color = 2,
 	support = true,
 	requireSkillTypes = { SkillType.Attack, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.DisallowTriggerSupports, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -605,7 +605,7 @@ skills["SupportCastOnCritTriggered"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
-	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, SkillType.DisallowTriggerSupports, },
 	isTrigger = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
@@ -668,16 +668,16 @@ skills["SupportCastOnCritTriggered"] = {
 		[40] = { -2, storedUses = 1, cooldown = 0.15, levelRequirement = 100, manaMultiplier = 20, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportCastOnCritPlus"] = {
+skills["SupportAwakenedCastOnCriticalStrike"] = {
 	name = "Awakened Cast On Critical Strike",
 	description = "Must support both an attack skill and a spell skill to work. The attack skill will trigger a spell when it critically strikes an enemy. Cannot support totems, traps, or mines. Vaal skills, channelling skills, and skills with a reservation cannot be triggered.",
 	color = 2,
 	support = true,
 	requireSkillTypes = { SkillType.Attack, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.DisallowTriggerSupports, },
 	ignoreMinionTypes = true,
-	plusVersionOf = "SupportCastOnCrit",
+	plusVersionOf = "SupportCastOnCriticalStrike",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_cast_on_crit_spell_damage_+%_final"] = {
@@ -723,7 +723,7 @@ skills["SupportCastOnCritTriggeredPlus"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
-	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, SkillType.DisallowTriggerSupports, },
 	isTrigger = true,
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCastOnCritTriggered",
@@ -775,7 +775,7 @@ skills["SupportCastOnDeath"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
-	excludeSkillTypes = { SkillType.Minion, SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	excludeSkillTypes = { SkillType.Minion, SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, SkillType.DisallowTriggerSupports, },
 	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -918,7 +918,7 @@ skills["SupportChain"] = {
 		[40] = { 4, PvPDamageMultiplier = -30, levelRequirement = 100, manaMultiplier = 50, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportChainPlus"] = {
+skills["SupportAwakenedChain"] = {
 	name = "Awakened Chain",
 	description = "Supports projectile skills, and any other skills that chain.",
 	color = 2,
@@ -1028,7 +1028,7 @@ skills["SupportChanceToFlee"] = {
 		[40] = { 59, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportGemFrenzyPowerOnTrapTrigger"] = {
+skills["SupportChargedTraps"] = {
 	name = "Charged Traps",
 	description = "Supports skills which throw traps.",
 	color = 2,
@@ -1098,7 +1098,7 @@ skills["SupportGemFrenzyPowerOnTrapTrigger"] = {
 		[40] = { 37, 37, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportSlashingWeapon"] = {
+skills["SupportCloseCombat"] = {
 	name = "Close Combat",
 	description = "Supports melee attack skills. Cannot support skills which create minions.",
 	color = 2,
@@ -1188,7 +1188,7 @@ skills["SupportSlashingWeapon"] = {
 		[40] = { 50, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportClusterTrap"] = {
+skills["SupportClusterTraps"] = {
 	name = "Cluster Traps",
 	description = "Supports traps skills, making them throw extra traps randomly around the targeted location.",
 	color = 2,
@@ -1319,7 +1319,7 @@ skills["SupportColdPenetration"] = {
 		[40] = { 45, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportColdPenetrationPlus"] = {
+skills["SupportAwakenedColdPenetration"] = {
 	name = "Awakened Cold Penetration",
 	description = "Supports any skill that hits enemies, making those hits penetrate enemy cold resistance.",
 	color = 2,
@@ -1493,7 +1493,7 @@ skills["SupportDeadlyAilments"] = {
 		[40] = { 55, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportDeadlyAilmentsPlus"] = {
+skills["SupportAwakenedDeadlyAilments"] = {
 	name = "Awakened Deadly Ailments",
 	description = "Supports any skill that hits enemies.",
 	color = 2,
@@ -1545,7 +1545,7 @@ skills["SupportDeadlyAilmentsPlus"] = {
 		[20] = { 62, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportAdditionalQuality"] = {
+skills["SupportEnhance"] = {
 	name = "Enhance",
 	description = "Supports any skill gem. Once this gem reaches level 2 or above, will raise the quality of supported gems. Cannot support skills that don't come from gems.",
 	color = 2,
@@ -1581,7 +1581,7 @@ skills["SupportAdditionalQuality"] = {
 		[10] = { 72, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportAdditionalQualityPlus"] = {
+skills["SupportAwakenedEnhance"] = {
 	name = "Awakened Enhance",
 	description = "Supports any skill gem. Once this gem reaches level 2 or above, will raise the quality of supported gems. Cannot support skills that don't come from gems.",
 	color = 2,
@@ -1590,7 +1590,7 @@ skills["SupportAdditionalQualityPlus"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.SkillGrantedBySupport, },
 	supportGemsOnly = true,
-	plusVersionOf = "SupportAdditionalQuality",
+	plusVersionOf = "SupportEnhance",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["supported_active_skill_gem_quality_%"] = {
@@ -1628,7 +1628,7 @@ skills["SupportAdditionalQualityPlus"] = {
 		[20] = { 152, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportFasterAttack"] = {
+skills["SupportFasterAttacks"] = {
 	name = "Faster Attacks",
 	description = "Supports attack skills.",
 	color = 2,
@@ -1780,6 +1780,10 @@ skills["SupportFocusedBallista"] = {
 		"summon_totem_cast_speed_+%",
 		"ranged_attack_totem_only_attacks_when_owner_attacks",
 	},
+	notMinionStat = {
+		"support_focused_ballista_totem_attack_speed_+%_final",
+		"support_focused_ballista_totem_damage_+%_final",
+	},
 	levels = {
 		[1] = { 25, 0, 40, PvPDamageMultiplier = -60, levelRequirement = 31, manaMultiplier = 40, statInterpolation = { 1, 1, 1, }, },
 		[2] = { 26, 0, 41, PvPDamageMultiplier = -60, levelRequirement = 34, manaMultiplier = 40, statInterpolation = { 1, 1, 1, }, },
@@ -1892,7 +1896,7 @@ skills["SupportFork"] = {
 		[40] = { 24, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportForkPlus"] = {
+skills["SupportAwakenedFork"] = {
 	name = "Awakened Fork",
 	description = "Supports projectile skills, making their projectiles fork into two projectiles the first two times they hit an enemy and don't pierce it.",
 	color = 2,
@@ -2013,7 +2017,7 @@ skills["SupportGreaterMultipleProjectiles"] = {
 		[40] = { -18, PvPDamageMultiplier = -25, levelRequirement = 100, manaMultiplier = 50, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportGreaterMultipleProjectilesPlus"] = {
+skills["SupportAwakenedGreaterMultipleProjectiles"] = {
 	name = "Awakened Greater Multiple Projectiles",
 	description = "Supports projectile skills.",
 	color = 2,
@@ -2133,7 +2137,7 @@ skills["SupportGreaterVolley"] = {
 		[40] = { -11, PvPDamageMultiplier = -25, levelRequirement = 100, manaMultiplier = 50, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportDamageAgainstChilled"] = {
+skills["SupportHypothermia"] = {
 	name = "Hypothermia",
 	description = "Supports any skill that deals damage.",
 	color = 2,
@@ -2277,7 +2281,7 @@ skills["SupportImpale"] = {
 		[40] = { 51, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportFrenzyChargeOnSlayingFrozenEnemy"] = {
+skills["SupportIceBite"] = {
 	name = "Ice Bite",
 	description = "Supports any skill you use to hit enemies yourself. Cannot support skills used by totems, traps, or mines.",
 	color = 2,
@@ -2638,7 +2642,7 @@ skills["SupportMarkOnHit"] = {
 	support = true,
 	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Mark, SkillType.AND, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
-	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, SkillType.DisallowTriggerSupports, },
 	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
@@ -2693,7 +2697,7 @@ skills["SupportMarkOnHit"] = {
 		[40] = { -13, storedUses = 1, cooldown = 4, levelRequirement = 100, manaMultiplier = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportGemMirageArcher"] = {
+skills["SupportMirageArcher"] = {
 	name = "Mirage Archer",
 	description = "Supports attack skills that can be used with bows. Supported skills can only be used with bows. Cannot support Vaal skills, minion skills, movement skills, or skills used by totems, traps, or mines.",
 	color = 2,
@@ -2777,7 +2781,7 @@ skills["SupportGemMirageArcher"] = {
 		[40] = { -22, PvPDamageMultiplier = -35, levelRequirement = 100, manaMultiplier = 30, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportMultiTrap"] = {
+skills["SupportMultipleTraps"] = {
 	name = "Multiple Traps",
 	description = "Supports traps skills, making them throw extra traps in a line.",
 	color = 2,
@@ -2847,7 +2851,7 @@ skills["SupportMultiTrap"] = {
 		[40] = { -45, PvPDamageMultiplier = -20, levelRequirement = 100, manaMultiplier = 40, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportPuncturingWeapon"] = {
+skills["SupportNightblade"] = {
 	name = "Nightblade",
 	description = "Supports attack skills. Cannot support skills which create minions.",
 	color = 2,
@@ -3123,6 +3127,81 @@ skills["SupportCriticalStrikeAffliction"] = {
 		[40] = { 120, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
+skills["SupportRupture"] = {
+	name = "Rupture",
+	description = "Supports attack skills.",
+	color = 2,
+	support = true,
+	requireSkillTypes = { SkillType.Damage, SkillType.Attack, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_rupture_bleeding_damage_taken_+%_final"] = {
+			mod("DamageTaken", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Debuff", effectName = "Rupture" }, { type = "Multiplier", var = "RuptureStack", limit = 3 })
+		},
+		["support_rupture_bleeding_time_passed_+%_final"] = {
+			mod("BleedExpireRate", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Debuff", effectName = "Rupture" }, { type = "Multiplier", var = "RuptureStack", limit = 3 })
+		},
+		["critical_strikes_that_inflict_bleeding_also_rupture"] = {
+			flag("Condition:CanInflictRupture", { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+	qualityStats = {
+		Default = {
+			{ "critical_strike_chance_+%", 1 },
+		},
+	},
+	constantStats = {
+		{ "support_rupture_bleeding_time_passed_+%_final", 25 },
+	},
+	stats = {
+		"support_rupture_bleeding_damage_taken_+%_final",
+		"critical_strikes_that_inflict_bleeding_also_rupture",
+	},
+	levels = {
+		[1] = { 20, manaMultiplier = 40, levelRequirement = 38, statInterpolation = { 1, }, },
+		[2] = { 20, manaMultiplier = 40, levelRequirement = 40, statInterpolation = { 1, }, },
+		[3] = { 21, manaMultiplier = 40, levelRequirement = 42, statInterpolation = { 1, }, },
+		[4] = { 21, manaMultiplier = 40, levelRequirement = 44, statInterpolation = { 1, }, },
+		[5] = { 22, manaMultiplier = 40, levelRequirement = 46, statInterpolation = { 1, }, },
+		[6] = { 22, manaMultiplier = 40, levelRequirement = 48, statInterpolation = { 1, }, },
+		[7] = { 23, manaMultiplier = 40, levelRequirement = 50, statInterpolation = { 1, }, },
+		[8] = { 23, manaMultiplier = 40, levelRequirement = 52, statInterpolation = { 1, }, },
+		[9] = { 24, manaMultiplier = 40, levelRequirement = 54, statInterpolation = { 1, }, },
+		[10] = { 24, manaMultiplier = 40, levelRequirement = 56, statInterpolation = { 1, }, },
+		[11] = { 25, manaMultiplier = 40, levelRequirement = 58, statInterpolation = { 1, }, },
+		[12] = { 25, manaMultiplier = 40, levelRequirement = 60, statInterpolation = { 1, }, },
+		[13] = { 26, manaMultiplier = 40, levelRequirement = 62, statInterpolation = { 1, }, },
+		[14] = { 26, manaMultiplier = 40, levelRequirement = 64, statInterpolation = { 1, }, },
+		[15] = { 27, manaMultiplier = 40, levelRequirement = 65, statInterpolation = { 1, }, },
+		[16] = { 27, manaMultiplier = 40, levelRequirement = 66, statInterpolation = { 1, }, },
+		[17] = { 28, manaMultiplier = 40, levelRequirement = 67, statInterpolation = { 1, }, },
+		[18] = { 28, manaMultiplier = 40, levelRequirement = 68, statInterpolation = { 1, }, },
+		[19] = { 29, manaMultiplier = 40, levelRequirement = 69, statInterpolation = { 1, }, },
+		[20] = { 29, manaMultiplier = 40, levelRequirement = 70, statInterpolation = { 1, }, },
+		[21] = { 30, manaMultiplier = 40, levelRequirement = 72, statInterpolation = { 1, }, },
+		[22] = { 30, manaMultiplier = 40, levelRequirement = 74, statInterpolation = { 1, }, },
+		[23] = { 31, manaMultiplier = 40, levelRequirement = 76, statInterpolation = { 1, }, },
+		[24] = { 31, manaMultiplier = 40, levelRequirement = 78, statInterpolation = { 1, }, },
+		[25] = { 32, manaMultiplier = 40, levelRequirement = 80, statInterpolation = { 1, }, },
+		[26] = { 32, manaMultiplier = 40, levelRequirement = 82, statInterpolation = { 1, }, },
+		[27] = { 33, manaMultiplier = 40, levelRequirement = 84, statInterpolation = { 1, }, },
+		[28] = { 33, manaMultiplier = 40, levelRequirement = 86, statInterpolation = { 1, }, },
+		[29] = { 34, manaMultiplier = 40, levelRequirement = 88, statInterpolation = { 1, }, },
+		[30] = { 34, manaMultiplier = 40, levelRequirement = 90, statInterpolation = { 1, }, },
+		[31] = { 34, manaMultiplier = 40, levelRequirement = 91, statInterpolation = { 1, }, },
+		[32] = { 35, manaMultiplier = 40, levelRequirement = 92, statInterpolation = { 1, }, },
+		[33] = { 35, manaMultiplier = 40, levelRequirement = 93, statInterpolation = { 1, }, },
+		[34] = { 35, manaMultiplier = 40, levelRequirement = 94, statInterpolation = { 1, }, },
+		[35] = { 35, manaMultiplier = 40, levelRequirement = 95, statInterpolation = { 1, }, },
+		[36] = { 36, manaMultiplier = 40, levelRequirement = 96, statInterpolation = { 1, }, },
+		[37] = { 36, manaMultiplier = 40, levelRequirement = 97, statInterpolation = { 1, }, },
+		[38] = { 36, manaMultiplier = 40, levelRequirement = 98, statInterpolation = { 1, }, },
+		[39] = { 36, manaMultiplier = 40, levelRequirement = 99, statInterpolation = { 1, }, },
+		[40] = { 37, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
+	},
+}
 skills["SupportSadism"] = {
 	name = "Sadism",
 	description = "Supports any skill that hits enemies.",
@@ -3189,7 +3268,7 @@ skills["SupportSadism"] = {
 		[40] = { 94, -80, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportAdditionalCooldown"] = {
+skills["SupportSecondWind"] = {
 	name = "Second Wind",
 	description = "Supports skills with cooldowns.\nCannot support triggered skills.",
 	color = 2,
@@ -3207,6 +3286,9 @@ skills["SupportAdditionalCooldown"] = {
 		{ "support_added_cooldown_count_if_not_instant", 1 },
 	},
 	stats = {
+		"base_cooldown_speed_+%",
+	},
+	notMinionStat = {
 		"base_cooldown_speed_+%",
 	},
 	levels = {
@@ -3321,7 +3403,7 @@ skills["SupportSlowerProjectiles"] = {
 		[40] = { -37, 27, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportRapidDecay"] = {
+skills["SupportSwiftAffliction"] = {
 	name = "Swift Affliction",
 	description = "Supports any skill that has a duration, or can hit enemies to inflict ailments on them.",
 	color = 2,
@@ -3396,7 +3478,7 @@ skills["SupportReturningProjectiles"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Projectile, SkillType.ThresholdJewelProjectile, SkillType.ThresholdJewelRangedAttack, },
 	addSkillTypes = { },
-	excludeSkillTypes = { },
+	excludeSkillTypes = { SkillType.ProjectileCannotReturn, },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
 		Default = {
@@ -3411,47 +3493,47 @@ skills["SupportReturningProjectiles"] = {
 	levels = {
 		[1] = { -70, manaMultiplier = 50, levelRequirement = 38, statInterpolation = { 1, }, },
 		[2] = { -70, manaMultiplier = 50, levelRequirement = 40, statInterpolation = { 1, }, },
-		[3] = { -69, manaMultiplier = 50, levelRequirement = 42, statInterpolation = { 1, }, },
-		[4] = { -69, manaMultiplier = 50, levelRequirement = 44, statInterpolation = { 1, }, },
-		[5] = { -68, manaMultiplier = 50, levelRequirement = 46, statInterpolation = { 1, }, },
-		[6] = { -68, manaMultiplier = 50, levelRequirement = 48, statInterpolation = { 1, }, },
-		[7] = { -67, manaMultiplier = 50, levelRequirement = 50, statInterpolation = { 1, }, },
-		[8] = { -67, manaMultiplier = 50, levelRequirement = 52, statInterpolation = { 1, }, },
-		[9] = { -66, manaMultiplier = 50, levelRequirement = 54, statInterpolation = { 1, }, },
-		[10] = { -66, manaMultiplier = 50, levelRequirement = 56, statInterpolation = { 1, }, },
-		[11] = { -65, manaMultiplier = 50, levelRequirement = 58, statInterpolation = { 1, }, },
-		[12] = { -65, manaMultiplier = 50, levelRequirement = 60, statInterpolation = { 1, }, },
-		[13] = { -64, manaMultiplier = 50, levelRequirement = 62, statInterpolation = { 1, }, },
-		[14] = { -64, manaMultiplier = 50, levelRequirement = 64, statInterpolation = { 1, }, },
-		[15] = { -63, manaMultiplier = 50, levelRequirement = 65, statInterpolation = { 1, }, },
-		[16] = { -63, manaMultiplier = 50, levelRequirement = 66, statInterpolation = { 1, }, },
-		[17] = { -62, manaMultiplier = 50, levelRequirement = 67, statInterpolation = { 1, }, },
-		[18] = { -62, manaMultiplier = 50, levelRequirement = 68, statInterpolation = { 1, }, },
-		[19] = { -61, manaMultiplier = 50, levelRequirement = 69, statInterpolation = { 1, }, },
-		[20] = { -61, manaMultiplier = 50, levelRequirement = 70, statInterpolation = { 1, }, },
-		[21] = { -60, manaMultiplier = 50, levelRequirement = 72, statInterpolation = { 1, }, },
-		[22] = { -60, manaMultiplier = 50, levelRequirement = 74, statInterpolation = { 1, }, },
-		[23] = { -59, manaMultiplier = 50, levelRequirement = 76, statInterpolation = { 1, }, },
-		[24] = { -59, manaMultiplier = 50, levelRequirement = 78, statInterpolation = { 1, }, },
-		[25] = { -58, manaMultiplier = 50, levelRequirement = 80, statInterpolation = { 1, }, },
-		[26] = { -58, manaMultiplier = 50, levelRequirement = 82, statInterpolation = { 1, }, },
-		[27] = { -57, manaMultiplier = 50, levelRequirement = 84, statInterpolation = { 1, }, },
-		[28] = { -57, manaMultiplier = 50, levelRequirement = 86, statInterpolation = { 1, }, },
-		[29] = { -56, manaMultiplier = 50, levelRequirement = 88, statInterpolation = { 1, }, },
-		[30] = { -56, manaMultiplier = 50, levelRequirement = 90, statInterpolation = { 1, }, },
-		[31] = { -56, manaMultiplier = 50, levelRequirement = 91, statInterpolation = { 1, }, },
-		[32] = { -55, manaMultiplier = 50, levelRequirement = 92, statInterpolation = { 1, }, },
-		[33] = { -55, manaMultiplier = 50, levelRequirement = 93, statInterpolation = { 1, }, },
-		[34] = { -55, manaMultiplier = 50, levelRequirement = 94, statInterpolation = { 1, }, },
-		[35] = { -55, manaMultiplier = 50, levelRequirement = 95, statInterpolation = { 1, }, },
-		[36] = { -54, manaMultiplier = 50, levelRequirement = 96, statInterpolation = { 1, }, },
-		[37] = { -54, manaMultiplier = 50, levelRequirement = 97, statInterpolation = { 1, }, },
-		[38] = { -54, manaMultiplier = 50, levelRequirement = 98, statInterpolation = { 1, }, },
-		[39] = { -54, manaMultiplier = 50, levelRequirement = 99, statInterpolation = { 1, }, },
-		[40] = { -53, manaMultiplier = 50, levelRequirement = 100, statInterpolation = { 1, }, },
+		[3] = { -70, manaMultiplier = 50, levelRequirement = 42, statInterpolation = { 1, }, },
+		[4] = { -70, manaMultiplier = 50, levelRequirement = 44, statInterpolation = { 1, }, },
+		[5] = { -69, manaMultiplier = 50, levelRequirement = 46, statInterpolation = { 1, }, },
+		[6] = { -69, manaMultiplier = 50, levelRequirement = 48, statInterpolation = { 1, }, },
+		[7] = { -69, manaMultiplier = 50, levelRequirement = 50, statInterpolation = { 1, }, },
+		[8] = { -69, manaMultiplier = 50, levelRequirement = 52, statInterpolation = { 1, }, },
+		[9] = { -68, manaMultiplier = 50, levelRequirement = 54, statInterpolation = { 1, }, },
+		[10] = { -68, manaMultiplier = 50, levelRequirement = 56, statInterpolation = { 1, }, },
+		[11] = { -68, manaMultiplier = 50, levelRequirement = 58, statInterpolation = { 1, }, },
+		[12] = { -68, manaMultiplier = 50, levelRequirement = 60, statInterpolation = { 1, }, },
+		[13] = { -67, manaMultiplier = 50, levelRequirement = 62, statInterpolation = { 1, }, },
+		[14] = { -67, manaMultiplier = 50, levelRequirement = 64, statInterpolation = { 1, }, },
+		[15] = { -67, manaMultiplier = 50, levelRequirement = 65, statInterpolation = { 1, }, },
+		[16] = { -67, manaMultiplier = 50, levelRequirement = 66, statInterpolation = { 1, }, },
+		[17] = { -66, manaMultiplier = 50, levelRequirement = 67, statInterpolation = { 1, }, },
+		[18] = { -66, manaMultiplier = 50, levelRequirement = 68, statInterpolation = { 1, }, },
+		[19] = { -66, manaMultiplier = 50, levelRequirement = 69, statInterpolation = { 1, }, },
+		[20] = { -66, manaMultiplier = 50, levelRequirement = 70, statInterpolation = { 1, }, },
+		[21] = { -65, manaMultiplier = 50, levelRequirement = 72, statInterpolation = { 1, }, },
+		[22] = { -65, manaMultiplier = 50, levelRequirement = 74, statInterpolation = { 1, }, },
+		[23] = { -65, manaMultiplier = 50, levelRequirement = 76, statInterpolation = { 1, }, },
+		[24] = { -65, manaMultiplier = 50, levelRequirement = 78, statInterpolation = { 1, }, },
+		[25] = { -64, manaMultiplier = 50, levelRequirement = 80, statInterpolation = { 1, }, },
+		[26] = { -64, manaMultiplier = 50, levelRequirement = 82, statInterpolation = { 1, }, },
+		[27] = { -64, manaMultiplier = 50, levelRequirement = 84, statInterpolation = { 1, }, },
+		[28] = { -64, manaMultiplier = 50, levelRequirement = 86, statInterpolation = { 1, }, },
+		[29] = { -63, manaMultiplier = 50, levelRequirement = 88, statInterpolation = { 1, }, },
+		[30] = { -63, manaMultiplier = 50, levelRequirement = 90, statInterpolation = { 1, }, },
+		[31] = { -63, manaMultiplier = 50, levelRequirement = 91, statInterpolation = { 1, }, },
+		[32] = { -63, manaMultiplier = 50, levelRequirement = 92, statInterpolation = { 1, }, },
+		[33] = { -63, manaMultiplier = 50, levelRequirement = 93, statInterpolation = { 1, }, },
+		[34] = { -63, manaMultiplier = 50, levelRequirement = 94, statInterpolation = { 1, }, },
+		[35] = { -63, manaMultiplier = 50, levelRequirement = 95, statInterpolation = { 1, }, },
+		[36] = { -62, manaMultiplier = 50, levelRequirement = 96, statInterpolation = { 1, }, },
+		[37] = { -62, manaMultiplier = 50, levelRequirement = 97, statInterpolation = { 1, }, },
+		[38] = { -62, manaMultiplier = 50, levelRequirement = 98, statInterpolation = { 1, }, },
+		[39] = { -62, manaMultiplier = 50, levelRequirement = 99, statInterpolation = { 1, }, },
+		[40] = { -62, manaMultiplier = 50, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportSwiftAfflictionPlus"] = {
+skills["SupportAwakenedSwiftAffliction"] = {
 	name = "Awakened Swift Affliction",
 	description = "Supports any skill that has a duration, or can hit enemies to inflict ailments on them.",
 	color = 2,
@@ -3459,7 +3541,7 @@ skills["SupportSwiftAfflictionPlus"] = {
 	requireSkillTypes = { SkillType.Duration, SkillType.ThresholdJewelDuration, SkillType.Damage, SkillType.Attack, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
-	plusVersionOf = "SupportRapidDecay",
+	plusVersionOf = "SupportSwiftAffliction",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_rapid_decay_damage_over_time_+%_final"] = {
@@ -3500,7 +3582,7 @@ skills["SupportSwiftAfflictionPlus"] = {
 		[20] = { 57, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportAdditionalTrapMine"] = {
+skills["SupportSwiftAssembly"] = {
 	name = "Swift Assembly",
 	description = "Supports skills which throw Traps or Mines.",
 	color = 2,
@@ -3646,7 +3728,7 @@ skills["SupportTrap"] = {
 		[40] = { 39, 9, PvPDamageMultiplier = -10, levelRequirement = 100, manaMultiplier = 20, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportTrapCooldown"] = {
+skills["SupportAdvancedTraps"] = {
 	name = "Advanced Traps",
 	description = "Supports skills which throw traps.",
 	color = 2,
@@ -3785,7 +3867,7 @@ skills["SupportTrapAndMineDamage"] = {
 		[40] = { 64, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportPhysicalProjectileAttackDamage"] = {
+skills["SupportViciousProjectiles"] = {
 	name = "Vicious Projectiles",
 	description = "Supports projectile attack skills.",
 	color = 2,
@@ -3864,7 +3946,7 @@ skills["SupportPhysicalProjectileAttackDamage"] = {
 		[40] = { 64, 64, 64, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, 1, }, },
 	},
 }
-skills["SupportViciousProjectilesPlus"] = {
+skills["SupportAwakenedViciousProjectiles"] = {
 	name = "Awakened Vicious Projectiles",
 	description = "Supports projectile attack skills.",
 	color = 2,
@@ -3872,7 +3954,7 @@ skills["SupportViciousProjectilesPlus"] = {
 	requireSkillTypes = { SkillType.RangedAttack, SkillType.ThresholdJewelRangedAttack, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
-	plusVersionOf = "SupportPhysicalProjectileAttackDamage",
+	plusVersionOf = "SupportViciousProjectiles",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_projectile_attack_speed_+%_final"] = {
@@ -3924,7 +4006,7 @@ skills["SupportViciousProjectilesPlus"] = {
 		[20] = { 67, 67, 67, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, 1, }, },
 	},
 }
-skills["SupportDebilitate"] = {
+skills["SupportVileToxins"] = {
 	name = "Vile Toxins",
 	description = "Supports any skill that hits enemies.",
 	color = 2,
@@ -4065,7 +4147,7 @@ skills["SupportVoidManipulation"] = {
 		[40] = { 45, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportVoidManipulationPlus"] = {
+skills["SupportAwakenedVoidManipulation"] = {
 	name = "Awakened Void Manipulation",
 	description = "Supports any skill that deals damage.",
 	color = 2,
@@ -4113,7 +4195,7 @@ skills["SupportVoidManipulationPlus"] = {
 		[20] = { 47, 1, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
-skills["SupportParallelProjectiles"] = {
+skills["SupportVolley"] = {
 	name = "Volley",
 	description = "Supports skills that fire projectiles from the user. Does not affect projectiles fired from other locations as secondary effects. Does not support skills that fire projectiles in a spiral.",
 	color = 2,
@@ -4183,7 +4265,7 @@ skills["SupportParallelProjectiles"] = {
 		[40] = { 5, PvPDamageMultiplier = -10, levelRequirement = 100, manaMultiplier = 30, statInterpolation = { 1, }, },
 	},
 }
-skills["SupportChaosAttacks"] = {
+skills["SupportWitheringTouch"] = {
 	name = "Withering Touch",
 	description = "Supports attack skills.",
 	color = 2,
@@ -4254,7 +4336,7 @@ skills["SupportManaforgedArrows"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Triggerable, SkillType.Attack, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
-	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.DisallowTriggerSupports, },
 	isTrigger = true,
 	ignoreMinionTypes = true,
 	weaponTypes = {

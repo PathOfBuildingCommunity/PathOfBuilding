@@ -30,6 +30,10 @@ skills["ChaosElementalCascadeSummoned"] = {
 		"spell_maximum_base_physical_damage",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 1, levelRequirement = 4, cooldown = 3, statInterpolation = { 3, 3, }, },
 	},
@@ -40,7 +44,7 @@ skills["SandstormChaosElementalSummoned"] = {
 	color = 4,
 	baseEffectiveness = 6.1421999931335,
 	incrementalEffectiveness = 0.052099999040365,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.DamageOverTime] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -70,7 +74,7 @@ skills["SandstormChaosElementalSummonedEmpowered"] = {
 	color = 4,
 	baseEffectiveness = 19.89999961853,
 	incrementalEffectiveness = 0.052099999040365,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.DamageOverTime] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
 	baseFlags = {
@@ -85,6 +89,7 @@ skills["SandstormChaosElementalSummonedEmpowered"] = {
 		{ "base_skill_effect_duration", 8000 },
 		{ "active_skill_area_of_effect_radius_+%_final", 50 },
 		{ "chaos_damage_taken_+%", 6 },
+		{ "wither_expire_speed_+%", -100 },
 	},
 	stats = {
 		"base_chaos_damage_to_deal_per_minute",
@@ -122,6 +127,10 @@ skills["FireElementalFlameRedSummoned"] = {
 		"base_is_projectile",
 		"always_pierce",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.8, critChance = 5, levelRequirement = 3, statInterpolation = { 3, 3, }, },
 	},
@@ -151,6 +160,10 @@ skills["FireElementalMortarSummoned"] = {
 		"is_area_damage",
 		"base_is_projectile",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 3, damageEffectiveness = 2, cooldown = 6, levelRequirement = 34, statInterpolation = { 3, 3, }, },
 	},
@@ -172,6 +185,10 @@ skills["FireElementalConeSummoned"] = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
 		"is_area_damage",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.25, critChance = 5, storedUses = 1, damageEffectiveness = 2, cooldown = 2, levelRequirement = 34, statInterpolation = { 3, 3, }, },
@@ -210,8 +227,8 @@ skills["FireElementalMeteorSummoned"] = {
 	name = "Meteor",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 13.5,
-	incrementalEffectiveness = 0.054999999701977,
+	baseEffectiveness = 14,
+	incrementalEffectiveness = 0.056000001728535,
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.Damage] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.5,
@@ -231,8 +248,11 @@ skills["FireElementalMeteorSummoned"] = {
 		"base_fire_damage_to_deal_per_minute",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"base_fire_damage_to_deal_per_minute",
+	},
 	levels = {
-		[1] = { 21.666666356226, damageEffectiveness = 5.25, baseMultiplier = 5.25, levelRequirement = 1, statInterpolation = { 3, }, },
+		[1] = { 21.666666356226, damageEffectiveness = 6.8, baseMultiplier = 6.8, levelRequirement = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["IceElementalIceCyclone"] = {
@@ -286,7 +306,7 @@ skills["IceElementalSpearSummoned"] = {
 	color = 3,
 	baseEffectiveness = 2.2813000679016,
 	incrementalEffectiveness = 0.034600000828505,
-	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Multicastable] = true, },
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -300,6 +320,10 @@ skills["IceElementalSpearSummoned"] = {
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
 		"base_is_projectile",
+	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, storedUses = 1, levelRequirement = 3, cooldown = 4, statInterpolation = { 3, 3, }, },
@@ -329,6 +353,10 @@ skills["IceElementalSpearSummonedDeathNova"] = {
 		"base_is_projectile",
 		"projectiles_nova",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
@@ -351,6 +379,10 @@ skills["DeathExplodeIceElementalSummoned"] = {
 		"spell_maximum_base_cold_damage",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, statInterpolation = { 3, 3, }, },
 	},
@@ -361,7 +393,7 @@ skills["LightningGolemArcSummoned"] = {
 	color = 3,
 	baseEffectiveness = 0.78420001268387,
 	incrementalEffectiveness = 0.028500000014901,
-	skillTypes = { [SkillType.Duration] = true, [SkillType.Lightning] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, },
+	skillTypes = { [SkillType.Duration] = true, [SkillType.Lightning] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	baseFlags = {
@@ -376,6 +408,10 @@ skills["LightningGolemArcSummoned"] = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
 	levels = {
 		[1] = { 0.20000000298023, 1.7999999523163, critChance = 6, storedUses = 2, damageEffectiveness = 0.6, cooldown = 8, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
@@ -386,7 +422,7 @@ skills["MonsterProjectileSpellLightningGolemSummoned"] = {
 	color = 4,
 	baseEffectiveness = 3.2934999465942,
 	incrementalEffectiveness = 0.036100000143051,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Multicastable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -402,6 +438,10 @@ skills["MonsterProjectileSpellLightningGolemSummoned"] = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
 		"base_is_projectile",
+	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
 		[1] = { 0.20000000298023, 1.7999999523163, damageEffectiveness = 2.5, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, }, },
@@ -455,7 +495,7 @@ skills["SpectralSkullShieldCharge"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Charges at an enemy, bashing it with the character's shield and striking it. This knocks it back and stuns it. Enemies in the way are pushed to the side. Damage and stun are proportional to distance travelled. Cannot be supported by Multistrike.",
+	description = "Charges at an enemy, bashing it with the character's shield and striking it. This knocks it back and stuns it. Enemies in the way are pushed to the side. Damage and stun are proportional to distance travelled.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
 	weaponTypes = {
 		["None"] = true,
@@ -503,6 +543,9 @@ skills["RagingSpiritMeleeAttack"] = {
 	stats = {
 		"active_skill_damage_+%_final",
 	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
+	},
 	levels = {
 		[1] = { 76, levelRequirement = 4, statInterpolation = { 1, }, },
 		[2] = { 71, levelRequirement = 6, statInterpolation = { 1, }, },
@@ -542,10 +585,17 @@ skills["SkeletonMinionProjectileCold"] = {
 		spell = true,
 		projectile = true,
 	},
+	constantStats = {
+		{ "base_chance_to_freeze_%", 20 },
+	},
 	stats = {
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
 		"base_is_projectile",
+	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
@@ -564,10 +614,17 @@ skills["SkeletonMinionProjectileFire"] = {
 		spell = true,
 		projectile = true,
 	},
+	constantStats = {
+		{ "base_chance_to_ignite_%", 20 },
+	},
 	stats = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
 		"base_is_projectile",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, }, },
@@ -586,10 +643,17 @@ skills["SkeletonMinionProjectileLightning"] = {
 		spell = true,
 		projectile = true,
 	},
+	constantStats = {
+		{ "base_chance_to_shock_%", 20 },
+	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
 		"base_is_projectile",
+	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
 		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
@@ -600,7 +664,7 @@ skills["RockGolemSlam"] = {
 	hidden = true,
 	color = 1,
 	baseEffectiveness = 0,
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Melee] = true, [SkillType.Multistrikeable] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -625,7 +689,7 @@ skills["RockGolemMinionWhirlingBlades"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords. Cannot be supported by Multistrike.",
+	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
@@ -745,7 +809,7 @@ skills["DancingDervishCycloneChannelled"] = {
 	hidden = true,
 	color = 4,
 	description = "Channel this skill to move towards a targeted location while spinning constantly attacking enemies in an area around you. While channelling this skill, you cannot be knocked back.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Channel] = true, [SkillType.Physical] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Channel] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -803,6 +867,10 @@ skills["SummonPhantasmFadingProjectile"] = {
 		"spell_maximum_base_physical_damage",
 		"base_is_projectile",
 		"always_pierce",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
@@ -867,7 +935,7 @@ skills["HeraldOfAgonyMinionCleave"] = {
 	hidden = true,
 	color = 1,
 	description = "The character swings their weapon (or both weapons if dual wielding) in an arc, damaging monsters in an area in front of them. Only works with Axes and Swords.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ThresholdJewelArea] = true, [SkillType.Physical] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ThresholdJewelArea] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -964,6 +1032,11 @@ skills["RelicTriggeredNova"] = {
 		"spell_maximum_base_physical_damage",
 		"active_skill_area_of_effect_radius_+%_final",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"active_skill_area_of_effect_radius_+%_final",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, -24, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 0.3, levelRequirement = 4, statInterpolation = { 3, 3, 1, }, },
 		[2] = { 0.80000001192093, 1.2000000476837, -23, critChance = 5, storedUses = 1, damageEffectiveness = 2.5, cooldown = 0.3, levelRequirement = 6, statInterpolation = { 3, 3, 1, }, },
@@ -1012,7 +1085,7 @@ skills["DominatingBlowMinionCharge"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Charges at a targeted location or enemy, pushing away enemies in your path and repeatedly dealing damage in a small area in front of you. You deal damage in a larger area when you reach the target. The further you travel, the more damage you deal, and the greater your chance of stunning enemies. Cannot be supported by Multistrike.",
+	description = "Charges at a targeted location or enemy, pushing away enemies in your path and repeatedly dealing damage in a small area in front of you. You deal damage in a larger area when you reach the target. The further you travel, the more damage you deal, and the greater your chance of stunning enemies.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RequiresShield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
 	weaponTypes = {
 		["None"] = true,
@@ -1132,6 +1205,10 @@ skills["AbsolutionMinion"] = {
 		"spell_maximum_base_physical_damage",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.8, critChance = 6, levelRequirement = 12, statInterpolation = { 3, 3, }, },
 	},
@@ -1161,6 +1238,10 @@ skills["AbsolutionMinionEmpowered"] = {
 		"spell_maximum_base_physical_damage",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, storedUses = 1, damageEffectiveness = 1.3, cooldown = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
@@ -1187,6 +1268,10 @@ skills["AbsolutionMinionVaal"] = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
 		"is_area_damage",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.8, critChance = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
@@ -1217,6 +1302,10 @@ skills["AbsolutionMinionVaalCascade"] = {
 		"support_spell_cascade_sideways",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 2.4, critChance = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
@@ -1242,6 +1331,10 @@ skills["VaalAbsolutionDelayedBlast"] = {
 		"spell_maximum_base_physical_damage",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, storedUses = 1, damageEffectiveness = 3.2, cooldown = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
@@ -1251,7 +1344,7 @@ skills["SummonedRhoaShieldCharge"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Charges at a targeted location or enemy, pushing away enemies in your path and repeatedly dealing damage in a small area in front of you. You deal damage in a larger area when you reach the target. The further you travel, the more damage you deal, and the greater your chance of stunning enemies. Cannot be supported by Multistrike.",
+	description = "Charges at a targeted location or enemy, pushing away enemies in your path and repeatedly dealing damage in a small area in front of you. You deal damage in a larger area when you reach the target. The further you travel, the more damage you deal, and the greater your chance of stunning enemies.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RequiresShield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
 	weaponTypes = {
 		["None"] = true,
@@ -1335,10 +1428,10 @@ skills["DropBearSummonedGroundSlam"] = {
 	},
 }
 skills["DropBearSummonedRallyingCry"] = {
-	name = "Rallying Cry",
+	name = "[DNT] Old Rallying Cry",
 	hidden = true,
 	color = 1,
-	description = "Performs a warcry, granting increased damage and mana regeneration to the user and nearby allies if there are nearby enemies. The damage increase is proportional to the number of surrounding enemies. Taunts all nearby enemies to attack the user. Shares a cooldown with other Warcry skills.",
+	description = "[DNT] Unused (replaced)",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.25,
@@ -1398,7 +1491,7 @@ skills["BoneGolemMultiAttack"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { damageEffectiveness = 1.35, baseMultiplier = 1.35, levelRequirement = 1, },
+		[1] = { damageEffectiveness = 1.6, baseMultiplier = 1.6, levelRequirement = 1, },
 	},
 }
 skills["BoneGolemCascade"] = {
@@ -1431,7 +1524,7 @@ skills["BoneGolemLeapSlam"] = {
 	name = "Leap Slam",
 	hidden = true,
 	color = 4,
-	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -1463,7 +1556,7 @@ skills["BoneGolemLeapSlam"] = {
 		"disable_attack_repeats",
 	},
 	levels = {
-		[1] = { attackSpeedMultiplier = -44, storedUses = 1, damageEffectiveness = 1.8, baseMultiplier = 1.8, cooldown = 4, levelRequirement = 1, },
+		[1] = { attackSpeedMultiplier = -44, storedUses = 1, damageEffectiveness = 2.25, baseMultiplier = 2.25, cooldown = 4, levelRequirement = 1, },
 	},
 }
 skills["EGBoneGolemConsumeCorpse"] = {
@@ -1507,7 +1600,7 @@ skills["BoneGolemCascadeEmpowered"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { attackSpeedMultiplier = -10, baseMultiplier = 1.85, damageEffectiveness = 1.85, levelRequirement = 1, },
+		[1] = { attackSpeedMultiplier = -10, baseMultiplier = 2.3, damageEffectiveness = 2.3, levelRequirement = 1, },
 	},
 }
 skills["SkitterbotWait"] = {
@@ -1561,13 +1654,12 @@ skills["SiegebreakerCausticGround"] = {
 	hidden = true,
 	color = 4,
 	baseFlags = {
-		cast = true,
 		area = true,
-		chaos = true,
+		duration = true,
 	},
-	skillTypes = { },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.Triggerable] = true, [SkillType.Chaos] = true, [SkillType.AreaSpell] = true, },
 	baseMods = {
-		skill("ChaosDot", 1, { type = "PerStat", stat = "Life", div = 5 }),
+		skill("ChaosDot", 1, { type = "PercentStat", stat = "Life", percentVar = "SiegebreakerCausticGroundPercent" }),
 		skill("dotIsArea", true),
 		flag("dotIsCausticGround"),
 	},
@@ -1584,13 +1676,12 @@ skills["ReplicaSiegebreakerBurningGround"] = {
 	hidden = true,
 	color = 4,
 	baseFlags = {
-		cast = true,
 		area = true,
-		fire = true,
+		duration = true,
 	},
-	skillTypes = { },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, [SkillType.CausesBurning] = true, },
 	baseMods = {
-		skill("FireDot", 1, { type = "PerStat", stat = "Life", div = 5 }),
+		skill("FireDot", 1, { type = "PercentStat", stat = "Life", percentVar = "SiegebreakerBurningGroundPercent" }),
 		skill("dotIsArea", true),
 		flag("dotIsBurningGround"),
 	},
@@ -1690,6 +1781,9 @@ skills["SummonedReaperMelee"] = {
 		"active_skill_damage_+%_final",
 		"action_attack_or_cast_time_uses_animation_length",
 	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
+	},
 	levels = {
 		[1] = { 1, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 28, statInterpolation = { 2, }, },
 		[2] = { 60, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 80, statInterpolation = { 2, }, },
@@ -1711,6 +1805,9 @@ skills["SummonedReaperUltimate"] = {
 		"active_skill_damage_+%_final",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
+	},
 	levels = {
 		[1] = { 1, damageEffectiveness = 1.5, baseMultiplier = 1.5, levelRequirement = 28, statInterpolation = { 2, }, },
 		[2] = { 60, damageEffectiveness = 1.65, baseMultiplier = 1.65, levelRequirement = 80, statInterpolation = { 2, }, },
@@ -1730,6 +1827,9 @@ skills["GASummonReaperUltimateLeftSlash"] = {
 	stats = {
 		"active_skill_damage_+%_final",
 		"is_area_damage",
+	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
 	},
 	levels = {
 		[1] = { 1, damageEffectiveness = 1.5, baseMultiplier = 1.5, levelRequirement = 28, statInterpolation = { 2, }, },
@@ -1751,6 +1851,9 @@ skills["GASummonReaperComboWhirl"] = {
 		"active_skill_damage_+%_final",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
+	},
 	levels = {
 		[1] = { 1, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 28, statInterpolation = { 2, }, },
 		[2] = { 60, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 80, statInterpolation = { 2, }, },
@@ -1770,6 +1873,9 @@ skills["GASummonReaperComboLeftSlash"] = {
 	stats = {
 		"active_skill_damage_+%_final",
 		"is_area_damage",
+	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
 	},
 	levels = {
 		[1] = { 1, levelRequirement = 28, statInterpolation = { 2, }, },
@@ -1889,14 +1995,12 @@ skills["ElementalHitCloneShot"] = {
 		attack = true,
 		projectile = true,
 		melee = true,
-		area = true,
 	},
 	constantStats = {
 		{ "chance_to_freeze_shock_ignite_%", 20 },
 		{ "active_skill_base_area_of_effect_radius", 10 },
 	},
 	stats = {
-		"is_area_damage",
 		"skill_can_fire_arrows",
 		"skill_can_fire_wand_projectiles",
 	},
@@ -1961,5 +2065,37 @@ skills["AnimateGuardianSmite"] = {
 	},
 	levels = {
 		[1] = { damageEffectiveness = 3.25, baseMultiplier = 3.25, levelRequirement = 1, },
+	},
+}
+skills["ElderTentacleMinionProjectileDeepcaller"] = {
+	name = "Projectile Spell",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 5.5,
+	incrementalEffectiveness = 0.029999999329448,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.17,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 44 },
+		{ "skill_visual_scale_+%", 50 },
+		{ "base_chance_to_shock_%", 60 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }

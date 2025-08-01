@@ -68,7 +68,7 @@ Cannot be Stunned
 ]],[[
 The Formless Flame
 {variant:1,2}Siege Helmet
-{variant:3}Royal Burgonet 
+{variant:3}Royal Burgonet
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{The Formless Inferno} using currency{Blessing of Xoph}
@@ -130,6 +130,15 @@ Requires Level 55, 114 Str
 {variant:1,2}50% chance to Avoid being Frozen
 {variant:1,2}10% increased Stun and Block Recovery
 {variant:3}Cannot be Frozen or Chilled if you've used a Fire Skill Recently
+]],[[
+Kaom's Command
+Siege Helmet
+League: Settlers of Kalguur
+Requires Level 48, 101 Str
++(60-80) to maximum Life
+(25-35)% increased Warcry Speed
+Nearby corpses Explode when you Warcry, dealing (5-10)% of their Life as Physical Damage
+Warcry Skills have (25-35)% increased Area of Effect
 ]],[[
 Usurper's Penance
 Eternal Burgonet
@@ -447,19 +456,32 @@ Variant: Focus Ailment Duration Pre 3.16.0
 Variant: Avoid Elemental Damage Pre 3.16.0
 Variant: Focus Ailment Duration Pre 3.19.0
 Variant: Focus Ailment Duration Pre 3.22.0
-Variant: Fire and Chaos Resistances
-Variant: Cold and Chaos Resistances
-Variant: Lightning and Chaos Resistances
-Variant: Strength and Dexterity
-Variant: Dexterity and Intelligence
-Variant: Strength and Intelligence
-Variant: Mine Laying Speed
-Variant: Focus Spell Trigger
-Variant: Focus Ailment Duration
-Variant: Avoid Elemental Damage
-+1 to Level of Socketed Gems
+Variant: Fire and Chaos Resistances Pre 3.26.0
+Variant: Cold and Chaos Resistances Pre 3.26.0
+Variant: Lightning and Chaos Resistances Pre 3.26.0
+Variant: Strength and Dexterity Pre 3.26.0
+Variant: Dexterity and Intelligence Pre 3.26.0
+Variant: Strength and Intelligence Pre 3.26.0
+Variant: Mine Laying Speed Pre 3.26.0
+Variant: Focus Spell Trigger Pre 3.26.0
+Variant: Focus Ailment Duration Pre 3.26.0
+Variant: Avoid Elemental Damage Pre 3.26.0
+Variant: Additional Minions + Minion Life
+Variant: +2 AoE Gems + inc AoE
+Variant: +2 Proj Gems + Pierce
+Variant: +2 Melee Gems + Strike Range
+Variant: Life + Mana Regen
+Variant: Mana + Life Regen
+Variant: Inc Evasion while Focused
+Variant: Physical Damage Reduction while Focused
+Variant: +2 Gems
+Variant: Inc Corpse Life
+Variant: Attack/Cast Speed if consumed corpse
+Variant: Take no Crit Damage if Recharge
+Variant: Damage if consumed corpse
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25}+1 to Level of Socketed Gems
 {variant:1,2,3,4,5,6,7,8,9,10,11,12,13}Socketed Gems have 40% increased Mana Reservation Efficiency
-{variant:14,15,16,17,18,19,20,21,22,23,24,25}Socketed Gems have 25% increased Reservation Efficiency
+{variant:14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38}Socketed Gems have 25% increased Reservation Efficiency
 Trigger Level 15 Feast of Flesh every 5 seconds
 (180-220)% increased Energy Shield
 10% chance for Energy Shield Recharge to start when you use a Skill
@@ -491,9 +513,29 @@ Eldritch Battery
 {variant:23}Focus has (5-8)% increased Cooldown Recovery Rate
 {variant:24}(36-40)% increased Duration of Ailments you inflict while Focused
 {variant:25}(10-12)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
+{variant:26}+1 to maximum number of Raised Zombies
+{variant:26}+1 to maximum number of Skeletons
+{variant:26}Minions have (8-10)% increased maximum Life
+{variant:27}(8-10)% increased Area of Effect
+{variant:27}+2 to Level of Socketed AoE Gems
+{variant:28}Projectiles Pierce an additional Target
+{variant:28}+2 to Level of Socketed Projectile Gems
+{variant:29}+0.2 metres to Melee Strike Range
+{variant:29}+2 to Level of Socketed Melee Gems
+{variant:30}+(55-60) to maximum Life
+{variant:30}Regenerate 5.3 Mana per second
+{variant:31}+(55-60) to maximum Mana
+{variant:31}Regenerate 33.3 Life per second
+{variant:32}(30-32)% increased Evasion Rating while Focused
+{variant:33}(13-15)% additional Physical Damage Reduction while Focused
+{variant:34}+2 to Level of Socketed Gems
+{variant:35}Corpses you Spawn have 20% increased Maximum Life
+{variant:36}20% increased Attack and Cast Speed if you've Consumed a Corpse Recently
+{variant:37}Take no Extra Damage from Critical Strikes if Energy Shield Recharge started Recently
+{variant:38}20% increased Damage if you have Consumed a corpse Recently
 ]],[[
 Wilma's Requital
-Solaris Circlet 
+Solaris Circlet
 +(300-500) to Accuracy Rating
 (200-250)% increased Energy Shield
 Increases and Reductions to Cast Speed apply to Attack Speed
@@ -673,7 +715,7 @@ Requires Level 65, 138 Int
 (80-100)% increased Spell Damage
 15% reduced Cast Speed
 +(30-60) to maximum Mana
-Your Skills deal you 400% of Mana Cost as Physical Damage
+Your Skills deal you 400% of Mana Spent on Upfront Skill Mana Costs as Physical Damage
 ]],[[
 Sudden Dawn
 Steel Circlet
@@ -1562,7 +1604,6 @@ League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 Requires Level 68, 66 Str, 66 Dex, 66 Int
 Never deal Critical Strikes
-Nearby Enemies cannot deal Critical Strikes
 Battlemage
 ]],
 }

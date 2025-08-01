@@ -214,6 +214,9 @@ return {
 ["cast_spell_on_linked_melee_kill"] = {
 	skill("triggeredByMeleeKill", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }, { type = "Condition", var = "KilledRecently" }),
 },
+["chance_to_cast_on_kill_%"] = {
+	skill("triggeredBySquirmingTerror", true , { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }, { type = "Condition", var = "KilledRecently" })
+},
 ["cast_linked_spells_on_melee_kill_%"] = {
 	skill("chanceToTriggerOnMeleeKill", nil , { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Melee })
 },
@@ -233,7 +236,7 @@ return {
 	skill("triggeredByAutomation", nil, { type = "SkillType", skillTypeList = {SkillType.Triggerable, SkillType.Spell, SkillType.Instant} }),
 },
 ["support_autocast_warcries"] = {
-	skill("triggeredByAutoCry", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Warcry }),
+	skill("triggeredByAutoexertion", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Warcry }),
 },
 ["cast_on_stunned_%"] = {
 	skill("chanceToTriggerOnStun", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
@@ -263,7 +266,11 @@ return {
 	mod("RepeatCount", "BASE", nil, 0, 0, {type = "SkillType", skillType = SkillType.Multicastable }),
 },
 ["base_melee_attack_repeat_count"] = {
-	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Multistrikeable }),
+	mod("RepeatCount", "BASE", nil, 0, 0, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.RequiresShield }),
+},
+["skill_repeat_count"] = {
+	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Multicastable }),
 },
 ["display_skill_minions_level_is_corpse_level"] = {
 	skill("minionLevelIsEnemyLevel", true),
@@ -569,6 +576,9 @@ return {
 ["critical_strike_chance_+%_vs_shocked_enemies"] = {
 	mod("CritChance", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }),
 },
+["critical_strike_chance_+%_vs_bleeding_enemies"] = {
+	mod("CritChance", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Bleeding" }),
+},
 ["critical_strike_chance_+%_per_power_charge"] = {
 	mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
 },
@@ -645,7 +655,8 @@ return {
 	mod("FortifyDuration", "INC", nil),
 },
 ["support_swift_affliction_skill_effect_and_damaging_ailment_duration_+%_final"] = {
-	mod("SkillAndDamagingAilmentDuration", "MORE", nil),
+	mod("Duration", "MORE", nil),
+	mod("DamagingAilmentDuration", "MORE", nil),
 },
 ["base_bleed_duration_+%"] = {
 	mod("EnemyBleedDuration", "INC", nil),
@@ -659,6 +670,9 @@ return {
 },
 ["chance_to_deal_double_damage_%"] = {
 	mod("DoubleDamageChance", "BASE", nil)
+},
+["chance_to_deal_double_damage_%_per_10_intelligence"] = {
+	mod("DoubleDamageChance", "BASE", nil, 0, 0, { type = "PerStat", stat = "Int", div = 10 }),
 },
 ["chance_to_deal_double_damage_%_vs_bleeding_enemies"] = {
 	mod("DoubleDamageChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Bleeding"}),
@@ -702,6 +716,9 @@ return {
 ["active_skill_damage_+%_final"] = {
 	mod("Damage", "MORE", nil),
 },
+["active_skill_physical_damage_+%_final"] = {
+	mod("PhysicalDamage", "MORE", nil),
+},
 ["sigil_attached_target_hit_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 },
@@ -731,6 +748,9 @@ return {
 },
 ["damage_+%_vs_frozen_enemies"] = {
 	mod("Damage", "INC", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
+},
+["damage_+%_final_vs_stunned_enemies"] = {
+	mod("Damage", "MORE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Stunned" }),
 },
 ["base_reduce_enemy_fire_resistance_%"] = {
 	mod("FirePenetration", "BASE", nil),
@@ -971,6 +991,10 @@ return {
 },
 ["always_shock"] = {
 	mod("EnemyShockChance", "BASE", nil),
+	value = 100,
+},
+["always_freeze"] = {
+	mod("EnemyFreezeChance", "BASE", nil),
 	value = 100,
 },
 ["base_chance_to_freeze_%"] = {
@@ -1571,10 +1595,10 @@ return {
 	skill("setOffHandAttackTime", nil),
 },
 ["off_hand_minimum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
-	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
+	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
 },
 ["off_hand_maximum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
-	mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
+	mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
 },
 ["off_hand_minimum_added_cold_damage_per_15_shield_evasion"] = {
 	mod("ColdMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "EvasionOnWeapon 2", div = 15 }),
@@ -1680,6 +1704,9 @@ return {
 ["active_skill_trap_throwing_speed_+%_final"] = {
 	mod("TrapThrowingSpeed", "MORE", nil),
 },
+["trap_throwing_speed_+%_while_wielding_2hand"] = {
+	mod("TrapThrowingSpeed", "INC", nil, 0, 0, { type = "Condition", var = "UsingTwoHandedWeapon" }),
+},
 ["trap_critical_strike_multiplier_+_per_power_charge"] = {
 	mod("CritMultiplier", "BASE", nil, 0, KeywordFlag.Trap, { type = "Multiplier", var = "PowerCharge" }),
 },
@@ -1691,6 +1718,9 @@ return {
 },
 ["number_of_additional_traps_to_throw"] = {
 	mod("TrapThrowCount", "BASE", nil)
+},
+["throw_X_additional_traps_if_dual_wielding"] = {
+	mod("TrapThrowCount", "BASE", nil, 0, 0, { type = "Condition", var = "DualWielding" })
 },
 -- Mine
 ["number_of_additional_remote_mines_allowed"] = {
@@ -1868,6 +1898,9 @@ return {
 ["number_of_spider_minions_allowed"] = {
 	mod("ActiveSpiderLimit", "BASE", nil),
 },
+["base_number_of_void_spawns_allowed"] = {
+	mod("ActiveVoidSpawnLimit", "BASE", nil),
+},
 ["active_skill_minion_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
 },
@@ -2002,15 +2035,11 @@ return {
 	flag("Condition:CannotRecallBrand"),
 },
 -- Banner
-["banner_buff_effect_+%_per_stage"] = {
+["banner_buff_effect_+%_final_per_resource"] = {
 	mod("AuraEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "BannerValour" }, { type = "Condition", var = "BannerPlanted" }),
 },
-["banner_area_of_effect_+%_per_stage"] = {
+["banner_area_of_effect_+%_final_per_resource"] = {
 	mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "BannerValour" }, { type = "Condition", var = "BannerPlanted" }),
-},
-["banner_additional_base_duration_per_stage_ms"] = {
-	mod("PrimaryDuration", "BASE", nil, 0, 0, { type = "Multiplier", var = "BannerValour" }, { type = "Condition", var = "BannerPlanted" }),
-	div = 1000,
 },
 -- Other
 ["triggered_skill_damage_+%"] = {
@@ -2055,6 +2084,12 @@ return {
 },
 ["spell_cast_time_added_to_cooldown_if_triggered"] = {
 	flag("SpellCastTimeAddedToCooldownIfTriggered"),
+},
+["gain_x_rage_on_attack_hit"] = {
+	flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff", effectName = "Rage" } ),
+},
+["warcry_count_power_from_enemies"] = {
+	flag("UsesWarcryPower", { type = "GlobalEffect", effectType = "Buff" })
 },
 --
 -- Spectre or Minion-specific stats
@@ -2113,7 +2148,7 @@ return {
 	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Minion }),
 },
 
--- Gem quality display only
+-- Display only
 ["quality_display_base_additional_arrows_is_gem"] = {
 	-- Display only
 },
@@ -2139,6 +2174,12 @@ return {
 	-- Display only
 },
 ["quality_display_active_skill_bleed_damage_final_is_gem"] = {
+	-- Display only
+},
+["quality_display_spell_damage_to_attack_damage_is_gem"] = {
+	-- Display only
+},
+["retaliation_base_use_window_duration_ms"] = {
 	-- Display only
 },
 }

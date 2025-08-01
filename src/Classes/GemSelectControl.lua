@@ -19,15 +19,15 @@ local altQualMap = {
 	["Alternate3"] = "Phantasmal ",
 }
 
-local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, x, y, width, height, skillsTab, index, changeFunc, forceTooltip)
-	self.EditControl(anchor, x, y, width, height, nil, nil, "^ %a':-")
-	self.controls.scrollBar = new("ScrollBarControl", { "TOPRIGHT", self, "TOPRIGHT" }, -1, 0, 18, 0, (height - 4) * 4)
+local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, rect, skillsTab, index, changeFunc, forceTooltip)
+	self.EditControl(anchor, rect, nil, nil, "^ %a':-")
+	self.controls.scrollBar = new("ScrollBarControl", { "TOPRIGHT", self, "TOPRIGHT" }, {-1, 0, 18, 0}, (self.height - 4) * 4)
 	self.controls.scrollBar.y = function()
 		local width, height = self:GetSize()
 		return height + 1
 	end
 	self.controls.scrollBar.height = function()
-		return (height - 4) * m_min(#self.list, 15) + 2
+		return (self.height - 4) * m_min(#self.list, 15) + 2
 	end
 	self.controls.scrollBar.shown = function()
 		return self.dropped and self.controls.scrollBar.enabled
@@ -58,8 +58,9 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	}
 end)
 
-function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId)
+function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId, useFullDPS)
 	local gemList = self.skillsTab.displayGroup.gemList
+	local displayGemList = self.skillsTab.displayGroup.displayGemList
 	local oldGem
 	if gemList[self.index] then
 		oldGem = copyTable(gemList[self.index], true)
@@ -89,7 +90,7 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId)
 	-- Add hovered gem to tooltip
 	self:AddGemTooltip(gemInstance)
 	-- Calculate the impact of using this gem
-	local output = calcFunc({ }, { allocNodes = true, requirementsItems = true })
+	local output = calcFunc(nil, useFullDPS)
 	-- Put the original gem back into the list
 	if oldGem then
 		gemInstance.gemData = oldGem.gemData
@@ -98,7 +99,9 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId)
 	else
 		gemList[self.index] = nil
 	end
-
+	
+	self.skillsTab.displayGroup.displayGemList = displayGemList
+	
 	return output, gemInstance
 end
 
@@ -325,7 +328,7 @@ function GemSelectClass:UpdateSortCache()
 	end
 
 	local dpsField = self.skillsTab.sortGemsByDPSField
-	GlobalCache.useFullDPS = dpsField == "FullDPS"
+	local useFullDPS = dpsField == "FullDPS"
 	local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
 	-- Check for nil because some fields may not be populated, default to 0
 	local baseDPS = (dpsField == "FullDPS" and calcBase[dpsField] ~= nil and calcBase[dpsField]) or (calcBase.Minion and calcBase.Minion.CombinedDPS) or (calcBase[dpsField] ~= nil and calcBase[dpsField]) or 0
@@ -334,7 +337,7 @@ function GemSelectClass:UpdateSortCache()
 		sortCache.dps[gemId] = baseDPS
 		-- Ignore gems that don't support the active skill
 		if sortCache.canSupport[gemId] or gemData.grantedEffect.hasGlobalEffect then
-			local output = self:CalcOutputWithThisGem(calcFunc, gemData, self:GetQualityType(gemId))
+			local output = self:CalcOutputWithThisGem(calcFunc, gemData, self:GetQualityType(gemId), useFullDPS)
 			-- Check for nil because some fields may not be populated, default to 0
 			sortCache.dps[gemId] = (dpsField == "FullDPS" and output[dpsField] ~= nil and output[dpsField]) or (output.Minion and output.Minion.CombinedDPS) or (output[dpsField] ~= nil and output[dpsField]) or 0
 		end
@@ -477,7 +480,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
 			if calcFunc then
 				self.tooltip:Clear()
-				local output, gemInstance = self:CalcOutputWithThisGem(calcFunc, self.gems[self.list[self.hoverSel]], self:GetQualityType(self.list[self.hoverSel]))
+				local output, gemInstance = self:CalcOutputWithThisGem(calcFunc, self.gems[self.list[self.hoverSel]], self:GetQualityType(self.list[self.hoverSel]), self.skillsTab.sortGemsByDPSField == "FullDPS")
 				self.tooltip:AddSeparator(10)
 				self.skillsTab.build:AddStatComparesToTooltip(self.tooltip, calcBase, output, "^7Selecting this gem will give you:")
 				self.tooltip:Draw(x, y + height + 2 + (self.hoverSel - 1) * (height - 4) - scrollBar.offset, width, height - 4, viewPort)

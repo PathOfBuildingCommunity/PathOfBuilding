@@ -356,19 +356,6 @@ function PassiveSpecClass:DecodePoePlannerURL(url, return_tree_version_only)
 		return bytes:byte(start) + bytes:byte(start + 1) * 256
 	end
 
-	local function translatePoepToGggTreeVersion(minor)
-		-- Translates internal tree version to GGG version.
-		-- Limit poeplanner tree imports to recent versions.
-		tree_versions = { -- poeplanner ID: GGG version
-			[31] = 24, [29] = 23, [27] = 22, [26] = 21, [25] = 20, [24] = 19, [23] = 18,
-			}
-		if tree_versions[minor] then
-			return tree_versions[minor]
-		else
-			return -1
-		end
-	end
-
 	local b = common.base64.decode(url:gsub("^.+/",""):gsub("-","+"):gsub("_","/"))
 	if not b or #b < 15 then
 		return "Invalid tree link (unrecognised format)."
@@ -376,27 +363,54 @@ function PassiveSpecClass:DecodePoePlannerURL(url, return_tree_version_only)
 	-- Quick debug for when we change tree versions. Print the first 20 or so bytes
 	-- s = ""
 	-- for i = 1, 20 do
-		-- s = s..i..":"..string.format('%02X ', b:byte(i))
+	-- 	s = s..i..":"..string.format('%02X ', b:byte(i))
 	-- end
 	-- print(s)
 
-	-- 4-7 is tree version.version
-	major_version = byteToInt(b,4)
-	minor_version = translatePoepToGggTreeVersion(byteToInt(b,6))
+	--[[
+	PoEPlanner URL format:
+		serializationVersion: u16
+		buildType: u8 (either normal or royale)
+		isPoE2: u8
+		treeBuild: TreeBuild
+		equipmentBuild: EquipmentBuild
+		skillBuild: SkillBuild
+		buildConfig: BuildConfig
+		compressedNotesLength: u16
+		compressedNotesBytes: []u8 (gzip)
+
+		TreeBuild: 
+		treeSerializationVersion: u16
+		treeVersion: u16
+		character: u8
+		ascendancy: u8
+		banditChoice: u8
+		nodeCount: u16
+		nodeHashes: []u16
+		clusterNodeCount: u16
+		clusterNodeHashes: []u16
+		ascendancyNodeCount: u16
+		ascendancyNodeHashes: []u16
+		selectedMasteryEffectCount: u16
+		selectedMasteryEffects: {masteryID: u16, effectID: u16}
+		selectedAttributeChoiceCount: u16
+		selectedAttributeChoices: {nodeHash: u16, choice: u8} (for choice: 0: none, 1: str, 2: dex, 3: int)
+	]]
+
 	-- If we only want the tree version, exit now
-	if minor_version < 0 then
+	if not poePlannerVersions[byteToInt(b, 7)] then
 		return "Invalid tree version found in link."
 	end
 	if return_tree_version_only then
-		return major_version.."_"..minor_version
+		return poePlannerVersions[byteToInt(b, 7)]
 	end
 
-	-- 8 is Class, 9 is Ascendancy
-	local classId = b:byte(8)
-	local ascendClassId = b:byte(9)
+	-- 9 is Class, 10 is Ascendancy
+	local classId = b:byte(9)
+	local ascendClassId = b:byte(10)
 	-- print("classId, ascendClassId", classId, ascendClassId)
 
-	-- 9 is Bandit
+	-- 11 is Bandit
 	-- bandit = b[9]
 	-- print("bandit", bandit, bandit_list[bandit])
 
@@ -404,8 +418,8 @@ function PassiveSpecClass:DecodePoePlannerURL(url, return_tree_version_only)
 	self:SelectClass(classId)
 	self:SelectAscendClass(ascendClassId)
 
-	-- 11 is node count
-	idx = 11
+	-- 12-13 is node count
+	idx = 12
 	local nodesCount = byteToInt(b, idx)
 	local nodesEnd = idx + 2 + (nodesCount * 2)
 	local nodes = b:sub(idx  + 2, nodesEnd - 1)
@@ -887,7 +901,7 @@ function PassiveSpecClass:NodesInIntuitiveLeapLikeRadius(node)
 		local radiusIndex = item.jewelRadiusIndex
 		if item and item.jewelData and item.jewelData.intuitiveLeapLike then
 			local inRadius = self.nodes[node.id].nodesInRadius and self.nodes[node.id].nodesInRadius[radiusIndex]
-			for affectedNodeId, affectedNode in pairs(inRadius) do
+			for affectedNodeId, affectedNode in pairs(inRadius or {}) do
 				if self.nodes[affectedNodeId].alloc then
 					t_insert(result, self.nodes[affectedNodeId])
 				end
@@ -1162,7 +1176,11 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			if node.type == "Mastery" and self.masterySelections[id] then
 				local effect = self.tree.masteryEffects[self.masterySelections[id]]
 				if effect and self.allocNodes[id] then
-					node.sd = effect.sd
+					if self.hashOverrides and self.hashOverrides[id] then
+						self:ReplaceNode(node, self.hashOverrides[id])
+					else
+						node.sd = effect.sd
+					end
 					node.allMasteryOptions = false
 					node.reminderText = { "Tip: Right click to select a different effect" }
 					self.tree:ProcessStats(node)
@@ -1372,6 +1390,7 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	end
 	old.dn = newNode.dn
 	old.sd = newNode.sd
+	old.name = newNode.name
 	old.mods = newNode.mods
 	old.modKey = newNode.modKey
 	old.modList = new("ModList")

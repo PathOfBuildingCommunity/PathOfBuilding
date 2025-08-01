@@ -45,8 +45,9 @@ function ModDBClass:ReplaceModInternal(mod)
 	local modIndex = -1
 	for i = 1, #modList do
 		local curMod = modList[i]
-		if mod.name == curMod.name and mod.type == curMod.type and mod.flags == curMod.flags and mod.keywordFlags == curMod.keywordFlags and mod.source == curMod.source then
+		if mod.name == curMod.name and mod.type == curMod.type and mod.flags == curMod.flags and mod.keywordFlags == curMod.keywordFlags and mod.source == curMod.source and not curMod.replaced then
 			modIndex = i
+			mod.replaced = true
 			break;
 		end
 	end
@@ -98,14 +99,7 @@ function ModDBClass:SumInternal(context, modType, cfg, flags, keywordFlags, sour
 				local mod = modList[i]
 				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or ( mod.source and mod.source:match("[^:]+") == source )) then
 					if mod[1] then
-						local value = context:EvalMod(mod, cfg) or 0
-						if mod[1].globalLimit and mod[1].globalLimitKey then
-							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] or 0
-							if globalLimits[mod[1].globalLimitKey] + value > mod[1].globalLimit then
-								value = mod[1].globalLimit - globalLimits[mod[1].globalLimitKey]
-							end
-							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] + value
-						end
+						local value = context:EvalMod(mod, cfg, globalLimits) or 0
 						result = result + value
 					else
 						result = result + mod.value
@@ -123,6 +117,7 @@ end
 function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 	local result = 1
 	local modPrecision = nil
+	local globalLimits = { }
 	for i = 1, select('#', ...) do
 		local modList = self.mods[select(i, ...)]
 		local modResult = 1 --The more multipliers for each mod are computed to the nearest percent then applied.
@@ -130,11 +125,13 @@ function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 			for i = 1, #modList do
 				local mod = modList[i]
 				if mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+					local value
 					if mod[1] then
-						modResult = modResult * (1 + (context:EvalMod(mod, cfg) or 0) / 100)
+						value = context:EvalMod(mod, cfg, globalLimits) or 0
 					else
-						modResult = modResult * (1 + mod.value / 100)
+						value = mod.value or 0
 					end
+					modResult = modResult * (1 + value / 100)
 					if modPrecision then
 						modPrecision = m_max(modPrecision, (data.highPrecisionMods[mod.name] and data.highPrecisionMods[mod.name][mod.type]) or modPrecision)
 					else
@@ -239,14 +236,7 @@ function ModDBClass:TabulateInternal(context, result, modType, cfg, flags, keywo
 				if (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 					local value
 					if mod[1] then
-						value = context:EvalMod(mod, cfg) or 0
-						if mod[1].globalLimit and mod[1].globalLimitKey then
-							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] or 0
-							if globalLimits[mod[1].globalLimitKey] + value > mod[1].globalLimit then
-								value = mod[1].globalLimit - globalLimits[mod[1].globalLimitKey]
-							end
-							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] + value
-						end
+						value = context:EvalMod(mod, cfg, globalLimits)
 					else
 						value = mod.value
 					end

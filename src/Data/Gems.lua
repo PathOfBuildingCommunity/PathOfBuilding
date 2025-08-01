@@ -27,7 +27,7 @@ return {
 		baseTypeName = "Vaal Fireball",
 		gameId = "Metadata/Items/Gems/SkillGemVaalFireball",
 		variantId = "VaalFireball",
-		grantedEffectId = "VaalFireballSpiralNova",
+		grantedEffectId = "VaalFireball",
 		secondaryGrantedEffectId = "Fireball",
 		vaalGem = true,
 		tags = {
@@ -194,12 +194,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemChargedAttack"] = {
+	["Metadata/Items/Gems/SkillGemBladeFlurry"] = {
 		name = "Blade Flurry",
 		baseTypeName = "Blade Flurry",
 		gameId = "Metadata/Items/Gems/SkillGemChargedAttack",
-		variantId = "ChargedAttack",
-		grantedEffectId = "ChargedAttack",
+		variantId = "BladeFlurry",
+		grantedEffectId = "BladeFlurry",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -214,12 +214,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemChargedAttackAltX"] = {
+	["Metadata/Items/Gems/SkillGemBladeFlurryAltX"] = {
 		name = "Blade Flurry of Incision",
 		baseTypeName = "Blade Flurry of Incision",
 		gameId = "Metadata/Items/Gems/SkillGemChargedAttack",
-		variantId = "ChargedAttackAltX",
-		grantedEffectId = "ChargedAttackAltX",
+		variantId = "BladeFlurryAltX",
+		grantedEffectId = "BladeFlurryAltX",
 		tags = {
 			critical = true,
 			dexterity = true,
@@ -360,7 +360,7 @@ return {
 		baseTypeName = "Shield Charge",
 		gameId = "Metadata/Items/Gems/SkillGemShieldCharge",
 		variantId = "ShieldCharge",
-		grantedEffectId = "NewShieldCharge",
+		grantedEffectId = "ShieldCharge",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -484,7 +484,7 @@ return {
 		baseTypeName = "Lacerate",
 		gameId = "Metadata/Items/Gems/SkillGemLacerate",
 		variantId = "Lacerate",
-		grantedEffectId = "DoubleSlash",
+		grantedEffectId = "Lacerate",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -504,7 +504,7 @@ return {
 		baseTypeName = "Lacerate of Butchering",
 		gameId = "Metadata/Items/Gems/SkillGemLacerate",
 		variantId = "LacerateAltX",
-		grantedEffectId = "DoubleSlashAltX",
+		grantedEffectId = "LacerateAltX",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -523,7 +523,7 @@ return {
 		baseTypeName = "Lacerate of Haemorrhage",
 		gameId = "Metadata/Items/Gems/SkillGemLacerate",
 		variantId = "LacerateAltY",
-		grantedEffectId = "DoubleSlashAltY",
+		grantedEffectId = "LacerateAltY",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -548,7 +548,6 @@ return {
 			dexterity = true,
 			grants_active_skill = true,
 			attack = true,
-			projectile = true,
 			melee = true,
 			strike = true,
 			fire = true,
@@ -556,9 +555,8 @@ return {
 			lightning = true,
 			area = true,
 			random_element = true,
-			bow = true,
 		},
-		tagString = "Attack, Projectile, Melee, Strike, Fire, Cold, Lightning, AoE, Prismatic, Bow",
+		tagString = "Attack, Melee, Strike, Fire, Cold, Lightning, AoE, Prismatic",
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
@@ -698,11 +696,9 @@ return {
 			grants_active_skill = true,
 			attack = true,
 			projectile = true,
-			melee = true,
-			strike = true,
 			bow = true,
 		},
-		tagString = "Attack, Projectile, Melee, Strike, Bow",
+		tagString = "Attack, Projectile, Bow",
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
@@ -718,12 +714,10 @@ return {
 			dexterity = true,
 			grants_active_skill = true,
 			attack = true,
-			projectile = true,
 			melee = true,
 			strike = true,
-			bow = true,
 		},
-		tagString = "Attack, Projectile, Melee, Strike, Bow",
+		tagString = "Attack, Melee, Strike",
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
@@ -866,12 +860,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemBoneLance"] = {
+	["Metadata/Items/Gems/SkillGemUnearth"] = {
 		name = "Unearth",
 		baseTypeName = "Unearth",
 		gameId = "Metadata/Items/Gems/SkillGemBoneLance",
-		variantId = "BoneLance",
-		grantedEffectId = "BoneLance",
+		variantId = "Unearth",
+		grantedEffectId = "Unearth",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -924,10 +918,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemAddedFireDamageSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAddedFireDamage"] = {
 		name = "Added Fire Damage",
 		gameId = "Metadata/Items/Gems/SupportGemAddedFireDamage",
-		variantId = "AddedFireDamageSupport",
+		variantId = "SupportAddedFireDamage",
 		grantedEffectId = "SupportAddedFireDamage",
 		tags = {
 			fire = true,
@@ -941,11 +935,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFasterAttackSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportFasterAttacks"] = {
 		name = "Faster Attacks",
 		gameId = "Metadata/Items/Gems/SupportGemFasterAttack",
-		variantId = "FasterAttackSupport",
-		grantedEffectId = "SupportFasterAttack",
+		variantId = "SupportFasterAttacks",
+		grantedEffectId = "SupportFasterAttacks",
 		tags = {
 			attack = true,
 			dexterity = true,
@@ -957,10 +951,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemGreaterMultipleProjectilesSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportGreaterMultipleProjectiles"] = {
 		name = "Greater Multiple Projectiles",
 		gameId = "Metadata/Items/Gems/SupportGemGreaterMultipleProjectiles",
-		variantId = "GreaterMultipleProjectilesSupport",
+		variantId = "SupportGreaterMultipleProjectiles",
 		grantedEffectId = "SupportGreaterMultipleProjectiles",
 		tags = {
 			dexterity = true,
@@ -973,10 +967,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemLesserMultipleProjectilesSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportLesserMultipleProjectiles"] = {
 		name = "Lesser Multiple Projectiles",
 		gameId = "Metadata/Items/Gems/SupportGemLesserMultipleProjectiles",
-		variantId = "LesserMultipleProjectilesSupport",
+		variantId = "SupportLesserMultipleProjectiles",
 		grantedEffectId = "SupportLesserMultipleProjectiles",
 		tags = {
 			dexterity = true,
@@ -989,10 +983,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFasterProjectilesSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportFasterProjectiles"] = {
 		name = "Faster Projectiles",
 		gameId = "Metadata/Items/Gems/SupportGemFasterProjectiles",
-		variantId = "FasterProjectilesSupport",
+		variantId = "SupportFasterProjectiles",
 		grantedEffectId = "SupportFasterProjectiles",
 		tags = {
 			dexterity = true,
@@ -1005,10 +999,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemAddedColdDamageSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAddedColdDamage"] = {
 		name = "Added Cold Damage",
 		gameId = "Metadata/Items/Gems/SupportGemAddedColdDamage",
-		variantId = "AddedColdDamageSupport",
+		variantId = "SupportAddedColdDamage",
 		grantedEffectId = "SupportAddedColdDamage",
 		tags = {
 			cold = true,
@@ -1021,10 +1015,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemAdditionalAccuracySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAdditionalAccuracy"] = {
 		name = "Additional Accuracy",
 		gameId = "Metadata/Items/Gems/SupportGemAdditionalAccuracy",
-		variantId = "AdditionalAccuracySupport",
+		variantId = "SupportAdditionalAccuracy",
 		grantedEffectId = "SupportAdditionalAccuracy",
 		tags = {
 			attack = true,
@@ -1037,10 +1031,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemIncreasedAreaOfEffectSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportIncreasedAreaofEffect"] = {
 		name = "Increased Area of Effect",
 		gameId = "Metadata/Items/Gems/SupportGemIncreasedAreaOfEffect",
-		variantId = "IncreasedAreaOfEffectSupport",
+		variantId = "SupportIncreasedAreaofEffect",
 		grantedEffectId = "SupportIncreasedAreaOfEffect",
 		tags = {
 			intelligence = true,
@@ -1053,10 +1047,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemAddedLightningDamageSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAddedLightningDamage"] = {
 		name = "Added Lightning Damage",
 		gameId = "Metadata/Items/Gems/SupportGemAddedLightningDamage",
-		variantId = "AddedLightningDamageSupport",
+		variantId = "SupportAddedLightningDamage",
 		grantedEffectId = "SupportAddedLightningDamage",
 		tags = {
 			lightning = true,
@@ -1186,12 +1180,12 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemPoisonArrow"] = {
+	["Metadata/Items/Gems/SkillGemCausticArrow"] = {
 		name = "Caustic Arrow",
 		baseTypeName = "Caustic Arrow",
 		gameId = "Metadata/Items/Gems/SkillGemPoisonArrow",
-		variantId = "PoisonArrow",
-		grantedEffectId = "PoisonArrow",
+		variantId = "CausticArrow",
+		grantedEffectId = "CausticArrow",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -1208,12 +1202,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemPoisonArrowAltX"] = {
+	["Metadata/Items/Gems/SkillGemCausticArrowAltX"] = {
 		name = "Caustic Arrow of Poison",
 		baseTypeName = "Caustic Arrow of Poison",
 		gameId = "Metadata/Items/Gems/SkillGemPoisonArrow",
-		variantId = "PoisonArrowAltX",
-		grantedEffectId = "PoisonArrowAltX",
+		variantId = "CausticArrowAltX",
+		grantedEffectId = "CausticArrowAltX",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -1390,11 +1384,11 @@ return {
 		reqInt = 34,
 		naturalMaxLevel = 1,
 	},
-	["Metadata/Items/Gems/SkillGemReducedManaSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportInspiration"] = {
 		name = "Inspiration",
 		gameId = "Metadata/Items/Gems/SupportGemReducedMana",
-		variantId = "ReducedManaSupport",
-		grantedEffectId = "SupportReducedMana",
+		variantId = "SupportInspiration",
+		grantedEffectId = "SupportInspiration",
 		tags = {
 			critical = true,
 			strength = true,
@@ -1406,10 +1400,10 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemIncreasedCriticalStrikesSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportIncreasedCriticalStrikes"] = {
 		name = "Increased Critical Strikes",
 		gameId = "Metadata/Items/Gems/SupportGemIncreasedCriticalStrikes",
-		variantId = "IncreasedCriticalStrikesSupport",
+		variantId = "SupportIncreasedCriticalStrikes",
 		grantedEffectId = "SupportIncreasedCriticalStrikes",
 		tags = {
 			critical = true,
@@ -1422,10 +1416,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemIncreasedCriticalDamageSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportIncreasedCriticalDamage"] = {
 		name = "Increased Critical Damage",
 		gameId = "Metadata/Items/Gems/SupportGemIncreasedCriticalDamage",
-		variantId = "IncreasedCriticalDamageSupport",
+		variantId = "SupportIncreasedCriticalDamage",
 		grantedEffectId = "SupportIncreasedCriticalDamage",
 		tags = {
 			critical = true,
@@ -1438,10 +1432,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemKnockbackSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportKnockback"] = {
 		name = "Knockback",
 		gameId = "Metadata/Items/Gems/SupportGemKnockback",
-		variantId = "KnockbackSupport",
+		variantId = "SupportKnockback",
 		grantedEffectId = "SupportKnockback",
 		tags = {
 			strength = true,
@@ -1453,10 +1447,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemLifeLeechSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportLifeLeech"] = {
 		name = "Life Leech",
 		gameId = "Metadata/Items/Gems/SupportGemLifeLeech",
-		variantId = "LifeLeechSupport",
+		variantId = "SupportLifeLeech",
 		grantedEffectId = "SupportLifeLeech",
 		tags = {
 			strength = true,
@@ -1468,10 +1462,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemManaLeechSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportManaLeech"] = {
 		name = "Mana Leech",
 		gameId = "Metadata/Items/Gems/SupportGemManaLeech",
-		variantId = "ManaLeechSupport",
+		variantId = "SupportManaLeech",
 		grantedEffectId = "SupportManaLeech",
 		tags = {
 			dexterity = true,
@@ -1483,10 +1477,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemAddedChaosDamageSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAddedChaosDamage"] = {
 		name = "Added Chaos Damage",
 		gameId = "Metadata/Items/Gems/SupportGemAddedChaosDamage",
-		variantId = "AddedChaosDamageSupport",
+		variantId = "SupportAddedChaosDamage",
 		grantedEffectId = "SupportAddedChaosDamage",
 		tags = {
 			chaos = true,
@@ -1631,7 +1625,7 @@ return {
 		baseTypeName = "Vaal Spark",
 		gameId = "Metadata/Items/Gems/SkillGemVaalSpark",
 		variantId = "VaalSpark",
-		grantedEffectId = "VaalSparkSpiralNova",
+		grantedEffectId = "VaalSpark",
 		secondaryGrantedEffectId = "Spark",
 		vaalGem = true,
 		tags = {
@@ -1649,10 +1643,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemStunSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportStun"] = {
 		name = "Stun",
 		gameId = "Metadata/Items/Gems/SupportGemStun",
-		variantId = "StunSupport",
+		variantId = "SupportStun",
 		grantedEffectId = "SupportStun",
 		tags = {
 			strength = true,
@@ -1703,10 +1697,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemPierceSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportPierce"] = {
 		name = "Pierce",
 		gameId = "Metadata/Items/Gems/SupportGemPierce",
-		variantId = "PierceSupport",
+		variantId = "SupportPierce",
 		grantedEffectId = "SupportPierce",
 		tags = {
 			dexterity = true,
@@ -1719,10 +1713,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemTrapSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportTrap"] = {
 		name = "Trap",
 		gameId = "Metadata/Items/Gems/SupportGemTrap",
-		variantId = "TrapSupport",
+		variantId = "SupportTrap",
 		grantedEffectId = "SupportTrap",
 		tags = {
 			dexterity = true,
@@ -1982,12 +1976,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemNewPhaseRun"] = {
+	["Metadata/Items/Gems/SkillGemPhaseRun"] = {
 		name = "Phase Run",
 		baseTypeName = "Phase Run",
 		gameId = "Metadata/Items/Gems/SkillGemNewPhaseRun",
-		variantId = "NewPhaseRun",
-		grantedEffectId = "NewPhaseRun",
+		variantId = "PhaseRun",
+		grantedEffectId = "PhaseRun",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -2003,10 +1997,31 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemMeleePhysicalDamageSupport"] = {
+	["Metadata/Items/Gems/SkillGemPhaseRun"] = {
+		name = "Phase Run",
+		baseTypeName = "Phase Run",
+		gameId = "Metadata/Items/Gems/SkillGemPhaseRun",
+		variantId = "PhaseRun",
+		grantedEffectId = "PhaseRun",
+		tags = {
+			dexterity = true,
+			grants_active_skill = true,
+			spell = true,
+			duration = true,
+			movement = true,
+			physical = true,
+			travel = true,
+		},
+		tagString = "Spell, Duration, Movement, Physical, Travel",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemSupportMeleePhysicalDamage"] = {
 		name = "Melee Physical Damage",
 		gameId = "Metadata/Items/Gems/SupportGemMeleePhysicalDamage",
-		variantId = "MeleePhysicalDamageSupport",
+		variantId = "SupportMeleePhysicalDamage",
 		grantedEffectId = "SupportMeleePhysicalDamage",
 		tags = {
 			melee = true,
@@ -2021,10 +2036,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemItemQuantitySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportItemQuantity"] = {
 		name = "Item Quantity",
 		gameId = "Metadata/Items/Gems/SupportGemItemQuantity",
-		variantId = "ItemQuantitySupport",
+		variantId = "SupportItemQuantity",
 		grantedEffectId = "SupportItemQuantity",
 		tags = {
 			strength = true,
@@ -2036,10 +2051,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemItemRaritySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportItemRarity"] = {
 		name = "Item Rarity",
 		gameId = "Metadata/Items/Gems/SupportGemItemRarity",
-		variantId = "ItemRaritySupport",
+		variantId = "SupportItemRarity",
 		grantedEffectId = "SupportItemRarity",
 		tags = {
 			intelligence = true,
@@ -2051,11 +2066,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFasterCastSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportFasterCasting"] = {
 		name = "Faster Casting",
 		gameId = "Metadata/Items/Gems/SupportGemFasterCast",
-		variantId = "FasterCastSupport",
-		grantedEffectId = "SupportFasterCast",
+		variantId = "SupportFasterCasting",
+		grantedEffectId = "SupportFasterCasting",
 		tags = {
 			intelligence = true,
 			support = true,
@@ -2192,11 +2207,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCriticalWeakness"] = {
+	["Metadata/Items/Gems/SkillGemAssassinsMark"] = {
 		name = "Assassin's Mark",
 		baseTypeName = "Assassin's Mark",
 		gameId = "Metadata/Items/Gems/SkillGemCriticalWeakness",
-		variantId = "CriticalWeakness",
+		variantId = "AssassinsMark",
 		grantedEffectId = "AssassinsMark",
 		tags = {
 			critical = true,
@@ -2212,11 +2227,11 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemProjectileWeakness"] = {
+	["Metadata/Items/Gems/SkillGemSnipersMark"] = {
 		name = "Sniper's Mark",
 		baseTypeName = "Sniper's Mark",
 		gameId = "Metadata/Items/Gems/SkillGemProjectileWeakness",
-		variantId = "ProjectileWeakness",
+		variantId = "SnipersMark",
 		grantedEffectId = "SnipersMark",
 		tags = {
 			dexterity = true,
@@ -2231,11 +2246,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemVulnerability"] = {
+	["Metadata/Items/Gems/SkillGemDespair"] = {
 		name = "Despair",
 		baseTypeName = "Despair",
 		gameId = "Metadata/Items/Gems/SkillGemVulnerability",
-		variantId = "Vulnerability",
+		variantId = "Despair",
 		grantedEffectId = "Despair",
 		tags = {
 			intelligence = true,
@@ -2321,7 +2336,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonSkeletonsAltX"] = {
 		name = "Summon Skeletons of Archers",
-		baseTypeName = "Summon Skeletons of Archery",
+		baseTypeName = "Summon Skeletons of Archers",
 		gameId = "Metadata/Items/Gems/SkillGemSummonSkeletons",
 		variantId = "SummonSkeletonsAltX",
 		grantedEffectId = "SummonSkeletonsAltX",
@@ -2340,7 +2355,7 @@ return {
 	},
 	["Metadata/Items/Gems/SkillGemSummonSkeletonsAltY"] = {
 		name = "Summon Skeletons of Mages",
-		baseTypeName = "Summon Skeletons of Sorcery",
+		baseTypeName = "Summon Skeletons of Mages",
 		gameId = "Metadata/Items/Gems/SkillGemSummonSkeletons",
 		variantId = "SummonSkeletonsAltY",
 		grantedEffectId = "SummonSkeletonsAltY",
@@ -2386,6 +2401,25 @@ return {
 		gameId = "Metadata/Items/Gems/SkillGemHeavyStrike",
 		variantId = "HeavyStrike",
 		grantedEffectId = "HeavyStrike",
+		tags = {
+			strength = true,
+			grants_active_skill = true,
+			attack = true,
+			melee = true,
+			strike = true,
+		},
+		tagString = "Attack, Melee, Strike",
+		reqStr = 100,
+		reqDex = 0,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemHeavyStrikeAltY"] = {
+		name = "Heavy Strike of Trarthus",
+		baseTypeName = "Heavy Strike of Trarthus",
+		gameId = "Metadata/Items/Gems/SkillGemHeavyStrike",
+		variantId = "HeavyStrikeAltY",
+		grantedEffectId = "HeavyStrikeAltY",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -2524,10 +2558,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemConcentratedEffectSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportConcentratedEffect"] = {
 		name = "Concentrated Effect",
 		gameId = "Metadata/Items/Gems/SupportGemConcentratedEffect",
-		variantId = "ConcentratedEffectSupport",
+		variantId = "SupportConcentratedEffect",
 		grantedEffectId = "SupportConcentratedEffect",
 		tags = {
 			intelligence = true,
@@ -2540,10 +2574,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemMinionDamageSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportMinionDamage"] = {
 		name = "Minion Damage",
 		gameId = "Metadata/Items/Gems/SupportGemMinionDamage",
-		variantId = "MinionDamageSupport",
+		variantId = "SupportMinionDamage",
 		grantedEffectId = "SupportMinionDamage",
 		tags = {
 			intelligence = true,
@@ -2556,11 +2590,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemIncreasedDurationSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportMoreDuration"] = {
 		name = "More Duration",
 		gameId = "Metadata/Items/Gems/SupportGemIncreasedDuration",
-		variantId = "IncreasedDurationSupport",
-		grantedEffectId = "SupportIncreasedDuration",
+		variantId = "SupportMoreDuration",
+		grantedEffectId = "SupportMoreDuration",
 		tags = {
 			strength = true,
 			support = true,
@@ -2572,10 +2606,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemColdToFireSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportColdtoFire"] = {
 		name = "Cold to Fire",
 		gameId = "Metadata/Items/Gems/SupportGemColdToFire",
-		variantId = "ColdToFireSupport",
+		variantId = "SupportColdtoFire",
 		grantedEffectId = "SupportColdToFire",
 		tags = {
 			cold = true,
@@ -2589,11 +2623,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemChanceToIgniteSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportCombustion"] = {
 		name = "Combustion",
 		gameId = "Metadata/Items/Gems/SupportGemChanceToIgnite",
-		variantId = "ChanceToIgniteSupport",
-		grantedEffectId = "SupportChanceToIgnite",
+		variantId = "SupportCombustion",
+		grantedEffectId = "SupportCombustion",
 		tags = {
 			fire = true,
 			intelligence = true,
@@ -2605,10 +2639,10 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemMinionSpeedSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportMinionSpeed"] = {
 		name = "Minion Speed",
 		gameId = "Metadata/Items/Gems/SupportGemMinionSpeed",
-		variantId = "MinionSpeedSupport",
+		variantId = "SupportMinionSpeed",
 		grantedEffectId = "SupportMinionSpeed",
 		tags = {
 			movement = true,
@@ -2622,10 +2656,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemMinionLifeSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportMinionLife"] = {
 		name = "Minion Life",
 		gameId = "Metadata/Items/Gems/SupportGemMinionLife",
-		variantId = "MinionLifeSupport",
+		variantId = "SupportMinionLife",
 		grantedEffectId = "SupportMinionLife",
 		tags = {
 			intelligence = true,
@@ -2638,11 +2672,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemWeaponElementalDamageSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportElementalDamageWithAttacks"] = {
 		name = "Elemental Damage with Attacks",
 		gameId = "Metadata/Items/Gems/SupportGemWeaponElementalDamage",
-		variantId = "WeaponElementalDamageSupport",
-		grantedEffectId = "SupportWeaponElementalDamage",
+		variantId = "SupportElementalDamageWithAttacks",
+		grantedEffectId = "SupportElementalDamageWithAttacks",
 		tags = {
 			attack = true,
 			strength = true,
@@ -2654,10 +2688,10 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemBloodlustSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportBloodlust"] = {
 		name = "Bloodlust",
 		gameId = "Metadata/Items/Gems/SupportGemBloodlust",
-		variantId = "BloodlustSupport",
+		variantId = "SupportBloodlust",
 		grantedEffectId = "SupportBloodlust",
 		tags = {
 			attack = true,
@@ -2672,10 +2706,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemLifeGainOnHitSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportLifeGainOnHit"] = {
 		name = "Life Gain on Hit",
 		gameId = "Metadata/Items/Gems/SupportGemLifeGainOnHit",
-		variantId = "LifeGainOnHitSupport",
+		variantId = "SupportLifeGainOnHit",
 		grantedEffectId = "SupportLifeGainOnHit",
 		tags = {
 			attack = true,
@@ -2953,12 +2987,31 @@ return {
 			attack = true,
 			projectile = true,
 			duration = true,
-			melee = true,
-			strike = true,
 			physical = true,
 			bow = true,
 		},
-		tagString = "Attack, Projectile, Duration, Melee, Strike, Physical, Bow",
+		tagString = "Attack, Projectile, Duration, Physical, Bow",
+		reqStr = 0,
+		reqDex = 60,
+		reqInt = 40,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemPunctureAltX"] = {
+		name = "Puncture of Shanking",
+		baseTypeName = "Puncture of Shanking",
+		gameId = "Metadata/Items/Gems/SkillGemPuncture",
+		variantId = "PunctureAltX",
+		grantedEffectId = "PunctureAltX",
+		tags = {
+			dexterity = true,
+			grants_active_skill = true,
+			attack = true,
+			melee = true,
+			strike = true,
+			duration = true,
+			physical = true,
+		},
+		tagString = "Attack, Melee, Strike, Duration, Physical",
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
@@ -3047,12 +3100,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemPurity"] = {
+	["Metadata/Items/Gems/SkillGemPurityOfElements"] = {
 		name = "Purity of Elements",
 		baseTypeName = "Purity of Elements",
 		gameId = "Metadata/Items/Gems/SkillGemPurity",
-		variantId = "Purity",
-		grantedEffectId = "Purity",
+		variantId = "PurityOfElements",
+		grantedEffectId = "PurityOfElements",
 		tags = {
 			aura = true,
 			intelligence = true,
@@ -3313,10 +3366,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemElementalProliferationSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportElementalProliferation"] = {
 		name = "Elemental Proliferation",
 		gameId = "Metadata/Items/Gems/SupportGemElementalProliferation",
-		variantId = "ElementalProliferationSupport",
+		variantId = "SupportElementalProliferation",
 		grantedEffectId = "SupportElementalProliferation",
 		tags = {
 			cold = true,
@@ -3332,11 +3385,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemBloodMagicSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportArrogance"] = {
 		name = "Arrogance",
 		gameId = "Metadata/Items/Gems/SupportGemBloodMagic",
-		variantId = "BloodMagicSupport",
-		grantedEffectId = "SupportBloodMagic",
+		variantId = "SupportArrogance",
+		grantedEffectId = "SupportArrogance",
 		tags = {
 			aura = true,
 			strength = true,
@@ -3390,10 +3443,10 @@ return {
 		reqInt = 75,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCullingStrikeSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportCullingStrike"] = {
 		name = "Culling Strike",
 		gameId = "Metadata/Items/Gems/SupportGemCullingStrike",
-		variantId = "CullingStrikeSupport",
+		variantId = "SupportCullingStrike",
 		grantedEffectId = "SupportCullingStrike",
 		tags = {
 			dexterity = true,
@@ -3405,10 +3458,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemPointBlankSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportPointBlank"] = {
 		name = "Point Blank",
 		gameId = "Metadata/Items/Gems/SupportGemPointBlank",
-		variantId = "PointBlankSupport",
+		variantId = "SupportPointBlank",
 		grantedEffectId = "SupportPointBlank",
 		tags = {
 			projectile = true,
@@ -3422,10 +3475,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemIronGripSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportIronGrip"] = {
 		name = "Iron Grip",
 		gameId = "Metadata/Items/Gems/SupportGemIronGrip",
-		variantId = "IronGripSupport",
+		variantId = "SupportIronGrip",
 		grantedEffectId = "SupportIronGrip",
 		tags = {
 			projectile = true,
@@ -3439,10 +3492,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemIronWillSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportIronWill"] = {
 		name = "Iron Will",
 		gameId = "Metadata/Items/Gems/SupportGemIronWill",
-		variantId = "IronWillSupport",
+		variantId = "SupportIronWill",
 		grantedEffectId = "SupportIronWill",
 		tags = {
 			spell = true,
@@ -3455,11 +3508,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemMeleeDamageOnFullLifeSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportDamageOnFullLife"] = {
 		name = "Damage on Full Life",
 		gameId = "Metadata/Items/Gems/SupportGemMeleeDamageOnFullLife",
-		variantId = "MeleeDamageOnFullLifeSupport",
-		grantedEffectId = "SupportMeleeDamageOnFullLife",
+		variantId = "SupportDamageOnFullLife",
+		grantedEffectId = "SupportDamageOnFullLife",
 		tags = {
 			attack = true,
 			strength = true,
@@ -3471,10 +3524,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSpellTotemSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportSpellTotem"] = {
 		name = "Spell Totem",
 		gameId = "Metadata/Items/Gems/SupportGemSpellTotem",
-		variantId = "SpellTotemSupport",
+		variantId = "SupportSpellTotem",
 		grantedEffectId = "SupportSpellTotem",
 		tags = {
 			strength = true,
@@ -3488,11 +3541,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemRemoteMineSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportBlastchainMine"] = {
 		name = "Blastchain Mine",
 		gameId = "Metadata/Items/Gems/SupportGemRemoteMine",
-		variantId = "RemoteMineSupport",
-		grantedEffectId = "SupportRemoteMine",
+		variantId = "SupportBlastchainMine",
+		grantedEffectId = "SupportBlastchainMine",
 		tags = {
 			intelligence = true,
 			support = true,
@@ -3504,11 +3557,11 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemDetonateMines"] = {
+	["Metadata/Items/Gems/SkillGemGemDetonateMines"] = {
 		name = "Detonate Mines",
 		baseTypeName = "Detonate Mines",
 		gameId = "Metadata/Items/Gems/SkillGemDetonateMines",
-		variantId = "DetonateMines",
+		variantId = "GemDetonateMines",
 		grantedEffectId = "GemDetonateMines",
 		tags = {
 			low_max_level = true,
@@ -3563,12 +3616,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFreezeMine"] = {
+	["Metadata/Items/Gems/SkillGemIcicleMine"] = {
 		name = "Icicle Mine",
 		baseTypeName = "Icicle Mine",
 		gameId = "Metadata/Items/Gems/SkillGemFreezeMine",
-		variantId = "FreezeMine",
-		grantedEffectId = "ColdProjectileMine",
+		variantId = "IcicleMine",
+		grantedEffectId = "IcicleMine",
 		tags = {
 			mine = true,
 			critical = true,
@@ -3586,12 +3639,12 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFreezeMineAltX"] = {
+	["Metadata/Items/Gems/SkillGemIcicleMineAltX"] = {
 		name = "Icicle Mine of Fanning",
 		baseTypeName = "Icicle Mine of Fanning",
 		gameId = "Metadata/Items/Gems/SkillGemFreezeMine",
-		variantId = "FreezeMineAltX",
-		grantedEffectId = "ColdProjectileMineAltX",
+		variantId = "IcicleMineAltX",
+		grantedEffectId = "IcicleMineAltX",
 		tags = {
 			mine = true,
 			critical = true,
@@ -3609,12 +3662,12 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFreezeMineAltY"] = {
+	["Metadata/Items/Gems/SkillGemIcicleMineAltY"] = {
 		name = "Icicle Mine of Sabotage",
 		baseTypeName = "Icicle Mine of Sabotage",
 		gameId = "Metadata/Items/Gems/SkillGemFreezeMine",
-		variantId = "FreezeMineAltY",
-		grantedEffectId = "ColdProjectileMineAltY",
+		variantId = "IcicleMineAltY",
+		grantedEffectId = "IcicleMineAltY",
 		tags = {
 			mine = true,
 			critical = true,
@@ -3691,10 +3744,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemChanceToFleeSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportChancetoFlee"] = {
 		name = "Chance to Flee",
 		gameId = "Metadata/Items/Gems/SupportGemChanceToFlee",
-		variantId = "ChanceToFleeSupport",
+		variantId = "SupportChancetoFlee",
 		grantedEffectId = "SupportChanceToFlee",
 		tags = {
 			dexterity = true,
@@ -3843,10 +3896,10 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemBlindSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportBlind"] = {
 		name = "Blind",
 		gameId = "Metadata/Items/Gems/SupportGemBlind",
-		variantId = "BlindSupport",
+		variantId = "SupportBlind",
 		grantedEffectId = "SupportBlind",
 		tags = {
 			dexterity = true,
@@ -3900,12 +3953,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemArcticBreath"] = {
+	["Metadata/Items/Gems/SkillGemCreepingFrost"] = {
 		name = "Creeping Frost",
 		baseTypeName = "Creeping Frost",
 		gameId = "Metadata/Items/Gems/SkillGemArcticBreath",
-		variantId = "ArcticBreath",
-		grantedEffectId = "ArcticBreath",
+		variantId = "CreepingFrost",
+		grantedEffectId = "CreepingFrost",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -3982,7 +4035,7 @@ return {
 		baseTypeName = "Vaal Arc",
 		gameId = "Metadata/Items/Gems/SkillGemVaalArc",
 		variantId = "VaalArc",
-		grantedEffectId = "VaalArcChain",
+		grantedEffectId = "VaalArc",
 		secondaryGrantedEffectId = "Arc",
 		vaalGem = true,
 		tags = {
@@ -4000,11 +4053,30 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemNewArcticArmour"] = {
+	["Metadata/Items/Gems/SkillGemArcticArmour"] = {
 		name = "Arctic Armour",
 		baseTypeName = "Arctic Armour",
 		gameId = "Metadata/Items/Gems/SkillGemNewArcticArmour",
-		variantId = "NewArcticArmour",
+		variantId = "ArcticArmour",
+		grantedEffectId = "ArcticArmour",
+		tags = {
+			dexterity = true,
+			grants_active_skill = true,
+			spell = true,
+			duration = true,
+			cold = true,
+		},
+		tagString = "Spell, Duration, Cold",
+		reqStr = 0,
+		reqDex = 60,
+		reqInt = 40,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemArcticArmour"] = {
+		name = "Arctic Armour",
+		baseTypeName = "Arctic Armour",
+		gameId = "Metadata/Items/Gems/SkillGemArcticArmour",
+		variantId = "ArcticArmour",
 		grantedEffectId = "ArcticArmour",
 		tags = {
 			dexterity = true,
@@ -4041,12 +4113,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFlameTotem"] = {
+	["Metadata/Items/Gems/SkillGemHolyFlameTotem"] = {
 		name = "Holy Flame Totem",
 		baseTypeName = "Holy Flame Totem",
 		gameId = "Metadata/Items/Gems/SkillGemFlameTotem",
-		variantId = "FlameTotem",
-		grantedEffectId = "FlameTotem",
+		variantId = "HolyFlameTotem",
+		grantedEffectId = "HolyFlameTotem",
 		tags = {
 			totem = true,
 			strength = true,
@@ -4063,12 +4135,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFlameTotemAltX"] = {
+	["Metadata/Items/Gems/SkillGemHolyFlameTotemAltX"] = {
 		name = "Holy Flame Totem of Ire",
 		baseTypeName = "Holy Flame Totem of Ire",
 		gameId = "Metadata/Items/Gems/SkillGemFlameTotem",
-		variantId = "FlameTotemAltX",
-		grantedEffectId = "FlameTotemAltX",
+		variantId = "HolyFlameTotemAltX",
+		grantedEffectId = "HolyFlameTotemAltX",
 		tags = {
 			totem = true,
 			strength = true,
@@ -4085,11 +4157,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemRangedAttackTotemSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportBallistaTotem"] = {
 		name = "Ballista Totem",
 		gameId = "Metadata/Items/Gems/SupportGemRangedAttackTotem",
-		variantId = "RangedAttackTotemSupport",
-		grantedEffectId = "SupportRangedAttackTotem",
+		variantId = "SupportBallistaTotem",
+		grantedEffectId = "SupportBallistaTotem",
 		tags = {
 			bow = true,
 			projectile = true,
@@ -4103,10 +4175,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFirePenetrationSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportFirePenetration"] = {
 		name = "Fire Penetration",
 		gameId = "Metadata/Items/Gems/SupportGemFirePenetration",
-		variantId = "FirePenetrationSupport",
+		variantId = "SupportFirePenetration",
 		grantedEffectId = "SupportFirePenetration",
 		tags = {
 			fire = true,
@@ -4119,10 +4191,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemColdPenetrationSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportColdPenetration"] = {
 		name = "Cold Penetration",
 		gameId = "Metadata/Items/Gems/SupportGemColdPenetration",
-		variantId = "ColdPenetrationSupport",
+		variantId = "SupportColdPenetration",
 		grantedEffectId = "SupportColdPenetration",
 		tags = {
 			cold = true,
@@ -4135,10 +4207,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemLightningPenetrationSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportLightningPenetration"] = {
 		name = "Lightning Penetration",
 		gameId = "Metadata/Items/Gems/SupportGemLightningPenetration",
-		variantId = "LightningPenetrationSupport",
+		variantId = "SupportLightningPenetration",
 		grantedEffectId = "SupportLightningPenetration",
 		tags = {
 			lightning = true,
@@ -4151,10 +4223,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemElementalPenetrationSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportElementalPenetration"] = {
 		name = "Elemental Penetration",
 		gameId = "Metadata/Items/Gems/SupportGemElementalPenetration",
-		variantId = "ElementalPenetrationSupport",
+		variantId = "SupportElementalPenetration",
 		grantedEffectId = "SupportElementalPenetration",
 		tags = {
 			intelligence = true,
@@ -4166,10 +4238,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemChainSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportChain"] = {
 		name = "Chain",
 		gameId = "Metadata/Items/Gems/SupportGemChain",
-		variantId = "ChainSupport",
+		variantId = "SupportChain",
 		grantedEffectId = "SupportChain",
 		tags = {
 			dexterity = true,
@@ -4183,10 +4255,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemForkSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportFork"] = {
 		name = "Fork",
 		gameId = "Metadata/Items/Gems/SupportGemFork",
-		variantId = "ForkSupport",
+		variantId = "SupportFork",
 		grantedEffectId = "SupportFork",
 		tags = {
 			dexterity = true,
@@ -4199,10 +4271,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemReturningProjectilesSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportReturningProjectiles"] = {
 		name = "Returning Projectiles",
 		gameId = "Metadata/Items/Gems/SupportGemReturningProjectiles",
-		variantId = "ReturningProjectilesSupport",
+		variantId = "SupportReturningProjectiles",
 		grantedEffectId = "SupportReturningProjectiles",
 		tags = {
 			dexterity = true,
@@ -4286,7 +4358,7 @@ return {
 		baseTypeName = "Storm Burst",
 		gameId = "Metadata/Items/Gems/SkillGemStormBurst",
 		variantId = "StormBurst",
-		grantedEffectId = "StormBurstNew",
+		grantedEffectId = "StormBurst",
 		tags = {
 			area = true,
 			intelligence = true,
@@ -4308,7 +4380,7 @@ return {
 		baseTypeName = "Incinerate",
 		gameId = "Metadata/Items/Gems/SkillGemIncinerate",
 		variantId = "Incinerate",
-		grantedEffectId = "ExpandingFireCone",
+		grantedEffectId = "Incinerate",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -4328,7 +4400,7 @@ return {
 		baseTypeName = "Incinerate of Expanse",
 		gameId = "Metadata/Items/Gems/SkillGemIncinerate",
 		variantId = "IncinerateAltX",
-		grantedEffectId = "ExpandingFireConeAltX",
+		grantedEffectId = "IncinerateAltX",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -4348,7 +4420,7 @@ return {
 		baseTypeName = "Incinerate of Venting",
 		gameId = "Metadata/Items/Gems/SkillGemIncinerate",
 		variantId = "IncinerateAltY",
-		grantedEffectId = "ExpandingFireConeAltY",
+		grantedEffectId = "IncinerateAltY",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -4430,10 +4502,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemMultistrikeSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportMultistrike"] = {
 		name = "Multistrike",
 		gameId = "Metadata/Items/Gems/SupportGemMultistrike",
-		variantId = "MultistrikeSupport",
+		variantId = "SupportMultistrike",
 		grantedEffectId = "SupportMultistrike",
 		tags = {
 			attack = true,
@@ -4447,11 +4519,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemMulticastSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportSpellEcho"] = {
 		name = "Spell Echo",
 		gameId = "Metadata/Items/Gems/SupportGemMulticast",
-		variantId = "MulticastSupport",
-		grantedEffectId = "SupportMulticast",
+		variantId = "SupportSpellEcho",
+		grantedEffectId = "SupportSpellEcho",
 		tags = {
 			spell = true,
 			intelligence = true,
@@ -4463,10 +4535,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemMeleeSplashSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportMeleeSplash"] = {
 		name = "Melee Splash",
 		gameId = "Metadata/Items/Gems/SupportGemMeleeSplash",
-		variantId = "MeleeSplashSupport",
+		variantId = "SupportMeleeSplash",
 		grantedEffectId = "SupportMeleeSplash",
 		tags = {
 			strength = true,
@@ -4482,11 +4554,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemPowerChargeOnCritSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportPowerChargeOnCritical"] = {
 		name = "Power Charge On Critical",
 		gameId = "Metadata/Items/Gems/SupportGemPowerChargeOnCrit",
-		variantId = "PowerChargeOnCritSupport",
-		grantedEffectId = "SupportPowerChargeOnCrit",
+		variantId = "SupportPowerChargeOnCritical",
+		grantedEffectId = "SupportPowerChargeOnCritical",
 		tags = {
 			critical = true,
 			intelligence = true,
@@ -4517,11 +4589,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemIncreasedBurningDamageSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportBurningDamage"] = {
 		name = "Burning Damage",
 		gameId = "Metadata/Items/Gems/SupportGemIncreasedBurningDamage",
-		variantId = "IncreasedBurningDamageSupport",
-		grantedEffectId = "SupportIncreasedBurningDamage",
+		variantId = "SupportBurningDamage",
+		grantedEffectId = "SupportBurningDamage",
 		tags = {
 			fire = true,
 			strength = true,
@@ -4533,11 +4605,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSummonElementalResistanceSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportElementalArmy"] = {
 		name = "Elemental Army",
 		gameId = "Metadata/Items/Gems/SupportGemSummonElementalResistance",
-		variantId = "SummonElementalResistanceSupport",
-		grantedEffectId = "SupportSummonElementalResistances",
+		variantId = "SupportElementalArmy",
+		grantedEffectId = "SupportElementalArmy",
 		tags = {
 			intelligence = true,
 			support = true,
@@ -4549,11 +4621,11 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCurseOnHitSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportHextouch"] = {
 		name = "Hextouch",
 		gameId = "Metadata/Items/Gems/SupportGemCurseOnHit",
-		variantId = "CurseOnHitSupport",
-		grantedEffectId = "SupportCurseOnHit",
+		variantId = "SupportHextouch",
+		grantedEffectId = "SupportHextouch",
 		secondaryGrantedEffectId = "SupportCurseOnHitCurse",
 		tags = {
 			intelligence = true,
@@ -4627,11 +4699,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCastOnCritSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportCastOnCriticalStrike"] = {
 		name = "Cast On Critical Strike",
 		gameId = "Metadata/Items/Gems/SupportGemCastOnCrit",
-		variantId = "CastOnCritSupport",
-		grantedEffectId = "SupportCastOnCrit",
+		variantId = "SupportCastOnCriticalStrike",
+		grantedEffectId = "SupportCastOnCriticalStrike",
 		secondaryGrantedEffectId = "SupportCastOnCritTriggered",
 		tags = {
 			critical = true,
@@ -4646,10 +4718,10 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCastOnKillSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportCastonMeleeKill"] = {
 		name = "Cast on Melee Kill",
 		gameId = "Metadata/Items/Gems/SupportGemCastOnKill",
-		variantId = "CastOnKillSupport",
+		variantId = "SupportCastonMeleeKill",
 		grantedEffectId = "SupportCastOnMeleeKill",
 		secondaryGrantedEffectId = "SupportCastOnMeleeKillTriggered",
 		tags = {
@@ -4666,11 +4738,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemMultiTrapSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportMultipleTraps"] = {
 		name = "Multiple Traps",
 		gameId = "Metadata/Items/Gems/SupportGemMultiTrap",
-		variantId = "MultiTrapSupport",
-		grantedEffectId = "SupportMultiTrap",
+		variantId = "SupportMultipleTraps",
+		grantedEffectId = "SupportMultipleTraps",
 		tags = {
 			dexterity = true,
 			support = true,
@@ -4682,11 +4754,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemAdditionalLevelSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportEmpower"] = {
 		name = "Empower",
 		gameId = "Metadata/Items/Gems/SupportGemAdditionalLevel",
-		variantId = "AdditionalLevelSupport",
-		grantedEffectId = "SupportAdditionalLevel",
+		variantId = "SupportEmpower",
+		grantedEffectId = "SupportEmpower",
 		tags = {
 			low_max_level = true,
 			exceptional = true,
@@ -4789,11 +4861,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemEnduranceChargeOnMeleeStunSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportEnduranceChargeOnMeleeStun"] = {
 		name = "Endurance Charge on Melee Stun",
 		gameId = "Metadata/Items/Gems/SupportGemEnduranceChargeOnMeleeStun",
-		variantId = "EnduranceChargeOnMeleeStunSupport",
-		grantedEffectId = "EnduranceChargeOnMeleeStun",
+		variantId = "SupportEnduranceChargeOnMeleeStun",
+		grantedEffectId = "SupportEnduranceChargeOnMeleeStun",
 		tags = {
 			strength = true,
 			support = true,
@@ -4806,12 +4878,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemAnimateArmour"] = {
+	["Metadata/Items/Gems/SkillGemAnimateGuardian"] = {
 		name = "Animate Guardian",
 		baseTypeName = "Animate Guardian",
 		gameId = "Metadata/Items/Gems/SkillGemAnimateArmour",
-		variantId = "AnimateArmour",
-		grantedEffectId = "AnimateArmour",
+		variantId = "AnimateGuardian",
+		grantedEffectId = "AnimateGuardian",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -4824,12 +4896,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemAnimateArmourAltX"] = {
+	["Metadata/Items/Gems/SkillGemAnimateGuardianAltX"] = {
 		name = "Animate Guardian of Smiting",
 		baseTypeName = "Animate Guardian of Smiting",
 		gameId = "Metadata/Items/Gems/SkillGemAnimateArmour",
-		variantId = "AnimateArmourAltX",
-		grantedEffectId = "AnimateArmourAltX",
+		variantId = "AnimateGuardianAltX",
+		grantedEffectId = "AnimateGuardianAltX",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -4843,12 +4915,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemThrownShieldProjectile"] = {
+	["Metadata/Items/Gems/SkillGemSpectralShieldThrow"] = {
 		name = "Spectral Shield Throw",
 		baseTypeName = "Spectral Shield Throw",
 		gameId = "Metadata/Items/Gems/SkillGemThrownShieldProjectile",
-		variantId = "ThrownShieldProjectile",
-		grantedEffectId = "ThrownShield",
+		variantId = "SpectralShieldThrow",
+		grantedEffectId = "SpectralShieldThrow",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -4862,12 +4934,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemThrownShieldProjectileAltX"] = {
+	["Metadata/Items/Gems/SkillGemSpectralShieldThrowAltX"] = {
 		name = "Spectral Shield Throw of Shattering",
 		baseTypeName = "Spectral Shield Throw of Shattering",
 		gameId = "Metadata/Items/Gems/SkillGemThrownShieldProjectile",
-		variantId = "ThrownShieldProjectileAltX",
-		grantedEffectId = "ThrownShieldAltX",
+		variantId = "SpectralShieldThrowAltX",
+		grantedEffectId = "SpectralShieldThrowAltX",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -4881,12 +4953,31 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemThrownWeapon"] = {
+	["Metadata/Items/Gems/SkillGemSpectralShieldThrowAltY"] = {
+		name = "Spectral Shield Throw of Trarthus",
+		baseTypeName = "Spectral Shield Throw of Trarthus",
+		gameId = "Metadata/Items/Gems/SkillGemThrownShieldProjectile",
+		variantId = "SpectralShieldThrowAltY",
+		grantedEffectId = "SpectralShieldThrowAltY",
+		tags = {
+			dexterity = true,
+			grants_active_skill = true,
+			attack = true,
+			projectile = true,
+			physical = true,
+		},
+		tagString = "Attack, Projectile, Physical",
+		reqStr = 40,
+		reqDex = 60,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemSpectralThrow"] = {
 		name = "Spectral Throw",
 		baseTypeName = "Spectral Throw",
 		gameId = "Metadata/Items/Gems/SkillGemThrownWeapon",
-		variantId = "ThrownWeapon",
-		grantedEffectId = "ThrownWeapon",
+		variantId = "SpectralThrow",
+		grantedEffectId = "SpectralThrow",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -4899,12 +4990,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemThrownWeaponAltX"] = {
+	["Metadata/Items/Gems/SkillGemSpectralThrowAltX"] = {
 		name = "Spectral Throw of Materialising",
 		baseTypeName = "Spectral Throw of Materialising",
 		gameId = "Metadata/Items/Gems/SkillGemThrownWeapon",
-		variantId = "ThrownWeaponAltX",
-		grantedEffectId = "ThrownWeaponAltX",
+		variantId = "SpectralThrowAltX",
+		grantedEffectId = "SpectralThrowAltX",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -4917,13 +5008,32 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemVaalThrownWeapon"] = {
+	["Metadata/Items/Gems/SkillGemSpectralThrowAltY"] = {
+		name = "Spectral Throw of Trarthus",
+		baseTypeName = "Spectral Throw of Trarthus",
+		gameId = "Metadata/Items/Gems/SkillGemThrownWeapon",
+		variantId = "SpectralThrowAltY",
+		grantedEffectId = "SpectralThrowAltY",
+		tags = {
+			trap = true,
+			dexterity = true,
+			grants_active_skill = true,
+			attack = true,
+			projectile = true,
+		},
+		tagString = "Trap, Attack, Projectile",
+		reqStr = 40,
+		reqDex = 60,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemVaalSpectralThrow"] = {
 		name = "Vaal Spectral Throw",
 		baseTypeName = "Vaal Spectral Throw",
 		gameId = "Metadata/Items/Gems/SkillGemVaalThrownWeapon",
-		variantId = "VaalThrownWeapon",
-		grantedEffectId = "VaalThrownWeapon",
-		secondaryGrantedEffectId = "ThrownWeapon",
+		variantId = "VaalSpectralThrow",
+		grantedEffectId = "VaalSpectralThrow",
+		secondaryGrantedEffectId = "SpectralThrow",
 		vaalGem = true,
 		tags = {
 			dexterity = true,
@@ -4938,10 +5048,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSlowerProjectilesSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportSlowerProjectiles"] = {
 		name = "Slower Projectiles",
 		gameId = "Metadata/Items/Gems/SupportGemSlowerProjectiles",
-		variantId = "SlowerProjectilesSupport",
+		variantId = "SupportSlowerProjectiles",
 		grantedEffectId = "SupportSlowerProjectiles",
 		tags = {
 			dexterity = true,
@@ -4954,11 +5064,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemReducedDurationSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportLessDuration"] = {
 		name = "Less Duration",
 		gameId = "Metadata/Items/Gems/SupportGemReducedDuration",
-		variantId = "ReducedDurationSupport",
-		grantedEffectId = "SupportReducedDuration",
+		variantId = "SupportLessDuration",
+		grantedEffectId = "SupportLessDuration",
 		tags = {
 			strength = true,
 			support = true,
@@ -4970,10 +5080,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCastOnDeathSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportCastOnDeath"] = {
 		name = "Cast on Death",
 		gameId = "Metadata/Items/Gems/SupportGemCastOnDeath",
-		variantId = "CastOnDeathSupport",
+		variantId = "SupportCastOnDeath",
 		grantedEffectId = "SupportCastOnDeath",
 		tags = {
 			dexterity = true,
@@ -4987,11 +5097,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCastOnDamageTakenSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportCastWhenDamageTaken"] = {
 		name = "Cast when Damage Taken",
 		gameId = "Metadata/Items/Gems/SupportGemCastOnDamageTaken",
-		variantId = "CastOnDamageTakenSupport",
-		grantedEffectId = "SupportCastOnDamageTaken",
+		variantId = "SupportCastWhenDamageTaken",
+		grantedEffectId = "SupportCastWhenDamageTaken",
 		tags = {
 			strength = true,
 			support = true,
@@ -5004,11 +5114,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCastOnStunnedSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportCastWhenStunned"] = {
 		name = "Cast when Stunned",
 		gameId = "Metadata/Items/Gems/SupportGemCastOnStunned",
-		variantId = "CastOnStunnedSupport",
-		grantedEffectId = "SupportCastOnStunned",
+		variantId = "SupportCastWhenStunned",
+		grantedEffectId = "SupportCastWhenStunned",
 		tags = {
 			intelligence = true,
 			support = true,
@@ -5080,11 +5190,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemAdditionalQualitySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportEnhance"] = {
 		name = "Enhance",
 		gameId = "Metadata/Items/Gems/SupportGemAdditionalQuality",
-		variantId = "AdditionalQualitySupport",
-		grantedEffectId = "SupportAdditionalQuality",
+		variantId = "SupportEnhance",
+		grantedEffectId = "SupportEnhance",
 		tags = {
 			low_max_level = true,
 			exceptional = true,
@@ -5097,12 +5207,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 3,
 	},
-	["Metadata/Items/Gems/SkillGemFireResistAura"] = {
+	["Metadata/Items/Gems/SkillGemPurityOfFire"] = {
 		name = "Purity of Fire",
 		baseTypeName = "Purity of Fire",
 		gameId = "Metadata/Items/Gems/SkillGemFireResistAura",
-		variantId = "FireResistAura",
-		grantedEffectId = "FireResistAura",
+		variantId = "PurityOfFire",
+		grantedEffectId = "PurityOfFire",
 		tags = {
 			aura = true,
 			strength = true,
@@ -5117,13 +5227,13 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemVaalFireResistAura"] = {
+	["Metadata/Items/Gems/SkillGemVaalImpurityOfFire"] = {
 		name = "Vaal Impurity of Fire",
 		baseTypeName = "Vaal Impurity of Fire",
 		gameId = "Metadata/Items/Gems/SkillGemVaalFireResistAura",
-		variantId = "VaalFireResistAura",
-		grantedEffectId = "FireImpurity",
-		secondaryGrantedEffectId = "FireResistAura",
+		variantId = "VaalImpurityOfFire",
+		grantedEffectId = "VaalImpurityOfFire",
+		secondaryGrantedEffectId = "PurityOfFire",
 		vaalGem = true,
 		tags = {
 			aura = true,
@@ -5141,12 +5251,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemColdResistAura"] = {
+	["Metadata/Items/Gems/SkillGemPurityOfIce"] = {
 		name = "Purity of Ice",
 		baseTypeName = "Purity of Ice",
 		gameId = "Metadata/Items/Gems/SkillGemColdResistAura",
-		variantId = "ColdResistAura",
-		grantedEffectId = "ColdResistAura",
+		variantId = "PurityOfIce",
+		grantedEffectId = "PurityOfIce",
 		tags = {
 			aura = true,
 			dexterity = true,
@@ -5161,13 +5271,13 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemVaalColdResistAura"] = {
+	["Metadata/Items/Gems/SkillGemVaalImpurityOfIce"] = {
 		name = "Vaal Impurity of Ice",
 		baseTypeName = "Vaal Impurity of Ice",
 		gameId = "Metadata/Items/Gems/SkillGemVaalColdResistAura",
-		variantId = "VaalColdResistAura",
-		grantedEffectId = "ColdImpurity",
-		secondaryGrantedEffectId = "ColdResistAura",
+		variantId = "VaalImpurityOfIce",
+		grantedEffectId = "VaalImpurityOfIce",
+		secondaryGrantedEffectId = "PurityOfIce",
 		vaalGem = true,
 		tags = {
 			aura = true,
@@ -5185,12 +5295,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemLightningResistAura"] = {
+	["Metadata/Items/Gems/SkillGemPurityOfLightning"] = {
 		name = "Purity of Lightning",
 		baseTypeName = "Purity of Lightning",
 		gameId = "Metadata/Items/Gems/SkillGemLightningResistAura",
-		variantId = "LightningResistAura",
-		grantedEffectId = "LightningResistAura",
+		variantId = "PurityOfLightning",
+		grantedEffectId = "PurityOfLightning",
 		tags = {
 			aura = true,
 			intelligence = true,
@@ -5205,13 +5315,13 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemVaalLightningResistAura"] = {
+	["Metadata/Items/Gems/SkillGemVaalImpurityOfLightning"] = {
 		name = "Vaal Impurity of Lightning",
 		baseTypeName = "Vaal Impurity of Lightning",
 		gameId = "Metadata/Items/Gems/SkillGemVaalLightningResistAura",
-		variantId = "VaalLightningResistAura",
-		grantedEffectId = "LightningImpurity",
-		secondaryGrantedEffectId = "LightningResistAura",
+		variantId = "VaalImpurityOfLightning",
+		grantedEffectId = "VaalImpurityOfLightning",
+		secondaryGrantedEffectId = "PurityOfLightning",
 		vaalGem = true,
 		tags = {
 			aura = true,
@@ -5244,6 +5354,26 @@ return {
 			lightning = true,
 		},
 		tagString = "Spell, AoE, Duration, Lightning",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemStormCallAltX"] = {
+		name = "Storm Call of Trarthus",
+		baseTypeName = "Storm Call of Trarthus",
+		gameId = "Metadata/Items/Gems/SkillGemStormCall",
+		variantId = "StormCallAltX",
+		grantedEffectId = "StormCallAltX",
+		tags = {
+			intelligence = true,
+			grants_active_skill = true,
+			spell = true,
+			area = true,
+			duration = true,
+			physical = true,
+		},
+		tagString = "Spell, AoE, Duration, Physical",
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
@@ -5453,11 +5583,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemPhysicalProjectileAttackDamageSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportViciousProjectiles"] = {
 		name = "Vicious Projectiles",
 		gameId = "Metadata/Items/Gems/SupportGemPhysicalProjectileAttackDamage",
-		variantId = "PhysicalProjectileAttackDamageSupport",
-		grantedEffectId = "SupportPhysicalProjectileAttackDamage",
+		variantId = "SupportViciousProjectiles",
+		grantedEffectId = "SupportViciousProjectiles",
 		tags = {
 			projectile = true,
 			attack = true,
@@ -5512,12 +5642,12 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFlameWhip"] = {
+	["Metadata/Items/Gems/SkillGemFlameSurge"] = {
 		name = "Flame Surge",
 		baseTypeName = "Flame Surge",
 		gameId = "Metadata/Items/Gems/SkillGemFlameWhip",
-		variantId = "FlameWhip",
-		grantedEffectId = "FlameWhip",
+		variantId = "FlameSurge",
+		grantedEffectId = "FlameSurge",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -5532,12 +5662,12 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFlameWhipAltX"] = {
+	["Metadata/Items/Gems/SkillGemFlameSurgeAltX"] = {
 		name = "Flame Surge of Combusting",
 		baseTypeName = "Flame Surge of Combusting",
 		gameId = "Metadata/Items/Gems/SkillGemFlameWhip",
-		variantId = "FlameWhipAltX",
-		grantedEffectId = "FlameWhipAltX",
+		variantId = "FlameSurgeAltX",
+		grantedEffectId = "FlameSurgeAltX",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -5552,11 +5682,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemAdditionalXPSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportEnlighten"] = {
 		name = "Enlighten",
 		gameId = "Metadata/Items/Gems/SupportGemAdditionalXP",
-		variantId = "AdditionalXPSupport",
-		grantedEffectId = "SupportAdditionalXP",
+		variantId = "SupportEnlighten",
+		grantedEffectId = "SupportEnlighten",
 		tags = {
 			low_max_level = true,
 			exceptional = true,
@@ -5686,11 +5816,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemBlockChanceReductionSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportBlockChanceReduction"] = {
 		name = "Block Chance Reduction",
 		gameId = "Metadata/Items/Gems/SupportGemBlockChanceReduction",
-		variantId = "BlockChanceReductionSupport",
-		grantedEffectId = "SupportBlockReduction",
+		variantId = "SupportBlockChanceReduction",
+		grantedEffectId = "SupportBlockChanceReduction",
 		tags = {
 			dexterity = true,
 			support = true,
@@ -5746,12 +5876,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemConvocationNew"] = {
+	["Metadata/Items/Gems/SkillGemConvocation"] = {
 		name = "Convocation",
 		baseTypeName = "Convocation",
 		gameId = "Metadata/Items/Gems/SkillGemConvocationNew",
-		variantId = "ConvocationNew",
-		grantedEffectId = "ConvocationNew",
+		variantId = "Convocation",
+		grantedEffectId = "Convocation",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -5765,12 +5895,12 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 1,
 	},
-	["Metadata/Items/Gems/SkillGemFireNovaMine"] = {
+	["Metadata/Items/Gems/SkillGemPyroclastMine"] = {
 		name = "Pyroclast Mine",
 		baseTypeName = "Pyroclast Mine",
 		gameId = "Metadata/Items/Gems/SkillGemFireNovaMine",
-		variantId = "FireNovaMine",
-		grantedEffectId = "MortarBarrageMine",
+		variantId = "PyroclastMine",
+		grantedEffectId = "PyroclastMine",
 		tags = {
 			mine = true,
 			intelligence = true,
@@ -5788,12 +5918,12 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFireNovaMineAltX"] = {
+	["Metadata/Items/Gems/SkillGemPyroclastMineAltX"] = {
 		name = "Pyroclast Mine of Sabotage",
 		baseTypeName = "Pyroclast Mine of Sabotage",
 		gameId = "Metadata/Items/Gems/SkillGemFireNovaMine",
-		variantId = "FireNovaMineAltX",
-		grantedEffectId = "MortarBarrageMineAltX",
+		variantId = "PyroclastMineAltX",
+		grantedEffectId = "PyroclastMineAltX",
 		tags = {
 			mine = true,
 			intelligence = true,
@@ -5849,10 +5979,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemGenerositySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportGenerosity"] = {
 		name = "Generosity",
 		gameId = "Metadata/Items/Gems/SupportGemGenerosity",
-		variantId = "GenerositySupport",
+		variantId = "SupportGenerosity",
 		grantedEffectId = "SupportGenerosity",
 		tags = {
 			strength = true,
@@ -5994,7 +6124,7 @@ return {
 		baseTypeName = "Lightning Tendrils",
 		gameId = "Metadata/Items/Gems/SkillGemLightningTendrils",
 		variantId = "LightningTendrils",
-		grantedEffectId = "LightningTendrilsChannelled",
+		grantedEffectId = "LightningTendrils",
 		tags = {
 			critical = true,
 			intelligence = true,
@@ -6015,7 +6145,7 @@ return {
 		baseTypeName = "Lightning Tendrils of Eccentricity",
 		gameId = "Metadata/Items/Gems/SkillGemLightningTendrils",
 		variantId = "LightningTendrilsAltX",
-		grantedEffectId = "LightningTendrilsChannelledAltX",
+		grantedEffectId = "LightningTendrilsAltX",
 		tags = {
 			critical = true,
 			intelligence = true,
@@ -6036,7 +6166,7 @@ return {
 		baseTypeName = "Lightning Tendrils of Escalation",
 		gameId = "Metadata/Items/Gems/SkillGemLightningTendrils",
 		variantId = "LightningTendrilsAltY",
-		grantedEffectId = "LightningTendrilsChannelledAltY",
+		grantedEffectId = "LightningTendrilsAltY",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -6051,12 +6181,33 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
+	["Metadata/Items/Gems/SkillGemLightningTendrils"] = {
+		name = "Lightning Tendrils",
+		baseTypeName = "Lightning Tendrils",
+		gameId = "Metadata/Items/Gems/SkillGemLightningTendrilsChannelled",
+		variantId = "LightningTendrils",
+		grantedEffectId = "LightningTendrils",
+		tags = {
+			critical = true,
+			intelligence = true,
+			grants_active_skill = true,
+			spell = true,
+			area = true,
+			lightning = true,
+			channelling = true,
+		},
+		tagString = "Critical, Spell, AoE, Lightning, Channelling",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		naturalMaxLevel = 1,
+	},
 	["Metadata/Items/Gems/SkillGemKineticBlast"] = {
 		name = "Kinetic Blast",
 		baseTypeName = "Kinetic Blast",
 		gameId = "Metadata/Items/Gems/SkillGemKineticBlast",
 		variantId = "KineticBlast",
-		grantedEffectId = "ClusterBurst",
+		grantedEffectId = "KineticBlast",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -6075,7 +6226,7 @@ return {
 		baseTypeName = "Kinetic Blast of Clustering",
 		gameId = "Metadata/Items/Gems/SkillGemKineticBlast",
 		variantId = "KineticBlastAltX",
-		grantedEffectId = "ClusterBurstAltX",
+		grantedEffectId = "KineticBlastAltX",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -6224,45 +6375,66 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemRiposte"] = {
-		name = "Riposte",
-		baseTypeName = "Riposte",
+	["Metadata/Items/Gems/SkillGemGlacialShieldSwipe"] = {
+		name = "Glacial Shield Swipe",
+		baseTypeName = "Glacial Shield Swipe",
 		gameId = "Metadata/Items/Gems/SkillGemRiposte",
-		variantId = "Riposte",
-		grantedEffectId = "Riposte",
+		variantId = "GlacialShieldSwipe",
+		grantedEffectId = "GlacialShieldSwipe",
 		tags = {
-			trigger = true,
 			dexterity = true,
 			grants_active_skill = true,
 			attack = true,
-			melee = true,
-			strike = true,
+			area = true,
+			cold = true,
 			physical = true,
+			retaliation = true,
+			melee = true,
 		},
-		tagString = "Trigger, Attack, Melee, Strike, Physical",
-		reqStr = 0,
-		reqDex = 100,
+		tagString = "Attack, AoE, Cold, Physical, Retaliation, Melee",
+		reqStr = 40,
+		reqDex = 60,
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemReckoning"] = {
-		name = "Reckoning",
-		baseTypeName = "Reckoning",
+	["Metadata/Items/Gems/SkillGemSwordstorm"] = {
+		name = "Swordstorm",
+		baseTypeName = "Swordstorm",
 		gameId = "Metadata/Items/Gems/SkillGemReckoning",
-		variantId = "Reckoning",
-		grantedEffectId = "Reckoning",
+		variantId = "Swordstorm",
+		grantedEffectId = "Swordstorm",
 		tags = {
-			trigger = true,
 			strength = true,
 			grants_active_skill = true,
 			attack = true,
 			area = true,
+			retaliation = true,
+			melee = true,
+		},
+		tagString = "Attack, AoE, Retaliation, Melee",
+		reqStr = 60,
+		reqDex = 40,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemEviscerate"] = {
+		name = "Eviscerate",
+		baseTypeName = "Eviscerate",
+		gameId = "Metadata/Items/Gems/SkillGemEviscerate",
+		variantId = "Eviscerate",
+		grantedEffectId = "Eviscerate",
+		tags = {
+			strength = true,
+			grants_active_skill = true,
+			attack = true,
+			area = true,
+			retaliation = true,
 			physical = true,
 			melee = true,
 		},
-		tagString = "Trigger, Attack, AoE, Physical, Melee",
-		reqStr = 100,
-		reqDex = 0,
+		tagString = "Attack, AoE, Retaliation, Physical, Melee",
+		reqStr = 60,
+		reqDex = 40,
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
@@ -6289,10 +6461,10 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemPhysicalToLightningSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportPhysicalToLightning"] = {
 		name = "Physical to Lightning",
 		gameId = "Metadata/Items/Gems/SupportGemPhysicalToLightning",
-		variantId = "PhysicalToLightningSupport",
+		variantId = "SupportPhysicalToLightning",
 		grantedEffectId = "SupportPhysicalToLightning",
 		tags = {
 			lightning = true,
@@ -6306,22 +6478,63 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemVengeance"] = {
-		name = "Vengeance",
-		baseTypeName = "Vengeance",
+	["Metadata/Items/Gems/SkillGemCrushingFist"] = {
+		name = "Crushing Fist",
+		baseTypeName = "Crushing Fist",
 		gameId = "Metadata/Items/Gems/SkillGemVengeance",
-		variantId = "Vengeance",
-		grantedEffectId = "Vengeance",
+		variantId = "CrushingFist",
+		grantedEffectId = "CrushingFist",
 		tags = {
-			trigger = true,
 			strength = true,
 			grants_active_skill = true,
 			attack = true,
+			slam = true,
 			area = true,
-			physical = true,
+			retaliation = true,
 			melee = true,
 		},
-		tagString = "Trigger, Attack, AoE, Physical, Melee",
+		tagString = "Attack, Slam, AoE, Retaliation, Melee",
+		reqStr = 100,
+		reqDex = 0,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemDivineRetribution"] = {
+		name = "Divine Retribution",
+		baseTypeName = "Divine Retribution",
+		gameId = "Metadata/Items/Gems/SkillGemDivineRetribution",
+		variantId = "DivineRetribution",
+		grantedEffectId = "DivineRetribution",
+		tags = {
+			intelligence = true,
+			grants_active_skill = true,
+			spell = true,
+			area = true,
+			lightning = true,
+			physical = true,
+			retaliation = true,
+		},
+		tagString = "Spell, AoE, Lightning, Physical, Retaliation",
+		reqStr = 40,
+		reqDex = 0,
+		reqInt = 60,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemVengefulCry"] = {
+		name = "Vengeful Cry",
+		baseTypeName = "Vengeful Cry",
+		gameId = "Metadata/Items/Gems/SkillGemVengefulCry",
+		variantId = "VengefulCry",
+		grantedEffectId = "VengefulCry",
+		tags = {
+			warcry = true,
+			strength = true,
+			grants_active_skill = true,
+			area = true,
+			duration = true,
+			retaliation = true,
+		},
+		tagString = "Warcry, AoE, Duration, Retaliation",
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
@@ -6453,7 +6666,7 @@ return {
 		baseTypeName = "Summon Flame Golem",
 		gameId = "Metadata/Items/Gems/SkillGemSummonFlameGolem",
 		variantId = "SummonFlameGolem",
-		grantedEffectId = "SummonFireGolem",
+		grantedEffectId = "SummonFlameGolem",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -6473,7 +6686,7 @@ return {
 		baseTypeName = "Summon Flame Golem of Hordes",
 		gameId = "Metadata/Items/Gems/SkillGemSummonFlameGolem",
 		variantId = "SummonFlameGolemAltX",
-		grantedEffectId = "SummonFireGolemAltX",
+		grantedEffectId = "SummonFlameGolemAltX",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -6493,7 +6706,7 @@ return {
 		baseTypeName = "Summon Flame Golem of the Meteor",
 		gameId = "Metadata/Items/Gems/SkillGemSummonFlameGolem",
 		variantId = "SummonFlameGolemAltY",
-		grantedEffectId = "SummonFireGolemAltY",
+		grantedEffectId = "SummonFlameGolemAltY",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -6548,10 +6761,10 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemBlasphemySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportBlasphemy"] = {
 		name = "Blasphemy",
 		gameId = "Metadata/Items/Gems/SupportGemBlasphemy",
-		variantId = "BlasphemySupport",
+		variantId = "SupportBlasphemy",
 		grantedEffectId = "SupportBlasphemy",
 		tags = {
 			intelligence = true,
@@ -6626,13 +6839,13 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemAbyssalCry"] = {
+	["Metadata/Items/Gems/SkillGemInfernalCry"] = {
 		name = "Infernal Cry",
 		baseTypeName = "Infernal Cry",
 		gameId = "Metadata/Items/Gems/SkillGemAbyssalCry",
-		variantId = "AbyssalCry",
-		grantedEffectId = "AbyssalCry",
-		secondaryGrantedEffectId = "InfernalCryOnHitExplosion",
+		variantId = "InfernalCry",
+		grantedEffectId = "InfernalCry",
+		secondaryGrantedEffectId = "Combust",
 		tags = {
 			warcry = true,
 			strength = true,
@@ -6711,10 +6924,10 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFortifySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportFortify"] = {
 		name = "Fortify",
 		gameId = "Metadata/Items/Gems/SupportGemFortify",
-		variantId = "FortifySupport",
+		variantId = "SupportFortify",
 		grantedEffectId = "SupportFortify",
 		tags = {
 			attack = true,
@@ -6771,11 +6984,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFrenzyChargeOnSlayingFrozenEnemySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportIceBite"] = {
 		name = "Ice Bite",
 		gameId = "Metadata/Items/Gems/SupportGemFrenzyChargeOnSlayingFrozenEnemy",
-		variantId = "FrenzyChargeOnSlayingFrozenEnemySupport",
-		grantedEffectId = "SupportFrenzyChargeOnSlayingFrozenEnemy",
+		variantId = "SupportIceBite",
+		grantedEffectId = "SupportIceBite",
 		tags = {
 			cold = true,
 			dexterity = true,
@@ -6787,11 +7000,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemDamageAgainstChilledSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportHypothermia"] = {
 		name = "Hypothermia",
 		gameId = "Metadata/Items/Gems/SupportGemDamageAgainstChilled",
-		variantId = "DamageAgainstChilledSupport",
-		grantedEffectId = "SupportDamageAgainstChilled",
+		variantId = "SupportHypothermia",
+		grantedEffectId = "SupportHypothermia",
 		tags = {
 			cold = true,
 			dexterity = true,
@@ -6803,11 +7016,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemOnslaughtOnSlayingShockedEnemySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportInnervate"] = {
 		name = "Innervate",
 		gameId = "Metadata/Items/Gems/SupportGemOnslaughtOnSlayingShockedEnemy",
-		variantId = "OnslaughtOnSlayingShockedEnemySupport",
-		grantedEffectId = "SupportOnslaughtOnSlayingShockedEnemy",
+		variantId = "SupportInnervate",
+		grantedEffectId = "SupportInnervate",
 		tags = {
 			lightning = true,
 			intelligence = true,
@@ -6820,12 +7033,12 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemMagmaOrb"] = {
+	["Metadata/Items/Gems/SkillGemRollingMagma"] = {
 		name = "Rolling Magma",
 		baseTypeName = "Rolling Magma",
 		gameId = "Metadata/Items/Gems/SkillGemMagmaOrb",
-		variantId = "MagmaOrb",
-		grantedEffectId = "MagmaOrb",
+		variantId = "RollingMagma",
+		grantedEffectId = "RollingMagma",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -6841,10 +7054,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemTrapAndMineDamageSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportTrapAndMineDamage"] = {
 		name = "Trap and Mine Damage",
 		gameId = "Metadata/Items/Gems/SupportGemTrapAndMineDamage",
-		variantId = "TrapAndMineDamageSupport",
+		variantId = "SupportTrapAndMineDamage",
 		grantedEffectId = "SupportTrapAndMineDamage",
 		tags = {
 			dexterity = true,
@@ -6971,12 +7184,34 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemShrapnelShot"] = {
+	["Metadata/Items/Gems/SkillGemBlastRainAltX"] = {
+		name = "Blast Rain of Trarthus",
+		baseTypeName = "Blast Rain of Trarthus",
+		gameId = "Metadata/Items/Gems/SkillGemBlastRain",
+		variantId = "BlastRainAltX",
+		grantedEffectId = "BlastRainAltX",
+		tags = {
+			fire = true,
+			dexterity = true,
+			grants_active_skill = true,
+			attack = true,
+			area = true,
+			projectile = true,
+			duration = true,
+			bow = true,
+		},
+		tagString = "Fire, Attack, AoE, Projectile, Duration, Bow",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemGalvanicArrow"] = {
 		name = "Galvanic Arrow",
 		baseTypeName = "Galvanic Arrow",
 		gameId = "Metadata/Items/Gems/SkillGemShrapnelShot",
-		variantId = "ShrapnelShot",
-		grantedEffectId = "ShrapnelShot",
+		variantId = "GalvanicArrow",
+		grantedEffectId = "GalvanicArrow",
 		tags = {
 			lightning = true,
 			dexterity = true,
@@ -6992,12 +7227,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemShrapnelShotAltX"] = {
+	["Metadata/Items/Gems/SkillGemGalvanicArrowAltX"] = {
 		name = "Galvanic Arrow of Energy",
 		baseTypeName = "Galvanic Arrow of Energy",
 		gameId = "Metadata/Items/Gems/SkillGemShrapnelShot",
-		variantId = "ShrapnelShotAltX",
-		grantedEffectId = "ShrapnelShotAltX",
+		variantId = "GalvanicArrowAltX",
+		grantedEffectId = "GalvanicArrowAltX",
 		tags = {
 			lightning = true,
 			dexterity = true,
@@ -7012,12 +7247,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemShrapnelShotAltY"] = {
+	["Metadata/Items/Gems/SkillGemGalvanicArrowAltY"] = {
 		name = "Galvanic Arrow of Surging",
 		baseTypeName = "Galvanic Arrow of Surging",
 		gameId = "Metadata/Items/Gems/SkillGemShrapnelShot",
-		variantId = "ShrapnelShotAltY",
-		grantedEffectId = "ShrapnelShotAltY",
+		variantId = "GalvanicArrowAltY",
+		grantedEffectId = "GalvanicArrowAltY",
 		tags = {
 			lightning = true,
 			dexterity = true,
@@ -7088,6 +7323,27 @@ return {
 			physical = true,
 		},
 		tagString = "Critical, Spell, AoE, Physical",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemBladefallAltZ"] = {
+		name = "Bladefall of Trarthus",
+		baseTypeName = "Bladefall of Trarthus",
+		gameId = "Metadata/Items/Gems/SkillGemBladefall",
+		variantId = "BladefallAltZ",
+		grantedEffectId = "BladefallAltZ",
+		tags = {
+			dexterity = true,
+			grants_active_skill = true,
+			spell = true,
+			area = true,
+			physical = true,
+			arcane = true,
+			duration = true,
+		},
+		tagString = "Spell, AoE, Physical, Arcane, Duration",
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
@@ -7258,6 +7514,26 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
+	["Metadata/Items/Gems/SkillGemSiegeBallistaAltY"] = {
+		name = "Siege Ballista of Trarthus",
+		baseTypeName = "Siege Ballista of Trarthus",
+		gameId = "Metadata/Items/Gems/SkillGemSiegeBallista",
+		variantId = "SiegeBallistaAltY",
+		grantedEffectId = "SiegeBallistaAltY",
+		tags = {
+			dexterity = true,
+			grants_active_skill = true,
+			attack = true,
+			projectile = true,
+			totem = true,
+			bow = true,
+		},
+		tagString = "Attack, Projectile, Totem, Bow",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
 	["Metadata/Items/Gems/SkillGemOrbOfStorms"] = {
 		name = "Orb of Storms",
 		baseTypeName = "Orb of Storms",
@@ -7279,12 +7555,12 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSummonRockGolem"] = {
+	["Metadata/Items/Gems/SkillGemSummonStoneGolem"] = {
 		name = "Summon Stone Golem",
 		baseTypeName = "Summon Stone Golem",
 		gameId = "Metadata/Items/Gems/SkillGemSummonRockGolem",
-		variantId = "SummonRockGolem",
-		grantedEffectId = "SummonRockGolem",
+		variantId = "SummonStoneGolem",
+		grantedEffectId = "SummonStoneGolem",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -7299,12 +7575,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSummonRockGolemAltX"] = {
+	["Metadata/Items/Gems/SkillGemSummonStoneGolemAltX"] = {
 		name = "Summon Stone Golem of Hordes",
 		baseTypeName = "Summon Stone Golem of Hordes",
 		gameId = "Metadata/Items/Gems/SkillGemSummonRockGolem",
-		variantId = "SummonRockGolemAltX",
-		grantedEffectId = "SummonRockGolemAltX",
+		variantId = "SummonStoneGolemAltX",
+		grantedEffectId = "SummonStoneGolemAltX",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -7319,12 +7595,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSummonRockGolemAltY"] = {
+	["Metadata/Items/Gems/SkillGemSummonStoneGolemAltY"] = {
 		name = "Summon Stone Golem of Safeguarding",
 		baseTypeName = "Summon Stone Golem of Safeguarding",
 		gameId = "Metadata/Items/Gems/SkillGemSummonRockGolem",
-		variantId = "SummonRockGolemAltY",
-		grantedEffectId = "SummonRockGolemAltY",
+		variantId = "SummonStoneGolemAltY",
+		grantedEffectId = "SummonStoneGolemAltY",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -7381,10 +7657,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemPoisonSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportCriticalStrikeAffliction"] = {
 		name = "Critical Strike Affliction",
 		gameId = "Metadata/Items/Gems/SupportGemPoison",
-		variantId = "PoisonSupport",
+		variantId = "SupportCriticalStrikeAffliction",
 		grantedEffectId = "SupportCriticalStrikeAffliction",
 		tags = {
 			critical = true,
@@ -7604,10 +7880,10 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemVoidManipulationSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportVoidManipulation"] = {
 		name = "Void Manipulation",
 		gameId = "Metadata/Items/Gems/SupportGemVoidManipulation",
-		variantId = "VoidManipulationSupport",
+		variantId = "SupportVoidManipulation",
 		grantedEffectId = "SupportVoidManipulation",
 		tags = {
 			chaos = true,
@@ -7620,10 +7896,10 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemControlledDestructionSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportControlledDestruction"] = {
 		name = "Controlled Destruction",
 		gameId = "Metadata/Items/Gems/SupportGemControlledDestruction",
-		variantId = "ControlledDestructionSupport",
+		variantId = "SupportControlledDestruction",
 		grantedEffectId = "SupportControlledDestruction",
 		tags = {
 			spell = true,
@@ -7637,11 +7913,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemRapidDecaySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportSwiftAffliction"] = {
 		name = "Swift Affliction",
 		gameId = "Metadata/Items/Gems/SupportGemRapidDecay",
-		variantId = "RapidDecaySupport",
-		grantedEffectId = "SupportRapidDecay",
+		variantId = "SupportSwiftAffliction",
+		grantedEffectId = "SupportSwiftAffliction",
 		tags = {
 			dexterity = true,
 			support = true,
@@ -7653,11 +7929,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemClusterTrapSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportClusterTraps"] = {
 		name = "Cluster Traps",
 		gameId = "Metadata/Items/Gems/SupportGemClusterTrap",
-		variantId = "ClusterTrapSupport",
-		grantedEffectId = "SupportClusterTrap",
+		variantId = "SupportClusterTraps",
+		grantedEffectId = "SupportClusterTraps",
 		tags = {
 			trap = true,
 			dexterity = true,
@@ -7674,7 +7950,7 @@ return {
 		baseTypeName = "Sunder",
 		gameId = "Metadata/Items/Gems/SkillGemSunder",
 		variantId = "Sunder",
-		grantedEffectId = "NewSunder",
+		grantedEffectId = "Sunder",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -7694,7 +7970,27 @@ return {
 		baseTypeName = "Sunder of Earthbreaking",
 		gameId = "Metadata/Items/Gems/SkillGemSunder",
 		variantId = "SunderAltX",
-		grantedEffectId = "NewSunderAltX",
+		grantedEffectId = "SunderAltX",
+		tags = {
+			strength = true,
+			grants_active_skill = true,
+			attack = true,
+			area = true,
+			slam = true,
+			melee = true,
+		},
+		tagString = "Attack, AoE, Slam, Melee",
+		reqStr = 100,
+		reqDex = 0,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemSunderAltY"] = {
+		name = "Sunder of Trarthus",
+		baseTypeName = "Sunder of Trarthus",
+		gameId = "Metadata/Items/Gems/SkillGemSunder",
+		variantId = "SunderAltY",
+		grantedEffectId = "SunderAltY",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -7728,12 +8024,12 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFrostBoltNova"] = {
+	["Metadata/Items/Gems/SkillGemVortex"] = {
 		name = "Vortex",
 		baseTypeName = "Vortex",
 		gameId = "Metadata/Items/Gems/SkillGemFrostBoltNova",
-		variantId = "FrostBoltNova",
-		grantedEffectId = "FrostBoltNova",
+		variantId = "Vortex",
+		grantedEffectId = "Vortex",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -7749,12 +8045,12 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFrostBoltNovaAltX"] = {
+	["Metadata/Items/Gems/SkillGemVortexAltX"] = {
 		name = "Vortex of Projection",
 		baseTypeName = "Vortex of Projection",
 		gameId = "Metadata/Items/Gems/SkillGemFrostBoltNova",
-		variantId = "FrostBoltNovaAltX",
-		grantedEffectId = "FrostBoltNovaAltX",
+		variantId = "VortexAltX",
+		grantedEffectId = "VortexAltX",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -7770,10 +8066,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemElementalFocusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportElementalFocus"] = {
 		name = "Elemental Focus",
 		gameId = "Metadata/Items/Gems/SupportGemElementalFocus",
-		variantId = "ElementalFocusSupport",
+		variantId = "SupportElementalFocus",
 		grantedEffectId = "SupportElementalFocus",
 		tags = {
 			intelligence = true,
@@ -7785,10 +8081,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemMinefieldSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportMinefield"] = {
 		name = "Minefield",
 		gameId = "Metadata/Items/Gems/SupportGemMinefield",
-		variantId = "MinefieldSupport",
+		variantId = "SupportMinefield",
 		grantedEffectId = "SupportMinefield",
 		tags = {
 			intelligence = true,
@@ -7801,11 +8097,11 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemTrapCooldownSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAdvancedTraps"] = {
 		name = "Advanced Traps",
 		gameId = "Metadata/Items/Gems/SupportGemTrapCooldown",
-		variantId = "TrapCooldownSupport",
-		grantedEffectId = "SupportTrapCooldown",
+		variantId = "SupportAdvancedTraps",
+		grantedEffectId = "SupportAdvancedTraps",
 		tags = {
 			trap = true,
 			dexterity = true,
@@ -7839,12 +8135,32 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFireBeam"] = {
+	["Metadata/Items/Gems/SkillGemDarkPactAltX"] = {
+		name = "Dark Pact of Trarthus",
+		baseTypeName = "Dark Pact of Trarthus",
+		gameId = "Metadata/Items/Gems/SkillGemDarkPact",
+		variantId = "DarkPactAltX",
+		grantedEffectId = "DarkPactAltX",
+		tags = {
+			intelligence = true,
+			grants_active_skill = true,
+			spell = true,
+			area = true,
+			chaos = true,
+			nova = true,
+		},
+		tagString = "Spell, AoE, Chaos, Nova",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemScorchingRay"] = {
 		name = "Scorching Ray",
 		baseTypeName = "Scorching Ray",
 		gameId = "Metadata/Items/Gems/SkillGemFireBeam",
-		variantId = "FireBeam",
-		grantedEffectId = "FireBeam",
+		variantId = "ScorchingRay",
+		grantedEffectId = "ScorchingRay",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -7859,12 +8175,12 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFireBeamAltX"] = {
+	["Metadata/Items/Gems/SkillGemScorchingRayAltX"] = {
 		name = "Scorching Ray of Immolation",
 		baseTypeName = "Scorching Ray of Immolation",
 		gameId = "Metadata/Items/Gems/SkillGemFireBeam",
-		variantId = "FireBeamAltX",
-		grantedEffectId = "FireBeamAltX",
+		variantId = "ScorchingRayAltX",
+		grantedEffectId = "ScorchingRayAltX",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -7879,10 +8195,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCastWhileChannellingSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportCastWhileChannelling"] = {
 		name = "Cast while Channelling",
 		gameId = "Metadata/Items/Gems/SupportGemCastWhileChannelling",
-		variantId = "CastWhileChannellingSupport",
+		variantId = "SupportCastWhileChannelling",
 		grantedEffectId = "SupportCastWhileChannelling",
 		secondaryGrantedEffectId = "SupportCastWhileChannellingTriggered",
 		tags = {
@@ -7898,10 +8214,10 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemIgniteProliferationSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportIgniteProliferation"] = {
 		name = "Ignite Proliferation",
 		gameId = "Metadata/Items/Gems/SupportGemIgniteProliferation",
-		variantId = "IgniteProliferationSupport",
+		variantId = "SupportIgniteProliferation",
 		grantedEffectId = "SupportIgniteProliferation",
 		tags = {
 			fire = true,
@@ -7915,10 +8231,10 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemChanceToBleedSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportChancetoBleed"] = {
 		name = "Chance to Bleed",
 		gameId = "Metadata/Items/Gems/SupportGemChanceToBleed",
-		variantId = "ChanceToBleedSupport",
+		variantId = "SupportChancetoBleed",
 		grantedEffectId = "SupportChanceToBleed",
 		tags = {
 			attack = true,
@@ -7932,10 +8248,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemLesserPoisonSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportChancetoPoison"] = {
 		name = "Chance to Poison",
 		gameId = "Metadata/Items/Gems/SupportGemLesserPoison",
-		variantId = "LesserPoisonSupport",
+		variantId = "SupportChancetoPoison",
 		grantedEffectId = "SupportChanceToPoison",
 		tags = {
 			chaos = true,
@@ -7948,10 +8264,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemDeadlyAilmentsSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportDeadlyAilments"] = {
 		name = "Deadly Ailments",
 		gameId = "Metadata/Items/Gems/SupportGemDeadlyAilments",
-		variantId = "DeadlyAilmentsSupport",
+		variantId = "SupportDeadlyAilments",
 		grantedEffectId = "SupportDeadlyAilments",
 		tags = {
 			dexterity = true,
@@ -7963,10 +8279,10 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemDecaySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportDecay"] = {
 		name = "Decay",
 		gameId = "Metadata/Items/Gems/SupportGemDecay",
-		variantId = "DecaySupport",
+		variantId = "SupportDecay",
 		grantedEffectId = "SupportDecay",
 		tags = {
 			chaos = true,
@@ -7979,10 +8295,10 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemEfficacySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportEfficacy"] = {
 		name = "Efficacy",
 		gameId = "Metadata/Items/Gems/SupportGemEfficacy",
-		variantId = "EfficacySupport",
+		variantId = "SupportEfficacy",
 		grantedEffectId = "SupportEfficacy",
 		tags = {
 			intelligence = true,
@@ -7995,11 +8311,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemVileToxinsSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportVileToxins"] = {
 		name = "Vile Toxins",
 		gameId = "Metadata/Items/Gems/SupportGemVileToxins",
-		variantId = "VileToxinsSupport",
-		grantedEffectId = "SupportDebilitate",
+		variantId = "SupportVileToxins",
+		grantedEffectId = "SupportVileToxins",
 		tags = {
 			dexterity = true,
 			support = true,
@@ -8010,10 +8326,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemMaimSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportMaim"] = {
 		name = "Maim",
 		gameId = "Metadata/Items/Gems/SupportGemMaim",
-		variantId = "MaimSupport",
+		variantId = "SupportMaim",
 		grantedEffectId = "SupportMaim",
 		tags = {
 			attack = true,
@@ -8027,11 +8343,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemImmolateSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportImmolate"] = {
 		name = "Immolate",
 		gameId = "Metadata/Items/Gems/SupportGemImmolate",
-		variantId = "ImmolateSupport",
-		grantedEffectId = "SupportImmolation",
+		variantId = "SupportImmolate",
+		grantedEffectId = "SupportImmolate",
 		tags = {
 			fire = true,
 			intelligence = true,
@@ -8043,11 +8359,11 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemUnboundAilmentsSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportUnboundAilments"] = {
 		name = "Unbound Ailments",
 		gameId = "Metadata/Items/Gems/SupportGemUnboundAilments",
-		variantId = "UnboundAilmentsSupport",
-		grantedEffectId = "SupportAilments",
+		variantId = "SupportUnboundAilments",
+		grantedEffectId = "SupportUnboundAilments",
 		tags = {
 			intelligence = true,
 			support = true,
@@ -8058,10 +8374,10 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemBrutalitySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportBrutality"] = {
 		name = "Brutality",
 		gameId = "Metadata/Items/Gems/SupportGemBrutality",
-		variantId = "BrutalitySupport",
+		variantId = "SupportBrutality",
 		grantedEffectId = "SupportBrutality",
 		tags = {
 			physical = true,
@@ -8074,10 +8390,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemRuthlessSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportRuthless"] = {
 		name = "Ruthless",
 		gameId = "Metadata/Items/Gems/SupportGemRuthless",
-		variantId = "RuthlessSupport",
+		variantId = "SupportRuthless",
 		grantedEffectId = "SupportRuthless",
 		tags = {
 			slam = true,
@@ -8093,10 +8409,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemOnslaughtSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportMomentum"] = {
 		name = "Momentum",
 		gameId = "Metadata/Items/Gems/SupportGemOnslaught",
-		variantId = "OnslaughtSupport",
+		variantId = "SupportMomentum",
 		grantedEffectId = "SupportMomentum",
 		tags = {
 			attack = true,
@@ -8110,10 +8426,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemArcaneSurgeSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportArcaneSurge"] = {
 		name = "Arcane Surge",
 		gameId = "Metadata/Items/Gems/SupportGemArcaneSurge",
-		variantId = "ArcaneSurgeSupport",
+		variantId = "SupportArcaneSurge",
 		grantedEffectId = "SupportArcaneSurge",
 		tags = {
 			arcane = true,
@@ -8128,12 +8444,12 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCorpseEruption"] = {
+	["Metadata/Items/Gems/SkillGemCremation"] = {
 		name = "Cremation",
 		baseTypeName = "Cremation",
 		gameId = "Metadata/Items/Gems/SkillGemCorpseEruption",
-		variantId = "CorpseEruption",
-		grantedEffectId = "CorpseEruption",
+		variantId = "Cremation",
+		grantedEffectId = "Cremation",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -8150,12 +8466,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCorpseEruptionAltX"] = {
+	["Metadata/Items/Gems/SkillGemCremationAltX"] = {
 		name = "Cremation of Exhuming",
 		baseTypeName = "Cremation of Exhuming",
 		gameId = "Metadata/Items/Gems/SkillGemCorpseEruption",
-		variantId = "CorpseEruptionAltX",
-		grantedEffectId = "CorpseEruptionAltX",
+		variantId = "CremationAltX",
+		grantedEffectId = "CremationAltX",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -8172,12 +8488,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCorpseEruptionAltY"] = {
+	["Metadata/Items/Gems/SkillGemCremationAltY"] = {
 		name = "Cremation of the Volcano",
 		baseTypeName = "Cremation of the Volcano",
 		gameId = "Metadata/Items/Gems/SkillGemCorpseEruption",
-		variantId = "CorpseEruptionAltY",
-		grantedEffectId = "CorpseEruptionAltY",
+		variantId = "CremationAltY",
+		grantedEffectId = "CremationAltY",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -8194,12 +8510,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCorpseWarp"] = {
+	["Metadata/Items/Gems/SkillGemBodyswap"] = {
 		name = "Bodyswap",
 		baseTypeName = "Bodyswap",
 		gameId = "Metadata/Items/Gems/SkillGemCorpseWarp",
-		variantId = "CorpseWarp",
-		grantedEffectId = "CorpseWarp",
+		variantId = "Bodyswap",
+		grantedEffectId = "Bodyswap",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -8215,12 +8531,12 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCorpseWarpAltX"] = {
+	["Metadata/Items/Gems/SkillGemBodyswapAltX"] = {
 		name = "Bodyswap of Sacrifice",
 		baseTypeName = "Bodyswap of Sacrifice",
 		gameId = "Metadata/Items/Gems/SkillGemCorpseWarp",
-		variantId = "CorpseWarpAltX",
-		grantedEffectId = "CorpseWarpAltX",
+		variantId = "BodyswapAltX",
+		grantedEffectId = "BodyswapAltX",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -8242,7 +8558,7 @@ return {
 		baseTypeName = "Tectonic Slam",
 		gameId = "Metadata/Items/Gems/SkillGemTectonicSlam",
 		variantId = "TectonicSlam",
-		grantedEffectId = "EnduranceChargeSlam",
+		grantedEffectId = "TectonicSlam",
 		tags = {
 			fire = true,
 			strength = true,
@@ -8263,7 +8579,7 @@ return {
 		baseTypeName = "Tectonic Slam of Cataclysm",
 		gameId = "Metadata/Items/Gems/SkillGemTectonicSlam",
 		variantId = "TectonicSlamAltX",
-		grantedEffectId = "EnduranceChargeSlamAltX",
+		grantedEffectId = "TectonicSlamAltX",
 		tags = {
 			fire = true,
 			strength = true,
@@ -8279,11 +8595,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemStormBarrierSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportInfusedChannelling"] = {
 		name = "Infused Channelling",
 		gameId = "Metadata/Items/Gems/SupportGemStormBarrier",
-		variantId = "StormBarrierSupport",
-		grantedEffectId = "SupportStormBarrier",
+		variantId = "SupportInfusedChannelling",
+		grantedEffectId = "SupportInfusedChannelling",
 		tags = {
 			intelligence = true,
 			support = true,
@@ -8295,11 +8611,11 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemParallelProjectilesSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportVolley"] = {
 		name = "Volley",
 		gameId = "Metadata/Items/Gems/SupportGemParallelProjectiles",
-		variantId = "ParallelProjectilesSupport",
-		grantedEffectId = "SupportParallelProjectiles",
+		variantId = "SupportVolley",
+		grantedEffectId = "SupportVolley",
 		tags = {
 			dexterity = true,
 			support = true,
@@ -8311,10 +8627,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSpellCascadeSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportSpellCascade"] = {
 		name = "Spell Cascade",
 		gameId = "Metadata/Items/Gems/SupportGemSpellCascade",
-		variantId = "SpellCascadeSupport",
+		variantId = "SupportSpellCascade",
 		grantedEffectId = "SupportSpellCascade",
 		tags = {
 			area = true,
@@ -8328,11 +8644,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSpiritStrikeSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAncestralCall"] = {
 		name = "Ancestral Call",
 		gameId = "Metadata/Items/Gems/SupportGemSpiritStrike",
-		variantId = "SpiritStrikeSupport",
-		grantedEffectId = "SupportSpiritStrike",
+		variantId = "SupportAncestralCall",
+		grantedEffectId = "SupportAncestralCall",
 		tags = {
 			strength = true,
 			support = true,
@@ -8346,11 +8662,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSummonGhostOnKillSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportSummonPhantasm"] = {
 		name = "Summon Phantasm",
 		gameId = "Metadata/Items/Gems/SupportGemSummonGhostOnKill",
-		variantId = "SummonGhostOnKillSupport",
-		grantedEffectId = "SupportSummonGhostOnKill",
+		variantId = "SupportSummonPhantasm",
+		grantedEffectId = "SupportSummonPhantasm",
 		tags = {
 			intelligence = true,
 			support = true,
@@ -8362,11 +8678,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemMirageArcherSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportMirageArcher"] = {
 		name = "Mirage Archer",
 		gameId = "Metadata/Items/Gems/SupportGemMirageArcher",
-		variantId = "MirageArcherSupport",
-		grantedEffectId = "SupportGemMirageArcher",
+		variantId = "SupportMirageArcher",
+		grantedEffectId = "SupportMirageArcher",
 		tags = {
 			bow = true,
 			attack = true,
@@ -8380,11 +8696,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemNewVulnerability"] = {
+	["Metadata/Items/Gems/SkillGemVulnerability"] = {
 		name = "Vulnerability",
 		baseTypeName = "Vulnerability",
 		gameId = "Metadata/Items/Gems/SkillGemNewVulnerability",
-		variantId = "NewVulnerability",
+		variantId = "Vulnerability",
 		grantedEffectId = "Vulnerability",
 		tags = {
 			strength = true,
@@ -8402,12 +8718,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemShrapnelTrap"] = {
+	["Metadata/Items/Gems/SkillGemExplosiveTrap"] = {
 		name = "Explosive Trap",
 		baseTypeName = "Explosive Trap",
 		gameId = "Metadata/Items/Gems/SkillGemShrapnelTrap",
-		variantId = "ShrapnelTrap",
-		grantedEffectId = "ShrapnelTrap",
+		variantId = "ExplosiveTrap",
+		grantedEffectId = "ExplosiveTrap",
 		tags = {
 			trap = true,
 			dexterity = true,
@@ -8423,12 +8739,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemShrapnelTrapAltX"] = {
+	["Metadata/Items/Gems/SkillGemExplosiveTrapAltX"] = {
 		name = "Explosive Trap of Shrapnel",
 		baseTypeName = "Explosive Trap of Shrapnel",
 		gameId = "Metadata/Items/Gems/SkillGemShrapnelTrap",
-		variantId = "ShrapnelTrapAltX",
-		grantedEffectId = "ShrapnelTrapAltX",
+		variantId = "ExplosiveTrapAltX",
+		grantedEffectId = "ExplosiveTrapAltX",
 		tags = {
 			trap = true,
 			dexterity = true,
@@ -8444,12 +8760,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemShrapnelTrapAltY"] = {
+	["Metadata/Items/Gems/SkillGemExplosiveTrapAltY"] = {
 		name = "Explosive Trap of Magnitude",
 		baseTypeName = "Explosive Trap of Magnitude",
 		gameId = "Metadata/Items/Gems/SkillGemShrapnelTrap",
-		variantId = "ShrapnelTrapAltY",
-		grantedEffectId = "ShrapnelTrapAltY",
+		variantId = "ExplosiveTrapAltY",
+		grantedEffectId = "ExplosiveTrapAltY",
 		tags = {
 			trap = true,
 			dexterity = true,
@@ -8464,12 +8780,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemIceSiphonTrap"] = {
+	["Metadata/Items/Gems/SkillGemSiphoningTrap"] = {
 		name = "Siphoning Trap",
 		baseTypeName = "Siphoning Trap",
 		gameId = "Metadata/Items/Gems/SkillGemIceSiphonTrap",
-		variantId = "IceSiphonTrap",
-		grantedEffectId = "IceSiphonTrap",
+		variantId = "SiphoningTrap",
+		grantedEffectId = "SiphoningTrap",
 		tags = {
 			trap = true,
 			intelligence = true,
@@ -8506,12 +8822,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemLightningTowerTrap"] = {
+	["Metadata/Items/Gems/SkillGemLightningSpireTrap"] = {
 		name = "Lightning Spire Trap",
 		baseTypeName = "Lightning Spire Trap",
 		gameId = "Metadata/Items/Gems/SkillGemLightningTowerTrap",
-		variantId = "LightningTowerTrap",
-		grantedEffectId = "LightningTowerTrap",
+		variantId = "LightningSpireTrap",
+		grantedEffectId = "LightningSpireTrap",
 		tags = {
 			trap = true,
 			critical = true,
@@ -8528,12 +8844,12 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemLightningTowerTrapAltX"] = {
+	["Metadata/Items/Gems/SkillGemLightningSpireTrapAltX"] = {
 		name = "Lightning Spire Trap of Zapping",
 		baseTypeName = "Lightning Spire Trap of Zapping",
 		gameId = "Metadata/Items/Gems/SkillGemLightningTowerTrap",
-		variantId = "LightningTowerTrapAltX",
-		grantedEffectId = "LightningTowerTrapAltX",
+		variantId = "LightningSpireTrapAltX",
+		grantedEffectId = "LightningSpireTrapAltX",
 		tags = {
 			trap = true,
 			intelligence = true,
@@ -8549,12 +8865,12 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemLightningTowerTrapAltY"] = {
+	["Metadata/Items/Gems/SkillGemLightningSpireTrapAltY"] = {
 		name = "Lightning Spire Trap of Overloading",
 		baseTypeName = "Lightning Spire Trap of Overloading",
 		gameId = "Metadata/Items/Gems/SkillGemLightningTowerTrap",
-		variantId = "LightningTowerTrapAltY",
-		grantedEffectId = "LightningTowerTrapAltY",
+		variantId = "LightningSpireTrapAltY",
+		grantedEffectId = "LightningSpireTrapAltY",
 		tags = {
 			trap = true,
 			intelligence = true,
@@ -8570,12 +8886,12 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemPhysCascadeTrap"] = {
+	["Metadata/Items/Gems/SkillGemSeismicTrap"] = {
 		name = "Seismic Trap",
 		baseTypeName = "Seismic Trap",
 		gameId = "Metadata/Items/Gems/SkillGemPhysCascadeTrap",
-		variantId = "PhysCascadeTrap",
-		grantedEffectId = "PhysCascadeTrap",
+		variantId = "SeismicTrap",
+		grantedEffectId = "SeismicTrap",
 		tags = {
 			trap = true,
 			dexterity = true,
@@ -8591,12 +8907,12 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemPhysCascadeTrapAltX"] = {
+	["Metadata/Items/Gems/SkillGemSeismicTrapAltX"] = {
 		name = "Seismic Trap of Swells",
 		baseTypeName = "Seismic Trap of Swells",
 		gameId = "Metadata/Items/Gems/SkillGemPhysCascadeTrap",
-		variantId = "PhysCascadeTrapAltX",
-		grantedEffectId = "PhysCascadeTrapAltX",
+		variantId = "SeismicTrapAltX",
+		grantedEffectId = "SeismicTrapAltX",
 		tags = {
 			trap = true,
 			dexterity = true,
@@ -8660,11 +8976,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFrenzyPowerOnTrapTriggerSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportChargedTraps"] = {
 		name = "Charged Traps",
 		gameId = "Metadata/Items/Gems/SupportGemFrenzyPowerOnTrapTrigger",
-		variantId = "FrenzyPowerOnTrapTriggerSupport",
-		grantedEffectId = "SupportGemFrenzyPowerOnTrapTrigger",
+		variantId = "SupportChargedTraps",
+		grantedEffectId = "SupportChargedTraps",
 		tags = {
 			critical = true,
 			dexterity = true,
@@ -8677,10 +8993,10 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemChargedMinesSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportChargedMines"] = {
 		name = "Charged Mines",
 		gameId = "Metadata/Items/Gems/SupportGemChargedMines",
-		variantId = "ChargedMinesSupport",
+		variantId = "SupportChargedMines",
 		grantedEffectId = "SupportChargedMines",
 		tags = {
 			critical = true,
@@ -8830,7 +9146,7 @@ return {
 		baseTypeName = "Toxic Rain",
 		gameId = "Metadata/Items/Gems/SkillGemToxicRain",
 		variantId = "ToxicRain",
-		grantedEffectId = "RainOfSpores",
+		grantedEffectId = "ToxicRain",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -8852,7 +9168,7 @@ return {
 		baseTypeName = "Toxic Rain of Sporeburst",
 		gameId = "Metadata/Items/Gems/SkillGemToxicRain",
 		variantId = "ToxicRainAltX",
-		grantedEffectId = "RainOfSporesAltX",
+		grantedEffectId = "ToxicRainAltX",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -8874,7 +9190,7 @@ return {
 		baseTypeName = "Toxic Rain of Withering",
 		gameId = "Metadata/Items/Gems/SkillGemToxicRain",
 		variantId = "ToxicRainAltY",
-		grantedEffectId = "RainOfSporesAltY",
+		grantedEffectId = "ToxicRainAltY",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -8891,12 +9207,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSummonRelic"] = {
+	["Metadata/Items/Gems/SkillGemSummonHolyRelic"] = {
 		name = "Summon Holy Relic",
 		baseTypeName = "Summon Holy Relic",
 		gameId = "Metadata/Items/Gems/SkillGemSummonRelic",
-		variantId = "SummonRelic",
-		grantedEffectId = "SummonRelic",
+		variantId = "SummonHolyRelic",
+		grantedEffectId = "SummonHolyRelic",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -8909,12 +9225,12 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSummonRelicAltX"] = {
+	["Metadata/Items/Gems/SkillGemSummonHolyRelicAltX"] = {
 		name = "Summon Holy Relic of Conviction",
 		baseTypeName = "Summon Holy Relic of Conviction",
 		gameId = "Metadata/Items/Gems/SkillGemSummonRelic",
-		variantId = "SummonRelicAltX",
-		grantedEffectId = "SummonRelicAltX",
+		variantId = "SummonHolyRelicAltX",
+		grantedEffectId = "SummonHolyRelicAltX",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -8927,11 +9243,11 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemChaosAttacksSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportWitheringTouch"] = {
 		name = "Withering Touch",
 		gameId = "Metadata/Items/Gems/SupportGemChaosAttacks",
-		variantId = "ChaosAttacksSupport",
-		grantedEffectId = "SupportChaosAttacks",
+		variantId = "SupportWitheringTouch",
+		grantedEffectId = "SupportWitheringTouch",
 		tags = {
 			chaos = true,
 			physical = true,
@@ -8946,10 +9262,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemBonechillSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportBonechill"] = {
 		name = "Bonechill",
 		gameId = "Metadata/Items/Gems/SupportGemBonechill",
-		variantId = "BonechillSupport",
+		variantId = "SupportBonechill",
 		grantedEffectId = "SupportBonechill",
 		tags = {
 			cold = true,
@@ -8967,7 +9283,7 @@ return {
 		baseTypeName = "Winter Orb",
 		gameId = "Metadata/Items/Gems/SkillGemWinterOrb",
 		variantId = "WinterOrb",
-		grantedEffectId = "FrostFury",
+		grantedEffectId = "WinterOrb",
 		tags = {
 			cold = true,
 			intelligence = true,
@@ -9027,7 +9343,7 @@ return {
 		baseTypeName = "Storm Brand",
 		gameId = "Metadata/Items/Gems/SkillGemStormBrand",
 		variantId = "StormBrand",
-		grantedEffectId = "ConduitSigil",
+		grantedEffectId = "StormBrand",
 		tags = {
 			lightning = true,
 			intelligence = true,
@@ -9049,7 +9365,7 @@ return {
 		baseTypeName = "Storm Brand of Indecision",
 		gameId = "Metadata/Items/Gems/SkillGemStormBrand",
 		variantId = "StormBrandAltX",
-		grantedEffectId = "ConduitSigilAltX",
+		grantedEffectId = "StormBrandAltX",
 		tags = {
 			lightning = true,
 			intelligence = true,
@@ -9071,7 +9387,7 @@ return {
 		baseTypeName = "War Banner",
 		gameId = "Metadata/Items/Gems/SkillGemWarBanner",
 		variantId = "WarBanner",
-		grantedEffectId = "BloodstainedBanner",
+		grantedEffectId = "WarBanner",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -9093,7 +9409,7 @@ return {
 		baseTypeName = "Dread Banner",
 		gameId = "Metadata/Items/Gems/SkillGemDreadBanner",
 		variantId = "DreadBanner",
-		grantedEffectId = "PuresteelBanner",
+		grantedEffectId = "DreadBanner",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -9150,11 +9466,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemMultiTotemSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportMultipleTotems"] = {
 		name = "Multiple Totems",
 		gameId = "Metadata/Items/Gems/SupportGemMultiTotem",
-		variantId = "MultiTotemSupport",
-		grantedEffectId = "SupportMultiTotem",
+		variantId = "SupportMultipleTotems",
+		grantedEffectId = "SupportMultipleTotems",
 		tags = {
 			totem = true,
 			strength = true,
@@ -9171,7 +9487,7 @@ return {
 		baseTypeName = "Armageddon Brand",
 		gameId = "Metadata/Items/Gems/SkillGemArmageddonBrand",
 		variantId = "ArmageddonBrand",
-		grantedEffectId = "CataclysmSigil",
+		grantedEffectId = "ArmageddonBrand",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -9192,7 +9508,7 @@ return {
 		baseTypeName = "Armageddon Brand of Volatility",
 		gameId = "Metadata/Items/Gems/SkillGemArmageddonBrand",
 		variantId = "ArmageddonBrandAltX",
-		grantedEffectId = "CataclysmSigilAltX",
+		grantedEffectId = "ArmageddonBrandAltX",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -9213,7 +9529,7 @@ return {
 		baseTypeName = "Armageddon Brand of Recall",
 		gameId = "Metadata/Items/Gems/SkillGemArmageddonBrand",
 		variantId = "ArmageddonBrandAltY",
-		grantedEffectId = "CataclysmSigilAltY",
+		grantedEffectId = "ArmageddonBrandAltY",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -9229,12 +9545,12 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemRecallBrands"] = {
+	["Metadata/Items/Gems/SkillGemBrandRecall"] = {
 		name = "Brand Recall",
 		baseTypeName = "Brand Recall",
 		gameId = "Metadata/Items/Gems/SkillGemRecallBrands",
-		variantId = "RecallBrands",
-		grantedEffectId = "SigilRecall",
+		variantId = "BrandRecall",
+		grantedEffectId = "BrandRecall",
 		tags = {
 			brand = true,
 			intelligence = true,
@@ -9247,12 +9563,12 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 6,
 	},
-	["Metadata/Items/Gems/SkillGemSanctify"] = {
+	["Metadata/Items/Gems/SkillGemPurifyingFlame"] = {
 		name = "Purifying Flame",
 		baseTypeName = "Purifying Flame",
 		gameId = "Metadata/Items/Gems/SkillGemSanctify",
-		variantId = "Sanctify",
-		grantedEffectId = "Sanctify",
+		variantId = "PurifyingFlame",
+		grantedEffectId = "PurifyingFlame",
 		tags = {
 			fire = true,
 			intelligence = true,
@@ -9268,12 +9584,12 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSanctifyAltX"] = {
+	["Metadata/Items/Gems/SkillGemPurifyingFlameAltX"] = {
 		name = "Purifying Flame of Revelations",
 		baseTypeName = "Purifying Flame of Revelations",
 		gameId = "Metadata/Items/Gems/SkillGemSanctify",
-		variantId = "SanctifyAltX",
-		grantedEffectId = "SanctifyAltX",
+		variantId = "PurifyingFlameAltX",
+		grantedEffectId = "PurifyingFlameAltX",
 		tags = {
 			fire = true,
 			intelligence = true,
@@ -9350,12 +9666,12 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemDarkRitual"] = {
+	["Metadata/Items/Gems/SkillGemBane"] = {
 		name = "Bane",
 		baseTypeName = "Bane",
 		gameId = "Metadata/Items/Gems/SkillGemDarkRitual",
-		variantId = "DarkRitual",
-		grantedEffectId = "DarkRitual",
+		variantId = "Bane",
+		grantedEffectId = "Bane",
 		secondaryGrantedEffectId = "SupportDarkRitual",
 		tags = {
 			chaos = true,
@@ -9373,12 +9689,12 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemDarkRitualAltX"] = {
+	["Metadata/Items/Gems/SkillGemBaneAltX"] = {
 		name = "Bane of Condemnation",
 		baseTypeName = "Bane of Condemnation",
 		gameId = "Metadata/Items/Gems/SkillGemDarkRitual",
-		variantId = "DarkRitualAltX",
-		grantedEffectId = "DarkRitualAltX",
+		variantId = "BaneAltX",
+		grantedEffectId = "BaneAltX",
 		secondaryGrantedEffectId = "SupportDarkRitualAltX",
 		tags = {
 			chaos = true,
@@ -9396,11 +9712,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemEnergyShieldLeechSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportEnergyLeech"] = {
 		name = "Energy Leech",
 		gameId = "Metadata/Items/Gems/SupportGemEnergyShieldLeech",
-		variantId = "EnergyShieldLeechSupport",
-		grantedEffectId = "SupportEnergyShieldLeech",
+		variantId = "SupportEnergyLeech",
+		grantedEffectId = "SupportEnergyLeech",
 		tags = {
 			intelligence = true,
 			support = true,
@@ -9411,34 +9727,56 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemPurge"] = {
+	["Metadata/Items/Gems/SkillGemWaveOfConviction"] = {
 		name = "Wave of Conviction",
 		baseTypeName = "Wave of Conviction",
 		gameId = "Metadata/Items/Gems/SkillGemPurge",
-		variantId = "Purge",
-		grantedEffectId = "Purge",
+		variantId = "WaveOfConviction",
+		grantedEffectId = "WaveOfConviction",
 		tags = {
+			intelligence = true,
+			grants_active_skill = true,
+			spell = true,
+			area = true,
+			duration = true,
 			fire = true,
 			lightning = true,
+			physical = true,
+		},
+		tagString = "Spell, AoE, Duration, Fire, Lightning, Physical",
+		reqStr = 40,
+		reqDex = 0,
+		reqInt = 60,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemWaveOfConvictionAltY"] = {
+		name = "Wave of Conviction of Trarthus",
+		baseTypeName = "Wave of Conviction of Trarthus",
+		gameId = "Metadata/Items/Gems/SkillGemPurge",
+		variantId = "WaveOfConvictionAltY",
+		grantedEffectId = "WaveOfConvictionAltY",
+		tags = {
 			intelligence = true,
 			grants_active_skill = true,
 			spell = true,
 			area = true,
 			duration = true,
 			physical = true,
+			fire = true,
+			nova = true,
 		},
-		tagString = "Fire, Lightning, Spell, AoE, Duration, Physical",
+		tagString = "Spell, AoE, Duration, Physical, Fire, Nova",
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSpellDamageAura"] = {
+	["Metadata/Items/Gems/SkillGemZealotry"] = {
 		name = "Zealotry",
 		baseTypeName = "Zealotry",
 		gameId = "Metadata/Items/Gems/SkillGemSpellDamageAura",
-		variantId = "SpellDamageAura",
-		grantedEffectId = "SpellDamageAura",
+		variantId = "Zealotry",
+		grantedEffectId = "Zealotry",
 		tags = {
 			aura = true,
 			critical = true,
@@ -9453,12 +9791,12 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemDivineTempest"] = {
+	["Metadata/Items/Gems/SkillGemDivineIre"] = {
 		name = "Divine Ire",
 		baseTypeName = "Divine Ire",
 		gameId = "Metadata/Items/Gems/SkillGemDivineTempest",
-		variantId = "DivineTempest",
-		grantedEffectId = "DivineTempest",
+		variantId = "DivineIre",
+		grantedEffectId = "DivineIre",
 		tags = {
 			lightning = true,
 			intelligence = true,
@@ -9474,12 +9812,12 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemDivineTempestAltX"] = {
+	["Metadata/Items/Gems/SkillGemDivineIreAltX"] = {
 		name = "Divine Ire of Holy Lightning",
 		baseTypeName = "Divine Ire of Holy Lightning",
 		gameId = "Metadata/Items/Gems/SkillGemDivineTempest",
-		variantId = "DivineTempestAltX",
-		grantedEffectId = "DivineTempestAltX",
+		variantId = "DivineIreAltX",
+		grantedEffectId = "DivineIreAltX",
 		tags = {
 			lightning = true,
 			intelligence = true,
@@ -9495,12 +9833,12 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemDivineTempestAltY"] = {
+	["Metadata/Items/Gems/SkillGemDivineIreAltY"] = {
 		name = "Divine Ire of Disintegration",
 		baseTypeName = "Divine Ire of Disintegration",
 		gameId = "Metadata/Items/Gems/SkillGemDivineTempest",
-		variantId = "DivineTempestAltY",
-		grantedEffectId = "DivineTempestAltY",
+		variantId = "DivineIreAltY",
+		grantedEffectId = "DivineIreAltY",
 		tags = {
 			lightning = true,
 			intelligence = true,
@@ -9516,12 +9854,12 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemDamageOverTimeAura"] = {
+	["Metadata/Items/Gems/SkillGemMalevolence"] = {
 		name = "Malevolence",
 		baseTypeName = "Malevolence",
 		gameId = "Metadata/Items/Gems/SkillGemDamageOverTimeAura",
-		variantId = "DamageOverTimeAura",
-		grantedEffectId = "DamageOverTimeAura",
+		variantId = "Malevolence",
+		grantedEffectId = "Malevolence",
 		tags = {
 			aura = true,
 			intelligence = true,
@@ -9535,11 +9873,11 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemHandcastSpellBoostSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportIntensify"] = {
 		name = "Intensify",
 		gameId = "Metadata/Items/Gems/SupportGemHandcastSpellBoost",
-		variantId = "HandcastSpellBoostSupport",
-		grantedEffectId = "SupportHandcastSpellBoost",
+		variantId = "SupportIntensify",
+		grantedEffectId = "SupportIntensify",
 		tags = {
 			area = true,
 			spell = true,
@@ -9552,11 +9890,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemHandcastAnticipationSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportUnleash"] = {
 		name = "Unleash",
 		gameId = "Metadata/Items/Gems/SupportGemHandcastAnticipation",
-		variantId = "HandcastAnticipationSupport",
-		grantedEffectId = "SupportHandcastAnticipation",
+		variantId = "SupportUnleash",
+		grantedEffectId = "SupportUnleash",
 		tags = {
 			spell = true,
 			intelligence = true,
@@ -9568,11 +9906,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSteelskin"] = {
+	["Metadata/Items/Gems/SkillGemQuickGuard"] = {
 		name = "Steelskin",
 		baseTypeName = "Steelskin",
 		gameId = "Metadata/Items/Gems/SkillGemSteelskin",
-		variantId = "Steelskin",
+		variantId = "QuickGuard",
 		grantedEffectId = "QuickGuard",
 		tags = {
 			strength = true,
@@ -9592,7 +9930,7 @@ return {
 		baseTypeName = "Dash",
 		gameId = "Metadata/Items/Gems/SkillGemDash",
 		variantId = "Dash",
-		grantedEffectId = "QuickDodge",
+		grantedEffectId = "Dash",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -9652,7 +9990,7 @@ return {
 		baseTypeName = "Blood and Sand",
 		gameId = "Metadata/Items/Gems/SkillGemBloodAndSand",
 		variantId = "BloodAndSand",
-		grantedEffectId = "BloodSandStance",
+		grantedEffectId = "BloodAndSand",
 		tags = {
 			low_max_level = true,
 			strength = true,
@@ -9688,7 +10026,7 @@ return {
 		baseTypeName = "Perforate",
 		gameId = "Metadata/Items/Gems/SkillGemPerforate",
 		variantId = "Perforate",
-		grantedEffectId = "BloodSpears",
+		grantedEffectId = "Perforate",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -9708,7 +10046,7 @@ return {
 		baseTypeName = "Perforate of Duality",
 		gameId = "Metadata/Items/Gems/SkillGemPerforate",
 		variantId = "PerforateAltX",
-		grantedEffectId = "BloodSpearsAltX",
+		grantedEffectId = "PerforateAltX",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -9728,7 +10066,7 @@ return {
 		baseTypeName = "Perforate of Bloodshed",
 		gameId = "Metadata/Items/Gems/SkillGemPerforate",
 		variantId = "PerforateAltY",
-		grantedEffectId = "BloodSpearsAltY",
+		grantedEffectId = "PerforateAltY",
 		tags = {
 			physical = true,
 			strength = true,
@@ -9749,7 +10087,7 @@ return {
 		baseTypeName = "Chain Hook",
 		gameId = "Metadata/Items/Gems/SkillGemChainHook",
 		variantId = "ChainHook",
-		grantedEffectId = "ChainStrike",
+		grantedEffectId = "ChainHook",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -9764,11 +10102,30 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCloseCombatSupport"] = {
+	["Metadata/Items/Gems/SkillGemChainHookAltY"] = {
+		name = "Chain Hook of Trarthus",
+		baseTypeName = "Chain Hook of Trarthus",
+		gameId = "Metadata/Items/Gems/SkillGemChainHook",
+		variantId = "ChainHookAltY",
+		grantedEffectId = "ChainHookAltY",
+		tags = {
+			strength = true,
+			grants_active_skill = true,
+			attack = true,
+			area = true,
+			melee = true,
+		},
+		tagString = "Attack, AoE, Melee",
+		reqStr = 100,
+		reqDex = 0,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemSupportCloseCombat"] = {
 		name = "Close Combat",
 		gameId = "Metadata/Items/Gems/SupportGemCloseCombat",
-		variantId = "CloseCombatSupport",
-		grantedEffectId = "SupportSlashingWeapon",
+		variantId = "SupportCloseCombat",
+		grantedEffectId = "SupportCloseCombat",
 		tags = {
 			dexterity = true,
 			support = true,
@@ -9782,11 +10139,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemShockwaveSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportShockwave"] = {
 		name = "Shockwave",
 		gameId = "Metadata/Items/Gems/SupportGemShockwave",
-		variantId = "ShockwaveSupport",
-		grantedEffectId = "SupportBluntWeapon",
+		variantId = "SupportShockwave",
+		grantedEffectId = "SupportShockwave",
 		secondaryGrantedEffectId = "SupportBluntWeaponShockwave",
 		tags = {
 			strength = true,
@@ -9807,7 +10164,7 @@ return {
 		baseTypeName = "Frostblink",
 		gameId = "Metadata/Items/Gems/SkillGemFrostblink",
 		variantId = "Frostblink",
-		grantedEffectId = "IceDash",
+		grantedEffectId = "Frostblink",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -9830,7 +10187,7 @@ return {
 		baseTypeName = "Frostblink of Wintry Blast",
 		gameId = "Metadata/Items/Gems/SkillGemFrostblink",
 		variantId = "FrostblinkAltX",
-		grantedEffectId = "IceDashAltX",
+		grantedEffectId = "FrostblinkAltX",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -9851,7 +10208,7 @@ return {
 		baseTypeName = "Precision",
 		gameId = "Metadata/Items/Gems/SkillGemPrecision",
 		variantId = "Precision",
-		grantedEffectId = "AccuracyAndCritsAura",
+		grantedEffectId = "Precision",
 		tags = {
 			aura = true,
 			critical = true,
@@ -9871,7 +10228,7 @@ return {
 		baseTypeName = "Flesh and Stone",
 		gameId = "Metadata/Items/Gems/SkillGemFleshAndStone",
 		variantId = "FleshAndStone",
-		grantedEffectId = "BloodSandArmour",
+		grantedEffectId = "FleshAndStone",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -9879,17 +10236,18 @@ return {
 			aura = true,
 			area = true,
 			stance = true,
+			physical = true,
 		},
-		tagString = "Spell, Aura, AoE, Stance",
+		tagString = "Spell, Aura, AoE, Stance, Physical",
 		reqStr = 60,
 		reqDex = 40,
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemImpaleSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportImpale"] = {
 		name = "Impale",
 		gameId = "Metadata/Items/Gems/SupportGemImpale",
-		variantId = "ImpaleSupport",
+		variantId = "SupportImpale",
 		grantedEffectId = "SupportImpale",
 		tags = {
 			attack = true,
@@ -9908,7 +10266,7 @@ return {
 		baseTypeName = "Pride",
 		gameId = "Metadata/Items/Gems/SkillGemPride",
 		variantId = "Pride",
-		grantedEffectId = "PhysicalDamageAura",
+		grantedEffectId = "Pride",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -9923,10 +10281,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemPulveriseSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportPulverise"] = {
 		name = "Pulverise",
 		gameId = "Metadata/Items/Gems/SupportGemPulverise",
-		variantId = "PulveriseSupport",
+		variantId = "SupportPulverise",
 		grantedEffectId = "SupportPulverise",
 		tags = {
 			area = true,
@@ -9941,10 +10299,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemRageSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportRage"] = {
 		name = "Rage",
 		gameId = "Metadata/Items/Gems/SupportGemRage",
-		variantId = "RageSupport",
+		variantId = "SupportRage",
 		grantedEffectId = "SupportRage",
 		tags = {
 			strength = true,
@@ -9982,7 +10340,7 @@ return {
 		baseTypeName = "Summon Carrion Golem",
 		gameId = "Metadata/Items/Gems/SkillGemSummonCarrionGolem",
 		variantId = "SummonCarrionGolem",
-		grantedEffectId = "SummonBoneGolem",
+		grantedEffectId = "SummonCarrionGolem",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -10002,7 +10360,7 @@ return {
 		baseTypeName = "Summon Carrion Golem of Hordes",
 		gameId = "Metadata/Items/Gems/SkillGemSummonCarrionGolem",
 		variantId = "SummonCarrionGolemAltX",
-		grantedEffectId = "SummonBoneGolemAltX",
+		grantedEffectId = "SummonCarrionGolemAltX",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -10022,7 +10380,7 @@ return {
 		baseTypeName = "Summon Carrion Golem of Scavenging",
 		gameId = "Metadata/Items/Gems/SkillGemSummonCarrionGolem",
 		variantId = "SummonCarrionGolemAltY",
-		grantedEffectId = "SummonBoneGolemAltY",
+		grantedEffectId = "SummonCarrionGolemAltY",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -10042,7 +10400,7 @@ return {
 		baseTypeName = "Withering Step",
 		gameId = "Metadata/Items/Gems/SkillGemWitheringStep",
 		variantId = "WitheringStep",
-		grantedEffectId = "Slither",
+		grantedEffectId = "WitheringStep",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -10065,7 +10423,7 @@ return {
 		baseTypeName = "Plague Bearer",
 		gameId = "Metadata/Items/Gems/SkillGemPlagueBearer",
 		variantId = "PlagueBearer",
-		grantedEffectId = "CorrosiveShroud",
+		grantedEffectId = "PlagueBearer",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -10079,11 +10437,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFeedingFrenzySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportFeedingFrenzy"] = {
 		name = "Feeding Frenzy",
 		gameId = "Metadata/Items/Gems/SupportGemFeedingFrenzy",
-		variantId = "FeedingFrenzySupport",
-		grantedEffectId = "SupportMinionOffensiveStance",
+		variantId = "SupportFeedingFrenzy",
+		grantedEffectId = "SupportFeedingFrenzy",
 		tags = {
 			intelligence = true,
 			support = true,
@@ -10096,12 +10454,12 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemDeathmarkSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportPredator"] = {
 		name = "Predator",
 		gameId = "Metadata/Items/Gems/SupportGemDeathmark",
-		variantId = "DeathmarkSupport",
-		grantedEffectId = "SupportMinionFocusFire",
-		secondaryGrantedEffectId = "MinionFocusFire",
+		variantId = "SupportPredator",
+		grantedEffectId = "SupportPredator",
+		secondaryGrantedEffectId = "SignalPrey",
 		tags = {
 			intelligence = true,
 			support = true,
@@ -10116,11 +10474,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemNightbladeSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportNightblade"] = {
 		name = "Nightblade",
 		gameId = "Metadata/Items/Gems/SupportGemNightblade",
-		variantId = "NightbladeSupport",
-		grantedEffectId = "SupportPuncturingWeapon",
+		variantId = "SupportNightblade",
+		grantedEffectId = "SupportNightblade",
 		tags = {
 			attack = true,
 			critical = true,
@@ -10133,11 +10491,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemMeatShieldSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportMeatShield"] = {
 		name = "Meat Shield",
 		gameId = "Metadata/Items/Gems/SupportGemMeatShield",
-		variantId = "MeatShieldSupport",
-		grantedEffectId = "SupportMinionDefensiveStance",
+		variantId = "SupportMeatShield",
+		grantedEffectId = "SupportMeatShield",
 		tags = {
 			intelligence = true,
 			support = true,
@@ -10154,7 +10512,7 @@ return {
 		baseTypeName = "Stormblast Mine",
 		gameId = "Metadata/Items/Gems/SkillGemStormblastMine",
 		variantId = "StormblastMine",
-		grantedEffectId = "LightningExplosionMine",
+		grantedEffectId = "StormblastMine",
 		tags = {
 			mine = true,
 			intelligence = true,
@@ -10176,7 +10534,7 @@ return {
 		baseTypeName = "Summon Skitterbots",
 		gameId = "Metadata/Items/Gems/SkillGemSummonSkitterbots",
 		variantId = "SummonSkitterbots",
-		grantedEffectId = "Skitterbots",
+		grantedEffectId = "SummonSkitterbots",
 		tags = {
 			trap = true,
 			mine = true,
@@ -10195,11 +10553,11 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemHighImpactMineSupportSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportHighImpactMine"] = {
 		name = "High-Impact Mine",
 		gameId = "Metadata/Items/Gems/SupportGemHighImpactMineSupport",
-		variantId = "HighImpactMineSupportSupport",
-		grantedEffectId = "SupportRemoteMine2",
+		variantId = "SupportHighImpactMine",
+		grantedEffectId = "SupportHighImpactMine",
 		tags = {
 			mine = true,
 			intelligence = true,
@@ -10213,11 +10571,11 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemInfernalLegionSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportInfernalLegion"] = {
 		name = "Infernal Legion",
 		gameId = "Metadata/Items/Gems/SupportGemInfernalLegion",
-		variantId = "InfernalLegionSupport",
-		grantedEffectId = "SupportBurningMinions",
+		variantId = "SupportInfernalLegion",
+		grantedEffectId = "SupportInfernalLegion",
 		tags = {
 			fire = true,
 			area = true,
@@ -10236,7 +10594,7 @@ return {
 		baseTypeName = "Pestilent Strike",
 		gameId = "Metadata/Items/Gems/SkillGemPestilentStrike",
 		variantId = "PestilentStrike",
-		grantedEffectId = "MambaStrike",
+		grantedEffectId = "PestilentStrike",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -10258,7 +10616,7 @@ return {
 		baseTypeName = "Venom Gyre",
 		gameId = "Metadata/Items/Gems/SkillGemVenomGyre",
 		variantId = "VenomGyre",
-		grantedEffectId = "SnappingAdder",
+		grantedEffectId = "VenomGyre",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -10273,11 +10631,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSwiftAssemblySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportSwiftAssembly"] = {
 		name = "Swift Assembly",
 		gameId = "Metadata/Items/Gems/SupportGemSwiftAssembly",
-		variantId = "SwiftAssemblySupport",
-		grantedEffectId = "SupportAdditionalTrapMine",
+		variantId = "SupportSwiftAssembly",
+		grantedEffectId = "SupportSwiftAssembly",
 		tags = {
 			dexterity = true,
 			support = true,
@@ -10331,10 +10689,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemArrowNovaSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportArrowNova"] = {
 		name = "Arrow Nova",
 		gameId = "Metadata/Items/Gems/SupportGemArrowNova",
-		variantId = "ArrowNovaSupport",
+		variantId = "SupportArrowNova",
 		grantedEffectId = "SupportArrowNova",
 		tags = {
 			bow = true,
@@ -10349,10 +10707,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemBarrageSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportBarrage"] = {
 		name = "Barrage Support",
 		gameId = "Metadata/Items/Gems/SupportGemBarrage",
-		variantId = "BarrageSupport",
+		variantId = "SupportBarrage",
 		grantedEffectId = "SupportBarrage",
 		tags = {
 			bow = true,
@@ -10453,10 +10811,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemGreaterVolleySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportGreaterVolley"] = {
 		name = "Greater Volley",
 		gameId = "Metadata/Items/Gems/SupportGemGreaterVolley",
-		variantId = "GreaterVolleySupport",
+		variantId = "SupportGreaterVolley",
 		grantedEffectId = "SupportGreaterVolley",
 		tags = {
 			dexterity = true,
@@ -10469,11 +10827,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemAddedFireDamagePlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedAddedFireDamage"] = {
 		name = "Awakened Added Fire Damage",
 		gameId = "Metadata/Items/Gems/SupportGemAddedFireDamagePlus",
-		variantId = "AddedFireDamagePlusSupport",
-		grantedEffectId = "SupportAddedFireDamagePlus",
+		variantId = "SupportAwakenedAddedFireDamage",
+		grantedEffectId = "SupportAwakenedAddedFireDamage",
 		tags = {
 			fire = true,
 			physical = true,
@@ -10487,11 +10845,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemAncestralCallPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedAncestralCall"] = {
 		name = "Awakened Ancestral Call",
 		gameId = "Metadata/Items/Gems/SupportGemAncestralCallPlus",
-		variantId = "AncestralCallPlusSupport",
-		grantedEffectId = "SupportAncestralCallPlus",
+		variantId = "SupportAwakenedAncestralCall",
+		grantedEffectId = "SupportAwakenedAncestralCall",
 		tags = {
 			awakened = true,
 			strength = true,
@@ -10506,11 +10864,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemBrutalityPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedBrutality"] = {
 		name = "Awakened Brutality",
 		gameId = "Metadata/Items/Gems/SupportGemBrutalityPlus",
-		variantId = "BrutalityPlusSupport",
-		grantedEffectId = "SupportBrutalityPlus",
+		variantId = "SupportAwakenedBrutality",
+		grantedEffectId = "SupportAwakenedBrutality",
 		tags = {
 			physical = true,
 			awakened = true,
@@ -10523,11 +10881,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemBurningDamagePlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedBurningDamage"] = {
 		name = "Awakened Burning Damage",
 		gameId = "Metadata/Items/Gems/SupportGemBurningDamagePlus",
-		variantId = "BurningDamagePlusSupport",
-		grantedEffectId = "SupportBurningDamagePlus",
+		variantId = "SupportAwakenedBurningDamage",
+		grantedEffectId = "SupportAwakenedBurningDamage",
 		tags = {
 			fire = true,
 			awakened = true,
@@ -10540,11 +10898,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemWeaponElementalDamagePlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedElementalDamageWithAttacks"] = {
 		name = "Awakened Elemental Damage with Attacks",
 		gameId = "Metadata/Items/Gems/SupportGemWeaponElementalDamagePlus",
-		variantId = "WeaponElementalDamagePlusSupport",
-		grantedEffectId = "SupportWeaponElementalDamagePlus",
+		variantId = "SupportAwakenedElementalDamageWithAttacks",
+		grantedEffectId = "SupportAwakenedElementalDamageWithAttacks",
 		tags = {
 			attack = true,
 			awakened = true,
@@ -10557,11 +10915,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemFirePenetrationPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedFirePenetration"] = {
 		name = "Awakened Fire Penetration",
 		gameId = "Metadata/Items/Gems/SupportGemFirePenetrationPlus",
-		variantId = "FirePenetrationPlusSupport",
-		grantedEffectId = "SupportFirePenetrationPlus",
+		variantId = "SupportAwakenedFirePenetration",
+		grantedEffectId = "SupportAwakenedFirePenetration",
 		tags = {
 			fire = true,
 			awakened = true,
@@ -10574,11 +10932,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemGenerosityPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedGenerosity"] = {
 		name = "Awakened Generosity",
 		gameId = "Metadata/Items/Gems/SupportGemGenerosityPlus",
-		variantId = "GenerosityPlusSupport",
-		grantedEffectId = "SupportGenerosityPlus",
+		variantId = "SupportAwakenedGenerosity",
+		grantedEffectId = "SupportAwakenedGenerosity",
 		tags = {
 			awakened = true,
 			strength = true,
@@ -10591,11 +10949,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemMeleePhysicalDamagePlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedMeleePhysicalDamage"] = {
 		name = "Awakened Melee Physical Damage",
 		gameId = "Metadata/Items/Gems/SupportGemMeleePhysicalDamagePlus",
-		variantId = "MeleePhysicalDamagePlusSupport",
-		grantedEffectId = "SupportMeleePhysicalDamagePlus",
+		variantId = "SupportAwakenedMeleePhysicalDamage",
+		grantedEffectId = "SupportAwakenedMeleePhysicalDamage",
 		tags = {
 			melee = true,
 			physical = true,
@@ -10610,11 +10968,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemMeleeSplashPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedMeleeSplash"] = {
 		name = "Awakened Melee Splash",
 		gameId = "Metadata/Items/Gems/SupportGemMeleeSplashPlus",
-		variantId = "MeleeSplashPlusSupport",
-		grantedEffectId = "SupportMeleeSplashPlus",
+		variantId = "SupportAwakenedMeleeSplash",
+		grantedEffectId = "SupportAwakenedMeleeSplash",
 		tags = {
 			awakened = true,
 			strength = true,
@@ -10630,11 +10988,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemMultistrikePlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedMultistrike"] = {
 		name = "Awakened Multistrike",
 		gameId = "Metadata/Items/Gems/SupportGemMultistrikePlus",
-		variantId = "MultistrikePlusSupport",
-		grantedEffectId = "SupportMultistrikePlus",
+		variantId = "SupportAwakenedMultistrike",
+		grantedEffectId = "SupportAwakenedMultistrike",
 		tags = {
 			attack = true,
 			melee = true,
@@ -10648,11 +11006,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemAddedColdDamagePlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedAddedColdDamage"] = {
 		name = "Awakened Added Cold Damage",
 		gameId = "Metadata/Items/Gems/SupportGemAddedColdDamagePlus",
-		variantId = "AddedColdDamagePlusSupport",
-		grantedEffectId = "SupportAddedColdDamagePlus",
+		variantId = "SupportAwakenedAddedColdDamage",
+		grantedEffectId = "SupportAwakenedAddedColdDamage",
 		tags = {
 			cold = true,
 			awakened = true,
@@ -10665,11 +11023,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemArrowNovaPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedArrowNova"] = {
 		name = "Awakened Arrow Nova",
 		gameId = "Metadata/Items/Gems/SupportGemArrowNovaPlus",
-		variantId = "ArrowNovaPlusSupport",
-		grantedEffectId = "SupportArrowNovaPlus",
+		variantId = "SupportAwakenedArrowNova",
+		grantedEffectId = "SupportAwakenedArrowNova",
 		tags = {
 			bow = true,
 			attack = true,
@@ -10684,11 +11042,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemCastOnCritPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedCastOnCriticalStrike"] = {
 		name = "Awakened Cast On Critical Strike",
 		gameId = "Metadata/Items/Gems/SupportGemCastOnCritPlus",
-		variantId = "CastOnCritPlusSupport",
-		grantedEffectId = "SupportCastOnCritPlus",
+		variantId = "SupportAwakenedCastOnCriticalStrike",
+		grantedEffectId = "SupportAwakenedCastOnCriticalStrike",
 		secondaryGrantedEffectId = "SupportCastOnCritTriggeredPlus",
 		tags = {
 			critical = true,
@@ -10704,11 +11062,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemChainPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedChain"] = {
 		name = "Awakened Chain",
 		gameId = "Metadata/Items/Gems/SupportGemChainPlus",
-		variantId = "ChainPlusSupport",
-		grantedEffectId = "SupportChainPlus",
+		variantId = "SupportAwakenedChain",
+		grantedEffectId = "SupportAwakenedChain",
 		tags = {
 			awakened = true,
 			dexterity = true,
@@ -10722,11 +11080,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemColdPenetrationPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedColdPenetration"] = {
 		name = "Awakened Cold Penetration",
 		gameId = "Metadata/Items/Gems/SupportGemColdPenetrationPlus",
-		variantId = "ColdPenetrationPlusSupport",
-		grantedEffectId = "SupportColdPenetrationPlus",
+		variantId = "SupportAwakenedColdPenetration",
+		grantedEffectId = "SupportAwakenedColdPenetration",
 		tags = {
 			cold = true,
 			awakened = true,
@@ -10739,11 +11097,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemDeadlyAilmentsPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedDeadlyAilments"] = {
 		name = "Awakened Deadly Ailments",
 		gameId = "Metadata/Items/Gems/SupportGemDeadlyAilmentsPlus",
-		variantId = "DeadlyAilmentsPlusSupport",
-		grantedEffectId = "SupportDeadlyAilmentsPlus",
+		variantId = "SupportAwakenedDeadlyAilments",
+		grantedEffectId = "SupportAwakenedDeadlyAilments",
 		tags = {
 			awakened = true,
 			dexterity = true,
@@ -10755,11 +11113,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemForkPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedFork"] = {
 		name = "Awakened Fork",
 		gameId = "Metadata/Items/Gems/SupportGemForkPlus",
-		variantId = "ForkPlusSupport",
-		grantedEffectId = "SupportForkPlus",
+		variantId = "SupportAwakenedFork",
+		grantedEffectId = "SupportAwakenedFork",
 		tags = {
 			awakened = true,
 			dexterity = true,
@@ -10772,11 +11130,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemGreaterMultipleProjectilesPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedGreaterMultipleProjectiles"] = {
 		name = "Awakened Greater Multiple Projectiles",
 		gameId = "Metadata/Items/Gems/SupportGemGreaterMultipleProjectilesPlus",
-		variantId = "GreaterMultipleProjectilesPlusSupport",
-		grantedEffectId = "SupportGreaterMultipleProjectilesPlus",
+		variantId = "SupportAwakenedGreaterMultipleProjectiles",
+		grantedEffectId = "SupportAwakenedGreaterMultipleProjectiles",
 		tags = {
 			awakened = true,
 			dexterity = true,
@@ -10789,11 +11147,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemSwiftAfflictionPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedSwiftAffliction"] = {
 		name = "Awakened Swift Affliction",
 		gameId = "Metadata/Items/Gems/SupportGemSwiftAfflictionPlus",
-		variantId = "SwiftAfflictionPlusSupport",
-		grantedEffectId = "SupportSwiftAfflictionPlus",
+		variantId = "SupportAwakenedSwiftAffliction",
+		grantedEffectId = "SupportAwakenedSwiftAffliction",
 		tags = {
 			awakened = true,
 			dexterity = true,
@@ -10806,11 +11164,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemVoidManipulationPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedVoidManipulation"] = {
 		name = "Awakened Void Manipulation",
 		gameId = "Metadata/Items/Gems/SupportGemVoidManipulationPlus",
-		variantId = "VoidManipulationPlusSupport",
-		grantedEffectId = "SupportVoidManipulationPlus",
+		variantId = "SupportAwakenedVoidManipulation",
+		grantedEffectId = "SupportAwakenedVoidManipulation",
 		tags = {
 			chaos = true,
 			awakened = true,
@@ -10823,11 +11181,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemViciousProjectilesPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedViciousProjectiles"] = {
 		name = "Awakened Vicious Projectiles",
 		gameId = "Metadata/Items/Gems/SupportGemViciousProjectilesPlus",
-		variantId = "ViciousProjectilesPlusSupport",
-		grantedEffectId = "SupportViciousProjectilesPlus",
+		variantId = "SupportAwakenedViciousProjectiles",
+		grantedEffectId = "SupportAwakenedViciousProjectiles",
 		tags = {
 			projectile = true,
 			attack = true,
@@ -10843,11 +11201,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemAddedChaosDamagePlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedAddedChaosDamage"] = {
 		name = "Awakened Added Chaos Damage",
 		gameId = "Metadata/Items/Gems/SupportGemAddedChaosDamagePlus",
-		variantId = "AddedChaosDamagePlusSupport",
-		grantedEffectId = "SupportAddedChaosDamagePlus",
+		variantId = "SupportAwakenedAddedChaosDamage",
+		grantedEffectId = "SupportAwakenedAddedChaosDamage",
 		tags = {
 			chaos = true,
 			awakened = true,
@@ -10860,11 +11218,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemAddedLightningDamagePlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedAddedLightningDamage"] = {
 		name = "Awakened Added Lightning Damage",
 		gameId = "Metadata/Items/Gems/SupportGemAddedLightningDamagePlus",
-		variantId = "AddedLightningDamagePlusSupport",
-		grantedEffectId = "SupportAddedLightningDamagePlus",
+		variantId = "SupportAwakenedAddedLightningDamage",
+		grantedEffectId = "SupportAwakenedAddedLightningDamage",
 		tags = {
 			lightning = true,
 			awakened = true,
@@ -10877,11 +11235,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemBlasphemyPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedBlasphemy"] = {
 		name = "Awakened Blasphemy",
 		gameId = "Metadata/Items/Gems/SupportGemBlasphemyPlus",
-		variantId = "BlasphemyPlusSupport",
-		grantedEffectId = "SupportBlasphemyPlus",
+		variantId = "SupportAwakenedBlasphemy",
+		grantedEffectId = "SupportAwakenedBlasphemy",
 		tags = {
 			awakened = true,
 			intelligence = true,
@@ -10895,11 +11253,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemCastWhileChannellingPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedCastWhileChannelling"] = {
 		name = "Awakened Cast While Channelling",
 		gameId = "Metadata/Items/Gems/SupportGemCastWhileChannellingPlus",
-		variantId = "CastWhileChannellingPlusSupport",
-		grantedEffectId = "SupportCastWhileChannellingPlus",
+		variantId = "SupportAwakenedCastWhileChannelling",
+		grantedEffectId = "SupportAwakenedCastWhileChannelling",
 		secondaryGrantedEffectId = "SupportCastWhileChannellingTriggeredPlus",
 		tags = {
 			awakened = true,
@@ -10915,11 +11273,11 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemControlledDestructionPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedControlledDestruction"] = {
 		name = "Awakened Controlled Destruction",
 		gameId = "Metadata/Items/Gems/SupportGemControlledDestructionPlus",
-		variantId = "ControlledDestructionPlusSupport",
-		grantedEffectId = "SupportControlledDestructionPlus",
+		variantId = "SupportAwakenedControlledDestruction",
+		grantedEffectId = "SupportAwakenedControlledDestruction",
 		tags = {
 			spell = true,
 			critical = true,
@@ -10933,11 +11291,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemCurseOnHitPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedHextouch"] = {
 		name = "Awakened Hextouch",
 		gameId = "Metadata/Items/Gems/SupportGemCurseOnHitPlus",
-		variantId = "CurseOnHitPlusSupport",
-		grantedEffectId = "SupportCurseOnHitPlus",
+		variantId = "SupportAwakenedHextouch",
+		grantedEffectId = "SupportAwakenedHextouch",
 		secondaryGrantedEffectId = "SupportCurseOnHitCursePlus",
 		tags = {
 			awakened = true,
@@ -10952,11 +11310,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemElementalFocusPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedElementalFocus"] = {
 		name = "Awakened Elemental Focus",
 		gameId = "Metadata/Items/Gems/SupportGemElementalFocusPlus",
-		variantId = "ElementalFocusPlusSupport",
-		grantedEffectId = "SupportElementalFocusPlus",
+		variantId = "SupportAwakenedElementalFocus",
+		grantedEffectId = "SupportAwakenedElementalFocus",
 		tags = {
 			awakened = true,
 			intelligence = true,
@@ -10968,11 +11326,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemIncreasedAreaOfEffectPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedIncreasedAreaofEffect"] = {
 		name = "Awakened Increased Area of Effect",
 		gameId = "Metadata/Items/Gems/SupportGemIncreasedAreaOfEffectPlus",
-		variantId = "IncreasedAreaOfEffectPlusSupport",
-		grantedEffectId = "SupportIncreasedAreaOfEffectPlus",
+		variantId = "SupportAwakenedIncreasedAreaofEffect",
+		grantedEffectId = "SupportAwakenedIncreasedAreaofEffect",
 		tags = {
 			awakened = true,
 			intelligence = true,
@@ -10985,11 +11343,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemLightningPenetrationPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedLightningPenetration"] = {
 		name = "Awakened Lightning Penetration",
 		gameId = "Metadata/Items/Gems/SupportGemLightningPenetrationPlus",
-		variantId = "LightningPenetrationPlusSupport",
-		grantedEffectId = "SupportLightningPenetrationPlus",
+		variantId = "SupportAwakenedLightningPenetration",
+		grantedEffectId = "SupportAwakenedLightningPenetration",
 		tags = {
 			lightning = true,
 			awakened = true,
@@ -11002,11 +11360,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemMinionDamagePlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedMinionDamage"] = {
 		name = "Awakened Minion Damage",
 		gameId = "Metadata/Items/Gems/SupportGemMinionDamagePlus",
-		variantId = "MinionDamagePlusSupport",
-		grantedEffectId = "SupportMinionDamagePlus",
+		variantId = "SupportAwakenedMinionDamage",
+		grantedEffectId = "SupportAwakenedMinionDamage",
 		tags = {
 			awakened = true,
 			intelligence = true,
@@ -11019,11 +11377,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemSpellCascadePlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedSpellCascade"] = {
 		name = "Awakened Spell Cascade",
 		gameId = "Metadata/Items/Gems/SupportGemSpellCascadePlus",
-		variantId = "SpellCascadePlusSupport",
-		grantedEffectId = "SupportSpellCascadePlus",
+		variantId = "SupportAwakenedSpellCascade",
+		grantedEffectId = "SupportAwakenedSpellCascade",
 		tags = {
 			area = true,
 			spell = true,
@@ -11037,11 +11395,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemSpellEchoPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedSpellEcho"] = {
 		name = "Awakened Spell Echo",
 		gameId = "Metadata/Items/Gems/SupportGemSpellEchoPlus",
-		variantId = "SpellEchoPlusSupport",
-		grantedEffectId = "SupportSpellEchoPlus",
+		variantId = "SupportAwakenedSpellEcho",
+		grantedEffectId = "SupportAwakenedSpellEcho",
 		tags = {
 			spell = true,
 			awakened = true,
@@ -11054,11 +11412,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemUnboundAilmentsPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedUnboundAilments"] = {
 		name = "Awakened Unbound Ailments",
 		gameId = "Metadata/Items/Gems/SupportGemUnboundAilmentsPlus",
-		variantId = "UnboundAilmentsPlusSupport",
-		grantedEffectId = "SupportUnboundAilmentsPlus",
+		variantId = "SupportAwakenedUnboundAilments",
+		grantedEffectId = "SupportAwakenedUnboundAilments",
 		tags = {
 			awakened = true,
 			intelligence = true,
@@ -11070,11 +11428,11 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemUnleashPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedUnleash"] = {
 		name = "Awakened Unleash",
 		gameId = "Metadata/Items/Gems/SupportGemUnleashPlus",
-		variantId = "UnleashPlusSupport",
-		grantedEffectId = "SupportUnleashPlus",
+		variantId = "SupportAwakenedUnleash",
+		grantedEffectId = "SupportAwakenedUnleash",
 		tags = {
 			spell = true,
 			awakened = true,
@@ -11087,11 +11445,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 5,
 	},
-	["Metadata/Items/Gems/SkillGemEmpowerPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedEmpower"] = {
 		name = "Awakened Empower",
 		gameId = "Metadata/Items/Gems/SupportGemEmpowerPlus",
-		variantId = "EmpowerPlusSupport",
-		grantedEffectId = "SupportAdditionalLevelPlus",
+		variantId = "SupportAwakenedEmpower",
+		grantedEffectId = "SupportAwakenedEmpower",
 		tags = {
 			low_max_level = true,
 			exceptional = true,
@@ -11105,11 +11463,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 4,
 	},
-	["Metadata/Items/Gems/SkillGemEnlightenPlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedEnlighten"] = {
 		name = "Awakened Enlighten",
 		gameId = "Metadata/Items/Gems/SupportGemEnlightenPlus",
-		variantId = "EnlightenPlusSupport",
-		grantedEffectId = "SupportAdditionalXPPlus",
+		variantId = "SupportAwakenedEnlighten",
+		grantedEffectId = "SupportAwakenedEnlighten",
 		tags = {
 			low_max_level = true,
 			exceptional = true,
@@ -11123,11 +11481,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 4,
 	},
-	["Metadata/Items/Gems/SkillGemEnhancePlusSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportAwakenedEnhance"] = {
 		name = "Awakened Enhance",
 		gameId = "Metadata/Items/Gems/SupportGemEnhancePlus",
-		variantId = "EnhancePlusSupport",
-		grantedEffectId = "SupportAdditionalQualityPlus",
+		variantId = "SupportAwakenedEnhance",
+		grantedEffectId = "SupportAwakenedEnhance",
 		tags = {
 			low_max_level = true,
 			exceptional = true,
@@ -11326,10 +11684,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemArchmageSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportArchmage"] = {
 		name = "Archmage",
 		gameId = "Metadata/Items/Gems/SupportGemArchmage",
-		variantId = "ArchmageSupport",
+		variantId = "SupportArchmage",
 		grantedEffectId = "SupportArchmage",
 		tags = {
 			lightning = true,
@@ -11344,11 +11702,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSecondWindSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportSecondWind"] = {
 		name = "Second Wind",
 		gameId = "Metadata/Items/Gems/SupportGemSecondWind",
-		variantId = "SecondWindSupport",
-		grantedEffectId = "SupportAdditionalCooldown",
+		variantId = "SupportSecondWind",
+		grantedEffectId = "SupportSecondWind",
 		tags = {
 			dexterity = true,
 			support = true,
@@ -11359,11 +11717,11 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemArcanistBrand"] = {
+	["Metadata/Items/Gems/SkillGemBrandSupport"] = {
 		name = "Arcanist Brand",
 		baseTypeName = "Arcanist Brand",
 		gameId = "Metadata/Items/Gems/SkillGemArcanistBrand",
-		variantId = "ArcanistBrand",
+		variantId = "BrandSupport",
 		grantedEffectId = "BrandSupport",
 		secondaryGrantedEffectId = "SupportBrandSupport",
 		secondaryEffectName = "Arcanist Brand Support",
@@ -11444,7 +11802,7 @@ return {
 		baseTypeName = "Penance Brand",
 		gameId = "Metadata/Items/Gems/SkillGemPenanceBrand",
 		variantId = "PenanceBrand",
-		grantedEffectId = "MagmaSigil",
+		grantedEffectId = "PenanceBrand",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -11466,7 +11824,7 @@ return {
 		baseTypeName = "Penance Brand of Dissipation",
 		gameId = "Metadata/Items/Gems/SkillGemPenanceBrand",
 		variantId = "PenanceBrandAltX",
-		grantedEffectId = "MagmaSigilAltX",
+		grantedEffectId = "PenanceBrandAltX",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -11488,7 +11846,7 @@ return {
 		baseTypeName = "Penance Brand of Conduction",
 		gameId = "Metadata/Items/Gems/SkillGemPenanceBrand",
 		variantId = "PenanceBrandAltY",
-		grantedEffectId = "MagmaSigilAltY",
+		grantedEffectId = "PenanceBrandAltY",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -11510,7 +11868,7 @@ return {
 		baseTypeName = "Wintertide Brand",
 		gameId = "Metadata/Items/Gems/SkillGemWintertideBrand",
 		variantId = "WintertideBrand",
-		grantedEffectId = "ImmolationSigil",
+		grantedEffectId = "WintertideBrand",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -11531,7 +11889,7 @@ return {
 		baseTypeName = "Earthshatter",
 		gameId = "Metadata/Items/Gems/SkillGemEarthshatter",
 		variantId = "Earthshatter",
-		grantedEffectId = "SpikeSlam",
+		grantedEffectId = "Earthshatter",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -11552,7 +11910,7 @@ return {
 		baseTypeName = "Earthshatter of Fragility",
 		gameId = "Metadata/Items/Gems/SkillGemEarthshatter",
 		variantId = "EarthshatterAltX",
-		grantedEffectId = "SpikeSlamAltX",
+		grantedEffectId = "EarthshatterAltX",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -11573,7 +11931,7 @@ return {
 		baseTypeName = "Earthshatter of Prominence",
 		gameId = "Metadata/Items/Gems/SkillGemEarthshatter",
 		variantId = "EarthshatterAltY",
-		grantedEffectId = "SpikeSlamAltY",
+		grantedEffectId = "EarthshatterAltY",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -11610,11 +11968,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFistOfWarSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportFistofWar"] = {
 		name = "Fist of War",
 		gameId = "Metadata/Items/Gems/SupportGemFistOfWar",
-		variantId = "FistOfWarSupport",
-		grantedEffectId = "AncestralSlamSupport",
+		variantId = "SupportFistofWar",
+		grantedEffectId = "SupportFistofWar",
 		tags = {
 			slam = true,
 			attack = true,
@@ -11629,11 +11987,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSwiftbrandSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportSwiftbrand"] = {
 		name = "Swiftbrand",
 		gameId = "Metadata/Items/Gems/SupportGemSwiftbrand",
-		variantId = "SwiftbrandSupport",
-		grantedEffectId = "SupportRapidActivation",
+		variantId = "SupportSwiftbrand",
+		grantedEffectId = "SupportSwiftbrand",
 		tags = {
 			brand = true,
 			intelligence = true,
@@ -11645,10 +12003,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemUrgentOrdersSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportUrgentOrders"] = {
 		name = "Urgent Orders",
 		gameId = "Metadata/Items/Gems/SupportGemUrgentOrders",
-		variantId = "UrgentOrdersSupport",
+		variantId = "SupportUrgentOrders",
 		grantedEffectId = "SupportUrgentOrders",
 		tags = {
 			warcry = true,
@@ -11666,7 +12024,7 @@ return {
 		baseTypeName = "Blazing Salvo",
 		gameId = "Metadata/Items/Gems/SkillGemBlazingSalvo",
 		variantId = "BlazingSalvo",
-		grantedEffectId = "Ember",
+		grantedEffectId = "BlazingSalvo",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -11686,7 +12044,7 @@ return {
 		baseTypeName = "Void Sphere",
 		gameId = "Metadata/Items/Gems/SkillGemVoidSphere",
 		variantId = "VoidSphere",
-		grantedEffectId = "BlackHole",
+		grantedEffectId = "VoidSphere",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -11708,7 +12066,7 @@ return {
 		baseTypeName = "Void Sphere of Rending",
 		gameId = "Metadata/Items/Gems/SkillGemVoidSphere",
 		variantId = "VoidSphereAltX",
-		grantedEffectId = "BlackHoleAltX",
+		grantedEffectId = "VoidSphereAltX",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -11730,7 +12088,7 @@ return {
 		baseTypeName = "Crackling Lance",
 		gameId = "Metadata/Items/Gems/SkillGemCracklingLance",
 		variantId = "CracklingLance",
-		grantedEffectId = "Disintegrate",
+		grantedEffectId = "CracklingLance",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -11749,7 +12107,7 @@ return {
 		baseTypeName = "Crackling Lance of Branching",
 		gameId = "Metadata/Items/Gems/SkillGemCracklingLance",
 		variantId = "CracklingLanceAltX",
-		grantedEffectId = "DisintegrateAltX",
+		grantedEffectId = "CracklingLanceAltX",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -11768,7 +12126,7 @@ return {
 		baseTypeName = "Crackling Lance of Disintegration",
 		gameId = "Metadata/Items/Gems/SkillGemCracklingLance",
 		variantId = "CracklingLanceAltY",
-		grantedEffectId = "DisintegrateAltY",
+		grantedEffectId = "CracklingLanceAltY",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -11787,7 +12145,7 @@ return {
 		baseTypeName = "Frost Shield",
 		gameId = "Metadata/Items/Gems/SkillGemFrostShield",
 		variantId = "FrostShield",
-		grantedEffectId = "FrostGlobe",
+		grantedEffectId = "FrostShield",
 		tags = {
 			critical = true,
 			intelligence = true,
@@ -11808,7 +12166,7 @@ return {
 		baseTypeName = "Splitting Steel",
 		gameId = "Metadata/Items/Gems/SkillGemSplittingSteel",
 		variantId = "SplittingSteel",
-		grantedEffectId = "ImpactingSteel",
+		grantedEffectId = "SplittingSteel",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -11828,7 +12186,7 @@ return {
 		baseTypeName = "Splitting Steel of Ammunition",
 		gameId = "Metadata/Items/Gems/SkillGemSplittingSteel",
 		variantId = "SplittingSteelAltX",
-		grantedEffectId = "ImpactingSteelAltX",
+		grantedEffectId = "SplittingSteelAltX",
 		tags = {
 			dexterity = true,
 			grants_active_skill = true,
@@ -11848,7 +12206,7 @@ return {
 		baseTypeName = "Sigil of Power",
 		gameId = "Metadata/Items/Gems/SkillGemSigilOfPower",
 		variantId = "SigilOfPower",
-		grantedEffectId = "CircleOfPower",
+		grantedEffectId = "SigilOfPower",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -11869,7 +12227,7 @@ return {
 		baseTypeName = "Flame Wall",
 		gameId = "Metadata/Items/Gems/SkillGemFlameWall",
 		variantId = "FlameWall",
-		grantedEffectId = "Firewall",
+		grantedEffectId = "FlameWall",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -11884,12 +12242,12 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemImpendingDoomSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportImpendingDoom"] = {
 		name = "Impending Doom",
 		gameId = "Metadata/Items/Gems/SupportGemImpendingDoom",
-		variantId = "ImpendingDoomSupport",
-		grantedEffectId = "ViciousHexSupport",
-		secondaryGrantedEffectId = "ViciousHexExplosion",
+		variantId = "SupportImpendingDoom",
+		grantedEffectId = "SupportImpendingDoom",
+		secondaryGrantedEffectId = "DoomBlast",
 		tags = {
 			intelligence = true,
 			support = true,
@@ -11911,7 +12269,7 @@ return {
 		baseTypeName = "Hexblast",
 		gameId = "Metadata/Items/Gems/SkillGemHexblast",
 		variantId = "Hexblast",
-		grantedEffectId = "DoomBlast",
+		grantedEffectId = "Hexblast",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -11931,7 +12289,7 @@ return {
 		baseTypeName = "Hexblast of Contradiction",
 		gameId = "Metadata/Items/Gems/SkillGemHexblast",
 		variantId = "HexblastAltX",
-		grantedEffectId = "DoomBlastAltX",
+		grantedEffectId = "HexblastAltX",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -11951,7 +12309,7 @@ return {
 		baseTypeName = "Hexblast of Havoc",
 		gameId = "Metadata/Items/Gems/SkillGemHexblast",
 		variantId = "HexblastAltY",
-		grantedEffectId = "DoomBlastAltY",
+		grantedEffectId = "HexblastAltY",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -11966,11 +12324,11 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemPinpointSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportPinpoint"] = {
 		name = "Pinpoint",
 		gameId = "Metadata/Items/Gems/SupportGemPinpoint",
-		variantId = "PinpointSupport",
-		grantedEffectId = "SupportProjectileIntensity",
+		variantId = "SupportPinpoint",
+		grantedEffectId = "SupportPinpoint",
 		tags = {
 			intelligence = true,
 			support = true,
@@ -11988,7 +12346,7 @@ return {
 		baseTypeName = "Hydrosphere",
 		gameId = "Metadata/Items/Gems/SkillGemHydrosphere",
 		variantId = "Hydrosphere",
-		grantedEffectId = "WaterSphere",
+		grantedEffectId = "Hydrosphere",
 		tags = {
 			intelligence = true,
 			grants_active_skill = true,
@@ -12006,10 +12364,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemTrinitySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportTrinity"] = {
 		name = "Trinity",
 		gameId = "Metadata/Items/Gems/SupportGemTrinity",
-		variantId = "TrinitySupport",
+		variantId = "SupportTrinity",
 		grantedEffectId = "SupportTrinity",
 		tags = {
 			intelligence = true,
@@ -12080,10 +12438,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemBloodthirstSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportBloodthirst"] = {
 		name = "Bloodthirst",
 		gameId = "Metadata/Items/Gems/SupportGemBloodthirst",
-		variantId = "BloodthirstSupport",
+		variantId = "SupportBloodthirst",
 		grantedEffectId = "SupportBloodthirst",
 		tags = {
 			attack = true,
@@ -12097,12 +12455,12 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemBloodreap"] = {
+	["Metadata/Items/Gems/SkillGemReap"] = {
 		name = "Reap",
 		baseTypeName = "Reap",
 		gameId = "Metadata/Items/Gems/SkillGemBloodreap",
-		variantId = "Bloodreap",
-		grantedEffectId = "Bloodreap",
+		variantId = "Reap",
+		grantedEffectId = "Reap",
 		tags = {
 			strength = true,
 			grants_active_skill = true,
@@ -12134,10 +12492,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCrueltySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportCruelty"] = {
 		name = "Cruelty",
 		gameId = "Metadata/Items/Gems/SupportGemCruelty",
-		variantId = "CrueltySupport",
+		variantId = "SupportCruelty",
 		grantedEffectId = "SupportCruelty",
 		tags = {
 			strength = true,
@@ -12150,10 +12508,10 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemLifetapSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportLifetap"] = {
 		name = "Lifetap",
 		gameId = "Metadata/Items/Gems/SupportGemLifetap",
-		variantId = "LifetapSupport",
+		variantId = "SupportLifetap",
 		grantedEffectId = "SupportLifetap",
 		tags = {
 			strength = true,
@@ -12179,10 +12537,9 @@ return {
 			spell = true,
 			duration = true,
 			aura = true,
-			physical = true,
 			banner = true,
 		},
-		tagString = "AoE, Spell, Duration, Aura, Physical",
+		tagString = "AoE, Spell, Duration, Aura",
 		reqStr = 60,
 		reqDex = 40,
 		reqInt = 0,
@@ -12267,6 +12624,25 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
+	["Metadata/Items/Gems/SkillGemSpectralHelixAltY"] = {
+		name = "Spectral Helix of Trarthus",
+		baseTypeName = "Spectral Helix of Trarthus",
+		gameId = "Metadata/Items/Gems/SkillGemSpectralHelix",
+		variantId = "SpectralHelixAltY",
+		grantedEffectId = "SpectralHelixAltY",
+		tags = {
+			trap = true,
+			dexterity = true,
+			grants_active_skill = true,
+			attack = true,
+			projectile = true,
+		},
+		tagString = "Trap, Attack, Projectile",
+		reqStr = 40,
+		reqDex = 60,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
 	["Metadata/Items/Gems/SkillGemBattlemagesCry"] = {
 		name = "Battlemage's Cry",
 		baseTypeName = "Battlemage's Cry",
@@ -12288,6 +12664,26 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemSupportEarthbreaker"] = {
+		name = "Earthbreaker",
+		gameId = "Metadata/Items/Gems/SupportGemEarthbreaker",
+		variantId = "SupportEarthbreaker",
+		grantedEffectId = "SupportEarthbreaker",
+		tags = {
+			attack = true,
+			melee = true,
+			slam = true,
+			area = true,
+			strength = true,
+			support = true,
+			totem = true,
+		},
+		tagString = "Attack, Melee, Slam, AoE, Support, Totem",
+		reqStr = 100,
+		reqDex = 0,
+		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemAbsolution"] = {
@@ -12577,10 +12973,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFocusedBallistaSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportFocusedBallista"] = {
 		name = "Focused Ballista",
 		gameId = "Metadata/Items/Gems/SupportGemFocusedBallista",
-		variantId = "FocusedBallistaSupport",
+		variantId = "SupportFocusedBallista",
 		grantedEffectId = "SupportFocusedBallista",
 		tags = {
 			projectile = true,
@@ -12650,10 +13046,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemBeheadSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportBehead"] = {
 		name = "Behead",
 		gameId = "Metadata/Items/Gems/SupportGemBehead",
-		variantId = "BeheadSupport",
+		variantId = "SupportBehead",
 		grantedEffectId = "SupportBehead",
 		tags = {
 			strength = true,
@@ -12725,9 +13121,8 @@ return {
 			melee = true,
 			strike = true,
 			area = true,
-			physical = true,
 		},
-		tagString = "Attack, Melee, Strike, AoE, Physical",
+		tagString = "Attack, Melee, Strike, AoE",
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
@@ -13076,10 +13471,28 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemMarkOnHitSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportDivineBlessing"] = {
+		name = "Divine Blessing",
+		gameId = "Metadata/Items/Gems/SupportGemDivineBlessing",
+		variantId = "SupportDivineBlessing",
+		grantedEffectId = "SupportDivineBlessing",
+		tags = {
+			strength = true,
+			support = true,
+			aura = true,
+			duration = true,
+			blessing = true,
+		},
+		tagString = "Support, Aura, Duration, Blessing",
+		reqStr = 60,
+		reqDex = 0,
+		reqInt = 40,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemSupportMarkOnHit"] = {
 		name = "Mark On Hit",
 		gameId = "Metadata/Items/Gems/SupportGemMarkOnHit",
-		variantId = "MarkOnHitSupport",
+		variantId = "SupportMarkOnHit",
 		grantedEffectId = "SupportMarkOnHit",
 		tags = {
 			dexterity = true,
@@ -13093,11 +13506,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemEternalBlessingSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportEternalBlessing"] = {
 		name = "Eternal Blessing",
 		gameId = "Metadata/Items/Gems/SupportGemEternalBlessing",
-		variantId = "EternalBlessingSupport",
-		grantedEffectId = "SupportMortalConviction",
+		variantId = "SupportEternalBlessing",
+		grantedEffectId = "SupportEternalBlessing",
 		tags = {
 			strength = true,
 			support = true,
@@ -13110,10 +13523,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemOverchargeSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportOvercharge"] = {
 		name = "Overcharge",
 		gameId = "Metadata/Items/Gems/SupportGemOvercharge",
-		variantId = "OverchargeSupport",
+		variantId = "SupportOvercharge",
 		grantedEffectId = "SupportOvercharge",
 		tags = {
 			lightning = true,
@@ -13372,7 +13785,7 @@ return {
 		gameId = "Metadata/Items/Gems/SkillGemVaalCausticArrow",
 		variantId = "VaalCausticArrow",
 		grantedEffectId = "VaalCausticArrow",
-		secondaryGrantedEffectId = "PoisonArrow",
+		secondaryGrantedEffectId = "CausticArrow",
 		vaalGem = true,
 		tags = {
 			dexterity = true,
@@ -13417,10 +13830,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCursedGroundSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportCursedGround"] = {
 		name = "Cursed Ground",
 		gameId = "Metadata/Items/Gems/SupportGemCursedGround",
-		variantId = "CursedGroundSupport",
+		variantId = "SupportCursedGround",
 		grantedEffectId = "SupportCursedGround",
 		tags = {
 			area = true,
@@ -13435,10 +13848,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemHexBloomSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportHexBloom"] = {
 		name = "Hex Bloom",
 		gameId = "Metadata/Items/Gems/SupportGemHexBloom",
-		variantId = "HexBloomSupport",
+		variantId = "SupportHexBloom",
 		grantedEffectId = "SupportHexBloom",
 		tags = {
 			intelligence = true,
@@ -13456,8 +13869,8 @@ return {
 		baseTypeName = "Vaal Venom Gyre",
 		gameId = "Metadata/Items/Gems/SkillGemVaalVenomGyre",
 		variantId = "VaalVenomGyre",
-		grantedEffectId = "VaalSnappingAdder",
-		secondaryGrantedEffectId = "SnappingAdder",
+		grantedEffectId = "VaalVenomGyre",
+		secondaryGrantedEffectId = "VenomGyre",
 		vaalGem = true,
 		tags = {
 			dexterity = true,
@@ -13500,13 +13913,13 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemVaalChargedAttack"] = {
+	["Metadata/Items/Gems/SkillGemVaalBladeFlurry"] = {
 		name = "Vaal Blade Flurry",
 		baseTypeName = "Vaal Blade Flurry",
 		gameId = "Metadata/Items/Gems/SkillGemVaalChargedAttack",
-		variantId = "VaalChargedAttack",
-		grantedEffectId = "VaalChargedAttack",
-		secondaryGrantedEffectId = "ChargedAttack",
+		variantId = "VaalBladeFlurry",
+		grantedEffectId = "VaalBladeFlurry",
+		secondaryGrantedEffectId = "BladeFlurry",
 		vaalGem = true,
 		tags = {
 			dexterity = true,
@@ -13529,7 +13942,7 @@ return {
 		gameId = "Metadata/Items/Gems/SkillGemVaalReap",
 		variantId = "VaalReap",
 		grantedEffectId = "VaalReap",
-		secondaryGrantedEffectId = "Bloodreap",
+		secondaryGrantedEffectId = "Reap",
 		vaalGem = true,
 		tags = {
 			strength = true,
@@ -13714,10 +14127,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemManaforgedArrowsSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportManaforgedArrows"] = {
 		name = "Manaforged Arrows",
 		gameId = "Metadata/Items/Gems/SupportGemManaforgedArrows",
-		variantId = "ManaforgedArrowsSupport",
+		variantId = "SupportManaforgedArrows",
 		grantedEffectId = "SupportManaforgedArrows",
 		tags = {
 			bow = true,
@@ -13731,10 +14144,10 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemPrismaticBurstSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportPrismaticBurst"] = {
 		name = "Prismatic Burst",
 		gameId = "Metadata/Items/Gems/SupportGemPrismaticBurst",
-		variantId = "PrismaticBurstSupport",
+		variantId = "SupportPrismaticBurst",
 		grantedEffectId = "SupportPrismaticBurst",
 		secondaryGrantedEffectId = "PrismaticBurst",
 		tags = {
@@ -13755,12 +14168,12 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemChannelledSnipe"] = {
+	["Metadata/Items/Gems/SkillGemSnipe"] = {
 		name = "Snipe",
 		baseTypeName = "Snipe",
 		gameId = "Metadata/Items/Gems/SkillGemChannelledSnipe",
-		variantId = "ChannelledSnipe",
-		grantedEffectId = "ChannelledSnipe",
+		variantId = "Snipe",
+		grantedEffectId = "Snipe",
 		secondaryGrantedEffectId = "ChannelledSnipeSupport",
 		secondaryEffectName = "Snipe Support",
 		tags = {
@@ -13778,11 +14191,11 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemQuickstep"] = {
+	["Metadata/Items/Gems/SkillGemQuickstepHardMode"] = {
 		name = "Quickstep",
 		baseTypeName = "Quickstep",
 		gameId = "Metadata/Items/Gems/SkillGemQuickstep",
-		variantId = "Quickstep",
+		variantId = "QuickstepHardMode",
 		grantedEffectId = "QuickstepHardMode",
 		tags = {
 			grants_active_skill = true,
@@ -13797,10 +14210,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 1,
 	},
-	["Metadata/Items/Gems/SkillGemTraumaSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportTrauma"] = {
 		name = "Trauma",
 		gameId = "Metadata/Items/Gems/SupportGemTrauma",
-		variantId = "TraumaSupport",
+		variantId = "SupportTrauma",
 		grantedEffectId = "SupportTrauma",
 		tags = {
 			physical = true,
@@ -13817,10 +14230,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSpellbladeSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportSpellblade"] = {
 		name = "Spellblade",
 		gameId = "Metadata/Items/Gems/SupportGemSpellblade",
-		variantId = "SpellbladeSupport",
+		variantId = "SupportSpellblade",
 		grantedEffectId = "SupportSpellblade",
 		tags = {
 			intelligence = true,
@@ -13833,10 +14246,10 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemDevourSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportDevour"] = {
 		name = "Devour",
 		gameId = "Metadata/Items/Gems/SupportGemDevour",
-		variantId = "DevourSupport",
+		variantId = "SupportDevour",
 		grantedEffectId = "SupportDevour",
 		tags = {
 			intelligence = true,
@@ -13848,10 +14261,10 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFreshMeatSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportFreshMeat"] = {
 		name = "Fresh Meat",
 		gameId = "Metadata/Items/Gems/SupportGemFreshMeat",
-		variantId = "FreshMeatSupport",
+		variantId = "SupportFreshMeat",
 		grantedEffectId = "SupportFreshMeat",
 		tags = {
 			critical = true,
@@ -13865,10 +14278,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFlamewoodSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportFlamewood"] = {
 		name = "Flamewood",
 		gameId = "Metadata/Items/Gems/SupportGemFlamewood",
-		variantId = "FlamewoodSupport",
+		variantId = "SupportFlamewood",
 		grantedEffectId = "SupportFlamewood",
 		secondaryGrantedEffectId = "AvengingFlame",
 		tags = {
@@ -13888,10 +14301,10 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCorruptingCrySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportCorruptingCry"] = {
 		name = "Corrupting Cry",
 		gameId = "Metadata/Items/Gems/SupportGemCorruptingCry",
-		variantId = "CorruptingCrySupport",
+		variantId = "SupportCorruptingCry",
 		grantedEffectId = "SupportCorruptingCry",
 		tags = {
 			area = true,
@@ -13907,10 +14320,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemGuardiansBlessingSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportGuardiansBlessing"] = {
 		name = "Guardian's Blessing",
 		gameId = "Metadata/Items/Gems/SupportGemGuardiansBlessing",
-		variantId = "GuardiansBlessingSupport",
+		variantId = "SupportGuardiansBlessing",
 		grantedEffectId = "SupportGuardiansBlessing",
 		secondaryGrantedEffectId = "SupportGuardiansBlessingMinion",
 		tags = {
@@ -13926,10 +14339,10 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSacrificeSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportSacrifice"] = {
 		name = "Sacrifice",
 		gameId = "Metadata/Items/Gems/SupportGemSacrifice",
-		variantId = "SacrificeSupport",
+		variantId = "SupportSacrifice",
 		grantedEffectId = "SupportSacrifice",
 		tags = {
 			chaos = true,
@@ -13943,10 +14356,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemFrigidBondSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportFrigidBond"] = {
 		name = "Frigid Bond",
 		gameId = "Metadata/Items/Gems/SupportGemFrigidBond",
-		variantId = "FrigidBondSupport",
+		variantId = "SupportFrigidBond",
 		grantedEffectId = "SupportFrigidBond",
 		tags = {
 			cold = true,
@@ -13961,10 +14374,10 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemLocusMineSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportLocusMine"] = {
 		name = "Locus Mine",
 		gameId = "Metadata/Items/Gems/SupportGemLocusMine",
-		variantId = "LocusMineSupport",
+		variantId = "SupportLocusMine",
 		grantedEffectId = "SupportLocusMine",
 		tags = {
 			bow = true,
@@ -13980,10 +14393,10 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSadismSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportSadism"] = {
 		name = "Sadism",
 		gameId = "Metadata/Items/Gems/SupportGemSadism",
-		variantId = "SadismSupport",
+		variantId = "SupportSadism",
 		grantedEffectId = "SupportSadism",
 		tags = {
 			dexterity = true,
@@ -13995,10 +14408,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemControlledBlazeSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportControlledBlaze"] = {
 		name = "Controlled Blaze",
 		gameId = "Metadata/Items/Gems/SupportGemControlledBlaze",
-		variantId = "ControlledBlazeSupport",
+		variantId = "SupportControlledBlaze",
 		grantedEffectId = "SupportControlledBlaze",
 		tags = {
 			fire = true,
@@ -14013,10 +14426,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemVolatilitySupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportVolatility"] = {
 		name = "Volatility",
 		gameId = "Metadata/Items/Gems/SupportGemVolatility",
-		variantId = "VolatilitySupport",
+		variantId = "SupportVolatility",
 		grantedEffectId = "SupportVolatility",
 		tags = {
 			attack = true,
@@ -14049,13 +14462,13 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemCallToArms"] = {
+	["Metadata/Items/Gems/SkillGemAutoexertion"] = {
 		name = "Autoexertion",
-		baseTypeName = "Call to Arms",
+		baseTypeName = "Autoexertion",
 		gameId = "Metadata/Items/Gems/SkillGemCallToArms",
-		variantId = "CallToArms",
-		grantedEffectId = "CallToArms",
-		secondaryGrantedEffectId = "SupportCallToArms",
+		variantId = "Autoexertion",
+		grantedEffectId = "Autoexertion",
+		secondaryGrantedEffectId = "SupportAutoexertion",
 		secondaryEffectName = "Autoexertion Support",
 		tags = {
 			warcry = true,
@@ -14070,10 +14483,10 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SkillGemSacredWispsSupport"] = {
+	["Metadata/Items/Gems/SkillGemSupportSacredWisps"] = {
 		name = "Sacred Wisps",
 		gameId = "Metadata/Items/Gems/SupportGemSacredWisps",
-		variantId = "SacredWispsSupport",
+		variantId = "SupportSacredWisps",
 		grantedEffectId = "SupportSacredWisps",
 		secondaryGrantedEffectId = "SummonSacredWisp",
 		tags = {
@@ -14089,6 +14502,75 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemSupportOverexertion"] = {
+		name = "Overexertion",
+		gameId = "Metadata/Items/Gems/SupportGemOverexertion",
+		variantId = "SupportOverexertion",
+		grantedEffectId = "SupportOverexertion",
+		tags = {
+			warcry = true,
+			strength = true,
+			support = true,
+			melee = true,
+			attack = true,
+		},
+		tagString = "Warcry, Support, Melee, Attack",
+		reqStr = 100,
+		reqDex = 0,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemSupportExpertRetaliation"] = {
+		name = "Expert Retaliation",
+		gameId = "Metadata/Items/Gems/SupportGemExpertRetaliation",
+		variantId = "SupportExpertRetaliation",
+		grantedEffectId = "SupportExpertRetaliation",
+		tags = {
+			retaliation = true,
+			strength = true,
+			support = true,
+		},
+		tagString = "Retaliation, Support",
+		reqStr = 60,
+		reqDex = 40,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemSupportRupture"] = {
+		name = "Rupture",
+		gameId = "Metadata/Items/Gems/SupportGemRupture",
+		variantId = "SupportRupture",
+		grantedEffectId = "SupportRupture",
+		tags = {
+			attack = true,
+			physical = true,
+			critical = true,
+			dexterity = true,
+			support = true,
+		},
+		tagString = "Attack, Physical, Critical, Support",
+		reqStr = 40,
+		reqDex = 60,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemSupportFocusedChannelling"] = {
+		name = "Focused Channelling",
+		gameId = "Metadata/Items/Gems/SupportGemFocusedChannelling",
+		variantId = "SupportFocusedChannelling",
+		grantedEffectId = "SupportFocusedChannelling",
+		tags = {
+			channelling = true,
+			spell = true,
+			intelligence = true,
+			support = true,
+		},
+		tagString = "Channelling, Spell, Support",
+		reqStr = 0,
+		reqDex = 40,
+		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
 }

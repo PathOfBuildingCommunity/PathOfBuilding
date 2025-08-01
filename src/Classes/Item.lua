@@ -48,7 +48,7 @@ local function getCatalystScalar(catalystId, tags, quality)
 	return 1
 end
 
-local influenceInfo = itemLib.influenceInfo
+local influenceInfo = itemLib.influenceInfo.all
 
 local ItemClass = newClass("Item", function(self, raw, rarity, highQuality)
 	if raw then
@@ -298,7 +298,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.rawLines = { }
 	-- Find non-blank lines and trim whitespace
 	for line in raw:gmatch("%s*([^\n]*%S)") do
-	 	t_insert(self.rawLines, line)
+		t_insert(self.rawLines, line)
 	end
 	local mode = rarity and "GAME" or "WIKI"
 	local l = 1
@@ -574,8 +574,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.requirements[specName:sub(1,3):lower()] = specToNumber(specVal)
 				elseif specName == "Critical Strike Range" or specName == "Attacks per Second" or specName == "Weapon Range" or
 				       specName == "Critical Strike Chance" or specName == "Physical Damage" or specName == "Elemental Damage" or
-				       specName == "Chaos Damage" or specName == "Chance to Block" or specName == "Armour" or
-					   specName == "Energy Shield" or specName == "Evasion" then
+				       specName == "Chaos Damage" or specName == "Chance to Block" or specName == "Block chance" or
+					specName == "Armour" or specName == "Energy Shield" or specName == "Evasion" then
 					self.hidden_specs = true
 				-- Anything else is an explicit with a colon in it (Fortress Covenant, Pure Talent, etc) unless it's part of the custom name
 				elseif not (self.name:match(specName) and self.name:match(specVal)) then
@@ -679,11 +679,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
 								or data.itemMods[self.base.type]
 								or data.itemMods.Item
-						if self.base.weapon then
-							self.enchantments = data.enchantments["Weapon"]
-						elseif self.base.flask then
-							self.enchantments = data.enchantments["Flask"]
+						if self.base.flask then
 							if self.base.utility_flask then
+								self.enchantments = data.enchantments["UtilityFlask"]
+							else
 								self.enchantments = data.enchantments["Flask"]
 							end
 						else
@@ -739,7 +738,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 
 				local lineLower = line:lower()
-				if lineLower == "this item can be anointed by cassia" then
+				if lineLower == "implicit modifiers cannot be changed" then
+					self.implicitsCannotBeChanged = true
+				elseif lineLower:match(" prefix modifiers? allowed") then
+					self.prefixes.limit = (self.prefixes.limit or 0) + (tonumber(lineLower:match("%+(%d+) prefix modifiers? allowed")) or 0) - (tonumber(lineLower:match("%-(%d+) prefix modifiers? allowed")) or 0)
+				elseif lineLower:match(" suffix modifiers? allowed") then
+					self.suffixes.limit = (self.suffixes.limit or 0) + (tonumber(lineLower:match("%+(%d+) suffix modifiers? allowed")) or 0) - (tonumber(lineLower:match("%-(%d+) suffix modifiers? allowed")) or 0)
+				elseif lineLower == "this item can be anointed by cassia" then
 					self.canBeAnointed = true
 				elseif lineLower == "can have a second enchantment modifier" then
 					self.canHaveTwoEnchants = true
@@ -752,6 +757,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.canHaveTwoEnchants = true
 					self.canHaveThreeEnchants = true
 					self.canHaveFourEnchants = true
+				elseif lineLower == "has elder, shaper and all conqueror influences" then
+					self.HasElderShaperAndAllConquerorInfluences = true
+					for _, curInfluenceInfo in ipairs(itemLib.influenceInfo.default) do
+						self[curInfluenceInfo.key] = true
+					end
+				elseif lineLower:match("if the eater of worlds is dominant") then
+					self.canHaveEldritchInfluence = true
 				elseif lineLower == "has a crucible passive skill tree with only support passive skills" then
 					self.canHaveOnlySupportSkillsCrucibleTree = true
 				elseif lineLower == "has a crucible passive skill tree" then
@@ -801,7 +813,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
 					end
-				elseif foundExplicit then
+				elseif foundExplicit or (not foundExplicit and gameModeStage == "EXPLICIT") then
 					modLine.modList = { }
 					modLine.extra = line
 					t_insert(modLines, modLine)
@@ -827,15 +839,26 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		if not self.affixes then 
 			self.crafted = false
 		elseif self.rarity == "MAGIC" then
-			self.affixLimit = 2
+			if self.prefixes.limit or self.suffixes.limit then
+				self.prefixes.limit = m_max(m_min((self.prefixes.limit or 0) + 1, 2), 0)
+				self.suffixes.limit = m_max(m_min((self.suffixes.limit or 0) + 1, 2), 0)
+				self.affixLimit = self.prefixes.limit + self.suffixes.limit
+			else
+				self.affixLimit = 2
+			end
 		elseif self.rarity == "RARE" then
 			self.affixLimit = ((self.type == "Jewel" and not (self.base.subType == "Abyss" and self.corrupted)) and 4 or 6)
+			if self.prefixes.limit or self.suffixes.limit then
+				self.prefixes.limit = m_max(m_min((self.prefixes.limit or 0) + self.affixLimit / 2, self.affixLimit), 0)
+				self.suffixes.limit = m_max(m_min((self.suffixes.limit or 0) + self.affixLimit / 2, self.affixLimit), 0)
+				self.affixLimit = self.prefixes.limit + self.suffixes.limit
+			end
 		else
 			self.crafted = false
 		end
 		if self.crafted then
 			for _, list in ipairs({self.prefixes,self.suffixes}) do
-				for i = 1, self.affixLimit/2 do
+				for i = 1, (list.limit or (self.affixLimit / 2)) do
 					if not list[i] then
 						list[i] = { modId = "None" }
 					elseif list[i].modId ~= "None" and not self.affixes[list[i].modId] then
@@ -897,7 +920,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 end
 
 function ItemClass:NormaliseQuality()
-	if self.base and (self.base.armour or self.base.weapon or self.base.flask) then
+	if self.base and (self.base.armour or self.base.weapon or self.base.flask or self.base.tincture) then
 		if not self.quality then
 			self.quality = 0
 		elseif not self.uniqueID and not self.corrupted and not self.split and not self.mirrored and self.quality < 20 then
@@ -930,7 +953,7 @@ function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
 				break
 			end
 		end
-		for i, key in ipairs(mod.weightMultiplierKey) do
+		for i, key in ipairs(mod.weightMultiplierKey or {}) do
 			if (self.base.tags[key] or (includeTags and includeTags[key]) or HasInfluenceTag(key)) and not (excludeTags and excludeTags[key]) then
 				weight = weight * mod.weightMultiplierVal[i] / 100
 				break
@@ -1054,7 +1077,8 @@ function ItemClass:BuildRaw()
 			for varId in pairs(modLine.variantList) do
 				varSpec = (varSpec and varSpec .. "," or "") .. varId
 			end
-			line = "{variant:" .. varSpec .. "}" .. line
+			local var = "{variant:" .. varSpec .. "}"
+			line = var .. line:gsub("\n", "\n" .. var) -- Variants that go over 1 line need to have the gsub to fix there being no "variant:" at the start
 		end
 		if modLine.modTags and #modLine.modTags > 0 then
 			line = "{tags:" .. table.concat(modLine.modTags, ",") .. "}" .. line
@@ -1170,7 +1194,7 @@ function ItemClass:Craft()
 	self.requirements.level = self.base.req.level
 	local statOrder = { }
 	for _, list in ipairs({self.prefixes,self.suffixes}) do
-		for i = 1, self.affixLimit / 2 do
+		for i = 1, (list.limit or (self.affixLimit / 2)) do
 			local affix = list[i]
 			if not affix then
 				list[i] = { modId = "None" }
@@ -1178,9 +1202,9 @@ function ItemClass:Craft()
 			local mod = self.affixes[affix.modId]
 			if mod then
 				if mod.type == "Prefix" then
-					self.namePrefix = mod.affix .. " "
+					self.namePrefix = mod.affix .. " " .. self.namePrefix
 				elseif mod.type == "Suffix" then
-					self.nameSuffix = " " .. mod.affix
+					self.nameSuffix = self.nameSuffix .. " " .. mod.affix
 				end
 				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))
 				local rangeScalar = getCatalystScalar(self.catalyst, mod.modTags, self.catalystQuality)
@@ -1237,6 +1261,8 @@ function ItemClass:GetPrimarySlot()
 	elseif self.type == "Ring" then
 		return "Ring 1"
 	elseif self.type == "Flask" then
+		return "Flask 1"
+	elseif self.type == "Tincture" then
 		return "Flask 1"
 	else
 		return self.type
@@ -1312,11 +1338,21 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			B = "Multiplier:BlueSocketIn"..slotName,
 			W = "Multiplier:WhiteSocketIn"..slotName,
 		}
+		local groupCounts = {}
 		for _, socket in ipairs(self.sockets) do
+			local group = socket.group
+    		groupCounts[group] = (groupCounts[group] or 0) + 1
 			if multiName[socket.color] then
 				modList:NewMod(multiName[socket.color], "BASE", 1, "Item Sockets")
 			end
 		end
+		local unlinkedSockets = 0
+		for _, count in pairs(groupCounts) do
+			if count == 1 then
+				unlinkedSockets = unlinkedSockets + 1
+			end
+		end
+		modList:NewMod("Multiplier:UnlinkedSocketIn"..slotName, "BASE", unlinkedSockets, "Unlinked Item Sockets")
 	end
 	local craftedQuality = calcLocal(modList,"Quality","BASE",0) or 0
 	if craftedQuality ~= self.craftedQuality then
@@ -1337,6 +1373,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		weaponData.AttackRate = round(self.base.weapon.AttackRateBase * (1 + weaponData.AttackSpeedInc / 100), 2)
 		weaponData.rangeBonus = calcLocal(modList, "WeaponRange", "BASE", 0) + 10 * calcLocal(modList, "WeaponRangeMetre", "BASE", 0) + m_floor(self.quality / 10 * calcLocal(modList, "AlternateQualityLocalWeaponRangePer10Quality", "BASE", 0))
 		weaponData.range = self.base.weapon.Range + weaponData.rangeBonus
+		local LocalIncEle = calcLocal(modList, "LocalElementalDamage", "INC", 0)
 		for _, dmgType in pairs(dmgTypeList) do
 			local min = (self.base.weapon[dmgType.."Min"] or 0) + calcLocal(modList, dmgType.."Min", "BASE", 0)
 			local max = (self.base.weapon[dmgType.."Max"] or 0) + calcLocal(modList, dmgType.."Max", "BASE", 0)
@@ -1348,6 +1385,10 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				end
 				min = round(min * (1 + physInc / 100) * (1 + qualityScalar / 100))
 				max = round(max * (1 + physInc / 100) * (1 + qualityScalar / 100))
+			elseif dmgType ~= "Physical" and dmgType ~= "Chaos" then
+				local localInc = calcLocal(modList, "Local"..dmgType.."Damage", "INC", 0) + LocalIncEle
+				min = round(min * (1 + localInc / 100))
+				max = round(max * (1 + localInc / 100))
 			end
 			if min > 0 and max > 0 then
 				weaponData[dmgType.."Min"] = min
@@ -1441,7 +1482,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		end
 
 		if self.base.armour.BlockChance then
-			armourData.BlockChance = self.base.armour.BlockChance + calcLocal(modList, "BlockChance", "BASE", 0)
+			armourData.BlockChance = m_floor((self.base.armour.BlockChance + calcLocal(modList, "BlockChance", "BASE", 0)) * (1 + calcLocal(modList, "BlockChance", "INC", 0) / 100))
 		end
 		if self.base.armour.MovementPenalty then
 			modList:NewMod("MovementSpeed", "INC", -self.base.armour.MovementPenalty, self.modSource, { type = "Condition", var = "IgnoreMovementPenalties", neg = true })
@@ -1487,8 +1528,9 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		end
 	elseif self.base.tincture then
 		local tinctureData = self.tinctureData
-		tinctureData.manaBurn = self.base.tincture.manaBurn * (1 + calcLocal(modList, "TinctureManaBurnRate", "INC", 0) / 100) * (1 + calcLocal(modList, "TinctureManaBurnRate", "MORE", 0) / 100)
-		tinctureData.cooldown = self.base.tincture.cooldown / (1 + calcLocal(modList, "TinctureCooldownRecovery", "INC", 0) / 100)
+		tinctureData.manaBurn = (self.base.tincture.manaBurn + 0.01) / (1 + calcLocal(modList, "TinctureManaBurnRate", "INC", 0) / 100) / (1 + calcLocal(modList, "TinctureManaBurnRate", "MORE", 0) / 100)
+		tinctureData.cooldownInc = calcLocal(modList, "TinctureCooldownRecovery", "INC", 0) + calcLocal(modList, "CooldownRecovery", "INC", 0)
+		tinctureData.cooldown = self.base.tincture.cooldown / (1 + tinctureData.cooldownInc / 100)
 		tinctureData.effectInc = calcLocal(modList, "TinctureEffect", "INC", 0) + calcLocal(modList, "LocalEffect", "INC", 0)
 		for _, value in ipairs(modList:List(nil, "TinctureData")) do
 			tinctureData[value.key] = value.value
@@ -1683,11 +1725,11 @@ function ItemClass:BuildModList()
 		if self.sockets then
 			for i, socket in ipairs(self.sockets) do
 				if socket.color ~= "A" then
-					t_insert(newSockets, socket)
-					group = socket.group
 					if #newSockets >= self.selectableSocketCount then
 						break
 					end
+					t_insert(newSockets, socket)
+					group = socket.group
 				end
 			end
 		end

@@ -23,9 +23,42 @@ local function InsertIfNew(t, val)
 	table.insert(t, val)
 end
 
-function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
+---matchFlags
+---  Compares the skill flags table against the line flag settings
+---  Required enabling flags check takes precedence over disabling flags check
+---@param reqFlags table containing the required flags
+---@param notFlags table containing the disabling flags
+---@param flags table containing the flags to match against
+local function matchFlags(reqFlags, notFlags, flags)
+	if type(reqFlags) == "string" then
+		reqFlags = { reqFlags }
+	end
+	if reqFlags then
+		for _, flag in ipairs(reqFlags) do
+			if not flags[flag] then
+				return
+			end
+		end
+	end
+
+	if type(notFlags) == "string" then
+		notFlags = { notFlags }
+	end
+	if notFlags then
+		for _, flag in ipairs(notFlags) do
+			if flags[flag] then
+				return
+			end
+		end
+	end
+	-- Both flag checks passed, default true
+	return true
+end
+
+function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLink)
 	self.dbFileName = dbFileName
 	self.buildName = buildName
+	self.importLink = importLink
 	if dbFileName then
 		self.dbFileSubPath = self.dbFileName:sub(#main.buildPath + 1, -#self.buildName - 5)
 	else
@@ -76,15 +109,15 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	local miscTooltip = new("Tooltip")
 
 	-- Controls: top bar, left side
-	self.anchorTopBarLeft = new("Control", nil, 4, 4, 0, 20)
-	self.controls.back = new("ButtonControl", {"LEFT",self.anchorTopBarLeft,"RIGHT"}, 0, 0, 60, 20, "<< Back", function()
+	self.anchorTopBarLeft = new("Control", nil, {4, 4, 0, 20})
+	self.controls.back = new("ButtonControl", {"LEFT",self.anchorTopBarLeft,"RIGHT"}, {0, 0, 60, 20}, "<< Back", function()
 		if self.unsaved then
 			self:OpenSavePopup("LIST")
 		else
 			self:CloseBuild()
 		end
 	end)
-	self.controls.buildName = new("Control", {"LEFT",self.controls.back,"RIGHT"}, 8, 0, 0, 20)
+	self.controls.buildName = new("Control", {"LEFT",self.controls.back,"RIGHT"}, {8, 0, 0, 20})
 	self.controls.buildName.width = function(control)
 		local limit = self.anchorTopBarRight:GetPos() - 98 - 40 - self.controls.back:GetSize() - self.controls.save:GetSize() - self.controls.saveAs:GetSize()
 		local bnw = DrawStringWidth(16, "VAR", self.buildName)
@@ -115,13 +148,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			SetDrawLayer(nil, 0)
 		end
 	end
-	self.controls.save = new("ButtonControl", {"LEFT",self.controls.buildName,"RIGHT"}, 8, 0, 50, 20, "Save", function()
+	self.controls.save = new("ButtonControl", {"LEFT",self.controls.buildName,"RIGHT"}, {8, 0, 50, 20}, "Save", function()
 		self:SaveDBFile()
 	end)
 	self.controls.save.enabled = function()
 		return not self.dbFileName or self.unsaved
 	end
-	self.controls.saveAs = new("ButtonControl", {"LEFT",self.controls.save,"RIGHT"}, 8, 0, 70, 20, "Save As", function()
+	self.controls.saveAs = new("ButtonControl", {"LEFT",self.controls.save,"RIGHT"}, {8, 0, 70, 20}, "Save As", function()
 		self:OpenSaveAsPopup()
 	end)
 	self.controls.saveAs.enabled = function()
@@ -129,8 +162,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end
 
 	-- Controls: top bar, right side
-	self.anchorTopBarRight = new("Control", nil, function() return main.screenW / 2 + 6 end, 4, 0, 20)
-	self.controls.pointDisplay = new("Control", {"LEFT",self.anchorTopBarRight,"RIGHT"}, -12, 0, 0, 20)
+	self.anchorTopBarRight = new("Control", nil, {function() return main.screenW / 2 + 6 end, 4, 0, 20})
+	self.controls.pointDisplay = new("Control", {"LEFT",self.anchorTopBarRight,"RIGHT"}, {-12, 0, 0, 20})
 	self.controls.pointDisplay.x = function(control)
 		local width, height = control:GetSize()
 		if self.controls.saveAs:GetPos() + self.controls.saveAs:GetSize() < self.anchorTopBarRight:GetPos() - width - 16 then
@@ -160,14 +193,14 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			SetDrawLayer(nil, 0)
 		end
 	end
-	self.controls.levelScalingButton = new("ButtonControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 50, 20, self.characterLevelAutoMode and "Auto" or "Manual", function()
+	self.controls.levelScalingButton = new("ButtonControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, {12, 0, 50, 20}, self.characterLevelAutoMode and "Auto" or "Manual", function()
 		self.characterLevelAutoMode = not self.characterLevelAutoMode
 		self.controls.levelScalingButton.label = self.characterLevelAutoMode and "Auto" or "Manual"
 		self.configTab:BuildModList()
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.levelScalingButton,"RIGHT"}, 8, 0, 106, 20, "", "Level", "%D", 3, function(buf)
+	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.levelScalingButton,"RIGHT"}, {8, 0, 106, 20}, "", "Level", "%D", 3, function(buf)
 		self.characterLevel = m_min(m_max(tonumber(buf) or 1, 1), 100)
 		self.configTab:BuildModList()
 		self.modFlag = true
@@ -190,7 +223,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 					mult = ((playerLevel + 5) / (playerLevel + 5 + diff ^ 2.5)) ^ 1.5
 				end
 				if playerLevel >= 95 then
-					mult = mult * (1 / (1 + 0.1 * (playerLevel - 94)))
+					local xpPenalty = ({0.935, 0.885, 0.813, 0.7175, 0.6})[playerLevel - 94] or 0
+					mult = mult * (1 / (1 + 0.1 * (playerLevel - 94))) * xpPenalty
 				end
 				if mult > 0.01 then
 					local line = level
@@ -203,7 +237,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			end
 		end
 	end
-	self.controls.classDrop = new("DropDownControl", {"LEFT",self.controls.characterLevel,"RIGHT"}, 8, 0, 100, 20, nil, function(index, value)
+	self.controls.classDrop = new("DropDownControl", {"LEFT",self.controls.characterLevel,"RIGHT"}, {8, 0, 100, 20}, nil, function(index, value)
 		if value.classId ~= self.spec.curClassId then
 			if self.spec:CountAllocNodes() == 0 or self.spec:IsClassConnected(value.classId) then
 				self.spec:SelectClass(value.classId)
@@ -220,20 +254,20 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			end
 		end
 	end)
-	self.controls.ascendDrop = new("DropDownControl", {"LEFT",self.controls.classDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
+	self.controls.ascendDrop = new("DropDownControl", {"LEFT",self.controls.classDrop,"RIGHT"}, {8, 0, 120, 20}, nil, function(index, value)
 		self.spec:SelectAscendClass(value.ascendClassId)
 		self.spec:AddUndoState()
 		self.spec:SetWindowTitleWithBuildClass()
 		self.buildFlag = true
 	end)
 	-- // hiding away until we learn more, this dropdown and the Loadout dropdown conflict for UI space, will need to address if secondaryAscendancies come back
-	--self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
+	--self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, {8, 0, 120, 20}, nil, function(index, value)
 	--	self.spec:SelectSecondaryAscendClass(value.ascendClassId)
 	--	self.spec:AddUndoState()
 	--	self.spec:SetWindowTitleWithBuildClass()
 	--	self.buildFlag = true
 	--end)
-	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 190, 20, {}, function(index, value)
+	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, {8, 0, 190, 20}, {}, function(index, value)
 		if value == "^7^7Loadouts:" or value == "^7^7-----" then
 			self.controls.buildLoadouts:SetSel(1)
 			return
@@ -250,11 +284,11 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		end
 		if value == "^7^7New Loadout" then
 			local controls = { }
-			controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter name for this loadout:")
-			controls.edit = new("EditControl", nil, 0, 40, 350, 20, "New Loadout", nil, nil, 100, function(buf)
+			controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter name for this loadout:")
+			controls.edit = new("EditControl", nil, {0, 40, 350, 20}, "New Loadout", nil, nil, 100, function(buf)
 				controls.save.enabled = buf:match("%S")
 			end)
-			controls.save = new("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
+			controls.save = new("ButtonControl", nil, {-45, 70, 80, 20}, "Save", function()
 				local loadout = controls.edit.buf
 
 				local newSpec = new("PassiveSpec", self, latestTreeVersion)
@@ -278,7 +312,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 				main:ClosePopup()
 			end)
 			controls.save.enabled = false
-			controls.cancel = new("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
+			controls.cancel = new("ButtonControl", nil, {45, 70, 80, 20}, "Cancel", function()
 				main:ClosePopup()
 			end)
 			main:OpenPopup(370, 100, "Set Name", controls, "save", "edit", "cancel")
@@ -319,242 +353,45 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			return nil
 		end
 
+		local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
+		local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
+		local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
+
 		local newSpecId = findNamedSetId(self.treeTab:GetSpecList(), value, self.treeListSpecialLinks)
-		local newItemId = findSetId(self.itemsTab.itemSetOrderList, value, self.itemsTab.itemSets, self.itemListSpecialLinks)
-		local newSkillId = findSetId(self.skillsTab.skillSetOrderList, value, self.skillsTab.skillSets, self.skillListSpecialLinks)
-		local newConfigId = findSetId(self.configTab.configSetOrderList, value, self.configTab.configSets, self.configListSpecialLinks)
+		local newItemId = oneItem and 1 or findSetId(self.itemsTab.itemSetOrderList, value, self.itemsTab.itemSets, self.itemListSpecialLinks)
+		local newSkillId = oneSkill and 1 or findSetId(self.skillsTab.skillSetOrderList, value, self.skillsTab.skillSets, self.skillListSpecialLinks)
+		local newConfigId = oneConfig and 1 or findSetId(self.configTab.configSetOrderList, value, self.configTab.configSets, self.configListSpecialLinks)
 
 		-- if exact match nor special grouping cannot find setIds, bail
 		if newSpecId == nil or newItemId == nil or newSkillId == nil or newConfigId == nil then
 			return
 		end
 
-		self.treeTab:SetActiveSpec(newSpecId)
-		self.itemsTab:SetActiveItemSet(newItemId)
-		self.skillsTab:SetActiveSkillSet(newSkillId)
-		self.configTab:SetActiveConfigSet(newConfigId)
+		if newSpecId ~= self.treeTab.activeSpec then
+			self.treeTab:SetActiveSpec(newSpecId)
+		end
+		if newItemId ~= self.itemsTab.activeItemSetId then
+			self.itemsTab:SetActiveItemSet(newItemId)
+		end
+		if newSkillId ~= self.skillsTab.activeSkillSetId then
+			self.skillsTab:SetActiveSkillSet(newSkillId)
+		end
+		if newConfigId ~= self.configTab.activeConfigSetId then
+			self.configTab:SetActiveConfigSet(newConfigId)
+		end
 
 		self.controls.buildLoadouts:SelByValue(value)
 	end)
 
-	-- List of display stats
-	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
-	-- This may be user-customisable in the future
-	self.displayStats = {
-		{ stat = "ActiveMinionLimit", label = "Active Minion Limit", fmt = "d" },
-		{ stat = "AverageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
-		{ stat = "PvpAverageHit", label = "PvP Average Hit", fmt = ".1f", compPercent = true, flag = "isPvP" },
-		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true, flag = "attack" },
-		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true, flag = "monsterExplode", condFunc = function(v,o) return o.HitChance ~= 100 end },
-		{ stat = "AverageBurstDamage", label = "Average Burst Damage", fmt = ".1f", compPercent = true, condFunc = function(v,o) return o.AverageBurstHits and o.AverageBurstHits > 1 and v > 0 end },
-		{ stat = "PvpAverageDamage", label = "PvP Average Damage", fmt = ".1f", compPercent = true, flag = "attackPvP" },
-		{ stat = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack", condFunc = function(v,o) return v > 0 and (o.TriggerTime or 0) == 0 end },
-		{ stat = "Speed", label = "Cast Rate", fmt = ".2f", compPercent = true, flag = "spell", condFunc = function(v,o) return v > 0 and (o.TriggerTime or 0) == 0 end },
-		{ stat = "Speed", label = "Effective Trigger Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 end },
-		{ stat = "WarcryCastTime", label = "Cast Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, flag = "warcry" },
-		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return not o.TriggerTime end },
-		{ stat = "HitTime", label = "Channel Time", fmt = ".2fs", compPercent = true, flag = "channelRelease", lowerIsBetter = true, condFunc = function(v,o) return not o.TriggerTime end },
-		{ stat = "ChannelTimeToTrigger", label = "Channel Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
-		{ stat = "TrapThrowingTime", label = "Trap Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
-		{ stat = "TrapCooldown", label = "Trap Cooldown", fmt = ".3fs", lowerIsBetter = true },
-		{ stat = "MineLayingTime", label = "Mine Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
-		{ stat = "TrapThrowCount", label = "Avg. Traps per Throw", fmt = ".2f"},
-		{ stat = "MineThrowCount", label = "Avg. Mines per Throw", fmt = ".2f"},
-		{ stat = "TotemPlacementTime", label = "Totem Placement Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return not o.TriggerTime end },
-		{ stat = "PreEffectiveCritChance", label = "Crit Chance", fmt = ".2f%%" },
-		{ stat = "CritChance", label = "Effective Crit Chance", fmt = ".2f%%", condFunc = function(v,o) return v ~= o.PreEffectiveCritChance end },
-		{ stat = "CritMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true, condFunc = function(v,o) return (o.CritChance or 0) > 0 end },
-		{ stat = "HitChance", label = "Hit Chance", fmt = ".0f%%", flag = "attack" },
-		{ stat = "HitChance", label = "Hit Chance", fmt = ".0f%%", condFunc = function(v,o) return o.enemyHasSpellBlock end },
-		{ stat = "TotalDPS", label = "Hit DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
-		{ stat = "PvpTotalDPS", label = "PvP Hit DPS", fmt = ".1f", compPercent = true, flag = "notAveragePvP" },
-		{ stat = "TotalDPS", label = "Hit DPS", fmt = ".1f", compPercent = true, flag = "showAverage", condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 end },
-		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
-		{ stat = "WithDotDPS", label = "Total DPS inc. DoT", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.PoisonDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
-		{ stat = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Bleed DPS exceeds in game limit" end },
-		{ stat = "CorruptingBloodDPS", label = "Corrupting Blood DPS", fmt = ".1f", compPercent = true, warnFunc = function(v,o) return v >= data.misc.DotDpsCap and "Corrupting Blood DPS exceeds in game limit" end },
-		{ stat = "BleedDamage", label = "Total Damage per Bleed", fmt = ".1f", compPercent = true, flag = "showAverage" },
-		{ stat = "WithBleedDPS", label = "Total DPS inc. Bleed", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 end },
-		{ stat = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Ignite DPS exceeds in game limit" end },
-		{ stat = "IgniteDamage", label = "Total Damage per Ignite", fmt = ".1f", compPercent = true, flag = "showAverage" },
-		{ stat = "BurningGroundDPS", label = "Burning Ground DPS", fmt = ".1f", compPercent = true, warnFunc = function(v,o) return v >= data.misc.DotDpsCap and "Burning Ground DPS exceeds in game limit" end },
-		{ stat = "MirageBurningGroundDPS", label = "Mirage Burning Ground DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.BurningGroundDPS end, warnFunc = function(v,o) return v >= data.misc.DotDpsCap and "Mirage Burning Ground DPS exceeds in game limit" end },
-		{ stat = "WithIgniteDPS", label = "Total DPS inc. Ignite", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
-		{ stat = "WithIgniteAverageDamage", label = "Average Dmg. inc. Ignite", fmt = ".1f", compPercent = true },
-		{ stat = "PoisonDPS", label = "Poison DPS", fmt = ".1f", compPercent = true, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Poison DPS exceeds in game limit" end },
-		{ stat = "CausticGroundDPS", label = "Caustic Ground DPS", fmt = ".1f", compPercent = true, warnFunc = function(v,o) return v >= data.misc.DotDpsCap and "Caustic Ground DPS exceeds in game limit" end },
-		{ stat = "MirageCausticGroundDPS", label = "Mirage Caustic Ground DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.CausticGroundDPS end, warnFunc = function(v,o) return v >= data.misc.DotDpsCap and "Mirage Caustic Ground DPS exceeds in game limit" end },
-		{ stat = "PoisonDamage", label = "Total Damage per Poison", fmt = ".1f", compPercent = true },
-		{ stat = "WithPoisonDPS", label = "Total DPS inc. Poison", fmt = ".1f", compPercent = true, flag = "poison", flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
-		{ stat = "DecayDPS", label = "Decay DPS", fmt = ".1f", compPercent = true },
-		{ stat = "TotalDotDPS", label = "Total DoT DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return o.showTotalDotDPS or ( v ~= o.TotalDot and v ~= o.TotalPoisonDPS and v ~= o.CausticGroundDPS and v ~= (o.TotalIgniteDPS or o.IgniteDPS) and v ~= o.BurningGroundDPS and v ~= o.BleedDPS and v~= o.CorruptingBloodDPS and v ~= o.MirageCausticGroundDPS and v ~= o.MirageBurningGroundDPS) end, warnFunc = function(v) return v >= data.misc.DotDpsCap and "DoT DPS exceeds in game limit" end },
-		{ stat = "ImpaleDPS", label = "Impale Damage", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage" },
-		{ stat = "WithImpaleDPS", label = "Damage inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end  },
-		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage" },
-		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
-		{ stat = "MirageDPS", label = "Total Mirage DPS", fmt = ".1f", compPercent = true, flag = "mirageArcher", condFunc = function(v,o) return v > 0 end },
-		{ stat = "MirageDPS", label = "Total Wisp DPS", fmt = ".1f", compPercent = true, flag = "wisp", condFunc = function(v,o) return v > 0 end },
-		{ stat = "CullingDPS", label = "Culling DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.CullingDPS or 0) > 0 end },
-		{ stat = "ReservationDPS", label = "Reservation DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.ReservationDPS or 0) > 0 end },
-		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and ( o.showTotalDotDPS or ( v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS ) ) end },
-		{ stat = "CombinedAvg", label = "Combined Total Damage", fmt = ".1f", compPercent = true, flag = "showAverage", condFunc = function(v,o) return (v ~= o.AverageDamage and (o.TotalDot or 0) == 0) and (v ~= o.WithPoisonDPS or v ~= o.WithIgniteDPS or v ~= o.WithBleedDPS) end },
-		{ stat = "ExplodeChance", label = "Total Explode Chance", fmt = ".0f%%" },
-		{ stat = "CombinedAvgToMonsterLife", label = "Enemy Life Equivalent", fmt = ".1f%%" },
-		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".3fs", lowerIsBetter = true },
-		{ stat = "SealCooldown", label = "Seal Gain Frequency", fmt = ".2fs", lowerIsBetter = true },
-		{ stat = "SealMax", label = "Max Number of Seals", fmt = "d" },
-		{ stat = "TimeMaxSeals", label = "Time to Gain Max Seals", fmt = ".2fs", lowerIsBetter = true },
-		{ stat = "AreaOfEffectRadiusMetres", label = "AoE Radius", fmt = ".1fm" },
-		{ stat = "BrandAttachmentRangeMetre", label = "Attachment Range", fmt = ".1fm", flag = "brand" },
-		{ stat = "BrandTicks", label = "Activations per Brand", fmt = "d", flag = "brand" },
-		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", color = colorCodes.MANA, pool = "ManaUnreserved", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaHasCost end },
-		{ stat = "ManaPercentCost", label = "Mana Cost", fmt = "d%%", color = colorCodes.MANA, pool = "ManaUnreservedPercent", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaPercentHasCost end },
-		{ stat = "ManaPerSecondCost", label = "Mana Cost per second", fmt = ".2f", color = colorCodes.MANA, pool = "ManaUnreserved", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaPerSecondHasCost end },
-		{ stat = "ManaPercentPerSecondCost", label = "Mana Cost per second", fmt = ".2f%%", color = colorCodes.MANA, pool = "ManaUnreservedPercent", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaPercentPerSecondHasCost end },
-		{ stat = "LifeCost", label = "Life Cost", fmt = "d", color = colorCodes.LIFE, pool = "LifeUnreserved", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifeHasCost end },
-		{ stat = "LifePercentCost", label = "Life Cost", fmt = "d%%", color = colorCodes.LIFE, pool = "LifeUnreservedPercent", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifePercentHasCost end },
-		{ stat = "LifePerSecondCost", label = "Life Cost per second", fmt = ".2f", color = colorCodes.LIFE, pool = "LifeUnreserved", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifePerSecondHasCost end },
-		{ stat = "LifePercentPerSecondCost", label = "Life Cost per second", fmt = ".2f%%", color = colorCodes.LIFE, pool = "LifeUnreservedPercent", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifePercentPerSecondHasCost end },
-		{ stat = "ESCost", label = "Energy Shield Cost", fmt = "d", color = colorCodes.ES, pool = "EnergyShield", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESHasCost end },
-		{ stat = "ESPerSecondCost", label = "ES Cost per second", fmt = ".2f", color = colorCodes.ES, pool = "EnergyShield", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESPerSecondHasCost end },
-		{ stat = "ESPercentPerSecondCost", label = "ES Cost per second", fmt = ".2f%%", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESPercentPerSecondHasCost end },
-		{ stat = "RageCost", label = "Rage Cost", fmt = "d", color = colorCodes.RAGE, pool = "Rage", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.RageHasCost end },
-		{ stat = "RagePerSecondCost", label = "Rage Cost per second", fmt = ".2f", color = colorCodes.RAGE, pool = "Rage", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.RagePerSecondHasCost end },
-		{ stat = "SoulCost", label = "Soul Cost", fmt = "d", color = colorCodes.RAGE, pool = "Soul", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.SoulHasCost end },
-		{ },
-		{ stat = "Str", label = "Strength", color = colorCodes.STRENGTH, fmt = "d" },
-		{ stat = "ReqStr", label = "Strength Required", color = colorCodes.STRENGTH, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Str end, warnFunc = function(v) return "You do not meet the Strength requirement" end },
-		{ stat = "Dex", label = "Dexterity", color = colorCodes.DEXTERITY, fmt = "d" },
-		{ stat = "ReqDex", label = "Dexterity Required", color = colorCodes.DEXTERITY, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Dex end, warnFunc = function(v) return "You do not meet the Dexterity requirement" end },
-		{ stat = "Int", label = "Intelligence", color = colorCodes.INTELLIGENCE, fmt = "d" },
-		{ stat = "ReqInt", label = "Intelligence Required", color = colorCodes.INTELLIGENCE, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Int end, warnFunc = function(v) return "You do not meet the Intelligence requirement" end },
-		{ stat = "Omni", label = "Omniscience", color = colorCodes.RARE, fmt = "d" },
-		{ stat = "ReqOmni", label = "Omniscience Required", color = colorCodes.RARE, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > (o.Omni or 0) end, warnFunc = function(v) return "You do not meet the Omniscience requirement" end },
-		{ },
-		{ stat = "Devotion", label = "Devotion", color = colorCodes.RARE, fmt = "d" },
-		{ },
-		{ stat = "TotalEHP", label = "Effective Hit Pool", fmt = ".0f", compPercent = true },
-		{ stat = "PvPTotalTakenHit", label = "PvP Hit Taken", fmt = ".1f", flag = "isPvP", lowerIsBetter = true },
-		{ stat = "PhysicalMaximumHitTaken", label = "Phys Max Hit", fmt = ".0f", color = colorCodes.PHYS, compPercent = true,  },
-		{ stat = "LightningMaximumHitTaken", label = "Elemental Max Hit", fmt = ".0f", color = colorCodes.LIGHTNING, compPercent = true, condFunc = function(v,o) return o.LightningMaximumHitTaken == o.ColdMaximumHitTaken and o.LightningMaximumHitTaken == o.FireMaximumHitTaken end },
-		{ stat = "FireMaximumHitTaken", label = "Fire Max Hit", fmt = ".0f", color = colorCodes.FIRE, compPercent = true, condFunc = function(v,o) return o.LightningMaximumHitTaken ~= o.ColdMaximumHitTaken or o.LightningMaximumHitTaken ~= o.FireMaximumHitTaken end },
-		{ stat = "ColdMaximumHitTaken", label = "Cold Max Hit", fmt = ".0f", color = colorCodes.COLD, compPercent = true, condFunc = function(v,o) return o.LightningMaximumHitTaken ~= o.ColdMaximumHitTaken or o.LightningMaximumHitTaken ~= o.FireMaximumHitTaken end },
-		{ stat = "LightningMaximumHitTaken", label = "Lightning Max Hit", fmt = ".0f", color = colorCodes.LIGHTNING, compPercent = true, condFunc = function(v,o) return o.LightningMaximumHitTaken ~= o.ColdMaximumHitTaken or o.LightningMaximumHitTaken ~= o.FireMaximumHitTaken end },
-		{ stat = "ChaosMaximumHitTaken", label = "Chaos Max Hit", fmt = ".0f", color = colorCodes.CHAOS, compPercent = true },
-		{ },
-		{ stat = "MainHand", childStat = "Accuracy", label = "MH Accuracy", fmt = "d", condFunc = function(v,o) return o.PreciseTechnique end, warnFunc = function(v,o) return v < o.Life and "You do not have enough Accuracy for Precise Technique" end, warnColor = true },
-		{ stat = "OffHand", childStat = "Accuracy", label = "OH Accuracy", fmt = "d", condFunc = function(v,o) return o.PreciseTechnique end, warnFunc = function(v,o) return v < o.Life and "You do not have enough Accuracy for Precise Technique" end, warnColor = true },
-		{ stat = "Life", label = "Total Life", fmt = "d", color = colorCodes.LIFE, compPercent = true },
-		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", color = colorCodes.LIFE, condFunc = function(v,o) return v > 0 and o.Life > 1 end },
-		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", color = colorCodes.LIFE, condFunc = function(v,o) return v < o.Life end, compPercent = true, warnFunc = function(v) return v <= 0 and "Your unreserved Life is below 1" end },
-		{ stat = "LifeRecoverable", label = "Life Recoverable", fmt = "d", color = colorCodes.LIFE, condFunc = function(v,o) return v < o.LifeUnreserved end, },
-		{ stat = "LifeUnreservedPercent", label = "Unreserved Life", fmt = "d%%", color = colorCodes.LIFE, condFunc = function(v,o) return v < 100 end },
-		{ stat = "LifeRegenRecovery", label = "Life Regen", fmt = ".1f", color = colorCodes.LIFE, condFunc = function(v,o) return o.LifeRecovery <= 0 and o.LifeRegenRecovery ~= 0 end },
-		{ stat = "LifeRegenRecovery", label = "Life Recovery", fmt = ".1f", color = colorCodes.LIFE, condFunc = function(v,o) return o.LifeRecovery > 0 and o.LifeRegenRecovery ~= 0 end },
-		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
-		{ stat = "LifeLeechGainPerHit", label = "Life Leech/Gain per Hit", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
-		{ },
-		{ stat = "Mana", label = "Total Mana", fmt = "d", color = colorCodes.MANA, compPercent = true },
-		{ stat = "Spec:ManaInc", label = "%Inc Mana from Tree", color = colorCodes.MANA, fmt = "d%%" },
-		{ stat = "ManaUnreserved", label = "Unreserved Mana", fmt = "d", color = colorCodes.MANA, condFunc = function(v,o) return v < o.Mana end, compPercent = true, warnFunc = function(v) return v < 0 and "Your unreserved Mana is negative" end },
-		{ stat = "ManaUnreservedPercent", label = "Unreserved Mana", fmt = "d%%", color = colorCodes.MANA, condFunc = function(v,o) return v < 100 end },
-		{ stat = "ManaRegenRecovery", label = "Mana Regen", fmt = ".1f", color = colorCodes.MANA, condFunc = function(v,o) return o.ManaRecovery <= 0 and o.ManaRegenRecovery ~= 0 end },
-		{ stat = "ManaRegenRecovery", label = "Mana Recovery", fmt = ".1f", color = colorCodes.MANA, condFunc = function(v,o) return o.ManaRecovery > 0 and o.ManaRegenRecovery ~= 0 end },
-		{ stat = "ManaLeechGainRate", label = "Mana Leech/On Hit Rate", fmt = ".1f", color = colorCodes.MANA, compPercent = true },
-		{ stat = "ManaLeechGainPerHit", label = "Mana Leech/Gain per Hit", fmt = ".1f", color = colorCodes.MANA, compPercent = true },
-		{ },
-		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", color = colorCodes.ES, compPercent = true },
-		{ stat = "EnergyShieldRecoveryCap", label = "Recoverable ES", color = colorCodes.ES, fmt = "d", condFunc = function(v,o) return o.CappingES end },
-		{ stat = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", color = colorCodes.ES, fmt = "d%%" },
-		{ stat = "EnergyShieldRegenRecovery", label = "ES Regen", color = colorCodes.ES, fmt = ".1f", condFunc = function(v,o) return o.EnergyShieldRecovery <= 0 and o.EnergyShieldRegenRecovery ~= 0 end },
-		{ stat = "EnergyShieldRegenRecovery", label = "ES Recovery", color = colorCodes.ES, fmt = ".1f", condFunc = function(v,o) return o.EnergyShieldRecovery > 0 and o.EnergyShieldRegenRecovery ~= 0 end },
-		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", color = colorCodes.ES, fmt = ".1f", compPercent = true },
-		{ stat = "EnergyShieldLeechGainPerHit", label = "ES Leech/Gain per Hit", color = colorCodes.ES, fmt = ".1f", compPercent = true },
-		{ },
-		{ stat = "Ward", label = "Ward", fmt = "d", color = colorCodes.WARD, compPercent = true },
-		{ },
-		{ stat = "Rage", label = "Rage", fmt = "d", color = colorCodes.RAGE, compPercent = true },
-		{ stat = "RageRegenRecovery", label = "Rage Regen", fmt = ".1f", color = colorCodes.RAGE, compPercent = true },
-		{ },
-		{ stat = "TotalBuildDegen", label = "Total Degen", fmt = ".1f", lowerIsBetter = true },
-		{ stat = "TotalNetRegen", label = "Total Net Recovery", fmt = "+.1f" },
-		{ stat = "NetLifeRegen", label = "Net Life Recovery", fmt = "+.1f", color = colorCodes.LIFE },
-		{ stat = "NetManaRegen", label = "Net Mana Recovery", fmt = "+.1f", color = colorCodes.MANA },
-		{ stat = "NetEnergyShieldRegen", label = "Net ES Recovery", fmt = "+.1f", color = colorCodes.ES },
-		{ },
-		{ stat = "Evasion", label = "Evasion rating", fmt = "d", color = colorCodes.EVASION, compPercent = true },
-		{ stat = "Spec:EvasionInc", label = "%Inc Evasion from Tree", color = colorCodes.EVASION, fmt = "d%%" },
-		{ stat = "MeleeEvadeChance", label = "Evade Chance", fmt = "d%%", color = colorCodes.EVASION, condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance == o.ProjectileEvadeChance end },
-		{ stat = "MeleeEvadeChance", label = "Melee Evade Chance", fmt = "d%%", color = colorCodes.EVASION, condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
-		{ stat = "ProjectileEvadeChance", label = "Projectile Evade Chance", fmt = "d%%", color = colorCodes.EVASION, condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
-		{ },
-		{ stat = "Armour", label = "Armour", fmt = "d", compPercent = true },
-		{ stat = "Spec:ArmourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
-		{ stat = "PhysicalDamageReduction", label = "Phys. Damage Reduction", fmt = "d%%", condFunc = function() return true end },
-		{ },
-		{ stat = "EffectiveBlockChance", label = "Block Chance", fmt = "d%%", overCapStat = "BlockChanceOverCap" },
-		{ stat = "EffectiveSpellBlockChance", label = "Spell Block Chance", fmt = "d%%", overCapStat = "SpellBlockChanceOverCap" },
-		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%", overCapStat = "AttackDodgeChanceOverCap" },
-		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%", overCapStat = "SpellDodgeChanceOverCap" },
-		{ stat = "EffectiveSpellSuppressionChance", label = "Spell Suppression Chance", fmt = "d%%", overCapStat = "SpellSuppressionChanceOverCap" },
-		{ },
-		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", color = colorCodes.FIRE, condFunc = function() return true end, overCapStat = "FireResistOverCap"},
-		{ stat = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%", hideStat = true },
-		{ stat = "ColdResist", label = "Cold Resistance", fmt = "d%%", color = colorCodes.COLD, condFunc = function() return true end, overCapStat = "ColdResistOverCap" },
-		{ stat = "ColdResistOverCap", label = "Cold Res. Over Max", fmt = "d%%", hideStat = true },
-		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", color = colorCodes.LIGHTNING, condFunc = function() return true end, overCapStat = "LightningResistOverCap" },
-		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%", hideStat = true },
-		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function(v,o) return not o.ChaosInoculation end, overCapStat = "ChaosResistOverCap" },
-		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", hideStat = true },
-		{ label = "Chaos Resistance", val = "Immune", labelStat = "ChaosResist", color = colorCodes.CHAOS, condFunc = function(o) return o.ChaosInoculation end },
-		{ },
-		{ stat = "EffectiveMovementSpeedMod", label = "Movement Speed Modifier", fmt = "+d%%", mod = true, condFunc = function() return true end },
-		{ },
-		{ stat = "FullDPS", label = "Full DPS", fmt = ".1f", color = colorCodes.CURRENCY, compPercent = true },
-		{ stat = "FullDotDPS", label = "Full Dot DPS", fmt = ".1f", color = colorCodes.CURRENCY, compPercent = true, condFunc = function (v) return v >= data.misc.DotDpsCap end, warnFunc = function (v) return "Full Dot DPS exceeds in game limit" end },
-		{ },
-		{ stat = "SkillDPS", label = "Skill DPS", condFunc = function() return true end },
-	}
-	self.minionDisplayStats = {
-		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true },
-		{ stat = "Speed", label = "Attack/Cast Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return v > 0 and (o.TriggerTime or 0) == 0 end },
-		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f" },
-		{ stat = "Speed", label = "Effective Trigger Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 end },
-		{ stat = "TotalDPS", label = "Hit DPS", fmt = ".1f", compPercent = true },
-		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
-		{ stat = "WithDotDPS", label = "Total DPS inc. DoT", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.TotalDPS and (o.PoisonDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
-		{ stat = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Minion Bleed DPS exceeds in game limit" end },
-		{ stat = "WithBleedDPS", label = "Total DPS inc. Bleed", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 end },
-		{ stat = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Minion Ignite DPS exceeds in game limit" end },
-		{ stat = "WithIgniteDPS", label = "Total DPS inc. Ignite", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
-		{ stat = "PoisonDPS", label = "Poison DPS", fmt = ".1f", compPercent = true, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Minion Poison dps exceeds in game limit" end },
-		{ stat = "PoisonDamage", label = "Total Damage per Poison", fmt = ".1f", compPercent = true },
-		{ stat = "WithPoisonDPS", label = "Total DPS inc. Poison", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
-		{ stat = "DecayDPS", label = "Decay DPS", fmt = ".1f", compPercent = true },
-		{ stat = "TotalDotDPS", label = "Total DoT DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.TotalDot and v ~= o.ImpaleDPS and v ~= o.TotalPoisonDPS and v ~= (o.TotalIgniteDPS or o.IgniteDPS) and v ~= o.BleedDPS end, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Minion DoT DPS exceeds in game limit" end },
-		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale" },
-		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
-		{ stat = "CullingDPS", label = "Culling DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.CullingDPS or 0) > 0 end },
-		{ stat = "ReservationDPS", label = "Reservation DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.ReservationDPS or 0) > 0 end },
-		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS end},
-		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".3fs", lowerIsBetter = true },
-		{ stat = "Life", label = "Total Life", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
-		{ stat = "LifeRegenRecovery", label = "Life Recovery", fmt = ".1f", color = colorCodes.LIFE },
-		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
-		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", color = colorCodes.ES, compPercent = true },
-		{ stat = "EnergyShieldRegenRecovery", label = "ES Recovery", fmt = ".1f", color = colorCodes.ES },
-		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", color = colorCodes.ES, compPercent = true },
-	}
-	self.extraSaveStats = {
-		"PowerCharges",
-		"PowerChargesMax",
-		"FrenzyCharges",
-		"FrenzyChargesMax",
-		"EnduranceCharges",
-		"EnduranceChargesMax",
-		"ActiveTotemLimit",
-		"ActiveMinionLimit",
-	}
+	--self.controls.similarBuilds = new("ButtonControl", {"LEFT",self.controls.buildLoadouts,"RIGHT"}, {8, 0, 100, 20}, "Similar Builds", function()
+	--	self:OpenSimilarPopup()
+	--end)
+	--self.controls.similarBuilds.tooltipFunc = function(tooltip)
+	--	tooltip:Clear()
+	--	tooltip:AddLine(16, "Search for builds similar to your current character.")
+	--	tooltip:AddLine(16, "For best results, make sure to select your main item set, tree, and skills before opening the popup.")
+	--end
+	
 	if buildName == "~~temp~~" then
 		-- Remove temporary build file
 		os.remove(self.dbFileName)
@@ -564,43 +401,46 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.modFlag = true
 	end
 
+	-- List of display stats
+	self.displayStats, self.minionDisplayStats, self.extraSaveStats = LoadModule("Modules/BuildDisplayStats")
+
 	-- Controls: Side bar
-	self.anchorSideBar = new("Control", nil, 4, 36, 0, 0)
-	self.controls.modeImport = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 0, 134, 20, "Import/Export Build", function()
+	self.anchorSideBar = new("Control", nil, {4, 36, 0, 0})
+	self.controls.modeImport = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, {0, 0, 134, 20}, "Import/Export Build", function()
 		self.viewMode = "IMPORT"
 	end)
 	self.controls.modeImport.locked = function() return self.viewMode == "IMPORT" end
-	self.controls.modeNotes = new("ButtonControl", {"LEFT",self.controls.modeImport,"RIGHT"}, 4, 0, 58, 20, "Notes", function()
+	self.controls.modeNotes = new("ButtonControl", {"LEFT",self.controls.modeImport,"RIGHT"}, {4, 0, 58, 20}, "Notes", function()
 		self.viewMode = "NOTES"
 	end)
 	self.controls.modeNotes.locked = function() return self.viewMode == "NOTES" end
-	self.controls.modeConfig = new("ButtonControl", {"TOPRIGHT",self.anchorSideBar,"TOPLEFT"}, 300, 0, 100, 20, "Configuration", function()
+	self.controls.modeConfig = new("ButtonControl", {"TOPRIGHT",self.anchorSideBar,"TOPLEFT"}, {300, 0, 100, 20}, "Configuration", function()
 		self.viewMode = "CONFIG"
 	end)
 	self.controls.modeConfig.locked = function() return self.viewMode == "CONFIG" end
-	self.controls.modeTree = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 26, 72, 20, "Tree", function()
+	self.controls.modeTree = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, {0, 26, 72, 20}, "Tree", function()
 		self.viewMode = "TREE"
 	end)
 	self.controls.modeTree.locked = function() return self.viewMode == "TREE" end
-	self.controls.modeSkills = new("ButtonControl", {"LEFT",self.controls.modeTree,"RIGHT"}, 4, 0, 72, 20, "Skills", function()
+	self.controls.modeSkills = new("ButtonControl", {"LEFT",self.controls.modeTree,"RIGHT"}, {4, 0, 72, 20}, "Skills", function()
 		self.viewMode = "SKILLS"
 	end)
 	self.controls.modeSkills.locked = function() return self.viewMode == "SKILLS" end
-	self.controls.modeItems = new("ButtonControl", {"LEFT",self.controls.modeSkills,"RIGHT"}, 4, 0, 72, 20, "Items", function()
+	self.controls.modeItems = new("ButtonControl", {"LEFT",self.controls.modeSkills,"RIGHT"}, {4, 0, 72, 20}, "Items", function()
 		self.viewMode = "ITEMS"
 	end)
 	self.controls.modeItems.locked = function() return self.viewMode == "ITEMS" end
-	self.controls.modeCalcs = new("ButtonControl", {"LEFT",self.controls.modeItems,"RIGHT"}, 4, 0, 72, 20, "Calcs", function()
+	self.controls.modeCalcs = new("ButtonControl", {"LEFT",self.controls.modeItems,"RIGHT"}, {4, 0, 72, 20}, "Calcs", function()
 		self.viewMode = "CALCS"
 	end)
 	self.controls.modeCalcs.locked = function() return self.viewMode == "CALCS" end
-	self.controls.modeParty = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 52, 72, 20, "Party", function()
+	self.controls.modeParty = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, {0, 52, 72, 20}, "Party", function()
 		self.viewMode = "PARTY"
 	end)
 	self.controls.modeParty.locked = function() return self.viewMode == "PARTY" end
 	-- Skills
-	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 80, 300, 16, "^7Main Skill:")
-	self.controls.mainSocketGroup = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 18, nil, function(index, value)
+	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, {0, 80, 300, 16}, "^7Main Skill:")
+	self.controls.mainSocketGroup = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, {0, 2, 300, 18}, nil, function(index, value)
 		self.mainSocketGroup = index
 		self.modFlag = true
 		self.buildFlag = true
@@ -612,44 +452,44 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			self.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
 		end
 	end
-	self.controls.mainSkill = new("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 2, 300, 18, nil, function(index, value)
+	self.controls.mainSkill = new("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, {0, 2, 300, 18}, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		mainSocketGroup.mainActiveSkill = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillPart = new("DropDownControl", {"TOPLEFT",self.controls.mainSkill,"BOTTOMLEFT",true}, 0, 2, 300, 18, nil, function(index, value)
+	self.controls.mainSkillPart = new("DropDownControl", {"TOPLEFT",self.controls.mainSkill,"BOTTOMLEFT",true}, {0, 2, 300, 18}, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		srcInstance.skillPart = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillStageCountLabel = new("LabelControl", {"TOPLEFT",self.controls.mainSkillPart,"BOTTOMLEFT",true}, 0, 3, 0, 16, "^7Stages:") {
+	self.controls.mainSkillStageCountLabel = new("LabelControl", {"TOPLEFT",self.controls.mainSkillPart,"BOTTOMLEFT",true}, {0, 3, 0, 16}, "^7Stages:") {
 		shown = function()
 			return self.controls.mainSkillStageCount:IsShown()
 		end,
 	}
-	self.controls.mainSkillStageCount = new("EditControl", {"LEFT",self.controls.mainSkillStageCountLabel,"RIGHT",true}, 2, 0, 60, 18, nil, nil, "%D", nil, function(buf)
+	self.controls.mainSkillStageCount = new("EditControl", {"LEFT",self.controls.mainSkillStageCountLabel,"RIGHT",true}, {2, 0, 60, 18}, nil, nil, "%D", nil, function(buf)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		srcInstance.skillStageCount = tonumber(buf)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillMineCountLabel = new("LabelControl", {"TOPLEFT",self.controls.mainSkillStageCountLabel,"BOTTOMLEFT",true}, 0, 3, 0, 16, "^7Active Mines:") {
+	self.controls.mainSkillMineCountLabel = new("LabelControl", {"TOPLEFT",self.controls.mainSkillStageCountLabel,"BOTTOMLEFT",true}, {0, 3, 0, 16}, "^7Active Mines:") {
 		shown = function()
 			return self.controls.mainSkillMineCount:IsShown()
 		end,
 	}
-	self.controls.mainSkillMineCount = new("EditControl", {"LEFT",self.controls.mainSkillMineCountLabel,"RIGHT",true}, 2, 0, 60, 18, nil, nil, "%D", nil, function(buf)
+	self.controls.mainSkillMineCount = new("EditControl", {"LEFT",self.controls.mainSkillMineCountLabel,"RIGHT",true}, {2, 0, 60, 18}, nil, nil, "%D", nil, function(buf)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		srcInstance.skillMineCount = tonumber(buf)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillMinion = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillMineCountLabel,"BOTTOMLEFT",true}, 0, 3, 178, 18, nil, function(index, value)
+	self.controls.mainSkillMinion = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillMineCountLabel,"BOTTOMLEFT",true}, {0, 3, 178, 18}, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		if value.itemSetId then
@@ -678,24 +518,24 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			tooltip:AddLine(14, colorCodes.TIP.."Tip: You can drag items from the Items tab onto this dropdown to equip them onto the minion.")
 		end
 	end
-	self.controls.mainSkillMinionLibrary = new("ButtonControl", {"LEFT",self.controls.mainSkillMinion,"RIGHT"}, 2, 0, 120, 18, "Manage Spectres...", function()
+	self.controls.mainSkillMinionLibrary = new("ButtonControl", {"LEFT",self.controls.mainSkillMinion,"RIGHT"}, {2, 0, 120, 18}, "Manage Spectres...", function()
 		self:OpenSpectreLibrary()
 	end)
-	self.controls.mainSkillMinionSkill = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillMinion,"BOTTOMLEFT",true}, 0, 2, 200, 16, nil, function(index, value)
+	self.controls.mainSkillMinionSkill = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillMinion,"BOTTOMLEFT",true}, {0, 2, 200, 16}, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		srcInstance.skillMinionSkill = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.statBoxAnchor = new("Control", {"TOPLEFT",self.controls.mainSkillMinionSkill,"BOTTOMLEFT",true}, 0, 2, 0, 0)
-	self.controls.statBox = new("TextListControl", {"TOPLEFT",self.controls.statBoxAnchor,"BOTTOMLEFT"}, 0, 2, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
+	self.controls.statBoxAnchor = new("Control", {"TOPLEFT",self.controls.mainSkillMinionSkill,"BOTTOMLEFT",true}, {0, 2, 0, 0})
+	self.controls.statBox = new("TextListControl", {"TOPLEFT",self.controls.statBoxAnchor,"BOTTOMLEFT"}, {0, 2, 300, 0}, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
 	self.controls.statBox.height = function(control)
 		local x, y = control:GetPos()
 		local warnHeight = main.showWarnings and #self.controls.warnings.lines > 0 and 18 or 0
 		return main.screenH - main.mainBarHeight - 4 - y - warnHeight
 	end
-	self.controls.warnings = new("Control",{"TOPLEFT",self.controls.statBox,"BOTTOMLEFT",true}, 0, 0, 0, 18)
+	self.controls.warnings = new("Control",{"TOPLEFT",self.controls.statBox,"BOTTOMLEFT",true}, {0, 0, 0, 18})
 	self.controls.warnings.lines = {}
 	self.controls.warnings.width = function(control)
 		return control.str and DrawStringWidth(16, "FIXED", control.str) + 8 or 0
@@ -751,25 +591,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	
 	--special rebuild to properly initialise boss placeholders
 	self.configTab:BuildModList()
-
-	-- Initialise class dropdown
-	for classId, class in pairs(self.latestTree.classes) do
-		local ascendancies = {}
-		-- Initialise ascendancy dropdown
-		for i = 0, #class.classes do
-			local ascendClass = class.classes[i]
-			t_insert(ascendancies, {
-				label = ascendClass.name,
-				ascendClassId = i,
-			})
-		end
-		t_insert(self.controls.classDrop.list, {
-			label = class.name,
-			classId = classId,
-			ascendancies = ascendancies,
-		})
-	end
-	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
+	self:UpdateClassDropdowns()
 
 	-- Load legacy bandit and pantheon choices from build section
 	for _, control in ipairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
@@ -891,7 +713,7 @@ local function actExtra(act, extra)
 	return act > 2 and extra or 0
 end
 
-function buildMode:SyncLoadouts(reset)
+function buildMode:SyncLoadouts()
 	self.controls.buildLoadouts.list = {"No Loadouts"}
 
 	local filteredList = {"^7^7Loadouts:"}
@@ -902,6 +724,10 @@ function buildMode:SyncLoadouts(reset)
 	-- used when clicking on the dropdown to set the correct setId for each SetActiveSet()
 	self.treeListSpecialLinks, self.itemListSpecialLinks, self.skillListSpecialLinks, self.configListSpecialLinks = {}, {}, {}, {}
 
+	local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
+	local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
+	local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
+
 	if self.treeTab ~= nil and self.itemsTab ~= nil and self.skillsTab ~= nil and self.configTab ~= nil then
 		local transferTable = {}
 		local sortedTreeListSpecialLinks = {}
@@ -909,13 +735,19 @@ function buildMode:SyncLoadouts(reset)
 			local specTitle = spec.title or "Default"
 			-- only alphanumeric and comma are allowed in the braces { }
 			local linkIdentifier = string.match(specTitle, "%{([%w,]+)%}")
+
 			if linkIdentifier then
+				local setName = specTitle:gsub("%{" .. linkIdentifier .. "%}", ""):gsub("^%s*", ""):gsub("%s*$", "")
+				if not setName or setName == "" then
+					setName = "Default"
+				end
+
 				-- iterate over each identifier, delimited by comma, and set the index so we can grab it later
 				-- setId index is the id of the set in the global list needed for SetActiveSet
 				-- setName is only used for Tree currently and we strip the braces to get the plain name of the set, this is used as the name of the loadout
 				for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 					transferTable["setId"] = id
-					transferTable["setName"] = string.match(specTitle, "(.+)% {") or "Default"
+					transferTable["setName"] = setName
 					transferTable["linkId"] = linkId
 					self.treeListSpecialLinks[linkId] = transferTable
 					t_insert(sortedTreeListSpecialLinks, transferTable)
@@ -928,30 +760,26 @@ function buildMode:SyncLoadouts(reset)
 
 		-- item, skill, and config sets have identical structure
 		local function identifyLinks(setOrderList, tabSets, setList, specialLinks, treeLinks)
-			local assignAll = #setOrderList == 1
 			for id, set in ipairs(setOrderList) do
 				local setTitle = tabSets[set].title or "Default"
 				local linkIdentifier = string.match(setTitle, "%{([%w,]+)%}")
+
 				-- this if/else prioritizes group identifier in case the user creates sets with same name AND same identifiers
 				-- result is only the group is recognized and one loadout is created rather than a duplicate from each condition met
 				if linkIdentifier then
+					local setName = setTitle:gsub("%{" .. linkIdentifier .. "%}", ""):gsub("^%s*", ""):gsub("%s*$", "")
+					if not setName or setName == "" then
+						setName = "Default"
+					end
+
 					for linkId in string.gmatch(linkIdentifier, "[^%,]+") do
 						transferTable["setId"] = set
-						transferTable["setName"] = string.match(setTitle, "(.+)% {") or "Default"
+						transferTable["setName"] = setName
 						specialLinks[linkId] = transferTable
 						transferTable = {}
 					end
 				else
-					if assignAll then
-						for linkId, _ in pairs(treeLinks) do
-							transferTable["setId"] = set
-							transferTable["setName"] = setTitle
-							specialLinks[linkId] = transferTable
-							transferTable = {}
-						end
-					else
-						t_insert(setList, setTitle)
-					end
+					setList[setTitle] = true
 				end
 			end
 		end
@@ -961,20 +789,14 @@ function buildMode:SyncLoadouts(reset)
 
 		-- loop over all for exact match loadouts
 		for id, tree in ipairs(treeList) do
-			for id, skill in ipairs(skillList) do
-				for id, item in ipairs(itemList) do
-					for id, config in ipairs(configList) do
-						if (tree == skill and tree == item and tree == config) then
-							t_insert(filteredList, tree)
-						end
-					end
-				end
+			if (oneItem or itemList[tree]) and (oneSkill or skillList[tree]) and (oneConfig or configList[tree]) then
+				t_insert(filteredList, tree)
 			end
 		end
 		-- loop over the identifiers found within braces and set the loadout name to the TreeSet
 		for _, tree in ipairs(sortedTreeListSpecialLinks) do
 			local treeLinkId = tree.linkId
-			if (self.itemListSpecialLinks[treeLinkId] and self.skillListSpecialLinks[treeLinkId] and self.configListSpecialLinks[treeLinkId]) then
+			if ((oneItem or self.itemListSpecialLinks[treeLinkId]) and (oneSkill or self.skillListSpecialLinks[treeLinkId]) and (oneConfig or self.configListSpecialLinks[treeLinkId])) then
 				t_insert(filteredList, tree.setName .." {"..treeLinkId.."}")
 			end
 		end
@@ -990,24 +812,23 @@ function buildMode:SyncLoadouts(reset)
 		self.controls.buildLoadouts.list = filteredList
 	end
 
-	if reset then
-		self.controls.buildLoadouts:SetSel(1)
-    else
-		-- Try to select loadout in dropdown based on currently selected tree
+	-- Try to select loadout in dropdown based on currently selected tree
+	if self.treeTab then
 		local treeName = self.treeTab.specList[self.treeTab.activeSpec].title or "Default"
 		for i, loadout in ipairs(filteredList) do
 			if loadout == treeName then
-				local linkMatch = string.match(treeName, "%{(%w+)%}")
+				local linkMatch = string.match(treeName, "%{(%w+)%}") or treeName
 				if linkMatch then
 					local skillName = self.skillsTab.skillSets[self.skillsTab.activeSkillSetId].title or "Default"
-					local skillMatch = #self.skillsTab.skillSetOrderList == 1 or skillName:find(linkMatch)
+					local skillMatch = oneSkill or skillName:find(linkMatch, 1, true)
 					local itemName = self.itemsTab.itemSets[self.itemsTab.activeItemSetId].title or "Default"
-					local itemMatch = #self.itemsTab.itemSetOrderList == 1 or itemName:find(linkMatch)
+					local itemMatch = oneItem or itemName:find(linkMatch, 1, true)
 					local configName = self.configTab.configSets[self.configTab.activeConfigSetId].title or "Default"
-					local configMatch = #self.configTab.configSetOrderList == 1 or configName:find(linkMatch)
+					local configMatch = oneConfig or configName:find(linkMatch, 1, true)
 
 					if skillMatch and itemMatch and configMatch then
 						self.controls.buildLoadouts:SetSel(i)
+						return treeList, itemList, skillList, configList
 					end
 				end
 				break
@@ -1015,6 +836,7 @@ function buildMode:SyncLoadouts(reset)
 		end
 	end
 
+	self.controls.buildLoadouts:SetSel(1)
 	return treeList, itemList, skillList, configList
 end
 
@@ -1144,7 +966,7 @@ function buildMode:Save(xml)
 	end
 	local addedStatNames = { }
 	for index, statData in ipairs(self.displayStats) do
-		if not statData.flag or self.calcsTab.mainEnv.player.mainSkill.skillFlags[statData.flag] then
+		if matchFlags(statData.flag, statData.notFlag, self.calcsTab.mainEnv.player.mainSkill.skillFlags) then
 			local statName = statData.stat and statData.stat..(statData.childStat or "")
 			if statName and not addedStatNames[statName] then
 				if statData.stat == "SkillDPS" then
@@ -1276,6 +1098,7 @@ function buildMode:OnFrame(inputEvents)
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
 	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValueByKey("ascendancies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
+	self.controls.ascendDrop:CheckDroppedWidth(true)
 	-- // secondaryAscend dropdown hidden away until we learn more
 	--self.controls.secondaryAscendDrop.list = {{label = "None", ascendClassId = 0}, {label = "Warden", ascendClassId = 1}, {label = "Warlock", ascendClassId = 2}, {label = "Primalist", ascendClassId = 3}}
 	--self.controls.secondaryAscendDrop:SelByValue(self.spec.curSecondaryAscendClassId, "ascendClassId")
@@ -1356,24 +1179,24 @@ end
 function buildMode:OpenConversionPopup()
 	local controls = { }
 	local currentVersion = treeVersions[latestTreeVersion].display
-	controls.note = new("LabelControl", nil, 0, 20, 0, 16, colorCodes.TIP..[[
+	controls.note = new("LabelControl", nil, {0, 20, 0, 16}, colorCodes.TIP..[[
 Info:^7 You are trying to load a build created for a version of Path of Exile that is
 not supported by us. You will have to convert it to the current game version to load it.
 To use a build newer than the current supported game version, you may have to update.
 To use a build older than the current supported game version, we recommend loading it
 in an older version of Path of Building Community instead.
 ]])
-	controls.label = new("LabelControl", nil, 0, 110, 0, 16, colorCodes.WARNING..[[
+	controls.label = new("LabelControl", nil, {0, 110, 0, 16}, colorCodes.WARNING..[[
 Warning:^7 Converting a build to a different game version may have side effects.
 For example, if the passive tree has changed, then some passives may be deallocated.
 You should create a backup copy of the build before proceeding.
 ]])
-	controls.convert = new("ButtonControl", nil, -40, 170, 120, 20, "Convert to ".. currentVersion, function()
+	controls.convert = new("ButtonControl", nil, {-40, 170, 120, 20}, "Convert to ".. currentVersion, function()
 		main:ClosePopup()
 		self:Shutdown()
 		self:Init(self.dbFileName, self.buildName, nil, true)
 	end)
-	controls.cancel = new("ButtonControl", nil, 60, 170, 70, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, {60, 170, 70, 20}, "Cancel", function()
 		main:ClosePopup()
 		self:CloseBuild()
 	end)
@@ -1387,13 +1210,13 @@ function buildMode:OpenSavePopup(mode)
 		["UPDATE"] = "before updating?",
 	}
 	local controls = { }
-	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7This build has unsaved changes.\nDo you want to save them "..modeDesc[mode])
-	controls.save = new("ButtonControl", nil, -90, 70, 80, 20, "Save", function()
+	controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7This build has unsaved changes.\nDo you want to save them "..modeDesc[mode])
+	controls.save = new("ButtonControl", nil, {-90, 70, 80, 20}, "Save", function()
 		main:ClosePopup()
 		self.actionOnSave = mode
 		self:SaveDBFile()
 	end)
-	controls.noSave = new("ButtonControl", nil, 0, 70, 80, 20, "Don't Save", function()
+	controls.noSave = new("ButtonControl", nil, {0, 70, 80, 20}, "Don't Save", function()
 		main:ClosePopup()
 		if mode == "LIST" then
 			self:CloseBuild()
@@ -1403,7 +1226,7 @@ function buildMode:OpenSavePopup(mode)
 			launch:ApplyUpdate(launch.updateAvailable)
 		end
 	end)
-	controls.close = new("ButtonControl", nil, 90, 70, 80, 20, "Cancel", function()
+	controls.close = new("ButtonControl", nil, {90, 70, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(300, 100, "Save Changes", controls)
@@ -1426,22 +1249,23 @@ function buildMode:OpenSaveAsPopup()
 			end
 		end
 	end
-	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter new build name:")
-	controls.edit = new("EditControl", nil, 0, 40, 450, 20, self.dbFileName and self.buildName, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
+	controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter new build name:")
+	controls.edit = new("EditControl", nil, {0, 40, 450, 20},
+	not self.dbFileName and main.predefinedBuildName or (self.buildName or self.dbFileName):gsub("[\\/:%*%?\"<>|%c]", "-"), nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 		updateBuildName()
 	end)
-	controls.folderLabel = new("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 70, 0, 16, "^7Folder:")
-	controls.newFolder = new("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 67, 94, 20, "New Folder...", function()
+	controls.folderLabel = new("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, {10, 70, 0, 16}, "^7Folder:")
+	controls.newFolder = new("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 67, 94, 20}, "New Folder...", function()
 		main:OpenNewFolderPopup(main.buildPath..controls.folder.subPath, function(newFolderName)
 			if newFolderName then
 				controls.folder:OpenFolder(newFolderName)
 			end
 		end)
 	end)
-	controls.folder = new("FolderListControl", nil, 0, 115, 450, 100, self.dbFileSubPath, function(subPath)
+	controls.folder = new("FolderListControl", nil, {0, 115, 450, 100}, self.dbFileSubPath, function(subPath)
 		updateBuildName()
 	end)
-	controls.save = new("ButtonControl", nil, -45, 225, 80, 20, "Save", function()
+	controls.save = new("ButtonControl", nil, {-45, 225, 80, 20}, "Save", function()
 		main:ClosePopup()
 		self.dbFileName = newFileName
 		self.buildName = newBuildName
@@ -1449,11 +1273,18 @@ function buildMode:OpenSaveAsPopup()
 		self:SaveDBFile()
 		self.spec:SetWindowTitleWithBuildClass()
 	end)
-	controls.save.enabled = false
-	controls.close = new("ButtonControl", nil, 45, 225, 80, 20, "Cancel", function()
+	controls.close = new("ButtonControl", nil, {45, 225, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 		self.actionOnSave = nil
 	end)
+
+	if self.dbFileName or self.buildName then
+		controls.save.enabled = self.dbFileName or self.buildName
+		updateBuildName()
+	else
+		controls.save.enabled = false
+	end
+
 	main:OpenPopup(470, 255, self.dbFileName and "Save As" or "Save", controls, "save", "edit", "close")
 end
 
@@ -1472,20 +1303,85 @@ function buildMode:OpenSpectreLibrary()
 		end
 	end)
 	local controls = { }
-	controls.list = new("MinionListControl", nil, -100, 40, 190, 250, self.data, destList)
-	controls.source = new("MinionListControl", nil, 100, 40, 190, 250, self.data, sourceList, controls.list)
-	controls.save = new("ButtonControl", nil, -45, 330, 80, 20, "Save", function()
+	controls.list = new("MinionListControl", nil, {-100, 40, 190, 250}, self.data, destList)
+	controls.source = new("MinionSearchListControl", nil, {100, 60, 190, 230}, self.data, sourceList, controls.list)
+	controls.save = new("ButtonControl", nil, {-45, 330, 80, 20}, "Save", function()
 		self.spectreList = destList
 		self.modFlag = true
 		self.buildFlag = true
 		main:ClosePopup()
 	end)
-	controls.cancel = new("ButtonControl", nil, 45, 330, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, {45, 330, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
-	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 24, 2, 0, 16, "Spectres in your Library must be assigned to an active")
-	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 20, 18, 0, 16, "Raise Spectre gem for their buffs and curses to activate")
-	main:OpenPopup(410, 360, "Spectre Library", controls)
+	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {24, 2, 0, 16}, "Spectres in your Library must be assigned to an active")
+	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {20, 18, 0, 16}, "Raise Spectre gem for their buffs and curses to activate")
+	local spectrePopup = main:OpenPopup(410, 360, "Spectre Library", controls)
+	spectrePopup:SelectControl(spectrePopup.controls.source.controls.searchText)
+end
+
+function buildMode:UpdateClassDropdowns(treeVersion)
+	local classes = main.tree[treeVersion or latestTreeVersion].classes
+	wipeTable(self.controls.classDrop.list)
+	-- Initialise class dropdown
+	for classId, class in pairs(classes) do
+		local ascendancies = {}
+		-- Initialise ascendancy dropdown
+		for i = 0, #class.classes do
+			local ascendClass = class.classes[i]
+			t_insert(ascendancies, {
+				label = ascendClass.name,
+				ascendClassId = i,
+			})
+		end
+		t_insert(self.controls.classDrop.list, {
+			label = class.name,
+			classId = classId,
+			ascendancies = ascendancies,
+		})
+	end
+	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
+end
+
+function buildMode:OpenSimilarPopup()
+	local controls = { }
+	-- local width, height = self:GetSize()
+	local buildProviders = {
+		{
+			name = "PoB Archives",
+			impl = new("PoBArchivesProvider", "similar")
+		}
+	}
+	local width = 600
+	local height = function()
+		return main.screenH * 0.8
+	end
+	local padding = 50
+	controls.similarBuildList = new("ExtBuildListControl", nil, {0, padding, width, height() - 2 * padding}, buildProviders)
+	controls.similarBuildList.shown = true
+	controls.similarBuildList.height = function()
+		return height() - 2 * padding
+	end
+	controls.similarBuildList.width = function ()
+		return width - padding
+	end
+	controls.similarBuildList:SetImportCode(common.base64.encode(Deflate(self:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
+	controls.similarBuildList:Init("PoB Archives")
+
+	-- controls.similarBuildList.shown = not controls.similarBuildList:IsShown()
+
+	controls.close = new("ButtonControl", nil, {0, height() - (padding + 20) / 2, 80, 20}, "Close", function()
+		main:ClosePopup()
+	end)
+	-- used in PopupDialog to dynamically size the popup
+	local function resizeFunc()
+		main.popups[1].height = height()
+		main.popups[1].y = function()
+			return m_floor((main.screenH - height()) / 2)
+		end
+		controls.close.y = height() - 35
+	end
+	main:OpenPopup(width, height(), "Similar Builds", controls, nil, nil, nil, nil, resizeFunc)
 end
 
 -- Refresh the set of controls used to select main group/skill/minion
@@ -1615,7 +1511,7 @@ end
 function buildMode:AddDisplayStatList(statList, actor)
 	local statBoxList = self.controls.statBox.list
 	for index, statData in ipairs(statList) do
-		if not statData.flag or actor.mainSkill.skillFlags[statData.flag] then
+		if matchFlags(statData.flag, statData.notFlag, actor.mainSkill.skillFlags) then
 			local labelColor = "^7"
 			if statData.color then
 				labelColor = statData.color
@@ -1662,19 +1558,8 @@ function buildMode:AddDisplayStatList(statList, actor)
 						end
 					elseif not (statData.hideStat) then
 						-- Change the color of the stat label to red if cost exceeds pool
-						local output = actor.output
-						local poolVal = output[statData.pool]
 						local colorOverride = nil
-						if statData.stat:match("Cost$") and not statData.stat:match("PerSecondCost$") and statVal and poolVal then
-							if statData.stat == "ManaCost" and output.EnergyShieldProtectsMana then
-								if statVal > output.ManaUnreserved + output.EnergyShield then
-									colorOverride = colorCodes.NEGATIVE
-								end
-							elseif statVal > poolVal then
-								colorOverride = colorCodes.NEGATIVE
-							end
-						end
-						if statData.warnFunc and statData.warnFunc(statVal, actor.output) and statData.warnColor then
+						if actor.output[statData.stat.."Warning"] or (statData.warnFunc and statData.warnFunc(statVal, actor.output) and statData.warnColor) then
 							colorOverride = colorCodes.NEGATIVE
 						end
 						t_insert(statBoxList, {
@@ -1724,6 +1609,17 @@ function buildMode:AddDisplayStatList(statList, actor)
 	end
 	if actor.output.VixenModeNoVixenGlovesWarn then
 		InsertIfNew(self.controls.warnings.lines, "Vixen's calculation mode for Doom Blast is selected but you do not have Vixen's Entrapment Embroidered Gloves equipped")
+	end
+
+	do
+		local aspectCount = 0
+		aspectCount = aspectCount + (actor.output.CrabBarriersMax > 0 and actor.output.CrabBarriers > 0 and 1 or 0)
+		aspectCount = aspectCount + (aspectCount < 2 and actor.modDB:Flag(nil, "Condition:AspectOfTheSpiderActive") and 1 or 0)
+		aspectCount = aspectCount + (aspectCount < 2 and (actor.modDB:Flag(nil, "Condition:CatsAgilityActive") or actor.modDB:Flag(nil, "Condition:CatsStealthActive")) and 1 or 0)
+		aspectCount = aspectCount + (aspectCount < 2 and (actor.modDB:Flag(nil, "Condition:AviansFlightActive") or actor.modDB:Flag(nil, "Condition:AviansMightActive")) and 1 or 0)
+		if aspectCount > 1 then
+			InsertIfNew(self.controls.warnings.lines, "You have more than one Aspect skill active")
+		end
 	end
 end
 
@@ -1786,11 +1682,11 @@ end
 function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compareOutput, header, nodeCount)
 	local count = 0
 	for _, statData in ipairs(statList) do
-		if statData.stat and (not statData.flag or actor.mainSkill.skillFlags[statData.flag]) and not statData.childStat and statData.stat ~= "SkillDPS" then
+		if statData.stat and matchFlags(statData.flag, statData.notFlag, actor.mainSkill.skillFlags) and not statData.childStat and statData.stat ~= "SkillDPS" then
 			local statVal1 = compareOutput[statData.stat] or 0
 			local statVal2 = baseOutput[statData.stat] or 0
 			local diff = statVal1 - statVal2
-			if statData.stat == "FullDPS" and not GlobalCache.useFullDPS and not self.viewMode == "TREE" then
+			if statData.stat == "FullDPS" and not compareOutput[statData.stat] then
 				diff = 0
 			end
 			if (diff > 0.001 or diff < -0.001) and (not statData.condFunc or statData.condFunc(statVal1,compareOutput) or statData.condFunc(statVal2,baseOutput)) then
@@ -1885,6 +1781,9 @@ function buildMode:LoadDB(xmlText, fileName)
 	if not dbXML then
 		launch:ShowErrMsg("^1Error loading '%s': %s", fileName, errMsg)
 		return true
+	elseif #dbXML == 0 then
+		main:OpenMessagePopup("Error", "Build file is empty, or error parsing xml.\n\n"..fileName)
+		return true
 	elseif dbXML[1].elem ~= "PathOfBuilding" then
 		launch:ShowErrMsg("^1Error parsing '%s': 'PathOfBuilding' root element missing", fileName)
 		return true
@@ -1894,6 +1793,16 @@ function buildMode:LoadDB(xmlText, fileName)
 	for _, node in ipairs(dbXML[1]) do
 		if type(node) == "table" and node.elem == "Build" then
 			self:Load(node, self.dbFileName)
+			break
+		end
+	end
+
+	-- Check if xml has an import link
+	for _, node in ipairs(dbXML[1]) do
+		if type(node) == "table" and node.elem == "Import" then
+			if node.attrib.importLink and not self.importLink then
+				self.importLink = node.attrib.importLink
+			end
 			break
 		end
 	end

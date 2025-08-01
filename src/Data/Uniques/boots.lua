@@ -135,7 +135,7 @@ Stormcharger
 Plated Greaves
 Variant: Pre 3.19.0
 Variant: Current
-+(1-50)% to Lightning Resistance 
++(1-50)% to Lightning Resistance
 {variant:1}20% increased Movement Speed
 {variant:2}(1-40)% increased Movement Speed
 {variant:1}30% of Physical Damage Converted to Lightning Damage
@@ -270,7 +270,7 @@ Requires Level 22, 42 Dex
 {variant:2,3}15% increased Movement Speed for 9 seconds on Throwing a Trap
 ]],[[
 Orbala's Stand
-Eelskin Boots 
+Eelskin Boots
 (100-150)% increased Evasion Rating
 (20-30)% increased Movement Speed
 Cannot be Stunned by Suppressed Spell Damage
@@ -640,10 +640,13 @@ Implicits: 3
 {variant:3}+(8-12)% to Cold and Lightning Resistances
 Grants Level 1 Embrace Madness Skill
 30% increased Movement Speed
+{variant:1}(150-300)% increased Armour and Evasion
 {variant:1}+15 to maximum Fortification while affected by Glorious Madness
 {variant:1}20% chance to deal Double Damage while affected by Glorious Madness
+{variant:2}(20-40)% increased Effect of Non-Damaging Ailments
 {variant:2}You have Igniting, Chilling and Shocking Conflux while affected by Glorious Madness
 {variant:2}Immune to Elemental Ailments while affected by Glorious Madness
+{variant:3}(20-40)% increased Chaos Damage
 {variant:3}Enemies you Kill while affected by Glorious Madness have a 40% chance to Explode, dealing a quarter of their Life as Chaos Damage
 {variant:3}All Damage inflicts Poison while affected by Glorious Madness
 ]],[[
@@ -868,12 +871,17 @@ Riveted Boots
 Variant: Pre 3.19.0
 Variant: Pre 3.23.0
 Variant: Pre 3.24.0
-Variant: Current
+Variant: Pre 3.26.0
+Variant: Endurance Current
+Variant: Frenzy Current
+Variant: Power Current
 Requires Level 36, 35 Str, 35 Int
 +(15-25)% to Cold Resistance
 +(15-25)% to Chaos Resistance
 {variant:1}20% increased Movement Speed
 {variant:2,3}30% increased Movement Speed
+{variant:5,6,7}(15-25)% increased Movement Speed
+{variant:5,6,7}Corrupted Blood cannot be inflicted on you
 {variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary
 {variant:1,2}Lose all Frenzy, Endurance, and Power Charges when you Move
 {variant:2}Minimum Endurance Charges equal to Maximum while stationary
@@ -882,6 +890,9 @@ Requires Level 36, 35 Str, 35 Int
 {variant:3,4}Count as having maximum number of Endurance Charges
 {variant:3,4}Count as having maximum number of Frenzy Charges
 {variant:3,4}Count as having maximum number of Power Charges
+{variant:5}Count as having maximum number of Endurance Charges
+{variant:6}Count as having maximum number of Frenzy Charges
+{variant:7}Count as having maximum number of Power Charges
 ]],[[
 Wake of Destruction
 Mesh Boots
@@ -970,6 +981,7 @@ You have Onslaught while not on Low Mana
 Omeyocan
 Carnal Boots
 Variant: Pre 3.16.0
+Variant: Pre 3.26.0
 Variant: Current
 League: Incursion
 Source: Upgraded from unique{Dance of the Offered} via currency{Vial of the Ritual}
@@ -979,6 +991,7 @@ Requires Level 55, 52 Dex, 52 Int
 30% increased Movement Speed
 {variant:1}2% increased Evasion per 500 Maximum Mana
 {variant:2}10% increased Evasion per 500 Maximum Mana
+{variant:3}20% increased Evasion per 500 Maximum Mana
 You have Onslaught while not on Low Mana
 Lose 7% of maximum Mana per Second
 ]],[[

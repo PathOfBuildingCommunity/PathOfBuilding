@@ -27,7 +27,7 @@ function loadStatFile(fileName)
 		elseif line:match("handed_description") or (line:match("description") and not line:match("_description")) then	
 			local name = line:match("description ([%w_]+)")
 			curLang = { }
-			curDescriptor = { lang = { ["English"] = curLang }, order = order, name = name }
+			curDescriptor = { curLang, order = order, name = name }
 			order = order + 1
 		elseif not curDescriptor.stats then
 			local stats = line:match("%d+%s+([%w_%+%-%% ]+)")
@@ -42,7 +42,7 @@ function loadStatFile(fileName)
 			local langName = line:match('lang "(.+)"')
 			if langName then
 				curLang = { }
-				curDescriptor.lang[langName] = curLang
+				--curDescriptor.lang[langName] = curLang
 			else
 				local statLimits, text, special = line:match('([%d%-#| ]+) "(.-)"%s*(.*)')
 				if statLimits then
@@ -144,7 +144,7 @@ function describeStats(stats)
 			val[i] = stats[s] or { min = 0, max = 0 }
 			val[i].fmt = "d"
 		end
-		local desc = matchLimit(descriptor.lang["English"], val)
+		local desc = matchLimit(descriptor[1], val)
 		if desc then
 			for _, spec in ipairs(desc) do
 				if spec.k == "negate" then
@@ -153,9 +153,12 @@ function describeStats(stats)
 					val[spec.v].max, val[spec.v].min = 100 - val[spec.v].min, 100 - val[spec.v].max
 				elseif spec.k == "negate_and_double" then
 					val[spec.v].max, val[spec.v].min = -2 * val[spec.v].min, -2 * val[spec.v].max
-				elseif spec.k == "passive_hash" and val[spec.v].min < 0 then
-					val[spec.v].min = val[spec.v].min + 65536
-					val[spec.v].max = val[spec.v].max + 65536
+				elseif spec.k == "passive_hash" then
+					-- handled elsewhere
+					if val[spec.v].min < 0 then
+						val[spec.v].min = val[spec.v].min + 65536
+						val[spec.v].max = val[spec.v].max + 65536
+					end
 				elseif spec.k == "divide_by_two_0dp" then
 					val[spec.v].min = val[spec.v].min / 2
 					val[spec.v].max = val[spec.v].max / 2
@@ -167,7 +170,7 @@ function describeStats(stats)
 					val[spec.v].min = round(val[spec.v].min / 6, 1)
 					val[spec.v].max = round(val[spec.v].max / 6, 1)
 					val[spec.v].fmt = "g"
-				elseif spec.k == "divide_by_ten_1dp_if_required" then
+				elseif spec.k == "divide_by_ten_1dp_if_required" or spec.k == "divide_by_ten_1dp" then
 					val[spec.v].min = round(val[spec.v].min / 10, 1)
 					val[spec.v].max = round(val[spec.v].max / 10, 1)
 					val[spec.v].fmt = "g"
@@ -217,7 +220,7 @@ function describeStats(stats)
 				elseif spec.k == "milliseconds_to_seconds_0dp" then
 					val[spec.v].min = val[spec.v].min / 1000
 					val[spec.v].max = val[spec.v].max / 1000
-				elseif spec.k == "milliseconds_to_seconds_2dp_if_required" then
+				elseif spec.k == "milliseconds_to_seconds_2dp_if_required" or spec.k == "milliseconds_to_seconds_2dp" then
 					val[spec.v].min = round(val[spec.v].min / 1000, 2)
 					val[spec.v].max = round(val[spec.v].max / 1000, 2)
 					val[spec.v].fmt = "g"	

@@ -72,7 +72,7 @@ local function applySpecial(val, spec)
 		val[spec.v].min = val[spec.v].min / 6
 		val[spec.v].max = val[spec.v].max / 6
 		val[spec.v].fmt = "g"
-	elseif spec.k == "divide_by_ten_1dp_if_required" then
+	elseif spec.k == "divide_by_ten_1dp_if_required" or spec.k == "divide_by_ten_1dp" then
 		val[spec.v].min = round(val[spec.v].min / 10, 1)
 		val[spec.v].max = round(val[spec.v].max / 10, 1)
 		val[spec.v].fmt = "g"
@@ -194,7 +194,7 @@ return function(stats, scopeName)
 			for depth, scope in ipairs(rootScope.scopeList) do
 				if scope[s] then
 					local descriptor = scope[scope[s]]
-					if descriptor.lang then
+					if descriptor[1] then
 						describeStats[descriptor.stats[1]] = { depth = depth, order = scope[s], description = scope[scope[s]] }
 					end
 					break
@@ -229,7 +229,7 @@ return function(stats, scopeName)
 			end
 			val[i].fmt = "d"
 		end
-		local desc = matchLimit(descriptor.description.lang["English"], val)
+		local desc = matchLimit(descriptor.description[1], val)
 		if desc then
 			for _, spec in ipairs(desc) do
 				applySpecial(val, spec)

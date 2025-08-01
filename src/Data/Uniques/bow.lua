@@ -369,6 +369,7 @@ Hits can't be Evaded
 Null's Inclination
 Ranger Bow
 Variant: Pre 3.14.0
+Variant: Pre 3.26.0
 Variant: Current
 Requires Level 60, 212 Dex, 212 Int
 Adds (50-80) to (130-180) Chaos Damage
@@ -376,23 +377,28 @@ Adds (50-80) to (130-180) Chaos Damage
 +(7-11)% to Chaos Resistance
 {variant:1}Minions deal 1% increased Damage per 10 Dexterity
 {variant:2}Minions deal 1% increased Damage per 5 Dexterity
+{variant:3}Minions deal 2% increased Damage per 5 Dexterity
 +212 Intelligence Requirement
 Cast Socketed Minion Spells on Kill with this Weapon
 ]],[[
 Nuro's Harp
 Harbinger Bow
 Variant: Pre 2.5.0
+Variant: Pre 3.26.0
 Variant: Current
 Requires Level 68, 212 Dex
 Implicits: 1
 (30-50)% increased Critical Strike Chance
 No Physical Damage
-Adds (120-140) to (180-210) Cold Damage
+{variant:1,2}Adds (120-140) to (180-210) Cold Damage
+{variant:3}Adds (180-210) to (240-280) Cold Damage
 (10-15)% increased Attack Speed
 (10-30)% increased Light Radius
 15% chance to create Chilled Ground when you Freeze an Enemy
 Create Consecrated Ground when you Shatter an Enemy
 {variant:2}40% increased Effect of Chilled Ground
+{variant:3}(30-50)% increased Effect of Chilled Ground
+{variant:3}(30-50)% increased Effect of Consecrated Ground
 ]],[[
 Quill Rain
 Short Bow

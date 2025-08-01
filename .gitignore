@@ -36,3 +36,4 @@ src/Data/TimelessJewelData/*.bin
 
 # Simplegraphic Debugging
 runtime/imgui.ini
+runtime/SimpleGraphic/SimpleGraphic.log

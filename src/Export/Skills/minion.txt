@@ -9,13 +9,11 @@ local skills, mod, flag, skill = ...
 #flags spell area
 #mods
 
-#addSkillTypes DamageOverTime
 #skill SandstormChaosElementalSummoned Chaos Aura
 #flags spell duration area
 #baseMod skill("dotIsArea", true)
 #mods
 
-#addSkillTypes DamageOverTime
 #skill SandstormChaosElementalSummonedEmpowered Empowered Chaos Aura
 #flags spell duration area
 #baseMod skill("dotIsArea", true)
@@ -43,7 +41,6 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dpsMultiplier", 2)
 #mods
 
-#addSkillTypes Damage Multicastable
 #skill IceElementalSpearSummoned Ice Spear
 #flags spell projectile
 #mods
@@ -56,12 +53,10 @@ local skills, mod, flag, skill = ...
 #flags spell area
 #mods
 
-#addSkillTypes Damage
 #skill LightningGolemArcSummoned Storm Orb
 #flags spell projectile duration
 #mods
 
-#addSkillTypes Damage Multicastable 
 #skill MonsterProjectileSpellLightningGolemSummoned Lightning Projectile
 #flags spell projectile
 #mods
@@ -104,7 +99,6 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 #mods
 
-#addSkillTypes Melee Multistrikeable
 #skill RockGolemSlam Slam
 #flags attack melee area
 #mods
@@ -289,13 +283,12 @@ skills["SiegebreakerCausticGround"] = {
 	hidden = true,
 	color = 4,
 	baseFlags = {
-		cast = true,
 		area = true,
-		chaos = true,
+		duration = true,
 	},
-	skillTypes = { },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.Triggerable] = true, [SkillType.Chaos] = true, [SkillType.AreaSpell] = true, },
 	baseMods = {
-		skill("ChaosDot", 1, { type = "PerStat", stat = "Life", div = 5 }),
+		skill("ChaosDot", 1, { type = "PercentStat", stat = "Life", percentVar = "SiegebreakerCausticGroundPercent" }),
 		skill("dotIsArea", true),
 		flag("dotIsCausticGround"),
 	},
@@ -312,13 +305,12 @@ skills["ReplicaSiegebreakerBurningGround"] = {
 	hidden = true,
 	color = 4,
 	baseFlags = {
-		cast = true,
 		area = true,
-		fire = true,
+		duration = true,
 	},
-	skillTypes = { },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, [SkillType.CausesBurning] = true, },
 	baseMods = {
-		skill("FireDot", 1, { type = "PerStat", stat = "Life", div = 5 }),
+		skill("FireDot", 1, { type = "PercentStat", stat = "Life", percentVar = "SiegebreakerBurningGroundPercent" }),
 		skill("dotIsArea", true),
 		flag("dotIsBurningGround"),
 	},
@@ -422,7 +414,7 @@ skills["GuardianSentinelFireAura"] = {
 #mods
 
 #skill ElementalHitCloneShot Elemental Hit
-#flags attack projectile melee area
+#flags attack projectile melee
 #mods
 
 #skill SumonRagingSpiritMelee Melee
@@ -431,4 +423,8 @@ skills["GuardianSentinelFireAura"] = {
 
 #skill AnimateGuardianSmite Smite
 #flags attack melee area
+#mods
+
+#skill ElderTentacleMinionProjectileDeepcaller Projectile Spell
+#flags spell projectile
 #mods

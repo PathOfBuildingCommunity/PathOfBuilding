@@ -3,11 +3,12 @@
 -- Class: Check Box Control
 -- Basic check box control.
 --
-local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost", function(self, anchor, x, y, size, label, changeFunc, tooltipText, initialState)
-	self.Control(anchor, x, y, size, size)
+local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost", function(self, anchor, rect, label, changeFunc, tooltipText, initialState)
+	rect[4] = rect[3] or 0
+	self.Control(anchor, rect)
 	self.TooltipHost(tooltipText)
 	self.label = label
-	self.labelWidth = DrawStringWidth(size - 4, "VAR", label or "") + 5
+	self.labelWidth = DrawStringWidth(self.width - 4, "VAR", label or "") + 5
 	self.changeFunc = changeFunc
 	self.state = initialState
 end)

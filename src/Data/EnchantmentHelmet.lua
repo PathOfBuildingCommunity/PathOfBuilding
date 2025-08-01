@@ -427,11 +427,11 @@ return {
 	},
 	["Chain Hook"] = {
 		["MERCILESS"] = {
-			"Chain Hook has a 25% chance to grant +1 Rage if it Hits Enemies",
+			"Chain Hook grants 1 Rage if it Hits Enemies",
 			"Chain Hook deals 25% increased Damage",
 		},
 		["ENDGAME"] = {
-			"Chain Hook has a 40% chance to grant +1 Rage if it Hits Enemies",
+			"Chain Hook grants 1 Rage if it Hits Enemies",
 			"Chain Hook has +0.1 metres to radius per 12 Rage",
 			"Chain Hook deals 40% increased Damage",
 		},
@@ -832,7 +832,7 @@ return {
 		},
 		["ENDGAME"] = {
 			"Enduring Cry has 30% increased Cooldown Recovery Rate",
-			"Enduring Cry grants 1 additional Endurance Charge",
+			"Enduring Cry grants 1 additional Endurance Charge to you and Allied Players",
 		},
 	},
 	["Energy Blade"] = {
@@ -1989,13 +1989,13 @@ return {
 	},
 	["Raise Spectre"] = {
 		["MERCILESS"] = {
-			"Spectres have 25% increased Damage",
-			"Spectres have 8% increased Attack and Cast Speed",
+			"Raised Spectres have 25% increased Damage",
+			"Raised Spectres have 8% increased Attack and Cast Speed",
 			"+24% to Raised Spectre Elemental Resistances",
 		},
 		["ENDGAME"] = {
-			"Spectres have 40% increased Damage",
-			"Spectres have 12% increased Attack and Cast Speed",
+			"Raised Spectres have 40% increased Damage",
+			"Raised Spectres have 12% increased Attack and Cast Speed",
 			"+36% to Raised Spectre Elemental Resistances",
 		},
 	},
@@ -2012,11 +2012,7 @@ return {
 		},
 	},
 	["Rallying Cry"] = {
-		["MERCILESS"] = {
-			"10% increased Rallying Cry Buff Effect",
-		},
 		["ENDGAME"] = {
-			"15% increased Rallying Cry Buff Effect",
 			"Rallying Cry Exerts 1 additional Attack",
 		},
 	},
@@ -2974,6 +2970,14 @@ return {
 		},
 		["ENDGAME"] = {
 			"Zealotry has 30% increased Mana Reservation Efficiency",
+		},
+	},
+	["[DNT] Old Rallying Cry"] = {
+		["MERCILESS"] = {
+			"10% increased Rallying Cry Buff Effect",
+		},
+		["ENDGAME"] = {
+			"15% increased Rallying Cry Buff Effect",
 		},
 	},
 }

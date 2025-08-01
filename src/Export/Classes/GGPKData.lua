@@ -11,6 +11,7 @@ local function scanDir(directory, extension)
 	local t = { }
 	local pFile = io.popen('dir "'..directory..'" /b')
 	for filename in pFile:lines() do
+		filename = filename:gsub('\r?$', '')
 		--ConPrintf("%s\n", filename)
 		if extension then
 			if filename:match(extension) then
@@ -30,14 +31,14 @@ end
 
 -- Path can be in any format recognized by the extractor at oozPath, ie,
 -- a .ggpk file or a Steam Path of Exile directory
-local GGPKClass = newClass("GGPKData", function(self, path, datPath)
+local GGPKClass = newClass("GGPKData", function(self, path, datPath, reExport)
 	if datPath then
 		self.oozPath = datPath:match("\\$") and datPath or (datPath .. "\\")
 	else
 		self.path = path
-		self.temp = io.popen("cd"):read('*l')
-		self.oozPath = self.temp .. "\\ggpk\\"
-		self:ExtractFiles()
+		self.oozPath = io.popen("cd"):read('*l'):gsub('\r?', '') .. "\\ggpk\\"
+		self:CleanDir(reExport)
+		self:ExtractFiles(reExport)
 	end
 
 	self.dat = { }
@@ -50,27 +51,60 @@ local GGPKClass = newClass("GGPKData", function(self, path, datPath)
 	end
 end)
 
-function GGPKClass:ExtractFiles()
-	local datList, txtList, itList = self:GetNeededFiles()
-	
-	local fileList = ''
-	for _, fname in ipairs(datList) do
-		if USE_DAT64 then
-			fileList = fileList .. '"' .. fname .. '64" '
-		else
-			fileList = fileList .. '"' .. fname .. '" '
-		end
+function GGPKClass:CleanDir(reExport)
+	if reExport then
+		local cmd = 'del ' .. self.oozPath .. 'Data ' .. self.oozPath .. 'Metadata /Q /S'
+		ConPrintf(cmd)
+		os.execute(cmd)
 	end
-	for _, fname in ipairs(txtList) do
-		fileList = fileList .. '"' .. fname .. '" '
-	end
-	for _, fname in ipairs(itList) do
-		fileList = fileList .. '"' .. fname .. '" '
-	end
-	
-	local cmd = 'cd ' .. self.oozPath .. ' && bun_extract_file.exe extract-files "' .. self.path .. '" . ' .. fileList
+end
+
+function GGPKClass:ExtractFilesWithBun(fileListStr)
+	local cmd = 'cd ' .. self.oozPath .. ' && bun_extract_file.exe extract-files "' .. self.path .. '" . ' .. fileListStr
 	ConPrintf(cmd)
 	os.execute(cmd)
+end
+
+function GGPKClass:ExtractFiles(reExport)
+	if reExport then
+		local datList, txtList, itList = self:GetNeededFiles()
+		local sweetSpotCharacter = 6000
+		local fileList = ''
+		for _, fname in ipairs(datList) do
+			if USE_DAT64 then
+				fileList = fileList .. '"' .. fname .. 'c64" '
+			else
+				fileList = fileList .. '"' .. fname .. '" '
+			end
+
+			if fileList:len() > sweetSpotCharacter then
+				self:ExtractFilesWithBun(fileList)
+				fileList = ''
+			end
+		end
+
+		for _, fname in ipairs(txtList) do
+			fileList = fileList .. '"' .. fname .. '" '
+
+			if fileList:len() > sweetSpotCharacter then
+				self:ExtractFilesWithBun(fileList)
+				fileList = ''
+			end
+		end
+
+		for _, fname in ipairs(itList) do
+			fileList = fileList .. '"' .. fname .. '" '
+
+			if fileList:len() > sweetSpotCharacter then
+				self:ExtractFilesWithBun(fileList)
+				fileList = ''
+			end
+		end
+
+		if (fileList:len() > 0) then
+			self:ExtractFilesWithBun(fileList)
+		end
+	end
 
 	-- Overwrite Enums
 	local errMsg = PLoadModule("Scripts/enums.lua")
@@ -93,7 +127,7 @@ function GGPKClass:AddDatFiles()
 end
 
 function GGPKClass:AddDat64Files()
-	local datFiles = scanDir(self.oozPath .. "Data\\", '%w+%.dat64$')
+	local datFiles = scanDir(self.oozPath .. "Data\\", '%w+%.datc64$')
 	for _, f in ipairs(datFiles) do
 		local record = { }
 		record.name = f
@@ -108,7 +142,6 @@ end
 function GGPKClass:GetNeededFiles()
 	local datFiles = {
 		"Data/Stats.dat",
-		"Data/StatSemantics.dat",
 		"Data/VirtualStatContextFlags.dat",
 		"Data/BaseItemTypes.dat",
 		"Data/WeaponTypes.dat",
@@ -118,7 +151,6 @@ function GGPKClass:GetNeededFiles()
 		"Data/ComponentCharges.dat",
 		"Data/ComponentAttributeRequirements.dat",
 		"Data/PassiveSkills.dat",
-		"Data/PassiveSkillTypes.dat",
 		"Data/PassiveSkillStatCategories.dat",
 		"Data/PassiveSkillMasteryGroups.dat",
 		"Data/PassiveSkillMasteryEffects.dat",
@@ -129,14 +161,10 @@ function GGPKClass:GetNeededFiles()
 		"Data/PassiveTreeExpansionSpecialSkills.dat",
 		"Data/Mods.dat",
 		"Data/ModType.dat",
-		"Data/ModDomains.dat",
-		"Data/ModGenerationType.dat",
 		"Data/ModFamily.dat",
-		"Data/ModAuraFlags.dat",
 		"Data/ModSellPriceTypes.dat",
 		"Data/ModEffectStats.dat",
 		"Data/ActiveSkills.dat",
-		"Data/ActiveSkillTargetTypes.dat",
 		"Data/ActiveSkillType.dat",
 		"Data/AlternateSkillTargetingBehaviours.dat",
 		"Data/Ascendancy.dat",
@@ -144,17 +172,13 @@ function GGPKClass:GetNeededFiles()
 		"Data/FlavourText.dat",
 		"Data/Words.dat",
 		"Data/ItemClasses.dat",
-		"Data/SkillTotems.dat",
 		"Data/SkillTotemVariations.dat",
-		"Data/SkillMines.dat",
 		"Data/Essences.dat",
 		"Data/EssenceType.dat",
 		"Data/Characters.dat",
 		"Data/BuffDefinitions.dat",
-		"Data/BuffCategories.dat",
 		"Data/BuffTemplates.dat",
 		"Data/BuffVisuals.dat",
-		"Data/BuffVisualSets.dat",
 		"Data/BuffVisualSetEntries.dat",
 		"Data/BuffVisualsArtVariations.dat",
 		"Data/BuffVisualOrbs.dat",
@@ -162,11 +186,9 @@ function GGPKClass:GetNeededFiles()
 		"Data/BuffVisualOrbArt.dat",
 		"Data/GenericBuffAuras.dat",
 		"Data/AddBuffToTargetVarieties.dat",
-		"Data/HideoutNPCs.dat",
 		"Data/NPCs.dat",
 		"Data/CraftingBenchOptions.dat",
 		"Data/CraftingItemClassCategories.dat",
-		"Data/CraftingBenchUnlockCategories.dat",
 		"Data/CraftingBenchSortCategories.dat",
 		"Data/MonsterVarieties.dat",
 		"Data/MonsterResistances.dat",
@@ -177,7 +199,6 @@ function GGPKClass:GetNeededFiles()
 		"Data/GrantedEffectsPerLevel.dat",
 		"Data/ItemExperiencePerLevel.dat",
 		"Data/EffectivenessCostConstants.dat",
-		"Data/StatInterpolationTypes.dat",
 		"Data/Tags.dat",
 		"Data/GemTags.dat",
 		"Data/ItemVisualIdentity.dat",
@@ -188,13 +209,11 @@ function GGPKClass:GetNeededFiles()
 		"Data/AlternatePassiveSkills.dat",
 		"Data/AlternateTreeVersions.dat",
 		"Data/GrantedEffectQualityStats.dat",
-		"Data/GrantedEffectGroups.dat",
 		"Data/AegisVariations.dat",
 		"Data/CostTypes.dat",
 		"Data/PassiveJewelRadii.dat",
 		"Data/SoundEffects.dat",
 		"Data/MavenJewelRadiusKeystones.dat",
-		"Data/TableCharge.dat",
 		"Data/GrantedEffectStatSets.dat",
 		"Data/GrantedEffectStatSetsPerLevel.dat",
 		"Data/MonsterMapDifficulty.dat",
@@ -211,39 +230,45 @@ function GGPKClass:GetNeededFiles()
 		"Data/UniqueStashLayout.dat",
 		"Data/UniqueStashTypes.dat",
 		"Data/Shrines.dat",
-		"Data/passiveoverridelimits.dat",
-		"Data/passiveskilloverrides.dat",
-		"Data/passiveskilloverridetypes.dat",
-		"Data/passiveskilltattoos.dat",
-		"Data/passiveskilltattootargetsets.dat",
-		"Data/displayminionmonstertype.dat",
+		"Data/PassiveOverrideLimits.dat",
+		"Data/PassiveSkillOverrides.dat",
+		"Data/PassiveSkillOverrideTypes.dat",
+		"Data/PassiveSkillTattoos.dat",
+		"Data/PassiveSkillTattooTargetSets.dat",
+		"Data/DisplayMinionMonsterType.dat",
 		"Data/tinctures.dat",
-		"Data/gemeffects.dat",
-		"Data/actiontypes.dat",
-		"Data/azmerilifescalingperlevel.dat",
-		"Data/azmerifeaturerooms.dat",
-		"Data/corpsetypetags.dat",
-		"Data/itemisedcorpse.dat",
-		"Data/indexableskillgems.dat",
-		"Data/indexablesupportgems.dat",
-		"Data/itemclasscategories.dat",
-		"Data/miniontype.dat",
-		"Data/summonedspecificmonsters.dat",
-		"Data/gameconstants.dat",
-		"Data/alternatequalitytypes.dat",
-		"Data/weaponclasses.dat",
-		"Data/monsterconditions.dat",
-		"Data/rarity.dat",
-		"Data/trademarketcategory.dat",
-		"Data/trademarketcategorygroups.dat",
-		"Data/PlayerTradeWhisperFormats.dat",
+		"Data/GemEffects.dat",
+		"Data/ActionTypes.dat",
+		"Data/CorpseTypeTags.dat",
+		"Data/ItemisedCorpse.dat",
+		"Data/IndexableSkillGems.dat",
+		"Data/IndexableSupportGems.dat",
+		"Data/ItemClassCategories.dat",
+		"Data/MinionType.dat",
+		"Data/SummonedSpecificMonsters.dat",
+		"Data/GameConstants.dat",
+		"Data/AlternateQualityTypes.dat",
+		"Data/WeaponClasses.dat",
+		"Data/MonsterConditions.dat",
+		"Data/Rarity.dat",
+		"Data/TradeMarketCategory.dat",
+		"Data/TradeMarketCategoryGroups.dat",
 		"Data/TradeMarketCategoryListAllClass.dat",
-		"Data/TradeMarketIndexItemAs.dat",
-		"Data/TradeMarketImplicitModDisplay.dat",	
 		"Data/Commands.dat",
 		"Data/ModEquivalencies.dat",
 		"Data/InfluenceTags.dat",
-		"Data/InfluenceTypes.dat"
+		"Data/LeagueNames.dat",
+		"Data/DivinationBuffTemplates.dat",
+		"Data/MinionDoublingStatTypes.dat",
+		"Data/MercenaryAttributes.dat",
+		"Data/MercenaryBuilds.dat",
+		"Data/MercenaryClasses.dat",
+		"Data/MercenarySkillFamilies.dat",
+		"Data/MercenarySkills.dat",
+		"Data/MercenarySupportCounts.dat",
+		"Data/MercenarySupportFamilies.dat",
+		"Data/MercenarySupports.dat",
+		"Data/MercenaryWieldableTypes.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

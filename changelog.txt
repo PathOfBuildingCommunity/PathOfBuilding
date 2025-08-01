@@ -1,3 +1,607 @@
+VERSION[2.55.5][2025/07/18]
+--- New to Path of Building ---
+* Add support for Replica Dragonfang's Flight variants (linusalpsten)
+
+--- Fixed Crashes ---
+* Fix Autoexertion modifying active skill tables (Paliak)
+
+--- Fixed Calculations ---
+* Fix various node scaling issues (Wires77)
+* Fix missing Minion DoT multiplier from critical hits (Wires77)
+
+--- Fixed Behaviours ---
+* Fix issue where socketed gem modifiers were scalable by Runegraft of the Bound (Wires77)
+* Fix Iron Mass giving Skeletons Triple Damage in Offhand (Blitz54)
+
+VERSION[2.55.4][2025/07/14]
+
+--- New to Path of Building ---
+* Add support for Corrupted Blood flask mods (Blitz54)
+* Add support for Righteous Fire of Arcane Devotion more Cast Speed mod (oskar94)
+
+--- Fixed Crashes ---
+* Fix Crash when copying and pasting item into PoB sometimes (Nightblade)
+
+--- User Interface ---
+* Fix Attribute Requirement sorting (Blitz54)
+* Remove Channelling time config box for Focused Channelling - Existing users should update their config (Wires77)
+* Fix gems being added to skill groups when sorting dropdown (Paliak)
+
+--- Fixed Calculations ---
+* Fix Runegraft of the Bound scaling Facebreaker's incorrectly (LocalIdentity, Wires77)
+* Fix Minion Scaling mods on Spinehail scaling with Widowhail (LocalIdentity)
+* Fix Full DPS depending on order of skill groups (Paliak)
+* Fix Spark maximum hits being calculated incorrectly (jeremykvlim)
+* Fix Minion DoT DPS not including +50% DoT multiplier from Crits (Wires77)
+* Fix Aura effect scaling when using Hand of Phrecia and  "effect of auras on you" mods (Wires77)
+* Fix inc effect on Cluster Jewel causing rounding issues (Wires77)
+
+--- Fixed Behaviours ---
+* Fix Autoexertion not working correctly with Arrogance (Paliak)
+* Fix Summon Spider / Spectral Wolf count config not scaling with Dark Monarch (LocalIdentity)
+* Fix Brand attachment duration not being scaled by Temporal Chains (LocalIdentity)
+* Fix Reduced Effect of Curses on Self scaling beyond 100% reduced effect (Blitz54)
+* Fix Maven Memory Game skill breaking Vile Bastion from working (Blitz54)
+* Fix Nametaker not instant leeching Mana and Energy Shield (Blitz54)
+* Fix Item sort option for "Current Usable" not taking into account local attribute requirement mods (LocalIdentity)
+* Fix Plague Bearer default config not applying (Blitz54)
+
+--- Accuracy Improvements ---
+* Fix Bound by Destiny Phys prevented as ES Regen mod value (LocalIdentity)
+
+VERSION[2.55.3][2025/07/02]
+
+--- Fixed Calculations ---
+* Fix Elemental Overload not reducing Ailment on crit chance to 0 (Paliak)
+* Fix Multistrike + Awakened Spell Echo not working properly with minions (LocalIdentity)
+
+--- Fixed Behaviours ---
+* Fix Phantasmal Might not working when Summon Phantasm was linked to Spell Totem (LocalIdentity)
+* Fix Elemental Overload applying to skills with 0 Crit Chance (LocalIdentity)
+* Fix Minion Duration affecting skills supported by Summon Phantasm (LocalIdentity)
+
+
+VERSION[2.55.2][2025/07/01]
+
+--- Fixed Behaviours ---
+* Fix Runegraft bonus for Boots / Gloves scaling skill gems (LocalIdentity)
+* Fix Hand of Phrecia applying auras on enemies (LocalIdentity)
+
+
+VERSION[2.55.1][2025/06/30]
+
+--- Fixed Crashes ---
+* Fix crash when trying to edit Config/Item Set after saving a new Set (Blitz54)
+
+--- Fixed Behaviours ---
+* Fix Summoned Phantasm not working correctly when used in Soulwrest (LocalIdentity)
+* Fix The Dark Monarch not scaling "per summoned x" mods (LocalIdentity)
+* Fix Swift Affliction less duration and damaging ailment duration not applying individually (deathbeam)
+* Fix Coiling Whisper applying to all Curses instead of just Hexes (pjo256)
+* Fix Runegraft bonus for Boots / Gloves not working (LocalIdentity)
+
+VERSION[2.55.0][2025/06/29]
+
+--- New to Path of Building ---
+* Add support for all new 3.26 uniques (LocalIdentity)
+* Add support for various "Infamous" (Mercenary exclusive) item modifiers (LocalIdentity, majochem)
+* Support selecting Runegrafts on Masteries (Blitz54)
+* Add support for Runegraft mods (LocalIdentity)
+* Update Timeless Jewels to work with 3.26 Tree (LocalIdentity)
+* Default build name on new builds to use the account and character name if imported (n1tr0xs)
+* Add Cast Time breakdown to Calcs page for Warcries (n1tr0xs)
+
+--- Fixed Crashes ---
+* Fix Dual Strike of Ambidexterity causing crash (Paliak)
+* Fix crash when right-clicking on a Keystone / Mastery (Blitz54)
+* Fix crash when trying to copy a blank skill set (Blitz54)
+
+--- Fixed Calculations ---
+* Fix Trigger rate calculation for SpellSlinger, Automation and Autoexertion (Paliak)
+* Fix Summon Phantasm using the active gem level instead of the support's level (LocalIdentity)
+* Fixed EHP based on block effect calculation (n1tr0xs)
+
+--- Fixed Behaviours ---
+* Fix many support gems not working correctly with Minion skills (Paliak)
+* Fix Brand Damage and Crit nodes not affecting Arcanist Brand Triggered skills (LocalIdentity)
+* Fix Watchers Eye Purity of Lightning damage taken as mod in Unique database (LocalIdentity)
+
+--- Other changes ---
+* Fix flashing cmd window during update check (ccitro)
+
+VERSION[2.54.0][2025/06/14]
+
+--- New to Path of Building ---
+* Add full support for new 3.26 Gems (LocalIdentity, Wires77, TPlant)
+* Update existing gems with changes from 3.26 (LocalIdentity, Wires77)
+* Add support for Cold Dot Multiplier per Overcapped Cold Res Mastery (Peechey)
+* Add support for Life / Mana per red / blue socket Staff Mastery (LocalIdentity)
+
+
+VERSION[2.53.1][2025/06/13]
+
+--- User Interface ---
+* Enable Sorting of folders by date and inherit the sort order in the build save dialogue (Noologos)
+
+--- Fixed Calculations ---
+* Fix CWC not supporting triggerbots (Paliak)
+
+--- Fixed Behaviours ---
+* Fix Champions' new maximum Fortification mod not working (LocalIdentity)
+* Fix Nebulis and similar mods being treated as uncapped (Paliak)
+
+VERSION[2.53.0][2025/06/13]
+
+--- 3.26 Mercenaries of Trarthus ---
+* Add new skill trees (Ariacell)
+* Add showcased Mercenaries of Trarthus uniques (Paliak)
+* Update uniques from patch notes (Tandrial)
+* Add support for Vile Bastion Energy Shield per Spell Block mod (Ariacell)
+* Add support for Fortification stacks above 20 (Zpooks)
+* Add support for Minion Elemental conversion mods (Paliak)
+* Add support for "with spell skills" mods (NL908)
+* Add support for Shaper of Winter/Call of the Void damage taken mod (dcepil)
+* Update Arcane Surge cast speed from 10% to 20% (Ariacell, Paliak)
+* Update Death Aura damage (samimisami)
+
+--- New to Path of Building ---
+* Add support for Wintertide Brand average DOT calculation (czarandy)
+* Add support for self-cast Hydrosphere DPS (CedrN)
+* Add Karui Backburner Spectre (LollashTTV)
+* Add support for Rejuvenation Totem Mana helm enchant (Blitz54)
+* Add support for Tornado Shot legacy Helm Enchant (Blitz54)
+* Add support for +1 Rallying/Battlemage Cry exerted attacks Helm Enchant (Blitz54)
+* Add support for Felbog Fang Hindered mod (Blitz54)
+* Add support for "minions recover #% life on block" (Blitz54)
+* Add support for Assured Strike tree node (Blitz54)
+* Add support for Settling Ash tree passive (Blitz54)
+* Add a warning when more than one Aspect skill is active (Paliak)
+* Add support for Ewar's Mirage +1 projectile when in off-hand (Blitz54)
+* Add resource lost information to enemy damage breakdown (Edvinas-Smita)
+* Add support for Aquamarine Flask "reduced effect of freeze on you" (Blitz54)
+* Resume failed update feature (Wires77)
+
+--- User Interface ---
+* Add shortcut to copy node text from Passive Tree to the clipboard (rexfox147)
+* Keep Max Price and Max Level between Trade Queries (mcagnion)
+* Change wording for Base Damage Reduction in Hit taken breakdown (DarkJaslo)
+* Show stored uses in Warcry uptime tooltip (CedrN)
+
+--- Fixed Crashes ---
+* Fix crash when importing skill tree (Wires77)
+
+--- Fixed Calculations ---
+* Fix Explosive Arrow multiplying fuse rate by action speed twice (NL908)
+* Fix Gain Ward instead of Armour/Evasion mod when total is above 100 (LocalIdentity)
+* Fix Herald of Ash damage showing negative values (LocalIdentity)
+* Fix Puppeteer Caustic Ground on death calculation (LocalIdentity)
+* Fix Tincture CDR mod and Mana Burn rate display bug (LocalIdentity)
+* Fix Relic Flask's combining effect with Unique flask of the same name (LocalIdentity)
+* Fix negative Impale DPS for dual wielding combined attacks (andyli00)
+* Improve MoM + EB (+ES bypass) calculations (Edvinas-Smita)
+
+--- Fixed Behaviours ---
+* Fix issues around importing to the wrong tree (Wires77)
+* Fix Sacrificial Zeal appearing on new builds (Paliak)
+* Fix Foxshade Life modifiers preventing Life mastery (Blitz54)
+* Fix Gruthkul's Pelt disabling on hit curses (Paliak)
+* Fix Minion supports not scaling Siegebreaker ground DoT (LocalIdentity)
+* Fix The Baron and Rotting Might not stacking correctly (LocalIdentity)
+* Fix Wiki hotkey (F1) not working correctly on Relic Items (LocalIdentity)
+* Fix Moonbender's Wing applying to Shield skills (LocalIdentity)
+* Fix Queen's Hunger mod not working (Wires77)
+
+--- Accuracy Improvements ---
+* Remove Royale mods from craft menu and exporter (Blitz54)
+* Update Shepherd of Souls Keystone mods (rexfox147)
+* Fix many unique staves with Attack block instead of Spell block implicit (Blitz54, LocalIdentity)
+* Update Malachai's Mark mods (Blitz54)
+* Fix Tides of Time unique belt not having Shaper influence (RealWhimsy)
+* Fix Dominating Blow Hit counting multiple times when used in FullDPS (Paliak)
+* Fix Gem-lined Cap Ascendancy Notable not applying (Paliak)
+* Fix first explicit mod missing when importing some uniques (Paliak)
+* Update Scold's Bridle self-damage wording (HeffU)
+* Remove channelling part from Divine Ire of Disintegration (Tntmister)
+
+
+VERSION[2.52.3][2025/02/20]
+
+--- New to Path of Building ---
+* Add new Harbinger skills (Wires77)
+
+--- Fixed Bugs ---
+* Fix error when crafting a fishing rod enchant (Wires77)
+
+
+VERSION[2.52.2][2025/02/20]
+
+--- Fixed Crashes ---
+* Fix Tawhoa's Chosen crash when no active skill is enabled (Paliak)
+
+--- User Interface ---
+* Dynamically expand some dropdowns that were too narrow to read (Wires77)
+
+--- Fixed Behaviours ---
+* Fix Forbidden jewels not finding the right ascendancy nodes (Wires77)
+* Update tree data with missing cluster jewel nodes (Wires77)
+
+
+VERSION[2.52.1][2025/02/20]
+
+--- Fixed Bugs ---
+Fixed update error (Wires77)
+
+VERSION[2.52.0][2025/02/20]
+
+--- New to Path of Building ---
+* Add tree for Legacy of Phrecia (Wires77)
+* Add checkbox for Sacrificial Zeal (Paliak)
+* Add black background to detail text in character dropdown (Paliak)
+* Add Molten Strike (+Zenith) ball average overlap calculations (andyli00)
+
+--- Fixed Behaviours ---
+* Fix Firestorm of Pelting skill effect duration (Peechey)
+
+--- Accuracy Improvements ---
+* Fix Eyes of the Greatwolf DoT Multi wording (henbe)
+* Fix influences not importing correctly (Wires77)
+
+--- Fixed Calculations ---
+* Fix several bugs with infinite EHP and wrong phys max hit (Edvinas-Smita)
+
+VERSION[2.51.0][2025/02/14]
+
+--- New to Path of Building ---
+* Add Wildspeaker, Blind Prophet, Aristocrat and Puppeteer ascendancy jewels (LocalIdentity)
+* Add Ancestral Commander, Behemoth, Bog Shaman, and Scavenger ascendancy jewels (Peechey)
+
+--- Fixed Calculations ---
+* Fix maximum virulence parsing for multi-digit increases (deathbeam)
+* Fix "Full Poison DPS" value capping to one stack (Wires77)
+* Fix ES bypass regression (Edvinas-Smita)
+
+--- Accuracy Improvements ---
+* Fix various issues with Legacy of Phrecia ascendancies (Wires77)
+
+
+VERSION[2.50.1][2025/02/12]
+
+--- Fixed Calculations ---
+* Fix "Full Poison DPS" value capping to one stack (Wires77)
+
+
+VERSION[2.50.0][2025/02/12]
+
+--- New to Path of Building ---
+* Add support for Legacy Of Phrecia Ascendancies (LocalIdentity)
+  * Add unique jewel for each Ascendancy to make it easier to test
+* Add Support for Shrine buffs from The Gull and staff Rune craft (LocalIdentity)
+* Add poedb.tw to import website list (Chuanhsing)
+* Basic Unicode support (zao)
+* Implement ability to delete folders with contents (Paliak)
+
+--- Fixed Crashes ---
+* Fix crash related to trigger calculations (Paliak)
+
+--- Fixed Calculations ---
+* Fix Viper Strike of Mamba poison (Regisle)
+* Improve EHP accuracy (Edvinas-Smita)
+* Fixed Non-Damaging Ailment issue with Critical Mastery in Calc Screen (Jonathan-Dang)
+
+--- Fixed Behaviours ---
+* Fixed interaction between block replacement effect from Determined Survivor and Necromantic Aegis (Jonathan-Dang)
+* Disable "gain when hit" for builds which cannot survive unlucky hits (Regisle)
+
+--- User Interface ---
+* Show Poison DPS in sidebar as the DPS for a single poison (Regisle)
+
+--- Fixed Bugs ---
+* Fixes Cinderswallow Urn missing the damage taken mod (n1tr0xs)
+* Update Breathstealer's unique mods (n1tr0xs)
+
+
+VERSION[2.49.3][2024/11/24]
+
+--- Fixed Bugs ---
+* Fix character import from accounts with a hyphen in them (tarekis)
+* Fix trade realms not sorting correctly (Regisle)
+
+VERSION[2.49.2][2024/11/19]
+
+--- User Interface ---
+* Validate discriminator is in account name on import (Regisle)
+
+VERSION[2.49.1][2024/11/19]
+
+--- Fixed Bugs ---
+* Fix character import for Xbox and Playstation accounts (HashBR)
+
+VERSION[2.49.0][2024/11/18]
+
+--- New to Path of Building ---
+* Fix character import for accounts with discriminators (Regisle)
+* Change default Boss Config from None to Pinnacle (Regisle)
+* Default to last added Tattoo in Tattoo popup (LocalIdentity)
+* Add support for Debuffs granted by Glorious Madness (LocalIdentity)
+* Add support for Storm Secret self damage calculation (LocalIdentity)
+* Add Wretched Defiler Spectre (machenme)
+* Add support for modifying affix limits (Regisle)
+* Add support for Items Implicits Cannot Be Changed (Regisle)
+* Add Support for many Runecraft Enchants by (LocalIdentity, Regisle, Paliak)
+* Add Ctrl+Alt+c error popup (Nightblade)
+* Update rare templates (Regisle)
+* Add name of item causing requirements warning to warning message (Paliak)
+* Update Affliction Spectre Buffs with 3.25 Changes (LocalIdentity)
+
+--- Fixed Crashes ---
+* Fix invalid skill IDs in party tab source (Regisle)
+* Fix Trade Query Stat Weight Crash (Regisle)
+* Fix Party Tab Crash with thresholds (Regisle)
+* Fix special characters in set name causing crash (Paliak)
+
+--- User Interface ---
+* Show Curse limit on calcs tab (Regisle)
+* Add "Ignore Mirrored Items" checkbox to trade query options (n1tr0xs)
+* Hide recovery information on Mana Flasks if recovery is 0  (Paliak)
+* Allow zero enemy armour in config and fix negative enemy damage (Regisle)
+* Fix Warden import colour (Regisle)
+
+--- Fixed Calculations ---
+* Mana cost raw not being set to 0 when using lifetap (Paliak)
+* Fix Frost Blades of Katabasis DoT not scaling with Tinctures and Multistrike (LocalIdentity)
+* Fix 3.1 xp multiplier calc for levels 95-99 (OriginalThing)
+* Shock and scorch fixes (Regisle)
+* Improve EHP overkill approximation, especially for MoM (0xjc)
+* Hollow Palm Technique proper Dual Wielding (Regisle)
+* Fixed Off hand detection regarding Necromantic Aegis (Jonathan-Dang)
+* Fix Herald of Ash overkill damage incorrectly scaling with global damage increases (Jonathan-Dang)
+
+--- Fixed Behaviours ---
+* Fix Blasphemy Auras triggering Mana cost warning (Paliak)
+* Fix Eldritch Implicit Mod Replacement (Regisle)
+* Fix Bloodscent not making Rage eligible (n1tr0xs)
+* Fix "# of Warcries used recently" configuration option unavailable (n1tr0xs)
+* Fix The Taming affecting Elemental ground DoTs (LocalIdentity)
+* Fix Dual Strike of Ambidexterity and Cleave of Rage (Regisle)
+* Fix Ghost Reaver and Brutal Fervour Interaction (Regisle)
+* Fix abyss socket items with no selectable Socket count (e.g. Wraithlord) (Regisle)
+* Default "Enemy Damage Type" to "Average" when changing Boss skills (ConnorThelin)
+* Vengeful Cry Improvements (Regisle)
+* Fix Kalandra's Touch skipping mods (Paliak)
+* Fix Rupture sometimes applying multiple times (majochem)
+
+--- Accuracy Improvements ---
+* Make Runesmith enchants an enchant instead of a craft (Regisle)
+* Fix Cooldown breakdown showing overrides for other skills (e.g. Flicker) (Regisle)
+* Remove non-existant stat from Cadigan's Crown (deathbeam)
+* Fix numerous fullDPS tooltip issues (Paliak)
+
+--- Other changes ---
+* Fix Dual Wielding Mastery "Elusive on block" not enabling Elusive config (Regisle)
+* Fix Party Tab Warcries clearing links instead of Warcries (Regisle)
+
+VERSION[2.48.2][2024/08/17]
+
+--- Fixed Crashes ---
+* Fix limited processing flag not persisting through recursions causing crash (Paliak)
+
+--- User Interface ---
+* Improve breakdown for Snipe's damage mods (Paliak)
+
+--- Fixed Calculations ---
+* Fix Damage while Leeching Life mod not working (LocalIdentity)
+
+--- Fixed Behaviours ---
+* Fix Sublime Vision disabling Mine skills (LocalIdentity)
+* Fix Snipe for Assailum not working (Paliak)
+
+VERSION[2.48.1][2024/08/15]
+
+--- Fixed Crashes ---
+* Fix crash when selecting Damage Over Time as the Enemy Damage Type (Wires77)
+
+VERSION[2.48.0][2024/08/15]
+
+--- New to Path of Building ---
+* Hide legacy Tattoos from dropdown by default (LocalIdentity, Peechey)
+* Add ability to search in the spectre library (nofate121)
+* Add Support for Enemy damaging ailments (Regisle)
+* View Gem level sources in calc sections (justjuangui)
+* Enable Tincture Effects to also apply to Ranged Weapons (Regisle)
+* Add support for Tincture mods (LocalIdentity)
+* Add support for pseudo recoup like Divine Shield and Juggernaut (Regisle)
+* Add support for some warcry power modifiers (Regisle)
+* Add Warcry effect mod to calcs tab with breakdown (Regisle)
+* Add support for export and importing warcry buffs to the Party Tab (Regisle)
+* Add The Living Blade (Nostrademous)
+
+--- Fixed Crashes ---
+* Fix crash when using Power Charge on Crit from Elder staves (Wires77)
+* Fix crash when allocating Blood Magic with Manabond (LocalIdentity)
+
+--- User Interface ---
+* Color mastery differences blue when comparing trees (nofate121)
+* Improve Rage Calcs tab breakdown (Regisle)
+* Fix Calcs tab scroll bar (Regisle)
+* Fix full dps visual bug on gem dropdown (Paliak)
+
+--- Fixed Calculations ---
+* Fix Charge duration not using More/Less modifiers (Wires77)
+* Fix Ynda's Stand Ward conversion mod not taking catalysts into consideration (krfreak)
+* Fix accuracy of scaled Warcry buffs (Regisle)
+* Fix Ward rounding final value incorrectly (LocalIdentity)
+* Fix Hateforge Rage cost calculation (LocalIdentity)
+* Minor improvements to Tinctures and Mana Burn (Regisle)
+
+--- Fixed Behaviours ---
+* Fix issue where PoB did not detect changes when selecting gems via keyboard shortcuts (nofate121)
+* Fix The Light of Meaning adding stats to allocated sockets (Paliak)
+* Fix Rage Effect incorrectly scaling some mods (LocalIdentity)
+* Fix Rage Support not enabling Rage damage bonus (LocalIdentity)
+* Fix Arcane Surge effect per Summoned Totem mod not working (LocalIdentity)
+* Fix Ynda's Stand not working correctly with Trickster's Escape Artist (LocalIdentity)
+* Fix Divine Blessing not removing reservation from skill (LocalIdentity)
+* Fix Overexertion not applying to skills linked with Generals Cry (LocalIdentity)
+* Fix rare case with gain on suppression with no chance to mitigate damage (eg 100% suppress chance) (Regisle)
+* Fix Warcry options are not shown in all configurations (n1tr0xs)
+* Fix Tattoos being removed from list when using Remove All Tattoos button (Peechey)
+* Fix Minions with Endurance Charges still gaining resists (n1tr0xs)
+* Fix EHP and Maximum Hit taken with negative Unreserved Life (Regisle)
+* Fix Exerted multipliers applying twice when Dual Wielding (LocalIdentity)
+* Fix Sand Stance "less damage taken" incorrectly applying to DoT degen (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Update Sap of the Seasons to add new cap (Regisle)
+* Add variant for post 3.21 Combat Focus (Paliak)
+* Fix parsing missing for new wording on Emberwake (Paliak)
+* Fix Maata's Teaching using wrong crit chance range (LocalIdentity)
+* Fix incorrect names for Timeless Jewel nodes (LocalIdentity)
+* Fix Kaom's Primacy Rage mod not working (LocalIdentity)
+* Fix broken base types on some items (Regisle)
+
+--- Fixed Bugs ---
+* Fix infinitely nested XML stored as importLink (Wires77)
+
+VERSION[2.47.3][2024/07/30]
+
+--- Fixed Crashes ---
+* Fix crash when importing builds to Party tab (Regisle)
+* Fix crash when using Svalinn unique shield (Paliak)
+
+--- Fixed Calculations ---
+* Fix Inspiration granting more Mana cost instead of Less (LocalIdentity)
+* Fix Warcry trigger rate calculations (Paliak)
+* Fix Overexertion and Echoes of Creation counting non-exerting Warcries (LocalIdentity)
+* Fixes Rupture using the wrong stat for damage taken and Bleed duration (dreais)
+
+--- Fixed Behaviours ---
+* Fix Autoexertion not triggering supported skills (Paliak)
+* Fix Autoexertion not applying Mana reservation to Warcries (LocalIdentity)
+* Fix Poison stacks not being capped by skills and config option (LocalIdentity)
+* Fix item quality not defaulting to 20% (ConnorThelin)
+
+VERSION[2.47.2][2024/07/29]
+
+--- Fixed Calculations ---
+* Fix Block Chance calculation (LocalIdentity)
+
+VERSION[2.47.1][2024/07/29]
+
+--- Fixed Calculations ---
+* Fix Added Damage not applying to Monster Explosions (LocalIdentity)
+* Fix Poison stacks applying twice to Poison DPS (LocalIdentity)
+* Fix damage calculation when using both Autoexertion and Echoes of Creation (LocalIdentity)
+
+--- Fixed Behaviours ---
+* Fix increased Chance to Block mod on Shields not working (LocalIdentity)
+
+VERSION[2.47.0][2024/07/29]
+
+--- New to Path of Building ---
+* Update Gems, Item bases, Mods and Minions (Wires77, Regisle, Nostrademous, LocalIdentity)
+* Add support for new 3.25 Gems (LocalIdentity)
+* Add support for new 3.25 Uniques (LocalIdentity, Paliak, Nostrademous)
+* Add support for Warcries to affect Minions (Regisle)
+* Add support for Echoes of Creation (LocalIdentity)
+* Fix numerous issues in bleed calculations (CelestiaTheDryad)
+
+--- Fixed Crashes ---
+* Fix crash when importing a build where empty configs were not loaded properly (Wires77)
+
+--- User Interface ---
+* Remove remote build list functionality pending redesign (Wires77)
+* Fix breakdown for DoT Multiplier (Rybadour)
+
+--- Fixed Calculations ---
+* Fix DoT Multi when using Maligaro's Virtuosity and Perfect Agony (DieMango)
+* Fix Scorch chance on Crit when using Warden's Oath of Summer (ConnorThelin)
+* Fix Gladiator Determined Survivor Shield Block calculation (Regisle)
+* Fix Ignite divide by 0 error (NL908)
+
+--- Fixed Behaviours ---
+* Fix Quality on Tinctures to apply More effect instead of Increased (nexus671)
+* Fix non-instant Life Leech incorrectly applying with Strength of Blood (greatnameincoming)
+* Fix Ravenous Passion helmet not granting Spell damage from Rage (LocalIdentity)
+* Fix Rallying Cry Exerted damage mod incorrectly working with Autoexertion (LocalIdentity)
+* Improve Militant Faith Notable Protection (Peechey)
+
+--- Accuracy Improvements ---
+* Fix Dark Seer missing global Chance to Blind on Hit (NL908)
+* Add tag to Legacy Watchers eye mods (LocalIdentity)
+
+VERSION[2.46.0][2024/07/25]
+
+--- New to Path of Building ---
+* Add latest and trending builds list to the build list module (canuysal)
+* Add searching for Oils in tree view (nobelv)
+	Prefix your search with "oil:" to search by anoint recipe
+
+--- Fixed Crashes ---
+* Fix crash with some stats in Party tab (Regisle)
+
+--- User Interface ---
+* Fix cancelling tree version conversion didn't revert back to previous value in dropdown (justjuangui)
+
+--- Fixed Calculations ---
+* Fix Rallying Cry Exerted damage mod not working with Autoexertion (LocalIdentity)
+* Fix Maligaro's Virtuosity not working with Perfect Agony (LocalIdentity)
+
+--- Fixed Behaviours ---
+* Fix Banner skills not applying to Minions (LocalIdentity)
+* Fix Flesh and Stone less damage taken scaling with Aura effect (KaoXinRei)
+* Fix quality not applying to Tincture effect (Regisle)
+* Fix Impale not scaling with "damage taken from hits" (mcheese)
+* Fix Cleave of Rage area not scaling with Rage effect (Moremackles)
+* Fix Seismic Cry AoE mod not applying sometimes (LocalIdentity)
+* Fix Rage Vortex AoE per sacrificed Rage mod not working (LocalIdentity)
+* Fix AoE from Fist of War not applying to supported skills (Nostrademous)
+* Match single sets to loadouts more effectively (deathbeam)
+
+--- Accuracy Improvements ---
+* Update unique Staves with block changes (LocalIdentity)
+* Fix Critical Strike Chance of some Rune Daggers (HashBR)
+* Fix Mana cost for Infernal Cry (LocalIdentity)
+* Fix Fungal Ground debuff to apply to all Resistances (LocalIdentity)
+
+VERSION[2.45.0][2024/07/24]
+
+--- New to Path of Building ---
+* Add automatic calculation for Rage sacrificed when using Rage Vortex (LocalIdentity)
+* Add support for changing item quality in the edit item interface (hexeaktivitat)
+* Add config options to override the number of Trap/Mines per throw (NL908)
+* Update Death Aura damage with 3.25 changes (LocalIdentity)
+* Update Tattoo Keystones with 3.25 Changes (LocalIdentity)
+* Update Legion Notables with 3.25 changes (LocalIdentity)
+* Update Fungal and Profane Ground with 3.25 changes (LocalIdentity)
+
+--- Fixed Crashes ---
+* Fix crash when hovering over Tinctures in Item tab (justjuangui)
+* Fix crash when socketing Thread of Hope in Cluster socket (trimbe)
+* Fix crash when importing a build with Warcries (Regisle)
+
+--- User Interface ---
+* Add support to search Character import list by Ascendancy (justjuangui, ryuukk)
+* Relax matching for loadout names and allow groups at any spot (deathbeam)
+* Show proper skill group when switching loadouts (deathbeam)
+
+--- Fixed Calculations ---
+* Fix Seismic Cry AoE calculation (LocalIdentity)
+* Fix Impale not using enemy damage taken (mcheese)
+* Fix Tincture Mana Burn rate applying inversely (Regisle)
+
+--- Fixed Behaviours ---
+* Fix Rage Effect not applying to "per x Rage" mods (LocalIdentity)
+* Fix Autoexertion and Call to Arms not disabling Warcry buffs (LocalIdentity)
+* Fix Arcane Surge not working with Wilma's Requital (mcheese)
+* Fix Cruel Retort granting Attack/Cast Speed to all skills (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Fix Herald of Ash Phys as extra Fire scaling (LocalIdentity)
+* Fix Cyclone of Tumult and Dual Strike of Impaling gem values (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix config set copies not having independent values (justjuangui)
+
 VERSION[2.44.1][2024/07/23]
 
 --- New to Path of Building ---

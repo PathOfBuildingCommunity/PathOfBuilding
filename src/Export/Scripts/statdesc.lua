@@ -23,7 +23,7 @@ local function processStatFile(name)
 		elseif line:match("handed_description") or (line:match("description") and not line:match("_description")) then	
 			local name = line:match("description ([%w_]+)")
 			curLang = { }
-			curDescriptor = { lang = { ["English"] = curLang }, order = order, name = name }
+			curDescriptor = { curLang, order = order, name = name }
 			table.insert(statDescriptor, curDescriptor)
 		elseif not curDescriptor.stats then
 			local stats = line:match("%d+%s+([%w_%+%-%% ]+)")
@@ -40,7 +40,7 @@ local function processStatFile(name)
 			local langName = line:match('lang "(.+)"')
 			if langName then
 				curLang = nil--{ }
-				curDescriptor.lang[langName] = curLang
+				--curDescriptor.lang[langName] = curLang
 			elseif curLang then
 				local statLimits, text, special = line:match('([%d%-#!| ]+) "(.-)"%s*(.*)')
 				if statLimits then

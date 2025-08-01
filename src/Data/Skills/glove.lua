@@ -34,6 +34,10 @@ skills["EnchantmentOfBladesOnHit"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 1, 1.6000000238419, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 3, }, },
 	},
@@ -65,6 +69,10 @@ skills["EnchantmentOfBladesOnHit2"] = {
 		"base_is_projectile",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
 	},
 	levels = {
 		[1] = { 1.5, 2.2999999523163, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 3, }, },
@@ -98,6 +106,10 @@ skills["EnchantmentOfBladesOnHit3"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 2, 3, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 3, }, },
 	},
@@ -130,6 +142,10 @@ skills["EnchantmentOfBladesOnHit4"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
 		[1] = { 2.4000000953674, 3.7999999523163, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 3, }, },
 	},
@@ -159,6 +175,10 @@ skills["EnchantmentOfFlamesOnHit"] = {
 		"is_area_damage",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
 	},
 	levels = {
 		[1] = { 1.2000000476837, 1.7999999523163, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 3, }, },
@@ -190,6 +210,10 @@ skills["EnchantmentOfFlamesOnHit2"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
 		[1] = { 1.7000000476837, 2.5, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 3, }, },
 	},
@@ -220,6 +244,10 @@ skills["EnchantmentOfFlamesOnHit3"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
 		[1] = { 2.2000000476837, 3.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 3, }, },
 	},
@@ -249,6 +277,10 @@ skills["EnchantmentOfFlamesOnHit4"] = {
 		"is_area_damage",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
 	},
 	levels = {
 		[1] = { 2.5999999046326, 4, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 3, }, },
@@ -382,6 +414,10 @@ skills["EnchantmentOfFrostOnKill"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
 		[1] = { 1, 1.6000000238419, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 3, }, },
 	},
@@ -413,6 +449,10 @@ skills["EnchantmentOfFrostOnKill2"] = {
 		"projectiles_nova",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
+	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
 	},
 	levels = {
 		[1] = { 1.5, 2.2999999523163, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 3, }, },
@@ -446,6 +486,10 @@ skills["EnchantmentOfFrostOnKill3"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
 		[1] = { 2, 3, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 3, }, },
 	},
@@ -477,6 +521,10 @@ skills["EnchantmentOfFrostOnKill4"] = {
 		"projectiles_nova",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
+	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
 	},
 	levels = {
 		[1] = { 2.4000000953674, 3.7999999523163, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 3, }, },
@@ -708,6 +756,10 @@ skills["EnchantmentOfInfernoOnKill"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
 		[1] = { 1, 1.6000000238419, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 32, statInterpolation = { 3, 3, }, },
 	},
@@ -741,6 +793,10 @@ skills["EnchantmentOfInfernoOnKill2"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
 	},
 	levels = {
 		[1] = { 1.5, 2.2999999523163, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 53, statInterpolation = { 3, 3, }, },
@@ -776,6 +832,10 @@ skills["EnchantmentOfInfernoOnKill3"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
 		[1] = { 2, 3, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 66, statInterpolation = { 3, 3, }, },
 	},
@@ -809,6 +869,10 @@ skills["EnchantmentOfInfernoOnKill4"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
 	},
 	levels = {
 		[1] = { 2.4000000953674, 3.7999999523163, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 75, statInterpolation = { 3, 3, }, },
@@ -1493,6 +1557,10 @@ skills["EnchantmentOfTempestOnHit"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
 	levels = {
 		[1] = { 1, 1.6000000238419, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 32, statInterpolation = { 3, 3, }, },
 	},
@@ -1523,6 +1591,10 @@ skills["EnchantmentOfTempestOnHit2"] = {
 		"spell_maximum_base_lightning_damage",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
+	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
 		[1] = { 1.5, 2.2999999523163, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 53, statInterpolation = { 3, 3, }, },
@@ -1555,6 +1627,10 @@ skills["EnchantmentOfTempestOnHit3"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
 	levels = {
 		[1] = { 2, 3, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 66, statInterpolation = { 3, 3, }, },
 	},
@@ -1585,6 +1661,10 @@ skills["EnchantmentOfTempestOnHit4"] = {
 		"spell_maximum_base_lightning_damage",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
+	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
 		[1] = { 2.4000000953674, 3.7999999523163, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 75, statInterpolation = { 3, 3, }, },
@@ -1752,6 +1832,10 @@ skills["EnchantmentOfThunderOnKill"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
 	levels = {
 		[1] = { 1, 1.6000000238419, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 3, }, },
 	},
@@ -1781,6 +1865,10 @@ skills["EnchantmentOfThunderOnKill2"] = {
 		"spell_maximum_base_lightning_damage",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
+	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
 		[1] = { 1.5, 2.2999999523163, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 3, }, },
@@ -1812,6 +1900,10 @@ skills["EnchantmentOfThunderOnKill3"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
 	levels = {
 		[1] = { 2, 3, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 3, }, },
 	},
@@ -1841,6 +1933,10 @@ skills["EnchantmentOfThunderOnKill4"] = {
 		"spell_maximum_base_lightning_damage",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
+	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
 		[1] = { 2.4000000953674, 3.7999999523163, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 3, }, },
@@ -2037,6 +2133,10 @@ skills["EnchantmentOfWinterWhenHit"] = {
 		"base_is_projectile",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
 		[1] = { 1, 1.6000000238419, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 32, statInterpolation = { 3, 3, }, },
 	},
@@ -2067,6 +2167,10 @@ skills["EnchantmentOfWinterWhenHit2"] = {
 		"is_area_damage",
 		"base_is_projectile",
 		"damage_cannot_be_reflected",
+	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
 	},
 	levels = {
 		[1] = { 1.5, 2.2999999523163, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 53, statInterpolation = { 3, 3, }, },
@@ -2099,6 +2203,10 @@ skills["EnchantmentOfWinterWhenHit3"] = {
 		"base_is_projectile",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
 		[1] = { 2, 3, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 66, statInterpolation = { 3, 3, }, },
 	},
@@ -2129,6 +2237,10 @@ skills["EnchantmentOfWinterWhenHit4"] = {
 		"is_area_damage",
 		"base_is_projectile",
 		"damage_cannot_be_reflected",
+	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
 	},
 	levels = {
 		[1] = { 2.4000000953674, 3.7999999523163, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 75, statInterpolation = { 3, 3, }, },

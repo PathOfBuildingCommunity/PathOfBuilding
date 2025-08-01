@@ -11,13 +11,13 @@ local band = bit.band
 
 local realmList = {
 	{ label = "PC", id = "PC", realmCode = "pc", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
-	{ label = "Xbox", id = "XBOX", realmCode = "xbox", hostName = "https://www.pathofexile.com/", profileURL = "account/xbox/view-profile/" },
-	{ label = "PS4", id = "SONY", realmCode = "sony", hostName = "https://www.pathofexile.com/", profileURL = "account/sony/view-profile/" },
+	{ label = "Xbox", id = "XBOX", realmCode = "xbox", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
+	{ label = "PS4", id = "SONY", realmCode = "sony", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
 	{ label = "Hotcool", id = "PC", realmCode = "pc", hostName = "https://pathofexile.tw/", profileURL = "account/view-profile/" },
 	{ label = "Tencent", id = "PC", realmCode = "pc", hostName = "https://poe.game.qq.com/", profileURL = "account/view-profile/" },
 }
 
-local influenceInfo = itemLib.influenceInfo
+local influenceInfo = itemLib.influenceInfo.all
 
 local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(self, build)
 	self.ControlHost()
@@ -27,19 +27,19 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 
 	self.charImportMode = "GETACCOUNTNAME"
 	self.charImportStatus = "Idle"
-	self.controls.sectionCharImport = new("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 650, 250, "Character Import")
-	self.controls.charImportStatusLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 14, 200, 16, function()
+	self.controls.sectionCharImport = new("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, {10, 18, 650, 250}, "Character Import")
+	self.controls.charImportStatusLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, {6, 14, 200, 16}, function()
 		return "^7Character import status: "..self.charImportStatus
 	end)
 
 	-- Stage: input account name
-	self.controls.accountNameHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 40, 200, 16, "^7To start importing a character, enter the character's account name:")
+	self.controls.accountNameHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, {6, 40, 200, 16}, "^7To start importing a character, enter the character's account name:")
 	self.controls.accountNameHeader.shown = function()
 		return self.charImportMode == "GETACCOUNTNAME"
 	end
-	self.controls.accountRealm = new("DropDownControl", {"TOPLEFT",self.controls.accountNameHeader,"BOTTOMLEFT"}, 0, 4, 60, 20, realmList )
+	self.controls.accountRealm = new("DropDownControl", {"TOPLEFT",self.controls.accountNameHeader,"BOTTOMLEFT"}, {0, 4, 60, 20}, realmList )
 	self.controls.accountRealm:SelByValue( main.lastRealm or "PC", "id" )
-	self.controls.accountName = new("EditControl", {"LEFT",self.controls.accountRealm,"RIGHT"}, 8, 0, 200, 20, main.lastAccountName or "", nil, "%c", nil, nil, nil, nil, true)
+	self.controls.accountName = new("EditControl", {"LEFT",self.controls.accountRealm,"RIGHT"}, {8, 0, 200, 20}, main.lastAccountName or "", nil, "%c", nil, nil, nil, nil, true)
 	self.controls.accountName.pasteFilter = function(text)
 		return text:gsub("[\128-\255]",function(c)
 			return codePointToUTF8(c:byte(1)):gsub(".",function(c)
@@ -58,21 +58,27 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 			return a:lower() < b:lower()
 		end)
 	end -- don't load the list many times
-	self.controls.accountNameGo = new("ButtonControl", {"LEFT",self.controls.accountName,"RIGHT"}, 8, 0, 60, 20, "Start", function()
+	self.controls.accountNameGo = new("ButtonControl", {"LEFT",self.controls.accountName,"RIGHT"}, {8, 0, 60, 20}, "Start", function()
 		self.controls.sessionInput.buf = ""
 		self:DownloadCharacterList()
 	end)
 	self.controls.accountNameGo.enabled = function()
-		return self.controls.accountName.buf:match("%S")
+		return self.controls.accountName.buf:match("%S[#%-]%d%d%d%d$")
+	end
+	self.controls.accountNameGo.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		if not self.controls.accountName.buf:match("[#%-]%d%d%d%d$") then
+			tooltip:AddLine(16, "^7Missing discriminator e.g. " .. self.controls.accountName.buf .. "#1234")
+		end
 	end
 
-	self.controls.accountHistory = new("DropDownControl", {"LEFT",self.controls.accountNameGo,"RIGHT"}, 8, 0, 200, 20, historyList, function()
+	self.controls.accountHistory = new("DropDownControl", {"LEFT",self.controls.accountNameGo,"RIGHT"}, {8, 0, 200, 20}, historyList, function()
 		self.controls.accountName.buf = self.controls.accountHistory.list[self.controls.accountHistory.selIndex]
 	end)
 	self.controls.accountHistory:SelByValue(main.lastAccountName)
 	self.controls.accountHistory:CheckDroppedWidth(true)
 
-	self.controls.removeAccount = new("ButtonControl", {"LEFT",self.controls.accountHistory,"RIGHT"}, 8, 0, 20, 20, "X", function()
+	self.controls.removeAccount = new("ButtonControl", {"LEFT",self.controls.accountHistory,"RIGHT"}, {8, 0, 20, 20}, "X", function()
 		local accountName = self.controls.accountHistory.list[self.controls.accountHistory.selIndex]
 		if (accountName ~= nil) then
 		t_remove(self.controls.accountHistory.list, self.controls.accountHistory.selIndex)
@@ -86,18 +92,25 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 		tooltip:AddLine(16, "^7Removes account from the dropdown list")
 	end
 
-	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, 0, 16, 0, 14, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
-	self.controls.accountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, 0, 4, 170, 18, "^x4040FFhttps://www.urlencoder.org/", function()
+	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, {0, 34, 0, 14}, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
+	self.controls.accountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, {0, 4, 170, 18}, "^x4040FFhttps://www.urlencoder.org/", function()
 		OpenURL("https://www.urlencoder.org/")
 	end)
+	
+	self.controls.accountNameMissingDiscriminator = new("LabelControl", {"BOTTOMLEFT",self.controls.accountNameUnicode,"TOPLEFT"}, {0, -4, 0, 18}, "^1Missing discriminator e.g. #1234")
+	self.controls.accountNameMissingDiscriminator.shown = function()
+		return not self.controls.accountName.buf:match("[#%-]%d%d%d%d$")
+	end
+	
 
 	-- Stage: input POESESSID
-	self.controls.sessionHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 40, 200, 14)
+	self.controls.sessionHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, {6, 40, 200, 14})
 	self.controls.sessionHeader.label = function()
 		return [[
 ^7The list of characters on ']]..self.controls.accountName.buf..[[' couldn't be retrieved. This may be because:
-1. You entered a character name instead of an account name or
-2. This account's characters tab is hidden (this is the default setting).
+1. You are missing the discriminator at the end of the account name e.g. #1234
+2. You entered a character name instead of an account name or
+3. This account's characters tab is hidden (this is the default setting).
 If this is your account, you can either:
 1. Uncheck "Hide Characters" in your privacy settings or
 2. Enter a POESESSID below.
@@ -107,19 +120,19 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.sessionHeader.shown = function()
 		return self.charImportMode == "GETSESSIONID"
 	end
-	self.controls.sessionRetry = new("ButtonControl", {"TOPLEFT",self.controls.sessionHeader,"TOPLEFT"}, 0, 108, 60, 20, "Retry", function()
+	self.controls.sessionRetry = new("ButtonControl", {"TOPLEFT",self.controls.sessionHeader,"TOPLEFT"}, {0, 122, 60, 20}, "Retry", function()
 		self:DownloadCharacterList()
 	end)
-	self.controls.sessionCancel = new("ButtonControl", {"LEFT",self.controls.sessionRetry,"RIGHT"}, 8, 0, 60, 20, "Cancel", function()
+	self.controls.sessionCancel = new("ButtonControl", {"LEFT",self.controls.sessionRetry,"RIGHT"}, {8, 0, 60, 20}, "Cancel", function()
 		self.charImportMode = "GETACCOUNTNAME"
 		self.charImportStatus = "Idle"
 	end)
-	self.controls.sessionPrivacySettings = new("ButtonControl", {"LEFT",self.controls.sessionCancel,"RIGHT"}, 8, 0, 120, 20, "Privacy Settings", function()
+	self.controls.sessionPrivacySettings = new("ButtonControl", {"LEFT",self.controls.sessionCancel,"RIGHT"}, {8, 0, 120, 20}, "Privacy Settings", function()
 		OpenURL('https://www.pathofexile.com/my-account/privacy')
 	end)
-	self.controls.sessionInput = new("EditControl", {"TOPLEFT",self.controls.sessionRetry,"BOTTOMLEFT"}, 0, 8, 350, 20, "", "POESESSID", "%X", 32)
+	self.controls.sessionInput = new("EditControl", {"TOPLEFT",self.controls.sessionRetry,"BOTTOMLEFT"}, {0, 8, 350, 20}, "", "POESESSID", "%X", 32)
 	self.controls.sessionInput:SetProtected(true)
-	self.controls.sessionGo = new("ButtonControl", {"LEFT",self.controls.sessionInput,"RIGHT"}, 8, 0, 60, 20, "Go", function()
+	self.controls.sessionGo = new("ButtonControl", {"LEFT",self.controls.sessionInput,"RIGHT"}, {8, 0, 60, 20}, "Go", function()
 		self:DownloadCharacterList()
 	end)
 	self.controls.sessionGo.enabled = function()
@@ -127,20 +140,20 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end
 
 	-- Stage: select character and import data
-	self.controls.charSelectHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 40, 200, 16, "^7Choose character to import data from:")
+	self.controls.charSelectHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, {6, 40, 200, 16}, "^7Choose character to import data from:")
 	self.controls.charSelectHeader.shown = function()
 		return self.charImportMode == "SELECTCHAR" or self.charImportMode == "IMPORTING"
 	end
-	self.controls.charSelectLeagueLabel = new("LabelControl", {"TOPLEFT",self.controls.charSelectHeader,"BOTTOMLEFT"}, 0, 6, 0, 14, "^7League:")
-	self.controls.charSelectLeague = new("DropDownControl", {"LEFT",self.controls.charSelectLeagueLabel,"RIGHT"}, 4, 0, 150, 18, nil, function(index, value)
+	self.controls.charSelectLeagueLabel = new("LabelControl", {"TOPLEFT",self.controls.charSelectHeader,"BOTTOMLEFT"}, {0, 6, 0, 14}, "^7League:")
+	self.controls.charSelectLeague = new("DropDownControl", {"LEFT",self.controls.charSelectLeagueLabel,"RIGHT"}, {4, 0, 150, 18}, nil, function(index, value)
 		self:BuildCharacterList(value.league)
 	end)
-	self.controls.charSelect = new("DropDownControl", {"TOPLEFT",self.controls.charSelectHeader,"BOTTOMLEFT"}, 0, 24, 400, 18)
+	self.controls.charSelect = new("DropDownControl", {"TOPLEFT",self.controls.charSelectHeader,"BOTTOMLEFT"}, {0, 24, 400, 18})
 	self.controls.charSelect.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
-	self.controls.charImportHeader = new("LabelControl", {"TOPLEFT",self.controls.charSelect,"BOTTOMLEFT"}, 0, 16, 200, 16, "Import:")
-	self.controls.charImportTree = new("ButtonControl", {"LEFT",self.controls.charImportHeader, "RIGHT"}, 8, 0, 170, 20, "Passive Tree and Jewels", function()
+	self.controls.charImportHeader = new("LabelControl", {"TOPLEFT",self.controls.charSelect,"BOTTOMLEFT"}, {0, 16, 200, 16}, "Import:")
+	self.controls.charImportTree = new("ButtonControl", {"LEFT",self.controls.charImportHeader, "RIGHT"}, {8, 0, 170, 20}, "Passive Tree and Jewels", function()
 		if self.build.spec:CountAllocNodes() > 0 then
 			main:OpenConfirmPopup("Character Import", "Importing the passive tree will overwrite your current tree.", "Import", function()
 				self:DownloadPassiveTree()
@@ -148,42 +161,44 @@ You can get this from your web browser's cookies while logged into the Path of E
 		else
 			self:DownloadPassiveTree()
 		end
+		self:SetPredefinedBuildName()
 	end)
 	self.controls.charImportTree.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
-	self.controls.charImportTreeClearJewels = new("CheckBoxControl", {"LEFT",self.controls.charImportTree,"RIGHT"}, 90, 0, 18, "Delete jewels:", nil, "Delete all existing jewels when importing.", true)
-	self.controls.charImportItems = new("ButtonControl", {"LEFT",self.controls.charImportTree, "LEFT"}, 0, 36, 110, 20, "Items and Skills", function()
+	self.controls.charImportTreeClearJewels = new("CheckBoxControl", {"LEFT",self.controls.charImportTree,"RIGHT"}, {90, 0, 18}, "Delete jewels:", nil, "Delete all existing jewels when importing.", true)
+	self.controls.charImportItems = new("ButtonControl", {"LEFT",self.controls.charImportTree, "LEFT"}, {0, 36, 110, 20}, "Items and Skills", function()
 		self:DownloadItems()
+		self:SetPredefinedBuildName()
 	end)
 	self.controls.charImportItems.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
-	self.controls.charImportItemsClearSkills = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 85, 0, 18, "Delete skills:", nil, "Delete all existing skills when importing.", true)
-	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:", nil, "Delete all equipped items when importing.", true)
-	self.controls.charImportItemsIgnoreWeaponSwap = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 380, 0, 18, "Ignore weapon swap:", nil, "Ignore items and skills in weapon swap.", false)
-	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choice,\nas it cannot be imported.")
+	self.controls.charImportItemsClearSkills = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, {85, 0, 18}, "Delete skills:", nil, "Delete all existing skills when importing.", true)
+	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, {220, 0, 18}, "Delete equipment:", nil, "Delete all equipped items when importing.", true)
+	self.controls.charImportItemsIgnoreWeaponSwap = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, {380, 0, 18}, "Ignore weapon swap:", nil, "Ignore items and skills in weapon swap.", false)
+	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, {0, 50, 200, 14}, "^7Tip: After you finish importing a character, make sure you update the bandit choice,\nas it cannot be imported.")
 
-	self.controls.charClose = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Close", function()
+	self.controls.charClose = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, {0, 90, 60, 20}, "Close", function()
 		self.charImportMode = "GETACCOUNTNAME"
 		self.charImportStatus = "Idle"
 	end)
 
 	-- Build import/export
-	self.controls.sectionBuild = new("SectionControl", {"TOPLEFT",self.controls.sectionCharImport,"BOTTOMLEFT"}, 0, 18, 650, 182, "Build Sharing")
-	self.controls.generateCodeLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionBuild,"TOPLEFT"}, 6, 14, 0, 16, "^7Generate a code to share this build with other Path of Building users:")
-	self.controls.generateCode = new("ButtonControl", {"LEFT",self.controls.generateCodeLabel,"RIGHT"}, 4, 0, 80, 20, "Generate", function()
+	self.controls.sectionBuild = new("SectionControl", {"TOPLEFT",self.controls.sectionCharImport,"BOTTOMLEFT"}, {0, 18, 650, 182}, "Build Sharing")
+	self.controls.generateCodeLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionBuild,"TOPLEFT"}, {6, 14, 0, 16}, "^7Generate a code to share this build with other Path of Building users:")
+	self.controls.generateCode = new("ButtonControl", {"LEFT",self.controls.generateCodeLabel,"RIGHT"}, {4, 0, 80, 20}, "Generate", function()
 		self.controls.generateCodeOut:SetText(common.base64.encode(Deflate(self.build:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
 	end)
-	self.controls.enablePartyExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.generateCode,"RIGHT"}, 100, 0, 18, "Export Support", function(state)
+	self.controls.enablePartyExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.generateCode,"RIGHT"}, {100, 0, 18}, "Export Support", function(state)
 		self.build.partyTab.enableExportBuffs = state
 		self.build.buildFlag = true 
 	end, "This is for party play, to export support character, it enables the exporting of auras, curses and modifiers to the enemy", false)
-	self.controls.generateCodeOut = new("EditControl", {"TOPLEFT",self.controls.generateCodeLabel,"BOTTOMLEFT"}, 0, 8, 250, 20, "", "Code", "%Z")
+	self.controls.generateCodeOut = new("EditControl", {"TOPLEFT",self.controls.generateCodeLabel,"BOTTOMLEFT"}, {0, 8, 250, 20}, "", "Code", "%Z")
 	self.controls.generateCodeOut.enabled = function()
 		return #self.controls.generateCodeOut.buf > 0
 	end
-	self.controls.generateCodeCopy = new("ButtonControl", {"LEFT",self.controls.generateCodeOut,"RIGHT"}, 8, 0, 60, 20, "Copy", function()
+	self.controls.generateCodeCopy = new("ButtonControl", {"LEFT",self.controls.generateCodeOut,"RIGHT"}, {8, 0, 60, 20}, "Copy", function()
 		Copy(self.controls.generateCodeOut.buf)
 		self.controls.generateCodeOut:SetText("")
 	end)
@@ -203,12 +218,12 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end
 	local exportWebsitesList = getExportSitesFromImportList()
 
-	self.controls.exportFrom = new("DropDownControl", { "LEFT", self.controls.generateCodeCopy,"RIGHT"}, 8, 0, 120, 20, exportWebsitesList, function(_, selectedWebsite)
+	self.controls.exportFrom = new("DropDownControl", { "LEFT", self.controls.generateCodeCopy,"RIGHT"}, {8, 0, 120, 20}, exportWebsitesList, function(_, selectedWebsite)
 		main.lastExportWebsite = selectedWebsite.id
 		self.exportWebsiteSelected = selectedWebsite.id
 	end)
 	self.controls.exportFrom:SelByValue(self.exportWebsiteSelected or main.lastExportWebsite or "Pastebin", "id")
-	self.controls.generateCodeByLink = new("ButtonControl", { "LEFT", self.controls.exportFrom, "RIGHT"}, 8, 0, 100, 20, "Share", function()
+	self.controls.generateCodeByLink = new("ButtonControl", { "LEFT", self.controls.exportFrom, "RIGHT"}, {8, 0, 100, 20}, "Share", function()
 		local exportWebsite = exportWebsitesList[self.controls.exportFrom.selIndex]
 		local response = buildSites.UploadBuild(self.controls.generateCodeOut.buf, exportWebsite)
 		if response then
@@ -240,8 +255,8 @@ You can get this from your web browser's cookies while logged into the Path of E
 		end
 		return #self.controls.generateCodeOut.buf > 0
 	end
-	self.controls.generateCodeNote = new("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: this code can be very long; you can use 'Share' to shrink it.")
-	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.generateCodeNote,"BOTTOMLEFT"}, 0, 26, 0, 16, "^7To import a build, enter URL or code here:")
+	self.controls.generateCodeNote = new("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, {0, 4, 0, 14}, "^7Note: this code can be very long; you can use 'Share' to shrink it.")
+	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.generateCodeNote,"BOTTOMLEFT"}, {0, 26, 0, 16}, "^7To import a build, enter URL or code here:")
 
 	local importCodeHandle = function (buf)
 		self.importCodeSite = nil
@@ -297,31 +312,31 @@ You can get this from your web browser's cookies while logged into the Path of E
 		if self.controls.importCodeMode.selIndex == 1 then
 			main:OpenConfirmPopup("Build Import", colorCodes.WARNING.."Warning:^7 Importing to the current build will erase ALL existing data for this build.", "Import", function()
 				self.build:Shutdown()
-				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML)
+				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML, false, self.importCodeSite and self.controls.importCodeIn.buf or nil)
 				self.build.viewMode = "TREE"
 			end)
 		else
 			self.build:Shutdown()
-			self.build:Init(false, "Imported build", self.importCodeXML)
+			self.build:Init(false, "Imported build", self.importCodeXML, false, self.importCodeSite and self.controls.importCodeIn.buf or nil)
 			self.build.viewMode = "TREE"
 		end
 	end
 
-	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, 20, "", nil, nil, nil, importCodeHandle, nil, nil, true)
+	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, {0, 4, 328, 20}, "", nil, nil, nil, importCodeHandle, nil, nil, true)
 	self.controls.importCodeIn.enterFunc = function()
 		if self.importCodeValid then
 			self.controls.importCodeGo.onClick()
 		end
 	end
-	self.controls.importCodeState = new("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 8, 0, 0, 16)
+	self.controls.importCodeState = new("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, {8, 0, 0, 16})
 	self.controls.importCodeState.label = function()
 		return self.importCodeDetail or ""
 	end
-	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "Import to this build", "Import to a new build" })
+	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, {0, 4, 160, 20}, { "Import to this build", "Import to a new build" })
 	self.controls.importCodeMode.enabled = function()
 		return self.build.dbFileName and self.importCodeValid
 	end
-	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 8, 0, 160, 20, "Import", function()
+	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, {8, 0, 160, 20}, "Import", function()
 		if self.importCodeSite and not self.importCodeXML then
 			self.importCodeFetching = true
 			local selectedWebsite = buildSites.websiteList[self.importCodeSite]
@@ -357,6 +372,7 @@ function ImportTabClass:Load(xml, fileName)
 	self.lastRealm = xml.attrib.lastRealm
 	self.controls.accountRealm:SelByValue( self.lastRealm or main.lastRealm or "PC", "id" )
 	self.lastAccountHash = xml.attrib.lastAccountHash
+	self.importLink = xml.attrib.importLink
 	self.controls.enablePartyExportBuffs.state = xml.attrib.exportParty == "true"
 	self.build.partyTab.enableExportBuffs = self.controls.enablePartyExportBuffs.state
 	if self.lastAccountHash then
@@ -375,7 +391,14 @@ function ImportTabClass:Save(xml)
 		lastAccountHash = self.lastAccountHash,
 		lastCharacterHash = self.lastCharacterHash,
 		exportParty = tostring(self.controls.enablePartyExportBuffs.state),
+		importLink = self.importLink
 	}
+
+	if self.build.importLink then
+		xml.attrib.importLink = self.build.importLink
+	end
+	-- Gets rid of erroneous, potentially infinitely nested full base64 XML stored as an import link
+	xml.attrib.importLink = (xml.attrib.importLink and xml.attrib.importLink:len() < 100) and xml.attrib.importLink or nil 
 end
 
 function ImportTabClass:Draw(viewPort, inputEvents)
@@ -394,11 +417,17 @@ end
 function ImportTabClass:DownloadCharacterList()
 	self.charImportMode = "DOWNLOADCHARLIST"
 	self.charImportStatus = "Retrieving character list..."
-	  -- Trim Trailing/Leading spaces
-	local accountName = self.controls.accountName.buf:gsub('%s+', '')
 	local realm = realmList[self.controls.accountRealm.selIndex]
+	local accountName
+	-- Handle spaces in the account name
+	if realm.realmCode == "pc" then
+		accountName = self.controls.accountName.buf:gsub("%s+", "")
+	else
+		accountName = self.controls.accountName.buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", ""):gsub("%s", "+")
+	end
+	accountName = accountName:gsub("(.*)[#%-]", "%1#")
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
-	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(response, errMsg)
+	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName:gsub("#", "%%23").."&realm="..realm.realmCode, function(response, errMsg)
 		if errMsg == "Response code: 401" then
 			self.charImportStatus = colorCodes.NEGATIVE.."Sign-in is required."
 			self.charImportMode = "GETSESSIONID"
@@ -430,7 +459,7 @@ function ImportTabClass:DownloadCharacterList()
 		end
 		-- GGG's character API has an issue where for /get-characters the account name is not case-sensitive, but for /get-passive-skills and /get-items it is.
 		-- This workaround grabs the profile page and extracts the correct account name from one of the URLs.
-		launch:DownloadPage(realm.hostName..realm.profileURL..accountName, function(response, errMsg)
+		launch:DownloadPage(realm.hostName..realm.profileURL..accountName:gsub("#", "%%23"), function(response, errMsg)
 			if errMsg then
 				self.charImportStatus = colorCodes.NEGATIVE.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
 				self.charImportMode = "GETACCOUNTNAME"
@@ -442,8 +471,9 @@ function ImportTabClass:DownloadCharacterList()
 				self.charImportMode = "GETSESSIONID"
 				return
 			end
-			self.controls.accountName:SetText(realAccountName)
+			realAccountName = realAccountName:gsub("(.*)[#%-]", "%1#")
 			accountName = realAccountName
+			self.controls.accountName:SetText(realAccountName)
 			self.charImportStatus = "Character list successfully retrieved."
 			self.charImportMode = "SELECTCHAR"
 			self.lastRealm = realm.id
@@ -495,19 +525,25 @@ function ImportTabClass:BuildCharacterList(league)
 				classColor = colorCodes[charClass:upper()]
 
 				if classColor == nil then
-					if (charClass == "Elementalist" or charClass == "Necromancer" or charClass == "Occultist") then
+					if (charClass == "Elementalist" or charClass == "Necromancer" or charClass == "Occultist" or
+						charClass == "Harbinger" or charClass == "Herald" or charClass == "Bog Shaman") then
 						classColor = colorCodes["WITCH"]
-					elseif (charClass == "Guardian" or charClass == "Inquisitor" or charClass == "Hierophant") then
+					elseif (charClass == "Guardian" or charClass == "Inquisitor" or charClass == "Hierophant" or
+						charClass == "Architect of Chaos" or charClass == "Polytheist" or charClass == "Puppeteer") then
 						classColor = colorCodes["TEMPLAR"]
-					elseif (charClass == "Assassin" or charClass == "Trickster" or charClass == "Saboteur") then
+					elseif (charClass == "Assassin" or charClass == "Trickster" or charClass == "Saboteur" or
+						charClass == "Surfcaster" or charClass == "Servant of Arakaali" or charClass == "Blind Prophet") then
 						classColor = colorCodes["SHADOW"]
-					elseif (charClass == "Gladiator" or charClass == "Slayer" or charClass == "Champion") then
+					elseif (charClass == "Gladiator" or charClass == "Slayer" or charClass == "Champion" or
+						charClass == "Gambler" or charClass == "Paladin" or charClass == "Aristocrat") then
 						classColor = colorCodes["DUELIST"]
-					elseif (charClass == "Raider" or charClass == "Pathfinder" or charClass == "Deadeye") then
+					elseif (charClass == "Raider" or charClass == "Pathfinder" or charClass == "Deadeye" or charClass == "Warden" or
+						charClass == "Daughter of Oshabi" or charClass == "Whisperer" or charClass == "Wildspeaker") then
 						classColor = colorCodes["RANGER"]
-					elseif (charClass == "Juggernaut" or charClass == "Berserker" or charClass == "Chieftain") then
+					elseif (charClass == "Juggernaut" or charClass == "Berserker" or charClass == "Chieftain" or
+						charClass == "Antiquarian" or charClass == "Behemoth" or charClass == "Ancestral Commander") then
 						classColor = colorCodes["MARAUDER"]
-					elseif (charClass == "Ascendant") then
+					elseif (charClass == "Ascendant" or charClass == "Scavenger") then
 						classColor = colorCodes["SCION"]
 					end
 				end
@@ -522,6 +558,7 @@ function ImportTabClass:BuildCharacterList(league)
 			t_insert(self.controls.charSelect.list, {
 				label = charName,
 				char = char,
+				searchFilter = charName.." "..charClass,
 				detail = detail
 			})
 		end
@@ -544,11 +581,11 @@ function ImportTabClass:SaveAccountHistory()
 	if not historyList[self.controls.accountName.buf] then
 		t_insert(historyList, self.controls.accountName.buf)
 		historyList[self.controls.accountName.buf] = true
-		self.controls.accountHistory:SelByValue(self.controls.accountName.buf)
 		table.sort(historyList, function(a,b)
 			return a:lower() < b:lower()
 		end)
 		self.controls.accountHistory:CheckDroppedWidth(true)
+		self.controls.accountHistory:SelByValue(self.controls.accountName.buf)
 	end
 end
 
@@ -560,7 +597,7 @@ function ImportTabClass:DownloadPassiveTree()
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
-	launch:DownloadPage(realm.hostName.."character-window/get-passive-skills?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
+	launch:DownloadPage(realm.hostName.."character-window/get-passive-skills?accountName="..accountName:gsub("#", "%%23").."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then
 			self.charImportStatus = colorCodes.NEGATIVE.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
@@ -582,7 +619,7 @@ function ImportTabClass:DownloadItems()
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
-	launch:DownloadPage(realm.hostName.."character-window/get-items?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
+	launch:DownloadPage(realm.hostName.."character-window/get-items?accountName="..accountName:gsub("#", "%%23").."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then
 			self.charImportStatus = colorCodes.NEGATIVE.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
@@ -647,7 +684,33 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
 
-	self.build.spec:ImportFromNodeList(charPassiveData.character, charPassiveData.ascendancy, charPassiveData.alternate_ascendancy or 0, charPassiveData.hashes, charPassiveData.skill_overrides, charPassiveData.mastery_effects or {}, latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or ""))
+	-- Alternate trees don't have an identifier, so we're forced to look up something that is unique to that tree
+	-- Hopefully this changes, because it's totally unmaintainable
+	local function isAscendancyInTree(className, treeVersion)
+		local classes = main.tree[treeVersion].classes
+		for _, class in pairs(classes) do
+			if class.name == className then
+				return true
+			end
+			for i = 0, #class.classes do
+				local ascendClass = class.classes[i]
+				if ascendClass.name == className then
+					return true
+				end
+			end
+		end
+	end
+
+	self.build.spec:ImportFromNodeList(charPassiveData.character, 
+		charPassiveData.ascendancy, 
+		charPassiveData.alternate_ascendancy or 0, 
+		charPassiveData.hashes, 
+		charPassiveData.skill_overrides, 
+		charPassiveData.mastery_effects or {}, 
+		latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or "") .. (isAscendancyInTree(charData.class, latestTreeVersion) and "" or "_alternate")
+	)
+	self.build.treeTab:SetActiveSpec(self.build.treeTab.activeSpec)
+	self.build.spec:BuildClusterJewelGraphs()
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.characterLevelAutoMode = false
@@ -664,7 +727,6 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 		end
 	end
 	self.build.configTab.varControls["resistancePenalty"]:SetSel(resistancePenaltyIndex)
-	self.build.buildFlag = true
 	main:SetWindowTitleSubtext(string.format("%s (%s, %s, %s)", self.build.buildName, charData.name, charData.class, charData.league))
 end
 
@@ -1130,4 +1192,12 @@ function ImportTabClass:ProcessJSON(json)
 		return nil, "Return type is not a table"
 	end
 	return data
+end
+
+function ImportTabClass:SetPredefinedBuildName()
+	local accountName = self.controls.accountName.buf:gsub('%s+', ''):gsub("#%d+", "")
+	local charSelect = self.controls.charSelect
+	local charData = charSelect.list[charSelect.selIndex].char
+	local charName = charData.name
+	main.predefinedBuildName = accountName.." - "..charName
 end

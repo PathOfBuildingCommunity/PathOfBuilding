@@ -24,7 +24,7 @@ local CalcBreakdownClass = newClass("CalcBreakdownControl", "Control", "ControlH
 	self.rangeGuide:Load("Assets/range_guide.png")
 	self.uiOverlay = NewImageHandle()
 	self.uiOverlay:Load("Assets/game_ui_small.png")
-	self.controls.scrollBar = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -2, 0, 18, 0, 80, "VERTICAL", true)
+	self.controls.scrollBar = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, {-2, 0, 18, 0}, 80, "VERTICAL", true)
 end)
 
 function CalcBreakdownClass:IsMouseOver()
@@ -405,7 +405,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			local nodeId = row.mod.source:match("Tree:(%d+)")
 			if nodeId then
 				local nodeIdNumber = tonumber(nodeId)
-				local node = build.spec.nodes[nodeIdNumber] or build.spec.tree.nodes[nodeIdNumber]
+				local node = build.spec.nodes[nodeIdNumber] or build.spec.tree.nodes[nodeIdNumber] or build.latestTree.nodes[nodeIdNumber]
 				row.sourceName = node.dn
 				row.sourceNameNode = node
 			end
