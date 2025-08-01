@@ -393,10 +393,10 @@ function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingF
 	-- env.limitedSkills contains a map of uuids that should be limited in calculation
 	-- this is in order to prevent infinite recursion loops
 	fullEnv.limitedSkills = fullEnv.limitedSkills or {}
-	for uuid, _ in pairs(env.limitedSkills or {}) do
+	for _, uuid in ipairs(env.limitedSkills or {}) do
 		fullEnv.limitedSkills[uuid] = true
 	end
-	for uuid, _ in pairs(limitedProcessingFlags or {}) do
+	for _, uuid in ipairs(limitedProcessingFlags or {}) do
 		fullEnv.limitedSkills[uuid] = true
 	end
 

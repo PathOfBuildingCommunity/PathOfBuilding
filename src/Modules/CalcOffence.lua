@@ -1905,6 +1905,12 @@ function calcs.offence(env, actor, activeSkill)
 			output[stat] = (output.MainHand[stat] or 0) + (output.OffHand[stat] or 0)
 		elseif mode == "AVERAGE" then
 			output[stat] = ((output.MainHand[stat] or 0) + (output.OffHand[stat] or 0)) / 2
+		elseif mode == 'HARMONICMEAN' then
+			if output.MainHand[stat] == 0 or output.OffHand[stat] == 0 then
+				output[stat] = 0
+			else
+				output[stat] = 2 / ((1 / output.MainHand[stat]) + (1 / output.OffHand[stat]))
+			end
 		elseif mode == "CHANCE" then
 			if output.MainHand[stat] and output.OffHand[stat] then
 				local mainChance = output.MainHand[...] * output.MainHand.HitChance
@@ -2329,7 +2335,7 @@ function calcs.offence(env, actor, activeSkill)
 		-- Combine hit chance and attack speed
 		combineStat("AccuracyHitChance", "AVERAGE")
 		combineStat("HitChance", "AVERAGE")
-		combineStat("Speed", "AVERAGE")
+		combineStat("Speed", "HARMONICMEAN")
 		combineStat("HitSpeed", "OR")
 		combineStat("HitTime", "OR")
 		if output.Speed == 0 then
@@ -2354,7 +2360,7 @@ function calcs.offence(env, actor, activeSkill)
 			if breakdown then
 				breakdown.Speed = {
 					"Both weapons:",
-					s_format("(%.2f + %.2f) / 2", output.MainHand.Speed, output.OffHand.Speed),
+					s_format("2 / (1 / %.2f + 1 / %.2f)", output.MainHand.Speed, output.OffHand.Speed),
 					s_format("= %.2f", output.Speed),
 				}
 			end

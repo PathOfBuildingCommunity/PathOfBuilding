@@ -96,7 +96,7 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 	end
 
 	local effectiveSkillTypes = activeSkill.summonSkill and activeSkill.summonSkill.skillTypes or activeSkill.skillTypes
-	local effectiveMinionTypes = not grantedEffect.ignoreMinionTypes and activeSkill.summonSkill and activeSkill.summonSkill.minionSkillTypes or activeSkill.minionSkillTypes
+	local effectiveMinionTypes = not grantedEffect.ignoreMinionTypes and (activeSkill.summonSkill and activeSkill.summonSkill.minionSkillTypes or activeSkill.minionSkillTypes)
 
 	-- if the activeSkill is a Minion's skill like "Default Attack", use minion's skillTypes instead for exclusions
 	-- otherwise compare support to activeSkill directly
