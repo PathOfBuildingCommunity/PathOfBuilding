@@ -176,7 +176,6 @@ end)
 
 writeMods("../Data/BeastCraft.lua", function(mod)
 	return (mod.Id:match("Aspect")  and mod.GenerationType == 2)  -- Aspect Crafts
-			or (mod.Domain == 2  and mod.GenerationType == 2 and mod.Level <= 20 and mod.Id:match("Immunity")) -- Flask Crafts
 end)
 
 print("Mods exported.")
