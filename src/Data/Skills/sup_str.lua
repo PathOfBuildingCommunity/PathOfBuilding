@@ -4380,10 +4380,10 @@ skills["SupportVolatility"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["minimum_attack_damage_+%_final_from_volatility_support"] = {
-			mod("MinDamage", "MORE", nil),
+			mod("MinDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Attack }),
 		},
 		["maximum_attack_damage_+%_final_from_volatility_support"] = {
-			mod("MaxDamage", "MORE", nil),
+			mod("MaxDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Attack }),
 		},
 	},
 	qualityStats = {
