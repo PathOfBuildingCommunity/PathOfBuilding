@@ -2691,6 +2691,23 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					return a.defaultOrder < b.defaultOrder
 				end
 			end)
+		elseif sourceId == "BEASTCRAFT" then
+			for i, mod in pairs(self.build.data.beastCraft) do
+				t_insert(modList, {
+					label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
+					mod = mod,
+					affixType = mod.type,
+					type = "custom",
+					defaultOrder = i,
+				})
+			end
+			table.sort(modList, function(a, b)
+				if a.affixType ~= b.affixType then
+					return a.affixType == "Prefix" and b.affixType == "Suffix"
+				else
+					return a.defaultOrder < b.defaultOrder
+				end
+			end)
 		end
 	end
 	if self.displayItem.type ~= "Tincture"  then
@@ -2700,6 +2717,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
 			t_insert(sourceList, { label = "Essence", sourceId = "ESSENCE" })
 			t_insert(sourceList, { label = "Veiled", sourceId = "VEILED"})
+			t_insert(sourceList, { label = "Beastcraft", sourceId = "BEASTCRAFT" })
 		end
 		if self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots" then
 			t_insert(sourceList, { label = "Necropolis", sourceId = "NECROPOLIS"})
