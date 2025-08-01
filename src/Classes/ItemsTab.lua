@@ -2693,22 +2693,24 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			end)
 		end
 	end
-	if self.displayItem.type ~= "Jewel" then
-		t_insert(sourceList, { label = "Crafting Bench", sourceId = "MASTER" })
-	end
-	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
-		t_insert(sourceList, { label = "Essence", sourceId = "ESSENCE" })
-		t_insert(sourceList, { label = "Veiled", sourceId = "VEILED"})
-	end
-	if self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots" then
-		t_insert(sourceList, { label = "Necropolis", sourceId = "NECROPOLIS"})
-	end
-	if not self.displayItem.clusterJewel and self.displayItem.type ~= "Flask" then
-		t_insert(sourceList, { label = "Delve", sourceId = "DELVE"})
-	end
-	if not self.displayItem.crafted then
-		t_insert(sourceList, { label = "Prefix", sourceId = "PREFIX" })
-		t_insert(sourceList, { label = "Suffix", sourceId = "SUFFIX" })
+	if self.displayItem.type ~= "Tincture"  then
+		if self.displayItem.type ~= "Jewel" then
+			t_insert(sourceList, { label = "Crafting Bench", sourceId = "MASTER" })
+		end
+		if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
+			t_insert(sourceList, { label = "Essence", sourceId = "ESSENCE" })
+			t_insert(sourceList, { label = "Veiled", sourceId = "VEILED"})
+		end
+		if self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots" then
+			t_insert(sourceList, { label = "Necropolis", sourceId = "NECROPOLIS"})
+		end
+		if not self.displayItem.clusterJewel and self.displayItem.type ~= "Flask" then
+			t_insert(sourceList, { label = "Delve", sourceId = "DELVE"})
+		end
+		if not self.displayItem.crafted then
+			t_insert(sourceList, { label = "Prefix", sourceId = "PREFIX" })
+			t_insert(sourceList, { label = "Suffix", sourceId = "SUFFIX" })
+		end
 	end
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
 	buildMods(sourceList[1].sourceId)
