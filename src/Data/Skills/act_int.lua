@@ -7698,7 +7698,7 @@ skills["ForbiddenRiteAltX"] = {
 		activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + add
 		activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + add
 		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * (output.ProjectileCount + 1)
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * output.ProjectileCount
 		end
 		output.FRDamageTaken = SelfDamageTakenES + chaosFlat
 		if breakdown then
