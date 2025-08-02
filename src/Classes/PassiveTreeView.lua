@@ -1104,7 +1104,8 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			or (node.type == "Keystone") or (node.type == "Mastery") )
 	then
 		tooltip:AddSeparator(14)
-		tooltip:AddLine(14, colorCodes.TIP.."Tip: Right click to edit the tattoo for this node")
+		local nodeEditType = (node.type == "Mastery") and "runegraft" or "tattoo"
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Right click to edit the " .. nodeEditType .. " for this node")
 	end
 
 	-- Mod differences
