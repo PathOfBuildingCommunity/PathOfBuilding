@@ -1145,7 +1145,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			end
 		end
 		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, realloc and "^7Reallocating this node will give you:" or node.alloc and "^7Unallocating this node will give you:" or isGranted and "^7This node is granted by an item. Removing it will give you:" or "^7Allocating this node will give you:")
-		if pathLength > 1 and not isGranted then
+		if pathLength > 1 and not isGranted and (#node.intuitiveLeapLikesAffecting == 0 or node.alloc) then
 			count = count + build:AddStatComparesToTooltip(tooltip, calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:", pathLength)
 		end
 		if count == 0 then
