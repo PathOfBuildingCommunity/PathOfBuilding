@@ -6316,7 +6316,7 @@ c["80% increased Damage with Hits and Ailments against Hindered Enemies"]={{[1]=
 c["80% increased Damage with Movement Skills"]={{[1]={flags=0,keywordFlags=8,name="Damage",type="INC",value=80}},nil}
 c["80% increased Damage with Vaal Skills during effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=512,name="Damage",type="INC",value=80}},nil}
 c["80% increased Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="INC",value=80}},nil}
-c["80% increased Duration of Ailments inflicted by Retaliation Skills"]={{[1]={flags=0,keywordFlags=0,name="EnemyAilmentDuration",type="INC",value=80}},"  by Retaliation Skills "}
+c["80% increased Duration of Ailments inflicted by Retaliation Skills"]={{[1]={[1]={skillType=132,type="SkillType"},flags=0,keywordFlags=0,name="EnemyAilmentDuration",type="INC",value=80}},nil}
 c["80% increased Effect of Arcane Surge on you while affected by Clarity"]={{[1]={[1]={type="Condition",var="AffectedByClarity"},flags=0,keywordFlags=0,name="ArcaneSurgeEffect",type="INC",value=80}},nil}
 c["80% increased Effect of Chill you inflict while Leeching Mana"]={{[1]={[1]={type="Condition",var="LeechingMana"},flags=0,keywordFlags=0,name="EnemyChillEffect",type="INC",value=80}},nil}
 c["80% increased Effect of Shocks you inflict while Leeching Energy Shield"]={{[1]={[1]={type="Condition",var="LeechingEnergyShield"},flags=0,keywordFlags=0,name="EnemyShockEffect",type="INC",value=80}},nil}
