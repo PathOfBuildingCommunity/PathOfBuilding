@@ -3125,7 +3125,7 @@ function calcs.perform(env, skipEHP)
 	for ailment, val in pairs(ailments) do
 		if (enemyDB:Sum("BASE", nil, ailment.."Val") > 0
 		or modDB:Sum("BASE", nil, ailment.."Base", ailment.."Override", ailment.."Minimum"))
-		and not enemyDB:Flag(nil, "Condition:Already"..val.condition) then
+		and not (enemyDB:Flag(nil, "Condition:Already"..val.condition) or enemyDB:Flag(nil, ailment.."Immune", "ElementalAilmentImmune") or enemyDB:Sum("BASE", nil, "Avoid"..ailment, "AvoidAilments", "AvoidElementalAilments") >= 100) then
 			local override = 0
 			local minimum = 0
 			for _, value in ipairs(modDB:Tabulate("BASE", nil, ailment.."Base", ailment.."Override", ailment.."Minimum")) do
@@ -3169,11 +3169,11 @@ function calcs.perform(env, skipEHP)
 
 	-- Update chill and shock multipliers
 	local chillEffectMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ChillEffect")
-	if chillEffectMultiplier < output["CurrentChill"] then
+	if output["CurrentChill"] and chillEffectMultiplier < output["CurrentChill"] then
 		enemyDB:NewMod("Multiplier:ChillEffect", "BASE", output["CurrentChill"] - chillEffectMultiplier, "")
 	end
 	local shockEffectMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ShockEffect")
-	if shockEffectMultiplier < output["CurrentShock"] then
+	if output["CurrentShock"] and shockEffectMultiplier < output["CurrentShock"] then
 		enemyDB:NewMod("Multiplier:ShockEffect", "BASE", output["CurrentShock"] - shockEffectMultiplier, "")
 	end
 

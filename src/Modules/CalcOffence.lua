@@ -3790,15 +3790,17 @@ function calcs.offence(env, actor, activeSkill)
 		-- Elemental Ailment Affliction Chance | Elemental Ailment Additionals
 		for _, ailment in ipairs(elementalAilmentTypeList) do
 			local chance = skillModList:Sum("BASE", cfg, "Enemy"..ailment.."Chance") + enemyDB:Sum("BASE", nil, "Self"..ailment.."Chance")
+			local avoid = 1 - m_min(enemyDB:Flag(nil, ailment.."Immune", "ElementalAilmentImmune") and 100 or 0 + enemyDB:Sum("BASE", nil, "Avoid"..ailment, "AvoidAilments", "AvoidElementalAilments"), 100) / 100
 			if ailment == "Chill" then
 				chance = 100
 			end
+			chance = chance * avoid
 			-- Warden's Oath of Summer Scorch Chance
 			if ailment == "Ignite" and env.modDB:Flag(nil, "IgniteCanScorch") then
 				output["ScorchChance"] = m_min(100, chance)
 				skillModList:NewMod("EnemyScorchChance", "BASE", chance, "Ignite Chance")
 			end
-			if skillFlags.hit and not skillModList:Flag(cfg, "Cannot"..ailment) then
+			if skillFlags.hit and not (skillModList:Flag(cfg, "Cannot"..ailment) or avoid == 0) then
 				output[ailment.."ChanceOnHit"] = m_min(100, chance)
 				if skillModList:Flag(cfg, "CritsDontAlways"..ailment) -- e.g. Painseeker
 				or (ailmentData[ailment] and ailmentData[ailment].alt and not skillModList:Flag(cfg, "CritAlwaysAltAilments")) then -- e.g. Secrets of Suffering
@@ -3811,7 +3813,7 @@ function calcs.offence(env, actor, activeSkill)
 				output[ailment.."ChanceOnCrit"] = 0
 			end
 			-- Warden's Oath of Summer Scorch on Crit Chance
-			if ailment == "Scorch" and env.modDB:Flag(nil, "IgniteCanScorch") then
+			if ailment == "Scorch" and env.modDB:Flag(nil, "IgniteCanScorch") and avoid ~= 0 then
 				output["ScorchChanceOnCrit"] = 100
 			end
 			if (output[ailment.."ChanceOnHit"] + (skillModList:Flag(cfg, "NeverCrit") and 0 or output[ailment.."ChanceOnCrit"])) > 0 then
