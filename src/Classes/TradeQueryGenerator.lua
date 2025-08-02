@@ -85,7 +85,7 @@ local tradeStatCategoryIndices = {
 local influenceSuffixes = { "_shaper", "_elder", "_adjudicator", "_basilisk", "_crusader", "_eyrie"}
 local influenceDropdownNames = { "None" }
 local hasInfluenceModIds = { }
-for i, curInfluenceInfo in ipairs(itemLib.influenceInfo) do
+for i, curInfluenceInfo in ipairs(itemLib.influenceInfo.default) do
 	influenceDropdownNames[i + 1] = curInfluenceInfo.display
 	hasInfluenceModIds[i] = "pseudo.pseudo_has_" .. string.lower(curInfluenceInfo.display) .. "_influence"
 end
@@ -810,10 +810,10 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 
 	-- Apply any requests influences
 	if options.influence1 > 1 then
-		testItem[itemLib.influenceInfo[options.influence1 - 1].key] = true
+		testItem[itemLib.influenceInfo.default[options.influence1 - 1].key] = true
 	end
 	if options.influence2 > 1 then
-		testItem[itemLib.influenceInfo[options.influence2 - 1].key] = true
+		testItem[itemLib.influenceInfo.default[options.influence2 - 1].key] = true
 	end
 
 	-- Calculate base output with a blank item
