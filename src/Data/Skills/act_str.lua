@@ -731,6 +731,9 @@ skills["SupportAutoexertion"] = {
 			mod("BaseManaCostOverride", "OVERRIDE", nil),
 		},
 	},
+	baseMods = {
+		skill("SupportedByAutoexertion", true),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_cooldown_speed_+%", 0.5 },
