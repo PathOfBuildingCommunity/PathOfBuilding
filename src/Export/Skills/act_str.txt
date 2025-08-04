@@ -135,9 +135,6 @@ local skills, mod, flag, skill = ...
 			mod("BaseManaCostOverride", "OVERRIDE", nil),
 		},
 	},
-	baseMods = {
-		skill("SupportedByAutoexertion", true),
-	},
 #mods
 
 #skill BattlemagesCry
