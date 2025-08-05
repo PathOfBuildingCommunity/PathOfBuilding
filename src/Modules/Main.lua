@@ -102,6 +102,7 @@ function main:Init()
 	self.showWarnings = true
 	self.slotOnlyTooltips = true
 	self.notSupportedModTooltips = true
+	self.notSupportedTooltipText = ""
 	self.POESESSID = ""
 	self.showPublicBuilds = true
 
