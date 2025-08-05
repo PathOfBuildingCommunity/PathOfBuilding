@@ -877,6 +877,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end
 	controls.save = new("ButtonControl", nil, {-90, 75, 80, 20}, "Add", function()
 		addModifier(selectedNode)
+		self.build.spec:AddUndoState()
 		self.modFlag = true
 		self.build.buildFlag = true
 		self.defaultTattoo[nodeName] = controls.modSelect.selIndex
@@ -884,6 +885,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end)
 	controls.reset = new("ButtonControl", nil, {0, 75, 80, 20}, "Reset Node", function()
 		self:RemoveTattooFromNode(selectedNode)
+		self.build.spec:AddUndoState()
 		self.modFlag = true
 		self.build.buildFlag = true
 		self.defaultTattoo[nodeName] = nil
