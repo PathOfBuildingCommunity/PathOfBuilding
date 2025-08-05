@@ -127,6 +127,7 @@ function itemLib.formatModLine(modLine, dbMode)
 	local colorCode
 	if modLine.extra then
 		colorCode = colorCodes.UNSUPPORTED
+		line = line..main.notSupportedTooltipText
 		if launch.devModeAlt then
 			line = line .. "   ^1'" .. modLine.extra .. "'"
 		end

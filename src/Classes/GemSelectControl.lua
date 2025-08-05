@@ -719,7 +719,7 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 				if launch.devModeAlt then
 					line = line .. " ^1" .. lineMap[line]
 				end
-				self.tooltip:AddLine(16, colorCodes.UNSUPPORTED .. line)
+				self.tooltip:AddLine(16, colorCodes.UNSUPPORTED .. line..main.notSupportedTooltipText)
 			end
 		end
 	end

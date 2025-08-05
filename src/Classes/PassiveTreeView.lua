@@ -1028,7 +1028,11 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 					line = line .. "  " .. modStr
 				end
 			end
-			tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
+			if (node.mods[i].extra or not node.mods[i].list) and not node.mods[i].list == "" then
+				tooltip:AddLine(16, colorCodes.UNSUPPORTED..line..main.notSupportedTooltipText)
+			else
+				tooltip:AddLine(16, colorCodes.MAGIC..line)
+			end
 		end
 	end
 

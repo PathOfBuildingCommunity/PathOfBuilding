@@ -769,7 +769,7 @@ function SkillsTabClass:CreateGemSlot(index)
 						if grantedEffect.statMap[qual[1]] or self.build.data.skillStatMap[qual[1]] then
 							tooltip:AddLine(16, colorCodes.MAGIC..line)
 						else
-							tooltip:AddLine(16, colorCodes.UNSUPPORTED..line)
+							tooltip:AddLine(16, colorCodes.UNSUPPORTED..line..main.notSupportedTooltipText)
 						end
 					end
 				end
