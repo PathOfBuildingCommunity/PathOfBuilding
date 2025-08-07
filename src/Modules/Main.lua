@@ -102,7 +102,7 @@ function main:Init()
 	self.showWarnings = true
 	self.slotOnlyTooltips = true
 	self.notSupportedModTooltips = true
-	self.notSupportedTooltipText = ""
+	self.notSupportedTooltipText = " ^8(Not supported in PoB yet)"
 	self.POESESSID = ""
 	self.showPublicBuilds = true
 
@@ -610,7 +610,6 @@ function main:LoadSettings(ignoreBuild)
 				end
 				if node.attrib.notSupportedModTooltips then
 					self.notSupportedModTooltips = node.attrib.notSupportedModTooltips == "true"
-					self.notSupportedTooltipText = self.notSupportedModTooltips and " ^8(Not supported in PoB yet)" or ""
 				end
 				if node.attrib.POESESSID then
 					self.POESESSID = node.attrib.POESESSID or ""

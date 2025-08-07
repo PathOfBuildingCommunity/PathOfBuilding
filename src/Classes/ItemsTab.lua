@@ -763,7 +763,9 @@ holding Shift will put it in the second.]])
 						tooltip:AddLine(16, "")
 						for i, line in ipairs(node.sd) do
 							if line ~= " " and (node.mods[i].extra or not node.mods[i].list) then
-								tooltip:AddLine(16, colorCodes.UNSUPPORTED..line..main.notSupportedTooltipText)
+								local line = colorCodes.UNSUPPORTED .. line
+								line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
+								tooltip:AddLine(16, line)
 							else
 								tooltip:AddLine(16, colorCodes.MAGIC..line)
 							end
@@ -3343,7 +3345,9 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		))
 		for _, modLine in pairs(item.buffModLines) do
 			if modLine.extra then
-				tooltip:AddLine(16, colorCodes.UNSUPPORTED..modLine.line..main.notSupportedTooltipText)
+				local line = colorCodes.UNSUPPORTED..modLine.line
+				line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
+				tooltip:AddLine(16, line)
 			else
 				tooltip:AddLine(16, colorCodes.MAGIC..modLine.line)
 			end
@@ -3360,7 +3364,9 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		tooltip:AddLine(16, s_format("^x7F7F7F%s%.2f ^x7F7F7FSecond Cooldown When Deactivated", main:StatColor(tinctureData.cooldown, base.tincture.cooldown), tinctureData.cooldown))
 		for _, modLine in pairs(item.buffModLines) do
 			if modLine.extra then
-				tooltip:AddLine(16, colorCodes.UNSUPPORTED..modLine.line..main.notSupportedTooltipText)
+				local line = colorCodes.UNSUPPORTED..modLine.line
+				line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
+				tooltip:AddLine(16, line)
 			else
 				tooltip:AddLine(16, colorCodes.MAGIC..modLine.line)
 			end
