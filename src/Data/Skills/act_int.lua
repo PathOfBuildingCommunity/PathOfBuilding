@@ -12177,6 +12177,16 @@ skills["LightningTendrilsAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Lightning] = true, [SkillType.Channel] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.23,
+	postCritFunc = function(activeSkill, output, breakdown)
+		-- Formula to find a effective damage multiplier to take into account the 500% more damage on every 5th hit
+		if activeSkill.skillPart == 1 then
+			local critChance = output.PreEffectiveCritChance / 100
+			local effectiveCritChance = output.CritChance / 100
+			local critMulti = output.CritMultiplier
+			local averageMore = 100 * ((4 * (1 + critChance * (critMulti - 1)) + 6 * critMulti) / (5 * ((1 - effectiveCritChance) + critMulti * effectiveCritChance)) - 1)
+			activeSkill.skillModList:NewMod("Damage", "MORE", averageMore, "Average Pulse Damage", nil, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 })
+		end
+	end,
 	parts = {
 		{
 			name = "Average DPS",
@@ -12190,13 +12200,7 @@ skills["LightningTendrilsAltX"] = {
 	},
 	statMap = {
 		["lightning_tendrils_channelled_larger_pulse_damage_+%_final"] = {
-			{
-				mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 }),
-				div = 5,
-			},
-			{
-				mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 }),
-			},
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 }),
 		},
 		["lightning_tendrils_channelled_larger_pulse_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),

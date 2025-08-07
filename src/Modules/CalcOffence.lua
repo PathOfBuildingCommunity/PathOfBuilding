@@ -2974,6 +2974,8 @@ function calcs.offence(env, actor, activeSkill)
 
 		--Calculate reservation DPS
 		globalOutput.ReservationDpsMultiplier = 100 / (100 - enemyDB:Sum("BASE", nil, "LifeReservationPercent"))
+		
+		runSkillFunc("postCritFunc")
 
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
