@@ -979,7 +979,7 @@ function main:OpenOptionsPopup()
 	controls.notSupportedModTooltips = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Show tooltip for unsupported mods :", function(state)
 		self.notSupportedModTooltips = state
 	end)
-	controls.notSupportedModTooltips.tooltipText = "Show ^8(Not supported in PoB yet) ^7next to unsupported mods\nRequires PoB to restart for it to take effect"
+	controls.notSupportedModTooltips.tooltipText = "Show ^8(Not supported in PoB yet) ^7next to unsupported mods"
 	controls.notSupportedModTooltips.state = self.notSupportedModTooltips
 	
 	nextRow()

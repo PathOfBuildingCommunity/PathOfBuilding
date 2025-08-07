@@ -17504,13 +17504,13 @@ skills["PoisonousConcoctionAltX"] = {
 			mod("ChaosPerLifeFlaskPercent", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 	},
-	baseMods = {
-		mod("DPS", "MORE", 100, 0, 0, { type = "PerStat", stat = "ChainMax" }),
-	},
 	baseFlags = {
 		attack = true,
 		area = true,
 		projectile = true,
+	},
+	baseMods = {
+		mod("DPS", "MORE", 100, 0, 0, { type = "PerStat", stat = "ChainMax" }),
 	},
 	qualityStats = {
 		Default = {
