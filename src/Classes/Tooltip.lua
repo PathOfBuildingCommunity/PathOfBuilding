@@ -49,9 +49,6 @@ end)
 function TooltipClass:Clear()
 	wipeTable(self.lines)
 	wipeTable(self.blocks)
-	if self.updateParams then
-		wipeTable(self.updateParams)
-	end
 	self.recipe = nil
 	self.center = false
 	self.color = { 0.5, 0.3, 0 }
@@ -63,17 +60,17 @@ function TooltipClass:CheckForUpdate(...)
 	if not self.updateParams then
 		self.updateParams = { }
 	end
+
 	for i = 1, select('#', ...) do
-		if self.updateParams[i] ~= select(i, ...) then
+		local temp = select(i, ...)
+		if self.updateParams[i] ~= temp then
+			self.updateParams[i] = temp
 			doUpdate = true
-			break
 		end
 	end
-	if doUpdate then
+	if doUpdate or self.updateParams.notSupportedModTooltips ~= main.notSupportedModTooltips then
+		self.updateParams.notSupportedModTooltips = main.notSupportedModTooltips
 		self:Clear()
-		for i = 1, select('#', ...) do
-			self.updateParams[i] = select(i, ...)
-		end
 		return true
 	end
 end
