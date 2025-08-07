@@ -3393,6 +3393,7 @@ local skills, mod, flag, skill = ...
 			mod("ChaosPerLifeFlaskPercent", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 	},
+#baseMod mod("DPS", "MORE", 100, 0, 0, { type = "PerStat", stat = "ChainMax" })
 #mods
 
 #skill Snipe
