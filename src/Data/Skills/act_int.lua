@@ -12074,6 +12074,9 @@ skills["LightningTendrils"] = {
 	castTime = 0.23,
 	parts = {
 		{
+			name = "Average DPS",
+		},
+		{
 			name = "Normal pulse",
 		},
 		{
@@ -12082,16 +12085,23 @@ skills["LightningTendrils"] = {
 	},
 	statMap = {
 		["lightning_tendrils_channelled_larger_pulse_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 }),
 		},
 		["lightning_tendrils_channelled_larger_pulse_always_crit"] = {
-			mod("CritChance", "OVERRIDE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("CritChance", "OVERRIDE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 			base = 100
+		},
+		["lightning_tendrils_channelled_larger_pulse_interval"] = {
+			flag("Every3UseCrit", { type = "SkillPart", skillPart = 1 }),
 		},
 	},
 	baseFlags = {
 		spell = true,
 		area = true,
+	},
+	baseMods = {
+		mod("DPS", "MORE", -2/3 * 100, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		mod("DPS", "MORE", -1/3 * 100, 0, 0, { type = "SkillPart", skillPart = 3 }),
 	},
 	qualityStats = {
 		Default = {
@@ -12169,6 +12179,9 @@ skills["LightningTendrilsAltX"] = {
 	castTime = 0.23,
 	parts = {
 		{
+			name = "Average DPS",
+		},
+		{
 			name = "Normal pulse",
 		},
 		{
@@ -12177,20 +12190,33 @@ skills["LightningTendrilsAltX"] = {
 	},
 	statMap = {
 		["lightning_tendrils_channelled_larger_pulse_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
+			{
+				mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 }),
+				div = 5,
+			},
+			{
+				mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 }),
+			},
 		},
 		["lightning_tendrils_channelled_larger_pulse_area_of_effect_+%_final"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
 		["lightning_tendrils_channelled_larger_pulse_always_crit"] = {
-			mod("CritChance", "OVERRIDE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("CritChance", "OVERRIDE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 			base = 100
+		},
+		["lightning_tendrils_channelled_larger_pulse_interval"] = {
+			flag("Every5UseCrit", { type = "SkillPart", skillPart = 1 }),
 		},
 	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		channelling = true,
+	},
+	baseMods = {
+		mod("DPS", "MORE", -1/5 * 100, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		mod("DPS", "MORE", -4/5 * 100, 0, 0, { type = "SkillPart", skillPart = 3 }),
 	},
 	qualityStats = {
 		Default = {
