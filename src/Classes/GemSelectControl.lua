@@ -721,7 +721,7 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 				end
 				local line = colorCodes.UNSUPPORTED .. line
 				line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
-				self.tooltip:AddLine(line)
+				self.tooltip:AddLine(16, line)
 			end
 		end
 	end
