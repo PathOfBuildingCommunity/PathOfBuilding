@@ -2800,9 +2800,9 @@ local skills, mod, flag, skill = ...
 		-- DPS multiplier applied to the skills to reflect the DPS from each skill part
 		local interval = activeSkill.skillData.pulseInterval
 		if activeSkill.skillPart == 2 then
-			activeSkill.skillModList:NewMod("DPS", "MORE", -(1 / interval) * 100, "Stronger pulse", 0, 0, { type = "SkillPart", skillPart = 2 })
+			activeSkill.skillModList:NewMod("DPS", "MORE", -(1 / interval) * 100, "Normal pulse", 0, 0, { type = "SkillPart", skillPart = 2 })
 		elseif activeSkill.skillPart == 3 then
-			activeSkill.skillModList:NewMod("DPS", "MORE", -(interval - 1)/ interval * 100, "Normal pulse", 0, 0, { type = "SkillPart", skillPart = 3 })
+			activeSkill.skillModList:NewMod("DPS", "MORE", -(interval - 1)/ interval * 100, "Stronger pulse", 0, 0, { type = "SkillPart", skillPart = 3 })
 		end
 	end,
 	postCritFunc = function(activeSkill, output, breakdown)
