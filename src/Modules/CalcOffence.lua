@@ -2847,10 +2847,13 @@ function calcs.offence(env, actor, activeSkill)
 					output.CritChance = (1 - (1 - output.CritChance / 100) ^ (critRolls + 1)) * 100
 				end
 				local preHitCheckCritChance = output.CritChance
-				local pre3rdUseCritChance= output.CritChance
+				local preSkillUseCritChance= output.CritChance
 				if env.mode_effective then
 					if skillModList:Flag(skillCfg, "Every3UseCrit") then
 						output.CritChance = (2 * output.CritChance + 100) / 3
+					end
+					if skillModList:Flag(skillCfg, "Every5UseCrit") then
+						output.CritChance = (4 * output.CritChance + 100) / 5
 					end
 					preHitCheckCritChance = output.CritChance
 					output.CritChance = output.CritChance * output.AccuracyHitChance / 100
@@ -2874,13 +2877,16 @@ function calcs.offence(env, actor, activeSkill)
 						local overCap = preCapCritChance - 100
 						t_insert(breakdown.CritChance, s_format("Crit is overcapped by %.2f%% (%d%% increased Critical Strike Chance)", overCap, overCap / more / (baseCrit + base) * 100))
 					end
-					if env.mode_effective and (critRolls ~= 0 or skillModList:Flag(skillCfg, "Every3UseCrit")) then
+					if env.mode_effective and (critRolls ~= 0 or skillModList:Flag(skillCfg, "Every3UseCrit") or skillModList:Flag(skillCfg, "Every5UseCrit")) then
 						if critRolls ~= 0 then
 							t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
 							t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f)^ %d", preLuckyCritChance / 100, critRolls + 1))
 						end
 						if skillModList:Flag(skillCfg, "Every3UseCrit") then
-							t_insert(breakdown.CritChance, s_format("+ %.2f%% ^8(crit every 3rd use)", (2 * pre3rdUseCritChance + 100) / 3 - pre3rdUseCritChance))
+							t_insert(breakdown.CritChance, s_format("+ %.2f%% ^8(crit every 3rd use)", (2 * preSkillUseCritChance + 100) / 3 - preSkillUseCritChance))
+						end
+						if skillModList:Flag(skillCfg, "Every5UseCrit") then
+							t_insert(breakdown.CritChance, s_format("+ %.2f%% ^8(crit every 5th use)", (4 * preSkillUseCritChance + 100) / 5 - preSkillUseCritChance))
 						end
 						t_insert(breakdown.CritChance, s_format("= %.2f%%", preHitCheckCritChance))
 					end
@@ -2968,6 +2974,8 @@ function calcs.offence(env, actor, activeSkill)
 
 		--Calculate reservation DPS
 		globalOutput.ReservationDpsMultiplier = 100 / (100 - enemyDB:Sum("BASE", nil, "LifeReservationPercent"))
+		
+		runSkillFunc("postCritFunc")
 
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
