@@ -209,3 +209,33 @@ minions["GuardianRelicAll"] = {
 #monster Metadata/Monsters/ElderTentacle/ElderTentacleMinionLargePlayer VoidSpawn
 #limit ActiveVoidSpawnLimit
 #emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralAhuanaMinion AncestralAhuanaMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralAkoyaMinion AncestralAkoyaMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralIkiahoMinion AncestralIkiahoMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralKahuturoaMinion_ AncestralKahuturoaMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralKaomMinion_ AncestralKaomMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralKiloavaMinion__ AncestralKiloavaMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralMaataMinion AncestralMaataMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralRakiataMinion AncestralRakiataMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralTawhanukuMinion AncestralTawhanukuMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralUtulaMinion_ AncestralUtulaMinion
+#emit

@@ -865,11 +865,6 @@ local skills, mod, flag, skill = ...
 	minionList = {
 		"GuardianRelicAll",
 	},
-	statMap = {
-		["minion_actor_level_is_user_level_up_to_maximum"] = {
-			skill("minionLevelIsPlayerLevel", true),
-		},
-	},
 #mods
 
 #skill SummonHarbingerOfTheArcaneUber
@@ -980,9 +975,6 @@ local skills, mod, flag, skill = ...
 		},
 		["radiant_sentinel_minion_burning_effect_radius"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Multiplier:GuardianSentinelFireAuraRadius", "BASE", nil) }),
-		},
-		["minion_actor_level_is_user_level_up_to_maximum"] = {
-			skill("minionLevelIsPlayerLevel", true),
 		},
 	},
 #mods
@@ -1110,6 +1102,187 @@ local skills, mod, flag, skill = ...
 #skill VoidShot
 #flags attack projectile area
 	fromItem = true,
+#mods
+
+#skill TriggerSummonedAncestorAhuana
+#flags spell duration minion
+	fromTree = true,
+	minionList = {
+		"AncestralAhuanaMinion",
+	},
+	statMap = {
+		["ancestral_buff_base_spell_damage_%_suppressed"] = {
+			mod("SpellSuppressionEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Ahuana" }, { type = "Multiplier", var = "RamakoTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_ramako_tattoo"] = {
+			mod("Multiplier:RamakoTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "RamakoTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+#mods
+
+#skill TriggerSummonedAncestorAkoya
+#flags spell duration minion
+	fromTree = true,
+	minionList = {
+		"AncestralAkoyaMinion",
+	},
+	statMap = {
+		["ancestral_buff_base_rage_regeneration_per_minute"] = {
+			mod("RageRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Akoya" }, { type = "Multiplier", var = "TukohamaTattooEffect", noFloor = true }),
+			div = 60,
+		},
+		["ancestral_embrace_effect_+%_per_tukohama_tattoo"] = {
+			mod("Multiplier:TukohamaTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "TukohamaTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+#mods
+
+#skill TriggerSummonedAncestorIkiaho
+#flags spell duration minion
+	fromTree = true,
+	minionList = {
+		"AncestralIkiahoMinion",
+	},
+	statMap = {
+		["ancestral_buff_travel_skill_cooldown_speed_+%"] = {
+			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Travel }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Ikiaho" }, { type = "Multiplier", var = "ArohonguiTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_arohongui_tattoo"] = {
+			mod("Multiplier:ArohonguiTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "ArohonguiTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+#mods
+
+#skill TriggerSummonedAncestorKahuturoa
+#flags spell duration minion
+	fromTree = true,
+	minionList = {
+		"AncestralKahuturoaMinion",
+	},
+	statMap = {
+		["ancestral_buff_armour_%_applies_to_all_damage_from_hits"] = {
+			mod("ArmourAppliesToFireDamageTaken", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kahuturoa" }, { type = "Multiplier", var = "RongokuraiTattooEffect", noFloor = true }),
+			mod("ArmourAppliesToColdDamageTaken", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kahuturoa" }, { type = "Multiplier", var = "RongokuraiTattooEffect", noFloor = true }),
+			mod("ArmourAppliesToLightningDamageTaken", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kahuturoa" }, { type = "Multiplier", var = "RongokuraiTattooEffect", noFloor = true }),
+			mod("ArmourAppliesToChaosDamageTaken", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kahuturoa" }, { type = "Multiplier", var = "RongokuraiTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_rongokurai_tattoo"] = {
+			mod("Multiplier:RongokuraiTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "RongokuraiTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+#mods
+
+#skill TriggerSummonedAncestorKaom
+#flags spell duration minion
+	fromTree = true,
+	minionList = {
+		"AncestralKaomMinion",
+	},
+	statMap = {
+		["ancestral_buff_damage_removed_from_your_nearest_totem_before_life_or_es_%"] = {
+			mod("takenFromTotemsBeforeYou", "BASE", nil, 0, 0, { type = "Condition", var = "HaveTotem" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kaom" }, { type = "Multiplier", var = "NgamahuTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_ngamahu_tattoo"] = {
+			mod("Multiplier:NgamahuTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "NgamahuTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+#mods
+
+#skill TriggerSummonedAncestorKiloava
+#flags spell duration minion
+	fromTree = true,
+	minionList = {
+		"AncestralKiloavaMinion",
+	},
+	statMap = {
+		["ancestral_buff_recover_%_of_maximum_life_mana_energy_shield_on_block"] = {
+			mod("Multiplier:KiloavaRecoverOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "ValakoTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_valako_tattoo"] = {
+			mod("Multiplier:ValakoTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "ValakoTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+#baseMod mod("LifeOnBlock", "BASE", 1, 0, 0, { type = "PercentStat", stat = "Life", percentVar = "KiloavaRecoverOnBlock", floor = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kiloava" })
+#baseMod mod("EnergyShieldOnBlock", "BASE", 1, 0, 0, { type = "PercentStat", stat = "EnergyShield", percentVar = "KiloavaRecoverOnBlock", floor = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kiloava" })
+#baseMod mod("ManaOnBlock", "BASE", 1, 0, 0, { type = "PercentStat", stat = "Mana", percentVar = "KiloavaRecoverOnBlock", floor = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kiloava" })
+#mods
+
+#skill TriggerSummonedAncestorMaata
+#flags spell duration minion
+	fromTree = true,
+	minionList = {
+		"AncestralMaataMinion",
+	},
+	statMap = {
+		["ancestral_buff_flask_charges_recovered_per_3_seconds"] = {
+			mod("FlaskChargesGenerated", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Maata" }, { type = "Multiplier", var = "TawhoaTattooEffect", noFloor = true }),
+			div = 3,
+		},
+		["ancestral_embrace_effect_+%_per_tawhoa_tattoo"] = {
+			mod("Multiplier:TawhoaTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "TawhoaTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+#mods
+
+#skill TriggerSummonedAncestorRakiata
+#flags spell duration minion
+	fromTree = true,
+	minionList = {
+		"AncestralRakiataMinion",
+	},
+	statMap = {
+		["ancestral_buff_action_speed_+%_minimum_value"] = {
+			mod("MinimumActionSpeed", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Rakiata" }, { type = "Multiplier", var = "TasalioTattooEffect", noFloor = true, base = 100 }),
+		},
+		["ancestral_embrace_effect_+%_per_tasalio_tattoo"] = {
+			mod("Multiplier:TasalioTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "TasalioTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+#mods
+
+#skill TriggerSummonedAncestorTawhanuku
+#flags spell duration minion
+	fromTree = true,
+	minionList = {
+		"AncestralTawhanukuMinion",
+	},
+	statMap = {
+		["ancestral_buff_base_mana_regeneration_rate_per_minute"] = {
+			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Tawhanuku" }, { type = "Multiplier", var = "HinekoraTattooEffect", noFloor = true }),
+			div = 60,
+		},
+		["ancestral_embrace_effect_+%_per_hinekora_tattoo"] = {
+			mod("Multiplier:HinekoraTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "HinekoraTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+#mods
+
+#skill TriggerSummonedAncestorUtula
+#flags spell duration minion
+	fromTree = true,
+	minionList = {
+		"AncestralUtulaMinion",
+	},
+	statMap = {
+		["ancestral_buff_leech_%_is_instant"] = {
+			mod("InstantLifeLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Utula" }, { type = "Multiplier", var = "KitavaTattooEffect", noFloor = true }),
+			mod("InstantManaLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Utula" }, { type = "Multiplier", var = "KitavaTattooEffect", noFloor = true }),
+			mod("InstantEnergyShieldLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Utula" }, { type = "Multiplier", var = "KitavaTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_kitava_tattoo"] = {
+			mod("Multiplier:KitavaTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "KitavaTattoo", base = 1 }),
+			div = 100,
+		},
+	},
 #mods
 
 #skill SupportUniqueCastCurseOnCurse Vixen's Entrapment

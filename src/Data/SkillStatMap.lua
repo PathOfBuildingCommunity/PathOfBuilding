@@ -275,6 +275,9 @@ return {
 ["display_skill_minions_level_is_corpse_level"] = {
 	skill("minionLevelIsEnemyLevel", true),
 },
+["minion_actor_level_is_user_level_up_to_maximum"] = {
+	skill("minionLevelIsPlayerLevel", true),
+},
 ["active_skill_minion_added_damage_+%_final"] = {
 	skill("minionDamageEffectiveness", nil),
 },
