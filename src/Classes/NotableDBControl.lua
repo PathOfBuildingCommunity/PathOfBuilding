@@ -255,7 +255,7 @@ function NotableDBClass:AddValueTooltip(tooltip, index, node)
 			tooltip:AddLine(16, "")
 			for i, line in ipairs(node.sd) do
 				if line ~= " " and (node.mods[i].extra or not node.mods[i].list) then
-					local line = colorCodes.UNSUPPORTED..modLine.line
+					local line = colorCodes.UNSUPPORTED..line
 					line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
 					tooltip:AddLine(16, line)
 				else
