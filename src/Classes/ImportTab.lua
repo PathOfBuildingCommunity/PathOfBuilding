@@ -41,10 +41,13 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	self.controls.accountRealm:SelByValue( main.lastRealm or "PC", "id" )
 	self.controls.accountName = new("EditControl", {"LEFT",self.controls.accountRealm,"RIGHT"}, {8, 0, 200, 20}, main.lastAccountName or "", nil, "%c", nil, nil, nil, nil, true)
 	self.controls.accountName.pasteFilter = function(text)
-		return text:gsub("[\128-\255]",function(c)
-			return codePointToUTF8(c:byte(1)):gsub(".",function(c)
-				return string.format("%%%X", c:byte(1))
-			end)
+		return text:gsub(".", function(c)
+			local byte = c:byte()
+			if byte >= 128 then
+				return string.format("%%%02X", byte)
+			else
+				return c
+			end
 		end)
 	end
 	-- accountHistory Control
@@ -92,16 +95,11 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 		tooltip:AddLine(16, "^7Removes account from the dropdown list")
 	end
 
-	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, {0, 34, 0, 14}, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
-	self.controls.accountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, {0, 4, 170, 18}, "^x4040FFhttps://www.urlencoder.org/", function()
-		OpenURL("https://www.urlencoder.org/")
-	end)
-	
-	self.controls.accountNameMissingDiscriminator = new("LabelControl", {"BOTTOMLEFT",self.controls.accountNameUnicode,"TOPLEFT"}, {0, -4, 0, 18}, "^1Missing discriminator e.g. #1234")
+	self.controls.accountNameMissingDiscriminator = new("LabelControl", {"TOPLEFT",self.controls.accountName,"BOTTOMLEFT"}, {0, 2, 0, 16}, "^1Missing discriminator e.g. #1234")
 	self.controls.accountNameMissingDiscriminator.shown = function()
 		return not self.controls.accountName.buf:match("[#%-]%d%d%d%d$")
 	end
-	
+
 
 	-- Stage: input POESESSID
 	self.controls.sessionHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, {6, 40, 200, 14})
