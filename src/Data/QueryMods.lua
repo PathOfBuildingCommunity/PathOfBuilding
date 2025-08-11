@@ -54991,24 +54991,26 @@ return {
 			}, 
 		}, 
 		["801_FlaskRemovesShock"] = {
+			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_1823903967", 
-				["text"] = "Grants Immunity to Shock for 4 seconds if used while Shocked", 
+				["id"] = "explicit.stat_3854439683", 
+				["text"] = "Grants Immunity to Shock for # seconds if used while Shocked", 
 				["type"] = "explicit", 
 			}, 
 		}, 
 		["802_FlaskShockImmunity"] = {
 			["Flask"] = {
-				["max"] = 1, 
-				["min"] = 1, 
+				["max"] = 17, 
+				["min"] = 6, 
 			}, 
+			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_1823903967", 
-				["text"] = "Grants Immunity to Shock for 4 seconds if used while Shocked", 
+				["id"] = "explicit.stat_3854439683", 
+				["text"] = "Grants Immunity to Shock for # seconds if used while Shocked", 
 				["type"] = "explicit", 
 			}, 
 		}, 

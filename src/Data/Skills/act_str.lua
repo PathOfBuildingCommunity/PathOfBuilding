@@ -4994,6 +4994,11 @@ skills["GlacialHammerAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["additional_main_hand_hits_per_combo_average"] = {
+			flag("Every3UseCrit"),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,

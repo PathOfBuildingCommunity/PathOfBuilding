@@ -466,19 +466,22 @@ Variant: Mine Laying Speed Pre 3.26.0
 Variant: Focus Spell Trigger Pre 3.26.0
 Variant: Focus Ailment Duration Pre 3.26.0
 Variant: Avoid Elemental Damage Pre 3.26.0
-Variant: Fire and Chaos Resistances
-Variant: Cold and Chaos Resistances
-Variant: Lightning and Chaos Resistances
-Variant: Strength and Dexterity
-Variant: Dexterity and Intelligence
-Variant: Strength and Intelligence
-Variant: Mine Laying Speed
-Variant: Focus Spell Trigger
-Variant: Focus Ailment Duration
-Variant: Avoid Elemental Damage
+Variant: Additional Minions + Minion Life
+Variant: +2 AoE Gems + inc AoE
+Variant: +2 Proj Gems + Pierce
+Variant: +2 Melee Gems + Strike Range
+Variant: Life + Mana Regen
+Variant: Mana + Life Regen
+Variant: Inc Evasion while Focused
+Variant: Physical Damage Reduction while Focused
+Variant: +2 Gems
+Variant: Inc Corpse Life
+Variant: Attack/Cast Speed if consumed corpse
+Variant: Take no Crit Damage if Recharge
+Variant: Damage if consumed corpse
 {variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25}+1 to Level of Socketed Gems
 {variant:1,2,3,4,5,6,7,8,9,10,11,12,13}Socketed Gems have 40% increased Mana Reservation Efficiency
-{variant:14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35}Socketed Gems have 25% increased Reservation Efficiency
+{variant:14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38}Socketed Gems have 25% increased Reservation Efficiency
 Trigger Level 15 Feast of Flesh every 5 seconds
 (180-220)% increased Energy Shield
 10% chance for Energy Shield Recharge to start when you use a Skill
@@ -499,17 +502,37 @@ Eldritch Battery
 {variant:13}{crafted}(6-9)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
 {variant:14}(161-180)% increased Duration of Ailments you inflict while Focused
 {variant:15}(81-90)% increased Duration of Ailments you inflict while Focused
-{variant:16,26}+(16-20)% to Fire and Chaos Resistances
-{variant:17,27}+(16-20)% to Cold and Chaos Resistances
-{variant:18,28}+(16-20)% to Lightning and Chaos Resistances
-{variant:19,29}+(31-35) to Strength and Dexterity
-{variant:20,30}+(31-35) to Dexterity and Intelligence
-{variant:21,31}+(31-35) to Strength and Intelligence
-{variant:22,32}(14-16)% increased Mine Laying Speed
-{variant:23,33}Trigger Socketed Spells when you Focus, with a 0.25 second Cooldown
-{variant:23,33}Focus has (5-8)% increased Cooldown Recovery Rate
-{variant:24,34}(36-40)% increased Duration of Ailments you inflict while Focused
-{variant:25,35}(10-12)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
+{variant:16}+(16-20)% to Fire and Chaos Resistances
+{variant:17}+(16-20)% to Cold and Chaos Resistances
+{variant:18}+(16-20)% to Lightning and Chaos Resistances
+{variant:19}+(31-35) to Strength and Dexterity
+{variant:20}+(31-35) to Dexterity and Intelligence
+{variant:21}+(31-35) to Strength and Intelligence
+{variant:22}(14-16)% increased Mine Laying Speed
+{variant:23}Trigger Socketed Spells when you Focus, with a 0.25 second Cooldown
+{variant:23}Focus has (5-8)% increased Cooldown Recovery Rate
+{variant:24}(36-40)% increased Duration of Ailments you inflict while Focused
+{variant:25}(10-12)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
+{variant:26}+1 to maximum number of Raised Zombies
+{variant:26}+1 to maximum number of Skeletons
+{variant:26}Minions have (8-10)% increased maximum Life
+{variant:27}(8-10)% increased Area of Effect
+{variant:27}+2 to Level of Socketed AoE Gems
+{variant:28}Projectiles Pierce an additional Target
+{variant:28}+2 to Level of Socketed Projectile Gems
+{variant:29}+0.2 metres to Melee Strike Range
+{variant:29}+2 to Level of Socketed Melee Gems
+{variant:30}+(55-60) to maximum Life
+{variant:30}Regenerate 5.3 Mana per second
+{variant:31}+(55-60) to maximum Mana
+{variant:31}Regenerate 33.3 Life per second
+{variant:32}(30-32)% increased Evasion Rating while Focused
+{variant:33}(13-15)% additional Physical Damage Reduction while Focused
+{variant:34}+2 to Level of Socketed Gems
+{variant:35}Corpses you Spawn have 20% increased Maximum Life
+{variant:36}20% increased Attack and Cast Speed if you've Consumed a Corpse Recently
+{variant:37}Take no Extra Damage from Critical Strikes if Energy Shield Recharge started Recently
+{variant:38}20% increased Damage if you have Consumed a corpse Recently
 ]],[[
 Wilma's Requital
 Solaris Circlet

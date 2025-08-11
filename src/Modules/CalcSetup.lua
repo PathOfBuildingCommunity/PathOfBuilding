@@ -587,6 +587,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local allocatedMasteryCount = env.spec.allocatedMasteryCount
 	local allocatedMasteryTypeCount = env.spec.allocatedMasteryTypeCount
 	local allocatedMasteryTypes = copyTable(env.spec.allocatedMasteryTypes)
+	local allocatedTattooTypes = copyTable(env.spec.allocatedTattooTypes)
 
 
 
@@ -614,6 +615,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 					elseif node.type == "Notable" then
 						allocatedNotableCount = allocatedNotableCount + 1
 					end
+					if node.isTattoo and node.overrideType then
+						if not allocatedTattooTypes[node.overrideType] then
+							allocatedTattooTypes[node.overrideType] = 1
+						else
+							local prevCount = allocatedTattooTypes[node.overrideType]
+							allocatedTattooTypes[node.overrideType] = prevCount + 1
+						end
+					end
 				end
 			end
 			for _, node in pairs(env.spec.allocNodes) do
@@ -629,6 +638,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					elseif node.type == "Notable" then
 						allocatedNotableCount = allocatedNotableCount - 1
+					end
+					if node.isTattoo and node.overrideType then
+						if allocatedTattooTypes[node.overrideType] then
+							allocatedTattooTypes[node.overrideType] = allocatedTattooTypes[node.overrideType] - 1
+						end
 					end
 				end
 			end
@@ -650,6 +664,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 	end
 	if allocatedMasteryTypes["Life Mastery"] and allocatedMasteryTypes["Life Mastery"] > 0 then
 		modDB:NewMod("Multiplier:AllocatedLifeMastery", "BASE", allocatedMasteryTypes["Life Mastery"])
+	end
+	if allocatedTattooTypes then
+		for type, count in pairs(allocatedTattooTypes) do
+			env.modDB.multipliers[type] = count
+		end
 	end
 
 	-- Build and merge item modifiers, and create list of radius jewels
@@ -989,17 +1008,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				elseif item.name:match("Kalandra's Touch") then
-					-- Reset mult counters since they don't work for kalandra
-					for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder", ["WarlordItem"] = "warlord", ["HunterItem"] = "hunter", ["CrusaderItem"] = "crusader", ["RedeemerItem"] = "redeemer"}) do
-						if item[property] then
-							env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) - 1
-						else
-							env.itemModDB.multipliers["Non"..mult] = (env.itemModDB.multipliers["Non"..mult] or 0) + 1
-						end
-					end
-					if item.shaper or item.elder then
-						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) - 1
-					end
 					local otherRing = items[(slotName == "Ring 1" and "Ring 2") or (slotName == "Ring 2" and "Ring 1")]
 					if otherRing and not otherRing.name:match("Kalandra's Touch") then
 						for _, mod in ipairs(otherRing.modList or otherRing.slotModList[slot.slotNum] or {}) do
@@ -1017,7 +1025,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 							::skip_mod::
 						end
 						-- Adjust multipliers based on other ring
-						for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder", ["WarlordItem"] = "warlord", ["HunterItem"] = "hunter", ["CrusaderItem"] = "crusader", ["RedeemerItem"] = "redeemer"}) do
+						for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder", ["WarlordItem"] = "adjudicator", ["HunterItem"] = "basilisk", ["CrusaderItem"] = "crusader", ["RedeemerItem"] = "eyrie"}) do
 							if otherRing[property] then
 								env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) + 1
 								env.itemModDB.multipliers["Non"..mult] = (env.itemModDB.multipliers["Non"..mult] or 0) - 1
@@ -1051,19 +1059,29 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end	
 					env.itemModDB:ScaleAddList(combinedList, scale)
 				elseif item.type == "Gloves" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves") ~=1 then
-					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves")
+					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves") - 1
 					local combinedList = new("ModList")
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
 					end
-					env.itemModDB:ScaleAddList(combinedList, scale)
+					local scaledList = new("ModList")
+					scaledList:ScaleAddList(combinedList, scale)
+					for _, mod in ipairs(scaledList) do
+						combinedList:MergeMod(mod)
+					end
+					env.itemModDB:AddList(combinedList)
 				elseif item.type == "Boots" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots") ~= 1 then
-					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots")
+					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots") - 1
 					local combinedList = new("ModList")
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
 					end
-					env.itemModDB:ScaleAddList(combinedList, scale)
+					local scaledList = new("ModList")
+					scaledList:ScaleAddList(combinedList, scale)
+					for _, mod in ipairs(scaledList) do
+						combinedList:MergeMod(mod)
+					end
+					env.itemModDB:AddList(combinedList)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
 				end

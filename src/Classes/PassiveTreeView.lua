@@ -1028,7 +1028,13 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 					line = line .. "  " .. modStr
 				end
 			end
-			tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
+			if line ~= " " and (node.mods[i].extra or not node.mods[i].list) then 
+				local line = colorCodes.UNSUPPORTED..line
+				line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
+				tooltip:AddLine(16, line)
+			else
+				tooltip:AddLine(16, colorCodes.MAGIC..line)
+			end
 		end
 	end
 
@@ -1104,7 +1110,8 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			or (node.type == "Keystone") or (node.type == "Mastery") )
 	then
 		tooltip:AddSeparator(14)
-		tooltip:AddLine(14, colorCodes.TIP.."Tip: Right click to edit the tattoo for this node")
+		local nodeEditType = (node.type == "Mastery") and "runegraft" or "tattoo"
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Right click to edit the " .. nodeEditType .. " for this node")
 	end
 
 	-- Mod differences
@@ -1145,7 +1152,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			end
 		end
 		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, realloc and "^7Reallocating this node will give you:" or node.alloc and "^7Unallocating this node will give you:" or isGranted and "^7This node is granted by an item. Removing it will give you:" or "^7Allocating this node will give you:")
-		if pathLength > 1 and not isGranted then
+		if pathLength > 1 and not isGranted and (#node.intuitiveLeapLikesAffecting == 0 or node.alloc) then
 			count = count + build:AddStatComparesToTooltip(tooltip, calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:", pathLength)
 		end
 		if count == 0 then

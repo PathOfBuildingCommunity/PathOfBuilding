@@ -404,8 +404,8 @@ Implicits: 1
 {variant:1}You gain Onslaught for 2 seconds on Killing Taunted Enemies
 {variant:2,3,4,5}Gain Onslaught for 4 seconds when you Warcry
 {variant:2,3,4,5}25% increased Warcry Buff Effect
-{variant:4}Call to Arms
-{variant:5}Warlord's Call
+{variant:4}Warlord's Call
+{variant:5}Call to Arms
 ]],[[
 Thousand Teeth Temu
 Vaal Buckler

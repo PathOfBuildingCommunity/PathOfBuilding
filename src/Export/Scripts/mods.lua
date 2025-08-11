@@ -174,5 +174,8 @@ writeMods("../Data/ModNecropolis.lua", function(mod)
 	return mod.Domain == 1 and mod.Id:match("^NecropolisCrafting")
 end)
 
+writeMods("../Data/BeastCraft.lua", function(mod)
+	return (mod.Id:match("Aspect")  and mod.GenerationType == 2)  -- Aspect Crafts
+end)
 
 print("Mods exported.")

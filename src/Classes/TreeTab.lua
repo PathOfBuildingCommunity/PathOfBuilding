@@ -877,6 +877,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end
 	controls.save = new("ButtonControl", nil, {-90, 75, 80, 20}, "Add", function()
 		addModifier(selectedNode)
+		self.build.spec:AddUndoState()
 		self.modFlag = true
 		self.build.buildFlag = true
 		self.defaultTattoo[nodeName] = controls.modSelect.selIndex
@@ -884,6 +885,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end)
 	controls.reset = new("ButtonControl", nil, {0, 75, 80, 20}, "Reset Node", function()
 		self:RemoveTattooFromNode(selectedNode)
+		self.build.spec:AddUndoState()
 		self.modFlag = true
 		self.build.buildFlag = true
 		self.defaultTattoo[nodeName] = nil
@@ -1916,6 +1918,17 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:Clear()
 		tooltip:AddLine(16, "^7Click this button to generate new fallback node weights, replacing your old ones.")
 	end
+	controls.totalMinimumWeightLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {405, 250, 0, 16}, "^7Total Minimum Weight:")
+	controls.totalMinimumWeight = new("EditControl", {"LEFT", controls.totalMinimumWeightLabel, "RIGHT"}, {10, 0, 60, 18}, "", nil, "%D", nil, function(val)
+		local num = tonumber(val)
+		timelessData.totalMinimumWeight = num or nil
+		self.build.modFlag = true
+	end)
+	controls.totalMinimumWeight.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Optional: Only show results where total weight meets or exceeds this value.")
+	end
+	
 
 	controls.searchListButton = new("ButtonControl", {"TOPLEFT", nil, "TOPLEFT"}, {12, 250, 106, 20}, "^7Desired Nodes", function()
 		if controls.searchListFallback.shown then
@@ -1964,7 +1977,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchListFallback.enabled = false
 	controls.searchListFallback:SetText(timelessData.searchListFallback and timelessData.searchListFallback or "")
 
-	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, { -450, 250, 0, 16 }, "^7Search Results:")
+	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, { -390, 250, 0, 16 }, "^7Results:")
 	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", nil, "TOPRIGHT" }, { -450, 275, 438, 200 }, self.build)
 	controls.searchTradeLeagueSelect = new("DropDownControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, { -175, -5, 140, 20 }, nil, function(_, value)
 		self.timelessJewelLeagueSelect = value
@@ -2359,7 +2372,9 @@ function TreeTabClass:FindTimelessJewel()
 			end
 			local searchResultsIdx = 1
 			for seedMatch, seedData in pairs(resultNodes) do
-				if seedWeights[seedMatch] > 0 then
+				-- filter out the results so that only the ones that beat the total minimum weight parameter remain in search results
+				local passesMin = (not timelessData.totalMinimumWeight) or (seedWeights[seedMatch] >= timelessData.totalMinimumWeight)
+				if seedWeights[seedMatch] > 0 and passesMin then
 					timelessData.searchResults[searchResultsIdx] = { label = seedMatch .. ":" }
 					if timelessData.jewelType.id == 1 or timelessData.jewelType.id == 3 then
 						-- Glorious Vanity [100-8000], Brutal Restraint [500-8000]

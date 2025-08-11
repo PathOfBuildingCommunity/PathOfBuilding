@@ -237,8 +237,8 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 						fullDPS.cullingMulti = usedEnv.minion.output.CullMultiplier
 					end
 					-- This is a fix to prevent skills such as Absolution or Dominating Blow from being counted multiple times when increasing minions count
-					if (activeSkill.activeEffect.grantedEffect.name == "Absolution" and fullEnv.modDB:Flag(false, "Condition:AbsolutionSkillDamageCountedOnce"))
-						or (activeSkill.activeEffect.grantedEffect.name == "Dominating Blow" and fullEnv.modDB:Flag(false, "Condition:DominatingBlowSkillDamageCountedOnce")) then
+					if (activeSkill.activeEffect.grantedEffect.name:match("Absolution") and fullEnv.modDB:Flag(false, "Condition:AbsolutionSkillDamageCountedOnce"))
+						or (activeSkill.activeEffect.grantedEffect.name:match("Dominating Blow") and fullEnv.modDB:Flag(false, "Condition:DominatingBlowSkillDamageCountedOnce")) then
 						activeSkillCount = 1
 						activeSkill.infoMessage2 = "Skill Damage"
 					end
@@ -393,10 +393,10 @@ function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingF
 	-- env.limitedSkills contains a map of uuids that should be limited in calculation
 	-- this is in order to prevent infinite recursion loops
 	fullEnv.limitedSkills = fullEnv.limitedSkills or {}
-	for uuid, _ in pairs(env.limitedSkills or {}) do
+	for _, uuid in ipairs(env.limitedSkills or {}) do
 		fullEnv.limitedSkills[uuid] = true
 	end
-	for uuid, _ in pairs(limitedProcessingFlags or {}) do
+	for _, uuid in ipairs(limitedProcessingFlags or {}) do
 		fullEnv.limitedSkills[uuid] = true
 	end
 

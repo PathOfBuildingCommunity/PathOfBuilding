@@ -12074,6 +12074,9 @@ skills["LightningTendrils"] = {
 	castTime = 0.23,
 	parts = {
 		{
+			name = "Average DPS",
+		},
+		{
 			name = "Normal pulse",
 		},
 		{
@@ -12082,16 +12085,23 @@ skills["LightningTendrils"] = {
 	},
 	statMap = {
 		["lightning_tendrils_channelled_larger_pulse_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 }),
 		},
 		["lightning_tendrils_channelled_larger_pulse_always_crit"] = {
-			mod("CritChance", "OVERRIDE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("CritChance", "OVERRIDE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 			base = 100
+		},
+		["lightning_tendrils_channelled_larger_pulse_interval"] = {
+			flag("Every3UseCrit", { type = "SkillPart", skillPart = 1 }),
 		},
 	},
 	baseFlags = {
 		spell = true,
 		area = true,
+	},
+	baseMods = {
+		mod("DPS", "MORE", -2/3 * 100, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		mod("DPS", "MORE", -1/3 * 100, 0, 0, { type = "SkillPart", skillPart = 3 }),
 	},
 	qualityStats = {
 		Default = {
@@ -12167,7 +12177,31 @@ skills["LightningTendrilsAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Lightning] = true, [SkillType.Channel] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.23,
+	preDamageFunc = function(activeSkill, output, breakdown)
+		-- DPS multiplier applied to the skills to reflect the DPS from each skill part
+		local interval = activeSkill.skillData.pulseInterval
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillModList:NewMod("DPS", "MORE", -(1 / interval) * 100, "Normal pulse", 0, 0, { type = "SkillPart", skillPart = 2 })
+		elseif activeSkill.skillPart == 3 then
+			activeSkill.skillModList:NewMod("DPS", "MORE", -(interval - 1)/ interval * 100, "Stronger pulse", 0, 0, { type = "SkillPart", skillPart = 3 })
+		end
+	end,
+	postCritFunc = function(activeSkill, output, breakdown)
+		-- Formula to find a effective damage multiplier to take into account the 500% more damage on every 5th hit
+		if activeSkill.skillPart == 1 then
+			local interval = activeSkill.skillData.pulseInterval
+			local pulseDamage = activeSkill.skillData.pulseDamage / 100
+			local critChance = output.PreEffectiveCritChance / 100
+			local effectiveCritChance = output.CritChance / 100
+			local critMulti = output.CritMultiplier
+			local averageMore = 100 * (((interval - 1) * (1 + critChance * (critMulti - 1)) + (1 + pulseDamage) * critMulti) / (interval * ((1 - effectiveCritChance) + critMulti * effectiveCritChance)) - 1)
+			activeSkill.skillModList:NewMod("Damage", "MORE", averageMore, "Average Pulse Damage", nil, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 })
+		end
+	end,
 	parts = {
+		{
+			name = "Average DPS",
+		},
 		{
 			name = "Normal pulse",
 		},
@@ -12177,14 +12211,19 @@ skills["LightningTendrilsAltX"] = {
 	},
 	statMap = {
 		["lightning_tendrils_channelled_larger_pulse_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 }),
+			skill("pulseDamage", nil),
 		},
 		["lightning_tendrils_channelled_larger_pulse_area_of_effect_+%_final"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
 		["lightning_tendrils_channelled_larger_pulse_always_crit"] = {
-			mod("CritChance", "OVERRIDE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("CritChance", "OVERRIDE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 			base = 100
+		},
+		["lightning_tendrils_channelled_larger_pulse_interval"] = {
+			flag("Every5UseCrit", { type = "SkillPart", skillPart = 1 }),
+			skill("pulseInterval", nil),
 		},
 	},
 	baseFlags = {

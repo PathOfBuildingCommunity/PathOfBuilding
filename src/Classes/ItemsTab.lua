@@ -762,7 +762,13 @@ holding Shift will put it in the second.]])
 					if node.sd[1] then
 						tooltip:AddLine(16, "")
 						for i, line in ipairs(node.sd) do
-							tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
+							if line ~= " " and (node.mods[i].extra or not node.mods[i].list) then
+								local line = colorCodes.UNSUPPORTED .. line
+								line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
+								tooltip:AddLine(16, line)
+							else
+								tooltip:AddLine(16, colorCodes.MAGIC..line)
+							end
 						end
 					end
 
@@ -2691,24 +2697,44 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					return a.defaultOrder < b.defaultOrder
 				end
 			end)
+		elseif sourceId == "BEASTCRAFT" then
+			for i, mod in pairs(self.build.data.beastCraft) do
+				t_insert(modList, {
+					label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
+					mod = mod,
+					affixType = mod.type,
+					type = "custom",
+					defaultOrder = i,
+				})
+			end
+			table.sort(modList, function(a, b)
+				if a.affixType ~= b.affixType then
+					return a.affixType == "Prefix" and b.affixType == "Suffix"
+				else
+					return a.defaultOrder < b.defaultOrder
+				end
+			end)
 		end
 	end
-	if self.displayItem.type ~= "Jewel" then
-		t_insert(sourceList, { label = "Crafting Bench", sourceId = "MASTER" })
-	end
-	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
-		t_insert(sourceList, { label = "Essence", sourceId = "ESSENCE" })
-		t_insert(sourceList, { label = "Veiled", sourceId = "VEILED"})
-	end
-	if self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots" then
-		t_insert(sourceList, { label = "Necropolis", sourceId = "NECROPOLIS"})
-	end
-	if not self.displayItem.clusterJewel and self.displayItem.type ~= "Flask" then
-		t_insert(sourceList, { label = "Delve", sourceId = "DELVE"})
-	end
-	if not self.displayItem.crafted then
-		t_insert(sourceList, { label = "Prefix", sourceId = "PREFIX" })
-		t_insert(sourceList, { label = "Suffix", sourceId = "SUFFIX" })
+	if self.displayItem.type ~= "Tincture"  then
+		if self.displayItem.type ~= "Jewel" then
+			t_insert(sourceList, { label = "Crafting Bench", sourceId = "MASTER" })
+		end
+		if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
+			t_insert(sourceList, { label = "Essence", sourceId = "ESSENCE" })
+			t_insert(sourceList, { label = "Veiled", sourceId = "VEILED"})
+			t_insert(sourceList, { label = "Beastcraft", sourceId = "BEASTCRAFT" })
+		end
+		if self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots" then
+			t_insert(sourceList, { label = "Necropolis", sourceId = "NECROPOLIS"})
+		end
+		if not self.displayItem.clusterJewel and self.displayItem.type ~= "Flask" then
+			t_insert(sourceList, { label = "Delve", sourceId = "DELVE"})
+		end
+		if not self.displayItem.crafted then
+			t_insert(sourceList, { label = "Prefix", sourceId = "PREFIX" })
+			t_insert(sourceList, { label = "Suffix", sourceId = "SUFFIX" })
+		end
 	end
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
 	buildMods(sourceList[1].sourceId)
@@ -3318,7 +3344,13 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			main:StatColor(flaskData.chargesMax, base.flask.chargesMax), flaskData.chargesMax
 		))
 		for _, modLine in pairs(item.buffModLines) do
-			tooltip:AddLine(16, (modLine.extra and colorCodes.UNSUPPORTED or colorCodes.MAGIC) .. modLine.line)
+			if modLine.extra then
+				local line = colorCodes.UNSUPPORTED..modLine.line
+				line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
+				tooltip:AddLine(16, line)
+			else
+				tooltip:AddLine(16, colorCodes.MAGIC..modLine.line)
+			end
 		end
 	elseif base.tincture then
 		-- Tincture-specific info
@@ -3331,7 +3363,13 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		tooltip:AddLine(16, s_format("^x7F7F7FInflicts Mana Burn every %s%.2f ^x7F7F7FSeconds", main:StatColor(tinctureData.manaBurn, base.tincture.manaBurn), tinctureData.manaBurn))
 		tooltip:AddLine(16, s_format("^x7F7F7F%s%.2f ^x7F7F7FSecond Cooldown When Deactivated", main:StatColor(tinctureData.cooldown, base.tincture.cooldown), tinctureData.cooldown))
 		for _, modLine in pairs(item.buffModLines) do
-			tooltip:AddLine(16, (modLine.extra and colorCodes.UNSUPPORTED or colorCodes.MAGIC) .. modLine.line)
+			if modLine.extra then
+				local line = colorCodes.UNSUPPORTED..modLine.line
+				line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
+				tooltip:AddLine(16, line)
+			else
+				tooltip:AddLine(16, colorCodes.MAGIC..modLine.line)
+			end
 		end
 	elseif item.type == "Jewel" then
 		-- Jewel-specific info

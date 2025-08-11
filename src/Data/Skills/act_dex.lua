@@ -17509,6 +17509,9 @@ skills["PoisonousConcoctionAltX"] = {
 		area = true,
 		projectile = true,
 	},
+	baseMods = {
+		mod("DPS", "MORE", 100, 0, 0, { type = "PerStat", stat = "ChainMax" }),
+	},
 	qualityStats = {
 		Default = {
 			{ "withered_on_hit_for_2_seconds_%_chance", 1 },

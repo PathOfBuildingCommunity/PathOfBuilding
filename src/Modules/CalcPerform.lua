@@ -30,7 +30,7 @@ local bnot = bit.bnot
 local function getCachedOutputValue(env, activeSkill, ...)
 	local uuid = cacheSkillUUID(activeSkill, env)
 	if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-		calcs.buildActiveSkill(env, env.mode, activeSkill, uuid, {[uuid] = true})
+		calcs.buildActiveSkill(env, env.mode, activeSkill, uuid, {uuid})
 	end
 
 	local tempValues = {}
@@ -674,6 +674,10 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("PhysicalDamageConvertToChaos", "BASE", m_floor(100 * effect), "Unholy Might")
 			modDB:NewMod("Condition:CanWither", "FLAG", true, "Unholy Might")
 		end
+		if modDB:Flag(nil, "ShepherdOfSouls") then
+			modDB:NewMod("SoulCost", "MORE", -80, "Shepherd of Souls", { type = "SkillType", skillType = SkillType.Vaal }, { type = "SkillType", skillType = SkillType.Aura, neg = true })
+			modDB:NewMod("SoulCost", "INC", 100, "Shepherd of Souls", { type = "SkillType", skillType = SkillType.Vaal }, { type = "SkillType", skillType = SkillType.Aura, neg = true }, { type = "Multiplier", var = "VaalSkillsUsedInPast8Seconds" })
+		end
 		if modDB:Flag(nil, "ChaoticMight") then
 			local effect = m_floor(30 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
 			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", effect, "Chaotic Might")
@@ -758,7 +762,9 @@ local function doActorMisc(env, actor)
 			local ailmentData = data.nonDamagingAilment
 			local chillValue = m_max(modDB:Sum("BASE", nil, "SelfChillOverride"), modDB:Override(nil, "ChillVal")) or ailmentData.Chill.default
 			local totalChillSelfEffect = calcLib.mod(modDB, nil, "SelfChillEffect")
-			local avoidChill = modDB:Flag(nil, "ChillImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidChill", "AvoidAilments", "AvoidElementalAilments") + (modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") and modDB:Sum("BASE", nil, "AvoidShock") or 0), 100))
+			local avoidChill = modDB:Flag(nil, "ChillImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidChill", "AvoidAilments", "AvoidElementalAilments")
+																+ (modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") and modDB:Sum("BASE", nil, "AvoidShock") or 0)
+																+ (modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") and modDB:Sum("BASE", nil, "SpellSuppressionChance") / 2 or 0), 100))
 			
 			local effect = avoidChill == 100 and 0 or m_min(m_max(m_floor(chillValue *  totalChillSelfEffect), 0), modDB:Override(nil, "ChillMax") or ailmentData.Chill.max)
 			if modDB:Flag(nil, "SkitterbotBonechill") then
@@ -770,7 +776,8 @@ local function doActorMisc(env, actor)
 			local ailmentData = data.nonDamagingAilment
 			local shockValue = m_max(modDB:Sum("BASE", nil, "SelfShockOverride"), modDB:Override(nil, "ShockVal")) or ailmentData.Shock.default
 			local totalShockSelfEffect = calcLib.mod(modDB, nil, "SelfShockEffect")
-			local avoidShock = modDB:Flag(nil, "ShockImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidShock", "AvoidAilments", "AvoidElementalAilments"), 100))
+			local avoidShock = modDB:Flag(nil, "ShockImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidShock", "AvoidAilments", "AvoidElementalAilments")
+																+ (modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") and modDB:Sum("BASE", nil, "SpellSuppressionChance") / 2 or 0), 100))
 			
 			local effect = avoidShock == 100 and 0 or m_min(m_max(m_floor(shockValue *  totalShockSelfEffect), 0), modDB:Override(nil, "ShockMax") or ailmentData.Shock.max)
 			modDB:NewMod("DamageTaken", "INC", effect, "Shock")
@@ -779,8 +786,9 @@ local function doActorMisc(env, actor)
 			local ailmentData = data.nonDamagingAilment
 			local scorchValue = m_max(modDB:Sum("BASE", nil, "SelfScorchOverride"), modDB:Override(nil, "ScorchVal")) or ailmentData.Scorch.default
 			local totalScorchSelfEffect = calcLib.mod(modDB, nil, "SelfScorchEffect")
-			local avoidScorch = modDB:Flag(nil, "ScorchImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidScorch", "AvoidAilments", "AvoidElementalAilments") + (modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") and modDB:Sum("BASE", nil, "AvoidShock") or 0), 100))
-			
+			local avoidScorch = modDB:Flag(nil, "ScorchImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidScorch", "AvoidAilments", "AvoidElementalAilments")
+																+ (modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") and modDB:Sum("BASE", nil, "AvoidShock") or 0)
+																+ (modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") and modDB:Sum("BASE", nil, "SpellSuppressionChance") / 2 or 0), 100))
 			local effect = avoidScorch == 100 and 0 or m_min(m_max(m_floor(scorchValue *  totalScorchSelfEffect), 0), modDB:Override(nil, "ScorchMax") or ailmentData.Scorch.max)
 			modDB:NewMod("ElementalResist", "BASE", -effect, "Scorch")
 		end
@@ -1558,7 +1566,9 @@ function calcs.perform(env, skipEHP)
 			if item.rarity == "MAGIC" then
 				tinctureEffectInc = tinctureEffectInc + effectIncMagic
 			end
-			local effectMod = (1 + (tinctureEffectInc) / 100) * (1 + (item.quality or 0) / 100)
+			-- Compute tincture effect multiplier.
+			-- Tincture effect multiplier is rounded to 2 decimal places before applying it.
+			local effectMod = math.floor((1 + (tinctureEffectInc) / 100) * (1 + (item.quality or 0) / 100) * 100) / 100 
 
 			-- same deal as flasks, go look at the comment there
 			if buffModList[1] then
@@ -1652,7 +1662,7 @@ function calcs.perform(env, skipEHP)
 		breakdown.ManaReserved = { reservations = { } }
 	end
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		if activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
+		if (activeSkill.skillTypes[SkillType.HasReservation] or activeSkill.skillData.triggeredByAutoexertion ) and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
 			local skillModList = activeSkill.skillModList
 			local skillCfg = activeSkill.skillCfg
 			local mult = floor(skillModList:More(skillCfg, "SupportManaMultiplier"), 4)
@@ -2238,7 +2248,7 @@ function calcs.perform(env, skipEHP)
 							end
 						end
 						mult = 0
-						if not (modDB:Flag(nil, "SelfAurasOnlyAffectYou") or activeSkill.skillModList:Flag(skillCfg, "SelfAurasAffectYouAndLinkedTarget")) then
+						if not (modDB:Flag(nil, "SelfAurasOnlyAffectYou")) then
 							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							mult = (1 + inc / 100) * more
@@ -2284,7 +2294,7 @@ function calcs.perform(env, skipEHP)
 						socketedCursesHexLimit = modDB:Flag(activeSkill.skillCfg, "SocketedCursesAdditionalLimit")
 					}
 					local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
-					if activeSkill.skillTypes[SkillType.Aura] then
+					if activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillTypes[SkillType.RemoteMined] then
 						inc = inc + skillModList:Sum("INC", skillCfg, "AuraEffect")
 					end
 					local more = skillModList:More(skillCfg, "CurseEffect")
@@ -3123,7 +3133,7 @@ function calcs.perform(env, skipEHP)
 	for ailment, val in pairs(ailments) do
 		if (enemyDB:Sum("BASE", nil, ailment.."Val") > 0
 		or modDB:Sum("BASE", nil, ailment.."Base", ailment.."Override", ailment.."Minimum"))
-		and not enemyDB:Flag(nil, "Condition:Already"..val.condition) then
+		and not (enemyDB:Flag(nil, "Condition:Already"..val.condition) or enemyDB:Flag(nil, ailment.."Immune", "ElementalAilmentImmune") or enemyDB:Sum("BASE", nil, "Avoid"..ailment, "AvoidAilments", "AvoidElementalAilments") >= 100) then
 			local override = 0
 			local minimum = 0
 			for _, value in ipairs(modDB:Tabulate("BASE", nil, ailment.."Base", ailment.."Override", ailment.."Minimum")) do
@@ -3167,11 +3177,11 @@ function calcs.perform(env, skipEHP)
 
 	-- Update chill and shock multipliers
 	local chillEffectMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ChillEffect")
-	if chillEffectMultiplier < output["CurrentChill"] then
+	if output["CurrentChill"] and chillEffectMultiplier < output["CurrentChill"] then
 		enemyDB:NewMod("Multiplier:ChillEffect", "BASE", output["CurrentChill"] - chillEffectMultiplier, "")
 	end
 	local shockEffectMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ShockEffect")
-	if shockEffectMultiplier < output["CurrentShock"] then
+	if output["CurrentShock"] and shockEffectMultiplier < output["CurrentShock"] then
 		enemyDB:NewMod("Multiplier:ShockEffect", "BASE", output["CurrentShock"] - shockEffectMultiplier, "")
 	end
 

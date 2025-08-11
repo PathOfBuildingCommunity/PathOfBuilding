@@ -944,6 +944,7 @@ local modFlagList = {
 	["of curse auras"] = { keywordFlags = bor(KeywordFlag.Curse, KeywordFlag.Aura, KeywordFlag.MatchAll) },
 	["of hex skills"] = { tag = { type = "SkillType", skillType = SkillType.Hex } },
 	["with hex skills"] = { tag = { type = "SkillType", skillType = SkillType.Hex } },
+	["by retaliation skills"] = { tag = { type = "SkillType", skillType = SkillType.Retaliation } },
 	["of herald skills"] = { tag = { type = "SkillType", skillType = SkillType.Herald } },
 	["with herald skills"] = { tag = { type = "SkillType", skillType = SkillType.Herald } },
 	["with hits from herald skills"] = { tag = { type = "SkillType", skillType = SkillType.Herald }, keywordFlags = KeywordFlag.Hit },
@@ -2244,8 +2245,7 @@ local specialModList = {
 	["non%-instant mana recovery from flasks is also recovered as life"] = { flag("ManaFlaskAppliesToLife") },
 	["life leech effects recover energy shield instead while on full life"] = { flag("ImmortalAmbition", { type = "Condition", var = "FullLife" }, { type = "Condition", var = "LeechingLife" }) },
 	["shepherd of souls"] = {
-		mod("SoulCost", "MORE", -80, { type = "SkillType", skillType = SkillType.Vaal }, { type = "SkillType", skillType = SkillType.Aura, neg = true }),
-		mod("SoulCost", "INC", 100, { type = "SkillType", skillType = SkillType.Vaal }, { type = "SkillType", skillType = SkillType.Aura, neg = true }, { type = "Multiplier", var = "VaalSkillsUsedInPast8Seconds" })
+		flag("ShepherdOfSouls")
 	},
 	["adds (%d+) to (%d+) attack physical damage to melee skills per (%d+) dexterity while you are unencumbered"] = function(_, min, max, dex) return { -- Hollow Palm 3 suffixes
 		mod("PhysicalMin", "BASE", tonumber(min), nil, ModFlag.Melee, KeywordFlag.Attack, { type = "PerStat", stat = "Dex", div = tonumber(dex) }, { type = "Condition", var = "Unencumbered" }),
@@ -2406,6 +2406,9 @@ local specialModList = {
 	["(%d+)%% more damage for each endurance charge lost recently, up to (%d+)%%"] = function(num, _, limit) return {
 		mod("Damage", "MORE", num, { type = "Multiplier", var = "EnduranceChargesLostRecently", limit = tonumber(limit), limitTotal = true }),
 	} end,
+	["nearby enemy monsters have no fire resistance against damage over time while you are stationary"] = {
+		mod("EnemyModifier", "LIST", { mod = mod("FireResist", "OVERRIDE", 0, nil, ModFlag.Dot, { type = "ActorCondition", actor = "player", var = "Stationary" }) }),
+	},
 	["(%d+)%% more damage if you've lost an endurance charge in the past 8 seconds"] = function(num) return { mod("Damage", "MORE", num, { type = "Condition", var = "LostEnduranceChargeInPast8Sec" })	} end,
 	["trigger level (%d+) (.+) when you attack with a non%-vaal slam or strike skill near an enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["non%-unique jewels cause increases and reductions to other damage types in a (%a+) radius to be transformed to apply to (%a+) damage"] = function(_, radius, dmgType) return {
@@ -3021,6 +3024,16 @@ local specialModList = {
 	["trigger level (%d+) (.+) on melee hit if you have at least (%d+) strength"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) on critical strike with cleave or reave"] = function(num, _, skill) return triggerExtraSkill(skill, num, {onCrit = true}) end,
 	["trigger level (%d+) (.+) on melee critical strike"] = function(num, _, skill) return triggerExtraSkill(skill, num, {onCrit = true}) end,
+	["trigger level (%d+) (.+) on critical strike against marked unique enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num, {onCrit = true}) end,
+	["trigger level (%d+) (.+) when you take a critical strike from a unique enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
+	["trigger level (%d+) (.+) when you suppress spell damage from a unique enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
+	["trigger level (%d+) (.+) when you block damage from a unique enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
+	["trigger level (%d+) (.+) on taking a savage hit from a unique enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
+	["trigger level (%d+) (.+) when a totem dies while a unique enemy is in your presence"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
+	["trigger level (%d+) (.+) when you use a travel skill while a unique enemy is in your presence"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
+	["trigger level (%d+) (.+) when you reach maximum rage while a unique enemy is in your presence"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
+	["trigger level (%d+) (.+) when you reach low life while a unique enemy is in your presence"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
+	["trigger level (%d+) (.+) when energy shield recharge starts while a unique enemy is in your presence"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["triggers level (%d+) (.+)"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["triggers level (%d+) (.+) when equipped"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["triggers level (%d+) (.+) when allocated"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
@@ -3285,6 +3298,8 @@ local specialModList = {
 	["your chaos damage can shock"] = { flag("ChaosCanShock") },
 	["your chaos damage can chill"] = { flag("ChaosCanChill") },
 	["your chaos damage can ignite"] = { flag("ChaosCanIgnite") },
+	["your physical damage can ignite"] = { flag("ChaosCanIgnite") },
+	["your physical damage can ignite during effect"] = { flag("PhysicalCanIgnite") },
 	["chaos damage can ignite, chill and shock"] = { flag("ChaosCanIgnite"), flag("ChaosCanChill"), flag("ChaosCanShock") },
 	["your physical damage can chill"] = { flag("PhysicalCanChill") },
 	["your physical damage can shock"] = { flag("PhysicalCanShock") },
@@ -3653,6 +3668,7 @@ local specialModList = {
 	} end,
 	["enemies can have 1 additional curse"] = { mod("EnemyCurseLimit", "BASE", 1) },
 	["you can apply an additional curse"] = { mod("EnemyCurseLimit", "BASE", 1) },
+	["you can apply an additional curse during effect"] = { mod("EnemyCurseLimit", "BASE", 1) },
 	["you can apply an additional curse while affected by malevolence"] = { mod("EnemyCurseLimit", "BASE", 1, { type = "Condition", var = "AffectedByMalevolence" }) },
 	["you can apply an additional curse while at maximum power charges"] = { mod("EnemyCurseLimit", "BASE", 1, { type = "StatThreshold", stat = "PowerCharges", thresholdStat = "PowerChargesMax" }) },
 	["you can apply an additional curse if (%d+) (%a+) items are equipped"] = function(_, thresh, influence) return { mod("EnemyCurseLimit", "BASE", 1, { type = "MultiplierThreshold", var = firstToUpper(influence) .. "Item", threshold = tonumber(thresh) }) } end,
@@ -3896,7 +3912,7 @@ local specialModList = {
 	["debilitate enemies for (%d+) seconds? when you suppress their spell damage"] = { mod("DebilitateChance", "BASE", 100) },
 	["debilitate nearby enemies for (%d+) seconds? when f?l?a?s?k? ?effect ends"] = { mod("DebilitateChance", "BASE", 100) },
 	["counterattacks have a (%d+)%% chance to debilitate on hit for (%d+) seconds?"] = function (num) return { mod("DebilitateChance", "BASE", num) } end,
-	["retaliation skills debilitate enemies for (%d+) seconds on hit"] = function (duration) return { mod("DebilitateChance", "BASE", 100) } end,
+	["retaliation skills debilitate enemies for (%d+) seconds on hit"] = { mod("DebilitateChance", "BASE", 100) },
 	["eat a soul when you hit a unique enemy, no more than once every second"] = { flag("Condition:CanHaveSoulEater") },
 	["eat a soul when you hit a rare or unique enemy, no more than once every [%d%.]+ seconds"] = { flag("Condition:CanHaveSoulEater") },
 	["(%d+)%% chance to gain soul eater for (%d+) seconds on killing blow against rare and unique enemies with double strike or dual strike"] = { flag("Condition:CanHaveSoulEater") },
@@ -4277,6 +4293,9 @@ local specialModList = {
 		mod(type:gsub("^%l", string.upper).."ReflectedDamageTaken", "INC", -tonumber(num), { type = "GlobalEffect", effectType = "Global", unscalable = true }),
 		mod("MinionModifier", "LIST", { mod = mod(type:gsub("^%l", string.upper).."ReflectedDamageTaken", "INC", -tonumber(num), { type = "GlobalEffect", effectType = "Global", unscalable = true }) }),
 	} end,
+	["(%d+)%% reduced reflected damage taken during effect"] = function(num) return {
+		mod("ReflectedDamageTaken", "INC", -tonumber(num), { type = "GlobalEffect", effectType = "Global", unscalable = true }),
+	} end,
 	["you and your minions take (%d+)%% reduced reflected damage"] = function(num) return {
 		mod("ReflectedDamageTaken", "INC", -tonumber(num), { type = "GlobalEffect", effectType = "Global", unscalable = true }),
 		mod("MinionModifier", "LIST", { mod = mod("ReflectedDamageTaken", "INC", -tonumber(num), { type = "GlobalEffect", effectType = "Global", unscalable = true }) }),
@@ -4308,6 +4327,7 @@ local specialModList = {
 	["recover (%d+)%% of energy shield when you block spell damage while wielding a staff"] = function(num) return { mod("EnergyShieldOnSpellBlock", "BASE", 1,  { type = "PercentStat", stat = "EnergyShield", percent = num }, { type = "Condition", var = "UsingStaff" }) } end,
 	["replenishes energy shield by (%d+)%% of armour when you block"] = function(num) return { mod("EnergyShieldOnBlock", "BASE", 1,  { type = "PercentStat", stat = "Armour", percent = num }) } end,
 	["recover energy shield equal to (%d+)%% of armour when you block"] = function(num) return { mod("EnergyShieldOnBlock", "BASE", 1,  { type = "PercentStat", stat = "Armour", percent = num }) } end,
+	["gain (%d+)%% of missing unreserved life before being hit by an enemy"] = function(num) return { mod("MissingLifeBeforeEnemyHit", "BASE", num) } end,
 	["(%d+)%% of damage taken while affected by clarity recouped as mana"] = function(num) return { mod("ManaRecoup", "BASE", num, { type = "Condition", var = "AffectedByClarity" }) } end,
 	["(%d+)%% of damage taken while frozen recouped as life"] = function(num) return { mod("LifeRecoup", "BASE", num, { type = "Condition", var = "Frozen" }) } end,
 	["recoup effects instead occur over 3 seconds"] = { flag("3SecondRecoup") },
@@ -4941,6 +4961,7 @@ local specialModList = {
 	["blind does not affect your chance to hit"] = { flag("IgnoreBlindHitChance") },
 	["enemies blinded by you while you are blinded have malediction"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "Condition", var = "Blinded" }) }, { type = "Condition", var = "Blinded" }, { type = "Condition", var = "CannotBeBlinded", neg = true }) },
 	["enemies blinded by you have malediction"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "Condition", var = "Blinded" }) }) },
+	["enemies ignited by you during effect have malediction"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "Condition", var = "Ignited" }) }) },
 	["skills which throw traps have blood magic"] = { flag("CostLifeInsteadOfMana", { type = "SkillType", skillType = SkillType.Trapped }) },
 	["skills which throw traps cost life instead of mana"] = { flag("CostLifeInsteadOfMana", { type = "SkillType", skillType = SkillType.Trapped }) },
 	["strength provides no bonus to maximum life"] = { flag("NoStrBonusToLife") },
@@ -5323,6 +5344,7 @@ local specialModList = {
 	["take no extra damage from critical strikes if you have a magic ring in left slot"] = {
 		mod("ReduceCritExtraDamage", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "Condition", var = "MagicItemInRing 1" })
 	},
+	["take no extra damage from critical strikes if energy shield recharge started recently"] = { mod("ReduceCritExtraDamage", "BASE", 100, { type = "Condition", var = "EnergyShieldRechargeRecently" }) },
 	["you take (%d+)%% reduced extra damage from critical strikes while affected by determination"] = function(num) return {
 		mod("ReduceCritExtraDamage", "BASE", num, { type = "Condition", var = "AffectedByDetermination" })
 	} end,
@@ -5586,7 +5608,7 @@ local jewelOtherFuncs = {
 		end
 	end,
 	["50% increased Effect of non-Keystone Passive Skills in Radius"] = function(node, out, data)
-		if node and node.type ~= "Keystone" then
+		if node and node.type ~= "Keystone" and node.type ~= "ClassStart" then
 			out:NewMod("PassiveSkillEffect", "INC", 50, data.modSource)
 		end
 	end,
@@ -5607,7 +5629,7 @@ local jewelOtherFuncs = {
 	end,
 	["Passive Skills in Radius also grant: Traps and Mines deal (%d+) to (%d+) added Physical Damage"] = function(min, max)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "ClassStart" then
 				out:NewMod("PhysicalMin", "BASE", min, data.modSource, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine))
 				out:NewMod("PhysicalMax", "BASE", max, data.modSource, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine))
 			end
@@ -5615,56 +5637,56 @@ local jewelOtherFuncs = {
 	end,
 	["Passive Skills in Radius also grant: (%d+)%% increased Unarmed Attack Speed with Melee Skills"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" then
+			if node and node.type ~= "Keystone" and node.type ~= "ClassStart" then
 				out:NewMod("Speed", "INC", num, data.modSource, bor(ModFlag.Unarmed, ModFlag.Attack, ModFlag.Melee))
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased Global Critical Strike Chance"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod("CritChance", "INC", tonumber(num), data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant %+(%d+) to Maximum Life"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod("Life", "BASE", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant %+(%d+) to Maximum Mana"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod("Mana", "BASE", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased Energy Shield"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod("EnergyShield", "INC", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased Armour"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod("Armour", "INC", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased Evasion Rating"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod("Evasion", "INC", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant %+(%d+) to all Attributes"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod("Str", "BASE", num, data.modSource)
 				out:NewMod("Dex", "BASE", num, data.modSource)
 				out:NewMod("Int", "BASE", num, data.modSource)
@@ -5674,14 +5696,14 @@ local jewelOtherFuncs = {
 	end,
 	["Passive Skills in Radius also grant %+(%d+)%% to Chaos Resistance"] = function(num)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod("ChaosResist", "BASE", num, data.modSource)
 			end
 		end
 	end,
 	["Passive Skills in Radius also grant (%d+)%% increased (%w+) Damage"] = function(num, type)
 		return function(node, out, data)
-			if node and node.type ~= "Keystone" and node.type ~= "Socket" then
+			if node and node.type ~= "Keystone" and node.type ~= "Socket" and node.type ~= "ClassStart" then
 				out:NewMod(firstToUpper(type).."Damage", "INC", num, data.modSource)
 			end
 		end

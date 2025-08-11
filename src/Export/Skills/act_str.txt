@@ -897,6 +897,11 @@ local skills, mod, flag, skill = ...
 
 #skill GlacialHammerAltX
 #flags attack melee
+	statMap = {
+		["additional_main_hand_hits_per_combo_average"] = {
+			flag("Every3UseCrit"),
+		},
+	},
 #mods
 
 #skill VaalGlacialHammer

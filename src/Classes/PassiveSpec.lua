@@ -1166,6 +1166,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	self.allocatedNotableCount = 0
 	self.allocatedMasteryTypes = { }
 	self.allocatedMasteryTypeCount = 0
+	self.allocatedTattooTypes = { }
 	for id, node in pairs(self.nodes) do
 		if self.ignoredNodes[id] and self.allocNodes[id] then
 			self.nodes[id].alloc = false
@@ -1205,6 +1206,13 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				self:AddMasteryEffectOptionsToNode(node)
 			elseif node.type == "Notable" and node.alloc then
 				self.allocatedNotableCount = self.allocatedNotableCount + 1
+			end
+			if node.isTattoo and node.alloc and node.overrideType then
+				if not self.allocatedTattooTypes[node.overrideType] then
+					self.allocatedTattooTypes[node.overrideType] = 1
+				else
+					self.allocatedTattooTypes[node.overrideType] = self.allocatedTattooTypes[node.overrideType] + 1
+				end
 			end
 		end
 	end
@@ -1398,6 +1406,7 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	old.sprites = newNode.sprites
 	old.effectSprites = newNode.effectSprites
 	old.isTattoo = newNode.isTattoo
+	old.overrideType = newNode.overrideType
 	old.keystoneMod = newNode.keystoneMod
 	old.icon = newNode.icon
 	old.spriteId = newNode.spriteId
@@ -1913,12 +1922,16 @@ function PassiveSpecClass:CreateUndoState()
 	for mastery, effect in pairs(self.masterySelections) do
 		selections[mastery] = effect
 	end
+	local hashOverridesCopy = { }
+	for node, override in pairs(self.hashOverrides) do
+		hashOverridesCopy[node] = override
+	end
 	return {
 		classId = self.curClassId,
 		ascendClassId = self.curAscendClassId,
 		secondaryAscendClassId = self.secondaryAscendClassId,
 		hashList = allocNodeIdList,
-		hashOverrides = self.hashOverrides,
+		hashOverrides = hashOverridesCopy,
 		masteryEffects = selections,
 		treeVersion = self.treeVersion
 	}

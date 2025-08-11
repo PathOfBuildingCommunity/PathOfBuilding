@@ -3255,11 +3255,6 @@ skills["SummonElementalRelic"] = {
 	minionList = {
 		"GuardianRelicAll",
 	},
-	statMap = {
-		["minion_actor_level_is_user_level_up_to_maximum"] = {
-			skill("minionLevelIsPlayerLevel", true),
-		},
-	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -3712,9 +3707,6 @@ skills["SummonSentinelOfRadiance"] = {
 		},
 		["radiant_sentinel_minion_burning_effect_radius"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Multiplier:GuardianSentinelFireAuraRadius", "BASE", nil) }),
-		},
-		["minion_actor_level_is_user_level_up_to_maximum"] = {
-			skill("minionLevelIsPlayerLevel", true),
 		},
 	},
 	baseFlags = {
@@ -4237,6 +4229,479 @@ skills["VoidShot"] = {
 	},
 	levels = {
 		[20] = { damageEffectiveness = 0.65, PvPDamageMultiplier = -80, baseMultiplier = 0.65, levelRequirement = 70, },
+	},
+}
+skills["TriggerSummonedAncestorAhuana"] = {
+	name = "Summon Spirit of Ahuana",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Ramako tribe to fight alongside you for a duration. This minion grants you a buff which prevents additional damage from suppressed spells. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralAhuanaMinion",
+	},
+	statMap = {
+		["ancestral_buff_base_spell_damage_%_suppressed"] = {
+			mod("SpellSuppressionEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Ahuana" }, { type = "Multiplier", var = "RamakoTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_ramako_tattoo"] = {
+			mod("Multiplier:RamakoTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "RamakoTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_ramako_tattoo", 20 },
+		{ "ancestral_buff_base_spell_damage_%_suppressed", 10 },
+	},
+	stats = {
+		"trigger_on_suppress_hit_from_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_suppress_hit_from_unique",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 80, },
+		[2] = { 10, storedUses = 1, levelRequirement = 0, cooldown = 20, statInterpolation = { 1, }, },
+		[20] = { storedUses = 1, levelRequirement = 0, cooldown = 20, },
+	},
+}
+skills["TriggerSummonedAncestorAkoya"] = {
+	name = "Summon Spirit of Akoya",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Tukohama tribe to fight alongside you for a duration. This minion grants you a buff which regenerates rage. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralAkoyaMinion",
+	},
+	statMap = {
+		["ancestral_buff_base_rage_regeneration_per_minute"] = {
+			mod("RageRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Akoya" }, { type = "Multiplier", var = "TukohamaTattooEffect", noFloor = true }),
+			div = 60,
+		},
+		["ancestral_embrace_effect_+%_per_tukohama_tattoo"] = {
+			mod("Multiplier:TukohamaTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "TukohamaTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_tukohama_tattoo", 20 },
+		{ "ancestral_buff_base_rage_regeneration_per_minute", 300 },
+	},
+	stats = {
+		"trigger_on_reaching_maximum_rage_in_presence_of_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_reaching_maximum_rage_in_presence_of_unique",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 80, },
+		[2] = { 10, storedUses = 1, levelRequirement = 0, cooldown = 20, statInterpolation = { 1, }, },
+		[20] = { storedUses = 1, levelRequirement = 0, cooldown = 20, },
+	},
+}
+skills["TriggerSummonedAncestorIkiaho"] = {
+	name = "Summon Spirit of Ikiaho",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Arohongui tribe to fight alongside you for a duration. This minion grants you a buff which makes travel skills recover cooldowns faster. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralIkiahoMinion",
+	},
+	statMap = {
+		["ancestral_buff_travel_skill_cooldown_speed_+%"] = {
+			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Travel }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Ikiaho" }, { type = "Multiplier", var = "ArohonguiTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_arohongui_tattoo"] = {
+			mod("Multiplier:ArohonguiTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "ArohonguiTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_arohongui_tattoo", 20 },
+		{ "ancestral_buff_travel_skill_cooldown_speed_+%", 100 },
+	},
+	stats = {
+		"trigger_on_travel_skill_use_in_presence_of_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_travel_skill_use_in_presence_of_unique",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 80, },
+		[2] = { 10, storedUses = 1, levelRequirement = 0, cooldown = 20, statInterpolation = { 1, }, },
+		[20] = { storedUses = 1, levelRequirement = 0, cooldown = 20, },
+	},
+}
+skills["TriggerSummonedAncestorKahuturoa"] = {
+	name = "Summon Spirit of Kahuturoa",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Rongokurai tribe to fight alongside you for a duration. This minion grants you a buff which lets a percentage of your armour protect against all damage types. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralKahuturoaMinion",
+	},
+	statMap = {
+		["ancestral_buff_armour_%_applies_to_all_damage_from_hits"] = {
+			mod("ArmourAppliesToFireDamageTaken", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kahuturoa" }, { type = "Multiplier", var = "RongokuraiTattooEffect", noFloor = true }),
+			mod("ArmourAppliesToColdDamageTaken", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kahuturoa" }, { type = "Multiplier", var = "RongokuraiTattooEffect", noFloor = true }),
+			mod("ArmourAppliesToLightningDamageTaken", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kahuturoa" }, { type = "Multiplier", var = "RongokuraiTattooEffect", noFloor = true }),
+			mod("ArmourAppliesToChaosDamageTaken", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kahuturoa" }, { type = "Multiplier", var = "RongokuraiTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_rongokurai_tattoo"] = {
+			mod("Multiplier:RongokuraiTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "RongokuraiTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_rongokurai_tattoo", 20 },
+		{ "ancestral_buff_armour_%_applies_to_all_damage_from_hits", 10 },
+	},
+	stats = {
+		"trigger_on_crit_by_unique_enemy",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_crit_by_unique_enemy",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 80, },
+		[2] = { 10, storedUses = 1, levelRequirement = 0, cooldown = 20, statInterpolation = { 1, }, },
+		[20] = { storedUses = 1, levelRequirement = 0, cooldown = 20, },
+	},
+}
+skills["TriggerSummonedAncestorKaom"] = {
+	name = "Summon Spirit of Kaom",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Ngamahu tribe to fight alongside you for a duration. This minion grants you a buff which allows totems to take some damage from hits for you. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralKaomMinion",
+	},
+	statMap = {
+		["ancestral_buff_damage_removed_from_your_nearest_totem_before_life_or_es_%"] = {
+			mod("takenFromTotemsBeforeYou", "BASE", nil, 0, 0, { type = "Condition", var = "HaveTotem" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kaom" }, { type = "Multiplier", var = "NgamahuTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_ngamahu_tattoo"] = {
+			mod("Multiplier:NgamahuTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "NgamahuTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_ngamahu_tattoo", 20 },
+		{ "ancestral_buff_damage_removed_from_your_nearest_totem_before_life_or_es_%", 15 },
+	},
+	stats = {
+		"trigger_on_totem_death_in_presence_of_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_totem_death_in_presence_of_unique",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 80, },
+		[2] = { 10, storedUses = 1, levelRequirement = 0, cooldown = 20, statInterpolation = { 1, }, },
+		[20] = { storedUses = 1, levelRequirement = 0, cooldown = 20, },
+	},
+}
+skills["TriggerSummonedAncestorKiloava"] = {
+	name = "Summon Spirit of Kiloava",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Valako tribe to fight alongside you for a duration. This minion grants you a buff which recovers life, mana and energy shield when you block. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralKiloavaMinion",
+	},
+	statMap = {
+		["ancestral_buff_recover_%_of_maximum_life_mana_energy_shield_on_block"] = {
+			mod("Multiplier:KiloavaRecoverOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "ValakoTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_valako_tattoo"] = {
+			mod("Multiplier:ValakoTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "ValakoTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	baseMods = {
+		mod("LifeOnBlock", "BASE", 1, 0, 0, { type = "PercentStat", stat = "Life", percentVar = "KiloavaRecoverOnBlock", floor = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kiloava" }),
+		mod("EnergyShieldOnBlock", "BASE", 1, 0, 0, { type = "PercentStat", stat = "EnergyShield", percentVar = "KiloavaRecoverOnBlock", floor = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kiloava" }),
+		mod("ManaOnBlock", "BASE", 1, 0, 0, { type = "PercentStat", stat = "Mana", percentVar = "KiloavaRecoverOnBlock", floor = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kiloava" }),
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_valako_tattoo", 20 },
+		{ "ancestral_buff_recover_%_of_maximum_life_mana_energy_shield_on_block", 5 },
+	},
+	stats = {
+		"trigger_on_block_hit_from_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_block_hit_from_unique",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 80, },
+		[2] = { 10, storedUses = 1, levelRequirement = 0, cooldown = 20, statInterpolation = { 1, }, },
+		[20] = { storedUses = 1, levelRequirement = 0, cooldown = 20, },
+	},
+}
+skills["TriggerSummonedAncestorMaata"] = {
+	name = "Summon Spirit of Maata",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Tawhoa tribe to fight alongside you for a duration. This minion grants you a buff which refills flasks. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralMaataMinion",
+	},
+	statMap = {
+		["ancestral_buff_flask_charges_recovered_per_3_seconds"] = {
+			mod("FlaskChargesGenerated", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Maata" }, { type = "Multiplier", var = "TawhoaTattooEffect", noFloor = true }),
+			div = 3,
+		},
+		["ancestral_embrace_effect_+%_per_tawhoa_tattoo"] = {
+			mod("Multiplier:TawhoaTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "TawhoaTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_tawhoa_tattoo", 20 },
+		{ "ancestral_buff_flask_charges_recovered_per_3_seconds", 5 },
+	},
+	stats = {
+		"trigger_on_reaching_low_life_in_presence_of_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_reaching_low_life_in_presence_of_unique",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 80, },
+		[2] = { 10, storedUses = 1, levelRequirement = 0, cooldown = 20, statInterpolation = { 1, }, },
+		[20] = { storedUses = 1, levelRequirement = 0, cooldown = 20, },
+	},
+}
+skills["TriggerSummonedAncestorRakiata"] = {
+	name = "Summon Spirit of Rakiata",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Tasalio tribe to fight alongside you for a duration. This minion grants you a buff which prevents your action speed being lowered. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralRakiataMinion",
+	},
+	statMap = {
+		["ancestral_buff_action_speed_+%_minimum_value"] = {
+			mod("MinimumActionSpeed", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Rakiata" }, { type = "Multiplier", var = "TasalioTattooEffect", noFloor = true, base = 100 }),
+		},
+		["ancestral_embrace_effect_+%_per_tasalio_tattoo"] = {
+			mod("Multiplier:TasalioTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "TasalioTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_tasalio_tattoo", 20 },
+		{ "ancestral_buff_action_speed_+%_minimum_value", 10 },
+	},
+	stats = {
+		"trigger_on_crit_vs_marked_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_crit_vs_marked_unique",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 80, },
+		[2] = { 10, storedUses = 1, levelRequirement = 0, cooldown = 20, statInterpolation = { 1, }, },
+		[20] = { storedUses = 1, levelRequirement = 0, cooldown = 20, },
+	},
+}
+skills["TriggerSummonedAncestorTawhanuku"] = {
+	name = "Summon Spirit of Tawhanuku",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Hinekora tribe to fight alongside you for a duration. This minion grants you a buff which regenerates mana. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralTawhanukuMinion",
+	},
+	statMap = {
+		["ancestral_buff_base_mana_regeneration_rate_per_minute"] = {
+			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Tawhanuku" }, { type = "Multiplier", var = "HinekoraTattooEffect", noFloor = true }),
+			div = 60,
+		},
+		["ancestral_embrace_effect_+%_per_hinekora_tattoo"] = {
+			mod("Multiplier:HinekoraTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "HinekoraTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_hinekora_tattoo", 20 },
+		{ "ancestral_buff_base_mana_regeneration_rate_per_minute", 6000 },
+	},
+	stats = {
+		"trigger_on_es_recharge_in_presence_of_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_es_recharge_in_presence_of_unique",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 80, },
+		[2] = { 10, storedUses = 1, levelRequirement = 0, cooldown = 20, statInterpolation = { 1, }, },
+		[20] = { storedUses = 1, levelRequirement = 0, cooldown = 20, },
+	},
+}
+skills["TriggerSummonedAncestorUtula"] = {
+	name = "Summon Spirit of Utula",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Kitava tribe to fight alongside you for a duration. This minion grants you a buff which makes a percentage of your leech recover instantly. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralUtulaMinion",
+	},
+	statMap = {
+		["ancestral_buff_leech_%_is_instant"] = {
+			mod("InstantLifeLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Utula" }, { type = "Multiplier", var = "KitavaTattooEffect", noFloor = true }),
+			mod("InstantManaLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Utula" }, { type = "Multiplier", var = "KitavaTattooEffect", noFloor = true }),
+			mod("InstantEnergyShieldLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Utula" }, { type = "Multiplier", var = "KitavaTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_kitava_tattoo"] = {
+			mod("Multiplier:KitavaTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "KitavaTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_kitava_tattoo", 20 },
+		{ "ancestral_buff_leech_%_is_instant", 25 },
+	},
+	stats = {
+		"trigger_on_taking_savage_hit_from_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_taking_savage_hit_from_unique",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 80, },
+		[2] = { 10, storedUses = 1, levelRequirement = 0, cooldown = 20, statInterpolation = { 1, }, },
+		[20] = { storedUses = 1, levelRequirement = 0, cooldown = 20, },
 	},
 }
 skills["SupportUniqueCastCurseOnCurse"] = {

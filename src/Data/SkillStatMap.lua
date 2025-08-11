@@ -236,7 +236,7 @@ return {
 	skill("triggeredByAutomation", nil, { type = "SkillType", skillTypeList = {SkillType.Triggerable, SkillType.Spell, SkillType.Instant} }),
 },
 ["support_autocast_warcries"] = {
-	skill("triggeredByAutoexertion", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Warcry }),
+	skill("triggeredByAutoexertion", nil, { type = "SkillType", skillType = SkillType.Warcry }),
 },
 ["cast_on_stunned_%"] = {
 	skill("chanceToTriggerOnStun", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
@@ -274,6 +274,9 @@ return {
 },
 ["display_skill_minions_level_is_corpse_level"] = {
 	skill("minionLevelIsEnemyLevel", true),
+},
+["minion_actor_level_is_user_level_up_to_maximum"] = {
+	skill("minionLevelIsPlayerLevel", true),
 },
 ["active_skill_minion_added_damage_+%_final"] = {
 	skill("minionDamageEffectiveness", nil),
