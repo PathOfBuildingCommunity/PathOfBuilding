@@ -597,7 +597,7 @@ function ImportTabClass:DownloadPassiveTree()
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
-	launch:DownloadPage(realm.hostName.."character-window/get-passive-skills?accountName="..accountName:gsub("#", "%%23").."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
+	launch:DownloadPage(realm.hostName.."character-window/get-passive-skills?accountName="..accountName:gsub("#", "%%23").."&character="..urlEncode(charData.name).."&realm="..realm.realmCode, function(response, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then
 			self.charImportStatus = colorCodes.NEGATIVE.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
@@ -619,7 +619,7 @@ function ImportTabClass:DownloadItems()
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
-	launch:DownloadPage(realm.hostName.."character-window/get-items?accountName="..accountName:gsub("#", "%%23").."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
+	launch:DownloadPage(realm.hostName.."character-window/get-items?accountName="..accountName:gsub("#", "%%23").."&character="..urlEncode(charData.name).."&realm="..realm.realmCode, function(response, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then
 			self.charImportStatus = colorCodes.NEGATIVE.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
