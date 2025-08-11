@@ -10499,7 +10499,7 @@ return {
 		},
 		[9]={
 			list=false,
-			name="TattooType",
+			name="OverrideType",
 			refTo="passiveskilloverridetypes",
 			type="Key",
 			width=150

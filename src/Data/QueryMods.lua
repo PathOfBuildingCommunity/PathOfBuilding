@@ -5993,7 +5993,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2238792070", 
+				["id"] = "implicit.stat_744082851", 
 				["text"] = "#% of Chaos Damage Leeched as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -73533,7 +73533,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2238792070", 
+				["id"] = "implicit.stat_744082851", 
 				["text"] = "#% of Chaos Damage Leeched as Life", 
 				["type"] = "implicit", 
 			}, 
