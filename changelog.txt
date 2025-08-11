@@ -1,3 +1,59 @@
+VERSION[2.56.0][2025/08/11]
+
+--- New to Path of Building ---
+* Add support for average Lightning Tendrils DPS (LocalIdentity)
+* Show DPS comparison for Flask slots when hovering over Unique item list (Blitz54)
+* Add Undo support to Tattoo/Runegraft overrides (Blitz54)
+* Add total minimum weight parameter to Timeless Jewel finder (tserdar)
+* Add Beastcrafts to Item crafter (brendan-corrigan)
+* Add support for Defiance of Destiny Gain before enemy hit (Regisle)
+* Add support for duration of Ailments Retaliation mastery (LocalIdentity)
+* Add support for Ancestral Commander Ancestral Spirit Minion buffs (LocalIdentity)
+* Add support for Chieftain's Ramako, Sun's Light notable (Ruthless version) (kisiex)
+
+--- Fixed Crashes ---
+* Fix crash when using "Add modifier" button on Tinctures (brendan-corrigan)
+
+--- User Interface ---
+* Add text after red mods to show that PoB does not currently handle them (LocalIdentity)
+* Display distance in Units in graphic for AoE breakdown (Blitz54)
+* Tooltip text "tattoo" or "runegraft" based on node type (Blitz54)
+
+--- Fixed Calculations ---
+* Use harmonic mean for dual wield attack speed calc instead of average (Tntmister)
+* Fix tincture quality effect multiplier rounding issue (NL908)
+* Fix rounding of scaled mods being incorrect in some cases (Wires77)
+* Fix Temporal Chains double counting towards Brand Ticks (LocalIdentity)
+* Fix Poison Conc of Bouncing not counting Chains towards DPS (LocalIdentity)
+* Fix Glacial Hammer of Shattering missing crit chance every 3rd use (LocalIdentity)
+* Fix Absolution/Dominating Blow of Inspiring FullDPS when using config (LocalIdentity)
+
+--- Fixed Behaviours ---
+* Fix Mine Aura effect scaling Curses used with High-Impact Mine (LocalIdentity)
+* Fix Ancestral Bond disabling Generals Cry damage (LocalIdentity)
+* Fix Hand of Phrecia disabling Mine Auras (LocalIdentity)
+* Fix Light of Meaning double counting starting nodes on Ascendant (LocalIdentity)
+* Fix Kaladra's Touch not copying influence from other ring (LocalIdentity)
+* Fix Howlcrack causing inf DPS with Generals Cry (Paliak)
+* Fix issue where Rage Support was affecting Herald of Purity (Wires77)
+* Fix Volatility applying to Minion Spell skills (LocalIdentity)
+* Fix Influence not appearing correctly in PoB Trader (t1nky)
+* Fix enemy Ailment Immunity not working with Rune of Treachery (LocalIdentity)
+* Fix Shepherd of Souls applying twice with 2 Yaomac's Accord equipped (LocalIdentity)
+* Fix node tooltip when using Untuitive Leap or Impossible Escape (Kojoley)
+* Fix Ancestral Vision not working correctly with The Arkhon's Tools (LocalIdentity)
+* Fix Ascendant/Gladiator Block Chance when using Necromantic Aegis (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Fix Betrayal's Sting and Unique Talisman's missing catalyst scaling (LocalIdentity)
+* Fix Devouring Diadem in unique list using suffix veiled mods (LocalIdentity)
+* Add Catalyst tags to Whispers of Infinity (linusalpsten)
+* Update Cinderswallow and support new mods (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix importing characters with names that contain foreign letters (poyushih)
+
+
 VERSION[2.55.5][2025/07/18]
 --- New to Path of Building ---
 * Add support for Replica Dragonfang's Flight variants (linusalpsten)

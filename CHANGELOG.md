@@ -1,5 +1,60 @@
 # Changelog
 
+## [v2.56.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.56.0) (2025/08/11)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.55.5...v2.56.0)
+
+
+## What's Changed
+### New to Path of Building
+- Add support for average Lightning Tendrils DPS [\#8930](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8930) ([LocalIdentity](https://github.com/LocalIdentity))
+- Show DPS comparison for Flask slots when hovering over Unique item list [\#8871](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8871) ([Blitz54](https://github.com/Blitz54))
+- Add Undo support to Tattoo/Runegraft overrides [\#8926](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8926) ([Blitz54](https://github.com/Blitz54))
+- Add total minimum weight parameter to Timeless Jewel finder [\#8787](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8787) ([tserdar](https://github.com/tserdar))
+- Add Beastcrafts to Item crafter [\#8904](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8904) ([brendan-corrigan](https://github.com/brendan-corrigan))
+- Add support for Defiance of Destiny Gain before enemy hit [\#7650](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7650) ([Regisle](https://github.com/Regisle))
+- Add support for duration of Ailments Retaliation mastery [\#8916](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8916) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Ancestral Commander Ancestral Spirit Minion buffs [\#8938](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8938) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Chieftain's Ramako, Sun's Light notable (Ruthless version) [\#8808](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8808) ([kisiex](https://github.com/kisiex))
+### Fixed Crashes
+- Fix crash when using "Add modifier" button on Tinctures [\#8905](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8905) ([brendan-corrigan](https://github.com/brendan-corrigan))
+### User Interface
+- Add text after red mods to show that PoB does not currently handle them [\#8925](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8925) ([LocalIdentity](https://github.com/LocalIdentity))
+- Display distance in Units in graphic for AoE breakdown [\#8845](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8845) ([Blitz54](https://github.com/Blitz54))
+- Tooltip text "tattoo" or "runegraft" based on node type [\#8922](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8922) ([Blitz54](https://github.com/Blitz54))
+### Fixed Calculations
+- Use harmonic mean for dual wield attack speed calc instead of average [\#8900](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8900) ([Tntmister](https://github.com/Tntmister))
+- Fix tincture quality effect multiplier rounding issue [\#8874](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8874) ([NL908](https://github.com/NL908))
+- Fix rounding of scaled mods being incorrect in some cases [\#8862](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8862) ([Wires77](https://github.com/Wires77))
+- Fix Temporal Chains double counting towards Brand Ticks [\#8915](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8915) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Poison Conc of Bouncing not counting Chains towards DPS [\#8924](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8924) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Glacial Hammer of Shattering missing crit chance every 3rd use [\#8931](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8931) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Absolution/Dominating Blow of Inspiring FullDPS when using config [\#8945](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8945) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Behaviours
+- Fix Mine Aura effect scaling Curses used with High-Impact Mine [\#8883](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8883) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Ancestral Bond disabling Generals Cry damage [\#8877](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8877) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Hand of Phrecia disabling Mine Auras [\#8876](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8876) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Light of Meaning double counting starting nodes on Ascendant [\#8875](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8875) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Kaladra's Touch not copying influence from other ring [\#8888](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8888) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Howlcrack causing inf DPS with Generals Cry [\#8889](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8889) ([Paliak](https://github.com/Paliak))
+- Fix issue where Rage Support was affecting Herald of Purity [\#8907](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8907) ([Wires77](https://github.com/Wires77))
+- Fix Volatility applying to Minion Spell skills [\#8912](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8912) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Influence not appearing correctly in PoB Trader [\#8913](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8913) ([t1nky](https://github.com/t1nky))
+- Fix enemy Ailment Immunity not working with Rune of Treachery [\#8917](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8917) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Shepherd of Souls applying twice with 2 Yaomac's Accord equipped [\#8918](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8918) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix node tooltip when using Untuitive Leap or Impossible Escape [\#8921](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8921) ([Kojoley](https://github.com/Kojoley))
+- Fix Ancestral Vision not working correctly with The Arkhon's Tools [\#8946](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8946) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Ascendant/Gladiator Block Chance when using Necromantic Aegis [\#8944](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8944) ([LocalIdentity](https://github.com/LocalIdentity))
+### Accuracy Improvements
+- Fix Betrayal's Sting and Unique Talisman's missing catalyst scaling [\#8882](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8882) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Devouring Diadem in unique list using suffix veiled mods [\#8878](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8878) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add Catalyst tags to Whispers of Infinity [\#8843](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8843) ([linusalpsten](https://github.com/linusalpsten))
+- Update Cinderswallow and support new mods [\#8886](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8886) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Bugs
+- Fix importing characters with names that contain foreign letters [\#8935](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8935) ([poyushih](https://github.com/poyushih))
+
+
+
 ## [v2.55.5](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.55.5) (2025/07/18)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.55.4...v2.55.5)
