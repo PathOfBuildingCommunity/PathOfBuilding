@@ -587,6 +587,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local allocatedMasteryCount = env.spec.allocatedMasteryCount
 	local allocatedMasteryTypeCount = env.spec.allocatedMasteryTypeCount
 	local allocatedMasteryTypes = copyTable(env.spec.allocatedMasteryTypes)
+	local allocatedTattooTypes = copyTable(env.spec.allocatedTattooTypes)
 
 
 
@@ -614,6 +615,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 					elseif node.type == "Notable" then
 						allocatedNotableCount = allocatedNotableCount + 1
 					end
+					if node.isTattoo and node.overrideType then
+						if not allocatedTattooTypes[node.overrideType] then
+							allocatedTattooTypes[node.overrideType] = 1
+						else
+							local prevCount = allocatedTattooTypes[node.overrideType]
+							allocatedTattooTypes[node.overrideType] = prevCount + 1
+						end
+					end
 				end
 			end
 			for _, node in pairs(env.spec.allocNodes) do
@@ -629,6 +638,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					elseif node.type == "Notable" then
 						allocatedNotableCount = allocatedNotableCount - 1
+					end
+					if node.isTattoo and node.overrideType then
+						if allocatedTattooTypes[node.overrideType] then
+							allocatedTattooTypes[node.overrideType] = allocatedTattooTypes[node.overrideType] - 1
+						end
 					end
 				end
 			end
@@ -650,6 +664,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 	end
 	if allocatedMasteryTypes["Life Mastery"] and allocatedMasteryTypes["Life Mastery"] > 0 then
 		modDB:NewMod("Multiplier:AllocatedLifeMastery", "BASE", allocatedMasteryTypes["Life Mastery"])
+	end
+	if allocatedTattooTypes then
+		for type, count in pairs(allocatedTattooTypes) do
+			env.modDB.multipliers[type] = count
+		end
 	end
 
 	-- Build and merge item modifiers, and create list of radius jewels
