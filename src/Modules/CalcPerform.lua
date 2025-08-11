@@ -762,7 +762,9 @@ local function doActorMisc(env, actor)
 			local ailmentData = data.nonDamagingAilment
 			local chillValue = m_max(modDB:Sum("BASE", nil, "SelfChillOverride"), modDB:Override(nil, "ChillVal")) or ailmentData.Chill.default
 			local totalChillSelfEffect = calcLib.mod(modDB, nil, "SelfChillEffect")
-			local avoidChill = modDB:Flag(nil, "ChillImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidChill", "AvoidAilments", "AvoidElementalAilments") + (modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") and modDB:Sum("BASE", nil, "AvoidShock") or 0), 100))
+			local avoidChill = modDB:Flag(nil, "ChillImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidChill", "AvoidAilments", "AvoidElementalAilments")
+																+ (modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") and modDB:Sum("BASE", nil, "AvoidShock") or 0)
+																+ (modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") and modDB:Sum("BASE", nil, "SpellSuppressionChance") / 2 or 0), 100))
 			
 			local effect = avoidChill == 100 and 0 or m_min(m_max(m_floor(chillValue *  totalChillSelfEffect), 0), modDB:Override(nil, "ChillMax") or ailmentData.Chill.max)
 			if modDB:Flag(nil, "SkitterbotBonechill") then
@@ -774,7 +776,8 @@ local function doActorMisc(env, actor)
 			local ailmentData = data.nonDamagingAilment
 			local shockValue = m_max(modDB:Sum("BASE", nil, "SelfShockOverride"), modDB:Override(nil, "ShockVal")) or ailmentData.Shock.default
 			local totalShockSelfEffect = calcLib.mod(modDB, nil, "SelfShockEffect")
-			local avoidShock = modDB:Flag(nil, "ShockImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidShock", "AvoidAilments", "AvoidElementalAilments"), 100))
+			local avoidShock = modDB:Flag(nil, "ShockImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidShock", "AvoidAilments", "AvoidElementalAilments")
+																+ (modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") and modDB:Sum("BASE", nil, "SpellSuppressionChance") / 2 or 0), 100))
 			
 			local effect = avoidShock == 100 and 0 or m_min(m_max(m_floor(shockValue *  totalShockSelfEffect), 0), modDB:Override(nil, "ShockMax") or ailmentData.Shock.max)
 			modDB:NewMod("DamageTaken", "INC", effect, "Shock")
@@ -783,8 +786,9 @@ local function doActorMisc(env, actor)
 			local ailmentData = data.nonDamagingAilment
 			local scorchValue = m_max(modDB:Sum("BASE", nil, "SelfScorchOverride"), modDB:Override(nil, "ScorchVal")) or ailmentData.Scorch.default
 			local totalScorchSelfEffect = calcLib.mod(modDB, nil, "SelfScorchEffect")
-			local avoidScorch = modDB:Flag(nil, "ScorchImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidScorch", "AvoidAilments", "AvoidElementalAilments") + (modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") and modDB:Sum("BASE", nil, "AvoidShock") or 0), 100))
-			
+			local avoidScorch = modDB:Flag(nil, "ScorchImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidScorch", "AvoidAilments", "AvoidElementalAilments")
+																+ (modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") and modDB:Sum("BASE", nil, "AvoidShock") or 0)
+																+ (modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") and modDB:Sum("BASE", nil, "SpellSuppressionChance") / 2 or 0), 100))
 			local effect = avoidScorch == 100 and 0 or m_min(m_max(m_floor(scorchValue *  totalScorchSelfEffect), 0), modDB:Override(nil, "ScorchMax") or ailmentData.Scorch.max)
 			modDB:NewMod("ElementalResist", "BASE", -effect, "Scorch")
 		end
