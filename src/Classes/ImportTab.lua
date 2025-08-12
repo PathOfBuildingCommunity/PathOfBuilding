@@ -95,7 +95,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 		tooltip:AddLine(16, "^7Removes account from the dropdown list")
 	end
 
-	self.controls.accountNameMissingDiscriminator = new("LabelControl", {"TOPLEFT",self.controls.accountName,"BOTTOMLEFT"}, {0, 2, 0, 16}, "^1Missing discriminator e.g. #1234")
+	self.controls.accountNameMissingDiscriminator = new("LabelControl", {"TOPLEFT",self.controls.accountName,"BOTTOMLEFT"}, {0, 8, 0, 16}, "^1Missing discriminator e.g. #1234")
 	self.controls.accountNameMissingDiscriminator.shown = function()
 		return not self.controls.accountName.buf:match("[#%-]%d%d%d%d$")
 	end
