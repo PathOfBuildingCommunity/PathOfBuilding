@@ -545,7 +545,7 @@ Implicits: 1
 {variant:2}(170-230)% increased Energy Shield
 {variant:1}+(70-100) to maximum Life
 +(35-40)% to Lightning Resistance
-{variant:2}Shocks you inflict spread to other Enemies within a Radius of 15
+{variant:2}Shocks you inflict spread to other Enemies within 1.5 metres
 Adds 1 to 10 Lightning Damage for each Shocked Enemy you've Killed Recently
 {variant:1}Shock Reflection
 ]],[[

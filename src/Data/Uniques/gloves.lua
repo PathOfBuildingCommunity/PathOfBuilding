@@ -1055,7 +1055,7 @@ Requires Level 58, 45 Dex, 45 Int
 (250-300)% increased Evasion and Energy Shield
 +(20-30)% to Lightning Resistance
 Enemies you kill are Shocked
-Shocks you inflict spread to other Enemies within a Radius of 15
+Shocks you inflict spread to other Enemies within 1.5 metres
 ]],[[
 Thunderfist
 Murder Mitts

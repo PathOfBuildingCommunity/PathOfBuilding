@@ -445,7 +445,7 @@ You are Shocked during Effect, causing 50% increased Damage taken
 {variant:4,8,10}20% of Physical Damage Converted to Lightning during Effect
 {variant:14}50% of Physical Damage Converted to Lightning during Effect
 {variant:15}(25-40)% increased Effect of Shocks you inflict during Effect
-{variant:15}Shocks you inflict during Effect spread to other Enemies in a radius of 20
+{variant:15}Shocks you inflict during Effect spread to other Enemies within 2 metres
 {variant:1,2,3,4}30% of Lightning Damage Leeched as Life during Effect
 {variant:5,6,7,8,9,10,11,12,13,14,15,16,17,18}20% of Lightning Damage Leeched as Life during Effect
 {variant:1,2,3,4}30% of Lightning Damage Leeched as Mana during Effect
