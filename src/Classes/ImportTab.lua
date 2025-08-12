@@ -100,6 +100,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 		return not self.controls.accountName.buf:match("[#%-]%d%d%d%d$")
 	end
 
+	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, {0, 34, 0, 14}, "^7Note: if the account name contains non-ASCII characters it must be pasted into the textbox,\nnot typed manually.")
 
 	-- Stage: input POESESSID
 	self.controls.sessionHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, {6, 40, 200, 14})
