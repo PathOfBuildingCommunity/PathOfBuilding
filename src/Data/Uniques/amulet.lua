@@ -564,7 +564,7 @@ Implicits: 1
 {tags:jewellery_resistance}+(35-40)% to Cold Resistance
 30% increased Freeze Duration on Enemies
 10% chance to Freeze
-{variant:2}Freezes you inflict spread to other Enemies with a Radius of 15
+{variant:2}Freezes you inflict spread to other Enemies within 1.5 metres
 60% increased Damage if you've Frozen an Enemy Recently
 ]],[[
 The Pandemonius

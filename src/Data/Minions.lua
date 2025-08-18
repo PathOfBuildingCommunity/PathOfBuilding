@@ -1223,3 +1223,264 @@ minions["VoidSpawn"] = {
 		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
 	},
 }
+
+minions["AncestralAhuanaMinion"] = {
+	name = "Spirit of Ahuana",
+	monsterTags = { "human", "humanoid", "medium_movement", "not_int", "not_str", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.9,
+	evasion = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.3,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 70,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"MPWAhuanaIceShot",
+		"MonsterSnipeAhuana",
+		"MPWAhuanaFakeArrow",
+	},
+	modList = {
+	},
+}
+
+minions["AncestralAkoyaMinion"] = {
+	name = "Spirit of Akoya",
+	monsterTags = { "human", "humanoid", "medium_movement", "not_int", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.1,
+	armour = 0.75,
+	evasion = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 20,
+	accuracy = 1,
+	weaponType1 = "Two Handed Axe",
+	skillList = {
+		"MeleeAtAnimationSpeedUnique",
+		"MPSAkoyaJadeSpray",
+		"GSAkoyaRockExplosion",
+	},
+	modList = {
+	},
+}
+
+minions["AncestralIkiahoMinion"] = {
+	name = "Spirit of Ikiaho",
+	monsterTags = { "human", "humanoid", "medium_movement", "not_dex", "not_str", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	energyShield = 4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"AncestralIkiahoArcticBreath",
+		"AncestralIkiahoIceStorm",
+		"EASIkiahoIceStorm",
+	},
+	modList = {
+	},
+}
+
+minions["AncestralKahuturoaMinion"] = {
+	name = "Spirit of Kahuturoa",
+	monsterTags = { "fast_movement", "human", "humanoid", "not_dex", "not_int", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.2,
+	armour = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.6,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 24,
+	accuracy = 1,
+	skillList = {
+		"KahuturoaMelee",
+		"DTTKahuturoaLeapSlam",
+		"GAKahuturoaLeapSlamImpact",
+		"GAKahuturoaForwardMelee",
+		"GAKahuturoaLeapSlamWeaponSwing",
+	},
+	modList = {
+	},
+}
+
+minions["AncestralKaomMinion"] = {
+	name = "Spirit of Kaom",
+	monsterTags = { "human", "humanoid", "not_int", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2,
+	armour = 0.75,
+	evasion = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.3,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 20,
+	accuracy = 1,
+	weaponType1 = "Two Handed Axe",
+	skillList = {
+		"MeleeAtAnimationSpeedUnique",
+		"MPSKaomFireFist",
+		"GAKaomFistBlast",
+		"GAKaomFistBlastFinal",
+		"AncestralKaomUnarmedCombo",
+	},
+	modList = {
+	},
+}
+
+minions["AncestralKiloavaMinion"] = {
+	name = "Spirit of Kiloava",
+	monsterTags = { "fast_movement", "human", "humanoid", "not_int", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.2,
+	armour = 0.75,
+	evasion = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 19,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeedUnique",
+		"MPWKiloavaSpearThrow",
+		"GSKiloavaLightningBolt",
+	},
+	modList = {
+	},
+}
+
+minions["AncestralMaataMinion"] = {
+	name = "Spirit of Maata",
+	monsterTags = { "human", "humanoid", "medium_movement", "not_str", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.9,
+	energyShield = 1.6,
+	evasion = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 20,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	skillList = {
+		"MeleeAtAnimationSpeedUnique",
+		"DonutCircleMaata",
+		"SSMMaataVine",
+		"GSMaataVineCascade",
+		"GTMaataVineCascade",
+	},
+	modList = {
+	},
+}
+
+minions["AncestralRakiataMinion"] = {
+	name = "Spirit of Rakiata",
+	monsterTags = { "fast_movement", "human", "humanoid", "not_int", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	armour = 0.75,
+	evasion = 0.3,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.3,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 20,
+	accuracy = 1,
+	weaponType1 = "Two Handed Sword",
+	skillList = {
+		"GARakiataSlam",
+		"RakiataSweep",
+		"RakiataSlam",
+		"RakiataLacerate",
+		"GTRakiataSlam",
+	},
+	modList = {
+	},
+}
+
+minions["AncestralTawhanukuMinion"] = {
+	name = "Spirit of Tawhanuku",
+	monsterTags = { "human", "humanoid", "medium_movement", "not_dex", "not_str", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"GSAncestralTawhanukuWave",
+		"AncestralTawhanukuSoulRend",
+		"GTTawhanukuMultiSoulrend",
+	},
+	modList = {
+	},
+}
+
+minions["AncestralUtulaMinion"] = {
+	name = "Spirit of Utula",
+	monsterTags = { "fast_movement", "human", "humanoid", "not_int", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.2,
+	armour = 0.75,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 19,
+	accuracy = 1,
+	weaponType1 = "One Handed Axe",
+	weaponType2 = "One Handed Axe",
+	skillList = {
+		"MeleeAtAnimationSpeedUnique",
+		"UtulaFireSwing",
+		"MPSUtulaFireball",
+	},
+	modList = {
+	},
+}
