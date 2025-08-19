@@ -679,7 +679,7 @@ end
 function TradeQueryClass:SetNotice(notice_control, msg)
 	if msg:find("No Matching Results") then
 		msg = colorCodes.WARNING .. msg
-	elseif msg:find("Error:") then
+	elseif msg:find("Error") then
 		msg = colorCodes.NEGATIVE .. msg
 	end
 	notice_control.label = msg
@@ -1124,9 +1124,9 @@ function TradeQueryClass:UpdateRealms()
 				end
 			end
 			setRealmDropList()
-
 		end)
-	else
+	end
+	if not main.POESESSID or main.POESESSID == "" then
 		-- Fallback to static list
 		ConPrintf("Using static realms list")
 		self.realmIds = {
