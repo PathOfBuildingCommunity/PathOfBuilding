@@ -187,7 +187,7 @@ function EditClass:ZoomText(zoom)
 	end
 
 	local textHeight = self.lineHeight
-	if zoom == "+" then 
+	if zoom == "+" then
 		textHeight = textHeight + 1
 	elseif zoom == "-" then
 		textHeight = textHeight - 1
@@ -586,7 +586,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 		if self.lineHeight and not ctrl then
 			self.caret = self.caret + #self.buf:sub(self.caret, -1):match("[^\n]*")
 		else
-			self.caret = #self.buf + 1			
+			self.caret = #self.buf + 1
 		end
 		self.lastUndoState.caret = self.caret
 		self:ScrollCaretIntoView()

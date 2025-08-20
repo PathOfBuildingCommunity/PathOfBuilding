@@ -196,11 +196,11 @@ for i=1, alternatePassiveSkillDat.rowCount do
 
 	-- Node group, legion nodes don't use it, so we set it arbitrarily
 	legionPassiveNode.g = LEGION_PASSIVE_GROUP
-	-- 
+	--
 	-- group orbit distance
 	legionPassiveNode.o = legionPassiveNode.ks and 4 or 3
 	legionPassiveNode.oidx = legionPassiveNode.ks and ksCount * 3 or math.floor(math.random() * 1e5)
-	-- attributes granted 
+	-- attributes granted
 	legionPassiveNode.sa = 0
 	legionPassiveNode.da = 0
 	legionPassiveNode.ia = 0

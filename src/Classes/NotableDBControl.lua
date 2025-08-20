@@ -158,7 +158,7 @@ function NotableDBClass:ListBuilder()
 				start = now
 			end
 		end
-		
+
 		if #infinites > 0 then
 			self.sortMaxPower = self.sortMaxPower * 2
 			for _, node in ipairs(infinites) do

@@ -99,9 +99,9 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId, useF
 	else
 		gemList[self.index] = nil
 	end
-	
+
 	self.skillsTab.displayGroup.displayGemList = displayGemList
-	
+
 	return output, gemInstance
 end
 

@@ -7,15 +7,15 @@ local t_insert = table.insert
 local m_floor = math.floor
 
 local anchorPos = {
-	    ["TOPLEFT"] = { 0  , 0   },
-	        ["TOP"] = { 0.5, 0   },
-	   ["TOPRIGHT"] = { 1  , 0   },
-	      ["RIGHT"] = { 1  , 0.5 },
-	["BOTTOMRIGHT"] = { 1  , 1   },
-	     ["BOTTOM"] = { 0.5, 1   },
-	 ["BOTTOMLEFT"] = { 0  , 1   },
-	       ["LEFT"] = { 0  , 0.5 },
-	     ["CENTER"] = { 0.5, 0.5 },
+        ["TOPLEFT"] = { 0  , 0   },
+            ["TOP"] = { 0.5, 0   },
+       ["TOPRIGHT"] = { 1  , 0   },
+          ["RIGHT"] = { 1  , 0.5 },
+    ["BOTTOMRIGHT"] = { 1  , 1   },
+         ["BOTTOM"] = { 0.5, 1   },
+     ["BOTTOMLEFT"] = { 0  , 1   },
+           ["LEFT"] = { 0  , 0.5 },
+         ["CENTER"] = { 0.5, 0.5 },
 }
 
 --[[
@@ -25,7 +25,7 @@ local rect = {
 	width,
 	height,
 	}
-	
+
 	could possibly have
 	minWidth,
 	minHeight,

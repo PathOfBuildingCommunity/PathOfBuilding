@@ -163,10 +163,10 @@ function ListClass:Draw(viewPort, noTooltip)
 			end
 		end
 	end
-	if self.selDragActive and self.dragTargetList then 
-		self.dragTarget = nil	
+	if self.selDragActive and self.dragTargetList then
+		self.dragTarget = nil
 		for _, target in ipairs(self.dragTargetList) do
-			if not self.dragTarget and target.otherDragSource == self and target:IsMouseOver() then 
+			if not self.dragTarget and target.otherDragSource == self and target:IsMouseOver() then
 				self.dragTarget = target
 				target.otherDragTargeting = true
 			else
@@ -175,7 +175,7 @@ function ListClass:Draw(viewPort, noTooltip)
 		end
 	end
 
-	local label = self:GetProperty("label") 
+	local label = self:GetProperty("label")
 	if label then
 		DrawString(x + self.labelPositionOffset[1], y - 20 + self.labelPositionOffset[2], "LEFT", 16, self.font, label)
 	end
@@ -213,7 +213,7 @@ function ListClass:Draw(viewPort, noTooltip)
 			local value = list[index]
 			local text = self:GetRowValue(colIndex, index, value)
 			local icon = nil
-			if self.GetRowIcon then 
+			if self.GetRowIcon then
 				icon = self:GetRowIcon(colIndex, index, value)
 			end
 			local textWidth = DrawStringWidth(textHeight, colFont, text)
@@ -440,7 +440,7 @@ function ListClass:OnKeyUp(key)
 					end
 					self.selValue = nil
 				end
-				if self.dragTargetList then			
+				if self.dragTargetList then
 					for _, target in ipairs(self.dragTargetList) do
 						target.otherDragSource = nil
 						target.otherDragTargeting = false

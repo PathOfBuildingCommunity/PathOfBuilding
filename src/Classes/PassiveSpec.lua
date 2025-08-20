@@ -145,7 +145,7 @@ function PassiveSpecClass:Load(xml, dbFileName)
 							launch:ShowErrMsg("^1Error parsing '%s': 'Override' element missing 'nodeId' attribute", dbFileName)
 							return true
 						end
-						
+
 						-- In case a tattoo has been replaced by a different one attempt to find the new name for it
 						if not self.tree.tattoo.nodes[child.attrib.dn] then
 							for name ,data in pairs(self.tree.tattoo.nodes) do
@@ -211,7 +211,7 @@ function PassiveSpecClass:Save(xml)
 		end
 	end
 	t_insert(xml, sockets)
-	
+
 	local overrides = {
 		elem = "Overrides"
 	}
@@ -350,7 +350,7 @@ end
 function PassiveSpecClass:DecodePoePlannerURL(url, return_tree_version_only)
 	-- poeplanner uses little endian numbers (GGG using BIG).
 	-- If return_tree_version_only is True, then the return value will either be an error message or the tree version.
-	   -- both error messages begin with 'Invalid'
+	-- both error messages begin with 'Invalid'
 	local function byteToInt(bytes, start)
 		-- get a little endian number from two bytes
 		return bytes:byte(start) + bytes:byte(start + 1) * 256
@@ -379,7 +379,7 @@ function PassiveSpecClass:DecodePoePlannerURL(url, return_tree_version_only)
 		compressedNotesLength: u16
 		compressedNotesBytes: []u8 (gzip)
 
-		TreeBuild: 
+		TreeBuild:
 		treeSerializationVersion: u16
 		treeVersion: u16
 		character: u8
@@ -616,7 +616,7 @@ function PassiveSpecClass:SelectSecondaryAscendClass(ascendClassId)
 			end
 		end
 	end
-	
+
 	self.curSecondaryAscendClassId = ascendClassId
 	if ascendClassId == 0 then
 		self.curSecondaryAscendClass = nil
@@ -1372,7 +1372,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			end
 		end
 	end
-	
+
 	-- Reset and rebuild all node paths
 	for id, node in pairs(self.nodes) do
 		node.pathDist = (node.alloc and #node.intuitiveLeapLikesAffecting == 0) and 0 or 1000

@@ -77,7 +77,7 @@ end
 
 function TooltipClass:AddLine(size, text)
 	if text then
-		for line in s_gmatch(text .. "\n", "([^\n]*)\n") do	
+		for line in s_gmatch(text .. "\n", "([^\n]*)\n") do
 			if line:match("^.*(Equipping)") == "Equipping" or line:match("^.*(Removing)") == "Removing" then
 				t_insert(self.blocks, { height = size + 2})
 			else
@@ -212,7 +212,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	elseif self.center then
 		ttX = m_floor(x - ttW/2)
 	end
-	
+
 	SetDrawColor(1, 1, 1)
 
 	local columns, maxColumnHeight, drawStack = self:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
@@ -223,7 +223,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	DrawImage(nil, ttX, ttY + BORDER_WIDTH, ttW * columns - BORDER_WIDTH, maxColumnHeight - 2 * BORDER_WIDTH)
 	--SetDrawLayer(nil, GetDrawLayer())
 	SetDrawColor(1, 1, 1)
-	for i, lines in ipairs(drawStack) do 
+	for i, lines in ipairs(drawStack) do
 		if #lines < 6 then
 			if(type(self.color) == "string") then
 				SetDrawColor(self.color)
@@ -238,7 +238,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		end
 	end
 	if type(self.color) == "string" then
-		SetDrawColor(self.color) 
+		SetDrawColor(self.color)
 	else
 		SetDrawColor(unpack(self.color))
 	end

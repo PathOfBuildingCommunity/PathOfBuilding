@@ -9,8 +9,8 @@ local s_format = string.format
 local BuildListClass = newClass("BuildListControl", "ListControl", function(self, anchor, rect, listMode)
 	self.ListControl(anchor, rect, 20, "VERTICAL", false, listMode.list)
 	self.listMode = listMode
-	self.colList = { 
-		{ width = function() return self:GetProperty("width") - 172 end }, 
+	self.colList = {
+		{ width = function() return self:GetProperty("width") - 172 end },
 		{ },
 	}
 	self.showRowSeparators = true
@@ -136,7 +136,7 @@ function BuildListClass:RenameBuild(build, copyOnName)
 		main:ClosePopup()
 		self.listMode:SelectControl(self)
 	end)
-	main:OpenPopup(370, 100, (copyOnName and "Copy " or "Rename ")..(build.folderName and "Folder" or "Build"), controls, "save", "edit")	
+	main:OpenPopup(370, 100, (copyOnName and "Copy " or "Rename ")..(build.folderName and "Folder" or "Build"), controls, "save", "edit")
 end
 
 function BuildListClass:DeleteBuild(build)
@@ -183,9 +183,9 @@ function BuildListClass:GetRowValue(column, index, build)
 		end
 	elseif column == 2 then
 		if build.buildName then
-			return s_format("%sLevel %d %s", 
-				build.className and colorCodes[build.className:upper()] or "^7", 
-				build.level or 1, 
+			return s_format("%sLevel %d %s",
+				build.className and colorCodes[build.className:upper()] or "^7",
+				build.level or 1,
 				(build.ascendClassName ~= "None" and build.ascendClassName) or build.className or "?"
 			)
 		else
@@ -246,5 +246,5 @@ function BuildListClass:OnSelKeyDown(index, build, key)
 		self:LoadBuild(build)
 	elseif key == "F2" then
 		self:RenameBuild(build)
-	end	
+	end
 end

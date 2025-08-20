@@ -174,7 +174,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.findTimelessJewel = new("ButtonControl", { "LEFT", self.controls.treeSearch, "RIGHT" }, { 8, 0, 150, 20 }, "Find Timeless Jewel", function()
 		self:FindTimelessJewel()
 	end)
-	
+
 	--Default index for Tattoos
 	self.defaultTattoo = { }
 
@@ -184,7 +184,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.controls.treeHeatMapStatSelect.shown = state
 
 		if state == false then
-			self.controls.powerReportList.shown = false 
+			self.controls.powerReportList.shown = false
 		end
 	end)
 
@@ -347,15 +347,15 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 								+ self.controls.versionText.width() + self.controls.versionText.x
 								+ self.controls.versionSelect.width + self.controls.versionSelect.x
 								+ (self.isComparing and (self.controls.compareSelect.width + self.controls.compareSelect.x) or 0)
-	
+
 	local widthSecondLineControls = self.controls.treeSearch.width + 8
 									+ self.controls.findTimelessJewel.width + self.controls.findTimelessJewel.x
 									+ self.controls.treeHeatMap.width + 130
 									+ self.controls.nodePowerMaxDepthSelect.width + self.controls.nodePowerMaxDepthSelect.x
 									+ (self.isCustomMaxDepth and (self.controls.nodePowerMaxDepthCustom.width + self.controls.nodePowerMaxDepthCustom.x) or 0)
-									+ (self.viewer.showHeatMap and (self.controls.treeHeatMapStatSelect.width + self.controls.treeHeatMapStatSelect.x 
+									+ (self.viewer.showHeatMap and (self.controls.treeHeatMapStatSelect.width + self.controls.treeHeatMapStatSelect.x
 																	+ self.controls.powerReport.width + self.controls.powerReport.x) or 0)
-	
+
 	-- Check first line
 	if viewPort.width >= widthFirstLineControls + widthSecondLineControls + rightMargin then
 		linesHeight = 0
@@ -910,7 +910,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	controls.totalTattoos = new("LabelControl", nil, { 0, 95, 0, 16 }, "^7Tattoo Count: ".. getTattooCount() .."/50" )
 	main:OpenPopup(600, 105, "Replace Modifier of Node", controls, "save")
 	constructUI(modGroups[self.defaultTattoo[nodeName] or 1])
-	
+
 	-- Show Legacy Tattoos
 	controls.showLegacyTattoo = new("CheckBoxControl", { "LEFT", controls.totalTattoos, "RIGHT" }, { 205, 0, 20 }, "Show Legacy Tattoos:", function(state)
 		self.showLegacyTattoo = state
@@ -1461,7 +1461,7 @@ function TreeTabClass:FindTimelessJewel()
 			break
 		end
 	end
-	
+
 	local function clearProtected() -- clear all controls, nodes related to Militant Faith filtering
 		protectedNodesCount = 0
 		protectedNodes = { }
@@ -1928,7 +1928,7 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:Clear()
 		tooltip:AddLine(16, "^7Optional: Only show results where total weight meets or exceeds this value.")
 	end
-	
+
 
 	controls.searchListButton = new("ButtonControl", {"TOPLEFT", nil, "TOPLEFT"}, {12, 250, 106, 20}, "^7Desired Nodes", function()
 		if controls.searchListFallback.shown then

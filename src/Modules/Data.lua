@@ -590,7 +590,7 @@ do
 				end
 			end
 		end
-	end					
+	end
 end
 data.essences = LoadModule("Data/Essence")
 data.veiledMods = LoadModule("Data/ModVeiled")
@@ -805,10 +805,10 @@ if not data.nodeIDList.size and launch.devMode then
 end
 
 -- Load bosses
-do 
+do
 	data.bosses = { }
 	LoadModule("Data/Bosses", data.bosses)
-	
+
 	local count, uberCount = 0, 0
 	local armourTotal, evasionTotal = 0, 0
 	local uberArmourTotal, uberEvasionTotal = 0, 0
@@ -958,7 +958,7 @@ for gemId, gem in pairs(data.gems) do
 		data.gemGrantedEffectIdForVaalGemId[gem.secondaryGrantedEffectId] = gemId
 		for otherGemId, otherGem in pairs(data.gems) do
 			if otherGem.grantedEffectId == gem.secondaryGrantedEffectId then
-				data.gemVaalGemIdForBaseGemId[gemId] = otherGemId 
+				data.gemVaalGemIdForBaseGemId[gemId] = otherGemId
 				break
 			end
 		end

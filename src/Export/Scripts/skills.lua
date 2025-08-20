@@ -203,7 +203,7 @@ directiveTable.skill = function(state, args, out)
 	local secondaryEffect
 	if not gemEffect then
 		gemEffect = dat("GemEffects"):GetRow("GrantedEffect2", granted)
-		if gemEffect then 
+		if gemEffect then
 			secondaryEffect = true
 		end
 	end

@@ -41,7 +41,7 @@ function ModListClass:ReplaceModInternal(mod)
 	if self.parent then
 		return self.parent:ReplaceModInternal(mod)
 	end
-	
+
 	return false
 end
 

@@ -329,7 +329,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			max = #max > 0 and tonumber(max) or tonumber(min)
 
 			tokenizeOffset = tokenizeOffset + (endPos - startPos)
-			
+
 			if inverse then
 				sign = nil
 				min = -min
@@ -617,13 +617,13 @@ function TradeQueryGeneratorClass:GeneratePassiveNodeWeights(nodesToTest)
 		if self.alreadyWeightedMods[entry.tradeMod.id] ~= nil then
 			goto continue
 		end
-		
+
 		local nodeName = entry.tradeMod.text:match("1 Added Passive Skill is (.*)") or entry.tradeMod.text:match("Allocates (.*)")
 		if not nodeName then
 			goto continue
 		end
 		local node = self.itemsTab.build.spec.tree.clusterNodeMap[nodeName] or self.itemsTab.build.spec.tree.notableMap[nodeName]
-		
+
 		local baseOutput = self.calcContext.baseOutput
 		local output = self.calcContext.calcFunc({ addNodes = { [node] = true } })
 		local meanStatDiff = TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, output, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
@@ -631,7 +631,7 @@ function TradeQueryGeneratorClass:GeneratePassiveNodeWeights(nodesToTest)
 			t_insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff, meanStatDiff = meanStatDiff, invert = false })
 		end
 		self.alreadyWeightedMods[entry.tradeMod.id] = true
-		
+
 		local now = GetTime()
 		if now - start > 50 then
 			-- Would be nice to update x/y progress on the popup here, but getting y ahead of time has a cost, and the visual seems to update on a significant delay anyways so it's not very useful
@@ -891,18 +891,18 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	local originalOutput = originalItem and self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }) or self.calcContext.baseOutput
 	local currentStatDiff = TradeQueryGeneratorClass.WeightedRatioOutputs(self.calcContext.baseOutput, originalOutput, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
-	
+
 	-- Sort by mean Stat diff rather than weight to more accurately prioritize stats that can contribute more
 	table.sort(self.modWeights, function(a, b)
 		return a.meanStatDiff > b.meanStatDiff
 	end)
-	
+
 	-- A megalomaniac is not being compared to anything and the currentStatDiff will be 0, so just go for an arbitrary min weight - in this case triple the weight of the worst evaluated node.
 	local megalomaniacSpecialMinWeight = self.calcContext.special.itemName == "Megalomaniac" and self.modWeights[#self.modWeights] * 3
 	-- This Stat diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
 	-- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
 	local minWeight = megalomaniacSpecialMinWeight or currentStatDiff * 0.5
-	
+
 	-- Generate trade query str and open in browser
 	local filters = 0
 	local queryTable = {
@@ -927,7 +927,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 		sort = { ["statgroup.0"] = "desc" },
 		engine = "new"
 	}
-	
+
 	for k, v in pairs(self.calcContext.special.queryExtra or {}) do
 		queryTable.query[k] = v
 	end

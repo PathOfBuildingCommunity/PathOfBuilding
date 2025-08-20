@@ -202,9 +202,9 @@ function ModStoreClass:Max(cfg, ...)
 		local val = self:EvalMod(value.mod, cfg)
 		if val > (max or 0) then
 			max = val
-		end	
+		end
 	end
-	return max		
+	return max
 end
 
 ---HasMod
@@ -390,7 +390,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 					limitTotal = limit
 				else
 					mult = m_min(mult, limit)
-				end 
+				end
 			end
 			if type(value) == "table" then
 				value = copyTable(value)
@@ -439,7 +439,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 					limitTotal = limit
 				else
 					mult = m_min(mult, limit)
-				end 
+				end
 			end
 			if type(value) == "table" then
 				value = copyTable(value)
@@ -653,7 +653,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 					end
 					return false
 				end
-				
+
 				local match = {}
 				if tag.slotName then
 					match["slotName"] = (tag.slotName == cfg.slotName) or false

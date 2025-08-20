@@ -20,7 +20,7 @@ local function processStatFile(name)
 		if noDesc then
 			table.insert(statDescriptor, { stats = { noDesc } })
 			statDescriptor[noDesc] = #statDescriptor
-		elseif line:match("handed_description") or (line:match("description") and not line:match("_description")) then	
+		elseif line:match("handed_description") or (line:match("description") and not line:match("_description")) then
 			local name = line:match("description ([%w_]+)")
 			curLang = { }
 			curDescriptor = { curLang, order = order, name = name }
@@ -47,7 +47,7 @@ local function processStatFile(name)
 					local desc = { text = text, limit = { } }
 					for statLimit in statLimits:gmatch("[!%d%-#|]+") do
 						local limit = { }
-						
+
 						if statLimit == "#" then
 							limit[1] = "#"
 							limit[2] = "#"

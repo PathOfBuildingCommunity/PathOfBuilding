@@ -53,7 +53,7 @@ local influenceInfo = itemLib.influenceInfo.all
 local ItemClass = newClass("Item", function(self, raw, rarity, highQuality)
 	if raw then
 		self:ParseRaw(sanitiseText(raw), rarity, highQuality)
-	end	
+	end
 end)
 
 -- Reset all influence keys to false
@@ -367,7 +367,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	local gameModeStage = "FINDIMPLICIT"
 	local foundExplicit, foundImplicit
 
-	while self.rawLines[l] do	
+	while self.rawLines[l] do
 		local line = self.rawLines[l]
 		if flaskBuffLines and flaskBuffLines[line] then
 			flaskBuffLines[line] = nil
@@ -836,7 +836,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	end
 	self.affixLimit = 0
 	if self.crafted then
-		if not self.affixes then 
+		if not self.affixes then
 			self.crafted = false
 		elseif self.rarity == "MAGIC" then
 			if self.prefixes.limit or self.suffixes.limit then
@@ -926,7 +926,7 @@ function ItemClass:NormaliseQuality()
 		elseif not self.uniqueID and not self.corrupted and not self.split and not self.mirrored and self.quality < 20 then
 			self.quality = 20
 		end
-	end	
+	end
 end
 
 function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
@@ -1095,7 +1095,7 @@ function ItemClass:BuildRaw()
 			if baseLine.variantList then
 				writeModLine(baseLine)
 			end
-		end	
+		end
 		if self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
 			t_insert(rawLines, "Selected Alt Variant: " .. self.variantAlt)
@@ -1228,7 +1228,7 @@ function ItemClass:Craft()
 							end
 						end
 						statOrder[order] = modLine
-					end	
+					end
 				end
 			end
 		end
@@ -1243,7 +1243,7 @@ function ItemClass:Craft()
 end
 
 function ItemClass:CheckModLineVariant(modLine)
-	return not modLine.variantList 
+	return not modLine.variantList
 		or modLine.variantList[self.variant]
 		or (self.hasAltVariant and modLine.variantList[self.variantAlt])
 		or (self.hasAltVariant2 and modLine.variantList[self.variantAlt2])
@@ -1579,11 +1579,11 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			if jewelData.clusterJewelSkill and not self.clusterJewel.skills[jewelData.clusterJewelSkill] then
 				jewelData.clusterJewelSkill = nil
 			end
-			jewelData.clusterJewelValid = jewelData.clusterJewelKeystone 
-				or ((jewelData.clusterJewelSkill or jewelData.clusterJewelSmallsAreNothingness) and jewelData.clusterJewelNodeCount) 
+			jewelData.clusterJewelValid = jewelData.clusterJewelKeystone
+				or ((jewelData.clusterJewelSkill or jewelData.clusterJewelSmallsAreNothingness) and jewelData.clusterJewelNodeCount)
 				or (jewelData.clusterJewelSocketCountOverride and jewelData.clusterJewelNothingnessCount)
 		end
-	end	
+	end
 	return { unpack(modList) }
 end
 
@@ -1628,7 +1628,7 @@ function ItemClass:BuildModList()
 				if modLine.range then
 					-- Check if line actually has a range
 					if modLine.line:find("%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)") then
-						local strippedModeLine = modLine.line:gsub("\n"," ")						
+						local strippedModeLine = modLine.line:gsub("\n"," ")
 						local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
 						-- Put the modified value into the string
 						local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar)
@@ -1706,7 +1706,7 @@ function ItemClass:BuildModList()
 		-- Force the socket count to be equal to the stated number
 		self.selectableSocketCount = socketCount
 		local group = 0
-		for i = 1, m_max(socketCount, #self.sockets) do 
+		for i = 1, m_max(socketCount, #self.sockets) do
 			if i > socketCount then
 				self.sockets[i] = nil
 			elseif not self.sockets[i] then

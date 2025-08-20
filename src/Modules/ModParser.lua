@@ -2414,7 +2414,7 @@ local specialModList = {
 	["non%-unique jewels cause increases and reductions to other damage types in a (%a+) radius to be transformed to apply to (%a+) damage"] = function(_, radius, dmgType) return {
 		mod("ExtraJewelFunc", "LIST", {radius = firstToUpper(radius), type = "Other", func = function(node, out, data)
 			-- Ignore Timeless Jewels
-			if node and not node.conqueredBy then 
+			if node and not node.conqueredBy then
 				getSimpleConv({ "PhysicalDamage","FireDamage","ColdDamage","LightningDamage","ChaosDamage","ElementalDamage" }, (dmgType:gsub("^%l", string.upper)).."Damage", "INC", true)(node, out, data)
 			end
 		end}, {type = "ItemCondition", itemSlot = "{SlotName}", rarityCond = "UNIQUE", neg = true}),
@@ -2965,10 +2965,10 @@ local specialModList = {
 	["attack skills gain (%d+)%% of physical damage as extra fire damage per socketed red gem"] = function(num) return { mod("SocketProperty", "LIST", { value = mod("PhysicalDamageGainAsFire", "BASE", num, nil, ModFlag.Attack) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "strength", sockets = {1,2,3,4,5,6} }) } end,
 	["you have vaal pact while all socketed gems are red"] = { mod("GroupProperty", "LIST", { value = mod("Keystone", "LIST", "Vaal Pact") }, { type = "SocketedIn", slotName = "{SlotName}", socketColor = "R", sockets = "all" }) },
 	-- Mahuxotl's Machination Steel Kite Shield
-	["everlasting sacrifice"] = { 
+	["everlasting sacrifice"] = {
 		flag("Condition:EverlastingSacrifice")
 	},
-	 -- Self hit dmg
+	-- Self hit dmg
 	["take (%d+) (.+) damage when you ignite an enemy"] = function(dmg, _, dmgType) return {
 		mod("EyeOfInnocenceSelfDamage", "LIST", {baseDamage = dmg, damageType = dmgType})
 	} end,
@@ -3955,7 +3955,7 @@ local specialModList = {
 	["(%d+)%% chance to throw up to (%d+) additional traps?"] = function(chance, _, num) return { mod("TrapThrowCount", "BASE", tonumber(num) * tonumber(chance) / 100.0) } end,
 	["throw an additional mine"] = { mod("MineThrowCount", "BASE", 1) },
 	["(%d+)%% chance to throw up to (%d+) additional mines?"] = function(chance, _, num) return { mod("MineThrowCount", "BASE", tonumber(num) * tonumber(chance) / 100.0) } end,
-	["(%d+)%% chance to throw up to (%d+) additional traps? or mines?"] = function(chance, _, num) return { 
+	["(%d+)%% chance to throw up to (%d+) additional traps? or mines?"] = function(chance, _, num) return {
 		mod("TrapThrowCount", "BASE", tonumber(num) * tonumber(chance) / 100.0),
 		mod("MineThrowCount", "BASE", tonumber(num) * tonumber(chance) / 100.0),
 	} end,
@@ -4332,8 +4332,8 @@ local specialModList = {
 	["(%d+)%% of damage taken while frozen recouped as life"] = function(num) return { mod("LifeRecoup", "BASE", num, { type = "Condition", var = "Frozen" }) } end,
 	["recoup effects instead occur over 3 seconds"] = { flag("3SecondRecoup") },
 	["life recoup effects instead occur over 3 seconds"] = { flag("3SecondLifeRecoup") },
-	["([%d%.]+)%% of physical damage prevented from hits in the past (%d+) seconds is regenerated as life per second"] = function(num, _, duration) return { 
-		mod("PhysicalDamageMitigatedLifePseudoRecoup", "BASE", num * duration), 
+	["([%d%.]+)%% of physical damage prevented from hits in the past (%d+) seconds is regenerated as life per second"] = function(num, _, duration) return {
+		mod("PhysicalDamageMitigatedLifePseudoRecoup", "BASE", num * duration),
 		mod("PhysicalDamageMitigatedLifePseudoRecoupDuration", "BASE", duration),
 	} end,
 	["([%d%.]+)%% of physical damage prevented from hits recently is regenerated as energy shield per second"] = function(num) return { mod("PhysicalDamageMitigatedEnergyShieldPseudoRecoup", "BASE", num * 4) } end,
@@ -4349,7 +4349,7 @@ local specialModList = {
 	["cannot gain energy shield"] = { flag("CannotGainEnergyShield") },
 	["cannot gain life"] = { flag("CannotGainLife") },
 	["cannot gain mana"] = { flag("CannotGainMana") },
-	["cannot recover life other than from leech"] = { 
+	["cannot recover life other than from leech"] = {
 		flag("CannotRecoverLifeOutsideLeech"),
 		flag("NoLifeRegen"),
 	},
@@ -4790,7 +4790,7 @@ local specialModList = {
 	["cannot recover energy shield to above evasion rating"] = { flag("EvasionESRecoveryCap") },
 	["warcries exert (%d+) additional attacks?"] = function(num) return { mod("ExtraExertedAttacks", "BASE", num) } end,
 	["battlemage's cry exerts (%d+) additional attack"] = function(num) return { mod("BattlemageExertedAttacks", "BASE", num) } end,
-	["rallying cry exerts (%d+) additional attack"] = function(num) return { mod("RallyingExertedAttacks", "BASE", num) } end,		
+	["rallying cry exerts (%d+) additional attack"] = function(num) return { mod("RallyingExertedAttacks", "BASE", num) } end,
 	["warcries have (%d+)%% chance to exert (%d+) additional attacks?"] = function(num, _, var) return { mod("ExtraExertedAttacks", "BASE", (num*var/100)) } end,
 	["skills deal (%d+)%% more damage for each warcry exerting them"] = function(num) return { mod("EchoesExertAverageIncrease", "MORE", num, nil) } end,
 	["iron will"] = { flag("IronWill") },
@@ -4816,8 +4816,8 @@ local specialModList = {
 	["spell skills deal no damage"] = {	flag("DealNoDamage", { type = "SkillType", skillType = SkillType.Spell }) },
 	["attacks have blood magic"] = { flag("CostLifeInsteadOfMana", nil, ModFlag.Attack) },
 	["attacks cost life instead of mana"] = { flag("CostLifeInsteadOfMana", nil, ModFlag.Attack) },
-	["attack skills cost life instead of (%d+)%% of mana cost"] = function(num) return { 
-		mod("HybridManaAndLifeCost_Life", "BASE", num, nil, ModFlag.Attack) 
+	["attack skills cost life instead of (%d+)%% of mana cost"] = function(num) return {
+		mod("HybridManaAndLifeCost_Life", "BASE", num, nil, ModFlag.Attack)
 	} end,
 	["skills cost energy shield instead of mana or life"] = { flag("CostESInsteadOfManaOrLife") },
 	["spells have an additional life cost equal to (%d+)%% of your maximum life"] = function(num) return {
@@ -4848,9 +4848,9 @@ local specialModList = {
 	["reserves (%d+)%% of life"] = function(num) return { mod("ExtraLifeReserved", "BASE", num) } end,
 	["(%d+)%% of cold damage taken as lightning"] = function(num) return { mod("ColdDamageTakenAsLightning", "BASE", num) } end,
 	["(%d+)%% of fire damage taken as lightning"] = function(num) return { mod("FireDamageTakenAsLightning", "BASE", num) } end,
-	["(%d+)%% of fire and lightning damage from hits taken as cold damage during effect"] = function(num) return { 
-		mod("FireDamageFromHitsTakenAsCold", "BASE", num, { type = "Condition", var = "UsingFlask" }), 
-		mod("LightningDamageFromHitsTakenAsCold", "BASE", num, { type = "Condition", var = "UsingFlask" }), 
+	["(%d+)%% of fire and lightning damage from hits taken as cold damage during effect"] = function(num) return {
+		mod("FireDamageFromHitsTakenAsCold", "BASE", num, { type = "Condition", var = "UsingFlask" }),
+		mod("LightningDamageFromHitsTakenAsCold", "BASE", num, { type = "Condition", var = "UsingFlask" }),
 	} end,
 	["items and gems have (%d+)%% reduced attribute requirements"] = function(num) return { mod("GlobalAttributeRequirements", "INC", -num) } end,
 	["items and gems have (%d+)%% increased attribute requirements"] = function(num) return { mod("GlobalAttributeRequirements", "INC", num) } end,

@@ -4521,8 +4521,8 @@ skills["FrozenSweep"] = {
 		local m_max = math.max
 		activeSkill.skillData.showAverage = false
 		activeSkill.skillFlags.showAverage = false
-		activeSkill.skillFlags.notAverage = true	
-		
+		activeSkill.skillFlags.notAverage = true
+
 		for _, skill in ipairs(activeSkill.actor.activeSkillList) do
 			if skill.activeEffect.grantedEffect.name == "Frozen Legion" and activeSkill.actor.mainSkill.socketGroup.slot == activeSkill.socketGroup.slot then
 				parentSkill = skill

@@ -577,7 +577,7 @@ Life Ring
 Vermillion Ring
 Crafted: true
 Prefix: IncreasedLife4
-Suffix: Strength6 
+Suffix: Strength6
 ]],[[
 Mana Ring
 Paua Ring

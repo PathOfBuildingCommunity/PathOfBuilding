@@ -56,7 +56,7 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 				if selControl.OnKeyUp then
 					self:SelectControl(selControl:OnKeyUp(event.key))
 				end
-				
+
 				inputEvents[id] = nil
 			end
 
@@ -68,7 +68,7 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 					if not selControl and mOverControl.OnKeyUp and mOverControl:OnKeyUp(event.key) then
 						inputEvents[id] = nil
 					end
-	
+
 					if mOverControl.OnHoverKeyUp then
 						mOverControl:OnHoverKeyUp(event.key)
 					end
@@ -82,7 +82,7 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 				inputEvents[id] = nil
 			end
 		end
-	end	
+	end
 end
 
 function ControlHostClass:DrawControls(viewPort, selControl)

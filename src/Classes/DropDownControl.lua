@@ -238,7 +238,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 
 	-- fit dropHeight to filtered content but keep initial orientation
 	self.dropHeight = m_max(m_min(self.dropHeight, self:GetDropCount() * lineHeight), lineHeight)
-	
+
 	local mOver, mOverComp = self:IsMouseOver()
 	local dropExtra = self.dropHeight + 4
 	scrollBar:SetContentDimension(lineHeight * self:GetDropCount(), self.dropHeight)
@@ -291,8 +291,8 @@ function DropDownClass:Draw(viewPort, noTooltip)
 		if (mOver or self.dropped) and mOverComp ~= "DROP" and not noTooltip then
 			SetDrawLayer(nil, 100)
 			self:DrawTooltip(
-				x, y - (self.dropped and self.dropUp and dropExtra or 0), 
-				width, height + (self.dropped and dropExtra or 0), 
+				x, y - (self.dropped and self.dropUp and dropExtra or 0),
+				width, height + (self.dropped and dropExtra or 0),
 				viewPort,
 				mOver and "BODY" or "OUT", self.selIndex, self.list[self.selIndex])
 			SetDrawLayer(nil, 0)
@@ -385,7 +385,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 				if type(listVal) == "table" then
 					label = listVal.label
 					detail = listVal.detail
-				else 
+				else
 					label = listVal
 				end
 				DrawString(0, y, "LEFT", lineHeight, "VAR", label)
@@ -552,7 +552,7 @@ function DropDownClass:CheckDroppedWidth(enable)
 			boxWidth = DrawStringWidth(lineHeight, "VAR", line or "") + 20
 			self.width = m_max(m_min(boxWidth, 390), 190)
 		end
-		
+
 		self.controls.scrollBar.x = self.droppedWidth - self.width - 1
 	else
 		self.droppedWidth = self.width

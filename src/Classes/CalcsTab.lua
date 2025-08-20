@@ -13,7 +13,7 @@ local buffModeDropList = {
 	{ label = "Unbuffed", buffMode = "UNBUFFED" },
 	{ label = "Buffed", buffMode = "BUFFED" },
 	{ label = "In Combat", buffMode = "COMBAT" },
-	{ label = "Effective DPS", buffMode = "EFFECTIVE" } 
+	{ label = "Effective DPS", buffMode = "EFFECTIVE" }
 }
 
 local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
@@ -37,8 +37,8 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 
 	-- Special section for skill/mode selection
 	self:NewSection(3, "SkillSelect", 1, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "View Skill Details", data = {
-		{ label = "Socket Group", { controlName = "mainSocketGroup", 
-			control = new("DropDownControl", nil, {0, 0, 300, 16}, nil, function(index, value) 
+		{ label = "Socket Group", { controlName = "mainSocketGroup",
+			control = new("DropDownControl", nil, {0, 0, 300, 16}, nil, function(index, value)
 				self.input.skill_number = index
 				self:AddUndoState()
 				self.build.buildFlag = true
@@ -51,14 +51,14 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				end
 			}
 		}, },
-		{ label = "Active Skill", { controlName = "mainSkill", 
+		{ label = "Active Skill", { controlName = "mainSkill",
 			control = new("DropDownControl", nil, {0, 0, 300, 16}, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				mainSocketGroup.mainActiveSkillCalcs = index
 				self.build.buildFlag = true
 			end)
 		}, },
-		{ label = "Skill Part", playerFlag = "multiPart", { controlName = "mainSkillPart", 
+		{ label = "Skill Part", playerFlag = "multiPart", { controlName = "mainSkillPart",
 			control = new("DropDownControl", nil, {0, 0, 250, 16}, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
@@ -84,7 +84,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				self.build.buildFlag = true
 			end)
 		}, },
-		{ label = "Show Minion Stats", flag = "haveMinion", { controlName = "showMinion", 
+		{ label = "Show Minion Stats", flag = "haveMinion", { controlName = "showMinion",
 			control = new("CheckBoxControl", nil, {0, 0, 18}, nil, function(state)
 				self.input.showMinion = state
 				self:AddUndoState()
@@ -117,10 +117,10 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				self.build.buildFlag = true
 			end)
 		} },
-		{ label = "Calculation Mode", { 
-			controlName = "mode", 
-			control = new("DropDownControl", nil, {0, 0, 100, 16}, buffModeDropList, function(index, value) 
-				self.input.misc_buffMode = value.buffMode 
+		{ label = "Calculation Mode", {
+			controlName = "mode",
+			control = new("DropDownControl", nil, {0, 0, 100, 16}, buffModeDropList, function(index, value)
+				self.input.misc_buffMode = value.buffMode
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end, [[
@@ -130,7 +130,7 @@ The stats in the sidebar are always shown in Effective DPS mode, regardless of t
 Unbuffed: No auras, buffs, or other support skills or effects will apply. This is equivalent to standing in town.
 Buffed: Aura and buff skills apply. This is equivalent to standing in your hideout with auras and buffs turned on.
 In Combat: Charges and combat buffs such as Onslaught will also apply. This will show your character sheet stats in combat.
-Effective DPS: Curses and enemy properties (such as resistances and status conditions) will also apply. This estimates your true DPS.]]) 
+Effective DPS: Curses and enemy properties (such as resistances and status conditions) will also apply. This estimates your true DPS.]])
 		}, },
 		{ label = "Aura and Buff Skills", flag = "buffs", textSize = 12, { format = "{output:BuffList}", { breakdown = "SkillBuffs" } }, },
 		{ label = "Combat Buffs", flag = "combat", textSize = 12, { format = "{output:CombatList}" }, },
@@ -306,7 +306,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 		section.y = section.y - self.controls.scrollBar.offset
 		section:UpdatePos()
 	end
-	
+
 	self.controls.search.y = 4 - self.controls.scrollBar.offset
 
 	for _, event in ipairs(inputEvents) do
@@ -444,7 +444,7 @@ function CalcsTabClass:BuildOutput()
 		self.controls.breakdown:SetBreakdownData()
 		self.controls.breakdown:SetBreakdownData(self.displayData, self.displayPinned)
 	end
-	
+
 	-- Retrieve calculator functions
 	self.nodeCalculator = { self.calcs.getNodeCalculator(self.build) }
 	self.miscCalculator = { self.calcs.getMiscCalculator(self.build) }
@@ -492,7 +492,7 @@ function CalcsTabClass:PowerBuilder()
 	if coroutine.running() then
 		coroutine.yield()
 	end
-	
+
 	local start = GetTime()
 	for nodeId, node in pairs(self.build.spec.nodes) do
 		wipeTable(node.power)

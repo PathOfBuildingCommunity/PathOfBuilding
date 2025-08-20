@@ -765,7 +765,7 @@ local function doActorMisc(env, actor)
 			local avoidChill = modDB:Flag(nil, "ChillImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidChill", "AvoidAilments", "AvoidElementalAilments")
 																+ (modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") and modDB:Sum("BASE", nil, "AvoidShock") or 0)
 																+ (modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") and modDB:Sum("BASE", nil, "SpellSuppressionChance") / 2 or 0), 100))
-			
+
 			local effect = avoidChill == 100 and 0 or m_min(m_max(m_floor(chillValue *  totalChillSelfEffect), 0), modDB:Override(nil, "ChillMax") or ailmentData.Chill.max)
 			if modDB:Flag(nil, "SkitterbotBonechill") then
 				modDB:NewMod("ColdDamageTaken", "INC", effect * (modDB:Flag(nil, "SelfChillEffectIsReversed") and -1 or 1), "Bonechill")
@@ -778,7 +778,7 @@ local function doActorMisc(env, actor)
 			local totalShockSelfEffect = calcLib.mod(modDB, nil, "SelfShockEffect")
 			local avoidShock = modDB:Flag(nil, "ShockImmune", "ElementalAilmentImmune") and 100 or m_floor(m_min(modDB:Sum("BASE", nil, "AvoidShock", "AvoidAilments", "AvoidElementalAilments")
 																+ (modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") and modDB:Sum("BASE", nil, "SpellSuppressionChance") / 2 or 0), 100))
-			
+
 			local effect = avoidShock == 100 and 0 or m_min(m_max(m_floor(shockValue *  totalShockSelfEffect), 0), modDB:Override(nil, "ShockMax") or ailmentData.Shock.max)
 			modDB:NewMod("DamageTaken", "INC", effect, "Shock")
 		end
@@ -978,7 +978,7 @@ local function doActorCharges(env, actor)
 	end
 	if actor == env.player then
 		output.InspirationCharges = modDB:Override(nil, "InspirationCharges") or output.InspirationChargesMax
-	end 
+	end
 	if modDB:Flag(nil, "UseGhostShrouds") then
 		output.GhostShrouds = modDB:Override(nil, "GhostShrouds") or 3
 	end
@@ -1163,7 +1163,7 @@ function calcs.perform(env, skipEHP)
 	end
 
 	local hasGuaranteedBonechill = false
-	
+
 	-- Banners
 	if modDB:Flag(nil,"Condition:BannerPlanted") then
 		local max = modDB:Sum("BASE", nil, "MaximumValour")
@@ -1544,7 +1544,7 @@ function calcs.perform(env, skipEHP)
 			end
 		end
 	end
-	
+
 	local effectInc = modDB:Sum("INC", {actor = "player"}, "TinctureEffect")
 	local effectIncMagic = modDB:Sum("INC", {actor = "player"}, "MagicTinctureEffect")
 	local tinctureLimit = modDB:Sum("BASE", nil, "TinctureLimit")
@@ -1554,8 +1554,8 @@ function calcs.perform(env, skipEHP)
 		output.TinctureEffect = effectInc
 		output.TinctureLimit = tinctureLimit
 	end
-	
-	
+
+
 	local function mergeTinctures(tinctures)
 		local tinctureBuffs = { }
 		local tinctureConditions = {}
@@ -1568,7 +1568,7 @@ function calcs.perform(env, skipEHP)
 			end
 			-- Compute tincture effect multiplier.
 			-- Tincture effect multiplier is rounded to 2 decimal places before applying it.
-			local effectMod = math.floor((1 + (tinctureEffectInc) / 100) * (1 + (item.quality or 0) / 100) * 100) / 100 
+			local effectMod = math.floor((1 + (tinctureEffectInc) / 100) * (1 + (item.quality or 0) / 100) * 100) / 100
 
 			-- same deal as flasks, go look at the comment there
 			if buffModList[1] then
@@ -3094,10 +3094,10 @@ function calcs.perform(env, skipEHP)
 					if breakdown then
 						t_insert(mods, modLib.createMod("DamageTakenByShock", "INC", num, "Shock Stacks", { type = "Condition", var = "Shocked" }, { type = "Multiplier", var = "ShockStacks", limit = modDB:Override(nil, "ShockStacksMax") or modDB:Sum("BASE", nil, "ShockStacksMax")}))
 					end
-				else 
+				else
 					t_insert(mods, modLib.createMod("DamageTaken", "INC", num, "Shock", { type = "Condition", var = "Shocked" }))
 				end
-				return mods 
+				return mods
 			end
 		},
 		["Scorch"] = {
@@ -3110,10 +3110,10 @@ function calcs.perform(env, skipEHP)
 					if breakdown then
 						t_insert(mods, modLib.createMod("ElementalResistByScorch", "BASE", -num, "Scorch Stacks", { type = "Condition", var = "Scorched" }, { type = "Multiplier", var = "ScorchStacks", limit = modDB:Override(nil, "ScorchStacksMax") or modDB:Sum("BASE", nil, "ScorchStacksMax")}))
 					end
-				else 
+				else
 					t_insert(mods, modLib.createMod("ElementalResist", "BASE", -num, "Scorch", { type = "Condition", var = "Scorched" }))
 				end
-				return mods 
+				return mods
 			end
 		},
 		["Brittle"] = {
@@ -3287,7 +3287,7 @@ function calcs.perform(env, skipEHP)
 		end
 
 		buffExports.PlayerMods["MovementSpeedMod|percent|max="..tostring(output["MovementSpeedMod"] * 100)] = true
-		
+
 		for _, mod in ipairs(buffExports["Aura"]["extraAura"].modList) do
 			-- leaving comment to make it easier for future similar mods
 			--if mod.name:match("Parent") then
@@ -3376,7 +3376,7 @@ function calcs.perform(env, skipEHP)
 
 			output.GemHasLevel = true
 			output.GemLevel = baseLevel + totalSupportLevel + totalItemLevel
-			
+
 			if env.player.breakdown then
 				env.player.breakdown.GemLevel = {}
 				t_insert(env.player.breakdown.GemLevel, s_format("%d ^8(level from gem)", baseLevel))

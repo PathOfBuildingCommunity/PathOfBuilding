@@ -51,7 +51,7 @@ end
 -- Merge skill modifiers with given mod list
 function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
 	calcLib.validateGemLevel(skillEffect)
-	local grantedEffect = skillEffect.grantedEffect	
+	local grantedEffect = skillEffect.grantedEffect
 	local stats = calcLib.buildSkillInstanceStats(skillEffect, grantedEffect)
 	if extraStats and extraStats[1] then
 		for _, stat in pairs(extraStats) do
@@ -91,7 +91,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	}
 
 	local activeGrantedEffect = activeEffect.grantedEffect
-	
+
 	-- Initialise skill types
 	activeSkill.skillTypes = copyTable(activeGrantedEffect.skillTypes)
 	if activeGrantedEffect.minionSkillTypes then
@@ -134,7 +134,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 			end
 		end
 	until (notAddedNewSupport)
-	
+
 	for _, supportEffect in ipairs(supportList) do
 		-- Pass 2: Add all compatible supports
 		if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
@@ -455,9 +455,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	local skillModList = new("ModList", activeSkill.actor.modDB)
 	activeSkill.skillModList = skillModList
 	activeSkill.baseSkillModList = skillModList
-	
+
 	-- The damage fixup stat applies x% less base Attack Damage and x% more base Attack Speed as confirmed by Openarl Jan 4th 2024
-	-- Implemented in this manner as the stat exists on the minion not the skills 
+	-- Implemented in this manner as the stat exists on the minion not the skills
 	if activeSkill.actor and activeSkill.actor.minionData and activeSkill.actor.minionData.damageFixup then
 		skillModList:NewMod("Damage", "MORE", -100 * activeSkill.actor.minionData.damageFixup, "Damage Fixup", ModFlag.Attack)
 		skillModList:NewMod("Speed", "MORE", 100 * activeSkill.actor.minionData.damageFixup, "Damage Fixup", ModFlag.Attack)
@@ -488,7 +488,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			end
 			if level.manaReservationPercent then
 				activeSkill.skillData.manaReservationPercent = level.manaReservationPercent
-			end	
+			end
 			-- Handle multiple triggers situation and if triggered by a trigger skill save a reference to the trigger.
 			local match = skillEffect.grantedEffect.addSkillTypes and (not skillFlags.disable)
 			if match and skillEffect.grantedEffect.isTrigger then
@@ -552,7 +552,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if level.PvPDamageMultiplier then
 		skillModList:NewMod("PvpDamageMultiplier", "MORE", level.PvPDamageMultiplier, activeEffect.grantedEffect.modSource)
 	end
-	
+
 	-- Add extra modifiers from other sources
 	activeSkill.extraSkillModList = { }
 	for _, value in ipairs(skillModList:List(activeSkill.skillCfg, "ExtraSkillMod")) do
@@ -576,13 +576,13 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		activeEffect.srcInstance.skillMineCountCalcs = nil
 		activeEffect.srcInstance.skillMineCount = nil
 	end
-	
+
 
 	-- Determine if it possible to have a stage on this skill based upon skill parts.
 	local noPotentialStage = true
 	if activeEffect.grantedEffect.parts then
 		for _, part in ipairs(activeEffect.grantedEffect.parts) do
-			if part.stages then 
+			if part.stages then
 				noPotentialStage = false
 				break
 			end
@@ -656,11 +656,11 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			minion.enemy = env.enemy
 			minion.type = minionType
 			minion.minionData = env.data.minions[minionType]
-			minion.level = activeSkill.skillData.minionLevelIsEnemyLevel and env.enemyLevel or 
-								activeSkill.skillData.minionLevelIsPlayerLevel and (m_min(env.build and env.build.characterLevel or activeSkill.skillData.minionLevel or activeEffect.grantedEffectLevel.levelRequirement, activeSkill.skillData.minionLevelIsPlayerLevel)) or 
+			minion.level = activeSkill.skillData.minionLevelIsEnemyLevel and env.enemyLevel or
+								activeSkill.skillData.minionLevelIsPlayerLevel and (m_min(env.build and env.build.characterLevel or activeSkill.skillData.minionLevel or activeEffect.grantedEffectLevel.levelRequirement, activeSkill.skillData.minionLevelIsPlayerLevel)) or
 								minionSupportLevel[minion.type] or activeSkill.skillData.minionLevel or activeEffect.grantedEffectLevel.levelRequirement
 			-- fix minion level between 1 and 100
-			minion.level = m_min(m_max(minion.level,1),100) 
+			minion.level = m_min(m_max(minion.level,1),100)
 			minion.itemList = { }
 			minion.uses = activeGrantedEffect.minionUses
 			minion.lifeTable = (minion.minionData.lifeScaling == "AltLife1" and env.data.monsterLifeTable2) or (minion.minionData.lifeScaling == "AltLife2" and env.data.monsterLifeTable3) or (isSpectre and env.data.monsterLifeTable) or env.data.monsterAllyLifeTable
@@ -711,7 +711,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 						minion.weaponData1 = env.player.weaponData1
 					end
 				end
-				if minion.uses["Weapon 2"] then	
+				if minion.uses["Weapon 2"] then
 					if minion.itemSet then
 						local item = env.build.itemsTab.items[minion.itemSet[minion.itemSet.useSecondWeaponSet and "Weapon 2 Swap" or "Weapon 2"].selItemId]
 						if item and item.weaponData then
@@ -851,7 +851,7 @@ function calcs.createMinionSkills(env, activeSkill)
 		minionSkill.skillData.damageEffectiveness = 1 + (activeSkill.skillData.minionDamageEffectiveness or 0) / 100
 		t_insert(minion.activeSkillList, minionSkill)
 	end
-	local skillIndex 
+	local skillIndex
 	if env.mode == "CALCS" then
 		skillIndex = m_max(m_min(activeEffect.srcInstance.skillMinionSkillCalcs or 1, #minion.activeSkillList), 1)
 		activeEffect.srcInstance.skillMinionSkillCalcs = skillIndex

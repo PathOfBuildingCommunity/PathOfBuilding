@@ -14,7 +14,7 @@ local ResizableEditClass = newClass("ResizableEditControl", "EditControl", funct
 	self.minWidth = minWidth or width
 	self.maxWidth = maxWidth or width
 	self.controls.draggerHeight = new("DraggerControl", {"BOTTOMRIGHT", self, "BOTTOMRIGHT"}, {7, 7, 14, 14}, "//", nil, nil, function (position)
-		-- onRightClick 
+		-- onRightClick
 		if (self.height ~= self.minHeight) or (self.width ~= self.minWidth) then
 			self:SetWidth(self.minWidth)
 			self:SetHeight(self.minHeight)

@@ -176,7 +176,7 @@ function main:Init()
 	self.controls.scripts = new("ButtonControl", nil, {160, 30, 100, 18}, "Scripts >>", function()
 		self:SetCurrentDat()
 	end)
-	
+
 	self.controls.scriptAll = new("ButtonControl", nil, {270, 10, 100, 18}, "Run All", function()
 		do -- run stat desc first
 			local errMsg = PLoadModule("Scripts/".."statdesc"..".lua")
@@ -199,7 +199,7 @@ function main:Init()
 		wipeTable(self.scriptOutput)
 	end) {
 		shown = function()
-			return not self.curDatFile 
+			return not self.curDatFile
 		end,
 		enabled = function()
 			return #self.scriptOutput > 0
@@ -283,8 +283,8 @@ function main:Init()
 	self.controls.colWidth = new("EditControl", {"TOPLEFT",self.controls.colRefTo,"BOTTOMLEFT"}, {0, 4, 100, 18}, nil, nil, "%D", nil, function(buf)
 		self.curSpecCol.width = m_max(tonumber(buf) or 150, 20)
 		self.controls.rowList:BuildColumns()
-	end) { 
-		numberInc = 10, 
+	end) {
+		numberInc = 10,
 		tooltipFunc = function(tooltip)
 			tooltip:Clear()
 			tooltip:AddLine(16, "^7Column width in the grid")
@@ -294,7 +294,7 @@ function main:Init()
 	self.controls.enumBase = new("EditControl", {"TOPLEFT",self.controls.colWidth,"BOTTOMLEFT"}, {0, 4, 100, 18}, nil, nil, "%D", nil, function(buf)
 		self.curSpecCol.enumBase = tonumber(buf) or 0
 		self.curDatFile:OnSpecChanged()
-	end) { 
+	end) {
 		numberInc = 1,
 		tooltipFunc = function(tooltip)
 			tooltip:Clear()
@@ -308,7 +308,7 @@ function main:Init()
 		self.controls.rowList:BuildColumns()
 		self:SetCurrentCol()
 	end)
-	
+
 	self.controls.filter = new("EditControl", nil, {270, 0, 800, 18}, nil, "^8Filter") {
 		y = function()
 			return self.editSpec and 240 or 30
@@ -422,7 +422,7 @@ function main:OnFrame()
 	end
 
 	wipeTable(self.inputEvents)
-	
+
 	if #remainingScripts > 0 then
 		local startTime = GetTime()
 		repeat
@@ -701,7 +701,7 @@ function main:MoveFolder(name, srcPath, dstPath)
 	end
 
 	-- Move files
-	handle = NewFileSearch(srcPath..name.."/*") 
+	handle = NewFileSearch(srcPath..name.."/*")
 	while handle do
 		local fileName = handle:GetFileName()
 		local srcName = srcPath..name.."/"..fileName
@@ -713,7 +713,7 @@ function main:MoveFolder(name, srcPath, dstPath)
 		end
 		if not handle:NextFile() then
 			break
-		end		
+		end
 	end
 
 	-- Remove source folder
@@ -743,7 +743,7 @@ function main:CopyFolder(srcName, dstName)
 	end
 
 	-- Copy files
-	handle = NewFileSearch(srcName.."/*") 
+	handle = NewFileSearch(srcName.."/*")
 	while handle do
 		local fileName = handle:GetFileName()
 		local srcName = srcName.."/"..fileName
@@ -755,7 +755,7 @@ function main:CopyFolder(srcName, dstName)
 		end
 		if not handle:NextFile() then
 			break
-		end		
+		end
 	end
 end
 
@@ -825,7 +825,7 @@ function main:OpenNewFolderPopup(path, onClose)
 		end
 		main:ClosePopup()
 	end)
-	main:OpenPopup(370, 100, "New Folder", controls, "create", "edit", "cancel")	
+	main:OpenPopup(370, 100, "New Folder", controls, "create", "edit", "cancel")
 end
 
 do

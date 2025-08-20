@@ -307,7 +307,7 @@ describe("TestItemParse", function()
 		item = new("Item", raw("Has a Two Handed Sword Crucible Passive Skill Tree"))
 		assert.truthy(item.canHaveTwoHandedSwordCrucibleTree)
 	end)
-	
+
 	it("tags", function()
 		local item = new("Item", raw("{tags:life,physical_damage}+8 to Strength"))
 		assert.are.same({ "life", "physical_damage" }, item.explicitModLines[1].modTags)

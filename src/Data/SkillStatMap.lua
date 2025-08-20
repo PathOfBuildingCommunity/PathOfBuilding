@@ -2082,7 +2082,7 @@ return {
 	mod("AdditionalCooldownUses", "BASE", nil)
 },
 ["kill_enemy_on_hit_if_under_10%_life"] = {
-	mod("CullPercent", "MAX", nil), 
+	mod("CullPercent", "MAX", nil),
 	value = 10
 },
 ["spell_cast_time_added_to_cooldown_if_triggered"] = {

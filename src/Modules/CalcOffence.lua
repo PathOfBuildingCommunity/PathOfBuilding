@@ -1264,14 +1264,14 @@ function calcs.offence(env, actor, activeSkill)
 
 		output.MineLayingSpeed = m_min(output.MineLayingSpeed, data.misc.ServerTickRate)
 		output.MineLayingTime = 1 / output.MineLayingSpeed
-		
+
 		-- Trap mine interaction where the Character throws mines, mine throws traps
 		if skillFlags.trap then
 			skillData.timeOverride = output.MineLayingTime / output.MineThrowCount / output.TrapThrowCount
 		else
 			skillData.timeOverride = output.MineLayingTime / output.MineThrowCount
 		end
-		
+
 		if breakdown then
 			breakdown.MineLayingTime = { }
 			breakdown.multiChain(breakdown.MineLayingTime, {
@@ -2228,12 +2228,12 @@ function calcs.offence(env, actor, activeSkill)
 				skillModList:NewMod("Multiplier:TraumaStacks", "BASE", skillModList:Sum("BASE", skillCfg, "Multiplier:SustainableTraumaStacks"), "Maximum Sustainable Trauma Stacks")
 			end
 			local inc = skillModList:Sum("INC", cfg, "Speed")
-			
+
 			if skillFlags.warcry then
 				output.Speed = 1 / output.WarcryCastTime
 			else
 				output.Speed = 1 / (baseTime / round((1 + inc/100) * more, 2) + skillModList:Sum("BASE", cfg, "TotalAttackTime") + skillModList:Sum("BASE", cfg, "TotalCastTime"))
-		
+
 			end
 			output.CastRate = output.Speed
 			if skillFlags.selfCast then
@@ -2833,7 +2833,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.PreEffectiveCritChance = output.CritChance
 				local preLuckyCritChance = output.CritChance
 				local critRolls = 0
-				
+
 				if env.mode_effective and skillModList:Flag(cfg, "CritChanceLucky") then
 					critRolls = critRolls + 1
 				end
@@ -2974,7 +2974,7 @@ function calcs.offence(env, actor, activeSkill)
 
 		--Calculate reservation DPS
 		globalOutput.ReservationDpsMultiplier = 100 / (100 - enemyDB:Sum("BASE", nil, "LifeReservationPercent"))
-		
+
 		runSkillFunc("postCritFunc")
 
 		-- Calculate base hit damage
@@ -3665,7 +3665,7 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.PvpTotalDPS, s_format("= %.1f", output.PvpTotalDPS))
 		end
 	end
-	
+
 	if activeSkill.minion then
 		skillData.summonSpeed = output.SummonedMinionsPerCast * (output.HitSpeed or output.Speed) * skillData.dpsMultiplier
 	end
@@ -4279,7 +4279,7 @@ function calcs.offence(env, actor, activeSkill)
 			local PoisonStacks = output.HitChance / 100 * poisonChance * doublePoisonChance * skillData.dpsMultiplier * (skillData.stackMultiplier or 1) * quantityMultiplier
 			if (globalOutput.HitSpeed or globalOutput.Speed) > 0 then
 				--assume skills with no cast, attack, or cooldown time are single cast
-				PoisonStacks = PoisonStacks * globalOutput.PoisonDuration * (globalOutput.HitSpeed or globalOutput.Speed) 
+				PoisonStacks = PoisonStacks * globalOutput.PoisonDuration * (globalOutput.HitSpeed or globalOutput.Speed)
 			end
 			if PoisonStacks < 1 and (env.configInput.multiplierPoisonOnEnemy or 0) <= 1 then
 				skillModList:NewMod("Condition:SinglePoison", "FLAG", true, "poison")
@@ -4927,7 +4927,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 		end
-		-- Cycle through all non-damage ailments here, modifying them if needed 
+		-- Cycle through all non-damage ailments here, modifying them if needed
 		for ailment, val in pairs(ailments) do
 			if (output[ailment.."ChanceOnHit"] + output[ailment.."ChanceOnCrit"]) > 0 then
 				if globalBreakdown then
@@ -5370,7 +5370,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	
+
 	if skillModList:Flag(nil, "DotCanStack") then
 		skillFlags.DotCanStack = true
 		local speed = output.Speed

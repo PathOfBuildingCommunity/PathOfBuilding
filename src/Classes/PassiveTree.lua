@@ -121,7 +121,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			}
 		end
 	end
-	
+
 	-- hide alternate_ascendancies as they are unobtainable in the newest versions and will cause a crash if an older version is loaded with it at the moment
 	if self.alternate_ascendancies then
 		if launch.devMode then
@@ -141,13 +141,13 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		for i, group in pairs(temp_groups) do
 			self.groups[i] = nil
 		end
-			
+
 		self.alternate_ascendancies = nil
 	end
-	
+
 	if self.alternate_ascendancies then
 		self.secondaryAscendNameMap = { }
-		local alternate_ascendancies_class = { 
+		local alternate_ascendancies_class = {
 			["name"]= "alternate_ascendancies",
 			["classes"]= self.alternate_ascendancies
 		}
@@ -395,7 +395,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 		node.__index = node
 		node.linkedId = { }
-		nodeMap[node.id] = node	
+		nodeMap[node.id] = node
 
 		-- Determine node type
 		if node.classStartIndex then
@@ -470,7 +470,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		elseif node.type == "Notable" or node.type == "Keystone" then
 			self.clusterNodeMap[node.dn] = node
 		end
-		
+
 		self:ProcessNode(node)
 	end
 
@@ -771,7 +771,7 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 		nodeId2 = node2.id,
 		c = { } -- This array will contain the quad's data: 1-8 are the vertex coordinates, 9-16 are the texture coordinates
 				-- Only the texture coords are filled in at this time; the vertex coords need to be converted from tree-space to screen-space first
-				-- This will occur when the tree is being drawn; .vert will map line state (Normal/Intermediate/Active) to the correct tree-space coordinates 
+				-- This will occur when the tree is being drawn; .vert will map line state (Normal/Intermediate/Active) to the correct tree-space coordinates
 	}
 	if node1.g == node2.g and node1.o == node2.o then
 		-- Nodes are in the same orbit of the same group

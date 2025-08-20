@@ -53,7 +53,7 @@ describe("TestAttacks", function()
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate == build.calcsTab.mainOutput.Speed)
 	end)
-	
+
 	it("Test Sacred wisps using current skill", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[Elemental Wand
 			Imbued Wand
@@ -76,11 +76,11 @@ describe("TestAttacks", function()
 
 		assert.True(build.calcsTab.mainOutput.MirageDPS ~= nil)
 	end)
-	
+
 	it("Test Scorching ray applying exposure at max stages", function()
 		build.skillsTab:PasteSocketGroup("Scorching Ray 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		srcInstance.skillStageCount = 8
@@ -103,14 +103,14 @@ describe("TestAttacks", function()
 	it("Test Adrenaline affecting blight max stage count", function()
 		build.skillsTab:PasteSocketGroup("Blight 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		srcInstance.skillPart = 2
 		build.modFlag = true
 		build.buildFlag = true
 		runCallback("OnFrame")
-		
+
 		local preAdrenalineMaxStages = build.calcsTab.mainEnv.player.activeSkillList[1].skillModList:Sum("BASE", nil, "Multiplier:BlightMaxStages")
 		build.configTab.input.buffAdrenaline = true
 		build.configTab:BuildModList()

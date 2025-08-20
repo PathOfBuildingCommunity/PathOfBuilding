@@ -22,7 +22,7 @@ describe("TestDefence", function()
 		build.configTab.input.enemyIsBoss = "None"
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		
+
 		assert.are.equals(60, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
 		assert.are.equals(38, build.calcsTab.calcsOutput.FireMaximumHitTaken)
 		assert.are.equals(38, build.calcsTab.calcsOutput.ColdMaximumHitTaken)
@@ -122,12 +122,12 @@ describe("TestDefence", function()
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	end)
-	
+
 	-- a small helper function to calculate damage taken from limited test parameters
 	local function takenHitFromTypeMaxHit(type, enemyDamageMulti)
 		return build.calcsTab.calcs.takenHitFromDamage(build.calcsTab.calcsOutput[type.."MaximumHitTaken"] * (enemyDamageMulti or 1), type, build.calcsTab.calcsEnv.player)
 	end
-	
+
 	it("progenesis and petrified blood", function()
 		build.configTab.input.enemyIsBoss = "None"
 		-- Petrified blood
@@ -153,7 +153,7 @@ describe("TestDefence", function()
 		assert.are.equals(3000, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
 		assert.are.equals(3000, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
 		build.skillsTab.socketGroupList = {}
-		
+
 		build.skillsTab:PasteSocketGroup("\z
 		Petrified Blood 20/0 Default  1\n\z
 		Arrogance 21/0 Default  1\n\z
@@ -178,7 +178,7 @@ describe("TestDefence", function()
 		assert.are.equals(6000, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
 		assert.are.equals(3000, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
 		build.skillsTab.socketGroupList = {}
-		
+
 		build.skillsTab:PasteSocketGroup("\z
 		Petrified Blood 20/0 Default  1\n\z
 		")  -- 80% petrified effect, starting from full life, should make the life pool be equivalent to 0.5 * life (unprotected upper half) and then 5 * 0.5 * life (protected lower half), making it 3* bigger in total
@@ -199,7 +199,7 @@ describe("TestDefence", function()
 		assert.are.equals(9000, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
 		assert.are.equals(9000, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
 		build.skillsTab.socketGroupList = {}
-	
+
 		-- Progenesis
 		build.configTab.input.customMods = "\z
 		+200 to all resistances\n\z
@@ -217,7 +217,7 @@ describe("TestDefence", function()
 		assert.are.equals(6000, build.calcsTab.calcsOutput.ColdMaximumHitTaken)
 		assert.are.equals(6000, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
 		assert.are.equals(6000, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
-		
+
 		build.configTab.input.customMods = "\z
 		+200 to all resistances\n\z
 		+200 to all maximum resistances\n\z
@@ -235,7 +235,7 @@ describe("TestDefence", function()
 		assert.are.equals(9000, build.calcsTab.calcsOutput.ColdMaximumHitTaken)
 		assert.are.equals(9000, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
 		assert.are.equals(6000, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
-	
+
 		-- Progenesis + petrified blood
 		build.skillsTab:PasteSocketGroup("\z
 		Petrified Blood 20/0 Default  1\n\z
@@ -261,7 +261,7 @@ describe("TestDefence", function()
 		assert.are.equals(6000, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
 		assert.are.equals(6000, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
 		build.skillsTab.socketGroupList = {}
-		
+
 		build.skillsTab:PasteSocketGroup("\z
 		Petrified Blood 20/0 Default  1\n\z
 		")
@@ -284,7 +284,7 @@ describe("TestDefence", function()
 		assert.are.equals(9000, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
 		assert.are.equals(9000, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
 		build.skillsTab.socketGroupList = {}
-	
+
 		build.skillsTab:PasteSocketGroup("\z
 		Petrified Blood 20/0 Default  1\n\z
 		")
@@ -306,14 +306,14 @@ describe("TestDefence", function()
 		assert.are.equals(13000, build.calcsTab.calcsOutput.ColdMaximumHitTaken)
 		assert.are.equals(13000, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
 		assert.are.equals(10000, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
-		
+
 		local _, takenDamages = takenHitFromTypeMaxHit("Fire", 0.8)
 		local poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
 		assert.are.equals(0, poolsRemaining.EnergyShield)
 		assert.are.equals(0, poolsRemaining.Life)
 		assert.are.equals(120, poolsRemaining.LifeLossLostOverTime)
 		assert.are.equals(20, poolsRemaining.LifeBelowHalfLossLostOverTime)
-		
+
 		build.skillsTab:PasteSocketGroup("\z
 		Petrified Blood 20/0 Default  1\n\z
 		")
@@ -336,25 +336,25 @@ describe("TestDefence", function()
 		build.configTab.input.conditionUsingFlask = true
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		
+
 		_, takenDamages = takenHitFromTypeMaxHit("Fire")
 		poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
 		assert.are.equals(0, poolsRemaining.Life)
 		assert.are.equals(0, poolsRemaining.EnergyShield)
 		assert.is.not_false(poolsRemaining.Mana > 0)
-		
+
 		_, takenDamages = takenHitFromTypeMaxHit("Lightning")
 		poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
 		assert.are.equals(0, poolsRemaining.Life)
 		assert.are.equals(0, poolsRemaining.EnergyShield)
 		assert.are.equals(0, poolsRemaining.Mana)
-		
+
 		_, takenDamages = takenHitFromTypeMaxHit("Chaos")
 		poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
 		assert.are.equals(0, poolsRemaining.Life)
 		assert.are.equals(0, poolsRemaining.EnergyShield)
 		assert.are.equals(0, poolsRemaining.Mana)
-		
+
 		build.skillsTab.socketGroupList = {}
 	end)
 
@@ -555,7 +555,7 @@ describe("TestDefence", function()
 	end
 	it("damage conversion max hits", function()
 		build.configTab.input.enemyIsBoss = "None"
-		
+
 		build.configTab.input.customMods = "\z
 		+940 to maximum life\n\z
 		+200 to all resistances\n\z
@@ -608,7 +608,7 @@ describe("TestDefence", function()
 		runCallback("OnFrame")
 		assert.is.not_false(withinTenPercent(1000, takenHitFromTypeMaxHit("Physical")))
 		assert.is.not_false(withinTenPercent(1000, takenHitFromTypeMaxHit("Cold")))
-		
+
 		build.configTab.input.customMods = "\z
 		+940 to maximum life\n\z
 		+10000 to armour\n\z
@@ -622,7 +622,7 @@ describe("TestDefence", function()
 		runCallback("OnFrame")
 		assert.is.not_false(withinTenPercent(1000, takenHitFromTypeMaxHit("Physical")))
 		assert.is.not_false(withinTenPercent(1000, takenHitFromTypeMaxHit("Cold")))
-	
+
 		build.configTab.input.customMods = "\z
 		+99 to energy shield\n\z
 		100% less attributes\n\z
@@ -636,7 +636,7 @@ describe("TestDefence", function()
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	end)
-	
+
 	it("damage conversion to different size pools", function()
 		-- conversion into a smaller pool
 		build.configTab.input.customMods = "\z
@@ -654,7 +654,7 @@ describe("TestDefence", function()
 		assert.are.equals(0, floor(poolsRemaining.Mana))
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
-		
+
 		build.configTab.input.customMods = "\z
 		+40 to maximum life\n\z
 		+950 to mana\n\z
@@ -670,7 +670,7 @@ describe("TestDefence", function()
 		assert.are.equals(0, floor(poolsRemaining.Mana))
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
-	
+
 		build.configTab.input.customMods = "\z
 		+40 to maximum life\n\z
 		+1950 to mana\n\z
@@ -686,7 +686,7 @@ describe("TestDefence", function()
 		assert.are.equals(1000, round(poolsRemaining.Mana))
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
-		
+
 		-- conversion into a bigger pool
 		build.configTab.input.customMods = "\z
 		+40 to maximum life\n\z
@@ -703,7 +703,7 @@ describe("TestDefence", function()
 		assert.are.equals(0, floor(poolsRemaining.Mana))
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
-	
+
 		build.configTab.input.customMods = "\z
 		+40 to maximum life\n\z
 		+950 to mana\n\z
@@ -719,7 +719,7 @@ describe("TestDefence", function()
 		assert.are.equals(0, floor(poolsRemaining.Mana))
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
-	
+
 		build.configTab.input.customMods = "\z
 		+40 to maximum life\n\z
 		+1950 to mana\n\z
@@ -898,7 +898,7 @@ describe("TestDefence", function()
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	end)
-	
+
 	it("Unbreakable + Iron Reflexes", function()
 		build.configTab.input.customMods = [[
 			you have no dexterity
@@ -993,7 +993,7 @@ describe("TestDefence", function()
 		-- Oath Of Maji should apply only once
 		assert.are.equals(2*2*ironReflexesArmour + baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
 	end)
-	
+
 	it("MoM + EB", function()
 		build.configTab.input.enemyIsBoss = "None"
 		-- enough mana and es, 0% and 100% bypass
@@ -1020,7 +1020,7 @@ describe("TestDefence", function()
 		assert.are.equals(2000, round(poolsRemaining.Mana))
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
-		
+
 		-- enough mana and es, 50% bypass
 		build.configTab.input.customMods = [[
 			50% of damage is taken from mana before life
@@ -1085,7 +1085,7 @@ describe("TestDefence", function()
 		assert.are.equals(1940, round(poolsRemaining.Mana))
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
-		
+
 		-- mana bottleneck, 0% and 100% bypass
 		build.configTab.input.customMods = [[
 			50% of damage is taken from mana before life

@@ -162,7 +162,7 @@ function CalcSectionClass:FormatVal(val, p)
 end
 
 function CalcSectionClass:FormatStr(str, actor, colData)
-	str = str:gsub("{output:([%a%.:]+)}", function(c) 
+	str = str:gsub("{output:([%a%.:]+)}", function(c)
 		local ns, var = c:match("^(%a+)%.(%a+)$")
 		if ns then
 			return actor.output[ns] and actor.output[ns][var] or ""
@@ -170,7 +170,7 @@ function CalcSectionClass:FormatStr(str, actor, colData)
 			return actor.output[c] or ""
 		end
 	end)
-	str = str:gsub("{(%d+):output:([%a%.:]+)}", function(p, c) 
+	str = str:gsub("{(%d+):output:([%a%.:]+)}", function(p, c)
 		local ns, var = c:match("^(%a+)%.(%a+)$")
 		if ns then
 			return self:FormatVal(actor.output[ns] and actor.output[ns][var] or 0, tonumber(p))
@@ -210,7 +210,7 @@ function CalcSectionClass:FormatStr(str, actor, colData)
 		if modType == "MORE" then
 			modTotal = (modTotal - 1) * 100
 		end
-		return self:FormatVal(modTotal, tonumber(p)) 
+		return self:FormatVal(modTotal, tonumber(p))
 	end)
 	return str
 end
@@ -226,7 +226,7 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 	DrawImage(nil, x, y, width, height)
 	SetDrawColor(0.10, 0.10, 0.10)
 	DrawImage(nil, x + 2, y + 2, width - 4, height - 4)
-	
+
 	local primary = true
 	local lineY = y
 	for _, subSec in ipairs(self.subSection) do

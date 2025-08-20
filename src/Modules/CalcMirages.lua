@@ -189,7 +189,7 @@ function calcs.mirages(env)
 		config = {
 			compareFunc = function(skill, env, config, mirageSkill)
 				local isDisabled = skill.skillFlags and skill.skillFlags.disable
-				local skillTypeMatch = (skill.skillTypes[SkillType.Slam] or skill.skillTypes[SkillType.Melee]) and skill.skillTypes[SkillType.Attack] 
+				local skillTypeMatch = (skill.skillTypes[SkillType.Slam] or skill.skillTypes[SkillType.Melee]) and skill.skillTypes[SkillType.Attack]
 				local skillTypeExcludes = skill.skillTypes[SkillType.Vaal] or skill.skillTypes[SkillType.Totem] or skill.skillTypes[SkillType.SummonsTotem]
 				if skill ~= env.player.mainSkill and not isTriggered(skill) and not isDisabled and skillTypeMatch and not skillTypeExcludes and not skill.skillCfg.skillCond["usedByMirage"] then
 					local uuid = cacheSkillUUID(skill, env)
@@ -207,7 +207,7 @@ function calcs.mirages(env)
 			end,
 			preCalcFunc = function(env, newSkill, newEnv)
 				icdrSkill = calcLib.mod(newSkill.skillModList, newSkill.skillCfg, "CooldownRecovery")
-				
+
 				triggeredCD = newSkill.skillData.cooldown or 0
 				triggeredCDAdjusted = triggeredCD / icdrSkill
 				triggeredCDTickRounded = m_ceil(triggeredCDAdjusted * data.misc.ServerTickRate) / data.misc.ServerTickRate
@@ -215,9 +215,9 @@ function calcs.mirages(env)
 				triggerCD = env.player.mainSkill.skillData.cooldown or  0
 				triggerCDAdjusted = triggerCD / icdrSkill
 				triggerCDTickRounded = m_ceil(triggerCDAdjusted * data.misc.ServerTickRate) / data.misc.ServerTickRate
-				
+
 				actionCooldown = m_max( triggeredCDTickRounded or 0, triggerCDTickRounded or 0 )
-				
+
 				TriggerRateCap = m_huge
 				if actionCooldown ~= 0 then
 					TriggerRateCap = 1 / actionCooldown
@@ -298,7 +298,7 @@ function calcs.mirages(env)
 				local lessDamage =  newSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SacredWispsLessDamage")
 				local wispsMaxCount
 				local wispsCastChance
-				
+
 				-- Find Wisps summoning skill for cast chance and wisp count
 				for _, skill in ipairs(env.player.activeSkillList) do
 					if skill.activeEffect.grantedEffect.name == "Summon Sacred Wisps" then

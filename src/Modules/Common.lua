@@ -225,7 +225,7 @@ function convertUTF8to16(text, offset)
 			else
 				t_insert(out, "?\z")
 			end
-		else 
+		else
 			t_insert(out, "?\z")
 		end
 	end

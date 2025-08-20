@@ -38,8 +38,8 @@ for _, name in ipairs(basicFiles) do
 	local easy = curl.easy()
 	easy:setopt_url(localSource..name)
 	easy:setopt_writefunction(function(data)
-		text = text..data 
-		return true 
+		text = text..data
+		return true
 	end)
 	easy:perform()
 	local size = easy:getinfo(curl.INFO_SIZE_DOWNLOAD)

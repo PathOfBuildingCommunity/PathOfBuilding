@@ -25,7 +25,7 @@ local PowerReportListClass = newClass("PowerReportListControl", "ListControl", f
 	self.showClusters = false
 	self.allocated = false
 	self.label = "Building Tree..."
-	
+
 	self.controls.filterSelect = new("DropDownControl", {"BOTTOMRIGHT", self, "TOPRIGHT"}, {0, -2, 200, 20},
 		{ "Show Unallocated", "Show Unallocated & Clusters", "Show Allocated" },
 		function(index, value)
@@ -51,7 +51,7 @@ end
 
 function PowerReportListClass:ReSort(colIndex)
 	-- Reverse power sort for allocated because it uses negative numbers
-	local compare = self.allocated and 
+	local compare = self.allocated and
 		function(a, b) return a < b end
 		or function(a, b) return a > b end
 

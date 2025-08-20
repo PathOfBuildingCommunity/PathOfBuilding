@@ -54,7 +54,7 @@ for _, craft in ipairs(dat("CraftingBenchOptions"):GetRowList("IsDisabled", fals
 		out:write('"', table.concat(stats, '", "'), '", ')
 		out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
 		out:write('level = ', craft.Mod.Level, ', group = "', craft.Mod.Type.Id, '", ')
-		out:write('types = { ')		
+		out:write('types = { ')
 		local uniqueTypes = { }
 		for _, category in ipairs(craft.ItemCategories) do
 			for _, itemClass in ipairs(category.ItemClasses) do

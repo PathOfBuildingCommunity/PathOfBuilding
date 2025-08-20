@@ -226,7 +226,7 @@ directiveTable.base = function(state, args, out)
 		end
 	end
 	out:write('},\n}\n')
-	
+
 	if not ((baseItemType.Hidden == 0 or state.forceHide) and not baseTypeId:match("Talisman") and not state.forceShow) then
 		bases[state.type] = bases[state.type] or {}
 		local subtype = state.subType and #state.subType and state.subType or ""
@@ -242,7 +242,7 @@ directiveTable.baseMatch = function(state, argstr, out)
 	local key = "Id"
 	local args = {}
 	for i in string.gmatch(argstr, "%S+") do
-	   table.insert(args, i)
+		table.insert(args, i)
 	end
 	local value = args[1]
 	-- If column name is specified, use that

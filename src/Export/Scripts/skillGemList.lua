@@ -9,7 +9,7 @@ local export = false
 
 local types = { "Strength", "Dexterity", "Intelligence", "Other" }
 
-local function grantedEffectString(grantedEffect) 
+local function grantedEffectString(grantedEffect)
 	local s =  "#skill "..grantedEffect.Id.."\n"
 	for _, statSet in ipairs(grantedEffect.GrantedEffectStatSets) do
 		if not (statSet.LabelType and statSet.LabelType.Id == "Hidden") then
@@ -51,11 +51,11 @@ for i, _ in ipairs(types) do
 			else
 				local gemName = gemEffect.GrantedEffect.ActiveSkill.DisplayName
 				local gemId = gemEffect.Id
-				 if gemName ~= "" and types[i] == colour and not gemId:match("Unknown") and not gemId:match("Playtest") and not gemId:match("Royale") and not gemName:match("%.%.%.") and not gemName:match("DNT") and not gemName:match("UNUSED") and not gemName:match("NOT CURRENTLY USED") and not gemName:match("Unnamed") and not gemEffect.GrantedEffect.Id:match("HardMode") and not skillGem.BaseItemType.Name:match("DNT") 
-				 and not (skillGem.IsVaalGem and gemEffect.Variant ~= 4) then
+				if gemName ~= "" and types[i] == colour and not gemId:match("Unknown") and not gemId:match("Playtest") and not gemId:match("Royale") and not gemName:match("%.%.%.") and not gemName:match("DNT") and not gemName:match("UNUSED") and not gemName:match("NOT CURRENTLY USED") and not gemName:match("Unnamed") and not gemEffect.GrantedEffect.Id:match("HardMode") and not skillGem.BaseItemType.Name:match("DNT")
+				and not (skillGem.IsVaalGem and gemEffect.Variant ~= 4) then
 					local temp = gemName..string.rep(" ", 45 - string.len(gemName)).."\t\t----\t\t"..gemEffect.GrantedEffect.Id
 					local temp1 = gemName..grantedEffectString(gemEffect.GrantedEffect)
-				 	if gemEffect.GrantedEffect2 and not skillGem.IsVaalGem then
+					if gemEffect.GrantedEffect2 and not skillGem.IsVaalGem then
 						temp = temp.."\t"..gemEffect.GrantedEffect2.Id
 						temp1 = temp1..grantedEffectString(gemEffect.GrantedEffect2)
 					end
@@ -69,7 +69,7 @@ for i, _ in ipairs(types) do
 	table.sort(support)
 	table.sort(supportExport)
 	table.sort(activeExport)
-	
+
 	for i, row in ipairs(supportExport) do
 		-- Remove text before "#skill" only if it is at the start of the string
 		supportExport[i] = string.gsub(row, "^(.-)#skill", "#skill")
@@ -78,7 +78,7 @@ for i, _ in ipairs(types) do
 		-- Remove text before "#skill" only if it is at the start of the string
 		activeExport[i] = string.gsub(row, "^(.-)#skill", "#skill")
 	end
-	
+
 	out:write("\t\t\t\t\t\t--------- Active "..types[i].." ---------\n")
 	if export == false then
 		out:write(table.concat(active, "\n"))

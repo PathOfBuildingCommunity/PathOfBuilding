@@ -25,7 +25,7 @@ return {
 	},
 	[4] = {
 		keystone = {
-			[1] = "explicit.pseudo_timeless_jewel_avarius",  
+			[1] = "explicit.pseudo_timeless_jewel_avarius",
 			[2] = "explicit.pseudo_timeless_jewel_dominus",
 			[3] = "explicit.pseudo_timeless_jewel_maxarius"
 		},

@@ -111,8 +111,8 @@ end
 
 -- Check if given gem is of the given type ("all", "strength", "melee", etc)
 function calcLib.gemIsType(gem, type, includeTransfigured)
-	return (type == "all" or 
-			(type == "elemental" and (gem.tags.fire or gem.tags.cold or gem.tags.lightning)) or 
+	return (type == "all" or
+			(type == "elemental" and (gem.tags.fire or gem.tags.cold or gem.tags.lightning)) or
 			(type == "aoe" and gem.tags.area) or
 			(type == "trap or mine" and (gem.tags.trap or gem.tags.mine)) or
 			((type == "active skill" or type == "grants_active_skill" or type == "skill") and gem.tags.grants_active_skill and not gem.tags.support) or
@@ -235,7 +235,7 @@ function calcLib.getGameIdFromGemName(gemName, dropVaal)
 	end
 	local gemId = data.gemForBaseName[gemName:lower()]
 	if not gemId then return end
-	local gameId 
+	local gameId
 	if dropVaal and data.gems[gemId].vaalGem then
 		gameId = data.gems[data.gemVaalGemIdForBaseGemId[gemId]].gameId
 	else
@@ -247,7 +247,7 @@ end
 --- Use getGameIdFromGemName to get gameId from the gemName and passed in type. Return true if they're the same and not nil
 --- @param gemName string
 --- @param type string
---- @param dropVaal boolean 
+--- @param dropVaal boolean
 --- @return boolean
 function calcLib.isGemIdSame(gemName, typeName, dropVaal)
 	local gemNameId = calcLib.getGameIdFromGemName(gemName, dropVaal)

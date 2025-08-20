@@ -139,7 +139,7 @@ function PCall(func, ...)
 		return nil, unpack(ret)
 	else
 		return ret[2]
-	end	
+	end
 end
 function ConPrintf(fmt, ...)
 	-- Optional
@@ -168,7 +168,7 @@ dofile("Launch.lua")
 
 -- Prevents loading of ModCache
 -- Allows running mod parsing related tests without pushing ModCache
--- The CI env var will be true when run from github workflows but should be false for other tools using the headless wrapper 
+-- The CI env var will be true when run from github workflows but should be false for other tools using the headless wrapper
 mainObject.continuousIntegrationMode = os.getenv("CI")
 
 runCallback("OnInit")

@@ -2790,7 +2790,7 @@ skills["SupportMultipleTraps"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {	
+	statMap = {
 		["support_multithrow_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
@@ -3213,7 +3213,7 @@ skills["SupportSadism"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_faster_ailments_ailment_duration_+%_final"] = {
-			mod("EnemyAilmentDuration", "MORE", nil), 
+			mod("EnemyAilmentDuration", "MORE", nil),
 		},
 	},
 	qualityStats = {

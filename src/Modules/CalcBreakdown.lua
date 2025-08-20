@@ -70,7 +70,7 @@ function breakdown.mod(modList, cfg, ...)
 	local inc = modList:Sum("INC", cfg, ...)
 	local more = modList:More(cfg, ...)
 	if inc ~= 0 and more ~= 1 then
-		return { 
+		return {
 			s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
 			s_format("x %.2f ^8(more/less)", more),
 			s_format("= %.2f", (1 + inc/100) * more),
@@ -132,7 +132,7 @@ function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore, sour
 		if not useRes then
 			t_insert(out, s_format("x %d%% ^8(resistance ignored)", 0))
 			t_insert(out, s_format("= %d%%", (0)))
-		else 
+		else
 			t_insert(out, s_format("= %d%%", (resist - pen)))
 		end
 	end
@@ -153,7 +153,7 @@ end
 
 function breakdown.dot(out, baseVal, inc, more, mult, rate, aura, effMult, total)
 	breakdown.multiChain(out, {
-		base = { "%.1f ^8(base damage per second)", baseVal }, 
+		base = { "%.1f ^8(base damage per second)", baseVal },
 		{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 		{ "%.2f ^8(more/less)", more },
 		{ "%.2f ^8(multiplier)", 1 + (mult or 0)/100 },
@@ -185,13 +185,13 @@ function breakdown.critDot(dotMulti, critMulti, dotChance, critChance)
 		t_insert(out, s_format("= %.2f", combined))
 	end
 	return out
-end		
-		
+end
+
 function breakdown.leech(instant, instantRate, instances, pool, rate, max, dur, instantLeechProportion, hitRate)
 	local out = { }
 	if actor.mainSkill.skillData.showAverage then
 		if instant > 0 then
-			if instantLeechProportion ~= 1 then 
+			if instantLeechProportion ~= 1 then
 				t_insert(out, s_format("Instant Leech: %.1f ^8(%d%% x %.1f)", instant, instantLeechProportion * 100, dur * pool * data.misc.LeechRateBase / (1-instantLeechProportion)))
 			else
 				t_insert(out, s_format("Instant Leech: %.1f", instant))
@@ -210,7 +210,7 @@ function breakdown.leech(instant, instantRate, instances, pool, rate, max, dur, 
 		end
 	else
 		if instantRate > 0 then
-			if instantLeechProportion ~= 1 then 
+			if instantLeechProportion ~= 1 then
 				t_insert(out, s_format("Instant Leech: %.1f ^8(%d%% x %.1f)", instant, instantLeechProportion * 100, dur * pool * data.misc.LeechRateBase / (1-instantLeechProportion)))
 			else
 				t_insert(out, s_format("Instant Leech: %.1f", instant))

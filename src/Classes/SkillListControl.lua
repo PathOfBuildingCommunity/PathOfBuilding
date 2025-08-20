@@ -46,13 +46,13 @@ local SkillListClass = newClass("SkillListControl", "ListControl", function(self
 		end)
 	end)
 	self.controls.deleteAll.enabled = function()
-		return #self.list > 0 
+		return #self.list > 0
 	end
 	self.controls.new = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, {-4, 0, 60, 18}, "New", function()
-		local newGroup = { 
-			label = "", 
-			enabled = true, 
-			gemList = { } 
+		local newGroup = {
+			label = "",
+			enabled = true,
+			gemList = { }
 		}
 		t_insert(self.list, newGroup)
 		self.selIndex = #self.list
@@ -76,11 +76,11 @@ function SkillListClass:GetRowValue(column, index, socketGroup)
 			local colour = currentMainSkill and "" or "^x7F7F7F"
 			label = colour .. label .. " (Disabled)"
 		end
-		if currentMainSkill then 
+		if currentMainSkill then
 			local activeLabel = disabled and " (Forced Active)" or " (Active)"
 			label = label .. colorCodes.RELIC .. activeLabel
 		end
-		if socketGroup.includeInFullDPS then 
+		if socketGroup.includeInFullDPS then
 			label = label .. colorCodes.CUSTOM .. " (FullDPS)"
 		end
 		return label
@@ -123,7 +123,7 @@ function SkillListClass:OnSelect(index, socketGroup)
 end
 
 function SkillListClass:OnSelCopy(index, socketGroup)
-	if not socketGroup.source then	
+	if not socketGroup.source then
 		self.skillsTab:CopySocketGroup(socketGroup)
 	end
 end

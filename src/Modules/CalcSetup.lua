@@ -1056,7 +1056,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					local combinedList = new("ModList")
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
-					end	
+					end
 					env.itemModDB:ScaleAddList(combinedList, scale)
 				elseif item.type == "Gloves" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves") ~=1 then
 					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves") - 1
@@ -1115,7 +1115,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 					env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] = (env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] or 0) + 1
 					-- Calculate socket counts
-					local slotEmptySocketsCount = { R = 0, G = 0, B = 0, W = 0}	
+					local slotEmptySocketsCount = { R = 0, G = 0, B = 0, W = 0}
 					local slotGemSocketsCount = 0
 					local socketedGems = 0
 					-- Loop through socket groups to calculate number of socketed gems
@@ -1390,7 +1390,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		for index, group in ipairs(build.skillsTab.socketGroupList) do
 			local slot = group.slot and build.itemsTab.slots[group.slot]
 			group.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
-			-- if group is main skill or group is enabled 
+			-- if group is main skill or group is enabled
 			if index == env.mainSocketGroup or (group.enabled and group.slotEnabled) then
 				local slotName = group.slot and group.slot:gsub(" Swap","")
 				groupCfgList[slotName or "noSlot"] = groupCfgList[slotName or "noSlot"] or {}
@@ -1545,7 +1545,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 									-- add displayGemList for tooltip to display all gems linked to active skills
 									group.displayGemList = copyTable(group.gemList, true)
 									-- if skill granted by unique item, go through all support groups in slot
-									if group.source then 
+									if group.source then
 										if supportLists[slotName] then
 											-- add socketed supports from other socketGroups
 											for _, otherSocketGroup in ipairs(build.skillsTab.socketGroupList) do
@@ -1568,8 +1568,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 									for crossLinkedSupportSlot, crossLinkedSupportGroup in pairs(env.crossLinkedSupportGroups) do
 										for _, crossLinkedSupportedSlot in ipairs(crossLinkedSupportGroup) do
 											if crossLinkedSupportedSlot == slotName and supportLists[crossLinkedSupportSlot] then
-												for _, otherSocketGroup in ipairs(build.skillsTab.socketGroupList) do 
-													if otherSocketGroup.slot and otherSocketGroup.slot == crossLinkedSupportSlot then 
+												for _, otherSocketGroup in ipairs(build.skillsTab.socketGroupList) do
+													if otherSocketGroup.slot and otherSocketGroup.slot == crossLinkedSupportSlot then
 														for _, gem in ipairs(otherSocketGroup.gemList) do
 															if gem.gemData and gem.gemData.grantedEffect and gem.gemData.grantedEffect.support then
 																t_insert(group.displayGemList, gem)
@@ -1605,7 +1605,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				end
-				
+
 				if not slotHasActiveSkill and group.displayGemList then
 					group.displayGemList = nil
 				end

@@ -99,7 +99,7 @@ local function getCalculator(build, fullInit, modFunc)
 
 		-- Call function to make modifications to the environment
 		modFunc(env, ...)
-		
+
 		-- Run calculation pass
 		calcs.perform(env)
 		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil})
@@ -108,7 +108,7 @@ local function getCalculator(build, fullInit, modFunc)
 		env.player.output.FullDotDPS = fullDPS.TotalDotDPS
 
 		return env.player.output
-	end, baseOutput	
+	end, baseOutput
 end
 
 -- Get fast calculator for adding tree node modifiers
@@ -135,7 +135,7 @@ function calcs.getMiscCalculator(build)
 		local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
 		calcs.perform(env)
 		if (useFullDPS ~= false or build.viewMode == "TREE") and usedFullDPS then
-			-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up 
+			-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up
 			-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing
 			-- A with A (due to cache reuse) instead of A with B
 			local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil})
@@ -198,7 +198,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	local igniteSource = ""
 	local burningGroundSource = ""
 	local causticGroundSource = ""
-	
+
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
@@ -462,7 +462,7 @@ function calcs.buildOutput(build, mode)
 				end
 			end
 		end
-	
+
 		output.ExtraPoints = env.modDB:Sum("BASE", nil, "ExtraPoints")
 
 		local specCfg = {
@@ -525,7 +525,7 @@ function calcs.buildOutput(build, mode)
 		end
 		local function addModTags(actor, mod)
 			addTo(env.modsUsed, mod.name, mod)
-			
+
 			-- Imply enemy conditionals based on damage type
 			-- Needed to preemptively show config options for elemental ailments
 			for dmgType, conditions in pairs({["[fi][ig][rn][ei]t?e?"] = {"Ignited", "Burning"}, ["[cf][or][le][de]z?e?"] = {"Frozen"}}) do
@@ -535,7 +535,7 @@ function calcs.buildOutput(build, mode)
 					end
 				end
 			end
-			
+
 			for _, tag in ipairs(mod) do
 				addTo(env.tagTypesUsed, tag.type, mod)
 				if tag.type == "IgnoreCond" then

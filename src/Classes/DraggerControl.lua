@@ -116,7 +116,7 @@ function DraggerClass:OnKeyDown(key)
 		if self.onKeyDown then
 			self.onKeyDown({ X = cursorX, Y = cursorY })
 		end
-		
+
 		self.cursorX = cursorX
 		self.cursorY = cursorY
 	end

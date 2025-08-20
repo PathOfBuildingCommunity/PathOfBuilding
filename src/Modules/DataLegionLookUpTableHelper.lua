@@ -224,7 +224,7 @@ local function repairLUTs()
 			ConPrintf("csv found")
 			local nodeData = compressedFile:read("*a")
 			compressedFile:close()
-			
+
 			tempIndList = {}
 			nodeIDList["size"] = 0
 			nodeIDList["sizeNotable"] = 0
@@ -245,8 +245,8 @@ local function repairLUTs()
 			nodeIDList["size"] = nodeIDList["size"] - 2
 			ConPrintf(nodeIDList["sizeNotable"])
 			ConPrintf(nodeIDList["size"])
-			
-			
+
+
 			local seedSize = data.timelessJewelSeedMax[1] - data.timelessJewelSeedMin[1] + 1
 			local sizeOffset = nodeIDList.size * seedSize
 			data.timelessJewelLUTs[1] = {}
@@ -264,7 +264,7 @@ local function repairLUTs()
 				end
 				nodeIDList[nodeID] = { index = nodeIndex, size = count }
 			end
-			
+
 			local file = assert(io.open("Data/TimelessJewelData/NodeIndexMapping.lua", "wb+"))
 			file:write("nodeIDList = { }\n")
 			file:write("nodeIDList[\"size\"] = " .. tostring(nodeIDList["size"]) .. "\n")
@@ -288,7 +288,7 @@ local function readLUT(seed, nodeID, jewelType)
 	else
 		assert(data.timelessJewelLUTs[jewelType].data, "Error occurred loading Timeless Jewel data")
 	end
-	 -- "Elegant Hubris"
+	-- "Elegant Hubris"
 	if jewelType == 5 then
 		seed = seed / 20
 	end

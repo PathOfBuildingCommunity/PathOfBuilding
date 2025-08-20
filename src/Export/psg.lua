@@ -187,7 +187,7 @@ for _, sheet in ipairs(sheets) do
 			local rRow = imageIconSmall[0][row]
 			local gRow = imageIconSmall[1][row]
 			local bRow = imageIconSmall[2][row]
-			for col = 0, imageIconSmall:Width() - 1 do		
+			for col = 0, imageIconSmall:Width() - 1 do
 				local r = rRow[col] * 0.58
 				local g = gRow[col] * 0.58
 				local b = bRow[col] * 0.58

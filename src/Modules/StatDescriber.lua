@@ -28,7 +28,7 @@ local function getScope(scopeName)
 	end
 end
 
-local function matchLimit(lang, val) 
+local function matchLimit(lang, val)
 	for _, desc in ipairs(lang) do
 		local match = true
 		for i, limit in ipairs(desc.limit) do
@@ -140,11 +140,11 @@ local function applySpecial(val, spec)
 	elseif spec.k == "milliseconds_to_seconds_2dp" then
 		val[spec.v].min = round(val[spec.v].min / 1000, 2)
 		val[spec.v].max = round(val[spec.v].max / 1000, 2)
-		val[spec.v].fmt = "g"					
+		val[spec.v].fmt = "g"
 	elseif spec.k == "milliseconds_to_seconds_2dp_if_required" then
 		val[spec.v].min = round(val[spec.v].min / 1000, 2)
 		val[spec.v].max = round(val[spec.v].max / 1000, 2)
-		val[spec.v].fmt = "g"					
+		val[spec.v].fmt = "g"
 	elseif spec.k == "deciseconds_to_seconds" then
 		val[spec.v].min = val[spec.v].min / 10
 		val[spec.v].max = val[spec.v].max / 10
@@ -190,7 +190,7 @@ return function(stats, scopeName)
 	-- Figure out which descriptions we need, and identify them by the first stat that they describe
 	local describeStats = { }
 	for s, v in pairs(stats) do
-		if (type(v) == "number" and v ~= 0) or (type(v) == "table" and (v.min ~= 0 or v.max ~= 0)) then	
+		if (type(v) == "number" and v ~= 0) or (type(v) == "table" and (v.min ~= 0 or v.max ~= 0)) then
 			for depth, scope in ipairs(rootScope.scopeList) do
 				if scope[s] then
 					local descriptor = scope[scope[s]]
@@ -234,21 +234,21 @@ return function(stats, scopeName)
 			for _, spec in ipairs(desc) do
 				applySpecial(val, spec)
 			end
-			local statDesc = desc.text:gsub("{(%d)}", function(n) 
+			local statDesc = desc.text:gsub("{(%d)}", function(n)
 				local v = val[tonumber(n)+1]
 				if v.min == v.max then
 					return s_format("%"..v.fmt, v.min)
 				else
 					return s_format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("{}", function() 
+			end):gsub("{}", function()
 				local v = val[1]
 				if v.min == v.max then
 					return s_format("%"..v.fmt, v.min)
 				else
 					return s_format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("{:%+?d}", function() 
+			end):gsub("{:%+?d}", function()
 				local v = val[1]
 				if v.min == v.max then
 					return s_format("%"..v.fmt, v.min)

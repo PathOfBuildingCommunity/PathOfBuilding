@@ -27,7 +27,7 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.jewelShadedInnerRing:Load("Assets/ShadedInnerRing.png", "CLAMP")
 	self.jewelShadedInnerRingFlipped = NewImageHandle()
 	self.jewelShadedInnerRingFlipped:Load("Assets/ShadedInnerRingFlipped.png", "CLAMP")
-	
+
 	self.eternal1 = NewImageHandle()
 	self.eternal1:Load("TreeData/PassiveSkillScreenEternalEmpireJewelCircle1.png", "CLAMP")
 	self.eternal2 = NewImageHandle()
@@ -99,7 +99,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	local cursorX, cursorY = GetCursorPos()
 	local mOver = cursorX >= viewPort.x and cursorX < viewPort.x + viewPort.width and cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height
-	
+
 	-- Process input events
 	local treeClick
 	for id, event in ipairs(inputEvents) do
@@ -140,7 +140,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					self:Zoom(IsKeyDown("SHIFT") and 3 or 1, viewPort)
 				elseif event.key == "WHEELDOWN" then
 					self:Zoom(IsKeyDown("SHIFT") and -3 or -1, viewPort)
-				end	
+				end
 			end
 		end
 	end
@@ -250,7 +250,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				end
 			end
 		end
-		-- Use the trace path as the path 
+		-- Use the trace path as the path
 		hoverPath = { }
 		for _, pathNode in pairs(self.tracePath) do
 			hoverPath[pathNode] = true
@@ -570,7 +570,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 		-- Convert node position to screen-space
 		local scrX, scrY = treeToScreen(node.x, node.y)
-	
+
 		-- Determine color for the base artwork
 		if self.showHeatMap then
 			if not isAlloc and node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
@@ -744,7 +744,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			self.tooltip:Draw(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
 		end
 	end
-	
+
 	-- Draw ring overlays for jewel sockets
 	SetDrawLayer(nil, 25)
 	for nodeId in pairs(tree.sockets) do
@@ -866,7 +866,7 @@ function PassiveTreeViewClass:Focus(x, y, viewPort, build)
 
 	local tree = build.spec.tree
 	local scale = m_min(viewPort.width, viewPort.height) / tree.size * self.zoom
-	
+
 	self.zoomX = -x * scale
 	self.zoomY = -y * scale
 end
@@ -935,7 +935,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 	if #needMatches == 0 then
 		return true
 	end
-	
+
 	-- Check node id for devs
 	if launch.devMode then
 		err, needMatches = PCall(search, tostring(node.id), needMatches)
@@ -1028,7 +1028,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 					line = line .. "  " .. modStr
 				end
 			end
-			if line ~= " " and (node.mods[i].extra or not node.mods[i].list) then 
+			if line ~= " " and (node.mods[i].extra or not node.mods[i].list) then
 				local line = colorCodes.UNSUPPORTED..line
 				line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
 				tooltip:AddLine(16, line)

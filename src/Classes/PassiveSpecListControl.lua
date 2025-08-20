@@ -73,8 +73,8 @@ function PassiveSpecListClass:GetRowValue(column, index, spec)
 	if column == 1 then
 		local used = spec:CountAllocNodes()
 		return (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")
-			.. (spec.title or "Default") 
-			.. " (" .. (spec.curAscendClassName ~= "None" and spec.curAscendClassName or spec.curClassName) .. ", " .. used .. " points)" 
+			.. (spec.title or "Default")
+			.. " (" .. (spec.curAscendClassName ~= "None" and spec.curAscendClassName or spec.curClassName) .. ", " .. used .. " points)"
 			.. (index == self.treeTab.activeSpec and "  ^9(Current)" or "")
 	end
 end
@@ -98,7 +98,7 @@ function PassiveSpecListClass:OnSelDelete(index, spec)
 			t_remove(self.list, index)
 			self.selIndex = nil
 			self.selValue = nil
-			if index == self.treeTab.activeSpec then 
+			if index == self.treeTab.activeSpec then
 				self.treeTab:SetActiveSpec(m_max(1, index - 1))
 			else
 				self.treeTab.activeSpec = isValueInArray(self.list, self.treeTab.build.spec)

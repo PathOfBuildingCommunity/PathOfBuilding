@@ -29,7 +29,7 @@ local function downloadFileText(source, file)
 			easy:setopt(curl.OPT_PROXY, proxyURL)
 		end
 		easy:setopt_writefunction(function(data)
-			text = text..data 
+			text = text..data
 			return true
 		end)
 		local _, error = easy:perform()
@@ -191,7 +191,7 @@ for name, data in pairs(localFiles) do
 		table.insert(deleteFiles, data)
 	end
 end
-	
+
 if #updateFiles == 0 and #deleteFiles == 0 then
 	ConPrintf("No update available.")
 	return "none"
@@ -284,7 +284,7 @@ for part, platforms in pairs(remoteSources) do
 end
 for name, data in pairs(remoteFiles) do
 	table.insert(localManXML, { elem = "File", attrib = { name = data.name, sha1 = data.sha1, part = data.part, platform = data.platform } })
-end 
+end
 xml.SaveXMLFile(localManXML, scriptPath.."/Update/manifest.xml")
 
 -- Build list of operations to apply the update

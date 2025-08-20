@@ -565,7 +565,7 @@ Requires Level 64
 Attacks inflict Unnerve on Critical Strike for 4 seconds
 Spells inflict Intimidate on Critical Strike for 4 seconds
 ]],[[
-The Hateful Accuser 
+The Hateful Accuser
 Nameless Ring
 League: Settlers of Kalguur
 Requires Level 50

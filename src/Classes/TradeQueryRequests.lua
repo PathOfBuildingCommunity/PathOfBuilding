@@ -44,7 +44,7 @@ function TradeQueryRequestsClass:ProcessQueue()
 				end
 				launch:DownloadPage(request.url, onComplete, {
 					header = header,
-					body = request.body, 
+					body = request.body,
 				})
 			else
 				break
@@ -171,7 +171,7 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 end
 
 ---Perform search and run callback function on returned item hashes.
----Item info has to be fetched separately 
+---Item info has to be fetched separately
 ---@param league string
 ---@param query string
 ---@param callback fun(response:table, errMsg:string)
@@ -446,10 +446,10 @@ function TradeQueryRequestsClass:buildUrl(root, realm, league, queryId)
 	local result = root
 	if realm and realm ~='pc' then
 		result = result .. "/" .. realm
-	end	
+	end
 	result = result .. "/" .. league:gsub(" ", "+")
 	if queryId then
 		result = result .. "/" .. queryId
 	end
-	return result	
+	return result
 end

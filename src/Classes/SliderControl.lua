@@ -144,7 +144,7 @@ function SliderClass:OnKeyDown(key)
 			if mOverComp == "SLIDE" then
 				local x, y = self:GetPos()
 				self:SetValFromKnobX(cursorX - x - 1 - self.knobSize / 2)
-			end	
+			end
 			self.dragKnobX = self:GetKnobXForVal()
 		end
 	end

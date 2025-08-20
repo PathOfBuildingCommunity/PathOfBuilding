@@ -207,7 +207,7 @@ local function getStat(state, stat)
 				end
 			end
 		end
-		if skill.statsPerLevel2 then 
+		if skill.statsPerLevel2 then
 			for level, statsPerLevel in ipairs(skill.statsPerLevel2) do
 				for i, additionalStat in ipairs(statsPerLevel.AdditionalStats) do
 					if additionalStat.Id == "base_reduce_enemy_lightning_resistance_%" then

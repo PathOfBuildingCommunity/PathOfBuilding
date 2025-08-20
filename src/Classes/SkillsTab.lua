@@ -19,7 +19,7 @@ local groupSlotDropList = {
 	{ label = "Helmet", slotName = "Helmet" },
 	{ label = "Body Armour", slotName = "Body Armour" },
 	{ label = "Gloves", slotName = "Gloves" },
-	{ label = "Boots", slotName = "Boots" }, 
+	{ label = "Boots", slotName = "Boots" },
 	{ label = "Amulet", slotName = "Amulet" },
 	{ label = "Ring 1", slotName = "Ring 1" },
 	{ label = "Ring 2", slotName = "Ring 2" },
@@ -108,7 +108,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 
 	-- Socket group list
 	self.controls.groupList = new("SkillListControl", { "TOPLEFT", self, "TOPLEFT" }, { 20, 54, 360, 300 }, self)
-	self.controls.groupTip = new("LabelControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { 0, 8, 0, 14 }, 
+	self.controls.groupTip = new("LabelControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { 0, 8, 0, 14 },
 [[
 ^7Usage Tips:
 - You can copy/paste socket groups using Ctrl+C and Ctrl+V.
@@ -397,7 +397,7 @@ function SkillsTabClass:Load(xml, fileName)
 	end
 	self.controls.showAltQualityGems.state = self.showAltQualityGems
 	self.controls.showSupportGemTypes:SelByValue(xml.attrib.showSupportGemTypes or "ALL", "show")
-	self.controls.sortGemsByDPSFieldControl:SelByValue(xml.attrib.sortGemsByDPSField or "CombinedDPS", "type") 
+	self.controls.sortGemsByDPSFieldControl:SelByValue(xml.attrib.sortGemsByDPSField or "CombinedDPS", "type")
 	self.showSupportGemTypes = self.controls.showSupportGemTypes:GetSelValueByKey("show")
 	self.sortGemsByDPSField = self.controls.sortGemsByDPSFieldControl:GetSelValueByKey("type")
 	for _, node in ipairs(xml) do

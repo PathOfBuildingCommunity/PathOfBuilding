@@ -112,14 +112,14 @@ local function doOtherEnchantment(fileName, groupsList)
 			out:write('\t},\n')
 		elseif byDiffFullMods[diff] then
 			out:write('\t["'..diff..'"] = {\n')
-			for _, mod in ipairs(byDiffFullMods[diff]) do		
+			for _, mod in ipairs(byDiffFullMods[diff]) do
 				out:write('\t\t{ ')
 				out:write('type = "Runecraft", ')
 				local stats, orders = describeMod(mod.AddEnchantment)
 				out:write('modTags = { ', stats.modTags, ' }, ')
 				out:write('"', table.concat(stats, '", "'), '", ')
 				out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
-				out:write('types = { ')		
+				out:write('types = { ')
 				local uniqueTypes = { }
 				for _, category in ipairs(mod.ItemCategories) do
 					for _, itemClass in ipairs(category.ItemClasses) do
@@ -329,7 +329,7 @@ for _, mod in ipairs(dat("Mods"):GetRowList("GenerationType", 10)) do
 				end
 			end
 		end
-		
+
 		if skillMap[skill] ~= nil then
 			skill = skillMap[skill]
 		end

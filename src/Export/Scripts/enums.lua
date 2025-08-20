@@ -42,7 +42,7 @@ local function writeEnum(filename, enumTable)
 	for _, s in ipairs(enumTable) do
 		out:write(convertUTF8to16(s) .. "\0\0")
 	end
-	
+
 	out:close()
 	print("Wrote " .. size .. " enum types to " .. filename)
 end

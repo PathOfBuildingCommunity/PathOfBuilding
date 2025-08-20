@@ -98,7 +98,7 @@ end
 -- @param uri String Example: pob://pobbin/<id> or pob://poeninja/<id>
 function buildSites.ParseImportLinkFromURI(uri)
 	local importLink = nil
-	
+
 	-- Check if it's an URI from protocol handler
 	for _, siteInfo in ipairs(buildSites.websiteList) do
 		if uri:match("^pob:[/\\]*" .. siteInfo.id:lower() .. "[/\\]+(.+)") then

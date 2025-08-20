@@ -197,7 +197,7 @@ describe("TetsItemMods", function()
 
 		assert.are.equals(genericRingInt - initialInt, build.calcsTab.mainOutput.Int - genericRingInt)
 	end)
-	
+
 	it("Kalandra's Touch influence copy", function()
 
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nSmite 20/0 Default  1\n")
@@ -308,7 +308,7 @@ describe("TetsItemMods", function()
 	end)
 
 	it("Both slots explicit mod with mixed mod rings (evasion and es mastery)", function()
-	
+
 		build.configTab.input.customMods = "\z
 		20% increased Maximum Energy Shield if both Equipped Rings have an Explicit Evasion Modifier\n\z
 		"

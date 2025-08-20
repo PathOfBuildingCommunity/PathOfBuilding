@@ -31,9 +31,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		EnableExportBuffs = false,
 		showAdvancedTools = false,
 	}
-	
+
 	local partyDestinations = { "All", "Party Member Stats", "Aura", "Curse", "Warcry Skills", "Link Skills", "EnemyConditions", "EnemyMods" }
-	
+
 	local theme = {
 		stringHeight = 16,
 		buttonHeight = 20,
@@ -58,9 +58,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 
 	local notesDesc = [[^7To import a build it must be exported with "Export support" enabled in the import/export tab
 	Auras with the highest effect will take priority, your curses will take priority over a support's
-	
+
 	All of these effects can be found in the Calcs tab]]
-	
+
 	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, {8, 8, 150, theme.stringHeight}, notesDesc)
 	self.controls.notesDesc.width = function()
 		local width = self.width / 2 - 16
@@ -74,7 +74,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.importCodeHeader.y = function()
 		return theme.lineCounter(self.controls.notesDesc.label) + 4
 	end
-	
+
 	local clearInputText = function()
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Party Member Stats" then
 			self.controls.editPartyMemberStats:SetText("")
@@ -112,7 +112,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			self.controls.enemyMods:SetText("")
 		end
 	end
-	
+
 	local importCodeHandle = function (buf)
 		self.importCodeSite = nil
 		self.importCodeDetail = ""
@@ -154,12 +154,12 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self.importCodeDetail = colorCodes.POSITIVE.."Code is valid"
 		self.importCodeXML = xmlText
 	end
-	
+
 	local finishImport = function()
 		if not self.importCodeValid or self.importCodeFetching then
 			return
 		end
-		
+
 		local currentCurseBuffer = nil
 		local currentLinkBuffer = nil
 		if self.controls.appendNotReplace.state ~= true then
@@ -187,7 +187,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 				self.actor["Link"] = { }
 			end
 		end
-		
+
 		-- Parse the XML
 		local dbXML, errMsg = common.xml.ParseXML(self.importCodeXML)
 		if not dbXML then
@@ -274,12 +274,12 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 					self:ParseBuffs(self.enemyModList, self.controls.enemyCond.buf, "EnemyConditions")
 					self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods", self.controls.simpleEnemyMods)
 				end
-				self.build.buildFlag = true 
+				self.build.buildFlag = true
 				break
 			end
 		end
 	end
-	
+
 	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, {0, 4, 328, theme.buttonHeight}, "", nil, nil, nil, importCodeHandle)
 	self.controls.importCodeIn.width = function()
 		return (self.width > 880) and 328 or (self.width / 2 - 100)
@@ -331,22 +331,22 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.appendNotReplace.y = function()
 		return (self.width > theme.widthThreshold1) and 0 or 24
 	end
-	
-	self.controls.clear = new("ButtonControl", {"LEFT",self.controls.appendNotReplace,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "Clear", function() 
+
+	self.controls.clear = new("ButtonControl", {"LEFT",self.controls.appendNotReplace,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "Clear", function()
 		clearInputText()
 		wipeTable(self.enemyModList)
 		self.enemyModList = new("ModList")
 		self.build.buildFlag = true
 	end)
 	self.controls.clear.tooltipText = "^7Clears all the party tab imported data"
-	
+
 	self.controls.ShowAdvanceTools = new("CheckBoxControl", {"TOPLEFT",self.controls.importCodeDestination,"BOTTOMLEFT"}, {140, 4, theme.buttonHeight}, "^7Show Advanced Info", function(state)
 	end, "This shows the advanced info like what stats each aura/curse etc are adding, as well as enables the ability to edit them without a re-export\nDo not edit any boxes unless you know what you are doing, use copy/paste or import instead", false)
 	self.controls.ShowAdvanceTools.y = function()
 		return (self.width > theme.widthThreshold1) and 4 or 28
 	end
-	
-	self.controls.removeEffects = new("ButtonControl", {"LEFT",self.controls.ShowAdvanceTools,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "Disable Party Effects", function() 
+
+	self.controls.removeEffects = new("ButtonControl", {"LEFT",self.controls.ShowAdvanceTools,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "Disable Party Effects", function()
 		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
 		self.actor = { Aura = {}, Curse = {}, Warcry = { }, Link = {}, modDB = new("ModDB"), output = { } }
@@ -355,8 +355,8 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self.build.buildFlag = true
 	end)
 	self.controls.removeEffects.tooltipText = "^7Removes the effects of the supports, without removing the data\nUse \"rebuild all\" to apply the effects again"
-	
-	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.removeEffects,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "^7Rebuild All", function() 
+
+	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.removeEffects,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "^7Rebuild All", function()
 		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
 		self.actor = { Aura = {}, Curse = {}, Warcry = { }, Link = {}, modDB = new("ModDB"), output = { } }
@@ -369,7 +369,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self:ParseBuffs(self.actor["Link"], self.controls.editLinks.buf, "Link", self.controls.simpleLinks)
 		self:ParseBuffs(self.enemyModList, self.controls.enemyCond.buf, "EnemyConditions")
 		self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods", self.controls.simpleEnemyMods)
-		self.build.buildFlag = true 
+		self.build.buildFlag = true
 	end)
 	self.controls.rebuild.tooltipText = "^7Reparse all the inputs incase they have been disabled or they have changed since loading the build or importing"
 	self.controls.rebuild.x = function()
@@ -390,7 +390,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.editAuras.height = function()
 		return (self.controls.editWarcries.hasFocus or self.controls.editLinks.hasFocus) and theme.bufferHeightSmall or theme.bufferHeightLeft()
 	end
-	
+
 	self.controls.editAuras.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
@@ -559,11 +559,11 @@ function PartyTabClass:Load(xml, fileName)
 	self.lastContent.EnemyCond = self.controls.enemyCond.buf
 	self.lastContent.EnemyMods = self.controls.enemyMods.buf
 	self.lastContent.EnableExportBuffs = self.enableExportBuffs
-	
+
 	self.controls.importCodeDestination:SelByValue(xml.attrib.destination or "All")
 	self.controls.appendNotReplace.state = xml.attrib.append == "true"
 	self.controls.ShowAdvanceTools.state = xml.attrib.ShowAdvanceTools == "true"
-	
+
 	self.lastContent.showAdvancedTools = self.controls.ShowAdvanceTools.state
 end
 
@@ -699,7 +699,7 @@ function PartyTabClass:Draw(viewPort, inputEvents)
 
 	self:DrawControls(viewPort)
 
-	self.modFlag = (self.lastContent.Aura ~= self.controls.editAuras.buf 
+	self.modFlag = (self.lastContent.Aura ~= self.controls.editAuras.buf
 			or self.lastContent.Curse ~= self.controls.editCurses.buf
 			or self.lastContent.Warcry ~= self.controls.editWarcries.buf
 			or self.lastContent.Link ~= self.controls.editLinks.buf

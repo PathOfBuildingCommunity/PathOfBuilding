@@ -11714,7 +11714,7 @@ skills["StormRainAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	 preDamageFunc = function(activeSkill, output)
+	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
 			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "StormRainBeamFrequency") / 100)
 			activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.activeArrowMultiplier or 1, activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "StormRainAllowedStormArrows"))

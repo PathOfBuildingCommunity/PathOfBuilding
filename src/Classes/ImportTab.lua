@@ -96,12 +96,12 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	self.controls.accountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, {0, 4, 170, 18}, "^x4040FFhttps://www.urlencoder.org/", function()
 		OpenURL("https://www.urlencoder.org/")
 	end)
-	
+
 	self.controls.accountNameMissingDiscriminator = new("LabelControl", {"BOTTOMLEFT",self.controls.accountNameUnicode,"TOPLEFT"}, {0, -4, 0, 18}, "^1Missing discriminator e.g. #1234")
 	self.controls.accountNameMissingDiscriminator.shown = function()
 		return not self.controls.accountName.buf:match("[#%-]%d%d%d%d$")
 	end
-	
+
 
 	-- Stage: input POESESSID
 	self.controls.sessionHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, {6, 40, 200, 14})
@@ -192,7 +192,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end)
 	self.controls.enablePartyExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.generateCode,"RIGHT"}, {100, 0, 18}, "Export Support", function(state)
 		self.build.partyTab.enableExportBuffs = state
-		self.build.buildFlag = true 
+		self.build.buildFlag = true
 	end, "This is for party play, to export support character, it enables the exporting of auras, curses and modifiers to the enemy", false)
 	self.controls.generateCodeOut = new("EditControl", {"TOPLEFT",self.controls.generateCodeLabel,"BOTTOMLEFT"}, {0, 8, 250, 20}, "", "Code", "%Z")
 	self.controls.generateCodeOut.enabled = function()
@@ -398,7 +398,7 @@ function ImportTabClass:Save(xml)
 		xml.attrib.importLink = self.build.importLink
 	end
 	-- Gets rid of erroneous, potentially infinitely nested full base64 XML stored as an import link
-	xml.attrib.importLink = (xml.attrib.importLink and xml.attrib.importLink:len() < 100) and xml.attrib.importLink or nil 
+	xml.attrib.importLink = (xml.attrib.importLink and xml.attrib.importLink:len() < 100) and xml.attrib.importLink or nil
 end
 
 function ImportTabClass:Draw(viewPort, inputEvents)
@@ -701,12 +701,12 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 		end
 	end
 
-	self.build.spec:ImportFromNodeList(charPassiveData.character, 
-		charPassiveData.ascendancy, 
-		charPassiveData.alternate_ascendancy or 0, 
-		charPassiveData.hashes, 
-		charPassiveData.skill_overrides, 
-		charPassiveData.mastery_effects or {}, 
+	self.build.spec:ImportFromNodeList(charPassiveData.character,
+		charPassiveData.ascendancy,
+		charPassiveData.alternate_ascendancy or 0,
+		charPassiveData.hashes,
+		charPassiveData.skill_overrides,
+		charPassiveData.mastery_effects or {},
 		latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or "") .. (isAscendancyInTree(charData.class, latestTreeVersion) and "" or "_alternate")
 	)
 	self.build.treeTab:SetActiveSpec(self.build.treeTab.activeSpec)
@@ -720,7 +720,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	local resistancePenaltyIndex = 3
 	if self.build.Act then -- Estimate resistance penalty setting based on act progression estimate
 		if type(self.build.Act) == "string" and self.build.Act == "Endgame" then resistancePenaltyIndex = 3
-		elseif type(self.build.Act) == "number" then 
+		elseif type(self.build.Act) == "number" then
 			if self.build.Act < 5 then resistancePenaltyIndex = 1
 			elseif self.build.Act > 5 and self.build.Act < 11 then resistancePenaltyIndex = 2
 			elseif self.build.Act > 10 then resistancePenaltyIndex = 3 end
@@ -1088,7 +1088,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			local normalizedBasename, qualityType = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.typeLine, nil)
 			local gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 			if socketedItem.hybrid then
-				-- Used by transfigured gems and dual-skill gems (currently just Stormbind) 
+				-- Used by transfigured gems and dual-skill gems (currently just Stormbind)
 				normalizedBasename, qualityType  = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.hybrid.baseTypeName, nil)
 				gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 				if gemId and socketedItem.hybrid.isVaalGem then

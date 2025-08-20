@@ -16002,7 +16002,7 @@ skills["SparkAltX"] = {
 			name = "Maximum Hits",
 		},
 	},
-	preDamageFunc = function(activeSkill, output) 
+	preDamageFunc = function(activeSkill, output)
 		local skillData = activeSkill.skillData
 		if activeSkill.skillPart == 2 then
 			skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * (1 + math.floor( output.Duration / 0.66 ))

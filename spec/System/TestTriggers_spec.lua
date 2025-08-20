@@ -27,10 +27,10 @@ describe("TestTriggers", function()
 		{range:0.5}+(15-25)% to Global Critical Strike Multiplier]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Reave 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -52,13 +52,13 @@ describe("TestTriggers", function()
 		10% increased Area of Effect]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.mainSocketGroup = 2
 		build.modFlag = true
 		build.buildFlag = true
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -80,13 +80,13 @@ describe("TestTriggers", function()
 		10% increased Area of Effect]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.mainSocketGroup = 2
 		build.modFlag = true
 		build.buildFlag = true
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -107,7 +107,7 @@ describe("TestTriggers", function()
 		build.configTab.input["buffPhasing"] = true
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -133,7 +133,7 @@ describe("TestTriggers", function()
 		Hits ignore Enemy Monster Chaos Resistance if all Equipped Items are Elder Items]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -174,7 +174,7 @@ describe("TestTriggers", function()
 		{variant:5,6,7}Penetrate 4% Elemental Resistances per Abyss Jewel affecting you]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -196,10 +196,10 @@ describe("TestTriggers", function()
 		Culling Strike]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -228,7 +228,7 @@ describe("TestTriggers", function()
 		{variant:1}Cannot be Stunned when on Low Life]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.itemsTab:CreateDisplayItemFromRaw([[+3 Bow
 		Thicket Bow
 		Crafted: true
@@ -250,7 +250,7 @@ describe("TestTriggers", function()
 
 		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -274,7 +274,7 @@ describe("TestTriggers", function()
 		40% reduced Movement Speed when on Low Life]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.itemsTab:CreateDisplayItemFromRaw([[+3 Bow
 		Thicket Bow
 		Crafted: true
@@ -296,7 +296,7 @@ describe("TestTriggers", function()
 
 		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -321,10 +321,10 @@ describe("TestTriggers", function()
 		{variant:2}{range:0.5}Hits with this Weapon gain (75-100)% of Physical Damage as Extra Cold or Lightning Damage]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -347,10 +347,10 @@ describe("TestTriggers", function()
 		Damage Penetrates 20% Fire Resistance]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -370,10 +370,10 @@ describe("TestTriggers", function()
 		Trigger Level 20 Icicle Burst when you Hit a Frozen Enemy]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -397,10 +397,10 @@ describe("TestTriggers", function()
 		{variant:3}Attacks have 25% chance to inflict Bleeding]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -420,10 +420,10 @@ describe("TestTriggers", function()
 		{tags:mana}{range:0.5}(20-30)% increased Mana Regeneration Rate]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -448,10 +448,10 @@ describe("TestTriggers", function()
 		Weapons you Animate create an additional copy]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -484,10 +484,10 @@ describe("TestTriggers", function()
 		{variant:3,4}10% chance to Cover Enemies in Ash on Hit]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Kinetic Blast 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -506,10 +506,10 @@ describe("TestTriggers", function()
 		15% chance to Poison on Hit]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Reave 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -534,10 +534,10 @@ describe("TestTriggers", function()
 		This item can be anointed by Cassia]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -556,10 +556,10 @@ describe("TestTriggers", function()
 		20% chance to Trigger Level 20 Tentacle Whip on Kill]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -578,10 +578,10 @@ describe("TestTriggers", function()
 		20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -599,13 +599,13 @@ describe("TestTriggers", function()
 		Trigger a Socketed Spell when you Attack with this Weapon, with a 0.25 second Cooldown]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nArc 20/0 Default  1\n")
 		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Kinetic Blast 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -642,13 +642,13 @@ describe("TestTriggers", function()
 		5% chance to Blind Enemies on Hit with Attacks]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 2\nRain of Arrows 20/0 Default  1\n")
 		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -686,13 +686,13 @@ describe("TestTriggers", function()
 		5% chance to Blind Enemies on Hit with Attacks]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 2\nRain of Arrows 20/0 Default  1\n")
 		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -739,13 +739,13 @@ describe("TestTriggers", function()
 		{variant:1,2}{range:0.5}(10-15)% increased Stun and Block Recovery]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Slot: Helmet\nArc 20/0 Default  1\n")
 		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -765,13 +765,13 @@ describe("TestTriggers", function()
 		{range:0.5}(10-20)% increased Cast Speed with Curse Skills]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Slot: Gloves\nEnfeeble 20/0 Default  1\n")
 		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Despair 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -790,12 +790,12 @@ describe("TestTriggers", function()
 		Damage cannot be Reflected]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.mainSocketGroup = 2
 		build.modFlag = true
 		build.buildFlag = true
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -819,13 +819,13 @@ describe("TestTriggers", function()
 		{crafted}Spells Triggered this way have 150% more Cost]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nArc 20/0 Default  1\n")
 		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Reave 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -850,7 +850,7 @@ describe("TestTriggers", function()
 		{variant:2}50% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
-		
+
 		build.itemsTab:CreateDisplayItemFromRaw([[The Blood Reaper
 		Headsman Axe
 		Variant: Pre 3.0.0
@@ -877,7 +877,7 @@ describe("TestTriggers", function()
 
 		build.skillsTab:PasteSocketGroup("Ice Nova 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -914,7 +914,7 @@ describe("TestTriggers", function()
 
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -945,7 +945,7 @@ describe("TestTriggers", function()
 
 		build.skillsTab:PasteSocketGroup("Reave 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -973,7 +973,7 @@ describe("TestTriggers", function()
 
 		build.skillsTab:PasteSocketGroup("Cast On Critical Strike 20/0 Default  1\nArc 20/0 Default  1\nCyclone 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
@@ -1001,7 +1001,7 @@ describe("TestTriggers", function()
 
 		build.skillsTab:PasteSocketGroup("Cast on Melee Kill 20/0 Default  1\nArc 20/0 Default  1\nCyclone 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		build.configTab.input["conditionKilledRecently"] = true
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
@@ -1012,7 +1012,7 @@ describe("TestTriggers", function()
 	it("Trigger Holy Relic", function()
 		build.skillsTab:PasteSocketGroup("Summon Holy Relic 20/0 Default  1\n")
 		runCallback("OnFrame")
-		
+
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
 		runCallback("OnFrame")
 
@@ -1303,14 +1303,14 @@ describe("TestTriggers", function()
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
-	
+
 	it("Trigger Automation", function()
 		build.skillsTab:PasteSocketGroup("Steelskin 20/0 Default  1\nAutomation 20/0 Default  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
-	
+
 	it("Trigger Svalinn", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[Rarity: UNIQUE
 			Svalinn Girded

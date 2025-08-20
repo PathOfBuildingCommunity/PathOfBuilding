@@ -9,14 +9,14 @@ local t_remove = table.remove
 local s_format = string.format
 
 local MinionSearchListClass = newClass("MinionSearchListControl", "MinionListControl", function(self, anchor, rect, data, list, dest)
-	self.MinionListControl(anchor, rect, data, list, dest)	
+	self.MinionListControl(anchor, rect, data, list, dest)
 	self.unfilteredList = copyTable(list)
 	self.isMutable = false
 
 	self.controls.searchText = new("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 128, 18}, "", "Search", "%c", 100, function(buf)
 		self:ListFilterChanged(buf, self.controls.searchModeDropDown.selIndex)
-	end, nil, nil, true)	
-	
+	end, nil, nil, true)
+
 	self.controls.searchModeDropDown = new("DropDownControl", {"LEFT",self.controls.searchText,"RIGHT"}, {2, 0, 60, 18}, { "Names", "Skills", "Both"}, function(index, value)
 		self:ListFilterChanged(self.controls.searchText.buf, index)
 	end)

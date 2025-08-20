@@ -778,14 +778,14 @@ function buildKeystoneItems(keystoneMap)
 
 	local skinOfTheLordsKeystones = {}
 	local seen = {}
-	for _, node in pairs(keystoneMap) do		
+	for _, node in pairs(keystoneMap) do
 		if isKeystoneNative(node) and not isValueInArray(excludedPassiveKeystones, node.name) and not seen[node] then
 			table.insert(skinOfTheLordsKeystones, node.name)
 			seen[node] = true
 		end
 	end
 	table.sort(skinOfTheLordsKeystones)
-	
+
 	for _, name in ipairs(skinOfTheLordsKeystones) do
 		table.insert(skinOfTheLords, "Variant: "..name)
 	end
@@ -800,7 +800,7 @@ function buildKeystoneItems(keystoneMap)
 	end
 	table.insert(skinOfTheLords, "Corrupted")
 	table.insert(data.uniques.generated, table.concat(skinOfTheLords, "\n"))
-	
+
 	local impossibleEscapeKeystones = {}
 	seen = {}
 	for _, node in pairs(keystoneMap) do
