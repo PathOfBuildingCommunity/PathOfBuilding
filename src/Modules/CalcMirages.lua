@@ -374,7 +374,7 @@ function calcs.mirages(env)
 
 		-- Find the active General's Cry gem to get active properties
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if skill.activeEffect.grantedEffect.name == "General's Cry" and env.player.mainSkill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
+			if skill.activeEffect.grantedEffect.name == "General's Cry" and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
 				cooldown = calcSkillCooldown(skill.skillModList, skill.skillCfg, skill.skillData)
 				generalsCryActiveSkill = skill
 				break
@@ -397,7 +397,7 @@ function calcs.mirages(env)
 			env.player.mainSkill.skillData.timeOverride = 1
 		end
 
-		-- This is so that it's consistant with the info message but removing this could make it more accurate numbers wise
+		-- This is so that it's consistent with the info message but removing this could make it more accurate numbers wise
 		mirageSpawnTime = round(mirageSpawnTime, 2)
 		cooldown = m_max(cooldown, mirageSpawnTime)
 
