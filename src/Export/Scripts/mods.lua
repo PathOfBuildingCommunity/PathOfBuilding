@@ -4,12 +4,12 @@ end
 loadStatFile("tincture_stat_descriptions.txt")
 
 function table.containsId(table, element)
-  for _, value in pairs(table) do
-    if value.Id == element then
-      return true
-    end
-  end
-  return false
+	for _, value in pairs(table) do
+		if value.Id == element then
+			return true
+		end
+	end
+	return false
 end
 
 local function writeMods(outName, condFunc)
@@ -71,7 +71,7 @@ local function writeMods(outName, condFunc)
 						table.remove(orders, index)
 						break
 					end
- 				end
+				end
 				if string.find(mod.Id, "EldritchImplicitUniquePresence") and #stats > 0 and #orders > 0 then
 					for i, stat in ipairs(stats) do
 						stats[i] = "While a Unique Enemy is in your Presence, ".. stat

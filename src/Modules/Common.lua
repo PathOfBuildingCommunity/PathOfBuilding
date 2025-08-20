@@ -842,9 +842,9 @@ function stringify(thing)
 end
 
 -- Class function to split a string on a single character (??) separator.
-  -- returns a list of fields, not including the separator.
-  -- Will return the first field as blank if the first character of the string is the separator
-  -- Separator defaults to colon
+-- returns a list of fields, not including the separator.
+-- Will return the first field as blank if the first character of the string is the separator
+-- Separator defaults to colon
 function string:split(sep)
 	-- Initially from http://lua-users.org/wiki/SplitJoin
 	-- function will ignore duplicate separators

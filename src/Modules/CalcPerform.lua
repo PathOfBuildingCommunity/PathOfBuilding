@@ -873,7 +873,7 @@ local function doActorCharges(env, actor)
 	-- Calculate current and maximum charges
 	output.PowerChargesMin = m_max(modDB:Sum("BASE", nil, "PowerChargesMin"), 0)
 	output.PowerChargesMax = m_max(modDB:Sum("BASE", nil, "PowerChargesMax"), 0)
-    output.PowerChargesDuration = m_floor(modDB:Sum("BASE", nil, "ChargeDuration") * calcLib.mod(modDB, nil, "PowerChargesDuration", "ChargeDuration"))
+	output.PowerChargesDuration = m_floor(modDB:Sum("BASE", nil, "ChargeDuration") * calcLib.mod(modDB, nil, "PowerChargesDuration", "ChargeDuration"))
 	if modDB:Flag(nil, "MaximumFrenzyChargesIsMaximumPowerCharges") then
 		local source = modDB.mods["MaximumFrenzyChargesIsMaximumPowerCharges"][1].source
 		if not modDB:HasMod("OVERRIDE", {source = source:match("[^:]+")}, "FrenzyChargesMax") then
@@ -3243,14 +3243,14 @@ function calcs.perform(env, skipEHP)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 	end
 
-	 -- Export modifiers to enemy conditions and stats for party tab
+	-- Export modifiers to enemy conditions and stats for party tab
 	if partyTabEnableExportBuffs then
-        for k, mod in pairs(enemyDB.mods) do
-            if k:find("Condition") and not k:find("Party") then
-                buffExports["EnemyConditions"][k] = true
-            elseif (k:find("Resist") and not k:find("Totem") and not k:find("Max")) or k:find("Damage") or k:find("ActionSpeed") or k:find("SelfCrit") or (k:find("Multiplier") and not k:find("Max") and not k:find("Impale")) then
-                for _, v in ipairs(mod) do
-                    if not v.party and v.value ~= 0 and v.source ~= "EnemyConfig" and v.source ~= "Base" and not v.source:find("Delirious") and not v.source:find("^Party") then
+		for k, mod in pairs(enemyDB.mods) do
+			if k:find("Condition") and not k:find("Party") then
+				buffExports["EnemyConditions"][k] = true
+			elseif (k:find("Resist") and not k:find("Totem") and not k:find("Max")) or k:find("Damage") or k:find("ActionSpeed") or k:find("SelfCrit") or (k:find("Multiplier") and not k:find("Max") and not k:find("Impale")) then
+				for _, v in ipairs(mod) do
+					if not v.party and v.value ~= 0 and v.source ~= "EnemyConfig" and v.source ~= "Base" and not v.source:find("Delirious") and not v.source:find("^Party") then
 						local skipValue = false
 						for _, tag in ipairs(v) do
 							if tag.effectType == "Curse" or tag.effectType == "AuraDebuff" then
@@ -3258,10 +3258,10 @@ function calcs.perform(env, skipEHP)
 								break
 							end
 						end
-                        if not skipValue and (not v[1] or (
+						if not skipValue and (not v[1] or (
 								(v[1].type ~= "Condition" or (v[1].var and (enemyDB.mods["Condition:"..v[1].var] and enemyDB.mods["Condition:"..v[1].var][1].value) or v[1].varList and (enemyDB.mods["Condition:"..v[1].varList[1]] and enemyDB.mods["Condition:"..v[1].varList[1]][1].value)))
 								and (v[1].type ~= "Multiplier" or (enemyDB.mods["Multiplier:"..v[1].var] and enemyDB.mods["Multiplier:"..v[1].var][1].value)))) then
-                            if buffExports["EnemyMods"][k] then
+							if buffExports["EnemyMods"][k] then
 								if not buffExports["EnemyMods"][k].MultiStat then
 									buffExports["EnemyMods"][k] = { MultiStat = true, buffExports["EnemyMods"][k] }
 								end
@@ -3269,11 +3269,11 @@ function calcs.perform(env, skipEHP)
 							else
 								buffExports["EnemyMods"][k] = v
 							end
-                        end
-                    end
-                end
-            end
-        end
+						end
+					end
+				end
+			end
+		end
 
 		for _, damageType in ipairs({"Physical", "Lightning", "Cold", "Fire", "Chaos"}) do
 			if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") and output[damageType.."Resist"] then

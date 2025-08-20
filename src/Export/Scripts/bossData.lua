@@ -371,16 +371,16 @@ directiveTable.monsters.boss = function(state, args, out)
 		displayName, monsterId = args:match("(%w+) (.+)")
 	end
 
-    local monsterType = dat("MonsterTypes"):GetRow("Id", monsterId)
-    if not monsterType then
+	local monsterType = dat("MonsterTypes"):GetRow("Id", monsterId)
+	if not monsterType then
 		print("Invalid Type: "..monsterId)
 		return
 	end
 
-    out:write('bosses["', displayName, '"] = {\n')
-    out:write('\tarmourMult = ', monsterType.Armour, ',\n')
-    out:write('\tevasionMult = ', monsterType.Evasion, ',\n')
-    out:write('\tisUber = ', isUber and "true" or "false", ',\n')
+	out:write('bosses["', displayName, '"] = {\n')
+	out:write('\tarmourMult = ', monsterType.Armour, ',\n')
+	out:write('\tevasionMult = ', monsterType.Evasion, ',\n')
+	out:write('\tisUber = ', isUber and "true" or "false", ',\n')
 	out:write('}\n')
 end
 
@@ -544,8 +544,8 @@ directiveTable.skills.skill = function(state, args, out)
 	end
 end
 
- -- #tooltip
- directiveTable.skills.tooltip = function(state, args, out)
+-- #tooltip
+directiveTable.skills.tooltip = function(state, args, out)
 	if args then
 		out:write(',\n		tooltip = ', args,'\n')
 	end
@@ -553,8 +553,8 @@ end
 	state.skill = nil
 end
 
- -- #skillList
- directiveTable.skills.skillList = function(state, args, out)
+-- #skillList
+directiveTable.skills.skillList = function(state, args, out)
 	out:write('},{\n')
 	out:write('    { val = "None", label = "None" }')
 	for _, skillName in pairs(state.skillList) do

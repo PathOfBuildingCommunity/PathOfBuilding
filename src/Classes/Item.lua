@@ -437,14 +437,14 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				elseif specName == "Radius" and self.type == "Jewel" then
 					self.jewelRadiusLabel = specVal:match("^%a+")
 					if specVal:match("^%a+") == "Variable" then
-                        -- Jewel radius is variable and must be read from it's mods instead after they are parsed
-                        deferJewelRadiusIndexAssignment = true
-                    else
-                        for index, data in pairs(data.jewelRadius) do
-                            if specVal:match("^%a+") == data.label then
-                                self.jewelRadiusIndex = index
-                                break
-                            end
+						-- Jewel radius is variable and must be read from it's mods instead after they are parsed
+						deferJewelRadiusIndexAssignment = true
+					else
+						for index, data in pairs(data.jewelRadius) do
+							if specVal:match("^%a+") == data.label then
+								self.jewelRadiusIndex = index
+								break
+							end
 						end
 					end
 				elseif specName == "Limited to" and self.type == "Jewel" then
@@ -570,11 +570,11 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				elseif specName == "Note" then
 					self.note = specVal
 				elseif specName == "Str" or specName == "Strength" or specName == "Dex" or specName == "Dexterity" or
-				       specName == "Int" or specName == "Intelligence" then
+					   specName == "Int" or specName == "Intelligence" then
 					self.requirements[specName:sub(1,3):lower()] = specToNumber(specVal)
 				elseif specName == "Critical Strike Range" or specName == "Attacks per Second" or specName == "Weapon Range" or
-				       specName == "Critical Strike Chance" or specName == "Physical Damage" or specName == "Elemental Damage" or
-				       specName == "Chaos Damage" or specName == "Chance to Block" or specName == "Block chance" or
+					   specName == "Critical Strike Chance" or specName == "Physical Damage" or specName == "Elemental Damage" or
+					   specName == "Chaos Damage" or specName == "Chance to Block" or specName == "Block chance" or
 					specName == "Armour" or specName == "Energy Shield" or specName == "Evasion" then
 					self.hidden_specs = true
 				-- Anything else is an explicit with a colon in it (Fortress Covenant, Pure Talent, etc) unless it's part of the custom name
@@ -1341,7 +1341,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		local groupCounts = {}
 		for _, socket in ipairs(self.sockets) do
 			local group = socket.group
-    		groupCounts[group] = (groupCounts[group] or 0) + 1
+			groupCounts[group] = (groupCounts[group] or 0) + 1
 			if multiName[socket.color] then
 				modList:NewMod(multiName[socket.color], "BASE", 1, "Item Sockets")
 			end

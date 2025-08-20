@@ -185,14 +185,14 @@ for i=1, alternatePassiveSkillDat.rowCount do
 	parseStats(datFileRow, legionPassiveNode)
 
 	if legionPassiveNode.id == "vaal_keystone_2_v2" then -- Immortal Ambition needs to be manually added
-        legionPassiveNode.sd = {
-            [1] = "Energy Shield starts at zero",
-            [2] = "Cannot Recharge or Regenerate Energy Shield",
-            [3] = "Lose 5% of Energy Shield per second",
-            [4] = "Life Leech effects are not removed when Unreserved Life is Filled",
-            [5] = "Life Leech effects Recover Energy Shield instead while on Full Life"
-        }
-    end
+		legionPassiveNode.sd = {
+			[1] = "Energy Shield starts at zero",
+			[2] = "Cannot Recharge or Regenerate Energy Shield",
+			[3] = "Lose 5% of Energy Shield per second",
+			[4] = "Life Leech effects are not removed when Unreserved Life is Filled",
+			[5] = "Life Leech effects Recover Energy Shield instead while on Full Life"
+		}
+	end
 
 	-- Node group, legion nodes don't use it, so we set it arbitrarily
 	legionPassiveNode.g = LEGION_PASSIVE_GROUP
@@ -212,10 +212,10 @@ for i=1, alternatePassiveSkillDat.rowCount do
 end
 
 data.groups[LEGION_PASSIVE_GROUP] = {
-    ["x"] = -6500,
-    ["y"] = -6500,
-    ["oo"] = {},
-    ["n"] = {}
+	["x"] = -6500,
+	["y"] = -6500,
+	["oo"] = {},
+	["n"] = {}
 }
 
 for k,v in pairs(data.nodes) do

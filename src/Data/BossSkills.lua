@@ -168,15 +168,15 @@ return {
 		tooltip = "Cannot be Blocked, Dodged, or Suppressed. \n	It is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n		i.e. Hits before death should be more than 3 to survive"
 	},
 },{
-    { val = "None", label = "None" },
-    { val = "Atziri Flameblast", label = "Atziri Flameblast" },
-    { val = "Shaper Ball", label = "Shaper Ball" },
-    { val = "Shaper Slam", label = "Shaper Slam" },
-    { val = "Shaper Beam", label = "Shaper Beam" },
-    { val = "Sirus Meteor", label = "Sirus Meteor" },
-    { val = "Cortex Ground Degen", label = "Cortex Ground Degen" },
-    { val = "Exarch Ball", label = "Exarch Ball" },
-    { val = "Eater Beam", label = "Eater Beam" },
-    { val = "Maven Fireball", label = "Maven Fireball" },
-    { val = "Maven Memory Game", label = "Maven Memory Game" }
+	{ val = "None", label = "None" },
+	{ val = "Atziri Flameblast", label = "Atziri Flameblast" },
+	{ val = "Shaper Ball", label = "Shaper Ball" },
+	{ val = "Shaper Slam", label = "Shaper Slam" },
+	{ val = "Shaper Beam", label = "Shaper Beam" },
+	{ val = "Sirus Meteor", label = "Sirus Meteor" },
+	{ val = "Cortex Ground Degen", label = "Cortex Ground Degen" },
+	{ val = "Exarch Ball", label = "Exarch Ball" },
+	{ val = "Eater Beam", label = "Eater Beam" },
+	{ val = "Maven Fireball", label = "Maven Fireball" },
+	{ val = "Maven Memory Game", label = "Maven Memory Game" }
 }

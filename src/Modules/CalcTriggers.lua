@@ -912,7 +912,7 @@ local configTable = {
 		end
 	end,
 	["the hidden blade"] = function(env)
-        env.player.mainSkill.skillFlags.globalTrigger = true
+		env.player.mainSkill.skillFlags.globalTrigger = true
 		env.player.mainSkill.skillData.triggerRateCapOverride = 2
 		if env.player.modDB:Flag(nil, "Condition:Phasing") then
 			if env.player.breakdown then
@@ -927,11 +927,11 @@ local configTable = {
 		env.player.mainSkill.disableReason = "This skill is requires you to be phasing"
 	end,
 	["replica eternity shroud"] = function(env)
-        env.player.mainSkill.skillFlags.globalTrigger = true
+		env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill}
 	end,
 	["shroud of the lightless"] = function(env)
-        env.player.mainSkill.skillFlags.globalTrigger = true
+		env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill}
 	end,
 	["limbsplit"] = function()
@@ -1131,9 +1131,9 @@ local configTable = {
 	["nova"] = function(env)
 		if env.minion and env.minion.mainSkill then
 			return {triggerName = "Summon Holy Relic",
-				   actor = env.minion,
-				   triggeredSkills = {{ uuid = cacheSkillUUID(env.minion.mainSkill, env), cd = env.minion.mainSkill.skillData.cooldown}},
-				   triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] end}
+				actor = env.minion,
+				triggeredSkills = {{ uuid = cacheSkillUUID(env.minion.mainSkill, env), cd = env.minion.mainSkill.skillData.cooldown}},
+				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] end}
 		end
 	end,
 	["cast when damage taken"] = function(env)
@@ -1152,7 +1152,7 @@ local configTable = {
 		end
 	end,
 	["cast when stunned"] = function(env)
-        env.player.mainSkill.skillFlags.globalTrigger = true
+		env.player.mainSkill.skillFlags.globalTrigger = true
 		return {triggerChance =  env.player.mainSkill.skillData.chanceToTriggerOnStun,
 				source = env.player.mainSkill}
 	end,
@@ -1241,11 +1241,11 @@ local configTable = {
 				end}
 	end,
 	["tempest shield"] = function(env)
-        env.player.mainSkill.skillFlags.globalTrigger = true
+		env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill}
 	end,
 	["shattershard"] = function(env)
-        env.player.mainSkill.skillFlags.globalTrigger = true
+		env.player.mainSkill.skillFlags.globalTrigger = true
 		local uuid = cacheSkillUUID(env.player.mainSkill, env)
 		if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
 			calcs.buildActiveSkill(env, env.mode, env.player.mainSkill, uuid, {uuid})
@@ -1292,7 +1292,7 @@ local configTable = {
 		end
 	end,
 	["cast on death"] = function(env)
-        env.player.mainSkill.skillFlags.globalTrigger = true
+		env.player.mainSkill.skillFlags.globalTrigger = true
 		env.player.mainSkill.skillData.triggered = true
 		env.player.mainSkill.infoMessage = env.player.mainSkill.activeEffect.grantedEffect.name .. " Triggered on Death"
 	end,
@@ -1476,17 +1476,17 @@ function calcs.triggers(env, actor)
 		local awakenedTriggerNameLower = triggerNameLower and triggerNameLower:gsub("^awakened ", "")
 		local uniqueNameLower = uniqueName and uniqueName:lower()
 		local config = skillNameLower and configTable[skillNameLower] and configTable[skillNameLower](env)
-        config = config or triggerNameLower and configTable[triggerNameLower] and configTable[triggerNameLower](env)
-        config = config or awakenedTriggerNameLower and configTable[awakenedTriggerNameLower] and configTable[awakenedTriggerNameLower](env)
-        config = config or uniqueNameLower and configTable[uniqueNameLower] and configTable[uniqueNameLower](env)
+		config = config or triggerNameLower and configTable[triggerNameLower] and configTable[triggerNameLower](env)
+		config = config or awakenedTriggerNameLower and configTable[awakenedTriggerNameLower] and configTable[awakenedTriggerNameLower](env)
+		config = config or uniqueNameLower and configTable[uniqueNameLower] and configTable[uniqueNameLower](env)
 		if config then
-		    config.actor = config.actor or actor
+			config.actor = config.actor or actor
 			config.triggerName = config.triggerName or triggerName or skillName or uniqueName
 			config.triggerChance = config.triggerChance or (actor.mainSkill.activeEffect.srcInstance and actor.mainSkill.activeEffect.srcInstance.triggerChance)
 			local triggerHandler = config.customHandler or defaultTriggerHandler
-		    triggerHandler(env, config)
+			triggerHandler(env, config)
 		else
 			actor.mainSkill.skillData.triggered = nil
-        end
+		end
 	end
 end

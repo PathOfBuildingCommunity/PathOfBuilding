@@ -951,9 +951,9 @@ end
 
 local toAddGems = { }
 for gemId, gem in pairs(data.gems) do
-    gem.name = sanitiseText(gem.name)
-    setupGem(gem, gemId)
-    local loc, _ = gemId:find('Vaal')
+	gem.name = sanitiseText(gem.name)
+	setupGem(gem, gemId)
+	local loc, _ = gemId:find('Vaal')
 	if loc then
 		data.gemGrantedEffectIdForVaalGemId[gem.secondaryGrantedEffectId] = gemId
 		for otherGemId, otherGem in pairs(data.gems) do
@@ -963,31 +963,31 @@ for gemId, gem in pairs(data.gems) do
 			end
 		end
 	end
-    for _, alt in ipairs{"AltX", "AltY"} do
-        if loc and data.skills[gem.secondaryGrantedEffectId..alt] then
+	for _, alt in ipairs{"AltX", "AltY"} do
+		if loc and data.skills[gem.secondaryGrantedEffectId..alt] then
 			data.gemGrantedEffectIdForVaalGemId[gem.secondaryGrantedEffectId..alt] = gemId..alt
 			data.gemVaalGemIdForBaseGemId[gemId..alt] = data.gemVaalGemIdForBaseGemId[gemId]..alt
-            local newGem = { name, gameId, variantId, grantedEffectId, secondaryGrantedEffectId, vaalGem, tags = {}, tagString, reqStr, reqDex, reqInt, naturalMaxLevel }
+			local newGem = { name, gameId, variantId, grantedEffectId, secondaryGrantedEffectId, vaalGem, tags = {}, tagString, reqStr, reqDex, reqInt, naturalMaxLevel }
 			-- Hybrid gems (e.g. Vaal gems) use the display name of the active skill e.g. Vaal Summon Skeletons of Sorcery
-            newGem.name = "Vaal " .. data.skills[gem.secondaryGrantedEffectId..alt].baseTypeName
-            newGem.gameId = gem.gameId
-            newGem.variantId = gem.variantId..alt
-            newGem.grantedEffectId = gem.grantedEffectId
-            newGem.secondaryGrantedEffectId = gem.secondaryGrantedEffectId..alt
-            newGem.vaalGem = gem.vaalGem
-            newGem.tags = copyTable(gem.tags)
-            newGem.tagString = gem.tagString
-            newGem.reqStr = gem.reqStr
-            newGem.reqDex = gem.reqDex
-            newGem.reqInt = gem.reqInt
-            newGem.naturalMaxLevel = gem.naturalMaxLevel
-            setupGem(newGem, gemId..alt)
-            toAddGems[gemId..alt] = newGem
-        end
-    end
+			newGem.name = "Vaal " .. data.skills[gem.secondaryGrantedEffectId..alt].baseTypeName
+			newGem.gameId = gem.gameId
+			newGem.variantId = gem.variantId..alt
+			newGem.grantedEffectId = gem.grantedEffectId
+			newGem.secondaryGrantedEffectId = gem.secondaryGrantedEffectId..alt
+			newGem.vaalGem = gem.vaalGem
+			newGem.tags = copyTable(gem.tags)
+			newGem.tagString = gem.tagString
+			newGem.reqStr = gem.reqStr
+			newGem.reqDex = gem.reqDex
+			newGem.reqInt = gem.reqInt
+			newGem.naturalMaxLevel = gem.naturalMaxLevel
+			setupGem(newGem, gemId..alt)
+			toAddGems[gemId..alt] = newGem
+		end
+	end
 end
 for id, gem in pairs(toAddGems) do
-    data.gems[id] = gem
+	data.gems[id] = gem
 end
 
 -- Load minions

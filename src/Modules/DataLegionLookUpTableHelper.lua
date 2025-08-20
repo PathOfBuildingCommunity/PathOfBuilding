@@ -178,8 +178,8 @@ local function generateLUT(jewelType)
 end
 --]]
 
- -- this doesn't rebuilt the list with the correct sizes, likely an issue with lua indexing from 1 instead of 0, but cbf debugging so just generated the index mapping in c#
- -- is disabled on the data side atm, needs to be setup correctly if we ever setup generation on the LUA side
+-- this doesn't rebuild the list with the correct sizes, likely an issue with lua indexing from 1 instead of 0, but cbf debugging so just generated the index mapping in c#
+-- is disabled on the data side atm, needs to be setup correctly if we ever setup generation on the LUA side
 local function repairLUTs()
 	ConPrintf("Error NodeIndexMapping file empty")
 	local nodeIDList = {  }

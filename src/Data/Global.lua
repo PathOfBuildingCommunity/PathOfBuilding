@@ -72,7 +72,7 @@ colorCodes.PHYS = colorCodes.NORMAL
 
 defaultColorCodes = copyTable(colorCodes)
 function updateColorCode(code, color)
- 	if colorCodes[code] then
+	if colorCodes[code] then
 		colorCodes[code] = color:gsub("^0", "^")
 		if code == "HIGHLIGHT" then
 			rgbColor = hexToRGB(color)

@@ -737,7 +737,7 @@ function calcs.defence(env, actor)
 		end
 	end
 	output.EffectiveAverageBlockChance = (output.EffectiveBlockChance + output.EffectiveProjectileBlockChance + output.EffectiveSpellBlockChance + output.EffectiveSpellProjectileBlockChance) / 4
-    output.BlockEffect = 100 - modDB:Sum("BASE", nil, "BlockEffect")
+	output.BlockEffect = 100 - modDB:Sum("BASE", nil, "BlockEffect")
 	if output.BlockEffect ~= 0 then
 		output.ShowBlockEffect = true
 		output.DamageTakenOnBlock = 100 - output.BlockEffect

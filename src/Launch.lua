@@ -261,7 +261,7 @@ function launch:DownloadPage(url, callback, params)
 		if requestHeader then
 			local header = {}
 			for s in requestHeader:gmatch("[^\r\n]+") do
-    			table.insert(header, s)
+				table.insert(header, s)
 			end
 			easy:setopt(curl.OPT_HTTPHEADER, header)
 		end

@@ -4,16 +4,16 @@
 -- Simple Outline Only Rectangle control
 --
 local RectangleOutlineClass = newClass("RectangleOutlineControl", "Control", function(self, anchor, rect, colors, stroke)
-    self.Control(anchor, rect)
-    self.stroke = stroke or 1
-    self.colors = colors or { 1, 1, 1 }
+	self.Control(anchor, rect)
+	self.stroke = stroke or 1
+	self.colors = colors or { 1, 1, 1 }
 end)
 
 function RectangleOutlineClass:Draw()
-    local x, y = self:GetPos()
-    SetDrawColor(unpack(self.colors))
-    DrawImage(nil, x, y, self.width + self.stroke, self.stroke)
-    DrawImage(nil, x, y + self.height, self.width + self.stroke, self.stroke)
-    DrawImage(nil, x, y, self.stroke, self.height + self.stroke)
-    DrawImage(nil, x + self.width, y, self.stroke, self.height + self.stroke)
+	local x, y = self:GetPos()
+	SetDrawColor(unpack(self.colors))
+	DrawImage(nil, x, y, self.width + self.stroke, self.stroke)
+	DrawImage(nil, x, y + self.height, self.width + self.stroke, self.stroke)
+	DrawImage(nil, x, y, self.stroke, self.height + self.stroke)
+	DrawImage(nil, x + self.width, y, self.stroke, self.height + self.stroke)
 end

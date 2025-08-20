@@ -893,12 +893,12 @@ for _, gem in pairs(data.gems) do
 end
 
 local replicaDragonfangsFlight = {
-    [[Replica Dragonfang's Flight
-    Onyx Amulet
-    Selected Variant: 2
-    Has Alt Variant: true
-    Selected Alt Variant: 3
-    LevelReq: 56
+	[[Replica Dragonfang's Flight
+	Onyx Amulet
+	Selected Variant: 2
+	Has Alt Variant: true
+	Selected Alt Variant: 3
+	LevelReq: 56
 	]]
 }
 

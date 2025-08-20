@@ -156,8 +156,8 @@ end
 
 -- Copy an Active Skill
 function calcs.copyActiveSkill(env, mode, skill)
-    local activeEffect = {
-        grantedEffect = skill.activeEffect.grantedEffect,
+	local activeEffect = {
+		grantedEffect = skill.activeEffect.grantedEffect,
 		level = skill.activeEffect.level,
 		quality = skill.activeEffect.quality
 	}

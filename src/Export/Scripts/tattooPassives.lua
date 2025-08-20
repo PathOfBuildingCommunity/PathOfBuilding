@@ -103,12 +103,12 @@ data.groups = { }
 
 local tattooDatRows = {}
 for i=1, passiveSkillTattoosDat.rowCount do
-   local tattooDatRow = {}
-   for j=1, #passiveSkillTattoosDat.cols-1 do
-       local key = passiveSkillTattoosDat.spec[j].name
-       tattooDatRow[key] = passiveSkillTattoosDat:ReadCell(i, j)
-   end
-   tattooDatRows[tattooDatRow.Override.Id] = tattooDatRow
+	local tattooDatRow = {}
+	for j=1, #passiveSkillTattoosDat.cols-1 do
+		local key = passiveSkillTattoosDat.spec[j].name
+		tattooDatRow[key] = passiveSkillTattoosDat:ReadCell(i, j)
+	end
+	tattooDatRows[tattooDatRow.Override.Id] = tattooDatRow
 end
 
 
@@ -189,10 +189,10 @@ for i=1, passiveSkillOverridesDat.rowCount do
 end
 
 data.groups[tattoo_PASSIVE_GROUP] = {
-    ["x"] = -6500,
-    ["y"] = -6500,
-    ["oo"] = {},
-    ["n"] = {}
+	["x"] = -6500,
+	["y"] = -6500,
+	["oo"] = {},
+	["n"] = {}
 }
 
 for k,v in pairs(data.nodes) do

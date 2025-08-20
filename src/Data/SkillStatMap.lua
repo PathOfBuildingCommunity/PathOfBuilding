@@ -1621,13 +1621,13 @@ return {
 },
 -- Impale
 ["attacks_impale_on_hit_%_chance"] = {
-    mod("ImpaleChance", "BASE", nil, 0, KeywordFlag.Attack)
+	mod("ImpaleChance", "BASE", nil, 0, KeywordFlag.Attack)
 },
 ["impale_on_hit_%_chance"] = {
-    mod("ImpaleChance", "BASE", nil, 0, 0)
+	mod("ImpaleChance", "BASE", nil, 0, 0)
 },
 ["spells_impale_on_hit_%_chance"] = {
-    mod("ImpaleChance", "BASE", nil, 0, KeywordFlag.Spell)
+	mod("ImpaleChance", "BASE", nil, 0, KeywordFlag.Spell)
 },
 ["impale_debuff_effect_+%"] = {
 	mod("ImpaleEffect", "INC", nil)
@@ -1796,8 +1796,8 @@ return {
 	mod("TotemPlacementSpeed", "INC", nil),
 },
 ["totems_regenerate_%_life_per_minute"] = {
-    mod("LifeRegenPercent", "BASE", nil, 0, KeywordFlag.Totem),
-    div = 60,
+	mod("LifeRegenPercent", "BASE", nil, 0, KeywordFlag.Totem),
+	div = 60,
 },
 ["totem_duration_+%"] = {
 	mod("TotemDuration", "INC", nil),
