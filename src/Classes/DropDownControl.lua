@@ -517,7 +517,7 @@ function DropDownClass:SetList(textList)
 	if textList then
 		wipeTable(self.list)
 		self.list = textList
-		  --check width on new list
+		--check width on new list
 		self:CheckDroppedWidth(self.enableDroppedWidth)
 	end
 end
@@ -531,16 +531,16 @@ function DropDownClass:CheckDroppedWidth(enable)
 		end
 		local lineHeight = self.height - 4
 
-		  -- do not be smaller than the created width
+		-- do not be smaller than the created width
 		local dWidth = self.width
 		for _, line in ipairs(self.list) do
 			if type(line) == "table" then
 				line = line.label or ""
 			end
-			  -- +10 to stop clipping
+			-- +10 to stop clipping
 			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", line) + 10)
 		end
-		  -- no greater than self.maxDroppedWidth
+		-- no greater than self.maxDroppedWidth
 		self.droppedWidth = m_min(dWidth + scrollWidth, self.maxDroppedWidth)
 		if self.enableChangeBoxWidth then
 			local line = self.list[self.selIndex]

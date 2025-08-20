@@ -1953,7 +1953,7 @@ function calcs.perform(env, skipEHP)
 				if env.mode_buffs and (not activeSkill.skillFlags.totem or buff.allowTotemBuff) then
 					local skillCfg = buff.activeSkillBuff and skillCfg
 					local modStore = buff.activeSkillBuff and skillModList or modDB
-				 	if not buff.applyNotPlayer then
+					if not buff.applyNotPlayer then
 						activeSkill.buffSkill = true
 						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						local srcList = new("ModList")
@@ -1985,7 +1985,7 @@ function calcs.perform(env, skipEHP)
 				if env.mode_buffs and (not activeSkill.skillFlags.totem or buff.allowTotemBuff) then
 					local skillCfg = buff.activeSkillBuff and skillCfg
 					local modStore = buff.activeSkillBuff and skillModList or modDB
-				 	if not buff.applyNotPlayer then
+					if not buff.applyNotPlayer then
 						activeSkill.buffSkill = true
 						local srcList = new("ModList")
 						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer")

@@ -180,7 +180,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 				self.actor["Warcry"] = { }
 			end
 			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Link Skills" then
-				 -- only one link can be applied at a time anyway
+				-- only one link can be applied at a time anyway
 				currentLinkBuffer = self.controls.editLinks.buf
 				self.controls.editLinks:SetText("")
 				wipeTable(self.actor["Link"])

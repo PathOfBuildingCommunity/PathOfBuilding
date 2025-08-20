@@ -1794,8 +1794,8 @@ return {
 	{ label = "Enemy Damage",
 		{ format = "{2:output:totalEnemyDamage}",
 			{ breakdown = "totalEnemyDamage" },
-			 { label = "Enemy modifiers", modName = {"Damage", "CritChance", "CritMultiplier"}, enemy = true },
-			 { label = "Enemy Conversion modifiers", modName = {
+			{ label = "Enemy modifiers", modName = {"Damage", "CritChance", "CritMultiplier"}, enemy = true },
+			{ label = "Enemy Conversion modifiers", modName = {
 				"PhysicalDamageGainAsLightning", "PhysicalDamageSkillConvertToLightning", "PhysicalDamageConvertToLightning",
 				"PhysicalDamageGainAsCold", "PhysicalDamageSkillConvertToCold", "PhysicalDamageConvertToCold",
 				"PhysicalDamageGainAsFire", "PhysicalDamageSkillConvertToFire", "PhysicalDamageConvertToFire",
@@ -1804,8 +1804,8 @@ return {
 		},
 		{ format = "{2:output:PhysicalEnemyDamage}",
 			{ breakdown = "PhysicalEnemyDamage" },
-			 { label = "Enemy modifiers", modName = {"Damage", "PhysicalDamage", "CritChance", "CritMultiplier"}, enemy = true },
-			 { label = "Enemy Conversion modifiers", modName = {
+			{ label = "Enemy modifiers", modName = {"Damage", "PhysicalDamage", "CritChance", "CritMultiplier"}, enemy = true },
+			{ label = "Enemy Conversion modifiers", modName = {
 				"PhysicalDamageGainAsLightning", "PhysicalDamageSkillConvertToLightning", "PhysicalDamageConvertToLightning",
 				"PhysicalDamageGainAsCold", "PhysicalDamageSkillConvertToCold", "PhysicalDamageConvertToCold",
 				"PhysicalDamageGainAsFire", "PhysicalDamageSkillConvertToFire", "PhysicalDamageConvertToFire",
@@ -1814,23 +1814,23 @@ return {
 		},
 		{ format = "{2:output:LightningEnemyDamage}",
 			{ breakdown = "LightningEnemyDamage" },
-			 { label = "Enemy modifiers", modName = {"Damage", "LightningDamage", "ElementalDamage", "CritChance", "CritMultiplier"}, enemy = true },
-			 { label = "Enemy Conversion modifiers", modName = {"PhysicalDamageGainAsLightning", "PhysicalDamageSkillConvertToLightning", "PhysicalDamageConvertToLightning"}, enemy = true },
+			{ label = "Enemy modifiers", modName = {"Damage", "LightningDamage", "ElementalDamage", "CritChance", "CritMultiplier"}, enemy = true },
+			{ label = "Enemy Conversion modifiers", modName = {"PhysicalDamageGainAsLightning", "PhysicalDamageSkillConvertToLightning", "PhysicalDamageConvertToLightning"}, enemy = true },
 		},
 		{ format = "{2:output:ColdEnemyDamage}",
 			{ breakdown = "ColdEnemyDamage" },
-			 { label = "Enemy modifiers", modName = {"Damage", "ColdDamage", "ElementalDamage", "CritChance", "CritMultiplier"}, enemy = true },
-			 { label = "Enemy Conversion modifiers", modName = {"PhysicalDamageGainAsCold", "PhysicalDamageSkillConvertToCold", "PhysicalDamageConvertToCold"}, enemy = true },
+			{ label = "Enemy modifiers", modName = {"Damage", "ColdDamage", "ElementalDamage", "CritChance", "CritMultiplier"}, enemy = true },
+			{ label = "Enemy Conversion modifiers", modName = {"PhysicalDamageGainAsCold", "PhysicalDamageSkillConvertToCold", "PhysicalDamageConvertToCold"}, enemy = true },
 		},
 		{ format = "{2:output:FireEnemyDamage}",
 			{ breakdown = "FireEnemyDamage" },
-			 { label = "Enemy modifiers", modName = {"Damage", "FireDamage", "ElementalDamage", "CritChance", "CritMultiplier"}, enemy = true },
-			 { label = "Enemy Conversion modifiers", modName = {"PhysicalDamageGainAsFire", "PhysicalDamageSkillConvertToFire", "PhysicalDamageConvertToFire"}, enemy = true },
+			{ label = "Enemy modifiers", modName = {"Damage", "FireDamage", "ElementalDamage", "CritChance", "CritMultiplier"}, enemy = true },
+			{ label = "Enemy Conversion modifiers", modName = {"PhysicalDamageGainAsFire", "PhysicalDamageSkillConvertToFire", "PhysicalDamageConvertToFire"}, enemy = true },
 		},
 		{ format = "{2:output:ChaosEnemyDamage}",
 			{ breakdown = "ChaosEnemyDamage" },
-			 { label = "Enemy modifiers", modName = {"Damage", "ChaosDamage", "CritChance", "CritMultiplier"}, enemy = true },
-			 { label = "Enemy Conversion modifiers", modName = {"PhysicalDamageGainAsChaos", "PhysicalDamageSkillConvertToChaos", "PhysicalDamageConvertToChaos"}, enemy = true },
+			{ label = "Enemy modifiers", modName = {"Damage", "ChaosDamage", "CritChance", "CritMultiplier"}, enemy = true },
+			{ label = "Enemy Conversion modifiers", modName = {"PhysicalDamageGainAsChaos", "PhysicalDamageSkillConvertToChaos", "PhysicalDamageConvertToChaos"}, enemy = true },
 		},
 	},
 	{ label = "Taken As",
@@ -1845,7 +1845,7 @@ return {
 				"PhysicalDamageTakenAsFire", "PhysicalDamageFromHitsTakenAsFire",
 				"PhysicalDamageTakenAsChaos", "PhysicalDamageFromHitsTakenAsChaos"
 			} },
-		  	{ label = "Taken as Physical", modName = {
+			{ label = "Taken as Physical", modName = {
 				"LightningDamageTakenAsPhysical", "LightningDamageFromHitsTakenAsPhysical",
 				"ColdDamageTakenAsPhysical", "ColdDamageFromHitsTakenAsPhysical",
 				"FireDamageTakenAsPhysical", "FireDamageFromHitsTakenAsPhysical",
@@ -1862,7 +1862,7 @@ return {
 				"ElementalDamageTakenAsPhysical", "ElementalDamageFromHitsTakenAsPhysical", "ElementalDamageTakenAsChaos", "ElementalDamageFromHitsTakenAsChaos",
 				"LightningDamageTakenAsChaos", "LightningDamageFromHitsTakenAsChaos"
 			} },
-		  	{ label = "Taken as Lightning", modName = {
+			{ label = "Taken as Lightning", modName = {
 				"PhysicalDamageTakenAsLightning", "PhysicalDamageFromHitsTakenAsLightning",
 				"ColdDamageTakenAsLightning", "ColdDamageFromHitsTakenAsLightning",
 				"FireDamageTakenAsLightning", "FireDamageFromHitsTakenAsLightning",
@@ -1878,7 +1878,7 @@ return {
 				"ElementalDamageTakenAsPhysical", "ElementalDamageFromHitsTakenAsPhysical", "ElementalDamageTakenAsChaos", "ElementalDamageFromHitsTakenAsChaos",
 				"ColdDamageTakenAsChaos", "ColdDamageFromHitsTakenAsChaos"
 			} },
-		  	{ label = "Taken as Cold", modName = {
+			{ label = "Taken as Cold", modName = {
 				"PhysicalDamageTakenAsCold", "PhysicalDamageFromHitsTakenAsCold",
 				"LightningDamageTakenAsCold", "LightningDamageFromHitsTakenAsCold",
 				"FireDamageTakenAsCold", "FireDamageFromHitsTakenAsCold",
@@ -1894,7 +1894,7 @@ return {
 				"ElementalDamageTakenAsPhysical", "ElementalDamageFromHitsTakenAsPhysical", "ElementalDamageTakenAsChaos", "ElementalDamageFromHitsTakenAsChaos",
 				"FireDamageTakenAsChaos", "FireDamageFromHitsTakenAsChaos"
 			} },
-		  	{ label = "Taken as Fire", modName = {
+			{ label = "Taken as Fire", modName = {
 				"PhysicalDamageTakenAsFire", "PhysicalDamageFromHitsTakenAsFire",
 				"LightningDamageTakenAsFire", "LightningDamageFromHitsTakenAsFire",
 				"ColdDamageTakenAsFire", "ColdDamageFromHitsTakenAsFire",
@@ -1909,7 +1909,7 @@ return {
 				"ChaosDamageTakenAsCold", "ChaosDamageFromHitsTakenAsCold",
 				"ChaosDamageTakenAsFire", "ChaosDamageFromHitsTakenAsFire"
 			} },
-		  	{ label = "Taken as Chaos", modName = {
+			{ label = "Taken as Chaos", modName = {
 				"PhysicalDamageTakenAsChaos", "PhysicalDamageFromHitsTakenAsChaos",
 				"LightningDamageTakenAsChaos", "LightningDamageFromHitsTakenAsChaos",
 				"ColdDamageTakenAsChaos", "ColdDamageFromHitsTakenAsChaos",
@@ -2283,7 +2283,7 @@ return {
 				"PhysicalDamageTakenAsFire",
 				"PhysicalDamageTakenAsChaos"
 			} },
-		  	{ label = "Taken as Physical", modName = {
+			{ label = "Taken as Physical", modName = {
 				"LightningDamageTakenAsPhysical",
 				"ColdDamageTakenAsPhysical",
 				"FireDamageTakenAsPhysical",
@@ -2301,7 +2301,7 @@ return {
 				"ElementalDamageTakenAsPhysical", "ElementalDamageTakenAsChaos",
 				"LightningDamageTakenAsChaos"
 			} },
-		  	{ label = "Taken as Lightning", modName = {
+			{ label = "Taken as Lightning", modName = {
 				"PhysicalDamageTakenAsLightning",
 				"ColdDamageTakenAsLightning",
 				"FireDamageTakenAsLightning",
@@ -2318,7 +2318,7 @@ return {
 				"ElementalDamageTakenAsPhysical", "ElementalDamageTakenAsChaos",
 				"ColdDamageTakenAsChaos"
 			} },
-		  	{ label = "Taken as Cold", modName = {
+			{ label = "Taken as Cold", modName = {
 				"PhysicalDamageTakenAsCold",
 				"LightningDamageTakenAsCold",
 				"FireDamageTakenAsCold",
@@ -2335,7 +2335,7 @@ return {
 				"ElementalDamageTakenAsPhysical", "ElementalDamageTakenAsChaos",
 				"FireDamageTakenAsChaos"
 			} },
-		  	{ label = "Taken as Fire", modName = {
+			{ label = "Taken as Fire", modName = {
 				"PhysicalDamageTakenAsFire",
 				"LightningDamageTakenAsFire",
 				"ColdDamageTakenAsFire", "FireDamageTakenAsCold",
@@ -2351,7 +2351,7 @@ return {
 				"ChaosDamageTakenAsCold",
 				"ChaosDamageTakenAsFire",
 			} },
-		  	{ label = "Taken as Chaos", modName = {
+			{ label = "Taken as Chaos", modName = {
 				"PhysicalDamageTakenAsChaos",
 				"LightningDamageTakenAsChaos",
 				"ColdDamageTakenAsChaos",

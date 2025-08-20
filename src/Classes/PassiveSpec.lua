@@ -1303,7 +1303,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				for nodeId, itemId in pairs(self.jewels) do
 					if self.allocNodes[nodeId] then
 						if itemId ~= 0 and (
-							 self.build.itemsTab.items[itemId] and (
+							self.build.itemsTab.items[itemId] and (
 								self.build.itemsTab.items[itemId].jewelData
 									and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike
 									and self.build.itemsTab.items[itemId].jewelRadiusIndex

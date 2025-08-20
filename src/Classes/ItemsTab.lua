@@ -1990,7 +1990,7 @@ function ItemsTabClass:CraftItem()
 		local raritySel = controls.rarity.selIndex
 		if base.base.flask
 				or (base.base.type == "Jewel" and base.base.subType == "Charm")
-		 		or base.base.type == "Tincture"
+				or base.base.type == "Tincture"
 		then
 			if raritySel == 3 then
 				raritySel = 2
@@ -2818,7 +2818,7 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 			includeTags["minion_unique_weapon"] = true
 		end
 		if self.displayItem.canHaveOnlySupportSkillsCrucibleTree then
-			 return keyMap["crucible_unique_staff"] and mod.weightVal[keyMap["crucible_unique_staff"]] ~= 0
+			return keyMap["crucible_unique_staff"] and mod.weightVal[keyMap["crucible_unique_staff"]] ~= 0
 		elseif self.displayItem.canHaveShieldCrucibleTree then
 			return self.displayItem:GetModSpawnWeight(mod, { ["crucible_unique_helmet"] = true, ["shield"] = true }) > 0
 		elseif self.displayItem.canHaveTwoHandedSwordCrucibleTree then

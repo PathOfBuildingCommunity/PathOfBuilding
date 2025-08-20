@@ -1643,7 +1643,7 @@ function calcs.offence(env, actor, activeSkill)
 			elseif val.type == "ES" then
 				local manaType = getCostIndexByName(resource:gsub("ES", "Mana"))
 				local lifeType = getCostIndexByName(resource:gsub("ES", "Life"))
-			  	if skillModList:Flag(skillCfg, "CostESInsteadOfManaOrLife") then -- Whispers of Infinity
+				if skillModList:Flag(skillCfg, "CostESInsteadOfManaOrLife") then -- Whispers of Infinity
 					val.baseCost = val.baseCost + costs[manaType].baseCost+ costs[lifeType].baseCost
 					val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult + costs[lifeType].baseCostNoMult
 					val.finalBaseCost = val.finalBaseCost + costs[manaType].finalBaseCost + costs[lifeType].finalBaseCost
@@ -1656,8 +1656,8 @@ function calcs.offence(env, actor, activeSkill)
 					costs[lifeType].finalBaseCost = 0
 					costs[lifeType].baseCostNoMult = 0
 				elseif additionalESCost > 0 then
-			  		val.baseCost = costs[manaType].baseCost
-			  		val.finalBaseCost = val.finalBaseCost + round(costs[manaType].finalBaseCost * additionalESCost)
+					val.baseCost = costs[manaType].baseCost
+					val.finalBaseCost = val.finalBaseCost + round(costs[manaType].finalBaseCost * additionalESCost)
 				end
 			elseif val.type == "Rage" then
 				if skillModList:Flag(skillCfg, "CostRageInsteadOfSouls") then -- Hateforge
