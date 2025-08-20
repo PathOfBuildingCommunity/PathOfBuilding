@@ -263,7 +263,7 @@ return {
 	skill("doubleHitsWhenDualWielding", true),
 },
 ["base_spell_repeat_count"] = {
-	mod("RepeatCount", "BASE", nil, 0, 0, {type = "SkillType", skillType = SkillType.Multicastable }),
+	mod("RepeatCount", "BASE", nil, ModFlag.Cast),
 },
 ["base_melee_attack_repeat_count"] = {
 	mod("RepeatCount", "BASE", nil, 0, 0, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),

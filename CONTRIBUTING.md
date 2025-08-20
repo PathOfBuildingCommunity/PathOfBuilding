@@ -190,7 +190,7 @@ Files in `/Data` `/Export` and `/TreeData` can be massive and cause the EmmyLua 
 ### PyCharm Community / IntelliJ Idea Community
 
 1. Create a new "Debug Configuration" of type "Emmy Debugger(NEW)".
-2. Select "x86" version.
+2. Select "x64" version.
 3. Select if you want the program to block (checkbox) until you attached the debugger (useful if you have to debug the startup process).
 4. Copy the generated code snippet directly below `function launch:OnInit()` in `./src/Launch.lua`.
 5. Start Path of Building Community
