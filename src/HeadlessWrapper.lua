@@ -232,7 +232,7 @@ local itemsJSONPath, passivesJSONPath
 if originalArgs[1] and originalArgs[2] then
 	itemsJSONPath = originalArgs[1]
 	passivesJSONPath = originalArgs[2]
-	print("Found JSON files in arguments - loading items and passives data...")
+	-- print("Found JSON files in arguments - loading items and passives data...")
 	
 	-- Read the JSON files
 	local itemsFile = io.open(itemsJSONPath, "r")
@@ -244,51 +244,51 @@ if originalArgs[1] and originalArgs[2] then
 		itemsFile:close()
 		passivesFile:close()
 		
-		print("Calling loadBuildFromJSON...")
+		-- print("Calling loadBuildFromJSON...")
 		local success, error_msg = pcall(function()
 			loadBuildFromJSON(itemsJSON, passivesJSON)
 		end)
 		
 		if not success then
-			print("Warning: loadBuildFromJSON encountered an error:", error_msg)
-			print("Continuing to check what data was loaded...")
+			-- print("Warning: loadBuildFromJSON encountered an error:", error_msg)
+			-- print("Continuing to check what data was loaded...")
 		end
 		
-		print()	
-		print("Build loading completed (with or without errors). Checking build data...")
+		-- print()	
+		-- print("Build loading completed (with or without errors). Checking build data...")
 		
 		-- Print some information from the build object to verify it's working
-		print("\n=== BUILD OBJECT VERIFICATION ===")
+		-- print("\n=== BUILD OBJECT VERIFICATION ===")
 		if build then
-			print("✓ build global object exists")
-			print("build type:", type(build))
+			-- print("✓ build global object exists")
+			-- print("build type:", type(build))
 			
 			-- Check if build.spec exists (passive tree)
 			if build.spec then
-				print("✓ build.spec exists (passive tree)")
+				-- print("✓ build.spec exists (passive tree)")
 				if build.spec.nodes then
 					local nodeCount = 0
 					for _ in pairs(build.spec.nodes) do
 						nodeCount = nodeCount + 1
 					end
-					print("  - Number of passive nodes:", nodeCount)
+					-- print("  - Number of passive nodes:", nodeCount)
 				end
 				if build.spec.allocNodes then
-					print("  - Number of allocated nodes:", #build.spec.allocNodes)
+					-- print("  - Number of allocated nodes:", #build.spec.allocNodes)
 				end
 			else
-				print("✗ build.spec not found")
+				-- print("✗ build.spec not found")
 			end
 			
 			-- Check if character data exists
 			if build.characterLevel then
-				print("✓ Character level:", build.characterLevel)
+				-- print("✓ Character level:", build.characterLevel)
 			end
 			if build.characterName then
-				print("✓ Character Name: ", build.characterName)
+				-- print("✓ Character Name: ", build.characterName)
 			end
 			if build.characterClass then
-				print("✓ Character class:", build.characterClass)
+				-- print("✓ Character class:", build.characterClass)
 			end
 			
 			-- Check if items exist
@@ -297,13 +297,13 @@ if originalArgs[1] and originalArgs[2] then
 				for _ in pairs(build.itemsTab.items) do
 					itemCount = itemCount + 1
 				end
-				print("✓ Items loaded in build.itemsTab.items, count:", itemCount)
+				-- print("✓ Items loaded in build.itemsTab.items, count:", itemCount)
 				
 				-- Show a few example items
 				local count = 0
 				for k, item in pairs(build.itemsTab.items) do
 					if count < 3 and item.name then
-						print("  - Item " .. (count + 1) .. ":", item.name, "(" .. (item.baseName or "unknown base") .. ")")
+						-- print("  - Item " .. (count + 1) .. ":", item.name, "(" .. (item.baseName or "unknown base") .. ")")
 					end
 					count = count + 1
 					if count >= 3 then break end
@@ -313,50 +313,51 @@ if originalArgs[1] and originalArgs[2] then
 				for _ in pairs(build.itemsTab.list) do
 					itemCount = itemCount + 1
 				end
-				print("✓ Items loaded in build.itemsTab.list, count:", itemCount)
+				-- print("✓ Items loaded in build.itemsTab.list, count:", itemCount)
 			else
-				print("✗ Items not found or not loaded")
+				-- print("✗ Items not found or not loaded")
 			end
 			
 			-- Print some build calculation results if available
 			if build.calcsTab and build.calcsTab.buildOutput then
-				print("✓ Build calculations available")
+				-- print("✓ Build calculations available")
 				local output = build.calcsTab.buildOutput
 				if output.Life then
-					print("  - Total Life:", output.Life)
+					-- print("  - Total Life:", output.Life)
 				end
 				if output.EnergyShield then
-					print("  - Total Energy Shield:", output.EnergyShield)
+					-- print("  - Total Energy Shield:", output.EnergyShield)
 				end
 				if output.TotalDPS then
-					print("  - Total DPS:", output.TotalDPS)
+					-- print("  - Total DPS:", output.TotalDPS)
 				end
 			end
 
 			-- Try to export build code (requires working Deflate function)
 			local buildCode = common.base64.encode(Deflate(build:SaveDB("code"))):gsub("+","-"):gsub("/","_")
-			local f = io.open("/home/alexander/dev/investigations/PathOfBuilding/buildcode.txt", "w")
-			if f then
-				f:write(buildCode)
-				f:close()
-				print("Build code written to buildcode.txt")
-			else
-				print("Failed to open buildcode.txt for writing!")
-			end
+			print(buildCode)
+			-- local f = io.open("/home/alexander/dev/investigations/PathOfBuilding/buildcode.txt", "w")
+			-- if f then
+			-- 	f:write(buildCode)
+			-- 	f:close()
+			-- 	-- print("Build code written to buildcode.txt")
+			-- else
+			-- 	-- print("Failed to open buildcode.txt for writing!")
+			-- end
 		else
-			print("✗ build global object does not exist!")
+			-- print("✗ build global object does not exist!")
 		end
-		print("=== END BUILD VERIFICATION ===\n")
+		-- print("=== END BUILD VERIFICATION ===\n")
 	else
-		print("Error: Could not open JSON files")
+		-- print("Error: Could not open JSON files")
 		if not itemsFile then
-			print("  - Could not open items file: " .. itemsJSONPath)
+			-- print("  - Could not open items file: " .. itemsJSONPath)
 		end
 		if not passivesFile then
-			print("  - Could not open passives file: " .. passivesJSONPath)
+			-- print("  - Could not open passives file: " .. passivesJSONPath)
 		end
 	end
 else
-	print("No JSON files provided as command line arguments")
-	print("Usage: luajit HeadlessWrapper.lua <items.json> <passives.json>")
+	-- print("No JSON files provided as command line arguments")
+	-- print("Usage: luajit HeadlessWrapper.lua <items.json> <passives.json>")
 end
