@@ -60,7 +60,7 @@ Often a mod will only apply under certain conditions, apply multiple times based
     * effectEnemyCond: Specify a condition so this mod applies to the enemy when that condition is fulfilled
     * effectStackVar: Multiplies the mod by this variable (usually another mod)
     * modCond: Apply the mod when the actor has this condition
-    * unscaleable: boolean that determines whether this buff can be scaled by buff effect
+    * unscalable: boolean that determines whether this buff can be scaled by buff effect
 * DistanceRamp: A rare type that is used on skills and effects that do different things at different distances from the character
     * ramp: Numbers to multiply the mod by at different distances.  e.g. `ramp = {{35,0},{70,1}}` means the mod does nothing at 35 units, but has its full value at 70 units.
 * ModFlagOr: Used when you only need one ModFlag to match, e.g. `["with axes or swords"] = { flags = ModFlag.Hit, tag = { type = "ModFlagOr", modFlags = bor(ModFlag.Axe, ModFlag.Sword) } },` needs `Hit`, but can use either of the other two flags
