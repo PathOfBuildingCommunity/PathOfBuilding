@@ -3050,7 +3050,7 @@ function calcs.perform(env, skipEHP)
 	if modDB:Flag(nil, "DisableWeapons") then
 		env.player.weaponData1 = copyTable(env.data.unarmedWeaponData[env.classId])
 		modDB.conditions["Unarmed"] = true
-		if not env.player.Gloves or env.player.Gloves == None then
+		if not env.player.Gloves or env.player.Gloves == "None" then
 			modDB.conditions["Unencumbered"] = true
 		end
 	elseif env.weaponModList1 then
