@@ -627,7 +627,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to all Attributes
 {variant:1}(8-12)% increased Quantity of Items found
 {variant:2}(6-8)% increased Quantity of Items found
-{variant:3}(10-12)% increased Rarity of Items found
+{variant:3}(10-20)% increased Rarity of Items found
 {tags:jewellery_resistance}+20% to Fire Resistance
 20% increased Flask Effect Duration
 {tags:physical_damage}-2 Physical Damage taken from Attack Hits
@@ -937,9 +937,9 @@ League: Settlers of Kalguur
 Requires Level 52
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
-{tags:life}Regenerate 44 Life per second
-{tags:jewellery_resistance}+21% to Fire Resistance
-{tags:jewellery_resistance}+21% to Cold Resistance
+{tags:life}Regenerate (30-50) Life per second
+{tags:jewellery_resistance}+(20-30)% to Fire Resistance
+{tags:jewellery_resistance}+(20-30)% to Cold Resistance
 {tags:jewellery_defense}Gain Ward Instead of 50% of Armour and Evasion Rating From Equipped Body Armour
 ]],
 }
