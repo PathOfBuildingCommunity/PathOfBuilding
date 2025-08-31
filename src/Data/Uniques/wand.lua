@@ -415,5 +415,14 @@ Implicits: 2
 +(40-50) to maximum Mana
 +1 to Maximum Power Charges
 25% increased Spell Damage per Power Charge
-]],
-}
+]],[[
+Mystic Refractor
+Pagan Wand
+Requires Level 34, 118 Int
+Implicits: 1
+10% increased Cast Speed
+Skills fire (2-3) additional Projectiles
+(10-20)% increased Projectile Speed
+(30-50)% increased Projectile Damage
+Projectiles cannot continue after colliding with targets
+]],}
