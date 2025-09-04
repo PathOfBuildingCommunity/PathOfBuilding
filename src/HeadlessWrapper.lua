@@ -221,8 +221,13 @@ function loadBuildFromJSON(getItemsJSON, getPassiveSkillsJSON)
 	runCallback("OnFrame")
 	local charData = build.importTab:ImportItemsAndSkills(getItemsJSON)
 	build.importTab:ImportPassiveTreeAndJewels(getPassiveSkillsJSON, charData)
-	-- You now have a build without a correct main skill selected, or any configuration options set
-	-- Good luck!
+	-- Try to select the first main skill group if available
+	if build and build.skillsTab and build.skillsTab.socketGroupList and #build.skillsTab.socketGroupList > 0 then
+		build.mainSocketGroup = 1
+		build.skillsTab:SetActiveSkill(1, 1)
+		runCallback("OnFrame") -- Recalculate stats
+	end
+	-- You now have a build with a main skill selected (if available)
 end
 
 -- Check if JSON files were provided as command line arguments using original args
