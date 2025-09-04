@@ -1067,7 +1067,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					local scaledList = new("ModList")
 					scaledList:ScaleAddList(combinedList, scale)
 					for _, mod in ipairs(scaledList) do
-						combinedList:MergeMod(mod)
+						combinedList:MergeMod(mod, true)
 					end
 					env.itemModDB:AddList(combinedList)
 				elseif item.type == "Boots" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots") ~= 1 then
@@ -1079,7 +1079,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					local scaledList = new("ModList")
 					scaledList:ScaleAddList(combinedList, scale)
 					for _, mod in ipairs(scaledList) do
-						combinedList:MergeMod(mod)
+						combinedList:MergeMod(mod, true)
 					end
 					env.itemModDB:AddList(combinedList)
 				else

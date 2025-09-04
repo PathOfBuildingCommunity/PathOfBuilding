@@ -45,7 +45,7 @@ function ModListClass:ReplaceModInternal(mod)
 	return false
 end
 
-function ModListClass:MergeMod(mod)
+function ModListClass:MergeMod(mod, skipNonAdditive)
 	if mod.type == "BASE" or mod.type == "INC" or mod.type == "MORE" then
 		for i = 1, #self do
 			if modLib.compareModParams(self[i], mod) then
@@ -55,7 +55,9 @@ function ModListClass:MergeMod(mod)
 			end
 		end
 	end
-	self:AddMod(mod)
+	if not skipNonAdditive then
+		self:AddMod(mod)
+	end
 end
 
 function ModListClass:AddList(modList)
