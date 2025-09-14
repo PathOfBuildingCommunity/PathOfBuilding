@@ -962,7 +962,7 @@ Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:jewellery_attribute}+(20-30) to Dexterity and Intelligence
 {tags:mana}(10-20)% increased Mana Reservation Efficiency of Skills
-(15-25)% increased Trap and Mine Throwing Speed
+{tags:speed}(15-25)% increased Trap and Mine Throwing Speed
 Summon Skitterbots also summons a Scorching Skitterbot
 Summoned Skitterbots' Auras affect you as well as Enemies
 (50-75)% increased Effect of Non-Damaging Ailments inflicted by Summoned Skitterbots
