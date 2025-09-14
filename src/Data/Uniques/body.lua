@@ -1378,6 +1378,28 @@ Socketed Gems have 45% increased Reservation Efficiency
 {variant:1}(10-20)% increased Area of Effect of Aura Skills
 {variant:2}(20-40)% increased Area of Effect of Aura Skills
 (10-15)% increased effect of Non-Curse Auras from your Skills
+]],[[
+Servant of Decay
+Torturer Garb
+Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
+Requires Level 78, 151 Dex, 151 Int
+Trigger Level 20 Summon Void Spawn every 4 seconds
+(150-200)% increased Energy Shield
++(23-37)% to Chaos Resistance
+(4-6)% of Damage from Hits is taken from Void Spawns' Life before you per Void Spawn
+Gain (4-6)% of Non-Chaos Damage as Extra Chaos Damage per Summoned Void Spawn
+]],[[
+Seven Teachings
+Waxed Garb
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 77, 48 Dex, 48 Int
+Trigger a Socketed Spell on Unarmed Melee Critical Strike, with a 0.25 second Cooldown
+(1-7)% more Attack Speed with Unarmed Melee Attacks
+(100-777)% increased Evasion and Energy Shield
+(1-7)% increased Movement Speed
++(0.1-0.7) metres to Melee Strike Range with Unarmed Attacks
++(1-7)% to Unarmed Melee Attack Critical Strike Chance
++(10-77)% to Critical Strike Multiplier with Unarmed Melee Attack
 ]],
 -- Body: Armour/Evasion/Energy Shield
 [[

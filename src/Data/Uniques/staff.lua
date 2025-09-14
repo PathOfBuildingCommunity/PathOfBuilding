@@ -716,5 +716,25 @@ Implicits: 2
 Reflects 1 to 150 Lightning Damage to Melee Attackers
 {variant:1,2}20% chance for Energy Shield Recharge to start when you Block
 {variant:3}(25-35)% chance for Energy Shield Recharge to start when you Block
-]],
-}
+]],[[
+Legacy of the Rose
+Judgement Staff
+Variant: Shaper's Despair
+Variant: Shaper's Ire
+Variant: Shaper's Devastation
+Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 68, 113 Str, 113 Int
+Implicits: 1
++25% Chance to Block Attack Damage while wielding a Staff
+Grants Level 20 Summon Shaper Memory
+{variant:1}Grants Level 20 Shaper's Despair, which will be used by Shaper Memory
+{variant:2}Grants Level 20 Shaper's Ire, which will be used by Shaper Memory
+{variant:3}Grants Level 20 Shaper's Devastation, which will be used by Shaper Memory
+(200-300)% increased Physical Damage
+(25-40)% increased Cast Speed
++(3-5) to Level of all Spell Skill Gems
+Gain 1 Remembrance when you spend a total of 200 Energy
+Shield with no Shaper Memory Summoned
+Maximum 10 Remembrance
+Eldritch Battery
+]],}

@@ -627,7 +627,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to all Attributes
 {variant:1}(8-12)% increased Quantity of Items found
 {variant:2}(6-8)% increased Quantity of Items found
-{variant:3}(10-12)% increased Rarity of Items found
+{variant:3}(10-20)% increased Rarity of Items found
 {tags:jewellery_resistance}+20% to Fire Resistance
 20% increased Flask Effect Duration
 {tags:physical_damage}-2 Physical Damage taken from Attack Hits
@@ -937,9 +937,33 @@ League: Settlers of Kalguur
 Requires Level 52
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
-{tags:life}Regenerate 44 Life per second
-{tags:jewellery_resistance}+21% to Fire Resistance
-{tags:jewellery_resistance}+21% to Cold Resistance
+{tags:life}Regenerate (30-50) Life per second
+{tags:jewellery_resistance}+(20-30)% to Fire Resistance
+{tags:jewellery_resistance}+(20-30)% to Cold Resistance
 {tags:jewellery_defense}Gain Ward Instead of 50% of Armour and Evasion Rating From Equipped Body Armour
-]],
-}
+]],[[
+Binds of Bloody Vengeance
+Vanguard Belt
+Source: Drops from unique{Mercenary} after winning a duel
+League: Mercenaries of Trarthus
+Requires Level 78
+Implicits: 1
+{tags:jewellery_defense}+(260-320) to Armour and Evasion Rating
+{tags:jewellery_defense}+(200-400) to Armour
+{tags:life}+(60-90) to maximum Life
+(20-40)% increased Attack Damage if you've been Hit Recently
+All Hits with your next Non-Channelling Attack within 4 seconds of taking a Critical Strike will be Critical Strikes
+]],[[
+The Arkhon's Tools
+Cloth Belt
+Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 16
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
+{tags:jewellery_attribute}+(20-30) to Dexterity and Intelligence
+{tags:mana}(10-20)% increased Mana Reservation Efficiency of Skills
+{tags:speed}(15-25)% increased Trap and Mine Throwing Speed
+Summon Skitterbots also summons a Scorching Skitterbot
+Summoned Skitterbots' Auras affect you as well as Enemies
+(50-75)% increased Effect of Non-Damaging Ailments inflicted by Summoned Skitterbots
+]]}
