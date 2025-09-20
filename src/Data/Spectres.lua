@@ -4108,8 +4108,8 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusMid"] = {
 	},
 	modList = {
 		mod("Damage", "INC", 5, 1, 0, { div = 450, stat = "Armour", type = "PerStat" }), -- AzmeriRobotArgusAttackDamagePerArmour1 [attack_damage_+%_per_450_physical_damage_reduction_rating = 5]
-		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
+		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscalable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscalable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
 	},
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusHigh__"] = {
@@ -4138,8 +4138,8 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusHigh__"] = {
 	},
 	modList = {
 		mod("Damage", "INC", 8, 1, 0, { div = 450, stat = "Armour", type = "PerStat" }), -- AzmeriRobotArgusAttackDamagePerArmour2 [attack_damage_+%_per_450_physical_damage_reduction_rating = 8]
-		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
+		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscalable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscalable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
 	},
 }
 -- Spirit of Fortune
@@ -4327,7 +4327,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_"] = {
 		"GSAzmeriAdmiralCannonball",
 	},
 	modList = {
-		mod("AllyModifier", "LIST", { mod = mod("ColdDamageTaken", "INC", -5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PerfectNavalOfficer", unscaleable = true })}),
+		mod("AllyModifier", "LIST", { mod = mod("ColdDamageTaken", "INC", -5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PerfectNavalOfficer", unscalable = true })}),
 	},
 }
 -- Dancing Sword
@@ -4377,7 +4377,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordMid"] = {
 		"AzmeriSwordStormCascade",
 	},
 	modList = {
-		mod("AllyModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })}),
+		mod("AllyModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscalable = true })}),
 	},
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_"] = {
@@ -4402,8 +4402,8 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_"] = {
 		"AzmeriSwordStormCascade",
 	},
 	modList = {
-		mod("AllyModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })}),
-		mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })}),
+		mod("AllyModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscalable = true })}),
+		mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscalable = true })}),
 	},
 }
 -- Needle Horror
@@ -4482,7 +4482,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonHigh_"] = {
 	},
 	modList = {
 		mod("ImpaleEffect", "INC", 100, 0, 0), -- AzmeriBarrageDemonImpaleEffect [impale_debuff_effect_+% = 100]
-		mod("PlayerModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "NeedleHorror", unscaleable = true })}),
+		mod("PlayerModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "NeedleHorror", unscalable = true })}),
 	},
 }
 -- Serpent Warrior
@@ -4665,7 +4665,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonMid"] = {
 	},
 	modList = {
 		mod("CritMultiplier", "BASE", 250, 0, 0), -- AzmeriCasterDemonCriticalStrikeMultiplier [base_critical_strike_multiplier_+ = 250]
-		mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscaleable = true })}),
+		mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscalable = true })}),
 	},
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonHigh"] = {
@@ -4692,7 +4692,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonHigh"] = {
 	},
 	modList = {
 		mod("CritMultiplier", "BASE", 250, 0, 0), -- AzmeriCasterDemonCriticalStrikeMultiplier [base_critical_strike_multiplier_+ = 250]
-		mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscaleable = true })}),
+		mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscalable = true })}),
 	},
 }
 -- Sawblade Horror
@@ -4927,7 +4927,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonHigh"] = {
 		"AzmeriDualStrikeDemonDualStrike",
 	},
 	modList = {
-		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageGainAsFire", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SlashingHorror", unscaleable = true })}),
+		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageGainAsFire", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SlashingHorror", unscalable = true })}),
 		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
 	},
 }
@@ -5013,7 +5013,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverHigh"] = {
 	},
 	modList = {
 		mod("FlaskEffect", "INC", 200, 0, 0), -- AzmeriDruidFlaskEffect [flask_effect_+% = 200]
-		mod("PlayerModifier", "LIST", { mod = mod("LifeFlaskChargesGenerated", "BASE", 1/3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "RestlessKnight", unscaleable = true })}),
+		mod("PlayerModifier", "LIST", { mod = mod("LifeFlaskChargesGenerated", "BASE", 1/3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "RestlessKnight", unscalable = true })}),
 	},
 }
 -- Escaped Prototype
@@ -5505,7 +5505,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonHigh"] = {
 	modList = {
 		mod("PhysicalDamage", "INC", 20, 8192, 0, { div = 10, stat = "Str", type = "PerStat" }), -- AzmeriMegaSkeletonWeaponPhysicalDamagePerStrength [physical_weapon_damage_+%_per_10_str = 20]
 		-- MonsterCrushOnHit [chance_to_crush_on_hit_% = 100]
-		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamage", "MORE", 5, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PrimalDemiurge", unscaleable = true })}),
+		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamage", "MORE", 5, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PrimalDemiurge", unscalable = true })}),
 	},
 }
 -- Warlord
@@ -5858,7 +5858,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderHigh_"] = {
 		"ABTTAzmeriSpiderLeaderAura",
 	},
 	modList = {
-		mod("PlayerModifier", "LIST", { mod = mod("WitherEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SpiderMatriarch", unscaleable = true })}) --Does not work,
+		mod("PlayerModifier", "LIST", { mod = mod("WitherEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SpiderMatriarch", unscalable = true })}) --Does not work,
 	},
 }
 -- Meatsack
@@ -5926,7 +5926,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieHigh"] = {
 	},
 	modList = {
 		-- AzmeriTankyZombieTauntOnHit [chance_to_taunt_on_hit_% = 100]
-		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 40, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Meatsack", unscaleable = true })}),
+		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 40, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Meatsack", unscalable = true })}),
 	},
 }
 -- Eldritch Eye
@@ -6148,7 +6148,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleMid_"] = {
 		"ABTTAzmeriTurtleInvulnerability",
 	},
 	modList = {
-		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscaleable = true })}),
+		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscalable = true })}),
 	},
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleHigh"] = {
@@ -6173,7 +6173,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleHigh"] = {
 		"AzmeriTurtleDeterminationHardMode",
 	},
 	modList = {
-		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscaleable = true })}),
+		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscalable = true })}),
 	},
 }
 -- Shadow Construct
@@ -6331,7 +6331,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingHigh"] = {
 	},
 	modList = {
 		mod("CullPercent", "MAX", 10, 0, 0), -- MonsterCullingStrike [kill_enemy_on_hit_if_under_10%_life = 1]
-		mod("AllyModifier", "LIST", { mod = flag("Condition:Onslaught", { type = "GlobalEffect", effectType = "Buff", effectName = "ForestWarrior", unscaleable = true })}),
+		mod("AllyModifier", "LIST", { mod = flag("Condition:Onslaught", { type = "GlobalEffect", effectType = "Buff", effectName = "ForestWarrior", unscalable = true })}),
 	},
 }
 -- Shadow Berserker

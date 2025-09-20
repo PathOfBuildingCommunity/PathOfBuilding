@@ -491,6 +491,14 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Creates a Smoke Cloud on Use
 (-10–10)% reduced Charges per use
 Grants Level 21 Vulnerability Curse Aura during Effect
+]],[[
+Wine of the Prophet
+Gold Flask
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 27
++60 to Maximum Charges
+(20-100)% increased Charges per Use
+Grants a random Divination buff for 20 seconds when used
 ]],
 -- Flask: Ward
 [[

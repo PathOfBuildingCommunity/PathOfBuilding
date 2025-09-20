@@ -13,8 +13,8 @@ buildSites.websiteList = {
 		codeOut = "https://pobb.in/", postUrl = "https://pobb.in/pob/", postFields = "", linkURL = "pobb.in/%1"
 	},
 	{
-		label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/pob/%w+", regexURL = "poe%.ninja/pob/(%w+)%s*$", downloadURL = "poe.ninja/pob/raw/%1",
-		codeOut = "", postUrl = "https://poe.ninja/pob/api/api_post.php", postFields = "api_paste_code=", linkURL="poe.ninja/pob/%1"
+		label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/?p?o?e?1?/pob/%w+", regexURL = "poe%.ninja(/?p?o?e?1?)/pob/(%w+)%s*$", downloadURL = "poe.ninja%1/pob/raw/%2",
+		codeOut = "", postUrl = "https://poe.ninja/poe1/pob/api/upload", postFields = "code=", linkURL="poe.ninja/poe1/pob/%1"
 	},
 	{
 		label = "Pastebin.com", id = "pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1", linkURL = "pastebin.com/%1"
@@ -40,6 +40,7 @@ function buildSites.UploadBuild(buildCode, websiteInfo)
 			easy:setopt(curl.OPT_USERAGENT, "Path of Building/]]..launch.versionNumber..[[")
 			easy:setopt(curl.OPT_POSTFIELDS, ']]..websiteInfo.postFields..[['..code)
 			easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
+			easy:setopt(curl.OPT_FOLLOWLOCATION, 1)
 			if connectionProtocol then
 				easy:setopt(curl.OPT_IPRESOLVE, connectionProtocol)
 			end

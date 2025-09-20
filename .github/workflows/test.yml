@@ -16,3 +16,19 @@ jobs:
         run: busted --lua=luajit
       - name: Report coverage
         run: cd src; luacov-coveralls --repo-token=${{ secrets.github_token }} -e TestData -e Data -e runtime
+  check_modcache:
+    runs-on: ubuntu-latest
+    container: ghcr.io/pathofbuildingcommunity/pathofbuilding-tests:latest
+    steps:
+      - name: Install git dependency
+        run: apk add git
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Regenerate ModCache
+        env:
+          LUA_PATH: ../runtime/lua/?.lua;../runtime/lua/?/init.lua
+          REGENERATE_MOD_CACHE: 1
+        run: cd src; luajit HeadlessWrapper.lua
+      - run: git config --global --add safe.directory $(pwd)
+      - name: Check if the generated ModCache is different
+        run: git diff --exit-code src/Data/ModCache.lua

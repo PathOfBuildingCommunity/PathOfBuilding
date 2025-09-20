@@ -590,6 +590,18 @@ Implicits: 1
 (6-8)% reduced Soul Gain Prevention Duration
 Gain an Endurance Charge, Frenzy Charge, and Power Charge when you use a Vaal Skill
 Shepherd of Souls
+]],[[
+Cadigan's Authority
+Platinum Sceptre
+Source: Obtained from unique{Shipping} in normal{Kingsmarch}
+Requires Level 62, 113 Str, 113 Int
+Implicits: 1
+30% increased Elemental Damage
+Adds (60-85) to (100-133) Physical Damage
++(3-5) to maximum number of Summoned Totems
+You cannot have more than 2 Summoned Totems of the same type
+(40-70)% increased Totem Placement speed
+Battlemage
 ]],
 -- Weapon: Two Handed Mace
 [[
@@ -890,5 +902,4 @@ Implicits: 2
 (30-50)% reduced Rarity of Items found
 (30-50)% reduced Experience gain
 0.4% of Physical Attack Damage Leeched as Mana
-]],
-}
+]],}

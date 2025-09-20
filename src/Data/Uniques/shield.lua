@@ -1211,4 +1211,17 @@ Implicits: 1
 +(50-70) to maximum Life
 1% increased Area of Effect per Enemy killed recently, up to 50%
 You have Zealot's Oath if you haven't been hit recently
+]],[[
+Azadi Crest
+Lacquered Buckler
+Source: Drops from unique{Mercenary} after winning a duel
+League: Mercenaries of Trarthus
+Requires Level 60, 154 Dex
+Implicits: 1
+6% increased Movement Speed
++(1-100) to maximum Life
++(1-10)% Chance to Block
+(1-10)% chance to avoid Projectiles
+Your Lucky or Unlucky effects use the best or
+worst from three rolls instead of two
 ]],}
