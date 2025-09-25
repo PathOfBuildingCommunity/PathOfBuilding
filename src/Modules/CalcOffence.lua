@@ -127,13 +127,103 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 			round(((baseMax * inc * more) * genericMoreMaxDamage + addMax) * moreMaxDamage)
 end
 
+-- Calculate how much of a source damage type contributes to the target ailment type through conversion chain
+local function calcAilmentConversionMultiplier(activeSkill, sourceDamageType, targetAilmentType)
+	local conversionTable = activeSkill.conversionTable
+	
+	-- Safety check: if no conversion table, no conversion is possible
+	if not conversionTable then
+		return 0
+	end
+	
+	-- For poison, the target damage type is Chaos
+	local targetDamageType = "Chaos"
+	if targetAilmentType == "ignite" then
+		targetDamageType = "Fire"
+	elseif targetAilmentType == "chill" or targetAilmentType == "freeze" then
+		targetDamageType = "Cold"
+	elseif targetAilmentType == "shock" then
+		targetDamageType = "Lightning"
+	end
+	
+	-- If source equals target, check if it stays unconverted
+	if sourceDamageType == targetDamageType then
+		return conversionTable[sourceDamageType] and conversionTable[sourceDamageType].mult or 0
+	end
+	
+	-- Calculate conversion multiplier through the damage type chain
+	-- PoE damage conversion order: Physical → Lightning → Cold → Fire → Chaos
+	local dmgTypeOrder = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
+	local sourceIndex, targetIndex
+	
+	for i, damageType in ipairs(dmgTypeOrder) do
+		if damageType == sourceDamageType then
+			sourceIndex = i
+		end
+		if damageType == targetDamageType then
+			targetIndex = i
+		end
+	end
+	
+	-- Can't convert backwards in the chain
+	if not sourceIndex or not targetIndex or sourceIndex >= targetIndex then
+		return 0
+	end
+	
+	-- Calculate the multiplier through the conversion chain
+	local multiplier = 1.0
+	for i = sourceIndex, targetIndex - 1 do
+		local fromType = dmgTypeOrder[i]
+		local toType = dmgTypeOrder[i + 1]
+		
+		-- Safety check: ensure conversion table structure exists
+		local convRate = 0
+		if conversionTable[fromType] and conversionTable[fromType][toType] then
+			convRate = conversionTable[fromType][toType]
+		end
+		
+		-- Each step in the chain multiplies the conversion rate
+		multiplier = multiplier * convRate
+		
+		-- If any step has 0 conversion, the whole chain stops
+		if convRate == 0 then
+			return 0
+		end
+	end
+	
+	return multiplier
+end
+
 local function calcAilmentSourceDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags)
 	local min, max = calcDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags)
 	local convMult = activeSkill.conversionTable[damageType].mult
+	
+	-- For ailment calculations, we need to consider damage that converts through the conversion chain
+	-- Check what ailment we're calculating by looking at typeFlags
+	local ailmentType = nil
+	if band(typeFlags, dmgTypeFlags.Chaos) ~= 0 then
+		ailmentType = "poison"
+	elseif band(typeFlags, dmgTypeFlags.Fire) ~= 0 then
+		ailmentType = "ignite"
+	end
+	
+	if ailmentType then
+		-- Calculate how much of this damage type contributes to the ailment through conversions
+		local ailmentContribution = calcAilmentConversionMultiplier(activeSkill, damageType, ailmentType)
+		if ailmentContribution > 0 then
+			convMult = ailmentContribution
+		end
+	end
+	
 	if breakdown and convMult ~= 1 then
 		t_insert(breakdown, "Source damage:")
 		t_insert(breakdown, s_format("%d to %d ^8(total damage)", min, max))
-		t_insert(breakdown, s_format("x %g ^8(%g%% converted to other damage types)", convMult, (1-convMult)*100))
+		if ailmentType and convMult ~= activeSkill.conversionTable[damageType].mult then
+			local targetDamageType = ailmentType == "poison" and "chaos" or (ailmentType == "ignite" and "fire" or "unknown")
+			t_insert(breakdown, s_format("x %g ^8(%g%% converts to %s through conversion chain)", convMult, convMult*100, targetDamageType))
+		else
+			t_insert(breakdown, s_format("x %g ^8(%g%% converted to other damage types)", convMult, (1-convMult)*100))
+		end
 		t_insert(breakdown, s_format("= %d to %d", min * convMult, max * convMult))
 	end
 	return min * convMult, max * convMult
@@ -3770,7 +3860,10 @@ function calcs.offence(env, actor, activeSkill)
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotPoison") then
 			output.PoisonChanceOnCrit = 0
 		else
-			output.PoisonChanceOnCrit = m_min(100, skillModList:Sum("BASE", cfg, "PoisonChance") + enemyDB:Sum("BASE", nil, "SelfPoisonChance"))
+			local regularPoisonChance = skillModList:Sum("BASE", cfg, "PoisonChance") + enemyDB:Sum("BASE", nil, "SelfPoisonChance")
+			local chaosPoisonChance = skillModList:Sum("BASE", cfg, "ChaosPoisonChance")
+			-- For conversion builds, we need to consider chaos poison chance as contributing to overall poison chance
+			output.PoisonChanceOnCrit = m_min(100, regularPoisonChance + chaosPoisonChance)
 		end
 		if not skillFlags.hit then
 			output.ImpaleChanceOnCrit = 0
@@ -3788,12 +3881,27 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.BleedChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "BleedChance") + enemyDB:Sum("BASE", nil, "SelfBleedChance"))
 		end
+		
+		-- Enable poison calculation for damage types that convert to chaos when chaos can poison
+		-- This handles cases like The Consuming Dark where Fire converts to Chaos and Chaos can poison
+		if skillModList:Sum("BASE", cfg, "ChaosPoisonChance") > 0 then
+			for _, damageType in ipairs({"Physical", "Lightning", "Cold", "Fire"}) do
+				local chaosMult = calcAilmentConversionMultiplier(activeSkill, damageType, "poison")
+				if chaosMult > 0 then
+					skillModList:NewMod(damageType.."CanPoison", "FLAG", true, "Conversion to Chaos", cfg.flags)
+				end
+			end
+		end
+		
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotPoison") then
 			output.PoisonChanceOnHit = 0
 			output.ChaosPoisonChance = 0
 		else
-			output.PoisonChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "PoisonChance") + enemyDB:Sum("BASE", nil, "SelfPoisonChance"))
-			output.ChaosPoisonChance = m_min(100, skillModList:Sum("BASE", cfg, "ChaosPoisonChance"))
+			local regularPoisonChance = skillModList:Sum("BASE", cfg, "PoisonChance") + enemyDB:Sum("BASE", nil, "SelfPoisonChance")
+			local chaosPoisonChance = skillModList:Sum("BASE", cfg, "ChaosPoisonChance")
+			-- For conversion builds, we need to consider chaos poison chance as contributing to overall poison chance
+			output.PoisonChanceOnHit = m_min(100, regularPoisonChance + chaosPoisonChance)
+			output.ChaosPoisonChance = m_min(100, chaosPoisonChance)
 		end
 		-- Elemental Ailment Affliction Chance | Elemental Ailment Additionals
 		for _, ailment in ipairs(elementalAilmentTypeList) do
@@ -4621,6 +4729,17 @@ function calcs.offence(env, actor, activeSkill)
 
 			for sub_pass = 1, 2 do
 				dotCfg.skillCond["CriticalStrike"] = sub_pass ~= 1
+
+				-- Enable ignite calculation for damage types that convert to fire when fire can ignite
+				-- This handles cases like Avatar of Fire or other conversion effects
+				if output.IgniteChanceOnHit + output.IgniteChanceOnCrit > 0 then
+					for _, damageType in ipairs({"Physical", "Lightning", "Cold", "Chaos"}) do
+						local fireMult = calcAilmentConversionMultiplier(activeSkill, damageType, "ignite")
+						if fireMult > 0 then
+							skillModList:NewMod(damageType.."CanIgnite", "FLAG", true, "Conversion to Fire", cfg.flags)
+						end
+					end
+				end
 
 				local totalMin, totalMax = 0, 0
 				if canDeal.Physical and skillModList:Flag(cfg, "PhysicalCanIgnite") then
