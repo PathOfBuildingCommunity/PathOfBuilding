@@ -173,7 +173,6 @@ end
 table.insert(queensHunger, "Requires Level 68, 194 Int")
 table.insert(queensHunger, "Trigger Level 20 Bone Offering, Flesh Offering or Spirit Offering every 5 seconds")
 table.insert(queensHunger, "Offering Skills Triggered this way also affect you")
-table.insert(queensHunger, "(5-10)% increased Cast Speed")
 table.insert(queensHunger, "(100-130)% increased Energy Shield")
 table.insert(queensHunger, "(6-10)% increased maximum Life")
 
@@ -778,14 +777,14 @@ function buildKeystoneItems(keystoneMap)
 
 	local skinOfTheLordsKeystones = {}
 	local seen = {}
-	for _, node in pairs(keystoneMap) do		
+	for _, node in pairs(keystoneMap) do
 		if isKeystoneNative(node) and not isValueInArray(excludedPassiveKeystones, node.name) and not seen[node] then
 			table.insert(skinOfTheLordsKeystones, node.name)
 			seen[node] = true
 		end
 	end
 	table.sort(skinOfTheLordsKeystones)
-	
+
 	for _, name in ipairs(skinOfTheLordsKeystones) do
 		table.insert(skinOfTheLords, "Variant: "..name)
 	end
@@ -800,7 +799,7 @@ function buildKeystoneItems(keystoneMap)
 	end
 	table.insert(skinOfTheLords, "Corrupted")
 	table.insert(data.uniques.generated, table.concat(skinOfTheLords, "\n"))
-	
+
 	local impossibleEscapeKeystones = {}
 	seen = {}
 	for _, node in pairs(keystoneMap) do
