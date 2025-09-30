@@ -368,6 +368,37 @@ describe("TestItemParse", function()
 		assert.truthy(item.explicitModLines[1].exarch)
 	end)
 
+	it("removes Eldritch implicits when influence removed", function()
+		local eldritchRaw = table.concat({
+			"Searing Exarch Item",
+			"Eater of Worlds Item",
+			"Implicits: 2",
+			"{exarch}+8 to Strength",
+			"{eater}+9 to Dexterity",
+		}, "\n")
+		local item = new("Item", raw(eldritchRaw))
+		assert.are.equals(2, #item.implicitModLines)
+		assert.truthy(item.cleansing)
+		assert.truthy(item.tangle)
+
+		item:ResetInfluence()
+		item.tangle = true
+		item:BuildAndParseRaw()
+
+		assert.falsy(item.cleansing)
+		assert.truthy(item.tangle)
+		assert.are.equals(1, #item.implicitModLines)
+		assert.truthy(item.implicitModLines[1].eater)
+		assert.are.equals("+9 to Dexterity", item.implicitModLines[1].line)
+
+		item:ResetInfluence()
+		item:BuildAndParseRaw()
+
+		assert.falsy(item.cleansing)
+		assert.falsy(item.tangle)
+		assert.are.equals(0, #item.implicitModLines)
+	end)
+
 	it("fractured", function()
 		local item = new("Item", raw("{fractured}+8 to Strength"))
 		assert.truthy(item.explicitModLines[1].fractured)

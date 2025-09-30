@@ -1043,7 +1043,19 @@ function ItemClass:BuildRaw()
 	if self.itemLevel then
 		t_insert(rawLines, "Item Level: " .. self.itemLevel)
 	end
+	local function shouldWriteModLine(modLine)
+		if modLine.exarch and not self.cleansing then
+			return false
+		end
+		if modLine.eater and not self.tangle then
+			return false
+		end
+		return true
+	end
 	local function writeModLine(modLine)
+		if not shouldWriteModLine(modLine) then
+			return
+		end
 		local line = modLine.line
 		if modLine.range and line:match("%(%-?[%d%.]+%-%-?[%d%.]+%)") then
 			line = "{range:" .. round(modLine.range, 3) .. "}" .. line
@@ -1142,7 +1154,18 @@ function ItemClass:BuildRaw()
 	if self.classRestriction then
 		t_insert(rawLines, "Requires Class " .. self.classRestriction)
 	end
-	t_insert(rawLines, "Implicits: " .. (#self.enchantModLines + #self.implicitModLines + #self.scourgeModLines))
+	local implicitLineCount = 0
+	local function countModLines(list)
+		for _, modLine in ipairs(list) do
+			if shouldWriteModLine(modLine) then
+				implicitLineCount = implicitLineCount + 1
+			end
+		end
+	end
+	countModLines(self.enchantModLines)
+	countModLines(self.scourgeModLines)
+	countModLines(self.implicitModLines)
+	t_insert(rawLines, "Implicits: " .. implicitLineCount)
 	for _, modLine in ipairs(self.enchantModLines) do
 		writeModLine(modLine)
 	end
