@@ -1006,7 +1006,7 @@ local configTable = {
 				end}
 	end,
 	["maloney's mechanism"] = function(env)
-		local _, _, uniqueTriggerName = env.player.itemList[env.player.mainSkill.slotName].modSource:find(".*:.*:(.*),.*")
+		local _, _, uniqueTriggerName = env.player.itemList[env.player.mainSkill.skillCfg.slotName].modSource:find(".*:.*:(.*),.*")
 		local isReplica = uniqueTriggerName:match("Replica.")
 		return {triggerOnUse = true, triggerName = uniqueTriggerName, useCastRate = isReplica,
 				triggerSkillCond = function(env, skill)
