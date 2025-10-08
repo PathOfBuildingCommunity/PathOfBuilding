@@ -13,7 +13,7 @@ buildSites.websiteList = {
 		codeOut = "https://pobb.in/", postUrl = "https://pobb.in/pob/", postFields = "", linkURL = "pobb.in/%1"
 	},
 	{
-		label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/?p?o?e?1?/pob/%w+", regexURL = "poe%.ninja(/?p?o?e?1?)/pob/(%w+)%s*$", downloadURL = "poe.ninja%1/pob/raw/%2",
+		label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja(/poe1)?/pob/%w+", regexURL = "poe%.ninja(/poe1)?/pob/(%w+)%s*$", downloadURL = "poe.ninja/poe1/pob/raw/%1",
 		codeOut = "", postUrl = "https://poe.ninja/poe1/pob/api/upload", postFields = "code=", linkURL="poe.ninja/poe1/pob/%1"
 	},
 	{
