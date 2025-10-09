@@ -361,7 +361,9 @@ function GemSelectClass:SortGemList(gemList)
 			if self.skillsTab.sortGemsByDPS and sortCache.dps[a] ~= sortCache.dps[b] then
 				return sortCache.dps[a] > sortCache.dps[b]
 			else
-				return a < b
+				local nameA = (self.gems[a] and self.gems[a].name) or a
+				local nameB = (self.gems[b] and self.gems[b].name) or b
+				return nameA < nameB
 			end
 		else
 			return sortCache.canSupport[a]
