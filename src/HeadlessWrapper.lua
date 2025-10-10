@@ -48,6 +48,9 @@ function RenderInit() end
 function GetScreenSize()
 	return 1920, 1080
 end
+function GetScreenScale()
+	return 1
+end
 function SetClearColor(r, g, b, a) end
 function SetDrawLayer(layer, subLayer) end
 function SetViewport(x, y, width, height) end
