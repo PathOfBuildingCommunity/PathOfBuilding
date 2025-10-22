@@ -4,7 +4,7 @@
 -- Module: Update Check
 -- Checks for updates
 --
-local connectionProtocol, proxyURL = ...
+local connectionProtocol, proxyURL, noSSL = ...
 
 local xml = require("xml")
 local sha1 = require("sha1")
@@ -27,6 +27,11 @@ local function downloadFileText(source, file)
 		end
 		if proxyURL then
 			easy:setopt(curl.OPT_PROXY, proxyURL)
+		end
+		if noSSL then
+		    easy:setopt(curl.OPT_SSL_VERIFYPEER, 0)
+		    easy:setopt(curl.OPT_SSL_VERIFYHOST, 0)
+		    ConPrintf("SSL verification disabled")
 		end
 		easy:setopt_writefunction(function(data)
 			text = text..data 
@@ -58,6 +63,11 @@ local function downloadFile(source, file, outName)
 		end
 		if proxyURL then
 			easy:setopt(curl.OPT_PROXY, proxyURL)
+		end
+		if noSSL then
+		    easy:setopt(curl.OPT_SSL_VERIFYPEER, 0)
+		    easy:setopt(curl.OPT_SSL_VERIFYHOST, 0)
+		    ConPrintf("SSL verification disabled")
 		end
 		local file = io.open(outName, "wb+")
 		easy:setopt_writefunction(file)
