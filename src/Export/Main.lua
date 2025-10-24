@@ -554,10 +554,7 @@ end
 
 function main:LoadSettings()
 	local setXML, errMsg = common.xml.LoadXMLFile("Settings.xml")
-	if errMsg then
-		launch:ShowErrMsg("^1Error parsing 'Settings.xml': "..errMsg)
-		return true
-	elseif not setXML then
+	if not setXML then
 		return true
 	elseif setXML[1].elem ~= "DatView" then
 		launch:ShowErrMsg("^1Error parsing 'Settings.xml': 'DatView' root element missing")
