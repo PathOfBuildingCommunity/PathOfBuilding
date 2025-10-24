@@ -101,6 +101,9 @@ function xml.LoadXMLFile(fileName)
 	end
 	local fileText = fileHnd:read("*a")
 	fileHnd:close()
+	if not fileText then
+		return nil, "input file returns no contents.  OneDrive?"
+	end
 	return xml.ParseXML(fileText)
 end
 
