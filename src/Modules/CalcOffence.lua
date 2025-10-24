@@ -3102,6 +3102,9 @@ function calcs.offence(env, actor, activeSkill)
 						rolls = 0
 					end
 					output.DamageRolls = rolls
+					if pass == 1 then
+						output.CritDamageRolls = rolls
+					end
 					rolls = m_abs(rolls) + 2
 					damageTypeHitAvgNotLucky = (damageTypeHitMin / rolls + damageTypeHitMax / rolls)
 					damageTypeHitAvgLucky = (damageTypeHitMin / rolls + (rolls - 1) * damageTypeHitMax / rolls)
@@ -3408,15 +3411,17 @@ function calcs.offence(env, actor, activeSkill)
 			if output.CritEffect ~= 1 then
 				breakdown.AverageHit = { }
 				local damageRolls = output.DamageRolls or 0
+				local critRolls = output.CritDamageRolls or 0
 				local rolls = m_abs(damageRolls) + 2
+				local rollsCrit = m_abs(critRolls) + 2
 				if damageRolls > 0 then
 					t_insert(breakdown.AverageHit, s_format("(1/%d) x %d + (%d/%d) x %d = %.1f ^8(average from non-crits)", rolls, totalHitMin, rolls - 1, rolls, totalHitMax, totalHitAvg))
 				end
 				if damageRolls < 0 then
 					t_insert(breakdown.AverageHit, s_format("(%d/%d) x %d + (1/%d) x %d = %.1f ^8(average from non-crits)", rolls - 1, rolls, totalHitMin, rolls, totalHitMax, totalHitAvg))
 				end
-				if damageRolls > 0 or skillModList:Flag(skillCfg, "CritLucky") then
-					t_insert(breakdown.AverageHit, s_format("(1/%d) x %d + (%d/%d) x %d = %.1f ^8(average from crits)", rolls, totalCritMin, rolls - 1, rolls, totalCritMax, totalCritAvg))
+				if damageRolls > 0 or critRolls > 0 or skillModList:Flag(skillCfg, "CritLucky") then
+					t_insert(breakdown.AverageHit, s_format("(1/%d) x %d + (%d/%d) x %d = %.1f ^8(average from crits)", rollsCrit, totalCritMin, rollsCrit - 1, rollsCrit, totalCritMax, totalCritAvg))
 					t_insert(breakdown.AverageHit, "")
 				end
 				if damageRolls < 0 and not skillModList:Flag(skillCfg, "CritLucky") then
