@@ -102,7 +102,9 @@ function xml.LoadXMLFile(fileName)
 	local fileText = fileHnd:read("*a")
 	fileHnd:close()
 	if not fileText then
-		return nil, "input file returns no contents.  OneDrive?"
+		return nil, "file returns nil.  OneDrive?"
+	elseif fileText == "" then
+		return nil, "file is empty"
 	end
 	return xml.ParseXML(fileText)
 end
