@@ -3515,26 +3515,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if flavourTable then
 			local flavour = nil
 
-			if item.title == "Sekhema's Resolve" then
-				local selectedFlavourId = nil
-				for _, lineEntry in ipairs(tooltip.lines or {}) do
-					local lineText = lineEntry.text or ""
-					if lineText:find("Emerald") then
-						selectedFlavourId = "FourUniqueSanctum4a"
-						break
-					elseif lineText:find("Sapphire") then
-						selectedFlavourId = "FourUniqueSanctum4b"
-						break
-					elseif lineText:find("Ruby") then
-						selectedFlavourId = "FourUniqueSanctum4c"
-						break
-					end
-				end
-				if selectedFlavourId then
-					flavour = flavourTable[selectedFlavourId]
-				end
-
-			elseif item.title == "Grand Spectrum" then
+			if item.title == "Grand Spectrum" then
 				local selectedFlavourId = nil
 				local baseName = item.baseName
 				if baseName == "Ruby" then
