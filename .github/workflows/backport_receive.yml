@@ -15,7 +15,7 @@ jobs:
                 ref: 'dev'
             - name: Apply patch
               run: |
-                curl -L ${{ github.event.client_payload.patch_url }} | git apply -v --index
+                curl -L ${{ github.event.client_payload.patch_url }} | git apply -v --reject --intent-to-add
             - name: Create Pull Request
               uses: peter-evans/create-pull-request@v5
               with:
