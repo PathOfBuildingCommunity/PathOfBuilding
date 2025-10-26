@@ -1,0 +1,39 @@
+diff a/src/Modules/Main.lua b/src/Modules/Main.lua	(rejected hunks)
+@@ -633,6 +634,10 @@ function main:LoadSettings(ignoreBuild)
+ 				if node.attrib.showFlavourText then
+ 					self.showFlavourText = node.attrib.showFlavourText == "true"
+ 				end
++				if node.attrib.dpiScaleOverridePercent then
++					self.dpiScaleOverridePercent = tonumber(node.attrib.dpiScaleOverridePercent) or 0
++					SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
++				end
+ 			end
+ 		end
+ 	end
+@@ -745,7 +750,8 @@ function main:SaveSettings()
+ 		invertSliderScrollDirection = tostring(self.invertSliderScrollDirection),
+ 		disableDevAutoSave = tostring(self.disableDevAutoSave),
+ 		--showPublicBuilds = tostring(self.showPublicBuilds),
+-		showFlavourText = tostring(self.showFlavourText)
++		showFlavourText = tostring(self.showFlavourText),
++		dpiScaleOverridePercent = tostring(self.dpiScaleOverridePercent)
+ 	} })
+ 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
+ 	if not res then
+@@ -1039,6 +1063,7 @@ function main:OpenOptionsPopup()
+ 	local initialDisableDevAutoSave = self.disableDevAutoSave
+ 	--local initialShowPublicBuilds = self.showPublicBuilds
+ 	local initialShowFlavourText = self.showFlavourText
++	local initialDpiScaleOverridePercent = self.dpiScaleOverridePercent
+ 
+ 	-- last line with buttons has more spacing
+ 	nextRow(1.5)
+@@ -1091,6 +1117,8 @@ function main:OpenOptionsPopup()
+ 		self.disableDevAutoSave = initialDisableDevAutoSave
+ 		self.showPublicBuilds = initialShowPublicBuilds
+ 		self.showFlavourText = initialShowFlavourText
++		self.dpiScaleOverridePercent = initialDpiScaleOverridePercent
++		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
+ 		main:ClosePopup()
+ 	end)
+ 	nextRow(1.5)

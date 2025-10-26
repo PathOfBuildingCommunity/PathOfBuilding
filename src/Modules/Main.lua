@@ -99,6 +99,7 @@ function main:Init()
 	self.decimalSeparator = "."
 	self.defaultItemAffixQuality = 0.5
 	self.showTitlebarName = true
+	self.dpiScaleOverridePercent = GetDPIScaleOverridePercent and GetDPIScaleOverridePercent() or 0
 	self.showWarnings = true
 	self.slotOnlyTooltips = true
 	self.notSupportedModTooltips = true
@@ -848,6 +849,24 @@ function main:OpenOptionsPopup()
 	end
 
 	nextRow()
+	controls.dpiScaleOverride = new("DropDownControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 150, 18 }, {
+		{ label = "Use system default", percent = 0 },
+		{ label = "100%", percent = 100 },
+		{ label = "125%", percent = 125 },
+		{ label = "150%", percent = 150 },
+		{ label = "175%", percent = 175 },
+		{ label = "200%", percent = 200 },
+		{ label = "225%", percent = 225 },
+		{ label = "250%", percent = 250 },
+	}, function(index, value)
+		self.dpiScaleOverridePercent = value.percent
+		SetDPIScaleOverridePercent(value.percent)
+	end)
+	controls.dpiScaleOverrideLabel = new("LabelControl", { "RIGHT", controls.dpiScaleOverride, "LEFT" }, { defaultLabelSpacingPx, 0, 0, 16 }, "^7UI scaling override:")
+	controls.dpiScaleOverride.tooltipText = "Overrides Windows DPI scaling inside Path of Building.\nChoose a percentage between 100% and 250% or revert to the system default."
+	controls.dpiScaleOverride:SelByValue(self.dpiScaleOverridePercent, "percent")
+
+	nextRow()
 	controls.buildPath = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 290, 18 })
 	controls.buildPathLabel = new("LabelControl", { "RIGHT", controls.buildPath, "LEFT" }, { defaultLabelSpacingPx, 0, 0, 16 }, "^7Build save path:")
 	if self.buildPath ~= self.defaultBuildPath then
@@ -1051,6 +1070,7 @@ function main:OpenOptionsPopup()
 		if not launch.devMode then
 			main:SetManifestBranch(self.betaTest and "beta" or "master")
 		end
+		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
 		main:ClosePopup()
 		main:SaveSettings()
 	end)
