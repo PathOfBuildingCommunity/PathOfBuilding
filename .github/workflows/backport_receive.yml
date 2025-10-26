@@ -16,7 +16,7 @@ jobs:
             - name: Apply patch
               continue-on-error: true
               run: |
-                curl -L ${{ github.event.client_payload.patch_url }} | git apply -v --reject --intent-to-add
+                curl -L ${{ github.event.client_payload.patch_url }} | patch -p1 --merge --verbose -f -l --no-backup-if-mismatch
             - name: Create Pull Request
               uses: peter-evans/create-pull-request@v5
               with:
