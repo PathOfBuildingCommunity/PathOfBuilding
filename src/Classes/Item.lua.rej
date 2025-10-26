@@ -1,0 +1,10 @@
+diff a/src/Classes/Item.lua b/src/Classes/Item.lua	(rejected hunks)
+@@ -1532,7 +1532,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
+ 			weaponData.ReloadTime = round(self.base.weapon.ReloadTimeBase / (1 + weaponData.ReloadSpeedInc / 100), 2)
+ 		end
+ 		local LocalIncEle = calcLocal(modList, "LocalElementalDamage", "INC", 0)
+-		for _, dmgType in pairs(dmgTypeList) do
++		for _, dmgType in ipairs(dmgTypeList) do
+ 			local min = (self.base.weapon[dmgType.."Min"] or 0) + calcLocal(modList, dmgType.."Min", "BASE", 0)
+ 			local max = (self.base.weapon[dmgType.."Max"] or 0) + calcLocal(modList, dmgType.."Max", "BASE", 0)
+ 			if dmgType == "Physical" then

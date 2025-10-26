@@ -1,0 +1,10 @@
+diff a/src/Data/Global.lua b/src/Data/Global.lua	(rejected hunks)
+@@ -102,7 +102,7 @@ end
+ 
+ -- NOTE: the LuaJIT bitwise operations we have are not 64-bit
+ -- so we need to implement them ourselves. Lua uses 53-bit doubles.
+-HIGH_MASK_53 = 0x1FFFFF
++local HIGH_MASK_53 = 0x1FFFFF
+ function OR64(...)
+     local args = {...}
+     if #args < 2 then

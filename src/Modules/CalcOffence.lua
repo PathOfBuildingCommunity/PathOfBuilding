@@ -32,12 +32,15 @@ local isElemental = { Fire = true, Cold = true, Lightning = true }
 -- List of all damage types, ordered according to the conversion sequence
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
 local dmgTypeFlags = {
-	Physical	= 0x01,
-	Lightning	= 0x02,
-	Cold		= 0x04,
-	Fire		= 0x08,
-	Elemental	= 0x0E,
-	Chaos		= 0x10,
+	order = { "Physical", "Lightning", "Cold", "Fire", "Elemental", "Chaos" },
+	flags = {
+		Physical	= 0x01,
+		Lightning	= 0x02,
+		Cold		= 0x04,
+		Fire		= 0x08,
+		Elemental	= 0x0E,
+		Chaos		= 0x10,
+	}
 }
 
 -- List of all ailments
@@ -48,7 +51,8 @@ local elementalAilmentTypeList = data.elementalAilmentTypeList
 -- Magic table for caching the modifier name sets used in calcDamage()
 local damageStatsForTypes = setmetatable({ }, { __index = function(t, k)
 	local modNames = { "Damage" }
-	for type, flag in pairs(dmgTypeFlags) do
+	for _, type in ipairs(dmgTypeFlags.order) do
+		local flag = dmgTypeFlags.flags[type]
 		if band(k, flag) ~= 0 then
 			t_insert(modNames, type.."Damage")
 		end
@@ -382,7 +386,7 @@ function calcs.offence(env, actor, activeSkill)
 					-- Calculate all the possible base radii
 					local baseRadiiOccurrences = {}
 					for deviation = 1 - margin, 1 + margin + 0.01, 0.01 do
-						local radiusForDeviation = math.floor(baseRadius * deviation)
+						local radiusForDeviation = m_floor(baseRadius * deviation)
 						baseRadiiOccurrences[radiusForDeviation] = (baseRadiiOccurrences[radiusForDeviation] or 0) + 1
 					end
 					-- Calculate the modified radius for each base radius
@@ -399,7 +403,7 @@ function calcs.offence(env, actor, activeSkill)
 					output.AreaOfEffectRadiusTertiaryOccurrences = radiiOccurrences
 					if breakdown then
 						local out = {}
-						local incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary = math.huge, math.huge, math.huge, math.huge
+						local incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary = m_huge, m_huge, m_huge, m_huge
 						t_insert(out, skillData.radiusTertiaryLabel)
 						t_insert(out, s_format("R ^8(base radius)^7 x %.2f ^8(square root of area of effect modifier)", m_floor(100 * m_sqrt(output.AreaOfEffectModTertiary)) / 100))
 						local baseRadii = {}
@@ -410,10 +414,10 @@ function calcs.offence(env, actor, activeSkill)
 						for _, adjustedBaseRadius in ipairs(baseRadii) do
 							t_insert(out, s_format("%.1f%% ^8chance of^7 %.1fm ^8base radius resulting in^7 %.1fm ^8final radius", baseRadiiOccurrences[adjustedBaseRadius] / marginWidth * 100, adjustedBaseRadius / 10, radiusForBaseRadius[adjustedBaseRadius] / 10))
 							local incAreaBreakpointTertiaryIntermediate, moreAreaBreakpointTertiaryIntermediate, redAreaBreakpointTertiaryIntermediate, lessAreaBreakpointTertiaryIntermediate = calcRadiusBreakpoints(adjustedBaseRadius, incAreaTertiary, moreAreaTertiary)
-							incAreaBreakpointTertiary = math.min(incAreaBreakpointTertiary, incAreaBreakpointTertiaryIntermediate)
-							moreAreaBreakpointTertiary = math.min(moreAreaBreakpointTertiary, moreAreaBreakpointTertiaryIntermediate)
-							redAreaBreakpointTertiary = math.min(redAreaBreakpointTertiary, redAreaBreakpointTertiaryIntermediate)
-							lessAreaBreakpointTertiary = math.min(lessAreaBreakpointTertiary, lessAreaBreakpointTertiaryIntermediate)
+							incAreaBreakpointTertiary = m_min(incAreaBreakpointTertiary, incAreaBreakpointTertiaryIntermediate)
+							moreAreaBreakpointTertiary = m_min(moreAreaBreakpointTertiary, moreAreaBreakpointTertiaryIntermediate)
+							redAreaBreakpointTertiary = m_min(redAreaBreakpointTertiary, redAreaBreakpointTertiaryIntermediate)
+							lessAreaBreakpointTertiary = m_min(lessAreaBreakpointTertiary, lessAreaBreakpointTertiaryIntermediate)
 						end
 						t_insert(out, s_format("^8Next closest 0.1m breakpoint: %d%% increased AoE / a %d%% more AoE multiplier", incAreaBreakpointTertiary, moreAreaBreakpointTertiary))
 						t_insert(out, s_format("^8Previous closest 0.1m breakpoint: %d%% reduced AoE / a %d%% less AoE multiplier", redAreaBreakpointTertiary, lessAreaBreakpointTertiary))
@@ -716,7 +720,7 @@ function calcs.offence(env, actor, activeSkill)
 		-- Light Radius conversion from Wreath of Phrecia
 		for i, value in ipairs(skillModList:Tabulate("INC",  { }, "LightRadius")) do
 			local mod = value.mod
-			skillModList:NewMod("AreaOfEffect", "INC", math.floor(mod.value / 2), mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			skillModList:NewMod("AreaOfEffect", "INC", m_floor(mod.value / 2), mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 		end
 	end
 	if skillModList:Flag(nil, "LightRadiusAppliesToDamage") then
@@ -1544,7 +1548,7 @@ function calcs.offence(env, actor, activeSkill)
 	do
 		if not activeSkill.skillTypes[SkillType.Vaal] then -- exclude vaal skills as we currently don't support soul generation or gain prevention.
 			local cooldown = output.Cooldown or 0
-			for _, durationType in pairs({ "Duration", "DurationSecondary", "DurationTertiary", "AuraDuration", "reserveDuration" }) do
+			for _, durationType in ipairs({ "Duration", "DurationSecondary", "DurationTertiary", "AuraDuration", "reserveDuration" }) do
 				local duration = output[durationType] or 0
 				if (duration ~= 0 and cooldown ~= 0) then
 					local uptime = 1
@@ -1770,7 +1774,7 @@ function calcs.offence(env, actor, activeSkill)
 		skillData[damageType.."BonusMax"] = monsterLife * ( skillData.corpseExplosionLifeMultiplier or skillData.selfFireExplosionLifeMultiplier )
 	end
 	if skillFlags.monsterExplode then
-		for _, damageType in pairs(dmgTypeList) do
+		for _, damageType in ipairs(dmgTypeList) do
 			local percentage = skillData[damageType.."EffectiveExplodePercentage"]
 			local base = (percentage or 0) * monsterLife / 100
 			skillData[damageType.."Min"] = base
@@ -5138,7 +5142,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			local impaleTakenCfg = { flags = ModFlag.Hit }
 			local impaleTaken = (1 + enemyDB:Sum("INC", impaleTakenCfg, "DamageTaken", "PhysicalDamageTaken", "ReflectedDamageTaken") / 100)
-			                    * enemyDB:More(impaleTakenCfg, "DamageTaken", "PhysicalDamageTaken", "ReflectedDamageTaken")
+								* enemyDB:More(impaleTakenCfg, "DamageTaken", "PhysicalDamageTaken", "ReflectedDamageTaken")
 			local impaleDMGModifier = impaleHitDamageMod * (1 - impaleResist / 100) * impaleChance * impaleTaken
 
 			globalOutput.ImpaleStacksMax = maxStacks
@@ -5601,7 +5605,7 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Special handling for self hit skills
 		-- These need to be handled higher up in this file using runFuncs for correct DPS calcs
-		for selfHitSkill, displayName in pairs({["FRDamageTaken"] = "Forbidden Rite"}) do
+		for selfHitSkill, displayName in ipairs({["FRDamageTaken"] = "Forbidden Rite"}) do
 			if output[selfHitSkill] then
 				output.SelfHitDamage = (output.SelfHitDamage or 0) + output[selfHitSkill]
 			end
