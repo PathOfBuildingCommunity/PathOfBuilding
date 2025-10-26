@@ -14,6 +14,8 @@ ConExecute("set vid_resizable 3")
 
 launch = { }
 SetMainObject(launch)
+jit.opt.start('maxtrace=4000','maxmcode=8192')
+collectgarbage("setpause", 400)
 
 function launch:OnInit()
 	self.devMode = false
