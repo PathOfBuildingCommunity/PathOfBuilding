@@ -47,6 +47,16 @@ local catalystQualityFormat = {
 	"^x7F7F7FQuality (Critical Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 }
 
+local flavourLookup = {}
+
+for _, entry in pairs(data.flavourText) do
+    if entry.name and entry.id and entry.text then
+        flavourLookup[entry.name] = flavourLookup[entry.name] or {}
+        flavourLookup[entry.name][entry.id] = entry.text
+    end
+end
+
+
 local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
 	self.ControlHost()
@@ -1617,7 +1627,7 @@ end
 function ItemsTabClass:UpdateDisplayItemTooltip()
 	self.displayItemTooltip:Clear()
 	self:AddItemTooltip(self.displayItemTooltip, self.displayItem)
-	self.displayItemTooltip.center = false
+	self.displayItemTooltip.center = true
 end
 
 function ItemsTabClass:UpdateSocketControls()
@@ -3201,6 +3211,8 @@ end
 function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	-- Item name
 	local rarityCode = colorCodes[item.rarity]
+	tooltip.maxWidth = 600 -- Should instead get the longest mod and set the width to that. Some flavour text is way too long so we need a cap of sorts.
+	tooltip.itemTooltip = item.rarity
 	tooltip.center = true
 	tooltip.color = rarityCode
 	if item.title then
@@ -3494,8 +3506,63 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if item.corrupted then
 			tooltip:AddLine(16, colorCodes.NEGATIVE.."Corrupted")
 		end
+		tooltip:AddSeparator(14)
 	end
-	tooltip:AddSeparator(14)
+
+	-- Show flavour text:
+	if item.rarity == "UNIQUE" and main.showFlavourText == true then
+		local flavourTable = flavourLookup[item.title]
+		if flavourTable then
+			local flavour = nil
+
+			if item.title == "Sekhema's Resolve" then
+				local selectedFlavourId = nil
+				for _, lineEntry in ipairs(tooltip.lines or {}) do
+					local lineText = lineEntry.text or ""
+					if lineText:find("Emerald") then
+						selectedFlavourId = "FourUniqueSanctum4a"
+						break
+					elseif lineText:find("Sapphire") then
+						selectedFlavourId = "FourUniqueSanctum4b"
+						break
+					elseif lineText:find("Ruby") then
+						selectedFlavourId = "FourUniqueSanctum4c"
+						break
+					end
+				end
+				if selectedFlavourId then
+					flavour = flavourTable[selectedFlavourId]
+				end
+
+			elseif item.title == "Grand Spectrum" then
+				local selectedFlavourId = nil
+				local baseName = item.baseName
+				if baseName == "Ruby" then
+					selectedFlavourId = "FourUniqueJewel1"
+				elseif baseName == "Emerald" then
+					selectedFlavourId = "FourUniqueJewel2"
+				elseif baseName == "Sapphire" then
+					selectedFlavourId = "FourUniqueJewel3"
+				end
+				if selectedFlavourId then
+					flavour = flavourTable[selectedFlavourId]
+				end
+
+			else
+				for _, text in pairs(flavourTable) do
+					flavour = text
+					break
+				end
+			end
+
+			if flavour then
+				for _, line in ipairs(flavour) do
+					tooltip:AddLine(16, colorCodes.UNIQUE .. line)
+				end
+				tooltip:AddSeparator(14)
+			end
+		end
+	end
 
 	-- Stat differences
 	if not self.showStatDifferences then

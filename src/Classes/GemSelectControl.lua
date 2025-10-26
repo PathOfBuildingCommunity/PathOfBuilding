@@ -515,6 +515,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 				if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
 					gemInstance.qualityId = "Default"
 				end
+				if main.showFlavourText then self.tooltip.titleYOffset = 5 end --The image for Gems has an aspect ratio that makes the title not centered.
 				self:AddGemTooltip(gemInstance)
 			else
 				self.tooltip:AddLine(16, toolTipText)
@@ -550,7 +551,6 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			SetDrawColor(colorA,colorA,colorA)
 			DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "A")
 
-
 			SetDrawLayer(nil, 10)
 			self.tooltip:Draw(x, y, width, height, viewPort)
 			SetDrawLayer(nil, 0)
@@ -566,6 +566,7 @@ end
 function GemSelectClass:AddGemTooltip(gemInstance)
 	self.tooltip.center = true
 	self.tooltip.color = colorCodes.GEM
+	self.tooltip.itemTooltip = "GEM"
 	local primary = gemInstance.gemData.grantedEffect
 	local secondary = gemInstance.gemData.secondaryGrantedEffect
 	if secondary and (not secondary.support or gemInstance.gemData.secondaryEffectName) then

@@ -741,6 +741,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			if self.tooltip:CheckForUpdate(node, self.showStatDifferences, self.tracePath, launch.devModeAlt, build.outputRevision) then
 				self:AddNodeTooltip(self.tooltip, node, build)
 			end
+			self.tooltip.center = true
 			self.tooltip:Draw(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
 		end
 	end
@@ -948,6 +949,13 @@ end
 
 function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 	tooltip:SetRecipe(node.recipe)
+	local tooltipMap = {
+		Normal = "PASSIVE",
+		Notable = "NOTABLE",
+		Socket = "JEWEL",
+		Keystone = "KEYSTONE",
+	}
+	tooltip.itemTooltip = tooltipMap[node.type] or "UNKNOWN"
 	tooltip:AddLine(24, "^7"..node.dn..(launch.devModeAlt and " ["..node.id.."]" or ""))
 	if launch.devModeAlt and node.id > 65535 then
 		-- Decompose cluster node Id

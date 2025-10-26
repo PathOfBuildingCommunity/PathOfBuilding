@@ -105,6 +105,7 @@ function main:Init()
 	self.notSupportedTooltipText = " ^8(Not supported in PoB yet)"
 	self.POESESSID = ""
 	self.showPublicBuilds = true
+	self.showFlavourText = true
 
 	if self.userPath then
 		self:ChangeUserPath(self.userPath, ignoreBuild)
@@ -628,6 +629,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.showPublicBuilds then
 					self.showPublicBuilds = node.attrib.showPublicBuilds == "true"
 				end
+				if node.attrib.showFlavourText then
+					self.showFlavourText = node.attrib.showFlavourText == "true"
+				end
 			end
 		end
 	end
@@ -739,7 +743,8 @@ function main:SaveSettings()
 		POESESSID = self.POESESSID,
 		invertSliderScrollDirection = tostring(self.invertSliderScrollDirection),
 		disableDevAutoSave = tostring(self.disableDevAutoSave),
-		showPublicBuilds = tostring(self.showPublicBuilds)
+		showPublicBuilds = tostring(self.showPublicBuilds),
+		showFlavourText = tostring(self.showFlavourText)
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -920,6 +925,11 @@ function main:OpenOptionsPopup()
 	end)
 
 	nextRow()
+	controls.showFlavourText = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Styled Tooltips with Flavour Text:", function(state)
+		self.showFlavourText = state
+	end)
+
+	nextRow()
 	drawSectionHeader("build", "Build-related options")
 
 	controls.showThousandsSeparators = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT"}, { defaultLabelPlacementX, currentY, 20 }, "^7Show thousands separators:", function(state)
@@ -1007,6 +1017,7 @@ function main:OpenOptionsPopup()
 	controls.edgeSearchHighlight.state = self.edgeSearchHighlight
 	controls.titlebarName.state = self.showTitlebarName
 	controls.showPublicBuilds.state = self.showPublicBuilds
+	controls.showFlavourText.state = self.showFlavourText
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialColorPositive = self.colorPositive
 	local initialColorNegative = self.colorNegative
@@ -1026,6 +1037,7 @@ function main:OpenOptionsPopup()
 	local initialInvertSliderScrollDirection = self.invertSliderScrollDirection
 	local initialDisableDevAutoSave = self.disableDevAutoSave
 	local initialShowPublicBuilds = self.showPublicBuilds
+	local initialShowFlavourText = self.showFlavourText
 
 	-- last line with buttons has more spacing
 	nextRow(1.5)
@@ -1077,6 +1089,7 @@ function main:OpenOptionsPopup()
 		self.invertSliderScrollDirection = initialInvertSliderScrollDirection
 		self.disableDevAutoSave = initialDisableDevAutoSave
 		self.showPublicBuilds = initialShowPublicBuilds
+		self.showFlavourText = initialShowFlavourText
 		main:ClosePopup()
 	end)
 	nextRow(1.5)
