@@ -87,6 +87,13 @@ out:write('-- From MonsterMapBossDifficulty.dat\n')
 out:write('data.mapLevelBossLifeMult = { '..mapBossLifeMult..'}\n')
 out:write('data.mapLevelBossAilmentMult = { '..mapBossAilmentMult..'}\n')
 
+out:write('-- From GoldRespecPrices.dat\n')
+out:write('data.goldRespecPrices = { ')
+for row in dat("GoldRespecPrices"):Rows() do
+	out:write(row.Cost .. ', ')
+end
+out:write('}\n')
+
 out:close()
 
 print("Misc data exported.")

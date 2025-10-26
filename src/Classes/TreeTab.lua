@@ -68,24 +68,36 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 					end
 					if spec.curClassId == self.build.spec.curClassId then
 						local respec = 0
+						local respecAscendancy = 0
 						for nodeId, node in pairs(self.build.spec.allocNodes) do
 							-- Assumption: Nodes >= 65536 are small cluster passives.
 							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart"
 							and (self.build.spec.tree.clusterNodeMap[node.dn] == nil or node.isKeystone or node.isJewelSocket) and nodeId < 65536
 							and not spec.allocNodes[nodeId] then
 								if node.ascendancyName then
-									respec = respec + 5
+									respecAscendancy = respecAscendancy + 1
 								else
 									respec = respec + 1
 								end
 							end
 						end
-						if respec > 0 then
-							tooltip:AddLine(16, "^7Switching to this tree requires "..respec.." refund points.")
+						if respec > 0 or respecAscendancy > 0 then
+							local goldCost = data.goldRespecPrices[build.characterLevel]
+							local totalGold = (respec * goldCost) + (respecAscendancy * goldCost * 5)
+							local goldStr = formatNumSep(tostring(totalGold))
+							tooltip:AddLine(16, "^xFFD700" .. goldStr .. " Gold ^7required to switch to this tree.")
+							if respec > 0 then
+								local nodeWord = respec == 1 and "Passive node to be refunded" or "Passive nodes to be refunded"
+								tooltip:AddLine(16, s_format("^7\t%d %s.", respec, nodeWord))
+							end
+							if respecAscendancy > 0 then
+								local ascendWord = respecAscendancy == 1 and "Ascendancy node to be refunded" or "Ascendancy nodes to be refunded"
+								tooltip:AddLine(16, s_format("^7\t%d %s.", respecAscendancy, ascendWord))
+							end
 						end
 					end
 				end
-				tooltip:AddLine(16, "Game Version: "..treeVersions[spec.treeVersion].display)
+				tooltip:AddLine(16, "^7Game Version: "..treeVersions[spec.treeVersion].display)
 			end
 		end
 	end
