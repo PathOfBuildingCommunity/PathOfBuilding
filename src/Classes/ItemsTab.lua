@@ -134,7 +134,15 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 			end
 		elseif slotName == "Ring 3" then
 			slot.shown = function()
-				return self.build.calcsTab.mainEnv.modDB:Flag(nil, "AdditionalRingSlot")
+				if self.build.calcsTab.mainEnv.modDB:Flag(nil, "AdditionalRingSlot") then
+					return true
+				-- need to clear out Ring 3 in case something was equipped when the mod was removed
+				else
+					slot.selIndex = 1
+					slot:SetSelItemId(0)
+					self.build.buildFlag = true
+					return false
+				end
 			end
 		end
 		if slotName == "Weapon 1" or slotName == "Weapon 2" or slotName == "Helmet" or slotName == "Gloves" or slotName == "Body Armour" or slotName == "Boots" or slotName == "Belt" then
@@ -151,6 +159,16 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 				end
 				slot.abyssalSocketList[i] = abyssal
 			end
+		end
+		-- Item Disabled Flags
+		slot.enabled = function() 
+			if self.build.calcsTab.mainEnv.modDB:Flag(nil, "CanNotUse" .. slotName) then
+				slot.selIndex = 1
+				slot:SetSelItemId(0)
+				self.build.buildFlag = true
+				return false
+			end
+			return slot.enabled
 		end
 	end
 
