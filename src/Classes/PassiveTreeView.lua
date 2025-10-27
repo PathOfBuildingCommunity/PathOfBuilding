@@ -957,7 +957,9 @@ function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 		Ascendancy = "ASCENDANCY",
 		Mastery = "MASTERY",
 	}
-	if (node.type == "Notable" or node.type == "Normal") and node.ascendancyName then
+	if node.type == "Mastery" then
+		tooltip.tooltipHeader = node.alloc and "MASTERYALLOC" or "MASTERY"
+	elseif (node.type == "Notable" or node.type == "Normal") and node.ascendancyName then
 		tooltip.tooltipHeader = "ASCENDANCY"
 	else
 		tooltip.tooltipHeader = tooltipMap[node.type] or "UNKNOWN"
@@ -999,6 +1001,7 @@ end
 
 function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	-- Special case for sockets
+	tooltip.center = true
 	if node.type == "Socket" and node.alloc then
 		local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(node.id)
 		if jewel then

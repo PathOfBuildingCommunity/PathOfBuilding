@@ -202,13 +202,13 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 			local totalWidth = DrawStringWidth(titleSize, "VAR", title.text)
 			local oilWidths = {}
 			for _, r in ipairs(self.recipe) do
-				local rn = r.name
+				local rn = r
 				if #rn > 3 and rn:sub(-3) == "Oil" then
 					rn = rn:sub(1, #rn - 3)
 				end
 				local textW = DrawStringWidth(recipeTextSize, "VAR", rn)
 				local iconW = titleSize
-				table.insert(oilWidths, {rn, r.sprite, textW, iconW})
+				table.insert(oilWidths, {rn, r, textW, iconW})
 				totalWidth = totalWidth + textW + iconW + padding
 			end
 
@@ -221,14 +221,15 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 			-- Draw oils
 			local maxOilHeight = 0
 			for _, part in ipairs(oilWidths) do
-				local rn, sprite, textW, iconW = part[1], part[2], part[3], part[4]
+				local rn, recipeName, textW, iconW = part[1], part[2], part[3], part[4]
 				t_insert(drawStack, {curX, y + (titleSize - recipeTextSize)/2, "LEFT", recipeTextSize, "VAR", rn})
 				curX = curX + textW
-				t_insert(drawStack, {sprite, curX, y, iconW, iconW})
-				curX = curX + iconW + padding
-				maxOilHeight = m_max(maxOilHeight, recipeTextSize, iconW)
-			end
 
+				local handle = recipeImages[recipeName]
+				t_insert(drawStack, {handle, curX, y, iconW, iconW})
+
+				curX = curX + iconW + padding
+			end
 			-- Advance y by max height
 			y = y + m_max(titleSize, maxOilHeight) + 2
 
@@ -290,18 +291,19 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		end
 	end
 	local headerConfigs = {
-		RELIC = {left="Assets/ItemsHeaderFoilLeft.png",middle="Assets/ItemsHeaderFoilMiddle.png",right="Assets/ItemsHeaderFoilRight.png",height=53,sideWidth=43,middleWidth=43,textYOffset=2},
-		UNIQUE = {left="Assets/ItemsHeaderUniqueLeft.png",middle="Assets/ItemsHeaderUniqueMiddle.png",right="Assets/ItemsHeaderUniqueRight.png",height=53,sideWidth=43,middleWidth=43,textYOffset=2},
-		RARE = {left="Assets/ItemsHeaderRareLeft.png",middle="Assets/ItemsHeaderRareMiddle.png",right="Assets/ItemsHeaderRareRight.png",height=53,sideWidth=43,middleWidth=43,textYOffset=2},
+		RELIC = {left="Assets/ItemsHeaderFoilLeft.png",middle="Assets/ItemsHeaderFoilMiddle.png",right="Assets/ItemsHeaderFoilRight.png",height=53,sideWidth=47,middleWidth=52,textYOffset=2},
+		UNIQUE = {left="Assets/ItemsHeaderUniqueLeft.png",middle="Assets/ItemsHeaderUniqueMiddle.png",right="Assets/ItemsHeaderUniqueRight.png",height=53,sideWidth=47,middleWidth=52,textYOffset=2},
+		RARE = {left="Assets/ItemsHeaderRareLeft.png",middle="Assets/ItemsHeaderRareMiddle.png",right="Assets/ItemsHeaderRareRight.png",height=53,sideWidth=47,middleWidth=52,textYOffset=2},
 		MAGIC = {left="Assets/ItemsHeaderMagicLeft.png",middle="Assets/ItemsHeaderMagicMiddle.png",right="Assets/ItemsHeaderMagicRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4},
 		NORMAL = {left="Assets/ItemsHeaderWhiteLeft.png",middle="Assets/ItemsHeaderWhiteMiddle.png",right="Assets/ItemsHeaderWhiteRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4},
-		GEM = {left="Assets/ItemsHeaderGemLeft.png",middle="Assets/ItemsHeaderGemMiddle.png",right="Assets/ItemsHeaderGemRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4},
-		JEWEL = {left="Assets/JewelPassiveHeaderLeft.png",middle="Assets/JewelPassiveHeaderMiddle.png",right="Assets/JewelPassiveHeaderRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=2},
-		NOTABLE = {left="Assets/NotablePassiveHeaderLeft.png",middle="Assets/NotablePassiveHeaderMiddle.png",right="Assets/NotablePassiveHeaderRight.png",height=38,sideWidth=38,middleWidth=32,textYOffset=2},
-		PASSIVE = {left="Assets/NormalPassiveHeaderLeft.png",middle="Assets/NormalPassiveHeaderMiddle.png",right="Assets/NormalPassiveHeaderRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=2},
-		KEYSTONE = {left="Assets/KeystonePassiveHeaderLeft.png",middle="Assets/KeystonePassiveHeaderMiddle.png",right="Assets/KeystonePassiveHeaderRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=2},
-		ASCENDANCY = {left="Assets/AscendancyPassiveHeaderLeft.png",middle="Assets/AscendancyPassiveHeaderMiddle.png",right="Assets/AscendancyPassiveHeaderRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=2},
-		MASTERY = {left="Assets/MasteryHeaderAllocatedLeft.png",middle="Assets/MasteryHeaderAllocatedMiddle.png",right="Assets/MasteryHeaderAllocatedRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=2},
+		GEM = {left="Assets/ItemsHeaderGemLeft.png",middle="Assets/ItemsHeaderGemMiddle.png",right="Assets/ItemsHeaderGemRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=4},
+		JEWEL = {left="Assets/JewelPassiveHeaderLeft.png",middle="Assets/JewelPassiveHeaderMiddle.png",right="Assets/JewelPassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=2},
+		NOTABLE = {left="Assets/NotablePassiveHeaderLeft.png",middle="Assets/NotablePassiveHeaderMiddle.png",right="Assets/NotablePassiveHeaderRight.png",height=38,sideWidth=38,middleWidth=38,textYOffset=2},
+		PASSIVE = {left="Assets/NormalPassiveHeaderLeft.png",middle="Assets/NormalPassiveHeaderMiddle.png",right="Assets/NormalPassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=2},
+		KEYSTONE = {left="Assets/KeystonePassiveHeaderLeft.png",middle="Assets/KeystonePassiveHeaderMiddle.png",right="Assets/KeystonePassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=2},
+		ASCENDANCY = {left="Assets/AscendancyPassiveHeaderLeft.png",middle="Assets/AscendancyPassiveHeaderMiddle.png",right="Assets/AscendancyPassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=2},
+		MASTERY = {left="Assets/MasteryHeaderUnallocatedLeft.png",middle="Assets/MasteryHeaderUnallocatedMiddle.png",right="Assets/MasteryHeaderUnallocatedRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=2},
+		MASTERYALLOC = {left="Assets/MasteryHeaderAllocatedLeft.png",middle="Assets/MasteryHeaderAllocatedMiddle.png",right="Assets/MasteryHeaderAllocatedRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=2},
 	}
 	local config
 	if self.tooltipHeader and main.showFlavourText and self.lines[1] and self.lines[1].text then
@@ -405,12 +407,12 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 				SetDrawColor(unpack(self.color))
 			end
 			if not skip then
+				SetDrawColor(1,1,1)
 				if line[1] and line[1].handle then
 					local args = { line[1].handle, line[2], line[3], line[4], line[5] }
 					for _, v in ipairs(line[1]) do
 						t_insert(args, v)
 					end
-					SetDrawColor(1,1,1)
 					DrawImage(unpack(args))
 				else
 					DrawImage(unpack(line))
