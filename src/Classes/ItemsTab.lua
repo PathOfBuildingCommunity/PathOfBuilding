@@ -3528,7 +3528,6 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				if selectedFlavourId then
 					flavour = flavourTable[selectedFlavourId]
 				end
-
 			else
 				for _, text in pairs(flavourTable) do
 					flavour = text
