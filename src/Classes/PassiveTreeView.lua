@@ -954,8 +954,14 @@ function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 		Notable = "NOTABLE",
 		Socket = "JEWEL",
 		Keystone = "KEYSTONE",
+		Ascendancy = "ASCENDANCY",
+		Mastery = "MASTERY",
 	}
-	tooltip.itemTooltip = tooltipMap[node.type] or "UNKNOWN"
+	if (node.type == "Notable" or node.type == "Normal") and node.ascendancyName then
+		tooltip.tooltipHeader = "ASCENDANCY"
+	else
+		tooltip.tooltipHeader = tooltipMap[node.type] or "UNKNOWN"
+	end
 	tooltip:AddLine(24, "^7"..node.dn..(launch.devModeAlt and " ["..node.id.."]" or ""))
 	if launch.devModeAlt and node.id > 65535 then
 		-- Decompose cluster node Id

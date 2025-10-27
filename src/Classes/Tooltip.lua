@@ -49,7 +49,7 @@ end)
 function TooltipClass:Clear()
 	wipeTable(self.lines)
 	wipeTable(self.blocks)
-	self.itemTooltip = false
+	self.tooltipHeader = false
 	self.titleYOffset = 0
 	self.recipe = nil
 	self.center = false
@@ -111,8 +111,8 @@ function TooltipClass:AddSeparator(size)
 
 	local separatorImage = nil
 
-	if self.itemTooltip then
-		local rarity = tostring(self.itemTooltip):upper()
+	if self.tooltipHeader then
+		local rarity = tostring(self.tooltipHeader):upper()
 		local separatorConfigs = {
 			RELIC = "Assets/ItemsSeparatorFoil.png",
 			UNIQUE = "Assets/ItemsSeparatorUnique.png",
@@ -282,8 +282,8 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	end
 	local ttW, ttH = self:GetSize()
 
-	-- ensure ttW is at least title width + 50 pixels, this fixes the header image for Magic items and some Tree passives. NOT WORKING NOW?????
-	if self.itemTooltip and self.lines[1] and self.lines[1].text then
+	-- ensure ttW is at least title width + 50 pixels, this fixes the header image for Magic items and some Tree passives.
+	if self.tooltipHeader and self.lines[1] and self.lines[1].text then
 		local titleW = DrawStringWidth(self.lines[1].size, "VAR", self.lines[1].text)
 		if titleW + 50 > ttW then
 			ttW = titleW + 50
@@ -300,10 +300,12 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		NOTABLE = {left="Assets/NotablePassiveHeaderLeft.png",middle="Assets/NotablePassiveHeaderMiddle.png",right="Assets/NotablePassiveHeaderRight.png",height=38,sideWidth=38,middleWidth=32,textYOffset=2},
 		PASSIVE = {left="Assets/NormalPassiveHeaderLeft.png",middle="Assets/NormalPassiveHeaderMiddle.png",right="Assets/NormalPassiveHeaderRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=2},
 		KEYSTONE = {left="Assets/KeystonePassiveHeaderLeft.png",middle="Assets/KeystonePassiveHeaderMiddle.png",right="Assets/KeystonePassiveHeaderRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=2},
+		ASCENDANCY = {left="Assets/AscendancyPassiveHeaderLeft.png",middle="Assets/AscendancyPassiveHeaderMiddle.png",right="Assets/AscendancyPassiveHeaderRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=2},
+		MASTERY = {left="Assets/MasteryHeaderAllocatedLeft.png",middle="Assets/MasteryHeaderAllocatedMiddle.png",right="Assets/MasteryHeaderAllocatedRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=2},
 	}
 	local config
-	if self.itemTooltip and main.showFlavourText and self.lines[1] and self.lines[1].text then
-		local rarity = tostring(self.itemTooltip):upper()
+	if self.tooltipHeader and main.showFlavourText and self.lines[1] and self.lines[1].text then
+		local rarity = tostring(self.tooltipHeader):upper()
 		config = headerConfigs[rarity] or headerConfigs.NORMAL
 		self.titleYOffset = config.textYOffset or 0
 	end
@@ -334,8 +336,8 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	SetDrawColor(1, 1, 1)
 
 	-- Item header (drawn within borders)
-	if self.itemTooltip and main.showFlavourText and self.lines[1] and self.lines[1].text then
-		local rarity = tostring(self.itemTooltip):upper()
+	if self.tooltipHeader and main.showFlavourText and self.lines[1] and self.lines[1].text then
+		local rarity = tostring(self.tooltipHeader):upper()
 		local config = headerConfigs[rarity] or headerConfigs.NORMAL
 
 		self.titleYOffset = config.textYOffset or 0
@@ -389,7 +391,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			local skip = false
 			if line[1] and type(line[1]) == "table" and line[1].isSeparator then
 				-- Only skip first separator for items and skill gems
-				local tooltipType = self.itemTooltip and tostring(self.itemTooltip):upper() or ""
+				local tooltipType = self.tooltipHeader and tostring(self.tooltipHeader):upper() or ""
 				if main.showFlavourText and not firstSeparatorSkipped and 
 				(tooltipType == "RELIC" or tooltipType == "UNIQUE" or tooltipType == "RARE" or tooltipType == "MAGIC" or tooltipType == "GEM") then
 					firstSeparatorSkipped = true

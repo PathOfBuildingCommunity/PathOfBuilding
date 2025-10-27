@@ -566,7 +566,7 @@ end
 function GemSelectClass:AddGemTooltip(gemInstance)
 	self.tooltip.center = true
 	self.tooltip.color = colorCodes.GEM
-	self.tooltip.itemTooltip = "GEM"
+	self.tooltip.tooltipHeader = "GEM"
 	local primary = gemInstance.gemData.grantedEffect
 	local secondary = gemInstance.gemData.secondaryGrantedEffect
 	if secondary and (not secondary.support or gemInstance.gemData.secondaryEffectName) then
