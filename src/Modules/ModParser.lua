@@ -2826,8 +2826,8 @@ local specialModList = {
 	-- Ritualist Bloodline
 	["unaffected by bleeding"] = { mod("SelfBleedEffect", "MORE", -100) },
 	["unaffected by poison"] = { mod("SelfPoisonEffect", "MORE", -100) },
-	["can't use amulets"] = { mod("CanNotUseAmulet", "Flag", 1, { type = "DisablesItem", slotName = "Amulet" }) },
-	["can't use belts"] = { mod("CanNotUseBelt", "Flag", 1, { type = "DisablesItem", slotName = "Belt" }) },
+	["can't use amulets"] = { flag("CanNotUseAmulet") },
+	["can't use belts"] = { flag("CanNotUseBelt") },
 	["%+1 ring slot"] = { flag("AdditionalRingSlot") },
 	["utility flasks are disabled"] = { flag("UtilityFlasksDoNotApplyToPlayer") },
 	-- Item local modifiers
@@ -4765,9 +4765,9 @@ local specialModList = {
 	["(%d+)%% increased effect of jewel socket passive skills containing corrupted magic jewels, if not from cluster jewels"] = function(num) return { mod("JewelData", "LIST", { key = "corruptedMagicJewelIncEffect", value = num }) } end,
 	["(%d+)%% increased effect of jewel socket passive skills containing corrupted magic jewels"] = function(num) return { mod("JewelData", "LIST", { key = "corruptedMagicJewelIncEffect", value = num }) } end,
 	-- Misc
-	["can't use chest armour"] = { mod("CanNotUseBody", "Flag", 1, { type = "DisablesItem", slotName = "Body Armour" }) },
-	--["can't use helmets"] = { mod("CanNotUseHelmet", "Flag", 1, { type = "DisablesItem", slotName = "Helmet" }) }, -- this one does not work due to being on a passive?
-	["can't use helmet"] = { mod("CanNotUseHelmet", "Flag", 1, { type = "DisablesItem", slotName = "Helmet" }) }, -- this is to allow for custom mod without saying the other is parsed
+	["can't use chest armour"] = { flag("CanNotUseBody Armour") }, -- Bringer of Rain
+	["can't use helmet"] = { flag("CanNotUseHelmet") }, -- this is to allow for custom mod without saying the other is parsed
+	["can't use helmets"] = { flag("CanNotUseHelmet") }, -- Dance with Death
 	["can't use other rings"] = { mod("CanNotUseRightRing", "Flag", 1, { type = "DisablesItem", slotName = "Ring 2" }, { type = "SlotNumber", num = 1 }), mod("CanNotUseLeftRing", "Flag", 1, { type = "DisablesItem", slotName = "Ring 1" }, { type = "SlotNumber", num = 2 }) },
 	["uses both hand slots"] = { mod("CanNotUseRightWeapon", "Flag", 1, { type = "DisablesItem", slotName = "Weapon 2" }, { type = "SlotNumber", num = 1 }), mod("CanNotUseLeftWeapon", "Flag", 1, { type = "DisablesItem", slotName = "Weapon 1" }, { type = "SlotNumber", num = 2 }) },
 	["can't use flask in fifth slot"] = { mod("CanNotUseFifthFlask", "Flag", 1, { type = "DisablesItem", slotName = "Flask 5", excludeItemType = "Tincture" }) },
