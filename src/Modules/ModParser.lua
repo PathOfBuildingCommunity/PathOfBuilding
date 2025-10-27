@@ -2829,6 +2829,7 @@ local specialModList = {
 	["can't use amulets"] = { mod("CanNotUseAmulet", "Flag", 1, { type = "DisablesItem", slotName = "Amulet" }) },
 	["can't use belts"] = { mod("CanNotUseBelt", "Flag", 1, { type = "DisablesItem", slotName = "Belt" }) },
 	["%+1 ring slot"] = { flag("AdditionalRingSlot") },
+	["utility flasks are disabled"] = { flag("UtilityFlasksDoNotApplyToPlayer") },
 	-- Item local modifiers
 	["has no sockets"] = { flag("NoSockets") },
 	["reflects your other ring"] = {
@@ -4628,7 +4629,6 @@ local specialModList = {
 	},
 	-- Flasks
 	["flasks do not apply to you"] = { flag("FlasksDoNotApplyToPlayer") },
-	["utility flasks are disabled"] = { flag("UtilityFlasksDoNotApplyToPlayer") },
 	["flasks apply to your zombies and spectres"] = { flag("FlasksApplyToMinion", { type = "SkillName", skillNameList = { "Raise Zombie", "Raise Spectre" }, includeTransfigured = true }) },
 	["flasks apply to your raised zombies and spectres"] = { flag("FlasksApplyToMinion", { type = "SkillName", skillNameList = { "Raise Zombie", "Raise Spectre" }, includeTransfigured = true }) },
 	["flasks you use apply to your raised zombies and spectres"] = { flag("FlasksApplyToMinion", { type = "SkillName", skillNameList = { "Raise Zombie", "Raise Spectre" }, includeTransfigured = true }) },
