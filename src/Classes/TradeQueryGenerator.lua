@@ -779,7 +779,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	elseif slot.slotName == "Amulet" then
 		itemCategoryQueryStr = "accessory.amulet"
 		itemCategory = "Amulet"
-	elseif slot.slotName == "Ring 1" or slot.slotName == "Ring 2" then
+	elseif slot.slotName == "Ring 1" or slot.slotName == "Ring 2" or slot.slotName == "Ring 3" then
 		itemCategoryQueryStr = "accessory.ring"
 		itemCategory = "Ring"
 	elseif slot.slotName == "Belt" then

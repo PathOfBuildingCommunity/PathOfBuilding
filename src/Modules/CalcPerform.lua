@@ -571,7 +571,7 @@ local function determineCursePriority(curseName, activeSkill)
 	elseif source ~= "" then
 		sourcePriority = data.cursePriority["CurseFromEquipment"]
 	end
-	if source ~= "" and slotPriority == data.cursePriority["Ring 2"] then
+	if source ~= "" and (slotPriority == data.cursePriority["Ring 2"] or slotPriority == data.cursePriority["Ring 3"]) then
 		-- Implicit and explicit curses from rings have equal priority; only curses from socketed skill gems care about which ring slot they're equipped in
 		slotPriority = data.cursePriority["Ring 1"]
 	end
@@ -1432,9 +1432,11 @@ function calcs.perform(env, skipEHP)
 	local function mergeFlasks(flasks, onlyRecovery, checkNonRecoveryFlasksForMinions)
 		local flaskBuffs = { }
 		local flaskConditions = {}
+		local flaskConditionsNonUtility = {}
 		local flaskBuffsPerBase = {}
 		local flaskBuffsNonPlayer = {}
 		local flaskBuffsPerBaseNonPlayer = {}
+		local flaskBuffsNonUtility = {}
 
 		local function calcFlaskMods(item, baseName, buffModList, modList, onlyMinion)
 			local flaskEffectInc = effectInc + item.flaskData.effectInc
@@ -1479,6 +1481,7 @@ function calcs.perform(env, skipEHP)
 				if not onlyRecovery then
 					mergeBuff(srcList, flaskBuffs, key)
 					mergeBuff(srcList, flaskBuffsPerBase[item.baseName], key)
+					mergeBuff(srcList, flaskBuffsNonUtility, key)
 				end
 				if (not onlyRecovery or checkNonRecoveryFlasksForMinions) and (flasksApplyToMinion or quickSilverAppliesToAllies or (nonUniqueFlasksApplyToMinion and item.rarity ~= "UNIQUE" and item.rarity ~= "RELIC")) then
 					srcList = new("ModList")
@@ -1493,12 +1496,18 @@ function calcs.perform(env, skipEHP)
 			flaskBuffsPerBase[item.baseName] = flaskBuffsPerBase[item.baseName] or {}
 			flaskBuffsPerBaseNonPlayer[item.baseName] = flaskBuffsPerBaseNonPlayer[item.baseName] or {}
 			flaskConditions["UsingFlask"] = true
+			flaskConditionsNonUtility["UsingFlask"] = true
 			flaskConditions["Using"..item.baseName:gsub("%s+", "")] = true
+			if item.base.flask.life or item.base.flask.mana then
+				flaskConditionsNonUtility["Using"..item.baseName:gsub("%s+", "")] = true
+			end
 			if item.base.flask.life and not modDB:Flag(nil, "CannotRecoverLifeOutsideLeech") then
 				flaskConditions["UsingLifeFlask"] = true
+				flaskConditionsNonUtility["UsingLifeFlask"] = true
 			end
 			if item.base.flask.mana then
 				flaskConditions["UsingManaFlask"] = true
+				flaskConditionsNonUtility["UsingManaFlask"] = true
 			end
 
 			if onlyRecovery then
@@ -1515,7 +1524,14 @@ function calcs.perform(env, skipEHP)
 				calcFlaskMods(item, item.baseName, item.buffModList, item.modList)
 			end
 		end
-		if not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
+		if modDB:Flag(nil, "UtilityFlasksDoNotApplyToPlayer") then
+			for flaskCond, status in pairs(flaskConditionsNonUtility) do
+				modDB.conditions[flaskCond] = status
+			end
+			for _, buffModList in pairs(flaskBuffsNonUtility) do
+				modDB:AddList(buffModList)
+			end
+		elseif not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
 			for flaskCond, status in pairs(flaskConditions) do
 				modDB.conditions[flaskCond] = status
 			end
