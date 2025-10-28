@@ -3866,10 +3866,12 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 
-		-- Note: "Elemental Overload" only affects `Chance`, if "Perfect Agony" (or similar) is also in effect. Otherwise only `DotMulti` is affected, which is handled later
-		if modDB:Flag(nil, "AilmentsAreNeverFromCrit") and modDB:Flag(nil, "AilmentsOnlyFromCrit") then 
+		-- Note: "Elemental Overload" and "Perfect Agony" interactions as per wiki: https://www.poewiki.net/wiki/Elemental_Overload#Mechanics
+		-- As of 3.25 EO also disables chance-based modifiers exclusive to critical strikes like "Adder's Touch"
+		-- Perfect Agony + Elemental Overload completely disables ailment application
+		if modDB:Flag(nil, "AilmentsAreNeverFromCrit") then
 			for _, ailment in ipairs(ailmentTypeList) do
-				output[ailment.."ChanceOnCrit"] = 0
+				output[ailment.."ChanceOnCrit"] = modDB:Flag(nil, "AilmentsOnlyFromCrit") and 0 or output[ailment.."ChanceOnHit"] 
 			end
 		end
 
