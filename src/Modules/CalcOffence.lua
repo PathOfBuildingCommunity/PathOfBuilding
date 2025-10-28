@@ -4960,7 +4960,7 @@ function calcs.offence(env, actor, activeSkill)
 					}
 				end
 				-- Sets the crit strike condition to match ailment mode.
-				if ailmentMode == "CRIT" then
+				if ailmentMode == "CRIT" and (not modDB:Flag(nil, "AilmentsAreNeverFromCrit")) then
 					cfg.skillCond["CriticalStrike"] = true
 				else
 					cfg.skillCond["CriticalStrike"] = false
