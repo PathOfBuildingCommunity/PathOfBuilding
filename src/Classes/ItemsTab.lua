@@ -3596,16 +3596,38 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		local flavourTable = flavourLookup[item.title]
 		if flavourTable then
 			local flavour = nil
-
 			if item.title == "Grand Spectrum" then
 				local selectedFlavourId = nil
-				local baseName = item.baseName
-				if baseName == "Ruby" then
-					selectedFlavourId = "FourUniqueJewel1"
-				elseif baseName == "Emerald" then
-					selectedFlavourId = "FourUniqueJewel2"
-				elseif baseName == "Sapphire" then
-					selectedFlavourId = "FourUniqueJewel3"
+				for _, lineEntry in ipairs(tooltip.lines or {}) do
+					local lineText = lineEntry.text or ""
+					if lineText:find("Power") then
+						selectedFlavourId = "UniqueJewel170"
+						break
+					elseif lineText:find("Endurance") then
+						selectedFlavourId = "UniqueJewel168"
+						break
+					elseif lineText:find("Frenzy") then
+						selectedFlavourId = "UniqueJewel169"
+						break
+					elseif lineText:find("Elemental Damage") then
+						selectedFlavourId = "UniqueJewel168"
+						break
+					elseif lineText:find("Elemental Ailments") then
+						selectedFlavourId = "UniqueJewel166"
+						break
+					elseif lineText:find("Elemental Resistances") or lineText:find("Armour") then
+						selectedFlavourId = "UniqueJewel76"
+						break
+					elseif lineText:find("Maximum Life") then
+						selectedFlavourId = "UniqueJewel165"
+						break
+					elseif lineText:find("Critical Strike Multiplier") then
+						selectedFlavourId = "UniqueJewel167"
+						break
+					elseif lineText:find("Critical Strike Chance") or lineText:find("Mana") then
+						selectedFlavourId = "UniqueJewel75"
+						break
+					end
 				end
 				if selectedFlavourId then
 					flavour = flavourTable[selectedFlavourId]
