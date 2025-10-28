@@ -1167,6 +1167,9 @@ function ItemClass:BuildRaw()
 	if self.mirrored then
 		t_insert(rawLines, "Mirrored")
 	end
+	if self.fractured then
+		t_insert(rawLines, "Fractured Item")
+	end
 	if self.corrupted or self.scourge then
 		t_insert(rawLines, "Corrupted")
 	end

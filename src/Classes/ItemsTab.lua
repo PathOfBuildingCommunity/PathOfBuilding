@@ -3208,6 +3208,22 @@ function ItemsTabClass:SetTooltipHeaderInfluence(tooltip, item)
 	if item.fractured then
 		tooltip.influenceHeader1 = "Fractured"
 	end
+	if item.cleansing then
+		if not tooltip.influenceHeader1 then
+			tooltip.influenceHeader1 = "Exarch"
+		else
+			tooltip.influenceHeader2 = "Exarch"
+			return
+		end
+	end
+	if item.tangle then
+		if not tooltip.influenceHeader1 then
+			tooltip.influenceHeader1 = "Eater"
+		else
+			tooltip.influenceHeader2 = "Eater"
+			return
+		end
+	end
 	if item.shaper then
 		if not tooltip.influenceHeader1 then
 			tooltip.influenceHeader1 = "Shaper"
@@ -3256,6 +3272,11 @@ function ItemsTabClass:SetTooltipHeaderInfluence(tooltip, item)
 			return
 		end
 	end
+	if item.synthesised then -- Bugged standard items use both icons for other influence, Synthesis is overwritten.
+		if not tooltip.influenceHeader1 then
+			tooltip.influenceHeader1 = "Synthesis"
+		end
+	end
 	if tooltip.influenceHeader1 and not tooltip.influenceHeader2 then
 		tooltip.influenceHeader2 = tooltip.influenceHeader1
 	end
@@ -3283,7 +3304,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		tooltip:AddLine(20, rarityCode..item.namePrefix..item.baseName:gsub(" %(.+%)","")..item.nameSuffix)
 	end
 	for _, curInfluenceInfo in ipairs(influenceInfo) do
-		if item[curInfluenceInfo.key] then
+		if item[curInfluenceInfo.key] and not main.showFlavourText then
 			tooltip:AddLine(16, curInfluenceInfo.color..curInfluenceInfo.display.." Item")
 		end
 	end
