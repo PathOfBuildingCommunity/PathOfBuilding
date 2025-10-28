@@ -7742,13 +7742,10 @@ c["Can have up to 3 additional Remote Mines placed at a time"]={{[1]={flags=0,ke
 c["Can have up to 5 Implicit Modifiers while Item has this Modifier"]={nil,"Can have up to 5 Implicit Modifiers while Item has this Modifier "}
 c["Can have up to 5 Implicit Modifiers while Item has this Modifier 200% increased Armour and Energy Shield"]={nil,"Can have up to 5 Implicit Modifiers while Item has this Modifier 200% increased Armour and Energy Shield "}
 c["Can have up to 5 additional Traps placed at a time"]={{[1]={flags=0,keywordFlags=0,name="ActiveTrapLimit",type="BASE",value=5}},nil}
-c["Can't use Chest armour"]={{[1]={[1]={slotName="Body Armour",type="DisablesItem"},flags=0,keywordFlags=0,name="CanNotUseBody",type="Flag",value=1}},nil}
-c["Can't use Flask in Fifth Slot"]={{[1]={[1]={excludeItemType="Tincture",slotName="Flask 5",type="DisablesItem"},flags=0,keywordFlags=0,name="CanNotUseFifthFlask",type="Flag",value=1}},nil}
-c["Can't use Helmets"]={nil,"Can't use Helmets "}
-c["Can't use Helmets Your Critical Strike Chance is Lucky"]={nil,"Can't use Helmets Your Critical Strike Chance is Lucky "}
-c["Can't use Helmets Your Critical Strike Chance is Lucky Your Damage with Critical Strikes is Lucky"]={nil,"Can't use Helmets Your Critical Strike Chance is Lucky Your Damage with Critical Strikes is Lucky "}
-c["Can't use Helmets Your Critical Strike Chance is Lucky Your Damage with Critical Strikes is Lucky Enemies' Damage with Critical Strikes against you is Lucky"]={nil,"Can't use Helmets Your Critical Strike Chance is Lucky Your Damage with Critical Strikes is Lucky Enemies' Damage with Critical Strikes  is Lucky "}
-c["Can't use other Rings"]={{[1]={[1]={slotName="Ring 2",type="DisablesItem"},[2]={num=1,type="SlotNumber"},flags=0,keywordFlags=0,name="CanNotUseRightRing",type="Flag",value=1},[2]={[1]={slotName="Ring 1",type="DisablesItem"},[2]={num=2,type="SlotNumber"},flags=0,keywordFlags=0,name="CanNotUseLeftRing",type="Flag",value=1}},nil}
+c["Can't use Chest armour"]={{[1]={[1]={slotName="Body Armour",type="DisablesItem"},flags=0,keywordFlags=0,name="CanNotUseItem",type="Flag",value=1}},nil}
+c["Can't use Flask in Fifth Slot"]={{[1]={[1]={excludeItemType="Tincture",slotName="Flask 5",type="DisablesItem"},flags=0,keywordFlags=0,name="CanNotUseItem",type="Flag",value=1}},nil}
+c["Can't use Helmets"]={{[1]={[1]={slotName="Helmet",type="DisablesItem"},flags=0,keywordFlags=0,name="CanNotUseItem",type="Flag",value=1}},nil}
+c["Can't use other Rings"]={{[1]={[1]={slotName="Ring 2",type="DisablesItem"},[2]={num=1,type="SlotNumber"},flags=0,keywordFlags=0,name="CanNotUseItem",type="Flag",value=1},[2]={[1]={slotName="Ring 1",type="DisablesItem"},[2]={num=2,type="SlotNumber"},flags=0,keywordFlags=0,name="CanNotUseItem",type="Flag",value=1}},nil}
 c["Cannot Be Slowed to Below Base Speed"]={{[1]={[1]={effectType="Global",type="GlobalEffect",unscalable=true},flags=0,keywordFlags=0,name="MinimumActionSpeed",type="MAX",value=100}},nil}
 c["Cannot Be Stunned while you have Energy Shield"]={{[1]={[1]={type="Condition",var="HaveEnergyShield"},flags=0,keywordFlags=0,name="StunImmune",type="FLAG",value=true}},nil}
 c["Cannot Block"]={{[1]={flags=0,keywordFlags=0,name="CannotBlockAttacks",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="CannotBlockSpells",type="FLAG",value=true}},nil}
@@ -11909,7 +11906,7 @@ c["Used when Charges reach full"]={nil,"Used when Charges reach full "}
 c["Used when Charges reach full Creates a Smoke Cloud on Use"]={nil,"Used when Charges reach full Creates a Smoke Cloud on Use "}
 c["Used when Charges reach full Gain 3 Charges when you are Hit by an Enemy"]={nil,"Used when Charges reach full Gain 3 Charges when you are Hit by an Enemy "}
 c["Used when Charges reach full Taunts nearby Enemies on use"]={nil,"Used when Charges reach full Taunts nearby Enemies on use "}
-c["Uses both hand slots"]={{[1]={[1]={slotName="Weapon 2",type="DisablesItem"},[2]={num=1,type="SlotNumber"},flags=0,keywordFlags=0,name="CanNotUseRightWeapon",type="Flag",value=1},[2]={[1]={slotName="Weapon 1",type="DisablesItem"},[2]={num=2,type="SlotNumber"},flags=0,keywordFlags=0,name="CanNotUseLeftWeapon",type="Flag",value=1}},nil}
+c["Uses both hand slots"]={{[1]={[1]={slotName="Weapon 2",type="DisablesItem"},[2]={num=1,type="SlotNumber"},flags=0,keywordFlags=0,name="CanNotUseItem",type="Flag",value=1},[2]={[1]={slotName="Weapon 1",type="DisablesItem"},[2]={num=2,type="SlotNumber"},flags=0,keywordFlags=0,name="CanNotUseItem",type="Flag",value=1}},nil}
 c["Utility Flasks gain 2 charges every 3 seconds"]={{[1]={flags=0,keywordFlags=0,name="UtilityFlaskChargesGenerated",type="BASE",value=0.66666666666667}},nil}
 c["Utility Flasks gain 3 charges every 3 seconds"]={{[1]={flags=0,keywordFlags=0,name="UtilityFlaskChargesGenerated",type="BASE",value=1}},nil}
 c["Vaal Attack Skills Cost Rage instead of requiring Souls to Use"]={{[1]={[1]={skillType=42,type="SkillType"},flags=1,keywordFlags=0,name="CostRageInsteadOfSouls",type="FLAG",value=true}},nil}

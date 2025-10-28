@@ -65,19 +65,6 @@ local function mergeBuff(src, destTable, destKey)
 	end
 end
 
--- Merge keystone modifiers
-local function mergeKeystones(env)
-	for _, modObj in ipairs(env.modDB:Tabulate("LIST", nil, "Keystone")) do
-		if not env.keystonesAdded[modObj.value] and env.spec.tree.keystoneMap[modObj.value] then
-			env.keystonesAdded[modObj.value] = true
-			local fromTree = modObj.mod.source and not modObj.mod.source:lower():match("tree")
-			for _, mod in ipairs(env.spec.tree.keystoneMap[modObj.value].modList) do
-				env.modDB:AddMod(fromTree and modLib.setSource(mod, modObj.mod.source) or mod)
-			end
-		end
-	end
-end
-
 function doActorLifeMana(actor)
 	local modDB = actor.modDB
 	local output = actor.output
@@ -1048,8 +1035,7 @@ function calcs.perform(env, skipEHP)
 	local enemyDB = env.enemyDB
 
 	-- Merge keystone modifiers
-	env.keystonesAdded = { }
-	mergeKeystones(env)
+	modLib.mergeKeystones(env, env.modDB)
 
 	-- Build minion skills
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
@@ -1630,7 +1616,7 @@ function calcs.perform(env, skipEHP)
 		mergeTinctures(env.tinctures)
 
 		-- Merge keystones again to catch any that were added by flasks
-		mergeKeystones(env)
+		modLib.mergeKeystones(env, env.modDB)
 	end
 
 	-- Calculate attributes and life/mana pools
@@ -3044,7 +3030,7 @@ function calcs.perform(env, skipEHP)
 	end
 
 	-- Merge keystones again to catch any that were added by buffs
-	mergeKeystones(env)
+	modLib.mergeKeystones(env, env.modDB)
 
 	-- Special handling for Dancing Dervish
 	if modDB:Flag(nil, "DisableWeapons") then

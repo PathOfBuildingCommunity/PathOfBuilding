@@ -651,6 +651,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		env.allocNodes = nodes
 		env.initialNodeModDB = calcs.buildModListForNodeList(env, env.allocNodes, true)
+		modLib.mergeKeystones(env, env.initialNodeModDB)
 	end
 
 	if allocatedNotableCount and allocatedNotableCount > 0 then
@@ -800,8 +801,20 @@ function calcs.initEnv(build, mode, override, specEnv)
 		if not env.configInput.ignoreItemDisablers then
 			local itemDisabled = {}
 			local itemDisablers = {}
-			if modDB:Flag(nil, "CanNotUseHelm") then
-				itemDisabled["Helmet"] = { disabled = true, size = 1 }
+			-- First check tree nodes for disabled items.  This will break if there's ever an anointable node that disables items
+			for _, mod in ipairs(env.initialNodeModDB:Tabulate("Flag", { source = "Tree" }, "CanNotUseItem")) do
+				mod = mod.mod
+				-- checks if it disables another slot
+				for _, tag in ipairs(mod) do
+					if tag.type == "DisablesItem" then
+						if tag.excludeItemType and items[tag.slotName] and items[tag.slotName].type == tag.excludeItemType then
+							break
+						end
+						itemDisablers[mod.source] = tag.slotName
+						itemDisabled[tag.slotName] = mod.source
+						break
+					end
+				end
 			end
 			for _, slot in pairs(build.itemsTab.orderedSlots) do
 				local slotName = slot.slotName
