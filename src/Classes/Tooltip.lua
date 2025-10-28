@@ -226,7 +226,7 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 				curX = curX + textW
 
 				local handle = recipeImages[recipeName]
-				t_insert(drawStack, {handle, curX, y, iconW, iconW})
+				t_insert(drawStack, {{handle = handle}, curX, y, iconW, iconW})
 
 				curX = curX + iconW + padding
 			end
@@ -407,12 +407,12 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 				SetDrawColor(unpack(self.color))
 			end
 			if not skip then
-				SetDrawColor(1,1,1)
 				if line[1] and line[1].handle then
 					local args = { line[1].handle, line[2], line[3], line[4], line[5] }
 					for _, v in ipairs(line[1]) do
 						t_insert(args, v)
 					end
+					SetDrawColor(1,1,1)
 					DrawImage(unpack(args))
 				else
 					DrawImage(unpack(line))
