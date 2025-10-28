@@ -3201,6 +3201,66 @@ function ItemsTabClass:AddItemSetTooltip(tooltip, itemSet)
 	end
 end
 
+function ItemsTabClass:SetTooltipHeaderInfluence(tooltip, item)
+	tooltip.influenceHeader1 = nil
+	tooltip.influenceHeader2 = nil
+	-- If only one influence, we copy to second header. We check shaper and elder first so that Venarius' Astrolabe shows the correct icons.
+	if item.fractured then
+		tooltip.influenceHeader1 = "Fractured"
+	end
+	if item.shaper then
+		if not tooltip.influenceHeader1 then
+			tooltip.influenceHeader1 = "Shaper"
+		else
+			tooltip.influenceHeader2 = "Shaper"
+			return
+		end
+	end
+	if item.elder then
+		if not tooltip.influenceHeader1 then
+			tooltip.influenceHeader1 = "Elder"
+		else
+			tooltip.influenceHeader2 = "Elder"
+			return
+		end
+	end
+	if item.crusader then
+		if not tooltip.influenceHeader1 then
+			tooltip.influenceHeader1 = "Crusader"
+		else
+			tooltip.influenceHeader2 = "Crusader"
+			return
+		end
+	end
+	if item.eyrie then
+		if not tooltip.influenceHeader1 then
+			tooltip.influenceHeader1 = "Redeemer"
+		else
+			tooltip.influenceHeader2 = "Redeemer"
+			return
+		end
+	end
+	if item.basilisk then
+		if not tooltip.influenceHeader1 then
+			tooltip.influenceHeader1 = "Hunter"
+		else
+			tooltip.influenceHeader2 = "Hunter"
+			return
+		end
+	end
+	if item.adjudicator then
+		if not tooltip.influenceHeader1 then
+			tooltip.influenceHeader1 = "Warlord"
+		else
+			tooltip.influenceHeader2 = "Warlord"
+			return
+		end
+	end
+	if tooltip.influenceHeader1 and not tooltip.influenceHeader2 then
+		tooltip.influenceHeader2 = tooltip.influenceHeader1
+	end
+end
+
 function ItemsTabClass:FormatItemSource(text)
 	return text:gsub("unique{([^}]+)}",colorCodes.UNIQUE.."%1"..colorCodes.SOURCE)
 			   :gsub("normal{([^}]+)}",colorCodes.NORMAL.."%1"..colorCodes.SOURCE)
@@ -3215,6 +3275,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	tooltip.tooltipHeader = item.rarity
 	tooltip.center = true
 	tooltip.color = rarityCode
+	self:SetTooltipHeaderInfluence(tooltip, item)
 	if item.title then
 		tooltip:AddLine(20, rarityCode..item.title)
 		tooltip:AddLine(20, rarityCode..item.baseName:gsub(" %(.+%)",""))
@@ -3226,10 +3287,10 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			tooltip:AddLine(16, curInfluenceInfo.color..curInfluenceInfo.display.." Item")
 		end
 	end
-	if item.fractured then
+	if item.fractured and not main.showFlavourText then
 		tooltip:AddLine(16, colorCodes.FRACTURED.."Fractured Item")
 	end
-	if item.synthesised then
+	if item.synthesised and not main.showFlavourText then
 		tooltip:AddLine(16, colorCodes.CRAFTED.."Synthesised Item")
 	end
 	tooltip:AddSeparator(10)

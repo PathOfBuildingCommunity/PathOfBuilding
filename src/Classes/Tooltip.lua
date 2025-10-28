@@ -290,6 +290,16 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			ttW = titleW + 50
 		end
 	end
+	local headerInfluence = {
+		Fractured = "Assets/FracturedIcon.png",
+		Veiled = "Assets/VeiledIcon.png",
+		Shaper = "Assets/ShaperIcon.png",
+		Elder = "Assets/ElderIcon.png",
+		Redeemer = "Assets/RedeemerIcon.png",
+		Hunter = "Assets/HunterIcon.png",
+		Crusader = "Assets/CrusaderIcon.png",
+		Warlord = "Assets/WarlordIcon.png",
+	}
 	local headerConfigs = {
 		RELIC = {left="Assets/ItemsHeaderFoilLeft.png",middle="Assets/ItemsHeaderFoilMiddle.png",right="Assets/ItemsHeaderFoilRight.png",height=53,sideWidth=47,middleWidth=52,textYOffset=2},
 		UNIQUE = {left="Assets/ItemsHeaderUniqueLeft.png",middle="Assets/ItemsHeaderUniqueMiddle.png",right="Assets/ItemsHeaderUniqueRight.png",height=53,sideWidth=47,middleWidth=52,textYOffset=2},
@@ -365,8 +375,18 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		local headerTotalWidth = ttW - 2 * BORDER_WIDTH
 		local headerMiddleAreaWidth = m_max(0, headerTotalWidth - 2 * headerSideWidth)
 
-		-- Draw left cap
+		if self.influenceHeader1 then
+			self.influenceIcon1 = NewImageHandle()
+			self.influenceIcon1:Load(headerInfluence[self.influenceHeader1])
+			self.influenceIcon2 = NewImageHandle()
+			self.influenceIcon2:Load(headerInfluence[self.influenceHeader2])
+		end
+
+		-- Draw left cap first, then influence icon on top
 		DrawImage(self.headerLeft, headerX, headerY, headerSideWidth, headerHeight)
+		if self.influenceHeader1 then
+			DrawImage(self.influenceIcon1, headerX+5, headerY+(headerHeight/4), headerSideWidth/2+4, headerHeight/2)
+		end
 
 		-- Draw middle fill
 		if headerMiddleAreaWidth > 0 then
@@ -384,6 +404,9 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 
 		-- Draw right cap
 		DrawImage(self.headerRight, headerX + headerTotalWidth - headerSideWidth, headerY, headerSideWidth, headerHeight)
+		if self.influenceHeader2 then
+			DrawImage(self.influenceIcon2, headerX + headerTotalWidth - headerSideWidth+10, headerY+(headerHeight/4), headerSideWidth/2+4, headerHeight/2)
+		end
 	end
 
 	-- Draw lines and images
