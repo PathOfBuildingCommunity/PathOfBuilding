@@ -50,10 +50,10 @@ local catalystQualityFormat = {
 local flavourLookup = {}
 
 for _, entry in pairs(data.flavourText) do
-    if entry.name and entry.id and entry.text then
-        flavourLookup[entry.name] = flavourLookup[entry.name] or {}
-        flavourLookup[entry.name][entry.id] = entry.text
-    end
+	if entry.name and entry.id and entry.text then
+		flavourLookup[entry.name] = flavourLookup[entry.name] or {}
+		flavourLookup[entry.name][entry.id] = entry.text
+	end
 end
 
 
@@ -3213,7 +3213,7 @@ function ItemsTabClass:SetTooltipHeaderInfluence(tooltip, item)
 		end
 	end
 
-	if item.title:find("Replica") then
+	if item.title and item.title:find("Replica") then
 		addInfluence("Experimented")
 	-- Eater and Exarch combo takes priority over fractured icon.
 	elseif item.cleansing and item.tangle then
