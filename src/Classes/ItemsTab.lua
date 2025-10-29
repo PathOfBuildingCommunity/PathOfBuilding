@@ -3204,79 +3204,53 @@ end
 function ItemsTabClass:SetTooltipHeaderInfluence(tooltip, item)
 	tooltip.influenceHeader1 = nil
 	tooltip.influenceHeader2 = nil
-	-- If only one influence, we copy to second header. We check shaper and elder first so that Venarius' Astrolabe shows the correct icons.
-	if item.fractured then
-		tooltip.influenceHeader1 = "Fractured"
-	end
-	if item.cleansing then
+
+	local function addInfluence(name)
 		if not tooltip.influenceHeader1 then
-			tooltip.influenceHeader1 = "Exarch"
-		else
-			tooltip.influenceHeader2 = "Exarch"
-			return
+			tooltip.influenceHeader1 = name
+		elseif not tooltip.influenceHeader2 then
+			tooltip.influenceHeader2 = name
 		end
 	end
-	if item.tangle then
-		if not tooltip.influenceHeader1 then
-			tooltip.influenceHeader1 = "Eater"
-		else
-			tooltip.influenceHeader2 = "Eater"
-			return
+
+	-- Eater and Exarch combo takes priority over fractured icon.
+	if item.cleansing and item.tangle then
+		addInfluence("Exarch")
+		addInfluence("Eater")
+	else
+		-- Dual influence with fracture will show fractured icon and highest priority influence.
+		if item.fractured then
+			addInfluence("Fractured")
+		end
+		if item.cleansing then
+			addInfluence("Exarch")
+		end
+		if item.tangle then
+			addInfluence("Eater")
+		end
+		if item.shaper then
+			addInfluence("Shaper")
+		end
+		if item.elder then
+			addInfluence("Elder")
+		end
+		if item.crusader then
+			addInfluence("Crusader")
+		end
+		if item.eyrie then
+			addInfluence("Redeemer")
+		end
+		if item.basilisk then
+			addInfluence("Hunter")
+		end
+		if item.adjudicator then
+			addInfluence("Warlord")
+		end
+		if item.synthesised and not tooltip.influenceHeader1 then
+			addInfluence("Synthesis")
 		end
 	end
-	if item.shaper then
-		if not tooltip.influenceHeader1 then
-			tooltip.influenceHeader1 = "Shaper"
-		else
-			tooltip.influenceHeader2 = "Shaper"
-			return
-		end
-	end
-	if item.elder then
-		if not tooltip.influenceHeader1 then
-			tooltip.influenceHeader1 = "Elder"
-		else
-			tooltip.influenceHeader2 = "Elder"
-			return
-		end
-	end
-	if item.crusader then
-		if not tooltip.influenceHeader1 then
-			tooltip.influenceHeader1 = "Crusader"
-		else
-			tooltip.influenceHeader2 = "Crusader"
-			return
-		end
-	end
-	if item.eyrie then
-		if not tooltip.influenceHeader1 then
-			tooltip.influenceHeader1 = "Redeemer"
-		else
-			tooltip.influenceHeader2 = "Redeemer"
-			return
-		end
-	end
-	if item.basilisk then
-		if not tooltip.influenceHeader1 then
-			tooltip.influenceHeader1 = "Hunter"
-		else
-			tooltip.influenceHeader2 = "Hunter"
-			return
-		end
-	end
-	if item.adjudicator then
-		if not tooltip.influenceHeader1 then
-			tooltip.influenceHeader1 = "Warlord"
-		else
-			tooltip.influenceHeader2 = "Warlord"
-			return
-		end
-	end
-	if item.synthesised then -- Bugged standard items use both icons for other influence, Synthesis is overwritten.
-		if not tooltip.influenceHeader1 then
-			tooltip.influenceHeader1 = "Synthesis"
-		end
-	end
+
 	if tooltip.influenceHeader1 and not tooltip.influenceHeader2 then
 		tooltip.influenceHeader2 = tooltip.influenceHeader1
 	end
