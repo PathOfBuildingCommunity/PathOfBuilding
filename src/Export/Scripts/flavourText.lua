@@ -95,8 +95,9 @@ local index = 1
 
 -- Export forced names first
 for _, entry in ipairs(forcedNameList) do
-	local id = entry.id
+	-- We use Text2 because Words.Text has "The Immortan" instead of "The Road Warrior" in PoB2. In PoB, Text seems to have some names with leading spaces.
 	local name = entry.name
+	local id = entry.id
 	local textLines = flavourTextById[id]
 
 	if textLines then
