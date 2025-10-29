@@ -3224,6 +3224,9 @@ function ItemsTabClass:SetTooltipHeaderInfluence(tooltip, item)
 		if item.fractured then
 			addInfluence("Fractured")
 		end
+		if item.veiled then
+			addInfluence("Veiled")
+		end
 		if item.cleansing then
 			addInfluence("Exarch")
 		end

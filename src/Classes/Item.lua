@@ -369,6 +369,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 
 	while self.rawLines[l] do	
 		local line = self.rawLines[l]
+		if line == "Veiled Prefix" or line == "Veiled Suffix" then
+			self.veiled = true
+		end
 		if flaskBuffLines and flaskBuffLines[line] then
 			flaskBuffLines[line] = nil
 		elseif tinctureBuffLines and tinctureBuffLines[line] then
