@@ -1213,7 +1213,7 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 				gemShown[activeEffect.srcInstance] = true
 			end
 		elseif activeSkill.minion then
-			-- if `activeSkill.minion ~= nil` and `activeSkill.minion.mainSkill == nil`, we need to set `buildFlag = true` to fix this minion
+			-- if `activeSkill.minion ~= nil` and `activeSkill.minion.mainSkill == nil`, we need to set `buildFlag = true` to fix this minion; see pull request #9062 for more details.
 			self.buildFlag = true
 		end
 	end

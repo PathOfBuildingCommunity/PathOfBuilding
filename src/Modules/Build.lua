@@ -1477,7 +1477,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 						controls.mainSkillMinionSkill.shown = true
 						controls.mainSkillMinionSkill.enabled = #controls.mainSkillMinionSkill.list > 1
 					elseif activeSkill.minion then
-						-- if `activeSkill.minion ~= nil` and `activeSkill.minion.activeSkillList == nil`, we need to set `buildFlag = true` to fix this minion
+						-- if `activeSkill.minion ~= nil` and `activeSkill.minion.activeSkillList == nil`, we need to set `buildFlag = true` to fix this minion; see pull request #9062 for more details.
 						self.buildFlag = true
 					else
 						t_insert(controls.mainSkillMinion.list, "<No spectres in build>")
