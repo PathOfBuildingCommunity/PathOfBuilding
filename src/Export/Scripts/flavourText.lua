@@ -61,6 +61,7 @@ local forcedNameList = {
 	{ id = "UniqueBeltDemigods1", name = "Demigod's Bounty" },
 	{ id = "UniqueBodyDemigods", name = "Demigod's Dominance" },
 	{ id = "UniqueHelmetDemigods1", name = "Demigod's Immortality" },
+	{ id = "GraspingMailFlavourText", name = "Grasping Mail" },
 	-- add more as needed
 }
 
