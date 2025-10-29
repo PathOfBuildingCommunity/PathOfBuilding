@@ -340,8 +340,6 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		end
 	end
 
-	SetDrawColor(1, 1, 1)
-
 	local columns, maxColumnHeight, drawStack = self:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 
 	-- background shading currently must be drawn before text lines.  API change will allow something like the commented lines below
@@ -386,6 +384,9 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			self.influenceIcon2:Load(headerInfluence[self.influenceHeader2])
 		end
 
+		if self.tooltipHeader == "RELIC" then -- Temporary
+			SetDrawColor(0.6,1,0.5)
+		end
 		-- Draw left cap first, then influence icon on top
 		DrawImage(self.headerLeft, headerX, headerY, headerSideWidth, headerHeight)
 		if self.influenceHeader1 then
