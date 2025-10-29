@@ -1391,7 +1391,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 	for i, socketGroup in pairs(self.skillsTab.socketGroupList) do
 		controls.mainSocketGroup.list[i] = { val = i, label = socketGroup.displayLabel }
 	end
-  controls.mainSocketGroup:CheckDroppedWidth(true)
+	controls.mainSocketGroup:CheckDroppedWidth(true)
 	if controls.warnings then controls.warnings.shown = #controls.warnings.lines > 0 end
 	if #controls.mainSocketGroup.list == 0 then
 		controls.mainSocketGroup.list[1] = { val = 1, label = "<No skills added yet>" }
@@ -1469,13 +1469,16 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 					controls.mainSkillMinion.enabled = #controls.mainSkillMinion.list > 1
 					controls.mainSkillMinion.shown = true
 					wipeTable(controls.mainSkillMinionSkill.list)
-					if activeSkill.minion then
+					if activeSkill.minion and activeSkill.minion.activeSkillList then
 						for _, minionSkill in ipairs(activeSkill.minion.activeSkillList) do
 							t_insert(controls.mainSkillMinionSkill.list, minionSkill.activeEffect.grantedEffect.name)
 						end
 						controls.mainSkillMinionSkill.selIndex = activeEffect.srcInstance["skillMinionSkill"..suffix] or 1
 						controls.mainSkillMinionSkill.shown = true
 						controls.mainSkillMinionSkill.enabled = #controls.mainSkillMinionSkill.list > 1
+					elseif activeSkill.minion then
+						-- if `activeSkill.minion ~= nil` and `activeSkill.minion.activeSkillList == nil`, we need to set `buildFlag = true` to fix this minion
+						self.buildFlag = true
 					else
 						t_insert(controls.mainSkillMinion.list, "<No spectres in build>")
 					end
