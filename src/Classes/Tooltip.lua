@@ -302,6 +302,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		Eater = "Assets/EaterIcon.png",
 		Exarch = "Assets/ExarchIcon.png",
 		Synthesis = "Assets/SynthesisIcon.png",
+		Experimented = "Assets/ExperimentedIcon.png",
 	}
 	local headerConfigs = {
 		RELIC = {left="Assets/ItemsHeaderFoilLeft.png",middle="Assets/ItemsHeaderFoilMiddle.png",right="Assets/ItemsHeaderFoilRight.png",height=53,sideWidth=47,middleWidth=52,textYOffset=2},

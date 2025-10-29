@@ -3213,8 +3213,10 @@ function ItemsTabClass:SetTooltipHeaderInfluence(tooltip, item)
 		end
 	end
 
+	if item.title:find("Replica") then
+		addInfluence("Experimented")
 	-- Eater and Exarch combo takes priority over fractured icon.
-	if item.cleansing and item.tangle then
+	elseif item.cleansing and item.tangle then
 		addInfluence("Exarch")
 		addInfluence("Eater")
 	else
