@@ -374,33 +374,36 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 	t_insert(self.skillSets[skillSetId].socketGroupList, socketGroup)
 end
 
-function SkillsTabClass:Load(xml, fileName)
-	self.activeSkillSetId = 0
-	self.skillSets = { }
-	self.skillSetOrderList = { }
-	-- Handle legacy configuration settings when loading `defaultGemLevel`
-	if xml.attrib.matchGemLevelToCharacterLevel == "true" then
-		self.controls.defaultLevel:SelByValue("characterLevel", "gemLevel")
-	elseif type(xml.attrib.defaultGemLevel) == "string" and tonumber(xml.attrib.defaultGemLevel) == nil then
-		self.controls.defaultLevel:SelByValue(xml.attrib.defaultGemLevel, "gemLevel")
-	else
-		self.controls.defaultLevel:SelByValue("normalMaximum", "gemLevel")
+function SkillsTabClass:Load(xml, fileName, appendSkills)
+	if not appendSkills then
+		self.activeSkillSetId = 0
+		self.skillSets = { }
+		self.skillSetOrderList = { }
+		-- Handle legacy configuration settings when loading `defaultGemLevel`
+		if xml.attrib.matchGemLevelToCharacterLevel == "true" then
+			self.controls.defaultLevel:SelByValue("characterLevel", "gemLevel")
+		elseif type(xml.attrib.defaultGemLevel) == "string" and tonumber(xml.attrib.defaultGemLevel) == nil then
+			self.controls.defaultLevel:SelByValue(xml.attrib.defaultGemLevel, "gemLevel")
+		else
+			self.controls.defaultLevel:SelByValue("normalMaximum", "gemLevel")
+		end
+		self.defaultGemLevel = self.controls.defaultLevel:GetSelValueByKey("gemLevel")
+		self.defaultGemQuality = m_max(m_min(tonumber(xml.attrib.defaultGemQuality) or 0, 23), 0)
+		self.controls.defaultQuality:SetText(self.defaultGemQuality or "")
+		if xml.attrib.sortGemsByDPS then
+			self.sortGemsByDPS = xml.attrib.sortGemsByDPS == "true"
+		end
+		self.controls.sortGemsByDPS.state = self.sortGemsByDPS
+		if xml.attrib.showAltQualityGems then
+			self.showAltQualityGems = xml.attrib.showAltQualityGems == "true"
+		end
+		self.controls.showAltQualityGems.state = self.showAltQualityGems
+		self.controls.showSupportGemTypes:SelByValue(xml.attrib.showSupportGemTypes or "ALL", "show")
+		self.controls.sortGemsByDPSFieldControl:SelByValue(xml.attrib.sortGemsByDPSField or "CombinedDPS", "type") 
+		self.showSupportGemTypes = self.controls.showSupportGemTypes:GetSelValueByKey("show")
+		self.sortGemsByDPSField = self.controls.sortGemsByDPSFieldControl:GetSelValueByKey("type")
 	end
-	self.defaultGemLevel = self.controls.defaultLevel:GetSelValueByKey("gemLevel")
-	self.defaultGemQuality = m_max(m_min(tonumber(xml.attrib.defaultGemQuality) or 0, 23), 0)
-	self.controls.defaultQuality:SetText(self.defaultGemQuality or "")
-	if xml.attrib.sortGemsByDPS then
-		self.sortGemsByDPS = xml.attrib.sortGemsByDPS == "true"
-	end
-	self.controls.sortGemsByDPS.state = self.sortGemsByDPS
-	if xml.attrib.showAltQualityGems then
-		self.showAltQualityGems = xml.attrib.showAltQualityGems == "true"
-	end
-	self.controls.showAltQualityGems.state = self.showAltQualityGems
-	self.controls.showSupportGemTypes:SelByValue(xml.attrib.showSupportGemTypes or "ALL", "show")
-	self.controls.sortGemsByDPSFieldControl:SelByValue(xml.attrib.sortGemsByDPSField or "CombinedDPS", "type") 
-	self.showSupportGemTypes = self.controls.showSupportGemTypes:GetSelValueByKey("show")
-	self.sortGemsByDPSField = self.controls.sortGemsByDPSFieldControl:GetSelValueByKey("type")
+
 	for _, node in ipairs(xml) do
 		if node.elem == "Skill" then
 			-- Old format, initialize skill sets if needed
@@ -412,7 +415,7 @@ function SkillsTabClass:Load(xml, fileName)
 		end
 
 		if node.elem == "SkillSet" then
-			local skillSet = self:NewSkillSet(tonumber(node.attrib.id))
+			local skillSet = self:NewSkillSet(not appendSkills and tonumber(node.attrib.id) or nil)
 			skillSet.title = node.attrib.title
 			t_insert(self.skillSetOrderList, skillSet.id)
 			for _, subNode in ipairs(node) do
@@ -420,8 +423,10 @@ function SkillsTabClass:Load(xml, fileName)
 			end
 		end
 	end
-	self:SetActiveSkillSet(tonumber(xml.attrib.activeSkillSet) or 1)
-	self:ResetUndo()
+	if not appendSkills then
+		self:SetActiveSkillSet(tonumber(xml.attrib.activeSkillSet) or 1)
+		self:ResetUndo()
+	end
 end
 
 function SkillsTabClass:Save(xml)

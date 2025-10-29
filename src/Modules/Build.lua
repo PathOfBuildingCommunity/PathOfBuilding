@@ -1824,17 +1824,26 @@ do
 	end
 end
 
-function buildMode:LoadDB(xmlText, fileName)
+function buildMode:ParseXML(xmlText, fileName)
 	-- Parse the XML
 	local dbXML, errMsg = common.xml.ParseXML(xmlText)
 	if errMsg and errMsg:match(".*file returns nil") then
 		main:OpenCloudErrorPopup(fileName)
-		return true
+		return nil
 	elseif errMsg then
 		launch:ShowErrMsg("^1"..errMsg)
-		return true
-	elseif dbXML[1].elem ~= "PathOfBuilding" then
+		return nil
+	elseif dbXML and dbXML[1].elem ~= "PathOfBuilding" then
 		launch:ShowErrMsg("^1Error parsing '%s': 'PathOfBuilding' root element missing", fileName)
+		return nil
+	end
+	return dbXML
+end
+
+function buildMode:LoadDB(xmlText, fileName)
+	-- Parse the XML
+	local dbXML = self:ParseXML(xmlText, fileName)
+	if not dbXML then
 		return true
 	end
 
@@ -1877,6 +1886,188 @@ function buildMode:LoadDBFile()
 	local xmlText = file:read("*a")
 	file:close()
 	return self:LoadDB(xmlText, self.dbFileName)
+end
+
+function buildMode:ImportLoadouts(xmlText, prefix)
+	-- Parse the XML
+	local dbXML = self:ParseXML(xmlText, self.dbFileName)
+	if not dbXML then
+		return true
+	end
+
+	-- Collect existing names from current build per category
+	local usedItemSetNames = {}
+	for _, itemSet in pairs(self.itemsTab.itemSets) do
+		usedItemSetNames[itemSet.title or "Default"] = true
+	end
+	local usedSkillSetNames = {}
+	for _, skillSet in pairs(self.skillsTab.skillSets) do
+		usedSkillSetNames[skillSet.title or "Default"] = true
+	end
+	local usedTreeSpecNames = {}
+	for _, spec in ipairs(self.treeTab.specList) do
+		usedTreeSpecNames[spec.title or "Default"] = true
+	end
+	local usedConfigSetNames = {}
+	for _, configSet in pairs(self.configTab.configSets) do
+		usedConfigSetNames[configSet.title or "Default"] = true
+	end
+
+	-- Pre-process the XML to add prefix and ensure unique names per category
+	local function addPrefixAndMakeUnique(node, usedNames)
+		local titleAttr = "title"
+		if node.attrib and node.attrib[titleAttr] then
+			local title = prefix .. (node.attrib[titleAttr] or "")
+			local baseName = title
+			local suffix = 2
+			while usedNames[title] do
+				title = baseName .. " (" .. suffix .. ")"
+				suffix = suffix + 1
+			end
+			usedNames[title] = true
+			node.attrib[titleAttr] = title
+		end
+	end
+
+	-- Extract relevant sections from imported XML
+	local itemsSection = nil
+	local skillsSection = nil
+	local treeSection = nil
+	local configSection = nil
+	local itemSetCount = 0
+	local skillSetCount = 0
+	local treeSpecCount = 0
+	local configSetCount = 0
+	for _, node in ipairs(dbXML[1]) do
+		if type(node) == "table" then
+			if node.elem == "Items" then
+				itemsSection = node
+				for _, n in ipairs(itemsSection) do
+					if n.elem == "ItemSet" then
+						addPrefixAndMakeUnique(n, usedItemSetNames)
+						itemSetCount = itemSetCount + 1
+					end
+				end
+			elseif node.elem == "Skills" then
+				skillsSection = node
+				for _, n in ipairs(skillsSection) do
+					if n.elem == "SkillSet" then
+						addPrefixAndMakeUnique(n, usedSkillSetNames)
+						skillSetCount = skillSetCount + 1
+					end
+				end
+			elseif node.elem == "Tree" then
+				treeSection = node
+				for _, n in ipairs(treeSection) do
+					if n.elem == "Spec" then
+						addPrefixAndMakeUnique(n, usedTreeSpecNames)
+						treeSpecCount = treeSpecCount + 1
+					end
+				end
+			elseif node.elem == "Config" then
+				configSection = node
+				for _, n in ipairs(configSection) do
+					if n.elem == "ConfigSet" then
+						addPrefixAndMakeUnique(n, usedConfigSetNames)
+						configSetCount = configSetCount + 1
+					end
+				end
+			end
+		end
+	end
+
+	if itemSetCount == 0 and skillSetCount == 0 and treeSpecCount == 0 and configSetCount == 0 then
+		main:OpenMessagePopup("Import Loadouts", "No loadouts (item sets, skill sets, tree specs, or config sets) found in the imported build.")
+		return
+	end
+
+	local itemIdMap = { }
+	local itemSetIdMap = { }
+	if itemsSection then
+		-- Load items and return mapping of old to new item and item set IDs
+		itemIdMap, itemSetIdMap = self.itemsTab:Load(itemsSection, self.dbFileName, true)
+	end
+
+	if skillsSection then
+		-- Remap item set references in skills
+		if next(itemSetIdMap) then
+			for _, skillSetNode in ipairs(skillsSection) do
+				if skillSetNode.elem == "SkillSet" then
+					for _, skillNode in ipairs(skillSetNode) do
+						if skillNode.elem == "Skill" then
+							for _, gemNode in ipairs(skillNode) do
+								if gemNode.elem == "Gem" then
+									local oldItemSetId = tonumber(gemNode.attrib.skillMinionItemSet)
+									if oldItemSetId and itemSetIdMap[oldItemSetId] then
+										gemNode.attrib.skillMinionItemSet = tostring(itemSetIdMap[oldItemSetId])
+									end
+									local oldItemSetCalcsId = tonumber(gemNode.attrib.skillMinionItemSetCalcs)
+									if oldItemSetCalcsId and itemSetIdMap[oldItemSetCalcsId] then
+										gemNode.attrib.skillMinionItemSetCalcs = tostring(itemSetIdMap[oldItemSetCalcsId])
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+
+		-- Load skills
+		self.skillsTab:Load(skillsSection, self.dbFileName, true)
+	end
+
+	if treeSection then
+		-- Remap jewel socket item IDs in tree
+		if next(itemIdMap) then
+			for _, specNode in ipairs(treeSection) do
+				if specNode.elem == "Spec" then
+					for _, child in ipairs(specNode) do
+						if child.elem == "Sockets" then
+							for _, socket in ipairs(child) do
+								if socket.elem == "Socket" then
+									local oldItemId = tonumber(socket.attrib.itemId)
+									if oldItemId and itemIdMap[oldItemId] then
+										socket.attrib.itemId = tostring(itemIdMap[oldItemId])
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+
+		-- Load tree specs
+		self.treeTab:Load(treeSection, self.dbFileName, true)
+		self.treeTab:PostLoad()
+	end
+
+	if configSection then
+		-- Load config sets
+		self.configTab:Load(configSection, self.dbFileName, true)
+	end
+
+	-- Mark build as modified
+	self.modFlag = true
+	self.buildFlag = true
+	self:SyncLoadouts()
+
+	-- Show success message
+	local message = "Successfully imported:\n"
+	if itemSetCount > 0 then
+		message = message .. "- " .. itemSetCount .. " item set(s)\n"
+	end
+	if skillSetCount > 0 then
+		message = message .. "- " .. skillSetCount .. " skill set(s)\n"
+	end
+	if treeSpecCount > 0 then
+		message = message .. "- " .. treeSpecCount .. " tree spec(s)\n"
+	end
+	if configSetCount > 0 then
+		message = message .. "- " .. configSetCount .. " config set(s)\n"
+	end
+	main:OpenMessagePopup("Import Complete", message)
 end
 
 function buildMode:SaveDB(fileName)

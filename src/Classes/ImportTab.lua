@@ -314,6 +314,24 @@ You can get this from your web browser's cookies while logged into the Path of E
 				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML, false, self.importCodeSite and self.controls.importCodeIn.buf or nil)
 				self.build.viewMode = "TREE"
 			end)
+		elseif self.controls.importCodeMode.selIndex == 3 then
+			local controls = { }
+			t_insert(controls, new("LabelControl", nil, {0, 20, 0, 16}, colorCodes.WARNING.."Warning:^7 Importing many loadouts into the same build"))
+			t_insert(controls, new("LabelControl", nil, {0, 36, 0, 16}, "may cause performance issues. Use with caution."))
+			t_insert(controls, new("LabelControl", nil, {0, 64, 0, 16}, "^7Prefix for imported loadouts:"))
+			controls.prefix = new("EditControl", nil, {0, 84, 350, 20}, "Imported - ", nil, nil, 50)
+			controls.import = new("ButtonControl", nil, {-45, 114, 80, 20}, "Import", function()
+				local prefix = controls.prefix.buf
+				if prefix == "" then
+					prefix = "Imported - "
+				end
+				main:ClosePopup()
+				self.build:ImportLoadouts(self.importCodeXML, prefix)
+			end)
+			t_insert(controls, new("ButtonControl", nil, {45, 114, 80, 20}, "Cancel", function()
+				main:ClosePopup()
+			end))
+			main:OpenPopup(380, 144, "Import Loadouts", controls, "import")
 		else
 			self.build:Shutdown()
 			self.build:Init(false, "Imported build", self.importCodeXML, false, self.importCodeSite and self.controls.importCodeIn.buf or nil)
@@ -331,7 +349,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.importCodeState.label = function()
 		return self.importCodeDetail or ""
 	end
-	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, {0, 4, 160, 20}, { "Import to this build", "Import to a new build" })
+	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, {0, 4, 160, 20}, { "Import to this build", "Import to a new build", "Import loadouts only" })
 	self.controls.importCodeMode.enabled = function()
 		return self.build.dbFileName and self.importCodeValid
 	end

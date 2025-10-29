@@ -456,8 +456,11 @@ function TreeTabClass:GetSpecList()
 	return newSpecList
 end
 
-function TreeTabClass:Load(xml, dbFileName)
-	self.specList = { }
+function TreeTabClass:Load(xml, dbFileName, appendSpecs)
+	if not appendSpecs then
+		self.specList = { }
+	end
+
 	if xml.elem == "Spec" then
 		-- Import single spec from old build
 		self.specList[1] = new("PassiveSpec", self.build, defaultTreeVersion)
@@ -473,16 +476,19 @@ function TreeTabClass:Load(xml, dbFileName)
 					main:OpenMessagePopup("Unknown Passive Tree Version", "The build you are trying to load uses an unrecognised version of the passive skill tree.\nYou may need to update the program before loading this build.")
 					return true
 				end
+
 				local newSpec = new("PassiveSpec", self.build, node.attrib.treeVersion or defaultTreeVersion)
 				newSpec:Load(node, dbFileName)
 				t_insert(self.specList, newSpec)
 			end
 		end
 	end
-	if not self.specList[1] then
-		self.specList[1] = new("PassiveSpec", self.build, latestTreeVersion)
+	if not appendSpecs then
+		if not self.specList[1] then
+			self.specList[1] = new("PassiveSpec", self.build, latestTreeVersion)
+		end
+		self:SetActiveSpec(tonumber(xml.attrib.activeSpec) or 1)
 	end
-	self:SetActiveSpec(tonumber(xml.attrib.activeSpec) or 1)
 end
 
 function TreeTabClass:PostLoad()
