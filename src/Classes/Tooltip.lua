@@ -78,28 +78,28 @@ function TooltipClass:CheckForUpdate(...)
 end
 
 function TooltipClass:AddLine(size, text, font)
-    if text then
-        local fontToUse
-        if main.showFlavourText then
-            fontToUse = font or "VAR"
-        else
-            fontToUse = "VAR"
-        end
-        for line in s_gmatch(text .. "\n", "([^\n]*)\n") do 
-            if line:match("^.*(Equipping)") == "Equipping" or line:match("^.*(Removing)") == "Removing" then
-                t_insert(self.blocks, { height = size + 2})
-            else
-                self.blocks[#self.blocks].height = self.blocks[#self.blocks].height + size + 2
-            end
-            if self.maxWidth then
-                for _, line in ipairs(main:WrapString(line, size, self.maxWidth - H_PAD)) do
-                    t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse })
-                end
-            else
-                t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse })
-            end
-        end
-    end
+	if text then
+		local fontToUse
+		if main.showFlavourText then
+			fontToUse = font or "VAR"
+		else
+			fontToUse = "VAR"
+		end
+		for line in s_gmatch(text .. "\n", "([^\n]*)\n") do 
+			if line:match("^.*(Equipping)") == "Equipping" or line:match("^.*(Removing)") == "Removing" then
+				t_insert(self.blocks, { height = size + 2})
+			else
+				self.blocks[#self.blocks].height = self.blocks[#self.blocks].height + size + 2
+			end
+			if self.maxWidth then
+				for _, line in ipairs(main:WrapString(line, size, self.maxWidth - H_PAD)) do
+					t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse })
+				end
+			else
+				t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse })
+			end
+		end
+	end
 end
 
 function TooltipClass:SetRecipe(recipe)
