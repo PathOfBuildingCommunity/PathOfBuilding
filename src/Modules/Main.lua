@@ -512,6 +512,11 @@ end
 
 function main:LoadSettings(ignoreBuild)
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
+	if errMsg and not errMsg:match(".*No such file or directory") then
+		ConPrintf("Error: '%s'", errMsg)
+		launch:ShowErrMsg("^1"..errMsg)
+		return true
+	end
 	if not setXML then
 		return true
 	elseif setXML[1].elem ~= "PathOfBuilding" then
@@ -640,6 +645,11 @@ end
 
 function main:LoadSharedItems()
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
+	if errMsg and not errMsg:match(".*No such file or directory") then
+		ConPrintf("Error: '%s'", errMsg)
+		launch:ShowErrMsg("^1"..errMsg)
+		return true
+	end
 	if not setXML then
 		return true
 	elseif setXML[1].elem ~= "PathOfBuilding" then
