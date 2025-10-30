@@ -616,8 +616,8 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.defaultItemAffixQuality then
 					self.defaultItemAffixQuality = m_min(tonumber(node.attrib.defaultItemAffixQuality) or 0.5, 1)
 				end
-				if node.attrib.lastExportWebsite then
-					self.lastExportWebsite = node.attrib.lastExportWebsite
+				if node.attrib.lastExportedWebsite then
+					self.lastExportedWebsite = node.attrib.lastExportedWebsite
 				end
 				if node.attrib.showWarnings then
 					self.showWarnings = node.attrib.showWarnings == "true"
@@ -756,7 +756,7 @@ function main:SaveSettings()
 		defaultGemQuality = tostring(self.defaultGemQuality or 0),
 		defaultCharLevel = tostring(self.defaultCharLevel or 1),
 		defaultItemAffixQuality = tostring(self.defaultItemAffixQuality or 0.5),
-		lastExportWebsite = self.lastExportWebsite,
+		lastExportedWebsite = self.lastExportedWebsite,
 		showWarnings = tostring(self.showWarnings),
 		slotOnlyTooltips = tostring(self.slotOnlyTooltips),
 		notSupportedModTooltips = tostring(self.notSupportedModTooltips),
