@@ -89,8 +89,10 @@ end
 ConPrintf("Checking for update...")
 
 -- Use built-in helpers to obtain absolute paths without spawning a shell.
-local scriptPath = (GetScriptPath and GetScriptPath()) or "."
-local runtimePath = (GetRuntimePath and GetRuntimePath()) or scriptPath
+local scriptPath, scriptFallback = GetScriptPath()
+scriptPath = scriptPath or scriptFallback or "."
+local runtimePath, runtimeFallback = GetRuntimePath()
+runtimePath = runtimePath or runtimeFallback or scriptPath
 
 -- Load and process local manifest
 local localVer
