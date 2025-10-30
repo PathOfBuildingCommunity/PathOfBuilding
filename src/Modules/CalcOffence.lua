@@ -4337,28 +4337,28 @@ function calcs.offence(env, actor, activeSkill)
 					output[chance] = chaosChance
 				end
 				if canDeal.Lightning and skillModList:Flag(cfg, "LightningCanPoison") then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.PoisonLightning, "Lightning", dmgTypeFlags.Chaos)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.PoisonLightning, "Lightning", dmgTypeFlags.flags.Chaos)
 					output.PoisonLightningMin = min
 					output.PoisonLightningMax = max
 					totalMin = totalMin + min * nonChaosMult
 					totalMax = totalMax + max * nonChaosMult
 				end
 				if canDeal.Cold and skillModList:Flag(cfg, "ColdCanPoison") then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.PoisonCold, "Cold", dmgTypeFlags.Chaos)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.PoisonCold, "Cold", dmgTypeFlags.flags.Chaos)
 					output.PoisonColdMin = min
 					output.PoisonColdMax = max
 					totalMin = totalMin + min * nonChaosMult
 					totalMax = totalMax + max * nonChaosMult
 				end
 				if canDeal.Fire and skillModList:Flag(cfg, "FireCanPoison") then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.PoisonFire, "Fire", dmgTypeFlags.Chaos)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.PoisonFire, "Fire", dmgTypeFlags.flags.Chaos)
 					output.PoisonFireMin = min
 					output.PoisonFireMax = max
 					totalMin = totalMin + min * nonChaosMult
 					totalMax = totalMax + max * nonChaosMult
 				end
 				if canDeal.Physical then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.PoisonPhysical, "Physical", dmgTypeFlags.Chaos)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.PoisonPhysical, "Physical", dmgTypeFlags.flags.Chaos)
 					output.PoisonPhysicalMin = min
 					output.PoisonPhysicalMax = max
 					totalMin = totalMin + min * nonChaosMult
@@ -4646,21 +4646,21 @@ function calcs.offence(env, actor, activeSkill)
 
 				local totalMin, totalMax = 0, 0
 				if canDeal.Physical and skillModList:Flag(cfg, "PhysicalCanIgnite") then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.IgnitePhysical, "Physical", dmgTypeFlags.Fire)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.IgnitePhysical, "Physical", dmgTypeFlags.flags.Fire)
 					output.IgnitePhysicalMin = min
 					output.IgnitePhysicalMax = max
 					totalMin = totalMin + min
 					totalMax = totalMax + max
 				end
 				if canDeal.Lightning and skillModList:Flag(cfg, "LightningCanIgnite") then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.IgniteLightning, "Lightning", dmgTypeFlags.Fire)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.IgniteLightning, "Lightning", dmgTypeFlags.flags.Fire)
 					output.IgniteLightningMin = min
 					output.IgniteLightningMax = max
 					totalMin = totalMin + min
 					totalMax = totalMax + max
 				end
 				if canDeal.Cold and skillModList:Flag(cfg, "ColdCanIgnite") then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.IgniteCold, "Cold", dmgTypeFlags.Fire)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.IgniteCold, "Cold", dmgTypeFlags.flags.Fire)
 					output.IgniteColdMin = min
 					output.IgniteColdMax = max
 					totalMin = totalMin + min
@@ -4674,7 +4674,7 @@ function calcs.offence(env, actor, activeSkill)
 					totalMax = totalMax + max
 				end
 				if canDeal.Chaos and skillModList:Flag(cfg, "ChaosCanIgnite") then
-					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.IgniteChaos, "Chaos", dmgTypeFlags.Fire)
+					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown.IgniteChaos, "Chaos", dmgTypeFlags.flags.Fire)
 					output.IgniteChaosMin = min
 					output.IgniteChaosMax = max
 					totalMin = totalMin + min
