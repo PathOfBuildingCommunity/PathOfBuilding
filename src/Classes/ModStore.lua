@@ -373,7 +373,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			else
 				mult = GetMultiplier(target, tag.var, cfg)
 			end
-			local threshold = tag.threshold or GetMultiplier(thresholdTarget, tag.thresholdVar, cfg)
+			local threshold = tag.threshold or GetMultiplier(tag.thresholdActor and thresholdTarget or target, tag.thresholdVar, cfg)
 			if (tag.upper and mult > threshold) or (tag.equals and mult ~= threshold) or (not (tag.upper and tag.exact) and mult < threshold) then
 				return
 			end
