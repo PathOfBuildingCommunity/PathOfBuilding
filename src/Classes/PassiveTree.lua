@@ -123,7 +123,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 	
 	-- hide alternate_ascendancies as they are unobtainable in the newest versions and will cause a crash if an older version is loaded with it at the moment
-	if self.alternate_ascendancies then
+	--[[if self.alternate_ascendancies then
 		if launch.devMode then
 			ConPrintf("WARNING! alternate_ascendancies exist but are being hidden")
 		end
@@ -143,7 +143,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 			
 		self.alternate_ascendancies = nil
-	end
+	end]]
 	
 	if self.alternate_ascendancies then
 		self.secondaryAscendNameMap = { }
