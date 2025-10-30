@@ -645,7 +645,7 @@ function main:LoadSettings(ignoreBuild)
 				end
 				if node.attrib.dpiScaleOverridePercent then
 					self.dpiScaleOverridePercent = tonumber(node.attrib.dpiScaleOverridePercent) or 0
-					SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
+					if SetDPIScaleOverridePercent then SetDPIScaleOverridePercent(self.dpiScaleOverridePercent) end
 				end
 			end
 		end
@@ -884,7 +884,7 @@ function main:OpenOptionsPopup()
 		{ label = "250%", percent = 250 },
 	}, function(index, value)
 		self.dpiScaleOverridePercent = value.percent
-		SetDPIScaleOverridePercent(value.percent)
+		if SetDPIScaleOverridePercent then SetDPIScaleOverridePercent(value.percent) end
 	end)
 	controls.dpiScaleOverrideLabel = new("LabelControl", { "RIGHT", controls.dpiScaleOverride, "LEFT" }, { defaultLabelSpacingPx, 0, 0, 16 }, "^7UI scaling override:")
 	controls.dpiScaleOverride.tooltipText = "Overrides Windows DPI scaling inside Path of Building.\nChoose a percentage between 100% and 250% or revert to the system default."
@@ -1102,7 +1102,7 @@ function main:OpenOptionsPopup()
 		if not launch.devMode then
 			main:SetManifestBranch(self.betaTest and "beta" or "master")
 		end
-		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
+		if SetDPIScaleOverridePercent then SetDPIScaleOverridePercent(self.dpiScaleOverridePercent) end
 		main:ClosePopup()
 		main:SaveSettings()
 	end)
@@ -1131,7 +1131,7 @@ function main:OpenOptionsPopup()
 		self.showPublicBuilds = initialShowPublicBuilds
 		self.showFlavourText = initialShowFlavourText
 		self.dpiScaleOverridePercent = initialDpiScaleOverridePercent
-		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
+		if SetDPIScaleOverridePercent then SetDPIScaleOverridePercent(self.dpiScaleOverridePercent) end
 		main:ClosePopup()
 	end)
 	nextRow(1.5)
