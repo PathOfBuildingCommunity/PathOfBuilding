@@ -77,23 +77,29 @@ function TooltipClass:CheckForUpdate(...)
 	end
 end
 
-function TooltipClass:AddLine(size, text)
-	if text then
-		for line in s_gmatch(text .. "\n", "([^\n]*)\n") do	
-			if line:match("^.*(Equipping)") == "Equipping" or line:match("^.*(Removing)") == "Removing" then
-				t_insert(self.blocks, { height = size + 2})
-			else
-				self.blocks[#self.blocks].height = self.blocks[#self.blocks].height + size + 2
-			end
-			if self.maxWidth then
-				for _, line in ipairs(main:WrapString(line, size, self.maxWidth - H_PAD)) do
-					t_insert(self.lines, { size = size, text = line, block = #self.blocks })
-				end
-			else
-				t_insert(self.lines, { size = size, text = line, block = #self.blocks })
-			end
-		end
-	end
+function TooltipClass:AddLine(size, text, font)
+    if text then
+        local fontToUse
+        if main.showFlavourText then
+            fontToUse = font or "VAR"
+        else
+            fontToUse = "VAR"
+        end
+        for line in s_gmatch(text .. "\n", "([^\n]*)\n") do 
+            if line:match("^.*(Equipping)") == "Equipping" or line:match("^.*(Removing)") == "Removing" then
+                t_insert(self.blocks, { height = size + 2})
+            else
+                self.blocks[#self.blocks].height = self.blocks[#self.blocks].height + size + 2
+            end
+            if self.maxWidth then
+                for _, line in ipairs(main:WrapString(line, size, self.maxWidth - H_PAD)) do
+                    t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse })
+                end
+            else
+                t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse })
+            end
+        end
+    end
 end
 
 function TooltipClass:SetRecipe(recipe)
@@ -148,14 +154,15 @@ function TooltipClass:GetSize()
 			ttH = ttH + data.size + 2
 		end
 		if data.text then
-			ttW = m_max(ttW, DrawStringWidth(data.size, "VAR", data.text))
+			ttW = m_max(ttW, DrawStringWidth(data.size, data.font, data.text))
 		end
 	end
 
 	-- Account for recipe display
 	if self.recipe and self.lines[1] then
 		local title = self.lines[1]
-		local imageX = DrawStringWidth(title.size, "VAR", title.text) + title.size
+		local font = main.showFlavourText and "FONTIN SC" or "VAR"
+		local imageX = DrawStringWidth(title.size, font, title.text) + title.size
 		local recipeTextSize = (title.size * 3) / 4
 		for _, recipeName in ipairs(self.recipe) do
 			-- Trim "Oil" from the recipe name, which normally looks like "GoldenOil"
@@ -163,7 +170,7 @@ function TooltipClass:GetSize()
 			if #recipeNameShort > 3 and recipeNameShort:sub(-3) == "Oil" then
 				recipeNameShort = recipeNameShort:sub(1, #recipeNameShort - 3)
 			end
-			imageX = imageX + DrawStringWidth(recipeTextSize, "VAR", recipeNameShort) + title.size * 1.25
+			imageX = imageX + DrawStringWidth(recipeTextSize, font, recipeNameShort) + title.size * 1.25
 		end
 		ttW = m_max(ttW, imageX)
 	end
@@ -189,9 +196,15 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 	local currentBlock = 1
 	local maxColumnHeight = 0
 	local drawStack = {}
+	local font
 
 	for i, data in ipairs(self.lines) do
 		-- Handle first line with recipe/oils
+		if main.showFlavourText then
+			font = data.font or "VAR"
+		else
+			font = "VAR"
+		end
 		if self.recipe and i == 1 and data.text then
 			local title = data
 			local titleSize = title.size
@@ -199,14 +212,14 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 			local padding = 4
 
 			-- Measure total width for centering
-			local totalWidth = DrawStringWidth(titleSize, "VAR", title.text)
+			local totalWidth = DrawStringWidth(titleSize, font, title.text)
 			local oilWidths = {}
 			for _, r in ipairs(self.recipe) do
 				local rn = r
 				if #rn > 3 and rn:sub(-3) == "Oil" then
 					rn = rn:sub(1, #rn - 3)
 				end
-				local textW = DrawStringWidth(recipeTextSize, "VAR", rn)
+				local textW = DrawStringWidth(recipeTextSize, font, rn)
 				local iconW = titleSize
 				table.insert(oilWidths, {rn, r, textW, iconW})
 				totalWidth = totalWidth + textW + iconW + padding
@@ -215,14 +228,14 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 			-- Center title + oils
 			local curX = ttX + ttW / 2 - totalWidth / 2
 			-- Draw title
-			t_insert(drawStack, {curX, y + (titleSize - titleSize)/2, "LEFT", titleSize, "VAR", title.text})
-			curX = curX + DrawStringWidth(titleSize, "VAR", title.text) + 6
+			t_insert(drawStack, {curX, y + (titleSize - titleSize)/2, "LEFT", titleSize, font, title.text})
+			curX = curX + DrawStringWidth(titleSize, font, title.text) + 6
 
 			-- Draw oils
 			local maxOilHeight = 0
 			for _, part in ipairs(oilWidths) do
 				local rn, recipeName, textW, iconW = part[1], part[2], part[3], part[4]
-				t_insert(drawStack, {curX, y + (titleSize - recipeTextSize)/2, "LEFT", recipeTextSize, "VAR", rn})
+				t_insert(drawStack, {curX, y + (titleSize - recipeTextSize)/2, "LEFT", recipeTextSize, font, rn})
 				curX = curX + textW
 
 				local handle = recipeImages[recipeName]
@@ -248,9 +261,9 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 			currentBlock = data.block
 
 			if self.center then
-				t_insert(drawStack, {x + ttW / 2, y, "CENTER_X", data.size, "VAR", data.text})
+				t_insert(drawStack, {x + ttW / 2, y, "CENTER_X", data.size,font, data.text})
 			else
-				t_insert(drawStack, {x + 6, y, "LEFT", data.size, "VAR", data.text})
+				t_insert(drawStack, {x + 6, y, "LEFT", data.size, font, data.text})
 			end
 			y = y + data.size + 2
 
@@ -276,7 +289,6 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 	return columns, maxColumnHeight, drawStack
 end
 
-
 function TooltipClass:Draw(x, y, w, h, viewPort)
 	if #self.lines == 0 then
 		return
@@ -285,7 +297,8 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 
 	-- ensure ttW is at least title width + 50 pixels, this fixes the header image for Magic items and some Tree passives.
 	if self.tooltipHeader and self.lines[1] and self.lines[1].text then
-		local titleW = DrawStringWidth(self.lines[1].size, "VAR", self.lines[1].text)
+		local font = main.showFlavourText and "FONTIN SC" or "VAR"
+		local titleW = DrawStringWidth(self.lines[1].size, font, self.lines[1].text)
 		if titleW + 50 > ttW then
 			ttW = titleW + 50
 		end
@@ -305,12 +318,12 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		Experimented = "Assets/ExperimentedIcon.png",
 	}
 	local headerConfigs = {
-		RELIC = {left="Assets/ItemsHeaderFoilLeft.png",middle="Assets/ItemsHeaderFoilMiddle.png",right="Assets/ItemsHeaderFoilRight.png",height=53,sideWidth=47,middleWidth=52,textYOffset=2},
-		UNIQUE = {left="Assets/ItemsHeaderUniqueLeft.png",middle="Assets/ItemsHeaderUniqueMiddle.png",right="Assets/ItemsHeaderUniqueRight.png",height=53,sideWidth=47,middleWidth=52,textYOffset=2},
-		RARE = {left="Assets/ItemsHeaderRareLeft.png",middle="Assets/ItemsHeaderRareMiddle.png",right="Assets/ItemsHeaderRareRight.png",height=53,sideWidth=47,middleWidth=52,textYOffset=2},
+		RELIC = {left="Assets/ItemsHeaderFoilLeft.png",middle="Assets/ItemsHeaderFoilMiddle.png",right="Assets/ItemsHeaderFoilRight.png",height=54,sideWidth=47,middleWidth=52,textYOffset=2},
+		UNIQUE = {left="Assets/ItemsHeaderUniqueLeft.png",middle="Assets/ItemsHeaderUniqueMiddle.png",right="Assets/ItemsHeaderUniqueRight.png",height=54,sideWidth=47,middleWidth=52,textYOffset=2},
+		RARE = {left="Assets/ItemsHeaderRareLeft.png",middle="Assets/ItemsHeaderRareMiddle.png",right="Assets/ItemsHeaderRareRight.png",height=54,sideWidth=47,middleWidth=52,textYOffset=2},
 		MAGIC = {left="Assets/ItemsHeaderMagicLeft.png",middle="Assets/ItemsHeaderMagicMiddle.png",right="Assets/ItemsHeaderMagicRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4},
 		NORMAL = {left="Assets/ItemsHeaderWhiteLeft.png",middle="Assets/ItemsHeaderWhiteMiddle.png",right="Assets/ItemsHeaderWhiteRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4},
-		GEM = {left="Assets/ItemsHeaderGemLeft.png",middle="Assets/ItemsHeaderGemMiddle.png",right="Assets/ItemsHeaderGemRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=4},
+		GEM = {left="Assets/ItemsHeaderGemLeft.png",middle="Assets/ItemsHeaderGemMiddle.png",right="Assets/ItemsHeaderGemRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=2},
 		JEWEL = {left="Assets/JewelPassiveHeaderLeft.png",middle="Assets/JewelPassiveHeaderMiddle.png",right="Assets/JewelPassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=2},
 		NOTABLE = {left="Assets/NotablePassiveHeaderLeft.png",middle="Assets/NotablePassiveHeaderMiddle.png",right="Assets/NotablePassiveHeaderRight.png",height=38,sideWidth=38,middleWidth=38,textYOffset=2},
 		PASSIVE = {left="Assets/NormalPassiveHeaderLeft.png",middle="Assets/NormalPassiveHeaderMiddle.png",right="Assets/NormalPassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=2},
