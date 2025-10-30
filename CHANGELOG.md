@@ -19,6 +19,7 @@
 - Add support for high DPI awareness to keep PoB looking crisp on higher resolution screens [\#8989](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8989) ([LeonSparta](https://github.com/LeonSparta), [LocalIdentity](https://github.com/LocalIdentity))
 - Add setting to override Windows scaling from PoB [\#9048](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9048) ([LocalIdentity](https://github.com/LocalIdentity))
 - Add four new spectres and update three existing spectres [\#9069](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9069) ([Lothrik](https://github.com/Lothrik))
+- Add Maxroll as a new build site you can export to ([LocalIdentity](https://github.com/LocalIdentity))
 - Auto URL encode when pasting a account name into the import  [\#8949](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8949) ([Nightblade](https://github.com/Nightblade))
 - Update 3.26 uniques [\#8976](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8976) ([Paliak](https://github.com/Paliak))
 - Add support for Projectile count of Spiral skills [\#8995](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8995) ([Inzagini](https://github.com/Inzagini))
