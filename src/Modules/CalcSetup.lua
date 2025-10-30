@@ -282,13 +282,6 @@ function wipeEnv(env, accelerate)
 	end
 end
 
-local function getGemModList(env, groupCfg, socketColor, socketNum)
-	local gemCfg = copyTable(groupCfg, true)
-	gemCfg.socketColor = socketColor
-	gemCfg.socketNum = socketNum
-	return env.modDB:Tabulate("LIST", gemCfg, "GemProperty")
-end
-
 local function applyGemMods(effect, modList)
 	for _, mod in ipairs(modList) do
 		local match = true
@@ -1477,7 +1470,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 							if gemInstance.gemData then
 								local playerItems = env.player.itemList
 								local socketedIn = playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].sockets and playerItems[groupCfg.slotName].sockets[gemIndex]
-								applyGemMods(supportEffect, socketedIn and getGemModList(env, groupCfg, socketedIn.color, gemIndex) or propertyModList)
+								supportEffect.gemCfg = copyTable(groupCfg, true)
+								supportEffect.gemCfg.socketColor = socketedIn and socketedIn.color
+								supportEffect.gemCfg.socketNum = gemIndex
+								applyGemMods(supportEffect, socketedIn and env.modDB:Tabulate("LIST", supportEffect.gemCfg, "GemProperty") or propertyModList)
 								if not processedSockets[gemInstance] then
 									processedSockets[gemInstance] = true
 									applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)
@@ -1539,7 +1535,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 								if gemInstance.gemData then
 									local playerItems = env.player.itemList
 									local socketedIn = playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].sockets and playerItems[groupCfg.slotName].sockets[gemIndex]
-									applyGemMods(activeEffect, socketedIn and getGemModList(env, groupCfg, socketedIn.color, gemIndex) or propertyModList)
+									activeEffect.gemCfg = copyTable(groupCfg, true)
+									activeEffect.gemCfg.socketColor = socketedIn and socketedIn.color
+									activeEffect.gemCfg.socketNum = gemIndex
+									applyGemMods(activeEffect, socketedIn and env.modDB:Tabulate("LIST", activeEffect.gemCfg, "GemProperty") or propertyModList)
 									if not processedSockets[gemInstance] then
 										processedSockets[gemInstance] = true
 										applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)

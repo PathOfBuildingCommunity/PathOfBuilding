@@ -3369,27 +3369,53 @@ function calcs.perform(env, skipEHP)
 		env.build.partyTab:setBuffExports(buffExports)
 	end
 
-	-- calculate Gem Level of MainSkill
+
 	if env.player.mainSkill then
 		local mainSkill = env.player.mainSkill
-		if mainSkill.activeEffect and mainSkill.activeEffect.level and mainSkill.activeEffect.srcInstance then
-			local baseLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemLevel")
-			local totalItemLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemItemLevel")
-			local totalSupportLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSupportLevel")
+		if mainSkill.activeEffect and mainSkill.activeEffect.srcInstance then
 
-			output.GemHasLevel = true
-			output.GemLevel = baseLevel + totalSupportLevel + totalItemLevel
-			
-			if env.player.breakdown then
-				env.player.breakdown.GemLevel = {}
-				t_insert(env.player.breakdown.GemLevel, s_format("%d ^8(level from gem)", baseLevel))
-				if totalSupportLevel > 0 then
-					t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from support)", totalSupportLevel))
+			-- calculate Gem Level of MainSkill
+			if mainSkill.activeEffect.level then
+				local baseLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemLevel")
+				local totalItemLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemItemLevel")
+				local totalSupportLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSupportLevel")
+
+				output.GemHasLevel = true
+				output.GemLevel = baseLevel + totalSupportLevel + totalItemLevel
+
+				if env.player.breakdown then
+					env.player.breakdown.GemLevel = {}
+					t_insert(env.player.breakdown.GemLevel, s_format("%d ^8(level from gem)", baseLevel))
+					if totalSupportLevel > 0 then
+						t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from support)", totalSupportLevel))
+					end
+					if totalItemLevel > 0 then
+						t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from items)", totalItemLevel))
+					end
+					t_insert(env.player.breakdown.GemLevel, s_format("= %d", output.GemLevel))
 				end
-				if totalItemLevel > 0 then
-					t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from items)", totalItemLevel))
+			end
+
+			-- calculate Gem Quality of MainSkill
+			if mainSkill.activeEffect.quality then
+				local baseQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemQuality")
+				local totalItemQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemItemQuality")
+				local totalSupportQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSupportQuality")
+
+				output.GemHasQuality = true
+				output.GemQuality = baseQuality + totalSupportQuality + totalItemQuality
+
+				if env.player.breakdown then
+					env.player.breakdown.GemQuality = {}
+					t_insert(env.player.breakdown.GemQuality, s_format("%d ^8(quality from gem)", baseQuality))
+					if totalSupportQuality > 0 then
+						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from support)", totalSupportQuality))
+					end
+					if totalItemQuality > 0 then
+						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from items)", totalItemQuality))
+					end
+					t_insert(env.player.breakdown.GemQuality, s_format("= %d", output.GemQuality))
 				end
-				t_insert(env.player.breakdown.GemLevel, s_format("= %d", output.GemLevel))
 			end
 		end
 	end
