@@ -1120,6 +1120,14 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
+	-- Flavour text
+	if node.flavourText and main.showFlavourText then
+		tooltip:AddSeparator(14)
+		for _, line in ipairs(node.flavourText) do
+			tooltip:AddLine(14, colorCodes.UNIQUE..line)
+		end
+	end
+
 	-- Tattoo Editing
 	if node and (node.isTattoo
 			or (node.type == "Normal" and (node.dn == "Strength" or node.dn == "Dexterity" or node.dn == "Intelligence"))
