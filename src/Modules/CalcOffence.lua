@@ -883,6 +883,10 @@ function calcs.offence(env, actor, activeSkill)
 					local mod = value.mod
 					skillModList:NewMod("CritChance", "INC", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 				end
+				for _, value in ipairs(skillModList:Tabulate("MORE", { }, "MaxSealDamage")) do
+					local mod = value.mod
+					skillModList:NewMod("Damage", "MORE", mod.value*output.SealMax, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+				end
 				env.player.mainSkill.skillData.dpsMultiplier = (1 + output.SealMax * calcLib.mod(skillModList, skillCfg, "SealRepeatPenalty"))
 				env.player.mainSkill.skillData.hitTimeOverride = m_max(output.TimeMaxSeals, (1 / activeSkill.activeEffect.grantedEffect.castTime * 1.1 * calcLib.mod(skillModList, skillCfg, "Speed") * output.ActionSpeedMod))
 			else
