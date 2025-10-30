@@ -262,1456 +262,211 @@ return {
 		},
 	},
 	[33] = {
-		id = "UniqueRing45",
-		name = "The Warden's Brand",
-		text = {
-			"\"I don't always have a flame handy",
-			"when a fresh delinquent walks through our gates.\"",
-			"- Brutus, Warden of Axiom",
-		},
-	},
-	[34] = {
-		id = "UniqueFlask19",
-		name = "Witchfire Brew",
-		text = {
-			"\"Think of those that cursed us, judged us,",
-			"and burned our sisters upon the pyre.",
-			"Think of their names as you drink,",
-			"and even their children will feel what we do to them today.\"",
-			"-Vadinya, to her coven",
-		},
-	},
-	[35] = {
-		id = "UniqueBootsStrDex9",
-		name = "Gamblesprint",
-		text = {
-			"All your tomorrows lie ahead of you,",
-			"unknown and snarled to the very last.",
-		},
-	},
-	[36] = {
-		id = "UniqueFlask20",
-		name = "Dying Sun",
-		text = {
-			"All things must die.",
-			"Whether you burn out or explode is up to you.",
-		},
-	},
-	[37] = {
-		id = "UniqueBodyInt3x",
-		name = "Replica Covenant",
-		text = {
-			"\"Researcher Graven's request to wear Prototype #2998 in",
-			"place of his standard lab attire is... granted.\"",
-			"- Lead Researcher Ksaret",
-		},
-	},
-	[38] = {
-		id = "UniqueAmulet57x",
-		name = "Replica Badge of the Brotherhood",
-		text = {
-			"\"I stood upon the tower's edge, and saw that we had cracked the sky.",
-			"There is nowhere we can run that our sins will not find us now.\"",
-			"- Researcher Arn, last recorded words",
-		},
-	},
-	[39] = {
-		id = "UniqueJewel83",
-		name = "Primordial Harmony",
-		text = {
-			"\"Kings fall, empires crumble, mortals perish.",
-			"All turn to earth and sand.\"",
-			"- Maraketh proverb",
-		},
-	},
-	[40] = {
-		id = "UniqueFlask19x",
-		name = "Replica Witchfire Brew",
-		text = {
-			"\"Nobody will listen to me, because I'm the only one that sees it.",
-			"Nothing left to do now but drink until this world makes sense.\"",
-			"- Researcher Graven",
-		},
-	},
-	[41] = {
-		id = "UniqueJewel81",
-		name = "Primordial Might",
-		text = {
-			"\"A stone is not a stone.",
-			"It is but one part of a fortress.\"",
-			"- Ezomyte proverb",
-		},
-	},
-	[42] = {
-		id = "UniqueBodyDex1x",
-		name = "Replica Hyrri's Ire",
-		text = {
-			"\"Yes, a catastrophic storm erupted, and yes, they screamed for me",
-			"to stop the experiment... but you know how I am with screams.\"",
-			"- Researcher Olesya, on #2999 and the loss of Outpost Eight",
-		},
-	},
-	[43] = {
-		id = "UniqueJewel82",
-		name = "Primordial Eminence",
-		text = {
-			"\"Do not cause the land to stir,",
-			"It holds secrets better unknown.\"",
-			"- Azmerian proverb",
-		},
-	},
-	[44] = {
-		id = "UniqueCorruptedJewel16x",
-		name = "Replica Pacifism",
-		text = {
-			"\"Release the type Delta test subjects. Unseal all prototype lockers.",
-			"Arm yourself! I know that, as researchers, you've never had to fight",
-			"before, but they're coming to kill us all. It's resist or die!\"",
-			"- Lead Researcher Ksaret, two hours post-Incident",
-		},
-	},
-	[45] = {
-		id = "UniqueBodyInt12",
-		name = "The Coming Calamity",
-		text = {
-			"Whiff of cold, tiny spark, faintest flicker in the dark.",
-			"Embers swirl, ice takes form, sky exposed - Death's perfect storm.",
-			"Frost and thunder, flames shine bright, ruin walks the land tonight.",
-			"By your hand they dance and bend, wield them and brook no end.",
-		},
-	},
-	[46] = {
-		id = "UniqueCorruptedJewel17x",
-		name = "Replica Fragility",
-		text = {
-			"\"Our defenses are failing at Outpost One. We can't hold out much",
-			"longer. All outposts, abandon your stations! Escape while you can!\"",
-			"- Lead Researcher Ksaret, three hours post-Incident",
-		},
-	},
-	[47] = {
-		id = "UniqueAmulet36",
-		name = "Bisco's Collar",
-		text = {
-			"Friendship worth its weight in gold,",
-			"a treasure every day.",
-			"I thought together we'd grow old,",
-			"until fate pulled you away.",
-		},
-	},
-	[48] = {
-		id = "UniqueCorruptedJewel18x",
-		name = "Replica Powerlessness",
-		text = {
-			"\"The suppression troops have stopped responding to my orders.",
-			"I'm no longer in charge, and I likely never truly was... I suspect",
-			"they're already coming for us.\"",
-			"- Lead Researcher Ksaret, one hour post-Incident",
-		},
-	},
-	[49] = {
-		id = "UniqueBodyDexInt6",
-		name = "Inpulsa's Broken Heart",
-		text = {
-			"Don't hesitate; bring death to all, conclusively and swiftly,",
-			"or they will give you the same treatment.",
-		},
-	},
-	[50] = {
-		id = "UniqueHelmetDex2x",
-		name = "Replica Heatshiver",
-		text = {
-			"\"The storm... that lightning... I'd be dead if I hadn't...",
-			"but it was cold. Ice cold! It's not what we think, and",
-			"the plan won't work! Where's Arn?! I have to tell him!\"",
-			"- Researcher Graven, infirmary report",
-		},
-	},
-	[51] = {
-		id = "UniqueBow18",
-		name = "Xoph's Inception",
-		text = {
-			"Upon the red pyre we are born.",
-			"<default>{This item can be transformed with a Blessing of Xoph}",
-		},
-	},
-	[52] = {
-		id = "UniqueBow19",
-		name = "Xoph's Nurture",
-		text = {
-			"Upon the grey winds his love spreads.",
-		},
-	},
-	[53] = {
-		id = "UniqueHelmetStr4",
-		name = "The Formless Flame",
-		text = {
-			"Our skin turns to ash",
-			"and we are swallowed by his brilliant red light.",
-			"<default>{This item can be transformed with a Blessing of Xoph}",
-		},
-	},
-	[54] = {
-		id = "UniqueHelmetStr5",
-		name = "The Formless Inferno",
-		text = {
-			"He burns us to keep us from harm.",
-		},
-	},
-	[55] = {
-		id = "UniqueHelmetStrDex12",
-		name = "The Devourer of Minds",
-		text = {
-			"The Decay infects thought itself, leaving nothing",
-			"but hollow husks filled with virulent void...",
-		},
-	},
-	[56] = {
-		id = "UniqueAmulet37",
-		name = "Xoph's Heart",
-		text = {
-			"His is our heart.",
-			"To its beat we all are driven.",
-			"<default>{This item can be transformed with a Blessing of Xoph}",
-		},
-	},
-	[57] = {
-		id = "UniqueBootsStr14",
-		name = "The Tempest Rising",
-		text = {
-			"Where he tread, disintegrating storms of lightning",
-			"and death laid waste to all around him.",
-		},
-	},
-	[58] = {
-		id = "UniqueAmulet38",
-		name = "Xoph's Blood",
-		text = {
-			"We are his blood.",
-			"Through us he carries his burning message.",
-		},
-	},
-	[59] = {
-		id = "UniqueHelmetWreath1",
-		name = "Demigod's Triumph",
-		text = {
-			"To stand triumphant you must serve",
-			"no master other than your own ambition.",
-		},
-	},
-	[60] = {
-		id = "UniqueWand15",
-		name = "Tulborn",
-		text = {
-			"We remember the stillness.",
-			"Then the great fall.",
-			"The pain of separation.",
-			"We return once more.",
-			"<default>{This item can be transformed with a Blessing of Tul}",
-		},
-	},
-	[61] = {
-		id = "UniqueShieldInt2",
-		name = "Whakatutuki o Matua",
-		text = {
-			"You carried me through life,",
-			"The least I can do is carry you through death.",
-		},
-	},
-	[62] = {
-		id = "UniqueWand16",
-		name = "Tulfall",
-		text = {
-			"We fracture and splinter.",
-			"We pierce our sides.",
-			"But in the great freeze we are forged anew.",
-		},
-	},
-	[63] = {
-		id = "UniqueDagger4",
-		name = "Heartbreaker",
-		text = {
-			"A heart can be stabbed by thoughts,",
-			"If your mind is sharp enough.",
-		},
-	},
-	[64] = {
-		id = "UniqueBodyDex10",
-		name = "The Snowblind Grace",
-		text = {
-			"We dance in the white, like water,",
-			"colliding as many and emerging as one.",
-			"<default>{This item can be transformed with a Blessing of Tul}",
-		},
-	},
-	[65] = {
-		id = "UniqueBodyDexInt1",
-		name = "Carcass Jack",
-		text = {
-			"\"...The discomfort shown by the others is amusing, but none",
-			"can deny that my work has made quite the splash...\"",
-			"- Maligaro's Journal",
-		},
-	},
-	[66] = {
-		id = "UniqueBodyDex11",
-		name = "The Perfect Form",
-		text = {
-			"We share one space,",
-			"speak one voice,",
-			"act through one body.",
-			"A flawless crystal.",
-			"Brittle.",
-		},
-	},
-	[67] = {
-		id = "UniqueRing6",
-		name = "Le Heup of All",
-		text = {
-			"Existence is infinite",
-			"A weave of the living and dead",
-			"Beyond the understanding",
-			"Of the many mortal threads",
-		},
-	},
-	[68] = {
-		id = "UniqueAmulet39",
-		name = "The Halcyon",
-		text = {
-			"We wait, still as the dead,",
-			"to join the great avalanche.",
-			"<default>{This item can be transformed with a Blessing of Tul}",
-		},
-	},
-	[69] = {
-		id = "UniqueShieldStr3",
-		name = "Chernobog's Pillar",
-		text = {
-			"Fire dances with those who doubt",
-			"Licks the skin and flesh from the fearful",
-			"Where there is no fear",
-			"There is no flame",
-		},
-	},
-	[70] = {
-		id = "UniqueAmulet40",
-		name = "The Pandemonius",
-		text = {
-			"A single moment sets in motion an eternal fall,",
-			"beneath which all are buried.",
-		},
-	},
-	[71] = {
-		id = "UniqueSceptre2",
-		name = "Nycta's Lantern",
-		text = {
-			"Left in her tomb by the lynch mob,",
-			"the flame inside still blazed bright after her death,",
-			"and so did hers.",
-		},
-	},
-	[72] = {
-		id = "UniqueClaw16",
-		name = "Hand of Thought and Motion",
-		text = {
-			"She carries us and nurtures us",
-			"until we must feed upon each other.",
-			"<default>{This item can be transformed with a Blessing of Esh}",
-		},
-	},
-	[73] = {
-		id = "UniqueClaw17",
-		name = "Hand of Wisdom and Action",
-		text = {
-			"She thinks and we act.",
-			"She acts and we think.",
-			"Fragments of the whole that washes clean the skies.",
-		},
-	},
-	[74] = {
-		id = "UniqueShieldInt8",
-		name = "Esh's Mirror",
-		text = {
-			"She looked upon her reflection",
-			"and trembled, and shook,",
-			"until she was not what she saw.",
-			"<default>{This item can be transformed with a Blessing of Esh}",
-		},
-	},
-	[75] = {
-		id = "UniqueShieldInt9",
-		name = "Esh's Visage",
-		text = {
-			"She could see what she was not;",
-			"a silhouette wreathed in light.",
-			"And she was still.",
-		},
-	},
-	[76] = {
-		id = "UniqueAmulet41",
-		name = "Voice of the Storm",
-		text = {
-			"When she of many mouths spoke,",
-			"we bowed in awe and were crushed.",
-			"<default>{This item can be transformed with a Blessing of Esh}",
-		},
-	},
-	[77] = {
-		id = "UniqueAmulet42",
-		name = "Choir of the Storm",
-		text = {
-			"But the fool did not bow.",
-			"The fool stood and questioned.",
-			"And the fool was unwritten.",
-		},
-	},
-	[78] = {
-		id = "UniqueBootsStr6",
-		name = "The Infinite Pursuit",
-		text = {
-			"We move to be closer to her, but the distance yet grows.",
-			"<default>{This item can be transformed with a Blessing of Uul-Netol}",
-		},
-	},
-	[79] = {
-		id = "UniqueBootsStr7",
-		name = "The Red Trail",
-		text = {
-			"We leave a trail, that we may know",
-			"where never we will return.",
-		},
-	},
-	[80] = {
-		id = "UniqueTwoHandAxe11",
-		name = "Uul-Netol's Kiss",
-		text = {
-			"We feel the Mother's love",
-			"and beg to return to her womb.",
-			"<default>{This item can be transformed with a Blessing of Uul-Netol}",
-		},
-	},
-	[81] = {
-		id = "UniqueTwoHandAxe12",
-		name = "Uul-Netol's Embrace",
-		text = {
-			"At last she holds us,",
-			"and so we turn to dust.",
-		},
-	},
-	[82] = {
-		id = "UniqueStaff24",
-		name = "The Grey Spire",
-		text = {
-			"There was never a simpler time.",
-			"Just simpler motivations.",
-		},
-	},
-	[83] = {
-		id = "UniqueAmulet51",
-		name = "The Primordial Chain",
-		text = {
-			"The leash of the lifegiver",
-			"binds in both directions.",
-		},
-	},
-	[84] = {
-		id = "UniqueShieldInt13",
-		name = "The Eternal Apple",
-		text = {
-			"The empire is both the tree and the fruit.",
-			"It provides safe harbour as ideas grow within,",
-			"and when the time is right, the apple is picked.",
-			"The idea, and our ideals, take root.",
-		},
-	},
-	[85] = {
-		id = "UniqueAmulet52",
-		name = "Perquil's Toe",
-		text = {
-			"He was a lot luckier before he lost this.",
-		},
-	},
-	[86] = {
-		id = "UniqueGlovesInt10",
-		name = "Demon Stitcher",
-		text = {
-			"Xibaqua's treachery was met with divine fury.",
-			"One by one, the gods reclaimed their flesh,",
-			"until all that remained was a droplet of pure light:",
-			"The first Vaal.",
-		},
-	},
-	[87] = {
-		id = "UniqueGlovesStrInt8",
-		name = "Command of the Pit",
-		text = {
-			"We serve only the Night.",
-		},
-	},
-	[88] = {
-		id = "UniqueHelmetDexInt11",
-		name = "Curtain Call",
-		text = {
-			"Sing with me one last duet,",
-			"the curtain closes nigh.",
-			"Join me in a quiet song,",
-			"Before we all must die.",
-		},
-	},
-	[89] = {
-		id = "UniqueDagger3x",
-		name = "Replica Ungil's Gauche",
-		text = {
-			"\"Recommend further production of Prototype #122. It makes",
-			"an ideal weapon for our suppression troops and guards.\"",
-		},
-	},
-	[90] = {
-		id = "UniqueSceptre20",
-		name = "Cerberus Limb",
-		text = {
-			"The greatest of guardians make the greatest of sacrifices.",
-		},
-	},
-	[91] = {
-		id = "UniqueDagger19x",
-		name = "Replica Cold Iron Point",
-		text = {
-			"\"Researchers will refrain from scaring each other by firing ice spears while holding",
-			"Prototype #141. Sooner or later, someone's going to lose an eye.\"",
-			"- Administrator Qotra",
-		},
-	},
-	[92] = {
-		id = "UniqueHelmetInt17",
-		name = "Hale Negator",
-		text = {
-			"\"Feel the pain of ancient wounds.",
-			"Feel the doom of dying souls.\"",
-		},
-	},
-	[93] = {
-		id = "UniqueJewel87",
-		name = "The Green Dream",
-		text = {
-			"We climb like vines up Chayula's arms,",
-			"reaching into the world that should be ours.",
-			"<default>{This item can be transformed with a Blessing of Chayula}",
-		},
-	},
-	[94] = {
-		id = "UniqueHelmetStrInt15",
-		name = "Crown of the Tyrant",
-		text = {
-			"You will know if your subjects follow you from fear",
-			"or respect when you have your first moment of weakness.",
-			"If it's the former, they will tear you into pieces like rabid dogs.",
-		},
-	},
-	[95] = {
-		id = "UniqueJewel88",
-		name = "The Green Nightmare",
-		text = {
-			"We take root in the dirt",
-			"and strangle those who tread upon it.",
-		},
-	},
-	[96] = {
-		id = "UniqueRing53a",
-		name = "Ahkeli's Mountain",
-		text = {
-			"Fleeing the destruction set upon her home,",
-			"the Clayshaper sought safety in the clouds of ash above.",
-			"<default>{This item can be combined with a Meadow and Valley ring at a Vendor.}",
-		},
-	},
-	[97] = {
-		id = "UniqueJewel89",
-		name = "The Blue Dream",
-		text = {
-			"We crash against Chayula's body,",
-			"and fall like rain into the place we cannot go.",
-			"<default>{This item can be transformed with a Blessing of Chayula}",
-		},
-	},
-	[98] = {
-		id = "UniqueRing53b",
-		name = "Ahkeli's Meadow",
-		text = {
-			"Where once had stood a village, lay naught but splinters.",
-			"Some had once been her home.",
-			"Some had once been her creations.",
-			"Some had once been her family.",
-			"<default>{This item can be combined with a Mountain and Valley ring at a Vendor.}",
-		},
-	},
-	[99] = {
-		id = "UniqueJewel90",
-		name = "The Blue Nightmare",
-		text = {
-			"We swell and flood",
-			"and drown the undeserving beneath our might.",
-		},
-	},
-	[100] = {
-		id = "UniqueRing53c",
-		name = "Ahkeli's Valley",
-		text = {
-			"The river, once fertile and fresh,",
-			"and flowing briskly to the sea,",
-			"now stood, stained, at a standstill.",
-			"Dammed by the coagulating dead.",
-			"<default>{This item can be combined with a Meadow and Mountain ring at a Vendor.}",
-		},
-	},
-	[101] = {
-		id = "UniqueBelt21",
-		name = "Soul Tether",
-		text = {
-			"Vaal bloodpriests were among the earliest intellectuals on record.",
-			"It was they who found that a newly freed soul would",
-			"desperately cling to any other source of life.",
-		},
-	},
-	[102] = {
-		id = "UniqueRing53d",
-		name = "Uzaza's Mountain",
-		text = {
-			"The narrow path turned to rough rocks that led towards the sky.",
-			"One last obstacle in a life-long journey",
-			"to find a land they could call home.",
-			"<default>{This item can be combined with a Meadow and Valley ring at a Vendor.}",
-		},
-	},
-	[103] = {
-		id = "UniqueShieldStr10",
-		name = "Tukohama's Fortress",
-		text = {
-			"Tukohama couldn't lose a fight in his fortress,",
-			"So he carried his fortress to the fight.",
-		},
-	},
-	[104] = {
-		id = "UniqueRing53e",
-		name = "Uzaza's Meadow",
-		text = {
-			"Cold winds blasted what little grew on the icy surface.",
-			"The gifts of the land lay hidden deeper,",
-			"and only patience and persistence would free them.",
-			"<default>{This item can be combined with a Mountain and Valley ring at a Vendor.}",
-		},
-	},
-	[105] = {
-		id = "UniqueRing46",
-		name = "Angler's Plait",
-		text = {
-			"A man can spend his whole life fishing",
-			"before he learns it is not fish that he seeks.",
-		},
-	},
-	[106] = {
-		id = "UniqueGlovesStrDex8",
-		name = "Haemophilia",
-		text = {
-			"\"A master artist takes his time when he's painting.",
-			"Unfortunately, my kind doesn't often have that luxury.\"",
-			"- Coralito, Brotherhood of Silence",
-		},
-	},
-	[107] = {
-		id = "UniqueRing53g",
-		name = "Putembo's Mountain",
-		text = {
-			"He surveyed his lands, green and vital,",
-			"watched with pride as his slaves quarried fine stone for his fortress,",
-			"and thanked the heavens for his many blessings.",
-			"But this pilgrimage to the peak was to be his last.",
-			"<default>{This item can be combined with a Meadow and Valley ring at a Vendor.}",
-		},
-	},
-	[108] = {
-		id = "UniqueHelmetStr6",
-		name = "The Baron",
-		text = {
-			"\"The Emperor's trusted surgeons are not the only ones who",
-			"practice the dark arts. Some of us are just more discreet.\"",
-		},
-	},
-	[109] = {
-		id = "UniqueRing53h",
-		name = "Putembo's Meadow",
-		text = {
-			"The fields were silent but for the plucking of fruits,",
-			"the rustling of leaves, and the breaking of stone.",
-			"No slave dared to speak or look the passing king in the eye.",
-			"No one... except Aul.",
-			"<default>{This item can be combined with a Mountain and Valley ring at a Vendor.}",
-		},
-	},
-	[110] = {
-		id = "UniqueShieldStr11",
-		name = "Ahn's Heritage",
-		text = {
-			"\"It's not Karui, Azmeri or even Vaal in origin,",
-			"but one thing is certain. It is very, very old.\"",
-			"- Icius Perandus, Antiquities Collection, Item 46",
-		},
-	},
-	[111] = {
-		id = "UniqueWand17",
-		name = "Shade of Solaris",
-		text = {
-			"Without light, there can be no shadow.",
-		},
-	},
-	[112] = {
-		id = "UniqueHelmetStrInt8",
-		name = "The Brine Crown",
-		text = {
-			"Greatest is the Brine King's domain,",
-			"and every day it grows a little greater,",
-			"not through force, but patience.",
-		},
-	},
-	[113] = {
-		id = "UniqueFlask21",
-		name = "Sin's Rebirth",
-		text = {
-			"And from the ashes he rose, like a black cloud.",
-			"The Sin of one became the Sin of many.",
-		},
-	},
-	[114] = {
-		id = "UniqueShieldInt10",
-		name = "Light of Lunaris",
-		text = {
-			"Without night, there can be no day.",
-		},
-	},
-	[115] = {
-		id = "UniqueTwoHandAxe13",
-		name = "Kitava's Feast",
-		text = {
-			"Hinekora bound Kitava to a rock",
-			"that Kitava could not lift with all his might.",
-			"Kitava vowed that when he broke free,",
-			"he would devour every soul in Hinekora's domain.",
-		},
-	},
-	[116] = {
-		id = "UniqueBootsDexInt10x",
-		name = "Replica Stampede",
-		text = {
-			"\"Suppression troop seven, the 'Glowering Faithful,' managed to fell the escaping",
-			"test subject by timing their arrows between his explosive dashes.\"",
-			"<default>{This item can be anointed by Cassia}",
-		},
-	},
-	[117] = {
-		id = "UniqueStaff17",
-		name = "Duskdawn",
-		text = {
-			"\"The world is not simply black and white,",
-			"it is not divided into good and evil.",
-			"But black and white, good and evil, do exist,",
-			"and we must know how to recognize them.\"",
-			"- Archbishop Geofri",
-		},
-	},
-	[118] = {
-		id = "UniqueGlovesStrDex12",
-		name = "Worldcarver",
-		text = {
-			"Is it better to find new lands - or to create them?",
-		},
-	},
-	[119] = {
-		id = "UniqueBelt22",
-		name = "Perseverance",
-		text = {
-			"\"Some blows must be evaded. Some blows must be endured.",
-			"The trick is to tell them apart.\"",
-			"- Daresso, the Sword King",
-		},
-	},
-	[120] = {
-		id = "UniqueHelmetInt19a",
-		name = "Flamesight",
-		text = {
-			"See creation as it was, aflame and frantic.",
-		},
-	},
-	[121] = {
-		id = "UniqueHelmetInt19b",
-		name = "Galesight",
-		text = {
-			"See creation as it will be, frozen and silent.",
-		},
-	},
-	[122] = {
-		id = "UniqueHelmetInt19c",
-		name = "Thundersight",
-		text = {
-			"See creation as it is, energetic and storming.",
-		},
-	},
-	[123] = {
-		id = "UniqueShieldDex8x",
-		name = "Replica Mistwall",
-		text = {
-			"\"For personal defence, Prototype #444 is fantastic. It is one hundred percent",
-			"effective seventy five percent of the time... once.\"",
-			"- Lead Researcher Ksaret",
-		},
-	},
-	[124] = {
-		id = "UniqueAmulet54",
-		name = "Solstice Vigil",
-		text = {
-			"Time, like light, can be refracted into all its myriad colours.",
-			"The first shade is beautiful, but the last will drive the unwary insane.",
-		},
-	},
-	[125] = {
-		id = "UniqueShieldStrInt9x",
-		name = "Replica Victario's Charity",
-		text = {
-			"\"Close to the original, and perhaps even more useful. However,",
-			"close is not what we are looking for. Keep trying.\"",
-			"- Administrator Qotra",
-		},
-	},
-	[126] = {
-		id = "UniqueRing55",
-		name = "Vivinsect",
-		text = {
-			"\"Fusing the parasite with another ring has manifested unpredictable effects.",
-			"I theorise the sacrificial vessel's level of anguish is a key variable.\"",
-			"- Arzaak, Syndicate Researcher",
-		},
-	},
-	[127] = {
-		id = "UniqueBow22",
-		name = "The Crimson Storm",
-		text = {
-			"\"There were no survivors. It had only been fired twice.\"",
-			"- Order of the Djinn inscription",
-		},
-	},
-	[128] = {
-		id = "UniqueRapier6",
-		name = "Paradoxica",
-		text = {
-			"What has no siblings but is always a twin?",
-		},
-	},
-	[129] = {
-		id = "UniqueBelt32",
-		name = "Hyperboreus",
-		text = {
-			"Cold winds whirl at the crown of the world.",
-		},
-	},
-	[130] = {
-		id = "UniqueBodyInt18",
-		name = "The Queen's Hunger",
-		text = {
-			"In their crimson nightmare, the Vaal are still sacrificing themselves to her glory and beauty.",
-			"They stab their own hearts and cry out in ecstasy, only to rise again.",
-		},
-	},
-	[131] = {
-		id = "UniqueFlask27",
-		name = "Cinderswallow Urn",
-		text = {
-			"A controlled burn is sometimes necessary for new life.",
-		},
-	},
-	[132] = {
-		id = "UniqueHelmetInt20",
-		name = "The Devouring Diadem",
-		text = {
-			"The spirit hungers for the flesh.",
-		},
-	},
-	[133] = {
-		id = "UniqueJewel20x",
-		name = "Replica Hotheaded",
-		text = {
-			"\"Does this jewel accomplish nothing? If only we could somehow",
-			"master cold and turn it to our own ends...\"",
-			"- Lead Researcher Ksaret",
-		},
-	},
-	[134] = {
-		id = "UniqueShieldInt14",
-		name = "Bitterbind Point",
-		text = {
-			"Though we live and act as individuals,",
-			"in truth, we are tethered together.",
-			"The barriers that divide us need not be broken",
-			"for our spirits to become entangled.",
-		},
-	},
-	[135] = {
-		id = "UniqueJewel111x",
-		name = "Replica Pure Talent",
-		text = {
-			"\"Twelve test subjects were expended in the production of Prototype #800.",
-			"Was it worth the expense? Only time will tell.\"",
-		},
-	},
-	[136] = {
-		id = "UniqueBodyDexInt11",
-		name = "The Eternity Shroud",
-		text = {
-			"There can be no defence against the celestial siblings entropy and time.",
-		},
-	},
-	[137] = {
-		id = "UniqueStaff9x",
-		name = "Replica Blood Thorn",
-		text = {
-			"\"Physical forces and flames seem to share some innate bond.",
-			"What logic lies beneath the veil of reality?\"",
-		},
-	},
-	[138] = {
-		id = "UniqueGlovesInt9",
-		name = "Vixen's Entrapment",
-		text = {
-			"\"One coy look. One blown kiss. One word spoken.",
-			"One night I wish I'd forget.\"",
-		},
-	},
-	[139] = {
-		id = "UniqueRing67",
-		name = "The Highwayman",
-		text = {
-			"Somebody does have to get hurt.",
-		},
-	},
-	[140] = {
-		id = "UniqueRing56",
-		name = "Circle of Anguish",
-		text = {
-			"I condemned an innocent man to the pyres, but to admit this mistake is to condemn myself.",
-			"My only choice is to strive harder.",
-		},
-	},
-	[141] = {
-		id = "UniqueRing57",
-		name = "Circle of Fear",
-		text = {
-			"My subordinates circled me eternally, attuned to the slightest weakness,",
-			"ready to tear me apart for their own gains.",
-		},
-	},
-	[142] = {
-		id = "UniqueBootsInt4x",
-		name = "Replica Bones of Ullr",
-		text = {
-			"\"Outpost Twelve has been abandoned. On the bright side, I expect the plague of apparitions",
-			"to serve as ample defence for the relics we left behind.\"",
-			"- Administrator Qotra",
-		},
-	},
-	[143] = {
-		id = "UniqueBootsInt8x",
-		name = "Replica Inya's Epiphany",
-		text = {
-			"\"Prototype #56 was deemed safe, but judging by Administrator Qotra's new hustle",
-			"and improved ability to micromanage us, I'm not so sure.\"",
-			"- Researcher Graven",
-		},
-	},
-	[144] = {
-		id = "UniqueFlask4x",
-		name = "Replica Lavianga's Spirit",
-		text = {
-			"\"An intriguing paradox.\"",
-		},
-	},
-	[145] = {
-		id = "UniqueSceptre21",
-		name = "Nebulis",
-		text = {
-			"The vastness of the cosmos holds energies beyond comprehension,",
-			"should one have the fortitude to grasp them.",
-		},
-	},
-	[146] = {
-		id = "UniqueHelmetStrInt4x",
-		name = "Replica Veil of the Night",
-		text = {
-			"\"Prototype #722 might look like a helmet, but I believe it to be something else",
-			"entirely. The visions it shows the wearer... are beyond mortal endurance...\"",
-		},
-	},
-	[147] = {
-		id = "UniqueFlask28",
-		name = "Bottled Faith",
-		text = {
-			"A tourniquet for the soul, squeezing ethereal into physical.",
-		},
-	},
-	[148] = {
-		id = "UniqueJewel24x",
-		name = "Replica Fragile Bloom",
-		text = {
-			"\"Distribute Prototype #723 to the guards. Perhaps their survival rate will increase.\"",
-		},
-	},
-	[149] = {
-		id = "UniqueGlovesStrInt9",
-		name = "Offering to the Serpent",
-		text = {
-			"\"You covet the strength of your peers, mortal?",
-			"Perhaps it can be yours, if you are willing to make an offering of their blood...\"",
-			"- Vaal Myth of the Third Snake",
-		},
-	},
-	[150] = {
-		id = "UniqueBelt10x",
-		name = "Replica Prismweave",
-		text = {
-			"\"A legion of forty soldiers attempted to break into Outpost Five and",
-			"steal Prototype #659. What do they know that we do not?\"",
-		},
-	},
-	[151] = {
-		id = "UniqueBodyInt19",
-		name = "Garb of the Ephemeral",
-		text = {
-			"Exceptional men and women of strong will can flicker a spark,",
-			"but something much greater is needed to unleash the wildfire of true divine flames.",
-		},
-	},
-	[152] = {
-		id = "UniqueOneHandClaw12x",
-		name = "Replica Advancing Fortress",
-		text = {
-			"\"Additional test subjects approved. Determine exactly how many wounds",
-			"need to be endured to activate Prototype #612's energies.\"",
-		},
-	},
-	[153] = {
-		id = "UniqueGlovesDexInt13",
-		name = "Storm's Gift",
-		text = {
-			"The power of lightning is a power best shared.",
-		},
-	},
-	[154] = {
-		id = "UniqueBelt10",
-		name = "Prismweave",
-		text = {
-			"Nothing is as vivid as the rage of battle",
-		},
-	},
-	[155] = {
-		id = "UniqueAmulet55",
-		name = "Hyrri's Truth",
-		text = {
-			"Strike true, strike hard, and leave no survivors to retaliate.",
-		},
-	},
-	[156] = {
-		id = "UniqueShieldDexInt6",
-		name = "Perepiteia",
-		text = {
-			"Something within the machine never stops moving,",
-			"but Oriathan scholars dare not open it to find out why.",
-		},
-	},
-	[157] = {
-		id = "UniqueBootsStrInt6",
-		name = "March of the Legion",
-		text = {
-			"When the time comes to face evil, the faithful are never alone.",
-		},
-	},
-	[158] = {
-		id = "UniqueQuiver15",
-		name = "Maloney's Mechanism",
-		text = {
-			"Midnight tinkering begets midday murdering;",
-			"a sinister shaft surreptitiously shot slays a scoundrel.",
-			"I will see them again, but not until my work is done.",
-		},
-	},
-	[159] = {
-		id = "UniqueCorruptedJewel12",
-		name = "Corrupted Energy",
-		text = {
-			"Nothing is immune to the Nightmare's twisted influence.",
-		},
-	},
-	[160] = {
-		id = "UniqueWatchstone4",
-		name = "Irresistible Temptation",
-		text = {
-			"Nothing is more alluring than mystery.",
-		},
-	},
-	[161] = {
-		id = "UniqueDagger9",
-		name = "Mark of the Doubting Knight",
-		text = {
-			"Nothing is pure.",
-			"Slice open the Innocent",
-			"And spill a thousand Sins.",
-		},
-	},
-	[162] = {
-		id = "UniqueBodyStrInt2",
-		name = "Ambu's Charge",
-		text = {
-			"Nothing stops the pain like a courageous rush into battle.",
-		},
-	},
-	[163] = {
-		id = "UniqueStaff33",
-		name = "The Burden of Shadows",
-		text = {
-			"Nothingness is loathe to relinquish its grip.",
-			"Every moment is a struggle to exist.",
-		},
-	},
-	[164] = {
-		id = "UniqueJewel8",
-		name = "Survival Instincts",
-		text = {
-			"Observe and master your surroundings.",
-		},
-	},
-	[165] = {
-		id = "UniqueHelmetDexInt15",
-		name = "Willclash",
-		text = {
-			"Obtaining information depends upon pretending one already has it.",
-		},
-	},
-	[166] = {
-		id = "UniqueGlovesDex1",
-		name = "Hrimburn",
-		text = {
-			"Of ancient giants, none remain,",
-			"Their only trace is timeless pain.",
-		},
-	},
-	[167] = {
-		id = "UniqueJewel106",
-		name = "Hazardous Research",
-		text = {
-			"Of the elements at the thaumaturgist's disposal, lightning remained the least understood.",
-			"The simple passage of energy from one to another could result in profound power, or rapid death.",
-		},
-	},
-	[168] = {
-		id = "UniqueFlask29",
-		name = "Olroth's Resolve",
-		text = {
-			"Olroth the Gallant,",
-			"tireless and true,",
-			"he fights for me,",
-			"he fights for you!",
-		},
-	},
-	[169] = {
-		id = "UniqueRing22",
-		name = "Kalandra's Touch",
-		text = {
-			"On one hand, you have a choice.",
-			"On the other, you have its twin.",
-		},
-	},
-	[170] = {
-		id = "UniqueOneHandSword31",
-		name = "The Saviour",
-		text = {
-			"On the mirrored edge of infinity,",
-			"one man sinks forever into darkness,",
-			"one man rises into light.",
-			"But which one am I?",
-		},
-	},
-	[171] = {
-		id = "UniqueJewel143",
-		name = "The Front Line",
-		text = {
-			"Once you begin to rely on your weapons,",
-			"You ensure you can't live without them.",
-		},
-	},
-	[172] = {
-		id = "UniqueJewel52",
-		name = "Anatomical Knowledge",
-		text = {
-			"Once you understand how your body truly works",
-			"you can't help but treat it better.",
-		},
-	},
-	[173] = {
-		id = "UniqueJewel57",
-		name = "Weight of the Empire",
-		text = {
-			"Ondar not only betrayed his emperor,",
-			"He betrayed his friend.",
-			"And in his dying moments, Chitus ensured,",
-			"That Ondar felt the full weight of his guilt.",
-		},
-	},
-	[174] = {
-		id = "UniqueTwoHandAxe1",
-		name = "Kaom's Primacy",
-		text = {
-			"One by one, Kaom slaughtered the weakest tribe",
-			"leaders until the others leapt to join his cause.",
-		},
-	},
-	[175] = {
-		id = "UniqueJewel115",
-		name = "Watcher's Eye",
-		text = {
-			"One by one, they stood their ground against a creature",
-			"they had no hope of understanding, let alone defeating,",
-			"and one by one, they became a part of it.",
-		},
-	},
-	[176] = {
-		id = "UniqueStaff8",
-		name = "Agnerod East",
-		text = {
-			"One for each corner of the great Vinktar Square.",
-		},
-	},
-	[177] = {
-		id = "UniqueFishingRod1",
-		name = "Song of the Sirens",
-		text = {
-			"Give a man a fish, and you can feed him for a day.",
-			"But give a fish a man, and you can feed it for a month.",
-		},
-	},
-	[178] = {
-		id = "UniqueShieldDexInt4",
-		name = "Leper's Alms",
-		text = {
-			"One's burden is another's gift.",
-		},
-	},
-	[179] = {
-		id = "UniqueHelmetDexInt4",
-		name = "The Three Dragons",
-		text = {
-			"\"The ice seared his naked feet",
-			"As the lightning stilled his heart,",
-			"But it was the flames upon his lover's face",
-			"That roused him to vengeance.\"",
-			"- From 'The Three Dragons' by Victario of Sarn",
-		},
-	},
-	[180] = {
-		id = "UniqueGlovesStrInt1",
-		name = "Shackles of the Wretched",
-		text = {
-			"Captivity breeds creativity.",
-		},
-	},
-	[181] = {
-		id = "UniqueOneHandMace3",
-		name = "Mjölner",
-		text = {
-			"Look the storm in the eye and you will have its respect.",
-		},
-	},
-	[182] = {
-		id = "UniqueStaff5",
-		name = "Dying Breath",
-		text = {
-			"The whispers of the dead",
-			"Carry wisdom for the living,",
-			"If you are willing to give your life",
-			"To listen.",
-		},
-	},
-	[183] = {
-		id = "UniqueGlovesDexInt5",
-		name = "Snakebite",
-		text = {
-			"\"As the serpent shuns thought,",
-			"It shuns fear.",
-			"It strikes with the speed of wrath",
-			"And the skill of compulsion.\"",
-			"- Deshret, The Red Sekhema",
-		},
-	},
-	[184] = {
-		id = "UniqueBootsStrInt2",
-		name = "Alberon's Warpath",
-		text = {
-			"Alberon walked among the accursed,",
-			"and they welcomed him.",
-		},
-	},
-	[185] = {
-		id = "UniqueHelmetStrDex5",
-		name = "Skullhead",
-		text = {
-			"All that was left of the Iron King was his bleached skull.",
-			"Yet it was all the Iron King needed.",
-		},
-	},
-	[186] = {
-		id = "UniqueRing23",
-		name = "Voideye",
-		text = {
-			"The darker the eye, the more diligent the watched.",
-		},
-	},
-	[187] = {
-		id = "UniqueGlovesStrDex4",
-		name = "Vaal Caress",
-		text = {
-			"\"The gems are strangely human at times.",
-			"They simply love to be held.\"",
-			"- Doryani, First Seer to the Queen",
-		},
-	},
-	[188] = {
-		id = "UniqueQuiver3",
-		name = "Drillneck",
-		text = {
-			"\"Why waste such a fine arrow on just one man?\"",
-			"- Kiravi, Vaal Archer",
-		},
-	},
-	[189] = {
-		id = "UniqueQuiver4",
-		name = "Rearguard",
-		text = {
-			"\"It's a rare man that has eyes in the back of his head.\"",
-			"- Kiravi, Vaal Archer",
-		},
-	},
-	[190] = {
-		id = "UniqueStaff6",
-		name = "Pledge of Hands",
-		text = {
-			"\"To shake a hand is to double your power.\"",
-			"- Jaetai, Queen's Advisor",
-		},
-	},
-	[191] = {
-		id = "UniqueBootsDex7",
-		name = "Atziri's Step",
-		text = {
-			"\"Those who dance are considered insane",
-			"by those who cannot hear the music.\"",
-			"- Atziri, Queen of the Vaal",
-		},
-	},
-	[192] = {
-		id = "UniqueBelt9",
-		name = "Doryani's Invitation",
-		text = {
-			"\"You can invite them but you can never be",
-			"sure who will come knocking.\"",
-			"- Doryani, Queen's Thaumaturgist",
-		},
-	},
-	[193] = {
-		id = "UniqueFlask5",
-		name = "Atziri's Promise",
-		text = {
-			"\"Death needs not your understanding. It needs only your loyalty.\"",
-			"- Atziri, Queen of the Vaal",
-		},
-	},
-	[194] = {
-		id = "UniqueGlovesStr3",
-		name = "Atziri's Acuity",
-		text = {
-			"\"The heart is the herald.",
-			"It will tell me when it is best to strike.\"",
-			"- Atziri, Queen of the Vaal",
-		},
-	},
-	[195] = {
-		id = "UniqueBodyStrDexInt1",
-		name = "Atziri's Splendour",
-		text = {
-			"\"When you have nothing to hide,",
-			"you have nothing to fear.\"",
-			"- Atziri, Queen of the Vaal",
-		},
-	},
-	[196] = {
-		id = "UniqueHelmetDexInt5",
-		name = "The Vertex",
-		text = {
-			"\"A queen should be seen, admired, but never touched.\"",
-			"- Atziri, Queen of the Vaal",
-		},
-	},
-	[197] = {
-		id = "UniqueTwoHandAxe7",
-		name = "Atziri's Disfavour",
-		text = {
-			"\"I do not believe in disguising my disappointment.\"",
-			"- Atziri, Queen of the Vaal",
-		},
-	},
-	[198] = {
-		id = "UniqueBodyInt9",
-		name = "Vis Mortis",
-		text = {
-			"Reap what others have sown",
-			"Muster them from their graves",
-			"Parade them for your pleasure",
-			"Zealots in mortis enslaved",
-		},
-	},
-	[199] = {
-		id = "UniqueSceptre7",
-		name = "Doryani's Catalyst",
-		text = {
-			"The result of the catalytic reaction would be either immortality for all,",
-			"or death for all. It was a risk Doryani was willing to take.",
-		},
-	},
-	[200] = {
 		id = "UniqueQuiver1",
-		name = "The Signal Fire",
+		name = "Blackgleam",
 		text = {
 			"Molten feathers, veiled spark,",
 			"Hissing arrows from the dark.",
 		},
 	},
-	[201] = {
-		id = "UniqueWand6",
-		name = "Piscator's Vigil",
+	[34] = {
+		id = "FatedUnique8",
+		name = "The Signal Fire",
 		text = {
-			"\"Stone still, amidst the reeds,",
-			"breath fogging in the iron cold air.",
-			"he sits, he waits, he watches.",
-			"A piscatorial vigil, sat by the river,",
-			"his cathedral, his patience his unanswered prayer.\"",
-			"- Jojoba Mansell, bard, angler, adventurer",
+			"Fire spreads thick and fast.",
+			"The first spark is never the last.",
 		},
 	},
-	[202] = {
-		id = "UniqueQuiver5",
-		name = "Asphyxia's Wrath",
+	[35] = {
+		id = "UniqueBootsStr1",
+		name = "Windscream",
 		text = {
-			"Mist of breath",
-			"Icing to lips and throat",
-			"As the warm ones choke and fall",
-			"Upon the frozen wasteland.",
+			"The mocking wind, a shielding spell,",
+			"The haunting screams, a maddening hell.",
 		},
 	},
-	[203] = {
+	[36] = {
+		id = "FatedUnique35",
+		name = "Windshriek",
+		text = {
+			"An open mouth, a blinding shriek,",
+			"Your mind goes dark, your body weak.",
+		},
+	},
+	[37] = {
+		id = "UniqueBodyDex7",
+		name = "Briskwrap",
+		text = {
+			"\"I carry neither food nor drink. I rely on the charity",
+			"of my fellow wayfarers. Dead men are generous men.\"",
+			"- Taruk of the Wildmen",
+		},
+	},
+	[38] = {
+		id = "FatedUnique31",
+		name = "Wildwrap",
+		text = {
+			"\"Laws are for city folk.",
+			"Can't try a man for murder if you can't find him.\"",
+			"- Taruk, Last of the Wildmen",
+		},
+	},
+	[39] = {
+		id = "UniqueShieldInt2",
+		name = "Matua Tupuna",
+		text = {
+			"You carried me through life,",
+			"The least I can do is carry you through death.",
+		},
+	},
+	[40] = {
+		id = "FatedUnique61",
+		name = "Whakatutuki o Matua",
+		text = {
+			"As you guided me, now I guide others.",
+		},
+	},
+	[41] = {
+		id = "UniqueBow8",
+		name = "Storm Cloud",
+		text = {
+			"Centuries of development in steel armoursmithing",
+			"turned the armies of the Eternal Empire",
+			"into very effective lightning rods.",
+		},
+	},
+	[42] = {
+		id = "FatedUnique21",
+		name = "The Tempest",
+		text = {
+			"Where steel-grey clouds gather and crash together,",
+			"a storm is sure to follow.",
+		},
+	},
+	[43] = {
+		id = "UniqueBelt2",
+		name = "The Magnate",
+		text = {
+			"Few men cast a longer shadow",
+			"than the Great Meginord of the North.",
+		},
+	},
+	[44] = {
+		id = "FatedUnique46",
+		name = "The Tactitian",
+		text = {
+			"Few men command an army better",
+			"than the Great Meginord of the North",
+		},
+	},
+	[45] = {
+		id = "FatedUnique47",
+		name = "The Nomad",
+		text = {
+			"Few men can guide their people",
+			"like the Great Meginord of the North",
+		},
+	},
+	[46] = {
+		id = "UniqueStaff14",
+		name = "The Stormheart",
+		text = {
+			"When the storm comes,",
+			"the safest place to be is the centre.",
+		},
+	},
+	[47] = {
+		id = "FatedUnique29",
+		name = "The Stormwall",
+		text = {
+			"You cannot control the storm,",
+			"but you can utilise it.",
+		},
+	},
+	[48] = {
+		id = "UniqueTwoHandAxe3",
+		name = "Limbsplit",
+		text = {
+			"Swinging through the air, it sings",
+			"of sundered, severed, missing things.",
+		},
+	},
+	[49] = {
+		id = "UniqueTwoHandAxe3",
+		name = "The Cauteriser",
+		text = {
+			"Swinging through the air, it sings",
+			"of sundered, severed, missing things.",
+		},
+	},
+	[50] = {
+		id = "UniqueTwoHandSword4",
+		name = "Queen's Decree",
+		text = {
+			"The nobles wanted to take her throne.",
+			"She let the peasants take their wealth.",
+			"The peasants wanted to take her wealth.",
+			"She let the soldiers take their heads.",
+			"The soldiers wanted to take her head.",
+			"She sat on her throne and wept.",
+		},
+	},
+	[51] = {
+		id = "UniqueTwoHandSword4",
+		name = "Queen's Escape",
+		text = {
+			"The nobles wanted to take her throne.",
+			"She let the peasants take their wealth.",
+			"The peasants wanted to take her wealth.",
+			"She let the soldiers take their heads.",
+			"The soldiers wanted to take her head.",
+			"She sat on her throne and wept.",
+		},
+	},
+	[52] = {
+		id = "UniqueHelmetDexInt1",
+		name = "Malachai's Simula",
+		text = {
+			"It was a sliver of Malachai's soul",
+			"that animated the first Eternal Guardian.",
+		},
+	},
+	[53] = {
+		id = "UniqueHelmetDexInt1",
+		name = "Malachai's Awakening",
+		text = {
+			"It was a sliver of Malachai's soul",
+			"that animated the first Eternal Guardian.",
+		},
+	},
+	[54] = {
+		id = "UniqueRing2",
+		name = "Kaom's Sign",
+		text = {
+			"A token from the sea",
+			"A sign for Kaom",
+			"to lead his Karui to Wraeclast.",
+		},
+	},
+	[55] = {
+		id = "UniqueRing2",
+		name = "Kaom's Way",
+		text = {
+			"A token from the sea",
+			"A sign for Kaom",
+			"to lead his Karui to Wraeclast.",
+		},
+	},
+	[56] = {
+		id = "UniqueQuiver6",
+		name = "Hyrri's Bite",
+		text = {
+			"A Karui woman's place was not the",
+			"battlefield, but the hearth.",
+			"Hyrri changed all of that.",
+		},
+	},
+	[57] = {
 		id = "UniqueQuiver6",
 		name = "Hyrri's Demise",
 		text = {
@@ -1720,7 +475,118 @@ return {
 			"Hyrri changed all of that.",
 		},
 	},
-	[204] = {
+	[58] = {
+		id = "UniqueGlovesDex1",
+		name = "Hrimsorrow",
+		text = {
+			"Of ancient giants, none remain,",
+			"Their only trace is timeless pain.",
+		},
+	},
+	[59] = {
+		id = "UniqueGlovesDex1",
+		name = "Hrimburn",
+		text = {
+			"Of ancient giants, none remain,",
+			"Their only trace is timeless pain.",
+		},
+	},
+	[60] = {
+		id = "UniqueQuiver6",
+		name = "Hyrri's Bite",
+		text = {
+			"A Karui woman's place was not the",
+			"battlefield, but the hearth.",
+			"Hyrri changed all of that.",
+		},
+	},
+	[61] = {
+		id = "UniqueQuiver6",
+		name = "Hyrri's Demise",
+		text = {
+			"A Karui woman's place was not the",
+			"battlefield, but the hearth.",
+			"Hyrri changed all of that.",
+		},
+	},
+	[62] = {
+		id = "UniqueTwoHandMace2",
+		name = "Geofri's Baptism",
+		text = {
+			"\"One quick tap is all the persuasion you'll need.\"",
+			"- Archbishop Geofri of Phrecia Cathedral",
+		},
+	},
+	[63] = {
+		id = "UniqueTwoHandMace2",
+		name = "Geofri's Devotion",
+		text = {
+			"\"One quick tap is all the persuasion you'll need.\"",
+			"- Archbishop Geofri of Phrecia Cathedral",
+		},
+	},
+	[64] = {
+		id = "UniqueDexHelmet2",
+		name = "Heatshiver",
+		text = {
+			"Give of your heated passions.",
+			"Give of your cold resolve.",
+			"You will be repaid.",
+		},
+	},
+	[65] = {
+		id = "UniqueDexHelmet2",
+		name = "Frostferno",
+		text = {
+			"Give of your heated passions.",
+			"Give of your cold resolve.",
+			"You will be repaid.",
+		},
+	},
+	[66] = {
+		id = "UniqueBootsStrDex3",
+		name = "Dusktoe",
+		text = {
+			"\"A lick of shadow may ease",
+			"the petty frictions of one's life.\"",
+			"- Inquisitor Maligaro",
+		},
+	},
+	[67] = {
+		id = "UniqueBootsStrDex3",
+		name = "Duskblight",
+		text = {
+			"\"A lick of shadow may ease",
+			"the petty frictions of one's life.\"",
+			"- Inquisitor Maligaro",
+		},
+	},
+	[68] = {
+		id = "UniqueOneHandSword1",
+		name = "Redbeak",
+		text = {
+			"As battle calms, blood turns to rust.",
+		},
+	},
+	[69] = {
+		id = "UniqueOneHandSword1",
+		name = "Dreadbeak",
+		text = {
+			"As battle calms, blood turns to rust.",
+		},
+	},
+	[70] = {
+		id = "UniqueBow11",
+		name = "Doomfletch",
+		text = {
+			"\"Toasted or frozen",
+			"Or twitching in the light",
+			"I'm not fussy",
+			"And neither is Death.\"",
+			"- Koralus Doomfletch",
+		},
+	},
+	[71] = {
 		id = "UniqueBow11",
 		name = "Doomfletch's Prism",
 		text = {
@@ -1731,329 +597,1706 @@ return {
 			"- Koralus Doomfletch",
 		},
 	},
-	[205] = {
-		id = "UniqueOneHandSword6",
-		name = "Hyaon's Fury",
+	[72] = {
+		id = "UniqueGlovesInt2",
+		name = "Doedre's Tenure",
 		text = {
-			"\"Hyaon the 'Red Wolf'",
-			"Howling mad",
-			"Cloaked in blood",
-			"A banner to his legion",
-			"A terror to his foes.\"",
-			"- Garivaldi, Chronicler to the Empire",
+			"While Doedre lacked Maligaro's sense of style,",
+			"she surpassed her master in pure malevolence.",
 		},
 	},
-	[206] = {
-		id = "UniqueBootsStr2",
-		name = "Kaom's Roots",
+	[73] = {
+		id = "UniqueGlovesInt2",
+		name = "Doedre's Malevolence",
 		text = {
-			"Don't flinch. It's a waste of good hitting time.",
+			"While Doedre lacked Maligaro's sense of style,",
+			"she surpassed her master in pure malevolence.",
 		},
 	},
-	[207] = {
-		id = "UniqueOneHandSword7",
-		name = "Fidelitas' Spike",
+	[74] = {
+		id = "UniqueBow3",
+		name = "Death's Harp",
 		text = {
-			"Maligaro was transformed by Raulo's love.",
-			"Thaumaturgy allowed Maligaro to return the favour.",
+			"The mournful music of the strings,",
+			"The creaking arch, the arrow sings.",
+			"A choking cry, a rattled breath,",
+			"The Reaper's Song, the Harp of Death.",
 		},
 	},
-	[208] = {
-		id = "UniqueQuiver7",
-		name = "Soul Strike",
+	[75] = {
+		id = "UniqueBow3",
+		name = "Death's Opus",
 		text = {
-			"In this chaotic world",
-			"The rewards of the Soul",
-			"Outlast the rewards of the Flesh.",
+			"The mournful music of the strings,",
+			"The creaking arch, the arrow sings.",
+			"A choking cry, a rattled breath,",
+			"The Reaper's Song, the Harp of Death.",
 		},
 	},
-	[209] = {
-		id = "UniqueFlask6",
-		name = "Forbidden Taste",
+	[76] = {
+		id = "UniqueTwoHandMace5",
+		name = "Chober Chaber",
 		text = {
-			"Your reach exceeds your grasp.",
+			"The faithful may continue to serve, even after death.",
 		},
 	},
-	[210] = {
-		id = "UniqueStaff7",
-		name = "Hegemony's Era",
+	[77] = {
+		id = "UniqueTwoHandMace5",
+		name = "Chaber Cairn",
 		text = {
-			"The right to rule demands mental acuity,",
-			"a strong arm,",
-			"And a tenacious sense of justice.",
+			"The faithful may continue to serve, even after death.",
 		},
 	},
-	[211] = {
-		id = "UniqueShieldDex5",
-		name = "Thousand Teeth Temu",
+	[78] = {
+		id = "UniqueOneHandMace4",
+		name = "Cameria's Maul",
 		text = {
-			"Crimson burn'd the star of sadness,",
-			"All was woe that seem'd but gladness.",
+			"\"You'll have my riches when you pry them",
+			"from my cold, dead hands!\"",
+			"\"That's how I prefer it.\"",
 		},
 	},
-	[212] = {
-		id = "UniqueRing24",
-		name = "Mokou's Embrace",
+	[79] = {
+		id = "UniqueOneHandMace4",
+		name = "Cameria's Avarice",
 		text = {
-			"Fire makes the perfect blossom in the endless night.",
+			"\"You'll have my riches when you pry them",
+			"from my cold, dead hands!\"",
+			"\"That's how I prefer it.\"",
 		},
 	},
-	[213] = {
-		id = "UniqueFlask7",
-		name = "Rumi's Concoction",
+	[80] = {
+		id = "UniqueIntHelmet2",
+		name = "Asenath's Mark",
 		text = {
-			"\"Yesterday I was clever, so I wanted to change the world.",
-			"Today I am wise, so I am changing myself.\"",
-			"-Rumi of the Vaal",
+			"Asenath's mind was as quick and nimble",
+			"as the fingers that drew her bowstring.",
 		},
 	},
-	[214] = {
-		id = "UniqueOneHandSword9",
-		name = "Dreamfeather",
+	[81] = {
+		id = "UniqueIntHelmet2",
+		name = "Asenath's Chant",
 		text = {
-			"She dances a dance beneath the shade,",
-			"The twilight shroud her only blade,",
-			"Who now hears her feathersteps flowing?",
-			"Beneath the stars, the moondrops glowing.",
+			"Asenath's mind was as quick and nimble",
+			"as the fingers that drew her bowstring.",
 		},
 	},
-	[215] = {
-		id = "UniqueBootsStrInt3",
-		name = "Gang's Momentum",
-		text = {
-			"Become one with the unstoppable flame.",
-		},
-	},
-	[216] = {
-		id = "UniqueBootsDex8",
-		name = "Nomic's Storm",
-		text = {
-			"It takes a clear mind to outrun a storm.",
-		},
-	},
-	[217] = {
-		id = "UniqueBodyStrDex4",
-		name = "Cherrubim's Maleficence",
-		text = {
-			"\"The Consort of Chaos descended,",
-			"swiftly, brutally, artfully, she consumed the living,",
-			"leaving naught behind but a Rosemarie bloom,",
-			"to celebrate the massacre.\"",
-			"- Blass, explorer, hunter, adventurer",
-		},
-	},
-	[218] = {
-		id = "UniqueWand7",
-		name = "Apep's Rage",
-		text = {
-			"Apep's poison entraps, encircles,",
-			"and engulfs the leaking mind of Man.",
-		},
-	},
-	[219] = {
-		id = "UniqueGlovesStrInt2",
-		name = "Null and Void",
-		text = {
-			"What is freedom but a clean slate",
-			"in an unclean world?",
-		},
-	},
-	[220] = {
-		id = "UniqueGlovesStrDex5",
-		name = "Flesh and Spirit",
-		text = {
-			"What is greed but trading a mountain of death",
-			"for a sliver of life?",
-		},
-	},
-	[221] = {
-		id = "UniqueGlovesDexInt6",
-		name = "Shadows and Dust",
-		text = {
-			"What is fear but a snuffed torch",
-			"and death in the wind?",
-		},
-	},
-	[222] = {
-		id = "UniqueTwoHandAxe8",
-		name = "The Harvest",
-		text = {
-			"Let it grow and gather inside them,",
-			"Let it flow through their veins.",
-			"Don't waste a drop.",
-		},
-	},
-	[223] = {
-		id = "UniqueTwoHandSword7",
-		name = "Edge of Madness",
-		text = {
-			"Soon, the pleas for mercy were muted.",
-			"Only one voice remained.",
-			"Laughing.",
-		},
-	},
-	[224] = {
-		id = "UniqueSceptre8",
-		name = "The Dark Seer",
-		text = {
-			"Feed on the light of the living,",
-			"Bring darkness to all I see,",
-			"Until we are one in shadow.",
-		},
-	},
-	[225] = {
-		id = "UniqueQuiver8",
-		name = "Cragfall",
-		text = {
-			"Hit them hard. Hit them once.",
-		},
-	},
-	[226] = {
-		id = "UniqueRing25",
-		name = "Malachai's Artifice",
-		text = {
-			"When the wind blows,",
-			"Know which way to bend",
-			"and watch the others break.",
-		},
-	},
-	[227] = {
-		id = "UniqueTwoHandSword8",
-		name = "Doomsower",
-		text = {
-			"So the seed of hate was born,",
-			"Evil forged and Hope forsworn.",
-		},
-	},
-	[228] = {
-		id = "UniqueShieldDex6",
-		name = "Great Old One's Ward",
-		text = {
-			"The horrors we've encountered are nothing",
-			"compared to the horrors we haven't.",
-		},
-	},
-	[229] = {
-		id = "UniqueStaff9",
-		name = "The Blood Thorn",
-		text = {
-			"Touch not the thorn, for only blood and pain await.",
-		},
-	},
-	[230] = {
-		id = "UniqueBelt11",
-		name = "Bated Breath",
-		text = {
-			"At knifepoint, a moment's hesitation means death.",
-		},
-	},
-	[231] = {
-		id = "UniqueRing26",
-		name = "Kikazaru",
-		text = {
-			"Hear no evil.",
-		},
-	},
-	[232] = {
+	[82] = {
 		id = "UniqueWand8",
-		name = "Amplification Rod",
+		name = "Reverberation Rod",
 		text = {
 			"If it's worth doing once, it's worth doing twice.",
 		},
 	},
-	[233] = {
-		id = "UniqueAmulet18",
-		name = "Ungil's Harmony",
+	[83] = {
+		id = "FatedUnique23",
+		name = "Amplification Rod",
 		text = {
-			"Gentle anger, raging calm.",
+			"No one likes a quiet encore.",
+		},
+	},
+	[84] = {
+		id = "UniqueBow18",
+		name = "Xoph's Inception",
+		text = {
+			"Upon the red pyre we are born.",
+			"",
+			"^8This item can be transformed with a Blessing of Xoph",
+		},
+	},
+	[85] = {
+		id = "UniqueBow14",
+		name = "Iron Commander",
+		text = {
+			"The Eternals commanded an army that need not eat, sleep, or breathe",
+			"without the usual depravities of necromancy.",
+		},
+	},
+	[86] = {
+		id = "UniqueBow19",
+		name = "Xoph's Nurture",
+		text = {
+			"Upon the grey winds his love spreads.",
+		},
+	},
+	[87] = {
+		id = "UniqueWand12",
+		name = "Storm Prison",
+		text = {
+			"You can never truly tame the tempest.",
+			"You can barely even leash it.",
+		},
+	},
+	[88] = {
+		id = "UniqueHelmetStr4",
+		name = "The Formless Flame",
+		text = {
+			"Our skin turns to ash",
+			"and we are swallowed by his brilliant red light.",
+			"",
+			"^8This item can be transformed with a Blessing of Xoph",
+		},
+	},
+	[89] = {
+		id = "UniqueWand13",
+		name = "Corona Solaris",
+		text = {
+			"Every decade, Lunaris devours Solaris",
+			"Each time, Solaris emerges from Lunaris, born anew.",
+		},
+	},
+	[90] = {
+		id = "UniqueHelmetStr5",
+		name = "The Formless Inferno",
+		text = {
+			"He burns us to keep us from harm.",
+		},
+	},
+	[91] = {
+		id = "UniqueSceptre13",
+		name = "Singularity",
+		text = {
+			"In time, all becomes nothing.",
+			"We just expedite the process.",
+		},
+	},
+	[92] = {
+		id = "UniqueAmulet37",
+		name = "Xoph's Heart",
+		text = {
+			"His is our heart.",
+			"To its beat we all are driven.",
+			"",
+			"^8This item can be transformed with a Blessing of Xoph",
+		},
+	},
+	[93] = {
+		id = "UniqueSceptre14",
+		name = "Bitterdream",
+		text = {
+			"Fight not the cold",
+			"Forsake hope",
+			"Be still.",
+		},
+	},
+	[94] = {
+		id = "UniqueAmulet38",
+		name = "Xoph's Blood",
+		text = {
+			"We are his blood.",
+			"Through us he carries his burning message.",
+		},
+	},
+	[95] = {
+		id = "UniqueJewel177",
+		name = "Ancestral Vision",
+		text = {
+			"The spirits of our ancestors guided us from the Archipelago to the continent.",
+			"Inextricably, the purity of our souls is linked to the ones who came before us.",
+		},
+	},
+	[96] = {
+		id = "UniqueWand15",
+		name = "Tulborn",
+		text = {
+			"We remember the stillness.",
+			"Then the great fall.",
+			"The pain of separation.",
+			"We return once more.",
+			"",
+			"^8This item can be transformed with a Blessing of Tul",
+		},
+	},
+	[97] = {
+		id = "UniqueWand16",
+		name = "Tulfall",
+		text = {
+			"We fracture and splinter.",
+			"We pierce our sides.",
+			"But in the great freeze we are forged anew.",
+		},
+	},
+	[98] = {
+		id = "UniqueBodyDex10",
+		name = "The Snowblind Grace",
+		text = {
+			"We dance in the white, like water,",
+			"colliding as many and emerging as one.",
+			"",
+			"^8This item can be transformed with a Blessing of Tul",
+		},
+	},
+	[99] = {
+		id = "UniqueBootsDexInt7",
+		name = "Fenumus' Spinnerets",
+		text = {
+			"When the fires spilled out of the mountain, The First of the Night wove a net",
+			"and was carried into the night on its hot winds.",
+			"Though we cannot live without danger, we can learn to live with it.",
+		},
+	},
+	[100] = {
+		id = "UniqueBodyDex11",
+		name = "The Perfect Form",
+		text = {
+			"We share one space,",
+			"speak one voice,",
+			"act through one body.",
+			"A flawless crystal.",
+			"Brittle.",
+		},
+	},
+	[101] = {
+		id = "UniqueBodyStrInt9",
+		name = "Loreweave",
+		text = {
+			"When it comes to finding a use for surplus,",
+			"a rich man has within himself",
+			"boundless creativity.",
+		},
+	},
+	[102] = {
+		id = "UniqueAmulet39",
+		name = "The Halcyon",
+		text = {
+			"We wait, still as the dead,",
+			"to join the great avalanche.",
+			"",
+			"^8This item can be transformed with a Blessing of Tul",
+		},
+	},
+	[103] = {
+		id = "UniqueShieldStrInt12",
+		name = "Unyielding Flame",
+		text = {
+			"An Emperor must conquer his own darkness",
+			"before he can act as a beacon of light.",
+		},
+	},
+	[104] = {
+		id = "UniqueAmulet40",
+		name = "The Pandemonius",
+		text = {
+			"A single moment sets in motion an eternal fall,",
+			"beneath which all are buried.",
+		},
+	},
+	[105] = {
+		id = "UniqueRing51",
+		name = "Stormfire",
+		text = {
+			"When your skin sloughs, and your blood cooks,",
+			"you'll wish the lightning strike had killed you.",
+		},
+	},
+	[106] = {
+		id = "UniqueClaw16",
+		name = "Hand of Thought and Motion",
+		text = {
+			"She carries us and nurtures us",
+			"until we must feed upon each other.",
+			"",
+			"^8This item can be transformed with a Blessing of Esh",
+		},
+	},
+	[107] = {
+		id = "UniqueBelt28",
+		name = "Gluttony",
+		text = {
+			"What started as a desire to feed",
+			"became a desire to learn...",
+		},
+	},
+	[108] = {
+		id = "UniqueClaw17",
+		name = "Hand of Wisdom and Action",
+		text = {
+			"She thinks and we act.",
+			"She acts and we think.",
+			"Fragments of the whole that washes clean the skies.",
+		},
+	},
+	[109] = {
+		id = "UniqueBodyStrInt10",
+		name = "Chains of Command",
+		text = {
+			"A general may carry his men to greatness,",
+			"or be dragged beneath the mire by their burden.",
+		},
+	},
+	[110] = {
+		id = "UniqueShieldInt8",
+		name = "Esh's Mirror",
+		text = {
+			"She looked upon her reflection",
+			"and trembled, and shook,",
+			"until she was not what she saw.",
+			"",
+			"^8This item can be transformed with a Blessing of Esh",
+		},
+	},
+	[111] = {
+		id = "UniqueGlovesDexInt11",
+		name = "Architect's Hand",
+		text = {
+			"Great works take time.",
+			"",
+			"^8This item can be transformed on the Altar of Sacrifice along with Vial of Dominance",
+		},
+	},
+	[112] = {
+		id = "UniqueShieldInt9",
+		name = "Esh's Visage",
+		text = {
+			"She could see what she was not;",
+			"a silhouette wreathed in light.",
+			"And she was still.",
+		},
+	},
+	[113] = {
+		id = "UniqueGlovesDexInt12",
+		name = "Slavedriver's Hand",
+		text = {
+			"A plan without a deadline stays a plan.",
+		},
+	},
+	[114] = {
+		id = "UniqueAmulet41",
+		name = "Voice of the Storm",
+		text = {
+			"When she of many mouths spoke,",
+			"we bowed in awe and were crushed.",
+			"",
+			"^8This item can be transformed with a Blessing of Esh",
+		},
+	},
+	[115] = {
+		id = "UniqueHelmetStrInt13",
+		name = "Mask of the Spirit Drinker",
+		text = {
+			"Our flesh is our most sacred gift.",
+			"Taint it not with the occult.",
+			"",
+			"^8This item can be transformed on the Altar of Sacrifice along with Vial of Summoning",
+		},
+	},
+	[116] = {
+		id = "UniqueAmulet42",
+		name = "Choir of the Storm",
+		text = {
+			"But the fool did not bow.",
+			"The fool stood and questioned.",
+			"And the fool was unwritten.",
+		},
+	},
+	[117] = {
+		id = "UniqueHelmetStrInt14",
+		name = "Mask of the Stitched Demon",
+		text = {
+			"From the flesh of the gods, Xibaqua was born.",
+			"From the carnage of Xibaqua, we were born.",
+			"It is our duty to return to the gods what was once theirs.",
+		},
+	},
+	[118] = {
+		id = "UniqueBootsStr6",
+		name = "The Infinite Pursuit",
+		text = {
+			"We move to be closer to her, but the distance yet grows.",
+			"",
+			"^8This item can be transformed with a Blessing of Uul-Netol",
+		},
+	},
+	[119] = {
+		id = "UniqueShieldInt11",
+		name = "Apep's Slumber",
+		text = {
+			"The heart grows slow,",
+			"the spirit grows strong.",
+			"",
+			"^8This item can be transformed on the Altar of Sacrifice along with Vial of Awakening",
+		},
+	},
+	[120] = {
+		id = "UniqueBootsStr7",
+		name = "The Red Trail",
+		text = {
+			"We leave a trail, that we may know",
+			"where never we will return.",
+		},
+	},
+	[121] = {
+		id = "UniqueShieldInt12",
+		name = "Apep's Supremacy",
+		text = {
+			"Give him your body, and your burdens will follow.",
+		},
+	},
+	[122] = {
+		id = "UniqueTwoHandAxe11",
+		name = "Uul-Netol's Kiss",
+		text = {
+			"We feel the Mother's love",
+			"and beg to return to her womb.",
+			"",
+			"^8This item can be transformed with a Blessing of Uul-Netol",
+		},
+	},
+	[123] = {
+		id = "UniqueBodyStrDexInt2",
+		name = "Shadowstitch",
+		text = {
+			"Destined for sacrifice,",
+			"they were dressed in garments",
+			"that blurred the lines between this world",
+			"and the next.",
+		},
+	},
+	[124] = {
+		id = "UniqueTwoHandAxe12",
+		name = "Uul-Netol's Embrace",
+		text = {
+			"At last she holds us,",
+			"and so we turn to dust.",
+		},
+	},
+	[125] = {
+		id = "UniqueAmulet48",
+		name = "Sacrificial Heart",
+		text = {
+			"The seed of life, saved and savoured.",
+			"",
+			"^8This item can be transformed on the Altar of Sacrifice along with Vial of Sacrifice",
+		},
+	},
+	[126] = {
+		id = "UniqueShieldStr8",
+		name = "The Anticipation",
+		text = {
+			"We are within her reach,",
+			"and when the time is right,",
+			"she will reach into us.",
+			"",
+			"^8This item can be transformed with a Blessing of Uul-Netol",
+		},
+	},
+	[127] = {
+		id = "UniqueAmulet49",
+		name = "Zerphi's Heart",
+		text = {
+			"We are incapable of change without sacrifice, for we are both the iron and the forge.",
+		},
+	},
+	[128] = {
+		id = "UniqueShieldStr9",
+		name = "The Surrender",
+		text = {
+			"Our hearts cry out",
+			"but are silenced by our flesh",
+			"and so we give up our flesh.",
+		},
+	},
+	[129] = {
+		id = "UniqueJewel116",
+		name = "Tempered Flesh",
+		text = {
+			"We are born raw and untested, and we are shaped by life.",
+			"",
+			"^8This item can be transformed on the Altar of Sacrifice along with Vial of Transcendence",
+		},
+	},
+	[130] = {
+		id = "UniqueOneHandSword22",
+		name = "Severed in Sleep",
+		text = {
+			"His lucky thralls dream eternal,",
+			"but we must crawl on our own.",
+			"",
+			"^8This item can be transformed with a Blessing of Chayula",
+		},
+	},
+	[131] = {
+		id = "UniqueJewel117",
+		name = "Tempered Spirit",
+		text = {
+			"Though the body rots, the spirit lives on.",
+			"",
+			"^8This item can be transformed on the Altar of Sacrifice along with Vial of Transcendence",
+		},
+	},
+	[132] = {
+		id = "UniqueOneHandSword23",
+		name = "United in Dream",
+		text = {
+			"They grow fat and ripe in slumber.",
+			"To be fed upon when he wakes.",
+		},
+	},
+	[133] = {
+		id = "UniqueJewel118",
+		name = "Tempered Mind",
+		text = {
+			"Any thought, no matter how fleeting, changes the thinker.",
+			"",
+			"^8This item can be transformed on the Altar of Sacrifice along with Vial of Transcendence",
+		},
+	},
+	[134] = {
+		id = "UniqueBodyInt13",
+		name = "Skin of the Loyal",
+		text = {
+			"We happily give our limbs.",
+			"A net woven to keep safe the bones of the Lords.",
+			"",
+			"^8This item can be transformed with a Blessing of Chayula",
+		},
+	},
+	[135] = {
+		id = "UniqueJewel119",
+		name = "Transcendent Flesh",
+		text = {
+			"We are as much shaped by what we do",
+			"as what is done to us.",
+		},
+	},
+	[136] = {
+		id = "UniqueBodyInt14",
+		name = "Skin of the Lords",
+		text = {
+			"The Lords are chosen so carefully.",
+			"Only they may grace His flesh.",
+		},
+	},
+	[137] = {
+		id = "UniqueJewel85",
+		name = "The Red Dream",
+		text = {
+			"We flow like blood into Chayula's open mouth,",
+			"and spill into the land we have watched forever.",
+			"",
+			"^8This item can be transformed with a Blessing of Chayula",
+		},
+	},
+	[138] = {
+		id = "UniqueJewel86",
+		name = "The Red Nightmare",
+		text = {
+			"We coagulate; a crimson shell",
+			"that suffocates the unworthy.",
+		},
+	},
+	[139] = {
+		id = "UniqueFlask25",
+		name = "Soul Catcher",
+		text = {
+			"Freedom is for the privileged, even in death.",
+			"",
+			"^8This item can be transformed on the Altar of Sacrifice along with Vial of the Ghost",
+		},
+	},
+	[140] = {
+		id = "UniqueJewel87",
+		name = "The Green Dream",
+		text = {
+			"We climb like vines up Chayula's arms,",
+			"reaching into the world that should be ours.",
+			"",
+			"^8This item can be transformed with a Blessing of Chayula",
+		},
+	},
+	[141] = {
+		id = "UniqueJewel88",
+		name = "The Green Nightmare",
+		text = {
+			"We take root in the dirt",
+			"and strangle those who tread upon it.",
+		},
+	},
+	[142] = {
+		id = "UniqueJewel89",
+		name = "The Blue Dream",
+		text = {
+			"We crash against Chayula's body,",
+			"and fall like rain into the place we cannot go.",
+			"",
+			"^8This item can be transformed with a Blessing of Chayula",
+		},
+	},
+	[143] = {
+		id = "UniqueJewel90",
+		name = "The Blue Nightmare",
+		text = {
+			"We swell and flood",
+			"and drown the undeserving beneath our might.",
+		},
+	},
+	[144] = {
+		id = "UniqueBelt21",
+		name = "Soul Tether",
+		text = {
+			"Vaal bloodpriests were among the earliest intellectuals on record.",
+			"It was they who found that a newly freed soul would",
+			"desperately cling to any other source of life.",
+		},
+	},
+	[145] = {
+		id = "UniqueShieldStr10",
+		name = "Tukohama's Fortress",
+		text = {
+			"Tukohama couldn't lose a fight in his fortress,",
+			"So he carried his fortress to the fight.",
+		},
+	},
+	[146] = {
+		id = "UniqueRing46",
+		name = "Angler's Plait",
+		text = {
+			"A man can spend his whole life fishing",
+			"before he learns it is not fish that he seeks.",
+		},
+	},
+	[147] = {
+		id = "UniqueGlovesStrDex8",
+		name = "Haemophilia",
+		text = {
+			"\"A master artist takes his time when he's painting.",
+			"Unfortunately, my kind doesn't often have that luxury.\"",
+			"- Coralito, Brotherhood of Silence",
+		},
+	},
+	[148] = {
+		id = "UniqueOneHandSword30",
+		name = "Fate of the Vaal",
+		text = {
+			"Doryani promises immortality, yet we build great structures,",
+			"carve magnificent works into stone, so a part of us lives onward.",
+			"A sign of faithlessness through action.",
+		},
+	},
+	[149] = {
+		id = "UniqueHelmetStr6",
+		name = "The Baron",
+		text = {
+			"\"The Emperor's trusted surgeons are not the only ones who",
+			"practice the dark arts. Some of us are just more discreet.\"",
+		},
+	},
+	[150] = {
+		id = "UniqueShieldDexInt5",
+		name = "Zeel's Amplifier",
+		text = {
+			"\"Great minds wish to reveal all the secrets of time and space.",
+			"But it does not matter. Creation, the act of Matter Metamorphosis,",
+			"is the only secret worth discovering.\"",
+			"- Zeel, Vaal Tinkerer",
+		},
+	},
+	[151] = {
+		id = "UniqueShieldStr11",
+		name = "Ahn's Heritage",
+		text = {
+			"\"It's not Karui, Azmeri or even Vaal in origin,",
+			"but one thing is certain. It is very, very old.\"",
+			"- Icius Perandus, Antiquities Collection, Item 46",
+		},
+	},
+	[152] = {
+		id = "UniqueOneHandSword2",
+		name = "Ephemeral Edge",
+		text = {
+			"In the rift between future and past,",
+			"life passes quickly.",
+		},
+	},
+	[153] = {
+		id = "UniqueWand17",
+		name = "Shade of Solaris",
+		text = {
+			"Without light, there can be no shadow.",
+		},
+	},
+	[154] = {
+		id = "UniqueHelmetDexInt1",
+		name = "Malachai's Awakening",
+		text = {
+			"It was a sliver of Malachai's soul",
+			"that animated the first Eternal Guardian.",
+		},
+	},
+	[155] = {
+		id = "UniqueHelmetStrInt8",
+		name = "The Brine Crown",
+		text = {
+			"Greatest is the Brine King's domain,",
+			"and every day it grows a little greater,",
+			"not through force, but patience.",
+		},
+	},
+	[156] = {
+		id = "UniqueHelmetStr1",
+		name = "Ezomyte Hold",
+		text = {
+			"Centuries of servitude, a day",
+			"of glory, an eternity of death.",
+		},
+	},
+	[157] = {
+		id = "UniqueFlask21",
+		name = "Sin's Rebirth",
+		text = {
+			"And from the ashes he rose, like a black cloud.",
+			"The Sin of one became the Sin of many.",
+		},
+	},
+	[158] = {
+		id = "UniqueBow3",
+		name = "Death's Opus",
+		text = {
+			"The mournful music of the strings,",
+			"The creaking arch, the arrow sings.",
+			"A choking cry, a rattled breath,",
+			"The Reaper's Song, the Harp of Death.",
+		},
+	},
+	[159] = {
+		id = "UniqueShieldInt10",
+		name = "Light of Lunaris",
+		text = {
+			"Without night, there can be no day.",
+		},
+	},
+	[160] = {
+		id = "UniqueTwoHandMace1",
+		name = "Hrimnor's Dirge",
+		text = {
+			"\"The crack of bone, the spray of blood.",
+			"Is there sweeter music?\"",
+			"- Hrimnor of the Ezomytes.",
+		},
+	},
+	[161] = {
+		id = "UniqueTwoHandAxe13",
+		name = "Kitava's Feast",
+		text = {
+			"Hinekora bound Kitava to a rock",
+			"that Kitava could not lift with all his might.",
+			"Kitava vowed that when he broke free,",
+			"he would devour every soul in Hinekora's domain.",
+		},
+	},
+	[162] = {
+		id = "UniqueTwoHandMace2",
+		name = "Geofri's Devotion",
+		text = {
+			"\"One quick tap is all the persuasion you'll need.\"",
+			"- Archbishop Geofri of Phrecia Cathedral",
+		},
+	},
+	[163] = {
+		id = "UniqueStaff17",
+		name = "Duskdawn",
+		text = {
+			"\"The world is not simply black and white,",
+			"it is not divided into good and evil.",
+			"But black and white, good and evil, do exist,",
+			"and we must know how to recognize them.\"",
+			"- Archbishop Geofri",
+		},
+	},
+	[164] = {
+		id = "UniqueTwoHandSword1",
+		name = "Rigwald's Charge",
+		text = {
+			"\"Today, clansmen, my sword is my voice!\"",
+			"- Rigwald, at the Battle of Glarryn",
+		},
+	},
+	[165] = {
+		id = "UniqueBelt22",
+		name = "Perseverance",
+		text = {
+			"\"Some blows must be evaded. Some blows must be endured.",
+			"The trick is to tell them apart.\"",
+			"- Daresso, the Sword King",
+		},
+	},
+	[166] = {
+		id = "UniqueTwoHandSword2",
+		name = "Shiversting",
+		text = {
+			"Stoic visage, icy heart.",
+			"Life of sorrow, lived apart.",
+		},
+	},
+	[167] = {
+		id = "UniqueDagger15",
+		name = "Arakaali's Fang",
+		text = {
+			"All children must eat.",
+		},
+	},
+	[168] = {
+		id = "UniqueRing4",
+		name = "Doedre's Damning",
+		text = {
+			"Where her mouth should have been",
+			"there was only a whirling, black void.",
+		},
+	},
+	[169] = {
+		id = "UniqueBodyStrDex7",
+		name = "Gruthkul's Pelt",
+		text = {
+			"Simple is the life of the bear.",
+		},
+	},
+	[170] = {
+		id = "UniqueRing5",
+		name = "Dream Fragments",
+		text = {
+			"Doryani stumbled into a realm of madness",
+			"And awoke its Master.",
+		},
+	},
+	[171] = {
+		id = "UniqueQuiver2",
+		name = "Broadstroke",
+		text = {
+			"Seeing only foot soldiers, the Sarn Knights cast aside",
+			"their heavy shields... and paid dearly for their mistake.",
+		},
+	},
+	[172] = {
+		id = "UniqueAmulet3",
+		name = "Sidhebreath",
+		text = {
+			"The breath of life is yours to give.",
+		},
+	},
+	[173] = {
+		id = "UniqueAmulet5",
+		name = "Karui Charge",
+		text = {
+			"\"Shoot first, ask no questions.\"",
+			"- Karui wisdom",
+		},
+	},
+	[174] = {
+		id = "UniqueGlovesDexInt15",
+		name = "Machina Mitts",
+		text = {
+			"Biology is but a machine, begetting effusion of energies;",
+			"death is but a curse, that can be given... or reversed.",
+		},
+	},
+	[175] = {
+		id = "UniqueAmulet6",
+		name = "Eye of Chayula",
+		text = {
+			"Never blinking, always watching.",
+			"",
+			"^8This item can be transformed with a Blessing of Chayula",
+		},
+	},
+	[176] = {
+		id = "UniqueDagger19",
+		name = "Cold Iron Point",
+		text = {
+			"There is nothing more brutal than a simple blade wielded with rage.",
+		},
+	},
+	[177] = {
+		id = "UniqueBodyDex1",
+		name = "Hyrri's Ire",
+		text = {
+			"Hyrri loosed a barrage of arrows,",
+			"tipped with a poisoned hatred",
+			"only oppression can ferment.",
+		},
+	},
+	[178] = {
+		id = "UniqueJewel93",
+		name = "Overwhelming Odds",
+		text = {
+			"Even as the tide turned, and victory swiftly became impossible,",
+			"the legionnaires of Lioneye's Watch stood their ground and fought on,",
+			"every last man dying a brutal, but honourable death.",
+		},
+	},
+	[179] = {
+		id = "UniqueBodyStr1",
+		name = "Kaom's Heart",
+		text = {
+			"The warrior who",
+			"fears will fall.",
+		},
+	},
+	[180] = {
+		id = "UniqueJewel94",
+		name = "First Snow",
+		text = {
+			"Cadiro watched young Chitus play in the frostbitten grass, care-free, happy,",
+			"and unburdened by the responsibility the Perandus scion would soon endure.",
+		},
+	},
+	[181] = {
+		id = "UniqueDexHelmet1",
+		name = "Fairgraves' Tricorne",
+		text = {
+			"Fairgraves' trusty tricorne accompanied him far across",
+			"the seas, deep under the ground, and even beyond death.",
+		},
+	},
+	[182] = {
+		id = "UniqueJewel95",
+		name = "Omen on the Winds",
+		text = {
+			"As Malachai stepped into the Highgate mines,",
+			"cold winds billowed from the mountain above.",
+			"One final, feeble attempt to save what was meant to be eternal.",
+		},
+	},
+	[183] = {
+		id = "UniqueDexHelmet2",
+		name = "Frostferno",
+		text = {
+			"Give of your heated passions.",
+			"Give of your cold resolve.",
+			"You will be repaid.",
+		},
+	},
+	[184] = {
+		id = "UniqueJewel96",
+		name = "Wildfire",
+		text = {
+			"News of Kaom's victory in the south spread quickly.",
+			"Those in support of the coming rebellion bided their time.",
+			"The rest fled like rats from a fire.",
+		},
+	},
+	[185] = {
+		id = "UniqueIntHelmet1",
+		name = "Martyr's Crown",
+		text = {
+			"Lift it lightly, don it slow.",
+			"The spikes point out and in, you know.",
+		},
+	},
+	[186] = {
+		id = "UniqueJewel97",
+		name = "Fight for Survival",
+		text = {
+			"The winter that followed the Cataclysm was especially harsh.",
+			"Wraeclast's few survivors fought to the death for the last scraps of bread.",
+		},
+	},
+	[187] = {
+		id = "UniqueIntHelmet2",
+		name = "Asenath's Chant",
+		text = {
+			"Asenath's mind was as quick and nimble",
+			"as the fingers that drew her bowstring.",
+		},
+	},
+	[188] = {
+		id = "UniqueHelmetInt23",
+		name = "Cowl of the Ceraunophile",
+		text = {
+			"The villagers seared the blight with lightning, but it only forked into countless tendrils.",
+			"",
+			"^8This item can be anointed by Cassia",
+		},
+	},
+	[189] = {
+		id = "UniqueIntHelmet3",
+		name = "Chitus' Apex",
+		text = {
+			"\"It takes true strength to hold power,",
+			"and my grip grows tighter by the day.\"",
+			"- Emperor Chitus",
+		},
+	},
+	[190] = {
+		id = "UniqueRing53f",
+		name = "Uzaza's Valley",
+		text = {
+			"Sheltered beneath thick ice,",
+			"the river ferried fat fish towards the sea.",
+			"But the First King knew the river's secret,",
+			"and the fish were not the only ones who grew fat.",
+			"",
+			"^8This item can be combined with a Meadow and Mountain ring at a Vendor.",
+		},
+	},
+	[191] = {
+		id = "UniqueStrHelmet2",
+		name = "Hrimnor's Resolve",
+		text = {
+			"Hrimnor's presence was as cold as ice,",
+			"but his heart burned for vengeance.",
+		},
+	},
+	[192] = {
+		id = "UniqueRing53g",
+		name = "Putembo's Mountain",
+		text = {
+			"He surveyed his lands, green and vital,",
+			"watched with pride as his slaves quarried fine stone for his fortress,",
+			"and thanked the heavens for his many blessings.",
+			"But this pilgrimage to the peak was to be his last.",
+			"",
+			"^8This item can be combined with a Meadow and Valley ring at a Vendor.",
+		},
+	},
+	[193] = {
+		id = "UniqueStrDexHelmet1",
+		name = "The Peregrine",
+		text = {
+			"We wander to pass time.",
+			"We travel to fulfill.",
+		},
+	},
+	[194] = {
+		id = "UniqueRing53h",
+		name = "Putembo's Meadow",
+		text = {
+			"The fields were silent but for the plucking of fruits,",
+			"the rustling of leaves, and the breaking of stone.",
+			"No slave dared to speak or look the passing king in the eye.",
+			"No one... except Aul.",
+			"",
+			"^8This item can be combined with a Mountain and Valley ring at a Vendor.",
+		},
+	},
+	[195] = {
+		id = "UniqueHelmetStrInt1",
+		name = "Honourhome",
+		text = {
+			"\"The craven mind is sharp with self interest.",
+			"The honourable mind is much easier to manipulate.\"",
+			"- Malachai the Soulless",
+		},
+	},
+	[196] = {
+		id = "UniqueRing53i",
+		name = "Putembo's Valley",
+		text = {
+			"With no stone for rebuilding, each storm took its toll on the village.",
+			"Huts eventually collapsed, their occupants injured or dead.",
+			"Bodies were left by the river, to appease the gods.",
+			"But the dead would not remain there.",
+			"",
+			"^8This item can be combined with a Meadow and Mountain ring at a Vendor.",
+		},
+	},
+	[197] = {
+		id = "UniqueHelmetStrInt2",
+		name = "Geofri's Legacy",
+		text = {
+			"In the battle for honour, Geofri won.",
+			"Not so, the battle for survival.",
+		},
+	},
+	[198] = {
+		id = "UniqueAmulet4",
+		name = "Ngamahu Tiki",
+		text = {
+			"It is said to make you invisible when the Great",
+			"Spirit comes to take you on your final journey.",
+		},
+	},
+	[199] = {
+		id = "UniqueBootsInt1",
+		name = "Greedtrap",
+		text = {
+			"Wonders abound at death's door.",
+		},
+	},
+	[200] = {
+		id = "UniqueDagger2",
+		name = "Mightflay",
+		text = {
+			"A mighty beast, a lavish feast.",
+		},
+	},
+	[201] = {
+		id = "UniqueBootsStrDex1",
+		name = "Lioneye's Paws",
+		text = {
+			"Stand and lead the righteous pride,",
+			"Fight till death, never hide.",
+		},
+	},
+	[202] = {
+		id = "UniqueAmulet53",
+		name = "Aul's Uprising",
+		text = {
+			"It was not his fearlessness or ferocity, nor his tactical genius,",
+			"it was his leadership that earned Aul, the Last King, his crown.",
+		},
+	},
+	[203] = {
+		id = "UniqueBootsStrInt1",
+		name = "Wake of Destruction",
+		text = {
+			"Tempest's power given form,",
+			"Flee before the walking storm.",
+		},
+	},
+	[204] = {
+		id = "UniqueBootsInt2",
+		name = "Wanderlust",
+		text = {
+			"All the world is my home.",
+		},
+	},
+	[205] = {
+		id = "UniqueBootsInt3",
+		name = "Shavronne's Gambit",
+		text = {
+			"Shavronne raced to Brutus' side,",
+			"her last hope against the Karui tide.",
+		},
+	},
+	[206] = {
+		id = "UniqueBootsDexInt1",
+		name = "Sunspite",
+		text = {
+			"Blazing body, shining bold.",
+			"Dance beneath the orb of gold!",
+		},
+	},
+	[207] = {
+		id = "UniqueBootsStr1",
+		name = "Windshriek",
+		text = {
+			"The mocking wind, a shielding spell,",
+			"The haunting screams, a maddening hell.",
+		},
+	},
+	[208] = {
+		id = "UniqueGlovesDex1",
+		name = "Hrimburn",
+		text = {
+			"Of ancient giants, none remain,",
+			"Their only trace is timeless pain.",
+		},
+	},
+	[209] = {
+		id = "UniqueAmulet54",
+		name = "Solstice Vigil",
+		text = {
+			"Time, like light, can be refracted into all its myriad colours.",
+			"The first shade is beautiful, but the last will drive the unwary insane.",
+		},
+	},
+	[210] = {
+		id = "UniqueGlovesDex2",
+		name = "Maligaro's Virtuosity",
+		text = {
+			"Maligaro operated effortlessly,",
+			"with great speed and terrible consequences.",
+		},
+	},
+	[211] = {
+		id = "UniqueRing55",
+		name = "Vivinsect",
+		text = {
+			"\"Fusing the parasite with another ring has manifested unpredictable effects.",
+			"I theorise the sacrificial vessel's level of anguish is a key variable.\"",
+			"- Arzaak, Syndicate Researcher",
+		},
+	},
+	[212] = {
+		id = "UniqueGlovesStrDex1",
+		name = "Slitherpinch",
+		text = {
+			"A soft caress in dead of night,",
+			"that slips about the neck, so tight.",
+		},
+	},
+	[213] = {
+		id = "UniqueBow22",
+		name = "The Crimson Storm",
+		text = {
+			"\"There were no survivors. It had only been fired twice.\"",
+			"- Order of the Djinn inscription",
+		},
+	},
+	[214] = {
+		id = "UniqueGlovesStrDex2",
+		name = "Aurseize",
+		text = {
+			"Wealth is not to be borne lightly.",
+		},
+	},
+	[215] = {
+		id = "UniqueRapier6",
+		name = "Paradoxica",
+		text = {
+			"What has no siblings but is always a twin?",
+		},
+	},
+	[216] = {
+		id = "UniqueGlovesInt1",
+		name = "Sadima's Touch",
+		text = {
+			"Wealth unspent is wealth wasted.",
+		},
+	},
+	[217] = {
+		id = "UniqueBelt32",
+		name = "Hyperboreus",
+		text = {
+			"Cold winds whirl at the crown of the world.",
+		},
+	},
+	[218] = {
+		id = "UniqueGlovesInt2",
+		name = "Doedre's Malevolence",
+		text = {
+			"While Doedre lacked Maligaro's sense of style,",
+			"she surpassed her master in pure malevolence.",
+		},
+	},
+	[219] = {
+		id = "UniqueBodyInt18",
+		name = "The Queen's Hunger",
+		text = {
+			"In their crimson nightmare, the Vaal are still sacrificing themselves to her glory and beauty.",
+			"They stab their own hearts and cry out in ecstasy, only to rise again.",
+		},
+	},
+	[220] = {
+		id = "UniqueGlovesDexInt1",
+		name = "Ondar's Clasp",
+		text = {
+			"A single lightning strike fells a man.",
+			"A single knife stroke fells an empire.",
+		},
+	},
+	[221] = {
+		id = "UniqueGlovesStr1",
+		name = "Lochtonial Caress",
+		text = {
+			"Why cling to your sanity? It offers you nothing.",
+			"Surrender to me, and I will grant you everything.",
+		},
+	},
+	[222] = {
+		id = "UniqueAmulet7",
+		name = "The Effigon",
+		text = {
+			"The light that reveals is the glare that blinds.",
+		},
+	},
+	[223] = {
+		id = "UniqueAmulet8",
+		name = "Astramentis",
+		text = {
+			"Mindless rage will shake the world,",
+			"Cunning lies will bend it.",
+			"Reckless haste will break the world,",
+			"And into darkness send it.",
+		},
+	},
+	[224] = {
+		id = "UniqueBelt1",
+		name = "Wurm's Molt",
+		text = {
+			"They say a lifetime of wisdom is carried",
+			"in every skin the great beasts shed.",
+		},
+	},
+	[225] = {
+		id = "UniqueWatchstone1",
+		name = "Terror",
+		text = {
+			"Those who could flee did so.",
+			"The rest fought bravely,",
+			"and died horrifically.",
+		},
+	},
+	[226] = {
+		id = "UniqueBelt2",
+		name = "The Tactician",
+		text = {
+			"Few men cast a longer shadow",
+			"than the Great Meginord of the North.",
+		},
+	},
+	[227] = {
+		id = "UniqueWatchstone2",
+		name = "Stalwart Defenders",
+		text = {
+			"They came, full of vim and vigour, to take what was not theirs.",
+			"They crashed and clamoured like waves against rocks,",
+			"and were swept back out to sea.",
+		},
+	},
+	[228] = {
+		id = "UniqueBelt3",
+		name = "Perandus Blazon",
+		text = {
+			"A large enough debt turns even a friend",
+			"into an enemy, and the Perandus family",
+			"had more debtors than anyone.",
+		},
+	},
+	[229] = {
+		id = "UniqueWatchstone3",
+		name = "Misinformation",
+		text = {
+			"The King's Eye returned from the west.",
+			"Fertile pastures lay just beyond sight.",
+			"Just a little farther, he said.",
+			"It was always just a little farther.",
+		},
+	},
+	[230] = {
+		id = "UniqueBelt4",
+		name = "Meginord's Girdle",
+		text = {
+			"Kaom's strength was rivaled only by",
+			"the great Meginord of the north.",
+		},
+	},
+	[231] = {
+		id = "UniqueWatchstone4",
+		name = "Irresistible Temptation",
+		text = {
+			"Nothing is more alluring than mystery.",
+		},
+	},
+	[232] = {
+		id = "UniqueShieldStrDex1",
+		name = "Daresso's Courage",
+		text = {
+			"By tourney's end, Daresso bled and shivered.",
+			"Yet even accursed treachery failed to steal the champion's victory.",
+		},
+	},
+	[233] = {
+		id = "UniqueShieldInt1",
+		name = "Rathpith Globe",
+		text = {
+			"The Vaal emptied their slaves of beating hearts,",
+			"and left a mountain of twitching dead.",
 		},
 	},
 	[234] = {
-		id = "UniqueShieldDexInt2",
-		name = "Maligaro's Lens",
+		id = "UniqueShieldDex1",
+		name = "Kaltensoul",
 		text = {
-			"\"Look around you. What do you see?",
-			"Corruption, perversion, sin?",
-			"No. It is progress.",
-			"You simply lack the means to see it.\"",
-			"- Inquisitor Maligaro",
+			"Cold, miserable and alone... but alive.",
 		},
 	},
 	[235] = {
-		id = "UniqueBelt12",
-		name = "Maligaro's Restraint",
+		id = "UniqueWatchstone6",
+		name = "War Among the Stars",
 		text = {
-			"\"Our genius will pave the way forward.",
-			"May all who are worthy be improved!\"",
-			"- Inquisitor Maligaro",
+			"Conflict begets only suffering.",
+			"For some, that is by design.",
 		},
 	},
 	[236] = {
-		id = "UniqueHelmetStrInt5",
-		name = "The Broken Crown",
+		id = "UniqueShieldDex2",
+		name = "Crest of Perandus",
 		text = {
-			"Every rule has an exception.",
+			"\"With piety and justice.\"",
+			"- Perandus family motto",
 		},
 	},
 	[237] = {
-		id = "UniqueQuiver9",
-		name = "Maloney's Nightfall",
+		id = "UniqueShieldStr1",
+		name = "Lioneye's Remorse",
 		text = {
-			"Fear not the dark, the song of night,",
-			"Hear not the arch, the falling cry.",
-			"My giving sun, fight no more,",
-			"Rest alone, my grand nightfall.",
+			"Marceus' unblemished shield is a testament",
+			"to his arrogance... and his fate.",
 		},
 	},
 	[238] = {
-		id = "UniqueGlovesStrDex6",
-		name = "Surgebinders",
+		id = "UniqueTwoHandAce2",
+		name = "Reaper's Pursuit",
 		text = {
-			"Your lies are our strength.",
-			"Your threats are our laughter.",
-			"Your hate is our infinity",
-			"The fire rises!",
+			"Accept your fate, or lie, pretend.",
+			"Death collects you in the end.",
 		},
 	},
 	[239] = {
-		id = "UniqueBelt13",
-		name = "Belt of the Deceiver",
+		id = "UniqueTwoHandSword3",
+		name = "Terminus Est",
 		text = {
-			"In battle, virtue matters not.",
-			"Only victory.",
+			"His final sensation was of the executioner's blade.",
+			"It was not cold, instead warm and reassuring,",
+			"murmuring a promise of better times ahead.",
+			"Smiling, he returned death's embrace.",
 		},
 	},
 	[240] = {
-		id = "UniqueRing27",
-		name = "Timetwist",
+		id = "UniqueRapier1",
+		name = "Tipua Kaikohuru",
 		text = {
-			"\"To us mere mortals, time is slippery.",
-			"I'm just evening things out.\"",
-			"- Doryani, Queen's Thaumaturgist",
+			"She paints her offer in wicked hues",
+			"An off-white grin, an elegant bruise.",
+			"To the nascent scourge she sings the ruse:",
+			"\"With me in hand, what else need you use?\"",
 		},
 	},
 	[241] = {
+		id = "UniqueJewel139",
+		name = "Natural Affinity",
+		text = {
+			"You can take the girl out of the woods,",
+			"but you can't take the woods out of the girl.",
+		},
+	},
+	[242] = {
+		id = "UniqueBodyStrInt2",
+		name = "Ambu's Charge",
+		text = {
+			"Nothing stops the pain like a courageous rush into battle.",
+		},
+	},
+	[243] = {
+		id = "UniqueJewel140",
+		name = "The Interrogation",
+		text = {
+			"Pain is a fine motivator,",
+			"But if you seek the truth,",
+			"Fear of pain unknown has no parallel.",
+		},
+	},
+	[244] = {
+		id = "UniqueShieldStrInt1",
+		name = "Saffell's Frame",
+		text = {
+			"A swift mind solves problems before they occur.",
+		},
+	},
+	[245] = {
+		id = "UniqueJewel141",
+		name = "The Siege",
+		text = {
+			"As the dead battered Highgate's barricades,",
+			"The Black Sekhema accepted her fate,",
+			"And stood her ground.",
+		},
+	},
+	[246] = {
+		id = "UniqueHelmetInt4",
+		name = "Rime Gaze",
+		text = {
+			"The malice in her gaze froze blood and shattered bone.",
+		},
+	},
+	[247] = {
+		id = "UniqueJewel143",
+		name = "The Front Line",
+		text = {
+			"Once you begin to rely on your weapons,",
+			"You ensure you can't live without them.",
+		},
+	},
+	[248] = {
+		id = "UniqueWand1",
+		name = "Moonsorrow",
+		text = {
+			"Cast into darkness",
+			"And trapped for a thousand years,",
+			"The lonely moon weeps",
+		},
+	},
+	[249] = {
+		id = "UniqueJewel144",
+		name = "One With Nothing",
+		text = {
+			"It was a great honour to fight at the front.",
+			"The few that survived the initial charge were guaranteed fame and fortune.",
+		},
+	},
+	[250] = {
+		id = "UniqueHelmetStrDex2",
+		name = "Devoto's Devotion",
+		text = {
+			"Swift as thought are the actions of Man",
+			"when borne on wings of divine providence.",
+		},
+	},
+	[251] = {
+		id = "UniqueShieldStrInt2",
+		name = "Prism Guardian",
+		text = {
+			"When blood is paid, the weak think twice.",
+		},
+	},
+	[252] = {
+		id = "UniqueShieldStrInt3",
+		name = "The Oak",
+		text = {
+			"From death springs life.",
+		},
+	},
+	[253] = {
+		id = "UniqueTwoHandMace3",
+		name = "Marohi Erqi",
+		text = {
+			"Lumbering as a sea lion, clumsy as a berry-drunk pigeon. That was Erqi.",
+			"It mattered little. When Erqi's maul fell true, so did its target.",
+		},
+	},
+	[254] = {
+		id = "UniqueAmulet9",
+		name = "Carnage Heart",
+		text = {
+			"Forged from the blood of countless wars,",
+			"its thirst has only begun.",
+		},
+	},
+	[255] = {
+		id = "UniqueGlovesStr2",
+		name = "Meginord's Vise",
+		text = {
+			"Ride with pride,",
+			"strike with vengeance,",
+			"live with honour.",
+		},
+	},
+	[256] = {
+		id = "UniqueGlovesDexInt2",
+		name = "Facebreaker",
+		text = {
+			"Fly like a Storm Crow, crush like a Rhoa",
+		},
+	},
+	[257] = {
+		id = "UniqueBootsDex1",
+		name = "Sin Trek",
+		text = {
+			"Do not let them step on your feet. Keep them at bay.",
+		},
+	},
+	[258] = {
+		id = "UniqueDagger3",
+		name = "Ungil's Gauche",
+		text = {
+			"Unwieldy and garish became graceful",
+			"and deadly in Ungil's nimble hands.",
+		},
+	},
+	[259] = {
+		id = "UniqueBootsDex2",
+		name = "Goldwyrm",
+		text = {
+			"The wyrm draws warmth from the fires of desire.",
+		},
+	},
+	[260] = {
+		id = "UniqueBootsInt4",
+		name = "Bones of Ullr",
+		text = {
+			"The dead man walks where",
+			"the living fear to tread.",
+		},
+	},
+	[261] = {
+		id = "UniqueOneHandMace1",
+		name = "Brightbeak",
+		text = {
+			"\"I know how to say 'faster' and 'attack'",
+			"in Karui, Marak and Ezo.\"",
+			"- Voll of Thebrus",
+		},
+	},
+	[262] = {
+		id = "UniqueBodyInt1",
+		name = "Shavronne's Wrappings",
+		text = {
+			"Shavronne's apparel became ever more extravagant",
+			"as her body and soul became ever more corrupted.",
+		},
+	},
+	[263] = {
+		id = "UniqueBow4",
+		name = "Quill Rain",
+		text = {
+			"\"The rain of a thousand quills that whittle",
+			"present into past, life into death.\"",
+			"- Rigwald of the Ezomytes",
+		},
+	},
+	[264] = {
+		id = "UniqueBow5",
+		name = "Darkscorn",
+		text = {
+			"\"The Spirit of War knows nothing of good and evil.",
+			"It knows only destruction.\"",
+			"- Sekhema Asenath",
+		},
+	},
+	[265] = {
+		id = "UniqueTwoHandAxe3",
+		name = "The Cauteriser",
+		text = {
+			"Swinging through the air, it sings",
+			"of sundered, severed, missing things.",
+		},
+	},
+	[266] = {
+		id = "UniqueTwoHandMace4",
+		name = "Voidhome",
+		text = {
+			"Cursed is the star whence it came.",
+		},
+	},
+	[267] = {
+		id = "UniqueWand2",
+		name = "Midnight Bargain",
+		text = {
+			"A chilling hush, a scraping sound",
+			"Of things no more entombed in ground.",
+			"A shambling horde is on its way",
+			"To crush the very light of day.",
+		},
+	},
+	[268] = {
+		id = "UniqueBow6",
+		name = "Chin Sol",
+		text = {
+			"As a soldier you want to get close to enemy archers.",
+			"That is not the case when fighting the Maraketh.",
+		},
+	},
+	[269] = {
+		id = "UniqueBootsDex3",
+		name = "Victario's Flight",
+		text = {
+			"Alive but not unscathed, Victario fled",
+			"as slaughter blossomed at the gates.",
+		},
+	},
+	[270] = {
 		id = "UniqueRing28",
 		name = "Winterweave",
 		text = {
 			"Rage is a big part of courage.",
 		},
 	},
-	[242] = {
+	[271] = {
 		id = "UniqueBow12",
 		name = "Null's Inclination",
 		text = {
 			"The hunt continues when the prey falls.",
 		},
 	},
-	[243] = {
+	[272] = {
 		id = "UniqueAmulet19",
 		name = "Rashkaldor's Patience",
 		text = {
 			"Fate's smile, man's ruin.",
 		},
 	},
-	[244] = {
+	[273] = {
 		id = "UniqueRing29",
 		name = "Valako's Sign",
 		text = {
@@ -2062,7 +2305,7 @@ return {
 			"A title Kaom claimed when he ended Kiloava's bloodline.",
 		},
 	},
-	[245] = {
+	[274] = {
 		id = "UniqueRing30",
 		name = "Tasalio's Sign",
 		text = {
@@ -2072,7 +2315,7 @@ return {
 			"so that his warriors' axes might rise and fall like the waves.",
 		},
 	},
-	[246] = {
+	[275] = {
 		id = "UniqueRing31",
 		name = "Ngamahu's Sign",
 		text = {
@@ -2081,7 +2324,7 @@ return {
 			"Given to Akoya, but inherited by Kaom with the swing of his axe.",
 		},
 	},
-	[247] = {
+	[276] = {
 		id = "UniqueBodyStrDex5",
 		name = "The Rat Cage",
 		text = {
@@ -2089,7 +2332,7 @@ return {
 			"Many a confession was found in the bowels of Axiom.",
 		},
 	},
-	[248] = {
+	[277] = {
 		id = "UniqueHelmetInt8",
 		name = "Scold's Bridle",
 		text = {
@@ -2098,7 +2341,7 @@ return {
 			"- Shavronne of Umbra",
 		},
 	},
-	[249] = {
+	[278] = {
 		id = "UniqueSceptre9",
 		name = "Brutus' Lead Sprinkler",
 		text = {
@@ -2107,7 +2350,7 @@ return {
 			"- Brutus, Warden of Axiom",
 		},
 	},
-	[250] = {
+	[279] = {
 		id = "UniqueFlask8",
 		name = "Taste of Hate",
 		text = {
@@ -2116,7 +2359,7 @@ return {
 			"A glass will still your soul.",
 		},
 	},
-	[251] = {
+	[280] = {
 		id = "UniqueBodyStr5",
 		name = "Greed's Embrace",
 		text = {
@@ -2124,7 +2367,7 @@ return {
 			"The rest were already dead.",
 		},
 	},
-	[252] = {
+	[281] = {
 		id = "UniqueAmulet20",
 		name = "Warped Timepiece",
 		text = {
@@ -2134,7 +2377,7 @@ return {
 			"forever makes me the public enemy.",
 		},
 	},
-	[253] = {
+	[282] = {
 		id = "UniqueHelmetInt9",
 		name = "Doedre's Scorn",
 		text = {
@@ -2142,7 +2385,7 @@ return {
 			"A scar of the mind you'll never remember.",
 		},
 	},
-	[254] = {
+	[283] = {
 		id = "UniqueHelmetStrDex6",
 		name = "Black Sun Crest",
 		text = {
@@ -2150,7 +2393,7 @@ return {
 			"are the ones who dwell in total darkness.",
 		},
 	},
-	[255] = {
+	[284] = {
 		id = "UniqueGlovesStrInt3",
 		name = "Southbound",
 		text = {
@@ -2158,15 +2401,7 @@ return {
 			"Below the snow, adrift wanderers sleep.",
 		},
 	},
-	[256] = {
-		id = "UniqueBootsDex9x",
-		name = "Replica Three-step Assault",
-		text = {
-			"\"The test subject nearly escaped, but the poison gas",
-			"system in the hallway functioned as expected.\"",
-		},
-	},
-	[257] = {
+	[285] = {
 		id = "UniqueRing32",
 		name = "Ventor's Gamble",
 		text = {
@@ -2176,15 +2411,7 @@ return {
 			"And Ventor met his latest trophy.",
 		},
 	},
-	[258] = {
-		id = "UniqueGlovesInt8x",
-		name = "Replica Allelopathy",
-		text = {
-			"\"There seems to be some innate relationship between the forces of",
-			"chaos and cold. Perhaps we should consult an occultist.\"",
-		},
-	},
-	[259] = {
+	[286] = {
 		id = "UniqueRing33",
 		name = "Heartbound Loop",
 		text = {
@@ -2193,15 +2420,7 @@ return {
 			"fading mind was her broken, shattered scream.",
 		},
 	},
-	[260] = {
-		id = "UniqueHelmetDex5x",
-		name = "Replica Alpha's Howl",
-		text = {
-			"\"Test subject walked right through the poison gas defenses, and attempts to slow her",
-			"failed. Suppression troop six, the 'Furious Flagellants,' have been sent to intervene.\"",
-		},
-	},
-	[261] = {
+	[287] = {
 		id = "UniqueBelt14",
 		name = "Dyadian Dawn",
 		text = {
@@ -2210,31 +2429,14 @@ return {
 			"The Eternal twins arose.",
 		},
 	},
-	[262] = {
-		id = "UniqueHelmetStrInt18x",
-		name = "Replica Forbidden Shako",
-		text = {
-			"\"I believed I understood Prototype #112 quite fully, until a test subject",
-			"with Azmeri ancestry donned it. I will be haunted by the results",
-			"for the rest of my life.\"  - Researcher Graven",
-		},
-	},
-	[263] = {
+	[288] = {
 		id = "UniqueStaff10",
 		name = "Sire of Shards",
 		text = {
 			"That which was broken may yet break.",
 		},
 	},
-	[264] = {
-		id = "UniqueOneHandAxe1x",
-		name = "Replica Soul Taker",
-		text = {
-			"\"Nothing feels so smooth in the hand as Prototype #66.",
-			"Results like these may justify everything we do here.\"",
-		},
-	},
-	[265] = {
+	[289] = {
 		id = "UniqueBodyDexInt4",
 		name = "Victario's Influence",
 		text = {
@@ -2244,56 +2446,39 @@ return {
 			"- Victario, the People's Poet",
 		},
 	},
-	[266] = {
-		id = "UniqueTwoHandAxe8x",
-		name = "Replica Harvest",
-		text = {
-			"\"Why is Prototype #67 never in the vault it should be?",
-			"Either we're keeping faulty logs, or...\"",
-			"- Researcher Graven",
-		},
-	},
-	[267] = {
+	[290] = {
 		id = "UniqueDagger10",
 		name = "The Consuming Dark",
 		text = {
 			"The brightest flames cast the darkest shadows.",
 		},
 	},
-	[268] = {
-		id = "UniqueBow4x",
-		name = "Replica Quill Rain",
-		text = {
-			"\"How did you manage to lodge arrows in every single test subject",
-			"and researcher in Lab Three simultaneously?\"",
-			"- Doctor Bircus",
-		},
-	},
-	[269] = {
+	[291] = {
 		id = "UniqueAmulet21",
 		name = "Shaper's Seed",
 		text = {
 			"The first light to grow in the primordial darkness.",
 		},
 	},
-	[270] = {
-		id = "UniqueBow9x",
-		name = "Replica Windripper",
+	[292] = {
+		id = "UniqueStaff11",
+		name = "Tremor Rod",
 		text = {
-			"\"Beware. Prototype #91 is haunted by a strange miasma,",
-			"an odour of evil. Nothing can shield the senses.\"",
-			"- Researcher Arn",
+			"The best way to gain the element of surprise,",
+			"is to let your enemy learn your plans,",
+			"and execute them - twice.",
 		},
 	},
-	[271] = {
-		id = "UniqueDagger12x",
-		name = "Replica Bloodplay",
+	[293] = {
+		id = "UniqueOneHandAxe6",
+		name = "Relentless Fury",
 		text = {
-			"\"Prototype #131 must never be allowed near anyone who bears a wound, no",
-			"matter how slight. Even a tiny cut makes it exponentially more dangerous.\"",
+			"Relentless fury",
+			"Sunder my every foe",
+			"Fuel my boiling blood",
 		},
 	},
-	[272] = {
+	[294] = {
 		id = "UniqueOneHandMace4",
 		name = "Cameria's Avarice",
 		text = {
@@ -2302,7 +2487,7 @@ return {
 			"\"That's how I prefer it.\"",
 		},
 	},
-	[273] = {
+	[295] = {
 		id = "UniqueGlovesStr4",
 		name = "Doryani's Fist",
 		text = {
@@ -2311,7 +2496,7 @@ return {
 			"reduced it to ruins and bones.",
 		},
 	},
-	[274] = {
+	[296] = {
 		id = "UniqueOneHandMace5",
 		name = "Callinellus Malleus",
 		text = {
@@ -2321,7 +2506,7 @@ return {
 			"until the waters recede and we stand together.",
 		},
 	},
-	[275] = {
+	[297] = {
 		id = "UniqueSceptre10",
 		name = "Death's Hand",
 		text = {
@@ -2329,7 +2514,7 @@ return {
 			"- Karui Proverb",
 		},
 	},
-	[276] = {
+	[298] = {
 		id = "UniqueOneHandSword10",
 		name = "Oni-Goroshi",
 		text = {
@@ -2341,14 +2526,14 @@ return {
 			"Bequeathed, betrayed...beloved. At last, I am the third.",
 		},
 	},
-	[277] = {
+	[299] = {
 		id = "UniqueOneHandSword11",
 		name = "Ichimonji",
 		text = {
 			"Master yourself before you seek to master others.",
 		},
 	},
-	[278] = {
+	[300] = {
 		id = "UniqueGlovesStr5",
 		name = "Empire's Grasp",
 		text = {
@@ -2357,7 +2542,7 @@ return {
 			"- Emperor Chitus",
 		},
 	},
-	[279] = {
+	[301] = {
 		id = "UniqueBodyDexInt3",
 		name = "The Restless Ward",
 		text = {
@@ -2367,7 +2552,7 @@ return {
 			"One lapse and all for naught.",
 		},
 	},
-	[280] = {
+	[302] = {
 		id = "UniqueFlask9",
 		name = "Lion's Roar",
 		text = {
@@ -2375,508 +2560,250 @@ return {
 			"and three generous cups of Might.",
 		},
 	},
-	[281] = {
+	[303] = {
 		id = "UniqueClaw8",
 		name = "Ornament of the East",
 		text = {
 			"To the Maraketh, death is as intimate as love.",
 		},
 	},
-	[282] = {
-		id = "UniqueBootsDexInt9",
-		name = "Omeyocan",
-		text = {
-			"Only a fool seeks meaning",
-			"in a life so fleeting.",
-		},
-	},
-	[283] = {
-		id = "UniqueJewel147",
-		name = "Voices",
-		text = {
-			"Only a madman would ignore a god's instructions.",
-		},
-	},
-	[284] = {
-		id = "UniqueBodyStrInt5",
-		name = "Incandescent Heart",
-		text = {
-			"Only light may banish the shadows from this land",
-			"And the black lies wrapped around your heart",
-		},
-	},
-	[285] = {
-		id = "UniqueRing73",
-		name = "Call of the Void",
-		text = {
-			"Only when the mind is empty of ambition",
-			"can the cold truth of existence take hold.",
-		},
-	},
-	[286] = {
-		id = "UniqueShieldInt4",
-		name = "Sentari's Answer",
-		text = {
-			"Open your eyes and you will see the cracks in your enemy's walls.",
-			"Open your mind and you will see the cracks in your enemy's plans.",
-		},
-	},
-	[287] = {
-		id = "UniqueClaw10x",
-		name = "Replica Allure",
-		text = {
-			"\"Test subject was able to survive the entire process simply by shouting epithets at",
-			"the researcher. Researcher's feelings were slightly injured.\"",
-			"- Researcher Graven",
-		},
-	},
-	[288] = {
-		id = "UniqueOneHandMace10x",
-		name = "Replica Frostbreath",
-		text = {
-			"\"Three test subjects confirmed Prototype #495 creates an additional",
-			"debilitating effect from poisons. This could be very useful.\"",
-		},
-	},
-	[289] = {
-		id = "UniqueTwoHandMace10x",
-		name = "Replica Trypanon",
-		text = {
-			"\"The best place for this prototype would be in the hands of our enemies.\"",
-		},
-	},
-	[290] = {
-		id = "UniqueStaff17x",
-		name = "Replica Duskdawn",
-		text = {
-			"\"Lab Two suffered significant structural damage in the process of creating",
-			"Prototype #77. It is, however, the closest we've come to perfection.\"",
-		},
-	},
-	[291] = {
-		id = "UniqueStaff4x",
-		name = "Replica Fencoil",
-		text = {
-			"\"Attempt #306: The power I can sense in this ancient branch",
-			"still eludes me. Perhaps if I attach some string and a hook...\"",
-		},
-	},
-	[292] = {
-		id = "UniqueWand9x",
-		name = "Replica Twyzel",
-		text = {
-			"\"Energy redirected is energy imbalanced.",
-			"Prototype #78 serves as a prime example.\"",
-		},
-	},
-	[293] = {
-		id = "UniqueWand2x",
-		name = "Replica Midnight Bargain",
-		text = {
-			"\"Simply incredible. I caught an escaping test subject myself with",
-			"swarms of burning skulls. Delightful!\"",
-			"- Researcher Olesya",
-		},
-	},
-	[294] = {
-		id = "UniqueFlask7x",
-		name = "Replica Rumi's Concoction",
-		text = {
-			"\"The most terrifying split second of my life.\"",
-			"- Researcher Graven",
-		},
-	},
-	[295] = {
-		id = "UniqueJewel74x",
-		name = "Replica Unstable Payload",
-		text = {
-			"\"Researchers will refrain from giving test subjects virtue gems which produce traps.",
-			"We are still finding explosives in the vents months later.\"",
-			"- Administrator Qotra",
-		},
-	},
-	[296] = {
-		id = "UniqueCorruptedJewel14x",
-		name = "Replica Blood Sacrifice",
-		text = {
-			"\"You know what to do with this, don't you?\" - Researcher Graven",
-			"\"Kill test subjects for their vitality?\" - Researcher Olesya",
-			"\"That is not what he meant.\" - Researcher Arn",
-		},
-	},
-	[297] = {
-		id = "UniqueJewel71x",
-		name = "Replica Cheap Construction",
-		text = {
-			"\"A curious jewel. Like so many others, a shining little paradox.\"",
-		},
-	},
-	[298] = {
-		id = "UniqueShieldStrDex8",
-		name = "The Oppressor",
-		text = {
-			"Every clash leaves one more scar.",
-		},
-	},
-	[299] = {
-		id = "UniqueBelt40",
-		name = "Pyroshock Clasp",
-		text = {
-			"Teach a man to burn, and you'll be warm for the rest of his life.",
-		},
-	},
-	[300] = {
-		id = "UniqueGlovesDex7",
-		name = "Mercenary's Lot",
-		text = {
-			"Members of the House Azadin are trained from birth to join the",
-			"family profession. The target changes, but the job's always the same.",
-		},
-	},
-	[301] = {
-		id = "UniqueShieldDexInt7",
-		name = "Font of Thunder",
-		text = {
-			"The lightning fears not the flame.",
-		},
-	},
-	[302] = {
-		id = "UniqueBodyStr12",
-		name = "Blunderbore",
-		text = {
-			"The giant cares not for the ants.",
-		},
-	},
-	[303] = {
-		id = "UniqueBelt39",
-		name = "The Druggery",
-		text = {
-			"\"This will help with the pain.",
-			"One for you... and one for me.\"",
-			"- Doctor 'Shaky Hands' Opden",
-		},
-	},
 	[304] = {
-		id = "UniqueTwoHandMace6x",
-		name = "Replica Kongor's Undying Rage",
+		id = "UniqueStaff12",
+		name = "The Whispering Ice",
 		text = {
-			"\"Prototype #599 offers an incredible defensive power, but at a cost.",
-			"What underlying physics are at play here, I wonder?\"",
+			"Guard your darkest thoughts well, for they are",
+			"the cracks through which the Nightmare crawls.",
 		},
 	},
 	[305] = {
-		id = "UniqueCorruptedJewel2",
-		name = "Weight of Sin",
+		id = "UniqueAmulet22",
+		name = "Tear of Purity",
 		text = {
-			"Ill will is the greatest of burdens.",
+			"A shimmering symbol of Purity, clear as water,",
+			"but I know better than most how quickly",
+			"Purity can succumb to Corruption.",
+			"How quickly water turns to blood.",
+			"- Victario, the People's Poet",
 		},
 	},
 	[306] = {
-		id = "UniqueCorruptedJewel3",
-		name = "Fevered Mind",
+		id = "UniqueAmulet23",
+		name = "Blood of Corruption",
 		text = {
-			"In sickness, the insane becomes sane.",
+			"In my dream, a voice spoke to me. It said:",
+			"'My reach knows no bounds.",
+			"All that is pure is destined to rot.",
+			"All that lives is destined to serve.'",
+			"- Doryani, Queen's Thaumaturgist",
 		},
 	},
 	[307] = {
-		id = "UniqueJewel24",
-		name = "Fragile Bloom",
+		id = "UniqueBodyStr6",
+		name = "Lioneye's Vision",
 		text = {
-			"The first green shoots of Spring are the most resilient,",
-			"and the most vulnerable.",
+			"\"The Virtue Gems are a gift from the land,",
+			"our land, and we will not let our gifts",
+			"be destroyed by savages.\"",
+			"- Marceus Lioneye",
 		},
 	},
 	[308] = {
-		id = "UniqueJewel25",
-		name = "Hidden Potential",
+		id = "UniqueGlovesStrInt4",
+		name = "Repentance",
 		text = {
-			"The difference between the master and his apprentice",
-			"is what they see when they look at the same block of wood.",
+			"\"I ask not for understanding,",
+			"only for forgiveness",
+			"for what I am about to do.",
+			"There will be blood on these shackles yet.\"",
+			"- Anonymous carving, Axiom Prison.",
 		},
 	},
 	[309] = {
-		id = "UniqueJewel26",
-		name = "Rain of Splinters",
+		id = "UniqueFlask27",
+		name = "Cinderswallow Urn",
 		text = {
-			"\"If one is an annoyance",
-			"then a hundred is a threat.\"",
-			"- Ancient Karui Proverb",
+			"A controlled burn is sometimes necessary for new life.",
 		},
 	},
 	[310] = {
-		id = "UniqueShieldStrDex5",
-		name = "Shattershard",
+		id = "UniqueHelmetInt20",
+		name = "The Devouring Diadem",
 		text = {
-			"Fragile, explosive, and punishing.",
+			"The spirit hungers for the flesh.",
 		},
 	},
 	[311] = {
-		id = "UniqueJewel28",
-		name = "Malicious Intent",
+		id = "UniqueShieldInt14",
+		name = "Bitterbind Point",
 		text = {
-			"Each life taken makes the next a little easier.",
+			"Though we live and act as individuals,",
+			"in truth, we are tethered together.",
+			"The barriers that divide us need not be broken",
+			"for our spirits to become entangled.",
 		},
 	},
 	[312] = {
-		id = "UniqueJewel149",
-		name = "Lord of Steel",
+		id = "UniqueBodyDexInt11",
+		name = "The Eternity Shroud",
 		text = {
-			"Each blow of the hammer shapes the ingot,",
-			"each strike stretching and sharpening;",
-			"The sabre's tip reaching out, grasping for life.",
+			"There can be no defence against the celestial siblings entropy and time.",
 		},
 	},
 	[313] = {
-		id = "UniqueJewel29",
-		name = "Brawn",
+		id = "UniqueGlovesInt9",
+		name = "Vixen's Entrapment",
 		text = {
-			"\"Take your time, make all your plans.",
-			"Then tell me which plan",
-			"pulls my axe from your ribs.\"",
-			"- Barkhul, the Butcher",
+			"\"One coy look. One blown kiss. One word spoken.",
+			"One night I wish I'd forget.\"",
 		},
 	},
 	[314] = {
-		id = "UniqueJewel151",
-		name = "Lord of Steel",
+		id = "UniqueRing56",
+		name = "Circle of Anguish",
 		text = {
-			"Her apprentice spends hours working the steel,",
-			"and the end result is melted for scrap.",
-			"Each one made better than the last.",
-			"Each one made more quickly.",
-			"She knows the path well.",
+			"I condemned an innocent man to the pyres, but to admit this mistake is to condemn myself.",
+			"My only choice is to strive harder.",
 		},
 	},
 	[315] = {
-		id = "UniqueJewel30",
-		name = "Clear Mind",
+		id = "UniqueRing57",
+		name = "Circle of Fear",
 		text = {
-			"When your thoughts flow like a river, why build a dam?",
+			"My subordinates circled me eternally, attuned to the slightest weakness,",
+			"ready to tear me apart for their own gains.",
 		},
 	},
 	[316] = {
-		id = "UniqueJewel34",
-		name = "Efficient Training",
+		id = "UniqueRing58",
+		name = "Circle of Regret",
 		text = {
-			"Working smart and working hard aren't mutually exclusive.",
+			"I sacrificed a life of love for one of responsibility, so that she,",
+			"and others like her, might be kept safe.",
 		},
 	},
 	[317] = {
-		id = "UniqueJewel35",
-		name = "Brute Force Solution",
+		id = "UniqueRing59",
+		name = "Circle of Nostalgia",
 		text = {
-			"Picking a lock takes an immense amount of skill and practice.",
-			"Breaking it with a hammer takes about three seconds.",
+			"I was a happy child, before the cruel truth was revealed to me.",
+			"I fight so that the children may remain ignorant.",
 		},
 	},
 	[318] = {
-		id = "UniqueJewel36",
-		name = "Careful Planning",
+		id = "UniqueRing60",
+		name = "Circle of Guilt",
 		text = {
-			"\"Greatly outnumbered, Deshret dressed her personal guard",
-			"in identical garb. When the Empire rode north, Deshret and",
-			"her guard took turns revealing themselves, creating the illusion",
-			"of speed beyond the capabilities of even the Virtue Gems.\"",
-			"- History of the Maraketh",
+			"I feel the moral weight of what I must do to protect Wraeclast.",
+			"I accept my guilt without shame. It is my gift to humanity.",
 		},
 	},
 	[319] = {
-		id = "UniqueJewel37",
-		name = "Inertia",
+		id = "UniqueSceptre21",
+		name = "Nebulis",
 		text = {
-			"There is no force without movement.",
+			"The vastness of the cosmos holds energies beyond comprehension,",
+			"should one have the fortitude to grasp them.",
 		},
 	},
 	[320] = {
-		id = "UniqueCorruptedJewel4",
-		name = "Sacrificial Harvest",
+		id = "UniqueFlask28",
+		name = "Bottled Faith",
 		text = {
-			"The Vaal used human sacrifice to power their empire.",
-			"They, too, eventually sought means to",
-			"make their machines run more efficiently.",
+			"A tourniquet for the soul, squeezing ethereal into physical.",
 		},
 	},
 	[321] = {
-		id = "UniqueCorruptedJewel5",
-		name = "Atziri's Reign",
+		id = "UniqueGlovesStrInt9",
+		name = "Offering to the Serpent",
 		text = {
-			"Atziri went to great lengths to ensure her immortality,",
-			"but nothing is eternal.",
+			"\"You covet the strength of your peers, mortal?",
+			"Perhaps it can be yours, if you are willing to make an offering of their blood...\"",
+			"- Vaal Myth of the Third Snake",
 		},
 	},
 	[322] = {
-		id = "UniqueCorruptedJewel6",
-		name = "Vaal Sentencing",
+		id = "UniqueBodyInt19",
+		name = "Garb of the Ephemeral",
 		text = {
-			"In their final days, every crime was punishable by death.",
-			"Atziri's empire ran on blood, but the blood was running dry.",
+			"Exceptional men and women of strong will can flicker a spark,",
+			"but something much greater is needed to unleash the wildfire of true divine flames.",
 		},
 	},
 	[323] = {
-		id = "UniqueJewel41",
-		name = "Poacher's Aim",
+		id = "UniqueGlovesDexInt13",
+		name = "Storm's Gift",
 		text = {
-			"A sharp eye can be more deadly than a sharp blade.",
+			"The power of lightning is a power best shared.",
 		},
 	},
 	[324] = {
-		id = "UniqueJewel42",
-		name = "Warlord's Reach",
+		id = "UniqueHelmetStrInt16",
+		name = "Mask of the Tribunal",
 		text = {
-			"A steady hand can hold back an army.",
+			"The judge determines worthiness by comparison to the paragon: himself.",
 		},
 	},
 	[325] = {
-		id = "UniqueGlovesStr12",
-		name = "Kaom's Spirit",
+		id = "UniqueAmulet55",
+		name = "Hyrri's Truth",
 		text = {
-			"Who can tell when whispers are truly from a god?",
+			"Strike true, strike hard, and leave no survivors to retaliate.",
 		},
 	},
 	[326] = {
-		id = "UniqueJewel43",
-		name = "Assassin's Haste",
+		id = "UniqueShieldDexInt6",
+		name = "Perepiteia",
 		text = {
-			"A quick step can advance great plans.",
+			"Something within the machine never stops moving,",
+			"but Oriathan scholars dare not open it to find out why.",
 		},
 	},
 	[327] = {
-		id = "UniqueJewel44",
-		name = "Conqueror's Efficiency",
+		id = "UniqueBootsStrInt6",
+		name = "March of the Legion",
 		text = {
-			"The stone may yet bleed.",
+			"When the time comes to face evil, the faithful are never alone.",
 		},
 	},
 	[328] = {
-		id = "UniqueJewel45",
-		name = "Conqueror's Potency",
+		id = "UniqueQuiver15",
+		name = "Maloney's Mechanism",
 		text = {
-			"What you earn is almost as important as what you take.",
+			"Midnight tinkering begets midday murdering;",
+			"a sinister shaft surreptitiously shot slays a scoundrel.",
+			"I will see them again, but not until my work is done.",
 		},
 	},
 	[329] = {
-		id = "UniqueHelmetStrInt19",
-		name = "Maw of Mischief",
+		id = "UniqueBelt18",
+		name = "Soulthirst",
 		text = {
-			"The line that divides hope and fear,",
-			"life and death, crowd and mob,",
-			"is as thin as a whisper.",
+			"\"They say a draught of fine spirits will ward off",
+			"the elements and promote a longer, merrier life.",
+			"I have found this to be true on all counts.\"",
+			"- Zerphi of the Vaal",
 		},
 	},
 	[330] = {
-		id = "UniqueHelmetStr10",
-		name = "Thrillsteel",
+		id = "UniqueTalisman1",
+		name = "Night's Hold",
 		text = {
-			"We may fight, and we may die, but in these",
-			"moments of blood and battle, we truly live.",
+			"In the light of Solaris, the shadows cower and hide.",
+			"But every night they gather and grow,",
+			"and all but the strong and the stupid",
+			"seek shelter from their grasp until daybreak.",
 		},
 	},
 	[331] = {
-		id = "UniqueJewel46",
-		name = "Conqueror's Longevity",
+		id = "UniqueRing40",
+		name = "Essence Worm",
 		text = {
-			"Victory is as simple as being the last one standing.",
+			"\"This thing is not a pet. It is a parasite that feeds on the very will of its host.",
+			"Like any part of nightmare, it has found a way to make its price... acceptable.\"",
+			"- Malachai the Soulless",
 		},
 	},
 	[332] = {
-		id = "UniqueHelmetDex11",
-		name = "Elevore",
-		text = {
-			"Ancient worshippers of the Greatwolf were overtaken",
-			"by a ravenous hunger for all things mystical.",
-		},
-	},
-	[333] = {
-		id = "UniqueCorruptedJewel7",
-		name = "Chill of Corruption",
-		text = {
-			"Even a millennium later, Atziri's presence",
-			"casts a shroud over Wraeclast.",
-		},
-	},
-	[334] = {
-		id = "UniqueQuiver19",
-		name = "The Poised Prism",
-		text = {
-			"What do you see when you look inward?",
-		},
-	},
-	[335] = {
-		id = "UniqueCorruptedJewel8",
-		name = "Ancient Waystones",
-		text = {
-			"\"The Vaal left a thousand warnings behind.",
-			"We ignored every single one.\"",
-			"- Siosa, the Last Scholar",
-		},
-	},
-	[336] = {
-		id = "UniqueJewel165",
-		name = "Grand Spectrum",
-		text = {
-			"A wellspring of vitality bubbling from within.",
-		},
-	},
-	[337] = {
-		id = "UniqueCorruptedJewel9",
-		name = "Mutated Growth",
-		text = {
-			"Few living things survived the cleansing flames.",
-			"Those that did thrived...",
-			"And changed...",
-		},
-	},
-	[338] = {
-		id = "UniqueJewel166",
-		name = "Grand Spectrum",
-		text = {
-			"A mountain fortress safe from the storm.",
-		},
-	},
-	[339] = {
-		id = "UniqueHelmetStrDex3",
-		name = "Deidbellow",
-		text = {
-			"May you never hear it toll.",
-		},
-	},
-	[340] = {
-		id = "UniqueJewel167",
-		name = "Grand Spectrum",
-		text = {
-			"A mass of flesh writhing with savage fury.",
-		},
-	},
-	[341] = {
-		id = "UniqueClaw4",
-		name = "Last Resort",
-		text = {
-			"Desperate times demand desperate measures.",
-		},
-	},
-	[342] = {
-		id = "UniqueCorruptedJewel13",
-		name = "Self-Flagellation",
-		text = {
-			"Beg for forgiveness.",
-		},
-	},
-	[343] = {
-		id = "UniqueBelt41",
-		name = "Survivor's Guilt",
-		text = {
-			"The burden falls heaviest not on those that died,",
-			"but on those that did not.",
-		},
-	},
-	[344] = {
-		id = "UniqueCorruptedJewel14",
-		name = "Blood Sacrifice",
-		text = {
-			"Power always comes with a price.",
-		},
-	},
-	[345] = {
 		id = "UniqueAmulet10",
 		name = "Atziri's Foible",
 		text = {
@@ -2886,15 +2813,17 @@ return {
 			"-Jaetai, Vaal Advisor",
 		},
 	},
-	[346] = {
-		id = "UniqueJewel172",
-		name = "Immutable Force",
+	[333] = {
+		id = "UniqueTalisman2",
+		name = "Blightwell",
 		text = {
-			"How simple a power, on which empires turn,",
-			"when one man stands firm and says, \"I refuse.\"",
+			"Long ago, the ocean was a puddle where a golden fish dwelt,",
+			"who lit the ocean from within and kept the water fresh.",
+			"When the sky burned, the fish dived deep,",
+			"never to return, and the waters turned sour.",
 		},
 	},
-	[347] = {
+	[334] = {
 		id = "UniqueRing9",
 		name = "Lori's Lantern",
 		text = {
@@ -2904,15 +2833,17 @@ return {
 			"and proof against hate.",
 		},
 	},
-	[348] = {
-		id = "UniqueRing70",
-		name = "Rotblood Promise",
+	[335] = {
+		id = "UniqueTalisman3",
+		name = "Natural Hierarchy",
 		text = {
-			"Accept the infection, let it take hold.",
-			"Then carry it far and wide.",
+			"Just as the rat cowers before the dog",
+			"and the dog cowers before Man,",
+			"so too should we cower before the First Ones",
+			"and pray we never learn of what comes next.",
 		},
 	},
-	[349] = {
+	[336] = {
 		id = "UniqueHelmetStrDex4",
 		name = "The Bringer of Rain",
 		text = {
@@ -2920,15 +2851,7 @@ return {
 			"\"Sacred ground, watered with tears of blood!\"",
 		},
 	},
-	[350] = {
-		id = "UniqueDagger21",
-		name = "Goblinedge",
-		text = {
-			"\"That bronze girl sure knows how to cut someone down to size!\"",
-			"- Bertrand the Plush",
-		},
-	},
-	[351] = {
+	[337] = {
 		id = "UniqueBodyInt8",
 		name = "Zahndethus' Cassock",
 		text = {
@@ -2938,15 +2861,7 @@ return {
 			"Twice as strong and twice as thick",
 		},
 	},
-	[352] = {
-		id = "UniqueHelmetStrInt21",
-		name = "Ancient Skull",
-		text = {
-			"Primordial rage slumbers, waiting for the call",
-			"of the stars to return and swallow the world.",
-		},
-	},
-	[353] = {
+	[338] = {
 		id = "UniqueBodyStrInt4",
 		name = "Lightbane Raiment",
 		text = {
@@ -2955,7 +2870,7 @@ return {
 			"and embraced the darkness.",
 		},
 	},
-	[354] = {
+	[339] = {
 		id = "UniqueWand3",
 		name = "Void Battery",
 		text = {
@@ -2964,15 +2879,16 @@ return {
 			"- Inquisitor Maligaro",
 		},
 	},
-	[355] = {
-		id = "UniqueJewel48",
-		name = "Cold Steel",
+	[340] = {
+		id = "UniqueOneHandSword3",
+		name = "Rebuke of the Vaal",
 		text = {
-			"Winter provides us with her own weapons,",
-			"hanging from the eaves of our homes.",
+			"Though the Vaal revered peace, it would have",
+			"been suicide for any culture to rouse them to war.",
+			"- Icius Perandus, Scholar to the Empire.",
 		},
 	},
-	[356] = {
+	[341] = {
 		id = "UniqueRing10",
 		name = "Sibyl's Lament",
 		text = {
@@ -2980,46 +2896,14 @@ return {
 			"a pain that she could never see.",
 		},
 	},
-	[357] = {
-		id = "UniqueBelt42c",
-		name = "Graven's Secret",
+	[342] = {
+		id = "UniqueOneHandAxe1",
+		name = "Soul Taker",
 		text = {
-			"The cowardly thinker's greatest success is simply surviving.",
+			"It is too easy for the soul to escape from an open heart.",
 		},
 	},
-	[358] = {
-		id = "UniqueJewel50",
-		name = "Energised Armour",
-		text = {
-			"\"I've yet to see prayer stop an arrow.\"",
-		},
-	},
-	[359] = {
-		id = "UniqueBootsStrDex7",
-		name = "Legacy of Fury",
-		text = {
-			"All that was loved, all that was hated -",
-			"naught remains but ash.",
-		},
-	},
-	[360] = {
-		id = "UniqueJewel51",
-		name = "Energy From Within",
-		text = {
-			"The Azmeri ascetics learnt the power",
-			"of going without the body's ordinary cravings.",
-		},
-	},
-	[361] = {
-		id = "UniqueHelmetStrInt20",
-		name = "Viridi's Veil",
-		text = {
-			"\"Her sisters eternally fought for that shining apex in the skies,",
-			"but Viridi instead found strength in humility.\"",
-			"- Azmerian Creation Myth",
-		},
-	},
-	[362] = {
+	[343] = {
 		id = "UniqueBootsDex4",
 		name = "The Blood Dance",
 		text = {
@@ -3029,117 +2913,54 @@ return {
 			"-Lavianga, Guardian of the Karui Way",
 		},
 	},
-	[363] = {
-		id = "UniqueHelmetDexInt10",
-		name = "Farrul's Bite",
-		text = {
-			"It is a fool who strikes the turtle's shell.",
-			"The First of the Plains teaches us to exploit weaknesses,",
-			"and where no weakness can be found, to create one.",
-		},
-	},
-	[364] = {
+	[344] = {
 		id = "UniqueTwoHandMace6",
 		name = "Kongor's Undying Rage",
 		text = {
 			"Command like a king and nothing will stand in your way.",
 		},
 	},
-	[365] = {
-		id = "UniqueGlovesStrDex10",
-		name = "Farrul's Pounce",
+	[345] = {
+		id = "UniqueOneHandSword4",
+		name = "The Goddess Scorned",
 		text = {
-			"A hungry beast wastes no energy.",
-			"Every strike, no matter how small, must work towards victory.",
-			"The First of the Plains teaches us",
-			"that the largest prey can still be whittled away.",
+			"Her purpose seems done; the oath is fulfilled.",
+			"Rust dulls her smirk with the last demon killed.",
+			"The embers grow dim and yet hope burns her lips:",
+			"\"An old flame renewed can define our eclipse!\"",
 		},
 	},
-	[366] = {
-		id = "UniqueWand10",
-		name = "Abberath's Horn",
-		text = {
-			"The Goat King drank the smoke and ate the flames",
-			"as his ruin spread across the land.",
-		},
-	},
-	[367] = {
-		id = "UniqueBootsDex13",
-		name = "Farrul's Chase",
-		text = {
-			"A secret is a weapon your enemies do not have.",
-			"When the First of the Plains hunted, she moved in silence and acted quickly.",
-			"To do otherwise is to arm your foes.",
-		},
-	},
-	[368] = {
+	[346] = {
 		id = "UniqueAmulet16",
 		name = "The Anvil",
 		text = {
 			"Forge your Perseverance on the Anvil of Faith.",
 		},
 	},
-	[369] = {
-		id = "UniqueBodyInt17",
-		name = "Fenumus' Shroud",
+	[347] = {
+		id = "UniqueSceptre3",
+		name = "Mon'tregul's Grasp",
 		text = {
-			"The First of the Night was the first explorer",
-			"It was she who first braved night's terrors",
-			"and found comfort in silence and solace.",
+			"With death as my ally, all the world is within my grasp.",
 		},
 	},
-	[370] = {
-		id = "UniqueClaw9",
-		name = "Wildslash",
+	[348] = {
+		id = "UniqueRing14",
+		name = "Perandus Signet",
 		text = {
-			"There are two things to know about fighting:",
-			"When to swing like crazy, and when to run.",
+			"\"Our warehouses are bursting. Our vaults are full.",
+			"But our minds are still hungry.\"",
+			"- Medici Perandus, Prefect to the Treasury",
 		},
 	},
-	[371] = {
-		id = "UniqueHelmetInt16",
-		name = "Fenumus' Toxins",
-		text = {
-			"A hunter uses everything at their disposal.",
-			"The First of the Night did not hold back her venom.",
-			"She used it to weaken her enemies,",
-			"and used her enemies to strengthen her many children.",
-		},
-	},
-	[372] = {
-		id = "UniqueShieldStrDex3",
-		name = "The Deep One's Hide",
-		text = {
-			"The thicker the shell,",
-			"the greater the beast that hunts it.",
-		},
-	},
-	[373] = {
-		id = "UniqueGlovesDexInt10",
-		name = "Fenumus' Weave",
-		text = {
-			"A burden shared is a burden made lighter.",
-			"The First of the Night teaches us that our burdens",
-			"are not just ours to bear, but ours to use against oppressors.",
-		},
-	},
-	[374] = {
+	[349] = {
 		id = "UniqueRing15",
 		name = "Pyre",
 		text = {
 			"Let winter come. It will only make my fire burn brighter.",
 		},
 	},
-	[375] = {
-		id = "UniqueBootsDexInt7",
-		name = "Fenumus' Spinnerets",
-		text = {
-			"When the fires spilled out of the mountain, The First of the Night wove a net",
-			"and was carried into the night on its hot winds.",
-			"Though we cannot live without danger, we can learn to live with it.",
-		},
-	},
-	[376] = {
+	[350] = {
 		id = "UniqueFlask1",
 		name = "Divination Distillate",
 		text = {
@@ -3149,16 +2970,7 @@ return {
 			"who dream of enlightenment",
 		},
 	},
-	[377] = {
-		id = "UniqueBodyStrInt9",
-		name = "Loreweave",
-		text = {
-			"When it comes to finding a use for surplus,",
-			"a rich man has within himself",
-			"boundless creativity.",
-		},
-	},
-	[378] = {
+	[351] = {
 		id = "UniqueHelmetInt7",
 		name = "Crown of Eyes",
 		text = {
@@ -3168,15 +2980,7 @@ return {
 			"your mind is destroyed.",
 		},
 	},
-	[379] = {
-		id = "UniqueShieldStrInt12",
-		name = "Unyielding Flame",
-		text = {
-			"An Emperor must conquer his own darkness",
-			"before he can act as a beacon of light.",
-		},
-	},
-	[380] = {
+	[352] = {
 		id = "UniqueBodyDex6",
 		name = "Queen of the Forest",
 		text = {
@@ -3188,218 +2992,136 @@ return {
 			"she found peace at last.",
 		},
 	},
-	[381] = {
-		id = "UniqueRing51",
-		name = "Stormfire",
+	[353] = {
+		id = "UniqueBow9",
+		name = "Windripper",
 		text = {
-			"When your skin sloughs, and your blood cooks,",
-			"you'll wish the lightning strike had killed you.",
+			"It hunts; as silent as falling snow, as deadly as the tempest.",
 		},
 	},
-	[382] = {
-		id = "UniqueOneHandMace6",
-		name = "Gorebreaker",
+	[354] = {
+		id = "UniqueBodyStr3",
+		name = "Death's Oath",
 		text = {
-			"Sure, there's many a hard man out there.",
-			"But this'll soften them up.",
+			"Tears of blood, aching heart,",
+			"My dear Isildria must depart.",
 		},
 	},
-	[383] = {
-		id = "UniqueBelt28",
-		name = "Gluttony",
+	[355] = {
+		id = "UniqueTwoHandAxe6",
+		name = "Wings of Entropy",
 		text = {
-			"What started as a desire to feed",
-			"became a desire to learn...",
+			"Fire and Anarchy are the most reliable agents of change.",
 		},
 	},
-	[384] = {
-		id = "UniqueOneHandMace7",
-		name = "Lavianga's Wisdom",
+	[356] = {
+		id = "UniqueBodyStrDex1",
+		name = "Belly of the Beast",
 		text = {
-			"\"The painful memories are the easiest to recall.\"",
-			"- Lavianga, Advisor to Kaom",
+			"There is no safer place",
+			"Than the Belly of the Beast",
 		},
 	},
-	[385] = {
-		id = "UniqueBodyStrInt10",
-		name = "Chains of Command",
+	[357] = {
+		id = "UniqueHelmetDexInt2",
+		name = "Leer Cast",
 		text = {
-			"A general may carry his men to greatness,",
-			"or be dragged beneath the mire by their burden.",
+			"For none of us are as cruel as all of us.",
 		},
 	},
-	[386] = {
-		id = "UniqueOneHandMace8",
-		name = "Flesh-Eater",
+	[358] = {
+		id = "UniqueHelmetStrInt3",
+		name = "Mindspiral",
 		text = {
-			"I suffer, I long, with thirst to slake.",
-			"Though countless corpses lie in wake.",
+			"Where top is bottom and weak is strong.",
 		},
 	},
-	[387] = {
-		id = "UniqueGlovesDexInt11",
-		name = "Architect's Hand",
+	[359] = {
+		id = "UniqueBootsDex5",
+		name = "Seven-League Step",
 		text = {
-			"Great works take time.",
-			"<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Dominance}",
+			"\"Death can be outrun with these, but beware!",
+			"In running from death, you may forget to live.\"",
+			"- Icius Perandus, Antiquities Collection, Item 202",
 		},
 	},
-	[388] = {
-		id = "UniqueStaff14",
-		name = "The Stormwall",
+	[360] = {
+		id = "UniqueBootsStrDex3",
+		name = "Duskblight",
 		text = {
-			"When the storm comes,",
-			"the safest place to be is the centre.",
+			"\"A lick of shadow may ease",
+			"the petty frictions of one's life.\"",
+			"- Inquisitor Maligaro",
 		},
 	},
-	[389] = {
-		id = "UniqueGlovesDexInt12",
-		name = "Slavedriver's Hand",
+	[361] = {
+		id = "UniqueTwoHandAxe5",
+		name = "Wideswing",
 		text = {
-			"A plan without a deadline stays a plan.",
+			"Bargg Wurmkin once severed the heads",
+			"of seven men in a single cleave.",
 		},
 	},
-	[390] = {
-		id = "UniqueRing35",
-		name = "Brinerot Mark",
+	[362] = {
+		id = "UniqueStaff8",
+		name = "Agnerod East",
 		text = {
-			"Each time, it is granted to the most senior captain of the fleet,",
-			"and each time, the ring soon washes ashore once more,",
-			"still wrapped around a severed finger.",
+			"One for each corner of the great Vinktar Square.",
 		},
 	},
-	[391] = {
-		id = "UniqueHelmetStrInt13",
-		name = "Mask of the Spirit Drinker",
+	[363] = {
+		id = "UniqueTwoHandMace7",
+		name = "Panquetzaliztli",
 		text = {
-			"Our flesh is our most sacred gift.",
-			"Taint it not with the occult.",
-			"<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Summoning}",
+			"\"The finest prosperity grows from the direst",
+			"carnage. Such is the nature of progress.\"",
+			"- Doryani of the Vaal",
 		},
 	},
-	[392] = {
-		id = "UniqueRing36",
-		name = "Redblade Band",
+	[364] = {
+		id = "UniqueBow10",
+		name = "Voltaxic Rift",
 		text = {
-			"To ascend to leadership, the child of a Redblade warlord",
-			"must pull the band from the still-hot",
-			"ashes of their father.",
+			"The eldritch storm descended upon us, and bruised lightning",
+			"rained down. Metal withered and flesh melted before its",
+			"arcane power. There was no escape, no shelter. Only despair.",
 		},
 	},
-	[393] = {
-		id = "UniqueHelmetStrInt14",
-		name = "Mask of the Stitched Demon",
+	[365] = {
+		id = "UniqueFlask2",
+		name = "Doedre's Elixir",
 		text = {
-			"From the flesh of the gods, Xibaqua was born.",
-			"From the carnage of Xibaqua, we were born.",
-			"It is our duty to return to the gods what was once theirs.",
+			"Doedre Darktongue knew the Way of the Thaumaturge.",
+			"In order to receive, one must give... without hesitation.",
 		},
 	},
-	[394] = {
-		id = "UniqueRing37",
-		name = "Mutewind Seal",
+	[366] = {
+		id = "UniqueAmulet17",
+		name = "Marylene's Fallacy",
 		text = {
-			"When a fallen leader's body is taken to the funeral peak,",
-			"those who seek power must ascend together.",
-			"One returns with the seal.",
-			"The rest do not return at all.",
+			"\"Marylene stroked the medallion at her breast",
+			"before every duel and every cast of the die.\"",
+			"- Victario, the People's Poet",
 		},
 	},
-	[395] = {
-		id = "UniqueShieldInt11",
-		name = "Apep's Slumber",
+	[367] = {
+		id = "UniqueBodyDex7",
+		name = "Wildwrap",
 		text = {
-			"The heart grows slow,",
-			"the spirit grows strong.",
-			"<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Awakening}",
+			"\"I carry neither food nor drink. I rely on the charity",
+			"of my fellow wayfarers. Dead men are generous men.\"",
+			"- Taruk of the Wildmen",
 		},
 	},
-	[396] = {
-		id = "UniqueShieldInt5",
-		name = "Brinerot Flag",
+	[368] = {
+		id = "UniqueTwoHandSword6",
+		name = "Oro's Sacrifice",
 		text = {
-			"The lords of the sea bow to no one.",
+			"Give yourself to the flames and your name",
+			"will burn in the minds of men forever.",
 		},
 	},
-	[397] = {
-		id = "UniqueShieldInt12",
-		name = "Apep's Supremacy",
-		text = {
-			"Give him your body, and your burdens will follow.",
-		},
-	},
-	[398] = {
-		id = "UniqueShieldStr4",
-		name = "Redblade Banner",
-		text = {
-			"Blood shed is blood shared.",
-		},
-	},
-	[399] = {
-		id = "UniqueBodyStrDexInt2",
-		name = "Shadowstitch",
-		text = {
-			"Destined for sacrifice,",
-			"they were dressed in garments",
-			"that blurred the lines between this world",
-			"and the next.",
-		},
-	},
-	[400] = {
-		id = "UniqueShieldDex7",
-		name = "Mutewind Pennant",
-		text = {
-			"Embrace the snow or be buried.",
-		},
-	},
-	[401] = {
-		id = "UniqueAmulet48",
-		name = "Sacrificial Heart",
-		text = {
-			"The seed of life, saved and savoured.",
-			"<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Sacrifice}",
-		},
-	},
-	[402] = {
-		id = "UniqueAmulet49",
-		name = "Zerphi's Heart",
-		text = {
-			"We are incapable of change without sacrifice, for we are both the iron and the forge.",
-		},
-	},
-	[403] = {
-		id = "UniqueJewel116",
-		name = "Tempered Flesh",
-		text = {
-			"We are born raw and untested, and we are shaped by life.",
-			"<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Transcendence}",
-		},
-	},
-	[404] = {
-		id = "UniqueJewel117",
-		name = "Tempered Spirit",
-		text = {
-			"Though the body rots, the spirit lives on.",
-			"<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Transcendence}",
-		},
-	},
-	[405] = {
-		id = "UniqueJewel118",
-		name = "Tempered Mind",
-		text = {
-			"Any thought, no matter how fleeting, changes the thinker.",
-			"<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Transcendence}",
-		},
-	},
-	[406] = {
-		id = "UniqueJewel119",
-		name = "Transcendent Flesh",
-		text = {
-			"We are as much shaped by what we do",
-			"as what is done to us.",
-		},
-	},
-	[407] = {
+	[369] = {
 		id = "UniqueClaw7",
 		name = "Cybil's Paw",
 		text = {
@@ -3408,33 +3130,17 @@ return {
 			"Cut gently, lest their spirit haunt you.",
 		},
 	},
-	[408] = {
-		id = "UniqueJewel120",
-		name = "Transcendent Spirit",
+	[370] = {
+		id = "UniqueOneHandSword5",
+		name = "Prismatic Eclipse",
 		text = {
-			"Take comfort knowing that, even in death,",
-			"we may serve our Queen and fuel her empire.",
+			"\"A raging Solaris seared and contorted the orb's surface.",
+			"A despairing Lunaris filled the scars with her tears.",
+			"Yet Viridi remained, trapped within, forever more.\"",
+			"- Azmerian Creation Myth",
 		},
 	},
-	[409] = {
-		id = "UniqueHelmetInt10",
-		name = "Ylfeban's Trickery",
-		text = {
-			"An angry god is one thing,",
-			"but you should really fear a god",
-			"with an unpredictable sense of humour.",
-		},
-	},
-	[410] = {
-		id = "UniqueJewel121",
-		name = "Transcendent Mind",
-		text = {
-			"A keen mind sees what others do not,",
-			"makes connections where others do not,",
-			"and is dangerous in a way that others are not.",
-		},
-	},
-	[411] = {
+	[371] = {
 		id = "UniqueBodyStrDex3",
 		name = "Daresso's Defiance",
 		text = {
@@ -3445,91 +3151,47 @@ return {
 			"- Daresso, the Sword King",
 		},
 	},
-	[412] = {
-		id = "UniqueFlask25",
-		name = "Soul Catcher",
+	[372] = {
+		id = "UniqueRing16",
+		name = "Ming's Heart",
 		text = {
-			"Freedom is for the privileged, even in death.",
-			"<default>{This item can be transformed on the Altar of Sacrifice along with Vial of the Ghost}",
+			"Ming slew Tranquillity",
+			"Took Chaos for his wife",
+			"And on Her immortal finger",
+			"He placed his Heart",
 		},
 	},
-	[413] = {
-		id = "UniqueClaw10",
-		name = "Allure",
+	[373] = {
+		id = "UniqueBodyStrDex2",
+		name = "Lightning Coil",
 		text = {
-			"What drives us to kill, to carve and to shred?",
-			"What drives us to drink the seething souls of the dead?",
-			"What drives us to love and to hold, but still go amiss?",
-			"What drives us to leave this world for the Abyss?",
+			"\"There's nothing like imminent death",
+			"to galvanize one's purpose in life.\"",
+			"- Malachai the Soulless.",
 		},
 	},
-	[414] = {
-		id = "UniqueStaff12",
-		name = "The Whispering Ice",
+	[374] = {
+		id = "UniqueRing17",
+		name = "Romira's Banquet",
 		text = {
-			"Guard your darkest thoughts well, for they are",
-			"the cracks through which the Nightmare crawls.",
+			"The Empress gave Romira two sons",
+			"Born of his brother's seed",
+			"Romira threw her a banquet",
+			"A perfidious meal indeed.",
 		},
 	},
-	[415] = {
-		id = "UniqueFlask26",
-		name = "Soul Ripper",
+	[375] = {
+		id = "UniqueOneHandAxe2",
+		name = "Dyadus",
 		text = {
-			"\"What care have I for their pain? They're already dead.\"",
-			"- Atalui, Vaal Priestess",
+			"Born of love, forged in blood",
+			"He burned as a torch in the blackest night",
+			"She shone as ice in the winter sun",
+			"Proudly, fiercely",
+			"At their mother's side, forever.",
 		},
 	},
-	[416] = {
-		id = "UniqueAmulet22",
-		name = "Tear of Purity",
-		text = {
-			"A shimmering symbol of Purity, clear as water,",
-			"but I know better than most how quickly",
-			"Purity can succumb to Corruption.",
-			"How quickly water turns to blood.",
-			"- Victario, the People's Poet",
-		},
-	},
-	[417] = {
-		id = "UniqueBelt29",
-		name = "String of Servitude",
-		text = {
-			"For the Vaal, the relationship between slave and master",
-			"was as intimate and volatile as that of lovers.",
-		},
-	},
-	[418] = {
-		id = "UniqueAmulet23",
-		name = "Blood of Corruption",
-		text = {
-			"In my dream, a voice spoke to me. It said:",
-			"'My reach knows no bounds.",
-			"All that is pure is destined to rot.",
-			"All that lives is destined to serve.'",
-			"- Doryani, Queen's Thaumaturgist",
-		},
-	},
-	[419] = {
-		id = "UniqueBootsDexInt8",
-		name = "Dance of the Offered",
-		text = {
-			"Facing their death,",
-			"the mind of a sacrifice",
-			"retreats into instinct and madness.",
-			"<default>{This item can be transformed on the Altar of Sacrifice along with Vial of the Ritual}",
-		},
-	},
-	[420] = {
-		id = "UniqueBodyStr6",
-		name = "Lioneye's Vision",
-		text = {
-			"\"The Virtue Gems are a gift from the land,",
-			"our land, and we will not let our gifts",
-			"be destroyed by savages.\"",
-			"- Marceus Lioneye",
-		},
-	},
-	[421] = {
+	[376] = {
 		id = "UniqueBelt6",
 		name = "Sunblast",
 		text = {
@@ -3538,31 +3200,14 @@ return {
 			"Explodes from its cage.",
 		},
 	},
-	[422] = {
-		id = "UniqueBelt30",
-		name = "Coward's Chains",
-		text = {
-			"As a gift or as punishment,",
-			"the Empire will have your blood.",
-			"<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Consequence}",
-		},
-	},
-	[423] = {
+	[377] = {
 		id = "UniqueBootsDex6",
 		name = "Deerstalker",
 		text = {
 			"Anticipation, preparation, exhilaration, celebration.",
 		},
 	},
-	[424] = {
-		id = "UniqueBelt31",
-		name = "Coward's Legacy",
-		text = {
-			"Death is your most important duty.",
-			"Face it, or curse your bloodline for all eternity.",
-		},
-	},
-	[425] = {
+	[378] = {
 		id = "UniqueRing18",
 		name = "Berek's Pass",
 		text = {
@@ -3574,17 +3219,7 @@ return {
 			"- Berek and the Untamed",
 		},
 	},
-	[426] = {
-		id = "UniqueOneHandSword29",
-		name = "Story of the Vaal",
-		text = {
-			"Through war we found peace. Through death we found advancement.",
-			"Our ancestors did not know where their actions would take them.",
-			"Are we any better?",
-			"<default>{This item can be transformed on the Altar of Sacrifice along with Vial of Fate}",
-		},
-	},
-	[427] = {
+	[379] = {
 		id = "UniqueRing19",
 		name = "Berek's Grip",
 		text = {
@@ -3596,16 +3231,7 @@ return {
 			"- Berek and the Untamed",
 		},
 	},
-	[428] = {
-		id = "UniqueOneHandSword30",
-		name = "Fate of the Vaal",
-		text = {
-			"Doryani promises immortality, yet we build great structures,",
-			"carve magnificent works into stone, so a part of us lives onward.",
-			"A sign of faithlessness through action.",
-		},
-	},
-	[429] = {
+	[380] = {
 		id = "UniqueRing20",
 		name = "Berek's Respite",
 		text = {
@@ -3618,17 +3244,7 @@ return {
 			"- Berek and the Untamed",
 		},
 	},
-	[430] = {
-		id = "UniqueShieldDexInt5",
-		name = "Zeel's Amplifier",
-		text = {
-			"\"Great minds wish to reveal all the secrets of time and space.",
-			"But it does not matter. Creation, the act of Matter Metamorphosis,",
-			"is the only secret worth discovering.\"",
-			"- Zeel, Vaal Tinkerer",
-		},
-	},
-	[431] = {
+	[381] = {
 		id = "UniqueRing21",
 		name = "The Taming",
 		text = {
@@ -3641,17 +3257,7 @@ return {
 			"- Berek and the Untamed",
 		},
 	},
-	[432] = {
-		id = "UniqueSceptre19",
-		name = "Earendel's Embrace",
-		text = {
-			"There the weary multitude of man-kind",
-			"shall turn in their masses into the wide fire,",
-			"where the destroying flame embraces the living,",
-			"some will go up, some down, filled with misery.",
-		},
-	},
-	[433] = {
+	[382] = {
 		id = "UniqueFlask3",
 		name = "Blood of the Karui",
 		text = {
@@ -3662,38 +3268,16 @@ return {
 			"- Lavianga, Advisor to Kaom",
 		},
 	},
-	[434] = {
-		id = "UniqueJewel122",
-		name = "Combat Focus",
+	[383] = {
+		id = "UniqueFlask4",
+		name = "Lavianga's Spirit",
 		text = {
-			"Kaom watched the torches patrol the top of the Watch.",
-			"He observed the lay of the beach, its barricades and rocks,",
-			"and his men in their canoes, ready to lay their lives down for him.",
-			"But when his foot hit the sand, he thought only of the fight.",
+			"\"When the Ancestors fill your cup,",
+			"It is only good manners to drink your fill.\"",
+			"- Lavianga, Advisor to Kaom",
 		},
 	},
-	[435] = {
-		id = "UniqueJewel123",
-		name = "Combat Focus",
-		text = {
-			"Standing behind iron bars,",
-			"Daresso thought of his adoring fans cheering his name,",
-			"his wife's warm embrace waiting for him,",
-			"and of the celebrations that would soon be thrown in his name.",
-			"But when the arena gate lifted, he thought only of the fight.",
-		},
-	},
-	[436] = {
-		id = "UniqueJewel124",
-		name = "Combat Focus",
-		text = {
-			"Voll stood at the gates of Sarn, and a nation stood behind him.",
-			"He thought of the righteousness of his cause,",
-			"and of the glory he would bring to the empire he would soon lead.",
-			"But as Chitus and his gemlings advanced, he thought only of the fight.",
-		},
-	},
-	[437] = {
+	[384] = {
 		id = "UniqueHelmetDexInt3",
 		name = "The Gull",
 		text = {
@@ -3704,15 +3288,7 @@ return {
 			"- Lavianga, Advisor to Kaom",
 		},
 	},
-	[438] = {
-		id = "UniqueJewel125",
-		name = "Unnatural Instinct",
-		text = {
-			"\"I don't know how I know,",
-			"I just know that I know.\"",
-		},
-	},
-	[439] = {
+	[385] = {
 		id = "UniqueBelt7",
 		name = "Headhunter",
 		text = {
@@ -3722,15 +3298,7 @@ return {
 			"- Lavianga, Advisor to Kaom",
 		},
 	},
-	[440] = {
-		id = "UniqueRing52",
-		name = "Mark of Submission",
-		text = {
-			"So great was the thaumaturgy of a bloodpriest's mark,",
-			"that sacrifices soon welcomed their death.",
-		},
-	},
-	[441] = {
+	[386] = {
 		id = "UniqueBelt8",
 		name = "Immortal Flesh",
 		text = {
@@ -3741,15 +3309,7 @@ return {
 			"- Berek and the Untamed",
 		},
 	},
-	[442] = {
-		id = "UniqueJewel3",
-		name = "Inspired Learning",
-		text = {
-			"If you do not learn from a won battle",
-			"then you have already lost the war.",
-		},
-	},
-	[443] = {
+	[387] = {
 		id = "UniqueBodyDexInt2",
 		name = "Cloak of Defiance",
 		text = {
@@ -3763,14 +3323,7 @@ return {
 			"Of the Defiant Heart.",
 		},
 	},
-	[444] = {
-		id = "UniqueJewel4",
-		name = "Martial Artistry",
-		text = {
-			"A gentle hand rarely leaves a mark on the world.",
-		},
-	},
-	[445] = {
+	[388] = {
 		id = "UniqueWand4",
 		name = "Lifesprig",
 		text = {
@@ -3779,15 +3332,7 @@ return {
 			"Life endures in Wraeclast.",
 		},
 	},
-	[446] = {
-		id = "UniqueJewel5",
-		name = "Lioneye's Fall",
-		text = {
-			"The shield crab does not leave his shell unless it is forced to,",
-			"and even then, it knows to keep its distance.",
-		},
-	},
-	[447] = {
+	[389] = {
 		id = "UniqueSceptre6",
 		name = "Doon Cuebiyari",
 		text = {
@@ -3797,15 +3342,7 @@ return {
 			"Through endless storms of fervent devotion.",
 		},
 	},
-	[448] = {
-		id = "UniqueJewel6",
-		name = "Intuitive Leap",
-		text = {
-			"The carpenter who picks up a blade is not mad.",
-			"He's ambitious.",
-		},
-	},
-	[449] = {
+	[390] = {
 		id = "UniqueGlovesDemigods1",
 		name = "Demigod's Touch",
 		text = {
@@ -3813,25 +3350,7 @@ return {
 			"Victory is at hand.",
 		},
 	},
-	[450] = {
-		id = "UniqueShieldInt6",
-		name = "Kongming's Stratagem",
-		text = {
-			"Those who are skilled in combat do not become angered.",
-			"Those who are skilled at winning do not become afraid.",
-			"Thus the wise win before they fight,",
-			"while the ignorant fight to win.",
-		},
-	},
-	[451] = {
-		id = "UniqueBootsDexInt10",
-		name = "The Stampede",
-		text = {
-			"Relentlessness. Nothing more, nothing less.",
-			"<default>{This item can be anointed by Cassia}",
-		},
-	},
-	[452] = {
+	[391] = {
 		id = "UniqueBodyStr4",
 		name = "Solaris Lorica",
 		text = {
@@ -3841,45 +3360,21 @@ return {
 			"So that I may begin my bright pursuit.",
 		},
 	},
-	[453] = {
-		id = "UniqueGlovesStrDex13",
-		name = "Breathstealer",
-		text = {
-			"The last gasp is not always one's final act.",
-			"<default>{This item can be anointed by Cassia}",
-		},
-	},
-	[454] = {
+	[392] = {
 		id = "UniqueShieldDex4",
 		name = "Thirst for Horrors",
 		text = {
 			"An eye for an eye. A curse for a curse.",
 		},
 	},
-	[455] = {
-		id = "UniqueHelmetStr7",
-		name = "Cowl of the Thermophile",
-		text = {
-			"The villagers seared the blight with fire, but it only spread like dancing flames.",
-			"<default>{This item can be anointed by Cassia}",
-		},
-	},
-	[456] = {
+	[393] = {
 		id = "UniqueShieldStrDex2",
 		name = "Wheel of the Stormsail",
 		text = {
 			"Doomed to plunder forever.",
 		},
 	},
-	[457] = {
-		id = "UniqueHelmetDex9",
-		name = "Cowl of the Cryophile",
-		text = {
-			"The villagers seared the blight with cold, but it only bloomed countless spears.",
-			"<default>{This item can be anointed by Cassia}",
-		},
-	},
-	[458] = {
+	[394] = {
 		id = "UniqueOneHandAxe3",
 		name = "The Gryphon",
 		text = {
@@ -3887,15 +3382,7 @@ return {
 			"but the scream and the strike.",
 		},
 	},
-	[459] = {
-		id = "UniqueHelmetInt23",
-		name = "Cowl of the Ceraunophile",
-		text = {
-			"The villagers seared the blight with lightning, but it only forked into countless tendrils.",
-			"<default>{This item can be anointed by Cassia}",
-		},
-	},
-	[460] = {
+	[395] = {
 		id = "UniqueStaff4",
 		name = "Mirebough",
 		text = {
@@ -3903,16 +3390,7 @@ return {
 			"- Old Ezomyte saying.",
 		},
 	},
-	[461] = {
-		id = "UniqueBodyStrInt12",
-		name = "Sporeguard",
-		text = {
-			"Shrouded in seed, a conduit of contagion,",
-			"yet the source of septicity remains unknown.",
-			"<default>{This item can be anointed by Cassia}",
-		},
-	},
-	[462] = {
+	[396] = {
 		id = "UniqueDagger8",
 		name = "Bino's Kitchen Knife",
 		text = {
@@ -3920,16 +3398,7 @@ return {
 			"that it was even edible.",
 		},
 	},
-	[463] = {
-		id = "UniqueAmulet58",
-		name = "The Jinxed Juju",
-		text = {
-			"Burned rhoa's eye and goatman's beard do demand:",
-			"Leave behind those lazy bones;",
-			"Dance, ye dead, at my command!",
-		},
-	},
-	[464] = {
+	[397] = {
 		id = "UniqueHelmetStrInt4",
 		name = "Veil of the Night",
 		text = {
@@ -3939,1649 +3408,607 @@ return {
 			"And bloom steel flowers of victory.",
 		},
 	},
-	[465] = {
-		id = "UniqueBelt34",
-		name = "Leash of Oblation",
+	[398] = {
+		id = "UniqueFishingRod1",
+		name = "Song of the Sirens",
 		text = {
-			"Those who offer up sacrifices to every deity entreat the full favour of none.",
+			"Give a man a fish, and you can feed him for a day.",
+			"But give a fish a man, and you can feed it for a month.",
 		},
 	},
-	[466] = {
-		id = "UniqueGlovesStrInt11",
-		name = "Hands of the High Templar",
+	[399] = {
+		id = "UniqueHelmetDexInt4",
+		name = "The Three Dragons",
 		text = {
-			"The laws of the faith do not apply to its leader.",
+			"\"The ice seared his naked feet",
+			"As the lightning stilled his heart,",
+			"But it was the flames upon his lover's face",
+			"That roused him to vengeance.\"",
+			"- From 'The Three Dragons' by Victario of Sarn",
 		},
 	},
-	[467] = {
-		id = "UniqueShieldInt15",
-		name = "Manastorm",
+	[400] = {
+		id = "UniqueGlovesStrInt1",
+		name = "Shackles of the Wretched",
 		text = {
-			"Fear not the fury of the storm.",
+			"Captivity breeds creativity.",
 		},
 	},
-	[468] = {
-		id = "UniqueAmulet59",
-		name = "Fury Valve",
+	[401] = {
+		id = "UniqueOneHandMace3",
+		name = "Mjölner",
 		text = {
-			"A single act of anger travels countless paths of destruction.",
+			"Look the storm in the eye and you will have its respect.",
 		},
 	},
-	[469] = {
-		id = "UniqueHelmetStrInt17",
-		name = "Crown of the Inward Eye",
+	[402] = {
+		id = "UniqueStaff5",
+		name = "Dying Breath",
 		text = {
-			"Divinity is not the only path to enlightenment.",
+			"The whispers of the dead",
+			"Carry wisdom for the living,",
+			"If you are willing to give your life",
+			"To listen.",
 		},
 	},
-	[470] = {
-		id = "UniqueShieldDex8",
-		name = "Mistwall",
+	[403] = {
+		id = "UniqueGlovesDexInt5",
+		name = "Snakebite",
 		text = {
-			"Light as a board,",
-			"Stiff as a feather.",
+			"\"As the serpent shuns thought,",
+			"It shuns fear.",
+			"It strikes with the speed of wrath",
+			"And the skill of compulsion.\"",
+			"- Deshret, The Red Sekhema",
 		},
 	},
-	[471] = {
-		id = "UniqueBelt35",
-		name = "Mother's Embrace",
+	[404] = {
+		id = "UniqueBootsStrInt2",
+		name = "Alberon's Warpath",
 		text = {
-			"Drink, my children, and be strengthened.",
+			"Alberon walked among the accursed,",
+			"and they welcomed him.",
 		},
 	},
-	[472] = {
-		id = "UniqueRing63",
-		name = "Warrior's Legacy",
+	[405] = {
+		id = "UniqueHelmetStrDex5",
+		name = "Skullhead",
 		text = {
-			"Make your mark on history.",
+			"All that was left of the Iron King was his bleached skull.",
+			"Yet it was all the Iron King needed.",
 		},
 	},
-	[473] = {
-		id = "UniqueRing64",
-		name = "Astral Projector",
+	[406] = {
+		id = "UniqueRing23",
+		name = "Voideye",
 		text = {
-			"The body stands, but the spirit soars.",
+			"The darker the eye, the more diligent the watched.",
 		},
 	},
-	[474] = {
-		id = "UniqueBodyStrInt13",
-		name = "The Ivory Tower",
+	[407] = {
+		id = "UniqueGlovesStrDex4",
+		name = "Vaal Caress",
 		text = {
-			"The mind is a filter through which anarchy becomes order.",
+			"\"The gems are strangely human at times.",
+			"They simply love to be held.\"",
+			"- Doryani, First Seer to the Queen",
 		},
 	},
-	[475] = {
-		id = "UniqueGlovesDex5",
-		name = "Painseeker",
+	[408] = {
+		id = "UniqueQuiver3",
+		name = "Drillneck",
 		text = {
-			"Lay bare paths to pain you never knew you had.",
+			"\"Why waste such a fine arrow on just one man?\"",
+			"- Kiravi, Vaal Archer",
 		},
 	},
-	[476] = {
-		id = "UniqueAmulet60",
-		name = "Willowgift",
+	[409] = {
+		id = "UniqueQuiver4",
+		name = "Rearguard",
 		text = {
-			"The storm cannot break that which bends.",
+			"\"It's a rare man that has eyes in the back of his head.\"",
+			"- Kiravi, Vaal Archer",
 		},
 	},
-	[477] = {
-		id = "UniqueHelmetDexInt13",
-		name = "Eye of Malice",
+	[410] = {
+		id = "UniqueBootsDex7",
+		name = "Atziri's Step",
 		text = {
-			"Through vision coloured by burning rage and icy hate",
-			"peers a visitor from a realm of ill intent...",
-		},
-	},
-	[478] = {
-		id = "UniqueSceptre23",
-		name = "The Black Cane",
-		text = {
-			"Lead the army of the damned from the front.",
-		},
-	},
-	[479] = {
-		id = "UniqueJewel136",
-		name = "Thread of Hope",
-		text = {
-			"Though we cannot touch; one thought, one wish, through centuries alone in darkness.",
-		},
-	},
-	[480] = {
-		id = "UniqueJewel62",
-		name = "The Vigil",
-		text = {
-			"When Voll took the throne,",
-			"He swore to care for the empire with eyes open.",
-			"And so he looked to the salvation of his people,",
-			"Blind to the damnation in his hands.",
-		},
-	},
-	[481] = {
-		id = "UniqueJewel63",
-		name = "Rolling Flames",
-		text = {
-			"From north to south the sea of fire swept,",
-			"Rolling waves of gorging flame,",
-			"Growing taller and hungrier,",
-			"With every land they consumed.",
-		},
-	},
-	[482] = {
-		id = "UniqueJewel64",
-		name = "Winter's Bounty",
-		text = {
-			"As a boy, Rigwald was taught to hunt,",
-			"Through the first snows of winter,",
-			"When beasts have gorged their fill,",
-			"And see nothing but the long slumber ahead.",
-		},
-	},
-	[483] = {
-		id = "UniqueJewel65",
-		name = "Spirited Response",
-		text = {
-			"The Purity Rebels fought with heart and soul,",
-			"To free their empire from corruption.",
-			"And the fires of war did merely serve,",
-			"To temper the steel of their spirits.",
-		},
-	},
-	[484] = {
-		id = "UniqueStaff15",
-		name = "Femurs of the Saints",
-		text = {
-			"\"They spent a lifetime in the service of God,",
-			"only to spend eternity in the service of me.\"",
-			"- Kadavrus, Surgeon to the Umbra",
-		},
-	},
-	[485] = {
-		id = "UniqueWatchstone1",
-		name = "Terror",
-		text = {
-			"Those who could flee did so.",
-			"The rest fought bravely,",
-			"and died horrifically.",
-		},
-	},
-	[486] = {
-		id = "UniqueWatchstone2",
-		name = "Stalwart Defenders",
-		text = {
-			"They came, full of vim and vigour, to take what was not theirs.",
-			"They crashed and clamoured like waves against rocks,",
-			"and were swept back out to sea.",
-		},
-	},
-	[487] = {
-		id = "UniqueWatchstone3",
-		name = "Misinformation",
-		text = {
-			"The King's Eye returned from the west.",
-			"Fertile pastures lay just beyond sight.",
-			"Just a little farther, he said.",
-			"It was always just a little farther.",
-		},
-	},
-	[488] = {
-		id = "UniqueJewel66",
-		name = "Izaro's Turmoil",
-		text = {
-			"The once-glorious emperor spent his final days",
-			"imprisoned in his greatest creation;",
-			"a tool to filter out the unworthy",
-			"that pushed a monster to power.",
-		},
-	},
-	[489] = {
-		id = "UniqueWatchstone5",
-		name = "Territories Unknown",
-		text = {
-			"There exists in every man and woman",
-			"a desire to push boundaries, to break new ground,",
-			"to make great discoveries,",
-			"no matter the personal cost.",
-		},
-	},
-	[490] = {
-		id = "UniqueOneHandClaw11",
-		name = "Izaro's Dilemma",
-		text = {
-			"Izaro saw himself not as a man,",
-			"but as a divine saviour trapped in a man's body.",
-		},
-	},
-	[491] = {
-		id = "UniqueWatchstone6",
-		name = "War Among the Stars",
-		text = {
-			"Conflict begets only suffering.",
-			"For some, that is by design.",
-		},
-	},
-	[492] = {
-		id = "UniqueAmulet26",
-		name = "Extractor Mentis",
-		text = {
-			"When slaughtered flesh falls silent,",
-			"the soul may yet scream on.",
-		},
-	},
-	[493] = {
-		id = "UniqueWatchstone7",
-		name = "Booming Populace",
-		text = {
-			"Does the belly swell, or the belt shrink?",
-			"To those caught between, there is no difference,",
-			"and something must soon give.",
-		},
-	},
-	[494] = {
-		id = "UniqueRing65",
-		name = "Profane Proxy",
-		text = {
-			"The machines do not hate. They merely serve one who does.",
-		},
-	},
-	[495] = {
-		id = "UniqueJewel137",
-		name = "Kitava's Teachings",
-		text = {
-			"Savour the bitter, cherish the sweet,",
-			"For there may never be another chance to eat.",
-		},
-	},
-	[496] = {
-		id = "UniqueJewel138",
-		name = "Calamitous Visions",
-		text = {
-			"\"Try as I might, I could not escape it.",
-			"When I closed my eyes, I saw only death.",
-			"Each breath tainted with the scent of seared and smouldering flesh,",
-			"And each sound tangled with pleas for mercy.\"",
-		},
-	},
-	[497] = {
-		id = "UniqueJewel139",
-		name = "Natural Affinity",
-		text = {
-			"You can take the girl out of the woods,",
-			"but you can't take the woods out of the girl.",
-		},
-	},
-	[498] = {
-		id = "UniqueJewel140",
-		name = "The Interrogation",
-		text = {
-			"Pain is a fine motivator,",
-			"But if you seek the truth,",
-			"Fear of pain unknown has no parallel.",
-		},
-	},
-	[499] = {
-		id = "UniqueJewel141",
-		name = "The Siege",
-		text = {
-			"As the dead battered Highgate's barricades,",
-			"The Black Sekhema accepted her fate,",
-			"And stood her ground.",
-		},
-	},
-	[500] = {
-		id = "UniqueWand13",
-		name = "Corona Solaris",
-		text = {
-			"Every decade, Lunaris devours Solaris",
-			"Each time, Solaris emerges from Lunaris, born anew.",
-		},
-	},
-	[501] = {
-		id = "UniqueJewel144",
-		name = "One With Nothing",
-		text = {
-			"It was a great honour to fight at the front.",
-			"The few that survived the initial charge were guaranteed fame and fortune.",
-		},
-	},
-	[502] = {
-		id = "UniqueSceptre13",
-		name = "Singularity",
-		text = {
-			"In time, all becomes nothing.",
-			"We just expedite the process.",
-		},
-	},
-	[503] = {
-		id = "UniqueJewel145",
-		name = "Split Personality",
-		text = {
-			"You need not go looking for a second opinion.",
-		},
-	},
-	[504] = {
-		id = "UniqueJewel146",
-		name = "Megalomaniac",
-		text = {
-			"If you're going to act like you're better than everyone else, make sure you are.",
-		},
-	},
-	[505] = {
-		id = "UniqueTalisman1",
-		name = "Night's Hold",
-		text = {
-			"In the light of Solaris, the shadows cower and hide.",
-			"But every night they gather and grow,",
-			"and all but the strong and the stupid",
-			"seek shelter from their grasp until daybreak.",
-		},
-	},
-	[506] = {
-		id = "UniqueGlovesDexInt16",
-		name = "Algor Mortis",
-		text = {
-			"Winter's white blanket swaddles all.",
-		},
-	},
-	[507] = {
-		id = "UniqueTalisman2",
-		name = "Blightwell",
-		text = {
-			"Long ago, the ocean was a puddle where a golden fish dwelt,",
-			"who lit the ocean from within and kept the water fresh.",
-			"When the sky burned, the fish dived deep,",
-			"never to return, and the waters turned sour.",
-		},
-	},
-	[508] = {
-		id = "UniqueTalisman3",
-		name = "Natural Hierarchy",
-		text = {
-			"Just as the rat cowers before the dog",
-			"and the dog cowers before Man,",
-			"so too should we cower before the First Ones",
-			"and pray we never learn of what comes next.",
-		},
-	},
-	[509] = {
-		id = "UniqueTalisman4",
-		name = "Rigwald's Curse",
-		text = {
-			"I once thought the First Ones were just",
-			"stories made to scare children.",
-			"But I've seen what they can do. I've felt it.",
-			"And now I must live with that terrible knowledge.",
-		},
-	},
-	[510] = {
-		id = "UniqueTalisman5",
-		name = "Eyes of the Greatwolf",
-		text = {
-			"I am but a vessel for a greater force.",
-			"It acts through me. Speaks through me.",
-			"Decides what lives and dies through me.",
-			"And will change the world through me.",
-		},
-	},
-	[511] = {
-		id = "UniqueRing66",
-		name = "Storm Secret",
-		text = {
-			"Lightning lives in an endless circle.",
-		},
-	},
-	[512] = {
-		id = "UniqueRing41",
-		name = "Rigwald's Crest",
-		text = {
-			"Within the heart of every man and woman",
-			"lies the soul of a ferocious beast.",
-			"If you cannot tame it, embrace it.",
-		},
-	},
-	[513] = {
-		id = "UniqueBodyStrInt14",
-		name = "Doryani's Prototype",
-		text = {
-			"\"This was the first step in some grand design,",
-			"lost to the ages, now ours to decipher.\"",
-			"- Dominus, High Templar",
-		},
-	},
-	[514] = {
-		id = "UniqueOneHandAxe9",
-		name = "Rigwald's Savagery",
-		text = {
-			"Tear the flesh from the bone.",
-			"Turn the bone to dust.",
-			"Scatter the dust to the wind.",
-		},
-	},
-	[515] = {
-		id = "UniqueGlovesDexInt17",
-		name = "Abhorrent Interrogation",
-		text = {
-			"\"We have methods of interrogation the Inquisitors only dream of.\"",
-			"- Marcus, Brotherhood Liaison",
-		},
-	},
-	[516] = {
-		id = "UniqueOneHandSword15",
-		name = "Rigwald's Command",
-		text = {
-			"Fear not death. Turn to him, face him.",
-			"And smile as he sinks his teeth",
-			"into the throats of our oppressors.",
-		},
-	},
-	[517] = {
-		id = "UniqueShieldStrInt13",
-		name = "Emperor's Vigilance",
-		text = {
-			"Chitus' success stemmed from his cunning, taking calculated",
-			"risks so that greater dangers could be averted.",
-		},
-	},
-	[518] = {
-		id = "UniqueQuiver10",
-		name = "Rigwald's Quills",
-		text = {
-			"The fortunate inscribe their legacy",
-			"in the pages of history books.",
-			"The rest of us must leave our mark with our blood",
-			"or the blood of others.",
-		},
-	},
-	[519] = {
-		id = "UniqueHelmetStrInt18",
-		name = "Forbidden Shako",
-		text = {
-			"The Azmeri must never touch the Tears of Maji, lest Viridi weep.",
-		},
-	},
-	[520] = {
-		id = "UniqueJewel128",
-		name = "Glorious Vanity",
-		text = {
-			"They believed themselves the pinnacle of civilisation, but that height toppled their empire.",
-		},
-	},
-	[521] = {
-		id = "UniqueJewel129",
-		name = "Lethal Pride",
-		text = {
-			"They believed themselves the greatest warriors, but that savagery turned upon their own.",
-		},
-	},
-	[522] = {
-		id = "UniqueFlask13",
-		name = "The Writhing Jar",
-		text = {
-			"To achieve godhood, they would cast off all that god has gifted us.",
-			"Mortality, compassion, even the sanctity of flesh.",
-			"- High Templar Voll",
-		},
-	},
-	[523] = {
-		id = "UniqueJewel130",
-		name = "Brutal Restraint",
-		text = {
-			"They believed themselves the most ordered, but that tradition turned their forests to salt.",
-		},
-	},
-	[524] = {
-		id = "UniqueTwoHandAxe14",
-		name = "Ngamahu's Flame",
-		text = {
-			"\"The Karui savages claim the weapon was forged by their fire god.",
-			"I'm rather inclined to believe them.\"",
-			"- Fairgraves, Renowned Explorer",
-		},
-	},
-	[525] = {
-		id = "UniqueJewel131",
-		name = "Militant Faith",
-		text = {
-			"They believed themselves the utmost faithful, but that conviction became oppression.",
-		},
-	},
-	[526] = {
-		id = "UniqueShieldInt7",
-		name = "Malachai's Loop",
-		text = {
-			"Thaumaturgy has no limit.",
-			"It is our fragile reality that imposes boundaries.",
-		},
-	},
-	[527] = {
-		id = "UniqueJewel132",
-		name = "Elegant Hubris",
-		text = {
-			"They believed themselves better than the past, but that confidence brought about nightmare.",
-		},
-	},
-	[528] = {
-		id = "UniqueBelt19",
-		name = "Umbilicus Immortalis",
-		text = {
-			"\"The power of rebirth rivals that of immortality.\"",
-			"- Icius Perandus, Antiquities Collection, Item 3",
-		},
-	},
-	[529] = {
-		id = "UniqueHelmetDexInt12",
-		name = "Fractal Thoughts",
-		text = {
-			"\"The more the warrior understood Tangmazu's gift, the less the mask aided him.",
-			"His dreams were filled with divine laughter.\"",
-			"- Tenth Song of the Islands",
-		},
-	},
-	[530] = {
-		id = "UniqueAmulet28",
-		name = "Winterheart",
-		text = {
-			"Those who dwell in the deep freeze",
-			"enjoy a special kind of madness.",
-		},
-	},
-	[531] = {
-		id = "UniqueJewel133",
-		name = "Seething Fury",
-		text = {
-			"The enslaved Ezomyte clans were not permitted to own weapons.",
-			"For years, they trained in secret, watching and waiting for the",
-			"perfect moment to reveal the true depth of the Empire's folly.",
-		},
-	},
-	[532] = {
-		id = "UniqueOneHandClaw12",
-		name = "Advancing Fortress",
-		text = {
-			"\"A man cowers behind his walls.",
-			"A woman carries her fortress with her.",
-			"In heart, in mind, in hand.\"",
-			"- Sekhema Deshret",
-		},
-	},
-	[533] = {
-		id = "UniqueGlovesStrInt10",
-		name = "Triad Grip",
-		text = {
-			"The secret of the elements lies within a square triangle.",
-		},
-	},
-	[534] = {
-		id = "UniqueStaff16",
-		name = "Xirgil's Crank",
-		text = {
-			"\"Since one with knowledge of machines",
-			"might be able to bring the labyrinth to a standstill,",
-			"Izaro had us place many boobytrapped decoys.",
-			"But I know which switch brings the monster down.\"",
-			"- Xirgil, Trapbuilder's final words.",
-		},
-	},
-	[535] = {
-		id = "UniqueRing61",
-		name = "Venopuncture",
-		text = {
-			"There is a way to survive the bite of an ice snake,",
-			"but few have the resolve to attempt it.",
-		},
-	},
-	[536] = {
-		id = "UniqueTwoHandMace10",
-		name = "Trypanon",
-		text = {
-			"\"Though ingenious instruments have been found,",
-			"it seems surgery before thaumaturgy",
-			"was not so delicate.\"",
-			"- Icius Perandus, Antiquities Collection, Item 3546",
-		},
-	},
-	[537] = {
-		id = "UniqueRing62",
-		name = "Icefang Orbit",
-		text = {
-			"Those members of the Brotherhood who employ the venom of",
-			"Trarthan ice snakes must take great care with the volatile substance.",
-		},
-	},
-	[538] = {
-		id = "UniqueDagger13",
-		name = "Widowmaker",
-		text = {
-			"Love only death",
-			"For she shall never let you go.",
-		},
-	},
-	[539] = {
-		id = "UniqueBodyStrInt11",
-		name = "Rotting Legion",
-		text = {
-			"A glacier of putrid meat, crushing mountains and valleys alike.",
-		},
-	},
-	[540] = {
-		id = "UniqueGlovesDex6",
-		name = "Great Old One's Tentacles",
-		text = {
-			"Under its influence, shards of metal take on a life of their own, wriggling into flesh,",
-			"burrowing into organs, and exploding outwards in search of other victims.",
-		},
-	},
-	[541] = {
-		id = "UniqueOneHandMace9",
-		name = "Clayshaper",
-		text = {
-			"There is nothing, flesh, spirit, or stone",
-			"Free from our hunger for dominion.",
-		},
-	},
-	[542] = {
-		id = "UniqueOneHandMace10",
-		name = "Frostbreath",
-		text = {
-			"A merciful murderer swept through the streets of Sarn",
-			"Robbing breath from the weak and worthless.",
-		},
-	},
-	[543] = {
-		id = "UniqueAmulet63",
-		name = "The Felbog Fang",
-		text = {
-			"Death creeps closer; unseen, inexorable, hungry.",
-		},
-	},
-	[544] = {
-		id = "UniqueOneHandSword16",
-		name = "The Tempestuous Steel",
-		text = {
-			"The blade thrums with wild energy",
-			"Eager for vengeance against all who walk free.",
-		},
-	},
-	[545] = {
-		id = "UniqueHelmetInt24",
-		name = "Plume of Pursuit",
-		text = {
-			"A dance as old as time.",
-		},
-	},
-	[546] = {
-		id = "UniqueRapier4",
-		name = "Daresso's Passion",
-		text = {
-			"It doesn't matter how well the young swordsman trains.",
-			"All form and finesse are forgotten when blood first hits the ground.",
-		},
-	},
-	[547] = {
-		id = "UniqueBelt37",
-		name = "Bear's Girdle",
-		text = {
-			"Simple. Deadly. Unstoppable.",
-		},
-	},
-	[548] = {
-		id = "UniqueWand14",
-		name = "Ashcaller",
-		text = {
-			"\"We do not command fire.",
-			"Ngamahu lends it, and Hinekora returns it.\"",
-			"- Lavianga, Advisor to Kaom",
-		},
-	},
-	[549] = {
-		id = "UniqueFishingRod2",
-		name = "Reefbane",
-		text = {
-			"He cast far into the ocean",
-			"And tore out her heart.",
-		},
-	},
-	[550] = {
-		id = "UniqueFlask15",
-		name = "The Sorrow of the Divine",
-		text = {
-			"As man sins,",
-			"God weeps.",
-		},
-	},
-	[551] = {
-		id = "UniqueHelmetStr3x",
-		name = "Replica Abyssus",
-		text = {
-			"\"While Prototype #3 does imbue its wearer with strength to match the original,",
-			"the first researcher to don it burst into flames when he walked into sunlight...\"",
-		},
-	},
-	[552] = {
-		id = "UniqueBodyStrInt7",
-		name = "Geofri's Sanctuary",
-		text = {
-			"Faith does not make us invulnerable.",
-			"It makes us immortal.",
-		},
-	},
-	[553] = {
-		id = "UniqueSceptre14x",
-		name = "Replica Bitterdream",
-		text = {
-			"\"Attempt #2520: Been slaving away at this one for longer than I can remember.",
-			"Convinced this assignment is retribution from my superior...\"",
-		},
-	},
-	[554] = {
-		id = "UniqueSceptre16",
-		name = "Axiom Perpetuum",
-		text = {
-			"The worst of Axiom were imprisoned by more than iron.",
-		},
-	},
-	[555] = {
-		id = "UniqueOneHandSword17",
-		name = "Varunastra",
-		text = {
-			"\"Painful suicide in the hands of a fool,",
-			"Creative death in the hands of a master.\"",
-			"- Icius Perandus, Antiquities Collection, Item 2992",
-		},
-	},
-	[556] = {
-		id = "UniqueBodyStrDex6",
-		name = "Viper's Scales",
-		text = {
-			"Swift and silent.",
-			"One strike, one corpse.",
-		},
-	},
-	[557] = {
-		id = "UniqueBodyInt10",
-		name = "The Beast Fur Shawl",
-		text = {
-			"The quickest way to understand",
-			"your own strengths and weaknesses",
-			"is to walk in the skin of another.",
-		},
-	},
-	[558] = {
-		id = "UniqueFlask16",
-		name = "Zerphi's Last Breath",
-		text = {
-			"\"Proof that if you devote yourself to a god of death,",
-			"you may be spared from its wrath.\"",
-			"- Icius Perandus, Antiquities Collection, Item 408",
-		},
-	},
-	[559] = {
-		id = "UniqueClaw13",
-		name = "Rive",
-		text = {
-			"Terror doesn't make you jump.",
-			"Terror makes you run.",
-		},
-	},
-	[560] = {
-		id = "UniqueJewel71",
-		name = "Cheap Construction",
-		text = {
-			"Why waste the good stuff on something that's going to blow up?",
-		},
-	},
-	[561] = {
-		id = "UniqueShieldStr10x",
-		name = "Replica Tukohama's Fortress",
-		text = {
-			"\"As one of our few creations that did not cost any fatalities,",
-			"Prototype #10 bore unexpectedly positive results.\"",
-		},
-	},
-	[562] = {
-		id = "UniqueShieldDexInt3",
-		name = "Glitterdisc",
-		text = {
-			"Izaro's insistence on using lava",
-			"resulted in some surprising material discoveries.",
-		},
-	},
-	[563] = {
-		id = "UniqueJewel72",
-		name = "Hair Trigger",
-		text = {
-			"Anyone can catch a lumbering beast.",
-			"Try catching a bird before it has even landed.",
-		},
-	},
-	[564] = {
-		id = "UniqueBow15",
-		name = "Nuro's Harp",
-		text = {
-			"Night's frost becomes morning's dew",
-			"Darkness cleansed, pure and new.",
-		},
-	},
-	[565] = {
-		id = "UniqueJewel73",
-		name = "Coated Shrapnel",
-		text = {
-			"The Ezomytes have a saying:",
-			"Take everything and waste nothing.",
-		},
-	},
-	[566] = {
-		id = "UniqueJewel74",
-		name = "Unstable Payload",
-		text = {
-			"Saboteurs, like chefs, have their own secret recipes.",
-		},
-	},
-	[567] = {
-		id = "UniqueHelmetDexInt7",
-		name = "Heretic's Veil",
-		text = {
-			"Branded a heretic for your beliefs,",
-			"You stand alone against many.",
-			"May the truth that fuels their anger,",
-			"Carry your blade into their hearts.",
-		},
-	},
-	[568] = {
-		id = "UniqueJewelLabyrinth1",
-		name = "Emperor's Cunning",
-		text = {
-			"The greatest victories happen",
-			"before the battle has begun.",
-		},
-	},
-	[569] = {
-		id = "UniqueJewelLabyrinth2",
-		name = "Emperor's Wit",
-		text = {
-			"Language is a tool that can be used to build walls",
-			"or tear them down.",
-		},
-	},
-	[570] = {
-		id = "UniqueJewelLabyrinth3",
-		name = "Emperor's Might",
-		text = {
-			"Even an iron fist can be handled with grace.",
-		},
-	},
-	[571] = {
-		id = "UniqueJewelLabyrinth4",
-		name = "Emperor's Mastery",
-		text = {
-			"Learn as much as you can,",
-			"and surround yourself with people who know the rest.",
-		},
-	},
-	[572] = {
-		id = "UniqueBelt11x",
-		name = "Replica Bated Breath",
-		text = {
-			"\"I cannot fathom the mysteries of Prototype #16. It did nearly nothing until I",
-			"brought it to [RESTRICTED]. It makes no sense!\"",
-			"- Researcher Graven",
-		},
-	},
-	[573] = {
-		id = "UniqueBelt21x",
-		name = "Replica Soul Tether",
-		text = {
-			"\"Curious. The test spike penetrated the subject's flesh, but the chest wound",
-			"was not as deep as expected. There is something here...\"",
-		},
-	},
-	[574] = {
-		id = "UniqueRing25x",
-		name = "Replica Malachai's Artifice",
-		text = {
-			"\"As much as Prototype #20 hints at some deep alternate physics, we cannot afford",
-			"to expend any more test subjects. Experiments halted.\"",
-			"- Administrator Qotra",
-		},
-	},
-	[575] = {
-		id = "UniqueRing30x",
-		name = "Replica Tasalio's Sign",
-		text = {
-			"\"Likely our closest to the original, yet Prototype #22 still falls short.",
-			"Are these objects actually somehow resisting our efforts?\"",
-		},
-	},
-	[576] = {
-		id = "UniqueRing38x",
-		name = "Replica Emberwake",
-		text = {
-			"\"The flames raced through Lab Five with incredible speed, but were extinguished",
-			"just as quickly. This could have been much worse.\"",
-			"- Lead Researcher Ksaret",
-		},
-	},
-	[577] = {
-		id = "UniqueRing23x",
-		name = "Replica Voideye",
-		text = {
-			"\"So close, yet frustratingly distinct. Something more is going on here...\"",
-		},
-	},
-	[578] = {
-		id = "UniqueQuiver7x",
-		name = "Replica Soul Strike",
-		text = {
-			"\"The theft of another's vitality is short-lived, but sweet.",
-			"It calls to me, bidding me abandon all other pursuits.\"",
-			"- Researcher Arn",
-		},
-	},
-	[579] = {
-		id = "UniqueBodyDex11x",
-		name = "Replica Perfect Form",
-		text = {
-			"\"This is what I've been trying to tell you. This prototype",
-			"was different before. Now, it's always been this way!\"",
-			"- Researcher Graven",
-		},
-	},
-	[580] = {
-		id = "UniqueBodyStrInt9x",
-		name = "Replica Loreweave",
-		text = {
-			"\"Better... stronger... more vital... and then... failure. Always, failure.",
-			"What key fundamental secret are we missing?\"",
-		},
-	},
-	[581] = {
-		id = "UniqueBodyDexInt9x",
-		name = "Replica Shroud of the Lightless",
-		text = {
-			"\"Eyes of black, three by three, staring ever darker into me...\"",
-			"- Researcher Arn",
-		},
-	},
-	[582] = {
-		id = "UniqueHelmetDex4",
-		name = "Starkonja's Head",
-		text = {
-			"There was no hero made out of Starkonja's death,",
-			"but merely a long sleep made eternal.",
-		},
-	},
-	[583] = {
-		id = "UniqueClaw3",
-		name = "Bloodseeker",
-		text = {
-			"\"For the life of the flesh will always be in the blood.\"",
-			"- Atalui, Vaal Priestess",
-		},
-	},
-	[584] = {
-		id = "UniqueTwoHandMace5",
-		name = "Chaber Cairn",
-		text = {
-			"The faithful may continue to serve, even after death.",
-		},
-	},
-	[585] = {
-		id = "UniqueHelmetDex5",
-		name = "Alpha's Howl",
-		text = {
-			"Nature respects the strong",
-			"And paints the snow red",
-			"With the blood of the weak",
-		},
-	},
-	[586] = {
-		id = "UniqueShieldStrInt5",
-		name = "Rise of the Phoenix",
-		text = {
-			"My bearer shall be guarded by flame,",
-			"for I am the phoenix, forever radiant in glory.",
-		},
-	},
-	[587] = {
-		id = "UniqueBodyInt5",
-		name = "Thousand Ribbons",
-		text = {
-			"The night of a thousand ribbons",
-			"To remember the day of a thousand flames",
-			"When Sarn burned",
-			"And was born again",
-		},
-	},
-	[588] = {
-		id = "UniqueBodyDex5",
-		name = "Bronn's Lithe",
-		text = {
-			"Forget your kite shield. Just put the biggest man",
-			"in the field between you and the archers.",
-		},
-	},
-	[589] = {
-		id = "UniqueBootsInt5",
-		name = "Rainbowstride",
-		text = {
-			"\"They say that you should take life's troubles in your stride.",
-			"Some men have a longer stride than others.\"",
-			"- Gaius Sentari",
-		},
-	},
-	[590] = {
-		id = "UniqueBootsStrDex2",
-		name = "Darkray Vectors",
-		text = {
-			"\"Sirrius flew on wings of light, faster than wind, faster",
-			"than thought. But try as he might to outrun the darkness,",
-			"it was there, at every turn, waiting for him.\"",
-			"- Azmerian legend",
-		},
-	},
-	[591] = {
-		id = "UniqueStaff3",
-		name = "Pillar of the Caged God",
-		text = {
-			"Forged to rule the waves and tide",
-			"Destined to serve the monkey's paw",
-			"Strong as a tower of iron",
-			"Deft as the needle doubt",
-		},
-	},
-	[592] = {
-		id = "UniqueBodyStrInt3",
-		name = "Crystal Vault",
-		text = {
-			"When Solaris closes her burning eye",
-			"At the end of time,",
-			"the world will perish in ice.",
-		},
-	},
-	[593] = {
-		id = "UniqueBodyInt7",
-		name = "Soul Mantle",
-		text = {
-			"The greatest mistakes cause suffering",
-			"long after they have been made",
-		},
-	},
-	[594] = {
-		id = "UniqueGlovesInt3",
-		name = "Asenath's Gentle Touch",
-		text = {
-			"Cool the head and cool the blade.",
-		},
-	},
-	[595] = {
-		id = "UniqueGlovesInt4",
-		name = "Kalisa's Grace",
-		text = {
-			"\"You shall hang, in blissful agony, on my every note.\"",
-			"- Kalisa, Prima Donna of Sarn",
-		},
-	},
-	[596] = {
-		id = "UniqueGlovesInt6",
-		name = "Voidbringer",
-		text = {
-			"Absolute corruption empowers absolutely.",
-		},
-	},
-	[597] = {
-		id = "UniqueGlovesDexInt3",
-		name = "Thunderfist",
-		text = {
-			"The roar of the heavens",
-			"Strikes more than fear",
-			"Into the hearts of Man",
-		},
-	},
-	[598] = {
-		id = "UniqueHelmetDex6",
-		name = "Rat's Nest",
-		text = {
-			"A lad with no fear of the pest",
-			"Let rats fill his helmet in jest",
-			"When they picked his skull clean",
-			"Where his head should have been",
-			"Was naught but a vermin-filled nest!",
-		},
-	},
-	[599] = {
-		id = "UniqueHelmetStr3",
-		name = "Abyssus",
-		text = {
-			"When you have slain all of your enemies,",
-			"what is left to fear?",
-		},
-	},
-	[600] = {
-		id = "UniqueBow7",
-		name = "Infractem",
-		text = {
-			"Mark us with mercy, then press on with care,",
-			"Execute us steadily, notch away at our despair.",
-		},
-	},
-	[601] = {
-		id = "UniqueClaw1",
-		name = "Essentia Sanguis",
-		text = {
-			"The darkest clouds clashed and coupled,",
-			"giving birth to four lightning children of hate.",
-		},
-	},
-	[602] = {
-		id = "UniqueShieldStr2",
-		name = "Titucus Span",
-		text = {
-			"A mighty bulwark, curved and strong",
-			"A dauntless wall, against the throng",
-			"All lance and arrow, knocked aside",
-			"For rout of foe, for turn of tide.",
-		},
-	},
-	[603] = {
-		id = "UniqueBodyDex4",
-		name = "Fox's Fortune",
-		text = {
-			"To catch an animal, think like an animal.",
-		},
-	},
-	[604] = {
-		id = "UniqueStaff2",
-		name = "Taryn's Shiver",
-		text = {
-			"Shed by the winged beast of night,",
-			"A scaly frost-encrusted thorn.",
-			"All who feel its wintry light",
-			"Shiver in pain at the frozen dawn.",
-		},
-	},
-	[605] = {
-		id = "UniqueHelmetDex3",
-		name = "Goldrim",
-		text = {
-			"No metal slips as easily through the fingers as gold.",
-		},
-	},
-	[606] = {
-		id = "UniqueShieldStrInt4",
-		name = "Aegis Aurora",
-		text = {
-			"Born from the marriage of ice and sky,",
-			"the aurora evokes both awe and power.",
-		},
-	},
-	[607] = {
-		id = "UniqueSceptre1",
-		name = "The Supreme Truth",
-		text = {
-			"Knowledge brings power, and with power you can",
-			"grab truth by the throat and shape it as you wish.",
-		},
-	},
-	[608] = {
-		id = "UniqueBodyInt3",
-		name = "The Covenant",
-		text = {
-			"My Soul is your Strength",
-			"My Price is your Blood",
-		},
-	},
-	[609] = {
-		id = "UniqueBodyInt4",
-		name = "Infernal Mantle",
-		text = {
-			"Despair hums, softly, deadly, in the bones of my enemies.",
-			"Eyes will burn, and souls wither, as they bask in my radiance.",
-		},
-	},
-	[610] = {
-		id = "UniqueClaw2",
-		name = "Mortem Morsu",
-		text = {
-			"Fear blisters the heart and thins the blood.",
-			"Fear squeezes lungs and sets the guts to fester.",
-			"Fear is the wound left untended.",
-		},
-	},
-	[611] = {
-		id = "UniqueTwoHandSword4",
-		name = "Queen's Escape",
-		text = {
-			"The nobles wanted to take her throne.",
-			"She let the peasants take their wealth.",
-			"The peasants wanted to take her wealth.",
-			"She let the soldiers take their heads.",
-			"The soldiers wanted to take her head.",
-			"She sat on her throne and wept.",
-		},
-	},
-	[612] = {
-		id = "UniqueShieldDex3",
-		name = "Atziri's Reflection",
-		text = {
-			"\"As long as I see death in my mirror, so will Wraeclast.\"",
+			"\"Those who dance are considered insane",
+			"by those who cannot hear the music.\"",
 			"- Atziri, Queen of the Vaal",
 		},
 	},
-	[613] = {
-		id = "UniqueTwoHandAxe4",
-		name = "The Blood Reaper",
+	[411] = {
+		id = "UniqueBelt9",
+		name = "Doryani's Invitation",
 		text = {
-			"To cease the flow of blood is to",
-			"choke the rain in the very clouds.",
-			"Both life and land feel the thirst.",
+			"\"You can invite them but you can never be",
+			"sure who will come knocking.\"",
+			"- Doryani, Queen's Thaumaturgist",
 		},
 	},
-	[614] = {
-		id = "UniqueBow8",
-		name = "The Tempest",
+	[412] = {
+		id = "UniqueFlask5",
+		name = "Atziri's Promise",
 		text = {
-			"Centuries of development in steel armoursmithing",
-			"turned the armies of the Eternal Empire",
-			"into very effective lightning rods.",
+			"\"Death needs not your understanding. It needs only your loyalty.\"",
+			"- Atziri, Queen of the Vaal",
 		},
 	},
-	[615] = {
-		id = "UniqueJewel184",
-		name = "Bound By Destiny",
+	[413] = {
+		id = "UniqueGlovesStr3",
+		name = "Atziri's Acuity",
 		text = {
-			"The future weaves ever forward, twisting into itself forever,",
-			"driven by the passions and tragedies of those who seek.",
+			"\"The heart is the herald.",
+			"It will tell me when it is best to strike.\"",
+			"- Atziri, Queen of the Vaal",
 		},
 	},
-	[616] = {
-		id = "UniqueSceptre14",
-		name = "Bitterdream",
+	[414] = {
+		id = "UniqueBodyStrDexInt1",
+		name = "Atziri's Splendour",
 		text = {
-			"Fight not the cold",
-			"Forsake hope",
-			"Be still.",
+			"\"When you have nothing to hide,",
+			"you have nothing to fear.\"",
+			"- Atziri, Queen of the Vaal",
 		},
 	},
-	[617] = {
-		id = "UniqueMercenaryGlovesStrInt1",
-		name = "Hand of Heresy",
+	[415] = {
+		id = "UniqueHelmetDexInt5",
+		name = "The Vertex",
 		text = {
-			"\"The followers of Light recognize Tyndarus Phrecius as",
-			"the Emperor. For siding with the rebels, you and your",
-			"brothers shall be cast out from the true faith, forevermore!\"",
-			"- High Templar Andronicus, 892 IC",
+			"\"A queen should be seen, admired, but never touched.\"",
+			"- Atziri, Queen of the Vaal",
 		},
 	},
-	[618] = {
-		id = "UniqueMercenaryBelt1",
-		name = "Binds of Bloody Vengeance",
+	[416] = {
+		id = "UniqueTwoHandAxe7",
+		name = "Atziri's Disfavour",
 		text = {
-			"What once marked his submission became the tool of his defiance - torn from the lash of House Keita.",
+			"\"I do not believe in disguising my disappointment.\"",
+			"- Atziri, Queen of the Vaal",
 		},
 	},
-	[619] = {
-		id = "UniqueFlask11",
-		name = "Vessel of Vinktar",
+	[417] = {
+		id = "UniqueBodyInt9",
+		name = "Vis Mortis",
 		text = {
-			"The great city of storms, washed away by Vinktar's thirst for power.",
+			"Reap what others have sown",
+			"Muster them from their graves",
+			"Parade them for your pleasure",
+			"Zealots in mortis enslaved",
 		},
 	},
-	[620] = {
-		id = "UniqueSceptre21x",
-		name = "Replica Nebulis",
+	[418] = {
+		id = "UniqueSceptre7",
+		name = "Doryani's Catalyst",
 		text = {
-			"\"We could rival the gods with this power, if only we had the mitigating mechanisms",
-			"to make it work. A jewel, a talisman, an armour... or the Font...\"",
+			"The result of the catalytic reaction would be either immortality for all,",
+			"or death for all. It was a risk Doryani was willing to take.",
 		},
 	},
-	[621] = {
-		id = "UniqueRing68",
-		name = "Fated End",
+	[419] = {
+		id = "UniqueQuiver1",
+		name = "The Signal Fire",
 		text = {
-			"All roads lead to that destined doom.",
+			"Molten feathers, veiled spark,",
+			"Hissing arrows from the dark.",
 		},
 	},
-	[622] = {
-		id = "UniqueJewel150",
-		name = "Lord of Steel",
+	[420] = {
+		id = "UniqueWand6",
+		name = "Piscator's Vigil",
 		text = {
-			"Quenched, the blade hardens, becomes brittle.",
-			"The edge will not last forever,",
-			"But when it breaks, its service will continue.",
+			"\"Stone still, amidst the reeds,",
+			"breath fogging in the iron cold air.",
+			"he sits, he waits, he watches.",
+			"A piscatorial vigil, sat by the river,",
+			"his cathedral, his patience his unanswered prayer.\"",
+			"- Jojoba Mansell, bard, angler, adventurer",
 		},
 	},
-	[623] = {
-		id = "UniqueHelmetStrDex9",
-		name = "The Fledgling",
+	[421] = {
+		id = "UniqueQuiver5",
+		name = "Asphyxia's Wrath",
 		text = {
-			"The single well-placed arrow that changes the world",
-			"must be preceded by ten thousand practice shots.",
+			"Mist of breath",
+			"Icing to lips and throat",
+			"As the warm ones choke and fall",
+			"Upon the frozen wasteland.",
 		},
 	},
-	[624] = {
-		id = "UniqueJewel152",
-		name = "Apex Mode",
+	[422] = {
+		id = "UniqueBodyStrInt5",
+		name = "Incandescent Heart",
 		text = {
-			"Maximum power fueled by science gone mad.",
+			"Only light may banish the shadows from this land",
+			"And the black lies wrapped around your heart",
 		},
 	},
-	[625] = {
-		id = "UniqueJewel148",
-		name = "Endless Misery",
+	[423] = {
+		id = "UniqueQuiver6",
+		name = "Hyrri's Demise",
 		text = {
-			"The sky, the land, the people burned.",
-			"What little still stood soon faced wild, battering storms.",
-			"Winter arrived suddenly and stayed for a generation.",
-			"Civilisation was not simply halted, but reversed, erased.",
+			"A Karui woman's place was not the",
+			"battlefield, but the hearth.",
+			"Hyrri changed all of that.",
 		},
 	},
-	[626] = {
-		id = "UniqueHelmetStrDex8",
-		name = "Crest of Desire",
+	[424] = {
+		id = "UniqueBow11",
+		name = "Doomfletch's Prism",
 		text = {
-			"Expand one single ambition to crystal clarity... and beyond.",
+			"\"Toasted or frozen",
+			"Or twitching in the light",
+			"I'm not fussy",
+			"And neither is Death.\"",
+			"- Koralus Doomfletch",
 		},
 	},
-	[627] = {
-		id = "UniqueShieldDexInt8",
-		name = "Qotra's Regulator",
+	[425] = {
+		id = "UniqueOneHandSword6",
+		name = "Hyaon's Fury",
 		text = {
-			"Horrific experiments with corrupted flesh require careful management.",
+			"\"Hyaon the 'Red Wolf'",
+			"Howling mad",
+			"Cloaked in blood",
+			"A banner to his legion",
+			"A terror to his foes.\"",
+			"- Garivaldi, Chronicler to the Empire",
 		},
 	},
-	[628] = {
-		id = "UniqueGlovesStrInt12",
-		name = "Hand of the Fervent",
+	[426] = {
+		id = "UniqueBootsStr2",
+		name = "Kaom's Roots",
 		text = {
-			"A sacrifice of blood calls forth His vengeance.",
-			"Let the righteous become the Hand of God.",
+			"Don't flinch. It's a waste of good hitting time.",
 		},
 	},
-	[629] = {
-		id = "UniqueBelt42b",
-		name = "Olesya's Delight",
+	[427] = {
+		id = "UniqueOneHandSword7",
+		name = "Fidelitas' Spike",
 		text = {
-			"The cruel thinker finds glee in torture most precise.",
+			"Maligaro was transformed by Raulo's love.",
+			"Thaumaturgy allowed Maligaro to return the favour.",
 		},
 	},
-	[630] = {
-		id = "UniqueShieldStrInt15",
-		name = "Mahuxotl's Machination",
+	[428] = {
+		id = "UniqueQuiver7",
+		name = "Soul Strike",
 		text = {
-			"The Banished Architect sought to employ all the",
-			"darkest secrets of the Vaal... at the same time.",
+			"In this chaotic world",
+			"The rewards of the Soul",
+			"Outlast the rewards of the Flesh.",
 		},
 	},
-	[631] = {
-		id = "UniqueBootsDex14",
-		name = "Temptation Step",
+	[429] = {
+		id = "UniqueFlask6",
+		name = "Forbidden Taste",
 		text = {
-			"The High Priests ensured the loyalty of their slaves by habituating",
-			"them to narcotic stimulants with lethal withdrawals.",
+			"Your reach exceeds your grasp.",
 		},
 	},
-	[632] = {
-		id = "UniqueWand20",
-		name = "Relic of the Pact",
+	[430] = {
+		id = "UniqueStaff7",
+		name = "Hegemony's Era",
 		text = {
-			"Crush your enemies with your essence, so that you may drink of theirs.",
+			"The right to rule demands mental acuity,",
+			"a strong arm,",
+			"And a tenacious sense of justice.",
 		},
 	},
-	[633] = {
-		id = "UniqueStaff29",
-		name = "Cane of Kulemak",
+	[431] = {
+		id = "UniqueBodyStrInt15",
+		name = "The Fourth Vow",
 		text = {
-			"Stolen power is still power.",
+			"Seek not to avoid the mortal pains of this world.",
+			"In flagellation, there lies freedom from temptation.",
 		},
 	},
-	[634] = {
-		id = "UniqueJewel155",
-		name = "Ulaman's Gaze",
+	[432] = {
+		id = "UniqueAmulet74",
+		name = "Bloodsoaked Medallion",
 		text = {
-			"The Sovereign of the Well seeks dominion over the light.",
+			"\"Atziri ordained that we exploit the weaknesses inherent in our slaves.",
+			"With relish, we did exactly as she instructed.\"",
+			"- Guatelitzi, Architect of Flesh",
 		},
 	},
-	[635] = {
-		id = "UniqueQuiver18",
-		name = "Steelworm",
+	[433] = {
+		id = "UniqueBelt46",
+		name = "Ceinture of Benevolence",
 		text = {
-			"The dance of metal and flesh never ends.",
+			"\"Put your faith in me.",
+			"Our god demands it.\"",
+			"- High Templar Maxarius",
 		},
 	},
-	[636] = {
-		id = "UniqueHelmetStr8",
-		name = "Usurper's Penance",
+	[434] = {
+		id = "UniqueHelmetStrDex10",
+		name = "El'Abin's Visage",
 		text = {
-			"Bloodlust begets suffering.",
+			"As the fiery remnants of our outpost were subsumed into the caldera,",
+			"a thunderous voice echoed across the barren landscape,",
+			"\"Your fragility is your folly. May others rise where you have fallen.\"",
+			"- El'Abin, Bloodeater",
 		},
 	},
-	[637] = {
-		id = "UniqueGlovesExpedition2",
-		name = "Medved's Challenge",
+	[435] = {
+		id = "UniqueStaff32",
+		name = "The Geomantic Gyre",
 		text = {
-			"For forty-two nights, the Feller of Heroes challenged",
-			"the next greatest warrior to a one-on-one duel.",
-			"None could match his might.",
+			"For their mortal allies, the last Titans forged a mighty staff,",
+			"one that could safely hold the first unearthed virtue gem.",
 		},
 	},
-	[638] = {
-		id = "UniqueHelmetExpedition2",
-		name = "Cadigan's Crown",
+	[436] = {
+		id = "UniqueOneHandSword34",
+		name = "The Redblade",
 		text = {
-			"Cadigan the Third ruled dispassionately",
-			"through the iron might of artifice.",
+			"Its forging marked the melding of man",
+			"and Titan against the rising darkness.",
 		},
 	},
-	[639] = {
-		id = "UniqueBootsExpedition2",
-		name = "Olroth's Charge",
+	[437] = {
+		id = "UniqueAmulet50",
+		name = "Replica Dragonfang's Flight",
 		text = {
-			"Where others would retreat when vulnerable,",
-			"Olroth the Gallant fought deeper into battle.",
+			"\"Did we make this? Why do we have no record of it?",
+			"We were warned that there would be consequences...\"",
+			"- Administrator Qotra",
 		},
 	},
-	[640] = {
-		id = "UniqueFlask31",
-		name = "Elixir of the Unbroken Circle",
+	[438] = {
+		id = "UniqueBootsStr13",
+		name = "Kahuturoa's Certainty",
 		text = {
-			"Nothing endures. All things end.",
-			"Then, they begin again.",
+			"Confidence is calm and measured.",
 		},
 	},
-	[641] = {
-		id = "UniqueGlovesStrDex14",
-		name = "Gravebind",
+	[439] = {
+		id = "UniqueBelt47",
+		name = "Kaom's Binding",
 		text = {
-			"Try as you like to hide the",
-			"blood on your hands.",
-			"You'll still know the truth.",
+			"For centuries, he burned in an unending",
+			"nightmare of lava and flame... but he endured.",
 		},
 	},
-	[642] = {
-		id = "UniqueBelt43",
-		name = "Mageblood",
+	[440] = {
+		id = "UniqueHelmetDexInt17",
+		name = "Akoya's Gaze",
 		text = {
-			"Rivers of power course through your veins.",
+			"Fight in the traditional Way, or not at all!",
 		},
 	},
-	[643] = {
-		id = "UniqueAmulet67",
-		name = "Uul-Netol's Vow",
+	[441] = {
+		id = "UniqueTwoHandSword15",
+		name = "Rakiata's Dance",
 		text = {
-			"The time is nigh.",
-			"War has come.",
-			"We dream as one.",
+			"In the shifting reflections of the sea, the truth of the soul can be seen.",
 		},
 	},
-	[644] = {
-		id = "UniqueJewel158",
-		name = "Melding of the Flesh",
+	[442] = {
+		id = "UniqueQuiver20",
+		name = "Ahuana's Bite",
 		text = {
-			"\"We awoke to a sudden jungle rupturing the valleys of our home.",
-			"Grasping limbs coiled around us, into us. We sank into each other,",
-			"then rose into the living sky. My family screams alongside me still.\"",
+			"The last Queen of the Karui gave up power willingly.",
 		},
 	},
-	[645] = {
-		id = "UniqueAmulet68",
-		name = "Crystallised Omniscience",
+	[443] = {
+		id = "UniqueShieldDex9",
+		name = "Kiloava's Bluster",
 		text = {
-			"That winter, scorched refugees emerged from the shrine,",
-			"speaking only in strange tongues. They prayed to a new",
-			"symbol of power, not out of love, but out of fear.",
+			"Not even the storm knows when lightning will strike.",
 		},
 	},
-	[646] = {
-		id = "UniqueStaff30",
-		name = "The Annihilating Light",
+	[444] = {
+		id = "UniqueRing78",
+		name = "Tawhanuku's Timing",
 		text = {
-			"There is no force more destructive in the heavens",
-			"than the scintillating light of utter clarity.",
+			"The soul still beats, even when the heart never did.",
 		},
 	},
-	[647] = {
-		id = "UniqueHelmetInt25",
-		name = "Sudden Dawn",
+	[445] = {
+		id = "UniqueAmulet75",
+		name = "Ikiaho's Promise",
 		text = {
-			"Where that searing dawn fell, silence reigned.",
-			"We sought the shadows, but none remained.",
+			"Even the loneliest of souls can aid a friend in times of darkness.",
 		},
 	},
-	[648] = {
-		id = "UniqueBootsDexInt12",
-		name = "Inextricable Fate",
+	[446] = {
+		id = "UniqueSceptre25",
+		name = "Maata's Teaching",
 		text = {
-			"A multitude of beings share a wretched existence",
-			"irrevocably bound together in perpetual torture.",
+			"What we give to others, we also give to ourselves.",
 		},
 	},
-	[649] = {
-		id = "UniqueJewel161",
-		name = "Forbidden Flesh",
+	[447] = {
+		id = "UniqueBodyStr13",
+		name = "Utula's Hunger",
 		text = {
-			"The bodies of those wholly subsumed by the Tangle",
-			"continue to merge and mutate and cry out for release...",
+			"The world will end in a divine stomach once Kitava has eaten all that lives.",
 		},
 	},
-	[650] = {
-		id = "UniqueAmulet70",
-		name = "The Eternal Struggle",
+	[448] = {
+		id = "UniqueBelt48",
+		name = "Bound Fate",
 		text = {
-			"Simply the way it must be, so that existence may be.",
+			"Knowing what will happen",
+			"and knowing when it will happen",
+			"are two very different things.",
 		},
 	},
-	[651] = {
-		id = "UniqueJewel164",
-		name = "Sublime Vision",
+	[449] = {
+		id = "UniqueAmulet76",
+		name = "Defiance of Destiny",
 		text = {
-			"This world is not good enough for her,",
-			"so I will make a better one. Nothing",
-			"matters but the pursuit of perfection.",
+			"The farmer was struck again and again, but he refused to stay down.",
+			"Astonished, the raiding warlord ordered the man's family spared.",
 		},
 	},
-	[652] = {
-		id = "UniqueBodyInt21",
-		name = "Ghostwrithe",
+	[450] = {
+		id = "UniqueRing79",
+		name = "Honoured Alliance",
 		text = {
-			"Faith springs abundant at the edge of death.",
+			"The respect of Karui warriors is hard to earn,",
+			"but lasts a lifetime... and beyond.",
 		},
 	},
-	[653] = {
-		id = "UniqueJewel170",
-		name = "Grand Spectrum",
+	[451] = {
+		id = "UniqueJewel179",
+		name = "Warrior's Tale",
 		text = {
-			"A mind that never quiets.",
+			"The story of a life, written in blood and ink.",
 		},
 	},
-	[654] = {
-		id = "UniqueJewel174",
-		name = "Firesong",
+	[452] = {
+		id = "UniqueAmulet77",
+		name = "The Untouched Soul",
 		text = {
-			"Within a firestorm, the Thane commands the flames",
-			"Emblazoned by glory and the song of the First Ones",
-			"For the master of fire fears nothing.",
+			"Geomancy offered a safer way to use the Tears...",
+			"but most Maji rejected that temptation as well.",
 		},
 	},
-	[655] = {
-		id = "UniqueBow6",
-		name = "Chin Sol",
+	[453] = {
+		id = "UniqueBodyStr14",
+		name = "Pragmatism",
 		text = {
-			"As a soldier you want to get close to enemy archers.",
-			"That is not the case when fighting the Maraketh.",
+			"The Maji were forbidden from touching virtue gems...",
+			"so their practical warriors employed geomancy instead.",
 		},
 	},
-	[656] = {
-		id = "UniqueTwoHandMace4",
-		name = "Voidhome",
+	[454] = {
+		id = "UniqueStaff33",
+		name = "The Burden of Shadows",
 		text = {
-			"Cursed is the star whence it came.",
+			"Nothingness is loathe to relinquish its grip.",
+			"Every moment is a struggle to exist.",
 		},
 	},
-	[657] = {
-		id = "UniqueOneHandSword22",
-		name = "Severed in Sleep",
+	[455] = {
+		id = "UniqueJewel181",
+		name = "The Light of Meaning",
 		text = {
-			"His lucky thralls dream eternal,",
-			"but we must crawl on our own.",
-			"<default>{This item can be transformed with a Blessing of Chayula}",
+			"Faith given under false pretenses still carries the same power.",
 		},
 	},
-	[658] = {
-		id = "UniqueBow4",
-		name = "Quill Rain",
+	[456] = {
+		id = "UniqueHelmetStrDex11",
+		name = "The Trickster's Smile",
 		text = {
-			"\"The rain of a thousand quills that whittle",
-			"present into past, life into death.\"",
-			"- Rigwald of the Ezomytes",
+			"The Raven Trickster made no move to defend himself.",
+			"He merely grinned... and the foolish warrior charged.",
 		},
 	},
-	[659] = {
-		id = "UniqueBodyInt14",
-		name = "Skin of the Lords",
+	[457] = {
+		id = "UniqueOneHandSword35",
+		name = "Nametaker",
 		text = {
-			"The Lords are chosen so carefully.",
-			"Only they may grace His flesh.",
+			"It need not know your True Name. Our most",
+			"dearly held secrets spill forth in our blood.",
 		},
 	},
-	[660] = {
-		id = "UniqueJewel86",
-		name = "The Red Nightmare",
+	[458] = {
+		id = "UniqueShieldStrDex9",
+		name = "The Flawed Refuge",
 		text = {
-			"We coagulate; a crimson shell",
-			"that suffocates the unworthy.",
+			"The Wildwood was a gift, meant as a haven",
+			"against the Winter of the World.",
 		},
 	},
-	[661] = {
-		id = "UniqueBelt49",
-		name = "The Tides of Time",
+	[459] = {
+		id = "UniqueRing80",
+		name = "Ixchel's Temptation",
 		text = {
-			"There is an ebb and flow to all things,",
-			"tangible to those who watch and wait.",
+			"Chaos offers possibility, not outcome.",
+			"Our own imaginations ensnare us.",
 		},
 	},
-	[662] = {
-		id = "UniqueHelmetStrInt22",
-		name = "Ravenous Passion",
+	[460] = {
+		id = "UniqueBootsStrDex9",
+		name = "Gamblesprint",
 		text = {
-			"There is power in hunger, though it will",
-			"consume all that you have... and more.",
+			"All your tomorrows lie ahead of you,",
+			"unknown and snarled to the very last.",
 		},
 	},
-	[663] = {
-		id = "UniqueWand21",
-		name = "Grace of the Goddess",
+	[461] = {
+		id = "UniqueBodyInt3x",
+		name = "Replica Covenant",
 		text = {
-			"In a time of darkness, know that the Draíocht will bring you light.",
+			"\"Researcher Graven's request to wear Prototype #2998 in",
+			"place of his standard lab attire is... granted.\"",
+			"- Lead Researcher Ksaret",
 		},
 	},
-	[664] = {
-		id = "UniqueBodyInt22",
-		name = "The Apostate",
+	[462] = {
+		id = "UniqueAmulet57x",
+		name = "Replica Badge of the Brotherhood",
 		text = {
-			"When I finally rejected my faith entirely, my stagnant belief",
-			"became thick white blood, as choking as it was nourishing.",
+			"\"I stood upon the tower's edge, and saw that we had cracked the sky.",
+			"There is nowhere we can run that our sins will not find us now.\"",
+			"- Researcher Arn, last recorded words",
 		},
 	},
-	[665] = {
+	[463] = {
+		id = "UniqueFlask19x",
+		name = "Replica Witchfire Brew",
+		text = {
+			"\"Nobody will listen to me, because I'm the only one that sees it.",
+			"Nothing left to do now but drink until this world makes sense.\"",
+			"- Researcher Graven",
+		},
+	},
+	[464] = {
+		id = "UniqueBodyDex1x",
+		name = "Replica Hyrri's Ire",
+		text = {
+			"\"Yes, a catastrophic storm erupted, and yes, they screamed for me",
+			"to stop the experiment... but you know how I am with screams.\"",
+			"- Researcher Olesya, on #2999 and the loss of Outpost Eight",
+		},
+	},
+	[465] = {
+		id = "UniqueCorruptedJewel16x",
+		name = "Replica Pacifism",
+		text = {
+			"\"Release the type Delta test subjects. Unseal all prototype lockers.",
+			"Arm yourself! I know that, as researchers, you've never had to fight",
+			"before, but they're coming to kill us all. It's resist or die!\"",
+			"- Lead Researcher Ksaret, two hours post-Incident",
+		},
+	},
+	[466] = {
+		id = "UniqueCorruptedJewel17x",
+		name = "Replica Fragility",
+		text = {
+			"\"Our defenses are failing at Outpost One. We can't hold out much",
+			"longer. All outposts, abandon your stations! Escape while you can!\"",
+			"- Lead Researcher Ksaret, three hours post-Incident",
+		},
+	},
+	[467] = {
+		id = "UniqueCorruptedJewel18x",
+		name = "Replica Powerlessness",
+		text = {
+			"\"The suppression troops have stopped responding to my orders.",
+			"I'm no longer in charge, and I likely never truly was... I suspect",
+			"they're already coming for us.\"",
+			"- Lead Researcher Ksaret, one hour post-Incident",
+		},
+	},
+	[468] = {
+		id = "UniqueHelmetDex2x",
+		name = "Replica Heatshiver",
+		text = {
+			"\"The storm... that lightning... I'd be dead if I hadn't...",
+			"but it was cold. Ice cold! It's not what we think, and",
+			"the plan won't work! Where's Arn?! I have to tell him!\"",
+			"- Researcher Graven, infirmary report",
+		},
+	},
+	[469] = {
 		id = "UniqueAmulet31x",
 		name = "Replica Hinekora's Sight",
 		text = {
@@ -5591,140 +4018,254 @@ return {
 			"- Researcher Graven",
 		},
 	},
-	[666] = {
-		id = "UniqueRing80",
-		name = "Ixchel's Temptation",
+	[470] = {
+		id = "UniqueJewel145",
+		name = "Split Personality",
 		text = {
-			"Chaos offers possibility, not outcome.",
-			"Our own imaginations ensnare us.",
+			"You need not go looking for a second opinion.",
 		},
 	},
-	[667] = {
-		id = "UniqueShieldStrDex9",
-		name = "The Flawed Refuge",
+	[471] = {
+		id = "UniqueJewel146",
+		name = "Megalomaniac",
 		text = {
-			"The Wildwood was a gift, meant as a haven",
-			"against the Winter of the World.",
+			"If you're going to act like you're better than everyone else, make sure you are.",
 		},
 	},
-	[668] = {
-		id = "UniqueOneHandSword35",
-		name = "Nametaker",
+	[472] = {
+		id = "UniqueJewel147",
+		name = "Voices",
 		text = {
-			"It need not know your True Name. Our most",
-			"dearly held secrets spill forth in our blood.",
+			"Only a madman would ignore a god's instructions.",
 		},
 	},
-	[669] = {
-		id = "UniqueHelmetStrDex11",
-		name = "The Trickster's Smile",
+	[473] = {
+		id = "UniqueBodyStr11",
+		name = "Perfidy",
 		text = {
-			"The Raven Trickster made no move to defend himself.",
-			"He merely grinned... and the foolish warrior charged.",
+			"The Trickster God turned the very Day and Night against each other.",
+			"What hope have you?",
 		},
 	},
-	[670] = {
-		id = "UniqueJewel181",
-		name = "The Light of Meaning",
+	[474] = {
+		id = "UniqueHelmetDex10",
+		name = "Assailum",
 		text = {
-			"Faith given under false pretenses still carries the same power.",
+			"A moment of calm before the battle can end the war.",
 		},
 	},
-	[671] = {
-		id = "UniqueBodyStr14",
-		name = "Pragmatism",
+	[475] = {
+		id = "UniqueRing66",
+		name = "Storm Secret",
 		text = {
-			"The Maji were forbidden from touching virtue gems...",
-			"so their practical warriors employed geomancy instead.",
+			"Lightning lives in an endless circle.",
 		},
 	},
-	[672] = {
-		id = "UniqueAmulet77",
-		name = "The Untouched Soul",
+	[476] = {
+		id = "UniqueBodyStrInt14",
+		name = "Doryani's Prototype",
 		text = {
-			"Geomancy offered a safer way to use the Tears...",
-			"but most Maji rejected that temptation as well.",
+			"\"This was the first step in some grand design,",
+			"lost to the ages, now ours to decipher.\"",
+			"- Dominus, High Templar",
 		},
 	},
-	[673] = {
-		id = "UniqueJewel180",
-		name = "The Adorned",
+	[477] = {
+		id = "UniqueGlovesDexInt17",
+		name = "Abhorrent Interrogation",
 		text = {
-			"At their height, the Vaal glittered under the sun.",
-			"A decade, a century, an aeon of prosperity...",
-			"now nothing more than a passing wonder.",
+			"\"We have methods of interrogation the Inquisitors only dream of.\"",
+			"- Marcus, Brotherhood Liaison",
 		},
 	},
-	[674] = {
-		id = "UniqueBelt33x",
-		name = "Replica Siegebreaker",
+	[478] = {
+		id = "UniqueShieldStrInt13",
+		name = "Emperor's Vigilance",
 		text = {
-			"\"Recommend extreme caution on any prototypes that can lead to a chain reaction",
-			"of deaths. Lab Twelve has been lost to the flames.\"",
-			"- Lead Researcher Ksaret",
+			"Chitus' success stemmed from his cunning, taking calculated",
+			"risks so that greater dangers could be averted.",
 		},
 	},
-	[675] = {
-		id = "UniqueAmulet55x",
-		name = "Replica Hyrri's Truth",
+	[479] = {
+		id = "UniqueHelmetStrInt18",
+		name = "Forbidden Shako",
 		text = {
-			"\"The type Delta test subjects could have escaped with the power offered by",
-			"Prototype #15, but they suddenly chose to murder each other instead...\"",
+			"The Azmeri must never touch the Tears of Maji, lest Viridi weep.",
 		},
 	},
-	[676] = {
-		id = "UniqueBootsDexInt11",
-		name = "Corpsewalker",
+	[480] = {
+		id = "UniqueBodyInt20",
+		name = "Fleshcrafter",
 		text = {
-			"Every glorious conquest",
-			"stands astride innocent bones.",
+			"Imbue the body with stolen spirit, hold the leash tight.",
 		},
 	},
-	[677] = {
-		id = "UniqueBelt48",
-		name = "Bound Fate",
+	[481] = {
+		id = "UniqueStaff25",
+		name = "Witchhunter's Judgment",
 		text = {
-			"Knowing what will happen",
-			"and knowing when it will happen",
-			"are two very different things.",
+			"The pyre is never wasted on just one heretic.",
 		},
 	},
-	[678] = {
-		id = "UniqueBodyStr13",
-		name = "Utula's Hunger",
+	[482] = {
+		id = "UniqueQuiver16",
+		name = "Scorpion's Call",
 		text = {
-			"The world will end in a divine stomach once Kitava has eaten all that lives.",
+			"Claws open, brace for a bite. Stinger raised, dodge or die.",
 		},
 	},
-	[679] = {
-		id = "UniqueSceptre25",
-		name = "Maata's Teaching",
+	[483] = {
+		id = "UniqueOneHandSword32",
+		name = "The Surging Thoughts",
 		text = {
-			"What we give to others, we also give to ourselves.",
 		},
 	},
-	[680] = {
-		id = "UniqueAmulet75",
-		name = "Ikiaho's Promise",
+	[484] = {
+		id = "UniqueBelt36",
+		name = "The Torrent's Reclamation",
 		text = {
-			"Even the loneliest of souls can aid a friend in times of darkness.",
 		},
 	},
-	[681] = {
-		id = "UniqueRing78",
-		name = "Tawhanuku's Timing",
+	[485] = {
+		id = "UniqueShieldStrInt14",
+		name = "The Immortal Will",
 		text = {
-			"The soul still beats, even when the heart never did.",
 		},
 	},
-	[682] = {
-		id = "UniqueShieldDex9",
-		name = "Kiloava's Bluster",
+	[486] = {
+		id = "UniqueQuiver17",
+		name = "The Shattered Divinity",
 		text = {
-			"Not even the storm knows when lightning will strike.",
 		},
 	},
-	[683] = {
+	[487] = {
+		id = "UniqueHelmetDexInt14",
+		name = "The Tempest's Liberation",
+		text = {
+		},
+	},
+	[488] = {
+		id = "UniqueStaff26",
+		name = "The Yielding Mortality",
+		text = {
+		},
+	},
+	[489] = {
+		id = "UniqueAmulet62",
+		name = "Retaliation Charm",
+		text = {
+			"An eye for an eye.",
+		},
+	},
+	[490] = {
+		id = "UniqueGlovesDex6",
+		name = "Great Old One's Tentacles",
+		text = {
+			"Under its influence, shards of metal take on a life of their own, wriggling into flesh,",
+			"burrowing into organs, and exploding outwards in search of other victims.",
+		},
+	},
+	[491] = {
+		id = "UniqueAmulet63",
+		name = "The Felbog Fang",
+		text = {
+			"Death creeps closer; unseen, inexorable, hungry.",
+		},
+	},
+	[492] = {
+		id = "UniqueHelmetInt24",
+		name = "Plume of Pursuit",
+		text = {
+			"A dance as old as time.",
+		},
+	},
+	[493] = {
+		id = "UniqueBelt37",
+		name = "Bear's Girdle",
+		text = {
+			"Simple. Deadly. Unstoppable.",
+		},
+	},
+	[494] = {
+		id = "UniqueClaw19",
+		name = "Law of the Wilds",
+		text = {
+			"The strong survive. The strongest thrive.",
+		},
+	},
+	[495] = {
+		id = "UniqueHelmetStr3x",
+		name = "Replica Abyssus",
+		text = {
+			"\"While Prototype #3 does imbue its wearer with strength to match the original,",
+			"the first researcher to don it burst into flames when he walked into sunlight...\"",
+		},
+	},
+	[496] = {
+		id = "UniqueSceptre14x",
+		name = "Replica Bitterdream",
+		text = {
+			"\"Attempt #2520: Been slaving away at this one for longer than I can remember.",
+			"Convinced this assignment is retribution from my superior...\"",
+		},
+	},
+	[497] = {
+		id = "UniqueBootsStrDex1x",
+		name = "Replica Lioneye's Paws",
+		text = {
+			"\"Twelve dead, and the seventh lab cannot be entered for several years.",
+			"Prototype #12 is a 'success,' if we can ever reach it.\"",
+		},
+	},
+	[498] = {
+		id = "UniqueBow14x",
+		name = "Replica Iron Commander",
+		text = {
+			"\"Admittedly lacking the finesse of the fabled original,",
+			"Prototype #4 achieved identical results through brute force alone.\"",
+		},
+	},
+	[499] = {
+		id = "UniqueBodyStrInt2x",
+		name = "Replica Ambu's Charge",
+		text = {
+			"\"Prototype #7 achieved even greater injury responsiveness than expected,",
+			"though at considerable cost to the long-term survival rate of the user.\"",
+		},
+	},
+	[500] = {
+		id = "UniqueQuiver15x",
+		name = "Replica Maloney's Mechanism",
+		text = {
+			"\"The Midnight Tinkerer's aid was invaluable during our brief alliance,",
+			"but when we failed to make any progress on resurrection, he continued his search elsewhere...\"",
+		},
+	},
+	[501] = {
+		id = "UniqueGlovesStr3x",
+		name = "Replica Atziri's Acuity",
+		text = {
+			"\"One of our researchers cut himself on Prototype #2,",
+			"and he has not stopped screaming for months...\"",
+		},
+	},
+	[502] = {
+		id = "UniqueGlovesInt4x",
+		name = "Replica Kalisa's Grace",
+		text = {
+			"\"Our superiors were getting anxious for results, and lowered security standards.",
+			"A single attempt of a spell with this unexpected power destroyed an entire floor.\"",
+		},
+	},
+	[503] = {
+		id = "UniqueShieldStr10x",
+		name = "Replica Tukohama's Fortress",
+		text = {
+			"\"As one of our few creations that did not cost any fatalities,",
+			"Prototype #10 bore unexpectedly positive results.\"",
+		},
+	},
+	[504] = {
 		id = "UniqueFlask15x",
 		name = "Replica Sorrow of the Divine",
 		text = {
@@ -5732,212 +4273,191 @@ return {
 			"Faith fuels the flesh, and the flesh fuels the fire...\"",
 		},
 	},
-	[684] = {
-		id = "UniqueTwoHandSword15",
-		name = "Rakiata's Dance",
+	[505] = {
+		id = "UniqueOneHandAxe10",
+		name = "Actum",
 		text = {
-			"In the shifting reflections of the sea, the truth of the soul can be seen.",
+			"Better to act without thought",
+			"than to think without action.",
 		},
 	},
-	[685] = {
-		id = "UniqueHelmetDexInt17",
-		name = "Akoya's Gaze",
+	[506] = {
+		id = "UniqueBelt38",
+		name = "Chains of Emancipation",
 		text = {
-			"Fight in the traditional Way, or not at all!",
+			"Freedom is won only by those who are not free.",
 		},
 	},
-	[686] = {
-		id = "UniqueClaw19",
-		name = "Law of the Wilds",
+	[507] = {
+		id = "UniqueBodyDexInt12",
+		name = "Expedition's End",
 		text = {
-			"The strong survive. The strongest thrive.",
+			"He may have returned from the frozen southern reaches,",
+			"but that doesn't mean he ever truly escaped them.",
 		},
 	},
-	[687] = {
-		id = "UniqueStaff26",
-		name = "The Yielding Mortality",
+	[508] = {
+		id = "UniqueOneHandSword33",
+		name = "The Iron Mass",
 		text = {
-			"<<HBGAa>><<HBG01>><<HBGC04>><<HBG02>><<HBGC06>>",
-			"<<HBGAa>><<HBG01>><<HBGAs>><<HBG02>><<HBGC06>>",
-			"<<HBGC011>><<HBGAa>><<HBG04>><<HBGC08>><<HBGAa>>",
+			"Lead by example.",
 		},
 	},
-	[688] = {
-		id = "UniqueQuiver17",
-		name = "The Shattered Divinity",
+	[509] = {
+		id = "UniqueBodyStr1x",
+		name = "Replica Kaom's Heart",
 		text = {
-			"<<HBGAf>><<HBG02>><<HBGAt>><<HBG03>><<HBGAa>>",
-			"<<HBGAf>><<HBG02>><<HBGAm>><<HBGC011>><<HBGC04>>",
-			"<<HBGAa>><<HBG00>><<HBGAt>>",
+			"\"Useless for our purposes, but perhaps we can sell Prototype #5",
+			"to an archmage to fund other experiments.\"",
 		},
 	},
-	[689] = {
-		id = "UniqueBelt36",
-		name = "The Torrent's Reclamation",
+	[510] = {
+		id = "UniqueAmulet5x",
+		name = "Replica Karui Ward",
 		text = {
-			"<<HBGAa>><<HBG02>><<HBGAr>><<HBG01>><<HBGAl>>",
-			"<<HBGAf>><<HBG02>><<HBGC01>><<HBG01>><<HBGAr>>",
-			"<<HBGAa>><<HBG02>><<HBGC02>><<HBG01>><<HBGAn>><<HBG03>><<HBGAf>>",
+			"\"In testing, Prototype #9 had no effect on fired arrows. However,",
+			"an unknown spell did destroy the entire firing chamber.\"",
 		},
 	},
-	[690] = {
-		id = "UniqueQuiver16",
-		name = "Scorpion's Call",
+	[511] = {
+		id = "UniqueAmulet10x",
+		name = "Replica Atziri's Foible",
 		text = {
-			"Claws open, brace for a bite. Stinger raised, dodge or die.",
+			"\"A rare unequivocal success, Prototype #11 causes wounds to heal so quickly",
+			"the type Delta test subject actually survived the entire testing regimen.\"",
 		},
 	},
-	[691] = {
-		id = "UniqueBodyInt20",
-		name = "Fleshcrafter",
+	[512] = {
+		id = "UniqueBelt11x",
+		name = "Replica Bated Breath",
 		text = {
-			"Imbue the body with stolen spirit, hold the leash tight.",
+			"\"I cannot fathom the mysteries of Prototype #16. It did nearly nothing until I",
+			"brought it to [RESTRICTED]. It makes no sense!\"",
+			"- Researcher Graven",
 		},
 	},
-	[692] = {
-		id = "UniqueHelmetDex10",
-		name = "Assailum",
+	[513] = {
+		id = "UniqueBelt21x",
+		name = "Replica Soul Tether",
 		text = {
-			"A moment of calm before the battle can end the war.",
+			"\"Curious. The test spike penetrated the subject's flesh, but the chest wound",
+			"was not as deep as expected. There is something here...\"",
 		},
 	},
-	[693] = {
-		id = "UniqueAmulet74",
-		name = "Bloodsoaked Medallion",
+	[514] = {
+		id = "UniqueRing25x",
+		name = "Replica Malachai's Artifice",
 		text = {
-			"\"Atziri ordained that we exploit the weaknesses inherent in our slaves.",
-			"With relish, we did exactly as she instructed.\"",
-			"- Guatelitzi, Architect of Flesh",
+			"\"As much as Prototype #20 hints at some deep alternate physics, we cannot afford",
+			"to expend any more test subjects. Experiments halted.\"",
+			"- Administrator Qotra",
 		},
 	},
-	[694] = {
-		id = "UniqueRing77",
-		name = "Soulbound",
+	[515] = {
+		id = "UniqueRing30x",
+		name = "Replica Tasalio's Sign",
 		text = {
-			"\"Slay my twin and I will inherit her wisdom.",
-			"Slay me and her life will be prolonged by my demise.",
-			"Our souls are eternally bound by the sacrifices we have made.\"",
-			"- High Priest Atazek",
+			"\"Likely our closest to the original, yet Prototype #22 still falls short.",
+			"Are these objects actually somehow resisting our efforts?\"",
 		},
 	},
-	[695] = {
-		id = "UniqueBodyStrInt15",
-		name = "The Fourth Vow",
+	[516] = {
+		id = "UniqueRing23x",
+		name = "Replica Voideye",
 		text = {
-			"Seek not to avoid the mortal pains of this world.",
-			"In flagellation, there lies freedom from temptation.",
+			"\"So close, yet frustratingly distinct. Something more is going on here...\"",
 		},
 	},
-	[696] = {
-		id = "UniqueJewel178",
-		name = "Bloodnotch",
+	[517] = {
+		id = "UniqueBodyInt22",
+		name = "The Apostate",
 		text = {
-			"At the core of the warrior's spirit,",
-			"a fierce determination burns,",
-			"igniting their capacity to endure.",
+			"When I finally rejected my faith entirely, my stagnant belief",
+			"became thick white blood, as choking as it was nourishing.",
 		},
 	},
-	[697] = {
-		id = "UniqueBootsDex15",
-		name = "Orbala's Stand",
+	[518] = {
+		id = "UniqueQuiver7x",
+		name = "Replica Soul Strike",
 		text = {
-			"The inferno surged past, devastating Stridevolf, but the Maraketh",
-			"warrior somehow remained. Soot-blackened and resolute, she",
-			"grinned. In that moment, the bandit king knew true despair.",
+			"\"The theft of another's vitality is short-lived, but sweet.",
+			"It calls to me, bidding me abandon all other pursuits.\"",
+			"- Researcher Arn",
 		},
 	},
-	[698] = {
-		id = "UniqueGlovesStrDex15",
-		name = "Tanu Ahi",
+	[519] = {
+		id = "UniqueBodyDex11x",
+		name = "Replica Perfect Form",
 		text = {
-			"There is no greater thrill than leaping into combat,",
-			"slashing and hewing with utmost abandon.",
+			"\"This is what I've been trying to tell you. This prototype",
+			"was different before. Now, it's always been this way!\"",
+			"- Researcher Graven",
 		},
 	},
-	[699] = {
-		id = "UniqueBelt45",
-		name = "Chain of Endurance",
+	[520] = {
+		id = "UniqueBodyStrInt9x",
+		name = "Replica Loreweave",
 		text = {
-			"\"A man confronted with sufficient adversity",
-			"may ascend to unprecedented heights",
-			"and triumph over his coddled rivals.\"",
-			"- Weylan the Ezomyte",
+			"\"Better... stronger... more vital... and then... failure. Always, failure.",
+			"What key fundamental secret are we missing?\"",
 		},
 	},
-	[700] = {
-		id = "UniqueBow24",
-		name = "Widowhail",
+	[521] = {
+		id = "UniqueBodyDexInt9x",
+		name = "Replica Shroud of the Lightless",
 		text = {
-			"\"I loosed a volley of arrows into the heart of the man",
-			"who slew my beloved. There was no satisfaction, no",
-			"healing, no revenge. There was only... emptiness.\"",
-			"- Chieftainess Ahuana of the Ramako Tribe",
+			"\"Eyes of black, three by three, staring ever darker into me...\"",
+			"- Researcher Arn",
 		},
 	},
-	[701] = {
-		id = "UniqueGlovesDexInt20",
-		name = "Stormseeker",
+	[522] = {
+		id = "UniqueWand21",
+		name = "Grace of the Goddess",
 		text = {
-			"The fundamental forces of our world are secrets",
-			"to be uncovered by the intelligent and the capable.",
-			"Like all secrets, they, too, can be stolen.",
+			"In a time of darkness, know that the Draíocht will bring you light.",
 		},
 	},
-	[702] = {
-		id = "UniqueJewel177",
-		name = "Ancestral Vision",
+	[523] = {
+		id = "UniqueBootsDex9x",
+		name = "Replica Three-step Assault",
 		text = {
-			"The spirits of our ancestors guided us from the Archipelago to the continent.",
-			"Inextricably, the purity of our souls is linked to the ones who came before us.",
+			"\"The test subject nearly escaped, but the poison gas",
+			"system in the hallway functioned as expected.\"",
 		},
 	},
-	[703] = {
-		id = "UniqueAmulet73",
-		name = "Tainted Pact",
+	[524] = {
+		id = "UniqueHelmetStrInt22",
+		name = "Ravenous Passion",
 		text = {
-			"Beidat made false promises to many denizens,",
-			"converting only one into a conduit through",
-			"which Wraeclast might be consumed.",
+			"There is power in hunger, though it will",
+			"consume all that you have... and more.",
 		},
 	},
-	[704] = {
-		id = "UniqueJewel94",
-		name = "First Snow",
+	[525] = {
+		id = "UniqueGlovesInt8x",
+		name = "Replica Allelopathy",
 		text = {
-			"Cadiro watched young Chitus play in the frostbitten grass, care-free, happy,",
-			"and unburdened by the responsibility the Perandus scion would soon endure.",
+			"\"There seems to be some innate relationship between the forces of",
+			"chaos and cold. Perhaps we should consult an occultist.\"",
 		},
 	},
-	[705] = {
-		id = "UniqueJewel97",
-		name = "Fight for Survival",
+	[526] = {
+		id = "UniqueBelt49",
+		name = "The Tides of Time",
 		text = {
-			"The winter that followed the Cataclysm was especially harsh.",
-			"Wraeclast's few survivors fought to the death for the last scraps of bread.",
+			"There is an ebb and flow to all things,",
+			"tangible to those who watch and wait.",
 		},
 	},
-	[706] = {
-		id = "UniqueBootsDex1",
-		name = "Sin Trek",
+	[527] = {
+		id = "UniqueHelmetDex5x",
+		name = "Replica Alpha's Howl",
 		text = {
-			"Do not let them step on your feet. Keep them at bay.",
+			"\"Test subject walked right through the poison gas defenses, and attempts to slow her",
+			"failed. Suppression troop six, the 'Furious Flagellants,' have been sent to intervene.\"",
 		},
 	},
-	[707] = {
-		id = "UniqueTwoHandSword14",
-		name = "Echoforge",
-		text = {
-			"Witness the emergence of a new cosmic power.",
-		},
-	},
-	[708] = {
-		id = "UniqueDagger15",
-		name = "Arakaali's Fang",
-		text = {
-			"All children must eat.",
-		},
-	},
-	[709] = {
+	[528] = {
 		id = "UniqueGlovesStr13",
 		name = "The Celestial Brace",
 		text = {
@@ -5945,32 +4465,31 @@ return {
 			"your courage will fail long before it does.",
 		},
 	},
-	[710] = {
-		id = "UniqueJewel85",
-		name = "The Red Dream",
+	[529] = {
+		id = "UniqueHelmetStrInt18x",
+		name = "Replica Forbidden Shako",
 		text = {
-			"We flow like blood into Chayula's open mouth,",
-			"and spill into the land we have watched forever.",
-			"<default>{This item can be transformed with a Blessing of Chayula}",
+			"\"I believed I understood Prototype #112 quite fully, until a test subject",
+			"with Azmeri ancestry donned it. I will be haunted by the results",
+			"for the rest of my life.\"  - Researcher Graven",
 		},
 	},
-	[711] = {
+	[530] = {
 		id = "UniqueAmulet78",
 		name = "The Utmost",
 		text = {
 			"He who stands on the loftiest peak is bound to be seen...",
 		},
 	},
-	[712] = {
-		id = "UniqueBodyInt13",
-		name = "Skin of the Loyal",
+	[531] = {
+		id = "UniqueOneHandAxe1x",
+		name = "Replica Soul Taker",
 		text = {
-			"We happily give our limbs.",
-			"A net woven to keep safe the bones of the Lords.",
-			"<default>{This item can be transformed with a Blessing of Chayula}",
+			"\"Nothing feels so smooth in the hand as Prototype #66.",
+			"Results like these may justify everything we do here.\"",
 		},
 	},
-	[713] = {
+	[532] = {
 		id = "UniqueBelt50",
 		name = "Nevalius Inheritance",
 		text = {
@@ -5981,16 +4500,16 @@ return {
 			"- Victario Nevalius, the People's Poet",
 		},
 	},
-	[714] = {
-		id = "UniqueBow5",
-		name = "Darkscorn",
+	[533] = {
+		id = "UniqueTwoHandAxe8x",
+		name = "Replica Harvest",
 		text = {
-			"\"The Spirit of War knows nothing of good and evil.",
-			"It knows only destruction.\"",
-			"- Sekhema Asenath",
+			"\"Why is Prototype #67 never in the vault it should be?",
+			"Either we're keeping faulty logs, or...\"",
+			"- Researcher Graven",
 		},
 	},
-	[715] = {
+	[534] = {
 		id = "UniqueGlovesStrInt13",
 		name = "The Hand of Phrecia",
 		text = {
@@ -5998,16 +4517,16 @@ return {
 			"we must fight side by side as brothers.",
 		},
 	},
-	[716] = {
-		id = "UniqueShieldStr9",
-		name = "The Surrender",
+	[535] = {
+		id = "UniqueBow4x",
+		name = "Replica Quill Rain",
 		text = {
-			"Our hearts cry out",
-			"but are silenced by our flesh",
-			"and so we give up our flesh.",
+			"\"How did you manage to lodge arrows in every single test subject",
+			"and researcher in Lab Three simultaneously?\"",
+			"- Doctor Bircus",
 		},
 	},
-	[717] = {
+	[536] = {
 		id = "UniqueBootsDexInt13",
 		name = "Veruso's Ambition",
 		text = {
@@ -6015,43 +4534,24 @@ return {
 			"families. Follow me if you hunger for more than this!\"",
 		},
 	},
-	[718] = {
-		id = "UniqueWand2",
-		name = "Midnight Bargain",
+	[537] = {
+		id = "UniqueBow9x",
+		name = "Replica Windripper",
 		text = {
-			"A chilling hush, a scraping sound",
-			"Of things no more entombed in ground.",
-			"A shambling horde is on its way",
-			"To crush the very light of day.",
+			"\"Beware. Prototype #91 is haunted by a strange miasma,",
+			"an odour of evil. Nothing can shield the senses.\"",
+			"- Researcher Arn",
 		},
 	},
-	[719] = {
-		id = "UniqueRing81",
-		name = "Grattus Signet",
+	[538] = {
+		id = "UniqueDagger12x",
+		name = "Replica Bloodplay",
 		text = {
-			"The first Grattus patriarch had only one tell. When he",
-			"slowly turned his ring, all cowered before him.",
+			"\"Prototype #131 must never be allowed near anyone who bears a wound, no",
+			"matter how slight. Even a tiny cut makes it exponentially more dangerous.\"",
 		},
 	},
-	[720] = {
-		id = "UniqueBodyStr2",
-		name = "Wall of Brambles",
-		text = {
-			"It is safer to be feared than to be loved.",
-		},
-	},
-	[721] = {
-		id = "UniqueJewel175",
-		name = "Witchbane",
-		text = {
-			"In darkest night, 'neath waxen moon",
-			"A witch snatches a boy from his room.",
-			"He wards off her hexes",
-			"The witch he perplexes",
-			"And so becomes part of her stew.",
-		},
-	},
-	[722] = {
+	[539] = {
 		id = "UniqueJewel182",
 		name = "The Perandus Pact",
 		text = {
@@ -6059,15 +4559,15 @@ return {
 			"to turn even great misfortunes into golden opportunities.",
 		},
 	},
-	[723] = {
-		id = "UniqueJewel173",
-		name = "Stormshroud",
+	[540] = {
+		id = "UniqueDagger3x",
+		name = "Replica Ungil's Gauche",
 		text = {
-			"The true secret of the elements",
-			"is that all are one and the same.",
+			"\"Recommend further production of Prototype #122. It makes",
+			"an ideal weapon for our suppression troops and guards.\"",
 		},
 	},
-	[724] = {
+	[541] = {
 		id = "UniqueRing82",
 		name = "Circle of Ambition",
 		text = {
@@ -6075,189 +4575,111 @@ return {
 			"The day is coming... I have seen it.",
 		},
 	},
-	[725] = {
-		id = "UniqueJewel169",
-		name = "Grand Spectrum",
+	[542] = {
+		id = "UniqueDagger19x",
+		name = "Replica Cold Iron Point",
 		text = {
-			"A spirit that never rests.",
+			"\"Researchers will refrain from scaring each other by firing ice spears while holding",
+			"Prototype #141. Sooner or later, someone's going to lose an eye.\"",
+			"- Administrator Qotra",
 		},
 	},
-	[726] = {
-		id = "UniqueJewel168",
-		name = "Grand Spectrum",
+	[543] = {
+		id = "UniqueRapier6x",
+		name = "Replica Paradoxica",
 		text = {
-			"A body that never falters.",
+			"\"This is one riddle I can't solve.\"",
+			"- Researcher Graven",
 		},
 	},
-	[727] = {
-		id = "UniqueRing83",
-		name = "The Hateful Accuser",
+	[544] = {
+		id = "UniqueJewel44x",
+		name = "Replica Conqueror's Efficiency",
 		text = {
-			"In truth, they point the finger at themselves.",
+			"\"The effect is subtle, but potentially lethal...\"",
 		},
 	},
-	[728] = {
-		id = "UniqueGlovesDexInt18",
-		name = "Soul Ascension",
+	[545] = {
+		id = "UniqueOneHandSword16x",
+		name = "Replica Tempestuous Steel",
 		text = {
-			"Fear can be instilled by the smallest entity.",
+			"\"Test subjects were unable to strike even a motionless target.",
+			"However, when a trained guard tried it...\"",
 		},
 	},
-	[729] = {
-		id = "UniqueRing84",
-		name = "The Selfish Shepherd",
+	[546] = {
+		id = "UniqueOneHandSword18x",
+		name = "Replica Innsbury Edge",
 		text = {
-			"And when you are no longer useful, you will",
-			"discover how much you truly mean.",
+			"\"The night-gaunts, they fly, soaring about in darkness beyond the ken of mankind.",
+			"I hear the silent whispers of their wings as they descend, for me, for me...\"",
+			"- Researcher Arn",
 		},
 	},
-	[730] = {
-		id = "UniqueJewel163",
-		name = "Impossible Escape",
+	[547] = {
+		id = "UniqueJewel61x",
+		name = "Replica Reckless Defence",
 		text = {
-			"She was the last of countless progeny bred to test the limits of limitless power.",
-			"In the cosmic prison of her birth, her siblings fought each other to the death",
-			"for supremacy. She alone reached her limit... and broke through.",
+			"\"Prototype #298 must be contained in a non-conductive glass box at all times.\"",
 		},
 	},
-	[731] = {
-		id = "UniqueRing85",
-		name = "The Queller of Minds",
+	[548] = {
+		id = "UniqueBodyDexInt3x",
+		name = "Replica Restless Ward",
 		text = {
-			"Quiet thy troubled soul. Think not. Just pray... to me.",
+			"\"Further research must be done on Prototype #282.",
+			"There is power here, if it can be tapped.\"",
 		},
 	},
-	[732] = {
-		id = "UniqueHelmetStr9",
-		name = "Echoes of Creation",
+	[549] = {
+		id = "UniqueBootsDexInt11",
+		name = "Corpsewalker",
 		text = {
-			"A cacophony of battle cries",
-			"Reverberate through time and space",
-			"Inflicting pain beyond measure",
+			"Every glorious conquest",
+			"stands astride innocent bones.",
 		},
 	},
-	[733] = {
-		id = "UniqueBelt44",
-		name = "The Burden of Truth",
+	[550] = {
+		id = "UniqueAmulet64",
+		name = "The Ephemeral Bond",
 		text = {
-			"Mortal pleasures can hold back the memories,",
-			"but a hollow soul can never be healed.",
+			"For how little time they had together,",
+			"their love was all the more powerful.",
 		},
 	},
-	[734] = {
-		id = "UniqueJewel162",
-		name = "Divine Inferno",
+	[551] = {
+		id = "UniqueAmulet55x",
+		name = "Replica Hyrri's Truth",
 		text = {
-			"Gripping the stolen Spear of Solerai in hand,",
-			"the bandit king of Stridevolf watched his enclave burn.",
-			"As foretold, the weapon was powerful beyond compare,",
-			"but using it had cost him absolutely everything.",
+			"\"The type Delta test subjects could have escaped with the power offered by",
+			"Prototype #15, but they suddenly chose to murder each other instead...\"",
 		},
 	},
-	[735] = {
-		id = "UniqueTincture1",
-		name = "Sap of the Seasons",
+	[552] = {
+		id = "UniqueRing4x",
+		name = "Replica Doedre's Damning",
 		text = {
-			"Life and death dance ever closer,",
-			"waiting only for the right moment.",
+			"\"Prototype #8 makes it difficult to think negatively, but two fatalities",
+			"resulted when a lead researcher used an epithet in its presence.\"",
 		},
 	},
-	[736] = {
-		id = "UniqueJewel160",
-		name = "Forbidden Flame",
-		text = {
-			"The minds of those studied utterly by the Cleansing Fire",
-			"continue to think and dream and beg for silence...",
-		},
-	},
-	[737] = {
-		id = "UniqueShieldStr13",
-		name = "Dawnbreaker",
-		text = {
-			"\"The newcomers warn of doom and death beyond mortal ken.",
-			"I ask, why should we fear the fire when we serve the Lord of Light?\"",
-			"- Maxarius, the first High Templar",
-		},
-	},
-	[738] = {
-		id = "UniqueTincture2",
-		name = "Mightblood Ire",
-		text = {
-			"The liquid within boils and fumes,",
-			"ready to erupt at any provocation.",
-		},
-	},
-	[739] = {
-		id = "UniqueGlovesStr11",
-		name = "Ceaseless Feast",
-		text = {
-			"Lost in a sea of limbs and screaming faces, they claw",
-			"for any fleeting pleasure which might dull the pain.",
-		},
-	},
-	[740] = {
-		id = "UniqueRing72",
-		name = "Polaric Devastation",
-		text = {
-			"Those that escaped the annihilating light",
-			"sank eternally into crushing darkness.",
-		},
-	},
-	[741] = {
-		id = "UniqueTincture3",
-		name = "Wildfire Phloem",
-		text = {
-			"New life will follow, but first come the flames.",
-		},
-	},
-	[742] = {
-		id = "UniqueGlovesInt11",
-		name = "Black Zenith",
-		text = {
-			"He reached for his home one last time, a shining jewel among the stars...",
-			"only to watch in horror as it ruptured and shattered under a tide of limbs.",
-		},
-	},
-	[743] = {
-		id = "UniqueBow23",
-		name = "The Gluttonous Tide",
-		text = {
-			"To eat, to feast, to forget the horror of endless agonising existence",
-			"if but for a moment... only to disgorge and do it all again...",
-		},
-	},
-	[744] = {
-		id = "UniqueTincture4",
-		name = "The Battle Within",
-		text = {
-			"The struggle for balance never ends.",
-		},
-	},
-	[745] = {
-		id = "UniqueAmulet69",
-		name = "Ashes of the Stars",
-		text = {
-			"A single facet contains the wisdom",
-			"of countless disintegrated worlds.",
-		},
-	},
-	[746] = {
+	[553] = {
 		id = "UniqueTincture5",
 		name = "Grasping Nightshade",
 		text = {
 			"A virulent brew of death and decay.",
 		},
 	},
-	[747] = {
-		id = "UniqueJewel159",
-		name = "Dissolution of the Flesh",
+	[554] = {
+		id = "UniqueBelt33x",
+		name = "Replica Siegebreaker",
 		text = {
-			"\"We awoke to a sudden dawn cresting through the mountains.",
-			"Each peak rose into searing fire, a massive roiling tide.",
-			"A great eye gazed upon us, and we became known—utterly.\"",
+			"\"Recommend extreme caution on any prototypes that can lead to a chain reaction",
+			"of deaths. Lab Twelve has been lost to the flames.\"",
+			"- Lead Researcher Ksaret",
 		},
 	},
-	[748] = {
+	[555] = {
 		id = "UniqueShieldStr14",
 		name = "Svalinn",
 		text = {
@@ -6265,15 +4687,15 @@ return {
 			"but it was the smiths who delved into the secrets it held.",
 		},
 	},
-	[749] = {
-		id = "UniqueShieldStrDex7",
-		name = "The Squire",
+	[556] = {
+		id = "UniqueBelt7x",
+		name = "Replica Headhunter",
 		text = {
-			"Judge not the weak, for",
-			"they empower the strong.",
+			"\"A type Delta test subject escaped with Prototype #18. He was last seen",
+			"ten times the height of a man and crashing straight through walls.\"",
 		},
 	},
-	[750] = {
+	[557] = {
 		id = "UniqueTwoHandSword16",
 		name = "The Living Blade",
 		text = {
@@ -6281,14 +4703,15 @@ return {
 			"and named it Lorrata. Its strongest root became a weapon...",
 		},
 	},
-	[751] = {
-		id = "UniqueBodyDexInt15",
-		name = "Stasis Prison",
+	[558] = {
+		id = "UniqueBodyStrDex8x",
+		name = "Replica Farrul's Fur",
 		text = {
-			"Those that can never die have but one wish.",
+			"\"Attempt #120: the prototype has finally achieved power similar to the original",
+			"without breaking all the bones of the test subject. A rousing success.\"",
 		},
 	},
-	[752] = {
+	[559] = {
 		id = "UniqueGlovesStr14",
 		name = "Admiral's Arrogance",
 		text = {
@@ -6296,14 +4719,16 @@ return {
 			"to produce Admirals with, shall we say... quick tempers.\"",
 		},
 	},
-	[753] = {
-		id = "UniqueAmulet66",
-		name = "Stranglegasp",
+	[560] = {
+		id = "UniqueBodyDexInt11x",
+		name = "Replica Eternity Shroud",
 		text = {
-			"Death's approach brings clarity.",
+			"\"The form of this replica came to me in a troubled dream.",
+			"I do not believe we should ever allow it to be used.\"",
+			"- Researcher Arn",
 		},
 	},
-	[754] = {
+	[561] = {
 		id = "UniqueTwoHandMace13",
 		name = "Tawhoa's Felling",
 		text = {
@@ -6311,15 +4736,15 @@ return {
 			"and know that you never stand alone.",
 		},
 	},
-	[755] = {
-		id = "UniqueFlask32",
-		name = "Vorana's Preparation",
+	[562] = {
+		id = "UniqueBootsStrInt2x",
+		name = "Replica Alberon's Warpath",
 		text = {
-			"Vorana trained her mercenaries",
-			"thus: strike true and survive.",
+			"\"Starving test subject became completely incapable of exerting force.",
+			"However, after being fed, he began to poison everything he touched...\"",
 		},
 	},
-	[756] = {
+	[563] = {
 		id = "UniqueBelt51",
 		name = "Ynda's Stand",
 		text = {
@@ -6327,114 +4752,68 @@ return {
 			"she held the bridge to the very end.",
 		},
 	},
-	[757] = {
-		id = "UniqueFlask30",
-		name = "Starlight Chalice",
+	[564] = {
+		id = "UniqueBootsDexInt10x",
+		name = "Replica Stampede",
 		text = {
-			"Uhtred and his priests drank of the skies",
-			"to empower runes... and themselves.",
+			"\"Suppression troop seven, the 'Glowering Faithful,' managed to fell the escaping",
+			"test subject by timing their arrows between his explosive dashes.\"",
+			"",
+			"^8This item can be anointed by Cassia",
 		},
 	},
-	[758] = {
-		id = "UniqueOneHandMace12",
-		name = "Serle's Masterwork",
+	[565] = {
+		id = "UniqueBootsDexInt5x",
+		name = "Replica Voidwalker",
 		text = {
-			"Truly great Artificers push the boundaries of the possible.",
+			"\"Test subject was able to walk into the walls of his chamber after breaking a rabbit's neck.",
+			"He was not fast enough, however. Suggest we begin excavation to retrieve prototype.\"",
 		},
 	},
-	[759] = {
-		id = "UniqueBootsExpedition1",
-		name = "Vorana's March",
+	[566] = {
+		id = "UniqueGlovesInt7x",
+		name = "Replica Grip of the Council",
 		text = {
-			"In their hour of desperate need, the Knights of the Sun",
-			"called out for aid... and the Black Scythe answered.",
+			"\"I feel altered when Administrator Qotra wears these gloves.",
+			"Somehow, I find that disturbing.\"",
+			"- Researcher Arn",
 		},
 	},
-	[760] = {
-		id = "UniqueHelmetStr12",
-		name = "Kaom's Command",
+	[567] = {
+		id = "UniqueGlovesStrInt6x",
+		name = "Replica Volkuur's Guidance",
 		text = {
-			"Kaom ordered the desecration of the Empire's dead.",
-			"There would be no rest or honours for the wicked.",
+			"\"Prototype #73 is a near perfect opposite of the original. Perhaps our failures",
+			"are due to some unknown polarity we have yet to discover.\"",
 		},
 	},
-	[761] = {
-		id = "UniqueHelmetExpedition1",
-		name = "Faithguard",
+	[568] = {
+		id = "UniqueHelmetDexInt2x",
+		name = "Replica Leer Cast",
 		text = {
-			"The priests of the Kalguur worshipped knowledge, not gods.",
+			"\"Prototype #412 seems to bear much in",
+			"common with Thought Extractor technology.\"",
 		},
 	},
-	[762] = {
-		id = "UniqueTwoHandAxe17",
-		name = "Starcaller",
+	[569] = {
+		id = "UniqueShieldDex8x",
+		name = "Replica Mistwall",
 		text = {
-			"What began in the stars was settled in blood, beneath an uncaring sky.",
+			"\"For personal defence, Prototype #444 is fantastic. It is one hundred percent",
+			"effective seventy five percent of the time... once.\"",
+			"- Lead Researcher Ksaret",
 		},
 	},
-	[763] = {
-		id = "UniqueGlovesExpedition1",
-		name = "Nightgrip",
+	[570] = {
+		id = "UniqueShieldStrInt9x",
+		name = "Replica Victario's Charity",
 		text = {
-			"Those heroes that set foot on Wraeclast found",
-			"themselves changing, only subtly at first...",
+			"\"Close to the original, and perhaps even more useful. However,",
+			"close is not what we are looking for. Keep trying.\"",
+			"- Administrator Qotra",
 		},
 	},
-	[764] = {
-		id = "UniqueAmulet80",
-		name = "Whispers of Infinity",
-		text = {
-			"In the Atlas, you do not go mad. You are rewritten.",
-		},
-	},
-	[765] = {
-		id = "UniqueShieldInt16",
-		name = "The Scales of Justice",
-		text = {
-			"You shall be weighed and measured. You shall be judged...",
-			"and perhaps you shall be found worthy.",
-		},
-	},
-	[766] = {
-		id = "UniqueFlask35",
-		name = "Wine of the Prophet",
-		text = {
-			"\"To proclaim a vision of the future is to make it so,",
-			"for those that have the will, and the way!\"",
-			"- High Templar Andronicus",
-		},
-	},
-	[767] = {
-		id = "UniqueJewel157",
-		name = "Amanamu's Gaze",
-		text = {
-			"The Liege of the Lightless seeks dominion over the surface dwellers.",
-		},
-	},
-	[768] = {
-		id = "UniqueJewel156",
-		name = "Kurgal's Gaze",
-		text = {
-			"The Blackblooded seeks dominion over darkness itself.",
-		},
-	},
-	[769] = {
-		id = "UniqueHelmetInt28",
-		name = "The Dark Monarch",
-		text = {
-			"\"Hate? You speak to me of hate? You have no idea what your persecution inflicts.",
-			"How it chokes the heart. Withers the soul. Judge me, and you judge yourself.\"",
-			"- Saresh, last words, to Sekhema Orbala",
-		},
-	},
-	[770] = {
-		id = "UniqueJewel154",
-		name = "Tecrod's Gaze",
-		text = {
-			"The Hated Slave seeks dominion over his own kind.",
-		},
-	},
-	[771] = {
+	[571] = {
 		id = "UniqueBodyDexInt16",
 		name = "Seven Teachings",
 		text = {
@@ -6442,22 +4821,7 @@ return {
 			"perfection of the body and the will.",
 		},
 	},
-	[772] = {
-		id = "UniqueRing71",
-		name = "Triumvirate Authority",
-		text = {
-			"The priest that carried Yaomac's sigil was",
-			"granted one boon by each serpentine head.",
-		},
-	},
-	[773] = {
-		id = "UniqueStaff28",
-		name = "Atziri's Rule",
-		text = {
-			"Bow before her... or suffer the most gruelling death imaginable.",
-		},
-	},
-	[774] = {
+	[572] = {
 		id = "UniqueStaff35",
 		name = "Legacy of the Rose",
 		text = {
@@ -6467,15 +4831,16 @@ return {
 			"but I will never leave your side.",
 		},
 	},
-	[775] = {
-		id = "UniqueHelmetDexInt16",
-		name = "Glimpse of Chaos",
+	[573] = {
+		id = "UniqueDagger4x",
+		name = "Replica Heartbreaker",
 		text = {
-			"Man retains sanity and strives toward civilisation",
-			"only under the blessed veil of ignorance.",
+			"\"There is something incredibly satisfying about impaling test",
+			"subjects with Ethereal Knives. Perhaps it is the sound -",
+			"the spell, the screams, or both.\"  - Researcher Olesya",
 		},
 	},
-	[776] = {
+	[574] = {
 		id = "UniqueSceptre26",
 		name = "Cadigan's Authority",
 		text = {
@@ -6484,223 +4849,25 @@ return {
 			"continually leveraging the power of each against the next.",
 		},
 	},
-	[777] = {
-		id = "UniqueSceptre24",
-		name = "Yaomac's Accord",
+	[575] = {
+		id = "UniqueOneHandSword9x",
+		name = "Replica Dreamfeather",
 		text = {
-			"Their three serpentine heads found unity in balance.",
+			"\"Once we armoured the test subject heavily enough to test Prototype #502, he proceeded",
+			"to fight his way out. I don't know what we expected.\"",
+			"- Researcher Graven",
 		},
 	},
-	[778] = {
-		id = "UniqueGlovesStr10",
-		name = "Hateforge",
+	[576] = {
+		id = "UniqueSceptre19x",
+		name = "Replica Earendel's Embrace",
 		text = {
-			"The first Karui born on the fringes of the Vaal empire",
-			"developed a blood fever born of corruption.",
+			"\"Lord of Bone, Lord of Flesh, yet all that we can",
+			"master turns to ash.\"",
+			"- Researcher Arn",
 		},
 	},
-	[779] = {
-		id = "UniqueBodyDexInt17",
-		name = "Servant of Decay",
-		text = {
-			"Eaten away by anxiety and fear,",
-			"nothing remained but the void.",
-		},
-	},
-	[780] = {
-		id = "UniqueBodyDexInt14",
-		name = "Doppelgänger Guise",
-		text = {
-			"Within each of us exists a being of pure malice,",
-			"held back only by the lies we tell ourselves.",
-		},
-	},
-	[781] = {
-		id = "UniqueRing86",
-		name = "Coiling Whisper",
-		text = {
-			"I never knew fear until she was ripped away.",
-			"My promises were hollow ever after.",
-		},
-	},
-	[782] = {
-		id = "UniqueBelt42a",
-		name = "Arn's Anguish",
-		text = {
-			"The tortured thinker is made heavier by the weight of his guilt.",
-		},
-	},
-	[783] = {
-		id = "UniqueAmulet79",
-		name = "Venarius' Astrolabe",
-		text = {
-			"\"You grew up an orphan, and for that, you blame me.",
-			"Fair enough. So... why not let me erase that pain from your mind?",
-			"Then we can all stand united against the demons at the door...\"",
-		},
-	},
-	[784] = {
-		id = "UniqueRing69",
-		name = "Blackflame",
-		text = {
-			"Beyond the veil of death, there burns a fire",
-			"by whose light night is borne.",
-		},
-	},
-	[785] = {
-		id = "UniqueWand22",
-		name = "Mystic Refractor",
-		text = {
-			"\"Waging war is a simple matter of geometry and death.\"",
-			"- Trinian, Intellectus Prime",
-		},
-	},
-	[786] = {
-		id = "UniqueStaff27",
-		name = "The Fulcrum",
-		text = {
-			"To stand at the confluence of the elements,",
-			"the master must achieve perfect balance.",
-		},
-	},
-	[787] = {
-		id = "UniqueShieldStrDex6",
-		name = "The Ghastly Theatre",
-		text = {
-			"Never let the audience know your true form. Misdirect them,",
-			"beguile them. Strike when they least expect it.",
-		},
-	},
-	[788] = {
-		id = "UniqueRing87",
-		name = "Enmity's Embrace",
-		text = {
-			"In truth, your terror is cold",
-			"You mask it with heat and ire",
-			"But they know.",
-			"They know.",
-		},
-	},
-	[789] = {
-		id = "UniqueDagger20",
-		name = "The Hidden Blade",
-		text = {
-			"The shadow warrior moves like the wind;",
-			"his strikes land long after he is gone.",
-		},
-	},
-	[790] = {
-		id = "UniqueRing88",
-		name = "Betrayal's Sting",
-		text = {
-			"It is not a wound caused by an enemy that bites us twice.",
-			"It is the smile, the nod... the handshake... of a former friend.",
-		},
-	},
-	[791] = {
-		id = "UniqueJewel153",
-		name = "Nadir Mode",
-		text = {
-			"Indiscriminate destruction fueled by science gone mad.",
-		},
-	},
-	[792] = {
-		id = "UniqueRing90",
-		name = "Prospero's Protection",
-		text = {
-			"\"Worry not, my friend, that I tour in fineries.",
-			"The ostentation is all part of being a Perandus.",
-			"As long as I maintain my Vigilance,",
-			"nothing can harm the Empire... or me.\"",
-			"- Emperor Chitus, to Ondar",
-		},
-	},
-	[793] = {
-		id = "UniqueAmulet65",
-		name = "Leadership's Price",
-		text = {
-			"\"Remain poised. Remain balanced. Keep all the emotions of a lifetime caged.",
-			"Let only your enemies see the truth of your rage.\"",
-		},
-	},
-	[794] = {
-		id = "UniqueMercenaryShieldDex1",
-		name = "Azadi Crest",
-		text = {
-			"\"Keita expects an assassination attempt by stealth or subterfuge.",
-			"I say we attack head-on, like madmen. Let the fates decide.\"",
-			"- Azadi, first ancestor of the House Azadin",
-		},
-	},
-	[795] = {
-		id = "UniqueBodyDexInt13",
-		name = "The Admiral",
-		text = {
-			"The Oriathans built their empire on naval mobility, which allowed",
-			"them to wage war wherever their enemy was weakest.",
-		},
-	},
-	[796] = {
-		id = "UniqueBelt54",
-		name = "The Arkhon's Tools",
-		text = {
-			"Motion, purpose... craft. The fruits of my mind laboured",
-			"to build my wildest imaginings, never tiring, never faltering.",
-			"Life... or something like it, engineered in its image.",
-		},
-	},
-	[797] = {
-		id = "UniqueBow7x",
-		name = "Replica Infractem",
-		text = {
-			"\"How did you manage to lodge arrows in every single test subject",
-			"and researcher in Lab Three simultaneously... again?\"",
-			"- Doctor Bircus",
-		},
-	},
-	[798] = {
-		id = "UniqueRing91",
-		name = "Squirming Terror",
-		text = {
-			"Madness crawls under the skin,",
-			"bursting forth from the flesh.",
-		},
-	},
-	[799] = {
-		id = "UniqueTwoHandAxe6x",
-		name = "Replica Wings of Entropy",
-		text = {
-			"\"The remarkable imbalance of Prototype #848 leads to uncommon",
-			"power or speed when striking.\"",
-		},
-	},
-	[800] = {
-		id = "UniqueQuiver22",
-		name = "Spinehail",
-		text = {
-			"Enacting a grand vision requires cold-hearted sacrifice.",
-			"The loyal must be no more than fodder against the unwilling.",
-		},
-	},
-	[801] = {
-		id = "UniqueRing40",
-		name = "Essence Worm",
-		text = {
-			"\"This thing is not a pet. It is a parasite that feeds on the very will of its host.",
-			"Like any part of nightmare, it has found a way to make its price... acceptable.\"",
-			"- Malachai the Soulless",
-		},
-	},
-	[802] = {
-		id = "UniqueMercenaryHelmetStr1",
-		name = "Howlcrack",
-		text = {
-			"\"Our new capital will be called Korathin.",
-			"My slaves will build it. My price is dominion...",
-			"or blood.\" - Keita's Proclamation, 872 IC",
-		},
-	},
-	[803] = {
+	[577] = {
 		id = "UniqueTwoHandSword6x",
 		name = "Replica Oro's Sacrifice",
 		text = {
@@ -6709,33 +4876,55 @@ return {
 			"- Researcher Arn",
 		},
 	},
-	[804] = {
-		id = "UniqueIntHelmet1",
-		name = "Martyr's Crown",
+	[578] = {
+		id = "UniqueWand16x",
+		name = "Replica Tulfall",
 		text = {
-			"Lift it lightly, don it slow.",
-			"The spikes point out and in, you know.",
+			"\"Are we mad for attempting to build an engine out of this?",
+			"Looping cycles, power and pain...\"",
+			"- Researcher Arn",
 		},
 	},
-	[805] = {
-		id = "UniqueBelt18",
-		name = "Soulthirst",
+	[579] = {
+		id = "UniqueJewel20x",
+		name = "Replica Hotheaded",
 		text = {
-			"\"They say a draught of fine spirits will ward off",
-			"the elements and promote a longer, merrier life.",
-			"I have found this to be true on all counts.\"",
-			"- Zerphi of the Vaal",
+			"\"Does this jewel accomplish nothing? If only we could somehow",
+			"master cold and turn it to our own ends...\"",
+			"- Lead Researcher Ksaret",
 		},
 	},
-	[806] = {
-		id = "UniqueIntHelmet2",
-		name = "Asenath's Chant",
+	[580] = {
+		id = "UniqueJewel111x",
+		name = "Replica Pure Talent",
 		text = {
-			"Asenath's mind was as quick and nimble",
-			"as the fingers that drew her bowstring.",
+			"\"Twelve test subjects were expended in the production of Prototype #800.",
+			"Was it worth the expense? Only time will tell.\"",
 		},
 	},
-	[807] = {
+	[581] = {
+		id = "UniqueStaff9x",
+		name = "Replica Blood Thorn",
+		text = {
+			"\"Physical forces and flames seem to share some innate bond.",
+			"What logic lies beneath the veil of reality?\"",
+		},
+	},
+	[582] = {
+		id = "UniqueRing67",
+		name = "The Highwayman",
+		text = {
+			"Somebody does have to get hurt.",
+		},
+	},
+	[583] = {
+		id = "UniqueHelmetDexInt15",
+		name = "Willclash",
+		text = {
+			"Obtaining information depends upon pretending one already has it.",
+		},
+	},
+	[584] = {
 		id = "UniqueBootsStr7x",
 		name = "Replica Red Trail",
 		text = {
@@ -6744,890 +4933,373 @@ return {
 			"- Administrator Qotra",
 		},
 	},
-	[808] = {
-		id = "UniqueIntHelmet3",
-		name = "Chitus' Apex",
+	[585] = {
+		id = "UniqueBootsInt4x",
+		name = "Replica Bones of Ullr",
 		text = {
-			"\"It takes true strength to hold power,",
-			"and my grip grows tighter by the day.\"",
-			"- Emperor Chitus",
+			"\"Outpost Twelve has been abandoned. On the bright side, I expect the plague of apparitions",
+			"to serve as ample defence for the relics we left behind.\"",
+			"- Administrator Qotra",
 		},
 	},
-	[809] = {
-		id = "UniqueMercenaryBootsInt1",
-		name = "Scornflux",
+	[586] = {
+		id = "UniqueJewel71x",
+		name = "Replica Cheap Construction",
 		text = {
-			"The grave insult had to be answered; in a mystic flash,",
-			"Bardiya crossed the room and struck Cyaxan.",
-			"Thus began the War of the Great Families.",
+			"\"A curious jewel. Like so many others, a shining little paradox.\"",
 		},
 	},
-	[810] = {
-		id = "UniqueStrHelmet2",
-		name = "Hrimnor's Resolve",
+	[587] = {
+		id = "UniqueBootsInt8x",
+		name = "Replica Inya's Epiphany",
 		text = {
-			"Hrimnor's presence was as cold as ice,",
-			"but his heart burned for vengeance.",
+			"\"Prototype #56 was deemed safe, but judging by Administrator Qotra's new hustle",
+			"and improved ability to micromanage us, I'm not so sure.\"",
+			"- Researcher Graven",
 		},
 	},
-	[811] = {
-		id = "UniqueRing60",
-		name = "Circle of Guilt",
+	[588] = {
+		id = "UniqueFlask4x",
+		name = "Replica Lavianga's Spirit",
 		text = {
-			"I feel the moral weight of what I must do to protect Wraeclast.",
-			"I accept my guilt without shame. It is my gift to humanity.",
+			"\"An intriguing paradox.\"",
 		},
 	},
-	[812] = {
-		id = "UniqueStrDexHelmet1",
-		name = "The Peregrine",
+	[589] = {
+		id = "UniqueBelt40",
+		name = "Pyroshock Clasp",
 		text = {
-			"We wander to pass time.",
-			"We travel to fulfill.",
+			"Teach a man to burn, and you'll be warm for the rest of his life.",
 		},
 	},
-	[813] = {
-		id = "UniqueClaw4x",
-		name = "Replica Last Resort",
+	[590] = {
+		id = "UniqueGlovesDex7",
+		name = "Mercenary's Lot",
 		text = {
-			"\"An absurdly vicious weapon in the hands of our test subjects. It seems to",
-			"channel the desperate will to live. Intriguing.\"",
+			"Members of the House Azadin are trained from birth to join the",
+			"family profession. The target changes, but the job's always the same.",
+		},
+	},
+	[591] = {
+		id = "UniqueShieldDexInt7",
+		name = "Font of Thunder",
+		text = {
+			"The lightning fears not the flame.",
+		},
+	},
+	[592] = {
+		id = "UniqueBodyStr12",
+		name = "Blunderbore",
+		text = {
+			"The giant cares not for the ants.",
+		},
+	},
+	[593] = {
+		id = "UniqueBelt39",
+		name = "The Druggery",
+		text = {
+			"\"This will help with the pain.",
+			"One for you... and one for me.\"",
+			"- Doctor 'Shaky Hands' Opden",
+		},
+	},
+	[594] = {
+		id = "UniqueTwoHandMace6x",
+		name = "Replica Kongor's Undying Rage",
+		text = {
+			"\"Prototype #599 offers an incredible defensive power, but at a cost.",
+			"What underlying physics are at play here, I wonder?\"",
+		},
+	},
+	[595] = {
+		id = "UniqueSceptre21x",
+		name = "Replica Nebulis",
+		text = {
+			"\"We could rival the gods with this power, if only we had the mitigating mechanisms",
+			"to make it work. A jewel, a talisman, an armour... or the Font...\"",
+		},
+	},
+	[596] = {
+		id = "UniqueOneHandMace10x",
+		name = "Replica Frostbreath",
+		text = {
+			"\"Three test subjects confirmed Prototype #495 creates an additional",
+			"debilitating effect from poisons. This could be very useful.\"",
+		},
+	},
+	[597] = {
+		id = "UniqueTwoHandAxe6x",
+		name = "Replica Wings of Entropy",
+		text = {
+			"\"The remarkable imbalance of Prototype #848 leads to uncommon",
+			"power or speed when striking.\"",
+		},
+	},
+	[598] = {
+		id = "UniqueTwoHandMace10x",
+		name = "Replica Trypanon",
+		text = {
+			"\"The best place for this prototype would be in the hands of our enemies.\"",
+		},
+	},
+	[599] = {
+		id = "UniqueRing68",
+		name = "Fated End",
+		text = {
+			"All roads lead to that destined doom.",
+		},
+	},
+	[600] = {
+		id = "UniqueStaff17x",
+		name = "Replica Duskdawn",
+		text = {
+			"\"Lab Two suffered significant structural damage in the process of creating",
+			"Prototype #77. It is, however, the closest we've come to perfection.\"",
+		},
+	},
+	[601] = {
+		id = "UniqueBow7x",
+		name = "Replica Infractem",
+		text = {
+			"\"How did you manage to lodge arrows in every single test subject",
+			"and researcher in Lab Three simultaneously... again?\"",
+			"- Doctor Bircus",
+		},
+	},
+	[602] = {
+		id = "UniqueStaff4x",
+		name = "Replica Fencoil",
+		text = {
+			"\"Attempt #306: The power I can sense in this ancient branch",
+			"still eludes me. Perhaps if I attach some string and a hook...\"",
+		},
+	},
+	[603] = {
+		id = "UniqueWand9x",
+		name = "Replica Twyzel",
+		text = {
+			"\"Energy redirected is energy imbalanced.",
+			"Prototype #78 serves as a prime example.\"",
+		},
+	},
+	[604] = {
+		id = "UniqueWand2x",
+		name = "Replica Midnight Bargain",
+		text = {
+			"\"Simply incredible. I caught an escaping test subject myself with",
+			"swarms of burning skulls. Delightful!\"",
 			"- Researcher Olesya",
 		},
 	},
-	[814] = {
-		id = "UniqueHelmetStrInt1",
-		name = "Honourhome",
+	[605] = {
+		id = "UniqueJewel150",
+		name = "Lord of Steel",
 		text = {
-			"\"The craven mind is sharp with self interest.",
-			"The honourable mind is much easier to manipulate.\"",
-			"- Malachai the Soulless",
+			"Quenched, the blade hardens, becomes brittle.",
+			"The edge will not last forever,",
+			"But when it breaks, its service will continue.",
 		},
 	},
-	[815] = {
-		id = "UniqueGlovesStrInt6x",
-		name = "Replica Volkuur's Guidance",
+	[606] = {
+		id = "UniqueFlask7x",
+		name = "Replica Rumi's Concoction",
 		text = {
-			"\"Prototype #73 is a near perfect opposite of the original. Perhaps our failures",
-			"are due to some unknown polarity we have yet to discover.\"",
+			"\"The most terrifying split second of my life.\"",
+			"- Researcher Graven",
 		},
 	},
-	[816] = {
-		id = "UniqueHelmetStrInt2",
-		name = "Geofri's Legacy",
+	[607] = {
+		id = "UniqueJewel74x",
+		name = "Replica Unstable Payload",
 		text = {
-			"In the battle for honour, Geofri won.",
-			"Not so, the battle for survival.",
+			"\"Researchers will refrain from giving test subjects virtue gems which produce traps.",
+			"We are still finding explosives in the vents months later.\"",
+			"- Administrator Qotra",
 		},
 	},
-	[817] = {
-		id = "UniqueWand12",
-		name = "Storm Prison",
+	[608] = {
+		id = "UniqueCorruptedJewel14x",
+		name = "Replica Blood Sacrifice",
 		text = {
-			"You can never truly tame the tempest.",
-			"You can barely even leash it.",
+			"\"You know what to do with this, don't you?\" - Researcher Graven",
+			"\"Kill test subjects for their vitality?\" - Researcher Olesya",
+			"\"That is not what he meant.\" - Researcher Arn",
 		},
 	},
-	[818] = {
-		id = "UniqueAmulet4",
-		name = "Ngamahu Tiki",
+	[609] = {
+		id = "UniqueAmulet65",
+		name = "Leadership's Price",
 		text = {
-			"It is said to make you invisible when the Great",
-			"Spirit comes to take you on your final journey.",
+			"\"Remain poised. Remain balanced. Keep all the emotions of a lifetime caged.",
+			"Let only your enemies see the truth of your rage.\"",
 		},
 	},
-	[819] = {
-		id = "UniqueBootsDexInt5x",
-		name = "Replica Voidwalker",
+	[610] = {
+		id = "UniqueJewel152",
+		name = "Apex Mode",
 		text = {
-			"\"Test subject was able to walk into the walls of his chamber after breaking a rabbit's neck.",
-			"He was not fast enough, however. Suggest we begin excavation to retrieve prototype.\"",
+			"Maximum power fueled by science gone mad.",
 		},
 	},
-	[820] = {
-		id = "UniqueBootsInt1",
-		name = "Greedtrap",
+	[611] = {
+		id = "UniqueJewel153",
+		name = "Nadir Mode",
 		text = {
-			"Wonders abound at death's door.",
+			"Indiscriminate destruction fueled by science gone mad.",
 		},
 	},
-	[821] = {
-		id = "UniqueBow14",
-		name = "Iron Commander",
+	[612] = {
+		id = "UniqueJewel148",
+		name = "Endless Misery",
 		text = {
-			"The Eternals commanded an army that need not eat, sleep, or breathe",
-			"without the usual depravities of necromancy.",
+			"The sky, the land, the people burned.",
+			"What little still stood soon faced wild, battering storms.",
+			"Winter arrived suddenly and stayed for a generation.",
+			"Civilisation was not simply halted, but reversed, erased.",
 		},
 	},
-	[822] = {
-		id = "UniqueDagger2",
-		name = "Mightflay",
+	[613] = {
+		id = "UniqueHelmetStrInt19",
+		name = "Maw of Mischief",
 		text = {
-			"A mighty beast, a lavish feast.",
+			"The line that divides hope and fear,",
+			"life and death, crowd and mob,",
+			"is as thin as a whisper.",
 		},
 	},
-	[823] = {
-		id = "UniqueBodyDexInt11x",
-		name = "Replica Eternity Shroud",
+	[614] = {
+		id = "UniqueDagger20",
+		name = "The Hidden Blade",
 		text = {
-			"\"The form of this replica came to me in a troubled dream.",
-			"I do not believe we should ever allow it to be used.\"",
-			"- Researcher Arn",
+			"The shadow warrior moves like the wind;",
+			"his strikes land long after he is gone.",
 		},
 	},
-	[824] = {
-		id = "UniqueBootsStrDex1",
-		name = "Lioneye's Paws",
+	[615] = {
+		id = "UniqueHelmetStrDex8",
+		name = "Crest of Desire",
 		text = {
-			"Stand and lead the righteous pride,",
-			"Fight till death, never hide.",
+			"Expand one single ambition to crystal clarity... and beyond.",
 		},
 	},
-	[825] = {
-		id = "UniqueJewel70",
-		name = "Spirit Guards",
+	[616] = {
+		id = "UniqueShieldStrDex6",
+		name = "The Ghastly Theatre",
 		text = {
-			"Long after the Karui passed through,",
-			"the whispers of those who stood their ground",
-			"at Lioneye's Watch could be heard amongst the rubble.",
+			"Never let the audience know your true form. Misdirect them,",
+			"beguile them. Strike when they least expect it.",
 		},
 	},
-	[826] = {
-		id = "UniqueBootsStrInt1",
-		name = "Wake of Destruction",
+	[617] = {
+		id = "UniqueStaff27",
+		name = "The Fulcrum",
 		text = {
-			"Tempest's power given form,",
-			"Flee before the walking storm.",
+			"To stand at the confluence of the elements,",
+			"the master must achieve perfect balance.",
 		},
 	},
-	[827] = {
-		id = "UniqueBelt7x",
-		name = "Replica Headhunter",
+	[618] = {
+		id = "UniqueShieldDexInt8",
+		name = "Qotra's Regulator",
 		text = {
-			"\"A type Delta test subject escaped with Prototype #18. He was last seen",
-			"ten times the height of a man and crashing straight through walls.\"",
+			"Horrific experiments with corrupted flesh require careful management.",
 		},
 	},
-	[828] = {
-		id = "UniqueBootsInt2",
-		name = "Wanderlust",
+	[619] = {
+		id = "UniqueRing69",
+		name = "Blackflame",
 		text = {
-			"All the world is my home.",
+			"Beyond the veil of death, there burns a fire",
+			"by whose light night is borne.",
 		},
 	},
-	[829] = {
-		id = "UniqueJewel69",
-		name = "Volley Fire",
+	[620] = {
+		id = "UniqueBelt41",
+		name = "Survivor's Guilt",
 		text = {
-			"Lioneye's men stood at the walls,",
-			"eyeing the savages that walked the beach below.",
-			"With a single word,",
-			"a thousand bodies, and ten thousand arrows,",
-			"would litter the sands.",
+			"The burden falls heaviest not on those that died,",
+			"but on those that did not.",
 		},
 	},
-	[830] = {
-		id = "UniqueBootsInt3",
-		name = "Shavronne's Gambit",
+	[621] = {
+		id = "UniqueGlovesStrInt12",
+		name = "Hand of the Fervent",
 		text = {
-			"Shavronne raced to Brutus' side,",
-			"her last hope against the Karui tide.",
+			"A sacrifice of blood calls forth His vengeance.",
+			"Let the righteous become the Hand of God.",
 		},
 	},
-	[831] = {
-		id = "UniqueClaw6",
-		name = "Al Dhih",
+	[622] = {
+		id = "UniqueRing70",
+		name = "Rotblood Promise",
 		text = {
-			"\"When the hyena howls thrice",
-			"death is sure to follow.\"",
-			"-Maraketh Wisdom",
+			"Accept the infection, let it take hold.",
+			"Then carry it far and wide.",
 		},
 	},
-	[832] = {
-		id = "UniqueBootsDexInt1",
-		name = "Sunspite",
+	[623] = {
+		id = "UniqueDagger21",
+		name = "Goblinedge",
 		text = {
-			"Blazing body, shining bold.",
-			"Dance beneath the orb of gold!",
+			"\"That bronze girl sure knows how to cut someone down to size!\"",
+			"- Bertrand the Plush",
 		},
 	},
-	[833] = {
-		id = "UniqueJewel68",
-		name = "Rapid Expansion",
+	[624] = {
+		id = "UniqueHelmetStrInt21",
+		name = "Ancient Skull",
 		text = {
-			"Chitus began to aggressively expand his empire",
-			"into neighbouring nations at great human cost.",
-			"But for absolute power, there is no price",
-			"that a Perandus won't pay.",
+			"Primordial rage slumbers, waiting for the call",
+			"of the stars to return and swallow the world.",
 		},
 	},
-	[834] = {
-		id = "UniqueBootsStr1",
-		name = "Windshriek",
+	[625] = {
+		id = "UniqueBelt42a",
+		name = "Arn's Anguish",
 		text = {
-			"The mocking wind, a shielding spell,",
-			"The haunting screams, a maddening hell.",
+			"The tortured thinker is made heavier by the weight of his guilt.",
 		},
 	},
-	[835] = {
-		id = "UniqueAmulet64",
-		name = "The Ephemeral Bond",
+	[626] = {
+		id = "UniqueBelt42b",
+		name = "Olesya's Delight",
 		text = {
-			"For how little time they had together,",
-			"their love was all the more powerful.",
+			"The cruel thinker finds glee in torture most precise.",
 		},
 	},
-	[836] = {
-		id = "UniqueJewel67",
-		name = "Dead Reckoning",
+	[627] = {
+		id = "UniqueBelt42c",
+		name = "Graven's Secret",
 		text = {
-			"A mage from the coast rode up on a broken nag, legs burnt to his bones.",
-			"Before he collapsed, he uttered:",
-			"\"I watched the world we know end yesterday.\"",
+			"The cowardly thinker's greatest success is simply surviving.",
 		},
 	},
-	[837] = {
-		id = "UniqueGlovesDex2",
-		name = "Maligaro's Virtuosity",
+	[628] = {
+		id = "UniqueBootsStrDex7",
+		name = "Legacy of Fury",
 		text = {
-			"Maligaro operated effortlessly,",
-			"with great speed and terrible consequences.",
+			"All that was loved, all that was hated -",
+			"naught remains but ash.",
 		},
 	},
-	[838] = {
-		id = "UniqueBodyDexInt3x",
-		name = "Replica Restless Ward",
+	[629] = {
+		id = "UniqueHelmetStrInt20",
+		name = "Viridi's Veil",
 		text = {
-			"\"Further research must be done on Prototype #282.",
-			"There is power here, if it can be tapped.\"",
-		},
-	},
-	[839] = {
-		id = "UniqueGlovesStrDex1",
-		name = "Slitherpinch",
-		text = {
-			"A soft caress in dead of night,",
-			"that slips about the neck, so tight.",
-		},
-	},
-	[840] = {
-		id = "UniqueTwoHandSword9",
-		name = "The Dancing Duo",
-		text = {
-			"Take your partners by the hand,",
-			"Keep your steps in time.",
-			"Swing together, spin apart,",
-			"And dance with death sublime.",
-		},
-	},
-	[841] = {
-		id = "UniqueGlovesStrDex2",
-		name = "Aurseize",
-		text = {
-			"Wealth is not to be borne lightly.",
-		},
-	},
-	[842] = {
-		id = "UniqueOneHandSword18x",
-		name = "Replica Innsbury Edge",
-		text = {
-			"\"The night-gaunts, they fly, soaring about in darkness beyond the ken of mankind.",
-			"I hear the silent whispers of their wings as they descend, for me, for me...\"",
-			"- Researcher Arn",
-		},
-	},
-	[843] = {
-		id = "UniqueGlovesInt1",
-		name = "Sadima's Touch",
-		text = {
-			"Wealth unspent is wealth wasted.",
-		},
-	},
-	[844] = {
-		id = "UniqueJewel44x",
-		name = "Replica Conqueror's Efficiency",
-		text = {
-			"\"The effect is subtle, but potentially lethal...\"",
-		},
-	},
-	[845] = {
-		id = "UniqueGlovesInt2",
-		name = "Doedre's Malevolence",
-		text = {
-			"While Doedre lacked Maligaro's sense of style,",
-			"she surpassed her master in pure malevolence.",
-		},
-	},
-	[846] = {
-		id = "UniqueAmulet10x",
-		name = "Replica Atziri's Foible",
-		text = {
-			"\"A rare unequivocal success, Prototype #11 causes wounds to heal so quickly",
-			"the type Delta test subject actually survived the entire testing regimen.\"",
-		},
-	},
-	[847] = {
-		id = "UniqueGlovesDexInt1",
-		name = "Ondar's Clasp",
-		text = {
-			"A single lightning strike fells a man.",
-			"A single knife stroke fells an empire.",
-		},
-	},
-	[848] = {
-		id = "UniqueOneHandSword14",
-		name = "Chitus' Needle",
-		text = {
-			"\"With this, I will weave the threads of fate",
-			"into a noose for our 'glorious' emperor.\"",
-			"- Chitus Perandus",
-		},
-	},
-	[849] = {
-		id = "UniqueGlovesStr1",
-		name = "Lochtonial Caress",
-		text = {
-			"Why cling to your sanity? It offers you nothing.",
-			"Surrender to me, and I will grant you everything.",
-		},
-	},
-	[850] = {
-		id = "UniqueBodyStr1x",
-		name = "Replica Kaom's Heart",
-		text = {
-			"\"Useless for our purposes, but perhaps we can sell Prototype #5",
-			"to an archmage to fund other experiments.\"",
-		},
-	},
-	[851] = {
-		id = "UniqueAmulet7",
-		name = "The Effigon",
-		text = {
-			"The light that reveals is the glare that blinds.",
-		},
-	},
-	[852] = {
-		id = "UniqueBodyDexInt12",
-		name = "Expedition's End",
-		text = {
-			"He may have returned from the frozen southern reaches,",
-			"but that doesn't mean he ever truly escaped them.",
-		},
-	},
-	[853] = {
-		id = "UniqueAmulet8",
-		name = "Astramentis",
-		text = {
-			"Mindless rage will shake the world,",
-			"Cunning lies will bend it.",
-			"Reckless haste will break the world,",
-			"And into darkness send it.",
-		},
-	},
-	[854] = {
-		id = "UniqueSceptre11",
-		name = "Spine of the First Claimant",
-		text = {
-			"Thousands gazed upon the doors of the great labyrinth,",
-			"at an Eternal Champion in steel and gold,",
-			"The first to challenge its treacherous traps.",
-			"To mark the occasion, Izaro had the Champion's remains gilded.",
-		},
-	},
-	[855] = {
-		id = "UniqueBelt1",
-		name = "Wurm's Molt",
-		text = {
-			"They say a lifetime of wisdom is carried",
-			"in every skin the great beasts shed.",
-		},
-	},
-	[856] = {
-		id = "UniqueOneHandAxe10",
-		name = "Actum",
-		text = {
-			"Better to act without thought",
-			"than to think without action.",
-		},
-	},
-	[857] = {
-		id = "UniqueBelt2",
-		name = "The Tactician",
-		text = {
-			"Few men cast a longer shadow",
-			"than the Great Meginord of the North.",
-		},
-	},
-	[858] = {
-		id = "UniqueGlovesStrDex7",
-		name = "Wyrmsign",
-		text = {
-			"Those who witness the shimmering scales of the wyrm",
-			"know only fear for the rest of their lives.",
-			"Fortunately, the rest of their lives",
-			"can be measured in seconds.",
-		},
-	},
-	[859] = {
-		id = "UniqueBelt3",
-		name = "Perandus Blazon",
-		text = {
-			"A large enough debt turns even a friend",
-			"into an enemy, and the Perandus family",
-			"had more debtors than anyone.",
-		},
-	},
-	[860] = {
-		id = "UniqueGlovesInt4x",
-		name = "Replica Kalisa's Grace",
-		text = {
-			"\"Our superiors were getting anxious for results, and lowered security standards.",
-			"A single attempt of a spell with this unexpected power destroyed an entire floor.\"",
-		},
-	},
-	[861] = {
-		id = "UniqueBelt4",
-		name = "Meginord's Girdle",
-		text = {
-			"Kaom's strength was rivaled only by",
-			"the great Meginord of the north.",
-		},
-	},
-	[862] = {
-		id = "UniqueWand11",
-		name = "Obliteration",
-		text = {
-			"We forge order from the world around us",
-			"Wielding anarchy and destruction as our tools of genesis.",
-		},
-	},
-	[863] = {
-		id = "UniqueShieldStrDex1",
-		name = "Daresso's Courage",
-		text = {
-			"By tourney's end, Daresso bled and shivered.",
-			"Yet even accursed treachery failed to steal the champion's victory.",
-		},
-	},
-	[864] = {
-		id = "UniqueQuiver15x",
-		name = "Replica Maloney's Mechanism",
-		text = {
-			"\"The Midnight Tinkerer's aid was invaluable during our brief alliance,",
-			"but when we failed to make any progress on resurrection, he continued his search elsewhere...\"",
-		},
-	},
-	[865] = {
-		id = "UniqueShieldInt1",
-		name = "Rathpith Globe",
-		text = {
-			"The Vaal emptied their slaves of beating hearts,",
-			"and left a mountain of twitching dead.",
-		},
-	},
-	[866] = {
-		id = "UniqueAmulet43",
-		name = "Presence of Chayula",
-		text = {
-			"The dreamer stirs, the world trembles.",
-		},
-	},
-	[867] = {
-		id = "UniqueShieldDex1",
-		name = "Kaltensoul",
-		text = {
-			"Cold, miserable and alone... but alive.",
-		},
-	},
-	[868] = {
-		id = "UniqueBelt23",
-		name = "Bisco's Leash",
-		text = {
-			"You were always there, by my side,",
-			"whether we sat or played.",
-			"Our friendship was a joyful ride,",
-			"I wish you could have stayed.",
-		},
-	},
-	[869] = {
-		id = "UniqueShieldDex2",
-		name = "Crest of Perandus",
-		text = {
-			"\"With piety and justice.\"",
-			"- Perandus family motto",
-		},
-	},
-	[870] = {
-		id = "UniqueJewel91",
-		name = "Collateral Damage",
-		text = {
-			"Malachai ran roughshod over every ethical boundary in pursuit of creating the ideal gemling.",
-			"For him, there was no doubt that the end would justify the means.",
-		},
-	},
-	[871] = {
-		id = "UniqueShieldStr1",
-		name = "Lioneye's Remorse",
-		text = {
-			"Marceus' unblemished shield is a testament",
-			"to his arrogance... and his fate.",
-		},
-	},
-	[872] = {
-		id = "UniqueJewel92",
-		name = "Sudden Ignition",
-		text = {
-			"After years of subterfuge, sabotage, and sacrifice,",
-			"Sarn had become a powder keg just waiting to explode.",
-			"Finally, Victario lit the match.",
-		},
-	},
-	[873] = {
-		id = "UniqueTwoHandAce2",
-		name = "Reaper's Pursuit",
-		text = {
-			"Accept your fate, or lie, pretend.",
-			"Death collects you in the end.",
-		},
-	},
-	[874] = {
-		id = "UniqueSceptre3",
-		name = "Mon'tregul's Grasp",
-		text = {
-			"With death as my ally, all the world is within my grasp.",
-		},
-	},
-	[875] = {
-		id = "UniqueTwoHandSword3",
-		name = "Terminus Est",
-		text = {
-			"His final sensation was of the executioner's blade.",
-			"It was not cold, instead warm and reassuring,",
-			"murmuring a promise of better times ahead.",
-			"Smiling, he returned death's embrace.",
-		},
-	},
-	[876] = {
-		id = "UniqueRing14",
-		name = "Perandus Signet",
-		text = {
-			"\"Our warehouses are bursting. Our vaults are full.",
-			"But our minds are still hungry.\"",
-			"- Medici Perandus, Prefect to the Treasury",
-		},
-	},
-	[877] = {
-		id = "UniqueRapier1",
-		name = "Tipua Kaikohuru",
-		text = {
-			"She paints her offer in wicked hues",
-			"An off-white grin, an elegant bruise.",
-			"To the nascent scourge she sings the ruse:",
-			"\"With me in hand, what else need you use?\"",
-		},
-	},
-	[878] = {
-		id = "UniqueAmulet62",
-		name = "Retaliation Charm",
-		text = {
-			"An eye for an eye.",
-		},
-	},
-	[879] = {
-		id = "UniqueJewel95",
-		name = "Omen on the Winds",
-		text = {
-			"As Malachai stepped into the Highgate mines,",
-			"cold winds billowed from the mountain above.",
-			"One final, feeble attempt to save what was meant to be eternal.",
-		},
-	},
-	[880] = {
-		id = "UniqueHelmetDexInt14",
-		name = "The Tempest's Liberation",
-		text = {
-			"<<HBGAa>><<HBG01>><<HBGAf>><<HBG00>><<HBGC03>>",
-			"<<HBGAr>><<HBG03>><<HBGAy>><<HBG00>><<HBGAt>>",
-			"<<HBGAf>><<HBG02>><<HBGAr>><<HBG03>><<HBGAa>>",
-		},
-	},
-	[881] = {
-		id = "UniqueShieldStrInt1",
-		name = "Saffell's Frame",
-		text = {
-			"A swift mind solves problems before they occur.",
-		},
-	},
-	[882] = {
-		id = "UniqueShieldStrInt14",
-		name = "The Immortal Will",
-		text = {
-			"<<HBGAa>><<HBG00>><<HBGAt>>",
-			"<<HBGAa>><<HBG04>><<HBGAp>>",
-			"<<HBGAa>><<HBG01>><<HBGAn>><<HBG04>><<HBGC01>>",
-			"<<HBGAf>><<HBG02>><<HBGC05>>",
-		},
-	},
-	[883] = {
-		id = "UniqueHelmetInt4",
-		name = "Rime Gaze",
-		text = {
-			"The malice in her gaze froze blood and shattered bone.",
-		},
-	},
-	[884] = {
-		id = "UniqueOneHandSword32",
-		name = "The Surging Thoughts",
-		text = {
-			"<<HBGAf>><<HBG02>><<HBGAm>><<HBG03>><<HBGAa>>",
-			"<<HBGAk>><<HBG03>><<HBGC011>><<HBGAl>><<HBG03>><<HBGAo>><<HBGAe>>",
-			"<<HBGC011>><<HBGAa>><<HBG00>><<HBGC07>>",
-		},
-	},
-	[885] = {
-		id = "UniqueWand1",
-		name = "Moonsorrow",
-		text = {
-			"Cast into darkness",
-			"And trapped for a thousand years,",
-			"The lonely moon weeps",
-		},
-	},
-	[886] = {
-		id = "UniqueJewel98",
-		name = "Might and Influence",
-		text = {
-			"Emperor Chitus could offer you a gift with one hand,",
-			"and drive a blade into your back with the other.",
-			"His blend of brutality and charisma cultured a potent",
-			"mixture of fear and admiration among the masses.",
-		},
-	},
-	[887] = {
-		id = "UniqueHelmetStrDex2",
-		name = "Devoto's Devotion",
-		text = {
-			"Swift as thought are the actions of Man",
-			"when borne on wings of divine providence.",
-		},
-	},
-	[888] = {
-		id = "UniqueJewel99",
-		name = "Frozen Trail",
-		text = {
-			"The Maraketh knew that a mountain path",
-			"free of vegetation was cut by regular avalanches,",
-			"and so the advancing Eternals were unwittingly drawn into a deathtrap.",
-		},
-	},
-	[889] = {
-		id = "UniqueShieldStrInt2",
-		name = "Prism Guardian",
-		text = {
-			"When blood is paid, the weak think twice.",
-		},
-	},
-	[890] = {
-		id = "UniqueJewel100",
-		name = "Ring of Blades",
-		text = {
-			"At night, as a young Daresso shared his bed with a woman whose name he could not recall,",
-			"his thoughts remained in the one place he called his own: The Grand Arena.",
-		},
-	},
-	[891] = {
-		id = "UniqueShieldStrInt3",
-		name = "The Oak",
-		text = {
-			"From death springs life.",
-		},
-	},
-	[892] = {
-		id = "UniqueJewel102",
-		name = "Inevitability",
-		text = {
-			"Izaro gave rise to Chitus.",
-			"Chitus gave rise to Voll.",
-			"None could know how it would end.",
-			"None could stop it.",
-		},
-	},
-	[893] = {
-		id = "UniqueTwoHandMace3",
-		name = "Marohi Erqi",
-		text = {
-			"Lumbering as a sea lion, clumsy as a berry-drunk pigeon. That was Erqi.",
-			"It mattered little. When Erqi's maul fell true, so did its target.",
-		},
-	},
-	[894] = {
-		id = "UniqueJewel103",
-		name = "Winter Burial",
-		text = {
-			"Exposure led to the deaths of many slaves.",
-			"And it was the duty of slaves to bury the dead in the frozen ground.",
-			"A growing circle of misery and death",
-			"that the elite were all too happy to sustain.",
-		},
-	},
-	[895] = {
-		id = "UniqueAmulet9",
-		name = "Carnage Heart",
-		text = {
-			"Forged from the blood of countless wars,",
-			"its thirst has only begun.",
-		},
-	},
-	[896] = {
-		id = "UniqueJewel104",
-		name = "Spreading Rot",
-		text = {
-			"The Cataclysm was but the first act in a play of horrors.",
-			"The dead lingered, and the living began to rot.",
-		},
-	},
-	[897] = {
-		id = "UniqueGlovesStr2",
-		name = "Meginord's Vise",
-		text = {
-			"Ride with pride,",
-			"strike with vengeance,",
-			"live with honour.",
-		},
-	},
-	[898] = {
-		id = "UniqueJewel105",
-		name = "Violent Dead",
-		text = {
-			"\"Rage, malice, hunger - some traits are more easily carried across the barrier of death.\"",
-			"- Kadavrus, Surgeon to the Umbra",
-		},
-	},
-	[899] = {
-		id = "UniqueGlovesDexInt2",
-		name = "Facebreaker",
-		text = {
-			"Fly like a Storm Crow, crush like a Rhoa",
-		},
-	},
-	[900] = {
-		id = "UniqueFlask12",
-		name = "Rotgut",
-		text = {
-			"Rancid, rotten, and wicked are those that dare to taste my serum.",
-		},
-	},
-	[901] = {
-		id = "UniqueBootsDex11",
-		name = "Garukhan's Flight",
-		text = {
-			"The higher you soar, the further you must fall.",
-		},
-	},
-	[902] = {
-		id = "UniqueStaff25",
-		name = "Witchhunter's Judgment",
-		text = {
-			"The pyre is never wasted on just one heretic.",
-		},
-	},
-	[903] = {
-		id = "UniqueTwoHandAxe15",
-		name = "Debeon's Dirge",
-		text = {
-			"A sharp and heavy beat,",
-			"discorded, out of tune,",
-			"when you hear it on the wind,",
-			"you know death will follow soon.",
-		},
-	},
-	[904] = {
-		id = "UniqueGlovesStr6",
-		name = "Winds of Change",
-		text = {
-			"Izaro was slow to see the treachery growing in his own court",
-			"and powerless to stop it once he had;",
-			"a captain sailing his own ship into rocks.",
-		},
-	},
-	[905] = {
-		id = "UniqueFlask22",
-		name = "The Wise Oak",
-		text = {
-			"The summer sun dries the soil and burns the leaves.",
-			"The autumn rain extinguishes the flames.",
-			"The spring bloom shades the wet earth.",
-			"Nature is an eternal tug of war.",
-		},
-	},
-	[906] = {
-		id = "UniqueTwoHandMace12",
-		name = "Tidebreaker",
-		text = {
-			"The sea strikes the rock relentlessly.",
-			"Whether in one day or in ten thousand years,",
-			"eventually the rock will crumble,",
-			"and the Brine King's domain will grow.",
-		},
-	},
-	[907] = {
-		id = "UniqueTwoHandSword6",
-		name = "Oro's Sacrifice",
-		text = {
-			"Give yourself to the flames and your name",
-			"will burn in the minds of men forever.",
-		},
-	},
-	[908] = {
-		id = "UniqueStaff18",
-		name = "Martyr of Innocence",
-		text = {
-			"You have been found guilty.",
-			"Let the fires cleanse you of your sins.",
-		},
-	},
-	[909] = {
-		id = "UniqueBodyStr11",
-		name = "Perfidy",
-		text = {
-			"The Trickster God turned the very Day and Night against each other.",
-			"What hope have you?",
-		},
-	},
-	[910] = {
-		id = "UniqueBodyDexInt7",
-		name = "Bloodbond",
-		text = {
-			"What mother wouldn't give her life for that of her children?",
-		},
-	},
-	[911] = {
-		id = "UniqueOneHandSword5",
-		name = "Prismatic Eclipse",
-		text = {
-			"\"A raging Solaris seared and contorted the orb's surface.",
-			"A despairing Lunaris filled the scars with her tears.",
-			"Yet Viridi remained, trapped within, forever more.\"",
+			"\"Her sisters eternally fought for that shining apex in the skies,",
+			"but Viridi instead found strength in humility.\"",
 			"- Azmerian Creation Myth",
 		},
 	},
-	[912] = {
-		id = "UniqueBelt24",
-		name = "Ryslatha's Coil",
+	[630] = {
+		id = "UniqueBodyDexInt14",
+		name = "Doppelgänger Guise",
 		text = {
-			"All creatures have the potential for greatness",
-			"or unequivocal failure.",
+			"Within each of us exists a being of pure malice,",
+			"held back only by the lies we tell ourselves.",
 		},
 	},
-	[913] = {
-		id = "UniqueGlovesDexInt15",
-		name = "Machina Mitts",
-		text = {
-			"Biology is but a machine, begetting effusion of energies;",
-			"death is but a curse, that can be given... or reversed.",
-		},
-	},
-	[914] = {
+	[631] = {
 		id = "UniqueStaff1",
 		name = "The Searing Touch",
 		text = {
@@ -7635,17 +5307,7 @@ return {
 			"Rule a world, bathed in flame.",
 		},
 	},
-	[915] = {
-		id = "UniqueRing16",
-		name = "Ming's Heart",
-		text = {
-			"Ming slew Tranquillity",
-			"Took Chaos for his wife",
-			"And on Her immortal finger",
-			"He placed his Heart",
-		},
-	},
-	[916] = {
+	[632] = {
 		id = "UniqueHelmetStrInt7",
 		name = "Speaker's Wreath",
 		text = {
@@ -7654,14 +5316,7 @@ return {
 			"can take you to the edge of the world.",
 		},
 	},
-	[917] = {
-		id = "UniqueBelt33",
-		name = "Siegebreaker",
-		text = {
-			"Poison the land and they'll have nothing to defend.",
-		},
-	},
-	[918] = {
+	[633] = {
 		id = "UniqueHelmetStrInt9",
 		name = "Ahn's Contempt",
 		text = {
@@ -7670,14 +5325,7 @@ return {
 			"- Icius Perandus, Antiquities Collection, Item 48",
 		},
 	},
-	[919] = {
-		id = "UniqueAmulet57",
-		name = "Badge of the Brotherhood",
-		text = {
-			"Greater than any blade, agility and intellect will be your weapons.",
-		},
-	},
-	[920] = {
+	[634] = {
 		id = "UniqueOneHandSword24",
 		name = "Ahn's Might",
 		text = {
@@ -7687,14 +5335,7 @@ return {
 			"- Icius Perandus, Antiquities Collection, Item 47",
 		},
 	},
-	[921] = {
-		id = "UniqueHelmetInt22",
-		name = "Wreath of Phrecia",
-		text = {
-			"The Light drove the darkness from our lands and from our hearts.",
-		},
-	},
-	[922] = {
+	[635] = {
 		id = "UniqueBootsInt8",
 		name = "Inya's Epiphany",
 		text = {
@@ -7702,21 +5343,7 @@ return {
 			"each journey is different.",
 		},
 	},
-	[923] = {
-		id = "UniqueSceptre22",
-		name = "Sign of the Sin Eater",
-		text = {
-			"A secret few among the Templars grant absolution by bearing the guilt of others.",
-		},
-	},
-	[924] = {
-		id = "UniqueBodyDex3",
-		name = "Ashrend",
-		text = {
-			"The blasted oak stands forever.",
-		},
-	},
-	[925] = {
+	[636] = {
 		id = "UniqueBodyDex12",
 		name = "Yriel's Fostering",
 		text = {
@@ -7726,14 +5353,7 @@ return {
 			"It is suffering that forges the greatest warriors.",
 		},
 	},
-	[926] = {
-		id = "UniqueBodyInt2",
-		name = "Cloak of Flame",
-		text = {
-			"He who sows an ember shall reap an inferno.",
-		},
-	},
-	[927] = {
+	[637] = {
 		id = "UniqueHelmetInt12",
 		name = "Eber's Unification",
 		text = {
@@ -7743,16 +5363,7 @@ return {
 			"and inexorably we inch towards oneness.",
 		},
 	},
-	[928] = {
-		id = "UniqueAmulet56",
-		name = "Tavukai",
-		text = {
-			"\"Hyrri and her arrows broke the sacred code, damning herself.",
-			"Kaom seized her sacrifice, and in doing so, seized victory.\"",
-			"- Lavianga, Advisor to Kaom",
-		},
-	},
-	[929] = {
+	[638] = {
 		id = "UniqueJewel107",
 		name = "From Dust",
 		text = {
@@ -7762,17 +5373,7 @@ return {
 			"and in this way the crematorium guaranteed it would have many customers.",
 		},
 	},
-	[930] = {
-		id = "UniqueHelmetInt21",
-		name = "Maw of Conquest",
-		text = {
-			"Young Napuatzi was thrown into the pits, an unwilling sacrifice,",
-			"but the offer of her blood was refused.",
-			"She rose from the pit alive and anew.",
-			"A Leader. A Conquerer. A Viper.",
-		},
-	},
-	[931] = {
+	[639] = {
 		id = "UniqueSceptre17",
 		name = "Balefire",
 		text = {
@@ -7781,86 +5382,50 @@ return {
 			"was a memory of that which was gone, a whisper of deeds undone.",
 		},
 	},
-	[932] = {
-		id = "UniqueGlovesDexInt14",
-		name = "Aukuna's Will",
-		text = {
-			"The Black Sekhema's trial had only just begun.",
-		},
-	},
-	[933] = {
+	[640] = {
 		id = "UniqueOneHandSword25",
 		name = "The Rippling Thoughts",
 		text = {
-			"<<HBGAa>><<HBG01>><<HBGAf>><<HBG02>><<HBGAc>><<HBG03>><<HBGAo>>",
-			"<<HBGAa>><<HBG01>><<HBGAf>><<HBG02>><<HBGAb>><<HBG03>><<HBGAv>>",
-			"<<HBGAa>><<HBG01>><<HBGAf>><<HBG02>><<HBGAw>><<HBG03>><<HBGAx>>",
-			"<<HBGAf>><<HBG02>><<HBGAw>><<HBG03>><<HBGAy>>",
 		},
 	},
-	[934] = {
+	[641] = {
 		id = "UniqueBelt25",
 		name = "The Flow Untethered",
 		text = {
-			"<<HBGAa>><<HBG02>><<HBGAb>><<HBG03>><<HBG02>><<HBGAc>><<HBG03>><<HBGAd>>",
-			"<<HBGAa>><<HBG02>><<HBGAb>><<HBG03>><<HBG02>><<HBGAc>><<HBG03>><<HBGAe>>",
-			"<<HBGAa>><<HBG01>><<HBGAf>><<HBG02>><<HBGAg>><<HBG03>><<HBGAa>><<HBG01>><<HBGAb>>",
 		},
 	},
-	[935] = {
-		id = "UniqueHelmetStrInt16",
-		name = "Mask of the Tribunal",
-		text = {
-			"The judge determines worthiness by comparison to the paragon: himself.",
-		},
-	},
-	[936] = {
+	[642] = {
 		id = "UniqueShieldStrInt10",
 		name = "The Unshattered Will",
 		text = {
-			"<<HBGAh>><<HBG01>><<HBGAe>><<HBG00>><<HBGAp>>",
-			"<<HBGAa>><<HBG02>><<HBGAq>><<HBGAr>><<HBG03>><<HBGAl>>",
-			"<<HBGAa>><<HBG01>><<HBGAs>><<HBG00>><<HBG04>><<HBGAt>>",
 		},
 	},
-	[937] = {
-		id = "UniqueAmulet53",
-		name = "Aul's Uprising",
-		text = {
-			"It was not his fearlessness or ferocity, nor his tactical genius,",
-			"it was his leadership that earned Aul, the Last King, his crown.",
-		},
-	},
-	[938] = {
+	[643] = {
 		id = "UniqueQuiver13",
 		name = "The Fracturing Spinner",
 		text = {
-			"<<HBGAa>><<HBG01>><<HBGAc>><<HBG01>><<HBGAo>>",
-			"<<HBGAa>><<HBG01>><<HBGAe>><<HBG00>><<HBGAl>>",
-			"<<HBGAa>><<HBG01>><<HBGAf>><<HBG02>><<HBGAm>><<HBG03>><<HBGAc>><<HBG01>><<HBGAo>>",
 		},
 	},
-	[939] = {
+	[644] = {
 		id = "UniqueHelmetDexInt8",
 		name = "The Tempest's Binding",
 		text = {
-			"<<HBGAh>><<HBG01>><<HBGAe>><<HBG00>><<HBGAi>>",
-			"<<HBGAa>><<HBG02>><<HBGAj>><<HBGAk>>",
-			"<<HBGAa>><<HBG01>><<HBGAf>><<HBG02>><<HBGAl>><<HBG03>><<HBGAa>>",
-			"<<HBGAa>><<HBG01>><<HBGAf>><<HBG02>><<HBGAm>><<HBG03>><<HBGAa>><<HBG01>><<HBGAn>>",
 		},
 	},
-	[940] = {
+	[645] = {
 		id = "UniqueStaff20",
 		name = "The Enmity Divine",
 		text = {
-			"<<HBGAa>><<HBG02>><<HBGAq>><<HBG03>><<HBGAl>>",
-			"<<HBGAa>><<HBG01>><<HBGAn>><<HBG02>><<HBGAu>><<HBG00>><<HBGAv>>",
-			"<<HBGAa>><<HBG01>><<HBGAl>><<HBG02>><<HBG04>><<HBGAt>>",
-			"<<HBGAa>><<HBG01>><<HBGAn>><<HBG00>><<HBGAv>><<HBG02>><<HBGAu>><<HBG03>><<HBGAa>><<HBG01>><<HBGAf>><<HBG01>><<HBGAn>>",
 		},
 	},
-	[941] = {
+	[646] = {
+		id = "UniqueAmulet18",
+		name = "Ungil's Harmony",
+		text = {
+			"Gentle anger, raging calm.",
+		},
+	},
+	[647] = {
 		id = "UniqueClaw18",
 		name = "The Wasp Nest",
 		text = {
@@ -7868,25 +5433,32 @@ return {
 			"you need only shake the wrong branch.",
 		},
 	},
-	[942] = {
+	[648] = {
+		id = "UniqueFlask29",
+		name = "Olroth's Resolve",
+		text = {
+			"Olroth the Gallant,",
+			"tireless and true,",
+			"he fights for me,",
+			"he fights for you!",
+		},
+	},
+	[649] = {
 		id = "UniqueDagger16",
 		name = "Taproot",
 		text = {
 			"Some things must die so that others can live.",
 		},
 	},
-	[943] = {
-		id = "UniqueRing53i",
-		name = "Putembo's Valley",
+	[650] = {
+		id = "UniqueFlask32",
+		name = "Vorana's Preparation",
 		text = {
-			"With no stone for rebuilding, each storm took its toll on the village.",
-			"Huts eventually collapsed, their occupants injured or dead.",
-			"Bodies were left by the river, to appease the gods.",
-			"But the dead would not remain there.",
-			"<default>{This item can be combined with a Meadow and Mountain ring at a Vendor.}",
+			"Vorana trained her mercenaries",
+			"thus: strike true and survive.",
 		},
 	},
-	[944] = {
+	[651] = {
 		id = "UniqueAmulet44",
 		name = "Maligaro's Cruelty",
 		text = {
@@ -7896,18 +5468,14 @@ return {
 			"- Archbishop Geofri",
 		},
 	},
-	[945] = {
-		id = "UniqueRing53f",
-		name = "Uzaza's Valley",
+	[652] = {
+		id = "UniqueAmulet66",
+		name = "Stranglegasp",
 		text = {
-			"Sheltered beneath thick ice,",
-			"the river ferried fat fish towards the sea.",
-			"But the First King knew the river's secret,",
-			"and the fish were not the only ones who grew fat.",
-			"<default>{This item can be combined with a Meadow and Mountain ring at a Vendor.}",
+			"Death's approach brings clarity.",
 		},
 	},
-	[946] = {
+	[653] = {
 		id = "UniqueBodyDexInt8",
 		name = "Dendrobate",
 		text = {
@@ -7916,25 +5484,24 @@ return {
 			"are the ones who don't bother to hide.",
 		},
 	},
-	[947] = {
-		id = "UniqueStaff11",
-		name = "Tremor Rod",
+	[654] = {
+		id = "UniqueBodyDexInt15",
+		name = "Stasis Prison",
 		text = {
-			"The best way to gain the element of surprise,",
-			"is to let your enemy learn your plans,",
-			"and execute them - twice.",
+			"Those that can never die have but one wish.",
 		},
 	},
-	[948] = {
-		id = "UniqueOneHandAxe6",
-		name = "Relentless Fury",
+	[655] = {
+		id = "UniqueTwoHandAxe15",
+		name = "Debeon's Dirge",
 		text = {
-			"Relentless fury",
-			"Sunder my every foe",
-			"Fuel my boiling blood",
+			"A sharp and heavy beat,",
+			"discorded, out of tune,",
+			"when you hear it on the wind,",
+			"you know death will follow soon.",
 		},
 	},
-	[949] = {
+	[656] = {
 		id = "UniqueGlovesDexInt7",
 		name = "The Embalmer",
 		text = {
@@ -7943,16 +5510,16 @@ return {
 			"we must begin the process before expiry.\"",
 		},
 	},
-	[950] = {
-		id = "UniqueTwoHandMace7",
-		name = "Panquetzaliztli",
+	[657] = {
+		id = "UniqueJewel158",
+		name = "Melding of the Flesh",
 		text = {
-			"\"The finest prosperity grows from the direst",
-			"carnage. Such is the nature of progress.\"",
-			"- Doryani of the Vaal",
+			"\"We awoke to a sudden jungle rupturing the valleys of our home.",
+			"Grasping limbs coiled around us, into us. We sank into each other,",
+			"then rose into the living sky. My family screams alongside me still.\"",
 		},
 	},
-	[951] = {
+	[658] = {
 		id = "UniqueGlovesInt8",
 		name = "Allelopathy",
 		text = {
@@ -7964,49 +5531,50 @@ return {
 			"- Cadiro Perandus",
 		},
 	},
-	[952] = {
-		id = "UniqueOneHandAxe2",
-		name = "Dyadus",
+	[659] = {
+		id = "UniqueBodyStrInt13",
+		name = "The Ivory Tower",
 		text = {
-			"Born of love, forged in blood",
-			"He burned as a torch in the blackest night",
-			"She shone as ice in the winter sun",
-			"Proudly, fiercely",
-			"At their mother's side, forever.",
+			"The mind is a filter through which anarchy becomes order.",
 		},
 	},
-	[953] = {
-		id = "UniqueBow14x",
-		name = "Replica Iron Commander",
+	[660] = {
+		id = "UniqueJewel138",
+		name = "Calamitous Visions",
 		text = {
-			"\"Admittedly lacking the finesse of the fabled original,",
-			"Prototype #4 achieved identical results through brute force alone.\"",
+			"\"Try as I might, I could not escape it.",
+			"When I closed my eyes, I saw only death.",
+			"Each breath tainted with the scent of seared and smouldering flesh,",
+			"And each sound tangled with pleas for mercy.\"",
 		},
 	},
-	[954] = {
-		id = "UniqueJewel9",
-		name = "Survival Skills",
+	[661] = {
+		id = "UniqueBootsStr10",
+		name = "Craiceann's Tracks",
 		text = {
-			"A helping hand has long reach.",
+			"When the land rose above the sea, The First of the Deep did not move.",
+			"When the sky turned to fire, The First of the Deep did not perish.",
+			"We must remember our place, and play to our strengths.",
 		},
 	},
-	[955] = {
-		id = "UniqueTwoHandSword1",
-		name = "Rigwald's Charge",
+	[662] = {
+		id = "UniqueBootsDex13",
+		name = "Farrul's Chase",
 		text = {
-			"\"Today, clansmen, my sword is my voice!\"",
-			"- Rigwald, at the Battle of Glarryn",
+			"A secret is a weapon your enemies do not have.",
+			"When the First of the Plains hunted, she moved in silence and acted quickly.",
+			"To do otherwise is to arm your foes.",
 		},
 	},
-	[956] = {
-		id = "UniqueTwoHandMace2",
-		name = "Geofri's Devotion",
+	[663] = {
+		id = "UniqueJewel120",
+		name = "Transcendent Spirit",
 		text = {
-			"\"One quick tap is all the persuasion you'll need.\"",
-			"- Archbishop Geofri of Phrecia Cathedral",
+			"Take comfort knowing that, even in death,",
+			"we may serve our Queen and fuel her empire.",
 		},
 	},
-	[957] = {
+	[664] = {
 		id = "UniqueBodyInt15",
 		name = "Doedre's Skin",
 		text = {
@@ -8016,16 +5584,15 @@ return {
 			"But Wraeclast had not heard the last of her.",
 		},
 	},
-	[958] = {
-		id = "UniqueTwoHandMace1",
-		name = "Hrimnor's Dirge",
+	[665] = {
+		id = "UniqueJewel161",
+		name = "Forbidden Flesh",
 		text = {
-			"\"The crack of bone, the spray of blood.",
-			"Is there sweeter music?\"",
-			"- Hrimnor of the Ezomytes.",
+			"The bodies of those wholly subsumed by the Tangle",
+			"continue to merge and mutate and cry out for release...",
 		},
 	},
-	[959] = {
+	[666] = {
 		id = "UniqueShieldStrDex4",
 		name = "Vix Lunaris",
 		text = {
@@ -8033,17 +5600,15 @@ return {
 			"Quench the holy light.",
 		},
 	},
-	[960] = {
-		id = "UniqueBow3",
-		name = "Death's Opus",
+	[667] = {
+		id = "UniqueBelt44",
+		name = "The Burden of Truth",
 		text = {
-			"The mournful music of the strings,",
-			"The creaking arch, the arrow sings.",
-			"A choking cry, a rattled breath,",
-			"The Reaper's Song, the Harp of Death.",
+			"Mortal pleasures can hold back the memories,",
+			"but a hollow soul can never be healed.",
 		},
 	},
-	[961] = {
+	[668] = {
 		id = "UniqueShieldStrInt11",
 		name = "Invictus Solaris",
 		text = {
@@ -8051,16 +5616,15 @@ return {
 			"The Solaris Vanguard know only glory.",
 		},
 	},
-	[962] = {
-		id = "UniqueBow13",
-		name = "Roth's Reach",
+	[669] = {
+		id = "UniqueRing86",
+		name = "Coiling Whisper",
 		text = {
-			"\"Exiled to the sea; what a joke.",
-			"I'm more free than I've ever been.\"",
-			"- Captain Weylam \"Rot-tooth\" Roth of the Black Crest",
+			"I never knew fear until she was ripped away.",
+			"My promises were hollow ever after.",
 		},
 	},
-	[963] = {
+	[670] = {
 		id = "UniqueJewel110",
 		name = "The Long Winter",
 		text = {
@@ -8070,15 +5634,15 @@ return {
 			"that lay dormant deep beneath the earth.",
 		},
 	},
-	[964] = {
-		id = "UniqueJewel61",
-		name = "Reckless Defence",
+	[671] = {
+		id = "UniqueBodyDexInt17",
+		name = "Servant of Decay",
 		text = {
-			"There's no motivation for genius",
-			"quite like desperation.",
+			"Eaten away by anxiety and fear,",
+			"nothing remained but the void.",
 		},
 	},
-	[965] = {
+	[672] = {
 		id = "UniqueBodyInt16",
 		name = "Dialla's Malefaction",
 		text = {
@@ -8088,47 +5652,44 @@ return {
 			"And I'd do it again in an instant.",
 		},
 	},
-	[966] = {
-		id = "UniqueOneHandSword18",
-		name = "Innsbury Edge",
+	[673] = {
+		id = "UniqueCorruptedJewel10",
+		name = "Hungry Abyss",
 		text = {
-			"A sword he brought, his foes to maim and rend,",
-			"from places dark behind forbidden doors,",
-			"but night by night he woke with frighten'd roars",
-			"from ghoulish dreams, too strange to comprehend.",
+			"Darkness can never be sated.",
 		},
 	},
-	[967] = {
+	[674] = {
 		id = "UniqueGlovesDexInt8",
 		name = "Malachai's Mark",
 		text = {
 			"What man does not wish for immortality?",
 		},
 	},
-	[968] = {
-		id = "UniqueOneHandMace1",
-		name = "Brightbeak",
+	[675] = {
+		id = "UniqueFlask35",
+		name = "Wine of the Prophet",
 		text = {
-			"\"I know how to say 'faster' and 'attack'",
-			"in Karui, Marak and Ezo.\"",
-			"- Voll of Thebrus",
+			"\"To proclaim a vision of the future is to make it so,",
+			"for those that have the will, and the way!\"",
+			"- High Templar Andronicus",
 		},
 	},
-	[969] = {
+	[676] = {
 		id = "UniqueBootsStr9",
 		name = "Stormcharger",
 		text = {
 			"Like lightning, the Ezomyte cavalry need never strike twice.",
 		},
 	},
-	[970] = {
-		id = "UniqueShieldStrInt9",
-		name = "Victario's Charity",
+	[677] = {
+		id = "UniqueAmulet80",
+		name = "Whispers of Infinity",
 		text = {
-			"A man's life is the greatest gift he can give.",
+			"In the Atlas, you do not go mad. You are rewritten.",
 		},
 	},
-	[971] = {
+	[678] = {
 		id = "UniqueGlovesStr8",
 		name = "Giantsbane",
 		text = {
@@ -8136,14 +5697,14 @@ return {
 			"theirs were just bigger.",
 		},
 	},
-	[972] = {
-		id = "UniqueTwoHandAxe10",
-		name = "Hezmana's Bloodlust",
+	[679] = {
+		id = "UniqueTwoHandAxe17",
+		name = "Starcaller",
 		text = {
-			"When a craving cannot be sated, any source will do.",
+			"What began in the stars was settled in blood, beneath an uncaring sky.",
 		},
 	},
-	[973] = {
+	[680] = {
 		id = "UniqueHelmetInt13",
 		name = "Wraithlord",
 		text = {
@@ -8151,16 +5712,15 @@ return {
 			"and each one succumbed to it.",
 		},
 	},
-	[974] = {
-		id = "UniqueAmulet25",
-		name = "Bloodgrip",
+	[681] = {
+		id = "UniqueHelmetStr12",
+		name = "Kaom's Command",
 		text = {
-			"Combat is simple.",
-			"Keep your blood in.",
-			"Take theirs out.",
+			"Kaom ordered the desecration of the Empire's dead.",
+			"There would be no rest or honours for the wicked.",
 		},
 	},
-	[975] = {
+	[682] = {
 		id = "UniqueStaff21",
 		name = "Cane of Unravelling",
 		text = {
@@ -8170,161 +5730,142 @@ return {
 			"- Doryani, Queen's Thaumaturgist",
 		},
 	},
-	[976] = {
-		id = "UniqueBelt17",
-		name = "The Retch",
+	[683] = {
+		id = "UniqueOneHandMace12",
+		name = "Serle's Masterwork",
 		text = {
-			"But the grain grew twisted and the water turned dark",
-			"and those who partook of Mother Gull's gift",
-			"birthed monsters that fed",
-			"on the flesh of one another.",
+			"Truly great Artificers push the boundaries of the possible.",
 		},
 	},
-	[977] = {
-		id = "UniqueBootsStrInt5",
-		name = "Ralakesh's Impatience",
+	[684] = {
+		id = "UniqueTwoHandAxe1",
+		name = "Kaom's Primacy",
 		text = {
-			"The Master of a Million Faces lived by one",
-			"simple ethos: why make the effort, when",
-			"you can simply mimic what others have?",
+			"One by one, Kaom slaughtered the weakest tribe",
+			"leaders until the others leapt to join his cause.",
 		},
 	},
-	[978] = {
-		id = "UniqueBelt16",
-		name = "Faminebind",
+	[685] = {
+		id = "UniqueTincture4",
+		name = "The Battle Within",
 		text = {
-			"After the Great Fire, the land lay barren",
-			"and our forefathers grew weak.",
-			"Mother Gull took pity on them",
-			"and gave them grain and water.",
+			"The struggle for balance never ends.",
 		},
 	},
-	[979] = {
-		id = "UniqueBelt15",
-		name = "Feastbind",
+	[686] = {
+		id = "UniqueOneHandSword1",
+		name = "Dreadbeak",
 		text = {
-			"Our forefathers danced and drank and ate their fill",
-			"and did not honour the First Ones for their gifts.",
-			"So the First Ones filled the sky with fire.",
+			"As battle calms, blood turns to rust.",
 		},
 	},
-	[980] = {
-		id = "UniqueTwoHandAxe9",
-		name = "Kingmaker",
+	[687] = {
+		id = "UniqueTincture3",
+		name = "Wildfire Phloem",
 		text = {
-			"A King and his people are linked together",
-			"like a soul and a beating heart.",
-			"Both can be severed by a same edge,",
-			"then forged anew.",
+			"New life will follow, but first come the flames.",
 		},
 	},
-	[981] = {
-		id = "UniqueFlask4",
-		name = "Lavianga's Spirit",
+	[688] = {
+		id = "UniqueAmulet1",
+		name = "Stone of Lazhwar",
 		text = {
-			"\"When the Ancestors fill your cup,",
-			"It is only good manners to drink your fill.\"",
-			"- Lavianga, Advisor to Kaom",
+			"You are slow, foolish and ignorant.",
+			"I am not.",
 		},
 	},
-	[982] = {
-		id = "UniqueWand9",
-		name = "Twyzel",
+	[689] = {
+		id = "UniqueCorruptedJewel12",
+		name = "Corrupted Energy",
 		text = {
-			"Life persisted,",
-			"hardened, twisted.",
+			"Nothing is immune to the Nightmare's twisted influence.",
 		},
 	},
-	[983] = {
-		id = "UniqueJewel60",
-		name = "Growing Agony",
+	[690] = {
+		id = "UniqueRing1",
+		name = "Voidheart",
 		text = {
-			"Maligaro understood that devotion to science,",
-			"Means devotion to trial and error.",
-			"For Maligaro's errors, death was slow,",
-			"And very painful.",
+			"Fear is highly infectious.",
 		},
 	},
-	[984] = {
-		id = "UniqueJewel59",
-		name = "Steel Spirit",
+	[691] = {
+		id = "UniqueTincture1",
+		name = "Sap of the Seasons",
 		text = {
-			"The Sekhema rode to the mountain,",
-			"With her tribe, devoted and strong.",
-			"And sewed shut the mouth of nightmare,",
-			"So that it would not consume her world.",
+			"Life and death dance ever closer,",
+			"waiting only for the right moment.",
 		},
 	},
-	[985] = {
-		id = "UniqueJewel58",
-		name = "Pitch Darkness",
+	[692] = {
+		id = "UniqueRing2",
+		name = "Kaom's Way",
 		text = {
-			"With a fire burning brash in his golden eye,",
-			"Marceus fired his arrow into the pitch-dark sky,",
-			"And seared the hope of surprise,",
-			"From Kaom's skulking horde.",
+			"A token from the sea",
+			"A sign for Kaom",
+			"to lead his Karui to Wraeclast.",
 		},
 	},
-	[986] = {
-		id = "UniqueJewel56",
-		name = "Shattered Chains",
+	[693] = {
+		id = "UniqueRing85",
+		name = "The Queller of Minds",
 		text = {
-			"The prisoners of the empire raised their shackled hands.",
-			"Begging to be delivered from Corruption.",
-			"The rebellion smote their chains,",
-			"And gave them the freedom to choose corruption for themselves.",
+			"Quiet thy troubled soul. Think not. Just pray... to me.",
 		},
 	},
-	[987] = {
-		id = "UniqueAmulet24",
-		name = "The Aylardex",
+	[694] = {
+		id = "UniqueRing3",
+		name = "Andvarius",
 		text = {
-			"Shackled fires dance about;",
-			"Might within from force without.",
+			"Danger is the price of wealth.",
 		},
 	},
-	[988] = {
-		id = "UniqueGlovesStrInt4",
-		name = "Repentance",
+	[695] = {
+		id = "UniqueRing84",
+		name = "The Selfish Shepherd",
 		text = {
-			"\"I ask not for understanding,",
-			"only for forgiveness",
-			"for what I am about to do.",
-			"There will be blood on these shackles yet.\"",
-			"- Anonymous carving, Axiom Prison.",
+			"And when you are no longer useful, you will",
+			"discover how much you truly mean.",
 		},
 	},
-	[989] = {
+	[696] = {
+		id = "UniqueBow1",
+		name = "Lioneye's Glare",
+		text = {
+			"\"See without doubt, slay without hesitation.\"",
+			"- Marceus Lioneye of Sarn",
+		},
+	},
+	[697] = {
 		id = "UniqueRing48",
 		name = "The Hungry Loop",
 		text = {
 			"Be careful where you put your finger.",
 		},
 	},
-	[990] = {
-		id = "UniqueFlask10",
-		name = "Coruscating Elixir",
+	[698] = {
+		id = "UniqueAmulet2",
+		name = "Demigod's Presence",
 		text = {
-			"Let blood sear in your veins,",
-			"Let the pain push outwards and turn away your enemy's blows.",
+			"The maidens of court swoon to see",
+			"the challengers crushed at your feet.",
 		},
 	},
-	[991] = {
+	[699] = {
 		id = "UniqueWand18",
 		name = "The Poet's Pen",
 		text = {
 			"In every piece of prose, lies a tiny spark of magic.",
 		},
 	},
-	[992] = {
-		id = "UniqueRing39",
-		name = "The Pariah",
+	[700] = {
+		id = "UniqueBodyStrInt1",
+		name = "Voll's Protector",
 		text = {
-			"A man who changes his loyalties often,",
-			"soon finds he has none.",
+			"Although a great leader during the war,",
+			"Voll proved disastrous in times of peace.",
 		},
 	},
-	[993] = {
+	[701] = {
 		id = "UniqueFlask23",
 		name = "Coralito's Signature",
 		text = {
@@ -8333,14 +5874,15 @@ return {
 			"- Coralito, Brotherhood of Silence",
 		},
 	},
-	[994] = {
-		id = "UniqueShieldStrInt8",
-		name = "Broken Faith",
+	[702] = {
+		id = "UniqueDagger1",
+		name = "Divinarius",
 		text = {
-			"Be not blinded by the light.",
+			"Divine intervention feels better",
+			"when you do it yourself.",
 		},
 	},
-	[995] = {
+	[703] = {
 		id = "UniqueJewel111",
 		name = "Pure Talent",
 		text = {
@@ -8348,15 +5890,15 @@ return {
 			"The talented know who to learn from.",
 		},
 	},
-	[996] = {
-		id = "UniqueBootsInt6",
-		name = "Steppan Eard",
+	[704] = {
+		id = "UniqueBow2",
+		name = "Silverbough",
 		text = {
-			"To fight an enemy on their lands is a tactical mistake.",
-			"Make those lands your own, and the mistake becomes theirs.",
+			"\"The wild takes care of its own.\"",
+			"- Hyrri of the Karui",
 		},
 	},
-	[997] = {
+	[705] = {
 		id = "UniqueGlovesDex4",
 		name = "Oskarm",
 		text = {
@@ -8366,47 +5908,44 @@ return {
 			"to sate his hungry claw.",
 		},
 	},
-	[998] = {
-		id = "UniqueRing38",
-		name = "Emberwake",
+	[706] = {
+		id = "UniqueRing83",
+		name = "The Hateful Accuser",
 		text = {
-			"Leave the world in flames behind you.",
+			"In truth, they point the finger at themselves.",
 		},
 	},
-	[999] = {
+	[707] = {
 		id = "UniqueJewel112",
 		name = "Might of the Meek",
 		text = {
 			"Enough mice can kill a wolf.",
 		},
 	},
-	[1000] = {
-		id = "UniqueHelmetDexInt6",
-		name = "Crown of the Pale King",
+	[708] = {
+		id = "UniqueRing81",
+		name = "Grattus Signet",
 		text = {
-			"A lightless world",
-			"a silent reign",
-			"two sightless eyes",
-			"feed on your pain.",
+			"The first Grattus patriarch had only one tell. When he",
+			"slowly turned his ring, all cowered before him.",
 		},
 	},
-	[1001] = {
+	[709] = {
 		id = "UniqueJewel113",
 		name = "The Golden Rule",
 		text = {
 			"Hurt as you would be hurt.",
 		},
 	},
-	[1002] = {
-		id = "UniqueTwoHandMace8",
-		name = "Jorrhast's Blacksteel",
+	[710] = {
+		id = "UniqueBootsStr14",
+		name = "The Tempest Rising",
 		text = {
-			"His flesh had long turned to dust,",
-			"but his vengeance lived on",
-			"in every scrap of iron he touched.",
+			"Where he tread, disintegrating storms of lightning",
+			"and death laid waste to all around him.",
 		},
 	},
-	[1003] = {
+	[711] = {
 		id = "UniqueJewel114",
 		name = "Soul's Wick",
 		text = {
@@ -8416,26 +5955,24 @@ return {
 			"Their light is fleeting, as a dream...",
 		},
 	},
-	[1004] = {
-		id = "UniqueShieldStr5",
-		name = "Trolltimber Spire",
+	[712] = {
+		id = "UniqueHelmetStrDex12",
+		name = "The Devourer of Minds",
 		text = {
-			"The problem with working fresh trolltimber:",
-			"by the time you've carved out one end,",
-			"the other has sprouted fresh roots!",
+			"The Decay infects thought itself, leaving nothing",
+			"but hollow husks filled with virulent void...",
 		},
 	},
-	[1005] = {
-		id = "UniqueRing17",
-		name = "Romira's Banquet",
+	[713] = {
+		id = "UniqueJewel180",
+		name = "The Adorned",
 		text = {
-			"The Empress gave Romira two sons",
-			"Born of his brother's seed",
-			"Romira threw her a banquet",
-			"A perfidious meal indeed.",
+			"At their height, the Vaal glittered under the sun.",
+			"A decade, a century, an aeon of prosperity...",
+			"now nothing more than a passing wonder.",
 		},
 	},
-	[1006] = {
+	[714] = {
 		id = "UniqueHelmetStrInt10",
 		name = "Memory Vault",
 		text = {
@@ -8443,17 +5980,17 @@ return {
 			"Let no one cross.",
 		},
 	},
-	[1007] = {
-		id = "UniqueBootsStr3",
-		name = "Redblade Tramplers",
+	[715] = {
+		id = "UniqueQuiver11",
+		name = "Saemus' Gift",
 		text = {
-			"Our home was swallowed beneath",
-			"the great mountain for our complacency.",
-			"Now we must prove our value to the Molten One",
-			"by sating his hunger for life.",
+			"Beaten in contest, he would try once more",
+			"Guided by magic, Magjar took aim at a dove",
+			"Saemus' gift would influence the score",
+			"Guided by darkness, Magjar spilled the blood of his love",
 		},
 	},
-	[1008] = {
+	[716] = {
 		id = "UniqueBelt26",
 		name = "Cyclopean Coil",
 		text = {
@@ -8461,15 +5998,16 @@ return {
 			"the Shade watched the Scholar.",
 		},
 	},
-	[1009] = {
-		id = "UniqueBootsDexInt4",
-		name = "Brinerot Whalers",
+	[717] = {
+		id = "UniqueJewel178",
+		name = "Bloodnotch",
 		text = {
-			"Those Theopolis fatcats put a price on our heads.",
-			"Let's see what they'll pay for their own.",
+			"At the core of the warrior's spirit,",
+			"a fierce determination burns,",
+			"igniting their capacity to endure.",
 		},
 	},
-	[1010] = {
+	[718] = {
 		id = "UniqueShieldStr12",
 		name = "Magna Eclipsis",
 		text = {
@@ -8479,32 +6017,51 @@ return {
 			"'Neath the midday sun, the night was reborn.",
 		},
 	},
-	[1011] = {
-		id = "UniqueBootsStrDex5",
-		name = "Mutewind Whispersteps",
+	[719] = {
+		id = "UniqueBootsDex15",
+		name = "Orbala's Stand",
 		text = {
-			"Corruption sweeps across this land,",
-			"but our bloodline is clear.",
-			"It is our duty to keep it so.",
+			"The inferno surged past, devastating Stridevolf, but the Maraketh",
+			"warrior somehow remained. Soot-blackened and resolute, she",
+			"grinned. In that moment, the bandit king knew true despair.",
 		},
 	},
-	[1012] = {
-		id = "UniqueCorruptedJewel16",
-		name = "Pacifism",
+	[720] = {
+		id = "UniqueShieldDexInt4",
+		name = "Leper's Alms",
 		text = {
-			"\"Your fear will overcome you.\"",
+			"One's burden is another's gift.",
 		},
 	},
-	[1013] = {
-		id = "UniqueBow10",
-		name = "Voltaxic Rift",
+	[721] = {
+		id = "UniqueGlovesStrDex15",
+		name = "Tanu Ahi",
 		text = {
-			"The eldritch storm descended upon us, and bruised lightning",
-			"rained down. Metal withered and flesh melted before its",
-			"arcane power. There was no escape, no shelter. Only despair.",
+			"There is no greater thrill than leaping into combat,",
+			"slashing and hewing with utmost abandon.",
 		},
 	},
-	[1014] = {
+	[722] = {
+		id = "UniqueBelt45",
+		name = "Chain of Endurance",
+		text = {
+			"\"A man confronted with sufficient adversity",
+			"may ascend to unprecedented heights",
+			"and triumph over his coddled rivals.\"",
+			"- Weylan the Ezomyte",
+		},
+	},
+	[723] = {
+		id = "UniqueBow24",
+		name = "Widowhail",
+		text = {
+			"\"I loosed a volley of arrows into the heart of the man",
+			"who slew my beloved. There was no satisfaction, no",
+			"healing, no revenge. There was only... emptiness.\"",
+			"- Chieftainess Ahuana of the Ramako Tribe",
+		},
+	},
+	[724] = {
 		id = "UniqueBodyStr9",
 		name = "The Iron Fortress",
 		text = {
@@ -8513,14 +6070,16 @@ return {
 			"- Mauritius, the Iron Heart",
 		},
 	},
-	[1015] = {
-		id = "UniqueCorruptedJewel18",
-		name = "Powerlessness",
+	[725] = {
+		id = "UniqueGlovesDexInt20",
+		name = "Stormseeker",
 		text = {
-			"\"Your desires will mislead you.\"",
+			"The fundamental forces of our world are secrets",
+			"to be uncovered by the intelligent and the capable.",
+			"Like all secrets, they, too, can be stolen.",
 		},
 	},
-	[1016] = {
+	[726] = {
 		id = "UniqueDagger17",
 		name = "White Wind",
 		text = {
@@ -8529,7 +6088,16 @@ return {
 			"of the demon that flies on Winter's gales.",
 		},
 	},
-	[1017] = {
+	[727] = {
+		id = "UniqueAmulet73",
+		name = "Tainted Pact",
+		text = {
+			"Beidat made false promises to many denizens,",
+			"converting only one into a conduit through",
+			"which Wraeclast might be consumed.",
+		},
+	},
+	[728] = {
 		id = "UniqueBow20",
 		name = "Arborix",
 		text = {
@@ -8539,31 +6107,29 @@ return {
 			"their grasp stretches ever farther.",
 		},
 	},
-	[1018] = {
-		id = "UniqueTwoHandAxe5",
-		name = "Wideswing",
+	[729] = {
+		id = "UniqueHelmetStr11",
+		name = "Blood Price",
 		text = {
-			"Bargg Wurmkin once severed the heads",
-			"of seven men in a single cleave.",
+			"An eye for an eye makes the whole world dead.",
 		},
 	},
-	[1019] = {
+	[730] = {
 		id = "UniqueAmulet46",
 		name = "Yoke of Suffering",
 		text = {
 			"Let the unrepentant be dragged ever downwards by the weight of their sins.",
 		},
 	},
-	[1020] = {
-		id = "UniqueBootsStrDex3",
-		name = "Duskblight",
+	[731] = {
+		id = "UniqueRing76",
+		name = "Original Sin",
 		text = {
-			"\"A lick of shadow may ease",
-			"the petty frictions of one's life.\"",
-			"- Inquisitor Maligaro",
+			"Innocence rose to godhood not on inspired faith,",
+			"but on the vilification and hatred of another.",
 		},
 	},
-	[1021] = {
+	[732] = {
 		id = "UniqueHelmetDexInt9",
 		name = "Gorgon's Gaze",
 		text = {
@@ -8571,16 +6137,18 @@ return {
 			"and broke when they hit the ground.",
 		},
 	},
-	[1022] = {
-		id = "UniqueBootsDex5",
-		name = "Seven-League Step",
+	[733] = {
+		id = "UniqueHelmetInt26",
+		name = "Wilma's Requital",
 		text = {
-			"\"Death can be outrun with these, but beware!",
-			"In running from death, you may forget to live.\"",
-			"- Icius Perandus, Antiquities Collection, Item 202",
+			"Bold and beautiful, a castaway",
+			"Hemmed and hawed, for her to stay",
+			"Oh, what I'd give for one more day",
+			"For she's the one that got away",
+			"-Franklin",
 		},
 	},
-	[1023] = {
+	[734] = {
 		id = "UniqueBelt27",
 		name = "Darkness Enthroned",
 		text = {
@@ -8588,21 +6156,31 @@ return {
 			"and never will the light blind you.",
 		},
 	},
-	[1024] = {
-		id = "UniqueHelmetStrInt3",
-		name = "Mindspiral",
+	[735] = {
+		id = "UniqueTwoHandSword14",
+		name = "Echoforge",
 		text = {
-			"Where top is bottom and weak is strong.",
+			"Witness the emergence of a new cosmic power.",
 		},
 	},
-	[1025] = {
-		id = "UniqueHelmetDexInt2",
-		name = "Leer Cast",
+	[736] = {
+		id = "UniqueJewel115",
+		name = "Watcher's Eye",
 		text = {
-			"For none of us are as cruel as all of us.",
+			"One by one, they stood their ground against a creature",
+			"they had no hope of understanding, let alone defeating,",
+			"and one by one, they became a part of it.",
 		},
 	},
-	[1026] = {
+	[737] = {
+		id = "UniqueAmulet72",
+		name = "Doedre's Tongue",
+		text = {
+			"Maligaro did the cutting... at her request.",
+			"In the new void, a malevolent power emerged.",
+		},
+	},
+	[738] = {
 		id = "UniqueGlovesDexInt9",
 		name = "Blasphemer's Grasp",
 		text = {
@@ -8610,15 +6188,16 @@ return {
 			"many sought power in the unnatural.",
 		},
 	},
-	[1027] = {
-		id = "UniqueBodyStrDex1",
-		name = "Belly of the Beast",
+	[739] = {
+		id = "UniqueRing75",
+		name = "Anathema",
 		text = {
-			"There is no safer place",
-			"Than the Belly of the Beast",
+			"Enraged by the incompetence of mortals",
+			"The demon-lord opens a gateway",
+			"Unleashing a litany of pain upon the world.",
 		},
 	},
-	[1028] = {
+	[740] = {
 		id = "UniqueOneHandMace11",
 		name = "Nebuloch",
 		text = {
@@ -8627,14 +6206,16 @@ return {
 			"But time would not touch the fiend.",
 		},
 	},
-	[1029] = {
-		id = "UniqueTwoHandAxe6",
-		name = "Wings of Entropy",
+	[741] = {
+		id = "UniqueBootsStr12",
+		name = "Dawnstrider",
 		text = {
-			"Fire and Anarchy are the most reliable agents of change.",
+			"In a void strewn with incandescent stardust,",
+			"the emissary of flame traverses interplanetary space",
+			"consuming the knowledge of fallen civilisations.",
 		},
 	},
-	[1030] = {
+	[742] = {
 		id = "UniqueBow21",
 		name = "Hopeshredder",
 		text = {
@@ -8644,15 +6225,14 @@ return {
 			"and bathed in fear and ferocity.",
 		},
 	},
-	[1031] = {
-		id = "UniqueBodyStr3",
-		name = "Death's Oath",
+	[743] = {
+		id = "UniqueAmulet71",
+		name = "Eternal Damnation",
 		text = {
-			"Tears of blood, aching heart,",
-			"My dear Isildria must depart.",
+			"The price of immortality is isolation.",
 		},
 	},
-	[1032] = {
+	[744] = {
 		id = "UniqueWand19",
 		name = "Shimmeron",
 		text = {
@@ -8661,14 +6241,14 @@ return {
 			"unveiling forms no sound mind could grasp.",
 		},
 	},
-	[1033] = {
-		id = "UniqueBow9",
-		name = "Windripper",
+	[745] = {
+		id = "UniqueHelmetInt27",
+		name = "Sandstorm Visage",
 		text = {
-			"It hunts; as silent as falling snow, as deadly as the tempest.",
+			"A fell wind brings death.",
 		},
 	},
-	[1034] = {
+	[746] = {
 		id = "UniqueOneHandSword27",
 		name = "Grelwood Shank",
 		text = {
@@ -8677,7 +6257,16 @@ return {
 			"a memory written in fibrous flesh.",
 		},
 	},
-	[1035] = {
+	[747] = {
+		id = "UniqueJewel176",
+		name = "The Balance of Terror",
+		text = {
+			"Fellshrine stood as a holy bastion opposite the",
+			"Chamber of Sins, and all that it represented.",
+			"For one to rise, the other must fall.",
+		},
+	},
+	[748] = {
 		id = "UniqueOneHandSword28",
 		name = "Beltimber Blade",
 		text = {
@@ -8686,15 +6275,15 @@ return {
 			"Yet the fates of others dragged in their wake.",
 		},
 	},
-	[1036] = {
-		id = "UniqueOneHandSword13",
-		name = "Lakishu's Blade",
+	[749] = {
+		id = "UniqueStaff31",
+		name = "The Winds of Fate",
 		text = {
-			"\"May the Blessed Lakishu watch our backs and our wives.\"",
-			"- Legionnaire Battle Blessing",
+			"Life... Death...",
+			"The whim of the cosmos.",
 		},
 	},
-	[1037] = {
+	[750] = {
 		id = "UniqueDagger18",
 		name = "Vulconus",
 		text = {
@@ -8704,17 +6293,16 @@ return {
 			"with a thick, black scab.",
 		},
 	},
-	[1038] = {
-		id = "UniqueDagger11",
-		name = "Sanguine Gambol",
+	[751] = {
+		id = "UniqueJewel171",
+		name = "Rational Doctrine",
 		text = {
-			"A tap on the shoulder",
-			"A peck on the cheek",
-			"A sip of your wine",
-			"So red and so sleek",
+			"Logic wanes in shining faith, and in rationalism, ardour dims",
+			"Thus, the cynic and the zealot are divided",
+			"But can they not be one and the same?",
 		},
 	},
-	[1039] = {
+	[752] = {
 		id = "UniqueSceptre18",
 		name = "Augyre",
 		text = {
@@ -8722,307 +6310,1300 @@ return {
 			"the safest place to be is in the centre.",
 		},
 	},
-	[1040] = {
-		id = "UniqueOneHandSword12",
-		name = "The Princess",
+	[753] = {
+		id = "UniqueRing74",
+		name = "Nimis",
 		text = {
-			"\"She's pretty, aye. So pretty you'll",
-			"want to be with her long after you're dead.\"",
+			"Too much of something is bad enough;",
+			"too much of nothing is just as tough.",
 		},
 	},
-	[1041] = {
+	[754] = {
 		id = "UniqueAmulet47",
 		name = "Gloomfang",
 		text = {
 			"Darkness never stops feeding.",
 		},
 	},
-	[1042] = {
-		id = "UniqueOneHandSword4",
-		name = "The Goddess Scorned",
+	[755] = {
+		id = "UniqueFlask34",
+		name = "Oriath's End",
 		text = {
-			"Her purpose seems done; the oath is fulfilled.",
-			"Rust dulls her smirk with the last demon killed.",
-			"The embers grow dim and yet hope burns her lips:",
-			"\"An old flame renewed can define our eclipse!\"",
+			"Ennui prevailed, until inspiration sparked",
+			"a mote of flame, kindled by fury",
+			"and all in his path were obliterated.",
 		},
 	},
-	[1043] = {
-		id = "UniqueOneHandAxe8",
-		name = "Moonbender's Wing",
+	[756] = {
+		id = "UniqueGlovesDexInt19",
+		name = "Entropic Devastation",
 		text = {
-			"Beneath the cold light of the moon,",
-			"the wing moves faster than the eye.",
+			"A legion of lives claimed",
+			"by the shards of obliterated worlds.",
 		},
 	},
-	[1044] = {
+	[757] = {
 		id = "UniqueRing49",
 		name = "Mark of the Elder",
 		text = {
 			"Be not stirred by the Void.",
 		},
 	},
-	[1045] = {
-		id = "UniqueOneHandAxe7",
-		name = "Dreadsurge",
+	[758] = {
+		id = "UniqueBootsStrDex8",
+		name = "Annihilation's Approach",
 		text = {
-			"The fastest way to a man's heart",
-			"is through his sternum.",
+			"Pray that the flames find fascination,",
+			"for the true end follows when the great eye closes.",
 		},
 	},
-	[1046] = {
-		id = "UniqueRing50",
-		name = "Mark of the Shaper",
+	[759] = {
+		id = "UniqueFlask33",
+		name = "Progenesis",
 		text = {
-			"Let madness take control.",
+			"They were bred in a cosmic ocean of raw creation.",
+			"Feasting and drinking of the milk of the mother,",
+			"they fought to the death for every last drop.",
 		},
 	},
-	[1047] = {
-		id = "UniqueStaff13",
-		name = "Realm Ender",
+	[760] = {
+		id = "UniqueJewel175",
+		name = "Witchbane",
 		text = {
-			"\"God's creations always begin and end",
-			"with flames and ice.",
-			"We should count ourselves lucky when we see neither.\"",
-			"- Archbishop Geofri",
+			"In darkest night, 'neath waxen moon",
+			"A witch snatches a boy from his room.",
+			"He wards off her hexes",
+			"The witch he perplexes",
+			"And so becomes part of her stew.",
 		},
 	},
-	[1048] = {
-		id = "UniqueHelmetInt14",
-		name = "Indigon",
+	[761] = {
+		id = "UniqueHelmetStr7",
+		name = "Cowl of the Thermophile",
 		text = {
-			"Where the body's limits begin,",
-			"the mind's limits end.",
+			"The villagers seared the blight with fire, but it only spread like dancing flames.",
+			"",
+			"^8This item can be anointed by Cassia",
 		},
 	},
-	[1049] = {
-		id = "UniqueDagger12",
-		name = "Bloodplay",
+	[762] = {
+		id = "UniqueJewel173",
+		name = "Stormshroud",
 		text = {
-			"\"I'm a painter, and crimson is my chosen hue.\"",
-			"- Coralito, Brotherhood of Silence",
+			"The true secret of the elements",
+			"is that all are one and the same.",
 		},
 	},
-	[1050] = {
-		id = "UniqueStaff22",
-		name = "Disintegrator",
+	[763] = {
+		id = "UniqueJewel172",
+		name = "Immutable Force",
 		text = {
-			"Blurred is the boundary",
-			"between creator and destroyer.",
+			"How simple a power, on which empires turn,",
+			"when one man stands firm and says, \"I refuse.\"",
 		},
 	},
-	[1051] = {
-		id = "UniqueFlask2",
-		name = "Doedre's Elixir",
+	[764] = {
+		id = "UniqueGlovesStrInt10",
+		name = "Triad Grip",
 		text = {
-			"Doedre Darktongue knew the Way of the Thaumaturge.",
-			"In order to receive, one must give... without hesitation.",
+			"The secret of the elements lies within a square triangle.",
 		},
 	},
-	[1052] = {
-		id = "UniqueBodyStrInt6",
-		name = "Kingsguard",
+	[765] = {
+		id = "UniqueHelmetDexInt12",
+		name = "Fractal Thoughts",
 		text = {
-			"The toughest armour is the trust of your people.",
+			"\"The more the warrior understood Tangmazu's gift, the less the mask aided him.",
+			"His dreams were filled with divine laughter.\"",
+			"- Tenth Song of the Islands",
 		},
 	},
-	[1053] = {
-		id = "UniqueQuiver14",
-		name = "Voidfletcher",
+	[766] = {
+		id = "UniqueJewel169",
+		name = "Grand Spectrum",
 		text = {
-			"Even emptiness may be harnessed.",
+			"A spirit that never rests.",
 		},
 	},
-	[1054] = {
-		id = "UniqueJewel55",
-		name = "Might in All Forms",
+	[767] = {
+		id = "UniqueJewel131",
+		name = "Militant Faith",
 		text = {
-			"True strength can be found anywhere, and in anything.",
+			"They believed themselves the utmost faithful, but that conviction became oppression.",
 		},
 	},
-	[1055] = {
-		id = "UniqueHelmetInt15",
-		name = "Mark of the Red Covenant",
+	[768] = {
+		id = "UniqueJewel167",
+		name = "Grand Spectrum",
 		text = {
-			"Gleeful are the few",
-			"who bask in the blood of the many.",
+			"A mass of flesh writhing with savage fury.",
 		},
 	},
-	[1056] = {
-		id = "UniqueJewel54",
-		name = "Healthy Mind",
+	[769] = {
+		id = "UniqueJewel166",
+		name = "Grand Spectrum",
 		text = {
-			"For the ambitious, flesh is a limitation.",
+			"A mountain fortress safe from the storm.",
 		},
 	},
-	[1057] = {
-		id = "UniqueStaff23",
-		name = "Soulwrest",
+	[770] = {
+		id = "UniqueJewel165",
+		name = "Grand Spectrum",
 		text = {
-			"Death is but the start of your servitude.",
+			"A wellspring of vitality bubbling from within.",
 		},
 	},
-	[1058] = {
-		id = "UniqueJewel53",
-		name = "Static Electricity",
+	[771] = {
+		id = "UniqueQuiver19",
+		name = "The Poised Prism",
 		text = {
-			"\"Movement expends energy, but perhaps a little of that energy",
-			"can be recaptured and... reappropriated.\"",
-			"- Inquisitor Maligaro",
+			"What do you see when you look inward?",
 		},
 	},
-	[1059] = {
-		id = "UniqueTwoHandAxe16",
-		name = "Sinvicta's Mettle",
+	[772] = {
+		id = "UniqueHelmetDex11",
+		name = "Elevore",
 		text = {
-			"War is a thriving infection.",
-			"It numbs the heart and eats away at the soul",
-			"until only emptiness remains.",
+			"Ancient worshippers of the Greatwolf were overtaken",
+			"by a ravenous hunger for all things mystical.",
 		},
 	},
-	[1060] = {
-		id = "UniqueJewel2",
-		name = "Eldritch Knowledge",
+	[773] = {
+		id = "UniqueHelmetStr10",
+		name = "Thrillsteel",
 		text = {
-			"\"True Thaumaturgy can only be learned",
-			"by the brilliant or the mad.\"",
-			"- Shavronne of Umbra",
+			"We may fight, and we may die, but in these",
+			"moments of blood and battle, we truly live.",
 		},
 	},
-	[1061] = {
-		id = "UniqueGlovesStrInt7",
-		name = "Saqawal's Winds",
+	[774] = {
+		id = "UniqueBodyInt21",
+		name = "Ghostwrithe",
 		text = {
-			"When the inferno spread across the land,",
-			"it was the First of the Sky who singed his feathers",
-			"as he brought the flames to a standstill.",
+			"Faith springs abundant at the edge of death.",
 		},
 	},
-	[1062] = {
-		id = "UniqueOneHandAxe1",
-		name = "Soul Taker",
+	[775] = {
+		id = "UniqueGlovesDexInt18",
+		name = "Soul Ascension",
 		text = {
-			"It is too easy for the soul to escape from an open heart.",
+			"Fear can be instilled by the smallest entity.",
 		},
 	},
-	[1063] = {
-		id = "UniqueBodyDexInt10",
-		name = "Saqawal's Nest",
+	[776] = {
+		id = "UniqueRing53b",
+		name = "Ahkeli's Meadow",
 		text = {
-			"The First of the Sky was the Last of the First.",
-			"It was he who showed us that our limits are self-imposed,",
-			"that what we take for law may just be an illusion.",
+			"Where once had stood a village, lay naught but splinters.",
+			"Some had once been her home.",
+			"Some had once been her creations.",
+			"Some had once been her family.",
+			"",
+			"^8This item can be combined with a Mountain and Valley ring at a Vendor.",
 		},
 	},
-	[1064] = {
-		id = "UniqueJewel49",
-		name = "Fireborn",
+	[777] = {
+		id = "UniqueJewel164",
+		name = "Sublime Vision",
 		text = {
-			"Leaders are not born in times of peace.",
-			"Leaders are born in ruins and flames.",
+			"This world is not good enough for her,",
+			"so I will make a better one. Nothing",
+			"matters but the pursuit of perfection.",
 		},
 	},
-	[1065] = {
-		id = "UniqueBootsStrDex6",
-		name = "Saqawal's Talons",
+	[778] = {
+		id = "UniqueJewel163",
+		name = "Impossible Escape",
 		text = {
-			"A bird, too heavily laden, cannot take flight.",
-			"The First of the Sky teaches us to put aside our possessions",
-			"so that we may live more freely.",
+			"She was the last of countless progeny bred to test the limits of limitless power.",
+			"In the cosmic prison of her birth, her siblings fought each other to the death",
+			"for supremacy. She alone reached her limit... and broke through.",
 		},
 	},
-	[1066] = {
-		id = "UniqueOneHandSword3",
-		name = "Rebuke of the Vaal",
+	[779] = {
+		id = "UniqueRing73",
+		name = "Call of the Void",
 		text = {
-			"Though the Vaal revered peace, it would have",
-			"been suicide for any culture to rouse them to war.",
-			"- Icius Perandus, Scholar to the Empire.",
+			"Only when the mind is empty of ambition",
+			"can the cold truth of existence take hold.",
 		},
 	},
-	[1067] = {
-		id = "UniqueHelmetDex8",
-		name = "Saqawal's Flock",
+	[780] = {
+		id = "UniqueAmulet70",
+		name = "The Eternal Struggle",
 		text = {
-			"Though we are individual, we share the same plight.",
-			"The First of the Sky teaches us that unity and selflessness,",
-			"not division and greed, is what will carry us upwards.",
+			"Simply the way it must be, so that existence may be.",
 		},
 	},
-	[1068] = {
-		id = "UniqueJewel47",
-		name = "Pugilist",
+	[781] = {
+		id = "UniqueHelmetStr9",
+		name = "Echoes of Creation",
 		text = {
-			"The best dancers often make the best fighters.",
+			"A cacophony of battle cries",
+			"Reverberate through time and space",
+			"Inflicting pain beyond measure",
 		},
 	},
-	[1069] = {
-		id = "UniqueBodyStr10",
-		name = "Craiceann's Carapace",
+	[782] = {
+		id = "UniqueAmulet79",
+		name = "Venarius' Astrolabe",
 		text = {
-			"The First of the Deep was the First of All.",
-			"It was He who conquered the waves,",
-			"who stood guard as land rose from sea.",
+			"\"You grew up an orphan, and for that, you blame me.",
+			"Fair enough. So... why not let me erase that pain from your mind?",
+			"Then we can all stand united against the demons at the door...\"",
 		},
 	},
-	[1070] = {
-		id = "UniqueJewel10",
-		name = "Survival Secrets",
+	[783] = {
+		id = "UniqueJewel162",
+		name = "Divine Inferno",
 		text = {
-			"Nature provides its own solutions.",
+			"Gripping the stolen Spear of Solerai in hand,",
+			"the bandit king of Stridevolf watched his enclave burn.",
+			"As foretold, the weapon was powerful beyond compare,",
+			"but using it had cost him absolutely everything.",
 		},
 	},
-	[1071] = {
-		id = "UniqueHelmetStrInt12",
-		name = "Craiceann's Chitin",
+	[784] = {
+		id = "UniqueWand22",
+		name = "Mystic Refractor",
 		text = {
-			"When the rains come, we cower beneath shelter.",
-			"The First of the Deep teaches us",
-			"that we should seek no shelter but ourselves.",
+			"\"Waging war is a simple matter of geometry and death.\"",
+			"- Trinian, Intellectus Prime",
 		},
 	},
-	[1072] = {
-		id = "UniqueRing34",
-		name = "Call of the Brotherhood",
+	[785] = {
+		id = "UniqueJewel160",
+		name = "Forbidden Flame",
 		text = {
-			"Forged by three brothers",
-			"so that they may recognize each other",
-			"across any distance of time or travel.",
+			"The minds of those studied utterly by the Cleansing Fire",
+			"continue to think and dream and beg for silence...",
 		},
 	},
-	[1073] = {
-		id = "UniqueGlovesStr9",
-		name = "Craiceann's Pincers",
+	[786] = {
+		id = "UniqueFlask26",
+		name = "Soul Ripper",
 		text = {
-			"The stone that stays in the waves soon crumbles to sand.",
-			"The First of the Deep teaches us to watch the tides",
-			"and choose our moments to move wisely.",
+			"\"What care have I for their pain? They're already dead.\"",
+			"- Atalui, Vaal Priestess",
 		},
 	},
-	[1074] = {
-		id = "UniqueCorruptedJewel17",
-		name = "Fragility",
+	[787] = {
+		id = "UniqueRing87",
+		name = "Enmity's Embrace",
 		text = {
-			"\"Your flesh will fail you.\"",
+			"In truth, your terror is cold",
+			"You mask it with heat and ire",
+			"But they know.",
+			"They know.",
 		},
 	},
-	[1075] = {
-		id = "UniqueBootsStr10",
-		name = "Craiceann's Tracks",
+	[788] = {
+		id = "UniqueHelmetInt16",
+		name = "Fenumus' Toxins",
 		text = {
-			"When the land rose above the sea, The First of the Deep did not move.",
-			"When the sky turned to fire, The First of the Deep did not perish.",
-			"We must remember our place, and play to our strengths.",
+			"A hunter uses everything at their disposal.",
+			"The First of the Night did not hold back her venom.",
+			"She used it to weaken her enemies,",
+			"and used her enemies to strengthen her many children.",
 		},
 	},
-	[1076] = {
-		id = "UniqueCorruptedJewel15",
-		name = "Brittle Barrier",
+	[789] = {
+		id = "UniqueRing88",
+		name = "Betrayal's Sting",
 		text = {
-			"Walls built in a hurry fall in a hurry.",
+			"It is not a wound caused by an enemy that bites us twice.",
+			"It is the smile, the nod... the handshake... of a former friend.",
 		},
 	},
-	[1077] = {
+	[790] = {
+		id = "UniqueHelmetDexInt10",
+		name = "Farrul's Bite",
+		text = {
+			"It is a fool who strikes the turtle's shell.",
+			"The First of the Plains teaches us to exploit weaknesses,",
+			"and where no weakness can be found, to create one.",
+		},
+	},
+	[791] = {
+		id = "UniqueRing90",
+		name = "Prospero's Protection",
+		text = {
+			"\"Worry not, my friend, that I tour in fineries.",
+			"The ostentation is all part of being a Perandus.",
+			"As long as I maintain my Vigilance,",
+			"nothing can harm the Empire... or me.\"",
+			"- Emperor Chitus, to Ondar",
+		},
+	},
+	[792] = {
+		id = "UniqueOneHandClaw12x",
+		name = "Replica Advancing Fortress",
+		text = {
+			"\"Additional test subjects approved. Determine exactly how many wounds",
+			"need to be endured to activate Prototype #612's energies.\"",
+		},
+	},
+	[793] = {
+		id = "UniqueMercenaryShieldDex1",
+		name = "Azadi Crest",
+		text = {
+			"\"Keita expects an assassination attempt by stealth or subterfuge.",
+			"I say we attack head-on, like madmen. Let the fates decide.\"",
+			"- Azadi, first ancestor of the House Azadin",
+		},
+	},
+	[794] = {
+		id = "UniqueJewel136",
+		name = "Thread of Hope",
+		text = {
+			"Though we cannot touch; one thought, one wish, through centuries alone in darkness.",
+		},
+	},
+	[795] = {
+		id = "UniqueBelt54",
+		name = "The Arkhon's Tools",
+		text = {
+			"Motion, purpose... craft. The fruits of my mind laboured",
+			"to build my wildest imaginings, never tiring, never faltering.",
+			"Life... or something like it, engineered in its image.",
+		},
+	},
+	[796] = {
+		id = "UniqueJewel159",
+		name = "Dissolution of the Flesh",
+		text = {
+			"\"We awoke to a sudden dawn cresting through the mountains.",
+			"Each peak rose into searing fire, a massive roiling tide.",
+			"A great eye gazed upon us, and we became known—utterly.\"",
+		},
+	},
+	[797] = {
+		id = "UniqueRing91",
+		name = "Squirming Terror",
+		text = {
+			"Madness crawls under the skin,",
+			"bursting forth from the flesh.",
+		},
+	},
+	[798] = {
+		id = "UniqueTwoHandMace12",
+		name = "Tidebreaker",
+		text = {
+			"The sea strikes the rock relentlessly.",
+			"Whether in one day or in ten thousand years,",
+			"eventually the rock will crumble,",
+			"and the Brine King's domain will grow.",
+		},
+	},
+	[799] = {
+		id = "UniqueQuiver22",
+		name = "Spinehail",
+		text = {
+			"Enacting a grand vision requires cold-hearted sacrifice.",
+			"The loyal must be no more than fodder against the unwilling.",
+		},
+	},
+	[800] = {
+		id = "UniqueAmulet67",
+		name = "Uul-Netol's Vow",
+		text = {
+			"The time is nigh.",
+			"War has come.",
+			"We dream as one.",
+		},
+	},
+	[801] = {
+		id = "UniqueMercenaryHelmetStr1",
+		name = "Howlcrack",
+		text = {
+			"\"Our new capital will be called Korathin.",
+			"My slaves will build it. My price is dominion...",
+			"or blood.\" - Keita's Proclamation, 872 IC",
+		},
+	},
+	[802] = {
+		id = "UniqueBelt43",
+		name = "Mageblood",
+		text = {
+			"Rivers of power course through your veins.",
+		},
+	},
+	[803] = {
+		id = "UniqueMercenaryBelt1",
+		name = "Binds of Bloody Vengeance",
+		text = {
+			"What once marked his submission became the tool of his defiance - torn from the lash of House Keita.",
+		},
+	},
+	[804] = {
+		id = "UniqueGlovesStrDex14",
+		name = "Gravebind",
+		text = {
+			"Try as you like to hide the",
+			"blood on your hands.",
+			"You'll still know the truth.",
+		},
+	},
+	[805] = {
+		id = "UniqueMercenaryGlovesStrInt1",
+		name = "Hand of Heresy",
+		text = {
+			"\"The followers of Light recognize Tyndarus Phrecius as",
+			"the Emperor. For siding with the rebels, you and your",
+			"brothers shall be cast out from the true faith, forevermore!\"",
+			"- High Templar Andronicus, 892 IC",
+		},
+	},
+	[806] = {
+		id = "UniqueCorruptedJewel13",
+		name = "Self-Flagellation",
+		text = {
+			"Beg for forgiveness.",
+		},
+	},
+	[807] = {
+		id = "UniqueJewel71",
+		name = "Cheap Construction",
+		text = {
+			"Why waste the good stuff on something that's going to blow up?",
+		},
+	},
+	[808] = {
+		id = "UniqueMercenaryBootsInt1",
+		name = "Scornflux",
+		text = {
+			"The grave insult had to be answered; in a mystic flash,",
+			"Bardiya crossed the room and struck Cyaxan.",
+			"Thus began the War of the Great Families.",
+		},
+	},
+	[809] = {
+		id = "UniqueBootsExpedition2",
+		name = "Olroth's Charge",
+		text = {
+			"Where others would retreat when vulnerable,",
+			"Olroth the Gallant fought deeper into battle.",
+		},
+	},
+	[810] = {
+		id = "UniqueBootsExpedition1",
+		name = "Vorana's March",
+		text = {
+			"In their hour of desperate need, the Knights of the Sun",
+			"called out for aid... and the Black Scythe answered.",
+		},
+	},
+	[811] = {
+		id = "UniqueJewel184",
+		name = "Bound By Destiny",
+		text = {
+			"The future weaves ever forward, twisting into itself forever,",
+			"driven by the passions and tragedies of those who seek.",
+		},
+	},
+	[812] = {
+		id = "UniqueSceptre2",
+		name = "Nycta's Lantern",
+		text = {
+			"Left in her tomb by the lynch mob,",
+			"the flame inside still blazed bright after her death,",
+			"and so did hers.",
+		},
+	},
+	[813] = {
+		id = "UniqueBootsStrDex2",
+		name = "Darkray Vectors",
+		text = {
+			"\"Sirrius flew on wings of light, faster than wind, faster",
+			"than thought. But try as he might to outrun the darkness,",
+			"it was there, at every turn, waiting for him.\"",
+			"- Azmerian legend",
+		},
+	},
+	[814] = {
+		id = "UniqueGlovesInt3",
+		name = "Asenath's Gentle Touch",
+		text = {
+			"Cool the head and cool the blade.",
+		},
+	},
+	[815] = {
+		id = "UniqueGlovesInt6",
+		name = "Voidbringer",
+		text = {
+			"Absolute corruption empowers absolutely.",
+		},
+	},
+	[816] = {
+		id = "UniqueBodyDex9",
+		name = "Cospri's Will",
+		text = {
+			"Curse their vile Council,",
+			"They cast me aside as if I am some bastard child.",
+			"If they only knew the power I possess.",
+		},
+	},
+	[817] = {
+		id = "UniqueQuiver12",
+		name = "Skirmish",
+		text = {
+			"If two great leaders like Lioneye and Kaom",
+			"had been on the same side of the battle,",
+			"nothing would remain unconquered.",
+		},
+	},
+	[818] = {
+		id = "UniqueHelmetStrDex3",
+		name = "Deidbellow",
+		text = {
+			"May you never hear it toll.",
+		},
+	},
+	[819] = {
+		id = "UniqueJewel155",
+		name = "Ulaman's Gaze",
+		text = {
+			"The Sovereign of the Well seeks dominion over the light.",
+		},
+	},
+	[820] = {
+		id = "UniqueJewel154",
+		name = "Tecrod's Gaze",
+		text = {
+			"The Hated Slave seeks dominion over his own kind.",
+		},
+	},
+	[821] = {
+		id = "UniqueStaff29",
+		name = "Cane of Kulemak",
+		text = {
+			"Stolen power is still power.",
+		},
+	},
+	[822] = {
+		id = "UniqueRing71",
+		name = "Triumvirate Authority",
+		text = {
+			"The priest that carried Yaomac's sigil was",
+			"granted one boon by each serpentine head.",
+		},
+	},
+	[823] = {
+		id = "UniqueStaff28",
+		name = "Atziri's Rule",
+		text = {
+			"Bow before her... or suffer the most gruelling death imaginable.",
+		},
+	},
+	[824] = {
+		id = "UniqueWand20",
+		name = "Relic of the Pact",
+		text = {
+			"Crush your enemies with your essence, so that you may drink of theirs.",
+		},
+	},
+	[825] = {
+		id = "UniqueHelmetDexInt16",
+		name = "Glimpse of Chaos",
+		text = {
+			"Man retains sanity and strives toward civilisation",
+			"only under the blessed veil of ignorance.",
+		},
+	},
+	[826] = {
+		id = "UniqueBootsDex14",
+		name = "Temptation Step",
+		text = {
+			"The High Priests ensured the loyalty of their slaves by habituating",
+			"them to narcotic stimulants with lethal withdrawals.",
+		},
+	},
+	[827] = {
+		id = "UniqueSceptre24",
+		name = "Yaomac's Accord",
+		text = {
+			"Their three serpentine heads found unity in balance.",
+		},
+	},
+	[828] = {
+		id = "UniqueGlovesStr10",
+		name = "Hateforge",
+		text = {
+			"The first Karui born on the fringes of the Vaal empire",
+			"developed a blood fever born of corruption.",
+		},
+	},
+	[829] = {
+		id = "UniqueShieldStrInt15",
+		name = "Mahuxotl's Machination",
+		text = {
+			"The Banished Architect sought to employ all the",
+			"darkest secrets of the Vaal... at the same time.",
+		},
+	},
+	[830] = {
+		id = "UniqueHelmetStrDex9",
+		name = "The Fledgling",
+		text = {
+			"The single well-placed arrow that changes the world",
+			"must be preceded by ten thousand practice shots.",
+		},
+	},
+	[831] = {
+		id = "UniqueBodyDexInt13",
+		name = "The Admiral",
+		text = {
+			"The Oriathans built their empire on naval mobility, which allowed",
+			"them to wage war wherever their enemy was weakest.",
+		},
+	},
+	[832] = {
+		id = "UniqueJewel151",
+		name = "Lord of Steel",
+		text = {
+			"Her apprentice spends hours working the steel,",
+			"and the end result is melted for scrap.",
+			"Each one made better than the last.",
+			"Each one made more quickly.",
+			"She knows the path well.",
+		},
+	},
+	[833] = {
+		id = "UniqueJewel149",
+		name = "Lord of Steel",
+		text = {
+			"Each blow of the hammer shapes the ingot,",
+			"each strike stretching and sharpening;",
+			"The sabre's tip reaching out, grasping for life.",
+		},
+	},
+	[834] = {
+		id = "UniqueShieldStrDex5",
+		name = "Shattershard",
+		text = {
+			"Fragile, explosive, and punishing.",
+		},
+	},
+	[835] = {
+		id = "UniqueClaw10x",
+		name = "Replica Allure",
+		text = {
+			"\"Test subject was able to survive the entire process simply by shouting epithets at",
+			"the researcher. Researcher's feelings were slightly injured.\"",
+			"- Researcher Graven",
+		},
+	},
+	[836] = {
+		id = "UniqueBodyDexInt6",
+		name = "Inpulsa's Broken Heart",
+		text = {
+			"Don't hesitate; bring death to all, conclusively and swiftly,",
+			"or they will give you the same treatment.",
+		},
+	},
+	[837] = {
+		id = "UniqueBelt10x",
+		name = "Replica Prismweave",
+		text = {
+			"\"A legion of forty soldiers attempted to break into Outpost Five and",
+			"steal Prototype #659. What do they know that we do not?\"",
+		},
+	},
+	[838] = {
+		id = "UniqueAmulet36",
+		name = "Bisco's Collar",
+		text = {
+			"Friendship worth its weight in gold,",
+			"a treasure every day.",
+			"I thought together we'd grow old,",
+			"until fate pulled you away.",
+		},
+	},
+	[839] = {
+		id = "UniqueHelmetStrInt4x",
+		name = "Replica Veil of the Night",
+		text = {
+			"\"Prototype #722 might look like a helmet, but I believe it to be something else",
+			"entirely. The visions it shows the wearer... are beyond mortal endurance...\"",
+		},
+	},
+	[840] = {
+		id = "UniqueBodyInt12",
+		name = "The Coming Calamity",
+		text = {
+			"Whiff of cold, tiny spark, faintest flicker in the dark.",
+			"Embers swirl, ice takes form, sky exposed - Death's perfect storm.",
+			"Frost and thunder, flames shine bright, ruin walks the land tonight.",
+			"By your hand they dance and bend, wield them and brook no end.",
+		},
+	},
+	[841] = {
+		id = "UniqueJewel137",
+		name = "Kitava's Teachings",
+		text = {
+			"Savour the bitter, cherish the sweet,",
+			"For there may never be another chance to eat.",
+		},
+	},
+	[842] = {
+		id = "UniqueJewel82",
+		name = "Primordial Eminence",
+		text = {
+			"\"Do not cause the land to stir,",
+			"It holds secrets better unknown.\"",
+			"- Azmerian proverb",
+		},
+	},
+	[843] = {
+		id = "UniqueWatchstone5",
+		name = "Territories Unknown",
+		text = {
+			"There exists in every man and woman",
+			"a desire to push boundaries, to break new ground,",
+			"to make great discoveries,",
+			"no matter the personal cost.",
+		},
+	},
+	[844] = {
+		id = "UniqueJewel81",
+		name = "Primordial Might",
+		text = {
+			"\"A stone is not a stone.",
+			"It is but one part of a fortress.\"",
+			"- Ezomyte proverb",
+		},
+	},
+	[845] = {
+		id = "UniqueSceptre23",
+		name = "The Black Cane",
+		text = {
+			"Lead the army of the damned from the front.",
+		},
+	},
+	[846] = {
+		id = "UniqueJewel83",
+		name = "Primordial Harmony",
+		text = {
+			"\"Kings fall, empires crumble, mortals perish.",
+			"All turn to earth and sand.\"",
+			"- Maraketh proverb",
+		},
+	},
+	[847] = {
+		id = "UniqueHelmetDexInt13",
+		name = "Eye of Malice",
+		text = {
+			"Through vision coloured by burning rage and icy hate",
+			"peers a visitor from a realm of ill intent...",
+		},
+	},
+	[848] = {
+		id = "UniqueAmulet60",
+		name = "Willowgift",
+		text = {
+			"The storm cannot break that which bends.",
+		},
+	},
+	[849] = {
+		id = "UniqueGlovesDex5",
+		name = "Painseeker",
+		text = {
+			"Lay bare paths to pain you never knew you had.",
+		},
+	},
+	[850] = {
+		id = "UniqueFlask20",
+		name = "Dying Sun",
+		text = {
+			"All things must die.",
+			"Whether you burn out or explode is up to you.",
+		},
+	},
+	[851] = {
+		id = "UniqueRing64",
+		name = "Astral Projector",
+		text = {
+			"The body stands, but the spirit soars.",
+		},
+	},
+	[852] = {
+		id = "UniqueFlask19",
+		name = "Witchfire Brew",
+		text = {
+			"\"Think of those that cursed us, judged us,",
+			"and burned our sisters upon the pyre.",
+			"Think of their names as you drink,",
+			"and even their children will feel what we do to them today.\"",
+			"-Vadinya, to her coven",
+		},
+	},
+	[853] = {
+		id = "UniqueBelt35",
+		name = "Mother's Embrace",
+		text = {
+			"Drink, my children, and be strengthened.",
+		},
+	},
+	[854] = {
+		id = "UniqueShieldDex8",
+		name = "Mistwall",
+		text = {
+			"Light as a board,",
+			"Stiff as a feather.",
+		},
+	},
+	[855] = {
+		id = "UniqueHelmetStrInt17",
+		name = "Crown of the Inward Eye",
+		text = {
+			"Divinity is not the only path to enlightenment.",
+		},
+	},
+	[856] = {
+		id = "UniqueWand11",
+		name = "Obliteration",
+		text = {
+			"We forge order from the world around us",
+			"Wielding anarchy and destruction as our tools of genesis.",
+		},
+	},
+	[857] = {
+		id = "UniqueBelt34",
+		name = "Leash of Oblation",
+		text = {
+			"Those who offer up sacrifices to every deity entreat the full favour of none.",
+		},
+	},
+	[858] = {
+		id = "UniqueAmulet58",
+		name = "The Jinxed Juju",
+		text = {
+			"Burned rhoa's eye and goatman's beard do demand:",
+			"Leave behind those lazy bones;",
+			"Dance, ye dead, at my command!",
+		},
+	},
+	[859] = {
+		id = "UniqueBodyStrInt12",
+		name = "Sporeguard",
+		text = {
+			"Shrouded in seed, a conduit of contagion,",
+			"yet the source of septicity remains unknown.",
+			"",
+			"^8This item can be anointed by Cassia",
+		},
+	},
+	[860] = {
+		id = "UniqueHelmetDex9",
+		name = "Cowl of the Cryophile",
+		text = {
+			"The villagers seared the blight with cold, but it only bloomed countless spears.",
+			"",
+			"^8This item can be anointed by Cassia",
+		},
+	},
+	[861] = {
+		id = "UniqueGlovesStrDex13",
+		name = "Breathstealer",
+		text = {
+			"The last gasp is not always one's final act.",
+			"",
+			"^8This item can be anointed by Cassia",
+		},
+	},
+	[862] = {
+		id = "UniqueBootsStr11",
+		name = "Torchoak Step",
+		text = {
+			"Centuries ago, there existed a unique grove imbued with ancestral fire.",
+			"As with all things, the Karui used its wood for war.",
+		},
+	},
+	[863] = {
+		id = "UniqueBodyStrInt11",
+		name = "Rotting Legion",
+		text = {
+			"A glacier of putrid meat, crushing mountains and valleys alike.",
+		},
+	},
+	[864] = {
+		id = "UniqueRing61",
+		name = "Venopuncture",
+		text = {
+			"There is a way to survive the bite of an ice snake,",
+			"but few have the resolve to attempt it.",
+		},
+	},
+	[865] = {
+		id = "UniqueJewel133",
+		name = "Seething Fury",
+		text = {
+			"The enslaved Ezomyte clans were not permitted to own weapons.",
+			"For years, they trained in secret, watching and waiting for the",
+			"perfect moment to reveal the true depth of the Empire's folly.",
+		},
+	},
+	[866] = {
+		id = "UniqueJewel132",
+		name = "Elegant Hubris",
+		text = {
+			"They believed themselves better than the past, but that confidence brought about nightmare.",
+		},
+	},
+	[867] = {
+		id = "UniqueJewel130",
+		name = "Brutal Restraint",
+		text = {
+			"They believed themselves the most ordered, but that tradition turned their forests to salt.",
+		},
+	},
+	[868] = {
+		id = "UniqueJewel128",
+		name = "Glorious Vanity",
+		text = {
+			"They believed themselves the pinnacle of civilisation, but that height toppled their empire.",
+		},
+	},
+	[869] = {
+		id = "UniqueSceptre22",
+		name = "Sign of the Sin Eater",
+		text = {
+			"A secret few among the Templars grant absolution by bearing the guilt of others.",
+		},
+	},
+	[870] = {
+		id = "UniqueJewel46",
+		name = "Conqueror's Longevity",
+		text = {
+			"Victory is as simple as being the last one standing.",
+		},
+	},
+	[871] = {
+		id = "UniqueHelmetInt21",
+		name = "Maw of Conquest",
+		text = {
+			"Young Napuatzi was thrown into the pits, an unwilling sacrifice,",
+			"but the offer of her blood was refused.",
+			"She rose from the pit alive and anew.",
+			"A Leader. A Conquerer. A Viper.",
+		},
+	},
+	[872] = {
+		id = "UniqueBelt10",
+		name = "Prismweave",
+		text = {
+			"Nothing is as vivid as the rage of battle",
+		},
+	},
+	[873] = {
+		id = "UniqueHelmetInt19c",
+		name = "Thundersight",
+		text = {
+			"See creation as it is, energetic and storming.",
+		},
+	},
+	[874] = {
+		id = "UniqueRing24",
+		name = "Mokou's Embrace",
+		text = {
+			"Fire makes the perfect blossom in the endless night.",
+		},
+	},
+	[875] = {
+		id = "UniqueHelmetInt19a",
+		name = "Flamesight",
+		text = {
+			"See creation as it was, aflame and frantic.",
+		},
+	},
+	[876] = {
+		id = "UniqueJewel34",
+		name = "Efficient Training",
+		text = {
+			"Working smart and working hard aren't mutually exclusive.",
+		},
+	},
+	[877] = {
+		id = "UniqueCorruptedJewel4",
+		name = "Sacrificial Harvest",
+		text = {
+			"The Vaal used human sacrifice to power their empire.",
+			"They, too, eventually sought means to",
+			"make their machines run more efficiently.",
+		},
+	},
+	[878] = {
+		id = "UniqueRing53e",
+		name = "Uzaza's Meadow",
+		text = {
+			"Cold winds blasted what little grew on the icy surface.",
+			"The gifts of the land lay hidden deeper,",
+			"and only patience and persistence would free them.",
+			"",
+			"^8This item can be combined with a Mountain and Valley ring at a Vendor.",
+		},
+	},
+	[879] = {
+		id = "UniqueJewel43",
+		name = "Assassin's Haste",
+		text = {
+			"A quick step can advance great plans.",
+		},
+	},
+	[880] = {
+		id = "UniqueRing53c",
+		name = "Ahkeli's Valley",
+		text = {
+			"The river, once fertile and fresh,",
+			"and flowing briskly to the sea,",
+			"now stood, stained, at a standstill.",
+			"Dammed by the coagulating dead.",
+			"",
+			"^8This item can be combined with a Meadow and Mountain ring at a Vendor.",
+		},
+	},
+	[881] = {
+		id = "UniqueJewel35",
+		name = "Brute Force Solution",
+		text = {
+			"Picking a lock takes an immense amount of skill and practice.",
+			"Breaking it with a hammer takes about three seconds.",
+		},
+	},
+	[882] = {
+		id = "UniqueJewel72",
+		name = "Hair Trigger",
+		text = {
+			"Anyone can catch a lumbering beast.",
+			"Try catching a bird before it has even landed.",
+		},
+	},
+	[883] = {
+		id = "UniqueSceptre20",
+		name = "Cerberus Limb",
+		text = {
+			"The greatest of guardians make the greatest of sacrifices.",
+		},
+	},
+	[884] = {
+		id = "UniqueHelmetDexInt11",
+		name = "Curtain Call",
+		text = {
+			"Sing with me one last duet,",
+			"the curtain closes nigh.",
+			"Join me in a quiet song,",
+			"Before we all must die.",
+		},
+	},
+	[885] = {
+		id = "UniqueJewel5",
+		name = "Lioneye's Fall",
+		text = {
+			"The shield crab does not leave his shell unless it is forced to,",
+			"and even then, it knows to keep its distance.",
+		},
+	},
+	[886] = {
+		id = "UniqueGlovesInt10",
+		name = "Demon Stitcher",
+		text = {
+			"Xibaqua's treachery was met with divine fury.",
+			"One by one, the gods reclaimed their flesh,",
+			"until all that remained was a droplet of pure light:",
+			"The first Vaal.",
+		},
+	},
+	[887] = {
+		id = "UniqueFlask16",
+		name = "Zerphi's Last Breath",
+		text = {
+			"\"Proof that if you devote yourself to a god of death,",
+			"you may be spared from its wrath.\"",
+			"- Icius Perandus, Antiquities Collection, Item 408",
+		},
+	},
+	[888] = {
+		id = "UniqueShieldInt13",
+		name = "The Eternal Apple",
+		text = {
+			"The empire is both the tree and the fruit.",
+			"It provides safe harbour as ideas grow within,",
+			"and when the time is right, the apple is picked.",
+			"The idea, and our ideals, take root.",
+		},
+	},
+	[889] = {
+		id = "UniqueCorruptedJewel5",
+		name = "Atziri's Reign",
+		text = {
+			"Atziri went to great lengths to ensure her immortality,",
+			"but nothing is eternal.",
+		},
+	},
+	[890] = {
+		id = "UniqueStaff24",
+		name = "The Grey Spire",
+		text = {
+			"There was never a simpler time.",
+			"Just simpler motivations.",
+		},
+	},
+	[891] = {
+		id = "UniqueJewel42",
+		name = "Warlord's Reach",
+		text = {
+			"A steady hand can hold back an army.",
+		},
+	},
+	[892] = {
+		id = "UniqueJewel125",
+		name = "Unnatural Instinct",
+		text = {
+			"\"I don't know how I know,",
+			"I just know that I know.\"",
+		},
+	},
+	[893] = {
+		id = "UniqueJewel36",
+		name = "Careful Planning",
+		text = {
+			"\"Greatly outnumbered, Deshret dressed her personal guard",
+			"in identical garb. When the Empire rode north, Deshret and",
+			"her guard took turns revealing themselves, creating the illusion",
+			"of speed beyond the capabilities of even the Virtue Gems.\"",
+			"- History of the Maraketh",
+		},
+	},
+	[894] = {
+		id = "UniqueJewel123",
+		name = "Combat Focus",
+		text = {
+			"Standing behind iron bars,",
+			"Daresso thought of his adoring fans cheering his name,",
+			"his wife's warm embrace waiting for him,",
+			"and of the celebrations that would soon be thrown in his name.",
+			"But when the arena gate lifted, he thought only of the fight.",
+		},
+	},
+	[895] = {
+		id = "UniqueBow7",
+		name = "Infractem",
+		text = {
+			"Mark us with mercy, then press on with care,",
+			"Execute us steadily, notch away at our despair.",
+		},
+	},
+	[896] = {
+		id = "UniqueSceptre19",
+		name = "Earendel's Embrace",
+		text = {
+			"There the weary multitude of man-kind",
+			"shall turn in their masses into the wide fire,",
+			"where the destroying flame embraces the living,",
+			"some will go up, some down, filled with misery.",
+		},
+	},
+	[897] = {
+		id = "UniqueJewel6",
+		name = "Intuitive Leap",
+		text = {
+			"The carpenter who picks up a blade is not mad.",
+			"He's ambitious.",
+		},
+	},
+	[898] = {
+		id = "UniqueBelt31",
+		name = "Coward's Legacy",
+		text = {
+			"Death is your most important duty.",
+			"Face it, or curse your bloodline for all eternity.",
+		},
+	},
+	[899] = {
+		id = "UniqueJewel44",
+		name = "Conqueror's Efficiency",
+		text = {
+			"The stone may yet bleed.",
+		},
+	},
+	[900] = {
+		id = "UniqueBootsDexInt9",
+		name = "Omeyocan",
+		text = {
+			"Only a fool seeks meaning",
+			"in a life so fleeting.",
+		},
+	},
+	[901] = {
+		id = "UniqueBelt29",
+		name = "String of Servitude",
+		text = {
+			"For the Vaal, the relationship between slave and master",
+			"was as intimate and volatile as that of lovers.",
+		},
+	},
+	[902] = {
+		id = "UniqueBelt11",
+		name = "Bated Breath",
+		text = {
+			"At knifepoint, a moment's hesitation means death.",
+		},
+	},
+	[903] = {
+		id = "UniqueJewel121",
+		name = "Transcendent Mind",
+		text = {
+			"A keen mind sees what others do not,",
+			"makes connections where others do not,",
+			"and is dangerous in a way that others are not.",
+		},
+	},
+	[904] = {
+		id = "UniqueBootsDex9",
+		name = "Three-step Assault",
+		text = {
+			"Move in with haste.",
+			"Strike quick, strike hard.",
+			"Vanish like smoke in the wind.",
+		},
+	},
+	[905] = {
+		id = "UniqueGlovesDexInt10",
+		name = "Fenumus' Weave",
+		text = {
+			"A burden shared is a burden made lighter.",
+			"The First of the Night teaches us that our burdens",
+			"are not just ours to bear, but ours to use against oppressors.",
+		},
+	},
+	[906] = {
+		id = "UniqueBodyInt17",
+		name = "Fenumus' Shroud",
+		text = {
+			"The First of the Night was the first explorer",
+			"It was she who first braved night's terrors",
+			"and found comfort in silence and solace.",
+		},
+	},
+	[907] = {
+		id = "UniqueGlovesStrDex10",
+		name = "Farrul's Pounce",
+		text = {
+			"A hungry beast wastes no energy.",
+			"Every strike, no matter how small, must work towards victory.",
+			"The First of the Plains teaches us",
+			"that the largest prey can still be whittled away.",
+		},
+	},
+	[908] = {
+		id = "UniqueShieldDex6",
+		name = "Great Old One's Ward",
+		text = {
+			"The horrors we've encountered are nothing",
+			"compared to the horrors we haven't.",
+		},
+	},
+	[909] = {
 		id = "UniqueBodyStrDex8",
 		name = "Farrul's Fur",
 		text = {
@@ -9031,23 +7612,95 @@ return {
 			"in waiting in the shadows and picking your moment.",
 		},
 	},
-	[1078] = {
-		id = "UniqueCorruptedJewel10",
-		name = "Hungry Abyss",
+	[910] = {
+		id = "UniqueGlovesStr9",
+		name = "Craiceann's Pincers",
 		text = {
-			"Darkness can never be sated.",
+			"The stone that stays in the waves soon crumbles to sand.",
+			"The First of the Deep teaches us to watch the tides",
+			"and choose our moments to move wisely.",
 		},
 	},
-	[1079] = {
-		id = "UniqueRapier2",
-		name = "Aurumvorax",
+	[911] = {
+		id = "UniqueJewel24x",
+		name = "Replica Fragile Bloom",
 		text = {
-			"Many a collector of rarities discovered to his dismay",
-			"that the intelligent spirit in this sword",
-			"does not like to share its master's attention",
+			"\"Distribute Prototype #723 to the guards. Perhaps their survival rate will increase.\"",
 		},
 	},
-	[1080] = {
+	[912] = {
+		id = "UniqueRing65",
+		name = "Profane Proxy",
+		text = {
+			"The machines do not hate. They merely serve one who does.",
+		},
+	},
+	[913] = {
+		id = "UniqueOneHandSword31",
+		name = "The Saviour",
+		text = {
+			"On the mirrored edge of infinity,",
+			"one man sinks forever into darkness,",
+			"one man rises into light.",
+			"But which one am I?",
+		},
+	},
+	[914] = {
+		id = "UniqueBow8",
+		name = "The Tempest",
+		text = {
+			"Centuries of development in steel armoursmithing",
+			"turned the armies of the Eternal Empire",
+			"into very effective lightning rods.",
+		},
+	},
+	[915] = {
+		id = "UniqueRing63",
+		name = "Warrior's Legacy",
+		text = {
+			"Make your mark on history.",
+		},
+	},
+	[916] = {
+		id = "UniqueShieldInt15",
+		name = "Manastorm",
+		text = {
+			"Fear not the fury of the storm.",
+		},
+	},
+	[917] = {
+		id = "UniqueGlovesInt7",
+		name = "Grip of the Council",
+		text = {
+			"Death does not remove you from our grasp.",
+			"Death only brings you closer.",
+		},
+	},
+	[918] = {
+		id = "UniqueBelt24",
+		name = "Ryslatha's Coil",
+		text = {
+			"All creatures have the potential for greatness",
+			"or unequivocal failure.",
+		},
+	},
+	[919] = {
+		id = "UniqueShieldDex3",
+		name = "Atziri's Reflection",
+		text = {
+			"\"As long as I see death in my mirror, so will Wraeclast.\"",
+			"- Atziri, Queen of the Vaal",
+		},
+	},
+	[920] = {
+		id = "UniqueStaff18",
+		name = "Martyr of Innocence",
+		text = {
+			"You have been found guilty.",
+			"Let the fires cleanse you of your sins.",
+		},
+	},
+	[921] = {
 		id = "UniqueRing7",
 		name = "Thief's Torment",
 		text = {
@@ -9060,213 +7713,128 @@ return {
 			"A blessing is often a curse.",
 		},
 	},
-	[1081] = {
-		id = "UniqueBootsInt7",
-		name = "Skyforth",
+	[922] = {
+		id = "UniqueFlask22",
+		name = "The Wise Oak",
 		text = {
-			"The quick die young, the brilliant go mad,",
-			"and the powerful stand alone in a wasteland of their own creation.",
+			"The summer sun dries the soil and burns the leaves.",
+			"The autumn rain extinguishes the flames.",
+			"The spring bloom shades the wet earth.",
+			"Nature is an eternal tug of war.",
 		},
 	},
-	[1082] = {
-		id = "UniqueBootsDex9",
-		name = "Three-step Assault",
+	[923] = {
+		id = "UniqueClaw2",
+		name = "Mortem Morsu",
 		text = {
-			"Move in with haste.",
-			"Strike quick, strike hard.",
-			"Vanish like smoke in the wind.",
+			"Fear blisters the heart and thins the blood.",
+			"Fear squeezes lungs and sets the guts to fester.",
+			"Fear is the wound left untended.",
 		},
 	},
-	[1083] = {
-		id = "UniqueBodyInt11",
-		name = "Cloak of Tawm'r Isley",
+	[924] = {
+		id = "UniqueBootsDex11",
+		name = "Garukhan's Flight",
 		text = {
-			"Renowned by those distinguished,",
-			"Exalted by the few.",
-			"He skulks in darkness,",
-			"and watches from beneath the city.",
+			"The higher you soar, the further you must fall.",
 		},
 	},
-	[1084] = {
-		id = "UniqueDagger3",
-		name = "Ungil's Gauche",
+	[925] = {
+		id = "UniqueGlovesStrInt2",
+		name = "Null and Void",
 		text = {
-			"Unwieldy and garish became graceful",
-			"and deadly in Ungil's nimble hands.",
+			"What is freedom but a clean slate",
+			"in an unclean world?",
 		},
 	},
-	[1085] = {
-		id = "UniqueBodyStrDex7",
-		name = "Gruthkul's Pelt",
+	[926] = {
+		id = "UniqueJewel105",
+		name = "Violent Dead",
 		text = {
-			"Simple is the life of the bear.",
+			"\"Rage, malice, hunger - some traits are more easily carried across the barrier of death.\"",
+			"- Kadavrus, Surgeon to the Umbra",
 		},
 	},
-	[1086] = {
-		id = "UniqueJewel93",
-		name = "Overwhelming Odds",
+	[927] = {
+		id = "UniqueBodyInt3",
+		name = "The Covenant",
 		text = {
-			"Even as the tide turned, and victory swiftly became impossible,",
-			"the legionnaires of Lioneye's Watch stood their ground and fought on,",
-			"every last man dying a brutal, but honourable death.",
+			"My Soul is your Strength",
+			"My Price is your Blood",
 		},
 	},
-	[1087] = {
-		id = "UniqueJewel96",
-		name = "Wildfire",
+	[928] = {
+		id = "UniqueJewel103",
+		name = "Winter Burial",
 		text = {
-			"News of Kaom's victory in the south spread quickly.",
-			"Those in support of the coming rebellion bided their time.",
-			"The rest fled like rats from a fire.",
+			"Exposure led to the deaths of many slaves.",
+			"And it was the duty of slaves to bury the dead in the frozen ground.",
+			"A growing circle of misery and death",
+			"that the elite were all too happy to sustain.",
 		},
 	},
-	[1088] = {
-		id = "UniqueBootsDex2",
-		name = "Goldwyrm",
+	[929] = {
+		id = "UniqueShieldStrInt4",
+		name = "Aegis Aurora",
 		text = {
-			"The wyrm draws warmth from the fires of desire.",
+			"Born from the marriage of ice and sky,",
+			"the aurora evokes both awe and power.",
 		},
 	},
-	[1089] = {
-		id = "UniqueBootsInt4",
-		name = "Bones of Ullr",
+	[930] = {
+		id = "UniqueJewel100",
+		name = "Ring of Blades",
 		text = {
-			"The dead man walks where",
-			"the living fear to tread.",
+			"At night, as a young Daresso shared his bed with a woman whose name he could not recall,",
+			"his thoughts remained in the one place he called his own: The Grand Arena.",
 		},
 	},
-	[1090] = {
-		id = "UniqueBodyInt1",
-		name = "Shavronne's Wrappings",
+	[931] = {
+		id = "UniqueStaff2",
+		name = "Taryn's Shiver",
 		text = {
-			"Shavronne's apparel became ever more extravagant",
-			"as her body and soul became ever more corrupted.",
+			"Shed by the winged beast of night,",
+			"A scaly frost-encrusted thorn.",
+			"All who feel its wintry light",
+			"Shiver in pain at the frozen dawn.",
 		},
 	},
-	[1091] = {
-		id = "UniqueOneHandSword23",
-		name = "United in Dream",
+	[932] = {
+		id = "UniqueWand9",
+		name = "Twyzel",
 		text = {
-			"They grow fat and ripe in slumber.",
-			"To be fed upon when he wakes.",
+			"Life persisted,",
+			"hardened, twisted.",
 		},
 	},
-	[1092] = {
-		id = "UniqueTwoHandAxe3",
-		name = "The Cauteriser",
+	[933] = {
+		id = "UniqueJewel98",
+		name = "Might and Influence",
 		text = {
-			"Swinging through the air, it sings",
-			"of sundered, severed, missing things.",
+			"Emperor Chitus could offer you a gift with one hand,",
+			"and drive a blade into your back with the other.",
+			"His blend of brutality and charisma cultured a potent",
+			"mixture of fear and admiration among the masses.",
 		},
 	},
-	[1093] = {
-		id = "UniqueShieldStr8",
-		name = "The Anticipation",
+	[934] = {
+		id = "UniqueTwoHandAxe9",
+		name = "Kingmaker",
 		text = {
-			"We are within her reach,",
-			"and when the time is right,",
-			"she will reach into us.",
-			"<default>{This item can be transformed with a Blessing of Uul-Netol}",
+			"A King and his people are linked together",
+			"like a soul and a beating heart.",
+			"Both can be severed by a same edge,",
+			"then forged anew.",
 		},
 	},
-	[1094] = {
-		id = "UniqueBootsDex3",
-		name = "Victario's Flight",
+	[935] = {
+		id = "UniqueAmulet32",
+		name = "The Ascetic",
 		text = {
-			"Alive but not unscathed, Victario fled",
-			"as slaughter blossomed at the gates.",
+			"Many things come to one who has nothing.",
 		},
 	},
-	[1095] = {
-		id = "UniqueDagger4x",
-		name = "Replica Heartbreaker",
-		text = {
-			"\"There is something incredibly satisfying about impaling test",
-			"subjects with Ethereal Knives. Perhaps it is the sound -",
-			"the spell, the screams, or both.\"  - Researcher Olesya",
-		},
-	},
-	[1096] = {
-		id = "UniqueBodyStrDex2",
-		name = "Lightning Coil",
-		text = {
-			"\"There's nothing like imminent death",
-			"to galvanize one's purpose in life.\"",
-			"- Malachai the Soulless.",
-		},
-	},
-	[1097] = {
-		id = "UniqueBodyDex7",
-		name = "Wildwrap",
-		text = {
-			"\"I carry neither food nor drink. I rely on the charity",
-			"of my fellow wayfarers. Dead men are generous men.\"",
-			"- Taruk of the Wildmen",
-		},
-	},
-	[1098] = {
-		id = "UniqueAmulet17",
-		name = "Marylene's Fallacy",
-		text = {
-			"\"Marylene stroked the medallion at her breast",
-			"before every duel and every cast of the die.\"",
-			"- Victario, the People's Poet",
-		},
-	},
-	[1099] = {
-		id = "UniqueCorruptedJewel1",
-		name = "Combustibles",
-		text = {
-			"The hotter something burns, the less is left at the end.",
-		},
-	},
-	[1100] = {
-		id = "UniqueJewel20",
-		name = "Hotheaded",
-		text = {
-			"It's hard to stay still when you're engulfed in flames.",
-		},
-	},
-	[1101] = {
-		id = "UniqueJewel18",
-		name = "Fortress Covenant",
-		text = {
-			"When you throw iron weapons against an iron wall",
-			"you only make the wall grow thicker.",
-		},
-	},
-	[1102] = {
-		id = "UniqueJewel17",
-		name = "Mantra of Flames",
-		text = {
-			"The strong grow stronger still.",
-		},
-	},
-	[1103] = {
-		id = "UniqueJewel16",
-		name = "Quickening Covenant",
-		text = {
-			"When you create life from nothing,",
-			"sometimes things get a little stuck in between.",
-		},
-	},
-	[1104] = {
-		id = "UniqueJewel15",
-		name = "Spire of Stone",
-		text = {
-			"The strongest Karui tribes left the longest impressions on the land.",
-			"Their symbols served as guidance many generations",
-			"after their creators had been buried deep beneath the earth.",
-		},
-	},
-	[1105] = {
-		id = "UniqueJewel13",
-		name = "Fluid Motion",
-		text = {
-			"Even the strongest of steel can be made to bend.",
-		},
-	},
-	[1106] = {
+	[936] = {
 		id = "UniqueJewel1",
 		name = "To Dust",
 		text = {
@@ -9274,15 +7842,157 @@ return {
 			"It just comes for some much sooner.",
 		},
 	},
-	[1107] = {
-		id = "UniqueShieldDexInt1",
-		name = "Jaws of Agony",
+	[937] = {
+		id = "UniqueJewel91",
+		name = "Collateral Damage",
 		text = {
-			"One wrong step triggers destruction.",
-			"Agony slowly dominates the will to live.",
+			"Malachai ran roughshod over every ethical boundary in pursuit of creating the ideal gemling.",
+			"For him, there was no doubt that the end would justify the means.",
 		},
 	},
-	[1108] = {
+	[938] = {
+		id = "UniqueJewel2",
+		name = "Eldritch Knowledge",
+		text = {
+			"\"True Thaumaturgy can only be learned",
+			"by the brilliant or the mad.\"",
+			"- Shavronne of Umbra",
+		},
+	},
+	[939] = {
+		id = "UniqueBootsStrInt3",
+		name = "Gang's Momentum",
+		text = {
+			"Become one with the unstoppable flame.",
+		},
+	},
+	[940] = {
+		id = "UniqueJewel3",
+		name = "Inspired Learning",
+		text = {
+			"If you do not learn from a won battle",
+			"then you have already lost the war.",
+		},
+	},
+	[941] = {
+		id = "UniqueAmulet43",
+		name = "Presence of Chayula",
+		text = {
+			"The dreamer stirs, the world trembles.",
+		},
+	},
+	[942] = {
+		id = "UniqueJewel4",
+		name = "Martial Artistry",
+		text = {
+			"A gentle hand rarely leaves a mark on the world.",
+		},
+	},
+	[943] = {
+		id = "UniqueFlask7",
+		name = "Rumi's Concoction",
+		text = {
+			"\"Yesterday I was clever, so I wanted to change the world.",
+			"Today I am wise, so I am changing myself.\"",
+			"-Rumi of the Vaal",
+		},
+	},
+	[944] = {
+		id = "UniqueTalisman4",
+		name = "Rigwald's Curse",
+		text = {
+			"I once thought the First Ones were just",
+			"stories made to scare children.",
+			"But I've seen what they can do. I've felt it.",
+			"And now I must live with that terrible knowledge.",
+		},
+	},
+	[945] = {
+		id = "UniqueWand14",
+		name = "Ashcaller",
+		text = {
+			"\"We do not command fire.",
+			"Ngamahu lends it, and Hinekora returns it.\"",
+			"- Lavianga, Advisor to Kaom",
+		},
+	},
+	[946] = {
+		id = "UniqueTalisman5",
+		name = "Eyes of the Greatwolf",
+		text = {
+			"I am but a vessel for a greater force.",
+			"It acts through me. Speaks through me.",
+			"Decides what lives and dies through me.",
+			"And will change the world through me.",
+		},
+	},
+	[947] = {
+		id = "UniqueClaw1",
+		name = "Essentia Sanguis",
+		text = {
+			"The darkest clouds clashed and coupled,",
+			"giving birth to four lightning children of hate.",
+		},
+	},
+	[948] = {
+		id = "UniqueRing41",
+		name = "Rigwald's Crest",
+		text = {
+			"Within the heart of every man and woman",
+			"lies the soul of a ferocious beast.",
+			"If you cannot tame it, embrace it.",
+		},
+	},
+	[949] = {
+		id = "UniqueJewel8",
+		name = "Survival Instincts",
+		text = {
+			"Observe and master your surroundings.",
+		},
+	},
+	[950] = {
+		id = "UniqueOneHandAxe9",
+		name = "Rigwald's Savagery",
+		text = {
+			"Tear the flesh from the bone.",
+			"Turn the bone to dust.",
+			"Scatter the dust to the wind.",
+		},
+	},
+	[951] = {
+		id = "UniqueJewel9",
+		name = "Survival Skills",
+		text = {
+			"A helping hand has long reach.",
+		},
+	},
+	[952] = {
+		id = "UniqueOneHandSword15",
+		name = "Rigwald's Command",
+		text = {
+			"Fear not death. Turn to him, face him.",
+			"And smile as he sinks his teeth",
+			"into the throats of our oppressors.",
+		},
+	},
+	[953] = {
+		id = "UniqueJewel10",
+		name = "Survival Secrets",
+		text = {
+			"Nature provides its own solutions.",
+		},
+	},
+	[954] = {
+		id = "UniqueQuiver10",
+		name = "Rigwald's Quills",
+		text = {
+			"The fortunate inscribe their legacy",
+			"in the pages of history books.",
+			"The rest of us must leave our mark with our blood",
+			"or the blood of others.",
+		},
+	},
+	[955] = {
 		id = "UniqueJewel11",
 		name = "Fertile Mind",
 		text = {
@@ -9293,688 +8003,537 @@ return {
 			"- Maraketh Proverb",
 		},
 	},
-	[1109] = {
-		id = "UniqueOneHandSword1",
-		name = "Dreadbeak",
+	[956] = {
+		id = "UniqueHelmetDexInt7",
+		name = "Heretic's Veil",
 		text = {
-			"As battle calms, blood turns to rust.",
+			"Branded a heretic for your beliefs,",
+			"You stand alone against many.",
+			"May the truth that fuels their anger,",
+			"Carry your blade into their hearts.",
 		},
 	},
-	[1110] = {
-		id = "UniqueFlask33",
-		name = "Progenesis",
+	[957] = {
+		id = "UniqueShieldDexInt1",
+		name = "Jaws of Agony",
 		text = {
-			"They were bred in a cosmic ocean of raw creation.",
-			"Feasting and drinking of the milk of the mother,",
-			"they fought to the death for every last drop.",
+			"One wrong step triggers destruction.",
+			"Agony slowly dominates the will to live.",
 		},
 	},
-	[1111] = {
-		id = "UniqueAmulet1",
-		name = "Stone of Lazhwar",
+	[958] = {
+		id = "UniqueFlask13",
+		name = "The Writhing Jar",
 		text = {
-			"You are slow, foolish and ignorant.",
-			"I am not.",
+			"To achieve godhood, they would cast off all that god has gifted us.",
+			"Mortality, compassion, even the sanctity of flesh.",
+			"- High Templar Voll",
 		},
 	},
-	[1112] = {
-		id = "UniqueBootsStrDex8",
-		name = "Annihilation's Approach",
+	[959] = {
+		id = "UniqueJewel15",
+		name = "Spire of Stone",
 		text = {
-			"Pray that the flames find fascination,",
-			"for the true end follows when the great eye closes.",
+			"The strongest Karui tribes left the longest impressions on the land.",
+			"Their symbols served as guidance many generations",
+			"after their creators had been buried deep beneath the earth.",
 		},
 	},
-	[1113] = {
-		id = "UniqueRing1",
-		name = "Voidheart",
+	[960] = {
+		id = "UniqueTwoHandAxe14",
+		name = "Ngamahu's Flame",
 		text = {
-			"Fear is highly infectious.",
+			"\"The Karui savages claim the weapon was forged by their fire god.",
+			"I'm rather inclined to believe them.\"",
+			"- Fairgraves, Renowned Explorer",
 		},
 	},
-	[1114] = {
-		id = "UniqueGlovesDexInt19",
-		name = "Entropic Devastation",
+	[961] = {
+		id = "UniqueJewel16",
+		name = "Quickening Covenant",
 		text = {
-			"A legion of lives claimed",
-			"by the shards of obliterated worlds.",
+			"When you create life from nothing,",
+			"sometimes things get a little stuck in between.",
 		},
 	},
-	[1115] = {
-		id = "UniqueRing2",
-		name = "Kaom's Way",
+	[962] = {
+		id = "UniqueShieldInt7",
+		name = "Malachai's Loop",
 		text = {
-			"A token from the sea",
-			"A sign for Kaom",
-			"to lead his Karui to Wraeclast.",
+			"Thaumaturgy has no limit.",
+			"It is our fragile reality that imposes boundaries.",
 		},
 	},
-	[1116] = {
-		id = "UniqueFlask34",
-		name = "Oriath's End",
+	[963] = {
+		id = "UniqueJewel17",
+		name = "Mantra of Flames",
 		text = {
-			"Ennui prevailed, until inspiration sparked",
-			"a mote of flame, kindled by fury",
-			"and all in his path were obliterated.",
+			"The strong grow stronger still.",
 		},
 	},
-	[1117] = {
-		id = "UniqueRing3",
-		name = "Andvarius",
+	[964] = {
+		id = "UniqueBelt19",
+		name = "Umbilicus Immortalis",
 		text = {
-			"Danger is the price of wealth.",
+			"\"The power of rebirth rivals that of immortality.\"",
+			"- Icius Perandus, Antiquities Collection, Item 3",
 		},
 	},
-	[1118] = {
-		id = "UniqueRing74",
-		name = "Nimis",
+	[965] = {
+		id = "UniqueJewel18",
+		name = "Fortress Covenant",
 		text = {
-			"Too much of something is bad enough;",
-			"too much of nothing is just as tough.",
+			"When you throw iron weapons against an iron wall",
+			"you only make the wall grow thicker.",
 		},
 	},
-	[1119] = {
-		id = "UniqueBow1",
-		name = "Lioneye's Glare",
+	[966] = {
+		id = "UniqueAmulet28",
+		name = "Winterheart",
 		text = {
-			"\"See without doubt, slay without hesitation.\"",
-			"- Marceus Lioneye of Sarn",
+			"Those who dwell in the deep freeze",
+			"enjoy a special kind of madness.",
 		},
 	},
-	[1120] = {
-		id = "UniqueJewel171",
-		name = "Rational Doctrine",
+	[967] = {
+		id = "UniqueJewel20",
+		name = "Hotheaded",
 		text = {
-			"Logic wanes in shining faith, and in rationalism, ardour dims",
-			"Thus, the cynic and the zealot are divided",
-			"But can they not be one and the same?",
+			"It's hard to stay still when you're engulfed in flames.",
 		},
 	},
-	[1121] = {
-		id = "UniqueAmulet2",
-		name = "Demigod's Presence",
+	[968] = {
+		id = "UniqueOneHandClaw12",
+		name = "Advancing Fortress",
 		text = {
-			"The maidens of court swoon to see",
-			"the challengers crushed at your feet.",
+			"\"A man cowers behind his walls.",
+			"A woman carries her fortress with her.",
+			"In heart, in mind, in hand.\"",
+			"- Sekhema Deshret",
 		},
 	},
-	[1122] = {
-		id = "UniqueStaff31",
-		name = "The Winds of Fate",
+	[969] = {
+		id = "UniqueCorruptedJewel1",
+		name = "Combustibles",
 		text = {
-			"Life... Death...",
-			"The whim of the cosmos.",
+			"The hotter something burns, the less is left at the end.",
 		},
 	},
-	[1123] = {
-		id = "UniqueBodyStrInt1",
-		name = "Voll's Protector",
+	[970] = {
+		id = "UniqueStaff16",
+		name = "Xirgil's Crank",
 		text = {
-			"Although a great leader during the war,",
-			"Voll proved disastrous in times of peace.",
+			"\"Since one with knowledge of machines",
+			"might be able to bring the labyrinth to a standstill,",
+			"Izaro had us place many boobytrapped decoys.",
+			"But I know which switch brings the monster down.\"",
+			"- Xirgil, Trapbuilder's final words.",
 		},
 	},
-	[1124] = {
-		id = "UniqueJewel176",
-		name = "The Balance of Terror",
+	[971] = {
+		id = "UniqueCorruptedJewel2",
+		name = "Weight of Sin",
 		text = {
-			"Fellshrine stood as a holy bastion opposite the",
-			"Chamber of Sins, and all that it represented.",
-			"For one to rise, the other must fall.",
+			"Ill will is the greatest of burdens.",
 		},
 	},
-	[1125] = {
-		id = "UniqueDagger1",
-		name = "Divinarius",
+	[972] = {
+		id = "UniqueTwoHandMace10",
+		name = "Trypanon",
 		text = {
-			"Divine intervention feels better",
-			"when you do it yourself.",
+			"\"Though ingenious instruments have been found,",
+			"it seems surgery before thaumaturgy",
+			"was not so delicate.\"",
+			"- Icius Perandus, Antiquities Collection, Item 3546",
 		},
 	},
-	[1126] = {
-		id = "UniqueHelmetInt27",
-		name = "Sandstorm Visage",
+	[973] = {
+		id = "UniqueJewelLabyrinth4",
+		name = "Emperor's Mastery",
 		text = {
-			"A fell wind brings death.",
+			"Learn as much as you can,",
+			"and surround yourself with people who know the rest.",
 		},
 	},
-	[1127] = {
-		id = "UniqueBow2",
-		name = "Silverbough",
+	[974] = {
+		id = "UniqueDagger13",
+		name = "Widowmaker",
 		text = {
-			"\"The wild takes care of its own.\"",
-			"- Hyrri of the Karui",
+			"Love only death",
+			"For she shall never let you go.",
 		},
 	},
-	[1128] = {
-		id = "UniqueAmulet71",
-		name = "Eternal Damnation",
+	[975] = {
+		id = "UniqueAmulet35",
+		name = "Eye of Innocence",
 		text = {
-			"The price of immortality is isolation.",
+			"\"...and so He said: 'Let only the good meet my gaze'",
+			"and no eye met His. So He called down the cleansing flames",
+			"and let black smoke sweep the Sinners away.\"",
+			"- Book of Innocence",
 		},
 	},
-	[1129] = {
-		id = "UniqueOneHandSword2",
-		name = "Ephemeral Edge",
+	[976] = {
+		id = "UniqueOneHandSword18",
+		name = "Innsbury Edge",
 		text = {
-			"In the rift between future and past,",
-			"life passes quickly.",
+			"A sword he brought, his foes to maim and rend,",
+			"from places dark behind forbidden doors,",
+			"but night by night he woke with frighten'd roars",
+			"from ghoulish dreams, too strange to comprehend.",
 		},
 	},
-	[1130] = {
-		id = "UniqueBootsStr12",
-		name = "Dawnstrider",
+	[977] = {
+		id = "UniqueOneHandMace9",
+		name = "Clayshaper",
 		text = {
-			"In a void strewn with incandescent stardust,",
-			"the emissary of flame traverses interplanetary space",
-			"consuming the knowledge of fallen civilisations.",
+			"There is nothing, flesh, spirit, or stone",
+			"Free from our hunger for dominion.",
 		},
 	},
-	[1131] = {
-		id = "UniqueHelmetDexInt1",
-		name = "Malachai's Awakening",
+	[978] = {
+		id = "UniqueShieldDexInt2",
+		name = "Maligaro's Lens",
 		text = {
-			"It was a sliver of Malachai's soul",
-			"that animated the first Eternal Guardian.",
+			"\"Look around you. What do you see?",
+			"Corruption, perversion, sin?",
+			"No. It is progress.",
+			"You simply lack the means to see it.\"",
+			"- Inquisitor Maligaro",
 		},
 	},
-	[1132] = {
-		id = "UniqueRing75",
-		name = "Anathema",
+	[979] = {
+		id = "UniqueOneHandMace10",
+		name = "Frostbreath",
 		text = {
-			"Enraged by the incompetence of mortals",
-			"The demon-lord opens a gateway",
-			"Unleashing a litany of pain upon the world.",
+			"A merciful murderer swept through the streets of Sarn",
+			"Robbing breath from the weak and worthless.",
 		},
 	},
-	[1133] = {
-		id = "UniqueHelmetStr1",
-		name = "Ezomyte Hold",
+	[980] = {
+		id = "UniqueTwoHandMace11",
+		name = "Brain Rattler",
 		text = {
-			"Centuries of servitude, a day",
-			"of glory, an eternity of death.",
+			"The mind may have no limits, but the skull sure does.",
 		},
 	},
-	[1134] = {
-		id = "UniqueAmulet72",
-		name = "Doedre's Tongue",
+	[981] = {
+		id = "UniqueShieldDex5",
+		name = "Thousand Teeth Temu",
 		text = {
-			"Maligaro did the cutting... at her request.",
-			"In the new void, a malevolent power emerged.",
+			"Crimson burn'd the star of sadness,",
+			"All was woe that seem'd but gladness.",
 		},
 	},
-	[1135] = {
-		id = "UniqueJewel75",
-		name = "Grand Spectrum",
-		text = {
-			"Thoughts that shimmer like light across the rain.",
-		},
-	},
-	[1136] = {
-		id = "UniqueJewel76",
-		name = "Grand Spectrum",
-		text = {
-			"Skin like steel tempered by bright flames.",
-		},
-	},
-	[1137] = {
-		id = "UniqueJewel77",
-		name = "Grand Spectrum",
-		text = {
-			"Fists that strike like a falling tree.",
-		},
-	},
-	[1138] = {
-		id = "UniqueHelmetInt26",
-		name = "Wilma's Requital",
-		text = {
-			"Bold and beautiful, a castaway",
-			"Hemmed and hawed, for her to stay",
-			"Oh, what I'd give for one more day",
-			"For she's the one that got away",
-			"-Franklin",
-		},
-	},
-	[1139] = {
-		id = "UniqueBelt20",
-		name = "Ascent From Flesh",
-		text = {
-			"A single step forward",
-			"Snap free from the prison",
-			"Reborn into freedom eternal",
-		},
-	},
-	[1140] = {
-		id = "UniqueRing76",
-		name = "Original Sin",
-		text = {
-			"Innocence rose to godhood not on inspired faith,",
-			"but on the vilification and hatred of another.",
-		},
-	},
-	[1141] = {
-		id = "UniqueHelmetInt11",
-		name = "Mind of the Council",
-		text = {
-			"You think we do not know.",
-			"We know all that you think.",
-		},
-	},
-	[1142] = {
-		id = "UniqueHelmetStr11",
-		name = "Blood Price",
-		text = {
-			"An eye for an eye makes the whole world dead.",
-		},
-	},
-	[1143] = {
-		id = "UniqueTwoHandSword2",
-		name = "Shiversting",
-		text = {
-			"Stoic visage, icy heart.",
-			"Life of sorrow, lived apart.",
-		},
-	},
-	[1144] = {
-		id = "UniqueAmulet31",
-		name = "Hinekora's Sight",
-		text = {
-			"Remember the past, anticipate the future.",
-		},
-	},
-	[1145] = {
-		id = "UniqueRing4",
-		name = "Doedre's Damning",
-		text = {
-			"Where her mouth should have been",
-			"there was only a whirling, black void.",
-		},
-	},
-	[1146] = {
-		id = "UniqueHelmetStrInt6",
-		name = "Kitava's Thirst",
-		text = {
-			"Tukohama, Tawhoa and Kitava went to the lake to fish.",
-			"Tawhoa weaved a net to catch the fish,",
-			"Tukohama built a fire to cook the fish,",
-			"and Kitava swallowed the entire lake, fish and all, with a single gulp.",
-		},
-	},
-	[1147] = {
-		id = "UniqueRing5",
-		name = "Dream Fragments",
-		text = {
-			"Doryani stumbled into a realm of madness",
-			"And awoke its Master.",
-		},
-	},
-	[1148] = {
-		id = "UniqueOneHandSword19",
-		name = "Scaeva",
-		text = {
-			"Even from the back rows,",
-			"the whistling steel was mesmerising.",
-			"They watched the dance in the arena dust, silent as the dead.",
-			"A spell only broken by the spilling of blood.",
-		},
-	},
-	[1149] = {
-		id = "UniqueQuiver2",
-		name = "Broadstroke",
-		text = {
-			"Seeing only foot soldiers, the Sarn Knights cast aside",
-			"their heavy shields... and paid dearly for their mistake.",
-		},
-	},
-	[1150] = {
-		id = "UniqueFlask17",
-		name = "The Overflowing Chalice",
-		text = {
-			"Empty cup, full of promise.",
-		},
-	},
-	[1151] = {
-		id = "UniqueAmulet3",
-		name = "Sidhebreath",
-		text = {
-			"The breath of life is yours to give.",
-		},
-	},
-	[1152] = {
-		id = "UniqueQuiver11",
-		name = "Saemus' Gift",
-		text = {
-			"Beaten in contest, he would try once more",
-			"Guided by magic, Magjar took aim at a dove",
-			"Saemus' gift would influence the score",
-			"Guided by darkness, Magjar spilled the blood of his love",
-		},
-	},
-	[1153] = {
-		id = "UniqueAmulet5",
-		name = "Karui Charge",
-		text = {
-			"\"Shoot first, ask no questions.\"",
-			"- Karui wisdom",
-		},
-	},
-	[1154] = {
-		id = "UniqueGlovesStr7",
-		name = "Veruso's Battering Rams",
-		text = {
-			"With unending determination and resolve he destroyed first the gates,",
-			"then the constructs guarding the tomb on the other side.",
-		},
-	},
-	[1155] = {
-		id = "UniqueAmulet6",
-		name = "Eye of Chayula",
-		text = {
-			"Never blinking, always watching.",
-			"<default>{This item can be transformed with a Blessing of Chayula}",
-		},
-	},
-	[1156] = {
-		id = "UniqueBodyDex8",
-		name = "Kintsugi",
-		text = {
-			"Do not hide your flaws, your cracks,",
-			"mend them, and display them proudly.",
-			"For it is these that set us apart.",
-		},
-	},
-	[1157] = {
-		id = "UniqueBodyDex1",
-		name = "Hyrri's Ire",
-		text = {
-			"Hyrri loosed a barrage of arrows,",
-			"tipped with a poisoned hatred",
-			"only oppression can ferment.",
-		},
-	},
-	[1158] = {
-		id = "UniqueClaw14",
-		name = "Touch of Anguish",
-		text = {
-			"Grip the frozen steel, feel it numb you.",
-			"Wield the cold touch of death like",
-			"a splinter of your own shattered heart.",
-		},
-	},
-	[1159] = {
-		id = "UniqueBodyStr1",
-		name = "Kaom's Heart",
-		text = {
-			"The warrior who",
-			"fears will fall.",
-		},
-	},
-	[1160] = {
-		id = "UniqueTwoHandSword10",
-		name = "Hiltless",
-		text = {
-			"The cuts on my hands are a small price to pay",
-			"for the opportunity to drive my steel",
-			"beyond the flesh and into the demon's soul.",
-		},
-	},
-	[1161] = {
-		id = "UniqueDexHelmet1",
-		name = "Fairgraves' Tricorne",
-		text = {
-			"Fairgraves' trusty tricorne accompanied him far across",
-			"the seas, deep under the ground, and even beyond death.",
-		},
-	},
-	[1162] = {
-		id = "UniqueRapier5",
-		name = "Ewar's Mirage",
-		text = {
-			"A single breeze blows",
-			"A hundred blades dance",
-		},
-	},
-	[1163] = {
-		id = "UniqueDexHelmet2",
-		name = "Frostferno",
-		text = {
-			"Give of your heated passions.",
-			"Give of your cold resolve.",
-			"You will be repaid.",
-		},
-	},
-	[1164] = {
-		id = "UniqueShieldStr7",
-		name = "Lycosidae",
-		text = {
-			"A true predator does not chase; It waits.",
-		},
-	},
-	[1165] = {
-		id = "UniqueBootsStr11",
-		name = "Torchoak Step",
-		text = {
-			"Centuries ago, there existed a unique grove imbued with ancestral fire.",
-			"As with all things, the Karui used its wood for war.",
-		},
-	},
-	[1166] = {
-		id = "UniqueJewel79",
-		name = "The Anima Stone",
-		text = {
-			"All revere the earth they walk,",
-			"For it wields strength beyond compare,",
-			"Holds knowledge more than thought,",
-			"Stands long after all else falls.",
-		},
-	},
-	[1167] = {
-		id = "UniqueDagger19",
-		name = "Cold Iron Point",
-		text = {
-			"There is nothing more brutal than a simple blade wielded with rage.",
-		},
-	},
-	[1168] = {
-		id = "UniqueHelmStrInt7",
-		name = "Voll's Vision",
-		text = {
-			"Righteous men seek virtue like tame pups seek praise.",
-		},
-	},
-	[1169] = {
-		id = "UniqueBelt46",
-		name = "Ceinture of Benevolence",
-		text = {
-			"\"Put your faith in me.",
-			"Our god demands it.\"",
-			"- High Templar Maxarius",
-		},
-	},
-	[1170] = {
+	[982] = {
 		id = "UniqueHelmStrInt8",
 		name = "Malachai's Vision",
 		text = {
 			"Wicked men chase power like stray dogs chase a rat.",
 		},
 	},
-	[1171] = {
-		id = "UniqueHelmetStrDex10",
-		name = "El'Abin's Visage",
+	[983] = {
+		id = "UniqueRapier4",
+		name = "Daresso's Passion",
 		text = {
-			"As the fiery remnants of our outpost were subsumed into the caldera,",
-			"a thunderous voice echoed across the barren landscape,",
-			"\"Your fragility is your folly. May others rise where you have fallen.\"",
-			"- El'Abin, Bloodeater",
+			"It doesn't matter how well the young swordsman trains.",
+			"All form and finesse are forgotten when blood first hits the ground.",
 		},
 	},
-	[1172] = {
-		id = "UniqueBodyDex9",
-		name = "Cospri's Will",
+	[984] = {
+		id = "UniqueStaff3",
+		name = "Pillar of the Caged God",
 		text = {
-			"Curse their vile Council,",
-			"They cast me aside as if I am some bastard child.",
-			"If they only knew the power I possess.",
+			"Forged to rule the waves and tide",
+			"Destined to serve the monkey's paw",
+			"Strong as a tower of iron",
+			"Deft as the needle doubt",
 		},
 	},
-	[1173] = {
-		id = "UniqueStaff32",
-		name = "The Geomantic Gyre",
+	[985] = {
+		id = "UniqueDagger9",
+		name = "Mark of the Doubting Knight",
 		text = {
-			"For their mortal allies, the last Titans forged a mighty staff,",
-			"one that could safely hold the first unearthed virtue gem.",
+			"Nothing is pure.",
+			"Slice open the Innocent",
+			"And spill a thousand Sins.",
 		},
 	},
-	[1174] = {
-		id = "UniqueAmulet32",
-		name = "The Ascetic",
+	[986] = {
+		id = "UniqueGlovesInt4",
+		name = "Kalisa's Grace",
 		text = {
-			"Many things come to one who has nothing.",
+			"\"You shall hang, in blissful agony, on my every note.\"",
+			"- Kalisa, Prima Donna of Sarn",
 		},
 	},
-	[1175] = {
-		id = "UniqueOneHandSword34",
-		name = "The Redblade",
+	[987] = {
+		id = "UniqueFishingRod2",
+		name = "Reefbane",
 		text = {
-			"Its forging marked the melding of man",
-			"and Titan against the rising darkness.",
+			"He cast far into the ocean",
+			"And tore out her heart.",
 		},
 	},
-	[1176] = {
-		id = "UniqueQuiver12",
-		name = "Skirmish",
+	[988] = {
+		id = "UniqueGlovesDexInt3",
+		name = "Thunderfist",
 		text = {
-			"If two great leaders like Lioneye and Kaom",
-			"had been on the same side of the battle,",
-			"nothing would remain unconquered.",
+			"The roar of the heavens",
+			"Strikes more than fear",
+			"Into the hearts of Man",
 		},
 	},
-	[1177] = {
-		id = "UniqueAmulet50",
-		name = "Replica Dragonfang's Flight",
+	[989] = {
+		id = "UniqueOneHandSword9",
+		name = "Dreamfeather",
 		text = {
-			"\"Did we make this? Why do we have no record of it?",
-			"We were warned that there would be consequences...\"",
-			"- Administrator Qotra",
+			"She dances a dance beneath the shade,",
+			"The twilight shroud her only blade,",
+			"Who now hears her feathersteps flowing?",
+			"Beneath the stars, the moondrops glowing.",
 		},
 	},
-	[1178] = {
-		id = "UniqueGlovesInt7",
-		name = "Grip of the Council",
+	[990] = {
+		id = "UniqueBodyStr2",
+		name = "Wall of Brambles",
 		text = {
-			"Death does not remove you from our grasp.",
-			"Death only brings you closer.",
+			"It is safer to be feared than to be loved.",
 		},
 	},
-	[1179] = {
-		id = "UniqueBootsStr13",
-		name = "Kahuturoa's Certainty",
+	[991] = {
+		id = "UniqueBodyStrInt7",
+		name = "Geofri's Sanctuary",
 		text = {
-			"Confidence is calm and measured.",
+			"Faith does not make us invulnerable.",
+			"It makes us immortal.",
 		},
 	},
-	[1180] = {
-		id = "UniqueFlask18",
-		name = "Kiara's Determination",
+	[992] = {
+		id = "UniqueBodyDex3",
+		name = "Ashrend",
 		text = {
-			"Travelers of the deep wood speak of a witch",
-			"whose ale provides a different kind",
-			"of liquid courage.",
+			"The blasted oak stands forever.",
 		},
 	},
-	[1181] = {
-		id = "UniqueBelt47",
-		name = "Kaom's Binding",
+	[993] = {
+		id = "UniqueBootsDex8",
+		name = "Nomic's Storm",
 		text = {
-			"For centuries, he burned in an unending",
-			"nightmare of lava and flame... but he endured.",
+			"It takes a clear mind to outrun a storm.",
 		},
 	},
-	[1182] = {
-		id = "UniqueBootsStrDex1x",
-		name = "Replica Lioneye's Paws",
+	[994] = {
+		id = "UniqueBodyInt2",
+		name = "Cloak of Flame",
 		text = {
-			"\"Twelve dead, and the seventh lab cannot be entered for several years.",
-			"Prototype #12 is a 'success,' if we can ever reach it.\"",
+			"He who sows an ember shall reap an inferno.",
 		},
 	},
-	[1183] = {
-		id = "UniqueBodyDexInt5",
-		name = "Tinkerskin",
+	[995] = {
+		id = "UniqueBodyStrDex4",
+		name = "Cherrubim's Maleficence",
 		text = {
-			"Thin is the line between mechanical genius and magic.",
+			"\"The Consort of Chaos descended,",
+			"swiftly, brutally, artfully, she consumed the living,",
+			"leaving naught behind but a Rosemarie bloom,",
+			"to celebrate the massacre.\"",
+			"- Blass, explorer, hunter, adventurer",
 		},
 	},
-	[1184] = {
-		id = "UniqueBodyStrInt2x",
-		name = "Replica Ambu's Charge",
+	[996] = {
+		id = "UniqueOneHandSword17",
+		name = "Varunastra",
 		text = {
-			"\"Prototype #7 achieved even greater injury responsiveness than expected,",
-			"though at considerable cost to the long-term survival rate of the user.\"",
+			"\"Painful suicide in the hands of a fool,",
+			"Creative death in the hands of a master.\"",
+			"- Icius Perandus, Antiquities Collection, Item 2992",
 		},
 	},
-	[1185] = {
-		id = "UniqueBootsStrInt4",
-		name = "Death's Door",
+	[997] = {
+		id = "UniqueWand7",
+		name = "Apep's Rage",
 		text = {
-			"To extend your life as long as possible",
-			"is to extend all the maladies that come with it.",
+			"Apep's poison entraps, encircles,",
+			"and engulfs the leaking mind of Man.",
 		},
 	},
-	[1186] = {
-		id = "UniqueGlovesStr3x",
-		name = "Replica Atziri's Acuity",
+	[998] = {
+		id = "UniqueBodyStrDex6",
+		name = "Viper's Scales",
 		text = {
-			"\"One of our researchers cut himself on Prototype #2,",
-			"and he has not stopped screaming for months...\"",
+			"Swift and silent.",
+			"One strike, one corpse.",
 		},
 	},
-	[1187] = {
-		id = "UniqueBow16",
-		name = "Reach of the Council",
+	[999] = {
+		id = "UniqueShieldStr2",
+		name = "Titucus Span",
 		text = {
-			"We stand together. We strike together.",
+			"A mighty bulwark, curved and strong",
+			"A dauntless wall, against the throng",
+			"All lance and arrow, knocked aside",
+			"For rout of foe, for turn of tide.",
 		},
 	},
-	[1188] = {
-		id = "UniqueQuiver20",
-		name = "Ahuana's Bite",
+	[1000] = {
+		id = "UniqueBodyInt10",
+		name = "The Beast Fur Shawl",
 		text = {
-			"The last Queen of the Karui gave up power willingly.",
+			"The quickest way to understand",
+			"your own strengths and weaknesses",
+			"is to walk in the skin of another.",
 		},
 	},
-	[1189] = {
-		id = "UniqueScepter17",
-		name = "Breath of the Council",
+	[1001] = {
+		id = "UniqueGlovesStrDex5",
+		name = "Flesh and Spirit",
 		text = {
-			"Breathe deep, and give yourself over to eternity.",
+			"What is greed but trading a mountain of death",
+			"for a sliver of life?",
 		},
 	},
-	[1190] = {
-		id = "UniqueBelt38",
-		name = "Chains of Emancipation",
+	[1002] = {
+		id = "UniqueBodyDex4",
+		name = "Fox's Fortune",
 		text = {
-			"Freedom is won only by those who are not free.",
+			"To catch an animal, think like an animal.",
 		},
 	},
-	[1191] = {
-		id = "UniqueRing42",
-		name = "Praxis",
+	[1003] = {
+		id = "UniqueGlovesDexInt6",
+		name = "Shadows and Dust",
 		text = {
-			"The Thaumaturgical masters of the Eternal Empire,",
-			"as unpredictable and varied as they were,",
-			"all understood one thing:",
-			"Free thinking leads to free action.",
+			"What is fear but a snuffed torch",
+			"and death in the wind?",
 		},
 	},
-	[1192] = {
-		id = "UniqueOneHandSword33",
-		name = "The Iron Mass",
+	[1004] = {
+		id = "UniqueClaw13",
+		name = "Rive",
 		text = {
-			"Lead by example.",
+			"Terror doesn't make you jump.",
+			"Terror makes you run.",
 		},
 	},
-	[1193] = {
+	[1005] = {
+		id = "UniqueTwoHandAxe8",
+		name = "The Harvest",
+		text = {
+			"Let it grow and gather inside them,",
+			"Let it flow through their veins.",
+			"Don't waste a drop.",
+		},
+	},
+	[1006] = {
+		id = "UniqueHelmetDex3",
+		name = "Goldrim",
+		text = {
+			"No metal slips as easily through the fingers as gold.",
+		},
+	},
+	[1007] = {
+		id = "UniqueTwoHandSword7",
+		name = "Edge of Madness",
+		text = {
+			"Soon, the pleas for mercy were muted.",
+			"Only one voice remained.",
+			"Laughing.",
+		},
+	},
+	[1008] = {
+		id = "UniqueShieldDexInt3",
+		name = "Glitterdisc",
+		text = {
+			"Izaro's insistence on using lava",
+			"resulted in some surprising material discoveries.",
+		},
+	},
+	[1009] = {
+		id = "UniqueSceptre8",
+		name = "The Dark Seer",
+		text = {
+			"Feed on the light of the living,",
+			"Bring darkness to all I see,",
+			"Until we are one in shadow.",
+		},
+	},
+	[1010] = {
+		id = "UniqueSceptre1",
+		name = "The Supreme Truth",
+		text = {
+			"Knowledge brings power, and with power you can",
+			"grab truth by the throat and shape it as you wish.",
+		},
+	},
+	[1011] = {
+		id = "UniqueQuiver8",
+		name = "Cragfall",
+		text = {
+			"Hit them hard. Hit them once.",
+		},
+	},
+	[1012] = {
+		id = "UniqueBow15",
+		name = "Nuro's Harp",
+		text = {
+			"Night's frost becomes morning's dew",
+			"Darkness cleansed, pure and new.",
+		},
+	},
+	[1013] = {
+		id = "UniqueRing25",
+		name = "Malachai's Artifice",
+		text = {
+			"When the wind blows,",
+			"Know which way to bend",
+			"and watch the others break.",
+		},
+	},
+	[1014] = {
+		id = "UniqueBodyInt4",
+		name = "Infernal Mantle",
+		text = {
+			"Despair hums, softly, deadly, in the bones of my enemies.",
+			"Eyes will burn, and souls wither, as they bask in my radiance.",
+		},
+	},
+	[1015] = {
+		id = "UniqueShieldInt4",
+		name = "Sentari's Answer",
+		text = {
+			"Open your eyes and you will see the cracks in your enemy's walls.",
+			"Open your mind and you will see the cracks in your enemy's plans.",
+		},
+	},
+	[1016] = {
+		id = "UniqueJewel74",
+		name = "Unstable Payload",
+		text = {
+			"Saboteurs, like chefs, have their own secret recipes.",
+		},
+	},
+	[1017] = {
+		id = "UniqueTwoHandSword8",
+		name = "Doomsower",
+		text = {
+			"So the seed of hate was born,",
+			"Evil forged and Hope forsworn.",
+		},
+	},
+	[1018] = {
+		id = "UniqueTwoHandSword4",
+		name = "Queen's Escape",
+		text = {
+			"The nobles wanted to take her throne.",
+			"She let the peasants take their wealth.",
+			"The peasants wanted to take her wealth.",
+			"She let the soldiers take their heads.",
+			"The soldiers wanted to take her head.",
+			"She sat on her throne and wept.",
+		},
+	},
+	[1019] = {
 		id = "UniqueTwoHandSword11",
 		name = "Kondo's Pride",
 		text = {
@@ -9986,139 +8545,711 @@ return {
 			"wreaking havoc like a steel squall.",
 		},
 	},
-	[1194] = {
-		id = "UniqueAmulet5x",
-		name = "Replica Karui Ward",
+	[1020] = {
+		id = "UniqueJewelLabyrinth1",
+		name = "Emperor's Cunning",
 		text = {
-			"\"In testing, Prototype #9 had no effect on fired arrows. However,",
-			"an unknown spell did destroy the entire firing chamber.\"",
+			"The greatest victories happen",
+			"before the battle has begun.",
 		},
 	},
-	[1195] = {
+	[1021] = {
+		id = "UniqueTwoHandAxe4",
+		name = "The Blood Reaper",
+		text = {
+			"To cease the flow of blood is to",
+			"choke the rain in the very clouds.",
+			"Both life and land feel the thirst.",
+		},
+	},
+	[1022] = {
+		id = "UniqueJewelLabyrinth3",
+		name = "Emperor's Might",
+		text = {
+			"Even an iron fist can be handled with grace.",
+		},
+	},
+	[1023] = {
+		id = "UniqueStaff9",
+		name = "The Blood Thorn",
+		text = {
+			"Touch not the thorn, for only blood and pain await.",
+		},
+	},
+	[1024] = {
+		id = "UniqueHelmetWreath1",
+		name = "Demigod's Triumph",
+		text = {
+			"To stand triumphant you must serve",
+			"no master other than your own ambition.",
+		},
+	},
+	[1025] = {
+		id = "UniqueJewel45",
+		name = "Conqueror's Potency",
+		text = {
+			"What you earn is almost as important as what you take.",
+		},
+	},
+	[1026] = {
+		id = "UniqueShieldInt2",
+		name = "Whakatutuki o Matua",
+		text = {
+			"You carried me through life,",
+			"The least I can do is carry you through death.",
+		},
+	},
+	[1027] = {
 		id = "UniqueRing43",
 		name = "Valyrium",
 		text = {
 			"They will rise and fall in fire and blood.",
 		},
 	},
-	[1196] = {
-		id = "UniqueRapier6x",
-		name = "Replica Paradoxica",
+	[1028] = {
+		id = "UniqueDagger4",
+		name = "Heartbreaker",
 		text = {
-			"\"This is one riddle I can't solve.\"",
-			"- Researcher Graven",
+			"A heart can be stabbed by thoughts,",
+			"If your mind is sharp enough.",
 		},
 	},
-	[1197] = {
+	[1029] = {
+		id = "UniqueRapier5",
+		name = "Ewar's Mirage",
+		text = {
+			"A single breeze blows",
+			"A hundred blades dance",
+		},
+	},
+	[1030] = {
+		id = "UniqueRing26",
+		name = "Kikazaru",
+		text = {
+			"Hear no evil.",
+		},
+	},
+	[1031] = {
+		id = "UniqueBodyDexInt1",
+		name = "Carcass Jack",
+		text = {
+			"\"...The discomfort shown by the others is amusing, but none",
+			"can deny that my work has made quite the splash...\"",
+			"- Maligaro's Journal",
+		},
+	},
+	[1032] = {
+		id = "UniqueWand8",
+		name = "Amplification Rod",
+		text = {
+			"If it's worth doing once, it's worth doing twice.",
+		},
+	},
+	[1033] = {
+		id = "UniqueRing6",
+		name = "Le Heup of All",
+		text = {
+			"Existence is infinite",
+			"A weave of the living and dead",
+			"Beyond the understanding",
+			"Of the many mortal threads",
+		},
+	},
+	[1034] = {
+		id = "UniqueBodyInt11",
+		name = "Cloak of Tawm'r Isley",
+		text = {
+			"Renowned by those distinguished,",
+			"Exalted by the few.",
+			"He skulks in darkness,",
+			"and watches from beneath the city.",
+		},
+	},
+	[1035] = {
+		id = "UniqueShieldStr3",
+		name = "Chernobog's Pillar",
+		text = {
+			"Fire dances with those who doubt",
+			"Licks the skin and flesh from the fearful",
+			"Where there is no fear",
+			"There is no flame",
+		},
+	},
+	[1036] = {
+		id = "UniqueJewel75",
+		name = "Grand Spectrum",
+		text = {
+			"Thoughts that shimmer like light across the rain.",
+		},
+	},
+	[1037] = {
+		id = "UniqueJewel76",
+		name = "Grand Spectrum",
+		text = {
+			"Skin like steel tempered by bright flames.",
+		},
+	},
+	[1038] = {
+		id = "UniqueBelt12",
+		name = "Maligaro's Restraint",
+		text = {
+			"\"Our genius will pave the way forward.",
+			"May all who are worthy be improved!\"",
+			"- Inquisitor Maligaro",
+		},
+	},
+	[1039] = {
+		id = "UniqueHelmetDex4",
+		name = "Starkonja's Head",
+		text = {
+			"There was no hero made out of Starkonja's death,",
+			"but merely a long sleep made eternal.",
+		},
+	},
+	[1040] = {
+		id = "UniqueHelmetStrInt5",
+		name = "The Broken Crown",
+		text = {
+			"Every rule has an exception.",
+		},
+	},
+	[1041] = {
+		id = "UniqueClaw3",
+		name = "Bloodseeker",
+		text = {
+			"\"For the life of the flesh will always be in the blood.\"",
+			"- Atalui, Vaal Priestess",
+		},
+	},
+	[1042] = {
+		id = "UniqueQuiver9",
+		name = "Maloney's Nightfall",
+		text = {
+			"Fear not the dark, the song of night,",
+			"Hear not the arch, the falling cry.",
+			"My giving sun, fight no more,",
+			"Rest alone, my grand nightfall.",
+		},
+	},
+	[1043] = {
+		id = "UniqueTwoHandMace5",
+		name = "Chaber Cairn",
+		text = {
+			"The faithful may continue to serve, even after death.",
+		},
+	},
+	[1044] = {
+		id = "UniqueGlovesStrDex6",
+		name = "Surgebinders",
+		text = {
+			"Your lies are our strength.",
+			"Your threats are our laughter.",
+			"Your hate is our infinity",
+			"The fire rises!",
+		},
+	},
+	[1045] = {
+		id = "UniqueHelmetDex5",
+		name = "Alpha's Howl",
+		text = {
+			"Nature respects the strong",
+			"And paints the snow red",
+			"With the blood of the weak",
+		},
+	},
+	[1046] = {
+		id = "UniqueBelt13",
+		name = "Belt of the Deceiver",
+		text = {
+			"In battle, virtue matters not.",
+			"Only victory.",
+		},
+	},
+	[1047] = {
+		id = "UniqueShieldStrInt5",
+		name = "Rise of the Phoenix",
+		text = {
+			"My bearer shall be guarded by flame,",
+			"for I am the phoenix, forever radiant in glory.",
+		},
+	},
+	[1048] = {
+		id = "UniqueRing27",
+		name = "Timetwist",
+		text = {
+			"\"To us mere mortals, time is slippery.",
+			"I'm just evening things out.\"",
+			"- Doryani, Queen's Thaumaturgist",
+		},
+	},
+	[1049] = {
+		id = "UniqueBodyInt5",
+		name = "Thousand Ribbons",
+		text = {
+			"The night of a thousand ribbons",
+			"To remember the day of a thousand flames",
+			"When Sarn burned",
+			"And was born again",
+		},
+	},
+	[1050] = {
+		id = "UniqueJewel77",
+		name = "Grand Spectrum",
+		text = {
+			"Fists that strike like a falling tree.",
+		},
+	},
+	[1051] = {
+		id = "UniqueBodyDex5",
+		name = "Bronn's Lithe",
+		text = {
+			"Forget your kite shield. Just put the biggest man",
+			"in the field between you and the archers.",
+		},
+	},
+	[1052] = {
+		id = "UniqueRing34",
+		name = "Call of the Brotherhood",
+		text = {
+			"Forged by three brothers",
+			"so that they may recognize each other",
+			"across any distance of time or travel.",
+		},
+	},
+	[1053] = {
+		id = "UniqueBootsInt5",
+		name = "Rainbowstride",
+		text = {
+			"\"They say that you should take life's troubles in your stride.",
+			"Some men have a longer stride than others.\"",
+			"- Gaius Sentari",
+		},
+	},
+	[1054] = {
+		id = "UniqueBelt20",
+		name = "Ascent From Flesh",
+		text = {
+			"A single step forward",
+			"Snap free from the prison",
+			"Reborn into freedom eternal",
+		},
+	},
+	[1055] = {
+		id = "UniqueGlovesStr7",
+		name = "Veruso's Battering Rams",
+		text = {
+			"With unending determination and resolve he destroyed first the gates,",
+			"then the constructs guarding the tomb on the other side.",
+		},
+	},
+	[1056] = {
+		id = "UniqueCorruptedJewel18",
+		name = "Powerlessness",
+		text = {
+			"\"Your desires will mislead you.\"",
+		},
+	},
+	[1057] = {
+		id = "UniqueBodyDex8",
+		name = "Kintsugi",
+		text = {
+			"Do not hide your flaws, your cracks,",
+			"mend them, and display them proudly.",
+			"For it is these that set us apart.",
+		},
+	},
+	[1058] = {
+		id = "UniqueCorruptedJewel3",
+		name = "Fevered Mind",
+		text = {
+			"In sickness, the insane becomes sane.",
+		},
+	},
+	[1059] = {
+		id = "UniqueClaw14",
+		name = "Touch of Anguish",
+		text = {
+			"Grip the frozen steel, feel it numb you.",
+			"Wield the cold touch of death like",
+			"a splinter of your own shattered heart.",
+		},
+	},
+	[1060] = {
+		id = "UniqueJewel24",
+		name = "Fragile Bloom",
+		text = {
+			"The first green shoots of Spring are the most resilient,",
+			"and the most vulnerable.",
+		},
+	},
+	[1061] = {
+		id = "UniqueBodyStrInt3",
+		name = "Crystal Vault",
+		text = {
+			"When Solaris closes her burning eye",
+			"At the end of time,",
+			"the world will perish in ice.",
+		},
+	},
+	[1062] = {
+		id = "UniqueJewel25",
+		name = "Hidden Potential",
+		text = {
+			"The difference between the master and his apprentice",
+			"is what they see when they look at the same block of wood.",
+		},
+	},
+	[1063] = {
+		id = "UniqueBodyInt7",
+		name = "Soul Mantle",
+		text = {
+			"The greatest mistakes cause suffering",
+			"long after they have been made",
+		},
+	},
+	[1064] = {
+		id = "UniqueJewel26",
+		name = "Rain of Splinters",
+		text = {
+			"\"If one is an annoyance",
+			"then a hundred is a threat.\"",
+			"- Ancient Karui Proverb",
+		},
+	},
+	[1065] = {
+		id = "UniqueShieldStr7",
+		name = "Lycosidae",
+		text = {
+			"A true predator does not chase; It waits.",
+		},
+	},
+	[1066] = {
+		id = "UniqueJewel28",
+		name = "Malicious Intent",
+		text = {
+			"Each life taken makes the next a little easier.",
+		},
+	},
+	[1067] = {
+		id = "UniqueJewel79",
+		name = "The Anima Stone",
+		text = {
+			"All revere the earth they walk,",
+			"For it wields strength beyond compare,",
+			"Holds knowledge more than thought,",
+			"Stands long after all else falls.",
+		},
+	},
+	[1068] = {
+		id = "UniqueJewel29",
+		name = "Brawn",
+		text = {
+			"\"Take your time, make all your plans.",
+			"Then tell me which plan",
+			"pulls my axe from your ribs.\"",
+			"- Barkhul, the Butcher",
+		},
+	},
+	[1069] = {
+		id = "UniqueHelmStrInt7",
+		name = "Voll's Vision",
+		text = {
+			"Righteous men seek virtue like tame pups seek praise.",
+		},
+	},
+	[1070] = {
+		id = "UniqueHelmetInt11",
+		name = "Mind of the Council",
+		text = {
+			"You think we do not know.",
+			"We know all that you think.",
+		},
+	},
+	[1071] = {
+		id = "UniqueJewel30",
+		name = "Clear Mind",
+		text = {
+			"When your thoughts flow like a river, why build a dam?",
+		},
+	},
+	[1072] = {
+		id = "UniqueCorruptedJewel17",
+		name = "Fragility",
+		text = {
+			"\"Your flesh will fail you.\"",
+		},
+	},
+	[1073] = {
+		id = "UniqueHelmetDex6",
+		name = "Rat's Nest",
+		text = {
+			"A lad with no fear of the pest",
+			"Let rats fill his helmet in jest",
+			"When they picked his skull clean",
+			"Where his head should have been",
+			"Was naught but a vermin-filled nest!",
+		},
+	},
+	[1074] = {
+		id = "UniqueAmulet31",
+		name = "Hinekora's Sight",
+		text = {
+			"Remember the past, anticipate the future.",
+		},
+	},
+	[1075] = {
+		id = "UniqueHelmetStr3",
+		name = "Abyssus",
+		text = {
+			"When you have slain all of your enemies,",
+			"what is left to fear?",
+		},
+	},
+	[1076] = {
+		id = "UniqueCorruptedJewel16",
+		name = "Pacifism",
+		text = {
+			"\"Your fear will overcome you.\"",
+		},
+	},
+	[1077] = {
+		id = "UniqueRapier2",
+		name = "Aurumvorax",
+		text = {
+			"Many a collector of rarities discovered to his dismay",
+			"that the intelligent spirit in this sword",
+			"does not like to share its master's attention",
+		},
+	},
+	[1078] = {
+		id = "UniqueHelmetStrInt6",
+		name = "Kitava's Thirst",
+		text = {
+			"Tukohama, Tawhoa and Kitava went to the lake to fish.",
+			"Tawhoa weaved a net to catch the fish,",
+			"Tukohama built a fire to cook the fish,",
+			"and Kitava swallowed the entire lake, fish and all, with a single gulp.",
+		},
+	},
+	[1079] = {
+		id = "UniqueJewel37",
+		name = "Inertia",
+		text = {
+			"There is no force without movement.",
+		},
+	},
+	[1080] = {
+		id = "UniqueCorruptedJewel15",
+		name = "Brittle Barrier",
+		text = {
+			"Walls built in a hurry fall in a hurry.",
+		},
+	},
+	[1081] = {
+		id = "UniqueFlask18",
+		name = "Kiara's Determination",
+		text = {
+			"Travelers of the deep wood speak of a witch",
+			"whose ale provides a different kind",
+			"of liquid courage.",
+		},
+	},
+	[1082] = {
+		id = "UniqueOneHandSword19",
+		name = "Scaeva",
+		text = {
+			"Even from the back rows,",
+			"the whistling steel was mesmerising.",
+			"They watched the dance in the arena dust, silent as the dead.",
+			"A spell only broken by the spilling of blood.",
+		},
+	},
+	[1083] = {
+		id = "UniqueClaw4",
+		name = "Last Resort",
+		text = {
+			"Desperate times demand desperate measures.",
+		},
+	},
+	[1084] = {
+		id = "UniqueBodyDexInt5",
+		name = "Tinkerskin",
+		text = {
+			"Thin is the line between mechanical genius and magic.",
+		},
+	},
+	[1085] = {
+		id = "UniqueCorruptedJewel6",
+		name = "Vaal Sentencing",
+		text = {
+			"In their final days, every crime was punishable by death.",
+			"Atziri's empire ran on blood, but the blood was running dry.",
+		},
+	},
+	[1086] = {
+		id = "UniqueBootsStrInt4",
+		name = "Death's Door",
+		text = {
+			"To extend your life as long as possible",
+			"is to extend all the maladies that come with it.",
+		},
+	},
+	[1087] = {
+		id = "UniqueJewel41",
+		name = "Poacher's Aim",
+		text = {
+			"A sharp eye can be more deadly than a sharp blade.",
+		},
+	},
+	[1088] = {
+		id = "UniqueBow16",
+		name = "Reach of the Council",
+		text = {
+			"We stand together. We strike together.",
+		},
+	},
+	[1089] = {
+		id = "UniqueClaw6",
+		name = "Al Dhih",
+		text = {
+			"\"When the hyena howls thrice",
+			"death is sure to follow.\"",
+			"-Maraketh Wisdom",
+		},
+	},
+	[1090] = {
+		id = "UniqueScepter17",
+		name = "Breath of the Council",
+		text = {
+			"Breathe deep, and give yourself over to eternity.",
+		},
+	},
+	[1091] = {
+		id = "UniqueJewel13",
+		name = "Fluid Motion",
+		text = {
+			"Even the strongest of steel can be made to bend.",
+		},
+	},
+	[1092] = {
+		id = "UniqueRing42",
+		name = "Praxis",
+		text = {
+			"The Thaumaturgical masters of the Eternal Empire,",
+			"as unpredictable and varied as they were,",
+			"all understood one thing:",
+			"Free thinking leads to free action.",
+		},
+	},
+	[1093] = {
+		id = "UniqueSceptre16",
+		name = "Axiom Perpetuum",
+		text = {
+			"The worst of Axiom were imprisoned by more than iron.",
+		},
+	},
+	[1094] = {
+		id = "UniqueGlovesStrDex12",
+		name = "Worldcarver",
+		text = {
+			"Is it better to find new lands - or to create them?",
+		},
+	},
+	[1095] = {
 		id = "UniqueBodyStr7",
 		name = "The Brass Dome",
 		text = {
 			"The turtle's shell one day becomes its tomb.",
 		},
 	},
-	[1198] = {
-		id = "UniqueOneHandSword16x",
-		name = "Replica Tempestuous Steel",
+	[1096] = {
+		id = "UniqueCorruptedJewel14",
+		name = "Blood Sacrifice",
 		text = {
-			"\"Test subjects were unable to strike even a motionless target.",
-			"However, when a trained guard tried it...\"",
+			"Power always comes with a price.",
 		},
 	},
-	[1199] = {
-		id = "UniqueTwoHandMace11",
-		name = "Brain Rattler",
+	[1097] = {
+		id = "UniqueFlask17",
+		name = "The Overflowing Chalice",
 		text = {
-			"The mind may have no limits, but the skull sure does.",
+			"Empty cup, full of promise.",
 		},
 	},
-	[1200] = {
-		id = "UniqueJewel61x",
-		name = "Replica Reckless Defence",
+	[1098] = {
+		id = "UniqueBelt33",
+		name = "Siegebreaker",
 		text = {
-			"\"Prototype #298 must be contained in a non-conductive glass box at all times.\"",
+			"Poison the land and they'll have nothing to defend.",
 		},
 	},
-	[1201] = {
-		id = "UniqueOneHandSword20",
-		name = "Razor of the Seventh Sun",
+	[1099] = {
+		id = "UniqueWatchstone7",
+		name = "Booming Populace",
 		text = {
-			"Quickly cooled the steel,",
-			"but never could it forget",
-			"the heat of the forge.",
+			"Does the belly swell, or the belt shrink?",
+			"To those caught between, there is no difference,",
+			"and something must soon give.",
 		},
 	},
-	[1202] = {
-		id = "UniqueAmulet76",
-		name = "Defiance of Destiny",
+	[1100] = {
+		id = "UniqueGlovesDexInt16",
+		name = "Algor Mortis",
 		text = {
-			"The farmer was struck again and again, but he refused to stay down.",
-			"Astonished, the raiding warlord ordered the man's family spared.",
+			"Winter's white blanket swaddles all.",
 		},
 	},
-	[1203] = {
-		id = "UniqueAmulet35",
-		name = "Eye of Innocence",
+	[1101] = {
+		id = "UniqueRing38x",
+		name = "Replica Emberwake",
 		text = {
-			"\"...and so He said: 'Let only the good meet my gaze'",
-			"and no eye met His. So He called down the cleansing flames",
-			"and let black smoke sweep the Sinners away.\"",
-			"- Book of Innocence",
+			"\"The flames raced through Lab Five with incredible speed, but were extinguished",
+			"just as quickly. This could have been much worse.\"",
+			"- Lead Researcher Ksaret",
 		},
 	},
-	[1204] = {
-		id = "UniqueRing79",
-		name = "Honoured Alliance",
+	[1102] = {
+		id = "UniqueClaw4x",
+		name = "Replica Last Resort",
 		text = {
-			"The respect of Karui warriors is hard to earn,",
-			"but lasts a lifetime... and beyond.",
+			"\"An absurdly vicious weapon in the hands of our test subjects. It seems to",
+			"channel the desperate will to live. Intriguing.\"",
+			"- Researcher Olesya",
 		},
 	},
-	[1205] = {
-		id = "UniqueRing4x",
-		name = "Replica Doedre's Damning",
-		text = {
-			"\"Prototype #8 makes it difficult to think negatively, but two fatalities",
-			"resulted when a lead researcher used an epithet in its presence.\"",
-		},
-	},
-	[1206] = {
-		id = "UniqueJewel179",
-		name = "Warrior's Tale",
-		text = {
-			"The story of a life, written in blood and ink.",
-		},
-	},
-	[1207] = {
+	[1103] = {
 		id = "UniqueBow17",
 		name = "Slivertongue",
 		text = {
 			"A hundred blind heads, each seeking the taste of prey on the air.",
 		},
 	},
-	[1208] = {
-		id = "UniqueBodyStrDex8x",
-		name = "Replica Farrul's Fur",
+	[1104] = {
+		id = "UniqueFlask31",
+		name = "Elixir of the Unbroken Circle",
 		text = {
-			"\"Attempt #120: the prototype has finally achieved power similar to the original",
-			"without breaking all the bones of the test subject. A rousing success.\"",
+			"Nothing endures. All things end.",
+			"Then, they begin again.",
 		},
 	},
-	[1209] = {
+	[1105] = {
 		id = "UniqueHelmetDex7",
 		name = "Obscurantis",
 		text = {
 			"If you know where to strike, you need only strike once.",
 		},
 	},
-	[1210] = {
-		id = "UniqueBootsStrInt2x",
-		name = "Replica Alberon's Warpath",
+	[1106] = {
+		id = "UniqueRing77",
+		name = "Soulbound",
 		text = {
-			"\"Starving test subject became completely incapable of exerting force.",
-			"However, after being fed, he began to poison everything he touched...\"",
+			"\"Slay my twin and I will inherit her wisdom.",
+			"Slay me and her life will be prolonged by my demise.",
+			"Our souls are eternally bound by the sacrifices we have made.\"",
+			"- High Priest Atazek",
 		},
 	},
-	[1211] = {
+	[1107] = {
 		id = "UniqueRing44",
 		name = "Snakepit",
 		text = {
@@ -10126,16 +9257,15 @@ return {
 			"until your blood turns as cold as theirs.",
 		},
 	},
-	[1212] = {
-		id = "UniqueGlovesInt7x",
-		name = "Replica Grip of the Council",
+	[1108] = {
+		id = "UniqueTincture2",
+		name = "Mightblood Ire",
 		text = {
-			"\"I feel altered when Administrator Qotra wears these gloves.",
-			"Somehow, I find that disturbing.\"",
-			"- Researcher Arn",
+			"The liquid within boils and fumes,",
+			"ready to erupt at any provocation.",
 		},
 	},
-	[1213] = {
+	[1109] = {
 		id = "UniqueClaw15",
 		name = "The Scourge",
 		text = {
@@ -10143,15 +9273,16 @@ return {
 			"comes an increasing desire for it.",
 		},
 	},
-	[1214] = {
-		id = "UniqueHelmetDexInt2x",
-		name = "Replica Leer Cast",
+	[1110] = {
+		id = "UniqueHelmetInt28",
+		name = "The Dark Monarch",
 		text = {
-			"\"Prototype #412 seems to bear much in",
-			"common with Thought Extractor technology.\"",
+			"\"Hate? You speak to me of hate? You have no idea what your persecution inflicts.",
+			"How it chokes the heart. Withers the soul. Judge me, and you judge yourself.\"",
+			"- Saresh, last words, to Sekhema Orbala",
 		},
 	},
-	[1215] = {
+	[1111] = {
 		id = "UniqueOneHandSword21",
 		name = "Cospri's Malice",
 		text = {
@@ -10161,31 +9292,32 @@ return {
 			"And it will embrace you back.",
 		},
 	},
-	[1216] = {
-		id = "UniqueWand16x",
-		name = "Replica Tulfall",
+	[1112] = {
+		id = "UniqueCorruptedJewel9",
+		name = "Mutated Growth",
 		text = {
-			"\"Are we mad for attempting to build an engine out of this?",
-			"Looping cycles, power and pain...\"",
-			"- Researcher Arn",
+			"Few living things survived the cleansing flames.",
+			"Those that did thrived...",
+			"And changed...",
 		},
 	},
-	[1217] = {
+	[1113] = {
 		id = "UniqueTwoHandSword12",
 		name = "Voidforge",
 		text = {
 			"The end is written into the beginning.",
 		},
 	},
-	[1218] = {
-		id = "UniqueRing59",
-		name = "Circle of Nostalgia",
+	[1114] = {
+		id = "UniqueCorruptedJewel8",
+		name = "Ancient Waystones",
 		text = {
-			"I was a happy child, before the cruel truth was revealed to me.",
-			"I fight so that the children may remain ignorant.",
+			"\"The Vaal left a thousand warnings behind.",
+			"We ignored every single one.\"",
+			"- Siosa, the Last Scholar",
 		},
 	},
-	[1219] = {
+	[1115] = {
 		id = "UniqueJewel80",
 		name = "Unending Hunger",
 		text = {
@@ -10195,15 +9327,16 @@ return {
 			"Their hearts will never be content.",
 		},
 	},
-	[1220] = {
-		id = "UniqueRing58",
-		name = "Circle of Regret",
+	[1116] = {
+		id = "UniqueTwoHandSword10",
+		name = "Hiltless",
 		text = {
-			"I sacrificed a life of love for one of responsibility, so that she,",
-			"and others like her, might be kept safe.",
+			"The cuts on my hands are a small price to pay",
+			"for the opportunity to drive my steel",
+			"beyond the flesh and into the demon's soul.",
 		},
 	},
-	[1221] = {
+	[1117] = {
 		id = "UniqueBootsDexInt5",
 		name = "Voidwalker",
 		text = {
@@ -10211,25 +9344,22 @@ return {
 			"and experience true freedom.",
 		},
 	},
-	[1222] = {
-		id = "UniqueSceptre19x",
-		name = "Replica Earendel's Embrace",
+	[1118] = {
+		id = "UniqueCorruptedJewel7",
+		name = "Chill of Corruption",
 		text = {
-			"\"Lord of Bone, Lord of Flesh, yet all that we can",
-			"master turns to ash.\"",
-			"- Researcher Arn",
+			"Even a millennium later, Atziri's presence",
+			"casts a shroud over Wraeclast.",
 		},
 	},
-	[1223] = {
-		id = "UniqueOneHandSword9x",
-		name = "Replica Dreamfeather",
+	[1119] = {
+		id = "UniqueJewel47",
+		name = "Pugilist",
 		text = {
-			"\"Once we armoured the test subject heavily enough to test Prototype #502, he proceeded",
-			"to fight his way out. I don't know what we expected.\"",
-			"- Researcher Graven",
+			"The best dancers often make the best fighters.",
 		},
 	},
-	[1224] = {
+	[1120] = {
 		id = "UniqueGlovesStrInt5",
 		name = "Shaper's Touch",
 		text = {
@@ -10237,6 +9367,1315 @@ return {
 			"By my hand, that which rots is reborn.",
 			"There is nothing that cannot be changed.",
 			"Nothing.",
+		},
+	},
+	[1121] = {
+		id = "UniqueJewel48",
+		name = "Cold Steel",
+		text = {
+			"Winter provides us with her own weapons,",
+			"hanging from the eaves of our homes.",
+		},
+	},
+	[1122] = {
+		id = "UniqueRing45",
+		name = "The Warden's Brand",
+		text = {
+			"\"I don't always have a flame handy",
+			"when a fresh delinquent walks through our gates.\"",
+			"- Brutus, Warden of Axiom",
+		},
+	},
+	[1123] = {
+		id = "UniqueJewel49",
+		name = "Fireborn",
+		text = {
+			"Leaders are not born in times of peace.",
+			"Leaders are born in ruins and flames.",
+		},
+	},
+	[1124] = {
+		id = "UniqueStaff6",
+		name = "Pledge of Hands",
+		text = {
+			"\"To shake a hand is to double your power.\"",
+			"- Jaetai, Queen's Advisor",
+		},
+	},
+	[1125] = {
+		id = "UniqueJewel50",
+		name = "Energised Armour",
+		text = {
+			"\"I've yet to see prayer stop an arrow.\"",
+		},
+	},
+	[1126] = {
+		id = "UniqueJewel156",
+		name = "Kurgal's Gaze",
+		text = {
+			"The Blackblooded seeks dominion over darkness itself.",
+		},
+	},
+	[1127] = {
+		id = "UniqueJewel51",
+		name = "Energy From Within",
+		text = {
+			"The Azmeri ascetics learnt the power",
+			"of going without the body's ordinary cravings.",
+		},
+	},
+	[1128] = {
+		id = "UniqueJewel157",
+		name = "Amanamu's Gaze",
+		text = {
+			"The Liege of the Lightless seeks dominion over the surface dwellers.",
+		},
+	},
+	[1129] = {
+		id = "UniqueJewel52",
+		name = "Anatomical Knowledge",
+		text = {
+			"Once you understand how your body truly works",
+			"you can't help but treat it better.",
+		},
+	},
+	[1130] = {
+		id = "UniqueQuiver18",
+		name = "Steelworm",
+		text = {
+			"The dance of metal and flesh never ends.",
+		},
+	},
+	[1131] = {
+		id = "UniqueJewel53",
+		name = "Static Electricity",
+		text = {
+			"\"Movement expends energy, but perhaps a little of that energy",
+			"can be recaptured and... reappropriated.\"",
+			"- Inquisitor Maligaro",
+		},
+	},
+	[1132] = {
+		id = "UniqueShieldInt16",
+		name = "The Scales of Justice",
+		text = {
+			"You shall be weighed and measured. You shall be judged...",
+			"and perhaps you shall be found worthy.",
+		},
+	},
+	[1133] = {
+		id = "UniqueJewel54",
+		name = "Healthy Mind",
+		text = {
+			"For the ambitious, flesh is a limitation.",
+		},
+	},
+	[1134] = {
+		id = "UniqueHelmetStr8",
+		name = "Usurper's Penance",
+		text = {
+			"Bloodlust begets suffering.",
+		},
+	},
+	[1135] = {
+		id = "UniqueJewel55",
+		name = "Might in All Forms",
+		text = {
+			"True strength can be found anywhere, and in anything.",
+		},
+	},
+	[1136] = {
+		id = "UniqueGlovesExpedition1",
+		name = "Nightgrip",
+		text = {
+			"Those heroes that set foot on Wraeclast found",
+			"themselves changing, only subtly at first...",
+		},
+	},
+	[1137] = {
+		id = "UniqueBodyStrInt6",
+		name = "Kingsguard",
+		text = {
+			"The toughest armour is the trust of your people.",
+		},
+	},
+	[1138] = {
+		id = "UniqueGlovesExpedition2",
+		name = "Medved's Challenge",
+		text = {
+			"For forty-two nights, the Feller of Heroes challenged",
+			"the next greatest warrior to a one-on-one duel.",
+			"None could match his might.",
+		},
+	},
+	[1139] = {
+		id = "UniqueDagger11",
+		name = "Sanguine Gambol",
+		text = {
+			"A tap on the shoulder",
+			"A peck on the cheek",
+			"A sip of your wine",
+			"So red and so sleek",
+		},
+	},
+	[1140] = {
+		id = "UniqueHelmetExpedition1",
+		name = "Faithguard",
+		text = {
+			"The priests of the Kalguur worshipped knowledge, not gods.",
+		},
+	},
+	[1141] = {
+		id = "UniqueDagger12",
+		name = "Bloodplay",
+		text = {
+			"\"I'm a painter, and crimson is my chosen hue.\"",
+			"- Coralito, Brotherhood of Silence",
+		},
+	},
+	[1142] = {
+		id = "UniqueHelmetExpedition2",
+		name = "Cadigan's Crown",
+		text = {
+			"Cadigan the Third ruled dispassionately",
+			"through the iron might of artifice.",
+		},
+	},
+	[1143] = {
+		id = "UniqueWand10",
+		name = "Abberath's Horn",
+		text = {
+			"The Goat King drank the smoke and ate the flames",
+			"as his ruin spread across the land.",
+		},
+	},
+	[1144] = {
+		id = "UniqueOneHandSword20",
+		name = "Razor of the Seventh Sun",
+		text = {
+			"Quickly cooled the steel,",
+			"but never could it forget",
+			"the heat of the forge.",
+		},
+	},
+	[1145] = {
+		id = "UniqueStaff13",
+		name = "Realm Ender",
+		text = {
+			"\"God's creations always begin and end",
+			"with flames and ice.",
+			"We should count ourselves lucky when we see neither.\"",
+			"- Archbishop Geofri",
+		},
+	},
+	[1146] = {
+		id = "UniqueShieldStrInt9",
+		name = "Victario's Charity",
+		text = {
+			"A man's life is the greatest gift he can give.",
+		},
+	},
+	[1147] = {
+		id = "UniqueClaw9",
+		name = "Wildslash",
+		text = {
+			"There are two things to know about fighting:",
+			"When to swing like crazy, and when to run.",
+		},
+	},
+	[1148] = {
+		id = "UniqueJewelLabyrinth2",
+		name = "Emperor's Wit",
+		text = {
+			"Language is a tool that can be used to build walls",
+			"or tear them down.",
+		},
+	},
+	[1149] = {
+		id = "UniqueShieldStrDex3",
+		name = "The Deep One's Hide",
+		text = {
+			"The thicker the shell,",
+			"the greater the beast that hunts it.",
+		},
+	},
+	[1150] = {
+		id = "UniqueJewel73",
+		name = "Coated Shrapnel",
+		text = {
+			"The Ezomytes have a saying:",
+			"Take everything and waste nothing.",
+		},
+	},
+	[1151] = {
+		id = "UniqueOneHandAxe7",
+		name = "Dreadsurge",
+		text = {
+			"The fastest way to a man's heart",
+			"is through his sternum.",
+		},
+	},
+	[1152] = {
+		id = "UniqueFlask30",
+		name = "Starlight Chalice",
+		text = {
+			"Uhtred and his priests drank of the skies",
+			"to empower runes... and themselves.",
+		},
+	},
+	[1153] = {
+		id = "UniqueOneHandAxe8",
+		name = "Moonbender's Wing",
+		text = {
+			"Beneath the cold light of the moon,",
+			"the wing moves faster than the eye.",
+		},
+	},
+	[1154] = {
+		id = "UniqueFlask15",
+		name = "The Sorrow of the Divine",
+		text = {
+			"As man sins,",
+			"God weeps.",
+		},
+	},
+	[1155] = {
+		id = "UniqueOneHandSword12",
+		name = "The Princess",
+		text = {
+			"\"She's pretty, aye. So pretty you'll",
+			"want to be with her long after you're dead.\"",
+		},
+	},
+	[1156] = {
+		id = "UniqueOneHandSword16",
+		name = "The Tempestuous Steel",
+		text = {
+			"The blade thrums with wild energy",
+			"Eager for vengeance against all who walk free.",
+		},
+	},
+	[1157] = {
+		id = "UniqueOneHandSword13",
+		name = "Lakishu's Blade",
+		text = {
+			"\"May the Blessed Lakishu watch our backs and our wives.\"",
+			"- Legionnaire Battle Blessing",
+		},
+	},
+	[1158] = {
+		id = "UniqueBelt23",
+		name = "Bisco's Leash",
+		text = {
+			"You were always there, by my side,",
+			"whether we sat or played.",
+			"Our friendship was a joyful ride,",
+			"I wish you could have stayed.",
+		},
+	},
+	[1159] = {
+		id = "UniqueOneHandMace6",
+		name = "Gorebreaker",
+		text = {
+			"Sure, there's many a hard man out there.",
+			"But this'll soften them up.",
+		},
+	},
+	[1160] = {
+		id = "UniqueJewel92",
+		name = "Sudden Ignition",
+		text = {
+			"After years of subterfuge, sabotage, and sacrifice,",
+			"Sarn had become a powder keg just waiting to explode.",
+			"Finally, Victario lit the match.",
+		},
+	},
+	[1161] = {
+		id = "UniqueOneHandMace7",
+		name = "Lavianga's Wisdom",
+		text = {
+			"\"The painful memories are the easiest to recall.\"",
+			"- Lavianga, Advisor to Kaom",
+		},
+	},
+	[1162] = {
+		id = "UniqueJewel99",
+		name = "Frozen Trail",
+		text = {
+			"The Maraketh knew that a mountain path",
+			"free of vegetation was cut by regular avalanches,",
+			"and so the advancing Eternals were unwittingly drawn into a deathtrap.",
+		},
+	},
+	[1163] = {
+		id = "UniqueOneHandMace8",
+		name = "Flesh-Eater",
+		text = {
+			"I suffer, I long, with thirst to slake.",
+			"Though countless corpses lie in wake.",
+		},
+	},
+	[1164] = {
+		id = "UniqueJewel102",
+		name = "Inevitability",
+		text = {
+			"Izaro gave rise to Chitus.",
+			"Chitus gave rise to Voll.",
+			"None could know how it would end.",
+			"None could stop it.",
+		},
+	},
+	[1165] = {
+		id = "UniqueStaff14",
+		name = "The Stormwall",
+		text = {
+			"When the storm comes,",
+			"the safest place to be is the centre.",
+		},
+	},
+	[1166] = {
+		id = "UniqueJewel104",
+		name = "Spreading Rot",
+		text = {
+			"The Cataclysm was but the first act in a play of horrors.",
+			"The dead lingered, and the living began to rot.",
+		},
+	},
+	[1167] = {
+		id = "UniqueRing35",
+		name = "Brinerot Mark",
+		text = {
+			"Each time, it is granted to the most senior captain of the fleet,",
+			"and each time, the ring soon washes ashore once more,",
+			"still wrapped around a severed finger.",
+		},
+	},
+	[1168] = {
+		id = "UniqueJewel106",
+		name = "Hazardous Research",
+		text = {
+			"Of the elements at the thaumaturgist's disposal, lightning remained the least understood.",
+			"The simple passage of energy from one to another could result in profound power, or rapid death.",
+		},
+	},
+	[1169] = {
+		id = "UniqueRing36",
+		name = "Redblade Band",
+		text = {
+			"To ascend to leadership, the child of a Redblade warlord",
+			"must pull the band from the still-hot",
+			"ashes of their father.",
+		},
+	},
+	[1170] = {
+		id = "UniqueShieldStrDex7",
+		name = "The Squire",
+		text = {
+			"Judge not the weak, for",
+			"they empower the strong.",
+		},
+	},
+	[1171] = {
+		id = "UniqueRing37",
+		name = "Mutewind Seal",
+		text = {
+			"When a fallen leader's body is taken to the funeral peak,",
+			"those who seek power must ascend together.",
+			"One returns with the seal.",
+			"The rest do not return at all.",
+		},
+	},
+	[1172] = {
+		id = "UniqueShieldStrDex8",
+		name = "The Oppressor",
+		text = {
+			"Every clash leaves one more scar.",
+		},
+	},
+	[1173] = {
+		id = "UniqueShieldInt5",
+		name = "Brinerot Flag",
+		text = {
+			"The lords of the sea bow to no one.",
+		},
+	},
+	[1174] = {
+		id = "UniqueBodyDexInt7",
+		name = "Bloodbond",
+		text = {
+			"What mother wouldn't give her life for that of her children?",
+		},
+	},
+	[1175] = {
+		id = "UniqueShieldStr4",
+		name = "Redblade Banner",
+		text = {
+			"Blood shed is blood shared.",
+		},
+	},
+	[1176] = {
+		id = "UniqueBootsStrInt5",
+		name = "Ralakesh's Impatience",
+		text = {
+			"The Master of a Million Faces lived by one",
+			"simple ethos: why make the effort, when",
+			"you can simply mimic what others have?",
+		},
+	},
+	[1177] = {
+		id = "UniqueShieldDex7",
+		name = "Mutewind Pennant",
+		text = {
+			"Embrace the snow or be buried.",
+		},
+	},
+	[1178] = {
+		id = "UniqueAmulet68",
+		name = "Crystallised Omniscience",
+		text = {
+			"That winter, scorched refugees emerged from the shrine,",
+			"speaking only in strange tongues. They prayed to a new",
+			"symbol of power, not out of love, but out of fear.",
+		},
+	},
+	[1179] = {
+		id = "UniqueBootsDexInt4",
+		name = "Brinerot Whalers",
+		text = {
+			"Those Theopolis fatcats put a price on our heads.",
+			"Let's see what they'll pay for their own.",
+		},
+	},
+	[1180] = {
+		id = "UniqueAmulet69",
+		name = "Ashes of the Stars",
+		text = {
+			"A single facet contains the wisdom",
+			"of countless disintegrated worlds.",
+		},
+	},
+	[1181] = {
+		id = "UniqueBootsStrDex5",
+		name = "Mutewind Whispersteps",
+		text = {
+			"Corruption sweeps across this land,",
+			"but our bloodline is clear.",
+			"It is our duty to keep it so.",
+		},
+	},
+	[1182] = {
+		id = "UniqueStaff30",
+		name = "The Annihilating Light",
+		text = {
+			"There is no force more destructive in the heavens",
+			"than the scintillating light of utter clarity.",
+		},
+	},
+	[1183] = {
+		id = "UniqueBootsStr3",
+		name = "Redblade Tramplers",
+		text = {
+			"Our home was swallowed beneath",
+			"the great mountain for our complacency.",
+			"Now we must prove our value to the Molten One",
+			"by sating his hunger for life.",
+		},
+	},
+	[1184] = {
+		id = "UniqueBow23",
+		name = "The Gluttonous Tide",
+		text = {
+			"To eat, to feast, to forget the horror of endless agonising existence",
+			"if but for a moment... only to disgorge and do it all again...",
+		},
+	},
+	[1185] = {
+		id = "UniqueShieldStr5",
+		name = "Trolltimber Spire",
+		text = {
+			"The problem with working fresh trolltimber:",
+			"by the time you've carved out one end,",
+			"the other has sprouted fresh roots!",
+		},
+	},
+	[1186] = {
+		id = "UniqueGlovesInt11",
+		name = "Black Zenith",
+		text = {
+			"He reached for his home one last time, a shining jewel among the stars...",
+			"only to watch in horror as it ruptured and shattered under a tide of limbs.",
+		},
+	},
+	[1187] = {
+		id = "UniqueTwoHandMace8",
+		name = "Jorrhast's Blacksteel",
+		text = {
+			"His flesh had long turned to dust,",
+			"but his vengeance lived on",
+			"in every scrap of iron he touched.",
+		},
+	},
+	[1188] = {
+		id = "UniqueHelmetInt25",
+		name = "Sudden Dawn",
+		text = {
+			"Where that searing dawn fell, silence reigned.",
+			"We sought the shadows, but none remained.",
+		},
+	},
+	[1189] = {
+		id = "UniqueHelmetDexInt6",
+		name = "Crown of the Pale King",
+		text = {
+			"A lightless world",
+			"a silent reign",
+			"two sightless eyes",
+			"feed on your pain.",
+		},
+	},
+	[1190] = {
+		id = "UniqueRing72",
+		name = "Polaric Devastation",
+		text = {
+			"Those that escaped the annihilating light",
+			"sank eternally into crushing darkness.",
+		},
+	},
+	[1191] = {
+		id = "UniqueHelmetInt10",
+		name = "Ylfeban's Trickery",
+		text = {
+			"An angry god is one thing,",
+			"but you should really fear a god",
+			"with an unpredictable sense of humour.",
+		},
+	},
+	[1192] = {
+		id = "UniqueGlovesStr11",
+		name = "Ceaseless Feast",
+		text = {
+			"Lost in a sea of limbs and screaming faces, they claw",
+			"for any fleeting pleasure which might dull the pain.",
+		},
+	},
+	[1193] = {
+		id = "UniqueRing38",
+		name = "Emberwake",
+		text = {
+			"Leave the world in flames behind you.",
+		},
+	},
+	[1194] = {
+		id = "UniqueBootsDexInt12",
+		name = "Inextricable Fate",
+		text = {
+			"A multitude of beings share a wretched existence",
+			"irrevocably bound together in perpetual torture.",
+		},
+	},
+	[1195] = {
+		id = "UniqueClaw10",
+		name = "Allure",
+		text = {
+			"What drives us to kill, to carve and to shred?",
+			"What drives us to drink the seething souls of the dead?",
+			"What drives us to love and to hold, but still go amiss?",
+			"What drives us to leave this world for the Abyss?",
+		},
+	},
+	[1196] = {
+		id = "UniqueShieldStr13",
+		name = "Dawnbreaker",
+		text = {
+			"\"The newcomers warn of doom and death beyond mortal ken.",
+			"I ask, why should we fear the fire when we serve the Lord of Light?\"",
+			"- Maxarius, the first High Templar",
+		},
+	},
+	[1197] = {
+		id = "UniqueBootsInt6",
+		name = "Steppan Eard",
+		text = {
+			"To fight an enemy on their lands is a tactical mistake.",
+			"Make those lands your own, and the mistake becomes theirs.",
+		},
+	},
+	[1198] = {
+		id = "UniqueBootsDexInt8",
+		name = "Dance of the Offered",
+		text = {
+			"Facing their death,",
+			"the mind of a sacrifice",
+			"retreats into instinct and madness.",
+			"",
+			"^8This item can be transformed on the Altar of Sacrifice along with Vial of the Ritual",
+		},
+	},
+	[1199] = {
+		id = "UniqueShieldStrInt8",
+		name = "Broken Faith",
+		text = {
+			"Be not blinded by the light.",
+		},
+	},
+	[1200] = {
+		id = "UniqueBelt30",
+		name = "Coward's Chains",
+		text = {
+			"As a gift or as punishment,",
+			"the Empire will have your blood.",
+			"",
+			"^8This item can be transformed on the Altar of Sacrifice along with Vial of Consequence",
+		},
+	},
+	[1201] = {
+		id = "UniqueRing39",
+		name = "The Pariah",
+		text = {
+			"A man who changes his loyalties often,",
+			"soon finds he has none.",
+		},
+	},
+	[1202] = {
+		id = "UniqueOneHandSword29",
+		name = "Story of the Vaal",
+		text = {
+			"Through war we found peace. Through death we found advancement.",
+			"Our ancestors did not know where their actions would take them.",
+			"Are we any better?",
+			"",
+			"^8This item can be transformed on the Altar of Sacrifice along with Vial of Fate",
+		},
+	},
+	[1203] = {
+		id = "UniqueFlask10",
+		name = "Coruscating Elixir",
+		text = {
+			"Let blood sear in your veins,",
+			"Let the pain push outwards and turn away your enemy's blows.",
+		},
+	},
+	[1204] = {
+		id = "UniqueJewel122",
+		name = "Combat Focus",
+		text = {
+			"Kaom watched the torches patrol the top of the Watch.",
+			"He observed the lay of the beach, its barricades and rocks,",
+			"and his men in their canoes, ready to lay their lives down for him.",
+			"But when his foot hit the sand, he thought only of the fight.",
+		},
+	},
+	[1205] = {
+		id = "UniqueAmulet24",
+		name = "The Aylardex",
+		text = {
+			"Shackled fires dance about;",
+			"Might within from force without.",
+		},
+	},
+	[1206] = {
+		id = "UniqueJewel124",
+		name = "Combat Focus",
+		text = {
+			"Voll stood at the gates of Sarn, and a nation stood behind him.",
+			"He thought of the righteousness of his cause,",
+			"and of the glory he would bring to the empire he would soon lead.",
+			"But as Chitus and his gemlings advanced, he thought only of the fight.",
+		},
+	},
+	[1207] = {
+		id = "UniqueJewel56",
+		name = "Shattered Chains",
+		text = {
+			"The prisoners of the empire raised their shackled hands.",
+			"Begging to be delivered from Corruption.",
+			"The rebellion smote their chains,",
+			"And gave them the freedom to choose corruption for themselves.",
+		},
+	},
+	[1208] = {
+		id = "UniqueRing52",
+		name = "Mark of Submission",
+		text = {
+			"So great was the thaumaturgy of a bloodpriest's mark,",
+			"that sacrifices soon welcomed their death.",
+		},
+	},
+	[1209] = {
+		id = "UniqueJewel57",
+		name = "Weight of the Empire",
+		text = {
+			"Ondar not only betrayed his emperor,",
+			"He betrayed his friend.",
+			"And in his dying moments, Chitus ensured,",
+			"That Ondar felt the full weight of his guilt.",
+		},
+	},
+	[1210] = {
+		id = "UniqueAmulet51",
+		name = "The Primordial Chain",
+		text = {
+			"The leash of the lifegiver",
+			"binds in both directions.",
+		},
+	},
+	[1211] = {
+		id = "UniqueJewel58",
+		name = "Pitch Darkness",
+		text = {
+			"With a fire burning brash in his golden eye,",
+			"Marceus fired his arrow into the pitch-dark sky,",
+			"And seared the hope of surprise,",
+			"From Kaom's skulking horde.",
+		},
+	},
+	[1212] = {
+		id = "UniqueAmulet52",
+		name = "Perquil's Toe",
+		text = {
+			"He was a lot luckier before he lost this.",
+		},
+	},
+	[1213] = {
+		id = "UniqueJewel59",
+		name = "Steel Spirit",
+		text = {
+			"The Sekhema rode to the mountain,",
+			"With her tribe, devoted and strong.",
+			"And sewed shut the mouth of nightmare,",
+			"So that it would not consume her world.",
+		},
+	},
+	[1214] = {
+		id = "UniqueGlovesStrInt8",
+		name = "Command of the Pit",
+		text = {
+			"We serve only the Night.",
+		},
+	},
+	[1215] = {
+		id = "UniqueJewel60",
+		name = "Growing Agony",
+		text = {
+			"Maligaro understood that devotion to science,",
+			"Means devotion to trial and error.",
+			"For Maligaro's errors, death was slow,",
+			"And very painful.",
+		},
+	},
+	[1216] = {
+		id = "UniqueHelmetInt17",
+		name = "Hale Negator",
+		text = {
+			"\"Feel the pain of ancient wounds.",
+			"Feel the doom of dying souls.\"",
+		},
+	},
+	[1217] = {
+		id = "UniqueHelmetStrInt15",
+		name = "Crown of the Tyrant",
+		text = {
+			"You will know if your subjects follow you from fear",
+			"or respect when you have your first moment of weakness.",
+			"If it's the former, they will tear you into pieces like rabid dogs.",
+		},
+	},
+	[1218] = {
+		id = "UniqueRing53a",
+		name = "Ahkeli's Mountain",
+		text = {
+			"Fleeing the destruction set upon her home,",
+			"the Clayshaper sought safety in the clouds of ash above.",
+			"",
+			"^8This item can be combined with a Meadow and Valley ring at a Vendor.",
+		},
+	},
+	[1219] = {
+		id = "UniqueGlovesStr12",
+		name = "Kaom's Spirit",
+		text = {
+			"Who can tell when whispers are truly from a god?",
+		},
+	},
+	[1220] = {
+		id = "UniqueBelt15",
+		name = "Feastbind",
+		text = {
+			"Our forefathers danced and drank and ate their fill",
+			"and did not honour the First Ones for their gifts.",
+			"So the First Ones filled the sky with fire.",
+		},
+	},
+	[1221] = {
+		id = "UniqueRing53d",
+		name = "Uzaza's Mountain",
+		text = {
+			"The narrow path turned to rough rocks that led towards the sky.",
+			"One last obstacle in a life-long journey",
+			"to find a land they could call home.",
+			"",
+			"^8This item can be combined with a Meadow and Valley ring at a Vendor.",
+		},
+	},
+	[1222] = {
+		id = "UniqueBelt16",
+		name = "Faminebind",
+		text = {
+			"After the Great Fire, the land lay barren",
+			"and our forefathers grew weak.",
+			"Mother Gull took pity on them",
+			"and gave them grain and water.",
+		},
+	},
+	[1223] = {
+		id = "UniqueBelt17",
+		name = "The Retch",
+		text = {
+			"But the grain grew twisted and the water turned dark",
+			"and those who partook of Mother Gull's gift",
+			"birthed monsters that fed",
+			"on the flesh of one another.",
+		},
+	},
+	[1224] = {
+		id = "UniqueAmulet25",
+		name = "Bloodgrip",
+		text = {
+			"Combat is simple.",
+			"Keep your blood in.",
+			"Take theirs out.",
+		},
+	},
+	[1225] = {
+		id = "UniqueHelmetInt19b",
+		name = "Galesight",
+		text = {
+			"See creation as it will be, frozen and silent.",
+		},
+	},
+	[1226] = {
+		id = "UniqueTwoHandAxe10",
+		name = "Hezmana's Bloodlust",
+		text = {
+			"When a craving cannot be sated, any source will do.",
+		},
+	},
+	[1227] = {
+		id = "UniqueGlovesDexInt14",
+		name = "Aukuna's Will",
+		text = {
+			"The Black Sekhema's trial had only just begun.",
+		},
+	},
+	[1228] = {
+		id = "UniqueFlask11",
+		name = "Vessel of Vinktar",
+		text = {
+			"The great city of storms, washed away by Vinktar's thirst for power.",
+		},
+	},
+	[1229] = {
+		id = "UniqueAmulet56",
+		name = "Tavukai",
+		text = {
+			"\"Hyrri and her arrows broke the sacred code, damning herself.",
+			"Kaom seized her sacrifice, and in doing so, seized victory.\"",
+			"- Lavianga, Advisor to Kaom",
+		},
+	},
+	[1230] = {
+		id = "UniqueShieldInt6",
+		name = "Kongming's Stratagem",
+		text = {
+			"Those who are skilled in combat do not become angered.",
+			"Those who are skilled at winning do not become afraid.",
+			"Thus the wise win before they fight,",
+			"while the ignorant fight to win.",
+		},
+	},
+	[1231] = {
+		id = "UniqueHelmetInt22",
+		name = "Wreath of Phrecia",
+		text = {
+			"The Light drove the darkness from our lands and from our hearts.",
+		},
+	},
+	[1232] = {
+		id = "UniqueBootsInt7",
+		name = "Skyforth",
+		text = {
+			"The quick die young, the brilliant go mad,",
+			"and the powerful stand alone in a wasteland of their own creation.",
+		},
+	},
+	[1233] = {
+		id = "UniqueJewel129",
+		name = "Lethal Pride",
+		text = {
+			"They believed themselves the greatest warriors, but that savagery turned upon their own.",
+		},
+	},
+	[1234] = {
+		id = "UniqueJewel61",
+		name = "Reckless Defence",
+		text = {
+			"There's no motivation for genius",
+			"quite like desperation.",
+		},
+	},
+	[1235] = {
+		id = "UniqueJewel168",
+		name = "Grand Spectrum",
+		text = {
+			"A body that never falters.",
+		},
+	},
+	[1236] = {
+		id = "UniqueBow13",
+		name = "Roth's Reach",
+		text = {
+			"\"Exiled to the sea; what a joke.",
+			"I'm more free than I've ever been.\"",
+			"- Captain Weylam \"Rot-tooth\" Roth of the Black Crest",
+		},
+	},
+	[1237] = {
+		id = "UniqueJewel170",
+		name = "Grand Spectrum",
+		text = {
+			"A mind that never quiets.",
+		},
+	},
+	[1238] = {
+		id = "UniqueGlovesStr6",
+		name = "Winds of Change",
+		text = {
+			"Izaro was slow to see the treachery growing in his own court",
+			"and powerless to stop it once he had;",
+			"a captain sailing his own ship into rocks.",
+		},
+	},
+	[1239] = {
+		id = "UniqueRing22",
+		name = "Kalandra's Touch",
+		text = {
+			"On one hand, you have a choice.",
+			"On the other, you have its twin.",
+		},
+	},
+	[1240] = {
+		id = "UniqueFlask12",
+		name = "Rotgut",
+		text = {
+			"Rancid, rotten, and wicked are those that dare to taste my serum.",
+		},
+	},
+	[1241] = {
+		id = "UniqueRing62",
+		name = "Icefang Orbit",
+		text = {
+			"Those members of the Brotherhood who employ the venom of",
+			"Trarthan ice snakes must take great care with the volatile substance.",
+		},
+	},
+	[1242] = {
+		id = "UniqueJewel62",
+		name = "The Vigil",
+		text = {
+			"When Voll took the throne,",
+			"He swore to care for the empire with eyes open.",
+			"And so he looked to the salvation of his people,",
+			"Blind to the damnation in his hands.",
+		},
+	},
+	[1243] = {
+		id = "UniqueAmulet57",
+		name = "Badge of the Brotherhood",
+		text = {
+			"Greater than any blade, agility and intellect will be your weapons.",
+		},
+	},
+	[1244] = {
+		id = "UniqueJewel63",
+		name = "Rolling Flames",
+		text = {
+			"From north to south the sea of fire swept,",
+			"Rolling waves of gorging flame,",
+			"Growing taller and hungrier,",
+			"With every land they consumed.",
+		},
+	},
+	[1245] = {
+		id = "UniqueBootsDexInt10",
+		name = "The Stampede",
+		text = {
+			"Relentlessness. Nothing more, nothing less.",
+			"",
+			"^8This item can be anointed by Cassia",
+		},
+	},
+	[1246] = {
+		id = "UniqueJewel64",
+		name = "Winter's Bounty",
+		text = {
+			"As a boy, Rigwald was taught to hunt,",
+			"Through the first snows of winter,",
+			"When beasts have gorged their fill,",
+			"And see nothing but the long slumber ahead.",
+		},
+	},
+	[1247] = {
+		id = "UniqueJewel174",
+		name = "Firesong",
+		text = {
+			"Within a firestorm, the Thane commands the flames",
+			"Emblazoned by glory and the song of the First Ones",
+			"For the master of fire fears nothing.",
+		},
+	},
+	[1248] = {
+		id = "UniqueJewel65",
+		name = "Spirited Response",
+		text = {
+			"The Purity Rebels fought with heart and soul,",
+			"To free their empire from corruption.",
+			"And the fires of war did merely serve,",
+			"To temper the steel of their spirits.",
+		},
+	},
+	[1249] = {
+		id = "UniqueRing50",
+		name = "Mark of the Shaper",
+		text = {
+			"Let madness take control.",
+		},
+	},
+	[1250] = {
+		id = "UniqueStaff15",
+		name = "Femurs of the Saints",
+		text = {
+			"\"They spent a lifetime in the service of God,",
+			"only to spend eternity in the service of me.\"",
+			"- Kadavrus, Surgeon to the Umbra",
+		},
+	},
+	[1251] = {
+		id = "UniqueHelmetInt14",
+		name = "Indigon",
+		text = {
+			"Where the body's limits begin,",
+			"the mind's limits end.",
+		},
+	},
+	[1252] = {
+		id = "UniqueGlovesStrInt11",
+		name = "Hands of the High Templar",
+		text = {
+			"The laws of the faith do not apply to its leader.",
+		},
+	},
+	[1253] = {
+		id = "UniqueStaff22",
+		name = "Disintegrator",
+		text = {
+			"Blurred is the boundary",
+			"between creator and destroyer.",
+		},
+	},
+	[1254] = {
+		id = "UniqueAmulet59",
+		name = "Fury Valve",
+		text = {
+			"A single act of anger travels countless paths of destruction.",
+		},
+	},
+	[1255] = {
+		id = "UniqueGlovesStrDex7",
+		name = "Wyrmsign",
+		text = {
+			"Those who witness the shimmering scales of the wyrm",
+			"know only fear for the rest of their lives.",
+			"Fortunately, the rest of their lives",
+			"can be measured in seconds.",
+		},
+	},
+	[1256] = {
+		id = "UniqueQuiver14",
+		name = "Voidfletcher",
+		text = {
+			"Even emptiness may be harnessed.",
+		},
+	},
+	[1257] = {
+		id = "UniqueSceptre11",
+		name = "Spine of the First Claimant",
+		text = {
+			"Thousands gazed upon the doors of the great labyrinth,",
+			"at an Eternal Champion in steel and gold,",
+			"The first to challenge its treacherous traps.",
+			"To mark the occasion, Izaro had the Champion's remains gilded.",
+		},
+	},
+	[1258] = {
+		id = "UniqueHelmetInt15",
+		name = "Mark of the Red Covenant",
+		text = {
+			"Gleeful are the few",
+			"who bask in the blood of the many.",
+		},
+	},
+	[1259] = {
+		id = "UniqueJewel66",
+		name = "Izaro's Turmoil",
+		text = {
+			"The once-glorious emperor spent his final days",
+			"imprisoned in his greatest creation;",
+			"a tool to filter out the unworthy",
+			"that pushed a monster to power.",
+		},
+	},
+	[1260] = {
+		id = "UniqueStaff23",
+		name = "Soulwrest",
+		text = {
+			"Death is but the start of your servitude.",
+		},
+	},
+	[1261] = {
+		id = "UniqueOneHandSword14",
+		name = "Chitus' Needle",
+		text = {
+			"\"With this, I will weave the threads of fate",
+			"into a noose for our 'glorious' emperor.\"",
+			"- Chitus Perandus",
+		},
+	},
+	[1262] = {
+		id = "UniqueTwoHandAxe16",
+		name = "Sinvicta's Mettle",
+		text = {
+			"War is a thriving infection.",
+			"It numbs the heart and eats away at the soul",
+			"until only emptiness remains.",
+		},
+	},
+	[1263] = {
+		id = "UniqueOneHandClaw11",
+		name = "Izaro's Dilemma",
+		text = {
+			"Izaro saw himself not as a man,",
+			"but as a divine saviour trapped in a man's body.",
+		},
+	},
+	[1264] = {
+		id = "UniqueGlovesStrInt7",
+		name = "Saqawal's Winds",
+		text = {
+			"When the inferno spread across the land,",
+			"it was the First of the Sky who singed his feathers",
+			"as he brought the flames to a standstill.",
+		},
+	},
+	[1265] = {
+		id = "UniqueAmulet26",
+		name = "Extractor Mentis",
+		text = {
+			"When slaughtered flesh falls silent,",
+			"the soul may yet scream on.",
+		},
+	},
+	[1266] = {
+		id = "UniqueBodyDexInt10",
+		name = "Saqawal's Nest",
+		text = {
+			"The First of the Sky was the Last of the First.",
+			"It was he who showed us that our limits are self-imposed,",
+			"that what we take for law may just be an illusion.",
+		},
+	},
+	[1267] = {
+		id = "UniqueTwoHandSword9",
+		name = "The Dancing Duo",
+		text = {
+			"Take your partners by the hand,",
+			"Keep your steps in time.",
+			"Swing together, spin apart,",
+			"And dance with death sublime.",
+		},
+	},
+	[1268] = {
+		id = "UniqueBootsStrDex6",
+		name = "Saqawal's Talons",
+		text = {
+			"A bird, too heavily laden, cannot take flight.",
+			"The First of the Sky teaches us to put aside our possessions",
+			"so that we may live more freely.",
+		},
+	},
+	[1269] = {
+		id = "UniqueJewel67",
+		name = "Dead Reckoning",
+		text = {
+			"A mage from the coast rode up on a broken nag, legs burnt to his bones.",
+			"Before he collapsed, he uttered:",
+			"\"I watched the world we know end yesterday.\"",
+		},
+	},
+	[1270] = {
+		id = "UniqueHelmetDex8",
+		name = "Saqawal's Flock",
+		text = {
+			"Though we are individual, we share the same plight.",
+			"The First of the Sky teaches us that unity and selflessness,",
+			"not division and greed, is what will carry us upwards.",
+		},
+	},
+	[1271] = {
+		id = "UniqueJewel68",
+		name = "Rapid Expansion",
+		text = {
+			"Chitus began to aggressively expand his empire",
+			"into neighbouring nations at great human cost.",
+			"But for absolute power, there is no price",
+			"that a Perandus won't pay.",
+		},
+	},
+	[1272] = {
+		id = "UniqueBodyStr10",
+		name = "Craiceann's Carapace",
+		text = {
+			"The First of the Deep was the First of All.",
+			"It was He who conquered the waves,",
+			"who stood guard as land rose from sea.",
+		},
+	},
+	[1273] = {
+		id = "UniqueJewel69",
+		name = "Volley Fire",
+		text = {
+			"Lioneye's men stood at the walls,",
+			"eyeing the savages that walked the beach below.",
+			"With a single word,",
+			"a thousand bodies, and ten thousand arrows,",
+			"would litter the sands.",
+		},
+	},
+	[1274] = {
+		id = "UniqueHelmetStrInt12",
+		name = "Craiceann's Chitin",
+		text = {
+			"When the rains come, we cower beneath shelter.",
+			"The First of the Deep teaches us",
+			"that we should seek no shelter but ourselves.",
+		},
+	},
+	[1275] = {
+		id = "UniqueJewel70",
+		name = "Spirit Guards",
+		text = {
+			"Long after the Karui passed through,",
+			"the whispers of those who stood their ground",
+			"at Lioneye's Watch could be heard amongst the rubble.",
 		},
 	},
 }
