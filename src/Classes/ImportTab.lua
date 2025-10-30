@@ -151,7 +151,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.charSelect.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
-	self.controls.charImportHeader = new("LabelControl", {"TOPLEFT",self.controls.charSelect,"BOTTOMLEFT"}, {0, 16, 200, 16}, "Import:")
+	self.controls.charImportHeader = new("LabelControl", {"TOPLEFT",self.controls.charSelect,"BOTTOMLEFT"}, {0, 16, 200, 16}, "^7Import:")
 	self.controls.charImportTree = new("ButtonControl", {"LEFT",self.controls.charImportHeader, "RIGHT"}, {8, 0, 170, 20}, "Passive Tree and Jewels", function()
 		if self.build.spec:CountAllocNodes() > 0 then
 			main:OpenConfirmPopup("Character Import", "Importing the passive tree will overwrite your current tree.", "Import", function()
