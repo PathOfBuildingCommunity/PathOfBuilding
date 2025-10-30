@@ -18,6 +18,10 @@ jit.opt.start('maxtrace=4000','maxmcode=8192')
 collectgarbage("setpause", 400)
 
 function launch:OnInit()
+	-- package.cpath = package.cpath .. ";c:/Users/trevo/.vscode/extensions/tangzx.emmylua-0.9.22-win32-x64/debugger/emmy/windows/x64/?.dll"
+	-- local dbg = require("emmy_core")
+	-- dbg.tcpListen("localhost", 9966)
+	-- dbg.waitIDE()
 	self.devMode = false
 	self.installedMode = false
 	self.versionNumber = "?"
