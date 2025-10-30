@@ -965,14 +965,18 @@ function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 	else
 		tooltip.tooltipHeader = tooltipMap[node.type] or "UNKNOWN"
 	end
-	tooltip:AddLine(24, "^7"..node.dn..(launch.devModeAlt and " ["..node.id.."]" or ""), "FONTIN SC")
+	nodeName = node.dn
+	if main.showFlavourText then
+		nodeName = "^xF8E6CA" .. node.dn
+	end
+	tooltip:AddLine(24, nodeName..(launch.devModeAlt and " ["..node.id.."]" or ""), "FONTIN")
 	if launch.devModeAlt and node.id > 65535 then
 		-- Decompose cluster node Id
 		local index = band(node.id, 0xF)
 		local size = band(b_rshift(node.id, 4), 0x3)
 		local large = band(b_rshift(node.id, 6), 0x7)
 		local medium = band(b_rshift(node.id, 9), 0x3)
-		tooltip:AddLine(fontSizeBig, string.format("^7Cluster node index: %d, size: %d, large index: %d, medium index: %d", index, size, large, medium), "FONTIN SC")
+		tooltip:AddLine(fontSizeBig, string.format("^7Cluster node index: %d, size: %d, large index: %d, medium index: %d", index, size, large, medium), "FONTIN")
 	end
 	if node.type == "Socket" and node.nodesInRadius then
 		local attribTotals = { }
@@ -984,25 +988,24 @@ function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 		end
 		tooltip:AddSeparator(14)
 		if attribTotals["Str"] >= 40 then
-			tooltip:AddLine(fontSizeBig, "^7Can support "..colorCodes.STRENGTH.."Strength ^7threshold jewels", "FONTIN SC")
+			tooltip:AddLine(fontSizeBig, "^7Can support "..colorCodes.STRENGTH.."Strength ^7threshold jewels", "FONTIN")
 		end
 		if attribTotals["Dex"] >= 40 then
-			tooltip:AddLine(fontSizeBig, "^7Can support "..colorCodes.DEXTERITY.."Dexterity ^7threshold jewels", "FONTIN SC")
+			tooltip:AddLine(fontSizeBig, "^7Can support "..colorCodes.DEXTERITY.."Dexterity ^7threshold jewels", "FONTIN")
 		end
 		if attribTotals["Int"] >= 40 then
-			tooltip:AddLine(fontSizeBig, "^7Can support "..colorCodes.INTELLIGENCE.."Intelligence ^7threshold jewels", "FONTIN SC")
+			tooltip:AddLine(fontSizeBig, "^7Can support "..colorCodes.INTELLIGENCE.."Intelligence ^7threshold jewels", "FONTIN")
 		end
 	end
 	if node.type == "Socket" and node.alloc then
 		if node.distanceToClassStart and node.distanceToClassStart > 0 then
 			tooltip:AddSeparator(14)
-			tooltip:AddLine(fontSizeBig, string.format("^7Distance to start: %d", node.distanceToClassStart), "FONTIN SC")
+			tooltip:AddLine(fontSizeBig, string.format("^7Distance to start: %d", node.distanceToClassStart), "FONTIN")
 		end
 	end
 end
 
 function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
-	local fontSizeSmall = main.showFlavourText and 16 or 14
 	local fontSizeBig = main.showFlavourText and 18 or 16
 	tooltip.center = true
 	tooltip.maxWidth = 800
@@ -1053,9 +1056,9 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			if line ~= " " and (node.mods[i].extra or not node.mods[i].list) then 
 				local line = colorCodes.UNSUPPORTED..line
 				line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
-				tooltip:AddLine(fontSizeBig, line, "FONTIN SC")
+				tooltip:AddLine(fontSizeBig, line, "FONTIN")
 			else
-				tooltip:AddLine(fontSizeBig, colorCodes.MAGIC..line, "FONTIN SC")
+				tooltip:AddLine(fontSizeBig, colorCodes.MAGIC..line, "FONTIN")
 			end
 		end
 	end
@@ -1129,7 +1132,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	if node.flavourText and main.showFlavourText then
 		tooltip:AddSeparator(14)
 		for _, line in ipairs(node.flavourText) do
-			tooltip:AddLine(fontSizeBig, colorCodes.UNIQUE..line, "FONTIN SC ITALIC")
+			tooltip:AddLine(fontSizeBig, colorCodes.UNIQUE..line, "FONTIN ITALIC")
 		end
 	end
 

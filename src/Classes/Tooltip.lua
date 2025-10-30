@@ -235,6 +235,9 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 			local maxOilHeight = 0
 			for _, part in ipairs(oilWidths) do
 				local rn, recipeName, textW, iconW = part[1], part[2], part[3], part[4]
+				if main.showFlavourText then
+					rn = "^xF8E6CA" .. rn
+				end
 				t_insert(drawStack, {curX, y + (titleSize - recipeTextSize)/2, "LEFT", recipeTextSize, font, rn})
 				curX = curX + textW
 
@@ -261,7 +264,7 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 			currentBlock = data.block
 
 			if self.center then
-				t_insert(drawStack, {x + ttW / 2, y, "CENTER_X", data.size,font, data.text})
+				t_insert(drawStack, {x + ttW / 2, y, "CENTER_X", data.size, font, data.text})
 			else
 				t_insert(drawStack, {x + 6, y, "LEFT", data.size, font, data.text})
 			end
@@ -323,14 +326,14 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		RARE = {left="Assets/ItemsHeaderRareLeft.png",middle="Assets/ItemsHeaderRareMiddle.png",right="Assets/ItemsHeaderRareRight.png",height=54,sideWidth=47,middleWidth=52,textYOffset=2},
 		MAGIC = {left="Assets/ItemsHeaderMagicLeft.png",middle="Assets/ItemsHeaderMagicMiddle.png",right="Assets/ItemsHeaderMagicRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4},
 		NORMAL = {left="Assets/ItemsHeaderWhiteLeft.png",middle="Assets/ItemsHeaderWhiteMiddle.png",right="Assets/ItemsHeaderWhiteRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4},
-		GEM = {left="Assets/ItemsHeaderGemLeft.png",middle="Assets/ItemsHeaderGemMiddle.png",right="Assets/ItemsHeaderGemRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=2},
-		JEWEL = {left="Assets/JewelPassiveHeaderLeft.png",middle="Assets/JewelPassiveHeaderMiddle.png",right="Assets/JewelPassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=2},
-		NOTABLE = {left="Assets/NotablePassiveHeaderLeft.png",middle="Assets/NotablePassiveHeaderMiddle.png",right="Assets/NotablePassiveHeaderRight.png",height=38,sideWidth=38,middleWidth=38,textYOffset=2},
-		PASSIVE = {left="Assets/NormalPassiveHeaderLeft.png",middle="Assets/NormalPassiveHeaderMiddle.png",right="Assets/NormalPassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=2},
-		KEYSTONE = {left="Assets/KeystonePassiveHeaderLeft.png",middle="Assets/KeystonePassiveHeaderMiddle.png",right="Assets/KeystonePassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=2},
-		ASCENDANCY = {left="Assets/AscendancyPassiveHeaderLeft.png",middle="Assets/AscendancyPassiveHeaderMiddle.png",right="Assets/AscendancyPassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=2},
-		MASTERY = {left="Assets/MasteryHeaderUnallocatedLeft.png",middle="Assets/MasteryHeaderUnallocatedMiddle.png",right="Assets/MasteryHeaderUnallocatedRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=2},
-		MASTERYALLOC = {left="Assets/MasteryHeaderAllocatedLeft.png",middle="Assets/MasteryHeaderAllocatedMiddle.png",right="Assets/MasteryHeaderAllocatedRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=2},
+		GEM = {left="Assets/ItemsHeaderGemLeft.png",middle="Assets/ItemsHeaderGemMiddle.png",right="Assets/ItemsHeaderGemRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
+		JEWEL = {left="Assets/JewelPassiveHeaderLeft.png",middle="Assets/JewelPassiveHeaderMiddle.png",right="Assets/JewelPassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
+		NOTABLE = {left="Assets/NotablePassiveHeaderLeft.png",middle="Assets/NotablePassiveHeaderMiddle.png",right="Assets/NotablePassiveHeaderRight.png",height=38,sideWidth=38,middleWidth=38,textYOffset=3},
+		PASSIVE = {left="Assets/NormalPassiveHeaderLeft.png",middle="Assets/NormalPassiveHeaderMiddle.png",right="Assets/NormalPassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
+		KEYSTONE = {left="Assets/KeystonePassiveHeaderLeft.png",middle="Assets/KeystonePassiveHeaderMiddle.png",right="Assets/KeystonePassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
+		ASCENDANCY = {left="Assets/AscendancyPassiveHeaderLeft.png",middle="Assets/AscendancyPassiveHeaderMiddle.png",right="Assets/AscendancyPassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
+		MASTERY = {left="Assets/MasteryHeaderUnallocatedLeft.png",middle="Assets/MasteryHeaderUnallocatedMiddle.png",right="Assets/MasteryHeaderUnallocatedRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
+		MASTERYALLOC = {left="Assets/MasteryHeaderAllocatedLeft.png",middle="Assets/MasteryHeaderAllocatedMiddle.png",right="Assets/MasteryHeaderAllocatedRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
 	}
 	local config
 	if self.tooltipHeader and main.showFlavourText and self.lines[1] and self.lines[1].text then
