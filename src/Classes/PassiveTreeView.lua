@@ -981,6 +981,7 @@ function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 				attribTotals[attrib] = (attribTotals[attrib] or 0) + specNode.finalModList:Sum("BASE", nil, attrib)
 			end
 		end
+		tooltip:AddSeparator(14)
 		if attribTotals["Str"] >= 40 then
 			tooltip:AddLine(16, "^7Can support "..colorCodes.STRENGTH.."Strength ^7threshold jewels")
 		end
