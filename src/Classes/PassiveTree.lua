@@ -122,28 +122,51 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 	
-	-- hide alternate_ascendancies as they are unobtainable in the newest versions and will cause a crash if an older version is loaded with it at the moment
-	--[[if self.alternate_ascendancies then
-		if launch.devMode then
-			ConPrintf("WARNING! alternate_ascendancies exist but are being hidden")
-		end
-		local tempMap = {}
-		local temp_groups = {}
+	-- hide legacy alternate ascendancies that are no longer obtainable
+	if self.alternate_ascendancies then
+		local legacyAlternateAscendancyIds = {
+			Warden = true,
+			Warlock = true,
+			Primalist = true,
+		}
+		local filteredAlternateAscendancies = { }
+		local legacyAscMap = { }
 		for ascendClassId, ascendClass in pairs(self.alternate_ascendancies) do
-			tempMap[ascendClass.id] = true
-		end
-		for i, node in pairs(self.nodes) do
-			if node.ascendancyName and tempMap[node.ascendancyName] then
-				self.nodes[i] = nil
-				temp_groups[node.group] = true
+			if legacyAlternateAscendancyIds[ascendClass.id] then
+				legacyAscMap[ascendClass.id] = true
+			else
+				filteredAlternateAscendancies[ascendClassId] = ascendClass
 			end
 		end
-		for i, group in pairs(temp_groups) do
-			self.groups[i] = nil
+		if next(legacyAscMap) then
+			if launch.devMode then
+				local removed = { }
+				for id in pairs(legacyAscMap) do
+					removed[#removed + 1] = id
+				end
+				table.sort(removed)
+				ConPrintf("Removing legacy alternate ascendancies from tree: %s", table.concat(removed, ", "))
+			end
+			local temp_groups = {}
+			for nodeId, node in pairs(self.nodes) do
+				if node.ascendancyName and legacyAscMap[node.ascendancyName] then
+					self.nodes[nodeId] = nil
+					temp_groups[node.group] = true
+				end
+			end
+			for groupId in pairs(temp_groups) do
+				self.groups[groupId] = nil
+			end
+			for legacyId in pairs(legacyAscMap) do
+				self.ascendNameMap[legacyId] = nil
+			end
 		end
-			
-		self.alternate_ascendancies = nil
-	end]]
+		if next(filteredAlternateAscendancies) then
+			self.alternate_ascendancies = filteredAlternateAscendancies
+		else
+			self.alternate_ascendancies = nil
+		end
+	end
 	
 	if self.alternate_ascendancies then
 		self.secondaryAscendNameMap = { }
