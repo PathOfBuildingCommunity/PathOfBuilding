@@ -804,8 +804,8 @@ Implicits: 1
 {tags:jewellery_elemental,attack}Adds (26-32) to (42-48) Cold Damage to Attacks
 {tags:jewellery_defense}(6-10)% increased maximum Energy Shield
 {tags:life}(6-10)% increased maximum Life
-{tags:attack}(60-80)% increased Attack Damage if your other Ring is a Shaper Item
-Cannot be Stunned by Attacks if your other Ring is an Elder Item
+{tags:attack}(60-80)% increased Attack Damage if your opposite Ring is a Shaper Item
+Cannot be Stunned by Attacks if your opposite Ring is an Elder Item
 20% chance to Trigger Level 20 Tentacle Whip on Kill
 ]],[[
 Mark of the Shaper
@@ -818,8 +818,8 @@ Implicits: 1
 {tags:jewellery_elemental,caster}Adds (13-18) to (50-56) Lightning Damage to Spells
 {tags:jewellery_defense}(6-10)% increased maximum Energy Shield
 {tags:life}(6-10)% increased maximum Life
-{tags:caster}(60-80)% increased Spell Damage if your other Ring is an Elder Item
-Cannot be Stunned by Spells if your other Ring is a Shaper Item
+{tags:caster}(60-80)% increased Spell Damage if your opposite Ring is an Elder Item
+Cannot be Stunned by Spells if your opposite Ring is a Shaper Item
 20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill
 ]],[[
 Ming's Heart
@@ -1588,7 +1588,7 @@ Enemies Chilled by your Hits lessen their Damage dealt by half of Chill Effect
 Kalandra's Touch
 Ring
 League: Kalandra
-Reflects your other Ring
+Reflects your opposite Ring
 Mirrored
 ]],[[
 Betrayal's Sting

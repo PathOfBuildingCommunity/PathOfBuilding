@@ -438,8 +438,11 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		skillTypes = activeSkill.skillTypes,
 		skillCond = { },
 		skillDist = env.mode_effective and effectiveRange,
-		slotName = activeSkill.slotName,
+		slotName = activeSkill.slotName or (activeSkill.activeEffect.gemCfg and activeSkill.activeEffect.gemCfg.slotName),
+		socketColor = activeSkill.activeEffect.gemCfg and activeSkill.activeEffect.gemCfg.socketColor,
+		socketNum = activeSkill.activeEffect.gemCfg and activeSkill.activeEffect.gemCfg.socketNum
 	}
+
 	if skillFlags.weapon1Attack then
 		activeSkill.weapon1Cfg = copyTable(activeSkill.skillCfg, true)
 		activeSkill.weapon1Cfg.skillCond = setmetatable({ ["MainHandAttack"] = true }, { __index = activeSkill.skillCfg.skillCond })
@@ -505,11 +508,15 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			if level.storedUses then
 				activeSkill.skillData.storedUses = level.storedUses
 			end
+			if level.vaalStoredUses then
+				activeSkill.skillData.storedUses = activeSkill.skillData.storedUses or 0 + level.vaalStoredUses
+			end
 		end
 	end
 
 	-- Apply gem/quality modifiers from support gems
 	skillModList:NewMod("GemLevel", "BASE", activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.level or activeSkill.activeEffect.level, "Max Level")
+	skillModList:NewMod("GemQuality", "BASE", activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.quality or activeSkill.activeEffect.quality, "Max Quality")
 	for _, supportProperty in ipairs(skillModList:Tabulate("LIST", activeSkill.skillCfg, "SupportedGemProperty")) do
 		local value = supportProperty.value
 		if value.keyword == "grants_active_skill" and activeSkill.activeEffect.gemData and not activeSkill.activeEffect.gemData.tags.support  then
@@ -545,6 +552,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 	if level.storedUses then
 		activeSkill.skillData.storedUses = level.storedUses
+	end
+	if level.vaalStoredUses then
+		activeSkill.skillData.storedUses = activeSkill.skillData.storedUses or 0 + level.vaalStoredUses
 	end
 	if level.soulPreventionDuration then
 		activeSkill.skillData.soulPreventionDuration = level.soulPreventionDuration

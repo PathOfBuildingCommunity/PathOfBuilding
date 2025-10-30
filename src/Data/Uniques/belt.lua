@@ -826,6 +826,7 @@ Variant: Hatred Aura Effect
 Variant: Determination Aura Effect
 Variant: Discipline Aura Effect
 Variant: Grace Aura Effect
+Variant: Malevolence Aura Effect
 Variant: Intelligence/Dexterity
 Variant: Dexterity/Strength
 Variant: Strength/Intelligence
@@ -848,13 +849,14 @@ Implicits: 24
 {variant:15}Determination has (45-60)% increased Aura Effect
 {variant:16}Discipline has (45-60)% increased Aura Effect
 {variant:17}Grace has (45-60)% increased Aura Effect
-{variant:18}(12-18)% increased Intelligence
-{variant:18}(12-18)% increased Dexterity
+{variant:18}Malevolence has (45-60)% increased Aura Effect
+{variant:19}(12-18)% increased Intelligence
 {variant:19}(12-18)% increased Dexterity
-{variant:19}(12-18)% increased Strength
+{variant:20}(12-18)% increased Dexterity
 {variant:20}(12-18)% increased Strength
-{variant:20}(12-18)% increased Intelligence
-{variant:21}{tags:jewellery_resistance}+(42-48)% to all Elemental Resistances
+{variant:21}(12-18)% increased Strength
+{variant:21}(12-18)% increased Intelligence
+{variant:22}{tags:jewellery_resistance}+(42-48)% to all Elemental Resistances
 Implicit Modifier magnitudes are tripled
 Corrupted
 ]],[[

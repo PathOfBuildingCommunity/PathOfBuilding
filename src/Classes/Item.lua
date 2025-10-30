@@ -314,11 +314,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			if colorCodes[rarity:upper()] then
 				self.rarity = rarity:upper()
 			end
-			if self.rarity == "UNIQUE" then
+			if self.rarity == "UNIQUE" or self.rarity == "RELIC" then
 				-- Hack for relics
 				for _, line in ipairs(self.rawLines) do
 					if line:find("Foil Unique") then
 						self.rarity = "RELIC"
+						local captured = line:match("%((.-)%)")
+						self.foilType = captured or "Rainbow"
 						break
 					end
 				end
@@ -369,6 +371,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 
 	while self.rawLines[l] do	
 		local line = self.rawLines[l]
+		if line == "Veiled Prefix" or line == "Veiled Suffix" then
+			self.veiled = true
+		end
 		if flaskBuffLines and flaskBuffLines[line] then
 			flaskBuffLines[line] = nil
 		elseif tinctureBuffLines and tinctureBuffLines[line] then
@@ -385,6 +390,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self.fractured = true
 		elseif line == "Synthesised Item" then
 			self.synthesised = true
+		elseif line:match("Foil Unique") then
+			local captured = line:match("%((.-)%)")
+			self.foilType = captured or "Rainbow"
 		elseif influenceItemMap[line] then
 			self[influenceItemMap[line]] = true
 		elseif line == "Requirements:" then
@@ -1167,8 +1175,14 @@ function ItemClass:BuildRaw()
 	if self.mirrored then
 		t_insert(rawLines, "Mirrored")
 	end
+	if self.fractured then
+		t_insert(rawLines, "Fractured Item")
+	end
 	if self.corrupted or self.scourge then
 		t_insert(rawLines, "Corrupted")
+	end
+	if self.foilType then
+		t_insert(rawLines, "Foil Unique" .. " (" .. self.foilType .. ")")
 	end
 	return table.concat(rawLines, "\n")
 end
@@ -1374,7 +1388,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		weaponData.rangeBonus = calcLocal(modList, "WeaponRange", "BASE", 0) + 10 * calcLocal(modList, "WeaponRangeMetre", "BASE", 0) + m_floor(self.quality / 10 * calcLocal(modList, "AlternateQualityLocalWeaponRangePer10Quality", "BASE", 0))
 		weaponData.range = self.base.weapon.Range + weaponData.rangeBonus
 		local LocalIncEle = calcLocal(modList, "LocalElementalDamage", "INC", 0)
-		for _, dmgType in pairs(dmgTypeList) do
+		for _, dmgType in ipairs(dmgTypeList) do
 			local min = (self.base.weapon[dmgType.."Min"] or 0) + calcLocal(modList, dmgType.."Min", "BASE", 0)
 			local max = (self.base.weapon[dmgType.."Max"] or 0) + calcLocal(modList, dmgType.."Max", "BASE", 0)
 			if dmgType == "Physical" then
@@ -1417,7 +1431,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			end
 		end
 		weaponData.TotalDPS = 0
-		for _, dmgType in pairs(dmgTypeList) do
+		for _, dmgType in ipairs(dmgTypeList) do
 			weaponData.TotalDPS = weaponData.TotalDPS + (weaponData[dmgType.."DPS"] or 0)
 		end
 	elseif self.base.armour then
@@ -1747,6 +1761,10 @@ function ItemClass:BuildModList()
 		self.slotModList = { }
 		for i = 1, 2 do
 			self.slotModList[i] = self:BuildModListForSlotNum(baseList, i)
+		end
+		-- Ring 3
+		if self.type == "Ring" then
+			self.slotModList[3] = self:BuildModListForSlotNum(baseList, 3)
 		end
 	else
 		self.modList = self:BuildModListForSlotNum(baseList)

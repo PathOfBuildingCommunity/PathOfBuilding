@@ -182,11 +182,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	local offsetY = self.zoomY + viewPort.y + viewPort.height/2
 	local function treeToScreen(x, y)
 		return x * scale + offsetX,
-		       y * scale + offsetY
+				y * scale + offsetY
 	end
 	local function screenToTree(x, y)
 		return (x - offsetX) / scale,
-		       (y - offsetY) / scale
+				(y - offsetY) / scale
 	end
 
 	if IsKeyDown("SHIFT") then
@@ -483,8 +483,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			overlay = isAlloc and node.startArt or "PSStartNodeBackgroundInactive"
 		elseif node.type == "AscendClassStart" then
 			overlay = treeVersions[tree.treeVersion].num >= 3.10 and "AscendancyMiddle" or "PassiveSkillScreenAscendancyMiddle"
-			if node.ascendancyName and tree.secondaryAscendNameMap and tree.secondaryAscendNameMap[node.ascendancyName] then
-				overlay = "Azmeri"..overlay
+			if node.ascendancyName then
+				local prefix = tree.bloodlineSpritePrefixes and tree.bloodlineSpritePrefixes[node.ascendancyName]
+				if prefix then
+					overlay = prefix .. overlay
+				end
 			end
 		else
 			local state
@@ -561,9 +564,17 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					effect = node.effectSprites["tattooActiveEffect"]
 				end
 				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
-				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")]
-				if node.ascendancyName and tree.secondaryAscendNameMap and tree.secondaryAscendNameMap[node.ascendancyName] then
-					overlay = "Azmeri"..overlay
+				local overlayKey = state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")
+				local overlayName = node.overlay[overlayKey]
+				if node.ascendancyName then
+					local prefix = node.bloodlineOverlayPrefix or (tree.bloodlineSpritePrefixes and tree.bloodlineSpritePrefixes[node.ascendancyName])
+					if prefix and overlayName then
+						overlay = prefix .. overlayName
+					else
+						overlay = overlayName
+					end
+				else
+					overlay = overlayName
 				end
 			end
 		end
@@ -741,6 +752,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			if self.tooltip:CheckForUpdate(node, self.showStatDifferences, self.tracePath, launch.devModeAlt, build.outputRevision) then
 				self:AddNodeTooltip(self.tooltip, node, build)
 			end
+			self.tooltip.center = true
 			self.tooltip:Draw(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
 		end
 	end
@@ -947,15 +959,37 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 end
 
 function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
+	local fontSizeBig = main.showFlavourText and 18 or 16
 	tooltip:SetRecipe(node.recipe)
-	tooltip:AddLine(24, "^7"..node.dn..(launch.devModeAlt and " ["..node.id.."]" or ""))
+	local tooltipMap = {
+		Normal = "PASSIVE",
+		Notable = "NOTABLE",
+		Socket = "JEWEL",
+		Keystone = "KEYSTONE",
+		Ascendancy = "ASCENDANCY",
+		Mastery = "MASTERY",
+	}
+	if node.type == "Mastery" then
+		tooltip.tooltipHeader = node.alloc and "MASTERYALLOC" or "MASTERY"
+	elseif (node.type == "Notable" or node.type == "Normal") and node.ascendancyName then
+		tooltip.tooltipHeader = "ASCENDANCY"
+	else
+		tooltip.tooltipHeader = tooltipMap[node.type] or "UNKNOWN"
+	end
+	nodeName = node.dn
+	if main.showFlavourText then
+		nodeName = "^xF8E6CA" .. node.dn
+	end
+	tooltip.center = true
+	tooltip:AddLine(24, nodeName..(launch.devModeAlt and " ["..node.id.."]" or ""), "FONTIN")
+	tooltip.center = false
 	if launch.devModeAlt and node.id > 65535 then
 		-- Decompose cluster node Id
 		local index = band(node.id, 0xF)
 		local size = band(b_rshift(node.id, 4), 0x3)
 		local large = band(b_rshift(node.id, 6), 0x7)
 		local medium = band(b_rshift(node.id, 9), 0x3)
-		tooltip:AddLine(16, string.format("^7Cluster node index: %d, size: %d, large index: %d, medium index: %d", index, size, large, medium))
+		tooltip:AddLine(fontSizeBig, string.format("^7Cluster node index: %d, size: %d, large index: %d, medium index: %d", index, size, large, medium), "FONTIN")
 	end
 	if node.type == "Socket" and node.nodesInRadius then
 		local attribTotals = { }
@@ -965,25 +999,29 @@ function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 				attribTotals[attrib] = (attribTotals[attrib] or 0) + specNode.finalModList:Sum("BASE", nil, attrib)
 			end
 		end
+		tooltip:AddSeparator(14)
 		if attribTotals["Str"] >= 40 then
-			tooltip:AddLine(16, "^7Can support "..colorCodes.STRENGTH.."Strength ^7threshold jewels")
+			tooltip:AddLine(fontSizeBig, "^7Can support "..colorCodes.STRENGTH.."Strength ^7threshold jewels", "FONTIN")
 		end
 		if attribTotals["Dex"] >= 40 then
-			tooltip:AddLine(16, "^7Can support "..colorCodes.DEXTERITY.."Dexterity ^7threshold jewels")
+			tooltip:AddLine(fontSizeBig, "^7Can support "..colorCodes.DEXTERITY.."Dexterity ^7threshold jewels", "FONTIN")
 		end
 		if attribTotals["Int"] >= 40 then
-			tooltip:AddLine(16, "^7Can support "..colorCodes.INTELLIGENCE.."Intelligence ^7threshold jewels")
+			tooltip:AddLine(fontSizeBig, "^7Can support "..colorCodes.INTELLIGENCE.."Intelligence ^7threshold jewels", "FONTIN")
 		end
 	end
 	if node.type == "Socket" and node.alloc then
 		if node.distanceToClassStart and node.distanceToClassStart > 0 then
 			tooltip:AddSeparator(14)
-			tooltip:AddLine(16, string.format("^7Distance to start: %d", node.distanceToClassStart))
+			tooltip:AddLine(16, string.format("^7Distance to start: %d", node.distanceToClassStart), "FONTIN")
 		end
 	end
 end
 
 function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
+	local fontSizeBig = main.showFlavourText and 18 or 16
+	tooltip.center = true
+	tooltip.maxWidth = 800
 	-- Special case for sockets
 	if node.type == "Socket" and node.alloc then
 		local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(node.id)
@@ -1006,6 +1044,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 
 	-- Node name
 	self:AddNodeName(tooltip, node, build)
+	tooltip.center = false
 	if launch.devModeAlt then
 		if node.power and node.power.offence then
 			-- Power debugging info
@@ -1031,9 +1070,9 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			if line ~= " " and (node.mods[i].extra or not node.mods[i].list) then 
 				local line = colorCodes.UNSUPPORTED..line
 				line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
-				tooltip:AddLine(16, line)
+				tooltip:AddLine(fontSizeBig, line, "FONTIN")
 			else
-				tooltip:AddLine(16, colorCodes.MAGIC..line)
+				tooltip:AddLine(fontSizeBig, colorCodes.MAGIC..line, "FONTIN")
 			end
 		end
 	end
@@ -1084,7 +1123,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 				end
 			end
 		end
-		tooltip:AddSeparator(24)
+		tooltip:AddSeparator(14)
 	end
 
 	-- This stanza actives for both Mastery and non Mastery tooltips. Proof: add '"Blah "..' to addModInfoToTooltip
@@ -1100,6 +1139,14 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		tooltip:AddSeparator(14)
 		for _, line in ipairs(node.reminderText) do
 			tooltip:AddLine(14, "^xA0A080"..line)
+		end
+	end
+
+	-- Flavour text
+	if node.flavourText and main.showFlavourText then
+		tooltip:AddSeparator(14)
+		for _, line in ipairs(node.flavourText) do
+			tooltip:AddLine(fontSizeBig, colorCodes.UNIQUE..line, "FONTIN ITALIC")
 		end
 	end
 
