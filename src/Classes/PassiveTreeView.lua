@@ -483,8 +483,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			overlay = isAlloc and node.startArt or "PSStartNodeBackgroundInactive"
 		elseif node.type == "AscendClassStart" then
 			overlay = treeVersions[tree.treeVersion].num >= 3.10 and "AscendancyMiddle" or "PassiveSkillScreenAscendancyMiddle"
-			if node.ascendancyName and tree.secondaryAscendNameMap and tree.secondaryAscendNameMap[node.ascendancyName] then
-				overlay = "Azmeri"..overlay
+			if node.ascendancyName then
+				local prefix = tree.bloodlineSpritePrefixes and tree.bloodlineSpritePrefixes[node.ascendancyName]
+				if prefix then
+					overlay = prefix .. overlay
+				elseif tree.secondaryAscendNameMap and tree.secondaryAscendNameMap[node.ascendancyName] then
+					overlay = "Azmeri"..overlay
+				end
 			end
 		else
 			local state
@@ -561,9 +566,19 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					effect = node.effectSprites["tattooActiveEffect"]
 				end
 				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
-				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")]
-				if node.ascendancyName and tree.secondaryAscendNameMap and tree.secondaryAscendNameMap[node.ascendancyName] then
-					overlay = "Azmeri"..overlay
+				local overlayKey = state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")
+				local overlayName = node.overlay[overlayKey]
+				if node.ascendancyName then
+					local prefix = node.bloodlineOverlayPrefix or (tree.bloodlineSpritePrefixes and tree.bloodlineSpritePrefixes[node.ascendancyName])
+					if prefix and overlayName then
+						overlay = prefix .. overlayName
+					elseif tree.secondaryAscendNameMap and tree.secondaryAscendNameMap[node.ascendancyName] and overlayName then
+						overlay = "Azmeri"..overlayName
+					else
+						overlay = overlayName
+					end
+				else
+					overlay = overlayName
 				end
 			end
 		end

@@ -285,6 +285,46 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 
+	local bloodlineSpriteTypes = {
+		Trialmaster = "trialmasterBloodline",
+		Oshabi = "oshabiBloodline",
+		Olroth = "olrothBloodline",
+		Lycia = "lyciaBloodline",
+		KingInTheMists = "kingInTheMistsBloodline",
+		Farrul = "farrulBloodline",
+		Delirious = "deliriousBloodline",
+		Catarina = "catarinaBloodline",
+		Breachlord = "breachlordBloodline",
+		Aul = "aulBloodline",
+	}
+	local bloodlineAssetNames = {
+		"AscendancyButton",
+		"AscendancyButtonHighlight",
+		"AscendancyButtonPressed",
+		"AscendancyFrameLargeNormal",
+		"AscendancyFrameLargeCanAllocate",
+		"AscendancyFrameLargeAllocated",
+		"AscendancyFrameSmallNormal",
+		"AscendancyFrameSmallCanAllocate",
+		"AscendancyFrameSmallAllocated",
+		"AscendancyMiddle",
+	}
+	self.bloodlineSpritePrefixes = self.bloodlineSpritePrefixes or { }
+	for ascendancyName, spriteType in pairs(bloodlineSpriteTypes) do
+		local hasSprite = false
+		for _, assetName in ipairs(bloodlineAssetNames) do
+			local spriteSet = self.spriteMap[assetName]
+			local spriteData = spriteSet and spriteSet[spriteType]
+			if spriteData then
+				self.assets[ascendancyName .. assetName] = spriteData
+				hasSprite = true
+			end
+		end
+		if hasSprite then
+			self.bloodlineSpritePrefixes[ascendancyName] = ascendancyName
+		end
+	end
+
 	if self.alternate_ascendancies then
 		-- Use the bloodline sprite sheets for the remaining alternate ascendancy emblems
 		local legacyClasses = {
@@ -760,6 +800,11 @@ function PassiveTreeClass:ProcessNode(node)
 		node.sprites = self.spriteMap["Art/2DArt/SkillIcons/passives/MasteryBlank.png"]
 	end
 	node.overlay = self.nodeOverlay[node.type]
+	if node.ascendancyName then
+		node.bloodlineOverlayPrefix = self.bloodlineSpritePrefixes and self.bloodlineSpritePrefixes[node.ascendancyName]
+	else
+		node.bloodlineOverlayPrefix = nil
+	end
 	if node.overlay then
 		node.rsq = node.overlay.rsq
 		node.size = node.overlay.size
