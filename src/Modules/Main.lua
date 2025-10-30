@@ -1119,7 +1119,7 @@ function main:OpenOptionsPopup()
 		self.disableDevAutoSave = initialDisableDevAutoSave
 		self.showPublicBuilds = initialShowPublicBuilds
 		self.dpiScaleOverridePercent = initialDpiScaleOverridePercent
-+		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
+		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
 		main:ClosePopup()
 	end)
 	nextRow(1.5)
