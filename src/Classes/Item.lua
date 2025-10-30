@@ -1374,7 +1374,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		weaponData.rangeBonus = calcLocal(modList, "WeaponRange", "BASE", 0) + 10 * calcLocal(modList, "WeaponRangeMetre", "BASE", 0) + m_floor(self.quality / 10 * calcLocal(modList, "AlternateQualityLocalWeaponRangePer10Quality", "BASE", 0))
 		weaponData.range = self.base.weapon.Range + weaponData.rangeBonus
 		local LocalIncEle = calcLocal(modList, "LocalElementalDamage", "INC", 0)
-		for _, dmgType in pairs(dmgTypeList) do
+		for _, dmgType in ipairs(dmgTypeList) do
 			local min = (self.base.weapon[dmgType.."Min"] or 0) + calcLocal(modList, dmgType.."Min", "BASE", 0)
 			local max = (self.base.weapon[dmgType.."Max"] or 0) + calcLocal(modList, dmgType.."Max", "BASE", 0)
 			if dmgType == "Physical" then
@@ -1417,7 +1417,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			end
 		end
 		weaponData.TotalDPS = 0
-		for _, dmgType in pairs(dmgTypeList) do
+		for _, dmgType in ipairs(dmgTypeList) do
 			weaponData.TotalDPS = weaponData.TotalDPS + (weaponData[dmgType.."DPS"] or 0)
 		end
 	elseif self.base.armour then
@@ -1747,6 +1747,10 @@ function ItemClass:BuildModList()
 		self.slotModList = { }
 		for i = 1, 2 do
 			self.slotModList[i] = self:BuildModListForSlotNum(baseList, i)
+		end
+		-- Ring 3
+		if self.type == "Ring" then
+			self.slotModList[3] = self:BuildModListForSlotNum(baseList, 3)
 		end
 	else
 		self.modList = self:BuildModListForSlotNum(baseList)

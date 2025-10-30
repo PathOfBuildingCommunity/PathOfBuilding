@@ -16,7 +16,7 @@ local m_min = math.min
 local m_ceil = math.ceil
 local s_format = string.format
 
-local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
+local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Ring 3", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
 local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.itemsTab = itemsTab
@@ -371,7 +371,7 @@ Highest Weight - Displays the order retrieved from trade]]
 		else
 			self.tradeQueryRequests:FetchLeagues(self.pbRealm, function(leagues, errMsg)
 				if errMsg then
-					self:SetNotice("Error while fetching league list: "..errMsg)
+					self:SetNotice(self.controls.pbNotice, "Error while fetching league list: "..errMsg)
 					return
 				end
 				local sorted_leagues = { }
@@ -679,7 +679,7 @@ end
 function TradeQueryClass:SetNotice(notice_control, msg)
 	if msg:find("No Matching Results") then
 		msg = colorCodes.WARNING .. msg
-	elseif msg:find("Error:") then
+	elseif msg:find("Error") then
 		msg = colorCodes.NEGATIVE .. msg
 	end
 	notice_control.label = msg
@@ -914,6 +914,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 		end)
 	end)
 	controls["bestButton"..row_idx].shown = function() return not self.resultTbl[row_idx] end
+	controls["bestButton"..row_idx].enabled = function() return self.pbLeague end
 	controls["bestButton"..row_idx].tooltipText = "Creates a weighted search to find the highest Stat Value items for this slot."
 	local pbURL
 	controls["uri"..row_idx] = new("EditControl", { "TOPLEFT", controls["bestButton"..row_idx], "TOPRIGHT"}, {8, 0, 514, row_height}, nil, nil, "^%C\t\n", nil, function(buf)
