@@ -262,6 +262,23 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 
+	if self.alternate_ascendancies then
+		-- Use the bloodline sprite sheets for the remaining alternate ascendancy emblems
+		local legacyClasses = {
+			ClassesPrimalist = true,
+			ClassesWarlock = true,
+			ClassesWarden = true,
+		}
+		for spriteName, spriteSet in pairs(self.spriteMap) do
+			if spriteName:match("^Classes") and not legacyClasses[spriteName] and not self.assets[spriteName] then
+				local _, sprite = next(spriteSet)
+				if sprite then
+					self.assets[spriteName] = sprite
+				end
+			end
+		end
+	end
+
 	-- Load legion sprite sheets and build sprite map
 	local legionSprites = LoadModule("TreeData/legion/tree-legion.lua")
 	for type, data in pairs(legionSprites) do
