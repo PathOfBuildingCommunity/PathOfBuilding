@@ -1238,7 +1238,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillData.storedUses then
 		local baseUses = skillData.storedUses
-		local additionalUses = skillModList:Sum("BASE", skillCfg, "AdditionalCooldownUses")
+		local additionalUses = skillModList:Sum("BASE", skillCfg, "AdditionalCooldownUses", "AdditionalUses")
 		output.StoredUses = baseUses + additionalUses
 		if breakdown then
 			breakdown.StoredUses = { s_format("%d ^8(skill use%s)", baseUses, baseUses == 1 and "" or "s" ) }
