@@ -406,9 +406,13 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		-- Draw left cap first, then influence icon on top
 		DrawImage(self.headerLeft, headerX, headerY, headerSideWidth, headerHeight)
 		if self.influenceHeader1 then
+			SetDrawColor(1, 1, 1)
 			DrawImage(self.influenceIcon1, headerX + 2, headerY + (headerHeight - (headerHeight/2))/2, headerHeight/2, headerHeight/2)
 		end
 
+		if self.tooltipHeader == "RELIC" then -- Temporary
+			SetDrawColor(0.6,1,0.5)
+		end
 		-- Draw middle fill
 		if headerMiddleAreaWidth > 0 then
 			local drawX = headerX + headerSideWidth
@@ -426,6 +430,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		-- Draw right cap
 		DrawImage(self.headerRight, headerX + headerTotalWidth - headerSideWidth, headerY, headerSideWidth, headerHeight)
 		if self.influenceHeader2 then
+			SetDrawColor(1, 1, 1)
 			DrawImage(self.influenceIcon2, headerX + headerTotalWidth - (headerHeight/2) - 2, headerY + (headerHeight - (headerHeight/2))/2, headerHeight/2, headerHeight/2)
 		end
 	end
