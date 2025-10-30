@@ -166,12 +166,120 @@ function require(name)
 	return l_require(name)
 end
 
+-- Determine script directory for robust relative loading
+local function get_script_dir()
+  local info = debug and debug.getinfo and debug.getinfo(1, 'S')
+  local src = info and info.source or ''
+  if type(src) == 'string' and src:sub(1,1) == '@' then
+    local path = src:sub(2)
+    return (path:gsub('[^/\\]+$', '')):gsub('[ /\\]$', '')
+  end
+  return ''
+end
+local POB_SCRIPT_DIR = get_script_dir()
+-- If script dir unknown (e.g., launched as 'luajit HeadlessWrapper.lua'), fall back:
+if POB_SCRIPT_DIR == '' then
+  -- Case 1: running inside src
+  local f1 = io.open('HeadlessWrapper.lua', 'r')
+  if f1 then f1:close(); POB_SCRIPT_DIR = '.' end
+end
+if POB_SCRIPT_DIR == '' then
+  -- Case 2: running from repo root
+  local f2 = io.open('src/HeadlessWrapper.lua', 'r')
+  if f2 then f2:close(); POB_SCRIPT_DIR = 'src' end
+end
+if POB_SCRIPT_DIR ~= '' then
+  _G.POB_SCRIPT_DIR = POB_SCRIPT_DIR
+  local pathSegs = {}
+  table.insert(pathSegs, POB_SCRIPT_DIR .. '/?.lua')
+  table.insert(pathSegs, POB_SCRIPT_DIR .. '/?/init.lua')
+  table.insert(pathSegs, package.path)
+  package.path = table.concat(pathSegs, ';')
+  -- Add runtime lua path so modules like 'xml' resolve without external LUA_PATH
+  local runtimeCandidates = {
+    POB_SCRIPT_DIR .. '/runtime/lua',
+    POB_SCRIPT_DIR .. '/../runtime/lua',
+    'runtime/lua',
+    '../runtime/lua',
+  }
+  for _, rp in ipairs(runtimeCandidates) do
+    local test = io.open(rp .. '/xml.lua', 'r')
+    if test then
+      test:close()
+      local seg = rp .. '/?.lua;"' .. rp .. '/?/init.lua"'
+      if not string.find(package.path, rp .. '/?.lua', 1, true) then
+        package.path = rp .. '/?.lua;' .. rp .. '/?/init.lua;' .. package.path
+      end
+      break
+    end
+  end
+end
+
+-- Allow CLI flag in addition to env var to start stdio server
+local function has_flag(flag)
+  if type(arg) ~= 'table' then return false end
+  for i = 1, #arg do if arg[i] == flag then return true end end
+  return false
+end
+
+-- If requested, start the stdio server immediately and exit
+if os.getenv('POB_API_STDIO') == '1' or has_flag('--stdio') then
+  -- Provide utf8 fallback if not present to avoid requiring external luautf8
+  if type(_G.utf8) ~= 'table' then
+    local ok_u, mod = pcall(require, 'utf8')
+    if not ok_u or type(mod) ~= 'table' then
+      local stubCandidates = {
+        (POB_SCRIPT_DIR ~= '' and (POB_SCRIPT_DIR .. '/utf8.lua')) or nil,
+        (POB_SCRIPT_DIR ~= '' and (POB_SCRIPT_DIR .. '/lua-utf8.lua')) or nil,
+        'src/utf8.lua', 'src/lua-utf8.lua'
+      }
+      for _, sp in ipairs(stubCandidates) do
+        if sp then
+          local ok2, stub = pcall(dofile, sp)
+          if ok2 and type(stub) == 'table' then _G.utf8 = stub; break end
+        end
+      end
+    else
+      _G.utf8 = mod
+    end
+  end
+  -- Load Launch.lua first to initialize mainObject and build system
+  dofile("Launch.lua")
+
+  -- Initialize the build system (same as non-STDIO mode)
+  mainObject.continuousIntegrationMode = os.getenv("CI")
+  runCallback("OnInit")
+  runCallback("OnFrame") -- Need at least one frame for everything to initialise
+
+  if mainObject.promptMsg then
+    -- Something went wrong during startup
+    io.stderr:write('[HeadlessWrapper] Error during init: ' .. tostring(mainObject.promptMsg) .. '\n')
+    error(mainObject.promptMsg)
+  end
+
+  -- Set up helper functions
+  function newBuild()
+    mainObject.main:SetMode("BUILD", false, "Help, I'm stuck in Path of Building!")
+    runCallback("OnFrame")
+  end
+  function loadBuildFromXML(xmlText, name)
+    mainObject.main:SetMode("BUILD", false, name or "", xmlText)
+    runCallback("OnFrame")
+  end
+  _G.loadBuildFromXML = loadBuildFromXML
+  _G.build = mainObject.main.modes["BUILD"]
+
+  -- Now start the API server
+  local srvPath = (POB_SCRIPT_DIR ~= '' and (POB_SCRIPT_DIR .. '/API/Server.lua')) or 'API/Server.lua'
+  dofile(srvPath)
+  return
+end
 
 dofile("Launch.lua")
 
 -- Prevents loading of ModCache
 -- Allows running mod parsing related tests without pushing ModCache
--- The CI env var will be true when run from github workflows but should be false for other tools using the headless wrapper 
+-- The CI env var will be true when run from github workflows but should be false for other tools using the headless wrapper
 mainObject.continuousIntegrationMode = os.getenv("CI")
 
 runCallback("OnInit")

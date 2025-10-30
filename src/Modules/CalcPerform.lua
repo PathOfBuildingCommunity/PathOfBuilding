@@ -1035,6 +1035,7 @@ function calcs.perform(env, skipEHP)
 	local enemyDB = env.enemyDB
 
 	-- Merge keystone modifiers
+	env.keystonesAdded = { }
 	modLib.mergeKeystones(env, env.modDB)
 
 	-- Build minion skills
