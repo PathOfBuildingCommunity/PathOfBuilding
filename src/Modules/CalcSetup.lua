@@ -157,11 +157,7 @@ function calcs.buildModListForNode(env, node)
 		end
 	end
 
-	if modList:Flag(nil, "CanExplode") then
-		t_insert(env.explodeSources, node)
-	end
-
-	return modList
+	return modList, modList:Flag(nil, "CanExplode") and node
 end
 
 -- Build list of modifiers from the listed tree nodes
@@ -174,8 +170,10 @@ function calcs.buildModListForNodeList(env, nodeList, finishJewels)
 
 	-- Add node modifiers
 	local modList = new("ModList")
+	local explodeSources = {}
 	for _, node in pairs(nodeList) do
-		local nodeModList = calcs.buildModListForNode(env, node)
+		local nodeModList, explode = calcs.buildModListForNode(env, node)
+		t_insert(explodeSources, explode)
 		modList:AddList(nodeModList)
 		if env.mode == "MAIN" then
 			node.finalModList = nodeModList
@@ -203,7 +201,7 @@ function calcs.buildModListForNodeList(env, nodeList, finishJewels)
 		end
 	end
 
-	return modList
+	return modList, explodeSources
 end
 
 function wipeEnv(env, accelerate)
@@ -1206,8 +1204,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 	end
 
 	-- Merge modifiers for allocated passives
-	env.modDB:AddList(calcs.buildModListForNodeList(env, env.allocNodes, true))
-
+	do
+		local modList, explodeSources = calcs.buildModListForNodeList(env, env.allocNodes, true)
+		env.modDB:AddList(modList)
+		env.explodeSources = tableConcat(explodeSources, env.explodeSources)
+	end
 	if not override or (override and not override.extraJewelFuncs) then
 		override = override or {}
 		override.extraJewelFuncs = new("ModList")

@@ -1314,8 +1314,8 @@ function buildMode:OpenSpectreLibrary()
 	controls.cancel = new("ButtonControl", nil, {45, 330, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
-	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {24, 2, 0, 16}, "Spectres in your Library must be assigned to an active")
-	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {20, 18, 0, 16}, "Raise Spectre gem for their buffs and curses to activate")
+	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {24, 2, 0, 16}, "^7Spectres in your Library must be assigned to an active")
+	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {20, 18, 0, 16}, "^7Raise Spectre gem for their buffs and curses to activate")
 	local spectrePopup = main:OpenPopup(410, 360, "Spectre Library", controls)
 	spectrePopup:SelectControl(spectrePopup.controls.source.controls.searchText)
 end
@@ -1391,7 +1391,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 	for i, socketGroup in pairs(self.skillsTab.socketGroupList) do
 		controls.mainSocketGroup.list[i] = { val = i, label = socketGroup.displayLabel }
 	end
-	controls.mainSocketGroup:CheckDroppedWidth(true)
+  controls.mainSocketGroup:CheckDroppedWidth(true)
 	if controls.warnings then controls.warnings.shown = #controls.warnings.lines > 0 end
 	if #controls.mainSocketGroup.list == 0 then
 		controls.mainSocketGroup.list[1] = { val = 1, label = "<No skills added yet>" }
@@ -1469,16 +1469,13 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 					controls.mainSkillMinion.enabled = #controls.mainSkillMinion.list > 1
 					controls.mainSkillMinion.shown = true
 					wipeTable(controls.mainSkillMinionSkill.list)
-					if activeSkill.minion and activeSkill.minion.activeSkillList then
+					if activeSkill.minion then
 						for _, minionSkill in ipairs(activeSkill.minion.activeSkillList) do
 							t_insert(controls.mainSkillMinionSkill.list, minionSkill.activeEffect.grantedEffect.name)
 						end
 						controls.mainSkillMinionSkill.selIndex = activeEffect.srcInstance["skillMinionSkill"..suffix] or 1
 						controls.mainSkillMinionSkill.shown = true
 						controls.mainSkillMinionSkill.enabled = #controls.mainSkillMinionSkill.list > 1
-					elseif activeSkill.minion then
-						-- if `activeSkill.minion ~= nil` and `activeSkill.minion.activeSkillList == nil`, we need to set `buildFlag = true` to fix this minion; see pull request #9062 for more details.
-						self.buildFlag = true
 					else
 						t_insert(controls.mainSkillMinion.list, "<No spectres in build>")
 					end
