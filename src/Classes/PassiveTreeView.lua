@@ -1002,6 +1002,7 @@ end
 function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	-- Special case for sockets
 	tooltip.center = true
+	tooltip.maxWidth = 800
 	if node.type == "Socket" and node.alloc then
 		local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(node.id)
 		if jewel then
