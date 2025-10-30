@@ -2568,6 +2568,7 @@ skills["MonsterProximityShield"] = {
 	castTime = 1,
 	baseFlags = {
 		spell = true,
+		area = true,
 		duration = true,
 	},
 	constantStats = {
@@ -6456,10 +6457,9 @@ skills["BreachBlizzardSpectre"] = {
 	name = "Snow Cloak",
 	hidden = true,
 	color = 4,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.AreaSpell] = true, [SkillType.Buff] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
 	statMap = {
 		["avoid_damage_%"] = {
 			mod("AvoidPhysicalDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
@@ -11414,5 +11414,224 @@ skills["LegionKaruiMeleeCombo2"] = {
 		[2] = { 0, baseMultiplier = 1.3, levelRequirement = 19, statInterpolation = { 2, }, },
 		[3] = { 1, baseMultiplier = 1.3, levelRequirement = 20, statInterpolation = { 2, }, },
 		[4] = { 200, baseMultiplier = 1.3, levelRequirement = 84, statInterpolation = { 2, }, },
+	},
+}
+skills["LegionMonsterProximityShield"] = {
+	name = "Proximity Shield",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2,
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 8000 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 0, storedUses = 1, cooldown = 18, },
+	},
+}
+skills["EmpoweringHowlSpectre"] = {
+	name = "Empowering Howl",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["empowering_cry_physical_damage_added_as_fire_damage_%"] = {
+			mod("PhysicalDamageGainAsFire", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Empowering Howl" }),
+		},
+	},
+	baseFlags = {
+		buff = true,
+		area = true,
+		duration = true,
+		cooldown = true,
+		warcry = true,
+	},
+	baseMods = {
+		skill("buffAllies", true),
+		skill("buffMinions", true),
+	},
+	constantStats = {
+		{ "empowering_cry_physical_damage_added_as_fire_damage_%", 20 },
+		{ "base_skill_effect_duration", 7500 },
+	},
+	stats = {
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 12, },
+	},
+}
+skills["DelveMelee"] = {
+	name = "Default Attack (Cold DoT)",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2,
+	incrementalEffectiveness = 0.03999999910593,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "apply_azurite_debuff_on_hit_ms", 2500 },
+	},
+	stats = {
+		"base_cold_damage_to_deal_per_minute",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { 25.000000558794, levelRequirement = 1, statInterpolation = { 3, }, },
+	},
+}
+skills["DelveMeleeCold"] = {
+	name = "Default Attack (Cold Hit)",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	stats = {
+		"physical_damage_%_to_add_as_cold",
+		"action_attack_or_cast_time_uses_animation_length",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+	},
+	levels = {
+		[1] = { 10, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 100, levelRequirement = 83, statInterpolation = { 2, }, },
+	},
+}
+skills["DelveSpiderFlickerStrike"] = {
+	name = "Flicker Strike (Cold Hit)",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Teleports the character to a nearby monster and attacks with a melee weapon. If no specific monster is targeted, one is picked at random. Grants a buff that increases movement speed for a duration. The cooldown can be bypassed by expending a Frenzy Charge.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Movement] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
+	weaponTypes = {
+		["Two Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Sword"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		movement = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_cold", 40 },
+	},
+	stats = {
+		"ignores_proximity_shield",
+		"melee_defer_damage_prediction",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 4, attackSpeedMultiplier = 20, baseMultiplier = 0.5, },
+	},
+}
+skills["MeleeAtAnimationSpeedLightning"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_lightning", 75 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
+	},
+	levels = {
+		[1] = { 0, levelRequirement = 1, baseMultiplier = 0.75, statInterpolation = { 2, }, },
+		[2] = { 0, levelRequirement = 19, baseMultiplier = 0.75, statInterpolation = { 2, }, },
+		[3] = { 1, levelRequirement = 20, baseMultiplier = 0.75, statInterpolation = { 2, }, },
+		[4] = { 200, levelRequirement = 84, baseMultiplier = 0.75, statInterpolation = { 2, }, },
+	},
+}
+skills["CrucibleVendigoFlickerStrike"] = {
+	name = "Flicker Strike",
+	hidden = true,
+	color = 4,
+	description = "Teleports the character to a nearby monster and attacks with a melee weapon. If no specific monster is targeted, one is picked at random. Grants a buff that increases movement speed for a duration. The cooldown can be bypassed by expending a Frenzy Charge.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Movement] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
+	weaponTypes = {
+		["Two Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Sword"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		movement = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"ignores_proximity_shield",
+	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
+	},
+	levels = {
+		[1] = { -30, levelRequirement = 1, storedUses = 1, cooldown = 3, statInterpolation = { 2, }, },
+		[2] = { 0, levelRequirement = 19, storedUses = 1, cooldown = 3, statInterpolation = { 2, }, },
+		[3] = { 1, levelRequirement = 20, storedUses = 1, cooldown = 3, statInterpolation = { 2, }, },
+		[4] = { 30, levelRequirement = 84, storedUses = 1, cooldown = 3, statInterpolation = { 2, }, },
 	},
 }
