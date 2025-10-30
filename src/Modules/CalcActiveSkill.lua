@@ -505,6 +505,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			if level.storedUses then
 				activeSkill.skillData.storedUses = level.storedUses
 			end
+			if level.vaalStoredUses then
+				activeSkill.skillData.storedUses = activeSkill.skillData.storedUses or 0 + level.vaalStoredUses
+			end
 		end
 	end
 
@@ -545,6 +548,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 	if level.storedUses then
 		activeSkill.skillData.storedUses = level.storedUses
+	end
+	if level.vaalStoredUses then
+		activeSkill.skillData.storedUses = activeSkill.skillData.storedUses or 0 + level.vaalStoredUses
 	end
 	if level.soulPreventionDuration then
 		activeSkill.skillData.soulPreventionDuration = level.soulPreventionDuration

@@ -631,7 +631,7 @@ return {
 	}, },
 	{ label = "Stored Uses", haveOutput = "StoredUses", { format = "{output:StoredUses}",
 	{ breakdown = "StoredUses" },
-	{ modName = "AdditionalCooldownUses", cfg = "skill" },
+	{ modName = { "AdditionalCooldownUses", "AdditionalUses" }, cfg = "skill" },
 }, },
 	{ label = "Duration Mod", flag = "duration", { format = "x {4:output:DurationMod}",
 		{ breakdown = "DurationMod" }, 

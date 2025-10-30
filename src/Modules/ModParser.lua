@@ -178,6 +178,7 @@ local modNameList = {
 	["total mana cost of skills"] = "ManaCost",
 	["life cost of skills"] = "LifeCost",
 	["rage cost of skills"] = "RageCost",
+	["souls per use"] = "SoulCost",
 	["cost of"] = "Cost",
 	["cost of skills"] = "Cost",
 	["cost of attacks"] = { "Cost", tag = { type = "SkillType", skillType = SkillType.Attack } },
@@ -417,6 +418,7 @@ local modNameList = {
 	["effect of auras on you"] = "AuraEffectOnSelf",
 	["effect of auras on your minions"] = { "AuraEffectOnSelf", addToMinion = true },
 	["effect of auras from mines"] = { "AuraEffect", keywordFlags = KeywordFlag.Mine },
+	["effect of auras from your vaal skills"] = { "AuraEffect", keywordFlags = KeywordFlag.Vaal },
 	["effect of consecrated ground you create"] = "ConsecratedGroundEffect",
 	["curse effect"] = "CurseEffect",
 	["effect of curses applied by bane"] = { "CurseEffect", tag = { type = "Condition", var = "AppliedByBane" } },
@@ -1128,6 +1130,8 @@ local preFlagList = {
 	["^fire spells [hd][ae][va][el] a? ?"] = { keywordFlags = KeywordFlag.Fire, flags = ModFlag.Spell },
 	["^chaos skills [hd][ae][va][el] a? ?"] = { keywordFlags = KeywordFlag.Chaos },
 	["^vaal skills [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Vaal },
+	["^vaal skills require "] = { keywordFlags = KeywordFlag.Vaal },
+	["^non%-aura vaal skills require "] = { keywordFlags = KeywordFlag.Vaal, tag = { type = "SkillType", skillType = SkillType.Aura, neg = true } },
 	["^brand skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.Brand } },
 	["^channelling skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.Channel } },
 	["^curse skills [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Curse },
@@ -1388,6 +1392,7 @@ local modTagList = {
 	["per (%d+) maximum mana"] = function(num) return { tag = { type = "PerStat", stat = "Mana", div = num } } end,
 	["per (%d+) maximum mana, up to (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", stat = "Mana", div = num, limit = tonumber(limit), limitTotal = true } } end,
 	["per (%d+) maximum mana, up to a maximum of (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", stat = "Mana", div = num, limit = tonumber(limit), limitTotal = true } } end,
+	["per soul required"] = { tag = { type = "PerStat", stat = "SoulCost" } },
 	["per (%d+) accuracy rating"] = function(num) return { tag = { type = "PerStat", stat = "Accuracy", div = num } } end,
 	["per (%d+)%% block chance"] = function(num) return { tag = { type = "PerStat", stat = "BlockChance", div = num } } end,
 	["per (%d+)%% chance to block on equipped shield"] = function(num) return { tag = { type = "PerStat", stat = "ShieldBlockChance", div = num } } end,
@@ -2100,11 +2105,9 @@ local specialModList = {
 	["spend life instead of mana for effects of skills"] = { },
 	["skills cost %+(%d+) rage"] = function(num) return { mod("RageCostBase", "BASE", num) } end,
 	["warcries cost %+(%d+)%% of life"] = function(num) return { mod("LifeCostBase", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num, floor = true }) } end,
-	["non%-aura vaal skills require (%d+)%% reduced souls per use during effect"] = function(num) return { mod("SoulCost", "INC", -num, { type = "Condition", var = "UsingFlask" }, { type = "SkillType", skillType = SkillType.Aura, neg = true }, { type = "SkillType", skillType = SkillType.Vaal }) } end,
-	["non%-aura vaal skills require (%d+)%% reduced souls per use"] = function(num) return { mod("SoulCost", "INC", -num, { type = "SkillType", skillType = SkillType.Aura, neg = true }, { type = "SkillType", skillType = SkillType.Vaal }) } end,
-	["vaal skills require (%d+)%% reduced souls per use"] = function(num) return { mod("SoulCost", "INC", -num, { type = "SkillType", skillType = SkillType.Vaal }) } end,
 	["vaal skills used during effect have (%d+)%% reduced soul gain prevention duration"] = function(num) return { mod("SoulGainPreventionDuration", "INC", -num, { type = "Condition", var = "UsingFlask" }, { type = "SkillType", skillType = SkillType.Vaal }) } end,
 	["vaal volcanic fissure and vaal molten strike have (%d+)%% reduced soul gain prevention duration"] = function(num) return { mod("SoulGainPreventionDuration", "INC", -num, { type = "SkillName", skillNameList = { "Volcanic Fissure", "Molten Strike" }, includeTransfigured = true }, { type = "SkillType", skillType = SkillType.Vaal }) } end,
+	["vaal skills can store %+(%d+) uses?"] = function(num) return { mod("AdditionalUses", "BASE", num, { type = "SkillType", skillType = SkillType.Vaal }) } end,
 	["vaal attack skills cost rage instead of requiring souls to use"] = { flag("CostRageInsteadOfSouls", nil, ModFlag.Attack, { type = "SkillType", skillType = SkillType.Vaal }) },
 	["vaal attack skills you use yourself cost rage instead of requiring souls"] = { flag("CostRageInsteadOfSouls", nil, ModFlag.Attack, { type = "SkillType", skillType = SkillType.Vaal }) },
 	["you cannot gain rage during soul gain prevention"] = { mod("RageRegen", "MORE", -100, { type = "Condition", var = "SoulGainPrevention" }) },
@@ -2247,6 +2250,12 @@ local specialModList = {
 	["shepherd of souls"] = {
 		flag("ShepherdOfSouls")
 	},
+	["you have shepherd of souls if at least (%d+) corrupted items are equipped"] = function(num) return {
+		flag("ShepherdOfSouls", { type = "MultiplierThreshold", var = "CorruptedItem", threshold = num })
+	} end,
+	["you have everlasting sacrifice if at least (%d+) corrupted items are equipped"] = function(num) return {
+		flag("EverlastingSacrifice", { type = "MultiplierThreshold", var = "CorruptedItem", threshold = num })
+	} end,
 	["adds (%d+) to (%d+) attack physical damage to melee skills per (%d+) dexterity while you are unencumbered"] = function(_, min, max, dex) return { -- Hollow Palm 3 suffixes
 		mod("PhysicalMin", "BASE", tonumber(min), nil, ModFlag.Melee, KeywordFlag.Attack, { type = "PerStat", stat = "Dex", div = tonumber(dex) }, { type = "Condition", var = "Unencumbered" }),
 		mod("PhysicalMax", "BASE", tonumber(max), nil, ModFlag.Melee, KeywordFlag.Attack, { type = "PerStat", stat = "Dex", div = tonumber(dex) }, { type = "Condition", var = "Unencumbered" }),
