@@ -6103,7 +6103,7 @@ c["70% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC"
 c["70% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=70}},nil}
 c["70% increased Armour and Evasion"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=70}},nil}
 c["70% increased Aspect of the Spider Area of Effect"]={{[1]={[1]={skillName="Aspect of the Spider",type="SkillName"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=70}},nil}
-c["70% increased Attack Damage if your other Ring is a Shaper Item"]={{[1]={[1]={itemSlot="Ring {OtherSlotNum}",shaperCond=true,type="ItemCondition"},flags=1,keywordFlags=0,name="Damage",type="INC",value=70}},nil}
+c["70% increased Attack Damage if your opposite Ring is a Shaper Item"]={{[1]={[1]={itemSlot="Ring {OtherSlotNum}",shaperCond=true,type="ItemCondition"},flags=1,keywordFlags=0,name="Damage",type="INC",value=70}},nil}
 c["70% increased Burning Damage"]={{[1]={flags=0,keywordFlags=134217728,name="FireDamage",type="INC",value=70}},nil}
 c["70% increased Charges per use"]={{[1]={flags=0,keywordFlags=0,name="FlaskChargesUsed",type="INC",value=70}},nil}
 c["70% increased Critical Strike Chance"]={{[1]={flags=0,keywordFlags=0,name="CritChance",type="INC",value=70}},nil}
@@ -6127,7 +6127,7 @@ c["70% increased Life Recovery from Flasks while affected by Vitality"]={{[1]={[
 c["70% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=70}},nil}
 c["70% increased Rarity of Items found"]={{[1]={flags=0,keywordFlags=0,name="LootRarity",type="INC",value=70}},nil}
 c["70% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=70}},nil}
-c["70% increased Spell Damage if your other Ring is an Elder Item"]={{[1]={[1]={elderCond=true,itemSlot="Ring {OtherSlotNum}",type="ItemCondition"},flags=2,keywordFlags=0,name="Damage",type="INC",value=70}},nil}
+c["70% increased Spell Damage if your opposite Ring is an Elder Item"]={{[1]={[1]={elderCond=true,itemSlot="Ring {OtherSlotNum}",type="ItemCondition"},flags=2,keywordFlags=0,name="Damage",type="INC",value=70}},nil}
 c["70% increased Stun Duration on Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyStunDuration",type="INC",value=70}},nil}
 c["70% increased Totem Placement speed"]={{[1]={flags=0,keywordFlags=0,name="TotemPlacementSpeed",type="INC",value=70}},nil}
 c["70% increased effect"]={{[1]={flags=0,keywordFlags=0,name="LocalEffect",type="INC",value=70}},nil}
@@ -6297,7 +6297,7 @@ c["80% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC"
 c["80% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=80}},nil}
 c["80% increased Armour and Evasion"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=80}},nil}
 c["80% increased Armour while stationary"]={{[1]={[1]={type="Condition",var="Stationary"},flags=0,keywordFlags=0,name="Armour",type="INC",value=80}},nil}
-c["80% increased Attack Damage if your other Ring is a Shaper Item"]={{[1]={[1]={itemSlot="Ring {OtherSlotNum}",shaperCond=true,type="ItemCondition"},flags=1,keywordFlags=0,name="Damage",type="INC",value=80}},nil}
+c["80% increased Attack Damage if your opposite Ring is a Shaper Item"]={{[1]={[1]={itemSlot="Ring {OtherSlotNum}",shaperCond=true,type="ItemCondition"},flags=1,keywordFlags=0,name="Damage",type="INC",value=80}},nil}
 c["80% increased Burning Damage"]={{[1]={flags=0,keywordFlags=134217728,name="FireDamage",type="INC",value=80}},nil}
 c["80% increased Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamage",type="INC",value=80}},nil}
 c["80% increased Charges per use"]={{[1]={flags=0,keywordFlags=0,name="FlaskChargesUsed",type="INC",value=80}},nil}
@@ -6337,7 +6337,7 @@ c["80% increased Projectile Attack Damage"]={{[1]={flags=1025,keywordFlags=0,nam
 c["80% increased Projectile Damage"]={{[1]={flags=1024,keywordFlags=0,name="Damage",type="INC",value=80}},nil}
 c["80% increased Spell Critical Strike Chance"]={{[1]={flags=2,keywordFlags=0,name="CritChance",type="INC",value=80}},nil}
 c["80% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=80}},nil}
-c["80% increased Spell Damage if your other Ring is an Elder Item"]={{[1]={[1]={elderCond=true,itemSlot="Ring {OtherSlotNum}",type="ItemCondition"},flags=2,keywordFlags=0,name="Damage",type="INC",value=80}},nil}
+c["80% increased Spell Damage if your opposite Ring is an Elder Item"]={{[1]={[1]={elderCond=true,itemSlot="Ring {OtherSlotNum}",type="ItemCondition"},flags=2,keywordFlags=0,name="Damage",type="INC",value=80}},nil}
 c["80% increased Stun Duration on Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyStunDuration",type="INC",value=80}},nil}
 c["80% increased Stun and Block Recovery"]={{[1]={flags=0,keywordFlags=0,name="StunRecovery",type="INC",value=80}},nil}
 c["80% increased Ward"]={{[1]={flags=0,keywordFlags=0,name="Ward",type="INC",value=80}},nil}
@@ -7790,13 +7790,13 @@ c["Cannot be Shocked if Intelligence is higher than Strength"]={{[1]={[1]={type=
 c["Cannot be Shocked while Chilled"]={{[1]={[1]={type="Condition",var="Chilled"},flags=0,keywordFlags=0,name="ShockImmune",type="FLAG",value=true}},nil}
 c["Cannot be Shocked while at maximum Power Charges"]={{[1]={[1]={stat="PowerCharges",thresholdStat="PowerChargesMax",type="StatThreshold"},flags=0,keywordFlags=0,name="ShockImmune",type="FLAG",value=true}},nil}
 c["Cannot be Stunned"]={{[1]={flags=0,keywordFlags=0,name="StunImmune",type="FLAG",value=true}},nil}
-c["Cannot be Stunned by Attacks if your other Ring is an Elder Item"]={nil,"Cannot be Stunned by Attacks if your other Ring is an Elder Item "}
-c["Cannot be Stunned by Attacks if your other Ring is an Elder Item 20% chance to Trigger Level 20 Tentacle Whip on Kill"]={nil,"Cannot be Stunned by Attacks if your other Ring is an Elder Item 20% chance to Trigger Level 20 Tentacle Whip on Kill "}
+c["Cannot be Stunned by Attacks if your opposite Ring is an Elder Item"]={nil,"Cannot be Stunned by Attacks if your opposite Ring is an Elder Item "}
+c["Cannot be Stunned by Attacks if your opposite Ring is an Elder Item 20% chance to Trigger Level 20 Tentacle Whip on Kill"]={nil,"Cannot be Stunned by Attacks if your opposite Ring is an Elder Item 20% chance to Trigger Level 20 Tentacle Whip on Kill "}
 c["Cannot be Stunned by Hits that deal only Physical Damage"]={nil,"Cannot be Stunned by Hits that deal only Physical Damage "}
 c["Cannot be Stunned by Hits you Block"]={nil,"Cannot be Stunned by Hits you Block "}
 c["Cannot be Stunned by Hits you Block Cannot be Stunned while Fortified"]={nil,"Cannot be Stunned by Hits you Block Cannot be Stunned while Fortified "}
-c["Cannot be Stunned by Spells if your other Ring is a Shaper Item"]={nil,"Cannot be Stunned by Spells if your other Ring is a Shaper Item "}
-c["Cannot be Stunned by Spells if your other Ring is a Shaper Item 20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill"]={nil,"Cannot be Stunned by Spells if your other Ring is a Shaper Item 20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill "}
+c["Cannot be Stunned by Spells if your opposite Ring is a Shaper Item"]={nil,"Cannot be Stunned by Spells if your opposite Ring is a Shaper Item "}
+c["Cannot be Stunned by Spells if your opposite Ring is a Shaper Item 20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill"]={nil,"Cannot be Stunned by Spells if your opposite Ring is a Shaper Item 20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill "}
 c["Cannot be Stunned by Suppressed Spell Damage"]={nil,"Cannot be Stunned by Suppressed Spell Damage "}
 c["Cannot be Stunned by Suppressed Spell Damage Debilitate Enemies for 4 Seconds when you Suppress their Spell Damage"]={nil,"Cannot be Stunned by Suppressed Spell Damage Debilitate Enemies for 4 Seconds when you Suppress their Spell Damage "}
 c["Cannot be Stunned if 6 Elder Items are Equipped"]={{[1]={[1]={threshold=6,type="MultiplierThreshold",var="ElderItem"},flags=0,keywordFlags=0,name="StunImmune",type="FLAG",value=true}},nil}
@@ -10330,7 +10330,7 @@ c["Reflects 8 to 14 Physical Damage to Attackers on Block"]={nil,"Reflects 8 to 
 c["Reflects 8 to 14 Physical Damage to Attackers on Block +2 to Weapon Range"]={nil,"Reflects 8 to 14 Physical Damage to Attackers on Block +2 to Weapon Range "}
 c["Reflects 81 Physical Damage to Melee Attackers"]={{},nil}
 c["Reflects 90 Physical Damage to Melee Attackers"]={{},nil}
-c["Reflects your other Ring"]={{},nil}
+c["Reflects your opposite Ring"]={{},nil}
 c["Refresh Duration of Ignite, Chill and Shock on Enemies you Curse"]={nil,"Refresh Duration of Ignite, Chill and Shock on Enemies you Curse "}
 c["Refresh Duration of Ignite, Chill and Shock on Enemies you Curse Remove Elemental Ailments when you Cast a Curse Spell"]={nil,"Refresh Duration of Ignite, Chill and Shock on Enemies you Curse Remove Elemental Ailments when you Cast a Curse Spell "}
 c["Regenerate (0.7-1.2)% of Life per second"]={nil,"Regenerate (0.7-1.2)% of Life per second "}
