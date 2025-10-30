@@ -314,11 +314,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			if colorCodes[rarity:upper()] then
 				self.rarity = rarity:upper()
 			end
-			if self.rarity == "UNIQUE" then
+			if self.rarity == "UNIQUE" or self.rarity == "RELIC" then
 				-- Hack for relics
 				for _, line in ipairs(self.rawLines) do
 					if line:find("Foil Unique") then
 						self.rarity = "RELIC"
+						local captured = line:match("%((.-)%)")
+						self.foilType = captured or "Rainbow"
 						break
 					end
 				end
@@ -388,6 +390,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self.fractured = true
 		elseif line == "Synthesised Item" then
 			self.synthesised = true
+		elseif line:match("Foil Unique") then
+			local captured = line:match("%((.-)%)")
+			self.foilType = captured or "Rainbow"
 		elseif influenceItemMap[line] then
 			self[influenceItemMap[line]] = true
 		elseif line == "Requirements:" then
@@ -1175,6 +1180,9 @@ function ItemClass:BuildRaw()
 	end
 	if self.corrupted or self.scourge then
 		t_insert(rawLines, "Corrupted")
+	end
+	if self.foilType then
+		t_insert(rawLines, "Foil Unique" .. " (" .. self.foilType .. ")")
 	end
 	return table.concat(rawLines, "\n")
 end

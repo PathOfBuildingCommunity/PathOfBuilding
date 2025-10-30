@@ -182,11 +182,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	local offsetY = self.zoomY + viewPort.y + viewPort.height/2
 	local function treeToScreen(x, y)
 		return x * scale + offsetX,
-			   y * scale + offsetY
+				y * scale + offsetY
 	end
 	local function screenToTree(x, y)
 		return (x - offsetX) / scale,
-			   (y - offsetY) / scale
+				(y - offsetY) / scale
 	end
 
 	if IsKeyDown("SHIFT") then

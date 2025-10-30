@@ -3279,6 +3279,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	local rarityCode = colorCodes[item.rarity]
 	tooltip.maxWidth = 600 -- Should instead get the longest mod and set the width to that. Some flavour text is way too long so we need a cap of sorts.
 	tooltip.tooltipHeader = item.rarity
+	tooltip.foilType = item.foilType
 	tooltip.center = true
 	tooltip.color = rarityCode
 	self:SetTooltipHeaderInfluence(tooltip, item)

@@ -404,8 +404,29 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			self.influenceIcon2:Load(headerInfluence[self.influenceHeader2])
 		end
 
-		if self.tooltipHeader == "RELIC" then -- Temporary
-			SetDrawColor(0.6,1,0.5)
+		local foilTypes = {
+			["Rainbow"] = {0.6, 1, 0.5},
+			["Amethyst"] = {0.9, 0.6, 1},
+			["Verdant"] = {0.5, 1, 0.5},
+			["Ruby"] = {1, 0.5, 0.6},
+			["Cobalt"] = {0.6, 0.7, 1},
+			["Sunset"] = {1, 1, 0.6},
+			["Aureate"] = {1, 0.85, 0.2},
+			["Celestial Quartz"] = {1, 0.7, 0.85},
+			["Celestial Ruby"] = {0.8, 0.3, 0.2},
+			["Celestial Emerald"] = {0.2, 0.6, 0.3},
+			["Celestial Aureate"] = {0.8, 0.7, 0.2},
+			["Celestial Pearl"] = {1, 0.85, 0.9},
+			["Celestial Amethyst"] = {0.5, 0.6, 1},
+		}
+		if self.tooltipHeader == "RELIC" then
+			--ConPrintf(self.foilType)
+			local color = foilTypes[self.foilType] or foilTypes["Rainbow"]
+			if color then
+				SetDrawColor(color[1], color[2], color[3])
+			else
+				SetDrawColor(0.6, 1, 0.5) -- fallback to green
+			end
 		end
 		-- Draw left cap first, then influence icon on top
 		DrawImage(self.headerLeft, headerX, headerY, headerSideWidth, headerHeight)
@@ -414,8 +435,14 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			DrawImage(self.influenceIcon1, headerX + 2, headerY + (headerHeight - (headerHeight/2))/2, headerHeight/2, headerHeight/2)
 		end
 
-		if self.tooltipHeader == "RELIC" then -- Temporary
-			SetDrawColor(0.6,1,0.5)
+		if self.tooltipHeader == "RELIC" then
+			--ConPrintf(self.foilType)
+			local color = foilTypes[self.foilType] or foilTypes["Rainbow"]
+			if color then
+				SetDrawColor(color[1], color[2], color[3])
+			else
+				SetDrawColor(0.6, 1, 0.5) -- fallback to green
+			end
 		end
 		-- Draw middle fill
 		if headerMiddleAreaWidth > 0 then
