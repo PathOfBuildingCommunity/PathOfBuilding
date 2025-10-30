@@ -16618,7 +16618,7 @@ return {
             }
         },
         ["ascendancy"]= {
-            ["filename"]= "https://web.poecdn.com/image/passive-skill/ascendancy-3.png?bb7f87ce",
+            ["filename"]= "https://web.poecdn.com/image/passive-skill/ascendancy-3.webp?bb7f87ce",
             ["w"]= 2579,
             ["h"]= 2081,
             ["coords"]= {
@@ -16805,7 +16805,7 @@ return {
             }
         },
         ["azmeriBloodline"]= {
-            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.png?7c35d1a0",
+            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.webp?7c35d1a0",
             ["w"]= 2268,
             ["h"]= 2148,
             ["coords"]= {
@@ -16926,7 +16926,7 @@ return {
             }
         },
         ["trialmasterBloodline"]= {
-            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.png?7c35d1a0",
+            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.webp?7c35d1a0",
             ["w"]= 2268,
             ["h"]= 2148,
             ["coords"]= {
@@ -16999,7 +16999,7 @@ return {
             }
         },
         ["oshabiBloodline"]= {
-            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.png?7c35d1a0",
+            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.webp?7c35d1a0",
             ["w"]= 2268,
             ["h"]= 2148,
             ["coords"]= {
@@ -17072,7 +17072,7 @@ return {
             }
         },
         ["olrothBloodline"]= {
-            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.png?7c35d1a0",
+            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.webp?7c35d1a0",
             ["w"]= 2268,
             ["h"]= 2148,
             ["coords"]= {
@@ -17145,7 +17145,7 @@ return {
             }
         },
         ["lyciaBloodline"]= {
-            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.png?7c35d1a0",
+            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.webp?7c35d1a0",
             ["w"]= 2268,
             ["h"]= 2148,
             ["coords"]= {
@@ -17218,7 +17218,7 @@ return {
             }
         },
         ["kingInTheMistsBloodline"]= {
-            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.png?7c35d1a0",
+            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.webp?7c35d1a0",
             ["w"]= 2268,
             ["h"]= 2148,
             ["coords"]= {
@@ -17291,7 +17291,7 @@ return {
             }
         },
         ["farrulBloodline"]= {
-            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.png?7c35d1a0",
+            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.webp?7c35d1a0",
             ["w"]= 2268,
             ["h"]= 2148,
             ["coords"]= {
@@ -17364,7 +17364,7 @@ return {
             }
         },
         ["deliriousBloodline"]= {
-            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.png?7c35d1a0",
+            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.webp?7c35d1a0",
             ["w"]= 2268,
             ["h"]= 2148,
             ["coords"]= {
@@ -17437,7 +17437,7 @@ return {
             }
         },
         ["catarinaBloodline"]= {
-            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.png?7c35d1a0",
+            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.webp?7c35d1a0",
             ["w"]= 2268,
             ["h"]= 2148,
             ["coords"]= {
@@ -17510,7 +17510,7 @@ return {
             }
         },
         ["breachlordBloodline"]= {
-            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.png?7c35d1a0",
+            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.webp?7c35d1a0",
             ["w"]= 2268,
             ["h"]= 2148,
             ["coords"]= {
@@ -17583,7 +17583,7 @@ return {
             }
         },
         ["aulBloodline"]= {
-            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.png?7c35d1a0",
+            ["filename"]= "https://web.poecdn.com/image/passive-skill/bloodline-3.webp?7c35d1a0",
             ["w"]= 2268,
             ["h"]= 2148,
             ["coords"]= {
