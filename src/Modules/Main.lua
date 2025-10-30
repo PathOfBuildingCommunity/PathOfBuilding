@@ -759,8 +759,8 @@ function main:SaveSettings()
 		POESESSID = self.POESESSID,
 		invertSliderScrollDirection = tostring(self.invertSliderScrollDirection),
 		disableDevAutoSave = tostring(self.disableDevAutoSave),
-		showPublicBuilds = tostring(self.showPublicBuilds)
-		dpiScaleOverridePercent = tostring(self.dpiScaleOverridePercent)
+		showPublicBuilds = tostring(self.showPublicBuilds),
+		dpiScaleOverridePercent = tostring(self.dpiScaleOverridePercent),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
