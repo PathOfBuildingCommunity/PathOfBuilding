@@ -1748,6 +1748,10 @@ function ItemClass:BuildModList()
 		for i = 1, 2 do
 			self.slotModList[i] = self:BuildModListForSlotNum(baseList, i)
 		end
+		-- Ring 3
+		if self.type == "Ring" then
+			self.slotModList[3] = self:BuildModListForSlotNum(baseList, 3)
+		end
 	else
 		self.modList = self:BuildModListForSlotNum(baseList)
 	end

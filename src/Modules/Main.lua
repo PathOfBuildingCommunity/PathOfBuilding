@@ -39,6 +39,11 @@ if arg and isValueInTable(arg, "--no-jit") then
 	ConPrintf("JIT Disabled")
 end
 
+if arg and isValueInTable(arg, "--no-ssl") then
+	launch.noSSL = true
+	ConPrintf("SSL verification disabled")
+end
+
 local tempTable1 = { }
 local tempTable2 = { }
 
@@ -329,7 +334,7 @@ end
 
 function main:OnFrame()
 	self.screenW, self.screenH = GetScreenSize()
-	self.screenScale = GetScreenScale()
+	self.screenScale = GetScreenScale and GetScreenScale() or 1
 	if self.screenScale ~= 1.0 then
 		self.screenW = math.floor(self.screenW / self.screenScale)
 		self.screenH = math.floor(self.screenH / self.screenScale)
@@ -508,6 +513,11 @@ end
 
 function main:LoadSettings(ignoreBuild)
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
+	if errMsg and not errMsg:match(".*No such file or directory") then
+		ConPrintf("Error: '%s'", errMsg)
+		launch:ShowErrMsg("^1"..errMsg)
+		return true
+	end
 	if not setXML then
 		return true
 	elseif setXML[1].elem ~= "PathOfBuilding" then
@@ -640,6 +650,11 @@ end
 
 function main:LoadSharedItems()
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
+	if errMsg and not errMsg:match(".*No such file or directory") then
+		ConPrintf("Error: '%s'", errMsg)
+		launch:ShowErrMsg("^1"..errMsg)
+		return true
+	end
 	if not setXML then
 		return true
 	elseif setXML[1].elem ~= "PathOfBuilding" then

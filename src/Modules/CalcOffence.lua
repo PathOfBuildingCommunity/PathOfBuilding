@@ -883,6 +883,10 @@ function calcs.offence(env, actor, activeSkill)
 					local mod = value.mod
 					skillModList:NewMod("CritChance", "INC", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 				end
+				for _, value in ipairs(skillModList:Tabulate("MORE", { }, "MaxSealDamage")) do
+					local mod = value.mod
+					skillModList:NewMod("Damage", "MORE", mod.value*output.SealMax, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+				end
 				env.player.mainSkill.skillData.dpsMultiplier = (1 + output.SealMax * calcLib.mod(skillModList, skillCfg, "SealRepeatPenalty"))
 				env.player.mainSkill.skillData.hitTimeOverride = m_max(output.TimeMaxSeals, (1 / activeSkill.activeEffect.grantedEffect.castTime * 1.1 * calcLib.mod(skillModList, skillCfg, "Speed") * output.ActionSpeedMod))
 			else
@@ -1234,7 +1238,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillData.storedUses then
 		local baseUses = skillData.storedUses
-		local additionalUses = skillModList:Sum("BASE", skillCfg, "AdditionalCooldownUses")
+		local additionalUses = skillModList:Sum("BASE", skillCfg, "AdditionalCooldownUses", "AdditionalUses")
 		output.StoredUses = baseUses + additionalUses
 		if breakdown then
 			breakdown.StoredUses = { s_format("%d ^8(skill use%s)", baseUses, baseUses == 1 and "" or "s" ) }
@@ -2097,7 +2101,7 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Check Precise Technique Keystone condition per pass as MH/OH might have different values
 		local condName = pass.label:gsub(" ", "") .. "AccRatingHigherThanMaxLife"
-		skillModList.conditions[condName] = output.Accuracy > env.player.output.Life
+		skillModList.conditions[condName] = (output.Accuracy and output.Accuracy or 0) > env.player.output.Life
 
 		-- Calculate attack/cast speed
 		if activeSkill.activeEffect.grantedEffect.castTime == 0 and not skillData.castTimeOverride and not skillData.triggered then

@@ -3138,10 +3138,10 @@ skills["SupportRupture"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_rupture_bleeding_damage_taken_+%_final"] = {
-			mod("DamageTaken", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Debuff", effectName = "Rupture" }, { type = "Multiplier", var = "RuptureStack", limit = 3 })
+			mod("DamageTaken", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Debuff", effectName = "Rupture" }, { type = "Multiplier", var = "RuptureStack", limit = 4 })
 		},
 		["support_rupture_bleeding_time_passed_+%_final"] = {
-			mod("BleedExpireRate", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Debuff", effectName = "Rupture" }, { type = "Multiplier", var = "RuptureStack", limit = 3 })
+			mod("BleedExpireRate", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Debuff", effectName = "Rupture" }, { type = "Multiplier", var = "RuptureStack", limit = 4 })
 		},
 		["critical_strikes_that_inflict_bleeding_also_rupture"] = {
 			flag("Condition:CanInflictRupture", { type = "GlobalEffect", effectType = "Buff" }),
