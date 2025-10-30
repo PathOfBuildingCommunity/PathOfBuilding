@@ -776,16 +776,9 @@ function main:OpenPathPopup(invalidPath, errMsg, ignoreBuild)
 	controls.label = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, 20, 206, 16 }, function()
 		return "^7User settings path cannot be loaded: ".. errMsg ..
 		"\nCurrent Path: "..invalidPath:gsub("?", "^1?^7").."/Path of Building/"..
-<<<<<<<
-		"\nSpecify a new location for your Settings.xml:"
-	end)
-	controls.explainButton = new("ButtonControl", { "LEFT", controls.label, "RIGHT" }, { 4, 0, 20, 20 }, "?", function()
-		OpenURL("https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/Why-do-I-have-to-change-my-Settings-path%3F")
-=======
 		"\nIf this location is managed by OneDrive, navigate to that folder and manually try" ..
 		"\nto open Settings.xml in a text editor before re-opening Path of Building" ..
 		"\nOtherwise, specify a new location for your Settings.xml:"
->>>>>>>
 	end)
 	controls.userPath = new("EditControl", { "TOPLEFT", controls.label, "TOPLEFT" }, { 0, 60, 206, 20 }, invalidPath, nil, nil, nil, function(buf)
 		invalidPath = sanitiseText(buf)
