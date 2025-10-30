@@ -328,7 +328,7 @@ end
 
 function main:OnFrame()
 	self.screenW, self.screenH = GetScreenSize()
-	self.screenScale = GetScreenScale()
+	self.screenScale = GetScreenScale and GetScreenScale() or 1
 	if self.screenScale ~= 1.0 then
 		self.screenW = math.floor(self.screenW / self.screenScale)
 		self.screenH = math.floor(self.screenH / self.screenScale)
