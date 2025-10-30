@@ -2826,8 +2826,8 @@ local specialModList = {
 	-- Ritualist Bloodline
 	["unaffected by bleeding"] = { mod("SelfBleedEffect", "MORE", -100) },
 	["unaffected by poison"] = { mod("SelfPoisonEffect", "MORE", -100) },
-	["can't use amulets"] = { flag("CanNotUseAmulet") },
-	["can't use belts"] = { flag("CanNotUseBelt") },
+	["can't use amulets"] = { mod("CanNotUseItem", "Flag", 1, { type = "DisablesItem", slotName = "Amulet" }) },
+	["can't use belts"] =  { mod("CanNotUseItem", "Flag", 1, { type = "DisablesItem", slotName = "Belt" }) },
 	["%+1 ring slot"] = { flag("AdditionalRingSlot") },
 	["utility flasks are disabled"] = { flag("UtilityFlasksDoNotApplyToPlayer") },
 	-- Item local modifiers
