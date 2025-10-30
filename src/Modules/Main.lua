@@ -83,10 +83,10 @@ function main:Init()
 		-- If running in dev mode or standalone mode, put user data in the script path
 		self.userPath = GetScriptPath().."/"
 	else
-		local invalidPath
-		self.userPath, invalidPath = GetUserPath()
+		local invalidPath, errMsg
+		self.userPath, invalidPath, errMsg = GetUserPath()
 		if not self.userPath then
-			self:OpenPathPopup(invalidPath, ignoreBuild)
+			self:OpenPathPopup(invalidPath, errMsg, ignoreBuild)
 		else
 			self.userPath = self.userPath.."/Path of Building/"
 		end
@@ -774,17 +774,16 @@ function main:SaveSettings()
 	end
 end
 
-function main:OpenPathPopup(invalidPath, ignoreBuild)
+function main:OpenPathPopup(invalidPath, errMsg, ignoreBuild)
 	local controls = { }
 	local defaultLabelPlacementX = 8
 
 	controls.label = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, 20, 206, 16 }, function()
-		return "^7User settings path contains unicode characters and cannot be loaded."..
+		return "^7User settings path cannot be loaded: ".. errMsg ..
 		"\nCurrent Path: "..invalidPath:gsub("?", "^1?^7").."/Path of Building/"..
-		"\nSpecify a new location for your Settings.xml:"
-	end)
-	controls.explainButton = new("ButtonControl", { "LEFT", controls.label, "RIGHT" }, { 4, 0, 20, 20 }, "?", function()
-		OpenURL("https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/Why-do-I-have-to-change-my-Settings-path%3F")
+		"\nIf this location is managed by OneDrive, navigate to that folder and manually try" ..
+		"\nto open Settings.xml in a text editor before re-opening Path of Building" ..
+		"\nOtherwise, specify a new location for your Settings.xml:"
 	end)
 	controls.userPath = new("EditControl", { "TOPLEFT", controls.label, "TOPLEFT" }, { 0, 60, 206, 20 }, invalidPath, nil, nil, nil, function(buf)
 		invalidPath = sanitiseText(buf)

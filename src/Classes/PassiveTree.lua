@@ -122,27 +122,50 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 	
-	-- hide alternate_ascendancies as they are unobtainable in the newest versions and will cause a crash if an older version is loaded with it at the moment
+	-- hide legacy alternate ascendancies that are no longer obtainable
 	if self.alternate_ascendancies then
-		if launch.devMode then
-			ConPrintf("WARNING! alternate_ascendancies exist but are being hidden")
-		end
-		local tempMap = {}
-		local temp_groups = {}
+		local legacyAlternateAscendancyIds = {
+			Warden = true,
+			Warlock = true,
+			Primalist = true,
+		}
+		local filteredAlternateAscendancies = { }
+		local legacyAscMap = { }
 		for ascendClassId, ascendClass in pairs(self.alternate_ascendancies) do
-			tempMap[ascendClass.id] = true
-		end
-		for i, node in pairs(self.nodes) do
-			if node.ascendancyName and tempMap[node.ascendancyName] then
-				self.nodes[i] = nil
-				temp_groups[node.group] = true
+			if legacyAlternateAscendancyIds[ascendClass.id] then
+				legacyAscMap[ascendClass.id] = true
+			else
+				filteredAlternateAscendancies[ascendClassId] = ascendClass
 			end
 		end
-		for i, group in pairs(temp_groups) do
-			self.groups[i] = nil
+		if next(legacyAscMap) then
+			if launch.devMode then
+				local removed = { }
+				for id in pairs(legacyAscMap) do
+					removed[#removed + 1] = id
+				end
+				table.sort(removed)
+				ConPrintf("Removing legacy alternate ascendancies from tree: %s", table.concat(removed, ", "))
+			end
+			local temp_groups = {}
+			for nodeId, node in pairs(self.nodes) do
+				if node.ascendancyName and legacyAscMap[node.ascendancyName] then
+					self.nodes[nodeId] = nil
+					temp_groups[node.group] = true
+				end
+			end
+			for groupId in pairs(temp_groups) do
+				self.groups[groupId] = nil
+			end
+			for legacyId in pairs(legacyAscMap) do
+				self.ascendNameMap[legacyId] = nil
+			end
 		end
-			
-		self.alternate_ascendancies = nil
+		if next(filteredAlternateAscendancies) then
+			self.alternate_ascendancies = filteredAlternateAscendancies
+		else
+			self.alternate_ascendancies = nil
+		end
 	end
 	
 	if self.alternate_ascendancies then
@@ -259,6 +282,64 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				[3] = (coords.x + coords.w) / sheet.width,
 				[4] = (coords.y + coords.h) / sheet.height
 			}
+		end
+	end
+
+	local bloodlineSpriteTypes = {
+		Trialmaster = "trialmasterBloodline",
+		Oshabi = "oshabiBloodline",
+		Olroth = "olrothBloodline",
+		Lycia = "lyciaBloodline",
+		KingInTheMists = "kingInTheMistsBloodline",
+		Farrul = "farrulBloodline",
+		Delirious = "deliriousBloodline",
+		Catarina = "catarinaBloodline",
+		Breachlord = "breachlordBloodline",
+		Aul = "aulBloodline",
+		Azmeri = "azmeriBloodline",
+	}
+	local bloodlineAssetNames = {
+		"AscendancyButton",
+		"AscendancyButtonHighlight",
+		"AscendancyButtonPressed",
+		"AscendancyFrameLargeNormal",
+		"AscendancyFrameLargeCanAllocate",
+		"AscendancyFrameLargeAllocated",
+		"AscendancyFrameSmallNormal",
+		"AscendancyFrameSmallCanAllocate",
+		"AscendancyFrameSmallAllocated",
+		"AscendancyMiddle",
+	}
+	self.bloodlineSpritePrefixes = self.bloodlineSpritePrefixes or { }
+	for ascendancyName, spriteType in pairs(bloodlineSpriteTypes) do
+		local hasSprite = false
+		for _, assetName in ipairs(bloodlineAssetNames) do
+			local spriteSet = self.spriteMap[assetName]
+			local spriteData = spriteSet and spriteSet[spriteType]
+			if spriteData then
+				self.assets[ascendancyName .. assetName] = spriteData
+				hasSprite = true
+			end
+		end
+		if hasSprite then
+			self.bloodlineSpritePrefixes[ascendancyName] = ascendancyName
+		end
+	end
+
+	if self.alternate_ascendancies then
+		-- Use the bloodline sprite sheets for the remaining alternate ascendancy emblems
+		local legacyClasses = {
+			ClassesPrimalist = true,
+			ClassesWarlock = true,
+			ClassesWarden = true,
+		}
+		for spriteName, spriteSet in pairs(self.spriteMap) do
+			if spriteName:match("^Classes") and not legacyClasses[spriteName] and not self.assets[spriteName] then
+				local _, sprite = next(spriteSet)
+				if sprite then
+					self.assets[spriteName] = sprite
+				end
+			end
 		end
 	end
 
@@ -720,6 +801,11 @@ function PassiveTreeClass:ProcessNode(node)
 		node.sprites = self.spriteMap["Art/2DArt/SkillIcons/passives/MasteryBlank.png"]
 	end
 	node.overlay = self.nodeOverlay[node.type]
+	if node.ascendancyName then
+		node.bloodlineOverlayPrefix = self.bloodlineSpritePrefixes and self.bloodlineSpritePrefixes[node.ascendancyName]
+	else
+		node.bloodlineOverlayPrefix = nil
+	end
 	if node.overlay then
 		node.rsq = node.overlay.rsq
 		node.size = node.overlay.size
