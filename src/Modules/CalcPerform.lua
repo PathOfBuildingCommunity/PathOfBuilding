@@ -65,19 +65,6 @@ local function mergeBuff(src, destTable, destKey)
 	end
 end
 
--- Merge keystone modifiers
-local function mergeKeystones(env)
-	for _, modObj in ipairs(env.modDB:Tabulate("LIST", nil, "Keystone")) do
-		if not env.keystonesAdded[modObj.value] and env.spec.tree.keystoneMap[modObj.value] then
-			env.keystonesAdded[modObj.value] = true
-			local fromTree = modObj.mod.source and not modObj.mod.source:lower():match("tree")
-			for _, mod in ipairs(env.spec.tree.keystoneMap[modObj.value].modList) do
-				env.modDB:AddMod(fromTree and modLib.setSource(mod, modObj.mod.source) or mod)
-			end
-		end
-	end
-end
-
 function doActorLifeMana(actor)
 	local modDB = actor.modDB
 	local output = actor.output
@@ -571,7 +558,7 @@ local function determineCursePriority(curseName, activeSkill)
 	elseif source ~= "" then
 		sourcePriority = data.cursePriority["CurseFromEquipment"]
 	end
-	if source ~= "" and slotPriority == data.cursePriority["Ring 2"] then
+	if source ~= "" and (slotPriority == data.cursePriority["Ring 2"] or slotPriority == data.cursePriority["Ring 3"]) then
 		-- Implicit and explicit curses from rings have equal priority; only curses from socketed skill gems care about which ring slot they're equipped in
 		slotPriority = data.cursePriority["Ring 1"]
 	end
@@ -1048,8 +1035,7 @@ function calcs.perform(env, skipEHP)
 	local enemyDB = env.enemyDB
 
 	-- Merge keystone modifiers
-	env.keystonesAdded = { }
-	mergeKeystones(env)
+	modLib.mergeKeystones(env, env.modDB)
 
 	-- Build minion skills
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
@@ -1432,9 +1418,11 @@ function calcs.perform(env, skipEHP)
 	local function mergeFlasks(flasks, onlyRecovery, checkNonRecoveryFlasksForMinions)
 		local flaskBuffs = { }
 		local flaskConditions = {}
+		local flaskConditionsNonUtility = {}
 		local flaskBuffsPerBase = {}
 		local flaskBuffsNonPlayer = {}
 		local flaskBuffsPerBaseNonPlayer = {}
+		local flaskBuffsNonUtility = {}
 
 		local function calcFlaskMods(item, baseName, buffModList, modList, onlyMinion)
 			local flaskEffectInc = effectInc + item.flaskData.effectInc
@@ -1479,6 +1467,7 @@ function calcs.perform(env, skipEHP)
 				if not onlyRecovery then
 					mergeBuff(srcList, flaskBuffs, key)
 					mergeBuff(srcList, flaskBuffsPerBase[item.baseName], key)
+					mergeBuff(srcList, flaskBuffsNonUtility, key)
 				end
 				if (not onlyRecovery or checkNonRecoveryFlasksForMinions) and (flasksApplyToMinion or quickSilverAppliesToAllies or (nonUniqueFlasksApplyToMinion and item.rarity ~= "UNIQUE" and item.rarity ~= "RELIC")) then
 					srcList = new("ModList")
@@ -1493,12 +1482,18 @@ function calcs.perform(env, skipEHP)
 			flaskBuffsPerBase[item.baseName] = flaskBuffsPerBase[item.baseName] or {}
 			flaskBuffsPerBaseNonPlayer[item.baseName] = flaskBuffsPerBaseNonPlayer[item.baseName] or {}
 			flaskConditions["UsingFlask"] = true
+			flaskConditionsNonUtility["UsingFlask"] = true
 			flaskConditions["Using"..item.baseName:gsub("%s+", "")] = true
+			if item.base.flask.life or item.base.flask.mana then
+				flaskConditionsNonUtility["Using"..item.baseName:gsub("%s+", "")] = true
+			end
 			if item.base.flask.life and not modDB:Flag(nil, "CannotRecoverLifeOutsideLeech") then
 				flaskConditions["UsingLifeFlask"] = true
+				flaskConditionsNonUtility["UsingLifeFlask"] = true
 			end
 			if item.base.flask.mana then
 				flaskConditions["UsingManaFlask"] = true
+				flaskConditionsNonUtility["UsingManaFlask"] = true
 			end
 
 			if onlyRecovery then
@@ -1515,7 +1510,14 @@ function calcs.perform(env, skipEHP)
 				calcFlaskMods(item, item.baseName, item.buffModList, item.modList)
 			end
 		end
-		if not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
+		if modDB:Flag(nil, "UtilityFlasksDoNotApplyToPlayer") then
+			for flaskCond, status in pairs(flaskConditionsNonUtility) do
+				modDB.conditions[flaskCond] = status
+			end
+			for _, buffModList in pairs(flaskBuffsNonUtility) do
+				modDB:AddList(buffModList)
+			end
+		elseif not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
 			for flaskCond, status in pairs(flaskConditions) do
 				modDB.conditions[flaskCond] = status
 			end
@@ -1630,7 +1632,7 @@ function calcs.perform(env, skipEHP)
 		mergeTinctures(env.tinctures)
 
 		-- Merge keystones again to catch any that were added by flasks
-		mergeKeystones(env)
+		modLib.mergeKeystones(env, env.modDB)
 	end
 
 	-- Calculate attributes and life/mana pools
@@ -3044,7 +3046,7 @@ function calcs.perform(env, skipEHP)
 	end
 
 	-- Merge keystones again to catch any that were added by buffs
-	mergeKeystones(env)
+	modLib.mergeKeystones(env, env.modDB)
 
 	-- Special handling for Dancing Dervish
 	if modDB:Flag(nil, "DisableWeapons") then
