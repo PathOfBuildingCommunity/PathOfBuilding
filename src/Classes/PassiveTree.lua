@@ -296,6 +296,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		Catarina = "catarinaBloodline",
 		Breachlord = "breachlordBloodline",
 		Aul = "aulBloodline",
+		Azmeri = "azmeriBloodline",
 	}
 	local bloodlineAssetNames = {
 		"AscendancyButton",

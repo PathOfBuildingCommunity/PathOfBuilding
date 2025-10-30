@@ -487,8 +487,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				local prefix = tree.bloodlineSpritePrefixes and tree.bloodlineSpritePrefixes[node.ascendancyName]
 				if prefix then
 					overlay = prefix .. overlay
-				elseif tree.secondaryAscendNameMap and tree.secondaryAscendNameMap[node.ascendancyName] then
-					overlay = "Azmeri"..overlay
 				end
 			end
 		else
@@ -572,8 +570,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					local prefix = node.bloodlineOverlayPrefix or (tree.bloodlineSpritePrefixes and tree.bloodlineSpritePrefixes[node.ascendancyName])
 					if prefix and overlayName then
 						overlay = prefix .. overlayName
-					elseif tree.secondaryAscendNameMap and tree.secondaryAscendNameMap[node.ascendancyName] and overlayName then
-						overlay = "Azmeri"..overlayName
 					else
 						overlay = overlayName
 					end
