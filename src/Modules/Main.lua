@@ -1132,7 +1132,7 @@ function main:OpenOptionsPopup()
 		self.showPublicBuilds = initialShowPublicBuilds
 		self.showFlavourText = initialShowFlavourText
 		self.dpiScaleOverridePercent = initialDpiScaleOverridePercent
-+		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
+		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
 		main:ClosePopup()
 	end)
 	nextRow(1.5)
