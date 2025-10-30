@@ -18082,6 +18082,7 @@ skills["SummonChaosGolemAltY"] = {
 	baseMods = {
 		skill("allowTotemBuff", true),
 		flag("Condition:HaveChaosGolem", { type = "GlobalEffect", effectType = "Buff" }),
+		mod("MinionModifier", "LIST", { mod = flag("Condition:CanWither") }),
 	},
 	qualityStats = {
 		Default = {
