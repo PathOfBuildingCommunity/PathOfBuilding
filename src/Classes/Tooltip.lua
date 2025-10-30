@@ -53,6 +53,7 @@ function TooltipClass:Clear()
 	self.titleYOffset = 0
 	self.recipe = nil
 	self.center = false
+	self.maxWidth = nil
 	self.color = { 0.5, 0.3, 0 }
 	t_insert(self.blocks, { height = 0 })
 end
@@ -92,11 +93,11 @@ function TooltipClass:AddLine(size, text, font)
 				self.blocks[#self.blocks].height = self.blocks[#self.blocks].height + size + 2
 			end
 			if self.maxWidth then
-				for _, line in ipairs(main:WrapString(line, size, self.maxWidth - H_PAD)) do
-					t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse })
+				for _, wrappedLine in ipairs(main:WrapString(line, size, self.maxWidth - H_PAD)) do
+					t_insert(self.lines, { size = size, text = wrappedLine, block = #self.blocks, font = fontToUse, center = self.center })
 				end
 			else
-				t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse })
+				t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse, center = self.center })
 			end
 		end
 	end
@@ -263,11 +264,14 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 			end
 			currentBlock = data.block
 
-			if self.center then
-				t_insert(drawStack, {x + ttW / 2, y, "CENTER_X", data.size, font, data.text})
-			else
-				t_insert(drawStack, {x + 6, y, "LEFT", data.size, font, data.text})
+			local lineCentered = data.center
+			if lineCentered == nil then
+				lineCentered = self.center
 			end
+			local lineX = lineCentered and (x + ttW / 2) or (x + 6)
+			local lineAlign = lineCentered and "CENTER_X" or "LEFT"
+
+			t_insert(drawStack, {lineX, y, lineAlign, data.size, font, data.text})
 			y = y + data.size + 2
 
 		elseif data.separatorImage and main.showFlavourText then
