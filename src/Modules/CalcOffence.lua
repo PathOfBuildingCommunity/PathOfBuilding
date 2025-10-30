@@ -3747,7 +3747,7 @@ function calcs.offence(env, actor, activeSkill)
 
 		do -- Perfect Agony
 			local handCondition = pass.label == "Off Hand" and { type = "Condition", var = "OffHandAttack" } or pass.label == "Main Hand" and { type = "Condition", var = "MainHandAttack" } or nil
-
+			-- Note: This section is the legacy implementation of 'Perfect Agony'
 			if skillModList:Sum("BASE", nil, "CritMultiplierAppliesToDegen") > 0 then
 				for i, value in ipairs(skillModList:Tabulate("BASE", cfg, "CritMultiplier")) do
 					local mod = value.mod
@@ -3763,7 +3763,7 @@ function calcs.offence(env, actor, activeSkill)
 				if multiOverride then
 					multiOverride = multiOverride - 100
 				end
-				skillModList:NewMod("DotMultiplier", "OVERRIDE", (multiOverride or skillModList:Sum("BASE", cfg, "CritMultiplier")) + enemyDB:Sum("BASE", cfg, "SelfCritMultiplier"), "Perfect Agony", ModFlag.Ailment, handCondition)
+				skillModList:NewMod("DotMultiplier", "OVERRIDE", (multiOverride or skillModList:Sum("BASE", cfg, "CritMultiplier")) + enemyDB:Sum("BASE", cfg, "SelfCritMultiplier"), "Perfect Agony", ModFlag.Ailment, { type = "Condition", var = "CriticalStrike" }, handCondition )
 			end
 		end
 
@@ -3868,9 +3868,12 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 
+		-- Note: "Elemental Overload" and "Perfect Agony" interactions as per wiki: https://www.poewiki.net/wiki/Elemental_Overload#Mechanics
+		-- As of 3.25 EO also disables chance-based modifiers exclusive to critical strikes like "Adder's Touch"
+		-- Perfect Agony + Elemental Overload completely disables ailment application
 		if modDB:Flag(nil, "AilmentsAreNeverFromCrit") then
 			for _, ailment in ipairs(ailmentTypeList) do
-				output[ailment.."ChanceOnCrit"] = 0
+				output[ailment.."ChanceOnCrit"] = modDB:Flag(nil, "AilmentsOnlyFromCrit") and 0 or output[ailment.."ChanceOnHit"] 
 			end
 		end
 
@@ -4088,7 +4091,13 @@ function calcs.offence(env, actor, activeSkill)
 				output.BleedPhysicalMin = min
 				output.BleedPhysicalMax = max
 				if sub_pass == 2 then
-					output.CritBleedDotMulti = 1 + (skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier")) / 100
+					if modDB:Flag(nil, "AilmentsAreNeverFromCrit") then
+						dotCfg.skillCond["CriticalStrike"] = false -- force config to non-crit for dotMulti calculation
+						output.CritBleedDotMulti = 1 + (skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier")) / 100
+						dotCfg.skillCond["CriticalStrike"] = true -- reset to true to avoid unintended side effects
+					else
+						output.CritBleedDotMulti = 1 + (skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier")) / 100
+					end
 					sourceMinCritDmg = min * output.CritBleedDotMulti
 					sourceMaxCritDmg = max * output.CritBleedDotMulti
 					avgCritBleedDmg = (sourceMinCritDmg + (sourceMaxCritDmg - sourceMinCritDmg) * bleedRollAverage / 100)
@@ -4356,7 +4365,13 @@ function calcs.offence(env, actor, activeSkill)
 					totalMax = totalMax + max * nonChaosMult
 				end
 				if sub_pass == 2 then
-					output.CritPoisonDotMulti = 1 + (skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "ChaosDotMultiplier")) / 100
+					if modDB:Flag(nil, "AilmentsAreNeverFromCrit") then
+						dotCfg.skillCond["CriticalStrike"] = false -- force config to non-crit for dotMulti calculation
+						output.CritPoisonDotMulti = 1 + (skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "ChaosDotMultiplier")) / 100
+						dotCfg.skillCond["CriticalStrike"] = true -- reset to true to avoid unintended side effects
+					else
+						output.CritPoisonDotMulti = 1 + (skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "ChaosDotMultiplier")) / 100
+					end
 					sourceCritDmg = (totalMin + totalMax) / 2 * output.CritPoisonDotMulti
 					sourceMaxCritDmg = totalMax * output.CritPoisonDotMulti
 				else
@@ -4666,7 +4681,13 @@ function calcs.offence(env, actor, activeSkill)
 					totalMax = totalMax + max
 				end
 				if sub_pass == 2 then
-					output.CritIgniteDotMulti = 1 + (skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "FireDotMultiplier")) / 100
+					if modDB:Flag(nil, "AilmentsAreNeverFromCrit") then
+						dotCfg.skillCond["CriticalStrike"] = false -- force config to non-crit for dotMulti calculation
+						output.CritIgniteDotMulti = 1 + (skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "FireDotMultiplier")) / 100
+						dotCfg.skillCond["CriticalStrike"] = true -- reset to true to avoid unintended side effects
+					else
+						output.CritIgniteDotMulti = 1 + (skillModList:Override(dotCfg, "DotMultiplier") or skillModList:Sum("BASE", dotCfg, "DotMultiplier") + skillModList:Sum("BASE", dotCfg, "FireDotMultiplier")) / 100
+					end
 					sourceCritDmg = (totalMin + (totalMax - totalMin) * igniteRollAverage / 100) * output.CritIgniteDotMulti
 					sourceMaxCritDmg = totalMax * output.CritIgniteDotMulti
 				else
@@ -4943,7 +4964,7 @@ function calcs.offence(env, actor, activeSkill)
 					}
 				end
 				-- Sets the crit strike condition to match ailment mode.
-				if ailmentMode == "CRIT" then
+				if ailmentMode == "CRIT" and (not modDB:Flag(nil, "AilmentsAreNeverFromCrit")) then
 					cfg.skillCond["CriticalStrike"] = true
 				else
 					cfg.skillCond["CriticalStrike"] = false
