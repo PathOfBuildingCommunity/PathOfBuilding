@@ -293,13 +293,13 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			local base = 0
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
-					base = base + target:GetMultiplier(var, cfg)
+					base = base + GetMultiplier(target, var, cfg)
 				end
 			else
-				base = target:GetMultiplier(tag.var, cfg)
+				base = GetMultiplier(target, tag.var, cfg)
 			end
 			if tag.divVar then
-				tag.div = self:GetMultiplier(tag.divVar, cfg)
+				tag.div = GetMultiplier(self, tag.divVar, cfg)
 			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			if tag.noFloor then
@@ -308,7 +308,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			local limitTotal
 			local limitNegTotal
 			if tag.limit or tag.limitVar or tag.limitStat then
-				local limit = tag.limit or tag.limitVar and limitTarget:GetMultiplier(tag.limitVar, cfg) or tag.limitStat and limitTarget:GetStat(tag.limitStat, cfg)
+				local limit = tag.limit or tag.limitVar and GetMultiplier(limitTarget, tag.limitVar, cfg) or tag.limitStat and GetStat(limitTarget, tag.limitStat, cfg)
 				if tag.limitTotal then
 					limitTotal = limit
 				elseif tag.limitNegTotal then
@@ -350,6 +350,14 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			end
 		elseif tag.type == "MultiplierThreshold" then
 			local target = self
+			local thresholdTarget = self
+			if tag.thresholdActor then
+				if self.actor[tag.thresholdActor] then
+					thresholdTarget = self.actor[tag.thresholdActor].modDB
+				else
+					return
+				end
+			end
 			if tag.actor then
 				if self.actor[tag.actor] then
 					target = self.actor[tag.actor].modDB
@@ -360,13 +368,13 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			local mult = 0
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
-					mult = mult + target:GetMultiplier(var, cfg)
+					mult = mult + GetMultiplier(target, var, cfg)
 				end
 			else
-				mult = target:GetMultiplier(tag.var, cfg)
+				mult = GetMultiplier(target, tag.var, cfg)
 			end
-			local threshold = tag.threshold or target:GetMultiplier(tag.thresholdVar, cfg)
-			if (tag.upper and mult > threshold) or (not tag.upper and mult < threshold) then
+			local threshold = tag.threshold or GetMultiplier(thresholdTarget, tag.thresholdVar, cfg)
+			if (tag.upper and mult > threshold) or (tag.equals and mult ~= threshold) or (not (tag.upper and tag.exact) and mult < threshold) then
 				return
 			end
 		elseif tag.type == "PerStat" then
@@ -380,15 +388,18 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			if tag.statList then
 				base = 0
 				for _, stat in ipairs(tag.statList) do
-					base = base + target:GetStat(stat, cfg)
+					base = base + GetStat(target, stat, cfg)
 				end
 			else
-				base = target:GetStat(tag.stat, cfg)
+				base = GetStat(target, tag.stat, cfg)
+			end
+			if tag.divVar then
+				tag.div = GetMultiplier(self, tag.divVar, cfg)
 			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
 			if tag.limit or tag.limitVar then
-				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
+				local limit = tag.limit or GetMultiplier(self, tag.limitVar, cfg)
 				if tag.limitTotal then
 					limitTotal = limit
 				else
