@@ -898,6 +898,12 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			item[curInfluenceInfo.key] = itemData.influences[curInfluenceInfo.display:lower()]
 		end
 	end
+	if itemData.searing then
+		item.cleansing = true
+	end
+	if itemData.tangled then
+		item.tangle = true
+	end
 	if itemData.ilvl > 0 then
 		item.itemLevel = itemData.ilvl
 	end

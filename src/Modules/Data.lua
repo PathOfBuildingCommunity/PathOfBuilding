@@ -1125,3 +1125,5 @@ for _, modId in ipairs(sortedMods) do
 end
 LoadModule("Data/Uniques/Special/Generated")
 LoadModule("Data/Uniques/Special/New")
+
+data.flavourText = LoadModule("Data/FlavourText")

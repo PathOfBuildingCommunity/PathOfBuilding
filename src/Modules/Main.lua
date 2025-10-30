@@ -111,6 +111,7 @@ function main:Init()
 	self.notSupportedTooltipText = " ^8(Not supported in PoB yet)"
 	self.POESESSID = ""
 	self.showPublicBuilds = true
+	self.showFlavourText = true
 
 	if self.userPath then
 		self:ChangeUserPath(self.userPath, ignoreBuild)
@@ -639,6 +640,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.showPublicBuilds then
 					self.showPublicBuilds = node.attrib.showPublicBuilds == "true"
 				end
+				if node.attrib.showFlavourText then
+					self.showFlavourText = node.attrib.showFlavourText == "true"
+				end
 				if node.attrib.dpiScaleOverridePercent then
 					self.dpiScaleOverridePercent = tonumber(node.attrib.dpiScaleOverridePercent) or 0
 					SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
@@ -760,6 +764,7 @@ function main:SaveSettings()
 		invertSliderScrollDirection = tostring(self.invertSliderScrollDirection),
 		disableDevAutoSave = tostring(self.disableDevAutoSave),
 		showPublicBuilds = tostring(self.showPublicBuilds),
+		showFlavourText = tostring(self.showFlavourText),
 		dpiScaleOverridePercent = tostring(self.dpiScaleOverridePercent),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
@@ -958,6 +963,11 @@ function main:OpenOptionsPopup()
 	end)
 
 	nextRow()
+	controls.showFlavourText = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Styled Tooltips with Flavour Text:", function(state)
+		self.showFlavourText = state
+	end)
+
+	nextRow()
 	drawSectionHeader("build", "Build-related options")
 
 	controls.showThousandsSeparators = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT"}, { defaultLabelPlacementX, currentY, 20 }, "^7Show thousands separators:", function(state)
@@ -1045,6 +1055,7 @@ function main:OpenOptionsPopup()
 	controls.edgeSearchHighlight.state = self.edgeSearchHighlight
 	controls.titlebarName.state = self.showTitlebarName
 	controls.showPublicBuilds.state = self.showPublicBuilds
+	controls.showFlavourText.state = self.showFlavourText
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialColorPositive = self.colorPositive
 	local initialColorNegative = self.colorNegative
@@ -1064,6 +1075,7 @@ function main:OpenOptionsPopup()
 	local initialInvertSliderScrollDirection = self.invertSliderScrollDirection
 	local initialDisableDevAutoSave = self.disableDevAutoSave
 	local initialShowPublicBuilds = self.showPublicBuilds
+	local initialShowFlavourText = self.showFlavourText
 	local initialDpiScaleOverridePercent = self.dpiScaleOverridePercent
 
 	-- last line with buttons has more spacing
@@ -1117,6 +1129,7 @@ function main:OpenOptionsPopup()
 		self.invertSliderScrollDirection = initialInvertSliderScrollDirection
 		self.disableDevAutoSave = initialDisableDevAutoSave
 		self.showPublicBuilds = initialShowPublicBuilds
+		self.showFlavourText = initialShowFlavourText
 		self.dpiScaleOverridePercent = initialDpiScaleOverridePercent
 		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
 		main:ClosePopup()
