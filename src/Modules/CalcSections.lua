@@ -606,6 +606,7 @@ return {
 } },
 { 1, "SkillTypeStats", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill type-specific Stats", data = {
 	{ label = "Gem Level", haveOutput = "GemHasLevel", { format = "{0:output:GemLevel}", { breakdown = "GemLevel" }, { modName = { "GemLevel" }, cfg = "skill" },{ modName = { "GemSupportLevel" }, cfg = "skill" }, { modName = { "GemItemLevel" }, cfg = "skill" }, }, },
+	{ label = "Gem Quality", haveOutput = "GemHasQuality", { format = "{0:output:GemQuality}", { breakdown = "GemQuality" }, { modName = { "GemQuality" }, cfg = "skill" },{ modName = { "GemSupportQuality" }, cfg = "skill" }, { modName = { "GemItemQuality" }, cfg = "skill" }, }, },
 	{ label = "Mana Cost", color = colorCodes.MANA, haveOutput = "ManaHasCost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = { "ManaCost", "Cost", "ManaCostNoMult" }, cfg = "skill" }, }, },
 	{ label = "Mana % Cost", color = colorCodes.MANA, haveOutput = "ManaPercentHasCost", { format = "{0:output:ManaPercentCost}", { breakdown = "ManaPercentCost" }, { modName = { "ManaCost", "Cost", "ManaCostNoMult" }, cfg = "skill" }, }, },
 	{ label = "Mana per second", color = colorCodes.MANA, haveOutput = "ManaPerSecondHasCost", { format = "{2:output:ManaPerSecondCost}", { breakdown = "ManaPerSecondCost" }, { modName = { "ManaCost", "Cost", "ManaCostNoMult" }, cfg = "skill" }, }, },
@@ -631,7 +632,7 @@ return {
 	}, },
 	{ label = "Stored Uses", haveOutput = "StoredUses", { format = "{output:StoredUses}",
 	{ breakdown = "StoredUses" },
-	{ modName = "AdditionalCooldownUses", cfg = "skill" },
+	{ modName = { "AdditionalCooldownUses", "AdditionalUses" }, cfg = "skill" },
 }, },
 	{ label = "Duration Mod", flag = "duration", { format = "x {4:output:DurationMod}",
 		{ breakdown = "DurationMod" }, 

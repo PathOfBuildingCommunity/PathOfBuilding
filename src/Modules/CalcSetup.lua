@@ -282,13 +282,6 @@ function wipeEnv(env, accelerate)
 	end
 end
 
-local function getGemModList(env, groupCfg, socketColor, socketNum)
-	local gemCfg = copyTable(groupCfg, true)
-	gemCfg.socketColor = socketColor
-	gemCfg.socketNum = socketNum
-	return env.modDB:Tabulate("LIST", gemCfg, "GemProperty")
-end
-
 local function applyGemMods(effect, modList)
 	for _, mod in ipairs(modList) do
 		local match = true
@@ -359,6 +352,7 @@ end
 -- 5. Builds a list of active skills and their supports (calcs.createActiveSkill)
 -- 6. Builds modifier lists for all active skills (calcs.buildActiveSkillModList)
 function calcs.initEnv(build, mode, override, specEnv)
+	ClearMatchKeywordFlagsCache()
 	-- accelerator variables
 	local cachedPlayerDB = specEnv and specEnv.cachedPlayerDB or nil
 	local cachedEnemyDB = specEnv and specEnv.cachedEnemyDB or nil
@@ -651,6 +645,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		env.allocNodes = nodes
 		env.initialNodeModDB = calcs.buildModListForNodeList(env, env.allocNodes, true)
+		modLib.mergeKeystones(env, env.initialNodeModDB)
 	end
 
 	if allocatedNotableCount and allocatedNotableCount > 0 then
@@ -800,8 +795,20 @@ function calcs.initEnv(build, mode, override, specEnv)
 		if not env.configInput.ignoreItemDisablers then
 			local itemDisabled = {}
 			local itemDisablers = {}
-			if modDB:Flag(nil, "CanNotUseHelm") then
-				itemDisabled["Helmet"] = { disabled = true, size = 1 }
+			-- First check tree nodes for disabled items.  This will break if there's ever an anointable node that disables items
+			for _, mod in ipairs(env.initialNodeModDB:Tabulate("Flag", { source = "Tree" }, "CanNotUseItem")) do
+				mod = mod.mod
+				-- checks if it disables another slot
+				for _, tag in ipairs(mod) do
+					if tag.type == "DisablesItem" then
+						if tag.excludeItemType and items[tag.slotName] and items[tag.slotName].type == tag.excludeItemType then
+							break
+						end
+						itemDisablers[mod.source] = tag.slotName
+						itemDisabled[tag.slotName] = mod.source
+						break
+					end
+				end
 			end
 			for _, slot in pairs(build.itemsTab.orderedSlots) do
 				local slotName = slot.slotName
@@ -1464,7 +1471,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 							if gemInstance.gemData then
 								local playerItems = env.player.itemList
 								local socketedIn = playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].sockets and playerItems[groupCfg.slotName].sockets[gemIndex]
-								applyGemMods(supportEffect, socketedIn and getGemModList(env, groupCfg, socketedIn.color, gemIndex) or propertyModList)
+								supportEffect.gemCfg = copyTable(groupCfg, true)
+								supportEffect.gemCfg.socketColor = socketedIn and socketedIn.color
+								supportEffect.gemCfg.socketNum = gemIndex
+								applyGemMods(supportEffect, socketedIn and env.modDB:Tabulate("LIST", supportEffect.gemCfg, "GemProperty") or propertyModList)
 								if not processedSockets[gemInstance] then
 									processedSockets[gemInstance] = true
 									applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)
@@ -1526,7 +1536,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 								if gemInstance.gemData then
 									local playerItems = env.player.itemList
 									local socketedIn = playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].sockets and playerItems[groupCfg.slotName].sockets[gemIndex]
-									applyGemMods(activeEffect, socketedIn and getGemModList(env, groupCfg, socketedIn.color, gemIndex) or propertyModList)
+									activeEffect.gemCfg = copyTable(groupCfg, true)
+									activeEffect.gemCfg.socketColor = socketedIn and socketedIn.color
+									activeEffect.gemCfg.socketNum = gemIndex
+									applyGemMods(activeEffect, socketedIn and env.modDB:Tabulate("LIST", activeEffect.gemCfg, "GemProperty") or propertyModList)
 									if not processedSockets[gemInstance] then
 										processedSockets[gemInstance] = true
 										applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)

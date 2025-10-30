@@ -369,7 +369,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterProximityShield Proximity Shield
-#flags spell duration
+#flags spell area duration
 #mods
 
 #skill MonsterPuncture Puncture
@@ -1078,9 +1078,9 @@ skills["HarvestRhexScreechDebuff"] = {
 #baseMod skill("buffMinions", true)
 #mods noStats noLevels
 
+#addSkillTypes Buff
 #skill BreachBlizzardSpectre Snow Cloak
 #flags spell buff area duration cooldown
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
 	statMap = {
 		["avoid_damage_%"] = {
 			mod("AvoidPhysicalDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
@@ -1092,7 +1092,7 @@ skills["HarvestRhexScreechDebuff"] = {
 	},
 #baseMod skill("buffAllies", true)
 #baseMod skill("buffMinions", true)
-#mods noSkillTypes
+#mods
 
 #skill DelveWraithScreechChaos Chaos Screech
 #flags spell area
@@ -2206,3 +2206,38 @@ skills["LegionKaruiMeleeCombo2"] = {
 		[4] = { 200, baseMultiplier = 1.3, levelRequirement = 84, statInterpolation = { 2, }, },
 	},
 }
+
+#skill LegionMonsterProximityShield Proximity Shield
+#flags spell area duration
+#mods
+
+#skill EmpoweringHowlSpectre Empowering Howl
+#flags buff area duration cooldown warcry
+	statMap = {
+		["empowering_cry_physical_damage_added_as_fire_damage_%"] = {
+			mod("PhysicalDamageGainAsFire", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Empowering Howl" }),
+		},
+	},
+#baseMod skill("buffAllies", true)
+#baseMod skill("buffMinions", true)
+#mods
+
+#skill DelveMelee Default Attack (Cold DoT)
+#flags attack melee
+#mods
+
+#skill DelveMeleeCold Default Attack (Cold Hit)
+#flags attack melee
+#mods
+
+#skill DelveSpiderFlickerStrike Flicker Strike (Cold Hit)
+#flags attack melee movement
+#mods
+
+#skill MeleeAtAnimationSpeedLightning Default Attack
+#flags attack melee
+#mods
+
+#skill CrucibleVendigoFlickerStrike Flicker Strike
+#flags attack melee movement
+#mods
