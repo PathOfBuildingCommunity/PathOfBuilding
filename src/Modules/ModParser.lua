@@ -1882,7 +1882,13 @@ end
 local gemIdLookup = {
 	["power charge on critical strike"] = "SupportPowerChargeOnCritical",
 }
-for name, grantedEffect in pairs(data.skills) do
+local skillIds = {}
+for id in pairs(data.skills) do
+    table.insert(skillIds, id)
+end
+table.sort(skillIds)
+for _, id in ipairs(skillIds) do
+    local grantedEffect = data.skills[id]
 	if not grantedEffect.hidden or grantedEffect.fromItem or grantedEffect.fromTree then
 		gemIdLookup[grantedEffect.name:lower()] = grantedEffect.id
 	end

@@ -2258,7 +2258,6 @@ c["1% increased Minion Attack and Cast Speed per 10 Devotion"]={{[1]={flags=0,ke
 c["1% increased Movement Speed per 5 Rage"]={{[1]={[1]={div=5,type="Multiplier",var="Rage"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=1}},nil}
 c["1% increased Movement Speed per 600 Evasion Rating, up to 75%"]={{[1]={[1]={div=600,limit=75,limitTotal=true,stat="Evasion",type="PerStat"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=1}},nil}
 c["1% increased Movement Speed per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=1}},nil}
-c["1% increased Movement Speed per Power Charge"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=1}},nil}
 c["1% increased Movement Speed per Summoned Totem"]={{[1]={[1]={stat="TotemsSummoned",type="PerStat"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=1}},nil}
 c["1% increased Projectile Attack Damage per 200 Accuracy Rating"]={{[1]={[1]={div=200,stat="Accuracy",type="PerStat"},flags=1025,keywordFlags=0,name="Damage",type="INC",value=1}},nil}
 c["1% increased Projectile Damage per 16 Dexterity"]={{[1]={[1]={div=16,stat="Dex",type="PerStat"},flags=1024,keywordFlags=0,name="Damage",type="INC",value=1}},nil}
@@ -2408,7 +2407,7 @@ c["10% chance to gain Onslaught for 4 seconds on Kill"]={{[1]={[1]={type="Condit
 c["10% chance to gain Phasing for 4 seconds on Kill"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=0,keywordFlags=0,name="Condition:Phasing",type="FLAG",value=true}},nil}
 c["10% chance to gain Unholy Might for 4 seconds on Critical Strike"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=0,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}},nil}
 c["10% chance to gain a Frenzy Charge on Hit"]={nil,"a Frenzy Charge on Hit "}
-c["10% chance to gain a Frenzy Charge on Hit Gain a Flask Charge when you deal a Critical Strike while at maximum Frenzy Charges"]={nil,"a Frenzy Charge on Hit Gain a Flask Charge   "}
+c["10% chance to gain a Frenzy Charge on Hit You have Iron Reflexes while at maximum Frenzy Charges"]={nil,"a Frenzy Charge on Hit You have Iron Reflexes  "}
 c["10% chance to gain a Frenzy Charge on Kill"]={nil,"a Frenzy Charge  "}
 c["10% chance to gain a Frenzy Charge on Kill 10% chance to gain a Power Charge on Kill"]={nil,"a Frenzy Charge  10% chance to gain a Power Charge  "}
 c["10% chance to gain a Frenzy Charge when you Hit your Marked Enemy"]={nil,"a Frenzy Charge when you Hit your Marked Enemy "}
@@ -3189,7 +3188,8 @@ c["15% chance to gain a Frenzy Charge when your Trap is triggered by an Enemy"]=
 c["15% chance to gain a Frenzy Charge when your Trap is triggered by an Enemy 30% chance to gain Phasing for 4 seconds when your Trap is triggered by an Enemy"]={{[1]={[1]={type="Condition",var="TriggeredTrapsRecently"},[2]={includeTransfigured=true,skillName="Frenzy",type="SkillName"},flags=0,keywordFlags=4096,name="Condition:Phasing",type="FLAG",value=true}},"aCharge  30% chance to gain   when your  is triggered by an Enemy "}
 c["15% chance to gain a Power Charge on Critical Strike"]={nil,"a Power Charge "}
 c["15% chance to gain a Power Charge on Hit if 4 Crusader Items are Equipped"]={nil,"a Power Charge on Hit  "}
-c["15% chance to gain a Power Charge on Hit if 4 Crusader Items are Equipped +3% to maximum Chance to Block Attack Damage if 4 Elder Items are Equipped"]={nil,"a Power Charge on Hit  +3% to maximum Chance to Block Attack Damage  "}
+c["15% chance to gain a Power Charge on Hit if 4 Crusader Items are Equipped Attacks have +1.5% to Critical Strike Chance if 4 Elder Items are Equipped"]={nil,"a Power Charge on Hit  Attacks have +1.5% to Critical Strike Chance  "}
+c["15% chance to gain a Power Charge on Hit if 4 Crusader Items are Equipped Attacks have +2% to Critical Strike Chance if 4 Elder Items are Equipped"]={nil,"a Power Charge on Hit  Attacks have +2% to Critical Strike Chance  "}
 c["15% chance to gain a Power Charge on Kill"]={nil,"a Power Charge  "}
 c["15% chance to gain a Power Charge on Killing an Enemy affected by fewer than 5 Poisons"]={nil,"a Power Charge ing an Enemy affected by fewer than 5 Poisons "}
 c["15% chance to gain a Power Charge on Killing an Enemy affected by fewer than 5 Poisons 10% increased Damage with Poison per Frenzy Charge"]={nil,"a Power Charge ing an Enemy affected by fewer than 5 Poisons 10% increased Damage with Poison  "}
@@ -3770,7 +3770,7 @@ c["20% chance to gain a Frenzy Charge on Killing a Frozen Enemy"]={nil,"a Frenzy
 c["20% chance to gain a Frenzy Charge on Killing a Frozen Enemy Skills Chain an additional time while at maximum Frenzy Charges"]={nil,"a Frenzy Charge ing a Frozen Enemy Skills Chain an additional time  "}
 c["20% chance to gain a Frenzy Charge when you Block Attack Damage"]={nil,"a Frenzy Charge when you Block Attack Damage "}
 c["20% chance to gain a Power Charge on Critical Strike"]={nil,"a Power Charge "}
-c["20% chance to gain a Power Charge on Critical Strike Gain Arcane Surge on Hit with Spells while at maximum Power Charges"]={{[1]={[1]={type="Condition",var="CriticalStrike"},[2]={type="Condition",var="HitSpellRecently"},flags=0,keywordFlags=0,name="Condition:ArcaneSurge",type="FLAG",value=true}},"a Power Charge Gain   while at  "}
+c["20% chance to gain a Power Charge on Critical Strike You have Mind over Matter while at maximum Power Charges"]={nil,"a Power Charge You have Mind over Matter  "}
 c["20% chance to gain a Power Charge on Hit"]={nil,"a Power Charge on Hit "}
 c["20% chance to gain a Power Charge on Hit 6% increased Spell Damage per Power Charge"]={nil,"a Power Charge on Hit 6% increased Spell Damage  "}
 c["20% chance to gain a Power Charge on Kill"]={nil,"a Power Charge  "}
@@ -4171,7 +4171,6 @@ c["23% increased Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type=
 c["23% increased Attack Speed if you haven't gained a Frenzy Charge Recently"]={{[1]={[1]={neg=true,type="Condition",var="GainedFrenzyChargeRecently"},flags=1,keywordFlags=0,name="Speed",type="INC",value=23}},nil}
 c["23% increased Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamage",type="INC",value=23}},nil}
 c["23% increased Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamage",type="INC",value=23}},nil}
-c["23% increased Cooldown Recovery Rate if you've cast Temporal Chains in the past 10 seconds"]={{[1]={[1]={type="Condition",var="SelfCastTemporalChains"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=23}},nil}
 c["23% increased Critical Strike Chance"]={{[1]={flags=0,keywordFlags=0,name="CritChance",type="INC",value=23}},nil}
 c["23% increased Damage for each Magic Item Equipped"]={{[1]={[1]={type="Multiplier",var="MagicItem"},flags=0,keywordFlags=0,name="Damage",type="INC",value=23}},nil}
 c["23% increased Damage over Time"]={{[1]={flags=8,keywordFlags=0,name="Damage",type="INC",value=23}},nil}
@@ -4696,7 +4695,7 @@ c["30% chance to gain a Power Charge when you Stun Gain Unholy Might for 4 secon
 c["30% chance to gain an Endurance Charge on Hitting an Enemy with no Armour"]={nil,"an Endurance Charge on Hitting an Enemy with no Armour "}
 c["30% chance to gain an Endurance Charge on Hitting an Enemy with no Armour 30% chance to gain a Frenzy Charge on Hitting an Enemy with no Evasion Rating"]={nil,"an Endurance Charge on Hitting an Enemy with no Armour 30% chance to gain a Frenzy Charge on Hitting an Enemy with no Evasion Rating "}
 c["30% chance to gain an Endurance Charge on Kill"]={nil,"an Endurance Charge  "}
-c["30% chance to gain an Endurance Charge on Kill 18% increased Armour per Endurance Charge"]={nil,"an Endurance Charge  18% increased Armour  "}
+c["30% chance to gain an Endurance Charge on Kill 45% chance that if you would gain Endurance Charges, you instead gain up to your maximum number of Endurance Charges"]={nil,"an Endurance Charge  45% chance that if you would gain Endurance Charges, you instead gain up to your maximum number of Endurance Charges "}
 c["30% chance to gain an Endurance Charge when you Stun an Enemy"]={nil,"an Endurance Charge when you Stun an Enemy "}
 c["30% chance to gain an Endurance Charge when you Stun an Enemy Enemies in your Link Beams cannot apply Elemental Ailments"]={nil,"an Endurance Charge when you Stun an Enemy Enemies in your Link Beams cannot apply Elemental Ailments "}
 c["30% chance to gain an Endurance Charge when you are Hit"]={nil,"an Endurance Charge when you are Hit "}
@@ -4705,9 +4704,9 @@ c["30% chance to gain an Endurance Charge when you are Hit 25% chance that if yo
 c["30% chance to gain an Endurance Charge when you are Hit 25% chance that if you would gain Endurance Charges, you instead gain up to maximum Endurance Charges Gain 1 Endurance Charge every second if you've been Hit Recently +1 to Maximum Endurance Charges"]={nil,"an Endurance Charge when you are Hit 25% chance that if you would gain Endurance Charges, you instead gain up to maximum Endurance Charges Gain 1 Endurance Charge every second  +1 to Maximum Endurance Charges "}
 c["30% chance to gain an Endurance Charge when you are Hit 30% chance to gain an Endurance Charge when you Stun an Enemy"]={nil,"an Endurance Charge when you are Hit 30% chance to gain an Endurance Charge when you Stun an Enemy "}
 c["30% chance to gain an Frenzy Charge on Kill"]={nil,"an Frenzy Charge  "}
-c["30% chance to gain an Frenzy Charge on Kill 3% increased Movement Speed per Frenzy Charge"]={nil,"an Frenzy Charge  3% increased Movement Speed  "}
+c["30% chance to gain an Frenzy Charge on Kill 45% chance that if you would gain Frenzy Charges, you instead gain up to your maximum number of Frenzy Charges"]={nil,"an Frenzy Charge  45% chance that if you would gain Frenzy Charges, you instead gain up to your maximum number of Frenzy Charges "}
 c["30% chance to gain an Power Charge on Kill"]={nil,"an Power Charge  "}
-c["30% chance to gain an Power Charge on Kill 15% increased Damage per Power Charge"]={nil,"an Power Charge  15% increased Damage  "}
+c["30% chance to gain an Power Charge on Kill 45% chance that if you would gain Power Charges, you instead gain up to your maximum number of Power Charges"]={nil,"an Power Charge  45% chance that if you would gain Power Charges, you instead gain up to your maximum number of Power Charges "}
 c["30% chance to gain an additional Vaal Soul on Kill"]={nil,"an additional Vaal Soul  "}
 c["30% chance to gain an additional Vaal Soul on Kill Corrupted"]={nil,"an additional Vaal Soul  Corrupted "}
 c["30% chance to inflict Corrosion on Hit with Attacks"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanCorrode",type="FLAG",value=true}},nil}
@@ -5101,7 +5100,7 @@ c["38% reduced Area of Effect of Hex Skills"]={{[1]={[1]={skillType=108,type="Sk
 c["380% increased Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="INC",value=380}},nil}
 c["39% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=39}},nil}
 c["4 Warlord Items are Equipped"]={{}," Warlord Items are Equipped "}
-c["4 Warlord Items are Equipped 10% of Physical Damage taken as Fire Damage if 4 Warlord Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="WarlordItem"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsFire",type="BASE",value=4}}," Warlord Items are Equipped 10% of    "}
+c["4 Warlord Items are Equipped +3% to maximum Fire Resistance if 4 Warlord Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="WarlordItem"},flags=0,keywordFlags=0,name="FireResistMax",type="BASE",value=4}}," Warlord Items are Equipped +3% to   "}
 c["4 additional Arrows"]={{[1]={flags=1,keywordFlags=0,name="ProjectileCount",type="BASE",value=4}},nil}
 c["4 to 8 Added Fire Damage with Bow Attacks"]={{[1]={flags=131076,keywordFlags=0,name="FireMin",type="BASE",value=4},[2]={flags=131076,keywordFlags=0,name="FireMax",type="BASE",value=8}},nil}
 c["4 to 8 added Fire Damage per 100 of Maximum Life or Maximum Mana, whichever is lower"]={{[1]={[1]={div=100,stat="LowestOfMaximumLifeAndMaximumMana",type="PerStat"},flags=0,keywordFlags=0,name="FireMin",type="BASE",value=4},[2]={[1]={div=100,stat="LowestOfMaximumLifeAndMaximumMana",type="PerStat"},flags=0,keywordFlags=0,name="FireMax",type="BASE",value=8}},nil}
@@ -5395,11 +5394,10 @@ c["43% increased Quantity of Items Dropped by Slain Normal Enemies"]={{[1]={flag
 c["43% reduced Recovery rate"]={{[1]={flags=0,keywordFlags=0,name="FlaskRecoveryRate",type="INC",value=-43}},nil}
 c["439% increased Evasion and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EvasionAndEnergyShield",type="INC",value=439}},nil}
 c["45% chance that if you would gain Endurance Charges, you instead gain up to your maximum number of Endurance Charges"]={{}," that if you would gain Endurance Charges, you instead gain up to your maximum number of Endurance Charges "}
-c["45% chance that if you would gain Endurance Charges, you instead gain up to your maximum number of Endurance Charges 30% chance to gain an Endurance Charge on Kill"]={{}," that if you would gain Endurance Charges, you instead gain up to your maximum number of Endurance Charges 30% chance to gain an Endurance Charge  "}
+c["45% chance that if you would gain Endurance Charges, you instead gain up to your maximum number of Endurance Charges +1 to Maximum Frenzy Charges"]={{}," that if you would gain Endurance Charges, you instead gain up to your maximum number of Endurance Charges +1 to MaximumCharges "}
 c["45% chance that if you would gain Frenzy Charges, you instead gain up to your maximum number of Frenzy Charges"]={{}," that if you would gainCharges, you instead gain up to your maximum number of Frenzy Charges "}
-c["45% chance that if you would gain Frenzy Charges, you instead gain up to your maximum number of Frenzy Charges 30% chance to gain an Frenzy Charge on Kill"]={{}," that if you would gainCharges, you instead gain up to your maximum number of Frenzy Charges 30% chance to gain an Frenzy Charge  "}
+c["45% chance that if you would gain Frenzy Charges, you instead gain up to your maximum number of Frenzy Charges +1 to Maximum Power Charges"]={{[1]={[1]={includeTransfigured=true,skillName="Frenzy",type="SkillName"},flags=0,keywordFlags=0,name="PowerChargesMax",type="BASE",value=45}}," that if you would gainCharges, you instead gain up to your maximum number of Frenzy Charges +1 to  "}
 c["45% chance that if you would gain Power Charges, you instead gain up to your maximum number of Power Charges"]={{}," that if you would gain Power Charges, you instead gain up to your maximum number of Power Charges "}
-c["45% chance that if you would gain Power Charges, you instead gain up to your maximum number of Power Charges 6 to 60 Lightning Damage per Power Charge"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="LightningDamage",type="BASE",value=45}}," that if you would gain Power Charges, you instead gain up to your maximum number of Power Charges 6 to 60   "}
 c["45% chance to avoid Bleeding"]={{[1]={flags=0,keywordFlags=0,name="AvoidBleed",type="BASE",value=45}},nil}
 c["45% increased Area Damage"]={{[1]={flags=512,keywordFlags=0,name="Damage",type="INC",value=45}},nil}
 c["45% increased Area of Effect"]={{[1]={flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=45}},nil}
@@ -6283,7 +6281,6 @@ c["8% of Damage taken Recouped as Mana"]={{[1]={flags=0,keywordFlags=0,name="Man
 c["8% of Leech is Instant"]={{[1]={flags=0,keywordFlags=0,name="InstantEnergyShieldLeech",type="BASE",value=8},[2]={flags=0,keywordFlags=0,name="InstantManaLeech",type="BASE",value=8},[3]={flags=0,keywordFlags=0,name="InstantLifeLeech",type="BASE",value=8}},nil}
 c["8% of Maximum Life taken as Chaos Damage per second"]={{[1]={[1]={percent=8,stat="Life",type="PercentStat"},flags=0,keywordFlags=0,name="ChaosDegen",type="BASE",value=1}},nil}
 c["8% of Physical Damage from Hits taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageFromHitsTakenAsFire",type="BASE",value=8}},nil}
-c["8% of Physical Damage taken as Lightning Damage if 4 Crusader Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="CrusaderItem"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsLightning",type="BASE",value=8}},nil}
 c["8% reduced Enemy Stun Threshold"]={{[1]={flags=0,keywordFlags=0,name="EnemyStunThreshold",type="INC",value=-8}},nil}
 c["8% reduced Mana Cost of Attacks"]={{[1]={[1]={skillType=1,type="SkillType"},flags=0,keywordFlags=0,name="ManaCost",type="INC",value=-8}},nil}
 c["8% reduced Mana Cost of Skills"]={{[1]={flags=0,keywordFlags=0,name="ManaCost",type="INC",value=-8}},nil}
@@ -8849,7 +8846,7 @@ c["Gain a Void Charge every second Gain a Void Charge every 0.5 seconds"]={nil,"
 c["Gain a random shrine buff every 10 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveRegularShrines",type="FLAG",value=true}},nil}
 c["Gain additional Elemental Damage Reduction equal to half your Chaos Resistance"]={{[1]={[1]={div=2,stat="ChaosResist",type="PerStat"},flags=0,keywordFlags=0,name="ElementalDamageReduction",type="BASE",value=1}},nil}
 c["Gain an Endurance Charge every second if you've been Hit Recently"]={nil,"an Endurance Charge every second  "}
-c["Gain an Endurance Charge every second if you've been Hit Recently +1 to Maximum Endurance Charges"]={nil,"an Endurance Charge every second  +1 to Maximum Endurance Charges "}
+c["Gain an Endurance Charge every second if you've been Hit Recently Intimidate Enemies for 4 seconds on Hit with Attacks while at maximum Endurance Charges"]={nil,"an Endurance Charge every second  Intimidate Enemies  on Hit with Attacks while at maximum Endurance Charges "}
 c["Gain an Endurance Charge if an Attack Freezes an Enemy"]={nil,"an Endurance Charge if an Attack Freezes an Enemy "}
 c["Gain an Endurance Charge if an Attack Freezes an Enemy Culling Strike against Frozen Enemies"]={nil,"an Endurance Charge if an Attack Freezes an Enemy Culling Strike  "}
 c["Gain an Endurance Charge when a Power Charge expires or is consumed"]={nil,"an Endurance Charge when a Power Charge expires or is consumed "}
@@ -9493,6 +9490,7 @@ c["Magic Utility Flask cannot be Used Leftmost 4 Magic Utility Flasks constantly
 c["Magic Utility Flasks applied to you have 15% increased Effect"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="MagicUtilityFlaskEffect",type="INC",value=15}},nil}
 c["Magic Utility Flasks applied to you have 30% increased Effect"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="MagicUtilityFlaskEffect",type="INC",value=30}},nil}
 c["Malevolence has 50% increased Mana Reservation Efficiency"]={{[1]={[1]={includeTransfigured=true,skillName="Malevolence",type="SkillName"},flags=0,keywordFlags=0,name="ManaReservationEfficiency",type="INC",value=50}},nil}
+c["Malevolence has 60% increased Aura Effect"]={{[1]={[1]={includeTransfigured=true,skillName="Malevolence",type="SkillName"},flags=0,keywordFlags=0,name="AuraEffect",type="INC",value=60}},nil}
 c["Malevolence has no Reservation"]={{[1]={[1]={skillId="Malevolence",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationFlat",value=0}},[2]={[1]={skillId="Malevolence",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationFlat",value=0}},[3]={[1]={skillId="Malevolence",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationPercent",value=0}},[4]={[1]={skillId="Malevolence",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationPercent",value=0}}},nil}
 c["Mana Flasks gain 1 Charge every 3 seconds"]={{[1]={flags=0,keywordFlags=0,name="ManaFlaskChargesGenerated",type="BASE",value=0.33333333333333}},nil}
 c["Mana Flasks gain 2 Charges every 3 seconds"]={{[1]={flags=0,keywordFlags=0,name="ManaFlaskChargesGenerated",type="BASE",value=0.66666666666667}},nil}
@@ -9562,6 +9560,7 @@ c["Melee Hits Fortify"]={nil,"Melee Hits Fortify "}
 c["Melee Hits Fortify -3 to maximum Fortification"]={nil,"Melee Hits Fortify -3 to maximum Fortification "}
 c["Melee Hits Fortify Limited to 1 Attribute Notable Tattoo"]={nil,"Melee Hits Fortify Limited to 1 Attribute Notable Tattoo "}
 c["Melee Hits Fortify if 6 Warlord Items are Equipped"]={nil,"Melee Hits Fortify if 6 Warlord Items are Equipped "}
+c["Melee Hits Fortify if 6 Warlord Items are Equipped +1 to Level of all Fire Skill Gems if 6 Warlord Items are Equipped"]={nil,"Melee Hits Fortify if 6 Warlord Items are Equipped +1 to Level of all Fire Skill Gems if 6 Warlord Items are Equipped "}
 c["Melee Hits count as Rampage Kills"]={nil,"Melee Hits count as Rampage Kills "}
 c["Melee Hits count as Rampage Kills Rampage"]={nil,"Melee Hits count as Rampage Kills Rampage "}
 c["Melee Hits from Strike Skills Fortify"]={nil,"Melee Hits from Strike Skills Fortify "}
@@ -11767,7 +11766,7 @@ c["Treats Enemy Monster Elemental Resistance values as inverted"]={{[1]={[1]={ty
 c["Trigger Commandment of Inferno on Critical Strike"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=1,noSupports=true,skillId="UniqueEnchantmentOfInfernoOnCrit",triggered=true}},[2]={[1]={skillId="UniqueEnchantmentOfInfernoOnCrit",type="SkillId"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="triggerOnCrit",value=true}}}}},nil}
 c["Trigger Level 1 Create Lesser Shrine when you Kill an Enemy"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=1,skillId="TriggeredSummonLesserShrine",triggered=true}}},nil}
 c["Trigger Level 1 Gore Shockwave on Melee Hit if you have at least 150 Strength"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=1,skillId="GoreShockwave",triggered=true}}},nil}
-c["Trigger Level 1 Intimidating Cry on Hit"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=1,skillId="CatsStealthTriggeredIntimidatingCry",triggered=true}}},nil}
+c["Trigger Level 1 Intimidating Cry on Hit"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=1,skillId="IntimidatingCry",triggered=true}}},nil}
 c["Trigger Level 1 Stalking Pustule on Kill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=1,skillId="StalkingPustule",triggered=true}}},nil}
 c["Trigger Level 10 Assassin's Mark when you Hit a Rare or Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=10,skillId="AssassinsMark",triggered=true}}},nil}
 c["Trigger Level 10 Consecrate when you deal a Critical Strike"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=10,skillId="TriggeredConsecrate",triggered=true}}},nil}
@@ -11788,7 +11787,7 @@ c["Trigger Level 20 Fiery Impact on Melee Hit with this Weapon"]={{[1]={flags=0,
 c["Trigger Level 20 Fog of War when your Trap is triggered"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="FogOfWar",triggered=true}}},nil}
 c["Trigger Level 20 Glimpse of Eternity when Hit"]={{},nil}
 c["Trigger Level 20 Icicle Burst when you Hit a Frozen Enemy"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="IcicleBurst",triggered=true}}},nil}
-c["Trigger Level 20 Intimidating Cry when you lose Cat's Stealth"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="CatsStealthTriggeredIntimidatingCry",triggered=true}}},nil}
+c["Trigger Level 20 Intimidating Cry when you lose Cat's Stealth"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="IntimidatingCry",triggered=true}}},nil}
 c["Trigger Level 20 Lightning Bolt when you deal a Critical Strike"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="LightningBolt",triggered=true}}},nil}
 c["Trigger Level 20 Shade Form when Hit"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="ShadeForm",triggered=true}}},nil}
 c["Trigger Level 20 Shield Shatter when you Block"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="ShieldShatter",triggered=true}}},nil}
