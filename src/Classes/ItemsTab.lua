@@ -3351,7 +3351,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 					elemLine = elemLine..s_format("%s%d-%d", colorCodes[var:upper()], weaponData[var.."Min"], weaponData[var.."Max"])
 				end
 			end
-			tooltip:AddLine(fontSizeBig, elemLine)
+			tooltip:AddLine(fontSizeBig, elemLine, "FONTIN SC")
 			tooltip:AddLine(fontSizeBig, s_format("^x7F7F7FElemental DPS: "..colorCodes.MAGIC.."%.1f", weaponData.ElementalDPS), "FONTIN SC")
 			totalDamageTypes = totalDamageTypes + 1	
 		end

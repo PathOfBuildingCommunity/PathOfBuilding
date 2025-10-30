@@ -1000,7 +1000,7 @@ function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 	if node.type == "Socket" and node.alloc then
 		if node.distanceToClassStart and node.distanceToClassStart > 0 then
 			tooltip:AddSeparator(14)
-			tooltip:AddLine(fontSizeBig, string.format("^7Distance to start: %d", node.distanceToClassStart), "FONTIN")
+			tooltip:AddLine(16, string.format("^7Distance to start: %d", node.distanceToClassStart), "FONTIN")
 		end
 	end
 end
@@ -1016,7 +1016,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			build.itemsTab:AddItemTooltip(tooltip, jewel, { nodeId = node.id })
 			if node.distanceToClassStart and node.distanceToClassStart > 0 then
 				tooltip:AddSeparator(14)
-				tooltip:AddLine(fontSizeBig, string.format("^7Distance to start: %d", node.distanceToClassStart))
+				tooltip:AddLine(16, string.format("^7Distance to start: %d", node.distanceToClassStart))
 			end
 		else
 			self:AddNodeName(tooltip, node, build)
