@@ -746,7 +746,7 @@ holding Shift will put it in the second.]])
 							tooltip:AddLine(14, maxLine)
 						else
 							local start = 1
-							tooltip:AddLine(14, minLine:gsub("%d[%d%.]*", function(min)
+							tooltip:AddLine(14, (minLine:gsub("%d[%d%.]*", function(min)
 								local s, e, max = maxLine:find("(%d[%d%.]*)", start)
 								start = e + 1
 								if min == max then
@@ -754,7 +754,7 @@ holding Shift will put it in the second.]])
 								else
 									return "("..min.."-"..max..")"
 								end
-							end))
+							end)))
 						end
 					end
 					tooltip:AddLine(16, "Level: "..minMod.level.." to "..maxMod.level)
