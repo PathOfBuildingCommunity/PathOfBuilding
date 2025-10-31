@@ -305,7 +305,7 @@ directiveTable.skill = function(state, args, out)
 		end
 		if next(weaponTypes) then
 			out:write('\tweaponTypes = {\n')
-			for type in pairs(weaponTypes) do
+			for type in ipairs(weaponTypes) do
 				out:write('\t\t["', type, '"] = true,\n')
 			end
 			out:write('\t},\n')
