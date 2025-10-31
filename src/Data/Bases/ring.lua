@@ -101,7 +101,6 @@ itemBases["Two-Stone Ring"] = {
 }
 itemBases["Two-Stone Ring"] = {
 	type = "Ring",
-	hidden = true,
 	tags = { default = true, ring = true, twostonering = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(12-16)% to Cold and Lightning Resistances",
@@ -110,7 +109,6 @@ itemBases["Two-Stone Ring"] = {
 }
 itemBases["Two-Stone Ring"] = {
 	type = "Ring",
-	hidden = true,
 	tags = { default = true, ring = true, twostonering = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(12-16)% to Fire and Cold Resistances",
@@ -335,7 +333,6 @@ itemBases["Golden Hoop"] = {
 }
 itemBases["Jet Ring"] = {
 	type = "Ring",
-	hidden = true,
 	tags = { default = true, demigods = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "(5-10)% increased Global Defences",

@@ -149,7 +149,6 @@ itemBases["Focused Amulet"] = {
 }
 itemBases["Jet Amulet"] = {
 	type = "Amulet",
-	hidden = true,
 	tags = { amulet = true, default = true, demigods = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+(8-12)% to all Elemental Resistances",
