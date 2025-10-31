@@ -41,8 +41,8 @@ skills["AxisCasterGlacialCascade"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.25999999046326, 0.40000000596046, 0.47999998927116, 0.73000001907349, levelRequirement = 4, damageEffectiveness = 0.8, critChance = 6, statInterpolation = { 3, 3, 3, 3, }, },
-		[2] = { 0.25999999046326, 0.40000000596046, 0.47999998927116, 0.73000001907349, levelRequirement = 75, damageEffectiveness = 0.8, critChance = 6, statInterpolation = { 3, 3, 3, 3, }, },
+		[1] = { 0.25999999046326, 0.40000000596046, 0.47999998927116, 0.73000001907349, critChance = 6, damageEffectiveness = 0.8, levelRequirement = 4, statInterpolation = { 3, 3, 3, 3, }, },
+		[2] = { 0.25999999046326, 0.40000000596046, 0.47999998927116, 0.73000001907349, critChance = 6, damageEffectiveness = 0.8, levelRequirement = 75, statInterpolation = { 3, 3, 3, 3, }, },
 	},
 }
 skills["AxisDoubleStrikeTrigger"] = {
@@ -53,17 +53,17 @@ skills["AxisDoubleStrikeTrigger"] = {
 	description = "Performs two fast strikes with a melee weapon.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Physical] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
-		["Two Handed Axe"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
-		["Claw"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -80,7 +80,7 @@ skills["AxisDoubleStrikeTrigger"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 2, },
+		[1] = { cooldown = 2, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["BanditExplosiveArrowAtAnimationSpeed"] = {
@@ -130,7 +130,7 @@ skills["BanditExplosiveArrowAtAnimationSpeed"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 2, critChance = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 2, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["BanditChampionBlastRainSpectre"] = {
@@ -165,7 +165,7 @@ skills["BanditChampionBlastRainSpectre"] = {
 		"skill_can_fire_arrows",
 	},
 	levels = {
-		[1] = { levelRequirement = 15, damageEffectiveness = 0.5, baseMultiplier = 0.5, },
+		[1] = { baseMultiplier = 0.5, damageEffectiveness = 0.5, levelRequirement = 15, },
 	},
 }
 skills["GABeastCleave"] = {
@@ -185,7 +185,7 @@ skills["GABeastCleave"] = {
 		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 5, baseMultiplier = 1.475, },
+		[1] = { baseMultiplier = 1.475, cooldown = 5, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["BirdmanBloodProjectileMortar"] = {
@@ -213,7 +213,7 @@ skills["BirdmanBloodProjectileMortar"] = {
 		"projectile_uses_contact_position",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, baseMultiplier = 1.15, },
+		[1] = { baseMultiplier = 1.15, levelRequirement = 1, },
 	},
 }
 skills["BirdmanConsumeCorpse"] = {
@@ -239,13 +239,13 @@ skills["BoneStalkerEarthquake"] = {
 	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Multistrikeable] = true, [SkillType.Duration] = true, [SkillType.Slam] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
 		["None"] = true,
-		["Two Handed Axe"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -264,7 +264,7 @@ skills["BoneStalkerEarthquake"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, damageEffectiveness = 0.5, cooldown = 5, },
+		[1] = { cooldown = 5, damageEffectiveness = 0.5, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["BreachCleave"] = {
@@ -274,10 +274,10 @@ skills["BreachCleave"] = {
 	description = "The character swings their weapon (or both weapons if dual wielding) in an arc, damaging monsters in an area in front of them. Only works with Axes and Swords.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ThresholdJewelArea] = true, },
 	weaponTypes = {
-		["Two Handed Axe"] = true,
+		["One Handed Axe"] = true,
 		["One Handed Sword"] = true,
 		["Thrusting One Handed Sword"] = true,
-		["One Handed Axe"] = true,
+		["Two Handed Axe"] = true,
 		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
@@ -323,8 +323,8 @@ skills["BullCharge"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { levelRequirement = 2, storedUses = 1, cooldown = 4, },
-		[2] = { 15, levelRequirement = 68, storedUses = 1, cooldown = 4, statInterpolation = { 1, }, },
+		[1] = { cooldown = 4, levelRequirement = 2, storedUses = 1, },
+		[2] = { 15, cooldown = 4, levelRequirement = 68, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["CageSpiderCycloneTriggerSandstorms"] = {
@@ -334,18 +334,18 @@ skills["CageSpiderCycloneTriggerSandstorms"] = {
 	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Ruthless or Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["None"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
-		["None"] = true,
-		["Two Handed Axe"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
-		["Claw"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -445,7 +445,7 @@ skills["DelayedBlastSpectre"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, storedUses = 3, cooldown = 1.3, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 1.3, levelRequirement = 3, storedUses = 3, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["DelveProtovaalWhirlingCharge"] = {
@@ -470,7 +470,7 @@ skills["DelveProtovaalWhirlingCharge"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 10, baseMultiplier = 0.56, },
+		[1] = { baseMultiplier = 0.56, cooldown = 10, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["DemonFemaleRangedProjectile"] = {
@@ -558,7 +558,7 @@ skills["DemonModularBladeVortexSpectre"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, critChance = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 3, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["ElementalHitSkeletonKnight"] = {
@@ -608,9 +608,9 @@ skills["ElementalHitSkeletonKnight"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 150, levelRequirement = 1, baseMultiplier = 1.5, statInterpolation = { 2, }, },
-		[3] = { 300, levelRequirement = 45, baseMultiplier = 1.5, statInterpolation = { 2, }, },
-		[4] = { 400, levelRequirement = 84, baseMultiplier = 1.5, statInterpolation = { 2, }, },
+		[1] = { 150, baseMultiplier = 1.5, levelRequirement = 1, statInterpolation = { 2, }, },
+		[3] = { 300, baseMultiplier = 1.5, levelRequirement = 45, statInterpolation = { 2, }, },
+		[4] = { 400, baseMultiplier = 1.5, levelRequirement = 84, statInterpolation = { 2, }, },
 	},
 }
 skills["ElementalHitSkeletonKnightIncursion"] = {
@@ -643,9 +643,9 @@ skills["ElementalHitSkeletonKnightIncursion"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0, levelRequirement = 1, baseMultiplier = 1.5, statInterpolation = { 2, }, },
-		[3] = { 1, levelRequirement = 45, baseMultiplier = 1.5, statInterpolation = { 2, }, },
-		[4] = { 200, levelRequirement = 84, baseMultiplier = 1.5, statInterpolation = { 2, }, },
+		[1] = { 0, baseMultiplier = 1.5, levelRequirement = 1, statInterpolation = { 2, }, },
+		[3] = { 1, baseMultiplier = 1.5, levelRequirement = 45, statInterpolation = { 2, }, },
+		[4] = { 200, baseMultiplier = 1.5, levelRequirement = 84, statInterpolation = { 2, }, },
 	},
 }
 skills["ExperimenterDetonateDead"] = {
@@ -677,9 +677,9 @@ skills["ExperimenterDetonateDead"] = {
 		"secondary_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 7, levelRequirement = 3, critChance = 5, statInterpolation = { 3, 3, 1, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, 5, levelRequirement = 33, critChance = 5, statInterpolation = { 3, 3, 1, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, 4, levelRequirement = 60, critChance = 5, statInterpolation = { 3, 3, 1, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, 7, critChance = 5, levelRequirement = 3, statInterpolation = { 3, 3, 1, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 5, critChance = 5, levelRequirement = 33, statInterpolation = { 3, 3, 1, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 4, critChance = 5, levelRequirement = 60, statInterpolation = { 3, 3, 1, }, },
 	},
 }
 skills["FireballIncursionChaos"] = {
@@ -711,7 +711,7 @@ skills["FireballIncursionChaos"] = {
 		"spell_maximum_base_chaos_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, critChance = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["FireballIncusionFire"] = {
@@ -743,7 +743,7 @@ skills["FireballIncusionFire"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, critChance = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["FireballIncusionLightning"] = {
@@ -775,7 +775,7 @@ skills["FireballIncusionLightning"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, critChance = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["FireMonsterWhirlingBlades"] = {
@@ -787,10 +787,10 @@ skills["FireMonsterWhirlingBlades"] = {
 	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
 	weaponTypes = {
-		["Thrusting One Handed Sword"] = true,
-		["Dagger"] = true,
 		["Claw"] = true,
+		["Dagger"] = true,
 		["One Handed Sword"] = true,
+		["Thrusting One Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.43,
@@ -853,9 +853,9 @@ skills["FlamebearerFlameBlue"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, -78, levelRequirement = 4, storedUses = 1, damageEffectiveness = 0.25, cooldown = 4, statInterpolation = { 3, 3, 1, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, -75, levelRequirement = 8, storedUses = 1, damageEffectiveness = 0.25, cooldown = 4, statInterpolation = { 3, 3, 1, }, },
-		[3] = { 1.2400000095367, 1.8600000143051, -75, levelRequirement = 68, storedUses = 1, damageEffectiveness = 0.25, cooldown = 4, statInterpolation = { 3, 3, 1, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, -78, cooldown = 4, damageEffectiveness = 0.25, levelRequirement = 4, storedUses = 1, statInterpolation = { 3, 3, 1, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, -75, cooldown = 4, damageEffectiveness = 0.25, levelRequirement = 8, storedUses = 1, statInterpolation = { 3, 3, 1, }, },
+		[3] = { 1.2400000095367, 1.8600000143051, -75, cooldown = 4, damageEffectiveness = 0.25, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, 3, 1, }, },
 	},
 }
 skills["GhostPirateBladeVortexSpectre"] = {
@@ -893,7 +893,7 @@ skills["GhostPirateBladeVortexSpectre"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, critChance = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 3, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GoatmanEarthquake"] = {
@@ -903,13 +903,13 @@ skills["GoatmanEarthquake"] = {
 	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Multistrikeable] = true, [SkillType.Duration] = true, [SkillType.Slam] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
 		["None"] = true,
-		["Two Handed Axe"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -927,7 +927,7 @@ skills["GoatmanEarthquake"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 0.5, attackSpeedMultiplier = 13, levelRequirement = 1, storedUses = 1, cooldown = 2.75, },
+		[1] = { attackSpeedMultiplier = 13, cooldown = 2.75, damageEffectiveness = 0.5, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["GoatmanFireMagmaOrb"] = {
@@ -964,8 +964,8 @@ skills["GoatmanFireMagmaOrb"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, storedUses = 1, critChance = 5, cooldown = 3, statInterpolation = { 3, 3, }, },
-		[2] = { 1.3799999952316, 1.8400000333786, levelRequirement = 68, storedUses = 1, critChance = 5, cooldown = 3, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 3, critChance = 5, levelRequirement = 3, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[2] = { 1.3799999952316, 1.8400000333786, cooldown = 3, critChance = 5, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GoatmanMoltenShell"] = {
@@ -1001,39 +1001,39 @@ skills["GoatmanMoltenShell"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 20, 335, levelRequirement = 3, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, 25, 649, levelRequirement = 5, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, 36, 1000, levelRequirement = 8, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, 49, 1633, levelRequirement = 12, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[5] = { 0.80000001192093, 1.2000000476837, 64, 2075, levelRequirement = 15, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[6] = { 0.80000001192093, 1.2000000476837, 91, 2573, levelRequirement = 19, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[7] = { 0.80000001192093, 1.2000000476837, 116, 3094, levelRequirement = 22, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[8] = { 0.80000001192093, 1.2000000476837, 160, 3641, levelRequirement = 26, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[9] = { 0.80000001192093, 1.2000000476837, 209, 4352, levelRequirement = 30, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[10] = { 0.80000001192093, 1.2000000476837, 315, 5313, levelRequirement = 36, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[11] = { 0.80000001192093, 1.2000000476837, 374, 5890, levelRequirement = 39, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[12] = { 0.80000001192093, 1.2000000476837, 377, 6189, levelRequirement = 40, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[13] = { 0.80000001192093, 1.2000000476837, 565, 7030, levelRequirement = 45, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[14] = { 0.80000001192093, 1.2000000476837, 752, 7870, levelRequirement = 50, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[15] = { 0.80000001192093, 1.2000000476837, 1194, 9159, levelRequirement = 57, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[16] = { 0.80000001192093, 1.2000000476837, 1403, 9867, levelRequirement = 60, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[17] = { 0.80000001192093, 1.2000000476837, 2091, 11090, levelRequirement = 66, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[18] = { 0.80000001192093, 1.2000000476837, 2211, 11524, levelRequirement = 67, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[19] = { 0.80000001192093, 1.2000000476837, 2334, 11966, levelRequirement = 68, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[20] = { 0.80000001192093, 1.2000000476837, 2456, 12428, levelRequirement = 69, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[21] = { 0.80000001192093, 1.2000000476837, 2579, 12894, levelRequirement = 70, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[22] = { 0.80000001192093, 1.2000000476837, 2746, 13369, levelRequirement = 71, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[23] = { 0.80000001192093, 1.2000000476837, 2912, 13857, levelRequirement = 72, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[24] = { 0.80000001192093, 1.2000000476837, 3074, 14358, levelRequirement = 73, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[25] = { 0.80000001192093, 1.2000000476837, 3237, 14875, levelRequirement = 74, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[26] = { 0.80000001192093, 1.2000000476837, 3397, 15397, levelRequirement = 75, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[27] = { 0.80000001192093, 1.2000000476837, 3552, 15931, levelRequirement = 76, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[28] = { 0.80000001192093, 1.2000000476837, 3703, 16480, levelRequirement = 77, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[29] = { 0.80000001192093, 1.2000000476837, 3847, 17039, levelRequirement = 78, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[30] = { 0.80000001192093, 1.2000000476837, 3981, 17613, levelRequirement = 79, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[31] = { 0.80000001192093, 1.2000000476837, 4110, 18195, levelRequirement = 80, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[32] = { 0.80000001192093, 1.2000000476837, 4230, 18790, levelRequirement = 81, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
-		[33] = { 0.80000001192093, 1.2000000476837, 4334, 19399, levelRequirement = 82, storedUses = 1, critChance = 5, cooldown = 7.5, statInterpolation = { 3, 3, 1, 1, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, 20, 335, cooldown = 7.5, critChance = 5, levelRequirement = 3, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 25, 649, cooldown = 7.5, critChance = 5, levelRequirement = 5, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 36, 1000, cooldown = 7.5, critChance = 5, levelRequirement = 8, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, 49, 1633, cooldown = 7.5, critChance = 5, levelRequirement = 12, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, 64, 2075, cooldown = 7.5, critChance = 5, levelRequirement = 15, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, 91, 2573, cooldown = 7.5, critChance = 5, levelRequirement = 19, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, 116, 3094, cooldown = 7.5, critChance = 5, levelRequirement = 22, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, 160, 3641, cooldown = 7.5, critChance = 5, levelRequirement = 26, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, 209, 4352, cooldown = 7.5, critChance = 5, levelRequirement = 30, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, 315, 5313, cooldown = 7.5, critChance = 5, levelRequirement = 36, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, 374, 5890, cooldown = 7.5, critChance = 5, levelRequirement = 39, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, 377, 6189, cooldown = 7.5, critChance = 5, levelRequirement = 40, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, 565, 7030, cooldown = 7.5, critChance = 5, levelRequirement = 45, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, 752, 7870, cooldown = 7.5, critChance = 5, levelRequirement = 50, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, 1194, 9159, cooldown = 7.5, critChance = 5, levelRequirement = 57, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, 1403, 9867, cooldown = 7.5, critChance = 5, levelRequirement = 60, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, 2091, 11090, cooldown = 7.5, critChance = 5, levelRequirement = 66, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, 2211, 11524, cooldown = 7.5, critChance = 5, levelRequirement = 67, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, 2334, 11966, cooldown = 7.5, critChance = 5, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, 2456, 12428, cooldown = 7.5, critChance = 5, levelRequirement = 69, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, 2579, 12894, cooldown = 7.5, critChance = 5, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, 2746, 13369, cooldown = 7.5, critChance = 5, levelRequirement = 71, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, 2912, 13857, cooldown = 7.5, critChance = 5, levelRequirement = 72, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, 3074, 14358, cooldown = 7.5, critChance = 5, levelRequirement = 73, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, 3237, 14875, cooldown = 7.5, critChance = 5, levelRequirement = 74, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, 3397, 15397, cooldown = 7.5, critChance = 5, levelRequirement = 75, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, 3552, 15931, cooldown = 7.5, critChance = 5, levelRequirement = 76, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, 3703, 16480, cooldown = 7.5, critChance = 5, levelRequirement = 77, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, 3847, 17039, cooldown = 7.5, critChance = 5, levelRequirement = 78, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, 3981, 17613, cooldown = 7.5, critChance = 5, levelRequirement = 79, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[31] = { 0.80000001192093, 1.2000000476837, 4110, 18195, cooldown = 7.5, critChance = 5, levelRequirement = 80, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[32] = { 0.80000001192093, 1.2000000476837, 4230, 18790, cooldown = 7.5, critChance = 5, levelRequirement = 81, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+		[33] = { 0.80000001192093, 1.2000000476837, 4334, 19399, cooldown = 7.5, critChance = 5, levelRequirement = 82, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
 	},
 }
 skills["GoatmanMonsterSlam"] = {
@@ -1057,7 +1057,7 @@ skills["GoatmanMonsterSlam"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 1.75, baseMultiplier = 1.75, levelRequirement = 1, storedUses = 1, cooldown = 6, },
+		[1] = { baseMultiplier = 1.75, cooldown = 6, damageEffectiveness = 1.75, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["GroundEffectsSlamDockworkerChampion"] = {
@@ -1085,7 +1085,7 @@ skills["GroundEffectsSlamDockworkerChampion"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 58.333334637185, damageEffectiveness = 2.5, baseMultiplier = 1.5, levelRequirement = 1, storedUses = 1, cooldown = 6, statInterpolation = { 3, }, },
+		[1] = { 58.333334637185, baseMultiplier = 1.5, cooldown = 6, damageEffectiveness = 2.5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["GuardianArc"] = {
@@ -1116,8 +1116,8 @@ skills["GuardianArc"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 2, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, },
-		[2] = { 0.60000002384186, 1.7999999523163, levelRequirement = 70, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 2, statInterpolation = { 3, 3, }, },
+		[2] = { 0.60000002384186, 1.7999999523163, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 70, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["HalfSkeletonPuncture"] = {
@@ -1128,12 +1128,12 @@ skills["HalfSkeletonPuncture"] = {
 	description = "Punctures enemies, causing a bleeding debuff, which will be affected by modifiers to skill duration. Puncture works with bows, daggers, claws or swords.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.DamageOverTime] = true, [SkillType.Triggerable] = true, [SkillType.Physical] = true, },
 	weaponTypes = {
-		["Two Handed Sword"] = true,
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
 		["Bow"] = true,
 		["Claw"] = true,
 		["Dagger"] = true,
+		["One Handed Sword"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -1153,8 +1153,8 @@ skills["HalfSkeletonPuncture"] = {
 		"global_bleed_on_hit",
 	},
 	levels = {
-		[1] = { levelRequirement = 2, storedUses = 1, cooldown = 7.5, baseMultiplier = 1.2, },
-		[2] = { levelRequirement = 14, storedUses = 1, cooldown = 7.5, baseMultiplier = 1.2, },
+		[1] = { baseMultiplier = 1.2, cooldown = 7.5, levelRequirement = 2, storedUses = 1, },
+		[2] = { baseMultiplier = 1.2, cooldown = 7.5, levelRequirement = 14, storedUses = 1, },
 	},
 }
 skills["HolyFireElementalFireball"] = {
@@ -1186,8 +1186,8 @@ skills["HolyFireElementalFireball"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, critChance = 6, statInterpolation = { 3, 3, }, },
-		[2] = { 1.75, 2.710000038147, levelRequirement = 68, critChance = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 3, statInterpolation = { 3, 3, }, },
+		[2] = { 1.75, 2.710000038147, critChance = 6, levelRequirement = 68, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["IguanaProjectile"] = {
@@ -1212,7 +1212,7 @@ skills["IguanaProjectile"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 3, cooldown = 3.5, },
+		[1] = { cooldown = 3.5, levelRequirement = 1, storedUses = 3, },
 	},
 }
 skills["IguanaProjectileChrome"] = {
@@ -1238,7 +1238,7 @@ skills["IguanaProjectileChrome"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 3, cooldown = 3.5, },
+		[1] = { cooldown = 3.5, levelRequirement = 1, storedUses = 3, },
 	},
 }
 skills["IncaMinionProjectile"] = {
@@ -1274,9 +1274,9 @@ skills["IncaMinionProjectile"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0.27000001072884, 0.40000000596046, 0.40000000596046, 0.60000002384186, 60, levelRequirement = 4, critChance = 5, statInterpolation = { 3, 3, 3, 3, 2, }, },
-		[2] = { 0.27000001072884, 0.40000000596046, 0.40000000596046, 0.60000002384186, 40, levelRequirement = 21, critChance = 5, statInterpolation = { 3, 3, 3, 3, 2, }, },
-		[3] = { 0.6700000166893, 1.0099999904633, 1.0099999904633, 1.5199999809265, 0, levelRequirement = 68, critChance = 5, statInterpolation = { 3, 3, 3, 3, 2, }, },
+		[1] = { 0.27000001072884, 0.40000000596046, 0.40000000596046, 0.60000002384186, 60, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, 3, 3, 2, }, },
+		[2] = { 0.27000001072884, 0.40000000596046, 0.40000000596046, 0.60000002384186, 40, critChance = 5, levelRequirement = 21, statInterpolation = { 3, 3, 3, 3, 2, }, },
+		[3] = { 0.6700000166893, 1.0099999904633, 1.0099999904633, 1.5199999809265, 0, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 3, 3, 2, }, },
 	},
 }
 skills["IncursionLeapSlamChampion"] = {
@@ -1286,15 +1286,15 @@ skills["IncursionLeapSlamChampion"] = {
 	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Two Handed Sword"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 2,
@@ -1311,7 +1311,7 @@ skills["IncursionLeapSlamChampion"] = {
 		"cast_time_overrides_attack_duration",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 6, baseMultiplier = 1.5, },
+		[1] = { baseMultiplier = 1.5, cooldown = 6, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["IncursionMeteorUpheaval"] = {
@@ -1341,7 +1341,7 @@ skills["IncursionMeteorUpheaval"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, storedUses = 1, critChance = 5, cooldown = 8, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 8, critChance = 5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["InsectSpawnerSpit"] = {
@@ -1415,8 +1415,8 @@ skills["KaomFireBeamTotemSpectre"] = {
 		"base_active_skill_totem_level",
 	},
 	levels = {
-		[1] = { 16.666667039196, 1, levelRequirement = 1, storedUses = 1, cooldown = 3, statInterpolation = { 3, 2, }, },
-		[2] = { 16.666667039196, 83, levelRequirement = 83, storedUses = 1, cooldown = 3, statInterpolation = { 3, 2, }, },
+		[1] = { 16.666667039196, 1, cooldown = 3, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 2, }, },
+		[2] = { 16.666667039196, 83, cooldown = 3, levelRequirement = 83, storedUses = 1, statInterpolation = { 3, 2, }, },
 	},
 }
 skills["KaomWarriorGroundSlam"] = {
@@ -1440,7 +1440,7 @@ skills["KaomWarriorGroundSlam"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { levelRequirement = 2, storedUses = 1, cooldown = 5, },
+		[1] = { cooldown = 5, levelRequirement = 2, storedUses = 1, },
 	},
 }
 skills["KaomWarriorMoltenStrike"] = {
@@ -1451,17 +1451,17 @@ skills["KaomWarriorMoltenStrike"] = {
 	description = "Infuses your melee weapon with molten energies to attack with physical and fire damage. This attack causes balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will deal area attack damage to enemies where they land.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Fire] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.ThresholdJewelChaining] = true, [SkillType.Multistrikeable] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
-		["Two Handed Axe"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
-		["Claw"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -1481,7 +1481,7 @@ skills["KaomWarriorMoltenStrike"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { levelRequirement = 2, storedUses = 1, cooldown = 3, },
+		[1] = { cooldown = 3, levelRequirement = 2, storedUses = 1, },
 	},
 }
 skills["KitavaDemonLeapSlam"] = {
@@ -1492,15 +1492,15 @@ skills["KitavaDemonLeapSlam"] = {
 	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Two Handed Sword"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 2,
@@ -1519,7 +1519,7 @@ skills["KitavaDemonLeapSlam"] = {
 		"cast_time_overrides_attack_duration",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 1.2, baseMultiplier = 1.2, levelRequirement = 1, storedUses = 1, cooldown = 5, },
+		[1] = { baseMultiplier = 1.2, cooldown = 5, damageEffectiveness = 1.2, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["KitavaDemonCleave"] = {
@@ -1530,10 +1530,10 @@ skills["KitavaDemonCleave"] = {
 	description = "The character swings their weapon (or both weapons if dual wielding) in an arc, damaging monsters in an area in front of them. Only works with Axes and Swords.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ThresholdJewelArea] = true, },
 	weaponTypes = {
-		["Two Handed Axe"] = true,
+		["One Handed Axe"] = true,
 		["One Handed Sword"] = true,
 		["Thrusting One Handed Sword"] = true,
-		["One Handed Axe"] = true,
+		["Two Handed Axe"] = true,
 		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
@@ -1553,7 +1553,7 @@ skills["KitavaDemonCleave"] = {
 		"skill_double_hits_when_dual_wielding",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 1.9, baseMultiplier = 1.9, levelRequirement = 1, storedUses = 1, cooldown = 6, },
+		[1] = { baseMultiplier = 1.9, cooldown = 6, damageEffectiveness = 1.9, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["KitavaDemonWhirlingBlades"] = {
@@ -1565,10 +1565,10 @@ skills["KitavaDemonWhirlingBlades"] = {
 	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
 	weaponTypes = {
-		["Thrusting One Handed Sword"] = true,
-		["Dagger"] = true,
 		["Claw"] = true,
+		["Dagger"] = true,
 		["One Handed Sword"] = true,
+		["Thrusting One Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.859,
@@ -1586,10 +1586,10 @@ skills["KitavaDemonWhirlingBlades"] = {
 		"ignores_proximity_shield",
 	},
 	levels = {
-		[1] = { 16.666667039196, damageEffectiveness = 0.6, baseMultiplier = 0.6, levelRequirement = 1, storedUses = 1, cooldown = 6, statInterpolation = { 3, }, },
-		[2] = { 16.666667039196, damageEffectiveness = 0.6, baseMultiplier = 0.6, levelRequirement = 45, storedUses = 1, cooldown = 6, statInterpolation = { 3, }, },
-		[3] = { 16.666667039196, damageEffectiveness = 0.6, baseMultiplier = 0.6, levelRequirement = 68, storedUses = 1, cooldown = 6, statInterpolation = { 3, }, },
-		[4] = { 16.666667039196, damageEffectiveness = 0.6, baseMultiplier = 0.6, levelRequirement = 84, storedUses = 1, cooldown = 6, statInterpolation = { 3, }, },
+		[1] = { 16.666667039196, baseMultiplier = 0.6, cooldown = 6, damageEffectiveness = 0.6, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, }, },
+		[2] = { 16.666667039196, baseMultiplier = 0.6, cooldown = 6, damageEffectiveness = 0.6, levelRequirement = 45, storedUses = 1, statInterpolation = { 3, }, },
+		[3] = { 16.666667039196, baseMultiplier = 0.6, cooldown = 6, damageEffectiveness = 0.6, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, }, },
+		[4] = { 16.666667039196, baseMultiplier = 0.6, cooldown = 6, damageEffectiveness = 0.6, levelRequirement = 84, storedUses = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["KitavaDemonXMortar"] = {
@@ -1624,8 +1624,8 @@ skills["KitavaDemonXMortar"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, storedUses = 1, cooldown = 3, statInterpolation = { 3, 3, }, },
-		[2] = { 0.54000002145767, 0.80000001192093, levelRequirement = 68, storedUses = 1, cooldown = 3, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 3, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[2] = { 0.54000002145767, 0.80000001192093, cooldown = 3, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MassFrenzy"] = {
@@ -1643,7 +1643,7 @@ skills["MassFrenzy"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 0, storedUses = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 0, storedUses = 1, },
 	},
 }
 skills["MassPower"] = {
@@ -1661,7 +1661,7 @@ skills["MassPower"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 0, storedUses = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 0, storedUses = 1, },
 	},
 }
 skills["MinerThrowFireSpectre"] = {
@@ -1694,18 +1694,18 @@ skills["MinerThrowFireSpectre"] = {
 		"base_skill_effect_duration",
 	},
 	levels = {
-		[1] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2000, levelRequirement = 3, storedUses = 1, cooldown = 1.5, statInterpolation = { 3, 3, 3, 1, }, },
-		[2] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2100, levelRequirement = 5, storedUses = 1, cooldown = 1.5, statInterpolation = { 3, 3, 3, 1, }, },
-		[3] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2200, levelRequirement = 8, storedUses = 1, cooldown = 1.5, statInterpolation = { 3, 3, 3, 1, }, },
-		[4] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2300, levelRequirement = 11, storedUses = 1, cooldown = 1.5, statInterpolation = { 3, 3, 3, 1, }, },
-		[5] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2400, levelRequirement = 15, storedUses = 1, cooldown = 1.5, statInterpolation = { 3, 3, 3, 1, }, },
-		[6] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2500, levelRequirement = 19, storedUses = 1, cooldown = 1.5, statInterpolation = { 3, 3, 3, 1, }, },
-		[7] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2600, levelRequirement = 23, storedUses = 1, cooldown = 1.5, statInterpolation = { 3, 3, 3, 1, }, },
-		[8] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2700, levelRequirement = 27, storedUses = 1, cooldown = 1.5, statInterpolation = { 3, 3, 3, 1, }, },
-		[9] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2800, levelRequirement = 28, storedUses = 1, cooldown = 1.5, statInterpolation = { 3, 3, 3, 1, }, },
-		[10] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2900, levelRequirement = 32, storedUses = 1, cooldown = 1.5, statInterpolation = { 3, 3, 3, 1, }, },
-		[11] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 3000, levelRequirement = 40, storedUses = 1, cooldown = 1.5, statInterpolation = { 3, 3, 3, 1, }, },
-		[12] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 4000, levelRequirement = 79, storedUses = 1, cooldown = 1.5, statInterpolation = { 3, 3, 3, 1, }, },
+		[1] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2000, cooldown = 1.5, levelRequirement = 3, storedUses = 1, statInterpolation = { 3, 3, 3, 1, }, },
+		[2] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2100, cooldown = 1.5, levelRequirement = 5, storedUses = 1, statInterpolation = { 3, 3, 3, 1, }, },
+		[3] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2200, cooldown = 1.5, levelRequirement = 8, storedUses = 1, statInterpolation = { 3, 3, 3, 1, }, },
+		[4] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2300, cooldown = 1.5, levelRequirement = 11, storedUses = 1, statInterpolation = { 3, 3, 3, 1, }, },
+		[5] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2400, cooldown = 1.5, levelRequirement = 15, storedUses = 1, statInterpolation = { 3, 3, 3, 1, }, },
+		[6] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2500, cooldown = 1.5, levelRequirement = 19, storedUses = 1, statInterpolation = { 3, 3, 3, 1, }, },
+		[7] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2600, cooldown = 1.5, levelRequirement = 23, storedUses = 1, statInterpolation = { 3, 3, 3, 1, }, },
+		[8] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2700, cooldown = 1.5, levelRequirement = 27, storedUses = 1, statInterpolation = { 3, 3, 3, 1, }, },
+		[9] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2800, cooldown = 1.5, levelRequirement = 28, storedUses = 1, statInterpolation = { 3, 3, 3, 1, }, },
+		[10] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 2900, cooldown = 1.5, levelRequirement = 32, storedUses = 1, statInterpolation = { 3, 3, 3, 1, }, },
+		[11] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 3000, cooldown = 1.5, levelRequirement = 40, storedUses = 1, statInterpolation = { 3, 3, 3, 1, }, },
+		[12] = { 26.666667660077, 0.20000000298023, 0.30000001192093, 4000, cooldown = 1.5, levelRequirement = 79, storedUses = 1, statInterpolation = { 3, 3, 3, 1, }, },
 	},
 }
 skills["MonsterArc"] = {
@@ -1736,12 +1736,12 @@ skills["MonsterArc"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 3, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, cost = { Mana = 20, }, },
-		[2] = { 0.5, 1.5, levelRequirement = 8, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, cost = { Mana = 19, }, },
-		[3] = { 0.5, 1.5, levelRequirement = 12, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, cost = { Mana = 18, }, },
-		[4] = { 0.5, 1.5, levelRequirement = 25, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, cost = { Mana = 17, }, },
-		[5] = { 0.5, 1.5, levelRequirement = 32, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, cost = { Mana = 16, }, },
-		[6] = { 0.5, 1.5, levelRequirement = 70, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, cost = { Mana = 16, }, },
+		[1] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 3, statInterpolation = { 3, 3, }, cost = { Mana = 20, }, },
+		[2] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 8, statInterpolation = { 3, 3, }, cost = { Mana = 19, }, },
+		[3] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 12, statInterpolation = { 3, 3, }, cost = { Mana = 18, }, },
+		[4] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 25, statInterpolation = { 3, 3, }, cost = { Mana = 17, }, },
+		[5] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 32, statInterpolation = { 3, 3, }, cost = { Mana = 16, }, },
+		[6] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 70, statInterpolation = { 3, 3, }, cost = { Mana = 16, }, },
 	},
 }
 skills["MonsterCausticArrow"] = {
@@ -1867,12 +1867,12 @@ skills["MonsterCausticBomb"] = {
 		"spell_maximum_base_chaos_damage",
 	},
 	levels = {
-		[1] = { 0.30000001192093, 0.40000000596046, 16.666667039196, levelRequirement = 4, storedUses = 1, critChance = 5, cooldown = 4, statInterpolation = { 3, 3, 3, }, },
-		[2] = { 0.30000001192093, 0.40000000596046, 16.666667039196, levelRequirement = 7, storedUses = 1, critChance = 5, cooldown = 4, statInterpolation = { 3, 3, 3, }, },
-		[3] = { 0.30000001192093, 0.40000000596046, 16.666667039196, levelRequirement = 12, storedUses = 1, critChance = 5, cooldown = 4, statInterpolation = { 3, 3, 3, }, },
-		[4] = { 0.30000001192093, 0.40000000596046, 16.666667039196, levelRequirement = 16, storedUses = 1, critChance = 5, cooldown = 4, statInterpolation = { 3, 3, 3, }, },
-		[5] = { 0.30000001192093, 0.40000000596046, 16.666667039196, levelRequirement = 20, storedUses = 1, critChance = 5, cooldown = 4, statInterpolation = { 3, 3, 3, }, },
-		[6] = { 0.30000001192093, 0.40000000596046, 16.666667039196, levelRequirement = 76, storedUses = 1, critChance = 5, cooldown = 4, statInterpolation = { 3, 3, 3, }, },
+		[1] = { 0.30000001192093, 0.40000000596046, 16.666667039196, cooldown = 4, critChance = 5, levelRequirement = 4, storedUses = 1, statInterpolation = { 3, 3, 3, }, },
+		[2] = { 0.30000001192093, 0.40000000596046, 16.666667039196, cooldown = 4, critChance = 5, levelRequirement = 7, storedUses = 1, statInterpolation = { 3, 3, 3, }, },
+		[3] = { 0.30000001192093, 0.40000000596046, 16.666667039196, cooldown = 4, critChance = 5, levelRequirement = 12, storedUses = 1, statInterpolation = { 3, 3, 3, }, },
+		[4] = { 0.30000001192093, 0.40000000596046, 16.666667039196, cooldown = 4, critChance = 5, levelRequirement = 16, storedUses = 1, statInterpolation = { 3, 3, 3, }, },
+		[5] = { 0.30000001192093, 0.40000000596046, 16.666667039196, cooldown = 4, critChance = 5, levelRequirement = 20, storedUses = 1, statInterpolation = { 3, 3, 3, }, },
+		[6] = { 0.30000001192093, 0.40000000596046, 16.666667039196, cooldown = 4, critChance = 5, levelRequirement = 76, storedUses = 1, statInterpolation = { 3, 3, 3, }, },
 	},
 }
 skills["MonsterDischarge"] = {
@@ -1912,8 +1912,8 @@ skills["MonsterDischarge"] = {
 		"spell_maximum_base_cold_damage_per_removable_frenzy_charge",
 	},
 	levels = {
-		[1] = { 0.56000000238419, 1.6900000572205, 0.80000001192093, 1.2000000476837, 0.64999997615814, 0.98000001907349, levelRequirement = 4, damageEffectiveness = 1.5, critChance = 4, statInterpolation = { 3, 3, 3, 3, 3, 3, }, },
-		[2] = { 0.62000000476837, 1.8500000238419, 0.87999999523163, 1.3200000524521, 0.72000002861023, 1.0800000429153, levelRequirement = 68, damageEffectiveness = 1.5, critChance = 4, statInterpolation = { 3, 3, 3, 3, 3, 3, }, },
+		[1] = { 0.56000000238419, 1.6900000572205, 0.80000001192093, 1.2000000476837, 0.64999997615814, 0.98000001907349, critChance = 4, damageEffectiveness = 1.5, levelRequirement = 4, statInterpolation = { 3, 3, 3, 3, 3, 3, }, },
+		[2] = { 0.62000000476837, 1.8500000238419, 0.87999999523163, 1.3200000524521, 0.72000002861023, 1.0800000429153, critChance = 4, damageEffectiveness = 1.5, levelRequirement = 68, statInterpolation = { 3, 3, 3, 3, 3, 3, }, },
 	},
 }
 skills["MonsterEnduringCry"] = {
@@ -1938,40 +1938,40 @@ skills["MonsterEnduringCry"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 4, storedUses = 1, cooldown = 8, },
-		[2] = { levelRequirement = 7, storedUses = 1, cooldown = 8, },
-		[3] = { levelRequirement = 10, storedUses = 1, cooldown = 8, },
-		[4] = { levelRequirement = 14, storedUses = 1, cooldown = 8, },
-		[5] = { levelRequirement = 18, storedUses = 1, cooldown = 8, },
-		[6] = { levelRequirement = 22, storedUses = 1, cooldown = 8, },
-		[7] = { levelRequirement = 24, storedUses = 1, cooldown = 8, },
-		[8] = { levelRequirement = 28, storedUses = 1, cooldown = 8, },
-		[9] = { levelRequirement = 32, storedUses = 1, cooldown = 8, },
-		[10] = { levelRequirement = 36, storedUses = 1, cooldown = 8, },
-		[11] = { levelRequirement = 40, storedUses = 1, cooldown = 8, },
-		[12] = { levelRequirement = 44, storedUses = 1, cooldown = 8, },
-		[13] = { levelRequirement = 48, storedUses = 1, cooldown = 8, },
-		[14] = { levelRequirement = 52, storedUses = 1, cooldown = 8, },
-		[15] = { levelRequirement = 56, storedUses = 1, cooldown = 8, },
-		[16] = { levelRequirement = 60, storedUses = 1, cooldown = 8, },
-		[17] = { levelRequirement = 63, storedUses = 1, cooldown = 8, },
-		[18] = { levelRequirement = 66, storedUses = 1, cooldown = 8, },
-		[19] = { levelRequirement = 67, storedUses = 1, cooldown = 8, },
-		[20] = { levelRequirement = 68, storedUses = 1, cooldown = 8, },
-		[21] = { levelRequirement = 69, storedUses = 1, cooldown = 8, },
-		[22] = { levelRequirement = 70, storedUses = 1, cooldown = 8, },
-		[23] = { levelRequirement = 71, storedUses = 1, cooldown = 8, },
-		[24] = { levelRequirement = 72, storedUses = 1, cooldown = 8, },
-		[25] = { levelRequirement = 73, storedUses = 1, cooldown = 8, },
-		[26] = { levelRequirement = 74, storedUses = 1, cooldown = 8, },
-		[27] = { levelRequirement = 75, storedUses = 1, cooldown = 8, },
-		[28] = { levelRequirement = 76, storedUses = 1, cooldown = 8, },
-		[29] = { levelRequirement = 77, storedUses = 1, cooldown = 8, },
-		[30] = { levelRequirement = 78, storedUses = 1, cooldown = 8, },
-		[31] = { levelRequirement = 79, storedUses = 1, cooldown = 8, },
-		[32] = { levelRequirement = 80, storedUses = 1, cooldown = 8, },
-		[33] = { levelRequirement = 81, storedUses = 1, cooldown = 8, },
-		[34] = { levelRequirement = 82, storedUses = 1, cooldown = 8, },
+		[1] = { cooldown = 8, levelRequirement = 4, storedUses = 1, },
+		[2] = { cooldown = 8, levelRequirement = 7, storedUses = 1, },
+		[3] = { cooldown = 8, levelRequirement = 10, storedUses = 1, },
+		[4] = { cooldown = 8, levelRequirement = 14, storedUses = 1, },
+		[5] = { cooldown = 8, levelRequirement = 18, storedUses = 1, },
+		[6] = { cooldown = 8, levelRequirement = 22, storedUses = 1, },
+		[7] = { cooldown = 8, levelRequirement = 24, storedUses = 1, },
+		[8] = { cooldown = 8, levelRequirement = 28, storedUses = 1, },
+		[9] = { cooldown = 8, levelRequirement = 32, storedUses = 1, },
+		[10] = { cooldown = 8, levelRequirement = 36, storedUses = 1, },
+		[11] = { cooldown = 8, levelRequirement = 40, storedUses = 1, },
+		[12] = { cooldown = 8, levelRequirement = 44, storedUses = 1, },
+		[13] = { cooldown = 8, levelRequirement = 48, storedUses = 1, },
+		[14] = { cooldown = 8, levelRequirement = 52, storedUses = 1, },
+		[15] = { cooldown = 8, levelRequirement = 56, storedUses = 1, },
+		[16] = { cooldown = 8, levelRequirement = 60, storedUses = 1, },
+		[17] = { cooldown = 8, levelRequirement = 63, storedUses = 1, },
+		[18] = { cooldown = 8, levelRequirement = 66, storedUses = 1, },
+		[19] = { cooldown = 8, levelRequirement = 67, storedUses = 1, },
+		[20] = { cooldown = 8, levelRequirement = 68, storedUses = 1, },
+		[21] = { cooldown = 8, levelRequirement = 69, storedUses = 1, },
+		[22] = { cooldown = 8, levelRequirement = 70, storedUses = 1, },
+		[23] = { cooldown = 8, levelRequirement = 71, storedUses = 1, },
+		[24] = { cooldown = 8, levelRequirement = 72, storedUses = 1, },
+		[25] = { cooldown = 8, levelRequirement = 73, storedUses = 1, },
+		[26] = { cooldown = 8, levelRequirement = 74, storedUses = 1, },
+		[27] = { cooldown = 8, levelRequirement = 75, storedUses = 1, },
+		[28] = { cooldown = 8, levelRequirement = 76, storedUses = 1, },
+		[29] = { cooldown = 8, levelRequirement = 77, storedUses = 1, },
+		[30] = { cooldown = 8, levelRequirement = 78, storedUses = 1, },
+		[31] = { cooldown = 8, levelRequirement = 79, storedUses = 1, },
+		[32] = { cooldown = 8, levelRequirement = 80, storedUses = 1, },
+		[33] = { cooldown = 8, levelRequirement = 81, storedUses = 1, },
+		[34] = { cooldown = 8, levelRequirement = 82, storedUses = 1, },
 	},
 }
 skills["AxisEnfeeble"] = {
@@ -2010,7 +2010,7 @@ skills["AxisEnfeeble"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 10, },
+		[1] = { cooldown = 10, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["MonsterFireballContactPos"] = {
@@ -2045,8 +2045,8 @@ skills["MonsterFireballContactPos"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, critChance = 6, statInterpolation = { 3, 3, }, },
-		[2] = { 1.9400000572205, 3.0099999904633, levelRequirement = 68, critChance = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 3, statInterpolation = { 3, 3, }, },
+		[2] = { 1.9400000572205, 3.0099999904633, critChance = 6, levelRequirement = 68, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MonsterFireBomb"] = {
@@ -2086,8 +2086,8 @@ skills["MonsterFireBomb"] = {
 		"base_fire_damage_to_deal_per_minute",
 	},
 	levels = {
-		[1] = { 0.40000000596046, 0.60000002384186, 16.666667039196, levelRequirement = 4, critChance = 5, statInterpolation = { 3, 3, 3, }, },
-		[2] = { 0.56000000238419, 0.83999997377396, 23.33333345751, levelRequirement = 68, critChance = 5, statInterpolation = { 3, 3, 3, }, },
+		[1] = { 0.40000000596046, 0.60000002384186, 16.666667039196, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, 3, }, },
+		[2] = { 0.56000000238419, 0.83999997377396, 23.33333345751, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 3, }, },
 	},
 }
 skills["MonsterFlickerStrike"] = {
@@ -2098,17 +2098,17 @@ skills["MonsterFlickerStrike"] = {
 	description = "Teleports the character to a nearby monster and attacks with a melee weapon. If no specific monster is targeted, one is picked at random. Grants a buff that increases movement speed for a duration. The cooldown can be bypassed by expending a Frenzy Charge.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Movement] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
-		["Two Handed Axe"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
-		["Claw"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -2127,7 +2127,7 @@ skills["MonsterFlickerStrike"] = {
 		"melee_defer_damage_prediction",
 	},
 	levels = {
-		[1] = { levelRequirement = 13, storedUses = 1, cooldown = 2, },
+		[1] = { cooldown = 2, levelRequirement = 13, storedUses = 1, },
 	},
 }
 skills["MonsterFlameRedCannibal"] = {
@@ -2164,7 +2164,7 @@ skills["MonsterFlameRedCannibal"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.30000001192093, 0.60000002384186, levelRequirement = 3, damageEffectiveness = 0.25, statInterpolation = { 3, 3, }, },
+		[1] = { 0.30000001192093, 0.60000002384186, damageEffectiveness = 0.25, levelRequirement = 3, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MonsterIceShot"] = {
@@ -2229,8 +2229,8 @@ skills["MountainGoatmanIceSpear"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 50, levelRequirement = 40, critChance = 7, statInterpolation = { 3, 3, 1, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, 25, levelRequirement = 68, critChance = 7, statInterpolation = { 3, 3, 1, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, 50, critChance = 7, levelRequirement = 40, statInterpolation = { 3, 3, 1, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 25, critChance = 7, levelRequirement = 68, statInterpolation = { 3, 3, 1, }, },
 	},
 }
 skills["MonsterLeapSlam"] = {
@@ -2241,15 +2241,15 @@ skills["MonsterLeapSlam"] = {
 	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Two Handed Sword"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.4,
@@ -2266,7 +2266,7 @@ skills["MonsterLeapSlam"] = {
 		"cast_time_overrides_attack_duration",
 	},
 	levels = {
-		[1] = { levelRequirement = 2, damageEffectiveness = 1.5, baseMultiplier = 1.5, },
+		[1] = { baseMultiplier = 1.5, damageEffectiveness = 1.5, levelRequirement = 2, },
 	},
 }
 skills["MonsterLeapSlamFoothills"] = {
@@ -2277,15 +2277,15 @@ skills["MonsterLeapSlamFoothills"] = {
 	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Two Handed Sword"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.4,
@@ -2303,7 +2303,7 @@ skills["MonsterLeapSlamFoothills"] = {
 		"cast_time_overrides_attack_duration",
 	},
 	levels = {
-		[1] = { levelRequirement = 2, damageEffectiveness = 1.5, baseMultiplier = 1.5, },
+		[1] = { baseMultiplier = 1.5, damageEffectiveness = 1.5, levelRequirement = 2, },
 	},
 }
 skills["MonsterLesserMultiFireballSpectre"] = {
@@ -2336,8 +2336,8 @@ skills["MonsterLesserMultiFireballSpectre"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, critChance = 6, statInterpolation = { 3, 3, }, },
-		[2] = { 1.7599999904633, 2.6400001049042, levelRequirement = 68, critChance = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 3, statInterpolation = { 3, 3, }, },
+		[2] = { 1.7599999904633, 2.6400001049042, critChance = 6, levelRequirement = 68, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MonsterLesserMultiIceSpear"] = {
@@ -2368,8 +2368,8 @@ skills["MonsterLesserMultiIceSpear"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, damageEffectiveness = 0.8, critChance = 7, statInterpolation = { 3, 3, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, levelRequirement = 68, damageEffectiveness = 0.8, critChance = 7, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 7, damageEffectiveness = 0.8, levelRequirement = 3, statInterpolation = { 3, 3, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, critChance = 7, damageEffectiveness = 0.8, levelRequirement = 68, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MonsterLightningArrow"] = {
@@ -2431,7 +2431,7 @@ skills["SkeletonArcherLightningArrow"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { levelRequirement = 9, baseMultiplier = 1.25, },
+		[1] = { baseMultiplier = 1.25, levelRequirement = 9, },
 	},
 }
 skills["MonsterLightningThorns"] = {
@@ -2453,7 +2453,7 @@ skills["MonsterLightningThorns"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 3, storedUses = 2, cooldown = 3.5, },
+		[1] = { cooldown = 3.5, levelRequirement = 3, storedUses = 2, },
 	},
 }
 skills["MonsterMultiFireballSpectre"] = {
@@ -2486,8 +2486,8 @@ skills["MonsterMultiFireballSpectre"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, critChance = 6, statInterpolation = { 3, 3, }, },
-		[2] = { 1.7599999904633, 2.6400001049042, levelRequirement = 68, critChance = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 3, statInterpolation = { 3, 3, }, },
+		[2] = { 1.7599999904633, 2.6400001049042, critChance = 6, levelRequirement = 68, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MonsterMultiIceSpear"] = {
@@ -2518,8 +2518,8 @@ skills["MonsterMultiIceSpear"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, damageEffectiveness = 0.8, critChance = 7, statInterpolation = { 3, 3, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, levelRequirement = 68, damageEffectiveness = 0.8, critChance = 7, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 7, damageEffectiveness = 0.8, levelRequirement = 3, statInterpolation = { 3, 3, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, critChance = 7, damageEffectiveness = 0.8, levelRequirement = 68, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MonsterProjectileWeakness"] = {
@@ -2554,9 +2554,9 @@ skills["MonsterProjectileWeakness"] = {
 		"active_skill_area_of_effect_radius_+%_final",
 	},
 	levels = {
-		[1] = { 32, 24, levelRequirement = 25, storedUses = 1, cooldown = 12, statInterpolation = { 1, 1, }, },
-		[2] = { 34, 42, levelRequirement = 55, storedUses = 1, cooldown = 12, statInterpolation = { 1, 1, }, },
-		[3] = { 34, 42, levelRequirement = 60, storedUses = 1, cooldown = 12, statInterpolation = { 1, 1, }, },
+		[1] = { 32, 24, cooldown = 12, levelRequirement = 25, storedUses = 1, statInterpolation = { 1, 1, }, },
+		[2] = { 34, 42, cooldown = 12, levelRequirement = 55, storedUses = 1, statInterpolation = { 1, 1, }, },
+		[3] = { 34, 42, cooldown = 12, levelRequirement = 60, storedUses = 1, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["MonsterProximityShield"] = {
@@ -2577,7 +2577,7 @@ skills["MonsterProximityShield"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 0, storedUses = 1, cooldown = 18, },
+		[1] = { cooldown = 18, levelRequirement = 0, storedUses = 1, },
 	},
 }
 skills["MonsterPuncture"] = {
@@ -2588,12 +2588,12 @@ skills["MonsterPuncture"] = {
 	description = "Punctures enemies, causing a bleeding debuff, which will be affected by modifiers to skill duration. Puncture works with bows, daggers, claws or swords.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.DamageOverTime] = true, [SkillType.Triggerable] = true, [SkillType.Physical] = true, },
 	weaponTypes = {
-		["Two Handed Sword"] = true,
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
 		["Bow"] = true,
 		["Claw"] = true,
 		["Dagger"] = true,
+		["One Handed Sword"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -2614,9 +2614,9 @@ skills["MonsterPuncture"] = {
 		"active_skill_bleeding_damage_+%_final",
 	},
 	levels = {
-		[1] = { 112, levelRequirement = 9, baseMultiplier = 1.2, statInterpolation = { 1, }, },
-		[2] = { 155, levelRequirement = 30, baseMultiplier = 1.2, statInterpolation = { 1, }, },
-		[3] = { 197, levelRequirement = 60, baseMultiplier = 1.2, statInterpolation = { 1, }, },
+		[1] = { 112, baseMultiplier = 1.2, levelRequirement = 9, statInterpolation = { 1, }, },
+		[2] = { 155, baseMultiplier = 1.2, levelRequirement = 30, statInterpolation = { 1, }, },
+		[3] = { 197, baseMultiplier = 1.2, levelRequirement = 60, statInterpolation = { 1, }, },
 	},
 }
 skills["MonsterRighteousFireWhileSpectred"] = {
@@ -2677,8 +2677,8 @@ skills["MonsterShockNova"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 4, critChance = 3, statInterpolation = { 3, 3, }, },
-		[2] = { 1.460000038147, 4.3899998664856, levelRequirement = 68, critChance = 3, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 3, levelRequirement = 4, statInterpolation = { 3, 3, }, },
+		[2] = { 1.460000038147, 4.3899998664856, critChance = 3, levelRequirement = 68, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MonsterSpark"] = {
@@ -2711,14 +2711,14 @@ skills["MonsterSpark"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 4, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, },
-		[2] = { 0.5, 1.5, levelRequirement = 8, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, },
-		[3] = { 0.5, 1.5, levelRequirement = 11, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, },
-		[4] = { 0.5, 1.5, levelRequirement = 25, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, },
-		[5] = { 0.5, 1.5, levelRequirement = 29, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, },
-		[6] = { 0.5, 1.5, levelRequirement = 31, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, },
-		[7] = { 0.5, 1.5, levelRequirement = 66, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, },
-		[8] = { 1.1000000238419, 3.2999999523163, levelRequirement = 68, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 4, statInterpolation = { 3, 3, }, },
+		[2] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 8, statInterpolation = { 3, 3, }, },
+		[3] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 11, statInterpolation = { 3, 3, }, },
+		[4] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 25, statInterpolation = { 3, 3, }, },
+		[5] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 29, statInterpolation = { 3, 3, }, },
+		[6] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 31, statInterpolation = { 3, 3, }, },
+		[7] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 66, statInterpolation = { 3, 3, }, },
+		[8] = { 1.1000000238419, 3.2999999523163, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 68, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MonsterSplitFireballSpectre"] = {
@@ -2751,8 +2751,8 @@ skills["MonsterSplitFireballSpectre"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, critChance = 6, statInterpolation = { 3, 3, }, },
-		[2] = { 1.7599999904633, 2.6400001049042, levelRequirement = 68, critChance = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 3, statInterpolation = { 3, 3, }, },
+		[2] = { 1.7599999904633, 2.6400001049042, critChance = 6, levelRequirement = 68, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MonsterSplitIceSpear"] = {
@@ -2783,8 +2783,8 @@ skills["MonsterSplitIceSpear"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, damageEffectiveness = 0.8, critChance = 7, statInterpolation = { 3, 3, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, levelRequirement = 68, damageEffectiveness = 0.8, critChance = 7, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 7, damageEffectiveness = 0.8, levelRequirement = 3, statInterpolation = { 3, 3, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, critChance = 7, damageEffectiveness = 0.8, levelRequirement = 68, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MonsterViperStrike"] = {
@@ -2796,11 +2796,11 @@ skills["MonsterViperStrike"] = {
 	description = "Hits enemies, converting some of your physical damage to chaos damage and inflicting poison which will be affected by modifiers to skill duration. If dual wielding, will strike with both weapons. Requires a claw, dagger or sword.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Duration] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.DamageOverTime] = true, [SkillType.Chaos] = true, },
 	weaponTypes = {
+		["Claw"] = true,
+		["Dagger"] = true,
 		["One Handed Sword"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
-		["Claw"] = true,
-		["Dagger"] = true,
 	},
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
@@ -2859,7 +2859,7 @@ skills["MonsterWarlordsMark"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 8, },
+		[1] = { cooldown = 8, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["MotherOfFlamesMagmaOrb3"] = {
@@ -2893,8 +2893,8 @@ skills["MotherOfFlamesMagmaOrb3"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, storedUses = 3, critChance = 5, cooldown = 3, statInterpolation = { 3, 3, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, levelRequirement = 68, storedUses = 3, critChance = 5, cooldown = 3, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 3, critChance = 5, levelRequirement = 1, storedUses = 3, statInterpolation = { 3, 3, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, cooldown = 3, critChance = 5, levelRequirement = 68, storedUses = 3, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["NecromancerConductivity"] = {
@@ -2929,10 +2929,10 @@ skills["NecromancerConductivity"] = {
 		"base_lightning_damage_resistance_%",
 	},
 	levels = {
-		[1] = { -20, levelRequirement = 10, storedUses = 1, cooldown = 10, statInterpolation = { 1, }, },
-		[2] = { -25, levelRequirement = 41, storedUses = 1, cooldown = 10, statInterpolation = { 1, }, },
-		[3] = { -30, levelRequirement = 58, storedUses = 1, cooldown = 10, statInterpolation = { 1, }, },
-		[4] = { -40, levelRequirement = 71, storedUses = 1, cooldown = 10, statInterpolation = { 1, }, },
+		[1] = { -20, cooldown = 10, levelRequirement = 10, storedUses = 1, statInterpolation = { 1, }, },
+		[2] = { -25, cooldown = 10, levelRequirement = 41, storedUses = 1, statInterpolation = { 1, }, },
+		[3] = { -30, cooldown = 10, levelRequirement = 58, storedUses = 1, statInterpolation = { 1, }, },
+		[4] = { -40, cooldown = 10, levelRequirement = 71, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["NecromancerElementalWeakness"] = {
@@ -2963,10 +2963,10 @@ skills["NecromancerElementalWeakness"] = {
 		"base_resist_all_elements_%",
 	},
 	levels = {
-		[1] = { -20, levelRequirement = 10, storedUses = 1, cooldown = 10, statInterpolation = { 1, }, },
-		[2] = { -25, levelRequirement = 40, storedUses = 1, cooldown = 10, statInterpolation = { 1, }, },
-		[3] = { -30, levelRequirement = 56, storedUses = 1, cooldown = 10, statInterpolation = { 1, }, },
-		[4] = { -40, levelRequirement = 71, storedUses = 1, cooldown = 10, statInterpolation = { 1, }, },
+		[1] = { -20, cooldown = 10, levelRequirement = 10, storedUses = 1, statInterpolation = { 1, }, },
+		[2] = { -25, cooldown = 10, levelRequirement = 40, storedUses = 1, statInterpolation = { 1, }, },
+		[3] = { -30, cooldown = 10, levelRequirement = 56, storedUses = 1, statInterpolation = { 1, }, },
+		[4] = { -40, cooldown = 10, levelRequirement = 71, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["NecromancerEnfeeble"] = {
@@ -3005,7 +3005,7 @@ skills["NecromancerEnfeeble"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 4, storedUses = 1, cooldown = 10, },
+		[1] = { cooldown = 10, levelRequirement = 4, storedUses = 1, },
 	},
 }
 skills["NecromancerFlammability"] = {
@@ -3040,10 +3040,10 @@ skills["NecromancerFlammability"] = {
 		"base_fire_damage_resistance_%",
 	},
 	levels = {
-		[1] = { -20, levelRequirement = 10, storedUses = 1, cooldown = 10, statInterpolation = { 1, }, },
-		[2] = { -25, levelRequirement = 41, storedUses = 1, cooldown = 10, statInterpolation = { 1, }, },
-		[3] = { -30, levelRequirement = 58, storedUses = 1, cooldown = 10, statInterpolation = { 1, }, },
-		[4] = { -40, levelRequirement = 71, storedUses = 1, cooldown = 10, statInterpolation = { 1, }, },
+		[1] = { -20, cooldown = 10, levelRequirement = 10, storedUses = 1, statInterpolation = { 1, }, },
+		[2] = { -25, cooldown = 10, levelRequirement = 41, storedUses = 1, statInterpolation = { 1, }, },
+		[3] = { -30, cooldown = 10, levelRequirement = 58, storedUses = 1, statInterpolation = { 1, }, },
+		[4] = { -40, cooldown = 10, levelRequirement = 71, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["NecromancerFrostbite"] = {
@@ -3078,10 +3078,10 @@ skills["NecromancerFrostbite"] = {
 		"base_cold_damage_resistance_%",
 	},
 	levels = {
-		[1] = { -20, levelRequirement = 10, storedUses = 1, cooldown = 10, statInterpolation = { 1, }, },
-		[2] = { -25, levelRequirement = 41, storedUses = 1, cooldown = 10, statInterpolation = { 1, }, },
-		[3] = { -30, levelRequirement = 58, storedUses = 1, cooldown = 10, statInterpolation = { 1, }, },
-		[4] = { -40, levelRequirement = 71, storedUses = 1, cooldown = 10, statInterpolation = { 1, }, },
+		[1] = { -20, cooldown = 10, levelRequirement = 10, storedUses = 1, statInterpolation = { 1, }, },
+		[2] = { -25, cooldown = 10, levelRequirement = 41, storedUses = 1, statInterpolation = { 1, }, },
+		[3] = { -30, cooldown = 10, levelRequirement = 58, storedUses = 1, statInterpolation = { 1, }, },
+		[4] = { -40, cooldown = 10, levelRequirement = 71, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["NecromancerProjectileWeakness"] = {
@@ -3116,9 +3116,9 @@ skills["NecromancerProjectileWeakness"] = {
 		"active_skill_area_of_effect_radius_+%_final",
 	},
 	levels = {
-		[1] = { 22, 24, levelRequirement = 25, storedUses = 1, cooldown = 12, statInterpolation = { 1, 1, }, },
-		[2] = { 24, 42, levelRequirement = 55, storedUses = 1, cooldown = 12, statInterpolation = { 1, 1, }, },
-		[3] = { 24, 42, levelRequirement = 60, storedUses = 1, cooldown = 12, statInterpolation = { 1, 1, }, },
+		[1] = { 22, 24, cooldown = 12, levelRequirement = 25, storedUses = 1, statInterpolation = { 1, 1, }, },
+		[2] = { 24, 42, cooldown = 12, levelRequirement = 55, storedUses = 1, statInterpolation = { 1, 1, }, },
+		[3] = { 24, 42, cooldown = 12, levelRequirement = 60, storedUses = 1, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["NecromancerRaiseZombie"] = {
@@ -3180,7 +3180,7 @@ skills["NecromancerVulnerability"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 9, },
+		[1] = { cooldown = 9, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["PyroChaosFireball"] = {
@@ -3216,7 +3216,7 @@ skills["PyroChaosFireball"] = {
 		"spell_maximum_base_chaos_damage",
 	},
 	levels = {
-		[1] = { 0.40000000596046, 0.60000002384186, 0.27000001072884, 0.33000001311302, levelRequirement = 3, storedUses = 1, critChance = 6, cooldown = 3, statInterpolation = { 3, 3, 3, 3, }, },
+		[1] = { 0.40000000596046, 0.60000002384186, 0.27000001072884, 0.33000001311302, cooldown = 3, critChance = 6, levelRequirement = 3, storedUses = 1, statInterpolation = { 3, 3, 3, 3, }, },
 	},
 }
 skills["PyroFireball"] = {
@@ -3248,8 +3248,8 @@ skills["PyroFireball"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, critChance = 6, statInterpolation = { 3, 3, }, },
-		[2] = { 1.1200000047684, 1.6799999475479, levelRequirement = 68, critChance = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 3, statInterpolation = { 3, 3, }, },
+		[2] = { 1.1200000047684, 1.6799999475479, critChance = 6, levelRequirement = 68, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["PyroSuicideExplosion"] = {
@@ -3314,7 +3314,7 @@ skills["RevenantSpellProjectileSpectre"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.60000002384186, 1.3999999761581, levelRequirement = 3, storedUses = 2, cooldown = 3, statInterpolation = { 3, 3, }, },
+		[1] = { 0.60000002384186, 1.3999999761581, cooldown = 3, levelRequirement = 3, storedUses = 2, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SeawitchFrostbolt"] = {
@@ -3342,8 +3342,8 @@ skills["SeawitchFrostbolt"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, storedUses = 1, critChance = 5, cooldown = 3, statInterpolation = { 3, 3, }, },
-		[2] = { 1.0499999523163, 1.5800000429153, levelRequirement = 68, storedUses = 1, critChance = 5, cooldown = 3, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 3, critChance = 5, levelRequirement = 3, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[2] = { 1.0499999523163, 1.5800000429153, cooldown = 3, critChance = 5, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SeaWitchScreech"] = {
@@ -3374,8 +3374,8 @@ skills["SeaWitchScreech"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, storedUses = 1, cooldown = 6.5, statInterpolation = { 3, 3, }, },
-		[2] = { 1.8500000238419, 2.8800001144409, levelRequirement = 68, storedUses = 1, cooldown = 6.5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 6.5, levelRequirement = 3, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[2] = { 1.8500000238419, 2.8800001144409, cooldown = 6.5, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SeawitchVulnerability"] = {
@@ -3410,7 +3410,7 @@ skills["SeawitchVulnerability"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 8, },
+		[1] = { cooldown = 8, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SkeletonBlackAbyssBoneLance"] = {
@@ -3445,8 +3445,8 @@ skills["SkeletonBlackAbyssBoneLance"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, storedUses = 1, cooldown = 6, statInterpolation = { 3, 3, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, levelRequirement = 82, storedUses = 1, cooldown = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 6, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, cooldown = 6, levelRequirement = 82, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SkeletonCannonMortar"] = {
@@ -3484,8 +3484,8 @@ skills["SkeletonCannonMortar"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.87999999523163, 1.3200000524521, levelRequirement = 45, critChance = 5, statInterpolation = { 3, 3, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, levelRequirement = 68, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.87999999523163, 1.3200000524521, critChance = 5, levelRequirement = 45, statInterpolation = { 3, 3, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SkeletonCannonBoneMortar"] = {
@@ -3522,8 +3522,8 @@ skills["SkeletonCannonBoneMortar"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.87999999523163, 1.3200000524521, levelRequirement = 45, storedUses = 1, critChance = 5, cooldown = 4, statInterpolation = { 3, 3, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, levelRequirement = 68, storedUses = 1, critChance = 5, cooldown = 4, statInterpolation = { 3, 3, }, },
+		[1] = { 0.87999999523163, 1.3200000524521, cooldown = 4, critChance = 5, levelRequirement = 45, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, cooldown = 4, critChance = 5, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SkeletonCannonBoneNova"] = {
@@ -3548,7 +3548,7 @@ skills["SkeletonCannonBoneNova"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 5, },
+		[1] = { cooldown = 5, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SkeletonMassBowProjectile"] = {
@@ -3606,7 +3606,7 @@ skills["SkeletonProjectileBlack"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SkeletonSoldierTornadoShot"] = {
@@ -3671,13 +3671,13 @@ skills["SkeletonSpark"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 4, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, cost = { Mana = 50, }, },
-		[2] = { 0.5, 1.5, levelRequirement = 8, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, cost = { Mana = 48, }, },
-		[3] = { 0.5, 1.5, levelRequirement = 11, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, cost = { Mana = 45, }, },
-		[4] = { 0.5, 1.5, levelRequirement = 20, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, cost = { Mana = 44, }, },
-		[5] = { 0.5, 1.5, levelRequirement = 28, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, cost = { Mana = 41, }, },
-		[6] = { 0.5, 1.5, levelRequirement = 29, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, cost = { Mana = 40, }, },
-		[7] = { 2.2400000095367, 6.7300000190735, levelRequirement = 68, damageEffectiveness = 0.7, critChance = 5, statInterpolation = { 3, 3, }, cost = { Mana = 40, }, },
+		[1] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 4, statInterpolation = { 3, 3, }, cost = { Mana = 50, }, },
+		[2] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 8, statInterpolation = { 3, 3, }, cost = { Mana = 48, }, },
+		[3] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 11, statInterpolation = { 3, 3, }, cost = { Mana = 45, }, },
+		[4] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 20, statInterpolation = { 3, 3, }, cost = { Mana = 44, }, },
+		[5] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 28, statInterpolation = { 3, 3, }, cost = { Mana = 41, }, },
+		[6] = { 0.5, 1.5, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 29, statInterpolation = { 3, 3, }, cost = { Mana = 40, }, },
+		[7] = { 2.2400000095367, 6.7300000190735, critChance = 5, damageEffectiveness = 0.7, levelRequirement = 68, statInterpolation = { 3, 3, }, cost = { Mana = 40, }, },
 	},
 }
 skills["AxisTemporalChains"] = {
@@ -3716,7 +3716,7 @@ skills["AxisTemporalChains"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 0, storedUses = 1, cooldown = 8, },
+		[1] = { cooldown = 8, levelRequirement = 0, storedUses = 1, },
 	},
 }
 skills["SkeletonVulnerability"] = {
@@ -3785,7 +3785,7 @@ skills["SlavedriverFlameWhip"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 1, critChance = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["KitavaSlavedriverFlameWhip"] = {
@@ -3819,7 +3819,7 @@ skills["KitavaSlavedriverFlameWhip"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, critChance = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SnakeSpineProjectile"] = {
@@ -3905,9 +3905,9 @@ skills["SpecialBeamCannon"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, storedUses = 1, cooldown = 8, statInterpolation = { 3, 3, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, levelRequirement = 68, storedUses = 1, cooldown = 8, statInterpolation = { 3, 3, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, levelRequirement = 82, storedUses = 1, cooldown = 8, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 8, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, cooldown = 8, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, cooldown = 8, levelRequirement = 82, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["TarMortarTaster"] = {
@@ -3943,8 +3943,8 @@ skills["TarMortarTaster"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, storedUses = 1, cooldown = 4, statInterpolation = { 3, 3, }, },
-		[2] = { 0.87999999523163, 1.3200000524521, 33, levelRequirement = 68, storedUses = 1, cooldown = 4, statInterpolation = { 3, 3, 1, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 4, levelRequirement = 3, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[2] = { 0.87999999523163, 1.3200000524521, 33, cooldown = 4, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, 3, 1, }, },
 	},
 }
 skills["UndyingWhirlingBlades"] = {
@@ -3955,10 +3955,10 @@ skills["UndyingWhirlingBlades"] = {
 	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
 	weaponTypes = {
-		["Thrusting One Handed Sword"] = true,
-		["Dagger"] = true,
 		["Claw"] = true,
+		["Dagger"] = true,
 		["One Handed Sword"] = true,
+		["Thrusting One Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.43,
@@ -3985,10 +3985,10 @@ skills["WalkingDoubleSlash"] = {
 	color = 2,
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, },
 	weaponTypes = {
-		["Two Handed Axe"] = true,
+		["One Handed Axe"] = true,
 		["One Handed Sword"] = true,
 		["Thrusting One Handed Sword"] = true,
-		["One Handed Axe"] = true,
+		["Two Handed Axe"] = true,
 		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
@@ -4006,7 +4006,7 @@ skills["WalkingDoubleSlash"] = {
 		"disable_skill_repeats",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 0.95, baseMultiplier = 0.7, levelRequirement = 12, storedUses = 1, cooldown = 6, },
+		[1] = { baseMultiplier = 0.7, cooldown = 6, damageEffectiveness = 0.95, levelRequirement = 12, storedUses = 1, },
 	},
 }
 skills["WickerManMoltenStrike"] = {
@@ -4017,17 +4017,17 @@ skills["WickerManMoltenStrike"] = {
 	description = "Infuses your melee weapon with molten energies to attack with physical and fire damage. This attack causes balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will deal area attack damage to enemies where they land.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Fire] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.ThresholdJewelChaining] = true, [SkillType.Multistrikeable] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
-		["Two Handed Axe"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
-		["Claw"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -4132,7 +4132,7 @@ skills["VaalIncursionFirestorm"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, storedUses = 1, cooldown = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 6, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["VaalIncursionSpecialBeamCannonBlood"] = {
@@ -4161,7 +4161,7 @@ skills["VaalIncursionSpecialBeamCannonBlood"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 83, storedUses = 1, cooldown = 8, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 8, levelRequirement = 83, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MeleeEyrieArrow"] = {
@@ -4193,10 +4193,10 @@ skills["MeleeEyrieArrow"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0, levelRequirement = 1, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[2] = { 0, levelRequirement = 19, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[3] = { 1, levelRequirement = 20, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[4] = { 200, levelRequirement = 84, baseMultiplier = 0.75, statInterpolation = { 2, }, },
+		[1] = { 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 0.75, levelRequirement = 19, statInterpolation = { 2, }, },
+		[3] = { 1, baseMultiplier = 0.75, levelRequirement = 20, statInterpolation = { 2, }, },
+		[4] = { 200, baseMultiplier = 0.75, levelRequirement = 84, statInterpolation = { 2, }, },
 	},
 }
 skills["AtlasEyrieArcherMortar"] = {
@@ -4229,7 +4229,7 @@ skills["AtlasEyrieArcherMortar"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, storedUses = 1, critChance = 5, cooldown = 10, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 10, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AtlasEyrieArcherSnipe"] = {
@@ -4290,7 +4290,7 @@ skills["AtlasEyrieArcherCrystalImpact"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AtlasExilesCrusaderMageguardProjectile"] = {
@@ -4323,7 +4323,7 @@ skills["AtlasExilesCrusaderMageguardProjectile"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AtlasExileCrusaderMageguardBombExplodeSpectre"] = {
@@ -4350,7 +4350,7 @@ skills["AtlasExileCrusaderMageguardBombExplodeSpectre"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AtlasCrusaderMageguardBeam"] = {
@@ -4377,7 +4377,7 @@ skills["AtlasCrusaderMageguardBeam"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, storedUses = 1, critChance = 5, cooldown = 8, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, cooldown = 8, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AtlasCrusaderSisterMortarSpectre"] = {
@@ -4415,7 +4415,7 @@ skills["AtlasCrusaderSisterMortarSpectre"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.69999998807907, 1.2999999523163, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.69999998807907, 1.2999999523163, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["BreachLightningWhip"] = {
@@ -4449,8 +4449,8 @@ skills["BreachLightningWhip"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 1, storedUses = 1, critChance = 5, cooldown = 5, statInterpolation = { 3, 3, }, },
-		[2] = { 1, 3, levelRequirement = 68, storedUses = 1, critChance = 5, cooldown = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, cooldown = 5, critChance = 5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[2] = { 1, 3, cooldown = 5, critChance = 5, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["BreachArc"] = {
@@ -4508,7 +4508,7 @@ skills["BreachTeamWarp"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 20, },
+		[1] = { cooldown = 20, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["BreachLightningOrbsCommander"] = {
@@ -4540,7 +4540,7 @@ skills["BreachLightningOrbsCommander"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 1, storedUses = 1, critChance = 5, cooldown = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, cooldown = 5, critChance = 5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SandLeaperDodgeLeft"] = {
@@ -4608,7 +4608,7 @@ skills["SynthesisSoulstealerProjectileLightning"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SynthesisSoulstealerLaser"] = {
@@ -4637,7 +4637,7 @@ skills["SynthesisSoulstealerLaser"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SynthesisSoulstealerBolt"] = {
@@ -4671,7 +4671,7 @@ skills["SynthesisSoulstealerBolt"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.69999998807907, 1.2999999523163, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.69999998807907, 1.2999999523163, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MeleeCold"] = {
@@ -4700,10 +4700,10 @@ skills["MeleeCold"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0, levelRequirement = 1, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[2] = { 0, levelRequirement = 19, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[3] = { 1, levelRequirement = 20, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[4] = { 200, levelRequirement = 84, baseMultiplier = 0.75, statInterpolation = { 2, }, },
+		[1] = { 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 0.75, levelRequirement = 19, statInterpolation = { 2, }, },
+		[3] = { 1, baseMultiplier = 0.75, levelRequirement = 20, statInterpolation = { 2, }, },
+		[4] = { 200, baseMultiplier = 0.75, levelRequirement = 84, statInterpolation = { 2, }, },
 	},
 }
 skills["AtlasCrusaderJudgeBallLightning"] = {
@@ -4738,7 +4738,7 @@ skills["AtlasCrusaderJudgeBallLightning"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, critChance = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AtlasCruasderJudgeFadingNova"] = {
@@ -4772,7 +4772,7 @@ skills["AtlasCruasderJudgeFadingNova"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, storedUses = 1, critChance = 5, cooldown = 8, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, cooldown = 8, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GAHarvestCrabDashSlam"] = {
@@ -4838,10 +4838,10 @@ skills["HarvestCrabAbyssSlam"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { -30, levelRequirement = 1, storedUses = 1, cooldown = 10, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[2] = { 0, levelRequirement = 19, storedUses = 1, cooldown = 10, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[3] = { 1, levelRequirement = 20, storedUses = 1, cooldown = 10, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[4] = { 60, levelRequirement = 84, storedUses = 1, cooldown = 10, baseMultiplier = 0.75, statInterpolation = { 2, }, },
+		[1] = { -30, baseMultiplier = 0.75, cooldown = 10, levelRequirement = 1, storedUses = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 0.75, cooldown = 10, levelRequirement = 19, storedUses = 1, statInterpolation = { 2, }, },
+		[3] = { 1, baseMultiplier = 0.75, cooldown = 10, levelRequirement = 20, storedUses = 1, statInterpolation = { 2, }, },
+		[4] = { 60, baseMultiplier = 0.75, cooldown = 10, levelRequirement = 84, storedUses = 1, statInterpolation = { 2, }, },
 	},
 }
 skills["HarvestNessaCrabScreech"] = {
@@ -4860,7 +4860,7 @@ skills["HarvestNessaCrabScreech"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 0, storedUses = 1, cooldown = 12, },
+		[1] = { cooldown = 12, levelRequirement = 0, storedUses = 1, },
 	},
 }
 skills["HarvestNessaCrabScreechDebuff"] = {
@@ -4892,15 +4892,15 @@ skills["HarvestRhexLeapSlam"] = {
 	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Two Handed Sword"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.2,
@@ -4925,10 +4925,10 @@ skills["HarvestRhexLeapSlam"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0, levelRequirement = 1, storedUses = 1, cooldown = 10, statInterpolation = { 2, }, },
-		[2] = { 0, levelRequirement = 19, storedUses = 1, cooldown = 10, statInterpolation = { 2, }, },
-		[3] = { 1, levelRequirement = 20, storedUses = 1, cooldown = 10, statInterpolation = { 2, }, },
-		[4] = { 150, levelRequirement = 84, storedUses = 1, cooldown = 10, statInterpolation = { 2, }, },
+		[1] = { 0, cooldown = 10, levelRequirement = 1, storedUses = 1, statInterpolation = { 2, }, },
+		[2] = { 0, cooldown = 10, levelRequirement = 19, storedUses = 1, statInterpolation = { 2, }, },
+		[3] = { 1, cooldown = 10, levelRequirement = 20, storedUses = 1, statInterpolation = { 2, }, },
+		[4] = { 150, cooldown = 10, levelRequirement = 84, storedUses = 1, statInterpolation = { 2, }, },
 	},
 }
 skills["GAHarvestRhexDashSlash"] = {
@@ -5051,7 +5051,7 @@ skills["LegionTemplarJudgeBallLightning"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["LegionTemplarJudgeStormCall"] = {
@@ -5085,7 +5085,7 @@ skills["LegionTemplarJudgeStormCall"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MPWHeistThugRangedBurningArrow"] = {
@@ -5190,7 +5190,7 @@ skills["MMSHeistRobotClockworkGolemMortarSpectre"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, storedUses = 1, cooldown = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 6, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["HeistThugRangedExplosiveArrow"] = {
@@ -5345,7 +5345,7 @@ skills["AtlasEyrieKiwethMortarSpectre"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, storedUses = 1, critChance = 5, cooldown = 10, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 10, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AtlasEyrieKiwethMortarShards"] = {
@@ -5374,7 +5374,7 @@ skills["AtlasEyrieKiwethMortarShards"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GAHeistThugRangedArrowShotgun"] = {
@@ -5398,7 +5398,7 @@ skills["GAHeistThugRangedArrowShotgun"] = {
 		"cast_time_overrides_attack_duration",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 10, },
+		[1] = { cooldown = 10, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["GAHeistThugRangedShotgun"] = {
@@ -5426,10 +5426,10 @@ skills["GAHeistThugRangedShotgun"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { -30, levelRequirement = 1, baseMultiplier = 1.3, statInterpolation = { 2, }, },
-		[2] = { 0, levelRequirement = 19, baseMultiplier = 1.3, statInterpolation = { 2, }, },
-		[3] = { 1, levelRequirement = 20, baseMultiplier = 1.3, statInterpolation = { 2, }, },
-		[4] = { 60, levelRequirement = 84, baseMultiplier = 1.3, statInterpolation = { 2, }, },
+		[1] = { -30, baseMultiplier = 1.3, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 1.3, levelRequirement = 19, statInterpolation = { 2, }, },
+		[3] = { 1, baseMultiplier = 1.3, levelRequirement = 20, statInterpolation = { 2, }, },
+		[4] = { 60, baseMultiplier = 1.3, levelRequirement = 84, statInterpolation = { 2, }, },
 	},
 }
 skills["GSHeistRobotPyreBeamBlast"] = {
@@ -5460,7 +5460,7 @@ skills["GSHeistRobotPyreBeamBlast"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GSHeistRobotPyreNukeBeam"] = {
@@ -5488,7 +5488,7 @@ skills["GSHeistRobotPyreNukeBeam"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, storedUses = 1, critChance = 5, cooldown = 13, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 13, critChance = 5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GSHeistRobotPyreNukeBeamChannelled"] = {
@@ -5516,7 +5516,7 @@ skills["GSHeistRobotPyreNukeBeamChannelled"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, storedUses = 1, critChance = 5, cooldown = 13, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 13, critChance = 5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GSHeistRobotPyreBeamSweepBeam"] = {
@@ -5544,7 +5544,7 @@ skills["GSHeistRobotPyreBeamSweepBeam"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MeleeEyrieBird"] = {
@@ -5576,10 +5576,10 @@ skills["MeleeEyrieBird"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0, attackSpeedMultiplier = -38, baseMultiplier = 0.75, levelRequirement = 1, storedUses = 1, cooldown = 8, statInterpolation = { 2, }, },
-		[2] = { 0, attackSpeedMultiplier = -38, baseMultiplier = 0.75, levelRequirement = 19, storedUses = 1, cooldown = 8, statInterpolation = { 2, }, },
-		[3] = { 1, attackSpeedMultiplier = -38, baseMultiplier = 0.75, levelRequirement = 20, storedUses = 1, cooldown = 8, statInterpolation = { 2, }, },
-		[4] = { 200, attackSpeedMultiplier = -38, baseMultiplier = 0.75, levelRequirement = 84, storedUses = 1, cooldown = 8, statInterpolation = { 2, }, },
+		[1] = { 0, attackSpeedMultiplier = -38, baseMultiplier = 0.75, cooldown = 8, levelRequirement = 1, storedUses = 1, statInterpolation = { 2, }, },
+		[2] = { 0, attackSpeedMultiplier = -38, baseMultiplier = 0.75, cooldown = 8, levelRequirement = 19, storedUses = 1, statInterpolation = { 2, }, },
+		[3] = { 1, attackSpeedMultiplier = -38, baseMultiplier = 0.75, cooldown = 8, levelRequirement = 20, storedUses = 1, statInterpolation = { 2, }, },
+		[4] = { 200, attackSpeedMultiplier = -38, baseMultiplier = 0.75, cooldown = 8, levelRequirement = 84, storedUses = 1, statInterpolation = { 2, }, },
 	},
 }
 skills["AtlasEyrieBirdBreath"] = {
@@ -5609,7 +5609,7 @@ skills["AtlasEyrieBirdBreath"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, storedUses = 1, critChance = 5, cooldown = 10, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 10, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SecretDesecrateMonsterEarthquakeTriggered"] = {
@@ -5619,13 +5619,13 @@ skills["SecretDesecrateMonsterEarthquakeTriggered"] = {
 	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Multistrikeable] = true, [SkillType.Duration] = true, [SkillType.Slam] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
 		["None"] = true,
-		["Two Handed Axe"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -5670,7 +5670,7 @@ skills["SecretDesecrateMonsterMultiSlash"] = {
 		"skill_is_attack",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, attackSpeedMultiplier = -33, },
+		[1] = { attackSpeedMultiplier = -33, levelRequirement = 0, },
 	},
 }
 skills["UltimatumGuardMeleeCold"] = {
@@ -5731,8 +5731,8 @@ skills["UltimatumGuardConeArrowCold"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0, levelRequirement = 1, storedUses = 1, cooldown = 8, statInterpolation = { 2, }, },
-		[2] = { 250, levelRequirement = 83, storedUses = 1, cooldown = 8, statInterpolation = { 2, }, },
+		[1] = { 0, cooldown = 8, levelRequirement = 1, storedUses = 1, statInterpolation = { 2, }, },
+		[2] = { 250, cooldown = 8, levelRequirement = 83, storedUses = 1, statInterpolation = { 2, }, },
 	},
 }
 skills["MPWVaalGuardBarrage"] = {
@@ -5851,10 +5851,10 @@ skills["LegionKaruiArcherSnipe"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0, levelRequirement = 1, storedUses = 1, cooldown = 10, baseMultiplier = 1.65, statInterpolation = { 2, }, },
-		[2] = { 0, levelRequirement = 20, storedUses = 1, cooldown = 10, baseMultiplier = 1.65, statInterpolation = { 2, }, },
-		[3] = { 1, levelRequirement = 21, storedUses = 1, cooldown = 10, baseMultiplier = 1.65, statInterpolation = { 2, }, },
-		[4] = { 200, levelRequirement = 84, storedUses = 1, cooldown = 10, baseMultiplier = 1.65, statInterpolation = { 2, }, },
+		[1] = { 0, baseMultiplier = 1.65, cooldown = 10, levelRequirement = 1, storedUses = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 1.65, cooldown = 10, levelRequirement = 20, storedUses = 1, statInterpolation = { 2, }, },
+		[3] = { 1, baseMultiplier = 1.65, cooldown = 10, levelRequirement = 21, storedUses = 1, statInterpolation = { 2, }, },
+		[4] = { 200, baseMultiplier = 1.65, cooldown = 10, levelRequirement = 84, storedUses = 1, statInterpolation = { 2, }, },
 	},
 }
 skills["MeleeAtAnimationSpeedFire"] = {
@@ -5886,10 +5886,10 @@ skills["MeleeAtAnimationSpeedFire"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0, levelRequirement = 1, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[2] = { 0, levelRequirement = 19, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[3] = { 1, levelRequirement = 20, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[4] = { 200, levelRequirement = 84, baseMultiplier = 0.75, statInterpolation = { 2, }, },
+		[1] = { 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 0.75, levelRequirement = 19, statInterpolation = { 2, }, },
+		[3] = { 1, baseMultiplier = 0.75, levelRequirement = 20, statInterpolation = { 2, }, },
+		[4] = { 200, baseMultiplier = 0.75, levelRequirement = 84, statInterpolation = { 2, }, },
 	},
 }
 skills["GAHellscapeDemonElite1DashSlash"] = {
@@ -5950,7 +5950,7 @@ skills["GSHellscapeDemonElite1Screech"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["TBHellscapePaleLightningBoltSpammableLeft"] = {
@@ -5979,7 +5979,7 @@ skills["TBHellscapePaleLightningBoltSpammableLeft"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GSHellscapePaleEliteBoltImpact"] = {
@@ -6010,7 +6010,7 @@ skills["GSHellscapePaleEliteBoltImpact"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GSHellscapePaleEliteOmegaBeam"] = {
@@ -6043,8 +6043,8 @@ skills["GSHellscapePaleEliteOmegaBeam"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, -50, levelRequirement = 1, storedUses = 1, critChance = 5, cooldown = 6, statInterpolation = { 3, 3, 2, }, },
-		[2] = { 0.5, 1.5, 1, levelRequirement = 68, storedUses = 1, critChance = 5, cooldown = 6, statInterpolation = { 3, 3, 2, }, },
+		[1] = { 0.5, 1.5, -50, cooldown = 6, critChance = 5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, 2, }, },
+		[2] = { 0.5, 1.5, 1, cooldown = 6, critChance = 5, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, 3, 2, }, },
 	},
 }
 skills["MMSHellscapeDemonEliteTripleMortar"] = {
@@ -6084,10 +6084,10 @@ skills["MMSHellscapeDemonEliteTripleMortar"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, -30, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, 2, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, 0, levelRequirement = 19, critChance = 5, statInterpolation = { 3, 3, 2, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, 1, levelRequirement = 20, critChance = 5, statInterpolation = { 3, 3, 2, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, 24, levelRequirement = 84, critChance = 5, statInterpolation = { 3, 3, 2, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, -30, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 2, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 0, critChance = 5, levelRequirement = 19, statInterpolation = { 3, 3, 2, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 1, critChance = 5, levelRequirement = 20, statInterpolation = { 3, 3, 2, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, 24, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, 2, }, },
 	},
 }
 skills["MMSHellscapeDemonEliteVomitMortar"] = {
@@ -6127,10 +6127,10 @@ skills["MMSHellscapeDemonEliteVomitMortar"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, -30, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, 2, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, 0, levelRequirement = 19, critChance = 5, statInterpolation = { 3, 3, 2, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, 1, levelRequirement = 20, critChance = 5, statInterpolation = { 3, 3, 2, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, 24, levelRequirement = 84, critChance = 5, statInterpolation = { 3, 3, 2, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, -30, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 2, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 0, critChance = 5, levelRequirement = 19, statInterpolation = { 3, 3, 2, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 1, critChance = 5, levelRequirement = 20, statInterpolation = { 3, 3, 2, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, 24, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, 2, }, },
 	},
 }
 skills["GSHellscapeDemonEliteBeamNuke"] = {
@@ -6164,10 +6164,10 @@ skills["GSHellscapeDemonEliteBeamNuke"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, -30, levelRequirement = 1, storedUses = 1, critChance = 5, cooldown = 7, statInterpolation = { 3, 3, 2, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, 0, levelRequirement = 19, storedUses = 1, critChance = 5, cooldown = 7, statInterpolation = { 3, 3, 2, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, 1, levelRequirement = 20, storedUses = 1, critChance = 5, cooldown = 7, statInterpolation = { 3, 3, 2, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, 24, levelRequirement = 84, storedUses = 1, critChance = 5, cooldown = 7, statInterpolation = { 3, 3, 2, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, -30, cooldown = 7, critChance = 5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, 2, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 0, cooldown = 7, critChance = 5, levelRequirement = 19, storedUses = 1, statInterpolation = { 3, 3, 2, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 1, cooldown = 7, critChance = 5, levelRequirement = 20, storedUses = 1, statInterpolation = { 3, 3, 2, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, 24, cooldown = 7, critChance = 5, levelRequirement = 84, storedUses = 1, statInterpolation = { 3, 3, 2, }, },
 	},
 }
 skills["DTTHellscapeStabWeb"] = {
@@ -6218,7 +6218,7 @@ skills["GAHellscapeStabbyCleave1"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, baseMultiplier = 0.5, },
+		[1] = { baseMultiplier = 0.5, levelRequirement = 1, },
 	},
 }
 skills["GAHellscapePaleEliteSkyStab"] = {
@@ -6271,7 +6271,7 @@ skills["HellscapeFleshFodderArc"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SynthesisSoulstealerProjectilePhysical"] = {
@@ -6300,7 +6300,7 @@ skills["SynthesisSoulstealerProjectilePhysical"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SynthesisPhysicalTripleMortar"] = {
@@ -6335,7 +6335,7 @@ skills["SynthesisPhysicalTripleMortar"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, storedUses = 1, critChance = 5, cooldown = 12, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 12, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SynthesisSoulstealerQuicksand"] = {
@@ -6359,7 +6359,7 @@ skills["SynthesisSoulstealerQuicksand"] = {
 		"base_physical_damage_to_deal_per_minute",
 	},
 	levels = {
-		[1] = { 16.666667039196, levelRequirement = 0, storedUses = 1, cooldown = 8, statInterpolation = { 3, }, },
+		[1] = { 16.666667039196, cooldown = 8, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["SynthesisPhysicalVolatileSlam"] = {
@@ -6404,10 +6404,10 @@ skills["HellionRallyingCry"] = {
 		"base_deal_no_secondary_damage",
 	},
 	levels = {
-		[1] = { 8, levelRequirement = 1, storedUses = 1, cooldown = 8, statInterpolation = { 1, }, },
-		[2] = { 10, levelRequirement = 50, storedUses = 1, cooldown = 8, statInterpolation = { 1, }, },
-		[3] = { 12, levelRequirement = 68, storedUses = 1, cooldown = 8, statInterpolation = { 1, }, },
-		[4] = { 15, levelRequirement = 77, storedUses = 1, cooldown = 8, statInterpolation = { 1, }, },
+		[1] = { 8, cooldown = 8, levelRequirement = 1, storedUses = 1, statInterpolation = { 1, }, },
+		[2] = { 10, cooldown = 8, levelRequirement = 50, storedUses = 1, statInterpolation = { 1, }, },
+		[3] = { 12, cooldown = 8, levelRequirement = 68, storedUses = 1, statInterpolation = { 1, }, },
+		[4] = { 15, cooldown = 8, levelRequirement = 77, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["EmptyActionSpellWarlordGrandmaster"] = {
@@ -6488,7 +6488,7 @@ skills["BreachBlizzardSpectre"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 9, },
+		[1] = { cooldown = 9, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["DelveWraithScreechChaos"] = {
@@ -6597,9 +6597,9 @@ skills["WraithEtherealKnives"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 0, levelRequirement = 51, critChance = 5, statInterpolation = { 3, 3, 1, }, },
-		[2] = { 0.60000002384186, 0.89999997615814, -25, levelRequirement = 68, critChance = 5, statInterpolation = { 3, 3, 1, }, },
-		[3] = { 0.60000002384186, 0.89999997615814, -25, levelRequirement = 82, critChance = 5, statInterpolation = { 3, 3, 1, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, 0, critChance = 5, levelRequirement = 51, statInterpolation = { 3, 3, 1, }, },
+		[2] = { 0.60000002384186, 0.89999997615814, -25, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, }, },
+		[3] = { 0.60000002384186, 0.89999997615814, -25, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, }, },
 	},
 }
 skills["DelveMonsterEnfeebleOnHit"] = {
@@ -6738,7 +6738,7 @@ skills["CrucibleIceStormTrap"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.40000000596046, 0.60000002384186, levelRequirement = 0, storedUses = 1, critChance = 5, cooldown = 8, statInterpolation = { 3, 3, }, },
+		[1] = { 0.40000000596046, 0.60000002384186, cooldown = 8, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MMSPyromaniacIceMortar"] = {
@@ -6773,7 +6773,7 @@ skills["MMSPyromaniacIceMortar"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriHailrakeGlacialCascade"] = {
@@ -6807,7 +6807,7 @@ skills["AzmeriHailrakeGlacialCascade"] = {
 		"active_skill_area_of_effect_radius_+%_final",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 6, 0, -20, levelRequirement = 3, critChance = 5, statInterpolation = { 3, 3, 1, 1, 1, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, 6, 0, -20, critChance = 5, levelRequirement = 3, statInterpolation = { 3, 3, 1, 1, 1, }, },
 	},
 }
 skills["AzmeriHailrakeArcticArmour"] = {
@@ -6844,9 +6844,9 @@ skills["AzmeriHailrakeGlacialHammer"] = {
 	description = "Hits enemies, converting some of your physical damage to cold damage. If a non-unique enemy is frozen and is on less than one third life, they will shatter when hit by Glacial Hammer. If striking three times in a row, the third strike will freeze enemies more easily. Requires a Mace, Sceptre or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Cold] = true, [SkillType.ThresholdJewelArea] = true, },
 	weaponTypes = {
-		["Staff"] = true,
-		["Sceptre"] = true,
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
 		["Two Handed Mace"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
@@ -6865,7 +6865,7 @@ skills["AzmeriHailrakeGlacialHammer"] = {
 		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, damageEffectiveness = 1.25, baseMultiplier = 1.25, },
+		[1] = { baseMultiplier = 1.25, damageEffectiveness = 1.25, levelRequirement = 1, },
 	},
 }
 skills["GSAzmeriHailrakeIceNova"] = {
@@ -6894,7 +6894,7 @@ skills["GSAzmeriHailrakeIceNova"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, storedUses = 1, critChance = 5, cooldown = 0.2, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 0.2, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["IceCrashAzmeriHailrake"] = {
@@ -6904,16 +6904,16 @@ skills["IceCrashAzmeriHailrake"] = {
 	description = "Slam the ground, damaging enemies in an area around the impact in three stages of increasing size. Enemies take slightly less damage on the second and third stage, and can only be hit by one stage. Works with Swords, Maces, Sceptres, Axes, Staves and Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Cold] = true, [SkillType.Multistrikeable] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
+		["None"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Two Handed Sword"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
-		["None"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -6971,8 +6971,8 @@ skills["AzmeriHailrakeColdResistAura"] = {
 		"active_skill_area_of_effect_radius_+%_final",
 	},
 	levels = {
-		[1] = { 20, 0, 20, levelRequirement = 1, storedUses = 1, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
-		[2] = { 31, 1, 50, levelRequirement = 80, storedUses = 1, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
+		[1] = { 20, 0, 20, cooldown = 0.5, levelRequirement = 1, storedUses = 1, statInterpolation = { 2, 2, 2, }, },
+		[2] = { 31, 1, 50, cooldown = 0.5, levelRequirement = 80, storedUses = 1, statInterpolation = { 2, 2, 2, }, },
 	},
 }
 skills["AzmeriFireFuryMoltenStrike"] = {
@@ -6982,17 +6982,17 @@ skills["AzmeriFireFuryMoltenStrike"] = {
 	description = "Infuses your melee weapon with molten energies to attack with physical and fire damage. This attack causes balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will deal area attack damage to enemies where they land.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Fire] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.ThresholdJewelChaining] = true, [SkillType.Multistrikeable] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
-		["Two Handed Axe"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
-		["Claw"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -7012,7 +7012,7 @@ skills["AzmeriFireFuryMoltenStrike"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, damageEffectiveness = 1.125, baseMultiplier = 1.125, },
+		[1] = { baseMultiplier = 1.125, damageEffectiveness = 1.125, levelRequirement = 0, },
 	},
 }
 skills["FemaleCannibalBossFireStorm"] = {
@@ -7063,7 +7063,7 @@ skills["FemaleCannibalBossFireStorm"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 2, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 2, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["FemaleCannibalBossFlameDash"] = {
@@ -7096,7 +7096,7 @@ skills["FemaleCannibalBossFlameDash"] = {
 		"base_fire_damage_to_deal_per_minute",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 90.000003601114, levelRequirement = 1, storedUses = 1, critChance = 5, cooldown = 6, statInterpolation = { 3, 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, 90.000003601114, cooldown = 6, critChance = 5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, 3, }, },
 	},
 }
 skills["AzmeriFirefuryCremation"] = {
@@ -7139,7 +7139,7 @@ skills["AzmeriFirefuryCremation"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, storedUses = 1, critChance = 5, cooldown = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 5, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriFirefuryFireResistAura"] = {
@@ -7175,7 +7175,7 @@ skills["AzmeriFirefuryFireResistAura"] = {
 		"active_skill_area_of_effect_radius_+%_final",
 	},
 	levels = {
-		[1] = { 20, 0, 20, levelRequirement = 1, storedUses = 1, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
+		[1] = { 20, 0, 20, cooldown = 0.5, levelRequirement = 1, storedUses = 1, statInterpolation = { 2, 2, 2, }, },
 		[2] = { 31, 1, 50, levelRequirement = 80, statInterpolation = { 2, 2, 2, }, },
 	},
 }
@@ -7201,7 +7201,7 @@ skills["AzmeriHydraDoomArrow"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { levelRequirement = 83, storedUses = 1, cooldown = 3, },
+		[1] = { cooldown = 3, levelRequirement = 83, storedUses = 1, },
 	},
 }
 skills["AzmeriHydraBarrage"] = {
@@ -7228,7 +7228,7 @@ skills["AzmeriHydraBarrage"] = {
 		"always_pierce",
 	},
 	levels = {
-		[1] = { levelRequirement = 83, storedUses = 1, cooldown = 3, },
+		[1] = { cooldown = 3, levelRequirement = 83, storedUses = 1, },
 	},
 }
 skills["AzmeriHydraForkArrow"] = {
@@ -7253,7 +7253,7 @@ skills["AzmeriHydraForkArrow"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { levelRequirement = 83, storedUses = 1, cooldown = 8, },
+		[1] = { cooldown = 8, levelRequirement = 83, storedUses = 1, },
 	},
 }
 skills["AzmeriHydraHatred"] = {
@@ -7369,7 +7369,7 @@ skills["AzmeriArgusMeleeAtAnimationSpeed"] = {
 		"use_scaled_contact_offset",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, damageEffectiveness = 0.3, baseMultiplier = 0.3, },
+		[1] = { baseMultiplier = 0.3, damageEffectiveness = 0.3, levelRequirement = 1, },
 	},
 }
 skills["GAAzmeriRobotArgusSlam"] = {
@@ -7387,7 +7387,7 @@ skills["GAAzmeriRobotArgusSlam"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 0.75, baseMultiplier = 0.75, levelRequirement = 1, storedUses = 1, cooldown = 10, },
+		[1] = { baseMultiplier = 0.75, cooldown = 10, damageEffectiveness = 0.75, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["AzmeriKudukuShockNova"] = {
@@ -7420,7 +7420,7 @@ skills["AzmeriKudukuShockNova"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 7, storedUses = 1, critChance = 5, cooldown = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, cooldown = 6, critChance = 5, levelRequirement = 7, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriKudukuSparkExtraProj"] = {
@@ -7454,7 +7454,7 @@ skills["AzmeriKudukuSparkExtraProj"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 6, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 6, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriKudukuWarp"] = {
@@ -7487,7 +7487,7 @@ skills["AzmeriKudukuWarp"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, storedUses = 1, critChance = 5, cooldown = 2, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, cooldown = 2, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriKudukuWrath"] = {
@@ -7528,7 +7528,7 @@ skills["AzmeriKudukuWrath"] = {
 		"attack_maximum_added_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.019999999552965, 0.28000000119209, levelRequirement = 1, storedUses = 1, cooldown = 0.5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.019999999552965, 0.28000000119209, cooldown = 0.5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MeleeAtAnimationSpeedCold"] = {
@@ -7560,10 +7560,10 @@ skills["MeleeAtAnimationSpeedCold"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0, levelRequirement = 1, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[2] = { 0, levelRequirement = 19, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[3] = { 1, levelRequirement = 20, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[4] = { 200, levelRequirement = 84, baseMultiplier = 0.75, statInterpolation = { 2, }, },
+		[1] = { 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 0.75, levelRequirement = 19, statInterpolation = { 2, }, },
+		[3] = { 1, baseMultiplier = 0.75, levelRequirement = 20, statInterpolation = { 2, }, },
+		[4] = { 200, baseMultiplier = 0.75, levelRequirement = 84, statInterpolation = { 2, }, },
 	},
 }
 skills["AzmeriAdmiralDoubleStrikeTriggered"] = {
@@ -7587,7 +7587,7 @@ skills["AzmeriAdmiralDoubleStrikeTriggered"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0, levelRequirement = 1, damageEffectiveness = 0.7, baseMultiplier = 0.7, statInterpolation = { 2, }, },
+		[1] = { 0, baseMultiplier = 0.7, damageEffectiveness = 0.7, levelRequirement = 1, statInterpolation = { 2, }, },
 	},
 }
 skills["AzmeriAdmiralDashThrustTriggered"] = {
@@ -7645,7 +7645,7 @@ skills["AzmeriAdmiralGeyserDamage"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriAdmiralTidalWave"] = {
@@ -7662,7 +7662,7 @@ skills["AzmeriAdmiralTidalWave"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 0, storedUses = 1, cooldown = 25, },
+		[1] = { cooldown = 25, levelRequirement = 0, storedUses = 1, },
 	},
 }
 skills["AzmeriAdmiralDashMortars"] = {
@@ -7701,7 +7701,7 @@ skills["AzmeriAdmiralDashMortars"] = {
 		"spell_maximum_base_cold_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GSAzmeriAdmiralCannonball"] = {
@@ -7728,7 +7728,7 @@ skills["GSAzmeriAdmiralCannonball"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriAdmiralPrecision"] = {
@@ -7766,7 +7766,7 @@ skills["AzmeriAdmiralPrecision"] = {
 		"base_deal_no_damage",
 	},
 	levels = {
-		[1] = { 0.55150002241135, 0.054299999028444, levelRequirement = 1, storedUses = 1, cooldown = 0.5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.55150002241135, 0.054299999028444, cooldown = 0.5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriSawbladeAnimatedWeaponCyclone"] = {
@@ -7777,18 +7777,18 @@ skills["AzmeriSawbladeAnimatedWeaponCyclone"] = {
 	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Ruthless or Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["None"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
-		["None"] = true,
-		["Two Handed Axe"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
-		["Claw"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -7818,10 +7818,10 @@ skills["AzmeriDoubleSlashAnimatedWeapon"] = {
 	description = "Slashes twice, releasing waves of force that damage enemies they hit. Enemies in the middle of the slashes can be hit by both. The slashes will have a chance to inflict bleeding in Blood Stance, or have a wider angle in Sand Stance. Can be used with Axes and Swords. You are in Blood Stance by default.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Physical] = true, },
 	weaponTypes = {
-		["Two Handed Axe"] = true,
+		["One Handed Axe"] = true,
 		["One Handed Sword"] = true,
 		["Thrusting One Handed Sword"] = true,
-		["One Handed Axe"] = true,
+		["Two Handed Axe"] = true,
 		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
@@ -7888,7 +7888,7 @@ skills["AzmeriSwordStormCascade"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 68, storedUses = 1, cooldown = 10, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 10, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriBarrageDemonSpineProjectile"] = {
@@ -7945,7 +7945,7 @@ skills["AzmeriBarrageDemonRainOfSpines"] = {
 		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, damageEffectiveness = 1.425, baseMultiplier = 1.425, },
+		[1] = { baseMultiplier = 1.425, damageEffectiveness = 1.425, levelRequirement = 0, },
 	},
 }
 skills["AzmeriBarrageDemonSpinestorm"] = {
@@ -7997,7 +7997,7 @@ skills["AzmeriBarrageDemonSpinestorm"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 70, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MeleeAtAnimationSpeedChaos"] = {
@@ -8064,7 +8064,7 @@ skills["AzmeriBasiliskShoulderMortar"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriBasiliskComboThrust"] = {
@@ -8088,7 +8088,7 @@ skills["AzmeriBasiliskComboThrust"] = {
 		"visual_hit_effect_chaos_is_green",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, baseMultiplier = 0.4, },
+		[1] = { baseMultiplier = 0.4, levelRequirement = 0, },
 	},
 }
 skills["AzmeriBasiliskComboSlam"] = {
@@ -8112,7 +8112,7 @@ skills["AzmeriBasiliskComboSlam"] = {
 		"visual_hit_effect_chaos_is_green",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, baseMultiplier = 1.625, },
+		[1] = { baseMultiplier = 1.625, levelRequirement = 0, },
 	},
 }
 skills["AzmeriBasiliskDecapitateRightToLeft"] = {
@@ -8138,7 +8138,7 @@ skills["AzmeriBasiliskDecapitateRightToLeft"] = {
 		"visual_hit_effect_chaos_is_green",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, baseMultiplier = 0.75, },
+		[1] = { baseMultiplier = 0.75, levelRequirement = 0, },
 	},
 }
 skills["AzmeriBasiliskDecapThrust"] = {
@@ -8163,7 +8163,7 @@ skills["AzmeriBasiliskDecapThrust"] = {
 		"visual_hit_effect_chaos_is_green",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, baseMultiplier = 0.4, },
+		[1] = { baseMultiplier = 0.4, levelRequirement = 0, },
 	},
 }
 skills["AzmeriBasiliskWyvernFlight"] = {
@@ -8191,7 +8191,7 @@ skills["AzmeriBasiliskWyvernFlight"] = {
 		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, baseMultiplier = 1.45, },
+		[1] = { baseMultiplier = 1.45, levelRequirement = 0, },
 	},
 }
 skills["AzmeriBasiliskDualProjectile"] = {
@@ -8219,7 +8219,7 @@ skills["AzmeriBasiliskDualProjectile"] = {
 		"visual_hit_effect_chaos_is_green",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, baseMultiplier = 0.2, },
+		[1] = { baseMultiplier = 0.2, levelRequirement = 0, },
 	},
 }
 skills["AzmeriBasiliskDualProjectileImpact"] = {
@@ -8269,7 +8269,7 @@ skills["AzmeriBasiliskWyvernGroundCollide"] = {
 		"visual_hit_effect_chaos_is_green",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, baseMultiplier = 1.25, },
+		[1] = { baseMultiplier = 1.25, levelRequirement = 0, },
 	},
 }
 skills["AzmeriBasiliskShoulderMortar2"] = {
@@ -8308,7 +8308,7 @@ skills["AzmeriBasiliskShoulderMortar2"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["ABTTAzmeriBasaliskShroud"] = {
@@ -8339,7 +8339,7 @@ skills["ABTTAzmeriBasaliskShroud"] = {
 		"base_chaos_damage_taken_per_minute",
 	},
 	levels = {
-		[1] = { 16.666667039196, levelRequirement = 0, storedUses = 1, cooldown = 0.1, statInterpolation = { 3, }, },
+		[1] = { 16.666667039196, cooldown = 0.1, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["AzmeriCasterDemonProjectile"] = {
@@ -8372,7 +8372,7 @@ skills["AzmeriCasterDemonProjectile"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, critChance = 1, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 1, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["DeceleratingProjectileAzmeriCasterDemon"] = {
@@ -8405,7 +8405,7 @@ skills["DeceleratingProjectileAzmeriCasterDemon"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, storedUses = 1, critChance = 1, cooldown = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, cooldown = 5, critChance = 1, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["DeceleratingProjectileAzmeriCasterDemonExplode"] = {
@@ -8434,7 +8434,7 @@ skills["DeceleratingProjectileAzmeriCasterDemonExplode"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, critChance = 1, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 1, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriCasterDemonSpellDamageAura"] = {
@@ -8471,8 +8471,8 @@ skills["AzmeriCasterDemonSpellDamageAura"] = {
 		"base_deal_no_damage",
 	},
 	levels = {
-		[1] = { 10, 20, levelRequirement = 0, storedUses = 1, cooldown = 0.5, statInterpolation = { 2, 2, }, },
-		[2] = { 12, 29, levelRequirement = 80, storedUses = 1, cooldown = 0.5, statInterpolation = { 2, 2, }, },
+		[1] = { 10, 20, cooldown = 0.5, levelRequirement = 0, storedUses = 1, statInterpolation = { 2, 2, }, },
+		[2] = { 12, 29, cooldown = 0.5, levelRequirement = 80, storedUses = 1, statInterpolation = { 2, 2, }, },
 	},
 }
 skills["AzmeriCycloneDemonCleave"] = {
@@ -8508,18 +8508,18 @@ skills["AzmeriCycloneDemonDesecratedGroundCyclone"] = {
 	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Ruthless or Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["None"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
-		["None"] = true,
-		["Two Handed Axe"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
-		["Claw"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -8544,7 +8544,7 @@ skills["AzmeriCycloneDemonDesecratedGroundCyclone"] = {
 		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { levelRequirement = 4, storedUses = 1, cooldown = 5, baseMultiplier = 0.575, },
+		[1] = { baseMultiplier = 0.575, cooldown = 5, levelRequirement = 4, storedUses = 1, },
 	},
 }
 skills["GAExpeditionDeathKnightSlam"] = {
@@ -8571,8 +8571,8 @@ skills["GAExpeditionDeathKnightSlam"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 35, attackSpeedMultiplier = -10, baseMultiplier = 1.65, levelRequirement = 0, storedUses = 1, cooldown = 4, statInterpolation = { 2, }, },
-		[2] = { 0, attackSpeedMultiplier = -10, baseMultiplier = 1.65, levelRequirement = 68, storedUses = 1, cooldown = 4, statInterpolation = { 2, }, },
+		[1] = { 35, attackSpeedMultiplier = -10, baseMultiplier = 1.65, cooldown = 4, levelRequirement = 0, storedUses = 1, statInterpolation = { 2, }, },
+		[2] = { 0, attackSpeedMultiplier = -10, baseMultiplier = 1.65, cooldown = 4, levelRequirement = 68, storedUses = 1, statInterpolation = { 2, }, },
 	},
 }
 skills["GSExpeditionDeathKnightNova"] = {
@@ -8604,7 +8604,7 @@ skills["GSExpeditionDeathKnightNova"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1, levelRequirement = 0, storedUses = 1, critChance = 5, cooldown = 2.5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1, cooldown = 2.5, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriDualStrikeDemonFireEnrage"] = {
@@ -8649,7 +8649,7 @@ skills["AzmeriDualStrikeDemonFireEnrage"] = {
 		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 100, levelRequirement = 70, storedUses = 1, cooldown = 12, statInterpolation = { 3, 3, 1, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, 100, cooldown = 12, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, 3, 1, }, },
 	},
 }
 skills["AzmeriDualStrikeDemonDualStrike"] = {
@@ -8660,14 +8660,14 @@ skills["AzmeriDualStrikeDemonDualStrike"] = {
 	description = "Attacks with both weapons, dealing the damage of both in one strike. Dual wield only. Does not work with wands.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.DualWieldOnly] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ThresholdJewelArea] = true, },
 	weaponTypes = {
-		["Two Handed Axe"] = true,
-		["Sceptre"] = true,
-		["One Handed Mace"] = true,
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["One Handed Axe"] = true,
 		["Claw"] = true,
 		["Dagger"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Axe"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -8680,7 +8680,7 @@ skills["AzmeriDualStrikeDemonDualStrike"] = {
 		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, damageEffectiveness = 1.5, baseMultiplier = 1.5, },
+		[1] = { baseMultiplier = 1.5, damageEffectiveness = 1.5, levelRequirement = 0, },
 	},
 }
 skills["GSAncestralDruidFlaskExplode"] = {
@@ -8711,7 +8711,7 @@ skills["GSAncestralDruidFlaskExplode"] = {
 		"spell_maximum_base_chaos_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GAHeistRobotHoundStomp"] = {
@@ -8792,7 +8792,7 @@ skills["AzmeriGeofriSlam"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 100, levelRequirement = 1, storedUses = 1, cooldown = 5, baseMultiplier = 1.15, statInterpolation = { 1, }, },
+		[1] = { 100, baseMultiplier = 1.15, cooldown = 5, levelRequirement = 1, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["TalismanT2EnfeebleAura"] = {
@@ -8838,7 +8838,7 @@ skills["TalismanT2EnfeebleAura"] = {
 		"curse_apply_as_aura",
 	},
 	levels = {
-		[1] = { levelRequirement = 4, storedUses = 1, cooldown = 100, cost = { Mana = 35, }, },
+		[1] = { cooldown = 100, levelRequirement = 4, storedUses = 1, cost = { Mana = 35, }, },
 	},
 }
 skills["TalismanT1Vulnerability"] = {
@@ -8878,7 +8878,7 @@ skills["TalismanT1Vulnerability"] = {
 		"curse_apply_as_aura",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 100, },
+		[1] = { cooldown = 100, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["TalismanT1TemporalChains"] = {
@@ -8924,7 +8924,7 @@ skills["TalismanT1TemporalChains"] = {
 		"curse_apply_as_aura",
 	},
 	levels = {
-		[1] = { levelRequirement = 4, storedUses = 1, cooldown = 100, cost = { Mana = 35, }, },
+		[1] = { cooldown = 100, levelRequirement = 4, storedUses = 1, cost = { Mana = 35, }, },
 	},
 }
 skills["AzmeriGeofriSmite"] = {
@@ -8936,16 +8936,16 @@ skills["AzmeriGeofriSmite"] = {
 	description = "Performs a melee attack, and causes lightning to strike a nearby enemy, dealing damage in an area. Each target can only be hit once by this skill. Hitting an enemy grants an aura for a duration. Requires a Sword, Axe, Mace, Sceptre, Staff or Unarmed.",
 	skillTypes = { [SkillType.Melee] = true, [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Multistrikeable] = true, [SkillType.Damage] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Aura] = true, [SkillType.Buff] = true, [SkillType.Lightning] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
+		["None"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Two Handed Sword"] = true,
-		["Two Handed Axe"] = true,
-		["Two Handed Mace"] = true,
-		["None"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
 		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -8981,7 +8981,7 @@ skills["AzmeriGeofriSmite"] = {
 		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { 0.10000000149012, 1.8999999761581, levelRequirement = 1, damageEffectiveness = 2.5, baseMultiplier = 2.5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 2.5, damageEffectiveness = 2.5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriGoddessSpiritMortar"] = {
@@ -9019,7 +9019,7 @@ skills["AzmeriGoddessSpiritMortar"] = {
 		"spell_maximum_base_fire_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 81, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 81, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriGoddessOfferingOfJudgement"] = {
@@ -9048,7 +9048,7 @@ skills["AzmeriGoddessOfferingOfJudgement"] = {
 		"base_fire_damage_to_deal_per_minute",
 	},
 	levels = {
-		[1] = { 16.666667039196, levelRequirement = 1, storedUses = 1, cooldown = 5, statInterpolation = { 3, }, },
+		[1] = { 16.666667039196, cooldown = 5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["AzmeriGoddessOfferingOfJudgementChaos"] = {
@@ -9074,7 +9074,7 @@ skills["AzmeriGoddessOfferingOfJudgementChaos"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { 16.666667039196, levelRequirement = 1, storedUses = 1, cooldown = 5, statInterpolation = { 3, }, },
+		[1] = { 16.666667039196, cooldown = 5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["AzmeriGoddessBeam"] = {
@@ -9103,7 +9103,7 @@ skills["AzmeriGoddessBeam"] = {
 		"base_fire_damage_to_deal_per_minute",
 	},
 	levels = {
-		[1] = { 16.666667039196, levelRequirement = 68, storedUses = 1, cooldown = 18, statInterpolation = { 3, }, },
+		[1] = { 16.666667039196, cooldown = 18, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["ABTTAzmeriGoddessAura"] = {
@@ -9181,7 +9181,7 @@ skills["AzmeriGoddessDiscipline"] = {
 		"base_maximum_energy_shield",
 	},
 	levels = {
-		[1] = { 1, levelRequirement = 0, storedUses = 1, cooldown = 0.5, statInterpolation = { 3, }, },
+		[1] = { 1, cooldown = 0.5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["MeleeAtAnimationSpeedLightning"] = {
@@ -9213,10 +9213,10 @@ skills["MeleeAtAnimationSpeedLightning"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0, levelRequirement = 1, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[2] = { 0, levelRequirement = 19, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[3] = { 1, levelRequirement = 20, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[4] = { 200, levelRequirement = 84, baseMultiplier = 0.75, statInterpolation = { 2, }, },
+		[1] = { 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 0.75, levelRequirement = 19, statInterpolation = { 2, }, },
+		[3] = { 1, baseMultiplier = 0.75, levelRequirement = 20, statInterpolation = { 2, }, },
+		[4] = { 200, baseMultiplier = 0.75, levelRequirement = 84, statInterpolation = { 2, }, },
 	},
 }
 skills["AzmeriBirdBeam"] = {
@@ -9246,7 +9246,7 @@ skills["AzmeriBirdBeam"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriBirdScreechExposure"] = {
@@ -9281,7 +9281,7 @@ skills["AzmeriBirdScreechExposure"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, critChance = 25, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 25, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GSAzmeriBirdDashZap"] = {
@@ -9308,7 +9308,7 @@ skills["GSAzmeriBirdDashZap"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.69999998807907, 1.2999999523163, levelRequirement = 0, critChance = 15, statInterpolation = { 3, 3, }, },
+		[1] = { 0.69999998807907, 1.2999999523163, critChance = 15, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriBirdGrace"] = {
@@ -9345,7 +9345,7 @@ skills["AzmeriBirdGrace"] = {
 		"base_evasion_rating",
 	},
 	levels = {
-		[1] = { 1, levelRequirement = 29, storedUses = 1, cooldown = 0.5, statInterpolation = { 3, }, },
+		[1] = { 1, cooldown = 0.5, levelRequirement = 29, storedUses = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["AzmeriLightningMelee"] = {
@@ -9374,7 +9374,7 @@ skills["AzmeriLightningMelee"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0, levelRequirement = 1, baseMultiplier = 0.75, statInterpolation = { 2, }, },
+		[1] = { 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = { 2, }, },
 	},
 }
 skills["AzmeriPhantasmExplode"] = {
@@ -9401,7 +9401,7 @@ skills["AzmeriPhantasmExplode"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, storedUses = 1, critChance = 5, cooldown = 12, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, cooldown = 12, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 --Sap is not showing up as a config option
@@ -9437,7 +9437,7 @@ skills["AzmeriPhantasmExplodeSap"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, storedUses = 1, critChance = 5, cooldown = 8, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, cooldown = 8, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriPhantasmClarity"] = {
@@ -9497,7 +9497,7 @@ skills["AzmeriMegaSkeletonHeavyMelee"] = {
 		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 1.5, baseMultiplier = 1.5, levelRequirement = 0, storedUses = 1, cooldown = 4, },
+		[1] = { baseMultiplier = 1.5, cooldown = 4, damageEffectiveness = 1.5, levelRequirement = 0, storedUses = 1, },
 	},
 }
 skills["AzmeriMegaSkeletonCleave"] = {
@@ -9522,7 +9522,7 @@ skills["AzmeriMegaSkeletonCleave"] = {
 		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 1.15, baseMultiplier = 1.15, levelRequirement = 0, storedUses = 1, cooldown = 5, },
+		[1] = { baseMultiplier = 1.15, cooldown = 5, damageEffectiveness = 1.15, levelRequirement = 0, storedUses = 1, },
 	},
 }
 skills["AzmeriOakSweep"] = {
@@ -9534,8 +9534,8 @@ skills["AzmeriOakSweep"] = {
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, },
 	weaponTypes = {
 		["Staff"] = true,
-		["Two Handed Mace"] = true,
 		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
@@ -9569,15 +9569,15 @@ skills["AzmeriOakLeapSlam"] = {
 	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Two Handed Sword"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.4,
@@ -9632,7 +9632,7 @@ skills["AzmeriOakVitality"] = {
 		"base_life_regeneration_rate_per_minute",
 	},
 	levels = {
-		[1] = { 0.2301000058651, levelRequirement = 1, storedUses = 1, cooldown = 0.5, statInterpolation = { 3, }, },
+		[1] = { 0.2301000058651, cooldown = 0.5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["AzmeriReaperMelee"] = {
@@ -9661,7 +9661,7 @@ skills["AzmeriReaperMelee"] = {
 		"determine_knockback_direction_from_melee_pattern",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, baseMultiplier = 0.6, },
+		[1] = { baseMultiplier = 0.6, levelRequirement = 1, },
 	},
 }
 skills["GAAzmeriReaperLacerate"] = {
@@ -9679,7 +9679,7 @@ skills["GAAzmeriReaperLacerate"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, baseMultiplier = 1.75, },
+		[1] = { baseMultiplier = 1.75, levelRequirement = 0, },
 	},
 }
 skills["GAAzmeriReaperComboRightSlash"] = {
@@ -9699,7 +9699,7 @@ skills["GAAzmeriReaperComboRightSlash"] = {
 		"determine_knockback_direction_from_melee_pattern",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, baseMultiplier = 0.45, },
+		[1] = { baseMultiplier = 0.45, levelRequirement = 0, },
 	},
 }
 skills["GAAzmeriReaperComboWhirl"] = {
@@ -9718,7 +9718,7 @@ skills["GAAzmeriReaperComboWhirl"] = {
 		"global_knockback",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, baseMultiplier = 0.6, },
+		[1] = { baseMultiplier = 0.6, levelRequirement = 0, },
 	},
 }
 skills["MMSAzmeriShepherdTripleMortar"] = {
@@ -9754,7 +9754,7 @@ skills["MMSAzmeriShepherdTripleMortar"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MMSAzmeriShepherdVomitMortar"] = {
@@ -9790,7 +9790,7 @@ skills["MMSAzmeriShepherdVomitMortar"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GSAzmeriShepherdBeamNuke"] = {
@@ -9821,7 +9821,7 @@ skills["GSAzmeriShepherdBeamNuke"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, storedUses = 1, critChance = 5, cooldown = 7, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 7, critChance = 5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["ABTTAzmeriShepherdSpellDamage"] = {
@@ -9853,11 +9853,11 @@ skills["MonsterViperStrikeAtAnimationSpeed"] = {
 	description = "Hits enemies, converting some of your physical damage to chaos damage and inflicting poison which will be affected by modifiers to skill duration. If dual wielding, will strike with both weapons. Requires a claw, dagger or sword.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Duration] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.DamageOverTime] = true, [SkillType.Chaos] = true, },
 	weaponTypes = {
+		["Claw"] = true,
+		["Dagger"] = true,
 		["One Handed Sword"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
-		["Claw"] = true,
-		["Dagger"] = true,
 	},
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
@@ -9914,7 +9914,7 @@ skills["AzmeriSpiderLeaderMortar"] = {
 		"spell_maximum_base_chaos_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 68, storedUses = 1, critChance = 5, cooldown = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 5, critChance = 5, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["ABTTAzmeriSpiderLeaderAura"] = {
@@ -9976,7 +9976,7 @@ skills["AzmeriZombieCausticGroundWhenHit"] = {
 		"base_chaos_damage_to_deal_per_minute",
 	},
 	levels = {
-		[1] = { 46.666666915019, levelRequirement = 1, storedUses = 1, cooldown = 4, statInterpolation = { 3, }, },
+		[1] = { 46.666666915019, cooldown = 4, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["ElderTentacleMinionProjectile"] = {
@@ -10008,7 +10008,7 @@ skills["ElderTentacleMinionProjectile"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["ElderTentacleMinionProjectileEpic"] = {
@@ -10040,8 +10040,8 @@ skills["ElderTentacleMinionProjectileEpic"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 68, storedUses = 1, critChance = 5, cooldown = 5, statInterpolation = { 3, 3, }, },
-		[2] = { 0.5, 1.5, levelRequirement = 82, storedUses = 1, critChance = 5, cooldown = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, cooldown = 5, critChance = 5, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[2] = { 0.5, 1.5, cooldown = 5, critChance = 5, levelRequirement = 82, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GSAzmeriTentacleMonsterBeam"] = {
@@ -10068,7 +10068,7 @@ skills["GSAzmeriTentacleMonsterBeam"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GSAzmeriTentacleMonsterShockExplode"] = {
@@ -10095,7 +10095,7 @@ skills["GSAzmeriTentacleMonsterShockExplode"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, storedUses = 1, critChance = 5, cooldown = 0.1, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, cooldown = 0.1, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriTentacleMinionLightningResistAura"] = {
@@ -10128,8 +10128,8 @@ skills["AzmeriTentacleMinionLightningResistAura"] = {
 		"active_skill_base_radius_+",
 	},
 	levels = {
-		[1] = { 20, 0, 20, levelRequirement = 1, storedUses = 1, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
-		[2] = { 31, 1, 50, levelRequirement = 80, storedUses = 1, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
+		[1] = { 20, 0, 20, cooldown = 0.5, levelRequirement = 1, storedUses = 1, statInterpolation = { 2, 2, 2, }, },
+		[2] = { 31, 1, 50, cooldown = 0.5, levelRequirement = 80, storedUses = 1, statInterpolation = { 2, 2, 2, }, },
 	},
 }
 skills["AzmeriTigerSpiritFangs"] = {
@@ -10153,7 +10153,7 @@ skills["AzmeriTigerSpiritFangs"] = {
 		"global_bleed_on_hit",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 3, },
+		[1] = { cooldown = 3, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["AzmeriTigerSpiritLacerate"] = {
@@ -10177,7 +10177,7 @@ skills["AzmeriTigerSpiritLacerate"] = {
 		"global_maim_on_hit",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 3, },
+		[1] = { cooldown = 3, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["AzmeriTigerSpiritTeleportSlam"] = {
@@ -10201,7 +10201,7 @@ skills["AzmeriTigerSpiritTeleportSlam"] = {
 		"disable_attack_repeats",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 12, },
+		[1] = { cooldown = 12, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["AzmeriStampedeTiger"] = {
@@ -10220,7 +10220,7 @@ skills["AzmeriStampedeTiger"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 1, storedUses = 1, cooldown = 12, },
+		[1] = { baseMultiplier = 0.5, cooldown = 12, damageEffectiveness = 0.5, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["AzmeriTigerGeometryAttackStrafe"] = {
@@ -10237,7 +10237,7 @@ skills["AzmeriTigerGeometryAttackStrafe"] = {
 		"global_bleed_on_hit",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, baseMultiplier = 1.2, },
+		[1] = { baseMultiplier = 1.2, levelRequirement = 0, },
 	},
 }
 skills["AzmeriTigerHaste"] = {
@@ -10276,7 +10276,7 @@ skills["AzmeriTigerHaste"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 0, storedUses = 1, cooldown = 0.5, },
+		[1] = { cooldown = 0.5, levelRequirement = 0, storedUses = 1, },
 	},
 }
 skills["ABTTAzmeriTurtleInvulnerability"] = {
@@ -10299,7 +10299,7 @@ skills["ABTTAzmeriTurtleInvulnerability"] = {
 		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, storedUses = 1, cooldown = 30, },
+		[1] = { cooldown = 30, levelRequirement = 0, storedUses = 1, },
 	},
 }
 skills["AzmeriTurtleDetermination"] = {
@@ -10337,7 +10337,7 @@ skills["AzmeriTurtleDetermination"] = {
 		"base_deal_no_damage",
 	},
 	levels = {
-		[1] = { 0.31400001049042, levelRequirement = 1, storedUses = 1, cooldown = 0.5, statInterpolation = { 3, }, },
+		[1] = { 0.31400001049042, cooldown = 0.5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["AzmeriOversoulRocksTriggered"] = {
@@ -10414,7 +10414,7 @@ skills["AzmeriOversoulExplosionIgnite"] = {
 		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { levelRequirement = 23, damageEffectiveness = 2, baseMultiplier = 2, },
+		[1] = { baseMultiplier = 2, damageEffectiveness = 2, levelRequirement = 23, },
 	},
 }
 skills["AzmeriOversoulLaserMaxShock"] = {
@@ -10451,7 +10451,7 @@ skills["AzmeriOversoulLaserMaxShock"] = {
 		"active_skill_cast_speed_+%_final",
 	},
 	levels = {
-		[1] = { 1.1000000238419, 1.6000000238419, 15, levelRequirement = 23, critChance = 5, statInterpolation = { 3, 3, 1, }, },
+		[1] = { 1.1000000238419, 1.6000000238419, 15, critChance = 5, levelRequirement = 23, statInterpolation = { 3, 3, 1, }, },
 	},
 }
 skills["AzmeriOversoulColdSnapTriggered"] = {
@@ -10501,18 +10501,18 @@ skills["AzmeriVikingCyclone"] = {
 	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Ruthless or Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["None"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
-		["None"] = true,
-		["Two Handed Axe"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
-		["Claw"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -10566,7 +10566,7 @@ skills["AzmeriVikingUpheaval"] = {
 		"base_fire_damage_to_deal_per_minute",
 	},
 	levels = {
-		[1] = { 33.333334078391, levelRequirement = 66, damageEffectiveness = 0.7, baseMultiplier = 0.7, statInterpolation = { 3, }, },
+		[1] = { 33.333334078391, baseMultiplier = 0.7, damageEffectiveness = 0.7, levelRequirement = 66, statInterpolation = { 3, }, },
 	},
 }
 skills["AfflictionMinionPhysSlamCircleSmall"] = {
@@ -10584,7 +10584,7 @@ skills["AfflictionMinionPhysSlamCircleSmall"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, baseMultiplier = 1.15, },
+		[1] = { baseMultiplier = 1.15, levelRequirement = 0, },
 	},
 }
 skills["AfflictionMinionPhysSlamCircleBig"] = {
@@ -10602,7 +10602,7 @@ skills["AfflictionMinionPhysSlamCircleBig"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, baseMultiplier = 1.33, },
+		[1] = { baseMultiplier = 1.33, levelRequirement = 0, },
 	},
 }
 skills["AfflictionMinionPhysSlamCircleRectangle"] = {
@@ -10620,7 +10620,7 @@ skills["AfflictionMinionPhysSlamCircleRectangle"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, baseMultiplier = 1.4, },
+		[1] = { baseMultiplier = 1.4, levelRequirement = 0, },
 	},
 }
 skills["GSHeistLightningVolatileExplode"] = {
@@ -10654,7 +10654,7 @@ skills["GSHeistLightningVolatileExplode"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["HeistCultistLightningBolt"] = {
@@ -10686,7 +10686,7 @@ skills["HeistCultistLightningBolt"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GSHeistLightningWaterfallHit"] = {
@@ -10716,7 +10716,7 @@ skills["GSHeistLightningWaterfallHit"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.69999998807907, 1.2999999523163, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.69999998807907, 1.2999999523163, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["MPSHeistCultistStaffProjectileGreen"] = {
@@ -10749,7 +10749,7 @@ skills["MPSHeistCultistStaffProjectileGreen"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, storedUses = 1, cooldown = 2.2, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 2.2, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["GSHeistScienceLightningDashImpact"] = {
@@ -10782,7 +10782,7 @@ skills["GSHeistScienceLightningDashImpact"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, levelRequirement = 1, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriDemonTeethShot"] = {
@@ -10821,7 +10821,7 @@ skills["AzmeriDemonTeethShot"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, -30, levelRequirement = 1, critChance = 5, baseMultiplier = 0.7, statInterpolation = { 3, 3, 2, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, -30, baseMultiplier = 0.7, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 2, }, },
 	},
 }
 skills["GAAzmeriDemonLeapSlamDamage"] = {
@@ -10850,7 +10850,7 @@ skills["GAAzmeriDemonLeapSlamDamage"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { -30, levelRequirement = 1, damageEffectiveness = 1.3, baseMultiplier = 2, statInterpolation = { 2, }, },
+		[1] = { -30, baseMultiplier = 2, damageEffectiveness = 1.3, levelRequirement = 1, statInterpolation = { 2, }, },
 	},
 }
 skills["GAAzmeriDemonMeleeMiniSlam1"] = {
@@ -10879,7 +10879,7 @@ skills["GAAzmeriDemonMeleeMiniSlam1"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { -30, levelRequirement = 1, baseMultiplier = 1.5, statInterpolation = { 2, }, },
+		[1] = { -30, baseMultiplier = 1.5, levelRequirement = 1, statInterpolation = { 2, }, },
 	},
 }
 skills["MMSAzmeriDemonBloodVomitSmall"] = {
@@ -11008,7 +11008,7 @@ skills["GSAzmeriDemonBossCorruptExplode"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, storedUses = 1, critChance = 5, cooldown = 0.5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 0.5, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriDemonPhysicalDamageAura"] = {
@@ -11045,8 +11045,8 @@ skills["AzmeriDemonPhysicalDamageAura"] = {
 		"base_deal_no_damage",
 	},
 	levels = {
-		[1] = { 15, 30, levelRequirement = 1, storedUses = 1, cooldown = 5, statInterpolation = { 2, 2, }, },
-		[2] = { 17, 34, levelRequirement = 80, storedUses = 1, cooldown = 5, statInterpolation = { 2, 2, }, },
+		[1] = { 15, 30, cooldown = 5, levelRequirement = 1, storedUses = 1, statInterpolation = { 2, 2, }, },
+		[2] = { 17, 34, cooldown = 5, levelRequirement = 80, storedUses = 1, statInterpolation = { 2, 2, }, },
 	},
 }
 skills["EmptyActionAttackAzmeriGolemVSlam"] = {
@@ -11070,7 +11070,7 @@ skills["EmptyActionAttackAzmeriGolemVSlam"] = {
 		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { levelRequirement = 0, storedUses = 1, cooldown = 15, },
+		[1] = { cooldown = 15, levelRequirement = 0, storedUses = 1, },
 	},
 }
 skills["AzmeriGolemVTurretProjectile"] = {
@@ -11153,7 +11153,7 @@ skills["AzmeriGuardian4BeamGun"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriGolemLeapSlam"] = {
@@ -11163,15 +11163,15 @@ skills["AzmeriGolemLeapSlam"] = {
 	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Two Handed Sword"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 2.33,
@@ -11191,7 +11191,7 @@ skills["AzmeriGolemLeapSlam"] = {
 		"action_attack_or_cast_time_uses_animation_length",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 7, },
+		[1] = { cooldown = 7, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["AzmeriGolemBossWhipLeft"] = {
@@ -11250,7 +11250,7 @@ skills["AzmeriBossShockRifleSingle"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, storedUses = 1, cooldown = 6, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 6, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AzmeriGolemRotateZap"] = {
@@ -11278,7 +11278,7 @@ skills["AzmeriGolemRotateZap"] = {
 		"spell_maximum_base_lightning_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, critChance = 5, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["RevenantBossSpellProjectile"] = {
@@ -11341,10 +11341,10 @@ skills["MeleeFire"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0, levelRequirement = 1, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[2] = { 0, levelRequirement = 19, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[3] = { 1, levelRequirement = 20, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[4] = { 200, levelRequirement = 84, baseMultiplier = 0.75, statInterpolation = { 2, }, },
+		[1] = { 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 0.75, levelRequirement = 19, statInterpolation = { 2, }, },
+		[3] = { 1, baseMultiplier = 0.75, levelRequirement = 20, statInterpolation = { 2, }, },
+		[4] = { 200, baseMultiplier = 0.75, levelRequirement = 84, statInterpolation = { 2, }, },
 	},
 }
 skills["LegionKaruiMeleeLeapSlam"] = {
@@ -11354,15 +11354,15 @@ skills["LegionKaruiMeleeLeapSlam"] = {
 	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Two Handed Sword"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 2.5,
@@ -11384,10 +11384,10 @@ skills["LegionKaruiMeleeLeapSlam"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0, levelRequirement = 1, storedUses = 1, cooldown = 8, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[2] = { 0, levelRequirement = 19, storedUses = 1, cooldown = 8, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[3] = { 1, levelRequirement = 20, storedUses = 1, cooldown = 8, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[4] = { 200, levelRequirement = 84, storedUses = 1, cooldown = 8, baseMultiplier = 0.75, statInterpolation = { 2, }, },
+		[1] = { 0, baseMultiplier = 0.75, cooldown = 8, levelRequirement = 1, storedUses = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 0.75, cooldown = 8, levelRequirement = 19, storedUses = 1, statInterpolation = { 2, }, },
+		[3] = { 1, baseMultiplier = 0.75, cooldown = 8, levelRequirement = 20, storedUses = 1, statInterpolation = { 2, }, },
+		[4] = { 200, baseMultiplier = 0.75, cooldown = 8, levelRequirement = 84, storedUses = 1, statInterpolation = { 2, }, },
 	},
 }
 skills["LegionKaruiMeleeCombo2"] = {
@@ -11435,7 +11435,7 @@ skills["LegionMonsterProximityShield"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { levelRequirement = 0, storedUses = 1, cooldown = 18, },
+		[1] = { cooldown = 18, levelRequirement = 0, storedUses = 1, },
 	},
 }
 skills["EmpoweringHowlSpectre"] = {
@@ -11469,7 +11469,7 @@ skills["EmpoweringHowlSpectre"] = {
 		"base_deal_no_damage",
 	},
 	levels = {
-		[1] = { levelRequirement = 1, storedUses = 1, cooldown = 12, },
+		[1] = { cooldown = 12, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["DelveMelee"] = {
@@ -11529,17 +11529,17 @@ skills["DelveSpiderFlickerStrike"] = {
 	description = "Teleports the character to a nearby monster and attacks with a melee weapon. If no specific monster is targeted, one is picked at random. Grants a buff that increases movement speed for a duration. The cooldown can be bypassed by expending a Frenzy Charge.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Movement] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
-		["Two Handed Axe"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
-		["Claw"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -11556,7 +11556,7 @@ skills["DelveSpiderFlickerStrike"] = {
 		"melee_defer_damage_prediction",
 	},
 	levels = {
-		[1] = { attackSpeedMultiplier = 20, baseMultiplier = 0.5, levelRequirement = 1, storedUses = 1, cooldown = 4, },
+		[1] = { attackSpeedMultiplier = 20, baseMultiplier = 0.5, cooldown = 4, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["MeleeAtAnimationSpeedLightning"] = {
@@ -11587,10 +11587,10 @@ skills["MeleeAtAnimationSpeedLightning"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0, levelRequirement = 1, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[2] = { 0, levelRequirement = 19, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[3] = { 1, levelRequirement = 20, baseMultiplier = 0.75, statInterpolation = { 2, }, },
-		[4] = { 200, levelRequirement = 84, baseMultiplier = 0.75, statInterpolation = { 2, }, },
+		[1] = { 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 0.75, levelRequirement = 19, statInterpolation = { 2, }, },
+		[3] = { 1, baseMultiplier = 0.75, levelRequirement = 20, statInterpolation = { 2, }, },
+		[4] = { 200, baseMultiplier = 0.75, levelRequirement = 84, statInterpolation = { 2, }, },
 	},
 }
 skills["CrucibleVendigoFlickerStrike"] = {
@@ -11600,17 +11600,17 @@ skills["CrucibleVendigoFlickerStrike"] = {
 	description = "Teleports the character to a nearby monster and attacks with a melee weapon. If no specific monster is targeted, one is picked at random. Grants a buff that increases movement speed for a duration. The cooldown can be bypassed by expending a Frenzy Charge.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Movement] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
-		["Thrusting One Handed Sword"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Two Handed Mace"] = true,
-		["Two Handed Axe"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
-		["Claw"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -11630,9 +11630,9 @@ skills["CrucibleVendigoFlickerStrike"] = {
 		"active_skill_damage_+%_final",
 	},
 	levels = {
-		[1] = { -30, levelRequirement = 1, storedUses = 1, cooldown = 3, statInterpolation = { 2, }, },
-		[2] = { 0, levelRequirement = 19, storedUses = 1, cooldown = 3, statInterpolation = { 2, }, },
-		[3] = { 1, levelRequirement = 20, storedUses = 1, cooldown = 3, statInterpolation = { 2, }, },
-		[4] = { 30, levelRequirement = 84, storedUses = 1, cooldown = 3, statInterpolation = { 2, }, },
+		[1] = { -30, cooldown = 3, levelRequirement = 1, storedUses = 1, statInterpolation = { 2, }, },
+		[2] = { 0, cooldown = 3, levelRequirement = 19, storedUses = 1, statInterpolation = { 2, }, },
+		[3] = { 1, cooldown = 3, levelRequirement = 20, storedUses = 1, statInterpolation = { 2, }, },
+		[4] = { 30, cooldown = 3, levelRequirement = 84, storedUses = 1, statInterpolation = { 2, }, },
 	},
 }
