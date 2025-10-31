@@ -108,7 +108,7 @@ end
 
 function parseStats(datFileRow, legionPassive)
 	local descOrders = {}
-	for idx,statKey in pairs(datFileRow.StatsKeys) do
+	for idx,statKey in ipairs(datFileRow.StatsKeys) do
 		local refRow = type(statKey) == "number" and statKey + 1 or statKey._rowIndex
 		local statId = stats:ReadCell(refRow, 1)
 		local range = datFileRow["Stat"..idx]
