@@ -48,7 +48,7 @@ end
 
 function parsePassiveStats(datFileRow, keystonePassive)
 	local descOrders = {}
-	for idx,statKey in pairs(datFileRow.Stats) do
+	for idx,statKey in ipairs(datFileRow.Stats) do
 		local refRow = type(statKey) == "number" and statKey + 1 or statKey._rowIndex
 		local statId = stats:ReadCell(refRow, 1)
 		local range = datFileRow["Stat"..idx]
