@@ -82,7 +82,7 @@ function stringify(thing)
 		return ""..thing;
 	elseif type(thing) == 'table' then
 		local s = "{";
-		for k,v in pairs(thing) do
+		for k,v in pairsSortByKey(thing) do
 			s = s.."\n\t"
 			if type(k) == 'number' then
 				s = s.."["..k.."] = "
@@ -131,7 +131,7 @@ function parseStats(datFileRow, legionPassive)
 	-- Have to re-sort since we described the stats earlier
 	table.sort(legionPassive.sd, function(a, b) return descOrders[a] < descOrders[b] end)
 	local sortedStats = {}
-	for stat in pairs(legionPassive.stats) do
+	for stat in pairsSortByKey(legionPassive.stats) do
 		table.insert(sortedStats, stat)
 	end
 	-- Finally get what we want, sorted stats by order
@@ -218,7 +218,7 @@ data.groups[LEGION_PASSIVE_GROUP] = {
     ["n"] = {}
 }
 
-for k,v in pairs(data.nodes) do
+for k,v in ipairs(data.nodes) do
 	table.insert(data.groups[LEGION_PASSIVE_GROUP].n, k)
 end
 
