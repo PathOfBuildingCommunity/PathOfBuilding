@@ -93,7 +93,7 @@ directiveTable.base = function(state, args, out)
 	for _, tag in ipairs(baseItemType.Tags) do
 		combinedTags[tag.Id] = tag.Id
 	end
-	for _, tag in pairs(combinedTags) do
+	for _, tag in pairsSortByKey(combinedTags) do
 		out:write(tag, ' = true, ')
 	end
 	out:write('},\n')
