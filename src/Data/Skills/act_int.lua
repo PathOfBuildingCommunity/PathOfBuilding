@@ -14859,26 +14859,23 @@ skills["RighteousFire"] = {
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	preDamageFunc = function(activeSkill, output)
-		if activeSkill.skillFlags.totem then
+		if activeSkill.skillFlags.totem and output.TotemLife > 1 then
 			activeSkill.skillData.FireDot = output.TotemLife * activeSkill.skillData.RFLifeMultiplier + output.TotemEnergyShield * activeSkill.skillData.RFESMultiplier
-		else
+		elseif output.LifeUnreserved > 1 then
 			activeSkill.skillData.FireDot = output.Life * activeSkill.skillData.RFLifeMultiplier + output.EnergyShield * activeSkill.skillData.RFESMultiplier
 		end
 	end,
 	statMap = {
 		["righteous_fire_spell_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "StatThreshold", stat = "LifeUnreserved", threshold = 2 }),
 		},
 		["base_nonlethal_fire_damage_%_of_maximum_life_taken_per_minute"] = {
-			mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Life", div = 1}, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Life", div = 1}, { type = "GlobalEffect", effectType = "Buff" }, { type = "StatThreshold", stat = "LifeUnreserved", threshold = 2 }),
 			div = 6000,
 		},
 		["base_nonlethal_fire_damage_%_of_maximum_energy_shield_taken_per_minute"] = {
-			mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield", div = 1}, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield", div = 1}, { type = "GlobalEffect", effectType = "Buff" }, { type = "StatThreshold", stat = "LifeUnreserved", threshold = 2 }),
 			div = 6000,
-		},
-		["spell_damage_+%"] = {
-			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["base_righteous_fire_%_of_max_life_to_deal_to_nearby_per_minute"] = {
 			skill("RFLifeMultiplier", nil),
@@ -14969,11 +14966,13 @@ skills["RighteousFireAltX"] = {
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.FireDot = output.Mana * activeSkill.skillData.RFManaMultiplier
+		if output.LifeUnreserved > 1 then
+			activeSkill.skillData.FireDot = output.Mana * activeSkill.skillData.RFManaMultiplier
+		end
 	end,
 	statMap = {
 		["base_nonlethal_fire_damage_%_of_maximum_mana_taken_per_minute"] = {
-			mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Mana", div = 1}, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Mana", div = 1}, { type = "GlobalEffect", effectType = "Buff" }, { type = "StatThreshold", stat = "LifeUnreserved", threshold = 2 }),
 			div = 6000,
 		},
 		["base_righteous_fire_%_of_max_mana_to_deal_to_nearby_per_minute"] = {
@@ -14981,7 +14980,7 @@ skills["RighteousFireAltX"] = {
 			div = 6000,
 		},
 		["righteous_fire_cast_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Speed", "MORE", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "StatThreshold", stat = "LifeUnreserved", threshold = 2 }),
 		},
 	},
 	baseFlags = {
