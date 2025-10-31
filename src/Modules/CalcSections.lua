@@ -671,6 +671,11 @@ return {
 		{ breakdown = "AuraEffectMod" },
 		{ modName = { "AuraEffect", "SkillAuraEffectOnSelf" }, cfg = "skill" },
 	}, },
+	{ label = "Herald Buff Mod", flag = "buffs", haveOutput="HeraldBuffEffectMod", { format = "x {2:output:HeraldBuffEffectMod}",
+		{ breakdown = "HeraldBuffEffectMod" },
+		{ modName = { "BuffEffect", "BuffEffectOnSelf" }, modType = "INC", cfg = "skill" },
+		{ modName = { "BuffEffect", "BuffEffectOnSelf" }, modType = "MORE", cfg = "skill" },
+	}, },
 	{ label = "Mana Reserve Mod", haveOutput = "ManaReservedMod", { format = "x {2:output:ManaReservedMod}",
 		{ breakdown = "ManaReservedMod" },
 		{ modName = { "ManaReserved", "Reserved", "SupportManaMultiplier", "ManaReservationEfficiency", "ReservationEfficiency" }, cfg = "skill"}
