@@ -20,7 +20,7 @@
 - Add setting to override Windows scaling from PoB [\#9048](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9048) ([LocalIdentity](https://github.com/LocalIdentity))
 - Add four new spectres and update three existing spectres [\#9069](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9069) ([Lothrik](https://github.com/Lothrik))
 - Add Maxroll as a new build site you can export to ([LocalIdentity](https://github.com/LocalIdentity))
-- Auto URL encode when pasting a account name into the import  [\#8949](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8949) ([Nightblade](https://github.com/Nightblade))
+- Auto URL encode when pasting an account name into the import [\#8949](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8949) ([Nightblade](https://github.com/Nightblade))
 - Update 3.26 uniques [\#8976](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8976) ([Paliak](https://github.com/Paliak))
 - Add support for Projectile count of Spiral skills [\#8995](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8995) ([Inzagini](https://github.com/Inzagini))
 - Improve skill level breakdown and add gem quality breakdown to calcs tab [\#9002](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9002) ([Paliak](https://github.com/Paliak))
@@ -32,7 +32,7 @@
 - Add passive tree search tip [\#8986](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8986) ([Nightblade](https://github.com/Nightblade))
 - Sort Gem list Alphabetically by default [\#9007](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9007) ([Blitz54](https://github.com/Blitz54))
 - Add CTRL + C to error message to copy error text [\#8992](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8992) ([Blitz54](https://github.com/Blitz54))
-- Update Font Files [\#9053](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9053) ([LocalIdentity](https://github.com/LocalIdentity))
+- Update font files [\#9053](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9053) ([LocalIdentity](https://github.com/LocalIdentity))
 ### Fixed Calculations
 - Fix Spell Echo not working with some Minion skills [\#8956](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8956) ([LocalIdentity](https://github.com/LocalIdentity))
 - Correct skill slot comparison for General's Cry detection [\#8954](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8954) ([emmanuel-ferdman](https://github.com/emmanuel-ferdman))
@@ -48,7 +48,6 @@
 - Fix Breakdown of Crit Damage when using Dance with Death [\#9012](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9012) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix missing Malevolence Aura Effect on String of Servitude [\#9000](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9000) ([Inzagini](https://github.com/Inzagini))
 ### Fixed Bugs
-* Update BuildSiteTools.lua by  in 
 - Disable trade UI elements when leagues are not populated [\#8984](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/8984) ([Wires77](https://github.com/Wires77))
 ### Other changes
 - Add better support for Unicode filepaths [\#76](https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic/pull/76) ([Zao](https://github.com/Zao))

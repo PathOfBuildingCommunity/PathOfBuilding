@@ -14,8 +14,8 @@ VERSION[2.57.0][2025/10/30]
 * Add support for high DPI awareness to keep PoB looking crisp on higher resolution screens (LeonSparta, LocalIdentity)
 * Add setting to override Windows scaling from PoB (LocalIdentity)
 * Add four new spectres and update three existing spectres (Lothrik)
-* Add Maxroll as a new build site you can export to ([LocalIdentity](https://github.com/LocalIdentity))
-* Auto URL encode when pasting a account name into the import  (Nightblade)
+* Add Maxroll as a new build site you can export to (LocalIdentity)
+* Auto URL encode when pasting an account name into the import (Nightblade)
 * Update 3.26 uniques (Paliak)
 * Add support for Projectile count of Spiral skills (Inzagini)
 * Improve skill level breakdown and add gem quality breakdown to calcs tab (Paliak)
@@ -25,11 +25,11 @@ VERSION[2.57.0][2025/10/30]
 * Fixed crash when sorting Minion skill gems in some builds (Lothrik, Paliak)
 
 --- User Interface ---
-* Improve UI to match in-game fonts and Item previews (Blitz54)
+* Improve UI to match in-game fonts and item previews (Blitz54)
 * Add passive tree search tip (Nightblade)
 * Sort Gem list Alphabetically by default (Blitz54)
 * Add CTRL + C to error message to copy error text (Blitz54)
-* Update Font Files (LocalIdentity)
+* Update font files (LocalIdentity)
 
 --- Fixed Calculations ---
 * Fix Spell Echo not working with some Minion skills (LocalIdentity)
@@ -49,7 +49,6 @@ VERSION[2.57.0][2025/10/30]
 * Fix missing Malevolence Aura Effect on String of Servitude (Inzagini)
 
 --- Fixed Bugs ---
-* Update BuildSiteTools.lua by  in 
 * Disable trade UI elements when leagues are not populated (Wires77)
 
 --- Other changes ---
