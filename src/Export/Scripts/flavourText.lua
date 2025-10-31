@@ -192,7 +192,7 @@ for _, entry in ipairs(forcedNameList) do
 end
 
 -- Export remaining stash layout uniques
-for id, name in pairs(uniqueNameLookup) do
+for id, name in pairsSortByKey(uniqueNameLookup) do
 	local lines = flavourTextById[id]
 	if lines then
 		out:write('\t[', index, '] = {\n')
