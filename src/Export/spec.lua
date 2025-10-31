@@ -9178,75 +9178,68 @@ return {
 		},
 		[2]={
 			list=false,
-			name="OTFile",
-			refTo="",
-			type="String",
-			width=150
-		},
-		[3]={
-			list=false,
 			name="Accuracy",
 			refTo="",
 			type="Int",
 			width=70
 		},
-		[4]={
+		[3]={
 			list=false,
 			name="IsPlayerMinion",
 			refTo="",
 			type="Bool",
 			width=80
 		},
-		[5]={
+		[4]={
 			list=false,
 			name="Armour",
 			refTo="",
 			type="Int",
 			width=60
 		},
-		[6]={
+		[5]={
 			list=false,
 			name="Evasion",
 			refTo="",
 			type="Int",
 			width=60
 		},
-		[7]={
+		[6]={
 			list=false,
 			name="EnergyShield",
 			refTo="",
 			type="Int",
 			width=70
 		},
-		[8]={
+		[7]={
 			list=false,
 			name="DamageSpread",
 			refTo="",
 			type="Int",
 			width=100
 		},
-		[9]={
+		[8]={
 			list=false,
 			name="Resistances",
 			refTo="MonsterResistances",
 			type="Key",
 			width=150
 		},
-		[10]={
+		[9]={
 			list=false,
 			name="AltLife1",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[11]={
+		[10]={
 			list=false,
 			name="AltLife2",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[12]={
+		[11]={
 			list=false,
 			name="BaseDamageIgnoresAttackSpeed",
 			refTo="",
