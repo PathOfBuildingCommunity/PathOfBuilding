@@ -85,7 +85,7 @@ itemBases["Citrine Amulet"] = {
 }
 itemBases["Ruby Amulet"] = {
 	type = "Amulet",
-	tags = { not_for_sale = true, default = true, amulet = true, },
+	tags = { amulet = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+(20-30)% to Fire Resistance",
 	implicitModTypes = { { "elemental", "fire", "resistance" }, },
@@ -93,7 +93,7 @@ itemBases["Ruby Amulet"] = {
 }
 itemBases["Unset Amulet"] = {
 	type = "Amulet",
-	tags = { not_for_sale = true, default = true, amulet = true, },
+	tags = { amulet = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "Has 1 Socket",
 	implicitModTypes = { {  }, },
@@ -101,7 +101,7 @@ itemBases["Unset Amulet"] = {
 }
 itemBases["Blue Pearl Amulet"] = {
 	type = "Amulet",
-	tags = { amuletatlas1 = true, not_for_sale = true, atlas_base_type = true, amulet = true, default = true, },
+	tags = { amulet = true, amuletatlas1 = true, atlas_base_type = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(48-56)% increased Mana Regeneration Rate",
 	implicitModTypes = { { "resource", "mana" }, },
@@ -109,7 +109,7 @@ itemBases["Blue Pearl Amulet"] = {
 }
 itemBases["Marble Amulet"] = {
 	type = "Amulet",
-	tags = { amuletatlas2 = true, not_for_sale = true, atlas_base_type = true, amulet = true, default = true, },
+	tags = { amulet = true, amuletatlas2 = true, atlas_base_type = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "Regenerate (1.2-1.6)% of Life per second",
 	implicitModTypes = { { "resource", "life" }, },
@@ -117,7 +117,7 @@ itemBases["Marble Amulet"] = {
 }
 itemBases["Seaglass Amulet"] = {
 	type = "Amulet",
-	tags = { not_for_sale = true, atlas_base_type = true, amuletatlas3 = true, amulet = true, default = true, },
+	tags = { amulet = true, amuletatlas3 = true, atlas_base_type = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(10-15)% faster start of Energy Shield Recharge",
 	implicitModTypes = { { "defences", "energy_shield" }, },
@@ -125,7 +125,7 @@ itemBases["Seaglass Amulet"] = {
 }
 itemBases["Astrolabe Amulet"] = {
 	type = "Amulet",
-	tags = { not_for_sale = true, experimental_base = true, default = true, amulet = true, },
+	tags = { amulet = true, default = true, experimental_base = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "Implicit Modifiers Cannot Be Changed\nHas Elder, Shaper and all Conqueror Influences",
 	implicitModTypes = { {  }, {  }, },
@@ -133,7 +133,7 @@ itemBases["Astrolabe Amulet"] = {
 }
 itemBases["Simplex Amulet"] = {
 	type = "Amulet",
-	tags = { not_for_sale = true, experimental_base = true, default = true, amulet = true, },
+	tags = { amulet = true, default = true, experimental_base = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "-2 Prefix Modifiers allowed\n-1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed\n100% increased Explicit Modifier magnitudes",
 	implicitModTypes = { {  }, {  }, {  }, {  }, },
@@ -141,7 +141,7 @@ itemBases["Simplex Amulet"] = {
 }
 itemBases["Focused Amulet"] = {
 	type = "Amulet",
-	tags = { not_for_sale = true, experimental_base = true, default = true, amulet = true, },
+	tags = { amulet = true, default = true, experimental_base = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "-1 Prefix Modifier allowed\n-2 Suffix Modifiers allowed\nImplicit Modifiers Cannot Be Changed\n100% increased Explicit Modifier magnitudes",
 	implicitModTypes = { {  }, {  }, {  }, {  }, },
@@ -150,7 +150,7 @@ itemBases["Focused Amulet"] = {
 itemBases["Jet Amulet"] = {
 	type = "Amulet",
 	hidden = true,
-	tags = { demigods = true, not_for_sale = true, default = true, amulet = true, },
+	tags = { amulet = true, default = true, demigods = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+(8-12)% to all Elemental Resistances",
 	implicitModTypes = { { "elemental", "resistance" }, },
@@ -160,7 +160,7 @@ itemBases["Jet Amulet"] = {
 itemBases["Black Maw Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "Has 1 Socket",
 	implicitModTypes = { {  }, },
@@ -169,7 +169,7 @@ itemBases["Black Maw Talisman"] = {
 itemBases["Bonespire Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(20-30)% increased maximum Mana",
 	implicitModTypes = { { "resource", "mana" }, },
@@ -178,7 +178,7 @@ itemBases["Bonespire Talisman"] = {
 itemBases["Ashscale Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(20-30)% increased Fire Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire" }, },
@@ -187,7 +187,7 @@ itemBases["Ashscale Talisman"] = {
 itemBases["Lone Antler Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(20-30)% increased Lightning Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "lightning" }, },
@@ -196,7 +196,7 @@ itemBases["Lone Antler Talisman"] = {
 itemBases["Deep One Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(20-30)% increased Cold Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold" }, },
@@ -205,7 +205,7 @@ itemBases["Deep One Talisman"] = {
 itemBases["Breakrib Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(20-30)% increased Global Physical Damage",
 	implicitModTypes = { { "physical_damage", "damage", "physical" }, },
@@ -214,7 +214,7 @@ itemBases["Breakrib Talisman"] = {
 itemBases["Deadhand Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(19-31)% increased Chaos Damage",
 	implicitModTypes = { { "chaos_damage", "damage", "chaos" }, },
@@ -223,7 +223,7 @@ itemBases["Deadhand Talisman"] = {
 itemBases["Undying Flesh Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+1 to maximum number of Raised Zombies",
 	implicitModTypes = { { "minion" }, },
@@ -232,7 +232,7 @@ itemBases["Undying Flesh Talisman"] = {
 itemBases["Rot Head Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(30-40)% increased Fish Bite Sensitivity",
 	implicitModTypes = { { "green_herring" }, },
@@ -241,7 +241,7 @@ itemBases["Rot Head Talisman"] = {
 itemBases["Mandible Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(6-10)% increased Attack and Cast Speed",
 	implicitModTypes = { { "attack", "caster", "speed" }, },
@@ -250,7 +250,7 @@ itemBases["Mandible Talisman"] = {
 itemBases["Chrysalis Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(20-30)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
@@ -259,7 +259,7 @@ itemBases["Chrysalis Talisman"] = {
 itemBases["Writhing Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(20-30)% increased Attack Damage",
 	implicitModTypes = { { "damage", "attack" }, },
@@ -268,7 +268,7 @@ itemBases["Writhing Talisman"] = {
 itemBases["Hexclaw Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(40-50)% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
@@ -277,7 +277,7 @@ itemBases["Hexclaw Talisman"] = {
 itemBases["Primal Skull Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "Regenerate 2% of Life per second",
 	implicitModTypes = { { "resource", "life" }, },
@@ -286,7 +286,7 @@ itemBases["Primal Skull Talisman"] = {
 itemBases["Wereclaw Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+(24-36)% to Global Critical Strike Multiplier",
 	implicitModTypes = { { "damage", "critical" }, },
@@ -295,7 +295,7 @@ itemBases["Wereclaw Talisman"] = {
 itemBases["Splitnewt Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(4-6)% chance to Freeze, Shock and Ignite",
 	implicitModTypes = { { "elemental", "fire", "cold", "lightning", "ailment" }, },
@@ -304,7 +304,7 @@ itemBases["Splitnewt Talisman"] = {
 itemBases["Clutching Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(15-25)% increased Global Defences",
 	implicitModTypes = { { "defences" }, },
@@ -313,7 +313,7 @@ itemBases["Clutching Talisman"] = {
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Fire Damage from Hits taken as Cold Damage",
 	implicitModTypes = { { "elemental", "fire", "cold" }, },
@@ -322,7 +322,7 @@ itemBases["Avian Twins Talisman"] = {
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Fire Damage from Hits taken as Lightning Damage",
 	implicitModTypes = { { "elemental", "fire", "lightning" }, },
@@ -331,7 +331,7 @@ itemBases["Avian Twins Talisman"] = {
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Cold Damage from Hits taken as Fire Damage",
 	implicitModTypes = { { "elemental", "fire", "cold" }, },
@@ -340,7 +340,7 @@ itemBases["Avian Twins Talisman"] = {
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Cold Damage from Hits taken as Lightning Damage",
 	implicitModTypes = { { "elemental", "cold", "lightning" }, },
@@ -349,7 +349,7 @@ itemBases["Avian Twins Talisman"] = {
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Lightning Damage from Hits taken as Cold Damage",
 	implicitModTypes = { { "elemental", "cold", "lightning" }, },
@@ -358,7 +358,7 @@ itemBases["Avian Twins Talisman"] = {
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Lightning Damage from Hits taken as Fire Damage",
 	implicitModTypes = { { "elemental", "fire", "lightning" }, },
@@ -367,7 +367,7 @@ itemBases["Avian Twins Talisman"] = {
 itemBases["Fangjaw Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(8-12)% increased maximum Life",
 	implicitModTypes = { { "resource", "life" }, },
@@ -376,7 +376,7 @@ itemBases["Fangjaw Talisman"] = {
 itemBases["Horned Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "Projectiles Pierce 2 additional Targets",
 	implicitModTypes = { {  }, },
@@ -385,7 +385,7 @@ itemBases["Horned Talisman"] = {
 itemBases["Spinefuse Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+(12-18)% to Damage over Time Multiplier",
 	implicitModTypes = { { "dot_multi", "damage" }, },
@@ -394,7 +394,7 @@ itemBases["Spinefuse Talisman"] = {
 itemBases["Three Rat Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(12-16)% increased Attributes",
 	implicitModTypes = { { "attribute" }, },
@@ -403,7 +403,7 @@ itemBases["Three Rat Talisman"] = {
 itemBases["Monkey Twins Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(5-8)% increased Area of Effect",
 	implicitModTypes = { {  }, },
@@ -412,7 +412,7 @@ itemBases["Monkey Twins Talisman"] = {
 itemBases["Longtooth Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(4-6)% additional Physical Damage Reduction",
 	implicitModTypes = { { "physical" }, },
@@ -421,7 +421,7 @@ itemBases["Longtooth Talisman"] = {
 itemBases["Rotfeather Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(25-35)% increased Damage",
 	implicitModTypes = { { "damage" }, },
@@ -430,7 +430,7 @@ itemBases["Rotfeather Talisman"] = {
 itemBases["Monkey Paw Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "10% chance to gain a Power Charge on Kill",
 	implicitModTypes = { { "power_charge" }, },
@@ -439,7 +439,7 @@ itemBases["Monkey Paw Talisman"] = {
 itemBases["Monkey Paw Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "10% chance to gain a Frenzy Charge on Kill",
 	implicitModTypes = { { "frenzy_charge" }, },
@@ -448,7 +448,7 @@ itemBases["Monkey Paw Talisman"] = {
 itemBases["Monkey Paw Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "10% chance to gain an Endurance Charge on Kill",
 	implicitModTypes = { { "endurance_charge" }, },
@@ -457,7 +457,7 @@ itemBases["Monkey Paw Talisman"] = {
 itemBases["Three Hands Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "Gain (6-12)% of Physical Damage as Extra Damage of a random Element",
 	implicitModTypes = { { "physical_damage", "elemental_damage", "damage", "physical", "elemental" }, },
@@ -474,7 +474,7 @@ itemBases["Greatwolf Talisman"] = {
 itemBases["Avian Twins Talisman (Fire-To-Cold)"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Fire Damage from Hits taken as Cold Damage",
 	implicitModTypes = { { "elemental", "fire", "cold" }, },
@@ -483,7 +483,7 @@ itemBases["Avian Twins Talisman (Fire-To-Cold)"] = {
 itemBases["Avian Twins Talisman (Fire-To-Lightning)"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Fire Damage from Hits taken as Lightning Damage",
 	implicitModTypes = { { "elemental", "fire", "lightning" }, },
@@ -492,7 +492,7 @@ itemBases["Avian Twins Talisman (Fire-To-Lightning)"] = {
 itemBases["Avian Twins Talisman (Cold-To-Lightning)"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Cold Damage from Hits taken as Fire Damage",
 	implicitModTypes = { { "elemental", "fire", "cold" }, },
@@ -501,7 +501,7 @@ itemBases["Avian Twins Talisman (Cold-To-Lightning)"] = {
 itemBases["Avian Twins Talisman (Cold-To-Fire)"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Cold Damage from Hits taken as Lightning Damage",
 	implicitModTypes = { { "elemental", "cold", "lightning" }, },
@@ -510,7 +510,7 @@ itemBases["Avian Twins Talisman (Cold-To-Fire)"] = {
 itemBases["Avian Twins Talisman (Lightning-To-Cold)"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Lightning Damage from Hits taken as Cold Damage",
 	implicitModTypes = { { "elemental", "cold", "lightning" }, },
@@ -519,7 +519,7 @@ itemBases["Avian Twins Talisman (Lightning-To-Cold)"] = {
 itemBases["Monkey Paw Talisman (Power)"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "10% chance to gain a Power Charge on Kill",
 	implicitModTypes = { { "power_charge" }, },
@@ -528,7 +528,7 @@ itemBases["Monkey Paw Talisman (Power)"] = {
 itemBases["Monkey Paw Talisman (Frenzy)"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
+	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "10% chance to gain a Frenzy Charge on Kill",
 	implicitModTypes = { { "frenzy_charge" }, },

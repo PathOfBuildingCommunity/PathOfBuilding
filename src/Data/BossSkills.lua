@@ -47,10 +47,10 @@ return {
 		critChance = 0,
 		additionalStats = {
 			uber = {
+				CannotBeBlocked = "flag",
 				CannotBeDodged = "flag",
 				CannotBeEvaded = "flag",
-				CannotBeSuppressed = "flag",
-				CannotBeBlocked = "flag"
+				CannotBeSuppressed = "flag"
 			}
 		},
 		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds increases Damage by a further 100% (Applied on Uber) and cannot be blocked or dodged"
@@ -75,14 +75,14 @@ return {
 		speed = 1500,
 		additionalStats = {
 			base = {
+				PhysicalDamageSkillConvertToChaos = 25,
 				PhysicalDamageSkillConvertToFire = 25,
-				PhysicalDamageSkillConvertToLightning = 25,
-				PhysicalDamageSkillConvertToChaos = 25
+				PhysicalDamageSkillConvertToLightning = 25
 			},
 			uber = {
+				PhysicalDamageSkillConvertToChaos = 25,
 				PhysicalDamageSkillConvertToFire = 25,
-				PhysicalDamageSkillConvertToLightning = 25,
-				PhysicalDamageSkillConvertToChaos = 25
+				PhysicalDamageSkillConvertToLightning = 25
 			}
 		},
 		tooltip = "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50% (Applied on Uber)"
@@ -106,13 +106,13 @@ return {
 		additionalStats = {
 			base = {
 				CannotBeBlocked = "flag",
-				CannotBeSuppressed = "flag",
-				CannotBeDodged = "flag"
+				CannotBeDodged = "flag",
+				CannotBeSuppressed = "flag"
 			},
 			uber = {
 				CannotBeBlocked = "flag",
-				CannotBeSuppressed = "flag",
-				CannotBeDodged = "flag"
+				CannotBeDodged = "flag",
+				CannotBeSuppressed = "flag"
 			}
 		},
 		tooltip = "Spawns 8-18 waves of balls depending on which fight and which ball phase, Cannot be Blocked, Dodged, or Suppressed"
@@ -150,19 +150,19 @@ return {
 		additionalStats = {
 			base = {
 				CannotBeBlocked = "flag",
-				PhysicalDamageSkillConvertToLightning = 100,
+				CannotBeDodged = "flag",
+				CannotBeSuppressed = "flag",
 				PhysicalDamageSkillConvertToCold = 100,
 				PhysicalDamageSkillConvertToFire = 100,
-				CannotBeSuppressed = "flag",
-				CannotBeDodged = "flag"
+				PhysicalDamageSkillConvertToLightning = 100
 			},
 			uber = {
 				CannotBeBlocked = "flag",
-				PhysicalDamageSkillConvertToLightning = 100,
+				CannotBeDodged = "flag",
+				CannotBeSuppressed = "flag",
 				PhysicalDamageSkillConvertToCold = 100,
 				PhysicalDamageSkillConvertToFire = 100,
-				CannotBeSuppressed = "flag",
-				CannotBeDodged = "flag"
+				PhysicalDamageSkillConvertToLightning = 100
 			}
 		},
 		tooltip = "Cannot be Blocked, Dodged, or Suppressed. \n	It is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n		i.e. Hits before death should be more than 3 to survive"

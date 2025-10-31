@@ -5,7 +5,7 @@ local itemBases = ...
 itemBases["Fishing Rod"] = {
 	type = "Fishing Rod",
 	socketLimit = 4,
-	tags = { not_for_sale = true, fishing_rod = true, twohand = true, default = true, },
+	tags = { default = true, fishing_rod = true, not_for_sale = true, twohand = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 8, PhysicalMax = 15, CritChanceBase = 5, AttackRateBase = 1.2, Range = 13, },
 	req = { str = 8, dex = 8, },

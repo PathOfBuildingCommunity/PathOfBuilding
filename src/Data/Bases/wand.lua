@@ -5,7 +5,7 @@ local itemBases = ...
 itemBases["Driftwood Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "(8-12)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
@@ -15,7 +15,7 @@ itemBases["Driftwood Wand"] = {
 itemBases["Goat's Horn"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "Adds (1-2) to (3-4) Fire Damage to Spells and Attacks",
 	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "fire", "attack", "caster" }, },
@@ -25,7 +25,7 @@ itemBases["Goat's Horn"] = {
 itemBases["Carved Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "(11-15)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
@@ -35,7 +35,7 @@ itemBases["Carved Wand"] = {
 itemBases["Quartz Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "Adds (2-3) to (4-7) Cold Damage to Spells and Attacks",
 	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "cold", "attack", "caster" }, },
@@ -45,7 +45,7 @@ itemBases["Quartz Wand"] = {
 itemBases["Spiraled Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "Adds (1-2) to (9-11) Lightning Damage to Spells and Attacks",
 	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "lightning", "attack", "caster" }, },
@@ -55,7 +55,7 @@ itemBases["Spiraled Wand"] = {
 itemBases["Sage Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "(17-21)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
@@ -65,7 +65,7 @@ itemBases["Sage Wand"] = {
 itemBases["Pagan Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { maraketh = true, not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "10% increased Cast Speed",
 	implicitModTypes = { { "caster", "speed" }, },
@@ -75,7 +75,7 @@ itemBases["Pagan Wand"] = {
 itemBases["Faun's Horn"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "Adds (5-10) to (11-13) Fire Damage to Spells and Attacks",
 	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "fire", "attack", "caster" }, },
@@ -85,7 +85,7 @@ itemBases["Faun's Horn"] = {
 itemBases["Engraved Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "(22-26)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
@@ -95,7 +95,7 @@ itemBases["Engraved Wand"] = {
 itemBases["Crystal Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "Adds (4-8) to (10-12) Cold Damage to Spells and Attacks",
 	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "cold", "attack", "caster" }, },
@@ -105,7 +105,7 @@ itemBases["Crystal Wand"] = {
 itemBases["Coiled Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "Adds (1-2) to (22-24) Lightning Damage to Spells and Attacks",
 	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "lightning", "attack", "caster" }, },
@@ -115,7 +115,7 @@ itemBases["Coiled Wand"] = {
 itemBases["Omen Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "(27-31)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
@@ -125,7 +125,7 @@ itemBases["Omen Wand"] = {
 itemBases["Heathen Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { maraketh = true, not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "10% increased Cast Speed",
 	implicitModTypes = { { "caster", "speed" }, },
@@ -135,7 +135,7 @@ itemBases["Heathen Wand"] = {
 itemBases["Demon's Horn"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "Adds (18-36) to (53-59) Fire Damage to Spells and Attacks",
 	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "fire", "attack", "caster" }, },
@@ -145,7 +145,7 @@ itemBases["Demon's Horn"] = {
 itemBases["Imbued Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "(33-37)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
@@ -155,7 +155,7 @@ itemBases["Imbued Wand"] = {
 itemBases["Opal Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { top_tier_base_item_type = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, top_tier_base_item_type = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "Adds (14-29) to (42-47) Cold Damage to Spells and Attacks",
 	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "cold", "attack", "caster" }, },
@@ -165,7 +165,7 @@ itemBases["Opal Wand"] = {
 itemBases["Tornado Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { top_tier_base_item_type = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, top_tier_base_item_type = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "Adds (3-5) to (70-82) Lightning Damage to Spells and Attacks",
 	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "lightning", "attack", "caster" }, },
@@ -175,7 +175,7 @@ itemBases["Tornado Wand"] = {
 itemBases["Prophecy Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { top_tier_base_item_type = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, top_tier_base_item_type = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "(36-40)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
@@ -185,7 +185,7 @@ itemBases["Prophecy Wand"] = {
 itemBases["Profane Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { maraketh = true, not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "14% increased Cast Speed",
 	implicitModTypes = { { "caster", "speed" }, },
@@ -195,7 +195,7 @@ itemBases["Profane Wand"] = {
 itemBases["Assembler Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { ranged = true, not_for_sale = true, onehand = true, wand = true, weapon = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "Gain an Endurance, Frenzy or Power Charge every 6 seconds",
 	implicitModTypes = { {  }, },
@@ -205,7 +205,7 @@ itemBases["Assembler Wand"] = {
 itemBases["Congregator Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { ranged = true, not_for_sale = true, onehand = true, wand = true, weapon = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "Gain an Endurance, Frenzy or Power Charge every 6 seconds",
 	implicitModTypes = { {  }, },
@@ -215,7 +215,7 @@ itemBases["Congregator Wand"] = {
 itemBases["Accumulator Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { ranged = true, not_for_sale = true, onehand = true, wand = true, weapon = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "Gain 2 Endurance, Frenzy or Power Charges every 6 seconds",
 	implicitModTypes = { {  }, },
@@ -226,7 +226,7 @@ itemBases["Accumulator Wand"] = {
 itemBases["Convoking Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, ranged = true, wandatlas1 = true, weapon_can_roll_minion_modifiers = true, top_tier_base_item_type = true, wand = true, atlas_base_type = true, default = true, one_hand_weapon = true, weapon = true, },
+	tags = { atlas_base_type = true, default = true, one_hand_weapon = true, onehand = true, ranged = true, top_tier_base_item_type = true, wand = true, wandatlas1 = true, weapon = true, weapon_can_roll_minion_modifiers = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "Minions deal (26-30)% increased Damage",
 	implicitModTypes = { { "damage", "minion" }, },
@@ -237,7 +237,7 @@ itemBases["Convoking Wand"] = {
 itemBases["Calling Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { weapon_can_roll_minion_modifiers = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, weapon_can_roll_minion_modifiers = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "Minions deal (12-16)% increased Damage",
 	implicitModTypes = { { "damage", "minion" }, },
@@ -248,7 +248,7 @@ itemBases["Calling Wand"] = {
 itemBases["Convening Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { weapon_can_roll_minion_modifiers = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, weapon_can_roll_minion_modifiers = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
 	implicit = "Minions deal (20-24)% increased Damage",
 	implicitModTypes = { { "damage", "minion" }, },
