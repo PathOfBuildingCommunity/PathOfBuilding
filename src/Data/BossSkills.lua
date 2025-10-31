@@ -39,7 +39,7 @@ return {
 	["Shaper Slam"] = {
 		DamageType = "Melee",
 		DamageMultipliers = {
-			Physical = { 12.358683281257, 0.061793416406285 }
+			Physical = { 15.448354101571, 0 }
 		},
 		UberDamageMultiplier = 1.6666666666667,
 		speed = 3510,
@@ -47,10 +47,10 @@ return {
 		critChance = 0,
 		additionalStats = {
 			uber = {
+				CannotBeBlocked = "flag",
 				CannotBeDodged = "flag",
 				CannotBeEvaded = "flag",
-				CannotBeSuppressed = "flag",
-				CannotBeBlocked = "flag"
+				CannotBeSuppressed = "flag"
 			}
 		},
 		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds increases Damage by a further 100% (Applied on Uber) and cannot be blocked or dodged"
@@ -69,20 +69,20 @@ return {
 	["Sirus Meteor"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
-			Physical = { 45.087560245599, 0.22541711316695 }
+			Physical = { 28.179207951973, 0.14090638379039 }
 		},
 		UberDamageMultiplier = 1.52,
 		speed = 1500,
 		additionalStats = {
 			base = {
+				PhysicalDamageSkillConvertToChaos = 25,
 				PhysicalDamageSkillConvertToFire = 25,
-				PhysicalDamageSkillConvertToLightning = 25,
-				PhysicalDamageSkillConvertToChaos = 25
+				PhysicalDamageSkillConvertToLightning = 25
 			},
 			uber = {
+				PhysicalDamageSkillConvertToChaos = 25,
 				PhysicalDamageSkillConvertToFire = 25,
-				PhysicalDamageSkillConvertToLightning = 25,
-				PhysicalDamageSkillConvertToChaos = 25
+				PhysicalDamageSkillConvertToLightning = 25
 			}
 		},
 		tooltip = "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50% (Applied on Uber)"
@@ -106,13 +106,13 @@ return {
 		additionalStats = {
 			base = {
 				CannotBeBlocked = "flag",
-				CannotBeSuppressed = "flag",
-				CannotBeDodged = "flag"
+				CannotBeDodged = "flag",
+				CannotBeSuppressed = "flag"
 			},
 			uber = {
 				CannotBeBlocked = "flag",
-				CannotBeSuppressed = "flag",
-				CannotBeDodged = "flag"
+				CannotBeDodged = "flag",
+				CannotBeSuppressed = "flag"
 			}
 		},
 		tooltip = "Spawns 8-18 waves of balls depending on which fight and which ball phase, Cannot be Blocked, Dodged, or Suppressed"
@@ -128,7 +128,7 @@ return {
 	["Maven Fireball"] = {
 		DamageType = "SpellProjectile",
 		DamageMultipliers = {
-			Fire = { 14.977416270256, 0.074887081351278 }
+			Fire = { 18.72177033782, 0 }
 		},
 		UberDamageMultiplier = 2.0273275862069,
 		DamagePenetrations = {
@@ -143,26 +143,26 @@ return {
 	["Maven Memory Game"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
-			Physical = { 104.29090544842, 0.52145452724208 }
+			Physical = { 130.36363181052, 0 }
 		},
 		UberDamageMultiplier = 1.0086206896552,
 		speed = 7500,
 		additionalStats = {
 			base = {
 				CannotBeBlocked = "flag",
-				PhysicalDamageSkillConvertToLightning = 100,
+				CannotBeDodged = "flag",
+				CannotBeSuppressed = "flag",
 				PhysicalDamageSkillConvertToCold = 100,
 				PhysicalDamageSkillConvertToFire = 100,
-				CannotBeSuppressed = "flag",
-				CannotBeDodged = "flag"
+				PhysicalDamageSkillConvertToLightning = 100
 			},
 			uber = {
 				CannotBeBlocked = "flag",
-				PhysicalDamageSkillConvertToLightning = 100,
+				CannotBeDodged = "flag",
+				CannotBeSuppressed = "flag",
 				PhysicalDamageSkillConvertToCold = 100,
 				PhysicalDamageSkillConvertToFire = 100,
-				CannotBeSuppressed = "flag",
-				CannotBeDodged = "flag"
+				PhysicalDamageSkillConvertToLightning = 100
 			}
 		},
 		tooltip = "Cannot be Blocked, Dodged, or Suppressed. \n	It is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n		i.e. Hits before death should be more than 3 to survive"

@@ -7,44 +7,44 @@
 local bosses = ...
 
 bosses["Venarius"] = {
-	armourMult = 50,
-	evasionMult = 0,
+	armourMult = 100,
+	evasionMult = 20,
 	isUber = true,
 }
 bosses["EaterOfWorlds"] = {
-	armourMult = 0,
-	evasionMult = 0,
-	isUber = true,
-}
-bosses["SearingExarch"] = {
-	armourMult = 0,
-	evasionMult = 50,
-	isUber = true,
-}
-bosses["Maven"] = {
-	armourMult = 25,
-	evasionMult = 0,
-	isUber = true,
-}
-bosses["Sirus"] = {
 	armourMult = 100,
 	evasionMult = 0,
 	isUber = true,
 }
+bosses["SearingExarch"] = {
+	armourMult = 50,
+	evasionMult = 0,
+	isUber = true,
+}
+bosses["Maven"] = {
+	armourMult = 100,
+	evasionMult = 20,
+	isUber = true,
+}
+bosses["Sirus"] = {
+	armourMult = 100,
+	evasionMult = 20,
+	isUber = true,
+}
 bosses["Shaper"] = {
-	armourMult = 0,
-	evasionMult = 33,
+	armourMult = 33,
+	evasionMult = 20,
 	isUber = true,
 }
 bosses["Elder"] = {
-	armourMult = 0,
-	evasionMult = 33,
+	armourMult = 2000,
+	evasionMult = 20,
 	isUber = true,
 }
 
 bosses["BlackStar"] = {
-	armourMult = 0,
-	evasionMult = 50,
+	armourMult = 50,
+	evasionMult = 0,
 	isUber = false,
 }
 bosses["InfiniteHunger"] = {
@@ -54,70 +54,70 @@ bosses["InfiniteHunger"] = {
 }
 
 bosses["Atziri"] = {
-	armourMult = 25,
-	evasionMult = 50,
+	armourMult = 50,
+	evasionMult = 20,
 	isUber = false,
 }
 
 bosses["Phoenix"] = {
-	armourMult = 50,
-	evasionMult = 50,
+	armourMult = 0,
+	evasionMult = 20,
 	isUber = false,
 }
 bosses["Hydra"] = {
-	armourMult = 50,
-	evasionMult = 100,
+	armourMult = 0,
+	evasionMult = 20,
 	isUber = false,
 }
 bosses["Minotaur"] = {
-	armourMult = 100,
-	evasionMult = 0,
+	armourMult = 0,
+	evasionMult = 20,
 	isUber = false,
 }
 bosses["Chimera"] = {
 	armourMult = 50,
-	evasionMult = 50,
+	evasionMult = 20,
 	isUber = false,
 }
 
 bosses["Enslaver"] = {
-	armourMult = 75,
-	evasionMult = 33,
+	armourMult = 33,
+	evasionMult = 20,
 	isUber = false,
 }
 bosses["Eradicator"] = {
-	armourMult = 0,
-	evasionMult = 33,
+	armourMult = 33,
+	evasionMult = 20,
 	isUber = false,
 }
 bosses["Constrictor"] = {
-	armourMult = 100,
-	evasionMult = 33,
+	armourMult = 33,
+	evasionMult = 20,
 	isUber = false,
 }
 bosses["Purifier"] = {
-	armourMult = 75,
-	evasionMult = 33,
+	armourMult = 33,
+	evasionMult = 20,
 	isUber = false,
 }
 
 bosses["Baran"] = {
 	armourMult = 100,
-	evasionMult = 0,
+	evasionMult = 20,
 	isUber = false,
 }
 bosses["Veritania"] = {
 	armourMult = 100,
-	evasionMult = 0,
+	evasionMult = 20,
 	isUber = false,
 }
 bosses["AlHezmin"] = {
 	armourMult = 100,
-	evasionMult = 0,
+	evasionMult = 20,
 	isUber = false,
 }
 bosses["Drox"] = {
 	armourMult = 100,
-	evasionMult = 0,
+	evasionMult = 20,
 	isUber = false,
 }
