@@ -738,7 +738,6 @@ skills["ZombieSlam"] = {
 	},
 	stats = {
 		"is_area_damage",
-		"global_always_hit",
 	},
 	levels = {
 		[1] = { baseMultiplier = 1.5, cooldown = 6, damageEffectiveness = 1.5, levelRequirement = 1, storedUses = 1, },
@@ -1980,7 +1979,7 @@ skills["RainOfArrowsCloneShot"] = {
 		"cannot_pierce",
 	},
 	levels = {
-		[1] = { baseMultiplier = 1.5, damageEffectiveness = 1.5, levelRequirement = 0, },
+		[1] = { levelRequirement = 0, },
 	},
 }
 skills["ElementalHitCloneShot"] = {
@@ -2005,7 +2004,7 @@ skills["ElementalHitCloneShot"] = {
 		"skill_can_fire_wand_projectiles",
 	},
 	levels = {
-		[1] = { baseMultiplier = 6.8, damageEffectiveness = 6.8, levelRequirement = 0, },
+		[1] = { baseMultiplier = 5.4, damageEffectiveness = 5.4, levelRequirement = 0, },
 	},
 }
 skills["SumonRagingSpiritMelee"] = {
@@ -2064,15 +2063,15 @@ skills["AnimateGuardianSmite"] = {
 		"visual_hit_effect_elemental_is_holy",
 	},
 	levels = {
-		[1] = { baseMultiplier = 3.25, damageEffectiveness = 3.25, levelRequirement = 1, },
+		[1] = { baseMultiplier = 2.0313, levelRequirement = 1, },
 	},
 }
 skills["ElderTentacleMinionProjectileDeepcaller"] = {
 	name = "Projectile Spell",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 5.5,
-	incrementalEffectiveness = 0.029999999329448,
+	baseEffectiveness = 5,
+	incrementalEffectiveness = 0.041000001132488,
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.17,

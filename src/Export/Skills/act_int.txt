@@ -714,18 +714,6 @@ local skills, mod, flag, skill = ...
 #flags spell duration trap
 #mods
 
-#skill Convocation
-#flags spell duration
-	statMap = {
-		["base_life_regeneration_rate_per_minute"] = {
-			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 60,
-		},
-	},
-#baseMod skill("buffMinions", true)
-#baseMod skill("buffNotPlayer", true)
-#mods
-
 #skill CracklingLance
 #flags spell area
 	statMap = {
@@ -3118,17 +3106,9 @@ local skills, mod, flag, skill = ...
 #skill PyroclastMine
 #flags spell area projectile mine
 	statMap = {
-		["mortar_barrage_mine_minimum_added_fire_damage_taken"] = {
-			mod("SelfFireMin", "BASE", nil, 0, 0, { type = "Limit", limitVar = "PyroclastSelfFireMinLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
-		},
-		["mortar_barrage_mine_maximum_added_fire_damage_taken"] = {
-			mod("SelfFireMax", "BASE", nil, 0, 0, { type = "Limit", limitVar = "PyroclastSelfFireMaxLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
-		},
-		["mortar_barrage_mine_minimum_added_fire_damage_taken_limit"] = {
-			mod("Multiplier:PyroclastSelfFireMinLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
-		},
-		["mortar_barrage_mine_maximum_added_fire_damage_taken_limit"] = {
-			mod("Multiplier:PyroclastSelfFireMaxLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
+		["pyroclast_mine_aura_fire_exposure_%_to_apply"] = {
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Fire Exposure" }),
+			mult = -1,
 		},
 	},
 #baseMod skill("radius", 20)
@@ -3142,17 +3122,9 @@ local skills, mod, flag, skill = ...
 #skill PyroclastMineAltX
 #flags spell area projectile mine
 	statMap = {
-		["mortar_barrage_mine_minimum_added_fire_damage_taken"] = {
-			mod("SelfFireMin", "BASE", nil, 0, 0, { type = "Limit", limitVar = "PyroclastSelfFireMinLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
-		},
-		["mortar_barrage_mine_maximum_added_fire_damage_taken"] = {
-			mod("SelfFireMax", "BASE", nil, 0, 0, { type = "Limit", limitVar = "PyroclastSelfFireMaxLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
-		},
-		["mortar_barrage_mine_minimum_added_fire_damage_taken_limit"] = {
-			mod("Multiplier:PyroclastSelfFireMinLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
-		},
-		["mortar_barrage_mine_maximum_added_fire_damage_taken_limit"] = {
-			mod("Multiplier:PyroclastSelfFireMaxLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
+		["pyroclast_mine_aura_fire_exposure_%_to_apply"] = {
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Fire Exposure" }),
+			mult = -1,
 		},
 	},
 #baseMod skill("radius", 20)
@@ -3168,9 +3140,6 @@ local skills, mod, flag, skill = ...
 	minionList = {
 	},
 	statMap = {
-		["accuracy_rating"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Accuracy", "BASE", nil) })
-		},
 		["raised_spectre_level"] = {
 			skill("minionLevel", nil),
 		},
@@ -3182,9 +3151,6 @@ local skills, mod, flag, skill = ...
 	minionList = {
 	},
 	statMap = {
-		["accuracy_rating"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Accuracy", "BASE", nil) })
-		},
 		["raised_spectre_level"] = {
 			skill("minionLevel", nil),
 		},

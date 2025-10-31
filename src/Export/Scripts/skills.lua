@@ -125,6 +125,7 @@ local skillTypes = {
 	"ProjectileCannotReturn",
 	"Offering",
 	"SupportedByBane",
+	"WandAttack",
 }
 
 -- This is here to fix name collisions like in the case of Barrage

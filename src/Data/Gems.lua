@@ -5883,7 +5883,6 @@ return {
 		variantId = "Convocation",
 		grantedEffectId = "Convocation",
 		tags = {
-			intelligence = true,
 			grants_active_skill = true,
 			spell = true,
 			duration = true,
@@ -5892,7 +5891,7 @@ return {
 		tagString = "Spell, Duration, Minion",
 		reqStr = 0,
 		reqDex = 0,
-		reqInt = 100,
+		reqInt = 0,
 		naturalMaxLevel = 1,
 	},
 	["Metadata/Items/Gems/SkillGemPyroclastMine"] = {

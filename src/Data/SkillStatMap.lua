@@ -752,7 +752,7 @@ return {
 ["damage_+%_vs_frozen_enemies"] = {
 	mod("Damage", "INC", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
 },
-["damage_+%_final_vs_stunned_enemies"] = {
+["active_skill_damage_+%_final_vs_stunned_enemies"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Stunned" }),
 },
 ["base_reduce_enemy_fire_resistance_%"] = {
