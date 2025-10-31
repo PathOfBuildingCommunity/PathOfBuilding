@@ -241,7 +241,7 @@ function ModStoreClass:GetStat(stat, cfg)
 		local totalMana = self.actor.output["Mana"]
 		if totalMana == 0 then return 0 else
 			for _, activeSkill in ipairs(self.actor.activeSkillList) do
-				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and (activeSkill.buffList[1].name == cfg.skillName or activeSkill.buffList[1].name == cfg.summonSkillName) ) then
+				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and cfg and (activeSkill.buffList[1].name == cfg.skillName or activeSkill.buffList[1].name == cfg.summonSkillName) ) then
 					local manaBase = activeSkill.skillData["ManaReservedBase"] or 0
 					reservedPercentMana = manaBase / totalMana * 100
 					break
@@ -252,11 +252,10 @@ function ModStoreClass:GetStat(stat, cfg)
 	end
 	if stat == "LifeReservedPercent" then
 		local reservedPercentLife = 0
-		-- Check if Life is 0 (i.e. from Blood Magic) to avoid division by 0.
 		local totalLife = self.actor.output["Life"]
 		if totalLife == 0 then return 0 else
 			for _, activeSkill in ipairs(self.actor.activeSkillList) do
-				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and (activeSkill.buffList[1].name == cfg.skillName or activeSkill.buffList[1].name == cfg.summonSkillName) ) then
+				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and cfg and (activeSkill.buffList[1].name == cfg.skillName or activeSkill.buffList[1].name == cfg.summonSkillName) ) then
 					local lifeBase = activeSkill.skillData["LifeReservedBase"] or 0
 					reservedPercentLife = lifeBase / totalLife * 100
 					break
