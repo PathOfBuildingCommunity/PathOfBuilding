@@ -564,7 +564,7 @@ Implicits: 1
 {tags:jewellery_resistance}+(35-40)% to Cold Resistance
 30% increased Freeze Duration on Enemies
 10% chance to Freeze
-{variant:2}Freezes you inflict spread to other Enemies with a Radius of 15
+{variant:2}Freezes you inflict spread to other Enemies within 1.5 metres
 60% increased Damage if you've Frozen an Enemy Recently
 ]],[[
 The Pandemonius
@@ -1334,5 +1334,27 @@ Implicits: 2
 {tags:jewellery_defense}(10-15)% increased Global Defences
 Critical Strikes inflict Malignant Madness if The Eater of Worlds is dominant
 Kill Enemies that have 15% or lower Life on Hit if The Searing Exarch is dominant
-]],
-}
+]],[[
+Venarius' Astrolabe
+Astrolabe Amulet
+Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 69
+Implicits: 2
+Implicit Modifiers Cannot Be Changed
+Has Elder, Shaper and all Conqueror Influences
+The stars are aligned if you have 6 Influence types among other Equipped Items
+You have Elemental Conflux if the stars are aligned
++(1-3) to Level of all Elemental Skill Gems if the stars are aligned
++(1-3) to Level of all Elemental Support Gems if the stars are aligned
+]],[[
+Whispers of Infinity
+Seaglass Amulet
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 74
+Implicits: 1
+{tags:jewellery_defense}(10-15)% faster start of Energy Shield Recharge
+{tags:attack,chaos_damage}(5-10) to (20-25) Added Attack Chaos Damage per 100 Maximum Mana
+{tags:jewellery_defense}+(200-400) to maximum Energy Shield
+{tags:mana}(40-60)% reduced maximum Mana
+Skills Cost Energy Shield instead of Mana or Life
+]],}

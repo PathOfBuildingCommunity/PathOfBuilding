@@ -170,6 +170,17 @@ Adds 10 to 20 Physical Damage
 +(20-25)% to Cold Resistance
 Your Physical Damage can Freeze
 Eldritch Battery
+]],[[
+Starcaller
+Abyssal Axe
+Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
+Requires Level 55, 128 Str, 60 Dex
+Trigger Level 20 Starfall on Melee Critical Strike
++(10-20) to all Attributes
+(120-180)% increased Physical Damage
+(20-30)% increased Critical Strike Chance
+(10-20)% increased Area of Effect
+Gain (40-60)% of Weapon Physical Damage as Extra Damage of a Random Element
 ]],
 -- Weapon: Two Handed Axe
 [[

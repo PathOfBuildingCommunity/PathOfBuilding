@@ -445,7 +445,7 @@ You are Shocked during Effect, causing 50% increased Damage taken
 {variant:4,8,10}20% of Physical Damage Converted to Lightning during Effect
 {variant:14}50% of Physical Damage Converted to Lightning during Effect
 {variant:15}(25-40)% increased Effect of Shocks you inflict during Effect
-{variant:15}Shocks you inflict during Effect spread to other Enemies in a radius of 20
+{variant:15}Shocks you inflict during Effect spread to other Enemies within 2 metres
 {variant:1,2,3,4}30% of Lightning Damage Leeched as Life during Effect
 {variant:5,6,7,8,9,10,11,12,13,14,15,16,17,18}20% of Lightning Damage Leeched as Life during Effect
 {variant:1,2,3,4}30% of Lightning Damage Leeched as Mana during Effect
@@ -491,6 +491,14 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Creates a Smoke Cloud on Use
 (-10–10)% reduced Charges per use
 Grants Level 21 Vulnerability Curse Aura during Effect
+]],[[
+Wine of the Prophet
+Gold Flask
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 27
++60 to Maximum Charges
+(20-100)% increased Charges per Use
+Grants a random Divination buff for 20 seconds when used
 ]],
 -- Flask: Ward
 [[

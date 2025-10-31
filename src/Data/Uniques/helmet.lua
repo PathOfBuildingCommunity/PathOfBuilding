@@ -161,6 +161,17 @@ Reaver Helmet
 Regenerate (200-250) Life per second
 100% increased Stun and Block Recovery
 Nearby Enemy Monsters have at least 8% of Life Reserved
+]],[[
+Howlcrack
+Ezomyte Burgonet
+Source: Drops from unique{Mercenary} after winning a duel
+League: Mercenaries of Trarthus
+Requires Level 60, 138 Str
++(30-40) to Strength
+(100-160)% increased Armour
+Non-instant Warcries ignore their Cooldown when used
+Warcries cost +15% of Life
+Warcry Skills have (15-25)% increased Area of Effect
 ]],
 -- Helmet: Evasion
 [[
@@ -780,6 +791,57 @@ Adds 1 to (60-80) Lightning Damage to Spells and Attacks
 {variant:2}20% chance to Curse non-Cursed Enemies with a random Hex on Hit
 {variant:3}Curse Enemies which Hit you with a random Hex, ignoring Curse Limit
 {variant:1}5% chance to create Shocked Ground when Hit
+]],[[
+The Dark Monarch
+Lich's Circlet
+Variant: Animated Weapons
+Variant: Summoned Golems
+Variant: Summoned Raging Spirits
+Variant: Raised Spectres
+Variant: Raised Spiders
+Variant: Raised Zombies
+Variant: Summoned Reapers
+Variant: Sentinels of Absolution
+Variant: Sentinels of Dominance
+Variant: Sentinels of Purity
+Variant: Summoned Holy Relics
+Variant: Summoned Phantasms
+Variant: Summoned Skeletons
+Variant: Summoned Spectral Wolves
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 80, 224 Int
++(50-100) to maximum Energy Shield
++1 to Level of all Minion Skill Gems
++(27-37)% to Chaos Resistance
+50% reduced Light Radius
+{variant:1}Maximum number of Animated Weapons is Doubled
+{variant:1}Cannot have Minions other than Animated Weapons
+{variant:2}Maximum number of Summoned Golems is Doubled
+{variant:2}Cannot have Minions other than Summoned Golems
+{variant:3}Maximum number of Summoned Raging Spirits is Doubled
+{variant:3}Cannot have Minions other than Summoned Raging Spirits
+{variant:4}Maximum number of Raised Spectres is Doubled
+{variant:4}Cannot have Minions other than Raised Spectres
+{variant:5}Maximum number of Raised Spiders is Doubled
+{variant:5}Cannot have Minions other than Raised Spiders
+{variant:6}Maximum number of Raised Zombies is Doubled
+{variant:6}Cannot have Minions other than Raised Zombies
+{variant:7}Maximum number of Summoned Reapers is Doubled
+{variant:7}Cannot have Minions other than Summoned Reapers
+{variant:8}Maximum number of Sentinels of Absolution is Doubled
+{variant:8}Cannot have Minions other than Sentinels of Absolution
+{variant:9}Maximum number of Sentinels of Dominance is Doubled
+{variant:9}Cannot have Minions other than Sentinels of Dominance
+{variant:10}Maximum number of Sentinels of Purity is Doubled
+{variant:10}Cannot have Minions other than Sentinels of Purity
+{variant:11}Maximum number of Summoned Holy Relics is Doubled
+{variant:11}Cannot have Minions other than Summoned Holy Relics
+{variant:12}Maximum number of Summoned Phantasms is Doubled
+{variant:12}Cannot have Minions other than Summoned Phantasms
+{variant:13}Maximum number of Summoned Skeletons is Doubled
+{variant:13}Cannot have Minions other than Summoned Skeletons
+{variant:14}Maximum number of Summoned Spectral Wolves is Doubled
+{variant:14}Cannot have Minions other than Summoned Spectral Wolves
 ]],
 -- Helmet: Armour/Evasion
 [[
@@ -1605,5 +1667,4 @@ Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbo
 Requires Level 68, 66 Str, 66 Dex, 66 Int
 Never deal Critical Strikes
 Battlemage
-]],
-}
+]],}

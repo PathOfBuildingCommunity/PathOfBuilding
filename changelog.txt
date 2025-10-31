@@ -1,3 +1,64 @@
+VERSION[2.57.0][2025/10/30]
+
+--- Keepers of the Flame ---
+* Add 3.27 Skill Tree (LocalIdentity)
+* Add support for Aul Bloodline (Peechey)
+* Add support for Chaos Bloodline (LocalIdentity)
+* Add support for Oshabi Bloodline (Peechey)
+* Add support for Ritualist Bloodline (Peechey)
+* Add support for new & reworked Assassin Ascendancy nodes (majochem)
+* Update "Rupture" stack maximum from 3 to 4 (majochem)
+* Implement "Minion Attacks now inherently always Hit" (majochem)
+
+--- New to Path of Building ---
+* Add support for high DPI awareness to keep PoB looking crisp on higher resolution screens (LeonSparta, LocalIdentity)
+* Add setting to override Windows scaling from PoB (LocalIdentity)
+* Add four new spectres and update three existing spectres (Lothrik)
+* Add Maxroll as a new build site you can export to (LocalIdentity)
+* Auto URL encode when pasting an account name into the import (Nightblade)
+* Update 3.26 uniques (Paliak)
+* Add support for Projectile count of Spiral skills (Inzagini)
+* Improve skill level breakdown and add gem quality breakdown to calcs tab (Paliak)
+* Improve PoB performance when adding gems (LocalIdentity)
+
+--- Fixed Crashes ---
+* Fixed crash when sorting Minion skill gems in some builds (Lothrik, Paliak)
+
+--- User Interface ---
+* Improve UI to match in-game fonts and item previews (Blitz54)
+* Add passive tree search tip (Nightblade)
+* Sort Gem list Alphabetically by default (Blitz54)
+* Add CTRL + C to error message to copy error text (Blitz54)
+* Update font files (LocalIdentity)
+
+--- Fixed Calculations ---
+* Fix Spell Echo not working with some Minion skills (LocalIdentity)
+* Correct skill slot comparison for General's Cry detection (emmanuel-ferdman)
+* Use correct stat to set "Every3UseCrit" flag for Glacial Hammer of Shattering (fabianmaurer)
+
+--- Fixed Behaviours ---
+* Fix Runegraft of the Bound duplicating some mods (Paliak)
+* Fix "Monsters cannot be Leeched from" map mod to disable ES leech (n1tr0xs)
+* Fix "Chaos Golem of the Maelström" not enabling Wither config option (majochem)
+* Fix Elemental Overload incorrectly setting ailment chance to 0% for critical strikes (majochem)
+
+--- Accuracy Improvements ---
+* Update mods on several uniques to use metres for radius instead of units (jeremykvlim)
+* Change "other Ring" wording to "opposite Ring" (majochem)
+* Fix Breakdown of Crit Damage when using Dance with Death (LocalIdentity)
+* Fix missing Malevolence Aura Effect on String of Servitude (Inzagini)
+
+--- Fixed Bugs ---
+* Disable trade UI elements when leagues are not populated (Wires77)
+
+--- Other changes ---
+* Add better support for Unicode filepaths (Zao)
+* Add support for loading webp images (Wires77)
+* Update PoE.Ninja URLs after migration (Antorell, Wires77)
+* Update permissions for Linux (Wires77)
+* Fix subscript errors (Wires77)
+* Fix erroneous call to GetUserPath and update pop-up message (Wires77)
+
 VERSION[2.56.0][2025/08/11]
 
 --- New to Path of Building ---
@@ -33,14 +94,14 @@ VERSION[2.56.0][2025/08/11]
 * Fix Ancestral Bond disabling Generals Cry damage (LocalIdentity)
 * Fix Hand of Phrecia disabling Mine Auras (LocalIdentity)
 * Fix Light of Meaning double counting starting nodes on Ascendant (LocalIdentity)
-* Fix Kaladra's Touch not copying influence from other ring (LocalIdentity)
+* Fix Kalandra's Touch not copying influence from other ring (LocalIdentity)
 * Fix Howlcrack causing inf DPS with Generals Cry (Paliak)
 * Fix issue where Rage Support was affecting Herald of Purity (Wires77)
 * Fix Volatility applying to Minion Spell skills (LocalIdentity)
 * Fix Influence not appearing correctly in PoB Trader (t1nky)
 * Fix enemy Ailment Immunity not working with Rune of Treachery (LocalIdentity)
 * Fix Shepherd of Souls applying twice with 2 Yaomac's Accord equipped (LocalIdentity)
-* Fix node tooltip when using Untuitive Leap or Impossible Escape (Kojoley)
+* Fix node tooltip when using Intuitive Leap or Impossible Escape (Kojoley)
 * Fix Ancestral Vision not working correctly with The Arkhon's Tools (LocalIdentity)
 * Fix Ascendant/Gladiator Block Chance when using Necromantic Aegis (LocalIdentity)
 

@@ -269,6 +269,16 @@ function GGPKClass:GetNeededFiles()
 		"Data/MercenarySupportFamilies.dat",
 		"Data/MercenarySupports.dat",
 		"Data/MercenaryWieldableTypes.dat",
+		"Data/SkillArtVariations.dat",
+		"Data/MiscAnimated.dat",
+		"Data/MiscAnimatedArtVariations.dat",
+		"Data/MiscBeamsArtVariations.dat",
+		"Data/MiscBeams.dat",
+		"Data/MiscEffectPacksArtVariations.dat",
+		"Data/MiscObjectArtVariations.dat",
+		"Data/ProjectilesArtVariations.dat",
+		"Data/MonsterVarietiesArtVariations.dat",
+		"Data/PreloadGroups.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

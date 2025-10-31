@@ -804,8 +804,8 @@ Implicits: 1
 {tags:jewellery_elemental,attack}Adds (26-32) to (42-48) Cold Damage to Attacks
 {tags:jewellery_defense}(6-10)% increased maximum Energy Shield
 {tags:life}(6-10)% increased maximum Life
-{tags:attack}(60-80)% increased Attack Damage if your other Ring is a Shaper Item
-Cannot be Stunned by Attacks if your other Ring is an Elder Item
+{tags:attack}(60-80)% increased Attack Damage if your opposite Ring is a Shaper Item
+Cannot be Stunned by Attacks if your opposite Ring is an Elder Item
 20% chance to Trigger Level 20 Tentacle Whip on Kill
 ]],[[
 Mark of the Shaper
@@ -818,8 +818,8 @@ Implicits: 1
 {tags:jewellery_elemental,caster}Adds (13-18) to (50-56) Lightning Damage to Spells
 {tags:jewellery_defense}(6-10)% increased maximum Energy Shield
 {tags:life}(6-10)% increased maximum Life
-{tags:caster}(60-80)% increased Spell Damage if your other Ring is an Elder Item
-Cannot be Stunned by Spells if your other Ring is a Shaper Item
+{tags:caster}(60-80)% increased Spell Damage if your opposite Ring is an Elder Item
+Cannot be Stunned by Spells if your opposite Ring is a Shaper Item
 20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill
 ]],[[
 Ming's Heart
@@ -1588,7 +1588,61 @@ Enemies Chilled by your Hits lessen their Damage dealt by half of Chill Effect
 Kalandra's Touch
 Ring
 League: Kalandra
-Reflects your other Ring
+Reflects your opposite Ring
 Mirrored
-]],
-}
+]],[[
+Betrayal's Sting
+Steel Ring
+Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 80
+Implicits: 1
+{tags:attack}Adds (3-4) to (10-14) Physical Damage to Attacks
+{tags:jewellery_attribute}+(20-35) to Dexterity
+{tags:jewellery_resistance}(-30--20)% to all Elemental Resistances
+{tags:jewellery_resistance}+(20-30)% to Chaos Resistance
+{tags:speed}5% increased Movement Speed
+{tags:chaos_damage}(25-40)% chance to inflict an additional Poison on the same Target when you inflict Poison
+]],[[
+Coiling Whisper
+Amethyst Ring
+Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
+Requires Level 32
+Implicits: 1
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:caster}(25-50)% reduced Area of Effect of Hex Skills
+Targets are Unaffected by your Hexes
+When 90% of your Hex's Duration Expires on an Enemy, Eat 1 Soul per Enemy Power
+]],[[
+Enmity's Embrace
+Vermillion Ring
+Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
+Requires Level 80
+Implicits: 1
+{tags:life}(5-7)% increased Maximum Life
+{tags:jewellery_attribute}+(30-50) to Strength
+{tags:jewellery_elemental}(10-20)% increased Fire Damage
+{tags:jewellery_resistance}(65-75)% reduced Fire Resistance
+{tags:jewellery_elemental}Take (300-500) Fire Damage when you use a Skill
+Damage Penetrates Fire Resistance equal to your Overcapped Fire Resistance, up to a maximum of 200%
+]],[[
+Prospero's Protection
+Iron Ring
+Requires Level 32
+Implicits: 1
+{tags:attack}Adds 1 to 4 Physical Damage to Attacks
+(4-6)% chance to Block Attack Damage
+{tags:jewellery_attribute}+(15-35) to Strength
+{tags:life}+(45-60) to Maximum Life
+{tags:jewellery_defense}Armour from equipped shield is doubled
+{tags:jewellery_defense}Gain no armour from equipped body armour
+]],[[
+Squirming Terror
+Unset Ring
+Requires Level 32
+Implicits: 1
+Has 1 Socket
+An Enemy Writhing Worm spawns every 2 seconds
+{tags:caster}20% chance to Trigger Socketed Spell on Kill, with a 0.5 second Cooldown
+{tags:life}Lose (10-20) Life per Enemy Killed
+{tags:mana}Gain (5-10) Mana per Enemy Killed
+]],}

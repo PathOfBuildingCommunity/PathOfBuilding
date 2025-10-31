@@ -65,19 +65,6 @@ local function mergeBuff(src, destTable, destKey)
 	end
 end
 
--- Merge keystone modifiers
-local function mergeKeystones(env)
-	for _, modObj in ipairs(env.modDB:Tabulate("LIST", nil, "Keystone")) do
-		if not env.keystonesAdded[modObj.value] and env.spec.tree.keystoneMap[modObj.value] then
-			env.keystonesAdded[modObj.value] = true
-			local fromTree = modObj.mod.source and not modObj.mod.source:lower():match("tree")
-			for _, mod in ipairs(env.spec.tree.keystoneMap[modObj.value].modList) do
-				env.modDB:AddMod(fromTree and modLib.setSource(mod, modObj.mod.source) or mod)
-			end
-		end
-	end
-end
-
 function doActorLifeMana(actor)
 	local modDB = actor.modDB
 	local output = actor.output
@@ -571,7 +558,7 @@ local function determineCursePriority(curseName, activeSkill)
 	elseif source ~= "" then
 		sourcePriority = data.cursePriority["CurseFromEquipment"]
 	end
-	if source ~= "" and slotPriority == data.cursePriority["Ring 2"] then
+	if source ~= "" and (slotPriority == data.cursePriority["Ring 2"] or slotPriority == data.cursePriority["Ring 3"]) then
 		-- Implicit and explicit curses from rings have equal priority; only curses from socketed skill gems care about which ring slot they're equipped in
 		slotPriority = data.cursePriority["Ring 1"]
 	end
@@ -1049,7 +1036,7 @@ function calcs.perform(env, skipEHP)
 
 	-- Merge keystone modifiers
 	env.keystonesAdded = { }
-	mergeKeystones(env)
+	modLib.mergeKeystones(env, env.modDB)
 
 	-- Build minion skills
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
@@ -1088,7 +1075,8 @@ function calcs.perform(env, skipEHP)
 		if modDB:Flag(nil, "MinionAccuracyEqualsAccuracy") then
 			env.minion.modDB:NewMod("Accuracy", "BASE", calcLib.val(modDB, "Accuracy") + calcLib.val(modDB, "Dex") * (modDB:Override(nil, "DexAccBonusOverride") or data.misc.AccuracyPerDexBase), "Player")
 		else
-			env.minion.modDB:NewMod("Accuracy", "BASE", round(env.data.monsterAccuracyTable[env.minion.level] * (env.minion.minionData.accuracy or 1)), "Base")
+			-- Minion Attacks now inherently always hit (Patch 3.27)
+			env.minion.modDB:NewMod("CannotBeEvaded", "FLAG", 1, "Minion Attacks always hit")
 		end
 		env.minion.modDB:NewMod("CritMultiplier", "BASE", 30, "Base")
 		env.minion.modDB:NewMod("CritDegenMultiplier", "BASE", 30, "Base")
@@ -1432,9 +1420,11 @@ function calcs.perform(env, skipEHP)
 	local function mergeFlasks(flasks, onlyRecovery, checkNonRecoveryFlasksForMinions)
 		local flaskBuffs = { }
 		local flaskConditions = {}
+		local flaskConditionsNonUtility = {}
 		local flaskBuffsPerBase = {}
 		local flaskBuffsNonPlayer = {}
 		local flaskBuffsPerBaseNonPlayer = {}
+		local flaskBuffsNonUtility = {}
 
 		local function calcFlaskMods(item, baseName, buffModList, modList, onlyMinion)
 			local flaskEffectInc = effectInc + item.flaskData.effectInc
@@ -1479,6 +1469,7 @@ function calcs.perform(env, skipEHP)
 				if not onlyRecovery then
 					mergeBuff(srcList, flaskBuffs, key)
 					mergeBuff(srcList, flaskBuffsPerBase[item.baseName], key)
+					mergeBuff(srcList, flaskBuffsNonUtility, key)
 				end
 				if (not onlyRecovery or checkNonRecoveryFlasksForMinions) and (flasksApplyToMinion or quickSilverAppliesToAllies or (nonUniqueFlasksApplyToMinion and item.rarity ~= "UNIQUE" and item.rarity ~= "RELIC")) then
 					srcList = new("ModList")
@@ -1493,12 +1484,18 @@ function calcs.perform(env, skipEHP)
 			flaskBuffsPerBase[item.baseName] = flaskBuffsPerBase[item.baseName] or {}
 			flaskBuffsPerBaseNonPlayer[item.baseName] = flaskBuffsPerBaseNonPlayer[item.baseName] or {}
 			flaskConditions["UsingFlask"] = true
+			flaskConditionsNonUtility["UsingFlask"] = true
 			flaskConditions["Using"..item.baseName:gsub("%s+", "")] = true
+			if item.base.flask.life or item.base.flask.mana then
+				flaskConditionsNonUtility["Using"..item.baseName:gsub("%s+", "")] = true
+			end
 			if item.base.flask.life and not modDB:Flag(nil, "CannotRecoverLifeOutsideLeech") then
 				flaskConditions["UsingLifeFlask"] = true
+				flaskConditionsNonUtility["UsingLifeFlask"] = true
 			end
 			if item.base.flask.mana then
 				flaskConditions["UsingManaFlask"] = true
+				flaskConditionsNonUtility["UsingManaFlask"] = true
 			end
 
 			if onlyRecovery then
@@ -1515,7 +1512,14 @@ function calcs.perform(env, skipEHP)
 				calcFlaskMods(item, item.baseName, item.buffModList, item.modList)
 			end
 		end
-		if not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
+		if modDB:Flag(nil, "UtilityFlasksDoNotApplyToPlayer") then
+			for flaskCond, status in pairs(flaskConditionsNonUtility) do
+				modDB.conditions[flaskCond] = status
+			end
+			for _, buffModList in pairs(flaskBuffsNonUtility) do
+				modDB:AddList(buffModList)
+			end
+		elseif not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
 			for flaskCond, status in pairs(flaskConditions) do
 				modDB.conditions[flaskCond] = status
 			end
@@ -1630,7 +1634,7 @@ function calcs.perform(env, skipEHP)
 		mergeTinctures(env.tinctures)
 
 		-- Merge keystones again to catch any that were added by flasks
-		mergeKeystones(env)
+		modLib.mergeKeystones(env, env.modDB)
 	end
 
 	-- Calculate attributes and life/mana pools
@@ -3044,13 +3048,13 @@ function calcs.perform(env, skipEHP)
 	end
 
 	-- Merge keystones again to catch any that were added by buffs
-	mergeKeystones(env)
+	modLib.mergeKeystones(env, env.modDB)
 
 	-- Special handling for Dancing Dervish
 	if modDB:Flag(nil, "DisableWeapons") then
 		env.player.weaponData1 = copyTable(env.data.unarmedWeaponData[env.classId])
 		modDB.conditions["Unarmed"] = true
-		if not env.player.Gloves or env.player.Gloves == None then
+		if not env.player.Gloves or env.player.Gloves == "None" then
 			modDB.conditions["Unencumbered"] = true
 		end
 	elseif env.weaponModList1 then
@@ -3366,27 +3370,53 @@ function calcs.perform(env, skipEHP)
 		env.build.partyTab:setBuffExports(buffExports)
 	end
 
-	-- calculate Gem Level of MainSkill
+
 	if env.player.mainSkill then
 		local mainSkill = env.player.mainSkill
-		if mainSkill.activeEffect and mainSkill.activeEffect.level and mainSkill.activeEffect.srcInstance then
-			local baseLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemLevel")
-			local totalItemLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemItemLevel")
-			local totalSupportLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSupportLevel")
+		if mainSkill.activeEffect and mainSkill.activeEffect.srcInstance then
 
-			output.GemHasLevel = true
-			output.GemLevel = baseLevel + totalSupportLevel + totalItemLevel
-			
-			if env.player.breakdown then
-				env.player.breakdown.GemLevel = {}
-				t_insert(env.player.breakdown.GemLevel, s_format("%d ^8(level from gem)", baseLevel))
-				if totalSupportLevel > 0 then
-					t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from support)", totalSupportLevel))
+			-- calculate Gem Level of MainSkill
+			if mainSkill.activeEffect.level then
+				local baseLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemLevel")
+				local totalItemLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemItemLevel")
+				local totalSupportLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSupportLevel")
+
+				output.GemHasLevel = true
+				output.GemLevel = baseLevel + totalSupportLevel + totalItemLevel
+
+				if env.player.breakdown then
+					env.player.breakdown.GemLevel = {}
+					t_insert(env.player.breakdown.GemLevel, s_format("%d ^8(level from gem)", baseLevel))
+					if totalSupportLevel > 0 then
+						t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from support)", totalSupportLevel))
+					end
+					if totalItemLevel > 0 then
+						t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from items)", totalItemLevel))
+					end
+					t_insert(env.player.breakdown.GemLevel, s_format("= %d", output.GemLevel))
 				end
-				if totalItemLevel > 0 then
-					t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from items)", totalItemLevel))
+			end
+
+			-- calculate Gem Quality of MainSkill
+			if mainSkill.activeEffect.quality then
+				local baseQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemQuality")
+				local totalItemQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemItemQuality")
+				local totalSupportQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSupportQuality")
+
+				output.GemHasQuality = true
+				output.GemQuality = baseQuality + totalSupportQuality + totalItemQuality
+
+				if env.player.breakdown then
+					env.player.breakdown.GemQuality = {}
+					t_insert(env.player.breakdown.GemQuality, s_format("%d ^8(quality from gem)", baseQuality))
+					if totalSupportQuality > 0 then
+						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from support)", totalSupportQuality))
+					end
+					if totalItemQuality > 0 then
+						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from items)", totalItemQuality))
+					end
+					t_insert(env.player.breakdown.GemQuality, s_format("= %d", output.GemQuality))
 				end
-				t_insert(env.player.breakdown.GemLevel, s_format("= %d", output.GemLevel))
 			end
 		end
 	end

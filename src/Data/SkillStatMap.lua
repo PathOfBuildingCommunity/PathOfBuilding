@@ -263,7 +263,7 @@ return {
 	skill("doubleHitsWhenDualWielding", true),
 },
 ["base_spell_repeat_count"] = {
-	mod("RepeatCount", "BASE", nil, 0, 0, {type = "SkillType", skillType = SkillType.Multicastable }),
+	mod("RepeatCount", "BASE", nil, ModFlag.Cast),
 },
 ["base_melee_attack_repeat_count"] = {
 	mod("RepeatCount", "BASE", nil, 0, 0, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
@@ -1350,6 +1350,10 @@ return {
 ["number_of_additional_projectiles"] = {
 	mod("ProjectileCount", "BASE", nil),
 },
+["base_number_of_projectiles_in_spiral_nova"] = {
+	mod("ProjectileCount", "BASE", nil),
+	base = -1
+},
 ["projectile_damage_+%_per_remaining_chain"] = {
 	mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "PerStat", stat = "ChainRemaining" }),
 	mod("Damage", "INC", nil, ModFlag.Ailment, 0, { type = "PerStat", stat = "ChainRemaining" }),
@@ -2082,7 +2086,7 @@ return {
 	mod("AdditionalCooldownUses", "BASE", nil)
 },
 ["kill_enemy_on_hit_if_under_10%_life"] = {
-	mod("CullPercent", "MAX", nil), 
+	mod("CullPercent", "MAX", nil),
 	value = 10
 },
 ["spell_cast_time_added_to_cooldown_if_triggered"] = {

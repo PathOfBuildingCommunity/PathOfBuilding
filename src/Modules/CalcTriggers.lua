@@ -1006,7 +1006,7 @@ local configTable = {
 				end}
 	end,
 	["maloney's mechanism"] = function(env)
-		local _, _, uniqueTriggerName = env.player.itemList[env.player.mainSkill.slotName].modSource:find(".*:.*:(.*),.*")
+		local _, _, uniqueTriggerName = env.player.itemList[env.player.mainSkill.skillCfg.slotName].modSource:find(".*:.*:(.*),.*")
 		local isReplica = uniqueTriggerName:match("Replica.")
 		return {triggerOnUse = true, triggerName = uniqueTriggerName, useCastRate = isReplica,
 				triggerSkillCond = function(env, skill)
@@ -1210,7 +1210,7 @@ local configTable = {
 		else -- Needed to get the cooldown form the active part
 			-- Autoexertion has cooldown as part of its support part
 			-- Not really sure which one should apply here
-			-- Applying the one form the active part to be consistant
+			-- Applying the one form the active part to be consistent
 			-- with skills like Automation and Spellslinger
 			for _, skill in ipairs(env.player.activeSkillList) do
 				if skill.activeEffect.grantedEffect.name == "Autoexertion" then

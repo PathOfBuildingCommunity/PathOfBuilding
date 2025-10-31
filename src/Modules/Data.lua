@@ -170,7 +170,7 @@ data.misc = { -- magic numbers
 	DodgeChanceCap = 75,
 	BlockChanceCap = 90,
 	SuppressionChanceCap = 100,
-	SuppressionEffect = 50,
+	SuppressionEffect = 40,
 	AvoidChanceCap = 75,
 	EnergyShieldRechargeBase = 0.33,
 	EnergyShieldRechargeDelay = 2,
@@ -267,7 +267,8 @@ data.cursePriority = {
 	["Boots"] = 7000,
 	["Ring 1"] = 8000,
 	["Ring 2"] = 9000,
-	["CurseFromEquipment"] = 10000,
+	["Ring 3"] = 10000,
+	["CurseFromEquipment"] = 11000,
 	["CurseFromAura"] = 20000,
 }
 
@@ -1124,3 +1125,5 @@ for _, modId in ipairs(sortedMods) do
 end
 LoadModule("Data/Uniques/Special/Generated")
 LoadModule("Data/Uniques/Special/New")
+
+data.flavourText = LoadModule("Data/FlavourText")

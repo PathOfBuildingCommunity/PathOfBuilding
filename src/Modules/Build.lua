@@ -7,6 +7,7 @@ local pairs = pairs
 local ipairs = ipairs
 local next = next
 local t_insert = table.insert
+local t_sort = table.sort
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
@@ -260,14 +261,22 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		self.spec:SetWindowTitleWithBuildClass()
 		self.buildFlag = true
 	end)
-	-- // hiding away until we learn more, this dropdown and the Loadout dropdown conflict for UI space, will need to address if secondaryAscendancies come back
-	--self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, {8, 0, 120, 20}, nil, function(index, value)
-	--	self.spec:SelectSecondaryAscendClass(value.ascendClassId)
-	--	self.spec:AddUndoState()
-	--	self.spec:SetWindowTitleWithBuildClass()
-	--	self.buildFlag = true
-	--end)
-	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, {8, 0, 190, 20}, {}, function(index, value)
+	self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, {8, 0, 160, 20}, {
+		{ label = "None", ascendClassId = 0 },
+	}, function(index, value)
+		if not value or not self.spec then
+			return
+		end
+		self.spec:SelectSecondaryAscendClass(value.ascendClassId)
+		self.spec:AddUndoState()
+		self.spec:SetWindowTitleWithBuildClass()
+		self.buildFlag = true
+	end)
+	self.controls.secondaryAscendDrop.enableDroppedWidth = true
+	self.controls.secondaryAscendDrop.maxDroppedWidth = 360
+	local initialSecondarySelection = (self.spec and self.spec.curSecondaryAscendClassId) or 0
+	self.controls.secondaryAscendDrop:SelByValue(initialSecondarySelection, "ascendClassId")
+	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.secondaryAscendDrop,"RIGHT"}, {8, 0, 190, 20}, {}, function(index, value)
 		if value == "^7^7Loadouts:" or value == "^7^7-----" then
 			self.controls.buildLoadouts:SetSel(1)
 			return
@@ -1099,9 +1108,41 @@ function buildMode:OnFrame(inputEvents)
 	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValueByKey("ascendancies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
 	self.controls.ascendDrop:CheckDroppedWidth(true)
-	-- // secondaryAscend dropdown hidden away until we learn more
-	--self.controls.secondaryAscendDrop.list = {{label = "None", ascendClassId = 0}, {label = "Warden", ascendClassId = 1}, {label = "Warlock", ascendClassId = 2}, {label = "Primalist", ascendClassId = 3}}
-	--self.controls.secondaryAscendDrop:SelByValue(self.spec.curSecondaryAscendClassId, "ascendClassId")
+	local secondaryDrop = self.controls.secondaryAscendDrop
+	if secondaryDrop then
+		local legacyAlternateAscendancyIds = {
+			Warden = true,
+			Warlock = true,
+			Primalist = true,
+		}
+		local entries = {
+			{ label = "None", ascendClassId = 0 },
+		}
+		local selection = (self.spec and self.spec.curSecondaryAscendClassId) or 0
+		if self.spec and self.spec.tree then
+			local altAscendancies = self.spec.tree.alternate_ascendancies
+			if altAscendancies then
+				local sortable = { }
+				for ascendClassId, ascendClass in pairs(altAscendancies) do
+					if ascendClass and ascendClass.id then
+						if not legacyAlternateAscendancyIds[ascendClass.id] or ascendClassId == selection then
+							t_insert(sortable, { label = ascendClass.name, ascendClassId = ascendClassId })
+						end
+					end
+				end
+				t_sort(sortable, function(a, b)
+					return a.label < b.label
+				end)
+				for _, entry in ipairs(sortable) do
+					t_insert(entries, entry)
+				end
+			end
+		end
+		secondaryDrop:SetList(entries)
+		secondaryDrop:SelByValue(selection, "ascendClassId")
+		secondaryDrop:CheckDroppedWidth(true)
+		secondaryDrop.enabled = self.spec ~= nil and #entries > 1
+	end
 
 	if self.buildFlag then
 		-- Wipe Global Cache
@@ -1314,8 +1355,8 @@ function buildMode:OpenSpectreLibrary()
 	controls.cancel = new("ButtonControl", nil, {45, 330, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
-	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {24, 2, 0, 16}, "Spectres in your Library must be assigned to an active")
-	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {20, 18, 0, 16}, "Raise Spectre gem for their buffs and curses to activate")
+	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {24, 2, 0, 16}, "^7Spectres in your Library must be assigned to an active")
+	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {20, 18, 0, 16}, "^7Raise Spectre gem for their buffs and curses to activate")
 	local spectrePopup = main:OpenPopup(410, 360, "Spectre Library", controls)
 	spectrePopup:SelectControl(spectrePopup.controls.source.controls.searchText)
 end
@@ -1768,9 +1809,10 @@ do
 			end
 		end	
 		if req[1] then
-			tooltip:AddLine(16, "^x7F7F7FRequires "..table.concat(req, "^x7F7F7F, "))
+			local fontSizeBig = main.showFlavourText and 18 or 16
+			tooltip:AddLine(fontSizeBig, "^x7F7F7FRequires "..table.concat(req, "^x7F7F7F, "), "FONTIN SC")
 			tooltip:AddSeparator(10)
-		end	
+		end
 		wipeTable(req)
 	end
 end

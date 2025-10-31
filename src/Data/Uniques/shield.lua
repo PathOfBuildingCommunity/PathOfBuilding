@@ -545,7 +545,7 @@ Implicits: 1
 {variant:2}(170-230)% increased Energy Shield
 {variant:1}+(70-100) to maximum Life
 +(35-40)% to Lightning Resistance
-{variant:2}Shocks you inflict spread to other Enemies within a Radius of 15
+{variant:2}Shocks you inflict spread to other Enemies within 1.5 metres
 Adds 1 to 10 Lightning Damage for each Shocked Enemy you've Killed Recently
 {variant:1}Shock Reflection
 ]],[[
@@ -1211,4 +1211,17 @@ Implicits: 1
 +(50-70) to maximum Life
 1% increased Area of Effect per Enemy killed recently, up to 50%
 You have Zealot's Oath if you haven't been hit recently
+]],[[
+Azadi Crest
+Lacquered Buckler
+Source: Drops from unique{Mercenary} after winning a duel
+League: Mercenaries of Trarthus
+Requires Level 60, 154 Dex
+Implicits: 1
+6% increased Movement Speed
++(1-100) to maximum Life
++(1-10)% Chance to Block
+(1-10)% chance to avoid Projectiles
+Your Lucky or Unlucky effects use the best or
+worst from three rolls instead of two
 ]],}

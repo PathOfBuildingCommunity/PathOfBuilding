@@ -41,10 +41,13 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	self.controls.accountRealm:SelByValue( main.lastRealm or "PC", "id" )
 	self.controls.accountName = new("EditControl", {"LEFT",self.controls.accountRealm,"RIGHT"}, {8, 0, 200, 20}, main.lastAccountName or "", nil, "%c", nil, nil, nil, nil, true)
 	self.controls.accountName.pasteFilter = function(text)
-		return text:gsub("[\128-\255]",function(c)
-			return codePointToUTF8(c:byte(1)):gsub(".",function(c)
-				return string.format("%%%X", c:byte(1))
-			end)
+		return text:gsub(".", function(c)
+			local byte = c:byte()
+			if byte >= 128 then
+				return string.format("%%%02X", byte)
+			else
+				return c
+			end
 		end)
 	end
 	-- accountHistory Control
@@ -92,16 +95,12 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 		tooltip:AddLine(16, "^7Removes account from the dropdown list")
 	end
 
-	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, {0, 34, 0, 14}, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
-	self.controls.accountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, {0, 4, 170, 18}, "^x4040FFhttps://www.urlencoder.org/", function()
-		OpenURL("https://www.urlencoder.org/")
-	end)
-	
-	self.controls.accountNameMissingDiscriminator = new("LabelControl", {"BOTTOMLEFT",self.controls.accountNameUnicode,"TOPLEFT"}, {0, -4, 0, 18}, "^1Missing discriminator e.g. #1234")
+	self.controls.accountNameMissingDiscriminator = new("LabelControl", {"TOPLEFT",self.controls.accountName,"BOTTOMLEFT"}, {0, 8, 0, 16}, "^1Missing discriminator e.g. #1234")
 	self.controls.accountNameMissingDiscriminator.shown = function()
 		return not self.controls.accountName.buf:match("[#%-]%d%d%d%d$")
 	end
-	
+
+	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, {0, 34, 0, 14}, "^7Note: if the account name contains non-ASCII characters it must be pasted into the textbox,\nnot typed manually.")
 
 	-- Stage: input POESESSID
 	self.controls.sessionHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, {6, 40, 200, 14})
@@ -152,7 +151,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.charSelect.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
-	self.controls.charImportHeader = new("LabelControl", {"TOPLEFT",self.controls.charSelect,"BOTTOMLEFT"}, {0, 16, 200, 16}, "Import:")
+	self.controls.charImportHeader = new("LabelControl", {"TOPLEFT",self.controls.charSelect,"BOTTOMLEFT"}, {0, 16, 200, 16}, "^7Import:")
 	self.controls.charImportTree = new("ButtonControl", {"LEFT",self.controls.charImportHeader, "RIGHT"}, {8, 0, 170, 20}, "Passive Tree and Jewels", function()
 		if self.build.spec:CountAllocNodes() > 0 then
 			main:OpenConfirmPopup("Character Import", "Importing the passive tree will overwrite your current tree.", "Import", function()
@@ -219,17 +218,17 @@ You can get this from your web browser's cookies while logged into the Path of E
 	local exportWebsitesList = getExportSitesFromImportList()
 
 	self.controls.exportFrom = new("DropDownControl", { "LEFT", self.controls.generateCodeCopy,"RIGHT"}, {8, 0, 120, 20}, exportWebsitesList, function(_, selectedWebsite)
-		main.lastExportWebsite = selectedWebsite.id
+		main.lastExportedWebsite = selectedWebsite.id
 		self.exportWebsiteSelected = selectedWebsite.id
 	end)
-	self.controls.exportFrom:SelByValue(self.exportWebsiteSelected or main.lastExportWebsite or "Pastebin", "id")
+	self.controls.exportFrom:SelByValue(self.exportWebsiteSelected or main.lastExportedWebsite or "Maxroll", "id")
 	self.controls.generateCodeByLink = new("ButtonControl", { "LEFT", self.controls.exportFrom, "RIGHT"}, {8, 0, 100, 20}, "Share", function()
 		local exportWebsite = exportWebsitesList[self.controls.exportFrom.selIndex]
-		local response = buildSites.UploadBuild(self.controls.generateCodeOut.buf, exportWebsite)
-		if response then
+		local subScriptId = buildSites.UploadBuild(self.controls.generateCodeOut.buf, exportWebsite)
+		if subScriptId then
 			self.controls.generateCodeOut:SetText("")
 			self.controls.generateCodeByLink.label = "Creating link..."
-			launch:RegisterSubScript(response, function(pasteLink, errMsg)
+			launch:RegisterSubScript(subScriptId, function(pasteLink, errMsg)
 				self.controls.generateCodeByLink.label = "Share"
 				if errMsg then
 					main:OpenMessagePopup(exportWebsite.id, "Error creating link:\n"..errMsg)
@@ -816,7 +815,7 @@ function ImportTabClass:ImportItemsAndSkills(json)
 end
 
 local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC", [10] = "RELIC" }
-local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Belt"] = "Belt" }
+local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Ring3"] = "Ring 3", ["Belt"] = "Belt" }
 
 function ImportTabClass:ImportItem(itemData, slotName)
 	if not slotName then
@@ -898,6 +897,12 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		for _, curInfluenceInfo in ipairs(influenceInfo) do
 			item[curInfluenceInfo.key] = itemData.influences[curInfluenceInfo.display:lower()]
 		end
+	end
+	if itemData.searing then
+		item.cleansing = true
+	end
+	if itemData.tangled then
+		item.tangle = true
 	end
 	if itemData.ilvl > 0 then
 		item.itemLevel = itemData.ilvl

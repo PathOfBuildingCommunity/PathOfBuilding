@@ -623,6 +623,17 @@ LevelReq: 52
 +(90-110) to maximum Energy Shield
 (10-16)% increased Quantity of Items found when on Low Life
 20% increased Movement Speed
+]],[[
+Scornflux
+Satin Slippers
+Source: Drops from unique{Mercenary} after winning a duel
+League: Mercenaries of Trarthus
+Requires Level 54, 69 Int
++(5-15) to Intelligence
++(40-70) to Maximum Mana
++(5-15)% to all Elemental Resistances
+Gain Arcane Surge when you use a Movement Skill
+Increase to Cast Speed from Arcane Surge also applies to Movement Speed
 ]],
 -- Boots: Armour/Evasion
 [[

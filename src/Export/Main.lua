@@ -177,7 +177,7 @@ function main:Init()
 		self:SetCurrentDat()
 	end)
 	
-	self.controls.scriptAll = new("ButtonControl", nil, {270, 10, 100, 18}, "Run All", function()
+	self.controls.scriptAll = new("ButtonControl", nil, {270, 10, 140, 18}, "Run All", function()
 		do -- run stat desc first
 			local errMsg = PLoadModule("Scripts/".."statdesc"..".lua")
 			if errMsg then
@@ -210,16 +210,30 @@ function main:Init()
 	end, nil, false)
 	self.controls.helpText = new("LabelControl", {"TOPLEFT",self.controls.clearOutput,"BOTTOMLEFT"}, {0, 42, 100, 16}, "Press Ctrl+F5 to re-export\ndata from the game")
 
-	self.controls.scriptList = new("ScriptListControl", nil, {270, 35, 100, 300}) {
+	self.controls.scriptList = new("ScriptListControl", nil, {270, 35, 140, 400}) {
 		shown = function()
 			return not self.curDatFile
 		end
 	}
-	self.controls.scriptOutput = new("TextListControl", nil, {380, 10, 800, 600}, nil, self.scriptOutput) {
+	self.controls.scriptOutput = new("TextListControl", nil, {420, 10, 800, 600}, nil, self.scriptOutput) {
 		shown = function()
 			return not self.curDatFile
 		end
 	}
+
+	self.controls.copyScriptOutput = new("ButtonControl",{"TOPRIGHT", self.controls.scriptOutput, "BOTTOMRIGHT"},{0, 4, 80, 20},"Copy",function()
+		local lines = {}
+		local textList = self.controls.scriptOutput.list or {}  -- grab the actual list
+		for _, entry in ipairs(textList) do
+			local line = entry[1] or ""
+			line = line:gsub("^%^[0-9a-fA-F]+", "")  -- remove color codes
+			if line ~= "" then
+				table.insert(lines, line)
+			end
+		end
+		Copy(table.concat(lines, "\n"))
+	end
+	)
 
 	self.controls.datSearch = new("EditControl", {"TOPLEFT", self.controls.datSource, "BOTTOMLEFT"}, {0, 2, 250, 18}, nil, "^7Search", nil, nil, function(buf)
 		self.controls.datList.searchBuf = buf
