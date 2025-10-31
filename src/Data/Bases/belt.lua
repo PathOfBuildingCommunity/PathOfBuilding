@@ -52,7 +52,7 @@ itemBases["Studded Belt"] = {
 }
 itemBases["Micro-Distillery Belt"] = {
 	type = "Belt",
-	tags = { experimental_base = true, default = true, belt = true, },
+	tags = { belt = true, default = true, experimental_base = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "Flasks applied to you have 30% increased Effect\nCan't use Flask in Fifth Slot",
 	implicitModTypes = { {  }, {  }, },
@@ -60,7 +60,7 @@ itemBases["Micro-Distillery Belt"] = {
 }
 itemBases["Mechalarm Belt"] = {
 	type = "Belt",
-	tags = { experimental_base = true, default = true, belt = true, },
+	tags = { belt = true, default = true, experimental_base = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "Trigger Level 20 Summon Taunting Contraption when you use a Flask",
 	implicitModTypes = { {  }, },
@@ -68,7 +68,7 @@ itemBases["Mechalarm Belt"] = {
 }
 itemBases["Mechanical Belt"] = {
 	type = "Belt",
-	tags = { experimental_base = true, default = true, belt = true, },
+	tags = { belt = true, default = true, experimental_base = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "Has 1 Socket",
 	implicitModTypes = { {  }, },
@@ -76,7 +76,7 @@ itemBases["Mechanical Belt"] = {
 }
 itemBases["Vanguard Belt"] = {
 	type = "Belt",
-	tags = { not_for_sale = true, atlas_base_type = true, beltatlas1 = true, belt = true, default = true, },
+	tags = { atlas_base_type = true, belt = true, beltatlas1 = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "+(260-320) to Armour and Evasion Rating",
 	implicitModTypes = { { "defences", "armour", "evasion" }, },
@@ -84,7 +84,7 @@ itemBases["Vanguard Belt"] = {
 }
 itemBases["Crystal Belt"] = {
 	type = "Belt",
-	tags = { beltatlas2 = true, not_for_sale = true, atlas_base_type = true, belt = true, default = true, },
+	tags = { atlas_base_type = true, belt = true, beltatlas2 = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "+(60-80) to maximum Energy Shield",
 	implicitModTypes = { { "defences", "energy_shield" }, },
@@ -92,7 +92,7 @@ itemBases["Crystal Belt"] = {
 }
 itemBases["Stygian Vise"] = {
 	type = "Belt",
-	tags = { not_for_sale = true, default = true, belt = true, },
+	tags = { belt = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "Has 1 Abyssal Socket",
 	implicitModTypes = { {  }, },
@@ -101,7 +101,7 @@ itemBases["Stygian Vise"] = {
 
 itemBases["Golden Obi"] = {
 	type = "Belt",
-	tags = { demigods = true, not_for_sale = true, default = true, belt = true, },
+	tags = { belt = true, default = true, demigods = true, not_for_sale = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "(20-30)% increased Rarity of Items found",
 	implicitModTypes = { { "drop" }, },

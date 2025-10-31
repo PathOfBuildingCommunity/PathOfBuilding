@@ -5,7 +5,7 @@ local itemBases = ...
 itemBases["Rusted Hatchet"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 6, PhysicalMax = 11, CritChanceBase = 5, AttackRateBase = 1.5, Range = 11, },
@@ -14,7 +14,7 @@ itemBases["Rusted Hatchet"] = {
 itemBases["Jade Hatchet"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 10, PhysicalMax = 15, CritChanceBase = 5, AttackRateBase = 1.45, Range = 11, },
@@ -23,7 +23,7 @@ itemBases["Jade Hatchet"] = {
 itemBases["Boarding Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 11, PhysicalMax = 21, CritChanceBase = 5, AttackRateBase = 1.5, Range = 11, },
@@ -32,7 +32,7 @@ itemBases["Boarding Axe"] = {
 itemBases["Cleaver"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 12, PhysicalMax = 35, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
@@ -41,7 +41,7 @@ itemBases["Cleaver"] = {
 itemBases["Broad Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 19, PhysicalMax = 34, CritChanceBase = 5, AttackRateBase = 1.35, Range = 11, },
@@ -50,7 +50,7 @@ itemBases["Broad Axe"] = {
 itemBases["Arming Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 14, PhysicalMax = 42, CritChanceBase = 5, AttackRateBase = 1.4, Range = 11, },
@@ -59,7 +59,7 @@ itemBases["Arming Axe"] = {
 itemBases["Decorative Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 27, PhysicalMax = 50, CritChanceBase = 5, AttackRateBase = 1.2, Range = 11, },
@@ -68,7 +68,7 @@ itemBases["Decorative Axe"] = {
 itemBases["Spectral Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 29, PhysicalMax = 48, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
@@ -77,7 +77,7 @@ itemBases["Spectral Axe"] = {
 itemBases["Etched Hatchet"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, not_for_sale = true, maraketh = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicit = "8% increased Global Physical Damage",
 	implicitModTypes = { { "physical_damage", "damage", "physical" }, },
@@ -87,7 +87,7 @@ itemBases["Etched Hatchet"] = {
 itemBases["Jasper Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 32, PhysicalMax = 50, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
@@ -96,7 +96,7 @@ itemBases["Jasper Axe"] = {
 itemBases["Tomahawk"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 25, PhysicalMax = 46, CritChanceBase = 5, AttackRateBase = 1.5, Range = 11, },
@@ -105,7 +105,7 @@ itemBases["Tomahawk"] = {
 itemBases["Wrist Chopper"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 26, PhysicalMax = 79, CritChanceBase = 5, AttackRateBase = 1.2, Range = 11, },
@@ -114,7 +114,7 @@ itemBases["Wrist Chopper"] = {
 itemBases["War Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 35, PhysicalMax = 65, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
@@ -123,7 +123,7 @@ itemBases["War Axe"] = {
 itemBases["Chest Splitter"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 24, PhysicalMax = 71, CritChanceBase = 5, AttackRateBase = 1.4, Range = 11, },
@@ -132,7 +132,7 @@ itemBases["Chest Splitter"] = {
 itemBases["Ceremonial Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 45, PhysicalMax = 83, CritChanceBase = 5, AttackRateBase = 1.2, Range = 11, },
@@ -141,7 +141,7 @@ itemBases["Ceremonial Axe"] = {
 itemBases["Wraith Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 45, PhysicalMax = 75, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
@@ -150,7 +150,7 @@ itemBases["Wraith Axe"] = {
 itemBases["Engraved Hatchet"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, not_for_sale = true, maraketh = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicit = "8% increased Global Physical Damage",
 	implicitModTypes = { { "physical_damage", "damage", "physical" }, },
@@ -160,7 +160,7 @@ itemBases["Engraved Hatchet"] = {
 itemBases["Karui Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 49, PhysicalMax = 77, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
@@ -169,7 +169,7 @@ itemBases["Karui Axe"] = {
 itemBases["Siege Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 38, PhysicalMax = 70, CritChanceBase = 5, AttackRateBase = 1.5, Range = 11, },
@@ -178,7 +178,7 @@ itemBases["Siege Axe"] = {
 itemBases["Reaver Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 38, PhysicalMax = 114, CritChanceBase = 5, AttackRateBase = 1.2, Range = 11, },
@@ -187,7 +187,7 @@ itemBases["Reaver Axe"] = {
 itemBases["Butcher Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, top_tier_base_item_type = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 47, PhysicalMax = 87, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
@@ -196,7 +196,7 @@ itemBases["Butcher Axe"] = {
 itemBases["Vaal Hatchet"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, top_tier_base_item_type = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 30, PhysicalMax = 90, CritChanceBase = 5, AttackRateBase = 1.4, Range = 11, },
@@ -205,7 +205,7 @@ itemBases["Vaal Hatchet"] = {
 itemBases["Royal Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, top_tier_base_item_type = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 54, PhysicalMax = 100, CritChanceBase = 5, AttackRateBase = 1.2, Range = 11, },
@@ -214,7 +214,7 @@ itemBases["Royal Axe"] = {
 itemBases["Infernal Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, top_tier_base_item_type = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 51, PhysicalMax = 85, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
@@ -223,7 +223,7 @@ itemBases["Infernal Axe"] = {
 itemBases["Runic Hatchet"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, not_for_sale = true, maraketh = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicit = "12% increased Global Physical Damage",
 	implicitModTypes = { { "physical_damage", "damage", "physical" }, },
@@ -233,7 +233,7 @@ itemBases["Runic Hatchet"] = {
 itemBases["Maltreatment Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, not_for_sale = true, weapon = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicit = "Gain 3 Rage on Melee Hit",
 	implicitModTypes = { {  }, },
@@ -243,7 +243,7 @@ itemBases["Maltreatment Axe"] = {
 itemBases["Disapprobation Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, not_for_sale = true, weapon = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicit = "Gain 4 Rage on Melee Hit",
 	implicitModTypes = { {  }, },
@@ -253,7 +253,7 @@ itemBases["Disapprobation Axe"] = {
 itemBases["Psychotic Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, not_for_sale = true, weapon = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicit = "Gain 5 Rage on Melee Hit",
 	implicitModTypes = { {  }, },
@@ -264,7 +264,7 @@ itemBases["Psychotic Axe"] = {
 itemBases["Stone Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 12, PhysicalMax = 20, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
@@ -273,7 +273,7 @@ itemBases["Stone Axe"] = {
 itemBases["Jade Chopper"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 19, PhysicalMax = 30, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
@@ -282,7 +282,7 @@ itemBases["Jade Chopper"] = {
 itemBases["Woodsplitter"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 19, PhysicalMax = 39, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
@@ -291,7 +291,7 @@ itemBases["Woodsplitter"] = {
 itemBases["Poleaxe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 29, PhysicalMax = 43, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
@@ -300,7 +300,7 @@ itemBases["Poleaxe"] = {
 itemBases["Double Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 36, PhysicalMax = 60, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
@@ -309,7 +309,7 @@ itemBases["Double Axe"] = {
 itemBases["Gilded Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 43, PhysicalMax = 58, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
@@ -318,7 +318,7 @@ itemBases["Gilded Axe"] = {
 itemBases["Shadow Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 49, PhysicalMax = 73, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
@@ -327,7 +327,7 @@ itemBases["Shadow Axe"] = {
 itemBases["Dagger Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, maraketh = true, not_for_sale = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, maraketh = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicit = "50% increased Critical Strike Chance",
 	implicitModTypes = { { "attack", "critical" }, },
@@ -337,7 +337,7 @@ itemBases["Dagger Axe"] = {
 itemBases["Jasper Chopper"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 58, PhysicalMax = 91, CritChanceBase = 5, AttackRateBase = 1.15, Range = 13, },
@@ -346,7 +346,7 @@ itemBases["Jasper Chopper"] = {
 itemBases["Timber Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 48, PhysicalMax = 99, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
@@ -355,7 +355,7 @@ itemBases["Timber Axe"] = {
 itemBases["Headsman Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 61, PhysicalMax = 92, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
@@ -364,7 +364,7 @@ itemBases["Headsman Axe"] = {
 itemBases["Labrys"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 74, PhysicalMax = 123, CritChanceBase = 5, AttackRateBase = 1.2, Range = 13, },
@@ -373,7 +373,7 @@ itemBases["Labrys"] = {
 itemBases["Noble Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 76, PhysicalMax = 103, CritChanceBase = 5, AttackRateBase = 1.3, Range = 13, },
@@ -382,7 +382,7 @@ itemBases["Noble Axe"] = {
 itemBases["Abyssal Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 81, PhysicalMax = 121, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
@@ -391,7 +391,7 @@ itemBases["Abyssal Axe"] = {
 itemBases["Talon Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, maraketh = true, not_for_sale = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, maraketh = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicit = "50% increased Critical Strike Chance",
 	implicitModTypes = { { "attack", "critical" }, },
@@ -401,7 +401,7 @@ itemBases["Talon Axe"] = {
 itemBases["Karui Chopper"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 121, PhysicalMax = 189, CritChanceBase = 5, AttackRateBase = 1.05, Range = 13, },
@@ -410,7 +410,7 @@ itemBases["Karui Chopper"] = {
 itemBases["Sundering Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicit = "+20% to Damage over Time Multiplier for Bleeding",
 	implicitModTypes = { { "physical_damage", "bleed", "damage", "physical", "attack", "ailment" }, },
@@ -420,7 +420,7 @@ itemBases["Sundering Axe"] = {
 itemBases["Ezomyte Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, top_tier_base_item_type = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 87, PhysicalMax = 131, CritChanceBase = 5.7, AttackRateBase = 1.35, Range = 13, },
@@ -429,7 +429,7 @@ itemBases["Ezomyte Axe"] = {
 itemBases["Vaal Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, top_tier_base_item_type = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicit = "25% chance to Maim on Hit",
 	implicitModTypes = { { "attack" }, },
@@ -439,7 +439,7 @@ itemBases["Vaal Axe"] = {
 itemBases["Despot Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, top_tier_base_item_type = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 90, PhysicalMax = 122, CritChanceBase = 5, AttackRateBase = 1.4, Range = 13, },
@@ -448,7 +448,7 @@ itemBases["Despot Axe"] = {
 itemBases["Void Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, top_tier_base_item_type = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 96, PhysicalMax = 144, CritChanceBase = 6, AttackRateBase = 1.25, Range = 13, },
@@ -457,7 +457,7 @@ itemBases["Void Axe"] = {
 itemBases["Fleshripper"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, maraketh = true, not_for_sale = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, maraketh = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicit = "50% increased Critical Strike Chance",
 	implicitModTypes = { { "attack", "critical" }, },
@@ -467,7 +467,7 @@ itemBases["Fleshripper"] = {
 itemBases["Prime Cleaver"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, weapon = true, not_for_sale = true, two_hand_weapon = true, experimental_base = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, experimental_base = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicit = "Hits with this Weapon have 30% chance to ignore Enemy Physical Damage Reduction",
 	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
@@ -477,7 +477,7 @@ itemBases["Prime Cleaver"] = {
 itemBases["Honed Cleaver"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, weapon = true, not_for_sale = true, two_hand_weapon = true, experimental_base = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, experimental_base = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicit = "Hits with this Weapon have 50% chance to ignore Enemy Physical Damage Reduction",
 	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
@@ -487,7 +487,7 @@ itemBases["Honed Cleaver"] = {
 itemBases["Apex Cleaver"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, weapon = true, not_for_sale = true, two_hand_weapon = true, experimental_base = true, twohand = true, default = true, },
+	tags = { axe = true, default = true, experimental_base = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
 	implicit = "Hits with this Weapon ignore Enemy Physical Damage Reduction",
 	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
