@@ -835,7 +835,6 @@ minions["RhoaUniqueSummoned"] = {
 		"SummonedRhoaShieldCharge",
 	},
 	modList = {
-		mod("SkillData", "LIST", { key = "cannotBeEvaded", value = true }, 0, 0), -- MonsterAlwaysHits [global_always_hit = 1]
 		-- MonsterNearbyEnemiesAreIntimidated [is_intimidated = 1]
 		-- MonsterNearbyEnemiesAreIntimidated [local_display_nearby_enemies_are_intimidated = 1]
 	},
@@ -861,7 +860,6 @@ minions["SnakeSpitUniqueSummoned"] = {
 		"SummonedSnakeProjectile",
 	},
 	modList = {
-		mod("SkillData", "LIST", { key = "cannotBeEvaded", value = true }, 0, 0), -- MonsterAlwaysHits [global_always_hit = 1]
 		mod("PhysicalDamageConvertToChaos", "BASE", 30, 0, 0), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
 	},
 }
@@ -889,7 +887,6 @@ minions["DropBearUniqueSummoned"] = {
 		"DropBearSummonedRallyingCry",
 	},
 	modList = {
-		mod("SkillData", "LIST", { key = "cannotBeEvaded", value = true }, 0, 0), -- MonsterAlwaysHits [global_always_hit = 1]
 	},
 }
 
@@ -1198,8 +1195,8 @@ minions["GuardianRelicLightning"] = {
 minions["VoidSpawn"] = {
 	name = "Void Spawn",
 	monsterTags = { "caster", "construct", "elder_monster", "eldritch", "extra_large_height", "flesh_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", },
-	life = 3,
-	energyShield = 0.2,
+	life = 6,
+	energyShield = 1,
 	fireResist = 30,
 	coldResist = 30,
 	lightningResist = 30,
