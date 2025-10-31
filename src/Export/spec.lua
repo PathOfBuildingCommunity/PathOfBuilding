@@ -3442,6 +3442,13 @@ return {
 			refTo="",
 			type="Float",
 			width=50
+		},
+		[63]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
 		}
 	},
 	characterstartitems={
@@ -4027,6 +4034,13 @@ return {
 			refTo="Tags",
 			type="Key",
 			width=150
+		},
+		[37]={
+			list=true,
+			name="",
+			refTo="",
+			type="Int",
+			width=60
 		}
 	},
 	craftingbenchsortcategories={
@@ -4324,6 +4338,13 @@ return {
 			refTo="",
 			type="Int",
 			width=110
+		},
+		[17]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=100
 		}
 	},
 	deliriumstashtablayout={
@@ -7708,6 +7729,13 @@ return {
 			refTo="",
 			type="Int",
 			width=100
+		},
+		[12]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
 		}
 	},
 	mercenarywieldabletypes={
@@ -7906,6 +7934,13 @@ return {
 			width=70
 		},
 		[13]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[14]={
 			list=false,
 			name="",
 			refTo="",
@@ -8700,12 +8735,19 @@ return {
 		},
 		[2]={
 			list=true,
+			name="Stat",
+			refTo="Stats",
+			type="Key",
+			width=610
+		},
+		[3]={
+			list=true,
 			name="ModSellPriceTypesKeys",
 			refTo="ModSellPriceTypes",
 			type="Key",
 			width=190
 		},
-		[3]={
+		[4]={
 			list=false,
 			name="",
 			refTo="",
@@ -10159,6 +10201,13 @@ return {
 			refTo="",
 			type="Bool",
 			width=50
+		},
+		[18]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=100
 		}
 	},
 	npcshop={
@@ -10412,6 +10461,13 @@ return {
 			refTo="",
 			type="Int",
 			width=100
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
 		}
 	},
 	passivejewelslots={
@@ -11084,6 +11140,34 @@ return {
 			refTo="GrantedEffectsPerLevel",
 			type="Key",
 			width=150
+		},
+		[47]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[48]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[49]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[50]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
 		}
 	},
 	passiveskillstatcategories={
@@ -12429,96 +12513,89 @@ return {
 		},
 		[6]={
 			list=false,
-			name="Name",
-			refTo="",
-			type="String",
-			width=300
-		},
-		[7]={
-			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=80
 		},
-		[8]={
+		[7]={
 			list=false,
 			name="Virtual",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[9]={
+		[8]={
 			list=false,
 			name="Main Hand Stat",
 			refTo="Stats",
 			type="ShortKey",
 			width=350
 		},
-		[10]={
+		[9]={
 			list=false,
 			name="Off Hand Stat",
 			refTo="Stats",
 			type="ShortKey",
 			width=350
 		},
-		[11]={
+		[10]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[12]={
+		[11]={
 			list=false,
 			name="Hash",
 			refTo="",
 			type="UInt",
 			width=80
 		},
-		[13]={
+		[12]={
 			list=true,
 			name="Skills",
 			refTo="",
 			type="String",
 			width=150
 		},
-		[14]={
+		[13]={
 			list=false,
 			name="PassiveCategory",
 			refTo="PassiveSkillStatCategories",
 			type="Key",
 			width=110
 		},
-		[15]={
+		[14]={
 			list=false,
 			name="CannotGrantToMinion",
 			refTo="",
 			type="Bool",
 			width=150
 		},
-		[16]={
+		[15]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[17]={
+		[16]={
 			list=false,
 			name="IsScalable",
 			refTo="",
 			type="Bool",
 			width=70
 		},
-		[18]={
+		[17]={
 			list=true,
 			name="ContextFlags",
 			refTo="VirtualStatContextFlags",
 			type="Key",
 			width=270
 		},
-		[19]={
+		[18]={
 			list=true,
 			name="DotFlag",
 			refTo="VirtualStatContextFlags",
