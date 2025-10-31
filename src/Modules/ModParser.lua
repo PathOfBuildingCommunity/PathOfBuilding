@@ -2261,7 +2261,7 @@ local specialModList = {
 		flag("ShepherdOfSouls", { type = "MultiplierThreshold", var = "CorruptedItem", threshold = num })
 	} end,
 	["you have everlasting sacrifice if at least (%d+) corrupted items are equipped"] = function(num) return {
-		flag("EverlastingSacrifice", { type = "MultiplierThreshold", var = "CorruptedItem", threshold = num })
+		flag("Condition:EverlastingSacrifice", { type = "MultiplierThreshold", var = "CorruptedItem", threshold = num })
 	} end,
 	["adds (%d+) to (%d+) attack physical damage to melee skills per (%d+) dexterity while you are unencumbered"] = function(_, min, max, dex) return { -- Hollow Palm 3 suffixes
 		mod("PhysicalMin", "BASE", tonumber(min), nil, ModFlag.Melee, KeywordFlag.Attack, { type = "PerStat", stat = "Dex", div = tonumber(dex) }, { type = "Condition", var = "Unencumbered" }),
