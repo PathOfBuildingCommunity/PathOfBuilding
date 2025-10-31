@@ -5370,6 +5370,8 @@ local specialModList = {
 	["has a crucible passive skill tree with only support passive skills"] = { },
 	["crucible passive skill tree is removed if this modifier is removed"] = { },
 	["all sockets are white"] = { },
+	["cannot roll (%a+) modifiers"] = { },
+	["cannot roll modifiers of non%-(%a+) damage types"] = { },
 	["every (%d+) seconds, regenerate (%d+)%% of life over one second"] = function (num, _, percent) return {
 		mod("LifeRegenPercent", "BASE", tonumber(percent), { type = "Condition", var = "LifeRegenBurstFull" }),
 		mod("LifeRegenPercent", "BASE", tonumber(percent) / num, { type = "Condition", var = "LifeRegenBurstAvg" }),

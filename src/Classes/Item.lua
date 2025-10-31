@@ -778,6 +778,27 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.canHaveShieldCrucibleTree = true
 				elseif lineLower == "has a two handed sword crucible passive skill tree" then
 					self.canHaveTwoHandedSwordCrucibleTree = true
+				elseif lineLower == "cannot roll caster modifiers" then
+					self.restrictTag = true
+					self.noCaster = true
+				elseif lineLower == "cannot roll attack modifiers" then
+					self.restrictTag = true
+					self.noAttack = true
+				elseif lineLower == "cannot roll modifiers of non-cold damage types" then
+					self.restrictDamageType = true
+					self.onlyColdDamage = true
+				elseif lineLower == "cannot roll modifiers of non-fire damage types" then
+					self.restrictDamageType = true
+					self.onlyFireDamage = true
+				elseif lineLower == "cannot roll modifiers of non-lightning damage types" then
+					self.restrictDamageType = true
+					self.onlyLightningDamage = true
+				elseif lineLower == "cannot roll modifiers of non-chaos damage types" then
+					self.restrictDamageType = true
+					self.onlyChaosDamage = true
+				elseif lineLower == "cannot roll modifiers of non-physical damage types" then
+					self.restrictDamageType = true
+					self.onlyPhysicalDamage = true
 				end
 
 				local modLines
@@ -953,6 +974,41 @@ function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
 
 		local function HasMavenInfluence(modAffix)
 			return modAffix:match("Elevated")
+		end
+		if self.restrictTag then
+			for _, key in ipairs(mod.modTags) do
+				local flagName = "no" .. key:gsub("^%l", string.upper)
+				if flagName and self[flagName] then
+					return 0
+				end
+			end
+		end
+		if self.restrictDamageType then
+			local required = {}
+			for _, element in ipairs({ "fire", "cold", "lightning", "chaos", "physical" }) do
+				local flagName = "only" .. element:gsub("^%l", string.upper) .. "Damage"
+				if self[flagName] then
+					required[element] = true
+				end
+			end
+			if next(required) then
+				local hasDamage = false
+				local damageType = {}
+				for _, key in ipairs(mod.modTags) do
+					if key == "damage" then
+						hasDamage = true
+					else
+						damageType[key] = true
+					end
+				end
+				if hasDamage then
+					for element in pairs(required) do
+						if not damageType[element] then
+							return 0
+						end
+					end
+				end
+			end
 		end
 
 		for i, key in ipairs(mod.weightKey) do

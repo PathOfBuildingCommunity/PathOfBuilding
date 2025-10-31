@@ -222,6 +222,36 @@ itemBases["Accumulator Wand"] = {
 	weapon = { PhysicalMin = 27, PhysicalMax = 50, CritChanceBase = 8.5, AttackRateBase = 1.5, Range = 120, },
 	req = { level = 70, int = 237, },
 }
+itemBases["Somatic Wand"] = {
+	type = "Wand",
+	socketLimit = 3,
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
+	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
+	implicit = "Cannot roll Caster Modifiers",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 9, PhysicalMax = 18, CritChanceBase = 8.5, AttackRateBase = 1.6, Range = 120, },
+	req = { level = 12, int = 47, },
+}
+itemBases["Blasting Wand"] = {
+	type = "Wand",
+	socketLimit = 3,
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
+	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
+	implicit = "Cannot roll Caster Modifiers",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 21, PhysicalMax = 39, CritChanceBase = 8.5, AttackRateBase = 1.6, Range = 120, },
+	req = { level = 40, int = 131, },
+}
+itemBases["Kinetic Wand"] = {
+	type = "Wand",
+	socketLimit = 3,
+	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, top_tier_base_item_type = true, wand = true, weapon = true, },
+	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
+	implicit = "Cannot roll Caster Modifiers",
+	implicitModTypes = { {  }, },
+	weapon = { PhysicalMin = 29, PhysicalMax = 54, CritChanceBase = 8.5, AttackRateBase = 1.6, Range = 120, },
+	req = { level = 59, int = 188, },
+}
 
 itemBases["Convoking Wand"] = {
 	type = "Wand",

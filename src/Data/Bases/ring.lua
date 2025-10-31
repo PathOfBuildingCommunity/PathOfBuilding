@@ -307,6 +307,54 @@ itemBases["Nameless Ring"] = {
 	implicitModTypes = { { "elemental" }, { "elemental" }, },
 	req = { level = 24, },
 }
+itemBases["Cryonic Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "+2% to maximum Cold Resistance\nCannot roll Modifiers of Non-Cold Damage Types",
+	implicitModTypes = { { "elemental", "cold", "resistance" }, { "elemental", "cold", "resistance" }, },
+	req = { level = 32, },
+}
+itemBases["Enthalpic Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "+2% to maximum Fire Resistance\nCannot roll Modifiers of Non-Fire Damage Types",
+	implicitModTypes = { { "elemental", "fire", "resistance" }, { "elemental", "fire", "resistance" }, },
+	req = { level = 32, },
+}
+itemBases["Synaptic Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "+2% to maximum Lightning Resistance\nCannot roll Modifiers of Non-Lightning Damage Types",
+	implicitModTypes = { { "elemental", "lightning", "resistance" }, { "elemental", "lightning", "resistance" }, },
+	req = { level = 32, },
+}
+itemBases["Organic Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "3% additional Physical Damage Reduction\nCannot roll Modifiers of Non-Physical Damage Types",
+	implicitModTypes = { { "physical" }, { "physical" }, },
+	req = { level = 32, },
+}
+itemBases["Fugitive Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "+2% to maximum Chaos Resistance\nCannot roll Modifiers of Non-Chaos Damage Types",
+	implicitModTypes = { { "chaos", "resistance" }, { "chaos", "resistance" }, },
+	req = { level = 32, },
+}
+itemBases["Formless Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "(5-7)% increased Global Defences",
+	implicitModTypes = { { "defences" }, },
+	req = { level = 42, },
+}
 itemBases["Ring"] = {
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
