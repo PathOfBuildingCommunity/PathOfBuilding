@@ -1863,6 +1863,9 @@ function calcs.perform(env, skipEHP)
 			modDB:NewMod("EnemyShockEffect", "INC", m_floor(mod.value * multiplier), mod.source, mod.flags, mod.keywordFlags, unpack(modifiers))
 		end
 	end
+	
+	-- Calculate charges early to enable usage of stats that depend on charge count
+	doActorCharges(env, env.player)
 
 	-- Combine buffs/debuffs
 	local buffs = { }
@@ -2728,9 +2731,6 @@ function calcs.perform(env, skipEHP)
 		-- For example Sorrow of the Divine and buffs (like flask recovery watchers eye)
 		mergeFlasks(env.flasks, true, nonUniqueFlasksApplyToMinion)
 	end
-
-	-- Calculate charges early to enable usage of stats that depend on charge count
-	doActorCharges(env, env.player)
 
 	-- Process stats from alternate charges
 	if env.mode_combat then
