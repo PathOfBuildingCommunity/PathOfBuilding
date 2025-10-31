@@ -4177,6 +4177,7 @@ local specialModList = {
 	["spells [hf][ai][vr]e an additional projectile"] = { mod("ProjectileCount", "BASE", 1, nil, ModFlag.Spell) },
 	["spells [hf][ai][vr]e (%d+) additional projectiles"] = function(num) return { mod("ProjectileCount", "BASE", num, nil, ModFlag.Spell) } end,
 	["attacks fire an additional projectile"] = { mod("ProjectileCount", "BASE", 1, nil, ModFlag.Attack) },
+	["fire at most 1 projectile"] = flag("NoAdditionalProjectiles"),
 	["attacks have an additional projectile when in off hand"] = { mod("ProjectileCount", "BASE", 1, nil, ModFlag.Attack, { type = "SlotNumber", num = 2 }) },
 	["caustic arrow and scourge arrow fire (%d+)%% more projectiles"] = function(num) return { mod("ProjectileCount", "MORE", num, nil, { type = "SkillName", skillNameList = { "Caustic Arrow", "Scourge Arrow" }, includeTransfigured = true }) } end,
 	["essence drain and soulrend fire (%d+) additional projectiles"] = function(num) return { mod("ProjectileCount", "BASE", num, nil, { type = "SkillName", skillNameList = { "Essence Drain", "Soulrend" }, includeTransfigured = true }) } end,
@@ -4858,6 +4859,9 @@ local specialModList = {
 	} end,
 	["skills cost energy shield instead of mana or life"] = { flag("CostESInsteadOfManaOrLife") },
 	["spells have an additional life cost equal to (%d+)%% of your maximum life"] = function(num) return {
+		mod("LifeCostBase", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num, floor = true }, { type = "SkillType", skillType = SkillType.Spell })
+	} end,
+	["spells cost %+(%d+)%% of life"] = function(num) return {
 		mod("LifeCostBase", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num, floor = true }, { type = "SkillType", skillType = SkillType.Spell })
 	} end,
 	["trigger a socketed elemental spell on block, with a ([%d%.]+) second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerElementalSpellOnBlock", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
