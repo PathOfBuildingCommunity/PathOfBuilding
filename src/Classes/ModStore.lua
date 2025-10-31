@@ -241,13 +241,28 @@ function ModStoreClass:GetStat(stat, cfg)
 		local totalMana = self.actor.output["Mana"]
 		if totalMana == 0 then return 0 else
 			for _, activeSkill in ipairs(self.actor.activeSkillList) do
-				if (activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and activeSkill.buffList[1].name == cfg.skillName) then
+				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and (activeSkill.buffList[1].name == cfg.skillName or activeSkill.buffList[1].name == cfg.summonSkillName) ) then
 					local manaBase = activeSkill.skillData["ManaReservedBase"] or 0
 					reservedPercentMana = manaBase / totalMana * 100
 					break
 				end
 			end
 			return m_min(reservedPercentMana, 100) --Don't let people get more than 100% reservation for aura effect.
+		end
+	end
+	if stat == "LifeReservedPercent" then
+		local reservedPercentLife = 0
+		-- Check if Life is 0 (i.e. from Blood Magic) to avoid division by 0.
+		local totalLife = self.actor.output["Life"]
+		if totalLife == 0 then return 0 else
+			for _, activeSkill in ipairs(self.actor.activeSkillList) do
+				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and (activeSkill.buffList[1].name == cfg.skillName or activeSkill.buffList[1].name == cfg.summonSkillName) ) then
+					local lifeBase = activeSkill.skillData["LifeReservedBase"] or 0
+					reservedPercentLife = lifeBase / totalLife * 100
+					break
+				end
+			end
+			return m_min(reservedPercentLife, 100) --Don't let people get more than 100% reservation for aura effect.
 		end
 	end
 	-- if ReservationEfficiency is -100, ManaUnreserved is nan which breaks everything if Arcane Cloak is enabled
