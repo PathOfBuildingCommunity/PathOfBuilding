@@ -87,6 +87,7 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId, useF
 	if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
 		gemInstance.qualityId = "Default"
 	end
+	self:AddGemTooltip(gemInstance)
 	-- Calculate the impact of using this gem
 	local output = calcFunc(nil, useFullDPS)
 	-- Put the original gem back into the list
