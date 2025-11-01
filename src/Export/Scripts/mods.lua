@@ -33,8 +33,8 @@ local function writeMods(outName, condFunc)
 					print("[Jewel]: Skipping '" .. mod.Id .. "'")
 					goto continue
 				end
-			elseif mod.Family[1] and mod.Family[1].Id ~= "AuraBonus" and mod.Family[1].Id ~= "ArbalestBonus" and mod.GenerationType == 3 and not (mod.Domain == 16 or (mod.Domain == 1 and mod.Id:match("^Synthesis") or (mod.Family[2] and mod.Family[2].Id:match("MatchedInfluencesTier")))) then
-				goto continue
+			-- elseif mod.Family[1] and mod.Family[1].Id ~= "AuraBonus" and mod.Family[1].Id ~= "ArbalestBonus" and mod.GenerationType == 3 and not (mod.Domain == 16 or (mod.Domain == 1 and mod.Id:match("^Synthesis") or (mod.Family[2] and mod.Family[2].Id:match("MatchedInfluencesTier")))) then
+			-- 	goto continue
 			end
 			local stats, orders = describeMod(mod)
 			if #orders > 0 then
@@ -176,6 +176,9 @@ end)
 
 writeMods("../Data/BeastCraft.lua", function(mod)
 	return (mod.Id:match("Aspect")  and mod.GenerationType == 2)  -- Aspect Crafts
+end)
+writeMods("../Data/ModFoulborn.lua", function(mod)
+	return mod.Domain == 1 and mod.GenerationType == 3 and mod.Id:match("^MutatedUnique")
 end)
 
 print("Mods exported.")
