@@ -448,7 +448,30 @@ local skills, mod, flag, skill = ...
 #skill SupportItemRarity
 #mods
 
+#skill SupportKineticInstability
+#mods
+
+#skill TriggeredSupportKineticInstability
+#flags attack area duration
+#baseMod skill("showAverage", true)
+#mods
+
 #skill SupportLightningPenetration
+#mods
+
+#skill SupportLivingLightning
+#mods
+
+#skill TriggeredSupportLivingLightning
+#flags spell minion
+	addMinionList = {
+		"LivingLightningMinion"
+	},
+	statMap = {
+		["number_of_chains"] = {
+			mod("MinionModifier", "LIST", { mod = mod("ChainCountMax", "BASE", nil) }),
+		},
+	},
 #mods
 
 #skill SupportAwakenedLightningPenetration

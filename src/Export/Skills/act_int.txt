@@ -2263,6 +2263,22 @@ local skills, mod, flag, skill = ...
 #flags attack projectile
 #mods
 
+#skill KineticFusillade
+#flags attack projectile area duration
+#mods
+
+#skill KineticRain
+#flags attack projectile area
+#mods
+
+#skill KineticRainKineticInstability
+#flags attack area duration
+#mods
+
+#skill KineticRainAltX
+#flags attack projectile area
+#mods
+
 #skill LightningSpireTrap
 #flags spell trap duration area
 	preDamageFunc = function(activeSkill, output, breakdown)
@@ -3416,6 +3432,20 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SomaticShell
+#flags attack
+	parts = {
+		{
+			name = "Projectile",
+			projectile = true,
+		},
+		{
+			name = "Explosion",
+			area = true,
+		},
+	},
+#mods
+
 #skill Soulrend
 #flags spell projectile duration
 #baseMod skill("debuff", true)
@@ -4098,6 +4128,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dotIsArea", true)
 #baseMod skill("radiusLabel", "Initial Hit:")
 #baseMod skill("radiusSecondaryLabel", "Ground Degen:")
+#mods
+
+#skill WallOfForce
+#flags spell duration
 #mods
 
 #skill WaveOfConviction

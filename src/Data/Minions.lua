@@ -1481,3 +1481,32 @@ minions["AncestralUtulaMinion"] = {
 	modList = {
 	},
 }
+
+minions["LivingLightningMinion"] = {
+	name = "Living Lightning",
+	monsterTags = { "elemental", "lightning", "not_dex", "not_str", "small_height", "very_fast_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.4,
+	energyShield = 0.2,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1.4,
+	damageSpread = 0.8,
+	attackTime = 1.17,
+	attackRange = 20,
+	accuracy = 1,
+	limit = "ActiveLivingLightningLimit",
+	skillList = {
+		"SummonedLivingLightningZap",
+	},
+	modList = {
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+	},
+}

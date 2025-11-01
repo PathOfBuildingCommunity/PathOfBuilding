@@ -2098,3 +2098,25 @@ skills["ElderTentacleMinionProjectileDeepcaller"] = {
 		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["SummonedLivingLightningZap"] = {
+	name = "Living Lightning Zap",
+	hidden = true,
+	color = 4,
+	description = "Jolt through an enemy, causing chaining Lightning Damage.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Lightning] = true, [SkillType.Chains] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "additional_base_critical_strike_chance", 800 },
+	},
+	stats = {
+		"supress_weapon_surges",
+	},
+	levels = {
+		[1] = { cooldown = 0.25, levelRequirement = 0, storedUses = 1, },
+	},
+}
