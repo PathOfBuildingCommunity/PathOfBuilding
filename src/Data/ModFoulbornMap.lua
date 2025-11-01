@@ -2,134 +2,206 @@
 -- Item data (c) Grinding Gear Games
 
 return {
-	["Uul-Netol's Kiss"] = {
-		"MutatedUniqueTwoHandAxe11WarcriesExertAnAdditionalAttack",
-		"MutatedUniqueTwoHandAxe11WarcryCooldownSpeed",
+	["Al Dhih"] = {
+		"MutatedUniqueClaw6ChaosDamage",
 	},
-	["Tulborn"] = {
-		"MutatedUniqueWand15GlobalIncreaseColdSpellSkillGemLevel",
-		"MutatedUniqueWand15PowerChargeOnManaSpent",
+	["Alberon's Warpath"] = {
+		"MutatedUniqueBootsStrInt2PercentageIntelligence",
 	},
-	["Uul-Netol's Embrace"] = {
-		"MutatedUniqueTwoHandAxe12PercentageIntelligence",
-		"MutatedUniqueTwoHandAxe12FasterBleedDamage",
-	},
-	["Moonbender's Wing"] = {
-		"MutatedUniqueOneHandAxe8LocalIncreasedAttackSpeed",
-	},
-	["Great Old One's Ward"] = {
-		"MutatedUniqueShieldDex6ImpaleChanceForJewel",
-	},
-	["Tulfall"] = {
-		"MutatedUniqueWand16ColdDamageOverTimeMultiplierPerPowerCharge",
-	},
-	["Rigwald's Savagery"] = {
-		"MutatedUniqueOneHandAxe9MeleeHitsCannotBeEvadedWhileWieldingSword",
-	},
-	["Ventor's Gamble"] = {
-		"MutatedUniqueRing32EnergyShieldAndMana",
-	},
-	["Ashrend"] = {
-		"MutatedUniqueBodyDex3MeleeFireDamage",
-	},
-	["Rearguard"] = {
-		"MutatedUniqueQuiver4BowStunThresholdReduction",
-	},
-	["Bronn's Lithe"] = {
-		"MutatedUniqueBodyDex5MovementSkillCooldown",
-	},
-	["The Formless Flame"] = {
-		"MutatedUniqueHelmetStr4TotemLifeIncreasedByOvercappedFireResistance",
-		"MutatedUniqueHelmetStr4FireDamageTakenAsPhysical",
-	},
-	["Queen of the Forest"] = {
-		"MutatedUniqueBodyDex6DamageTaken",
-		"MutatedUniqueBodyDex6ProjectileSpeedPercentPerEvasionRatingUpToCap",
-	},
-	["The Formless Inferno"] = {
-		"MutatedUniqueHelmetStr5SupportedByMinionLife",
-	},
-	["Soul Strike"] = {
-		"MutatedUniqueQuiver7StartEnergyShieldRechargeOnSkillChance",
-		"MutatedUniqueQuiver7MaximumLifeConvertedToEnergyShield",
-	},
-	["Midnight Bargain"] = {
-		"MutatedUniqueWand2LifeAndEnergyShieldDegenPerMinion",
-		"MutatedUniqueWand2MaximumGolems",
-	},
-	["Kintsugi"] = {
-		"MutatedUniqueBodyDex8SuppressionPreventionIfYouHaventSuppressedRecently",
-		"MutatedUniqueBodyDex8ChanceToSuppressIfYouHaveSuppressedRecently",
-	},
-	["Voll's Vision"] = {
-		"MutatedUniqueHelmStrInt7LifeRegenerationPercentAppliesToEnergyShieldWithNoCorruptedItems",
-		"MutatedUniqueHelmStrInt7MaximumEnergyShieldAsPercentageOfLifeWithNoCorruptItems",
-	},
-	["Ancestral Vision"] = {
-		"MutatedUniqueJewel177ModifiersToSpellSuppressionAlsoApplytoChanceToDefendPercentArmor",
-	},
-	["Carcass Jack"] = {
-		"MutatedUniqueBodyDexInt1DisplaySocketedGemsSupportedByIntensify",
-		"MutatedUniqueBodyDexInt1AuraEffectOnEnemies",
-	},
-	["Thirst for Horrors"] = {
-		"MutatedUniqueShieldDex4ChaosDamageOverTimeMultiplier",
+	["Alpha's Howl"] = {
+		"MutatedUniqueHelmetDex5LifeReservationEfficiency",
+		"MutatedUniqueHelmetDex5LocalIncreaseSocketedMinionGemLevel",
 	},
 	["Ambu's Charge"] = {
 		"MutatedUniqueBodyStrInt2MaximumEnduranceCharges",
 	},
-	["The Harvest"] = {
-		"MutatedUniqueTwoHandAxe8SpellDamage",
+	["Ancestral Vision"] = {
+		"MutatedUniqueJewel177ModifiersToSpellSuppressionAlsoApplytoChanceToDefendPercentArmor",
 	},
-	["Goldrim"] = {
-		"MutatedUniqueHelmetDex3ChaosResistance",
+	["Ashcaller"] = {
+		"MutatedUniqueWand14MinionPhysicalDamageAddedAsFire",
+	},
+	["Ashrend"] = {
+		"MutatedUniqueBodyDex3MeleeFireDamage",
+	},
+	["Belt of the Deceiver"] = {
+		"MutatedUniqueBelt13CurseEffectOnYou",
+		"MutatedUniqueBelt13NearbyEnemiesAreUnnerved",
+	},
+	["Berek's Grip"] = {
+		"MutatedUniqueRing19EnemiesShockedByHitsAreDebilitated",
+		"MutatedUniqueRing19FrozenMonstersTakePercentIncreasedDamage",
+	},
+	["Berek's Pass"] = {
+		"MutatedUniqueRing18ActionSpeedMinimumWhileIgnited",
+		"MutatedUniqueRing18RecoupWhileFrozen",
+	},
+	["Berek's Respite"] = {
+		"MutatedUniqueRing20IgnitedEnemiesExplode",
+		"MutatedUniqueRing20ShockedEnemiesExplode",
+	},
+	["Bronn's Lithe"] = {
+		"MutatedUniqueBodyDex5MovementSkillCooldown",
+	},
+	["Carcass Jack"] = {
+		"MutatedUniqueBodyDexInt1AuraEffectOnEnemies",
+		"MutatedUniqueBodyDexInt1DisplaySocketedGemsSupportedByIntensify",
+	},
+	["Cherrubim's Maleficence"] = {
+		"MutatedUniqueBodyStrDex4PhysicalDamageTakenAsChaos",
+	},
+	["Chin Sol"] = {
+		"MutatedUniqueBow6ChinsolDamageAgainstEnemiesOutsideCloseRange",
+		"MutatedUniqueBow6ProjectilesPierceAllNearbyTargets",
+	},
+	["Choir of the Storm"] = {
+		"MutatedUniqueAmulet42ManaIncreasedPerOvercappedLightningResistUniqueAmulet42",
+	},
+	["Cloak of Defiance"] = {
+		"MutatedUniqueBodyDexInt2EldritchBattery",
+		"MutatedUniqueBodyDexInt2GainManaAsExtraEnergyShield",
+	},
+	["Cloak of Flame"] = {
+		"MutatedUniqueBodyInt2DamageWhileIgnited",
+		"MutatedUniqueBodyInt2FireDamageLifeLeechPermyriad",
+	},
+	["Crown of the Pale King"] = {
+		"MutatedUniqueHelmetDexInt6RetaliationSkillCooldownRecoveryRate",
+	},
+	["Darkray Vectors"] = {
+		"MutatedUniqueBootsStrDex2IncreasedAccuracyPerFrenzy",
+	},
+	["Deidbellow"] = {
+		"MutatedUniqueHelmetStrDex3WarcryBuffEffect",
+		"MutatedUniqueHelmetStrDex3WarcryCooldownSpeed",
+	},
+	["Devoto's Devotion"] = {
+		"MutatedUniqueHelmetStrDex2AttackSpeedWithMovementSkills",
+		"MutatedUniqueHelmetStrDex2ChanceToSuppressSpells",
+	},
+	["Dialla's Malefaction"] = {
+		"MutatedUniqueBodyInt16BlueSocketGemsIgnoreAttributeRequirements",
+		"MutatedUniqueBodyInt16LocalIncreaseSocketedGemLevel",
 	},
 	["Doedre's Damning"] = {
 		"MutatedUniqueRing4EnfeebleOnHit",
 		"MutatedUniqueRing4TemporalChainsOnHit",
 		"MutatedUniqueRing4VulnerabilityOnHit",
 	},
-	["Starkonja's Head"] = {
-		"MutatedUniqueHelmetDex4IncreasedMana",
+	["Doedre's Scorn"] = {
+		"MutatedUniqueHelmetInt9WeaponTreeSupportImpendingDoom",
 	},
-	["Alpha's Howl"] = {
-		"MutatedUniqueHelmetDex5LifeReservationEfficiency",
-		"MutatedUniqueHelmetDex5LocalIncreaseSocketedMinionGemLevel",
+	["Doomsower"] = {
+		"MutatedUniqueTwoHandSword8ImmortalAmbitionIfAllSocketsRed",
+		"MutatedUniqueTwoHandSword8RecoupedAsLifePerRedGem",
 	},
-	["Piscator's Vigil"] = {
-		"MutatedUniqueWand6WeaponTreeFishingWishEffectOfAncientFish",
-	},
-	["Maligaro's Restraint"] = {
-		"MutatedUniqueBelt12ConvertLightningDamageToChaos",
-	},
-	["Belt of the Deceiver"] = {
-		"MutatedUniqueBelt13NearbyEnemiesAreUnnerved",
-		"MutatedUniqueBelt13CurseEffectOnYou",
+	["Drillneck"] = {
+		"MutatedUniqueQuiver3ImpaleEffect",
 	},
 	["Dyadian Dawn"] = {
 		"MutatedUniqueBelt14AllDamageCanIgnite",
 		"MutatedUniqueBelt14MaximumLifeOnChillPercent",
 	},
-	["Al Dhih"] = {
-		"MutatedUniqueClaw6ChaosDamage",
+	["Edge of Madness"] = {
+		"MutatedUniqueTwoHandSword7AccuracyRatingPerLevel",
 	},
-	["Le Heup of All"] = {
-		"MutatedUniqueRing6AllDefences",
-		"MutatedUniqueRing6CriticalStrikeMultiplier",
+	["Esh's Mirror"] = {
+		"MutatedUniqueShieldInt8AlwaysShockLowLifeEnemies",
+		"MutatedUniqueShieldInt8DamageCannotBeReflected",
 	},
-	["Ming's Heart"] = {
-		"MutatedUniqueRing16DisablesOtherRingSlot",
+	["Esh's Visage"] = {
+		"MutatedUniqueShieldInt9ChaosDamageDoesNotBypassESWhileNotLowMana",
+		"MutatedUniqueShieldInt9DamageCannotBeReflected",
 	},
-	["Cloak of Defiance"] = {
-		"MutatedUniqueBodyDexInt2GainManaAsExtraEnergyShield",
-		"MutatedUniqueBodyDexInt2EldritchBattery",
+	["Facebreaker"] = {
+		"MutatedUniqueGlovesDexInt2UnarmedAreaOfEffect",
 	},
-	["Romira's Banquet"] = {
-		"MutatedUniqueRing17IncreasedMaximumPowerCharges",
+	["Farrul's Fur"] = {
+		"MutatedUniqueBodyStrDex8AttackDamage",
 	},
-	["Berek's Pass"] = {
-		"MutatedUniqueRing18RecoupWhileFrozen",
-		"MutatedUniqueRing18ActionSpeedMinimumWhileIgnited",
+	["Flesh and Spirit"] = {
+		"MutatedUniqueGlovesStrDex5VaalSkillDuration",
+	},
+	["Frostbreath"] = {
+		"MutatedUniqueOneHandMace10LocalCriticalStrikeChance",
+	},
+	["Geofri's Legacy"] = {
+		"MutatedUniqueHelmetStrInt2HeraldOfPurityAdditionalMinion",
+	},
+	["Ghostwrithe"] = {
+		"MutatedUniqueBodyInt21ChaosDamageTakenRecoupedAsLifeActual",
+		"MutatedUniqueBodyInt21MaximumEnergyShieldIsEqualToPercentOfMaximumLife",
+	},
+	["Gifts from Above"] = {
+		"MutatedUniqueRing11ConsecratedGroundEffect",
+	},
+	["Goldrim"] = {
+		"MutatedUniqueHelmetDex3ChaosResistance",
+	},
+	["Goldwyrm"] = {
+		"MutatedUniqueBootsDex2IncreasedGold",
+	},
+	["Great Old One's Ward"] = {
+		"MutatedUniqueShieldDex6ImpaleChanceForJewel",
+	},
+	["Greed's Embrace"] = {
+		"MutatedUniqueBodyStr5ExperienceIncrease",
+	},
+	["Gruthkul's Pelt"] = {
+		"MutatedUniqueBodyStrDex7WarcriesAreDisabled",
+	},
+	["Hand of Thought and Motion"] = {
+		"MutatedUniqueClaw16AccuracyRatingPercentPer25Intelligence",
+		"MutatedUniqueClaw16PercentageStrength",
+	},
+	["Hand of Wisdom and Action"] = {
+		"MutatedUniqueClaw17CriticalStrikeMultiplierPer25Dexterity",
+		"MutatedUniqueClaw17PercentageStrength",
+	},
+	["Headhunter"] = {
+		"MutatedUniqueBelt7CullingStrike",
+		"MutatedUniqueBelt7GainSoulEaterStackOnHit",
+	},
+	["Heartbound Loop"] = {
+		"MutatedUniqueRing33MinionSkillManaCost",
+	},
+	["Inspired Learning"] = {
+		"MutatedUniqueJewel3GainRandomRareMonsterModOnKillWhileNoNotablesAllocatedInRadius",
+		"MutatedUniqueJewel3GainRandomRareMonsterModOnKillWhileXSmallPassivesAllocatedInRadius",
+	},
+	["Intuitive Leap"] = {
+		"MutatedUniqueJewel6KeystoneCanBeAllocatedInMassiveRadiusWithoutBeingConnected",
+	},
+	["Jorrhast's Blacksteel"] = {
+		"MutatedUniqueTwoHandMace8DoubleAnimateWeaponLimit",
+		"MutatedUniqueTwoHandMace8IncreasedMinionDamageIfYouHitEnemy",
+	},
+	["Kalisa's Grace"] = {
+		"MutatedUniqueGlovesInt4DisplaySocketedGemsSupportedByFocusedChannelling",
+		"MutatedUniqueGlovesInt4GainManaCostReductionOnManaSpent",
+	},
+	["Kaom's Sign"] = {
+		"MutatedUniqueRing2WarcryMonsterPower",
+	},
+	["Kaom's Spirit"] = {
+		"MutatedUniqueGlovesStr12RageLossDelay",
+	},
+	["Kaom's Way"] = {
+		"MutatedUniqueRing2WarcryMonsterPower",
+	},
+	["Kikazaru"] = {
+		"MutatedUniqueRing26ManaPerLevel",
+	},
+	["Kiloava's Bluster"] = {
+		"MutatedUniqueShieldDex9DegenDamageTaken",
+		"MutatedUniqueShieldDex9TreatElementalResistanceAsInverted",
+	},
+	["Kintsugi"] = {
+		"MutatedUniqueBodyDex8ChanceToSuppressIfYouHaveSuppressedRecently",
+		"MutatedUniqueBodyDex8SuppressionPreventionIfYouHaventSuppressedRecently",
+	},
+	["Kitava's Thirst"] = {
+		"MutatedUniqueHelmetStrInt6ChanceToCastOnManaSpent",
 	},
 	["Kongming's Stratagem"] = {
 		"MutatedUniqueShieldInt6EnchantmentBlind",
@@ -138,407 +210,335 @@ return {
 		"MutatedUniqueTwoHandMace6KeystoneBattlemage",
 		"MutatedUniqueTwoHandMace6LoseLifePercentOnCrit",
 	},
-	["Umbilicus Immortalis"] = {
-		"MutatedUniqueBelt19FlaskChargesUsed",
-		"MutatedUniqueBelt19AnimalCharmFlaskChargesEvery3Secondsage",
-	},
-	["Berek's Grip"] = {
-		"MutatedUniqueRing19FrozenMonstersTakePercentIncreasedDamage",
-		"MutatedUniqueRing19EnemiesShockedByHitsAreDebilitated",
-	},
-	["Goldwyrm"] = {
-		"MutatedUniqueBootsDex2IncreasedGold",
-	},
-	["Esh's Mirror"] = {
-		"MutatedUniqueShieldInt8AlwaysShockLowLifeEnemies",
-		"MutatedUniqueShieldInt8DamageCannotBeReflected",
-	},
-	["Victario's Flight"] = {
-		"MutatedUniqueBootsDex3ActionSpeedReduction",
-	},
-	["Berek's Respite"] = {
-		"MutatedUniqueRing20IgnitedEnemiesExplode",
-		"MutatedUniqueRing20ShockedEnemiesExplode",
-	},
-	["Soul Tether"] = {
-		"MutatedUniqueBelt21EverlastingSacrifice",
-		"MutatedUniqueBelt21AnimalCharmLeechPercentIsInstant",
-	},
-	["Geofri's Legacy"] = {
-		"MutatedUniqueHelmetStrInt2HeraldOfPurityAdditionalMinion",
-	},
-	["Thief's Torment"] = {
-		"MutatedUniqueRing7NonDamagingAilmentEffectOnSelf",
-	},
-	["Xoph's Blood"] = {
-		"MutatedUniqueAmulet38KeystoneElementalOverload",
-	},
-	["The Halcyon"] = {
-		"MutatedUniqueAmulet39PhysicalDamageTakenAsCold",
-		"MutatedUniqueAmulet39CannotBeFrozen",
-	},
-	["Solaris Lorica"] = {
-		"MutatedUniqueBodyStr4ElementalDamageTakenAsChaos",
-	},
-	["The Pandemonius"] = {
-		"MutatedUniqueAmulet40CannotBeChilled",
-	},
-	["Xoph's Inception"] = {
-		"MutatedUniqueBow18DisplaySupportedByReturningProjectiles",
-		"MutatedUniqueBow18FasterIgnite",
-	},
-	["Greed's Embrace"] = {
-		"MutatedUniqueBodyStr5ExperienceIncrease",
-	},
-	["Xoph's Nurture"] = {
-		"MutatedUniqueBow19AllDamageCanIgnite",
-		"MutatedUniqueBow19SupportedByImmolate",
-	},
-	["Lioneye's Vision"] = {
-		"MutatedUniqueBodyStr6ChanceToAvoidProjectiles",
-	},
-	["The Brass Dome"] = {
-		"MutatedUniqueBodyStr7PrismaticBulwark",
-		"MutatedUniqueBodyStr7GainNoInherentBonusFromStrength",
-	},
-	["The Coming Calamity"] = {
-		"MutatedUniqueBodyInt12HeraldEffectOnSelf",
-		"MutatedUniqueBodyInt12HeraldOfDoom",
-	},
-	["Veil of the Night"] = {
-		"MutatedUniqueHelmetStrInt4MaximumLifeIncreasePercent",
-	},
-	["Frostbreath"] = {
-		"MutatedUniqueOneHandMace10LocalCriticalStrikeChance",
-	},
-	["Skin of the Loyal"] = {
-		"MutatedUniqueBodyInt13SocketedGemQuality",
-		"MutatedUniqueBodyInt13IncreasedAllResistances",
-	},
-	["Gruthkul's Pelt"] = {
-		"MutatedUniqueBodyStrDex7WarcriesAreDisabled",
-	},
-	["Skin of the Lords"] = {
-		"MutatedUniqueBodyInt14aSocketedGemQuality",
-		"MutatedUniqueBodyInt14IncreasedAllResistances",
-	},
-	["Farrul's Fur"] = {
-		"MutatedUniqueBodyStrDex8AttackDamage",
-	},
-	["Kitava's Thirst"] = {
-		"MutatedUniqueHelmetStrInt6ChanceToCastOnManaSpent",
-	},
-	["Dialla's Malefaction"] = {
-		"MutatedUniqueBodyInt16LocalIncreaseSocketedGemLevel",
-		"MutatedUniqueBodyInt16BlueSocketGemsIgnoreAttributeRequirements",
+	["Le Heup of All"] = {
+		"MutatedUniqueRing6AllDefences",
+		"MutatedUniqueRing6CriticalStrikeMultiplier",
 	},
 	["Lioneye's Fall"] = {
 		"MutatedUniqueJewel5EvasionModifiersInRadiusAreTransformedToArmour",
 	},
-	["Mjölner"] = {
-		"MutatedUniqueOneHandMace3AreaOfEffect",
-		"MutatedUniqueOneHandMace3LightningBoltOnHit",
+	["Lioneye's Paws"] = {
+		"MutatedUniqueBootsStrDex1MovementVelocityOnFullLife",
 	},
-	["Quill Rain"] = {
-		"MutatedUniqueBow4AreaOfEffect",
-		"MutatedUniqueBow4BowAttacksUsableWithoutMana",
-	},
-	["Facebreaker"] = {
-		"MutatedUniqueGlovesDexInt2UnarmedAreaOfEffect",
-	},
-	["Cloak of Flame"] = {
-		"MutatedUniqueBodyInt2DamageWhileIgnited",
-		"MutatedUniqueBodyInt2FireDamageLifeLeechPermyriad",
-	},
-	["Chin Sol"] = {
-		"MutatedUniqueBow6ChinsolDamageAgainstEnemiesOutsideCloseRange",
-		"MutatedUniqueBow6ProjectilesPierceAllNearbyTargets",
-	},
-	["Ghostwrithe"] = {
-		"MutatedUniqueBodyInt21ChaosDamageTakenRecoupedAsLifeActual",
-		"MutatedUniqueBodyInt21MaximumEnergyShieldIsEqualToPercentOfMaximumLife",
-	},
-	["Voice of the Storm"] = {
-		"MutatedUniqueAmulet41EnemyExtraDamageRolls",
-		"MutatedUniqueAmulet41MaximumLightningResistance",
-	},
-	["Choir of the Storm"] = {
-		"MutatedUniqueAmulet42ManaIncreasedPerOvercappedLightningResistUniqueAmulet42",
-	},
-	["The Covenant"] = {
-		"MutatedUniqueBodyInt3BloodMagic",
-	},
-	["Snakebite"] = {
-		"MutatedUniqueGlovesDexInt5LocalEnergyShield",
-	},
-	["United in Dream"] = {
-		"MutatedUniqueOneHandSword23MinionUnholyMightChance",
-		"MutatedUniqueOneHandSword23MinionSkillGemQuality",
-	},
-	["Presence of Chayula"] = {
-		"MutatedUniqueAmulet43RecoupEnergyShieldInsteadOfLife",
-		"MutatedUniqueAmulet43ChaosDamageTakenRecoupedAsLife",
-	},
-	["Shadows and Dust"] = {
-		"MutatedUniqueGlovesDexInt6BlindEffect",
+	["Lioneye's Vision"] = {
+		"MutatedUniqueBodyStr6ChanceToAvoidProjectiles",
 	},
 	["Lori's Lantern"] = {
 		"MutatedUniqueRing9ExtraDamageRollsWhileLowLife",
 		"MutatedUniqueRing9IncreasedAttackSpeedWhenOnLowLife",
 	},
-	["The Embalmer"] = {
-		"MutatedUniqueGlovesDexInt7PoisonSpread",
-		"MutatedUniqueGlovesDexInt7FasterPoisonDamage",
-	},
-	["Matua Tupuna"] = {
-		"MutatedUniqueShieldInt2LocalIncreaseSocketedAuraLevel",
-	},
-	["Soul Mantle"] = {
-		"MutatedUniqueBodyInt7SupportedByFlamewood",
-	},
-	["Intuitive Leap"] = {
-		"MutatedUniqueJewel6KeystoneCanBeAllocatedInMassiveRadiusWithoutBeingConnected",
-	},
-	["Whakatutuki o Matua"] = {
-		"MutatedUniqueShieldInt2LocalIncreaseSocketedAuraLevel",
-	},
-	["Meginord's Girdle"] = {
-		"MutatedUniqueBelt4PercentageStrength",
-	},
-	["Rive"] = {
-		"MutatedUniqueClaw13CrushOnHitChance",
-		"MutatedUniqueClaw13PhysicalSkillEffectDurationPerIntelligence",
-	},
-	["Vis Mortis"] = {
-		"MutatedUniqueBodyInt9MinionHasUnholyMight",
-	},
-	["Skyforth"] = {
-		"MutatedUniqueBootsInt7PowerChargeOnCriticalStrikeChance",
-	},
-	["Sadima's Touch"] = {
-		"MutatedUniqueGlovesInt1IncreasedGold",
-	},
-	["Hand of Thought and Motion"] = {
-		"MutatedUniqueClaw16PercentageStrength",
-		"MutatedUniqueClaw16AccuracyRatingPercentPer25Intelligence",
-	},
-	["Hand of Wisdom and Action"] = {
-		"MutatedUniqueClaw17PercentageStrength",
-		"MutatedUniqueClaw17CriticalStrikeMultiplierPer25Dexterity",
-	},
-	["Kalisa's Grace"] = {
-		"MutatedUniqueGlovesInt4DisplaySocketedGemsSupportedByFocusedChannelling",
-		"MutatedUniqueGlovesInt4GainManaCostReductionOnManaSpent",
-	},
-	["Ashcaller"] = {
-		"MutatedUniqueWand14MinionPhysicalDamageAddedAsFire",
-	},
-	["The Dancing Duo"] = {
-		"MutatedUniqueTwoHandSword9LocalLightningDamage",
-	},
-	["Darkray Vectors"] = {
-		"MutatedUniqueBootsStrDex2IncreasedAccuracyPerFrenzy",
-	},
-	["Song of the Sirens"] = {
-		"MutatedUniqueFishingRod1FishingMutatedFish",
-		"MutatedUniqueFishingRod1FishingLureType",
-	},
-	["Voidbringer"] = {
-		"MutatedUniqueGlovesInt6ChaosDamagePerCorruptedItem",
-	},
-	["Edge of Madness"] = {
-		"MutatedUniqueTwoHandSword7AccuracyRatingPerLevel",
-	},
-	["Reefbane"] = {
-		"MutatedUniqueFishingRod2AvoidInterruptionWhileCasting",
-		"MutatedUniqueFishingRod2FishingLureType",
-	},
-	["Wall of Brambles"] = {
-		"MutatedUniqueBodyStr2LocalPhysicalDamageReductionRating",
-	},
-	["Jorrhast's Blacksteel"] = {
-		"MutatedUniqueTwoHandMace8IncreasedMinionDamageIfYouHitEnemy",
-		"MutatedUniqueTwoHandMace8DoubleAnimateWeaponLimit",
-	},
-	["The Oppressor"] = {
-		"MutatedUniqueShieldStrDex8SpellBlockPercentage",
-		"MutatedUniqueShieldStrDex8MonsterChanceToAvoid",
-	},
-	["Sire of Shards"] = {
-		"MutatedUniqueStaff10DisplaySocketedSkillsChain",
-	},
-	["Victario's Influence"] = {
-		"MutatedUniqueBodyDexInt4NonCurseAuraDuration",
-	},
-	["The Squire"] = {
-		"MutatedUniqueShieldStrDex7LocalIncreaseSocketedGemLevel",
-		"MutatedUniqueShieldStrDex7LocalGemsSocketedHaveNoAttributeRequirements",
-	},
-	["The Surrender"] = {
-		"MutatedUniqueShieldStr9GainEnergyShieldOnBlock",
-	},
-	["The Anticipation"] = {
-		"MutatedUniqueShieldStr8MaximumBlockChance",
-		"MutatedUniqueShieldStr8ArmourAppliesToElementalIfBlockedRecently",
-	},
-	["The Infinite Pursuit"] = {
-		"MutatedUniqueBootsStr6IncreasedArmourWhileBleeding",
-		"MutatedUniqueBootsStr6ImmuneToElementalAilmentsWhileBleeding",
-	},
-	["Esh's Visage"] = {
-		"MutatedUniqueShieldInt9DamageCannotBeReflected",
-		"MutatedUniqueShieldInt9ChaosDamageDoesNotBypassESWhileNotLowMana",
-	},
-	["The Red Trail"] = {
-		"MutatedUniqueBootsStr7GainEnduranceChargeEveryXSecondsWhileStationary",
+	["Malachai's Awakening"] = {
+		"MutatedUniqueHelmetDexInt1MinionDoubleDamage",
 	},
 	["Malachai's Loop"] = {
 		"MutatedUniqueShieldInt7DodgeChancePerPowerCharge",
 	},
-	["Rathpith Globe"] = {
-		"MutatedUniqueShieldInt1NonDamagingAilmentWithCritsEffectPer100MaxLife",
-		"MutatedUniqueShieldInt1DamageOverTimePer100PlayerMaxLife",
-	},
-	["Kiloava's Bluster"] = {
-		"MutatedUniqueShieldDex9DegenDamageTaken",
-		"MutatedUniqueShieldDex9TreatElementalResistanceAsInverted",
-	},
-	["Heartbound Loop"] = {
-		"MutatedUniqueRing33MinionSkillManaCost",
-	},
 	["Malachai's Simula"] = {
 		"MutatedUniqueHelmetDexInt1MinionDoubleDamage",
 	},
-	["Singularity"] = {
-		"MutatedUniqueSceptre13ColdDamageOverTimeMultiplier",
-	},
-	["Alberon's Warpath"] = {
-		"MutatedUniqueBootsStrInt2PercentageIntelligence",
-	},
-	["Lioneye's Paws"] = {
-		"MutatedUniqueBootsStrDex1MovementVelocityOnFullLife",
-	},
-	["Drillneck"] = {
-		"MutatedUniqueQuiver3ImpaleEffect",
-	},
-	["Crown of the Pale King"] = {
-		"MutatedUniqueHelmetDexInt6RetaliationSkillCooldownRecoveryRate",
-	},
-	["Null's Inclination"] = {
-		"MutatedUniqueBow12DisplaySupportedBySummonPhantasm",
-		"MutatedUniqueBow12SummonWrithingWormEveryXMs",
-		"MutatedUniqueBow12MinionAddedChaosDamage",
-	},
-	["Malachai's Awakening"] = {
-		"MutatedUniqueHelmetDexInt1MinionDoubleDamage",
-	},
-	["Headhunter"] = {
-		"MutatedUniqueBelt7GainSoulEaterStackOnHit",
-		"MutatedUniqueBelt7CullingStrike",
-	},
-	["Flesh and Spirit"] = {
-		"MutatedUniqueGlovesStrDex5VaalSkillDuration",
-	},
-	["Kaom's Sign"] = {
-		"MutatedUniqueRing2WarcryMonsterPower",
-	},
-	["Voll's Devotion"] = {
-		"MutatedUniqueAmulet14GainPowerChargesNotLostRecently",
-		"MutatedUniqueAmulet14LosePowerChargesOnMaxPowerCharges",
-	},
-	["Kaom's Spirit"] = {
-		"MutatedUniqueGlovesStr12RageLossDelay",
-	},
-	["Doomsower"] = {
-		"MutatedUniqueTwoHandSword8RecoupedAsLifePerRedGem",
-		"MutatedUniqueTwoHandSword8ImmortalAmbitionIfAllSocketsRed",
-	},
-	["Mokou's Embrace"] = {
-		"MutatedUniqueRing24MaximumFireResist",
-	},
-	["Kaom's Way"] = {
-		"MutatedUniqueRing2WarcryMonsterPower",
-	},
-	["Rise of the Phoenix"] = {
-		"MutatedUniqueShieldStrInt5FlatEnergyShieldRegenerationPerMinute",
-		"MutatedUniqueShieldStrInt5CastSpeedOnLowLife",
-	},
-	["Wyrmsign"] = {
-		"MutatedUniqueGlovesStrDex7SupportedByManaforgedArrows",
-	},
-	["Gifts from Above"] = {
-		"MutatedUniqueRing11ConsecratedGroundEffect",
-	},
-	["The Consuming Dark"] = {
-		"MutatedUniqueDagger10ChaosDamageCanIgnite",
+	["Maligaro's Restraint"] = {
+		"MutatedUniqueBelt12ConvertLightningDamageToChaos",
 	},
 	["Maligaro's Virtuosity"] = {
 		"MutatedUniqueGlovesDex2ActionSpeedMinimum90",
 		"MutatedUniqueGlovesDex2CriticalStrikesNonDamagingAilmentEffect",
 	},
-	["Shavronne's Revelation"] = {
-		"MutatedUniqueRing13LeftRingSlotEvasionRating",
-		"MutatedUniqueRing13RightRingSlotArmour",
+	["Matua Tupuna"] = {
+		"MutatedUniqueShieldInt2LocalIncreaseSocketedAuraLevel",
 	},
-	["Xoph's Heart"] = {
-		"MutatedUniqueAmulet37NearbyEnemiesDebilitated",
-		"MutatedUniqueAmulet37PhysicalDamageTakenAsFire",
+	["Meginord's Girdle"] = {
+		"MutatedUniqueBelt4PercentageStrength",
 	},
-	["Inspired Learning"] = {
-		"MutatedUniqueJewel3GainRandomRareMonsterModOnKillWhileNoNotablesAllocatedInRadius",
-		"MutatedUniqueJewel3GainRandomRareMonsterModOnKillWhileXSmallPassivesAllocatedInRadius",
+	["Midnight Bargain"] = {
+		"MutatedUniqueWand2LifeAndEnergyShieldDegenPerMinion",
+		"MutatedUniqueWand2MaximumGolems",
 	},
-	["Kikazaru"] = {
-		"MutatedUniqueRing26ManaPerLevel",
+	["Ming's Heart"] = {
+		"MutatedUniqueRing16DisablesOtherRingSlot",
+	},
+	["Mjölner"] = {
+		"MutatedUniqueOneHandMace3AreaOfEffect",
+		"MutatedUniqueOneHandMace3LightningBoltOnHit",
+	},
+	["Mokou's Embrace"] = {
+		"MutatedUniqueRing24MaximumFireResist",
+	},
+	["Moonbender's Wing"] = {
+		"MutatedUniqueOneHandAxe8LocalIncreasedAttackSpeed",
+	},
+	["Null and Void"] = {
+		"MutatedUniqueGlovesStrInt2LifeRegenerationRatePercentage",
+	},
+	["Null's Inclination"] = {
+		"MutatedUniqueBow12DisplaySupportedBySummonPhantasm",
+		"MutatedUniqueBow12MinionAddedChaosDamage",
+		"MutatedUniqueBow12SummonWrithingWormEveryXMs",
+	},
+	["Piscator's Vigil"] = {
+		"MutatedUniqueWand6WeaponTreeFishingWishEffectOfAncientFish",
+	},
+	["Presence of Chayula"] = {
+		"MutatedUniqueAmulet43ChaosDamageTakenRecoupedAsLife",
+		"MutatedUniqueAmulet43RecoupEnergyShieldInsteadOfLife",
+	},
+	["Queen of the Forest"] = {
+		"MutatedUniqueBodyDex6DamageTaken",
+		"MutatedUniqueBodyDex6ProjectileSpeedPercentPerEvasionRatingUpToCap",
+	},
+	["Quill Rain"] = {
+		"MutatedUniqueBow4AreaOfEffect",
+		"MutatedUniqueBow4BowAttacksUsableWithoutMana",
+	},
+	["Rathpith Globe"] = {
+		"MutatedUniqueShieldInt1DamageOverTimePer100PlayerMaxLife",
+		"MutatedUniqueShieldInt1NonDamagingAilmentWithCritsEffectPer100MaxLife",
+	},
+	["Rearguard"] = {
+		"MutatedUniqueQuiver4BowStunThresholdReduction",
+	},
+	["Reefbane"] = {
+		"MutatedUniqueFishingRod2AvoidInterruptionWhileCasting",
+		"MutatedUniqueFishingRod2FishingLureType",
+	},
+	["Rigwald's Command"] = {
+		"MutatedUniqueOneHandSword15DualWieldingSpellBlockForJewel",
+	},
+	["Rigwald's Savagery"] = {
+		"MutatedUniqueOneHandAxe9MeleeHitsCannotBeEvadedWhileWieldingSword",
+	},
+	["Rise of the Phoenix"] = {
+		"MutatedUniqueShieldStrInt5CastSpeedOnLowLife",
+		"MutatedUniqueShieldStrInt5FlatEnergyShieldRegenerationPerMinute",
+	},
+	["Rive"] = {
+		"MutatedUniqueClaw13CrushOnHitChance",
+		"MutatedUniqueClaw13PhysicalSkillEffectDurationPerIntelligence",
+	},
+	["Romira's Banquet"] = {
+		"MutatedUniqueRing17IncreasedMaximumPowerCharges",
+	},
+	["Sadima's Touch"] = {
+		"MutatedUniqueGlovesInt1IncreasedGold",
+	},
+	["Severed in Sleep"] = {
+		"MutatedUniqueOneHandSword22MinionBaseCriticalStrikeChance",
+		"MutatedUniqueOneHandSword22MinionUnholyMightChance",
 	},
 	["Shackles of the Wretched"] = {
 		"MutatedUniqueGlovesStrInt1SelfCurseDuration",
 	},
-	["Timetwist"] = {
-		"MutatedUniqueRing27DebuffTimePassed",
+	["Shadows and Dust"] = {
+		"MutatedUniqueGlovesDexInt6BlindEffect",
 	},
-	["The Three Dragons"] = {
-		"MutatedUniqueHelmetDexInt4ChaosDamageCanShock",
-		"MutatedUniqueHelmetDexInt4ChaosDamageCanFreeze",
-		"MutatedUniqueHelmetDexInt4ChaosDamageCanIgnite",
+	["Shavronne's Revelation"] = {
+		"MutatedUniqueRing13LeftRingSlotEvasionRating",
+		"MutatedUniqueRing13RightRingSlotArmour",
+	},
+	["Singularity"] = {
+		"MutatedUniqueSceptre13ColdDamageOverTimeMultiplier",
+	},
+	["Sire of Shards"] = {
+		"MutatedUniqueStaff10DisplaySocketedSkillsChain",
+	},
+	["Skin of the Lords"] = {
+		"MutatedUniqueBodyInt14IncreasedAllResistances",
+		"MutatedUniqueBodyInt14aSocketedGemQuality",
+	},
+	["Skin of the Loyal"] = {
+		"MutatedUniqueBodyInt13IncreasedAllResistances",
+		"MutatedUniqueBodyInt13SocketedGemQuality",
+	},
+	["Skyforth"] = {
+		"MutatedUniqueBootsInt7PowerChargeOnCriticalStrikeChance",
+	},
+	["Snakebite"] = {
+		"MutatedUniqueGlovesDexInt5LocalEnergyShield",
+	},
+	["Solaris Lorica"] = {
+		"MutatedUniqueBodyStr4ElementalDamageTakenAsChaos",
+	},
+	["Song of the Sirens"] = {
+		"MutatedUniqueFishingRod1FishingLureType",
+		"MutatedUniqueFishingRod1FishingMutatedFish",
+	},
+	["Soul Mantle"] = {
+		"MutatedUniqueBodyInt7SupportedByFlamewood",
+	},
+	["Soul Strike"] = {
+		"MutatedUniqueQuiver7MaximumLifeConvertedToEnergyShield",
+		"MutatedUniqueQuiver7StartEnergyShieldRechargeOnSkillChance",
+	},
+	["Soul Tether"] = {
+		"MutatedUniqueBelt21AnimalCharmLeechPercentIsInstant",
+		"MutatedUniqueBelt21EverlastingSacrifice",
+	},
+	["Starkonja's Head"] = {
+		"MutatedUniqueHelmetDex4IncreasedMana",
+	},
+	["The Anticipation"] = {
+		"MutatedUniqueShieldStr8ArmourAppliesToElementalIfBlockedRecently",
+		"MutatedUniqueShieldStr8MaximumBlockChance",
+	},
+	["The Brass Dome"] = {
+		"MutatedUniqueBodyStr7GainNoInherentBonusFromStrength",
+		"MutatedUniqueBodyStr7PrismaticBulwark",
+	},
+	["The Coming Calamity"] = {
+		"MutatedUniqueBodyInt12HeraldEffectOnSelf",
+		"MutatedUniqueBodyInt12HeraldOfDoom",
+	},
+	["The Consuming Dark"] = {
+		"MutatedUniqueDagger10ChaosDamageCanIgnite",
+	},
+	["The Covenant"] = {
+		"MutatedUniqueBodyInt3BloodMagic",
+	},
+	["The Dancing Duo"] = {
+		"MutatedUniqueTwoHandSword9LocalLightningDamage",
+	},
+	["The Embalmer"] = {
+		"MutatedUniqueGlovesDexInt7FasterPoisonDamage",
+		"MutatedUniqueGlovesDexInt7PoisonSpread",
+	},
+	["The Formless Flame"] = {
+		"MutatedUniqueHelmetStr4FireDamageTakenAsPhysical",
+		"MutatedUniqueHelmetStr4TotemLifeIncreasedByOvercappedFireResistance",
+	},
+	["The Formless Inferno"] = {
+		"MutatedUniqueHelmetStr5SupportedByMinionLife",
+	},
+	["The Halcyon"] = {
+		"MutatedUniqueAmulet39CannotBeFrozen",
+		"MutatedUniqueAmulet39PhysicalDamageTakenAsCold",
+	},
+	["The Harvest"] = {
+		"MutatedUniqueTwoHandAxe8SpellDamage",
+	},
+	["The Infinite Pursuit"] = {
+		"MutatedUniqueBootsStr6ImmuneToElementalAilmentsWhileBleeding",
+		"MutatedUniqueBootsStr6IncreasedArmourWhileBleeding",
+	},
+	["The Oppressor"] = {
+		"MutatedUniqueShieldStrDex8MonsterChanceToAvoid",
+		"MutatedUniqueShieldStrDex8SpellBlockPercentage",
+	},
+	["The Pandemonius"] = {
+		"MutatedUniqueAmulet40CannotBeChilled",
+	},
+	["The Perfect Form"] = {
+		"MutatedUniqueBodyDex11EvasionRatingPer10PlayerLife",
+		"MutatedUniqueBodyDex11GhostDance",
+	},
+	["The Red Trail"] = {
+		"MutatedUniqueBootsStr7GainEnduranceChargeEveryXSecondsWhileStationary",
 	},
 	["The Snowblind Grace"] = {
 		"MutatedUniqueBodyDex10EvasionRatingPer10PlayerLife",
 		"MutatedUniqueBodyDex10PurityOfIceNoReservation",
 	},
+	["The Squire"] = {
+		"MutatedUniqueShieldStrDex7LocalGemsSocketedHaveNoAttributeRequirements",
+		"MutatedUniqueShieldStrDex7LocalIncreaseSocketedGemLevel",
+	},
+	["The Surrender"] = {
+		"MutatedUniqueShieldStr9GainEnergyShieldOnBlock",
+	},
+	["The Three Dragons"] = {
+		"MutatedUniqueHelmetDexInt4ChaosDamageCanFreeze",
+		"MutatedUniqueHelmetDexInt4ChaosDamageCanIgnite",
+		"MutatedUniqueHelmetDexInt4ChaosDamageCanShock",
+	},
+	["Thief's Torment"] = {
+		"MutatedUniqueRing7NonDamagingAilmentEffectOnSelf",
+	},
+	["Thirst for Horrors"] = {
+		"MutatedUniqueShieldDex4ChaosDamageOverTimeMultiplier",
+	},
+	["Timetwist"] = {
+		"MutatedUniqueRing27DebuffTimePassed",
+	},
+	["Tulborn"] = {
+		"MutatedUniqueWand15GlobalIncreaseColdSpellSkillGemLevel",
+		"MutatedUniqueWand15PowerChargeOnManaSpent",
+	},
+	["Tulfall"] = {
+		"MutatedUniqueWand16ColdDamageOverTimeMultiplierPerPowerCharge",
+	},
+	["Umbilicus Immortalis"] = {
+		"MutatedUniqueBelt19AnimalCharmFlaskChargesEvery3Secondsage",
+		"MutatedUniqueBelt19FlaskChargesUsed",
+	},
+	["United in Dream"] = {
+		"MutatedUniqueOneHandSword23MinionSkillGemQuality",
+		"MutatedUniqueOneHandSword23MinionUnholyMightChance",
+	},
 	["Unnatural Instinct"] = {
 		"MutatedUniqueJewel125AllocatedNotablePassiveSkillsInRadiusDoNothing",
 		"MutatedUniqueJewel125GrantsAllBonusesOfUnallocatedNotablesInRadius",
 	},
-	["Devoto's Devotion"] = {
-		"MutatedUniqueHelmetStrDex2AttackSpeedWithMovementSkills",
-		"MutatedUniqueHelmetStrDex2ChanceToSuppressSpells",
+	["Uul-Netol's Embrace"] = {
+		"MutatedUniqueTwoHandAxe12FasterBleedDamage",
+		"MutatedUniqueTwoHandAxe12PercentageIntelligence",
 	},
-	["Deidbellow"] = {
-		"MutatedUniqueHelmetStrDex3WarcryBuffEffect",
-		"MutatedUniqueHelmetStrDex3WarcryCooldownSpeed",
+	["Uul-Netol's Kiss"] = {
+		"MutatedUniqueTwoHandAxe11WarcriesExertAnAdditionalAttack",
+		"MutatedUniqueTwoHandAxe11WarcryCooldownSpeed",
 	},
-	["The Perfect Form"] = {
-		"MutatedUniqueBodyDex11GhostDance",
-		"MutatedUniqueBodyDex11EvasionRatingPer10PlayerLife",
+	["Veil of the Night"] = {
+		"MutatedUniqueHelmetStrInt4MaximumLifeIncreasePercent",
 	},
-	["Rigwald's Command"] = {
-		"MutatedUniqueOneHandSword15DualWieldingSpellBlockForJewel",
+	["Ventor's Gamble"] = {
+		"MutatedUniqueRing32EnergyShieldAndMana",
 	},
-	["Severed in Sleep"] = {
-		"MutatedUniqueOneHandSword22MinionUnholyMightChance",
-		"MutatedUniqueOneHandSword22MinionBaseCriticalStrikeChance",
+	["Victario's Flight"] = {
+		"MutatedUniqueBootsDex3ActionSpeedReduction",
 	},
-	["Doedre's Scorn"] = {
-		"MutatedUniqueHelmetInt9WeaponTreeSupportImpendingDoom",
+	["Victario's Influence"] = {
+		"MutatedUniqueBodyDexInt4NonCurseAuraDuration",
 	},
-	["Cherrubim's Maleficence"] = {
-		"MutatedUniqueBodyStrDex4PhysicalDamageTakenAsChaos",
+	["Vis Mortis"] = {
+		"MutatedUniqueBodyInt9MinionHasUnholyMight",
+	},
+	["Voice of the Storm"] = {
+		"MutatedUniqueAmulet41EnemyExtraDamageRolls",
+		"MutatedUniqueAmulet41MaximumLightningResistance",
+	},
+	["Voidbringer"] = {
+		"MutatedUniqueGlovesInt6ChaosDamagePerCorruptedItem",
+	},
+	["Voll's Devotion"] = {
+		"MutatedUniqueAmulet14GainPowerChargesNotLostRecently",
+		"MutatedUniqueAmulet14LosePowerChargesOnMaxPowerCharges",
+	},
+	["Voll's Vision"] = {
+		"MutatedUniqueHelmStrInt7LifeRegenerationPercentAppliesToEnergyShieldWithNoCorruptedItems",
+		"MutatedUniqueHelmStrInt7MaximumEnergyShieldAsPercentageOfLifeWithNoCorruptItems",
+	},
+	["Wall of Brambles"] = {
+		"MutatedUniqueBodyStr2LocalPhysicalDamageReductionRating",
 	},
 	["Warped Timepiece"] = {
 		"MutatedUniqueAmulet20CurseEffectTemporalChains",
 	},
-	["Null and Void"] = {
-		"MutatedUniqueGlovesStrInt2LifeRegenerationRatePercentage",
+	["Whakatutuki o Matua"] = {
+		"MutatedUniqueShieldInt2LocalIncreaseSocketedAuraLevel",
+	},
+	["Wyrmsign"] = {
+		"MutatedUniqueGlovesStrDex7SupportedByManaforgedArrows",
+	},
+	["Xoph's Blood"] = {
+		"MutatedUniqueAmulet38KeystoneElementalOverload",
+	},
+	["Xoph's Heart"] = {
+		"MutatedUniqueAmulet37NearbyEnemiesDebilitated",
+		"MutatedUniqueAmulet37PhysicalDamageTakenAsFire",
+	},
+	["Xoph's Inception"] = {
+		"MutatedUniqueBow18DisplaySupportedByReturningProjectiles",
+		"MutatedUniqueBow18FasterIgnite",
+	},
+	["Xoph's Nurture"] = {
+		"MutatedUniqueBow19AllDamageCanIgnite",
+		"MutatedUniqueBow19SupportedByImmolate",
 	},
 }

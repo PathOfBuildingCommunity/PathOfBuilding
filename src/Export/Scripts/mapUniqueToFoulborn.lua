@@ -1,6 +1,7 @@
 if not table.containsId then
 	dofile("Scripts/mods.lua")
 end
+dofile("Scripts/flavourText.lua")
 
 local foulbornMods = LoadModule("../Data/ModFoulborn.lua")
 local uniques = LoadModule("../Data/FlavourText.lua")
@@ -11,7 +12,7 @@ out:write('-- Item data (c) Grinding Gear Games\n\nreturn {\n')
 
 for _, unique in ipairs(uniques) do
     local uniqueName = unique.name
-    for modId, mod in pairs(foulbornMods) do
+    for modId, mod in pairsSortByKey(foulbornMods) do
         if modId:match(unique.id .. "%a+") then
             if not finalUniqueMap[uniqueName] then
                 finalUniqueMap[uniqueName] = {}
@@ -21,7 +22,7 @@ for _, unique in ipairs(uniques) do
     end
 end
 
-for uniqueName, modList in pairs(finalUniqueMap) do
+for uniqueName, modList in pairsSortByKey(finalUniqueMap) do
     out:write('\t["', uniqueName, '"] = {\n')
     for _, modId in ipairs(modList) do
         out:write('\t\t"', modId, '",\n')
