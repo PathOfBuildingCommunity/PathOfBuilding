@@ -1032,6 +1032,14 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			end
 		end
 	end
+	if itemData.mutatedMods then
+		for _, line in ipairs(itemData.mutatedMods) do
+			for line in line:gmatch("[^\n]+") do
+				local modList, extra = modLib.parseMod(line)
+				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { }, mutated = true })
+			end
+		end
+	end
 	-- Sometimes flavour text has actual mods that PoB cares about
 	-- Right now, the only known one is "This item can be anointed by Cassia"
 	if itemData.flavourText then
