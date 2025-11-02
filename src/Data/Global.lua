@@ -345,6 +345,7 @@ SkillType = {
 	ProjectileCannotReturn = 135,
 	Offering = 136,
 	SupportedByBane = 137,
+	WandAttack = 138,
 }
 
 GlobalCache = { 

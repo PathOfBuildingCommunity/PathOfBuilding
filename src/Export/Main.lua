@@ -195,7 +195,7 @@ function main:Init()
 		end
 	}
 
-	self.controls.clearOutput = new("ButtonControl", nil, {1190, 10, 100, 18}, "Clear", function()
+	self.controls.clearOutput = new("ButtonControl", nil, {1230, 10, 100, 18}, "Clear", function()
 		wipeTable(self.scriptOutput)
 	end) {
 		shown = function()

@@ -285,7 +285,6 @@ itemBases["Anarchic Spiritblade"] = {
 }
 itemBases["Random One Hand Sword"] = {
 	type = "One Handed Sword",
-	hidden = true,
 	socketLimit = 3,
 	tags = { default = true, },
 	influenceTags = { shaper = "sword_shaper", elder = "sword_elder", adjudicator = "sword_adjudicator", basilisk = "sword_basilisk", crusader = "sword_crusader", eyrie = "sword_eyrie", cleansing = "sword_cleansing", tangle = "sword_tangle" },
@@ -593,7 +592,6 @@ itemBases["Dragoon Sword"] = {
 
 itemBases["Keyblade"] = {
 	type = "Two Handed Sword",
-	hidden = true,
 	socketLimit = 6,
 	tags = { default = true, not_for_sale = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_sword_shaper", elder = "2h_sword_elder", adjudicator = "2h_sword_adjudicator", basilisk = "2h_sword_basilisk", crusader = "2h_sword_crusader", eyrie = "2h_sword_eyrie", cleansing = "2h_sword_cleansing", tangle = "2h_sword_tangle" },
@@ -853,7 +851,6 @@ itemBases["Banishing Blade"] = {
 }
 itemBases["Random Two Hand Sword"] = {
 	type = "Two Handed Sword",
-	hidden = true,
 	socketLimit = 6,
 	tags = { default = true, },
 	influenceTags = { shaper = "2h_sword_shaper", elder = "2h_sword_elder", adjudicator = "2h_sword_adjudicator", basilisk = "2h_sword_basilisk", crusader = "2h_sword_crusader", eyrie = "2h_sword_eyrie", cleansing = "2h_sword_cleansing", tangle = "2h_sword_tangle" },

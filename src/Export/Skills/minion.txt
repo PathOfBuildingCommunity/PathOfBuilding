@@ -428,3 +428,7 @@ skills["GuardianSentinelFireAura"] = {
 #skill ElderTentacleMinionProjectileDeepcaller Projectile Spell
 #flags spell projectile
 #mods
+
+#skill SummonedLivingLightningZap
+#flags attack melee
+#mods
