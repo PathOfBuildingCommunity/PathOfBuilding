@@ -922,6 +922,7 @@ c["+3 to Level of all Cobra Lash Gems"]={{[1]={flags=0,keywordFlags=0,name="GemP
 c["+3 to Level of all Cold Snap Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="cold snap",value=3}}},nil}
 c["+3 to Level of all Cold Spell Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keywordList={[1]="cold",[2]="spell",[3]="skill"},value=3}}},nil}
 c["+3 to Level of all Conductivity Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="conductivity",value=3}}},nil}
+c["+3 to Level of all Conflagration Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="conflagration",value=3}}},nil}
 c["+3 to Level of all Consecrated Path Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="consecrated path",value=3}}},nil}
 c["+3 to Level of all Contagion Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="contagion",value=3}}},nil}
 c["+3 to Level of all Conversion Trap Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="conversion trap",value=3}}},nil}
@@ -1028,6 +1029,8 @@ c["+3 to Level of all Intimidating Cry Gems"]={{[1]={flags=0,keywordFlags=0,name
 c["+3 to Level of all Intuitive Link Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="intuitive link",value=3}}},nil}
 c["+3 to Level of all Kinetic Blast Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="kinetic blast",value=3}}},nil}
 c["+3 to Level of all Kinetic Bolt Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="kinetic bolt",value=3}}},nil}
+c["+3 to Level of all Kinetic Fusillade Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="kinetic fusillade",value=3}}},nil}
+c["+3 to Level of all Kinetic Rain Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="kinetic rain",value=3}}},nil}
 c["+3 to Level of all Lacerate Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="lacerate",value=3}}},nil}
 c["+3 to Level of all Lancing Steel Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="lancing steel",value=3}}},nil}
 c["+3 to Level of all Leap Slam Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="leap slam",value=3}}},nil}
@@ -1097,6 +1100,7 @@ c["+3 to Level of all Smite Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProper
 c["+3 to Level of all Smoke Mine Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="smoke mine",value=3}}},nil}
 c["+3 to Level of all Snipe Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="snipe",value=3}}},nil}
 c["+3 to Level of all Sniper's Mark Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="sniper's mark",value=3}}},nil}
+c["+3 to Level of all Somatic Shell Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="somatic shell",value=3}}},nil}
 c["+3 to Level of all Soul Link Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="soul link",value=3}}},nil}
 c["+3 to Level of all Soulrend Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="soulrend",value=3}}},nil}
 c["+3 to Level of all Spark Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="spark",value=3}}},nil}
@@ -1133,6 +1137,7 @@ c["+3 to Level of all Tectonic Slam Gems"]={{[1]={flags=0,keywordFlags=0,name="G
 c["+3 to Level of all Tempest Shield Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="tempest shield",value=3}}},nil}
 c["+3 to Level of all Temporal Chains Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="temporal chains",value=3}}},nil}
 c["+3 to Level of all Temporal Rift Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="temporal rift",value=3}}},nil}
+c["+3 to Level of all Thunderstorm Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="thunderstorm",value=3}}},nil}
 c["+3 to Level of all Tornado Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="tornado",value=3}}},nil}
 c["+3 to Level of all Tornado Shot Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="tornado shot",value=3}}},nil}
 c["+3 to Level of all Toxic Rain Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="toxic rain",value=3}}},nil}
@@ -1149,6 +1154,7 @@ c["+3 to Level of all Volcanic Fissure Gems"]={{[1]={flags=0,keywordFlags=0,name
 c["+3 to Level of all Voltaxic Burst Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="voltaxic burst",value=3}}},nil}
 c["+3 to Level of all Vortex Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="vortex",value=3}}},nil}
 c["+3 to Level of all Vulnerability Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="vulnerability",value=3}}},nil}
+c["+3 to Level of all Wall of Force Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="wall of force",value=3}}},nil}
 c["+3 to Level of all War Banner Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="war banner",value=3}}},nil}
 c["+3 to Level of all Warlord's Mark Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="warlord's mark",value=3}}},nil}
 c["+3 to Level of all Wave of Conviction Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyOfScaledMod="value",keyword="wave of conviction",value=3}}},nil}
@@ -10047,11 +10053,11 @@ c["Offering Skills have 50% reduced Duration"]={{[1]={[1]={skillNameList={[1]="B
 c["Offerings Kill affected Damagable targets when Offering Duration expires"]={nil,"Offerings Kill affected Damagable targets when Offering Duration expires "}
 c["On Killing a Poisoned Enemy, nearby Enemies are Poisoned"]={nil,"On Killing a Poisoned Enemy, nearby Enemies are Poisoned "}
 c["On Killing a Poisoned Enemy, nearby Enemies are Poisoned and nearby Allies Regenerate 200 Life per second"]={nil,"On Killing a Poisoned Enemy, nearby Enemies are Poisoned and nearby Allies Regenerate 200 Life per second "}
-c["Only affects Passives in Large Ring"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="radiusIndex",value=6}}},nil}
-c["Only affects Passives in Massive Ring"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="radiusIndex",value=8}}},nil}
-c["Only affects Passives in Medium Ring"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="radiusIndex",value=5}}},nil}
-c["Only affects Passives in Small Ring"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="radiusIndex",value=4}}},nil}
-c["Only affects Passives in Very Large Ring"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="radiusIndex",value=7}}},nil}
+c["Only affects Passives in Large Ring"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="radiusIndex",value=8}}},nil}
+c["Only affects Passives in Massive Ring"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="radiusIndex",value=10}}},nil}
+c["Only affects Passives in Medium Ring"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="radiusIndex",value=7}}},nil}
+c["Only affects Passives in Small Ring"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="radiusIndex",value=6}}},nil}
+c["Only affects Passives in Very Large Ring"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="radiusIndex",value=9}}},nil}
 c["Onslaught"]={{[1]={flags=0,keywordFlags=0,name="Condition:Onslaught",type="FLAG",value=true}},nil}
 c["Other Aegis Skills are Disabled"]={{[1]={[1]={skillType=110,type="SkillType"},flags=0,keywordFlags=0,name="DisableSkill",type="FLAG",value=true},[2]={[1]={skillId="Primal Aegis",type="SkillName"},flags=0,keywordFlags=0,name="EnableSkill",type="FLAG",value=true}},nil}
 c["Pain Attunement"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Pain Attunement"}},nil}
@@ -11200,6 +11206,7 @@ c["Socketed Gems are Supported by Level 10 Intensify"]={{[1]={[1]={slotName="{Sl
 c["Socketed Gems are Supported by Level 10 Iron Grip"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportIronGrip"}}},nil}
 c["Socketed Gems are Supported by Level 10 Iron Will"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportIronWill"}}},nil}
 c["Socketed Gems are Supported by Level 10 Item Rarity"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportItemRarity"}}},nil}
+c["Socketed Gems are Supported by Level 10 Kinetic Instability"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportKineticInstability"}},[2]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=10,skillId="TriggeredSupportKineticInstability"}}},nil}
 c["Socketed Gems are Supported by Level 10 Knockback"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportKnockback"}}},nil}
 c["Socketed Gems are Supported by Level 10 Less Duration"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportLessDuration"}}},nil}
 c["Socketed Gems are Supported by Level 10 Lesser Multiple Projectiles"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportLesserMultipleProjectiles"}}},nil}
@@ -11207,6 +11214,7 @@ c["Socketed Gems are Supported by Level 10 Life Gain on Hit"]={{[1]={[1]={slotNa
 c["Socketed Gems are Supported by Level 10 Life Leech"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportLifeLeech"}}},nil}
 c["Socketed Gems are Supported by Level 10 Lifetap"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportLifetap"}}},nil}
 c["Socketed Gems are Supported by Level 10 Lightning Penetration"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportLightningPenetration"}}},nil}
+c["Socketed Gems are Supported by Level 10 Living Lightning"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportLivingLightning"}},[2]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=10,skillId="TriggeredSupportLivingLightning"}}},nil}
 c["Socketed Gems are Supported by Level 10 Locus Mine"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportLocusMine"}}},nil}
 c["Socketed Gems are Supported by Level 10 Maim"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportMaim"}}},nil}
 c["Socketed Gems are Supported by Level 10 Mana Leech"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportManaLeech"}}},nil}
@@ -11269,6 +11277,7 @@ c["Socketed Gems are Supported by Level 10 Vile Toxins"]={{[1]={[1]={slotName="{
 c["Socketed Gems are Supported by Level 10 Void Manipulation"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportVoidManipulation"}}},nil}
 c["Socketed Gems are Supported by Level 10 Volatility"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportVolatility"}}},nil}
 c["Socketed Gems are Supported by Level 10 Volley"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportVolley"}}},nil}
+c["Socketed Gems are Supported by Level 10 Windburst"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportWindburst"}},[2]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=10,skillId="TriggeredSupportWindburst"}}},nil}
 c["Socketed Gems are Supported by Level 10 Withering Touch"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportWitheringTouch"}}},nil}
 c["Socketed Gems are Supported by Level 11 Trap"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=11,skillId="SupportTrap"}}},nil}
 c["Socketed Gems are Supported by Level 12 Cast when Damage Taken"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=12,skillId="SupportCastWhenDamageTaken"}}},nil}
@@ -11432,6 +11441,7 @@ c["Socketed Gems are Supported by Level 35 Intensify"]={{[1]={[1]={slotName="{Sl
 c["Socketed Gems are Supported by Level 35 Iron Grip"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportIronGrip"}}},nil}
 c["Socketed Gems are Supported by Level 35 Iron Will"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportIronWill"}}},nil}
 c["Socketed Gems are Supported by Level 35 Item Rarity"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportItemRarity"}}},nil}
+c["Socketed Gems are Supported by Level 35 Kinetic Instability"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportKineticInstability"}},[2]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=35,skillId="TriggeredSupportKineticInstability"}}},nil}
 c["Socketed Gems are Supported by Level 35 Knockback"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportKnockback"}}},nil}
 c["Socketed Gems are Supported by Level 35 Less Duration"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportLessDuration"}}},nil}
 c["Socketed Gems are Supported by Level 35 Lesser Multiple Projectiles"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportLesserMultipleProjectiles"}}},nil}
@@ -11439,6 +11449,7 @@ c["Socketed Gems are Supported by Level 35 Life Gain on Hit"]={{[1]={[1]={slotNa
 c["Socketed Gems are Supported by Level 35 Life Leech"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportLifeLeech"}}},nil}
 c["Socketed Gems are Supported by Level 35 Lifetap"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportLifetap"}}},nil}
 c["Socketed Gems are Supported by Level 35 Lightning Penetration"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportLightningPenetration"}}},nil}
+c["Socketed Gems are Supported by Level 35 Living Lightning"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportLivingLightning"}},[2]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=35,skillId="TriggeredSupportLivingLightning"}}},nil}
 c["Socketed Gems are Supported by Level 35 Locus Mine"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportLocusMine"}}},nil}
 c["Socketed Gems are Supported by Level 35 Maim"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportMaim"}}},nil}
 c["Socketed Gems are Supported by Level 35 Mana Leech"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportManaLeech"}}},nil}
@@ -11499,6 +11510,7 @@ c["Socketed Gems are Supported by Level 35 Vile Toxins"]={{[1]={[1]={slotName="{
 c["Socketed Gems are Supported by Level 35 Void Manipulation"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportVoidManipulation"}}},nil}
 c["Socketed Gems are Supported by Level 35 Volatility"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportVolatility"}}},nil}
 c["Socketed Gems are Supported by Level 35 Volley"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportVolley"}}},nil}
+c["Socketed Gems are Supported by Level 35 Windburst"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportWindburst"}},[2]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=35,skillId="TriggeredSupportWindburst"}}},nil}
 c["Socketed Gems are Supported by Level 35 Withering Touch"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=35,skillId="SupportWitheringTouch"}}},nil}
 c["Socketed Gems are Supported by Level 5 Cold to Fire"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=5,skillId="SupportColdToFire"}}},nil}
 c["Socketed Gems are Supported by Level 5 Concentrated Effect"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=5,skillId="SupportConcentratedEffect"}}},nil}
