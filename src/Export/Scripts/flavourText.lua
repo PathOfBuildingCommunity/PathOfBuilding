@@ -96,7 +96,7 @@ local forcedNameList = { -- fated show twice at the moment, but this list is cau
 	{ id = "UniqueBow8", name = "Storm Cloud" },
 	{ id = "FatedUnique21", name = "The Tempest" },
 	{ id = "UniqueBelt2", name = "The Magnate" },
-	{ id = "FatedUnique46", name = "The Tactitian" },
+	{ id = "FatedUnique46", name = "The Tactician" },
 	{ id = "FatedUnique47", name = "The Nomad" },
 	{ id = "UniqueStaff14", name = "The Stormheart" },
 	{ id = "FatedUnique29", name = "The Stormwall" },
