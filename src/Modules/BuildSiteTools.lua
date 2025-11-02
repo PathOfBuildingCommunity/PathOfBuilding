@@ -9,6 +9,10 @@ buildSites = { }
 -- Import/Export websites list used in dropdowns
 buildSites.websiteList = {
 	{
+		label = "Maxroll", id = "Maxroll", matchURL = "maxroll%.gg/poe/pob/.*", regexURL = "maxroll%.gg/poe/pob/(.+)%s*$", downloadURL = "maxroll%.gg/poe/api/pob/%1",
+		codeOut = "https://maxroll.gg/poe/pob/", postUrl = "https://maxroll.gg/poe/api/pob", postFields = "pobCode=", linkURL = "maxroll%.gg/poe/pob/%1"
+	},
+	{
 		label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/.+", regexURL = "pobb%.in/(.+)%s*$", downloadURL = "pobb.in/pob/%1",
 		codeOut = "https://pobb.in/", postUrl = "https://pobb.in/pob/", postFields = "", linkURL = "pobb.in/%1"
 	},

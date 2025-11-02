@@ -228,8 +228,20 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith # DelveMonsterEnfeebleOnHit
 -- Forged Frostbearer
 #spectre Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac
+-- Wretched Defiler
+#spectre Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber
+-- Karui Backburner
+#spectre Metadata/Monsters/LegionLeague/LegionKaruiMeleeFireSpectre
+-- Templar Conscript
+#spectre Metadata/Monsters/LegionLeague/LegionTemplarMelee2Spectre
+-- Xoph's Favoured
+#spectre Metadata/Monsters/Hellion/HellionBreachHowlSpectre
+-- Skitterling
+#spectre Metadata/Monsters/Spiders/DelveSpiderPacksMediumSpectre
+-- Forged Vendigo
+#spectre Metadata/Monsters/LeagueCrucible/Lightning/Vendigo_
 
-	-- Affliction Corpses
+-- Affliction Corpses
 -- Frozen Cannibal
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeMid
@@ -378,7 +390,6 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieMid
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieHigh
-#mod mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 40, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Meatsack", unscalable = true })})
 #emit
 -- Eldritch Eye
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionLow
@@ -422,7 +433,3 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh
--- Wretched Defiler
-#spectre Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber
--- Karui Backburner
-#spectre Metadata/Monsters/LegionLeague/LegionKaruiMeleeFireSpectre

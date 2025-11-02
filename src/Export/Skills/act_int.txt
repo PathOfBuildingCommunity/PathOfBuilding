@@ -3861,6 +3861,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("allowTotemBuff", true)
 #baseMod flag("Condition:HaveChaosGolem", { type = "GlobalEffect", effectType = "Buff" })
+#baseMod mod("MinionModifier", "LIST", { mod = flag("Condition:CanWither") })
 #mods
 
 #skill SummonHolyRelic

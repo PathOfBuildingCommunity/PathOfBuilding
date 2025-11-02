@@ -735,10 +735,9 @@ function PassiveSpecClass:CountAllocNodes()
 		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
 			if node.ascendancyName then
 				if not node.isMultipleChoiceOption then
+					ascUsed = ascUsed + 1
 					if self.tree.secondaryAscendNameMap and self.tree.secondaryAscendNameMap[node.ascendancyName] then
 						secondaryAscUsed = secondaryAscUsed + 1
-					else
-						ascUsed = ascUsed + 1
 					end
 				end
 			else
