@@ -525,6 +525,8 @@ data.jewelRadii = {
 		{ inner = 0, outer = 960, col = "^xBB6600", label = "Small" },
 		{ inner = 0, outer = 1440, col = "^x66FFCC", label = "Medium" },
 		{ inner = 0, outer = 1800, col = "^x2222CC", label = "Large" },
+		{ inner = 0, outer = 2400, col = "^xC100FF", label = "Very Large" },	
+		{ inner = 0, outer = 2880, col = "^x0B9300", label = "Massive" },
 
 		{ inner = 960, outer = 1320, col = "^xD35400", label = "Variable" },
 		{ inner = 1320, outer = 1680, col = "^x66FFCC", label = "Variable" },

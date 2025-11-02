@@ -253,6 +253,18 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill Convocation
+#flags spell duration
+	statMap = {
+		["base_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 60,
+		},
+	},
+#baseMod skill("buffMinions", true)
+#baseMod skill("buffNotPlayer", true)
+#mods
+
 #skill CorpseWalk
 #flags area
 	fromItem = true,
