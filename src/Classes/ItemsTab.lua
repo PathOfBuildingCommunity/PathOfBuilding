@@ -3580,7 +3580,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 
 	-- Show flavour text:
 	if (item.rarity == "UNIQUE" or item.rarity == "RELIC" or item.baseName == "Grasping Mail") and main.showFlavourText == true then
-		local flavourTable = flavourLookup[item.baseName == "Grasping Mail" and item.baseName or item.title]
+		local flavourTable = flavourLookup[item.baseName == "Grasping Mail" and item.baseName or item.title:gsub("^Foulborn%s+", "")]
 		if flavourTable then
 			local flavour = nil
 			if item.title == "Grand Spectrum" then
