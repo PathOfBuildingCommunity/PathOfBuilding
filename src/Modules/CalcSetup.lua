@@ -1578,10 +1578,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 										if supportLists[slotName] then
 											-- add socketed supports from other socketGroups
 											for _, otherSocketGroup in ipairs(build.skillsTab.socketGroupList) do
-												if otherSocketGroup.slot and otherSocketGroup.slot == group.slot then
+												if otherSocketGroup.slot and otherSocketGroup.slot == group.slot and not (otherSocketGroup.source and otherSocketGroup.source == group.source) then
 													for _, gem in ipairs(otherSocketGroup.gemList) do
-														if gem.gemData and gem.gemData.grantedEffect and gem.gemData.grantedEffect.support then
-															t_insert(group.displayGemList, gem)
+														if gem.gemData and gem.gemData.grantedEffectList then
+															for _, grantedEffect in ipairs(gem.gemData.grantedEffectList) do
+																if grantedEffect.support then
+																	t_insert(group.displayGemList, gem)
+																end
+															end
 														end
 													end
 												end
