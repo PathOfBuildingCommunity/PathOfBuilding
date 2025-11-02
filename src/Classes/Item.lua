@@ -984,28 +984,19 @@ function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
 			end
 		end
 		if self.restrictDamageType then
-			local required = {}
+			local required, restricted = false, {}
 			for _, element in ipairs({ "fire", "cold", "lightning", "chaos", "physical" }) do
 				local flagName = "only" .. element:gsub("^%l", string.upper) .. "Damage"
 				if self[flagName] then
-					required[element] = true
+					required = true
+				else
+					restricted[element] = true
 				end
 			end
-			if next(required) then
-				local hasDamage = false
-				local damageType = {}
+			if required then
 				for _, key in ipairs(mod.modTags) do
-					if key == "damage" then
-						hasDamage = true
-					else
-						damageType[key] = true
-					end
-				end
-				if hasDamage then
-					for element in pairs(required) do
-						if not damageType[element] then
-							return 0
-						end
+					if restricted[key] then
+						return 0
 					end
 				end
 			end
