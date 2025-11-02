@@ -17,15 +17,15 @@ for _, unique in ipairs(uniques) do
             if not finalUniqueMap[uniqueName] then
                 finalUniqueMap[uniqueName] = {}
             end
-            table.insert(finalUniqueMap[uniqueName], modId)
+            table.insert(finalUniqueMap[uniqueName], mod)
         end
     end
 end
 
 for uniqueName, modList in pairsSortByKey(finalUniqueMap) do
     out:write('\t["', uniqueName, '"] = {\n')
-    for _, modId in ipairs(modList) do
-        out:write('\t\t"', modId, '",\n')
+    for _, mod in ipairs(modList) do
+        out:write('\t\t"', table.concat(mod, " "), '",\n')
     end
     out:write('\t},\n')
 end

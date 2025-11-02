@@ -3,542 +3,542 @@
 
 return {
 	["Al Dhih"] = {
-		"MutatedUniqueClaw6ChaosDamage",
+		"(100-120)% increased Chaos Damage",
 	},
 	["Alberon's Warpath"] = {
-		"MutatedUniqueBootsStrInt2PercentageIntelligence",
+		"(15-18)% increased Intelligence",
 	},
 	["Alpha's Howl"] = {
-		"MutatedUniqueHelmetDex5LifeReservationEfficiency",
-		"MutatedUniqueHelmetDex5LocalIncreaseSocketedMinionGemLevel",
+		"32% increased Life Reservation Efficiency of Skills",
+		"+2 to Level of Socketed Minion Gems",
 	},
 	["Ambu's Charge"] = {
-		"MutatedUniqueBodyStrInt2MaximumEnduranceCharges",
+		"+1 to Maximum Endurance Charges",
 	},
 	["Ancestral Vision"] = {
-		"MutatedUniqueJewel177ModifiersToSpellSuppressionAlsoApplytoChanceToDefendPercentArmor",
+		"Modifiers to Chance to Suppress Spell Damage also apply to Chance to Defend with 200% of Armour at 100% of their Value",
 	},
 	["Ashcaller"] = {
-		"MutatedUniqueWand14MinionPhysicalDamageAddedAsFire",
+		"Minions gain (20-40)% of Physical Damage as Extra Fire Damage",
 	},
 	["Ashrend"] = {
-		"MutatedUniqueBodyDex3MeleeFireDamage",
+		"(75-150)% increased Melee Fire Damage",
 	},
 	["Belt of the Deceiver"] = {
-		"MutatedUniqueBelt13CurseEffectOnYou",
-		"MutatedUniqueBelt13NearbyEnemiesAreUnnerved",
+		"20% reduced Effect of Curses on you",
+		"Nearby Enemies are Unnerved",
 	},
 	["Berek's Grip"] = {
-		"MutatedUniqueRing19EnemiesShockedByHitsAreDebilitated",
-		"MutatedUniqueRing19FrozenMonstersTakePercentIncreasedDamage",
+		"Enemies Shocked by you are Debilitated",
+		"Enemies Frozen by you take 10% increased Damage",
 	},
 	["Berek's Pass"] = {
-		"MutatedUniqueRing18ActionSpeedMinimumWhileIgnited",
-		"MutatedUniqueRing18RecoupWhileFrozen",
+		"Action Speed cannot be modified to below Base Value while Ignited",
+		"25% of Damage taken while Frozen Recouped as Life",
 	},
 	["Berek's Respite"] = {
-		"MutatedUniqueRing20IgnitedEnemiesExplode",
-		"MutatedUniqueRing20ShockedEnemiesExplode",
+		"Ignited Enemies you Kill Explode, dealing 5% of their Life as Fire Damage which cannot Ignite",
+		"Shocked Enemies you Kill Explode, dealing 5% of, their Life as Lightning Damage which cannot Shock",
 	},
 	["Bronn's Lithe"] = {
-		"MutatedUniqueBodyDex5MovementSkillCooldown",
+		"(20-40)% increased Cooldown Recovery Rate of Movement Skills",
 	},
 	["Carcass Jack"] = {
-		"MutatedUniqueBodyDexInt1AuraEffectOnEnemies",
-		"MutatedUniqueBodyDexInt1DisplaySocketedGemsSupportedByIntensify",
+		"(15-30)% increased Effect of Non-Curse Auras from your Skills on Enemies",
+		"Socketed Gems are Supported by Level 20 Intensify",
 	},
 	["Cherrubim's Maleficence"] = {
-		"MutatedUniqueBodyStrDex4PhysicalDamageTakenAsChaos",
+		"20% of Physical Damage from Hits taken as Chaos Damage",
 	},
 	["Chin Sol"] = {
-		"MutatedUniqueBow6ChinsolDamageAgainstEnemiesOutsideCloseRange",
-		"MutatedUniqueBow6ProjectilesPierceAllNearbyTargets",
+		"50% more Damage with Arrow Hits not at Close Range",
+		"Projectiles Pierce all nearby Targets",
 	},
 	["Choir of the Storm"] = {
-		"MutatedUniqueAmulet42ManaIncreasedPerOvercappedLightningResistUniqueAmulet42",
+		"Mana is increased by 50% of Overcapped Lightning Resistance",
 	},
 	["Cloak of Defiance"] = {
-		"MutatedUniqueBodyDexInt2EldritchBattery",
-		"MutatedUniqueBodyDexInt2GainManaAsExtraEnergyShield",
+		"Eldritch Battery",
+		"Gain (15-20)% of Maximum Mana as Extra Maximum Energy Shield",
 	},
 	["Cloak of Flame"] = {
-		"MutatedUniqueBodyInt2DamageWhileIgnited",
-		"MutatedUniqueBodyInt2FireDamageLifeLeechPermyriad",
+		"(50-100)% increased Damage while Ignited",
+		"(5-7)% of Fire Damage Leeched as Life",
 	},
 	["Crown of the Pale King"] = {
-		"MutatedUniqueHelmetDexInt6RetaliationSkillCooldownRecoveryRate",
+		"Retaliation Skills have (25-35)% increased Cooldown Recovery Rate",
 	},
 	["Darkray Vectors"] = {
-		"MutatedUniqueBootsStrDex2IncreasedAccuracyPerFrenzy",
+		"(4-8)% increased Accuracy Rating per Frenzy Charge",
 	},
 	["Deidbellow"] = {
-		"MutatedUniqueHelmetStrDex3WarcryBuffEffect",
-		"MutatedUniqueHelmetStrDex3WarcryCooldownSpeed",
+		"(25-50)% increased Warcry Buff Effect",
+		"(20-40)% increased Warcry Cooldown Recovery Rate",
 	},
 	["Devoto's Devotion"] = {
-		"MutatedUniqueHelmetStrDex2AttackSpeedWithMovementSkills",
-		"MutatedUniqueHelmetStrDex2ChanceToSuppressSpells",
+		"20% increased Attack Speed with Movement Skills",
+		"+(10-20)% chance to Suppress Spell Damage",
 	},
 	["Dialla's Malefaction"] = {
-		"MutatedUniqueBodyInt16BlueSocketGemsIgnoreAttributeRequirements",
-		"MutatedUniqueBodyInt16LocalIncreaseSocketedGemLevel",
+		"Ignore Attribute Requirements of Gems Socketed in Blue Sockets",
+		"+1 to Level of Socketed Gems",
 	},
 	["Doedre's Damning"] = {
-		"MutatedUniqueRing4EnfeebleOnHit",
-		"MutatedUniqueRing4TemporalChainsOnHit",
-		"MutatedUniqueRing4VulnerabilityOnHit",
+		"Curse Enemies with Enfeeble on Hit",
+		"Curse Enemies with Temporal Chains on Hit",
+		"Curse Enemies with Vulnerability on Hit",
 	},
 	["Doedre's Scorn"] = {
-		"MutatedUniqueHelmetInt9WeaponTreeSupportImpendingDoom",
+		"Socketed Gems are Supported by Level 30 Impending Doom",
 	},
 	["Doomsower"] = {
-		"MutatedUniqueTwoHandSword8ImmortalAmbitionIfAllSocketsRed",
-		"MutatedUniqueTwoHandSword8RecoupedAsLifePerRedGem",
+		"You have Immortal Ambition while all Socketed Gems are Red",
+		"10% of Damage taken Recouped as Life per Socketed Red Gem",
 	},
 	["Drillneck"] = {
-		"MutatedUniqueQuiver3ImpaleEffect",
+		"(20-30)% increased Impale Effect",
 	},
 	["Dyadian Dawn"] = {
-		"MutatedUniqueBelt14AllDamageCanIgnite",
-		"MutatedUniqueBelt14MaximumLifeOnChillPercent",
+		"All Damage can Ignite",
+		"Recover 2% of Life when you Chill a non-Chilled Enemy",
 	},
 	["Edge of Madness"] = {
-		"MutatedUniqueTwoHandSword7AccuracyRatingPerLevel",
+		"+(6-8) to Accuracy Rating per Level",
 	},
 	["Esh's Mirror"] = {
-		"MutatedUniqueShieldInt8AlwaysShockLowLifeEnemies",
-		"MutatedUniqueShieldInt8DamageCannotBeReflected",
+		"Hits always Shock Enemies that are on Low Life",
+		"Damage cannot be Reflected",
 	},
 	["Esh's Visage"] = {
-		"MutatedUniqueShieldInt9ChaosDamageDoesNotBypassESWhileNotLowMana",
-		"MutatedUniqueShieldInt9DamageCannotBeReflected",
+		"Chaos Damage taken does not bypass Energy Shield while not on Low Mana",
+		"Damage cannot be Reflected",
 	},
 	["Facebreaker"] = {
-		"MutatedUniqueGlovesDexInt2UnarmedAreaOfEffect",
+		"(20-30)% increased Area of Effect while Unarmed",
 	},
 	["Farrul's Fur"] = {
-		"MutatedUniqueBodyStrDex8AttackDamage",
+		"100% increased Attack Damage",
 	},
 	["Flesh and Spirit"] = {
-		"MutatedUniqueGlovesStrDex5VaalSkillDuration",
+		"Vaal Skills have (20-40)% increased Skill Effect Duration",
 	},
 	["Frostbreath"] = {
-		"MutatedUniqueOneHandMace10LocalCriticalStrikeChance",
+		"(60-100)% increased Critical Strike Chance",
 	},
 	["Geofri's Legacy"] = {
-		"MutatedUniqueHelmetStrInt2HeraldOfPurityAdditionalMinion",
+		"+(2-3) to maximum number of Sentinels of Purity",
 	},
 	["Ghostwrithe"] = {
-		"MutatedUniqueBodyInt21ChaosDamageTakenRecoupedAsLifeActual",
-		"MutatedUniqueBodyInt21MaximumEnergyShieldIsEqualToPercentOfMaximumLife",
+		"50% of Chaos Damage taken Recouped as Life",
+		"Your Maximum Energy Shield is Equal to 50% of Your Maximum Life",
 	},
 	["Gifts from Above"] = {
-		"MutatedUniqueRing11ConsecratedGroundEffect",
+		"(25-40)% increased Effect of Consecrated Ground you create",
 	},
 	["Goldrim"] = {
-		"MutatedUniqueHelmetDex3ChaosResistance",
+		"+(50-75)% to Chaos Resistance",
 	},
 	["Goldwyrm"] = {
-		"MutatedUniqueBootsDex2IncreasedGold",
+		"(20-30)% increased Quantity of Gold Dropped by Slain Enemies",
 	},
 	["Great Old One's Ward"] = {
-		"MutatedUniqueShieldDex6ImpaleChanceForJewel",
+		"(20-40)% chance to Impale Enemies on Hit with Attacks",
 	},
 	["Greed's Embrace"] = {
-		"MutatedUniqueBodyStr5ExperienceIncrease",
+		"5% increased Experience gain",
 	},
 	["Gruthkul's Pelt"] = {
-		"MutatedUniqueBodyStrDex7WarcriesAreDisabled",
+		"Your Warcries are disabled",
 	},
 	["Hand of Thought and Motion"] = {
-		"MutatedUniqueClaw16AccuracyRatingPercentPer25Intelligence",
-		"MutatedUniqueClaw16PercentageStrength",
+		"5% increased Accuracy Rating per 25 Intelligence",
+		"(8-12)% increased Strength",
 	},
 	["Hand of Wisdom and Action"] = {
-		"MutatedUniqueClaw17CriticalStrikeMultiplierPer25Dexterity",
-		"MutatedUniqueClaw17PercentageStrength",
+		"+3% to Critical Strike Multiplier per 25 Dexterity",
+		"(8-12)% increased Strength",
 	},
 	["Headhunter"] = {
-		"MutatedUniqueBelt7CullingStrike",
-		"MutatedUniqueBelt7GainSoulEaterStackOnHit",
+		"Culling Strike",
+		"Eat a Soul when you Hit a Rare or Unique Enemy, no more than once every 0.25 seconds",
 	},
 	["Heartbound Loop"] = {
-		"MutatedUniqueRing33MinionSkillManaCost",
+		"(10-20)% reduced Mana Cost of Minion Skills",
 	},
 	["Inspired Learning"] = {
-		"MutatedUniqueJewel3GainRandomRareMonsterModOnKillWhileNoNotablesAllocatedInRadius",
-		"MutatedUniqueJewel3GainRandomRareMonsterModOnKillWhileXSmallPassivesAllocatedInRadius",
+		"If no Notables Allocated in Radius, When you Kill a Rare monster, you gain 1 of its Modifiers for 20 seconds",
+		"With (8-12) Small Passives Allocated in Radius, When you Kill a Rare monster, you gain 1 of its Modifiers for 20 seconds",
 	},
 	["Intuitive Leap"] = {
-		"MutatedUniqueJewel6KeystoneCanBeAllocatedInMassiveRadiusWithoutBeingConnected",
+		"Keystone Passive Skills in Radius can be Allocated without being connected to your tree, Passage",
 	},
 	["Jorrhast's Blacksteel"] = {
-		"MutatedUniqueTwoHandMace8DoubleAnimateWeaponLimit",
-		"MutatedUniqueTwoHandMace8IncreasedMinionDamageIfYouHitEnemy",
+		"Maximum number of Animated Weapons is Doubled",
+		"Minions deal (50-70)% increased Damage if you've Hit Recently",
 	},
 	["Kalisa's Grace"] = {
-		"MutatedUniqueGlovesInt4DisplaySocketedGemsSupportedByFocusedChannelling",
-		"MutatedUniqueGlovesInt4GainManaCostReductionOnManaSpent",
+		"Socketed Gems are Supported by Level 18 Focused Channelling",
+		"50% reduced Mana Cost of Skills for 2 seconds after Spending a total of 800 Mana",
 	},
 	["Kaom's Sign"] = {
-		"MutatedUniqueRing2WarcryMonsterPower",
+		"(20-30)% increased total Power counted by Warcries",
 	},
 	["Kaom's Spirit"] = {
-		"MutatedUniqueGlovesStr12RageLossDelay",
+		"Inherent Rage Loss starts 2 seconds later",
 	},
 	["Kaom's Way"] = {
-		"MutatedUniqueRing2WarcryMonsterPower",
+		"(20-30)% increased total Power counted by Warcries",
 	},
 	["Kikazaru"] = {
-		"MutatedUniqueRing26ManaPerLevel",
+		"+2 Maximum Mana per Level",
 	},
 	["Kiloava's Bluster"] = {
-		"MutatedUniqueShieldDex9DegenDamageTaken",
-		"MutatedUniqueShieldDex9TreatElementalResistanceAsInverted",
+		"(10-15)% reduced Damage taken from Damage Over Time",
+		"Hits have (20-25)% chance to treat Enemy Monster Elemental Resistance values as inverted",
 	},
 	["Kintsugi"] = {
-		"MutatedUniqueBodyDex8ChanceToSuppressIfYouHaveSuppressedRecently",
-		"MutatedUniqueBodyDex8SuppressionPreventionIfYouHaventSuppressedRecently",
+		"+(20-30)% chance to Suppress Spell Damage if you've Suppressed Spell Damage Recently",
+		"Prevent +35% of Suppressed Spell Damage if you have not Suppressed Spell Damage Recently",
 	},
 	["Kitava's Thirst"] = {
-		"MutatedUniqueHelmetStrInt6ChanceToCastOnManaSpent",
+		"Trigger Socketed Spells when you Spend at least 200 Life on an, Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown",
 	},
 	["Kongming's Stratagem"] = {
-		"MutatedUniqueShieldInt6EnchantmentBlind",
+		"Enemies Blinded by you have 100% reduced Critical Strike Chance",
 	},
 	["Kongor's Undying Rage"] = {
-		"MutatedUniqueTwoHandMace6KeystoneBattlemage",
-		"MutatedUniqueTwoHandMace6LoseLifePercentOnCrit",
+		"Battlemage",
+		"Lose 1% of Life when you deal a Critical Strike",
 	},
 	["Le Heup of All"] = {
-		"MutatedUniqueRing6AllDefences",
-		"MutatedUniqueRing6CriticalStrikeMultiplier",
+		"(10-30)% increased Global Defences",
+		"+(10-30)% to Global Critical Strike Multiplier",
 	},
 	["Lioneye's Fall"] = {
-		"MutatedUniqueJewel5EvasionModifiersInRadiusAreTransformedToArmour",
+		"Increases and Reductions to Evasion Rating in Radius are Transformed to apply to Armour",
 	},
 	["Lioneye's Paws"] = {
-		"MutatedUniqueBootsStrDex1MovementVelocityOnFullLife",
+		"40% increased Movement Speed when on Full Life",
 	},
 	["Lioneye's Vision"] = {
-		"MutatedUniqueBodyStr6ChanceToAvoidProjectiles",
+		"25% chance to avoid Projectiles",
 	},
 	["Lori's Lantern"] = {
-		"MutatedUniqueRing9ExtraDamageRollsWhileLowLife",
-		"MutatedUniqueRing9IncreasedAttackSpeedWhenOnLowLife",
+		"Your Damage with Hits is Lucky while on Low Life",
+		"(12-16)% increased Attack Speed when on Low Life",
 	},
 	["Malachai's Awakening"] = {
-		"MutatedUniqueHelmetDexInt1MinionDoubleDamage",
+		"Minions have 20% chance to deal Double Damage",
 	},
 	["Malachai's Loop"] = {
-		"MutatedUniqueShieldInt7DodgeChancePerPowerCharge",
+		"+4% chance to Suppress Spell Damage per Power Charge",
 	},
 	["Malachai's Simula"] = {
-		"MutatedUniqueHelmetDexInt1MinionDoubleDamage",
+		"Minions have 20% chance to deal Double Damage",
 	},
 	["Maligaro's Restraint"] = {
-		"MutatedUniqueBelt12ConvertLightningDamageToChaos",
+		"40% of Lightning Damage Converted to Chaos Damage",
 	},
 	["Maligaro's Virtuosity"] = {
-		"MutatedUniqueGlovesDex2ActionSpeedMinimum90",
-		"MutatedUniqueGlovesDex2CriticalStrikesNonDamagingAilmentEffect",
+		"Your Action Speed is at least 90% of base value",
+		"50% increased Effect of non-Damaging Ailments you inflict with Critical Strikes",
 	},
 	["Matua Tupuna"] = {
-		"MutatedUniqueShieldInt2LocalIncreaseSocketedAuraLevel",
+		"+2 to Level of Socketed Aura Gems",
 	},
 	["Meginord's Girdle"] = {
-		"MutatedUniqueBelt4PercentageStrength",
+		"(5-15)% increased Strength",
 	},
 	["Midnight Bargain"] = {
-		"MutatedUniqueWand2LifeAndEnergyShieldDegenPerMinion",
-		"MutatedUniqueWand2MaximumGolems",
+		"Lose 3000% Life and Energy Shield per Second per Minion",
+		"+2 to maximum number of Summoned Golems",
 	},
 	["Ming's Heart"] = {
-		"MutatedUniqueRing16DisablesOtherRingSlot",
+		"Can't use other Rings",
 	},
 	["Mjölner"] = {
-		"MutatedUniqueOneHandMace3AreaOfEffect",
-		"MutatedUniqueOneHandMace3LightningBoltOnHit",
+		"(20-30)% increased Area of Effect",
+		"Trigger Level 20 Lightning Bolt on Melee Hit with this Weapon, with a 0.25 second cooldown",
 	},
 	["Mokou's Embrace"] = {
-		"MutatedUniqueRing24MaximumFireResist",
+		"+3% to maximum Fire Resistance",
 	},
 	["Moonbender's Wing"] = {
-		"MutatedUniqueOneHandAxe8LocalIncreasedAttackSpeed",
+		"(30-50)% increased Attack Speed",
 	},
 	["Null and Void"] = {
-		"MutatedUniqueGlovesStrInt2LifeRegenerationRatePercentage",
+		"(15-25)% increased Life Regeneration rate",
 	},
 	["Null's Inclination"] = {
-		"MutatedUniqueBow12DisplaySupportedBySummonPhantasm",
-		"MutatedUniqueBow12MinionAddedChaosDamage",
-		"MutatedUniqueBow12SummonWrithingWormEveryXMs",
+		"Socketed Gems are Supported by Level 20 Summon Phantasm",
+		"Minions deal (25-35) to (50-65) additional Chaos Damage",
+		"An Enemy Writhing Worm spawns every 2 seconds",
 	},
 	["Piscator's Vigil"] = {
-		"MutatedUniqueWand6WeaponTreeFishingWishEffectOfAncientFish",
+		"(30-50)% increased effect of Wishes granted by Ancient Fish",
 	},
 	["Presence of Chayula"] = {
-		"MutatedUniqueAmulet43ChaosDamageTakenRecoupedAsLife",
-		"MutatedUniqueAmulet43RecoupEnergyShieldInsteadOfLife",
+		"50% of Chaos Damage taken Recouped as Life",
+		"Recoup Energy Shield instead of Life",
 	},
 	["Queen of the Forest"] = {
-		"MutatedUniqueBodyDex6DamageTaken",
-		"MutatedUniqueBodyDex6ProjectileSpeedPercentPerEvasionRatingUpToCap",
+		"25% increased Damage taken",
+		"1% increased Projectile Speed per 600 Evasion Rating, up to 75%",
 	},
 	["Quill Rain"] = {
-		"MutatedUniqueBow4AreaOfEffect",
-		"MutatedUniqueBow4BowAttacksUsableWithoutMana",
+		"(40-60)% increased Area of Effect",
+		"Insufficient Mana doesn't prevent your Bow Attacks",
 	},
 	["Rathpith Globe"] = {
-		"MutatedUniqueShieldInt1DamageOverTimePer100PlayerMaxLife",
-		"MutatedUniqueShieldInt1NonDamagingAilmentWithCritsEffectPer100MaxLife",
+		"Deal 5% increased Damage Over Time per 100 Player Maximum Life",
+		"2% increased Effect of Non-Damaging Ailments you inflict with Critical Strikes per 100 Player Maximum Life",
 	},
 	["Rearguard"] = {
-		"MutatedUniqueQuiver4BowStunThresholdReduction",
+		"50% reduced Enemy Stun Threshold with Bows",
 	},
 	["Reefbane"] = {
-		"MutatedUniqueFishingRod2AvoidInterruptionWhileCasting",
-		"MutatedUniqueFishingRod2FishingLureType",
+		"(30-40)% chance to Ignore Stuns while Casting",
+		"Otherworldly Lure",
 	},
 	["Rigwald's Command"] = {
-		"MutatedUniqueOneHandSword15DualWieldingSpellBlockForJewel",
+		"+10% Chance to Block Spell Damage while Dual Wielding",
 	},
 	["Rigwald's Savagery"] = {
-		"MutatedUniqueOneHandAxe9MeleeHitsCannotBeEvadedWhileWieldingSword",
+		"Your Melee Hits can't be Evaded while wielding a Sword",
 	},
 	["Rise of the Phoenix"] = {
-		"MutatedUniqueShieldStrInt5CastSpeedOnLowLife",
-		"MutatedUniqueShieldStrInt5FlatEnergyShieldRegenerationPerMinute",
+		"(10-20)% increased Cast Speed when on Low Life",
+		"Regenerate (100-200) Energy Shield per second",
 	},
 	["Rive"] = {
-		"MutatedUniqueClaw13CrushOnHitChance",
-		"MutatedUniqueClaw13PhysicalSkillEffectDurationPerIntelligence",
+		"25% chance to Crush on Hit",
+		"Physical Skills have 1% increased Duration per 12 Intelligence",
 	},
 	["Romira's Banquet"] = {
-		"MutatedUniqueRing17IncreasedMaximumPowerCharges",
+		"+1 to Maximum Power Charges",
 	},
 	["Sadima's Touch"] = {
-		"MutatedUniqueGlovesInt1IncreasedGold",
+		"(5-15)% increased Quantity of Gold Dropped by Slain Enemies",
 	},
 	["Severed in Sleep"] = {
-		"MutatedUniqueOneHandSword22MinionBaseCriticalStrikeChance",
-		"MutatedUniqueOneHandSword22MinionUnholyMightChance",
+		"Minions have +5% to Critical Strike Chance",
+		"Minions have 25% chance to gain Unholy Might for 4 seconds on Kill",
 	},
 	["Shackles of the Wretched"] = {
-		"MutatedUniqueGlovesStrInt1SelfCurseDuration",
+		"(-30-30)% reduced Duration of Curses on you",
 	},
 	["Shadows and Dust"] = {
-		"MutatedUniqueGlovesDexInt6BlindEffect",
+		"(20-30)% increased Blind Effect",
 	},
 	["Shavronne's Revelation"] = {
-		"MutatedUniqueRing13LeftRingSlotEvasionRating",
-		"MutatedUniqueRing13RightRingSlotArmour",
+		"Left ring slot: +1000 to Evasion Rating",
+		"Right ring slot: +1000 to Armour",
 	},
 	["Singularity"] = {
-		"MutatedUniqueSceptre13ColdDamageOverTimeMultiplier",
+		"+(30-40)% to Cold Damage over Time Multiplier",
 	},
 	["Sire of Shards"] = {
-		"MutatedUniqueStaff10DisplaySocketedSkillsChain",
+		"Socketed Gems Chain 2 additional times",
 	},
 	["Skin of the Lords"] = {
-		"MutatedUniqueBodyInt14IncreasedAllResistances",
-		"MutatedUniqueBodyInt14aSocketedGemQuality",
+		"50% increased Elemental and Chaos Resistances",
+		"+30% to Quality of Socketed Gems",
 	},
 	["Skin of the Loyal"] = {
-		"MutatedUniqueBodyInt13IncreasedAllResistances",
-		"MutatedUniqueBodyInt13SocketedGemQuality",
+		"50% increased Elemental and Chaos Resistances",
+		"+20% to Quality of Socketed Gems",
 	},
 	["Skyforth"] = {
-		"MutatedUniqueBootsInt7PowerChargeOnCriticalStrikeChance",
+		"+(3-5)% to Critical Strike Multiplier per Power Charge",
 	},
 	["Snakebite"] = {
-		"MutatedUniqueGlovesDexInt5LocalEnergyShield",
+		"+(100-130) to maximum Energy Shield",
 	},
 	["Solaris Lorica"] = {
-		"MutatedUniqueBodyStr4ElementalDamageTakenAsChaos",
+		"25% of Elemental Damage from Hits taken as Chaos Damage",
 	},
 	["Song of the Sirens"] = {
-		"MutatedUniqueFishingRod1FishingLureType",
-		"MutatedUniqueFishingRod1FishingMutatedFish",
+		"Wombgift Bait",
+		"You can catch Foulborn Fish",
 	},
 	["Soul Mantle"] = {
-		"MutatedUniqueBodyInt7SupportedByFlamewood",
+		"Socketed Gems are Supported by Level 20 Flamewood",
 	},
 	["Soul Strike"] = {
-		"MutatedUniqueQuiver7MaximumLifeConvertedToEnergyShield",
-		"MutatedUniqueQuiver7StartEnergyShieldRechargeOnSkillChance",
+		"(10-15)% of Maximum Life Converted to Energy Shield",
+		"(10-15)% chance for Energy Shield Recharge to start when you use a Skill",
 	},
 	["Soul Tether"] = {
-		"MutatedUniqueBelt21AnimalCharmLeechPercentIsInstant",
-		"MutatedUniqueBelt21EverlastingSacrifice",
+		"(8-12)% of Leech is Instant",
+		"Everlasting Sacrifice",
 	},
 	["Starkonja's Head"] = {
-		"MutatedUniqueHelmetDex4IncreasedMana",
+		"+(100-200) to maximum Mana",
 	},
 	["The Anticipation"] = {
-		"MutatedUniqueShieldStr8ArmourAppliesToElementalIfBlockedRecently",
-		"MutatedUniqueShieldStr8MaximumBlockChance",
+		"(8-12)% of Armour applies to Fire, Cold and Lightning Damage taken from Hits if you've Blocked Recently",
+		"+3% to maximum Chance to Block Attack Damage",
 	},
 	["The Brass Dome"] = {
-		"MutatedUniqueBodyStr7GainNoInherentBonusFromStrength",
-		"MutatedUniqueBodyStr7PrismaticBulwark",
+		"Gain no inherent bonuses from Strength",
+		"Transcendence",
 	},
 	["The Coming Calamity"] = {
-		"MutatedUniqueBodyInt12HeraldEffectOnSelf",
-		"MutatedUniqueBodyInt12HeraldOfDoom",
+		"(80-100)% increased Effect of Herald Buffs on you",
+		"Lone Messenger",
 	},
 	["The Consuming Dark"] = {
-		"MutatedUniqueDagger10ChaosDamageCanIgnite",
+		"Your Chaos Damage can Ignite",
 	},
 	["The Covenant"] = {
-		"MutatedUniqueBodyInt3BloodMagic",
+		"Blood Magic",
 	},
 	["The Dancing Duo"] = {
-		"MutatedUniqueTwoHandSword9LocalLightningDamage",
+		"Adds 1 to 777 Lightning Damage",
 	},
 	["The Embalmer"] = {
-		"MutatedUniqueGlovesDexInt7FasterPoisonDamage",
-		"MutatedUniqueGlovesDexInt7PoisonSpread",
+		"Poisons you inflict deal Damage (15-20)% faster",
+		"On Killing a Poisoned Enemy, nearby Enemies are Poisoned",
 	},
 	["The Formless Flame"] = {
-		"MutatedUniqueHelmetStr4FireDamageTakenAsPhysical",
-		"MutatedUniqueHelmetStr4TotemLifeIncreasedByOvercappedFireResistance",
+		"30% of Fire Damage from Hits taken as Physical Damage",
+		"Totem Life is increased by their Overcapped Fire Resistance",
 	},
 	["The Formless Inferno"] = {
-		"MutatedUniqueHelmetStr5SupportedByMinionLife",
+		"Socketed Gems are Supported by Level 30 Minion Life",
 	},
 	["The Halcyon"] = {
-		"MutatedUniqueAmulet39CannotBeFrozen",
-		"MutatedUniqueAmulet39PhysicalDamageTakenAsCold",
+		"Cannot be Frozen",
+		"(5-15)% of Physical Damage from Hits taken as Cold Damage",
 	},
 	["The Harvest"] = {
-		"MutatedUniqueTwoHandAxe8SpellDamage",
+		"(120-140)% increased Spell Damage",
 	},
 	["The Infinite Pursuit"] = {
-		"MutatedUniqueBootsStr6ImmuneToElementalAilmentsWhileBleeding",
-		"MutatedUniqueBootsStr6IncreasedArmourWhileBleeding",
+		"Immune to Elemental Ailments while Bleeding",
+		"(50-100)% increased Armour while Bleeding",
 	},
 	["The Oppressor"] = {
-		"MutatedUniqueShieldStrDex8MonsterChanceToAvoid",
-		"MutatedUniqueShieldStrDex8SpellBlockPercentage",
+		"(10-15)% chance to Avoid All Damage from Hits",
+		"(20-30)% Chance to Block Spell Damage",
 	},
 	["The Pandemonius"] = {
-		"MutatedUniqueAmulet40CannotBeChilled",
+		"Cannot be Chilled",
 	},
 	["The Perfect Form"] = {
-		"MutatedUniqueBodyDex11EvasionRatingPer10PlayerLife",
-		"MutatedUniqueBodyDex11GhostDance",
+		"+8 to Evasion Rating per 10 Player Maximum Life",
+		"Ghost Dance",
 	},
 	["The Red Trail"] = {
-		"MutatedUniqueBootsStr7GainEnduranceChargeEveryXSecondsWhileStationary",
+		"Gain an Endurance Charge each second while Stationary",
 	},
 	["The Snowblind Grace"] = {
-		"MutatedUniqueBodyDex10EvasionRatingPer10PlayerLife",
-		"MutatedUniqueBodyDex10PurityOfIceNoReservation",
+		"+6 to Evasion Rating per 10 Player Maximum Life",
+		"Purity of Ice has no Reservation",
 	},
 	["The Squire"] = {
-		"MutatedUniqueShieldStrDex7LocalGemsSocketedHaveNoAttributeRequirements",
-		"MutatedUniqueShieldStrDex7LocalIncreaseSocketedGemLevel",
+		"Ignore Attribute Requirements of Socketed Gems",
+		"+1 to Level of Socketed Gems",
 	},
 	["The Surrender"] = {
-		"MutatedUniqueShieldStr9GainEnergyShieldOnBlock",
+		"Gain (300-650) Energy Shield when you Block",
 	},
 	["The Three Dragons"] = {
-		"MutatedUniqueHelmetDexInt4ChaosDamageCanFreeze",
-		"MutatedUniqueHelmetDexInt4ChaosDamageCanIgnite",
-		"MutatedUniqueHelmetDexInt4ChaosDamageCanShock",
+		"Your Chaos Damage can Freeze",
+		"Your Chaos Damage can Ignite",
+		"Your Chaos Damage can Shock",
 	},
 	["Thief's Torment"] = {
-		"MutatedUniqueRing7NonDamagingAilmentEffectOnSelf",
+		"50% reduced Effect of Non-Damaging Ailments on you",
 	},
 	["Thirst for Horrors"] = {
-		"MutatedUniqueShieldDex4ChaosDamageOverTimeMultiplier",
+		"+(23-37)% to Chaos Damage over Time Multiplier",
 	},
 	["Timetwist"] = {
-		"MutatedUniqueRing27DebuffTimePassed",
+		"Debuffs on you expire (-20-20)% slower",
 	},
 	["Tulborn"] = {
-		"MutatedUniqueWand15GlobalIncreaseColdSpellSkillGemLevel",
-		"MutatedUniqueWand15PowerChargeOnManaSpent",
+		"+(2-4) to Level of all Cold Spell Skill Gems",
+		"Gain a Power Charge after Spending a total of 200 Mana",
 	},
 	["Tulfall"] = {
-		"MutatedUniqueWand16ColdDamageOverTimeMultiplierPerPowerCharge",
+		"+(15-20)% to Cold Damage over Time Multiplier per Power Charge",
 	},
 	["Umbilicus Immortalis"] = {
-		"MutatedUniqueBelt19AnimalCharmFlaskChargesEvery3Secondsage",
-		"MutatedUniqueBelt19FlaskChargesUsed",
+		"Flasks gain a Charge every 3 seconds",
+		"100% increased Flask Charges used",
 	},
 	["United in Dream"] = {
-		"MutatedUniqueOneHandSword23MinionSkillGemQuality",
-		"MutatedUniqueOneHandSword23MinionUnholyMightChance",
+		"+(20-30)% to Quality of all Minion Skill Gems",
+		"Minions have 25% chance to gain Unholy Might for 4 seconds on Kill",
 	},
 	["Unnatural Instinct"] = {
-		"MutatedUniqueJewel125AllocatedNotablePassiveSkillsInRadiusDoNothing",
-		"MutatedUniqueJewel125GrantsAllBonusesOfUnallocatedNotablesInRadius",
+		"Allocated Notable Passive Skills in Radius grant nothing",
+		"Grants all bonuses of Unallocated Notable Passive Skills in Radius",
 	},
 	["Uul-Netol's Embrace"] = {
-		"MutatedUniqueTwoHandAxe12FasterBleedDamage",
-		"MutatedUniqueTwoHandAxe12PercentageIntelligence",
+		"Bleeding you inflict deals Damage (20-40)% faster",
+		"80% reduced Intelligence",
 	},
 	["Uul-Netol's Kiss"] = {
-		"MutatedUniqueTwoHandAxe11WarcriesExertAnAdditionalAttack",
-		"MutatedUniqueTwoHandAxe11WarcryCooldownSpeed",
+		"Warcries Exert 1 additional Attack",
+		"500% increased Warcry Cooldown Recovery Rate",
 	},
 	["Veil of the Night"] = {
-		"MutatedUniqueHelmetStrInt4MaximumLifeIncreasePercent",
+		"50% increased maximum Life",
 	},
 	["Ventor's Gamble"] = {
-		"MutatedUniqueRing32EnergyShieldAndMana",
+		"+(0-60) to maximum Energy Shield, +(0-60) to maximum Mana",
 	},
 	["Victario's Flight"] = {
-		"MutatedUniqueBootsDex3ActionSpeedReduction",
+		"(6-12)% increased Action Speed",
 	},
 	["Victario's Influence"] = {
-		"MutatedUniqueBodyDexInt4NonCurseAuraDuration",
+		"Non-Curse Aura Skills have (40-80)% increased Duration",
 	},
 	["Vis Mortis"] = {
-		"MutatedUniqueBodyInt9MinionHasUnholyMight",
+		"Minions have Unholy Might",
 	},
 	["Voice of the Storm"] = {
-		"MutatedUniqueAmulet41EnemyExtraDamageRolls",
-		"MutatedUniqueAmulet41MaximumLightningResistance",
+		"Damage of Enemies Hitting you is Unlucky",
+		"+3% to maximum Lightning Resistance",
 	},
 	["Voidbringer"] = {
-		"MutatedUniqueGlovesInt6ChaosDamagePerCorruptedItem",
+		"(10-15)% increased Chaos Damage for each Corrupted Item Equipped",
 	},
 	["Voll's Devotion"] = {
-		"MutatedUniqueAmulet14GainPowerChargesNotLostRecently",
-		"MutatedUniqueAmulet14LosePowerChargesOnMaxPowerCharges",
+		"Gain a Power Charge every Second if you haven't lost Power Charges Recently",
+		"Lose all Power Charges on reaching Maximum Power Charges",
 	},
 	["Voll's Vision"] = {
-		"MutatedUniqueHelmStrInt7LifeRegenerationPercentAppliesToEnergyShieldWithNoCorruptedItems",
-		"MutatedUniqueHelmStrInt7MaximumEnergyShieldAsPercentageOfLifeWithNoCorruptItems",
+		"(15-20)% of Life Regeneration also applies to Energy Shield if no Equipped Items are Corrupted",
+		"Gain (8-12)% of Maximum Life as Extra Maximum Energy Shield if no Equipped Items are Corrupted",
 	},
 	["Wall of Brambles"] = {
-		"MutatedUniqueBodyStr2LocalPhysicalDamageReductionRating",
+		"+(500-800) to Armour",
 	},
 	["Warped Timepiece"] = {
-		"MutatedUniqueAmulet20CurseEffectTemporalChains",
+		"(20-30)% increased Temporal Chains Curse Effect",
 	},
 	["Whakatutuki o Matua"] = {
-		"MutatedUniqueShieldInt2LocalIncreaseSocketedAuraLevel",
+		"+2 to Level of Socketed Aura Gems",
 	},
 	["Wyrmsign"] = {
-		"MutatedUniqueGlovesStrDex7SupportedByManaforgedArrows",
+		"Socketed Gems are Supported by Level 5 Manaforged Arrows",
 	},
 	["Xoph's Blood"] = {
-		"MutatedUniqueAmulet38KeystoneElementalOverload",
+		"Elemental Overload",
 	},
 	["Xoph's Heart"] = {
-		"MutatedUniqueAmulet37NearbyEnemiesDebilitated",
-		"MutatedUniqueAmulet37PhysicalDamageTakenAsFire",
+		"Nearby Enemies are Debilitated",
+		"(5-15)% of Physical Damage from Hits taken as Fire Damage",
 	},
 	["Xoph's Inception"] = {
-		"MutatedUniqueBow18DisplaySupportedByReturningProjectiles",
-		"MutatedUniqueBow18FasterIgnite",
+		"Socketed Gems are Supported by Level 20 Returning Projectiles",
+		"Ignites you inflict deal Damage (20-40)% faster",
 	},
 	["Xoph's Nurture"] = {
-		"MutatedUniqueBow19AllDamageCanIgnite",
-		"MutatedUniqueBow19SupportedByImmolate",
+		"All Damage can Ignite",
+		"Socketed Gems are Supported by Level 30 Immolate",
 	},
 }
