@@ -353,7 +353,7 @@ return {
 	},
 	[44] = {
 		id = "FatedUnique46",
-		name = "The Tactitian",
+		name = "The Tactician",
 		text = {
 			"Few men command an army better",
 			"than the Great Meginord of the North",
