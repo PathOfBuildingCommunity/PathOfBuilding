@@ -120,6 +120,7 @@ function TooltipClass:AddSeparator(size)
 
 	if self.tooltipHeader then
 		local rarity = tostring(self.tooltipHeader):upper()
+		-- spell-checker: disable
 		local separatorConfigs = {
 			RELIC = "Assets/itemsseparatorfoil.png",
 			UNIQUE = "Assets/itemsseparatorunique.png",
@@ -128,6 +129,7 @@ function TooltipClass:AddSeparator(size)
 			NORMAL = "Assets/itemsseparatorwhite.png",
 			GEM = "Assets/itemsseparatorgem.png",
 		}
+		-- spell-checker: enable
 		local separatorPath = separatorConfigs[rarity] or separatorConfigs.NORMAL
 
 		if not self.separatorImage or self.separatorImagePath ~= separatorPath then
@@ -310,6 +312,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			ttW = titleW + 50
 		end
 	end
+	-- spell-checker: disable
 	local headerInfluence = {
 		Fractured = "Assets/fracturedicon.png",
 		Veiled = "Assets/veiledicon.png",
@@ -339,6 +342,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		MASTERY = {left="Assets/masteryheaderunallocatedleft.png",middle="Assets/masteryheaderunallocatedmiddle.png",right="Assets/masteryheaderunallocatedright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
 		MASTERYALLOC = {left="Assets/masteryheaderallocatedleft.png",middle="Assets/masteryheaderallocatedmiddle.png",right="Assets/masteryheaderallocatedright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
 	}
+	-- spell-checker: enable
 	local config
 	if self.tooltipHeader and main.showFlavourText and self.lines[1] and self.lines[1].text then
 		local rarity = tostring(self.tooltipHeader):upper()
