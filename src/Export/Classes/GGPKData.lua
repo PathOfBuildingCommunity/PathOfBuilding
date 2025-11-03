@@ -305,6 +305,7 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/StatDescriptions/stat_descriptions.txt",
 		"Metadata/StatDescriptions/variable_duration_skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/tincture_stat_descriptions.txt",
+		"Metadata/StatDescriptions/graft_stat_descriptions.txt",
 	}
 	local itFiles = {
 		"Metadata/Items/Quivers/AbstractQuiver.it",
