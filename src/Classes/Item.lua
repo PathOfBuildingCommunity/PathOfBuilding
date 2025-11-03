@@ -879,7 +879,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				self.affixLimit = 2
 			end
 		elseif self.rarity == "RARE" then
-			self.affixLimit = ((self.type == "Jewel" and not (self.base.subType == "Abyss" and self.corrupted)) and 4 or 6)
+			self.affixLimit = (((self.type == "Jewel" and not (self.base.subType == "Abyss" and self.corrupted)) or self.type == "Graft") and 4 or 6)
 			if self.prefixes.limit or self.suffixes.limit then
 				self.prefixes.limit = m_max(m_min((self.prefixes.limit or 0) + self.affixLimit / 2, self.affixLimit), 0)
 				self.suffixes.limit = m_max(m_min((self.suffixes.limit or 0) + self.affixLimit / 2, self.affixLimit), 0)
@@ -1328,6 +1328,8 @@ function ItemClass:GetPrimarySlot()
 		return "Flask 1"
 	elseif self.type == "Tincture" then
 		return "Flask 1"
+	elseif self.type == "Graft" then
+		return "Graft 1"
 	else
 		return self.type
 	end
