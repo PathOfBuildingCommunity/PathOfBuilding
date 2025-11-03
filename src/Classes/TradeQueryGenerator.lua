@@ -915,7 +915,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 					}
 				}
 			},
-			status = { option = "online" },
+			status = { option = "available" },
 			stats = {
 				{
 					type = "weight",

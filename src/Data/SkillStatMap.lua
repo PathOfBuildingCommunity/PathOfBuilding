@@ -752,7 +752,7 @@ return {
 ["damage_+%_vs_frozen_enemies"] = {
 	mod("Damage", "INC", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
 },
-["damage_+%_final_vs_stunned_enemies"] = {
+["active_skill_damage_+%_final_vs_stunned_enemies"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Stunned" }),
 },
 ["base_reduce_enemy_fire_resistance_%"] = {
@@ -1841,6 +1841,9 @@ return {
 ["minion_cast_speed_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", nil, ModFlag.Cast) }),
 },
+["minion_base_physical_damage_%_to_convert_to_lightning"] = {
+	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToLightning", "BASE", nil) }),
+},
 ["minion_elemental_resistance_%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("ElementalResist", "BASE", nil) }),
 },
@@ -1907,6 +1910,9 @@ return {
 },
 ["base_number_of_void_spawns_allowed"] = {
 	mod("ActiveVoidSpawnLimit", "BASE", nil),
+},
+["base_number_of_living_lightning_allowed"] = {
+	mod("ActiveLivingLightningLimit", "BASE", nil),
 },
 ["active_skill_minion_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),

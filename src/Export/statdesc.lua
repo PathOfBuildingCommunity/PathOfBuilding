@@ -2,16 +2,10 @@ local nk = { }
 
 local statDescriptor
 local statDescriptors = { }
-function loadStatFile(fileName)
-	if statDescriptors[fileName] then
-		statDescriptor = statDescriptors[fileName]
-		return
-	end
-	statDescriptor = { }
-	statDescriptors[fileName] = statDescriptor 
+
+local function parseStatFile(target, order, fileName)
 	local curLang
 	local curDescriptor = { }
-	local order = 1
 	local function processLine(line)
 		local include = line:match('include "Metadata/StatDescriptions/(.+)"$')
 		if include then
@@ -23,7 +17,7 @@ function loadStatFile(fileName)
 		end
 		local noDesc = line:match("no_description ([%w_%+%-%%]+)")
 		if noDesc then
-			statDescriptor[noDesc] = { order = 0 }
+			target[noDesc] = { order = 0 }
 		elseif line:match("handed_description") or (line:match("description") and not line:match("_description")) then	
 			local name = line:match("description ([%w_]+)")
 			curLang = { }
@@ -35,7 +29,7 @@ function loadStatFile(fileName)
 				curDescriptor.stats = { }
 				for stat in stats:gmatch("[%w_%+%-%%]+") do
 					table.insert(curDescriptor.stats, stat)
-					statDescriptor[stat] = curDescriptor
+					target[stat] = curDescriptor
 				end
 			end
 		else
@@ -85,7 +79,60 @@ function loadStatFile(fileName)
 	for line in text:gmatch("[^\r\n]+") do
 		processLine(line)
 	end
-	print(fileName.. " loaded. ("..order.." stats)")
+	return order
+end
+
+local function getNextOrder(target)
+	local nextOrder = 1
+	for _, descriptor in pairs(target) do
+		if type(descriptor) == "table" and descriptor.order and descriptor.order >= nextOrder then
+			nextOrder = descriptor.order + 1
+		end
+	end
+	return nextOrder
+end
+
+function loadStatFile(fileName, ...)
+	local args = { ... }
+	if #args > 0 and type(args[1]) ~= "boolean" then
+		loadStatFile(fileName)
+		for _, name in ipairs(args) do
+			loadStatFile(name, true)
+		end
+		return
+	end
+	local append = args[1] == true
+	if append and statDescriptor then
+		local base = statDescriptor
+		local startOrder = getNextOrder(base)
+		local newDescriptor = { }
+		local finalOrder = parseStatFile(newDescriptor, startOrder, fileName)
+		local cachedDescriptor = { }
+		local descriptorCopies = { }
+		for stat, descriptor in pairs(newDescriptor) do
+			base[stat] = descriptor
+			local copy = descriptorCopies[descriptor]
+			if not copy then
+				copy = copyTable(descriptor, true)
+				if copy.order and copy.order > 0 then
+					copy.order = copy.order - startOrder + 1
+				end
+				descriptorCopies[descriptor] = copy
+			end
+			cachedDescriptor[stat] = copy
+		end
+		statDescriptors[fileName] = cachedDescriptor
+		print(fileName.. " loaded. ("..(finalOrder - startOrder).." stats)")
+		return
+	end
+	if statDescriptors[fileName] then
+		statDescriptor = statDescriptors[fileName]
+		return
+	end
+	statDescriptor = { }
+	statDescriptors[fileName] = statDescriptor 
+	local finalOrder = parseStatFile(statDescriptor, 1, fileName)
+	print(fileName.. " loaded. ("..finalOrder.." stats)")
 end
 
 for k, v in pairs(nk) do

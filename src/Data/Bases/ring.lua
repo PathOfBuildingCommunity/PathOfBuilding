@@ -5,7 +5,7 @@ local itemBases = ...
 
 itemBases["Iron Ring"] = {
 	type = "Ring",
-	tags = { ring = true, default = true, },
+	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "Adds 1 to 4 Physical Damage to Attacks",
 	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
@@ -13,7 +13,7 @@ itemBases["Iron Ring"] = {
 }
 itemBases["Coral Ring"] = {
 	type = "Ring",
-	tags = { ring = true, default = true, },
+	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(20-30) to maximum Life",
 	implicitModTypes = { { "resource", "life" }, },
@@ -21,7 +21,7 @@ itemBases["Coral Ring"] = {
 }
 itemBases["Paua Ring"] = {
 	type = "Ring",
-	tags = { ring = true, default = true, },
+	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(20-30) to maximum Mana",
 	implicitModTypes = { { "resource", "mana" }, },
@@ -29,7 +29,7 @@ itemBases["Paua Ring"] = {
 }
 itemBases["Gold Ring"] = {
 	type = "Ring",
-	tags = { ring = true, default = true, },
+	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "(6-15)% increased Rarity of Items found",
 	implicitModTypes = { { "drop" }, },
@@ -37,7 +37,7 @@ itemBases["Gold Ring"] = {
 }
 itemBases["Topaz Ring"] = {
 	type = "Ring",
-	tags = { ring = true, default = true, },
+	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(20-30)% to Lightning Resistance",
 	implicitModTypes = { { "elemental", "lightning", "resistance" }, },
@@ -45,7 +45,7 @@ itemBases["Topaz Ring"] = {
 }
 itemBases["Sapphire Ring"] = {
 	type = "Ring",
-	tags = { ring = true, default = true, },
+	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(20-30)% to Cold Resistance",
 	implicitModTypes = { { "elemental", "cold", "resistance" }, },
@@ -53,7 +53,7 @@ itemBases["Sapphire Ring"] = {
 }
 itemBases["Ruby Ring"] = {
 	type = "Ring",
-	tags = { ring = true, default = true, },
+	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(20-30)% to Fire Resistance",
 	implicitModTypes = { { "elemental", "fire", "resistance" }, },
@@ -61,7 +61,7 @@ itemBases["Ruby Ring"] = {
 }
 itemBases["Prismatic Ring"] = {
 	type = "Ring",
-	tags = { ring = true, default = true, },
+	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(8-10)% to all Elemental Resistances",
 	implicitModTypes = { { "elemental", "resistance" }, },
@@ -69,7 +69,7 @@ itemBases["Prismatic Ring"] = {
 }
 itemBases["Moonstone Ring"] = {
 	type = "Ring",
-	tags = { ring = true, default = true, },
+	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(15-25) to maximum Energy Shield",
 	implicitModTypes = { { "defences", "energy_shield" }, },
@@ -77,7 +77,7 @@ itemBases["Moonstone Ring"] = {
 }
 itemBases["Amethyst Ring"] = {
 	type = "Ring",
-	tags = { ring = true, default = true, },
+	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(17-23)% to Chaos Resistance",
 	implicitModTypes = { { "chaos", "resistance" }, },
@@ -85,7 +85,7 @@ itemBases["Amethyst Ring"] = {
 }
 itemBases["Diamond Ring"] = {
 	type = "Ring",
-	tags = { ring = true, default = true, },
+	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "(20-30)% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
@@ -93,7 +93,7 @@ itemBases["Diamond Ring"] = {
 }
 itemBases["Two-Stone Ring"] = {
 	type = "Ring",
-	tags = { ring = true, twostonering = true, default = true, },
+	tags = { default = true, ring = true, twostonering = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(12-16)% to Fire and Lightning Resistances",
 	implicitModTypes = { { "elemental", "fire", "lightning", "resistance" }, },
@@ -101,8 +101,7 @@ itemBases["Two-Stone Ring"] = {
 }
 itemBases["Two-Stone Ring"] = {
 	type = "Ring",
-	hidden = true,
-	tags = { ring = true, twostonering = true, default = true, },
+	tags = { default = true, ring = true, twostonering = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(12-16)% to Cold and Lightning Resistances",
 	implicitModTypes = { { "elemental", "cold", "lightning", "resistance" }, },
@@ -110,8 +109,7 @@ itemBases["Two-Stone Ring"] = {
 }
 itemBases["Two-Stone Ring"] = {
 	type = "Ring",
-	hidden = true,
-	tags = { ring = true, twostonering = true, default = true, },
+	tags = { default = true, ring = true, twostonering = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(12-16)% to Fire and Cold Resistances",
 	implicitModTypes = { { "elemental", "fire", "cold", "resistance" }, },
@@ -119,7 +117,7 @@ itemBases["Two-Stone Ring"] = {
 }
 itemBases["Unset Ring"] = {
 	type = "Ring",
-	tags = { ring = true, unset_ring = true, default = true, },
+	tags = { default = true, ring = true, unset_ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "Has 1 Socket",
 	implicitModTypes = { {  }, },
@@ -127,7 +125,7 @@ itemBases["Unset Ring"] = {
 }
 itemBases["Bone Ring"] = {
 	type = "Ring",
-	tags = { ring = true, ring_can_roll_minion_modifiers = true, default = true, },
+	tags = { default = true, ring = true, ring_can_roll_minion_modifiers = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "Minions have +(10-15)% to all Elemental Resistances",
 	implicitModTypes = { { "elemental", "resistance", "minion" }, },
@@ -135,7 +133,7 @@ itemBases["Bone Ring"] = {
 }
 itemBases["Steel Ring"] = {
 	type = "Ring",
-	tags = { not_for_sale = true, ring = true, ringatlas1 = true, atlas_base_type = true, default = true, },
+	tags = { atlas_base_type = true, default = true, not_for_sale = true, ring = true, ringatlas1 = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "Adds (3-4) to (10-14) Physical Damage to Attacks",
 	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
@@ -143,7 +141,7 @@ itemBases["Steel Ring"] = {
 }
 itemBases["Opal Ring"] = {
 	type = "Ring",
-	tags = { not_for_sale = true, ring = true, ringatlas2 = true, atlas_base_type = true, default = true, },
+	tags = { atlas_base_type = true, default = true, not_for_sale = true, ring = true, ringatlas2 = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "(15-25)% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -151,7 +149,7 @@ itemBases["Opal Ring"] = {
 }
 itemBases["Vermillion Ring"] = {
 	type = "Ring",
-	tags = { ringatlas3 = true, not_for_sale = true, ring = true, atlas_base_type = true, default = true, },
+	tags = { atlas_base_type = true, default = true, not_for_sale = true, ring = true, ringatlas3 = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "(5-7)% increased maximum Life",
 	implicitModTypes = { { "resource", "life" }, },
@@ -159,7 +157,7 @@ itemBases["Vermillion Ring"] = {
 }
 itemBases["Cerulean Ring"] = {
 	type = "Ring",
-	tags = { not_for_sale = true, ring = true, atlas_base_type = true, ringatlas4 = true, default = true, },
+	tags = { atlas_base_type = true, default = true, not_for_sale = true, ring = true, ringatlas4 = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "(8-10)% increased maximum Mana",
 	implicitModTypes = { { "resource", "mana" }, },
@@ -167,7 +165,7 @@ itemBases["Cerulean Ring"] = {
 }
 itemBases["Iolite Ring"] = {
 	type = "Ring",
-	tags = { not_for_sale = true, ring = true, ringatlas5 = true, atlas_base_type = true, default = true, },
+	tags = { atlas_base_type = true, default = true, not_for_sale = true, ring = true, ringatlas5 = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "(17-23)% increased Chaos Damage",
 	implicitModTypes = { { "chaos_damage", "damage", "chaos" }, },
@@ -175,7 +173,7 @@ itemBases["Iolite Ring"] = {
 }
 itemBases["Two-Stone Ring (Fire/Lightning)"] = {
 	type = "Ring",
-	tags = { ring = true, twostonering = true, default = true, },
+	tags = { default = true, ring = true, twostonering = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(12-16)% to Fire and Lightning Resistances",
 	implicitModTypes = { { "elemental", "fire", "lightning", "resistance" }, },
@@ -183,7 +181,7 @@ itemBases["Two-Stone Ring (Fire/Lightning)"] = {
 }
 itemBases["Two-Stone Ring (Cold/Lightning)"] = {
 	type = "Ring",
-	tags = { ring = true, twostonering = true, default = true, },
+	tags = { default = true, ring = true, twostonering = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(12-16)% to Cold and Lightning Resistances",
 	implicitModTypes = { { "elemental", "cold", "lightning", "resistance" }, },
@@ -191,7 +189,7 @@ itemBases["Two-Stone Ring (Cold/Lightning)"] = {
 }
 itemBases["Two-Stone Ring (Fire/Cold)"] = {
 	type = "Ring",
-	tags = { ring = true, twostonering = true, default = true, },
+	tags = { default = true, ring = true, twostonering = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(12-16)% to Fire and Cold Resistances",
 	implicitModTypes = { { "elemental", "fire", "cold", "resistance" }, },
@@ -199,7 +197,7 @@ itemBases["Two-Stone Ring (Fire/Cold)"] = {
 }
 itemBases["Cogwork Ring"] = {
 	type = "Ring",
-	tags = { ring = true, experimental_base = true, not_for_sale = true, default = true, },
+	tags = { default = true, experimental_base = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "-1 Prefix Modifier allowed\n+1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed\n25% increased Suffix Modifier magnitudes",
 	implicitModTypes = { {  }, {  }, {  }, {  }, },
@@ -207,7 +205,7 @@ itemBases["Cogwork Ring"] = {
 }
 itemBases["Geodesic Ring"] = {
 	type = "Ring",
-	tags = { ring = true, experimental_base = true, not_for_sale = true, default = true, },
+	tags = { default = true, experimental_base = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+1 Prefix Modifier allowed\n-1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed\n25% increased Prefix Modifier magnitudes",
 	implicitModTypes = { {  }, {  }, {  }, {  }, },
@@ -215,7 +213,7 @@ itemBases["Geodesic Ring"] = {
 }
 itemBases["Composite Ring"] = {
 	type = "Ring",
-	tags = { ring = true, experimental_base = true, not_for_sale = true, default = true, },
+	tags = { default = true, experimental_base = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+3 Prefix Modifiers allowed\n-3 Suffix Modifiers allowed\nImplicit Modifiers Cannot Be Changed",
 	implicitModTypes = { {  }, {  }, {  }, },
@@ -223,7 +221,7 @@ itemBases["Composite Ring"] = {
 }
 itemBases["Manifold Ring"] = {
 	type = "Ring",
-	tags = { ring = true, experimental_base = true, not_for_sale = true, default = true, },
+	tags = { default = true, experimental_base = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+1 Prefix Modifier allowed\n-2 Suffix Modifiers allowed\nImplicit Modifiers Cannot Be Changed\n50% increased Prefix Modifier magnitudes",
 	implicitModTypes = { {  }, {  }, {  }, {  }, },
@@ -231,7 +229,7 @@ itemBases["Manifold Ring"] = {
 }
 itemBases["Ratcheting Ring"] = {
 	type = "Ring",
-	tags = { ring = true, experimental_base = true, not_for_sale = true, default = true, },
+	tags = { default = true, experimental_base = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "-3 Prefix Modifiers allowed\n+3 Suffix Modifiers allowed\nImplicit Modifiers Cannot Be Changed",
 	implicitModTypes = { {  }, {  }, {  }, },
@@ -239,7 +237,7 @@ itemBases["Ratcheting Ring"] = {
 }
 itemBases["Helical Ring"] = {
 	type = "Ring",
-	tags = { ring = true, experimental_base = true, not_for_sale = true, default = true, },
+	tags = { default = true, experimental_base = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "-2 Prefix Modifiers allowed\n+1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed\n50% increased Suffix Modifier magnitudes",
 	implicitModTypes = { {  }, {  }, {  }, {  }, },
@@ -247,7 +245,7 @@ itemBases["Helical Ring"] = {
 }
 itemBases["Dusk Ring"] = {
 	type = "Ring",
-	tags = { ring = true, not_for_sale = true, default = true, },
+	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "Left ring slot: 15% reduced Skill Effect Duration\nRight ring slot: 15% increased Skill Effect Duration",
 	implicitModTypes = { {  }, {  }, },
@@ -255,7 +253,7 @@ itemBases["Dusk Ring"] = {
 }
 itemBases["Penumbra Ring"] = {
 	type = "Ring",
-	tags = { ring = true, not_for_sale = true, default = true, },
+	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "Left ring slot: 30% reduced Effect of Curses on you\nRight ring slot: 30% increased Effect of Curses on you",
 	implicitModTypes = { { "curse" }, { "curse" }, },
@@ -263,7 +261,7 @@ itemBases["Penumbra Ring"] = {
 }
 itemBases["Gloam Ring"] = {
 	type = "Ring",
-	tags = { ring = true, ring_can_roll_minion_modifiers = true, not_for_sale = true, default = true, },
+	tags = { default = true, not_for_sale = true, ring = true, ring_can_roll_minion_modifiers = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "Left ring slot: Minions take 15% reduced Damage\nRight ring slot: Minions take 15% increased Damage",
 	implicitModTypes = { { "minion" }, { "minion" }, },
@@ -271,7 +269,7 @@ itemBases["Gloam Ring"] = {
 }
 itemBases["Tenebrous Ring"] = {
 	type = "Ring",
-	tags = { ring = true, not_for_sale = true, default = true, },
+	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "Left ring slot: 30% reduced Duration of Ailments on You\nRight ring slot: 30% increased Duration of Ailments on You",
 	implicitModTypes = { { "ailment" }, { "ailment" }, },
@@ -279,7 +277,7 @@ itemBases["Tenebrous Ring"] = {
 }
 itemBases["Shadowed Ring"] = {
 	type = "Ring",
-	tags = { ring = true, not_for_sale = true, default = true, },
+	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "Left ring slot: 25% of Cold Damage from Hits taken as Fire Damage\nRight ring slot: 25% of Fire Damage from Hits taken as Cold Damage",
 	implicitModTypes = { { "elemental", "fire", "cold" }, { "elemental", "fire", "cold" }, },
@@ -287,7 +285,7 @@ itemBases["Shadowed Ring"] = {
 }
 itemBases["Shadowed Ring"] = {
 	type = "Ring",
-	tags = { ring = true, not_for_sale = true, default = true, },
+	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "Left ring slot: 25% of Fire Damage from Hits taken as Lightning Damage\nRight ring slot: 25% of Lightning Damage from Hits taken as Fire Damage",
 	implicitModTypes = { { "elemental", "fire", "lightning" }, { "elemental", "fire", "lightning" }, },
@@ -295,7 +293,7 @@ itemBases["Shadowed Ring"] = {
 }
 itemBases["Shadowed Ring"] = {
 	type = "Ring",
-	tags = { ring = true, not_for_sale = true, default = true, },
+	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "Left ring slot: 25% of Lightning Damage from Hits taken as Cold Damage\nRight ring slot: 25% of Cold Damage from Hits taken as Lightning Damage",
 	implicitModTypes = { { "elemental", "cold", "lightning" }, { "elemental", "cold", "lightning" }, },
@@ -303,15 +301,78 @@ itemBases["Shadowed Ring"] = {
 }
 itemBases["Nameless Ring"] = {
 	type = "Ring",
-	tags = { ring = true, not_for_sale = true, default = true, },
+	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "50% increased Elemental Ailment Duration on you\n50% reduced Effect of Curses on you",
 	implicitModTypes = { { "elemental" }, { "elemental" }, },
 	req = { level = 24, },
 }
+itemBases["Cryonic Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "+2% to maximum Cold Resistance\nCannot roll Modifiers of Non-Cold Damage Types",
+	implicitModTypes = { { "elemental", "cold", "resistance" }, { "elemental", "cold", "resistance" }, },
+	req = { level = 32, },
+	flavourText = {
+		"We lie eternal, eyes open, yet still.",
+	},
+}
+itemBases["Enthalpic Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "+2% to maximum Fire Resistance\nCannot roll Modifiers of Non-Fire Damage Types",
+	implicitModTypes = { { "elemental", "fire", "resistance" }, { "elemental", "fire", "resistance" }, },
+	req = { level = 32, },
+	flavourText = {
+		"The embers of the Red Pyre yet glow.",
+	},
+}
+itemBases["Synaptic Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "+2% to maximum Lightning Resistance\nCannot roll Modifiers of Non-Lightning Damage Types",
+	implicitModTypes = { { "elemental", "lightning", "resistance" }, { "elemental", "lightning", "resistance" }, },
+	req = { level = 32, },
+	flavourText = {
+		"Metallic thoughts whisper in the dark.",
+	},
+}
+itemBases["Organic Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "3% additional Physical Damage Reduction\nCannot roll Modifiers of Non-Physical Damage Types",
+	implicitModTypes = { { "physical" }, { "physical" }, },
+	req = { level = 32, },
+	flavourText = {
+		"Our flesh longs to move as one.",
+	},
+}
+itemBases["Fugitive Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "+2% to maximum Chaos Resistance\nCannot roll Modifiers of Non-Chaos Damage Types",
+	implicitModTypes = { { "chaos", "resistance" }, { "chaos", "resistance" }, },
+	req = { level = 32, },
+	flavourText = {
+		"We will seize back our wayward Dream.",
+	},
+}
+itemBases["Formless Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "(5-7)% increased Global Defences",
+	implicitModTypes = { { "defences" }, },
+	req = { level = 42, },
+}
 itemBases["Ring"] = {
 	type = "Ring",
-	tags = { ring = true, not_for_sale = true, default = true, },
+	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicitModTypes = { },
 	req = { },
@@ -319,7 +380,7 @@ itemBases["Ring"] = {
 
 itemBases["Breach Ring"] = {
 	type = "Ring",
-	tags = { ring = true, not_for_sale = true, default = true, },
+	tags = { default = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "Properties are doubled while in a Breach",
 	implicitModTypes = { {  }, },
@@ -327,7 +388,7 @@ itemBases["Breach Ring"] = {
 }
 itemBases["Golden Hoop"] = {
 	type = "Ring",
-	tags = { ring = true, demigods = true, not_for_sale = true, default = true, },
+	tags = { default = true, demigods = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(8-12) to all Attributes",
 	implicitModTypes = { { "attribute" }, },
@@ -335,8 +396,7 @@ itemBases["Golden Hoop"] = {
 }
 itemBases["Jet Ring"] = {
 	type = "Ring",
-	hidden = true,
-	tags = { ring = true, demigods = true, not_for_sale = true, default = true, },
+	tags = { default = true, demigods = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "(5-10)% increased Global Defences",
 	implicitModTypes = { { "defences" }, },

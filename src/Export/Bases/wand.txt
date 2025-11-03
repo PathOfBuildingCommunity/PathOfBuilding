@@ -4,7 +4,7 @@ local itemBases = ...
 #type Wand
 #influenceBaseTag wand
 #socketLimit 3
-#baseMatch Metadata/Items/Weapons/OneHandWeapons/Wands/Wand[ME]?%d+
+#baseMatch Metadata/Items/Weapons/OneHandWeapons/Wands/Wand[MEK]?%d+
 
 #type Wand
 #influenceBaseTag wand

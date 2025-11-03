@@ -1,7 +1,7 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
-loadStatFile("tincture_stat_descriptions.txt")
+loadStatFile("tincture_stat_descriptions.txt", "graft_stat_descriptions.txt")
 
 function table.containsId(table, element)
   for _, value in pairs(table) do
@@ -173,7 +173,9 @@ end)
 writeMods("../Data/ModNecropolis.lua", function(mod)
 	return mod.Domain == 1 and mod.Id:match("^NecropolisCrafting")
 end)
-
+writeMods("../Data/ModGraft.lua", function(mod)
+	return mod.Domain == 38 and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
+end)
 writeMods("../Data/BeastCraft.lua", function(mod)
 	return (mod.Id:match("Aspect")  and mod.GenerationType == 2)  -- Aspect Crafts
 end)

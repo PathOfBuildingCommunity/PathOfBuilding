@@ -239,3 +239,7 @@ minions["GuardianRelicAll"] = {
 
 #monster Metadata/Monsters/LeagueAncestral/AncestralUtulaMinion_ AncestralUtulaMinion
 #emit
+
+#monster Metadata/Monsters/LivingLightning/LivingLightningSummoned LivingLightningMinion
+#limit ActiveLivingLightningLimit
+#emit

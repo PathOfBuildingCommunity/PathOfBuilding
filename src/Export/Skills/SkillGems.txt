@@ -20,6 +20,7 @@ Blood and Sand                               		----		BloodAndSand
 Boneshatter                                  		----		Boneshatter
 Boneshatter of Carnage                       		----		BoneshatterAltY
 Boneshatter of Complex Trauma                		----		BoneshatterAltX
+Call the Pyre                                		----		GraftSkillXophFlamePillars
 Chain Hook                                   		----		ChainHook
 Chain Hook of Trarthus                       		----		ChainHookAltY
 Cleave                                       		----		Cleave
@@ -54,10 +55,12 @@ Glacial Hammer                               		----		GlacialHammer
 Glacial Hammer of Shattering                 		----		GlacialHammerAltX
 Ground Slam                                  		----		GroundSlam
 Ground Slam of Earthshaking                  		----		GroundSlamAltX
+Heart of Flame                               		----		GraftSkillXophMoltenShell
 Heavy Strike                                 		----		HeavyStrike
 Heavy Strike of Trarthus                     		----		HeavyStrikeAltY
 Herald of Ash                                		----		HeraldOfAsh
 Herald of Purity                             		----		HeraldOfPurity
+His Burning Message                          		----		GraftSkillXophGeyserExplosion
 Holy Flame Totem                             		----		HolyFlameTotem
 Holy Flame Totem of Ire                      		----		HolyFlameTotemAltX
 Ice Crash                                    		----		IceCrash
@@ -87,8 +90,10 @@ Rage Vortex of Berserking                    		----		RageVortexAltX
 Rallying Cry                                 		----		RallyingCry
 Reap                                         		----		Reap
 Rejuvenation Totem                           		----		RejuvenationTotem
+Return to Dust                               		----		GraftSkillUulNetolHandSlam
 Searing Bond                                 		----		SearingBond
 Seismic Cry                                  		----		SeismicCry
+Seize the Flesh                              		----		GraftSkillUulNetolBoneSpires
 Shield Charge                                		----		ShieldCharge
 Shield Crush                                 		----		ShieldCrush
 Shield Crush of the Chieftain                		----		ShieldCrushAltX
@@ -110,6 +115,8 @@ Sweep                                        		----		Sweep
 Swordstorm                                   		----		Swordstorm
 Tectonic Slam                                		----		TectonicSlam
 Tectonic Slam of Cataclysm                   		----		TectonicSlamAltX
+Tender Embrace                               		----		GraftSkillUulNetolLowlife
+The Grey Wind Howls                          		----		GraftSkillXophAilmentBuff
 Vaal Absolution                              		----		VaalAbsolution
 Vaal Ancestral Warchief                      		----		VaalAncestralWarchief
 Vaal Cleave                                  		----		VaalCleave
@@ -129,6 +136,7 @@ Vaal Sweep                                   		----		VaalSweep
 Vaal Volcanic Fissure                        		----		VaalVolcanicFissure
 Vengeful Cry                                 		----		VengefulCry
 Vigilant Strike                              		----		VigilantStrike
+Violent Desire                               		----		GraftSkillUulNetolImpaleBuff
 Vitality                                     		----		Vitality
 Volcanic Fissure                             		----		VolcanicFissure
 Volcanic Fissure of Snaking                  		----		VolcanicFissureAltX
@@ -248,11 +256,13 @@ Caustic Arrow                                		----		CausticArrow
 Caustic Arrow of Poison                      		----		CausticArrowAltX
 Charged Dash                                 		----		ChargedDash
 Cobra Lash                                   		----		CobraLash
+Conflagration                                		----		Conflagration
 Cremation                                    		----		Cremation
 Cremation of Exhuming                        		----		CremationAltX
 Cremation of the Volcano                     		----		CremationAltY
 Cyclone                                      		----		Cyclone
 Cyclone of Tumult                            		----		CycloneAltX
+Dance in the White                           		----		GraftSkillTulTornado	GraftSkillTulTornadoProjectile
 Dash                                         		----		Dash
 Desecrate                                    		----		Desecrate
 Detonate Dead                                		----		DetonateDead
@@ -275,6 +285,7 @@ Explosive Concoction of Destruction          		----		ExplosiveConcoctionAltX
 Explosive Trap                               		----		ExplosiveTrap
 Explosive Trap of Magnitude                  		----		ExplosiveTrapAltY
 Explosive Trap of Shrapnel                   		----		ExplosiveTrapAltX
+Falling Crystals                             		----		GraftSkillTulIceMortar
 Fire Trap                                    		----		FireTrap
 Fire Trap of Blasting                        		----		FireTrapAltX
 Flamethrower Trap                            		----		FlamethrowerTrap
@@ -319,6 +330,7 @@ Poacher's Mark                               		----		PoachersMark
 Poisonous Concoction                         		----		PoisonousConcoction
 Poisonous Concoction of Bouncing             		----		PoisonousConcoctionAltX
 Precision                                    		----		Precision
+Preserving Stillness                         		----		GraftSkillTulAegis
 Puncture                                     		----		Puncture
 Puncture of Shanking                         		----		PunctureAltX
 Purity of Ice                                		----		PurityOfIce
@@ -363,6 +375,7 @@ Summon Ice Golem of Hordes                   		----		SummonIceGolemAltX
 Summon Ice Golem of Shattering               		----		SummonIceGolemAltY
 Temporal Chains                              		----		TemporalChains
 Temporal Rift                                		----		TemporalRift
+Thunderstorm                                 		----		Thunderstorm	ThunderstormMiniTornados
 Tornado                                      		----		Tornado
 Tornado Shot                                 		----		TornadoShot
 Tornado Shot of Cloudburst                   		----		TornadoShotAltX
@@ -472,6 +485,7 @@ Vicious Projectiles Support                  		----		SupportViciousProjectiles
 Vile Toxins Support                          		----		SupportVileToxins
 Void Manipulation Support                    		----		SupportVoidManipulation
 Volley Support                               		----		SupportVolley
+Windburst Support                            		----		SupportWindburst	TriggeredSupportWindburst
 Withering Touch Support                      		----		SupportWitheringTouch
 
 						--------- Active Intelligence ---------
@@ -508,8 +522,6 @@ Contagion                                    		----		Contagion
 Contagion of Subsiding                       		----		ContagionAltX
 Contagion of Transference                    		----		ContagionAltY
 Conversion Trap                              		----		ConversionTrap
-Convocation                                  		----		Convocation
-Convocation                                  		----		ConvocationOld
 Crackling Lance                              		----		CracklingLance
 Crackling Lance of Branching                 		----		CracklingLanceAltX
 Crackling Lance of Disintegration            		----		CracklingLanceAltY
@@ -529,6 +541,7 @@ Divine Retribution                           		----		DivineRetribution
 Elemental Projectiles                        		----		ElementalProjectiles
 Elemental Weakness                           		----		ElementalWeakness
 Energy Blade                                 		----		EnergyBlade
+Enervating Grasp                             		----		GraftSkillEshLightningHands
 Enfeeble                                     		----		Enfeeble
 Envy                                         		----		Envy
 Essence Drain                                		----		EssenceDrain
@@ -569,6 +582,7 @@ Galvanic Field                               		----		GalvanicField
 Galvanic Field of Intensity                  		----		GalvanicFieldAltX
 Glacial Cascade                              		----		GlacialCascade
 Glacial Cascade of the Fissure               		----		GlacialCascadeAltX
+Glowing Silhouette                           		----		GraftSkillEshLightningClones
 Herald of Thunder                            		----		HeraldOfThunder
 Hexblast                                     		----		Hexblast
 Hexblast of Contradiction                    		----		HexblastAltX
@@ -591,6 +605,9 @@ Kinetic Blast                                		----		KineticBlast
 Kinetic Blast of Clustering                  		----		KineticBlastAltX
 Kinetic Bolt                                 		----		KineticBolt
 Kinetic Bolt of Fragmentation                		----		KineticBoltAltX
+Kinetic Fusillade                            		----		KineticFusillade
+Kinetic Rain                                 		----		KineticRain	KineticRainKineticInstability
+Kinetic Rain of Impact                       		----		KineticRainAltX
 Lightning Conduit                            		----		LightningConduit
 Lightning Conduit of the Heavens             		----		LightningConduitAltX
 Lightning Spire Trap                         		----		LightningSpireTrap
@@ -606,6 +623,7 @@ Lightning Warp                               		----		LightningWarp
 Malevolence                                  		----		Malevolence
 Manabond                                     		----		Manabond
 Orb of Storms                                		----		OrbOfStorms
+Overcharged Sinews                           		----		GraftSkillEshJoltBuff
 Penance Brand                                		----		PenanceBrand
 Penance Brand of Conduction                  		----		PenanceBrandAltY
 Penance Brand of Dissipation                 		----		PenanceBrandAltX
@@ -633,6 +651,7 @@ Shock Nova                                   		----		NewShockNova
 Shock Nova                                   		----		ShockNova
 Sigil of Power                               		----		SigilOfPower
 Siphoning Trap                               		----		SiphoningTrap
+Somatic Shell                                		----		SomaticShell
 Soul Link                                    		----		SoulLink
 Soulrend                                     		----		Soulrend
 Soulrend of Reaping                          		----		SoulrendAltX
@@ -671,6 +690,7 @@ Summon Skeletons of Archers                  		----		SummonSkeletonsAltX
 Summon Skeletons of Mages                    		----		SummonSkeletonsAltY
 Summon Skitterbots                           		----		SummonSkitterbots
 Tempest Shield                               		----		TempestShield
+The Great Avalanche                          		----		GraftSkillTulSummon
 Vaal Arc                                     		----		VaalArc
 Vaal Blight                                  		----		VaalBlight
 Vaal Clarity                                 		----		VaalClarity
@@ -694,6 +714,7 @@ Void Sphere of Rending                       		----		VoidSphereAltX
 Voltaxic Burst                               		----		VoltaxicBurst
 Vortex                                       		----		Vortex
 Vortex of Projection                         		----		VortexAltX
+Wall of Force                                		----		WallOfForce
 Wave of Conviction                           		----		WaveOfConviction
 Wave of Conviction of Trarthus               		----		WaveOfConvictionAltY
 Wildfire                                     		----		InfernalSwarm
@@ -701,6 +722,7 @@ Winter Orb                                   		----		WinterOrb
 Wintertide Brand                             		----		WintertideBrand
 Wither                                       		----		Wither
 Wrath                                        		----		Wrath
+Wreathed in Light                            		----		GraftSkillEshLightningRing
 Zealotry                                     		----		Zealotry
 
 						--------- Support Intelligence ---------
@@ -761,7 +783,9 @@ Infused Channelling Support                  		----		SupportInfusedChannelling
 Innervate Support                            		----		SupportInnervate
 Intensify Support                            		----		SupportIntensify
 Item Rarity Support                          		----		SupportItemRarity
+Kinetic Instability Support                  		----		SupportKineticInstability	TriggeredSupportKineticInstability
 Lightning Penetration Support                		----		SupportLightningPenetration
+Living Lightning Support                     		----		SupportLivingLightning	TriggeredSupportLivingLightning
 Meat Shield Support                          		----		SupportMeatShield
 Minefield Support                            		----		SupportMinefield
 Minion Damage Support                        		----		SupportMinionDamage
@@ -787,6 +811,8 @@ Unleash Support                              		----		SupportUnleash
 						--------- Active Other ---------
 Blinding Aura                                		----		BlindingAura
 Capture Monster                              		----		CaptureMonster
+Convocation                                  		----		Convocation
+Convocation                                  		----		ConvocationOld
 Death Aura                                   		----		DeathAura
 Detonate Mines                               		----		GemDetonateMines
 Gluttony of Elements                         		----		GluttonyOfElements

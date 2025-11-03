@@ -84,7 +84,6 @@ local forcedNameList = { -- fated show twice at the moment, but this list is cau
 	{ id = "UniqueBeltDemigods1", name = "Demigod's Bounty" },
 	{ id = "UniqueBodyDemigods", name = "Demigod's Dominance" },
 	{ id = "UniqueHelmetDemigods1", name = "Demigod's Immortality" },
-	{ id = "GraspingMailFlavourText", name = "Grasping Mail" },
 	{ id = "UniqueQuiver1", name = "Blackgleam" },
 	{ id = "FatedUnique8", name = "The Signal Fire" },
 	{ id = "UniqueBootsStr1", name = "Windscream" },
@@ -96,7 +95,7 @@ local forcedNameList = { -- fated show twice at the moment, but this list is cau
 	{ id = "UniqueBow8", name = "Storm Cloud" },
 	{ id = "FatedUnique21", name = "The Tempest" },
 	{ id = "UniqueBelt2", name = "The Magnate" },
-	{ id = "FatedUnique46", name = "The Tactitian" },
+	{ id = "FatedUnique46", name = "The Tactician" },
 	{ id = "FatedUnique47", name = "The Nomad" },
 	{ id = "UniqueStaff14", name = "The Stormheart" },
 	{ id = "FatedUnique29", name = "The Stormwall" },
@@ -192,7 +191,7 @@ for _, entry in ipairs(forcedNameList) do
 end
 
 -- Export remaining stash layout uniques
-for id, name in pairs(uniqueNameLookup) do
+for id, name in pairsSortByKey(uniqueNameLookup) do
 	local lines = flavourTextById[id]
 	if lines then
 		out:write('\t[', index, '] = {\n')
