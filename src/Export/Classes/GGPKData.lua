@@ -275,6 +275,9 @@ function GGPKClass:GetNeededFiles()
 		"Data/ProjectilesArtVariations.dat",
 		"Data/MonsterVarietiesArtVariations.dat",
 		"Data/PreloadGroups.dat",
+		"Data/BrequelGraftTypes.dat",
+		"Data/BrequelGraftSkillStats.dat",
+		"Data/BrequelGraftGrantedSkillLevels.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
