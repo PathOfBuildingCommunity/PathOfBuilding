@@ -156,6 +156,10 @@ directiveTable.base = function(state, args, out)
 			table.insert(implicitModTypes, modDesc.modTags)
 		end
 	end
+	local graft = dat("BrequelGraftTypes"):GetRow("BaseItemType", baseItemType)
+	if graft then
+		table.insert(implicitLines, "Uses level (1-30) " .. graft.BaseItemType.Name)
+	end
 	if #implicitLines > 0 then
 		out:write('\timplicit = "', table.concat(implicitLines, "\\n"), '",\n')
 	end
@@ -401,6 +405,7 @@ local itemTypes = {
 	"jewel",
 	"flask",
 	"tincture",
+	"graft",
 }
 for _, name in pairs(itemTypes) do
 	processTemplateFile(name, "Bases/", "../Data/Bases/", directiveTable)
