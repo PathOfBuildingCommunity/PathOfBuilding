@@ -4341,10 +4341,10 @@ return {
 		},
 		[17]={
 			list=false,
-			name="",
+			name="MonsterPhysConversionMulti",
 			refTo="",
 			type="Int",
-			width=100
+			width=150
 		}
 	},
 	deliriumstashtablayout={

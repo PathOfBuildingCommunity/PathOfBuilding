@@ -82,6 +82,11 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 		if convMult > 0 then
 			-- Damage is being converted/gained from the other damage type
 			local min, max = calcDamage(activeSkill, output, cfg, breakdown, otherType, typeFlags, damageType)
+			if cfg.summonSkillName and cfg.summonSkillName == "Raise Spectre" then
+				if otherType == "Physical" then
+					convMult = convMult * (1 + data.monsterPhysConversionMultiTable[activeSkill.actor.level] / 100)
+				end
+			end
 			addMin = addMin + min * convMult
 			addMax = addMax + max * convMult
 		end
