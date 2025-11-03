@@ -275,6 +275,9 @@ function GGPKClass:GetNeededFiles()
 		"Data/ProjectilesArtVariations.dat",
 		"Data/MonsterVarietiesArtVariations.dat",
 		"Data/PreloadGroups.dat",
+		"Data/BrequelGraftTypes.dat",
+		"Data/BrequelGraftSkillStats.dat",
+		"Data/BrequelGraftGrantedSkillLevels.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
@@ -302,6 +305,7 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/StatDescriptions/stat_descriptions.txt",
 		"Metadata/StatDescriptions/variable_duration_skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/tincture_stat_descriptions.txt",
+		"Metadata/StatDescriptions/graft_stat_descriptions.txt",
 	}
 	local itFiles = {
 		"Metadata/Items/Quivers/AbstractQuiver.it",
