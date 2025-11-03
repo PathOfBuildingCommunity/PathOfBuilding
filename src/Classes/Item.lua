@@ -71,6 +71,7 @@ end
 local lineFlags = {
 	["crafted"] = true, ["crucible"] = true, ["custom"] = true, ["eater"] = true, ["enchant"] = true,
 	["exarch"] = true, ["fractured"] = true, ["implicit"] = true, ["scourge"] = true, ["synthesis"] = true,
+	["mutated"] = true
 }
 
 -- Special function to store unique instances of modifier on specific item slots
@@ -1117,6 +1118,9 @@ function ItemClass:BuildRaw()
 		end
 		if modLine.crucible then
 			line = "{crucible}" .. line
+		end
+		if modLine.mutated then
+			line = "{mutated}" .. line
 		end
 		if modLine.fractured then
 			line = "{fractured}" .. line
