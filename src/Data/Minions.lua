@@ -835,7 +835,6 @@ minions["RhoaUniqueSummoned"] = {
 		"SummonedRhoaShieldCharge",
 	},
 	modList = {
-		mod("SkillData", "LIST", { key = "cannotBeEvaded", value = true }, 0, 0), -- MonsterAlwaysHits [global_always_hit = 1]
 		-- MonsterNearbyEnemiesAreIntimidated [is_intimidated = 1]
 		-- MonsterNearbyEnemiesAreIntimidated [local_display_nearby_enemies_are_intimidated = 1]
 	},
@@ -861,7 +860,6 @@ minions["SnakeSpitUniqueSummoned"] = {
 		"SummonedSnakeProjectile",
 	},
 	modList = {
-		mod("SkillData", "LIST", { key = "cannotBeEvaded", value = true }, 0, 0), -- MonsterAlwaysHits [global_always_hit = 1]
 		mod("PhysicalDamageConvertToChaos", "BASE", 30, 0, 0), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
 	},
 }
@@ -889,7 +887,6 @@ minions["DropBearUniqueSummoned"] = {
 		"DropBearSummonedRallyingCry",
 	},
 	modList = {
-		mod("SkillData", "LIST", { key = "cannotBeEvaded", value = true }, 0, 0), -- MonsterAlwaysHits [global_always_hit = 1]
 	},
 }
 
@@ -1198,8 +1195,8 @@ minions["GuardianRelicLightning"] = {
 minions["VoidSpawn"] = {
 	name = "Void Spawn",
 	monsterTags = { "caster", "construct", "elder_monster", "eldritch", "extra_large_height", "flesh_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", },
-	life = 3,
-	energyShield = 0.2,
+	life = 6,
+	energyShield = 1,
 	fireResist = 30,
 	coldResist = 30,
 	lightningResist = 30,
@@ -1482,5 +1479,34 @@ minions["AncestralUtulaMinion"] = {
 		"MPSUtulaFireball",
 	},
 	modList = {
+	},
+}
+
+minions["LivingLightningMinion"] = {
+	name = "Living Lightning",
+	monsterTags = { "elemental", "lightning", "not_dex", "not_str", "small_height", "very_fast_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.4,
+	energyShield = 0.2,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1.4,
+	damageSpread = 0.8,
+	attackTime = 1.17,
+	attackRange = 20,
+	accuracy = 1,
+	limit = "ActiveLivingLightningLimit",
+	skillList = {
+		"SummonedLivingLightningZap",
+	},
+	modList = {
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
 	},
 }

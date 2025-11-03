@@ -235,19 +235,41 @@ function ModStoreClass:GetMultiplier(var, cfg, noMod)
 end
 
 function ModStoreClass:GetStat(stat, cfg)
+	-- Checks if any buff in buffList matches
+	-- Was needed for skills that provide multiple buffs (e.g. Herald of Agony) and can't be accesses with `buffList[1]`
+	local function isNameInBuffList(buffList, name)
+		for _, buff in ipairs(buffList) do
+			if buff.name == name then return true end
+		end
+		return false
+	end
 	if stat == "ManaReservedPercent" then
 		local reservedPercentMana = 0
 		-- Check if mana is 0 (i.e. from Blood Magic) to avoid division by 0.
 		local totalMana = self.actor.output["Mana"]
 		if totalMana == 0 then return 0 else
 			for _, activeSkill in ipairs(self.actor.activeSkillList) do
-				if (activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and activeSkill.buffList[1].name == cfg.skillName) then
+				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and cfg and (isNameInBuffList(activeSkill.buffList, cfg.skillName) or isNameInBuffList(activeSkill.buffList, cfg.summonSkillName)) ) then
 					local manaBase = activeSkill.skillData["ManaReservedBase"] or 0
 					reservedPercentMana = manaBase / totalMana * 100
 					break
 				end
 			end
 			return m_min(reservedPercentMana, 100) --Don't let people get more than 100% reservation for aura effect.
+		end
+	end
+	if stat == "LifeReservedPercent" then
+		local reservedPercentLife = 0
+		local totalLife = self.actor.output["Life"]
+		if totalLife == 0 then return 0 else
+			for _, activeSkill in ipairs(self.actor.activeSkillList) do
+				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and cfg and (isNameInBuffList(activeSkill.buffList, cfg.skillName) or isNameInBuffList(activeSkill.buffList, cfg.summonSkillName)) ) then
+					local lifeBase = activeSkill.skillData["LifeReservedBase"] or 0
+					reservedPercentLife = lifeBase / totalLife * 100
+					break
+				end
+			end
+			return m_min(reservedPercentLife, 100) --Don't let people get more than 100% reservation for aura effect.
 		end
 	end
 	-- if ReservationEfficiency is -100, ManaUnreserved is nan which breaks everything if Arcane Cloak is enabled

@@ -1,3 +1,37 @@
+VERSION[2.58.0][2025/11/03]
+
+--- Keepers of the Flame ---
+- Update and add new 3.27 skills (LocalIdentity)
+- Add new Wand and Ring item bases (LocalIdentity)
+- Add initial support for Grafts (LocalIdentity)
+- Add initial support for Foulborn unique mods (Wires77)
+- Add Support for new Monster Phys damage conversion logic (LocalIdentity)
+- Add support for "Farewell to Flesh" (Lycia Bloodline Herald Ascendancy Node) (majochem)
+- Add instant buyout to search URLs (Goufix)
+
+--- User Interface ---
+- Show Foulborn Icon on new Foulborn uniques and flavour text on new base items (Blitz54)
+- Sort Replica Dragonfang's Flight mods (Wires77)
+- Fix "The Tactician" missing flavour text (Nightblade)
+
+--- Fixed Calculations ---
+- Fix Warcry uptime when using  Dual Strike of Ambidexterity (LocalIdentity)
+
+--- Fixed Behaviours ---
+- Fix Gem dropdown tooltip not updating when hovering over gems (LocalIdentity)
+- Fix Aul Bloodline Aura nodes always applying (LocalIdentity)
+- Fix Everlasting Sacrifice not showing the config from the Chaos Ascendancy (Wires77)
+- Fix Intuitive Leap, Thread of Hope and Impossible Escape not working (n1tr0xs)
+- Fix legacy Curse cluster not appearing on tree sometimes (LocalIdentity)
+- Fix Overexertion and Echoes of Creation counting duplicate Warcries (LocalIdentity)
+- Fix Chaos Inoculation not disabling Righteous Fire Buff and Degen (LocalIdentity)
+
+--- Accuracy Improvements ---
+- Fix Burning Ground from Replica Siegebreaker not working (pabgarbar)
+
+--- Other changes ---
+- Fix broken header images on Linux (ZereoX)
+
 VERSION[2.57.0][2025/10/30]
 
 --- Keepers of the Flame ---

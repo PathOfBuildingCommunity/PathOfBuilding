@@ -69,7 +69,7 @@ end
 function breakdown.mod(modList, cfg, ...)
 	local inc = modList:Sum("INC", cfg, ...)
 	local more = modList:More(cfg, ...)
-	if inc ~= 0 and more ~= 1 then
+	if inc ~= 0 or more ~= 1 then
 		return { 
 			s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
 			s_format("x %.2f ^8(more/less)", more),

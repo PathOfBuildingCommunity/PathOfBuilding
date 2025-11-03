@@ -251,9 +251,6 @@ function GGPKClass:GetNeededFiles()
 		"Data/WeaponClasses.dat",
 		"Data/MonsterConditions.dat",
 		"Data/Rarity.dat",
-		"Data/TradeMarketCategory.dat",
-		"Data/TradeMarketCategoryGroups.dat",
-		"Data/TradeMarketCategoryListAllClass.dat",
 		"Data/Commands.dat",
 		"Data/ModEquivalencies.dat",
 		"Data/InfluenceTags.dat",
@@ -275,10 +272,12 @@ function GGPKClass:GetNeededFiles()
 		"Data/MiscBeamsArtVariations.dat",
 		"Data/MiscBeams.dat",
 		"Data/MiscEffectPacksArtVariations.dat",
-		"Data/MiscObjectArtVariations.dat",
 		"Data/ProjectilesArtVariations.dat",
 		"Data/MonsterVarietiesArtVariations.dat",
 		"Data/PreloadGroups.dat",
+		"Data/BrequelGraftTypes.dat",
+		"Data/BrequelGraftSkillStats.dat",
+		"Data/BrequelGraftGrantedSkillLevels.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
@@ -306,6 +305,7 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/StatDescriptions/stat_descriptions.txt",
 		"Metadata/StatDescriptions/variable_duration_skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/tincture_stat_descriptions.txt",
+		"Metadata/StatDescriptions/graft_stat_descriptions.txt",
 	}
 	local itFiles = {
 		"Metadata/Items/Quivers/AbstractQuiver.it",

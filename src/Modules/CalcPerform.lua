@@ -1863,6 +1863,9 @@ function calcs.perform(env, skipEHP)
 			modDB:NewMod("EnemyShockEffect", "INC", m_floor(mod.value * multiplier), mod.source, mod.flags, mod.keywordFlags, unpack(modifiers))
 		end
 	end
+	
+	-- Calculate charges early to enable usage of stats that depend on charge count
+	doActorCharges(env, env.player)
 
 	-- Combine buffs/debuffs
 	local buffs = { }
@@ -1945,6 +1948,7 @@ function calcs.perform(env, skipEHP)
 	end
 
 	local appliedCombustion = false
+	local warcryList = { }
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		local skillModList = activeSkill.skillModList
 		local skillCfg = activeSkill.skillCfg
@@ -2008,7 +2012,10 @@ function calcs.perform(env, skipEHP)
 						local extraExertions = modStore:Sum("BASE", nil, "ExtraExertedAttacks") or 0
 						local exertMultiplier = modStore:More(nil, "ExtraExertedAttacks")
 						env.player.modDB:NewMod("Num"..warcryName.."Exerts", "BASE", m_floor((baseExerts + extraExertions) * exertMultiplier))
-						env.player.modDB:NewMod("Multiplier:ExertingWarcryCount", "BASE", 1)
+						if not warcryList[buff.name] then
+							env.player.modDB:NewMod("Multiplier:ExertingWarcryCount", "BASE", 1, buff.name)
+							warcryList[buff.name] = true
+						end
 					end
 					if not activeSkill.skillModList:Flag(nil, "CannotShareWarcryBuffs") then
 						local warcryPower = modDB:Override(nil, "WarcryPower") or m_max((modDB:Sum("BASE", nil, "WarcryPower") or 0) * (1 + (modDB:Sum("INC", nil, "WarcryPower") or 0)/100), (modDB:Sum("BASE", nil, "MinimumWarcryPower") or 0))
@@ -2728,9 +2735,6 @@ function calcs.perform(env, skipEHP)
 		-- For example Sorrow of the Divine and buffs (like flask recovery watchers eye)
 		mergeFlasks(env.flasks, true, nonUniqueFlasksApplyToMinion)
 	end
-
-	-- Calculate charges early to enable usage of stats that depend on charge count
-	doActorCharges(env, env.player)
 
 	-- Process stats from alternate charges
 	if env.mode_combat then

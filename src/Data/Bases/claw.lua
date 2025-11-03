@@ -5,7 +5,7 @@ local itemBases = ...
 itemBases["Nailed Fist"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 3 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
@@ -15,7 +15,7 @@ itemBases["Nailed Fist"] = {
 itemBases["Sharktooth Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 6 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
@@ -25,7 +25,7 @@ itemBases["Sharktooth Claw"] = {
 itemBases["Awl"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 7 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
@@ -35,7 +35,7 @@ itemBases["Awl"] = {
 itemBases["Cat's Paw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 8 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
@@ -45,7 +45,7 @@ itemBases["Cat's Paw"] = {
 itemBases["Blinder"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 12 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
@@ -55,7 +55,7 @@ itemBases["Blinder"] = {
 itemBases["Timeworn Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 19 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
@@ -65,7 +65,7 @@ itemBases["Timeworn Claw"] = {
 itemBases["Sparkling Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 15 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
@@ -75,7 +75,7 @@ itemBases["Sparkling Claw"] = {
 itemBases["Fright Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 20 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
@@ -85,7 +85,7 @@ itemBases["Fright Claw"] = {
 itemBases["Double Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { maraketh = true, onehand = true, not_for_sale = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 15 Life per Enemy Hit\nGrants 6 Mana per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "mana", "attack" }, { "resource", "life", "mana", "attack" }, },
@@ -95,7 +95,7 @@ itemBases["Double Claw"] = {
 itemBases["Thresher Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 25 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
@@ -105,7 +105,7 @@ itemBases["Thresher Claw"] = {
 itemBases["Gouger"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 24 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
@@ -115,7 +115,7 @@ itemBases["Gouger"] = {
 itemBases["Tiger's Paw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "1.6% of Physical Attack Damage Leeched as Life",
 	implicitModTypes = { { "resource", "life", "physical", "attack" }, },
@@ -125,7 +125,7 @@ itemBases["Tiger's Paw"] = {
 itemBases["Gut Ripper"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 44 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
@@ -135,7 +135,7 @@ itemBases["Gut Ripper"] = {
 itemBases["Prehistoric Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "2% of Physical Attack Damage Leeched as Life",
 	implicitModTypes = { { "resource", "life", "physical", "attack" }, },
@@ -145,7 +145,7 @@ itemBases["Prehistoric Claw"] = {
 itemBases["Noble Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 40 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
@@ -155,7 +155,7 @@ itemBases["Noble Claw"] = {
 itemBases["Eagle Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "2% of Physical Attack Damage Leeched as Life",
 	implicitModTypes = { { "resource", "life", "physical", "attack" }, },
@@ -165,7 +165,7 @@ itemBases["Eagle Claw"] = {
 itemBases["Twin Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { maraketh = true, onehand = true, not_for_sale = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 28 Life per Enemy Hit\nGrants 10 Mana per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "mana", "attack" }, { "resource", "life", "mana", "attack" }, },
@@ -175,7 +175,7 @@ itemBases["Twin Claw"] = {
 itemBases["Great White Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 46 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
@@ -185,7 +185,7 @@ itemBases["Great White Claw"] = {
 itemBases["Throat Stabber"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 40 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
@@ -195,7 +195,7 @@ itemBases["Throat Stabber"] = {
 itemBases["Hellion's Paw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "1.6% of Physical Attack Damage Leeched as Life",
 	implicitModTypes = { { "resource", "life", "physical", "attack" }, },
@@ -205,7 +205,7 @@ itemBases["Hellion's Paw"] = {
 itemBases["Eye Gouger"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, top_tier_base_item_type = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 50 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
@@ -215,7 +215,7 @@ itemBases["Eye Gouger"] = {
 itemBases["Vaal Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, top_tier_base_item_type = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "2% of Physical Attack Damage Leeched as Life",
 	implicitModTypes = { { "resource", "life", "physical", "attack" }, },
@@ -225,7 +225,7 @@ itemBases["Vaal Claw"] = {
 itemBases["Imperial Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, top_tier_base_item_type = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 46 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
@@ -235,7 +235,7 @@ itemBases["Imperial Claw"] = {
 itemBases["Terror Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { onehand = true, top_tier_base_item_type = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "2% of Physical Attack Damage Leeched as Life",
 	implicitModTypes = { { "resource", "life", "physical", "attack" }, },
@@ -245,7 +245,7 @@ itemBases["Terror Claw"] = {
 itemBases["Gemini Claw"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { maraketh = true, onehand = true, not_for_sale = true, default = true, weapon = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 38 Life per Enemy Hit\nGrants 14 Mana per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "mana", "attack" }, { "resource", "life", "mana", "attack" }, },
@@ -255,7 +255,7 @@ itemBases["Gemini Claw"] = {
 itemBases["Shadow Fangs"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { weapon = true, onehand = true, not_for_sale = true, default = true, experimental_base = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Adds (26-38) to (52-70) Chaos Damage",
 	implicitModTypes = { { "chaos_damage", "damage", "chaos", "attack" }, },
@@ -265,7 +265,7 @@ itemBases["Shadow Fangs"] = {
 itemBases["Malign Fangs"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { weapon = true, onehand = true, not_for_sale = true, default = true, experimental_base = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Adds (43-55) to (81-104) Chaos Damage",
 	implicitModTypes = { { "chaos_damage", "damage", "chaos", "attack" }, },
@@ -275,7 +275,7 @@ itemBases["Malign Fangs"] = {
 itemBases["Void Fangs"] = {
 	type = "Claw",
 	socketLimit = 3,
-	tags = { weapon = true, onehand = true, not_for_sale = true, default = true, experimental_base = true, one_hand_weapon = true, claw = true, },
+	tags = { claw = true, default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Adds (46-63) to (92-113) Chaos Damage",
 	implicitModTypes = { { "chaos_damage", "damage", "chaos", "attack" }, },

@@ -726,6 +726,27 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill Conflagration
+#flags attack projectile area duration
+	parts = {
+		{
+			name = "Projectile",
+		},
+		{
+			name = "Explosion",
+		},
+	},
+	statMap = {
+		["napalm_arrow_detonation_hit_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 } )
+		},
+		["base_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 60,
+		},
+	},
+#mods
+
 #skill Cremation
 #flags spell projectile area
 	preDamageFunc = function(activeSkill, output)
@@ -3417,6 +3438,51 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["debuff_time_passed_+%"] = {
 			mod("SelfDebuffExpirationRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+		},
+	},
+#mods
+
+#skill Thunderstorm
+#flags attack projectile area duration
+	parts = {
+		{
+			name = "Projectile",
+		},
+		{
+			name = "Storm Explosion",
+			stages = true,
+		},
+	},
+	statMap = {
+		["windstorm_storm_hit_damage_+%_final_on_detonation"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 } )
+		},
+		["windstorm_storm_maximum_stages"] = {
+			mod("Multiplier:ThunderstormMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["windstorm_storm_area_of_effect_+%_final_per_stage"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ThunderstormStage" }, { type = "SkillPart", skillPart = 2 }),
+		},
+		["base_windstorm_storm_stage_gained_per_X_ms"] = {
+			skill("hitTimeOverride", nil, { type = "Multiplier", var = "ThunderstormStage" }, { type = "SkillPart", skillPart = 2 }),
+			div = 1000,
+		},
+		["base_skill_show_average_damage_instead_of_dps"] = {
+			skill("showAverage", true,  { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#mods
+
+#skill ThunderstormMiniTornados
+#flags attack duration
+	parts = {
+		{
+			name = "Projectile",
+			projectile = true,
+		},
+		{
+			name = "Explosion",
+			area = true,
 		},
 	},
 #mods

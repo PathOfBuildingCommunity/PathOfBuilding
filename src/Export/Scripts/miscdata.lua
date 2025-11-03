@@ -11,6 +11,7 @@ local allyDamage = ""
 local damage = ""
 local armour = ""
 local ailmentThreshold = ""
+local monsterPhysConversionMulti = ""
 for stats in dat("DefaultMonsterStats"):Rows() do
 	evasion = evasion .. stats.Evasion .. ", "
 	accuracy = accuracy .. stats.Accuracy .. ", "
@@ -22,6 +23,7 @@ for stats in dat("DefaultMonsterStats"):Rows() do
 	allyDamage = allyDamage .. stats.MinionDamage .. ", "
 	--armour = armour .. stats.Armour .. ", " The table here is wrong so we generate it instead
 	ailmentThreshold = ailmentThreshold .. stats.AilmentThreshold .. ", "
+	monsterPhysConversionMulti = monsterPhysConversionMulti .. stats.MonsterPhysConversionMulti .. ", "
 end
 for i = 1, 100 do
 	armour = armour .. math.floor((10 + 2 * i ) * ( ( 1 + dat("GameConstants"):GetRow("Id", "MonsterDamageReductionImprovement").Value / dat("GameConstants"):GetRow("Id", "MonsterDamageReductionImprovement").Divisor / 100 ) ^ i)) .. ", "
@@ -37,6 +39,7 @@ out:write('data.monsterDamageTable = { '..damage..'}\n')
 out:write('data.monsterAllyDamageTable = { '..allyDamage..'}\n')
 out:write('data.monsterArmourTable = { '..armour..'}\n')
 out:write('data.monsterAilmentThresholdTable = { '..ailmentThreshold..'}\n')
+out:write('data.monsterPhysConversionMultiTable = { '..monsterPhysConversionMulti..'}\n')
 
 out:write('-- From GameConstants.dat\n')
 out:write('data.gameConstants = {\n')

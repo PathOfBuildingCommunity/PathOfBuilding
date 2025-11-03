@@ -829,7 +829,7 @@ function buildKeystoneItems(keystoneMap)
 	table.insert(impossibleEscape, "Variant: Everything (QoL Test Variant)")
 	local variantCount = #impossibleEscapeKeystones + 1
 	for index, name in ipairs(impossibleEscapeKeystones) do
-		table.insert(impossibleEscape, "{variant:"..index..","..variantCount.."}Passives in radius of "..name.." can be allocated without being connected to your tree")
+		table.insert(impossibleEscape, "{variant:"..index..","..variantCount.."}Passives Skills in radius of "..name.." can be allocated without being connected to your tree")
 	end
 	table.insert(impossibleEscape, "Corrupted")
 	table.insert(data.uniques.generated, table.concat(impossibleEscape, "\n"))
@@ -913,8 +913,20 @@ Variant: Current
 ]]
 )
 
-for name, _ in pairs(replicaDragonfangsFlightMods) do
-	table.insert(replicaDragonfangsFlight, "Variant: "..name)
+local sortedReplicaDragonfangsFlightMods = { }
+
+for name, line in pairs(replicaDragonfangsFlightMods) do
+	table.insert(sortedReplicaDragonfangsFlightMods, { line, name } )
+end
+table.sort(sortedReplicaDragonfangsFlightMods, function (m1, m2)
+	if m1[1] == m2[1] then
+		return m1[2] < m2[2]
+	end
+	return m1[1] < m2[1]
+end )
+
+for _, mod in ipairs(sortedReplicaDragonfangsFlightMods) do
+	table.insert(replicaDragonfangsFlight, "Variant: "..mod[2])
 end
 
 table.insert(replicaDragonfangsFlight,
@@ -926,8 +938,8 @@ table.insert(replicaDragonfangsFlight,
 )
 
 local index = 3
-for _, line in pairs(replicaDragonfangsFlightMods) do
-	table.insert(replicaDragonfangsFlight, "{variant:"..index.."}"..line)
+for _, mod in ipairs(sortedReplicaDragonfangsFlightMods) do
+	table.insert(replicaDragonfangsFlight, "{variant:"..index.."}"..mod[1])
 	index = index + 1
 end
 
