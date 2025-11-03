@@ -2162,7 +2162,7 @@ local specialModList = {
 		mod("ExtraMinionSkill", "LIST", { skillId = "SiegebreakerCausticGround" }),
 		mod("MinionModifier", "LIST", { mod = mod("Multiplier:SiegebreakerCausticGroundPercent", "BASE", num) }),
 	} end,
-	["your minions spread caustic ground on death, dealing (%d+)%% of their maximum life as fire damage per second"] = function(num) return {
+	["your minions spread burning ground on death, dealing (%d+)%% of their maximum life as fire damage per second"] = function(num) return {
 		mod("ExtraMinionSkill", "LIST", { skillId = "ReplicaSiegebreakerBurningGround" }),
 		mod("MinionModifier", "LIST", { mod = mod("Multiplier:SiegebreakerBurningGroundPercent", "BASE", num) }),
 	} end,
