@@ -164,6 +164,13 @@ itemBases["Black Maw Talisman"] = {
 	implicit = "Has 1 Socket",
 	implicitModTypes = { {  }, },
 	req = { },
+	flavourText = {
+		"The First Ones stalk with us",
+		"upon this lifelong hunt,",
+		"and cast their contempt",
+		"upon those that would make us their prey.",
+		"- The Wolven King",
+	},
 }
 itemBases["Bonespire Talisman"] = {
 	type = "Amulet",
@@ -173,6 +180,13 @@ itemBases["Bonespire Talisman"] = {
 	implicit = "(20-30)% increased maximum Mana",
 	implicitModTypes = { { "resource", "mana" }, },
 	req = { },
+	flavourText = {
+		"The civilised man must wrestle",
+		"with the demands of heart and mind.",
+		"The First Ones share no such struggle.",
+		"For their Spirit is swift and deadly certain.",
+		"- The Wolven King",
+	},
 }
 itemBases["Ashscale Talisman"] = {
 	type = "Amulet",
@@ -182,6 +196,13 @@ itemBases["Ashscale Talisman"] = {
 	implicit = "(20-30)% increased Fire Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire" }, },
 	req = { },
+	flavourText = {
+		"The fire of the hearth is a docile dog,",
+		"leashed and tamed.",
+		"The fire of the First Ones is a ravening wolf,",
+		"wild and free.",
+		"- The Wolven King",
+	},
 }
 itemBases["Lone Antler Talisman"] = {
 	type = "Amulet",
@@ -191,6 +212,13 @@ itemBases["Lone Antler Talisman"] = {
 	implicit = "(20-30)% increased Lightning Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "lightning" }, },
 	req = { },
+	flavourText = {
+		"The First Ones thundered over Ezomyr",
+		"upon hooves of grey and black.",
+		"The people felt their stamping rage",
+		"and cowered as the fury rained down.",
+		"- The Wolven King",
+	},
 }
 itemBases["Deep One Talisman"] = {
 	type = "Amulet",
@@ -200,6 +228,13 @@ itemBases["Deep One Talisman"] = {
 	implicit = "(20-30)% increased Cold Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold" }, },
 	req = { },
+	flavourText = {
+		"We have basked in the cloying warmth of servitude.",
+		"Now the First Ones harden us",
+		"against the numbing chill of despair",
+		"so that freedom will not slip through our trembling fingers.",
+		"- The Wolven King",
+	},
 }
 itemBases["Breakrib Talisman"] = {
 	type = "Amulet",
@@ -209,6 +244,13 @@ itemBases["Breakrib Talisman"] = {
 	implicit = "(20-30)% increased Global Physical Damage",
 	implicitModTypes = { { "physical_damage", "damage", "physical" }, },
 	req = { },
+	flavourText = {
+		"I stood among the stones",
+		"And called out to the First Ones;",
+		"That with tooth and mighty claw,",
+		"They should tear our enemies asunder.",
+		"- The Wolven King",
+	},
 }
 itemBases["Deadhand Talisman"] = {
 	type = "Amulet",
@@ -218,6 +260,13 @@ itemBases["Deadhand Talisman"] = {
 	implicit = "(19-31)% increased Chaos Damage",
 	implicitModTypes = { { "chaos_damage", "damage", "chaos" }, },
 	req = { },
+	flavourText = {
+		"The Empire poisons our blood with sweet wine.",
+		"Poisons our flesh with silk.",
+		"Poisons our minds with civil lies.",
+		"Poisons our children with servitude.",
+		"- The Wolven King",
+	},
 }
 itemBases["Undying Flesh Talisman"] = {
 	type = "Amulet",
@@ -227,6 +276,13 @@ itemBases["Undying Flesh Talisman"] = {
 	implicit = "+1 to maximum number of Raised Zombies",
 	implicitModTypes = { { "minion" }, },
 	req = { },
+	flavourText = {
+		"'Sleep when you are weary,' our mothers told us.",
+		"'Sleep when you are dead,' our fathers told us.",
+		"To the First Ones, the slumbering and the corpse",
+		"are one and the same.",
+		"- The Wolven King",
+	},
 }
 itemBases["Rot Head Talisman"] = {
 	type = "Amulet",
@@ -236,6 +292,12 @@ itemBases["Rot Head Talisman"] = {
 	implicit = "(30-40)% increased Fish Bite Sensitivity",
 	implicitModTypes = { { "green_herring" }, },
 	req = { },
+	flavourText = {
+		"To catch a big fish you need tempting bait.",
+		"And there is no fish bigger than the Empire,",
+		"and no bait as tempting as Ezomyr.",
+		"- The Wolven King",
+	},
 }
 itemBases["Mandible Talisman"] = {
 	type = "Amulet",
@@ -245,6 +307,13 @@ itemBases["Mandible Talisman"] = {
 	implicit = "(6-10)% increased Attack and Cast Speed",
 	implicitModTypes = { { "attack", "caster", "speed" }, },
 	req = { },
+	flavourText = {
+		"The First Ones hold us",
+		"between two sharpened blades.",
+		"That should we stray too far from the path,",
+		"we find ourselves severed.",
+		"- The Wolven King",
+	},
 }
 itemBases["Chrysalis Talisman"] = {
 	type = "Amulet",
@@ -254,6 +323,13 @@ itemBases["Chrysalis Talisman"] = {
 	implicit = "(20-30)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	req = { },
+	flavourText = {
+		"The world of the First Ones is harsh;",
+		"We struggle on our bellies to survive.",
+		"But that which imprisons us also changes us",
+		"And soon we will emerge anew.",
+		"- The Wolven King",
+	},
 }
 itemBases["Writhing Talisman"] = {
 	type = "Amulet",
@@ -263,6 +339,13 @@ itemBases["Writhing Talisman"] = {
 	implicit = "(20-30)% increased Attack Damage",
 	implicitModTypes = { { "damage", "attack" }, },
 	req = { },
+	flavourText = {
+		"For too long we have crawled in darkness,",
+		"scavenging through rotten scraps.",
+		"The First Ones teach us to scavenge until we can hunt,",
+		"and then never crawl again.",
+		"- The Wolven King",
+	},
 }
 itemBases["Hexclaw Talisman"] = {
 	type = "Amulet",
@@ -272,6 +355,13 @@ itemBases["Hexclaw Talisman"] = {
 	implicit = "(40-50)% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
 	req = { },
+	flavourText = {
+		"The Hunter faced the First One",
+		"and notched his final arrow.",
+		"The First One bared its fangs",
+		"and savoured its final breath.",
+		"- The Wolven King",
+	},
 }
 itemBases["Primal Skull Talisman"] = {
 	type = "Amulet",
@@ -281,6 +371,13 @@ itemBases["Primal Skull Talisman"] = {
 	implicit = "Regenerate 2% of Life per second",
 	implicitModTypes = { { "resource", "life" }, },
 	req = { },
+	flavourText = {
+		"With the will of the first ones in our sinews",
+		"we shall tear down the walls of Sarn.",
+		"Yet as is the way of the wildlands,",
+		"Only the strong may grow stronger.",
+		"- The Wolven King",
+	},
 }
 itemBases["Wereclaw Talisman"] = {
 	type = "Amulet",
@@ -290,6 +387,13 @@ itemBases["Wereclaw Talisman"] = {
 	implicit = "+(24-36)% to Global Critical Strike Multiplier",
 	implicitModTypes = { { "damage", "critical" }, },
 	req = { },
+	flavourText = {
+		"It's said to be noble to stand one's ground.",
+		"To soak the earth in stalwart blood.",
+		"While the First Ones chose to laugh and run",
+		"and caper with untamed glee.",
+		"- The Wolven King",
+	},
 }
 itemBases["Splitnewt Talisman"] = {
 	type = "Amulet",
@@ -299,6 +403,13 @@ itemBases["Splitnewt Talisman"] = {
 	implicit = "(4-6)% chance to Freeze, Shock and Ignite",
 	implicitModTypes = { { "elemental", "fire", "cold", "lightning", "ailment" }, },
 	req = { },
+	flavourText = {
+		"From flesh and ferocity,",
+		"the First Ones roamed",
+		"through the realm of Spirit,",
+		"and into the darkness beyond.",
+		"- The Wolven King",
+	},
 }
 itemBases["Clutching Talisman"] = {
 	type = "Amulet",
@@ -308,6 +419,13 @@ itemBases["Clutching Talisman"] = {
 	implicit = "(15-25)% increased Global Defences",
 	implicitModTypes = { { "defences" }, },
 	req = { },
+	flavourText = {
+		"Fear the children of the First Ones.",
+		"Let fear shield your back.",
+		"And let the dullard speak of bravery",
+		"when the First Ones come for him.",
+		"- The Wolven King",
+	},
 }
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
@@ -317,6 +435,13 @@ itemBases["Avian Twins Talisman"] = {
 	implicit = "50% of Fire Damage from Hits taken as Cold Damage",
 	implicitModTypes = { { "elemental", "fire", "cold" }, },
 	req = { },
+	flavourText = {
+		"The first ones live where they can, where they must.",
+		"They embrace the frost, the storm, the drought.",
+		"Waxing and waning, breaking and mending,",
+		"living with time and happenstance, as must we.",
+		"- The Wolven King",
+	},
 }
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
@@ -326,6 +451,13 @@ itemBases["Avian Twins Talisman"] = {
 	implicit = "50% of Fire Damage from Hits taken as Lightning Damage",
 	implicitModTypes = { { "elemental", "fire", "lightning" }, },
 	req = { },
+	flavourText = {
+		"The first ones live where they can, where they must.",
+		"They embrace the frost, the storm, the drought.",
+		"Waxing and waning, breaking and mending,",
+		"living with time and happenstance, as must we.",
+		"- The Wolven King",
+	},
 }
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
@@ -335,6 +467,13 @@ itemBases["Avian Twins Talisman"] = {
 	implicit = "50% of Cold Damage from Hits taken as Fire Damage",
 	implicitModTypes = { { "elemental", "fire", "cold" }, },
 	req = { },
+	flavourText = {
+		"The first ones live where they can, where they must.",
+		"They embrace the frost, the storm, the drought.",
+		"Waxing and waning, breaking and mending,",
+		"living with time and happenstance, as must we.",
+		"- The Wolven King",
+	},
 }
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
@@ -344,6 +483,13 @@ itemBases["Avian Twins Talisman"] = {
 	implicit = "50% of Cold Damage from Hits taken as Lightning Damage",
 	implicitModTypes = { { "elemental", "cold", "lightning" }, },
 	req = { },
+	flavourText = {
+		"The first ones live where they can, where they must.",
+		"They embrace the frost, the storm, the drought.",
+		"Waxing and waning, breaking and mending,",
+		"living with time and happenstance, as must we.",
+		"- The Wolven King",
+	},
 }
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
@@ -353,6 +499,13 @@ itemBases["Avian Twins Talisman"] = {
 	implicit = "50% of Lightning Damage from Hits taken as Cold Damage",
 	implicitModTypes = { { "elemental", "cold", "lightning" }, },
 	req = { },
+	flavourText = {
+		"The first ones live where they can, where they must.",
+		"They embrace the frost, the storm, the drought.",
+		"Waxing and waning, breaking and mending,",
+		"living with time and happenstance, as must we.",
+		"- The Wolven King",
+	},
 }
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
@@ -362,6 +515,13 @@ itemBases["Avian Twins Talisman"] = {
 	implicit = "50% of Lightning Damage from Hits taken as Fire Damage",
 	implicitModTypes = { { "elemental", "fire", "lightning" }, },
 	req = { },
+	flavourText = {
+		"The first ones live where they can, where they must.",
+		"They embrace the frost, the storm, the drought.",
+		"Waxing and waning, breaking and mending,",
+		"living with time and happenstance, as must we.",
+		"- The Wolven King",
+	},
 }
 itemBases["Fangjaw Talisman"] = {
 	type = "Amulet",
@@ -371,6 +531,13 @@ itemBases["Fangjaw Talisman"] = {
 	implicit = "(8-12)% increased maximum Life",
 	implicitModTypes = { { "resource", "life" }, },
 	req = { },
+	flavourText = {
+		"The First Ones are the forever ones.",
+		"There is no dust of the hourglass in their blood.",
+		"No fissures of weariness in their faces.",
+		"To drink of their blood is to drink of time itself.",
+		"- The Wolven King",
+	},
 }
 itemBases["Horned Talisman"] = {
 	type = "Amulet",
@@ -380,6 +547,13 @@ itemBases["Horned Talisman"] = {
 	implicit = "Projectiles Pierce 2 additional Targets",
 	implicitModTypes = { {  }, },
 	req = { },
+	flavourText = {
+		"The Empire hides lies and falsehoods",
+		"Behind a mask of politeness and civility.",
+		"The First Ones teach us to look through the lies,",
+		"And that no beast can truly cover their tracks.",
+		"- The Wolven King",
+	},
 }
 itemBases["Spinefuse Talisman"] = {
 	type = "Amulet",
@@ -389,6 +563,13 @@ itemBases["Spinefuse Talisman"] = {
 	implicit = "+(12-18)% to Damage over Time Multiplier",
 	implicitModTypes = { { "dot_multi", "damage" }, },
 	req = { },
+	flavourText = {
+		"We Ezomytes are beasts of burden",
+		"bearing wealth of an empire on our backs,",
+		"growing lean and strong",
+		"while our masters grow fat and weak.",
+		"- The Wolven King",
+	},
 }
 itemBases["Three Rat Talisman"] = {
 	type = "Amulet",
@@ -398,6 +579,13 @@ itemBases["Three Rat Talisman"] = {
 	implicit = "(12-16)% increased Attributes",
 	implicitModTypes = { { "attribute" }, },
 	req = { },
+	flavourText = {
+		"When we free ourselves from the shackles",
+		"of civilised existence",
+		"we learn to feed and run and breathe",
+		"as the First Ones have always done.",
+		"- The Wolven King",
+	},
 }
 itemBases["Monkey Twins Talisman"] = {
 	type = "Amulet",
@@ -407,6 +595,13 @@ itemBases["Monkey Twins Talisman"] = {
 	implicit = "(5-8)% increased Area of Effect",
 	implicitModTypes = { {  }, },
 	req = { },
+	flavourText = {
+		"The first ones marked their hunting grounds",
+		"with blood and piss.",
+		"We have tried to paint our future in words.",
+		"Now we shall paint with inks of savagery.",
+		"- The Wolven King",
+	},
 }
 itemBases["Longtooth Talisman"] = {
 	type = "Amulet",
@@ -416,6 +611,13 @@ itemBases["Longtooth Talisman"] = {
 	implicit = "(4-6)% additional Physical Damage Reduction",
 	implicitModTypes = { { "physical" }, },
 	req = { },
+	flavourText = {
+		"We grew contemptuous of our past.",
+		"Dismissed the first ones as ignorant and wild.",
+		"We were fools and naive children",
+		"to turn our backs on our inheritance.",
+		"- The Wolven King",
+	},
 }
 itemBases["Rotfeather Talisman"] = {
 	type = "Amulet",
@@ -425,6 +627,13 @@ itemBases["Rotfeather Talisman"] = {
 	implicit = "(25-35)% increased Damage",
 	implicitModTypes = { { "damage" }, },
 	req = { },
+	flavourText = {
+		"Death met with the First Ones",
+		"and demanded they hunt with mercy.",
+		"For while pain might delight the mind,",
+		"it does not fill the belly.",
+		"- The Wolven King",
+	},
 }
 itemBases["Monkey Paw Talisman"] = {
 	type = "Amulet",
@@ -434,6 +643,13 @@ itemBases["Monkey Paw Talisman"] = {
 	implicit = "10% chance to gain a Power Charge on Kill",
 	implicitModTypes = { { "power_charge" }, },
 	req = { },
+	flavourText = {
+		"Look not upon me with fear, my men.",
+		"Though I seem strange, even monstrous,",
+		"were you to see with the eyes of your forebears,",
+		"your hearts would be filled with wonder.",
+		"- The Wolven King",
+	},
 }
 itemBases["Monkey Paw Talisman"] = {
 	type = "Amulet",
@@ -443,6 +659,13 @@ itemBases["Monkey Paw Talisman"] = {
 	implicit = "10% chance to gain a Frenzy Charge on Kill",
 	implicitModTypes = { { "frenzy_charge" }, },
 	req = { },
+	flavourText = {
+		"Look not upon me with fear, my men.",
+		"Though I seem strange, even monstrous,",
+		"were you to see with the eyes of your forebears,",
+		"your hearts would be filled with wonder.",
+		"- The Wolven King",
+	},
 }
 itemBases["Monkey Paw Talisman"] = {
 	type = "Amulet",
@@ -452,6 +675,13 @@ itemBases["Monkey Paw Talisman"] = {
 	implicit = "10% chance to gain an Endurance Charge on Kill",
 	implicitModTypes = { { "endurance_charge" }, },
 	req = { },
+	flavourText = {
+		"Look not upon me with fear, my men.",
+		"Though I seem strange, even monstrous,",
+		"were you to see with the eyes of your forebears,",
+		"your hearts would be filled with wonder.",
+		"- The Wolven King",
+	},
 }
 itemBases["Three Hands Talisman"] = {
 	type = "Amulet",
@@ -461,6 +691,13 @@ itemBases["Three Hands Talisman"] = {
 	implicit = "Gain (6-12)% of Physical Damage as Extra Damage of a random Element",
 	implicitModTypes = { { "physical_damage", "elemental_damage", "damage", "physical", "elemental" }, },
 	req = { },
+	flavourText = {
+		"We breed thoughts of single mind,",
+		"fashion tools of single purpose.",
+		"While the First Ones bring to bear",
+		"anything that the wildlands provide.",
+		"- The Wolven King",
+	},
 }
 itemBases["Greatwolf Talisman"] = {
 	type = "Amulet",
@@ -469,6 +706,12 @@ itemBases["Greatwolf Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
 	req = { },
+	flavourText = {
+		"The wolf greeted the king,",
+		"In the light of the harvest moon.",
+		"The wolf offered the strength of the wild,",
+		"And the king paid for it in blood.",
+	},
 }
 itemBases["Avian Twins Talisman (Fire-To-Cold)"] = {
 	type = "Amulet",
@@ -478,6 +721,13 @@ itemBases["Avian Twins Talisman (Fire-To-Cold)"] = {
 	implicit = "50% of Fire Damage from Hits taken as Cold Damage",
 	implicitModTypes = { { "elemental", "fire", "cold" }, },
 	req = { },
+	flavourText = {
+		"The first ones live where they can, where they must.",
+		"They embrace the frost, the storm, the drought.",
+		"Waxing and waning, breaking and mending,",
+		"living with time and happenstance, as must we.",
+		"- The Wolven King",
+	},
 }
 itemBases["Avian Twins Talisman (Fire-To-Lightning)"] = {
 	type = "Amulet",
@@ -487,6 +737,13 @@ itemBases["Avian Twins Talisman (Fire-To-Lightning)"] = {
 	implicit = "50% of Fire Damage from Hits taken as Lightning Damage",
 	implicitModTypes = { { "elemental", "fire", "lightning" }, },
 	req = { },
+	flavourText = {
+		"The first ones live where they can, where they must.",
+		"They embrace the frost, the storm, the drought.",
+		"Waxing and waning, breaking and mending,",
+		"living with time and happenstance, as must we.",
+		"- The Wolven King",
+	},
 }
 itemBases["Avian Twins Talisman (Cold-To-Lightning)"] = {
 	type = "Amulet",
@@ -496,6 +753,13 @@ itemBases["Avian Twins Talisman (Cold-To-Lightning)"] = {
 	implicit = "50% of Cold Damage from Hits taken as Fire Damage",
 	implicitModTypes = { { "elemental", "fire", "cold" }, },
 	req = { },
+	flavourText = {
+		"The first ones live where they can, where they must.",
+		"They embrace the frost, the storm, the drought.",
+		"Waxing and waning, breaking and mending,",
+		"living with time and happenstance, as must we.",
+		"- The Wolven King",
+	},
 }
 itemBases["Avian Twins Talisman (Cold-To-Fire)"] = {
 	type = "Amulet",
@@ -505,6 +769,13 @@ itemBases["Avian Twins Talisman (Cold-To-Fire)"] = {
 	implicit = "50% of Cold Damage from Hits taken as Lightning Damage",
 	implicitModTypes = { { "elemental", "cold", "lightning" }, },
 	req = { },
+	flavourText = {
+		"The first ones live where they can, where they must.",
+		"They embrace the frost, the storm, the drought.",
+		"Waxing and waning, breaking and mending,",
+		"living with time and happenstance, as must we.",
+		"- The Wolven King",
+	},
 }
 itemBases["Avian Twins Talisman (Lightning-To-Cold)"] = {
 	type = "Amulet",
@@ -514,6 +785,13 @@ itemBases["Avian Twins Talisman (Lightning-To-Cold)"] = {
 	implicit = "50% of Lightning Damage from Hits taken as Cold Damage",
 	implicitModTypes = { { "elemental", "cold", "lightning" }, },
 	req = { },
+	flavourText = {
+		"The first ones live where they can, where they must.",
+		"They embrace the frost, the storm, the drought.",
+		"Waxing and waning, breaking and mending,",
+		"living with time and happenstance, as must we.",
+		"- The Wolven King",
+	},
 }
 itemBases["Monkey Paw Talisman (Power)"] = {
 	type = "Amulet",
@@ -523,6 +801,13 @@ itemBases["Monkey Paw Talisman (Power)"] = {
 	implicit = "10% chance to gain a Power Charge on Kill",
 	implicitModTypes = { { "power_charge" }, },
 	req = { },
+	flavourText = {
+		"Look not upon me with fear, my men.",
+		"Though I seem strange, even monstrous,",
+		"were you to see with the eyes of your forebears,",
+		"your hearts would be filled with wonder.",
+		"- The Wolven King",
+	},
 }
 itemBases["Monkey Paw Talisman (Frenzy)"] = {
 	type = "Amulet",
@@ -532,4 +817,11 @@ itemBases["Monkey Paw Talisman (Frenzy)"] = {
 	implicit = "10% chance to gain a Frenzy Charge on Kill",
 	implicitModTypes = { { "frenzy_charge" }, },
 	req = { },
+	flavourText = {
+		"Look not upon me with fear, my men.",
+		"Though I seem strange, even monstrous,",
+		"were you to see with the eyes of your forebears,",
+		"your hearts would be filled with wonder.",
+		"- The Wolven King",
+	},
 }

@@ -598,6 +598,9 @@ itemBases["Keyblade"] = {
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 1, PhysicalMax = 1, CritChanceBase = 5, AttackRateBase = 1.2, Range = 13, },
 	req = { str = 8, dex = 8, },
+	flavourText = {
+		"Forged from thousands of unclaimed Beta keys",
+	},
 }
 itemBases["Corroded Blade"] = {
 	type = "Two Handed Sword",

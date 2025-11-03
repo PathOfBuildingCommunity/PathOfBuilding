@@ -3217,16 +3217,21 @@ function ItemsTabClass:SetTooltipHeaderInfluence(tooltip, item)
 		end
 	end
 
-	if item.title and item.title:find("Replica") then
-		addInfluence("Experimented")
 	-- Eater and Exarch combo takes priority over fractured icon.
-	elseif item.cleansing and item.tangle then
+	if item.cleansing and item.tangle then
 		addInfluence("Exarch")
 		addInfluence("Eater")
 	else
 		-- Dual influence with fracture will show fractured icon and highest priority influence.
 		if item.fractured then
 			addInfluence("Fractured")
+		end
+		-- Replica Eternity Shroud has Experimented icon and Shaper icon on the right.
+		if item.title and item.title:find("Replica") then
+			addInfluence("Experimented")
+		end
+		if item.foulborn then
+			addInfluence("Foulborn")
 		end
 		if item.veiled then
 			addInfluence("Veiled")
@@ -3579,10 +3584,17 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	end
 
 	-- Show flavour text:
-	if (item.rarity == "UNIQUE" or item.rarity == "RELIC" or item.baseName == "Grasping Mail") and main.showFlavourText == true then
-		local flavourTable = flavourLookup[item.baseName == "Grasping Mail" and item.baseName or item.title]
+	if (item.rarity == "UNIQUE" or item.rarity == "RELIC" or item.base.flavourText) and main.showFlavourText then
+		local flavour = nil
+		local flavourTable = nil
+
+		if item.base.flavourText then
+			flavour = item.base.flavourText
+		else
+			flavourTable = flavourLookup[item.title:gsub("^Foulborn%s+", "")]
+		end
+
 		if flavourTable then
-			local flavour = nil
 			if item.title == "Grand Spectrum" then
 				local selectedFlavourId = nil
 				for _, lineEntry in ipairs(tooltip.lines or {}) do
@@ -3616,7 +3628,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 						break
 					end
 				end
-				if selectedFlavourId then
+				if selectedFlavourId and flavourTable[selectedFlavourId] then
 					flavour = flavourTable[selectedFlavourId]
 				end
 			else
@@ -3625,13 +3637,13 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 					break
 				end
 			end
+		end
 
-			if flavour then
-				for _, line in ipairs(flavour) do
-					tooltip:AddLine(fontSizeBig, colorCodes.UNIQUE .. line, "FONTIN SC ITALIC")
-				end
-				tooltip:AddSeparator(14)
+		if flavour then
+			for _, line in ipairs(flavour) do
+				tooltip:AddLine(fontSizeBig, colorCodes.UNIQUE .. line, "FONTIN SC ITALIC")
 			end
+			tooltip:AddSeparator(14)
 		end
 	end
 

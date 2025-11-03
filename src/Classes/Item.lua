@@ -682,6 +682,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						if not (self.rarity == "NORMAL" or self.rarity == "MAGIC") then
 							self.title = self.name
 						end
+						if self.title and self.title:find("Foulborn") then
+							self.foulborn = true
+						end
 						self.type = base.type
 						self.base = base
 						self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])

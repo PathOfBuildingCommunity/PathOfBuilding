@@ -314,6 +314,9 @@ itemBases["Cryonic Ring"] = {
 	implicit = "+2% to maximum Cold Resistance\nCannot roll Modifiers of Non-Cold Damage Types",
 	implicitModTypes = { { "elemental", "cold", "resistance" }, { "elemental", "cold", "resistance" }, },
 	req = { level = 32, },
+	flavourText = {
+		"We lie eternal, eyes open, yet still.",
+	},
 }
 itemBases["Enthalpic Ring"] = {
 	type = "Ring",
@@ -322,6 +325,9 @@ itemBases["Enthalpic Ring"] = {
 	implicit = "+2% to maximum Fire Resistance\nCannot roll Modifiers of Non-Fire Damage Types",
 	implicitModTypes = { { "elemental", "fire", "resistance" }, { "elemental", "fire", "resistance" }, },
 	req = { level = 32, },
+	flavourText = {
+		"The embers of the Red Pyre yet glow.",
+	},
 }
 itemBases["Synaptic Ring"] = {
 	type = "Ring",
@@ -330,6 +336,9 @@ itemBases["Synaptic Ring"] = {
 	implicit = "+2% to maximum Lightning Resistance\nCannot roll Modifiers of Non-Lightning Damage Types",
 	implicitModTypes = { { "elemental", "lightning", "resistance" }, { "elemental", "lightning", "resistance" }, },
 	req = { level = 32, },
+	flavourText = {
+		"Metallic thoughts whisper in the dark.",
+	},
 }
 itemBases["Organic Ring"] = {
 	type = "Ring",
@@ -338,6 +347,9 @@ itemBases["Organic Ring"] = {
 	implicit = "3% additional Physical Damage Reduction\nCannot roll Modifiers of Non-Physical Damage Types",
 	implicitModTypes = { { "physical" }, { "physical" }, },
 	req = { level = 32, },
+	flavourText = {
+		"Our flesh longs to move as one.",
+	},
 }
 itemBases["Fugitive Ring"] = {
 	type = "Ring",
@@ -346,6 +358,9 @@ itemBases["Fugitive Ring"] = {
 	implicit = "+2% to maximum Chaos Resistance\nCannot roll Modifiers of Non-Chaos Damage Types",
 	implicitModTypes = { { "chaos", "resistance" }, { "chaos", "resistance" }, },
 	req = { level = 32, },
+	flavourText = {
+		"We will seize back our wayward Dream.",
+	},
 }
 itemBases["Formless Ring"] = {
 	type = "Ring",
