@@ -31,6 +31,7 @@ VERSION[2.58.0][2025/11/03]
 
 --- Other changes ---
 - Fix broken header images on Linux (ZereoX)
+
 VERSION[2.57.0][2025/10/30]
 
 --- Keepers of the Flame ---
