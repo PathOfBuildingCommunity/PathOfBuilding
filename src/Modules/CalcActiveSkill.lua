@@ -109,16 +109,27 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 
 	for index, supportEffect in ipairs(supportList) do
 		-- Loop through grantedEffectList until we find a support gem if the gem has an active and support component e.g. Autoexertion
-		for _, grantedEffect in ipairs(supportEffect.gemData.grantedEffectList) do
-			if grantedEffect.support then
-				-- Pass 1: Add skill types from compatible supports
-				if calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill) then
-					for _, skillType in pairs(grantedEffect.addSkillTypes) do
-						activeSkill.skillTypes[skillType] = true
+		if supportEffect.gemData then
+			for _, grantedEffect in ipairs(supportEffect.gemData.grantedEffectList) do
+				if grantedEffect.support then
+					-- Pass 1: Add skill types from compatible supports
+					if calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill) then
+						for _, skillType in pairs(grantedEffect.addSkillTypes) do
+							activeSkill.skillTypes[skillType] = true
+						end
+					else
+						t_insert(rejectedSupportsIndices, index)
 					end
-				else
-					t_insert(rejectedSupportsIndices, index)
 				end
+			end
+		else
+			-- Skill with no GemData e.g. Item granted supports
+			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+				for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
+					activeSkill.skillTypes[skillType] = true
+				end
+			else
+				t_insert(rejectedSupportsIndices, index)
 			end
 		end
 	end
@@ -130,14 +141,24 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 		notAddedNewSupport = true
 		for index, supportEffectIndex in ipairs(rejectedSupportsIndices) do
 			local supportEffect = supportList[supportEffectIndex]
-			for _, grantedEffect in ipairs(supportEffect.gemData.grantedEffectList) do
-				if grantedEffect.support then
-					if calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill) then
-						notAddedNewSupport = false
-						rejectedSupportsIndices[index] = nil
-						for _, skillType in pairs(grantedEffect.addSkillTypes) do
-							activeSkill.skillTypes[skillType] = true
+			if supportEffect.gemData then
+				for _, grantedEffect in ipairs(supportEffect.gemData.grantedEffectList) do
+					if grantedEffect.support then
+						if calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill) then
+							notAddedNewSupport = false
+							rejectedSupportsIndices[index] = nil
+							for _, skillType in pairs(grantedEffect.addSkillTypes) do
+								activeSkill.skillTypes[skillType] = true
+							end
 						end
+					end
+				end
+			else
+				if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+					notAddedNewSupport = false
+					rejectedSupportsIndices[index] = nil
+					for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
+						activeSkill.skillTypes[skillType] = true
 					end
 				end
 			end
@@ -146,18 +167,32 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	
 	for _, supportEffect in ipairs(supportList) do
 		-- Pass 2: Add all compatible supports
-		for _, grantedEffect in ipairs(supportEffect.gemData.grantedEffectList) do
-			if grantedEffect.support then
-				if calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill) then
-					t_insert(activeSkill.effectList, supportEffect)
-					if supportEffect.isSupporting and activeEffect.srcInstance then
-						supportEffect.isSupporting[activeEffect.srcInstance] = true
-					end
-					if grantedEffect.addFlags and not summonSkill then
-						-- Support skill adds flags to supported skills (eg. Remote Mine adds 'mine')
-						for k in pairs(grantedEffect.addFlags) do
-							skillFlags[k] = true
+		if supportEffect.gemData then
+			for _, grantedEffect in ipairs(supportEffect.gemData.grantedEffectList) do
+				if grantedEffect.support then
+					if calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill) then
+						t_insert(activeSkill.effectList, supportEffect)
+						if supportEffect.isSupporting and activeEffect.srcInstance then
+							supportEffect.isSupporting[activeEffect.srcInstance] = true
 						end
+						if grantedEffect.addFlags and not summonSkill then
+							-- Support skill adds flags to supported skills (eg. Remote Mine adds 'mine')
+							for k in pairs(grantedEffect.addFlags) do
+								skillFlags[k] = true
+							end
+						end
+					end
+				end
+			end
+			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+				t_insert(activeSkill.effectList, supportEffect)
+				if supportEffect.isSupporting and activeEffect.srcInstance then
+					supportEffect.isSupporting[activeEffect.srcInstance] = true
+				end
+				if supportEffect.grantedEffect.addFlags and not summonSkill then
+					-- Support skill adds flags to supported skills (eg. Remote Mine adds 'mine')
+					for k in pairs(supportEffect.grantedEffect.addFlags) do
+						skillFlags[k] = true
 					end
 				end
 			end
