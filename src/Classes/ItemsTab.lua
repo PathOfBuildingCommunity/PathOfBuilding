@@ -3217,16 +3217,21 @@ function ItemsTabClass:SetTooltipHeaderInfluence(tooltip, item)
 		end
 	end
 
-	if item.title and item.title:find("Replica") then
-		addInfluence("Experimented")
 	-- Eater and Exarch combo takes priority over fractured icon.
-	elseif item.cleansing and item.tangle then
+	if item.cleansing and item.tangle then
 		addInfluence("Exarch")
 		addInfluence("Eater")
 	else
 		-- Dual influence with fracture will show fractured icon and highest priority influence.
 		if item.fractured then
 			addInfluence("Fractured")
+		end
+		-- Replica Eternity Shroud has Experimented icon and Shaper icon on the right.
+		if item.title and item.title:find("Replica") then
+			addInfluence("Experimented")
+		end
+		if item.foulborn then
+			addInfluence("Foulborn")
 		end
 		if item.veiled then
 			addInfluence("Veiled")
@@ -3579,8 +3584,8 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	end
 
 	-- Show flavour text:
-	if (item.rarity == "UNIQUE" or item.rarity == "RELIC" or item.baseName == "Grasping Mail") and main.showFlavourText == true then
-		local flavourTable = flavourLookup[item.baseName == "Grasping Mail" and item.baseName or item.title]
+	if (item.rarity == "UNIQUE" or item.rarity == "RELIC" or item.baseName == "Grasping Mail") and main.showFlavourText then
+		local flavourTable = flavourLookup[item.baseName == "Grasping Mail" and item.baseName or item.title:gsub("^Foulborn%s+", "")]
 		if flavourTable then
 			local flavour = nil
 			if item.title == "Grand Spectrum" then
