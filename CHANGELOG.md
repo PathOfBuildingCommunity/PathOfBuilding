@@ -1,5 +1,38 @@
 # Changelog
 
+## [v2.58.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.58.0) (2025/11/03)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.57.0...v2.58.0)
+
+
+## What's Changed
+### Keepers of the Flame
+- Update and add new 3.27 skills [\#9142](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9142) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add new Wand and Ring item bases [\#9142](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9142) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add initial support for Grafts [\#9148](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9148) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add initial support for Foulborn unique mods [\#9116](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9116) ([Wires77](https://github.com/Wires77))
+- Add Support for new Monster Phys damage conversion logic [\#9150](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9150) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for "Farewell to Flesh" (Lycia Bloodline Herald Ascendancy Node) [\#9108](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9108) ([majochem](https://github.com/majochem))
+- Add instant buyout to search URLs [\#9136](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9136) ([Goufix](https://github.com/Goufix))
+### User Interface
+- Show Foulborn Icon on new Foulborn uniques and flavour text on new base items [\#9147](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9147) ([Blitz54](https://github.com/Blitz54))
+- Sort Replica Dragonfang's Flight mods [\#9096](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9096) ([Wires77](https://github.com/Wires77))
+- Fix "The Tactician" missing flavour text [\#9130](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9130) ([Nightblade](https://github.com/Nightblade))
+### Fixed Calculations
+- Fix Warcry uptime when using  Dual Strike of Ambidexterity [\#9145](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9145) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Behaviours
+- Fix Gem dropdown tooltip not updating when hovering over gems [\#9146](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9146) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Aul Bloodline Aura nodes always applying [\#9103](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9103) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Everlasting Sacrifice not showing the config from the Chaos Ascendancy [\#9097](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9097) ([Wires77](https://github.com/Wires77))
+- Fix Intuitive Leap, Thread of Hope and Impossible Escape not working [\#9135](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9135) ([n1tr0xs](https://github.com/n1tr0xs))
+- Fix legacy Curse cluster not appearing on tree sometimes [\#9141](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9141) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Overexertion and Echoes of Creation counting duplicate Warcries [\#9144](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9144) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Chaos Inoculation not disabling Righteous Fire Buff and Degen [\#9110](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9110) ([LocalIdentity](https://github.com/LocalIdentity))
+### Accuracy Improvements
+- Fix Burning Ground from Replica Siegebreaker not working [\#9102](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9102) ([pabgarbar](https://github.com/pabgarbar))
+### Other changes
+- Fix broken header images on Linux [\#9092](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9092) ([ZereoX](https://github.com/ZereoX))
+
 ## [v2.57.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.57.0) (2025/10/30)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.56.0...v2.57.0)
