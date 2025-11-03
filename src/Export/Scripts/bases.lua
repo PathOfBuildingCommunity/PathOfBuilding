@@ -5,6 +5,47 @@ loadStatFile("tincture_stat_descriptions.txt")
 
 local s_format = string.format
 
+-- Add cleanAndSplit function
+local function cleanAndSplit(str)
+    -- Normalize newlines
+    str = str:gsub("\r\n", "\n")
+
+    -- Replace <default> with a newline and ^8
+    str = str:gsub("<default>", "\n^8")
+
+    local lines = {}
+    for line in str:gmatch("[^\n]+") do
+        -- trim
+        line = line:match("^%s*(.-)%s*$")
+
+        if line ~= "" then
+            -- Remove braces but keep contents
+            line = line:gsub("%{(.-)%}", "%1")
+
+            -- Remove any <<...>> sequences (non-greedy)
+            line = line:gsub("<<(.-)>>", "")
+
+            -- trim again in case removal left surrounding spaces
+            line = line:match("^%s*(.-)%s*$")
+
+            -- Escape quotes
+            line = line:gsub('"', '\\"')
+
+            -- Insert a blank line before any ^8 line
+            if line:match("^%^8") and (#lines == 0 or lines[#lines] ~= "") then
+                table.insert(lines, "")
+            end
+
+            -- Only add non-empty lines
+            if line ~= "" then
+                table.insert(lines, line)
+            end
+        end
+    end
+
+    return lines
+end
+
 local directiveTable = { }
 local bases = { All = { } }
 
@@ -225,8 +266,18 @@ directiveTable.base = function(state, args, out)
 			out:write('int = ', compAtt.Int, ', ')
 		end
 	end
-	out:write('},\n}\n')
-	
+	out:write('},\n')
+		if baseItemType.FlavourTextKey and baseItemType.FlavourTextKey.Text then
+		local cleanedLines = cleanAndSplit(baseItemType.FlavourTextKey.Text)
+		if #cleanedLines > 0 then
+			out:write('\tflavourText = {\n')
+			for _, line in ipairs(cleanedLines) do
+				out:write('\t\t"', line, '",\n')
+			end
+			out:write('\t},\n')
+		end
+	end
+	out:write('}\n')
 	if not (state.forceHide and not baseTypeId:match("Talisman") and not state.forceShow) then
 		bases[state.type] = bases[state.type] or {}
 		local subtype = state.subType and #state.subType and state.subType or ""

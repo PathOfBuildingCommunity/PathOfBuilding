@@ -84,7 +84,6 @@ local forcedNameList = { -- fated show twice at the moment, but this list is cau
 	{ id = "UniqueBeltDemigods1", name = "Demigod's Bounty" },
 	{ id = "UniqueBodyDemigods", name = "Demigod's Dominance" },
 	{ id = "UniqueHelmetDemigods1", name = "Demigod's Immortality" },
-	{ id = "GraspingMailFlavourText", name = "Grasping Mail" },
 	{ id = "UniqueQuiver1", name = "Blackgleam" },
 	{ id = "FatedUnique8", name = "The Signal Fire" },
 	{ id = "UniqueBootsStr1", name = "Windscream" },

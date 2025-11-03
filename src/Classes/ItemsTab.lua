@@ -3584,10 +3584,17 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	end
 
 	-- Show flavour text:
-	if (item.rarity == "UNIQUE" or item.rarity == "RELIC" or item.baseName == "Grasping Mail") and main.showFlavourText then
-		local flavourTable = flavourLookup[item.baseName == "Grasping Mail" and item.baseName or item.title:gsub("^Foulborn%s+", "")]
+	if (item.rarity == "UNIQUE" or item.rarity == "RELIC" or item.base.flavourText) and main.showFlavourText then
+		local flavour = nil
+		local flavourTable = nil
+
+		if item.base.flavourText then
+			flavour = item.base.flavourText
+		else
+			flavourTable = flavourLookup[item.title:gsub("^Foulborn%s+", "")]
+		end
+
 		if flavourTable then
-			local flavour = nil
 			if item.title == "Grand Spectrum" then
 				local selectedFlavourId = nil
 				for _, lineEntry in ipairs(tooltip.lines or {}) do
@@ -3621,7 +3628,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 						break
 					end
 				end
-				if selectedFlavourId then
+				if selectedFlavourId and flavourTable[selectedFlavourId] then
 					flavour = flavourTable[selectedFlavourId]
 				end
 			else
@@ -3630,13 +3637,13 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 					break
 				end
 			end
+		end
 
-			if flavour then
-				for _, line in ipairs(flavour) do
-					tooltip:AddLine(fontSizeBig, colorCodes.UNIQUE .. line, "FONTIN SC ITALIC")
-				end
-				tooltip:AddSeparator(14)
+		if flavour then
+			for _, line in ipairs(flavour) do
+				tooltip:AddLine(fontSizeBig, colorCodes.UNIQUE .. line, "FONTIN SC ITALIC")
 			end
+			tooltip:AddSeparator(14)
 		end
 	end
 

@@ -1233,6 +1233,12 @@ itemBases["Grasping Mail"] = {
 	implicitModTypes = { },
 	armour = { ArmourBaseMin = 217, ArmourBaseMax = 250, EvasionBaseMin = 217, EvasionBaseMax = 250, EnergyShieldBaseMin = 44, EnergyShieldBaseMax = 51, MovementPenalty = 3, },
 	req = { level = 70, str = 60, dex = 60, int = 60, },
+	flavourText = {
+		"Of ash and avalanche,",
+		"in storm and flesh,",
+		"we dream of unity.",
+		"The time approaches...",
+	},
 }
 itemBases["Golden Mantle"] = {
 	type = "Body Armour",
