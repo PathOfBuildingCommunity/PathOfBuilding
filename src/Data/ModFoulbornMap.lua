@@ -38,7 +38,7 @@ return {
 	},
 	["Berek's Respite"] = {
 		"Ignited Enemies you Kill Explode, dealing 5% of their Life as Fire Damage which cannot Ignite",
-		"Shocked Enemies you Kill Explode, dealing 5% of, their Life as Lightning Damage which cannot Shock",
+		"Shocked Enemies you Kill Explode, dealing 5% of their Life as Lightning Damage which cannot Shock",
 	},
 	["Bronn's Lithe"] = {
 		"(20-40)% increased Cooldown Recovery Rate of Movement Skills",
@@ -170,7 +170,7 @@ return {
 		"With (8-12) Small Passives Allocated in Radius, When you Kill a Rare monster, you gain 1 of its Modifiers for 20 seconds",
 	},
 	["Intuitive Leap"] = {
-		"Keystone Passive Skills in Radius can be Allocated without being connected to your tree, Passage",
+		"Keystone Passive Skills in Radius can be Allocated without being connected to your tree Passage",
 	},
 	["Jorrhast's Blacksteel"] = {
 		"Maximum number of Animated Weapons is Doubled",
@@ -201,7 +201,7 @@ return {
 		"Prevent +35% of Suppressed Spell Damage if you have not Suppressed Spell Damage Recently",
 	},
 	["Kitava's Thirst"] = {
-		"Trigger Socketed Spells when you Spend at least 200 Life on an, Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown",
+		"Trigger Socketed Spells when you Spend at least 200 Life on an Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown",
 	},
 	["Kongming's Stratagem"] = {
 		"Enemies Blinded by you have 100% reduced Critical Strike Chance",
@@ -488,7 +488,7 @@ return {
 		"50% increased maximum Life",
 	},
 	["Ventor's Gamble"] = {
-		"+(0-60) to maximum Energy Shield, +(0-60) to maximum Mana",
+		"+(0-60) to maximum Energy Shield +(0-60) to maximum Mana",
 	},
 	["Victario's Flight"] = {
 		"(6-12)% increased Action Speed",
