@@ -80,13 +80,13 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 		end
 		local convMult = conversionTable[otherType][damageType]
 		if convMult > 0 then
+			local convPortion = conversionTable[otherType].conversion[damageType]
+			if convPortion > 0 and cfg.summonSkillName and cfg.summonSkillName == "Raise Spectre" and otherType == "Physical" and damageType ~= "Chaos" then
+				local physBonus = 1 + data.monsterPhysConversionMultiTable[activeSkill.actor.level] / 100
+				convMult = (convMult - convPortion) + convPortion * physBonus
+			end
 			-- Damage is being converted/gained from the other damage type
 			local min, max = calcDamage(activeSkill, output, cfg, breakdown, otherType, typeFlags, damageType)
-			if cfg.summonSkillName and cfg.summonSkillName == "Raise Spectre" then
-				if otherType == "Physical" then
-					convMult = convMult * (1 + data.monsterPhysConversionMultiTable[activeSkill.actor.level] / 100)
-				end
-			end
 			addMin = addMin + min * convMult
 			addMax = addMax + max * convMult
 		end
@@ -1832,8 +1832,10 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			globalTotal = globalTotal * factor
 		end
-		local dmgTable = { }
-		for type, val in pairs(globalConv) do
+		local dmgTable = { conversion = { }, gain = { } }
+		for type in pairs(globalConv) do
+			dmgTable.conversion[type] = (globalConv[type] + skillConv[type]) / 100
+			dmgTable.gain[type] = add[type] / 100
 			dmgTable[type] = (globalConv[type] + skillConv[type] + add[type]) / 100
 		end
 		dmgTable.mult = 1 - m_min((globalTotal + skillTotal) / 100, 1)
