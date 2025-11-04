@@ -2858,7 +2858,7 @@ local specialModList = {
 	["herald skills and minions from herald skills deal (%d+)%% more damage for every (%d+)%% of maximum life those skills reserve"] = function(_, num1, num2) return { 
 		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", tonumber(num1), { type = "PerStat", stat = "LifeReservedPercent", div = tonumber(num2), actor = "parent" })}, { type = "SkillType", skillType = SkillType.Herald }),
 		mod("Damage", "MORE", tonumber(num1), { type = "PerStat", stat = "LifeReservedPercent", div = tonumber(num2) }, { type = "SkillType", skillType = SkillType.Herald }),
-		} end,
+	} end,
 	-- Oshabi Bloodline
 	["unsealed spells gain (%d+)%% more damage each time their effects reoccur"] = function(num) return { mod("MaxSealDamage", "MORE", num) } end,
 	["skills gain added chaos damage equal to (%d+)%% of life cost, if life cost is not higher than the maximum you could spend"] = function(num) return {
