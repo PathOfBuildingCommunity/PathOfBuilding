@@ -105,7 +105,8 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 				source = damageType,
 				convSrc = (addMin ~= 0 or addMax ~= 0) and (addMin .. " to " .. addMax),
 				total = addMin .. " to " .. addMax,
-				convDst = convDst and s_format("%d%% to %s", conversionTable[damageType][convDst] * 100, convDst),
+				convDst = convDst and s_format("%d%% to %s", conversionTable[damageType].conversion[convDst] * 100, convDst),
+				gainDst = convDst and s_format("%d%% gained as %s", conversionTable[damageType].gain[convDst] * 100, convDst),
 			})
 		end
 		return addMin, addMax
@@ -128,7 +129,8 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 			more = (more ~= 1 and "x "..more),
 			convSrc = (addMin ~= 0 or addMax ~= 0) and (addMin .. " to " .. addMax),
 			total = (round(baseMin * inc * more) + addMin) .. " to " .. (round(baseMax * inc * more) + addMax),
-			convDst = convDst and conversionTable[damageType][convDst] > 0 and s_format("%d%% to %s", conversionTable[damageType][convDst] * 100, convDst),
+			convDst = convDst and conversionTable[damageType].conversion[convDst] > 0 and s_format("%d%% to %s", conversionTable[damageType].conversion[convDst] * 100, convDst),
+			gainDst = convDst and conversionTable[damageType].gain[convDst] > 0 and s_format("%d%% gained as %s", conversionTable[damageType].gain[convDst] * 100, convDst),
 		})
 	end
 
