@@ -829,7 +829,7 @@ function buildKeystoneItems(keystoneMap)
 	table.insert(impossibleEscape, "Variant: Everything (QoL Test Variant)")
 	local variantCount = #impossibleEscapeKeystones + 1
 	for index, name in ipairs(impossibleEscapeKeystones) do
-		table.insert(impossibleEscape, "{variant:"..index..","..variantCount.."}Passives Skills in radius of "..name.." can be allocated without being connected to your tree")
+		table.insert(impossibleEscape, "{variant:"..index..","..variantCount.."}Passive Skills in radius of "..name.." can be allocated without being connected to your tree")
 	end
 	table.insert(impossibleEscape, "Corrupted")
 	table.insert(data.uniques.generated, table.concat(impossibleEscape, "\n"))

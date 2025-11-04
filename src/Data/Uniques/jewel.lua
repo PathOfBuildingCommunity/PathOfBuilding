@@ -331,7 +331,7 @@ Adds Secrets of Suffering
 Intuitive Leap
 Viridian Jewel
 Radius: Small
-Passives Skills in Radius can be Allocated without being connected to your tree
+Passive Skills in Radius can be Allocated without being connected to your tree
 ]],[[
 Izaro's Turmoil
 Crimson Jewel
@@ -776,7 +776,7 @@ Implicits: 0
 {variant:3}Only affects Passives in Large Ring
 {variant:4}Only affects Passives in Very Large Ring
 {variant:5}Only affects Passives in Massive Ring
-Passives Skills in Radius can be Allocated without being connected to your tree
+Passive Skills in Radius can be Allocated without being connected to your tree
 -(20-10)% to all Elemental Resistances
 ]],[[
 Unnatural Instinct
