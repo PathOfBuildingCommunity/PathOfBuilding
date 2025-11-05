@@ -2063,7 +2063,7 @@ skills["AnimateGuardianSmite"] = {
 		"visual_hit_effect_elemental_is_holy",
 	},
 	levels = {
-		[1] = { baseMultiplier = 2.0313, levelRequirement = 1, },
+		[1] = { baseMultiplier = 3.25, damageEffectiveness = 3.25, levelRequirement = 1, },
 	},
 }
 skills["ElderTentacleMinionProjectileDeepcaller"] = {

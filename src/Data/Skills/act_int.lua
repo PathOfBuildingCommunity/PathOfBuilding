@@ -14468,8 +14468,7 @@ skills["PyroclastMine"] = {
 	castTime = 0.18,
 	statMap = {
 		["pyroclast_mine_aura_fire_exposure_%_to_apply"] = {
-			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Fire Exposure" }),
-			mult = -1,
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Pyroclast Mine Fire Exposure" }),
 		},
 	},
 	baseFlags = {
@@ -14569,8 +14568,7 @@ skills["PyroclastMineAltX"] = {
 	castTime = 0.18,
 	statMap = {
 		["pyroclast_mine_aura_fire_exposure_%_to_apply"] = {
-			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Fire Exposure" }),
-			mult = -1,
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Pyroclast Mine Fire Exposure" }),
 		},
 	},
 	baseFlags = {

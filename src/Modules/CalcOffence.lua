@@ -80,13 +80,13 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 		end
 		local convMult = conversionTable[otherType][damageType]
 		if convMult > 0 then
+			local convPortion = conversionTable[otherType].conversion[damageType]
+			if convPortion > 0 and cfg.summonSkillName and cfg.summonSkillName == "Raise Spectre" and otherType == "Physical" and damageType ~= "Chaos" then
+				local physBonus = 1 + data.monsterPhysConversionMultiTable[activeSkill.actor.level] / 100
+				convMult = (convMult - convPortion) + convPortion * physBonus
+			end
 			-- Damage is being converted/gained from the other damage type
 			local min, max = calcDamage(activeSkill, output, cfg, breakdown, otherType, typeFlags, damageType)
-			if cfg.summonSkillName and cfg.summonSkillName == "Raise Spectre" then
-				if otherType == "Physical" then
-					convMult = convMult * (1 + data.monsterPhysConversionMultiTable[activeSkill.actor.level] / 100)
-				end
-			end
 			addMin = addMin + min * convMult
 			addMax = addMax + max * convMult
 		end
@@ -105,7 +105,8 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 				source = damageType,
 				convSrc = (addMin ~= 0 or addMax ~= 0) and (addMin .. " to " .. addMax),
 				total = addMin .. " to " .. addMax,
-				convDst = convDst and s_format("%d%% to %s", conversionTable[damageType][convDst] * 100, convDst),
+				convDst = convDst and s_format("%d%% to %s", conversionTable[damageType].conversion[convDst] * 100, convDst),
+				gainDst = convDst and s_format("%d%% gained as %s", conversionTable[damageType].gain[convDst] * 100, convDst),
 			})
 		end
 		return addMin, addMax
@@ -128,7 +129,8 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 			more = (more ~= 1 and "x "..more),
 			convSrc = (addMin ~= 0 or addMax ~= 0) and (addMin .. " to " .. addMax),
 			total = (round(baseMin * inc * more) + addMin) .. " to " .. (round(baseMax * inc * more) + addMax),
-			convDst = convDst and conversionTable[damageType][convDst] > 0 and s_format("%d%% to %s", conversionTable[damageType][convDst] * 100, convDst),
+			convDst = convDst and conversionTable[damageType].conversion[convDst] > 0 and s_format("%d%% to %s", conversionTable[damageType].conversion[convDst] * 100, convDst),
+			gainDst = convDst and conversionTable[damageType].gain[convDst] > 0 and s_format("%d%% gained as %s", conversionTable[damageType].gain[convDst] * 100, convDst),
 		})
 	end
 
@@ -1832,8 +1834,10 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			globalTotal = globalTotal * factor
 		end
-		local dmgTable = { }
-		for type, val in pairs(globalConv) do
+		local dmgTable = { conversion = { }, gain = { } }
+		for type in pairs(globalConv) do
+			dmgTable.conversion[type] = (globalConv[type] + skillConv[type]) / 100
+			dmgTable.gain[type] = add[type] / 100
 			dmgTable[type] = (globalConv[type] + skillConv[type] + add[type]) / 100
 		end
 		dmgTable.mult = 1 - m_min((globalTotal + skillTotal) / 100, 1)
@@ -4001,6 +4005,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillName = skillCfg.skillName,
 				skillPart = skillCfg.skillPart,
 				skillTypes = skillCfg.skillTypes,
+				summonSkillName = skillCfg.summonSkillName,
 				slotName = skillCfg.slotName,
 				flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
 				keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Bleed, KeywordFlag.Ailment, KeywordFlag.PhysicalDot),
@@ -4273,6 +4278,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillName = skillCfg.skillName,
 				skillPart = skillCfg.skillPart,
 				skillTypes = skillCfg.skillTypes,
+				summonSkillName = skillCfg.summonSkillName,
 				slotName = skillCfg.slotName,
 				flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
 				keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Poison, KeywordFlag.Ailment, KeywordFlag.ChaosDot),
@@ -4550,6 +4556,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillName = skillCfg.skillName,
 				skillPart = skillCfg.skillPart,
 				skillTypes = skillCfg.skillTypes,
+				summonSkillName = skillCfg.summonSkillName,
 				slotName = skillCfg.slotName,
 				flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
 				keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Ignite, KeywordFlag.Ailment, KeywordFlag.FireDot),
@@ -5256,6 +5263,7 @@ function calcs.offence(env, actor, activeSkill)
 			skillName = skillCfg.skillName,
 			skillPart = skillCfg.skillPart,
 			skillTypes = skillCfg.skillTypes,
+			summonSkillName = skillCfg.summonSkillName,
 			slotName = skillCfg.slotName,
 			flags = ModFlag.Dot,
 			keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.ChaosDot),
@@ -5326,6 +5334,7 @@ function calcs.offence(env, actor, activeSkill)
 		skillName = skillCfg.skillName,
 		skillPart = skillCfg.skillPart,
 		skillTypes = skillCfg.skillTypes,
+		summonSkillName = skillCfg.summonSkillName,
 		slotName = skillCfg.slotName,
 		flags = bor(ModFlag.Dot, skillCfg.flags),
 		keywordFlags = band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)),

@@ -852,6 +852,7 @@ holding Shift will put it in the second.]])
 				tooltip:Clear()
 			elseif tooltip:CheckForUpdate(val, modList) then
 				local index, range = slider:GetDivVal(val)
+				range = verifyRange(range, index, drop)
 				local modId = modList[index]
 				local mod = self.displayItem.affixes[modId]
 				for _, line in ipairs(mod) do
@@ -1752,7 +1753,10 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 				return modA.statOrder[i] < modB.statOrder[i]
 			end
 		end
-		return modA.level > modB.level
+		if modA.level ~= modB.level then
+			return modA.level < modB.level
+		end
+		return a < b
 	end)
 	control.selIndex = 1
 	control.list = { "None" }
@@ -1796,7 +1800,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 			if selAffix == modId then
 				control.selIndex = #control.list
 			end
-			t_insert(lastSeries.modList, 1, modId)
+			t_insert(lastSeries.modList, modId)
 			if #lastSeries.modList == 2 then
 				lastSeries.label = lastSeries.label:gsub("%(%-?[%d%.]+%-%-?[%d%.]+%)","#"):gsub("%-?%d+%.?%d*","#")
 				lastSeries.haveRange = true

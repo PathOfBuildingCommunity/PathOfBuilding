@@ -109,7 +109,15 @@ function loadStatFile(fileName, ...)
 		local finalOrder = parseStatFile(newDescriptor, startOrder, fileName)
 		local cachedDescriptor = { }
 		local descriptorCopies = { }
+		local normalisedDescriptors = { }
 		for stat, descriptor in pairs(newDescriptor) do
+			if type(descriptor) == "table" and descriptor.order and descriptor.order > 0 and not normalisedDescriptors[descriptor] then
+				descriptor.order = descriptor.order - startOrder + 1
+				if descriptor.order < 1 then
+					descriptor.order = 1
+				end
+				normalisedDescriptors[descriptor] = true
+			end
 			base[stat] = descriptor
 			local copy = descriptorCopies[descriptor]
 			if not copy then

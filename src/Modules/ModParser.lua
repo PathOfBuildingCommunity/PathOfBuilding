@@ -2858,7 +2858,7 @@ local specialModList = {
 	["herald skills and minions from herald skills deal (%d+)%% more damage for every (%d+)%% of maximum life those skills reserve"] = function(_, num1, num2) return { 
 		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", tonumber(num1), { type = "PerStat", stat = "LifeReservedPercent", div = tonumber(num2), actor = "parent" })}, { type = "SkillType", skillType = SkillType.Herald }),
 		mod("Damage", "MORE", tonumber(num1), { type = "PerStat", stat = "LifeReservedPercent", div = tonumber(num2) }, { type = "SkillType", skillType = SkillType.Herald }),
-		} end,
+	} end,
 	-- Oshabi Bloodline
 	["unsealed spells gain (%d+)%% more damage each time their effects reoccur"] = function(num) return { mod("MaxSealDamage", "MORE", num) } end,
 	["skills gain added chaos damage equal to (%d+)%% of life cost, if life cost is not higher than the maximum you could spend"] = function(num) return {
@@ -4758,11 +4758,11 @@ local specialModList = {
 		flag("LifeFlaskEffectNotRemoved")
 	},
 	-- Jewels
-	["passives ?s?k?i?l?l?s? in radius of ([%a%s']+) can be allocated without being connected to your tree"] = function(_, name) return {
+	["passives? ?s?k?i?l?l?s? in radius of ([%a%s']+) can be allocated without being connected to your tree"] = function(_, name) return {
 		mod("JewelData", "LIST", { key = "impossibleEscapeKeystone", value = name }),
 		mod("ImpossibleEscapeKeystones", "LIST", { key = name, value = true }),
 	} end,
-	["passives ?s?k?i?l?l?s? in radius can be allocated without being connected to your tree"] = { mod("JewelData", "LIST", { key = "intuitiveLeapLike", value = true }) },
+	["passives? ?s?k?i?l?l?s? in radius can be allocated without being connected to your tree"] = { mod("JewelData", "LIST", { key = "intuitiveLeapLike", value = true }) },
 	["affects passives in small ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 6 }) },
 	["affects passives in medium ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 7 }) },
 	["affects passives in large ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 8 }) },

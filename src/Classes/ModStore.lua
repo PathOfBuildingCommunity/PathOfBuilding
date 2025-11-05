@@ -251,7 +251,7 @@ function ModStoreClass:GetStat(stat, cfg)
 			for _, activeSkill in ipairs(self.actor.activeSkillList) do
 				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and cfg and (isNameInBuffList(activeSkill.buffList, cfg.skillName) or isNameInBuffList(activeSkill.buffList, cfg.summonSkillName)) ) then
 					local manaBase = activeSkill.skillData["ManaReservedBase"] or 0
-					reservedPercentMana = manaBase / totalMana * 100
+					reservedPercentMana = m_floor(manaBase / totalMana * 100)
 					break
 				end
 			end
@@ -265,7 +265,7 @@ function ModStoreClass:GetStat(stat, cfg)
 			for _, activeSkill in ipairs(self.actor.activeSkillList) do
 				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and cfg and (isNameInBuffList(activeSkill.buffList, cfg.skillName) or isNameInBuffList(activeSkill.buffList, cfg.summonSkillName)) ) then
 					local lifeBase = activeSkill.skillData["LifeReservedBase"] or 0
-					reservedPercentLife = lifeBase / totalLife * 100
+					reservedPercentLife = m_floor(lifeBase / totalLife * 100)
 					break
 				end
 			end
