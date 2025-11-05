@@ -379,6 +379,9 @@ return {
 		"(8-12)% of Armour applies to Fire, Cold and Lightning Damage taken from Hits if you've Blocked Recently",
 		"+3% to maximum Chance to Block Attack Damage",
 	},
+	["The Aylardex"] = {
+		"Eldritch Battery",
+	},
 	["The Brass Dome"] = {
 		"Gain no inherent bonuses from Strength",
 		"Transcendence",
@@ -431,6 +434,7 @@ return {
 	},
 	["The Red Trail"] = {
 		"Gain an Endurance Charge each second while Stationary",
+		"Gain a Power Charge on Hit while Bleeding",
 	},
 	["The Snowblind Grace"] = {
 		"+6 to Evasion Rating per 10 Player Maximum Life",

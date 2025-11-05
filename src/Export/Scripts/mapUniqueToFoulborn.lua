@@ -13,6 +13,7 @@ out:write('-- Item data (c) Grinding Gear Games\n\nreturn {\n')
 for _, unique in ipairs(uniques) do
 	local uniqueName = unique.name
 	for modId, mod in pairsSortByKey(foulbornMods) do
+		modId = modId:gsub("Amluet","Amulet"):gsub("Botts","Boots")
 		if modId:match(unique.id .. "%a+") then
 			if not finalUniqueMap[uniqueName] then
 				finalUniqueMap[uniqueName] = {}
