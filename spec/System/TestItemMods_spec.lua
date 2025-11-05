@@ -570,4 +570,19 @@ describe("TetsItemMods", function()
 
 		assert.are.equals(0.6, build.calcsTab.calcsOutput.LightningEffMult)
 	end)
+	
+	it("Enemy self curse effect", function()
+		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1\nConductivity 14/0 Default  1\n")
+		runCallback("OnFrame")
+		
+		assert.are.equals(0.8, build.calcsTab.calcsOutput.LightningEffMult)
+				
+		build.configTab.input.customMods = [[
+		Nearby Enemies have 20% increased Effect of Curses on them
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(0.86, build.calcsTab.calcsOutput.LightningEffMult)
+	end)
 end)
