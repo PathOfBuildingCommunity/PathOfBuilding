@@ -90,6 +90,13 @@ out:write('-- From MonsterMapBossDifficulty.dat\n')
 out:write('data.mapLevelBossLifeMult = { '..mapBossLifeMult..'}\n')
 out:write('data.mapLevelBossAilmentMult = { '..mapBossAilmentMult..'}\n')
 
+out:write('-- From VillageBalancePerLevelShared.dat\n')
+out:write('data.goldRespecPrices = { ')
+for row in dat("VillageBalancePerLevelShared"):Rows() do
+	out:write(row.GoldRespec .. ', ')
+end
+out:write('}\n')
+
 out:close()
 
 print("Misc data exported.")
