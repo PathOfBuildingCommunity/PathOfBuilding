@@ -565,10 +565,19 @@ local function determineCursePriority(curseName, activeSkill)
 	return basePriority + socketPriority + slotPriority + sourcePriority
 end
 
-local function applyEnemyModifiers(actor)
-	-- Process enemy modifiers
+local function applyEnemyModifiers(actor, clearCache)
+	if clearCache or not actor.appliedEnemyModifiers then
+		actor.appliedEnemyModifiers = { }
+	end
+	local cache = actor.appliedEnemyModifiers
+	local enemyDB = actor.enemy.modDB
 	for _, value in ipairs(actor.modDB:Tabulate(nil, nil, "EnemyModifier")) do
-		actor.enemy.modDB:AddMod(modLib.setSource(value.value.mod, value.value.mod.source or value.mod.source))
+		local mod = value.value and value.value.mod
+		if mod and not cache[mod] then
+			local source = mod.source or value.mod.source
+			enemyDB:AddMod(modLib.setSource(mod, source))
+			cache[mod] = true
+		end
 	end
 end
 
@@ -578,6 +587,9 @@ local function doActorMisc(env, actor)
 	local enemyDB = actor.enemy.modDB
 	local output = actor.output
 	local condList = modDB.conditions
+
+	-- Process enemy modifiers
+	applyEnemyModifiers(actor)
 
 	-- Add misc buffs/debuffs
 	if env.mode_combat then
@@ -1170,11 +1182,11 @@ function calcs.perform(env, skipEHP)
 	output.WarcryPower = modDB:Override(nil, "WarcryPower") or modDB:Sum("BASE", nil, "WarcryPower") or 0
 	modDB.multipliers["WarcryPower"] = output.WarcryPower
 
-	applyEnemyModifiers(env.player)
+	applyEnemyModifiers(env.player, true)
 	if env.minion then
-		applyEnemyModifiers(env.minion)
+		applyEnemyModifiers(env.minion, true)
 	end
-	applyEnemyModifiers(env.enemy)
+	applyEnemyModifiers(env.enemy, true)
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.skillTypes[SkillType.Brand] then
