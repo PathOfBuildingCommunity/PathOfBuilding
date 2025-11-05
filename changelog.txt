@@ -1,3 +1,21 @@
+VERSION[2.58.1][2025/11/05]
+
+--- User Interface ---
+- Fix incorrect tooltip when crafting some flask mods (LocalIdentity)
+- Fix Damage Gain breakdown including skill conversion (LocalIdentity)
+- Fix insufficient skill cost warning applying to other skills (LocalIdentity)
+
+--- Fixed Calculations ---
+- Fix Spectre conversion multiplier applying to "gain as x" mods and Chaos damage (LocalIdentity)
+- Fix Pyroclast Mine Exposure being inverted and unscalable (LocalIdentity)
+
+--- Fixed Behaviours ---
+- Fix Intuitive Leap, Thread of Hope and Impossible Escape not parsing correctly (Wires77)
+- Fix mod order when crafting Grafts (LocalIdentity)
+- Fix "Farewell to Flesh" not applying to Agony Crawler ailment damage (LocalIdentity)
+- Fix Dying Breath Curse effect mod not working (LocalIdentity)
+
+
 VERSION[2.58.0][2025/11/03]
 
 --- Keepers of the Flame ---
