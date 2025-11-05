@@ -558,7 +558,7 @@ describe("TetsItemMods", function()
 		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1\nHerald of Thunder 20/0 Default  1\n")
 		runCallback("OnFrame")
 		
-		assert.are.equals(0.5, build.calcsTab.mainOutput.LightningEffMult)
+		assert.are.equals(0.5, build.calcsTab.calcsOutput.LightningEffMult)
 				
 		build.configTab.input.customMods = [[
 		Nearby Enemies have Cold Exposure while you are affected by Herald of Ice
@@ -568,6 +568,6 @@ describe("TetsItemMods", function()
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 
-		assert.are.equals(0.6, build.calcsTab.mainOutput.LightningEffMult)
+		assert.are.equals(0.6, build.calcsTab.calcsOutput.LightningEffMult)
 	end)
 end)
