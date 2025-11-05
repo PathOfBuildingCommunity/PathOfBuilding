@@ -1,5 +1,26 @@
 # Changelog
 
+## [v2.58.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.58.1) (2025/11/05)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.58.0...v2.58.1)
+
+
+## What's Changed
+### User Interface
+- Fix incorrect tooltip when crafting some flask mods [\#9164](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9164) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Damage Gain breakdown including skill conversion [\#9170](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9170) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix insufficient skill cost warning applying to other skills [\#9172](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9172) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Calculations
+- Fix Spectre conversion multiplier applying to "gain as x" mods and Chaos damage [\#9168](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9168) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Pyroclast Mine Exposure being inverted and unscalable [\#9160](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9160) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Behaviours
+- Fix Intuitive Leap, Thread of Hope and Impossible Escape not parsing correctly [\#9167](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9167) ([Wires77](https://github.com/Wires77))
+- Fix mod order when crafting Grafts [\#9163](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9163) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix "Farewell to Flesh" not applying to Agony Crawler ailment damage [\#9162](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9162) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Dying Breath Curse effect mod not working [\#9173](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9173) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
+
 ## [v2.58.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.58.0) (2025/11/03)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.57.0...v2.58.0)
