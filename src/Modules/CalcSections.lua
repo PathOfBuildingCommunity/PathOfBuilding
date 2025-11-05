@@ -737,6 +737,8 @@ return {
 	{ label = "Normal Hits/Cast", haveOutput = "NormalHitsPerCast", { format = "{3:output:NormalHitsPerCast}", { breakdown = "NormalHitsPerCast" }, }, },
 	{ label = "Super Hits/Cast", haveOutput = "SuperchargedHitsPerCast", { format = "{3:output:SuperchargedHitsPerCast}", { breakdown = "SuperchargedHitsPerCast" }, }, },
 	{ label = "DPS Multiplier", haveOutput = "SkillDPSMultiplier", { format = "{3:output:SkillDPSMultiplier}", { breakdown = "SkillDPSMultiplier" }, }, },
+	{ label = "Average Seq More", haveOutput = "KineticFusilladeAvgMoreMult", { format = "{1:output:KineticFusilladeAvgMoreMult}%", { breakdown = "KineticFusilladeSequentialBreakdown" }, }, },
+	{ label = "Max Effective APS", haveOutput = "KineticFusilladeMaxEffectiveAPS", { format = "{2:output:KineticFusilladeMaxEffectiveAPS}", { breakdown = "KineticFusilladeMaxEffectiveAPS" }, }, },
 	-- Traps
 	{ label = "Avg. Active Traps", haveOutput = "AverageActiveTraps", { format = "{2:output:AverageActiveTraps}", { breakdown = "AverageActiveTraps" }, }, },
 	{ label = "Active Trap Limit", flag = "trap", { format = "{0:output:ActiveTrapLimit}", { modName = "ActiveTrapLimit", cfg = "skill" }, }, },
