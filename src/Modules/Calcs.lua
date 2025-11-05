@@ -445,8 +445,11 @@ function calcs.buildOutput(build, mode)
 							local reservation = GlobalCache.cachedData[mode][uuid].Env.player.mainSkill and GlobalCache.cachedData[mode][uuid].Env.player.mainSkill.skillData[rawPool .. "ReservedPercent"]
 							-- Skill has both cost and reservation check if there's available pool for raw cost before reservation
 							if not reservation or (reservation and (totalPool + m_ceil((output[rawPool] or 0) * reservation / 100)) < cachedCost) then
-								output[costResource.."Warning"] = output[costResource.."Warning"] or {}
-								t_insert(output[costResource.."Warning"], skill.activeEffect.grantedEffect.name)
+								if env.player.mainSkill and env.player.mainSkill.activeEffect.grantedEffect.name == skill.activeEffect.grantedEffect.name then
+									output[costResource.."Warning"] = true
+								end
+								output[costResource.."WarningList"] = output[costResource.."WarningList"] or {}
+								t_insert(output[costResource.."WarningList"], skill.activeEffect.grantedEffect.name)
 							end
 						end
 					end
@@ -455,8 +458,8 @@ function calcs.buildOutput(build, mode)
 					local cachedCost = GlobalCache.cachedData[mode][uuid].Env.player.output[costResource]
 					if cachedCost then
 						if (output[pool] or 0) < cachedCost then
-							output[costResource.."PercentCostWarning"] = output[costResource.."PercentCostWarning"] or {}
-							t_insert(output[costResource.."PercentCostWarning"], skill.activeEffect.grantedEffect.name)
+							output[costResource.."PercentCostWarningList"] = output[costResource.."PercentCostWarningList"] or {}
+							t_insert(output[costResource.."PercentCostWarningList"], skill.activeEffect.grantedEffect.name)
 						end
 					end
 				end
