@@ -2208,7 +2208,7 @@ return {
 						[2]="#"
 					}
 				},
-				text="{0} to {1} Physical Damage"
+				text="{0} to {1} Added Physical Damage"
 			}
 		},
 		stats={

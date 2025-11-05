@@ -16,7 +16,7 @@ return {
 		"+1 to Maximum Endurance Charges",
 	},
 	["Ancestral Vision"] = {
-		"Modifiers to Chance to Suppress Spell Damage also apply to Chance to Defend with 200% of Armour at 100% of their Value",
+		"Modifiers to Chance to Suppress Spell Damage also apply to Chance to Defend with 200% of Armour at 50% of their Value",
 	},
 	["Ashcaller"] = {
 		"Minions gain (20-40)% of Physical Damage as Extra Fire Damage",
@@ -198,10 +198,10 @@ return {
 	},
 	["Kintsugi"] = {
 		"+(20-30)% chance to Suppress Spell Damage if you've Suppressed Spell Damage Recently",
-		"Prevent +35% of Suppressed Spell Damage if you have not Suppressed Spell Damage Recently",
+		"Prevent +(20-25)% of Suppressed Spell Damage if you have not Suppressed Spell Damage Recently",
 	},
 	["Kitava's Thirst"] = {
-		"Trigger Socketed Spells when you Spend at least 200 Life on an Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown",
+		"50% chance to Trigger Socketed Spells when you Spend at least 200 Life on an Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown",
 	},
 	["Kongming's Stratagem"] = {
 		"Enemies Blinded by you have 100% reduced Critical Strike Chance",
