@@ -2265,6 +2265,48 @@ local skills, mod, flag, skill = ...
 
 #skill KineticFusillade
 #flags attack projectile area duration
+	parts = {
+		{
+			name = "1 Projectile"
+		},
+		{
+			name = "All Projectiles",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+
+			-- Calculate average damage scaling for sequential projectiles
+			-- Each projectile does more damage based on how many came before it
+			local moreDamagePerProj = activeSkill.skillModList:Sum("MORE", activeSkill.skillCfg, "KineticFusilladeSequentialDamage") or 0
+			if moreDamagePerProj ~= 0 and output.ProjectileCount > 1 then
+				-- Average multiplier: sum of (0, X, 2X, 3X, ..., (n-1)X) / n
+				-- This equals: X * (0 + 1 + 2 + ... + (n-1)) / n = X * n(n-1)/2 / n = X * (n-1)/2
+				local avgMoreMult = moreDamagePerProj * (output.ProjectileCount - 1) / 2
+				activeSkill.skillModList:NewMod("Damage", "MORE", avgMoreMult, "Skill:KineticFusillade")
+			end
+		end
+
+		-- Calculate effective attack rate accounting for delayed projectile firing
+		-- Projectiles orbit for base_skill_effect_duration before firing
+		-- Recasting resets the timer, so maximum effective rate is 1 / (duration rounded to server ticks)
+		local baseDuration = activeSkill.skillData.duration or 0.7
+		local actualDuration = output.Duration or baseDuration
+		local ticksNeeded = math.ceil(actualDuration / data.misc.ServerTickTime)
+		local effectiveDelay = ticksNeeded * data.misc.ServerTickTime
+		local maxEffectiveAPS = 1 / effectiveDelay
+
+		-- Store the maximum effective attack rate for display
+		output.KineticFusilladeMaxEffectiveAttackRate = maxEffectiveAPS
+	end,
+	statMap = {
+		["kinetic_fusillade_damage_+%_final_per_projectile_fired"] = {
+			mod("KineticFusilladeSequentialDamage", "MORE", nil),
+		},
+		["quality_display_kinetic_fusillade_is_gem"] = {
+		},
+	},
 #mods
 
 #skill KineticRain

@@ -5813,4 +5813,33 @@ function calcs.offence(env, actor, activeSkill)
 	output.CullingDPS = output.CombinedDPS * (bestCull - 1)
 	output.ReservationDPS = output.CombinedDPS * (output.ReservationDpsMultiplier - 1)
 	output.CombinedDPS = output.CombinedDPS * bestCull * output.ReservationDpsMultiplier
+
+	-- Kinetic Fusillade: Calculate effective DPS accounting for projectile firing delay
+	if output.KineticFusilladeMaxEffectiveAttackRate then
+		local maxEffectiveAPS = output.KineticFusilladeMaxEffectiveAttackRate
+		if output.Speed and output.Speed > maxEffectiveAPS then
+			-- Attacking faster than the projectiles can fire wasts some DPS
+			local efficiencyRatio = maxEffectiveAPS / output.Speed
+			output.KineticFusilladeEffectiveDPS = output.TotalDPS * efficiencyRatio
+			output.KineticFusilladeWastedDPS = output.TotalDPS - output.KineticFusilladeEffectiveDPS
+		else
+			-- attack rate is within effective limits
+			output.KineticFusilladeEffectiveDPS = output.TotalDPS
+			output.KineticFusilladeWastedDPS = 0
+		end
+		if breakdown then
+			breakdown.KineticFusilladeEffectiveDPS = {}
+			if output.Speed then
+				t_insert(breakdown.KineticFusilladeEffectiveDPS, s_format("%.2f ^8(current attack rate)", output.Speed))
+			end
+			t_insert(breakdown.KineticFusilladeEffectiveDPS, s_format("%.2f ^8(max effective attack rate)", maxEffectiveAPS))
+			if output.Speed and output.Speed > maxEffectiveAPS then
+				t_insert(breakdown.KineticFusilladeEffectiveDPS, s_format("%.2f ^8(efficiency: max/current)", maxEffectiveAPS / output.Speed))
+				t_insert(breakdown.KineticFusilladeEffectiveDPS, s_format("%.1f ^8(total DPS)", output.TotalDPS))
+				t_insert(breakdown.KineticFusilladeEffectiveDPS, s_format("= %.1f ^8(effective DPS)", output.KineticFusilladeEffectiveDPS))
+			else
+				t_insert(breakdown.KineticFusilladeEffectiveDPS, "^8Attack rate is within effective limits")
+			end
+		end
+	end
 end

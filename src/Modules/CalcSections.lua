@@ -345,6 +345,9 @@ return {
 		{ label = "DPS Multiplier", modName = "DPS" }, 
 	}, },
 	{ label = "Skill DPS", flag = "triggered", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, { label = "DPS Multiplier", modName = "DPS" }, }, },
+	{ label = "Max Effective APS", haveOutput = "KineticFusilladeMaxEffectiveAttackRate", { format = "{2:output:KineticFusilladeMaxEffectiveAttackRate}", }, },
+	{ label = "Effective DPS", haveOutput = "KineticFusilladeEffectiveDPS", { format = "{1:output:KineticFusilladeEffectiveDPS}", { breakdown = "KineticFusilladeEffectiveDPS" }, }, },
+	{ label = "Wasted DPS", haveOutput = "KineticFusilladeWastedDPS", { format = "{1:output:KineticFusilladeWastedDPS}", }, },
 } }
 } },
 { 3, "Warcries", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Exerting Warcries", data = {
