@@ -832,7 +832,7 @@ holding Shift will put it in the second.]])
 			end
 		end
 		drop.shown = function()
-			return self.displayItem and self.displayItem.crafted and i <= self.displayItem.affixLimit and not main.showAllItemAffixes
+			return self.displayItem and self.displayItem.crafted and i <= self.displayItem.affixLimit
 		end
 		slider = new("SliderControl", {"TOPLEFT",drop,"BOTTOMLEFT"}, {0, 2, 300, 16}, function(val)
 			local affix = self.displayItem[drop.outputTable][drop.outputIndex]
@@ -911,7 +911,7 @@ holding Shift will put it in the second.]])
 		if not self.displayItem or not self.displayItem.rangeLineList[1] then
 			return 0
 		end
-		if main.showAllItemAffixes then
+		if main.showAllItemAffixes and self.displayItem.rarity == "UNIQUE" then
 			local count = #self.displayItem.rangeLineList
 			return count * 22 + 4
 		else
@@ -922,7 +922,7 @@ holding Shift will put it in the second.]])
 		self.controls.displayItemRangeSlider.val = self.displayItem.rangeLineList[index].range
 	end)
 	self.controls.displayItemRangeLine.shown = function()
-		return self.displayItem and self.displayItem.rangeLineList[1] ~= nil and not main.showAllItemAffixes
+		return self.displayItem and self.displayItem.rangeLineList[1] ~= nil and not (main.showAllItemAffixes and self.displayItem.rarity == "UNIQUE")
 	end
 	self.controls.displayItemRangeSlider = new("SliderControl", {"LEFT",self.controls.displayItemRangeLine,"RIGHT"}, {8, 0, 100, 18}, function(val)
 		self.displayItem.rangeLineList[self.controls.displayItemRangeLine.selIndex].range = val
@@ -943,7 +943,7 @@ holding Shift will put it in the second.]])
 			return ""
 		end)
 		self.controls["displayItemStackedRangeLine"..i].shown = function()
-			return main.showAllItemAffixes and self.displayItem and self.displayItem.rangeLineList[i] ~= nil
+			return main.showAllItemAffixes and self.displayItem and self.displayItem.rarity == "UNIQUE" and self.displayItem.rangeLineList[i] ~= nil
 		end
 
 		self.controls["displayItemStackedRangeSlider"..i] = new("SliderControl", {"LEFT",self.controls["displayItemStackedRangeLine"..i],"RIGHT"}, {8, 0, 100, 18}, function(val)
