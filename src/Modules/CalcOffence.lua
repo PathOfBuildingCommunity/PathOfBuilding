@@ -753,7 +753,7 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("AreaOfEffect", "INC", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 		end
 	end
-	if skillModList:Flag(nil, "SequentialProjectiles") and not skillModList:Flag(nil, "OneShotProj") and not skillModList:Flag(nil,"NoAdditionalProjectiles") and not skillModList:Flag(nil, "TriggeredBySnipe") then
+	if skillModList:Flag(nil, "SequentialProjectiles") and not skillModList:Flag(nil, "OneShotProj") and not skillModList:Flag(nil,"NoAdditionalProjectiles") and not skillModList:Flag(nil,"SingleProjectile") and not skillModList:Flag(nil, "TriggeredBySnipe") then
 		-- Applies DPS multiplier based on projectile count
 		skillData.dpsMultiplier = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
 	end
@@ -997,7 +997,8 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.ChainMax = skillModList:Sum("BASE", skillCfg, "ChainCountMax", not skillFlags.projectile and "BeamChainCountMax" or nil)
 			if skillModList:Flag(skillCfg, "AdditionalProjectilesAddChainsInstead") then
-				output.ChainMax = output.ChainMax + m_floor((skillModList:Sum("BASE", skillCfg, "ProjectileCount") - 1) * skillModList:More(skillCfg, "ProjectileCount"))
+				local projCount = skillModList:Flag(skillCfg, "SingleProjectile") and 0 or m_floor((skillModList:Sum("BASE", skillCfg, "ProjectileCount") - 1) * skillModList:More(skillCfg, "ProjectileCount"))
+				output.ChainMax = output.ChainMax + projCount
 			end
 			output.ChainMaxString = output.ChainMax
 			output.Chain = m_min(output.ChainMax, skillModList:Sum("BASE", skillCfg, "ChainCount"))
@@ -1011,7 +1012,7 @@ function calcs.offence(env, actor, activeSkill)
 		if skillModList:Flag(nil, "FarShot") then
 			skillModList:NewMod("Damage", "MORE", 100, "Far Shot", bor(ModFlag.Attack, ModFlag.Projectile), { type = "DistanceRamp", ramp = {{10, -0.2}, {25, 0}, {70, 0.6}} })
 		end
-		if skillModList:Flag(skillCfg, "NoAdditionalProjectiles") then
+		if skillModList:Flag(skillCfg, "NoAdditionalProjectiles") or skillModList:Flag(skillCfg, "SingleProjectile") then
 			output.ProjectileCount = 1
 		else
 			local projMin = skillModList:Sum("BASE", skillCfg, "ProjectileCountMinimum")
@@ -1020,7 +1021,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.ProjectileCount = m_max(m_floor(projBase * projMore), projMin)
 		end
 		if skillModList:Flag(skillCfg, "AdditionalProjectilesAddBouncesInstead") then
-			local projBase = skillModList:Sum("BASE", skillCfg, "ProjectileCount") + skillModList:Sum("BASE", skillCfg, "BounceCount") - 1
+			local projBase = skillModList:Flag(skillCfg, "SingleProjectile") and 0 or skillModList:Sum("BASE", skillCfg, "ProjectileCount") + skillModList:Sum("BASE", skillCfg, "BounceCount") - 1
 			local projMore = skillModList:More(skillCfg, "ProjectileCount")
 			output.BounceCount = m_floor(projBase * projMore)
 		end
@@ -1034,7 +1035,7 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.SplitCount = skillModList:Sum("BASE", skillCfg, "SplitCount") + enemyDB:Sum("BASE", skillCfg, "SelfSplitCount")
 			if skillModList:Flag(skillCfg, "AdditionalProjectilesAddSplitsInstead") then
-				output.SplitCount = output.SplitCount + m_floor((skillModList:Sum("BASE", skillCfg, "ProjectileCount") - 1) * skillModList:More(skillCfg, "ProjectileCount"))
+				output.SplitCount = output.SplitCount + skillModList:Flag(skillCfg, "SingleProjectile") and 0 or m_floor((skillModList:Sum("BASE", skillCfg, "ProjectileCount") - 1) * skillModList:More(skillCfg, "ProjectileCount"))
 			end
 			if skillModList:Flag(skillCfg, "AdditionalChainsAddSplitsInstead") then
 				output.SplitCount = output.SplitCount + skillModList:Sum("BASE", skillCfg, "ChainCountMax")
