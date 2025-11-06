@@ -216,6 +216,10 @@ function listMode:BuildList()
 		if fileHnd then
 			local fileText = fileHnd:read("*a")
 			fileHnd:close()
+			if not fileText then
+				launch:ShowErrMsg("^1Build file returns nil.  OneDrive?\n%s", build.fullFileName)
+				break
+			end
 			fileText = fileText:match("(<Build.->)")
 			if fileText then
 				local xml = common.xml.ParseXML(fileText.."</Build>")
