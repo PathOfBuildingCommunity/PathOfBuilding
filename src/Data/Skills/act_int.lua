@@ -15213,7 +15213,7 @@ skills["RighteousFireAltX"] = {
 	end,
 	statMap = {
 		["base_nonlethal_fire_damage_%_of_maximum_mana_taken_per_minute"] = {
-			mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Mana", div = 1}, { type = "GlobalEffect", effectType = "Buff" }, { type = "StatThreshold", stat = "LifeUnreserved", threshold = 2 }),
+			mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Mana", div = 1}, { type = "GlobalEffect", effectType = "Buff" }, { type = "StatThreshold", stat = "LifeUnreserved", threshold = 2 }, { type = "StatThreshold", stat = "Mana", threshold = 1 }),
 			div = 6000,
 		},
 		["base_righteous_fire_%_of_max_mana_to_deal_to_nearby_per_minute"] = {
@@ -15221,7 +15221,7 @@ skills["RighteousFireAltX"] = {
 			div = 6000,
 		},
 		["righteous_fire_cast_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "StatThreshold", stat = "LifeUnreserved", threshold = 2 }),
+			mod("Speed", "MORE", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "StatThreshold", stat = "LifeUnreserved", threshold = 2 }, { type = "StatThreshold", stat = "Mana", threshold = 1 }),
 		},
 	},
 	baseFlags = {
