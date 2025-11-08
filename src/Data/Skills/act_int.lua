@@ -11170,6 +11170,28 @@ skills["KineticFusillade"] = {
 		"quality_display_spell_damage_to_attack_damage_is_gem",
 		"quality_display_kinetic_fusillade_is_gem",
 	},
+	parts = {
+		{
+			name = "One attack",
+		},
+		{
+			name = "Full fusillade",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local MAX_PROJECTILES = 12 -- how to get from skill constants ?
+		local attackTime = activeSkill.skillData.attackTime or 1 -- how to get from `activeSkill` or `output` ?
+
+		local projectileCount = output.ProjectileCount
+		local duration = output.Duration
+		if activeSkill.skillPart == 1 then
+			totalAttackTime = duration + attackTime
+			activeSkill.skillData.hitTimeOverride = totalAttackTime / math.min(projectileCount, MAX_PROJECTILES)
+		elseif activeSkill.skillPart == 2 then
+			totalAttackTime = duration + attackTime * math.ceil(MAX_PROJECTILES/projectileCount)
+			activeSkill.skillData.hitTimeOverride = totalAttackTime / MAX_PROJECTILES
+		end
+	end,
 	levels = {
 		[1] = { 3, attackSpeedMultiplier = 100, baseMultiplier = 0.935, damageEffectiveness = 0.935, levelRequirement = 12, statInterpolation = { 1, }, cost = { Mana = 4, }, },
 		[2] = { 3, attackSpeedMultiplier = 100, baseMultiplier = 0.942, damageEffectiveness = 0.942, levelRequirement = 15, statInterpolation = { 1, }, cost = { Mana = 4, }, },
