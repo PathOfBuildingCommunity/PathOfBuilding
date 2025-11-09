@@ -217,8 +217,8 @@ function listMode:BuildList()
 			local fileText = fileHnd:read("*a")
 			fileHnd:close()
 			if not fileText then
-				launch:ShowErrMsg("^1Build file returns nil.  OneDrive?\n%s", build.fullFileName)
-				break
+				main:OpenMessagePopup("Cannot read file", '\nMake sure OneDrive is running then restart PoB and try again.\n\n"'..build.fullFileName..'"')
+				return
 			end
 			fileText = fileText:match("(<Build.->)")
 			if fileText then

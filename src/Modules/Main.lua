@@ -143,6 +143,8 @@ function main:Init()
 	self.uniqueDB = { list = { }, loading = true }
 	self.rareDB = { list = { }, loading = true }
 
+	self.saveSettingsOnExit = true
+
 	local function loadItemDBs()
 		for type, typeList in pairsYield(data.uniques) do
 			for _, raw in pairs(typeList) do
@@ -516,9 +518,15 @@ end
 
 function main:LoadSettings(ignoreBuild)
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
-	if errMsg and not errMsg:match(".*No such file or directory") then
+	if errMsg and errMsg:match(".*file returns nil") then
+		ConPrintf("Error: '%s'", errMsg)
+		main:OpenMessagePopup("Cannot read file", '\nMake sure OneDrive is running then restart PoB and try again.\n\n"'..errMsg..'"')
+		self.saveSettingsOnExit = false
+		return true
+	elseif errMsg and not errMsg:match(".*No such file or directory") then
 		ConPrintf("Error: '%s'", errMsg)
 		launch:ShowErrMsg("^1"..errMsg)
+		self.saveSettingsOnExit = false
 		return true
 	end
 	if not setXML then
@@ -656,9 +664,15 @@ end
 
 function main:LoadSharedItems()
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
-	if errMsg and not errMsg:match(".*No such file or directory") then
+	if errMsg and errMsg:match(".*file returns nil") then
+		ConPrintf("Error: '%s'", errMsg)
+		main:OpenMessagePopup("Cannot read file", '\nMake sure OneDrive is running then restart PoB and try again.\n\n"'..errMsg..'"')
+		self.saveSettingsOnExit = false
+		return true
+	elseif errMsg and not errMsg:match(".*No such file or directory") then
 		ConPrintf("Error: '%s'", errMsg)
 		launch:ShowErrMsg("^1"..errMsg)
+		self.saveSettingsOnExit = false
 		return true
 	end
 	if not setXML then
@@ -703,6 +717,9 @@ function main:LoadSharedItems()
 end
 
 function main:SaveSettings()
+	if not self.saveSettingsOnExit then
+		return
+	end
 	local setXML = { elem = "PathOfBuilding" }
 	local mode = { elem = "Mode", attrib = { mode = self.mode } }
 	for _, val in ipairs({ self:CallMode("GetArgs") }) do
