@@ -72,7 +72,7 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 
 	-- Calculate conversions
 	local addMin, addMax = 0, 0
-	local conversionTable = activeSkill.conversionTable
+	local conversionTable = (cfg and cfg.conversionTable) or activeSkill.conversionTable
 	for _, otherType in ipairs(dmgTypeList) do
 		if otherType == damageType then
 			-- Damage can only be converted from damage types that precede this one in the conversion sequence, so stop here
@@ -140,7 +140,8 @@ end
 
 local function calcAilmentSourceDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags)
 	local min, max = calcDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags)
-	local convMult = activeSkill.conversionTable[damageType].mult
+	local conversionTable = (cfg and cfg.conversionTable) or activeSkill.conversionTable
+	local convMult = conversionTable[damageType].mult
 	if breakdown and convMult ~= 1 then
 		t_insert(breakdown, "Source damage:")
 		t_insert(breakdown, s_format("%d to %d ^8(total damage)", min, max))
@@ -916,49 +917,61 @@ function calcs.offence(env, actor, activeSkill)
 			})
 		end
 	end
-	if skillModList:Sum("BASE", skillCfg, "PhysicalDamageGainAsRandom", "PhysicalDamageConvertToRandom", "PhysicalDamageGainAsColdOrLightning") > 0 then
-		skillFlags.randomPhys = true
-		local physMode = env.configInput.physMode or "AVERAGE"
-		for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "PhysicalDamageGainAsRandom")) do
-			local mod = value.mod
-			local effVal = mod.value / 3
-			if physMode == "AVERAGE" then
-				skillModList:NewMod("PhysicalDamageGainAsFire", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-				skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-				skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			elseif physMode == "FIRE" then
-				skillModList:NewMod("PhysicalDamageGainAsFire", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			elseif physMode == "COLD" then
-				skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			elseif physMode == "LIGHTNING" then
-				skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+	local physMode = env.configInput.physMode or "AVERAGE"
+	local processedRandomMods = { }
+	for _, cfg in ipairs({ skillCfg, activeSkill.weapon1Cfg, activeSkill.weapon2Cfg }) do
+		if cfg and skillModList:Sum("BASE", cfg, "PhysicalDamageGainAsRandom", "PhysicalDamageConvertToRandom", "PhysicalDamageGainAsColdOrLightning") > 0 then
+			skillFlags.randomPhys = true
+			for _, value in ipairs(skillModList:Tabulate("BASE", cfg, "PhysicalDamageGainAsRandom")) do
+				local mod = value.mod
+				if not processedRandomMods[mod] then
+					processedRandomMods[mod] = true
+					local effVal = mod.value / 3
+					if physMode == "AVERAGE" then
+						skillModList:NewMod("PhysicalDamageGainAsFire", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+						skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+						skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					elseif physMode == "FIRE" then
+						skillModList:NewMod("PhysicalDamageGainAsFire", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					elseif physMode == "COLD" then
+						skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					elseif physMode == "LIGHTNING" then
+						skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					end
+				end
 			end
-		end
-		for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "PhysicalDamageConvertToRandom")) do
-			local mod = value.mod
-			local effVal = mod.value / 3
-			if physMode == "AVERAGE" then
-				skillModList:NewMod("PhysicalDamageConvertToFire", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-				skillModList:NewMod("PhysicalDamageConvertToCold", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-				skillModList:NewMod("PhysicalDamageConvertToLightning", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			elseif physMode == "FIRE" then
-				skillModList:NewMod("PhysicalDamageConvertToFire", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			elseif physMode == "COLD" then
-				skillModList:NewMod("PhysicalDamageConvertToCold", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			elseif physMode == "LIGHTNING" then
-				skillModList:NewMod("PhysicalDamageConvertToLightning", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			for _, value in ipairs(skillModList:Tabulate("BASE", cfg, "PhysicalDamageConvertToRandom")) do
+				local mod = value.mod
+				if not processedRandomMods[mod] then
+					processedRandomMods[mod] = true
+					local effVal = mod.value / 3
+					if physMode == "AVERAGE" then
+						skillModList:NewMod("PhysicalDamageConvertToFire", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+						skillModList:NewMod("PhysicalDamageConvertToCold", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+						skillModList:NewMod("PhysicalDamageConvertToLightning", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					elseif physMode == "FIRE" then
+						skillModList:NewMod("PhysicalDamageConvertToFire", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					elseif physMode == "COLD" then
+						skillModList:NewMod("PhysicalDamageConvertToCold", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					elseif physMode == "LIGHTNING" then
+						skillModList:NewMod("PhysicalDamageConvertToLightning", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					end
+				end
 			end
-		end
-		for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "PhysicalDamageGainAsColdOrLightning")) do
-			local mod = value.mod
-			local effVal = mod.value / 2
-			if physMode == "AVERAGE" or physMode == "FIRE" then
-				skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-				skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			elseif physMode == "COLD" then
-				skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			elseif physMode == "LIGHTNING" then
-				skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			for _, value in ipairs(skillModList:Tabulate("BASE", cfg, "PhysicalDamageGainAsColdOrLightning")) do
+				local mod = value.mod
+				if not processedRandomMods[mod] then
+					processedRandomMods[mod] = true
+					local effVal = mod.value / 2
+					if physMode == "AVERAGE" or physMode == "FIRE" then
+						skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+						skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					elseif physMode == "COLD" then
+						skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					elseif physMode == "LIGHTNING" then
+						skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					end
+				end
 			end
 		end
 	end
@@ -1801,49 +1814,60 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	-- Calculate damage conversion percentages
-	activeSkill.conversionTable = wipeTable(activeSkill.conversionTable)
-	for damageTypeIndex = 1, 4 do
-		local damageType = dmgTypeList[damageTypeIndex]
-		local globalConv = wipeTable(tempTable1)
-		local skillConv = wipeTable(tempTable2)
-		local add = wipeTable(tempTable3)
-		local globalTotal, skillTotal = 0, 0
-		for otherTypeIndex = damageTypeIndex + 1, 5 do
-			-- For all possible destination types, check for global and skill conversions
-			local otherType = dmgTypeList[otherTypeIndex]
-			globalConv[otherType] = m_max(skillModList:Sum("BASE", skillCfg, damageType.."DamageConvertTo"..otherType, isElemental[damageType] and "ElementalDamageConvertTo"..otherType or nil, damageType ~= "Chaos" and "NonChaosDamageConvertTo"..otherType or nil), 0)
-			globalTotal = globalTotal + globalConv[otherType]
-			skillConv[otherType] = m_max(skillModList:Sum("BASE", skillCfg, "Skill"..damageType.."DamageConvertTo"..otherType), 0)
-			skillTotal = skillTotal + skillConv[otherType]
-			add[otherType] = m_max(skillModList:Sum("BASE", skillCfg, damageType.."DamageGainAs"..otherType, isElemental[damageType] and "ElementalDamageGainAs"..otherType or nil, damageType ~= "Chaos" and "NonChaosDamageGainAs"..otherType or nil), 0)
-		end
-		if skillTotal > 100 then
-			-- Skill conversion exceeds 100%, scale it down and remove non-skill conversions
-			local factor = 100 / skillTotal
-			for type, val in pairs(skillConv) do
-				skillConv[type] = val * factor
+	local function buildConversionTable(cfg)
+		local conversionTable = { }
+		for damageTypeIndex = 1, 4 do
+			local damageType = dmgTypeList[damageTypeIndex]
+			local globalConv = wipeTable(tempTable1)
+			local skillConv = wipeTable(tempTable2)
+			local add = wipeTable(tempTable3)
+			local globalTotal, skillTotal = 0, 0
+			for otherTypeIndex = damageTypeIndex + 1, 5 do
+				-- For all possible destination types, check for global and skill conversions
+				local otherType = dmgTypeList[otherTypeIndex]
+				globalConv[otherType] = m_max(skillModList:Sum("BASE", cfg, damageType.."DamageConvertTo"..otherType, isElemental[damageType] and "ElementalDamageConvertTo"..otherType or nil, damageType ~= "Chaos" and "NonChaosDamageConvertTo"..otherType or nil), 0)
+				globalTotal = globalTotal + globalConv[otherType]
+				skillConv[otherType] = m_max(skillModList:Sum("BASE", cfg, "Skill"..damageType.."DamageConvertTo"..otherType), 0)
+				skillTotal = skillTotal + skillConv[otherType]
+				add[otherType] = m_max(skillModList:Sum("BASE", cfg, damageType.."DamageGainAs"..otherType, isElemental[damageType] and "ElementalDamageGainAs"..otherType or nil, damageType ~= "Chaos" and "NonChaosDamageGainAs"..otherType or nil), 0)
 			end
-			for type, val in pairs(globalConv) do
-				globalConv[type] = 0
+			if skillTotal > 100 then
+				-- Skill conversion exceeds 100%, scale it down and remove non-skill conversions
+				local factor = 100 / skillTotal
+				for type, val in pairs(skillConv) do
+					skillConv[type] = val * factor
+				end
+				for type, val in pairs(globalConv) do
+					globalConv[type] = 0
+				end
+			elseif globalTotal + skillTotal > 100 then
+				-- Conversion exceeds 100%, scale down non-skill conversions
+				local factor = (100 - skillTotal) / globalTotal
+				for type, val in pairs(globalConv) do
+					globalConv[type] = val * factor
+				end
+				globalTotal = globalTotal * factor
 			end
-		elseif globalTotal + skillTotal > 100 then
-			-- Conversion exceeds 100%, scale down non-skill conversions
-			local factor = (100 - skillTotal) / globalTotal
-			for type, val in pairs(globalConv) do
-				globalConv[type] = val * factor
+			local dmgTable = { conversion = { }, gain = { } }
+			for type in pairs(globalConv) do
+				dmgTable.conversion[type] = (globalConv[type] + skillConv[type]) / 100
+				dmgTable.gain[type] = add[type] / 100
+				dmgTable[type] = (globalConv[type] + skillConv[type] + add[type]) / 100
 			end
-			globalTotal = globalTotal * factor
+			dmgTable.mult = 1 - m_min((globalTotal + skillTotal) / 100, 1)
+			conversionTable[damageType] = dmgTable
 		end
-		local dmgTable = { conversion = { }, gain = { } }
-		for type in pairs(globalConv) do
-			dmgTable.conversion[type] = (globalConv[type] + skillConv[type]) / 100
-			dmgTable.gain[type] = add[type] / 100
-			dmgTable[type] = (globalConv[type] + skillConv[type] + add[type]) / 100
-		end
-		dmgTable.mult = 1 - m_min((globalTotal + skillTotal) / 100, 1)
-		activeSkill.conversionTable[damageType] = dmgTable
+		conversionTable["Chaos"] = { mult = 1 }
+		return conversionTable
 	end
-	activeSkill.conversionTable["Chaos"] = { mult = 1 }
+
+	activeSkill.conversionTable = buildConversionTable(skillCfg)
+	if activeSkill.weapon1Cfg then
+		activeSkill.weapon1Cfg.conversionTable = buildConversionTable(activeSkill.weapon1Cfg)
+	end
+	if activeSkill.weapon2Cfg then
+		activeSkill.weapon2Cfg.conversionTable = buildConversionTable(activeSkill.weapon2Cfg)
+	end
 
 	-- Configure damage passes
 	local passList = { }
@@ -3057,7 +3081,8 @@ function calcs.offence(env, actor, activeSkill)
 				local damageTypeHitMin, damageTypeHitMax, damageTypeHitAvg, damageTypeLuckyChance, damageTypeHitAvgLucky, damageTypeUnluckyChance, damageTypeHitAvgUnlucky, damageTypeHitAvgNotLucky = 0, 0, 0, 0, 0, 0, 0
 				if skillFlags.hit and canDeal[damageType] then
 					damageTypeHitMin, damageTypeHitMax = calcDamage(activeSkill, output, cfg, pass == 2 and breakdown and breakdown[damageType], damageType, 0)
-					local convMult = activeSkill.conversionTable[damageType].mult
+					local conversionTable = (cfg and cfg.conversionTable) or activeSkill.conversionTable
+					local convMult = conversionTable[damageType].mult
 					if pass == 2 and breakdown then
 						t_insert(breakdown[damageType], "Hit damage:")
 						t_insert(breakdown[damageType], s_format("%d to %d ^8(total damage)", damageTypeHitMin, damageTypeHitMax))
